@@ -1848,6 +1848,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             uc->Case_items(items);
             return uc;
         }
+        case StatementKind::Break: {
+            auto* b = s.MakeBreak_stmt();
+            b->VpiParent(parent);
+            setLoc(b, stmt.sourceRange);
+            return b;
+        }
+        case StatementKind::Continue: {
+            auto* c = s.MakeContinue_stmt();
+            c->VpiParent(parent);
+            setLoc(c, stmt.sourceRange);
+            return c;
+        }
+        case StatementKind::Empty:
+            return nullptr;
         default:
             noteUnsupported("statement kind: " + std::string(toString(stmt.kind)));
             return nullptr;
@@ -2015,6 +2029,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
             }
             (void)il;
+            return c;
+        }
+        case ExpressionKind::StringLiteral: {
+            auto& sl = expr.as<StringLiteral>();
+            auto* c = s.MakeConstant();
+            std::string raw = rawText(expr.sourceRange);
+            c->VpiDecompile(raw);
+            c->VpiSize((int32_t)expr.type->getBitWidth());
+            c->VpiValue("STRING:" + std::string(sl.getValue()));
+            c->VpiConstType(vpiStringConst);
+            setLoc(c, expr.sourceRange);
+            if (forceConstParent ||
+                (!suppressConstParent && parent &&
+                 (parent->UhdmType() == UHDM::uhdmoperation ||
+                  parent->UhdmType() == UHDM::uhdmbit_select ||
+                  parent->UhdmType() == UHDM::uhdmcase_item)))
+                c->VpiParent(parent);
             return c;
         }
         case ExpressionKind::Conversion: {
