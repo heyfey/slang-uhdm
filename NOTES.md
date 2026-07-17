@@ -156,3 +156,4 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
   parented in re-elaborated context.
 - r4: 12 PASS + 15 CMP_ONLY. r5 (concat/replication + reparent rules):
   13 PASS + 16 CMP_ONLY, 484 UNSUPPORTED, 0 crash.
+- r6 (for loops, lvalue selects, golden suite): 14 PASS + 15 CMP_ONLY, 483 UNSUPPORTED, 0 crash. Session 1 ends here.
