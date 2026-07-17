@@ -201,6 +201,10 @@ private:
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
     // Typedef typespecs shared across views; enum consts for value refs.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefTs;
+    // Vector typedefs: the write-side clone referenced via TypedefAlias.
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefClone;
+    // Instance-view refs to vector typedefs, patched with the late wrapper.
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> pendingAliasRefs;
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
     std::map<const slang::ast::Symbol*, UHDM::attribute*> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
@@ -216,6 +220,9 @@ private:
     // Task/function typespecs keep unfolded range expressions; module-level
     // typespecs fold them to INT constants.
     bool tfContext = false;
+    // Skip the shared-typedef shortcut (def-net drains clone vector
+    // typedefs fresh).
+    bool bypassTypedefShare = false;
     // Set while emitting a task/function body: case-item expr refs parent
     // at the tf object.
     UHDM::task_func* currentTf = nullptr;

@@ -17,7 +17,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // Typedef'd declarations share the typedef's typespec object; anonymous
     // enums build an unnamed, unlocated enum_typespec per declaration.
     if (declared) {
-        if (auto it = typedefTs.find(&declared->getType()); it != typedefTs.end())
+        if (auto it = typedefTs.find(&declared->getType());
+            it != typedefTs.end() && !bypassTypedefShare)
             return it->second;
         if (!typeSynOverride) {
             auto& ct0 = declared->getType().getCanonicalType();
@@ -563,6 +564,17 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
             ts = sts;
+        }
+        else if (ct.kind == SymbolKind::PackedArrayType ||
+                 ct.kind == SymbolKind::ScalarType) {
+            // Vector/scalar typedefs: a NAMED logic_typespec at the target
+            // type syntax, module parent + Instance.
+            bypassTypedefShare = true;
+            auto* lts = makeTypespec(ta, typeSyn);
+            bypassTypedefShare = false;
+            lts->VpiParent(m);
+            typedefClone[&ta] = nullptr;
+            ts = lts;
         }
         else {
             noteUnsupported("typedef target: " + std::string(toString(ct.kind)));

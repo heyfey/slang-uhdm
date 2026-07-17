@@ -93,6 +93,14 @@ inline int32_t netTypeFor(const Symbol& internal) {
                 return vpiNet;
             if (tsyn->kind == syntax::SyntaxKind::RegType)
                 return vpiReg;
+            // Typedefs of plain logic vectors keep the logic net type.
+            if (tsyn->kind == syntax::SyntaxKind::NamedType) {
+                auto& ct = declared->getType().getCanonicalType();
+                if ((ct.kind == SymbolKind::PackedArrayType ||
+                     ct.kind == SymbolKind::ScalarType) &&
+                    ct.isFourState())
+                    return vpiNet;
+            }
         }
     }
     return 0;

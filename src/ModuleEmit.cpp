@@ -256,10 +256,23 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
-        auto* ts = sharedTypespec(*it.sym, netTs);
+        // Vector-typedef signals bind a late named wrapper (write phase).
+        bool aliasVec = false;
+        const Symbol* aliasSym = nullptr;
+        if (auto dtv = it.sym->getDeclaredType()) {
+            auto& tv = dtv->getType();
+            if (typedefClone.count(&tv)) {
+                aliasVec = true;
+                aliasSym = &tv;
+            }
+        }
+        UHDM::typespec* ts = aliasVec ? s.MakeLogic_typespec() : sharedTypespec(*it.sym, netTs);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName);
-        rt->Actual_typespec(ts);
+        if (aliasVec)
+            pendingAliasRefs.push_back({rt, aliasSym});
+        else
+            rt->Actual_typespec(ts);
         if (auto* v = makeVar(*it.sym, /*portBacked=*/it.port != nullptr)) {
             v->VpiName(name);
             v->VpiFullName(fullName);
@@ -730,8 +743,26 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             auto& c = dt->getType().getCanonicalType();
             anonEnum = c.kind == SymbolKind::EnumType && !typedefTs.count(&dt->getType());
         }
-        // Def-local net typespecs are fresh per net (never shared).
-        auto* ts = makeTypespec(*pn.sym);
+        // Def-local net typespecs are fresh per net (never shared); vector
+        // typedefs get a fresh NAMED clone (enum/struct aliases stay shared).
+        // Vector typedefs get a fresh NAMED clone per def net.
+        UHDM::typespec* ts = nullptr;
+        if (auto dt2 = pn.sym->getDeclaredType()) {
+            auto& t2 = dt2->getType();
+            if (typedefClone.count(&t2)) {
+                const syntax::SyntaxNode* targetSyn = nullptr;
+                if (auto asyn = t2.as<TypeAliasType>().getSyntax()) {
+                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                }
+                bypassTypedefShare = true;
+                ts = makeTypespec(*pn.sym, targetSyn);
+                bypassTypedefShare = false;
+                ts->VpiName(t2.name);
+            }
+        }
+        if (!ts)
+            ts = makeTypespec(*pn.sym);
         (void)anonEnum;
         pn.rt->Actual_typespec(ts);
     }
@@ -785,6 +816,40 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             rt->Actual_typespec(slot);
         }
         pendingIoTs.clear();
+    }
+
+    // Vector-typedef wrappers: a late NAMED ts with Instance and
+    // TypedefAlias -> the module typedef; instance-view refs bind it.
+    {
+        std::map<const Symbol*, UHDM::typespec*> wrappers;
+        for (auto& [rt, aliasSym] : pendingAliasRefs) {
+            auto& slot = wrappers[aliasSym];
+            if (!slot) {
+                auto tit = typedefTs.find(aliasSym);
+                auto* mainTs = tit != typedefTs.end() ? tit->second : nullptr;
+                auto& ta = aliasSym->as<TypeAliasType>();
+                const syntax::SyntaxNode* targetSyn = nullptr;
+                if (auto asyn = ta.getSyntax()) {
+                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                }
+                bypassTypedefShare = true;
+                auto* w = makeTypespec(ta, targetSyn);
+                bypassTypedefShare = false;
+                w->VpiName(ta.name);
+                if (mainTs) {
+                    w->Instance(mainTs->Instance());
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(ta.name);
+                    art->VpiParent(w);
+                    art->Actual_typespec(mainTs);
+                    w->Typedef_alias(art);
+                }
+                slot = w;
+            }
+            rt->Actual_typespec(slot);
+        }
+        pendingAliasRefs.clear();
     }
 }
 

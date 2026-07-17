@@ -391,3 +391,33 @@ Generate (probed 4-iter for-generate + gen_test6):
   anchors at the FIRST member's token span.
 - r28 96 (UNSUP 360->338), r30 98 PASS + 0 CMP_ONLY of 661, DIFF 225,
   0 crash. Goldens 21.
+
+## Session 3 wrap: vector typedefs WIP (2026-07-17)
+
+- typedef logic [7:0] byte_t decoded so far: module Typespecs holds the
+  NAMED main ts (parent+Instance=module, ranges at the target syntax).
+  Def-view nets bind a fresh NAMED clone (per net, via bypassTypedefShare
+  + the alias target syntax). Instance-view signals bind a LATE named
+  wrapper (write phase, Instance set, TypedefAlias ref -> the main ts).
+  netTypeFor: NamedType aliases of 4-state vectors/scalars -> vpiNet(36).
+- OPEN (probe-vtd still DIFF 46): one more Surelog byte_t object with
+  ranges sits BEFORE the port-ts groups in the tail (arena position of the
+  def-net clone is later in ours), and cmp still finds a ref_typespec
+  (fullname byte_t, actual = the MAIN ts) we don't produce — probably the
+  def-net clone itself should carry a TypedefAlias ref -> main ts, and the
+  clone belongs in an earlier drain slot. Bisect with
+  scratchpad probe_hier/probe_attach-style C++ probes (see NOTES session 3
+  "attachments" method) before moving the creation point.
+- r34 = 100 PASS + 0 CMP_ONLY of 661; DIFF 258; UNSUP 303; 0 crash;
+  goldens 23. Session 3 ends here.
+
+## Session 3 summary (start r14 -> end r34)
+
+36 -> 100 PASS of 661 achievable; CMP_ONLY 33 -> 0; UNSUPPORTED 349 -> 303;
+0 crashes throughout; goldens 5 -> 23. Features landed: file split, the
+complete arena-order model, C2 functions/tasks, D1 enums/typedefs/attrs,
+E2 generate scopes, D2 structs + hier_path member access, C3 immediate
+assertions, vector typedefs (WIP). Next levers by triage: E1 hierarchical
+refs (56), E4 interface ports (46), D3 assignment patterns (35+25),
+select-on-complex-base (35+24), statement List 34, package user functions
+(33), B2 parameterized instances, then F --elabuhdm.
