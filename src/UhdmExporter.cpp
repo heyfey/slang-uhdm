@@ -86,10 +86,25 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     d->AllModules(allMods);
 
+    // Surelog compiles every module's parameters at module-compile time, so
+    // all def-view parameter typespecs precede any elaboration typespecs.
+    for (auto& [name, inst] : defs) {
+        DefInfo& info = defMap[&inst->getDefinition()];
+        emitParameters(inst->body, info.mod, "work@" + name, info.nets, /*topView=*/false,
+                       &info, false);
+    }
+
     for (auto inst : root.topInstances) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
         topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
     }
+    // Write phase: every top's ports + deferred typespecs, after all tops'
+    // netlist elaboration (Surelog arena order).
+    for (auto& tp : topPendings)
+        emitTopPorts(tp);
+    topPendings.clear();
+    pendingParamTs.clear();
+    pendingNetTs.clear();
     d->TopModules(topMods);
 
     if (!pkgs.empty()) {

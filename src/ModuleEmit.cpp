@@ -24,7 +24,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (auto syntax = body.getSyntax())
         setLoc(m, syntax->sourceRange());
 
-    emitParameters(body, m, prefix, info.nets, /*topView=*/false, &info, false);
+    // (Def-view parameters were emitted in the exportDesign pre-pass.)
 
     // Nets: ANSI modules list port-backed nets before locals; non-ANSI
     // modules list locals first (Surelog's collection order).
@@ -40,7 +40,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
         }
     }
     auto* nets = s.MakeNetVec();
-    TsCache defTs;
+    TsCache& defTs = info.defTs;
     auto emitDefPortNets = [&]() {
         for (auto portBase : body.getPortList()) {
             if (portBase->kind != SymbolKind::Port) {
@@ -79,12 +79,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
         setLocNamed(n, member);
         if (int32_t nt = netTypeFor(member))
             n->VpiNetType(nt);
-        auto* ts = sharedTypespec(member, defTs);
+        // The actual typespec object is created only after the top-level
+        // instance's ports (Surelog arena order); the ref is patched then.
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(prefix + "." + std::string(member.name));
         rt->VpiParent(n);
-        rt->Actual_typespec(ts);
         n->Typespec(rt);
+        pendingNetTs.push_back({&member, rt, &info});
         info.nets[&member] = n;
         nets->push_back(n);
     }
@@ -97,6 +98,23 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     // port typespecs in Surelog's arena).
     emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
+
+    // Processes are compiled as module items, so any typespecs they create
+    // (for-loop vars, cast typespecs) also precede the port typespecs.
+    auto* procs = s.MakeProcess_stmtVec();
+    refCollector = &info.processRefs;
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::ProceduralBlock) {
+            auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, info.nets);
+            if (p) {
+                procs->push_back(p);
+                info.processes.push_back(p);
+            }
+        }
+    }
+    refCollector = nullptr;
+    if (!procs->empty())
+        m->Process(procs);
 
     // Def-view ports share one typespec object per declaration (Surelog's
     // TypespecCache behavior), with no parent set.
@@ -150,23 +168,6 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (!refmods->empty())
         m->Ref_modules(refmods);
 
-    // Processes (collect referenced signals: they drive typespec
-    // reparenting in the instance view)
-    auto* procs = s.MakeProcess_stmtVec();
-    refCollector = &info.processRefs;
-    for (auto& member : body.members()) {
-        if (member.kind == SymbolKind::ProceduralBlock) {
-            auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, info.nets);
-            if (p) {
-                procs->push_back(p);
-                info.processes.push_back(p);
-            }
-        }
-    }
-    refCollector = nullptr;
-    if (!procs->empty())
-        m->Process(procs);
-
     return m;
 }
 
@@ -175,6 +176,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                               std::set<const Symbol*>* parentRefs, bool isTop) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
+    // Pending-typespec ranges owned by this top's tree (recorded before the
+    // def fill, which already queues def-local net typespecs).
+    size_t paramLo = pendingParamTs.size();
+    size_t netTsLo = pendingNetTs.size();
     // Surelog materializes a definition the first time the instance tree
     // reaches it; typespec creation order depends on this.
     if (!defMap[&def].filled) {
@@ -354,84 +359,82 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         m->Modules(children);
 
     // Instance-view ports each get a fresh typespec object (no sharing).
-    auto* ports = s.MakePortVec();
-    for (auto portBase : body.getPortList()) {
-        if (portBase->kind != SymbolKind::Port)
-            continue;
-        auto& ps = portBase->as<PortSymbol>();
-        auto* internal = ps.internalSymbol;
-        if (!internal)
-            continue;
+    // Top-level instances' ports are emitted in a second pass over all tops
+    // (Surelog write phase), after every top's netlist elaboration.
+    if (!isTop) {
+        auto* ports = s.MakePortVec();
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::Port)
+                continue;
+            auto& ps = portBase->as<PortSymbol>();
+            auto* internal = ps.internalSymbol;
+            if (!internal)
+                continue;
 
-        auto* p = s.MakePort();
-        p->VpiName(ps.name);
-        p->VpiParent(m);
-        setLocNamed(p, ps);
-        switch (ps.direction) {
-            case ArgumentDirection::In:
-                p->VpiDirection(vpiInput);
-                break;
-            case ArgumentDirection::Out:
-                p->VpiDirection(vpiOutput);
-                break;
-            case ArgumentDirection::InOut:
-                p->VpiDirection(vpiInout);
-                break;
-            default:
-                noteUnsupported("port direction");
-                break;
-        }
+            auto* p = s.MakePort();
+            p->VpiName(ps.name);
+            p->VpiParent(m);
+            setLocNamed(p, ps);
+            switch (ps.direction) {
+                case ArgumentDirection::In:
+                    p->VpiDirection(vpiInput);
+                    break;
+                case ArgumentDirection::Out:
+                    p->VpiDirection(vpiOutput);
+                    break;
+                case ArgumentDirection::InOut:
+                    p->VpiDirection(vpiInout);
+                    break;
+                default:
+                    noteUnsupported("port direction");
+                    break;
+            }
 
-        const PortConnection* conn = nullptr;
-        if (!isTop) {
+            const PortConnection* conn = nullptr;
             for (auto c : inst.getPortConnections()) {
                 if (&c->port == portBase) {
                     conn = c;
                     break;
                 }
             }
-        }
 
-        auto* lc = s.MakeRef_obj();
-        lc->VpiName(ps.name);
-        lc->VpiFullName(prefix + "." + std::string(ps.name));
-        lc->VpiParent(p);
-        if (!isTop) {
+            auto* lc = s.MakeRef_obj();
+            lc->VpiName(ps.name);
+            lc->VpiFullName(prefix + "." + std::string(ps.name));
+            lc->VpiParent(p);
             // Child low conns anchor at the formal name in the connection.
             if (auto npc = findConnSyntax(inst, ps.name))
                 setLoc(lc, SourceRange(npc->name.location(),
                                        npc->name.location() + ps.name.size()));
             else
                 setLocNamed(lc, ps);
-        }
-        else {
-            setLocNamed(lc, ps);
-        }
-        if (auto it = topNets.find(internal); it != topNets.end())
-            lc->Actual_group(it->second);
-        p->Low_conn(lc);
+            if (auto it = topNets.find(internal); it != topNets.end())
+                lc->Actual_group(it->second);
+            p->Low_conn(lc);
 
-        if (conn && parentNets) {
-            if (auto expr = connectionExpr(*conn)) {
-                // Signals feeding child connections count as instance-view
-                // references (drives typespec reparenting in the parent).
-                refCollector = parentRefs;
-                if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets))
-                    p->High_conn(h);
-                refCollector = nullptr;
+            if (conn && parentNets) {
+                if (auto expr = connectionExpr(*conn)) {
+                    // Signals feeding child connections count as
+                    // instance-view references (drives typespec reparenting
+                    // in the parent).
+                    refCollector = parentRefs;
+                    if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets))
+                        p->High_conn(h);
+                    refCollector = nullptr;
+                }
             }
-        }
 
-        auto* pts = makeTypespec(*internal);
-        auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(prefix + "." + std::string(ps.name));
-        rt->VpiParent(p);
-        rt->Actual_typespec(pts);
-        p->Typespec(rt);
-        ports->push_back(p);
+            auto* pts = makeTypespec(*internal);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix + "." + std::string(ps.name));
+            rt->VpiParent(p);
+            rt->Actual_typespec(pts);
+            p->Typespec(rt);
+            ports->push_back(p);
+        }
+        if (!ports->empty())
+            m->Ports(ports);
     }
-    if (!ports->empty())
-        m->Ports(ports);
 
     std::set<const Symbol*> caLhsSyms;
     {
@@ -441,8 +444,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         &caLhsSyms);
     }
 
-    // Deferred parameter typespecs (arena order: after instance ports).
-    patchParamTypespecs();
+    // Deferred typespecs drain in the second (port) pass over top instances.
 
     // Nets got their typespec parent at creation; a cont_assign LHS
     // elaboration re-points it at a temporary that Save() collects, so those
@@ -501,7 +503,72 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             m->Process(procs);
     }
 
+    if (isTop) {
+        topPendings.push_back({&inst, m, prefix, std::move(topNets), paramLo,
+                               pendingParamTs.size(), netTsLo, pendingNetTs.size()});
+    }
+
     return m;
+}
+
+// Second pass over a top instance: ports, then that top's deferred
+// typespecs (Surelog write-phase arena order).
+void UhdmExporter::emitTopPorts(TopPending& tp) {
+    auto& body = tp.inst->body;
+    auto* ports = s.MakePortVec();
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::Port)
+            continue;
+        auto& ps = portBase->as<PortSymbol>();
+        auto* internal = ps.internalSymbol;
+        if (!internal)
+            continue;
+
+        auto* p = s.MakePort();
+        p->VpiName(ps.name);
+        p->VpiParent(tp.m);
+        setLocNamed(p, ps);
+        switch (ps.direction) {
+            case ArgumentDirection::In:
+                p->VpiDirection(vpiInput);
+                break;
+            case ArgumentDirection::Out:
+                p->VpiDirection(vpiOutput);
+                break;
+            case ArgumentDirection::InOut:
+                p->VpiDirection(vpiInout);
+                break;
+            default:
+                noteUnsupported("port direction");
+                break;
+        }
+
+        auto* lc = s.MakeRef_obj();
+        lc->VpiName(ps.name);
+        lc->VpiFullName(tp.prefix + "." + std::string(ps.name));
+        lc->VpiParent(p);
+        setLocNamed(lc, ps);
+        if (auto it = tp.nets.find(internal); it != tp.nets.end())
+            lc->Actual_group(it->second);
+        p->Low_conn(lc);
+
+        auto* pts = makeTypespec(*internal);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(tp.prefix + "." + std::string(ps.name));
+        rt->VpiParent(p);
+        rt->Actual_typespec(pts);
+        p->Typespec(rt);
+        ports->push_back(p);
+    }
+    if (!ports->empty())
+        tp.m->Ports(ports);
+
+    // Instance param typespecs first, then def-view local-net typespecs.
+    patchParamTypespecs(tp.paramLo, tp.paramHi);
+    for (size_t i = tp.netTsLo; i < tp.netTsHi; i++) {
+        auto& pn = pendingNetTs[i];
+        pn.rt->Actual_typespec(sharedTypespec(*pn.sym, pn.di->defTs));
+    }
 }
 
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,

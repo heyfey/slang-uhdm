@@ -169,17 +169,16 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     return its;
 }
 
-void UhdmExporter::patchParamTypespecs() {
-    for (auto& [ps, up, prt, rhsRt, typedParam] : pendingParamTs) {
+void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
+    for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
+        auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
         auto* its = makeParamTs(*ps, typedParam);
         if (rhsRt)
             rhsRt->Actual_typespec(its);
         prt->Actual_typespec(its);
         its->VpiParent(prt);
         (void)up;
-        (void)typedParam;
     }
-    pendingParamTs.clear();
 }
 
 void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {

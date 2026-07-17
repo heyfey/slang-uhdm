@@ -68,6 +68,7 @@ private:
         std::vector<UHDM::cont_assign*> contAssigns;
         std::set<const slang::ast::Symbol*> processRefs;
         std::map<const slang::ast::Symbol*, UHDM::typespec*> paramTs;
+        TsCache defTs;
     };
 
     struct PendingParamTs {
@@ -78,11 +79,22 @@ private:
         bool typedParam;
     };
 
+    // Per top instance: state carried from the netlist pass to the second
+    // (port + deferred-typespec) pass.
+    struct TopPending {
+        const slang::ast::InstanceSymbol* inst;
+        UHDM::module_inst* m;
+        std::string prefix;
+        NetMap nets;
+        size_t paramLo, paramHi, netTsLo, netTsHi;
+    };
+
     UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst);
     UHDM::module_inst* emitInstance(const slang::ast::InstanceSymbol& inst,
                                     const std::string& path, UHDM::module_inst* parentM,
                                     NetMap* parentNets,
                                     std::set<const slang::ast::Symbol*>* parentRefs, bool isTop);
+    void emitTopPorts(TopPending& tp);
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
@@ -106,7 +118,7 @@ private:
     UHDM::any* tryFoldConst(const slang::ast::Expression& expr);
     bool isIntEncoded(const slang::ast::Expression& e);
     void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
-    void patchParamTypespecs();
+    void patchParamTypespecs(size_t lo, size_t hi);
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam);
 
     UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol);
@@ -137,6 +149,15 @@ private:
     bool callStmtContext = false;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
+    // Def-view local-net typespecs are created only after the top-level
+    // instance's ports have been elaborated (Surelog arena order).
+    struct PendingNetTs {
+        const slang::ast::Symbol* sym;
+        UHDM::ref_typespec* rt;
+        DefInfo* di;
+    };
+    std::vector<PendingNetTs> pendingNetTs;
+    std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };

@@ -1,0 +1,332 @@
+design: (work@top)
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@submodule (work@submodule), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:1:1, endln:4:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@submodule
+  |vpiParameter:
+  \_parameter: (work@submodule.P), line:2:18, endln:2:19
+    |vpiParent:
+    \_module_inst: work@submodule (work@submodule), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:1:1, endln:4:10
+    |UINT:1
+    |vpiTypespec:
+    \_ref_typespec: (work@submodule.P)
+      |vpiParent:
+      \_parameter: (work@submodule.P), line:2:18, endln:2:19
+      |vpiFullName:work@submodule.P
+      |vpiActual:
+      \_int_typespec: , line:2:14, endln:2:17
+    |vpiSigned:1
+    |vpiName:P
+    |vpiFullName:work@submodule.P
+  |vpiParamAssign:
+  \_param_assign: , line:2:18, endln:2:23
+    |vpiParent:
+    \_module_inst: work@submodule (work@submodule), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:1:1, endln:4:10
+    |vpiRhs:
+    \_constant: , line:2:22, endln:2:23
+      |vpiParent:
+      \_param_assign: , line:2:18, endln:2:23
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@submodule)
+        |vpiParent:
+        \_constant: , line:2:22, endln:2:23
+        |vpiFullName:work@submodule
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:17
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@submodule.P), line:2:18, endln:2:19
+  |vpiDefName:work@submodule
+  |vpiNet:
+  \_logic_net: (work@submodule.a), line:1:29, endln:1:30
+    |vpiParent:
+    \_module_inst: work@submodule (work@submodule), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:1:1, endln:4:10
+    |vpiName:a
+    |vpiFullName:work@submodule.a
+  |vpiPort:
+  \_port: (a), line:1:29, endln:1:30
+    |vpiParent:
+    \_module_inst: work@submodule (work@submodule), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:1:1, endln:4:10
+    |vpiName:a
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@submodule.a.a), line:1:29, endln:1:30
+      |vpiParent:
+      \_port: (a), line:1:29, endln:1:30
+      |vpiName:a
+      |vpiFullName:work@submodule.a.a
+      |vpiActual:
+      \_logic_net: (work@submodule.a), line:1:29, endln:1:30
+    |vpiTypedef:
+    \_ref_typespec: (work@submodule.a)
+      |vpiParent:
+      \_port: (a), line:1:29, endln:1:30
+      |vpiFullName:work@submodule.a
+      |vpiActual:
+      \_int_typespec: , line:1:25, endln:1:28
+  |vpiContAssign:
+  \_cont_assign: , line:3:11, endln:3:20
+    |vpiParent:
+    \_module_inst: work@submodule (work@submodule), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:1:1, endln:4:10
+    |vpiRhs:
+    \_operation: , line:3:15, endln:3:20
+      |vpiParent:
+      \_cont_assign: , line:3:11, endln:3:20
+      |vpiOpType:24
+      |vpiOperand:
+      \_ref_obj: (work@submodule.P), line:3:15, endln:3:16
+        |vpiParent:
+        \_operation: , line:3:15, endln:3:20
+        |vpiName:P
+        |vpiFullName:work@submodule.P
+      |vpiOperand:
+      \_constant: , line:3:19, endln:3:20
+        |vpiParent:
+        \_operation: , line:3:15, endln:3:20
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+        |vpiConstType:9
+    |vpiLhs:
+    \_ref_obj: (work@submodule.a), line:3:11, endln:3:12
+      |vpiParent:
+      \_cont_assign: , line:3:11, endln:3:20
+      |vpiName:a
+      |vpiFullName:work@submodule.a
+      |vpiActual:
+      \_logic_net: (work@submodule.a), line:1:29, endln:1:30
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.o), line:6:23, endln:6:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+    |vpiName:o
+    |vpiFullName:work@top.o
+  |vpiPort:
+  \_port: (o), line:6:23, endln:6:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o.o), line:6:23, endln:6:24
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiName:o
+      |vpiFullName:work@top.o.o
+      |vpiActual:
+      \_logic_net: (work@top.o), line:6:23, endln:6:24
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:6:19, endln:6:22
+  |vpiRefModule:
+  \_ref_module: work@submodule (u_sub), line:7:14, endln:7:19
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+    |vpiName:u_sub
+    |vpiDefName:work@submodule
+    |vpiActual:
+    \_module_inst: work@submodule (work@submodule), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:1:1, endln:4:10
+    |vpiPort:
+    \_port: (a), line:7:20, endln:7:25
+      |vpiParent:
+      \_ref_module: work@submodule (u_sub), line:7:14, endln:7:19
+      |vpiName:a
+      |vpiHighConn:
+      \_ref_obj: (work@top.u_sub.a.o), line:7:23, endln:7:24
+        |vpiParent:
+        \_port: (a), line:7:20, endln:7:25
+        |vpiName:o
+        |vpiFullName:work@top.u_sub.a.o
+        |vpiActual:
+        \_logic_net: (work@top.o), line:6:23, endln:6:24
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiVariables:
+  \_int_var: (work@top.o), line:6:23, endln:6:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_int_var: (work@top.o), line:6:23, endln:6:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:6:19, endln:6:22
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiSigned:1
+    |vpiVisibility:1
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (o), line:6:23, endln:6:24
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.o), line:6:23, endln:6:24
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_var: (work@top.o), line:6:23, endln:6:24
+    |vpiTypedef:
+    \_ref_typespec: (work@top.o)
+      |vpiParent:
+      \_port: (o), line:6:23, endln:6:24
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_int_typespec: , line:6:19, endln:6:22
+  |vpiModule:
+  \_module_inst: work@submodule (work@top.u_sub), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:7:4, endln:7:27
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+    |vpiName:u_sub
+    |vpiFullName:work@top.u_sub
+    |vpiVariables:
+    \_int_var: (work@top.u_sub.a), line:1:29, endln:1:30
+      |vpiParent:
+      \_module_inst: work@submodule (work@top.u_sub), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:7:4, endln:7:27
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u_sub.a)
+        |vpiParent:
+        \_int_var: (work@top.u_sub.a), line:1:29, endln:1:30
+        |vpiFullName:work@top.u_sub.a
+        |vpiActual:
+        \_int_typespec: , line:1:25, endln:1:28
+      |vpiName:a
+      |vpiFullName:work@top.u_sub.a
+      |vpiSigned:1
+      |vpiVisibility:1
+    |vpiParameter:
+    \_parameter: (work@top.u_sub.P), line:2:18, endln:2:19
+      |vpiParent:
+      \_module_inst: work@submodule (work@top.u_sub), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:7:4, endln:7:27
+      |UINT:1
+      |vpiTypespec:
+      \_ref_typespec: (work@top.u_sub.P)
+        |vpiParent:
+        \_parameter: (work@top.u_sub.P), line:2:18, endln:2:19
+        |vpiFullName:work@top.u_sub.P
+        |vpiActual:
+        \_int_typespec: , line:2:14, endln:2:17
+      |vpiSigned:1
+      |vpiName:P
+      |vpiFullName:work@top.u_sub.P
+    |vpiParamAssign:
+    \_param_assign: , line:2:18, endln:2:23
+      |vpiParent:
+      \_module_inst: work@submodule (work@top.u_sub), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:7:4, endln:7:27
+      |vpiRhs:
+      \_constant: , line:2:22, endln:2:23
+        |vpiParent:
+        \_param_assign: , line:2:18, endln:2:23
+        |vpiDecompile:1
+        |vpiSize:32
+        |UINT:1
+        |vpiTypespec:
+        \_ref_typespec: (work@top.u_sub)
+          |vpiParent:
+          \_constant: , line:2:22, endln:2:23
+          |vpiFullName:work@top.u_sub
+          |vpiActual:
+          \_int_typespec: , line:2:14, endln:2:17
+        |vpiConstType:9
+      |vpiLhs:
+      \_parameter: (work@top.u_sub.P), line:2:18, endln:2:19
+    |vpiDefName:work@submodule
+    |vpiDefFile:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv
+    |vpiDefLineNo:1
+    |vpiInstance:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:6:1, endln:8:10
+    |vpiPort:
+    \_port: (a), line:1:29, endln:1:30
+      |vpiParent:
+      \_module_inst: work@submodule (work@top.u_sub), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:7:4, endln:7:27
+      |vpiName:a
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (work@top.o), line:7:23, endln:7:24
+        |vpiParent:
+        \_port: (a), line:1:29, endln:1:30
+        |vpiName:o
+        |vpiFullName:work@top.o
+        |vpiActual:
+        \_int_var: (work@top.o), line:6:23, endln:6:24
+      |vpiLowConn:
+      \_ref_obj: (work@top.u_sub.a), line:7:21, endln:7:22
+        |vpiParent:
+        \_port: (a), line:1:29, endln:1:30
+        |vpiName:a
+        |vpiFullName:work@top.u_sub.a
+        |vpiActual:
+        \_int_var: (work@top.u_sub.a), line:1:29, endln:1:30
+      |vpiTypedef:
+      \_ref_typespec: (work@top.u_sub.a)
+        |vpiParent:
+        \_port: (a), line:1:29, endln:1:30
+        |vpiFullName:work@top.u_sub.a
+        |vpiActual:
+        \_int_typespec: , line:1:25, endln:1:28
+    |vpiContAssign:
+    \_cont_assign: , line:3:11, endln:3:20
+      |vpiParent:
+      \_module_inst: work@submodule (work@top.u_sub), file:/home/heyfey/git-repos/uhdm2rtlil/test/AssignSumWithParameterInSubmodule/dut.sv, line:7:4, endln:7:27
+      |vpiRhs:
+      \_constant: 
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiConstType:9
+      |vpiLhs:
+      \_ref_obj: (work@top.u_sub.a), line:3:11, endln:3:12
+        |vpiParent:
+        \_cont_assign: , line:3:11, endln:3:20
+        |vpiName:a
+        |vpiFullName:work@top.u_sub.a
+        |vpiActual:
+        \_int_var: (work@top.u_sub.a), line:1:29, endln:1:30
+\_weaklyReferenced:
+\_int_typespec: , line:2:14, endln:2:17
+  |vpiParent:
+  \_parameter: (work@submodule.P), line:2:18, endln:2:19
+  |vpiSigned:1
+\_int_typespec: , line:6:19, endln:6:22
+  |vpiSigned:1
+\_int_typespec: , line:6:19, endln:6:22
+  |vpiParent:
+  \_int_var: (work@top.o), line:6:23, endln:6:24
+  |vpiSigned:1
+\_int_typespec: , line:1:25, endln:1:28
+  |vpiSigned:1
+\_int_typespec: , line:1:25, endln:1:28
+  |vpiSigned:1
+\_int_typespec: , line:1:25, endln:1:28
+  |vpiSigned:1
+\_int_typespec: , line:6:19, endln:6:22
+  |vpiSigned:1
+\_int_typespec: , line:2:14, endln:2:17
+  |vpiParent:
+  \_ref_typespec: (work@top.u_sub.P)
+  |vpiSigned:1

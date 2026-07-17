@@ -317,10 +317,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 setLoc(sc, SourceRange(expr.sourceRange.start(),
                                        expr.sourceRange.start() + name.size()));
             auto* args = s.MakeAnyVec();
-            // Call arguments don't count as instance-view references for
-            // typespec reparenting.
-            auto* savedCollector = refCollector;
-            refCollector = nullptr;
             for (auto arg : call.arguments()) {
                 // Statement-context calls parent their direct literal args.
                 bool forceSaved = forceConstParent;
@@ -330,7 +326,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     args->push_back(a);
                 forceConstParent = forceSaved;
             }
-            refCollector = savedCollector;
             if (!args->empty())
                 sc->Tf_call_args(args);
             return sc;
