@@ -787,6 +787,8 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
 // typespecs (Surelog write-phase arena order).
 void UhdmExporter::emitTopPorts(TopPending& tp) {
     auto& body = tp.inst->body;
+    // Package function return locals precede all module write-phase ts.
+    drainFuncRet(/*pkgOnly=*/true);
     auto* ports = s.MakePortVec();
     for (auto portBase : body.getPortList()) {
         if (portBase->kind != SymbolKind::Port)
@@ -878,39 +880,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
 
     // Function return-value locals: one var + typespec pair per body ref
     // (Surelog creates them at each bind in the write phase).
-    for (auto& pf : pendingFuncRet) {
-        auto& sub = *pf.sub;
-        if (pf.refs.empty() || !sub.returnValVar || sub.getReturnType().isVoid())
-            continue;
-        for (auto* r : pf.refs) {
-            // The local's fullname mirrors the binding ref's scope (named
-            // blocks included).
-            std::string localFull(r->VpiFullName());
-            if (localFull.empty())
-                localFull = pf.fullName + "." + std::string(sub.name);
-            auto* lv = makeReturnVar(s, sub.getReturnType());
-            lv->VpiName(sub.name);
-            lv->VpiFullName(localFull);
-            lv->VpiParent(r);
-            auto* rt = s.MakeRef_typespec();
-            rt->VpiFullName(localFull);
-            rt->VpiParent(lv);
-            tfContext = true;
-            syntaxRefPrefix = localFull;
-            auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
-            syntaxRefPrefix.clear();
-            tfContext = false;
-            ts->VpiParent(rt);
-            rt->Actual_typespec(ts);
-            lv->Typespec(rt);
-            lv->VpiLineNo(ts->VpiLineNo());
-            lv->VpiColumnNo(ts->VpiColumnNo());
-            lv->VpiEndLineNo(ts->VpiEndLineNo());
-            lv->VpiEndColumnNo(ts->VpiEndColumnNo());
-            r->Actual_group(lv);
-        }
-    }
-    pendingFuncRet.clear();
+    drainFuncRet();
 
     patchParamTypespecs(tp.paramLo, tp.paramHi);
 
@@ -1100,30 +1070,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         // Argument-less user calls returning a literal fold in the top view
         // to that literal (its own loc and base shape).
-        const Expression* constFnRet = nullptr;
-        if (topView) {
+        const Expression* constFnRet =
+            topView ? constCallLiteral(stripImplicitConv(ae.right())) : nullptr;
+        // Calls with args still fold when evaluable: a LOC-LESS constant
+        // shaped by the result type (signed int -> INT/vpiIntConst).
+        std::optional<ConstantValue> callFold;
+        if (topView && !constFnRet) {
             auto& rc = stripImplicitConv(ae.right());
-            if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall() &&
-                rc.as<CallExpression>().arguments().empty()) {
-                auto& call = rc.as<CallExpression>();
-                if (auto subp = std::get_if<const SubroutineSymbol*>(&call.subroutine)) {
-                    std::function<const Statement*(const Statement&)> findRet =
-                        [&](const Statement& st) -> const Statement* {
-                        if (st.kind == StatementKind::Return)
-                            return &st;
-                        if (st.kind == StatementKind::List) {
-                            auto& l = st.as<StatementList>().list;
-                            return l.size() == 1 ? findRet(*l[0]) : nullptr;
-                        }
-                        if (st.kind == StatementKind::Block)
-                            return findRet(st.as<BlockStatement>().body);
-                        return nullptr;
-                    };
-                    if (auto* rst = findRet((*subp)->getBody()))
-                        if (auto* e = rst->as<ReturnStatement>().expr)
-                            if (stripImplicitConv(*e).kind == ExpressionKind::IntegerLiteral)
-                                constFnRet = &stripImplicitConv(*e);
-                }
+            if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall()) {
+                ASTContext ctx(comp.getRoot(), LookupLocation::max);
+                ConstantValue cv = ctx.tryEval(ae.right());
+                if (cv && cv.isInteger() && !cv.integer().hasUnknown())
+                    callFold = std::move(cv);
             }
         }
         // Top modules share the def's cont_assign object unless netlist
@@ -1133,7 +1091,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         bool plainLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             (!plainLhs ||
-             (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !constFnRet))) {
+             (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !constFnRet &&
+              !callFold))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -1187,6 +1146,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             forceConstParent = true;
             rhs = emitExpr(*constFnRet, ca, prefix, netMap);
             forceConstParent = false;
+        }
+        if (!rhs && topView && callFold) {
+            auto& iv = callFold->integer();
+            bool sgn = iv.isSigned();
+            std::string digits = iv.toString(LiteralBase::Decimal, false);
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(digits);
+            c->VpiSize((int32_t)iv.getBitWidth());
+            c->VpiValue((sgn ? "INT:" : "UINT:") + digits);
+            c->VpiConstType(sgn ? vpiIntConst : vpiUIntConst);
+            c->VpiParent(ca);
+            rhs = c;
         }
         if (!rhs && !bitsRhs)
             rhs = topView ? tryFoldConst(ae.right()) : nullptr;
@@ -1246,7 +1217,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         inLhs = true;
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
-        NetMap& lhsMap = (topView && shareWithDef && (literalRhs || bitsRhs) && defInfo)
+        NetMap& lhsMap = (topView && shareWithDef &&
+                          (literalRhs || bitsRhs || constFnRet || callFold) && defInfo)
                              ? defInfo->nets
                              : netMap;
         if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))
@@ -1258,6 +1230,109 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
     }
     if (!cas->empty())
         m->Cont_assigns(cas);
+}
+
+
+void UhdmExporter::drainFuncRet(bool pkgOnly) {
+    for (auto& pf : pendingFuncRet) {
+        auto& sub = *pf.sub;
+        if (pkgOnly && !pf.inst)
+            continue;
+        if (pf.refs.empty() || !sub.returnValVar || sub.getReturnType().isVoid())
+            continue;
+        for (auto* r : pf.refs) {
+            // The local's fullname mirrors the binding ref's scope (named
+            // blocks included).
+            std::string localFull(r->VpiFullName());
+            if (localFull.empty())
+                localFull = pf.fullName + "." + std::string(sub.name);
+            auto* lv = makeReturnVar(s, sub.getReturnType());
+            lv->VpiName(sub.name);
+            lv->VpiFullName(localFull);
+            lv->VpiParent(r);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(localFull);
+            rt->VpiParent(lv);
+            tfContext = true;
+            syntaxRefPrefix = localFull;
+            auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+            syntaxRefPrefix.clear();
+            tfContext = false;
+            ts->VpiParent(rt);
+            rt->Actual_typespec(ts);
+            if (pf.inst)
+                ts->Instance(pf.inst);
+            lv->Typespec(rt);
+            lv->VpiLineNo(ts->VpiLineNo());
+            lv->VpiColumnNo(ts->VpiColumnNo());
+            lv->VpiEndLineNo(ts->VpiEndLineNo());
+            lv->VpiEndColumnNo(ts->VpiEndColumnNo());
+            r->Actual_group(lv);
+        }
+        pf.refs.clear(); // processed
+    }
+    if (!pkgOnly)
+        pendingFuncRet.clear();
+}
+
+
+// The literal an argument-less user call reduces to via straight-line
+// execution (nested calls followed), or null.
+const Expression* UhdmExporter::constCallLiteral(const Expression& expr) {
+    if (expr.kind != ExpressionKind::Call || expr.as<CallExpression>().isSystemCall() ||
+        !expr.as<CallExpression>().arguments().empty())
+        return nullptr;
+    auto& call = expr.as<CallExpression>();
+    auto subp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+    if (!subp)
+        return nullptr;
+    std::function<const Expression*(const Statement&)> findLit =
+        [&](const Statement& st) -> const Expression* {
+        if (st.kind == StatementKind::Return) {
+            if (auto* e = st.as<ReturnStatement>().expr) {
+                auto& l = stripImplicitConv(*e);
+                if (l.kind == ExpressionKind::IntegerLiteral)
+                    return &l;
+                return constCallLiteral(l);
+            }
+            return nullptr;
+        }
+        if (st.kind == StatementKind::ExpressionStatement) {
+            auto& e = st.as<ExpressionStatement>().expr;
+            if (e.kind == ExpressionKind::Assignment) {
+                auto& ae2 = e.as<AssignmentExpression>();
+                auto& lc = stripImplicitConv(ae2.left());
+                if (lc.kind == ExpressionKind::NamedValue &&
+                    &lc.as<NamedValueExpression>().symbol == (*subp)->returnValVar) {
+                    auto& r2 = stripImplicitConv(ae2.right());
+                    if (r2.kind == ExpressionKind::IntegerLiteral)
+                        return &r2;
+                    return constCallLiteral(r2);
+                }
+            }
+            return nullptr;
+        }
+        if (st.kind == StatementKind::List) {
+            // Straight-line only: first return wins; later name-assignments
+            // before it accumulate.
+            const Expression* acc = nullptr;
+            for (auto* item : st.as<StatementList>().list) {
+                if (item->kind == StatementKind::VariableDeclaration)
+                    continue;
+                if (item->kind == StatementKind::Return)
+                    return findLit(*item);
+                auto* lit = findLit(*item);
+                if (!lit)
+                    return nullptr;
+                acc = lit;
+            }
+            return acc;
+        }
+        if (st.kind == StatementKind::Block)
+            return findLit(st.as<BlockStatement>().body);
+        return nullptr;
+    };
+    return findLit((*subp)->getBody());
 }
 
 } // namespace slang_uhdm

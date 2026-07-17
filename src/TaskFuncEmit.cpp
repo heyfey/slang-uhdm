@@ -200,9 +200,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
                 tf->Variables(fvars);
         }
 
+        // Register before the body so recursive calls bind this function.
+        if (sharedScope || !subMap.count(&sub))
+            subMap[&sub] = si;
+
         // Body: refs to the return value bind a local var that Surelog only
         // creates in the write phase; record them for late patching.
-        pendingFuncRet.push_back({&sub, fullName, {}});
+        pendingFuncRet.push_back(
+            {&sub, fullName, {}, pkgScope ? (UHDM::instance*)m : nullptr});
         size_t pfIdx = pendingFuncRet.size() - 1;
         auto* savedSym = funcRetSym;
         auto* savedRefs = funcRetRefs;
@@ -216,9 +221,6 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
         funcRetSym = savedSym;
         funcRetRefs = savedRefs;
 
-        // Call sites bind the def copy: keep-first for package re-emission.
-        if (sharedScope || !subMap.count(&sub))
-            subMap[&sub] = si;
         if (info)
             info->taskFuncs.push_back(tf);
         tfs->push_back(tf);

@@ -634,7 +634,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Keyword-only span, expr as vpiCondition.
             setLoc(r, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 6));
             if (rs.expr) {
-                if (auto* e = emitExpr(*rs.expr, r, prefix, netMap))
+                // Top-view package re-emission folds constant calls to the
+                // source literal (unparented, its own loc).
+                const Expression* src2 = rs.expr;
+                if (pkgTopEmit)
+                    if (auto* lit = constCallLiteral(stripImplicitConv(*rs.expr)))
+                        src2 = lit;
+                if (auto* e = emitExpr(*src2, r, prefix, netMap))
                     r->VpiCondition((UHDM::expr*)e);
             }
             return r;
@@ -680,10 +686,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* ub = s.MakeBegin();
             ub->VpiFullName(prefix);
             ub->VpiParent(parent);
-            // Anchored at the real statements (decl inits excluded).
+            // Anchored at the LAST real statement (decl inits excluded).
             if (!real.empty())
-                setLoc(ub, SourceRange(real.front()->sourceRange.start(),
-                                       real.back()->sourceRange.end()));
+                setLoc(ub, real.back()->sourceRange);
             else
                 setLoc(ub, stmt.sourceRange);
             auto* bvars = s.MakeVariablesVec();

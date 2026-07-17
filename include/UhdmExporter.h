@@ -88,6 +88,7 @@ private:
         const slang::ast::SubroutineSymbol* sub;
         std::string fullName;
         std::vector<UHDM::ref_obj*> refs;
+        UHDM::instance* inst = nullptr; // package owner (ts vpiInstance)
     };
 
     struct PendingParamTs {
@@ -248,6 +249,9 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
     std::map<const slang::ast::Symbol*, UHDM::attribute*> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
+    void drainFuncRet(bool pkgOnly = false);
+    const slang::ast::Expression* constCallLiteral(const slang::ast::Expression& expr);
+    bool pkgTopEmit = false;
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;

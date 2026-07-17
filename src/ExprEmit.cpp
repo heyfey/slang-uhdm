@@ -454,9 +454,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         fc->VpiName(pkgName + "::" + std::string(sub.name));
                         setLoc(fc, nameSpan(expr.sourceRange.start(), pkgName));
                     }
-                    else {
-                        setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
-                    }
                 }
                 if (isFunc)
                     ((UHDM::func_call*)fc)->Function((UHDM::function*)si.tf);
@@ -483,10 +480,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // formal's typespec (tasks don't; procedural-context
                         // calls don't either).
                         bool refArg = a->UhdmType() == UHDM::uhdmref_obj;
-                        bool constArg = inParamInit &&
-                                        a->UhdmType() == UHDM::uhdmconstant;
-                        if (isFunc && !inProcessEmit && (refArg || constArg) &&
-                            argIdx < si.argTs.size()) {
+                        bool otherArg = a->UhdmType() == UHDM::uhdmconstant ||
+                                        a->UhdmType() == UHDM::uhdmfunc_call;
+                        // Only outermost-call args carry formal-ts refs, and
+                        // def-view function bodies never do (top pkg copies
+                        // re-attach them).
+                        bool argCtxOk = currentTf ? pkgTopEmit : callArgDepth == 1;
+                        if (isFunc && !inProcessEmit && argCtxOk &&
+                            (refArg || otherArg) && argIdx < si.argTs.size()) {
                             auto* r = (UHDM::expr*)a;
                             auto* rt = s.MakeRef_typespec();
                             // Constant args (param-init context) name the

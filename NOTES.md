@@ -556,3 +556,26 @@ Rules landed (each probed against goldens):
   and begin Variables.
 - Package import (import pkg::fn) DEEP-CLONES the function into the importing
   package with half-reprefixed names - NOT implemented yet (ImportFunction).
+
+## Const function folds + call arg typespecs (r74)
+- Top-view CA with user-call RHS:
+  - argless call reducing (straight-line, first-return-wins, nested calls
+    followed, name-assignments accumulate) to a LITERAL: re-emit with the
+    literal's own shape and loc (constCallLiteral).
+  - call WITH args that tryEval's: re-emit with a LOC-LESS constant shaped by
+    the result type (signed -> INT:/vpiIntConst, size = type width).
+  - both re-emits bind BOTH sides to def-view objects (Lhs = def net, even
+    when the top signal is a variable).
+- Top PACKAGE copies also fold constant calls inside return stmts (same
+  literal rule); def copies keep the call.
+- Call arg formal-ts refs: attach when formal ts is known (shell -> unknown
+  mirrors Surelog compile order), for ref/constant/func_call args. Refs name
+  themselves; constants and calls name the enclosing scope. In function
+  BODIES: def emission never attaches, top package re-emission attaches at
+  ALL call depths; outside bodies only the outermost call's args get them.
+- Unqualified (imported) pkg calls keep the normal whole-expr span; qualified
+  ones anchor at the package-name token.
+- Recursive calls: subMap registered BEFORE body emission (else a stray
+  name-only shell function leaks into the arena - fib tests).
+- Begin wrapper loc = LAST real stmt's span. Package funcret locals drain at
+  the START of emitTopPorts (before the write-phase port ts).
