@@ -427,6 +427,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             uc->Case_items(items);
             return uc;
         }
+        case StatementKind::Return: {
+            auto& rs = stmt.as<ReturnStatement>();
+            auto* r = s.MakeReturn_stmt();
+            r->VpiParent(parent);
+            // Keyword-only span, expr as vpiCondition.
+            setLoc(r, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 6));
+            if (rs.expr) {
+                if (auto* e = emitExpr(*rs.expr, r, prefix, netMap))
+                    r->VpiCondition((UHDM::expr*)e);
+            }
+            return r;
+        }
         case StatementKind::Break: {
             auto* b = s.MakeBreak_stmt();
             b->VpiParent(parent);

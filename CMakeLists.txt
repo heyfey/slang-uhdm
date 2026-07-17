@@ -19,6 +19,7 @@ add_library(slang_uhdm_obj_lib OBJECT
     src/ModuleEmit.cpp
     src/ParamEmit.cpp
     src/StmtEmit.cpp
+    src/TaskFuncEmit.cpp
     src/ExprEmit.cpp
     src/TypeEmit.cpp)
 target_include_directories(slang_uhdm_obj_lib PUBLIC include)

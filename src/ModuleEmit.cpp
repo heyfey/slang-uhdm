@@ -94,6 +94,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (!nets->empty())
         m->Nets(nets);
 
+    // Tasks/functions are module items; their typespecs (return, io_decls)
+    // precede cont_assign and port typespecs.
+    emitTaskFuncs(body, m, prefix, info);
+
     // Def-view cont_assigns come before ports (their typespecs precede the
     // port typespecs in Surelog's arena).
     emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
@@ -103,6 +107,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     // (for-loop vars, cast typespecs) also precede the port typespecs.
     auto* procs = s.MakeProcess_stmtVec();
     refCollector = &info.processRefs;
+    inProcessEmit = true;
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::ProceduralBlock) {
             auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, info.nets);
@@ -112,6 +117,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
             }
         }
     }
+    inProcessEmit = false;
     refCollector = nullptr;
     if (!procs->empty())
         m->Process(procs);
@@ -481,7 +487,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
     // Top modules share the definition's process objects (their hierarchical
     // prefix is identical); child instances get their own copies with the
-    // instance path baked into names.
+    // instance path baked into names. Task/function objects are shared too.
     if (isTop) {
         auto it = defMap.find(&def);
         if (it != defMap.end() && !it->second.processes.empty()) {
@@ -489,6 +495,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             for (auto* p : it->second.processes)
                 procs->push_back(p);
             m->Process(procs);
+        }
+        if (it != defMap.end() && !it->second.taskFuncs.empty()) {
+            auto* tfs = s.MakeTask_funcVec();
+            for (auto* tf : it->second.taskFuncs)
+                tfs->push_back(tf);
+            m->Task_funcs(tfs);
         }
     }
     else {
@@ -569,6 +581,37 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         auto& pn = pendingNetTs[i];
         pn.rt->Actual_typespec(sharedTypespec(*pn.sym, pn.di->defTs));
     }
+
+    // Function return-value locals: var then typespec, in the write phase;
+    // body refs bind them now.
+    for (auto& pf : pendingFuncRet) {
+        auto& sub = *pf.sub;
+        // The local is created at the first body bind; return-style
+        // functions never reference the function name and get none.
+        if (pf.refs.empty() || !sub.returnValVar || sub.getReturnType().isVoid())
+            continue;
+        std::string localFull = pf.fullName + "." + std::string(sub.name);
+        auto* lv = s.MakeLogic_var();
+        lv->VpiName(sub.name);
+        lv->VpiFullName(localFull);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(localFull);
+        rt->VpiParent(lv);
+        auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+        ts->VpiParent(rt);
+        rt->Actual_typespec(ts);
+        lv->Typespec(rt);
+        lv->VpiLineNo(ts->VpiLineNo());
+        lv->VpiColumnNo(ts->VpiColumnNo());
+        lv->VpiEndLineNo(ts->VpiEndLineNo());
+        lv->VpiEndColumnNo(ts->VpiEndColumnNo());
+        // The var's parent is the first body ref that bound it.
+        if (!pf.refs.empty())
+            lv->VpiParent(pf.refs.front());
+        for (auto* r : pf.refs)
+            r->Actual_group(lv);
+    }
+    pendingFuncRet.clear();
 }
 
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,

@@ -104,7 +104,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::NamedValue: {
             auto& nv = expr.as<NamedValueExpression>();
-            if (refCollector)
+            if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
             auto* ref = s.MakeRef_obj();
             ref->VpiName(nv.symbol.name);
@@ -134,6 +134,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ref->VpiFullName(prefix + "." + std::string(nv.symbol.name));
                 if (auto it = netMap.find(&nv.symbol); it != netMap.end())
                     ref->Actual_group(it->second);
+                else if (funcRetRefs && &nv.symbol == funcRetSym)
+                    funcRetRefs->push_back(ref);
             }
             ref->VpiParent(parent);
             if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==
@@ -302,8 +304,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         case ExpressionKind::Call: {
             auto& call = expr.as<CallExpression>();
             if (!call.isSystemCall()) {
-                noteUnsupported("user function call");
-                return nullptr;
+                callStmtContext = false;
+                auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
+                auto it = subMap.find(&sub);
+                if (it == subMap.end()) {
+                    noteUnsupported("user function call");
+                    return nullptr;
+                }
+                auto& si = it->second;
+                bool isFunc = sub.subroutineKind == SubroutineKind::Function;
+                UHDM::tf_call* fc = isFunc ? (UHDM::tf_call*)s.MakeFunc_call()
+                                           : (UHDM::tf_call*)s.MakeTask_call();
+                fc->VpiName(sub.name);
+                fc->VpiParent(parent);
+                setLoc(fc, expr.sourceRange);
+                if (isFunc)
+                    ((UHDM::func_call*)fc)->Function((UHDM::function*)si.tf);
+                else
+                    ((UHDM::task_call*)fc)->Task((UHDM::task*)si.tf);
+                auto* args = s.MakeAnyVec();
+                size_t argIdx = 0;
+                callArgDepth++;
+                for (auto arg : call.arguments()) {
+                    // Output args come wrapped as Assignment(lval, Empty).
+                    if (arg->kind == ExpressionKind::Assignment) {
+                        auto& ae = arg->as<AssignmentExpression>();
+                        if (ae.right().kind == ExpressionKind::EmptyArgument)
+                            arg = &ae.left();
+                    }
+                    auto* a = emitExpr(*arg, fc, prefix, netMap);
+                    if (a) {
+                        // Function call arg refs carry a typespec ref to the
+                        // formal's typespec (tasks don't).
+                        if (isFunc && a->UhdmType() == UHDM::uhdmref_obj &&
+                            argIdx < si.argTs.size()) {
+                            auto* r = (UHDM::ref_obj*)a;
+                            auto* rt = s.MakeRef_typespec();
+                            rt->VpiFullName(r->VpiFullName());
+                            rt->VpiParent(r);
+                            rt->Actual_typespec(si.argTs[argIdx]);
+                            r->Typespec(rt);
+                        }
+                        args->push_back(a);
+                    }
+                    argIdx++;
+                }
+                callArgDepth--;
+                if (!args->empty())
+                    fc->Tf_call_args(args);
+                return fc;
             }
             bool stmtCtx = callStmtContext;
             callStmtContext = false;
@@ -321,6 +370,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 setLoc(sc, SourceRange(expr.sourceRange.start(),
                                        expr.sourceRange.start() + name.size()));
             auto* args = s.MakeAnyVec();
+            callArgDepth++;
             for (auto arg : call.arguments()) {
                 // Statement-context calls parent their direct literal args.
                 bool forceSaved = forceConstParent;
@@ -330,6 +380,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     args->push_back(a);
                 forceConstParent = forceSaved;
             }
+            callArgDepth--;
             if (!args->empty())
                 sc->Tf_call_args(args);
             return sc;
@@ -399,7 +450,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return nullptr;
             }
             auto& nv = es.value().as<NamedValueExpression>();
-            if (refCollector)
+            if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
             auto* bs = s.MakeBit_select();
             bs->VpiName(nv.symbol.name);
@@ -419,7 +470,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return nullptr;
             }
             auto& nv = rs.value().as<NamedValueExpression>();
-            if (refCollector)
+            if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
             if (rs.getSelectionKind() != RangeSelectionKind::Simple) {
                 auto* ips = s.MakeIndexed_part_select();

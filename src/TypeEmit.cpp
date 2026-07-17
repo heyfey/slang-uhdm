@@ -10,13 +10,19 @@
 
 namespace slang_uhdm {
 
-UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
+UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
+                                           const syntax::SyntaxNode* typeSynOverride) {
     auto declared = declSymbol.getDeclaredType();
+    auto typeSynFor = [&]() -> const syntax::SyntaxNode* {
+        if (typeSynOverride)
+            return typeSynOverride;
+        return declared ? declared->getTypeSyntax() : nullptr;
+    };
     SourceLocation implicitLoc = firstDeclaratorLoc(declSymbol);
     SourceRange range(implicitLoc, implicitLoc);
     bool explicitType = false;
     if (declared) {
-        if (auto tsyn = declared->getTypeSyntax()) {
+        if (auto tsyn = typeSynFor()) {
             if (tsyn->kind != syntax::SyntaxKind::ImplicitType) {
                 auto sr = tsyn->sourceRange();
                 if (sr.start() != SourceLocation::NoLocation) {
@@ -48,7 +54,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
     // at the signing token alone.
     bool implicitSigning = false;
     if (!explicitType && !netKeywordAnchor && declared) {
-        if (auto tsyn = declared->getTypeSyntax()) {
+        if (auto tsyn = typeSynFor()) {
             if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
                 auto& its = tsyn->as<syntax::ImplicitTypeSyntax>();
                 if (its.signing.valid()) {
@@ -99,7 +105,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
     // Dims live on IntegerTypeSyntax ("logic [7:0]") or ImplicitTypeSyntax
     // ("input [7:0] a" / "wire [7:0] w").
     if (declared && declared->getType().isPackedArray()) {
-        auto tsyn = declared->getTypeSyntax();
+        auto tsyn = typeSynFor();
         const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
         if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind)) {
             dimSyns = &tsyn->as<syntax::IntegerTypeSyntax>().dimensions;

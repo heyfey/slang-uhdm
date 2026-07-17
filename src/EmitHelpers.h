@@ -26,6 +26,7 @@
 #include "slang/ast/symbols/MemberSymbols.h"
 #include "slang/ast/symbols/ParameterSymbols.h"
 #include "slang/ast/symbols/PortSymbols.h"
+#include "slang/ast/symbols/SubroutineSymbols.h"
 #include "slang/ast/symbols/VariableSymbols.h"
 #include "slang/ast/types/AllTypes.h"
 #include "slang/ast/types/Type.h"
@@ -241,7 +242,9 @@ inline bool containsOperation(const Expression& expr) {
             return containsOperation(conv.operand());
         }
         case ExpressionKind::Call:
-            return true;
+            // User function calls are reused as-is; sys calls inside
+            // recompiled expressions force a fresh cont_assign.
+            return expr.as<CallExpression>().isSystemCall();
         default:
             return false;
     }
@@ -304,6 +307,15 @@ inline SourceLocation firstDeclaratorLoc(const Symbol& sym) {
         }
     }
     return sym.location;
+}
+
+// The declared return-type syntax of a function ("function [3:0] f;"), used
+// to anchor the return variable's typespec.
+inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
+    auto syn = sub.getSyntax();
+    if (syn && syn->kind == syntax::SyntaxKind::FunctionDeclaration)
+        return sub.getSyntax()->as<syntax::FunctionDeclarationSyntax>().prototype->returnType;
+    return nullptr;
 }
 
 // Strips slang's implicit conversion wrappers (Surelog has no equivalent).

@@ -25,6 +25,7 @@ class ParameterSymbol;
 class PackageSymbol;
 class Scope;
 class TimingControl;
+class SubroutineSymbol;
 } // namespace slang::ast
 
 namespace slang {
@@ -69,6 +70,21 @@ private:
         std::set<const slang::ast::Symbol*> processRefs;
         std::map<const slang::ast::Symbol*, UHDM::typespec*> paramTs;
         TsCache defTs;
+        std::vector<UHDM::task_func*> taskFuncs;
+    };
+
+    /// Per-subroutine emission products (call sites link to these).
+    struct SubInfo {
+        UHDM::task_func* tf = nullptr;
+        std::vector<UHDM::typespec*> argTs;
+    };
+
+    /// Function return-value local vars are created in the write phase; body
+    /// refs to them are patched then.
+    struct PendingFuncRet {
+        const slang::ast::SubroutineSymbol* sub;
+        std::string fullName;
+        std::vector<UHDM::ref_obj*> refs;
     };
 
     struct PendingParamTs {
@@ -101,6 +117,8 @@ private:
     void emitParameters(const slang::ast::Scope& body, UHDM::scope* m, const std::string& prefix,
                         NetMap& netMap, bool topView, DefInfo* di, bool inPackage);
     UHDM::package* emitPackage(const slang::ast::PackageSymbol& pkg, bool topView);
+    void emitTaskFuncs(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+                       const std::string& prefix, DefInfo& info);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
@@ -121,7 +139,8 @@ private:
     void patchParamTypespecs(size_t lo, size_t hi);
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam);
 
-    UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol);
+    UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol,
+                                 const slang::syntax::SyntaxNode* typeSynOverride = nullptr);
     UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache);
     UHDM::constant* makeBoundConst(const slang::syntax::SyntaxNode* syn, int64_t value,
                                    UHDM::BaseClass* parent);
@@ -160,6 +179,14 @@ private:
     };
     std::vector<PendingNetTs> pendingNetTs;
     std::vector<TopPending> topPendings;
+    std::map<const slang::ast::Symbol*, SubInfo> subMap;
+    std::vector<PendingFuncRet> pendingFuncRet;
+    const slang::ast::Symbol* funcRetSym = nullptr;
+    std::vector<UHDM::ref_obj*>* funcRetRefs = nullptr;
+    // In shared processes, only call-argument refs count for var typespec
+    // reparenting (Surelog computes arg types; plain refs don't touch ts).
+    bool inProcessEmit = false;
+    int callArgDepth = 0;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
