@@ -656,3 +656,18 @@ Rules landed (each probed against goldens):
   folded UINT constant at the DEFAULT-init site, ts ref -> FRESH param-ts
   clone at the very end of the write phase (pendingParamCloneTs), Lhs bound
   to def nets.
+
+## B2 refinements (r80)
+- Override detection falls back to source-range comparison (bound init range
+  vs declaration-default range) when syntax pointers don't differ.
+- Instance override Rhs: ALWAYS anchored at the DEFAULT initializer's site.
+  Typed -> UINT digits/type 9/width/ts-ref; untyped -> INT digits/type 7/
+  size -1/no ts. (No base-encoding of the override literal.)
+- Unknown ('x/'z) defaults: param value BIN:<UPPERCASE digits>, wantTs
+  false; the def Rhs constant uppercases its BIN value/decompile and carries
+  a BARE never-patched ts ref (fullname only, no actual).
+- Child-instance CA re-emission FOLDS type casts (loc-less typed constant);
+  only TOP-module CAs keep the cast op (foldTypeCasts flag).
+- Def-view type-cast typespecs are MODULE-COMPILE artifacts: pre-created for
+  all defs (name-sorted) right after the def param pre-pass, before any
+  def fill (castTsCache keyed by cast-type syntax).

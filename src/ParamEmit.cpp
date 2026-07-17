@@ -35,8 +35,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // param_assign carries the folded override.
         const syntax::ExpressionSyntax* defaultSyn = paramDefaultSyn(ps);
         const Expression* boundInit = ps.getInitializer();
-        bool overridden = boundInit && defaultSyn && boundInit->syntax &&
-                          boundInit->syntax != defaultSyn;
+        bool overridden = isOverriddenParam(ps);
         // The default, bound in this scope (used for values in both views).
         const Expression* defaultInit = boundInit;
         if (overridden) {
@@ -82,6 +81,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 dcv = actx.tryEval(*defaultInit);
             }
             const ConstantValue& cv = overridden ? dcv : ps.getValue();
+            bool unknownDefault = cv.isInteger() && cv.integer().hasUnknown();
+            if (literalInit && unknownDefault && defaultInit) {
+                // 'x/'z defaults: BIN value with UPPERCASE digits.
+                std::string raw = rawText(stripImplicitConv(*defaultInit).sourceRange);
+                auto tick = raw.find('\'');
+                if (tick != std::string::npos) {
+                    std::string digits = raw.substr(tick + 1);
+                    for (auto& ch : digits)
+                        ch = (char)toupper(ch);
+                    up->VpiValue("BIN:" + digits);
+                }
+            }
             if (literalInit && cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
                 bool neg = iv.isSigned() && iv.isNegative();
@@ -120,7 +131,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 up->VpiValue(value);
             }
-            wantTs = ps.getType().getCanonicalType().isIntegral();
+            wantTs = ps.getType().getCanonicalType().isIntegral() && !unknownDefault;
         }
         if (auto declared0 = ps.getDeclaredType()) {
             if (auto tsyn0 = declared0->getTypeSyntax()) {
@@ -162,55 +173,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // override-site-anchored for literal overrides; expression overrides
         // anchor at the DEFAULT initializer.
         if (topView && overridden) {
-            auto& ov = stripImplicitConv(*boundInit);
             auto& cvo = ps.getValue();
             if (cvo.isInteger()) {
                 auto& iv = cvo.integer();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
-                std::string value = "UINT:" + digits;
-                std::string dec = digits;
-                int32_t ctype = vpiUIntConst;
-                if (ov.kind == ExpressionKind::IntegerLiteral) {
-                    std::string raw = rawText(ov.sourceRange);
-                    auto tick = raw.find('\'');
-                    if (tick != std::string::npos) {
-                        dec = raw;
-                        size_t basePos = tick + 1;
-                        if (basePos < raw.size() &&
-                            (raw[basePos] == 's' || raw[basePos] == 'S'))
-                            basePos++;
-                        char base = basePos < raw.size() ? (char)tolower(raw[basePos])
-                                                         : 'd';
-                        std::string litDigits = raw.substr(basePos + 1);
-                        switch (base) {
-                            case 'b':
-                                value = "BIN:" + litDigits;
-                                ctype = vpiBinaryConst;
-                                break;
-                            case 'h':
-                                value = "HEX:" + litDigits;
-                                ctype = vpiHexConst;
-                                break;
-                            case 'o':
-                                value = "OCT:" + litDigits;
-                                ctype = vpiOctConst;
-                                break;
-                            default:
-                                value = "DEC:" + litDigits;
-                                ctype = vpiDecConst;
-                                break;
-                        }
-                    }
-                }
                 auto* c = s.MakeConstant();
-                c->VpiDecompile(dec);
-                c->VpiValue(value);
-                c->VpiConstType(ctype);
-                c->VpiSize((int32_t)iv.getBitWidth());
+                c->VpiDecompile(digits);
+                // Typed params fold UINT at the type width; untyped INT at
+                // size -1.
+                if (typedParam) {
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiSize((int32_t)iv.getBitWidth());
+                }
+                else {
+                    c->VpiValue("INT:" + digits);
+                    c->VpiConstType(vpiIntConst);
+                    c->VpiSize(-1);
+                }
                 c->VpiParent(pa);
-                if (ov.kind == ExpressionKind::IntegerLiteral)
-                    setLoc(c, ov.sourceRange);
-                else if (defaultInit)
+                if (defaultInit)
                     setLoc(c, stripImplicitConv(*defaultInit).sourceRange);
                 if (wantTs) {
                     auto* rt = s.MakeRef_typespec();
@@ -289,6 +271,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     pkgParamConst[&member] = (UHDM::constant*)rhs;
                 // Literal inits of typed params carry the param typespec
                 // (patched late together with the param ref).
+                // Unknown ('x/'z) defaults: uppercase digits and a BARE
+                // (never-patched) ts ref on the Rhs constant.
+                if (rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto* rc = (UHDM::constant*)rhs;
+                    std::string_view v0 = rc->VpiValue();
+                    if (v0.rfind("BIN:", 0) == 0 &&
+                        (v0.find('x') != std::string_view::npos ||
+                         v0.find('z') != std::string_view::npos)) {
+                        std::string v(v0);
+                        for (auto& ch : v)
+                            if (ch == 'x' || ch == 'z')
+                                ch = (char)toupper(ch);
+                        rc->VpiValue(v);
+                        std::string d(rc->VpiDecompile());
+                        for (auto& ch : d)
+                            if (ch == 'x' || ch == 'z')
+                                ch = (char)toupper(ch);
+                        rc->VpiDecompile(d);
+                        if (!wantTs && !rc->Typespec()) {
+                            auto* brt = s.MakeRef_typespec();
+                            std::string tsPrefix = prefix;
+                            if (tsPrefix.size() >= 2 &&
+                                tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                                tsPrefix.resize(tsPrefix.size() - 2);
+                            brt->VpiFullName(tsPrefix);
+                            brt->VpiParent(rc);
+                            rc->Typespec(brt);
+                        }
+                    }
+                }
                 if (wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     init->kind == ExpressionKind::IntegerLiteral) {
                     auto* rt = s.MakeRef_typespec();

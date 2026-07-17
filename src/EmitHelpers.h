@@ -260,7 +260,16 @@ inline bool isOverriddenParam(const Symbol& sym) {
     auto& ps = sym.as<ParameterSymbol>();
     auto* defaultSyn = paramDefaultSyn(ps);
     auto* bi = ps.getInitializer();
-    return bi && defaultSyn && bi->syntax && bi->syntax != defaultSyn;
+    if (!bi || !defaultSyn)
+        return false;
+    if (bi->syntax && bi->syntax != defaultSyn)
+        return true;
+    // Fallback: the bound init's tokens come from somewhere else entirely.
+    auto br = bi->sourceRange;
+    auto dr = defaultSyn->sourceRange();
+    return br.start() != SourceLocation::NoLocation &&
+           dr.start() != SourceLocation::NoLocation && br.start() != dr.start() &&
+           br.end() != dr.end();
 }
 
 // Data-type syntax kinds that can appear as a cast target.

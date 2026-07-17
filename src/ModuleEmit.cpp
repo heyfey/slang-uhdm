@@ -691,9 +691,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         NetMap* caNets = &topNets;
         if (!bindPath.empty() && it != defMap.end())
             caNets = &it->second.nets;
+        foldTypeCasts = !isTop;
         emitContAssigns(body, m, prefix, *caNets, /*topView=*/true,
                         it != defMap.end() ? &it->second : nullptr, /*shareWithDef=*/true,
                         &instRefs, &caLhsSyms);
+        foldTypeCasts = false;
     }
 
     // Generate scopes exist only in the instance view.

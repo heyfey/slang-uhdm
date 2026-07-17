@@ -269,6 +269,8 @@ private:
     CallFold constCallFold(const slang::ast::Expression& expr);
     CallFold resolveConstExpr(const slang::ast::Expression& expr);
     bool pkgTopEmit = false;
+    // Child-instance CA re-emission folds type casts (top modules keep them).
+    bool foldTypeCasts = false;
     const slang::ast::SubroutineSymbol* currentSubSym = nullptr;
     std::map<const void*, UHDM::constant*> foldedRet;
     std::map<const void*, UHDM::typespec*> foldCloneTs;
@@ -278,6 +280,8 @@ private:
     };
     std::vector<PendingParamCloneTs> pendingParamCloneTs;
     std::map<const void*, UHDM::package*> pkgDefMap;
+    // Def-view type-cast typespecs, pre-created at module-compile time.
+    std::map<const void*, UHDM::typespec*> castTsCache;
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;

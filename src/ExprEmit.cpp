@@ -19,9 +19,9 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
     // also truncate through slang's 32-bit unsized literal type).
     if (stripImplicitConv(expr).kind == ExpressionKind::IntegerLiteral)
         return nullptr;
-    // Explicit TYPE casts (logic'/int'...) are re-emitted, never folded;
-    // size casts still fold.
-    {
+    // Explicit TYPE casts (logic'/int'...) are re-emitted in TOP modules,
+    // never folded; child-instance CAs and size casts still fold.
+    if (!foldTypeCasts) {
         auto& c0 = stripImplicitConv(expr);
         if (c0.kind == ExpressionKind::Conversion && c0.syntax &&
             c0.syntax->kind == syntax::SyntaxKind::CastExpression &&
@@ -422,6 +422,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     operandsD->push_back(e);
                 op->Operands(operandsD);
                 return op;
+            }
+            if (!cts && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::CastExpression) {
+                auto it2 = castTsCache.find(
+                    expr.syntax->as<syntax::CastExpressionSyntax>().left);
+                if (it2 != castTsCache.end())
+                    cts = it2->second;
             }
             if (!cts) {
                 auto& ct = expr.type->getCanonicalType();
