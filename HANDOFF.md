@@ -13,14 +13,17 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r32 baseline, committed as results/baseline.csv)
+## Current scoreboard (r62 baseline, committed as results/baseline.csv)
 
-PASS 100 · CMP_ONLY 0 · DIFF 249 · UNSUPPORTED 312 · CRASH 0
-· SLANG_REJECT 44 · SURELOG_FAIL 5   (100 of 661 achievable converged)
-Session 3 landed: file split (Task 0), ALL weakly-tail ordering (arena
-model in NOTES), C2 user functions/tasks, D1 enums/typedefs/attributes,
-E2 generate scopes, D2 packed/unpacked structs + hier_path member access,
-C3 immediate assertions. 23 goldens.
+PASS 135 · CMP_ONLY 1 · DIFF 208 · UNSUPPORTED 317 · CRASH 0
+· SLANG_REJECT 44 · SURELOG_FAIL 5   (136/661 converged or near)
+Sessions 3-4 landed: file split (Task 0), ALL weakly-tail ordering
+(arena model in NOTES), C2 user functions/tasks, D1 enums/typedefs/attrs/
+vector typedefs, E2 generate scopes, D2 structs + hier_path, C3 immediate
+assertions, bind directives, case/if qualifiers+attributes, var inits,
+select base-scoping, cast-size exprs, $bits folds, external-var for
+loops, param value/fold refinements. 23 goldens. The one CMP_ONLY:
+BindModuleWithInputPorts (4-line ts arena position).
 
 ## Environment (this machine)
 
