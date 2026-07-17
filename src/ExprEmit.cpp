@@ -316,15 +316,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Non-literal cast sizes: integer_typespec carrying the
                     // freshly-bound size expression as vpiExpr (parented at
                     // the cast operation, name-only call spans). Parens
-                    // anchor at the inner expression.
-                    auto* its = s.MakeInteger_typespec();
+                    // anchor at the inner expression. Re-emitted contexts
+                    // create the ts at the end of the write phase.
                     const syntax::ExpressionSyntax* leftSyn = cesyn.left;
                     while (leftSyn->kind == syntax::SyntaxKind::ParenthesizedExpression)
                         leftSyn = leftSyn->as<syntax::ParenthesizedExpressionSyntax>()
                                       .expression;
-                    setLoc(its, leftSyn->sourceRange());
                     ASTContext bctx(*currentScope, LookupLocation::max);
                     auto& sizeExpr = Expression::bind(*cesyn.left, bctx);
+                    auto lr = leftSyn->sourceRange();
+                    if (reemitting) {
+                        auto* rt0 = s.MakeRef_typespec();
+                        rt0->VpiFullName(prefix);
+                        rt0->VpiParent(op);
+                        pendingCastTs.push_back({rt0, sm->getLineNumber(lr.start()),
+                                                 sm->getColumnNumber(lr.start()),
+                                                 sm->getLineNumber(lr.end()),
+                                                 sm->getColumnNumber(lr.end()), "",
+                                                 &sizeExpr, prefix});
+                        op->Typespec(rt0);
+                        auto* operandsD = s.MakeAnyVec();
+                        if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
+                            operandsD->push_back(e);
+                        op->Operands(operandsD);
+                        return op;
+                    }
+                    auto* its = s.MakeInteger_typespec();
+                    setLoc(its, lr);
                     bool savedCS = inCastSize;
                     inCastSize = true;
                     if (auto* e = emitExpr(sizeExpr, op, prefix, netMap))

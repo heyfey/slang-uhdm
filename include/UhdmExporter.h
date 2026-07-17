@@ -225,6 +225,9 @@ private:
         UHDM::ref_typespec* rt;
         uint32_t line, col, endLine, endCol;
         std::string value;
+        // Non-literal sizes: the bound size expression emitted at drain.
+        const slang::ast::Expression* sizeExpr = nullptr;
+        std::string prefix;
     };
     std::vector<PendingCastTs> pendingCastTs;
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;

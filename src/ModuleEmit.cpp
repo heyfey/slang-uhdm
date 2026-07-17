@@ -926,7 +926,17 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         its->VpiColumnNo(pc.col);
         its->VpiEndLineNo(pc.endLine);
         its->VpiEndColumnNo(pc.endCol);
-        its->VpiValue(pc.value);
+        if (pc.sizeExpr) {
+            NetMap none;
+            bool savedCS = inCastSize;
+            inCastSize = true;
+            if (auto* e = emitExpr(*pc.sizeExpr, its, pc.prefix, none))
+                its->Expr((UHDM::expr*)e);
+            inCastSize = savedCS;
+        }
+        else {
+            its->VpiValue(pc.value);
+        }
         its->VpiParent(pc.rt);
         pc.rt->Actual_typespec(its);
     }
