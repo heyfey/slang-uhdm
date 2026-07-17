@@ -207,12 +207,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             c->VpiSize((int32_t)expr.type->getBitWidth());
             setLoc(c, expr.sourceRange);
             // Surelog parents constants only as operation operands and
-            // bit_select indices (not assignment sides or select ranges).
+            // bit_select indices (not assignment sides or select ranges);
+            // re-elaborated contexts also parent part_select bounds.
             if (forceConstParent ||
                 (!suppressConstParent && parent &&
                  (parent->UhdmType() == UHDM::uhdmoperation ||
                   parent->UhdmType() == UHDM::uhdmbit_select ||
-                  parent->UhdmType() == UHDM::uhdmcase_item)))
+                  parent->UhdmType() == UHDM::uhdmcase_item ||
+                  (reemitting && parent->UhdmType() == UHDM::uhdmpart_select))))
                 c->VpiParent(parent);
 
             auto tick = raw.find('\'');
@@ -469,8 +471,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             c->VpiValue("BIN:" + digit);
             c->VpiConstType(vpiBinaryConst);
             setLoc(c, expr.sourceRange);
-            if (parent && (parent->UhdmType() == UHDM::uhdmoperation ||
-                           parent->UhdmType() == UHDM::uhdmbit_select))
+            if (forceConstParent ||
+                (parent && (parent->UhdmType() == UHDM::uhdmoperation ||
+                            parent->UhdmType() == UHDM::uhdmbit_select)))
                 c->VpiParent(parent);
             return c;
         }

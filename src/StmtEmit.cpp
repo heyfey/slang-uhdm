@@ -432,6 +432,65 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             uc->Case_items(items);
             return uc;
         }
+        case StatementKind::ImmediateAssertion: {
+            auto& ia = stmt.as<ImmediateAssertionStatement>();
+            UHDM::any* ua = nullptr;
+            UHDM::expr* cond = nullptr;
+            switch (ia.assertionKind) {
+                case AssertionKind::Assert: {
+                    auto* a = s.MakeImmediate_assert();
+                    a->VpiParent(parent);
+                    setLoc(a, stmt.sourceRange);
+                    if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
+                        a->Expr((UHDM::expr*)c);
+                    if (ia.ifTrue) {
+                        if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
+                            a->Stmt(t);
+                    }
+                    if (ia.ifFalse) {
+                        if (auto* f = emitStmt(*ia.ifFalse, a, prefix, netMap))
+                            a->Else_stmt(f);
+                    }
+                    ua = a;
+                    break;
+                }
+                case AssertionKind::Assume: {
+                    auto* a = s.MakeImmediate_assume();
+                    a->VpiParent(parent);
+                    setLoc(a, stmt.sourceRange);
+                    if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
+                        a->Expr((UHDM::expr*)c);
+                    if (ia.ifTrue) {
+                        if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
+                            a->Stmt(t);
+                    }
+                    if (ia.ifFalse) {
+                        if (auto* f = emitStmt(*ia.ifFalse, a, prefix, netMap))
+                            a->Else_stmt(f);
+                    }
+                    ua = a;
+                    break;
+                }
+                case AssertionKind::CoverProperty: {
+                    auto* a = s.MakeImmediate_cover();
+                    a->VpiParent(parent);
+                    setLoc(a, stmt.sourceRange);
+                    if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
+                        a->Expr((UHDM::expr*)c);
+                    if (ia.ifTrue) {
+                        if (auto* t = emitStmt(*ia.ifTrue, a, prefix, netMap))
+                            a->Stmt(t);
+                    }
+                    ua = a;
+                    break;
+                }
+                default:
+                    noteUnsupported("assertion kind");
+                    return nullptr;
+            }
+            (void)cond;
+            return ua;
+        }
         case StatementKind::Return: {
             auto& rs = stmt.as<ReturnStatement>();
             auto* r = s.MakeReturn_stmt();

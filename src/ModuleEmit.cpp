@@ -730,7 +730,9 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             auto& c = dt->getType().getCanonicalType();
             anonEnum = c.kind == SymbolKind::EnumType && !typedefTs.count(&dt->getType());
         }
-        auto* ts = anonEnum ? makeTypespec(*pn.sym) : sharedTypespec(*pn.sym, pn.di->defTs);
+        // Def-local net typespecs are fresh per net (never shared).
+        auto* ts = makeTypespec(*pn.sym);
+        (void)anonEnum;
         pn.rt->Actual_typespec(ts);
     }
     tfContext = false;
@@ -920,6 +922,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                 else
                     c->VpiConstType(vpiUIntConst);
                 rhs = c;
+            }
+        }
+        // Unbased-unsized literal RHS folds to a LOCATED, parented constant
+        // at the type width.
+        if (!rhs && topView) {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                ASTContext ctx(comp.getRoot(), LookupLocation::max);
+                ConstantValue cv = ctx.tryEval(ae.right());
+                if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
+                    auto* c = s.MakeConstant();
+                    std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+                    c->VpiDecompile(digits);
+                    c->VpiSize((int32_t)ae.right().type->getBitWidth());
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(ca);
+                    setLoc(c, rc.sourceRange);
+                    rhs = c;
+                }
             }
         }
         if (!rhs)
