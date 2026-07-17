@@ -100,3 +100,41 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
   (Signed, Visibility 1) in Variables; int_typespec (VpiSigned) everywhere.
 - uhdm-cmp compares fields the dump never prints (Module_inst, typespec
   Instance) — DUMP_MATCH alone is not sufficient; always require PASS_CMP.
+
+## Session 1 later findings (2026-07-17)
+
+- Local (non-port) declarations: def view = logic_net with typespec
+  (ref_typespec parent=net) AND vpiNetType (wire=1, logic=36, reg=48);
+  implicit-typed net decls anchor the typespec at the net keyword ("wire").
+  Top view: 4-state variables (logic/reg, non-port) become logic_var
+  (Visibility 1, Signed if signed) in Variables; explicit nets stay
+  logic_net. Port-backed `output logic` stays a net (flipflop).
+- Top modules SHARE the def's cont_assign objects unless constant folding
+  changes the Rhs (then a fresh cont_assign with folded constant).
+  Processes: shared for top modules, re-emitted for child instances.
+- bit_select: name/fullname of base signal, loc = the INDEX expression
+  span, VpiIndex = index expr; its index constants ARE parented.
+- part_select: name + VpiDefName(= name) + fullname, loc = whole select
+  expr, VpiConstantSelect(1) for constant bounds, Left_range/Right_range
+  constants NOT parented.
+- Unbased-unsized literals ('0/'1/'x/'z): VpiSize(-1), BIN:<digit>,
+  vpiConstType 3, decompile = source text.
+- Constant parenting rule (current best model): parent set when the
+  constant is an operation operand or bit_select index; NOT set for
+  assignment/cont_assign sides or part_select ranges (typespec range
+  bounds get parents explicitly as 64-bit UINTs).
+- OPEN: exact conditions for typespec VpiParent on top-view port-backed
+  nets. mux2 (non-ANSI, shared decls) and flipflop (ANSI, always-block
+  usage) have parents (my always-set rule matches); a synthetic ANSI test
+  with cont_assign-driven outputs shows Surelog leaving o/y typespecs
+  unparented while my code parents them (weakly-tail diff only, cmp still
+  passes). Revisit with corpus data — grep results-rN.csv for CMP_ONLY
+  tests with small diffs.
+- Scoreboard classes: PASS (dump+cmp), DUMP_ONLY (dump match, cmp fail —
+  invisible-field mismatch), CMP_ONLY (cmp pass, dump diff — usually
+  weakly-tail ordering), DIFF, UNSUPPORTED (exporter said so), CRASH,
+  SLANG_REJECT (slang refuses non-LRM code Surelog accepts), SURELOG_FAIL.
+- Corpus history: r1 (M1 only): 4 PASS. r2 (hierarchy): 9 PASS, 136 DIFF,
+  516 UNSUPPORTED, 0 crash. r3: after local decls + selects + sharing.
+- Next features by corpus frequency: for loops, case statements,
+  member access (structs), function calls, parameters/paramod, generate.
