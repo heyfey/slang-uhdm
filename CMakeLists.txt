@@ -14,7 +14,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(slang CONFIG REQUIRED)
 find_package(UHDM CONFIG REQUIRED)
 
-add_library(slang_uhdm_obj_lib OBJECT src/UhdmExporter.cpp)
+add_library(slang_uhdm_obj_lib OBJECT
+    src/UhdmExporter.cpp
+    src/ModuleEmit.cpp
+    src/ParamEmit.cpp
+    src/StmtEmit.cpp
+    src/ExprEmit.cpp
+    src/TypeEmit.cpp)
 target_include_directories(slang_uhdm_obj_lib PUBLIC include)
 target_link_libraries(slang_uhdm_obj_lib PUBLIC slang::slang uhdm::uhdm)
 
