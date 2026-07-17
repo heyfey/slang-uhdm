@@ -43,8 +43,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             up->VpiLocalParam(true);
         }
         else {
+            // Params with non-literal initializers carry no value string.
+            bool literalInit = false;
+            if (auto pinit = ps.getInitializer())
+                literalInit = isLiteralExpr(*pinit);
             auto& cv = ps.getValue();
-            if (cv.isInteger() && !cv.integer().hasUnknown()) {
+            if (literalInit && cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
                 bool neg = iv.isSigned() && iv.isNegative();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
@@ -129,8 +133,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 else if ((rhs = tryFoldConst(*init))) {
                     ((UHDM::constant*)rhs)->VpiParent(pa);
-                    ((UHDM::constant*)rhs)->VpiSize(64);
+                    // Typed params fold at the type width; untyped at 64.
+                    ((UHDM::constant*)rhs)
+                        ->VpiSize(typedParam ? (int32_t)ps.getType().getBitWidth() : 64);
                     setLoc((UHDM::constant*)rhs, init->sourceRange);
+                    // Typed-param folds carry a ts ref to the param typespec.
+                    if (typedParam && wantTs) {
+                        auto* rt = s.MakeRef_typespec();
+                        std::string tsPrefix = prefix;
+                        if (tsPrefix.size() >= 2 &&
+                            tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                            tsPrefix.resize(tsPrefix.size() - 2);
+                        rt->VpiFullName(tsPrefix);
+                        rt->VpiParent((UHDM::constant*)rhs);
+                        ((UHDM::constant*)rhs)->Typespec(rt);
+                        rhsRt = rt;
+                    }
                 }
             }
             if (!rhs) {

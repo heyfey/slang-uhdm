@@ -343,12 +343,42 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 fs->VpiForInitStmts(inits);
             }
             else if (!fl.initializers.empty() && fl.loopVars.empty()) {
-                auto* inits = s.MakeAnyVec();
-                for (auto ie : fl.initializers) {
-                    if (auto* u = emitExpr(*ie, fs, prefix, netMap))
-                        inits->push_back(u);
+                // Externally-declared loop vars use the SINGULAR init/inc
+                // fields; the init assignment drops opType/blocking and its
+                // Lhs is an unbound ref_var.
+                if (fl.initializers.size() == 1 &&
+                    fl.initializers[0]->kind == ExpressionKind::Assignment) {
+                    auto& iae = fl.initializers[0]->as<AssignmentExpression>();
+                    auto* asn = s.MakeAssignment();
+                    asn->VpiParent(fs);
+                    setLoc(asn, fl.initializers[0]->sourceRange);
+                    auto& lhs = stripImplicitConv(iae.left());
+                    if (lhs.kind == ExpressionKind::NamedValue) {
+                        auto& lnv = lhs.as<NamedValueExpression>();
+                        auto* rv = s.MakeRef_var();
+                        rv->VpiName(lnv.symbol.name);
+                        rv->VpiFullName(prefix + "." + std::string(lnv.symbol.name));
+                        rv->VpiParent(asn);
+                        setLoc(rv, lhs.sourceRange);
+                        asn->Lhs((UHDM::expr*)(UHDM::any*)rv);
+                    }
+                    bool forceSaved = forceConstParent;
+                    forceConstParent = true;
+                    if (auto* r = emitExpr(iae.right(), asn, prefix, netMap))
+                        asn->Rhs(r);
+                    forceConstParent = forceSaved;
+                    auto* inits = s.MakeAnyVec();
+                    inits->push_back(asn);
+                    fs->VpiForInitStmts(inits);
                 }
-                fs->VpiForInitStmts(inits);
+                else {
+                    auto* inits = s.MakeAnyVec();
+                    for (auto ie : fl.initializers) {
+                        if (auto* u = emitExpr(*ie, fs, prefix, netMap))
+                            inits->push_back(u);
+                    }
+                    fs->VpiForInitStmts(inits);
+                }
             }
             else {
                 noteUnsupported("for init form");

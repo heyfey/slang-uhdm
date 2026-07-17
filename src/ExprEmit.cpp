@@ -425,10 +425,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             sc->VpiParent(parent);
             // Conversion/query functions keep name-token-only spans in
             // expression contexts; other sys calls span the whole call.
-            static const std::set<std::string> kNameOnlyFuncs = {
-                "$signed", "$unsigned", "$clog2", "$bits", "$size", "$high",
-                "$low", "$left", "$right", "$increment", "$dimensions",
-                "$unpacked_dimensions", "$itor", "$rtoi"};
+            static const std::set<std::string> kNameOnlyFuncs = {"$signed", "$unsigned"};
             if (stmtCtx || !kNameOnlyFuncs.count(name))
                 setLoc(sc, expr.sourceRange);
             else
@@ -478,10 +475,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
-            // The repeat count constant is unparented in module-compile
-            // context, but parented in re-elaborated (instance) context.
+            // A DIRECT literal repeat count is unparented in module-compile
+            // context (nested expression constants keep normal rules).
             bool saved = suppressConstParent;
-            suppressConstParent = !reemitting;
+            if (!reemitting && isLiteralExpr(re.count()))
+                suppressConstParent = true;
             auto* cnt = emitExpr(re.count(), op, prefix, netMap);
             suppressConstParent = saved;
             if (cnt)
@@ -525,7 +523,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Surelog anchors rvalue bit_selects at the index expression,
             // but lvalue ones span the whole select.
             setLoc(bs, inLhs ? expr.sourceRange : es.selector().sourceRange);
-            if (auto* ix = emitExpr(es.selector(), bs, prefix, netMap))
+            // Refs nested in index OPERATIONS scope by the base name;
+            // direct index refs stay module-scoped.
+            std::string idxPrefix = prefix;
+            if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue)
+                idxPrefix = prefix + "." + std::string(nv.symbol.name);
+            if (auto* ix = emitExpr(es.selector(), bs, idxPrefix, netMap))
                 bs->VpiIndex((UHDM::expr*)ix);
             return bs;
         }
@@ -559,16 +562,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         cctx.tryEval(rs.right()))
                         ips->VpiConstantSelect(true);
                 }
-                suppressConstParent = true;
-                // Refs in base/width exprs carry base-scoped fullnames.
+                // Refs in base/width exprs carry base-scoped fullnames;
+                // only DIRECT literal bounds suppress constant parents.
                 auto savedSel = selectBasePrefix;
                 selectBasePrefix = prefix + "." + std::string(nv.symbol.name);
+                bool savedSup = suppressConstParent;
+                suppressConstParent = isLiteralExpr(rs.left());
                 if (auto* b = emitExpr(rs.left(), ips, selectBasePrefix, netMap))
                     ips->Base_expr((UHDM::expr*)b);
+                suppressConstParent = isLiteralExpr(rs.right());
                 if (auto* w = emitExpr(rs.right(), ips, selectBasePrefix, netMap))
                     ips->Width_expr((UHDM::expr*)w);
+                suppressConstParent = savedSup;
                 selectBasePrefix = savedSel;
-                suppressConstParent = false;
                 return ips;
             }
             auto* psel = s.MakePart_select();
