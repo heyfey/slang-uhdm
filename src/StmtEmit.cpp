@@ -449,9 +449,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     break;
             }
             // Like if conditions, the case condition parents at the
-            // enclosing scope.
-            if (auto* c = emitExpr(cs.expr, parent, prefix, netMap))
+            // enclosing scope — but FOLDED condition constants parent at
+            // the case_stmt itself.
+            if (auto* c = emitExpr(cs.expr, parent, prefix, netMap)) {
+                if (c->UhdmType() == UHDM::uhdmconstant)
+                    ((UHDM::constant*)c)->VpiParent(uc);
                 uc->VpiCondition((UHDM::expr*)c);
+            }
 
             // Item location comes from the case-item syntax (covers the
             // expressions through the trailing semicolon).
@@ -476,10 +480,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 auto* exprs = s.MakeAnyVec();
                 for (auto e : g.expressions) {
                     if (auto* ue = emitExpr(*e, it, prefix, netMap)) {
-                        // Case-item expr refs parent at the enclosing scope
-                        // (constants stay parented at the case_item).
-                        if (ue->UhdmType() == UHDM::uhdmref_obj)
-                            ((UHDM::ref_obj*)ue)->VpiParent(parent);
+                        // Case-item expr refs and sys calls parent at the
+                        // enclosing scope (constants stay at the case_item).
+                        if (ue->UhdmType() == UHDM::uhdmref_obj ||
+                            ue->UhdmType() == UHDM::uhdmsys_func_call)
+                            ((UHDM::expr*)ue)->VpiParent(parent);
                         exprs->push_back(ue);
                     }
                 }
