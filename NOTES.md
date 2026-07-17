@@ -780,3 +780,14 @@ Rules landed (each probed against goldens):
   (7 chars). Condition + body; the condition follows normal const-parenting
   (direct constant condition unparented, operation-operand constants
   parented -> do NOT suppressConstParent the condition).
+
+## Assignment-pattern default/index setters (r92)
+- StructuredAssignmentPattern now emits defaultSetter and indexSetters (was
+  rejected). default: -> tagged_pattern with string_typespec named "default"
+  at the keyword span; index (N:v) -> string_typespec named by the index
+  source text at the index span. Values suppress const-parenting.
+- REMAINING for full pattern convergence (PatternDefault etc.): the top-view
+  CA FOLD of a pattern to a based constant (decompile "8'd255", implicit
+  constType) and the def tagged_pattern value parenting under the
+  pattern-orphan re-parent machinery. Setter tags alone move these tests
+  UNSUPPORTED -> DIFF.

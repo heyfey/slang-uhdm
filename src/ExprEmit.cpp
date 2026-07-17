@@ -1166,10 +1166,6 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::StructuredAssignmentPattern: {
             auto& ap = expr.as<StructuredAssignmentPatternExpression>();
-            if (!ap.indexSetters.empty() || ap.defaultSetter) {
-                noteUnsupported("assignment pattern setter kind");
-                return nullptr;
-            }
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiAssignmentPatternOp);
             op->VpiParent(parent);
@@ -1224,6 +1220,84 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 rt->Actual_typespec(sts);
                 tp->Typespec(rt);
                 operands->push_back(tp);
+            }
+            // Index setters ('{0:1, 3:1}): tagged_pattern with a string_typespec
+            // tag named by the (source-text) index key.
+            for (auto& setter : ap.indexSetters) {
+                if (reemitting) {
+                    if (auto* e = emitExpr(*setter.expr, op, prefix, netMap)) {
+                        if (operands->empty())
+                            ((UHDM::expr*)e)->VpiSize(
+                                (int32_t)setter.expr->type->getBitWidth());
+                        operands->push_back(e);
+                    }
+                    continue;
+                }
+                auto* tp = s.MakeTagged_pattern();
+                tp->VpiParent(op);
+                setLoc(tp, setter.expr->sourceRange);
+                bool sup0 = suppressConstParent, fcp0 = forceConstParent;
+                suppressConstParent = true;
+                forceConstParent = false;
+                if (auto* e = emitExpr(*setter.expr, op, prefix, netMap))
+                    tp->Pattern((UHDM::expr*)e);
+                suppressConstParent = sup0;
+                forceConstParent = fcp0;
+                auto* sts = s.MakeString_typespec();
+                std::string keyText = rawText(setter.index->sourceRange);
+                sts->VpiName(keyText);
+                sts->VpiParent(tp);
+                setLoc(sts, setter.index->sourceRange);
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix);
+                rt->VpiParent(tp);
+                rt->Actual_typespec(sts);
+                tp->Typespec(rt);
+                operands->push_back(tp);
+            }
+            // Default setter ('{default: X}): tagged_pattern with a
+            // string_typespec named "default" at the keyword span.
+            if (ap.defaultSetter) {
+                if (reemitting) {
+                    if (auto* e = emitExpr(*ap.defaultSetter, op, prefix, netMap)) {
+                        if (operands->empty())
+                            ((UHDM::expr*)e)->VpiSize(
+                                (int32_t)ap.defaultSetter->type->getBitWidth());
+                        operands->push_back(e);
+                    }
+                }
+                else {
+                    auto* tp = s.MakeTagged_pattern();
+                    tp->VpiParent(op);
+                    setLoc(tp, ap.defaultSetter->sourceRange);
+                    bool sup0 = suppressConstParent, fcp0 = forceConstParent;
+                    suppressConstParent = true;
+                    forceConstParent = false;
+                    if (auto* e = emitExpr(*ap.defaultSetter, op, prefix, netMap))
+                        tp->Pattern((UHDM::expr*)e);
+                    suppressConstParent = sup0;
+                    forceConstParent = fcp0;
+                    auto* sts = s.MakeString_typespec();
+                    sts->VpiName("default");
+                    sts->VpiParent(tp);
+                    if (psyn) {
+                        for (auto item : psyn->items) {
+                            if (item->kind != syntax::SyntaxKind::AssignmentPatternItem)
+                                continue;
+                            auto& it2 = item->as<syntax::AssignmentPatternItemSyntax>();
+                            if (rawText(it2.key->sourceRange()) == "default") {
+                                setLoc(sts, it2.key->sourceRange());
+                                break;
+                            }
+                        }
+                    }
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(prefix);
+                    rt->VpiParent(tp);
+                    rt->Actual_typespec(sts);
+                    tp->Typespec(rt);
+                    operands->push_back(tp);
+                }
             }
             op->Operands(operands);
             return op;
