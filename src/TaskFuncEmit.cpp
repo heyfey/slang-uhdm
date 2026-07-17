@@ -20,9 +20,10 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
 }
 
 
-void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
+void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                  const std::string& prefix, DefInfo* info,
                                  bool sharedScope) {
+    bool genScope = m->UhdmType() == UHDM::uhdmgen_scope;
     // Packages use :: separators below the function name too.
     bool pkgScope = prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0;
     std::string sep = pkgScope ? "::" : ".";
@@ -59,7 +60,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
         }
         if (auto syn = sub.getSyntax())
             setLoc(tf, syn->sourceRange());
-        tf->Instance(m);
+        if (!genScope)
+            tf->Instance((UHDM::instance*)m);
 
         SubInfo si;
         si.tf = tf;
@@ -83,7 +85,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
             rt->VpiParent(rv);
             rt->Actual_typespec(ts);
             if (pkgScope)
-                ts->Instance(m);
+                ts->Instance((UHDM::instance*)m);
             rv->Typespec(rt);
             copyLoc(rv, ts);
             ((UHDM::function*)tf)->Return(rv);
@@ -149,7 +151,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
                         setLoc((UHDM::BaseClass*)ts, its2->keyword.range());
                 }
                 if (pkgScope)
-                    ((UHDM::typespec*)ts)->Instance(m);
+                    ((UHDM::typespec*)ts)->Instance((UHDM::instance*)m);
                 rt->Actual_typespec(ts);
             }
             io->Typespec(rt);
@@ -200,7 +202,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
                 }
                 auto* vts = makeTypespec(fmv);
                 if (pkgScope)
-                    vts->Instance(m);
+                    vts->Instance((UHDM::instance*)m);
                 auto* vrt = s.MakeRef_typespec();
                 vrt->VpiFullName(fullName + sep + std::string(fmv.name));
                 vrt->VpiParent(v);
@@ -243,8 +245,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
             info->taskFuncs.push_back(tf);
         tfs->push_back(tf);
     }
-    if (!tfs->empty())
-        m->Task_funcs(tfs);
+    if (!tfs->empty()) {
+        if (genScope)
+            ((UHDM::gen_scope*)m)->Task_funcs(tfs);
+        else
+            ((UHDM::instance*)m)->Task_funcs(tfs);
+    }
     pkgScopeInst = savedPkgInst;
 }
 

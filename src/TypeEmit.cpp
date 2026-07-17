@@ -646,6 +646,28 @@ static int32_t mapSyntaxBinOp(syntax::SyntaxKind k) {
             return vpiRShiftOp;
         case syntax::SyntaxKind::PowerExpression:
             return vpiPowerOp;
+        case syntax::SyntaxKind::GreaterThanExpression:
+            return vpiGtOp;
+        case syntax::SyntaxKind::GreaterThanEqualExpression:
+            return vpiGeOp;
+        case syntax::SyntaxKind::LessThanExpression:
+            return vpiLtOp;
+        case syntax::SyntaxKind::LessThanEqualExpression:
+            return vpiLeOp;
+        case syntax::SyntaxKind::EqualityExpression:
+            return vpiEqOp;
+        case syntax::SyntaxKind::InequalityExpression:
+            return vpiNeqOp;
+        case syntax::SyntaxKind::LogicalAndExpression:
+            return vpiLogAndOp;
+        case syntax::SyntaxKind::LogicalOrExpression:
+            return vpiLogOrOp;
+        case syntax::SyntaxKind::BinaryAndExpression:
+            return vpiBitAndOp;
+        case syntax::SyntaxKind::BinaryOrExpression:
+            return vpiBitOrOp;
+        case syntax::SyntaxKind::BinaryXorExpression:
+            return vpiBitXorOp;
         default:
             return 0;
     }
@@ -677,6 +699,17 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
         case syntax::SyntaxKind::ParenthesizedExpression:
             return emitSyntaxExpr(*syn.as<syntax::ParenthesizedExpressionSyntax>().expression,
                                   parent);
+        case syntax::SyntaxKind::InvocationExpression: {
+            // Module-compile calls: name-only, unlinked.
+            auto& inv = syn.as<syntax::InvocationExpressionSyntax>();
+            auto* fc = s.MakeFunc_call();
+            if (inv.left->kind == syntax::SyntaxKind::IdentifierName)
+                fc->VpiName(
+                    inv.left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            fc->VpiParent(parent);
+            setLoc(fc, syn.sourceRange());
+            return fc;
+        }
         default: {
             if (int32_t opType = mapSyntaxBinOp(syn.kind)) {
                 auto& be = syn.as<syntax::BinaryExpressionSyntax>();

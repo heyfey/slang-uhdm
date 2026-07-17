@@ -113,14 +113,103 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     if (!procs->empty())
         m->Process(procs);
 
-    // Def view keeps only a gen_region placeholder per generate construct
-    // (an unlocated begin naming the module scope).
+    // Def view: for-generates keep a gen_region placeholder (unlocated begin
+    // naming the module scope); if-generates become gen_if_else with BOTH
+    // branches re-emitted from SYNTAX (unbound refs, name-only calls).
     {
         auto* regions = s.MakeGen_stmtVec();
+        std::set<const syntax::SyntaxNode*> doneIfs;
+        // A generate branch body: named begin for labeled blocks, anonymous
+        // begin (module fullname) otherwise; cont_assigns from syntax.
+        auto emitBranch = [&](const syntax::SyntaxNode& memSyn,
+                              UHDM::BaseClass* parent) -> UHDM::any* {
+            UHDM::scope* b = nullptr;
+            std::string branchPrefix = prefix;
+            std::vector<const syntax::SyntaxNode*> items;
+            if (memSyn.kind == syntax::SyntaxKind::GenerateBlock) {
+                auto& gb = memSyn.as<syntax::GenerateBlockSyntax>();
+                std::string label;
+                if (gb.beginName)
+                    label = std::string(gb.beginName->name.valueText());
+                if (!label.empty()) {
+                    auto* nb = s.MakeNamed_begin();
+                    nb->VpiName(label);
+                    branchPrefix = prefix + "." + label;
+                    nb->VpiFullName(branchPrefix);
+                    b = nb;
+                }
+                else {
+                    auto* ub = s.MakeBegin();
+                    ub->VpiFullName(prefix);
+                    b = ub;
+                }
+                for (auto mem2 : gb.members)
+                    items.push_back(mem2);
+            }
+            else {
+                auto* ub = s.MakeBegin();
+                ub->VpiFullName(prefix);
+                b = ub;
+                items.push_back(&memSyn);
+            }
+            b->VpiParent(parent);
+            auto* stmts = s.MakeAnyVec();
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::ContinuousAssign)
+                    continue;
+                auto& cas2 = item->as<syntax::ContinuousAssignSyntax>();
+                for (auto asyn : cas2.assignments) {
+                    auto* ca = s.MakeCont_assign();
+                    ca->VpiParent(b);
+                    setLoc(ca, asyn->sourceRange());
+                    syntaxRefPrefix = branchPrefix;
+                    if (asyn->kind == syntax::SyntaxKind::AssignmentExpression) {
+                        auto& be = asyn->as<syntax::BinaryExpressionSyntax>();
+                        if (auto* l = emitSyntaxExpr(*be.left, ca))
+                            ca->Lhs((UHDM::expr*)l);
+                        if (auto* r = emitSyntaxExpr(*be.right, ca))
+                            ca->Rhs((UHDM::expr*)r);
+                    }
+                    syntaxRefPrefix.clear();
+                    stmts->push_back(ca);
+                }
+            }
+            if (b->UhdmType() == UHDM::uhdmnamed_begin)
+                ((UHDM::named_begin*)b)->Stmts(stmts);
+            else
+                ((UHDM::begin*)b)->Stmts(stmts);
+            return b;
+        };
         for (auto& member : body.members()) {
             if (member.kind != SymbolKind::GenerateBlockArray &&
                 member.kind != SymbolKind::GenerateBlock)
                 continue;
+            const syntax::IfGenerateSyntax* ifSyn = nullptr;
+            if (member.kind == SymbolKind::GenerateBlock) {
+                for (auto q = member.getSyntax(); q; q = q->parent) {
+                    if (q->kind == syntax::SyntaxKind::IfGenerate) {
+                        ifSyn = &q->as<syntax::IfGenerateSyntax>();
+                        break;
+                    }
+                }
+            }
+            if (ifSyn) {
+                if (!doneIfs.insert(ifSyn).second)
+                    continue;
+                auto* gie = s.MakeGen_if_else();
+                gie->VpiParent(m);
+                syntaxRefPrefix = prefix;
+                if (auto* c = emitSyntaxExpr(*ifSyn->condition, gie))
+                    gie->VpiCondition((UHDM::expr*)c);
+                syntaxRefPrefix.clear();
+                if (auto* t = emitBranch(*ifSyn->block, gie))
+                    gie->VpiStmt(t);
+                if (ifSyn->elseClause)
+                    if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie))
+                        gie->VpiElseStmt((UHDM::any*)e);
+                regions->push_back(gie);
+                continue;
+            }
             auto* gr = s.MakeGen_region();
             gr->VpiParent(m);
             auto* b = s.MakeBegin();
@@ -686,6 +775,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 // (instance view only). The genvar becomes an unlocated localparam.
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_inst* m,
                                  const std::string& prefix, NetMap& netMap) {
+    std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
     auto emitBlock = [&](const GenerateBlockSymbol& blk, const std::string& name) {
         std::string fullName = prefix + "." + name;
@@ -736,6 +826,13 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
         if (!params->empty())
             gs->Parameters(params);
 
+        // Functions declared inside the block live on the gen_scope.
+        {
+            DefInfo genInfo;
+            genInfo.nets = netMap;
+            emitTaskFuncs(blk, gs, fullName, &genInfo);
+        }
+
         // Contents: cont_assigns and processes with gen-scoped prefixes.
         auto* cas = s.MakeCont_assignVec();
         for (auto& gm : blk.members()) {
@@ -749,10 +846,29 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
             auto* ca = s.MakeCont_assign();
             ca->VpiParent(gs);
             setLoc(ca, assign.sourceRange);
+            {
+                auto& lc0 = stripImplicitConv(ae.left());
+                if (lc0.kind == ExpressionKind::NamedValue)
+                    genLhsSyms.insert(&lc0.as<NamedValueExpression>().symbol);
+            }
             bool forceSaved = forceConstParent;
             if (isLiteralExpr(ae.right()))
                 forceConstParent = true;
-            if (auto* rhs = emitExpr(ae.right(), ca, fullName, netMap))
+            UHDM::any* rhs = nullptr;
+            // Constant gen-scope calls fold to the source literal, sized at
+            // the LHS width.
+            if (auto cfr2 = constCallFold(stripImplicitConv(ae.right()));
+                cfr2.lit && !cfr2.param) {
+                forceConstParent = true;
+                rhs = emitExpr(*cfr2.lit, ca, fullName, netMap);
+                forceConstParent = false;
+                if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    rawText(cfr2.lit->sourceRange).find('\'') == std::string::npos)
+                    ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+            }
+            if (!rhs)
+                rhs = emitExpr(ae.right(), ca, fullName, netMap);
+            if (rhs)
                 ca->Rhs((UHDM::expr*)rhs);
             forceConstParent = forceSaved;
             inLhs = true;
@@ -799,6 +915,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
     }
     if (!gsas->empty())
         m->Gen_scope_arrays(gsas);
+    // Gen-scope CA LHS elaboration also strips the signal ts parent.
+    for (auto sym : genLhsSyms) {
+        auto it = netMap.find(sym);
+        if (it == netMap.end())
+            continue;
+        auto* ex = (UHDM::expr*)it->second;
+        if (ex->Typespec() && ex->Typespec()->Actual_typespec()) {
+            auto* a = ex->Typespec()->Actual_typespec();
+            if (a->UhdmType() != UHDM::uhdmenum_typespec &&
+                a->UhdmType() != UHDM::uhdmstruct_typespec)
+                a->VpiParent(nullptr);
+        }
+    }
 }
 
 

@@ -442,6 +442,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         shell.tf->VpiName(sub.name);
                         it = subMap.emplace(&sub, shell).first;
                     }
+                    else if (pscope && pscope->asSymbol().kind ==
+                                           SymbolKind::GenerateBlock) {
+                        // Def-view gen contents compile before the gen
+                        // function exists: a name-only, unlinked call.
+                        auto* fc0 = sub.subroutineKind == SubroutineKind::Function
+                                        ? (UHDM::tf_call*)s.MakeFunc_call()
+                                        : (UHDM::tf_call*)s.MakeTask_call();
+                        fc0->VpiName(sub.name);
+                        fc0->VpiParent(parent);
+                        setLoc(fc0, expr.sourceRange);
+                        return fc0;
+                    }
                     else {
                         noteUnsupported("user function call");
                         return nullptr;

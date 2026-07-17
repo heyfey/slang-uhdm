@@ -608,3 +608,21 @@ Rules landed (each probed against goldens):
 - Arg formal-ts refs extend to bit/part/indexed selects (own fullname).
 - ref_var/for-var/bit_select/indexed_part_select fullnames in package scopes
   join with :: (joinRef).
+
+## Gen-scope functions + def-view gen_if_else (r76)
+- Functions declared in generate blocks: TOP-view gen_scope carries them in
+  its Task_funcs (dot-separated fullnames, NO vpiInstance). gen_scope is a
+  UHDM scope, NOT an instance (emitTaskFuncs dispatches the attach).
+- DEF-view if-generates: gen_if_else (no loc) {Condition = unfolded syntax
+  expr (module-prefixed unbound refs), Stmt/ElseStmt = branch bodies emitted
+  from SYNTAX: labeled -> named_begin (no loc), bare/unlabeled -> anonymous
+  begin (module fullname); cont_assigns with unbound refs; calls emitted
+  name-only and UNLINKED (no vpiFunction)}. For-generates keep the empty
+  gen_region placeholder.
+- Def-view calls to gen-scoped functions: name-only unlinked func_call (the
+  function object exists only in the top view).
+- Top gen-scope CAs: constant user calls fold like module CAs (source
+  literal, sized at LHS width). WHOLE-NET gen CA LHS strips the signal's ts
+  parent (select LHS keeps it) - same rule as module CAs.
+- emitSyntaxExpr gained comparison/logical/bitwise binary ops and name-only
+  InvocationExpression.
