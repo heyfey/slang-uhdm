@@ -36,15 +36,22 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         tf->VpiFullName(fullName);
         tf->VpiParent(m);
         tf->VpiVisibility(1);
-        if (sub.defaultLifetime == VariableLifetime::Automatic)
+        bool dpiImport = (sub.flags & MethodFlags::DPIImport) != MethodFlags::None;
+        if (dpiImport) {
+            tf->VpiAccessType(4);
+            tf->VpiDPICStr(2);
+        }
+        else if (sub.defaultLifetime == VariableLifetime::Automatic) {
             tf->VpiAutomatic(true);
+        }
         if (auto syn = sub.getSyntax())
             setLoc(tf, syn->sourceRange());
         tf->Instance(m);
 
         SubInfo si;
         si.tf = tf;
-        NetMap funcMap;
+        // Bodies see module-level nets too (shadowed formals override).
+        NetMap funcMap = info.nets;
         TsCache ioTs;
 
         // Function return: an anonymous variable carrying only the full name,

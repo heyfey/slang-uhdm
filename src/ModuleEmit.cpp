@@ -394,7 +394,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (!isStruct) {
                 if (int32_t nt = netTypeFor(*it.sym))
                     ((UHDM::logic_net*)n)->VpiNetType(nt);
-                if (it.port && it.sym->getDeclaredType() &&
+                if (it.sym->getDeclaredType() &&
                     it.sym->getDeclaredType()->getType().isSigned())
                     n->VpiSigned(true);
             }
