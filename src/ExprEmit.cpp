@@ -788,6 +788,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->Path_elems(elems);
             return hp;
         }
+        case ExpressionKind::HierarchicalValue: {
+            // Cross-instance references (u1.cnt) share the member-access
+            // hier_path shape; elements come from the dotted source text.
+            std::string raw = rawText(expr.sourceRange);
+            std::vector<std::pair<std::string, size_t>> parts;
+            {
+                size_t pos = 0;
+                while (pos <= raw.size()) {
+                    size_t dot = raw.find('.', pos);
+                    if (dot == std::string::npos)
+                        dot = raw.size();
+                    parts.emplace_back(raw.substr(pos, dot - pos), pos);
+                    if (dot == raw.size())
+                        break;
+                    pos = dot + 1;
+                }
+            }
+            if (parts.size() < 2) {
+                noteUnsupported("hierarchical reference form");
+                return nullptr;
+            }
+            auto* hp = s.MakeHier_path();
+            hp->VpiName(raw);
+            hp->VpiFullName(raw);
+            hp->VpiParent(parent);
+            setLoc(hp, expr.sourceRange);
+            auto* elems = s.MakeAnyVec();
+            auto exprStart = expr.sourceRange.start();
+            for (size_t i = 0; i < parts.size(); i++) {
+                auto& [pname, off] = parts[i];
+                auto* r = s.MakeRef_obj();
+                r->VpiName(pname);
+                (void)r->VpiFullName();
+                // Only the last element of an rvalue path gets a fullname.
+                if (!inLhs && i + 1 == parts.size())
+                    r->VpiFullName(prefix + "." + pname);
+                r->VpiParent(hp);
+                // Lvalue paths anchor the base ref at the SECOND element.
+                size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
+                auto& [lname, loff] = parts[locIdx];
+                setLoc(r, SourceRange(exprStart + loff, exprStart + loff + lname.size()));
+                elems->push_back(r);
+            }
+            hp->Path_elems(elems);
+            return hp;
+        }
         default:
             noteUnsupported("expression kind: " + std::string(toString(expr.kind)));
             return nullptr;

@@ -10,9 +10,10 @@
 
 namespace slang_uhdm {
 
-UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
+UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
+    size_t netTsAtEntry = pendingNetTs.size();
     std::string prefix = "work@" + std::string(def.name);
 
     DefInfo& info = defMap[&def];
@@ -193,6 +194,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (!refmods->empty())
         m->Ref_modules(refmods);
 
+    (void)netTsAtEntry;
+    (void)topDef;
+
     return m;
 }
 
@@ -205,11 +209,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     // def fill, which already queues def-local net typespecs).
     size_t paramLo = pendingParamTs.size();
     size_t netTsLo = pendingNetTs.size();
+    size_t childNetTsLo = pendingNetTs.size();
     // Surelog materializes a definition the first time the instance tree
     // reaches it; typespec creation order depends on this.
     if (!defMap[&def].filled) {
         defMap[&def].filled = true;
-        emitModuleDef(inst);
+        emitModuleDef(inst, isTop);
     }
     std::string prefix = path;
     std::string defPrefix = "work@" + std::string(def.name);
@@ -533,8 +538,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         if (!bindPath.empty() && it != defMap.end())
             caNets = &it->second.nets;
         emitContAssigns(body, m, prefix, *caNets, /*topView=*/true,
-                        it != defMap.end() ? &it->second : nullptr, isTop, &instRefs,
-                        &caLhsSyms);
+                        it != defMap.end() ? &it->second : nullptr, /*shareWithDef=*/true,
+                        &instRefs, &caLhsSyms);
     }
 
     // Generate scopes exist only in the instance view.
@@ -558,10 +563,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
     }
 
-    // Top modules share the definition's process objects (their hierarchical
-    // prefix is identical); child instances get their own copies with the
-    // instance path baked into names. Task/function objects are shared too.
-    if (isTop) {
+    // ALL instances share the definition's process objects (the def is the
+    // single compiled copy); task/function and typedef objects too.
+    if (true) {
         auto it = defMap.find(&def);
         if (it != defMap.end() && !it->second.processes.empty()) {
             auto* procs = s.MakeProcess_stmtVec();
@@ -569,13 +573,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 procs->push_back(p);
             m->Process(procs);
         }
-        if (it != defMap.end() && !it->second.taskFuncs.empty()) {
+        if (isTop && it != defMap.end() && !it->second.taskFuncs.empty()) {
             auto* tfs = s.MakeTask_funcVec();
             for (auto* tf : it->second.taskFuncs)
                 tfs->push_back(tf);
             m->Task_funcs(tfs);
         }
-        if (it != defMap.end() && !it->second.typedefs.empty()) {
+        if (isTop && it != defMap.end() && !it->second.typedefs.empty()) {
             auto* tds = s.MakeTypespecVec();
             for (auto* td : it->second.typedefs)
                 tds->push_back(td);
@@ -606,6 +610,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         topPendings.push_back({&inst, m, prefix, std::move(topNets), paramLo,
                                pendingParamTs.size(), netTsLo, pendingNetTs.size()});
     }
+    (void)childNetTsLo;
 
     return m;
 }
@@ -729,6 +734,53 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
         m->Gen_scope_arrays(gsas);
 }
 
+
+// Builds a def-local net's typespec (fresh per net; vector typedefs get a
+// NAMED clone with Instance + TypedefAlias; anonymous enums fresh
+// unparented; initialized decls extend through the init).
+void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
+    UHDM::typespec* ts = nullptr;
+    if (auto dt2 = pn.sym->getDeclaredType()) {
+        auto& t2 = dt2->getType();
+        if (typedefClone.count(&t2)) {
+            auto& ta2 = t2.as<TypeAliasType>();
+            const syntax::SyntaxNode* targetSyn = nullptr;
+            if (auto asyn = ta2.getSyntax()) {
+                if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+            }
+            bypassTypedefShare = true;
+            ts = makeTypespec(*pn.sym, targetSyn);
+            bypassTypedefShare = false;
+            ts->VpiName(t2.name);
+            auto tit = typedefTs.find(&t2);
+            if (tit != typedefTs.end()) {
+                auto* mainTs = tit->second;
+                ts->Instance(mainTs->Instance());
+                auto* art = s.MakeRef_typespec();
+                art->VpiFullName(t2.name);
+                art->VpiParent(ts);
+                art->Actual_typespec(mainTs);
+                ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
+            }
+        }
+    }
+    if (!ts)
+        ts = makeTypespec(*pn.sym);
+    // Initialized decls extend the def-view typespec through the init.
+    if (auto dtl = pn.sym->getDeclaredType();
+        dtl && dtl->getInitializer() && ts->VpiName().empty()) {
+        if (auto dsyn = pn.sym->getSyntax()) {
+            auto dr = dsyn->sourceRange();
+            if (dr.start() != SourceLocation::NoLocation) {
+                ts->VpiEndLineNo(sm->getLineNumber(dr.end()));
+                ts->VpiEndColumnNo(sm->getColumnNumber(dr.end()));
+            }
+        }
+    }
+    pn.rt->Actual_typespec(ts);
+}
+
 // Second pass over a top instance: ports, then that top's deferred
 // typespecs (Surelog write-phase arena order).
 void UhdmExporter::emitTopPorts(TopPending& tp) {
@@ -813,59 +865,12 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                      [](const PendingNetTs& a, const PendingNetTs& b) {
                          return a.di->mod->VpiDefName() < b.di->mod->VpiDefName();
                      });
-    for (size_t i = tp.netTsLo; i < tp.netTsHi; i++) {
-        auto& pn = pendingNetTs[i];
-        // Anonymous enums: fresh unparented ts per def net (no sharing).
-        bool anonEnum = false;
-        if (auto dt = pn.sym->getDeclaredType()) {
-            auto& c = dt->getType().getCanonicalType();
-            anonEnum = c.kind == SymbolKind::EnumType && !typedefTs.count(&dt->getType());
+    {
+        auto* ownDi = &defMap[&tp.inst->getDefinition()];
+        for (auto& pn : pendingNetTs) {
+            if (pn.di == ownDi && !pn.rt->Actual_typespec())
+                materializeDefNetTs(pn);
         }
-        // Def-local net typespecs are fresh per net (never shared); vector
-        // typedefs get a fresh NAMED clone (enum/struct aliases stay shared).
-        // Vector typedefs: the def net binds a write-phase NAMED clone
-        // carrying Instance and TypedefAlias -> the module typedef.
-        UHDM::typespec* ts = nullptr;
-        if (auto dt2 = pn.sym->getDeclaredType()) {
-            auto& t2 = dt2->getType();
-            if (typedefClone.count(&t2)) {
-                auto& ta2 = t2.as<TypeAliasType>();
-                const syntax::SyntaxNode* targetSyn = nullptr;
-                if (auto asyn = ta2.getSyntax()) {
-                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
-                        targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
-                }
-                bypassTypedefShare = true;
-                ts = makeTypespec(*pn.sym, targetSyn);
-                bypassTypedefShare = false;
-                ts->VpiName(t2.name);
-                auto tit = typedefTs.find(&t2);
-                if (tit != typedefTs.end()) {
-                    auto* mainTs = tit->second;
-                    ts->Instance(mainTs->Instance());
-                    auto* art = s.MakeRef_typespec();
-                    art->VpiFullName(t2.name);
-                    art->VpiParent(ts);
-                    art->Actual_typespec(mainTs);
-                    ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
-                }
-            }
-        }
-        if (!ts)
-            ts = makeTypespec(*pn.sym);
-        (void)anonEnum;
-        // Initialized decls extend the def-view typespec through the init.
-        if (auto dtl = pn.sym->getDeclaredType();
-            dtl && dtl->getInitializer() && ts->VpiName().empty()) {
-            if (auto dsyn = pn.sym->getSyntax()) {
-                auto dr = dsyn->sourceRange();
-                if (dr.start() != SourceLocation::NoLocation) {
-                    ts->VpiEndLineNo(sm->getLineNumber(dr.end()));
-                    ts->VpiEndColumnNo(sm->getColumnNumber(dr.end()));
-                }
-            }
-        }
-        pn.rt->Actual_typespec(ts);
     }
     tfContext = false;
 

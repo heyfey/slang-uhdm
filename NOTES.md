@@ -473,3 +473,22 @@ Rules landed (each probed against goldens):
 - r60 = 134 PASS + 2 CMP_ONLY (BindModuleWithInputPorts 4-line ts
   position; case_expr_query 26-line nested-case locs) of 661; DIFF 208;
   UNSUP 317; 0 crash.
+
+## Session 4: E1 hierarchical refs + sharing/ordering corrections (2026-07-17)
+
+- HierarchicalValue (u1.cnt) -> hier_path with the member-access shape:
+  elements from the dotted source text at their own token spans, frozen
+  name-only fullnames, last rvalue element gets the module-scoped
+  fullname. Same lvalue rules as member access.
+- ALL instances (children too) SHARE the def's process objects — the
+  "re-emitted per child" belief was never validated for processes (child
+  tests with always blocks were all still blocked). Child cont_assigns
+  now share like tops (fold/literal/whole-net-LHS rules unchanged).
+- Def-local net typespec deferral refined again: the WRITE phase walks
+  defs NAME-SORTED; a top def writes its ports + deferred typespecs
+  (emitTopPorts), a non-top def materializes just its local-net
+  typespecs at its sort position (probe-hier2: sub's local ts before
+  top's write-phase port clones; AnonymousEnum: dut's after d2's netlist
+  objects).
+- r68 = 138 PASS + 1 CMP_ONLY (BindModuleWithInputPorts) of 661;
+  UNSUP 277; DIFF 245; 0 crash.

@@ -144,10 +144,25 @@ UHDM::design* UhdmExporter::exportDesign() {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
         topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
     }
-    // Write phase: every top's ports + deferred typespecs, after all tops'
-    // netlist elaboration (Surelog arena order).
-    for (auto& tp : topPendings)
-        emitTopPorts(tp);
+    // Write phase: walk defs NAME-SORTED; top defs write their ports +
+    // deferred typespecs, other defs materialize their local-net typespecs
+    // (Surelog write-phase arena order).
+    for (auto& [name, inst] : defs) {
+        auto* di = &defMap[&inst->getDefinition()];
+        bool isTopDef = false;
+        for (auto& tp : topPendings) {
+            if (&tp.inst->getDefinition() == &inst->getDefinition()) {
+                isTopDef = true;
+                emitTopPorts(tp);
+            }
+        }
+        if (!isTopDef) {
+            for (auto& pn : pendingNetTs) {
+                if (pn.di == di && !pn.rt->Actual_typespec())
+                    materializeDefNetTs(pn);
+            }
+        }
+    }
     topPendings.clear();
     pendingParamTs.clear();
     pendingNetTs.clear();

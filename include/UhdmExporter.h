@@ -108,7 +108,7 @@ private:
         size_t paramLo, paramHi, netTsLo, netTsHi;
     };
 
-    UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst);
+    UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst, bool topDef);
     UHDM::module_inst* emitInstance(const slang::ast::InstanceSymbol& inst,
                                     const std::string& path, UHDM::module_inst* parentM,
                                     NetMap* parentNets,
@@ -211,6 +211,7 @@ private:
         DefInfo* di;
     };
     std::vector<PendingNetTs> pendingNetTs;
+    void materializeDefNetTs(PendingNetTs& pn);
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
     // Typedef typespecs shared across views; enum consts for value refs.
