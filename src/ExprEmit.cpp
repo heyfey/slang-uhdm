@@ -80,6 +80,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             inLhs = false;
             if (auto* rhs = emitExpr(ae.right(), asn, prefix, netMap))
                 asn->Rhs(rhs);
+            // Intra-assignment delay ("state <= #1 next;").
+            if (ae.timingControl && ae.timingControl->kind == TimingControlKind::Delay) {
+                auto& delay = ae.timingControl->as<DelayControl>();
+                auto* dc = s.MakeDelay_control();
+                dc->VpiParent(asn);
+                SourceRange dr = ae.timingControl->sourceRange;
+                std::string raw = rawText(dr);
+                if (raw.empty() || raw[0] != '#') {
+                    dr = SourceRange(dr.start() - 1, dr.end());
+                    raw = rawText(dr);
+                }
+                dc->VpiDelay(raw);
+                setLoc(dc, dr);
+                (void)delay;
+                asn->Delay_control(dc);
+            }
             return asn;
         }
         case ExpressionKind::ConditionalOp: {
@@ -332,7 +348,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (ae.right().kind == ExpressionKind::EmptyArgument)
                             arg = &ae.left();
                     }
+                    // Direct literal args are parented at the call.
+                    bool forceSaved = forceConstParent;
+                    if (isLiteralExpr(*arg))
+                        forceConstParent = true;
                     auto* a = emitExpr(*arg, fc, prefix, netMap);
+                    forceConstParent = forceSaved;
                     if (a) {
                         // Function call arg refs carry a typespec ref to the
                         // formal's typespec (tasks don't).
@@ -342,7 +363,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* rt = s.MakeRef_typespec();
                             rt->VpiFullName(r->VpiFullName());
                             rt->VpiParent(r);
-                            rt->Actual_typespec(si.argTs[argIdx]);
+                            auto [ats, bareKey] = si.argTs[argIdx];
+                            if (ats)
+                                rt->Actual_typespec(ats);
+                            else if (bareKey)
+                                pendingIoTs.push_back({rt, bareKey});
                             r->Typespec(rt);
                         }
                         args->push_back(a);

@@ -19,6 +19,7 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiEndColumnNo(src->VpiEndColumnNo());
 }
 
+
 void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_inst* m,
                                  const std::string& prefix, DefInfo& info) {
     auto* tfs = s.MakeTask_funcVec();
@@ -49,10 +50,12 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         // Function return: an anonymous variable carrying only the full name,
         // anchored at the return-type syntax like its typespec.
         if (isFunc && sub.returnValVar && !sub.getReturnType().isVoid()) {
-            auto* rv = s.MakeLogic_var();
+            auto* rv = makeReturnVar(s, sub.getReturnType());
             rv->VpiFullName(fullName);
             rv->VpiParent(tf);
+            tfContext = true;
             auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+            tfContext = false;
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
@@ -82,15 +85,33 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
                     break;
             }
             setLoc(io, nameSpan(arg->location, arg->name));
-            auto* ts = sharedTypespec(*arg, ioTs);
+            // Bare implicit arg types ("input x;") get an unlocated typespec
+            // created at the very end of the write phase.
+            UHDM::typespec* ts = nullptr;
+            bool bareImplicit = false;
+            auto argTsyn = arg->getDeclaredType() ? arg->getDeclaredType()->getTypeSyntax()
+                                                  : nullptr;
+            if (argTsyn && argTsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                auto& its = argTsyn->as<syntax::ImplicitTypeSyntax>();
+                if (its.dimensions.empty() && !its.signing.valid())
+                    bareImplicit = true;
+            }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + "." + std::string(arg->name));
             rt->VpiParent(io);
-            rt->Actual_typespec(ts);
+            if (bareImplicit) {
+                pendingIoTs.push_back({rt, argTsyn});
+            }
+            else {
+                tfContext = true;
+                ts = sharedTypespec(*arg, ioTs);
+                tfContext = false;
+                rt->Actual_typespec(ts);
+            }
             io->Typespec(rt);
             ios->push_back(io);
             funcMap[arg] = io;
-            si.argTs.push_back(ts);
+            si.argTs.push_back({ts, bareImplicit ? (const void*)argTsyn : nullptr});
         }
         if (!ios->empty())
             tf->Io_decls(ios);
@@ -103,8 +124,11 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         auto* savedRefs = funcRetRefs;
         funcRetSym = sub.returnValVar;
         funcRetRefs = &pendingFuncRet[pfIdx].refs;
+        auto* savedTf = currentTf;
+        currentTf = tf;
         if (auto* st = emitStmt(sub.getBody(), tf, fullName, funcMap))
             tf->Stmt(st);
+        currentTf = savedTf;
         funcRetSym = savedSym;
         funcRetRefs = savedRefs;
 

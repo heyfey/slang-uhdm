@@ -309,6 +309,70 @@ inline SourceLocation firstDeclaratorLoc(const Symbol& sym) {
     return sym.location;
 }
 
+// Surelog's net collection order: nets from body net/data declarations and
+// ANSI headers sort by declaration location; nets declared only through
+// non-ANSI port declarations append afterwards in port-list order.
+inline bool hasBodyDecl(const Symbol& sym) {
+    for (auto p = sym.getSyntax(); p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::NetDeclaration ||
+            p->kind == syntax::SyntaxKind::DataDeclaration)
+            return true;
+        if (p->kind == syntax::SyntaxKind::PortDeclaration ||
+            p->kind == syntax::SyntaxKind::ImplicitAnsiPort)
+            return false;
+    }
+    return false;
+}
+
+inline bool hasExplicitDeclLoc(const Symbol& sym) {
+    for (auto p = sym.getSyntax(); p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::NetDeclaration ||
+            p->kind == syntax::SyntaxKind::DataDeclaration ||
+            p->kind == syntax::SyntaxKind::ImplicitAnsiPort)
+            return true;
+        if (p->kind == syntax::SyntaxKind::PortDeclaration)
+            return false;
+    }
+    return false;
+}
+
+struct NetOrderItem {
+    const Symbol* sym;
+    const PortSymbol* port;
+    bool bodyDecl;
+};
+
+inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body) {
+    std::vector<NetOrderItem> sorted, implicitPorts;
+    std::set<const Symbol*> portInternals;
+    for (auto pb : body.getPortList()) {
+        if (pb->kind != SymbolKind::Port)
+            continue;
+        auto& ps = pb->as<PortSymbol>();
+        if (!ps.internalSymbol)
+            continue;
+        portInternals.insert(ps.internalSymbol);
+        NetOrderItem it{ps.internalSymbol, &ps, hasBodyDecl(*ps.internalSymbol)};
+        if (it.bodyDecl || hasExplicitDeclLoc(*ps.internalSymbol))
+            sorted.push_back(it);
+        else
+            implicitPorts.push_back(it);
+    }
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Net && member.kind != SymbolKind::Variable)
+            continue;
+        if (portInternals.count(&member))
+            continue;
+        sorted.push_back({&member, nullptr, true});
+    }
+    std::stable_sort(sorted.begin(), sorted.end(), [](const NetOrderItem& a,
+                                                      const NetOrderItem& b) {
+        return a.sym->location < b.sym->location;
+    });
+    sorted.insert(sorted.end(), implicitPorts.begin(), implicitPorts.end());
+    return sorted;
+}
+
 // The declared return-type syntax of a function ("function [3:0] f;"), used
 // to anchor the return variable's typespec.
 inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
@@ -316,6 +380,28 @@ inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
     if (syn && syn->kind == syntax::SyntaxKind::FunctionDeclaration)
         return sub.getSyntax()->as<syntax::FunctionDeclarationSyntax>().prototype->returnType;
     return nullptr;
+}
+
+// Return-value variables take the class of the function's return type.
+inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) {
+    auto& ct = retType.getCanonicalType();
+    if (ct.kind == SymbolKind::PredefinedIntegerType) {
+        auto& pit = ct.as<PredefinedIntegerType>();
+        if (pit.integerKind == PredefinedIntegerType::Int) {
+            auto* v = s.MakeInt_var();
+            v->VpiSigned(pit.isSigned);
+            return v;
+        }
+        if (pit.integerKind == PredefinedIntegerType::Integer) {
+            auto* v = s.MakeInteger_var();
+            v->VpiSigned(pit.isSigned);
+            return v;
+        }
+    }
+    auto* v = s.MakeLogic_var();
+    if (ct.isSigned())
+        v->VpiSigned(true);
+    return v;
 }
 
 // Strips slang's implicit conversion wrappers (Surelog has no equivalent).

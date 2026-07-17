@@ -26,71 +26,41 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
 
     // (Def-view parameters were emitted in the exportDesign pre-pass.)
 
-    // Nets: ANSI modules list port-backed nets before locals; non-ANSI
-    // modules list locals first (Surelog's collection order).
-    bool ansiPorts = true;
-    std::set<const Symbol*> portInternals;
+    // Nets in Surelog's collection order: explicit declarations by source
+    // location, then port-declaration-only nets in port-list order.
     for (auto portBase : body.getPortList()) {
-        if (portBase->kind == SymbolKind::Port) {
-            auto& ps = portBase->as<PortSymbol>();
-            if (!ps.isAnsiPort)
-                ansiPorts = false;
-            if (ps.internalSymbol)
-                portInternals.insert(ps.internalSymbol);
-        }
+        if (portBase->kind != SymbolKind::Port)
+            noteUnsupported("port kind: " + std::string(toString(portBase->kind)));
     }
     auto* nets = s.MakeNetVec();
     TsCache& defTs = info.defTs;
-    auto emitDefPortNets = [&]() {
-        for (auto portBase : body.getPortList()) {
-            if (portBase->kind != SymbolKind::Port) {
-                noteUnsupported("port kind: " + std::string(toString(portBase->kind)));
-                continue;
-            }
-            auto& ps = portBase->as<PortSymbol>();
-            auto* internal = ps.internalSymbol;
-            if (!internal)
-                continue;
-
-            auto* n = s.MakeLogic_net();
-            n->VpiName(ps.name);
-            n->VpiFullName(prefix + "." + std::string(ps.name));
-            n->VpiParent(m);
-            setLocNamed(n, ps); // Surelog uses the port-list location
-            if (int32_t nt = netTypeFor(*internal))
-                n->VpiNetType(nt);
-            info.nets[internal] = n;
-            nets->push_back(n);
-        }
-    };
-    if (ansiPorts)
-        emitDefPortNets();
-    // Local (non-port) declarations stay logic_nets in the def view, but
-    // carry a typespec and explicit net type.
-    for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::Net && member.kind != SymbolKind::Variable)
-            continue;
-        if (portInternals.count(&member))
-            continue;
+    (void)defTs;
+    for (auto& it : collectNetOrder(body)) {
+        std::string name(it.sym->name);
         auto* n = s.MakeLogic_net();
-        n->VpiName(member.name);
-        n->VpiFullName(prefix + "." + std::string(member.name));
+        n->VpiName(name);
+        n->VpiFullName(prefix + "." + name);
         n->VpiParent(m);
-        setLocNamed(n, member);
-        if (int32_t nt = netTypeFor(member))
+        // Port nets without a body re-declaration anchor at the port-list
+        // name; anything with a real declaration anchors there.
+        if (it.port && !it.bodyDecl)
+            setLocNamed(n, *it.port);
+        else
+            setLoc(n, nameSpan(it.sym->location, it.sym->name));
+        if (int32_t nt = netTypeFor(*it.sym))
             n->VpiNetType(nt);
-        // The actual typespec object is created only after the top-level
-        // instance's ports (Surelog arena order); the ref is patched then.
-        auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(prefix + "." + std::string(member.name));
-        rt->VpiParent(n);
-        n->Typespec(rt);
-        pendingNetTs.push_back({&member, rt, &info});
-        info.nets[&member] = n;
+        if (!it.port) {
+            // Local nets carry a typespec whose actual is created only in
+            // the write phase (Surelog arena order); the ref is patched then.
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix + "." + name);
+            rt->VpiParent(n);
+            n->Typespec(rt);
+            pendingNetTs.push_back({it.sym, rt, &info});
+        }
+        info.nets[it.sym] = n;
         nets->push_back(n);
     }
-    if (!ansiPorts)
-        emitDefPortNets();
     if (!nets->empty())
         m->Nets(nets);
 
@@ -123,8 +93,11 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
         m->Process(procs);
 
     // Def-view ports share one typespec object per declaration (Surelog's
-    // TypespecCache behavior), with no parent set.
+    // TypespecCache behavior), with no parent set; module-compile context
+    // keeps unfolded range expressions.
+    tfContext = true;
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
+    tfContext = false;
 
     // Child instance references (def view uses ref_module stubs).
     auto* refmods = s.MakeRef_moduleVec();
@@ -239,113 +212,57 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     {
         auto pit = defMap.find(&def);
         emitParameters(body, m, prefix, topNets, /*topView=*/true,
-                       pit != defMap.end() ? &pit->second : nullptr, false);
+                       pit != defMap.end() ? &pit->second : nullptr, false,
+                       /*topShareTs=*/isTop);
     }
     std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
-    bool ansiPorts = true;
-    std::set<const Symbol*> portInternals;
-    for (auto portBase : body.getPortList()) {
-        if (portBase->kind == SymbolKind::Port) {
-            auto& ps = portBase->as<PortSymbol>();
-            if (!ps.isAnsiPort)
-                ansiPorts = false;
-            if (ps.internalSymbol)
-                portInternals.insert(ps.internalSymbol);
-        }
-    }
     auto* nets = s.MakeNetVec();
     auto* vars = s.MakeVariablesVec();
-    auto emitInstPortNets = [&]() {
-    for (auto portBase : body.getPortList()) {
-        if (portBase->kind != SymbolKind::Port)
-            continue;
-        auto& ps = portBase->as<PortSymbol>();
-        auto* internal = ps.internalSymbol;
-        if (!internal)
-            continue;
-
-        std::string fullName = prefix + "." + std::string(ps.name);
-        auto* ts = sharedTypespec(*internal, netTs);
+    for (auto& it : collectNetOrder(body)) {
+        std::string name(it.sym->name);
+        std::string fullName = prefix + "." + name;
+        auto* ts = sharedTypespec(*it.sym, netTs);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName);
         rt->Actual_typespec(ts);
-
-        if (auto* v = makeVar(*internal, /*portBacked=*/true)) {
-            v->VpiName(ps.name);
+        if (auto* v = makeVar(*it.sym, /*portBacked=*/it.port != nullptr)) {
+            v->VpiName(name);
             v->VpiFullName(fullName);
             v->VpiParent(m);
-            setLocNamed(v, ps);
+            if (it.port && !it.bodyDecl)
+                setLocNamed(v, *it.port);
+            else
+                setLoc(v, nameSpan(it.sym->location, it.sym->name));
             rt->VpiParent(v);
             v->Typespec(rt);
-            topNets[internal] = v;
-            sigOrder.emplace_back(internal, v);
+            topNets[it.sym] = v;
+            sigOrder.emplace_back(it.sym, v);
             vars->push_back(v);
         }
         else {
             auto* n = s.MakeLogic_net();
-            n->VpiName(ps.name);
+            n->VpiName(name);
             n->VpiFullName(fullName);
             n->VpiParent(m);
-            setLocNamed(n, ps);
-            if (int32_t nt = netTypeFor(*internal))
+            if (it.port && !it.bodyDecl)
+                setLocNamed(n, *it.port);
+            else
+                setLoc(n, nameSpan(it.sym->location, it.sym->name));
+            if (int32_t nt = netTypeFor(*it.sym))
                 n->VpiNetType(nt);
-            if (internal->getDeclaredType() &&
-                internal->getDeclaredType()->getType().isSigned())
+            if (it.port && it.sym->getDeclaredType() &&
+                it.sym->getDeclaredType()->getType().isSigned())
                 n->VpiSigned(true);
             rt->VpiParent(n);
             n->Typespec(rt);
             // Surelog parents the net typespec at creation; a shared
             // declaration-group typespec ends at the group's last net.
             ts->VpiParent(n);
-            topNets[internal] = n;
-            sigOrder.emplace_back(internal, n);
+            topNets[it.sym] = n;
+            sigOrder.emplace_back(it.sym, n);
             nets->push_back(n);
         }
     }
-    };
-    if (ansiPorts)
-        emitInstPortNets();
-    // Local (non-port) declarations: logic/reg variables become logic_vars,
-    // explicit nets stay logic_nets.
-    for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::Net && member.kind != SymbolKind::Variable)
-            continue;
-        if (portInternals.count(&member))
-            continue;
-        std::string fullName = prefix + "." + std::string(member.name);
-        auto* ts = sharedTypespec(member, netTs);
-        auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(fullName);
-        rt->Actual_typespec(ts);
-        if (auto* v = makeVar(member, /*portBacked=*/false)) {
-            v->VpiName(member.name);
-            v->VpiFullName(fullName);
-            v->VpiParent(m);
-            setLocNamed(v, member);
-            rt->VpiParent(v);
-            v->Typespec(rt);
-            topNets[&member] = v;
-            sigOrder.emplace_back(&member, v);
-            vars->push_back(v);
-        }
-        else {
-            auto* n = s.MakeLogic_net();
-            n->VpiName(member.name);
-            n->VpiFullName(fullName);
-            n->VpiParent(m);
-            setLocNamed(n, member);
-            if (int32_t nt = netTypeFor(member))
-                n->VpiNetType(nt);
-            rt->VpiParent(n);
-            n->Typespec(rt);
-            ts->VpiParent(n);
-            topNets[&member] = n;
-            sigOrder.emplace_back(&member, n);
-            nets->push_back(n);
-        }
-    }
-    if (!ansiPorts)
-        emitInstPortNets();
     if (!nets->empty())
         m->Nets(nets);
     if (!vars->empty())
@@ -430,7 +347,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
             }
 
-            auto* pts = makeTypespec(*internal);
+            auto* pts = makeTypespec(*internal, nullptr, &ps);
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
             rt->VpiParent(p);
@@ -564,7 +481,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             lc->Actual_group(it->second);
         p->Low_conn(lc);
 
-        auto* pts = makeTypespec(*internal);
+        auto* pts = makeTypespec(*internal, nullptr, &ps);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(tp.prefix + "." + std::string(ps.name));
         rt->VpiParent(p);
@@ -575,43 +492,60 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     if (!ports->empty())
         tp.m->Ports(ports);
 
-    // Instance param typespecs first, then def-view local-net typespecs.
-    patchParamTypespecs(tp.paramLo, tp.paramHi);
+    // Write-phase drains: def-view local-net typespecs (unfolded
+    // module-compile ranges), then function return locals, then instance
+    // param typespecs, then bare io-decl typespecs.
+    tfContext = true;
     for (size_t i = tp.netTsLo; i < tp.netTsHi; i++) {
         auto& pn = pendingNetTs[i];
         pn.rt->Actual_typespec(sharedTypespec(*pn.sym, pn.di->defTs));
     }
+    tfContext = false;
 
-    // Function return-value locals: var then typespec, in the write phase;
-    // body refs bind them now.
+    // Function return-value locals: one var + typespec pair per body ref
+    // (Surelog creates them at each bind in the write phase).
     for (auto& pf : pendingFuncRet) {
         auto& sub = *pf.sub;
-        // The local is created at the first body bind; return-style
-        // functions never reference the function name and get none.
         if (pf.refs.empty() || !sub.returnValVar || sub.getReturnType().isVoid())
             continue;
         std::string localFull = pf.fullName + "." + std::string(sub.name);
-        auto* lv = s.MakeLogic_var();
-        lv->VpiName(sub.name);
-        lv->VpiFullName(localFull);
-        auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(localFull);
-        rt->VpiParent(lv);
-        auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
-        ts->VpiParent(rt);
-        rt->Actual_typespec(ts);
-        lv->Typespec(rt);
-        lv->VpiLineNo(ts->VpiLineNo());
-        lv->VpiColumnNo(ts->VpiColumnNo());
-        lv->VpiEndLineNo(ts->VpiEndLineNo());
-        lv->VpiEndColumnNo(ts->VpiEndColumnNo());
-        // The var's parent is the first body ref that bound it.
-        if (!pf.refs.empty())
-            lv->VpiParent(pf.refs.front());
-        for (auto* r : pf.refs)
+        for (auto* r : pf.refs) {
+            auto* lv = makeReturnVar(s, sub.getReturnType());
+            lv->VpiName(sub.name);
+            lv->VpiFullName(localFull);
+            lv->VpiParent(r);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(localFull);
+            rt->VpiParent(lv);
+            tfContext = true;
+            syntaxRefPrefix = localFull;
+            auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+            syntaxRefPrefix.clear();
+            tfContext = false;
+            ts->VpiParent(rt);
+            rt->Actual_typespec(ts);
+            lv->Typespec(rt);
+            lv->VpiLineNo(ts->VpiLineNo());
+            lv->VpiColumnNo(ts->VpiColumnNo());
+            lv->VpiEndLineNo(ts->VpiEndLineNo());
+            lv->VpiEndColumnNo(ts->VpiEndColumnNo());
             r->Actual_group(lv);
+        }
     }
     pendingFuncRet.clear();
+
+    patchParamTypespecs(tp.paramLo, tp.paramHi);
+
+    {
+        std::map<const void*, UHDM::typespec*> bareCache;
+        for (auto& [rt, key] : pendingIoTs) {
+            auto& slot = bareCache[key];
+            if (!slot)
+                slot = s.MakeLogic_typespec();
+            rt->Actual_typespec(slot);
+        }
+        pendingIoTs.clear();
+    }
 }
 
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,
@@ -647,20 +581,26 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* 
         }
 
         auto* lc = s.MakeRef_obj();
-        lc->VpiName(ps.name);
-        // Def view: work@mod.<n>.<n> (port-scoped); top view: work@mod.<n>.
-        if (topView)
+        // Def view: work@mod.<n>.<n> (port-scoped) with a name; ports whose
+        // net is re-declared in the body use work@mod.<n> and no name.
+        bool merged = internal && hasBodyDecl(*internal);
+        if (topView || merged) {
+            if (topView)
+                lc->VpiName(ps.name);
             lc->VpiFullName(prefix + "." + std::string(ps.name));
-        else
+        }
+        else {
+            lc->VpiName(ps.name);
             lc->VpiFullName(prefix + "." + std::string(ps.name) + "." + std::string(ps.name));
+        }
         lc->VpiParent(p);
         setLocNamed(lc, ps);
         if (auto it = netMap.find(internal); it != netMap.end())
             lc->Actual_group(it->second);
         p->Low_conn(lc);
 
-        UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs)
-                                            : makeTypespec(*internal);
+        UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
+                                      : makeTypespec(*internal, nullptr, &ps);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(prefix + "." + std::string(ps.name));
         rt->VpiParent(p);

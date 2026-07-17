@@ -11,7 +11,8 @@
 namespace slang_uhdm {
 
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
-                                  NetMap& netMap, bool topView, DefInfo* di, bool inPackage) {
+                                  NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
+                                  bool topShareTs) {
     auto* params = s.MakeAnyVec();
     auto* passigns = s.MakeParam_assignVec();
     for (auto& member : body.members()) {
@@ -47,7 +48,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 auto& iv = cv.integer();
                 bool neg = iv.isSigned() && iv.isNegative();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
-                up->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                std::string value = (neg ? "INT:" : "UINT:") + digits;
+                // Based-literal initializers keep their base encoding.
+                if (auto init0 = ps.getInitializer()) {
+                    auto& lit = stripImplicitConv(*init0);
+                    if (lit.kind == ExpressionKind::IntegerLiteral) {
+                        std::string raw = rawText(lit.sourceRange);
+                        auto tick = raw.find('\'');
+                        if (tick != std::string::npos) {
+                            size_t basePos = tick + 1;
+                            if (basePos < raw.size() &&
+                                (raw[basePos] == 's' || raw[basePos] == 'S'))
+                                basePos++;
+                            char base = basePos < raw.size() ? (char)tolower(raw[basePos])
+                                                             : 'd';
+                            std::string litDigits = raw.substr(basePos + 1);
+                            switch (base) {
+                                case 'b':
+                                    value = "BIN:" + litDigits;
+                                    break;
+                                case 'h':
+                                    value = "HEX:" + litDigits;
+                                    break;
+                                case 'o':
+                                    value = "OCT:" + litDigits;
+                                    break;
+                                default:
+                                    value = "DEC:" + litDigits;
+                                    break;
+                            }
+                        }
+                    }
+                }
+                up->VpiValue(value);
             }
             wantTs = ps.getType().getCanonicalType().isIntegral();
         }
@@ -132,6 +165,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             else {
                 auto* its = makeParamTs(ps, typedParam);
+                if (di)
+                    di->paramTs[&member] = its;
                 if (rhsRt)
                     rhsRt->Actual_typespec(its);
                 prt->Actual_typespec(its);
@@ -146,7 +181,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         m->Param_assigns(passigns);
 }
 
-UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam) {
+UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam,
+                                          bool parentBounds) {
     SourceRange tr(ps.location, ps.location + ps.name.size());
     if (typedParam) {
         if (auto declared = ps.getDeclaredType())
@@ -166,13 +202,38 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     if (typedParam)
         its->VpiSigned(ps.getType().getCanonicalType().isSigned());
     setLoc(its, tr);
+    // Untyped params with based-literal inits gain a bare [w-1:0] range
+    // (loc-less, value-only INT constants).
+    if (!typedParam) {
+        if (auto init = ps.getInitializer()) {
+            auto& lit = stripImplicitConv(*init);
+            if (lit.kind == ExpressionKind::IntegerLiteral &&
+                rawText(lit.sourceRange).find('\'') != std::string::npos) {
+                auto* r = s.MakeRange();
+                r->VpiParent(its);
+                auto mkBound = [&](int64_t v) {
+                    auto* c = s.MakeConstant();
+                    c->VpiValue("INT:" + std::to_string(v));
+                    // Write-phase (instance) param ts bounds are parented.
+                    if (parentBounds)
+                        c->VpiParent(r);
+                    return c;
+                };
+                r->Left_expr(mkBound((int64_t)lit.type->getBitWidth() - 1));
+                r->Right_expr(mkBound(0));
+                auto* rv = s.MakeRangeVec();
+                rv->push_back(r);
+                its->Ranges(rv);
+            }
+        }
+    }
     return its;
 }
 
 void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
-        auto* its = makeParamTs(*ps, typedParam);
+        auto* its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
         if (rhsRt)
             rhsRt->Actual_typespec(its);
         prt->Actual_typespec(its);

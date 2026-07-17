@@ -11,17 +11,49 @@
 namespace slang_uhdm {
 
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
-                                           const syntax::SyntaxNode* typeSynOverride) {
+                                           const syntax::SyntaxNode* typeSynOverride,
+                                           const PortSymbol* portCtx) {
     auto declared = declSymbol.getDeclaredType();
+    // Ports whose net is re-declared in the body ("input clock; wire clock;")
+    // anchor their port typespec at the port declaration, not the net decl.
+    bool mergedPort = portCtx && hasBodyDecl(declSymbol);
     auto typeSynFor = [&]() -> const syntax::SyntaxNode* {
         if (typeSynOverride)
             return typeSynOverride;
         return declared ? declared->getTypeSyntax() : nullptr;
     };
-    SourceLocation implicitLoc = firstDeclaratorLoc(declSymbol);
+    // Merged ports anchor at the first declarator of the port declaration
+    // group ("input clock,reset,..." -> clock); reach it through the port's
+    // own declared-type syntax.
+    SourceLocation implicitLoc;
+    if (mergedPort) {
+        implicitLoc = portCtx->location;
+        auto scope = declSymbol.getParentScope();
+        const syntax::SyntaxNode* msyn =
+            scope ? scope->asSymbol().getSyntax() : nullptr;
+        if (msyn && msyn->kind == syntax::SyntaxKind::ModuleDeclaration) {
+            for (auto member : msyn->as<syntax::ModuleDeclarationSyntax>().members) {
+                if (member->kind != syntax::SyntaxKind::PortDeclaration)
+                    continue;
+                auto& pd = member->as<syntax::PortDeclarationSyntax>();
+                bool found = false;
+                for (auto dcl : pd.declarators) {
+                    if (dcl->name.valueText() == portCtx->name)
+                        found = true;
+                }
+                if (found && !pd.declarators.empty()) {
+                    implicitLoc = pd.declarators[0]->name.location();
+                    break;
+                }
+            }
+        }
+    }
+    else {
+        implicitLoc = firstDeclaratorLoc(declSymbol);
+    }
     SourceRange range(implicitLoc, implicitLoc);
     bool explicitType = false;
-    if (declared) {
+    if (declared && !mergedPort) {
         if (auto tsyn = typeSynFor()) {
             if (tsyn->kind != syntax::SyntaxKind::ImplicitType) {
                 auto sr = tsyn->sourceRange();
@@ -35,7 +67,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // Implicit-typed explicit net declarations anchor at the net keyword
     // ("wire w;" / "input wire x" -> the wire token).
     bool netKeywordAnchor = false;
-    if (!explicitType && declSymbol.kind == SymbolKind::Net) {
+    if (!explicitType && !mergedPort && declSymbol.kind == SymbolKind::Net) {
         if (auto nh = ansiNetHeader(declSymbol)) {
             range = nh->netType.range();
             netKeywordAnchor = true;
@@ -165,8 +197,29 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             rsyn = sel.right;
                         }
                     }
-                    r->Left_expr(makeBoundConst(lsyn, dims[i].left, r));
-                    r->Right_expr(makeBoundConst(rsyn, dims[i].right, r));
+                    auto emitBound = [&](const syntax::ExpressionSyntax* bsyn,
+                                         int64_t value) -> UHDM::expr* {
+                        if (!bsyn || bsyn->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                            return makeBoundConst(bsyn, value, r);
+                        if (tfContext) {
+                            // Function/typedef context: unfolded expression.
+                            if (auto* e = emitSyntaxExpr(*bsyn, r))
+                                return (UHDM::expr*)e;
+                        }
+                        // Module context: folded to an INT constant anchored
+                        // at the bound expression's first token.
+                        auto* c = s.MakeConstant();
+                        c->VpiParent(r);
+                        c->VpiSize(64);
+                        c->VpiConstType(vpiIntConst);
+                        std::string digits = std::to_string(value);
+                        c->VpiValue("INT:" + digits);
+                        c->VpiDecompile(digits);
+                        setLoc(c, bsyn->getFirstToken().range());
+                        return c;
+                    };
+                    r->Left_expr(emitBound(lsyn, dims[i].left));
+                    r->Right_expr(emitBound(rsyn, dims[i].right));
                     ranges->push_back(r);
                 }
                 ts->Ranges(ranges);
@@ -236,7 +289,8 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
     return c;
 }
 
-UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& cache) {
+UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& cache,
+                                             const PortSymbol* portCtx) {
     // Key on the shared type syntax node so all declarators of one
     // declaration ("input A, B;") reuse the same typespec object.
     const void* key = &declSymbol;
@@ -247,9 +301,79 @@ UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& 
     auto it = cache.find(key);
     if (it != cache.end())
         return it->second;
-    auto* ts = makeTypespec(declSymbol);
+    auto* ts = makeTypespec(declSymbol, nullptr, portCtx);
     cache[key] = ts;
     return ts;
+}
+
+// Maps binary expression syntax kinds to vpi op codes (range-bound exprs).
+static int32_t mapSyntaxBinOp(syntax::SyntaxKind k) {
+    switch (k) {
+        case syntax::SyntaxKind::AddExpression:
+            return vpiAddOp;
+        case syntax::SyntaxKind::SubtractExpression:
+            return vpiSubOp;
+        case syntax::SyntaxKind::MultiplyExpression:
+            return vpiMultOp;
+        case syntax::SyntaxKind::DivideExpression:
+            return vpiDivOp;
+        case syntax::SyntaxKind::ModExpression:
+            return vpiModOp;
+        case syntax::SyntaxKind::LogicalShiftLeftExpression:
+            return vpiLShiftOp;
+        case syntax::SyntaxKind::LogicalShiftRightExpression:
+            return vpiRShiftOp;
+        case syntax::SyntaxKind::PowerExpression:
+            return vpiPowerOp;
+        default:
+            return 0;
+    }
+}
+
+UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::BaseClass* parent) {
+    switch (syn.kind) {
+        case syntax::SyntaxKind::IdentifierName: {
+            auto* ref = s.MakeRef_obj();
+            auto name = syn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            ref->VpiName(name);
+            if (!syntaxRefPrefix.empty())
+                ref->VpiFullName(syntaxRefPrefix + "." + std::string(name));
+            ref->VpiParent(parent);
+            setLoc(ref, syn.sourceRange());
+            return ref;
+        }
+        case syntax::SyntaxKind::IntegerLiteralExpression: {
+            auto* c = s.MakeConstant();
+            std::string raw = rawText(syn.sourceRange());
+            c->VpiDecompile(raw);
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + raw);
+            c->VpiConstType(vpiUIntConst);
+            c->VpiParent(parent);
+            setLoc(c, syn.sourceRange());
+            return c;
+        }
+        case syntax::SyntaxKind::ParenthesizedExpression:
+            return emitSyntaxExpr(*syn.as<syntax::ParenthesizedExpressionSyntax>().expression,
+                                  parent);
+        default: {
+            if (int32_t opType = mapSyntaxBinOp(syn.kind)) {
+                auto& be = syn.as<syntax::BinaryExpressionSyntax>();
+                auto* op = s.MakeOperation();
+                op->VpiOpType(opType);
+                op->VpiParent(parent);
+                setLoc(op, syn.sourceRange());
+                auto* operands = s.MakeAnyVec();
+                if (auto* l = emitSyntaxExpr(*be.left, op))
+                    operands->push_back(l);
+                if (auto* r = emitSyntaxExpr(*be.right, op))
+                    operands->push_back(r);
+                op->Operands(operands);
+                return op;
+            }
+            return nullptr;
+        }
+    }
 }
 
 } // namespace slang_uhdm

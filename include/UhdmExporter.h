@@ -73,10 +73,11 @@ private:
         std::vector<UHDM::task_func*> taskFuncs;
     };
 
-    /// Per-subroutine emission products (call sites link to these).
+    /// Per-subroutine emission products (call sites link to these). An arg
+    /// typespec may be deferred (bare implicit): ts null, key set.
     struct SubInfo {
         UHDM::task_func* tf = nullptr;
-        std::vector<UHDM::typespec*> argTs;
+        std::vector<std::pair<UHDM::typespec*, const void*>> argTs;
     };
 
     /// Function return-value local vars are created in the write phase; body
@@ -115,7 +116,8 @@ private:
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
     void emitParameters(const slang::ast::Scope& body, UHDM::scope* m, const std::string& prefix,
-                        NetMap& netMap, bool topView, DefInfo* di, bool inPackage);
+                        NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
+                        bool topShareTs = false);
     UHDM::package* emitPackage(const slang::ast::PackageSymbol& pkg, bool topView);
     void emitTaskFuncs(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                        const std::string& prefix, DefInfo& info);
@@ -137,13 +139,19 @@ private:
     bool isIntEncoded(const slang::ast::Expression& e);
     void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
     void patchParamTypespecs(size_t lo, size_t hi);
-    UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam);
+    UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
+                                bool parentBounds = false);
 
     UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol,
-                                 const slang::syntax::SyntaxNode* typeSynOverride = nullptr);
-    UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache);
+                                 const slang::syntax::SyntaxNode* typeSynOverride = nullptr,
+                                 const slang::ast::PortSymbol* portCtx = nullptr);
+    UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache,
+                                   const slang::ast::PortSymbol* portCtx = nullptr);
     UHDM::constant* makeBoundConst(const slang::syntax::SyntaxNode* syn, int64_t value,
                                    UHDM::BaseClass* parent);
+    /// Unfolded range-bound expression built from syntax (function/typedef
+    /// typespecs keep "SIZE-1" as an operation tree with name-only refs).
+    UHDM::any* emitSyntaxExpr(const slang::syntax::SyntaxNode& syn, UHDM::BaseClass* parent);
     /// Creates a top-view variable object for symbols whose type makes them
     /// variables in Surelog's model (int, integer, ...); null if the symbol
     /// stays a net.
@@ -181,12 +189,23 @@ private:
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
     std::vector<PendingFuncRet> pendingFuncRet;
+    // Bare implicit io-decl typespecs (unlocated) are created at the very
+    // end of the write phase; keyed by type syntax for decl-group sharing.
+    std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;
     const slang::ast::Symbol* funcRetSym = nullptr;
     std::vector<UHDM::ref_obj*>* funcRetRefs = nullptr;
     // In shared processes, only call-argument refs count for var typespec
     // reparenting (Surelog computes arg types; plain refs don't touch ts).
     bool inProcessEmit = false;
     int callArgDepth = 0;
+    // Task/function typespecs keep unfolded range expressions; module-level
+    // typespecs fold them to INT constants.
+    bool tfContext = false;
+    // Set while emitting a task/function body: case-item expr refs parent
+    // at the tf object.
+    UHDM::task_func* currentTf = nullptr;
+    // When set, emitSyntaxExpr refs carry this scope prefix in VpiFullName.
+    std::string syntaxRefPrefix;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };

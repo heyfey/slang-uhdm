@@ -408,8 +408,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 itemLoc(*g.stmt, it);
                 auto* exprs = s.MakeAnyVec();
                 for (auto e : g.expressions) {
-                    if (auto* ue = emitExpr(*e, it, prefix, netMap))
+                    if (auto* ue = emitExpr(*e, it, prefix, netMap)) {
+                        // Case-item expr refs parent at the enclosing scope
+                        // (constants stay parented at the case_item).
+                        if (ue->UhdmType() == UHDM::uhdmref_obj)
+                            ((UHDM::ref_obj*)ue)->VpiParent(parent);
                         exprs->push_back(ue);
+                    }
                 }
                 it->VpiExprs(exprs);
                 if (auto* st = emitStmt(*g.stmt, it, prefix, netMap))
