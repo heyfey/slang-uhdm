@@ -228,7 +228,26 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         if (auto syntax = body.getSyntax())
             setLoc(m, syntax->sourceRange());
     }
-    else {
+    std::string bindPath = bindDisplayPath;
+    bindDisplayPath.clear();
+    if (!isTop && !bindPath.empty()) {
+        m->VpiName(inst.name);
+        m->VpiFullName(bindPath);
+        m->VpiParent(parentM);
+        m->Instance(parentM);
+        m->Module_inst(parentM);
+        m->VpiDefFile(fullFilePath(def.location));
+        m->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+        if (auto syn = inst.getSyntax()) {
+            const syntax::SyntaxNode* stmtSyn = syn;
+            while (stmtSyn->parent &&
+                   stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation) {
+                stmtSyn = stmtSyn->parent;
+            }
+            setLoc(m, stmtSyn->sourceRange());
+        }
+    }
+    else if (!isTop) {
         m->VpiName(inst.name);
         m->VpiParent(parentM);
         m->Instance(parentM);
@@ -393,12 +412,27 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
     // Children are elaborated before the instance's own ports (typespec
     // creation order follows Surelog).
+    if (isTop) {
+        currentTopPrefix = prefix;
+        currentTopNets = &topNets;
+    }
     auto* children = s.MakeModule_instVec();
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
+            // Bound instances path directly under the top module.
+            bool fromBind = false;
+            for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
+                if (p2->kind == syntax::SyntaxKind::BindDirective) {
+                    fromBind = true;
+                    break;
+                }
+            }
+            if (fromBind && !currentTopPrefix.empty())
+                bindDisplayPath = currentTopPrefix + "." + std::string(child.name);
             children->push_back(emitInstance(child, prefix + "." + std::string(child.name), m,
                                              &topNets, &instRefs, /*isTop=*/false));
+            bindDisplayPath.clear();
         }
     }
     if (!children->empty())
@@ -446,7 +480,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
             auto* lc = s.MakeRef_obj();
             lc->VpiName(ps.name);
-            lc->VpiFullName(prefix + "." + std::string(ps.name));
+            // Bound instances: display-scoped low conns bound to DEF nets;
+            // high conns resolve in the bind-directive (top) scope.
+            lc->VpiFullName((bindPath.empty() ? prefix : bindPath) + "." +
+                            std::string(ps.name));
             lc->VpiParent(p);
             // Child low conns anchor at the formal name in the connection.
             if (auto npc = findConnSyntax(inst, ps.name))
@@ -464,7 +501,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     // instance-view references (drives typespec reparenting
                     // in the parent).
                     refCollector = parentRefs;
-                    if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets))
+                    // Bound instances: TOP-scoped high-conn names, parent
+                    // binding.
+                    const std::string& hcPrefix =
+                        (!bindPath.empty() && !currentTopPrefix.empty()) ? currentTopPrefix
+                                                                         : parentPrefix;
+                    if (auto* h = emitExpr(*expr, p, hcPrefix, *parentNets))
                         p->High_conn(h);
                     refCollector = nullptr;
                 }
@@ -485,7 +527,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     std::set<const Symbol*> caLhsSyms;
     {
         auto it = defMap.find(&def);
-        emitContAssigns(body, m, prefix, topNets, /*topView=*/true,
+        // Bound instances' content binds DEF nets.
+        NetMap* caNets = &topNets;
+        if (!bindPath.empty() && it != defMap.end())
+            caNets = &it->second.nets;
+        emitContAssigns(body, m, prefix, *caNets, /*topView=*/true,
                         it != defMap.end() ? &it->second : nullptr, isTop, &instRefs,
                         &caLhsSyms);
     }
@@ -536,10 +582,18 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
     }
     else {
+        // Bound instances' re-emitted content binds DEF nets.
+        NetMap* contentNets = &topNets;
+        if (!bindPath.empty()) {
+            auto dit = defMap.find(&def);
+            if (dit != defMap.end())
+                contentNets = &dit->second.nets;
+        }
         auto* procs = s.MakeProcess_stmtVec();
         for (auto& member : body.members()) {
             if (member.kind == SymbolKind::ProceduralBlock) {
-                if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, topNets))
+                if (auto* p =
+                        emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, *contentNets))
                     procs->push_back(p);
             }
         }
@@ -1060,11 +1114,19 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             forceConstParent = forceSaved;
             refCollector = nullptr;
             reemitting = false;
+            // Re-emitted BARE literals size at the LHS type width.
+            if (topView && literalRhs && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                rawText(stripImplicitConv(ae.right()).sourceRange).find('\'') ==
+                    std::string::npos)
+                ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
         }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
         inLhs = true;
-        if (auto* l = emitExpr(ae.left(), ca, prefix, netMap))
+        // Literal-RHS re-emits bind BOTH sides to def-view objects.
+        NetMap& lhsMap = (topView && shareWithDef && literalRhs && defInfo) ? defInfo->nets
+                                                                            : netMap;
+        if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))
             ca->Lhs((UHDM::expr*)l);
         inLhs = false;
         cas->push_back(ca);

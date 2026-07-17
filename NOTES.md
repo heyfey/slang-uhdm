@@ -417,3 +417,39 @@ assertions, vector typedefs (WIP). Next levers by triage: E1 hierarchical
 refs (56), E4 interface ports (46), D3 assignment patterns (35+25),
 select-on-complex-base (35+24), statement List 34, package user functions
 (33), B2 parameterized instances, then F --elabuhdm.
+
+## Session 4: small-DIFF mining (2026-07-17, r35->r54)
+
+Rules landed (each probed against goldens):
+- unique/priority -> vpiQualifier(1/2) on case/if. Unsized based literals
+  ('h1) size -1. (* attrs *) on case stmts anchor the loc at the case
+  keyword and attach attribute objects.
+- Var initializers: vpiExpr on top vars (literals parented at the var,
+  bare decimals sized at the var type width); initialized plain vars span
+  declarator..init and the DEF-view ts extends through the init.
+- Vars creation-parent their ts exactly like nets (last-of-group,
+  CA-LHS clear, typedef/enum/struct ts excluded) — the refs-based var
+  reparent rule was an artifact and is gone.
+- part_select fullnames FROZEN from the parent chain (doubled under
+  bit_select indices). Select scoping: refs nested in index/bound
+  OPERATIONS scope by the base name (direct refs stay module-scoped);
+  applies to bit_select indices, part_select bounds, ips base/width.
+  ips: lvalue whole-span, ConstantSelect from evaluable width;
+  part_select ConstantSelect from evaluable bounds.
+- Suppress-const-parent applies only to DIRECT literals (concat operands,
+  replication counts, ips bounds); nested operation constants keep
+  normal parents. Re-emitted part_select bounds get parents.
+- Re-emitted size-cast typespecs created at the very END of the write
+  phase (pendingCastTs).
+- Sys call spans: name-token-only ONLY for $signed/$unsigned; everything
+  else whole-call. Function-call arg-ts refs only outside processes.
+- Params: value string only for LITERAL inits; typed-param folds size at
+  the type width and carry a ts ref to the param typespec.
+- External-var for loops: plural init/inc vectors; init assignment has
+  no opType/blocking and an UNBOUND ref_var Lhs.
+- bind: def view skips bound instances; the bound instance displays as
+  work@<top>.<name> (VpiName/FullName) while content keeps real paths;
+  high conns emit TOP-scoped names but bind parent nets; the instance's
+  re-emitted content (CAs/processes) binds DEF nets.
+- r54 = 120 PASS + 1 CMP_ONLY (BindModuleWithInputPorts, 4-line ts
+  position) of 661; DIFF 237; UNSUP 303; 0 crash.

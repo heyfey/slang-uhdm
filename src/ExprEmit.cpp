@@ -586,13 +586,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // bit_select index).
             (void)psel->VpiFullName();
             setLoc(psel, expr.sourceRange);
-            bool constSel = rs.left().kind == ExpressionKind::IntegerLiteral &&
-                            rs.right().kind == ExpressionKind::IntegerLiteral;
+            bool constSel = false;
+            {
+                ASTContext cctx(comp.getRoot(), LookupLocation::max);
+                constSel = (rs.left().kind == ExpressionKind::IntegerLiteral ||
+                            cctx.tryEval(rs.left())) &&
+                           (rs.right().kind == ExpressionKind::IntegerLiteral ||
+                            cctx.tryEval(rs.right()));
+            }
             if (constSel)
                 psel->VpiConstantSelect(true);
-            if (auto* l = emitExpr(rs.left(), psel, prefix, netMap))
+            // Refs nested in bound OPERATIONS scope by the base name.
+            std::string basePfx = prefix + "." + std::string(nv.symbol.name);
+            auto boundPfx = [&](const Expression& e) -> const std::string& {
+                return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
+                                                                               : basePfx;
+            };
+            if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap))
                 psel->Left_range((UHDM::expr*)l);
-            if (auto* r = emitExpr(rs.right(), psel, prefix, netMap))
+            if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap))
                 psel->Right_range((UHDM::expr*)r);
             return psel;
         }

@@ -192,6 +192,11 @@ private:
     // Refs inside indexed-part-select base/width exprs are scoped by the
     // select base name.
     std::string selectBasePrefix;
+    // Root prefix of the top instance currently being emitted (bind
+    // instances DISPLAY directly under it while contents keep real paths).
+    std::string currentTopPrefix;
+    std::string bindDisplayPath;
+    NetMap* currentTopNets = nullptr;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
     // Def-view local-net typespecs are created only after the top-level
