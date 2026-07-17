@@ -132,6 +132,8 @@ private:
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);
+    /// Name span at loc; escaped identifiers get Surelog's name+6 width.
+    slang::SourceRange nameSpan(slang::SourceLocation loc, std::string_view name);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
     void noteUnsupported(const std::string& what);

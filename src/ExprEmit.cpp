@@ -136,7 +136,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ref->Actual_group(it->second);
             }
             ref->VpiParent(parent);
-            setLoc(ref, expr.sourceRange);
+            if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==
+                "\\")
+                setLoc(ref, nameSpan(expr.sourceRange.start(), nv.symbol.name));
+            else
+                setLoc(ref, expr.sourceRange);
             return ref;
         }
         case ExpressionKind::UnaryOp: {

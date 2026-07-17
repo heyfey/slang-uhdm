@@ -37,7 +37,14 @@ void UhdmExporter::setLocNamed(UHDM::BaseClass* obj, const Symbol& symbol) {
         loc = symbol.as<PortSymbol>().externalLoc;
     if (loc == SourceLocation::NoLocation)
         return;
-    setLoc(obj, SourceRange(loc, loc + symbol.name.size()));
+    setLoc(obj, nameSpan(loc, symbol.name));
+}
+
+SourceRange UhdmExporter::nameSpan(SourceLocation loc, std::string_view name) {
+    // Escaped identifiers ("\foo* ") get Surelog's quirky name+6 width.
+    if (rawText(SourceRange(loc, loc + 1)) == "\\")
+        return SourceRange(loc, loc + name.size() + 6);
+    return SourceRange(loc, loc + name.size());
 }
 
 std::string UhdmExporter::fullFilePath(SourceLocation loc) {

@@ -242,3 +242,35 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
   blocking_temp_ff blocking_temp_select BreakNested
   code_hdl_models_parallel_crc ContinueNested counters_repeat escape_id
   fsm2 IndexedPartSelect MonitorInputPort PartSelect.
+
+## Session 3 round 2: arena-order model (2026-07-17)
+
+The weakly-tail creation-order model, now fully replicated (r17: ALL former
+CMP_ONLY are PASS — 69 PASS, 0 CMP_ONLY):
+
+1. Module-compile phase: every def's PARAMETER typespecs (defs name-sorted),
+   before any elaboration typespec. (Package params still precede modules.)
+2. Per def (filled lazily on first instance reach): local-net objects carry
+   a ref_typespec whose ACTUAL is deferred (created in the write phase);
+   def cont_assigns, then def processes (module items -> their typespecs:
+   for-loop vars, casts), then def-port typespecs (TypespecCache shared per
+   declaration).
+3. Netlist phase per TOP instance (all tops in order): top nets/vars ts
+   (non-ANSI: locals first), children recursively (child ports inline).
+4. Write phase per TOP instance (all tops in order, AFTER every top's
+   netlist phase): top ports (fresh ts each), then that top tree's deferred
+   instance-param typespecs, then deferred def-local-net typespecs (FIFO).
+   Implemented as a two-pass over topInstances with pending-vector ranges.
+
+More quirks nailed this round:
+- Escaped identifiers: every named object/ref location spans
+  name.size() + 6 columns from the backslash (probed: a*, x~, w#3, bc$de!
+  all +6 over the name — Surelog measures its internal "\name " + 2).
+- cont_assign sharing rule refined: top view re-emits ONLY whole-net-LHS
+  assigns (RHS ops or literal); select-LHS assigns stay shared even with
+  operation RHS (code_hdl_models_parallel_crc). The CA-LHS net-ts-parent
+  clear likewise applies only to whole-net-LHS assigns.
+- BreakNested proved def statement typespecs precede def port typespecs;
+  MonitorInputPort proved stmt-context sys call args DO reparent var ts.
+- r17 = 69 PASS + 0 CMP_ONLY + 0 DUMP_ONLY of 661; UNSUP 349; DIFF 243;
+  0 crash. Goldens now 13. Next: C2 user functions (~100 tests), D1 enums.

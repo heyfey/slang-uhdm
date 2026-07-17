@@ -648,14 +648,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             continue;
         }
         auto& ae = assign.as<AssignmentExpression>();
-        if (lhsSyms)
-            collectLhsSyms(ae.left(), *lhsSyms);
+        // Only whole-net LHS assigns get netlist-elaborated (and so lose
+        // their net-typespec parent); select-LHS assigns don't.
+        if (lhsSyms) {
+            auto& lhsCore = stripImplicitConv(ae.left());
+            if (lhsCore.kind == ExpressionKind::NamedValue)
+                lhsSyms->insert(&lhsCore.as<NamedValueExpression>().symbol);
+        }
         bool literalRhs = isLiteralExpr(ae.right());
-        // Top modules share the def's cont_assign object unless the RHS
-        // contains operations or is a literal (netlist elaboration
-        // re-compiles those, folded or not).
+        // Top modules share the def's cont_assign object unless netlist
+        // elaboration re-compiles it: that happens only for whole-net LHS
+        // (RHS resized against the net width) when the RHS contains
+        // operations or is a literal. Select-LHS assigns always stay shared.
+        bool plainLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            !containsOperation(ae.right()) && !literalRhs) {
+            (!plainLhs || (!containsOperation(ae.right()) && !literalRhs))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
