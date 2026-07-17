@@ -759,3 +759,12 @@ Rules landed (each probed against goldens):
 - var_select element indices force-parent ONLY when the index is a literal
   (isLiteralExpr per index); a part_select/select index keeps its own bound
   rules (its bound constants stay unparented).
+
+## Range select of member access (r89)
+- a.b[0+:8] (range select of member access) -> hier_path {name/fullname =
+  dotted text incl. [sel], elems = base ref_obj + intermediate member
+  ref_objs + a final (indexed_)part_select for the range}. The final elem:
+  name = member, loc = member-name-start .. selector-close, vpiConstantSelect
+  when evaluable, IndexedPartSelectType for +:/-:. Unblocks the
+  IndexedPartSelectOf* tests (most still need anonymous packed struct
+  support to fully converge).

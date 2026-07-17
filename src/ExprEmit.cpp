@@ -908,6 +908,108 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     return vs;
                 }
             }
+            // Range select of a member access (a.b[0+:8]) becomes a hier_path
+            // whose last element is an (indexed_)part_select.
+            if (rs.value().kind == ExpressionKind::MemberAccess) {
+                std::vector<const Expression*> chain;
+                const Expression* base = &rs.value();
+                while (base->kind == ExpressionKind::MemberAccess) {
+                    chain.push_back(base);
+                    base = &base->as<MemberAccessExpression>().value();
+                }
+                if (base->kind == ExpressionKind::NamedValue) {
+                    auto& bnv = base->as<NamedValueExpression>();
+                    if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+                        refCollector->insert(&bnv.symbol);
+                    auto* hp = s.MakeHier_path();
+                    std::string dotted(bnv.symbol.name);
+                    for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
+                        dotted += "." +
+                                  std::string(
+                                      (*it2)->as<MemberAccessExpression>().member.name);
+                    std::string selText = rawText(SourceRange(rs.left().sourceRange.start(),
+                                                              rs.right().sourceRange.end()));
+                    dotted += "[" + selText + "]";
+                    hp->VpiName(dotted);
+                    hp->VpiFullName(dotted);
+                    hp->VpiParent(parent);
+                    setLoc(hp, expr.sourceRange);
+                    auto* elems = s.MakeAnyVec();
+                    {
+                        auto* r = s.MakeRef_obj();
+                        r->VpiName(bnv.symbol.name);
+                        (void)r->VpiFullName();
+                        r->VpiParent(hp);
+                        setLoc(r, base->sourceRange);
+                        elems->push_back(r);
+                    }
+                    for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
+                        auto& ma = (*it2)->as<MemberAccessExpression>();
+                        bool last = *it2 == chain.front();
+                        if (!last) {
+                            auto* r = s.MakeRef_obj();
+                            r->VpiName(ma.member.name);
+                            (void)r->VpiFullName();
+                            r->VpiParent(hp);
+                            auto end = (*it2)->sourceRange.end();
+                            setLoc(r, SourceRange(end - ma.member.name.size(), end));
+                            elems->push_back(r);
+                            continue;
+                        }
+                        SourceRange elemLoc(
+                            (*it2)->sourceRange.end() - ma.member.name.size(),
+                            rs.right().sourceRange.end() + 1);
+                        bool constSel = false;
+                        {
+                            ASTContext cctx(comp.getRoot(), LookupLocation::max);
+                            constSel = (rs.left().kind == ExpressionKind::IntegerLiteral ||
+                                        cctx.tryEval(rs.left())) &&
+                                       (rs.right().kind == ExpressionKind::IntegerLiteral ||
+                                        cctx.tryEval(rs.right()));
+                        }
+                        if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
+                            auto* ps = s.MakePart_select();
+                            ps->VpiName(ma.member.name);
+                            ps->VpiParent(hp);
+                            (void)ps->VpiFullName();
+                            setLoc(ps, elemLoc);
+                            if (constSel)
+                                ps->VpiConstantSelect(true);
+                            bool sup = suppressConstParent;
+                            suppressConstParent = true;
+                            if (auto* l = emitExpr(rs.left(), ps, prefix, netMap))
+                                ps->Left_range((UHDM::expr*)l);
+                            if (auto* r2 = emitExpr(rs.right(), ps, prefix, netMap))
+                                ps->Right_range((UHDM::expr*)r2);
+                            suppressConstParent = sup;
+                            elems->push_back(ps);
+                        }
+                        else {
+                            auto* ips = s.MakeIndexed_part_select();
+                            ips->VpiName(ma.member.name);
+                            ips->VpiParent(hp);
+                            (void)ips->VpiFullName();
+                            setLoc(ips, elemLoc);
+                            ips->VpiIndexedPartSelectType(
+                                rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1
+                                                                                       : 2);
+                            if (constSel)
+                                ips->VpiConstantSelect(true);
+                            bool sup = suppressConstParent;
+                            suppressConstParent = isLiteralExpr(rs.left());
+                            if (auto* b = emitExpr(rs.left(), ips, prefix, netMap))
+                                ips->Base_expr((UHDM::expr*)b);
+                            suppressConstParent = isLiteralExpr(rs.right());
+                            if (auto* w = emitExpr(rs.right(), ips, prefix, netMap))
+                                ips->Width_expr((UHDM::expr*)w);
+                            suppressConstParent = sup;
+                            elems->push_back(ips);
+                        }
+                    }
+                    hp->Path_elems(elems);
+                    return hp;
+                }
+            }
             if (rs.value().kind != ExpressionKind::NamedValue) {
                 noteUnsupported("range select base");
                 return nullptr;
