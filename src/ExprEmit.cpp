@@ -387,8 +387,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     forceConstParent = forceSaved;
                     if (a) {
                         // Function call arg refs carry a typespec ref to the
-                        // formal's typespec (tasks don't).
-                        if (isFunc && a->UhdmType() == UHDM::uhdmref_obj &&
+                        // formal's typespec (tasks don't; procedural-context
+                        // calls don't either).
+                        if (isFunc && !inProcessEmit && a->UhdmType() == UHDM::uhdmref_obj &&
                             argIdx < si.argTs.size()) {
                             auto* r = (UHDM::ref_obj*)a;
                             auto* rt = s.MakeRef_typespec();

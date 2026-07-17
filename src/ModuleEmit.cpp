@@ -306,8 +306,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         bool forceSaved = forceConstParent;
                         if (!enumRef)
                             forceConstParent = true;
-                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                        if (auto* e = emitExpr(ic, v, fullName, topNets)) {
+                            // Bare-decimal inits size at the var type width.
+                            if (e->UhdmType() == UHDM::uhdmconstant &&
+                                rawText(ic.sourceRange).find('\'') == std::string::npos)
+                                ((UHDM::constant*)e)->VpiSize(
+                                    (int32_t)dt->getType().getBitWidth());
                             v->Expr((UHDM::expr*)e);
+                        }
                         forceConstParent = forceSaved;
                     }
                 }
