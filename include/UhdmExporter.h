@@ -205,6 +205,14 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefClone;
     // Instance-view refs to vector typedefs, patched with the late wrapper.
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> pendingAliasRefs;
+    // Re-emitted size-cast typespecs are created at the end of the write
+    // phase: {ref to patch, literal range, INT value string}.
+    struct PendingCastTs {
+        UHDM::ref_typespec* rt;
+        uint32_t line, col, endLine, endCol;
+        std::string value;
+    };
+    std::vector<PendingCastTs> pendingCastTs;
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
     std::map<const slang::ast::Symbol*, UHDM::attribute*> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;

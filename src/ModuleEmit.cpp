@@ -294,14 +294,21 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 if (((UHDM::enum_typespec*)ts)->Base_typespec())
                     ((UHDM::enum_typespec*)ts)->Base_typespec()->VpiFullName(fullName);
             }
-            // Var initializers: a ref to the enum const, scoped by the var.
+            // Var initializers appear as vpiExpr on the top var (enum-const
+            // refs or literal constants, parented at the var).
             if (auto dt = it.sym->getDeclaredType()) {
                 if (auto init = dt->getInitializer()) {
                     auto& ic = stripImplicitConv(*init);
-                    if (ic.kind == ExpressionKind::NamedValue &&
-                        ic.as<NamedValueExpression>().symbol.kind == SymbolKind::EnumValue) {
+                    bool enumRef = ic.kind == ExpressionKind::NamedValue &&
+                                   ic.as<NamedValueExpression>().symbol.kind ==
+                                       SymbolKind::EnumValue;
+                    if (enumRef || isLiteralExpr(ic)) {
+                        bool forceSaved = forceConstParent;
+                        if (!enumRef)
+                            forceConstParent = true;
                         if (auto* e = emitExpr(ic, v, fullName, topNets))
                             v->Expr((UHDM::expr*)e);
+                        forceConstParent = forceSaved;
                     }
                 }
             }
@@ -309,6 +316,20 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 auto* av = s.MakeAttributeVec();
                 av->push_back(ait->second);
                 v->Attributes(av);
+            }
+            // Vars creation-parent their (non-typedef) typespec like nets;
+            // a shared decl-group ts ends at the group's last var.
+            if (ts->UhdmType() != UHDM::uhdmenum_typespec &&
+                ts->UhdmType() != UHDM::uhdmstruct_typespec && ts->VpiName().empty())
+                ts->VpiParent(v);
+            // Initialized plain-typed vars span declarator..init.
+            if (auto dtl = it.sym->getDeclaredType();
+                dtl && dtl->getInitializer() && ts->VpiName().empty()) {
+                if (auto dsyn = it.sym->getSyntax()) {
+                    auto dr = dsyn->sourceRange();
+                    if (dr.start() != SourceLocation::NoLocation)
+                        setLoc(v, dr);
+                }
             }
             topNets[it.sym] = v;
             sigOrder.emplace_back(it.sym, v);
@@ -466,30 +487,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         if (it == topNets.end())
             continue;
         auto* ex = (UHDM::expr*)it->second;
-        if (ex->UhdmType() != UHDM::uhdmlogic_net)
-            continue;
-        if (ex->Typespec() && ex->Typespec()->Actual_typespec())
-            ex->Typespec()->Actual_typespec()->VpiParent(nullptr);
-    }
-
-    // Variables (not nets) get their typespec parent only when referenced in
-    // processes, re-emitted cont_assigns, or child connections (Surelog's
-    // rebind behavior).
-    {
-        auto dit = defMap.find(&def);
-        for (auto& [sym, obj] : sigOrder) {
-            auto ut = ((UHDM::any*)obj)->UhdmType();
-            if (ut == UHDM::uhdmlogic_net || ut == UHDM::uhdmstruct_net)
-                continue;
-            bool touched = instRefs.count(sym) ||
-                           (dit != defMap.end() && dit->second.processRefs.count(sym));
-            if (!touched)
-                continue;
-            auto* ex = (UHDM::expr*)obj;
-            // Typedef typespecs keep their module parent.
-            if (ex->Typespec() && ex->Typespec()->Actual_typespec() &&
-                ex->Typespec()->Actual_typespec()->UhdmType() != UHDM::uhdmenum_typespec)
-                ex->Typespec()->Actual_typespec()->VpiParent(ex);
+        if (ex->Typespec() && ex->Typespec()->Actual_typespec()) {
+            auto* a = ex->Typespec()->Actual_typespec();
+            if (a->UhdmType() != UHDM::uhdmenum_typespec &&
+                a->UhdmType() != UHDM::uhdmstruct_typespec)
+                a->VpiParent(nullptr);
         }
     }
 
@@ -781,6 +783,17 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         if (!ts)
             ts = makeTypespec(*pn.sym);
         (void)anonEnum;
+        // Initialized decls extend the def-view typespec through the init.
+        if (auto dtl = pn.sym->getDeclaredType();
+            dtl && dtl->getInitializer() && ts->VpiName().empty()) {
+            if (auto dsyn = pn.sym->getSyntax()) {
+                auto dr = dsyn->sourceRange();
+                if (dr.start() != SourceLocation::NoLocation) {
+                    ts->VpiEndLineNo(sm->getLineNumber(dr.end()));
+                    ts->VpiEndColumnNo(sm->getColumnNumber(dr.end()));
+                }
+            }
+        }
         pn.rt->Actual_typespec(ts);
     }
     tfContext = false;
@@ -835,6 +848,18 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         pendingIoTs.clear();
     }
 
+    // Deferred re-emitted cast typespecs (very end of the write phase).
+    for (auto& pc : pendingCastTs) {
+        auto* its = s.MakeInteger_typespec();
+        its->VpiLineNo(pc.line);
+        its->VpiColumnNo(pc.col);
+        its->VpiEndLineNo(pc.endLine);
+        its->VpiEndColumnNo(pc.endCol);
+        its->VpiValue(pc.value);
+        its->VpiParent(pc.rt);
+        pc.rt->Actual_typespec(its);
+    }
+    pendingCastTs.clear();
 }
 
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,

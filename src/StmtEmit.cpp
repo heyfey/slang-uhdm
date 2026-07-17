@@ -267,6 +267,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 auto* ie = s.MakeIf_else();
                 ie->VpiParent(parent);
                 setLoc(ie, stmt.sourceRange);
+                if (cs.check == UniquePriorityCheck::Unique)
+                    ie->VpiQualifier(vpiUniqueQualifier);
+                else if (cs.check == UniquePriorityCheck::Priority)
+                    ie->VpiQualifier(vpiPriorityQualifier);
                 if (auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap))
                     ie->VpiCondition((UHDM::expr*)c);
                 if (auto* t = emitStmt(cs.ifTrue, ie, prefix, netMap))
@@ -278,6 +282,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* is = s.MakeIf_stmt();
             is->VpiParent(parent);
             setLoc(is, stmt.sourceRange);
+            if (cs.check == UniquePriorityCheck::Unique)
+                is->VpiQualifier(vpiUniqueQualifier);
+            else if (cs.check == UniquePriorityCheck::Priority)
+                is->VpiQualifier(vpiPriorityQualifier);
             if (auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap))
                 is->VpiCondition((UHDM::expr*)c);
             if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
@@ -367,6 +375,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* uc = s.MakeCase_stmt();
             uc->VpiParent(parent);
             setLoc(uc, stmt.sourceRange);
+            switch (cs.check) {
+                case UniquePriorityCheck::Unique:
+                    uc->VpiQualifier(vpiUniqueQualifier);
+                    break;
+                case UniquePriorityCheck::Priority:
+                    uc->VpiQualifier(vpiPriorityQualifier);
+                    break;
+                default:
+                    break;
+            }
             switch (cs.condition) {
                 case CaseStatementCondition::Normal:
                     uc->VpiCaseType(vpiCaseExact);

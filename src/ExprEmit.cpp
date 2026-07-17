@@ -225,6 +225,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 c->VpiConstType(vpiUIntConst);
             }
             else {
+                // Unsized based literals ('h1) size like unbased-unsized.
+                if (tick == 0)
+                    c->VpiSize(-1);
                 size_t basePos = tick + 1;
                 if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))
                     basePos++;
@@ -284,14 +287,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::SignedCastExpression) {
                 noteUnsupported("signed cast form");
             }
+            bool deferredCast = false;
             if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::CastExpression) {
                 auto& cesyn = expr.syntax->as<syntax::CastExpressionSyntax>();
                 if (cesyn.left->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
-                    auto* its = s.MakeInteger_typespec();
-                    setLoc(its, cesyn.left->sourceRange());
-                    its->VpiValue("INT:" + rawText(cesyn.left->sourceRange()));
-                    cts = its;
+                    if (reemitting) {
+                        // Created at the end of the write phase.
+                        auto* rt0 = s.MakeRef_typespec();
+                        rt0->VpiFullName(prefix);
+                        rt0->VpiParent(op);
+                        auto lr = cesyn.left->sourceRange();
+                        pendingCastTs.push_back(
+                            {rt0, sm->getLineNumber(lr.start()),
+                             sm->getColumnNumber(lr.start()),
+                             sm->getLineNumber(lr.end()), sm->getColumnNumber(lr.end()),
+                             "INT:" + rawText(lr)});
+                        op->Typespec(rt0);
+                        deferredCast = true;
+                    }
+                    else {
+                        auto* its = s.MakeInteger_typespec();
+                        setLoc(its, cesyn.left->sourceRange());
+                        its->VpiValue("INT:" + rawText(cesyn.left->sourceRange()));
+                        cts = its;
+                    }
                 }
+            }
+            if (deferredCast) {
+                auto* operandsD = s.MakeAnyVec();
+                if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
+                    operandsD->push_back(e);
+                op->Operands(operandsD);
+                return op;
             }
             if (!cts) {
                 auto& ct = expr.type->getCanonicalType();
@@ -530,8 +557,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* psel = s.MakePart_select();
             psel->VpiName(nv.symbol.name);
             psel->VpiDefName(nv.symbol.name);
-            psel->VpiFullName(prefix + "." + std::string(nv.symbol.name));
             psel->VpiParent(parent);
+            // Fullname is frozen from the parent chain (matches Surelog's
+            // lazily-computed values, incl. the doubled name under a
+            // bit_select index).
+            (void)psel->VpiFullName();
             setLoc(psel, expr.sourceRange);
             bool constSel = rs.left().kind == ExpressionKind::IntegerLiteral &&
                             rs.right().kind == ExpressionKind::IntegerLiteral;
