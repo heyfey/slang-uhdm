@@ -21,6 +21,7 @@ class Statement;
 class Expression;
 class ProceduralBlockSymbol;
 class PortSymbol;
+class TimingControl;
 } // namespace slang::ast
 
 namespace slang {
@@ -28,6 +29,10 @@ class SourceManager;
 class SourceRange;
 class SourceLocation;
 } // namespace slang
+
+namespace slang::syntax {
+class SyntaxNode;
+} // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
 
@@ -67,11 +72,17 @@ private:
     UHDM::any* emitStmt(const slang::ast::Statement& stmt, UHDM::BaseClass* parent,
                         const std::string& prefix,
                         std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap);
+    UHDM::any* emitEventExpr(const slang::ast::TimingControl& tc, UHDM::BaseClass* parent,
+                             const std::string& prefix,
+                             std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap);
+    std::string rawText(slang::SourceRange range);
     UHDM::any* emitExpr(const slang::ast::Expression& expr, UHDM::BaseClass* parent,
                         const std::string& prefix,
                         std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap);
     UHDM::logic_typespec* makeTypespec(const slang::ast::Symbol& declSymbol);
     UHDM::logic_typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache);
+    UHDM::constant* makeBoundConst(const slang::syntax::SyntaxNode* syn, int64_t value,
+                                   UHDM::BaseClass* parent);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);
