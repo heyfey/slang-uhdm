@@ -685,3 +685,19 @@ Rules landed (each probed against goldens):
 - Child instance views ALSO list def task_funcs (isTop gate removed).
 - Function-local var typespecs keep UNFOLDED range bounds (tfContext),
   refs BARE (name only, no fullname).
+
+## Unpacked arrays + var_select (decoded from func_local_array golden, WIP)
+- Unpacked-array function local `reg [3:0] state[4]`:
+  array_var {loc=name span, vpiArrayType:1, ts ref -> array_typespec
+  (loc = name..dim span 7:15-7:22), vpiReg: inner logic_var (same name-span
+  loc, ts ref (fullname = the array's) -> logic_typespec of the ELEMENT
+  type span `reg [3:0]` 7:5-7:14)}. Listed in function/begin Variables.
+- Single element select state[i] -> plain bit_select (name=state) even on
+  unpacked arrays.
+- NESTED selects state[i][j] -> var_select {name/fullname of the base,
+  loc = whole select span, MULTIPLE vpiIndex entries left-to-right; each
+  index ref fullname = <base fullname>.<ref name> (selectBasePrefix quirk),
+  Actual bound normally}.
+- TODO: array_typespec construction (makeTypespec), array_var in
+  TaskFuncEmit/StmtEmit var paths, var_select flattening in ExprEmit
+  ElementSelect when base is itself a select.

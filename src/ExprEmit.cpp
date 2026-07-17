@@ -768,6 +768,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 hp->Path_elems(elems);
                 return hp;
             }
+            // Nested element selects (unpacked arrays) flatten to a
+            // var_select with one index per dimension, base-prefixed refs.
+            if (es.value().kind == ExpressionKind::ElementSelect) {
+                std::vector<const Expression*> sels;
+                const Expression* base = &expr;
+                while (base->kind == ExpressionKind::ElementSelect) {
+                    sels.push_back(&base->as<ElementSelectExpression>().selector());
+                    base = &base->as<ElementSelectExpression>().value();
+                }
+                if (base->kind == ExpressionKind::NamedValue) {
+                    auto& nv2 = base->as<NamedValueExpression>();
+                    if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+                        refCollector->insert(&nv2.symbol);
+                    auto* vs = s.MakeVar_select();
+                    vs->VpiName(nv2.symbol.name);
+                    std::string baseFull = joinRef(prefix, nv2.symbol.name);
+                    vs->VpiFullName(baseFull);
+                    vs->VpiParent(parent);
+                    setLoc(vs, expr.sourceRange);
+                    auto* idxs = s.MakeExprVec();
+                    for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2)
+                        if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
+                            idxs->push_back((UHDM::expr*)ix);
+                    vs->Exprs(idxs);
+                    return vs;
+                }
+            }
             if (es.value().kind != ExpressionKind::NamedValue) {
                 noteUnsupported("element select base");
                 return nullptr;
