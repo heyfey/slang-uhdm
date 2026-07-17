@@ -320,35 +320,51 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (auto syntax = body.getSyntax())
         setLoc(m, syntax->sourceRange());
 
-    // Nets (in port order for port-connected signals, like Surelog).
-    auto* nets = s.MakeNetVec();
+    // Nets: ANSI modules list port-backed nets before locals; non-ANSI
+    // modules list locals first (Surelog's collection order).
+    bool ansiPorts = true;
+    std::set<const Symbol*> portInternals;
     for (auto portBase : body.getPortList()) {
-        if (portBase->kind != SymbolKind::Port) {
-            noteUnsupported("port kind: " + std::string(toString(portBase->kind)));
-            continue;
+        if (portBase->kind == SymbolKind::Port) {
+            auto& ps = portBase->as<PortSymbol>();
+            if (!ps.isAnsiPort)
+                ansiPorts = false;
+            if (ps.internalSymbol)
+                portInternals.insert(ps.internalSymbol);
         }
-        auto& ps = portBase->as<PortSymbol>();
-        auto* internal = ps.internalSymbol;
-        if (!internal)
-            continue;
-
-        auto* n = s.MakeLogic_net();
-        n->VpiName(ps.name);
-        n->VpiFullName(prefix + "." + std::string(ps.name));
-        n->VpiParent(m);
-        setLocNamed(n, ps); // Surelog uses the port-list location for the net
-        if (int32_t nt = netTypeFor(*internal))
-            n->VpiNetType(nt);
-        info.nets[internal] = n;
-        nets->push_back(n);
     }
+    auto* nets = s.MakeNetVec();
+    TsCache defTs;
+    auto emitDefPortNets = [&]() {
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::Port) {
+                noteUnsupported("port kind: " + std::string(toString(portBase->kind)));
+                continue;
+            }
+            auto& ps = portBase->as<PortSymbol>();
+            auto* internal = ps.internalSymbol;
+            if (!internal)
+                continue;
+
+            auto* n = s.MakeLogic_net();
+            n->VpiName(ps.name);
+            n->VpiFullName(prefix + "." + std::string(ps.name));
+            n->VpiParent(m);
+            setLocNamed(n, ps); // Surelog uses the port-list location
+            if (int32_t nt = netTypeFor(*internal))
+                n->VpiNetType(nt);
+            info.nets[internal] = n;
+            nets->push_back(n);
+        }
+    };
+    if (ansiPorts)
+        emitDefPortNets();
     // Local (non-port) declarations stay logic_nets in the def view, but
     // carry a typespec and explicit net type.
-    TsCache defTs;
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Net && member.kind != SymbolKind::Variable)
             continue;
-        if (info.nets.count(&member))
+        if (portInternals.count(&member))
             continue;
         auto* n = s.MakeLogic_net();
         n->VpiName(member.name);
@@ -366,6 +382,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
         info.nets[&member] = n;
         nets->push_back(n);
     }
+    if (!ansiPorts)
+        emitDefPortNets();
     if (!nets->empty())
         m->Nets(nets);
 
@@ -498,8 +516,20 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     TsCache netTs;
     std::set<const Symbol*> instRefs;
     std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
+    bool ansiPorts = true;
+    std::set<const Symbol*> portInternals;
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind == SymbolKind::Port) {
+            auto& ps = portBase->as<PortSymbol>();
+            if (!ps.isAnsiPort)
+                ansiPorts = false;
+            if (ps.internalSymbol)
+                portInternals.insert(ps.internalSymbol);
+        }
+    }
     auto* nets = s.MakeNetVec();
     auto* vars = s.MakeVariablesVec();
+    auto emitInstPortNets = [&]() {
     for (auto portBase : body.getPortList()) {
         if (portBase->kind != SymbolKind::Port)
             continue;
@@ -540,12 +570,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             nets->push_back(n);
         }
     }
+    };
+    if (ansiPorts)
+        emitInstPortNets();
     // Local (non-port) declarations: logic/reg variables become logic_vars,
     // explicit nets stay logic_nets.
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Net && member.kind != SymbolKind::Variable)
             continue;
-        if (topNets.count(&member))
+        if (portInternals.count(&member))
             continue;
         std::string fullName = prefix + "." + std::string(member.name);
         auto* ts = sharedTypespec(member, netTs);
@@ -578,6 +611,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             nets->push_back(n);
         }
     }
+    if (!ansiPorts)
+        emitInstPortNets();
     if (!nets->empty())
         m->Nets(nets);
     if (!vars->empty())
@@ -863,10 +898,37 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
 
     // Packed dimensions: one uhdm range per dimension, bounds as evaluated
     // UINT constants (64-bit) that keep their source text as decompile.
+    // Dims live on IntegerTypeSyntax ("logic [7:0]") or ImplicitTypeSyntax
+    // ("input [7:0] a" / "wire [7:0] w").
     if (declared && declared->getType().isPackedArray()) {
         auto tsyn = declared->getTypeSyntax();
+        const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
         if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind)) {
-            auto& its = tsyn->as<syntax::IntegerTypeSyntax>();
+            dimSyns = &tsyn->as<syntax::IntegerTypeSyntax>().dimensions;
+        }
+        else if (tsyn && tsyn->kind == syntax::SyntaxKind::ImplicitType) {
+            auto& its = tsyn->as<syntax::ImplicitTypeSyntax>();
+            if (!its.dimensions.empty()) {
+                dimSyns = &its.dimensions;
+                // Location: net declarations span the net keyword through the
+                // dims; port declarations use the dims range alone.
+                SourceRange dr(its.dimensions[0]->sourceRange().start(),
+                               its.dimensions[its.dimensions.size() - 1]->sourceRange().end());
+                bool isNetDecl = false;
+                for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
+                    if (p->kind == syntax::SyntaxKind::NetDeclaration) {
+                        dr = SourceRange(
+                            p->as<syntax::NetDeclarationSyntax>().netType.range().start(),
+                            dr.end());
+                        isNetDecl = true;
+                        break;
+                    }
+                }
+                (void)isNetDecl;
+                setLoc(ts, dr);
+            }
+        }
+        if (dimSyns) {
             std::vector<ConstantRange> dims;
             const Type* t = &declared->getType().getCanonicalType();
             while (t->isPackedArray()) {
@@ -874,10 +936,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
                 dims.push_back(pat.range);
                 t = &pat.elementType.getCanonicalType();
             }
-            if (dims.size() == its.dimensions.size()) {
+            if (dims.size() == dimSyns->size()) {
                 auto* ranges = s.MakeRangeVec();
                 for (size_t i = 0; i < dims.size(); i++) {
-                    auto* dimSyn = its.dimensions[i];
+                    auto* dimSyn = (*dimSyns)[i];
                     auto* r = s.MakeRange();
                     r->VpiParent(ts);
                     setLoc(r, dimSyn->sourceRange());
