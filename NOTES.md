@@ -138,3 +138,9 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
   516 UNSUPPORTED, 0 crash. r3: after local decls + selects + sharing.
 - Next features by corpus frequency: for loops, case statements,
   member access (structs), function calls, parameters/paramod, generate.
+- r3 (local decls + selects + sharing): 11 PASS, 15 CMP_ONLY, 135 DIFF,
+  497 UNSUPPORTED, 0 CRASH. Case statements landed after r3; r4 running.
+- Case shapes: case_stmt VpiCaseType (1 exact / 2 casex / 3 casez),
+  condition parented at enclosing scope (same quirk as if), case_item loc
+  from the case-item syntax (through ';'), item constants parented,
+  multi-expr comma items in one case_item, default = case_item w/o exprs.
