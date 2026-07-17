@@ -832,6 +832,32 @@ static SourceLocation firstDeclaratorLoc(const Symbol& sym) {
             decls = &p->as<syntax::DataDeclarationSyntax>().declarators;
         if (decls && !decls->empty())
             return (*decls)[0]->name.location();
+
+        // ANSI header groups ("input clk, clr"): anchor at the first port of
+        // the group (the one that carries the direction token).
+        if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort && p->parent) {
+            auto& list = *p->parent;
+            const syntax::ImplicitAnsiPortSyntax* groupStart = nullptr;
+            for (size_t i = 0; i < list.getChildCount(); i++) {
+                auto child = list.childNode(i);
+                if (!child || child->kind != syntax::SyntaxKind::ImplicitAnsiPort)
+                    continue;
+                auto& ap = child->as<syntax::ImplicitAnsiPortSyntax>();
+                bool hasHeaderTokens = false;
+                if (ap.header->kind == syntax::SyntaxKind::VariablePortHeader) {
+                    auto& vh = ap.header->as<syntax::VariablePortHeaderSyntax>();
+                    hasHeaderTokens = vh.direction.valid() || vh.varKeyword.valid() ||
+                                      vh.dataType->kind != syntax::SyntaxKind::ImplicitType;
+                }
+                else {
+                    hasHeaderTokens = true;
+                }
+                if (hasHeaderTokens || !groupStart)
+                    groupStart = &ap;
+                if (child == p)
+                    return groupStart->declarator->name.location();
+            }
+        }
     }
     return sym.location;
 }
@@ -1189,7 +1215,16 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
         case TimingControlKind::EventList: {
             auto& el = tc.as<EventListControl>();
             auto* op = s.MakeOperation();
-            op->VpiOpType(vpiEventOrOp);
+            // "a or b" -> vpiEventOrOp; "a, b" -> vpiListOp. The AST doesn't
+            // keep the separator, so peek at the source between events.
+            int32_t lop = vpiEventOrOp;
+            if (el.events.size() >= 2) {
+                auto between = rawText(SourceRange(el.events[0]->sourceRange.end(),
+                                                   el.events[1]->sourceRange.start()));
+                if (between.find(',') != std::string::npos)
+                    lop = vpiListOp;
+            }
+            op->VpiOpType(lop);
             op->VpiParent(parent);
             // slang's event list range includes the parens; Surelog spans the
             // events only.
@@ -1277,32 +1312,59 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 return result;
             }
+            UHDM::scope* b = nullptr;
+            std::string innerPrefix = prefix;
             if (bs.blockSymbol && !bs.blockSymbol->name.empty()) {
-                noteUnsupported("named block");
-                return nullptr;
+                auto* nb = s.MakeNamed_begin();
+                nb->VpiName(bs.blockSymbol->name);
+                innerPrefix = prefix + "." + std::string(bs.blockSymbol->name);
+                nb->VpiFullName(innerPrefix);
+                // Anchored at the block name token.
+                auto nl = bs.blockSymbol->location;
+                setLoc(nb, SourceRange(nl, nl + bs.blockSymbol->name.size()));
+                b = nb;
             }
-            auto* b = s.MakeBegin();
+            else {
+                auto* ub = s.MakeBegin();
+                ub->VpiFullName(prefix);
+                // stmt.sourceRange covers only the body; the syntax node
+                // covers the full begin..end region that Surelog reports.
+                if (stmt.syntax)
+                    setLoc(ub, stmt.syntax->sourceRange());
+                else
+                    setLoc(ub, stmt.sourceRange);
+                b = ub;
+            }
             b->VpiParent(parent);
-            b->VpiFullName(prefix);
-            // stmt.sourceRange covers only the body; the syntax node covers
-            // the full begin..end region that Surelog reports.
-            if (stmt.syntax)
-                setLoc(b, stmt.syntax->sourceRange());
-            else
-                setLoc(b, stmt.sourceRange);
             auto* stmts = s.MakeAnyVec();
             auto& body = bs.body;
             if (body.kind == StatementKind::List) {
                 for (auto st : body.as<StatementList>().list) {
-                    if (auto* u = emitStmt(*st, b, prefix, netMap))
+                    if (auto* u = emitStmt(*st, b, innerPrefix, netMap))
                         stmts->push_back(u);
                 }
             }
-            else if (auto* u = emitStmt(body, b, prefix, netMap)) {
+            else if (auto* u = emitStmt(body, b, innerPrefix, netMap)) {
                 stmts->push_back(u);
             }
-            b->Stmts(stmts);
+            if (b->UhdmType() == UHDM::uhdmnamed_begin)
+                ((UHDM::named_begin*)b)->Stmts(stmts);
+            else
+                ((UHDM::begin*)b)->Stmts(stmts);
             return b;
+        }
+        case StatementKind::RepeatLoop: {
+            auto& rl = stmt.as<RepeatLoopStatement>();
+            auto* r = s.MakeRepeat();
+            r->VpiParent(parent);
+            setLoc(r, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 6));
+            suppressConstParent = true;
+            if (auto* c = emitExpr(rl.count, r, prefix, netMap))
+                r->VpiCondition((UHDM::expr*)c);
+            suppressConstParent = false;
+            if (auto* b = emitStmt(rl.body, r, prefix, netMap))
+                r->VpiStmt(b);
+            return r;
         }
         case StatementKind::Conditional: {
             auto& cs = stmt.as<ConditionalStatement>();
@@ -1700,14 +1762,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::RangeSelect: {
             auto& rs = expr.as<RangeSelectExpression>();
-            if (rs.value().kind != ExpressionKind::NamedValue ||
-                rs.getSelectionKind() != RangeSelectionKind::Simple) {
-                noteUnsupported("range select form");
+            if (rs.value().kind != ExpressionKind::NamedValue) {
+                noteUnsupported("range select base");
                 return nullptr;
             }
             auto& nv = rs.value().as<NamedValueExpression>();
             if (refCollector)
                 refCollector->insert(&nv.symbol);
+            if (rs.getSelectionKind() != RangeSelectionKind::Simple) {
+                auto* ips = s.MakeIndexed_part_select();
+                ips->VpiName(nv.symbol.name);
+                ips->VpiDefName(nv.symbol.name);
+                ips->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+                ips->VpiParent(parent);
+                setLoc(ips, SourceRange(rs.left().sourceRange.start(),
+                                        rs.right().sourceRange.end()));
+                ips->VpiIndexedPartSelectType(
+                    rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1 : 2);
+                if (rs.left().kind == ExpressionKind::IntegerLiteral &&
+                    rs.right().kind == ExpressionKind::IntegerLiteral)
+                    ips->VpiConstantSelect(true);
+                suppressConstParent = true;
+                if (auto* b = emitExpr(rs.left(), ips, prefix, netMap))
+                    ips->Base_expr((UHDM::expr*)b);
+                if (auto* w = emitExpr(rs.right(), ips, prefix, netMap))
+                    ips->Width_expr((UHDM::expr*)w);
+                suppressConstParent = false;
+                return ips;
+            }
             auto* psel = s.MakePart_select();
             psel->VpiName(nv.symbol.name);
             psel->VpiDefName(nv.symbol.name);
