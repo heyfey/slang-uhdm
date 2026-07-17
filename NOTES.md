@@ -626,3 +626,8 @@ Rules landed (each probed against goldens):
   parent (select LHS keeps it) - same rule as module CAs.
 - emitSyntaxExpr gained comparison/logical/bitwise binary ops and name-only
   InvocationExpression.
+
+## Design-level ($unit) functions (r77)
+- Compilation-unit functions attach to the DESIGN object's Task_funcs: bare
+  name as fullname, vpiMethod:1, no vpiInstance, emitted once (before any
+  module), normal linked call sites.

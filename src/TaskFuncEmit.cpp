@@ -24,6 +24,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                  const std::string& prefix, DefInfo* info,
                                  bool sharedScope) {
     bool genScope = m->UhdmType() == UHDM::uhdmgen_scope;
+    bool designScope = m->UhdmType() == UHDM::uhdmdesign;
     // Packages use :: separators below the function name too.
     bool pkgScope = prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0;
     std::string sep = pkgScope ? "::" : ".";
@@ -35,7 +36,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             continue;
         auto& sub = member.as<SubroutineSymbol>();
         bool isFunc = sub.subroutineKind == SubroutineKind::Function;
-        std::string fullName = joinPath(prefix, sub.name);
+        std::string fullName = prefix.empty() ? std::string(sub.name)
+                                              : joinPath(prefix, sub.name);
 
         // Reuse a shell created by an early (param-init) call site. Package
         // top-view re-emission must NOT reuse the def copy.
@@ -60,7 +62,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         }
         if (auto syn = sub.getSyntax())
             setLoc(tf, syn->sourceRange());
-        if (!genScope)
+        if (designScope)
+            tf->VpiMethod(true);
+        if (!genScope && !designScope)
             tf->Instance((UHDM::instance*)m);
 
         SubInfo si;
@@ -248,6 +252,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     if (!tfs->empty()) {
         if (genScope)
             ((UHDM::gen_scope*)m)->Task_funcs(tfs);
+        else if (designScope)
+            ((UHDM::design*)m)->Task_funcs(tfs);
         else
             ((UHDM::instance*)m)->Task_funcs(tfs);
     }

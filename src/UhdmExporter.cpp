@@ -91,6 +91,10 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->TopPackages(topP);
     }
 
+    // $unit (compilation-unit) functions live on the design object.
+    for (auto unit : comp.getCompilationUnits())
+        emitTaskFuncs(*unit, d, "", nullptr);
+
     auto* allMods = s.MakeModule_instVec();
     auto* topMods = s.MakeModule_instVec();
 
