@@ -502,9 +502,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     bool enumRef = ic.kind == ExpressionKind::NamedValue &&
                                    ic.as<NamedValueExpression>().symbol.kind ==
                                        SymbolKind::EnumValue;
-                    if (enumRef || isLiteralExpr(ic)) {
+                    bool concatInit = ic.kind == ExpressionKind::Concatenation;
+                    if (enumRef || isLiteralExpr(ic) || concatInit) {
                         bool forceSaved = forceConstParent;
-                        if (!enumRef)
+                        // Concat ops self-parent; only bare literals need the
+                        // force (which would leak into concat operands).
+                        if (!enumRef && !concatInit)
                             forceConstParent = true;
                         if (auto* e = emitExpr(ic, v, fullName, topNets)) {
                             // Bare-decimal inits size at the var type width.

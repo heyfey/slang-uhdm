@@ -701,3 +701,10 @@ Rules landed (each probed against goldens):
 - TODO: array_typespec construction (makeTypespec), array_var in
   TaskFuncEmit/StmtEmit var paths, var_select flattening in ExprEmit
   ElementSelect when base is itself a select.
+
+## var_select indices + concat var inits (r83)
+- var_select index expressions parent at the var_select (forceConstParent
+  around index emission); index refs already parent normally.
+- Top-var concatenation initializers ({a,b}) emit as vpiExpr (concat op,
+  self-parenting at the var); operands stay UNparented (don't force-parent
+  concat inits, only bare literals).

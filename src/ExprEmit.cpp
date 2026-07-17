@@ -788,9 +788,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     vs->VpiParent(parent);
                     setLoc(vs, expr.sourceRange);
                     auto* idxs = s.MakeExprVec();
+                    bool savedFCP = forceConstParent;
+                    forceConstParent = true;
                     for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2)
                         if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
                             idxs->push_back((UHDM::expr*)ix);
+                    forceConstParent = savedFCP;
                     vs->Exprs(idxs);
                     return vs;
                 }
