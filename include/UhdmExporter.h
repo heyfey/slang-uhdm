@@ -21,6 +21,7 @@ class Statement;
 class Expression;
 class ProceduralBlockSymbol;
 class PortSymbol;
+class ParameterSymbol;
 class TimingControl;
 } // namespace slang::ast
 
@@ -64,6 +65,15 @@ private:
         std::vector<UHDM::process_stmt*> processes;
         std::vector<UHDM::cont_assign*> contAssigns;
         std::set<const slang::ast::Symbol*> processRefs;
+        std::map<const slang::ast::Symbol*, UHDM::typespec*> paramTs;
+    };
+
+    struct PendingParamTs {
+        const slang::ast::ParameterSymbol* ps;
+        UHDM::parameter* up;
+        UHDM::ref_typespec* prt;
+        UHDM::ref_typespec* rhsRt;
+        bool typedParam;
     };
 
     UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst);
@@ -74,6 +84,8 @@ private:
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
+    void emitParameters(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+                        const std::string& prefix, NetMap& netMap, bool topView, DefInfo* di);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
@@ -88,6 +100,10 @@ private:
     UHDM::any* emitExpr(const slang::ast::Expression& expr, UHDM::BaseClass* parent,
                         const std::string& prefix, NetMap& netMap);
     UHDM::any* tryFoldConst(const slang::ast::Expression& expr);
+    bool isIntEncoded(const slang::ast::Expression& e);
+    void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
+    void patchParamTypespecs();
+    UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam);
 
     UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol);
     UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache);
@@ -114,6 +130,8 @@ private:
     bool reemitting = false;
     bool forceConstParent = false;
     bool inLhs = false;
+    std::map<const slang::ast::Symbol*, bool> paramIntEnc;
+    std::vector<PendingParamTs> pendingParamTs;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
 
