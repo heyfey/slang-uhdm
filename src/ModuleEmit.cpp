@@ -109,6 +109,26 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (!procs->empty())
         m->Process(procs);
 
+    // Def view keeps only a gen_region placeholder per generate construct
+    // (an unlocated begin naming the module scope).
+    {
+        auto* regions = s.MakeGen_stmtVec();
+        for (auto& member : body.members()) {
+            if (member.kind != SymbolKind::GenerateBlockArray &&
+                member.kind != SymbolKind::GenerateBlock)
+                continue;
+            auto* gr = s.MakeGen_region();
+            gr->VpiParent(m);
+            auto* b = s.MakeBegin();
+            b->VpiFullName(prefix);
+            b->VpiParent(gr);
+            gr->VpiStmt(b);
+            regions->push_back(gr);
+        }
+        if (!regions->empty())
+            m->Gen_stmts(regions);
+    }
+
     // Def-view ports share one typespec object per declaration (Surelog's
     // TypespecCache behavior), with no parent set; their param-dim bounds
     // are folded (recompiled), unlike local-net typespecs.
@@ -404,6 +424,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         &caLhsSyms);
     }
 
+    // Generate scopes exist only in the instance view.
+    emitGenScopes(body, m, prefix, topNets);
+
     // Deferred typespecs drain in the second (port) pass over top instances.
 
     // Nets got their typespec parent at creation; a cont_assign LHS
@@ -483,6 +506,125 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     }
 
     return m;
+}
+
+// Generate blocks: one gen_scope_array + gen_scope per unrolled iteration
+// (instance view only). The genvar becomes an unlocated localparam.
+void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_inst* m,
+                                 const std::string& prefix, NetMap& netMap) {
+    auto* gsas = s.MakeGen_scope_arrayVec();
+    auto emitBlock = [&](const GenerateBlockSymbol& blk, const std::string& name) {
+        std::string fullName = prefix + "." + name;
+        auto* gsa = s.MakeGen_scope_array();
+        gsa->VpiName(name);
+        gsa->VpiFullName(fullName);
+        gsa->VpiParent(m);
+        auto* gs = s.MakeGen_scope();
+        gs->VpiFullName(fullName);
+        gs->VpiParent(gsa);
+        if (auto syn = blk.getSyntax()) {
+            setLoc(gsa, syn->sourceRange());
+            setLoc(gs, syn->sourceRange());
+        }
+        auto* gv = s.MakeGen_scopeVec();
+        gv->push_back(gs);
+        gsa->Gen_scopes(gv);
+
+        // Genvar localparam: line of the generate loop, column 0, no end.
+        auto* params = s.MakeAnyVec();
+        for (auto& gm : blk.members()) {
+            if (gm.kind != SymbolKind::Parameter)
+                continue;
+            auto& ps = gm.as<ParameterSymbol>();
+            auto* up = s.MakeParameter();
+            up->VpiName(ps.name);
+            up->VpiFullName(fullName + "." + std::string(ps.name));
+            up->VpiParent(gs);
+            up->VpiLocalParam(true);
+            auto& cv = ps.getValue();
+            if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                bool neg = cv.integer().isSigned() && cv.integer().isNegative();
+                std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+                up->VpiValue((neg ? "INT:" : "UINT:") + digits);
+            }
+            if (auto syn = blk.getSyntax()) {
+                up->VpiLineNo(sm->getLineNumber(syn->sourceRange().start()));
+                up->VpiColumnNo(0);
+            }
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(fullName + "." + std::string(ps.name));
+            rt->VpiParent(up);
+            // Actual int_typespec created at the end of the write phase.
+            pendingIoTs.push_back({rt, rt});
+            up->Typespec(rt);
+            params->push_back(up);
+        }
+        if (!params->empty())
+            gs->Parameters(params);
+
+        // Contents: cont_assigns and processes with gen-scoped prefixes.
+        auto* cas = s.MakeCont_assignVec();
+        for (auto& gm : blk.members()) {
+            if (gm.kind != SymbolKind::ContinuousAssign)
+                continue;
+            auto& casym = gm.as<ContinuousAssignSymbol>();
+            auto& assign = casym.getAssignment();
+            if (assign.kind != ExpressionKind::Assignment)
+                continue;
+            auto& ae = assign.as<AssignmentExpression>();
+            auto* ca = s.MakeCont_assign();
+            ca->VpiParent(gs);
+            setLoc(ca, assign.sourceRange);
+            bool forceSaved = forceConstParent;
+            if (isLiteralExpr(ae.right()))
+                forceConstParent = true;
+            if (auto* rhs = emitExpr(ae.right(), ca, fullName, netMap))
+                ca->Rhs((UHDM::expr*)rhs);
+            forceConstParent = forceSaved;
+            inLhs = true;
+            if (auto* l = emitExpr(ae.left(), ca, fullName, netMap))
+                ca->Lhs((UHDM::expr*)l);
+            inLhs = false;
+            cas->push_back(ca);
+        }
+        if (!cas->empty())
+            gs->Cont_assigns(cas);
+
+        auto* procs = s.MakeProcess_stmtVec();
+        for (auto& gm : blk.members()) {
+            if (gm.kind == SymbolKind::ProceduralBlock) {
+                if (auto* p = emitProcess(gm.as<ProceduralBlockSymbol>(), m, fullName, netMap)) {
+                    p->VpiParent(gs);
+                    procs->push_back(p);
+                }
+            }
+        }
+        if (!procs->empty())
+            gs->Process(procs);
+
+        gsas->push_back(gsa);
+    };
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::GenerateBlockArray) {
+            auto& arr = member.as<GenerateBlockArraySymbol>();
+            for (auto entry : arr.entries) {
+                if (entry->isUninstantiated)
+                    continue;
+                std::string idx;
+                if (entry->arrayIndex)
+                    idx = entry->arrayIndex->toString(LiteralBase::Decimal, false);
+                std::string name = std::string(arr.getExternalName()) + "[" + idx + "]";
+                emitBlock(*entry, name);
+            }
+        }
+        else if (member.kind == SymbolKind::GenerateBlock) {
+            auto& blk = member.as<GenerateBlockSymbol>();
+            if (!blk.isUninstantiated)
+                emitBlock(blk, std::string(blk.getExternalName()));
+        }
+    }
+    if (!gsas->empty())
+        m->Gen_scope_arrays(gsas);
 }
 
 // Second pass over a top instance: ports, then that top's deferred
@@ -619,6 +761,11 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     {
         std::map<const void*, UHDM::typespec*> bareCache;
         for (auto& [rt, key] : pendingIoTs) {
+            // Key == the ref itself marks a genvar param (int, never shared).
+            if (key == rt) {
+                rt->Actual_typespec(s.MakeInt_typespec());
+                continue;
+            }
             auto& slot = bareCache[key];
             if (!slot)
                 slot = s.MakeLogic_typespec();

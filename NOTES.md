@@ -330,3 +330,41 @@ Net collection order rework:
   INT constants; parented only in write-phase instances).
 - r22 78 PASS; r23 91 PASS + 0 CMP_ONLY (91 of 661), UNSUP 341, DIFF 229,
   0 crash. Goldens 17.
+
+## Session 3: D1 enums/typedefs + E2 generate (2026-07-17)
+
+Enums (probed enum_simple/AnonymousEnum/enum_values goldens):
+- typedef enum -> enum_typespec in module Typespecs: name, whole-decl loc
+  (incl. semicolon), module parent+Instance, SHARED across views and all
+  declarations. Base_typespec ref (fullname mod.alias) -> logic ts at base
+  syntax — only when an explicit base type is declared. File-level
+  (compilation-unit) typedefs attach to design Typespecs NAME-SORTED with
+  design as parent/Instance (cast into the instance field).
+- enum_const values: based literal init -> literal encoding + literal size;
+  bare-decimal init -> UINT size 64; implicit -> INT at base width (64 if
+  no explicit base). No ConstType. Loc = declarator span.
+- Anonymous enums: unnamed/unlocated enum_typespec; instance view shares
+  per decl-group, parent + base-ref fullname = LAST user; def view gets a
+  FRESH unparented one per net (empty base-ref fullname), drained in
+  name-sorted def order. Enum vars = enum_var (Visibility 1); refs to enum
+  values bind enum_consts; top CA with enum-const RHS re-emits a loc-less
+  constant clone; top var initializers appear as vpiExpr refs scoped by
+  the var fullname.
+- (* attributes *): Surelog keeps only the LAST spec; the attribute object
+  is created on the def net and SHARED with the top var. Loc = spec syntax.
+- Built-in method calls (e.first) come without '$' from slang and need
+  hier_path shapes — flagged unsupported for now.
+
+Generate (probed 4-iter for-generate + gen_test6):
+- Instance view ONLY: per unrolled iteration one gen_scope_array + one
+  gen_scope (both named g[N], loc = block syntax). Genvar = localparam
+  UINT:<iter>, loc = line of the loop with COLUMN 0 and no end, ts ref ->
+  unlocated int_typespec created at the END of the write phase. Genvar
+  refs in exprs stay UNBOUND (no Actual). Contents use gen-scoped
+  fullname prefixes but bind module nets; literal CA RHS constants are
+  parented at the cont_assign.
+- Def view: only a gen_region placeholder per generate construct with an
+  unlocated begin naming the module scope.
+- r25 95, r26 95 (+gen DIFF 215->205), r27 96 PASS + 0 CMP_ONLY of 661.
+  UNSUP rose to 360 (gen scopes surface inner unsupported constructs
+  honestly). Goldens 20.

@@ -114,6 +114,8 @@ private:
                                     NetMap* parentNets,
                                     std::set<const slang::ast::Symbol*>* parentRefs, bool isTop);
     void emitTopPorts(TopPending& tp);
+    void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+                       const std::string& prefix, NetMap& netMap);
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
