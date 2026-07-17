@@ -41,16 +41,33 @@ namespace slang_uhdm {
 
 static constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
+// ANSI net-port headers ("input wire x") carry the net keyword token.
+static const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) {
+    for (auto p = internal.getSyntax(); p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+            auto& ap = p->as<syntax::ImplicitAnsiPortSyntax>();
+            if (ap.header->kind == syntax::SyntaxKind::NetPortHeader) {
+                auto& nh = ap.header->as<syntax::NetPortHeaderSyntax>();
+                if (nh.netType.valid())
+                    return &nh;
+            }
+            return nullptr;
+        }
+    }
+    return nullptr;
+}
+
 // Surelog derives vpiNetType from the declared type keyword: explicit
 // `logic` -> vpiNet, `reg` -> vpiReg, implicit -> unset; explicit net
 // keywords map to their vpi net types.
 static int32_t netTypeFor(const Symbol& internal) {
     if (internal.kind == SymbolKind::Net) {
-        // Explicit net declarations ("wire w;") carry the net kind; implicit
-        // port-backed nets do not print a net type.
+        // Explicit net declarations ("wire w;") and ANSI net-port headers
+        // ("input wire x") carry the net kind; implicit port-backed nets do
+        // not print a net type.
         auto& nt = internal.as<NetSymbol>().netType;
-        bool explicitDecl = false;
-        for (auto p = internal.getSyntax(); p; p = p->parent) {
+        bool explicitDecl = ansiNetHeader(internal) != nullptr;
+        for (auto p = internal.getSyntax(); !explicitDecl && p; p = p->parent) {
             if (p->kind == syntax::SyntaxKind::NetDeclaration) {
                 explicitDecl = true;
                 break;
@@ -1069,12 +1086,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
         }
     }
     // Implicit-typed explicit net declarations anchor at the net keyword
-    // ("wire w;" -> the wire token).
+    // ("wire w;" / "input wire x" -> the wire token).
     if (!explicitType && declSymbol.kind == SymbolKind::Net) {
-        for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
-            if (p->kind == syntax::SyntaxKind::NetDeclaration) {
-                range = p->as<syntax::NetDeclarationSyntax>().netType.range();
-                break;
+        if (auto nh = ansiNetHeader(declSymbol)) {
+            range = nh->netType.range();
+        }
+        else {
+            for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
+                if (p->kind == syntax::SyntaxKind::NetDeclaration) {
+                    range = p->as<syntax::NetDeclarationSyntax>().netType.range();
+                    break;
+                }
             }
         }
     }
@@ -1132,17 +1154,19 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
                 // dims; port declarations use the dims range alone.
                 SourceRange dr(its.dimensions[0]->sourceRange().start(),
                                its.dimensions[its.dimensions.size() - 1]->sourceRange().end());
-                bool isNetDecl = false;
-                for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
-                    if (p->kind == syntax::SyntaxKind::NetDeclaration) {
-                        dr = SourceRange(
-                            p->as<syntax::NetDeclarationSyntax>().netType.range().start(),
-                            dr.end());
-                        isNetDecl = true;
-                        break;
+                if (auto nh = ansiNetHeader(declSymbol)) {
+                    dr = SourceRange(nh->netType.range().start(), dr.end());
+                }
+                else {
+                    for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
+                        if (p->kind == syntax::SyntaxKind::NetDeclaration) {
+                            dr = SourceRange(
+                                p->as<syntax::NetDeclarationSyntax>().netType.range().start(),
+                                dr.end());
+                            break;
+                        }
                     }
                 }
-                (void)isNetDecl;
                 setLoc(ts, dr);
             }
         }
@@ -1194,9 +1218,12 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     if (!declared)
         return nullptr;
     auto& ct = declared->getType().getCanonicalType();
-    // Non-port variables of 4-state integral type become logic_vars in the
-    // elaborated view.
-    if (!portBacked && internal.kind == SymbolKind::Variable &&
+    // Non-port `logic` variables become logic_vars in the elaborated view;
+    // `reg` declarations stay logic_nets.
+    bool regDecl = false;
+    if (auto tsyn = declared->getTypeSyntax())
+        regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
+    if (!portBacked && !regDecl && internal.kind == SymbolKind::Variable &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
         v->VpiVisibility(1);
