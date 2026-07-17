@@ -492,3 +492,25 @@ Rules landed (each probed against goldens):
   objects).
 - r68 = 138 PASS + 1 CMP_ONLY (BindModuleWithInputPorts) of 661;
   UNSUP 277; DIFF 245; 0 crash.
+
+## Session 4: D3 assignment patterns + GC-off discovery (2026-07-17)
+
+- '{...} -> operation vpiAssignmentPatternOp(75). Def view structured
+  patterns wrap members in tagged_pattern (loc = value span, value parents
+  at the OPERATION, Typespec ref fullname = module prefix -> a
+  string_typespec named by the tag at the key token, parented at the
+  tagged_pattern). Simple patterns are plain operand lists.
+- Instance view re-emits patterns (containsOperation true): tags DROPPED
+  (raw values as operands), FIRST operand carries VpiSize = its width.
+- The recompile abandons an ORPHAN first-compile op: opType 75, parent =
+  the DEF cont_assign, Typespec ref -> the pattern's typedef ts, operands
+  = the DEF op's VALUES (tagged_patterns unwrapped) RE-PARENTED at the
+  orphan. Created at the very END of the write phase.
+- CRITICAL: Surelog writes with Serializer GC DISABLED (SetGCEnabled from
+  the -gc CLI flag, default off) — stale compile artifacts like the
+  orphan survive in the file. slang-uhdm now also saves with GC off.
+  An object appears in the dump's weaklyReferenced tail ONLY if some
+  visited object shallow-references it (e.g. via a vpiParent print) —
+  wholly unreferenced objects are IN the file but INVISIBLE to uhdm-dump
+  (use Serializer::ObjectStats in a C++ probe to count them).
+- r69 = 138 PASS; UNSUP 277->252 (patterns unblocked into DIFF 270).

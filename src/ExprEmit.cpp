@@ -788,6 +788,88 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->Path_elems(elems);
             return hp;
         }
+        case ExpressionKind::SimpleAssignmentPattern: {
+            auto& ap = expr.as<SimpleAssignmentPatternExpression>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiAssignmentPatternOp);
+            op->VpiParent(parent);
+            setLoc(op, expr.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            for (auto el : ap.elements()) {
+                if (auto* e = emitExpr(*el, op, prefix, netMap)) {
+                    // Re-emitted patterns size their FIRST operand.
+                    if (reemitting && operands->empty())
+                        ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
+                    operands->push_back(e);
+                }
+            }
+            op->Operands(operands);
+            return op;
+        }
+        case ExpressionKind::StructuredAssignmentPattern: {
+            auto& ap = expr.as<StructuredAssignmentPatternExpression>();
+            if (!ap.indexSetters.empty() || ap.defaultSetter) {
+                noteUnsupported("assignment pattern setter kind");
+                return nullptr;
+            }
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiAssignmentPatternOp);
+            op->VpiParent(parent);
+            setLoc(op, expr.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            // Tag key locations come from the pattern item syntax, matched
+            // to member setters by name.
+            const syntax::StructuredAssignmentPatternSyntax* psyn = nullptr;
+            if (expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::AssignmentPatternExpression) {
+                const syntax::AssignmentPatternSyntax* pat =
+                    expr.syntax->as<syntax::AssignmentPatternExpressionSyntax>().pattern;
+                if (pat && pat->kind == syntax::SyntaxKind::StructuredAssignmentPattern)
+                    psyn = &pat->as<syntax::StructuredAssignmentPatternSyntax>();
+            }
+            for (auto& setter : ap.memberSetters) {
+                // Re-emitted (instance) patterns drop the tags: operands are
+                // the raw values, and the first one carries VpiSize.
+                if (reemitting) {
+                    if (auto* e = emitExpr(*setter.expr, op, prefix, netMap)) {
+                        if (operands->empty())
+                            ((UHDM::expr*)e)->VpiSize(
+                                (int32_t)setter.expr->type->getBitWidth());
+                        operands->push_back(e);
+                    }
+                    continue;
+                }
+                auto* tp = s.MakeTagged_pattern();
+                tp->VpiParent(op);
+                setLoc(tp, setter.expr->sourceRange);
+                // The pattern value parents at the OPERATION.
+                if (auto* e = emitExpr(*setter.expr, op, prefix, netMap))
+                    tp->Pattern((UHDM::expr*)e);
+                // Tag: a string_typespec named by the member key.
+                auto* sts = s.MakeString_typespec();
+                sts->VpiName(setter.member->name);
+                sts->VpiParent(tp);
+                if (psyn) {
+                    for (auto item : psyn->items) {
+                        if (item->kind != syntax::SyntaxKind::AssignmentPatternItem)
+                            continue;
+                        auto& it2 = item->as<syntax::AssignmentPatternItemSyntax>();
+                        if (rawText(it2.key->sourceRange()) == setter.member->name) {
+                            setLoc(sts, it2.key->sourceRange());
+                            break;
+                        }
+                    }
+                }
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix);
+                rt->VpiParent(tp);
+                rt->Actual_typespec(sts);
+                tp->Typespec(rt);
+                operands->push_back(tp);
+            }
+            op->Operands(operands);
+            return op;
+        }
         case ExpressionKind::HierarchicalValue: {
             // Cross-instance references (u1.cnt) share the member-access
             // hier_path shape; elements come from the dotted source text.

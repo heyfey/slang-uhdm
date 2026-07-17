@@ -263,6 +263,9 @@ inline bool containsOperation(const Expression& expr) {
             // User function calls are reused as-is; sys calls inside
             // recompiled expressions force a fresh cont_assign.
             return expr.as<CallExpression>().isSystemCall();
+        case ExpressionKind::SimpleAssignmentPattern:
+        case ExpressionKind::StructuredAssignmentPattern:
+            return true;
         default:
             return false;
     }

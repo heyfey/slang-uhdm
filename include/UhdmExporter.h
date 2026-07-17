@@ -231,6 +231,15 @@ private:
         std::string prefix;
     };
     std::vector<PendingCastTs> pendingCastTs;
+    // Abandoned first-compile of re-emitted pattern cont_assigns: an orphan
+    // op sharing the def operands, typed by the pattern's target typespec.
+    struct PendingPatternOrphan {
+        UHDM::cont_assign* defCa;
+        UHDM::operation* defOp;
+        uint32_t line, col, endLine, endCol;
+        UHDM::typespec* ts;
+    };
+    std::vector<PendingPatternOrphan> pendingPatternOrphans;
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
     std::map<const slang::ast::Symbol*, UHDM::attribute*> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;

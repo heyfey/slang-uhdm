@@ -946,6 +946,39 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         pc.rt->Actual_typespec(its);
     }
     pendingCastTs.clear();
+
+    // Orphan pattern first-compiles (share the def operands).
+    for (auto& po : pendingPatternOrphans) {
+        auto* op = s.MakeOperation();
+        op->VpiOpType(vpiAssignmentPatternOp);
+        op->VpiParent(po.defCa);
+        op->VpiLineNo(po.line);
+        op->VpiColumnNo(po.col);
+        op->VpiEndLineNo(po.endLine);
+        op->VpiEndColumnNo(po.endCol);
+        if (po.ts) {
+            auto* rt = s.MakeRef_typespec();
+            rt->Actual_typespec(po.ts);
+            op->Typespec(rt);
+        }
+        if (po.defOp->Operands()) {
+            auto* ops = s.MakeAnyVec();
+            for (auto* o : *po.defOp->Operands()) {
+                // Structured patterns unwrap to the tagged values.
+                UHDM::any* val = o;
+                if (o->UhdmType() == UHDM::uhdmtagged_pattern) {
+                    if (auto* pat = ((UHDM::tagged_pattern*)o)->Pattern())
+                        val = (UHDM::any*)pat;
+                }
+                ops->push_back(val);
+                // The recompile re-parents the shared def operands at the
+                // orphan (this is also what pulls it into the dump).
+                val->VpiParent(op);
+            }
+            op->Operands(ops);
+        }
+    }
+    pendingPatternOrphans.clear();
 }
 
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,
@@ -1152,6 +1185,25 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
+        // Re-emitted pattern RHS leaves an orphan first-compile op behind
+        // (materialized at the very end of the write phase).
+        if (topView && defInfo && myIdx < defInfo->contAssigns.size()) {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::SimpleAssignmentPattern ||
+                rc.kind == ExpressionKind::StructuredAssignmentPattern) {
+                auto* defCa = defInfo->contAssigns[myIdx];
+                if (defCa->Rhs() && defCa->Rhs()->UhdmType() == UHDM::uhdmoperation) {
+                    UHDM::typespec* pts = nullptr;
+                    if (auto it2 = typedefTs.find(rc.type); it2 != typedefTs.end())
+                        pts = it2->second;
+                    auto sr = rc.sourceRange;
+                    pendingPatternOrphans.push_back(
+                        {defCa, (UHDM::operation*)defCa->Rhs(),
+                         sm->getLineNumber(sr.start()), sm->getColumnNumber(sr.start()),
+                         sm->getLineNumber(sr.end()), sm->getColumnNumber(sr.end()), pts});
+                }
+            }
+        }
         inLhs = true;
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef && (literalRhs || bitsRhs) && defInfo)

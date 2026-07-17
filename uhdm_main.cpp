@@ -52,6 +52,9 @@ int main(int argc, char** argv) {
         return 3;
 
     UHDM::Serializer serializer;
+    // Surelog writes with GC off by default; stale compile artifacts (e.g.
+    // abandoned pattern first-compiles) are part of the reference shape.
+    serializer.SetGCEnabled(false);
     slang_uhdm::UhdmExporter exporter(*compilation, serializer);
     exporter.exportDesign();
     serializer.Save(outputFile.value_or("slang.uhdm"));
