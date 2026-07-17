@@ -18,6 +18,7 @@ for d in "$CORPUS"/*/; do
     res=$(WORK="$work" "$SCRIPT_DIR/converge.sh" "$dut" 2>/dev/null)
     if grep -q "DUMP_MATCH" <<<"$res" && grep -q "PASS_CMP" <<<"$res"; then cls=PASS
     elif grep -q "DUMP_MATCH" <<<"$res"; then cls=DUMP_ONLY
+    elif grep -q "PASS_CMP" <<<"$res" && grep -q "DUMP_DIFF" <<<"$res"; then cls=CMP_ONLY
     elif grep -q "UNSUPPORTED" <<<"$res"; then cls=UNSUPPORTED
     elif grep -q "DUMP_DIFF" <<<"$res"; then cls=DIFF
     elif grep -q "SURELOG" <<<"$res"; then cls=SURELOG_FAIL
@@ -31,6 +32,6 @@ for d in "$CORPUS"/*/; do
 done
 
 echo "== scoreboard =="
-for k in PASS DUMP_ONLY DIFF UNSUPPORTED CRASH SLANG_REJECT SURELOG_FAIL; do
+for k in PASS DUMP_ONLY CMP_ONLY DIFF UNSUPPORTED CRASH SLANG_REJECT SURELOG_FAIL; do
     echo "$k: ${counts[$k]:-0}"
 done

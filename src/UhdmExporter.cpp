@@ -36,8 +36,35 @@ namespace slang_uhdm {
 static constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
 // Surelog derives vpiNetType from the declared type keyword: explicit
-// `logic` -> vpiNet, `reg` -> vpiReg, implicit -> unset.
+// `logic` -> vpiNet, `reg` -> vpiReg, implicit -> unset; explicit net
+// keywords map to their vpi net types.
 static int32_t netTypeFor(const Symbol& internal) {
+    if (internal.kind == SymbolKind::Net) {
+        // Explicit net declarations ("wire w;") carry the net kind; implicit
+        // port-backed nets do not print a net type.
+        auto& nt = internal.as<NetSymbol>().netType;
+        bool explicitDecl = false;
+        for (auto p = internal.getSyntax(); p; p = p->parent) {
+            if (p->kind == syntax::SyntaxKind::NetDeclaration) {
+                explicitDecl = true;
+                break;
+            }
+        }
+        if (explicitDecl) {
+            switch (nt.netKind) {
+                case NetType::Wire:
+                    return vpiWire;
+                case NetType::WAnd:
+                    return vpiWand;
+                case NetType::WOr:
+                    return vpiWor;
+                case NetType::Tri:
+                    return vpiTri;
+                default:
+                    break;
+            }
+        }
+    }
     if (auto declared = internal.getDeclaredType()) {
         if (auto tsyn = declared->getTypeSyntax()) {
             if (tsyn->kind == syntax::SyntaxKind::LogicType)
@@ -293,12 +320,35 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
         info.nets[internal] = n;
         nets->push_back(n);
     }
+    // Local (non-port) declarations stay logic_nets in the def view, but
+    // carry a typespec and explicit net type.
+    TsCache defTs;
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Net && member.kind != SymbolKind::Variable)
+            continue;
+        if (info.nets.count(&member))
+            continue;
+        auto* n = s.MakeLogic_net();
+        n->VpiName(member.name);
+        n->VpiFullName(prefix + "." + std::string(member.name));
+        n->VpiParent(m);
+        setLocNamed(n, member);
+        if (int32_t nt = netTypeFor(member))
+            n->VpiNetType(nt);
+        auto* ts = sharedTypespec(member, defTs);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(prefix + "." + std::string(member.name));
+        rt->VpiParent(n);
+        rt->Actual_typespec(ts);
+        n->Typespec(rt);
+        info.nets[&member] = n;
+        nets->push_back(n);
+    }
     if (!nets->empty())
         m->Nets(nets);
 
     // Def-view ports share one typespec object per declaration (Surelog's
     // TypespecCache behavior), with no parent set.
-    TsCache defTs;
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
 
     // Child instance references (def view uses ref_module stubs).
@@ -349,7 +399,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (!refmods->empty())
         m->Ref_modules(refmods);
 
-    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false);
+    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false);
 
     // Processes
     auto* procs = s.MakeProcess_stmtVec();
@@ -437,7 +487,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         rt->VpiFullName(fullName);
         rt->Actual_typespec(ts);
 
-        if (auto* v = makeVar(*internal)) {
+        if (auto* v = makeVar(*internal, /*portBacked=*/true)) {
             v->VpiName(ps.name);
             v->VpiFullName(fullName);
             v->VpiParent(m);
@@ -459,6 +509,43 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             rt->VpiParent(n);
             n->Typespec(rt);
             topNets[internal] = n;
+            nets->push_back(n);
+        }
+    }
+    // Local (non-port) declarations: logic/reg variables become logic_vars,
+    // explicit nets stay logic_nets.
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Net && member.kind != SymbolKind::Variable)
+            continue;
+        if (topNets.count(&member))
+            continue;
+        std::string fullName = prefix + "." + std::string(member.name);
+        auto* ts = sharedTypespec(member, netTs);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(fullName);
+        rt->Actual_typespec(ts);
+        if (auto* v = makeVar(member, /*portBacked=*/false)) {
+            v->VpiName(member.name);
+            v->VpiFullName(fullName);
+            v->VpiParent(m);
+            setLocNamed(v, member);
+            rt->VpiParent(v);
+            v->Typespec(rt);
+            topNets[&member] = v;
+            vars->push_back(v);
+        }
+        else {
+            auto* n = s.MakeLogic_net();
+            n->VpiName(member.name);
+            n->VpiFullName(fullName);
+            n->VpiParent(m);
+            setLocNamed(n, member);
+            if (int32_t nt = netTypeFor(member))
+                n->VpiNetType(nt);
+            ts->VpiParent(n);
+            rt->VpiParent(n);
+            n->Typespec(rt);
+            topNets[&member] = n;
             nets->push_back(n);
         }
     }
@@ -569,7 +656,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     if (!ports->empty())
         m->Ports(ports);
 
-    emitContAssigns(body, m, prefix, topNets, /*topView=*/true);
+    {
+        auto it = defMap.find(&def);
+        emitContAssigns(body, m, prefix, topNets, /*topView=*/true,
+                        it != defMap.end() ? &it->second : nullptr, isTop);
+    }
 
     // Top modules share the definition's process objects (their hierarchical
     // prefix is identical); child instances get their own copies with the
@@ -679,12 +770,25 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
     auto declared = declSymbol.getDeclaredType();
     SourceLocation implicitLoc = firstDeclaratorLoc(declSymbol);
     SourceRange range(implicitLoc, implicitLoc);
+    bool explicitType = false;
     if (declared) {
         if (auto tsyn = declared->getTypeSyntax()) {
             if (tsyn->kind != syntax::SyntaxKind::ImplicitType) {
                 auto sr = tsyn->sourceRange();
-                if (sr.start() != SourceLocation::NoLocation)
+                if (sr.start() != SourceLocation::NoLocation) {
                     range = sr;
+                    explicitType = true;
+                }
+            }
+        }
+    }
+    // Implicit-typed explicit net declarations anchor at the net keyword
+    // ("wire w;" -> the wire token).
+    if (!explicitType && declSymbol.kind == SymbolKind::Net) {
+        for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
+            if (p->kind == syntax::SyntaxKind::NetDeclaration) {
+                range = p->as<syntax::NetDeclarationSyntax>().netType.range();
+                break;
             }
         }
     }
@@ -770,11 +874,21 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
     return ts;
 }
 
-UHDM::variables* UhdmExporter::makeVar(const Symbol& internal) {
+UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) {
     auto declared = internal.getDeclaredType();
     if (!declared)
         return nullptr;
     auto& ct = declared->getType().getCanonicalType();
+    // Non-port variables of 4-state integral type become logic_vars in the
+    // elaborated view.
+    if (!portBacked && internal.kind == SymbolKind::Variable &&
+        ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
+        auto* v = s.MakeLogic_var();
+        v->VpiVisibility(1);
+        if (ct.isSigned())
+            v->VpiSigned(true);
+        return v;
+    }
     if (ct.kind == SymbolKind::PredefinedIntegerType) {
         auto& pit = ct.as<PredefinedIntegerType>();
         switch (pit.integerKind) {
@@ -820,18 +934,28 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
 }
 
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_inst* m,
-                                   const std::string& prefix, NetMap& netMap, bool topView) {
+                                   const std::string& prefix, NetMap& netMap, bool topView,
+                                   DefInfo* defInfo, bool shareWithDef) {
     auto* cas = s.MakeCont_assignVec();
+    size_t idx = 0;
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::ContinuousAssign)
             continue;
         auto& casym = member.as<ContinuousAssignSymbol>();
         auto& assign = casym.getAssignment();
+        size_t myIdx = idx++;
         if (assign.kind != ExpressionKind::Assignment) {
             noteUnsupported("continuous assign form");
             continue;
         }
         auto& ae = assign.as<AssignmentExpression>();
+        // Top modules share the def's cont_assign object unless constant
+        // folding changes the RHS.
+        if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
+            !tryFoldConst(ae.right())) {
+            cas->push_back(defInfo->contAssigns[myIdx]);
+            continue;
+        }
         auto* ca = s.MakeCont_assign();
         ca->VpiParent(m);
         setLoc(ca, assign.sourceRange);
@@ -843,6 +967,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         if (auto* l = emitExpr(ae.left(), ca, prefix, netMap))
             ca->Lhs((UHDM::expr*)l);
         cas->push_back(ca);
+        if (defInfo)
+            defInfo->contAssigns.push_back(ca);
     }
     if (!cas->empty())
         m->Cont_assigns(cas);

@@ -62,6 +62,7 @@ private:
         bool filled = false;
         NetMap nets;
         std::vector<UHDM::process_stmt*> processes;
+        std::vector<UHDM::cont_assign*> contAssigns;
     };
 
     UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst);
@@ -72,7 +73,8 @@ private:
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
-                         const std::string& prefix, NetMap& netMap, bool topView);
+                         const std::string& prefix, NetMap& netMap, bool topView,
+                         DefInfo* defInfo, bool shareWithDef);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
                                     UHDM::module_inst* m, const std::string& prefix,
                                     NetMap& netMap);
@@ -91,7 +93,7 @@ private:
     /// Creates a top-view variable object for symbols whose type makes them
     /// variables in Surelog's model (int, integer, ...); null if the symbol
     /// stays a net.
-    UHDM::variables* makeVar(const slang::ast::Symbol& internal);
+    UHDM::variables* makeVar(const slang::ast::Symbol& internal, bool portBacked);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);
