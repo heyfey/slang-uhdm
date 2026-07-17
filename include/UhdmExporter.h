@@ -63,18 +63,21 @@ private:
         NetMap nets;
         std::vector<UHDM::process_stmt*> processes;
         std::vector<UHDM::cont_assign*> contAssigns;
+        std::set<const slang::ast::Symbol*> processRefs;
     };
 
     UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst);
     UHDM::module_inst* emitInstance(const slang::ast::InstanceSymbol& inst,
                                     const std::string& path, UHDM::module_inst* parentM,
-                                    NetMap* parentNets, bool isTop);
+                                    NetMap* parentNets,
+                                    std::set<const slang::ast::Symbol*>* parentRefs, bool isTop);
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
-                         DefInfo* defInfo, bool shareWithDef);
+                         DefInfo* defInfo, bool shareWithDef,
+                         std::set<const slang::ast::Symbol*>* instRefs);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
                                     UHDM::module_inst* m, const std::string& prefix,
                                     NetMap& netMap);
@@ -107,6 +110,9 @@ private:
     UHDM::design* d = nullptr;
     std::map<const slang::ast::DefinitionSymbol*, DefInfo> defMap;
     std::set<std::string> unsupportedKinds;
+    bool suppressConstParent = false;
+    bool reemitting = false;
+    std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
 
 } // namespace slang_uhdm

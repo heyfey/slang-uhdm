@@ -251,7 +251,7 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     for (auto inst : root.topInstances) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
-        topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, /*isTop=*/true));
+        topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
     }
     d->TopModules(topMods);
 
@@ -274,6 +274,26 @@ static const syntax::NamedPortConnectionSyntax* findConnSyntax(const InstanceSym
         }
     }
     return nullptr;
+}
+
+// True when the expression tree contains anything Surelog's netlist
+// elaboration would re-compile as an operation (which forces a fresh
+// cont_assign object in the instance view instead of sharing the def's).
+static bool containsOperation(const Expression& expr) {
+    switch (expr.kind) {
+        case ExpressionKind::UnaryOp:
+        case ExpressionKind::BinaryOp:
+        case ExpressionKind::ConditionalOp:
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+            return true;
+        case ExpressionKind::Conversion: {
+            auto& conv = expr.as<ConversionExpression>();
+            return conv.isImplicit() && containsOperation(conv.operand());
+        }
+        default:
+            return false;
+    }
 }
 
 // Port connection expressions for output ports come wrapped in an assignment;
@@ -400,10 +420,12 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (!refmods->empty())
         m->Ref_modules(refmods);
 
-    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false);
+    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr);
 
-    // Processes
+    // Processes (collect referenced signals: they drive typespec
+    // reparenting in the instance view)
     auto* procs = s.MakeProcess_stmtVec();
+    refCollector = &info.processRefs;
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::ProceduralBlock) {
             auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, info.nets);
@@ -413,6 +435,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
             }
         }
     }
+    refCollector = nullptr;
     if (!procs->empty())
         m->Process(procs);
 
@@ -421,7 +444,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
 
 UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                               UHDM::module_inst* parentM, NetMap* parentNets,
-                                              bool isTop) {
+                                              std::set<const Symbol*>* parentRefs, bool isTop) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     // Surelog materializes a definition the first time the instance tree
@@ -472,6 +495,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     // pointing at the last net of the declaration.
     NetMap topNets;
     TsCache netTs;
+    std::set<const Symbol*> instRefs;
+    std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
     auto* nets = s.MakeNetVec();
     auto* vars = s.MakeVariablesVec();
     for (auto portBase : body.getPortList()) {
@@ -496,6 +521,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             rt->VpiParent(v);
             v->Typespec(rt);
             topNets[internal] = v;
+            sigOrder.emplace_back(internal, v);
             vars->push_back(v);
         }
         else {
@@ -506,10 +532,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             setLocNamed(n, ps);
             if (int32_t nt = netTypeFor(*internal))
                 n->VpiNetType(nt);
-            ts->VpiParent(n);
             rt->VpiParent(n);
             n->Typespec(rt);
             topNets[internal] = n;
+            sigOrder.emplace_back(internal, n);
             nets->push_back(n);
         }
     }
@@ -533,6 +559,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             rt->VpiParent(v);
             v->Typespec(rt);
             topNets[&member] = v;
+            sigOrder.emplace_back(&member, v);
             vars->push_back(v);
         }
         else {
@@ -543,10 +570,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             setLocNamed(n, member);
             if (int32_t nt = netTypeFor(member))
                 n->VpiNetType(nt);
-            ts->VpiParent(n);
             rt->VpiParent(n);
             n->Typespec(rt);
             topNets[&member] = n;
+            sigOrder.emplace_back(&member, n);
             nets->push_back(n);
         }
     }
@@ -562,7 +589,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
             children->push_back(emitInstance(child, prefix + "." + std::string(child.name), m,
-                                             &topNets, /*isTop=*/false));
+                                             &topNets, &instRefs, /*isTop=*/false));
         }
     }
     if (!children->empty())
@@ -628,21 +655,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
         if (conn && parentNets) {
             if (auto expr = connectionExpr(*conn)) {
-                if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets)) {
+                // Signals feeding child connections count as instance-view
+                // references (drives typespec reparenting in the parent).
+                refCollector = parentRefs;
+                if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets))
                     p->High_conn(h);
-                    // Surelog rebinds the connected signal's typespec when it
-                    // feeds a child port connection: the typespec is
-                    // reparented to the signal and tagged with the enclosing
-                    // instance.
-                    if (expr->kind == ExpressionKind::NamedValue) {
-                        auto it = parentNets->find(&expr->as<NamedValueExpression>().symbol);
-                        if (it != parentNets->end()) {
-                            auto* ex = (UHDM::expr*)it->second;
-                            if (ex->Typespec() && ex->Typespec()->Actual_typespec())
-                                ex->Typespec()->Actual_typespec()->VpiParent(ex);
-                        }
-                    }
-                }
+                refCollector = nullptr;
             }
         }
 
@@ -660,7 +678,22 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     {
         auto it = defMap.find(&def);
         emitContAssigns(body, m, prefix, topNets, /*topView=*/true,
-                        it != defMap.end() ? &it->second : nullptr, isTop);
+                        it != defMap.end() ? &it->second : nullptr, isTop, &instRefs);
+    }
+
+    // Reparent typespecs of signals referenced in processes, re-emitted
+    // cont_assigns, or child connections (Surelog's rebind behavior).
+    {
+        auto dit = defMap.find(&def);
+        for (auto& [sym, obj] : sigOrder) {
+            bool touched = instRefs.count(sym) ||
+                           (dit != defMap.end() && dit->second.processRefs.count(sym));
+            if (!touched)
+                continue;
+            auto* ex = (UHDM::expr*)obj;
+            if (ex->Typespec() && ex->Typespec()->Actual_typespec())
+                ex->Typespec()->Actual_typespec()->VpiParent(ex);
+        }
     }
 
     // Top modules share the definition's process objects (their hierarchical
@@ -936,7 +969,8 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
 
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_inst* m,
                                    const std::string& prefix, NetMap& netMap, bool topView,
-                                   DefInfo* defInfo, bool shareWithDef) {
+                                   DefInfo* defInfo, bool shareWithDef,
+                                   std::set<const Symbol*>* instRefs) {
     auto* cas = s.MakeCont_assignVec();
     size_t idx = 0;
     for (auto& member : body.members()) {
@@ -950,10 +984,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             continue;
         }
         auto& ae = assign.as<AssignmentExpression>();
-        // Top modules share the def's cont_assign object unless constant
-        // folding changes the RHS.
+        // Top modules share the def's cont_assign object unless the RHS
+        // contains operations (netlist elaboration re-compiles those, folded
+        // or not).
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            !tryFoldConst(ae.right())) {
+            !containsOperation(ae.right())) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -961,8 +996,15 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         ca->VpiParent(m);
         setLoc(ca, assign.sourceRange);
         UHDM::any* rhs = topView ? tryFoldConst(ae.right()) : nullptr;
-        if (!rhs)
+        if (!rhs) {
+            if (topView) {
+                refCollector = instRefs;
+                reemitting = true;
+            }
             rhs = emitExpr(ae.right(), ca, prefix, netMap);
+            refCollector = nullptr;
+            reemitting = false;
+        }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
         if (auto* l = emitExpr(ae.left(), ca, prefix, netMap))
@@ -1318,6 +1360,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::NamedValue: {
             auto& nv = expr.as<NamedValueExpression>();
+            if (refCollector)
+                refCollector->insert(&nv.symbol);
             auto* ref = s.MakeRef_obj();
             ref->VpiName(nv.symbol.name);
             ref->VpiFullName(prefix + "." + std::string(nv.symbol.name));
@@ -1372,9 +1416,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             setLoc(c, expr.sourceRange);
             // Surelog parents constants only as operation operands and
             // bit_select indices (not assignment sides or select ranges).
-            if (parent && (parent->UhdmType() == UHDM::uhdmoperation ||
-                           parent->UhdmType() == UHDM::uhdmbit_select ||
-                           parent->UhdmType() == UHDM::uhdmcase_item))
+            if (!suppressConstParent && parent &&
+                (parent->UhdmType() == UHDM::uhdmoperation ||
+                 parent->UhdmType() == UHDM::uhdmbit_select ||
+                 parent->UhdmType() == UHDM::uhdmcase_item))
                 c->VpiParent(parent);
 
             auto tick = raw.find('\'');
@@ -1419,6 +1464,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             noteUnsupported("explicit conversion");
             return nullptr;
         }
+        case ExpressionKind::Concatenation: {
+            auto& ce = expr.as<ConcatenationExpression>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiConcatOp);
+            op->VpiParent(parent);
+            setLoc(op, expr.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            for (auto o : ce.operands()) {
+                if (auto* e = emitExpr(*o, op, prefix, netMap))
+                    operands->push_back(e);
+            }
+            op->Operands(operands);
+            return op;
+        }
+        case ExpressionKind::Replication: {
+            auto& re = expr.as<ReplicationExpression>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiMultiConcatOp);
+            op->VpiParent(parent);
+            setLoc(op, expr.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            // The repeat count constant is unparented in module-compile
+            // context, but parented in re-elaborated (instance) context.
+            suppressConstParent = !reemitting;
+            auto* cnt = emitExpr(re.count(), op, prefix, netMap);
+            suppressConstParent = false;
+            if (cnt)
+                operands->push_back(cnt);
+            if (auto* inner = emitExpr(re.concat(), op, prefix, netMap))
+                operands->push_back(inner);
+            op->Operands(operands);
+            return op;
+        }
         case ExpressionKind::UnbasedUnsizedIntegerLiteral: {
             auto& ul = expr.as<UnbasedUnsizedIntegerLiteral>();
             auto* c = s.MakeConstant();
@@ -1443,6 +1521,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return nullptr;
             }
             auto& nv = es.value().as<NamedValueExpression>();
+            if (refCollector)
+                refCollector->insert(&nv.symbol);
             auto* bs = s.MakeBit_select();
             bs->VpiName(nv.symbol.name);
             bs->VpiFullName(prefix + "." + std::string(nv.symbol.name));
@@ -1461,6 +1541,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return nullptr;
             }
             auto& nv = rs.value().as<NamedValueExpression>();
+            if (refCollector)
+                refCollector->insert(&nv.symbol);
             auto* psel = s.MakePart_select();
             psel->VpiName(nv.symbol.name);
             psel->VpiDefName(nv.symbol.name);
