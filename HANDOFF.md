@@ -1,4 +1,4 @@
-# HANDOFF — continuing the convergence campaign
+# HANDOFF — slang-uhdm convergence campaign (r78 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,17 +13,26 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r62 baseline, committed as results/baseline.csv)
+## Current scoreboard (r78 baseline, committed as results/baseline.csv)
 
-PASS 137 · CMP_ONLY 1 · DIFF 229 · UNSUPPORTED 294 · CRASH 0
-· SLANG_REJECT 44 · SURELOG_FAIL 5   (138/661 converged or near, r65)
-Sessions 3-4 landed: file split (Task 0), ALL weakly-tail ordering
-(arena model in NOTES), C2 user functions/tasks, D1 enums/typedefs/attrs/
-vector typedefs, E2 generate scopes, D2 structs + hier_path, C3 immediate
-assertions, bind directives, case/if qualifiers+attributes, var inits,
-select base-scoping, cast-size exprs, $bits folds, external-var for
-loops, param value/fold refinements. 23 goldens. The one CMP_ONLY:
+PASS 163 · CMP_ONLY 1 · DIFF 297 · UNSUPPORTED 200 · CRASH 0
+· SLANG_REJECT 44 · SURELOG_FAIL 5
+Session 5 (r72-r78) landed: function-scope localparams + block-param
+implicit nets, package task_funcs (:: fullnames, dual-view copies, ts
+vpiInstance), function body begin wrappers + initialized locals, const-call
+folds (literal chains, package-param-backed with ts clones, evaluable
+calls), call arg formal-ts refs, module imports (import_typespec + hidden
+Item constant + shared pkg fns in module Task_funcs), positional port
+connections, gen-scope functions + def-view gen_if_else from syntax,
+$unit (design-level) functions, type casts. The one CMP_ONLY:
 BindModuleWithInputPorts (4-line ts arena position).
+NEXT: B2 parameterized instances (param overrides: def view keeps DEFAULT
+values incl. BIN:X for 'x, instance views carry override-site constants,
+vpiOverriden:1 on overridden param_assigns, DEC:7_200 underscore-preserving
+decompiles - see ParameterWithUnderscoreValue diff); then select bases
+(~34 solo), interfaces (46), PackedStructType 17, ConcurrentAssertion 11.
+Remaining known-hard: import deep-clones (ImportFunction), macro-expansion
+locations (asym_ram_*), rsp_gen_minimal.
 
 ## Environment (this machine)
 
