@@ -196,3 +196,10 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
   typespecs, unfolded range exprs, refs Actual->param rhs const) NOT yet
   implemented.
 - Corpus: r7 21+17, r8 31+9, r9 33+10, r10 33+13, r11 36+22 (PASS+CMP_ONLY).
+- r12 36+22, r13 36+33 (PASS+CMP_ONLY = 69 of 661 achievable), UNSUP 349,
+  0 crash. Session 2 ends here (phases: harness done; A done; B done except
+  paramod-instances; C sys-calls done (user funcs TODO); E3 packages
+  params-only. NEXT best levers: (1) weakly-tail ordering polish flips the
+  33 CMP_ONLY to PASS; (2) user function calls C2 (~100 tests); (3) enums +
+  typedefs D1 (many package/DIFF tests); (4) generate E2 (16+); (5) member
+  access D2 (70). Use scripts/triage.sh results-rN.csv for live priorities.
