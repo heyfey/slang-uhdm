@@ -225,15 +225,42 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 b = ub;
             }
             b->VpiParent(parent);
+            // Block-local variable declarations become scope Variables
+            // (module-scoped fullnames, no visibility flag).
+            NetMap blockMap = netMap;
+            if (bs.blockSymbol) {
+                auto* vars = s.MakeVariablesVec();
+                for (auto& bm : bs.blockSymbol->members()) {
+                    if (bm.kind != SymbolKind::Variable)
+                        continue;
+                    auto* v = makeReturnVar(s, bm.getDeclaredType()->getType());
+                    v->VpiName(bm.name);
+                    v->VpiFullName(innerPrefix + "." + std::string(bm.name));
+                    v->VpiParent(b);
+                    setLoc(v, nameSpan(bm.location, bm.name));
+                    auto* ts = makeTypespec(bm);
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(innerPrefix + "." + std::string(bm.name));
+                    rt->VpiParent(v);
+                    rt->Actual_typespec(ts);
+                    v->Typespec(rt);
+                    blockMap[&bm] = v;
+                    vars->push_back(v);
+                }
+                if (!vars->empty())
+                    b->Variables(vars);
+            }
             auto* stmts = s.MakeAnyVec();
             auto& body = bs.body;
             if (body.kind == StatementKind::List) {
                 for (auto st : body.as<StatementList>().list) {
-                    if (auto* u = emitStmt(*st, b, innerPrefix, netMap))
+                    if (st->kind == StatementKind::VariableDeclaration)
+                        continue;
+                    if (auto* u = emitStmt(*st, b, innerPrefix, blockMap))
                         stmts->push_back(u);
                 }
             }
-            else if (auto* u = emitStmt(body, b, innerPrefix, netMap)) {
+            else if (auto* u = emitStmt(body, b, innerPrefix, blockMap)) {
                 stmts->push_back(u);
             }
             if (b->UhdmType() == UHDM::uhdmnamed_begin)
