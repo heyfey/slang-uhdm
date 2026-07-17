@@ -453,3 +453,23 @@ Rules landed (each probed against goldens):
   re-emitted content (CAs/processes) binds DEF nets.
 - r54 = 120 PASS + 1 CMP_ONLY (BindModuleWithInputPorts, 4-line ts
   position) of 661; DIFF 237; UNSUP 303; 0 crash.
+
+## Session 4 continued (r54->r60)
+
+- Non-ANSI port net headers ("input wire signed x;") reuse the
+  ansiNetHeader rule via PortDeclaration walk: keyword ts anchor,
+  netType, and keyword-anchored ts DROP the Signed flag.
+- $bits calls fold to UINT:64 constants everywhere; as a DIRECT CA RHS
+  they behave like literals (def parented fold at the call span; top
+  re-emit sized at the LHS width, def-bound LHS).
+- Cast sizes: parenthesized exprs anchor at the inner expr; non-literal
+  sizes bind fresh via Expression::bind(currentScope) and produce an
+  integer_typespec with the expr as vpiExpr (parented at the ts in the
+  drain, at the cast op inline; name-only call spans via inCastSize).
+  Re-emitted contexts DEFER these to the end of the write phase
+  (pendingCastTs extended with the bound expr).
+- Folded range bounds anchor at the top operator's LEFT operand span
+  ((M+N)-1 -> "M+N"), not the first token.
+- r60 = 134 PASS + 2 CMP_ONLY (BindModuleWithInputPorts 4-line ts
+  position; case_expr_query 26-line nested-case locs) of 661; DIFF 208;
+  UNSUP 317; 0 crash.
