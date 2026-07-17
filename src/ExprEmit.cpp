@@ -13,8 +13,9 @@ namespace slang_uhdm {
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
     // expressions with constant reduction. Fold only genuine expressions,
-    // not plain literals.
-    if (expr.kind == ExpressionKind::IntegerLiteral)
+    // not plain literals (evaluating an implicitly-converted literal can
+    // also truncate through slang's 32-bit unsized literal type).
+    if (stripImplicitConv(expr).kind == ExpressionKind::IntegerLiteral)
         return nullptr;
     ASTContext ctx(comp.getRoot(), LookupLocation::max);
     ConstantValue cv = ctx.tryEval(expr);
@@ -300,22 +301,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 noteUnsupported("user function call");
                 return nullptr;
             }
+            bool stmtCtx = callStmtContext;
+            callStmtContext = false;
             auto* sc = s.MakeSys_func_call();
             std::string name = std::string(call.getSubroutineName());
             if (name.empty() || name[0] != '$')
                 name = "$" + name;
             sc->VpiName(name);
             sc->VpiParent(parent);
-            setLoc(sc, SourceRange(expr.sourceRange.start(),
-                                   expr.sourceRange.start() + name.size()));
+            // Statement-context calls span the whole call; expression-context
+            // calls span the name token only.
+            if (stmtCtx)
+                setLoc(sc, expr.sourceRange);
+            else
+                setLoc(sc, SourceRange(expr.sourceRange.start(),
+                                       expr.sourceRange.start() + name.size()));
             auto* args = s.MakeAnyVec();
             // Call arguments don't count as instance-view references for
             // typespec reparenting.
             auto* savedCollector = refCollector;
             refCollector = nullptr;
             for (auto arg : call.arguments()) {
+                // Statement-context calls parent their direct literal args.
+                bool forceSaved = forceConstParent;
+                if (stmtCtx && isLiteralExpr(*arg))
+                    forceConstParent = true;
                 if (auto* a = emitExpr(*arg, sc, prefix, netMap))
                     args->push_back(a);
+                forceConstParent = forceSaved;
             }
             refCollector = savedCollector;
             if (!args->empty())
@@ -329,9 +342,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
+            // Direct literal operands of a concat are unparented in
+            // module-compile context, parented in re-elaborated (instance)
+            // context. Nested expressions keep the normal rules.
             for (auto o : ce.operands()) {
+                bool saved = suppressConstParent;
+                if (!reemitting && isLiteralExpr(*o))
+                    suppressConstParent = true;
                 if (auto* e = emitExpr(*o, op, prefix, netMap))
                     operands->push_back(e);
+                suppressConstParent = saved;
             }
             op->Operands(operands);
             return op;
@@ -345,9 +365,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* operands = s.MakeAnyVec();
             // The repeat count constant is unparented in module-compile
             // context, but parented in re-elaborated (instance) context.
+            bool saved = suppressConstParent;
             suppressConstParent = !reemitting;
             auto* cnt = emitExpr(re.count(), op, prefix, netMap);
-            suppressConstParent = false;
+            suppressConstParent = saved;
             if (cnt)
                 operands->push_back(cnt);
             if (auto* inner = emitExpr(re.concat(), op, prefix, netMap))

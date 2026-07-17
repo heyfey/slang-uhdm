@@ -138,12 +138,23 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         setLoc(ec, timing.sourceRange);
                     }
                     else {
-                        // Event list ranges include the closing paren; a bare
-                        // signal event does not.
-                        auto end = timing.sourceRange.end();
-                        if (timing.kind == TimingControlKind::SignalEvent)
-                            end = end + 1;
-                        setLoc(ec, SourceRange(stmt.sourceRange.start(), end));
+                        // The timing-control syntax node spans "@(...)"
+                        // including both parens.
+                        SourceRange ecRange = stmt.sourceRange;
+                        if (stmt.syntax &&
+                            stmt.syntax->kind == syntax::SyntaxKind::TimingControlStatement) {
+                            ecRange = stmt.syntax->as<syntax::TimingControlStatementSyntax>()
+                                          .timingControl->sourceRange();
+                        }
+                        else {
+                            // Event list ranges include the closing paren; a
+                            // bare signal event does not.
+                            auto end = timing.sourceRange.end();
+                            if (timing.kind == TimingControlKind::SignalEvent)
+                                end = end + 1;
+                            ecRange = SourceRange(stmt.sourceRange.start(), end);
+                        }
+                        setLoc(ec, ecRange);
                         if (auto* cond = emitEventExpr(timing, ec, prefix, netMap))
                             ec->VpiCondition(cond);
                     }
@@ -158,7 +169,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         }
         case StatementKind::ExpressionStatement: {
             auto& es = stmt.as<ExpressionStatement>();
-            return emitExpr(es.expr, parent, prefix, netMap);
+            // Statement-context sys calls ($display...) span the whole call
+            // and parent their literal arguments.
+            if (es.expr.kind == ExpressionKind::Call)
+                callStmtContext = true;
+            auto* r = emitExpr(es.expr, parent, prefix, netMap);
+            callStmtContext = false;
+            return r;
         }
         case StatementKind::Block: {
             auto& bs = stmt.as<BlockStatement>();
@@ -413,13 +430,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         case StatementKind::Break: {
             auto* b = s.MakeBreak_stmt();
             b->VpiParent(parent);
-            setLoc(b, stmt.sourceRange);
+            // Surelog spans the keyword only, not the semicolon.
+            setLoc(b, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 5));
             return b;
         }
         case StatementKind::Continue: {
             auto* c = s.MakeContinue_stmt();
             c->VpiParent(parent);
-            setLoc(c, stmt.sourceRange);
+            setLoc(c, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 8));
             return c;
         }
         case StatementKind::Empty:

@@ -28,15 +28,32 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
     }
     // Implicit-typed explicit net declarations anchor at the net keyword
     // ("wire w;" / "input wire x" -> the wire token).
+    bool netKeywordAnchor = false;
     if (!explicitType && declSymbol.kind == SymbolKind::Net) {
         if (auto nh = ansiNetHeader(declSymbol)) {
             range = nh->netType.range();
+            netKeywordAnchor = true;
         }
         else {
             for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
                 if (p->kind == syntax::SyntaxKind::NetDeclaration) {
                     range = p->as<syntax::NetDeclarationSyntax>().netType.range();
+                    netKeywordAnchor = true;
                     break;
+                }
+            }
+        }
+    }
+    // Implicit types with a signing keyword ("input signed [3:0] x") anchor
+    // at the signing token alone.
+    bool implicitSigning = false;
+    if (!explicitType && !netKeywordAnchor && declared) {
+        if (auto tsyn = declared->getTypeSyntax()) {
+            if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                auto& its = tsyn->as<syntax::ImplicitTypeSyntax>();
+                if (its.signing.valid()) {
+                    range = its.signing.range();
+                    implicitSigning = true;
                 }
             }
         }
@@ -92,23 +109,28 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
             if (!its.dimensions.empty()) {
                 dimSyns = &its.dimensions;
                 // Location: net declarations span the net keyword through the
-                // dims; port declarations use the dims range alone.
-                SourceRange dr(its.dimensions[0]->sourceRange().start(),
-                               its.dimensions[its.dimensions.size() - 1]->sourceRange().end());
-                if (auto nh = ansiNetHeader(declSymbol)) {
-                    dr = SourceRange(nh->netType.range().start(), dr.end());
-                }
-                else {
-                    for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
-                        if (p->kind == syntax::SyntaxKind::NetDeclaration) {
-                            dr = SourceRange(
-                                p->as<syntax::NetDeclarationSyntax>().netType.range().start(),
-                                dr.end());
-                            break;
+                // dims; port declarations use the dims range alone. A signing
+                // keyword anchor wins over the dims range.
+                if (!implicitSigning) {
+                    SourceRange dr(its.dimensions[0]->sourceRange().start(),
+                                   its.dimensions[its.dimensions.size() - 1]
+                                       ->sourceRange()
+                                       .end());
+                    if (auto nh = ansiNetHeader(declSymbol)) {
+                        dr = SourceRange(nh->netType.range().start(), dr.end());
+                    }
+                    else {
+                        for (auto p = declSymbol.getSyntax(); p; p = p->parent) {
+                            if (p->kind == syntax::SyntaxKind::NetDeclaration) {
+                                dr = SourceRange(
+                                    p->as<syntax::NetDeclarationSyntax>().netType.range().start(),
+                                    dr.end());
+                                break;
+                            }
                         }
                     }
+                    setLoc(ts, dr);
                 }
-                setLoc(ts, dr);
             }
         }
         if (dimSyns) {

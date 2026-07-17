@@ -95,7 +95,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
 
     // Def-view cont_assigns come before ports (their typespecs precede the
     // port typespecs in Surelog's arena).
-    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr);
+    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
+                    nullptr);
 
     // Def-view ports share one typespec object per declaration (Surelog's
     // TypespecCache behavior), with no parent set.
@@ -282,6 +283,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 n->VpiSigned(true);
             rt->VpiParent(n);
             n->Typespec(rt);
+            // Surelog parents the net typespec at creation; a shared
+            // declaration-group typespec ends at the group's last net.
+            ts->VpiParent(n);
             topNets[internal] = n;
             sigOrder.emplace_back(internal, n);
             nets->push_back(n);
@@ -323,6 +327,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 n->VpiNetType(nt);
             rt->VpiParent(n);
             n->Typespec(rt);
+            ts->VpiParent(n);
             topNets[&member] = n;
             sigOrder.emplace_back(&member, n);
             nets->push_back(n);
@@ -428,20 +433,40 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     if (!ports->empty())
         m->Ports(ports);
 
+    std::set<const Symbol*> caLhsSyms;
     {
         auto it = defMap.find(&def);
         emitContAssigns(body, m, prefix, topNets, /*topView=*/true,
-                        it != defMap.end() ? &it->second : nullptr, isTop, &instRefs);
+                        it != defMap.end() ? &it->second : nullptr, isTop, &instRefs,
+                        &caLhsSyms);
     }
 
     // Deferred parameter typespecs (arena order: after instance ports).
     patchParamTypespecs();
 
-    // Reparent typespecs of signals referenced in processes, re-emitted
-    // cont_assigns, or child connections (Surelog's rebind behavior).
+    // Nets got their typespec parent at creation; a cont_assign LHS
+    // elaboration re-points it at a temporary that Save() collects, so those
+    // typespecs end up unparented.
+    for (auto sym : caLhsSyms) {
+        auto it = topNets.find(sym);
+        if (it == topNets.end())
+            continue;
+        auto* ex = (UHDM::expr*)it->second;
+        if (ex->UhdmType() != UHDM::uhdmlogic_net)
+            continue;
+        if (ex->Typespec() && ex->Typespec()->Actual_typespec())
+            ex->Typespec()->Actual_typespec()->VpiParent(nullptr);
+    }
+
+    // Variables (not nets) get their typespec parent only when referenced in
+    // processes, re-emitted cont_assigns, or child connections (Surelog's
+    // rebind behavior).
     {
         auto dit = defMap.find(&def);
         for (auto& [sym, obj] : sigOrder) {
+            auto ut = ((UHDM::any*)obj)->UhdmType();
+            if (ut == UHDM::uhdmlogic_net)
+                continue;
             bool touched = instRefs.count(sym) ||
                            (dit != defMap.end() && dit->second.processRefs.count(sym));
             if (!touched)
@@ -541,7 +566,8 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* 
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_inst* m,
                                    const std::string& prefix, NetMap& netMap, bool topView,
                                    DefInfo* defInfo, bool shareWithDef,
-                                   std::set<const Symbol*>* instRefs) {
+                                   std::set<const Symbol*>* instRefs,
+                                   std::set<const Symbol*>* lhsSyms) {
     auto* cas = s.MakeCont_assignVec();
     size_t idx = 0;
     for (auto& member : body.members()) {
@@ -555,11 +581,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             continue;
         }
         auto& ae = assign.as<AssignmentExpression>();
+        if (lhsSyms)
+            collectLhsSyms(ae.left(), *lhsSyms);
+        bool literalRhs = isLiteralExpr(ae.right());
         // Top modules share the def's cont_assign object unless the RHS
-        // contains operations (netlist elaboration re-compiles those, folded
-        // or not).
+        // contains operations or is a literal (netlist elaboration
+        // re-compiles those, folded or not).
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            !containsOperation(ae.right())) {
+            !containsOperation(ae.right()) && !literalRhs) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -567,12 +596,28 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         ca->VpiParent(m);
         setLoc(ca, assign.sourceRange);
         UHDM::any* rhs = topView ? tryFoldConst(ae.right()) : nullptr;
+        // Sized/based literal RHS: the top-view cont_assign is fresh but its
+        // Rhs reuses the def's constant (Surelog's expression cache); bare
+        // decimals are re-emitted fresh.
+        if (!rhs && topView && shareWithDef && literalRhs && defInfo &&
+            myIdx < defInfo->contAssigns.size()) {
+            auto raw = rawText(stripImplicitConv(ae.right()).sourceRange);
+            if (raw.find('\'') != std::string::npos)
+                rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
+        }
         if (!rhs) {
             if (topView) {
                 refCollector = instRefs;
                 reemitting = true;
             }
-            rhs = emitExpr(ae.right(), ca, prefix, netMap);
+            // A literal RHS constant is parented at the cont_assign (both
+            // views); re-emitted top-view RHS refs bind the def-view nets.
+            NetMap& rhsMap = (topView && shareWithDef && defInfo) ? defInfo->nets : netMap;
+            bool forceSaved = forceConstParent;
+            if (literalRhs)
+                forceConstParent = true;
+            rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
+            forceConstParent = forceSaved;
             refCollector = nullptr;
             reemitting = false;
         }

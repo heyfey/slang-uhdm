@@ -92,7 +92,8 @@ private:
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
-                         std::set<const slang::ast::Symbol*>* instRefs);
+                         std::set<const slang::ast::Symbol*>* instRefs,
+                         std::set<const slang::ast::Symbol*>* lhsSyms);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
                                     UHDM::module_inst* m, const std::string& prefix,
                                     NetMap& netMap);
@@ -133,6 +134,7 @@ private:
     bool reemitting = false;
     bool forceConstParent = false;
     bool inLhs = false;
+    bool callStmtContext = false;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;

@@ -306,4 +306,46 @@ inline SourceLocation firstDeclaratorLoc(const Symbol& sym) {
     return sym.location;
 }
 
+// Strips slang's implicit conversion wrappers (Surelog has no equivalent).
+inline const Expression& stripImplicitConv(const Expression& e) {
+    const Expression* p = &e;
+    while (p->kind == ExpressionKind::Conversion &&
+           p->as<ConversionExpression>().isImplicit())
+        p = &p->as<ConversionExpression>().operand();
+    return *p;
+}
+
+inline bool isLiteralExpr(const Expression& e) {
+    auto& c = stripImplicitConv(e);
+    return c.kind == ExpressionKind::IntegerLiteral ||
+           c.kind == ExpressionKind::StringLiteral ||
+           c.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral;
+}
+
+// Collects the value symbols referenced on a cont_assign LHS (their top-view
+// net typespecs lose the creation-time parent when Surelog re-elaborates the
+// assignment).
+inline void collectLhsSyms(const Expression& e, std::set<const Symbol*>& out) {
+    switch (e.kind) {
+        case ExpressionKind::NamedValue:
+            out.insert(&e.as<NamedValueExpression>().symbol);
+            break;
+        case ExpressionKind::ElementSelect:
+            collectLhsSyms(e.as<ElementSelectExpression>().value(), out);
+            break;
+        case ExpressionKind::RangeSelect:
+            collectLhsSyms(e.as<RangeSelectExpression>().value(), out);
+            break;
+        case ExpressionKind::Concatenation:
+            for (auto op : e.as<ConcatenationExpression>().operands())
+                collectLhsSyms(*op, out);
+            break;
+        case ExpressionKind::Conversion:
+            collectLhsSyms(e.as<ConversionExpression>().operand(), out);
+            break;
+        default:
+            break;
+    }
+}
+
 } // namespace slang_uhdm

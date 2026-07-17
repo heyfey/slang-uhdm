@@ -203,3 +203,42 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
   33 CMP_ONLY to PASS; (2) user function calls C2 (~100 tests); (3) enums +
   typedefs D1 (many package/DIFF tests); (4) generate E2 (16+); (5) member
   access D2 (70). Use scripts/triage.sh results-rN.csv for live priorities.
+
+## Session 3: CMP_ONLY polish round 1 (2026-07-17)
+
+- SOLVED the top-view net typespec parent rule (NOTES open question): at
+  net creation Surelog always sets ts->VpiParent(net) (elabSignal,
+  NetlistElaboration.cpp:2389 etc.); shared decl-group ts ends parented at
+  the group's LAST net (mux2 S/B/Y = last-of-each-group). EXCEPTION: any net
+  referenced on a top-view cont_assign LHS ends UNPARENTED (LHS elaboration
+  re-points the parent at a temp that Save() GC-collects). Variables (not
+  nets) keep the old refs-based reparent rule (processRefs/instRefs).
+- Re-emitted top-view cont_assign RHS refs bind DEF-view nets, not the
+  instance nets (visible only when types differ: unary_op_plus int port ->
+  Surelog Actual = logic_net, not int_var). LHS refs bind instance objects.
+- cont_assign literal RHS: NOT shared with def; fresh top cont_assign whose
+  Rhs REUSES the def's constant object for sized/based literals (Surelog
+  expression cache) but is re-emitted fresh for bare decimals. The literal
+  constant carries VpiParent = the cont_assign in BOTH views (unlike
+  procedural assignment sides, which stay unparented).
+- tryFoldConst must strip implicit conversions before the literal check:
+  evaluating Conversion(IntegerLiteral) truncates >32-bit values through
+  slang's 32-bit unsized-literal type (ConstSizes).
+- Direct literal operands of concats: unparented in module-compile context,
+  parented when re-elaborated. NESTED constants (bit_select indices etc.)
+  keep normal parent rules (constmsk_test vs concat_lhs_signext).
+- Statement-context sys calls ($display/$monitor as a statement): loc spans
+  the WHOLE call incl. args/parens, and direct literal args get
+  VpiParent = the call. Expression-context calls keep name-token-only loc
+  and unparented literal args ($signed({1'b0,a}) operands, wreduce_test0).
+- break_stmt/continue_stmt: loc = keyword only (no semicolon).
+- event_control loc: use the timing-control SYNTAX node range ("@(...)" incl
+  both parens) — the +1 heuristic broke on "@( posedge clk )" (dffs).
+- Implicit type with signing keyword ("input signed [3:0] x"): ts anchors at
+  the signing token ALONE (beats the dims range; signed_ext_case,
+  OneArithShift).
+- r15: 56 PASS + 13 CMP_ONLY (69 of 661), UNSUP 349, 0 crash. Remaining
+  CMP_ONLY: asicworld_serial_crc AssignSumWithParameterInSubmodule
+  blocking_temp_ff blocking_temp_select BreakNested
+  code_hdl_models_parallel_crc ContinueNested counters_repeat escape_id
+  fsm2 IndexedPartSelect MonitorInputPort PartSelect.
