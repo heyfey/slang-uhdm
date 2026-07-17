@@ -423,9 +423,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* sc = s.MakeSys_func_call();
             sc->VpiName(name);
             sc->VpiParent(parent);
-            // Statement-context calls span the whole call; expression-context
-            // calls span the name token only.
-            if (stmtCtx)
+            // Conversion/query functions keep name-token-only spans in
+            // expression contexts; other sys calls span the whole call.
+            static const std::set<std::string> kNameOnlyFuncs = {
+                "$signed", "$unsigned", "$clog2", "$bits", "$size", "$high",
+                "$low", "$left", "$right", "$increment", "$dimensions",
+                "$unpacked_dimensions", "$itor", "$rtoi"};
+            if (stmtCtx || !kNameOnlyFuncs.count(name))
                 setLoc(sc, expr.sourceRange);
             else
                 setLoc(sc, SourceRange(expr.sourceRange.start(),

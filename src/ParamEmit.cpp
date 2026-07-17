@@ -135,7 +135,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             if (!rhs) {
                 forceConstParent = true;
+                inParamInit = true;
                 rhs = emitExpr(*init, pa, prefix, netMap);
+                inParamInit = false;
                 forceConstParent = false;
             }
             if (rhs) {
