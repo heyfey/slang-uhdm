@@ -297,7 +297,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             vars->push_back(v);
         }
         else {
-            auto* n = s.MakeLogic_net();
+            // Packed-struct signals become struct_nets in the instance view.
+            bool isStruct = false;
+            if (auto dt = it.sym->getDeclaredType())
+                isStruct = dt->getType().getCanonicalType().kind ==
+                           SymbolKind::PackedStructType;
+            UHDM::net* n = isStruct ? (UHDM::net*)s.MakeStruct_net()
+                                    : (UHDM::net*)s.MakeLogic_net();
             n->VpiName(name);
             n->VpiFullName(fullName);
             n->VpiParent(m);
@@ -305,16 +311,21 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 setLocNamed(n, *it.port);
             else
                 setLoc(n, nameSpan(it.sym->location, it.sym->name));
-            if (int32_t nt = netTypeFor(*it.sym))
-                n->VpiNetType(nt);
-            if (it.port && it.sym->getDeclaredType() &&
-                it.sym->getDeclaredType()->getType().isSigned())
-                n->VpiSigned(true);
+            if (!isStruct) {
+                if (int32_t nt = netTypeFor(*it.sym))
+                    ((UHDM::logic_net*)n)->VpiNetType(nt);
+                if (it.port && it.sym->getDeclaredType() &&
+                    it.sym->getDeclaredType()->getType().isSigned())
+                    n->VpiSigned(true);
+            }
             rt->VpiParent(n);
             n->Typespec(rt);
             // Surelog parents the net typespec at creation; a shared
             // declaration-group typespec ends at the group's last net.
-            ts->VpiParent(n);
+            // Typedef typespecs keep their own parent.
+            if (ts->UhdmType() != UHDM::uhdmenum_typespec &&
+                ts->UhdmType() != UHDM::uhdmstruct_typespec)
+                ts->VpiParent(n);
             topNets[it.sym] = n;
             sigOrder.emplace_back(it.sym, n);
             nets->push_back(n);

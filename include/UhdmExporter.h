@@ -130,6 +130,8 @@ private:
     UHDM::enum_typespec* buildEnumTs(const slang::ast::EnumType& et,
                                      const slang::syntax::SyntaxNode* enumSyn,
                                      const std::string& refFullName);
+    UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
+                                         const std::string& aliasName);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,

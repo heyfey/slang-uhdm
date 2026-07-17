@@ -540,6 +540,53 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 psel->Right_range((UHDM::expr*)r);
             return psel;
         }
+        case ExpressionKind::MemberAccess: {
+            // p.hi -> hier_path with unbound ref elements: base ref has
+            // name only; member refs carry module-scoped fullnames.
+            std::vector<const Expression*> chain;
+            const Expression* base = &expr;
+            while (base->kind == ExpressionKind::MemberAccess) {
+                chain.push_back(base);
+                base = &base->as<MemberAccessExpression>().value();
+            }
+            if (base->kind != ExpressionKind::NamedValue) {
+                noteUnsupported("member access base");
+                return nullptr;
+            }
+            auto& nv = base->as<NamedValueExpression>();
+            if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+                refCollector->insert(&nv.symbol);
+            auto* hp = s.MakeHier_path();
+            std::string dotted(nv.symbol.name);
+            for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
+                dotted += "." + std::string((*it2)->as<MemberAccessExpression>().member.name);
+            hp->VpiName(dotted);
+            hp->VpiFullName(dotted);
+            hp->VpiParent(parent);
+            setLoc(hp, expr.sourceRange);
+            auto* elems = s.MakeAnyVec();
+            {
+                auto* r = s.MakeRef_obj();
+                r->VpiName(nv.symbol.name);
+                r->VpiFullName(nv.symbol.name);
+                r->VpiParent(hp);
+                setLoc(r, base->sourceRange);
+                elems->push_back(r);
+            }
+            for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
+                auto& ma = (*it2)->as<MemberAccessExpression>();
+                auto* r = s.MakeRef_obj();
+                r->VpiName(ma.member.name);
+                r->VpiFullName(prefix + "." + std::string(ma.member.name));
+                r->VpiParent(hp);
+                // Member token position within the expression.
+                auto end = (*it2)->sourceRange.end();
+                setLoc(r, SourceRange(end - ma.member.name.size(), end));
+                elems->push_back(r);
+            }
+            hp->Path_elems(elems);
+            return hp;
+        }
         default:
             noteUnsupported("expression kind: " + std::string(toString(expr.kind)));
             return nullptr;

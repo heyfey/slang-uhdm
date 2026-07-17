@@ -271,7 +271,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
         }
         else {
-            noteUnsupported("packed array without integer type syntax");
+            noteUnsupported("packed array without integer type syntax: " +
+                            std::string(declSymbol.name));
         }
     }
     return ts;
@@ -292,6 +293,9 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         v->VpiVisibility(1);
         return v;
     }
+    // Packed structs become struct_nets (handled by the net branch).
+    if (ct.kind == SymbolKind::PackedStructType)
+        return nullptr;
     if (!portBacked && !regDecl && internal.kind == SymbolKind::Variable &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
@@ -467,8 +471,56 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
     return ets;
 }
 
-// Typedefs (enums for now): module Typespecs entries compiled at module
-// compile, shared by both views and by all declarations using the alias.
+// Packed struct typespec: typespec_members with member-type Ref locations
+// and alias-scoped ref fullnames.
+UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
+                                                   const std::string& aliasName) {
+    auto* sts = s.MakeStruct_typespec();
+    if (packed)
+        sts->VpiPacked(true);
+    auto* members = s.MakeTypespec_memberVec();
+    for (auto& fm : structScope.members()) {
+        if (fm.kind != SymbolKind::Field)
+            continue;
+        auto* tm = s.MakeTypespec_member();
+        tm->VpiName(fm.name);
+        tm->VpiParent(sts);
+        setLoc(tm, nameSpan(fm.location, fm.name));
+        // The canonical struct's fields may lose their type-syntax link;
+        // recover it from the member declaration syntax.
+        const syntax::SyntaxNode* memberTypeSyn = nullptr;
+        for (auto p2 = fm.getSyntax(); p2; p2 = p2->parent) {
+            if (p2->kind == syntax::SyntaxKind::StructUnionMember) {
+                memberTypeSyn = p2->as<syntax::StructUnionMemberSyntax>().type;
+                break;
+            }
+        }
+        auto* fts = makeTypespec(fm, memberTypeSyn);
+        fts->VpiParent(tm);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(aliasName + "." + std::string(fm.name));
+        rt->VpiParent(tm);
+        rt->Actual_typespec(fts);
+        tm->Typespec(rt);
+        // Ref* fields point at the member's type syntax.
+        if (memberTypeSyn) {
+            auto sr = memberTypeSyn->sourceRange();
+            if (sr.start() != SourceLocation::NoLocation) {
+                tm->VpiRefFile(fullFilePath(sr.start()));
+                tm->VpiRefLineNo(sm->getLineNumber(sr.start()));
+                tm->VpiRefColumnNo(sm->getColumnNumber(sr.start()));
+                tm->VpiRefEndLineNo(sm->getLineNumber(sr.end()));
+                tm->VpiRefEndColumnNo(sm->getColumnNumber(sr.end()));
+            }
+        }
+        members->push_back(tm);
+    }
+    sts->Members(members);
+    return sts;
+}
+
+// Typedefs (enums, packed structs): module Typespecs entries compiled at
+// module compile, shared by both views and by all declarations.
 void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_inst* m,
                                 const std::string& prefix, DefInfo& info) {
     auto* tds = s.MakeTypespecVec();
@@ -477,28 +529,36 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             continue;
         auto& ta = member.as<TypeAliasType>();
         auto& ct = ta.targetType.getType().getCanonicalType();
-        if (ct.kind != SymbolKind::EnumType) {
+        const syntax::SyntaxNode* typeSyn = nullptr;
+        if (auto syn = ta.getSyntax()) {
+            if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+        }
+        UHDM::typespec* ts = nullptr;
+        if (ct.kind == SymbolKind::EnumType) {
+            auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn,
+                                    prefix + "." + std::string(ta.name));
+            ets->VpiParent(m);
+            if (auto syn = ta.getSyntax())
+                setLoc(ets, syn->sourceRange());
+            ts = ets;
+        }
+        else if (ct.kind == SymbolKind::PackedStructType) {
+            auto* sts = buildStructTs(ct.as<PackedStructType>(), true, std::string(ta.name));
+            // Struct typespecs stay unparented; loc = the struct type syntax.
+            if (typeSyn)
+                setLoc(sts, typeSyn->sourceRange());
+            ts = sts;
+        }
+        else {
             noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
             continue;
         }
-        auto& et = ct.as<EnumType>();
-        const syntax::SyntaxNode* enumSyn = nullptr;
-        if (auto syn = ta.getSyntax()) {
-            if (syn->kind == syntax::SyntaxKind::TypedefDeclaration) {
-                const syntax::DataTypeSyntax* tsyn =
-                    syn->as<syntax::TypedefDeclarationSyntax>().type;
-                enumSyn = tsyn;
-            }
-        }
-        auto* ets = buildEnumTs(et, enumSyn, prefix + "." + std::string(ta.name));
-        ets->VpiName(ta.name);
-        ets->VpiParent(m);
-        ets->Instance(m);
-        if (auto syn = ta.getSyntax())
-            setLoc(ets, syn->sourceRange());
-        typedefTs[&ta] = ets;
-        info.typedefs.push_back(ets);
-        tds->push_back(ets);
+        ts->VpiName(ta.name);
+        ((UHDM::typespec*)ts)->Instance(m);
+        typedefTs[&ta] = ts;
+        info.typedefs.push_back(ts);
+        tds->push_back(ts);
     }
     if (!tds->empty())
         m->Typespecs(tds);
