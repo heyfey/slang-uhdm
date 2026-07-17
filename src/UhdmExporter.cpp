@@ -1208,6 +1208,71 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 is->VpiStmt(t);
             return is;
         }
+        case StatementKind::Case: {
+            auto& cs = stmt.as<CaseStatement>();
+            auto* uc = s.MakeCase_stmt();
+            uc->VpiParent(parent);
+            setLoc(uc, stmt.sourceRange);
+            switch (cs.condition) {
+                case CaseStatementCondition::Normal:
+                    uc->VpiCaseType(vpiCaseExact);
+                    break;
+                case CaseStatementCondition::WildcardXOrZ:
+                    uc->VpiCaseType(vpiCaseX);
+                    break;
+                case CaseStatementCondition::WildcardJustZ:
+                    uc->VpiCaseType(vpiCaseZ);
+                    break;
+                default:
+                    noteUnsupported("case condition kind");
+                    break;
+            }
+            // Like if conditions, the case condition parents at the
+            // enclosing scope.
+            if (auto* c = emitExpr(cs.expr, parent, prefix, netMap))
+                uc->VpiCondition((UHDM::expr*)c);
+
+            // Item location comes from the case-item syntax (covers the
+            // expressions through the trailing semicolon).
+            auto itemLoc = [&](const Statement& st, UHDM::BaseClass* obj) {
+                for (auto p = st.syntax ? st.syntax->parent : nullptr; p; p = p->parent) {
+                    if (p->kind == syntax::SyntaxKind::StandardCaseItem ||
+                        p->kind == syntax::SyntaxKind::DefaultCaseItem) {
+                        setLoc(obj, p->sourceRange());
+                        return;
+                    }
+                    if (p->kind == syntax::SyntaxKind::CaseStatement)
+                        break;
+                }
+                setLoc(obj, st.sourceRange);
+            };
+
+            auto* items = s.MakeCase_itemVec();
+            for (auto& g : cs.items) {
+                auto* it = s.MakeCase_item();
+                it->VpiParent(uc);
+                itemLoc(*g.stmt, it);
+                auto* exprs = s.MakeAnyVec();
+                for (auto e : g.expressions) {
+                    if (auto* ue = emitExpr(*e, it, prefix, netMap))
+                        exprs->push_back(ue);
+                }
+                it->VpiExprs(exprs);
+                if (auto* st = emitStmt(*g.stmt, it, prefix, netMap))
+                    it->Stmt(st);
+                items->push_back(it);
+            }
+            if (cs.defaultCase) {
+                auto* it = s.MakeCase_item();
+                it->VpiParent(uc);
+                itemLoc(*cs.defaultCase, it);
+                if (auto* st = emitStmt(*cs.defaultCase, it, prefix, netMap))
+                    it->Stmt(st);
+                items->push_back(it);
+            }
+            uc->Case_items(items);
+            return uc;
+        }
         default:
             noteUnsupported("statement kind: " + std::string(toString(stmt.kind)));
             return nullptr;
@@ -1308,7 +1373,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Surelog parents constants only as operation operands and
             // bit_select indices (not assignment sides or select ranges).
             if (parent && (parent->UhdmType() == UHDM::uhdmoperation ||
-                           parent->UhdmType() == UHDM::uhdmbit_select))
+                           parent->UhdmType() == UHDM::uhdmbit_select ||
+                           parent->UhdmType() == UHDM::uhdmcase_item))
                 c->VpiParent(parent);
 
             auto tick = raw.find('\'');
