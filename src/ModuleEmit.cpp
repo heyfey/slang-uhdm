@@ -1024,6 +1024,19 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 }
             }
         }
+        // Multi-dim PACKED-array def nets also truncate to the first dim end
+        // (top view keeps the whole-type span).
+        else if (dt3->getType().isPackedArray() && ts->VpiName().empty()) {
+            if (auto tsyn3 = dt3->getTypeSyntax();
+                tsyn3 && syntax::IntegerTypeSyntax::isKind(tsyn3->kind)) {
+                auto& dims3 = tsyn3->as<syntax::IntegerTypeSyntax>().dimensions;
+                if (dims3.size() >= 2) {
+                    auto de = dims3[0]->sourceRange().end();
+                    ts->VpiEndLineNo(sm->getLineNumber(de));
+                    ts->VpiEndColumnNo(sm->getColumnNumber(de));
+                }
+            }
+        }
     }
     // Initialized decls extend the def-view typespec through the init
     // (but unpacked arrays keep their first-dim span, handled above).

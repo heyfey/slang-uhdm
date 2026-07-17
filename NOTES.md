@@ -752,3 +752,10 @@ Rules landed (each probed against goldens):
   width (parented at the var, loc = literal span).
 - TODO: unpacked-array PORTS want array_net (not array_var) + array_typespec
   port ts (AssignArraySelPlus). Currently emits array_var -> CMP_ONLY.
+
+## Multi-dim packed nets + nested-select parenting (r88)
+- Multi-dim PACKED-array DEF nets truncate the typespec span to the first
+  dim end (materializeDefNetTs); the TOP net keeps the whole-type span.
+- var_select element indices force-parent ONLY when the index is a literal
+  (isLiteralExpr per index); a part_select/select index keeps its own bound
+  rules (its bound constants stay unparented).

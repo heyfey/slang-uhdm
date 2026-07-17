@@ -789,10 +789,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(vs, expr.sourceRange);
                     auto* idxs = s.MakeExprVec();
                     bool savedFCP = forceConstParent;
-                    forceConstParent = true;
-                    for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2)
+                    for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2) {
+                        forceConstParent = isLiteralExpr(**it2);
                         if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
                             idxs->push_back((UHDM::expr*)ix);
+                    }
                     forceConstParent = savedFCP;
                     vs->Exprs(idxs);
                     return vs;
@@ -845,10 +846,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(vs, expr.sourceRange);
                     auto* idxs = s.MakeExprVec();
                     bool savedFCP = forceConstParent;
-                    forceConstParent = true;
-                    for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2)
+                    for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2) {
+                        // Only literal indices force-parent; select indices
+                        // (part_select) keep their own bound rules.
+                        forceConstParent = isLiteralExpr(**it2);
                         if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
                             idxs->push_back((UHDM::expr*)ix);
+                    }
                     forceConstParent = savedFCP;
                     // Final selector: a part_select (or indexed_part_select).
                     SourceRange selRange(rs.left().sourceRange.start(),
