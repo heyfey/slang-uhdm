@@ -22,6 +22,8 @@ class Expression;
 class ProceduralBlockSymbol;
 class PortSymbol;
 class ParameterSymbol;
+class PackageSymbol;
+class Scope;
 class TimingControl;
 } // namespace slang::ast
 
@@ -84,8 +86,9 @@ private:
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
-    void emitParameters(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
-                        const std::string& prefix, NetMap& netMap, bool topView, DefInfo* di);
+    void emitParameters(const slang::ast::Scope& body, UHDM::scope* m, const std::string& prefix,
+                        NetMap& netMap, bool topView, DefInfo* di, bool inPackage);
+    UHDM::package* emitPackage(const slang::ast::PackageSymbol& pkg, bool topView);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
@@ -132,6 +135,7 @@ private:
     bool inLhs = false;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
+    std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
 

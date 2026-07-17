@@ -260,6 +260,19 @@ UHDM::design* UhdmExporter::exportDesign() {
             collectDefs(inst->body, defs);
     }
 
+    // User packages (skip built-ins).
+    std::vector<const PackageSymbol*> pkgs;
+    for (auto pkg : comp.getPackages()) {
+        if (pkg->name != "std" && pkg->name != "$unit")
+            pkgs.push_back(pkg);
+    }
+    if (!pkgs.empty()) {
+        auto* allP = s.MakePackageVec();
+        for (auto pkg : pkgs)
+            allP->push_back(emitPackage(*pkg, false));
+        d->AllPackages(allP);
+    }
+
     auto* allMods = s.MakeModule_instVec();
     auto* topMods = s.MakeModule_instVec();
 
@@ -276,6 +289,13 @@ UHDM::design* UhdmExporter::exportDesign() {
         topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
     }
     d->TopModules(topMods);
+
+    if (!pkgs.empty()) {
+        auto* topP = s.MakePackageVec();
+        for (auto pkg : pkgs)
+            topP->push_back(emitPackage(*pkg, true));
+        d->TopPackages(topP);
+    }
 
     s.MakeUhdmHandle(UHDM::uhdmdesign, d);
     return d;
@@ -331,9 +351,14 @@ static const Expression* connectionExpr(const PortConnection& conn) {
     return expr;
 }
 
-void UhdmExporter::emitParameters(const InstanceBodySymbol& body, UHDM::module_inst* m,
-                                  const std::string& prefix, NetMap& netMap, bool topView,
-                                  DefInfo* di) {
+static std::string joinPath(const std::string& prefix, std::string_view name) {
+    if (prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0)
+        return prefix + std::string(name);
+    return prefix + "." + std::string(name);
+}
+
+void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
+                                  NetMap& netMap, bool topView, DefInfo* di, bool inPackage) {
     auto* params = s.MakeAnyVec();
     auto* passigns = s.MakeParam_assignVec();
     for (auto& member : body.members()) {
@@ -342,12 +367,25 @@ void UhdmExporter::emitParameters(const InstanceBodySymbol& body, UHDM::module_i
         auto& ps = member.as<ParameterSymbol>();
         auto* up = s.MakeParameter();
         up->VpiName(ps.name);
-        up->VpiFullName(prefix + "." + std::string(ps.name));
+        up->VpiFullName(joinPath(prefix, ps.name));
         up->VpiParent(m);
         setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
 
+        // Packages: follow the source keyword (slang marks package params
+        // local per LRM; Surelog does not).
+        bool isLocal = ps.isLocalParam();
+        if (inPackage) {
+            isLocal = false;
+            for (auto q = ps.getSyntax(); q; q = q->parent) {
+                if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                    isLocal = q->as<syntax::ParameterDeclarationSyntax>().keyword.valueText() ==
+                              "localparam";
+                    break;
+                }
+            }
+        }
         bool wantTs = false;
-        if (ps.isLocalParam()) {
+        if (isLocal) {
             up->VpiLocalParam(true);
         }
         else {
@@ -377,7 +415,7 @@ void UhdmExporter::emitParameters(const InstanceBodySymbol& body, UHDM::module_i
             // The actual typespec object is created late (after the instance
             // ports) to match Surelog's arena order; the ref is patched then.
             prt = s.MakeRef_typespec();
-            prt->VpiFullName(prefix + "." + std::string(ps.name));
+            prt->VpiFullName(joinPath(prefix, ps.name));
             prt->VpiParent(up);
             up->Typespec(prt);
         }
@@ -416,12 +454,18 @@ void UhdmExporter::emitParameters(const InstanceBodySymbol& body, UHDM::module_i
             }
             if (rhs) {
                 pa->Rhs(rhs);
+                if (inPackage && !topView && rhs->UhdmType() == UHDM::uhdmconstant)
+                    pkgParamConst[&member] = (UHDM::constant*)rhs;
                 // Literal inits of typed params carry the param typespec
                 // (patched late together with the param ref).
                 if (wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     init->kind == ExpressionKind::IntegerLiteral) {
                     auto* rt = s.MakeRef_typespec();
-                    rt->VpiFullName(prefix);
+                    std::string tsPrefix = prefix;
+                    if (tsPrefix.size() >= 2 &&
+                        tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                        tsPrefix.resize(tsPrefix.size() - 2);
+                    rt->VpiFullName(tsPrefix);
                     rt->VpiParent((UHDM::constant*)rhs);
                     ((UHDM::constant*)rhs)->Typespec(rt);
                     rhsRt = rt;
@@ -430,7 +474,7 @@ void UhdmExporter::emitParameters(const InstanceBodySymbol& body, UHDM::module_i
         }
         passigns->push_back(pa);
         if (prt) {
-            if (topView) {
+            if (topView && !inPackage) {
                 pendingParamTs.push_back({&ps, up, prt, rhsRt, typedParam});
             }
             else {
@@ -497,6 +541,23 @@ void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {
     }
 }
 
+UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView) {
+    std::string prefix = std::string(pkg.name) + "::";
+    auto* up = s.MakePackage();
+    up->VpiName(pkg.name);
+    up->VpiFullName(prefix);
+    up->VpiDefName(pkg.name);
+    up->VpiParent(d);
+    up->VpiFile(fullFilePath(pkg.location));
+    if (topView)
+        up->VpiTop(true);
+    if (auto syn = pkg.getSyntax())
+        setLoc(up, syn->sourceRange());
+    NetMap none;
+    emitParameters(pkg, up, prefix, none, topView, nullptr, true);
+    return up;
+}
+
 UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
@@ -511,7 +572,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (auto syntax = body.getSyntax())
         setLoc(m, syntax->sourceRange());
 
-    emitParameters(body, m, prefix, info.nets, /*topView=*/false, &info);
+    emitParameters(body, m, prefix, info.nets, /*topView=*/false, &info, false);
 
     // Nets: ANSI modules list port-backed nets before locals; non-ANSI
     // modules list locals first (Surelog's collection order).
@@ -714,7 +775,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     {
         auto pit = defMap.find(&def);
         emitParameters(body, m, prefix, topNets, /*topView=*/true,
-                       pit != defMap.end() ? &pit->second : nullptr);
+                       pit != defMap.end() ? &pit->second : nullptr, false);
     }
     std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
     bool ansiPorts = true;
@@ -1838,11 +1899,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 refCollector->insert(&nv.symbol);
             auto* ref = s.MakeRef_obj();
             ref->VpiName(nv.symbol.name);
-            ref->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+            auto scope = nv.symbol.getParentScope();
+            if (scope && scope->asSymbol().kind == SymbolKind::Package &&
+                nv.symbol.kind == SymbolKind::Parameter) {
+                // Module-side references to package params are folded inline
+                // to constants carrying the reference's location.
+                auto& psym = nv.symbol.as<ParameterSymbol>();
+                auto& cv = psym.getValue();
+                if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                    auto* c = s.MakeConstant();
+                    std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+                    c->VpiDecompile(digits);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    setLoc(c, expr.sourceRange);
+                    if (parent && parent->UhdmType() == UHDM::uhdmoperation)
+                        c->VpiParent(parent);
+                    return c;
+                }
+                ref->VpiFullName(std::string(scope->asSymbol().name) + "::" +
+                                 std::string(nv.symbol.name));
+            }
+            else {
+                ref->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+                if (auto it = netMap.find(&nv.symbol); it != netMap.end())
+                    ref->Actual_group(it->second);
+            }
             ref->VpiParent(parent);
             setLoc(ref, expr.sourceRange);
-            if (auto it = netMap.find(&nv.symbol); it != netMap.end())
-                ref->Actual_group(it->second);
             return ref;
         }
         case ExpressionKind::UnaryOp: {

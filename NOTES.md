@@ -157,3 +157,42 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
 - r4: 12 PASS + 15 CMP_ONLY. r5 (concat/replication + reparent rules):
   13 PASS + 16 CMP_ONLY, 484 UNSUPPORTED, 0 crash.
 - r6 (for loops, lvalue selects, golden suite): 14 PASS + 15 CMP_ONLY, 483 UNSUPPORTED, 0 crash. Session 1 ends here.
+
+## Phase A-B-E3 quirks (session 2, 2026-07-17)
+
+- ANSI multi-port headers ("input clk, clr"): shared-group typespecs anchor
+  at the FIRST port of the group (the one with direction/type tokens).
+- ANSI net-port headers ("input wire x"): vpiNetType from the keyword token;
+  implicit-dims typespec spans keyword..dims ("wire [31:0]"). Port decls
+  with implicit dims ("input [3:0] a") anchor at the dims alone.
+- Non-ANSI modules: local declarations BEFORE port nets in Nets vectors
+  (ANSI: ports first).
+- reg-declared locals stay logic_nets (netType 48); only `logic` locals
+  become logic_vars.
+- Event lists: comma-separated -> vpiListOp(37); `or` -> vpiEventOrOp(35)
+  (AST doesn't keep the separator; peek at source text between events).
+- for_stmt: PLURAL VpiForInitStmts/VpiForIncStmts vectors (singular fields
+  print elsewhere and fail cmp); loop var = int_var(Signed, no Visibility)
+  as init-assignment Lhs; slang's implicit wrapper block is skipped.
+- named_begin: loc = block-name token; inner refs use blockpath fullnames.
+- indexed_part_select: vpiIndexedPartSelectType 1(+:)/2(-:), Base/Width
+  exprs unparented. Lvalue selects span whole expr; rvalue anchor at index.
+- repeat: loc = "repeat" keyword; count constant unparented.
+- Parameters: untyped -> int_typespec spanning the whole declaration (no
+  Signed); typed -> ts at type syntax + Signed on ts AND parameter object.
+  Def ts inline (typed: parent=param), top ts deferred until after ports
+  (parent=its ref). Rhs literal const carries ts ref w/ module-prefix
+  fullname. Top rhs: literal re-emitted size=param width; else folded
+  (INT if division/INT-encoded param refs involved, else UINT; size 64).
+  Local params: only vpiLocalParam flag, no value/ts.
+- sys_func_call: name incl. $, loc = name token only; args don't reparent
+  typespecs. Size casts: operation(67) + integer_typespec(INT:<size>, at
+  the size literal, unsigned); re-emitted context parents cast ts at ref.
+- Packages: VpiFullName "pkg::" (trailing colons), AllPackages+TopPackages
+  (top has VpiTop:1), param fullnames pkg::name, package `parameter`
+  keyword => NON-local (ignore slang's LRM-correct local marking).
+  Module-side refs to package params fold inline to UINT constants at the
+  reference's source range. Package typedefs (vpiTypedef list w/ named
+  typespecs, unfolded range exprs, refs Actual->param rhs const) NOT yet
+  implemented.
+- Corpus: r7 21+17, r8 31+9, r9 33+10, r10 33+13, r11 36+22 (PASS+CMP_ONLY).
