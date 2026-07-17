@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# converge.sh <dut.sv> [extra slang-uhdm args...]
+# Runs Surelog and slang-uhdm on the same source, diffs uhdm-dump output and
+# runs uhdm-cmp. Prints DUMP_MATCH/DUMP_DIFF and PASS_CMP/CMP_FAIL.
+set -u
+
+SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang/build/bin/slang-uhdm}
+SURELOG=${SURELOG:-$HOME/git-repos/Surelog/build/bin/surelog}
+UHDM_DUMP=${UHDM_DUMP:-$HOME/git-repos/UHDM/build/bin/uhdm-dump}
+UHDM_CMP=${UHDM_CMP:-$HOME/git-repos/UHDM/build/bin/uhdm-cmp}
+
+SRC=$(realpath "$1")
+shift
+WORK=${WORK:-$(mktemp -d /tmp/uhdm-converge.XXXXXX)}
+mkdir -p "$WORK"
+cd "$WORK" || exit 9
+
+# Reference producer
+if ! "$SURELOG" -parse -nobuiltin -nocache "$SRC" >surelog.log 2>&1; then
+    echo "SURELOG_FAIL ($WORK/surelog.log)"
+    exit 5
+fi
+SUHDM=$WORK/slpp_all/surelog.uhdm
+[ -f "$SUHDM" ] || { echo "SURELOG_NO_UHDM"; exit 5; }
+
+# Our producer
+"$SLANG_UHDM" "$SRC" -o slang.uhdm "$@" >slang.log 2>&1
+SLANG_EXIT=$?
+if [ $SLANG_EXIT -eq 4 ]; then
+    echo "UNSUPPORTED:"
+    sed -n '/unsupported constructs/,$p' slang.log | tail -n +2
+elif [ $SLANG_EXIT -ne 0 ]; then
+    echo "SLANG_FAIL exit=$SLANG_EXIT ($WORK/slang.log)"
+    exit 6
+fi
+[ -f slang.uhdm ] || { echo "SLANG_NO_UHDM"; exit 6; }
+
+# Dump both; normalize: drop banner line naming the file
+"$UHDM_DUMP" "$SUHDM" 2>/dev/null | sed '1d' >surelog.dump
+"$UHDM_DUMP" slang.uhdm 2>/dev/null | sed '1d' >slang.dump
+
+if diff -u surelog.dump slang.dump >dump.diff; then
+    echo "DUMP_MATCH"
+else
+    echo "DUMP_DIFF $(grep -c '^[-+]' dump.diff) lines ($WORK/dump.diff)"
+fi
+
+if "$UHDM_CMP" "$SUHDM" slang.uhdm >cmp.log 2>&1; then
+    echo "PASS_CMP"
+else
+    echo "CMP_FAIL ($WORK/cmp.log)"
+fi
+echo "workdir: $WORK"
