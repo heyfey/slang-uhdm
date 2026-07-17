@@ -568,6 +568,65 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::ElementSelect: {
             auto& es = expr.as<ElementSelectExpression>();
+            // Selects on member access become hier_paths whose last element
+            // is the select object (lazily-frozen fullname).
+            if (es.value().kind == ExpressionKind::MemberAccess) {
+                std::vector<const Expression*> chain;
+                const Expression* base = &es.value();
+                while (base->kind == ExpressionKind::MemberAccess) {
+                    chain.push_back(base);
+                    base = &base->as<MemberAccessExpression>().value();
+                }
+                if (base->kind != ExpressionKind::NamedValue) {
+                    noteUnsupported("member select base");
+                    return nullptr;
+                }
+                auto& bnv = base->as<NamedValueExpression>();
+                auto* hp = s.MakeHier_path();
+                std::string dotted(bnv.symbol.name);
+                for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
+                    dotted +=
+                        "." + std::string((*it2)->as<MemberAccessExpression>().member.name);
+                dotted += "[" + rawText(es.selector().sourceRange) + "]";
+                hp->VpiName(dotted);
+                hp->VpiFullName(dotted);
+                hp->VpiParent(parent);
+                setLoc(hp, expr.sourceRange);
+                auto* elems = s.MakeAnyVec();
+                {
+                    auto* r = s.MakeRef_obj();
+                    r->VpiName(bnv.symbol.name);
+                    (void)r->VpiFullName();
+                    r->VpiParent(hp);
+                    setLoc(r, base->sourceRange);
+                    elems->push_back(r);
+                }
+                for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
+                    auto& ma = (*it2)->as<MemberAccessExpression>();
+                    bool last = *it2 == chain.front();
+                    if (!last) {
+                        auto* r = s.MakeRef_obj();
+                        r->VpiName(ma.member.name);
+                        (void)r->VpiFullName();
+                        r->VpiParent(hp);
+                        auto end = (*it2)->sourceRange.end();
+                        setLoc(r, SourceRange(end - ma.member.name.size(), end));
+                        elems->push_back(r);
+                    }
+                    else {
+                        auto* bs2 = s.MakeBit_select();
+                        bs2->VpiName(ma.member.name);
+                        bs2->VpiParent(hp);
+                        setLoc(bs2, es.selector().sourceRange);
+                        (void)bs2->VpiFullName();
+                        if (auto* ix = emitExpr(es.selector(), bs2, prefix, netMap))
+                            bs2->VpiIndex((UHDM::expr*)ix);
+                        elems->push_back(bs2);
+                    }
+                }
+                hp->Path_elems(elems);
+                return hp;
+            }
             if (es.value().kind != ExpressionKind::NamedValue) {
                 noteUnsupported("element select base");
                 return nullptr;
