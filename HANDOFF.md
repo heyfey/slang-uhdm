@@ -13,12 +13,14 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r14 baseline, committed as results/baseline.csv)
+## Current scoreboard (r32 baseline, committed as results/baseline.csv)
 
-PASS 36 · CMP_ONLY 33 · DIFF 243 · UNSUPPORTED 349 · CRASH 0
-· SLANG_REJECT 44 · SURELOG_FAIL 5
-(PASS = dump+cmp identical; CMP_ONLY = cmp passes, only the unordered
-weaklyReferenced dump tail differs — one ordering fix from PASS.)
+PASS 100 · CMP_ONLY 0 · DIFF 249 · UNSUPPORTED 312 · CRASH 0
+· SLANG_REJECT 44 · SURELOG_FAIL 5   (100 of 661 achievable converged)
+Session 3 landed: file split (Task 0), ALL weakly-tail ordering (arena
+model in NOTES), C2 user functions/tasks, D1 enums/typedefs/attributes,
+E2 generate scopes, D2 packed/unpacked structs + hier_path member access,
+C3 immediate assertions. 23 goldens.
 
 ## Environment (this machine)
 
@@ -62,43 +64,29 @@ Methodology hard rules (learned the expensive way):
   first, ordering second.
 - Match Surelog bug-for-bug; document every replicated quirk in NOTES.md.
 
-## Task 0 for the new session: split UhdmExporter.cpp
+## DONE (session 3): Task 0 split, tail ordering, C2, D1, E2, D2, C3
 
-src/UhdmExporter.cpp is ~3000 lines; split BEFORE phases D/E add more.
-Pure code motion (keep the single UhdmExporter class; spread member
-functions across TUs); verify with check_goldens + gated corpus round:
+The file layout now: src/{UhdmExporter,ModuleEmit,ParamEmit,StmtEmit,
+TaskFuncEmit,ExprEmit,TypeEmit}.cpp + src/EmitHelpers.h. The arena-order
+model (write-phase drains, def/top port ts swap, fullname freeze quirk)
+is fully documented in NOTES.md sessions 3 — READ IT before touching
+typespec ordering.
 
-  src/EmitHelpers.h    file-local helpers as inline: netTypeFor, mapUnaryOp,
-                       mapBinaryOp, firstDeclaratorLoc, ansiNetHeader,
-                       collectDefs, findConnSyntax, connectionExpr,
-                       containsOperation, joinPath
-  src/UhdmExporter.cpp ctor, exportDesign, setLoc/setLocNamed, rawText,
-                       fullFilePath, noteUnsupported
-  src/ModuleEmit.cpp   emitModuleDef, emitInstance, emitPorts, emitContAssigns
-  src/ParamEmit.cpp    emitParameters, patchParamTypespecs, makeParamTs,
-                       analyzeParamEnc, emitPackage
-  src/StmtEmit.cpp     emitProcess, emitStmt, emitEventExpr
-  src/ExprEmit.cpp     emitExpr, tryFoldConst, isIntEncoded
-  src/TypeEmit.cpp     makeTypespec, sharedTypespec, makeBoundConst, makeVar
-Update CMakeLists.txt target sources accordingly. Commit as its own change.
+## Next phases (r32 triage: scripts/triage.sh results/baseline.csv)
 
-## Then: feature phases (priority = live triage data, roughly)
-
-1. Weakly-tail ordering polish → flips most of the 33 CMP_ONLY to PASS.
-   Approach: pick each CMP_ONLY test, diff tails, adjust CREATION order
-   (typespec/constant arena order rules are in NOTES.md).
-2. C2 user functions/tasks (~100 tests blocked on "Call"): module
-   Task_funcs vector + func_call/task_call; probe golden shapes first.
-3. D1 enums + typedefs (incl. package typedefs — shapes partially decoded
-   in NOTES.md: vpiTypedef list, named typespecs, UNFOLDED range exprs
-   whose refs bind Actual→param-rhs constants).
-4. E2 generate (gen_scope_array/gen_scope; genvars are most of the
-   "ArbitrarySymbol" 46); B2 parameterized instances (STUDY golden shape
-   of AdditionAsParameterInInstance first — known design unknown).
-5. D2 member access / structs (70), C3 assertions (58), E1 hier_path (49),
-   E4 interfaces (46, deepest — last).
-6. F: --elabuhdm mode (run UHDM ElaboratorListener + UhdmAdjuster in-process
-   like Surelog's -elabuhdm; needed for Stage 2 and sv-pathfinder).
+1. Top remaining blockers: HierarchicalValue 56 (E1 hier refs across
+   scopes — genvar refs from ArbitrarySymbol 46 overlap), InterfacePort 46
+   (E4), StructuredAssignmentPattern 35 + Simple 25 (D3), element/range
+   select bases 35+24 (selects on member-access/hier bases), statement
+   List 34 (block-less multi-statement bodies), user function call 33
+   (package-scoped funcs), typedef PackedArrayType 27 + "packed array
+   without integer type syntax" 38 (simple vector typedefs),
+   VariableDeclaration 17 (block-local decls).
+2. B2 parameterized instances: STUDY AdditionAsParameterInInstance golden
+   first (folded specialized-def shape still unknown).
+3. F: --elabuhdm mode (run UHDM ElaboratorListener + UhdmAdjuster
+   in-process like Surelog's -elabuhdm; needed for Stage 2 and
+   sv-pathfinder).
 
 ## Stages 2-3 (after corpus is mostly green)
 
