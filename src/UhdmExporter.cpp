@@ -16,6 +16,7 @@
 #include "slang/ast/expressions/LiteralExpressions.h"
 #include "slang/ast/expressions/MiscExpressions.h"
 #include "slang/ast/expressions/OperatorExpressions.h"
+#include "slang/ast/expressions/SelectExpressions.h"
 #include "slang/ast/statements/ConditionalStatements.h"
 #include "slang/ast/statements/MiscStatements.h"
 #include "slang/ast/symbols/CompilationUnitSymbols.h"
@@ -1304,9 +1305,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             c->VpiDecompile(raw);
             c->VpiSize((int32_t)expr.type->getBitWidth());
             setLoc(c, expr.sourceRange);
-            // Surelog parents constants only when they are operands of an
-            // operation (not e.g. assignment sides).
-            if (parent && parent->UhdmType() == UHDM::uhdmoperation)
+            // Surelog parents constants only as operation operands and
+            // bit_select indices (not assignment sides or select ranges).
+            if (parent && (parent->UhdmType() == UHDM::uhdmoperation ||
+                           parent->UhdmType() == UHDM::uhdmbit_select))
                 c->VpiParent(parent);
 
             auto tick = raw.find('\'');
@@ -1350,6 +1352,64 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return emitExpr(conv.operand(), parent, prefix, netMap);
             noteUnsupported("explicit conversion");
             return nullptr;
+        }
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral: {
+            auto& ul = expr.as<UnbasedUnsizedIntegerLiteral>();
+            auto* c = s.MakeConstant();
+            std::string raw = rawText(expr.sourceRange);
+            c->VpiDecompile(raw);
+            c->VpiSize(-1);
+            logic_t bit = ul.getLiteralValue();
+            std::string digit = bit.isUnknown() ? (bit.value == logic_t::X_VALUE ? "x" : "z")
+                                                : (bit.value ? "1" : "0");
+            c->VpiValue("BIN:" + digit);
+            c->VpiConstType(vpiBinaryConst);
+            setLoc(c, expr.sourceRange);
+            if (parent && (parent->UhdmType() == UHDM::uhdmoperation ||
+                           parent->UhdmType() == UHDM::uhdmbit_select))
+                c->VpiParent(parent);
+            return c;
+        }
+        case ExpressionKind::ElementSelect: {
+            auto& es = expr.as<ElementSelectExpression>();
+            if (es.value().kind != ExpressionKind::NamedValue) {
+                noteUnsupported("element select base");
+                return nullptr;
+            }
+            auto& nv = es.value().as<NamedValueExpression>();
+            auto* bs = s.MakeBit_select();
+            bs->VpiName(nv.symbol.name);
+            bs->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+            bs->VpiParent(parent);
+            // Surelog anchors bit_selects at the index expression.
+            setLoc(bs, es.selector().sourceRange);
+            if (auto* ix = emitExpr(es.selector(), bs, prefix, netMap))
+                bs->VpiIndex((UHDM::expr*)ix);
+            return bs;
+        }
+        case ExpressionKind::RangeSelect: {
+            auto& rs = expr.as<RangeSelectExpression>();
+            if (rs.value().kind != ExpressionKind::NamedValue ||
+                rs.getSelectionKind() != RangeSelectionKind::Simple) {
+                noteUnsupported("range select form");
+                return nullptr;
+            }
+            auto& nv = rs.value().as<NamedValueExpression>();
+            auto* psel = s.MakePart_select();
+            psel->VpiName(nv.symbol.name);
+            psel->VpiDefName(nv.symbol.name);
+            psel->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+            psel->VpiParent(parent);
+            setLoc(psel, expr.sourceRange);
+            bool constSel = rs.left().kind == ExpressionKind::IntegerLiteral &&
+                            rs.right().kind == ExpressionKind::IntegerLiteral;
+            if (constSel)
+                psel->VpiConstantSelect(true);
+            if (auto* l = emitExpr(rs.left(), psel, prefix, netMap))
+                psel->Left_range((UHDM::expr*)l);
+            if (auto* r = emitExpr(rs.right(), psel, prefix, netMap))
+                psel->Right_range((UHDM::expr*)r);
+            return psel;
         }
         default:
             noteUnsupported("expression kind: " + std::string(toString(expr.kind)));
