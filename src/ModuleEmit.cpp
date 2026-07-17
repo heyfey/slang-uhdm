@@ -1096,6 +1096,25 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
 
     // Deferred re-emitted cast typespecs (very end of the write phase).
     for (auto& pc : pendingCastTs) {
+        if (pc.castType) {
+            auto& ct = pc.castType->getCanonicalType();
+            UHDM::typespec* tts;
+            if (ct.kind == SymbolKind::PredefinedIntegerType) {
+                auto* its2 = s.MakeInt_typespec();
+                its2->VpiSigned(ct.isSigned());
+                tts = its2;
+            }
+            else {
+                tts = s.MakeLogic_typespec();
+            }
+            tts->VpiLineNo(pc.line);
+            tts->VpiColumnNo(pc.col);
+            tts->VpiEndLineNo(pc.endLine);
+            tts->VpiEndColumnNo(pc.endCol);
+            tts->VpiParent(pc.rt);
+            pc.rt->Actual_typespec(tts);
+            continue;
+        }
         auto* its = s.MakeInteger_typespec();
         its->VpiLineNo(pc.line);
         its->VpiColumnNo(pc.col);

@@ -242,6 +242,30 @@ inline const syntax::NamedPortConnectionSyntax* findConnSyntax(const InstanceSym
     return nullptr;
 }
 
+// Data-type syntax kinds that can appear as a cast target.
+inline bool isTypeSyntaxKind(syntax::SyntaxKind k) {
+    switch (k) {
+        case syntax::SyntaxKind::LogicType:
+        case syntax::SyntaxKind::BitType:
+        case syntax::SyntaxKind::RegType:
+        case syntax::SyntaxKind::ByteType:
+        case syntax::SyntaxKind::ShortIntType:
+        case syntax::SyntaxKind::IntType:
+        case syntax::SyntaxKind::LongIntType:
+        case syntax::SyntaxKind::IntegerType:
+        case syntax::SyntaxKind::TimeType:
+        case syntax::SyntaxKind::ShortRealType:
+        case syntax::SyntaxKind::RealType:
+        case syntax::SyntaxKind::RealTimeType:
+        case syntax::SyntaxKind::StructType:
+        case syntax::SyntaxKind::UnionType:
+        case syntax::SyntaxKind::EnumType:
+            return true;
+        default:
+            return false;
+    }
+}
+
 // True when the instance's connection list is positional (ordered).
 inline bool hasOrderedConns(const InstanceSymbol& inst) {
     auto syn = inst.getSyntax();

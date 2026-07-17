@@ -631,3 +631,11 @@ Rules landed (each probed against goldens):
 - Compilation-unit functions attach to the DESIGN object's Task_funcs: bare
   name as fullname, vpiMethod:1, no vpiInstance, emitted once (before any
   module), normal linked call sites.
+
+## Type casts (r78)
+- TYPE casts (logic', int', struct'...) map to vpiCastOp with the
+  target-type typespec (int -> int_typespec signed, else logic_typespec) at
+  the type-syntax span. Def view creates it inline; RE-EMITTED (top) casts
+  defer creation to the very end of the write phase (pendingCastTs gained a
+  castType variant), like size-cast integer_typespecs.
+- Top view NEVER folds type casts (keeps the op); SIZE casts still fold.

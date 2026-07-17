@@ -19,6 +19,16 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
     // also truncate through slang's 32-bit unsized literal type).
     if (stripImplicitConv(expr).kind == ExpressionKind::IntegerLiteral)
         return nullptr;
+    // Explicit TYPE casts (logic'/int'...) are re-emitted, never folded;
+    // size casts still fold.
+    {
+        auto& c0 = stripImplicitConv(expr);
+        if (c0.kind == ExpressionKind::Conversion && c0.syntax &&
+            c0.syntax->kind == syntax::SyntaxKind::CastExpression &&
+            isTypeSyntaxKind(
+                c0.syntax->as<syntax::CastExpressionSyntax>().left->kind))
+            return nullptr;
+    }
     ASTContext ctx(comp.getRoot(), LookupLocation::max);
     ConstantValue cv = ctx.tryEval(expr);
     if (!cv || !cv.isInteger())
@@ -347,6 +357,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(its, cesyn.left->sourceRange());
                         its->VpiValue("INT:" + rawText(cesyn.left->sourceRange()));
                         cts = its;
+                    }
+                }
+                else if (isTypeSyntaxKind(cesyn.left->kind)) {
+                    // Type casts: re-emitted contexts defer the target-type
+                    // typespec to the end of the write phase; otherwise fall
+                    // through to the fallback below.
+                    if (reemitting) {
+                        auto* rt0 = s.MakeRef_typespec();
+                        rt0->VpiFullName(prefix);
+                        rt0->VpiParent(op);
+                        auto lr = cesyn.left->sourceRange();
+                        pendingCastTs.push_back({rt0, sm->getLineNumber(lr.start()),
+                                                 sm->getColumnNumber(lr.start()),
+                                                 sm->getLineNumber(lr.end()),
+                                                 sm->getColumnNumber(lr.end()), "",
+                                                 nullptr, prefix, expr.type});
+                        op->Typespec(rt0);
+                        deferredCast = true;
                     }
                 }
                 else if (currentScope) {

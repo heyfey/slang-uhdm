@@ -19,6 +19,7 @@ class DefinitionSymbol;
 class Symbol;
 class Statement;
 class Expression;
+class Type;
 class ProceduralBlockSymbol;
 class PortSymbol;
 class ParameterSymbol;
@@ -239,6 +240,8 @@ private:
         // Non-literal sizes: the bound size expression emitted at drain.
         const slang::ast::Expression* sizeExpr = nullptr;
         std::string prefix;
+        // Type casts: build the target-type typespec at drain instead.
+        const slang::ast::Type* castType = nullptr;
     };
     std::vector<PendingCastTs> pendingCastTs;
     // Abandoned first-compile of re-emitted pattern cont_assigns: an orphan
