@@ -544,18 +544,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ips->VpiDefName(nv.symbol.name);
                 ips->VpiFullName(prefix + "." + std::string(nv.symbol.name));
                 ips->VpiParent(parent);
-                setLoc(ips, SourceRange(rs.left().sourceRange.start(),
-                                        rs.right().sourceRange.end()));
+                // Lvalue selects span the whole expression.
+                if (inLhs)
+                    setLoc(ips, expr.sourceRange);
+                else
+                    setLoc(ips, SourceRange(rs.left().sourceRange.start(),
+                                            rs.right().sourceRange.end()));
                 ips->VpiIndexedPartSelectType(
                     rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1 : 2);
-                if (rs.left().kind == ExpressionKind::IntegerLiteral &&
-                    rs.right().kind == ExpressionKind::IntegerLiteral)
-                    ips->VpiConstantSelect(true);
+                // Constant width suffices (the base may be a variable).
+                {
+                    ASTContext cctx(comp.getRoot(), LookupLocation::max);
+                    if (rs.right().kind == ExpressionKind::IntegerLiteral ||
+                        cctx.tryEval(rs.right()))
+                        ips->VpiConstantSelect(true);
+                }
                 suppressConstParent = true;
-                if (auto* b = emitExpr(rs.left(), ips, prefix, netMap))
+                // Refs in base/width exprs carry base-scoped fullnames.
+                auto savedSel = selectBasePrefix;
+                selectBasePrefix = prefix + "." + std::string(nv.symbol.name);
+                if (auto* b = emitExpr(rs.left(), ips, selectBasePrefix, netMap))
                     ips->Base_expr((UHDM::expr*)b);
-                if (auto* w = emitExpr(rs.right(), ips, prefix, netMap))
+                if (auto* w = emitExpr(rs.right(), ips, selectBasePrefix, netMap))
                     ips->Width_expr((UHDM::expr*)w);
+                selectBasePrefix = savedSel;
                 suppressConstParent = false;
                 return ips;
             }

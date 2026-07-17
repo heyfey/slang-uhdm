@@ -189,6 +189,9 @@ private:
     bool callStmtContext = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
+    // Refs inside indexed-part-select base/width exprs are scoped by the
+    // select base name.
+    std::string selectBasePrefix;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
     // Def-view local-net typespecs are created only after the top-level

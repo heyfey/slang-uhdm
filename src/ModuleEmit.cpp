@@ -134,12 +134,22 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     // are folded (recompiled), unlike local-net typespecs.
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
 
-    // Child instance references (def view uses ref_module stubs).
+    // Child instance references (def view uses ref_module stubs; bound
+    // instances are skipped in the def view).
     auto* refmods = s.MakeRef_moduleVec();
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Instance)
             continue;
         auto& child = member.as<InstanceSymbol>();
+        bool fromBind = false;
+        for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
+            if (p2->kind == syntax::SyntaxKind::BindDirective) {
+                fromBind = true;
+                break;
+            }
+        }
+        if (fromBind)
+            continue;
         auto* rm = s.MakeRef_module();
         rm->VpiName(child.name);
         rm->VpiDefName("work@" + std::string(child.getDefinition().name));

@@ -375,6 +375,25 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* uc = s.MakeCase_stmt();
             uc->VpiParent(parent);
             setLoc(uc, stmt.sourceRange);
+            // (* full_case/parallel_case *) attributes anchor the case at
+            // the case keyword and attach attribute objects.
+            if (auto attrs = comp.getAttributes(stmt); !attrs.empty()) {
+                if (stmt.syntax && stmt.syntax->kind == syntax::SyntaxKind::CaseStatement) {
+                    auto kw = stmt.syntax->as<syntax::CaseStatementSyntax>().caseKeyword;
+                    if (kw.valid())
+                        setLoc(uc, SourceRange(kw.location(), stmt.sourceRange.end()));
+                }
+                auto* av = s.MakeAttributeVec();
+                for (auto a : attrs) {
+                    auto* ua = s.MakeAttribute();
+                    ua->VpiName(a->name);
+                    if (auto asyn = a->getSyntax())
+                        setLoc(ua, asyn->sourceRange());
+                    ua->VpiParent(uc);
+                    av->push_back(ua);
+                }
+                uc->Attributes(av);
+            }
             switch (cs.check) {
                 case UniquePriorityCheck::Unique:
                     uc->VpiQualifier(vpiUniqueQualifier);
