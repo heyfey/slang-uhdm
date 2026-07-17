@@ -321,6 +321,38 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 r->VpiStmt(b);
             return r;
         }
+        case StatementKind::WhileLoop: {
+            auto& wl = stmt.as<WhileLoopStatement>();
+            auto* w = s.MakeWhile_stmt();
+            w->VpiParent(parent);
+            // Keyword-only span ("while").
+            setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 5));
+            if (auto* c = emitExpr(wl.cond, w, prefix, netMap))
+                w->VpiCondition((UHDM::expr*)c);
+            if (auto* b = emitStmt(wl.body, w, prefix, netMap))
+                w->VpiStmt(b);
+            return w;
+        }
+        case StatementKind::DoWhileLoop: {
+            auto& dw = stmt.as<DoWhileLoopStatement>();
+            auto* w = s.MakeDo_while();
+            w->VpiParent(parent);
+            setLoc(w, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 2));
+            if (auto* c = emitExpr(dw.cond, w, prefix, netMap))
+                w->VpiCondition((UHDM::expr*)c);
+            if (auto* b = emitStmt(dw.body, w, prefix, netMap))
+                w->VpiStmt(b);
+            return w;
+        }
+        case StatementKind::ForeverLoop: {
+            auto& fl = stmt.as<ForeverLoopStatement>();
+            auto* f = s.MakeForever_stmt();
+            f->VpiParent(parent);
+            setLoc(f, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 7));
+            if (auto* b = emitStmt(fl.body, f, prefix, netMap))
+                f->VpiStmt(b);
+            return f;
+        }
         case StatementKind::Conditional: {
             auto& cs = stmt.as<ConditionalStatement>();
             if (cs.conditions.size() != 1 || cs.conditions[0].pattern) {

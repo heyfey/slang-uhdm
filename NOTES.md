@@ -774,3 +774,9 @@ Rules landed (each probed against goldens):
   Int/Integer): short_int/long_int/byte/time _typespec and _var. Signed
   types set VpiSigned on both ts and var (via the variables base accessor);
   time is unsigned. Unblocks Shortint, Longint (+ partial int_types/ports).
+
+## While/do-while/forever loops (r91)
+- while_stmt (keyword-span loc, 5 chars), do_while (2 chars), forever_stmt
+  (7 chars). Condition + body; the condition follows normal const-parenting
+  (direct constant condition unparented, operation-operand constants
+  parented -> do NOT suppressConstParent the condition).
