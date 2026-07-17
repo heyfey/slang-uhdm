@@ -533,3 +533,26 @@ Rules landed (each probed against goldens):
   io typespec; def view (shell, argTs empty) has no arg ts.
 - Calls seen before the def fill (param inits) get a shell task_func created
   at the call site; emitTaskFuncs reuses it (subMap hit) and fills it.
+
+## Package functions + function body lists (r73)
+- Package task_funcs: emitted in BOTH package views (def + top copies, own ts
+  objects each); call sites bind the def copy (subMap keep-first). Fullname
+  separators are :: all the way down (my_pkg::incr::x), including body refs
+  (joinRef helper: prefix containing :: joins with ::).
+- Package-context return/io typespecs carry vpiInstance -> the package.
+- Io arg ts with explicit keyword+dims anchors at the KEYWORD token only
+  (logic [7:0] x -> ts loc = "logic"); return ts keeps the whole span.
+- Arena: BOTH package views build before any module (top packages moved up).
+- Packages listed in SOURCE order (slang name-sorts; stable_sort by location).
+- Qualified pkg calls: vpiName "pkg::fn", span = package-name token only.
+  Unqualified imported calls: plain name, name-token span.
+- Top-view CA whose RHS is an argument-less user call returning a literal:
+  re-emitted with the call FOLDED to that literal (literal's own loc/shape).
+- Function body bare stmt lists with >= 2 effective stmts (decl inits count):
+  unnamed begin wrapper (fullname = scope, loc = first..last real stmt).
+  Initialized locals: name-span loc, NO automatic flag, re-parented at their
+  init assignment (op 82, blocking, declarator span, Lhs = the var object,
+  literal Rhs unparented / ref Rhs parented); vars listed in BOTH function
+  and begin Variables.
+- Package import (import pkg::fn) DEEP-CLONES the function into the importing
+  package with half-reprefixed names - NOT implemented yet (ImportFunction).

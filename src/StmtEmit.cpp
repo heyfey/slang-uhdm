@@ -653,22 +653,70 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             return c;
         }
         case StatementKind::List: {
-            // Declaration-bearing lists (function bodies): skip the decls
-            // and return the single remaining statement.
+            // Declaration-bearing lists (function bodies): decls with
+            // initializers become leading assignment stmts; two or more
+            // effective stmts get an unnamed begin wrapper.
             auto& sl = stmt.as<StatementList>();
-            UHDM::any* result = nullptr;
-            int emitted = 0;
+            std::vector<const VariableSymbol*> declVars;
+            std::vector<const Statement*> real;
+            size_t initCount = 0;
             for (auto st : sl.list) {
-                if (st->kind == StatementKind::VariableDeclaration)
+                if (st->kind == StatementKind::VariableDeclaration) {
+                    auto& vs = st->as<VariableDeclStatement>().symbol;
+                    declVars.push_back(&vs);
+                    if (vs.getDeclaredType()->getInitializer())
+                        initCount++;
                     continue;
-                if (auto* u = emitStmt(*st, parent, prefix, netMap)) {
-                    result = u;
-                    emitted++;
                 }
+                real.push_back(st);
             }
-            if (emitted > 1)
-                noteUnsupported("multi-statement list without block");
-            return result;
+            if (initCount + real.size() <= 1) {
+                UHDM::any* result = nullptr;
+                for (auto st : real)
+                    if (auto* u = emitStmt(*st, parent, prefix, netMap))
+                        result = u;
+                return result;
+            }
+            auto* ub = s.MakeBegin();
+            ub->VpiFullName(prefix);
+            ub->VpiParent(parent);
+            // Anchored at the real statements (decl inits excluded).
+            if (!real.empty())
+                setLoc(ub, SourceRange(real.front()->sourceRange.start(),
+                                       real.back()->sourceRange.end()));
+            else
+                setLoc(ub, stmt.sourceRange);
+            auto* bvars = s.MakeVariablesVec();
+            for (auto* vsym : declVars)
+                if (auto it = netMap.find(vsym); it != netMap.end())
+                    bvars->push_back((UHDM::variables*)it->second);
+            if (!bvars->empty())
+                ub->Variables(bvars);
+            auto* stmts = s.MakeAnyVec();
+            for (auto* vsym : declVars) {
+                auto* init = vsym->getDeclaredType()->getInitializer();
+                if (!init)
+                    continue;
+                auto* as = s.MakeAssignment();
+                as->VpiParent(ub);
+                as->VpiOpType(vpiAssignmentOp);
+                as->VpiBlocking(true);
+                if (auto syn = vsym->getSyntax())
+                    setLoc(as, syn->sourceRange());
+                if (auto it = netMap.find(vsym); it != netMap.end()) {
+                    auto* v = (UHDM::variables*)it->second;
+                    v->VpiParent(as);
+                    as->Lhs((UHDM::expr*)v);
+                }
+                if (auto* r = emitExpr(*init, as, prefix, netMap))
+                    as->Rhs((UHDM::expr*)r);
+                stmts->push_back(as);
+            }
+            for (auto st : real)
+                if (auto* u = emitStmt(*st, ub, prefix, netMap))
+                    stmts->push_back(u);
+            ub->Stmts(stmts);
+            return ub;
         }
         case StatementKind::Empty:
             return nullptr;

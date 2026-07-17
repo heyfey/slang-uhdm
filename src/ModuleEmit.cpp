@@ -6,6 +6,8 @@
 //------------------------------------------------------------------------------
 #include "UhdmExporter.h"
 
+#include <functional>
+
 #include "EmitHelpers.h"
 
 namespace slang_uhdm {
@@ -85,7 +87,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
 
     // Tasks/functions are module items; their typespecs (return, io_decls)
     // precede cont_assign and port typespecs.
-    emitTaskFuncs(body, m, prefix, info);
+    emitTaskFuncs(body, m, prefix, &info);
 
     // Def-view cont_assigns come before ports (their typespecs precede the
     // port typespecs in Surelog's arena).
@@ -1096,13 +1098,42 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                 rc.as<NamedValueExpression>().symbol.kind == SymbolKind::EnumValue)
                 enumRhs = &rc.as<NamedValueExpression>().symbol;
         }
+        // Argument-less user calls returning a literal fold in the top view
+        // to that literal (its own loc and base shape).
+        const Expression* constFnRet = nullptr;
+        if (topView) {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall() &&
+                rc.as<CallExpression>().arguments().empty()) {
+                auto& call = rc.as<CallExpression>();
+                if (auto subp = std::get_if<const SubroutineSymbol*>(&call.subroutine)) {
+                    std::function<const Statement*(const Statement&)> findRet =
+                        [&](const Statement& st) -> const Statement* {
+                        if (st.kind == StatementKind::Return)
+                            return &st;
+                        if (st.kind == StatementKind::List) {
+                            auto& l = st.as<StatementList>().list;
+                            return l.size() == 1 ? findRet(*l[0]) : nullptr;
+                        }
+                        if (st.kind == StatementKind::Block)
+                            return findRet(st.as<BlockStatement>().body);
+                        return nullptr;
+                    };
+                    if (auto* rst = findRet((*subp)->getBody()))
+                        if (auto* e = rst->as<ReturnStatement>().expr)
+                            if (stripImplicitConv(*e).kind == ExpressionKind::IntegerLiteral)
+                                constFnRet = &stripImplicitConv(*e);
+                }
+            }
+        }
         // Top modules share the def's cont_assign object unless netlist
         // elaboration re-compiles it: that happens only for whole-net LHS
         // (RHS resized against the net width) when the RHS contains
         // operations or is a literal. Select-LHS assigns always stay shared.
         bool plainLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            (!plainLhs || (!containsOperation(ae.right()) && !literalRhs && !enumRhs))) {
+            (!plainLhs ||
+             (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !constFnRet))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -1151,6 +1182,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                     rhs = c;
                 }
             }
+        }
+        if (!rhs && topView && constFnRet) {
+            forceConstParent = true;
+            rhs = emitExpr(*constFnRet, ca, prefix, netMap);
+            forceConstParent = false;
         }
         if (!rhs && !bitsRhs)
             rhs = topView ? tryFoldConst(ae.right()) : nullptr;

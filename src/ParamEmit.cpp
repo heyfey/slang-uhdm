@@ -304,6 +304,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         setLoc(up, syn->sourceRange());
     NetMap none;
     emitParameters(pkg, up, prefix, none, topView, nullptr, true);
+    emitTaskFuncs(pkg, up, prefix, nullptr, /*sharedScope=*/false);
     return up;
 }
 

@@ -20,20 +20,26 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
 }
 
 
-void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_inst* m,
-                                 const std::string& prefix, DefInfo& info) {
+void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
+                                 const std::string& prefix, DefInfo* info,
+                                 bool sharedScope) {
+    // Packages use :: separators below the function name too.
+    bool pkgScope = prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0;
+    std::string sep = pkgScope ? "::" : ".";
     auto* tfs = s.MakeTask_funcVec();
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Subroutine)
             continue;
         auto& sub = member.as<SubroutineSymbol>();
         bool isFunc = sub.subroutineKind == SubroutineKind::Function;
-        std::string fullName = prefix + "." + std::string(sub.name);
+        std::string fullName = joinPath(prefix, sub.name);
 
-        // Reuse a shell created by an early (param-init) call site.
+        // Reuse a shell created by an early (param-init) call site. Package
+        // top-view re-emission must NOT reuse the def copy.
         UHDM::task_func* tf = nullptr;
-        if (auto sit = subMap.find(&sub); sit != subMap.end() && sit->second.tf)
-            tf = sit->second.tf;
+        if (sharedScope)
+            if (auto sit = subMap.find(&sub); sit != subMap.end() && sit->second.tf)
+                tf = sit->second.tf;
         if (!tf)
             tf = isFunc ? (UHDM::task_func*)s.MakeFunction()
                         : (UHDM::task_func*)s.MakeTask();
@@ -56,7 +62,9 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         SubInfo si;
         si.tf = tf;
         // Bodies see module-level nets too (shadowed formals override).
-        NetMap funcMap = info.nets;
+        NetMap funcMap;
+        if (info)
+            funcMap = info->nets;
         TsCache ioTs;
 
         // Function return: an anonymous variable carrying only the full name,
@@ -72,6 +80,8 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
             rt->Actual_typespec(ts);
+            if (pkgScope)
+                ts->Instance(m);
             rv->Typespec(rt);
             copyLoc(rv, ts);
             ((UHDM::function*)tf)->Return(rv);
@@ -109,7 +119,7 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
                     bareImplicit = true;
             }
             auto* rt = s.MakeRef_typespec();
-            rt->VpiFullName(fullName + "." + std::string(arg->name));
+            rt->VpiFullName(fullName + sep + std::string(arg->name));
             rt->VpiParent(io);
             if (bareImplicit) {
                 pendingIoTs.push_back({rt, argTsyn});
@@ -118,6 +128,15 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
                 tfContext = true;
                 ts = sharedTypespec(*arg, ioTs);
                 tfContext = false;
+                // Explicit-keyword arg types anchor at the keyword token
+                // only (ranges keep their own spans).
+                if (argTsyn && argTsyn->kind != syntax::SyntaxKind::ImplicitType) {
+                    if (auto* its2 = argTsyn->as_if<syntax::IntegerTypeSyntax>();
+                        its2 && !its2->dimensions.empty())
+                        setLoc((UHDM::BaseClass*)ts, its2->keyword.range());
+                }
+                if (pkgScope)
+                    ((UHDM::typespec*)ts)->Instance(m);
                 rt->Actual_typespec(ts);
             }
             io->Typespec(rt);
@@ -130,8 +149,10 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
 
         emitParameters(sub, tf, fullName, funcMap, /*topView=*/false, nullptr,
                        /*inPackage=*/false, /*topShareTs=*/false, /*funcScope=*/true);
-        implicitNetModule = m;
-        implicitNetPrefix = prefix;
+        if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+            implicitNetModule = (UHDM::module_inst*)m;
+            implicitNetPrefix = prefix;
+        }
 
         // Function-local variables attach to the function's Variables
         // (loc = the declared type span).
@@ -148,9 +169,16 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
                     continue;
                 auto* v = makeReturnVar(s, fmv.getDeclaredType()->getType());
                 v->VpiName(fmv.name);
-                v->VpiFullName(fullName + "." + std::string(fmv.name));
+                v->VpiFullName(fullName + sep + std::string(fmv.name));
                 v->VpiParent(tf);
-                if (auto dt = fmv.getDeclaredType()) {
+                // Initialized locals anchor at the name (and are later
+                // re-parented at their init assignment, without the
+                // automatic flag).
+                bool hasInit = fmv.getDeclaredType()->getInitializer() != nullptr;
+                if (hasInit) {
+                    setLoc(v, nameSpan(fmv.location, fmv.name));
+                }
+                else if (auto dt = fmv.getDeclaredType()) {
                     if (auto tsyn2 = dt->getTypeSyntax()) {
                         auto sr = tsyn2->sourceRange();
                         if (sr.start() != SourceLocation::NoLocation)
@@ -159,11 +187,12 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
                 }
                 auto* vts = makeTypespec(fmv);
                 auto* vrt = s.MakeRef_typespec();
-                vrt->VpiFullName(fullName + "." + std::string(fmv.name));
+                vrt->VpiFullName(fullName + sep + std::string(fmv.name));
                 vrt->VpiParent(v);
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                v->VpiAutomatic(true);
+                if (!hasInit)
+                    v->VpiAutomatic(true);
                 funcMap[&fmv] = v;
                 fvars->push_back(v);
             }
@@ -187,8 +216,11 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         funcRetSym = savedSym;
         funcRetRefs = savedRefs;
 
-        subMap[&sub] = si;
-        info.taskFuncs.push_back(tf);
+        // Call sites bind the def copy: keep-first for package re-emission.
+        if (sharedScope || !subMap.count(&sub))
+            subMap[&sub] = si;
+        if (info)
+            info->taskFuncs.push_back(tf);
         tfs->push_back(tf);
     }
     if (!tfs->empty())

@@ -280,6 +280,15 @@ inline const Expression* connectionExpr(const PortConnection& conn) {
     return expr;
 }
 
+// Refs inside package scopes keep :: separators all the way down.
+inline std::string joinRef(const std::string& prefix, std::string_view name) {
+    if (prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0)
+        return prefix + std::string(name);
+    if (prefix.find("::") != std::string::npos)
+        return prefix + "::" + std::string(name);
+    return prefix + "." + std::string(name);
+}
+
 inline std::string joinPath(const std::string& prefix, std::string_view name) {
     if (prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0)
         return prefix + std::string(name);

@@ -147,7 +147,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  std::string(nv.symbol.name));
             }
             else {
-                ref->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+                ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                 if (auto it = netMap.find(&nv.symbol); it != netMap.end())
                     ref->Actual_group(it->second);
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
@@ -444,6 +444,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
                 else
                     setLoc(fc, expr.sourceRange);
+                // Package functions: qualified calls carry the scoped name
+                // and anchor at the package-name token only.
+                if (auto ps2 = sub.getParentScope();
+                    ps2 && ps2->asSymbol().kind == SymbolKind::Package) {
+                    std::string pkgName(ps2->asSymbol().name);
+                    std::string raw = rawText(expr.sourceRange);
+                    if (raw.rfind(pkgName + "::", 0) == 0) {
+                        fc->VpiName(pkgName + "::" + std::string(sub.name));
+                        setLoc(fc, nameSpan(expr.sourceRange.start(), pkgName));
+                    }
+                    else {
+                        setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
+                    }
+                }
                 if (isFunc)
                     ((UHDM::func_call*)fc)->Function((UHDM::function*)si.tf);
                 else

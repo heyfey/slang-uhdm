@@ -75,11 +75,20 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (pkg->name != "std" && pkg->name != "$unit")
             pkgs.push_back(pkg);
     }
+    // Surelog keeps source (compile) order; slang name-sorts.
+    std::stable_sort(pkgs.begin(), pkgs.end(), [](auto* a, auto* b) {
+        return a->location < b->location;
+    });
     if (!pkgs.empty()) {
         auto* allP = s.MakePackageVec();
         for (auto pkg : pkgs)
             allP->push_back(emitPackage(*pkg, false));
         d->AllPackages(allP);
+        // Surelog builds both package views before any module.
+        auto* topP = s.MakePackageVec();
+        for (auto pkg : pkgs)
+            topP->push_back(emitPackage(*pkg, true));
+        d->TopPackages(topP);
     }
 
     auto* allMods = s.MakeModule_instVec();
@@ -167,13 +176,6 @@ UHDM::design* UhdmExporter::exportDesign() {
     pendingParamTs.clear();
     pendingNetTs.clear();
     d->TopModules(topMods);
-
-    if (!pkgs.empty()) {
-        auto* topP = s.MakePackageVec();
-        for (auto pkg : pkgs)
-            topP->push_back(emitPackage(*pkg, true));
-        d->TopPackages(topP);
-    }
 
     s.MakeUhdmHandle(UHDM::uhdmdesign, d);
     return d;
