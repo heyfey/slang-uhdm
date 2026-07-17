@@ -880,8 +880,12 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         auto& sub = *pf.sub;
         if (pf.refs.empty() || !sub.returnValVar || sub.getReturnType().isVoid())
             continue;
-        std::string localFull = pf.fullName + "." + std::string(sub.name);
         for (auto* r : pf.refs) {
+            // The local's fullname mirrors the binding ref's scope (named
+            // blocks included).
+            std::string localFull(r->VpiFullName());
+            if (localFull.empty())
+                localFull = pf.fullName + "." + std::string(sub.name);
             auto* lv = makeReturnVar(s, sub.getReturnType());
             lv->VpiName(sub.name);
             lv->VpiFullName(localFull);
