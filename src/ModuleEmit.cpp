@@ -222,6 +222,23 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             m->Gen_stmts(regions);
     }
 
+    (void)netTsAtEntry;
+    (void)topDef;
+
+    return m;
+}
+
+// Encounter-phase def artifacts: ports, child stubs, imports. (Content is
+// compiled for every def before any instance; see exportDesign.)
+UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
+    auto& body = inst.body;
+    auto& def = inst.getDefinition();
+    std::string prefix = "work@" + std::string(def.name);
+    DefInfo& info = defMap[&def];
+    currentScope = &body;
+    auto* m = info.mod;
+    TsCache& defTs = info.defTs;
+
     // Def-view ports share one typespec object per declaration (Surelog's
     // TypespecCache behavior), with no parent set; their param-dim bounds
     // are folded (recompiled), unlike local-net typespecs.
@@ -294,9 +311,6 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
 
     emitImportArtifacts(body, m);
 
-    (void)netTsAtEntry;
-    (void)topDef;
-
     return m;
 }
 
@@ -361,11 +375,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     size_t paramLo = pendingParamTs.size();
     size_t netTsLo = pendingNetTs.size();
     size_t childNetTsLo = pendingNetTs.size();
-    // Surelog materializes a definition the first time the instance tree
-    // reaches it; typespec creation order depends on this.
+    // Def content is compiled for every def up front; the port/net phase
+    // runs the first time the instance tree reaches the def.
     if (!defMap[&def].filled) {
         defMap[&def].filled = true;
-        emitModuleDef(inst, isTop);
+        emitModuleDefPorts(inst);
     }
     std::string prefix = path;
     std::string defPrefix = "work@" + std::string(def.name);
@@ -729,7 +743,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 procs->push_back(p);
             m->Process(procs);
         }
-        if (isTop && it != defMap.end() && !it->second.taskFuncs.empty()) {
+        if (it != defMap.end() && !it->second.taskFuncs.empty()) {
             auto* tfs = s.MakeTask_funcVec();
             for (auto* tf : it->second.taskFuncs)
                 tfs->push_back(tf);

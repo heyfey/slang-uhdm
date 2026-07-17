@@ -204,7 +204,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             setLoc(v, sr);
                     }
                 }
+                tfContext = true;
                 auto* vts = makeTypespec(fmv);
+                tfContext = false;
                 if (pkgScope)
                     vts->Instance((UHDM::instance*)m);
                 auto* vrt = s.MakeRef_typespec();

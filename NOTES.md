@@ -671,3 +671,17 @@ Rules landed (each probed against goldens):
 - Def-view type-cast typespecs are MODULE-COMPILE artifacts: pre-created for
   all defs (name-sorted) right after the def param pre-pass, before any
   def fill (castTsCache keyed by cast-type syntax).
+
+## Def content pre-pass (r81) - ARCHITECTURE CHANGE
+- Surelog compiles EVERY def's content before elaborating any instance:
+  typedefs, net objects, task_funcs, cont_assigns (incl. their cast ts),
+  processes, generate placeholders all precede the first top module's ts.
+  Only the PORT phase (emitPorts, ref_modules, imports - emitModuleDefPorts)
+  is encounter-ordered. exportDesign now runs emitModuleDef (content) for
+  all defs name-sorted right after the def-param pre-pass; emitInstance
+  runs the port phase on first encounter. (Evidence: FWOP/PWUV child fn &
+  cast ts before top's def ts; fib both-tops pattern.) The r80 castTsCache
+  pre-scan became redundant (kept as harmless cache).
+- Child instance views ALSO list def task_funcs (isTop gate removed).
+- Function-local var typespecs keep UNFOLDED range bounds (tfContext),
+  refs BARE (name only, no fullname).

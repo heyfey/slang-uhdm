@@ -151,36 +151,12 @@ UHDM::design* UhdmExporter::exportDesign() {
         DefInfo& info = defMap[&inst->getDefinition()];
         emitParameters(inst->body, info.mod, "work@" + name, info.nets, /*topView=*/false,
                        &info, false);
-        // Type-cast typespecs in cont_assigns are also module-compile
-        // artifacts: create them now, reuse at def CA emission.
-        for (auto& member : inst->body.members()) {
-            if (member.kind != SymbolKind::ContinuousAssign)
-                continue;
-            auto& assign = member.as<ContinuousAssignSymbol>().getAssignment();
-            assign.visit(makeVisitor([&](auto& v, const ConversionExpression& ce) {
-                if (!ce.isImplicit() && ce.syntax &&
-                    ce.syntax->kind == syntax::SyntaxKind::CastExpression) {
-                    const syntax::ExpressionSyntax* left =
-                        ce.syntax->as<syntax::CastExpressionSyntax>().left;
-                    if (isTypeSyntaxKind(left->kind) && !castTsCache.count(left)) {
-                        auto& ct = ce.type->getCanonicalType();
-                        UHDM::typespec* ts;
-                        if (ct.kind == SymbolKind::PredefinedIntegerType) {
-                            auto* its = s.MakeInt_typespec();
-                            its->VpiSigned(ct.isSigned());
-                            ts = its;
-                        }
-                        else {
-                            ts = s.MakeLogic_typespec();
-                        }
-                        setLoc(ts, left->sourceRange());
-                        castTsCache[left] = ts;
-                    }
-                }
-                v.visitDefault(ce);
-            }));
-        }
     }
+    // Every def's CONTENT (typedefs, nets, task_funcs, cont_assigns,
+    // processes, generate placeholders) compiles before any instance; only
+    // the port/net-ts phase is encounter-ordered.
+    for (auto& [name, inst] : defs)
+        emitModuleDef(*inst, false);
 
     for (auto inst : root.topInstances) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);

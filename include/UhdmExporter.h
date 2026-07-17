@@ -111,6 +111,7 @@ private:
     };
 
     UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst, bool topDef);
+    UHDM::module_inst* emitModuleDefPorts(const slang::ast::InstanceSymbol& inst);
     UHDM::module_inst* emitInstance(const slang::ast::InstanceSymbol& inst,
                                     const std::string& path, UHDM::module_inst* parentM,
                                     NetMap* parentNets,
