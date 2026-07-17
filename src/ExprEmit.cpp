@@ -823,6 +823,87 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::RangeSelect: {
             auto& rs = expr.as<RangeSelectExpression>();
+            // Range select of an element select (x[0][1:0]) flattens to a
+            // var_select whose leading indices are the element selectors and
+            // whose final index is the (indexed_)part_select.
+            if (rs.value().kind == ExpressionKind::ElementSelect) {
+                std::vector<const Expression*> sels;
+                const Expression* base = &rs.value();
+                while (base->kind == ExpressionKind::ElementSelect) {
+                    sels.push_back(&base->as<ElementSelectExpression>().selector());
+                    base = &base->as<ElementSelectExpression>().value();
+                }
+                if (base->kind == ExpressionKind::NamedValue) {
+                    auto& nvb = base->as<NamedValueExpression>();
+                    if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+                        refCollector->insert(&nvb.symbol);
+                    auto* vs = s.MakeVar_select();
+                    vs->VpiName(nvb.symbol.name);
+                    std::string baseFull = joinRef(prefix, nvb.symbol.name);
+                    vs->VpiFullName(baseFull);
+                    vs->VpiParent(parent);
+                    setLoc(vs, expr.sourceRange);
+                    auto* idxs = s.MakeExprVec();
+                    bool savedFCP = forceConstParent;
+                    forceConstParent = true;
+                    for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2)
+                        if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
+                            idxs->push_back((UHDM::expr*)ix);
+                    forceConstParent = savedFCP;
+                    // Final selector: a part_select (or indexed_part_select).
+                    SourceRange selRange(rs.left().sourceRange.start(),
+                                         rs.right().sourceRange.end());
+                    bool constSel = false;
+                    {
+                        ASTContext cctx(comp.getRoot(), LookupLocation::max);
+                        constSel = (rs.left().kind == ExpressionKind::IntegerLiteral ||
+                                    cctx.tryEval(rs.left())) &&
+                                   (rs.right().kind == ExpressionKind::IntegerLiteral ||
+                                    cctx.tryEval(rs.right()));
+                    }
+                    if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
+                        auto* ps = s.MakePart_select();
+                        ps->VpiName(nvb.symbol.name);
+                        ps->VpiDefName(nvb.symbol.name);
+                        ps->VpiFullName(baseFull + "." + std::string(nvb.symbol.name));
+                        ps->VpiParent(vs);
+                        setLoc(ps, selRange);
+                        if (constSel)
+                            ps->VpiConstantSelect(true);
+                        bool savedSup = suppressConstParent;
+                        suppressConstParent = true;
+                        if (auto* l = emitExpr(rs.left(), ps, baseFull, netMap))
+                            ps->Left_range((UHDM::expr*)l);
+                        if (auto* r = emitExpr(rs.right(), ps, baseFull, netMap))
+                            ps->Right_range((UHDM::expr*)r);
+                        suppressConstParent = savedSup;
+                        idxs->push_back(ps);
+                    }
+                    else {
+                        auto* ips = s.MakeIndexed_part_select();
+                        ips->VpiName(nvb.symbol.name);
+                        ips->VpiDefName(nvb.symbol.name);
+                        ips->VpiFullName(baseFull + "." + std::string(nvb.symbol.name));
+                        ips->VpiParent(vs);
+                        setLoc(ips, selRange);
+                        ips->VpiIndexedPartSelectType(
+                            rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1 : 2);
+                        if (constSel)
+                            ips->VpiConstantSelect(true);
+                        bool savedSup = suppressConstParent;
+                        suppressConstParent = isLiteralExpr(rs.left());
+                        if (auto* b = emitExpr(rs.left(), ips, baseFull, netMap))
+                            ips->Base_expr((UHDM::expr*)b);
+                        suppressConstParent = isLiteralExpr(rs.right());
+                        if (auto* w = emitExpr(rs.right(), ips, baseFull, netMap))
+                            ips->Width_expr((UHDM::expr*)w);
+                        suppressConstParent = savedSup;
+                        idxs->push_back(ips);
+                    }
+                    vs->Exprs(idxs);
+                    return vs;
+                }
+            }
             if (rs.value().kind != ExpressionKind::NamedValue) {
                 noteUnsupported("range select base");
                 return nullptr;

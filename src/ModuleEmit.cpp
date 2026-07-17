@@ -512,7 +512,24 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                    ic.as<NamedValueExpression>().symbol.kind ==
                                        SymbolKind::EnumValue;
                     bool concatInit = ic.kind == ExpressionKind::Concatenation;
-                    if (enumRef || isLiteralExpr(ic) || concatInit) {
+                    // '1/'0/'x unbased-unsized inits fold to the var width.
+                    if (ic.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                        ASTContext ctx(comp.getRoot(), LookupLocation::max);
+                        ConstantValue cv = ctx.tryEval(*init);
+                        if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
+                            auto* c = s.MakeConstant();
+                            std::string digits =
+                                cv.integer().toString(LiteralBase::Decimal, false);
+                            c->VpiDecompile(digits);
+                            c->VpiSize((int32_t)dt->getType().getBitWidth());
+                            c->VpiValue("UINT:" + digits);
+                            c->VpiConstType(vpiUIntConst);
+                            c->VpiParent(v);
+                            setLoc(c, ic.sourceRange);
+                            v->Expr(c);
+                        }
+                    }
+                    else if (enumRef || isLiteralExpr(ic) || concatInit) {
                         bool forceSaved = forceConstParent;
                         // Concat ops self-parent; only bare literals need the
                         // force (which would leak into concat operands).

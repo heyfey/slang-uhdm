@@ -740,3 +740,15 @@ Rules landed (each probed against goldens):
 - Unpacked-array formals (int arg[1:0][0:0]): the io_decl carries one vpiRange
   per unpacked dimension (buildUnpackedRanges helper, shared with array_var),
   in addition to the element typespec.
+
+## Range/part select of element select + '1 var inits (r87)
+- x[0][1:0] (range select of an element select) flattens to a var_select
+  whose leading indices are the element selectors (const/ref, force-parented)
+  and whose FINAL index is a part_select (Simple) or indexed_part_select
+  (+:/-:). The final select: name/defName = base sym, fullname = base
+  fullname + "." + name (doubled), vpiConstantSelect when evaluable, loc =
+  left-bound-start .. right-bound-end, bound constants UNPARENTED.
+- Unbased-unsized ('1/'0) var initializers fold to a UINT constant at the var
+  width (parented at the var, loc = literal span).
+- TODO: unpacked-array PORTS want array_net (not array_var) + array_typespec
+  port ts (AssignArraySelPlus). Currently emits array_var -> CMP_ONLY.
