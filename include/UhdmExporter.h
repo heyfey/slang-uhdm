@@ -112,6 +112,8 @@ private:
     std::set<std::string> unsupportedKinds;
     bool suppressConstParent = false;
     bool reemitting = false;
+    bool forceConstParent = false;
+    bool inLhs = false;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
 

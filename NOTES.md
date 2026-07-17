@@ -144,3 +144,15 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
   condition parented at enclosing scope (same quirk as if), case_item loc
   from the case-item syntax (through ';'), item constants parented,
   multi-expr comma items in one case_item, default = case_item w/o exprs.
+- for loops: for_stmt loc = "for" keyword only, VpiFullName = scope prefix;
+  init/inc go in the PLURAL VpiForInitStmts/VpiForIncStmts vectors (the
+  singular fields print in a different order and fail cmp); inline loop var
+  = int_var (Signed, NO Visibility) as the init assignment's Lhs (init
+  assignment has no opType/blocking; its constant Rhs IS parented);
+  condition parents at the for_stmt (unlike if/case). slang's implicit
+  wrapper block around for-with-decl is skipped (no begin in Surelog).
+- Lvalue bit_selects span the whole select expr; rvalue ones anchor at the
+  index expression. Replication count constants: unparented in def view,
+  parented in re-elaborated context.
+- r4: 12 PASS + 15 CMP_ONLY. r5 (concat/replication + reparent rules):
+  13 PASS + 16 CMP_ONLY, 484 UNSUPPORTED, 0 crash.

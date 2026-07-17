@@ -18,6 +18,7 @@
 #include "slang/ast/expressions/OperatorExpressions.h"
 #include "slang/ast/expressions/SelectExpressions.h"
 #include "slang/ast/statements/ConditionalStatements.h"
+#include "slang/ast/statements/LoopStatements.h"
 #include "slang/ast/statements/MiscStatements.h"
 #include "slang/ast/symbols/CompilationUnitSymbols.h"
 #include "slang/ast/symbols/InstanceSymbols.h"
@@ -1007,8 +1008,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
+        inLhs = true;
         if (auto* l = emitExpr(ae.left(), ca, prefix, netMap))
             ca->Lhs((UHDM::expr*)l);
+        inLhs = false;
         cas->push_back(ca);
         if (defInfo)
             defInfo->contAssigns.push_back(ca);
@@ -1194,6 +1197,24 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 noteUnsupported("parallel block");
                 return nullptr;
             }
+            // slang wraps for-loops with inline declarations in an implicit
+            // block; Surelog has no such wrapper.
+            if (bs.syntax && bs.syntax->kind == syntax::SyntaxKind::ForLoopStatement) {
+                UHDM::any* result = nullptr;
+                auto& fbody = bs.body;
+                if (fbody.kind == StatementKind::List) {
+                    for (auto st : fbody.as<StatementList>().list) {
+                        if (st->kind == StatementKind::VariableDeclaration)
+                            continue;
+                        if (auto* u = emitStmt(*st, parent, prefix, netMap))
+                            result = u;
+                    }
+                }
+                else {
+                    result = emitStmt(fbody, parent, prefix, netMap);
+                }
+                return result;
+            }
             if (bs.blockSymbol && !bs.blockSymbol->name.empty()) {
                 noteUnsupported("named block");
                 return nullptr;
@@ -1249,6 +1270,84 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
                 is->VpiStmt(t);
             return is;
+        }
+        case StatementKind::ForLoop: {
+            auto& fl = stmt.as<ForLoopStatement>();
+            auto* fs = s.MakeFor_stmt();
+            fs->VpiParent(parent);
+            fs->VpiFullName(prefix);
+            // Surelog anchors the for_stmt at the "for" keyword alone.
+            setLoc(fs, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 3));
+
+            if (fl.loopVars.size() == 1 && fl.initializers.empty()) {
+                auto* lv = fl.loopVars[0];
+                auto& ct = lv->getType().getCanonicalType();
+                if (ct.kind != SymbolKind::PredefinedIntegerType) {
+                    noteUnsupported("for loop var type");
+                    return nullptr;
+                }
+                auto* v = s.MakeInt_var();
+                v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
+                v->VpiName(lv->name);
+                v->VpiFullName(prefix + "." + std::string(lv->name));
+                setLoc(v, SourceRange(lv->location, lv->location + lv->name.size()));
+                auto* ts = makeTypespec(*lv);
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix + "." + std::string(lv->name));
+                rt->VpiParent(v);
+                rt->Actual_typespec(ts);
+                v->Typespec(rt);
+                netMap[lv] = v;
+
+                auto* init = s.MakeAssignment();
+                init->VpiParent(fs);
+                v->VpiParent(init);
+                // Init spans the type through the initializer expression.
+                if (auto declared = lv->getDeclaredType()) {
+                    if (auto tsyn = declared->getTypeSyntax()) {
+                        auto end = lv->getSyntax() ? lv->getSyntax()->sourceRange().end()
+                                                   : stmt.sourceRange.end();
+                        setLoc(init, SourceRange(tsyn->sourceRange().start(), end));
+                    }
+                }
+                init->Lhs((UHDM::expr*)(UHDM::any*)v);
+                if (auto ie = lv->getInitializer()) {
+                    forceConstParent = true;
+                    if (auto* r = emitExpr(*ie, init, prefix, netMap))
+                        init->Rhs(r);
+                    forceConstParent = false;
+                }
+                auto* inits = s.MakeAnyVec();
+                inits->push_back(init);
+                fs->VpiForInitStmts(inits);
+            }
+            else if (!fl.initializers.empty() && fl.loopVars.empty()) {
+                auto* inits = s.MakeAnyVec();
+                for (auto ie : fl.initializers) {
+                    if (auto* u = emitExpr(*ie, fs, prefix, netMap))
+                        inits->push_back(u);
+                }
+                fs->VpiForInitStmts(inits);
+            }
+            else {
+                noteUnsupported("for init form");
+            }
+
+            if (fl.stopExpr) {
+                if (auto* c = emitExpr(*fl.stopExpr, fs, prefix, netMap))
+                    fs->VpiCondition((UHDM::expr*)c);
+            }
+            if (!fl.steps.empty()) {
+                auto* incs = s.MakeAnyVec();
+                for (auto st : fl.steps) {
+                    if (auto* u = emitExpr(*st, fs, prefix, netMap))
+                        incs->push_back(u);
+                }
+                fs->VpiForIncStmts(incs);
+            }
+            if (auto* b = emitStmt(fl.body, fs, prefix, netMap))
+                fs->VpiStmt(b);
+            return fs;
         }
         case StatementKind::Case: {
             auto& cs = stmt.as<CaseStatement>();
@@ -1332,8 +1431,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             asn->VpiBlocking(!ae.isNonBlocking());
             asn->VpiParent(parent);
             setLoc(asn, expr.sourceRange);
+            inLhs = true;
             if (auto* lhs = emitExpr(ae.left(), asn, prefix, netMap))
                 asn->Lhs((UHDM::expr*)lhs);
+            inLhs = false;
             if (auto* rhs = emitExpr(ae.right(), asn, prefix, netMap))
                 asn->Rhs(rhs);
             return asn;
@@ -1416,10 +1517,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             setLoc(c, expr.sourceRange);
             // Surelog parents constants only as operation operands and
             // bit_select indices (not assignment sides or select ranges).
-            if (!suppressConstParent && parent &&
-                (parent->UhdmType() == UHDM::uhdmoperation ||
-                 parent->UhdmType() == UHDM::uhdmbit_select ||
-                 parent->UhdmType() == UHDM::uhdmcase_item))
+            if (forceConstParent ||
+                (!suppressConstParent && parent &&
+                 (parent->UhdmType() == UHDM::uhdmoperation ||
+                  parent->UhdmType() == UHDM::uhdmbit_select ||
+                  parent->UhdmType() == UHDM::uhdmcase_item)))
                 c->VpiParent(parent);
 
             auto tick = raw.find('\'');
@@ -1527,8 +1629,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bs->VpiName(nv.symbol.name);
             bs->VpiFullName(prefix + "." + std::string(nv.symbol.name));
             bs->VpiParent(parent);
-            // Surelog anchors bit_selects at the index expression.
-            setLoc(bs, es.selector().sourceRange);
+            // Surelog anchors rvalue bit_selects at the index expression,
+            // but lvalue ones span the whole select.
+            setLoc(bs, inLhs ? expr.sourceRange : es.selector().sourceRange);
             if (auto* ix = emitExpr(es.selector(), bs, prefix, netMap))
                 bs->VpiIndex((UHDM::expr*)ix);
             return bs;
