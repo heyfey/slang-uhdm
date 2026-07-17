@@ -16,6 +16,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     std::string prefix = "work@" + std::string(def.name);
 
     DefInfo& info = defMap[&def];
+    currentScope = &body;
     auto* m = info.mod;
     m->VpiDefName(prefix);
     m->VpiFullName(prefix);

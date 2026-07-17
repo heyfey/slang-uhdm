@@ -170,7 +170,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     }
 
     auto* ts = s.MakeLogic_typespec();
-    if (declared && declared->getType().isSigned())
+    // Net-keyword-anchored typespecs omit the signed flag.
+    if (declared && declared->getType().isSigned() && !netKeywordAnchor)
         ts->VpiSigned(true);
     setLoc(ts, range);
 

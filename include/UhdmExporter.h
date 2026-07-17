@@ -189,6 +189,8 @@ private:
     bool callStmtContext = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
+    // Cast-size exprs also keep name-token-only call spans.
+    bool inCastSize = false;
     // Refs inside indexed-part-select base/width exprs are scoped by the
     // select base name.
     std::string selectBasePrefix;
@@ -197,6 +199,8 @@ private:
     std::string currentTopPrefix;
     std::string bindDisplayPath;
     NetMap* currentTopNets = nullptr;
+    // Scope for late syntax binding (cast size exprs).
+    const slang::ast::Scope* currentScope = nullptr;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
     // Def-view local-net typespecs are created only after the top-level

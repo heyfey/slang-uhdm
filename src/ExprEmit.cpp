@@ -312,6 +312,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         cts = its;
                     }
                 }
+                else if (currentScope) {
+                    // Non-literal cast sizes: integer_typespec carrying the
+                    // freshly-bound size expression as vpiExpr (parented at
+                    // the cast operation, name-only call spans).
+                    auto* its = s.MakeInteger_typespec();
+                    setLoc(its, cesyn.left->sourceRange());
+                    ASTContext bctx(*currentScope, LookupLocation::max);
+                    auto& sizeExpr = Expression::bind(*cesyn.left, bctx);
+                    bool savedCS = inCastSize;
+                    inCastSize = true;
+                    if (auto* e = emitExpr(sizeExpr, op, prefix, netMap))
+                        its->Expr((UHDM::expr*)e);
+                    inCastSize = savedCS;
+                    cts = its;
+                }
             }
             if (deferredCast) {
                 auto* operandsD = s.MakeAnyVec();
@@ -420,13 +435,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 noteUnsupported("system method call: " + name);
                 return nullptr;
             }
+            // Type-query calls ($bits/$size) fold to constants when
+            // evaluable.
+            if (name == "$bits") {
+                ASTContext qctx(comp.getRoot(), LookupLocation::max);
+                if (auto cv = qctx.tryEval(expr); cv && cv.isInteger()) {
+                    auto* c = s.MakeConstant();
+                    std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+                    c->VpiDecompile(digits);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    setLoc(c, expr.sourceRange);
+                    if (forceConstParent ||
+                        (!suppressConstParent && parent &&
+                         (parent->UhdmType() == UHDM::uhdmoperation ||
+                          parent->UhdmType() == UHDM::uhdmbit_select ||
+                          parent->UhdmType() == UHDM::uhdmcase_item)))
+                        c->VpiParent(parent);
+                    return c;
+                }
+            }
             auto* sc = s.MakeSys_func_call();
             sc->VpiName(name);
             sc->VpiParent(parent);
             // Conversion/query functions keep name-token-only spans in
             // expression contexts; other sys calls span the whole call.
             static const std::set<std::string> kNameOnlyFuncs = {"$signed", "$unsigned"};
-            if (stmtCtx || !kNameOnlyFuncs.count(name))
+            if (stmtCtx || (!kNameOnlyFuncs.count(name) && !inCastSize))
                 setLoc(sc, expr.sourceRange);
             else
                 setLoc(sc, SourceRange(expr.sourceRange.start(),

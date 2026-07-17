@@ -40,13 +40,23 @@ using namespace slang::ast;
 
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
-// ANSI net-port headers ("input wire x") carry the net keyword token.
+// ANSI net-port headers ("input wire x") and non-ANSI net-port
+// declarations ("input wire signed inp;") carry the net keyword token.
 inline const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) {
     for (auto p = internal.getSyntax(); p; p = p->parent) {
         if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
             auto& ap = p->as<syntax::ImplicitAnsiPortSyntax>();
             if (ap.header->kind == syntax::SyntaxKind::NetPortHeader) {
                 auto& nh = ap.header->as<syntax::NetPortHeaderSyntax>();
+                if (nh.netType.valid())
+                    return &nh;
+            }
+            return nullptr;
+        }
+        if (p->kind == syntax::SyntaxKind::PortDeclaration) {
+            auto& pd = p->as<syntax::PortDeclarationSyntax>();
+            if (pd.header->kind == syntax::SyntaxKind::NetPortHeader) {
+                auto& nh = pd.header->as<syntax::NetPortHeaderSyntax>();
                 if (nh.netType.valid())
                     return &nh;
             }
