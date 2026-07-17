@@ -568,18 +568,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             {
                 auto* r = s.MakeRef_obj();
                 r->VpiName(nv.symbol.name);
-                r->VpiFullName(nv.symbol.name);
+                // Freeze the lazily-computed fullname before parenting
+                // (Surelog's refs cache name-only fullnames).
+                (void)r->VpiFullName();
                 r->VpiParent(hp);
-                setLoc(r, base->sourceRange);
+                // Lvalue paths anchor the base ref at the FIRST member's
+                // token span.
+                if (inLhs && !chain.empty()) {
+                    auto& fm = *chain.back();
+                    auto end = fm.sourceRange.end();
+                    setLoc(r, SourceRange(
+                                  end - fm.as<MemberAccessExpression>().member.name.size(),
+                                  end));
+                }
+                else {
+                    setLoc(r, base->sourceRange);
+                }
                 elems->push_back(r);
             }
             for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
                 auto& ma = (*it2)->as<MemberAccessExpression>();
                 auto* r = s.MakeRef_obj();
                 r->VpiName(ma.member.name);
-                r->VpiFullName(prefix + "." + std::string(ma.member.name));
+                (void)r->VpiFullName();
+                // Only the last member of an rvalue path gets a fullname.
+                if (!inLhs && *it2 == chain.front())
+                    r->VpiFullName(prefix + "." + std::string(ma.member.name));
                 r->VpiParent(hp);
-                // Member token position within the expression.
                 auto end = (*it2)->sourceRange.end();
                 setLoc(r, SourceRange(end - ma.member.name.size(), end));
                 elems->push_back(r);

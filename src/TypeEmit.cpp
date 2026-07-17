@@ -16,12 +16,14 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     auto declared = declSymbol.getDeclaredType();
     // Typedef'd declarations share the typedef's typespec object; anonymous
     // enums build an unnamed, unlocated enum_typespec per declaration.
-    if (declared && !typeSynOverride) {
+    if (declared) {
         if (auto it = typedefTs.find(&declared->getType()); it != typedefTs.end())
             return it->second;
-        auto& ct0 = declared->getType().getCanonicalType();
-        if (ct0.kind == SymbolKind::EnumType)
-            return buildEnumTs(ct0.as<EnumType>(), declared->getTypeSyntax(), "");
+        if (!typeSynOverride) {
+            auto& ct0 = declared->getType().getCanonicalType();
+            if (ct0.kind == SymbolKind::EnumType)
+                return buildEnumTs(ct0.as<EnumType>(), declared->getTypeSyntax(), "");
+        }
     }
     // Ports whose net is re-declared in the body ("input clock; wire clock;")
     // build their port typespec from the PORT declaration (its dims/type),
@@ -496,7 +498,10 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             }
         }
         auto* fts = makeTypespec(fm, memberTypeSyn);
-        fts->VpiParent(tm);
+        // Fresh member typespecs parent at the member; shared typedef
+        // typespecs (named) keep their own parent.
+        if (fts->VpiName().empty())
+            fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(aliasName + "." + std::string(fm.name));
         rt->VpiParent(tm);
@@ -545,7 +550,16 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
         }
         else if (ct.kind == SymbolKind::PackedStructType) {
             auto* sts = buildStructTs(ct.as<PackedStructType>(), true, std::string(ta.name));
-            // Struct typespecs stay unparented; loc = the struct type syntax.
+            // Packed struct typespecs stay unparented; loc = the type syntax.
+            if (typeSyn)
+                setLoc(sts, typeSyn->sourceRange());
+            ts = sts;
+        }
+        else if (ct.kind == SymbolKind::UnpackedStructType) {
+            // Unpacked structs: module parent + module-scoped member refs.
+            auto* sts = buildStructTs(ct.as<UnpackedStructType>(), false,
+                                      prefix + "." + std::string(ta.name));
+            sts->VpiParent(m);
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
             ts = sts;
@@ -559,6 +573,38 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
         typedefTs[&ta] = ts;
         info.typedefs.push_back(ts);
         tds->push_back(ts);
+    }
+    // A struct typedef referenced from another typedef's member gets
+    // module parent and module-scoped member ref fullnames.
+    for (auto* td : *tds) {
+        if (td->UhdmType() != UHDM::uhdmstruct_typespec)
+            continue;
+        auto* sts = (UHDM::struct_typespec*)td;
+        if (!sts->Members())
+            continue;
+        for (auto* tm : *sts->Members()) {
+            if (!tm->Typespec() || !tm->Typespec()->Actual_typespec())
+                continue;
+            auto* target = tm->Typespec()->Actual_typespec();
+            if (target->UhdmType() != UHDM::uhdmstruct_typespec || target->VpiParent())
+                continue;
+            auto* tsts = (UHDM::struct_typespec*)target;
+            bool ours = false;
+            for (auto* other : *tds)
+                if (other == target)
+                    ours = true;
+            if (!ours)
+                continue;
+            tsts->VpiParent(m);
+            if (tsts->Members()) {
+                for (auto* mm : *tsts->Members()) {
+                    if (mm->Typespec())
+                        mm->Typespec()->VpiFullName(prefix + "." +
+                                                    std::string(tsts->VpiName()) + "." +
+                                                    std::string(mm->VpiName()));
+                }
+            }
+        }
     }
     if (!tds->empty())
         m->Typespecs(tds);

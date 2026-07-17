@@ -1,0 +1,966 @@
+design: (work@simple_nested_struct_nopack)
+|vpiName:work@simple_nested_struct_nopack
+|uhdmallModules:
+\_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+  |vpiParent:
+  \_design: (work@simple_nested_struct_nopack)
+  |vpiFullName:work@simple_nested_struct_nopack
+  |vpiTypedef:
+  \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiName:base_struct_t
+    |vpiInstance:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (addr), line:9:22, endln:9:26
+      |vpiParent:
+      \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
+      |vpiName:addr
+      |vpiTypespec:
+      \_ref_typespec: (work@simple_nested_struct_nopack.base_struct_t.addr)
+        |vpiParent:
+        \_typespec_member: (addr), line:9:22, endln:9:26
+        |vpiFullName:work@simple_nested_struct_nopack.base_struct_t.addr
+        |vpiActual:
+        \_logic_typespec: , line:9:9, endln:9:20
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefLineNo:9
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:9
+      |vpiRefEndColumnNo:20
+    |vpiTypespecMember:
+    \_typespec_member: (data), line:10:22, endln:10:26
+      |vpiParent:
+      \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
+      |vpiName:data
+      |vpiTypespec:
+      \_ref_typespec: (work@simple_nested_struct_nopack.base_struct_t.data)
+        |vpiParent:
+        \_typespec_member: (data), line:10:22, endln:10:26
+        |vpiFullName:work@simple_nested_struct_nopack.base_struct_t.data
+        |vpiActual:
+        \_logic_typespec: , line:10:9, endln:10:21
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefLineNo:10
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:10
+      |vpiRefEndColumnNo:21
+    |vpiTypespecMember:
+    \_typespec_member: (valid), line:11:22, endln:11:27
+      |vpiParent:
+      \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
+      |vpiName:valid
+      |vpiTypespec:
+      \_ref_typespec: (work@simple_nested_struct_nopack.base_struct_t.valid)
+        |vpiParent:
+        \_typespec_member: (valid), line:11:22, endln:11:27
+        |vpiFullName:work@simple_nested_struct_nopack.base_struct_t.valid
+        |vpiActual:
+        \_logic_typespec: , line:11:9, endln:11:14
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefLineNo:11
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:11
+      |vpiRefEndColumnNo:14
+  |vpiTypedef:
+  \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+    |vpiName:nested_struct_t
+    |vpiInstance:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiPacked:1
+    |vpiTypespecMember:
+    \_typespec_member: (base), line:15:23, endln:15:27
+      |vpiParent:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+      |vpiName:base
+      |vpiTypespec:
+      \_ref_typespec: (nested_struct_t.base)
+        |vpiParent:
+        \_typespec_member: (base), line:15:23, endln:15:27
+        |vpiFullName:nested_struct_t.base
+        |vpiActual:
+        \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefLineNo:15
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:15
+      |vpiRefEndColumnNo:22
+    |vpiTypespecMember:
+    \_typespec_member: (id), line:16:23, endln:16:25
+      |vpiParent:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+      |vpiName:id
+      |vpiTypespec:
+      \_ref_typespec: (nested_struct_t.id)
+        |vpiParent:
+        \_typespec_member: (id), line:16:23, endln:16:25
+        |vpiFullName:nested_struct_t.id
+        |vpiActual:
+        \_logic_typespec: , line:16:9, endln:16:21
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefLineNo:16
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:16
+      |vpiRefEndColumnNo:21
+    |vpiTypespecMember:
+    \_typespec_member: (cmd), line:17:23, endln:17:26
+      |vpiParent:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+      |vpiName:cmd
+      |vpiTypespec:
+      \_ref_typespec: (nested_struct_t.cmd)
+        |vpiParent:
+        \_typespec_member: (cmd), line:17:23, endln:17:26
+        |vpiFullName:nested_struct_t.cmd
+        |vpiActual:
+        \_logic_typespec: , line:17:9, endln:17:20
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefLineNo:17
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:17
+      |vpiRefEndColumnNo:20
+    |vpiTypespecMember:
+    \_typespec_member: (ready), line:18:23, endln:18:28
+      |vpiParent:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+      |vpiName:ready
+      |vpiTypespec:
+      \_ref_typespec: (nested_struct_t.ready)
+        |vpiParent:
+        \_typespec_member: (ready), line:18:23, endln:18:28
+        |vpiFullName:nested_struct_t.ready
+        |vpiActual:
+        \_logic_typespec: , line:18:9, endln:18:14
+      |vpiRefFile:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv
+      |vpiRefLineNo:18
+      |vpiRefColumnNo:9
+      |vpiRefEndLineNo:18
+      |vpiRefEndColumnNo:14
+  |vpiDefName:work@simple_nested_struct_nopack
+  |vpiNet:
+  \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiName:in_data
+    |vpiFullName:work@simple_nested_struct_nopack.in_data
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiName:out_data
+    |vpiFullName:work@simple_nested_struct_nopack.out_data
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiTypespec:
+    \_ref_typespec: (work@simple_nested_struct_nopack.in_struct)
+      |vpiParent:
+      \_logic_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
+      |vpiFullName:work@simple_nested_struct_nopack.in_struct
+      |vpiActual:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+    |vpiName:in_struct
+    |vpiFullName:work@simple_nested_struct_nopack.in_struct
+  |vpiNet:
+  \_logic_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiTypespec:
+    \_ref_typespec: (work@simple_nested_struct_nopack.out_struct)
+      |vpiParent:
+      \_logic_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
+      |vpiFullName:work@simple_nested_struct_nopack.out_struct
+      |vpiActual:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+    |vpiName:out_struct
+    |vpiFullName:work@simple_nested_struct_nopack.out_struct
+  |vpiPort:
+  \_port: (in_data), line:3:25, endln:3:32
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiName:in_data
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@simple_nested_struct_nopack.in_data.in_data), line:3:25, endln:3:32
+      |vpiParent:
+      \_port: (in_data), line:3:25, endln:3:32
+      |vpiName:in_data
+      |vpiFullName:work@simple_nested_struct_nopack.in_data.in_data
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@simple_nested_struct_nopack.in_data)
+      |vpiParent:
+      \_port: (in_data), line:3:25, endln:3:32
+      |vpiFullName:work@simple_nested_struct_nopack.in_data
+      |vpiActual:
+      \_logic_typespec: , line:3:12, endln:3:24
+  |vpiPort:
+  \_port: (out_data), line:4:25, endln:4:33
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiName:out_data
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@simple_nested_struct_nopack.out_data.out_data), line:4:25, endln:4:33
+      |vpiParent:
+      \_port: (out_data), line:4:25, endln:4:33
+      |vpiName:out_data
+      |vpiFullName:work@simple_nested_struct_nopack.out_data.out_data
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
+    |vpiTypedef:
+    \_ref_typespec: (work@simple_nested_struct_nopack.out_data)
+      |vpiParent:
+      \_port: (out_data), line:4:25, endln:4:33
+      |vpiFullName:work@simple_nested_struct_nopack.out_data
+      |vpiActual:
+      \_logic_typespec: , line:4:12, endln:4:24
+  |vpiProcess:
+  \_always: , line:30:5, endln:41:8
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiStmt:
+    \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+      |vpiParent:
+      \_always: , line:30:5, endln:41:8
+      |vpiFullName:work@simple_nested_struct_nopack
+      |vpiStmt:
+      \_assignment: , line:32:9, endln:32:31
+        |vpiParent:
+        \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_ref_obj: (work@simple_nested_struct_nopack.in_struct), line:32:22, endln:32:31
+          |vpiParent:
+          \_assignment: , line:32:9, endln:32:31
+          |vpiName:in_struct
+          |vpiFullName:work@simple_nested_struct_nopack.in_struct
+          |vpiActual:
+          \_logic_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
+        |vpiLhs:
+        \_ref_obj: (work@simple_nested_struct_nopack.out_struct), line:32:9, endln:32:19
+          |vpiParent:
+          \_assignment: , line:32:9, endln:32:31
+          |vpiName:out_struct
+          |vpiFullName:work@simple_nested_struct_nopack.out_struct
+          |vpiActual:
+          \_logic_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
+      |vpiStmt:
+      \_assignment: , line:35:9, endln:35:58
+        |vpiParent:
+        \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:35:32, endln:35:58
+          |vpiParent:
+          \_assignment: , line:35:9, endln:35:58
+          |vpiOpType:24
+          |vpiOperand:
+          \_hier_path: (in_struct.base.addr), line:35:32, endln:35:51
+            |vpiParent:
+            \_operation: , line:35:32, endln:35:58
+            |vpiActual:
+            \_ref_obj: (in_struct), line:35:32, endln:35:41
+              |vpiParent:
+              \_hier_path: (in_struct.base.addr), line:35:32, endln:35:51
+              |vpiName:in_struct
+            |vpiActual:
+            \_ref_obj: (base), line:35:42, endln:35:46
+              |vpiParent:
+              \_hier_path: (in_struct.base.addr), line:35:32, endln:35:51
+              |vpiName:base
+            |vpiActual:
+            \_ref_obj: (work@simple_nested_struct_nopack.addr), line:35:47, endln:35:51
+              |vpiParent:
+              \_hier_path: (in_struct.base.addr), line:35:32, endln:35:51
+              |vpiName:addr
+              |vpiFullName:work@simple_nested_struct_nopack.addr
+            |vpiName:in_struct.base.addr
+          |vpiOperand:
+          \_constant: , line:35:54, endln:35:58
+            |vpiParent:
+            \_operation: , line:35:32, endln:35:58
+            |vpiDecompile:8'd1
+            |vpiSize:8
+            |DEC:1
+            |vpiConstType:1
+        |vpiLhs:
+        \_hier_path: (out_struct.base.addr), line:35:9, endln:35:29
+          |vpiParent:
+          \_assignment: , line:35:9, endln:35:58
+          |vpiActual:
+          \_ref_obj: (out_struct), line:35:20, endln:35:24
+            |vpiParent:
+            \_hier_path: (out_struct.base.addr), line:35:9, endln:35:29
+            |vpiName:out_struct
+          |vpiActual:
+          \_ref_obj: (base), line:35:20, endln:35:24
+            |vpiParent:
+            \_hier_path: (out_struct.base.addr), line:35:9, endln:35:29
+            |vpiName:base
+          |vpiActual:
+          \_ref_obj: (addr), line:35:25, endln:35:29
+            |vpiParent:
+            \_hier_path: (out_struct.base.addr), line:35:9, endln:35:29
+            |vpiName:addr
+          |vpiName:out_struct.base.addr
+      |vpiStmt:
+      \_assignment: , line:36:9, endln:36:66
+        |vpiParent:
+        \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:36:32, endln:36:66
+          |vpiParent:
+          \_assignment: , line:36:9, endln:36:66
+          |vpiOpType:30
+          |vpiOperand:
+          \_hier_path: (in_struct.base.data), line:36:32, endln:36:51
+            |vpiParent:
+            \_operation: , line:36:32, endln:36:66
+            |vpiActual:
+            \_ref_obj: (in_struct), line:36:32, endln:36:41
+              |vpiParent:
+              \_hier_path: (in_struct.base.data), line:36:32, endln:36:51
+              |vpiName:in_struct
+            |vpiActual:
+            \_ref_obj: (base), line:36:42, endln:36:46
+              |vpiParent:
+              \_hier_path: (in_struct.base.data), line:36:32, endln:36:51
+              |vpiName:base
+            |vpiActual:
+            \_ref_obj: (work@simple_nested_struct_nopack.data), line:36:47, endln:36:51
+              |vpiParent:
+              \_hier_path: (in_struct.base.data), line:36:32, endln:36:51
+              |vpiName:data
+              |vpiFullName:work@simple_nested_struct_nopack.data
+            |vpiName:in_struct.base.data
+          |vpiOperand:
+          \_constant: , line:36:54, endln:36:66
+            |vpiParent:
+            \_operation: , line:36:32, endln:36:66
+            |vpiDecompile:32'hDEADBEEF
+            |vpiSize:32
+            |HEX:DEADBEEF
+            |vpiConstType:5
+        |vpiLhs:
+        \_hier_path: (out_struct.base.data), line:36:9, endln:36:29
+          |vpiParent:
+          \_assignment: , line:36:9, endln:36:66
+          |vpiActual:
+          \_ref_obj: (out_struct), line:36:20, endln:36:24
+            |vpiParent:
+            \_hier_path: (out_struct.base.data), line:36:9, endln:36:29
+            |vpiName:out_struct
+          |vpiActual:
+          \_ref_obj: (base), line:36:20, endln:36:24
+            |vpiParent:
+            \_hier_path: (out_struct.base.data), line:36:9, endln:36:29
+            |vpiName:base
+          |vpiActual:
+          \_ref_obj: (data), line:36:25, endln:36:29
+            |vpiParent:
+            \_hier_path: (out_struct.base.data), line:36:9, endln:36:29
+            |vpiName:data
+          |vpiName:out_struct.base.data
+      |vpiStmt:
+      \_assignment: , line:37:9, endln:37:71
+        |vpiParent:
+        \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:37:33, endln:37:71
+          |vpiParent:
+          \_assignment: , line:37:9, endln:37:71
+          |vpiOpType:28
+          |vpiOperand:
+          \_hier_path: (in_struct.base.valid), line:37:33, endln:37:53
+            |vpiParent:
+            \_operation: , line:37:33, endln:37:71
+            |vpiActual:
+            \_ref_obj: (in_struct), line:37:33, endln:37:42
+              |vpiParent:
+              \_hier_path: (in_struct.base.valid), line:37:33, endln:37:53
+              |vpiName:in_struct
+            |vpiActual:
+            \_ref_obj: (base), line:37:43, endln:37:47
+              |vpiParent:
+              \_hier_path: (in_struct.base.valid), line:37:33, endln:37:53
+              |vpiName:base
+            |vpiActual:
+            \_ref_obj: (work@simple_nested_struct_nopack.valid), line:37:48, endln:37:53
+              |vpiParent:
+              \_hier_path: (in_struct.base.valid), line:37:33, endln:37:53
+              |vpiName:valid
+              |vpiFullName:work@simple_nested_struct_nopack.valid
+            |vpiName:in_struct.base.valid
+          |vpiOperand:
+          \_hier_path: (in_struct.ready), line:37:56, endln:37:71
+            |vpiParent:
+            \_operation: , line:37:33, endln:37:71
+            |vpiActual:
+            \_ref_obj: (in_struct), line:37:56, endln:37:65
+              |vpiParent:
+              \_hier_path: (in_struct.ready), line:37:56, endln:37:71
+              |vpiName:in_struct
+            |vpiActual:
+            \_ref_obj: (work@simple_nested_struct_nopack.ready), line:37:66, endln:37:71
+              |vpiParent:
+              \_hier_path: (in_struct.ready), line:37:56, endln:37:71
+              |vpiName:ready
+              |vpiFullName:work@simple_nested_struct_nopack.ready
+            |vpiName:in_struct.ready
+        |vpiLhs:
+        \_hier_path: (out_struct.base.valid), line:37:9, endln:37:30
+          |vpiParent:
+          \_assignment: , line:37:9, endln:37:71
+          |vpiActual:
+          \_ref_obj: (out_struct), line:37:20, endln:37:24
+            |vpiParent:
+            \_hier_path: (out_struct.base.valid), line:37:9, endln:37:30
+            |vpiName:out_struct
+          |vpiActual:
+          \_ref_obj: (base), line:37:20, endln:37:24
+            |vpiParent:
+            \_hier_path: (out_struct.base.valid), line:37:9, endln:37:30
+            |vpiName:base
+          |vpiActual:
+          \_ref_obj: (valid), line:37:25, endln:37:30
+            |vpiParent:
+            \_hier_path: (out_struct.base.valid), line:37:9, endln:37:30
+            |vpiName:valid
+          |vpiName:out_struct.base.valid
+      |vpiStmt:
+      \_assignment: , line:38:9, endln:38:47
+        |vpiParent:
+        \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:38:25, endln:38:47
+          |vpiParent:
+          \_assignment: , line:38:9, endln:38:47
+          |vpiOpType:24
+          |vpiOperand:
+          \_hier_path: (in_struct.id), line:38:25, endln:38:37
+            |vpiParent:
+            \_operation: , line:38:25, endln:38:47
+            |vpiActual:
+            \_ref_obj: (in_struct), line:38:25, endln:38:34
+              |vpiParent:
+              \_hier_path: (in_struct.id), line:38:25, endln:38:37
+              |vpiName:in_struct
+            |vpiActual:
+            \_ref_obj: (work@simple_nested_struct_nopack.id), line:38:35, endln:38:37
+              |vpiParent:
+              \_hier_path: (in_struct.id), line:38:25, endln:38:37
+              |vpiName:id
+              |vpiFullName:work@simple_nested_struct_nopack.id
+            |vpiName:in_struct.id
+          |vpiOperand:
+          \_constant: , line:38:40, endln:38:47
+            |vpiParent:
+            \_operation: , line:38:25, endln:38:47
+            |vpiDecompile:16'd100
+            |vpiSize:16
+            |DEC:100
+            |vpiConstType:1
+        |vpiLhs:
+        \_hier_path: (out_struct.id), line:38:9, endln:38:22
+          |vpiParent:
+          \_assignment: , line:38:9, endln:38:47
+          |vpiActual:
+          \_ref_obj: (out_struct), line:38:20, endln:38:22
+            |vpiParent:
+            \_hier_path: (out_struct.id), line:38:9, endln:38:22
+            |vpiName:out_struct
+          |vpiActual:
+          \_ref_obj: (id), line:38:20, endln:38:22
+            |vpiParent:
+            \_hier_path: (out_struct.id), line:38:9, endln:38:22
+            |vpiName:id
+          |vpiName:out_struct.id
+      |vpiStmt:
+      \_assignment: , line:39:9, endln:39:49
+        |vpiParent:
+        \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:39:26, endln:39:49
+          |vpiParent:
+          \_assignment: , line:39:9, endln:39:49
+          |vpiOpType:29
+          |vpiOperand:
+          \_hier_path: (in_struct.cmd), line:39:26, endln:39:39
+            |vpiParent:
+            \_operation: , line:39:26, endln:39:49
+            |vpiActual:
+            \_ref_obj: (in_struct), line:39:26, endln:39:35
+              |vpiParent:
+              \_hier_path: (in_struct.cmd), line:39:26, endln:39:39
+              |vpiName:in_struct
+            |vpiActual:
+            \_ref_obj: (work@simple_nested_struct_nopack.cmd), line:39:36, endln:39:39
+              |vpiParent:
+              \_hier_path: (in_struct.cmd), line:39:26, endln:39:39
+              |vpiName:cmd
+              |vpiFullName:work@simple_nested_struct_nopack.cmd
+            |vpiName:in_struct.cmd
+          |vpiOperand:
+          \_constant: , line:39:42, endln:39:49
+            |vpiParent:
+            \_operation: , line:39:26, endln:39:49
+            |vpiDecompile:4'b1010
+            |vpiSize:4
+            |BIN:1010
+            |vpiConstType:3
+        |vpiLhs:
+        \_hier_path: (out_struct.cmd), line:39:9, endln:39:23
+          |vpiParent:
+          \_assignment: , line:39:9, endln:39:49
+          |vpiActual:
+          \_ref_obj: (out_struct), line:39:20, endln:39:23
+            |vpiParent:
+            \_hier_path: (out_struct.cmd), line:39:9, endln:39:23
+            |vpiName:out_struct
+          |vpiActual:
+          \_ref_obj: (cmd), line:39:20, endln:39:23
+            |vpiParent:
+            \_hier_path: (out_struct.cmd), line:39:9, endln:39:23
+            |vpiName:cmd
+          |vpiName:out_struct.cmd
+      |vpiStmt:
+      \_assignment: , line:40:9, endln:40:48
+        |vpiParent:
+        \_begin: (work@simple_nested_struct_nopack), line:30:17, endln:41:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_hier_path: (in_struct.base.valid), line:40:28, endln:40:48
+          |vpiParent:
+          \_assignment: , line:40:9, endln:40:48
+          |vpiActual:
+          \_ref_obj: (in_struct), line:40:28, endln:40:37
+            |vpiParent:
+            \_hier_path: (in_struct.base.valid), line:40:28, endln:40:48
+            |vpiName:in_struct
+          |vpiActual:
+          \_ref_obj: (base), line:40:38, endln:40:42
+            |vpiParent:
+            \_hier_path: (in_struct.base.valid), line:40:28, endln:40:48
+            |vpiName:base
+          |vpiActual:
+          \_ref_obj: (work@simple_nested_struct_nopack.valid), line:40:43, endln:40:48
+            |vpiParent:
+            \_hier_path: (in_struct.base.valid), line:40:28, endln:40:48
+            |vpiName:valid
+            |vpiFullName:work@simple_nested_struct_nopack.valid
+          |vpiName:in_struct.base.valid
+        |vpiLhs:
+        \_hier_path: (out_struct.ready), line:40:9, endln:40:25
+          |vpiParent:
+          \_assignment: , line:40:9, endln:40:48
+          |vpiActual:
+          \_ref_obj: (out_struct), line:40:20, endln:40:25
+            |vpiParent:
+            \_hier_path: (out_struct.ready), line:40:9, endln:40:25
+            |vpiName:out_struct
+          |vpiActual:
+          \_ref_obj: (ready), line:40:20, endln:40:25
+            |vpiParent:
+            \_hier_path: (out_struct.ready), line:40:9, endln:40:25
+            |vpiName:ready
+          |vpiName:out_struct.ready
+    |vpiAlwaysType:2
+  |vpiContAssign:
+  \_cont_assign: , line:26:12, endln:26:31
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiRhs:
+    \_ref_obj: (work@simple_nested_struct_nopack.in_data), line:26:24, endln:26:31
+      |vpiParent:
+      \_cont_assign: , line:26:12, endln:26:31
+      |vpiName:in_data
+      |vpiFullName:work@simple_nested_struct_nopack.in_data
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+    |vpiLhs:
+    \_ref_obj: (work@simple_nested_struct_nopack.in_struct), line:26:12, endln:26:21
+      |vpiParent:
+      \_cont_assign: , line:26:12, endln:26:31
+      |vpiName:in_struct
+      |vpiFullName:work@simple_nested_struct_nopack.in_struct
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
+  |vpiContAssign:
+  \_cont_assign: , line:27:12, endln:27:33
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiRhs:
+    \_ref_obj: (work@simple_nested_struct_nopack.out_struct), line:27:23, endln:27:33
+      |vpiParent:
+      \_cont_assign: , line:27:12, endln:27:33
+      |vpiName:out_struct
+      |vpiFullName:work@simple_nested_struct_nopack.out_struct
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
+    |vpiLhs:
+    \_ref_obj: (work@simple_nested_struct_nopack.out_data), line:27:12, endln:27:20
+      |vpiParent:
+      \_cont_assign: , line:27:12, endln:27:33
+      |vpiName:out_data
+      |vpiFullName:work@simple_nested_struct_nopack.out_data
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
+|uhdmtopModules:
+\_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+  |vpiParent:
+  \_design: (work@simple_nested_struct_nopack)
+  |vpiName:work@simple_nested_struct_nopack
+  |vpiTypedef:
+  \_struct_typespec: (base_struct_t), line:8:13, endln:12:6
+  |vpiTypedef:
+  \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+  |vpiDefName:work@simple_nested_struct_nopack
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiTypespec:
+    \_ref_typespec: (work@simple_nested_struct_nopack.in_data)
+      |vpiParent:
+      \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+      |vpiFullName:work@simple_nested_struct_nopack.in_data
+      |vpiActual:
+      \_logic_typespec: , line:3:12, endln:3:24
+    |vpiName:in_data
+    |vpiFullName:work@simple_nested_struct_nopack.in_data
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiTypespec:
+    \_ref_typespec: (work@simple_nested_struct_nopack.out_data)
+      |vpiParent:
+      \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
+      |vpiFullName:work@simple_nested_struct_nopack.out_data
+      |vpiActual:
+      \_logic_typespec: , line:4:12, endln:4:24
+    |vpiName:out_data
+    |vpiFullName:work@simple_nested_struct_nopack.out_data
+    |vpiNetType:36
+  |vpiNet:
+  \_struct_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiTypespec:
+    \_ref_typespec: (work@simple_nested_struct_nopack.in_struct)
+      |vpiParent:
+      \_struct_net: (work@simple_nested_struct_nopack.in_struct), line:22:21, endln:22:30
+      |vpiFullName:work@simple_nested_struct_nopack.in_struct
+      |vpiActual:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+    |vpiName:in_struct
+    |vpiFullName:work@simple_nested_struct_nopack.in_struct
+  |vpiNet:
+  \_struct_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiTypespec:
+    \_ref_typespec: (work@simple_nested_struct_nopack.out_struct)
+      |vpiParent:
+      \_struct_net: (work@simple_nested_struct_nopack.out_struct), line:23:21, endln:23:31
+      |vpiFullName:work@simple_nested_struct_nopack.out_struct
+      |vpiActual:
+      \_struct_typespec: (nested_struct_t), line:14:13, endln:19:6
+    |vpiName:out_struct
+    |vpiFullName:work@simple_nested_struct_nopack.out_struct
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (in_data), line:3:25, endln:3:32
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiName:in_data
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+      |vpiParent:
+      \_port: (in_data), line:3:25, endln:3:32
+      |vpiName:in_data
+      |vpiFullName:work@simple_nested_struct_nopack.in_data
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+    |vpiTypedef:
+    \_ref_typespec: (work@simple_nested_struct_nopack.in_data)
+      |vpiParent:
+      \_port: (in_data), line:3:25, endln:3:32
+      |vpiFullName:work@simple_nested_struct_nopack.in_data
+      |vpiActual:
+      \_logic_typespec: , line:3:12, endln:3:24
+  |vpiPort:
+  \_port: (out_data), line:4:25, endln:4:33
+    |vpiParent:
+    \_module_inst: work@simple_nested_struct_nopack (work@simple_nested_struct_nopack), file:/home/heyfey/git-repos/uhdm2rtlil/test/simple_nested_struct_nopack/dut.sv, line:2:1, endln:43:10
+    |vpiName:out_data
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
+      |vpiParent:
+      \_port: (out_data), line:4:25, endln:4:33
+      |vpiName:out_data
+      |vpiFullName:work@simple_nested_struct_nopack.out_data
+      |vpiActual:
+      \_logic_net: (work@simple_nested_struct_nopack.out_data), line:4:25, endln:4:33
+    |vpiTypedef:
+    \_ref_typespec: (work@simple_nested_struct_nopack.out_data)
+      |vpiParent:
+      \_port: (out_data), line:4:25, endln:4:33
+      |vpiFullName:work@simple_nested_struct_nopack.out_data
+      |vpiActual:
+      \_logic_typespec: , line:4:12, endln:4:24
+  |vpiProcess:
+  \_always: , line:30:5, endln:41:8
+  |vpiContAssign:
+  \_cont_assign: , line:26:12, endln:26:31
+  |vpiContAssign:
+  \_cont_assign: , line:27:12, endln:27:33
+\_weaklyReferenced:
+\_logic_typespec: , line:9:9, endln:9:20
+  |vpiParent:
+  \_typespec_member: (addr), line:9:22, endln:9:26
+  |vpiRange:
+  \_range: , line:9:15, endln:9:20
+    |vpiParent:
+    \_logic_typespec: , line:9:9, endln:9:20
+    |vpiLeftRange:
+    \_constant: , line:9:16, endln:9:17
+      |vpiParent:
+      \_range: , line:9:15, endln:9:20
+      |vpiDecompile:7
+      |vpiSize:64
+      |UINT:7
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:9:18, endln:9:19
+      |vpiParent:
+      \_range: , line:9:15, endln:9:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:10:9, endln:10:21
+  |vpiParent:
+  \_typespec_member: (data), line:10:22, endln:10:26
+  |vpiRange:
+  \_range: , line:10:15, endln:10:21
+    |vpiParent:
+    \_logic_typespec: , line:10:9, endln:10:21
+    |vpiLeftRange:
+    \_constant: , line:10:16, endln:10:18
+      |vpiParent:
+      \_range: , line:10:15, endln:10:21
+      |vpiDecompile:31
+      |vpiSize:64
+      |UINT:31
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:10:19, endln:10:20
+      |vpiParent:
+      \_range: , line:10:15, endln:10:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:11:9, endln:11:14
+  |vpiParent:
+  \_typespec_member: (valid), line:11:22, endln:11:27
+\_logic_typespec: , line:16:9, endln:16:21
+  |vpiParent:
+  \_typespec_member: (id), line:16:23, endln:16:25
+  |vpiRange:
+  \_range: , line:16:15, endln:16:21
+    |vpiParent:
+    \_logic_typespec: , line:16:9, endln:16:21
+    |vpiLeftRange:
+    \_constant: , line:16:16, endln:16:18
+      |vpiParent:
+      \_range: , line:16:15, endln:16:21
+      |vpiDecompile:15
+      |vpiSize:64
+      |UINT:15
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:16:19, endln:16:20
+      |vpiParent:
+      \_range: , line:16:15, endln:16:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:17:9, endln:17:20
+  |vpiParent:
+  \_typespec_member: (cmd), line:17:23, endln:17:26
+  |vpiRange:
+  \_range: , line:17:15, endln:17:20
+    |vpiParent:
+    \_logic_typespec: , line:17:9, endln:17:20
+    |vpiLeftRange:
+    \_constant: , line:17:16, endln:17:17
+      |vpiParent:
+      \_range: , line:17:15, endln:17:20
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:17:18, endln:17:19
+      |vpiParent:
+      \_range: , line:17:15, endln:17:20
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:18:9, endln:18:14
+  |vpiParent:
+  \_typespec_member: (ready), line:18:23, endln:18:28
+\_logic_typespec: , line:3:12, endln:3:24
+  |vpiRange:
+  \_range: , line:3:18, endln:3:24
+    |vpiParent:
+    \_logic_typespec: , line:3:12, endln:3:24
+    |vpiLeftRange:
+    \_constant: , line:3:19, endln:3:21
+      |vpiParent:
+      \_range: , line:3:18, endln:3:24
+      |vpiDecompile:61
+      |vpiSize:64
+      |UINT:61
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:22, endln:3:23
+      |vpiParent:
+      \_range: , line:3:18, endln:3:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:12, endln:4:24
+  |vpiRange:
+  \_range: , line:4:18, endln:4:24
+    |vpiParent:
+    \_logic_typespec: , line:4:12, endln:4:24
+    |vpiLeftRange:
+    \_constant: , line:4:19, endln:4:21
+      |vpiParent:
+      \_range: , line:4:18, endln:4:24
+      |vpiDecompile:61
+      |vpiSize:64
+      |UINT:61
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:22, endln:4:23
+      |vpiParent:
+      \_range: , line:4:18, endln:4:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:12, endln:3:24
+  |vpiParent:
+  \_logic_net: (work@simple_nested_struct_nopack.in_data), line:3:25, endln:3:32
+  |vpiRange:
+  \_range: , line:3:18, endln:3:24
+    |vpiParent:
+    \_logic_typespec: , line:3:12, endln:3:24
+    |vpiLeftRange:
+    \_constant: , line:3:19, endln:3:21
+      |vpiParent:
+      \_range: , line:3:18, endln:3:24
+      |vpiDecompile:61
+      |vpiSize:64
+      |UINT:61
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:22, endln:3:23
+      |vpiParent:
+      \_range: , line:3:18, endln:3:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:12, endln:4:24
+  |vpiRange:
+  \_range: , line:4:18, endln:4:24
+    |vpiParent:
+    \_logic_typespec: , line:4:12, endln:4:24
+    |vpiLeftRange:
+    \_constant: , line:4:19, endln:4:21
+      |vpiParent:
+      \_range: , line:4:18, endln:4:24
+      |vpiDecompile:61
+      |vpiSize:64
+      |UINT:61
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:22, endln:4:23
+      |vpiParent:
+      \_range: , line:4:18, endln:4:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:3:12, endln:3:24
+  |vpiRange:
+  \_range: , line:3:18, endln:3:24
+    |vpiParent:
+    \_logic_typespec: , line:3:12, endln:3:24
+    |vpiLeftRange:
+    \_constant: , line:3:19, endln:3:21
+      |vpiParent:
+      \_range: , line:3:18, endln:3:24
+      |vpiDecompile:61
+      |vpiSize:64
+      |UINT:61
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:3:22, endln:3:23
+      |vpiParent:
+      \_range: , line:3:18, endln:3:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:4:12, endln:4:24
+  |vpiRange:
+  \_range: , line:4:18, endln:4:24
+    |vpiParent:
+    \_logic_typespec: , line:4:12, endln:4:24
+    |vpiLeftRange:
+    \_constant: , line:4:19, endln:4:21
+      |vpiParent:
+      \_range: , line:4:18, endln:4:24
+      |vpiDecompile:61
+      |vpiSize:64
+      |UINT:61
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:4:22, endln:4:23
+      |vpiParent:
+      \_range: , line:4:18, endln:4:24
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9

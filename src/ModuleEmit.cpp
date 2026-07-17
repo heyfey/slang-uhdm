@@ -461,7 +461,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         auto dit = defMap.find(&def);
         for (auto& [sym, obj] : sigOrder) {
             auto ut = ((UHDM::any*)obj)->UhdmType();
-            if (ut == UHDM::uhdmlogic_net)
+            if (ut == UHDM::uhdmlogic_net || ut == UHDM::uhdmstruct_net)
                 continue;
             bool touched = instRefs.count(sym) ||
                            (dit != defMap.end() && dit->second.processRefs.count(sym));

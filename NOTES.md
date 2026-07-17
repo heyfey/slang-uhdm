@@ -368,3 +368,26 @@ Generate (probed 4-iter for-generate + gen_test6):
 - r25 95, r26 95 (+gen DIFF 215->205), r27 96 PASS + 0 CMP_ONLY of 661.
   UNSUP rose to 360 (gen scopes surface inner unsupported constructs
   honestly). Goldens 20.
+
+## Session 3: D2 structs + member access (2026-07-17)
+
+- struct_typespec (typedef): VpiPacked, loc = the struct TYPE syntax (not
+  the whole typedef), UNPARENTED but Instance=module; typespec_members:
+  name-span loc, ts ref fullname "<alias>.<member>", fresh member ts
+  parented at the member, Ref* fields = the member type syntax range.
+  Canonical struct fields lose their type-syntax link — recover through
+  the StructUnionMember syntax walk. UNPACKED struct typedefs differ:
+  module parent + module-scoped ("work@mod.alias.member") member refs.
+  A struct typedef referenced from ANOTHER typedef's member is upgraded
+  the same way (post-pass). Packed-struct signals = struct_net in the
+  instance view (skip both the ts creation-parent and the reparent loop).
+- MemberAccess -> hier_path: name = fullname = dotted path; path elems are
+  unbound ref_objs. CRITICAL QUIRK: ref_obj::VpiFullName() lazily COMPUTES
+  from the parent chain and CACHES — Surelog's elems freeze name-only
+  fullnames because the getter ran before parenting. Replicate by calling
+  the getter right after VpiName, before VpiParent. Rvalue paths: only the
+  LAST member gets the module-scoped fullname; all elems anchor at their
+  own token spans. Lvalue paths: no fullnames at all, and the BASE ref
+  anchors at the FIRST member's token span.
+- r28 96 (UNSUP 360->338), r30 98 PASS + 0 CMP_ONLY of 661, DIFF 225,
+  0 crash. Goldens 21.
