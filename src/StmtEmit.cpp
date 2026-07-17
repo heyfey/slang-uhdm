@@ -615,6 +615,24 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             setLoc(c, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 8));
             return c;
         }
+        case StatementKind::List: {
+            // Declaration-bearing lists (function bodies): skip the decls
+            // and return the single remaining statement.
+            auto& sl = stmt.as<StatementList>();
+            UHDM::any* result = nullptr;
+            int emitted = 0;
+            for (auto st : sl.list) {
+                if (st->kind == StatementKind::VariableDeclaration)
+                    continue;
+                if (auto* u = emitStmt(*st, parent, prefix, netMap)) {
+                    result = u;
+                    emitted++;
+                }
+            }
+            if (emitted > 1)
+                noteUnsupported("multi-statement list without block");
+            return result;
+        }
         case StatementKind::Empty:
             return nullptr;
         default:

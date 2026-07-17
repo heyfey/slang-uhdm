@@ -116,6 +116,44 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         if (!ios->empty())
             tf->Io_decls(ios);
 
+        // Function-local variables attach to the function's Variables
+        // (loc = the declared type span).
+        {
+            auto* fvars = s.MakeVariablesVec();
+            for (auto& fmv : sub.members()) {
+                if (fmv.kind != SymbolKind::Variable || &fmv == sub.returnValVar)
+                    continue;
+                bool isArg = false;
+                for (auto arg : sub.getArguments())
+                    if (arg == &fmv)
+                        isArg = true;
+                if (isArg)
+                    continue;
+                auto* v = makeReturnVar(s, fmv.getDeclaredType()->getType());
+                v->VpiName(fmv.name);
+                v->VpiFullName(fullName + "." + std::string(fmv.name));
+                v->VpiParent(tf);
+                if (auto dt = fmv.getDeclaredType()) {
+                    if (auto tsyn2 = dt->getTypeSyntax()) {
+                        auto sr = tsyn2->sourceRange();
+                        if (sr.start() != SourceLocation::NoLocation)
+                            setLoc(v, sr);
+                    }
+                }
+                auto* vts = makeTypespec(fmv);
+                auto* vrt = s.MakeRef_typespec();
+                vrt->VpiFullName(fullName + "." + std::string(fmv.name));
+                vrt->VpiParent(v);
+                vrt->Actual_typespec(vts);
+                v->Typespec(vrt);
+                v->VpiAutomatic(true);
+                funcMap[&fmv] = v;
+                fvars->push_back(v);
+            }
+            if (!fvars->empty())
+                tf->Variables(fvars);
+        }
+
         // Body: refs to the return value bind a local var that Surelog only
         // creates in the write phase; record them for late patching.
         pendingFuncRet.push_back({&sub, fullName, {}});
