@@ -253,7 +253,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 return (UHDM::expr*)e;
                         }
                         // Module context: folded to an INT constant anchored
-                        // at the bound expression's first token.
+                        // at the top operator's LEFT operand span.
                         auto* c = s.MakeConstant();
                         c->VpiParent(r);
                         c->VpiSize(64);
@@ -261,7 +261,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         std::string digits = std::to_string(value);
                         c->VpiValue("INT:" + digits);
                         c->VpiDecompile(digits);
-                        setLoc(c, bsyn->getFirstToken().range());
+                        if (syntax::BinaryExpressionSyntax::isKind(bsyn->kind))
+                            setLoc(c, bsyn->as<syntax::BinaryExpressionSyntax>()
+                                          .left->sourceRange());
+                        else
+                            setLoc(c, bsyn->getFirstToken().range());
                         return c;
                     };
                     r->Left_expr(emitBound(lsyn, dims[i].left));

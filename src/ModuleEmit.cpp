@@ -1024,6 +1024,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                 lhsSyms->insert(&lhsCore.as<NamedValueExpression>().symbol);
         }
         bool literalRhs = isLiteralExpr(ae.right());
+        // Evaluable $bits RHS behaves like a literal in the def view
+        // (parented fold).
+        bool bitsRhs = false;
+        {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::Call && rc.as<CallExpression>().isSystemCall()) {
+                auto sn = rc.as<CallExpression>().getSubroutineName();
+                if (sn == "bits" || sn == "$bits")
+                    bitsRhs = true;
+            }
+        }
         // RHS refs to enum constants also get re-emitted (folded to the
         // constant's value, loc-less).
         const Symbol* enumRhs = nullptr;
@@ -1089,7 +1100,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                 }
             }
         }
-        if (!rhs)
+        if (!rhs && !bitsRhs)
             rhs = topView ? tryFoldConst(ae.right()) : nullptr;
         // Sized/based literal RHS: the top-view cont_assign is fresh but its
         // Rhs reuses the def's constant (Surelog's expression cache); bare
@@ -1109,24 +1120,28 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             // views); re-emitted top-view RHS refs bind the def-view nets.
             NetMap& rhsMap = (topView && shareWithDef && defInfo) ? defInfo->nets : netMap;
             bool forceSaved = forceConstParent;
-            if (literalRhs)
+            if (literalRhs || bitsRhs)
                 forceConstParent = true;
             rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
             forceConstParent = forceSaved;
             refCollector = nullptr;
             reemitting = false;
-            // Re-emitted BARE literals size at the LHS type width.
-            if (topView && literalRhs && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
-                rawText(stripImplicitConv(ae.right()).sourceRange).find('\'') ==
-                    std::string::npos)
+            // Re-emitted BARE literals and $bits folds size at the LHS
+            // type width.
+            if (topView && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                (bitsRhs ||
+                 (literalRhs &&
+                  rawText(stripImplicitConv(ae.right()).sourceRange).find('\'') ==
+                      std::string::npos)))
                 ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
         }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
         inLhs = true;
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
-        NetMap& lhsMap = (topView && shareWithDef && literalRhs && defInfo) ? defInfo->nets
-                                                                            : netMap;
+        NetMap& lhsMap = (topView && shareWithDef && (literalRhs || bitsRhs) && defInfo)
+                             ? defInfo->nets
+                             : netMap;
         if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))
             ca->Lhs((UHDM::expr*)l);
         inLhs = false;

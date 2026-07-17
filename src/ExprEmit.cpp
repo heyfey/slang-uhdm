@@ -315,9 +315,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else if (currentScope) {
                     // Non-literal cast sizes: integer_typespec carrying the
                     // freshly-bound size expression as vpiExpr (parented at
-                    // the cast operation, name-only call spans).
+                    // the cast operation, name-only call spans). Parens
+                    // anchor at the inner expression.
                     auto* its = s.MakeInteger_typespec();
-                    setLoc(its, cesyn.left->sourceRange());
+                    const syntax::ExpressionSyntax* leftSyn = cesyn.left;
+                    while (leftSyn->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        leftSyn = leftSyn->as<syntax::ParenthesizedExpressionSyntax>()
+                                      .expression;
+                    setLoc(its, leftSyn->sourceRange());
                     ASTContext bctx(*currentScope, LookupLocation::max);
                     auto& sizeExpr = Expression::bind(*cesyn.left, bctx);
                     bool savedCS = inCastSize;
