@@ -150,6 +150,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ref->VpiFullName(prefix + "." + std::string(nv.symbol.name));
                 if (auto it = netMap.find(&nv.symbol); it != netMap.end())
                     ref->Actual_group(it->second);
+                else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
+                    ref->Actual_group(eit->second);
                 else if (funcRetRefs && &nv.symbol == funcRetSym)
                     funcRetRefs->push_back(ref);
             }
@@ -381,10 +383,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             bool stmtCtx = callStmtContext;
             callStmtContext = false;
-            auto* sc = s.MakeSys_func_call();
             std::string name = std::string(call.getSubroutineName());
-            if (name.empty() || name[0] != '$')
-                name = "$" + name;
+            // Built-in METHOD calls (e.first(), arr.size(): no leading $)
+            // become hier_path shapes - not yet supported.
+            if (name.empty() || name[0] != '$') {
+                noteUnsupported("system method call: " + name);
+                return nullptr;
+            }
+            auto* sc = s.MakeSys_func_call();
             sc->VpiName(name);
             sc->VpiParent(parent);
             // Statement-context calls span the whole call; expression-context

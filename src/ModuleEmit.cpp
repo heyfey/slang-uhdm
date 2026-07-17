@@ -26,6 +26,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
 
     // (Def-view parameters were emitted in the exportDesign pre-pass.)
 
+    // Typedefs first: their base typespecs precede everything else in the
+    // def's arena region.
+    emitTypedefs(body, m, prefix, info);
+
     // Nets in Surelog's collection order: explicit declarations by source
     // location, then port-declaration-only nets in port-list order.
     for (auto portBase : body.getPortList()) {
@@ -233,6 +237,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 setLoc(v, nameSpan(it.sym->location, it.sym->name));
             rt->VpiParent(v);
             v->Typespec(rt);
+            if (ts->UhdmType() == UHDM::uhdmenum_typespec &&
+                ((UHDM::enum_typespec*)ts)->VpiName().empty()) {
+                ts->VpiParent(v);
+                if (((UHDM::enum_typespec*)ts)->Base_typespec())
+                    ((UHDM::enum_typespec*)ts)->Base_typespec()->VpiFullName(fullName);
+            }
             topNets[it.sym] = v;
             sigOrder.emplace_back(it.sym, v);
             vars->push_back(v);
@@ -395,7 +405,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (!touched)
                 continue;
             auto* ex = (UHDM::expr*)obj;
-            if (ex->Typespec() && ex->Typespec()->Actual_typespec())
+            // Typedef typespecs keep their module parent.
+            if (ex->Typespec() && ex->Typespec()->Actual_typespec() &&
+                ex->Typespec()->Actual_typespec()->UhdmType() != UHDM::uhdmenum_typespec)
                 ex->Typespec()->Actual_typespec()->VpiParent(ex);
         }
     }
@@ -416,6 +428,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             for (auto* tf : it->second.taskFuncs)
                 tfs->push_back(tf);
             m->Task_funcs(tfs);
+        }
+        if (it != defMap.end() && !it->second.typedefs.empty()) {
+            auto* tds = s.MakeTypespecVec();
+            for (auto* td : it->second.typedefs)
+                tds->push_back(td);
+            m->Typespecs(tds);
         }
     }
     else {
@@ -516,9 +534,22 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     // module-compile ranges), then function return locals, then instance
     // param typespecs, then bare io-decl typespecs.
     tfContext = true;
+    // Def-local typespecs drain in name-sorted def order (the writer walks
+    // allModules sorted), stable within a def.
+    std::stable_sort(pendingNetTs.begin() + tp.netTsLo, pendingNetTs.begin() + tp.netTsHi,
+                     [](const PendingNetTs& a, const PendingNetTs& b) {
+                         return a.di->mod->VpiDefName() < b.di->mod->VpiDefName();
+                     });
     for (size_t i = tp.netTsLo; i < tp.netTsHi; i++) {
         auto& pn = pendingNetTs[i];
-        pn.rt->Actual_typespec(sharedTypespec(*pn.sym, pn.di->defTs));
+        // Anonymous enums: fresh unparented ts per def net (no sharing).
+        bool anonEnum = false;
+        if (auto dt = pn.sym->getDeclaredType()) {
+            auto& c = dt->getType().getCanonicalType();
+            anonEnum = c.kind == SymbolKind::EnumType && !typedefTs.count(&dt->getType());
+        }
+        auto* ts = anonEnum ? makeTypespec(*pn.sym) : sharedTypespec(*pn.sym, pn.di->defTs);
+        pn.rt->Actual_typespec(ts);
     }
     tfContext = false;
 
@@ -659,20 +690,53 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                 lhsSyms->insert(&lhsCore.as<NamedValueExpression>().symbol);
         }
         bool literalRhs = isLiteralExpr(ae.right());
+        // RHS refs to enum constants also get re-emitted (folded to the
+        // constant's value, loc-less).
+        const Symbol* enumRhs = nullptr;
+        {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::NamedValue &&
+                rc.as<NamedValueExpression>().symbol.kind == SymbolKind::EnumValue)
+                enumRhs = &rc.as<NamedValueExpression>().symbol;
+        }
         // Top modules share the def's cont_assign object unless netlist
         // elaboration re-compiles it: that happens only for whole-net LHS
         // (RHS resized against the net width) when the RHS contains
         // operations or is a literal. Select-LHS assigns always stay shared.
         bool plainLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            (!plainLhs || (!containsOperation(ae.right()) && !literalRhs))) {
+            (!plainLhs || (!containsOperation(ae.right()) && !literalRhs && !enumRhs))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
         auto* ca = s.MakeCont_assign();
         ca->VpiParent(m);
         setLoc(ca, assign.sourceRange);
-        UHDM::any* rhs = topView ? tryFoldConst(ae.right()) : nullptr;
+        UHDM::any* rhs = nullptr;
+        if (topView && enumRhs) {
+            if (auto eit = enumConstMap.find(enumRhs); eit != enumConstMap.end()) {
+                auto* src = (UHDM::enum_const*)eit->second;
+                auto* c = s.MakeConstant();
+                c->VpiParent(ca);
+                c->VpiDecompile(src->VpiDecompile());
+                c->VpiSize(src->VpiSize());
+                std::string_view v = src->VpiValue();
+                c->VpiValue(std::string(v));
+                if (v.rfind("BIN:", 0) == 0)
+                    c->VpiConstType(vpiBinaryConst);
+                else if (v.rfind("HEX:", 0) == 0)
+                    c->VpiConstType(vpiHexConst);
+                else if (v.rfind("OCT:", 0) == 0)
+                    c->VpiConstType(vpiOctConst);
+                else if (v.rfind("DEC:", 0) == 0)
+                    c->VpiConstType(vpiDecConst);
+                else
+                    c->VpiConstType(vpiUIntConst);
+                rhs = c;
+            }
+        }
+        if (!rhs)
+            rhs = topView ? tryFoldConst(ae.right()) : nullptr;
         // Sized/based literal RHS: the top-view cont_assign is fresh but its
         // Rhs reuses the def's constant (Surelog's expression cache); bare
         // decimals are re-emitted fresh.

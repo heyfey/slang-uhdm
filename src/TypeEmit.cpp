@@ -14,6 +14,15 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
     auto declared = declSymbol.getDeclaredType();
+    // Typedef'd declarations share the typedef's typespec object; anonymous
+    // enums build an unnamed, unlocated enum_typespec per declaration.
+    if (declared && !typeSynOverride) {
+        if (auto it = typedefTs.find(&declared->getType()); it != typedefTs.end())
+            return it->second;
+        auto& ct0 = declared->getType().getCanonicalType();
+        if (ct0.kind == SymbolKind::EnumType)
+            return buildEnumTs(ct0.as<EnumType>(), declared->getTypeSyntax(), "");
+    }
     // Ports whose net is re-declared in the body ("input clock; wire clock;")
     // build their port typespec from the PORT declaration (its dims/type),
     // not the body re-declaration.
@@ -278,6 +287,11 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     bool regDecl = false;
     if (auto tsyn = declared->getTypeSyntax())
         regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
+    if (ct.kind == SymbolKind::EnumType && internal.kind == SymbolKind::Variable) {
+        auto* v = s.MakeEnum_var();
+        v->VpiVisibility(1);
+        return v;
+    }
     if (!portBacked && !regDecl && internal.kind == SymbolKind::Variable &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
@@ -337,6 +351,157 @@ UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& 
     auto* ts = makeTypespec(declSymbol, nullptr, portCtx);
     cache[key] = ts;
     return ts;
+}
+
+// Shared enum_typespec builder: base typespec (when the syntax declares
+// one) + enum constants with Surelog value encodings.
+UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
+                                               const syntax::SyntaxNode* enumSyn,
+                                               const std::string& refFullName) {
+    auto* ets = s.MakeEnum_typespec();
+    const syntax::SyntaxNode* baseSyn = nullptr;
+    if (enumSyn && enumSyn->kind == syntax::SyntaxKind::EnumType)
+        baseSyn = enumSyn->as<syntax::EnumTypeSyntax>().baseType;
+    if (baseSyn) {
+        auto* bts = s.MakeLogic_typespec();
+        if (et.baseType.isSigned())
+            bts->VpiSigned(true);
+        setLoc(bts, baseSyn->sourceRange());
+        if (et.baseType.isPackedArray()) {
+            auto range = et.baseType.getFixedRange();
+            const syntax::ExpressionSyntax* lsyn = nullptr;
+            const syntax::ExpressionSyntax* rsyn = nullptr;
+            if (syntax::IntegerTypeSyntax::isKind(baseSyn->kind)) {
+                auto& dims = baseSyn->as<syntax::IntegerTypeSyntax>().dimensions;
+                if (dims.size() == 1 && (*dims.begin())->specifier &&
+                    (*dims.begin())->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& spec = (*dims.begin())
+                                     ->specifier
+                                     ->as<syntax::RangeDimensionSpecifierSyntax>();
+                    if (spec.selector->kind == syntax::SyntaxKind::SimpleRangeSelect) {
+                        auto& sel = spec.selector->as<syntax::RangeSelectSyntax>();
+                        lsyn = sel.left;
+                        rsyn = sel.right;
+                    }
+                }
+            }
+            auto* r = s.MakeRange();
+            r->VpiParent(bts);
+            if (syntax::IntegerTypeSyntax::isKind(baseSyn->kind) &&
+                !baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.empty())
+                setLoc(r, (*baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.begin())
+                              ->sourceRange());
+            r->Left_expr(makeBoundConst(lsyn, range.left, r));
+            r->Right_expr(makeBoundConst(rsyn, range.right, r));
+            auto* rv = s.MakeRangeVec();
+            rv->push_back(r);
+            bts->Ranges(rv);
+        }
+        auto* brt = s.MakeRef_typespec();
+        brt->VpiFullName(refFullName);
+        brt->VpiParent(ets);
+        brt->Actual_typespec(bts);
+        ets->Base_typespec(brt);
+    }
+    auto* consts = s.MakeEnum_constVec();
+    for (auto& ev : et.values()) {
+        auto* ec = s.MakeEnum_const();
+        ec->VpiName(ev.name);
+        ec->VpiParent(ets);
+        if (auto syn = ev.getSyntax())
+            setLoc(ec, syn->sourceRange());
+        auto& cv = ev.getValue();
+        std::string value;
+        if (auto init = ev.getInitializer()) {
+            auto& lit = stripImplicitConv(*init);
+            if (lit.kind == ExpressionKind::IntegerLiteral) {
+                std::string raw = rawText(lit.sourceRange);
+                auto tick = raw.find('\'');
+                if (tick != std::string::npos) {
+                    // Based literal: literal encoding at the literal size.
+                    ec->VpiDecompile(raw);
+                    ec->VpiSize((int32_t)lit.type->getBitWidth());
+                    size_t basePos = tick + 1;
+                    if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))
+                        basePos++;
+                    char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
+                    std::string digits = raw.substr(basePos + 1);
+                    switch (base) {
+                        case 'b':
+                            value = "BIN:" + digits;
+                            break;
+                        case 'h':
+                            value = "HEX:" + digits;
+                            break;
+                        case 'o':
+                            value = "OCT:" + digits;
+                            break;
+                        default:
+                            value = "DEC:" + digits;
+                            break;
+                    }
+                }
+                else {
+                    // Bare decimal: 64-bit UINT.
+                    ec->VpiDecompile(raw);
+                    ec->VpiSize(64);
+                    value = "UINT:" + raw;
+                }
+            }
+        }
+        if (value.empty() && cv.isInteger() && !cv.integer().hasUnknown()) {
+            // Implicit value: INT at the enum base width.
+            std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+            value = "INT:" + digits;
+            ec->VpiDecompile(digits);
+            ec->VpiSize((int32_t)et.baseType.getBitWidth());
+        }
+        if (!value.empty())
+            ec->VpiValue(value);
+        consts->push_back(ec);
+        if (!enumConstMap.count(&ev))
+            enumConstMap[&ev] = ec;
+    }
+    ets->Enum_consts(consts);
+    return ets;
+}
+
+// Typedefs (enums for now): module Typespecs entries compiled at module
+// compile, shared by both views and by all declarations using the alias.
+void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_inst* m,
+                                const std::string& prefix, DefInfo& info) {
+    auto* tds = s.MakeTypespecVec();
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::TypeAlias)
+            continue;
+        auto& ta = member.as<TypeAliasType>();
+        auto& ct = ta.targetType.getType().getCanonicalType();
+        if (ct.kind != SymbolKind::EnumType) {
+            noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+            continue;
+        }
+        auto& et = ct.as<EnumType>();
+        const syntax::SyntaxNode* enumSyn = nullptr;
+        if (auto syn = ta.getSyntax()) {
+            if (syn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                const syntax::DataTypeSyntax* tsyn =
+                    syn->as<syntax::TypedefDeclarationSyntax>().type;
+                enumSyn = tsyn;
+            }
+        }
+        auto* ets = buildEnumTs(et, enumSyn, prefix + "." + std::string(ta.name));
+        ets->VpiName(ta.name);
+        ets->VpiParent(m);
+        ets->Instance(m);
+        if (auto syn = ta.getSyntax())
+            setLoc(ets, syn->sourceRange());
+        typedefTs[&ta] = ets;
+        info.typedefs.push_back(ets);
+        tds->push_back(ets);
+    }
+    if (!tds->empty())
+        m->Typespecs(tds);
 }
 
 // Maps binary expression syntax kinds to vpi op codes (range-bound exprs).

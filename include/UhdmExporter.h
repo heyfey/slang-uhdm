@@ -26,6 +26,7 @@ class PackageSymbol;
 class Scope;
 class TimingControl;
 class SubroutineSymbol;
+class EnumType;
 } // namespace slang::ast
 
 namespace slang {
@@ -71,6 +72,7 @@ private:
         std::map<const slang::ast::Symbol*, UHDM::typespec*> paramTs;
         TsCache defTs;
         std::vector<UHDM::task_func*> taskFuncs;
+        std::vector<UHDM::typespec*> typedefs;
     };
 
     /// Per-subroutine emission products (call sites link to these). An arg
@@ -121,6 +123,11 @@ private:
     UHDM::package* emitPackage(const slang::ast::PackageSymbol& pkg, bool topView);
     void emitTaskFuncs(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                        const std::string& prefix, DefInfo& info);
+    void emitTypedefs(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+                      const std::string& prefix, DefInfo& info);
+    UHDM::enum_typespec* buildEnumTs(const slang::ast::EnumType& et,
+                                     const slang::syntax::SyntaxNode* enumSyn,
+                                     const std::string& refFullName);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
@@ -188,6 +195,9 @@ private:
     std::vector<PendingNetTs> pendingNetTs;
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
+    // Typedef typespecs shared across views; enum consts for value refs.
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefTs;
+    std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
     std::vector<PendingFuncRet> pendingFuncRet;
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.
