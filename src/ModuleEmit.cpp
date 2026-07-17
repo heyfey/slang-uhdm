@@ -62,6 +62,19 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
             n->Typespec(rt);
             pendingNetTs.push_back({it.sym, rt, &info});
         }
+        if (auto attrs = comp.getAttributes(*it.sym); !attrs.empty()) {
+            // Surelog keeps only the last attribute spec; the object is
+            // shared with the instance view.
+            auto* av = s.MakeAttributeVec();
+            auto* ua = s.MakeAttribute();
+            ua->VpiName(attrs.back()->name);
+            if (auto asyn = attrs.back()->getSyntax())
+                setLoc(ua, asyn->sourceRange());
+            ua->VpiParent(n);
+            av->push_back(ua);
+            n->Attributes(av);
+            attrMap[it.sym] = ua;
+        }
         info.nets[it.sym] = n;
         nets->push_back(n);
     }
@@ -242,6 +255,22 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 ts->VpiParent(v);
                 if (((UHDM::enum_typespec*)ts)->Base_typespec())
                     ((UHDM::enum_typespec*)ts)->Base_typespec()->VpiFullName(fullName);
+            }
+            // Var initializers: a ref to the enum const, scoped by the var.
+            if (auto dt = it.sym->getDeclaredType()) {
+                if (auto init = dt->getInitializer()) {
+                    auto& ic = stripImplicitConv(*init);
+                    if (ic.kind == ExpressionKind::NamedValue &&
+                        ic.as<NamedValueExpression>().symbol.kind == SymbolKind::EnumValue) {
+                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                            v->Expr((UHDM::expr*)e);
+                    }
+                }
+            }
+            if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
+                auto* av = s.MakeAttributeVec();
+                av->push_back(ait->second);
+                v->Attributes(av);
             }
             topNets[it.sym] = v;
             sigOrder.emplace_back(it.sym, v);

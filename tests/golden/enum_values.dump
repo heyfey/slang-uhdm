@@ -1,0 +1,780 @@
+design: (work@top)
+|vpiName:work@top
+|uhdmallModules:
+\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiFullName:work@top
+  |vpiDefName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.clk), line:9:18, endln:9:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiName:clk
+    |vpiFullName:work@top.clk
+  |vpiNet:
+  \_logic_net: (work@top.z), line:9:30, endln:9:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiName:z
+    |vpiFullName:work@top.z
+  |vpiNet:
+  \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.wide_state)
+      |vpiParent:
+      \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+      |vpiFullName:work@top.wide_state
+      |vpiActual:
+      \_enum_typespec: (wide_state_t), line:1:1, endln:3:16
+    |vpiName:wide_state
+    |vpiFullName:work@top.wide_state
+  |vpiNet:
+  \_logic_net: (work@top.state), line:24:13, endln:24:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.state)
+      |vpiParent:
+      \_logic_net: (work@top.state), line:24:13, endln:24:18
+      |vpiFullName:work@top.state
+      |vpiActual:
+      \_enum_typespec: (state_t), line:5:1, endln:7:11
+    |vpiName:state
+    |vpiFullName:work@top.state
+    |vpiAttribute:
+    \_attribute: (another_attribute), line:23:8, endln:23:30
+      |vpiParent:
+      \_logic_net: (work@top.state), line:24:13, endln:24:18
+      |vpiName:another_attribute
+  |vpiPort:
+  \_port: (clk), line:9:18, endln:9:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.clk.clk), line:9:18, endln:9:21
+      |vpiParent:
+      \_port: (clk), line:9:18, endln:9:21
+      |vpiName:clk
+      |vpiFullName:work@top.clk.clk
+      |vpiActual:
+      \_logic_net: (work@top.clk), line:9:18, endln:9:21
+    |vpiTypedef:
+    \_ref_typespec: (work@top.clk)
+      |vpiParent:
+      \_port: (clk), line:9:18, endln:9:21
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:9:18, endln:9:18
+  |vpiPort:
+  \_port: (z), line:9:30, endln:9:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiName:z
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.z.z), line:9:30, endln:9:31
+      |vpiParent:
+      \_port: (z), line:9:30, endln:9:31
+      |vpiName:z
+      |vpiFullName:work@top.z.z
+      |vpiActual:
+      \_logic_net: (work@top.z), line:9:30, endln:9:31
+    |vpiTypedef:
+    \_ref_typespec: (work@top.z)
+      |vpiParent:
+      \_port: (z), line:9:30, endln:9:31
+      |vpiFullName:work@top.z
+      |vpiActual:
+      \_logic_typespec: , line:9:30, endln:9:30
+  |vpiProcess:
+  \_always: , line:13:5, endln:20:8
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiStmt:
+    \_event_control: , line:13:12, endln:13:26
+      |vpiParent:
+      \_always: , line:13:5, endln:20:8
+      |vpiCondition:
+      \_operation: , line:13:14, endln:13:25
+        |vpiParent:
+        \_event_control: , line:13:12, endln:13:26
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (work@top.clk), line:13:22, endln:13:25
+          |vpiParent:
+          \_operation: , line:13:14, endln:13:25
+          |vpiName:clk
+          |vpiFullName:work@top.clk
+          |vpiActual:
+          \_logic_net: (work@top.clk), line:9:18, endln:9:21
+      |vpiStmt:
+      \_begin: (work@top), line:13:27, endln:20:8
+        |vpiParent:
+        \_event_control: , line:13:12, endln:13:26
+        |vpiFullName:work@top
+        |vpiStmt:
+        \_case_stmt: , line:14:9, endln:19:16
+          |vpiParent:
+          \_begin: (work@top), line:13:27, endln:20:8
+          |vpiCaseType:1
+          |vpiCondition:
+          \_ref_obj: (work@top.wide_state), line:14:15, endln:14:25
+            |vpiParent:
+            \_begin: (work@top), line:13:27, endln:20:8
+            |vpiName:wide_state
+            |vpiFullName:work@top.wide_state
+            |vpiActual:
+            \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+          |vpiCaseItem:
+          \_case_item: , line:15:13, endln:15:34
+            |vpiParent:
+            \_case_stmt: , line:14:9, endln:19:16
+            |vpiExpr:
+            \_ref_obj: (work@top.WA), line:15:13, endln:15:15
+              |vpiParent:
+              \_begin: (work@top), line:13:27, endln:20:8
+              |vpiName:WA
+              |vpiFullName:work@top.WA
+              |vpiActual:
+              \_enum_const: (WA), line:2:5, endln:2:7
+            |vpiStmt:
+            \_assignment: , line:15:17, endln:15:33
+              |vpiParent:
+              \_case_item: , line:15:13, endln:15:34
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.WB), line:15:31, endln:15:33
+                |vpiParent:
+                \_assignment: , line:15:17, endln:15:33
+                |vpiName:WB
+                |vpiFullName:work@top.WB
+                |vpiActual:
+                \_enum_const: (WB), line:2:9, endln:2:11
+              |vpiLhs:
+              \_ref_obj: (work@top.wide_state), line:15:17, endln:15:27
+                |vpiParent:
+                \_assignment: , line:15:17, endln:15:33
+                |vpiName:wide_state
+                |vpiFullName:work@top.wide_state
+                |vpiActual:
+                \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+          |vpiCaseItem:
+          \_case_item: , line:16:13, endln:16:34
+            |vpiParent:
+            \_case_stmt: , line:14:9, endln:19:16
+            |vpiExpr:
+            \_ref_obj: (work@top.WB), line:16:13, endln:16:15
+              |vpiParent:
+              \_begin: (work@top), line:13:27, endln:20:8
+              |vpiName:WB
+              |vpiFullName:work@top.WB
+              |vpiActual:
+              \_enum_const: (WB), line:2:9, endln:2:11
+            |vpiStmt:
+            \_assignment: , line:16:17, endln:16:33
+              |vpiParent:
+              \_case_item: , line:16:13, endln:16:34
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.WC), line:16:31, endln:16:33
+                |vpiParent:
+                \_assignment: , line:16:17, endln:16:33
+                |vpiName:WC
+                |vpiFullName:work@top.WC
+                |vpiActual:
+                \_enum_const: (WC), line:2:13, endln:2:15
+              |vpiLhs:
+              \_ref_obj: (work@top.wide_state), line:16:17, endln:16:27
+                |vpiParent:
+                \_assignment: , line:16:17, endln:16:33
+                |vpiName:wide_state
+                |vpiFullName:work@top.wide_state
+                |vpiActual:
+                \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+          |vpiCaseItem:
+          \_case_item: , line:17:13, endln:17:34
+            |vpiParent:
+            \_case_stmt: , line:14:9, endln:19:16
+            |vpiExpr:
+            \_ref_obj: (work@top.WC), line:17:13, endln:17:15
+              |vpiParent:
+              \_begin: (work@top), line:13:27, endln:20:8
+              |vpiName:WC
+              |vpiFullName:work@top.WC
+              |vpiActual:
+              \_enum_const: (WC), line:2:13, endln:2:15
+            |vpiStmt:
+            \_assignment: , line:17:17, endln:17:33
+              |vpiParent:
+              \_case_item: , line:17:13, endln:17:34
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.WD), line:17:31, endln:17:33
+                |vpiParent:
+                \_assignment: , line:17:17, endln:17:33
+                |vpiName:WD
+                |vpiFullName:work@top.WD
+                |vpiActual:
+                \_enum_const: (WD), line:2:17, endln:2:19
+              |vpiLhs:
+              \_ref_obj: (work@top.wide_state), line:17:17, endln:17:27
+                |vpiParent:
+                \_assignment: , line:17:17, endln:17:33
+                |vpiName:wide_state
+                |vpiFullName:work@top.wide_state
+                |vpiActual:
+                \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+          |vpiCaseItem:
+          \_case_item: , line:18:13, endln:18:39
+            |vpiParent:
+            \_case_stmt: , line:14:9, endln:19:16
+            |vpiStmt:
+            \_assignment: , line:18:22, endln:18:38
+              |vpiParent:
+              \_case_item: , line:18:13, endln:18:39
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.WA), line:18:36, endln:18:38
+                |vpiParent:
+                \_assignment: , line:18:22, endln:18:38
+                |vpiName:WA
+                |vpiFullName:work@top.WA
+                |vpiActual:
+                \_enum_const: (WA), line:2:5, endln:2:7
+              |vpiLhs:
+              \_ref_obj: (work@top.wide_state), line:18:22, endln:18:32
+                |vpiParent:
+                \_assignment: , line:18:22, endln:18:38
+                |vpiName:wide_state
+                |vpiFullName:work@top.wide_state
+                |vpiActual:
+                \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+    |vpiAlwaysType:1
+  |vpiProcess:
+  \_always: , line:26:5, endln:33:8
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiStmt:
+    \_event_control: , line:26:12, endln:26:26
+      |vpiParent:
+      \_always: , line:26:5, endln:33:8
+      |vpiCondition:
+      \_operation: , line:26:14, endln:26:25
+        |vpiParent:
+        \_event_control: , line:26:12, endln:26:26
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (work@top.clk), line:26:22, endln:26:25
+          |vpiParent:
+          \_operation: , line:26:14, endln:26:25
+          |vpiName:clk
+          |vpiFullName:work@top.clk
+          |vpiActual:
+          \_logic_net: (work@top.clk), line:9:18, endln:9:21
+      |vpiStmt:
+      \_begin: (work@top), line:26:27, endln:33:8
+        |vpiParent:
+        \_event_control: , line:26:12, endln:26:26
+        |vpiFullName:work@top
+        |vpiStmt:
+        \_case_stmt: , line:27:9, endln:32:16
+          |vpiParent:
+          \_begin: (work@top), line:26:27, endln:33:8
+          |vpiCaseType:1
+          |vpiCondition:
+          \_ref_obj: (work@top.state), line:27:15, endln:27:20
+            |vpiParent:
+            \_begin: (work@top), line:26:27, endln:33:8
+            |vpiName:state
+            |vpiFullName:work@top.state
+            |vpiActual:
+            \_logic_net: (work@top.state), line:24:13, endln:24:18
+          |vpiCaseItem:
+          \_case_item: , line:28:13, endln:28:27
+            |vpiParent:
+            \_case_stmt: , line:27:9, endln:32:16
+            |vpiExpr:
+            \_ref_obj: (work@top.A), line:28:13, endln:28:14
+              |vpiParent:
+              \_begin: (work@top), line:26:27, endln:33:8
+              |vpiName:A
+              |vpiFullName:work@top.A
+              |vpiActual:
+              \_enum_const: (A), line:6:5, endln:6:10
+            |vpiStmt:
+            \_assignment: , line:28:16, endln:28:26
+              |vpiParent:
+              \_case_item: , line:28:13, endln:28:27
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.B), line:28:25, endln:28:26
+                |vpiParent:
+                \_assignment: , line:28:16, endln:28:26
+                |vpiName:B
+                |vpiFullName:work@top.B
+                |vpiActual:
+                \_enum_const: (B), line:6:12, endln:6:17
+              |vpiLhs:
+              \_ref_obj: (work@top.state), line:28:16, endln:28:21
+                |vpiParent:
+                \_assignment: , line:28:16, endln:28:26
+                |vpiName:state
+                |vpiFullName:work@top.state
+                |vpiActual:
+                \_logic_net: (work@top.state), line:24:13, endln:24:18
+          |vpiCaseItem:
+          \_case_item: , line:29:13, endln:29:27
+            |vpiParent:
+            \_case_stmt: , line:27:9, endln:32:16
+            |vpiExpr:
+            \_ref_obj: (work@top.B), line:29:13, endln:29:14
+              |vpiParent:
+              \_begin: (work@top), line:26:27, endln:33:8
+              |vpiName:B
+              |vpiFullName:work@top.B
+              |vpiActual:
+              \_enum_const: (B), line:6:12, endln:6:17
+            |vpiStmt:
+            \_assignment: , line:29:16, endln:29:26
+              |vpiParent:
+              \_case_item: , line:29:13, endln:29:27
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.C), line:29:25, endln:29:26
+                |vpiParent:
+                \_assignment: , line:29:16, endln:29:26
+                |vpiName:C
+                |vpiFullName:work@top.C
+                |vpiActual:
+                \_enum_const: (C), line:6:19, endln:6:20
+              |vpiLhs:
+              \_ref_obj: (work@top.state), line:29:16, endln:29:21
+                |vpiParent:
+                \_assignment: , line:29:16, endln:29:26
+                |vpiName:state
+                |vpiFullName:work@top.state
+                |vpiActual:
+                \_logic_net: (work@top.state), line:24:13, endln:24:18
+          |vpiCaseItem:
+          \_case_item: , line:30:13, endln:30:27
+            |vpiParent:
+            \_case_stmt: , line:27:9, endln:32:16
+            |vpiExpr:
+            \_ref_obj: (work@top.C), line:30:13, endln:30:14
+              |vpiParent:
+              \_begin: (work@top), line:26:27, endln:33:8
+              |vpiName:C
+              |vpiFullName:work@top.C
+              |vpiActual:
+              \_enum_const: (C), line:6:19, endln:6:20
+            |vpiStmt:
+            \_assignment: , line:30:16, endln:30:26
+              |vpiParent:
+              \_case_item: , line:30:13, endln:30:27
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.D), line:30:25, endln:30:26
+                |vpiParent:
+                \_assignment: , line:30:16, endln:30:26
+                |vpiName:D
+                |vpiFullName:work@top.D
+                |vpiActual:
+                \_enum_const: (D), line:6:22, endln:6:23
+              |vpiLhs:
+              \_ref_obj: (work@top.state), line:30:16, endln:30:21
+                |vpiParent:
+                \_assignment: , line:30:16, endln:30:26
+                |vpiName:state
+                |vpiFullName:work@top.state
+                |vpiActual:
+                \_logic_net: (work@top.state), line:24:13, endln:24:18
+          |vpiCaseItem:
+          \_case_item: , line:31:13, endln:31:33
+            |vpiParent:
+            \_case_stmt: , line:27:9, endln:32:16
+            |vpiStmt:
+            \_assignment: , line:31:22, endln:31:32
+              |vpiParent:
+              \_case_item: , line:31:13, endln:31:33
+              |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@top.A), line:31:31, endln:31:32
+                |vpiParent:
+                \_assignment: , line:31:22, endln:31:32
+                |vpiName:A
+                |vpiFullName:work@top.A
+                |vpiActual:
+                \_enum_const: (A), line:6:5, endln:6:10
+              |vpiLhs:
+              \_ref_obj: (work@top.state), line:31:22, endln:31:27
+                |vpiParent:
+                \_assignment: , line:31:22, endln:31:32
+                |vpiName:state
+                |vpiFullName:work@top.state
+                |vpiActual:
+                \_logic_net: (work@top.state), line:24:13, endln:24:18
+    |vpiAlwaysType:1
+  |vpiContAssign:
+  \_cont_assign: , line:35:12, endln:35:49
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiRhs:
+    \_operation: , line:35:16, endln:35:49
+      |vpiParent:
+      \_cont_assign: , line:35:12, endln:35:49
+      |vpiOpType:30
+      |vpiOperand:
+      \_operation: , line:35:17, endln:35:33
+        |vpiParent:
+        \_operation: , line:35:16, endln:35:49
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (work@top.wide_state), line:35:17, endln:35:27
+          |vpiParent:
+          \_operation: , line:35:17, endln:35:33
+          |vpiName:wide_state
+          |vpiFullName:work@top.wide_state
+          |vpiActual:
+          \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+        |vpiOperand:
+        \_ref_obj: (work@top.WB), line:35:31, endln:35:33
+          |vpiParent:
+          \_operation: , line:35:17, endln:35:33
+          |vpiName:WB
+          |vpiFullName:work@top.WB
+          |vpiActual:
+          \_enum_const: (WB), line:2:9, endln:2:11
+      |vpiOperand:
+      \_operation: , line:35:38, endln:35:48
+        |vpiParent:
+        \_operation: , line:35:16, endln:35:49
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (work@top.state), line:35:38, endln:35:43
+          |vpiParent:
+          \_operation: , line:35:38, endln:35:48
+          |vpiName:state
+          |vpiFullName:work@top.state
+          |vpiActual:
+          \_logic_net: (work@top.state), line:24:13, endln:24:18
+        |vpiOperand:
+        \_ref_obj: (work@top.B), line:35:47, endln:35:48
+          |vpiParent:
+          \_operation: , line:35:38, endln:35:48
+          |vpiName:B
+          |vpiFullName:work@top.B
+          |vpiActual:
+          \_enum_const: (B), line:6:12, endln:6:17
+    |vpiLhs:
+    \_ref_obj: (work@top.z), line:35:12, endln:35:13
+      |vpiParent:
+      \_cont_assign: , line:35:12, endln:35:49
+      |vpiName:z
+      |vpiFullName:work@top.z
+      |vpiActual:
+      \_logic_net: (work@top.z), line:9:30, endln:9:31
+|vpiTypedef:
+\_enum_typespec: (state_t), line:5:1, endln:7:11
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:state_t
+  |vpiInstance:
+  \_design: (work@top)
+  |vpiBaseTypespec:
+  \_ref_typespec: (state_t)
+    |vpiParent:
+    \_enum_typespec: (state_t), line:5:1, endln:7:11
+    |vpiFullName:state_t
+    |vpiActual:
+    \_logic_typespec: , line:5:14, endln:5:25
+  |vpiEnumConst:
+  \_enum_const: (A), line:6:5, endln:6:10
+    |vpiParent:
+    \_enum_typespec: (state_t), line:5:1, endln:7:11
+    |vpiName:A
+    |UINT:3
+    |vpiDecompile:3
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (B), line:6:12, endln:6:17
+    |vpiParent:
+    \_enum_typespec: (state_t), line:5:1, endln:7:11
+    |vpiName:B
+    |UINT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (C), line:6:19, endln:6:20
+    |vpiParent:
+    \_enum_typespec: (state_t), line:5:1, endln:7:11
+    |vpiName:C
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:2
+  |vpiEnumConst:
+  \_enum_const: (D), line:6:22, endln:6:23
+    |vpiParent:
+    \_enum_typespec: (state_t), line:5:1, endln:7:11
+    |vpiName:D
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:2
+|vpiTypedef:
+\_enum_typespec: (wide_state_t), line:1:1, endln:3:16
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:wide_state_t
+  |vpiInstance:
+  \_design: (work@top)
+  |vpiEnumConst:
+  \_enum_const: (WA), line:2:5, endln:2:7
+    |vpiParent:
+    \_enum_typespec: (wide_state_t), line:1:1, endln:3:16
+    |vpiName:WA
+    |INT:0
+    |vpiDecompile:0
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WB), line:2:9, endln:2:11
+    |vpiParent:
+    \_enum_typespec: (wide_state_t), line:1:1, endln:3:16
+    |vpiName:WB
+    |INT:1
+    |vpiDecompile:1
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WC), line:2:13, endln:2:15
+    |vpiParent:
+    \_enum_typespec: (wide_state_t), line:1:1, endln:3:16
+    |vpiName:WC
+    |INT:2
+    |vpiDecompile:2
+    |vpiSize:64
+  |vpiEnumConst:
+  \_enum_const: (WD), line:2:17, endln:2:19
+    |vpiParent:
+    \_enum_typespec: (wide_state_t), line:1:1, endln:3:16
+    |vpiName:WD
+    |INT:3
+    |vpiDecompile:3
+    |vpiSize:64
+|uhdmtopModules:
+\_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+  |vpiParent:
+  \_design: (work@top)
+  |vpiName:work@top
+  |vpiVariables:
+  \_enum_var: (work@top.wide_state), line:11:18, endln:11:28
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.wide_state)
+      |vpiParent:
+      \_enum_var: (work@top.wide_state), line:11:18, endln:11:28
+      |vpiFullName:work@top.wide_state
+      |vpiActual:
+      \_enum_typespec: (wide_state_t), line:1:1, endln:3:16
+    |vpiName:wide_state
+    |vpiFullName:work@top.wide_state
+    |vpiVisibility:1
+    |vpiExpr:
+    \_ref_obj: (work@top.wide_state.WA), line:11:31, endln:11:33
+      |vpiParent:
+      \_enum_var: (work@top.wide_state), line:11:18, endln:11:28
+      |vpiName:WA
+      |vpiFullName:work@top.wide_state.WA
+      |vpiActual:
+      \_enum_const: (WA), line:2:5, endln:2:7
+  |vpiVariables:
+  \_enum_var: (work@top.state), line:24:13, endln:24:18
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.state)
+      |vpiParent:
+      \_enum_var: (work@top.state), line:24:13, endln:24:18
+      |vpiFullName:work@top.state
+      |vpiActual:
+      \_enum_typespec: (state_t), line:5:1, endln:7:11
+    |vpiName:state
+    |vpiFullName:work@top.state
+    |vpiVisibility:1
+    |vpiExpr:
+    \_ref_obj: (work@top.state.A), line:24:21, endln:24:22
+      |vpiParent:
+      \_enum_var: (work@top.state), line:24:13, endln:24:18
+      |vpiName:A
+      |vpiFullName:work@top.state.A
+      |vpiActual:
+      \_enum_const: (A), line:6:5, endln:6:10
+    |vpiAttribute:
+    \_attribute: (another_attribute), line:23:8, endln:23:30
+  |vpiDefName:work@top
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@top.clk), line:9:18, endln:9:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.clk)
+      |vpiParent:
+      \_logic_net: (work@top.clk), line:9:18, endln:9:21
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:9:18, endln:9:18
+    |vpiName:clk
+    |vpiFullName:work@top.clk
+  |vpiNet:
+  \_logic_net: (work@top.z), line:9:30, endln:9:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiTypespec:
+    \_ref_typespec: (work@top.z)
+      |vpiParent:
+      \_logic_net: (work@top.z), line:9:30, endln:9:31
+      |vpiFullName:work@top.z
+      |vpiActual:
+      \_logic_typespec: , line:9:30, endln:9:30
+    |vpiName:z
+    |vpiFullName:work@top.z
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (clk), line:9:18, endln:9:21
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.clk), line:9:18, endln:9:21
+      |vpiParent:
+      \_port: (clk), line:9:18, endln:9:21
+      |vpiName:clk
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_net: (work@top.clk), line:9:18, endln:9:21
+    |vpiTypedef:
+    \_ref_typespec: (work@top.clk)
+      |vpiParent:
+      \_port: (clk), line:9:18, endln:9:21
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_typespec: , line:9:18, endln:9:18
+  |vpiPort:
+  \_port: (z), line:9:30, endln:9:31
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiName:z
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.z), line:9:30, endln:9:31
+      |vpiParent:
+      \_port: (z), line:9:30, endln:9:31
+      |vpiName:z
+      |vpiFullName:work@top.z
+      |vpiActual:
+      \_logic_net: (work@top.z), line:9:30, endln:9:31
+    |vpiTypedef:
+    \_ref_typespec: (work@top.z)
+      |vpiParent:
+      \_port: (z), line:9:30, endln:9:31
+      |vpiFullName:work@top.z
+      |vpiActual:
+      \_logic_typespec: , line:9:30, endln:9:30
+  |vpiProcess:
+  \_always: , line:13:5, endln:20:8
+  |vpiProcess:
+  \_always: , line:26:5, endln:33:8
+  |vpiContAssign:
+  \_cont_assign: , line:35:12, endln:35:49
+    |vpiParent:
+    \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/uhdm2rtlil/test/enum_values/dut.sv, line:9:1, endln:37:10
+    |vpiRhs:
+    \_operation: , line:35:16, endln:35:49
+      |vpiParent:
+      \_cont_assign: , line:35:12, endln:35:49
+      |vpiOpType:30
+      |vpiOperand:
+      \_operation: , line:35:17, endln:35:33
+        |vpiParent:
+        \_operation: , line:35:16, endln:35:49
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (work@top.wide_state), line:35:17, endln:35:27
+          |vpiParent:
+          \_operation: , line:35:17, endln:35:33
+          |vpiName:wide_state
+          |vpiFullName:work@top.wide_state
+          |vpiActual:
+          \_logic_net: (work@top.wide_state), line:11:18, endln:11:28
+        |vpiOperand:
+        \_ref_obj: (work@top.WB), line:35:31, endln:35:33
+          |vpiParent:
+          \_operation: , line:35:17, endln:35:33
+          |vpiName:WB
+          |vpiFullName:work@top.WB
+          |vpiActual:
+          \_enum_const: (WB), line:2:9, endln:2:11
+      |vpiOperand:
+      \_operation: , line:35:38, endln:35:48
+        |vpiParent:
+        \_operation: , line:35:16, endln:35:49
+        |vpiOpType:14
+        |vpiOperand:
+        \_ref_obj: (work@top.state), line:35:38, endln:35:43
+          |vpiParent:
+          \_operation: , line:35:38, endln:35:48
+          |vpiName:state
+          |vpiFullName:work@top.state
+          |vpiActual:
+          \_logic_net: (work@top.state), line:24:13, endln:24:18
+        |vpiOperand:
+        \_ref_obj: (work@top.B), line:35:47, endln:35:48
+          |vpiParent:
+          \_operation: , line:35:38, endln:35:48
+          |vpiName:B
+          |vpiFullName:work@top.B
+          |vpiActual:
+          \_enum_const: (B), line:6:12, endln:6:17
+    |vpiLhs:
+    \_ref_obj: (work@top.z), line:35:12, endln:35:13
+      |vpiParent:
+      \_cont_assign: , line:35:12, endln:35:49
+      |vpiName:z
+      |vpiFullName:work@top.z
+      |vpiActual:
+      \_logic_net: (work@top.z), line:9:30, endln:9:31
+\_weaklyReferenced:
+\_logic_typespec: , line:5:14, endln:5:25
+  |vpiRange:
+  \_range: , line:5:20, endln:5:25
+    |vpiParent:
+    \_logic_typespec: , line:5:14, endln:5:25
+    |vpiLeftRange:
+    \_constant: , line:5:21, endln:5:22
+      |vpiParent:
+      \_range: , line:5:20, endln:5:25
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:5:23, endln:5:24
+      |vpiParent:
+      \_range: , line:5:20, endln:5:25
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:18, endln:9:18
+\_logic_typespec: , line:9:30, endln:9:30
+\_logic_typespec: , line:9:18, endln:9:18
+  |vpiParent:
+  \_logic_net: (work@top.clk), line:9:18, endln:9:21
+\_logic_typespec: , line:9:30, endln:9:30
+\_logic_typespec: , line:9:18, endln:9:18
+\_logic_typespec: , line:9:30, endln:9:30

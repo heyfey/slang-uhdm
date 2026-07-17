@@ -451,11 +451,11 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             }
         }
         if (value.empty() && cv.isInteger() && !cv.integer().hasUnknown()) {
-            // Implicit value: INT at the enum base width.
+            // Implicit value: INT at the base width (64 for implicit bases).
             std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
             value = "INT:" + digits;
             ec->VpiDecompile(digits);
-            ec->VpiSize((int32_t)et.baseType.getBitWidth());
+            ec->VpiSize(baseSyn ? (int32_t)et.baseType.getBitWidth() : 64);
         }
         if (!value.empty())
             ec->VpiValue(value);

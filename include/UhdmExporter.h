@@ -198,6 +198,7 @@ private:
     // Typedef typespecs shared across views; enum consts for value refs.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefTs;
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
+    std::map<const slang::ast::Symbol*, UHDM::attribute*> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.

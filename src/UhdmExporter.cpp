@@ -93,6 +93,45 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     d->AllModules(allMods);
 
+    // File-level (compilation-unit) typedefs attach to the design itself,
+    // name-sorted.
+    {
+        std::map<std::string, const Symbol*> unitAliases;
+        for (auto unit : comp.getCompilationUnits()) {
+            for (auto& member : unit->members()) {
+                if (member.kind == SymbolKind::TypeAlias)
+                    unitAliases.emplace(std::string(member.name), &member);
+            }
+        }
+        auto* tds = s.MakeTypespecVec();
+        {
+            for (auto& [aname, memberPtr] : unitAliases) {
+                auto& member = *memberPtr;
+                auto& ta = member.as<TypeAliasType>();
+                auto& ct = ta.targetType.getType().getCanonicalType();
+                if (ct.kind != SymbolKind::EnumType) {
+                    noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                    continue;
+                }
+                const syntax::SyntaxNode* enumSyn = nullptr;
+                if (auto syn = ta.getSyntax()) {
+                    if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        enumSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+                }
+                auto* ets = buildEnumTs(ct.as<EnumType>(), enumSyn, std::string(ta.name));
+                ets->VpiName(ta.name);
+                ets->VpiParent(d);
+                ets->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
+                if (auto syn = ta.getSyntax())
+                    setLoc(ets, syn->sourceRange());
+                typedefTs[&ta] = ets;
+                tds->push_back(ets);
+            }
+        }
+        if (!tds->empty())
+            d->Typespecs(tds);
+    }
+
     // Surelog compiles every module's parameters at module-compile time, so
     // all def-view parameter typespecs precede any elaboration typespecs.
     for (auto& [name, inst] : defs) {
