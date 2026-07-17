@@ -1,0 +1,818 @@
+design: (work@counter)
+|vpiName:work@counter
+|uhdmallModules:
+\_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+  |vpiParent:
+  \_design: (work@counter)
+  |vpiFullName:work@counter
+  |vpiParameter:
+  \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.WIDTH)
+      |vpiParent:
+      \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
+      |vpiFullName:work@counter.WIDTH
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:24
+    |vpiName:WIDTH
+    |vpiFullName:work@counter.WIDTH
+  |vpiParamAssign:
+  \_param_assign: , line:3:15, endln:3:24
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiRhs:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_param_assign: , line:3:15, endln:3:24
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiTypespec:
+      \_ref_typespec: (work@counter)
+        |vpiParent:
+        \_constant: , line:3:23, endln:3:24
+        |vpiFullName:work@counter
+        |vpiActual:
+        \_int_typespec: , line:3:5, endln:3:24
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
+  |vpiDefName:work@counter
+  |vpiNet:
+  \_logic_net: (work@counter.clk), line:5:18, endln:5:21
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:clk
+    |vpiFullName:work@counter.clk
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:rst_n
+    |vpiFullName:work@counter.rst_n
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:enable
+    |vpiFullName:work@counter.enable
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.count), line:8:30, endln:8:35
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:count
+    |vpiFullName:work@counter.count
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:overflow
+    |vpiFullName:work@counter.overflow
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.count_next), line:12:23, endln:12:33
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.count_next)
+      |vpiParent:
+      \_logic_net: (work@counter.count_next), line:12:23, endln:12:33
+      |vpiFullName:work@counter.count_next
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:22
+    |vpiName:count_next
+    |vpiFullName:work@counter.count_next
+    |vpiNetType:36
+  |vpiPort:
+  \_port: (clk), line:5:18, endln:5:21
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@counter.clk.clk), line:5:18, endln:5:21
+      |vpiParent:
+      \_port: (clk), line:5:18, endln:5:21
+      |vpiName:clk
+      |vpiFullName:work@counter.clk.clk
+      |vpiActual:
+      \_logic_net: (work@counter.clk), line:5:18, endln:5:21
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.clk)
+      |vpiParent:
+      \_port: (clk), line:5:18, endln:5:21
+      |vpiFullName:work@counter.clk
+      |vpiActual:
+      \_logic_typespec: , line:5:12, endln:5:17
+  |vpiPort:
+  \_port: (rst_n), line:6:18, endln:6:23
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:rst_n
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@counter.rst_n.rst_n), line:6:18, endln:6:23
+      |vpiParent:
+      \_port: (rst_n), line:6:18, endln:6:23
+      |vpiName:rst_n
+      |vpiFullName:work@counter.rst_n.rst_n
+      |vpiActual:
+      \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.rst_n)
+      |vpiParent:
+      \_port: (rst_n), line:6:18, endln:6:23
+      |vpiFullName:work@counter.rst_n
+      |vpiActual:
+      \_logic_typespec: , line:6:12, endln:6:17
+  |vpiPort:
+  \_port: (enable), line:7:18, endln:7:24
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:enable
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@counter.enable.enable), line:7:18, endln:7:24
+      |vpiParent:
+      \_port: (enable), line:7:18, endln:7:24
+      |vpiName:enable
+      |vpiFullName:work@counter.enable.enable
+      |vpiActual:
+      \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.enable)
+      |vpiParent:
+      \_port: (enable), line:7:18, endln:7:24
+      |vpiFullName:work@counter.enable
+      |vpiActual:
+      \_logic_typespec: , line:7:12, endln:7:17
+  |vpiPort:
+  \_port: (count), line:8:30, endln:8:35
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:count
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@counter.count.count), line:8:30, endln:8:35
+      |vpiParent:
+      \_port: (count), line:8:30, endln:8:35
+      |vpiName:count
+      |vpiFullName:work@counter.count.count
+      |vpiActual:
+      \_logic_net: (work@counter.count), line:8:30, endln:8:35
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.count)
+      |vpiParent:
+      \_port: (count), line:8:30, endln:8:35
+      |vpiFullName:work@counter.count
+      |vpiActual:
+      \_logic_typespec: , line:8:12, endln:8:29
+  |vpiPort:
+  \_port: (overflow), line:9:18, endln:9:26
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:overflow
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@counter.overflow.overflow), line:9:18, endln:9:26
+      |vpiParent:
+      \_port: (overflow), line:9:18, endln:9:26
+      |vpiName:overflow
+      |vpiFullName:work@counter.overflow.overflow
+      |vpiActual:
+      \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.overflow)
+      |vpiParent:
+      \_port: (overflow), line:9:18, endln:9:26
+      |vpiFullName:work@counter.overflow
+      |vpiActual:
+      \_logic_typespec: , line:9:12, endln:9:17
+  |vpiProcess:
+  \_always: , line:14:5, endln:20:8
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiStmt:
+    \_event_control: , line:14:15, endln:14:46
+      |vpiParent:
+      \_always: , line:14:5, endln:20:8
+      |vpiCondition:
+      \_operation: , line:14:17, endln:14:45
+        |vpiParent:
+        \_event_control: , line:14:15, endln:14:46
+        |vpiOpType:35
+        |vpiOperand:
+        \_operation: , line:14:17, endln:14:28
+          |vpiParent:
+          \_operation: , line:14:17, endln:14:45
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (work@counter.clk), line:14:25, endln:14:28
+            |vpiParent:
+            \_operation: , line:14:17, endln:14:28
+            |vpiName:clk
+            |vpiFullName:work@counter.clk
+            |vpiActual:
+            \_logic_net: (work@counter.clk), line:5:18, endln:5:21
+        |vpiOperand:
+        \_operation: , line:14:32, endln:14:45
+          |vpiParent:
+          \_operation: , line:14:17, endln:14:45
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (work@counter.rst_n), line:14:40, endln:14:45
+            |vpiParent:
+            \_operation: , line:14:32, endln:14:45
+            |vpiName:rst_n
+            |vpiFullName:work@counter.rst_n
+            |vpiActual:
+            \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+      |vpiStmt:
+      \_begin: (work@counter), line:14:47, endln:20:8
+        |vpiParent:
+        \_event_control: , line:14:15, endln:14:46
+        |vpiFullName:work@counter
+        |vpiStmt:
+        \_if_else: , line:15:9, endln:19:12
+          |vpiParent:
+          \_begin: (work@counter), line:14:47, endln:20:8
+          |vpiCondition:
+          \_operation: , line:15:13, endln:15:19
+            |vpiParent:
+            \_begin: (work@counter), line:14:47, endln:20:8
+            |vpiOpType:3
+            |vpiOperand:
+            \_ref_obj: (work@counter.rst_n), line:15:14, endln:15:19
+              |vpiParent:
+              \_operation: , line:15:13, endln:15:19
+              |vpiName:rst_n
+              |vpiFullName:work@counter.rst_n
+              |vpiActual:
+              \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+          |vpiStmt:
+          \_begin: (work@counter), line:15:21, endln:17:12
+            |vpiParent:
+            \_if_else: , line:15:9, endln:19:12
+            |vpiFullName:work@counter
+            |vpiStmt:
+            \_assignment: , line:16:13, endln:16:24
+              |vpiParent:
+              \_begin: (work@counter), line:15:21, endln:17:12
+              |vpiOpType:82
+              |vpiRhs:
+              \_constant: , line:16:22, endln:16:24
+                |vpiDecompile:'0
+                |vpiSize:-1
+                |BIN:0
+                |vpiConstType:3
+              |vpiLhs:
+              \_ref_obj: (work@counter.count), line:16:13, endln:16:18
+                |vpiParent:
+                \_assignment: , line:16:13, endln:16:24
+                |vpiName:count
+                |vpiFullName:work@counter.count
+                |vpiActual:
+                \_logic_net: (work@counter.count), line:8:30, endln:8:35
+          |vpiElseStmt:
+          \_if_stmt: , line:17:18, endln:19:12
+            |vpiParent:
+            \_if_else: , line:15:9, endln:19:12
+            |vpiCondition:
+            \_ref_obj: (work@counter.enable), line:17:22, endln:17:28
+              |vpiParent:
+              \_if_else: , line:15:9, endln:19:12
+              |vpiName:enable
+              |vpiFullName:work@counter.enable
+              |vpiActual:
+              \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+            |vpiStmt:
+            \_begin: (work@counter), line:17:30, endln:19:12
+              |vpiParent:
+              \_if_stmt: , line:17:18, endln:19:12
+              |vpiFullName:work@counter
+              |vpiStmt:
+              \_assignment: , line:18:13, endln:18:32
+                |vpiParent:
+                \_begin: (work@counter), line:17:30, endln:19:12
+                |vpiOpType:82
+                |vpiRhs:
+                \_ref_obj: (work@counter.count_next), line:18:22, endln:18:32
+                  |vpiParent:
+                  \_assignment: , line:18:13, endln:18:32
+                  |vpiName:count_next
+                  |vpiFullName:work@counter.count_next
+                  |vpiActual:
+                  \_logic_net: (work@counter.count_next), line:12:23, endln:12:33
+                |vpiLhs:
+                \_ref_obj: (work@counter.count), line:18:13, endln:18:18
+                  |vpiParent:
+                  \_assignment: , line:18:13, endln:18:32
+                  |vpiName:count
+                  |vpiFullName:work@counter.count
+                  |vpiActual:
+                  \_logic_net: (work@counter.count), line:8:30, endln:8:35
+    |vpiAlwaysType:3
+  |vpiProcess:
+  \_always: , line:22:5, endln:25:8
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiStmt:
+    \_begin: (work@counter), line:22:17, endln:25:8
+      |vpiParent:
+      \_always: , line:22:5, endln:25:8
+      |vpiFullName:work@counter
+      |vpiStmt:
+      \_assignment: , line:23:9, endln:23:34
+        |vpiParent:
+        \_begin: (work@counter), line:22:17, endln:25:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:23:22, endln:23:34
+          |vpiParent:
+          \_assignment: , line:23:9, endln:23:34
+          |vpiOpType:24
+          |vpiOperand:
+          \_ref_obj: (work@counter.count), line:23:22, endln:23:27
+            |vpiParent:
+            \_operation: , line:23:22, endln:23:34
+            |vpiName:count
+            |vpiFullName:work@counter.count
+            |vpiActual:
+            \_logic_net: (work@counter.count), line:8:30, endln:8:35
+          |vpiOperand:
+          \_constant: , line:23:30, endln:23:34
+            |vpiParent:
+            \_operation: , line:23:22, endln:23:34
+            |vpiDecompile:1'b1
+            |vpiSize:1
+            |BIN:1
+            |vpiConstType:3
+        |vpiLhs:
+        \_ref_obj: (work@counter.count_next), line:23:9, endln:23:19
+          |vpiParent:
+          \_assignment: , line:23:9, endln:23:34
+          |vpiName:count_next
+          |vpiFullName:work@counter.count_next
+          |vpiActual:
+          \_logic_net: (work@counter.count_next), line:12:23, endln:12:33
+      |vpiStmt:
+      \_assignment: , line:24:9, endln:24:54
+        |vpiParent:
+        \_begin: (work@counter), line:22:17, endln:25:8
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:24:20, endln:24:54
+          |vpiParent:
+          \_assignment: , line:24:9, endln:24:54
+          |vpiOpType:26
+          |vpiOperand:
+          \_operation: , line:24:21, endln:24:43
+            |vpiParent:
+            \_operation: , line:24:20, endln:24:54
+            |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (work@counter.count), line:24:21, endln:24:26
+              |vpiParent:
+              \_operation: , line:24:21, endln:24:43
+              |vpiName:count
+              |vpiFullName:work@counter.count
+              |vpiActual:
+              \_logic_net: (work@counter.count), line:8:30, endln:8:35
+            |vpiOperand:
+            \_operation: , line:24:30, endln:24:43
+              |vpiParent:
+              \_operation: , line:24:21, endln:24:43
+              |vpiOpType:34
+              |vpiOperand:
+              \_ref_obj: (work@counter.WIDTH), line:24:31, endln:24:36
+                |vpiParent:
+                \_operation: , line:24:30, endln:24:43
+                |vpiName:WIDTH
+                |vpiFullName:work@counter.WIDTH
+              |vpiOperand:
+              \_operation: , line:24:36, endln:24:42
+                |vpiParent:
+                \_operation: , line:24:30, endln:24:43
+                |vpiOpType:33
+                |vpiOperand:
+                \_constant: , line:24:37, endln:24:41
+                  |vpiDecompile:1'b1
+                  |vpiSize:1
+                  |BIN:1
+                  |vpiConstType:3
+          |vpiOperand:
+          \_ref_obj: (work@counter.enable), line:24:48, endln:24:54
+            |vpiParent:
+            \_operation: , line:24:20, endln:24:54
+            |vpiName:enable
+            |vpiFullName:work@counter.enable
+            |vpiActual:
+            \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+        |vpiLhs:
+        \_ref_obj: (work@counter.overflow), line:24:9, endln:24:17
+          |vpiParent:
+          \_assignment: , line:24:9, endln:24:54
+          |vpiName:overflow
+          |vpiFullName:work@counter.overflow
+          |vpiActual:
+          \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
+    |vpiAlwaysType:2
+|uhdmtopModules:
+\_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+  |vpiParent:
+  \_design: (work@counter)
+  |vpiName:work@counter
+  |vpiVariables:
+  \_logic_var: (work@counter.count_next), line:12:23, endln:12:33
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.count_next)
+      |vpiParent:
+      \_logic_var: (work@counter.count_next), line:12:23, endln:12:33
+      |vpiFullName:work@counter.count_next
+      |vpiActual:
+      \_logic_typespec: , line:12:5, endln:12:22
+    |vpiName:count_next
+    |vpiFullName:work@counter.count_next
+    |vpiVisibility:1
+  |vpiParameter:
+  \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |UINT:8
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.WIDTH)
+      |vpiParent:
+      \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
+      |vpiFullName:work@counter.WIDTH
+      |vpiActual:
+      \_int_typespec: , line:3:5, endln:3:24
+    |vpiName:WIDTH
+    |vpiFullName:work@counter.WIDTH
+  |vpiParamAssign:
+  \_param_assign: , line:3:15, endln:3:24
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiRhs:
+    \_constant: , line:3:23, endln:3:24
+      |vpiParent:
+      \_param_assign: , line:3:15, endln:3:24
+      |vpiDecompile:8
+      |vpiSize:32
+      |UINT:8
+      |vpiTypespec:
+      \_ref_typespec: (work@counter)
+        |vpiParent:
+        \_constant: , line:3:23, endln:3:24
+        |vpiFullName:work@counter
+        |vpiActual:
+        \_int_typespec: , line:3:5, endln:3:24
+      |vpiConstType:9
+    |vpiLhs:
+    \_parameter: (work@counter.WIDTH), line:3:15, endln:3:20
+  |vpiDefName:work@counter
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@counter.clk), line:5:18, endln:5:21
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.clk)
+      |vpiParent:
+      \_logic_net: (work@counter.clk), line:5:18, endln:5:21
+      |vpiFullName:work@counter.clk
+      |vpiActual:
+      \_logic_typespec: , line:5:12, endln:5:17
+    |vpiName:clk
+    |vpiFullName:work@counter.clk
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.rst_n)
+      |vpiParent:
+      \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+      |vpiFullName:work@counter.rst_n
+      |vpiActual:
+      \_logic_typespec: , line:6:12, endln:6:17
+    |vpiName:rst_n
+    |vpiFullName:work@counter.rst_n
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.enable)
+      |vpiParent:
+      \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+      |vpiFullName:work@counter.enable
+      |vpiActual:
+      \_logic_typespec: , line:7:12, endln:7:17
+    |vpiName:enable
+    |vpiFullName:work@counter.enable
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.count), line:8:30, endln:8:35
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.count)
+      |vpiParent:
+      \_logic_net: (work@counter.count), line:8:30, endln:8:35
+      |vpiFullName:work@counter.count
+      |vpiActual:
+      \_logic_typespec: , line:8:12, endln:8:29
+    |vpiName:count
+    |vpiFullName:work@counter.count
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiTypespec:
+    \_ref_typespec: (work@counter.overflow)
+      |vpiParent:
+      \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
+      |vpiFullName:work@counter.overflow
+      |vpiActual:
+      \_logic_typespec: , line:9:12, endln:9:17
+    |vpiName:overflow
+    |vpiFullName:work@counter.overflow
+    |vpiNetType:36
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (clk), line:5:18, endln:5:21
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@counter.clk), line:5:18, endln:5:21
+      |vpiParent:
+      \_port: (clk), line:5:18, endln:5:21
+      |vpiName:clk
+      |vpiFullName:work@counter.clk
+      |vpiActual:
+      \_logic_net: (work@counter.clk), line:5:18, endln:5:21
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.clk)
+      |vpiParent:
+      \_port: (clk), line:5:18, endln:5:21
+      |vpiFullName:work@counter.clk
+      |vpiActual:
+      \_logic_typespec: , line:5:12, endln:5:17
+  |vpiPort:
+  \_port: (rst_n), line:6:18, endln:6:23
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:rst_n
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@counter.rst_n), line:6:18, endln:6:23
+      |vpiParent:
+      \_port: (rst_n), line:6:18, endln:6:23
+      |vpiName:rst_n
+      |vpiFullName:work@counter.rst_n
+      |vpiActual:
+      \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.rst_n)
+      |vpiParent:
+      \_port: (rst_n), line:6:18, endln:6:23
+      |vpiFullName:work@counter.rst_n
+      |vpiActual:
+      \_logic_typespec: , line:6:12, endln:6:17
+  |vpiPort:
+  \_port: (enable), line:7:18, endln:7:24
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:enable
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@counter.enable), line:7:18, endln:7:24
+      |vpiParent:
+      \_port: (enable), line:7:18, endln:7:24
+      |vpiName:enable
+      |vpiFullName:work@counter.enable
+      |vpiActual:
+      \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.enable)
+      |vpiParent:
+      \_port: (enable), line:7:18, endln:7:24
+      |vpiFullName:work@counter.enable
+      |vpiActual:
+      \_logic_typespec: , line:7:12, endln:7:17
+  |vpiPort:
+  \_port: (count), line:8:30, endln:8:35
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:count
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@counter.count), line:8:30, endln:8:35
+      |vpiParent:
+      \_port: (count), line:8:30, endln:8:35
+      |vpiName:count
+      |vpiFullName:work@counter.count
+      |vpiActual:
+      \_logic_net: (work@counter.count), line:8:30, endln:8:35
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.count)
+      |vpiParent:
+      \_port: (count), line:8:30, endln:8:35
+      |vpiFullName:work@counter.count
+      |vpiActual:
+      \_logic_typespec: , line:8:12, endln:8:29
+  |vpiPort:
+  \_port: (overflow), line:9:18, endln:9:26
+    |vpiParent:
+    \_module_inst: work@counter (work@counter), file:/home/heyfey/git-repos/uhdm2rtlil/test/counter/dut.sv, line:2:1, endln:27:10
+    |vpiName:overflow
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@counter.overflow), line:9:18, endln:9:26
+      |vpiParent:
+      \_port: (overflow), line:9:18, endln:9:26
+      |vpiName:overflow
+      |vpiFullName:work@counter.overflow
+      |vpiActual:
+      \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
+    |vpiTypedef:
+    \_ref_typespec: (work@counter.overflow)
+      |vpiParent:
+      \_port: (overflow), line:9:18, endln:9:26
+      |vpiFullName:work@counter.overflow
+      |vpiActual:
+      \_logic_typespec: , line:9:12, endln:9:17
+  |vpiProcess:
+  \_always: , line:14:5, endln:20:8
+  |vpiProcess:
+  \_always: , line:22:5, endln:25:8
+\_weaklyReferenced:
+\_int_typespec: , line:3:5, endln:3:24
+\_logic_typespec: , line:5:12, endln:5:17
+\_logic_typespec: , line:6:12, endln:6:17
+\_logic_typespec: , line:7:12, endln:7:17
+\_logic_typespec: , line:8:12, endln:8:29
+  |vpiRange:
+  \_range: , line:8:18, endln:8:29
+    |vpiParent:
+    \_logic_typespec: , line:8:12, endln:8:29
+    |vpiLeftRange:
+    \_constant: , line:8:19, endln:8:24
+      |vpiParent:
+      \_range: , line:8:18, endln:8:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:8:27, endln:8:28
+      |vpiParent:
+      \_range: , line:8:18, endln:8:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:12, endln:9:17
+\_logic_typespec: , line:5:12, endln:5:17
+  |vpiParent:
+  \_logic_net: (work@counter.clk), line:5:18, endln:5:21
+\_logic_typespec: , line:6:12, endln:6:17
+  |vpiParent:
+  \_logic_net: (work@counter.rst_n), line:6:18, endln:6:23
+\_logic_typespec: , line:7:12, endln:7:17
+  |vpiParent:
+  \_logic_net: (work@counter.enable), line:7:18, endln:7:24
+\_logic_typespec: , line:8:12, endln:8:29
+  |vpiParent:
+  \_logic_net: (work@counter.count), line:8:30, endln:8:35
+  |vpiRange:
+  \_range: , line:8:18, endln:8:29
+    |vpiParent:
+    \_logic_typespec: , line:8:12, endln:8:29
+    |vpiLeftRange:
+    \_constant: , line:8:19, endln:8:24
+      |vpiParent:
+      \_range: , line:8:18, endln:8:29
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:8:27, endln:8:28
+      |vpiParent:
+      \_range: , line:8:18, endln:8:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:12, endln:9:17
+  |vpiParent:
+  \_logic_net: (work@counter.overflow), line:9:18, endln:9:26
+\_logic_typespec: , line:12:5, endln:12:22
+  |vpiParent:
+  \_logic_var: (work@counter.count_next), line:12:23, endln:12:33
+  |vpiRange:
+  \_range: , line:12:11, endln:12:22
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:22
+    |vpiLeftRange:
+    \_constant: , line:12:12, endln:12:17
+      |vpiParent:
+      \_range: , line:12:11, endln:12:22
+      |vpiDecompile:7
+      |vpiSize:64
+      |INT:7
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , line:12:20, endln:12:21
+      |vpiParent:
+      \_range: , line:12:11, endln:12:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:5:12, endln:5:17
+\_logic_typespec: , line:6:12, endln:6:17
+\_logic_typespec: , line:7:12, endln:7:17
+\_logic_typespec: , line:8:12, endln:8:29
+  |vpiRange:
+  \_range: , line:8:18, endln:8:29
+    |vpiParent:
+    \_logic_typespec: , line:8:12, endln:8:29
+    |vpiLeftRange:
+    \_operation: , line:8:19, endln:8:26
+      |vpiParent:
+      \_range: , line:8:18, endln:8:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (WIDTH), line:8:19, endln:8:24
+        |vpiParent:
+        \_operation: , line:8:19, endln:8:26
+        |vpiName:WIDTH
+      |vpiOperand:
+      \_constant: , line:8:25, endln:8:26
+        |vpiParent:
+        \_operation: , line:8:19, endln:8:26
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:8:27, endln:8:28
+      |vpiParent:
+      \_range: , line:8:18, endln:8:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_logic_typespec: , line:9:12, endln:9:17
+\_logic_typespec: , line:12:5, endln:12:22
+  |vpiRange:
+  \_range: , line:12:11, endln:12:22
+    |vpiParent:
+    \_logic_typespec: , line:12:5, endln:12:22
+    |vpiLeftRange:
+    \_operation: , line:12:12, endln:12:19
+      |vpiParent:
+      \_range: , line:12:11, endln:12:22
+      |vpiOpType:11
+      |vpiOperand:
+      \_ref_obj: (WIDTH), line:12:12, endln:12:17
+        |vpiParent:
+        \_operation: , line:12:12, endln:12:19
+        |vpiName:WIDTH
+      |vpiOperand:
+      \_constant: , line:12:18, endln:12:19
+        |vpiParent:
+        \_operation: , line:12:12, endln:12:19
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , line:12:20, endln:12:21
+      |vpiParent:
+      \_range: , line:12:11, endln:12:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+\_int_typespec: , line:3:5, endln:3:24
+  |vpiParent:
+  \_ref_typespec: (work@counter.WIDTH)

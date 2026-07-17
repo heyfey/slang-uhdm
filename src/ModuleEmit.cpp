@@ -93,11 +93,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
         m->Process(procs);
 
     // Def-view ports share one typespec object per declaration (Surelog's
-    // TypespecCache behavior), with no parent set; module-compile context
-    // keeps unfolded range expressions.
-    tfContext = true;
+    // TypespecCache behavior), with no parent set; their param-dim bounds
+    // are folded (recompiled), unlike local-net typespecs.
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
-    tfContext = false;
 
     // Child instance references (def view uses ref_module stubs).
     auto* refmods = s.MakeRef_moduleVec();
@@ -481,11 +479,33 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             lc->Actual_group(it->second);
         p->Low_conn(lc);
 
+        // The write phase recompiles the port typespec with UNFOLDED range
+        // bounds and swaps attachments with the DEF port: the def port's ref
+        // gets the fresh unfolded object, while the top port inherits the
+        // folded object the def port was created with.
+        UHDM::typespec* defActual = nullptr;
+        UHDM::ref_typespec* defRt = nullptr;
+        {
+            auto dit = defMap.find(&tp.inst->getDefinition());
+            if (dit != defMap.end() && dit->second.mod && dit->second.mod->Ports()) {
+                for (auto dp : *dit->second.mod->Ports()) {
+                    if (dp->VpiName() == ps.name && dp->Typespec()) {
+                        defRt = dp->Typespec();
+                        defActual = defRt->Actual_typespec();
+                        break;
+                    }
+                }
+            }
+        }
+        tfContext = true;
         auto* pts = makeTypespec(*internal, nullptr, &ps);
+        tfContext = false;
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(tp.prefix + "." + std::string(ps.name));
         rt->VpiParent(p);
-        rt->Actual_typespec(pts);
+        rt->Actual_typespec(defActual ? defActual : pts);
+        if (defRt)
+            defRt->Actual_typespec(pts);
         p->Typespec(rt);
         ports->push_back(p);
     }

@@ -274,3 +274,59 @@ More quirks nailed this round:
   MonitorInputPort proved stmt-context sys call args DO reparent var ts.
 - r17 = 69 PASS + 0 CMP_ONLY + 0 DUMP_ONLY of 661; UNSUP 349; DIFF 243;
   0 crash. Goldens now 13. Next: C2 user functions (~100 tests), D1 enums.
+
+## Session 3: C2 user functions/tasks + typespec generalization (2026-07-17)
+
+Function/task shapes (probed add4/doinc goldens):
+- function/task in module Task_funcs (def emits; top SHARES objects), loc =
+  whole decl syntax; VpiVisibility 1; VpiAutomatic for automatic; Instance
+  link to module. Return: variable classed by return type (logic_var/
+  int_var/integer_var), FullName = func fullname, NO name, loc = return
+  type range; ts anchored likewise. io_decls: name-span loc, direction,
+  Typedef ref -> ts at arg type syntax (shared per decl group); BARE
+  implicit args ("input x;") get an UNLOCATED ts created at the END of the
+  write phase (shared per decl). Body refs bind io_decls; refs to the
+  function name bind per-ref write-phase local vars (name+fullname
+  func.func, parent = the ref, own unfolded-ranged ts whose parent = the
+  ref_typespec) — return-style functions have none of these.
+- func_call/task_call: whole-call loc in ALL contexts (unlike sys calls),
+  Function/Task link; FUNCTION call args that are refs carry a Typespec ref
+  to the formal's ts (task args don't); direct literal args parented at the
+  call. Output args arrive as Assignment(lval, EmptyArgument) - unwrap.
+  User func_call RHS does NOT force cont_assign re-emission (sys calls do).
+- return_stmt: keyword-only loc, expr in VpiCondition.
+- Case-item EXPR refs parent at the enclosing scope (constants stay at the
+  case_item). Var-ts reparenting in shared processes: only call-arg refs
+  and LVALUE refs count (plain rvalue refs don't).
+- Intra-assignment delays: delay_control "#1" on the assignment.
+
+Typespec range-expression model (THE big one, probed + C++ attach probe):
+- Module-compile-context typespecs keep UNFOLDED range exprs (operation
+  tree from syntax; refs name-only): function returns/io_decls, def-view
+  LOCAL-net ts (write-phase deferred), and the write-phase DEF-PORT ts.
+- Elaboration-context typespecs FOLD param-dim bounds to INT:<val> 64-bit
+  constants anchored at the bound's first token: def-view port ts (initial),
+  top-view net ts, instance param ts.
+- WRITE-PHASE SWAP (C++ probe, counter): the write phase creates a fresh
+  UNFOLDED ts and re-points the DEF PORT's ref to it; the TOP PORT inherits
+  the def port's original folded object. Top net keeps its own folded ts.
+- Write-phase drain order per top: def-local-net ts -> per-ref func locals
+  -> instance param ts (parented range bounds) -> bare io ts. Top instances
+  and their own params: params still fresh per view; instance param ts of
+  the TOP module drain here too (AFTER func locals).
+- dump vpiFullName on name-only refs can be DERIVED by uhdm-dump from the
+  VpiParent chain — a parented ts makes its range refs print scoped names.
+  Don't chase those; check attachments with a C++ probe.
+
+Net collection order rework:
+- Nets with explicit declarations (net/data decls AND ANSI headers) sort by
+  declaration location; port-decl-only nets append in port-list order.
+  Merged ports ("input clock; wire clock;"): net loc = the re-declaration
+  name span; port ts anchors at the PORT declaration group's first
+  declarator (its dims if present, dims-range only); def low_conn has no
+  name and single-level fullname.
+- Param values keep based-literal encoding (BIN:001); untyped based-literal
+  params gain a loc-less [w-1:0] range on their int_typespec (value-only
+  INT constants; parented only in write-phase instances).
+- r22 78 PASS; r23 91 PASS + 0 CMP_ONLY (91 of 661), UNSUP 341, DIFF 229,
+  0 crash. Goldens 17.

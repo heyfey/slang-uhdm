@@ -15,8 +15,38 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const PortSymbol* portCtx) {
     auto declared = declSymbol.getDeclaredType();
     // Ports whose net is re-declared in the body ("input clock; wire clock;")
-    // anchor their port typespec at the port declaration, not the net decl.
+    // build their port typespec from the PORT declaration (its dims/type),
+    // not the body re-declaration.
     bool mergedPort = portCtx && hasBodyDecl(declSymbol);
+    const syntax::SyntaxNode* portDeclTypeSyn = nullptr;
+    if (mergedPort) {
+        auto scope0 = declSymbol.getParentScope();
+        const syntax::SyntaxNode* msyn0 =
+            scope0 ? scope0->asSymbol().getSyntax() : nullptr;
+        if (msyn0 && msyn0->kind == syntax::SyntaxKind::ModuleDeclaration) {
+            for (auto member : msyn0->as<syntax::ModuleDeclarationSyntax>().members) {
+                if (member->kind != syntax::SyntaxKind::PortDeclaration)
+                    continue;
+                auto& pd = member->as<syntax::PortDeclarationSyntax>();
+                bool found = false;
+                for (auto dcl : pd.declarators) {
+                    if (dcl->name.valueText() == portCtx->name)
+                        found = true;
+                }
+                if (found) {
+                    if (pd.header->kind == syntax::SyntaxKind::VariablePortHeader)
+                        portDeclTypeSyn =
+                            pd.header->as<syntax::VariablePortHeaderSyntax>().dataType;
+                    else if (pd.header->kind == syntax::SyntaxKind::NetPortHeader)
+                        portDeclTypeSyn =
+                            pd.header->as<syntax::NetPortHeaderSyntax>().dataType;
+                    break;
+                }
+            }
+        }
+        if (portDeclTypeSyn)
+            typeSynOverride = portDeclTypeSyn;
+    }
     auto typeSynFor = [&]() -> const syntax::SyntaxNode* {
         if (typeSynOverride)
             return typeSynOverride;
@@ -53,7 +83,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     }
     SourceRange range(implicitLoc, implicitLoc);
     bool explicitType = false;
-    if (declared && !mergedPort) {
+    if (declared && !(mergedPort && !portDeclTypeSyn)) {
         if (auto tsyn = typeSynFor()) {
             if (tsyn->kind != syntax::SyntaxKind::ImplicitType) {
                 auto sr = tsyn->sourceRange();
@@ -154,7 +184,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                    its.dimensions[its.dimensions.size() - 1]
                                        ->sourceRange()
                                        .end());
-                    if (auto nh = ansiNetHeader(declSymbol)) {
+                    if (mergedPort) {
+                        // Port-decl dims: the dims range alone.
+                    }
+                    else if (auto nh = ansiNetHeader(declSymbol)) {
                         dr = SourceRange(nh->netType.range().start(), dr.end());
                     }
                     else {
