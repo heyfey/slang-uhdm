@@ -2,7 +2,7 @@
 # Regression check: slang-uhdm output must match committed golden dumps.
 # Goldens were produced by Surelog cbdbea458c / UHDM 5523dfc.
 set -u
-SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang/build/bin/slang-uhdm}
+SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang-uhdm/build/slang-uhdm}
 UHDM_DUMP=${UHDM_DUMP:-$HOME/git-repos/UHDM/build/bin/uhdm-dump}
 CORPUS=${CORPUS:-$HOME/git-repos/uhdm2rtlil/test}
 DIR=$(dirname "$(realpath "$0")")

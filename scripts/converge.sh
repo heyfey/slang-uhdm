@@ -4,7 +4,7 @@
 # runs uhdm-cmp. Prints DUMP_MATCH/DUMP_DIFF and PASS_CMP/CMP_FAIL.
 set -u
 
-SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang/build/bin/slang-uhdm}
+SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang-uhdm/build/slang-uhdm}
 SURELOG=${SURELOG:-$HOME/git-repos/Surelog/build/bin/surelog}
 UHDM_DUMP=${UHDM_DUMP:-$HOME/git-repos/UHDM/build/bin/uhdm-dump}
 UHDM_CMP=${UHDM_CMP:-$HOME/git-repos/UHDM/build/bin/uhdm-cmp}

@@ -5,7 +5,7 @@
 set -u
 CSV=$1
 CORPUS=${2:-$HOME/git-repos/uhdm2rtlil/test}
-SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang/build/bin/slang-uhdm}
+SLANG_UHDM=${SLANG_UHDM:-$HOME/git-repos/slang-uhdm/build/slang-uhdm}
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
 
 echo "=== UNSUPPORTED feature frequency (tests blocked) ==="
