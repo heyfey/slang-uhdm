@@ -1,0 +1,333 @@
+design: (work@mux2)
+|vpiName:work@mux2
+|uhdmallModules:
+\_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+  |vpiParent:
+  \_design: (work@mux2)
+  |vpiFullName:work@mux2
+  |vpiDefName:work@mux2
+  |vpiNet:
+  \_logic_net: (work@mux2.S), line:1:14, endln:1:15
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:S
+    |vpiFullName:work@mux2.S
+  |vpiNet:
+  \_logic_net: (work@mux2.A), line:1:16, endln:1:17
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:A
+    |vpiFullName:work@mux2.A
+  |vpiNet:
+  \_logic_net: (work@mux2.B), line:1:18, endln:1:19
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:B
+    |vpiFullName:work@mux2.B
+  |vpiNet:
+  \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:Y
+    |vpiFullName:work@mux2.Y
+    |vpiNetType:48
+  |vpiPort:
+  \_port: (S), line:1:14, endln:1:15
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:S
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.S.S), line:1:14, endln:1:15
+      |vpiParent:
+      \_port: (S), line:1:14, endln:1:15
+      |vpiName:S
+      |vpiFullName:work@mux2.S.S
+      |vpiActual:
+      \_logic_net: (work@mux2.S), line:1:14, endln:1:15
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.S)
+      |vpiParent:
+      \_port: (S), line:1:14, endln:1:15
+      |vpiFullName:work@mux2.S
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:11
+  |vpiPort:
+  \_port: (A), line:1:16, endln:1:17
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:A
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.A.A), line:1:16, endln:1:17
+      |vpiParent:
+      \_port: (A), line:1:16, endln:1:17
+      |vpiName:A
+      |vpiFullName:work@mux2.A.A
+      |vpiActual:
+      \_logic_net: (work@mux2.A), line:1:16, endln:1:17
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.A)
+      |vpiParent:
+      \_port: (A), line:1:16, endln:1:17
+      |vpiFullName:work@mux2.A
+      |vpiActual:
+      \_logic_typespec: , line:3:11, endln:3:11
+  |vpiPort:
+  \_port: (B), line:1:18, endln:1:19
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:B
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.B.B), line:1:18, endln:1:19
+      |vpiParent:
+      \_port: (B), line:1:18, endln:1:19
+      |vpiName:B
+      |vpiFullName:work@mux2.B.B
+      |vpiActual:
+      \_logic_net: (work@mux2.B), line:1:18, endln:1:19
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.B)
+      |vpiParent:
+      \_port: (B), line:1:18, endln:1:19
+      |vpiFullName:work@mux2.B
+      |vpiActual:
+      \_logic_typespec: , line:3:11, endln:3:11
+  |vpiPort:
+  \_port: (Y), line:1:20, endln:1:21
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:Y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.Y.Y), line:1:20, endln:1:21
+      |vpiParent:
+      \_port: (Y), line:1:20, endln:1:21
+      |vpiName:Y
+      |vpiFullName:work@mux2.Y.Y
+      |vpiActual:
+      \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.Y)
+      |vpiParent:
+      \_port: (Y), line:1:20, endln:1:21
+      |vpiFullName:work@mux2.Y
+      |vpiActual:
+      \_logic_typespec: , line:4:12, endln:4:15
+  |vpiProcess:
+  \_always: , line:6:5, endln:7:18
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiStmt:
+    \_event_control: , line:6:12, endln:6:16
+      |vpiParent:
+      \_always: , line:6:5, endln:7:18
+      |vpiStmt:
+      \_assignment: , line:7:3, endln:7:17
+        |vpiParent:
+        \_event_control: , line:6:12, endln:6:16
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:7:7, endln:7:17
+          |vpiParent:
+          \_assignment: , line:7:3, endln:7:17
+          |vpiOpType:32
+          |vpiOperand:
+          \_ref_obj: (work@mux2.S), line:7:8, endln:7:9
+            |vpiParent:
+            \_operation: , line:7:7, endln:7:17
+            |vpiName:S
+            |vpiFullName:work@mux2.S
+            |vpiActual:
+            \_logic_net: (work@mux2.S), line:1:14, endln:1:15
+          |vpiOperand:
+          \_ref_obj: (work@mux2.B), line:7:12, endln:7:13
+            |vpiParent:
+            \_operation: , line:7:7, endln:7:17
+            |vpiName:B
+            |vpiFullName:work@mux2.B
+            |vpiActual:
+            \_logic_net: (work@mux2.B), line:1:18, endln:1:19
+          |vpiOperand:
+          \_ref_obj: (work@mux2.A), line:7:16, endln:7:17
+            |vpiParent:
+            \_operation: , line:7:7, endln:7:17
+            |vpiName:A
+            |vpiFullName:work@mux2.A
+            |vpiActual:
+            \_logic_net: (work@mux2.A), line:1:16, endln:1:17
+        |vpiLhs:
+        \_ref_obj: (work@mux2.Y), line:7:3, endln:7:4
+          |vpiParent:
+          \_assignment: , line:7:3, endln:7:17
+          |vpiName:Y
+          |vpiFullName:work@mux2.Y
+          |vpiActual:
+          \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
+    |vpiAlwaysType:1
+|uhdmtopModules:
+\_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+  |vpiParent:
+  \_design: (work@mux2)
+  |vpiName:work@mux2
+  |vpiDefName:work@mux2
+  |vpiTop:1
+  |vpiNet:
+  \_logic_net: (work@mux2.S), line:1:14, endln:1:15
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_ref_typespec: (work@mux2.S)
+      |vpiParent:
+      \_logic_net: (work@mux2.S), line:1:14, endln:1:15
+      |vpiFullName:work@mux2.S
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:11
+    |vpiName:S
+    |vpiFullName:work@mux2.S
+  |vpiNet:
+  \_logic_net: (work@mux2.A), line:1:16, endln:1:17
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_ref_typespec: (work@mux2.A)
+      |vpiParent:
+      \_logic_net: (work@mux2.A), line:1:16, endln:1:17
+      |vpiFullName:work@mux2.A
+      |vpiActual:
+      \_logic_typespec: , line:3:11, endln:3:11
+    |vpiName:A
+    |vpiFullName:work@mux2.A
+  |vpiNet:
+  \_logic_net: (work@mux2.B), line:1:18, endln:1:19
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_ref_typespec: (work@mux2.B)
+      |vpiParent:
+      \_logic_net: (work@mux2.B), line:1:18, endln:1:19
+      |vpiFullName:work@mux2.B
+      |vpiActual:
+      \_logic_typespec: , line:3:11, endln:3:11
+    |vpiName:B
+    |vpiFullName:work@mux2.B
+  |vpiNet:
+  \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiTypespec:
+    \_ref_typespec: (work@mux2.Y)
+      |vpiParent:
+      \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
+      |vpiFullName:work@mux2.Y
+      |vpiActual:
+      \_logic_typespec: , line:4:12, endln:4:15
+    |vpiName:Y
+    |vpiFullName:work@mux2.Y
+    |vpiNetType:48
+  |vpiTopModule:1
+  |vpiPort:
+  \_port: (S), line:1:14, endln:1:15
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:S
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.S), line:1:14, endln:1:15
+      |vpiParent:
+      \_port: (S), line:1:14, endln:1:15
+      |vpiName:S
+      |vpiFullName:work@mux2.S
+      |vpiActual:
+      \_logic_net: (work@mux2.S), line:1:14, endln:1:15
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.S)
+      |vpiParent:
+      \_port: (S), line:1:14, endln:1:15
+      |vpiFullName:work@mux2.S
+      |vpiActual:
+      \_logic_typespec: , line:2:11, endln:2:11
+  |vpiPort:
+  \_port: (A), line:1:16, endln:1:17
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:A
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.A), line:1:16, endln:1:17
+      |vpiParent:
+      \_port: (A), line:1:16, endln:1:17
+      |vpiName:A
+      |vpiFullName:work@mux2.A
+      |vpiActual:
+      \_logic_net: (work@mux2.A), line:1:16, endln:1:17
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.A)
+      |vpiParent:
+      \_port: (A), line:1:16, endln:1:17
+      |vpiFullName:work@mux2.A
+      |vpiActual:
+      \_logic_typespec: , line:3:11, endln:3:11
+  |vpiPort:
+  \_port: (B), line:1:18, endln:1:19
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:B
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.B), line:1:18, endln:1:19
+      |vpiParent:
+      \_port: (B), line:1:18, endln:1:19
+      |vpiName:B
+      |vpiFullName:work@mux2.B
+      |vpiActual:
+      \_logic_net: (work@mux2.B), line:1:18, endln:1:19
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.B)
+      |vpiParent:
+      \_port: (B), line:1:18, endln:1:19
+      |vpiFullName:work@mux2.B
+      |vpiActual:
+      \_logic_typespec: , line:3:11, endln:3:11
+  |vpiPort:
+  \_port: (Y), line:1:20, endln:1:21
+    |vpiParent:
+    \_module_inst: work@mux2 (work@mux2), file:/home/heyfey/git-repos/uhdm2rtlil/test/mux2/dut.sv, line:1:1, endln:8:10
+    |vpiName:Y
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@mux2.Y), line:1:20, endln:1:21
+      |vpiParent:
+      \_port: (Y), line:1:20, endln:1:21
+      |vpiName:Y
+      |vpiFullName:work@mux2.Y
+      |vpiActual:
+      \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
+    |vpiTypedef:
+    \_ref_typespec: (work@mux2.Y)
+      |vpiParent:
+      \_port: (Y), line:1:20, endln:1:21
+      |vpiFullName:work@mux2.Y
+      |vpiActual:
+      \_logic_typespec: , line:4:12, endln:4:15
+  |vpiProcess:
+  \_always: , line:6:5, endln:7:18
+\_weaklyReferenced:
+\_logic_typespec: , line:2:11, endln:2:11
+\_logic_typespec: , line:3:11, endln:3:11
+\_logic_typespec: , line:4:12, endln:4:15
+\_logic_typespec: , line:2:11, endln:2:11
+  |vpiParent:
+  \_logic_net: (work@mux2.S), line:1:14, endln:1:15
+\_logic_typespec: , line:3:11, endln:3:11
+  |vpiParent:
+  \_logic_net: (work@mux2.B), line:1:18, endln:1:19
+\_logic_typespec: , line:4:12, endln:4:15
+  |vpiParent:
+  \_logic_net: (work@mux2.Y), line:1:20, endln:1:21
+\_logic_typespec: , line:2:11, endln:2:11
+\_logic_typespec: , line:3:11, endln:3:11
+\_logic_typespec: , line:3:11, endln:3:11
+\_logic_typespec: , line:4:12, endln:4:15
