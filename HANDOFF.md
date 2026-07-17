@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r81 state)
+# HANDOFF — slang-uhdm convergence campaign (r92 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,7 +13,31 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r81 baseline, committed as results/baseline.csv)
+## Current scoreboard (r92 baseline, committed as results/baseline.csv)
+
+PASS 184 · CMP_ONLY 2 · DIFF 325 · UNSUPPORTED 150 (r92). Session 5 third
+stretch (r82-r92) landed: var_select flattening (nested element selects,
+range/part-select of element-select bases), array_var/array_typespec for
+unpacked-array signals (element types, pattern inits, io_decl ranges),
+range-select of member-access -> hier_path, multi-dim packed def-net span,
+predefined integer types (shortint/longint/byte/time), while/do-while/
+forever loops, and assignment-pattern default/index setters.
+NEXT solo-blocker clusters (run the m91.txt-style triage to refresh):
+- ConcurrentAssertion (11) - property/sequence, biggest single cluster.
+- member access base (9) - mostly interface/struct (overlaps E4).
+- assignment pattern setter kind: DONE for tags; remaining tests need the
+  top-view pattern FOLD to a based constant + def value parenting under the
+  orphan re-parent machinery (PatternDefault, PatternIndexes).
+- PackedStructType typedef (7) + PackedUnionType (3): package/anon structs.
+- LValueReference (5), Streaming (4), ProceduralAssign (2), parallel block.
+- E4 INTERFACES (46 InterfacePort + 46 ArbitrarySymbol) - biggest overall,
+  still untouched; needs interface instances, modports, virtual interfaces.
+- Unpacked-array PORTS want array_net (not array_var) - AssignArraySelPlus.
+Deferred: func_local_array (function-local unpacked array in begin blocks),
+ImportFunction (package import deep-clone), macro-expansion locs (asym_ram_*),
+BindModuleWithInputPorts (4-line ts arena position), F --elabuhdm, suites.
+
+## Old scoreboard reference (r81)
 
 PASS 169 · CMP_ONLY 1 · DIFF 291 · UNSUPPORTED 200 (r81). Session 5 second
 half (r79-r81) landed: B2 parameter overrides (isOverriddenParam detection,
