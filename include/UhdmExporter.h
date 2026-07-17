@@ -195,6 +195,10 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;
     UHDM::module_inst* implicitNetModule = nullptr;
     std::string implicitNetPrefix;
+    // Package scope currently emitting task_funcs (ts vpiInstance owner).
+    UHDM::instance* pkgScopeInst = nullptr;
+    // Unqualified calls to package functions, per module def body.
+    std::map<const void*, std::vector<UHDM::task_func*>> importedTfCalls;
     // Cast-size exprs also keep name-token-only call spans.
     bool inCastSize = false;
     // Refs inside indexed-part-select base/width exprs are scoped by the
@@ -250,8 +254,27 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::attribute*> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
-    const slang::ast::Expression* constCallLiteral(const slang::ast::Expression& expr);
+    void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m);
+    // Straight-line constant reduction of user calls / simple exprs.
+    struct CallFold {
+        const slang::ast::Expression* lit = nullptr;
+        const slang::ast::ParameterSymbol* param = nullptr;
+        const slang::ast::Expression* site = nullptr;
+        const slang::ast::SubroutineSymbol* directSub = nullptr;
+        explicit operator bool() const { return lit || param; }
+    };
+    CallFold constCallFold(const slang::ast::Expression& expr);
+    CallFold resolveConstExpr(const slang::ast::Expression& expr);
     bool pkgTopEmit = false;
+    const slang::ast::SubroutineSymbol* currentSubSym = nullptr;
+    std::map<const void*, UHDM::constant*> foldedRet;
+    std::map<const void*, UHDM::typespec*> foldCloneTs;
+    struct PendingParamCloneTs {
+        UHDM::ref_typespec* rt;
+        const slang::ast::ParameterSymbol* ps;
+    };
+    std::vector<PendingParamCloneTs> pendingParamCloneTs;
+    std::map<const void*, UHDM::package*> pkgDefMap;
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;

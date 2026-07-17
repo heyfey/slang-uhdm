@@ -201,6 +201,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             else {
                 auto* its = makeParamTs(ps, typedParam);
+                if (inPackage)
+                    its->Instance((UHDM::instance*)m);
                 if (di)
                     di->paramTs[&member] = its;
                 if (rhsRt)
@@ -293,6 +295,8 @@ void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {
 UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView) {
     std::string prefix = std::string(pkg.name) + "::";
     auto* up = s.MakePackage();
+    if (!topView)
+        pkgDefMap[&pkg] = up;
     up->VpiName(pkg.name);
     up->VpiFullName(prefix);
     up->VpiDefName(pkg.name);

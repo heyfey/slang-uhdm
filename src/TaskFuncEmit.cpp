@@ -26,6 +26,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
     // Packages use :: separators below the function name too.
     bool pkgScope = prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0;
     std::string sep = pkgScope ? "::" : ".";
+    auto* savedPkgInst = pkgScopeInst;
+    pkgScopeInst = pkgScope ? (UHDM::instance*)m : nullptr;
     auto* tfs = s.MakeTask_funcVec();
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Subroutine)
@@ -128,9 +130,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
                 tfContext = true;
                 ts = sharedTypespec(*arg, ioTs);
                 tfContext = false;
-                // Explicit-keyword arg types anchor at the keyword token
-                // only (ranges keep their own spans).
-                if (argTsyn && argTsyn->kind != syntax::SyntaxKind::ImplicitType) {
+                // DIRECTIONLESS explicit-keyword arg types anchor at the
+                // keyword token only (ranges keep their own spans); formals
+                // with a direction keyword keep the whole type span.
+                bool hasDir = false;
+                for (auto q = arg->getSyntax(); q; q = q->parent) {
+                    if (q->kind == syntax::SyntaxKind::FunctionPort) {
+                        hasDir = q->as<syntax::FunctionPortSyntax>().direction.valid();
+                        break;
+                    }
+                    if (q->kind == syntax::SyntaxKind::PortDeclaration ||
+                        q->kind == syntax::SyntaxKind::FunctionDeclaration)
+                        break;
+                }
+                if (!hasDir && argTsyn && argTsyn->kind != syntax::SyntaxKind::ImplicitType) {
                     if (auto* its2 = argTsyn->as_if<syntax::IntegerTypeSyntax>();
                         its2 && !its2->dimensions.empty())
                         setLoc((UHDM::BaseClass*)ts, its2->keyword.range());
@@ -175,7 +188,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
                 // re-parented at their init assignment, without the
                 // automatic flag).
                 bool hasInit = fmv.getDeclaredType()->getInitializer() != nullptr;
-                if (hasInit) {
+                if (hasInit || pkgScope) {
                     setLoc(v, nameSpan(fmv.location, fmv.name));
                 }
                 else if (auto dt = fmv.getDeclaredType()) {
@@ -186,12 +199,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
                     }
                 }
                 auto* vts = makeTypespec(fmv);
+                if (pkgScope)
+                    vts->Instance(m);
                 auto* vrt = s.MakeRef_typespec();
                 vrt->VpiFullName(fullName + sep + std::string(fmv.name));
                 vrt->VpiParent(v);
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                if (!hasInit)
+                if (!hasInit && !pkgScope)
                     v->VpiAutomatic(true);
                 funcMap[&fmv] = v;
                 fvars->push_back(v);
@@ -215,9 +230,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
         funcRetRefs = &pendingFuncRet[pfIdx].refs;
         auto* savedTf = currentTf;
         currentTf = tf;
+        auto* savedSubSym = currentSubSym;
+        currentSubSym = &sub;
         if (auto* st = emitStmt(sub.getBody(), tf, fullName, funcMap))
             tf->Stmt(st);
         currentTf = savedTf;
+        currentSubSym = savedSubSym;
         funcRetSym = savedSym;
         funcRetRefs = savedRefs;
 
@@ -227,6 +245,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::instance* m,
     }
     if (!tfs->empty())
         m->Task_funcs(tfs);
+    pkgScopeInst = savedPkgInst;
 }
 
 } // namespace slang_uhdm

@@ -242,6 +242,17 @@ inline const syntax::NamedPortConnectionSyntax* findConnSyntax(const InstanceSym
     return nullptr;
 }
 
+// True when the instance's connection list is positional (ordered).
+inline bool hasOrderedConns(const InstanceSymbol& inst) {
+    auto syn = inst.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::HierarchicalInstance)
+        return false;
+    for (auto conn : syn->as<syntax::HierarchicalInstanceSyntax>().connections)
+        if (conn->kind == syntax::SyntaxKind::OrderedPortConnection)
+            return true;
+    return false;
+}
+
 // True when the expression tree contains anything Surelog's netlist
 // elaboration would re-compile as an operation (which forces a fresh
 // cont_assign object in the instance view instead of sharing the def's).

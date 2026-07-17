@@ -579,3 +579,32 @@ Rules landed (each probed against goldens):
   name-only shell function leaks into the arena - fib tests).
 - Begin wrapper loc = LAST real stmt's span. Package funcret locals drain at
   the START of emitTopPorts (before the write-phase port ts).
+
+## Imports, param-backed folds, positional conns (r75)
+- Module with imports: each import item -> import_typespec in module Typespecs
+  (name = package, loc = the import item span) carrying a DUMP-INVISIBLE Item
+  constant {STRING:<name-or-*>, decompile, size = len*8, ConstType 8, no
+  parent, loc = name token for explicit imports, loc-less for wildcard}.
+  Import-called (unqualified) package functions are listed (shared def
+  objects) in the module's Task_funcs. Both views.
+- Package-param-backed call folds (return PARAM chains):
+  - def pkg body: ref_obj bound to the param's def Rhs constant.
+  - top pkg copy: constant at the REF site, size = param width, UINT, parent
+    = def param_assign, ts ref fullname = package name -> param-ts CLONE
+    (Instance = def package) that Surelog creates during the DEF compile.
+    Chained functions REUSE the same constant object (foldedRet cache).
+  - top module CA: fresh constant (ref-site loc, param width, UINT, parent =
+    ca), ts ref fullname = module prefix -> ANOTHER clone created at the very
+    END of the write phase (pendingParamCloneTs, after cast ts).
+- Package param typespecs carry vpiInstance -> the package (both views).
+- Package fn locals: name-span loc, NO automatic, re-parented at the begin
+  wrapper (uninit) or init assignment; body ts (for vars, block vars) carry
+  vpiInstance. Module fn locals keep type-span + automatic.
+- Begin wrapper loc = the SECOND source item's span (decls count as items).
+- Bare (directionless) formal ts anchors at the type keyword only; formals
+  with a direction keyword keep the whole type span.
+- Positional instance conns: nameless port anchored at the actual, high-conn
+  ref fullname skips the port segment, top low_conn anchored at the actual.
+- Arg formal-ts refs extend to bit/part/indexed selects (own fullname).
+- ref_var/for-var/bit_select/indexed_part_select fullnames in package scopes
+  join with :: (joinRef).

@@ -6,6 +6,8 @@
 //------------------------------------------------------------------------------
 #include "UhdmExporter.h"
 
+#include <algorithm>
+
 #include "EmitHelpers.h"
 
 namespace slang_uhdm {
@@ -127,6 +129,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto scope = nv.symbol.getParentScope();
             if (scope && scope->asSymbol().kind == SymbolKind::Package &&
                 nv.symbol.kind == SymbolKind::Parameter) {
+                // Package-function bodies keep a ref bound to the param's
+                // def-view constant.
+                if (currentTf && pkgScopeInst) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    if (auto pit = pkgParamConst.find(&nv.symbol);
+                        pit != pkgParamConst.end())
+                        ref->Actual_group(pit->second);
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 // Module-side references to package params are folded inline
                 // to constants carrying the reference's location.
                 auto& psym = nv.symbol.as<ParameterSymbol>();
@@ -454,6 +467,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         fc->VpiName(pkgName + "::" + std::string(sub.name));
                         setLoc(fc, nameSpan(expr.sourceRange.start(), pkgName));
                     }
+                    else if (currentScope && si.tf) {
+                        // Import-resolved call: the module lists the shared
+                        // package function in its own Task_funcs.
+                        auto& v2 = importedTfCalls[currentScope];
+                        if (std::find(v2.begin(), v2.end(), si.tf) == v2.end())
+                            v2.push_back(si.tf);
+                    }
                 }
                 if (isFunc)
                     ((UHDM::func_call*)fc)->Function((UHDM::function*)si.tf);
@@ -479,7 +499,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // Function call arg refs carry a typespec ref to the
                         // formal's typespec (tasks don't; procedural-context
                         // calls don't either).
-                        bool refArg = a->UhdmType() == UHDM::uhdmref_obj;
+                        bool refArg = a->UhdmType() == UHDM::uhdmref_obj ||
+                                      a->UhdmType() == UHDM::uhdmbit_select ||
+                                      a->UhdmType() == UHDM::uhdmpart_select ||
+                                      a->UhdmType() == UHDM::uhdmindexed_part_select;
                         bool otherArg = a->UhdmType() == UHDM::uhdmconstant ||
                                         a->UhdmType() == UHDM::uhdmfunc_call;
                         // Only outermost-call args carry formal-ts refs, and
@@ -492,8 +515,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* rt = s.MakeRef_typespec();
                             // Constant args (param-init context) name the
                             // enclosing scope; refs name themselves.
-                            rt->VpiFullName(refArg ? ((UHDM::ref_obj*)a)->VpiFullName()
-                                                   : prefix);
+                            std::string argFull = prefix;
+                            if (a->UhdmType() == UHDM::uhdmref_obj)
+                                argFull = ((UHDM::ref_obj*)a)->VpiFullName();
+                            else if (a->UhdmType() == UHDM::uhdmbit_select)
+                                argFull = ((UHDM::bit_select*)a)->VpiFullName();
+                            else if (a->UhdmType() == UHDM::uhdmpart_select)
+                                argFull = ((UHDM::part_select*)a)->VpiFullName();
+                            else if (a->UhdmType() == UHDM::uhdmindexed_part_select)
+                                argFull =
+                                    ((UHDM::indexed_part_select*)a)->VpiFullName();
+                            rt->VpiFullName(argFull);
                             rt->VpiParent(r);
                             auto [ats, bareKey] = si.argTs[argIdx];
                             if (ats)
@@ -698,7 +730,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 refCollector->insert(&nv.symbol);
             auto* bs = s.MakeBit_select();
             bs->VpiName(nv.symbol.name);
-            bs->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+            bs->VpiFullName(joinRef(prefix, nv.symbol.name));
             bs->VpiParent(parent);
             // Surelog anchors rvalue bit_selects at the index expression,
             // but lvalue ones span the whole select.
@@ -725,7 +757,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* ips = s.MakeIndexed_part_select();
                 ips->VpiName(nv.symbol.name);
                 ips->VpiDefName(nv.symbol.name);
-                ips->VpiFullName(prefix + "." + std::string(nv.symbol.name));
+                ips->VpiFullName(joinRef(prefix, nv.symbol.name));
                 ips->VpiParent(parent);
                 // Lvalue selects span the whole expression.
                 if (inLhs)

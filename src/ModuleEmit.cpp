@@ -163,19 +163,26 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             rm->Actual_group(it->second.mod);
 
         auto* rports = s.MakePortVec();
+        bool ordered = hasOrderedConns(child);
         for (auto conn : child.getPortConnections()) {
             auto* p = s.MakePort();
-            p->VpiName(conn->port.name);
+            // Positional connections: nameless port anchored at the actual.
+            if (!ordered)
+                p->VpiName(conn->port.name);
             p->VpiParent(rm);
             if (auto npc = findConnSyntax(child, conn->port.name))
                 setLoc(p, npc->sourceRange());
+            else if (ordered) {
+                if (auto expr0 = connectionExpr(*conn))
+                    setLoc(p, expr0->sourceRange);
+            }
             if (auto expr = connectionExpr(*conn)) {
                 if (expr->kind == ExpressionKind::NamedValue) {
                     auto& nv = expr->as<NamedValueExpression>();
                     auto* r = s.MakeRef_obj();
                     r->VpiName(nv.symbol.name);
-                    r->VpiFullName(prefix + "." + std::string(child.name) + "." +
-                                   std::string(conn->port.name) + "." +
+                    r->VpiFullName(prefix + "." + std::string(child.name) +
+                                   (ordered ? "" : "." + std::string(conn->port.name)) + "." +
                                    std::string(nv.symbol.name));
                     r->VpiParent(p);
                     setLoc(r, expr->sourceRange);
@@ -196,10 +203,63 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     if (!refmods->empty())
         m->Ref_modules(refmods);
 
+    emitImportArtifacts(body, m);
+
     (void)netTsAtEntry;
     (void)topDef;
 
     return m;
+}
+
+// Modules with package imports carry an import_typespec per import item and
+// list import-called package functions (shared def objects) in Task_funcs.
+void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::module_inst* m) {
+    auto* tds = m->Typespecs();
+    for (auto& mem : body.members()) {
+        std::string pkgName;
+        if (mem.kind == SymbolKind::WildcardImport)
+            pkgName = std::string(mem.as<WildcardImportSymbol>().packageName);
+        else if (mem.kind == SymbolKind::ExplicitImport)
+            pkgName = std::string(mem.as<ExplicitImportSymbol>().packageName);
+        else
+            continue;
+        auto* its = s.MakeImport_typespec();
+        its->VpiName(pkgName);
+        its->VpiParent(m);
+        if (auto syn = mem.getSyntax())
+            setLoc(its, syn->sourceRange());
+        // Hidden item constant: "*" (loc-less) or the imported name (at its
+        // token). Dump-invisible but uhdm-cmp checked.
+        {
+            std::string itemName = "*";
+            auto* c = s.MakeConstant();
+            if (mem.kind == SymbolKind::ExplicitImport) {
+                itemName = std::string(mem.as<ExplicitImportSymbol>().importName);
+                setLoc(c, SourceRange(mem.location, mem.location + itemName.size()));
+            }
+            c->VpiDecompile(itemName);
+            c->VpiSize((int32_t)itemName.size() * 8);
+            c->VpiValue("STRING:" + itemName);
+            c->VpiConstType(8); // Surelog's string-const encoding here
+            its->Item(c);
+        }
+        if (!tds) {
+            tds = s.MakeTypespecVec();
+            m->Typespecs(tds);
+        }
+        tds->push_back(its);
+    }
+    if (auto it = importedTfCalls.find((const Scope*)&body);
+        it != importedTfCalls.end() && !it->second.empty()) {
+        auto* v = m->Task_funcs();
+        if (!v) {
+            v = s.MakeTask_funcVec();
+            m->Task_funcs(v);
+        }
+        for (auto* tf : it->second)
+            if (std::find(v->begin(), v->end(), tf) == v->end())
+                v->push_back(tf);
+    }
 }
 
 UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
@@ -493,10 +553,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             lc->VpiFullName((bindPath.empty() ? prefix : bindPath) + "." +
                             std::string(ps.name));
             lc->VpiParent(p);
-            // Child low conns anchor at the formal name in the connection.
+            // Child low conns anchor at the formal name in the connection
+            // (positional: at the actual expression).
             if (auto npc = findConnSyntax(inst, ps.name))
                 setLoc(lc, SourceRange(npc->name.location(),
                                        npc->name.location() + ps.name.size()));
+            else if (hasOrderedConns(inst) && conn && connectionExpr(*conn))
+                setLoc(lc, connectionExpr(*conn)->sourceRange);
             else
                 setLocNamed(lc, ps);
             if (auto it = topNets.find(internal); it != topNets.end())
@@ -607,6 +670,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         if (!procs->empty())
             m->Process(procs);
     }
+
+    emitImportArtifacts(body, m);
 
     if (isTop) {
         topPendings.push_back({&inst, m, prefix, std::move(topNets), paramLo,
@@ -923,6 +988,18 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     }
     pendingCastTs.clear();
 
+    // Param-clone typespecs for param-backed call folds (very end).
+    for (auto& pc : pendingParamCloneTs) {
+        auto* its = makeParamTs(*pc.ps, /*typedParam=*/true);
+        if (auto sc = pc.ps->getParentScope()) {
+            if (auto pit = pkgDefMap.find(&sc->asSymbol()); pit != pkgDefMap.end())
+                its->Instance(pit->second);
+        }
+        its->VpiParent(pc.rt);
+        pc.rt->Actual_typespec(its);
+    }
+    pendingParamCloneTs.clear();
+
     // Orphan pattern first-compiles (share the def operands).
     for (auto& po : pendingPatternOrphans) {
         auto* op = s.MakeOperation();
@@ -1070,12 +1147,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         // Argument-less user calls returning a literal fold in the top view
         // to that literal (its own loc and base shape).
-        const Expression* constFnRet =
-            topView ? constCallLiteral(stripImplicitConv(ae.right())) : nullptr;
+        CallFold cfr = topView ? constCallFold(stripImplicitConv(ae.right())) : CallFold{};
+        const Expression* constFnRet = (cfr && !cfr.param) ? cfr.lit : nullptr;
         // Calls with args still fold when evaluable: a LOC-LESS constant
         // shaped by the result type (signed int -> INT/vpiIntConst).
         std::optional<ConstantValue> callFold;
-        if (topView && !constFnRet) {
+        if (topView && !cfr) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall()) {
                 ASTContext ctx(comp.getRoot(), LookupLocation::max);
@@ -1091,7 +1168,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         bool plainLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             (!plainLhs ||
-             (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !constFnRet &&
+             (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
@@ -1142,10 +1219,39 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                 }
             }
         }
+        // Param-backed call folds: constant at the in-function ref site,
+        // typed by the param, its ts cloned at the very end of the write
+        // phase.
+        if (!rhs && topView && cfr.param) {
+            auto& ps2 = *cfr.param;
+            auto& cv2 = ps2.getValue();
+            if (cv2.isInteger() && !cv2.integer().hasUnknown()) {
+                auto& iv2 = cv2.integer();
+                bool neg2 = iv2.isSigned() && iv2.isNegative();
+                std::string digits2 = iv2.toString(LiteralBase::Decimal, false);
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(digits2);
+                c->VpiSize((int32_t)ps2.getType().getBitWidth());
+                c->VpiValue((neg2 ? "INT:" : "UINT:") + digits2);
+                c->VpiConstType(neg2 ? vpiIntConst : vpiUIntConst);
+                setLoc(c, cfr.site->sourceRange);
+                c->VpiParent(ca);
+                auto* rt2 = s.MakeRef_typespec();
+                rt2->VpiFullName(prefix);
+                rt2->VpiParent(c);
+                c->Typespec(rt2);
+                pendingParamCloneTs.push_back({rt2, &ps2});
+                rhs = c;
+            }
+        }
         if (!rhs && topView && constFnRet) {
             forceConstParent = true;
             rhs = emitExpr(*constFnRet, ca, prefix, netMap);
             forceConstParent = false;
+            // Bare-decimal folds size at the LHS type width.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                rawText(constFnRet->sourceRange).find('\'') == std::string::npos)
+                ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
         }
         if (!rhs && topView && callFold) {
             auto& iv = callFold->integer();
@@ -1218,7 +1324,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         inLhs = true;
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
-                          (literalRhs || bitsRhs || constFnRet || callFold) && defInfo)
+                          (literalRhs || bitsRhs || cfr || callFold) && defInfo)
                              ? defInfo->nets
                              : netMap;
         if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))
@@ -1276,63 +1382,107 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
 }
 
 
-// The literal an argument-less user call reduces to via straight-line
-// execution (nested calls followed), or null.
-const Expression* UhdmExporter::constCallLiteral(const Expression& expr) {
+// Single-expression constant reduction: literal, package-param ref (value =
+// the param's literal, loc anchor = the ref site), or a reducible call.
+UhdmExporter::CallFold UhdmExporter::resolveConstExpr(const Expression& e) {
+    CallFold r;
+    auto& l = stripImplicitConv(e);
+    if (l.kind == ExpressionKind::IntegerLiteral) {
+        r.lit = &l;
+        return r;
+    }
+    if (l.kind == ExpressionKind::NamedValue) {
+        auto& sym = l.as<NamedValueExpression>().symbol;
+        if (sym.kind == SymbolKind::Parameter) {
+            auto sc = sym.getParentScope();
+            if (sc && sc->asSymbol().kind == SymbolKind::Package) {
+                auto& ps = sym.as<ParameterSymbol>();
+                if (auto* init = ps.getInitializer()) {
+                    auto& il = stripImplicitConv(*init);
+                    if (il.kind == ExpressionKind::IntegerLiteral) {
+                        r.lit = &il;
+                        r.param = &ps;
+                        r.site = &l;
+                    }
+                }
+            }
+        }
+        return r;
+    }
+    if (l.kind == ExpressionKind::Call)
+        return constCallFold(l);
+    return r;
+}
+
+// What an argument-less user call reduces to via straight-line execution
+// (nested calls followed, local-var literal values tracked).
+UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
+    CallFold none;
     if (expr.kind != ExpressionKind::Call || expr.as<CallExpression>().isSystemCall() ||
         !expr.as<CallExpression>().arguments().empty())
-        return nullptr;
+        return none;
     auto& call = expr.as<CallExpression>();
     auto subp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
     if (!subp)
-        return nullptr;
-    std::function<const Expression*(const Statement&)> findLit =
-        [&](const Statement& st) -> const Expression* {
+        return none;
+    std::map<const Symbol*, CallFold> env;
+    auto resolve = [&](const Expression& e) -> CallFold {
+        auto& l = stripImplicitConv(e);
+        if (l.kind == ExpressionKind::NamedValue) {
+            auto it = env.find(&l.as<NamedValueExpression>().symbol);
+            if (it != env.end())
+                return it->second;
+        }
+        return resolveConstExpr(l);
+    };
+    std::function<CallFold(const Statement&)> findFold =
+        [&](const Statement& st) -> CallFold {
         if (st.kind == StatementKind::Return) {
-            if (auto* e = st.as<ReturnStatement>().expr) {
-                auto& l = stripImplicitConv(*e);
-                if (l.kind == ExpressionKind::IntegerLiteral)
-                    return &l;
-                return constCallLiteral(l);
-            }
-            return nullptr;
+            if (auto* e = st.as<ReturnStatement>().expr)
+                return resolve(*e);
+            return CallFold{};
         }
         if (st.kind == StatementKind::ExpressionStatement) {
             auto& e = st.as<ExpressionStatement>().expr;
             if (e.kind == ExpressionKind::Assignment) {
                 auto& ae2 = e.as<AssignmentExpression>();
                 auto& lc = stripImplicitConv(ae2.left());
-                if (lc.kind == ExpressionKind::NamedValue &&
-                    &lc.as<NamedValueExpression>().symbol == (*subp)->returnValVar) {
-                    auto& r2 = stripImplicitConv(ae2.right());
-                    if (r2.kind == ExpressionKind::IntegerLiteral)
-                        return &r2;
-                    return constCallLiteral(r2);
+                if (lc.kind == ExpressionKind::NamedValue) {
+                    auto& sym = lc.as<NamedValueExpression>().symbol;
+                    CallFold val = resolve(ae2.right());
+                    if (&sym == (*subp)->returnValVar)
+                        return val;
+                    env[&sym] = val; // empty poisons
+                    return CallFold{};
                 }
             }
-            return nullptr;
+            return CallFold{};
         }
         if (st.kind == StatementKind::List) {
-            // Straight-line only: first return wins; later name-assignments
-            // before it accumulate.
-            const Expression* acc = nullptr;
+            // Straight-line only: first return wins; assignments accumulate.
+            CallFold acc;
             for (auto* item : st.as<StatementList>().list) {
-                if (item->kind == StatementKind::VariableDeclaration)
+                if (item->kind == StatementKind::VariableDeclaration) {
+                    auto& vs = item->as<VariableDeclStatement>().symbol;
+                    if (auto* init = vs.getDeclaredType()->getInitializer())
+                        env[&vs] = resolve(*init);
                     continue;
+                }
                 if (item->kind == StatementKind::Return)
-                    return findLit(*item);
-                auto* lit = findLit(*item);
-                if (!lit)
-                    return nullptr;
-                acc = lit;
+                    return findFold(*item);
+                if (auto f = findFold(*item))
+                    acc = f;
             }
             return acc;
         }
         if (st.kind == StatementKind::Block)
-            return findLit(st.as<BlockStatement>().body);
-        return nullptr;
+            return findFold(st.as<BlockStatement>().body);
+        return CallFold{};
     };
-    return findLit((*subp)->getBody());
+    CallFold r = findFold((*subp)->getBody());
+    if (r)
+        r.directSub = *subp;
+    return r;
 }
 
 } // namespace slang_uhdm

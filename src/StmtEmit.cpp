@@ -239,6 +239,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     v->VpiParent(b);
                     setLoc(v, nameSpan(bm.location, bm.name));
                     auto* ts = makeTypespec(bm);
+                    if (pkgScopeInst)
+                        ts->Instance(pkgScopeInst);
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiFullName(innerPrefix + "." + std::string(bm.name));
                     rt->VpiParent(v);
@@ -374,11 +376,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 auto* v = s.MakeInt_var();
                 v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
                 v->VpiName(lv->name);
-                v->VpiFullName(prefix + "." + std::string(lv->name));
+                v->VpiFullName(joinRef(prefix, lv->name));
                 setLoc(v, SourceRange(lv->location, lv->location + lv->name.size()));
                 auto* ts = makeTypespec(*lv);
+                if (pkgScopeInst)
+                    ts->Instance(pkgScopeInst);
                 auto* rt = s.MakeRef_typespec();
-                rt->VpiFullName(prefix + "." + std::string(lv->name));
+                rt->VpiFullName(joinRef(prefix, lv->name));
                 rt->VpiParent(v);
                 rt->Actual_typespec(ts);
                 v->Typespec(rt);
@@ -421,7 +425,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         auto& lnv = lhs.as<NamedValueExpression>();
                         auto* rv = s.MakeRef_var();
                         rv->VpiName(lnv.symbol.name);
-                        rv->VpiFullName(prefix + "." + std::string(lnv.symbol.name));
+                        rv->VpiFullName(joinRef(prefix, lnv.symbol.name));
                         rv->VpiParent(asn);
                         setLoc(rv, lhs.sourceRange);
                         asn->Lhs((UHDM::expr*)(UHDM::any*)rv);
@@ -634,13 +638,83 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Keyword-only span, expr as vpiCondition.
             setLoc(r, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 6));
             if (rs.expr) {
-                // Top-view package re-emission folds constant calls to the
-                // source literal (unparented, its own loc).
-                const Expression* src2 = rs.expr;
-                if (pkgTopEmit)
-                    if (auto* lit = constCallLiteral(stripImplicitConv(*rs.expr)))
-                        src2 = lit;
-                if (auto* e = emitExpr(*src2, r, prefix, netMap))
+                // Def-view package compile pre-creates the param-ts clone
+                // the top copy's fold will reference.
+                if (pkgScopeInst && !pkgTopEmit && currentSubSym &&
+                    !foldCloneTs.count(currentSubSym)) {
+                    auto cf0 = resolveConstExpr(*rs.expr);
+                    if (cf0.param) {
+                        auto* its0 = makeParamTs(*cf0.param, /*typedParam=*/true);
+                        if (auto sc0 = cf0.param->getParentScope())
+                            if (auto pit0 = pkgDefMap.find(&sc0->asSymbol());
+                                pit0 != pkgDefMap.end())
+                                its0->Instance(pit0->second);
+                        foldCloneTs[currentSubSym] = its0;
+                    }
+                }
+                // Top-view package re-emission folds constant returns.
+                if (pkgTopEmit) {
+                    auto cf = resolveConstExpr(*rs.expr);
+                    // A called sub's param-backed fold is reused verbatim.
+                    if (cf.directSub && foldedRet.count(cf.directSub)) {
+                        r->VpiCondition(foldedRet[cf.directSub]);
+                        return r;
+                    }
+                    if (cf.param) {
+                        // Constant at the ref site, parented at the DEF
+                        // param_assign, ts ref naming the package with a
+                        // fresh param-ts clone.
+                        auto& ps2 = *cf.param;
+                        auto& cv2 = ps2.getValue();
+                        if (cv2.isInteger() && !cv2.integer().hasUnknown()) {
+                            auto& iv2 = cv2.integer();
+                            bool neg2 = iv2.isSigned() && iv2.isNegative();
+                            std::string digits2 =
+                                iv2.toString(LiteralBase::Decimal, false);
+                            auto* c = s.MakeConstant();
+                            c->VpiDecompile(digits2);
+                            c->VpiSize((int32_t)ps2.getType().getBitWidth());
+                            c->VpiValue((neg2 ? "INT:" : "UINT:") + digits2);
+                            c->VpiConstType(neg2 ? vpiIntConst : vpiUIntConst);
+                            setLoc(c, cf.site->sourceRange);
+                            if (auto pit = pkgParamConst.find(&ps2);
+                                pit != pkgParamConst.end())
+                                c->VpiParent(pit->second->VpiParent());
+                            auto* rt2 = s.MakeRef_typespec();
+                            std::string pkgName;
+                            if (auto sc2 = ps2.getParentScope())
+                                pkgName = std::string(sc2->asSymbol().name);
+                            rt2->VpiFullName(pkgName);
+                            rt2->VpiParent(c);
+                            c->Typespec(rt2);
+                            UHDM::typespec* its2 = nullptr;
+                            if (currentSubSym)
+                                if (auto fit = foldCloneTs.find(currentSubSym);
+                                    fit != foldCloneTs.end())
+                                    its2 = fit->second;
+                            if (!its2) {
+                                its2 = makeParamTs(ps2, /*typedParam=*/true);
+                                if (auto sc2 = ps2.getParentScope())
+                                    if (auto pit2 = pkgDefMap.find(&sc2->asSymbol());
+                                        pit2 != pkgDefMap.end())
+                                        its2->Instance(pit2->second);
+                            }
+                            its2->VpiParent(rt2);
+                            rt2->Actual_typespec(its2);
+                            if (currentSubSym)
+                                foldedRet[currentSubSym] = c;
+                            r->VpiCondition(c);
+                            return r;
+                        }
+                    }
+                    if (cf.lit) {
+                        if (auto* e = emitExpr(*cf.lit, r, prefix, netMap)) {
+                            r->VpiCondition((UHDM::expr*)e);
+                            return r;
+                        }
+                    }
+                }
+                if (auto* e = emitExpr(*rs.expr, r, prefix, netMap))
                     r->VpiCondition((UHDM::expr*)e);
             }
             return r;
@@ -686,15 +760,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* ub = s.MakeBegin();
             ub->VpiFullName(prefix);
             ub->VpiParent(parent);
-            // Anchored at the LAST real statement (decl inits excluded).
-            if (!real.empty())
-                setLoc(ub, real.back()->sourceRange);
+            // Anchored at the SECOND source item (decls count as items).
+            if (sl.list.size() >= 2)
+                setLoc(ub, sl.list[1]->sourceRange);
             else
                 setLoc(ub, stmt.sourceRange);
             auto* bvars = s.MakeVariablesVec();
+            bool pkgCtx = prefix.find("::") != std::string::npos;
             for (auto* vsym : declVars)
-                if (auto it = netMap.find(vsym); it != netMap.end())
+                if (auto it = netMap.find(vsym); it != netMap.end()) {
+                    // Package-scope locals re-parent at the wrapper.
+                    if (pkgCtx)
+                        it->second->VpiParent(ub);
                     bvars->push_back((UHDM::variables*)it->second);
+                }
             if (!bvars->empty())
                 ub->Variables(bvars);
             auto* stmts = s.MakeAnyVec();
