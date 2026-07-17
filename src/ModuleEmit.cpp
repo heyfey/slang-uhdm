@@ -1309,6 +1309,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                     callFold = std::move(cv);
             }
         }
+        // Overridden-param RHS forces an instance-view re-emit: a folded
+        // constant at the DEFAULT initializer's site, ts ref to the def
+        // param typespec.
+        const Symbol* ovParamRhs = nullptr;
+        if (topView) {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::NamedValue &&
+                isOverriddenParam(rc.as<NamedValueExpression>().symbol))
+                ovParamRhs = &rc.as<NamedValueExpression>().symbol;
+        }
         // Top modules share the def's cont_assign object unless netlist
         // elaboration re-compiles it: that happens only for whole-net LHS
         // (RHS resized against the net width) when the RHS contains
@@ -1317,7 +1327,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             (!plainLhs ||
              (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
-              !callFold))) {
+              !callFold && !ovParamRhs))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -1365,6 +1375,31 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                     setLoc(c, rc.sourceRange);
                     rhs = c;
                 }
+            }
+        }
+        if (!rhs && topView && ovParamRhs) {
+            auto& ps2 = ovParamRhs->as<ParameterSymbol>();
+            auto& cvo = ps2.getValue();
+            if (cvo.isInteger() && !cvo.integer().hasUnknown()) {
+                auto& iv = cvo.integer();
+                std::string digits = iv.toString(LiteralBase::Decimal, false);
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(digits);
+                c->VpiValue("UINT:" + digits);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiSize((int32_t)iv.getBitWidth());
+                c->VpiParent(ca);
+                if (auto* dsy = paramDefaultSyn(ps2))
+                    setLoc(c, dsy->sourceRange());
+                {
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(prefix);
+                    rt->VpiParent(c);
+                    c->Typespec(rt);
+                    // Fresh param-ts clone at the very end of the write phase.
+                    pendingParamCloneTs.push_back({rt, &ps2});
+                }
+                rhs = c;
             }
         }
         // Param-backed call folds: constant at the in-function ref site,
@@ -1472,7 +1507,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         inLhs = true;
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
-                          (literalRhs || bitsRhs || cfr || callFold) && defInfo)
+                          (literalRhs || bitsRhs || cfr || callFold || ovParamRhs) &&
+                          defInfo)
                              ? defInfo->nets
                              : netMap;
         if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))

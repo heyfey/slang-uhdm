@@ -639,3 +639,20 @@ Rules landed (each probed against goldens):
   defer creation to the very end of the write phase (pendingCastTs gained a
   castType variant), like size-cast integer_typespecs.
 - Top view NEVER folds type casts (keeps the op); SIZE casts still fold.
+
+## B2 core: parameter overrides (r79)
+- Override detection: the bound initializer's SYNTAX pointer differs from
+  the declaration-default initializer syntax (paramDefaultSyn /
+  isOverriddenParam in EmitHelpers).
+- BOTH views keep DEFAULT-derived param values (value string, wantTs); the
+  def-view param_assign Rhs is ALWAYS the default (bind the default syntax
+  in the def scope when overridden).
+- Instance-view param_assign: vpiOverriden:1; Rhs = folded override constant
+  {literal override -> base-encoded raw (DEC:7_200 keeps underscores) at the
+  OVERRIDE site; expression override -> UINT digits at the DEFAULT-init
+  site}, size = folded width, ts ref (instance path) patched to the shared
+  param ts (pendingParamTs rhsRt).
+- Child CAs whose RHS refs an overridden param: instance-view re-emit with a
+  folded UINT constant at the DEFAULT-init site, ts ref -> FRESH param-ts
+  clone at the very end of the write phase (pendingParamCloneTs), Lhs bound
+  to def nets.

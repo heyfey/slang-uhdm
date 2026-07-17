@@ -242,6 +242,27 @@ inline const syntax::NamedPortConnectionSyntax* findConnSyntax(const InstanceSym
     return nullptr;
 }
 
+// True when a parameter's bound initializer is an instance override (its
+// syntax differs from the declaration-default initializer syntax).
+inline const syntax::ExpressionSyntax* paramDefaultSyn(const ParameterSymbol& ps) {
+    if (auto dsyn = ps.getSyntax()) {
+        if (dsyn->kind == syntax::SyntaxKind::Declarator) {
+            auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+            if (dd.initializer)
+                return dd.initializer->expr;
+        }
+    }
+    return nullptr;
+}
+inline bool isOverriddenParam(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Parameter)
+        return false;
+    auto& ps = sym.as<ParameterSymbol>();
+    auto* defaultSyn = paramDefaultSyn(ps);
+    auto* bi = ps.getInitializer();
+    return bi && defaultSyn && bi->syntax && bi->syntax != defaultSyn;
+}
+
 // Data-type syntax kinds that can appear as a cast target.
 inline bool isTypeSyntaxKind(syntax::SyntaxKind k) {
     switch (k) {

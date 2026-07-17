@@ -29,6 +29,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (member.kind != SymbolKind::Parameter)
             continue;
         auto& ps = member.as<ParameterSymbol>();
+        // Instance overrides: the bound initializer's syntax is the
+        // override expression at the instantiation, not the declaration
+        // default. Both views keep DEFAULT-derived values; the instance
+        // param_assign carries the folded override.
+        const syntax::ExpressionSyntax* defaultSyn = paramDefaultSyn(ps);
+        const Expression* boundInit = ps.getInitializer();
+        bool overridden = boundInit && defaultSyn && boundInit->syntax &&
+                          boundInit->syntax != defaultSyn;
+        // The default, bound in this scope (used for values in both views).
+        const Expression* defaultInit = boundInit;
+        if (overridden) {
+            ASTContext actx(body, LookupLocation::max);
+            defaultInit = &Expression::bind(*defaultSyn, actx);
+            if (defaultInit->bad())
+                defaultInit = nullptr;
+        }
         auto* up = s.MakeParameter();
         up->VpiName(ps.name);
         up->VpiFullName(joinPath(prefix, ps.name));
@@ -55,17 +71,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // non-local params.
         if (!isLocal || funcScope) {
             // Params with non-literal initializers carry no value string.
+            // Values derive from the DEFAULT initializer even when
+            // overridden.
             bool literalInit = false;
-            if (auto pinit = ps.getInitializer())
-                literalInit = isLiteralExpr(*pinit);
-            auto& cv = ps.getValue();
+            if (defaultInit)
+                literalInit = isLiteralExpr(*defaultInit);
+            ConstantValue dcv;
+            if (overridden && defaultInit) {
+                ASTContext actx(body, LookupLocation::max);
+                dcv = actx.tryEval(*defaultInit);
+            }
+            const ConstantValue& cv = overridden ? dcv : ps.getValue();
             if (literalInit && cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
                 bool neg = iv.isSigned() && iv.isNegative();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
                 std::string value = (neg ? "INT:" : "UINT:") + digits;
                 // Based-literal initializers keep their base encoding.
-                if (auto init0 = ps.getInitializer()) {
+                if (auto init0 = defaultInit) {
                     auto& lit = stripImplicitConv(*init0);
                     if (lit.kind == ExpressionKind::IntegerLiteral) {
                         std::string raw = rawText(lit.sourceRange);
@@ -133,7 +156,93 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Function-scope params parent at their param_assign.
         if (funcScope)
             up->VpiParent(pa);
-        if (auto init0 = ps.getInitializer()) {
+        if (topView && overridden)
+            pa->VpiOverriden(true);
+        // Instance view of an override: folded constant, base-encoded and
+        // override-site-anchored for literal overrides; expression overrides
+        // anchor at the DEFAULT initializer.
+        if (topView && overridden) {
+            auto& ov = stripImplicitConv(*boundInit);
+            auto& cvo = ps.getValue();
+            if (cvo.isInteger()) {
+                auto& iv = cvo.integer();
+                std::string digits = iv.toString(LiteralBase::Decimal, false);
+                std::string value = "UINT:" + digits;
+                std::string dec = digits;
+                int32_t ctype = vpiUIntConst;
+                if (ov.kind == ExpressionKind::IntegerLiteral) {
+                    std::string raw = rawText(ov.sourceRange);
+                    auto tick = raw.find('\'');
+                    if (tick != std::string::npos) {
+                        dec = raw;
+                        size_t basePos = tick + 1;
+                        if (basePos < raw.size() &&
+                            (raw[basePos] == 's' || raw[basePos] == 'S'))
+                            basePos++;
+                        char base = basePos < raw.size() ? (char)tolower(raw[basePos])
+                                                         : 'd';
+                        std::string litDigits = raw.substr(basePos + 1);
+                        switch (base) {
+                            case 'b':
+                                value = "BIN:" + litDigits;
+                                ctype = vpiBinaryConst;
+                                break;
+                            case 'h':
+                                value = "HEX:" + litDigits;
+                                ctype = vpiHexConst;
+                                break;
+                            case 'o':
+                                value = "OCT:" + litDigits;
+                                ctype = vpiOctConst;
+                                break;
+                            default:
+                                value = "DEC:" + litDigits;
+                                ctype = vpiDecConst;
+                                break;
+                        }
+                    }
+                }
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(dec);
+                c->VpiValue(value);
+                c->VpiConstType(ctype);
+                c->VpiSize((int32_t)iv.getBitWidth());
+                c->VpiParent(pa);
+                if (ov.kind == ExpressionKind::IntegerLiteral)
+                    setLoc(c, ov.sourceRange);
+                else if (defaultInit)
+                    setLoc(c, stripImplicitConv(*defaultInit).sourceRange);
+                if (wantTs) {
+                    auto* rt = s.MakeRef_typespec();
+                    std::string tsPrefix = prefix;
+                    if (tsPrefix.size() >= 2 &&
+                        tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                        tsPrefix.resize(tsPrefix.size() - 2);
+                    rt->VpiFullName(tsPrefix);
+                    rt->VpiParent(c);
+                    c->Typespec(rt);
+                    rhsRt = rt;
+                }
+                pa->Rhs(c);
+                passigns->push_back(pa);
+                if (prt) {
+                    if (!inPackage) {
+                        pendingParamTs.push_back({&ps, up, prt, rhsRt, typedParam});
+                    }
+                    else {
+                        auto* its = makeParamTs(ps, typedParam);
+                        its->Instance((UHDM::instance*)m);
+                        if (rhsRt)
+                            rhsRt->Actual_typespec(its);
+                        prt->Actual_typespec(its);
+                        if (typedParam)
+                            its->VpiParent(up);
+                    }
+                }
+                continue;
+            }
+        }
+        if (auto init0 = (overridden ? defaultInit : ps.getInitializer())) {
             const Expression* init = init0;
             while (init->kind == ExpressionKind::Conversion &&
                    init->as<ConversionExpression>().isImplicit())
