@@ -162,6 +162,28 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     its = t;
                     break;
                 }
+                case PredefinedIntegerType::ShortInt: {
+                    auto* t = s.MakeShort_int_typespec();
+                    t->VpiSigned(pit.isSigned);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::LongInt: {
+                    auto* t = s.MakeLong_int_typespec();
+                    t->VpiSigned(pit.isSigned);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::Byte: {
+                    auto* t = s.MakeByte_typespec();
+                    t->VpiSigned(pit.isSigned);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::Time: {
+                    its = s.MakeTime_typespec();
+                    break;
+                }
                 default:
                     noteUnsupported("integer type kind");
                     break;
@@ -328,6 +350,29 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
             case PredefinedIntegerType::Integer: {
                 auto* v = s.MakeInteger_var();
                 v->VpiSigned(pit.isSigned);
+                v->VpiVisibility(1);
+                return v;
+            }
+            case PredefinedIntegerType::ShortInt: {
+                auto* v = s.MakeShort_int_var();
+                v->VpiSigned(pit.isSigned);
+                v->VpiVisibility(1);
+                return v;
+            }
+            case PredefinedIntegerType::LongInt: {
+                auto* v = s.MakeLong_int_var();
+                v->VpiSigned(pit.isSigned);
+                v->VpiVisibility(1);
+                return v;
+            }
+            case PredefinedIntegerType::Byte: {
+                auto* v = s.MakeByte_var();
+                v->VpiSigned(pit.isSigned);
+                v->VpiVisibility(1);
+                return v;
+            }
+            case PredefinedIntegerType::Time: {
+                auto* v = s.MakeTime_var();
                 v->VpiVisibility(1);
                 return v;
             }

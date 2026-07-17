@@ -768,3 +768,9 @@ Rules landed (each probed against goldens):
   when evaluable, IndexedPartSelectType for +:/-:. Unblocks the
   IndexedPartSelectOf* tests (most still need anonymous packed struct
   support to fully converge).
+
+## Predefined integer types (r90)
+- makeTypespec + makeVar now handle ShortInt/LongInt/Byte/Time (was only
+  Int/Integer): short_int/long_int/byte/time _typespec and _var. Signed
+  types set VpiSigned on both ts and var (via the variables base accessor);
+  time is unsigned. Unblocks Shortint, Longint (+ partial int_types/ports).
