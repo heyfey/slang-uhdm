@@ -174,6 +174,10 @@ private:
     UHDM::array_var* emitArrayVar(const slang::ast::Symbol& sym, const std::string& name,
                                   const std::string& fullName, UHDM::module_inst* m,
                                   UHDM::typespec* elemTs);
+    // One uhdm range per unpacked dimension (bounds from ConstantRange, loc
+    // from the declarator dimension syntax), each parented at `parent`.
+    UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
+                                             UHDM::BaseClass* parent);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);

@@ -734,6 +734,55 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
     }
 }
 
+UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
+                                                       UHDM::BaseClass* parent) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    auto* ranges = s.MakeRangeVec();
+    const syntax::SyntaxNode* dsyn = sym.getSyntax();
+    const Type* dt = &declared->getType().getCanonicalType();
+    if (dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+        auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+        for (auto dim : dd.dimensions) {
+            if (dt->getCanonicalType().kind != SymbolKind::FixedSizeUnpackedArrayType)
+                break;
+            auto& ua = dt->getCanonicalType().as<FixedSizeUnpackedArrayType>();
+            auto* r = s.MakeRange();
+            r->VpiParent(parent);
+            setLoc(r, dim->sourceRange());
+            const syntax::ExpressionSyntax* leftSyn = nullptr;
+            const syntax::ExpressionSyntax* rightSyn = nullptr;
+            if (dim->specifier &&
+                dim->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier) {
+                auto& sel = *dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+                if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                    leftSyn = rss->left;
+                    rightSyn = rss->right;
+                }
+            }
+            auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) {
+                auto* c = s.MakeConstant();
+                c->VpiParent(r);
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + std::to_string(val));
+                c->VpiConstType(vpiUIntConst);
+                if (es)
+                    setLoc(c, es->sourceRange());
+                return c;
+            };
+            r->Left_expr(mkBound(ua.range.left, leftSyn));
+            r->Right_expr(mkBound(ua.range.right, rightSyn));
+            ranges->push_back(r);
+            dt = &ua.elementType;
+        }
+    }
+    if (ranges->empty())
+        return nullptr;
+    return ranges;
+}
+
 UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string& name,
                                             const std::string& fullName, UHDM::module_inst* m,
                                             UHDM::typespec* elemTs) {
@@ -779,48 +828,8 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     art->Actual_typespec(ats);
     av->Typespec(art);
 
-    // Ranges: one per unpacked dim, from the declarator's dimension syntax
-    // (bounds from the type's ConstantRange, loc from the syntax).
-    auto* ranges = s.MakeRangeVec();
-    const syntax::SyntaxNode* dsyn = sym.getSyntax();
-    const Type* dt = &declared->getType().getCanonicalType();
-    if (dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
-        auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
-        for (auto dim : dd.dimensions) {
-            if (dt->getCanonicalType().kind != SymbolKind::FixedSizeUnpackedArrayType)
-                break;
-            auto& ua = dt->getCanonicalType().as<FixedSizeUnpackedArrayType>();
-            auto* r = s.MakeRange();
-            r->VpiParent(av);
-            setLoc(r, dim->sourceRange());
-            const syntax::ExpressionSyntax* leftSyn = nullptr;
-            const syntax::ExpressionSyntax* rightSyn = nullptr;
-            if (dim->specifier &&
-                dim->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier) {
-                auto& sel = *dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
-                if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
-                    leftSyn = rss->left;
-                    rightSyn = rss->right;
-                }
-            }
-            auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) {
-                auto* c = s.MakeConstant();
-                c->VpiParent(r);
-                c->VpiDecompile(std::to_string(val));
-                c->VpiSize(64);
-                c->VpiValue("UINT:" + std::to_string(val));
-                c->VpiConstType(vpiUIntConst);
-                if (es)
-                    setLoc(c, es->sourceRange());
-                return c;
-            };
-            r->Left_expr(mkBound(ua.range.left, leftSyn));
-            r->Right_expr(mkBound(ua.range.right, rightSyn));
-            ranges->push_back(r);
-            dt = &ua.elementType;
-        }
-    }
-    if (!ranges->empty())
+    // Ranges: one per unpacked dim.
+    if (auto* ranges = buildUnpackedRanges(sym, av))
         av->Ranges(ranges);
 
     // Inner reg: a var of the ELEMENT class (int/integer/logic) carrying the

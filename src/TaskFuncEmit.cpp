@@ -159,6 +159,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 rt->Actual_typespec(ts);
             }
             io->Typespec(rt);
+            // Unpacked-array formals carry one range per unpacked dimension.
+            if (arg->getDeclaredType() &&
+                arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::FixedSizeUnpackedArrayType)
+                if (auto* ranges = buildUnpackedRanges(*arg, io))
+                    io->Ranges(ranges);
             ios->push_back(io);
             funcMap[arg] = io;
             si.argTs.push_back({ts, bareImplicit ? (const void*)argTsyn : nullptr});

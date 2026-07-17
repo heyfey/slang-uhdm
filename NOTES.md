@@ -735,3 +735,8 @@ Rules landed (each probed against goldens):
   UNPARENTED (suppressConstParent around the emit).
 - Def-view unpacked-array net ts keeps its first-dim span even when the decl
   has an initializer (the init-extension is skipped for unpacked arrays).
+
+## Unpacked-array function args (r86)
+- Unpacked-array formals (int arg[1:0][0:0]): the io_decl carries one vpiRange
+  per unpacked dimension (buildUnpackedRanges helper, shared with array_var),
+  in addition to the element typespec.
