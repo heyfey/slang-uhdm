@@ -15,8 +15,8 @@ For a fresh session picking up this project. Read this, then NOTES.md
 
 ## Current scoreboard (r62 baseline, committed as results/baseline.csv)
 
-PASS 135 · CMP_ONLY 1 · DIFF 208 · UNSUPPORTED 317 · CRASH 0
-· SLANG_REJECT 44 · SURELOG_FAIL 5   (136/661 converged or near)
+PASS 137 · CMP_ONLY 1 · DIFF 229 · UNSUPPORTED 294 · CRASH 0
+· SLANG_REJECT 44 · SURELOG_FAIL 5   (138/661 converged or near, r65)
 Sessions 3-4 landed: file split (Task 0), ALL weakly-tail ordering
 (arena model in NOTES), C2 user functions/tasks, D1 enums/typedefs/attrs/
 vector typedefs, E2 generate scopes, D2 structs + hier_path, C3 immediate
@@ -77,14 +77,16 @@ typespec ordering.
 
 ## Next phases (r32 triage: scripts/triage.sh results/baseline.csv)
 
-1. Top remaining blockers: HierarchicalValue 56 (E1 hier refs across
-   scopes — genvar refs from ArbitrarySymbol 46 overlap), InterfacePort 46
-   (E4), StructuredAssignmentPattern 35 + Simple 25 (D3), element/range
-   select bases 35+24 (selects on member-access/hier bases), statement
-   List 34 (block-less multi-statement bodies), user function call 33
-   (package-scoped funcs), typedef PackedArrayType 27 + "packed array
-   without integer type syntax" 38 (simple vector typedefs),
-   VariableDeclaration 17 (block-local decls).
+1. Top remaining blockers (r65 triage): HierarchicalValue 57 (E1),
+   InterfacePort 46 (E4), ArbitrarySymbol 46, member access base 37
+   (remaining select-on-complex cases: lvalues, range selects on members),
+   StructuredAssignmentPattern 35 + Simple 25 (D3), element select base 32
+   (2D/array selects — D4 arrays), user function call 33 (package funcs),
+   expression kind Invalid 33 (investigate: likely error-recovery exprs),
+   range select base 24, PackedStructType typedef 17 (package contexts).
+   DONE since r32: vector typedefs, bind, qualifiers, var inits, block/
+   function locals, statement lists, member-base bit selects, cast-size
+   exprs, $bits folds, select base-scoping, case query-call parents.
 2. B2 parameterized instances: STUDY AdditionAsParameterInInstance golden
    first (folded specialized-def shape still unknown).
 3. F: --elabuhdm mode (run UHDM ElaboratorListener + UhdmAdjuster
