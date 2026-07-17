@@ -21,6 +21,7 @@ for d in "$CORPUS"/*/; do
     elif grep -q "UNSUPPORTED" <<<"$res"; then cls=UNSUPPORTED
     elif grep -q "DUMP_DIFF" <<<"$res"; then cls=DIFF
     elif grep -q "SURELOG" <<<"$res"; then cls=SURELOG_FAIL
+    elif grep -q "SLANG_FAIL" <<<"$res"; then cls=SLANG_REJECT
     else cls=CRASH
     fi
     detail=$(grep -E "DUMP_DIFF|statement kind|expression kind|timing control|port kind|binary op|unary op" <<<"$res" | head -2 | tr ',\n' '; ' )
@@ -30,6 +31,6 @@ for d in "$CORPUS"/*/; do
 done
 
 echo "== scoreboard =="
-for k in PASS DUMP_ONLY DIFF UNSUPPORTED CRASH SURELOG_FAIL; do
+for k in PASS DUMP_ONLY DIFF UNSUPPORTED CRASH SLANG_REJECT SURELOG_FAIL; do
     echo "$k: ${counts[$k]:-0}"
 done

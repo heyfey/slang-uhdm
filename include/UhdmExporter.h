@@ -59,12 +59,15 @@ private:
 
     struct DefInfo {
         UHDM::module_inst* mod = nullptr;
+        bool filled = false;
         NetMap nets;
         std::vector<UHDM::process_stmt*> processes;
     };
 
     UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst);
-    UHDM::module_inst* emitTopModule(const slang::ast::InstanceSymbol& inst, DefInfo& def);
+    UHDM::module_inst* emitInstance(const slang::ast::InstanceSymbol& inst,
+                                    const std::string& path, UHDM::module_inst* parentM,
+                                    NetMap* parentNets, bool isTop);
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);

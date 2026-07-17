@@ -181,6 +181,19 @@ std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     return sm->getFullPath(loc.buffer()).string();
 }
 
+// Collects one representative instance per definition, recursively.
+static void collectDefs(const InstanceBodySymbol& body,
+                        std::map<std::string, const InstanceSymbol*>& defs) {
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::Instance) {
+            auto& child = member.as<InstanceSymbol>();
+            auto name = std::string(child.getDefinition().name);
+            if (defs.emplace(name, &child).second)
+                collectDefs(child.body, defs);
+        }
+    }
+}
+
 UHDM::design* UhdmExporter::exportDesign() {
     auto& root = comp.getRoot();
 
@@ -188,19 +201,29 @@ UHDM::design* UhdmExporter::exportDesign() {
     if (!root.topInstances.empty())
         d->VpiName("work@" + std::string(root.topInstances[0]->getDefinition().name));
 
+    // All definitions used anywhere in the design, name-sorted like Surelog's
+    // module map.
+    std::map<std::string, const InstanceSymbol*> defs;
+    for (auto inst : root.topInstances) {
+        auto name = std::string(inst->getDefinition().name);
+        if (defs.emplace(name, inst).second)
+            collectDefs(inst->body, defs);
+    }
+
     auto* allMods = s.MakeModule_instVec();
     auto* topMods = s.MakeModule_instVec();
 
-    for (auto inst : root.topInstances) {
-        auto* def = emitModuleDef(*inst);
-        allMods->push_back(def);
+    // Pre-create the definition shells so ref_modules can point at them
+    // regardless of emission order.
+    for (auto& [name, inst] : defs) {
+        defMap[&inst->getDefinition()].mod = s.MakeModule_inst();
+        allMods->push_back(defMap[&inst->getDefinition()].mod);
     }
     d->AllModules(allMods);
 
     for (auto inst : root.topInstances) {
-        auto it = defMap.find(&inst->getDefinition());
-        auto* top = emitTopModule(*inst, it->second);
-        topMods->push_back(top);
+        std::string prefix = "work@" + std::string(inst->getDefinition().name);
+        topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, /*isTop=*/true));
     }
     d->TopModules(topMods);
 
@@ -208,21 +231,45 @@ UHDM::design* UhdmExporter::exportDesign() {
     return d;
 }
 
+// Finds the named port connection syntax for a formal port name, so locations
+// can anchor at the ".a(o)" text like Surelog.
+static const syntax::NamedPortConnectionSyntax* findConnSyntax(const InstanceSymbol& inst,
+                                                               std::string_view formal) {
+    auto syn = inst.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::HierarchicalInstance)
+        return nullptr;
+    for (auto conn : syn->as<syntax::HierarchicalInstanceSyntax>().connections) {
+        if (conn->kind == syntax::SyntaxKind::NamedPortConnection) {
+            auto& npc = conn->as<syntax::NamedPortConnectionSyntax>();
+            if (npc.name.valueText() == formal)
+                return &npc;
+        }
+    }
+    return nullptr;
+}
+
+// Port connection expressions for output ports come wrapped in an assignment;
+// the connected expression is its left side.
+static const Expression* connectionExpr(const PortConnection& conn) {
+    auto expr = conn.getExpression();
+    if (expr && expr->kind == ExpressionKind::Assignment)
+        expr = &expr->as<AssignmentExpression>().left();
+    return expr;
+}
+
 UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = "work@" + std::string(def.name);
 
-    auto* m = s.MakeModule_inst();
+    DefInfo& info = defMap[&def];
+    auto* m = info.mod;
     m->VpiDefName(prefix);
     m->VpiFullName(prefix);
     m->VpiParent(d);
     m->VpiFile(fullFilePath(def.location));
     if (auto syntax = body.getSyntax())
         setLoc(m, syntax->sourceRange());
-
-    DefInfo& info = defMap[&def];
-    info.mod = m;
 
     // Nets (in port order for port-connected signals, like Surelog).
     auto* nets = s.MakeNetVec();
@@ -253,6 +300,55 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     // TypespecCache behavior), with no parent set.
     TsCache defTs;
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
+
+    // Child instance references (def view uses ref_module stubs).
+    auto* refmods = s.MakeRef_moduleVec();
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Instance)
+            continue;
+        auto& child = member.as<InstanceSymbol>();
+        auto* rm = s.MakeRef_module();
+        rm->VpiName(child.name);
+        rm->VpiDefName("work@" + std::string(child.getDefinition().name));
+        rm->VpiParent(m);
+        setLoc(rm, SourceRange(child.location, child.location + child.name.size()));
+        if (auto it = defMap.find(&child.getDefinition()); it != defMap.end())
+            rm->Actual_group(it->second.mod);
+
+        auto* rports = s.MakePortVec();
+        for (auto conn : child.getPortConnections()) {
+            auto* p = s.MakePort();
+            p->VpiName(conn->port.name);
+            p->VpiParent(rm);
+            if (auto npc = findConnSyntax(child, conn->port.name))
+                setLoc(p, npc->sourceRange());
+            if (auto expr = connectionExpr(*conn)) {
+                if (expr->kind == ExpressionKind::NamedValue) {
+                    auto& nv = expr->as<NamedValueExpression>();
+                    auto* r = s.MakeRef_obj();
+                    r->VpiName(nv.symbol.name);
+                    r->VpiFullName(prefix + "." + std::string(child.name) + "." +
+                                   std::string(conn->port.name) + "." +
+                                   std::string(nv.symbol.name));
+                    r->VpiParent(p);
+                    setLoc(r, expr->sourceRange);
+                    if (auto nit = info.nets.find(&nv.symbol); nit != info.nets.end())
+                        r->Actual_group(nit->second);
+                    p->High_conn(r);
+                }
+                else if (auto* h = emitExpr(*expr, p, prefix, info.nets)) {
+                    p->High_conn(h);
+                }
+            }
+            rports->push_back(p);
+        }
+        if (!rports->empty())
+            rm->Ports(rports);
+        refmods->push_back(rm);
+    }
+    if (!refmods->empty())
+        m->Ref_modules(refmods);
+
     emitContAssigns(body, m, prefix, info.nets, /*topView=*/false);
 
     // Processes
@@ -272,20 +368,52 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     return m;
 }
 
-UHDM::module_inst* UhdmExporter::emitTopModule(const InstanceSymbol& inst, DefInfo& def) {
+UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
+                                              UHDM::module_inst* parentM, NetMap* parentNets,
+                                              bool isTop) {
     auto& body = inst.body;
-    std::string prefix = "work@" + std::string(inst.getDefinition().name);
+    auto& def = inst.getDefinition();
+    // Surelog materializes a definition the first time the instance tree
+    // reaches it; typespec creation order depends on this.
+    if (!defMap[&def].filled) {
+        defMap[&def].filled = true;
+        emitModuleDef(inst);
+    }
+    std::string prefix = path;
+    std::string defPrefix = "work@" + std::string(def.name);
+    std::string parentPrefix;
+    if (parentM && parentM->VpiFullName().length())
+        parentPrefix = std::string(parentM->VpiFullName());
 
     auto* m = s.MakeModule_inst();
-    m->VpiName(prefix);
-    m->VpiDefName(prefix);
+    m->VpiDefName(defPrefix);
     m->VpiFullName(prefix);
-    m->VpiParent(d);
-    m->VpiTop(true);
-    m->VpiTopModule(true);
-    m->VpiFile(fullFilePath(inst.getDefinition().location));
-    if (auto syntax = body.getSyntax())
-        setLoc(m, syntax->sourceRange());
+    m->VpiFile(fullFilePath(def.location));
+    if (isTop) {
+        m->VpiName(prefix);
+        m->VpiParent(d);
+        m->VpiTop(true);
+        m->VpiTopModule(true);
+        if (auto syntax = body.getSyntax())
+            setLoc(m, syntax->sourceRange());
+    }
+    else {
+        m->VpiName(inst.name);
+        m->VpiParent(parentM);
+        m->Instance(parentM);
+        m->Module_inst(parentM);
+        m->VpiDefFile(fullFilePath(def.location));
+        m->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+        // The child instance spans the whole instantiation statement.
+        if (auto syn = inst.getSyntax()) {
+            const syntax::SyntaxNode* stmtSyn = syn;
+            while (stmtSyn->parent &&
+                   stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation) {
+                stmtSyn = stmtSyn->parent;
+            }
+            setLoc(m, stmtSyn->sourceRange());
+        }
+    }
 
     // Top view gets its own net objects, each carrying a typespec. The
     // typespec object is shared per declaration (Surelog's TypespecCache),
@@ -339,16 +467,132 @@ UHDM::module_inst* UhdmExporter::emitTopModule(const InstanceSymbol& inst, DefIn
     if (!vars->empty())
         m->Variables(vars);
 
-    // Top-view ports each get a fresh typespec object (no sharing).
-    emitPorts(body, m, prefix, topNets, /*topView=*/true, nullptr);
+    // Children are elaborated before the instance's own ports (typespec
+    // creation order follows Surelog).
+    auto* children = s.MakeModule_instVec();
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::Instance) {
+            auto& child = member.as<InstanceSymbol>();
+            children->push_back(emitInstance(child, prefix + "." + std::string(child.name), m,
+                                             &topNets, /*isTop=*/false));
+        }
+    }
+    if (!children->empty())
+        m->Modules(children);
+
+    // Instance-view ports each get a fresh typespec object (no sharing).
+    auto* ports = s.MakePortVec();
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::Port)
+            continue;
+        auto& ps = portBase->as<PortSymbol>();
+        auto* internal = ps.internalSymbol;
+        if (!internal)
+            continue;
+
+        auto* p = s.MakePort();
+        p->VpiName(ps.name);
+        p->VpiParent(m);
+        setLocNamed(p, ps);
+        switch (ps.direction) {
+            case ArgumentDirection::In:
+                p->VpiDirection(vpiInput);
+                break;
+            case ArgumentDirection::Out:
+                p->VpiDirection(vpiOutput);
+                break;
+            case ArgumentDirection::InOut:
+                p->VpiDirection(vpiInout);
+                break;
+            default:
+                noteUnsupported("port direction");
+                break;
+        }
+
+        const PortConnection* conn = nullptr;
+        if (!isTop) {
+            for (auto c : inst.getPortConnections()) {
+                if (&c->port == portBase) {
+                    conn = c;
+                    break;
+                }
+            }
+        }
+
+        auto* lc = s.MakeRef_obj();
+        lc->VpiName(ps.name);
+        lc->VpiFullName(prefix + "." + std::string(ps.name));
+        lc->VpiParent(p);
+        if (!isTop) {
+            // Child low conns anchor at the formal name in the connection.
+            if (auto npc = findConnSyntax(inst, ps.name))
+                setLoc(lc, SourceRange(npc->name.location(),
+                                       npc->name.location() + ps.name.size()));
+            else
+                setLocNamed(lc, ps);
+        }
+        else {
+            setLocNamed(lc, ps);
+        }
+        if (auto it = topNets.find(internal); it != topNets.end())
+            lc->Actual_group(it->second);
+        p->Low_conn(lc);
+
+        if (conn && parentNets) {
+            if (auto expr = connectionExpr(*conn)) {
+                if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets)) {
+                    p->High_conn(h);
+                    // Surelog rebinds the connected signal's typespec when it
+                    // feeds a child port connection: the typespec is
+                    // reparented to the signal and tagged with the enclosing
+                    // instance.
+                    if (expr->kind == ExpressionKind::NamedValue) {
+                        auto it = parentNets->find(&expr->as<NamedValueExpression>().symbol);
+                        if (it != parentNets->end()) {
+                            auto* ex = (UHDM::expr*)it->second;
+                            if (ex->Typespec() && ex->Typespec()->Actual_typespec())
+                                ex->Typespec()->Actual_typespec()->VpiParent(ex);
+                        }
+                    }
+                }
+            }
+        }
+
+        auto* pts = makeTypespec(*internal);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(prefix + "." + std::string(ps.name));
+        rt->VpiParent(p);
+        rt->Actual_typespec(pts);
+        p->Typespec(rt);
+        ports->push_back(p);
+    }
+    if (!ports->empty())
+        m->Ports(ports);
+
     emitContAssigns(body, m, prefix, topNets, /*topView=*/true);
 
-    // Processes are shared with the definition (folded model).
-    if (!def.processes.empty()) {
+    // Top modules share the definition's process objects (their hierarchical
+    // prefix is identical); child instances get their own copies with the
+    // instance path baked into names.
+    if (isTop) {
+        auto it = defMap.find(&def);
+        if (it != defMap.end() && !it->second.processes.empty()) {
+            auto* procs = s.MakeProcess_stmtVec();
+            for (auto* p : it->second.processes)
+                procs->push_back(p);
+            m->Process(procs);
+        }
+    }
+    else {
         auto* procs = s.MakeProcess_stmtVec();
-        for (auto* p : def.processes)
-            procs->push_back(p);
-        m->Process(procs);
+        for (auto& member : body.members()) {
+            if (member.kind == SymbolKind::ProceduralBlock) {
+                if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, topNets))
+                    procs->push_back(p);
+            }
+        }
+        if (!procs->empty())
+            m->Process(procs);
     }
 
     return m;

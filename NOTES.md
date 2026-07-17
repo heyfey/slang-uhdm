@@ -64,3 +64,39 @@ Source of truth: `uhdm-dump` of `slpp_all/surelog.uhdm` for
 - 2026-07-17: M0/M1 scaffold written (tools/uhdm; CMake gated on
   find_package(UHDM)); UHDM installed to ~/.local; slang build reconfigured
   with CMAKE_PREFIX_PATH=~/.local. Building.
+
+## Hierarchy quirks (AssignSumOfConstantsInSubmodule, 2026-07-17)
+
+- AllModules = ALL used definitions, name-sorted; def content is filled
+  LAZILY as the instance tree first reaches each definition. Per-instance
+  creation order: def fill -> instance vars/nets -> children (recursive) ->
+  instance ports -> cont_assigns/processes. weaklyReferenced dump order
+  depends on this exactly.
+- Def view: children appear as ref_module (name, defName, Actual_group->def
+  module, loc=instance name span) with ports carrying only High_conn
+  ref_objs named work@<mod>.<inst>.<formal>.<actual> pointing at def nets.
+- Top view: children are full module_inst objects: VpiName/VpiFullName
+  (instance path), VpiDefName, VpiDefFile+VpiDefLineNo, Instance(parent) AND
+  Module_inst(parent) back-refs (Module_inst is invisible in uhdm-dump but
+  checked by uhdm-cmp!), loc = whole instantiation statement. Contents are
+  re-emitted per instance (instance-path fullnames); only TOP modules share
+  the def's process objects (their prefix equals the def prefix).
+- Child ports: loc = def port loc; LowConn ref at the formal name in the
+  connection (.a -> `a` token), full = instpath.formal, actual = child
+  net/var. HighConn = plain expression ref bound in PARENT scope (parent
+  netmap, parent prefix, actual = parent net/var).
+- When a parent signal feeds a child HighConn, the signal's typespec gets
+  VpiParent(re-set) to the signal (source of the mux2 {S,B,Y}-style parent
+  pattern for vars; nets always get ts parent at creation).
+- Top-view cont_assign Rhs is CONSTANT-FOLDED when the expression is
+  constant and not a plain literal: constant with decimal decompile,
+  UINT:<val>, vpiSize = expr type width, no loc/parent. Def view keeps the
+  unfolded expression.
+- Bare unsized decimal literals: UINT:<digits>, vpiSize 64, vpiConstType 9.
+  Sized/based literals: BIN/HEX/OCT/DEC:<digits>, vpiSize = literal size,
+  vpiDecompile = source text. Constants get VpiParent only as operation
+  operands (and in typespec range bounds, where they're 64-bit UINT).
+- `int` ports: def view = plain logic_net (no netType); top view = int_var
+  (Signed, Visibility 1) in Variables; int_typespec (VpiSigned) everywhere.
+- uhdm-cmp compares fields the dump never prints (Module_inst, typespec
+  Instance) — DUMP_MATCH alone is not sufficient; always require PASS_CMP.
