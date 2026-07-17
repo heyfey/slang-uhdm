@@ -139,9 +139,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         }
     }
 
-    // Non-logic types get their own typespec classes.
+    // Non-logic types get their own typespec classes. Unpacked arrays
+    // resolve to their ELEMENT type (the dims become array_var ranges).
     if (declared) {
-        auto& ct = declared->getType().getCanonicalType();
+        const Type* et = &declared->getType().getCanonicalType();
+        while (et->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+            et = &et->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+        auto& ct = et->getCanonicalType();
         if (ct.kind == SymbolKind::PredefinedIntegerType) {
             auto& pit = ct.as<PredefinedIntegerType>();
             UHDM::typespec* its = nullptr;
@@ -740,11 +744,19 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType)
         return nullptr;
 
+    // Leaf element type (for the inner reg's class and signedness).
+    const Type* leaf = &declared->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+        leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+    bool leafSigned = leaf->isSigned();
+
     auto* av = s.MakeArray_var();
     av->VpiName(name);
     av->VpiFullName(fullName);
     av->VpiParent(m);
     setLoc(av, nameSpan(sym.location, sym.name));
+    if (leafSigned)
+        av->VpiSigned(true);
     av->VpiRandType(1);
     av->VpiVisibility(1);
     av->VpiArrayType(1);
@@ -811,9 +823,19 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     if (!ranges->empty())
         av->Ranges(ranges);
 
-    // Inner reg: a logic_var carrying the ELEMENT typespec (the shared net
-    // ts already strips the unpacked dims to the element span).
-    auto* reg = s.MakeLogic_var();
+    // Inner reg: a var of the ELEMENT class (int/integer/logic) carrying the
+    // element typespec (the shared net ts strips dims to the element span).
+    UHDM::variables* reg;
+    if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
+        auto& pit = leaf->getCanonicalType().as<PredefinedIntegerType>();
+        if (pit.integerKind == PredefinedIntegerType::Integer)
+            reg = s.MakeInteger_var();
+        else
+            reg = s.MakeInt_var();
+    }
+    else {
+        reg = s.MakeLogic_var();
+    }
     reg->VpiParent(av);
     setLoc(reg, nameSpan(sym.location, sym.name));
     auto* regRt = s.MakeRef_typespec();
@@ -825,6 +847,24 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     auto* rvars = s.MakeVariablesVec();
     rvars->push_back(reg);
     av->Variables(rvars);
+
+    // Array-pattern initializer: emitted as vpiExpr parented at the inner
+    // reg, referenced by BOTH the array_var and the reg.
+    if (auto init = declared->getInitializer()) {
+        auto& ic = stripImplicitConv(*init);
+        if (ic.kind == ExpressionKind::SimpleAssignmentPattern) {
+            NetMap none;
+            // Array-pattern leaf constants stay unparented (only the nested
+            // pattern operations self-parent).
+            bool savedSCP = suppressConstParent;
+            suppressConstParent = true;
+            if (auto* e = emitExpr(ic, reg, fullName, none)) {
+                av->Expr((UHDM::expr*)e);
+                reg->Expr((UHDM::expr*)e);
+            }
+            suppressConstParent = savedSCP;
+        }
+    }
     return av;
 }
 

@@ -722,3 +722,16 @@ Rules landed (each probed against goldens):
   OF THE FIRST unpacked dimension (element-span + first dim close), not the
   whole decl (materializeDefNetTs extends VpiEndLine/Col).
 - emitArrayVar (TypeEmit) reuses the shared net ts as the element ts.
+
+## Unpacked arrays: element types + pattern inits (r85)
+- makeTypespec unwraps FixedSizeUnpackedArrayType to the LEAF element type
+  for the typespec class (int n[...] -> int_typespec, loc = type syntax).
+- array_var: vpiSigned when the leaf element is signed; inner reg is typed by
+  the leaf element (int_var/integer_var/logic_var).
+- Array-pattern initializer ('{'{0,1,2},'{4,4,4}}): emitted as an
+  assignment-pattern op tree (opType 75, nested one level per dim) attached
+  as vpiExpr to BOTH the array_var and the inner reg, PARENTED at the inner
+  reg. Nested pattern OPERATIONS self-parent, but leaf constants stay
+  UNPARENTED (suppressConstParent around the emit).
+- Def-view unpacked-array net ts keeps its first-dim span even when the decl
+  has an initializer (the init-extension is skipped for unpacked arrays).

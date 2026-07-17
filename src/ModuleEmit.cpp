@@ -1008,9 +1008,14 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
-    // Initialized decls extend the def-view typespec through the init.
+    // Initialized decls extend the def-view typespec through the init
+    // (but unpacked arrays keep their first-dim span, handled above).
+    bool isUnpacked = false;
+    if (auto dt4 = pn.sym->getDeclaredType())
+        isUnpacked = dt4->getType().getCanonicalType().kind ==
+                     SymbolKind::FixedSizeUnpackedArrayType;
     if (auto dtl = pn.sym->getDeclaredType();
-        dtl && dtl->getInitializer() && ts->VpiName().empty()) {
+        dtl && dtl->getInitializer() && ts->VpiName().empty() && !isUnpacked) {
         if (auto dsyn = pn.sym->getSyntax()) {
             auto dr = dsyn->sourceRange();
             if (dr.start() != SourceLocation::NoLocation) {
