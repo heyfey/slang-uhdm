@@ -10,9 +10,19 @@
 
 namespace slang_uhdm {
 
+static bool containsUserCall(const Expression& e) {
+    bool found = false;
+    e.visit(makeVisitor([&](auto& v, const CallExpression& c) {
+        if (!c.isSystemCall())
+            found = true;
+        v.visitDefault(c);
+    }));
+    return found;
+}
+
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
                                   NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
-                                  bool topShareTs) {
+                                  bool topShareTs, bool funcScope) {
     auto* params = s.MakeAnyVec();
     auto* passigns = s.MakeParam_assignVec();
     for (auto& member : body.members()) {
@@ -39,10 +49,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         bool wantTs = false;
-        if (isLocal) {
+        if (isLocal)
             up->VpiLocalParam(true);
-        }
-        else {
+        // Function-scope localparams are valued and typed like module
+        // non-local params.
+        if (!isLocal || funcScope) {
             // Params with non-literal initializers carry no value string.
             bool literalInit = false;
             if (auto pinit = ps.getInitializer())
@@ -110,6 +121,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             up->Typespec(prt);
         }
         params->push_back(up);
+        if (funcScope)
+            netMap[&member] = up;
 
         UHDM::ref_typespec* rhsRt = nullptr;
         auto* pa = s.MakeParam_assign();
@@ -117,6 +130,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (auto syn = ps.getSyntax())
             setLoc(pa, syn->sourceRange());
         pa->Lhs(up);
+        // Function-scope params parent at their param_assign.
+        if (funcScope)
+            up->VpiParent(pa);
         if (auto init0 = ps.getInitializer()) {
             const Expression* init = init0;
             while (init->kind == ExpressionKind::Conversion &&
@@ -131,7 +147,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (rhs)
                         ((UHDM::constant*)rhs)->VpiSize((int32_t)ps.getType().getBitWidth());
                 }
-                else if ((rhs = tryFoldConst(*init))) {
+                else if (!containsUserCall(*init) && (rhs = tryFoldConst(*init))) {
                     ((UHDM::constant*)rhs)->VpiParent(pa);
                     // Typed params fold at the type width; untyped at 64.
                     ((UHDM::constant*)rhs)

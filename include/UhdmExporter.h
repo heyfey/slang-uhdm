@@ -121,7 +121,7 @@ private:
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
     void emitParameters(const slang::ast::Scope& body, UHDM::scope* m, const std::string& prefix,
                         NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
-                        bool topShareTs = false);
+                        bool topShareTs = false, bool funcScope = false);
     UHDM::package* emitPackage(const slang::ast::PackageSymbol& pkg, bool topView);
     void emitTaskFuncs(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                        const std::string& prefix, DefInfo& info);
@@ -189,6 +189,11 @@ private:
     bool callStmtContext = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
+    // Surelog can't resolve block-scoped localparams; refs to them bind an
+    // implicit module-level wire created at the first reference.
+    std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;
+    UHDM::module_inst* implicitNetModule = nullptr;
+    std::string implicitNetPrefix;
     // Cast-size exprs also keep name-token-only call spans.
     bool inCastSize = false;
     // Refs inside indexed-part-select base/width exprs are scoped by the

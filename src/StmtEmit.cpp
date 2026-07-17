@@ -251,6 +251,43 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     b->Variables(vars);
             }
             auto* stmts = s.MakeAnyVec();
+            // Block-scoped localparams appear as inline param_assign stmts
+            // (bare parameter, folded unparented rhs, no typespecs).
+            if (bs.blockSymbol) {
+                for (auto& bm : bs.blockSymbol->members()) {
+                    if (bm.kind != SymbolKind::Parameter)
+                        continue;
+                    auto& ps = bm.as<ParameterSymbol>();
+                    auto* pa = s.MakeParam_assign();
+                    pa->VpiParent(b);
+                    auto* up = s.MakeParameter();
+                    up->VpiName(ps.name);
+                    up->VpiFullName(innerPrefix + "." + std::string(ps.name));
+                    up->VpiParent(pa);
+                    up->VpiLocalParam(true);
+                    if (auto syn = ps.getSyntax()) {
+                        setLoc(pa, syn->sourceRange());
+                        setLoc(up, syn->sourceRange());
+                    }
+                    pa->Lhs(up);
+                    if (auto pinit = ps.getInitializer()) {
+                        auto& cv = ps.getValue();
+                        if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                            auto& iv = cv.integer();
+                            bool neg = iv.isSigned() && iv.isNegative();
+                            std::string digits = iv.toString(LiteralBase::Decimal, false);
+                            auto* c = s.MakeConstant();
+                            c->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                            c->VpiDecompile((neg ? "-" : "") + digits);
+                            c->VpiSize(64);
+                            c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+                            setLoc(c, pinit->sourceRange);
+                            pa->Rhs(c);
+                        }
+                    }
+                    stmts->push_back(pa);
+                }
+            }
             auto& body = bs.body;
             if (body.kind == StatementKind::List) {
                 for (auto st : body.as<StatementList>().list) {

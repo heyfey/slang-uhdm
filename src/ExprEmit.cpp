@@ -154,6 +154,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ref->Actual_group(eit->second);
                 else if (funcRetRefs && &nv.symbol == funcRetSym)
                     funcRetRefs->push_back(ref);
+                else if (nv.symbol.kind == SymbolKind::Parameter && implicitNetModule &&
+                         nv.symbol.getParentScope() &&
+                         nv.symbol.getParentScope()->asSymbol().kind ==
+                             SymbolKind::StatementBlock) {
+                    // Surelog can't resolve block-scoped localparams: refs
+                    // bind an implicit module wire minted at the first ref.
+                    auto& inet = implicitNetMap[&nv.symbol];
+                    if (!inet) {
+                        inet = s.MakeLogic_net();
+                        inet->VpiName(nv.symbol.name);
+                        inet->VpiFullName(implicitNetPrefix + "." +
+                                          std::string(nv.symbol.name));
+                        inet->VpiParent(implicitNetModule);
+                        inet->VpiNetType(1);
+                        setLoc(inet, expr.sourceRange);
+                        auto* nets = implicitNetModule->Nets();
+                        if (!nets) {
+                            nets = s.MakeNetVec();
+                            implicitNetModule->Nets(nets);
+                        }
+                        nets->push_back(inet);
+                    }
+                    ref->Actual_group(inet);
+                }
             }
             ref->VpiParent(parent);
             if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==
@@ -393,8 +417,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
                 auto it = subMap.find(&sub);
                 if (it == subMap.end()) {
-                    noteUnsupported("user function call");
-                    return nullptr;
+                    // Calls seen before the def fill (param inits): create a
+                    // shell now; emitTaskFuncs fills it later.
+                    auto pscope = sub.getParentScope();
+                    if (pscope &&
+                        pscope->asSymbol().kind == SymbolKind::InstanceBody) {
+                        SubInfo shell;
+                        shell.tf = sub.subroutineKind == SubroutineKind::Function
+                                       ? (UHDM::task_func*)s.MakeFunction()
+                                       : (UHDM::task_func*)s.MakeTask();
+                        shell.tf->VpiName(sub.name);
+                        it = subMap.emplace(&sub, shell).first;
+                    }
+                    else {
+                        noteUnsupported("user function call");
+                        return nullptr;
+                    }
                 }
                 auto& si = it->second;
                 bool isFunc = sub.subroutineKind == SubroutineKind::Function;
@@ -402,7 +440,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                            : (UHDM::tf_call*)s.MakeTask_call();
                 fc->VpiName(sub.name);
                 fc->VpiParent(parent);
-                setLoc(fc, expr.sourceRange);
+                if (inParamInit)
+                    setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
+                else
+                    setLoc(fc, expr.sourceRange);
                 if (isFunc)
                     ((UHDM::func_call*)fc)->Function((UHDM::function*)si.tf);
                 else
@@ -427,11 +468,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // Function call arg refs carry a typespec ref to the
                         // formal's typespec (tasks don't; procedural-context
                         // calls don't either).
-                        if (isFunc && !inProcessEmit && a->UhdmType() == UHDM::uhdmref_obj &&
+                        bool refArg = a->UhdmType() == UHDM::uhdmref_obj;
+                        bool constArg = inParamInit &&
+                                        a->UhdmType() == UHDM::uhdmconstant;
+                        if (isFunc && !inProcessEmit && (refArg || constArg) &&
                             argIdx < si.argTs.size()) {
-                            auto* r = (UHDM::ref_obj*)a;
+                            auto* r = (UHDM::expr*)a;
                             auto* rt = s.MakeRef_typespec();
-                            rt->VpiFullName(r->VpiFullName());
+                            // Constant args (param-init context) name the
+                            // enclosing scope; refs name themselves.
+                            rt->VpiFullName(refArg ? ((UHDM::ref_obj*)a)->VpiFullName()
+                                                   : prefix);
                             rt->VpiParent(r);
                             auto [ats, bareKey] = si.argTs[argIdx];
                             if (ats)

@@ -514,3 +514,22 @@ Rules landed (each probed against goldens):
   wholly unreferenced objects are IN the file but INVISIBLE to uhdm-dump
   (use Serializer::ObjectStats in a C++ probe to count them).
 - r69 = 138 PASS; UNSUP 277->252 (patterns unblocked into DIFF 270).
+
+## Function-scope parameters (r72)
+- Function-level `localparam` → function Parameters/Param_assigns like module
+  params, EXCEPT: value+typespec emitted even though vpiLocalParam:1, and the
+  parameter's vpiParent is its param_assign (not the function).
+- Arena order inside a function: return ts, io ts, param ts, block var ts.
+- Block-scoped localparams (inside named begin) → inline param_assign STMTS:
+  bare parameter (LocalParam, declarator span, no value/ts), Rhs = folded
+  unparented constant (UINT/size 64/type 9, loc = init span), no typespecs.
+- Surelog CANNOT resolve refs to block-scoped localparams: it mints an
+  implicit module-level wire (vpiNetType:1, loc = FIRST ref span, fullname
+  <module>.<name>) appended to the def-view Nets; refs bind that net. Top
+  view does not re-list the implicit net.
+- Param-init user func_call: name-token-only span. Top view does NOT fold
+  initializers containing user calls (keeps the func_call). In param context
+  a top-view constant arg carries ref_typespec fullname=<module> → formal's
+  io typespec; def view (shell, argTs empty) has no arg ts.
+- Calls seen before the def fill (param inits) get a shell task_func created
+  at the call site; emitTaskFuncs reuses it (subMap hit) and fills it.

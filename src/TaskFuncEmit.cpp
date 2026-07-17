@@ -30,8 +30,13 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         bool isFunc = sub.subroutineKind == SubroutineKind::Function;
         std::string fullName = prefix + "." + std::string(sub.name);
 
-        UHDM::task_func* tf = isFunc ? (UHDM::task_func*)s.MakeFunction()
-                                     : (UHDM::task_func*)s.MakeTask();
+        // Reuse a shell created by an early (param-init) call site.
+        UHDM::task_func* tf = nullptr;
+        if (auto sit = subMap.find(&sub); sit != subMap.end() && sit->second.tf)
+            tf = sit->second.tf;
+        if (!tf)
+            tf = isFunc ? (UHDM::task_func*)s.MakeFunction()
+                        : (UHDM::task_func*)s.MakeTask();
         tf->VpiName(sub.name);
         tf->VpiFullName(fullName);
         tf->VpiParent(m);
@@ -122,6 +127,11 @@ void UhdmExporter::emitTaskFuncs(const InstanceBodySymbol& body, UHDM::module_in
         }
         if (!ios->empty())
             tf->Io_decls(ios);
+
+        emitParameters(sub, tf, fullName, funcMap, /*topView=*/false, nullptr,
+                       /*inPackage=*/false, /*topShareTs=*/false, /*funcScope=*/true);
+        implicitNetModule = m;
+        implicitNetPrefix = prefix;
 
         // Function-local variables attach to the function's Variables
         // (loc = the declared type span).
