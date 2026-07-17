@@ -51,42 +51,49 @@ public:
     const std::set<std::string>& unsupported() const { return unsupportedKinds; }
 
 private:
+    /// Maps slang value symbols to the UHDM net/variable object of the
+    /// current view (definition or top instance).
+    using NetMap = std::map<const slang::ast::Symbol*, UHDM::any*>;
+    /// Shares typespec objects per declaration (Surelog TypespecCache).
+    using TsCache = std::map<const void*, UHDM::typespec*>;
+
     struct DefInfo {
         UHDM::module_inst* mod = nullptr;
-        std::map<const slang::ast::Symbol*, UHDM::logic_net*> nets;
+        NetMap nets;
         std::vector<UHDM::process_stmt*> processes;
     };
-
-    using TsCache = std::map<const void*, UHDM::logic_typespec*>;
 
     UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst);
     UHDM::module_inst* emitTopModule(const slang::ast::InstanceSymbol& inst, DefInfo& def);
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
-                   const std::string& prefix,
-                   std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap,
-                   bool topView, TsCache* sharedTs);
+                   const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
+    void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+                         const std::string& prefix, NetMap& netMap, bool topView);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
                                     UHDM::module_inst* m, const std::string& prefix,
-                                    std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap);
+                                    NetMap& netMap);
     UHDM::any* emitStmt(const slang::ast::Statement& stmt, UHDM::BaseClass* parent,
-                        const std::string& prefix,
-                        std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap);
+                        const std::string& prefix, NetMap& netMap);
     UHDM::any* emitEventExpr(const slang::ast::TimingControl& tc, UHDM::BaseClass* parent,
-                             const std::string& prefix,
-                             std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap);
-    std::string rawText(slang::SourceRange range);
+                             const std::string& prefix, NetMap& netMap);
     UHDM::any* emitExpr(const slang::ast::Expression& expr, UHDM::BaseClass* parent,
-                        const std::string& prefix,
-                        std::map<const slang::ast::Symbol*, UHDM::logic_net*>& netMap);
-    UHDM::logic_typespec* makeTypespec(const slang::ast::Symbol& declSymbol);
-    UHDM::logic_typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache);
+                        const std::string& prefix, NetMap& netMap);
+    UHDM::any* tryFoldConst(const slang::ast::Expression& expr);
+
+    UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol);
+    UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache);
     UHDM::constant* makeBoundConst(const slang::syntax::SyntaxNode* syn, int64_t value,
                                    UHDM::BaseClass* parent);
+    /// Creates a top-view variable object for symbols whose type makes them
+    /// variables in Surelog's model (int, integer, ...); null if the symbol
+    /// stays a net.
+    UHDM::variables* makeVar(const slang::ast::Symbol& internal);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);
     std::string fullFilePath(slang::SourceLocation loc);
+    std::string rawText(slang::SourceRange range);
     void noteUnsupported(const std::string& what);
 
     slang::ast::Compilation& comp;

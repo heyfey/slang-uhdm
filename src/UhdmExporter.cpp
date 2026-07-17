@@ -253,6 +253,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     // TypespecCache behavior), with no parent set.
     TsCache defTs;
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
+    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false);
 
     // Processes
     auto* procs = s.MakeProcess_stmtVec();
@@ -290,9 +291,10 @@ UHDM::module_inst* UhdmExporter::emitTopModule(const InstanceSymbol& inst, DefIn
     // typespec object is shared per declaration (Surelog's TypespecCache),
     // and its parent is overwritten by each net using it, so it ends up
     // pointing at the last net of the declaration.
-    std::map<const Symbol*, UHDM::logic_net*> topNets;
+    NetMap topNets;
     TsCache netTs;
     auto* nets = s.MakeNetVec();
+    auto* vars = s.MakeVariablesVec();
     for (auto portBase : body.getPortList()) {
         if (portBase->kind != SymbolKind::Port)
             continue;
@@ -301,30 +303,45 @@ UHDM::module_inst* UhdmExporter::emitTopModule(const InstanceSymbol& inst, DefIn
         if (!internal)
             continue;
 
-        auto* n = s.MakeLogic_net();
-        n->VpiName(ps.name);
-        n->VpiFullName(prefix + "." + std::string(ps.name));
-        n->VpiParent(m);
-        setLocNamed(n, ps);
-        if (int32_t nt = netTypeFor(*internal))
-            n->VpiNetType(nt);
-
+        std::string fullName = prefix + "." + std::string(ps.name);
         auto* ts = sharedTypespec(*internal, netTs);
-        ts->VpiParent(n);
         auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(prefix + "." + std::string(ps.name));
-        rt->VpiParent(n);
+        rt->VpiFullName(fullName);
         rt->Actual_typespec(ts);
-        n->Typespec(rt);
 
-        topNets[internal] = n;
-        nets->push_back(n);
+        if (auto* v = makeVar(*internal)) {
+            v->VpiName(ps.name);
+            v->VpiFullName(fullName);
+            v->VpiParent(m);
+            setLocNamed(v, ps);
+            rt->VpiParent(v);
+            v->Typespec(rt);
+            topNets[internal] = v;
+            vars->push_back(v);
+        }
+        else {
+            auto* n = s.MakeLogic_net();
+            n->VpiName(ps.name);
+            n->VpiFullName(fullName);
+            n->VpiParent(m);
+            setLocNamed(n, ps);
+            if (int32_t nt = netTypeFor(*internal))
+                n->VpiNetType(nt);
+            ts->VpiParent(n);
+            rt->VpiParent(n);
+            n->Typespec(rt);
+            topNets[internal] = n;
+            nets->push_back(n);
+        }
     }
     if (!nets->empty())
         m->Nets(nets);
+    if (!vars->empty())
+        m->Variables(vars);
 
     // Top-view ports each get a fresh typespec object (no sharing).
     emitPorts(body, m, prefix, topNets, /*topView=*/true, nullptr);
+    emitContAssigns(body, m, prefix, topNets, /*topView=*/true);
 
     // Processes are shared with the definition (folded model).
     if (!def.processes.empty()) {
@@ -339,7 +356,7 @@ UHDM::module_inst* UhdmExporter::emitTopModule(const InstanceSymbol& inst, DefIn
 
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,
                              const std::string& prefix,
-                             std::map<const Symbol*, UHDM::logic_net*>& netMap, bool topView,
+                             NetMap& netMap, bool topView,
                              TsCache* sharedTs) {
     auto* ports = s.MakePortVec();
     for (auto portBase : body.getPortList()) {
@@ -382,7 +399,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* 
             lc->Actual_group(it->second);
         p->Low_conn(lc);
 
-        UHDM::logic_typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs)
+        UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs)
                                             : makeTypespec(*internal);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(prefix + "." + std::string(ps.name));
@@ -414,12 +431,10 @@ static SourceLocation firstDeclaratorLoc(const Symbol& sym) {
     return sym.location;
 }
 
-UHDM::logic_typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
-    auto* ts = s.MakeLogic_typespec();
-
+UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
+    auto declared = declSymbol.getDeclaredType();
     SourceLocation implicitLoc = firstDeclaratorLoc(declSymbol);
     SourceRange range(implicitLoc, implicitLoc);
-    auto declared = declSymbol.getDeclaredType();
     if (declared) {
         if (auto tsyn = declared->getTypeSyntax()) {
             if (tsyn->kind != syntax::SyntaxKind::ImplicitType) {
@@ -429,6 +444,38 @@ UHDM::logic_typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
             }
         }
     }
+
+    // Non-logic types get their own typespec classes.
+    if (declared) {
+        auto& ct = declared->getType().getCanonicalType();
+        if (ct.kind == SymbolKind::PredefinedIntegerType) {
+            auto& pit = ct.as<PredefinedIntegerType>();
+            UHDM::typespec* its = nullptr;
+            switch (pit.integerKind) {
+                case PredefinedIntegerType::Int: {
+                    auto* t = s.MakeInt_typespec();
+                    t->VpiSigned(pit.isSigned);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::Integer: {
+                    auto* t = s.MakeInteger_typespec();
+                    t->VpiSigned(pit.isSigned);
+                    its = t;
+                    break;
+                }
+                default:
+                    noteUnsupported("integer type kind");
+                    break;
+            }
+            if (its) {
+                setLoc(its, range);
+                return its;
+            }
+        }
+    }
+
+    auto* ts = s.MakeLogic_typespec();
     setLoc(ts, range);
 
     // Packed dimensions: one uhdm range per dimension, bounds as evaluated
@@ -479,6 +526,84 @@ UHDM::logic_typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
     return ts;
 }
 
+UHDM::variables* UhdmExporter::makeVar(const Symbol& internal) {
+    auto declared = internal.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    auto& ct = declared->getType().getCanonicalType();
+    if (ct.kind == SymbolKind::PredefinedIntegerType) {
+        auto& pit = ct.as<PredefinedIntegerType>();
+        switch (pit.integerKind) {
+            case PredefinedIntegerType::Int: {
+                auto* v = s.MakeInt_var();
+                v->VpiSigned(pit.isSigned);
+                v->VpiVisibility(1);
+                return v;
+            }
+            case PredefinedIntegerType::Integer: {
+                auto* v = s.MakeInteger_var();
+                v->VpiSigned(pit.isSigned);
+                v->VpiVisibility(1);
+                return v;
+            }
+            default:
+                return nullptr;
+        }
+    }
+    return nullptr;
+}
+
+UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
+    // Surelog's netlist elaboration re-compiles top-view cont_assign
+    // expressions with constant reduction. Fold only genuine expressions,
+    // not plain literals.
+    if (expr.kind == ExpressionKind::IntegerLiteral)
+        return nullptr;
+    ASTContext ctx(comp.getRoot(), LookupLocation::max);
+    ConstantValue cv = ctx.tryEval(expr);
+    if (!cv || !cv.isInteger())
+        return nullptr;
+    auto& iv = cv.integer();
+    if (iv.hasUnknown() || (iv.isSigned() && iv.isNegative()))
+        return nullptr;
+    std::string digits = iv.toString(LiteralBase::Decimal, /*includeBase*/ false);
+    auto* c = s.MakeConstant();
+    c->VpiDecompile(digits);
+    c->VpiSize((int32_t)expr.type->getBitWidth());
+    c->VpiValue("UINT:" + digits);
+    c->VpiConstType(vpiUIntConst);
+    return c;
+}
+
+void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_inst* m,
+                                   const std::string& prefix, NetMap& netMap, bool topView) {
+    auto* cas = s.MakeCont_assignVec();
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::ContinuousAssign)
+            continue;
+        auto& casym = member.as<ContinuousAssignSymbol>();
+        auto& assign = casym.getAssignment();
+        if (assign.kind != ExpressionKind::Assignment) {
+            noteUnsupported("continuous assign form");
+            continue;
+        }
+        auto& ae = assign.as<AssignmentExpression>();
+        auto* ca = s.MakeCont_assign();
+        ca->VpiParent(m);
+        setLoc(ca, assign.sourceRange);
+        UHDM::any* rhs = topView ? tryFoldConst(ae.right()) : nullptr;
+        if (!rhs)
+            rhs = emitExpr(ae.right(), ca, prefix, netMap);
+        if (rhs)
+            ca->Rhs((UHDM::expr*)rhs);
+        if (auto* l = emitExpr(ae.left(), ca, prefix, netMap))
+            ca->Lhs((UHDM::expr*)l);
+        cas->push_back(ca);
+    }
+    if (!cas->empty())
+        m->Cont_assigns(cas);
+}
+
 UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int64_t value,
                                              UHDM::BaseClass* parent) {
     auto* c = s.MakeConstant();
@@ -493,7 +618,7 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
     return c;
 }
 
-UHDM::logic_typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& cache) {
+UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& cache) {
     // Key on the shared type syntax node so all declarators of one
     // declaration ("input A, B;") reuse the same typespec object.
     const void* key = &declSymbol;
@@ -511,7 +636,7 @@ UHDM::logic_typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsC
 
 UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block,
                                               UHDM::module_inst* m, const std::string& prefix,
-                                              std::map<const Symbol*, UHDM::logic_net*>& netMap) {
+                                              NetMap& netMap) {
     UHDM::process_stmt* proc = nullptr;
     switch (block.procedureKind) {
         case ProceduralBlockKind::Always: {
@@ -551,7 +676,7 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
 
 UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass* parent,
                                        const std::string& prefix,
-                                       std::map<const Symbol*, UHDM::logic_net*>& netMap) {
+                                       NetMap& netMap) {
     switch (tc.kind) {
         case TimingControlKind::SignalEvent: {
             auto& sec = tc.as<SignalEventControl>();
@@ -610,7 +735,7 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
 
 UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent,
                                   const std::string& prefix,
-                                  std::map<const Symbol*, UHDM::logic_net*>& netMap) {
+                                  NetMap& netMap) {
     switch (stmt.kind) {
         case StatementKind::Timed: {
             auto& timed = stmt.as<TimedStatement>();
@@ -720,7 +845,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
 
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
-                                  std::map<const Symbol*, UHDM::logic_net*>& netMap) {
+                                  NetMap& netMap) {
     switch (expr.kind) {
         case ExpressionKind::Assignment: {
             auto& ae = expr.as<AssignmentExpression>();
@@ -816,8 +941,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
 
             auto tick = raw.find('\'');
             if (tick == std::string::npos) {
-                c->VpiValue("INT:" + raw);
-                c->VpiConstType(vpiIntConst);
+                // Bare decimal literals: Surelog encodes as 64-bit UINT.
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + raw);
+                c->VpiConstType(vpiUIntConst);
             }
             else {
                 size_t basePos = tick + 1;
