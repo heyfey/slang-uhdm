@@ -256,23 +256,28 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
-        // Vector-typedef signals bind a late named wrapper (write phase).
-        bool aliasVec = false;
-        const Symbol* aliasSym = nullptr;
+        // Vector-typedef signals bind a fresh plain NAMED clone (built at
+        // net-emission time, no alias link).
+        UHDM::typespec* ts = nullptr;
         if (auto dtv = it.sym->getDeclaredType()) {
             auto& tv = dtv->getType();
             if (typedefClone.count(&tv)) {
-                aliasVec = true;
-                aliasSym = &tv;
+                const syntax::SyntaxNode* targetSyn = nullptr;
+                if (auto asyn = tv.as<TypeAliasType>().getSyntax()) {
+                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                }
+                bypassTypedefShare = true;
+                ts = makeTypespec(*it.sym, targetSyn);
+                bypassTypedefShare = false;
+                ts->VpiName(tv.name);
             }
         }
-        UHDM::typespec* ts = aliasVec ? s.MakeLogic_typespec() : sharedTypespec(*it.sym, netTs);
+        if (!ts)
+            ts = sharedTypespec(*it.sym, netTs);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName);
-        if (aliasVec)
-            pendingAliasRefs.push_back({rt, aliasSym});
-        else
-            rt->Actual_typespec(ts);
+        rt->Actual_typespec(ts);
         if (auto* v = makeVar(*it.sym, /*portBacked=*/it.port != nullptr)) {
             v->VpiName(name);
             v->VpiFullName(fullName);
@@ -745,13 +750,15 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         }
         // Def-local net typespecs are fresh per net (never shared); vector
         // typedefs get a fresh NAMED clone (enum/struct aliases stay shared).
-        // Vector typedefs get a fresh NAMED clone per def net.
+        // Vector typedefs: the def net binds a write-phase NAMED clone
+        // carrying Instance and TypedefAlias -> the module typedef.
         UHDM::typespec* ts = nullptr;
         if (auto dt2 = pn.sym->getDeclaredType()) {
             auto& t2 = dt2->getType();
             if (typedefClone.count(&t2)) {
+                auto& ta2 = t2.as<TypeAliasType>();
                 const syntax::SyntaxNode* targetSyn = nullptr;
-                if (auto asyn = t2.as<TypeAliasType>().getSyntax()) {
+                if (auto asyn = ta2.getSyntax()) {
                     if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
                         targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
                 }
@@ -759,6 +766,16 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 ts = makeTypespec(*pn.sym, targetSyn);
                 bypassTypedefShare = false;
                 ts->VpiName(t2.name);
+                auto tit = typedefTs.find(&t2);
+                if (tit != typedefTs.end()) {
+                    auto* mainTs = tit->second;
+                    ts->Instance(mainTs->Instance());
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(t2.name);
+                    art->VpiParent(ts);
+                    art->Actual_typespec(mainTs);
+                    ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
+                }
             }
         }
         if (!ts)
@@ -818,39 +835,6 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         pendingIoTs.clear();
     }
 
-    // Vector-typedef wrappers: a late NAMED ts with Instance and
-    // TypedefAlias -> the module typedef; instance-view refs bind it.
-    {
-        std::map<const Symbol*, UHDM::typespec*> wrappers;
-        for (auto& [rt, aliasSym] : pendingAliasRefs) {
-            auto& slot = wrappers[aliasSym];
-            if (!slot) {
-                auto tit = typedefTs.find(aliasSym);
-                auto* mainTs = tit != typedefTs.end() ? tit->second : nullptr;
-                auto& ta = aliasSym->as<TypeAliasType>();
-                const syntax::SyntaxNode* targetSyn = nullptr;
-                if (auto asyn = ta.getSyntax()) {
-                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
-                        targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
-                }
-                bypassTypedefShare = true;
-                auto* w = makeTypespec(ta, targetSyn);
-                bypassTypedefShare = false;
-                w->VpiName(ta.name);
-                if (mainTs) {
-                    w->Instance(mainTs->Instance());
-                    auto* art = s.MakeRef_typespec();
-                    art->VpiFullName(ta.name);
-                    art->VpiParent(w);
-                    art->Actual_typespec(mainTs);
-                    w->Typedef_alias(art);
-                }
-                slot = w;
-            }
-            rt->Actual_typespec(slot);
-        }
-        pendingAliasRefs.clear();
-    }
 }
 
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,

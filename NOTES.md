@@ -400,14 +400,10 @@ Generate (probed 4-iter for-generate + gen_test6):
   + the alias target syntax). Instance-view signals bind a LATE named
   wrapper (write phase, Instance set, TypedefAlias ref -> the main ts).
   netTypeFor: NamedType aliases of 4-state vectors/scalars -> vpiNet(36).
-- OPEN (probe-vtd still DIFF 46): one more Surelog byte_t object with
-  ranges sits BEFORE the port-ts groups in the tail (arena position of the
-  def-net clone is later in ours), and cmp still finds a ref_typespec
-  (fullname byte_t, actual = the MAIN ts) we don't produce — probably the
-  def-net clone itself should carry a TypedefAlias ref -> main ts, and the
-  clone belongs in an earlier drain slot. Bisect with
-  scratchpad probe_hier/probe_attach-style C++ probes (see NOTES session 3
-  "attachments" method) before moving the creation point.
+- RESOLVED (C++ probe on ids/attachments): the INSTANCE-view signal binds
+  a plain NAMED clone built at net-emission time (ranges, no alias, no
+  Instance); the DEF net binds the write-phase clone carrying Instance and
+  TypedefAlias -> the module typedef ts. probe-vtd converges.
 - r34 = 100 PASS + 0 CMP_ONLY of 661; DIFF 258; UNSUP 303; 0 crash;
   goldens 23. Session 3 ends here.
 
