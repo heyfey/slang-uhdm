@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r78 state)
+# HANDOFF — slang-uhdm convergence campaign (r81 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,7 +13,31 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r78 baseline, committed as results/baseline.csv)
+## Current scoreboard (r81 baseline, committed as results/baseline.csv)
+
+PASS 169 · CMP_ONLY 1 · DIFF 291 · UNSUPPORTED 200 (r81). Session 5 second
+half (r79-r81) landed: B2 parameter overrides (isOverriddenParam detection,
+DEFAULT-derived values both views, vpiOverriden, folded override constants,
+child CA override re-emits, unknown 'x defaults, untyped INT/-1 folds),
+type casts (target-type ts, deferred re-emit variants, top-keeps/child-folds
+rule), and the DEF CONTENT PRE-PASS architecture change (all defs' content
+compiles name-sorted before any instance; only emitModuleDefPorts is
+encounter-ordered — see NOTES r81 entry).
+NEXT immediate targets:
+1. Select-base cluster (~34 solo): unpacked-array element selects with
+   non-NamedValue bases (nested pa[0][1]) — ExprEmit.cpp:772/797. Probe
+   golden with a MINIMAL unpacked array select first (array_assign is big;
+   try 2DUnpackedArray or func_local_array).
+2. E4 interfaces (46 tests, InterfacePort+ArbitrarySymbol).
+3. PackedStructType typedefs 17, ConcurrentAssertion 13, integer type kind.
+4. BindModuleWithInputPorts CMP_ONLY: 4-line tail order — the bound
+   instance's port pts (4:21) must come RIGHT AFTER its def's net-ts
+   materialize, before rv_dm write ts; ours emits it later.
+5. Known-hard/deferred: ImportFunction (package import deep-clone with
+   half-reprefixed names), macro-expansion locations (asym_ram_*),
+   rsp_gen_minimal (1549 lines), simple_package (package struct typedefs).
+
+## Old scoreboard reference (r78)
 
 PASS 163 · CMP_ONLY 1 · DIFF 297 · UNSUPPORTED 200 · CRASH 0
 · SLANG_REJECT 44 · SURELOG_FAIL 5
