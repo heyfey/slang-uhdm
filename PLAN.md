@@ -392,3 +392,129 @@ Debugging aids: `surelog -d uhdm` (textual writer debug), `uhdm-dump --elab`,
 - **Scale** (Surelog: 1223 call-sites/164 types) → bounded by corpus-driven
   scope; `vpiUnsupportedExpr/Stmt` + explicit `UNSUPPORTED` exit for
   constructs beyond current coverage, so the scoreboard stays honest.
+
+---
+
+# Part II: Convergence campaign
+
+Goal: converge ALL uhdm2rtlil tests (710), then the Surelog repo suite
+(~703 dirs), then sv-tests (~2346 files). Written 2026-07-17 after session 1
+(r6 scoreboard: 14 PASS + 15 CMP_ONLY / 149 DIFF / 483 UNSUPPORTED /
+44 SLANG_REJECT / 5 SURELOG_FAIL).
+
+**Achievable universe: 661** = 710 minus SLANG_REJECT (44, slang correctly
+refuses non-LRM code — terminal N/A) minus SURELOG_FAIL (5, no reference
+golden — revisit only via functional uhdm2rtlil checks).
+Definition of done per test: PASS (dump+cmp identical), CMP_ONLY accepted
+only with a NOTES-documented ordering waiver, or a documented waiver for
+Surelog defects we choose not to replicate.
+
+## 0. Measured blockers (r6, full telemetry over all 483 UNSUPPORTED)
+
+| Tests blocked | Feature |
+|---|---|
+| 182 | typespec generalization gap (OUR bug: implicit type with packed dims — `wire [7:0]` — plus typedef/named types) |
+| 117 | function/system calls |
+| 70 | member access (structs) |
+| 53 | explicit conversions / casts |
+| 49+9 | immediate + concurrent assertions |
+| 47 | hierarchical references (hier_path) |
+| 46 | interface ports |
+| 46 | ArbitrarySymbol refs (genvars, package refs) |
+| 31+30 | indexed/complex range selects; selects on non-simple bases |
+| 24 | named blocks |
+| ~20 | assignment patterns |
+| <10 each | repeat, block-local decls, strings, byte/shortint/longint, break/continue, real, final |
+
+DIFF class (149) sampling shows: parameters/param_assigns (`vpiParameter`
+missing — parameter|generate appear in 253 dut.sv files), comma-separated
+event lists (vpiListOp 37 vs our vpiEventOrOp), non-ANSI split
+port+reg declarations, enums, unpacked arrays/memories.
+
+## 1. Harness upgrades first (~half day, pays for itself immediately)
+
+- Parallelize run_corpus.sh (xargs -P $(nproc/2)): round time ~25min → ~6min.
+- Auto-triage script: cluster DIFF tests by first-divergence dump line +
+  UNSUPPORTED tests by full feature list (the analysis done manually for
+  this plan); emit a per-round priority table. Priorities then always come
+  from data, not guesses.
+- No-regression gate: run_corpus compares the PASS/CMP_ONLY set against the
+  previous round's CSV; nonzero exit + named regressions.
+- Golden suite growth: promote 1–2 representative tests per landed feature
+  (target ~30 goldens); run tests/check_goldens.sh before every commit.
+
+## 2. Feature phases (ordered by unlock count; recalibrate each round)
+
+- **A. Mechanical unblocks** (~1 session, expected largest single jump):
+  A1 typespec generalization — implicit-with-dims + typedefs via canonical
+  type (182 tests); A2 comma event lists → vpiListOp; A3 non-ANSI split
+  declarations; A4 named_begin (24); A5 indexed_part_select `+:`/`-:` (31)
+  + general select bases (30); A6 small statements (repeat, empty,
+  break/continue, block-local decls incl. begin-scope Variables, strings,
+  remaining integer var kinds).
+- **B. Parameters & casts** (~1 session, unlocks most of DIFF):
+  B1 parameter/localparam + Param_assigns in both views, refs with
+  Actual→parameter; B2 parameterized instances — STUDY FIRST: dump goldens
+  of AdditionAsParameterInInstance etc. to learn Surelog's folded shape for
+  specialized defs (the known design unknown; slang's per-parameterization
+  bodies should actually help); B3 explicit conversions → vpiCastOp (53).
+- **C. Calls & assertions** (~1 session): C1 system calls ($clog2, $bits,
+  $signed/$unsigned, $display, $readmem*) → sys_func_call; C2 user
+  functions/tasks (module Task_funcs + func_call/task_call, compile-time
+  eval NOT needed — Surelog folded view keeps calls); C3 assert shapes.
+- **D. Composite data** (~1 session): D1 enums (enum_typespec/const/var);
+  D2 packed/unpacked structs + MemberAccess; D3 assignment patterns;
+  D4 unpacked arrays/memories (array_net/array_var + Ranges).
+- **E. Hierarchy+** (~1-2 sessions): E1 hier_path (47); E2 generate
+  (gen_scope_array, genvars = most ArbitrarySymbol refs, genblk naming);
+  E3 packages (All/TopPackages, pkg:: refs); E4 interfaces + modports +
+  interface ports (46) — deepest feature, deliberately last.
+- **F. Closure**: F1 weakly-tail ordering polish to flip CMP_ONLY → PASS;
+  F2 remaining-DIFF triage + waiver list; F3 `--elabuhdm` mode (run UHDM
+  ElaboratorListener + UhdmAdjuster in-process like Surelog, verify
+  elaborated dumps too) — prerequisite for Stage 2 and sv-pathfinder.
+
+Milestone targets (PASS+CMP_ONLY of 661): A → ≥200; +B → ≥350; +C → ≥450;
++D → ≥520; +E → ≥600; +F → ≥640 with a short waiver list.
+
+## 3. Stage 2: Surelog repo suite (~703 dirs)
+
+- Layout: tests/<Name>/ with <Name>.sl (raw surelog CLI args), dut.sv or
+  multiple sources; many use `-elabuhdm` (needs F3) and `-d` debug flags
+  (ignore). Runner `scripts/run_surelog_suite.sh`: parse .sl → surelog
+  reference invocation as-is; map to slang-uhdm args (-D/-I/file lists/
+  --top; ignore -mt/-d/cache flags), same classification as run_corpus.
+- Tiers: T1 = single-file, non-UVM, surelog-exit-0 (target: ≥80% identical,
+  100% no-crash); T2 = multi-file/libraries; T3 = UVM/class-heavy →
+  classified N/A-UVM (outside the exporter's synthesizable mission; these
+  exercise Surelog's bundled UVM, not the flow the user needs).
+- Expect new shape territory: classes, UDPs/primitives, specify blocks,
+  defparam/bind/config. Budget a larger waiver list; every waiver goes in
+  NOTES with the golden evidence.
+
+## 4. Stage 3: sv-tests (~2346 files)
+
+- Metadata-driven runner: extract :name:/:tags:/:type:/:should_fail: from
+  headers. Exclude should_fail (verify agreement instead: BOTH_REJECT
+  when slang and surelog both error → counts as agreement) and UVM tags.
+- Goals: (1) zero exporter crashes on everything slang accepts; (2) dump
+  identity wherever surelog also succeeds; (3) publish an agreement matrix
+  (slang vs surelog accept/reject/identical) — doubles as a compliance
+  cross-check and will surface slang/Surelog discrepancies worth upstream
+  reports.
+
+## 5. After convergence (flow closure, from Part I)
+
+Build uhdm2rtlil and run its test_uhdm_workflow.sh + triage_cosim.py with
+slang-produced .uhdm on the converged corpus (expected formality); rebuild
+sv-pathfinder's addon against UHDM v1.86 and load a slang-produced
+navigation DB (the deliberately-last step).
+
+## 6. Risks
+
+- B2 parameterized-def folded shape may be the largest quirk cluster —
+  study goldens before implementing.
+- E4 interfaces are intricate in UHDM; uhdm2rtlil's importer tolerances
+  may allow a waiver-first approach there.
+- Some DIFFs will be genuine Surelog defects; the waiver policy keeps the
+  "converged" claim honest without chasing bug-for-bug absurdities.
