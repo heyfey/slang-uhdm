@@ -708,3 +708,17 @@ Rules landed (each probed against goldens):
 - Top-var concatenation initializers ({a,b}) emit as vpiExpr (concat op,
   self-parenting at the var); operands stay UNparented (don't force-parent
   concat inits, only bare literals).
+
+## array_var for unpacked-array signals (r84)
+- Module-level unpacked array (logic a[1:0][2:0]): INSTANCE view emits an
+  array_var (loc=name span) {vpiSize=product of dim widths, vpiRandType:1,
+  vpiVisibility:1, vpiArrayType:1, ts ref -> array_typespec (NO loc/children),
+  one Range per unpacked dim (bounds = ConstantRange UINT consts parented at
+  the range, loc from the declarator dimension syntax + left/right expr
+  spans), Variables = one inner logic_var (the "vpiReg", loc=name span) whose
+  ts ref -> the ELEMENT logic_typespec (element-only span), and the element
+  ts parents at the INNER LOGIC_VAR (not its ref).
+- DEF view keeps `a` as a plain logic_net; its typespec span reaches the END
+  OF THE FIRST unpacked dimension (element-span + first dim close), not the
+  whole decl (materializeDefNetTs extends VpiEndLine/Col).
+- emitArrayVar (TypeEmit) reuses the shared net ts as the element ts.

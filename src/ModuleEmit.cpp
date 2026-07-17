@@ -475,6 +475,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         if (!ts)
             ts = sharedTypespec(*it.sym, netTs);
+        // Unpacked-array signals: the instance view is an array_var (ranges
+        // per unpacked dim, an inner reg carrying the element typespec, an
+        // array_typespec). The def view keeps the plain net (see below).
+        if (auto* av = emitArrayVar(*it.sym, name, fullName, m, ts)) {
+            topNets[it.sym] = av;
+            sigOrder.emplace_back(it.sym, av);
+            vars->push_back(av);
+            continue;
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName);
         rt->Actual_typespec(ts);
@@ -982,6 +991,23 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     }
     if (!ts)
         ts = makeTypespec(*pn.sym);
+    // Unpacked-array def-view nets: the typespec span reaches the end of the
+    // FIRST unpacked dimension (Surelog's element-span-plus-first-dim).
+    if (auto dt3 = pn.sym->getDeclaredType()) {
+        if (dt3->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType &&
+            ts->VpiName().empty()) {
+            if (auto dsyn = pn.sym->getSyntax();
+                dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+                auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+                if (!dd.dimensions.empty()) {
+                    auto de = dd.dimensions[0]->sourceRange().end();
+                    ts->VpiEndLineNo(sm->getLineNumber(de));
+                    ts->VpiEndColumnNo(sm->getColumnNumber(de));
+                }
+            }
+        }
+    }
     // Initialized decls extend the def-view typespec through the init.
     if (auto dtl = pn.sym->getDeclaredType();
         dtl && dtl->getInitializer() && ts->VpiName().empty()) {

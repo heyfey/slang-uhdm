@@ -730,4 +730,102 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
     }
 }
 
+UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string& name,
+                                            const std::string& fullName, UHDM::module_inst* m,
+                                            UHDM::typespec* elemTs) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    auto& ct = declared->getType().getCanonicalType();
+    if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType)
+        return nullptr;
+
+    auto* av = s.MakeArray_var();
+    av->VpiName(name);
+    av->VpiFullName(fullName);
+    av->VpiParent(m);
+    setLoc(av, nameSpan(sym.location, sym.name));
+    av->VpiRandType(1);
+    av->VpiVisibility(1);
+    av->VpiArrayType(1);
+
+    // Total element count = product of the unpacked dimension widths.
+    int32_t total = 1;
+    for (const Type* t = &declared->getType().getCanonicalType();
+         t->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType;) {
+        auto& ua = t->getCanonicalType().as<FixedSizeUnpackedArrayType>();
+        total *= (int32_t)ua.range.width();
+        t = &ua.elementType;
+    }
+    av->VpiSize(total);
+
+    // array_typespec (unlocated, no children).
+    auto* ats = s.MakeArray_typespec();
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(fullName);
+    art->VpiParent(av);
+    art->Actual_typespec(ats);
+    av->Typespec(art);
+
+    // Ranges: one per unpacked dim, from the declarator's dimension syntax
+    // (bounds from the type's ConstantRange, loc from the syntax).
+    auto* ranges = s.MakeRangeVec();
+    const syntax::SyntaxNode* dsyn = sym.getSyntax();
+    const Type* dt = &declared->getType().getCanonicalType();
+    if (dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+        auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+        for (auto dim : dd.dimensions) {
+            if (dt->getCanonicalType().kind != SymbolKind::FixedSizeUnpackedArrayType)
+                break;
+            auto& ua = dt->getCanonicalType().as<FixedSizeUnpackedArrayType>();
+            auto* r = s.MakeRange();
+            r->VpiParent(av);
+            setLoc(r, dim->sourceRange());
+            const syntax::ExpressionSyntax* leftSyn = nullptr;
+            const syntax::ExpressionSyntax* rightSyn = nullptr;
+            if (dim->specifier &&
+                dim->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier) {
+                auto& sel = *dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+                if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                    leftSyn = rss->left;
+                    rightSyn = rss->right;
+                }
+            }
+            auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) {
+                auto* c = s.MakeConstant();
+                c->VpiParent(r);
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + std::to_string(val));
+                c->VpiConstType(vpiUIntConst);
+                if (es)
+                    setLoc(c, es->sourceRange());
+                return c;
+            };
+            r->Left_expr(mkBound(ua.range.left, leftSyn));
+            r->Right_expr(mkBound(ua.range.right, rightSyn));
+            ranges->push_back(r);
+            dt = &ua.elementType;
+        }
+    }
+    if (!ranges->empty())
+        av->Ranges(ranges);
+
+    // Inner reg: a logic_var carrying the ELEMENT typespec (the shared net
+    // ts already strips the unpacked dims to the element span).
+    auto* reg = s.MakeLogic_var();
+    reg->VpiParent(av);
+    setLoc(reg, nameSpan(sym.location, sym.name));
+    auto* regRt = s.MakeRef_typespec();
+    regRt->VpiFullName(fullName);
+    regRt->VpiParent(reg);
+    regRt->Actual_typespec(elemTs);
+    reg->Typespec(regRt);
+    elemTs->VpiParent(reg);
+    auto* rvars = s.MakeVariablesVec();
+    rvars->push_back(reg);
+    av->Variables(rvars);
+    return av;
+}
+
 } // namespace slang_uhdm

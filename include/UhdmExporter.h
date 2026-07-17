@@ -170,6 +170,10 @@ private:
     /// variables in Surelog's model (int, integer, ...); null if the symbol
     /// stays a net.
     UHDM::variables* makeVar(const slang::ast::Symbol& internal, bool portBacked);
+    // Instance-view array_var for unpacked-array signals (null otherwise).
+    UHDM::array_var* emitArrayVar(const slang::ast::Symbol& sym, const std::string& name,
+                                  const std::string& fullName, UHDM::module_inst* m,
+                                  UHDM::typespec* elemTs);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);
