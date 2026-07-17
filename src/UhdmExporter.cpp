@@ -14,6 +14,7 @@
 #include "slang/ast/Compilation.h"
 #include "slang/ast/TimingControl.h"
 #include "slang/ast/expressions/AssignmentExpressions.h"
+#include "slang/ast/expressions/CallExpression.h"
 #include "slang/ast/expressions/ConversionExpression.h"
 #include "slang/ast/expressions/LiteralExpressions.h"
 #include "slang/ast/expressions/MiscExpressions.h"
@@ -293,8 +294,12 @@ static bool containsOperation(const Expression& expr) {
             return true;
         case ExpressionKind::Conversion: {
             auto& conv = expr.as<ConversionExpression>();
-            return conv.isImplicit() && containsOperation(conv.operand());
+            if (!conv.isImplicit())
+                return true;
+            return containsOperation(conv.operand());
         }
+        case ExpressionKind::Call:
+            return true;
         default:
             return false;
     }
@@ -558,6 +563,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     if (!nets->empty())
         m->Nets(nets);
 
+    // Def-view cont_assigns come before ports (their typespecs precede the
+    // port typespecs in Surelog's arena).
+    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr);
+
     // Def-view ports share one typespec object per declaration (Surelog's
     // TypespecCache behavior), with no parent set.
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
@@ -609,8 +618,6 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst) {
     }
     if (!refmods->empty())
         m->Ref_modules(refmods);
-
-    emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr);
 
     // Processes (collect referenced signals: they drive typespec
     // reparenting in the instance view)
@@ -740,6 +747,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             setLocNamed(n, ps);
             if (int32_t nt = netTypeFor(*internal))
                 n->VpiNetType(nt);
+            if (internal->getDeclaredType() &&
+                internal->getDeclaredType()->getType().isSigned())
+                n->VpiSigned(true);
             rt->VpiParent(n);
             n->Typespec(rt);
             topNets[internal] = n;
@@ -1100,6 +1110,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol) {
     }
 
     auto* ts = s.MakeLogic_typespec();
+    if (declared && declared->getType().isSigned())
+        ts->VpiSigned(true);
     setLoc(ts, range);
 
     // Packed dimensions: one uhdm range per dimension, bounds as evaluated
@@ -1897,8 +1909,81 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& conv = expr.as<ConversionExpression>();
             if (conv.isImplicit())
                 return emitExpr(conv.operand(), parent, prefix, netMap);
-            noteUnsupported("explicit conversion");
-            return nullptr;
+            // Explicit cast: operation(vpiCastOp) with a typespec ref.
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiCastOp);
+            op->VpiParent(parent);
+            setLoc(op, expr.sourceRange);
+            UHDM::typespec* cts = nullptr;
+            // Size casts ("4'(x)") carry an integer_typespec at the size
+            // literal; type casts use the target type's typespec.
+            if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::SignedCastExpression) {
+                noteUnsupported("signed cast form");
+            }
+            if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::CastExpression) {
+                auto& cesyn = expr.syntax->as<syntax::CastExpressionSyntax>();
+                if (cesyn.left->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
+                    auto* its = s.MakeInteger_typespec();
+                    setLoc(its, cesyn.left->sourceRange());
+                    its->VpiValue("INT:" + rawText(cesyn.left->sourceRange()));
+                    cts = its;
+                }
+            }
+            if (!cts) {
+                auto& ct = expr.type->getCanonicalType();
+                if (ct.kind == SymbolKind::PredefinedIntegerType) {
+                    auto* its = s.MakeInt_typespec();
+                    its->VpiSigned(ct.isSigned());
+                    cts = its;
+                }
+                else {
+                    auto* lts = s.MakeLogic_typespec();
+                    cts = lts;
+                }
+                if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::CastExpression)
+                    setLoc(cts, expr.syntax->as<syntax::CastExpressionSyntax>().left->sourceRange());
+            }
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix);
+            rt->VpiParent(op);
+            rt->Actual_typespec(cts);
+            // Re-elaborated contexts parent the cast typespec at its ref.
+            if (reemitting)
+                cts->VpiParent(rt);
+            op->Typespec(rt);
+            auto* operands = s.MakeAnyVec();
+            if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
+                operands->push_back(e);
+            op->Operands(operands);
+            return op;
+        }
+        case ExpressionKind::Call: {
+            auto& call = expr.as<CallExpression>();
+            if (!call.isSystemCall()) {
+                noteUnsupported("user function call");
+                return nullptr;
+            }
+            auto* sc = s.MakeSys_func_call();
+            std::string name = std::string(call.getSubroutineName());
+            if (name.empty() || name[0] != '$')
+                name = "$" + name;
+            sc->VpiName(name);
+            sc->VpiParent(parent);
+            setLoc(sc, SourceRange(expr.sourceRange.start(),
+                                   expr.sourceRange.start() + name.size()));
+            auto* args = s.MakeAnyVec();
+            // Call arguments don't count as instance-view references for
+            // typespec reparenting.
+            auto* savedCollector = refCollector;
+            refCollector = nullptr;
+            for (auto arg : call.arguments()) {
+                if (auto* a = emitExpr(*arg, sc, prefix, netMap))
+                    args->push_back(a);
+            }
+            refCollector = savedCollector;
+            if (!args->empty())
+                sc->Tf_call_args(args);
+            return sc;
         }
         case ExpressionKind::Concatenation: {
             auto& ce = expr.as<ConcatenationExpression>();
