@@ -1259,3 +1259,27 @@ discriminator here (unlike the r159 member-prefix rule). Likely port-vs-internal
 (TypedefOnFileLevel's o is an output PORT; the regressors use internal struct
 signals) but unverified. Reverted. TypedefOnFileLevel also has a pre-existing
 missing cont_assign (assign o.x=10 dropped in the top view). Left as conditional.
+
+## Vector-typedef UNSUP cluster — NOT a clean lever (investigated, deferred)
+The ~20 "packed array without integer type syntax" UNSUP tests are heterogeneous
+mini-features, NOT one fix:
+- ~10 need PACKAGE typedef emission (my_pkg::word; emitPackage emits only params+
+  task_funcs today). Needs pkg::-prefixed + doubled-name struct/enum/vector typedefs.
+- packed-array-of-vector-typedef (word[1:0], reg8_t[0:3]): golden shape DIFFERS by
+  context - a FUNCTION RETURN word[1:0] is a packed_array_var (range [1:0] +
+  logic_typespec element); a SIGNAL array wants packed_array_typespec (Elem->the
+  vector typedef's logic_typespec). The r138 packed_array_typespec branch only
+  matches struct/enum leaves; extending to vector-typedef leaves needs a
+  NON-canonical walk to stop at the vector TypeAlias (not descend to logic).
+- typedef struct{}[N] (TypedefStructArray): packed-array-of-ANONYMOUS-struct - the
+  leaf struct isn't in typedefTs.
+- parameter type T = logic[8:0] (TypeParameterAsPortType): TYPE PARAMETERS.
+- nested unpacked/packed typedefs (unpacked_struct_array_typedef).
+The common makeTypespec bail (TypeEmit ~401) returns a rangeless logic_typespec +
+noteUnsupported; a best-effort range fill would move UNSUP->DIFF but with large
+diffs (golden wants packed_array_var/packed_array_typespec, not a ranged
+logic_typespec). CONCLUSION: no single lever; each sub-feature is 1-3 tests of
+bespoke work. LESSON (3rd time: packed_array_var, struct_var, vector-typedef):
+late-stage "clusters" are per-test fiddly work; the only real multi-test lever
+left is INTERFACES (45, ArbitrarySymbol) via the templating refactor (high-risk,
+dedicated effort). Reliable value = per-test DIFF/UNSUP pickoffs w/ coherent cause.
