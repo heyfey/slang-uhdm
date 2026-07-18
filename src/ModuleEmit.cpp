@@ -1899,6 +1899,8 @@ static int32_t mapAssertBinOp(slang::ast::BinaryAssertionOperator op) {
 static int32_t mapAssertUnaryOp(slang::ast::UnaryAssertionOperator op) {
     using O = slang::ast::UnaryAssertionOperator;
     switch (op) {
+        // Surelog encodes property `not` as opType 15 (matches its output).
+        case O::Not: return 15;
         case O::NextTime: return vpiNexttimeOp;
         case O::SNextTime: return vpiNexttimeOp;
         case O::Always: return vpiAlwaysOp;

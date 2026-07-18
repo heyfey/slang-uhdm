@@ -883,3 +883,12 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   (Surelog builds it in the enclosing context) - pass `parent` not `op`.
   Other binary ops parent both operands at themselves.
 - Converged: sva_throughout, sva_value_change_rose (+ earlier basics).
+
+## Property not + typed localparams (r98)
+- Property `not` -> operation opType 15 (Surelog's encoding, NOT vpiNotOp 3);
+  unary, one operand. (sva_not converges.)
+- Explicitly-TYPED localparams (localparam integer/int/byte X = ...) get a
+  value + typespec like non-local params (gate: !isLocal || funcScope ||
+  typedParam). makeParamTs picks the typespec CLASS from the integer kind
+  (integer->integer_typespec, shortint/longint/byte/time -> their _typespec,
+  else int_typespec); ranges only on the int_typespec (untyped) path.

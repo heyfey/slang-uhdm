@@ -63,12 +63,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
             }
         }
+        bool typedParam = false;
+        if (auto declared = ps.getDeclaredType()) {
+            if (auto tsyn = declared->getTypeSyntax())
+                typedParam = tsyn->kind != syntax::SyntaxKind::ImplicitType;
+        }
         bool wantTs = false;
         if (isLocal)
             up->VpiLocalParam(true);
-        // Function-scope localparams are valued and typed like module
-        // non-local params.
-        if (!isLocal || funcScope) {
+        // Function-scope and explicitly-TYPED localparams are valued and
+        // typed like module non-local params.
+        if (!isLocal || funcScope || typedParam) {
             // Params with non-literal initializers carry no value string.
             // Values derive from the DEFAULT initializer even when
             // overridden.
@@ -139,11 +144,6 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ps.getType().getCanonicalType().isSigned())
                     up->VpiSigned(true);
             }
-        }
-        bool typedParam = false;
-        if (auto declared = ps.getDeclaredType()) {
-            if (auto tsyn = declared->getTypeSyntax())
-                typedParam = tsyn->kind != syntax::SyntaxKind::ImplicitType;
         }
         UHDM::ref_typespec* prt = nullptr;
         if (wantTs) {
@@ -356,10 +356,54 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             }
         }
     }
-    auto* its = s.MakeInt_typespec();
-    // Untyped parameters carry no signedness flag.
-    if (typedParam)
-        its->VpiSigned(ps.getType().getCanonicalType().isSigned());
+    // The typespec class follows the declared integer kind (integer -> an
+    // integer_typespec, etc.); untyped params default to int_typespec.
+    UHDM::typespec* its = nullptr;
+    bool sgn = ps.getType().getCanonicalType().isSigned();
+    if (typedParam) {
+        auto& ct = ps.getType().getCanonicalType();
+        if (ct.kind == SymbolKind::PredefinedIntegerType) {
+            switch (ct.as<PredefinedIntegerType>().integerKind) {
+                case PredefinedIntegerType::Integer: {
+                    auto* t = s.MakeInteger_typespec();
+                    t->VpiSigned(sgn);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::ShortInt: {
+                    auto* t = s.MakeShort_int_typespec();
+                    t->VpiSigned(sgn);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::LongInt: {
+                    auto* t = s.MakeLong_int_typespec();
+                    t->VpiSigned(sgn);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::Byte: {
+                    auto* t = s.MakeByte_typespec();
+                    t->VpiSigned(sgn);
+                    its = t;
+                    break;
+                }
+                case PredefinedIntegerType::Time:
+                    its = s.MakeTime_typespec();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    UHDM::int_typespec* intTs = nullptr;
+    if (!its) {
+        intTs = s.MakeInt_typespec();
+        // Untyped parameters carry no signedness flag.
+        if (typedParam)
+            intTs->VpiSigned(sgn);
+        its = intTs;
+    }
     setLoc(its, tr);
     // Untyped params with based-literal inits gain a bare [w-1:0] range
     // (loc-less, value-only INT constants).
@@ -382,7 +426,8 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                 r->Right_expr(mkBound(0));
                 auto* rv = s.MakeRangeVec();
                 rv->push_back(r);
-                its->Ranges(rv);
+                if (intTs)
+                    intTs->Ranges(rv);
             }
         }
     }
