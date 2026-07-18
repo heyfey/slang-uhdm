@@ -1195,3 +1195,16 @@ interface_inst; guard the module-only Modules()/Ref_modules() with if constexpr)
 Only ~3 port-less tests convert from this alone (InterfaceVariable, InterfaceParameter,
 InterfaceWithPort?); the other ~58 need InterfacePort + modports (mine still emits
 "unsupported: port kind InterfacePort"). Foundational but big; do as a focused task.
+
+## r145+ — sys-func result typespec share blocked on port-net typespec
+OneSysFunc/Clog2OfSum: after the r145 $signed/$unsigned share, the sys_func_call
+still needs a result vpiTypespec = a module-prefixed ref_typespec whose ACTUAL is
+the LHS net's SHARED logic_typespec (Surelog reuses one object; a fresh
+makeTypespec gives the right content+loc but a TAIL DUPLICATE -> CMP_ONLY, 3-line
+diff, not byte-exact). Tried: deferred bind to netMap[lsym]->Typespec()->Actual.
+FAILS because the LHS is an OUTPUT PORT and port nets DON'T get n->Typespec() set
+(ModuleEmit.cpp ~line 67 `if (!it.port && !implicitNet)`); the port's typespec
+lives on the PORT object (emitTopPorts), resolved on the net by fullname weak-ref.
+To finish: reach the port's typespec actual (look up b's def PORT via
+di->mod->Ports() by name, take Typespec()->Actual_typespec()) and point the
+sys_func_call ref_typespec at it - deferred, after emitTopPorts. Then both convert.
