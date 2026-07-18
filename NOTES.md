@@ -947,3 +947,9 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
 - partsel_simple remains CMP_ONLY: a 6-line arena-tail quirk in whether the
   module net's typespec keeps its logic_net parent for an operation-RHS fresh
   net (unparent applies for literal/select cases, not this one - unresolved).
+
+## Compound assignments (r103)
+- o += 10 / a <<= 1: emitted as an assignment whose OP TYPE is the compound
+  operator (mapBinaryOp: Add->24 etc.), Rhs = the VALUE operand only (the
+  implicit LValueReference self-ref in slang's `LValueRef op value` RHS is
+  dropped - pick the non-LValueReference operand). isCompound()/ae.op.

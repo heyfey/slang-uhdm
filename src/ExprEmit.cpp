@@ -82,7 +82,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         case ExpressionKind::Assignment: {
             auto& ae = expr.as<AssignmentExpression>();
             auto* asn = s.MakeAssignment();
-            asn->VpiOpType(kVpiAssignmentOp);
+            // Compound assignments (o += 10) carry the operator as the
+            // assignment op type; the Rhs is the value operand (the implicit
+            // LValueReference self-reference is dropped).
+            const Expression* rhsExpr = &ae.right();
+            if (ae.isCompound() && ae.op) {
+                asn->VpiOpType(mapBinaryOp(*ae.op));
+                auto& rc = stripImplicitConv(ae.right());
+                if (rc.kind == ExpressionKind::BinaryOp) {
+                    auto& be = rc.as<BinaryExpression>();
+                    rhsExpr = stripImplicitConv(be.left()).kind ==
+                                      ExpressionKind::LValueReference
+                                  ? &be.right()
+                                  : &be.left();
+                }
+            }
+            else {
+                asn->VpiOpType(kVpiAssignmentOp);
+            }
             asn->VpiBlocking(!ae.isNonBlocking());
             asn->VpiParent(parent);
             setLoc(asn, expr.sourceRange);
@@ -90,7 +107,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* lhs = emitExpr(ae.left(), asn, prefix, netMap))
                 asn->Lhs((UHDM::expr*)lhs);
             inLhs = false;
-            if (auto* rhs = emitExpr(ae.right(), asn, prefix, netMap))
+            if (auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap))
                 asn->Rhs(rhs);
             // Intra-assignment delay ("state <= #1 next;").
             if (ae.timingControl && ae.timingControl->kind == TimingControlKind::Delay) {
