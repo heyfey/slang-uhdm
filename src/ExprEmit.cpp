@@ -123,8 +123,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* lhs = emitExpr(ae.left(), asn, prefix, netMap))
                 asn->Lhs((UHDM::expr*)lhs);
             inLhs = false;
-            if (auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap))
+            if (auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap)) {
+                // In a FUNCTION body, an unbased-unsized '0/'1/'x RHS takes the
+                // LHS width (an always-block leaves it unsized). Only the direct
+                // assignment RHS is sized, not '0 as an operation operand.
+                if (currentSubSym && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ((UHDM::expr*)rhs)->VpiSize() == -1 &&
+                    stripImplicitConv(*rhsExpr).kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    int32_t w = (int32_t)ae.left().type->getBitWidth();
+                    if (w > 0) {
+                        auto* c = (UHDM::constant*)rhs;
+                        std::string v(c->VpiValue());
+                        char d = v.empty() ? '0' : v.back();
+                        std::string rep((size_t)w, d);
+                        c->VpiSize(w);
+                        c->VpiValue("BIN:" + rep);
+                        c->VpiDecompile(rep);
+                    }
+                }
                 asn->Rhs(rhs);
+            }
             // Intra-assignment delay ("state <= #1 next;").
             if (ae.timingControl && ae.timingControl->kind == TimingControlKind::Delay) {
                 auto& delay = ae.timingControl->as<DelayControl>();
