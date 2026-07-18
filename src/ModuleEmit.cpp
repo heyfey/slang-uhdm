@@ -982,8 +982,9 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + "." + std::string(ps.name));
             rt->VpiParent(up);
-            // Actual int_typespec created at the end of the write phase.
-            pendingIoTs.push_back({rt, rt});
+            // Actual int_typespec created LAST in the write phase (after any
+            // gen-scope net-decl typespecs).
+            pendingGenvarTs.push_back(rt);
             up->Typespec(rt);
             params->push_back(up);
         }
@@ -992,24 +993,79 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
 
         // Local nets declared inside the block (wire tmp; ...).
         auto* gnets = s.MakeNetVec();
+        std::vector<UHDM::cont_assign*> ndaCas;
         for (auto& gm : blk.members()) {
             if (gm.kind != SymbolKind::Net)
                 continue;
+            std::string nfull = fullName + "." + std::string(gm.name);
             auto* n = s.MakeLogic_net();
             n->VpiName(gm.name);
-            n->VpiFullName(fullName + "." + std::string(gm.name));
+            n->VpiFullName(nfull);
             n->VpiParent(gs);
             setLoc(n, nameSpan(gm.location, gm.name));
-            if (int32_t nt = netTypeFor(gm))
+            int32_t nt = netTypeFor(gm);
+            if (nt)
                 n->VpiNetType(nt);
+            auto* dt = gm.getDeclaredType();
+            bool hasInit = dt && dt->getInitializer();
             auto* rt = s.MakeRef_typespec();
-            rt->VpiFullName(fullName + "." + std::string(gm.name));
+            rt->VpiFullName(nfull);
             rt->VpiParent(n);
             auto* ats = makeTypespec(gm);
-            ats->VpiParent(n);
+            // A net-decl-assign net's list typespec loses its net parent (the
+            // fresh Lhs net carries the parented one); a plain net keeps it.
+            if (!hasInit)
+                ats->VpiParent(n);
             rt->Actual_typespec(ats);
             n->Typespec(rt);
             gnets->push_back(n);
+            // A net-declaration initializer (wire z = '1;) becomes a
+            // net-decl-assign cont_assign with a FRESH Lhs net (own deferred
+            // typespec), like the module-level net-decl-assign.
+            if (hasInit) {
+                auto* ca = s.MakeCont_assign();
+                ca->VpiParent(gs);
+                ca->VpiNetDeclAssign(true);
+                setLoc(ca, nameSpan(gm.location, gm.name));
+                bool fcp = forceConstParent;
+                forceConstParent = true;
+                if (auto* rhs = emitExpr(*dt->getInitializer(), ca, fullName, netMap)) {
+                    if (rhs->UhdmType() == UHDM::uhdmconstant) {
+                        auto* c = (UHDM::constant*)rhs;
+                        int32_t w = (int32_t)dt->getType().getBitWidth();
+                        if (c->VpiSize() == 64)
+                            c->VpiSize(w);
+                        else if (c->VpiSize() == -1) {
+                            // Unbased-unsized ('1/'0) folds to the net width, UINT.
+                            ASTContext actx(comp.getRoot(), LookupLocation::max);
+                            auto cv = actx.tryEval(*dt->getInitializer());
+                            if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                                std::string d = cv.integer().toString(LiteralBase::Decimal, false);
+                                c->VpiValue("UINT:" + d);
+                                c->VpiDecompile(d);
+                                c->VpiSize(w);
+                                c->VpiConstType(vpiUIntConst);
+                            }
+                        }
+                    }
+                    ca->Rhs((UHDM::expr*)rhs);
+                }
+                forceConstParent = fcp;
+                auto* lnet = s.MakeLogic_net();
+                lnet->VpiName(gm.name);
+                lnet->VpiFullName(nfull);
+                lnet->VpiParent(ca);
+                if (nt)
+                    lnet->VpiNetType(nt);
+                setLoc(lnet, nameSpan(gm.location, gm.name));
+                auto* lrt = s.MakeRef_typespec();
+                lrt->VpiFullName(nfull);
+                lrt->VpiParent(lnet);
+                lnet->Typespec(lrt);
+                pendingNetDeclTs.push_back({lrt, &gm});
+                ca->Lhs(lnet);
+                ndaCas.push_back(ca);
+            }
         }
         if (!gnets->empty())
             gs->Nets(gnets);
@@ -1021,8 +1077,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
             emitTaskFuncs(blk, gs, fullName, &genInfo);
         }
 
-        // Contents: cont_assigns and processes with gen-scoped prefixes.
+        // Contents: net-decl-assigns first, then explicit cont_assigns and
+        // processes with gen-scoped prefixes.
         auto* cas = s.MakeCont_assignVec();
+        for (auto* nca : ndaCas)
+            cas->push_back(nca);
         for (auto& gm : blk.members()) {
             if (gm.kind != SymbolKind::ContinuousAssign)
                 continue;
@@ -1381,6 +1440,10 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         rt->Actual_typespec(fts);
     }
     pendingNetDeclTs.clear();
+    // Gen-scope genvar int_typespecs are the very last arena objects.
+    for (auto* rt : pendingGenvarTs)
+        rt->Actual_typespec(s.MakeInt_typespec());
+    pendingGenvarTs.clear();
 
     // Orphan pattern first-compiles (share the def operands).
     for (auto& po : pendingPatternOrphans) {

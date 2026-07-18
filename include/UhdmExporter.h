@@ -343,6 +343,8 @@ private:
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;
+    // Gen-scope genvar param int_typespecs drain LAST (after net-decl typespecs).
+    std::vector<UHDM::ref_typespec*> pendingGenvarTs;
     const slang::ast::Symbol* funcRetSym = nullptr;
     std::vector<UHDM::ref_obj*>* funcRetRefs = nullptr;
     // In shared processes, only call-argument refs count for var typespec
