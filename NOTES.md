@@ -929,3 +929,10 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   decompile 'X) - not just in params/net-decl-assigns. The param unknown-
   default code now detects xXzZ (emitExpr already uppercases).
 - sva_value_change_changed(_wide) converge.
+
+## Net-decl-assign literal-vs-expr Lhs (r101)
+- LITERAL RHS (wire x = 'x/5): Lhs is a FRESH net (own deferred typespec) -
+  netlist re-elaboration. Non-literal RHS (wire y = sel[0]): Lhs REUSES the
+  module net (bare back-reference).
+- EITHER way, the module-list net's typespec loses its parent (added to
+  lhsSyms). signed_partsel_ext converges.

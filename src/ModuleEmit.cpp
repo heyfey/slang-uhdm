@@ -1386,29 +1386,32 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         if (auto* rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap))
             ca->Rhs((UHDM::expr*)rhs);
         forceConstParent = fcp;
-        // The Lhs is a FRESH net object (parented at the cont_assign, its own
-        // typespec ref onto the module net's actual typespec) - Surelog does
-        // not reuse the module-list net here.
+        // A LITERAL RHS is netlist-re-elaborated: the Lhs becomes a FRESH net
+        // object (own typespec materialized last) and the module-list net
+        // loses its typespec parent. A non-literal RHS reuses the module net
+        // (a bare back-reference).
         auto* mnet = (UHDM::logic_net*)nit->second;
-        auto* lnet = s.MakeLogic_net();
-        lnet->VpiName(it.sym->name);
-        lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
-        lnet->VpiParent(ca);
-        lnet->VpiNetType(mnet->VpiNetType());
-        setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
-        if (mnet->Typespec() && mnet->Typespec()->Actual_typespec()) {
-            auto* rt = s.MakeRef_typespec();
-            rt->VpiFullName(prefix + "." + std::string(it.sym->name));
-            rt->VpiParent(lnet);
-            // A fresh typespec object (Surelog does not share it with the
-            // module-list net's typespec).
-            lnet->Typespec(rt);
-            // The actual typespec is materialized at the write-phase end.
-            pendingNetDeclTs.push_back({rt, it.sym});
+        if (isLiteralExpr(stripImplicitConv(*dt->getInitializer()))) {
+            auto* lnet = s.MakeLogic_net();
+            lnet->VpiName(it.sym->name);
+            lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
+            lnet->VpiParent(ca);
+            lnet->VpiNetType(mnet->VpiNetType());
+            setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
+            if (mnet->Typespec() && mnet->Typespec()->Actual_typespec()) {
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix + "." + std::string(it.sym->name));
+                rt->VpiParent(lnet);
+                lnet->Typespec(rt);
+                pendingNetDeclTs.push_back({rt, it.sym});
+            }
+            ca->Lhs(lnet);
         }
-        ca->Lhs(lnet);
-        // The module-list net is a cont_assign LHS: its typespec loses its
-        // parent (netlist elaboration re-points it), like other CA LHS nets.
+        else {
+            ca->Lhs((UHDM::expr*)mnet);
+        }
+        // The module-list net's typespec loses its parent (it is a
+        // cont_assign LHS re-elaborated by the netlist pass).
         if (lhsSyms)
             lhsSyms->insert(it.sym);
         cas->push_back(ca);
