@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r149 state)
+# HANDOFF — slang-uhdm convergence campaign (r151 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,8 +13,28 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r149 baseline, committed as results/baseline.csv)
+## Current scoreboard (r151 baseline, committed as results/baseline.csv)
 
+PASS 249 · CMP_ONLY 8 · DIFF 298 · UNSUPPORTED 106 (r151). SESSION r138-r151
+(this session): +11 PASS (238->249), UNSUP 109->106. The PARAM cluster was the
+richest vein: (r147) untyped ranged param int_typespec locates at its range span;
+(r148) ranged untyped param carries its packed range (located, range-parented UINT
+bounds) + parents to the parameter [isRangedUntypedParam helper] -> 3 counters PASS;
+(r150) ranged untyped LOCALPARAMs are valued+typed like non-locals -> 2 more PASS;
+(r151) untyped params carry a typespec ONLY for LITERAL inits (computed $clog2(W)/
+2**S get none) - broad diff reduction. Also (r146) $signed/$unsigned sys_func_call
+result typespec shares the LHS PORT typespec; (r149) inline anon enum bare base
+ref_typespec (gated implicitBaseRef).
+REMAINING DIFF are consistently: weakly-ref-actual (a ref's vpiActual resolves to a
+later indexed_part_select/bit_select by fullname collision - func_output_arg,
+sign_part_assign, multiple_blocking, CellNamedLikeModule); context-dependent
+unbased-unsized encoding ('0/'1/'x/'z as typed-param/int-var values need a constant
+typespec + BIN encoding - UnsizedConstants*, ParameterWithUnderscore); cast folds
+(CastClog2/CastToSum multi-view signedness); big features (interface_inst refactor
+per NOTES, top-view packed_array_var elaboration for DotMultirange). Clog2OfSum (17)
+needs $clog2 result typespec [r146 shape] + fold-const unparented + top-view LHS
+binds def net.
+--- older session summary (r138-r149) below ---
 PASS 247 · CMP_ONLY 8 · DIFF 300 · UNSUPPORTED 106 (r149). SESSION r138-r149
 (this session): +9 PASS (238->247), UNSUP 109->106. Additional landings after r145:
 (r146) $signed/$unsigned sys_func_call result typespec shares the LHS PORT's
