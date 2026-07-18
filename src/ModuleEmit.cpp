@@ -611,6 +611,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             rt->VpiParent(n);
             n->Typespec(rt);
+            // The instance-view net shares the def-view attribute object.
+            if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
+                auto* av = s.MakeAttributeVec();
+                av->push_back(ait->second);
+                n->Attributes(av);
+            }
             // Surelog parents the net typespec at creation; a shared
             // declaration-group typespec ends at the group's last net.
             // Typedef typespecs keep their own parent.
