@@ -1094,3 +1094,23 @@ Each needs a feature or an obscure Surelog quirk; noted so they aren't re-scoute
   type ref) + the top-view cont_assign shared (not re-emitted).
 - UnsizedConstantsParsing: unbased-unsized in int var init is inconsistent in
   Surelog ('0->BIN:0, '1->UINT:4294967295, 'x->BIN:X size -1). Quirky.
+
+## r132 session — additional refined findings
+- MODULE struct-typedef member ref fullname is CONDITIONAL: a struct REFERENCED
+  by another typedef's member gets prefixed fullnames (work@top.alias.member) via
+  the emitTypedefs second loop; a STANDALONE struct stays bare (alias.member).
+  simple_nested_struct_nopack proves this (nested_struct_t standalone -> bare,
+  base_struct_t referenced -> prefixed). BUT StructMemberAsModuleInput/BitsCallOn*
+  want their STANDALONE struct prefixed BECAUSE it's member-accessed via hier_path.
+  So the real condition is "referenced-by-typedef OR member-accessed-by-a-signal".
+- FunctionExportDPI (not converged): a DPI-EXPORT *function* wants its loc at the
+  export DIRECTIVE (comp.getDPIExports()[i].syntax, line 2), NOT the function def -
+  but a DPI-EXPORT *task* (TaskExportDPI, converged) uses the def loc. Also a
+  DPI-IMPORT function returning a type needs a synthesized return var (int_var) even
+  though sub.returnValVar is null (no body).
+- CppMacroNameAsVariableName: `assign o = VAR` where VAR is a constant-init module
+  var (never procedurally written) -> Surelog folds to the init constant in the top
+  view (like the typed-param fold). slang won't tryEval a var ref; needs a manual
+  init-value fold gated on "no non-init writes".
+- ParameterWithUnderscore...: param `'x` default decompiles as 'bX (based) in
+  Surelog, mine gives 'X; plus a spurious vpiTypespec on the param value constant.
