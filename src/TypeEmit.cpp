@@ -365,20 +365,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (auto* e = emitSyntaxExpr(*bsyn, r))
                                 return (UHDM::expr*)e;
                         }
-                        // Module context: folded to an INT constant anchored
-                        // at the top operator's LEFT operand span.
+                        // Module context: a bare reference bound ([i:i]) folds
+                        // to a UINT value-constant at its token; only an
+                        // OPERATION bound (N-1) folds to an INT anchored at the
+                        // operator's LEFT operand span.
                         auto* c = s.MakeConstant();
                         c->VpiParent(r);
                         c->VpiSize(64);
-                        c->VpiConstType(vpiIntConst);
                         std::string digits = std::to_string(value);
-                        c->VpiValue("INT:" + digits);
                         c->VpiDecompile(digits);
-                        if (syntax::BinaryExpressionSyntax::isKind(bsyn->kind))
+                        if (syntax::BinaryExpressionSyntax::isKind(bsyn->kind)) {
+                            c->VpiConstType(vpiIntConst);
+                            c->VpiValue("INT:" + digits);
                             setLoc(c, bsyn->as<syntax::BinaryExpressionSyntax>()
                                           .left->sourceRange());
-                        else
+                        }
+                        else {
+                            c->VpiConstType(vpiUIntConst);
+                            c->VpiValue("UINT:" + digits);
                             setLoc(c, bsyn->getFirstToken().range());
+                        }
                         return c;
                     };
                     r->Left_expr(emitBound(lsyn, dims[i].left));
