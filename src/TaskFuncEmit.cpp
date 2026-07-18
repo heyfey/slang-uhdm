@@ -81,6 +81,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             auto* rv = makeReturnVar(s, sub.getReturnType());
             rv->VpiFullName(fullName);
             rv->VpiParent(tf);
+            // An IMPLICIT return type ("function f;") yields a bare return var:
+            // no typespec, no location.
+            bool implicitRet = false;
+            if (auto* rsyn = returnTypeSyntax(sub)) {
+                if (rsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                    auto& its = rsyn->as<syntax::ImplicitTypeSyntax>();
+                    implicitRet = its.dimensions.empty() && !its.signing.valid();
+                }
+            }
+            else {
+                implicitRet = true;
+            }
+            if (implicitRet) {
+                ((UHDM::function*)tf)->Return(rv);
+            }
+            else {
             // Struct-typed returns reference the shared struct typedef
             // (matched by canonical type since the return type may be a
             // distinct alias instance).
@@ -117,6 +133,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 copyLoc(rv, ts);
             }
             ((UHDM::function*)tf)->Return(rv);
+            }
         }
 
         auto* ios = s.MakeIo_declVec();
