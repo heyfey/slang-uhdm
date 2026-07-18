@@ -85,6 +85,10 @@ inline const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) 
 // keywords map to their vpi net types.
 inline int32_t netTypeFor(const Symbol& internal) {
     if (internal.kind == SymbolKind::Net) {
+        // Implicitly-declared nets (created by an undeclared name in an assign
+        // or port connection) print as a bare wire.
+        if (internal.as<NetSymbol>().isImplicit)
+            return vpiWire;
         // Explicit net declarations ("wire w;") and ANSI net-port headers
         // ("input wire x") carry the net kind; implicit port-backed nets do
         // not print a net type.

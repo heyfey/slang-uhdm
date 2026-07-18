@@ -448,9 +448,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 c->VpiConstType(vpiUIntConst);
             }
             else {
-                // Unsized based literals ('h1) size like unbased-unsized.
-                if (tick == 0)
-                    c->VpiSize(-1);
+                // Unsized based literals ('b0, 'h1): -1 in most contexts
+                // (operands, procedural/net-decl assignment RHS), but no
+                // explicit size (0) as a BARE continuous-assignment RHS.
+                if (tick == 0) {
+                    bool bareContAssign =
+                        parent && parent->UhdmType() == UHDM::uhdmcont_assign &&
+                        !((UHDM::cont_assign*)parent)->VpiNetDeclAssign();
+                    c->VpiSize(bareContAssign ? 0 : -1);
+                }
                 size_t basePos = tick + 1;
                 if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))
                     basePos++;

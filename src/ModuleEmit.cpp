@@ -61,7 +61,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
         if (int32_t nt = netTypeFor(*it.sym))
             n->VpiNetType(nt);
-        if (!it.port) {
+        // Implicit nets print no typespec.
+        bool implicitNet = it.sym->kind == SymbolKind::Net &&
+                           it.sym->as<NetSymbol>().isImplicit;
+        if (!it.port && !implicitNet) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
             auto* rt = s.MakeRef_typespec();
@@ -515,10 +518,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
+        // Implicit nets carry no typespec (and print a bare wire net type).
+        bool implicitNet = it.sym->kind == SymbolKind::Net &&
+                           it.sym->as<NetSymbol>().isImplicit;
         // Vector-typedef signals bind a fresh plain NAMED clone (built at
         // net-emission time, no alias link).
         UHDM::typespec* ts = nullptr;
-        if (auto dtv = it.sym->getDeclaredType()) {
+        if (auto dtv = it.sym->getDeclaredType(); dtv && !implicitNet) {
             auto& tv = dtv->getType();
             if (typedefClone.count(&tv)) {
                 const syntax::SyntaxNode* targetSyn = nullptr;
@@ -532,20 +538,24 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 ts->VpiName(tv.name);
             }
         }
-        if (!ts)
+        if (!ts && !implicitNet)
             ts = sharedTypespec(*it.sym, netTs);
         // Unpacked-array signals: the instance view is an array_var (ranges
         // per unpacked dim, an inner reg carrying the element typespec, an
         // array_typespec). The def view keeps the plain net (see below).
-        if (auto* av = emitArrayVar(*it.sym, name, fullName, m, ts)) {
+        if (auto* av = implicitNet ? nullptr
+                                   : emitArrayVar(*it.sym, name, fullName, m, ts)) {
             topNets[it.sym] = av;
             sigOrder.emplace_back(it.sym, av);
             vars->push_back(av);
             continue;
         }
-        auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(fullName);
-        rt->Actual_typespec(ts);
+        UHDM::ref_typespec* rt = nullptr;
+        if (!implicitNet) {
+            rt = s.MakeRef_typespec();
+            rt->VpiFullName(fullName);
+            rt->Actual_typespec(ts);
+        }
         if (auto* v = makeVar(*it.sym, /*portBacked=*/it.port != nullptr)) {
             v->VpiName(name);
             v->VpiFullName(fullName);
@@ -652,8 +662,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     it.sym->getDeclaredType()->getType().isSigned())
                     n->VpiSigned(true);
             }
-            rt->VpiParent(n);
-            n->Typespec(rt);
+            if (rt) {
+                rt->VpiParent(n);
+                n->Typespec(rt);
+            }
             // The instance-view net shares the def-view attribute objects.
             if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
                 auto* av = s.MakeAttributeVec();
@@ -664,7 +676,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // Surelog parents the net typespec at creation; a shared
             // declaration-group typespec ends at the group's last net.
             // Typedef typespecs keep their own parent.
-            if (ts->UhdmType() != UHDM::uhdmenum_typespec &&
+            if (ts && ts->UhdmType() != UHDM::uhdmenum_typespec &&
                 ts->UhdmType() != UHDM::uhdmstruct_typespec)
                 ts->VpiParent(n);
             topNets[it.sym] = n;
