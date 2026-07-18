@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r92 state)
+# HANDOFF — slang-uhdm convergence campaign (r94 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,9 +13,9 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r92 baseline, committed as results/baseline.csv)
+## Current scoreboard (r94 baseline, committed as results/baseline.csv)
 
-PASS 184 · CMP_ONLY 2 · DIFF 325 · UNSUPPORTED 150 (r92). Session 5 third
+PASS 186 · CMP_ONLY 2 · DIFF 323 · UNSUPPORTED 150 (r94). Also landed r93-r94: assignment-pattern fold to based constant + numeric-index integer_typespec tags (PatternDefault/PatternIndexes converge). Session 5 third
 stretch (r82-r92) landed: var_select flattening (nested element selects,
 range/part-select of element-select bases), array_var/array_typespec for
 unpacked-array signals (element types, pattern inits, io_decl ranges),
