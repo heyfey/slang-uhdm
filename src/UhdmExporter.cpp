@@ -257,6 +257,18 @@ UHDM::design* UhdmExporter::exportDesign() {
             ref->Actual_group(eit->second);
     pendingEnumRefs.clear();
 
+    // $signed/$unsigned result typespecs: share the LHS port's actual typespec
+    // (no tail duplicate); fall back to a fresh one for non-port LHSs.
+    for (auto& p : pendingSysFuncTs) {
+        UHDM::typespec* act = nullptr;
+        if (p.mod && p.mod->Ports())
+            for (auto* pt : *p.mod->Ports())
+                if (pt->VpiName() == p.sym->name && pt->Typespec())
+                    act = pt->Typespec()->Actual_typespec();
+        p.rt->Actual_typespec(act ? act : makeTypespec(*p.sym));
+    }
+    pendingSysFuncTs.clear();
+
     d->TopModules(topMods);
 
     s.MakeUhdmHandle(UHDM::uhdmdesign, d);

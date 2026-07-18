@@ -299,6 +299,14 @@ private:
     // Refs to enum values whose enum_const is built later (anonymous enums,
     // materialized in the deferred typespec pass) are bound at the very end.
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>> pendingEnumRefs;
+    // $signed/$unsigned sys_func_call result typespecs share the LHS port's
+    // (deferred) actual typespec; fall back to a fresh typespec if unresolved.
+    struct PendingSysFuncTs {
+        UHDM::ref_typespec* rt;
+        UHDM::module_inst* mod;
+        const slang::ast::Symbol* sym;
+    };
+    std::vector<PendingSysFuncTs> pendingSysFuncTs;
     std::map<const slang::ast::Symbol*, std::vector<UHDM::attribute*>> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);

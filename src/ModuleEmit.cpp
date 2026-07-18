@@ -1872,6 +1872,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
+        // A $signed/$unsigned sys_func_call carries a result typespec (= the
+        // LHS type) via a module-prefixed ref_typespec sharing the LHS port's
+        // actual (bound in the deferred pass so no tail duplicate is minted).
+        if (rhs && rhs->UhdmType() == UHDM::uhdmsys_func_call && defInfo) {
+            auto& rcs = stripImplicitConv(ae.right());
+            if (rcs.kind == ExpressionKind::Call && rcs.as<CallExpression>().isSystemCall()) {
+                auto nm = rcs.as<CallExpression>().getSubroutineName();
+                if (nm == "$signed" || nm == "$unsigned") {
+                    auto& le = stripImplicitConv(ae.left());
+                    if (le.kind == ExpressionKind::NamedValue) {
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiFullName(prefix);
+                        rt->VpiParent(rhs);
+                        ((UHDM::expr*)rhs)->Typespec(rt);
+                        pendingSysFuncTs.push_back(
+                            {rt, defInfo->mod, &le.as<NamedValueExpression>().symbol});
+                    }
+                }
+            }
+        }
         // Re-emitted pattern RHS leaves an orphan first-compile op behind
         // (materialized at the very end of the write phase). A pattern that
         // FOLDS to a constant leaves no orphan.
