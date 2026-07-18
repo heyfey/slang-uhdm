@@ -146,6 +146,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         while (et->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
             et = &et->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
         auto& ct = et->getCanonicalType();
+        if (ct.kind == SymbolKind::FloatingType) {
+            auto* t = s.MakeReal_typespec();
+            setLoc(t, range);
+            return t;
+        }
         if (ct.kind == SymbolKind::PredefinedIntegerType) {
             auto& pit = ct.as<PredefinedIntegerType>();
             UHDM::typespec* its = nullptr;

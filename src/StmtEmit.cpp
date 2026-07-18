@@ -312,8 +312,30 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto& body = bs.body;
             if (body.kind == StatementKind::List) {
                 for (auto st : body.as<StatementList>().list) {
-                    if (st->kind == StatementKind::VariableDeclaration)
+                    if (st->kind == StatementKind::VariableDeclaration) {
+                        // An initialized block-local var emits a blocking
+                        // assignment (var = init) at its declaration site; the
+                        // var re-parents to that assignment.
+                        auto& vs = st->as<VariableDeclStatement>().symbol;
+                        auto* init = vs.getDeclaredType()
+                                         ? vs.getDeclaredType()->getInitializer()
+                                         : nullptr;
+                        auto vit = blockMap.find(&vs);
+                        if (init && vit != blockMap.end()) {
+                            auto* asn = s.MakeAssignment();
+                            asn->VpiOpType(kVpiAssignmentOp);
+                            asn->VpiBlocking(true);
+                            asn->VpiParent(b);
+                            if (auto dsyn = vs.getSyntax())
+                                setLoc(asn, dsyn->sourceRange());
+                            vit->second->VpiParent(asn);
+                            asn->Lhs((UHDM::expr*)vit->second);
+                            if (auto* rhs = emitExpr(*init, asn, innerPrefix, blockMap))
+                                asn->Rhs((UHDM::expr*)rhs);
+                            stmts->push_back(asn);
+                        }
                         continue;
+                    }
                     if (auto* u = emitStmt(*st, b, innerPrefix, blockMap))
                         stmts->push_back(u);
                 }

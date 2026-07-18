@@ -484,6 +484,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             (void)il;
             return c;
         }
+        case ExpressionKind::RealLiteral: {
+            auto& rl = expr.as<RealLiteral>();
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(rawText(expr.sourceRange));
+            c->VpiSize(64);
+            char buf[64];
+            snprintf(buf, sizeof(buf), "%f", rl.getValue());
+            c->VpiValue(std::string("REAL:") + buf);
+            c->VpiConstType(vpiRealConst);
+            setLoc(c, expr.sourceRange);
+            if (forceConstParent ||
+                (!suppressConstParent && parent &&
+                 (parent->UhdmType() == UHDM::uhdmoperation ||
+                  parent->UhdmType() == UHDM::uhdmbit_select)))
+                c->VpiParent(parent);
+            return c;
+        }
         case ExpressionKind::StringLiteral: {
             auto& sl = expr.as<StringLiteral>();
             (void)sl;
