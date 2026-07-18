@@ -8,6 +8,8 @@
 
 #include "EmitHelpers.h"
 
+#include <functional>
+
 namespace slang_uhdm {
 
 UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block,
@@ -86,31 +88,48 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
         }
         case TimingControlKind::EventList: {
             auto& el = tc.as<EventListControl>();
-            auto* op = s.MakeOperation();
-            // "a or b" -> vpiEventOrOp; "a, b" -> vpiListOp. The AST doesn't
-            // keep the separator, so peek at the source between events.
+            // Flatten slang's event nesting to leaves, then rebuild the
+            // Surelog shape: a LEFT-ASSOCIATIVE tree ((a or b) or c), each
+            // operation spanning the first leaf through its last operand.
+            std::vector<const TimingControl*> leaves;
+            std::function<void(const EventListControl&)> collect =
+                [&](const EventListControl& e) {
+                    for (auto ev : e.events) {
+                        if (ev->kind == TimingControlKind::EventList)
+                            collect(ev->as<EventListControl>());
+                        else
+                            leaves.push_back(ev);
+                    }
+                };
+            collect(el);
+            if (leaves.empty())
+                return nullptr;
+            // "a or b" -> vpiEventOrOp; "a, b" -> vpiListOp (source separator).
             int32_t lop = vpiEventOrOp;
-            if (el.events.size() >= 2) {
-                auto between = rawText(SourceRange(el.events[0]->sourceRange.end(),
-                                                   el.events[1]->sourceRange.start()));
+            if (leaves.size() >= 2) {
+                auto between = rawText(SourceRange(leaves[0]->sourceRange.end(),
+                                                   leaves[1]->sourceRange.start()));
                 if (between.find(',') != std::string::npos)
                     lop = vpiListOp;
             }
-            op->VpiOpType(lop);
-            op->VpiParent(parent);
-            // slang's event list range includes the parens; Surelog spans the
-            // events only.
-            if (!el.events.empty()) {
-                setLoc(op, SourceRange(el.events.front()->sourceRange.start(),
-                                       el.events.back()->sourceRange.end()));
-            }
-            auto* operands = s.MakeAnyVec();
-            for (auto ev : el.events) {
-                if (auto* e = emitEventExpr(*ev, op, prefix, netMap))
+            UHDM::any* acc = emitEventExpr(*leaves[0], parent, prefix, netMap);
+            for (size_t i = 1; i < leaves.size(); ++i) {
+                auto* op = s.MakeOperation();
+                op->VpiOpType(lop);
+                op->VpiParent(parent);
+                setLoc(op, SourceRange(leaves[0]->sourceRange.start(),
+                                       leaves[i]->sourceRange.end()));
+                auto* operands = s.MakeAnyVec();
+                if (acc) {
+                    ((UHDM::any*)acc)->VpiParent(op);
+                    operands->push_back(acc);
+                }
+                if (auto* e = emitEventExpr(*leaves[i], op, prefix, netMap))
                     operands->push_back(e);
+                op->Operands(operands);
+                acc = op;
             }
-            op->Operands(operands);
-            return op;
+            return acc;
         }
         default:
             noteUnsupported("timing control: " + std::string(toString(tc.kind)));
