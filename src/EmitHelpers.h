@@ -494,6 +494,9 @@ inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
 // Return-value variables take the class of the function's return type.
 inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) {
     auto& ct = retType.getCanonicalType();
+    if (ct.kind == SymbolKind::PackedStructType ||
+        ct.kind == SymbolKind::UnpackedStructType)
+        return s.MakeStruct_var();
     if (ct.kind == SymbolKind::PredefinedIntegerType) {
         auto& pit = ct.as<PredefinedIntegerType>();
         if (pit.integerKind == PredefinedIntegerType::Int) {

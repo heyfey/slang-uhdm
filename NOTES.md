@@ -972,3 +972,15 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   member typespecs land in source order in the weakly-tail arena), while the
   design Typespecs LIST stays name-sorted (enum_values needs the sorted list).
   simple_struct: 202->86 diff lines.
+
+## Struct-typed function returns (r107)
+- Return var of a struct-typed function is a struct_var (makeReturnVar) whose
+  ref_typespec -> the SHARED struct typedef (matched by canonical type, since
+  the return type may be a distinct alias instance). Its loc = the return-TYPE
+  syntax span (the shared struct typespec sits at the typedef).
+- File-level typedefs are emitted (typedefTs populated) BEFORE the $unit
+  functions, so struct returns can find them.
+- File-level packed struct DESIGN PARENT rule: set only when a MODULE signal
+  (net/port/var) uses the struct AND NO $unit function returns it (the
+  function elaborates first, before any module, and leaves it unparented).
+  func_struct_repro + struct_array both converge.

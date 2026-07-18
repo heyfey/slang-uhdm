@@ -91,20 +91,29 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->TopPackages(topP);
     }
 
-    // $unit (compilation-unit) functions live on the design object.
-    for (auto unit : comp.getCompilationUnits())
-        emitTaskFuncs(*unit, d, "", nullptr);
-
-    auto* allMods = s.MakeModule_instVec();
-    auto* topMods = s.MakeModule_instVec();
-
-    // Pre-create the definition shells so ref_modules can point at them
-    // regardless of emission order.
-    for (auto& [name, inst] : defs) {
-        defMap[&inst->getDefinition()].mod = s.MakeModule_inst();
-        allMods->push_back(defMap[&inst->getDefinition()].mod);
-    }
-    d->AllModules(allMods);
+    // True when some module signal (net/port/variable) has the given struct
+    // type (so its file-level typedef is elaborated with a design parent).
+    auto structUsedByModuleSignal = [&](const Type& structType) -> bool {
+        const Type* target = &structType.getCanonicalType();
+        // A $unit function returning the struct elaborates first (before any
+        // module) and leaves its typedef unparented.
+        for (auto unit : comp.getCompilationUnits())
+            for (auto& member : unit->members())
+                if (member.kind == SymbolKind::Subroutine &&
+                    &member.as<SubroutineSymbol>().getReturnType().getCanonicalType() == target)
+                    return false;
+        for (auto& [name, inst] : defs) {
+            for (auto& member : inst->body.members()) {
+                const DeclaredType* dt = nullptr;
+                if (member.kind == SymbolKind::Net || member.kind == SymbolKind::Variable ||
+                    member.kind == SymbolKind::Port)
+                    dt = member.getDeclaredType();
+                if (dt && &dt->getType().getCanonicalType() == target)
+                    return true;
+            }
+        }
+        return false;
+    };
 
     // File-level (compilation-unit) typedefs: the typespec OBJECTS are built
     // in SOURCE order (so their member typespecs land in source order in the
@@ -138,9 +147,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                 else if (ct.kind == SymbolKind::PackedStructType) {
                     ts = buildStructTs(ct.as<PackedStructType>(), true,
                                        std::string(ta.name));
-                    // File-level packed structs parent at the design (unlike
-                    // module-level, which stay unparented).
-                    ts->VpiParent(d);
+                    // A file-level packed struct used by a MODULE signal
+                    // (net/port/var) parents at the design; one used only in
+                    // function returns etc. stays unparented.
+                    if (structUsedByModuleSignal(ct))
+                        ts->VpiParent(d);
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
                 }
@@ -168,6 +179,22 @@ UHDM::design* UhdmExporter::exportDesign() {
             d->Typespecs(tds);
         }
     }
+
+    // $unit (compilation-unit) functions live on the design object.
+    for (auto unit : comp.getCompilationUnits())
+        emitTaskFuncs(*unit, d, "", nullptr);
+
+    auto* allMods = s.MakeModule_instVec();
+    auto* topMods = s.MakeModule_instVec();
+
+    // Pre-create the definition shells so ref_modules can point at them
+    // regardless of emission order.
+    for (auto& [name, inst] : defs) {
+        defMap[&inst->getDefinition()].mod = s.MakeModule_inst();
+        allMods->push_back(defMap[&inst->getDefinition()].mod);
+    }
+    d->AllModules(allMods);
+
 
     // Surelog compiles every module's parameters at module-compile time, so
     // all def-view parameter typespecs precede any elaboration typespecs.

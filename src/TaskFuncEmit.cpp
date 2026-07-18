@@ -81,9 +81,25 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             auto* rv = makeReturnVar(s, sub.getReturnType());
             rv->VpiFullName(fullName);
             rv->VpiParent(tf);
-            tfContext = true;
-            auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
-            tfContext = false;
+            // Struct-typed returns reference the shared struct typedef
+            // (matched by canonical type since the return type may be a
+            // distinct alias instance).
+            UHDM::typespec* ts = nullptr;
+            auto& retCanon = sub.getReturnType().getCanonicalType();
+            if (retCanon.kind == SymbolKind::PackedStructType ||
+                retCanon.kind == SymbolKind::UnpackedStructType) {
+                for (auto& [sym, tsp] : typedefTs)
+                    if (sym->kind == SymbolKind::TypeAlias &&
+                        &sym->as<TypeAliasType>().getCanonicalType() == &retCanon) {
+                        ts = tsp;
+                        break;
+                    }
+            }
+            if (!ts) {
+                tfContext = true;
+                ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+                tfContext = false;
+            }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
@@ -91,7 +107,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (pkgScope)
                 ts->Instance((UHDM::instance*)m);
             rv->Typespec(rt);
-            copyLoc(rv, ts);
+            // A struct return's shared typespec sits at the typedef, so the
+            // return var takes the return-TYPE syntax span instead.
+            if (ts->UhdmType() == UHDM::uhdmstruct_typespec) {
+                if (auto* rsyn = returnTypeSyntax(sub))
+                    setLoc(rv, rsyn->sourceRange());
+            }
+            else {
+                copyLoc(rv, ts);
+            }
             ((UHDM::function*)tf)->Return(rv);
         }
 
