@@ -560,6 +560,38 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         setLoc(up, syn->sourceRange());
     NetMap none;
     emitParameters(pkg, up, prefix, none, topView, nullptr, true);
+    // Package typedefs: struct/enum/vector typespecs named pkg::T, parented and
+    // instanced at the package, populating typedefTs so package-typedef'd
+    // signals/params resolve.
+    auto* tds = s.MakeTypespecVec();
+    for (auto& member : pkg.members()) {
+        if (member.kind != SymbolKind::TypeAlias)
+            continue;
+        auto& ta = member.as<TypeAliasType>();
+        auto& ct = ta.targetType.getType().getCanonicalType();
+        const syntax::SyntaxNode* typeSyn = nullptr;
+        if (auto syn = ta.getSyntax())
+            if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+        UHDM::typespec* ts = nullptr;
+        if (ct.kind == SymbolKind::PackedArrayType || ct.kind == SymbolKind::ScalarType) {
+            bypassTypedefShare = true;
+            auto* lts = makeTypespec(ta, typeSyn);
+            bypassTypedefShare = false;
+            lts->VpiParent(up);
+            typedefClone[&ta] = nullptr;
+            ts = lts;
+        }
+        if (!ts)
+            continue;
+        ts->VpiName(prefix + std::string(ta.name));
+        ts->Instance((UHDM::instance*)up);
+        if (!topView)
+            typedefTs[&ta] = ts;
+        tds->push_back(ts);
+    }
+    if (!tds->empty())
+        up->Typespecs(tds);
     pkgTopEmit = topView;
     emitTaskFuncs(pkg, up, prefix, nullptr, /*sharedScope=*/false);
     pkgTopEmit = false;
