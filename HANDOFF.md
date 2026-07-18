@@ -1,8 +1,8 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Session r166-r171 (2026-07-18, this session)
+## Session r166-r172 (2026-07-18, this session)
 
-PASS 256->261, DIFF 299->293. Six commits, all clean (no regressions):
+PASS 256->262, DIFF 299->292. Seven code commits, all clean (no regressions):
 - (r166) Assignment-pattern param defaults ('{0,1}): elab-view folded RHS
   decompiles as based-decimal (2'd1) w/ no typespec & no constType; def-view
   pattern-op elements keep vpiSize:64 UNparented. Converts 4 Negation/Pattern
@@ -20,6 +20,14 @@ PASS 256->261, DIFF 299->293. Six commits, all clean (no regressions):
   UINT (counter WIDTH-1->INT:7, CastToSum P+1->UINT:2).
 - (r171) Module vector/scalar typedef ranges UNFOLD param/$bits-dependent
   bounds (tfContext). BitsCallOnType 25->15, +3 others reduced.
+- (r172) Unbased-unsized typed-param defaults ('0/'1): parameter VpiValue
+  BIN:<bit>; elab RHS BIN + <width>'b<bit> decompile; def-view RHS carries
+  the param typespec ref. Converts UnsizedConstantParameterInInstance.
+
+Attempted-and-reverted this session:
+- Sized-literal x/z uppercasing (1'bx -> 1'bX): Surelog's casing is
+  INCONSISTENT (1'bx->X but 1'bz->z, 3'bxxx->xxx lowercase) - no clean rule,
+  reverted (unbased_unsized got worse 26->34).
 
 INTERFACE FEATURE — EXECUTION-READY PLAN (biggest remaining lever: 13 DIFF
 tests 16-460 lines + 45 UNSUP). Do this in a focused block; it touches core
