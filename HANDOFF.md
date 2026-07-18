@@ -12,6 +12,29 @@ elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
 template emitPorts/emitContAssigns/emitProcess on the instance type to
 support ported interfaces (InterfaceAssign/Initial/Always/WithPort).
 
+PORTED-INTERFACE STEP (analyzed, not yet built) — the next interface lever
+after simple interfaces. Golden verified on InterfaceAssign (`interface
+sw_test_status_if(output int x); assign x=10; endinterface` + `... u_sw(.x(o))`):
+the interface_inst carries a vpiPort (x, dir out, LowConn->its net/var), a
+vpiContAssign, and the parent references it via ref_module (def, whose vpiPort
+carries the .x(o) HighConn) and vpiInterface (elab, whose vpiPort has BOTH
+HighConn->parent's o and LowConn->interface's x var, cross-referenced).
+MECHANISM decided: NOT C++ templates - instead change emitContAssigns/
+emitProcess/emitPorts/emitGenScopes signatures from module_inst* to instance*
+and dispatch the final setter on m->UhdmType() (uhdmmodule_inst vs
+uhdminterface_inst; enum + VectorOf* types confirmed present). Nets(instance)/
+Variables/Param_assigns/Typespecs(scope) need no dispatch. THE BLOCKER: the
+elab port HighConn (linking the interface port to the PARENT's signal) is
+emitted INLINE in emitInstance's instance-view port loop (~line 786+), not in
+the reusable emitPorts (which only does LowConn). So converting ported
+interfaces needs EITHER making emitInstance interface-aware (create
+interface_inst, DefInfo::mod -> instance*, route + if/dispatch the ~7
+module_inst-only calls) OR duplicating the port-connection logic into
+emitInterfaceInstance. Every ported-interface test (InterfaceAssign/Initial/
+Always/WithPort) has this port-connection need - no incremental win without it.
+This is a large careful refactor of the core emission (produces 263 PASS);
+do it as a dedicated focused effort, testing the module path green at each step.
+
 Eight code commits (r166-r173), all clean (no regressions):
 - (r166) Assignment-pattern param defaults ('{0,1}): elab-view folded RHS
   decompiles as based-decimal (2'd1) w/ no typespec & no constType; def-view
