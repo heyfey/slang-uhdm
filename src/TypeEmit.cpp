@@ -661,7 +661,8 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
 // Packed struct typespec: typespec_members with member-type Ref locations
 // and alias-scoped ref fullnames.
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
-                                                   const std::string& aliasName) {
+                                                   const std::string& aliasName,
+                                                   const std::string& memberSep) {
     auto* sts = s.MakeStruct_typespec();
     if (packed)
         sts->VpiPacked(true);
@@ -688,7 +689,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         if (fts->VpiName().empty())
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(aliasName + "." + std::string(fm.name));
+        rt->VpiFullName(aliasName + memberSep + std::string(fm.name));
         rt->VpiParent(tm);
         rt->Actual_typespec(fts);
         tm->Typespec(rt);

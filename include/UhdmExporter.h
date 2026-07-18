@@ -150,7 +150,8 @@ private:
                                      const std::string& refFullName,
                                      bool implicitBaseRef = false);
     UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
-                                         const std::string& aliasName);
+                                         const std::string& aliasName,
+                                         const std::string& memberSep = ".");
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,

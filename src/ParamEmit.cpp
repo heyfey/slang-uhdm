@@ -582,6 +582,27 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             typedefClone[&ta] = nullptr;
             ts = lts;
         }
+        else if (ct.kind == SymbolKind::PackedStructType) {
+            // Package struct member refs use pkg::pkg::T::m (doubled prefix);
+            // each field typespec carries vpiInstance = package.
+            std::string alias = prefix + prefix + std::string(ta.name);
+            auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias, "::");
+            sts->VpiParent(up);
+            if (sts->Members())
+                for (auto* tm : *sts->Members())
+                    if (tm->Typespec() && tm->Typespec()->Actual_typespec())
+                        tm->Typespec()->Actual_typespec()->Instance((UHDM::instance*)up);
+            if (typeSyn)
+                setLoc(sts, typeSyn->sourceRange());
+            ts = sts;
+        }
+        else if (ct.kind == SymbolKind::EnumType) {
+            auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn, prefix + std::string(ta.name));
+            ets->VpiParent(up);
+            if (auto syn = ta.getSyntax())
+                setLoc(ets, syn->sourceRange());
+            ts = ets;
+        }
         if (!ts)
             continue;
         ts->VpiName(prefix + std::string(ta.name));
