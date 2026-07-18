@@ -12,8 +12,28 @@ elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
 template emitPorts/emitContAssigns/emitProcess on the instance type to
 support ported interfaces (InterfaceAssign/Initial/Always/WithPort).
 
-PORTED-INTERFACE STEP (analyzed, not yet built) — the next interface lever
-after simple interfaces. Golden verified on InterfaceAssign (`interface
+PORTED-INTERFACE STEP (INFRASTRUCTURE BUILT, per-test convergence remaining) —
+Step A: emitPorts/emitContAssigns/emitProcess/emitGenScopes now take instance*
+and dispatch their setter on m->UhdmType() (instSetPorts/ContAssigns/Process/
+GenScopeArrays in EmitHelpers.h). Step C: isSimpleInterfaceBody broadened to
+allow ports/cont-assigns/processes (still excludes child instances/generate/
+modports); emitInterfaceDef reuses those helpers (def view), emitInterfaceInstance
+adds elab cont-assigns/processes + a port loop (LowConn own var, HighConn parent
+signal, needs parentNets/parentRefs). Interface def ports carry NO typespec.
+RESULT: no regressions; big reductions (InterfaceAssign 91->16, InterfaceWithPort
+43->12, InterfaceInitial 63->37, InterfaceAlways 63->45) but still CMP_FAIL.
+REMAINING per-test blockers to reach CMP_ONLY/PASS:
+- InterfaceAssign: the def-view cont_assign LHS ref_obj should bind vpiActual to
+  the ELAB int_var (a def->elab forward reference; Surelog quirk).
+- InterfaceWithPort: the parent def-view ref_module port (emitModuleDefPorts loop,
+  ~line 355) doesn't bind its ref to the interface child's def net (null vs
+  logic_net) and has a wrong loc for positional/input connections.
+- weakly-tail int_typespec ordering (the usual CMP_ONLY residue).
+Next after that: the 48 UNSUP modport tests (InterfacePort/ArbitrarySymbol) build
+on this same interface_inst infrastructure.
+
+--- original analysis (still accurate) ---
+The next interface lever after simple interfaces. Golden verified on InterfaceAssign (`interface
 sw_test_status_if(output int x); assign x=10; endinterface` + `... u_sw(.x(o))`):
 the interface_inst carries a vpiPort (x, dir out, LowConn->its net/var), a
 vpiContAssign, and the parent references it via ref_module (def, whose vpiPort
