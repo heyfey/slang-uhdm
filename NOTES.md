@@ -1247,3 +1247,15 @@ spurious vpiNetType:36), StructMemberAsModuleInput 25 lines (4 prefix, 21 other)
 So cracking it converts ZERO tests. DECISION: leave it. r157 packed_array_var is
 the correct foundation; these tests need their OTHER per-test issues resolved
 (hier_path-in-cast, def-net typespec loc) before the prefix matters.
+
+## r160 follow-up — struct_var vs struct_net is conditional (NOT leaf-vs-nested)
+Tried: makeVar returns struct_var (not nullptr->struct_net) for packed-struct
+Variables. TypedefOnFileLevel (output my_struct o) wants struct_var; but this
+REGRESSED DotRange/func_struct_repro (PASS->DIFF) + simple_struct/UnsizedConst
+(CMP_ONLY->DIFF). Gating on LEAF (no nested struct/enum field) kept
+simple_nested_struct_nopack byte-exact but still regressed DotRange/func_struct_repro
+(they have LEAF structs wanting struct_net). So leaf-vs-nested is NOT the
+discriminator here (unlike the r159 member-prefix rule). Likely port-vs-internal
+(TypedefOnFileLevel's o is an output PORT; the regressors use internal struct
+signals) but unverified. Reverted. TypedefOnFileLevel also has a pre-existing
+missing cont_assign (assign o.x=10 dropped in the top view). Left as conditional.
