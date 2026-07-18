@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r153 state)
+# HANDOFF — slang-uhdm convergence campaign (r156 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,17 +13,22 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r153 baseline, committed as results/baseline.csv)
+## Current scoreboard (r156 baseline, committed as results/baseline.csv)
 
-PASS 251 · CMP_ONLY 8 · DIFF 296 · UNSUPPORTED 106 (r153). SESSION r138-r153
-(this session): +13 PASS (238->251), UNSUP 109->106. (r153) emit generate-scope
-LOCAL NETS (wire tmp; in a genblk) as logic_nets on the gen_scope with a
-ref_typespec->logic_typespec (parented to the net); do NOT add to netMap so refs
-stay weak - simple_generate PASS. NEXT generate leads: AssignGeneratedWireInAlways/
-CaseWithGeneratedWire (73) need (a) gen-scope net-decl-assign initializers as
-gen_scope cont_assigns [extend r153] AND (b) gen_blk[N].x hier-path where gen_blk[N]
-is a bit_select (gen-scope-array index; mine emits a single ref_obj). (r152)
-function part-select
+PASS 253 · CMP_ONLY 8 · DIFF 294 · UNSUPPORTED 106 (r156). SESSION r138-r156
+(this session): +15 PASS (238->253), UNSUP 109->106. GENERATE cluster (r153-r156):
+(r153) emit gen-scope LOCAL NETS (wire tmp;) as logic_nets on the gen_scope, kept
+out of netMap so refs stay weak - simple_generate PASS; (r154) gen_blk[N] index in
+a HierarchicalValue path is a bit_select (name ref + bare UINT index), not one
+ref_obj; (r155) bare-reference range bounds ([i:i]) fold to UINT not INT (only
+operation bounds N-1 use INT-at-left-operand); (r156) gen-scope net-decl-assigns
+(wire z = '1;) as gen_scope cont_assigns with a fresh Lhs net + deferred typespec,
+unbased-unsized RHS folded to net width via tryEval, net-decl net loses its list
+typespec parent, and genvar int_typespecs drain LAST (pendingGenvarTs) -
+AssignGeneratedWireInAlways/CaseWithGeneratedWire PASS. Larger genblk tests
+(blockrom/forgen02/genblk_order/MemoryInGenblock/BitSelectOf*InGenFor) still need
+gen-scope VARS/memories, submodule instances in gen-for, nested generate.
+(r152) function part-select
 bound refs scope their fullname by the base name inside a task/function body
 (currentSubSym gate; Surelog's doubled inp[A:B]->func.inp.A form) + task/function
 params follow the source keyword for vpiLocalParam (like packages) - func_block
