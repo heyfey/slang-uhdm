@@ -911,6 +911,7 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
             setLoc(r, dim->sourceRange());
             const syntax::ExpressionSyntax* leftSyn = nullptr;
             const syntax::ExpressionSyntax* rightSyn = nullptr;
+            const syntax::ExpressionSyntax* sizeSyn = nullptr;
             if (dim->specifier &&
                 dim->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier) {
                 auto& sel = *dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
@@ -918,6 +919,45 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
                     leftSyn = rss->left;
                     rightSyn = rss->right;
                 }
+                else if (auto* bss = sel.as_if<syntax::BitSelectSyntax>()) {
+                    sizeSyn = bss->expr;
+                }
+            }
+            // Size-style dim [N] (== [0:N-1]): the range spans the whole [N],
+            // left bound is a bare 0, and the right bound is an UNFOLDED N-1
+            // operation anchored at the size-expression span.
+            if (sizeSyn) {
+                setLoc(r, sizeSyn->sourceRange());
+                auto* lc = s.MakeConstant();
+                lc->VpiParent(r);
+                lc->VpiDecompile("0");
+                lc->VpiSize(64);
+                lc->VpiValue("UINT:0");
+                lc->VpiConstType(vpiUIntConst);
+                r->Left_expr(lc);
+                auto* op = s.MakeOperation();
+                op->VpiParent(r);
+                op->VpiOpType(11);
+                setLoc(op, sizeSyn->sourceRange());
+                auto* ops = s.MakeAnyVec();
+                auto* sc = s.MakeConstant();
+                sc->VpiParent(op);
+                sc->VpiDecompile(rawText(sizeSyn->sourceRange()));
+                sc->VpiSize(64);
+                sc->VpiValue("UINT:" + std::to_string(ua.range.width()));
+                sc->VpiConstType(vpiUIntConst);
+                setLoc(sc, sizeSyn->sourceRange());
+                ops->push_back(sc);
+                auto* one = s.MakeConstant();
+                one->VpiSize(64);
+                one->VpiValue("INT:1");
+                one->VpiConstType(vpiIntConst);
+                ops->push_back(one);
+                op->Operands(ops);
+                r->Right_expr(op);
+                ranges->push_back(r);
+                dt = &ua.elementType;
+                continue;
             }
             auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) -> UHDM::expr* {
                 // Literal / absent bounds: UINT at the token span. Non-literal
