@@ -801,3 +801,8 @@ Rules landed (each probed against goldens):
   the top RE-EMITS the pattern). Guard: skip pendingPatternOrphans when the
   top rhs is a constant. (PatternDefault now fully converges; PatternIndexes/
   array/union patterns still need more - index/array fold shapes.)
+
+## Numeric index pattern tags (r94)
+- Numeric index setters (N:v) use an INTEGER_TYPESPEC tag (INT:<value>, loc =
+  index span, UNPARENTED) - only default: uses a string_typespec. Both feed
+  the tagged_pattern's ref_typespec. PatternIndexes converges.

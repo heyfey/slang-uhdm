@@ -1243,15 +1243,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     tp->Pattern((UHDM::expr*)e);
                 suppressConstParent = sup0;
                 forceConstParent = fcp0;
-                auto* sts = s.MakeString_typespec();
-                std::string keyText = rawText(setter.index->sourceRange);
-                sts->VpiName(keyText);
-                sts->VpiParent(tp);
-                setLoc(sts, setter.index->sourceRange);
+                // Numeric index tag: an integer_typespec carrying the index
+                // value (INT), located at the index span.
+                auto* its = s.MakeInteger_typespec();
+                setLoc(its, setter.index->sourceRange);
+                {
+                    ASTContext ictx(comp.getRoot(), LookupLocation::max);
+                    ConstantValue icv = ictx.tryEval(*setter.index);
+                    if (icv && icv.isInteger())
+                        its->VpiValue(
+                            "INT:" + icv.integer().toString(LiteralBase::Decimal, false));
+                }
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix);
                 rt->VpiParent(tp);
-                rt->Actual_typespec(sts);
+                rt->Actual_typespec(its);
                 tp->Typespec(rt);
                 operands->push_back(tp);
             }
