@@ -345,6 +345,18 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                 break;
             }
         }
+        // A ranged untyped param (parameter [0:0] X) locates its int_typespec
+        // at the packed-range span, not the whole declaration.
+        if (auto declared = ps.getDeclaredType()) {
+            if (auto tsyn = declared->getTypeSyntax()) {
+                if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                    auto& imp = tsyn->as<syntax::ImplicitTypeSyntax>();
+                    if (!imp.dimensions.empty())
+                        tr = SourceRange(imp.dimensions[0]->sourceRange().start(),
+                                         imp.dimensions.back()->sourceRange().end());
+                }
+            }
+        }
     }
     // The typespec class follows the declared integer kind (integer -> an
     // integer_typespec, etc.); untyped params default to int_typespec.
