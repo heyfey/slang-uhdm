@@ -1136,3 +1136,28 @@ Each needs a feature or an obscure Surelog quirk; noted so they aren't re-scoute
   containsOperation returns true for all sys calls; narrow it).
 - Def-view submodule port ranges with params (CastToSum...): `output logic [P+1:0] a`
   keeps its range bound UNFOLDED (P unresolved) in the def view; mine folds.
+
+## r138 — packed_array_typespec landed; follow-ups for the packed-array cluster
+packed_array_typespec (makeTypespec, struct/enum leaf via typedefTs canonical
+match) landed: UNSUP 115->109. Remaining, per test:
+- VECTOR typedef leaf (arrays03 reg8_t=logic[7:0]): my branch only matches
+  struct/enum leaves. Walk the NON-canonical PackedArrayType to stop at the
+  vector TypeAlias (reg8_t) rather than the logic leaf; the Elem_typespec then
+  refs the vector typedef's logic_typespec. Also `typedef reg8_t [0:3] rt` is a
+  packed-array TYPEDEF (typedef target: PackedArrayType) - needs the same in the
+  file/module typedef emitters.
+- 2D array element member access (DotMultirange group_status[0][0].a): extend
+  emitMixedHierPath to accumulate MULTIPLE element selects per component (change
+  Comp.sel to a vector; each index -> a bit_select). Golden: base group_status
+  with [0][0] -> TWO bit_selects: bit_select(name=group_status, fullname=
+  group_status[0], index=first[0]) then bit_select(fullname=group_status[0][0],
+  index=second[0]), then ref(a). NB: BASE-array-index bit_selects use the SIMPLE
+  dotted fullname (group_status[0]) even in an LVALUE - unlike MEMBER-select
+  bit_selects which use the doubled work@... form. Walk order: selects are
+  encountered outer-to-inner; reverse to inner-first (first dim first).
+- index EXPRESSION decompile (ExpressionInIndex a[2-2]): the hier_path/bit_select
+  NAME uses Surelog's canonical spacing "2 - 2" (spaces around the operator), not
+  the raw source "2-2". Build the index text from the expression, not rawText.
+- PACKAGE struct/enum leaf (StructPackedOutput flash_phy_pkg): needs the package
+  typedefs in typedefTs first (see the package-typedef note).
+- range-select base (gen_struct_access): the range/part-select-base extension.
