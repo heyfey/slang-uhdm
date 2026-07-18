@@ -1400,9 +1400,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             if (constSel)
                 psel->VpiConstantSelect(true);
-            // Refs nested in bound OPERATIONS scope by the base name.
+            // Refs nested in bound OPERATIONS scope by the base name; in a
+            // function/task body EVERY bound ref (incl. bare params) scopes by
+            // the base name (Surelog's doubled part-select-bound fullname).
             std::string basePfx = prefix + "." + std::string(nv.symbol.name);
             auto boundPfx = [&](const Expression& e) -> const std::string& {
+                if (currentSubSym)
+                    return basePfx;
                 return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
                                                                                : basePfx;
             };

@@ -53,7 +53,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Packages: follow the source keyword (slang marks package params
         // local per LRM; Surelog does not).
         bool isLocal = ps.isLocalParam();
-        if (inPackage) {
+        // Packages and task/function scopes follow the source keyword (slang
+        // marks these local per the LRM; Surelog reports the written keyword).
+        if (inPackage || funcScope) {
             isLocal = false;
             for (auto q = ps.getSyntax(); q; q = q->parent) {
                 if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
