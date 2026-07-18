@@ -1231,3 +1231,19 @@ converge. Remaining blockers (pre-existing, NOT from this change):
 4. a[0][0].min_v hier_path loc/bit_select in an int'() cast operand.
 CONCLUSION: packed_array_var was necessary but not sufficient; these 3 tests stay
 DIFF until the shared-vs-per-usage struct_typespec prefix is resolved.
+
+## r157 follow-up — struct-prefix rule found but NOT worth cracking (measured negative-EV)
+Dug into the conditional struct-typedef member prefix. RULE (from 5 data points):
+- FILE-level typedef -> BARE members (DotMultirange status_t, struct_array packet_t).
+- MODULE-level typedef -> PREFIXED (work@mod.T.m) EXCEPT when the struct is used
+  ONLY as a plain non-array struct signal, then BARE (simple_nested nested_struct_t
+  is bare; filter_ctl_t via packed-array and base_struct_t via nesting are prefixed).
+Implementable via a module-usage scan at emitTypedefs, BUT: the struct_typespec is
+SHARED (typedefTs) so any change ripples across every struct-typedef test (HIGH
+risk), AND measurement shows the prefix is only ~4 diff lines of each MULTI-ISSUE
+target: int_port_signed 123 lines (4 prefix, rest = a[0][0].min_v hier_path in an
+int'() cast + def-net packed_array_typespec loc 20:5-20:23-through-first-dim +
+spurious vpiNetType:36), StructMemberAsModuleInput 25 lines (4 prefix, 21 other).
+So cracking it converts ZERO tests. DECISION: leave it. r157 packed_array_var is
+the correct foundation; these tests need their OTHER per-test issues resolved
+(hier_path-in-cast, def-net typespec loc) before the prefix matters.
