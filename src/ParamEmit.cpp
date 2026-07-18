@@ -422,6 +422,15 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                 t->VpiSigned(true);
             its = t;
         }
+        // A typed packed logic/bit VECTOR written directly (parameter logic
+        // [31:0] X) builds a logic_typespec with its range via makeTypespec. A
+        // typedef'd type (NamedType syntax) would make makeTypespec bail, so
+        // it stays on the int_typespec default.
+        else if (ct.kind == SymbolKind::PackedArrayType && ct.isIntegral()) {
+            auto* tsyn = ps.getDeclaredType() ? ps.getDeclaredType()->getTypeSyntax() : nullptr;
+            if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind))
+                its = makeTypespec(ps);
+        }
     }
     UHDM::int_typespec* intTs = nullptr;
     if (!its) {
