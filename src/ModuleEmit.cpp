@@ -1822,7 +1822,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         inLhs = true;
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
-                          (literalRhs || bitsRhs || cfr || callFold || ovParamRhs) &&
+                          (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
+                           typedParamRhs) &&
                           defInfo)
                              ? defInfo->nets
                              : netMap;
