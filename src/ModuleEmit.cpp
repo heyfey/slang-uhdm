@@ -2507,6 +2507,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     auto& def = inst.getDefinition();
     std::string prefix = "work@" + std::string(def.name);
     auto* iface = ifaceDefMap[&def];
+    DefInfo& info = defMap[&def];
     currentScope = &body;
     iface->VpiDefName(prefix);
     iface->VpiFullName(prefix);
@@ -2528,23 +2529,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
         if (!it.port && !implicitNet) {
-            auto* ts = makeTypespec(*it.sym);
-            // A def-view net typespec spans type-start..declarator-end (the
-            // whole declaration minus the trailing semicolon).
-            if (auto dsyn = it.sym->getSyntax()) {
-                const syntax::SyntaxNode* decl = dsyn;
-                while (decl->parent &&
-                       decl->kind != syntax::SyntaxKind::DataDeclaration)
-                    decl = decl->parent;
-                if (decl->kind == syntax::SyntaxKind::DataDeclaration)
-                    setLoc(ts, SourceRange(decl->sourceRange().start(),
-                                           dsyn->sourceRange().end()));
-            }
+            // Deferred to the write phase (Surelog arena order), which also
+            // extends the span through an initializer.
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + name);
             rt->VpiParent(n);
-            rt->Actual_typespec(ts);
             n->Typespec(rt);
+            pendingNetTs.push_back({it.sym, rt, &info});
         }
         nets->push_back(n);
     }

@@ -248,8 +248,8 @@ UHDM::design* UhdmExporter::exportDesign() {
     // deferred typespecs, other defs materialize their local-net typespecs
     // (Surelog write-phase arena order).
     for (auto& [name, inst] : defs) {
-        if (useInterfacePath(*inst))
-            continue;
+        // Simple interfaces have no top ports but do materialize their def-view
+        // net typespecs (below), so they are NOT skipped here.
         auto* di = &defMap[&inst->getDefinition()];
         bool isTopDef = false;
         for (auto& tp : topPendings) {
