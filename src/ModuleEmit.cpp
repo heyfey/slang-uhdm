@@ -2516,6 +2516,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     if (auto syn = body.getSyntax())
         setLoc(iface, syn->sourceRange());
 
+    emitParameters(body, iface, prefix, info.nets, /*topView=*/false, &info, false);
+
     auto* nets = s.MakeNetVec();
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
@@ -2570,6 +2572,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
 
     NetMap netMap;
+    {
+        auto pit = defMap.find(&def);
+        emitParameters(body, iface, prefix, netMap, /*topView=*/true,
+                       pit != defMap.end() ? &pit->second : nullptr, false);
+    }
     auto* vars = s.MakeVariablesVec();
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
@@ -2598,10 +2605,45 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             ts->VpiParent(v);
         if (auto dt = it.sym->getDeclaredType()) {
             if (auto init = dt->getInitializer()) {
-                forceConstParent = true;
-                if (auto* e = emitExpr(*init, v, fullName, netMap))
-                    v->Expr((UHDM::expr*)e);
-                forceConstParent = false;
+                auto& ic = stripImplicitConv(*init);
+                if (ic.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    // '0/'1/'x/'z fold to the var width (Surelog quirk).
+                    logic_t bit =
+                        ic.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+                    int32_t w = (int32_t)dt->getType().getBitWidth();
+                    auto* c = s.MakeConstant();
+                    if (bit.isUnknown()) {
+                        std::string dd = bit.value == logic_t::X_VALUE ? "X" : "Z";
+                        c->VpiDecompile("'" + dd);
+                        c->VpiSize(-1);
+                        c->VpiValue("BIN:" + dd);
+                        c->VpiConstType(vpiBinaryConst);
+                    }
+                    else if (bit.value == 0) {
+                        c->VpiDecompile("'0");
+                        c->VpiSize(w);
+                        c->VpiValue("BIN:0");
+                        c->VpiConstType(vpiBinaryConst);
+                    }
+                    else {
+                        slang::SVInt ones((slang::bitwidth_t)w, 0, false);
+                        ones = ~ones;
+                        std::string digits = ones.toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(digits);
+                        c->VpiSize(w);
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                    }
+                    c->VpiParent(v);
+                    setLoc(c, ic.sourceRange);
+                    v->Expr(c);
+                }
+                else {
+                    forceConstParent = true;
+                    if (auto* e = emitExpr(*init, v, fullName, netMap))
+                        v->Expr((UHDM::expr*)e);
+                    forceConstParent = false;
+                }
             }
         }
         vars->push_back(v);

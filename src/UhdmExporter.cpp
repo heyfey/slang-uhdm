@@ -259,10 +259,17 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         }
         if (!isTopDef) {
+            // A (non-top) interface def unfolds its param-dependent net ranges
+            // (W-1 -> operation); its def typespec is not shared with an elab
+            // one, so this is safe.
+            bool savedTf = tfContext;
+            if (useInterfacePath(*inst))
+                tfContext = true;
             for (auto& pn : pendingNetTs) {
                 if (pn.di == di && !pn.rt->Actual_typespec())
                     materializeDefNetTs(pn);
             }
+            tfContext = savedTf;
         }
     }
     topPendings.clear();

@@ -474,8 +474,6 @@ inline bool isSimpleInterfaceBody(const InstanceBodySymbol& body) {
             case SymbolKind::Instance:
             case SymbolKind::GenerateBlock:
             case SymbolKind::GenerateBlockArray:
-            case SymbolKind::Parameter:
-            case SymbolKind::TypeParameter:
             case SymbolKind::Modport:
                 return false;
             default:
