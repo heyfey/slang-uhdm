@@ -276,7 +276,15 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // UINT constants (64-bit) that keep their source text as decompile.
     // Dims live on IntegerTypeSyntax ("logic [7:0]") or ImplicitTypeSyntax
     // ("input [7:0] a" / "wire [7:0] w").
-    if (declared && declared->getType().isPackedArray()) {
+    // The packed element sits under any unpacked array dims (an unpacked-array
+    // net still carries its packed element ranges on the element typespec).
+    const Type* packedLeaf = declared ? &declared->getType().getCanonicalType() : nullptr;
+    while (packedLeaf &&
+           packedLeaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+        packedLeaf = &packedLeaf->getCanonicalType()
+                          .as<FixedSizeUnpackedArrayType>()
+                          .elementType.getCanonicalType();
+    if (packedLeaf && packedLeaf->isPackedArray()) {
         auto tsyn = typeSynFor();
         const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
         if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind)) {
@@ -317,6 +325,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         if (dimSyns) {
             std::vector<ConstantRange> dims;
             const Type* t = &declared->getType().getCanonicalType();
+            // A net/var element typespec covers only the PACKED dims; descend
+            // past any unpacked array dims (e.g. logic [7:0] memory [0:15])
+            // to reach the packed element before collecting its ranges.
+            while (t->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+                t = &t->getCanonicalType()
+                         .as<FixedSizeUnpackedArrayType>()
+                         .elementType.getCanonicalType();
             while (t->isPackedArray()) {
                 auto& pat = t->as<PackedArrayType>();
                 dims.push_back(pat.range);
