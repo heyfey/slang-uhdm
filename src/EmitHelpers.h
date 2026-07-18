@@ -503,6 +503,8 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) 
         return s.MakeStruct_var();
     if (ct.kind == SymbolKind::EnumType)
         return s.MakeEnum_var();
+    if (ct.kind == SymbolKind::StringType)
+        return s.MakeString_var();
     if (ct.kind == SymbolKind::PredefinedIntegerType) {
         auto& pit = ct.as<PredefinedIntegerType>();
         if (pit.integerKind == PredefinedIntegerType::Int) {

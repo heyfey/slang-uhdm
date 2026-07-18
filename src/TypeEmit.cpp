@@ -153,6 +153,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             setLoc(t, range);
             return t;
         }
+        if (ct.kind == SymbolKind::StringType) {
+            auto* t = s.MakeString_typespec();
+            setLoc(t, range);
+            return t;
+        }
         if (ct.kind == SymbolKind::PredefinedIntegerType) {
             auto& pit = ct.as<PredefinedIntegerType>();
             UHDM::typespec* its = nullptr;
@@ -339,6 +344,12 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         auto* v = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
                       ? (UHDM::variables*)s.MakeShort_real_var()
                       : (UHDM::variables*)s.MakeReal_var();
+        v->VpiVisibility(1);
+        return v;
+    }
+    // String signals are variables.
+    if (ct.kind == SymbolKind::StringType) {
+        auto* v = s.MakeString_var();
         v->VpiVisibility(1);
         return v;
     }
