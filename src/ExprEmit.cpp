@@ -386,6 +386,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ref->Actual_group(it->second);
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
+                else if (nv.symbol.kind == SymbolKind::EnumValue)
+                    // Anonymous-enum const built later in the deferred pass.
+                    pendingEnumRefs.push_back({ref, &nv.symbol});
                 else if (funcRetRefs && &nv.symbol == funcRetSym)
                     funcRetRefs->push_back(ref);
                 else if (nv.symbol.kind == SymbolKind::Parameter && implicitNetModule &&

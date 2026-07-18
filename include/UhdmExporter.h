@@ -296,6 +296,9 @@ private:
     };
     std::vector<PendingPatternOrphan> pendingPatternOrphans;
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
+    // Refs to enum values whose enum_const is built later (anonymous enums,
+    // materialized in the deferred typespec pass) are bound at the very end.
+    std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>> pendingEnumRefs;
     std::map<const slang::ast::Symbol*, std::vector<UHDM::attribute*>> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);

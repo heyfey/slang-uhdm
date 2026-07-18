@@ -249,6 +249,14 @@ UHDM::design* UhdmExporter::exportDesign() {
     topPendings.clear();
     pendingParamTs.clear();
     pendingNetTs.clear();
+
+    // Bind enum-value refs whose enum_const was only materialized in the
+    // deferred typespec pass (anonymous enums).
+    for (auto& [ref, sym] : pendingEnumRefs)
+        if (auto eit = enumConstMap.find(sym); eit != enumConstMap.end())
+            ref->Actual_group(eit->second);
+    pendingEnumRefs.clear();
+
     d->TopModules(topMods);
 
     s.MakeUhdmHandle(UHDM::uhdmdesign, d);
