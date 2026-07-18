@@ -1591,6 +1591,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         // A plain ref to a TYPED, non-overridden param folds (top view) to a
         // constant carrying a ref to the param's typespec, like an override.
         const Symbol* typedParamRhs = nullptr;
+        // A plain ref to a constant-initialized, never-written module variable
+        // folds (top view) to its init value.
+        const Symbol* constVarRhs = nullptr;
+        const Expression* constVarInit = nullptr;
         if (topView) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::NamedValue) {
@@ -1606,6 +1610,37 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                                 !ps.getValue().integer().hasUnknown())
                                 typedParamRhs = &sym;
                 }
+                else if (sym.kind == SymbolKind::Variable &&
+                         sym.getDeclaredType() &&
+                         sym.getDeclaredType()->getType().getCanonicalType().kind ==
+                             SymbolKind::PredefinedIntegerType) {
+                    auto dt = sym.getDeclaredType();
+                    const Expression* init = dt ? dt->getInitializer() : nullptr;
+                    if (init) {
+                        ASTContext ctx(comp.getRoot(), LookupLocation::max);
+                        ConstantValue cv = ctx.tryEval(*init);
+                        if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
+                            // Only fold if the var is never written procedurally.
+                            bool written = false;
+                            for (auto& mm : body.members()) {
+                                if (mm.kind != SymbolKind::ProceduralBlock)
+                                    continue;
+                                mm.as<ProceduralBlockSymbol>().getBody().visit(makeVisitor(
+                                    [&](auto& vis, const AssignmentExpression& ax) {
+                                        auto& lc = stripImplicitConv(ax.left());
+                                        if (lc.kind == ExpressionKind::NamedValue &&
+                                            &lc.as<NamedValueExpression>().symbol == &sym)
+                                            written = true;
+                                        vis.visitDefault(ax);
+                                    }));
+                            }
+                            if (!written) {
+                                constVarRhs = &sym;
+                                constVarInit = init;
+                            }
+                        }
+                    }
+                }
             }
         }
         // Top modules share the def's cont_assign object unless netlist
@@ -1616,7 +1651,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             (!plainLhs ||
              (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
-              !callFold && !ovParamRhs && !typedParamRhs))) {
+              !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -1712,6 +1747,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             rt->VpiParent(c);
             c->Typespec(rt);
             pendingParamCloneTs.push_back({rt, &ps2});
+            rhs = c;
+        }
+        // Constant-driven module var: fold to its init value (plain constant,
+        // no typespec) at the initializer's site.
+        if (!rhs && topView && constVarRhs) {
+            ASTContext ctx(comp.getRoot(), LookupLocation::max);
+            ConstantValue cvv = ctx.tryEval(*constVarInit);
+            auto& iv = cvv.integer();
+            bool neg = iv.isSigned() && iv.isNegative();
+            std::string digits = iv.toString(LiteralBase::Decimal, false);
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(digits);
+            c->VpiValue((neg ? "INT:" : "UINT:") + digits);
+            c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+            c->VpiSize((int32_t)iv.getBitWidth());
+            c->VpiParent(ca);
+            setLoc(c, stripImplicitConv(*constVarInit).sourceRange);
             rhs = c;
         }
         // Param-backed call folds: constant at the in-function ref site,
@@ -1845,7 +1897,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
-                           typedParamRhs) &&
+                           typedParamRhs || constVarRhs) &&
                           defInfo)
                              ? defInfo->nets
                              : netMap;
