@@ -472,8 +472,17 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 !baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.empty())
                 setLoc(r, (*baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.begin())
                               ->sourceRange());
-            r->Left_expr(makeBoundConst(lsyn, range.left, r));
-            r->Right_expr(makeBoundConst(rsyn, range.right, r));
+            // Non-literal bounds (logic [W-1:0]) stay UNFOLDED in the enum
+            // typedef's base typespec, like other typedef-context ranges.
+            auto enumBound = [&](const syntax::ExpressionSyntax* bsyn,
+                                 int64_t val) -> UHDM::expr* {
+                if (bsyn && bsyn->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+                    if (auto* e = emitSyntaxExpr(*bsyn, r))
+                        return (UHDM::expr*)e;
+                return makeBoundConst(bsyn, val, r);
+            };
+            r->Left_expr(enumBound(lsyn, range.left));
+            r->Right_expr(enumBound(rsyn, range.right));
             auto* rv = s.MakeRangeVec();
             rv->push_back(r);
             bts->Ranges(rv);

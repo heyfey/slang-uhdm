@@ -103,7 +103,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             UHDM::typespec* ts = nullptr;
             auto& retCanon = sub.getReturnType().getCanonicalType();
             if (retCanon.kind == SymbolKind::PackedStructType ||
-                retCanon.kind == SymbolKind::UnpackedStructType) {
+                retCanon.kind == SymbolKind::UnpackedStructType ||
+                retCanon.kind == SymbolKind::EnumType) {
                 for (auto& [sym, tsp] : typedefTs)
                     if (sym->kind == SymbolKind::TypeAlias &&
                         &sym->as<TypeAliasType>().getCanonicalType() == &retCanon) {
@@ -123,9 +124,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (pkgScope)
                 ts->Instance((UHDM::instance*)m);
             rv->Typespec(rt);
-            // A struct return's shared typespec sits at the typedef, so the
-            // return var takes the return-TYPE syntax span instead.
-            if (ts->UhdmType() == UHDM::uhdmstruct_typespec) {
+            // A struct/enum return's shared typespec sits at the typedef, so
+            // the return var takes the return-TYPE syntax span instead.
+            if (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
+                ts->UhdmType() == UHDM::uhdmenum_typespec) {
                 if (auto* rsyn = returnTypeSyntax(sub))
                     setLoc(rv, rsyn->sourceRange());
             }
