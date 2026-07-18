@@ -1393,8 +1393,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         setLoc(ca, nameSpan(it.sym->location, it.sym->name));
         bool fcp = forceConstParent;
         forceConstParent = true;
-        if (auto* rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap))
+        if (auto* rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap)) {
+            // Surelog sizes a bare-decimal RHS (default 64) to the net width.
+            if (rhs->UhdmType() == UHDM::uhdmconstant &&
+                ((UHDM::expr*)rhs)->VpiSize() == 64)
+                ((UHDM::expr*)rhs)->VpiSize((int32_t)dt->getType().getBitWidth());
             ca->Rhs((UHDM::expr*)rhs);
+        }
         forceConstParent = fcp;
         // A LITERAL RHS is netlist-re-elaborated: the Lhs becomes a FRESH net
         // object (own typespec materialized last) and the module-list net
