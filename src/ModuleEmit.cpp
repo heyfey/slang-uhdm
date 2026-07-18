@@ -1025,6 +1025,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
             gs->Cont_assigns(cas);
 
         auto* procs = s.MakeProcess_stmtVec();
+        suppressRefActual = true;
         for (auto& gm : blk.members()) {
             if (gm.kind == SymbolKind::ProceduralBlock) {
                 if (auto* p = emitProcess(gm.as<ProceduralBlockSymbol>(), m, fullName, netMap)) {
@@ -1033,6 +1034,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
                 }
             }
         }
+        suppressRefActual = false;
         if (!procs->empty())
             gs->Process(procs);
 

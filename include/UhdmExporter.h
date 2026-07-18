@@ -224,6 +224,9 @@ private:
     bool inAssignPattern = false;
     bool forceConstParent = false;
     bool inLhs = false;
+    // True while emitting an elaborated generate-scope process: refs to outer
+    // (module) signals are left unbound (no Actual_group), as Surelog does.
+    bool suppressRefActual = false;
     bool callStmtContext = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;

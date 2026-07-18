@@ -347,7 +347,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             else {
                 ref->VpiFullName(joinRef(prefix, nv.symbol.name));
-                if (auto it = netMap.find(&nv.symbol); it != netMap.end())
+                if (suppressRefActual) {
+                    // Gen-scope process ref: left unbound.
+                }
+                else if (auto it = netMap.find(&nv.symbol); it != netMap.end())
                     ref->Actual_group(it->second);
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
