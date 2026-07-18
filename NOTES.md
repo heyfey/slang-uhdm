@@ -1030,3 +1030,31 @@ to the shared typedef) for EnumArray/DotMultirange/gen_struct_access.
 emitMixedHierPath (src/ExprEmit.cpp, r117) already handles b.a[0].x-style access
 (member chain whose base threads element selects); those tests now DIFF only on
 the missing package typedefs.
+
+## Package typedefs + packed_array_typespec MUST land together (r117 finding)
+Emitting package typedefs ALONE is net-negative: it moved 13 tests DIFF->
+UNSUPPORTED with 0 PASS gain, because buildStructTs -> makeTypespec hits
+noteUnsupported("packed array without integer type syntax") for any struct
+member typed as a packed-array-of-typedef (e.g. struct_b { struct_a [1:0] a; }),
+which aborts the whole export. So the packed_array_typespec branch in
+makeTypespec must be implemented in the SAME change as emitPackageTypedefs.
+Verified emitPackageTypedefs (reverted, in git stash-worthy diff / see the r117
+HANDOFF) produces byte-exact struct_typespec for plain package structs
+(pkg::struct_a) - goldens stayed green, no PASS regressions.
+
+packed_array_typespec golden (PackedArray struct_b.a, `struct_a [1:0] a`):
+  \_packed_array_typespec: , loc = member type syntax (7:5-7:19)
+    |vpiRange: \_range [1:0] (LeftRange const 1, RightRange const 0)
+    |vpiElemTypespec: \_ref_typespec (fullname = the MEMBER's fullname,
+        pkg::pkg::struct_b::a) -> vpiActual = the shared struct_typespec
+        (pkg::struct_a) from typedefTs.
+COUPLING: the Elem_typespec ref fullname equals the enclosing member's ref
+fullname (both pkg::pkg::struct_b::a) - a Surelog lazy-name quirk. makeTypespec
+doesn't know the member fullname, so either (a) thread it in, or (b) let
+buildStructTs post-process both the member ref AND the packed_array Elem ref
+fullnames. To detect the case in makeTypespec: declared type isPackedArray()
+with leaf getCanonicalType().kind == PackedStructType/EnumType, matched against
+typedefTs by canonical type (as TaskFuncEmit struct-returns do).
+The simpler net-level case (EnumArray: `my_pkg::lc_tx_t [7:0] x`) has no member
+coupling - Elem ref fullname is just the net path - so validate makeTypespec's
+packed_array_typespec there first, then handle the struct-member coupling.
