@@ -158,6 +158,65 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             setLoc(t, range);
             return t;
         }
+        // Packed array whose leaf element is a shared struct/enum typedef ->
+        // packed_array_typespec { dims + Elem_typespec ref -> the typedef }.
+        if (declared->getType().isPackedArray() && !bypassTypedefShare) {
+        int arrDims = 0;
+        const Type* leaf = &declared->getType().getCanonicalType();
+        while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+            arrDims++;
+            leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+        }
+        auto& lc = leaf->getCanonicalType();
+        if (lc.kind == SymbolKind::PackedStructType || lc.kind == SymbolKind::EnumType) {
+            UHDM::typespec* elemTs = nullptr;
+            for (auto& [sym, tsp] : typedefTs)
+                if (sym->kind == SymbolKind::TypeAlias &&
+                    &sym->as<TypeAliasType>().getCanonicalType() == &lc) {
+                    elemTs = tsp;
+                    break;
+                }
+            if (elemTs) {
+                auto* pat = s.MakePacked_array_typespec();
+                auto dimList = declared->getResolvedDimensions();
+                // The typespec span reaches the last packed dim's closing "]".
+                SourceRange patLoc = range;
+                auto* rvec = s.MakeRangeVec();
+                for (int i = 0; i < arrDims && i < (int)dimList.size(); i++) {
+                    auto& d = dimList[i];
+                    auto* r = s.MakeRange();
+                    r->VpiParent(pat);
+                    auto mkBound = [&](int64_t v, const Expression* be) -> UHDM::expr* {
+                        auto* c = s.MakeConstant();
+                        std::string digits = std::to_string(v);
+                        c->VpiDecompile(digits);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(r);
+                        if (be)
+                            setLoc(c, be->sourceRange);
+                        return c;
+                    };
+                    if (d.leftExpr && d.rightExpr) {
+                        setLoc(r, SourceRange(d.leftExpr->sourceRange.start() - 1,
+                                              d.rightExpr->sourceRange.end() + 1));
+                        patLoc = SourceRange(range.start(), d.rightExpr->sourceRange.end() + 1);
+                    }
+                    r->Left_expr(mkBound(d.range.left, d.leftExpr));
+                    r->Right_expr(mkBound(d.range.right, d.rightExpr));
+                    rvec->push_back(r);
+                }
+                pat->Ranges(rvec);
+                setLoc(pat, patLoc);
+                auto* ert = s.MakeRef_typespec();
+                ert->VpiParent(pat);
+                ert->Actual_typespec(elemTs);
+                pat->Elem_typespec(ert);
+                return pat;
+            }
+        }
+        }
         if (ct.kind == SymbolKind::PredefinedIntegerType) {
             auto& pit = ct.as<PredefinedIntegerType>();
             UHDM::typespec* its = nullptr;
