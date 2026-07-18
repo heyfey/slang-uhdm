@@ -2542,6 +2542,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             n->Typespec(rt);
             pendingNetTs.push_back({it.sym, rt, &info});
         }
+        // Record the def net so def-view port LowConns can bind to it.
+        info.nets[it.sym] = n;
         nets->push_back(n);
     }
     if (!nets->empty())
@@ -2721,6 +2723,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         if (auto npc = findConnSyntax(inst, ps.name))
             setLoc(lc, SourceRange(npc->name.location(),
                                    npc->name.location() + ps.name.size()));
+        else if (hasOrderedConns(inst) && conn && connectionExpr(*conn))
+            setLoc(lc, connectionExpr(*conn)->sourceRange);
         else
             setLocNamed(lc, ps);
         if (auto it2 = netMap.find(internal); it2 != netMap.end())
@@ -2729,8 +2733,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         if (conn && parentNets) {
             if (auto expr = connectionExpr(*conn)) {
                 refCollector = parentRefs;
+                forceConstParent = true;
                 if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets))
                     p->High_conn(h);
+                forceConstParent = false;
                 refCollector = nullptr;
             }
         }
