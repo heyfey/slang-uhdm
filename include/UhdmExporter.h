@@ -294,6 +294,9 @@ private:
         const slang::ast::ParameterSymbol* param = nullptr;
         const slang::ast::Expression* site = nullptr;
         const slang::ast::SubroutineSymbol* directSub = nullptr;
+        // True when this fold came from an executed return (so an enclosing
+        // straight-line list must stop, not fall through to a later return).
+        bool terminal = false;
         explicit operator bool() const { return lit || param; }
     };
     CallFold constCallFold(const slang::ast::Expression& expr);

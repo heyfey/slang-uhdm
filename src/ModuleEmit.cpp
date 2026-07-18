@@ -1619,7 +1619,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         if (!rhs && topView && callFold) {
             auto& iv = callFold->integer();
-            bool sgn = iv.isSigned();
+            // A folded call WITH arguments keeps the signed (INT) encoding; an
+            // argument-less fold is encoded by magnitude (UINT) unless negative.
+            auto& rcCall = stripImplicitConv(ae.right());
+            bool hasArgs = rcCall.kind == ExpressionKind::Call &&
+                           !rcCall.as<CallExpression>().arguments().empty();
+            bool sgn = hasArgs ? iv.isSigned() : (iv.isSigned() && iv.isNegative());
             std::string digits = iv.toString(LiteralBase::Decimal, false);
             auto* c = s.MakeConstant();
             c->VpiDecompile(digits);
@@ -1823,8 +1828,11 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
     std::function<CallFold(const Statement&)> findFold =
         [&](const Statement& st) -> CallFold {
         if (st.kind == StatementKind::Return) {
-            if (auto* e = st.as<ReturnStatement>().expr)
-                return resolve(*e);
+            if (auto* e = st.as<ReturnStatement>().expr) {
+                CallFold v = resolve(*e);
+                v.terminal = true; // an executed return stops the function
+                return v;
+            }
             return CallFold{};
         }
         if (st.kind == StatementKind::ExpressionStatement) {
@@ -1836,7 +1844,7 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
                     auto& sym = lc.as<NamedValueExpression>().symbol;
                     CallFold val = resolve(ae2.right());
                     if (&sym == (*subp)->returnValVar)
-                        return val;
+                        return val; // funcname= sets the value; not terminal
                     env[&sym] = val; // empty poisons
                     return CallFold{};
                 }
@@ -1844,7 +1852,8 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
             return CallFold{};
         }
         if (st.kind == StatementKind::List) {
-            // Straight-line only: first return wins; assignments accumulate.
+            // Straight-line: an executed return (terminal) wins immediately;
+            // assignments to the return var accumulate.
             CallFold acc;
             for (auto* item : st.as<StatementList>().list) {
                 if (item->kind == StatementKind::VariableDeclaration) {
@@ -1853,15 +1862,44 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
                         env[&vs] = resolve(*init);
                     continue;
                 }
-                if (item->kind == StatementKind::Return)
-                    return findFold(*item);
-                if (auto f = findFold(*item))
+                CallFold f = findFold(*item);
+                if (f.terminal)
+                    return f;
+                if (f)
                     acc = f;
             }
             return acc;
         }
         if (st.kind == StatementKind::Block)
             return findFold(st.as<BlockStatement>().body);
+        if (st.kind == StatementKind::ForLoop) {
+            // A search loop that returns on its first iteration folds to that
+            // return (straight-line, one iteration). Loops whose body has no
+            // return can't be reduced this way.
+            std::function<bool(const Statement&)> hasReturn =
+                [&](const Statement& s2) -> bool {
+                if (s2.kind == StatementKind::Return)
+                    return true;
+                if (s2.kind == StatementKind::List) {
+                    for (auto* it2 : s2.as<StatementList>().list)
+                        if (hasReturn(*it2))
+                            return true;
+                    return false;
+                }
+                if (s2.kind == StatementKind::Block)
+                    return hasReturn(s2.as<BlockStatement>().body);
+                if (s2.kind == StatementKind::ForLoop)
+                    return hasReturn(s2.as<ForLoopStatement>().body);
+                return false;
+            };
+            auto& fl = st.as<ForLoopStatement>();
+            if (hasReturn(fl.body)) {
+                CallFold f = findFold(fl.body);
+                f.terminal = true; // the loop body executed a return
+                return f;
+            }
+            return CallFold{};
+        }
         return CallFold{};
     };
     CallFold r = findFold((*subp)->getBody());
