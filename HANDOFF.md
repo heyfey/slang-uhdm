@@ -12,7 +12,20 @@ elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
 template emitPorts/emitContAssigns/emitProcess on the instance type to
 support ported interfaces (InterfaceAssign/Initial/Always/WithPort).
 
-PORTED-INTERFACE STEP (INFRASTRUCTURE BUILT, per-test convergence remaining) —
+PORTED-INTERFACE STEP (DONE — 4 tests converted to CMP_ONLY) — the ported
+interfaces (InterfaceWithPort/Assign/Initial/Always) now converge to CMP_ONLY
+(only weakly-tail typespec ordering remains). Key folded-model quirks handled:
+(1) def-view interface ports carry no typespec; def net recorded in info.nets
+so def port LowConns bind. (2) elab port loop handles positional connections
+(loc at the conn expr) + parents the HighConn constant. (3) a single-instance
+interface's def cont-assign refs re-point to the instance's ELAB vars (rebind
+after elab). (4) the elab cont-assign SHARES the def's RHS object with a fresh
+unbound elab-prefixed LHS. (5) processes are emitted ONCE in the elab view
+(binding elab vars) and the SAME object is shared into both interface_inst
+views (Surelog folds one process into both). Remaining ported-interface tests
+with child instances/generate still fall through to the module path.
+--- earlier (infrastructure) notes ---
+INFRASTRUCTURE BUILT, per-test convergence remaining —
 Step A: emitPorts/emitContAssigns/emitProcess/emitGenScopes now take instance*
 and dispatch their setter on m->UhdmType() (instSetPorts/ContAssigns/Process/
 GenScopeArrays in EmitHelpers.h). Step C: isSimpleInterfaceBody broadened to
