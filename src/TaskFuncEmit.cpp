@@ -36,6 +36,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             continue;
         auto& sub = member.as<SubroutineSymbol>();
         bool isFunc = sub.subroutineKind == SubroutineKind::Function;
+        // A DPI-EXPORTED subroutine is emitted as a function (even a task)
+        // carrying DPI export attributes.
+        bool dpiExport = false;
+        for (auto& ex : comp.getDPIExports())
+            if (ex.subroutine == &sub) {
+                dpiExport = true;
+                break;
+            }
+        if (dpiExport)
+            isFunc = true;
         std::string fullName = prefix.empty() ? std::string(sub.name)
                                               : joinPath(prefix, sub.name);
 
@@ -55,6 +65,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         bool dpiImport = (sub.flags & MethodFlags::DPIImport) != MethodFlags::None;
         if (dpiImport) {
             tf->VpiAccessType(4);
+            if ((sub.flags & MethodFlags::DPIContext) != MethodFlags::None)
+                tf->VpiDPIContext(true);
+            tf->VpiDPICStr(2);
+        }
+        else if (dpiExport) {
+            tf->VpiAccessType(3);
             tf->VpiDPICStr(2);
         }
         else if (sub.defaultLifetime == VariableLifetime::Automatic) {
