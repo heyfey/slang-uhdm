@@ -100,19 +100,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     up->VpiValue("BIN:" + digits);
                 }
             }
-            // A known unbased-unsized default ('0/'1) carries a BIN:<bit>
-            // parameter value (like the 'x/'z case), not a decimal UINT.
-            bool unbasedKnown =
-                !unknownDefault && defaultInit &&
-                stripImplicitConv(*defaultInit).kind ==
-                    ExpressionKind::UnbasedUnsizedIntegerLiteral;
-            if (unbasedKnown) {
+            // An unbased-unsized default ('0/'1/'x/'z) carries a BIN:<bit>
+            // parameter value, not a decimal UINT. (Coercion to int can clear
+            // the value's unknown flag, so this handles X/Z here rather than
+            // relying on the unknownDefault path above.)
+            bool unbasedInit =
+                defaultInit && stripImplicitConv(*defaultInit).kind ==
+                                   ExpressionKind::UnbasedUnsizedIntegerLiteral;
+            if (unbasedInit) {
                 logic_t bit = stripImplicitConv(*defaultInit)
                                   .as<UnbasedUnsizedIntegerLiteral>()
                                   .getLiteralValue();
-                up->VpiValue(std::string("BIN:") + (bit.value ? "1" : "0"));
+                std::string d = bit.isUnknown()
+                                    ? (bit.value == logic_t::X_VALUE ? "X" : "Z")
+                                    : (bit.value ? "1" : "0");
+                up->VpiValue("BIN:" + d);
             }
-            if (!unbasedKnown && literalInit && cv.isInteger() &&
+            if (!unbasedInit && literalInit && cv.isInteger() &&
                 !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
                 bool neg = iv.isSigned() && iv.isNegative();
@@ -292,22 +296,35 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         "'d" + digits);
                         c->VpiConstType(0);
                     }
-                    // A typed-param unbased-unsized default (logic[31:0] R = '0)
-                    // encodes BIN:<bit>, decompile <width>'b<bit>, constType 3.
+                    // A typed-param unbased-unsized default folds at the type
+                    // width (Surelog quirk): '0 -> BIN:0/<width>'b0, '1 ->
+                    // UINT:<all-ones>/decimal, 'x/'z -> BIN:X/Z.
                     if (sinit.kind ==
                             ExpressionKind::UnbasedUnsizedIntegerLiteral &&
                         typedParam) {
                         logic_t bit = sinit.as<UnbasedUnsizedIntegerLiteral>()
                                           .getLiteralValue();
-                        std::string d =
-                            bit.isUnknown()
-                                ? (bit.value == logic_t::X_VALUE ? "X" : "Z")
-                                : (bit.value ? "1" : "0");
                         auto* c = (UHDM::constant*)rhs;
-                        c->VpiValue("BIN:" + d);
-                        c->VpiConstType(vpiBinaryConst);
-                        c->VpiDecompile(
-                            std::to_string((int32_t)ps.getType().getBitWidth()) + "'b" + d);
+                        int32_t w = (int32_t)ps.getType().getBitWidth();
+                        if (bit.isUnknown()) {
+                            std::string d = bit.value == logic_t::X_VALUE ? "X" : "Z";
+                            c->VpiValue("BIN:" + d);
+                            c->VpiConstType(vpiBinaryConst);
+                            c->VpiDecompile(std::to_string(w) + "'b" + d);
+                        }
+                        else if (bit.value == 0) {
+                            c->VpiValue("BIN:0");
+                            c->VpiConstType(vpiBinaryConst);
+                            c->VpiDecompile(std::to_string(w) + "'b0");
+                        }
+                        else {
+                            slang::SVInt ones((slang::bitwidth_t)w, 0, false);
+                            ones = ~ones;
+                            std::string digits = ones.toString(LiteralBase::Decimal, false);
+                            c->VpiValue("UINT:" + digits);
+                            c->VpiConstType(vpiUIntConst);
+                            c->VpiDecompile(digits);
+                        }
                     }
                     // Typed-param (non-pattern) folds carry a ts ref to the param.
                     if (typedParam && wantTs && !isPattern) {
