@@ -257,7 +257,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     v->VpiFullName(innerPrefix + "." + std::string(bm.name));
                     v->VpiParent(b);
                     setLoc(v, nameSpan(bm.location, bm.name));
+                    // Block-local var typespecs keep their range bounds
+                    // UNFOLDED (Surelog's procedural-decl form).
+                    bool savedTf = tfContext;
+                    tfContext = true;
                     auto* ts = makeTypespec(bm);
+                    tfContext = savedTf;
                     if (pkgScopeInst)
                         ts->Instance(pkgScopeInst);
                     auto* rt = s.MakeRef_typespec();
