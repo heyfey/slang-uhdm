@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r156 state)
+# HANDOFF — slang-uhdm convergence campaign (r163 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,10 +13,29 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r156 baseline, committed as results/baseline.csv)
+## Current scoreboard (r163 baseline, committed as results/baseline.csv)
 
-PASS 253 · CMP_ONLY 8 · DIFF 294 · UNSUPPORTED 106 (r156). SESSION r138-r156
-(this session): +15 PASS (238->253), UNSUP 109->106. GENERATE cluster (r153-r156):
+PASS 256 · CMP_ONLY 8 · DIFF 299 · UNSUPPORTED 98 (r163). SESSION r138-r163
+(this session): +18 PASS (238->256), UNSUP 109->98. LATE-STAGE STRATEGY: DIFF
+classified 214 structural(a: wrong/missing objects) vs 78 attribute(b); prioritize
+(a). No clean multi-test DIFF levers remain (packed_array_var/struct_var/vector-
+typedef all proved per-test); reliable value = per-test pickoffs + a few real
+features. (r158) SIGNED SIZE-CAST fold N'(signed_ref)->signed const + deferred
+signed logic_typespec (pendingSignedCastTs), gated to signed non-literal operands
+so 3'(31)/int'(x) don't regress - CastClog2 PASS. (r159) STRUCT-PREFIX WALL CRACKED
+(leaf-vs-nested): module-level LEAF packed struct typedef -> prefixed member refs
+(work@mod.T.m) + module parent; struct containing a nested struct/enum -> BARE;
+file-level -> bare. (r160) $bits(TYPE) in an unfolded range bound -> sys_func_call
+w/ ref_obj arg (emitSyntaxExpr SystemName branch) - BitsCallOnVar PASS. (r161)
+typed packed-logic-VECTOR param (parameter logic [31:0] X) -> logic_typespec via
+makeTypespec, gated to IntegerTypeSyntax (typedef'd stays int_typespec) - broad
+(a) reduction across package-param tests. (r162/r163) PACKAGE TYPEDEFS: emitPackage
+now emits vector (logic_typespec pkg::T) + struct/enum typedefs with pkg::pkg::T::m
+DOUBLED member refs (buildStructTs memberSep param) + field-typespec vpiInstance=
+package, populating typedefTs - BitsCallOnStructMember PASS, 8 pkg tests UNSUP->DIFF.
+REMAINING pkg-typedef refinements (per-test): range-bound X-1 UNFOLD w/ ::-doubled
+refs (needs emitSyntaxExpr :: separator + tfContext), typedef'd-signal logic_var-vs-
+net, vpiNetType. GENERATE cluster (r153-r156):
 (r153) emit gen-scope LOCAL NETS (wire tmp;) as logic_nets on the gen_scope, kept
 out of netMap so refs stay weak - simple_generate PASS; (r154) gen_blk[N] index in
 a HierarchicalValue path is a bit_select (name ref + bare UINT index), not one
