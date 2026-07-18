@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r145 state)
+# HANDOFF — slang-uhdm convergence campaign (r149 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,8 +13,24 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r144 baseline, committed as results/baseline.csv)
+## Current scoreboard (r149 baseline, committed as results/baseline.csv)
 
+PASS 247 · CMP_ONLY 8 · DIFF 300 · UNSUPPORTED 106 (r149). SESSION r138-r149
+(this session): +9 PASS (238->247), UNSUP 109->106. Additional landings after r145:
+(r146) $signed/$unsigned sys_func_call result typespec shares the LHS PORT's
+typespec actual (search di->mod->Ports() by name after the write phase; port nets
+don't carry n->Typespec(), so it lives on the port) - OneSysFunc PASS. (r147)
+untyped ranged param int_typespec locates at its range span. (r148) untyped
+ranged param (parameter [N:0] X) int_typespec carries its packed range with
+located, range-parented UINT bounds AND parents to the parameter (isRangedUntyped
+Param helper) - counter_ifelse_chain/counter_xpath/pico_count_cycle PASS. (r149)
+inline anonymous enum (enum {..} v) carries a bare base ref_typespec (fullname
+patched to the var by the var-emit path); gated on implicitBaseRef so typedef
+anon-base enums (enum_values) stay unaffected - simple_enum PASS.
+NEXT tractable leads: Clog2OfSum (17, needs $clog2 result typespec [same shape as
+r146] + fold-constant unparented + top-view LHS binds def net); the ranged-param
+typespec pattern may convert more param tests (UnsizedConstantsParameterParsing).
+--- older session summary (r138-r145) below ---
 PASS 242 · CMP_ONLY 8 · DIFF 305 · UNSUPPORTED 106 (r144). SESSION r138-r144
 (this session): +4 PASS (238->242), UNSUP 109->106, plus several diff reductions.
 Landed: (r139) 2D-array member access in hier_paths (base multi-dim element
