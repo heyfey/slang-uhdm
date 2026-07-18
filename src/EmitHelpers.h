@@ -487,6 +487,35 @@ inline bool useInterfacePath(const InstanceSymbol& inst) {
     return inst.isInterface() && isSimpleInterfaceBody(inst.body);
 }
 
+// Cont_assigns/Process/Ports/Gen_scope_arrays are declared separately (same
+// signature) on module_inst and interface_inst, not on the common `instance`
+// base. These dispatch the setter on the runtime type so emission code can be
+// written against instance*.
+inline void instSetContAssigns(UHDM::instance* m, UHDM::VectorOfcont_assign* v) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->Cont_assigns(v);
+    else
+        ((UHDM::module_inst*)m)->Cont_assigns(v);
+}
+inline void instSetProcess(UHDM::instance* m, UHDM::VectorOfprocess_stmt* v) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->Process(v);
+    else
+        ((UHDM::module_inst*)m)->Process(v);
+}
+inline void instSetPorts(UHDM::instance* m, UHDM::VectorOfport* v) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->Ports(v);
+    else
+        ((UHDM::module_inst*)m)->Ports(v);
+}
+inline void instSetGenScopeArrays(UHDM::instance* m, UHDM::VectorOfgen_scope_array* v) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->Gen_scope_arrays(v);
+    else
+        ((UHDM::module_inst*)m)->Gen_scope_arrays(v);
+}
+
 inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body) {
     std::vector<NetOrderItem> sorted, implicitPorts;
     std::set<const Symbol*> portInternals;

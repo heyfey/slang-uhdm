@@ -13,7 +13,7 @@
 namespace slang_uhdm {
 
 UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block,
-                                              UHDM::module_inst* m, const std::string& prefix,
+                                              UHDM::instance* m, const std::string& prefix,
                                               NetMap& netMap) {
     UHDM::process_stmt* proc = nullptr;
     switch (block.procedureKind) {

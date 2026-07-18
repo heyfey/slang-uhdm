@@ -140,10 +140,10 @@ private:
                                                 const std::string& path,
                                                 UHDM::module_inst* parentM);
     void emitTopPorts(TopPending& tp);
-    void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+    void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);
 
-    void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+    void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
     void emitParameters(const slang::ast::Scope& body, UHDM::scope* m, const std::string& prefix,
                         NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
@@ -160,13 +160,13 @@ private:
     UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
                                          const std::string& aliasName,
                                          const std::string& memberSep = ".");
-    void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+    void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
                          std::set<const slang::ast::Symbol*>* instRefs,
                          std::set<const slang::ast::Symbol*>* lhsSyms);
     UHDM::process_stmt* emitProcess(const slang::ast::ProceduralBlockSymbol& block,
-                                    UHDM::module_inst* m, const std::string& prefix,
+                                    UHDM::instance* m, const std::string& prefix,
                                     NetMap& netMap);
     UHDM::any* emitStmt(const slang::ast::Statement& stmt, UHDM::BaseClass* parent,
                         const std::string& prefix, NetMap& netMap);

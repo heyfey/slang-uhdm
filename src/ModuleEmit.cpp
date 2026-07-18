@@ -979,7 +979,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
 // Generate blocks: one gen_scope_array + gen_scope per unrolled iteration
 // (instance view only). The genvar becomes an unlocated localparam.
-void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_inst* m,
+void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
@@ -1205,7 +1205,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
         }
     }
     if (!gsas->empty())
-        m->Gen_scope_arrays(gsas);
+        instSetGenScopeArrays(m, gsas);
     // Gen-scope CA LHS elaboration also strips the signal ts parent.
     for (auto sym : genLhsSyms) {
         auto it = netMap.find(sym);
@@ -1528,7 +1528,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     pendingPatternOrphans.clear();
 }
 
-void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* m,
+void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                              const std::string& prefix,
                              NetMap& netMap, bool topView,
                              TsCache* sharedTs) {
@@ -1590,10 +1590,10 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::module_inst* 
         ports->push_back(p);
     }
     if (!ports->empty())
-        m->Ports(ports);
+        instSetPorts(m, ports);
 }
 
-void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_inst* m,
+void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,
                                    const std::string& prefix, NetMap& netMap, bool topView,
                                    DefInfo* defInfo, bool shareWithDef,
                                    std::set<const Symbol*>* instRefs,
@@ -2065,7 +2065,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             defInfo->contAssigns.push_back(ca);
     }
     if (!cas->empty())
-        m->Cont_assigns(cas);
+        instSetContAssigns(m, cas);
 }
 
 
