@@ -514,8 +514,11 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) 
             return v;
         }
     }
-    if (ct.kind == SymbolKind::FloatingType)
+    if (ct.kind == SymbolKind::FloatingType) {
+        if (ct.as<FloatingType>().floatKind == FloatingType::ShortReal)
+            return s.MakeShort_real_var();
         return s.MakeReal_var();
+    }
     auto* v = s.MakeLogic_var();
     if (ct.isSigned())
         v->VpiSigned(true);

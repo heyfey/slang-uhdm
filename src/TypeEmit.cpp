@@ -147,7 +147,9 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             et = &et->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
         auto& ct = et->getCanonicalType();
         if (ct.kind == SymbolKind::FloatingType) {
-            auto* t = s.MakeReal_typespec();
+            UHDM::typespec* t = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
+                                    ? (UHDM::typespec*)s.MakeShort_real_typespec()
+                                    : (UHDM::typespec*)s.MakeReal_typespec();
             setLoc(t, range);
             return t;
         }
@@ -329,6 +331,14 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
     if (ct.kind == SymbolKind::EnumType && internal.kind == SymbolKind::Variable) {
         auto* v = s.MakeEnum_var();
+        v->VpiVisibility(1);
+        return v;
+    }
+    // Real/shortreal signals are variables, never nets.
+    if (ct.kind == SymbolKind::FloatingType) {
+        auto* v = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
+                      ? (UHDM::variables*)s.MakeShort_real_var()
+                      : (UHDM::variables*)s.MakeReal_var();
         v->VpiVisibility(1);
         return v;
     }

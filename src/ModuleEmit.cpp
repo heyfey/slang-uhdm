@@ -521,6 +521,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         // Implicit nets carry no typespec (and print a bare wire net type).
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
+        // A real/shortreal var carries no typespec ref; its init is a vpiExpr.
+        bool realVar = it.sym->getDeclaredType() &&
+                       it.sym->getDeclaredType()->getType().isFloating();
         // Vector-typedef signals bind a fresh plain NAMED clone (built at
         // net-emission time, no alias link).
         UHDM::typespec* ts = nullptr;
@@ -538,20 +541,21 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 ts->VpiName(tv.name);
             }
         }
-        if (!ts && !implicitNet)
+        if (!ts && !implicitNet && !realVar)
             ts = sharedTypespec(*it.sym, netTs);
         // Unpacked-array signals: the instance view is an array_var (ranges
         // per unpacked dim, an inner reg carrying the element typespec, an
         // array_typespec). The def view keeps the plain net (see below).
-        if (auto* av = implicitNet ? nullptr
-                                   : emitArrayVar(*it.sym, name, fullName, m, ts)) {
+        if (auto* av = (implicitNet || realVar)
+                           ? nullptr
+                           : emitArrayVar(*it.sym, name, fullName, m, ts)) {
             topNets[it.sym] = av;
             sigOrder.emplace_back(it.sym, av);
             vars->push_back(av);
             continue;
         }
         UHDM::ref_typespec* rt = nullptr;
-        if (!implicitNet) {
+        if (!implicitNet && !realVar) {
             rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName);
             rt->Actual_typespec(ts);
@@ -564,9 +568,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 setLocNamed(v, *it.port);
             else
                 setLoc(v, nameSpan(it.sym->location, it.sym->name));
-            rt->VpiParent(v);
-            v->Typespec(rt);
-            if (ts->UhdmType() == UHDM::uhdmenum_typespec &&
+            if (rt) {
+                rt->VpiParent(v);
+                v->Typespec(rt);
+            }
+            if (ts && ts->UhdmType() == UHDM::uhdmenum_typespec &&
                 ((UHDM::enum_typespec*)ts)->VpiName().empty()) {
                 ts->VpiParent(v);
                 if (((UHDM::enum_typespec*)ts)->Base_typespec())
@@ -598,6 +604,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             v->Expr(c);
                         }
                     }
+                    else if (ic.kind == ExpressionKind::RealLiteral) {
+                        // The var's init constant is unparented in this view.
+                        if (auto* c = emitExpr(ic, v, fullName, topNets))
+                            v->Expr((UHDM::expr*)c);
+                    }
                     else if (enumRef || isLiteralExpr(ic) || concatInit) {
                         bool forceSaved = forceConstParent;
                         // Concat ops self-parent; only bare literals need the
@@ -624,12 +635,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             // Vars creation-parent their (non-typedef) typespec like nets;
             // a shared decl-group ts ends at the group's last var.
-            if (ts->UhdmType() != UHDM::uhdmenum_typespec &&
+            if (ts && ts->UhdmType() != UHDM::uhdmenum_typespec &&
                 ts->UhdmType() != UHDM::uhdmstruct_typespec && ts->VpiName().empty())
                 ts->VpiParent(v);
             // Initialized plain-typed vars span declarator..init.
             if (auto dtl = it.sym->getDeclaredType();
-                dtl && dtl->getInitializer() && ts->VpiName().empty()) {
+                dtl && dtl->getInitializer() && (realVar || (ts && ts->VpiName().empty()))) {
                 if (auto dsyn = it.sym->getSyntax()) {
                     auto dr = dsyn->sourceRange();
                     if (dr.start() != SourceLocation::NoLocation)
