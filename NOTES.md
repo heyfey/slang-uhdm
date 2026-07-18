@@ -1166,3 +1166,18 @@ match) landed: UNSUP 115->109. Remaining, per test:
 - PACKAGE struct/enum leaf (StructPackedOutput flash_phy_pkg): needs the package
   typedefs in typedefTs first (see the package-typedef note).
 - range-select base (gen_struct_access): the range/part-select-base extension.
+
+## r139+ — weakly-tail net-typespec parenting is INTRACTABLE (do not retry naively)
+partsel_simple (CMP_ONLY, 6-line tail diff): golden parents the DEF-view net
+logic_typespec to its logic_net and leaves the net-decl Lhs typespec unparented;
+mine does the opposite. Tried: (1) materializeDefNetTs parent def-view ts to
+pn.rt->VpiParent() gated on getInitializer()+VpiName().empty(); (2) pendingNetDeclTs
+drain leave unparented. Result: goldens clean BUT the gated round regressed 27
+PASS->CMP_ONLY (CastExpression/CastSize/ArrayInit/1DUnpackedArray/Shortreal/...).
+So golden does NOT parent def-view typespecs of ordinary initialized nets - the
+parent-to-logic_net is specific to offset (a net used as a part_select BASE
+data[offset +: 4]). ALSO an ordering problem: even when parented, mine's def-view
+ts lands 2nd in the arena tail, golden 1st. Conclusion: net-typespec tail
+parenting is per-net-usage-specific + arena-order-sensitive; not worth chasing
+without the full arena-order model. run_corpus "no regressions" MISSES
+PASS->CMP_ONLY - ALWAYS join baseline vs new and grep PASS->!PASS manually.
