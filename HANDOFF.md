@@ -12,7 +12,7 @@ elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
 template emitPorts/emitContAssigns/emitProcess on the instance type to
 support ported interfaces (InterfaceAssign/Initial/Always/WithPort).
 
-MODPORT FEATURE (48 UNSUP tests: InterfacePort/ArbitrarySymbol) — STARTED.
+MODPORT FEATURE — EMISSION DONE (23 tests UNSUP->DIFF; UNSUP 98->75). Modports, interface_typespec, InterfacePort (LowConn->modport, typedef->interface_typespec), and ArbitrarySymbol (sub.sig -> hier_path) all emit. Remaining: converge the DIFF output (150-750 line diffs) + the elab interface-port HighConn connection + element/member-select bases on interface signals.
 All-or-nothing per test: ANY noteUnsupported -> exit 4 -> UNSUP, so a modport
 test needs ALL pieces below before it moves from UNSUP even to DIFF. Golden
 structure verified on iface_sig_in_child_port (dut->mid(myif.s sub)->child).
