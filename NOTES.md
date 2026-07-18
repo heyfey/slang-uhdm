@@ -1114,3 +1114,25 @@ Each needs a feature or an obscure Surelog quirk; noted so they aren't re-scoute
   init-value fold gated on "no non-init writes".
 - ParameterWithUnderscore...: param `'x` default decompiles as 'bX (based) in
   Surelog, mine gives 'X; plus a spurious vpiTypespec on the param value constant.
+
+## r137 session — remaining tractable clusters (well-scoped)
+- RANGE/PART-SELECT on a member-access-through-element-select base (a[0].source[6-:2]):
+  5 tests (IndexedPartSelectOfArrayElement, PartSelectInFor, IndexedPartSelectInFor,
+  indexed_partsel_array, gen_struct_access). ExprEmit RangeSelect case (~line 1199)
+  only handles a MemberAccess base reaching a NamedValue; extend it like
+  emitMixedHierPath (member chain through element selects) but ending in a
+  part_select/indexed_part_select instead of a ref. Some also need array-of-struct.
+- PACKED_ARRAY_TYPESPEC (net-level, ~15 tests "packed array without integer type
+  syntax"): `reg8_t [0:3] in` or `my_pkg::e_t [7:0] x`. makeTypespec (TypeEmit ~line
+  308) notes unsupported; add a branch when the packed-array leaf element is a typedef
+  in typedefTs (match by canonical type). Golden shape (net-level, no member coupling):
+  packed_array_typespec {loc=type syntax; vpiRange=the packed dims; vpiElemTypespec=
+  ref_typespec (no fullname) -> Actual = the shared typedef}. MODULE/file typedefs are
+  already in typedefTs; PACKAGE ones are NOT (see the package-typedef note). 2D arrays
+  (DotMultirange status_t[1:0][1:0]) add nested ranges + array-of-struct member access.
+- Sys-func result typespec (OneSysFunc $unsigned, Clog2OfSum $clog2): the sys_func_call
+  in a cont_assign wants a vpiTypespec ref -> the LHS type's logic_typespec; AND the
+  top-view cont_assign should be SHARED ($signed/$unsigned shouldn't force re-emit -
+  containsOperation returns true for all sys calls; narrow it).
+- Def-view submodule port ranges with params (CastToSum...): `output logic [P+1:0] a`
+  keeps its range bound UNFOLDED (P unresolved) in the def view; mine folds.
