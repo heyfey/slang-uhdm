@@ -10,6 +10,8 @@
 
 #include "EmitHelpers.h"
 
+#include "slang/ast/expressions/Operator.h"
+
 namespace slang_uhdm {
 
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
@@ -40,9 +42,23 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
     auto* c = s.MakeConstant();
     c->VpiDecompile(digits);
     c->VpiSize((int32_t)expr.type->getBitWidth());
+    // A folded comparison/logical result is a 1-bit boolean; Surelog's reduce
+    // encodes it as a binary constant, not UINT.
+    bool boolFold = false;
+    if (auto& folded = stripImplicitConv(expr); folded.kind == ExpressionKind::BinaryOp) {
+        auto bop = folded.as<BinaryExpression>().op;
+        boolFold = OpInfo::isComparison(bop) || bop == BinaryOperator::LogicalAnd ||
+                   bop == BinaryOperator::LogicalOr ||
+                   bop == BinaryOperator::LogicalImplication ||
+                   bop == BinaryOperator::LogicalEquivalence;
+    }
     // Surelog's reduce encodes division results (and anything referencing a
     // param whose value was so encoded) as INT; everything else as UINT.
-    if (isIntEncoded(expr)) {
+    if (boolFold) {
+        c->VpiValue("BIN:" + digits);
+        c->VpiConstType(vpiBinaryConst);
+    }
+    else if (isIntEncoded(expr)) {
         c->VpiValue("INT:" + digits);
         c->VpiConstType(vpiIntConst);
     }
