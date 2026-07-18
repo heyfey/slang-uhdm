@@ -556,8 +556,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     up->VpiFile(fullFilePath(pkg.location));
     if (topView)
         up->VpiTop(true);
-    if (auto syn = pkg.getSyntax())
+    if (auto syn = pkg.getSyntax()) {
         setLoc(up, syn->sourceRange());
+        // endpackage : name -> vpiEndLabel.
+        if (syntax::ModuleDeclarationSyntax::isKind(syn->kind))
+            if (auto* bn = syn->as<syntax::ModuleDeclarationSyntax>().blockName)
+                up->VpiEndLabel(bn->name.valueText());
+    }
     NetMap none;
     emitParameters(pkg, up, prefix, none, topView, nullptr, true);
     // Package typedefs: struct/enum/vector typespecs named pkg::T, parented and
