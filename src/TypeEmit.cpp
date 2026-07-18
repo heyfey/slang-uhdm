@@ -919,7 +919,31 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
                     rightSyn = rss->right;
                 }
             }
-            auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) {
+            auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) -> UHDM::expr* {
+                // Literal / absent bounds: UINT at the token span. Non-literal
+                // bounds (N-1) in module context fold to an INT constant
+                // anchored at the top operator's LEFT operand span; in
+                // function/typedef context they stay unfolded expressions.
+                if (es && es->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
+                    if (tfContext) {
+                        if (auto* e = emitSyntaxExpr(*es, r))
+                            return (UHDM::expr*)e;
+                    }
+                    else {
+                        auto* c = s.MakeConstant();
+                        c->VpiParent(r);
+                        c->VpiSize(64);
+                        c->VpiConstType(vpiIntConst);
+                        std::string digits = std::to_string(val);
+                        c->VpiValue("INT:" + digits);
+                        c->VpiDecompile(digits);
+                        if (syntax::BinaryExpressionSyntax::isKind(es->kind))
+                            setLoc(c, es->as<syntax::BinaryExpressionSyntax>().left->sourceRange());
+                        else
+                            setLoc(c, es->getFirstToken().range());
+                        return c;
+                    }
+                }
                 auto* c = s.MakeConstant();
                 c->VpiParent(r);
                 c->VpiDecompile(std::to_string(val));
