@@ -1,8 +1,18 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Session r166-r172 (2026-07-18, this session)
+## Session r166-r173 + interface feature (2026-07-18, this session)
 
-PASS 256->262, DIFF 299->292. Seven code commits, all clean (no regressions):
+PASS 256->263, DIFF 299->287, CMP_ONLY 8->13. All clean (no regressions).
+Interface feature (simple var/net/param interfaces) built on a branch and
+merged: +1 PASS (InterfaceVariable) + 4 CMP_ONLY (InterfaceParameter,
+InterfaceParameterSetValue, iface_param_set_value, iface_local_in_sub). See
+the INTERFACE FEATURE section below for status + remaining work. (r173)
+Unbased-unsized param values handle 'x/'z (fixed a latent r172 BIN:1 bug);
+elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
+template emitPorts/emitContAssigns/emitProcess on the instance type to
+support ported interfaces (InterfaceAssign/Initial/Always/WithPort).
+
+Eight code commits (r166-r173), all clean (no regressions):
 - (r166) Assignment-pattern param defaults ('{0,1}): elab-view folded RHS
   decompiles as based-decimal (2'd1) w/ no typespec & no constType; def-view
   pattern-op elements keep vpiSize:64 UNparented. Converts 4 Negation/Pattern
