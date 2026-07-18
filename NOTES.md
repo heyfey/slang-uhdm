@@ -892,3 +892,17 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   typedParam). makeParamTs picks the typespec CLASS from the integer kind
   (integer->integer_typespec, shortint/longint/byte/time -> their _typespec,
   else int_typespec); ranges only on the int_typespec (untyped) path.
+
+## Net-declaration assignments (r98 investigation - NOT landed)
+- `wire x = expr;` -> a cont_assign {vpiNetDeclAssign:1, loc = net-name span,
+  Rhs = the init constant ('x/'z uppercase to BIN:X size -1), Lhs = the net
+  object (net STAYS parented at the module, NOT the cont_assign)}. Emitted
+  BEFORE the explicit continuous assigns in Cont_assigns. Only for NET-kind
+  syms with initializers (not vars).
+- CAUTION: the net-keyword net (`wire x`) keeps its net-keyword ts span (no
+  init-extension), but a NAIVE removal of the materializeDefNetTs init-
+  extension regressed 11 PASS->CMP_ONLY (other initialized decls DO extend).
+  The extension must be skipped ONLY for explicit-net-keyword (netKeyword
+  anchored) nets, not all initialized nets. Reverted; needs the narrower
+  condition. Blocks sva_value_change_changed(_wide) and likely other
+  `wire x = ...` tests.

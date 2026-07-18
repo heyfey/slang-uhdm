@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r95 state)
+# HANDOFF — slang-uhdm convergence campaign (r98 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,9 +13,9 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r95 baseline, committed as results/baseline.csv)
+## Current scoreboard (r98 baseline, committed as results/baseline.csv)
 
-PASS 188 · CMP_ONLY 3 · DIFF 323 · UNSUPPORTED 147 (r95). r95 landed concurrent assertions (folded assert_stmt: label, clocking-only property_spec for assert-with-clocking; via instance Assertions()/vpiAssertion, shared across instances like processes). NEXT for assertions: a recursive property-expression emitter (emitAssertionExpr) + assume/cover kinds - the exact rule + operator/opType tables are in NOTES.md "Concurrent assertion property-expr rule". Also landed r93-r94: assignment-pattern fold to based constant + numeric-index integer_typespec tags (PatternDefault/PatternIndexes converge). Session 5 third
+PASS 195 · CMP_ONLY 3 · DIFF 323 · UNSUPPORTED 140 (r98). r96-r98 landed the property-expression emitter (emitAssertionExpr: implication/until/throughout/sequence-concat/not ops), default clocking blocks, assume/cover/restrict, and typed localparams (integer/byte/... _typespec). Converged sva_basic00/01/03, sva_value_change_rose, sva_throughout, sva_not. r95 landed concurrent assertions (folded assert_stmt: label, clocking-only property_spec for assert-with-clocking; via instance Assertions()/vpiAssertion, shared across instances like processes). NEXT for assertions: a recursive property-expression emitter (emitAssertionExpr) + assume/cover kinds - the exact rule + operator/opType tables are in NOTES.md "Concurrent assertion property-expr rule". Also landed r93-r94: assignment-pattern fold to based constant + numeric-index integer_typespec tags (PatternDefault/PatternIndexes converge). Session 5 third
 stretch (r82-r92) landed: var_select flattening (nested element selects,
 range/part-select of element-select bases), array_var/array_typespec for
 unpacked-array signals (element types, pattern inits, io_decl ranges),
@@ -23,7 +23,7 @@ range-select of member-access -> hier_path, multi-dim packed def-net span,
 predefined integer types (shortint/longint/byte/time), while/do-while/
 forever loops, and assignment-pattern default/index setters.
 NEXT solo-blocker clusters (run the m91.txt-style triage to refresh):
-- ConcurrentAssertion: 2 done (assert-with-clocking); ~9 left need the property-expression emitter (NOTES.md has the full rule + opType tables).
+- ConcurrentAssertion: 7 done; remaining need: net-decl-assign (NOTES r98, sva_value_change_changed - CAREFUL ts-extension condition), ##[*]/until precedence (sva_range - slang vs Surelog assoc), AssertionInstance/named property (sva_counter), package func (package_task_func), bind+assert (sva_basic02 CMP_ONLY).
 - member access base (9) - mostly interface/struct (overlaps E4).
 - assignment pattern setter kind: DONE for tags; remaining tests need the
   top-view pattern FOLD to a based constant + def value parenting under the
