@@ -337,11 +337,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::StringLiteral: {
             auto& sl = expr.as<StringLiteral>();
+            (void)sl;
             auto* c = s.MakeConstant();
             std::string raw = rawText(expr.sourceRange);
             c->VpiDecompile(raw);
-            c->VpiSize((int32_t)expr.type->getBitWidth());
-            c->VpiValue("STRING:" + std::string(sl.getValue()));
+            // Surelog stores the RAW source characters (escapes like \n stay
+            // as backslash+n), not the interpreted value; size follows suit.
+            std::string inner = raw;
+            if (inner.size() >= 2 && inner.front() == '"' && inner.back() == '"')
+                inner = inner.substr(1, inner.size() - 2);
+            c->VpiSize((int32_t)(inner.size() * 8));
+            c->VpiValue("STRING:" + inner);
             c->VpiConstType(vpiStringConst);
             setLoc(c, expr.sourceRange);
             if (forceConstParent ||
