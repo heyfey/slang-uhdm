@@ -2549,19 +2549,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     if (!nets->empty())
         iface->Nets(nets);
 
-    // Def-view cont-assigns, processes, and ports (LowConn only) reuse the
-    // shared (instance*) helpers.
+    // Def-view cont-assigns and ports (LowConn only) reuse the shared helpers.
+    // Processes are emitted once in the ELAB view and shared here (Surelog
+    // folds a single process object into both interface_inst views).
     emitContAssigns(body, iface, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
-    auto* procs = s.MakeProcess_stmtVec();
-    for (auto& member : body.members()) {
-        if (member.kind == SymbolKind::ProceduralBlock)
-            if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), iface, prefix,
-                                      info.nets))
-                procs->push_back(p);
-    }
-    if (!procs->empty())
-        instSetProcess(iface, procs);
     emitPorts(body, iface, prefix, info.nets, /*topView=*/false, &info.defTs);
     return iface;
 }
@@ -2739,8 +2731,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), iface, prefix, netMap))
                 procs->push_back(p);
     }
-    if (!procs->empty())
+    if (!procs->empty()) {
         instSetProcess(iface, procs);
+        // Surelog folds one process object into both interface_inst views.
+        if (auto iit3 = ifaceDefMap.find(&def); iit3 != ifaceDefMap.end())
+            instSetProcess(iit3->second, procs);
+    }
 
     // Elab-view ports carry both LowConn (own var) and HighConn (parent
     // signal), mirroring a module instance's port loop.
