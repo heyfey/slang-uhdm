@@ -851,3 +851,25 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   Expect_stmt}() (all extend concurrent_assertions: VpiName/FullName/Stmt/
   VpiProperty). Unlabeled asserts: fullname = module prefix, no VpiName.
 - sva_basic02 (CMP_ONLY) = assertions in a BOUND module (bind interaction).
+
+## Property-expression emitter + default clocking (r96)
+- emitAssertionExpr: Simple -> emitExpr(.expr); Binary/Unary -> operation with
+  mapped op (mapAssertBinOp/mapAssertUnaryOp: |->=52, |=>=51, implies=94,
+  until=92, until_with=93, intersect=55, throughout=57, within=58, iff=68,
+  followed_by=87/88, and/or=79/80; nexttime=89, always=90, eventually=91),
+  operands = recursive emitAssertionExpr, parented at the op, loc from
+  ae.syntax->sourceRange(). Clocking -> recurse .expr.
+- property_spec loc = the WHOLE propertySpec syntax (incl. clocking), NOT the
+  unwrapped inner expr. assert-WITH-clocking still keeps clocking-only
+  PropertyExpr; otherwise ClockingEvent (if clocked) + full PropertyExpr.
+- assertionKind -> Make{Assert_stmt,Assume,Cover,Restrict}. Unlabeled: no
+  VpiName, VpiFullName = module prefix.
+- `default clocking @(posedge clk); endclocking` -> clocking_block
+  {VpiName=blockName or "unnamed_clocking_block", loc = decl span,
+  Clocking_event = event_control (loc = @..event span) whose VpiCondition =
+  the posedge op}. Set as module Default_clocking. NOT shared across views -
+  emitDefaultClocking runs fresh in BOTH def and top (unlike processes/
+  assertions which share).
+- Converged: sva_basic00/01/03, sva_value_change_rose. Remaining sva tests
+  need more forms ($rose/$past sampling, ## delays, repetition, disable iff
+  in assumes, cover).

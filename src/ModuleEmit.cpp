@@ -122,6 +122,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     if (!asserts->empty())
         m->Assertions(asserts);
 
+    // Default clocking block (default clocking @(posedge clk); endclocking).
+    if (auto* cb = emitDefaultClocking(body, m, prefix, info.nets))
+        info.defaultClocking = cb;
+
     // Def view: for-generates keep a gen_region placeholder (unlocated begin
     // naming the module scope); if-generates become gen_if_else with BOTH
     // branches re-emitted from SYNTAX (unbound refs, name-only calls).
@@ -787,6 +791,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 av->push_back(a);
             m->Assertions(av);
         }
+        // Each view gets its own clocking_block object (not shared).
+        if (it != defMap.end() && it->second.defaultClocking)
+            emitDefaultClocking(body, m, prefix, topNets);
         if (it != defMap.end() && !it->second.taskFuncs.empty()) {
             auto* tfs = s.MakeTask_funcVec();
             for (auto* tf : it->second.taskFuncs)
@@ -1804,16 +1811,30 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
     if (inner->kind != StatementKind::ConcurrentAssertion)
         return nullptr;
     auto& ca = inner->as<ConcurrentAssertionStatement>();
-    // Only "assert property" (assert_stmt) is supported so far.
-    if (ca.assertionKind != AssertionKind::Assert)
-        return nullptr;
 
     std::string aprefix = label.empty() ? prefix : prefix + "." + label;
-    auto* as = s.MakeAssert_stmt();
-    if (!label.empty()) {
-        as->VpiName(label);
-        as->VpiFullName(aprefix);
+    UHDM::concurrent_assertions* as = nullptr;
+    switch (ca.assertionKind) {
+        case AssertionKind::Assert:
+            as = s.MakeAssert_stmt();
+            break;
+        case AssertionKind::Assume:
+            as = s.MakeAssume();
+            break;
+        case AssertionKind::CoverProperty:
+        case AssertionKind::CoverSequence:
+            as = s.MakeCover();
+            break;
+        case AssertionKind::Restrict:
+            as = s.MakeRestrict();
+            break;
+        default:
+            noteUnsupported("assertion kind: " + std::string(toString(ca.assertionKind)));
+            return nullptr;
     }
+    if (!label.empty())
+        as->VpiName(label);
+    as->VpiFullName(aprefix);
     as->VpiParent(m);
     setLoc(as, inner->sourceRange);
 
@@ -1822,21 +1843,156 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
         if (auto* st = emitStmt(*ca.ifFalse, as, aprefix, netMap))
             as->Stmt(st);
 
-    // Property spec: the folded pre-elab form keeps only the clocking event
-    // as the property expression (the sequence/implication body is dropped).
+    // Property spec. An `assert` WITH an explicit clocking event keeps ONLY
+    // the clocking op as VpiPropertyExpr (Surelog drops the body). Otherwise
+    // (assume/cover, or no clocking) the clocking (if any) becomes
+    // VpiClockingEvent and the body is emitted as VpiPropertyExpr.
     auto* ps = s.MakeProperty_spec();
     ps->VpiParent(as);
+    // The property_spec span is the WHOLE property (incl. clocking).
+    if (ca.propertySpec.syntax)
+        setLoc(ps, ca.propertySpec.syntax->sourceRange());
     const AssertionExpr* pe = &ca.propertySpec;
-    const syntax::SyntaxNode* peSyn = pe->syntax;
-    if (peSyn)
-        setLoc(ps, peSyn->sourceRange());
+    const TimingControl* clocking = nullptr;
     if (pe->kind == AssertionExprKind::Clocking) {
-        auto& cl = pe->as<ClockingAssertionExpr>();
-        if (auto* clk = emitEventExpr(cl.clocking, ps, aprefix, netMap))
+        clocking = &pe->as<ClockingAssertionExpr>().clocking;
+        pe = &pe->as<ClockingAssertionExpr>().expr;
+    }
+    bool isAssert = ca.assertionKind == AssertionKind::Assert;
+    if (isAssert && clocking) {
+        if (auto* clk = emitEventExpr(*clocking, ps, aprefix, netMap))
             ps->VpiPropertyExpr(clk);
+    }
+    else {
+        if (clocking)
+            if (auto* clk = emitEventExpr(*clocking, ps, aprefix, netMap))
+                ps->VpiClockingEvent((UHDM::expr*)clk);
+        if (auto* body = emitAssertionExpr(*pe, ps, aprefix, netMap))
+            ps->VpiPropertyExpr(body);
     }
     as->VpiProperty(ps);
     return as;
+}
+
+static int32_t mapAssertBinOp(slang::ast::BinaryAssertionOperator op) {
+    using O = slang::ast::BinaryAssertionOperator;
+    switch (op) {
+        case O::OverlappedImplication: return vpiOverlapImplyOp;
+        case O::NonOverlappedImplication: return vpiNonOverlapImplyOp;
+        case O::Implies: return vpiImpliesOp;
+        case O::Until: return vpiUntilOp;
+        case O::SUntil: return vpiUntilOp;
+        case O::UntilWith: return vpiUntilWithOp;
+        case O::SUntilWith: return vpiUntilWithOp;
+        case O::Intersect: return vpiIntersectOp;
+        case O::Throughout: return vpiThroughoutOp;
+        case O::Within: return vpiWithinOp;
+        case O::Iff: return vpiIffOp;
+        case O::OverlappedFollowedBy: return vpiOverlapFollowedByOp;
+        case O::NonOverlappedFollowedBy: return vpiNonOverlapFollowedByOp;
+        case O::And: return vpiCompAndOp;
+        case O::Or: return vpiCompOrOp;
+        default: return 0;
+    }
+}
+
+static int32_t mapAssertUnaryOp(slang::ast::UnaryAssertionOperator op) {
+    using O = slang::ast::UnaryAssertionOperator;
+    switch (op) {
+        case O::NextTime: return vpiNexttimeOp;
+        case O::SNextTime: return vpiNexttimeOp;
+        case O::Always: return vpiAlwaysOp;
+        case O::SAlways: return vpiAlwaysOp;
+        case O::Eventually: return vpiEventuallyOp;
+        case O::SEventually: return vpiEventuallyOp;
+        default: return 0;
+    }
+}
+
+UHDM::clocking_block* UhdmExporter::emitDefaultClocking(const InstanceBodySymbol& body,
+                                                        UHDM::module_inst* m,
+                                                        const std::string& prefix,
+                                                        NetMap& netMap) {
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::ClockingBlock)
+            continue;
+        auto& cbs = member.as<ClockingBlockSymbol>();
+        auto csyn = cbs.getSyntax();
+        if (!csyn || csyn->kind != syntax::SyntaxKind::ClockingDeclaration)
+            continue;
+        auto& cdecl = csyn->as<syntax::ClockingDeclarationSyntax>();
+        if (cdecl.globalOrDefault.valueText() != "default")
+            continue;
+        std::string cbName = cbs.name.empty() ? "unnamed_clocking_block"
+                                              : std::string(cbs.name);
+        std::string cbFull = prefix + "." + cbName;
+        auto* cb = s.MakeClocking_block();
+        cb->VpiName(cbName);
+        cb->VpiFullName(cbFull);
+        cb->VpiParent(m);
+        setLoc(cb, csyn->sourceRange());
+        auto* ec = s.MakeEvent_control();
+        ec->VpiParent(cb);
+        setLoc(ec, SourceRange(cdecl.at.range().start(), cdecl.event->sourceRange().end()));
+        if (auto* cond = emitEventExpr(cbs.getEvent(), ec, cbFull, netMap))
+            ec->VpiCondition(cond);
+        cb->Clocking_event(ec);
+        m->Default_clocking(cb);
+        return cb;
+    }
+    return nullptr;
+}
+
+UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseClass* parent,
+                                           const std::string& prefix, NetMap& netMap) {
+    switch (ae.kind) {
+        case AssertionExprKind::Simple:
+            return emitExpr(ae.as<SimpleAssertionExpr>().expr, parent, prefix, netMap);
+        case AssertionExprKind::Clocking:
+            return emitAssertionExpr(ae.as<ClockingAssertionExpr>().expr, parent, prefix,
+                                     netMap);
+        case AssertionExprKind::Binary: {
+            auto& bae = ae.as<BinaryAssertionExpr>();
+            int32_t opt = mapAssertBinOp(bae.op);
+            if (!opt) {
+                noteUnsupported("assertion binary op");
+                return nullptr;
+            }
+            auto* op = s.MakeOperation();
+            op->VpiOpType(opt);
+            op->VpiParent(parent);
+            if (ae.syntax)
+                setLoc(op, ae.syntax->sourceRange());
+            auto* operands = s.MakeAnyVec();
+            if (auto* l = emitAssertionExpr(bae.left, op, prefix, netMap))
+                operands->push_back(l);
+            if (auto* r = emitAssertionExpr(bae.right, op, prefix, netMap))
+                operands->push_back(r);
+            op->Operands(operands);
+            return op;
+        }
+        case AssertionExprKind::Unary: {
+            auto& uae = ae.as<UnaryAssertionExpr>();
+            int32_t opt = mapAssertUnaryOp(uae.op);
+            if (!opt) {
+                noteUnsupported("assertion unary op");
+                return nullptr;
+            }
+            auto* op = s.MakeOperation();
+            op->VpiOpType(opt);
+            op->VpiParent(parent);
+            if (ae.syntax)
+                setLoc(op, ae.syntax->sourceRange());
+            auto* operands = s.MakeAnyVec();
+            if (auto* e = emitAssertionExpr(uae.expr, op, prefix, netMap))
+                operands->push_back(e);
+            op->Operands(operands);
+            return op;
+        }
+        default:
+            noteUnsupported("assertion expr kind: " + std::string(toString(ae.kind)));
+            return nullptr;
+    }
 }
 
 } // namespace slang_uhdm
