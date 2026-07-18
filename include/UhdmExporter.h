@@ -372,6 +372,7 @@ private:
     UHDM::task_func* currentTf = nullptr;
     // When set, emitSyntaxExpr refs carry this scope prefix in VpiFullName.
     std::string syntaxRefPrefix;
+    std::string syntaxRefSep = ".";
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };

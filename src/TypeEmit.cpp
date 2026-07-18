@@ -876,7 +876,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             auto name = syn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
             ref->VpiName(name);
             if (!syntaxRefPrefix.empty())
-                ref->VpiFullName(syntaxRefPrefix + "." + std::string(name));
+                ref->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(name));
             ref->VpiParent(parent);
             setLoc(ref, syn.sourceRange());
             return ref;

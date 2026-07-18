@@ -575,8 +575,21 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
         UHDM::typespec* ts = nullptr;
         if (ct.kind == SymbolKind::PackedArrayType || ct.kind == SymbolKind::ScalarType) {
+            // A param-bounded range (logic [X-1:0]) stays UNFOLDED in the DEF
+            // view with a pkg::pkg::T::-scoped ref (tfContext + :: separator);
+            // the elaborated view folds it.
             bypassTypedefShare = true;
+            bool savedTf = tfContext;
+            std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+            if (!topView) {
+                tfContext = true;
+                syntaxRefPrefix = prefix + prefix + std::string(ta.name);
+                syntaxRefSep = "::";
+            }
             auto* lts = makeTypespec(ta, typeSyn);
+            tfContext = savedTf;
+            syntaxRefPrefix = savedPfx;
+            syntaxRefSep = savedSep;
             bypassTypedefShare = false;
             lts->VpiParent(up);
             typedefClone[&ta] = nullptr;
