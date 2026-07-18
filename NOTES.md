@@ -791,3 +791,13 @@ Rules landed (each probed against goldens):
   constType) and the def tagged_pattern value parenting under the
   pattern-orphan re-parent machinery. Setter tags alone move these tests
   UNSUPPORTED -> DIFF.
+
+## Pattern fold to based constant (r93)
+- Top-view CA with an assignment-pattern RHS that evaluates to a constant
+  folds to a BASED-DECIMAL constant: decompile "<w>'d<digits>", size = LHS
+  width, value UINT, NO constType (VpiConstType(0) so the dumper omits it),
+  loc = pattern span.
+- A pattern that FOLDS leaves NO orphan first-compile op (orphan only when
+  the top RE-EMITS the pattern). Guard: skip pendingPatternOrphans when the
+  top rhs is a constant. (PatternDefault now fully converges; PatternIndexes/
+  array/union patterns still need more - index/array fold shapes.)

@@ -1530,6 +1530,24 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         }
         if (!rhs && !bitsRhs)
             rhs = topView ? tryFoldConst(ae.right()) : nullptr;
+        // Assignment-pattern RHS folds format the constant as based-decimal
+        // ("8'd255"), at the LHS width, with no constType, located at the
+        // pattern span.
+        if (rhs && topView && rhs->UhdmType() == UHDM::uhdmconstant) {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::SimpleAssignmentPattern ||
+                rc.kind == ExpressionKind::StructuredAssignmentPattern) {
+                auto* c = (UHDM::constant*)rhs;
+                int32_t w = (int32_t)ae.left().type->getBitWidth();
+                std::string v(c->VpiValue());
+                std::string digits =
+                    v.find(':') != std::string::npos ? v.substr(v.find(':') + 1) : v;
+                c->VpiDecompile(std::to_string(w) + "'d" + digits);
+                c->VpiSize(w);
+                c->VpiConstType(0);
+                setLoc(c, rc.sourceRange);
+            }
+        }
         // Sized/based literal RHS: the top-view cont_assign is fresh but its
         // Rhs reuses the def's constant (Surelog's expression cache); bare
         // decimals are re-emitted fresh.
@@ -1566,8 +1584,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
         // Re-emitted pattern RHS leaves an orphan first-compile op behind
-        // (materialized at the very end of the write phase).
-        if (topView && defInfo && myIdx < defInfo->contAssigns.size()) {
+        // (materialized at the very end of the write phase). A pattern that
+        // FOLDS to a constant leaves no orphan.
+        if (topView && defInfo && myIdx < defInfo->contAssigns.size() && rhs &&
+            rhs->UhdmType() != UHDM::uhdmconstant) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::SimpleAssignmentPattern ||
                 rc.kind == ExpressionKind::StructuredAssignmentPattern) {
