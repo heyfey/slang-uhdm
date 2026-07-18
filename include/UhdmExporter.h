@@ -210,6 +210,9 @@ private:
     std::set<std::string> unsupportedKinds;
     bool suppressConstParent = false;
     bool reemitting = false;
+    // True while emitting elements of an enclosing assignment pattern (so
+    // nested-pattern element constants keep the bare-decimal default size).
+    bool inAssignPattern = false;
     bool forceConstParent = false;
     bool inLhs = false;
     bool callStmtContext = false;

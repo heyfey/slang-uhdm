@@ -1276,22 +1276,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
+            bool wasInPattern = inAssignPattern;
+            inAssignPattern = true;
             for (auto el : ap.elements()) {
                 if (auto* e = emitExpr(*el, op, prefix, netMap)) {
-                    // Re-emitted patterns size their FIRST operand; a
-                    // single-bit element constant (logic/bit) shrinks from the
-                    // bare-decimal default 64 to 1 (wider atoms keep 64).
+                    // Re-emitted patterns size their FIRST operand. In the
+                    // OUTERMOST pattern (a direct var initializer) Surelog
+                    // resizes each bare-decimal element (default 64) to the
+                    // element type; nested-pattern elements keep 64.
                     if (reemitting) {
                         if (operands->empty())
                             ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
                     }
-                    else if (e->UhdmType() == UHDM::uhdmconstant &&
-                             el->type->getBitWidth() == 1) {
-                        ((UHDM::expr*)e)->VpiSize(1);
+                    else if (!wasInPattern && e->UhdmType() == UHDM::uhdmconstant &&
+                             ((UHDM::expr*)e)->VpiSize() == 64) {
+                        ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
                     }
                     operands->push_back(e);
                 }
             }
+            inAssignPattern = wasInPattern;
             op->Operands(operands);
             return op;
         }
