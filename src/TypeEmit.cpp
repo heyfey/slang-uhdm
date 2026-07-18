@@ -375,8 +375,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         std::string digits = std::to_string(value);
                         c->VpiDecompile(digits);
                         if (syntax::BinaryExpressionSyntax::isKind(bsyn->kind)) {
-                            c->VpiConstType(vpiIntConst);
-                            c->VpiValue("INT:" + digits);
+                            // A subtract bound (N-1) reduces to a signed INT;
+                            // other operators (N+1, N*2) reduce to UINT. Both
+                            // anchor at the left-operand span.
+                            if (bsyn->kind == syntax::SyntaxKind::SubtractExpression) {
+                                c->VpiConstType(vpiIntConst);
+                                c->VpiValue("INT:" + digits);
+                            }
+                            else {
+                                c->VpiConstType(vpiUIntConst);
+                                c->VpiValue("UINT:" + digits);
+                            }
                             setLoc(c, bsyn->as<syntax::BinaryExpressionSyntax>()
                                           .left->sourceRange());
                         }
