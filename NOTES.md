@@ -992,3 +992,16 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   span (not the base sym) - the var_select spans member-start..expr-end.
 - `endmodule : name` -> module VpiEndLabel, in the DEF view (allModules)
   ONLY, not the top view. DotRange converges.
+
+## Packed-array-of-typedef (r108 investigation - NOT landed)
+- `my_pkg::lc_tx_t [7:0] x` -> the net typespec is a packed_array_typespec
+  {Ranges (the packed dims, UINT bounds, loc from PackedArrayType.getSyntax),
+  Elem_typespec = ref -> the SHARED element typedef}. Type syntax is NamedType
+  (dims are on the PackedArrayType chain, not the type syntax).
+- BLOCKER: emitPackage does NOT emit typedefs, so PACKAGE enums/structs are
+  NOT in typedefTs (plain package-enum nets build them inline via the top-of-
+  makeTypespec enum check). To share the element typedef in the packed_array
+  case, package typedefs must first be added to typedefTs (a package Typedefs
+  relation - check the golden for whether packages carry vpiTypedef). Then the
+  makeTypespec packed_array_typespec branch (sketched in git history) works.
+- EnumArray also needs a replication assignment pattern ('{8{On}}).
