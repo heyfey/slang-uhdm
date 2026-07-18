@@ -386,6 +386,16 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             }
         }
     }
+    // A typed logic/bit scalar param is a logic_typespec, not an int_typespec.
+    if (typedParam && !its) {
+        auto& ct = ps.getType().getCanonicalType();
+        if (ct.kind == SymbolKind::ScalarType && ct.isFourState()) {
+            auto* t = s.MakeLogic_typespec();
+            if (sgn)
+                t->VpiSigned(true);
+            its = t;
+        }
+    }
     UHDM::int_typespec* intTs = nullptr;
     if (!its) {
         intTs = s.MakeInt_typespec();
