@@ -2554,6 +2554,41 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     // folds a single process object into both interface_inst views).
     emitContAssigns(body, iface, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
+
+    // Modports: name + one io_decl (direction + name) per modport port.
+    auto* mports = s.MakeModportVec();
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Modport)
+            continue;
+        auto& mp = member.as<ModportSymbol>();
+        auto* umod = s.MakeModport();
+        umod->VpiName(mp.name);
+        umod->VpiParent(iface);
+        setLocNamed(umod, mp);
+        auto* iodecls = s.MakeIo_declVec();
+        for (auto& pm : mp.members()) {
+            if (pm.kind != SymbolKind::ModportPort)
+                continue;
+            auto& mpp = pm.as<ModportPortSymbol>();
+            auto* io = s.MakeIo_decl();
+            io->VpiName(mpp.name);
+            io->VpiParent(umod);
+            setLocNamed(io, mpp);
+            int32_t dir = mpp.direction == ArgumentDirection::In    ? vpiInput
+                          : mpp.direction == ArgumentDirection::Out ? vpiOutput
+                          : mpp.direction == ArgumentDirection::InOut ? vpiInout
+                                                                      : 0;
+            if (dir)
+                io->VpiDirection(dir);
+            iodecls->push_back(io);
+        }
+        if (!iodecls->empty())
+            umod->Io_decls(iodecls);
+        mports->push_back(umod);
+    }
+    if (!mports->empty())
+        iface->Modports(mports);
+
     emitPorts(body, iface, prefix, info.nets, /*topView=*/false, &info.defTs);
     return iface;
 }
