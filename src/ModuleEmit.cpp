@@ -2702,12 +2702,36 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         }
     }
 
-    // Elab-view cont-assigns and processes (reuse shared helpers).
-    {
-        auto pit = defMap.find(&def);
-        emitContAssigns(body, iface, prefix, netMap, /*topView=*/true,
-                        pit != defMap.end() ? &pit->second : nullptr, /*shareWithDef=*/true,
-                        parentRefs, nullptr);
+    // Elab-view cont-assigns: the folded model shares the def cont-assign's
+    // RHS object, pairing it with a fresh elab-prefixed, unbound LHS ref_obj.
+    if (auto iit2 = ifaceDefMap.find(&def);
+        iit2 != ifaceDefMap.end() && iit2->second->Cont_assigns()) {
+        auto* elabCas = s.MakeCont_assignVec();
+        for (auto* defCa : *iit2->second->Cont_assigns()) {
+            auto* ca = s.MakeCont_assign();
+            ca->VpiParent(iface);
+            ca->VpiLineNo(defCa->VpiLineNo());
+            ca->VpiColumnNo(defCa->VpiColumnNo());
+            ca->VpiEndLineNo(defCa->VpiEndLineNo());
+            ca->VpiEndColumnNo(defCa->VpiEndColumnNo());
+            ca->Rhs(defCa->Rhs());
+            if (auto* dlhs = defCa->Lhs();
+                dlhs && dlhs->UhdmType() == UHDM::uhdmref_obj) {
+                auto* dro = (UHDM::ref_obj*)dlhs;
+                auto* ro = s.MakeRef_obj();
+                ro->VpiName(dro->VpiName());
+                ro->VpiFullName(prefix + "." + std::string(dro->VpiName()));
+                ro->VpiParent(ca);
+                ro->VpiLineNo(dro->VpiLineNo());
+                ro->VpiColumnNo(dro->VpiColumnNo());
+                ro->VpiEndLineNo(dro->VpiEndLineNo());
+                ro->VpiEndColumnNo(dro->VpiEndColumnNo());
+                ca->Lhs(ro);
+            }
+            elabCas->push_back(ca);
+        }
+        if (!elabCas->empty())
+            iface->Cont_assigns(elabCas);
     }
     auto* procs = s.MakeProcess_stmtVec();
     for (auto& member : body.members()) {
