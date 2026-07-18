@@ -138,7 +138,8 @@ private:
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
     UHDM::interface_inst* emitInterfaceInstance(const slang::ast::InstanceSymbol& inst,
                                                 const std::string& path,
-                                                UHDM::module_inst* parentM);
+                                                UHDM::module_inst* parentM, NetMap* parentNets,
+                                                std::set<const slang::ast::Symbol*>* parentRefs);
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);

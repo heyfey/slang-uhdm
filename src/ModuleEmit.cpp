@@ -767,7 +767,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // Interface instances become interface_inst under vpiInterface.
             if (useInterfacePath(child)) {
                 ifaceChildren->push_back(emitInterfaceInstance(
-                    child, prefix + "." + std::string(child.name), m));
+                    child, prefix + "." + std::string(child.name), m, &topNets, &instRefs));
                 continue;
             }
             // Bound instances path directly under the top module.
@@ -2543,12 +2543,29 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     }
     if (!nets->empty())
         iface->Nets(nets);
+
+    // Def-view cont-assigns, processes, and ports (LowConn only) reuse the
+    // shared (instance*) helpers.
+    emitContAssigns(body, iface, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
+                    nullptr);
+    auto* procs = s.MakeProcess_stmtVec();
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::ProceduralBlock)
+            if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), iface, prefix,
+                                      info.nets))
+                procs->push_back(p);
+    }
+    if (!procs->empty())
+        instSetProcess(iface, procs);
+    emitPorts(body, iface, prefix, info.nets, /*topView=*/false, &info.defTs);
     return iface;
 }
 
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
-                                                          UHDM::module_inst* parentM) {
+                                                          UHDM::module_inst* parentM,
+                                                          NetMap* parentNets,
+                                                          std::set<const Symbol*>* parentRefs) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;
@@ -2646,10 +2663,84 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 }
             }
         }
+        netMap[it.sym] = v;
         vars->push_back(v);
     }
     if (!vars->empty())
         iface->Variables(vars);
+
+    // Elab-view cont-assigns and processes (reuse shared helpers).
+    {
+        auto pit = defMap.find(&def);
+        emitContAssigns(body, iface, prefix, netMap, /*topView=*/true,
+                        pit != defMap.end() ? &pit->second : nullptr, /*shareWithDef=*/true,
+                        parentRefs, nullptr);
+    }
+    auto* procs = s.MakeProcess_stmtVec();
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::ProceduralBlock)
+            if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), iface, prefix, netMap))
+                procs->push_back(p);
+    }
+    if (!procs->empty())
+        instSetProcess(iface, procs);
+
+    // Elab-view ports carry both LowConn (own var) and HighConn (parent
+    // signal), mirroring a module instance's port loop.
+    std::string parentPrefix = parentM && parentM->VpiFullName().length()
+                                   ? std::string(parentM->VpiFullName())
+                                   : std::string();
+    auto* ports = s.MakePortVec();
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::Port)
+            continue;
+        auto& ps = portBase->as<PortSymbol>();
+        auto* internal = ps.internalSymbol;
+        if (!internal)
+            continue;
+        auto* p = s.MakePort();
+        p->VpiName(ps.name);
+        p->VpiParent(iface);
+        setLocNamed(p, ps);
+        switch (ps.direction) {
+            case ArgumentDirection::In: p->VpiDirection(vpiInput); break;
+            case ArgumentDirection::Out: p->VpiDirection(vpiOutput); break;
+            case ArgumentDirection::InOut: p->VpiDirection(vpiInout); break;
+            default: noteUnsupported("port direction"); break;
+        }
+        const PortConnection* conn = nullptr;
+        for (auto c : inst.getPortConnections())
+            if (&c->port == portBase) { conn = c; break; }
+        auto* lc = s.MakeRef_obj();
+        lc->VpiName(ps.name);
+        lc->VpiFullName(prefix + "." + std::string(ps.name));
+        lc->VpiParent(p);
+        if (auto npc = findConnSyntax(inst, ps.name))
+            setLoc(lc, SourceRange(npc->name.location(),
+                                   npc->name.location() + ps.name.size()));
+        else
+            setLocNamed(lc, ps);
+        if (auto it2 = netMap.find(internal); it2 != netMap.end())
+            lc->Actual_group(it2->second);
+        p->Low_conn(lc);
+        if (conn && parentNets) {
+            if (auto expr = connectionExpr(*conn)) {
+                refCollector = parentRefs;
+                if (auto* h = emitExpr(*expr, p, parentPrefix, *parentNets))
+                    p->High_conn(h);
+                refCollector = nullptr;
+            }
+        }
+        auto* pts = makeTypespec(*internal, nullptr, &ps);
+        auto* prt = s.MakeRef_typespec();
+        prt->VpiFullName(prefix + "." + std::string(ps.name));
+        prt->VpiParent(p);
+        prt->Actual_typespec(pts);
+        p->Typespec(prt);
+        ports->push_back(p);
+    }
+    if (!ports->empty())
+        iface->Ports(ports);
     return iface;
 }
 

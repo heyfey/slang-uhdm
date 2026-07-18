@@ -461,16 +461,12 @@ struct NetOrderItem {
     bool bodyDecl;
 };
 
-// A "simple" interface (only variables/nets, no ports/params/processes/
-// cont-assigns/child-instances/generate) is emitted as an interface_inst; more
-// complex interfaces still fall through to the (incomplete) module_inst path.
+// An interface handled by the interface_inst path: variables/nets/parameters/
+// ports/cont-assigns/processes are supported; child instances, generate, and
+// modports still fall through to the (incomplete) module_inst path.
 inline bool isSimpleInterfaceBody(const InstanceBodySymbol& body) {
-    if (!body.getPortList().empty())
-        return false;
     for (auto& m : body.members()) {
         switch (m.kind) {
-            case SymbolKind::ProceduralBlock:
-            case SymbolKind::ContinuousAssign:
             case SymbolKind::Instance:
             case SymbolKind::GenerateBlock:
             case SymbolKind::GenerateBlockArray:
