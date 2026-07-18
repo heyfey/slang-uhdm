@@ -617,22 +617,43 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                    ic.as<NamedValueExpression>().symbol.kind ==
                                        SymbolKind::EnumValue;
                     bool concatInit = ic.kind == ExpressionKind::Concatenation;
-                    // '1/'0/'x unbased-unsized inits fold to the var width.
+                    // Unbased-unsized inits ('0/'1/'x/'z) each encode
+                    // distinctly (Surelog quirk):
+                    //   '0 -> BIN:0, sized to the var width, decompile '0
+                    //   '1 -> UINT:<all-ones>, sized to width, decimal decompile
+                    //   'x -> BIN:X, size -1, decompile 'X
+                    //   'z -> BIN:Z, size -1, decompile 'Z
                     if (ic.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
-                        ASTContext ctx(comp.getRoot(), LookupLocation::max);
-                        ConstantValue cv = ctx.tryEval(*init);
-                        if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
-                            auto* c = s.MakeConstant();
-                            std::string digits =
-                                cv.integer().toString(LiteralBase::Decimal, false);
+                        logic_t bit =
+                            ic.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+                        int32_t w = (int32_t)dt->getType().getBitWidth();
+                        auto* c = s.MakeConstant();
+                        if (bit.isUnknown()) {
+                            std::string d =
+                                bit.value == logic_t::X_VALUE ? "X" : "Z";
+                            c->VpiDecompile("'" + d);
+                            c->VpiSize(-1);
+                            c->VpiValue("BIN:" + d);
+                            c->VpiConstType(vpiBinaryConst);
+                        }
+                        else if (bit.value == 0) {
+                            c->VpiDecompile("'0");
+                            c->VpiSize(w);
+                            c->VpiValue("BIN:0");
+                            c->VpiConstType(vpiBinaryConst);
+                        }
+                        else {
+                            slang::SVInt ones((slang::bitwidth_t)w, 0, false);
+                            ones = ~ones; // all ones at width w, unsigned
+                            std::string digits = ones.toString(LiteralBase::Decimal, false);
                             c->VpiDecompile(digits);
-                            c->VpiSize((int32_t)dt->getType().getBitWidth());
+                            c->VpiSize(w);
                             c->VpiValue("UINT:" + digits);
                             c->VpiConstType(vpiUIntConst);
-                            c->VpiParent(v);
-                            setLoc(c, ic.sourceRange);
-                            v->Expr(c);
                         }
+                        c->VpiParent(v);
+                        setLoc(c, ic.sourceRange);
+                        v->Expr(c);
                     }
                     else if (ic.kind == ExpressionKind::RealLiteral) {
                         // The var's init constant is unparented in this view.
