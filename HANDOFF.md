@@ -21,6 +21,50 @@ PASS 256->261, DIFF 299->293. Six commits, all clean (no regressions):
 - (r171) Module vector/scalar typedef ranges UNFOLD param/$bits-dependent
   bounds (tfContext). BitsCallOnType 25->15, +3 others reduced.
 
+INTERFACE FEATURE — EXECUTION-READY PLAN (biggest remaining lever: 13 DIFF
+tests 16-460 lines + 45 UNSUP). Do this in a focused block; it touches core
+emission. Golden structure verified from Surelog on InterfaceVariable (the
+minimal case: `interface sim_sram_if; int start_addr=...; endinterface` +
+`sim_sram_if u(); ... u.start_addr`):
+
+  design
+   |uhdmallInterfaces -> interface_inst work@sim_sram_if (DEF view; parent=
+   |   design; content like a module def: start_addr is a LOGIC_NET here)
+   |uhdmallModules    -> module_inst work@top (DEF): net o, port o, cont_assign,
+   |   and |vpiRefModule -> ref_module work@sim_sram_if (u) whose Actual_group
+   |   -> the interface_inst DEF.  ** def-view child ref is STILL a ref_module,
+   |   just Actual points at interface_inst -> def path barely changes **
+   |uhdmtopModules    -> module_inst work@top (ELAB): int_var o, port o,
+       |vpiInterface -> interface_inst work@sim_sram_if (work@top.u) — the
+       ELABORATED iface (int_var start_addr + init constant + vpiInstance->top,
+       vpiDefName/vpiDefFile/vpiDefLineNo).  Attached via module_inst::Interfaces().
+
+Touch points (agent-verified file:line):
+  - Detect: inst.isInterface() / getDefinition().definitionKind ==
+    DefinitionKind::Interface (slang InstanceSymbols.h:112, SemanticFacts.h:45).
+  - UhdmExporter.cpp:201-210 shell pre-create: interface defs ->
+    s.MakeInterface_inst() into a NEW d->AllInterfaces() vec (design.h:83; there
+    is NO TopInterfaces, only AllInterfaces).
+  - ModuleEmit.cpp:472 elab object create: MakeInterface_inst for iface insts;
+    VpiTop/VpiTopModule only for modules.
+  - ModuleEmit.cpp:490-491,506-507: interface_inst has Instance() but NOT
+    Module_inst() -> drop the Module_inst back-pointer for ifaces.
+  - ModuleEmit.cpp:760-780 elab child loop: route interface children into a
+    separate vec -> m->Interfaces(vec) (module_inst.h:152) instead of Modules().
+  - ModuleEmit.cpp:329-392 def-view ref_module: unchanged; Actual_group takes
+    BaseClass* so it points at interface_inst fine.
+  - Interface content reuse: Nets(instance base), Variables/Parameters/
+    Param_assigns/Typespecs(scope base), Cont_assigns/Process/Ports/
+    Gen_scope_arrays(parallel identical sigs on interface_inst) -> a function
+    templated on InstT resolves for both; OR duplicate the ~7 module_inst-only
+    call sites.
+  Coupling to widen: DefInfo::mod (module_inst* -> instance*), TopPending::m,
+  ~18 module_inst* signatures, ~12 .mod refs, 7 module_inst-only call sites.
+  Recommended: change DefInfo::mod to instance*, cast to module_inst* at the 7
+  module_inst-only sites (guarded by !isInterface); widen emitModuleDef/
+  emitInstance return + emitPorts/emitContAssigns/emitGenScopes params to a
+  template or instance*/scope*. Build+goldens+corpus after each step; revertible.
+
 FINDINGS / dead-ends this session:
 - GENERIC-DEF PORT-RANGE UNFOLD (CastToSum*, ParameterOfSizeOfPort,
   ParameterPackedArray - ~5 tests): a NON-top module's AllModules def unfolds
