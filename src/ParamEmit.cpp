@@ -71,9 +71,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool wantTs = false;
         if (isLocal)
             up->VpiLocalParam(true);
-        // Function-scope and explicitly-TYPED localparams are valued and
-        // typed like module non-local params.
-        if (!isLocal || funcScope || typedParam) {
+        // Function-scope, explicitly-TYPED, and ranged (localparam [7:0] X)
+        // localparams are valued and typed like module non-local params.
+        if (!isLocal || funcScope || typedParam || isRangedUntypedParam(ps)) {
             // Params with non-literal initializers carry no value string.
             // Values derive from the DEFAULT initializer even when
             // overridden.
