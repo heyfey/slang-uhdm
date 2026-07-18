@@ -96,18 +96,26 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                                                  const std::string& prefix, NetMap& netMap) {
     // Flatten the whole access chain (members + single element-selects) into
     // components, innermost first, then reverse to base..outer order.
+    struct Sel {
+        const Expression* sel;
+        SourceLocation selEnd;
+    };
     struct Comp {
         std::string name;
-        const Expression* sel = nullptr; // selector index, or null for a plain ref
-        SourceRange nameSpan;            // the member/base name token
-        SourceLocation selEnd;           // end of the [..] when sel is set
+        std::vector<Sel> sels; // one or more element selects on this component
+        SourceRange nameSpan;  // the member/base name token
         bool isBase = false;
     };
     std::vector<Comp> comps;
     const Expression* cur = &expr;
-    const Expression* pendingSel = nullptr;
-    SourceLocation pendingSelEnd;
+    std::vector<Sel> pendingSels; // collected outer-to-inner
     const NamedValueExpression* baseNv = nullptr;
+    auto attachSels = [&](Comp& c) {
+        // pendingSels are outer-to-inner; the component wants first-dim first.
+        for (auto it = pendingSels.rbegin(); it != pendingSels.rend(); ++it)
+            c.sels.push_back(*it);
+        pendingSels.clear();
+    };
     while (true) {
         if (cur->kind == ExpressionKind::MemberAccess) {
             auto& ma = cur->as<MemberAccessExpression>();
@@ -115,18 +123,13 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             Comp c;
             c.name = std::string(ma.member.name);
             c.nameSpan = SourceRange(end - ma.member.name.size(), end);
-            c.sel = pendingSel;
-            c.selEnd = pendingSelEnd;
+            attachSels(c);
             comps.push_back(c);
-            pendingSel = nullptr;
             cur = &ma.value();
         }
         else if (cur->kind == ExpressionKind::ElementSelect) {
             auto& es = cur->as<ElementSelectExpression>();
-            if (pendingSel) // multiple selects on one member: not handled here
-                return nullptr;
-            pendingSel = &es.selector();
-            pendingSelEnd = cur->sourceRange.end();
+            pendingSels.push_back({&es.selector(), cur->sourceRange.end()});
             cur = &es.value();
         }
         else if (cur->kind == ExpressionKind::NamedValue) {
@@ -134,11 +137,9 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             Comp c;
             c.name = std::string(baseNv->symbol.name);
             c.nameSpan = cur->sourceRange;
-            c.sel = pendingSel;
-            c.selEnd = pendingSelEnd;
             c.isBase = true;
+            attachSels(c);
             comps.push_back(c);
-            pendingSel = nullptr;
             break;
         }
         else {
@@ -152,9 +153,14 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     std::string dotted;
     for (size_t i = 0; i < comps.size(); ++i) {
         dotted += (i == 0 ? comps[i].name : "." + comps[i].name);
-        if (comps[i].sel)
-            dotted += "[" + rawText(comps[i].sel->sourceRange) + "]";
+        for (auto& sel : comps[i].sels)
+            dotted += "[" + rawText(sel.sel->sourceRange) + "]";
     }
+
+    // A multi-dim element select on the BASE array (group_status[0][0].a)
+    // emits one bit_select per dim with simple dotted fullnames and a special
+    // loc chain, distinct from the member-select (b.a[0].x) work@-doubled form.
+    bool baseSelMode = !comps.empty() && comps[0].isBase && !comps[0].sels.empty();
 
     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
         refCollector->insert(&baseNv->symbol);
@@ -162,7 +168,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     hp->VpiName(dotted);
     hp->VpiFullName(dotted);
     hp->VpiParent(parent);
-    setLoc(hp, expr.sourceRange);
+    setLoc(hp, baseSelMode ? comps[0].nameSpan : expr.sourceRange);
     auto* elems = s.MakeAnyVec();
     // The first member's name token (used to anchor an lvalue base ref).
     SourceRange firstMemberSpan =
@@ -172,9 +178,30 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         auto& comp = comps[i];
         bool lastMember = i + 1 == comps.size();
         dottedAt += (i == 0 ? comp.name : "." + comp.name);
-        if (comp.sel)
-            dottedAt += "[" + rawText(comp.sel->sourceRange) + "]";
-        if (comp.sel) {
+        if (comp.isBase && baseSelMode) {
+            // Base multi-dim element select: one bit_select per dim. Simple
+            // dotted fullnames; each bit_select's loc is the base name (first
+            // dim) or the prior selector's span (later dims).
+            for (size_t k = 0; k < comp.sels.size(); ++k) {
+                dottedAt += "[" + rawText(comp.sels[k].sel->sourceRange) + "]";
+                auto* bs = s.MakeBit_select();
+                if (k == 0) // only the first dim carries vpiName
+                    bs->VpiName(comp.name);
+                bs->VpiParent(hp);
+                bs->VpiFullName(dottedAt);
+                setLoc(bs, k == 0 ? comp.nameSpan : comp.sels[k - 1].sel->sourceRange);
+                // Base-select index constants are not parented to the bit_select.
+                bool savedSCP = suppressConstParent;
+                suppressConstParent = true;
+                if (auto* ix = emitExpr(*comp.sels[k].sel, bs, prefix, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+                suppressConstParent = savedSCP;
+                elems->push_back(bs);
+            }
+        }
+        else if (!comp.sels.empty()) {
+            auto& sel = comp.sels[0];
+            dottedAt += "[" + rawText(sel.sel->sourceRange) + "]";
             auto* bs = s.MakeBit_select();
             bs->VpiName(comp.name);
             bs->VpiParent(hp);
@@ -183,15 +210,15 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // bit_select. Rvalue: loc is the member token only, fullname is the
             // dotted path so far, index constant is unparented.
             if (inLhs) {
-                setLoc(bs, SourceRange(comp.nameSpan.start(), comp.selEnd));
+                setLoc(bs, SourceRange(comp.nameSpan.start(), sel.selEnd));
                 (void)bs->VpiFullName();
-                if (auto* ix = emitExpr(*comp.sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
             else {
                 setLoc(bs, comp.nameSpan);
                 bs->VpiFullName(dottedAt);
-                if (auto* ix = emitExpr(*comp.sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
             elems->push_back(bs);
@@ -200,7 +227,12 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             auto* r = s.MakeRef_obj();
             r->VpiName(comp.name);
             (void)r->VpiFullName();
-            if (!inLhs && lastMember && !comp.isBase)
+            if (baseSelMode && !comp.isBase) {
+                // Trailing member of a base-select path: member name, full
+                // dotted fullname.
+                r->VpiFullName(dottedAt);
+            }
+            else if (!inLhs && lastMember && !comp.isBase)
                 r->VpiFullName(prefix + "." + comp.name);
             r->VpiParent(hp);
             // Lvalue paths anchor the base ref at the first member token.

@@ -1146,15 +1146,20 @@ match) landed: UNSUP 115->109. Remaining, per test:
   refs the vector typedef's logic_typespec. Also `typedef reg8_t [0:3] rt` is a
   packed-array TYPEDEF (typedef target: PackedArrayType) - needs the same in the
   file/module typedef emitters.
-- 2D array element member access (DotMultirange group_status[0][0].a): extend
-  emitMixedHierPath to accumulate MULTIPLE element selects per component (change
-  Comp.sel to a vector; each index -> a bit_select). Golden: base group_status
-  with [0][0] -> TWO bit_selects: bit_select(name=group_status, fullname=
-  group_status[0], index=first[0]) then bit_select(fullname=group_status[0][0],
-  index=second[0]), then ref(a). NB: BASE-array-index bit_selects use the SIMPLE
-  dotted fullname (group_status[0]) even in an LVALUE - unlike MEMBER-select
-  bit_selects which use the doubled work@... form. Walk order: selects are
-  encountered outer-to-inner; reverse to inner-first (first dim first).
+- 2D array element member access (DotMultirange group_status[0][0].a): DONE r139.
+  emitMixedHierPath now accumulates multiple element selects per component (Comp.sel
+  -> Comp.sels vector) and has a `baseSelMode` branch for base multi-dim selects.
+  Byte-exact rules discovered: (1) hier_path loc = base nameSpan (NOT expr range);
+  (2) bit_select k loc = base nameSpan for k=0 else the PRIOR selector's sourceRange;
+  (3) only bit_select 0 carries vpiName; (4) base-select index constants are NOT
+  parented (suppressConstParent); (5) trailing member ref_obj = vpiName(member) +
+  vpiFullName(full dotted). UNSUP->DIFF for DotMultirange/int_port_signed/
+  MemberSelectOf2DStructPackedArray. NONE converge yet - blocked on the TOP-VIEW
+  packed_array_var ELABORATION: in the top(elab) view Surelog expands the
+  packed-array-of-struct var into explicit vpiRange x2 + vpiElement=struct_var,
+  where mine emits a logic_var + ref_typespec->packed_array_typespec. Big separate
+  feature (elaborated var form). Also base net gets spurious vpiNetType:36 +
+  packed_array_typespec loc should end at first dim (13:17 not 13:22).
 - index EXPRESSION decompile (ExpressionInIndex a[2-2]): the hier_path/bit_select
   NAME uses Surelog's canonical spacing "2 - 2" (spaces around the operator), not
   the raw source "2-2". Build the index text from the expression, not rawText.
