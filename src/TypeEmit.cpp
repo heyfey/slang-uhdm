@@ -330,7 +330,11 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     // Packed structs become struct_nets (handled by the net branch).
     if (ct.kind == SymbolKind::PackedStructType)
         return nullptr;
-    if (!portBacked && !regDecl && internal.kind == SymbolKind::Variable &&
+    // A non-port logic variable, or a port with a separate `logic` body
+    // redeclaration (input [3:0] a; logic [3:0] a;), is a logic_var; a plain
+    // ANSI port stays a net.
+    if ((!portBacked || hasBodyDecl(internal)) && !regDecl &&
+        internal.kind == SymbolKind::Variable &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
         v->VpiVisibility(1);
