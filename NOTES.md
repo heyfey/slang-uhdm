@@ -1181,3 +1181,17 @@ ts lands 2nd in the arena tail, golden 1st. Conclusion: net-typespec tail
 parenting is per-net-usage-specific + arena-order-sensitive; not worth chasing
 without the full arena-order model. run_corpus "no regressions" MISSES
 PASS->CMP_ONLY - ALWAYS join baseline vs new and grep PASS->!PASS manually.
+
+## r142+ — interface_inst refactor scoped (deferred: big lever, needs templating)
+InterfaceVariable (DIFF 16, port-less interface): the ENTIRE diff is object TYPE
+`interface_inst` vs `module_inst` + collection `uhdmallInterfaces`/`vpiInterface`
+vs `uhdmallModules`/`vpiModule`. Structure otherwise byte-identical (nets, int_var,
+typespecs all match). So a port-less interface = a module emitted as interface_inst.
+BLOCKER: UHDM interface_inst & module_inst share NO base for Ports()/Cont_assigns()/
+Process() (each declares its own; only Nets on `instance`, Variables/Parameters/
+Param_assigns/Typespecs/Named_events on `scope`). DefInfo.mod is module_inst* across
+~15 signatures. Clean fix = templatize the emit* helpers on <Inst> (module_inst |
+interface_inst; guard the module-only Modules()/Ref_modules() with if constexpr).
+Only ~3 port-less tests convert from this alone (InterfaceVariable, InterfaceParameter,
+InterfaceWithPort?); the other ~58 need InterfacePort + modports (mine still emits
+"unsupported: port kind InterfacePort"). Foundational but big; do as a focused task.
