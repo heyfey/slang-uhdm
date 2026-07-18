@@ -839,9 +839,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* args = s.MakeAnyVec();
             callArgDepth++;
             for (auto arg : call.arguments()) {
-                // Statement-context calls parent their direct literal args.
+                // System-call direct literal args parent to the call.
                 bool forceSaved = forceConstParent;
-                if (stmtCtx && isLiteralExpr(*arg))
+                if (isLiteralExpr(*arg))
                     forceConstParent = true;
                 if (auto* a = emitExpr(*arg, sc, prefix, netMap))
                     args->push_back(a);
