@@ -12,6 +12,39 @@ elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
 template emitPorts/emitContAssigns/emitProcess on the instance type to
 support ported interfaces (InterfaceAssign/Initial/Always/WithPort).
 
+MODPORT FEATURE (48 UNSUP tests: InterfacePort/ArbitrarySymbol) — STARTED.
+All-or-nothing per test: ANY noteUnsupported -> exit 4 -> UNSUP, so a modport
+test needs ALL pieces below before it moves from UNSUP even to DIFF. Golden
+structure verified on iface_sig_in_child_port (dut->mid(myif.s sub)->child).
+PIECES:
+ (1) MODPORTS - DONE (committed): interface_inst gets a vpiModport per
+     ModportSymbol (VpiName + one io_decl per ModportPortSymbol: VpiName +
+     VpiDirection from mpp.direction). isSimpleInterfaceBody now allows
+     Modport. Matches golden exactly.
+ (2) interface_typespec - s.MakeInterface_typespec(), VpiName = modport name,
+     loc at the port's modport-name span. Referenced by the InterfacePort's
+     vpiTypedef ref_typespec.
+ (3) InterfacePort - a module port of kind SymbolKind::InterfacePort
+     (InterfacePortSymbol: .interfaceDef=DefinitionSymbol*, .modport=name,
+     .getConnection()->pair<Symbol* ifaceInstance, ModportSymbol*>). GOLDEN:
+     port(sub) with vpiLowConn ref_obj (work@mid.sub.sub) -> Actual = the
+     MODPORT object (s); vpiTypedef ref_typespec -> interface_typespec(s). Do
+     NOT bail at ModuleEmit.cpp:45 for InterfacePort; emit it in emitPorts
+     (def), emitModuleDefPorts, and emitInstance's port loop (elab). Need a
+     map (interface DefinitionSymbol*, modport name)->UHDM::modport* populated
+     in the modport emission (piece 1).
+ (4) Elab interface connection - the interface instance passed to the module
+     port (HighConn -> the interface_inst / its signals).
+ (5) ArbitrarySymbol - emitExpr default case bails on ExpressionKind::
+     ArbitrarySymbol (interface-port member access s.sig / sub.clk). Emit as a
+     ref_obj/hier_path resolving through the modport to the interface signal.
+     Some tests also need "element select base" (s.d[1]) and "member access
+     base" (struct fields on interface signals).
+Recommended: implement 2->5 in one focused block on a branch; verify each
+against the iface_sig_in_child_port golden; the test only leaves UNSUP once
+all bail-outs are gone, then converge the ~500-line diff.
+
+--- ported interfaces (DONE) ---
 PORTED-INTERFACE STEP (DONE — 4 tests converted to CMP_ONLY) — the ported
 interfaces (InterfaceWithPort/Assign/Initial/Always) now converge to CMP_ONLY
 (only weakly-tail typespec ordering remains). Key folded-model quirks handled:
