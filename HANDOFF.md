@@ -29,9 +29,33 @@ Attempted-and-reverted this session:
   INCONSISTENT (1'bx->X but 1'bz->z, 3'bxxx->xxx lowercase) - no clean rule,
   reverted (unbased_unsized got worse 26->34).
 
-INTERFACE FEATURE — EXECUTION-READY PLAN (biggest remaining lever: 13 DIFF
-tests 16-460 lines + 45 UNSUP). Do this in a focused block; it touches core
-emission. Golden structure verified from Surelog on InterfaceVariable (the
+INTERFACE FEATURE — PARTIALLY IMPLEMENTED (branch interface-feature, then
+merged). DONE: "simple" interfaces (only variables/nets/parameters, no
+ports/processes/cont-assigns/child-instances/generate/modports - gated by
+isSimpleInterfaceBody) are emitted as interface_inst in design->AllInterfaces,
+referenced from a parent module via ref_module (Actual->interface_inst, def
+view) and Interfaces() (vpiInterface, elab view). emitInterfaceDef/
+emitInterfaceInstance in ModuleEmit.cpp; routing in exportDesign +
+emitInstance child loop + emitModuleDefPorts ref. Def-net typespecs deferred
+through pendingNetTs (arena order + init-span); def-net param-ranges unfold
+via tfContext during materialization; elab var inits apply the unbased-unsized
+width fill. CONVERTED: InterfaceVariable (PASS); InterfaceParameter,
+InterfaceParameterSetValue, iface_param_set_value, iface_local_in_sub
+(CMP_ONLY - residual is weakly-tail typespec ordering).
+
+REMAINING interface work (complex interfaces still fall through to the
+module_inst path, staying DIFF): processes (InterfaceInitial/Always),
+cont_assigns (InterfaceAssign), ports (InterfaceWithPort), child instances.
+These need emitContAssigns/emitProcess/emitPorts (currently typed
+module_inst*) to serve interface_inst too - either TEMPLATE them on the
+instance type (Cont_assigns/Process/Ports are parallel identical methods on
+both classes, so `m->X()` resolves per-type; use explicit instantiation) OR
+duplicate the vector-building subset for interface_inst. The 45 UNSUP
+interface tests were unaffected (their UNSUP cause is elsewhere - triage
+separately).
+
+--- original plan (golden structure, still accurate) ---
+Golden structure verified from Surelog on InterfaceVariable (the
 minimal case: `interface sim_sram_if; int start_addr=...; endinterface` +
 `sim_sram_if u(); ... u.start_addr`):
 
