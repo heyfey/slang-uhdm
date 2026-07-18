@@ -990,6 +990,30 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::module_in
         if (!params->empty())
             gs->Parameters(params);
 
+        // Local nets declared inside the block (wire tmp; ...).
+        auto* gnets = s.MakeNetVec();
+        for (auto& gm : blk.members()) {
+            if (gm.kind != SymbolKind::Net)
+                continue;
+            auto* n = s.MakeLogic_net();
+            n->VpiName(gm.name);
+            n->VpiFullName(fullName + "." + std::string(gm.name));
+            n->VpiParent(gs);
+            setLoc(n, nameSpan(gm.location, gm.name));
+            if (int32_t nt = netTypeFor(gm))
+                n->VpiNetType(nt);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(fullName + "." + std::string(gm.name));
+            rt->VpiParent(n);
+            auto* ats = makeTypespec(gm);
+            ats->VpiParent(n);
+            rt->Actual_typespec(ats);
+            n->Typespec(rt);
+            gnets->push_back(n);
+        }
+        if (!gnets->empty())
+            gs->Nets(gnets);
+
         // Functions declared inside the block live on the gen_scope.
         {
             DefInfo genInfo;
