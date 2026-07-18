@@ -895,8 +895,30 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             return emitSyntaxExpr(*syn.as<syntax::ParenthesizedExpressionSyntax>().expression,
                                   parent);
         case syntax::SyntaxKind::InvocationExpression: {
-            // Module-compile calls: name-only, unlinked.
             auto& inv = syn.as<syntax::InvocationExpressionSyntax>();
+            // System call ($bits(dmi_t)): a sys_func_call with the argument
+            // emitted as a ref_obj (type/name-token) argument.
+            if (inv.left->kind == syntax::SyntaxKind::SystemName) {
+                auto* sfc = s.MakeSys_func_call();
+                sfc->VpiName(inv.left->as<syntax::SystemNameSyntax>()
+                                 .systemIdentifier.valueText());
+                sfc->VpiParent(parent);
+                setLoc(sfc, syn.sourceRange());
+                if (inv.arguments) {
+                    auto* args = s.MakeAnyVec();
+                    for (auto arg : inv.arguments->parameters) {
+                        auto* r = s.MakeRef_obj();
+                        r->VpiName(rawText(arg->sourceRange()));
+                        r->VpiParent(sfc);
+                        setLoc(r, arg->sourceRange());
+                        args->push_back(r);
+                    }
+                    if (!args->empty())
+                        sfc->Tf_call_args(args);
+                }
+                return sfc;
+            }
+            // Module-compile calls: name-only, unlinked.
             auto* fc = s.MakeFunc_call();
             if (inv.left->kind == syntax::SyntaxKind::IdentifierName)
                 fc->VpiName(
