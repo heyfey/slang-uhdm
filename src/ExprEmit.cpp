@@ -1718,8 +1718,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             setLoc(hp, expr.sourceRange);
             auto* elems = s.MakeAnyVec();
             auto exprStart = expr.sourceRange.start();
+            std::string dottedSoFar;
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, off] = parts[i];
+                dottedSoFar += (i == 0 ? pname : "." + pname);
+                // A gen-block / array index element (gen_blk[0]) is a
+                // bit_select: name-only ref + a bare UINT index constant.
+                auto lb = pname.find('[');
+                auto rb = pname.find(']');
+                if (lb != std::string::npos && rb != std::string::npos && rb > lb + 1 &&
+                    pname.find_first_not_of("0123456789", lb + 1) == rb) {
+                    std::string base = pname.substr(0, lb);
+                    std::string idx = pname.substr(lb + 1, rb - lb - 1);
+                    auto* bs = s.MakeBit_select();
+                    bs->VpiName(base);
+                    bs->VpiParent(hp);
+                    bs->VpiFullName(dottedSoFar);
+                    setLoc(bs, SourceRange(exprStart + off, exprStart + off + base.size()));
+                    auto* c = s.MakeConstant();
+                    c->VpiDecompile(idx);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + idx);
+                    c->VpiConstType(vpiUIntConst);
+                    size_t digitOff = off + lb + 1;
+                    setLoc(c, SourceRange(exprStart + digitOff, exprStart + digitOff + idx.size()));
+                    bs->VpiIndex(c);
+                    elems->push_back(bs);
+                    continue;
+                }
                 auto* r = s.MakeRef_obj();
                 r->VpiName(pname);
                 (void)r->VpiFullName();
