@@ -1539,6 +1539,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (operands->empty())
                             ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
                     }
+                    // A param-default pattern ('{0,1}) keeps its bare-decimal
+                    // elements at 64 and leaves them UNparented (unlike a var
+                    // initializer, which resizes each element to its type).
+                    else if (inParamInit && !wasInPattern) {
+                        if (e->UhdmType() == UHDM::uhdmconstant)
+                            ((UHDM::expr*)e)->VpiParent(nullptr);
+                    }
                     else if (!wasInPattern && e->UhdmType() == UHDM::uhdmconstant &&
                              ((UHDM::expr*)e)->VpiSize() == 64) {
                         ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());

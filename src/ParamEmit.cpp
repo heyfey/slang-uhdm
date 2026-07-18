@@ -250,8 +250,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ((UHDM::constant*)rhs)
                         ->VpiSize(typedParam ? (int32_t)ps.getType().getBitWidth() : 64);
                     setLoc((UHDM::constant*)rhs, init->sourceRange);
-                    // Typed-param folds carry a ts ref to the param typespec.
-                    if (typedParam && wantTs) {
+                    // An assignment-pattern default ('{0,1}) folds to a
+                    // based-decimal (2'd1) constant with NO typespec ref.
+                    auto& sinit = stripImplicitConv(*init);
+                    bool isPattern =
+                        sinit.kind == ExpressionKind::SimpleAssignmentPattern ||
+                        sinit.kind == ExpressionKind::StructuredAssignmentPattern ||
+                        sinit.kind == ExpressionKind::ReplicatedAssignmentPattern;
+                    if (isPattern && typedParam) {
+                        auto* c = (UHDM::constant*)rhs;
+                        std::string v(c->VpiValue());
+                        std::string digits =
+                            v.find(':') != std::string::npos ? v.substr(v.find(':') + 1) : v;
+                        c->VpiDecompile(std::to_string((int32_t)ps.getType().getBitWidth()) +
+                                        "'d" + digits);
+                        c->VpiConstType(0);
+                    }
+                    // Typed-param (non-pattern) folds carry a ts ref to the param.
+                    if (typedParam && wantTs && !isPattern) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
