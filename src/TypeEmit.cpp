@@ -23,7 +23,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         if (!typeSynOverride) {
             auto& ct0 = declared->getType().getCanonicalType();
             if (ct0.kind == SymbolKind::EnumType)
-                return buildEnumTs(ct0.as<EnumType>(), declared->getTypeSyntax(), "");
+                return buildEnumTs(ct0.as<EnumType>(), declared->getTypeSyntax(), "",
+                                   /*implicitBaseRef=*/true);
         }
     }
     // Ports whose net is re-declared in the body ("input clock; wire clock;")
@@ -522,7 +523,8 @@ UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& 
 // one) + enum constants with Surelog value encodings.
 UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                                                const syntax::SyntaxNode* enumSyn,
-                                               const std::string& refFullName) {
+                                               const std::string& refFullName,
+                                               bool implicitBaseRef) {
     auto* ets = s.MakeEnum_typespec();
     const syntax::SyntaxNode* baseSyn = nullptr;
     if (enumSyn && enumSyn->kind == syntax::SyntaxKind::EnumType)
@@ -576,6 +578,15 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
         brt->VpiFullName(refFullName);
         brt->VpiParent(ets);
         brt->Actual_typespec(bts);
+        ets->Base_typespec(brt);
+    }
+    else if (implicitBaseRef) {
+        // An inline anonymous enum (enum {..} v) carries a bare base
+        // ref_typespec (fullname only, no actual); the caller patches its
+        // fullname to the variable's. Typedef anon-base enums omit it.
+        auto* brt = s.MakeRef_typespec();
+        brt->VpiFullName(refFullName);
+        brt->VpiParent(ets);
         ets->Base_typespec(brt);
     }
     auto* consts = s.MakeEnum_constVec();

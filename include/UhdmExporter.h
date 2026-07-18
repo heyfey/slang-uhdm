@@ -147,7 +147,8 @@ private:
                       const std::string& prefix, DefInfo& info);
     UHDM::enum_typespec* buildEnumTs(const slang::ast::EnumType& et,
                                      const slang::syntax::SyntaxNode* enumSyn,
-                                     const std::string& refFullName);
+                                     const std::string& refFullName,
+                                     bool implicitBaseRef = false);
     UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
                                          const std::string& aliasName);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
