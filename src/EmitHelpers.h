@@ -42,6 +42,20 @@ inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
 // ANSI net-port headers ("input wire x") and non-ANSI net-port
 // declarations ("input wire signed inp;") carry the net keyword token.
+// True when a body net was declared with an explicit net-type keyword
+// ("wire x", "tri y") rather than an implicit type ("logic z").
+inline bool hasExplicitNetKeyword(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Net)
+        return false;
+    for (auto p = sym.getSyntax(); p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::NetDeclaration)
+            return p->as<syntax::NetDeclarationSyntax>().netType.valid();
+        if (p->kind == syntax::SyntaxKind::DataDeclaration)
+            return false;
+    }
+    return false;
+}
+
 inline const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) {
     for (auto p = internal.getSyntax(); p; p = p->parent) {
         if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort) {

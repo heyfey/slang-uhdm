@@ -893,7 +893,7 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   (integer->integer_typespec, shortint/longint/byte/time -> their _typespec,
   else int_typespec); ranges only on the int_typespec (untyped) path.
 
-## Net-declaration assignments (r98 investigation - NOT landed)
+## Net-declaration assignments (r99 - landed)
 - `wire x = expr;` -> a cont_assign {vpiNetDeclAssign:1, loc = net-name span,
   Rhs = the init constant ('x/'z uppercase to BIN:X size -1), Lhs = the net
   object (net STAYS parented at the module, NOT the cont_assign)}. Emitted
@@ -906,3 +906,15 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   anchored) nets, not all initialized nets. Reverted; needs the narrower
   condition. Blocks sva_value_change_changed(_wide) and likely other
   `wire x = ...` tests.
+
+## Net-decl-assign landed (r99)
+- Emitted in the TOP view only (topView guard), before explicit cont_assigns.
+- ts-extension skip: hasExplicitNetKeyword() (wire/tri body nets keep the
+  net-keyword span; implicit initialized decls still extend).
+- Lhs is a FRESH logic_net (parent = cont_assign, own ref_typespec ->
+  makeTypespec) - Surelog does NOT reuse the module-list net object.
+- REMAINING for full PASS (currently CMP_ONLY): the Lhs's fresh logic_typespec
+  must be created LAST in the arena (it prints at the very end of the
+  weakly-referenced tail). Today it's created during emitContAssigns (too
+  early). DEFER it to the end of the write phase (like pendingCastTs) to
+  match the tail order. Affects sva_value_change_changed(_wide) + 1.

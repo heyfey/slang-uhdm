@@ -1067,7 +1067,8 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         isUnpacked = dt4->getType().getCanonicalType().kind ==
                      SymbolKind::FixedSizeUnpackedArrayType;
     if (auto dtl = pn.sym->getDeclaredType();
-        dtl && dtl->getInitializer() && ts->VpiName().empty() && !isUnpacked) {
+        dtl && dtl->getInitializer() && ts->VpiName().empty() && !isUnpacked &&
+        !hasExplicitNetKeyword(*pn.sym)) {
         if (auto dsyn = pn.sym->getSyntax()) {
             auto dr = dsyn->sourceRange();
             if (dr.start() != SourceLocation::NoLocation) {
@@ -1355,6 +1356,62 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                                    std::set<const Symbol*>* instRefs,
                                    std::set<const Symbol*>* lhsSyms) {
     auto* cas = s.MakeCont_assignVec();
+    // Net-declaration assignments (wire x = expr;) become cont_assigns with
+    // vpiNetDeclAssign, before the explicit continuous assigns (top view only).
+    for (auto& it : collectNetOrder(body)) {
+        if (!topView)
+            break;
+        if (it.sym->kind != SymbolKind::Net)
+            continue;
+        auto* dt = it.sym->getDeclaredType();
+        if (!dt || !dt->getInitializer())
+            continue;
+        auto nit = netMap.find(it.sym);
+        if (nit == netMap.end())
+            continue;
+        auto* ca = s.MakeCont_assign();
+        ca->VpiParent(m);
+        ca->VpiNetDeclAssign(true);
+        setLoc(ca, nameSpan(it.sym->location, it.sym->name));
+        bool fcp = forceConstParent;
+        forceConstParent = true;
+        if (auto* rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap)) {
+            if (rhs->UhdmType() == UHDM::uhdmconstant) {
+                auto* c = (UHDM::constant*)rhs;
+                std::string v(c->VpiValue()), d(c->VpiDecompile());
+                for (auto* sp : {&v, &d})
+                    for (auto& ch : *sp)
+                        if (ch == 'x' || ch == 'z')
+                            ch = (char)toupper(ch);
+                c->VpiValue(v);
+                c->VpiDecompile(d);
+            }
+            ca->Rhs((UHDM::expr*)rhs);
+        }
+        forceConstParent = fcp;
+        // The Lhs is a FRESH net object (parented at the cont_assign, its own
+        // typespec ref onto the module net's actual typespec) - Surelog does
+        // not reuse the module-list net here.
+        auto* mnet = (UHDM::logic_net*)nit->second;
+        auto* lnet = s.MakeLogic_net();
+        lnet->VpiName(it.sym->name);
+        lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
+        lnet->VpiParent(ca);
+        lnet->VpiNetType(mnet->VpiNetType());
+        setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
+        if (mnet->Typespec() && mnet->Typespec()->Actual_typespec()) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix + "." + std::string(it.sym->name));
+            rt->VpiParent(lnet);
+            // A fresh typespec object (Surelog does not share it with the
+            // module-list net's typespec).
+            auto* fts = makeTypespec(*it.sym);
+            rt->Actual_typespec(fts);
+            lnet->Typespec(rt);
+        }
+        ca->Lhs(lnet);
+        cas->push_back(ca);
+    }
     size_t idx = 0;
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::ContinuousAssign)
