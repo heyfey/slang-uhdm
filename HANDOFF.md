@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r151 state)
+# HANDOFF — slang-uhdm convergence campaign (r152 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,10 +13,14 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r151 baseline, committed as results/baseline.csv)
+## Current scoreboard (r152 baseline, committed as results/baseline.csv)
 
-PASS 249 · CMP_ONLY 8 · DIFF 298 · UNSUPPORTED 106 (r151). SESSION r138-r151
-(this session): +11 PASS (238->249), UNSUP 109->106. The PARAM cluster was the
+PASS 250 · CMP_ONLY 8 · DIFF 297 · UNSUPPORTED 106 (r152). SESSION r138-r152
+(this session): +12 PASS (238->250), UNSUP 109->106. (r152) function part-select
+bound refs scope their fullname by the base name inside a task/function body
+(currentSubSym gate; Surelog's doubled inp[A:B]->func.inp.A form) + task/function
+params follow the source keyword for vpiLocalParam (like packages) - func_block
+PASS. The PARAM cluster was the
 richest vein: (r147) untyped ranged param int_typespec locates at its range span;
 (r148) ranged untyped param carries its packed range (located, range-parented UINT
 bounds) + parents to the parameter [isRangedUntypedParam helper] -> 3 counters PASS;
