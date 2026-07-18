@@ -873,3 +873,13 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
 - Converged: sva_basic00/01/03, sva_value_change_rose. Remaining sva tests
   need more forms ($rose/$past sampling, ## delays, repetition, disable iff
   in assumes, cover).
+
+## Sequence concat (##) + throughout parenting (r97)
+- SequenceConcat (a ##N b ##M c) -> operation(vpiCycleDelayOp 54), operands
+  [a, N, b, M, c]: delay constants (UINT, loc = "##N" span = delayRange
+  extended 2 chars left) BETWEEN elements. Op span = first-elem-start ..
+  last-elem-end (strips enclosing parens), NOT ae.syntax.
+- `throughout` (op 57): its LEFT operand keeps the GRANDPARENT as vpiParent
+  (Surelog builds it in the enclosing context) - pass `parent` not `op`.
+  Other binary ops parent both operands at themselves.
+- Converged: sva_throughout, sva_value_change_rose (+ earlier basics).

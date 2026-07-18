@@ -1964,7 +1964,11 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             if (ae.syntax)
                 setLoc(op, ae.syntax->sourceRange());
             auto* operands = s.MakeAnyVec();
-            if (auto* l = emitAssertionExpr(bae.left, op, prefix, netMap))
+            // Surelog builds `throughout`'s left operand in the enclosing
+            // context, so it keeps the grandparent as its vpiParent.
+            UHDM::BaseClass* leftParent =
+                (bae.op == BinaryAssertionOperator::Throughout) ? parent : op;
+            if (auto* l = emitAssertionExpr(bae.left, leftParent, prefix, netMap))
                 operands->push_back(l);
             if (auto* r = emitAssertionExpr(bae.right, op, prefix, netMap))
                 operands->push_back(r);
@@ -1986,6 +1990,43 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             auto* operands = s.MakeAnyVec();
             if (auto* e = emitAssertionExpr(uae.expr, op, prefix, netMap))
                 operands->push_back(e);
+            op->Operands(operands);
+            return op;
+        }
+        case AssertionExprKind::SequenceConcat: {
+            // a ##N b ##M c -> operation(##) with operands
+            // [a, N, b, M, c] (delay constants between elements).
+            auto& sc = ae.as<SequenceConcatExpr>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiCycleDelayOp);
+            op->VpiParent(parent);
+            // Span the elements themselves (Surelog strips enclosing parens).
+            if (!sc.elements.empty() && sc.elements.front().sequence->syntax &&
+                sc.elements.back().sequence->syntax)
+                setLoc(op, SourceRange(
+                              sc.elements.front().sequence->syntax->sourceRange().start(),
+                              sc.elements.back().sequence->syntax->sourceRange().end()));
+            else if (ae.syntax)
+                setLoc(op, ae.syntax->sourceRange());
+            auto* operands = s.MakeAnyVec();
+            bool first = true;
+            for (auto& el : sc.elements) {
+                if (!first || el.delay.min != 0) {
+                    auto* c = s.MakeConstant();
+                    std::string d = std::to_string(el.delay.min);
+                    c->VpiDecompile(d);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + d);
+                    c->VpiConstType(vpiUIntConst);
+                    // The delay constant spans the "##N" token, not just N.
+                    if (el.delayRange.start() != SourceLocation::NoLocation)
+                        setLoc(c, SourceRange(el.delayRange.start() - 2, el.delayRange.end()));
+                    operands->push_back(c);
+                }
+                if (auto* e = emitAssertionExpr(*el.sequence, op, prefix, netMap))
+                    operands->push_back(e);
+                first = false;
+            }
             op->Operands(operands);
             return op;
         }
