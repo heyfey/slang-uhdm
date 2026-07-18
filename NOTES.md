@@ -966,3 +966,9 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
 - File-level (design) packed struct typedefs parent at the DESIGN
   (ts->VpiParent(d)) - unlike module-level packed structs which stay
   unparented. struct_array converges.
+
+## File-level typedef build order (r106)
+- File-level typedef typespec OBJECTS are built in SOURCE order (so their
+  member typespecs land in source order in the weakly-tail arena), while the
+  design Typespecs LIST stays name-sorted (enum_values needs the sorted list).
+  simple_struct: 202->86 diff lines.

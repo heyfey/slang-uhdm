@@ -106,19 +106,20 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     d->AllModules(allMods);
 
-    // File-level (compilation-unit) typedefs attach to the design itself,
-    // name-sorted.
+    // File-level (compilation-unit) typedefs: the typespec OBJECTS are built
+    // in SOURCE order (so their member typespecs land in source order in the
+    // arena), but the design Typespecs LIST is name-sorted like Surelog's.
     {
-        std::map<std::string, const Symbol*> unitAliases;
-        for (auto unit : comp.getCompilationUnits()) {
-            for (auto& member : unit->members()) {
+        std::vector<const Symbol*> srcAliases;
+        for (auto unit : comp.getCompilationUnits())
+            for (auto& member : unit->members())
                 if (member.kind == SymbolKind::TypeAlias)
-                    unitAliases.emplace(std::string(member.name), &member);
-            }
-        }
-        auto* tds = s.MakeTypespecVec();
+                    srcAliases.push_back(&member);
+        std::stable_sort(srcAliases.begin(), srcAliases.end(),
+                         [](auto* a, auto* b) { return a->location < b->location; });
+        std::map<std::string, UHDM::typespec*> byName;
         {
-            for (auto& [aname, memberPtr] : unitAliases) {
+            for (auto* memberPtr : srcAliases) {
                 auto& member = *memberPtr;
                 auto& ta = member.as<TypeAliasType>();
                 auto& ct = ta.targetType.getType().getCanonicalType();
@@ -157,11 +158,15 @@ UHDM::design* UhdmExporter::exportDesign() {
                 ts->VpiName(ta.name);
                 ts->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
                 typedefTs[&ta] = ts;
-                tds->push_back(ts);
+                byName[std::string(ta.name)] = ts;
             }
         }
-        if (!tds->empty())
+        if (!byName.empty()) {
+            auto* tds = s.MakeTypespecVec();
+            for (auto& [nm, ts] : byName)
+                tds->push_back(ts);
             d->Typespecs(tds);
+        }
     }
 
     // Surelog compiles every module's parameters at module-compile time, so
