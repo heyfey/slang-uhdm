@@ -475,6 +475,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                  (parent->UhdmType() == UHDM::uhdmoperation ||
                   parent->UhdmType() == UHDM::uhdmbit_select ||
                   parent->UhdmType() == UHDM::uhdmcase_item ||
+                  parent->UhdmType() == UHDM::uhdmimmediate_assert ||
                   (reemitting && parent->UhdmType() == UHDM::uhdmpart_select))))
                 c->VpiParent(parent);
 
