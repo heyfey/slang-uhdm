@@ -945,7 +945,8 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     // reg, referenced by BOTH the array_var and the reg.
     if (auto init = declared->getInitializer()) {
         auto& ic = stripImplicitConv(*init);
-        if (ic.kind == ExpressionKind::SimpleAssignmentPattern) {
+        if (ic.kind == ExpressionKind::SimpleAssignmentPattern ||
+            ic.kind == ExpressionKind::ReplicatedAssignmentPattern) {
             NetMap none;
             // Array-pattern leaf constants stay unparented (only the nested
             // pattern operations self-parent).

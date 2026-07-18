@@ -1475,6 +1475,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->Operands(operands);
             return op;
         }
+        case ExpressionKind::ReplicatedAssignmentPattern: {
+            // '{N{a, b}} -> vpiMultiAssignmentPatternOp(count const, concat of
+            // the replicated elements).
+            auto& rap = expr.as<ReplicatedAssignmentPatternExpression>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiMultiAssignmentPatternOp);
+            op->VpiParent(parent);
+            setLoc(op, expr.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            if (auto* c = emitExpr(rap.count(), op, prefix, netMap)) {
+                // The replication count is a 32-bit constant.
+                if (c->UhdmType() == UHDM::uhdmconstant &&
+                    ((UHDM::expr*)c)->VpiSize() == 64)
+                    ((UHDM::expr*)c)->VpiSize(32);
+                operands->push_back(c);
+            }
+            auto* inner = s.MakeOperation();
+            inner->VpiOpType(vpiConcatOp);
+            inner->VpiParent(op);
+            if (!rap.elements().empty())
+                setLoc(inner, SourceRange(rap.elements().front()->sourceRange.start(),
+                                          rap.elements().front()->sourceRange.end()));
+            auto* innerOps = s.MakeAnyVec();
+            for (auto el : rap.elements())
+                if (auto* e = emitExpr(*el, inner, prefix, netMap))
+                    innerOps->push_back(e);
+            inner->Operands(innerOps);
+            operands->push_back(inner);
+            op->Operands(operands);
+            return op;
+        }
         case ExpressionKind::StructuredAssignmentPattern: {
             auto& ap = expr.as<StructuredAssignmentPatternExpression>();
             auto* op = s.MakeOperation();
