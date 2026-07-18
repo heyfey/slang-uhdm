@@ -1058,3 +1058,39 @@ typedefTs by canonical type (as TaskFuncEmit struct-returns do).
 The simpler net-level case (EnumArray: `my_pkg::lc_tx_t [7:0] x`) has no member
 coupling - Elem ref fullname is just the net path - so validate makeTypespec's
 packed_array_typespec there first, then handle the struct-member coupling.
+
+## Investigated-but-deferred DIFF tests (r127 session findings)
+Each needs a feature or an obscure Surelog quirk; noted so they aren't re-scouted.
+- StringWithBackslash (8 lines): ONLY a string-literal loc-end quirk. Line 3 is
+  39 chars but Surelog reports the string end at col 47 (over-counts by 8, source
+  has two \\ escapes). slang's range gives the correct col 39. Could not derive
+  Surelog's counting; a source rescan produced 39 (reverted). The rest of string
+  support (string_var/typespec, r127) is landed.
+- func_block (18 lines after 2/3 fixes): (1) untyped FUNCTION-scope params get NO
+  typespec, BUT const_func_block_var's untyped func localparam DOES get one - the
+  distinction is subtler than typed-vs-untyped (const-function context?); reverted.
+  (2) `parameter B` in a function shouldn't be marked local (keyword-follow works).
+  (3) part-select bound refs to func params want DOUBLED fullname func3.inp.A
+  (part-select-base-scoped), not func3.A - inverts the r102 boundPfx rule.
+- ParameterUnsignedInt/NegationOfParameterInInstance/CastClog2*/CastInFunction*:
+  typed-param / cast fold cluster. A cont_assign RHS that is a TYPED param ref
+  folds (top view) to a constant carrying a vpiTypespec ref to the param's
+  int_typespec; mine shares the def cont_assign (no fold). int'() vs integer'()
+  cast target typespec also differs. Complex, ~6 tests.
+- StructMemberAsModuleInput/BitsCallOnVar: MODULE packed-struct typedef wants
+  VpiParent(package/module) + prefixed member ref fullname (work@top.alias.member),
+  but simple_nested_struct_nopack needs it UNPARENTED - conditional like the
+  file-level structUsedByModuleSignal rule.
+- TypedefOnFileLevel/AluOps(done): struct/logic net-vs-var. AluOps landed
+  (port + logic body redecl -> logic_var). A struct data-type output port wants
+  struct_var but simple_nested_struct_nopack wants struct_net (conditional).
+- fsm(done)/mixed_sign_ops: mixed_sign_ops is a 1-col case_item/assignment loc
+  quirk around the ** power operator + double space.
+- hier_undriven_port(done)/async_reset_partsel: gen-scope refs to module signals
+  should NOT resolve vpiActual (unbound in the def-view gen scope); mine binds them.
+- TypedefedFunctionArgument: a typedef used as a func arg type needs a NEW aliasing
+  logic_typespec at the usage site with vpiTypedefAlias -> the original typedef.
+- OneSysFunc/Clog2OfSum: $unsigned/$clog2 sys_func_call wants a vpiTypespec (result
+  type ref) + the top-view cont_assign shared (not re-emitted).
+- UnsizedConstantsParsing: unbased-unsized in int var init is inconsistent in
+  Surelog ('0->BIN:0, '1->UINT:4294967295, 'x->BIN:X size -1). Quirky.
