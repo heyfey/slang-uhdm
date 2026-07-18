@@ -1566,11 +1566,25 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         // constant at the DEFAULT initializer's site, ts ref to the def
         // param typespec.
         const Symbol* ovParamRhs = nullptr;
+        // A plain ref to a TYPED, non-overridden param folds (top view) to a
+        // constant carrying a ref to the param's typespec, like an override.
+        const Symbol* typedParamRhs = nullptr;
         if (topView) {
             auto& rc = stripImplicitConv(ae.right());
-            if (rc.kind == ExpressionKind::NamedValue &&
-                isOverriddenParam(rc.as<NamedValueExpression>().symbol))
-                ovParamRhs = &rc.as<NamedValueExpression>().symbol;
+            if (rc.kind == ExpressionKind::NamedValue) {
+                auto& sym = rc.as<NamedValueExpression>().symbol;
+                if (isOverriddenParam(sym))
+                    ovParamRhs = &sym;
+                else if (sym.kind == SymbolKind::Parameter) {
+                    auto& ps = sym.as<ParameterSymbol>();
+                    if (auto dt = ps.getDeclaredType())
+                        if (auto tsyn = dt->getTypeSyntax())
+                            if (tsyn->kind != syntax::SyntaxKind::ImplicitType &&
+                                ps.getValue().isInteger() &&
+                                !ps.getValue().integer().hasUnknown())
+                                typedParamRhs = &sym;
+                }
+            }
         }
         // Top modules share the def's cont_assign object unless netlist
         // elaboration re-compiles it: that happens only for whole-net LHS
@@ -1580,7 +1594,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             (!plainLhs ||
              (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
-              !callFold && !ovParamRhs))) {
+              !callFold && !ovParamRhs && !typedParamRhs))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -1654,6 +1668,29 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
                 }
                 rhs = c;
             }
+        }
+        // Typed non-overridden param ref: folded default constant + a ref to
+        // the param's typespec (cloned at the end of the write phase). Located
+        // at the param's default-value expression.
+        if (!rhs && topView && typedParamRhs) {
+            auto& ps2 = typedParamRhs->as<ParameterSymbol>();
+            auto& iv = ps2.getValue().integer();
+            bool neg = iv.isSigned() && iv.isNegative();
+            std::string digits = iv.toString(LiteralBase::Decimal, false);
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(digits);
+            c->VpiValue((neg ? "INT:" : "UINT:") + digits);
+            c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+            c->VpiSize((int32_t)iv.getBitWidth());
+            c->VpiParent(ca);
+            if (auto* dsy = paramDefaultSyn(ps2))
+                setLoc(c, dsy->sourceRange());
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix);
+            rt->VpiParent(c);
+            c->Typespec(rt);
+            pendingParamCloneTs.push_back({rt, &ps2});
+            rhs = c;
         }
         // Param-backed call folds: constant at the in-function ref site,
         // typed by the param, its ts cloned at the very end of the write
