@@ -1,3 +1,46 @@
+# HANDOFF — slang-uhdm convergence campaign (r171 state)
+
+## Session r166-r171 (2026-07-18, this session)
+
+PASS 256->261, DIFF 299->293. Six commits, all clean (no regressions):
+- (r166) Assignment-pattern param defaults ('{0,1}): elab-view folded RHS
+  decompiles as based-decimal (2'd1) w/ no typespec & no constType; def-view
+  pattern-op elements keep vpiSize:64 UNparented. Converts 4 Negation/Pattern
+  param tests.
+- (r167) Parameter vpiSigned only when the declaration has an explicit
+  `parameter`/`localparam` keyword (bare ANSI #(int x) omits it). CellNamed
+  DIFF->CMP_ONLY.
+- (r168) Unbased-unsized VAR initializers ('0/'1/'x/'z) each encode distinctly
+  ('0->BIN:0 sized, '1->UINT all-ones sized, 'x/'z->BIN:X/Z size -1). Converts
+  UnsizedConstantsParsing.
+- (r169) Unified outermost assignment-pattern element sizing on
+  suppressConstParent (var-init resizes to element type; func-arg/param-default
+  keep 64 unparented). Subsumes r166 inParamInit case.
+- (r170) Folded range-bound: only SUBTRACT (N-1) is INT; other ops (P+1) are
+  UINT (counter WIDTH-1->INT:7, CastToSum P+1->UINT:2).
+- (r171) Module vector/scalar typedef ranges UNFOLD param/$bits-dependent
+  bounds (tfContext). BitsCallOnType 25->15, +3 others reduced.
+
+FINDINGS / dead-ends this session:
+- GENERIC-DEF PORT-RANGE UNFOLD (CastToSum*, ParameterOfSizeOfPort,
+  ParameterPackedArray - ~5 tests): a NON-top module's AllModules def unfolds
+  param-dim PORT bounds (P+1->operation) while a TOP def folds (counter
+  WIDTH-1->7). Verified rule. BUT setting tfContext during non-top emitPorts
+  swaps the arena order of the shared def-vs-elab port typespec (they're the
+  SAME object). Needs SEPARATE def/elab port typespec objects first - deeper
+  refactor. Reverted. No passing test has instantiated-param-width-port
+  submodules, so the change is safe once typespecs are unshared.
+- $bits(TYPE) in a TYPEDEF range wants fold->const 32 (BitsCallOnType), but in
+  a plain range wants sys_func_call (BitsCallOnVar, r160). Context-dependent;
+  needs sub-expression eval. Left at 15 lines.
+- net-vs-var for typedef'd output ports (TypedefInModulePort: output pkg::word
+  -> logic_VAR not logic_net) and struct-member port-conn hier-path scoping
+  (StructMemberAsModuleInput) remain conditional/risky.
+- isIntEncoded INT-vs-UINT for folded consts is genuinely context-dependent
+  (multiple_blocking 2**SELW->INT elab; PatternAsFunctionArgument func result
+  ->UINT). No universal rule found.
+
+---
 # HANDOFF — slang-uhdm convergence campaign (r163 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
