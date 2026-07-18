@@ -821,3 +821,33 @@ Rules landed (each probed against goldens):
   the def process loop (after nets); ALL instances SHARE the def assertion
   objects like processes (DefInfo.assertions).
 - Only AssertionKind::Assert -> assert_stmt so far.
+
+## Concurrent assertion property-expr rule (r95 investigation, for next session)
+The FOLDED property_spec content depends on kind + whether a clocking event
+is present:
+- ASSERT with @(clocking): VpiPropertyExpr = the clocking operation ONLY
+  (posedge=opType 39); the sequence/implication/disable-iff body is DROPPED.
+  (sva_basic00, sva_basic01 - DONE.)
+- ASSERT without clocking: VpiPropertyExpr = the full property expression
+  (operations). (sva_range assert.)
+- ASSUME (assume obj) with clocking: VpiClockingEvent = the clocking op AND
+  VpiPropertyExpr = the full property body. (sva_not/sva_range assumes.)
+- ASSUME without clocking: VpiPropertyExpr = the body.
+So: emit clocking-only ONLY for `assert` WITH a clocking event; otherwise
+emit VpiClockingEvent (if clocked) + a full property-expr tree.
+NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
+  UnaryAssertionOperator, BinaryAssertionOperator {And,Or,Intersect,
+  Throughout,Within,Iff,Until,SUntil,UntilWith,SUntilWith,Implies,
+  OverlappedImplication(|->),NonOverlappedImplication(|=>),
+  OverlappedFollowedBy(#-#),NonOverlappedFollowedBy(#=#)}.
+  AssertionExprKind {Simple(->emitExpr(.expr)),SequenceConcat(## delay),
+  SequenceWithMatch,Unary,Binary,FirstMatch,Clocking(.clocking/.expr),
+  StrongWeak,Abort,Conditional,Case,DisableIff(.condition/.expr)}.
+  vpi opTypes: 51 NonOverlapImply(|=>), 52 OverlapImply(|->), 53
+  UnaryCycleDelay(##), 54 CycleDelay, 60 ConsecutiveRepeat([*]), 90 Always,
+  91 Eventually, 92 Until, 93 UntilWith, 94 Implies. Spans from ae.syntax->
+  sourceRange(); operand parenting per golden (iterate each test).
+- assume/cover/restrict/expect map to Make{Assume,Cover,Restrict,
+  Expect_stmt}() (all extend concurrent_assertions: VpiName/FullName/Stmt/
+  VpiProperty). Unlabeled asserts: fullname = module prefix, no VpiName.
+- sva_basic02 (CMP_ONLY) = assertions in a BOUND module (bind interaction).
