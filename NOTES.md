@@ -953,3 +953,11 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   operator (mapBinaryOp: Add->24 etc.), Rhs = the VALUE operand only (the
   implicit LValueReference self-ref in slang's `LValueRef op value` RHS is
   dropped - pick the non-LValueReference operand). isCompound()/ae.op.
+
+## File-level packed/unpacked struct typedefs (r104)
+- Compilation-unit typedef'd structs (typedef struct packed {...} t; at file
+  level) now emit on the design Typespecs (buildStructTs, Instance = design),
+  mirroring the module-level emitTypedefs. Packed structs unparented (loc =
+  type syntax); unpacked parented at design. Unblocks 7 tests to DIFF
+  (member-access-on-struct-array, packed-array-of-struct still needed for
+  full PASS: DotMultirange/DotRange/gen_struct_access).

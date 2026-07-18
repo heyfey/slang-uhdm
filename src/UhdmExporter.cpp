@@ -122,23 +122,39 @@ UHDM::design* UhdmExporter::exportDesign() {
                 auto& member = *memberPtr;
                 auto& ta = member.as<TypeAliasType>();
                 auto& ct = ta.targetType.getType().getCanonicalType();
-                if (ct.kind != SymbolKind::EnumType) {
+                const syntax::SyntaxNode* typeSyn = nullptr;
+                if (auto syn = ta.getSyntax()) {
+                    if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+                }
+                UHDM::typespec* ts = nullptr;
+                if (ct.kind == SymbolKind::EnumType) {
+                    ts = buildEnumTs(ct.as<EnumType>(), typeSyn, std::string(ta.name));
+                    ts->VpiParent(d);
+                    if (auto syn = ta.getSyntax())
+                        setLoc(ts, syn->sourceRange());
+                }
+                else if (ct.kind == SymbolKind::PackedStructType) {
+                    ts = buildStructTs(ct.as<PackedStructType>(), true,
+                                       std::string(ta.name));
+                    if (typeSyn)
+                        setLoc(ts, typeSyn->sourceRange());
+                }
+                else if (ct.kind == SymbolKind::UnpackedStructType) {
+                    ts = buildStructTs(ct.as<UnpackedStructType>(), false,
+                                       std::string(ta.name));
+                    ts->VpiParent(d);
+                    if (typeSyn)
+                        setLoc(ts, typeSyn->sourceRange());
+                }
+                else {
                     noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
                     continue;
                 }
-                const syntax::SyntaxNode* enumSyn = nullptr;
-                if (auto syn = ta.getSyntax()) {
-                    if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
-                        enumSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
-                }
-                auto* ets = buildEnumTs(ct.as<EnumType>(), enumSyn, std::string(ta.name));
-                ets->VpiName(ta.name);
-                ets->VpiParent(d);
-                ets->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
-                if (auto syn = ta.getSyntax())
-                    setLoc(ets, syn->sourceRange());
-                typedefTs[&ta] = ets;
-                tds->push_back(ets);
+                ts->VpiName(ta.name);
+                ts->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
+                typedefTs[&ta] = ts;
+                tds->push_back(ts);
             }
         }
         if (!tds->empty())
