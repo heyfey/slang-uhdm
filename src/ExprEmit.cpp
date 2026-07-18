@@ -1272,9 +1272,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* operands = s.MakeAnyVec();
             for (auto el : ap.elements()) {
                 if (auto* e = emitExpr(*el, op, prefix, netMap)) {
-                    // Re-emitted patterns size their FIRST operand.
-                    if (reemitting && operands->empty())
-                        ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
+                    // Re-emitted patterns size their FIRST operand; a
+                    // single-bit element constant (logic/bit) shrinks from the
+                    // bare-decimal default 64 to 1 (wider atoms keep 64).
+                    if (reemitting) {
+                        if (operands->empty())
+                            ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
+                    }
+                    else if (e->UhdmType() == UHDM::uhdmconstant &&
+                             el->type->getBitWidth() == 1) {
+                        ((UHDM::expr*)e)->VpiSize(1);
+                    }
                     operands->push_back(e);
                 }
             }
