@@ -1251,6 +1251,14 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     }
     pendingParamCloneTs.clear();
 
+    // Net-decl-assign Lhs typespecs (last in the arena).
+    for (auto& [rt, sym] : pendingNetDeclTs) {
+        auto* fts = makeTypespec(*sym);
+        fts->VpiParent(rt);
+        rt->Actual_typespec(fts);
+    }
+    pendingNetDeclTs.clear();
+
     // Orphan pattern first-compiles (share the def operands).
     for (auto& po : pendingPatternOrphans) {
         auto* op = s.MakeOperation();
@@ -1375,19 +1383,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         setLoc(ca, nameSpan(it.sym->location, it.sym->name));
         bool fcp = forceConstParent;
         forceConstParent = true;
-        if (auto* rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap)) {
-            if (rhs->UhdmType() == UHDM::uhdmconstant) {
-                auto* c = (UHDM::constant*)rhs;
-                std::string v(c->VpiValue()), d(c->VpiDecompile());
-                for (auto* sp : {&v, &d})
-                    for (auto& ch : *sp)
-                        if (ch == 'x' || ch == 'z')
-                            ch = (char)toupper(ch);
-                c->VpiValue(v);
-                c->VpiDecompile(d);
-            }
+        if (auto* rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap))
             ca->Rhs((UHDM::expr*)rhs);
-        }
         forceConstParent = fcp;
         // The Lhs is a FRESH net object (parented at the cont_assign, its own
         // typespec ref onto the module net's actual typespec) - Surelog does
@@ -1405,11 +1402,15 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             rt->VpiParent(lnet);
             // A fresh typespec object (Surelog does not share it with the
             // module-list net's typespec).
-            auto* fts = makeTypespec(*it.sym);
-            rt->Actual_typespec(fts);
             lnet->Typespec(rt);
+            // The actual typespec is materialized at the write-phase end.
+            pendingNetDeclTs.push_back({rt, it.sym});
         }
         ca->Lhs(lnet);
+        // The module-list net is a cont_assign LHS: its typespec loses its
+        // parent (netlist elaboration re-points it), like other CA LHS nets.
+        if (lhsSyms)
+            lhsSyms->insert(it.sym);
         cas->push_back(ca);
     }
     size_t idx = 0;

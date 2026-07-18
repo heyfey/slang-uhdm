@@ -693,10 +693,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& ul = expr.as<UnbasedUnsizedIntegerLiteral>();
             auto* c = s.MakeConstant();
             std::string raw = rawText(expr.sourceRange);
+            // 'x/'z uppercase their digit in the decompile ('x -> 'X).
+            for (auto& ch : raw)
+                if (ch == 'x' || ch == 'z')
+                    ch = (char)toupper(ch);
             c->VpiDecompile(raw);
             c->VpiSize(-1);
             logic_t bit = ul.getLiteralValue();
-            std::string digit = bit.isUnknown() ? (bit.value == logic_t::X_VALUE ? "x" : "z")
+            std::string digit = bit.isUnknown() ? (bit.value == logic_t::X_VALUE ? "X" : "Z")
                                                 : (bit.value ? "1" : "0");
             c->VpiValue("BIN:" + digit);
             c->VpiConstType(vpiBinaryConst);

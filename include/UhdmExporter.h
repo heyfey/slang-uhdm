@@ -268,6 +268,9 @@ private:
         const slang::ast::Type* castType = nullptr;
     };
     std::vector<PendingCastTs> pendingCastTs;
+    // Net-declaration-assignment Lhs typespecs: created at the very end of the
+    // write phase so they land last in the arena (matching Surelog's tail).
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> pendingNetDeclTs;
     // Abandoned first-compile of re-emitted pattern cont_assigns: an orphan
     // op sharing the def operands, typed by the pattern's target typespec.
     struct PendingPatternOrphan {

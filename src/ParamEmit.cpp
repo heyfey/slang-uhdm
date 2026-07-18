@@ -277,18 +277,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto* rc = (UHDM::constant*)rhs;
                     std::string_view v0 = rc->VpiValue();
                     if (v0.rfind("BIN:", 0) == 0 &&
-                        (v0.find('x') != std::string_view::npos ||
-                         v0.find('z') != std::string_view::npos)) {
-                        std::string v(v0);
-                        for (auto& ch : v)
-                            if (ch == 'x' || ch == 'z')
-                                ch = (char)toupper(ch);
-                        rc->VpiValue(v);
-                        std::string d(rc->VpiDecompile());
-                        for (auto& ch : d)
-                            if (ch == 'x' || ch == 'z')
-                                ch = (char)toupper(ch);
-                        rc->VpiDecompile(d);
+                        (v0.find_first_of("xXzZ") != std::string_view::npos)) {
+                        // (emitExpr already uppercased the value/decompile.)
                         if (!wantTs && !rc->Typespec()) {
                             auto* brt = s.MakeRef_typespec();
                             std::string tsPrefix = prefix;

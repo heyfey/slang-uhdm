@@ -918,3 +918,14 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   weakly-referenced tail). Today it's created during emitContAssigns (too
   early). DEFER it to the end of the write phase (like pendingCastTs) to
   match the tail order. Affects sva_value_change_changed(_wide) + 1.
+
+## Net-decl-assign full convergence + 'x uppercase (r100)
+- Deferred the Lhs fresh logic_typespec to the END of the write phase
+  (pendingNetDeclTs, materialized after pendingParamCloneTs) so it lands LAST
+  in the weakly-referenced tail; its parent = the ref_typespec.
+- The module-list net (net-decl-assign LHS) is added to lhsSyms so its
+  typespec loses its parent (like other cont_assign LHS nets).
+- Unbased-unsized 'x/'z uppercase their digit GENERALLY in emitExpr (BIN:X,
+  decompile 'X) - not just in params/net-decl-assigns. The param unknown-
+  default code now detects xXzZ (emitExpr already uppercases).
+- sva_value_change_changed(_wide) converge.
