@@ -2674,6 +2674,34 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     if (!vars->empty())
         iface->Variables(vars);
 
+    // A single-instance interface's DEF cont-assign references resolve to THIS
+    // instance's elab vars (Surelog quirk), not the def nets. Re-point them.
+    if (auto dit = defMap.find(&def); dit != defMap.end()) {
+        auto iit = ifaceDefMap.find(&def);
+        if (iit != ifaceDefMap.end() && iit->second->Cont_assigns()) {
+            std::map<const UHDM::any*, UHDM::any*> netToVar;
+            for (auto& [sym, var] : netMap) {
+                auto nit = dit->second.nets.find(sym);
+                if (nit != dit->second.nets.end())
+                    netToVar[nit->second] = var;
+            }
+            auto rebind = [&](UHDM::expr* e) {
+                if (e && e->UhdmType() == UHDM::uhdmref_obj) {
+                    auto* ro = (UHDM::ref_obj*)e;
+                    if (auto* act = ro->Actual_group()) {
+                        auto f = netToVar.find(act);
+                        if (f != netToVar.end())
+                            ro->Actual_group(f->second);
+                    }
+                }
+            };
+            for (auto* ca : *iit->second->Cont_assigns()) {
+                rebind(ca->Lhs());
+                rebind(ca->Rhs());
+            }
+        }
+    }
+
     // Elab-view cont-assigns and processes (reuse shared helpers).
     {
         auto pit = defMap.find(&def);
