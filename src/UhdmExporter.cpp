@@ -202,17 +202,30 @@ UHDM::design* UhdmExporter::exportDesign() {
     auto* topMods = s.MakeModule_instVec();
 
     // Pre-create the definition shells so ref_modules can point at them
-    // regardless of emission order.
+    // regardless of emission order. Interface defs get interface_inst shells
+    // in AllInterfaces; everything else module_inst shells in AllModules.
+    auto* allIfaces = s.MakeInterface_instVec();
     for (auto& [name, inst] : defs) {
-        defMap[&inst->getDefinition()].mod = s.MakeModule_inst();
-        allMods->push_back(defMap[&inst->getDefinition()].mod);
+        if (useInterfacePath(*inst)) {
+            auto* iface = s.MakeInterface_inst();
+            ifaceDefMap[&inst->getDefinition()] = iface;
+            allIfaces->push_back(iface);
+        }
+        else {
+            defMap[&inst->getDefinition()].mod = s.MakeModule_inst();
+            allMods->push_back(defMap[&inst->getDefinition()].mod);
+        }
     }
     d->AllModules(allMods);
+    if (!allIfaces->empty())
+        d->AllInterfaces(allIfaces);
 
 
     // Surelog compiles every module's parameters at module-compile time, so
     // all def-view parameter typespecs precede any elaboration typespecs.
     for (auto& [name, inst] : defs) {
+        if (useInterfacePath(*inst))
+            continue; // simple-interface params handled in emitInterfaceDef
         DefInfo& info = defMap[&inst->getDefinition()];
         emitParameters(inst->body, info.mod, "work@" + name, info.nets, /*topView=*/false,
                        &info, false);
@@ -220,8 +233,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // Every def's CONTENT (typedefs, nets, task_funcs, cont_assigns,
     // processes, generate placeholders) compiles before any instance; only
     // the port/net-ts phase is encounter-ordered.
-    for (auto& [name, inst] : defs)
-        emitModuleDef(*inst, false);
+    for (auto& [name, inst] : defs) {
+        if (useInterfacePath(*inst))
+            emitInterfaceDef(*inst);
+        else
+            emitModuleDef(*inst, false);
+    }
 
     for (auto inst : root.topInstances) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
@@ -231,6 +248,8 @@ UHDM::design* UhdmExporter::exportDesign() {
     // deferred typespecs, other defs materialize their local-net typespecs
     // (Surelog write-phase arena order).
     for (auto& [name, inst] : defs) {
+        if (useInterfacePath(*inst))
+            continue;
         auto* di = &defMap[&inst->getDefinition()];
         bool isTopDef = false;
         for (auto& tp : topPendings) {

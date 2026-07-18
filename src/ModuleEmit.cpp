@@ -347,7 +347,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
         rm->VpiDefName("work@" + std::string(child.getDefinition().name));
         rm->VpiParent(m);
         setLoc(rm, SourceRange(child.location, child.location + child.name.size()));
-        if (auto it = defMap.find(&child.getDefinition()); it != defMap.end())
+        if (auto iit = ifaceDefMap.find(&child.getDefinition()); iit != ifaceDefMap.end())
+            rm->Actual_group(iit->second);
+        else if (auto it = defMap.find(&child.getDefinition()); it != defMap.end())
             rm->Actual_group(it->second.mod);
 
         auto* rports = s.MakePortVec();
@@ -758,9 +760,16 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         currentTopNets = &topNets;
     }
     auto* children = s.MakeModule_instVec();
+    auto* ifaceChildren = s.MakeInterface_instVec();
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
+            // Interface instances become interface_inst under vpiInterface.
+            if (useInterfacePath(child)) {
+                ifaceChildren->push_back(emitInterfaceInstance(
+                    child, prefix + "." + std::string(child.name), m));
+                continue;
+            }
             // Bound instances path directly under the top module.
             bool fromBind = false;
             for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
@@ -778,6 +787,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     }
     if (!children->empty())
         m->Modules(children);
+    if (!ifaceChildren->empty())
+        m->Interfaces(ifaceChildren);
 
     // Instance-view ports each get a fresh typespec object (no sharing).
     // Top-level instances' ports are emitted in a second pass over all tops
@@ -2482,6 +2493,131 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             noteUnsupported("assertion expr kind: " + std::string(toString(ae.kind)));
             return nullptr;
     }
+}
+
+// --- Interfaces -------------------------------------------------------------
+// Interfaces are emitted as interface_inst (design->AllInterfaces). Their
+// content mirrors a module: the DEF view emits declared signals as logic_nets;
+// the ELAB view emits them as variables with initializers. A parent module
+// references the def via a ref_module (Actual->interface_inst) and the elab
+// instance via Interfaces() (vpiInterface).
+
+UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst) {
+    auto& body = inst.body;
+    auto& def = inst.getDefinition();
+    std::string prefix = "work@" + std::string(def.name);
+    auto* iface = ifaceDefMap[&def];
+    currentScope = &body;
+    iface->VpiDefName(prefix);
+    iface->VpiFullName(prefix);
+    iface->VpiParent(d);
+    iface->VpiFile(fullFilePath(def.location));
+    if (auto syn = body.getSyntax())
+        setLoc(iface, syn->sourceRange());
+
+    auto* nets = s.MakeNetVec();
+    for (auto& it : collectNetOrder(body)) {
+        std::string name(it.sym->name);
+        auto* n = s.MakeLogic_net();
+        n->VpiName(name);
+        n->VpiFullName(prefix + "." + name);
+        n->VpiParent(iface);
+        setLoc(n, nameSpan(it.sym->location, it.sym->name));
+        if (int32_t nt = netTypeFor(*it.sym))
+            n->VpiNetType(nt);
+        bool implicitNet = it.sym->kind == SymbolKind::Net &&
+                           it.sym->as<NetSymbol>().isImplicit;
+        if (!it.port && !implicitNet) {
+            auto* ts = makeTypespec(*it.sym);
+            // A def-view net typespec spans type-start..declarator-end (the
+            // whole declaration minus the trailing semicolon).
+            if (auto dsyn = it.sym->getSyntax()) {
+                const syntax::SyntaxNode* decl = dsyn;
+                while (decl->parent &&
+                       decl->kind != syntax::SyntaxKind::DataDeclaration)
+                    decl = decl->parent;
+                if (decl->kind == syntax::SyntaxKind::DataDeclaration)
+                    setLoc(ts, SourceRange(decl->sourceRange().start(),
+                                           dsyn->sourceRange().end()));
+            }
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix + "." + name);
+            rt->VpiParent(n);
+            rt->Actual_typespec(ts);
+            n->Typespec(rt);
+        }
+        nets->push_back(n);
+    }
+    if (!nets->empty())
+        iface->Nets(nets);
+    return iface;
+}
+
+UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
+                                                          const std::string& path,
+                                                          UHDM::module_inst* parentM) {
+    auto& body = inst.body;
+    auto& def = inst.getDefinition();
+    std::string prefix = path;
+    std::string defPrefix = "work@" + std::string(def.name);
+    currentScope = &body;
+    auto* iface = s.MakeInterface_inst();
+    iface->VpiDefName(defPrefix);
+    iface->VpiName(inst.name);
+    iface->VpiFullName(prefix);
+    iface->VpiParent(parentM);
+    iface->VpiFile(fullFilePath(def.location));
+    iface->Instance(parentM);
+    iface->VpiDefFile(fullFilePath(def.location));
+    iface->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+    if (auto syn = inst.getSyntax()) {
+        const syntax::SyntaxNode* stmtSyn = syn;
+        while (stmtSyn->parent &&
+               stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation)
+            stmtSyn = stmtSyn->parent;
+        setLoc(iface, stmtSyn->sourceRange());
+    }
+
+    NetMap netMap;
+    auto* vars = s.MakeVariablesVec();
+    for (auto& it : collectNetOrder(body)) {
+        std::string name(it.sym->name);
+        std::string fullName = prefix + "." + name;
+        auto* v = makeVar(*it.sym, /*portBacked=*/false);
+        if (!v)
+            continue;
+        v->VpiName(name);
+        v->VpiFullName(fullName);
+        v->VpiParent(iface);
+        setLoc(v, nameSpan(it.sym->location, it.sym->name));
+        // Initialized vars span declarator..init.
+        if (auto dt0 = it.sym->getDeclaredType(); dt0 && dt0->getInitializer())
+            if (auto dsyn = it.sym->getSyntax()) {
+                auto dr = dsyn->sourceRange();
+                if (dr.start() != SourceLocation::NoLocation)
+                    setLoc(v, dr);
+            }
+        auto* ts = makeTypespec(*it.sym);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(fullName);
+        rt->VpiParent(v);
+        rt->Actual_typespec(ts);
+        v->Typespec(rt);
+        if (ts->VpiName().empty())
+            ts->VpiParent(v);
+        if (auto dt = it.sym->getDeclaredType()) {
+            if (auto init = dt->getInitializer()) {
+                forceConstParent = true;
+                if (auto* e = emitExpr(*init, v, fullName, netMap))
+                    v->Expr((UHDM::expr*)e);
+                forceConstParent = false;
+            }
+        }
+        vars->push_back(v);
+    }
+    if (!vars->empty())
+        iface->Variables(vars);
+    return iface;
 }
 
 } // namespace slang_uhdm

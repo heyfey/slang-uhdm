@@ -131,6 +131,14 @@ private:
                                     const std::string& path, UHDM::module_inst* parentM,
                                     NetMap* parentNets,
                                     std::set<const slang::ast::Symbol*>* parentRefs, bool isTop);
+    // Interfaces are emitted as interface_inst (design->AllInterfaces), not
+    // module_inst. emitInterfaceDef builds the generic def (nets); the elab
+    // instance (vars + init) is referenced from a parent module via
+    // Interfaces() (elab) and a ref_module whose Actual is the def (def view).
+    UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
+    UHDM::interface_inst* emitInterfaceInstance(const slang::ast::InstanceSymbol& inst,
+                                                const std::string& path,
+                                                UHDM::module_inst* parentM);
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                        const std::string& prefix, NetMap& netMap);
@@ -225,6 +233,9 @@ private:
     const slang::SourceManager* sm;
     UHDM::design* d = nullptr;
     std::map<const slang::ast::DefinitionSymbol*, DefInfo> defMap;
+    // Interface definitions -> their def-view interface_inst shell (referenced
+    // by a parent module's ref_module Actual in the def view).
+    std::map<const slang::ast::DefinitionSymbol*, UHDM::interface_inst*> ifaceDefMap;
     std::set<std::string> unsupportedKinds;
     bool suppressConstParent = false;
     bool reemitting = false;

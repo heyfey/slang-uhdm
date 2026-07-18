@@ -461,6 +461,34 @@ struct NetOrderItem {
     bool bodyDecl;
 };
 
+// A "simple" interface (only variables/nets, no ports/params/processes/
+// cont-assigns/child-instances/generate) is emitted as an interface_inst; more
+// complex interfaces still fall through to the (incomplete) module_inst path.
+inline bool isSimpleInterfaceBody(const InstanceBodySymbol& body) {
+    if (!body.getPortList().empty())
+        return false;
+    for (auto& m : body.members()) {
+        switch (m.kind) {
+            case SymbolKind::ProceduralBlock:
+            case SymbolKind::ContinuousAssign:
+            case SymbolKind::Instance:
+            case SymbolKind::GenerateBlock:
+            case SymbolKind::GenerateBlockArray:
+            case SymbolKind::Parameter:
+            case SymbolKind::TypeParameter:
+            case SymbolKind::Modport:
+                return false;
+            default:
+                break;
+        }
+    }
+    return true;
+}
+
+inline bool useInterfacePath(const InstanceSymbol& inst) {
+    return inst.isInterface() && isSimpleInterfaceBody(inst.body);
+}
+
 inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body) {
     std::vector<NetOrderItem> sorted, implicitPorts;
     std::set<const Symbol*> portInternals;
