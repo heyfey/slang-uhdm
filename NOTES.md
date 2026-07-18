@@ -806,3 +806,18 @@ Rules landed (each probed against goldens):
 - Numeric index setters (N:v) use an INTEGER_TYPESPEC tag (INT:<value>, loc =
   index span, UNPARENTED) - only default: uses a string_typespec. Both feed
   the tagged_pattern's ref_typespec. PatternIndexes converges.
+
+## Concurrent assertions (r95)
+- Module-level `label: assert property(@(posedge clk) ...)` is a
+  ProceduralBlock (kind Always) with syntax ConcurrentAssertionMember, body a
+  Block whose blockSymbol->name = the label, inner stmt = ConcurrentAssertion.
+- Surelog's FOLDED pre-elab form is minimal: assert_stmt {VpiName/FullName =
+  label, loc = assertion stmt span, Stmt = the else action (ifFalse), Property
+  = property_spec}. The property_spec keeps ONLY the clocking event as
+  VpiPropertyExpr (a posedge operation, opType 39) - the disable-iff/sequence
+  /implication body is DROPPED.
+- Attaches via instance-base Assertions() (VectorOfany, dumps as vpiAssertion)
+  NOT scope-base Concurrent_assertions() (vpiConcurrentAssertions). Emitted in
+  the def process loop (after nets); ALL instances SHARE the def assertion
+  objects like processes (DefInfo.assertions).
+- Only AssertionKind::Assert -> assert_stmt so far.

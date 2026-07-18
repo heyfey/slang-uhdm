@@ -97,21 +97,30 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // Processes are compiled as module items, so any typespecs they create
     // (for-loop vars, cast typespecs) also precede the port typespecs.
     auto* procs = s.MakeProcess_stmtVec();
+    auto* asserts = s.MakeAnyVec();
     refCollector = &info.processRefs;
     inProcessEmit = true;
     for (auto& member : body.members()) {
-        if (member.kind == SymbolKind::ProceduralBlock) {
-            auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), m, prefix, info.nets);
-            if (p) {
-                procs->push_back(p);
-                info.processes.push_back(p);
-            }
+        if (member.kind != SymbolKind::ProceduralBlock)
+            continue;
+        auto& pb = member.as<ProceduralBlockSymbol>();
+        if (auto* as = emitAssertion(pb, m, prefix, info.nets)) {
+            asserts->push_back(as);
+            info.assertions.push_back(as);
+            continue;
+        }
+        auto* p = emitProcess(pb, m, prefix, info.nets);
+        if (p) {
+            procs->push_back(p);
+            info.processes.push_back(p);
         }
     }
     inProcessEmit = false;
     refCollector = nullptr;
     if (!procs->empty())
         m->Process(procs);
+    if (!asserts->empty())
+        m->Assertions(asserts);
 
     // Def view: for-generates keep a gen_region placeholder (unlocated begin
     // naming the module scope); if-generates become gen_if_else with BOTH
@@ -771,6 +780,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             for (auto* p : it->second.processes)
                 procs->push_back(p);
             m->Process(procs);
+        }
+        if (it != defMap.end() && !it->second.assertions.empty()) {
+            auto* av = s.MakeAnyVec();
+            for (auto* a : it->second.assertions)
+                av->push_back(a);
+            m->Assertions(av);
         }
         if (it != defMap.end() && !it->second.taskFuncs.empty()) {
             auto* tfs = s.MakeTask_funcVec();
@@ -1767,6 +1782,61 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
     if (r)
         r.directSub = *subp;
     return r;
+}
+
+UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSymbol& pb,
+                                                         UHDM::module_inst* m,
+                                                         const std::string& prefix,
+                                                         NetMap& netMap) {
+    auto syn = pb.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::ConcurrentAssertionMember)
+        return nullptr;
+    auto& pbBody = pb.getBody();
+    std::string label;
+    const Statement* inner = &pbBody;
+    if (pbBody.kind == StatementKind::Block) {
+        if (auto* bs = pbBody.as<BlockStatement>().blockSymbol)
+            label = std::string(bs->name);
+        inner = &pbBody.as<BlockStatement>().body;
+    }
+    if (inner->kind == StatementKind::List && !inner->as<StatementList>().list.empty())
+        inner = inner->as<StatementList>().list[0];
+    if (inner->kind != StatementKind::ConcurrentAssertion)
+        return nullptr;
+    auto& ca = inner->as<ConcurrentAssertionStatement>();
+    // Only "assert property" (assert_stmt) is supported so far.
+    if (ca.assertionKind != AssertionKind::Assert)
+        return nullptr;
+
+    std::string aprefix = label.empty() ? prefix : prefix + "." + label;
+    auto* as = s.MakeAssert_stmt();
+    if (!label.empty()) {
+        as->VpiName(label);
+        as->VpiFullName(aprefix);
+    }
+    as->VpiParent(m);
+    setLoc(as, inner->sourceRange);
+
+    // Else action -> vpiStmt.
+    if (ca.ifFalse)
+        if (auto* st = emitStmt(*ca.ifFalse, as, aprefix, netMap))
+            as->Stmt(st);
+
+    // Property spec: the folded pre-elab form keeps only the clocking event
+    // as the property expression (the sequence/implication body is dropped).
+    auto* ps = s.MakeProperty_spec();
+    ps->VpiParent(as);
+    const AssertionExpr* pe = &ca.propertySpec;
+    const syntax::SyntaxNode* peSyn = pe->syntax;
+    if (peSyn)
+        setLoc(ps, peSyn->sourceRange());
+    if (pe->kind == AssertionExprKind::Clocking) {
+        auto& cl = pe->as<ClockingAssertionExpr>();
+        if (auto* clk = emitEventExpr(cl.clocking, ps, aprefix, netMap))
+            ps->VpiPropertyExpr(clk);
+    }
+    as->VpiProperty(ps);
+    return as;
 }
 
 } // namespace slang_uhdm

@@ -74,7 +74,13 @@ private:
         TsCache defTs;
         std::vector<UHDM::task_func*> taskFuncs;
         std::vector<UHDM::typespec*> typedefs;
+        std::vector<UHDM::concurrent_assertions*> assertions;
     };
+    // Concurrent assertion (folded pre-elab form: label, clocking event as
+    // a property_spec, else action). Returns null if not an assertion block.
+    UHDM::concurrent_assertions* emitAssertion(const slang::ast::ProceduralBlockSymbol& pb,
+                                               UHDM::module_inst* m, const std::string& prefix,
+                                               NetMap& netMap);
 
     /// Per-subroutine emission products (call sites link to these). An arg
     /// typespec may be deferred (bare implicit): ts null, key set.
