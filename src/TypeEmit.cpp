@@ -734,8 +734,24 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             ts = ets;
         }
         else if (ct.kind == SymbolKind::PackedStructType) {
-            auto* sts = buildStructTs(ct.as<PackedStructType>(), true, std::string(ta.name));
-            // Packed struct typespecs stay unparented; loc = the type syntax.
+            // A module-level LEAF packed struct (all fields scalar/vector) has
+            // module-prefixed member refs + a module parent; a struct that
+            // contains a nested struct/enum typedef keeps BARE member refs.
+            bool hasNestedTypedef = false;
+            for (auto& fm : ct.as<PackedStructType>().members()) {
+                if (fm.kind != SymbolKind::Field)
+                    continue;
+                auto& fct = fm.as<FieldSymbol>().getType().getCanonicalType();
+                if (fct.kind == SymbolKind::PackedStructType ||
+                    fct.kind == SymbolKind::EnumType)
+                    hasNestedTypedef = true;
+            }
+            std::string alias = hasNestedTypedef
+                                    ? std::string(ta.name)
+                                    : prefix + "." + std::string(ta.name);
+            auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias);
+            if (!hasNestedTypedef)
+                sts->VpiParent(m);
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
             ts = sts;
