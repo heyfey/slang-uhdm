@@ -164,6 +164,12 @@ private:
                              const std::string& prefix, NetMap& netMap);
     UHDM::any* emitExpr(const slang::ast::Expression& expr, UHDM::BaseClass* parent,
                         const std::string& prefix, NetMap& netMap);
+    // b.a[0].x / a[0].min_v -> hier_path threading bit_select elements through
+    // selected members. Returns null (caller notes unsupported) if the chain
+    // has a shape this doesn't handle yet (e.g. multi-select on one member).
+    UHDM::hier_path* emitMixedHierPath(const slang::ast::Expression& expr,
+                                       UHDM::BaseClass* parent, const std::string& prefix,
+                                       NetMap& netMap);
     UHDM::any* tryFoldConst(const slang::ast::Expression& expr);
     bool isIntEncoded(const slang::ast::Expression& e);
     void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);

@@ -91,6 +91,130 @@ bool UhdmExporter::isIntEncoded(const Expression& e) {
     }
 }
 
+UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
+                                                 UHDM::BaseClass* parent,
+                                                 const std::string& prefix, NetMap& netMap) {
+    // Flatten the whole access chain (members + single element-selects) into
+    // components, innermost first, then reverse to base..outer order.
+    struct Comp {
+        std::string name;
+        const Expression* sel = nullptr; // selector index, or null for a plain ref
+        SourceRange nameSpan;            // the member/base name token
+        SourceLocation selEnd;           // end of the [..] when sel is set
+        bool isBase = false;
+    };
+    std::vector<Comp> comps;
+    const Expression* cur = &expr;
+    const Expression* pendingSel = nullptr;
+    SourceLocation pendingSelEnd;
+    const NamedValueExpression* baseNv = nullptr;
+    while (true) {
+        if (cur->kind == ExpressionKind::MemberAccess) {
+            auto& ma = cur->as<MemberAccessExpression>();
+            auto end = cur->sourceRange.end();
+            Comp c;
+            c.name = std::string(ma.member.name);
+            c.nameSpan = SourceRange(end - ma.member.name.size(), end);
+            c.sel = pendingSel;
+            c.selEnd = pendingSelEnd;
+            comps.push_back(c);
+            pendingSel = nullptr;
+            cur = &ma.value();
+        }
+        else if (cur->kind == ExpressionKind::ElementSelect) {
+            auto& es = cur->as<ElementSelectExpression>();
+            if (pendingSel) // multiple selects on one member: not handled here
+                return nullptr;
+            pendingSel = &es.selector();
+            pendingSelEnd = cur->sourceRange.end();
+            cur = &es.value();
+        }
+        else if (cur->kind == ExpressionKind::NamedValue) {
+            baseNv = &cur->as<NamedValueExpression>();
+            Comp c;
+            c.name = std::string(baseNv->symbol.name);
+            c.nameSpan = cur->sourceRange;
+            c.sel = pendingSel;
+            c.selEnd = pendingSelEnd;
+            c.isBase = true;
+            comps.push_back(c);
+            pendingSel = nullptr;
+            break;
+        }
+        else {
+            return nullptr;
+        }
+    }
+    if (!baseNv)
+        return nullptr;
+    std::reverse(comps.begin(), comps.end());
+
+    std::string dotted;
+    for (size_t i = 0; i < comps.size(); ++i) {
+        dotted += (i == 0 ? comps[i].name : "." + comps[i].name);
+        if (comps[i].sel)
+            dotted += "[" + rawText(comps[i].sel->sourceRange) + "]";
+    }
+
+    if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+        refCollector->insert(&baseNv->symbol);
+    auto* hp = s.MakeHier_path();
+    hp->VpiName(dotted);
+    hp->VpiFullName(dotted);
+    hp->VpiParent(parent);
+    setLoc(hp, expr.sourceRange);
+    auto* elems = s.MakeAnyVec();
+    // The first member's name token (used to anchor an lvalue base ref).
+    SourceRange firstMemberSpan =
+        comps.size() > 1 ? comps[1].nameSpan : comps[0].nameSpan;
+    std::string dottedAt;
+    for (size_t i = 0; i < comps.size(); ++i) {
+        auto& comp = comps[i];
+        bool lastMember = i + 1 == comps.size();
+        dottedAt += (i == 0 ? comp.name : "." + comp.name);
+        if (comp.sel)
+            dottedAt += "[" + rawText(comp.sel->sourceRange) + "]";
+        if (comp.sel) {
+            auto* bs = s.MakeBit_select();
+            bs->VpiName(comp.name);
+            bs->VpiParent(hp);
+            // Lvalue: loc spans member+index, fullname lazily freezes to the
+            // work@-prefixed doubled form, index constant parents to the
+            // bit_select. Rvalue: loc is the member token only, fullname is the
+            // dotted path so far, index constant is unparented.
+            if (inLhs) {
+                setLoc(bs, SourceRange(comp.nameSpan.start(), comp.selEnd));
+                (void)bs->VpiFullName();
+                if (auto* ix = emitExpr(*comp.sel, bs, prefix, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            }
+            else {
+                setLoc(bs, comp.nameSpan);
+                bs->VpiFullName(dottedAt);
+                if (auto* ix = emitExpr(*comp.sel, bs, prefix, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            }
+            elems->push_back(bs);
+        }
+        else {
+            auto* r = s.MakeRef_obj();
+            r->VpiName(comp.name);
+            (void)r->VpiFullName();
+            if (!inLhs && lastMember && !comp.isBase)
+                r->VpiFullName(prefix + "." + comp.name);
+            r->VpiParent(hp);
+            // Lvalue paths anchor the base ref at the first member token.
+            if (comp.isBase && inLhs && comps.size() > 1)
+                setLoc(r, firstMemberSpan);
+            else
+                setLoc(r, comp.nameSpan);
+            elems->push_back(r);
+        }
+    }
+    hp->Path_elems(elems);
+    return hp;
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -1234,6 +1358,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             while (base->kind == ExpressionKind::MemberAccess) {
                 chain.push_back(base);
                 base = &base->as<MemberAccessExpression>().value();
+            }
+            // A member whose base chain threads through element selects
+            // (b.a[0].x, a[0][0].min_v) -> hier_path with bit_select elements
+            // for each selected member.
+            if (base->kind == ExpressionKind::ElementSelect) {
+                if (auto* hp = emitMixedHierPath(expr, parent, prefix, netMap))
+                    return hp;
             }
             if (base->kind != ExpressionKind::NamedValue) {
                 noteUnsupported("member access base");
