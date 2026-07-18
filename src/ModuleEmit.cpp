@@ -574,6 +574,16 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             vars->push_back(av);
             continue;
         }
+        // Packed-array-of-struct: the elaborated view is a packed_array_var
+        // (ranges + struct_var element), not a flat logic_var.
+        if (!implicitNet && !realVar) {
+            if (auto* pav = emitPackedStructArrayVar(*it.sym, name, fullName, m)) {
+                topNets[it.sym] = pav;
+                sigOrder.emplace_back(it.sym, pav);
+                vars->push_back(pav);
+                continue;
+            }
+        }
         UHDM::ref_typespec* rt = nullptr;
         if (!implicitNet && !realVar) {
             rt = s.MakeRef_typespec();

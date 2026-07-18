@@ -1117,4 +1117,81 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     return av;
 }
 
+UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym,
+                                                               const std::string& name,
+                                                               const std::string& fullName,
+                                                               UHDM::module_inst* m) {
+    auto declared = sym.getDeclaredType();
+    if (!declared || !declared->getType().isPackedArray())
+        return nullptr;
+    // Descend the packed dims to the leaf; it must be a shared struct typedef.
+    int arrDims = 0;
+    const Type* leaf = &declared->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+        arrDims++;
+        leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+    }
+    auto& lc = leaf->getCanonicalType();
+    if (lc.kind != SymbolKind::PackedStructType)
+        return nullptr;
+    UHDM::typespec* elemTs = nullptr;
+    for (auto& [s2, tsp] : typedefTs)
+        if (s2->kind == SymbolKind::TypeAlias &&
+            &s2->as<TypeAliasType>().getCanonicalType() == &lc) {
+            elemTs = tsp;
+            break;
+        }
+    if (!elemTs)
+        return nullptr;
+
+    auto* pav = s.MakePacked_array_var();
+    pav->VpiName(name);
+    pav->VpiFullName(fullName);
+    pav->VpiParent(m);
+    setLoc(pav, nameSpan(sym.location, sym.name));
+    pav->VpiVisibility(1);
+
+    // One vpiRange per packed dim (UINT bounds located at the dim brackets).
+    auto dimList = declared->getResolvedDimensions();
+    auto* rvec = s.MakeRangeVec();
+    for (int i = 0; i < arrDims && i < (int)dimList.size(); i++) {
+        auto& d = dimList[i];
+        auto* r = s.MakeRange();
+        r->VpiParent(pav);
+        auto mkBound = [&](int64_t v, const Expression* be) -> UHDM::expr* {
+            auto* c = s.MakeConstant();
+            std::string digits = std::to_string(v);
+            c->VpiDecompile(digits);
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + digits);
+            c->VpiConstType(vpiUIntConst);
+            c->VpiParent(r);
+            if (be)
+                setLoc(c, be->sourceRange);
+            return c;
+        };
+        if (d.leftExpr && d.rightExpr)
+            setLoc(r, SourceRange(d.leftExpr->sourceRange.start() - 1,
+                                  d.rightExpr->sourceRange.end() + 1));
+        r->Left_expr(mkBound(d.range.left, d.leftExpr));
+        r->Right_expr(mkBound(d.range.right, d.rightExpr));
+        rvec->push_back(r);
+    }
+    pav->Ranges(rvec);
+
+    // vpiElement: a struct_var referencing the shared struct_typespec.
+    auto* sv = s.MakeStruct_var();
+    sv->VpiParent(pav);
+    sv->VpiFullName(fullName);
+    auto* srt = s.MakeRef_typespec();
+    srt->VpiParent(sv);
+    srt->VpiFullName(fullName);
+    srt->Actual_typespec(elemTs);
+    sv->Typespec(srt);
+    auto* elems = s.MakeAnyVec();
+    elems->push_back(sv);
+    pav->Elements(elems);
+    return pav;
+}
+
 } // namespace slang_uhdm

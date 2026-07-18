@@ -197,6 +197,12 @@ private:
     UHDM::array_var* emitArrayVar(const slang::ast::Symbol& sym, const std::string& name,
                                   const std::string& fullName, UHDM::module_inst* m,
                                   UHDM::typespec* elemTs);
+    // Top(elab)-view packed-array-of-struct var (filter_ctl_t [1:0][2:0] a):
+    // packed_array_var { vpiRange x N + vpiElement = struct_var }.
+    UHDM::packed_array_var* emitPackedStructArrayVar(const slang::ast::Symbol& sym,
+                                                     const std::string& name,
+                                                     const std::string& fullName,
+                                                     UHDM::module_inst* m);
     // One uhdm range per unpacked dimension (bounds from ConstantRange, loc
     // from the declarator dimension syntax), each parented at `parent`.
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
