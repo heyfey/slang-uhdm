@@ -961,3 +961,8 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   type syntax); unpacked parented at design. Unblocks 7 tests to DIFF
   (member-access-on-struct-array, packed-array-of-struct still needed for
   full PASS: DotMultirange/DotRange/gen_struct_access).
+
+## File-level packed struct parent (r105)
+- File-level (design) packed struct typedefs parent at the DESIGN
+  (ts->VpiParent(d)) - unlike module-level packed structs which stay
+  unparented. struct_array converges.

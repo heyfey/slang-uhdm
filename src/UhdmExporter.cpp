@@ -137,6 +137,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                 else if (ct.kind == SymbolKind::PackedStructType) {
                     ts = buildStructTs(ct.as<PackedStructType>(), true,
                                        std::string(ta.name));
+                    // File-level packed structs parent at the design (unlike
+                    // module-level, which stay unparented).
+                    ts->VpiParent(d);
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
                 }
