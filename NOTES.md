@@ -1005,3 +1005,28 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   relation - check the golden for whether packages carry vpiTypedef). Then the
   makeTypespec packed_array_typespec branch (sketched in git history) works.
 - EnumArray also needs a replication assignment pattern ('{8{On}}).
+
+## Package struct/enum typedefs (r117 - NEXT ENABLER, not yet landed)
+emitPackage (src/ParamEmit.cpp) emits ONLY emitParameters + emitTaskFuncs. It
+must ALSO emit the package's TypeAlias members as vpiTypedef typespecs and store
+them in typedefTs (so packed-array-of-typedef and struct-net refs resolve to the
+shared object). Golden shape (PackedArray pkg::struct_a/struct_b):
+- struct_typespec: VpiName = "pkg::struct_a" (package:: prefix), VpiParent =
+  package, VpiInstance = package, vpiPacked:1.
+- typespec_member (x): VpiName = "x", loc = the member decl name token.
+  member ref_typespec VpiFullName is DOUBLED: "pkg::" + "pkg::struct_a" + "::x"
+  = "pkg::pkg::struct_a::x". (Cf. module emitTypedefs uses prefix.name.member;
+  package uses prefix + FULL typedef name + ::member, hence the doubling.)
+- A struct member whose type is another package struct: nested struct_typespec
+  parented at the package, member ref fullnames likewise doubled.
+- Design tail carries the leaf logic_typespec + packed_array_typespec objects
+  (weakly-referenced order) - watch arena creation order for the tail.
+emitTypedefs (src/TypeEmit.cpp) is the module-scoped analogue to adapt; it takes
+InstanceBodySymbol so a package variant (iterate pkg.members() TypeAlias) is
+needed. Once typedefTs holds package typedefs, re-add the packed_array_typespec
+branch in makeTypespec (Ranges from the PackedArrayType dims + Elem_typespec ref
+to the shared typedef) for EnumArray/DotMultirange/gen_struct_access.
+
+emitMixedHierPath (src/ExprEmit.cpp, r117) already handles b.a[0].x-style access
+(member chain whose base threads element selects); those tests now DIFF only on
+the missing package typedefs.
