@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r144 state)
+# HANDOFF — slang-uhdm convergence campaign (r145 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -28,7 +28,12 @@ isPackedArray guard - mem_sub_plain, simple_memory_noreset). (r141) unpacked-arr
 range bounds fold non-literal to INT at left-operand span (MemorySlice). (r142)
 size-style unpacked dim [N] emits right bound as unfolded N-1 operation opType 11
 (ArraySize). (r143) anonymous-enum value refs bind their enum_const deferred
-(simple_enum 35->15). (r144) constants parent to their immediate_assert.
+(simple_enum 35->15). (r144) constants parent to their immediate_assert
+(simple_enum 15->11). (r145) $signed/$unsigned don't force a fresh top-view
+cont_assign - shared like non-operation RHS (OneSysFunc 32->9; remaining:
+sys_func_call result vpiTypespec = LHS net type, needs a SHARED deferred
+actual - naive makeTypespec mints a tail duplicate, the top-def port-net
+actual share is unresolved; Clog2OfSum needs the same).
 INTRACTABLE THIS SESSION (documented in NOTES): weakly-tail net-typespec
 parenting (27-regression), anon-enum base-typespec ref (enum_values regression -
 typedef vs inline is subtle), interface_inst refactor (needs templating ~15 fns;
