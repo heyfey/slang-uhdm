@@ -217,7 +217,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         if (rhsRt)
                             rhsRt->Actual_typespec(its);
                         prt->Actual_typespec(its);
-                        if (typedParam)
+                        if (typedParam || isRangedUntypedParam(ps))
                             its->VpiParent(up);
                     }
                 }
@@ -319,7 +319,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (rhsRt)
                     rhsRt->Actual_typespec(its);
                 prt->Actual_typespec(its);
-                if (typedParam)
+                if (typedParam || isRangedUntypedParam(ps))
                     its->VpiParent(up);
             }
         }
@@ -328,6 +328,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         m->Parameters(params);
     if (!passigns->empty())
         m->Param_assigns(passigns);
+}
+
+bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
+    if (auto declared = ps.getDeclaredType())
+        if (auto tsyn = declared->getTypeSyntax())
+            if (tsyn->kind == syntax::SyntaxKind::ImplicitType)
+                return !tsyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                       ps.getType().getCanonicalType().isPackedArray();
+    return false;
 }
 
 UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam,
@@ -417,9 +426,59 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
         its = intTs;
     }
     setLoc(its, tr);
+    // A ranged untyped param (parameter [0:0] X) carries the packed range on
+    // its int_typespec, with located UINT bounds.
+    bool explicitRange = false;
+    if (!typedParam && intTs) {
+        if (auto declared = ps.getDeclaredType()) {
+            if (auto tsyn = declared->getTypeSyntax()) {
+                if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                    auto& imp = tsyn->as<syntax::ImplicitTypeSyntax>();
+                    if (!imp.dimensions.empty() &&
+                        ps.getType().getCanonicalType().isPackedArray()) {
+                        auto* dim = imp.dimensions[0];
+                        auto crange = ps.getType().getCanonicalType().getFixedRange();
+                        const syntax::ExpressionSyntax* lsyn = nullptr;
+                        const syntax::ExpressionSyntax* rsyn = nullptr;
+                        if (dim->specifier &&
+                            dim->specifier->kind ==
+                                syntax::SyntaxKind::RangeDimensionSpecifier) {
+                            auto& sel = *dim->specifier
+                                             ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                             .selector;
+                            if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                                lsyn = rss->left;
+                                rsyn = rss->right;
+                            }
+                        }
+                        auto* r = s.MakeRange();
+                        r->VpiParent(its);
+                        setLoc(r, dim->sourceRange());
+                        auto mkB = [&](int64_t v, const syntax::ExpressionSyntax* es) {
+                            auto* c = s.MakeConstant();
+                            c->VpiDecompile(std::to_string(v));
+                            c->VpiSize(64);
+                            c->VpiValue("UINT:" + std::to_string(v));
+                            c->VpiConstType(vpiUIntConst);
+                            c->VpiParent(r);
+                            if (es)
+                                setLoc(c, es->sourceRange());
+                            return c;
+                        };
+                        r->Left_expr(mkB(crange.left, lsyn));
+                        r->Right_expr(mkB(crange.right, rsyn));
+                        auto* rv = s.MakeRangeVec();
+                        rv->push_back(r);
+                        intTs->Ranges(rv);
+                        explicitRange = true;
+                    }
+                }
+            }
+        }
+    }
     // Untyped params with based-literal inits gain a bare [w-1:0] range
     // (loc-less, value-only INT constants).
-    if (!typedParam) {
+    if (!typedParam && !explicitRange) {
         if (auto init = ps.getInitializer()) {
             auto& lit = stripImplicitConv(*init);
             if (lit.kind == ExpressionKind::IntegerLiteral &&

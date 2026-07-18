@@ -176,6 +176,7 @@ private:
     void patchParamTypespecs(size_t lo, size_t hi);
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
                                 bool parentBounds = false);
+    bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
 
     UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol,
                                  const slang::syntax::SyntaxNode* typeSynOverride = nullptr,
