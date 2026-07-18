@@ -1042,16 +1042,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         cctx.tryEval(rs.right()))
                         ips->VpiConstantSelect(true);
                 }
-                // Refs in base/width exprs carry base-scoped fullnames;
-                // only DIRECT literal bounds suppress constant parents.
+                // Refs nested in OPERATIONS scope by the base name; DIRECT
+                // refs stay module-scoped. Only DIRECT literal bounds
+                // suppress constant parents.
                 auto savedSel = selectBasePrefix;
-                selectBasePrefix = prefix + "." + std::string(nv.symbol.name);
+                std::string basePfx = prefix + "." + std::string(nv.symbol.name);
+                auto boundPfx = [&](const Expression& e) -> const std::string& {
+                    return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
+                                                                                   : basePfx;
+                };
                 bool savedSup = suppressConstParent;
+                selectBasePrefix = basePfx;
                 suppressConstParent = isLiteralExpr(rs.left());
-                if (auto* b = emitExpr(rs.left(), ips, selectBasePrefix, netMap))
+                if (auto* b = emitExpr(rs.left(), ips, boundPfx(rs.left()), netMap))
                     ips->Base_expr((UHDM::expr*)b);
                 suppressConstParent = isLiteralExpr(rs.right());
-                if (auto* w = emitExpr(rs.right(), ips, selectBasePrefix, netMap))
+                if (auto* w = emitExpr(rs.right(), ips, boundPfx(rs.right()), netMap))
                     ips->Width_expr((UHDM::expr*)w);
                 suppressConstParent = savedSup;
                 selectBasePrefix = savedSel;

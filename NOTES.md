@@ -936,3 +936,14 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   module net (bare back-reference).
 - EITHER way, the module-list net's typespec loses its parent (added to
   lhsSyms). signed_partsel_ext converges.
+
+## Net-decl op-RHS + indexed-part-select base scope (r102)
+- Net-decl-assign fresh-Lhs condition: literal OR operation RHS (wire o =
+  idx<<2 also re-elaborates). Only pure ref/select RHS reuses the module net.
+- indexed_part_select base/width exprs: DIRECT NamedValue refs are
+  module-scoped (.offset), operation-nested refs are base-scoped
+  (.data.offset) - boundPfx, matching part_select. Fixes partsel base ref
+  fullnames.
+- partsel_simple remains CMP_ONLY: a 6-line arena-tail quirk in whether the
+  module net's typespec keeps its logic_net parent for an operation-RHS fresh
+  net (unparent applies for literal/select cases, not this one - unresolved).

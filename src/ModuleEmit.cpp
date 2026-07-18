@@ -1391,7 +1391,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
         // loses its typespec parent. A non-literal RHS reuses the module net
         // (a bare back-reference).
         auto* mnet = (UHDM::logic_net*)nit->second;
-        if (isLiteralExpr(stripImplicitConv(*dt->getInitializer()))) {
+        auto& ncInit = *dt->getInitializer();
+        // Literal or operation RHS -> netlist re-elaboration (fresh Lhs);
+        // pure ref/select RHS -> shared module net (bare).
+        if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit)) {
             auto* lnet = s.MakeLogic_net();
             lnet->VpiName(it.sym->name);
             lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
