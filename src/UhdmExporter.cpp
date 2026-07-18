@@ -40,6 +40,20 @@ void UhdmExporter::setLocNamed(UHDM::BaseClass* obj, const Symbol& symbol) {
     setLoc(obj, nameSpan(loc, symbol.name));
 }
 
+SourceRange UhdmExporter::regNetSpan(const Symbol& sym) {
+    // A reg variable emitted as a net, with an initializer, anchors over the
+    // whole declarator ("b = 0") rather than just the name token.
+    if (sym.kind == SymbolKind::Variable && sym.getDeclaredType() &&
+        sym.getDeclaredType()->getInitializer()) {
+        if (auto dsyn = sym.getSyntax()) {
+            auto dr = dsyn->sourceRange();
+            if (dr.start() != SourceLocation::NoLocation)
+                return dr;
+        }
+    }
+    return nameSpan(sym.location, sym.name);
+}
+
 SourceRange UhdmExporter::nameSpan(SourceLocation loc, std::string_view name) {
     // Escaped identifiers ("\foo* ") get Surelog's quirky name+6 width.
     if (rawText(SourceRange(loc, loc + 1)) == "\\")

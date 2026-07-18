@@ -204,6 +204,9 @@ private:
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);
     /// Name span at loc; escaped identifiers get Surelog's name+6 width.
     slang::SourceRange nameSpan(slang::SourceLocation loc, std::string_view name);
+    // A net's anchor span: the name token, or the whole declarator (name..init)
+    // for a reg variable emitted as a net with an initializer (reg b = 0).
+    slang::SourceRange regNetSpan(const slang::ast::Symbol& sym);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
     void noteUnsupported(const std::string& what);

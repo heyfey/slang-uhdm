@@ -644,7 +644,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (it.port && !it.bodyDecl)
                 setLocNamed(n, *it.port);
             else
-                setLoc(n, nameSpan(it.sym->location, it.sym->name));
+                setLoc(n, regNetSpan(*it.sym));
             if (!isStruct) {
                 if (int32_t nt = netTypeFor(*it.sym))
                     ((UHDM::logic_net*)n)->VpiNetType(nt);
@@ -1423,13 +1423,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
     for (auto& it : collectNetOrder(body)) {
         if (!topView)
             break;
-        if (it.sym->kind != SymbolKind::Net)
+        auto nit = netMap.find(it.sym);
+        if (nit == netMap.end())
             continue;
         auto* dt = it.sym->getDeclaredType();
         if (!dt || !dt->getInitializer())
             continue;
-        auto nit = netMap.find(it.sym);
-        if (nit == netMap.end())
+        // Nets, and INTEGRAL reg variables emitted as logic_nets (reg b = 0),
+        // get net-declaration assignments (real vars keep their own form).
+        if (it.sym->kind != SymbolKind::Net &&
+            !(it.sym->kind == SymbolKind::Variable &&
+              nit->second->UhdmType() == UHDM::uhdmlogic_net &&
+              dt->getType().isIntegral()))
             continue;
         auto* ca = s.MakeCont_assign();
         ca->VpiParent(m);
@@ -1459,7 +1464,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::module_
             lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
             lnet->VpiParent(ca);
             lnet->VpiNetType(mnet->VpiNetType());
-            setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
+            setLoc(lnet, regNetSpan(*it.sym));
             if (mnet->Typespec() && mnet->Typespec()->Actual_typespec()) {
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(it.sym->name));
