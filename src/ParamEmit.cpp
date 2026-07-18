@@ -136,7 +136,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 up->VpiValue(value);
             }
-            wantTs = ps.getType().getCanonicalType().isIntegral() && !unknownDefault;
+            // Untyped params carry a typespec only for LITERAL initializers;
+            // computed values ($clog2(W), 2**S) get none. Typed and ranged
+            // params always do.
+            wantTs = ps.getType().getCanonicalType().isIntegral() && !unknownDefault &&
+                     (typedParam || isRangedUntypedParam(ps) || literalInit);
         }
         if (auto declared0 = ps.getDeclaredType()) {
             if (auto tsyn0 = declared0->getTypeSyntax()) {
