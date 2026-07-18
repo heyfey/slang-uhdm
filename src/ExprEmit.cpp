@@ -1806,6 +1806,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->Path_elems(elems);
             return hp;
         }
+        case ExpressionKind::ArbitrarySymbol: {
+            // Interface-port member access (sub.sig): a hier_path with one
+            // ref_obj element per dotted component.
+            std::string dotted = rawText(expr.sourceRange);
+            auto* hp = s.MakeHier_path();
+            hp->VpiName(dotted);
+            hp->VpiFullName(dotted);
+            hp->VpiParent(parent);
+            setLoc(hp, expr.sourceRange);
+            auto* elems = s.MakeAnyVec();
+            size_t start = 0;
+            while (start <= dotted.size()) {
+                auto dot = dotted.find('.', start);
+                std::string pname = dotted.substr(
+                    start, dot == std::string::npos ? std::string::npos : dot - start);
+                auto* r = s.MakeRef_obj();
+                r->VpiName(pname);
+                r->VpiParent(hp);
+                setLoc(r, expr.sourceRange);
+                elems->push_back(r);
+                if (dot == std::string::npos)
+                    break;
+                start = dot + 1;
+            }
+            hp->Path_elems(elems);
+            return hp;
+        }
         default:
             noteUnsupported("expression kind: " + std::string(toString(expr.kind)));
             return nullptr;

@@ -237,6 +237,10 @@ private:
     // Interface definitions -> their def-view interface_inst shell (referenced
     // by a parent module's ref_module Actual in the def view).
     std::map<const slang::ast::DefinitionSymbol*, UHDM::interface_inst*> ifaceDefMap;
+    // (interface definition, modport name) -> emitted modport object, so an
+    // InterfacePort can bind its LowConn to the modport.
+    std::map<const slang::ast::DefinitionSymbol*, std::map<std::string, UHDM::modport*>>
+        modportsByDef;
     std::set<std::string> unsupportedKinds;
     bool suppressConstParent = false;
     bool reemitting = false;

@@ -41,7 +41,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // Nets in Surelog's collection order: explicit declarations by source
     // location, then port-declaration-only nets in port-list order.
     for (auto portBase : body.getPortList()) {
-        if (portBase->kind != SymbolKind::Port)
+        if (portBase->kind != SymbolKind::Port &&
+            portBase->kind != SymbolKind::InterfacePort)
             noteUnsupported("port kind: " + std::string(toString(portBase->kind)));
     }
     auto* nets = s.MakeNetVec();
@@ -1534,6 +1535,38 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                              TsCache* sharedTs) {
     auto* ports = s.MakePortVec();
     for (auto portBase : body.getPortList()) {
+        // A module port of interface type (myif.s sub): LowConn ref_obj ->
+        // the modport object; vpiTypedef -> interface_typespec(modport).
+        if (portBase->kind == SymbolKind::InterfacePort) {
+            auto& ip = portBase->as<InterfacePortSymbol>();
+            auto* p = s.MakePort();
+            p->VpiName(ip.name);
+            p->VpiParent(m);
+            setLocNamed(p, ip);
+            auto* lc = s.MakeRef_obj();
+            lc->VpiName(ip.name);
+            lc->VpiFullName(prefix + "." + std::string(ip.name) + "." +
+                            std::string(ip.name));
+            lc->VpiParent(p);
+            setLocNamed(lc, ip);
+            if (ip.interfaceDef && !ip.modport.empty()) {
+                if (auto dit = modportsByDef.find(ip.interfaceDef);
+                    dit != modportsByDef.end()) {
+                    if (auto mit = dit->second.find(std::string(ip.modport));
+                        mit != dit->second.end())
+                        lc->Actual_group(mit->second);
+                }
+            }
+            p->Low_conn(lc);
+            auto* its = s.MakeInterface_typespec();
+            its->VpiName(ip.modport.empty() ? ip.name : ip.modport);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(p);
+            rt->Actual_typespec(its);
+            p->Typespec(rt);
+            ports->push_back(p);
+            continue;
+        }
         if (portBase->kind != SymbolKind::Port)
             continue;
         auto& ps = portBase->as<PortSymbol>();
@@ -2584,6 +2617,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         }
         if (!iodecls->empty())
             umod->Io_decls(iodecls);
+        modportsByDef[&def][std::string(mp.name)] = umod;
         mports->push_back(umod);
     }
     if (!mports->empty())
