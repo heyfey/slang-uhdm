@@ -71,17 +71,59 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             pendingNetTs.push_back({it.sym, rt, &info});
         }
         if (auto attrs = comp.getAttributes(*it.sym); !attrs.empty()) {
-            // Surelog keeps only the last attribute spec; the object is
-            // shared with the instance view.
+            // Surelog keeps only the LAST (* *) group; within that group every
+            // attribute is emitted (with its value, for direct literals only).
+            // The objects are shared with the instance view.
+            const syntax::SyntaxNode* lastGroup = nullptr;
+            for (auto* a : attrs)
+                if (auto asyn = a->getSyntax())
+                    lastGroup = asyn->parent;
             auto* av = s.MakeAttributeVec();
-            auto* ua = s.MakeAttribute();
-            ua->VpiName(attrs.back()->name);
-            if (auto asyn = attrs.back()->getSyntax())
-                setLoc(ua, asyn->sourceRange());
-            ua->VpiParent(n);
-            av->push_back(ua);
+            std::vector<UHDM::attribute*> stored;
+            for (auto* a : attrs) {
+                auto asyn = a->getSyntax();
+                if (asyn && asyn->parent != lastGroup)
+                    continue;
+                auto* ua = s.MakeAttribute();
+                ua->VpiName(a->name);
+                if (asyn)
+                    setLoc(ua, asyn->sourceRange());
+                ua->VpiParent(n);
+                // Only a DIRECT literal value clause carries a value; a bare
+                // (* attr *) or a computed value (-1, cast) emits none.
+                const syntax::ExpressionSyntax* valExpr = nullptr;
+                if (asyn && asyn->kind == syntax::SyntaxKind::AttributeSpec)
+                    if (auto* vc = asyn->as<syntax::AttributeSpecSyntax>().value)
+                        valExpr = vc->expr;
+                if (valExpr) {
+                    const ConstantValue& cv = a->getValue();
+                    if (valExpr->kind == syntax::SyntaxKind::StringLiteralExpression) {
+                        // slang packs the string into an SVInt; take the raw
+                        // source text between the quotes.
+                        std::string raw = rawText(valExpr->sourceRange());
+                        if (raw.size() >= 2 && raw.front() == '"' && raw.back() == '"')
+                            raw = raw.substr(1, raw.size() - 2);
+                        ua->VpiValue("STRING:" + raw);
+                    }
+                    else if (valExpr->kind == syntax::SyntaxKind::RealLiteralExpression &&
+                             cv.isReal()) {
+                        char buf[64];
+                        snprintf(buf, sizeof(buf), "%f", cv.real().v);
+                        ua->VpiValue("REAL:" + std::string(buf));
+                    }
+                    else if (valExpr->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
+                             cv.isInteger()) {
+                        auto& iv = cv.integer();
+                        std::string digits = iv.toString(LiteralBase::Decimal, false);
+                        bool neg = iv.isSigned() && iv.isNegative();
+                        ua->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                    }
+                }
+                av->push_back(ua);
+                stored.push_back(ua);
+            }
             n->Attributes(av);
-            attrMap[it.sym] = ua;
+            attrMap[it.sym] = stored;
         }
         info.nets[it.sym] = n;
         nets->push_back(n);
@@ -566,7 +608,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
                 auto* av = s.MakeAttributeVec();
-                av->push_back(ait->second);
+                for (auto* ua : ait->second)
+                    av->push_back(ua);
                 v->Attributes(av);
             }
             // Vars creation-parent their (non-typedef) typespec like nets;
@@ -611,10 +654,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             rt->VpiParent(n);
             n->Typespec(rt);
-            // The instance-view net shares the def-view attribute object.
+            // The instance-view net shares the def-view attribute objects.
             if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
                 auto* av = s.MakeAttributeVec();
-                av->push_back(ait->second);
+                for (auto* ua : ait->second)
+                    av->push_back(ua);
                 n->Attributes(av);
             }
             // Surelog parents the net typespec at creation; a shared

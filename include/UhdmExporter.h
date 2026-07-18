@@ -290,7 +290,7 @@ private:
     };
     std::vector<PendingPatternOrphan> pendingPatternOrphans;
     std::map<const slang::ast::Symbol*, UHDM::any*> enumConstMap;
-    std::map<const slang::ast::Symbol*, UHDM::attribute*> attrMap;
+    std::map<const slang::ast::Symbol*, std::vector<UHDM::attribute*>> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
     void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m);
