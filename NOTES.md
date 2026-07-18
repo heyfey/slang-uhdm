@@ -1208,3 +1208,26 @@ lives on the PORT object (emitTopPorts), resolved on the net by fullname weak-re
 To finish: reach the port's typespec actual (look up b's def PORT via
 di->mod->Ports() by name, take Typespec()->Actual_typespec()) and point the
 sys_func_call ref_typespec at it - deferred, after emitTopPorts. Then both convert.
+
+## r157 — packed_array_var elaboration landed; tests blocked on conditional struct-prefix
+r157: top-view packed-array-of-struct var (filter_ctl_t [1:0][2:0] a) is now a
+packed_array_var {vpiRange x N (UINT) + vpiElement=struct_var->shared struct_typespec},
+via emitPackedStructArrayVar (models emitArrayVar + the r138 packed_array_typespec
+leaf lookup). DEF view keeps logic_net. Reduced int_port_signed 154->123,
+MemberSelectOf2DStructPackedArray 196->165, DotMultirange 458->427 - but NONE
+converge. Remaining blockers (pre-existing, NOT from this change):
+1. STRUCT-TYPEDEF MEMBER PREFIX (the wall): int_port_signed golden prefixes the
+   shared packed struct_typespec's member refs work@top.filter_ctl_t.min_v AND
+   parents the struct_typespec to module_inst; simple_nested_struct_nopack golden
+   leaves them BARE (nested_struct_t.base, no parent). BOTH are module-level packed
+   struct typedefs - the only difference is int_port_signed uses it in a PACKED
+   ARRAY (referenced via packed_array_typespec Elem_typespec) vs a plain struct var.
+   buildStructTs builds ONE shared struct_typespec, so it can't be both. Mirroring
+   the UNPACKED-struct branch (prefix + VpiParent(m)) on the PACKED branch REGRESSES
+   simple_nested_struct_nopack (goldens FAIL). Reverted (4th time now). Genuinely
+   architecture-blocked without a per-usage struct_typespec clone.
+2. def-net packed_array_typespec loc (20:5-20:23 through first dim vs mine 20:5-20:28).
+3. spurious vpiNetType:36 on the def logic_net of a packed-array-of-struct.
+4. a[0][0].min_v hier_path loc/bit_select in an int'() cast operand.
+CONCLUSION: packed_array_var was necessary but not sufficient; these 3 tests stay
+DIFF until the shared-vs-per-usage struct_typespec prefix is resolved.
