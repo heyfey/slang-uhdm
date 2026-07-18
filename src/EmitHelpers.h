@@ -342,10 +342,16 @@ inline bool containsOperation(const Expression& expr) {
                 return true;
             return containsOperation(conv.operand());
         }
-        case ExpressionKind::Call:
+        case ExpressionKind::Call: {
             // User function calls are reused as-is; sys calls inside
-            // recompiled expressions force a fresh cont_assign.
-            return expr.as<CallExpression>().isSystemCall();
+            // recompiled expressions force a fresh cont_assign - except the
+            // transparent signedness casts $signed/$unsigned, which are shared.
+            auto& call = expr.as<CallExpression>();
+            if (!call.isSystemCall())
+                return false;
+            auto n = call.getSubroutineName();
+            return n != "$signed" && n != "$unsigned";
+        }
         case ExpressionKind::SimpleAssignmentPattern:
         case ExpressionKind::StructuredAssignmentPattern:
             return true;
