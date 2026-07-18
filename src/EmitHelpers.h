@@ -523,10 +523,8 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) 
             return s.MakeShort_real_var();
         return s.MakeReal_var();
     }
-    auto* v = s.MakeLogic_var();
-    if (ct.isSigned())
-        v->VpiSigned(true);
-    return v;
+    // Signedness rides on the typespec, not the logic_var.
+    return s.MakeLogic_var();
 }
 
 // Strips slang's implicit conversion wrappers (Surelog has no equivalent).

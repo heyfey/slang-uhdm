@@ -114,12 +114,32 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         snprintf(buf, sizeof(buf), "%f", cv.real().v);
                         ua->VpiValue("REAL:" + std::string(buf));
                     }
-                    else if (valExpr->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
-                             cv.isInteger()) {
-                        auto& iv = cv.integer();
-                        std::string digits = iv.toString(LiteralBase::Decimal, false);
-                        bool neg = iv.isSigned() && iv.isNegative();
-                        ua->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                    else if (cv.isInteger()) {
+                        std::string raw = rawText(valExpr->sourceRange());
+                        auto tick = raw.find('\'');
+                        if (tick != std::string::npos) {
+                            // Based literal (1'b0, 8'hFF): encode by base.
+                            size_t basePos = tick + 1;
+                            if (basePos < raw.size() &&
+                                (raw[basePos] == 's' || raw[basePos] == 'S'))
+                                basePos++;
+                            char base =
+                                basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
+                            std::string digits = raw.substr(basePos + 1);
+                            const char* pfx = base == 'b'   ? "BIN:"
+                                              : base == 'h' ? "HEX:"
+                                              : base == 'o' ? "OCT:"
+                                                            : "DEC:";
+                            ua->VpiValue(pfx + digits);
+                        }
+                        else if (valExpr->kind ==
+                                 syntax::SyntaxKind::IntegerLiteralExpression) {
+                            // Bare decimal literal.
+                            auto& iv = cv.integer();
+                            std::string digits = iv.toString(LiteralBase::Decimal, false);
+                            bool neg = iv.isSigned() && iv.isNegative();
+                            ua->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                        }
                     }
                 }
                 av->push_back(ua);
