@@ -1454,6 +1454,13 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     for (auto* rt : pendingGenvarTs)
         rt->Actual_typespec(s.MakeInt_typespec());
     pendingGenvarTs.clear();
+    // Signed size-cast fold typespecs close out the tail.
+    for (auto* rt : pendingSignedCastTs) {
+        auto* lts = s.MakeLogic_typespec();
+        lts->VpiSigned(true);
+        rt->Actual_typespec(lts);
+    }
+    pendingSignedCastTs.clear();
 
     // Orphan pattern first-compiles (share the def operands).
     for (auto& po : pendingPatternOrphans) {

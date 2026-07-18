@@ -351,6 +351,9 @@ private:
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;
     // Gen-scope genvar param int_typespecs drain LAST (after net-decl typespecs).
     std::vector<UHDM::ref_typespec*> pendingGenvarTs;
+    // Signed size-cast fold result typespecs (signed logic_typespec) drain at
+    // the very end of the arena tail.
+    std::vector<UHDM::ref_typespec*> pendingSignedCastTs;
     const slang::ast::Symbol* funcRetSym = nullptr;
     std::vector<UHDM::ref_obj*>* funcRetRefs = nullptr;
     // In shared processes, only call-argument refs count for var typespec

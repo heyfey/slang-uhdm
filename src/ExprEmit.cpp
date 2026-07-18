@@ -36,7 +36,42 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
     if (!cv || !cv.isInteger())
         return nullptr;
     auto& iv = cv.integer();
-    if (iv.hasUnknown() || (iv.isSigned() && iv.isNegative()))
+    if (iv.hasUnknown())
+        return nullptr;
+    // A SIZE cast whose OPERAND is a signed non-literal (N'(signed_ref)) folds
+    // to a SIGNED constant reinterpreted at the cast width (2'(3) -> -1),
+    // carrying a signed logic_typespec and no decompile. A literal operand
+    // (3'(31)) stays unsigned, and TYPE casts (int'(x)) are excluded.
+    auto& sc = stripImplicitConv(expr);
+    bool signedSizeCast = false;
+    if (sc.kind == ExpressionKind::Conversion &&
+        !sc.as<ConversionExpression>().isImplicit() && sc.type &&
+        sc.type->isSigned() && sc.syntax &&
+        sc.syntax->kind == syntax::SyntaxKind::CastExpression &&
+        !isTypeSyntaxKind(sc.syntax->as<syntax::CastExpressionSyntax>().left->kind)) {
+        auto& op = stripImplicitConv(sc.as<ConversionExpression>().operand());
+        signedSizeCast = op.kind != ExpressionKind::IntegerLiteral && op.type &&
+                         op.type->isSigned();
+    }
+    if (signedSizeCast) {
+        int w = (int)sc.type->getBitWidth();
+        uint64_t uv = iv.as<uint64_t>().value_or(0);
+        int64_t sv = (int64_t)uv;
+        if (w > 0 && w < 64 && (uv & (1ULL << (w - 1))))
+            sv = (int64_t)(uv | (~0ULL << w));
+        auto* c = s.MakeConstant();
+        c->VpiSize(w);
+        c->VpiValue("INT:" + std::to_string(sv));
+        c->VpiConstType(vpiIntConst);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(c);
+        c->Typespec(rt);
+        // The signed logic_typespec actual is created at the very end of the
+        // write phase (Surelog's arena tail).
+        pendingSignedCastTs.push_back(rt);
+        return c;
+    }
+    if (iv.isSigned() && iv.isNegative())
         return nullptr;
     std::string digits = iv.toString(LiteralBase::Decimal, /*includeBase*/ false);
     auto* c = s.MakeConstant();
