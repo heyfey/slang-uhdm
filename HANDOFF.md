@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r98 state)
+# HANDOFF — slang-uhdm convergence campaign (r102 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,9 +13,9 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r98 baseline, committed as results/baseline.csv)
+## Current scoreboard (r102 baseline, committed as results/baseline.csv)
 
-PASS 195 · CMP_ONLY 3 · DIFF 323 · UNSUPPORTED 140 (r98). r96-r98 landed the property-expression emitter (emitAssertionExpr: implication/until/throughout/sequence-concat/not ops), default clocking blocks, assume/cover/restrict, and typed localparams (integer/byte/... _typespec). Converged sva_basic00/01/03, sva_value_change_rose, sva_throughout, sva_not. r95 landed concurrent assertions (folded assert_stmt: label, clocking-only property_spec for assert-with-clocking; via instance Assertions()/vpiAssertion, shared across instances like processes). NEXT for assertions: a recursive property-expression emitter (emitAssertionExpr) + assume/cover kinds - the exact rule + operator/opType tables are in NOTES.md "Concurrent assertion property-expr rule". Also landed r93-r94: assignment-pattern fold to based constant + numeric-index integer_typespec tags (PatternDefault/PatternIndexes converge). Session 5 third
+PASS 198 · CMP_ONLY 4 · DIFF 319 · UNSUPPORTED 140 (r102). r99-r102 landed the full property-expression emitter (implications/until/throughout/sequence-concat/not), default clocking blocks, and NET-DECLARATION ASSIGNMENTS (wire x = expr -> cont_assign; literal/op RHS -> fresh Lhs net + deferred typespec; general x->X uppercase for unbased-unsized). Converged sva_not, sva_throughout, sva_value_change_*, signed_partsel_ext. r96-r98 landed the property-expression emitter (emitAssertionExpr: implication/until/throughout/sequence-concat/not ops), default clocking blocks, assume/cover/restrict, and typed localparams (integer/byte/... _typespec). Converged sva_basic00/01/03, sva_value_change_rose, sva_throughout, sva_not. r95 landed concurrent assertions (folded assert_stmt: label, clocking-only property_spec for assert-with-clocking; via instance Assertions()/vpiAssertion, shared across instances like processes). NEXT for assertions: a recursive property-expression emitter (emitAssertionExpr) + assume/cover kinds - the exact rule + operator/opType tables are in NOTES.md "Concurrent assertion property-expr rule". Also landed r93-r94: assignment-pattern fold to based constant + numeric-index integer_typespec tags (PatternDefault/PatternIndexes converge). Session 5 third
 stretch (r82-r92) landed: var_select flattening (nested element selects,
 range/part-select of element-select bases), array_var/array_typespec for
 unpacked-array signals (element types, pattern inits, io_decl ranges),
