@@ -1579,13 +1579,16 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             lc->Actual_group(it->second);
         p->Low_conn(lc);
 
-        UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
-                                      : makeTypespec(*internal, nullptr, &ps);
-        auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(prefix + "." + std::string(ps.name));
-        rt->VpiParent(p);
-        rt->Actual_typespec(ts);
-        p->Typespec(rt);
+        // A def-view INTERFACE port carries no typespec (unlike a module port).
+        if (!(m->UhdmType() == UHDM::uhdminterface_inst && !topView)) {
+            UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
+                                          : makeTypespec(*internal, nullptr, &ps);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix + "." + std::string(ps.name));
+            rt->VpiParent(p);
+            rt->Actual_typespec(ts);
+            p->Typespec(rt);
+        }
 
         ports->push_back(p);
     }
