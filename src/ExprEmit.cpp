@@ -819,6 +819,80 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     vs->Exprs(idxs);
                     return vs;
                 }
+                // Nested selects whose leaf is a member access (bar.l[2][1])
+                // -> hier_path with a var_select last element.
+                if (base->kind == ExpressionKind::MemberAccess) {
+                    std::vector<const Expression*> chain;
+                    const Expression* mbase = base;
+                    while (mbase->kind == ExpressionKind::MemberAccess) {
+                        chain.push_back(mbase);
+                        mbase = &mbase->as<MemberAccessExpression>().value();
+                    }
+                    if (mbase->kind == ExpressionKind::NamedValue) {
+                        auto& bnv = mbase->as<NamedValueExpression>();
+                        if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+                            refCollector->insert(&bnv.symbol);
+                        auto* hp = s.MakeHier_path();
+                        std::string dotted(bnv.symbol.name);
+                        for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
+                            dotted += "." +
+                                      std::string(
+                                          (*it2)->as<MemberAccessExpression>().member.name);
+                        for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2)
+                            dotted += "[" + rawText((*it2)->sourceRange) + "]";
+                        hp->VpiName(dotted);
+                        hp->VpiFullName(dotted);
+                        hp->VpiParent(parent);
+                        // Lvalue hier_paths anchor the base ref and last elem
+                        // at the FINAL member's name span (Surelog quirk).
+                        auto& frontMa = chain.front()->as<MemberAccessExpression>();
+                        auto memEnd = chain.front()->sourceRange.end();
+                        SourceRange memSpan(memEnd - frontMa.member.name.size(), memEnd);
+                        setLoc(hp, expr.sourceRange);
+                        auto* elems = s.MakeAnyVec();
+                        {
+                            auto* r = s.MakeRef_obj();
+                            r->VpiName(bnv.symbol.name);
+                            (void)r->VpiFullName();
+                            r->VpiParent(hp);
+                            setLoc(r, inLhs ? memSpan : mbase->sourceRange);
+                            elems->push_back(r);
+                        }
+                        for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
+                            auto& ma = (*it2)->as<MemberAccessExpression>();
+                            bool last = *it2 == chain.front();
+                            if (!last) {
+                                auto* r = s.MakeRef_obj();
+                                r->VpiName(ma.member.name);
+                                (void)r->VpiFullName();
+                                r->VpiParent(hp);
+                                auto end = (*it2)->sourceRange.end();
+                                setLoc(r, SourceRange(end - ma.member.name.size(), end));
+                                elems->push_back(r);
+                                continue;
+                            }
+                            auto* vs = s.MakeVar_select();
+                            vs->VpiName(ma.member.name);
+                            vs->VpiParent(hp);
+                            (void)vs->VpiFullName();
+                            setLoc(vs, inLhs ? SourceRange(memSpan.start(),
+                                                           expr.sourceRange.end())
+                                             : expr.sourceRange);
+                            auto* idxs = s.MakeExprVec();
+                            bool savedFCP = forceConstParent;
+                            for (auto it3 = sels.rbegin(); it3 != sels.rend(); ++it3) {
+                                forceConstParent = isLiteralExpr(**it3);
+                                if (auto* ix = emitExpr(**it3, vs, dotted, netMap))
+                                    idxs->push_back((UHDM::expr*)ix);
+                            }
+                            forceConstParent = savedFCP;
+                            vs->Exprs(idxs);
+                            elems->push_back(vs);
+                        }
+                        hp->Path_elems(elems);
+                        return hp;
+                    }
+                }
             }
             if (es.value().kind != ExpressionKind::NamedValue) {
                 noteUnsupported("element select base");

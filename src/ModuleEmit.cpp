@@ -25,8 +25,12 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     m->VpiFullName(prefix);
     m->VpiParent(d);
     m->VpiFile(fullFilePath(def.location));
-    if (auto syntax = body.getSyntax())
+    if (auto syntax = body.getSyntax()) {
         setLoc(m, syntax->sourceRange());
+        if (syntax->kind == syntax::SyntaxKind::ModuleDeclaration)
+            if (auto* bn = syntax->as<syntax::ModuleDeclarationSyntax>().blockName)
+                m->VpiEndLabel(bn->name.valueText());
+    }
 
     // (Def-view parameters were emitted in the exportDesign pre-pass.)
 

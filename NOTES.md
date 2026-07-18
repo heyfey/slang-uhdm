@@ -984,3 +984,11 @@ NEXT: a recursive emitAssertionExpr(AssertionExpr) -> operation. slang enums:
   (net/port/var) uses the struct AND NO $unit function returns it (the
   function elaborates first, before any module, and leaves it unparented).
   func_struct_repro + struct_array both converge.
+
+## Nested member-access selects + module end label (r108)
+- Nested element selects whose leaf is a member access (bar.l[2][1]) -> a
+  hier_path {ref_obj(base) + var_select(member, multiple indices)}. LVALUE
+  hier_paths anchor the base ref AND var_select at the FINAL member's name
+  span (not the base sym) - the var_select spans member-start..expr-end.
+- `endmodule : name` -> module VpiEndLabel, in the DEF view (allModules)
+  ONLY, not the top view. DotRange converges.
