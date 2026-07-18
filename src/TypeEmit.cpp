@@ -778,9 +778,13 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
         else if (ct.kind == SymbolKind::PackedArrayType ||
                  ct.kind == SymbolKind::ScalarType) {
             // Vector/scalar typedefs: a NAMED logic_typespec at the target
-            // type syntax, module parent + Instance.
+            // type syntax, module parent + Instance. Typedef ranges keep
+            // param/$bits-dependent bounds UNFOLDED (typedef context).
             bypassTypedefShare = true;
+            bool savedTf = tfContext;
+            tfContext = true;
             auto* lts = makeTypespec(ta, typeSyn);
+            tfContext = savedTf;
             bypassTypedefShare = false;
             lts->VpiParent(m);
             typedefClone[&ta] = nullptr;
