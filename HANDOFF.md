@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r152 state)
+# HANDOFF — slang-uhdm convergence campaign (r153 state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
@@ -13,10 +13,17 @@ For a fresh session picking up this project. Read this, then NOTES.md
 2. Then the Surelog repo suite (~703 dirs, PLAN.md Part II §3).
 3. Then sv-tests (~2346 files, PLAN.md Part II §4).
 
-## Current scoreboard (r152 baseline, committed as results/baseline.csv)
+## Current scoreboard (r153 baseline, committed as results/baseline.csv)
 
-PASS 250 · CMP_ONLY 8 · DIFF 297 · UNSUPPORTED 106 (r152). SESSION r138-r152
-(this session): +12 PASS (238->250), UNSUP 109->106. (r152) function part-select
+PASS 251 · CMP_ONLY 8 · DIFF 296 · UNSUPPORTED 106 (r153). SESSION r138-r153
+(this session): +13 PASS (238->251), UNSUP 109->106. (r153) emit generate-scope
+LOCAL NETS (wire tmp; in a genblk) as logic_nets on the gen_scope with a
+ref_typespec->logic_typespec (parented to the net); do NOT add to netMap so refs
+stay weak - simple_generate PASS. NEXT generate leads: AssignGeneratedWireInAlways/
+CaseWithGeneratedWire (73) need (a) gen-scope net-decl-assign initializers as
+gen_scope cont_assigns [extend r153] AND (b) gen_blk[N].x hier-path where gen_blk[N]
+is a bit_select (gen-scope-array index; mine emits a single ref_obj). (r152)
+function part-select
 bound refs scope their fullname by the base name inside a task/function body
 (currentSubSym gate; Surelog's doubled inp[A:B]->func.inp.A form) + task/function
 params follow the source keyword for vpiLocalParam (like packages) - func_block
