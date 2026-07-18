@@ -146,8 +146,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         }
         if (auto declared0 = ps.getDeclaredType()) {
             if (auto tsyn0 = declared0->getTypeSyntax()) {
+                // Surelog flags vpiSigned only when the declaration carries an
+                // explicit `parameter`/`localparam` keyword (parameter int P,
+                // or #(parameter int W)). The bare ANSI form #(int x = 0) omits
+                // the keyword and gets no vpiSigned (its signedness lives on the
+                // int_typespec actual instead).
+                bool hasKeyword = false;
+                for (auto q = ps.getSyntax(); q; q = q->parent) {
+                    if (syntax::ParameterDeclarationBaseSyntax::isKind(q->kind)) {
+                        hasKeyword = q->as<syntax::ParameterDeclarationBaseSyntax>()
+                                         .keyword.kind != parsing::TokenKind::Unknown;
+                        break;
+                    }
+                }
                 if (tsyn0->kind != syntax::SyntaxKind::ImplicitType &&
-                    ps.getType().getCanonicalType().isSigned())
+                    ps.getType().getCanonicalType().isSigned() && hasKeyword)
                     up->VpiSigned(true);
             }
         }
