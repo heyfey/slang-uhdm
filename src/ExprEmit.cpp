@@ -1634,16 +1634,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             // Range select of a member access (a.b[0+:8]) becomes a hier_path
             // whose last element is an (indexed_)part_select.
-            const Expression* rsBottom = &rs.value();
+            const Expression* rsBottom = &stripImplicitConv(rs.value());
             while (rsBottom->kind == ExpressionKind::MemberAccess)
-                rsBottom = &rsBottom->as<MemberAccessExpression>().value();
-            if (rs.value().kind == ExpressionKind::MemberAccess &&
+                rsBottom = &stripImplicitConv(
+                    rsBottom->as<MemberAccessExpression>().value());
+            if (stripImplicitConv(rs.value()).kind == ExpressionKind::MemberAccess &&
                 rsBottom->kind == ExpressionKind::NamedValue) {
                 std::vector<const Expression*> chain;
-                const Expression* base = &rs.value();
+                const Expression* base = &stripImplicitConv(rs.value());
                 while (base->kind == ExpressionKind::MemberAccess) {
                     chain.push_back(base);
-                    base = &base->as<MemberAccessExpression>().value();
+                    base = &stripImplicitConv(base->as<MemberAccessExpression>().value());
                 }
                 if (base->kind == ExpressionKind::NamedValue) {
                     auto& bnv = base->as<NamedValueExpression>();
@@ -1716,8 +1717,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* ips = s.MakeIndexed_part_select();
                             ips->VpiName(ma.member.name);
                             ips->VpiParent(hp);
-                            (void)ips->VpiFullName();
-                            setLoc(ips, elemLoc);
+                            // The indexed form carries the dotted select
+                            // string as its fullname and stops BEFORE the ']'.
+                            ips->VpiFullName(dotted);
+                            setLoc(ips, SourceRange(elemLoc.start(),
+                                                    rs.right().sourceRange.end()));
                             ips->VpiIndexedPartSelectType(
                                 rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1
                                                                                        : 2);

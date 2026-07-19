@@ -869,6 +869,58 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         if (auto* e = emitExpr(ic, v, fullName, topNets))
                             v->Expr((UHDM::expr*)e);
                     }
+                    else if (ic.kind == ExpressionKind::StructuredAssignmentPattern &&
+                             v->UhdmType() == UHDM::uhdmstruct_var) {
+                        // Elab struct-var pattern init: op 75 with per-member
+                        // FOLDED constants at the setter sites + a bare ts
+                        // ref to the shared struct typespec.
+                        auto& ap2 = ic.as<StructuredAssignmentPatternExpression>();
+                        auto* op2 = s.MakeOperation();
+                        op2->VpiOpType(vpiAssignmentPatternOp);
+                        op2->VpiParent(v);
+                        setLoc(op2, ic.sourceRange);
+                        if (auto tt2 = typedefTs.find((const Symbol*)&dt->getType());
+                            tt2 != typedefTs.end()) {
+                            auto* rt3 = s.MakeRef_typespec();
+                            rt3->Actual_typespec(tt2->second);
+                            op2->Typespec(rt3);
+                        }
+                        auto* opnds = s.MakeAnyVec();
+                        auto& sct = dt->getType()
+                                        .getCanonicalType()
+                                        .as<PackedStructType>();
+                        ASTContext ectx(comp.getRoot(), LookupLocation::max);
+                        for (auto& f : sct.membersOfType<FieldSymbol>()) {
+                            const Expression* se = nullptr;
+                            for (auto& ms2 : ap2.memberSetters)
+                                if (ms2.member == &f) {
+                                    se = ms2.expr;
+                                    break;
+                                }
+                            if (!se)
+                                se = ap2.defaultSetter;
+                            if (!se)
+                                continue;
+                            ConstantValue cvm = ectx.tryEval(*se);
+                            if (cvm && cvm.isInteger() &&
+                                !cvm.integer().hasUnknown()) {
+                                auto* c2 = s.MakeConstant();
+                                slang::SVInt uvm = cvm.integer();
+                                uvm.setSigned(false);
+                                std::string digits2 =
+                                    uvm.toString(LiteralBase::Decimal, false);
+                                c2->VpiDecompile(digits2);
+                                c2->VpiSize((int32_t)f.getType().getBitWidth());
+                                c2->VpiValue("UINT:" + digits2);
+                                c2->VpiConstType(vpiUIntConst);
+                                c2->VpiParent(op2);
+                                setLoc(c2, se->sourceRange);
+                                opnds->push_back(c2);
+                            }
+                        }
+                        op2->Operands(opnds);
+                        v->Expr(op2);
+                    }
                     else if (enumRef || isLiteralExpr(ic) || concatInit) {
                         bool forceSaved = forceConstParent;
                         // Concat ops self-parent; only bare literals need the
