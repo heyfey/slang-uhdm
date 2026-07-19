@@ -78,8 +78,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         else if (sub.defaultLifetime == VariableLifetime::Automatic) {
             tf->VpiAutomatic(true);
         }
-        // An exported function locates at the export DIRECTIVE's span.
-        if (dpiExportSyn)
+        // An exported FUNCTION locates at the export DIRECTIVE's span
+        // (an exported TASK keeps its definition span).
+        if (dpiExportSyn && sub.subroutineKind == SubroutineKind::Function)
             setLoc(tf, dpiExportSyn->sourceRange());
         else if (auto syn = sub.getSyntax())
             setLoc(tf, syn->sourceRange());
