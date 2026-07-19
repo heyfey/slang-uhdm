@@ -1530,10 +1530,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // (indexed_)part_select named by the last component.
             {
                 const Expression* bb = &stripImplicitConv(rs.value());
-                while (bb->kind == ExpressionKind::MemberAccess)
-                    bb = &bb->as<MemberAccessExpression>().value();
+                while (bb->kind == ExpressionKind::MemberAccess ||
+                       bb->kind == ExpressionKind::ElementSelect) {
+                    if (bb->kind == ExpressionKind::MemberAccess)
+                        bb = &bb->as<MemberAccessExpression>().value();
+                    else
+                        bb = &bb->as<ElementSelectExpression>().value();
+                }
                 if (bb->kind == ExpressionKind::ArbitrarySymbol ||
-                    bb->kind == ExpressionKind::HierarchicalValue) {
+                    bb->kind == ExpressionKind::HierarchicalValue ||
+                    (bb->kind == ExpressionKind::NamedValue &&
+                     stripImplicitConv(rs.value()).kind ==
+                         ExpressionKind::MemberAccess)) {
                     std::string baseDotted = rawText(rs.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
                         std::string selText = rawText(expr.sourceRange);
@@ -1556,6 +1564,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         for (size_t ci = 0; ci + 1 < comps.size(); ci++) {
                             auto& [cn, co] = comps[ci];
+                            // An indexed component (a[0]) is a bit_select.
+                            auto lb2 = cn.find('[');
+                            auto rb2 = cn.find(']');
+                            if (lb2 != std::string::npos && rb2 != std::string::npos &&
+                                rb2 > lb2 + 1 &&
+                                cn.find_first_not_of("0123456789", lb2 + 1) == rb2) {
+                                std::string bn = cn.substr(0, lb2);
+                                std::string ix = cn.substr(lb2 + 1, rb2 - lb2 - 1);
+                                auto* bsm = s.MakeBit_select();
+                                bsm->VpiName(bn);
+                                bsm->VpiFullName(bn);
+                                bsm->VpiParent(hp);
+                                setLoc(bsm, SourceRange(exprStart + co,
+                                                        exprStart + co + bn.size()));
+                                auto* cix = s.MakeConstant();
+                                cix->VpiDecompile(ix);
+                                cix->VpiSize(64);
+                                cix->VpiValue("UINT:" + ix);
+                                cix->VpiConstType(vpiUIntConst);
+                                size_t dOff = co + lb2 + 1;
+                                setLoc(cix, SourceRange(exprStart + dOff,
+                                                        exprStart + dOff + ix.size()));
+                                bsm->VpiIndex(cix);
+                                elems->push_back(bsm);
+                                continue;
+                            }
                             auto* r2 = s.MakeRef_obj();
                             r2->VpiName(cn);
                             r2->VpiFullName(cn); // name-only (dump omits)
