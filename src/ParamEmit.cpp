@@ -516,6 +516,16 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                 its = makeTypespec(ps);
         }
     }
+    // An untyped param initialized with a string literal (parameter X = "FOO")
+    // is a bare (unlocated) string_typespec, not an int_typespec.
+    bool stringParam = false;
+    if (!its && !typedParam) {
+        if (auto init = ps.getInitializer();
+            init && stripImplicitConv(*init).kind == ExpressionKind::StringLiteral) {
+            its = s.MakeString_typespec();
+            stringParam = true;
+        }
+    }
     UHDM::int_typespec* intTs = nullptr;
     if (!its) {
         intTs = s.MakeInt_typespec();
@@ -524,7 +534,8 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             intTs->VpiSigned(sgn);
         its = intTs;
     }
-    setLoc(its, tr);
+    if (!stringParam)
+        setLoc(its, tr);
     // A ranged untyped param (parameter [0:0] X) carries the packed range on
     // its int_typespec, with located UINT bounds.
     bool explicitRange = false;
