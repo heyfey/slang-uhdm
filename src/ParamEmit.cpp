@@ -315,6 +315,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                   : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                 : 64);
                     setLoc((UHDM::constant*)rhs, init->sourceRange);
+                    // A SUBTRACT init (W - 19) folds signed (INT).
+                    if (scv.kind == ExpressionKind::BinaryOp &&
+                        scv.as<BinaryExpression>().op == BinaryOperator::Subtract) {
+                        auto* rc1 = (UHDM::constant*)rhs;
+                        std::string_view v1 = rc1->VpiValue();
+                        if (v1.rfind("UINT:", 0) == 0) {
+                            rc1->VpiValue("INT:" + std::string(v1.substr(5)));
+                            rc1->VpiConstType(vpiIntConst);
+                        }
+                    }
                     // An assignment-pattern default ('{0,1}) folds to a
                     // based-decimal (2'd1) constant with NO typespec ref.
                     auto& sinit = stripImplicitConv(*init);

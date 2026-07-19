@@ -822,8 +822,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     ts->Instance(tit0->second->Instance());
             }
         }
-        if (!ts && !implicitNet && !realVar)
+        if (!ts && !implicitNet && !realVar) {
+            boundOwnerFullName = fullName;
             ts = sharedTypespec(*it.sym, netTs);
+            boundOwnerFullName.clear();
+        }
         // Unpacked-array signals: the instance view is an array_var (ranges
         // per unpacked dim, an inner reg carrying the element typespec, an
         // array_typespec). The def view keeps the plain net (see below).

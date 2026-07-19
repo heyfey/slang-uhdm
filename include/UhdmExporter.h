@@ -423,6 +423,9 @@ private:
         UHDM::variables* var;
     };
     std::vector<PendingClassPropTs> pendingClassPropTs;
+    // Set around ELAB net-ts creation: the owning net/var's fullname (bare
+    // param-ref bounds clone a ts ref scoped by it).
+    std::string boundOwnerFullName;
     // Set while emitting a property-decl body: formal refs (which bind as
     // Invalid) resolve through this scope to implicit module wires.
     const slang::ast::Scope* propDeclScope = nullptr;

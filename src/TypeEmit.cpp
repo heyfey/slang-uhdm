@@ -410,16 +410,58 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         }
                         else {
                             // A bound that references an int-encoded param
-                            // (e.g. DINW = 2**SELW) folds to a signed INT const.
+                            // (e.g. DINW = 2**SELW) folds to a signed INT
+                            // const. A bare MODULE-param ref folds at the
+                            // param's width with a ts ref (loc-less signed
+                            // int clone, var-scoped fullname).
                             bool intEnc = false;
+                            const ParameterSymbol* boundParam = nullptr;
                             if (currentScope) {
                                 ASTContext bctx(*currentScope, LookupLocation::max);
                                 auto& be = Expression::bind(*bsyn, bctx);
-                                if (!be.bad())
+                                if (!be.bad()) {
                                     intEnc = isIntEncoded(be);
+                                    auto& bee = stripImplicitConv(be);
+                                    if (bee.kind == ExpressionKind::NamedValue &&
+                                        bee.as<NamedValueExpression>().symbol.kind ==
+                                            SymbolKind::Parameter) {
+                                        auto& bp = bee.as<NamedValueExpression>()
+                                                       .symbol.as<ParameterSymbol>();
+                                        // TYPED params only (untyped keep
+                                        // the bare 64-bit fold).
+                                        bool typedP = false;
+                                        if (auto bd0 = bp.getDeclaredType())
+                                            if (auto bt0 = bd0->getTypeSyntax())
+                                                typedP =
+                                                    bt0->kind !=
+                                                    syntax::SyntaxKind::ImplicitType;
+                                        if (auto bsc = bp.getParentScope();
+                                            typedP && bsc &&
+                                            bsc->asSymbol().kind ==
+                                                SymbolKind::InstanceBody)
+                                            boundParam = &bp;
+                                    }
+                                }
                             }
-                            c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
-                            c->VpiValue((intEnc ? "INT:" : "UINT:") + digits);
+                            if (boundParam && !boundOwnerFullName.empty() &&
+                                !intEnc) {
+                                c->VpiSize(
+                                    (int32_t)boundParam->getType().getBitWidth());
+                                c->VpiConstType(vpiUIntConst);
+                                c->VpiValue("UINT:" + digits);
+                                auto* rt0 = s.MakeRef_typespec();
+                                rt0->VpiFullName(boundOwnerFullName);
+                                rt0->VpiParent(c);
+                                auto* its0 = s.MakeInt_typespec();
+                                if (boundParam->getType().isSigned())
+                                    its0->VpiSigned(true);
+                                rt0->Actual_typespec(its0);
+                                c->Typespec(rt0);
+                            }
+                            else {
+                                c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
+                                c->VpiValue((intEnc ? "INT:" : "UINT:") + digits);
+                            }
                             setLoc(c, bsyn->getFirstToken().range());
                         }
                         return c;
@@ -1337,9 +1379,40 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
                 auto* ops = s.MakeAnyVec();
                 auto* sc = s.MakeConstant();
                 sc->VpiParent(op);
-                sc->VpiDecompile(rawText(sizeSyn->sourceRange()));
-                sc->VpiSize(64);
-                sc->VpiValue("UINT:" + std::to_string(ua.range.width()));
+                // A PARAM-sized dim ([DEPTH]) folds to the value at the
+                // param's width, with a ts ref (loc-less signed int clone,
+                // fullname = the var); literal sizes keep the raw text at 64.
+                if (sizeSyn->kind != syntax::SyntaxKind::IntegerLiteralExpression &&
+                    currentScope &&
+                    parent->UhdmType() == UHDM::uhdmarray_var) {
+                    std::string digits = std::to_string(ua.range.width());
+                    sc->VpiDecompile(digits);
+                    ASTContext bctx0(*currentScope, LookupLocation::max);
+                    auto& be0 = Expression::bind(
+                        *const_cast<syntax::ExpressionSyntax*>(sizeSyn), bctx0);
+                    int32_t w0 = 32;
+                    bool sgn0 = true;
+                    if (!be0.bad() && be0.type) {
+                        w0 = (int32_t)be0.type->getBitWidth();
+                        sgn0 = be0.type->isSigned();
+                    }
+                    sc->VpiSize(w0);
+                    sc->VpiValue("UINT:" + digits);
+                    auto* rt0 = s.MakeRef_typespec();
+                    rt0->VpiFullName(
+                        std::string(((UHDM::array_var*)parent)->VpiFullName()));
+                    rt0->VpiParent(sc);
+                    auto* its0 = s.MakeInt_typespec();
+                    if (sgn0)
+                        its0->VpiSigned(true);
+                    rt0->Actual_typespec(its0);
+                    sc->Typespec(rt0);
+                }
+                else {
+                    sc->VpiDecompile(rawText(sizeSyn->sourceRange()));
+                    sc->VpiSize(64);
+                    sc->VpiValue("UINT:" + std::to_string(ua.range.width()));
+                }
                 sc->VpiConstType(vpiUIntConst);
                 setLoc(sc, sizeSyn->sourceRange());
                 ops->push_back(sc);
@@ -1427,13 +1500,36 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     av->VpiVisibility(1);
     av->VpiArrayType(1);
 
-    // Total element count = product of the unpacked dimension widths.
+    // Total element count = product of the unpacked dimension widths —
+    // PARAM-sized ([DEPTH]) dims contribute 1 (Surelog quirk).
     int32_t total = 1;
-    for (const Type* t = &declared->getType().getCanonicalType();
-         t->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType;) {
-        auto& ua = t->getCanonicalType().as<FixedSizeUnpackedArrayType>();
-        total *= (int32_t)ua.range.width();
-        t = &ua.elementType;
+    {
+        std::vector<const syntax::VariableDimensionSyntax*> dimSyns;
+        if (auto dsyn0 = sym.getSyntax();
+            dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
+            for (auto dim0 : dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
+                dimSyns.push_back(dim0);
+        size_t di0 = 0;
+        for (const Type* t = &declared->getType().getCanonicalType();
+             t->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType;) {
+            auto& ua = t->getCanonicalType().as<FixedSizeUnpackedArrayType>();
+            bool paramSized = false;
+            if (di0 < dimSyns.size() && dimSyns[di0]->specifier &&
+                dimSyns[di0]->specifier->kind ==
+                    syntax::SyntaxKind::RangeDimensionSpecifier) {
+                auto& sel0 = *dimSyns[di0]
+                                  ->specifier
+                                  ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                  .selector;
+                if (auto* bss0 = sel0.as_if<syntax::BitSelectSyntax>())
+                    paramSized = bss0->expr->kind !=
+                                 syntax::SyntaxKind::IntegerLiteralExpression;
+            }
+            if (!paramSized)
+                total *= (int32_t)ua.range.width();
+            t = &ua.elementType;
+            di0++;
+        }
     }
     av->VpiSize(total);
 
