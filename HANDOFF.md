@@ -1,5 +1,77 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 8: ENTIRE session-7 ladder converged (2026-07-19, 10 commits)
+
+**FINAL: PASS 325->335, DIFF 296->283, CMP_ONLY 40->43 (cmp-passing
+365->378).** Every item on the session-7 ladder is a full byte-identical
+PASS (plus AssignmentPattern as a bonus):
+
+- **OneClass**: module-local classes attach under the def module's
+  vpiClassDefn (emitClassDefn refactor; bare name + work@mod::name
+  fullname). Class-handle def nets carry a ref_typespec->class_typespec
+  UNLESS procedurally assigned (bar = new() strips it — OneThis).
+- **StructPackedArray** (+DotMultirange/int_port_signed/
+  MemberSelectOf2DStructPackedArray -> CMP_ONLY): packed dims after a
+  NAMED type live in NEITHER syntax node — a bracket scan (scanDimSpans)
+  over the declaration source recovers their spans; the packed_array_var
+  spans declarator..init and carries the pattern-init op as vpiExpr on
+  BOTH the array var and its element struct_var; struct-leaf named-type
+  nets get no vpiNetType.
+- **MixedPatterns + AssignmentPattern**: a struct typedef whose variable
+  is cont-assigned WHOLE gets BARE member refs and no module parent
+  (member-only / \$bits-only keep the work@mod prefix). STRUCT-typed
+  structured patterns re-emit EXPANDED in the elab (op75, per-field UINT
+  constants at the source value tokens); vector-typed still fold to
+  8'd255. Def tagged-pattern literal values unparent; the write-phase
+  orphan re-parents only SIMPLE-pattern operands.
+- **iface_param_width_per_inst**: interface overrides encode UINT at
+  value width (uniquified). PORT VIEWS double their default-valued
+  params (no param_assigns) and fold var bounds at the DEFAULT param
+  values (createDefault body cached in ifaceDefaultInst — Surelog reads
+  AllModules widths); the HOME view keeps instance values. The tail dup
+  carries its own default param clones + shares the home's param_assigns.
+- **CastClog2...FromCommandLine**: nested casts lose the inner
+  conversion's syntax (it holds only the PARENTHESIZED node) — the outer
+  recovers the inner CastExpression via castSynOverride and emits the
+  operand FIRST (inner integer_typespec with the bound \$clog2 vpiExpr
+  precedes the outer's ts). The elab folds a NESTED cast that evals
+  fully to loc-less UINT-by-magnitude at result width; SINGLE casts keep
+  the operation (CastLogic/FunctionReturnEnum taught the gate).
+- **iface_passthrough**: iface PORTS + port views emit BEFORE children
+  (iface arena order is outer-first; regular ports stay children-first);
+  a passthrough child's HighConn binds the ENCLOSING module's port view
+  (conn raw text resolved in the instantiating scope ->
+  ifacePortViewMap); passthrough conns get no connection-site net and
+  the stub binds the module's OWN port net; the passthrough child's
+  iface-member CA keeps the SHARED def CA; def iface-port ts drain runs
+  deepest-first.
+- **BindModuleWithInputPortsInGenScope**: a bind directive INSIDE a
+  generate scope never materializes (direct binds still do, even under
+  implicit tops); the dropped def's port phase runs in the write phase
+  (droppedBindDefs — an unscoped fill crashed every interface def).
+- **ParameterOfSizeOfParametrizedPort**: \$bits(SIGNAL) typespec bounds
+  stay unfolded in BOTH views (\$bits(type) folds — BitsCallOnVar); the
+  arg ref scopes through the declaring param (work@top.Y.o) and binds
+  the def net via pendingBitsBoundRefs (drained at the END of
+  exportDesign — the def param pre-pass runs before any nets exist).
+  Plus: vpiLocalParam follows the WRITTEN keyword for module-body params.
+- **StringAssignConcatenation**: the compiler string conversion around a
+  string literal in {NAME,"efgh"} is dropped (bare unparented constant);
+  the elab folds the string concat to one loc-less STRING @8bits/char.
+- **nested_cast_repro**: \$unit-function typedef quirks — the return
+  clone gate matches the registered alias by name+canonical; typedef
+  returns skip the return-var artifact (refs unbound); VECTOR-typedef
+  casts in \$unit bodies clone the ts (Typedef_alias); direct formal refs
+  under such casts stay unbound; a \$unit struct typedef used only by a
+  function FORMAL parents at the design, anchored at that formal's type.
+
+**NEXT LADDER (fresh difsize)**: StringLocalParamInitByConcatenation
+(44), StructPackedOutput (55), ParameterOfSizeOfPort (58),
+AssignmentToConcatenation (66), ParameterInitializedByPartSelectOfParameters
+(67), PatternInFunction (67), iface_modport_conn (68), AssignArraySelPlus
+(69), ImportTypeOfPort (69), TypedefAliasInPackage (70), iface_modport_out
+(72), BitSelectPartSelectInFunction (73).
+
 ## Session 7b: session-7 ladder triage (2026-07-19, 6 commits)
 
 **PASS 324->325, DIFF 297->296.** Converged **StringAssignConcatenation**
