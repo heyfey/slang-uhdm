@@ -374,6 +374,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 rhs = emitExpr(*init, pa, prefix, netMap);
                 inParamInit = false;
                 forceConstParent = false;
+                // Elab typed-param op init with UNKNOWN param-ref operands:
+                // the refs fold to their BIN:X/Z constants and the op gains a
+                // ts ref (patched to the param's typespec).
+                if (topView && typedParam && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation) {
+                    auto* opr = (UHDM::operation*)rhs;
+                    bool anyUnknown = false;
+                    if (opr->Operands())
+                        for (auto*& o2 : *opr->Operands()) {
+                            if (o2->UhdmType() != UHDM::uhdmref_obj)
+                                continue;
+                            auto* r2 = (UHDM::ref_obj*)o2;
+                            for (auto* pp : *params) {
+                                if (pp->VpiName() != r2->VpiName())
+                                    continue;
+                                std::string_view pv =
+                                    ((UHDM::parameter*)pp)->VpiValue();
+                                if (pv.rfind("BIN:", 0) == 0 &&
+                                    pv.find_first_of("XZxz") !=
+                                        std::string_view::npos) {
+                                    auto* c2 = s.MakeConstant();
+                                    std::string digs(pv.substr(4));
+                                    c2->VpiDecompile("'b" + digs);
+                                    c2->VpiSize(-1);
+                                    c2->VpiValue(std::string(pv));
+                                    c2->VpiConstType(vpiBinaryConst);
+                                    c2->VpiParent(opr);
+                                    c2->VpiLineNo(r2->VpiLineNo());
+                                    c2->VpiColumnNo(r2->VpiColumnNo());
+                                    c2->VpiEndLineNo(r2->VpiEndLineNo());
+                                    c2->VpiEndColumnNo(r2->VpiEndColumnNo());
+                                    o2 = c2;
+                                    anyUnknown = true;
+                                }
+                                break;
+                            }
+                        }
+                    if (anyUnknown) {
+                        auto* rt = s.MakeRef_typespec();
+                        std::string tsPrefix = prefix;
+                        if (tsPrefix.size() >= 2 &&
+                            tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                            tsPrefix.resize(tsPrefix.size() - 2);
+                        rt->VpiFullName(tsPrefix);
+                        rt->VpiParent(opr);
+                        opr->Typespec(rt);
+                        rhsRt = rt;
+                    }
+                }
             }
             if (rhs) {
                 pa->Rhs(rhs);
@@ -396,7 +445,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             stripImplicitConv(*init).kind ==
                                 ExpressionKind::UnbasedUnsizedIntegerLiteral)
                             rc->VpiDecompile("'b" + std::string(v0.substr(4)));
-                        if (!wantTs && !rc->Typespec()) {
+                        if (!topView && !wantTs && !rc->Typespec()) {
                             auto* brt = s.MakeRef_typespec();
                             std::string tsPrefix = prefix;
                             if (tsPrefix.size() >= 2 &&
