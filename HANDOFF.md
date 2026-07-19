@@ -42,6 +42,36 @@ with the golden-correct connection net). NEXT needs the full weakly-tail
 reference/duplication model (how UHDM collects weaklyReferenced objects and
 their dump order), not incremental object additions. None is close to CMP_ONLY
 (smallest 82).
+
+CMP-BLOCKER DIAGNOSIS (verified by walking uhdm-cmp on iface_modport, a
+ref_module-KEEP test): the KEEP tests reach a SINGLE cmp mismatch with these
+FOUR correct structural additions (all reverted - they worsen the DUMP metric
+and convert nothing while the weakly-tail wall stands, but they ARE golden-
+correct and get cmp to one weak-reference; RE-APPLY them together with a
+weakly-tail fix):
+  1. Connection-site logic_net: in emitModuleDef, for each child InterfacePort
+     whose getConnection().first is a scalar Instance, emit a logic_net named
+     after the interface (work@top.bus) at the connection expr, with
+     n->VpiNetType(vpiWire); store in ifaceConnNet[iface] AND info.nets[iface].
+  2. ref_module port bind: in emitModuleDefPorts, for an InterfacePort
+     connection whose ref_obj came from emitExpr, set VpiFullName
+     work@top.child.port and Actual_group=ifaceConnNet[iface] (the NamedValue
+     branch already binds via info.nets once (1) stores it there).
+  3. Elab modport io_decl Expr: io->Expr(netMap[mpp.internalSymbol]).
+  4. Elab modport Interface_inst: umod->Interface_inst(iface).
+THE WALL: golden ALSO emits the interface_inst AGAIN in the weaklyReferenced
+tail (loc col 0, abbreviated) with a full modport whose io_decls carry vpiExpr;
+this makes golden reference bus.in 8x vs mine 7x, and uhdm-cmp fails on the
+missing weak reference (NOT just ordering). Cracking this needs matching UHDM's
+Serializer weaklyReferenced collection (which owned-but-also-weakly-referenced
+objects it re-lists, and in what order). The KEEP tests (iface_modport,
+iface_passthrough, iface_sig_in_child_port, ...) would convert to CMP_ONLY once
+1-4 + the tail duplicate land. The OMIT tests (iface_modport_out,
+OneNetModport, iface_modport_conn - golden emits ZERO child-module ref_modules)
+ALSO need the child ref_module suppressed, and the rule is unclear (KEEP tests
+have a top-level `assign iface.sig = ...` driving the interface; OMIT tests do
+not - PLAUSIBLE rule: keep the child ref_module only if the parent itself
+drives/refs the interface via a cont_assign, else omit - UNVERIFIED).
 All-or-nothing per test: ANY noteUnsupported -> exit 4 -> UNSUP, so a modport
 test needs ALL pieces below before it moves from UNSUP even to DIFF. Golden
 structure verified on iface_sig_in_child_port (dut->mid(myif.s sub)->child).
