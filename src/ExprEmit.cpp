@@ -82,6 +82,17 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
     }
     if (iv.isSigned() && iv.isNegative())
         return nullptr;
+    // A folded CONCAT encodes as full-width binary, with no decompile.
+    if (stripImplicitConv(expr).kind == ExpressionKind::Concatenation) {
+        auto* c = s.MakeConstant();
+        c->VpiSize((int32_t)expr.type->getBitWidth());
+        std::string bits;
+        for (int32_t i = (int32_t)expr.type->getBitWidth() - 1; i >= 0; i--)
+            bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
+        c->VpiValue("BIN:" + bits);
+        c->VpiConstType(vpiBinaryConst);
+        return c;
+    }
     std::string digits = iv.toString(LiteralBase::Decimal, /*includeBase*/ false);
     auto* c = s.MakeConstant();
     c->VpiDecompile(digits);
@@ -2586,7 +2597,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // at the {..} operand braces; a sliced stream ({ << 8 {x} }) adds
             // the slice-size constant as the FIRST operand.
             auto* op = s.MakeOperation();
-            op->VpiOpType(vpiStreamRLOp);
+            // << (right-to-left, sliceSize > 0) -> vpiStreamRLOp; >> -> LR.
+            op->VpiOpType(sc2.getSliceSize() > 0 ? vpiStreamRLOp : vpiStreamLROp);
             op->VpiParent(parent);
             if (!sc2.streams().empty()) {
                 auto fr = sc2.streams().front().operand->sourceRange;
@@ -2596,23 +2608,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             else
                 setLoc(op, expr.sourceRange);
             auto* outer = s.MakeAnyVec();
-            if (sliced) {
-                auto* c = s.MakeConstant();
-                std::string digits = std::to_string(sc2.getSliceSize());
-                c->VpiDecompile(digits);
-                c->VpiSize(64);
-                c->VpiValue("UINT:" + digits);
-                c->VpiConstType(vpiUIntConst);
-                c->VpiParent(op);
-                if (expr.syntax &&
-                    expr.syntax->kind == syntax::SyntaxKind::StreamingConcatenationExpression) {
-                    auto* ssz = expr.syntax
-                                    ->as<syntax::StreamingConcatenationExpressionSyntax>()
-                                    .sliceSize;
-                    if (ssz)
-                        setLoc(c, ssz->sourceRange());
+            // An explicit slice size (either direction) emits as a LOCATED,
+            // UNPARENTED first operand (token parsed from the source text —
+            // the streaming often reaches here with null syntax).
+            {
+                std::string raw = rawText(expr.sourceRange);
+                auto p1 = raw.find("<<");
+                if (p1 == std::string::npos)
+                    p1 = raw.find(">>");
+                if (p1 != std::string::npos) {
+                    size_t q = p1 + 2;
+                    while (q < raw.size() && isspace((unsigned char)raw[q]))
+                        q++;
+                    size_t st2 = q;
+                    while (q < raw.size() && !isspace((unsigned char)raw[q]) &&
+                           raw[q] != '{')
+                        q++;
+                    if (q > st2) {
+                        std::string digits = raw.substr(st2, q - st2);
+                        auto* c = s.MakeConstant();
+                        c->VpiDecompile(digits);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        // The elab re-emit parents the slice const at the op.
+                        if (reemitting)
+                            c->VpiParent(op);
+                        setLoc(c, SourceRange(expr.sourceRange.start() + st2,
+                                              expr.sourceRange.start() + q));
+                        outer->push_back(c);
+                    }
                 }
-                outer->push_back(c);
             }
             cc->VpiParent(op);
             outer->push_back(cc);
