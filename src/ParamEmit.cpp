@@ -158,10 +158,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 up->VpiValue(value);
             }
+            // Real params carry a REAL:<%f> value.
+            if (defaultInit && cv.isReal()) {
+                char buf[64];
+                snprintf(buf, sizeof(buf), "%f", (double)cv.real());
+                up->VpiValue(std::string("REAL:") + buf);
+            }
             // Untyped params carry a typespec only for LITERAL initializers;
             // computed values ($clog2(W), 2**S) get none. Typed and ranged
             // params always do.
-            wantTs = ps.getType().getCanonicalType().isIntegral() && !unknownDefault &&
+            auto& ctw = ps.getType().getCanonicalType();
+            wantTs = (ctw.isIntegral() || ctw.isFloating()) && !unknownDefault &&
                      (typedParam || isRangedUntypedParam(ps) || literalInit);
         }
         if (auto declared0 = ps.getDeclaredType()) {
@@ -500,6 +507,9 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             }
         }
     }
+    // A real (real/shortreal) param is a real_typespec.
+    if (typedParam && !its && ps.getType().getCanonicalType().isFloating())
+        its = s.MakeReal_typespec();
     // A typed logic/bit scalar param is a logic_typespec, not an int_typespec.
     if (typedParam && !its) {
         auto& ct = ps.getType().getCanonicalType();
