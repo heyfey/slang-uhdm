@@ -25,17 +25,23 @@ modport + vpiDirection; (c) elab interface_inst emits its own modports;
 (d) makeIfacePortTs: interface_typespec is a modport ts (vpiIsModPort) parented
 by the base interface ts, from the InterfacePortHeader; (e) a dotless
 ArbitrarySymbol is a plain ref_obj (only sub.sig -> hier_path). RESULT:
-iface_modport_out 167->102, iface_modport ->118, iface_passthrough ->153,
-OneNetModport ->187. NONE at CMP_ONLY yet.
-REMAINING (now deep per-test work - common-cause guesses BACKFIRE, verify each
-against all modport tests): the def ref_module for the interface-connected
-child (golden OMITS it for iface_modport_out but KEEPS it for iface_modport;
-when kept, its port HighConn is ref_obj->logic_net(work@top.iface), NOT a
-hier_path); the elab modport's Interface_inst + io_decl Expr->signal var
-(tried, net-worse, reverted - structure is nuanced); the weaklyReferenced
-tail interface_inst duplication + logic_vars. Suggest: pick ONE topology
-(iface_modport_out, closest at 102) and converge it fully, validating each
-fix does not regress iface_modport/passthrough.
+(f) BREAKTHROUGH - the INSTANCE-SCOPED interface_inst view: a module instance
+with an interface port exposes its OWN interface_inst (work@top.m0.bus) under
+vpiInterface, reusing emitInterfaceInstance with the instance-scoped path
+(emitInstance !isTop block, gated conn.first->kind==Instance). Aggregate modport
+DIFF -597. RESULT: iface_modport_out 167->83, iface_modport ->82,
+iface_passthrough ->99, OneNetModport ->192. NONE at CMP_ONLY yet.
+REMAINING is REFERENCE-ORDER-DEPENDENT (weakly-tail): golden duplicates the
+interface_inst (abbreviated, loc col 0) in the weaklyReferenced tail, and holds
+a connection-site logic_net (work@top.iface, referenced by the child ref_module).
+MEASURED ~7 incremental attempts (connection-site net gated on scalar Instance,
+modport Interface_inst + io_decl Expr, child ref_module suppression) - ALL
+net-worse on the modport aggregate EVEN WHEN golden-correct, because adding one
+referenced object shifts the weakly-tail arena order (iface_modport_out 83->91
+with the golden-correct connection net). NEXT needs the full weakly-tail
+reference/duplication model (how UHDM collects weaklyReferenced objects and
+their dump order), not incremental object additions. None is close to CMP_ONLY
+(smallest 82).
 All-or-nothing per test: ANY noteUnsupported -> exit 4 -> UNSUP, so a modport
 test needs ALL pieces below before it moves from UNSUP even to DIFF. Golden
 structure verified on iface_sig_in_child_port (dut->mid(myif.s sub)->child).
