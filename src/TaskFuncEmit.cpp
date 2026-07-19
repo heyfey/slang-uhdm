@@ -216,6 +216,31 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (bareImplicit) {
                 pendingIoTs.push_back({rt, argTsyn});
             }
+            else if (arg->getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                     typedefTs.count(&arg->getDeclaredType()->getType()) &&
+                     typedefTs[&arg->getDeclaredType()->getType()]->UhdmType() ==
+                         UHDM::uhdmlogic_typespec) {
+                // A typedef'd formal gets a fresh NAMED clone at the formal's
+                // type token, with a Typedef_alias ref to the shared typedef.
+                auto& at = arg->getDeclaredType()->getType();
+                const syntax::SyntaxNode* targetSyn = nullptr;
+                if (auto asyn = at.as<TypeAliasType>().getSyntax())
+                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                bypassTypedefShare = true;
+                ts = makeTypespec(*arg, targetSyn);
+                bypassTypedefShare = false;
+                ts->VpiName(at.name);
+                if (argTsyn)
+                    setLoc((UHDM::BaseClass*)ts, argTsyn->sourceRange());
+                auto* mainTs = typedefTs[&at];
+                auto* art = s.MakeRef_typespec();
+                art->VpiFullName(at.name);
+                art->VpiParent(ts);
+                art->Actual_typespec(mainTs);
+                ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
+                rt->Actual_typespec(ts);
+            }
             else {
                 tfContext = true;
                 ts = sharedTypespec(*arg, ioTs);
