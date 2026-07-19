@@ -152,6 +152,8 @@ private:
     UHDM::interface_inst* makeIfaceRefDup(const slang::ast::InstanceSymbol& inst,
                                           const std::string& path,
                                           UHDM::module_inst* parentM, NetMap& sharedNets);
+    // Package enum-const module-fold constants (shared across views).
+    std::map<const slang::ast::Symbol*, UHDM::constant*> pkgEnumFoldConst;
     // Named begin/fork blocks by symbol (disable targets resolve to these).
     std::map<const void*, UHDM::scope*> namedBlockMap;
     // Interface instance -> its col-0 tail duplicate (see makeIfaceRefDup).

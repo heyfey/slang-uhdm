@@ -2144,11 +2144,24 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 std::string_view v = src->VpiValue();
                 c->VpiValue(std::string(v));
                 if (pkgEnumRhs) {
-                    // Digits decompile + expression loc.
+                    // BIN values decompile <w>'b<bits>; others the digits.
+                    // Expression loc.
                     auto colon = v.find(':');
-                    c->VpiDecompile(std::string(
-                        colon != std::string_view::npos ? v.substr(colon + 1) : v));
+                    std::string digs(colon != std::string_view::npos
+                                         ? v.substr(colon + 1)
+                                         : v);
+                    if (v.rfind("BIN:", 0) == 0)
+                        c->VpiDecompile(std::to_string(src->VpiSize()) + "'b" + digs);
+                    else
+                        c->VpiDecompile(digs);
                     setLoc(c, stripImplicitConv(ae.right()).sourceRange);
+                    // BOTH module views share ONE fold constant per enum const.
+                    if (auto fit = pkgEnumFoldConst.find(enumRhs);
+                        fit != pkgEnumFoldConst.end()) {
+                        rhs = fit->second;
+                        goto pkgFoldShared;
+                    }
+                    pkgEnumFoldConst[enumRhs] = c;
                 }
                 else
                     c->VpiDecompile(src->VpiDecompile());
@@ -2163,6 +2176,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 else
                     c->VpiConstType(vpiUIntConst);
                 rhs = c;
+            pkgFoldShared:;
             }
         }
         // Unbased-unsized literal RHS folds to a LOCATED, parented constant

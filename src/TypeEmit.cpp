@@ -720,6 +720,32 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             auto* evInit = ev.getInitializer();
             bool nonLitInit = evInit && stripImplicitConv(*evInit).kind !=
                                             ExpressionKind::IntegerLiteral;
+            // A COMPUTED init (concat/operation, not a plain ref) encodes BIN
+            // at the base width: def decompile = source text w/o spaces, top
+            // view = <w>'b<bits>.
+            bool refInit = evInit && stripImplicitConv(*evInit).kind ==
+                                         ExpressionKind::NamedValue;
+            if (nonLitInit && !refInit && baseSyn) {
+                int w = (int)et.baseType.getBitWidth();
+                auto& ivv = cv.integer();
+                std::string bits((size_t)w, '0');
+                for (int bi = 0; bi < w; bi++)
+                    if (ivv[bi].value == 1)
+                        bits[(size_t)(w - 1 - bi)] = '1';
+                ec->VpiValue("BIN:" + bits);
+                std::string raw = rawText(stripImplicitConv(*evInit).sourceRange);
+                raw.erase(std::remove_if(raw.begin(), raw.end(),
+                                         [](unsigned char ch) { return std::isspace(ch); }),
+                          raw.end());
+                // The TOP-view package const leaves the decompile UNSET.
+                if (!pkgTopEmit)
+                    ec->VpiDecompile(raw);
+                ec->VpiSize(w);
+                consts->push_back(ec);
+                if (!enumConstMap.count(&ev))
+                    enumConstMap[&ev] = ec;
+                continue;
+            }
             // Only an explicit UNSIGNED INTEGER base (enum int unsigned {..})
             // encodes UINT; implicit / logic-vector / signed bases use INT.
             bool unsignedIntBase =
