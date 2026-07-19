@@ -2207,6 +2207,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
                 ((UHDM::expr*)rhs)->VpiSize() == 64)
                 ((UHDM::expr*)rhs)->VpiSize((int32_t)dt->getType().getBitWidth());
+            // A SIGNED based-literal RHS ('sb..) re-encodes as its signed
+            // value (INT:<v>, decompile <v>, vpiIntConst).
+            if (rhs->UhdmType() == UHDM::uhdmconstant) {
+                auto& lic = stripImplicitConv(*dt->getInitializer());
+                if (lic.kind == ExpressionKind::IntegerLiteral &&
+                    rawText(lic.sourceRange).find("'s") != std::string::npos) {
+                    auto ivl = lic.as<IntegerLiteral>().getValue();
+                    if (!ivl.hasUnknown() && ivl.isSigned() && ivl.isNegative()) {
+                        auto* rc = (UHDM::constant*)rhs;
+                        std::string sd = ivl.toString(LiteralBase::Decimal, false);
+                        rc->VpiDecompile(sd);
+                        rc->VpiValue("INT:" + sd);
+                        rc->VpiConstType(vpiIntConst);
+                    }
+                }
+            }
             ca->Rhs((UHDM::expr*)rhs);
         }
         forceConstParent = fcp;
@@ -2224,6 +2240,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
             lnet->VpiParent(ca);
             lnet->VpiNetType(mnet->VpiNetType());
+            if (mnet->VpiSigned())
+                lnet->VpiSigned(true);
             setLoc(lnet, regNetSpan(*it.sym));
             if (mnet->Typespec() && mnet->Typespec()->Actual_typespec()) {
                 auto* rt = s.MakeRef_typespec();
