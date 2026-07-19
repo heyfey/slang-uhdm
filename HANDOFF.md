@@ -1,5 +1,41 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 4: DIFF-frontier pickoff continued (2026-07-19, ~8 commits)
+
+**FINAL: PASS 298->304, CMP_ONLY 37 (cmp-passing 341), DIFF 323->317,
+UNSUP 3.** Same per-test method and gates as session 3.
+
+New PASS: IndexedPartSelectInUniqueCase (elab struct-var pattern inits fold
+per-member: op 75 + bare ts ref + per-setter UINT constants at the setter
+sites — unsigned magnitude via SVInt::setSigned(false); hier-path indexed
+selects in the 1640-branch carry the DOTTED fullname and stop BEFORE ']'),
+ParameterWithUnderscoreValueDividedPassedFromCommandLine (the x/z bare
+ts-ref on param RHS constants is DEF-only; elab TYPED-param op inits fold
+UNKNOWN param-ref operands to their BIN:X constants copied from the param
+objects + the op gains a ts ref patched to the param ts),
+UnsizedConstantParameter (non-overridden '1-UINT vector-param folds bind
+LOC-LESS bare ts clones — makeBareVecParamTs — at the elab param_assign
+(unparented bounds, no clone parent) and the CA clone drain (parented
+bounds + clone parent); overridden or BIN-valued folds keep the LOCATED
+ts: gate = UINT-value && !isOverriddenParam && isPackedArray), setundef
+(NO-DEFAULT overridden params: isOverriddenParam is FALSE without a
+default — gate on !hasDefault && getInitializer(); def AND elab
+param_assign Rhs empty at emission, the ELAB one backpatched to SHARE the
+CA's raw-encoded loc-less fold constant (noDefOvPa/noDefOvTsRef pendings);
+vpiOverriden set; CA re-emits with def-net-bound Lhs), GetC (built-in
+METHOD calls (no leading $) do NOT force a fresh elab CA in
+containsOperation; method literal args parent at the method_func_call;
+string-literal var inits keep 8*len size — the bare-decimal resize was
+clobbering them to width 0). case_expr_non_const DIFF->CMP_ONLY (negative
+'sb net-decl RHS re-encodes INT:<v>/ct7 in elab; fresh net-decl Lhs nets
+keep vpiSigned; residual = int_typespec creation-order interleave).
+
+Near-leads left measured: PutC (50, method-call statement contexts),
+StreamOp (41), FileLevelParameter (43), issue326_packed_mem (43),
+Replication (44), clk2fflogic_effects (45), StringAssignment (45),
+CastWidthFromPackage (48), param_no_default (261 — the setundef no-default
+machinery is the entry point, multi-view encoding still to map).
+
 ## Session 3: DIFF-frontier pickoff (2026-07-19, ~17 commits)
 
 **FINAL: PASS 280->298, CMP_ONLY 33->37 (cmp-passing 313->335), DIFF
