@@ -746,6 +746,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 ts = makeTypespec(*it.sym, targetSyn);
                 bypassTypedefShare = false;
                 ts->VpiName(tv.name);
+                // Package-typedef clones keep the package instance link
+                // (module-local clones carry none).
+                if (auto tit0 = typedefTs.find(&tv);
+                    tit0 != typedefTs.end() && tit0->second->Instance() &&
+                    tit0->second->Instance()->UhdmType() == UHDM::uhdmpackage)
+                    ts->Instance(tit0->second->Instance());
             }
         }
         if (!ts && !implicitNet && !realVar)

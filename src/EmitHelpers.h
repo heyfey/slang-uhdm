@@ -121,13 +121,21 @@ inline int32_t netTypeFor(const Symbol& internal) {
                 return vpiNet;
             if (tsyn->kind == syntax::SyntaxKind::RegType)
                 return vpiReg;
-            // Typedefs of plain logic vectors keep the logic net type.
+            // Typedefs of plain logic vectors keep the logic net type —
+            // except PACKAGE typedefs, which print none (their ports become
+            // logic_vars in the elab view).
             if (tsyn->kind == syntax::SyntaxKind::NamedType) {
-                auto& ct = declared->getType().getCanonicalType();
+                auto& t = declared->getType();
+                auto& ct = t.getCanonicalType();
                 if ((ct.kind == SymbolKind::PackedArrayType ||
                      ct.kind == SymbolKind::ScalarType) &&
-                    ct.isFourState())
+                    ct.isFourState()) {
+                    if (t.kind == SymbolKind::TypeAlias)
+                        if (auto sc = t.as<TypeAliasType>().getParentScope();
+                            sc && sc->asSymbol().kind == SymbolKind::Package)
+                            return 0;
                     return vpiNet;
+                }
             }
         }
     }

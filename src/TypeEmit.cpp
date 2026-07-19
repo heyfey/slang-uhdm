@@ -458,8 +458,17 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         return nullptr;
     // A non-port logic variable, or a port with a separate `logic` body
     // redeclaration (input [3:0] a; logic [3:0] a;), is a logic_var; a plain
-    // ANSI port stays a net.
-    if ((!portBacked || hasBodyDecl(internal)) && !regDecl &&
+    // ANSI port stays a net. A port typed by a PACKAGE vector typedef
+    // (output my_pkg::word o) is a logic_var too.
+    bool pkgAliasPort = false;
+    {
+        auto& t = declared->getType();
+        if (t.kind == SymbolKind::TypeAlias)
+            if (auto sc = t.as<TypeAliasType>().getParentScope();
+                sc && sc->asSymbol().kind == SymbolKind::Package)
+                pkgAliasPort = true;
+    }
+    if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort) && !regDecl &&
         internal.kind == SymbolKind::Variable &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
