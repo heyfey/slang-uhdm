@@ -1145,6 +1145,21 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
 }
 
 // Maps binary expression syntax kinds to vpi op codes (range-bound exprs).
+static int32_t mapSyntaxUnaryOp(syntax::SyntaxKind k) {
+    switch (k) {
+        case syntax::SyntaxKind::UnaryLogicalNotExpression:
+            return vpiNotOp;
+        case syntax::SyntaxKind::UnaryBitwiseNotExpression:
+            return vpiBitNegOp;
+        case syntax::SyntaxKind::UnaryMinusExpression:
+            return vpiMinusOp;
+        case syntax::SyntaxKind::UnaryPlusExpression:
+            return vpiPlusOp;
+        default:
+            return 0;
+    }
+}
+
 static int32_t mapSyntaxBinOp(syntax::SyntaxKind k) {
     switch (k) {
         case syntax::SyntaxKind::AddExpression:
@@ -1330,6 +1345,18 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             return fc;
         }
         default: {
+            if (int32_t opType = mapSyntaxUnaryOp(syn.kind)) {
+                auto& ue = syn.as<syntax::PrefixUnaryExpressionSyntax>();
+                auto* op = s.MakeOperation();
+                op->VpiOpType(opType);
+                op->VpiParent(parent);
+                setLoc(op, syn.sourceRange());
+                auto* operands = s.MakeAnyVec();
+                if (auto* e = emitSyntaxExpr(*ue.operand, op))
+                    operands->push_back(e);
+                op->Operands(operands);
+                return op;
+            }
             if (int32_t opType = mapSyntaxBinOp(syn.kind)) {
                 auto& be = syn.as<syntax::BinaryExpressionSyntax>();
                 auto* op = s.MakeOperation();

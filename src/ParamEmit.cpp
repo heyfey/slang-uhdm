@@ -236,9 +236,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
                 auto* c = s.MakeConstant();
                 c->VpiDecompile(digits);
+                // A GENERATE-containing child is uniquified by Surelog's
+                // elaboration: its overrides encode UINT at the value width
+                // even for untyped params.
+                bool genChild = false;
+                for (auto& mb0 : body.members())
+                    if (mb0.kind == SymbolKind::GenerateBlock ||
+                        mb0.kind == SymbolKind::GenerateBlockArray) {
+                        genChild = true;
+                        break;
+                    }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
-                if (typedParam) {
+                if (typedParam || genChild) {
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
                     c->VpiSize((int32_t)iv.getBitWidth());

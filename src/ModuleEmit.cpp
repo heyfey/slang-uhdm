@@ -419,18 +419,39 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             if (ifSyn) {
                 if (!doneIfs.insert(ifSyn).second)
                     continue;
-                auto* gie = s.MakeGen_if_else();
-                gie->VpiParent(m);
+                // With an else clause: loc-less gen_if_else. Without: a
+                // gen_if located at the `if` keyword.
+                UHDM::gen_if_else* gie = nullptr;
+                UHDM::gen_if* gi = nullptr;
+                UHDM::gen_stmt* g0;
+                if (ifSyn->elseClause) {
+                    gie = s.MakeGen_if_else();
+                    g0 = gie;
+                }
+                else {
+                    gi = s.MakeGen_if();
+                    setLoc(gi, ifSyn->keyword.range());
+                    g0 = gi;
+                }
+                g0->VpiParent(m);
                 syntaxRefPrefix = prefix;
-                if (auto* c = emitSyntaxExpr(*ifSyn->condition, gie))
-                    gie->VpiCondition((UHDM::expr*)c);
+                if (auto* c = emitSyntaxExpr(*ifSyn->condition, g0)) {
+                    if (gie)
+                        gie->VpiCondition((UHDM::expr*)c);
+                    else
+                        gi->VpiCondition((UHDM::expr*)c);
+                }
                 syntaxRefPrefix.clear();
-                if (auto* t = emitBranch(*ifSyn->block, gie))
-                    gie->VpiStmt(t);
+                if (auto* t = emitBranch(*ifSyn->block, g0)) {
+                    if (gie)
+                        gie->VpiStmt(t);
+                    else
+                        gi->VpiStmt(t);
+                }
                 if (ifSyn->elseClause)
                     if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie))
                         gie->VpiElseStmt((UHDM::any*)e);
-                regions->push_back(gie);
+                regions->push_back(g0);
                 continue;
             }
             auto* gr = s.MakeGen_region();
@@ -1743,10 +1764,13 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     rc0 = &stripImplicitConv(
                         rc0->as<ConversionExpression>().operand());
                 bool streamRhs = rc0->kind == ExpressionKind::Streaming;
-                if (streamRhs)
+                // CHILD-instance gen-scope CA RHS refs stay unbound too
+                // (the LHS ref keeps its net actual).
+                bool childGen = prefix.find('.') != std::string::npos;
+                if (streamRhs || childGen)
                     suppressRefActual = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
-                if (streamRhs)
+                if (streamRhs || childGen)
                     suppressRefActual = false;
             }
             if (rhs)
