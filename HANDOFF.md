@@ -1,5 +1,40 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Oracle/mechanism findings + frontier reality (2026-07-19, verified)
+
+- **Surelog version**: local build `v1.86-114-gcbdbea458c` (Jul 17 2026), 6
+  commits behind upstream master; UHDM submodule also behind. Goldens are from
+  THIS local build (the campaign oracle) — match it, don't chase upstream.
+- **uhdm-cmp ignores ALL locations**: BaseClass/constant Compare compare NO
+  line/column fields. So every location-only diff is cmp-tolerated (CMP_ONLY).
+  Verified: StringWithBackslash cmp exit 0.
+- **StringWithBackslash "loc bug"** = a SURELOG preprocessor bug (a backtick
+  triggers macro scanning; backslash-near-whitespace before it over-counts the
+  end column; e.g. golden endln 3:47 vs correct 3:39). Stored wrong in the
+  .uhdm (uhdm-dump is faithful — proven: replace backtick with X -> 3:39).
+  Not a clean formula (preprocessor state machine). Repro files:
+  slang-uhdm/locbug/{dut.sv,golden.uhdm,golden.uhdm-dump.log} (buggy dump line 53).
+- **Weakly-tail ordering**: UhdmId is assigned by uhdm-dump at RESTORE
+  (`Serializer_restore.cpp:56 ++m_objId`), in serialization order = per-type
+  factory-vector order = my Make*() creation order within each type. So it's
+  PERF-FREE to influence (uhdm-dump computes the id, not us). BUT not a clean
+  local reorder: e.g. BindModuleWithInputPorts needs the DUPLICATE net
+  logic_typespec created AFTER the param int_typespecs (a deferred-phase
+  match), not inline — fragile per-construct. Deferred (dump-cosmetic only).
+- **DIFF vs CMP_ONLY is the real semantic line**: DIFF => uhdm-cmp FAILS
+  (exit != 0, genuine mismatch); CMP_ONLY => cmp PASSES (cosmetic only).
+  Verified on 4 DIFF (exit 255) + CellNamedLikeModule (exit 0).
+- **Frontier reality**: cmp-first-mismatch shallowness does NOT predict fix
+  size. The "shallow-cmp" DIFF tests have LARGE dump diffs / structural gaps:
+  const_func 2085, defvalue 211, param_no_default 356, OneCast 154. The clean
+  single-gap DIFF wins are exhausted; remaining DIFF needs per-test FEATURE
+  work: no-default params (override-only params must be EMPTY in the def view —
+  no value/typespec/param_assign Rhs), generate-with-const-func-cond, casts,
+  assignment-pattern typespecs, hier-path struct-member scoping.
+- Landed r113: untyped string-literal param -> string_typespec (const_func
+  partial; correct, no regressions). Policy going forward: **uhdm-cmp is the
+  golden; dump byte-match is best-effort.**
+
 ## Small-DIFF pickoff r106-r112 (2026-07-19)
 
 PASS 263->270, CMP_ONLY 17->18, all merged to main, zero regressions (goldens
