@@ -1011,6 +1011,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 pv.integer().toString(LiteralBase::Decimal, false));
                         cts = its;
                     }
+                    // A PACKAGE-scoped parameter width (pkg::P'(x)) mints a
+                    // BARE int_typespec: no name, no loc, just the folded
+                    // UINT value.
+                    if (!cts && seCore.kind == ExpressionKind::NamedValue &&
+                        seCore.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter &&
+                        cesyn.left->kind == syntax::SyntaxKind::ScopedName) {
+                        auto& psym = seCore.as<NamedValueExpression>().symbol;
+                        if (auto psc = psym.getParentScope();
+                            psc && psc->asSymbol().kind == SymbolKind::Package) {
+                            auto* its = s.MakeInt_typespec();
+                            auto& pv = psym.as<ParameterSymbol>().getValue();
+                            if (pv.isInteger() && !pv.integer().hasUnknown())
+                                its->VpiValue(
+                                    "UINT:" +
+                                    pv.integer().toString(LiteralBase::Decimal, false));
+                            cts = its;
+                        }
+                    }
                     // A PARENTHESIZED parameter width ((P)'(x)) reuses the
                     // param's own int_typespec as the cast target; that ts
                     // gains a loc-less vpiExpr ref_obj with a param-doubled

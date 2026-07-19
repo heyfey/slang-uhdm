@@ -2850,6 +2850,42 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                        ExpressionKind::ReplicatedAssignmentPattern)
                       ? tryFoldConst(ae.right())
                       : nullptr;
+        // A SIZE cast of a VARIABLE with a constant initializer folds
+        // through the variable's INITIAL value (Surelog reduce quirk):
+        // loc-less unparented constant at the cast width.
+        if (!rhs && topView) {
+            auto& rc0 = stripImplicitConv(ae.right());
+            if (rc0.kind == ExpressionKind::Conversion &&
+                !rc0.as<ConversionExpression>().isImplicit() && rc0.syntax &&
+                rc0.syntax->kind == syntax::SyntaxKind::CastExpression &&
+                rc0.syntax->as<syntax::CastExpressionSyntax>().left->kind ==
+                    syntax::SyntaxKind::ScopedName) {
+                auto& opnd = stripImplicitConv(rc0.as<ConversionExpression>().operand());
+                if (opnd.kind == ExpressionKind::NamedValue &&
+                    opnd.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Variable) {
+                    auto& vsym = opnd.as<NamedValueExpression>().symbol;
+                    auto vdt = vsym.getDeclaredType();
+                    int32_t w = (int32_t)ae.right().type->getBitWidth();
+                    if (vdt && vdt->getInitializer() && w > 0 && w <= 64) {
+                        ASTContext vctx(comp.getRoot(), LookupLocation::max);
+                        ConstantValue vcv = vctx.tryEval(*vdt->getInitializer());
+                        if (vcv && vcv.isInteger() && !vcv.integer().hasUnknown()) {
+                            uint64_t uv = vcv.integer().as<uint64_t>().value_or(0);
+                            if (w < 64)
+                                uv &= (1ULL << w) - 1;
+                            auto* c = s.MakeConstant();
+                            std::string digits = std::to_string(uv);
+                            c->VpiDecompile(digits);
+                            c->VpiSize(w);
+                            c->VpiValue("UINT:" + digits);
+                            c->VpiConstType(vpiUIntConst);
+                            rhs = c;
+                        }
+                    }
+                }
+            }
+        }
         // Assignment-pattern RHS folds format the constant as based-decimal
         // ("8'd255"), at the LHS width, with no constType, located at the
         // pattern span.
