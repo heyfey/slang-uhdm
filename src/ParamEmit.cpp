@@ -171,8 +171,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // computed values ($clog2(W), 2**S) get none. Typed and ranged
             // params always do.
             auto& ctw = ps.getType().getCanonicalType();
-            wantTs = (ctw.isIntegral() || ctw.isFloating()) && !unknownDefault &&
-                     (typedParam || isRangedUntypedParam(ps) || literalInit);
+            // Typed/ranged params always carry a typespec (its range/type is
+            // independent of the value); only an untyped literal is gated on a
+            // known value.
+            wantTs = (ctw.isIntegral() || ctw.isFloating()) &&
+                     (typedParam || isRangedUntypedParam(ps) ||
+                      (literalInit && !unknownDefault));
         }
         if (auto declared0 = ps.getDeclaredType()) {
             if (auto tsyn0 = declared0->getTypeSyntax()) {
