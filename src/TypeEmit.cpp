@@ -268,7 +268,18 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     rvec->push_back(r);
                 }
                 pat->Ranges(rvec);
-                setLoc(pat, patLoc);
+                // A PACKAGE-struct leaf's packed_array_typespec is UNLOCATED
+                // (its struct_typespec lives at the package); a module-local
+                // one keeps the declaration span.
+                bool pkgLeaf = false;
+                for (auto sc0 = lc.getParentScope(); sc0;
+                     sc0 = sc0->asSymbol().getParentScope())
+                    if (sc0->asSymbol().kind == SymbolKind::Package) {
+                        pkgLeaf = true;
+                        break;
+                    }
+                if (!pkgLeaf)
+                    setLoc(pat, patLoc);
                 auto* ert = s.MakeRef_typespec();
                 ert->VpiParent(pat);
                 ert->Actual_typespec(elemTs);
@@ -1902,6 +1913,101 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
         forceConstParent = savedF;
     }
     return pav;
+}
+
+// The NET form of a packed-array-of-struct (a child-instance PORT stays a
+// net): packed_array_net (wire) + struct_net element whose fullname DOUBLES
+// the signal name (work@m.d.sig.sig); the packed_array_typespec is shared
+// unlocated.
+UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym,
+                                                               const std::string& name,
+                                                               const std::string& fullName,
+                                                               UHDM::module_inst* m) {
+    auto declared = sym.getDeclaredType();
+    if (!declared || !declared->getType().isPackedArray())
+        return nullptr;
+    int arrDims = 0;
+    const Type* leaf = &declared->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+        arrDims++;
+        leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+    }
+    auto& lc = leaf->getCanonicalType();
+    if (lc.kind != SymbolKind::PackedStructType)
+        return nullptr;
+    UHDM::typespec* elemTs = nullptr;
+    for (auto& [s2, tsp] : typedefTs)
+        if (s2->kind == SymbolKind::TypeAlias &&
+            &s2->as<TypeAliasType>().getCanonicalType() == &lc) {
+            elemTs = tsp;
+            break;
+        }
+    if (!elemTs)
+        return nullptr;
+
+    std::vector<ConstantRange> arrRanges;
+    {
+        const Type* t2 = &declared->getType().getCanonicalType();
+        for (int i = 0; i < arrDims; i++) {
+            arrRanges.push_back(t2->getCanonicalType().as<PackedArrayType>().range);
+            t2 = &t2->getCanonicalType().as<PackedArrayType>().elementType;
+        }
+    }
+
+    auto* pan = s.MakePacked_array_net();
+    pan->VpiName(name);
+    pan->VpiFullName(fullName);
+    pan->VpiParent(m);
+    pan->VpiNetType(vpiWire);
+    setLoc(pan, nameSpan(sym.location, sym.name));
+
+    std::vector<DimSpan> spans;
+    if (auto tsn = declared->getTypeSyntax()) {
+        auto tStart = tsn->sourceRange().start();
+        if (tStart < sym.location)
+            spans = scanDimSpans(std::string(rawText(SourceRange(tStart, sym.location))),
+                                 tStart);
+    }
+    auto* rvec = s.MakeRangeVec();
+    for (int i = 0; i < arrDims; i++) {
+        auto* r = s.MakeRange();
+        r->VpiParent(pan);
+        auto mkBound = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+            auto* c = s.MakeConstant();
+            std::string digits = std::to_string(v);
+            c->VpiDecompile(digits);
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + digits);
+            c->VpiConstType(vpiUIntConst);
+            c->VpiParent(r);
+            if (loc)
+                setLoc(c, *loc);
+            return c;
+        };
+        const DimSpan* ds = i < (int)spans.size() ? &spans[i] : nullptr;
+        if (ds)
+            setLoc(r, ds->range);
+        r->Left_expr(mkBound(arrRanges[i].left, ds ? &ds->left : nullptr));
+        r->Right_expr(mkBound(arrRanges[i].right, ds ? &ds->right : nullptr));
+        rvec->push_back(r);
+    }
+    pan->Ranges(rvec);
+
+    // vpiElement: a struct_net whose fullname DOUBLES the signal name.
+    std::string dbl = fullName + "." + name;
+    auto* sn = s.MakeStruct_net();
+    sn->VpiParent(pan);
+    sn->VpiName(name);
+    sn->VpiFullName(dbl);
+    auto* srt = s.MakeRef_typespec();
+    srt->VpiParent(sn);
+    srt->VpiFullName(dbl);
+    srt->Actual_typespec(elemTs);
+    sn->Typespec(srt);
+    auto* elems = s.MakeAnyVec();
+    elems->push_back(sn);
+    pan->Elements(elems);
+    return pan;
 }
 
 } // namespace slang_uhdm

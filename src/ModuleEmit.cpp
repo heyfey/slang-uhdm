@@ -15,9 +15,22 @@ namespace slang_uhdm {
 // True when a declared type is a PACKAGE-scoped typedef'd struct.
 static bool isPkgStructType(const Symbol& sym) {
     auto* dt = sym.getDeclaredType();
-    if (!dt || !dt->getType().getCanonicalType().isStruct())
+    if (!dt)
         return false;
+    // Descend packed-array dims to the leaf (a packed array of a package
+    // struct is still a package-struct net).
+    const Type* leaf = &dt->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType)
+        leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+    if (!leaf->getCanonicalType().isStruct())
+        return false;
+    // The named alias (possibly reached through the array dims).
     const Type* t = &dt->getType();
+    while (t->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+        if (t->kind == SymbolKind::TypeAlias)
+            break;
+        t = &t->getCanonicalType().as<PackedArrayType>().elementType;
+    }
     if (t->kind != SymbolKind::TypeAlias)
         return false;
     for (auto sc = t->getParentScope(); sc; sc = sc->asSymbol().getParentScope())
@@ -557,6 +570,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
         auto* rports = s.MakePortVec();
         bool ordered = hasOrderedConns(child);
         for (auto conn : child.getPortConnections()) {
+            // An UNCONNECTED port (dut d();) emits no ref_module port.
+            if (!connectionExpr(*conn) && !findConnSyntax(child, conn->port.name))
+                continue;
             auto* p = s.MakePort();
             // Positional connections: nameless port anchored at the actual.
             if (!ordered)
@@ -928,9 +944,18 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             continue;
         }
         // Packed-array-of-struct: the elaborated view is a packed_array_var
-        // (ranges + struct_var element), not a flat logic_var.
+        // (ranges + struct_var element), not a flat logic_var. A PORT stays a
+        // net (packed_array_net, doubled element fullname).
         if (!implicitNet && !realVar) {
-            if (auto* pav = emitPackedStructArrayVar(*it.sym, name, fullName, m)) {
+            if (it.port) {
+                if (auto* pan = emitPackedStructArrayNet(*it.sym, name, fullName, m)) {
+                    topNets[it.sym] = pan;
+                    sigOrder.emplace_back(it.sym, pan);
+                    nets->push_back(pan);
+                    continue;
+                }
+            }
+            else if (auto* pav = emitPackedStructArrayVar(*it.sym, name, fullName, m)) {
                 topNets[it.sym] = pav;
                 sigOrder.emplace_back(it.sym, pav);
                 vars->push_back(pav);
@@ -3384,6 +3409,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
         }
         inLhs = true;
+        elabContAssignLhs = topView;
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
@@ -3393,6 +3419,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                              : netMap;
         if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))
             ca->Lhs((UHDM::expr*)l);
+        elabContAssignLhs = false;
         inLhs = false;
         cas->push_back(ca);
         if (defInfo)

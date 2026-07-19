@@ -263,6 +263,10 @@ private:
                                                      const std::string& name,
                                                      const std::string& fullName,
                                                      UHDM::module_inst* m);
+    UHDM::packed_array_net* emitPackedStructArrayNet(const slang::ast::Symbol& sym,
+                                                     const std::string& name,
+                                                     const std::string& fullName,
+                                                     UHDM::module_inst* m);
     // One uhdm range per unpacked dimension (bounds from ConstantRange, loc
     // from the declarator dimension syntax), each parented at `parent`.
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
@@ -317,6 +321,9 @@ private:
     bool paramInitDef = false;
     // PACKAGE param inits: concat operands unparent in both views.
     bool paramInitPkg = false;
+    // Set during an ELAB (top-view) cont-assign LHS emission — single-dim
+    // base-select indices parent only here.
+    bool elabContAssignLhs = false;
     // Nested casts lose the inner conversion's syntax; the outer cast
     // emission passes the recovered CastExpression down through this.
     const slang::syntax::SyntaxNode* castSynOverride = nullptr;

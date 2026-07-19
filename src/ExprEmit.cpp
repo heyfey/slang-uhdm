@@ -346,9 +346,13 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 bs->VpiParent(hp);
                 bs->VpiFullName(dottedAt);
                 setLoc(bs, k == 0 ? comp.nameSpan : comp.sels[k - 1].sel->sourceRange);
-                // Base-select index constants are not parented to the bit_select.
+                // Base-select index constants are not parented — except a
+                // SINGLE-dim LVALUE select in the ELAB cont-assign LHS
+                // (flash_rsp_o[0].ack), which parents its index (multi-dim
+                // a[0][0].x, and the def view, stay unparented).
                 bool savedSCP = suppressConstParent;
-                suppressConstParent = true;
+                if (comp.sels.size() > 1 || !inLhs || !elabContAssignLhs)
+                    suppressConstParent = true;
                 if (auto* ix = emitExpr(*comp.sels[k].sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
                 suppressConstParent = savedSCP;
