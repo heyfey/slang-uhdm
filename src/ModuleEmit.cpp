@@ -1146,6 +1146,35 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (auto dt = it.sym->getDeclaredType())
                 isStruct = dt->getType().getCanonicalType().kind ==
                            SymbolKind::PackedStructType;
+            // A packed-struct signal WITH an initializer is a struct_VAR
+            // (the init becomes its vpiExpr, operands unparented), spanning
+            // the declarator name.
+            if (isStruct && it.sym->getDeclaredType()->getInitializer()) {
+                auto* sv = s.MakeStruct_var();
+                sv->VpiName(name);
+                sv->VpiFullName(fullName);
+                sv->VpiParent(m);
+                setLoc(sv, nameSpan(it.sym->location, it.sym->name));
+                sv->VpiVisibility(1);
+                if (rt) {
+                    rt->VpiParent(sv);
+                    sv->Typespec(rt);
+                }
+                bool savedS = suppressConstParent, savedF = forceConstParent;
+                suppressConstParent = true;
+                forceConstParent = false;
+                if (auto* e = emitExpr(*it.sym->getDeclaredType()->getInitializer(),
+                                       sv, fullName, topNets)) {
+                    sv->Expr((UHDM::expr*)e);
+                    e->VpiParent(sv);
+                }
+                suppressConstParent = savedS;
+                forceConstParent = savedF;
+                topNets[it.sym] = sv;
+                sigOrder.emplace_back(it.sym, sv);
+                vars->push_back(sv);
+                continue;
+            }
             UHDM::net* n = isStruct ? (UHDM::net*)s.MakeStruct_net()
                                     : (UHDM::net*)s.MakeLogic_net();
             n->VpiName(name);

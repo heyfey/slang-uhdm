@@ -262,13 +262,19 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     }
                 }
                 std::vector<DimSpan> spans;
-                if (auto tsn2 = declared->getTypeSyntax()) {
-                    auto tStart = tsn2->sourceRange().start();
-                    if (tStart < declSymbol.location)
+                {
+                    // Prefer the type-syntax..declarator span; fall back to
+                    // the typespec range (struct members expose no
+                    // getTypeSyntax()).
+                    SourceLocation tStart = range.start();
+                    SourceLocation tEnd = declSymbol.location;
+                    if (auto tsn2 = declared->getTypeSyntax())
+                        tStart = tsn2->sourceRange().start();
+                    if (!(tStart < tEnd))
+                        tEnd = range.end();
+                    if (tStart < tEnd)
                         spans = scanDimSpans(
-                            std::string(
-                                rawText(SourceRange(tStart, declSymbol.location))),
-                            tStart);
+                            std::string(rawText(SourceRange(tStart, tEnd))), tStart);
                 }
                 SourceRange patLoc = range;
                 auto* rvec = s.MakeRangeVec();

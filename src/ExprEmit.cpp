@@ -1580,7 +1580,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiConcatOp);
             op->VpiParent(parent);
-            setLoc(op, expr.sourceRange);
+            // A CONTINUOUS-assign LVALUE concat ({a,b} = ...) is located at
+            // its FIRST operand (Surelog quirk); procedural LHS concats and
+            // rvalue concats span the whole braces.
+            if (inLhs && parent && parent->UhdmType() == UHDM::uhdmcont_assign &&
+                !ce.operands().empty())
+                setLoc(op, ce.operands()[0]->sourceRange);
+            else
+                setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
             // Direct literal operands of a concat are unparented in
             // module-compile context, parented in re-elaborated (instance)
