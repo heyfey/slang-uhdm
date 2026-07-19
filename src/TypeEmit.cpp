@@ -390,8 +390,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                           .left->sourceRange());
                         }
                         else {
-                            c->VpiConstType(vpiUIntConst);
-                            c->VpiValue("UINT:" + digits);
+                            // A bound that references an int-encoded param
+                            // (e.g. DINW = 2**SELW) folds to a signed INT const.
+                            bool intEnc = false;
+                            if (currentScope) {
+                                ASTContext bctx(*currentScope, LookupLocation::max);
+                                auto& be = Expression::bind(*bsyn, bctx);
+                                if (!be.bad())
+                                    intEnc = isIntEncoded(be);
+                            }
+                            c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
+                            c->VpiValue((intEnc ? "INT:" : "UINT:") + digits);
                             setLoc(c, bsyn->getFirstToken().range());
                         }
                         return c;
