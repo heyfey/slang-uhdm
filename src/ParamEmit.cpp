@@ -36,8 +36,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         const syntax::ExpressionSyntax* defaultSyn = paramDefaultSyn(ps);
         const Expression* boundInit = ps.getInitializer();
         bool overridden = isOverriddenParam(ps);
+        // A required (override-only) param has NO declaration default; Surelog
+        // leaves it valueless/typespec-less in the def view.
+        bool hasDefault = defaultSyn != nullptr;
         // The default, bound in this scope (used for values in both views).
-        const Expression* defaultInit = boundInit;
+        const Expression* defaultInit = hasDefault ? boundInit : nullptr;
         if (overridden) {
             ASTContext actx(body, LookupLocation::max);
             defaultInit = &Expression::bind(*defaultSyn, actx);
