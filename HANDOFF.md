@@ -16,7 +16,26 @@ elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
 template emitPorts/emitContAssigns/emitProcess on the instance type to
 support ported interfaces (InterfaceAssign/Initial/Always/WithPort).
 
-MODPORT FEATURE — EMISSION DONE (23 tests UNSUP->DIFF; UNSUP 98->75). Modports, interface_typespec, InterfacePort (LowConn->modport, typedef->interface_typespec), and ArbitrarySymbol (sub.sig -> hier_path) all emit. Remaining: converge the DIFF output (150-750 line diffs) + the elab interface-port HighConn connection + element/member-select bases on interface signals.
+MODPORT FEATURE — EMISSION DONE + PARTIAL CONVERGENCE (23 UNSUP->DIFF; UNSUP
+98->75). All pieces emit (modports, interface_typespec, InterfacePort,
+ArbitrarySymbol). Common-cause convergence done (each roughly halved the
+modport diffs, no regressions): (a) a bare logic_net per interface port;
+(b) elab InterfacePort HighConn->interface_inst (ifaceInstMap) + LowConn->
+modport + vpiDirection; (c) elab interface_inst emits its own modports;
+(d) makeIfacePortTs: interface_typespec is a modport ts (vpiIsModPort) parented
+by the base interface ts, from the InterfacePortHeader; (e) a dotless
+ArbitrarySymbol is a plain ref_obj (only sub.sig -> hier_path). RESULT:
+iface_modport_out 167->102, iface_modport ->118, iface_passthrough ->153,
+OneNetModport ->187. NONE at CMP_ONLY yet.
+REMAINING (now deep per-test work - common-cause guesses BACKFIRE, verify each
+against all modport tests): the def ref_module for the interface-connected
+child (golden OMITS it for iface_modport_out but KEEPS it for iface_modport;
+when kept, its port HighConn is ref_obj->logic_net(work@top.iface), NOT a
+hier_path); the elab modport's Interface_inst + io_decl Expr->signal var
+(tried, net-worse, reverted - structure is nuanced); the weaklyReferenced
+tail interface_inst duplication + logic_vars. Suggest: pick ONE topology
+(iface_modport_out, closest at 102) and converge it fully, validating each
+fix does not regress iface_modport/passthrough.
 All-or-nothing per test: ANY noteUnsupported -> exit 4 -> UNSUP, so a modport
 test needs ALL pieces below before it moves from UNSUP even to DIFF. Golden
 structure verified on iface_sig_in_child_port (dut->mid(myif.s sub)->child).
