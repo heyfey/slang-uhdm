@@ -1344,14 +1344,6 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     }
     av->VpiSize(total);
 
-    // array_typespec (unlocated, no children).
-    auto* ats = s.MakeArray_typespec();
-    auto* art = s.MakeRef_typespec();
-    art->VpiFullName(fullName);
-    art->VpiParent(av);
-    art->Actual_typespec(ats);
-    av->Typespec(art);
-
     // Ranges: one per unpacked dim.
     if (auto* ranges = buildUnpackedRanges(sym, av))
         av->Ranges(ranges);
@@ -1386,7 +1378,8 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     if (auto init = declared->getInitializer()) {
         auto& ic = stripImplicitConv(*init);
         if (ic.kind == ExpressionKind::SimpleAssignmentPattern ||
-            ic.kind == ExpressionKind::ReplicatedAssignmentPattern) {
+            ic.kind == ExpressionKind::ReplicatedAssignmentPattern ||
+            ic.kind == ExpressionKind::StructuredAssignmentPattern) {
             NetMap none;
             // Array-pattern leaf constants stay unparented (only the nested
             // pattern operations self-parent).
@@ -1399,6 +1392,15 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
             suppressConstParent = savedSCP;
         }
     }
+
+    // array_typespec (unlocated, no children) — created AFTER any pattern
+    // init so its arena id follows the init's typespecs.
+    auto* ats = s.MakeArray_typespec();
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(fullName);
+    art->VpiParent(av);
+    art->Actual_typespec(ats);
+    av->Typespec(art);
     return av;
 }
 
