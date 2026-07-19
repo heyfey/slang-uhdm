@@ -478,6 +478,21 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                                                   std::string(last->VpiName()));
                         }
                     }
+                    // A struct-member (dotted) conn on a REGULAR port scopes
+                    // its LAST element through the child port path too
+                    // (work@top.d.o.ping_p).
+                    if (conn->port.kind == SymbolKind::Port &&
+                        h->UhdmType() == UHDM::uhdmhier_path) {
+                        auto* hp2 = (UHDM::hier_path*)h;
+                        if (hp2->Path_elems() && !hp2->Path_elems()->empty()) {
+                            auto* last = hp2->Path_elems()->back();
+                            if (last->UhdmType() == UHDM::uhdmref_obj)
+                                ((UHDM::ref_obj*)last)
+                                    ->VpiFullName(prefix + "." + std::string(child.name) +
+                                                  "." + std::string(conn->port.name) + "." +
+                                                  std::string(last->VpiName()));
+                        }
+                    }
                     p->High_conn(h);
                 }
             }
@@ -1145,6 +1160,44 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         // Elab-view literal HighConns parent at the port.
                         if (h->UhdmType() == UHDM::uhdmconstant)
                             h->VpiParent(p);
+                        // Struct-member conns: last element scopes through the
+                        // child port path; the hier_path carries the struct ts
+                        // ref + the parent's elab base net as vpiExpr.
+                        if (h->UhdmType() == UHDM::uhdmhier_path) {
+                            auto* hp = (UHDM::hier_path*)h;
+                            if (hp->Path_elems() && !hp->Path_elems()->empty()) {
+                                auto* last = hp->Path_elems()->back();
+                                if (last->UhdmType() == UHDM::uhdmref_obj)
+                                    ((UHDM::ref_obj*)last)
+                                        ->VpiFullName(prefix + "." +
+                                                      std::string(ps.name) + "." +
+                                                      std::string(last->VpiName()));
+                            }
+                            auto& ce = stripImplicitConv(*expr);
+                            if (ce.kind == ExpressionKind::MemberAccess) {
+                                auto& mbase = stripImplicitConv(
+                                    ce.as<MemberAccessExpression>().value());
+                                if (mbase.kind == ExpressionKind::NamedValue) {
+                                    auto& bsym =
+                                        mbase.as<NamedValueExpression>().symbol;
+                                    if (auto tt = typedefTs.find(
+                                            (const Symbol*)&bsym.getDeclaredType()
+                                                ->getType());
+                                        tt != typedefTs.end()) {
+                                            auto* rt2 = s.MakeRef_typespec();
+                                            rt2->VpiFullName(
+                                                prefix + "." + std::string(ps.name) +
+                                                "." + std::string(hp->VpiName()));
+                                            rt2->VpiParent(hp);
+                                            rt2->Actual_typespec(tt->second);
+                                            hp->Typespec(rt2);
+                                        }
+                                    if (auto nit2 = parentNets->find(&bsym);
+                                        nit2 != parentNets->end())
+                                        hp->Root_value(nit2->second);
+                                }
+                            }
+                        }
                         p->High_conn(h);
                     }
                     refCollector = nullptr;
