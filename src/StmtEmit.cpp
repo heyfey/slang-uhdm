@@ -704,6 +704,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 case CaseStatementCondition::WildcardJustZ:
                     uc->VpiCaseType(vpiCaseZ);
                     break;
+                case CaseStatementCondition::Inside:
+                    // case-inside prints as a plain exact case (Surelog).
+                    uc->VpiCaseType(vpiCaseExact);
+                    break;
                 default:
                     noteUnsupported("case condition kind");
                     break;
@@ -738,6 +742,43 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 it->VpiParent(uc);
                 itemLoc(*g.stmt, it);
                 auto* exprs = s.MakeAnyVec();
+                if (cs.condition == CaseStatementCondition::Inside) {
+                    // case-inside item: ONE inside-op spanning the whole item
+                    // list; each member wraps in a list-op (ranges already are).
+                    auto* oi = s.MakeOperation();
+                    oi->VpiOpType(vpiInsideOp);
+                    oi->VpiParent(it);
+                    if (!g.expressions.empty())
+                        setLoc(oi, SourceRange(g.expressions.front()->sourceRange.start(),
+                                               g.expressions.back()->sourceRange.end()));
+                    auto* iops = s.MakeAnyVec();
+                    for (auto e : g.expressions) {
+                        bool fcp3 = forceConstParent;
+                        forceConstParent = true;
+                        auto* ue = emitExpr(*e, oi, prefix, netMap);
+                        forceConstParent = fcp3;
+                        if (!ue)
+                            continue;
+                        if (ue->UhdmType() == UHDM::uhdmoperation &&
+                            ((UHDM::operation*)ue)->VpiOpType() == vpiListOp) {
+                            ((UHDM::operation*)ue)->VpiParent(oi);
+                            iops->push_back(ue);
+                        }
+                        else {
+                            auto* ol = s.MakeOperation();
+                            ol->VpiOpType(vpiListOp);
+                            ol->VpiParent(oi);
+                            setLoc(ol, e->sourceRange);
+                            auto* one = s.MakeAnyVec();
+                            one->push_back(ue);
+                            ol->Operands(one);
+                            iops->push_back(ol);
+                        }
+                    }
+                    oi->Operands(iops);
+                    exprs->push_back(oi);
+                }
+                else
                 for (auto e : g.expressions) {
                     if (auto* ue = emitExpr(*e, it, prefix, netMap)) {
                         // Case-item expr refs and sys calls parent at the

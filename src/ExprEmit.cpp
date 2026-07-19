@@ -2161,6 +2161,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->Path_elems(elems);
             return hp;
         }
+        case ExpressionKind::Inside: {
+            // a inside {A, B, ...}: an operation (vpiInsideOp) whose operands
+            // are the LHS followed by the flattened set members.
+            auto& ie = expr.as<InsideExpression>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiInsideOp);
+            op->VpiParent(parent);
+            setLoc(op, expr.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            if (auto* l = emitExpr(ie.left(), op, prefix, netMap))
+                operands->push_back(l);
+            for (auto* rle : ie.rangeList())
+                if (auto* e = emitExpr(*rle, op, prefix, netMap))
+                    operands->push_back(e);
+            op->Operands(operands);
+            return op;
+        }
+        case ExpressionKind::ValueRange: {
+            // A range set member ([4:7]): operation(vpiListOp) of the two
+            // bounds (the enclosing inside-op comes from the item/expr level).
+            auto& vr = expr.as<ValueRangeExpression>();
+            auto* ol = s.MakeOperation();
+            ol->VpiOpType(vpiListOp);
+            ol->VpiParent(parent);
+            setLoc(ol, expr.sourceRange);
+            auto* bounds = s.MakeAnyVec();
+            bool fcp2 = forceConstParent;
+            forceConstParent = true;
+            if (auto* l = emitExpr(vr.left(), ol, prefix, netMap))
+                bounds->push_back(l);
+            if (auto* r = emitExpr(vr.right(), ol, prefix, netMap))
+                bounds->push_back(r);
+            forceConstParent = fcp2;
+            ol->Operands(bounds);
+            return ol;
+        }
         case ExpressionKind::EmptyArgument:
             // An omitted optional call argument ($readmemh(file, mem, ,)):
             // dropped (golden lists only the present args).
