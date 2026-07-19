@@ -2199,7 +2199,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             auto& rcs = stripImplicitConv(ae.right());
             if (rcs.kind == ExpressionKind::Call && rcs.as<CallExpression>().isSystemCall()) {
                 auto nm = rcs.as<CallExpression>().getSubroutineName();
-                if (nm == "$signed" || nm == "$unsigned" || nm == "$bits") {
+                if (nm == "$signed" || nm == "$unsigned" || nm == "$bits" ||
+                    nm == "$clog2") {
                     auto& le = stripImplicitConv(ae.left());
                     if (le.kind == ExpressionKind::NamedValue) {
                         auto* rt = s.MakeRef_typespec();
