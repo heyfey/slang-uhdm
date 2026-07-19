@@ -564,10 +564,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             else {
                 // $bits(SIGNAL) bounds scope their refs through the param
-                // and bind this view's nets.
+                // and bind this view's nets; currentScope lets a FIXED-width
+                // $bits fold even in the def pre-pass.
                 std::string savedPfx2 = syntaxRefPrefix;
+                const Scope* savedCS = currentScope;
                 syntaxRefPrefix = joinPath(prefix, ps.name);
+                if (!currentScope)
+                    currentScope = ps.getParentScope();
                 auto* its = makeParamTs(ps, typedParam);
+                currentScope = savedCS;
                 syntaxRefPrefix = savedPfx2;
                 if (inPackage)
                     its->Instance((UHDM::instance*)m);

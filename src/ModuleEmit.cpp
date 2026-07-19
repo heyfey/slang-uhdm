@@ -3226,20 +3226,45 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                        ExpressionKind::ReplicatedAssignmentPattern)
                       ? tryFoldConst(ae.right())
                       : nullptr;
-        // A NESTED cast RHS that evals fully (int'($clog2(X)'(X))) folds
-        // loc-less: UINT by magnitude at the result width (signed wraps
-        // encode 4294967295-style). Single casts keep the operation.
+        // A NESTED cast RHS, or a cast whose operand is a PARAMETER ref
+        // (int'(X)), that evals fully folds loc-less: UINT by magnitude at
+        // the result width (signed wraps encode 4294967295-style). Casts of
+        // literals / calls keep the operation.
         if (!rhs && topView) {
             auto& rc0 = stripImplicitConv(ae.right());
+            auto& rcOp = rc0.kind == ExpressionKind::Conversion
+                             ? stripImplicitConv(rc0.as<ConversionExpression>().operand())
+                             : rc0;
             bool nestedCast =
                 rc0.kind == ExpressionKind::Conversion &&
                 !rc0.as<ConversionExpression>().isImplicit() &&
-                stripImplicitConv(rc0.as<ConversionExpression>().operand()).kind ==
-                    ExpressionKind::Conversion &&
-                !stripImplicitConv(rc0.as<ConversionExpression>().operand())
-                     .as<ConversionExpression>()
-                     .isImplicit();
-            if (nestedCast && rc0.syntax &&
+                rcOp.kind == ExpressionKind::Conversion &&
+                !rcOp.as<ConversionExpression>().isImplicit();
+            bool paramCast = rc0.kind == ExpressionKind::Conversion &&
+                             !rc0.as<ConversionExpression>().isImplicit() &&
+                             rcOp.kind == ExpressionKind::NamedValue &&
+                             rcOp.as<NamedValueExpression>().symbol.kind ==
+                                 SymbolKind::Parameter;
+            // Only a param whose init references NO unknown-valued param
+            // folds (C = A/B with A,B = 'x coerces to 0 in int context but
+            // stays an operation; X = '1 folds).
+            if (paramCast) {
+                auto& psym =
+                    rcOp.as<NamedValueExpression>().symbol.as<ParameterSymbol>();
+                bool tainted = false;
+                if (auto* pinit = psym.getInitializer())
+                    pinit->visit(makeVisitor([&](auto& v, const NamedValueExpression& nvv) {
+                        if (nvv.symbol.kind == SymbolKind::Parameter) {
+                            auto& pv2 = nvv.symbol.as<ParameterSymbol>().getValue();
+                            if (!pv2.isInteger() || pv2.integer().hasUnknown())
+                                tainted = true;
+                        }
+                        v.visitDefault(nvv);
+                    }));
+                if (tainted)
+                    paramCast = false;
+            }
+            if ((nestedCast || paramCast) && rc0.syntax &&
                 rc0.syntax->kind == syntax::SyntaxKind::CastExpression) {
                 ASTContext cctx(comp.getRoot(), LookupLocation::max);
                 if (ConstantValue ccv = cctx.tryEval(ae.right());

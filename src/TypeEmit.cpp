@@ -10,6 +10,33 @@
 
 namespace slang_uhdm {
 
+// True when a signal's declared-type packed dimensions reference a PARAMETER
+// (its width can be overridden per instance) — such widths keep $bits(sig)
+// unfolded; a fixed width (int, logic [7:0]) folds.
+static bool typeWidthUsesParam(const Symbol& sym) {
+    auto dt = sym.getDeclaredType();
+    if (!dt)
+        return false;
+    auto tsyn = dt->getTypeSyntax();
+    if (!tsyn)
+        return false;
+    bool found = false;
+    std::function<void(const syntax::SyntaxNode&)> scan =
+        [&](const syntax::SyntaxNode& sn) {
+            if (found)
+                return;
+            if (sn.kind == syntax::SyntaxKind::IdentifierName)
+                found = true;
+            for (size_t i = 0; i < sn.getChildCount(); i++)
+                if (auto* cn = sn.childNode(i))
+                    scan(*cn);
+        };
+    if (syntax::IntegerTypeSyntax::isKind(tsyn->kind))
+        for (auto d : tsyn->as<syntax::IntegerTypeSyntax>().dimensions)
+            scan(*d);
+    return found;
+}
+
 // Packed dims written after a NAMED type (filter_ctl_t [1:0] a) live neither
 // in the type syntax nor in getResolvedDimensions; scan the source between
 // the type name and the declarator for bracket groups. Returns
@@ -1459,8 +1486,24 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 auto sysName = inv.left->as<syntax::SystemNameSyntax>()
                                    .systemIdentifier.valueText();
                 // Type-query calls ($bits(type)/$size(...)) fold to a constant
-                // when the argument resolves in the current scope.
-                if (typedefTsContext && currentScope &&
+                // when the argument resolves in the current scope. $bits of a
+                // SIGNAL folds too UNLESS the signal's width is param-dependent
+                // ($bits(int o) -> 32; $bits([X-1:0] o) stays a sys_func_call).
+                bool foldQuery = typedefTsContext;
+                // Outside a typedef ts, $bits folds ONLY for a FIXED-width
+                // SIGNAL arg ($bits(int o) -> 32); a $bits(TYPE) or a
+                // param-dependent signal stays a sys_func_call.
+                if (!foldQuery && currentScope && inv.arguments &&
+                    (sysName == "$bits" || sysName == "$size")) {
+                    for (auto a2 : inv.arguments->parameters)
+                        if (auto* sy2 = currentScope->find(
+                                std::string(rawText(a2->sourceRange()))))
+                            if ((sy2->kind == SymbolKind::Net ||
+                                 sy2->kind == SymbolKind::Variable) &&
+                                !typeWidthUsesParam(*sy2))
+                                foldQuery = true;
+                }
+                if (foldQuery && currentScope &&
                     (sysName == "$bits" || sysName == "$size" || sysName == "$clog2")) {
                     ASTContext bctx(*currentScope, LookupLocation::max);
                     auto& bound = Expression::bind(syn.as<syntax::ExpressionSyntax>(), bctx);
