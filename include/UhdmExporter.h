@@ -394,6 +394,11 @@ private:
         const slang::ast::ParameterSymbol* ps;
     };
     std::vector<PendingParamCloneTs> pendingParamCloneTs;
+    // NO-DEFAULT overridden params: elab param_assigns awaiting the CA fold
+    // constant as their shared Rhs, and fold-const ts refs awaiting the elab
+    // param typespec.
+    std::map<const slang::ast::Symbol*, std::vector<UHDM::param_assign*>> noDefOvPa;
+    std::map<const slang::ast::Symbol*, std::vector<UHDM::ref_typespec*>> noDefOvTsRef;
     std::map<const void*, UHDM::package*> pkgDefMap;
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).

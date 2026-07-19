@@ -220,7 +220,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Function-scope params parent at their param_assign.
         if (funcScope)
             up->VpiParent(pa);
-        if (topView && overridden)
+        if (topView && (overridden || (!hasDefault && boundInit)))
             pa->VpiOverriden(true);
         // Instance view of an override: folded constant, base-encoded and
         // override-site-anchored for literal overrides; expression overrides
@@ -277,7 +277,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 continue;
             }
         }
-        if (auto init0 = (overridden ? defaultInit : ps.getInitializer())) {
+        // A NO-DEFAULT param carries no direct Rhs (the bound initializer is
+        // the override expression); the ELAB param_assign later SHARES the
+        // cont-assign fold constant (noDefOvPa backpatch).
+        if (!hasDefault && topView && boundInit)
+            noDefOvPa[&member].push_back(pa);
+        if (auto init0 = (overridden      ? defaultInit
+                          : (!hasDefault) ? nullptr
+                                          : ps.getInitializer())) {
             const Expression* init = init0;
             while (init->kind == ExpressionKind::Conversion &&
                    init->as<ConversionExpression>().isImplicit())
@@ -753,6 +760,12 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
         }
         prt->Actual_typespec(its);
         its->VpiParent(prt);
+        // No-default override fold-constant ts refs share this elab ts.
+        if (auto nit = noDefOvTsRef.find(ps); nit != noDefOvTsRef.end()) {
+            for (auto* r0 : nit->second)
+                r0->Actual_typespec(its);
+            noDefOvTsRef.erase(nit);
+        }
         // A param used as a cast width hangs a vpiExpr ref on its def-view
         // ts; the elab ts SHARES that ref_obj.
         if (its->UhdmType() == UHDM::uhdmint_typespec) {

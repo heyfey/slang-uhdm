@@ -1997,7 +1997,11 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 continue;
             }
         }
-        auto* its = makeParamTs(*pc.ps, /*typedParam=*/true);
+        bool tp2 = false;
+        if (auto d0 = pc.ps->getDeclaredType())
+            if (auto t0 = d0->getTypeSyntax())
+                tp2 = t0->kind != syntax::SyntaxKind::ImplicitType;
+        auto* its = makeParamTs(*pc.ps, tp2);
         if (auto sc = pc.ps->getParentScope()) {
             if (auto pit = pkgDefMap.find(&sc->asSymbol()); pit != pkgDefMap.end())
                 its->Instance(pit->second);
@@ -2358,12 +2362,19 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // folds (top view) to its init value.
         const Symbol* constVarRhs = nullptr;
         const Expression* constVarInit = nullptr;
+        // A ref to a NO-DEFAULT overridden param folds to a raw-encoded
+        // LOC-LESS constant shared into the param_assign Rhs.
+        const Symbol* noDefOvRhs = nullptr;
         if (topView) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::NamedValue) {
                 auto& sym = rc.as<NamedValueExpression>().symbol;
                 if (isOverriddenParam(sym))
                     ovParamRhs = &sym;
+                else if (sym.kind == SymbolKind::Parameter &&
+                         !paramDefaultSyn(sym.as<ParameterSymbol>()) &&
+                         sym.as<ParameterSymbol>().getInitializer())
+                    noDefOvRhs = &sym;
                 else if (sym.kind == SymbolKind::Parameter) {
                     auto& ps = sym.as<ParameterSymbol>();
                     if (auto dt = ps.getDeclaredType())
@@ -2434,7 +2445,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
-              !pkgParamSel))) {
+              !pkgParamSel && !noDefOvRhs))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -2636,6 +2647,56 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 rhs = c;
             }
         }
+        if (!rhs && topView && noDefOvRhs) {
+            auto& ps2 = noDefOvRhs->as<ParameterSymbol>();
+            auto& ovc = stripImplicitConv(*ps2.getInitializer());
+            std::string raw = rawText(ovc.sourceRange);
+            auto tick = raw.find('\'');
+            if (ovc.kind == ExpressionKind::IntegerLiteral && tick != std::string::npos) {
+                size_t basePos = tick + 1;
+                if (basePos < raw.size() &&
+                    (raw[basePos] == 's' || raw[basePos] == 'S'))
+                    basePos++;
+                char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
+                std::string digits = raw.substr(basePos + 1);
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(raw);
+                c->VpiSize((int32_t)ps2.getType().getBitWidth());
+                switch (base) {
+                    case 'b':
+                        c->VpiValue("BIN:" + digits);
+                        c->VpiConstType(vpiBinaryConst);
+                        break;
+                    case 'h':
+                        c->VpiValue("HEX:" + digits);
+                        c->VpiConstType(vpiHexConst);
+                        break;
+                    case 'o':
+                        c->VpiValue("OCT:" + digits);
+                        c->VpiConstType(vpiOctConst);
+                        break;
+                    default:
+                        c->VpiValue("DEC:" + digits);
+                        c->VpiConstType(vpiDecConst);
+                        break;
+                }
+                c->VpiParent(ca);
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix);
+                rt->VpiParent(c);
+                c->Typespec(rt);
+                // Shares the ELAB param typespec (bound in
+                // patchParamTypespecs).
+                noDefOvTsRef[noDefOvRhs].push_back(rt);
+                // The instance param_assigns share this fold constant.
+                if (auto npit = noDefOvPa.find(noDefOvRhs); npit != noDefOvPa.end()) {
+                    for (auto* pa2 : npit->second)
+                        pa2->Rhs(c);
+                    noDefOvPa.erase(npit);
+                }
+                rhs = c;
+            }
+        }
         if (!rhs && topView && constFnRet) {
             forceConstParent = true;
             rhs = emitExpr(*constFnRet, ca, prefix, netMap);
@@ -2781,7 +2842,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
-                           typedParamRhs || constVarRhs) &&
+                           typedParamRhs || constVarRhs || noDefOvRhs) &&
                           defInfo)
                              ? defInfo->nets
                              : netMap;
