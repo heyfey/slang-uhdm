@@ -2534,14 +2534,6 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
-        if (getenv("DBGSHARE"))
-            fprintf(stderr,
-                    "DBGSHARE swd=%d di=%d idx=%zu/%zu plain=%d dotted=%d op=%d lit=%d enum=%d cfr=%d cf=%d\n",
-                    (int)shareWithDef, (int)(defInfo != nullptr), myIdx,
-                    defInfo ? defInfo->contAssigns.size() : 0, (int)plainLhs,
-                    (int)dottedLhs, (int)containsOperation(ae.right()),
-                    (int)literalRhs, (int)(enumRhs != nullptr), (int)(bool)cfr,
-                    (int)callFold.has_value());
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             ((!plainLhs && !dottedLhs) ||
              (plainLhs &&

@@ -1,5 +1,49 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 6: ladder continued — PASS overtakes DIFF (2026-07-19, ~6 commits)
+
+**FINAL: PASS 309->314, cmp-passing 346->351, DIFF 315->310.** PASS now
+EXCEEDS DIFF for the first time. New full PASSes:
+
+- **StreamOpImplicitSliceSize**: emitSyntaxExpr grew ElementSelect/
+  IdentifierSelectName (t[0] -> bit_select, prefix-scoped, parented index)
+  and StreamingConcatenationExpression (stream op at the INNER braces span
+  wrapping a concat with the WHOLE streaming span — the usual span swap) —
+  def-view gen if/else CAs from syntax now fill Lhs/Rhs; `parameter bit` ->
+  bit_typespec (makeParamTs 2-state scalar); implicit-type multi-dim def
+  net ts truncates at the first dim (ImplicitTypeSyntax dims); ELAB
+  gen-scope STREAMING operand refs stay UNBOUND (suppressRefActual around
+  the gen CA RHS — note the RHS often hides behind a non-implicit
+  Conversion, strip one level).
+- **unbased_unsized_shift**: OPERATIONS over unbased-unsized literals
+  ('0 << 8) never fold in the elab — the CA re-emits the operation. Casts
+  (3'('0)) and DIRECT literals still fold (three regressions taught the
+  exact gate: BinaryOp/UnaryOp/ConditionalOp/Concatenation only).
+- **FileLevelParameter**: $unit parameters emit as DESIGN-level
+  Parameters/Param_assigns (name-only, value on the param, RHS constant
+  with a BARE ts ref) — emitted BEFORE module defs so module refs bind the
+  design parameter (unitParamMap); the int_typespec materializes at the
+  VERY END (pendingUnitParamTs, after pendingSysFuncTs).
+- **issue326_packed_mem**: PARAM-sized unpacked dims ([DEPTH]) fold the
+  size constant at the param's width WITH a ts ref (loc-less signed int
+  clone, fullname = the VAR — boundOwnerFullName member set around the
+  elab sharedTypespec call) and the array_var VpiSize counts such dims as
+  1; TYPED-param bare packed bounds ([ADDR_WIDTH:0]) take the same
+  fold+ts shape (UNTYPED params keep the bare 64-bit fold —
+  multiple_blocking taught that gate); SUBTRACT param inits (W - 19) fold
+  INT/ct7.
+- **Replication** ('{8{1}} in a CA): def-view pattern operands stay
+  UNPARENTED at 64 bits (plainCtx = !reemitting && !suppress && !force);
+  the elab RE-EMITS the operation (ReplicatedAssignmentPattern added to
+  containsOperation + excluded from tryFoldConst) with PARENTED operands,
+  count still 64; the count-to-32 resize applies only in INIT contexts
+  (suppressConstParent on entry).
+
+NEXT LADDER (fresh difsize): ParameterInitializationWithNegation (35),
+clk2fflogic_effects (45), StringAssignment (45), CastWidthFromPackage (48),
+InterfaceAsPortAssignValueInSubmodule (49), BitsCallOnSubArray (50),
+MultipleCells (50), PkgParamAsFunctionArg (55), port_int_types (56).
+
 ## Session 5: UNSUPPORTED -> ZERO + ladder (2026-07-19, ~5 commits)
 
 **FINAL: PASS 304->309, cmp-passing 341->346, DIFF 317->315,
