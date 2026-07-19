@@ -248,6 +248,9 @@ private:
                                              UHDM::BaseClass* parent);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
+    // setLoc with the end shrunk by whitespace Surelog compacts out of
+    // spaced based literals within the range (8'd 3 -> 8'd3).
+    void setLocCompact(UHDM::BaseClass* obj, slang::SourceRange range);
     void setLocNamed(UHDM::BaseClass* obj, const slang::ast::Symbol& symbol);
     /// Name span at loc; escaped identifiers get Surelog's name+6 width.
     slang::SourceRange nameSpan(slang::SourceLocation loc, std::string_view name);
@@ -399,6 +402,13 @@ private:
     // param typespec.
     std::map<const slang::ast::Symbol*, std::vector<UHDM::param_assign*>> noDefOvPa;
     std::map<const slang::ast::Symbol*, std::vector<UHDM::ref_typespec*>> noDefOvTsRef;
+    // Named property declarations (shared def objects, listed in elab views).
+    std::map<const slang::ast::Symbol*, UHDM::property_decl*> propertyDeclMap;
+    // Set while emitting a property-decl body: formal refs (which bind as
+    // Invalid) resolve through this scope to implicit module wires.
+    const slang::ast::Scope* propDeclScope = nullptr;
+    UHDM::ref_obj* emitPropFormalRef(std::string_view nm, slang::SourceRange nr,
+                                     UHDM::BaseClass* parent, const std::string& prefix);
     std::map<const void*, UHDM::package*> pkgDefMap;
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).

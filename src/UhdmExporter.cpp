@@ -316,6 +316,11 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto* pt : *p.mod->Ports())
                 if (pt->VpiName() == p.sym->name && pt->Typespec())
                     act = pt->Typespec()->Actual_typespec();
+        // Non-port LHS: share the def NET's typespec.
+        if (!act && p.mod && p.mod->Nets())
+            for (auto* nt : *p.mod->Nets())
+                if (nt->VpiName() == p.sym->name && nt->Typespec())
+                    act = nt->Typespec()->Actual_typespec();
         p.rt->Actual_typespec(act ? act : makeTypespec(*p.sym));
     }
     pendingSysFuncTs.clear();

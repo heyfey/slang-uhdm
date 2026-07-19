@@ -1038,6 +1038,67 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             ub->Stmts(stmts);
             return ub;
         }
+        case StatementKind::ConcurrentAssertion: {
+            // Procedural `assert property (...)`: an assert_stmt statement
+            // whose property_spec wraps the property expression.
+            auto& ca = stmt.as<ConcurrentAssertionStatement>();
+            UHDM::concurrent_assertions* as = nullptr;
+            switch (ca.assertionKind) {
+                case AssertionKind::Assert:
+                    as = s.MakeAssert_stmt();
+                    break;
+                case AssertionKind::Assume:
+                    as = s.MakeAssume();
+                    break;
+                case AssertionKind::CoverProperty:
+                case AssertionKind::CoverSequence:
+                    as = s.MakeCover();
+                    break;
+                case AssertionKind::Restrict:
+                    as = s.MakeRestrict();
+                    break;
+                default:
+                    noteUnsupported("assertion kind: " +
+                                    std::string(toString(ca.assertionKind)));
+                    return nullptr;
+            }
+            as->VpiFullName(prefix);
+            as->VpiParent(parent);
+            setLoc(as, SourceRange(stmt.sourceRange.start(),
+                                   stmt.sourceRange.end() -
+                                       basedLiteralSpaceCount(
+                                           rawText(stmt.sourceRange))));
+            if (ca.ifFalse)
+                if (auto* st = emitStmt(*ca.ifFalse, as, prefix, netMap))
+                    as->Stmt(st);
+            auto* ps = s.MakeProperty_spec();
+            ps->VpiParent(as);
+            if (ca.propertySpec.syntax) {
+                auto pr = ca.propertySpec.syntax->sourceRange();
+                setLoc(ps, SourceRange(pr.start(),
+                                       pr.end() -
+                                           basedLiteralSpaceCount(rawText(pr))));
+            }
+            const AssertionExpr* pe = &ca.propertySpec;
+            const TimingControl* clocking = nullptr;
+            if (pe->kind == AssertionExprKind::Clocking) {
+                clocking = &pe->as<ClockingAssertionExpr>().clocking;
+                pe = &pe->as<ClockingAssertionExpr>().expr;
+            }
+            if (ca.assertionKind == AssertionKind::Assert && clocking) {
+                if (auto* clk = emitEventExpr(*clocking, ps, prefix, netMap))
+                    ps->VpiPropertyExpr(clk);
+            }
+            else {
+                if (clocking)
+                    if (auto* clk = emitEventExpr(*clocking, ps, prefix, netMap))
+                        ps->VpiClockingEvent((UHDM::expr*)clk);
+                if (auto* pbody = emitAssertionExpr(*pe, ps, prefix, netMap))
+                    ps->VpiPropertyExpr(pbody);
+            }
+            as->VpiProperty(ps);
+            return as;
+        }
         case StatementKind::Empty:
             return nullptr;
         default:

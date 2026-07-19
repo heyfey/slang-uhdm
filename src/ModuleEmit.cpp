@@ -228,6 +228,59 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
 
+    // Named property declarations (property p(n); ... endproperty): a
+    // property_decl with bare-ts formals and a formal-referenced body
+    // (default instance); formal refs mint implicit module wires.
+    {
+        auto* pdecls = s.MakeProperty_declVec();
+        for (auto& member : body.members()) {
+            if (member.kind != SymbolKind::Property)
+                continue;
+            auto& prop = member.as<PropertySymbol>();
+            auto* pd = s.MakeProperty_decl();
+            pd->VpiName(prop.name);
+            pd->VpiFullName(prefix + "." + std::string(prop.name));
+            pd->VpiParent(m);
+            setLoc(pd, SourceRange(prop.location, prop.location + prop.name.size()));
+            auto* fdecls = s.MakeProp_formal_declVec();
+            for (auto& fp : prop.membersOfType<AssertionPortSymbol>()) {
+                auto* fd = s.MakeProp_formal_decl();
+                fd->VpiName(fp.name);
+                auto* frt = s.MakeRef_typespec();
+                fd->Typespec(frt);
+                fdecls->push_back(fd);
+            }
+            if (!fdecls->empty())
+                pd->Prop_formal_decls(fdecls);
+            auto& defInst = AssertionInstanceExpression::makeDefault(prop);
+            if (defInst.kind == ExpressionKind::AssertionInstance) {
+                auto& aie = defInst.as<AssertionInstanceExpression>();
+                auto* psSpec = s.MakeProperty_spec();
+                psSpec->VpiParent(pd);
+                if (aie.body.syntax)
+                    setLoc(psSpec, aie.body.syntax->sourceRange());
+                auto* savedINM = implicitNetModule;
+                auto savedINP = implicitNetPrefix;
+                implicitNetModule = m;
+                implicitNetPrefix = prefix;
+                propDeclScope = &prop;
+                if (auto* bodyE =
+                        emitAssertionExpr(aie.body, psSpec,
+                                          prefix + "." + std::string(prop.name),
+                                          info.nets))
+                    psSpec->VpiPropertyExpr(bodyE);
+                propDeclScope = nullptr;
+                implicitNetModule = savedINM;
+                implicitNetPrefix = savedINP;
+                pd->Property_spec(psSpec);
+            }
+            propertyDeclMap[&prop] = pd;
+            pdecls->push_back(pd);
+        }
+        if (!pdecls->empty())
+            m->Property_decls(pdecls);
+    }
+
     // Processes are compiled as module items, so any typespecs they create
     // (for-loop vars, cast typespecs) also precede the port typespecs.
     auto* procs = s.MakeProcess_stmtVec();
@@ -1402,6 +1455,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             for (auto* a : it->second.assertions)
                 av->push_back(a);
             m->Assertions(av);
+        }
+        // Elab views list the SHARED named-property declarations.
+        {
+            auto* pdecls = s.MakeProperty_declVec();
+            for (auto& member : body.members())
+                if (member.kind == SymbolKind::Property)
+                    if (auto pit = propertyDeclMap.find(&member);
+                        pit != propertyDeclMap.end())
+                        pdecls->push_back(pit->second);
+            if (!pdecls->empty())
+                m->Property_decls(pdecls);
         }
         // Each view gets its own clocking_block object (not shared).
         if (it != defMap.end() && it->second.defaultClocking)
@@ -2806,7 +2870,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rcs.kind == ExpressionKind::Call && rcs.as<CallExpression>().isSystemCall()) {
                 auto nm = rcs.as<CallExpression>().getSubroutineName();
                 if (nm == "$signed" || nm == "$unsigned" || nm == "$bits" ||
-                    nm == "$clog2") {
+                    nm == "$clog2" || nm == "$fell" || nm == "$rose" ||
+                    nm == "$stable" || nm == "$past") {
                     auto& le = stripImplicitConv(ae.left());
                     if (le.kind == ExpressionKind::NamedValue) {
                         auto* rt = s.MakeRef_typespec();
@@ -3135,7 +3200,9 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
         as->VpiName(label);
     as->VpiFullName(aprefix);
     as->VpiParent(m);
-    setLoc(as, inner->sourceRange);
+    setLoc(as, SourceRange(inner->sourceRange.start(),
+                           inner->sourceRange.end() -
+                               basedLiteralSpaceCount(rawText(inner->sourceRange))));
 
     // Else action -> vpiStmt.
     if (ca.ifFalse)
@@ -3149,8 +3216,11 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
     auto* ps = s.MakeProperty_spec();
     ps->VpiParent(as);
     // The property_spec span is the WHOLE property (incl. clocking).
-    if (ca.propertySpec.syntax)
-        setLoc(ps, ca.propertySpec.syntax->sourceRange());
+    if (ca.propertySpec.syntax) {
+        auto pr = ca.propertySpec.syntax->sourceRange();
+        setLoc(ps, SourceRange(pr.start(),
+                               pr.end() - basedLiteralSpaceCount(rawText(pr))));
+    }
     const AssertionExpr* pe = &ca.propertySpec;
     const TimingControl* clocking = nullptr;
     if (pe->kind == AssertionExprKind::Clocking) {
@@ -3244,11 +3314,67 @@ UHDM::clocking_block* UhdmExporter::emitDefaultClocking(const InstanceBodySymbol
     return nullptr;
 }
 
+void UhdmExporter::setLocCompact(UHDM::BaseClass* obj, SourceRange range) {
+    setLoc(obj, SourceRange(range.start(),
+                            range.end() - basedLiteralSpaceCount(rawText(range))));
+}
+
 UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseClass* parent,
                                            const std::string& prefix, NetMap& netMap) {
     switch (ae.kind) {
-        case AssertionExprKind::Simple:
-            return emitExpr(ae.as<SimpleAssertionExpr>().expr, parent, prefix, netMap);
+        case AssertionExprKind::Simple: {
+            auto& sae = ae.as<SimpleAssertionExpr>();
+            // A repeated sequence's operand keeps the PROPERTY_SPEC as its
+            // parent (Surelog builds it in the spec context before wrapping).
+            UHDM::BaseClass* innerParent = parent;
+            if (sae.repetition)
+                for (UHDM::BaseClass* w = parent; w;
+                     w = (UHDM::BaseClass*)w->VpiParent())
+                    if (w->UhdmType() == UHDM::uhdmproperty_spec) {
+                        innerParent = w;
+                        break;
+                    }
+            UHDM::any* inner = emitExpr(sae.expr, innerParent, prefix, netMap);
+            if (!sae.repetition || !inner)
+                return inner;
+            // seq [*N] -> repeat operation [seq, count]; the seq operand keeps
+            // the OUTER parent (Surelog builds it before wrapping).
+            auto* op = s.MakeOperation();
+            op->VpiOpType(sae.repetition->kind == SequenceRepetition::Consecutive
+                              ? vpiConsecutiveRepeatOp
+                          : sae.repetition->kind == SequenceRepetition::GoTo
+                              ? vpiGotoRepeatOp
+                              : vpiRepeatOp);
+            op->VpiParent(parent);
+            if (ae.syntax)
+                setLoc(op, ae.syntax->sourceRange());
+            auto* operands = s.MakeAnyVec();
+            operands->push_back(inner);
+            const syntax::ExpressionSyntax* cntSyn = nullptr;
+            if (ae.syntax && ae.syntax->kind == syntax::SyntaxKind::SimpleSequenceExpr) {
+                auto* rep = ae.syntax->as<syntax::SimpleSequenceExprSyntax>().repetition;
+                if (rep && rep->selector &&
+                    rep->selector->kind == syntax::SyntaxKind::BitSelect)
+                    cntSyn = rep->selector->as<syntax::BitSelectSyntax>().expr;
+            }
+            if (cntSyn) {
+                UHDM::any* cnt = nullptr;
+                if (propDeclScope && cntSyn->kind == syntax::SyntaxKind::IdentifierName)
+                    cnt = emitPropFormalRef(
+                        cntSyn->as<syntax::IdentifierNameSyntax>().identifier.valueText(),
+                        cntSyn->sourceRange(), op, prefix);
+                if (!cnt)
+                    cnt = emitSyntaxExpr(*cntSyn, op);
+                if (cnt) {
+                    // Literal repeat counts stay unparented.
+                    if (cnt->UhdmType() == UHDM::uhdmconstant)
+                        cnt->VpiParent(nullptr);
+                    operands->push_back(cnt);
+                }
+            }
+            op->Operands(operands);
+            return op;
+        }
         case AssertionExprKind::Clocking:
             return emitAssertionExpr(ae.as<ClockingAssertionExpr>().expr, parent, prefix,
                                      netMap);
@@ -3263,7 +3389,7 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             op->VpiOpType(opt);
             op->VpiParent(parent);
             if (ae.syntax)
-                setLoc(op, ae.syntax->sourceRange());
+                setLocCompact(op, ae.syntax->sourceRange());
             auto* operands = s.MakeAnyVec();
             // Surelog builds `throughout`'s left operand in the enclosing
             // context, so it keeps the grandparent as its vpiParent.

@@ -40,6 +40,27 @@ using namespace slang::ast;
 
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
+// Surelog re-lexes based literals compactly ("8'd 3" -> "8'd3"); spans that
+// contain them shrink by the whitespace between the base char and the digits.
+inline size_t basedLiteralSpaceCount(std::string_view text) {
+    size_t n = 0;
+    for (size_t i = 0; i + 1 < text.size(); i++) {
+        if (text[i] != '\'')
+            continue;
+        size_t j = i + 1;
+        if (j < text.size() && (text[j] == 's' || text[j] == 'S'))
+            j++;
+        if (j >= text.size())
+            break;
+        char b = (char)tolower(text[j]);
+        if (b != 'd' && b != 'h' && b != 'b' && b != 'o')
+            continue;
+        for (j++; j < text.size() && (text[j] == ' ' || text[j] == '\t'); j++)
+            n++;
+    }
+    return n;
+}
+
 // ANSI net-port headers ("input wire x") and non-ANSI net-port
 // declarations ("input wire signed inp;") carry the net keyword token.
 // True when a body net was declared with an explicit net-type keyword
@@ -358,10 +379,12 @@ inline bool containsOperation(const Expression& expr) {
             if (!call.isSystemCall())
                 return false;
             auto n = call.getSubroutineName();
-            // Built-in METHOD calls (a.getc(i): no leading $) are shared.
+            // Built-in METHOD calls (a.getc(i): no leading $) are shared,
+            // as are the transparent casts and sampled-value functions.
             if (n.empty() || n[0] != '$')
                 return false;
-            return n != "$signed" && n != "$unsigned";
+            return n != "$signed" && n != "$unsigned" && n != "$fell" &&
+                   n != "$rose" && n != "$stable" && n != "$past";
         }
         case ExpressionKind::SimpleAssignmentPattern:
         case ExpressionKind::StructuredAssignmentPattern:

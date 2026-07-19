@@ -341,6 +341,41 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     return hp;
 }
 
+// A property-decl FORMAL reference: property-scoped ref bound to an implicit
+// module wire minted at the first use (Surelog leaks formals as module nets).
+UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange nr,
+                                               UHDM::BaseClass* parent,
+                                               const std::string& prefix) {
+    if (!propDeclScope)
+        return nullptr;
+    auto* fsym = propDeclScope->find(nm);
+    if (!fsym || fsym->kind != SymbolKind::AssertionPort)
+        return nullptr;
+    auto* ref = s.MakeRef_obj();
+    ref->VpiName(nm);
+    ref->VpiFullName(joinRef(prefix, std::string(nm)));
+    ref->VpiParent(parent);
+    setLoc(ref, nr);
+    auto& inet = implicitNetMap[fsym];
+    if (!inet && implicitNetModule) {
+        inet = s.MakeLogic_net();
+        inet->VpiName(nm);
+        inet->VpiFullName(implicitNetPrefix + "." + std::string(nm));
+        inet->VpiParent(implicitNetModule);
+        inet->VpiNetType(1);
+        setLoc(inet, nr);
+        auto* nets = implicitNetModule->Nets();
+        if (!nets) {
+            nets = s.MakeNetVec();
+            implicitNetModule->Nets(nets);
+        }
+        nets->push_back(inet);
+    }
+    if (inet)
+        ref->Actual_group(inet);
+    return ref;
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -605,7 +640,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* op = s.MakeOperation();
             op->VpiOpType(opType);
             op->VpiParent(parent);
-            setLoc(op, expr.sourceRange);
+            setLocCompact(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
             if (auto* l = emitExpr(be.left(), op, prefix, netMap))
                 operands->push_back(l);
@@ -618,9 +653,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& il = expr.as<IntegerLiteral>();
             auto* c = s.MakeConstant();
             std::string raw = rawText(expr.sourceRange);
+            // Spaced based literals (8'd 3) re-lex compactly; the span
+            // shrinks by the removed whitespace.
+            size_t spc = basedLiteralSpaceCount(raw);
+            if (spc) {
+                std::string comp;
+                comp.reserve(raw.size());
+                for (size_t i = 0; i < raw.size(); i++) {
+                    comp += raw[i];
+                    if (raw[i] != '\'')
+                        continue;
+                    size_t j = i + 1;
+                    if (j < raw.size() && (raw[j] == 's' || raw[j] == 'S'))
+                        comp += raw[j++];
+                    if (j < raw.size()) {
+                        char b = (char)tolower(raw[j]);
+                        if (b == 'd' || b == 'h' || b == 'b' || b == 'o') {
+                            comp += raw[j++];
+                            while (j < raw.size() &&
+                                   (raw[j] == ' ' || raw[j] == '\t'))
+                                j++;
+                        }
+                    }
+                    i = j - 1;
+                }
+                raw = comp;
+            }
             c->VpiDecompile(raw);
             c->VpiSize((int32_t)expr.type->getBitWidth());
-            setLoc(c, expr.sourceRange);
+            if (spc)
+                setLoc(c, SourceRange(expr.sourceRange.start(),
+                                      expr.sourceRange.end() - spc));
+            else
+                setLoc(c, expr.sourceRange);
             // Surelog parents constants only as operation operands and
             // bit_select indices (not assignment sides or select ranges);
             // re-elaborated contexts also parent part_select bounds.
@@ -1184,9 +1249,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             sc->VpiName(name);
             sc->VpiParent(parent);
             // Conversion/query functions keep name-token-only spans in
-            // expression contexts; other sys calls span the whole call.
+            // expression contexts; other sys calls span the whole call. A
+            // CLOCKING-EVENT argument also forces the name-only span.
             static const std::set<std::string> kNameOnlyFuncs = {"$signed", "$unsigned"};
-            if (stmtCtx || (!kNameOnlyFuncs.count(name) && !inCastSize))
+            bool clockingArg = false;
+            for (auto arg : call.arguments())
+                if (arg->kind == ExpressionKind::ClockingEvent)
+                    clockingArg = true;
+            if (clockingArg)
+                setLoc(sc, nameSpan(expr.sourceRange.start(), name));
+            else if (stmtCtx || (!kNameOnlyFuncs.count(name) && !inCastSize))
                 setLoc(sc, expr.sourceRange);
             else
                 setLoc(sc, SourceRange(expr.sourceRange.start(),
@@ -2452,10 +2524,73 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // ref_obj element per dotted component.
             return buildDottedHierPath(expr, dotted, parent, prefix);
         }
+        case ExpressionKind::AssertionInstance: {
+            // A named-property instantiation (down_n(8'd3)): property_inst
+            // with constant args parented at an artifact func_call.
+            auto& aie = expr.as<AssertionInstanceExpression>();
+            auto* pi = s.MakeProperty_inst();
+            pi->VpiName(aie.symbol.name);
+            // Spans the whole instantiation, shrunk by any whitespace Surelog
+            // compacts out of spaced based literals (8'd 3 -> 8'd3).
+            SourceRange pir =
+                expr.syntax ? expr.syntax->sourceRange() : expr.sourceRange;
+            pir = SourceRange(pir.start(),
+                              pir.end() - basedLiteralSpaceCount(rawText(pir)));
+            setLoc(pi, pir);
+            auto* fcArt = s.MakeFunc_call();
+            fcArt->VpiName(aie.symbol.name);
+            fcArt->VpiParent(parent);
+            setLoc(fcArt, pir);
+            auto* args = s.MakeAnyVec();
+            for (auto& [port, actual] : aie.arguments) {
+                (void)port;
+                if (auto* pe = std::get_if<const Expression*>(&actual)) {
+                    bool ss = suppressConstParent;
+                    bool fs = forceConstParent;
+                    suppressConstParent = true;
+                    forceConstParent = false;
+                    if (auto* a = emitExpr(**pe, fcArt, prefix, netMap)) {
+                        a->VpiParent(fcArt);
+                        args->push_back(a);
+                    }
+                    suppressConstParent = ss;
+                    forceConstParent = fs;
+                }
+            }
+            if (!args->empty()) {
+                pi->VpiArguments(args);
+                fcArt->Tf_call_args(args);
+            }
+            return pi;
+        }
+        case ExpressionKind::ClockingEvent: {
+            // A clocking-event argument ($fell(a, @(posedge clk))): the edge
+            // operation over the clock signal.
+            auto& ce = expr.as<ClockingEventExpression>();
+            return emitEventExpr(ce.timingControl, parent, prefix, netMap);
+        }
         case ExpressionKind::Invalid: {
             // slang wraps some valid sub-expressions in Invalid nodes (e.g.
             // size-cast operand shells); unwrap when a child exists.
             auto& iv2 = expr.as<InvalidExpression>();
+            // Property-decl FORMAL refs bind Invalid (untyped formals): a
+            // property-scoped ref bound to an implicit module wire minted at
+            // the first use.
+            if (propDeclScope) {
+                std::string nm;
+                SourceRange nr = expr.sourceRange;
+                if (nr.start() != SourceLocation::NoLocation)
+                    nm = rawText(nr);
+                if (nm.empty() && expr.syntax &&
+                    expr.syntax->kind == syntax::SyntaxKind::IdentifierName) {
+                    nm = std::string(expr.syntax->as<syntax::IdentifierNameSyntax>()
+                                         .identifier.valueText());
+                    nr = expr.syntax->sourceRange();
+                }
+                if (!nm.empty())
+                    if (auto* ref = emitPropFormalRef(nm, nr, parent, prefix))
+                        return ref;
+            }
             if (iv2.child)
                 return emitExpr(*iv2.child, parent, prefix, netMap);
             noteUnsupported("expression kind: Invalid");
