@@ -1599,6 +1599,47 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
 }
 
 
+// True when a packed-range bound of the symbol's declared type references a
+// parameter that is OVERRIDDEN at some instantiation (its folded value is
+// override-dependent, so the def view keeps the bound unfolded).
+bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
+    auto dt0 = sym.getDeclaredType();
+    if (!dt0)
+        return false;
+    auto tsyn0 = dt0->getTypeSyntax();
+    if (!tsyn0)
+        return false;
+    auto* its0 = tsyn0->as_if<syntax::IntegerTypeSyntax>();
+    if (!its0)
+        return false;
+    bool found = false;
+    for (auto* dim : its0->dimensions) {
+        if (!dim->specifier ||
+            dim->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+            continue;
+        auto& spec0 = dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>();
+        if (spec0.selector->kind != syntax::SyntaxKind::SimpleRangeSelect)
+            continue;
+        auto& sel0 = spec0.selector->as<syntax::RangeSelectSyntax>();
+        for (const syntax::ExpressionSyntax* bs : {sel0.left.get(), sel0.right.get()}) {
+            if (bs->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                continue;
+            if (auto psc0 = sym.getParentScope()) {
+                ASTContext bctx0(*psc0, LookupLocation::max);
+                auto& be0 = Expression::bind(*bs, bctx0);
+                if (!be0.bad())
+                    be0.visit(makeVisitor([&](auto& v0, const NamedValueExpression& nv0) {
+                        if (nv0.symbol.kind == SymbolKind::Parameter &&
+                            isOverriddenParam(nv0.symbol))
+                            found = true;
+                        v0.visitDefault(nv0);
+                    }));
+            }
+        }
+    }
+    return found;
+}
+
 // Builds a def-local net's typespec (fresh per net; vector typedefs get a
 // NAMED clone with Instance + TypedefAlias; anonymous enums fresh
 // unparented; initialized decls extend through the init).
@@ -1629,8 +1670,15 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
-    if (!ts)
+    // A def-view bound referencing an OVERRIDDEN param stays UNFOLDED
+    // (name-only refs) — the folded value is override-dependent.
+    if (!ts) {
+        bool savedTf0 = tfContext;
+        if (rangeRefsOverriddenParam(*pn.sym))
+            tfContext = true;
         ts = makeTypespec(*pn.sym);
+        tfContext = savedTf0;
+    }
     // Unpacked-array def-view nets: the typespec span reaches the end of the
     // FIRST unpacked dimension (Surelog's element-span-plus-first-dim).
     if (auto dt3 = pn.sym->getDeclaredType()) {
@@ -1990,13 +2038,25 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
 
         // A def-view INTERFACE port carries no typespec (unlike a module port).
         if (!(m->UhdmType() == UHDM::uhdminterface_inst && !topView)) {
-            UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
-                                          : makeTypespec(*internal, nullptr, &ps);
-            auto* rt = s.MakeRef_typespec();
-            rt->VpiFullName(prefix + "." + std::string(ps.name));
-            rt->VpiParent(p);
-            rt->Actual_typespec(ts);
-            p->Typespec(rt);
+            // Override-gated port ranges: the def ts defers to the write
+            // phase (arena tail) and unfolds there (materializeDefNetTs).
+            if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
+                rangeRefsOverriddenParam(*internal)) {
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix + "." + std::string(ps.name));
+                rt->VpiParent(p);
+                p->Typespec(rt);
+                pendingNetTs.push_back({internal, rt, &defMap[&body.getDefinition()]});
+            }
+            else {
+                UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
+                                              : makeTypespec(*internal, nullptr, &ps);
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix + "." + std::string(ps.name));
+                rt->VpiParent(p);
+                rt->Actual_typespec(ts);
+                p->Typespec(rt);
+            }
         }
 
         ports->push_back(p);

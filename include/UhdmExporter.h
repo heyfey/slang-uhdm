@@ -318,6 +318,7 @@ private:
     };
     std::vector<PendingNetTs> pendingNetTs;
     void materializeDefNetTs(PendingNetTs& pn);
+    bool rangeRefsOverriddenParam(const slang::ast::Symbol& sym);
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
     // Typedef typespecs shared across views; enum consts for value refs.
