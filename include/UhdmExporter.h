@@ -139,6 +139,11 @@ private:
     // The interface_typespec for an InterfacePort: a modport typespec
     // (vpiIsModPort) whose parent is the base interface typespec.
     UHDM::interface_typespec* makeIfacePortTs(const slang::ast::InterfacePortSymbol& ip);
+    // Dotted interface-member path (s.req.adr) -> hier_path with per-token
+    // ref_obj elements; the LAST element carries a module-scoped fullname.
+    UHDM::hier_path* buildDottedHierPath(const slang::ast::Expression& expr,
+                                         const std::string& dotted,
+                                         UHDM::BaseClass* parent, const std::string& prefix);
     // Surelog dump-artifact: a col-0 "reference-style" interface_inst duplicate
     // of an interface's home view. It shares the home view's variable objects
     // and is referenced only weakly (from a receiving module port's HighConn

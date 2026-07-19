@@ -183,13 +183,17 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     pc = cc;
                     break;
                 }
+            // Only a BARE whole-interface connection (.bus(bus)) gets a
+            // connection-site net; modport-qualified ones (.mon(s.mon)) don't.
+            if (!pc || !connectionExpr(*pc) ||
+                rawText(connectionExpr(*pc)->sourceRange).find('.') != std::string::npos)
+                continue;
             auto* n = s.MakeLogic_net();
             n->VpiName(conn.first->name);
             n->VpiFullName(prefix + "." + std::string(conn.first->name));
             n->VpiParent(m);
             n->VpiNetType(vpiWire);
-            if (pc && connectionExpr(*pc))
-                setLoc(n, connectionExpr(*pc)->sourceRange);
+            setLoc(n, connectionExpr(*pc)->sourceRange);
             ifaceConnNet[conn.first] = n;
             info.nets[conn.first] = n;
             nets->push_back(n);
@@ -435,6 +439,25 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                                            std::string(conn->port.name));
                             if (auto nit = ifaceConnNet.find(cc); nit != ifaceConnNet.end())
                                 r->Actual_group(nit->second);
+                        }
+                    }
+                    // A modport-qualified connection (s.mon) is a hier_path:
+                    // non-last elements name-only; the LAST element scopes by
+                    // the CHILD PORT path (work@m.u.mon.mon).
+                    if (conn->port.kind == SymbolKind::InterfacePort &&
+                        h->UhdmType() == UHDM::uhdmhier_path) {
+                        auto* hp2 = (UHDM::hier_path*)h;
+                        if (hp2->Path_elems() && !hp2->Path_elems()->empty()) {
+                            for (auto* pe : *hp2->Path_elems())
+                                if (pe->UhdmType() == UHDM::uhdmref_obj)
+                                    ((UHDM::ref_obj*)pe)
+                                        ->VpiFullName(std::string(pe->VpiName()));
+                            auto* last = hp2->Path_elems()->back();
+                            if (last->UhdmType() == UHDM::uhdmref_obj)
+                                ((UHDM::ref_obj*)last)
+                                    ->VpiFullName(prefix + "." + std::string(child.name) +
+                                                  "." + std::string(conn->port.name) + "." +
+                                                  std::string(last->VpiName()));
                         }
                     }
                     p->High_conn(h);
@@ -910,8 +933,21 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 auto* lc = s.MakeRef_obj();
                 lc->VpiFullName(prefix + "." + std::string(ip.name));
                 lc->VpiParent(p);
-                // Anchored at the connection site (Surelog quirk), not port decl.
-                if (iconn && connectionExpr(*iconn))
+                // Anchored at the connection site (Surelog quirk), not port
+                // decl; a modport-qualified connection (.mon(s.mon)) anchors at
+                // the FORMAL name instead.
+                bool dottedConn =
+                    iconn && connectionExpr(*iconn) &&
+                    rawText(connectionExpr(*iconn)->sourceRange).find('.') !=
+                        std::string::npos;
+                if (dottedConn) {
+                    if (auto npc = findConnSyntax(inst, ip.name))
+                        setLoc(lc, SourceRange(npc->name.location(),
+                                               npc->name.location() + ip.name.size()));
+                    else
+                        setLoc(lc, connectionExpr(*iconn)->sourceRange);
+                }
+                else if (iconn && connectionExpr(*iconn))
                     setLoc(lc, connectionExpr(*iconn)->sourceRange);
                 else
                     setLocNamed(lc, ip);
@@ -923,7 +959,49 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             lc->Actual_group(mit->second);
                 p->Low_conn(lc);
                 auto conn = ip.getConnection();
-                if (conn.first) {
+                std::string connRaw =
+                    iconn && connectionExpr(*iconn)
+                        ? rawText(connectionExpr(*iconn)->sourceRange)
+                        : std::string{};
+                if (conn.first && connRaw.find('.') != std::string::npos) {
+                    // Modport-qualified connection (s.mon): hier_path HighConn
+                    // [s (name-only), mon (child-port-scoped fullname)].
+                    auto* expr0 = connectionExpr(*iconn);
+                    auto* hp = s.MakeHier_path();
+                    hp->VpiName(connRaw);
+                    hp->VpiFullName(connRaw);
+                    hp->VpiParent(p);
+                    setLoc(hp, expr0->sourceRange);
+                    auto* elems2 = s.MakeAnyVec();
+                    auto exprStart = expr0->sourceRange.start();
+                    size_t start = 0, n2 = 0;
+                    std::vector<std::pair<std::string, size_t>> comps;
+                    while (start <= connRaw.size()) {
+                        auto dot = connRaw.find('.', start);
+                        if (dot == std::string::npos)
+                            dot = connRaw.size();
+                        comps.emplace_back(connRaw.substr(start, dot - start), start);
+                        if (dot == connRaw.size())
+                            break;
+                        start = dot + 1;
+                    }
+                    for (auto& [cname, coff] : comps) {
+                        auto* r2 = s.MakeRef_obj();
+                        r2->VpiName(cname);
+                        if (++n2 == comps.size())
+                            r2->VpiFullName(prefix + "." + std::string(ip.name) + "." +
+                                            cname);
+                        else
+                            r2->VpiFullName(cname); // name-only (dump omits)
+                        r2->VpiParent(hp);
+                        setLoc(r2, SourceRange(exprStart + coff,
+                                               exprStart + coff + cname.size()));
+                        elems2->push_back(r2);
+                    }
+                    hp->Path_elems(elems2);
+                    p->High_conn(hp);
+                }
+                else if (conn.first) {
                     if (auto iit = ifaceInstMap.find(conn.first);
                         iit != ifaceInstMap.end()) {
                         auto* hc = s.MakeRef_obj();
@@ -1048,6 +1126,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     conn.first->as<InstanceSymbol>(),
                     prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
                     /*portView=*/&inst);
+                // A port view is named by the PORT, not the connected instance.
+                ii->VpiName(std::string(portBase->name));
                 portIfaces->push_back(ii);
                 // Re-point the port's Low_conn ref_obj from the shared def
                 // modport to this port view's own modport (which carries the
@@ -2802,6 +2882,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         setLoc(n, nameSpan(it.sym->location, it.sym->name));
         if (int32_t nt = netTypeFor(*it.sym))
             n->VpiNetType(nt);
+        // A struct-typed interface VARIABLE (p::req_t req) nets as a wire.
+        else if (it.sym->kind == SymbolKind::Variable && it.sym->getDeclaredType() &&
+                 it.sym->getDeclaredType()->getType().getCanonicalType().isStruct())
+            n->VpiNetType(vpiWire);
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
         if (!it.port && !implicitNet) {
@@ -2997,9 +3081,39 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                        pit != defMap.end() ? &pit->second : nullptr, false);
     }
     auto* vars = s.MakeVariablesVec();
+    auto* elabNets = s.MakeNetVec();
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
+        // A struct-typed interface member is a struct_net (Nets, wire) in the
+        // elab HOME view, its typespec ref sharing the typedef's
+        // struct_typespec. PORT views carry it on the modport io_decl instead.
+        if (it.sym->kind == SymbolKind::Variable && it.sym->getDeclaredType() &&
+            it.sym->getDeclaredType()->getType().getCanonicalType().isStruct()) {
+            if (portView)
+                continue;
+            auto* sn = s.MakeStruct_net();
+            sn->VpiName(name);
+            sn->VpiFullName(fullName);
+            sn->VpiParent(iface);
+            sn->VpiNetType(vpiWire);
+            setLoc(sn, nameSpan(it.sym->location, it.sym->name));
+            // The elab view shares the TOP-view package typedef typespec.
+            UHDM::typespec* ts = nullptr;
+            if (auto tt = pkgTopTypedefTs.find(&it.sym->getDeclaredType()->getType());
+                tt != pkgTopTypedefTs.end())
+                ts = tt->second;
+            if (!ts)
+                ts = makeTypespec(*it.sym);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(fullName);
+            rt->VpiParent(sn);
+            rt->Actual_typespec(ts);
+            sn->Typespec(rt);
+            netMap[it.sym] = sn;
+            elabNets->push_back(sn);
+            continue;
+        }
         auto* v = makeVar(*it.sym, /*portBacked=*/false);
         if (!v)
             continue;
@@ -3070,6 +3184,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
     if (!vars->empty())
         iface->Variables(vars);
+    if (!elabNets->empty())
+        iface->Nets(elabNets);
 
     // The elab view lists the def view's typedef/import typespecs (SHARED
     // objects; the def view was emitted first).
@@ -3111,10 +3227,44 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                                          : 0;
                 if (dir)
                     io->VpiDirection(dir);
-                if (portView)
+                if (portView) {
                     if (auto nit = netMap.find(mpp.internalSymbol);
                         nit != netMap.end())
                         io->Expr((UHDM::expr*)nit->second);
+                    // Struct member: fresh struct_net parented at the io_decl,
+                    // fullname doubled through the modport and the member
+                    // (prefix.<modport>.<member>.<member> — Surelog quirk).
+                    else if (mpp.internalSymbol &&
+                             mpp.internalSymbol->getDeclaredType() &&
+                             mpp.internalSymbol->getDeclaredType()
+                                 ->getType()
+                                 .getCanonicalType()
+                                 .isStruct()) {
+                        auto& msym = *mpp.internalSymbol;
+                        std::string mname(msym.name);
+                        std::string dfull = prefix + "." + std::string(mp.name) +
+                                            "." + mname + "." + mname;
+                        auto* sn2 = s.MakeStruct_net();
+                        sn2->VpiName(mname);
+                        sn2->VpiFullName(dfull);
+                        sn2->VpiParent(io);
+                        sn2->VpiNetType(vpiWire);
+                        setLoc(sn2, nameSpan(msym.location, msym.name));
+                        UHDM::typespec* mts = nullptr;
+                        if (auto tt2 = pkgTopTypedefTs.find(
+                                &msym.getDeclaredType()->getType());
+                            tt2 != pkgTopTypedefTs.end())
+                            mts = tt2->second;
+                        if (!mts)
+                            mts = makeTypespec(msym);
+                        auto* mrt = s.MakeRef_typespec();
+                        mrt->VpiFullName(dfull);
+                        mrt->VpiParent(sn2);
+                        mrt->Actual_typespec(mts);
+                        sn2->Typespec(mrt);
+                        io->Expr(sn2);
+                    }
+                }
                 iodecls->push_back(io);
             }
             if (!iodecls->empty())
@@ -3127,8 +3277,33 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
 
     // Home view: build the col-0 tail duplicate (shares this view's vars) so a
-    // receiving module port's HighConn ref_obj can weakly reference it.
-    if (!portView)
+    // receiving module port's HighConn ref_obj can weakly reference it — only
+    // when some sibling child receives the WHOLE interface via a BARE
+    // connection (.bus(bus)); modport-qualified connections (.mon(s.mon))
+    // create neither the dup nor the weak ref.
+    bool wantTailDup = false;
+    if (!portView) {
+        if (auto* psc = inst.getParentScope()) {
+            for (auto& sib : psc->members()) {
+                if (sib.kind != SymbolKind::Instance)
+                    continue;
+                auto& sibInst = sib.as<InstanceSymbol>();
+                for (auto pb : sibInst.body.getPortList()) {
+                    if (pb->kind != SymbolKind::InterfacePort)
+                        continue;
+                    if (pb->as<InterfacePortSymbol>().getConnection().first !=
+                        (const Symbol*)&inst)
+                        continue;
+                    for (auto cc : sibInst.getPortConnections())
+                        if (&cc->port == pb && connectionExpr(*cc) &&
+                            rawText(connectionExpr(*cc)->sourceRange).find('.') ==
+                                std::string::npos)
+                            wantTailDup = true;
+                }
+            }
+        }
+    }
+    if (wantTailDup)
         ifaceTailDup[&inst] = makeIfaceRefDup(inst, prefix, parentM, netMap);
 
     // A single-instance interface's DEF cont-assign references resolve to THIS

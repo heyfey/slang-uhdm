@@ -138,6 +138,53 @@ bool UhdmExporter::isIntEncoded(const Expression& e) {
     }
 }
 
+// A dotted interface-member reference (s.req.adr): hier_path whose ref_obj
+// elements anchor at their own token; the LAST element carries the
+// module-scoped fullname (work@mod.<last>) — Surelog quirk.
+UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
+                                                   const std::string& dotted,
+                                                   UHDM::BaseClass* parent,
+                                                   const std::string& prefix) {
+    auto* hp = s.MakeHier_path();
+    hp->VpiName(dotted);
+    hp->VpiFullName(dotted);
+    hp->VpiParent(parent);
+    setLoc(hp, expr.sourceRange);
+    auto* elems = s.MakeAnyVec();
+    auto exprStart = expr.sourceRange.start();
+    // Split into (name, offset) components.
+    std::vector<std::pair<std::string, size_t>> parts;
+    for (size_t start = 0; start <= dotted.size();) {
+        auto dot = dotted.find('.', start);
+        if (dot == std::string::npos)
+            dot = dotted.size();
+        parts.emplace_back(dotted.substr(start, dot - start), start);
+        if (dot == dotted.size())
+            break;
+        start = dot + 1;
+    }
+    for (size_t i = 0; i < parts.size(); i++) {
+        auto& [pname, off] = parts[i];
+        auto* r = s.MakeRef_obj();
+        r->VpiName(pname);
+        // Only the last element of an RVALUE path gets a scoped fullname; the
+        // others cache a NAME-ONLY fullname (the dump omits fullname == name,
+        // and it blocks the dump-time lazy scoped recompute).
+        if (!inLhs && i + 1 == parts.size())
+            r->VpiFullName(prefix + "." + pname);
+        else
+            r->VpiFullName(pname);
+        r->VpiParent(hp);
+        // Lvalue paths anchor the base ref at the SECOND element's span.
+        size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
+        auto& [lname, loff] = parts[locIdx];
+        setLoc(r, SourceRange(exprStart + loff, exprStart + loff + lname.size()));
+        elems->push_back(r);
+    }
+    hp->Path_elems(elems);
+    return hp;
+}
+
 UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                                                  UHDM::BaseClass* parent,
                                                  const std::string& prefix, NetMap& netMap) {
@@ -1529,6 +1576,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (auto* hp = emitMixedHierPath(expr, parent, prefix, netMap))
                     return hp;
             }
+            // Struct-member access on an interface-port member (s.req.adr):
+            // the base chain bottoms out at an ArbitrarySymbol — a dotted
+            // hier_path over the whole expression.
+            if (base->kind == ExpressionKind::ArbitrarySymbol ||
+                base->kind == ExpressionKind::HierarchicalValue) {
+                std::string dotted = rawText(expr.sourceRange);
+                if (dotted.find('.') != std::string::npos)
+                    return buildDottedHierPath(expr, dotted, parent, prefix);
+            }
             if (base->kind != ExpressionKind::NamedValue) {
                 noteUnsupported("member access base");
                 return nullptr;
@@ -1880,28 +1936,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             // Interface-port member access (sub.sig): a hier_path with one
             // ref_obj element per dotted component.
-            auto* hp = s.MakeHier_path();
-            hp->VpiName(dotted);
-            hp->VpiFullName(dotted);
-            hp->VpiParent(parent);
-            setLoc(hp, expr.sourceRange);
-            auto* elems = s.MakeAnyVec();
-            size_t start = 0;
-            while (start <= dotted.size()) {
-                auto dot = dotted.find('.', start);
-                std::string pname = dotted.substr(
-                    start, dot == std::string::npos ? std::string::npos : dot - start);
-                auto* r = s.MakeRef_obj();
-                r->VpiName(pname);
-                r->VpiParent(hp);
-                setLoc(r, expr.sourceRange);
-                elems->push_back(r);
-                if (dot == std::string::npos)
-                    break;
-                start = dot + 1;
-            }
-            hp->Path_elems(elems);
-            return hp;
+            return buildDottedHierPath(expr, dotted, parent, prefix);
         }
         default:
             noteUnsupported("expression kind: " + std::string(toString(expr.kind)));
