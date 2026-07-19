@@ -2,11 +2,15 @@
 
 ## Session r166-r173 + interface feature (2026-07-18, this session)
 
-PASS 256->263, DIFF 299->287, CMP_ONLY 8->13. All clean (no regressions).
-Interface feature (simple var/net/param interfaces) built on a branch and
-merged: +1 PASS (InterfaceVariable) + 4 CMP_ONLY (InterfaceParameter,
-InterfaceParameterSetValue, iface_param_set_value, iface_local_in_sub). See
-the INTERFACE FEATURE section below for status + remaining work. (r173)
+PASS 256->263, DIFF 299->306, CMP_ONLY 8->17, UNSUP 98->75. All clean
+(no regressions). Interface feature: simple+ported interface_inst (1 PASS +
+8 CMP_ONLY), then the MODPORT feature EMISSION (23 tests UNSUP->DIFF) +
+partial convergence (elab InterfacePort HighConn->interface_inst; a bare
+logic_net per interface port). Modport DIFF->CMP_ONLY is now a large per-test
+phase - fixes are small and TEST-SPECIFIC (e.g. suppressing the child def
+ref_module helped iface_modport_out -35 but hurt iface_modport/passthrough,
+so NOT a universal rule). See the MODPORT FEATURE + INTERFACE FEATURE
+sections for status + remaining work. (r173)
 Unbased-unsized param values handle 'x/'z (fixed a latent r172 BIN:1 bug);
 elab RHS is value-dependent ('1 -> UINT all-ones). Next interface lever:
 template emitPorts/emitContAssigns/emitProcess on the instance type to
