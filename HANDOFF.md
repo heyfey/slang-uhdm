@@ -1,5 +1,69 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 3: DIFF-frontier pickoff (2026-07-19, ~17 commits)
+
+**FINAL: PASS 280->298, CMP_ONLY 33->37 (cmp-passing 313->335), DIFF
+345->323, UNSUP 3 (unchanged: OneThis/sva_counter/sva_value_change_sim).**
+Zero net regressions; every commit gated by goldens 23/23 + full corpus +
+the PASS->CMP_ONLY demotion join (run_corpus MISSES that class — always run
+`join -t, -j1 <(sort baseline) <(sort new) -o 1.1,1.2,2.2 | awk -F, '$2!=$3'`).
+
+18 tests converged to full PASS, in order: ImportParametrizedType (module
+explicit-import typedefs listed+re-parented; pkg def-view bound refs bind the
+param's init constant), PatternAsFunctionArgument (constCallFold follows
+literal-pattern args through element selects; pattern func-args carry the
+formal element-ts ref — added uhdmoperation to the arg-ts kinds),
+unbased_unsized ('0 def-sized at whole-net LHS + elab SHARES the def
+constant — '1 folds fresh UINT, 'x/'z share; elab port HighConn literals
+parent at the port), StructMemberAsModuleInput (dotted port conns scope the
+LAST hier elem through prefix.child.port in BOTH views; elab hier_path
+carries the struct-ts ref + base struct_net as Root_value→vpiExpr),
+CastInFunctionToParameterWidth (PARENthesized param width (P)'(x) reuses the
+param's int_typespec + loc-less doubled-fullname Cast_to_expr ref_obj,
+mirrored into the elab ts at patchParamTypespecs), TypedefInModulePort (pkg
+vector-typedef ports: no def NetType, elab logic_var, clone keeps pkg
+Instance — module-LOCAL clones carry NONE), FunctionExportDPI (exported
+FUNCTION locates at the export directive — exported TASK keeps its def span
+(TaskExportDPI!); DPI-import prototypes synthesize the Return var; DPIImport
+returnTypeSyntax), CastToSum submodule pair (override-gated port ranges:
+rangeRefsOverriddenParam -> def port ts DEFERRED into pendingNetTs, unfolds
+with name-only refs at the write phase — the narrow trigger the old -19
+blanket missed), StreamOperatorBitReverseFunction (BARE param width P'(x)
+mints a per-site NAMED int_typespec with UINT:<value> at a zero-width span
+on the param name token), ParameterColonReference (pkg-param bit-selects:
+pkg::A-named select parented at the pkg parameter in def; elab folds to BIN
+at init-start..+1), array_default_init ('{default:'0} array init emits via
+the existing structured-pattern path; array_typespec created AFTER the init
+for arena order), AssignmentPatternArrayPort (def pattern-conn ts-ref scopes
+through the conn path; elab HighConn folds to <w>'d<digits> constType 0),
+TypedefOnFileLevel (2-STATE structs — int members — elaborate as struct_vars
+(4-state stay struct_nets: DotRange/UnsizedConst!); var-backed dotted-LHS
+CAs re-emit fresh in elab with the def Rhs shared — NET-backed bases keep
+the shared def CA), TypedefedFunctionArgument + TypedefedFunctionReturn
+(typedef'd formals/returns get a fresh NAMED logic_typespec clone with
+Typedef_alias -> shared typedef; formal clone at the USE token, return clone
+at the TYPEDEF site with the return var at the type token; typedef-return
+calls NEVER fold in elab — the CA stays shared), AssignTypedefedFunctionCall
+(user-call var inits keep the func_call as elab vpiExpr),
+SizeOfUnsignedParameter (localparam $bits folds LOC-LESS in elab re-emits
+only — def keeps the call+LHS-ts; parameter $bits still kept; signed-implicit
+param ts at the signing keyword, param-parented). Plus OnePackage
+DIFF->CMP_ONLY (module-context pkg enum-const refs fold to the enum's OWN
+encoding — INTERFACE contexts keep the ref, gated by walking VpiParent to
+the owning instance type; typed pkg-param folds size at the type width,
+untyped stay 64) and side-flips: TypedefWithParameter, SelectFromUnpacked,
+AssignBitsCallToSubmoduleParameter -> CMP_ONLY.
+
+DIRECTION TRAP: in `diff -u surelog.dump slang.dump`, `-` = GOLDEN, `+` =
+OURS. Misread three times this session; verify before coding.
+
+NEXT LEADS (diff-size ladder, measured): IndexedPartSelectInUniqueCase (31),
+ParameterWithUnderscoreValueDividedPassedFromCommandLine (35), GetC (36),
+setundef (36), UnsizedConstantParameter (37), case_expr_non_const (38),
+StreamOp (41), FileLevelParameter (43), issue326_packed_mem (43),
+Replication (44). The difsize script is scratchpad/difsize.sh (re-measure
+after batches — fixes shift the ladder).
+
 ## Overnight autonomous session 2 (2026-07-19, ~22 commits)
 
 **FINAL: PASS 273->280, cmp-passing 299->313, UNSUPPORTED 62->3.**
