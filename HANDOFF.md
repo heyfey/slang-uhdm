@@ -64,7 +64,29 @@ tail (loc col 0, abbreviated) with a full modport whose io_decls carry vpiExpr;
 this makes golden reference bus.in 8x vs mine 7x, and uhdm-cmp fails on the
 missing weak reference (NOT just ordering). Cracking this needs matching UHDM's
 Serializer weaklyReferenced collection (which owned-but-also-weakly-referenced
-objects it re-lists, and in what order). The KEEP tests (iface_modport,
+objects it re-lists, and in what order).
+WEAKLY-TAIL MECHANISM FULLY DECODED (UHDM/templates/vpi_visitor.cpp): the
+dumper collects into m_weaklyReferenced1 any object visited SHALLOWLY (weak
+ref) that is NEVER fully visited in the main tree; at the end it full-dumps
+them sorted by UhdmId. visit_modport() visits its Interface_inst SHALLOWLY
+(vpi_visitor line ~2426, shallowVisit=true). GOLDEN EXPLOITS THIS: it creates
+DUPLICATE interface_inst objects at COLUMN 0 (e.g. work@top.bus at line:25:0,
+distinct from the owned one at 25:5) - one per weak reference point (the
+modport's vpiInterface, connection sites). iface_modport golden has 9 such
+col-0 interface_inst dups; each carries its own logic_vars + a modport whose
+io_decls have vpiExpr->logic_var and whose vpiInterface points back to the
+col-0 dup (self-referential). These col-0 dups are ONLY weakly referenced, so
+they land in the tail, and their extra io_decl vpiExpr->logic_var references
+are what make golden reference bus.in 8x vs mine 7x -> uhdm-cmp fails.
+TO MATCH (the actual remaining task): create a col-0 "reference" interface_inst
+duplicate for each modport's Interface_inst (and interface-connection point),
+with the same vars + a self-referential modport, owned by NOTHING (only pointed
+at weakly). This is pure Surelog dump-artifact replication (no semantic value)
+but is what byte-identical requires. It is DEEP (object duplication + a
+self-referential fixed point) and was NOT attempted; the 4 structural adds
+above are the prerequisite. Est: converts the ~6 ref_module-KEEP modport
+tests to CMP_ONLY; the OMIT tests additionally need the child-ref_module rule.
+--- older note --- The KEEP tests (iface_modport,
 iface_passthrough, iface_sig_in_child_port, ...) would convert to CMP_ONLY once
 1-4 + the tail duplicate land. The OMIT tests (iface_modport_out,
 OneNetModport, iface_modport_conn - golden emits ZERO child-module ref_modules)
