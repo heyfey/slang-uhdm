@@ -640,6 +640,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
+                else if (auto uit = unitParamMap.find(&nv.symbol);
+                         uit != unitParamMap.end())
+                    // $unit params bind the design-level parameter.
+                    ref->Actual_group(uit->second);
+
                 else if (nv.symbol.kind == SymbolKind::EnumValue)
                     // Anonymous-enum const built later in the deferred pass.
                     pendingEnumRefs.push_back({ref, &nv.symbol});

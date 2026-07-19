@@ -105,6 +105,71 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->TopPackages(topP);
     }
 
+    // File-level ($unit) parameters -> DESIGN-level Parameters/Param_assigns
+    // (name-only, typespecs materialized at the very end).
+    {
+        auto* uparams = s.MakeAnyVec();
+        auto* upassigns = s.MakeParam_assignVec();
+        for (auto unit : comp.getCompilationUnits()) {
+            for (auto& mem : unit->members()) {
+                if (mem.kind != SymbolKind::Parameter)
+                    continue;
+                auto& ps = mem.as<ParameterSymbol>();
+                auto* up = s.MakeParameter();
+                up->VpiName(ps.name);
+                up->VpiParent(d);
+                setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
+                auto& cv = ps.getValue();
+                if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                    auto& iv = cv.integer();
+                    bool neg = iv.isSigned() && iv.isNegative();
+                    std::string digits = iv.toString(LiteralBase::Decimal, false);
+                    up->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                }
+                if (ps.getType().getCanonicalType().isSigned())
+                    up->VpiSigned(true);
+                auto* prt = s.MakeRef_typespec();
+                prt->VpiFullName(ps.name);
+                prt->VpiParent(up);
+                up->Typespec(prt);
+                auto* pa = s.MakeParam_assign();
+                pa->VpiParent(d);
+                if (auto syn = ps.getSyntax())
+                    setLoc(pa, syn->sourceRange());
+                pa->Lhs(up);
+                UHDM::ref_typespec* rhsRt = nullptr;
+                if (auto* init = ps.getInitializer()) {
+                    auto& ic = stripImplicitConv(*init);
+                    if (ic.kind == ExpressionKind::IntegerLiteral &&
+                        cv.isInteger() && !cv.integer().hasUnknown()) {
+                        auto* c = s.MakeConstant();
+                        std::string digits =
+                            cv.integer().toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(digits);
+                        c->VpiSize((int32_t)ps.getType().getBitWidth());
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(pa);
+                        setLoc(c, ic.sourceRange);
+                        rhsRt = s.MakeRef_typespec();
+                        rhsRt->VpiParent(c);
+                        c->Typespec(rhsRt);
+                        pa->Rhs(c);
+                    }
+                }
+                unitParamMap[&mem] = up;
+                pendingUnitParamTs.push_back({up, prt, rhsRt, &ps});
+                uparams->push_back(up);
+                upassigns->push_back(pa);
+            }
+        }
+        if (!uparams->empty()) {
+            d->Parameters(uparams);
+            d->Param_assigns(upassigns);
+        }
+    }
+
+
     // True when some module signal (net/port/variable) has the given struct
     // type (so its file-level typedef is elaborated with a design parent).
     auto structUsedByModuleSignal = [&](const Type& structType) -> bool {
@@ -386,6 +451,16 @@ UHDM::design* UhdmExporter::exportDesign() {
         p.rt->Actual_typespec(act ? act : makeTypespec(*p.sym));
     }
     pendingSysFuncTs.clear();
+
+    // $unit param typespecs are the very last arena objects.
+    for (auto& pu : pendingUnitParamTs) {
+        auto* its = makeParamTs(*pu.ps, /*typedParam=*/true);
+        pu.prt->Actual_typespec(its);
+        if (pu.rhsRt)
+            pu.rhsRt->Actual_typespec(its);
+        its->VpiParent(pu.up);
+    }
+    pendingUnitParamTs.clear();
 
     d->TopModules(topMods);
 

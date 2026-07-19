@@ -406,6 +406,16 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::property_decl*> propertyDeclMap;
     // Class definitions (design->AllClasses), keyed by the ClassType symbol.
     std::map<const slang::ast::Symbol*, UHDM::class_defn*> classDefnMap;
+    // File-level ($unit) parameters -> design-level parameter objects (refs
+    // bind these); their typespecs materialize at the very end.
+    std::map<const slang::ast::Symbol*, UHDM::parameter*> unitParamMap;
+    struct PendingUnitParamTs {
+        UHDM::parameter* up;
+        UHDM::ref_typespec* prt;
+        UHDM::ref_typespec* rhsRt;
+        const slang::ast::ParameterSymbol* ps;
+    };
+    std::vector<PendingUnitParamTs> pendingUnitParamTs;
     // Class property ts refs patched in the write phase (arena order).
     struct PendingClassPropTs {
         UHDM::ref_typespec* rt;
