@@ -53,19 +53,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         up->VpiParent(m);
         setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
 
-        // Packages: follow the source keyword (slang marks package params
-        // local per LRM; Surelog does not).
+        // Surelog reports vpiLocalParam by the WRITTEN keyword, not slang's
+        // LRM-derived local flag: a module-BODY `parameter` (local per LRM
+        // when the module has an ANSI header) is a real parameter to Surelog.
+        // Packages and function scopes follow the keyword the same way.
         bool isLocal = ps.isLocalParam();
-        // Packages and task/function scopes follow the source keyword (slang
-        // marks these local per the LRM; Surelog reports the written keyword).
-        if (inPackage || funcScope) {
-            isLocal = false;
-            for (auto q = ps.getSyntax(); q; q = q->parent) {
-                if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
-                    isLocal = q->as<syntax::ParameterDeclarationSyntax>().keyword.valueText() ==
-                              "localparam";
-                    break;
-                }
+        for (auto q = ps.getSyntax(); q; q = q->parent) {
+            if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                isLocal = q->as<syntax::ParameterDeclarationSyntax>().keyword.valueText() ==
+                          "localparam";
+                break;
             }
         }
         bool typedParam = false;
