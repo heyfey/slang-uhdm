@@ -152,6 +152,8 @@ private:
     UHDM::interface_inst* makeIfaceRefDup(const slang::ast::InstanceSymbol& inst,
                                           const std::string& path,
                                           UHDM::module_inst* parentM, NetMap& sharedNets);
+    // Named begin/fork blocks by symbol (disable targets resolve to these).
+    std::map<const void*, UHDM::scope*> namedBlockMap;
     // Interface instance -> its col-0 tail duplicate (see makeIfaceRefDup).
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifaceTailDup;
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);

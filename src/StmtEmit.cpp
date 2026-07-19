@@ -236,10 +236,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         }
         case StatementKind::Block: {
             auto& bs = stmt.as<BlockStatement>();
-            if (bs.blockKind != StatementBlockKind::Sequential) {
-                noteUnsupported("parallel block");
-                return nullptr;
-            }
+            bool isFork = bs.blockKind != StatementBlockKind::Sequential;
             // slang wraps for-loops with inline declarations in an implicit
             // block; Surelog has no such wrapper.
             if (bs.syntax && bs.syntax->kind == syntax::SyntaxKind::ForLoopStatement) {
@@ -261,17 +258,37 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             UHDM::scope* b = nullptr;
             std::string innerPrefix = prefix;
             if (bs.blockSymbol && !bs.blockSymbol->name.empty()) {
-                auto* nb = s.MakeNamed_begin();
-                nb->VpiName(bs.blockSymbol->name);
+                UHDM::scope* nb;
+                if (isFork) {
+                    auto* nf = s.MakeNamed_fork();
+                    nf->VpiName(bs.blockSymbol->name);
+                    nb = nf;
+                }
+                else {
+                    auto* nbg = s.MakeNamed_begin();
+                    nbg->VpiName(bs.blockSymbol->name);
+                    nb = nbg;
+                }
                 innerPrefix = prefix + "." + std::string(bs.blockSymbol->name);
                 nb->VpiFullName(innerPrefix);
                 // Anchored at the block name token.
                 auto nl = bs.blockSymbol->location;
                 setLoc(nb, SourceRange(nl, nl + bs.blockSymbol->name.size()));
+                namedBlockMap[bs.blockSymbol] = nb;
                 b = nb;
             }
             else {
-                auto* ub = s.MakeBegin();
+                UHDM::scope* ub;
+                if (isFork) {
+                    auto* fk = s.MakeFork_stmt();
+                    if (bs.blockKind == StatementBlockKind::JoinNone)
+                        fk->VpiJoinType(vpiJoinNone);
+                    else if (bs.blockKind == StatementBlockKind::JoinAny)
+                        fk->VpiJoinType(vpiJoinAny);
+                    ub = fk;
+                }
+                else
+                    ub = s.MakeBegin();
                 ub->VpiFullName(prefix);
                 // stmt.sourceRange covers only the body; the syntax node
                 // covers the full begin..end region that Surelog reports.
@@ -388,9 +405,68 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             if (b->UhdmType() == UHDM::uhdmnamed_begin)
                 ((UHDM::named_begin*)b)->Stmts(stmts);
+            else if (b->UhdmType() == UHDM::uhdmnamed_fork)
+                ((UHDM::named_fork*)b)->Stmts(stmts);
+            else if (b->UhdmType() == UHDM::uhdmfork_stmt)
+                ((UHDM::fork_stmt*)b)->Stmts(stmts);
             else
                 ((UHDM::begin*)b)->Stmts(stmts);
             return b;
+        }
+        case StatementKind::Disable: {
+            auto& ds = stmt.as<DisableStatement>();
+            auto* d = s.MakeDisable();
+            d->VpiParent(parent);
+            setLoc(d, stmt.sourceRange);
+            // The disable target: the named block's scope object.
+            auto& t = stripImplicitConv(ds.target);
+            const Symbol* tgt = nullptr;
+            if (t.kind == ExpressionKind::NamedValue)
+                tgt = &t.as<NamedValueExpression>().symbol;
+            else if (t.kind == ExpressionKind::ArbitrarySymbol)
+                tgt = t.as<ArbitrarySymbolExpression>().symbol;
+            if (tgt)
+                if (auto it2 = namedBlockMap.find(tgt); it2 != namedBlockMap.end())
+                    d->VpiExpr((UHDM::expr*)(UHDM::any*)it2->second);
+            // Surelog can't resolve the block label: it also mints an implicit
+            // module wire named after the target (at the label token).
+            if (tgt && implicitNetModule) {
+                auto& inet = implicitNetMap[tgt];
+                if (!inet) {
+                    inet = s.MakeLogic_net();
+                    inet->VpiName(tgt->name);
+                    inet->VpiFullName(implicitNetPrefix + "." + std::string(tgt->name));
+                    inet->VpiParent(implicitNetModule);
+                    inet->VpiNetType(1);
+                    auto tl = ds.target.sourceRange;
+                    setLoc(inet, tl);
+                    auto* nets2 = implicitNetModule->Nets();
+                    if (!nets2) {
+                        nets2 = s.MakeNetVec();
+                        implicitNetModule->Nets(nets2);
+                    }
+                    nets2->push_back(inet);
+                }
+            }
+            return d;
+        }
+        case StatementKind::ProceduralAssign: {
+            auto& pas = stmt.as<ProceduralAssignStatement>();
+            if (pas.assignment.kind == ExpressionKind::Assignment) {
+                auto& ae = pas.assignment.as<AssignmentExpression>();
+                auto* as2 = s.MakeAssign_stmt();
+                as2->VpiParent(parent);
+                setLoc(as2, stmt.sourceRange);
+                if (auto* r = emitExpr(ae.right(), as2, prefix, netMap))
+                    as2->Rhs((UHDM::expr*)r);
+                inLhs = true;
+                if (auto* l = emitExpr(ae.left(), as2, prefix, netMap))
+                    as2->Lhs((UHDM::expr*)l);
+                inLhs = false;
+                return as2;
+            }
+            noteUnsupported("procedural assign form");
+            return nullptr;
         }
         case StatementKind::RepeatLoop: {
             auto& rl = stmt.as<RepeatLoopStatement>();
