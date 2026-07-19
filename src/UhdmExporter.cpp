@@ -354,9 +354,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                     auto& ct = cp.getType().getCanonicalType();
                     if (!ct.isIntegral())
                         continue;
-                    UHDM::variables* v = ct.isFourState()
-                                             ? (UHDM::variables*)s.MakeLogic_var()
-                                             : (UHDM::variables*)s.MakeBit_var();
+                    // A predefined integer field (int/byte/...) is the
+                    // matching typed var (int_var + vpiSigned), not a bare
+                    // bit_var; anonymous bit/logic vectors keep bit/logic_var.
+                    UHDM::variables* v = nullptr;
+                    if (ct.kind == SymbolKind::PredefinedIntegerType)
+                        v = makeVar(cp, /*portBacked=*/false);
+                    if (!v)
+                        v = ct.isFourState()
+                                ? (UHDM::variables*)s.MakeLogic_var()
+                                : (UHDM::variables*)s.MakeBit_var();
                     v->VpiName(cp.name);
                     v->VpiFullName(cname + "::" + std::string(cp.name));
                     v->VpiParent(cd);
