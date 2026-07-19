@@ -1983,7 +1983,20 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     pendingCastTs.clear();
 
     // Param-clone typespecs for param-backed call folds (very end).
+    // VECTOR params clone a LOC-LESS bare typespec instead (parented bounds,
+    // clone parented at the ref).
     for (auto& pc : pendingParamCloneTs) {
+        auto* rc0 = pc.rt->VpiParent();
+        bool uintFold = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
+                        ((UHDM::constant*)rc0)->VpiValue().rfind("UINT:", 0) == 0;
+        if (uintFold && !isOverriddenParam(*pc.ps) &&
+            pc.ps->getType().getCanonicalType().isPackedArray()) {
+            if (auto* bare = makeBareVecParamTs(*pc.ps, /*parentBounds=*/true)) {
+                bare->VpiParent(pc.rt);
+                pc.rt->Actual_typespec(bare);
+                continue;
+            }
+        }
         auto* its = makeParamTs(*pc.ps, /*typedParam=*/true);
         if (auto sc = pc.ps->getParentScope()) {
             if (auto pit = pkgDefMap.find(&sc->asSymbol()); pit != pkgDefMap.end())

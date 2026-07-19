@@ -212,6 +212,8 @@ private:
     bool isIntEncoded(const slang::ast::Expression& e);
     void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
     void patchParamTypespecs(size_t lo, size_t hi);
+    UHDM::typespec* makeBareVecParamTs(const slang::ast::ParameterSymbol& ps,
+                                       bool parentBounds);
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
                                 bool parentBounds = false);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
@@ -440,6 +442,9 @@ private:
     std::string syntaxRefPrefix;
     std::string syntaxRefSep = ".";
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
+    // Def-view fold-constant ts refs of VECTOR-typed params: bound late to a
+    // fresh LOC-LESS bare clone (see patchParamTypespecs).
+    std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> pendingBareVecTs;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
 

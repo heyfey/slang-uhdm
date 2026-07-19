@@ -705,12 +705,52 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     return its;
 }
 
+// A LOC-LESS bare logic_typespec clone of a vector param's packed range;
+// bound constants carry ONLY the UINT value (parented at the range when
+// parentBounds).
+UHDM::typespec* UhdmExporter::makeBareVecParamTs(const ParameterSymbol& ps,
+                                                 bool parentBounds) {
+    auto& ct = ps.getType().getCanonicalType();
+    if (!ct.isPackedArray())
+        return nullptr;
+    auto& pat = ct.as<PackedArrayType>();
+    auto* lts = s.MakeLogic_typespec();
+    auto* r = s.MakeRange();
+    r->VpiParent(lts);
+    auto mk = [&](int64_t v) {
+        auto* c = s.MakeConstant();
+        c->VpiValue("UINT:" + std::to_string(v));
+        if (parentBounds)
+            c->VpiParent(r);
+        return c;
+    };
+    r->Left_expr(mk(pat.range.left));
+    r->Right_expr(mk(pat.range.right));
+    auto* rv = s.MakeRangeVec();
+    rv->push_back(r);
+    lts->Ranges(rv);
+    return lts;
+}
+
 void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
         auto* its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
-        if (rhsRt)
-            rhsRt->Actual_typespec(its);
+        if (rhsRt) {
+            // The ELAB UINT-recomputed fold ('1 -> all-ones) of a VECTOR
+            // param binds a fresh LOC-LESS bare clone (unparented bounds,
+            // no clone parent); BIN-valued folds keep the located ts.
+            auto* rc0 = rhsRt->VpiParent();
+            bool uintFold = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
+                            ((UHDM::constant*)rc0)->VpiValue().rfind("UINT:", 0) == 0;
+            if (uintFold && typedParam && !isOverriddenParam(*ps) &&
+                ps->getType().getCanonicalType().isPackedArray()) {
+                if (auto* bare = makeBareVecParamTs(*ps, /*parentBounds=*/false))
+                    rhsRt->Actual_typespec(bare);
+            }
+            else
+                rhsRt->Actual_typespec(its);
+        }
         prt->Actual_typespec(its);
         its->VpiParent(prt);
         // A param used as a cast width hangs a vpiExpr ref on its def-view
