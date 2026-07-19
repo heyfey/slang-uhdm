@@ -1697,8 +1697,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     rawText(cfr2.lit->sourceRange).find('\'') == std::string::npos)
                     ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
             }
-            if (!rhs)
+            if (!rhs) {
+                // Gen-scope STREAMING operand refs stay unbound (Surelog).
+                const Expression* rc0 = &stripImplicitConv(ae.right());
+                if (rc0->kind == ExpressionKind::Conversion)
+                    rc0 = &stripImplicitConv(
+                        rc0->as<ConversionExpression>().operand());
+                bool streamRhs = rc0->kind == ExpressionKind::Streaming;
+                if (streamRhs)
+                    suppressRefActual = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
+                if (streamRhs)
+                    suppressRefActual = false;
+            }
             if (rhs)
                 ca->Rhs((UHDM::expr*)rhs);
             forceConstParent = forceSaved;
@@ -1866,6 +1877,15 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             if (auto tsyn3 = dt3->getTypeSyntax();
                 tsyn3 && syntax::IntegerTypeSyntax::isKind(tsyn3->kind)) {
                 auto& dims3 = tsyn3->as<syntax::IntegerTypeSyntax>().dimensions;
+                if (dims3.size() >= 2) {
+                    auto de = dims3[0]->sourceRange().end();
+                    ts->VpiEndLineNo(sm->getLineNumber(de));
+                    ts->VpiEndColumnNo(sm->getColumnNumber(de));
+                }
+            }
+            // Implicit-type nets (wire [3:0][7:0] t) likewise.
+            else if (tsyn3 && tsyn3->kind == syntax::SyntaxKind::ImplicitType) {
+                auto& dims3 = tsyn3->as<syntax::ImplicitTypeSyntax>().dimensions;
                 if (dims3.size() >= 2) {
                     auto de = dims3[0]->sourceRange().end();
                     ts->VpiEndLineNo(sm->getLineNumber(de));

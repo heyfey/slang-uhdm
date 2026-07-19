@@ -594,11 +594,18 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     // A real (real/shortreal) param is a real_typespec.
     if (typedParam && !its && ps.getType().getCanonicalType().isFloating())
         its = s.MakeReal_typespec();
-    // A typed logic/bit scalar param is a logic_typespec, not an int_typespec.
+    // A typed logic/bit scalar param is a logic/bit_typespec, not an
+    // int_typespec.
     if (typedParam && !its) {
         auto& ct = ps.getType().getCanonicalType();
         if (ct.kind == SymbolKind::ScalarType && ct.isFourState()) {
             auto* t = s.MakeLogic_typespec();
+            if (sgn)
+                t->VpiSigned(true);
+            its = t;
+        }
+        else if (ct.kind == SymbolKind::ScalarType) {
+            auto* t = s.MakeBit_typespec();
             if (sgn)
                 t->VpiSigned(true);
             its = t;

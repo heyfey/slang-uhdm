@@ -1154,6 +1154,66 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
         case syntax::SyntaxKind::ParenthesizedExpression:
             return emitSyntaxExpr(*syn.as<syntax::ParenthesizedExpressionSyntax>().expression,
                                   parent);
+        case syntax::SyntaxKind::ElementSelectExpression:
+        case syntax::SyntaxKind::IdentifierSelectName: {
+            // t[0] -> bit_select (prefix-scoped fullname, parented index).
+            std::string_view bname;
+            const syntax::SelectorSyntax* sel = nullptr;
+            if (syn.kind == syntax::SyntaxKind::ElementSelectExpression) {
+                auto& ese = syn.as<syntax::ElementSelectExpressionSyntax>();
+                if (ese.left->kind != syntax::SyntaxKind::IdentifierName)
+                    return nullptr;
+                bname = ese.left->as<syntax::IdentifierNameSyntax>()
+                            .identifier.valueText();
+                sel = ese.select->selector;
+            }
+            else {
+                auto& isn = syn.as<syntax::IdentifierSelectNameSyntax>();
+                bname = isn.identifier.valueText();
+                if (isn.selectors.size() != 1)
+                    return nullptr;
+                sel = isn.selectors[0]->selector;
+            }
+            auto* bs = s.MakeBit_select();
+            bs->VpiName(bname);
+            if (!syntaxRefPrefix.empty())
+                bs->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(bname));
+            bs->VpiParent(parent);
+            setLoc(bs, syn.sourceRange());
+            if (sel && sel->kind == syntax::SyntaxKind::BitSelect)
+                if (auto* ix = emitSyntaxExpr(
+                        *sel->as<syntax::BitSelectSyntax>().expr, bs))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            return bs;
+        }
+        case syntax::SyntaxKind::StreamingConcatenationExpression: {
+            // {<< [N] {a,b}}: stream op at the INNER braces span wrapping a
+            // concat that takes the WHOLE streaming span (Surelog span swap);
+            // an explicit slice size is a located first operand.
+            auto& sce = syn.as<syntax::StreamingConcatenationExpressionSyntax>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(sce.operatorToken.valueText() == ">>" ? vpiStreamLROp
+                                                                : vpiStreamRLOp);
+            op->VpiParent(parent);
+            setLoc(op, SourceRange(sce.innerOpenBrace.location(),
+                                   sce.innerCloseBrace.location() + 1));
+            auto* outer = s.MakeAnyVec();
+            if (sce.sliceSize)
+                if (auto* c = emitSyntaxExpr(*sce.sliceSize, op))
+                    outer->push_back(c);
+            auto* cc = s.MakeOperation();
+            cc->VpiOpType(vpiConcatOp);
+            cc->VpiParent(op);
+            setLoc(cc, syn.sourceRange());
+            auto* inner = s.MakeAnyVec();
+            for (auto* se : sce.expressions)
+                if (auto* e = emitSyntaxExpr(*se->expression, cc))
+                    inner->push_back(e);
+            cc->Operands(inner);
+            outer->push_back(cc);
+            op->Operands(outer);
+            return op;
+        }
         case syntax::SyntaxKind::InvocationExpression: {
             auto& inv = syn.as<syntax::InvocationExpressionSyntax>();
             // System call ($bits(dmi_t)): a sys_func_call with the argument
