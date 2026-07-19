@@ -361,6 +361,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (v0.rfind("BIN:", 0) == 0 &&
                         (v0.find_first_of("xXzZ") != std::string_view::npos)) {
                         // (emitExpr already uppercased the value/decompile.)
+                        // Elab-view unbased-unsized 'x/'z decompiles with an
+                        // explicit 'b base ('x -> 'bX); the def view keeps the
+                        // bare 'X (Surelog quirk).
+                        if (topView &&
+                            stripImplicitConv(*init).kind ==
+                                ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                            rc->VpiDecompile("'b" + std::string(v0.substr(4)));
                         if (!wantTs && !rc->Typespec()) {
                             auto* brt = s.MakeRef_typespec();
                             std::string tsPrefix = prefix;
