@@ -38,6 +38,9 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
         case ProceduralBlockKind::Initial:
             proc = s.MakeInitial();
             break;
+        case ProceduralBlockKind::Final:
+            proc = s.MakeFinal_stmt();
+            break;
         default:
             noteUnsupported("procedure kind: " + std::string(toString(block.procedureKind)));
             return nullptr;

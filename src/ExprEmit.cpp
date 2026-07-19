@@ -1822,6 +1822,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (dotted.find('.') != std::string::npos)
                     return buildDottedHierPath(expr, dotted, parent, prefix);
             }
+            // Member access threading an ELEMENT SELECT over an interface
+            // array (s[0].req.wdt): dotted hier_path (a[i] components become
+            // bit_selects in the builder... approximate with refs).
+            if (base->kind == ExpressionKind::ElementSelect) {
+                auto& esb = base->as<ElementSelectExpression>();
+                auto& ebv = stripImplicitConv(esb.value());
+                if (ebv.kind == ExpressionKind::ArbitrarySymbol ||
+                    ebv.kind == ExpressionKind::HierarchicalValue) {
+                    std::string dotted = rawText(expr.sourceRange);
+                    if (dotted.find('.') != std::string::npos)
+                        return buildDottedHierPath(expr, dotted, parent, prefix);
+                }
+            }
             if (base->kind != ExpressionKind::NamedValue) {
                 noteUnsupported("member access base");
                 return nullptr;
