@@ -67,6 +67,61 @@ std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     return sm->getFullPath(loc.buffer()).string();
 }
 
+// A class definition (file-level or module-local): properties as ::-scoped
+// automatic vars (typespecs deferred to the write phase), methods via
+// emitTaskFuncs in class scope. File-level classes display their work@ name;
+// module-local ones keep the bare name with a work@mod::name fullname.
+UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
+                                              const std::string& dispName,
+                                              const std::string& fullName,
+                                              UHDM::BaseClass* parent) {
+    auto* cd = s.MakeClass_defn();
+    cd->VpiName(dispName);
+    if (fullName != dispName)
+        cd->VpiFullName(fullName);
+    cd->VpiParent(parent);
+    cd->VpiFile(fullFilePath(cls.location));
+    if (auto syn = cls.getSyntax())
+        setLoc(cd, syn->sourceRange());
+    auto* vars = s.MakeVariablesVec();
+    for (auto& pm : cls.members()) {
+        if (pm.kind != SymbolKind::ClassProperty)
+            continue;
+        auto& cp = pm.as<ClassPropertySymbol>();
+        auto& ct = cp.getType().getCanonicalType();
+        if (!ct.isIntegral())
+            continue;
+        // A predefined integer field (int/byte/...) is the matching typed
+        // var (int_var + vpiSigned), not a bare bit_var; anonymous bit/logic
+        // vectors keep bit/logic_var.
+        UHDM::variables* v = nullptr;
+        if (ct.kind == SymbolKind::PredefinedIntegerType)
+            v = makeVar(cp, /*portBacked=*/false);
+        if (!v)
+            v = ct.isFourState() ? (UHDM::variables*)s.MakeLogic_var()
+                                 : (UHDM::variables*)s.MakeBit_var();
+        v->VpiName(cp.name);
+        v->VpiFullName(fullName + "::" + std::string(cp.name));
+        v->VpiParent(cd);
+        setLoc(v, nameSpan(cp.location, cp.name));
+        v->VpiAutomatic(true);
+        v->VpiVisibility(1);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(fullName + "::" + std::string(cp.name));
+        rt->VpiParent(v);
+        // The property ts is created in the write phase (arena order): the
+        // ref is patched then.
+        pendingClassPropTs.push_back({rt, &cp, v});
+        v->Typespec(rt);
+        vars->push_back(v);
+    }
+    if (!vars->empty())
+        cd->Variables(vars);
+    classDefnMap[&cls] = cd;
+    emitTaskFuncs(cls, cd, fullName + "::", nullptr, false);
+    return cd;
+}
+
 UHDM::design* UhdmExporter::exportDesign() {
     auto& root = comp.getRoot();
 
@@ -339,50 +394,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (mem.kind != SymbolKind::ClassType)
                     continue;
                 auto& cls = mem.as<ClassType>();
-                auto* cd = s.MakeClass_defn();
                 std::string cname = "work@" + std::string(cls.name);
-                cd->VpiName(cname);
-                cd->VpiParent(d);
-                cd->VpiFile(fullFilePath(cls.location));
-                if (auto syn = cls.getSyntax())
-                    setLoc(cd, syn->sourceRange());
-                auto* vars = s.MakeVariablesVec();
-                for (auto& pm : cls.members()) {
-                    if (pm.kind != SymbolKind::ClassProperty)
-                        continue;
-                    auto& cp = pm.as<ClassPropertySymbol>();
-                    auto& ct = cp.getType().getCanonicalType();
-                    if (!ct.isIntegral())
-                        continue;
-                    // A predefined integer field (int/byte/...) is the
-                    // matching typed var (int_var + vpiSigned), not a bare
-                    // bit_var; anonymous bit/logic vectors keep bit/logic_var.
-                    UHDM::variables* v = nullptr;
-                    if (ct.kind == SymbolKind::PredefinedIntegerType)
-                        v = makeVar(cp, /*portBacked=*/false);
-                    if (!v)
-                        v = ct.isFourState()
-                                ? (UHDM::variables*)s.MakeLogic_var()
-                                : (UHDM::variables*)s.MakeBit_var();
-                    v->VpiName(cp.name);
-                    v->VpiFullName(cname + "::" + std::string(cp.name));
-                    v->VpiParent(cd);
-                    setLoc(v, nameSpan(cp.location, cp.name));
-                    v->VpiAutomatic(true);
-                    v->VpiVisibility(1);
-                    auto* rt = s.MakeRef_typespec();
-                    rt->VpiFullName(cname + "::" + std::string(cp.name));
-                    rt->VpiParent(v);
-                    // The property ts is created in the write phase (arena
-                    // order): the ref is patched then.
-                    pendingClassPropTs.push_back({rt, &cp, v});
-                    v->Typespec(rt);
-                    vars->push_back(v);
-                }
-                if (!vars->empty())
-                    cd->Variables(vars);
-                classDefnMap[&cls] = cd;
-                emitTaskFuncs(cls, cd, cname + "::", nullptr, false);
+                auto* cd = emitClassDefn(cls, cname, cname, d);
                 classes->push_back(cd);
             }
         }

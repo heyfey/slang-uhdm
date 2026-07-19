@@ -13,6 +13,7 @@
 
 namespace slang::ast {
 class Compilation;
+class ClassType;
 class InstanceSymbol;
 class InstanceBodySymbol;
 class DefinitionSymbol;
@@ -149,6 +150,10 @@ private:
     // and is referenced only weakly (from a receiving module port's HighConn
     // ref_obj), so the dumper lists it in the weaklyReferenced tail. Semantically
     // redundant (see NOTES) — a future switch (default off) can skip it.
+    UHDM::class_defn* emitClassDefn(const slang::ast::ClassType& cls,
+                                    const std::string& dispName,
+                                    const std::string& fullName,
+                                    UHDM::BaseClass* parent);
     UHDM::interface_inst* makeIfaceRefDup(const slang::ast::InstanceSymbol& inst,
                                           const std::string& path,
                                           UHDM::module_inst* parentM, NetMap& sharedNets,

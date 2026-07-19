@@ -68,6 +68,22 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // def's arena region.
     emitTypedefs(body, m, prefix, info);
 
+    // Module-LOCAL class definitions attach under the def module's
+    // vpiClassDefn (bare name, work@mod::name fullname).
+    {
+        auto* mclasses = s.MakeClass_defnVec();
+        for (auto& mem : body.members()) {
+            if (mem.kind != SymbolKind::ClassType)
+                continue;
+            auto& cls = mem.as<ClassType>();
+            mclasses->push_back(emitClassDefn(cls, std::string(cls.name),
+                                              prefix + "::" + std::string(cls.name),
+                                              m));
+        }
+        if (!mclasses->empty())
+            m->Class_defns(mclasses);
+    }
+
     // Nets in Surelog's collection order: explicit declarations by source
     // location, then port-declaration-only nets in port-list order.
     for (auto portBase : body.getPortList()) {
@@ -100,11 +116,30 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         // Implicit nets print no typespec.
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
-        // Class-handle def nets carry NO typespec at all.
+        // A class-handle def net carries a typespec ONLY when the handle is
+        // never procedurally assigned (bar = new() strips it — OneThis vs
+        // OneClass).
         bool classHandle =
             it.sym->getDeclaredType() &&
             it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::ClassType;
+        if (classHandle) {
+            bool written = false;
+            for (auto& mb : body.members()) {
+                if (mb.kind != SymbolKind::ProceduralBlock)
+                    continue;
+                mb.as<ProceduralBlockSymbol>().getBody().visit(
+                    makeVisitor([&](auto& vis, const AssignmentExpression& ax) {
+                        auto& lc = stripImplicitConv(ax.left());
+                        if (lc.kind == ExpressionKind::NamedValue &&
+                            &lc.as<NamedValueExpression>().symbol == it.sym)
+                            written = true;
+                        vis.visitDefault(ax);
+                    }));
+            }
+            if (!written)
+                classHandle = false;
+        }
         if (!it.port && !implicitNet && !classHandle) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
