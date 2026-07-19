@@ -20,6 +20,18 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         if (auto it = typedefTs.find(&declared->getType());
             it != typedefTs.end() && !bypassTypedefShare)
             return it->second;
+        // Class handles: a fresh class_typespec per declaration, named by the
+        // class and linked to its class_defn.
+        if (auto& ct0 = declared->getType().getCanonicalType();
+            ct0.kind == SymbolKind::ClassType) {
+            auto* cts = s.MakeClass_typespec();
+            cts->VpiName(ct0.name);
+            if (auto cit = classDefnMap.find(&ct0); cit != classDefnMap.end())
+                cts->Class_defn(cit->second);
+            if (auto tsyn0 = declared->getTypeSyntax())
+                setLoc(cts, tsyn0->sourceRange());
+            return cts;
+        }
         if (!typeSynOverride) {
             auto& ct0 = declared->getType().getCanonicalType();
             if (ct0.kind == SymbolKind::EnumType)
@@ -267,7 +279,14 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         }
     }
 
-    auto* ts = s.MakeLogic_typespec();
+    // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
+    UHDM::typespec* ts0;
+    if (declared && declared->getType().isIntegral() &&
+        !declared->getType().getCanonicalType().isFourState())
+        ts0 = s.MakeBit_typespec();
+    else
+        ts0 = s.MakeLogic_typespec();
+    auto* ts = (UHDM::logic_typespec*)ts0;
     // Net-keyword-anchored typespecs omit the signed flag.
     if (declared && declared->getType().isSigned() && !netKeywordAnchor)
         ts->VpiSigned(true);
@@ -436,6 +455,12 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
     if (ct.kind == SymbolKind::EnumType && internal.kind == SymbolKind::Variable) {
         auto* v = s.MakeEnum_var();
+        v->VpiVisibility(1);
+        return v;
+    }
+    // Class handles are class_vars in the elab view.
+    if (ct.kind == SymbolKind::ClassType) {
+        auto* v = s.MakeClass_var();
         v->VpiVisibility(1);
         return v;
     }

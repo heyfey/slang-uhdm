@@ -150,6 +150,28 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
     hp->VpiFullName(dotted);
     hp->VpiParent(parent);
     setLoc(hp, expr.sourceRange);
+    // this.member: the hier_path spans the `this` token; the this ref
+    // anchors at the MEMBER token; the member ref is loc-less with a
+    // scope-prefixed fullname.
+    if (dotted.rfind("this.", 0) == 0 && dotted.find('.', 5) == std::string::npos) {
+        std::string member = dotted.substr(5);
+        auto st = expr.sourceRange.start();
+        setLoc(hp, SourceRange(st, st + 4));
+        auto* elems = s.MakeAnyVec();
+        auto* rt = s.MakeRef_obj();
+        rt->VpiName("this");
+        rt->VpiFullName("this");
+        rt->VpiParent(hp);
+        setLoc(rt, SourceRange(st + 5, st + 5 + member.size()));
+        elems->push_back(rt);
+        auto* rm = s.MakeRef_obj();
+        rm->VpiName(member);
+        rm->VpiFullName(joinRef(prefix, member));
+        rm->VpiParent(hp);
+        elems->push_back(rm);
+        hp->Path_elems(elems);
+        return hp;
+    }
     auto* elems = s.MakeAnyVec();
     auto exprStart = expr.sourceRange.start();
     // Split into (name, offset) components.
@@ -405,8 +427,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             asn->VpiParent(parent);
             setLoc(asn, expr.sourceRange);
             inLhs = true;
-            if (auto* lhs = emitExpr(ae.left(), asn, prefix, netMap))
+            if (auto* lhs = emitExpr(ae.left(), asn, prefix, netMap)) {
                 asn->Lhs((UHDM::expr*)lhs);
+                // A class-handle assignment (bar = new()) re-parents its Lhs
+                // ref through an artifact hier_path (weakly-tail only).
+                if (stripImplicitConv(*rhsExpr).kind == ExpressionKind::NewClass &&
+                    lhs->UhdmType() == UHDM::uhdmref_obj) {
+                    auto* hp = s.MakeHier_path();
+                    hp->VpiName(((UHDM::ref_obj*)lhs)->VpiName());
+                    hp->VpiFullName(((UHDM::ref_obj*)lhs)->VpiName());
+                    hp->VpiParent(asn);
+                    auto* elems = s.MakeAnyVec();
+                    elems->push_back(lhs);
+                    hp->Path_elems(elems);
+                    lhs->VpiParent(hp);
+                    ((UHDM::ref_obj*)lhs)->Actual_group(nullptr);
+                }
+            }
             inLhs = false;
             if (auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap)) {
                 // In a FUNCTION body, an unbased-unsized '0/'1/'x RHS takes the
@@ -1018,6 +1055,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (!call.isSystemCall()) {
                 callStmtContext = false;
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
+                // Class METHOD calls (bar.set(4)): a method_func_call at the
+                // method token, with an UNBOUND receiver ref as vpiPrefix.
+                if (auto psc0 = sub.getParentScope();
+                    psc0 && psc0->asSymbol().kind == SymbolKind::ClassType &&
+                    call.thisClass()) {
+                    auto* mfc = s.MakeMethod_func_call();
+                    mfc->VpiName(sub.name);
+                    mfc->VpiParent(parent);
+                    auto& recv = *call.thisClass();
+                    setLoc(mfc, nameSpan(recv.sourceRange.end() + 1, sub.name));
+                    auto& rb = stripImplicitConv(recv);
+                    if (rb.kind == ExpressionKind::NamedValue) {
+                        auto* pr = s.MakeRef_obj();
+                        pr->VpiName(rb.as<NamedValueExpression>().symbol.name);
+                        pr->VpiFullName(joinRef(
+                            prefix, rb.as<NamedValueExpression>().symbol.name));
+                        pr->VpiParent(mfc);
+                        setLoc(pr, recv.sourceRange);
+                        mfc->Prefix(pr);
+                    }
+                    auto* margs = s.MakeAnyVec();
+                    for (auto arg : call.arguments()) {
+                        bool fs2 = forceConstParent;
+                        if (isLiteralExpr(*arg))
+                            forceConstParent = true;
+                        if (auto* a2 = emitExpr(*arg, mfc, prefix, netMap))
+                            margs->push_back(a2);
+                        forceConstParent = fs2;
+                    }
+                    if (!margs->empty())
+                        mfc->Tf_call_args(margs);
+                    return mfc;
+                }
                 auto it = subMap.find(&sub);
                 if (it == subMap.end()) {
                     // Calls seen before the def fill (param inits): create a
@@ -2091,7 +2161,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->VpiName(dotted);
             hp->VpiFullName(dotted);
             hp->VpiParent(parent);
-            setLoc(hp, expr.sourceRange);
+            // this.member: the hier_path spans the `this` token only, and the
+            // member ref is loc-less with a scope-prefixed fullname.
+            bool thisPath = nv.symbol.name == "this";
+            if (thisPath)
+                setLoc(hp, base->sourceRange);
+            else
+                setLoc(hp, expr.sourceRange);
             auto* elems = s.MakeAnyVec();
             {
                 auto* r = s.MakeRef_obj();
@@ -2123,8 +2199,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!inLhs && *it2 == chain.front())
                     r->VpiFullName(prefix + "." + std::string(ma.member.name));
                 r->VpiParent(hp);
-                auto end = (*it2)->sourceRange.end();
-                setLoc(r, SourceRange(end - ma.member.name.size(), end));
+                if (thisPath && *it2 == chain.front()) {
+                    r->VpiFullName(joinRef(prefix, ma.member.name));
+                }
+                else {
+                    auto end = (*it2)->sourceRange.end();
+                    setLoc(r, SourceRange(end - ma.member.name.size(), end));
+                }
                 elems->push_back(r);
             }
             hp->Path_elems(elems);
@@ -2523,6 +2604,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Interface-port member access (sub.sig): a hier_path with one
             // ref_obj element per dotted component.
             return buildDottedHierPath(expr, dotted, parent, prefix);
+        }
+        case ExpressionKind::NewClass: {
+            // bar = new(): a loc-less method_func_call named "new".
+            auto* mfc = s.MakeMethod_func_call();
+            mfc->VpiName("new");
+            mfc->VpiParent(parent);
+            return mfc;
         }
         case ExpressionKind::AssertionInstance: {
             // A named-property instantiation (down_n(8'd3)): property_inst

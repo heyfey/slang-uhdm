@@ -82,7 +82,12 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         // Implicit nets print no typespec.
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
-        if (!it.port && !implicitNet) {
+        // Class-handle def nets carry NO typespec at all.
+        bool classHandle =
+            it.sym->getDeclaredType() &&
+            it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::ClassType;
+        if (!it.port && !implicitNet && !classHandle) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
             auto* rt = s.MakeRef_typespec();

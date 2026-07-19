@@ -25,16 +25,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                  bool sharedScope) {
     bool genScope = m->UhdmType() == UHDM::uhdmgen_scope;
     bool designScope = m->UhdmType() == UHDM::uhdmdesign;
-    // Packages use :: separators below the function name too.
+    bool classScope = m->UhdmType() == UHDM::uhdmclass_defn;
+    // Packages (and classes) use :: separators below the function name too.
     bool pkgScope = prefix.size() >= 2 && prefix.compare(prefix.size() - 2, 2, "::") == 0;
     std::string sep = pkgScope ? "::" : ".";
     auto* savedPkgInst = pkgScopeInst;
-    pkgScopeInst = pkgScope ? (UHDM::instance*)m : nullptr;
+    pkgScopeInst = (pkgScope && !classScope) ? (UHDM::instance*)m : nullptr;
     auto* tfs = s.MakeTask_funcVec();
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Subroutine)
             continue;
         auto& sub = member.as<SubroutineSymbol>();
+        // Class scopes skip slang's implicit built-ins (randomize etc.).
+        if (classScope && !sub.getSyntax())
+            continue;
         bool isFunc = sub.subroutineKind == SubroutineKind::Function;
         // A DPI-EXPORTED subroutine is emitted as a function (even a task)
         // carrying DPI export attributes.
@@ -75,7 +79,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             tf->VpiAccessType(3);
             tf->VpiDPICStr(2);
         }
-        else if (sub.defaultLifetime == VariableLifetime::Automatic) {
+        else if (sub.defaultLifetime == VariableLifetime::Automatic && !classScope) {
             tf->VpiAutomatic(true);
         }
         // An exported FUNCTION locates at the export DIRECTIVE's span
@@ -84,9 +88,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             setLoc(tf, dpiExportSyn->sourceRange());
         else if (auto syn = sub.getSyntax())
             setLoc(tf, syn->sourceRange());
-        if (designScope)
+        if (designScope || classScope)
             tf->VpiMethod(true);
-        if (!genScope && !designScope)
+        if (!genScope && !designScope && !classScope)
             tf->Instance((UHDM::instance*)m);
 
         SubInfo si;
@@ -289,7 +293,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         its2 && !its2->dimensions.empty())
                         setLoc((UHDM::BaseClass*)ts, its2->keyword.range());
                 }
-                if (pkgScope)
+                if (pkgScope && !classScope)
                     ((UHDM::typespec*)ts)->Instance((UHDM::instance*)m);
                 rt->Actual_typespec(ts);
             }
@@ -301,7 +305,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (auto* ranges = buildUnpackedRanges(*arg, io))
                     io->Ranges(ranges);
             ios->push_back(io);
-            funcMap[arg] = io;
+            // Class-method body refs to formals stay UNBOUND.
+            if (!classScope)
+                funcMap[arg] = io;
             si.argTs.push_back({ts, bareImplicit ? (const void*)argTsyn : nullptr});
         }
         if (!ios->empty())
@@ -319,6 +325,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         {
             auto* fvars = s.MakeVariablesVec();
             for (auto& fmv : sub.members()) {
+                // The implicit `this` handle is not a local.
+                if (fmv.name == "this")
+                    continue;
                 if (fmv.kind != SymbolKind::Variable || &fmv == sub.returnValVar)
                     continue;
                 bool isArg = false;
@@ -400,6 +409,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             ((UHDM::gen_scope*)m)->Task_funcs(tfs);
         else if (designScope)
             ((UHDM::design*)m)->Task_funcs(tfs);
+        else if (classScope)
+            ((UHDM::class_defn*)m)->Task_funcs(tfs);
         else
             ((UHDM::instance*)m)->Task_funcs(tfs);
     }

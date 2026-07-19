@@ -272,11 +272,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     nbg->VpiName(bs.blockSymbol->name);
                     nb = nbg;
                 }
-                innerPrefix = prefix + "." + std::string(bs.blockSymbol->name);
+                innerPrefix = joinRef(prefix, bs.blockSymbol->name);
                 nb->VpiFullName(innerPrefix);
                 // Anchored at the block name token.
                 auto nl = bs.blockSymbol->location;
                 setLoc(nb, SourceRange(nl, nl + bs.blockSymbol->name.size()));
+                // end : label
+                if (stmt.syntax &&
+                    stmt.syntax->kind == syntax::SyntaxKind::SequentialBlockStatement)
+                    if (auto* ebn = stmt.syntax->as<syntax::BlockStatementSyntax>()
+                                        .endBlockName) {
+                        if (!isFork)
+                            ((UHDM::named_begin*)nb)
+                                ->VpiEndLabel(ebn->name.valueText());
+                    }
                 namedBlockMap[bs.blockSymbol] = nb;
                 b = nb;
             }

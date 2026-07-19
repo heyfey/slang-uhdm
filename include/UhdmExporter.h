@@ -404,6 +404,15 @@ private:
     std::map<const slang::ast::Symbol*, std::vector<UHDM::ref_typespec*>> noDefOvTsRef;
     // Named property declarations (shared def objects, listed in elab views).
     std::map<const slang::ast::Symbol*, UHDM::property_decl*> propertyDeclMap;
+    // Class definitions (design->AllClasses), keyed by the ClassType symbol.
+    std::map<const slang::ast::Symbol*, UHDM::class_defn*> classDefnMap;
+    // Class property ts refs patched in the write phase (arena order).
+    struct PendingClassPropTs {
+        UHDM::ref_typespec* rt;
+        const slang::ast::Symbol* sym;
+        UHDM::variables* var;
+    };
+    std::vector<PendingClassPropTs> pendingClassPropTs;
     // Set while emitting a property-decl body: formal refs (which bind as
     // Invalid) resolve through this scope to implicit module wires.
     const slang::ast::Scope* propDeclScope = nullptr;

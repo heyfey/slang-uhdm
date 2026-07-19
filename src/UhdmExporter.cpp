@@ -265,10 +265,72 @@ UHDM::design* UhdmExporter::exportDesign() {
             emitModuleDef(*inst, false);
     }
 
+    // File-level class definitions -> design->AllClasses: properties as
+    // ::-scoped automatic vars, methods via emitTaskFuncs (class scope).
+    {
+        auto* classes = s.MakeClass_defnVec();
+        for (auto unit : comp.getCompilationUnits()) {
+            for (auto& mem : unit->members()) {
+                if (mem.kind != SymbolKind::ClassType)
+                    continue;
+                auto& cls = mem.as<ClassType>();
+                auto* cd = s.MakeClass_defn();
+                std::string cname = "work@" + std::string(cls.name);
+                cd->VpiName(cname);
+                cd->VpiParent(d);
+                cd->VpiFile(fullFilePath(cls.location));
+                if (auto syn = cls.getSyntax())
+                    setLoc(cd, syn->sourceRange());
+                auto* vars = s.MakeVariablesVec();
+                for (auto& pm : cls.members()) {
+                    if (pm.kind != SymbolKind::ClassProperty)
+                        continue;
+                    auto& cp = pm.as<ClassPropertySymbol>();
+                    auto& ct = cp.getType().getCanonicalType();
+                    if (!ct.isIntegral())
+                        continue;
+                    UHDM::variables* v = ct.isFourState()
+                                             ? (UHDM::variables*)s.MakeLogic_var()
+                                             : (UHDM::variables*)s.MakeBit_var();
+                    v->VpiName(cp.name);
+                    v->VpiFullName(cname + "::" + std::string(cp.name));
+                    v->VpiParent(cd);
+                    setLoc(v, nameSpan(cp.location, cp.name));
+                    v->VpiAutomatic(true);
+                    v->VpiVisibility(1);
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(cname + "::" + std::string(cp.name));
+                    rt->VpiParent(v);
+                    // The property ts is created in the write phase (arena
+                    // order): the ref is patched then.
+                    pendingClassPropTs.push_back({rt, &cp, v});
+                    v->Typespec(rt);
+                    vars->push_back(v);
+                }
+                if (!vars->empty())
+                    cd->Variables(vars);
+                classDefnMap[&cls] = cd;
+                emitTaskFuncs(cls, cd, cname + "::", nullptr, false);
+                classes->push_back(cd);
+            }
+        }
+        if (!classes->empty())
+            d->AllClasses(classes);
+    }
+
+
     for (auto inst : root.topInstances) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
         topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
     }
+    // Class property typespecs materialize post-elab (write phase).
+    for (auto& pc : pendingClassPropTs) {
+        auto* ts = makeTypespec(*pc.sym);
+        pc.rt->Actual_typespec(ts);
+        if (ts)
+            ts->VpiParent(pc.var);
+    }
+    pendingClassPropTs.clear();
     // Write phase: walk defs NAME-SORTED; top defs write their ports +
     // deferred typespecs, other defs materialize their local-net typespecs
     // (Surelog write-phase arena order).
