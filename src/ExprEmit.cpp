@@ -746,6 +746,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         deferredCast = true;
                     }
                 }
+                else if (expr.type && expr.type->kind == SymbolKind::TypeAlias &&
+                         typedefTs.count(expr.type)) {
+                    // A cast to a NAMED typedef (my_struct'(a)): the shared
+                    // typedef typespec is the cast target.
+                    cts = typedefTs[expr.type];
+                }
                 else if (currentScope) {
                     // Non-literal cast sizes: integer_typespec carrying the
                     // freshly-bound size expression as vpiExpr (parented at
