@@ -2318,8 +2318,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Simple (constant) part-select writes do NOT re-point whole refs.
             // Fullname is frozen from the parent chain (matches Surelog's
             // lazily-computed values, incl. the doubled name under a
-            // bit_select index).
-            (void)psel->VpiFullName();
+            // bit_select index). A PARAM-init part-select of a param
+            // (WidthRatio[DepthW:0]) scopes explicitly by the module prefix.
+            if (inParamInit)
+                psel->VpiFullName(joinRef(prefix, nv.symbol.name));
+            else
+                (void)psel->VpiFullName();
             setLoc(psel, expr.sourceRange);
             bool constSel = false;
             {
@@ -2336,15 +2340,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // the base name (Surelog's doubled part-select-bound fullname).
             std::string basePfx = prefix + "." + std::string(nv.symbol.name);
             auto boundPfx = [&](const Expression& e) -> const std::string& {
-                if (currentSubSym)
+                // Function/task bodies AND param inits scope EVERY bound ref
+                // by the base name (Surelog's doubled part-select fullname).
+                if (currentSubSym || inParamInit)
                     return basePfx;
                 return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
                                                                                : basePfx;
             };
+            // Param-init bound constants are unparented.
+            bool savedSup2 = suppressConstParent;
+            if (inParamInit)
+                suppressConstParent = true;
+            bool savedF2 = forceConstParent;
+            if (inParamInit)
+                forceConstParent = false;
             if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap))
                 psel->Left_range((UHDM::expr*)l);
             if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap))
                 psel->Right_range((UHDM::expr*)r);
+            suppressConstParent = savedSup2;
+            forceConstParent = savedF2;
             return psel;
         }
         case ExpressionKind::MemberAccess: {
