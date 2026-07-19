@@ -863,6 +863,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         if (auto* c = emitExpr(ic, v, fullName, topNets))
                             v->Expr((UHDM::expr*)c);
                     }
+                    else if (ic.kind == ExpressionKind::Call &&
+                             !ic.as<CallExpression>().isSystemCall()) {
+                        // User-call inits keep the func_call as the var Expr.
+                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                            v->Expr((UHDM::expr*)e);
+                    }
                     else if (enumRef || isLiteralExpr(ic) || concatInit) {
                         bool forceSaved = forceConstParent;
                         // Concat ops self-parent; only bare literals need the
