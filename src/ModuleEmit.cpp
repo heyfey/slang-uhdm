@@ -2984,6 +2984,31 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             c->VpiParent(ca);
             rhs = c;
         }
+        // A NEGATIVE literal RHS (-1) folds loc-less at the LHS type:
+        // signed targets keep INT:<neg>, unsigned targets wrap to UINT.
+        if (!rhs && topView) {
+            auto& rn = stripImplicitConv(ae.right());
+            if (rn.kind == ExpressionKind::UnaryOp &&
+                rn.as<UnaryExpression>().op == UnaryOperator::Minus &&
+                stripImplicitConv(rn.as<UnaryExpression>().operand()).kind ==
+                    ExpressionKind::IntegerLiteral) {
+                ASTContext nctx(comp.getRoot(), LookupLocation::max);
+                ConstantValue ncv = nctx.tryEval(ae.right());
+                int32_t w = (int32_t)ae.left().type->getBitWidth();
+                if (ncv && ncv.isInteger() && !ncv.integer().hasUnknown() && w > 0 &&
+                    w <= 64) {
+                    auto niv = ncv.integer();
+                    auto* c = s.MakeConstant();
+                    c->VpiSize(w);
+                    niv.setSigned(true);
+                    std::string digits = niv.toString(LiteralBase::Decimal, false);
+                    c->VpiDecompile(digits);
+                    c->VpiValue("INT:" + digits);
+                    c->VpiConstType(vpiIntConst);
+                    rhs = c;
+                }
+            }
+        }
         if (!rhs && !bitsRhs)
             // Unbased-unsized RHS never general-folds here: '1 folded above,
             // '0 shares the def constant, 'x/'z have unknowns. Replicated
@@ -3073,7 +3098,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             bool forceSaved = forceConstParent;
             if (literalRhs || bitsRhs)
                 forceConstParent = true;
+            paramInitDef = !topView;
             rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
+            paramInitDef = false;
             forceConstParent = forceSaved;
             refCollector = nullptr;
             reemitting = false;

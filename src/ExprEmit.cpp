@@ -727,10 +727,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
-            // Def-view param inits leave the unary operand constant
-            // unparented (~(15)); binary operands stay parented.
+            // Def-view param inits AND cont-assigns leave a DIRECT-literal
+            // unary operand unparented (~(15), -1); binary operands and
+            // nested expressions (~A[3]) keep the normal rules.
             bool savedS = suppressConstParent, savedF = forceConstParent;
-            if (inParamInit && paramInitDef) {
+            if (paramInitDef && isLiteralExpr(ue.operand())) {
                 suppressConstParent = true;
                 forceConstParent = false;
             }
