@@ -445,7 +445,17 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                         r->Actual_group(nit->second);
                     p->High_conn(r);
                 }
-                else if (auto* h = emitExpr(*expr, p, prefix, info.nets)) {
+                else if (auto* h = emitExpr(*expr,  p,
+                                            stripImplicitConv(*expr).kind ==
+                                                        ExpressionKind::
+                                                            StructuredAssignmentPattern ||
+                                                    stripImplicitConv(*expr).kind ==
+                                                        ExpressionKind::
+                                                            SimpleAssignmentPattern
+                                                ? prefix + "." + std::string(child.name) +
+                                                      "." + std::string(conn->port.name)
+                                                : prefix,
+                                            info.nets)) {
                     if (conn->port.kind == SymbolKind::InterfacePort &&
                         h->UhdmType() == UHDM::uhdmref_obj) {
                         if (auto cc =
@@ -1162,7 +1172,33 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     const std::string& hcPrefix =
                         (!bindPath.empty() && !currentTopPrefix.empty()) ? currentTopPrefix
                                                                          : parentPrefix;
-                    if (auto* h = emitExpr(*expr, p, hcPrefix, *parentNets)) {
+                    // An elab pattern HighConn folds to a based-decimal
+                    // constant at the port width.
+                    UHDM::any* h = nullptr;
+                    {
+                        auto& hc0 = stripImplicitConv(*expr);
+                        if (hc0.kind == ExpressionKind::StructuredAssignmentPattern ||
+                            hc0.kind == ExpressionKind::SimpleAssignmentPattern) {
+                            ASTContext hctx(comp.getRoot(), LookupLocation::max);
+                            ConstantValue hcv = hctx.tryEval(*expr);
+                            if (hcv && hcv.isInteger() && !hcv.integer().hasUnknown()) {
+                                auto& hiv = hcv.integer();
+                                std::string digits =
+                                    hiv.toString(LiteralBase::Decimal, false);
+                                int32_t w = (int32_t)hiv.getBitWidth();
+                                auto* c = s.MakeConstant();
+                                c->VpiDecompile(std::to_string(w) + "'d" + digits);
+                                c->VpiSize(w);
+                                c->VpiValue("UINT:" + digits);
+                                c->VpiConstType(0);
+                                setLoc(c, hc0.sourceRange);
+                                h = c;
+                            }
+                        }
+                    }
+                    if (!h)
+                        h = emitExpr(*expr, p, hcPrefix, *parentNets);
+                    if (h) {
                         // Elab-view literal HighConns parent at the port.
                         if (h->UhdmType() == UHDM::uhdmconstant)
                             h->VpiParent(p);
