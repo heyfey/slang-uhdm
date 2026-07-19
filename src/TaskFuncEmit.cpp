@@ -39,9 +39,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // A DPI-EXPORTED subroutine is emitted as a function (even a task)
         // carrying DPI export attributes.
         bool dpiExport = false;
+        const syntax::SyntaxNode* dpiExportSyn = nullptr;
         for (auto& ex : comp.getDPIExports())
             if (ex.subroutine == &sub) {
                 dpiExport = true;
+                dpiExportSyn = ex.syntax;
                 break;
             }
         if (dpiExport)
@@ -76,7 +78,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         else if (sub.defaultLifetime == VariableLifetime::Automatic) {
             tf->VpiAutomatic(true);
         }
-        if (auto syn = sub.getSyntax())
+        // An exported function locates at the export DIRECTIVE's span.
+        if (dpiExportSyn)
+            setLoc(tf, dpiExportSyn->sourceRange());
+        else if (auto syn = sub.getSyntax())
             setLoc(tf, syn->sourceRange());
         if (designScope)
             tf->VpiMethod(true);
@@ -91,6 +96,25 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             funcMap = info->nets;
         TsCache ioTs;
 
+        // A DPI-IMPORT prototype has no returnValVar; synthesize its Return
+        // var (anonymous, at the return-type token, ts ref to a fresh ts).
+        if (isFunc && !sub.returnValVar && dpiImport && !sub.getReturnType().isVoid()) {
+            auto* rv = makeReturnVar(s, sub.getReturnType());
+            rv->VpiFullName(fullName);
+            rv->VpiParent(tf);
+            if (auto* rsyn = returnTypeSyntax(sub)) {
+                tfContext = true;
+                auto* ts = makeTypespec(sub, rsyn);
+                tfContext = false;
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(fullName);
+                rt->VpiParent(rv);
+                rt->Actual_typespec(ts);
+                rv->Typespec(rt);
+                copyLoc(rv, ts);
+            }
+            ((UHDM::function*)tf)->Return(rv);
+        }
         // Function return: an anonymous variable carrying only the full name,
         // anchored at the return-type syntax like its typespec.
         if (isFunc && sub.returnValVar && !sub.getReturnType().isVoid()) {

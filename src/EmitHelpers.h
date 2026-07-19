@@ -556,6 +556,8 @@ inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
     auto syn = sub.getSyntax();
     if (syn && syn->kind == syntax::SyntaxKind::FunctionDeclaration)
         return sub.getSyntax()->as<syntax::FunctionDeclarationSyntax>().prototype->returnType;
+    if (syn && syn->kind == syntax::SyntaxKind::DPIImport)
+        return syn->as<syntax::DPIImportSyntax>().method->returnType;
     return nullptr;
 }
 
