@@ -167,6 +167,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 snprintf(buf, sizeof(buf), "%f", (double)cv.real());
                 up->VpiValue(std::string("REAL:") + buf);
             }
+            // String params carry a STRING:<text> value.
+            if (defaultInit && literalInit && cv.isString())
+                up->VpiValue("STRING:" + cv.str());
             // Untyped params carry a typespec only for LITERAL initializers;
             // computed values ($clog2(W), 2**S) get none. Typed and ranged
             // params always do.
@@ -174,7 +177,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // Typed/ranged params always carry a typespec (its range/type is
             // independent of the value); only an untyped literal is gated on a
             // known value.
-            wantTs = (ctw.isIntegral() || ctw.isFloating()) &&
+            wantTs = (ctw.isIntegral() || ctw.isFloating() ||
+                      (ctw.isString() && typedParam)) &&
                      (typedParam || isRangedUntypedParam(ps) ||
                       (literalInit && !unknownDefault));
         }
@@ -298,7 +302,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (rhs)
                         ((UHDM::constant*)rhs)->VpiSize((int32_t)ps.getType().getBitWidth());
                 }
-                else if (!containsUserCall(*init) &&
+                // A TYPED string param never folds (the elab Rhs re-emits the
+                // string constant, decompiled without quotes).
+                else if (!ps.getType().getCanonicalType().isString() &&
+                         !containsUserCall(*init) &&
                          (rhs = tryFoldConst(
                               *init, (typedParam && init != init0) ? init0
                                                                    : nullptr))) {
@@ -479,9 +486,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // Elab-view string constants decompile WITHOUT quotes (the
+                // def view keeps them).
+                if (topView && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ((UHDM::constant*)rhs)->VpiConstType() == vpiStringConst) {
+                    auto* rc = (UHDM::constant*)rhs;
+                    std::string d(rc->VpiDecompile());
+                    if (d.size() >= 2 && d.front() == '"' && d.back() == '"')
+                        rc->VpiDecompile(d.substr(1, d.size() - 2));
+                }
                 if (wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     (init->kind == ExpressionKind::IntegerLiteral ||
-                     init->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)) {
+                     init->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
+                     (typedParam && init->kind == ExpressionKind::StringLiteral))) {
                     auto* rt = s.MakeRef_typespec();
                     std::string tsPrefix = prefix;
                     if (tsPrefix.size() >= 2 &&
@@ -609,6 +626,9 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     // A real (real/shortreal) param is a real_typespec.
     if (typedParam && !its && ps.getType().getCanonicalType().isFloating())
         its = s.MakeReal_typespec();
+    // A TYPED string param (parameter string N) is a LOCATED string_typespec.
+    if (typedParam && !its && ps.getType().getCanonicalType().isString())
+        its = s.MakeString_typespec();
     // A typed logic/bit scalar param is a logic/bit_typespec, not an
     // int_typespec.
     if (typedParam && !its) {
