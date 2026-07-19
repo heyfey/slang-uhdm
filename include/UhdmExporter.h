@@ -151,11 +151,16 @@ private:
     // redundant (see NOTES) — a future switch (default off) can skip it.
     UHDM::interface_inst* makeIfaceRefDup(const slang::ast::InstanceSymbol& inst,
                                           const std::string& path,
-                                          UHDM::module_inst* parentM, NetMap& sharedNets);
+                                          UHDM::module_inst* parentM, NetMap& sharedNets,
+                                          UHDM::interface_inst* dup0 = nullptr);
     // Package enum-const module-fold constants (shared across views).
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgEnumFoldConst;
     // Named begin/fork blocks by symbol (disable targets resolve to these).
     std::map<const void*, UHDM::scope*> namedBlockMap;
+    // Plain (no-modport) DEF iface-port typespec refs; their actuals are
+    // created after the receiving child's port-view emission (arena order).
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::InterfacePortSymbol*>>
+        pendingIfacePortTs;
     // Interface instance -> its col-0 tail duplicate (see makeIfaceRefDup).
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifaceTailDup;
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
