@@ -2797,6 +2797,42 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     if (!vars->empty())
         iface->Variables(vars);
 
+    // Elab-view modports (fresh objects parented to this interface_inst).
+    {
+        auto* mports = s.MakeModportVec();
+        for (auto& member : body.members()) {
+            if (member.kind != SymbolKind::Modport)
+                continue;
+            auto& mp = member.as<ModportSymbol>();
+            auto* umod = s.MakeModport();
+            umod->VpiName(mp.name);
+            umod->VpiParent(iface);
+            setLocNamed(umod, mp);
+            auto* iodecls = s.MakeIo_declVec();
+            for (auto& pm : mp.members()) {
+                if (pm.kind != SymbolKind::ModportPort)
+                    continue;
+                auto& mpp = pm.as<ModportPortSymbol>();
+                auto* io = s.MakeIo_decl();
+                io->VpiName(mpp.name);
+                io->VpiParent(umod);
+                setLocNamed(io, mpp);
+                int32_t dir = mpp.direction == ArgumentDirection::In    ? vpiInput
+                              : mpp.direction == ArgumentDirection::Out ? vpiOutput
+                              : mpp.direction == ArgumentDirection::InOut ? vpiInout
+                                                                         : 0;
+                if (dir)
+                    io->VpiDirection(dir);
+                iodecls->push_back(io);
+            }
+            if (!iodecls->empty())
+                umod->Io_decls(iodecls);
+            mports->push_back(umod);
+        }
+        if (!mports->empty())
+            iface->Modports(mports);
+    }
+
     // A single-instance interface's DEF cont-assign references resolve to THIS
     // instance's elab vars (Surelog quirk), not the def nets. Re-point them.
     if (auto dit = defMap.find(&def); dit != defMap.end()) {
