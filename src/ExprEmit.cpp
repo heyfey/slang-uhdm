@@ -1014,8 +1014,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             c->VpiConstType(vpiBinaryConst);
             setLoc(c, expr.sourceRange);
             if (forceConstParent ||
-                (parent && (parent->UhdmType() == UHDM::uhdmoperation ||
-                            parent->UhdmType() == UHDM::uhdmbit_select)))
+                (!suppressConstParent && parent &&
+                 (parent->UhdmType() == UHDM::uhdmoperation ||
+                  parent->UhdmType() == UHDM::uhdmbit_select)))
                 c->VpiParent(parent);
             return c;
         }
