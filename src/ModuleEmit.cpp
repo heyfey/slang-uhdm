@@ -1979,15 +1979,35 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         ca->VpiParent(m);
         setLoc(ca, assign.sourceRange);
         UHDM::any* rhs = nullptr;
-        if (topView && enumRhs) {
+        // A PACKAGE-scoped enum const RHS folds to a LOCATED digits-constant in
+        // BOTH views; a module-local one folds loc-less in the top view only.
+        bool pkgEnumRhs = false;
+        for (auto sc0 = enumRhs ? enumRhs->getParentScope() : nullptr; sc0;
+             sc0 = sc0->asSymbol().getParentScope()) {
+            if (sc0->asSymbol().kind == SymbolKind::Package) {
+                pkgEnumRhs = true;
+                break;
+            }
+            if (sc0->asSymbol().kind == SymbolKind::InstanceBody)
+                break;
+        }
+        if (enumRhs && (topView || pkgEnumRhs)) {
             if (auto eit = enumConstMap.find(enumRhs); eit != enumConstMap.end()) {
                 auto* src = (UHDM::enum_const*)eit->second;
                 auto* c = s.MakeConstant();
                 c->VpiParent(ca);
-                c->VpiDecompile(src->VpiDecompile());
                 c->VpiSize(src->VpiSize());
                 std::string_view v = src->VpiValue();
                 c->VpiValue(std::string(v));
+                if (pkgEnumRhs) {
+                    // Digits decompile + expression loc.
+                    auto colon = v.find(':');
+                    c->VpiDecompile(std::string(
+                        colon != std::string_view::npos ? v.substr(colon + 1) : v));
+                    setLoc(c, stripImplicitConv(ae.right()).sourceRange);
+                }
+                else
+                    c->VpiDecompile(src->VpiDecompile());
                 if (v.rfind("BIN:", 0) == 0)
                     c->VpiConstType(vpiBinaryConst);
                 else if (v.rfind("HEX:", 0) == 0)

@@ -695,6 +695,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // instanced at the package, populating typedefTs so package-typedef'd
     // signals/params resolve.
     auto* tds = s.MakeTypespecVec();
+    pkgTopEmit = topView; // enum-const decompile is view-dependent (buildEnumTs)
     for (auto& member : pkg.members()) {
         if (member.kind != SymbolKind::TypeAlias)
             continue;
@@ -741,10 +742,17 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             ts = sts;
         }
         else if (ct.kind == SymbolKind::EnumType) {
-            auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn, prefix + std::string(ta.name));
+            // The base ref fullname doubles the package scope
+            // (pkg::pkg::name — Surelog scopes the already-prefixed typedef
+            // name by the package again).
+            auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn,
+                                    prefix + prefix + std::string(ta.name));
             ets->VpiParent(up);
             if (auto syn = ta.getSyntax())
                 setLoc(ets, syn->sourceRange());
+            // The base typespec is package-instanced too.
+            if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec())
+                ets->Base_typespec()->Actual_typespec()->Instance((UHDM::instance*)up);
             ts = ets;
         }
         if (!ts)

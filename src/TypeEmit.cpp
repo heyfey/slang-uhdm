@@ -726,7 +726,9 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 et.baseType.getCanonicalType().kind == SymbolKind::PredefinedIntegerType &&
                 !et.baseType.isSigned();
             value = (unsignedIntBase ? "UINT:" : "INT:") + digits;
-            if (nonLitInit)
+            // Non-literal init keeps the SOURCE reference as the decompile in
+            // the def view; the top/elab view folds to digits.
+            if (nonLitInit && !pkgTopEmit)
                 ec->VpiDecompile(rawText(stripImplicitConv(*evInit).sourceRange));
             else
                 ec->VpiDecompile(digits);
