@@ -1,5 +1,61 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 5: UNSUPPORTED -> ZERO + ladder (2026-07-19, ~5 commits)
+
+**FINAL: PASS 304->309, cmp-passing 341->346, DIFF 317->315,
+UNSUPPORTED 3->0.** Every achievable corpus test now emits UHDM, and all
+three former UNSUP went to FULL byte-identical PASS:
+
+- **sva_value_change_sim PASS** (was UNSUP, 1288-line diff — all downstream
+  of two missing pieces): ClockingEvent expression args
+  ($fell(a, @(posedge clk))) emit via emitEventExpr (edge operation), and
+  PROCEDURAL `assert property` (ConcurrentAssertion statement) emits an
+  assert_stmt statement with property_spec (StmtEmit case mirroring
+  emitAssertion). Sampled-value funcs ($fell/$rose/$stable/$past): share the
+  elab CA (containsOperation exempt), carry the LHS ts (pendingSysFuncTs
+  names + a NET fallback in the drain beyond ports), and take a NAME-ONLY
+  span when a clocking-event arg is present.
+- **sva_counter PASS**: named property decls (property_decl on the module:
+  bare-ts prop_formal_decls; body from AssertionInstanceExpression::
+  makeDefault with ::-scoped refs — FORMAL refs bind Invalid (untyped) and
+  resolve via propDeclScope to IMPLICIT MODULE WIRES, Surelog leaks formals
+  as module nets); property_inst for the instantiation (args ALSO held by a
+  weakly-tail artifact func_call that carries parent+args; the
+  property_inst itself is PARENTLESS); sequence repeats ([*n] -> op 60,
+  count from the SYNTAX BitSelect — literal counts unparented, the seq
+  operand keeps the PROPERTY_SPEC as parent); spaced based literals
+  (8'd 3 -> 8'd3) re-lex compactly: setLocCompact/basedLiteralSpaceCount
+  shrink ALL containing spans (constants, ops, property_specs, asserts).
+- **OneThis PASS** (classes): class_defn in design->AllClasses (VpiName
+  work@foo, file set); properties as ::-fullname bit/logic vars
+  (Automatic+Visibility, ts ref DEFERRED to the write phase —
+  pendingClassPropTs); methods via emitTaskFuncs classScope (:: seps via
+  "work@foo::" prefix + joinRef's contains-:: rule; VpiMethod, NO
+  Automatic/Instance; implicit built-ins (randomize...) skipped via
+  !getSyntax; `this` local skipped; formals stay UNBOUND); class emission
+  BETWEEN def modules and tops (arena order). Module side: handles are bare
+  def logic_nets (no ts) / elab class_vars with per-decl fresh
+  class_typespec (name foo, Class_defn link); bar = new() -> loc-less
+  method_func_call "new" + the Lhs ref re-parented through a weakly-tail
+  artifact hier_path (name==fullname frozen, ref UNBOUND); bar.set(4) ->
+  method_func_call at the method token with unbound Prefix ref;
+  this.member -> hier_path spanning the `this` token, member ref loc-less
+  with block-scoped fullname; named blocks now carry vpiEndLabel; 2-state
+  vectors get bit_typespec (makeTypespec).
+- **PutC PASS**: STATEMENT-context built-in method calls (b.putc(2,"x");)
+  flatten to method_func_call + unbound Prefix (the hier_path shape is
+  expression-context only; gate on stmtCtx).
+- **StreamOp PASS**: >> maps vpiStreamLROp (slang sliceSize==0 = LR) and
+  BOTH directions emit the slice const — parsed from RAW TEXT (streaming
+  exprs often arrive with null syntax), located, def-unparented but
+  elab-parented (reemitting); folded CONCAT RHS encodes full-width
+  BIN:<bits> with NO decompile (tryFoldConst).
+
+NEXT: StreamOpImplicitSliceSize (68), unbased_unsized_shift (52),
+FileLevelParameter (43), issue326_packed_mem (43), Replication (44),
+clk2fflogic_effects (45), StringAssignment (45), CastWidthFromPackage (48).
+Re-run scripts/difsize.sh for the fresh ladder.
+
 ## Session 4: DIFF-frontier pickoff continued (2026-07-19, ~8 commits)
 
 **FINAL: PASS 298->304, CMP_ONLY 37 (cmp-passing 341), DIFF 323->317,
