@@ -460,7 +460,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* c = s.MakeConstant();
                     std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
                     c->VpiDecompile(digits);
-                    c->VpiSize(64);
+                    // TYPED pkg params fold at the type width; untyped at 64.
+                    bool typedPkgParam = false;
+                    if (auto d0 = psym.getDeclaredType())
+                        if (auto t0 = d0->getTypeSyntax())
+                            typedPkgParam =
+                                t0->kind != syntax::SyntaxKind::ImplicitType;
+                    c->VpiSize(typedPkgParam
+                                   ? (int32_t)psym.getType().getBitWidth()
+                                   : 64);
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
                     setLoc(c, expr.sourceRange);
@@ -472,6 +480,53 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  std::string(nv.symbol.name));
             }
             else {
+                // A PACKAGE enum-const reference in a module expression folds
+                // to a constant carrying the enum const's own encoding, at
+                // the reference's span.
+                if (nv.symbol.kind == SymbolKind::EnumValue) {
+                    bool inPkg = false;
+                    for (auto sc2 = nv.symbol.getParentScope(); sc2;
+                         sc2 = sc2->asSymbol().getParentScope()) {
+                        if (sc2->asSymbol().kind == SymbolKind::Package) {
+                            inPkg = true;
+                            break;
+                        }
+                        if (sc2->asSymbol().kind == SymbolKind::InstanceBody)
+                            break;
+                    }
+                    // Only MODULE contexts fold; interfaces keep the ref.
+                    if (inPkg) {
+                        const UHDM::BaseClass* pw = parent;
+                        while (pw && pw->UhdmType() != UHDM::uhdmmodule_inst &&
+                               pw->UhdmType() != UHDM::uhdminterface_inst &&
+                               pw->UhdmType() != UHDM::uhdmpackage)
+                            pw = pw->VpiParent();
+                        if (!pw || pw->UhdmType() != UHDM::uhdmmodule_inst)
+                            inPkg = false;
+                    }
+                    if (inPkg) {
+                        if (auto eit2 = enumConstMap.find(&nv.symbol);
+                            eit2 != enumConstMap.end() &&
+                            eit2->second->UhdmType() == UHDM::uhdmenum_const) {
+                            auto* src = (UHDM::enum_const*)eit2->second;
+                            auto* c = s.MakeConstant();
+                            c->VpiDecompile(src->VpiDecompile());
+                            c->VpiSize(src->VpiSize());
+                            std::string_view v = src->VpiValue();
+                            c->VpiValue(std::string(v));
+                            c->VpiConstType(v.rfind("BIN:", 0) == 0   ? vpiBinaryConst
+                                            : v.rfind("HEX:", 0) == 0 ? vpiHexConst
+                                            : v.rfind("OCT:", 0) == 0 ? vpiOctConst
+                                            : v.rfind("DEC:", 0) == 0 ? vpiDecConst
+                                                                      : vpiUIntConst);
+                            setLoc(c, expr.sourceRange);
+                            if (parent &&
+                                parent->UhdmType() == UHDM::uhdmoperation)
+                                c->VpiParent(parent);
+                            return c;
+                        }
+                    }
+                }
                 ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                 if (suppressRefActual) {
                     // Gen-scope process ref: left unbound.
