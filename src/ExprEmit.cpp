@@ -687,6 +687,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& conv = expr.as<ConversionExpression>();
             if (conv.isImplicit())
                 return emitExpr(conv.operand(), parent, prefix, netMap);
+            // A cast around a streaming concat is dropped (Surelog emits the
+            // stream operation directly).
+            if (stripImplicitConv(conv.operand()).kind == ExpressionKind::Streaming)
+                return emitExpr(stripImplicitConv(conv.operand()), parent, prefix,
+                                netMap);
             // Explicit cast: operation(vpiCastOp) with a typespec ref.
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiCastOp);
@@ -2107,6 +2112,60 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             hp->Path_elems(elems);
             return hp;
+        }
+        case ExpressionKind::Streaming: {
+            // Streaming concatenation: a SLICED stream ({ << 8 {x} }) folds to
+            // a plain CONCAT over the operands (full span); an unsliced one
+            // ({<<{x}}) keeps a stream operation (vpiStreamRLOp for <<),
+            // anchored at the first operand's span.
+            auto& sc2 = expr.as<StreamingConcatenationExpression>();
+            bool sliced = sc2.getSliceSize() > 1;
+            // The inner {..} concat: located at the FULL streaming span
+            // (Surelog swaps the spans).
+            auto* cc = s.MakeOperation();
+            cc->VpiOpType(vpiConcatOp);
+            setLoc(cc, expr.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            for (auto& strm : sc2.streams())
+                if (auto* e = emitExpr(*strm.operand, cc, prefix, netMap))
+                    operands->push_back(e);
+            cc->Operands(operands);
+            // A stream operation (vpiStreamRLOp) wrapping the concat, located
+            // at the {..} operand braces; a sliced stream ({ << 8 {x} }) adds
+            // the slice-size constant as the FIRST operand.
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiStreamRLOp);
+            op->VpiParent(parent);
+            if (!sc2.streams().empty()) {
+                auto fr = sc2.streams().front().operand->sourceRange;
+                auto lr = sc2.streams().back().operand->sourceRange;
+                setLoc(op, SourceRange(fr.start() - 1, lr.end() + 1));
+            }
+            else
+                setLoc(op, expr.sourceRange);
+            auto* outer = s.MakeAnyVec();
+            if (sliced) {
+                auto* c = s.MakeConstant();
+                std::string digits = std::to_string(sc2.getSliceSize());
+                c->VpiDecompile(digits);
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + digits);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(op);
+                if (expr.syntax &&
+                    expr.syntax->kind == syntax::SyntaxKind::StreamingConcatenationExpression) {
+                    auto* ssz = expr.syntax
+                                    ->as<syntax::StreamingConcatenationExpressionSyntax>()
+                                    .sliceSize;
+                    if (ssz)
+                        setLoc(c, ssz->sourceRange());
+                }
+                outer->push_back(c);
+            }
+            cc->VpiParent(op);
+            outer->push_back(cc);
+            op->Operands(outer);
+            return op;
         }
         case ExpressionKind::ArbitrarySymbol: {
             std::string dotted = rawText(expr.sourceRange);
