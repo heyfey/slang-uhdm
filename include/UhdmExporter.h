@@ -395,6 +395,17 @@ private:
     // In shared processes, only call-argument refs count for var typespec
     // reparenting (Surelog computes arg types; plain refs don't touch ts).
     bool inProcessEmit = false;
+    // Surelog quirk: inside a procedural/function body, a WHOLE reference to a
+    // variable that is elsewhere WRITTEN via a bit/part/indexed-select binds its
+    // Actual to that variable's first select object (not its net/var/io_decl).
+    // Tracked per body and back-patched at the end.
+    bool selTrackActive = false;
+    std::map<const slang::ast::Symbol*, UHDM::expr*> selFirstSelect;
+    std::set<const slang::ast::Symbol*> selLhsSelVars;
+    std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>> selWholeRefs;
+    bool beginSelTrack();  // returns true if it newly activated tracking
+    void endSelTrack();    // back-patches whole-refs and clears state
+    void noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj);
     int callArgDepth = 0;
     // Task/function typespecs keep unfolded range expressions; module-level
     // typespecs fold them to INT constants.

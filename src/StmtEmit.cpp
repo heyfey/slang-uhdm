@@ -47,9 +47,47 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
     if (auto syntax = block.getSyntax())
         setLoc(proc, syntax->sourceRange());
 
+    bool selOwner = beginSelTrack();
     if (auto* body = emitStmt(block.getBody(), proc, prefix, netMap))
         proc->Stmt(body);
+    if (selOwner)
+        endSelTrack();
     return proc;
+}
+
+// See selTrackActive in the header. beginSelTrack activates per-body tracking
+// (no-op / returns false if already inside a tracked body, so only the
+// outermost owner back-patches).
+bool UhdmExporter::beginSelTrack() {
+    if (selTrackActive)
+        return false;
+    selTrackActive = true;
+    selFirstSelect.clear();
+    selLhsSelVars.clear();
+    selWholeRefs.clear();
+    return true;
+}
+
+void UhdmExporter::endSelTrack() {
+    for (auto& [ref, sym] : selWholeRefs) {
+        if (!selLhsSelVars.count(sym))
+            continue;
+        auto it = selFirstSelect.find(sym);
+        if (it != selFirstSelect.end())
+            ref->Actual_group(it->second);
+    }
+    selTrackActive = false;
+    selFirstSelect.clear();
+    selLhsSelVars.clear();
+    selWholeRefs.clear();
+}
+
+void UhdmExporter::noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj) {
+    if (!selTrackActive || !base)
+        return;
+    selFirstSelect.emplace(base, (UHDM::expr*)selObj);
+    if (inLhs)
+        selLhsSelVars.insert(base);
 }
 
 UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass* parent,

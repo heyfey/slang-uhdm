@@ -305,8 +305,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         currentTf = tf;
         auto* savedSubSym = currentSubSym;
         currentSubSym = &sub;
+        bool selOwner = beginSelTrack();
         if (auto* st = emitStmt(sub.getBody(), tf, fullName, funcMap))
             tf->Stmt(st);
+        if (selOwner)
+            endSelTrack();
         currentTf = savedTf;
         currentSubSym = savedSubSym;
         funcRetSym = savedSym;
