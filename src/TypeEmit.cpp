@@ -431,6 +431,18 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (auto* e = emitSyntaxExpr(*bsyn, r))
                                 return (UHDM::expr*)e;
                         }
+                        // Elab IFACE views re-evaluate the bound at the
+                        // DEFAULT param values (per-instance overrides are
+                        // ignored — Surelog's AllModules width).
+                        if (ifaceDefaultScope) {
+                            ASTContext dctx(*ifaceDefaultScope, LookupLocation::max);
+                            auto& dbe = Expression::bind(*bsyn, dctx);
+                            if (!dbe.bad())
+                                if (auto dcv = dctx.tryEval(dbe);
+                                    dcv && dcv.isInteger() &&
+                                    !dcv.integer().hasUnknown())
+                                    value = *dcv.integer().as<int64_t>();
+                        }
                         // Module context: a bare reference bound ([i:i]) folds
                         // to a UINT value-constant at its token; only an
                         // OPERATION bound (N-1) folds to an INT anchored at the

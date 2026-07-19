@@ -235,8 +235,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 c->VpiDecompile(digits);
                 // A GENERATE-containing child is uniquified by Surelog's
                 // elaboration: its overrides encode UINT at the value width
-                // even for untyped params.
-                bool genChild = false;
+                // even for untyped params. INTERFACE instances do the same.
+                bool genChild = m->UhdmType() == UHDM::uhdminterface_inst;
                 for (auto& mb0 : body.members())
                     if (mb0.kind == SymbolKind::GenerateBlock ||
                         mb0.kind == SymbolKind::GenerateBlockArray) {

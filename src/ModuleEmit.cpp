@@ -3973,7 +3973,8 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
                                                     const std::string& path,
                                                     UHDM::module_inst* parentM,
                                                     NetMap& sharedNets,
-                                                    UHDM::interface_inst* dup0) {
+                                                    UHDM::interface_inst* dup0,
+                                                    UHDM::interface_inst* home) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     auto* dup = dup0 ? dup0 : s.MakeInterface_inst();
@@ -4001,6 +4002,51 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
             vars->push_back((UHDM::variables*)nit->second);
     if (!vars->empty())
         dup->Variables(vars);
+
+    // The dup carries its OWN default-valued parameter objects (fresh ts
+    // refs, drained with the others) and SHARES the home view's
+    // param_assign objects.
+    if (home && home->Parameters()) {
+        auto* dparams = s.MakeAnyVec();
+        for (auto* hp0 : *home->Parameters()) {
+            auto* hp = (UHDM::parameter*)hp0;
+            const ParameterSymbol* psym = nullptr;
+            for (auto& mb2 : inst.body.members())
+                if (mb2.kind == SymbolKind::Parameter && mb2.name == hp->VpiName())
+                    psym = &mb2.as<ParameterSymbol>();
+            auto* p2 = s.MakeParameter();
+            p2->VpiName(hp->VpiName());
+            p2->VpiFullName(hp->VpiFullName());
+            p2->VpiParent(dup);
+            p2->VpiValue(std::string(hp->VpiValue()));
+            p2->VpiLineNo(hp->VpiLineNo());
+            p2->VpiColumnNo(hp->VpiColumnNo());
+            p2->VpiEndLineNo(hp->VpiEndLineNo());
+            p2->VpiEndColumnNo(hp->VpiEndColumnNo());
+            if (hp->VpiLocalParam())
+                p2->VpiLocalParam(true);
+            if (psym && hp->Typespec()) {
+                auto* prt2 = s.MakeRef_typespec();
+                prt2->VpiFullName(std::string(hp->Typespec()->VpiFullName()));
+                prt2->VpiParent(p2);
+                p2->Typespec(prt2);
+                bool typedP = false;
+                if (auto d0 = psym->getDeclaredType())
+                    if (auto t0 = d0->getTypeSyntax())
+                        typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
+                pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
+            }
+            dparams->push_back(p2);
+        }
+        if (!dparams->empty())
+            dup->Parameters(dparams);
+        if (home->Param_assigns()) {
+            auto* dpas = s.MakeParam_assignVec();
+            for (auto* pa0 : *home->Param_assigns())
+                dpas->push_back(pa0);
+            dup->Param_assigns(dpas);
+        }
+    }
 
     auto* mports = s.MakeModportVec();
     for (auto& member : body.members()) {
@@ -4092,6 +4138,43 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         emitParameters(body, iface, prefix, netMap, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false);
     }
+    // A PORT VIEW lists each parameter TWICE at its DEFAULT value and
+    // carries NO param_assigns (Surelog quirk).
+    if (portView && iface->Parameters()) {
+        iface->Param_assigns(nullptr);
+        auto* plist = iface->Parameters();
+        size_t n0 = plist->size();
+        for (size_t i = 0; i < n0; i++) {
+            auto* p0 = (UHDM::parameter*)(*plist)[i];
+            const ParameterSymbol* psym = nullptr;
+            for (auto& mb2 : body.members())
+                if (mb2.kind == SymbolKind::Parameter && mb2.name == p0->VpiName())
+                    psym = &mb2.as<ParameterSymbol>();
+            auto* p2 = s.MakeParameter();
+            p2->VpiName(p0->VpiName());
+            p2->VpiFullName(p0->VpiFullName());
+            p2->VpiParent(iface);
+            p2->VpiValue(std::string(p0->VpiValue()));
+            p2->VpiLineNo(p0->VpiLineNo());
+            p2->VpiColumnNo(p0->VpiColumnNo());
+            p2->VpiEndLineNo(p0->VpiEndLineNo());
+            p2->VpiEndColumnNo(p0->VpiEndColumnNo());
+            if (p0->VpiLocalParam())
+                p2->VpiLocalParam(true);
+            if (psym && p0->Typespec()) {
+                auto* prt2 = s.MakeRef_typespec();
+                prt2->VpiFullName(std::string(p0->Typespec()->VpiFullName()));
+                prt2->VpiParent(p2);
+                p2->Typespec(prt2);
+                bool typedP = false;
+                if (auto d0 = psym->getDeclaredType())
+                    if (auto t0 = d0->getTypeSyntax())
+                        typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
+                pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
+            }
+            plist->push_back(p2);
+        }
+    }
     // The col-0 tail duplicate's arena slot precedes the variables'
     // typespecs (Surelog creation order); its content fills in at the end.
     bool wantTailDup = false;
@@ -4117,6 +4200,17 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         }
     }
     UHDM::interface_inst* tailDupShell = wantTailDup ? s.MakeInterface_inst() : nullptr;
+    // PORT-VIEW iface var bounds fold at the DEFAULT param values (Surelog
+    // reads widths from the AllModules form, ignoring per-instance
+    // overrides); the HOME view keeps the instance values.
+    if (portView) {
+        auto dit0 = ifaceDefaultInst.find(&def);
+        if (dit0 == ifaceDefaultInst.end())
+            dit0 = ifaceDefaultInst
+                       .emplace(&def, &InstanceSymbol::createDefault(comp, def))
+                       .first;
+        ifaceDefaultScope = &dit0->second->body;
+    }
     auto* vars = s.MakeVariablesVec();
     auto* elabNets = s.MakeNetVec();
     for (auto& it : collectNetOrder(body)) {
@@ -4219,6 +4313,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         netMap[it.sym] = v;
         vars->push_back(v);
     }
+    ifaceDefaultScope = nullptr;
     if (!vars->empty())
         iface->Variables(vars);
     if (!elabNets->empty())
@@ -4320,7 +4415,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // create neither the dup nor the weak ref.
     if (tailDupShell)
         ifaceTailDup[&inst] =
-            makeIfaceRefDup(inst, prefix, parentM, netMap, tailDupShell);
+            makeIfaceRefDup(inst, prefix, parentM, netMap, tailDupShell, iface);
 
     // A single-instance interface's DEF cont-assign references resolve to THIS
     // instance's elab vars (Surelog quirk), not the def nets. Re-point them.

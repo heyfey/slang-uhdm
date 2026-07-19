@@ -157,7 +157,8 @@ private:
     UHDM::interface_inst* makeIfaceRefDup(const slang::ast::InstanceSymbol& inst,
                                           const std::string& path,
                                           UHDM::module_inst* parentM, NetMap& sharedNets,
-                                          UHDM::interface_inst* dup0 = nullptr);
+                                          UHDM::interface_inst* dup0 = nullptr,
+                                          UHDM::interface_inst* home = nullptr);
     // DEF-view package struct typespecs, for the cross-view member-actual
     // swap (Surelog wires the first-created member ts into the TOP struct).
     std::map<const slang::ast::Symbol*, UHDM::struct_typespec*> pkgDefStructTs;
@@ -310,6 +311,11 @@ private:
     bool paramInitDef = false;
     // PACKAGE param inits: concat operands unparent in both views.
     bool paramInitPkg = false;
+    // ELAB interface views fold param-dependent bounds at the DEFAULT param
+    // values (Surelog reads widths from the AllModules form): points at a
+    // default-instantiated body while the iface vars' typespecs are built.
+    const slang::ast::Scope* ifaceDefaultScope = nullptr;
+    std::map<const void*, const slang::ast::InstanceSymbol*> ifaceDefaultInst;
     // Surelog can't resolve block-scoped localparams; refs to them bind an
     // implicit module-level wire created at the first reference.
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;
