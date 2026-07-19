@@ -837,8 +837,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Calls seen before the def fill (param inits): create a
                     // shell now; emitTaskFuncs fills it later.
                     auto pscope = sub.getParentScope();
-                    if (pscope &&
-                        pscope->asSymbol().kind == SymbolKind::InstanceBody) {
+                    if (pscope && (pscope->asSymbol().kind == SymbolKind::InstanceBody ||
+                                   pscope->asSymbol().kind == SymbolKind::Package)) {
                         SubInfo shell;
                         shell.tf = sub.subroutineKind == SubroutineKind::Function
                                        ? (UHDM::task_func*)s.MakeFunction()
@@ -2268,6 +2268,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Interface-port member access (sub.sig): a hier_path with one
             // ref_obj element per dotted component.
             return buildDottedHierPath(expr, dotted, parent, prefix);
+        }
+        case ExpressionKind::Invalid: {
+            // slang wraps some valid sub-expressions in Invalid nodes (e.g.
+            // size-cast operand shells); unwrap when a child exists.
+            auto& iv2 = expr.as<InvalidExpression>();
+            if (iv2.child)
+                return emitExpr(*iv2.child, parent, prefix, netMap);
+            noteUnsupported("expression kind: Invalid");
+            return nullptr;
         }
         default:
             noteUnsupported("expression kind: " + std::string(toString(expr.kind)));
