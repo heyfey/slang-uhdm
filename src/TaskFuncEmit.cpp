@@ -153,6 +153,31 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         break;
                     }
             }
+            // A typedef'd VECTOR return gets a fresh NAMED clone (at the
+            // typedef site) with a Typedef_alias ref; the return var anchors
+            // at the return-type token.
+            bool typedefRetClone = false;
+            if (!ts) {
+                auto& rdt = sub.getReturnType();
+                if (rdt.kind == SymbolKind::TypeAlias && typedefTs.count(&rdt) &&
+                    typedefTs[&rdt]->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    const syntax::SyntaxNode* targetSyn = nullptr;
+                    if (auto asyn = rdt.as<TypeAliasType>().getSyntax())
+                        if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            targetSyn =
+                                asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                    bypassTypedefShare = true;
+                    ts = makeTypespec(*sub.returnValVar, targetSyn);
+                    bypassTypedefShare = false;
+                    ts->VpiName(rdt.name);
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(rdt.name);
+                    art->VpiParent(ts);
+                    art->Actual_typespec(typedefTs[&rdt]);
+                    ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
+                    typedefRetClone = true;
+                }
+            }
             if (!ts) {
                 tfContext = true;
                 ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
@@ -166,9 +191,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ts->Instance((UHDM::instance*)m);
             rv->Typespec(rt);
             // A struct/enum return's shared typespec sits at the typedef, so
-            // the return var takes the return-TYPE syntax span instead.
+            // the return var takes the return-TYPE syntax span instead (a
+            // typedef'd-vector clone likewise).
             if (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
-                ts->UhdmType() == UHDM::uhdmenum_typespec) {
+                ts->UhdmType() == UHDM::uhdmenum_typespec || typedefRetClone) {
                 if (auto* rsyn = returnTypeSyntax(sub))
                     setLoc(rv, rsyn->sourceRange());
             }

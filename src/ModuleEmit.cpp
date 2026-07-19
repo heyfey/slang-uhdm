@@ -2230,13 +2230,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
         }
         // Argument-less user calls returning a literal fold in the top view
-        // to that literal (its own loc and base shape).
-        CallFold cfr = topView ? constCallFold(stripImplicitConv(ae.right())) : CallFold{};
+        // to that literal (its own loc and base shape). Calls returning a
+        // TYPEDEF'd type never fold — the elab view shares the def CA.
+        bool typedefRet = false;
+        {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::Call &&
+                !rc.as<CallExpression>().isSystemCall())
+                if (auto subp0 = std::get_if<const SubroutineSymbol*>(
+                        &rc.as<CallExpression>().subroutine))
+                    typedefRet =
+                        (*subp0)->getReturnType().kind == SymbolKind::TypeAlias;
+        }
+        CallFold cfr = (topView && !typedefRet)
+                           ? constCallFold(stripImplicitConv(ae.right()))
+                           : CallFold{};
         const Expression* constFnRet = (cfr && !cfr.param) ? cfr.lit : nullptr;
         // Calls with args still fold when evaluable: a LOC-LESS constant
         // shaped by the result type (signed int -> INT/vpiIntConst).
         std::optional<ConstantValue> callFold;
-        if (topView && !cfr) {
+        if (topView && !cfr && !typedefRet) {
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall()) {
                 ASTContext ctx(comp.getRoot(), LookupLocation::max);
