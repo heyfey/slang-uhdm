@@ -2176,6 +2176,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 rc.as<NamedValueExpression>().symbol.kind == SymbolKind::EnumValue)
                 enumRhs = &rc.as<NamedValueExpression>().symbol;
         }
+        // A select of a PACKAGE parameter (pkg::A[0]) folds in the elab view
+        // to a BIN constant anchored at the param init's first char.
+        const ParameterSymbol* pkgParamSel = nullptr;
+        {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::ElementSelect) {
+                auto& bser =
+                    stripImplicitConv(rc.as<ElementSelectExpression>().value());
+                if (bser.kind == ExpressionKind::NamedValue) {
+                    auto& bsym = bser.as<NamedValueExpression>().symbol;
+                    if (bsym.kind == SymbolKind::Parameter)
+                        if (auto sc0 = bsym.getParentScope();
+                            sc0 && sc0->asSymbol().kind == SymbolKind::Package)
+                            pkgParamSel = &bsym.as<ParameterSymbol>();
+                }
+            }
+        }
         // Argument-less user calls returning a literal fold in the top view
         // to that literal (its own loc and base shape).
         CallFold cfr = topView ? constCallFold(stripImplicitConv(ae.right())) : CallFold{};
@@ -2259,7 +2276,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             (!plainLhs ||
              (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
-              !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs))) {
+              !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
+              !pkgParamSel))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -2438,6 +2456,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 rt2->VpiParent(c);
                 c->Typespec(rt2);
                 pendingParamCloneTs.push_back({rt2, &ps2});
+                rhs = c;
+            }
+        }
+        if (!rhs && topView && pkgParamSel) {
+            ASTContext pctx(comp.getRoot(), LookupLocation::max);
+            ConstantValue cv2 = pctx.tryEval(ae.right());
+            if (cv2 && cv2.isInteger() && !cv2.integer().hasUnknown()) {
+                auto& iv2 = cv2.integer();
+                int32_t w2 = (int32_t)iv2.getBitWidth();
+                std::string digits2 = iv2.toString(LiteralBase::Binary, false);
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(std::to_string(w2) + "'b" + digits2);
+                c->VpiSize(w2);
+                c->VpiValue("BIN:" + digits2);
+                c->VpiConstType(vpiBinaryConst);
+                c->VpiParent(ca);
+                if (auto* pinit = pkgParamSel->getInitializer()) {
+                    auto st2 = pinit->sourceRange.start();
+                    setLoc(c, SourceRange(st2, st2 + 1));
+                }
                 rhs = c;
             }
         }

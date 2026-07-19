@@ -1444,6 +1444,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bs->VpiName(nv.symbol.name);
             bs->VpiFullName(joinRef(prefix, nv.symbol.name));
             bs->VpiParent(parent);
+            // A select of a PACKAGE parameter (pkg::A[0]) names itself
+            // pkg::A (fullname==name, omitted by the dump) and parents at
+            // the package's def parameter object.
+            if (nv.symbol.kind == SymbolKind::Parameter) {
+                if (auto psc2 = nv.symbol.getParentScope();
+                    psc2 && psc2->asSymbol().kind == SymbolKind::Package) {
+                    std::string pn2 = std::string(psc2->asSymbol().name) + "::" +
+                                      std::string(nv.symbol.name);
+                    bs->VpiName(pn2);
+                    bs->VpiFullName(pn2);
+                    if (auto pit2 = pkgDefMap.find(&psc2->asSymbol());
+                        pit2 != pkgDefMap.end() && pit2->second->Parameters())
+                        for (auto* pp2 : *pit2->second->Parameters())
+                            if (pp2->VpiName() == nv.symbol.name)
+                                bs->VpiParent(pp2);
+                }
+            }
             // A bit-select write only re-points whole refs when the base is a
             // function formal (io_decl); local vars/nets keep their own binding.
             if (auto nit = netMap.find(&nv.symbol);
