@@ -1,3 +1,5 @@
 build/
 results/latest.csv
+difsizes.csv
 *.o
+*.swp
