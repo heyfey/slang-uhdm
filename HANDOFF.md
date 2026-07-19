@@ -1,5 +1,43 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Autonomous convergence session (2026-07-19, uhdm-cmp=golden policy)
+
+PASS 270->272, cmp-passing 289->291, all merged to main, zero regressions
+(every change corpus-checked with manual demotion check; regressive experiments
+reverted). Method: find over-restrictive gates / structural diffs, test on a
+branch with full corpus, commit only clean wins.
+- BitsCallOnExpression CMP_ONLY: $bits does NOT fold when arg is an expression
+  ($bits(~x)) or a PARAMETER ($bits(P), override-dependent); type/var/member
+  args still fold. ExprEmit.
+- simple_fsm + alu_sub PASS: value/typespec plain LOCAL untyped params
+  (localparam IDLE=2'b00) — dropped the isLocal exclusion. ParamEmit.
+- Correct partials (no test flip, safe): no-default (override-only) params
+  empty in def view; real param real_typespec + REAL value; typed/ranged param
+  typespec kept with x/z value; untyped string-literal -> string_typespec.
+
+REVERTED experiments (regressed, corpus caught them): removing x/z-const ts-ref
+(needed by ParameterWithUnderscoreValue+Divided); rhs-unknown ts gate (needed
+by UnsizedConstantsParameterParsing); $bits value-arg broadening ($bits(var)
+DOES fold); port-default High_conn (getInitializer also returns instance-port
+connections; def-only prefix gate didn't isolate cleanly).
+
+**Confirmed close DIFF tests (each blocked on a specific, non-trivial piece):**
+- SizeOfUnsignedParameter (36): $bits(P) now kept, but the sys_func_call needs
+  vpiTypespec -> the assign TARGET's int_typespec (typespec-on-expression).
+- OneCast (18): localparam DUMMY=32'(ONE) — mine INT:1/size64+signed ts vs
+  golden UINT:1/size32 (signedSizeCast over-fires for positive size casts +
+  untyped-param size-64 override wrong for cast values).
+- setundef (36): no-default RANGED param overridden with x/z — needs
+  vpiOverriden + override-constant structure for no-default overrides.
+- **Typespec-on-expression cluster** (Clog2, PatternAsFunctionArgument,
+  SizeOfUnsignedParameter): a folded/kept RHS expr (operation / $clog2 /
+  $bits / pattern) carries the assign TARGET's typespec. If a general "RHS of a
+  typed cont_assign carries the LHS net's typespec" rule can be added safely,
+  it may flip several — but it's regression-prone (RHS typespec paths).
+- defvalue (199): port default values -> port High_conn (PortSymbol::
+  getInitializer, def-decl only). param_no_default (263): no-default override
+  encoding across elab views. Both niche/multi-view.
+
 ## Oracle/mechanism findings + frontier reality (2026-07-19, verified)
 
 - **Surelog version**: local build `v1.86-114-gcbdbea458c` (Jul 17 2026), 6
