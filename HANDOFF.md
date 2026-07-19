@@ -1,5 +1,41 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Modport tail-dup convergence (2026-07-18, branch `iface-modport-tail`)
+
+iface_modport DIFF->CMP_ONLY (cmp now passes; 26-line dump diff is pure
+weakly-tail typespec ORDERING, tolerated). CMP_ONLY 17->18, no regressions.
+Decoded the full Surelog interface_inst reference topology:
+
+- Two interface_inst STYLES per interface:
+  - **Declaration-style (home)** e.g. `work@top.bus` @decl-line:col (25:5):
+    HAS Instance/DefFile/DefLineNo; modport io_decl has NO vpiExpr; modport
+    Interface_inst self-refs; loc shows endln.
+  - **Reference-style** e.g. m0 port view `work@top.m0.bus` @instantiation
+    line, col 0 (27:0) AND the home's col-0 **tail duplicate** `work@top.bus`
+    (25:0): OMIT Instance/DefFile/DefLineNo; modport io_decl HAS vpiExpr;
+    modport Interface_inst self-refs; NO endln. The tail dup SHARES the home
+    view's variable objects (shown shallow in the dump) and is referenced only
+    weakly (from the receiving module port's HighConn ref_obj) -> lands in the
+    weaklyReferenced tail.
+- A receiving module port's **Low_conn** ref_obj.Actual must point at the PORT
+  VIEW's own modport (io_decl exprs + Interface_inst back-ptr), NOT the shared
+  def modport. Repointed in the portIfaces loop after the port view is built.
+- HighConn ref_obj.Actual -> the col-0 tail dup (ifaceTailDup map), not the
+  home view. LowConn ref_obj loc = connection site, not port decl.
+
+**Semantically redundant (future `--no-surelog-tail-dups` switch, default
+OFF):** the col-0 tail duplicate (`makeIfaceRefDup` + the HighConn redirect to
+it) carries zero semantic info beyond the home view — it exists only to match
+Surelog's folded-UHDM dumper byte-for-byte. The modport `vpiExpr` on io_decls
+and the modport `Interface_inst` self-ref are likewise dump-fidelity only
+(the direction + name already fully specify the modport port). A switch can
+skip makeIfaceRefDup, the ifaceTailDup HighConn redirect, and the io_decl
+Expr / modport Interface_inst wiring without changing semantics.
+
+Debugging aids (scratchpad): finder/f2..f10 — small UHDM-linked programs that
+load two .uhdm files, run per-subobject `Compare`, and localize the first
+mismatched scalar/vector (uhdm-cmp only reports the leaf pair, not the path).
+
 ## Session r166-r173 + interface feature (2026-07-18, this session)
 
 PASS 256->263, DIFF 299->306, CMP_ONLY 8->17, UNSUP 98->75. All clean

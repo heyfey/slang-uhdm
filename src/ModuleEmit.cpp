@@ -165,6 +165,36 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         setLocNamed(n, ip);
         nets->push_back(n);
     }
+    // Connection-site logic_net for each scalar interface passed to a child
+    // module (bound by the child ref_module's interface port).
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Instance)
+            continue;
+        auto& child = member.as<InstanceSymbol>();
+        for (auto pb : child.body.getPortList()) {
+            if (pb->kind != SymbolKind::InterfacePort)
+                continue;
+            auto conn = pb->as<InterfacePortSymbol>().getConnection();
+            if (!conn.first || conn.first->kind != SymbolKind::Instance)
+                continue;
+            const PortConnection* pc = nullptr;
+            for (auto cc : child.getPortConnections())
+                if (&cc->port == pb) {
+                    pc = cc;
+                    break;
+                }
+            auto* n = s.MakeLogic_net();
+            n->VpiName(conn.first->name);
+            n->VpiFullName(prefix + "." + std::string(conn.first->name));
+            n->VpiParent(m);
+            n->VpiNetType(vpiWire);
+            if (pc && connectionExpr(*pc))
+                setLoc(n, connectionExpr(*pc)->sourceRange);
+            ifaceConnNet[conn.first] = n;
+            info.nets[conn.first] = n;
+            nets->push_back(n);
+        }
+    }
     if (!nets->empty())
         m->Nets(nets);
 
@@ -395,6 +425,18 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                     p->High_conn(r);
                 }
                 else if (auto* h = emitExpr(*expr, p, prefix, info.nets)) {
+                    if (conn->port.kind == SymbolKind::InterfacePort &&
+                        h->UhdmType() == UHDM::uhdmref_obj) {
+                        if (auto cc =
+                                conn->port.as<InterfacePortSymbol>().getConnection().first;
+                            cc && cc->kind == SymbolKind::Instance) {
+                            auto* r = (UHDM::ref_obj*)h;
+                            r->VpiFullName(prefix + "." + std::string(child.name) + "." +
+                                           std::string(conn->port.name));
+                            if (auto nit = ifaceConnNet.find(cc); nit != ifaceConnNet.end())
+                                r->Actual_group(nit->second);
+                        }
+                    }
                     p->High_conn(h);
                 }
             }
@@ -830,7 +872,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 auto* lc = s.MakeRef_obj();
                 lc->VpiFullName(prefix + "." + std::string(ip.name));
                 lc->VpiParent(p);
-                setLocNamed(lc, ip);
+                // Anchored at the connection site (Surelog quirk), not port decl.
+                if (iconn && connectionExpr(*iconn))
+                    setLoc(lc, connectionExpr(*iconn)->sourceRange);
+                else
+                    setLocNamed(lc, ip);
                 if (ip.interfaceDef && !ip.modport.empty())
                     if (auto dit = modportsByDef.find(ip.interfaceDef);
                         dit != modportsByDef.end())
@@ -847,7 +893,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         hc->VpiFullName(parentPrefix + "." +
                                         std::string(conn.first->name));
                         hc->VpiParent(p);
-                        hc->Actual_group(iit->second);
+                        // Points at the col-0 tail duplicate of the interface
+                        // (weak ref → weaklyReferenced tail), falling back to
+                        // the home view when no dup exists.
+                        auto dit = ifaceTailDup.find(conn.first);
+                        hc->Actual_group(dit != ifaceTailDup.end() ? dit->second
+                                                                   : iit->second);
                         if (iconn && connectionExpr(*iconn))
                             setLoc(hc, connectionExpr(*iconn)->sourceRange);
                         p->High_conn(hc);
@@ -952,11 +1003,26 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         for (auto portBase : body.getPortList()) {
             if (portBase->kind != SymbolKind::InterfacePort)
                 continue;
-            auto conn = portBase->as<InterfacePortSymbol>().getConnection();
-            if (conn.first && conn.first->kind == SymbolKind::Instance)
-                portIfaces->push_back(emitInterfaceInstance(
+            auto& ip = portBase->as<InterfacePortSymbol>();
+            auto conn = ip.getConnection();
+            if (conn.first && conn.first->kind == SymbolKind::Instance) {
+                auto* ii = emitInterfaceInstance(
                     conn.first->as<InstanceSymbol>(),
-                    prefix + "." + std::string(portBase->name), m, &topNets, &instRefs));
+                    prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
+                    /*portView=*/&inst);
+                portIfaces->push_back(ii);
+                // Re-point the port's Low_conn ref_obj from the shared def
+                // modport to this port view's own modport (which carries the
+                // io_decl exprs + Interface_inst back-pointer Surelog expects).
+                if (!ip.modport.empty() && ii->Modports())
+                    for (auto* pp : *ports)
+                        if (pp->VpiName() == ip.name && pp->Low_conn() &&
+                            pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
+                            for (auto* umod : *ii->Modports())
+                                if (umod->VpiName() == ip.modport)
+                                    ((UHDM::ref_obj*)pp->Low_conn())
+                                        ->Actual_group(umod);
+            }
         }
         if (!portIfaces->empty())
             m->Interfaces(portIfaces);
@@ -2737,11 +2803,91 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     return iface;
 }
 
+// Surelog emits, for each interface instance, a reference-style COPY of the
+// interface_inst placed at column 0 of the instance line. It shares the home
+// view's variable objects and its own modport self-references it. It is only
+// ever weakly referenced (from a receiving module port's HighConn ref_obj), so
+// the dumper lists it in its weaklyReferenced tail. This object is SEMANTICALLY
+// REDUNDANT (a dump artifact) — kept only to be byte/reference identical with
+// Surelog's folded UHDM. A future `--no-surelog-tail-dups` switch (default off)
+// can skip makeIfaceRefDup + the HighConn redirect entirely.
+UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
+                                                    const std::string& path,
+                                                    UHDM::module_inst* parentM,
+                                                    NetMap& sharedNets) {
+    auto& body = inst.body;
+    auto& def = inst.getDefinition();
+    auto* dup = s.MakeInterface_inst();
+    dup->VpiDefName("work@" + std::string(def.name));
+    dup->VpiName(inst.name);
+    dup->VpiFullName(path);
+    dup->VpiParent(parentM);
+    // Column 0 of the instance statement line; reference-style (no endln,
+    // no Instance/DefFile/DefLineNo).
+    if (auto syn = inst.getSyntax()) {
+        const syntax::SyntaxNode* stmtSyn = syn;
+        while (stmtSyn->parent &&
+               stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation)
+            stmtSyn = stmtSyn->parent;
+        auto sr = stmtSyn->sourceRange();
+        dup->VpiFile(fullFilePath(sr.start()));
+        dup->VpiLineNo((int32_t)sm->getLineNumber(sr.start()));
+        dup->VpiColumnNo(0);
+    }
+
+    // Shares the home view's variable objects (shown shallow in the tail dump).
+    auto* vars = s.MakeVariablesVec();
+    for (auto& it : collectNetOrder(body))
+        if (auto nit = sharedNets.find(it.sym); nit != sharedNets.end())
+            vars->push_back((UHDM::variables*)nit->second);
+    if (!vars->empty())
+        dup->Variables(vars);
+
+    auto* mports = s.MakeModportVec();
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Modport)
+            continue;
+        auto& mp = member.as<ModportSymbol>();
+        auto* dm = s.MakeModport();
+        dm->VpiName(mp.name);
+        dm->VpiParent(dup);
+        setLocNamed(dm, mp);
+        auto* iodecls = s.MakeIo_declVec();
+        for (auto& pm : mp.members()) {
+            if (pm.kind != SymbolKind::ModportPort)
+                continue;
+            auto& mpp = pm.as<ModportPortSymbol>();
+            auto* io = s.MakeIo_decl();
+            io->VpiName(mpp.name);
+            io->VpiParent(dm);
+            setLocNamed(io, mpp);
+            int32_t dir = mpp.direction == ArgumentDirection::In    ? vpiInput
+                          : mpp.direction == ArgumentDirection::Out ? vpiOutput
+                          : mpp.direction == ArgumentDirection::InOut ? vpiInout
+                                                                      : 0;
+            if (dir)
+                io->VpiDirection(dir);
+            if (auto nit = sharedNets.find(mpp.internalSymbol);
+                nit != sharedNets.end())
+                io->Expr((UHDM::expr*)nit->second);
+            iodecls->push_back(io);
+        }
+        if (!iodecls->empty())
+            dm->Io_decls(iodecls);
+        dm->Interface_inst(dup);  // self-reference
+        mports->push_back(dm);
+    }
+    if (!mports->empty())
+        dup->Modports(mports);
+    return dup;
+}
+
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
                                                           UHDM::module_inst* parentM,
                                                           NetMap* parentNets,
-                                                          std::set<const Symbol*>* parentRefs) {
+                                                          std::set<const Symbol*>* parentRefs,
+                                                          const InstanceSymbol* portView) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;
@@ -2753,15 +2899,32 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     iface->VpiFullName(prefix);
     iface->VpiParent(parentM);
     iface->VpiFile(fullFilePath(def.location));
-    iface->Instance(parentM);
-    iface->VpiDefFile(fullFilePath(def.location));
-    iface->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
-    if (auto syn = inst.getSyntax()) {
-        const syntax::SyntaxNode* stmtSyn = syn;
-        while (stmtSyn->parent &&
-               stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation)
-            stmtSyn = stmtSyn->parent;
-        setLoc(iface, stmtSyn->sourceRange());
+    // Declaration-style (home) views carry Instance/DefFile/DefLineNo; a
+    // reference-style port view (work@top.m0.bus, col 0) omits them.
+    if (!portView) {
+        iface->Instance(parentM);
+        iface->VpiDefFile(fullFilePath(def.location));
+        iface->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+        if (auto syn = inst.getSyntax()) {
+            const syntax::SyntaxNode* stmtSyn = syn;
+            while (stmtSyn->parent &&
+                   stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation)
+                stmtSyn = stmtSyn->parent;
+            setLoc(iface, stmtSyn->sourceRange());
+        }
+    }
+    else {
+        // Located at the receiving instance's instantiation line, column 0.
+        if (auto syn = portView->getSyntax()) {
+            const syntax::SyntaxNode* stmtSyn = syn;
+            while (stmtSyn->parent &&
+                   stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation)
+                stmtSyn = stmtSyn->parent;
+            auto sr = stmtSyn->sourceRange();
+            iface->VpiFile(fullFilePath(sr.start()));
+            iface->VpiLineNo((int32_t)sm->getLineNumber(sr.start()));
+            iface->VpiColumnNo(0);
+        }
     }
 
     NetMap netMap;
@@ -2845,7 +3008,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     if (!vars->empty())
         iface->Variables(vars);
 
-    // Elab-view modports (fresh objects parented to this interface_inst).
+    // Elab-view modports (fresh objects parented to this interface_inst). Each
+    // modport's Interface_inst self-references this view. A reference-style port
+    // view additionally carries a vpiExpr on each io_decl (pointing at this
+    // view's variable); the declaration-style home view does not.
     {
         auto* mports = s.MakeModportVec();
         for (auto& member : body.members()) {
@@ -2871,15 +3037,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                                          : 0;
                 if (dir)
                     io->VpiDirection(dir);
+                if (portView)
+                    if (auto nit = netMap.find(mpp.internalSymbol);
+                        nit != netMap.end())
+                        io->Expr((UHDM::expr*)nit->second);
                 iodecls->push_back(io);
             }
             if (!iodecls->empty())
                 umod->Io_decls(iodecls);
+            umod->Interface_inst(iface);
             mports->push_back(umod);
         }
         if (!mports->empty())
             iface->Modports(mports);
     }
+
+    // Home view: build the col-0 tail duplicate (shares this view's vars) so a
+    // receiving module port's HighConn ref_obj can weakly reference it.
+    if (!portView)
+        ifaceTailDup[&inst] = makeIfaceRefDup(inst, prefix, parentM, netMap);
 
     // A single-instance interface's DEF cont-assign references resolve to THIS
     // instance's elab vars (Surelog quirk), not the def nets. Re-point them.

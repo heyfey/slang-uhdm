@@ -139,11 +139,22 @@ private:
     // The interface_typespec for an InterfacePort: a modport typespec
     // (vpiIsModPort) whose parent is the base interface typespec.
     UHDM::interface_typespec* makeIfacePortTs(const slang::ast::InterfacePortSymbol& ip);
+    // Surelog dump-artifact: a col-0 "reference-style" interface_inst duplicate
+    // of an interface's home view. It shares the home view's variable objects
+    // and is referenced only weakly (from a receiving module port's HighConn
+    // ref_obj), so the dumper lists it in the weaklyReferenced tail. Semantically
+    // redundant (see NOTES) — a future switch (default off) can skip it.
+    UHDM::interface_inst* makeIfaceRefDup(const slang::ast::InstanceSymbol& inst,
+                                          const std::string& path,
+                                          UHDM::module_inst* parentM, NetMap& sharedNets);
+    // Interface instance -> its col-0 tail duplicate (see makeIfaceRefDup).
+    std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifaceTailDup;
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
     UHDM::interface_inst* emitInterfaceInstance(const slang::ast::InstanceSymbol& inst,
                                                 const std::string& path,
                                                 UHDM::module_inst* parentM, NetMap* parentNets,
-                                                std::set<const slang::ast::Symbol*>* parentRefs);
+                                                std::set<const slang::ast::Symbol*>* parentRefs,
+                                                const slang::ast::InstanceSymbol* portView = nullptr);
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);
@@ -248,6 +259,7 @@ private:
     // Elaborated interface instance -> its interface_inst, so a sibling
     // module's InterfacePort HighConn can point at the connected instance.
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifaceInstMap;
+    std::map<const slang::ast::Symbol*, UHDM::net*> ifaceConnNet;
     std::set<std::string> unsupportedKinds;
     bool suppressConstParent = false;
     bool reemitting = false;
