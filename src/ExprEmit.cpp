@@ -907,15 +907,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 noteUnsupported("system method call: " + name);
                 return nullptr;
             }
-            // Type-query calls ($bits/$size) fold to constants when
-            // evaluable — but NOT when the argument is an expression
-            // (Surelog keeps $bits(~x) as a sys_func_call).
-            bool bitsExprArg =
-                !call.arguments().empty() &&
-                (call.arguments()[0]->kind == ExpressionKind::UnaryOp ||
-                 call.arguments()[0]->kind == ExpressionKind::BinaryOp ||
-                 call.arguments()[0]->kind == ExpressionKind::ConditionalOp);
-            if (name == "$bits" && !bitsExprArg) {
+            // $bits folds to a constant for a type/var/member argument, but
+            // Surelog keeps it a sys_func_call when the argument is an
+            // expression ($bits(~x)) or a parameter ($bits(P), override-
+            // dependent).
+            bool bitsKeep = false;
+            if (!call.arguments().empty()) {
+                auto& a0 = *call.arguments()[0];
+                bitsKeep = a0.kind == ExpressionKind::UnaryOp ||
+                           a0.kind == ExpressionKind::BinaryOp ||
+                           a0.kind == ExpressionKind::ConditionalOp ||
+                           (a0.kind == ExpressionKind::NamedValue &&
+                            a0.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter);
+            }
+            if (name == "$bits" && !bitsKeep) {
                 ASTContext qctx(comp.getRoot(), LookupLocation::max);
                 if (auto cv = qctx.tryEval(expr); cv && cv.isInteger()) {
                     auto* c = s.MakeConstant();
