@@ -456,8 +456,46 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
 
 // Modules with package imports carry an import_typespec per import item and
 // list import-called package functions (shared def objects) in Task_funcs.
-void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::module_inst* m) {
+void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::instance* m) {
     auto* tds = m->Typespecs();
+    // An interface (def view) lists each imported package typedef in its own
+    // Typespecs before the import_typespec, SHARING the top-view package
+    // object: it re-parents it to the interface and re-scopes its base ref
+    // fullname to work@<iface>.<pkg>::<name> (Surelog last-writer semantics).
+    if (m->UhdmType() == UHDM::uhdminterface_inst) {
+        for (auto& mem : body.members()) {
+            if (mem.kind != SymbolKind::WildcardImport &&
+                mem.kind != SymbolKind::ExplicitImport)
+                continue;
+            std::string_view pn = mem.kind == SymbolKind::WildcardImport
+                                      ? mem.as<WildcardImportSymbol>().packageName
+                                      : mem.as<ExplicitImportSymbol>().packageName;
+            auto* pkg = comp.getPackage(pn);
+            if (!pkg)
+                continue;
+            for (auto& pm : pkg->members()) {
+                if (pm.kind != SymbolKind::TypeAlias)
+                    continue;
+                auto tit = pkgTopTypedefTs.find(&pm);
+                if (tit == pkgTopTypedefTs.end())
+                    continue;
+                auto* ts = tit->second;
+                ts->VpiParent(m);
+                if (ts->UhdmType() == UHDM::uhdmenum_typespec) {
+                    auto* ets = (UHDM::enum_typespec*)ts;
+                    if (ets->Base_typespec())
+                        ets->Base_typespec()->VpiFullName(
+                            std::string(m->VpiDefName()) + "." + std::string(pn) +
+                            "::" + std::string(pm.as<TypeAliasType>().name));
+                }
+                if (!tds) {
+                    tds = s.MakeTypespecVec();
+                    m->Typespecs(tds);
+                }
+                tds->push_back(ts);
+            }
+        }
+    }
     for (auto& mem : body.members()) {
         std::string pkgName;
         if (mem.kind == SymbolKind::WildcardImport)
@@ -1991,6 +2029,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (sc0->asSymbol().kind == SymbolKind::InstanceBody)
                 break;
         }
+        // Interface def views keep the enum-const ref (module views fold).
+        if (m->UhdmType() != UHDM::uhdmmodule_inst)
+            pkgEnumRhs = false;
         if (enumRhs && (topView || pkgEnumRhs)) {
             if (auto eit = enumConstMap.find(enumRhs); eit != enumConstMap.end()) {
                 auto* src = (UHDM::enum_const*)eit->second;
@@ -2821,6 +2862,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         iface->Modports(mports);
 
     emitPorts(body, iface, prefix, info.nets, /*topView=*/false, &info.defTs);
+    emitImportArtifacts(body, iface);
     return iface;
 }
 
@@ -3029,6 +3071,17 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     if (!vars->empty())
         iface->Variables(vars);
 
+    // The elab view lists the def view's typedef/import typespecs (SHARED
+    // objects; the def view was emitted first).
+    if (auto dIt = ifaceDefMap.find(&def);
+        dIt != ifaceDefMap.end() && dIt->second->Typespecs()) {
+        auto* tds2 = s.MakeTypespecVec();
+        for (auto* t : *dIt->second->Typespecs())
+            tds2->push_back(t);
+        if (!tds2->empty())
+            iface->Typespecs(tds2);
+    }
+
     // Elab-view modports (fresh objects parented to this interface_inst). Each
     // modport's Interface_inst self-references this view. A reference-style port
     // view additionally carries a vpiExpr on each io_decl (pointing at this
@@ -3118,7 +3171,28 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             ca->VpiColumnNo(defCa->VpiColumnNo());
             ca->VpiEndLineNo(defCa->VpiEndLineNo());
             ca->VpiEndColumnNo(defCa->VpiEndColumnNo());
-            ca->Rhs(defCa->Rhs());
+            // A pkg-enum-const RHS ref folds to a LOC-LESS digits constant in
+            // the elab view (the def keeps the ref).
+            UHDM::expr* rhsShare = (UHDM::expr*)defCa->Rhs();
+            if (rhsShare && rhsShare->UhdmType() == UHDM::uhdmref_obj) {
+                auto* ract = ((UHDM::ref_obj*)rhsShare)->Actual_group();
+                if (ract && ract->UhdmType() == UHDM::uhdmenum_const) {
+                    auto* src = (UHDM::enum_const*)ract;
+                    auto* c = s.MakeConstant();
+                    c->VpiParent(ca);
+                    c->VpiDecompile(src->VpiDecompile());
+                    c->VpiSize(src->VpiSize());
+                    std::string_view v = src->VpiValue();
+                    c->VpiValue(std::string(v));
+                    c->VpiConstType(v.rfind("BIN:", 0) == 0   ? vpiBinaryConst
+                                    : v.rfind("HEX:", 0) == 0 ? vpiHexConst
+                                    : v.rfind("OCT:", 0) == 0 ? vpiOctConst
+                                    : v.rfind("DEC:", 0) == 0 ? vpiDecConst
+                                                              : vpiUIntConst);
+                    rhsShare = c;
+                }
+            }
+            ca->Rhs(rhsShare);
             if (auto* dlhs = defCa->Lhs();
                 dlhs && dlhs->UhdmType() == UHDM::uhdmref_obj) {
                 auto* dro = (UHDM::ref_obj*)dlhs;

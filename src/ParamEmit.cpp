@@ -761,6 +761,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         ts->Instance((UHDM::instance*)up);
         if (!topView)
             typedefTs[&ta] = ts;
+        else
+            pkgTopTypedefTs[&ta] = ts;
         tds->push_back(ts);
     }
     if (!tds->empty())

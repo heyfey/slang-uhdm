@@ -354,7 +354,7 @@ private:
     std::map<const slang::ast::Symbol*, std::vector<UHDM::attribute*>> attrMap;
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
-    void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m);
+    void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m);
     // Straight-line constant reduction of user calls / simple exprs.
     struct CallFold {
         const slang::ast::Expression* lit = nullptr;
@@ -380,6 +380,9 @@ private:
     };
     std::vector<PendingParamCloneTs> pendingParamCloneTs;
     std::map<const void*, UHDM::package*> pkgDefMap;
+    // Package TypeAlias -> its TOP-view typespec (interfaces that import it
+    // re-parent/list the SHARED object).
+    std::map<const void*, UHDM::typespec*> pkgTopTypedefTs;
     // Def-view type-cast typespecs, pre-created at module-compile time.
     std::map<const void*, UHDM::typespec*> castTsCache;
     // Bare implicit io-decl typespecs (unlocated) are created at the very
