@@ -1,6 +1,6 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Session 7b: session-7 ladder triage (2026-07-19)
+## Session 7b: session-7 ladder triage (2026-07-19, 6 commits)
 
 **PASS 324->325, DIFF 297->296.** Converged **StringAssignConcatenation**
 (a string literal in `{NAME,"efgh"}` is a NON-implicit compiler string
@@ -37,15 +37,23 @@ the exact discriminator found:
   `hasNestedTypedef` gate in emitTypedefs (TypeEmit ~1012) is the wrong
   axis — needs the "has-a-variable-of-this-type" test. RISKY (shared
   gate; re-gate carefully against BitsCallOnVar/StructMemberAsModuleInput).
-- **OneClass** (module-local classes): (1) EASY: a class `int` field
-  emits bit_var, must be int_var+vpiSigned — the class-property var
-  builder in UhdmExporter.cpp ~357 only checks isFourState (int is
-  2-state -> bit_var); needs the predefined-int-type -> int_var mapping
-  like makeVar. (2) BIG: module-LOCAL classes (`class c` inside a module)
-  are not emitted at all — the class_defn loop only walks
-  `comp.getCompilationUnits()` (file-level). (3) class-typed nets
-  (`u one; c two;`) need a class_typespec on their logic_net typespec +
-  the weak-tail class_typespec entries.
+- **OneClass** (module-local classes; diff 119->93 after the int_var
+  commit): (1) DONE — class `int`/predefined fields now route through
+  makeVar (int_var+signed). (2) REMAINING, module-LOCAL classes
+  (`class c` inside a module) are not emitted at all — the class_defn loop
+  (UhdmExporter.cpp ~336) only walks `comp.getCompilationUnits()`
+  (file-level). Refactor that block into a helper and also call it for
+  module-body ClassType members (attach under the module's vpiClassDefn,
+  name `work@top::c`, populate classDefnMap). (3) class-typed nets
+  (`u one; c two;`) need their class_typespec — NOTE makeTypespec ALREADY
+  builds a ClassType->class_typespec (TypeEmit ~25, links Class_defn via
+  classDefnMap), so once (2) populates classDefnMap the fix is to STOP
+  skipping the typespec for class-handle nets (the `classHandle` guard at
+  ModuleEmit ~104 that sets no typespec) and instead emit the
+  ref_typespec+class_typespec located at the type-name span. RISK: find
+  what test the "class-handle nets carry NO typespec" rule was added for
+  before removing the guard (may need gating on whether classDefnMap has
+  the class).
 - **iface_param_width_per_inst** (parametrized interface port): the CORE
   feature the test documents — a submodule's interface field width must
   use the ELABORATED per-instance param (`#(.W(22))` -> data is [21:0],
