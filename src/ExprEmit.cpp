@@ -1103,16 +1103,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& es = expr.as<ElementSelectExpression>();
             // Selects on member access become hier_paths whose last element
             // is the select object (lazily-frozen fullname).
-            if (es.value().kind == ExpressionKind::MemberAccess) {
+            const Expression* esBottom = &es.value();
+            while (esBottom->kind == ExpressionKind::MemberAccess)
+                esBottom = &esBottom->as<MemberAccessExpression>().value();
+            if (es.value().kind == ExpressionKind::MemberAccess &&
+                esBottom->kind == ExpressionKind::NamedValue) {
                 std::vector<const Expression*> chain;
                 const Expression* base = &es.value();
                 while (base->kind == ExpressionKind::MemberAccess) {
                     chain.push_back(base);
                     base = &base->as<MemberAccessExpression>().value();
-                }
-                if (base->kind != ExpressionKind::NamedValue) {
-                    noteUnsupported("member select base");
-                    return nullptr;
                 }
                 auto& bnv = base->as<NamedValueExpression>();
                 auto* hp = s.MakeHier_path();
@@ -1436,7 +1436,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             // Range select of a member access (a.b[0+:8]) becomes a hier_path
             // whose last element is an (indexed_)part_select.
-            if (rs.value().kind == ExpressionKind::MemberAccess) {
+            const Expression* rsBottom = &rs.value();
+            while (rsBottom->kind == ExpressionKind::MemberAccess)
+                rsBottom = &rsBottom->as<MemberAccessExpression>().value();
+            if (rs.value().kind == ExpressionKind::MemberAccess &&
+                rsBottom->kind == ExpressionKind::NamedValue) {
                 std::vector<const Expression*> chain;
                 const Expression* base = &rs.value();
                 while (base->kind == ExpressionKind::MemberAccess) {
