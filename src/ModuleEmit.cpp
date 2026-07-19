@@ -2962,10 +2962,25 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             bool sgn = hasArgs ? iv.isSigned() : (iv.isSigned() && iv.isNegative());
             std::string digits = iv.toString(LiteralBase::Decimal, false);
             auto* c = s.MakeConstant();
-            c->VpiDecompile(digits);
-            c->VpiSize((int32_t)iv.getBitWidth());
-            c->VpiValue((sgn ? "INT:" : "UINT:") + digits);
-            c->VpiConstType(sgn ? vpiIntConst : vpiUIntConst);
+            // A SCALAR (1-bit logic) call result encodes as BINARY with a
+            // based decompile (1'b1); wider results keep decimal.
+            if (ae.right().type && ae.right().type->isFourState() &&
+                ae.right().type->getBitWidth() == 1) {
+                int32_t w = (int32_t)iv.getBitWidth();
+                std::string bits;
+                for (int32_t i = w - 1; i >= 0; i--)
+                    bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
+                c->VpiDecompile(std::to_string(w) + "'b" + bits);
+                c->VpiSize(w);
+                c->VpiValue("BIN:" + bits);
+                c->VpiConstType(vpiBinaryConst);
+            }
+            else {
+                c->VpiDecompile(digits);
+                c->VpiSize((int32_t)iv.getBitWidth());
+                c->VpiValue((sgn ? "INT:" : "UINT:") + digits);
+                c->VpiConstType(sgn ? vpiIntConst : vpiUIntConst);
+            }
             c->VpiParent(ca);
             rhs = c;
         }

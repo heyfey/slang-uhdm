@@ -564,6 +564,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ref, expr.sourceRange);
                     return ref;
                 }
+                // Function-call ARGS keep a pkg-scoped ref (named pkg::P,
+                // anchored at the package-qualifier span) bound to the
+                // package's def parameter object.
+                if (parent && (parent->UhdmType() == UHDM::uhdmfunc_call ||
+                               parent->UhdmType() == UHDM::uhdmtask_call)) {
+                    std::string pn = std::string(scope->asSymbol().name) + "::" +
+                                     std::string(nv.symbol.name);
+                    ref->VpiName(pn);
+                    ref->VpiFullName(pn);
+                    ref->VpiParent(parent);
+                    if (auto pit2 = pkgDefMap.find(&scope->asSymbol());
+                        pit2 != pkgDefMap.end() && pit2->second->Parameters())
+                        for (auto* pp2 : *pit2->second->Parameters())
+                            if (pp2->VpiName() == nv.symbol.name)
+                                ref->Actual_group(pp2);
+                    setLoc(ref, SourceRange(expr.sourceRange.start(),
+                                            expr.sourceRange.start() +
+                                                scope->asSymbol().name.size() + 2));
+                    return ref;
+                }
                 // Module-side references to package params are folded inline
                 // to constants carrying the reference's location.
                 auto& psym = nv.symbol.as<ParameterSymbol>();
@@ -1255,7 +1275,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // def-view function bodies never do (top pkg copies
                         // re-attach them).
                         bool argCtxOk = currentTf ? pkgTopEmit : callArgDepth == 1;
-                        if (isFunc && !inProcessEmit && argCtxOk &&
+                        // Pkg-scoped param refs (pkg::P) carry no formal ts.
+                        bool pkgScopedRef =
+                            a->UhdmType() == UHDM::uhdmref_obj &&
+                            std::string(((UHDM::ref_obj*)a)->VpiName()).find("::") !=
+                                std::string::npos;
+                        if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
                             (refArg || otherArg) && argIdx < si.argTs.size()) {
                             auto* r = (UHDM::expr*)a;
                             auto* rt = s.MakeRef_typespec();
@@ -1467,12 +1492,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // module-compile context, parented in re-elaborated (instance)
             // context. Nested expressions keep the normal rules.
             for (auto o : ce.operands()) {
-                bool saved = suppressConstParent;
-                if (!reemitting && isLiteralExpr(*o))
+                bool saved = suppressConstParent, savedF = forceConstParent;
+                if (!reemitting && isLiteralExpr(*o)) {
                     suppressConstParent = true;
+                    // PACKAGE param concat inits unparent literal operands
+                    // in BOTH views (the force flag would re-parent them).
+                    if (inParamInit && paramInitPkg)
+                        forceConstParent = false;
+                }
                 if (auto* e = emitExpr(*o, op, prefix, netMap))
                     operands->push_back(e);
                 suppressConstParent = saved;
+                forceConstParent = savedF;
             }
             op->Operands(operands);
             return op;

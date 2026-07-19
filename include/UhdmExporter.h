@@ -303,6 +303,8 @@ private:
     // DEF-view param inits leave UNARY-op operand constants unparented
     // (binary operands stay parented).
     bool paramInitDef = false;
+    // PACKAGE param inits: concat operands unparent in both views.
+    bool paramInitPkg = false;
     // Surelog can't resolve block-scoped localparams; refs to them bind an
     // implicit module-level wire created at the first reference.
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;

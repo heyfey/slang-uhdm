@@ -313,8 +313,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ((UHDM::constant*)rhs)->VpiSize((int32_t)ps.getType().getBitWidth());
                 }
                 // A TYPED string param never folds (the elab Rhs re-emits the
-                // string constant, decompiled without quotes).
+                // string constant, decompiled without quotes). Pkg CONCAT
+                // inits keep the operation in both views.
                 else if (!ps.getType().getCanonicalType().isString() &&
+                         !(inPackage && stripImplicitConv(*init).kind ==
+                                            ExpressionKind::Concatenation) &&
                          !containsUserCall(*init) &&
                          (rhs = tryFoldConst(
                               *init, (typedParam && init != init0) ? init0
@@ -409,7 +412,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 forceConstParent = true;
                 inParamInit = true;
                 paramInitDef = !topView;
+                paramInitPkg = inPackage;
                 rhs = emitExpr(*init, pa, prefix, netMap);
+                paramInitPkg = false;
                 paramInitDef = false;
                 inParamInit = false;
                 forceConstParent = false;
