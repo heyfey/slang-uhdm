@@ -10,6 +10,37 @@
 
 namespace slang_uhdm {
 
+// Packed dims written after a NAMED type (filter_ctl_t [1:0] a) live neither
+// in the type syntax nor in getResolvedDimensions; scan the source between
+// the type name and the declarator for bracket groups. Returns
+// (range-span, left-bound-span, right-bound-span) per dim.
+struct DimSpan {
+    SourceRange range, left, right;
+};
+static std::vector<DimSpan> scanDimSpans(const std::string& raw, SourceLocation base) {
+    std::vector<DimSpan> out;
+    for (size_t i = 0; i < raw.size(); i++) {
+        if (raw[i] != '[')
+            continue;
+        auto close = raw.find(']', i);
+        auto colon = raw.find(':', i);
+        if (close == std::string::npos || colon == std::string::npos || colon > close)
+            continue;
+        auto trim = [&](size_t a, size_t b) {
+            while (a < b && isspace((unsigned char)raw[a]))
+                a++;
+            while (b > a && isspace((unsigned char)raw[b - 1]))
+                b--;
+            return SourceRange(base + a, base + b);
+        };
+        out.push_back({SourceRange(base + i, base + close + 1), trim(i + 1, colon),
+                       trim(colon + 1, close)});
+        i = close;
+    }
+    return out;
+}
+
+
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
@@ -191,15 +222,33 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 }
             if (elemTs) {
                 auto* pat = s.MakePacked_array_typespec();
-                auto dimList = declared->getResolvedDimensions();
-                // The typespec span reaches the last packed dim's closing "]".
+                // Semantic dims from the packed-type walk; source spans from
+                // a bracket scan between type name and declarator (named
+                // types carry the dims in neither syntax node).
+                std::vector<ConstantRange> arrRanges;
+                {
+                    const Type* t2 = &declared->getType().getCanonicalType();
+                    for (int i = 0; i < arrDims; i++) {
+                        arrRanges.push_back(
+                            t2->getCanonicalType().as<PackedArrayType>().range);
+                        t2 = &t2->getCanonicalType().as<PackedArrayType>().elementType;
+                    }
+                }
+                std::vector<DimSpan> spans;
+                if (auto tsn2 = declared->getTypeSyntax()) {
+                    auto tStart = tsn2->sourceRange().start();
+                    if (tStart < declSymbol.location)
+                        spans = scanDimSpans(
+                            std::string(
+                                rawText(SourceRange(tStart, declSymbol.location))),
+                            tStart);
+                }
                 SourceRange patLoc = range;
                 auto* rvec = s.MakeRangeVec();
-                for (int i = 0; i < arrDims && i < (int)dimList.size(); i++) {
-                    auto& d = dimList[i];
+                for (int i = 0; i < arrDims; i++) {
                     auto* r = s.MakeRange();
                     r->VpiParent(pat);
-                    auto mkBound = [&](int64_t v, const Expression* be) -> UHDM::expr* {
+                    auto mkBound = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
                         auto* c = s.MakeConstant();
                         std::string digits = std::to_string(v);
                         c->VpiDecompile(digits);
@@ -207,17 +256,15 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         c->VpiValue("UINT:" + digits);
                         c->VpiConstType(vpiUIntConst);
                         c->VpiParent(r);
-                        if (be)
-                            setLoc(c, be->sourceRange);
+                        if (loc)
+                            setLoc(c, *loc);
                         return c;
                     };
-                    if (d.leftExpr && d.rightExpr) {
-                        setLoc(r, SourceRange(d.leftExpr->sourceRange.start() - 1,
-                                              d.rightExpr->sourceRange.end() + 1));
-                        patLoc = SourceRange(range.start(), d.rightExpr->sourceRange.end() + 1);
-                    }
-                    r->Left_expr(mkBound(d.range.left, d.leftExpr));
-                    r->Right_expr(mkBound(d.range.right, d.rightExpr));
+                    const DimSpan* ds = i < (int)spans.size() ? &spans[i] : nullptr;
+                    if (ds)
+                        setLoc(r, ds->range);
+                    r->Left_expr(mkBound(arrRanges[i].left, ds ? &ds->left : nullptr));
+                    r->Right_expr(mkBound(arrRanges[i].right, ds ? &ds->right : nullptr));
                     rvec->push_back(r);
                 }
                 pat->Ranges(rvec);
@@ -1667,21 +1714,42 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     if (!elemTs)
         return nullptr;
 
+    // The packed ARRAY dims (outermost-first), collected from the type walk.
+    std::vector<ConstantRange> arrRanges;
+    {
+        const Type* t2 = &declared->getType().getCanonicalType();
+        for (int i = 0; i < arrDims; i++) {
+            arrRanges.push_back(t2->getCanonicalType().as<PackedArrayType>().range);
+            t2 = &t2->getCanonicalType().as<PackedArrayType>().elementType;
+        }
+    }
+
     auto* pav = s.MakePacked_array_var();
     pav->VpiName(name);
     pav->VpiFullName(fullName);
     pav->VpiParent(m);
-    setLoc(pav, nameSpan(sym.location, sym.name));
+    // Initialized vars span declarator..init; bare ones the name token.
+    if (auto dsyn = sym.getSyntax(); dsyn && declared->getInitializer())
+        setLoc(pav, dsyn->sourceRange());
+    else
+        setLoc(pav, nameSpan(sym.location, sym.name));
     pav->VpiVisibility(1);
 
-    // One vpiRange per packed dim (UINT bounds located at the dim brackets).
-    auto dimList = declared->getResolvedDimensions();
+    // One vpiRange per packed dim: UINT bounds located at the source dim
+    // brackets (scanned between the type name and the declarator — named
+    // types carry them in neither syntax node).
+    std::vector<DimSpan> spans;
+    if (auto tsn = declared->getTypeSyntax()) {
+        auto tStart = tsn->sourceRange().start();
+        if (tStart < sym.location)
+            spans = scanDimSpans(std::string(rawText(SourceRange(tStart, sym.location))),
+                                 tStart);
+    }
     auto* rvec = s.MakeRangeVec();
-    for (int i = 0; i < arrDims && i < (int)dimList.size(); i++) {
-        auto& d = dimList[i];
+    for (int i = 0; i < arrDims; i++) {
         auto* r = s.MakeRange();
         r->VpiParent(pav);
-        auto mkBound = [&](int64_t v, const Expression* be) -> UHDM::expr* {
+        auto mkBound = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
             auto* c = s.MakeConstant();
             std::string digits = std::to_string(v);
             c->VpiDecompile(digits);
@@ -1689,15 +1757,15 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
             c->VpiValue("UINT:" + digits);
             c->VpiConstType(vpiUIntConst);
             c->VpiParent(r);
-            if (be)
-                setLoc(c, be->sourceRange);
+            if (loc)
+                setLoc(c, *loc);
             return c;
         };
-        if (d.leftExpr && d.rightExpr)
-            setLoc(r, SourceRange(d.leftExpr->sourceRange.start() - 1,
-                                  d.rightExpr->sourceRange.end() + 1));
-        r->Left_expr(mkBound(d.range.left, d.leftExpr));
-        r->Right_expr(mkBound(d.range.right, d.rightExpr));
+        const DimSpan* ds = i < (int)spans.size() ? &spans[i] : nullptr;
+        if (ds)
+            setLoc(r, ds->range);
+        r->Left_expr(mkBound(arrRanges[i].left, ds ? &ds->left : nullptr));
+        r->Right_expr(mkBound(arrRanges[i].right, ds ? &ds->right : nullptr));
         rvec->push_back(r);
     }
     pav->Ranges(rvec);
@@ -1714,6 +1782,23 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     auto* elems = s.MakeAnyVec();
     elems->push_back(sv);
     pav->Elements(elems);
+
+    // A pattern initializer becomes the var's vpiExpr: the operation is
+    // parented at the ELEMENT struct_var (Surelog quirk), its literal
+    // operands unparented.
+    if (auto init = declared->getInitializer()) {
+        bool savedS = suppressConstParent, savedF = forceConstParent;
+        suppressConstParent = true;
+        forceConstParent = false;
+        NetMap noNets;
+        if (auto* e = emitExpr(*init, sv, fullName, noNets)) {
+            pav->Expr((UHDM::expr*)e);
+            sv->Expr((UHDM::expr*)e);
+            e->VpiParent(sv);
+        }
+        suppressConstParent = savedS;
+        forceConstParent = savedF;
+    }
     return pav;
 }
 

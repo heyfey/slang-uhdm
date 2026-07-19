@@ -148,6 +148,15 @@ inline int32_t netTypeFor(const Symbol& internal) {
             if (tsyn->kind == syntax::SyntaxKind::NamedType) {
                 auto& t = declared->getType();
                 auto& ct = t.getCanonicalType();
+                // A packed array whose LEAF is a struct (filter_ctl_t [1:0])
+                // carries no net type.
+                const Type* leaf0 = &ct;
+                while (leaf0->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                    leaf0 = &leaf0->getCanonicalType()
+                                 .as<PackedArrayType>()
+                                 .elementType;
+                if (leaf0->getCanonicalType().isStruct())
+                    return 0;
                 if ((ct.kind == SymbolKind::PackedArrayType ||
                      ct.kind == SymbolKind::ScalarType) &&
                     ct.isFourState()) {
