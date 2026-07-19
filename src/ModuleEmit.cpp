@@ -3112,6 +3112,41 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                        ExpressionKind::ReplicatedAssignmentPattern)
                       ? tryFoldConst(ae.right())
                       : nullptr;
+        // A NESTED cast RHS that evals fully (int'($clog2(X)'(X))) folds
+        // loc-less: UINT by magnitude at the result width (signed wraps
+        // encode 4294967295-style). Single casts keep the operation.
+        if (!rhs && topView) {
+            auto& rc0 = stripImplicitConv(ae.right());
+            bool nestedCast =
+                rc0.kind == ExpressionKind::Conversion &&
+                !rc0.as<ConversionExpression>().isImplicit() &&
+                stripImplicitConv(rc0.as<ConversionExpression>().operand()).kind ==
+                    ExpressionKind::Conversion &&
+                !stripImplicitConv(rc0.as<ConversionExpression>().operand())
+                     .as<ConversionExpression>()
+                     .isImplicit();
+            if (nestedCast && rc0.syntax &&
+                rc0.syntax->kind == syntax::SyntaxKind::CastExpression) {
+                ASTContext cctx(comp.getRoot(), LookupLocation::max);
+                if (ConstantValue ccv = cctx.tryEval(ae.right());
+                    ccv && ccv.isInteger() && !ccv.integer().hasUnknown()) {
+                    auto civ = ccv.integer();
+                    int32_t w = (int32_t)civ.getBitWidth();
+                    if (w > 0 && w <= 64) {
+                        uint64_t uv = (uint64_t)civ.as<int64_t>().value_or(0);
+                        if (w < 64)
+                            uv &= (~0ULL >> (64 - w));
+                        auto* c = s.MakeConstant();
+                        std::string digits = std::to_string(uv);
+                        c->VpiDecompile(digits);
+                        c->VpiSize(w);
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        rhs = c;
+                    }
+                }
+            }
+        }
         // A SIZE cast of a VARIABLE with a constant initializer folds
         // through the variable's INITIAL value (Surelog reduce quirk):
         // loc-less unparented constant at the cast width.

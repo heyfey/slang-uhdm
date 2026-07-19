@@ -311,6 +311,9 @@ private:
     bool paramInitDef = false;
     // PACKAGE param inits: concat operands unparent in both views.
     bool paramInitPkg = false;
+    // Nested casts lose the inner conversion's syntax; the outer cast
+    // emission passes the recovered CastExpression down through this.
+    const slang::syntax::SyntaxNode* castSynOverride = nullptr;
     // ELAB interface views fold param-dependent bounds at the DEFAULT param
     // values (Surelog reads widths from the AllModules form): points at a
     // default-instantiated body while the iface vars' typespecs are built.

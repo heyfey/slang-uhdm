@@ -919,13 +919,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& conv = expr.as<ConversionExpression>();
             if (conv.isImplicit())
                 return emitExpr(conv.operand(), parent, prefix, netMap);
+            // Nested casts (int'($clog2(X)'(X))) lose the INNER conversion's
+            // syntax; the outer emission passes it down via castSynOverride.
+            const syntax::SyntaxNode* effCastSyn = expr.syntax;
+            if ((!effCastSyn ||
+                 effCastSyn->kind != syntax::SyntaxKind::CastExpression) &&
+                castSynOverride)
+                effCastSyn = castSynOverride;
+            castSynOverride = nullptr;
             // A COMPILER-INSERTED string conversion of a string literal (the
             // implicit string context of {NAME, "efgh"}) carries no cast
             // syntax — Surelog emits the bare string constant, no cast op.
             if (expr.type && expr.type->isString() &&
                 stripImplicitConv(conv.operand()).kind == ExpressionKind::StringLiteral &&
-                (!expr.syntax ||
-                 expr.syntax->kind != syntax::SyntaxKind::CastExpression))
+                (!effCastSyn ||
+                 effCastSyn->kind != syntax::SyntaxKind::CastExpression))
                 return emitExpr(stripImplicitConv(conv.operand()), parent, prefix,
                                 netMap);
             // A cast around a streaming concat is dropped (Surelog emits the
@@ -941,12 +949,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             UHDM::typespec* cts = nullptr;
             // Size casts ("4'(x)") carry an integer_typespec at the size
             // literal; type casts use the target type's typespec.
-            if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::SignedCastExpression) {
+            if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::SignedCastExpression) {
                 noteUnsupported("signed cast form");
             }
             bool deferredCast = false;
-            if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::CastExpression) {
-                auto& cesyn = expr.syntax->as<syntax::CastExpressionSyntax>();
+            if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
+                auto& cesyn = effCastSyn->as<syntax::CastExpressionSyntax>();
                 if (cesyn.left->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
                     if (reemitting) {
                         // Created at the end of the write phase.
@@ -1118,12 +1126,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 op->Operands(operandsD);
                 return op;
             }
-            if (!cts && expr.syntax &&
-                expr.syntax->kind == syntax::SyntaxKind::CastExpression) {
+            if (!cts && effCastSyn &&
+                effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
                 auto it2 = castTsCache.find(
-                    expr.syntax->as<syntax::CastExpressionSyntax>().left);
+                    effCastSyn->as<syntax::CastExpressionSyntax>().left);
                 if (it2 != castTsCache.end())
                     cts = it2->second;
+            }
+            // A NESTED-cast operand emits FIRST (its typespec precedes the
+            // outer's in the arena), with the inner CastExpression syntax
+            // recovered from the outer's parenthesized operand.
+            UHDM::any* nestedOperand = nullptr;
+            if (!cts && effCastSyn &&
+                effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
+                const Expression* c1p = &conv.operand();
+                while (c1p->kind == ExpressionKind::Conversion &&
+                       c1p->as<ConversionExpression>().isImplicit())
+                    c1p = &c1p->as<ConversionExpression>().operand();
+                auto& c1 = *c1p;
+                if (c1.kind == ExpressionKind::Conversion &&
+                    !c1.as<ConversionExpression>().isImplicit() &&
+                    (!c1.syntax ||
+                     c1.syntax->kind != syntax::SyntaxKind::CastExpression)) {
+                    const syntax::ExpressionSyntax* rsyn =
+                        effCastSyn->as<syntax::CastExpressionSyntax>()
+                            .right->expression;
+                    while (rsyn &&
+                           rsyn->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        rsyn = rsyn->as<syntax::ParenthesizedExpressionSyntax>()
+                                   .expression;
+                    if (rsyn && rsyn->kind == syntax::SyntaxKind::CastExpression) {
+                        castSynOverride = rsyn;
+                        nestedOperand = emitExpr(c1, op, prefix, netMap);
+                        castSynOverride = nullptr;
+                    }
+                }
             }
             if (!cts) {
                 auto& ct = expr.type->getCanonicalType();
@@ -1136,8 +1173,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* lts = s.MakeLogic_typespec();
                     cts = lts;
                 }
-                if (expr.syntax && expr.syntax->kind == syntax::SyntaxKind::CastExpression)
-                    setLoc(cts, expr.syntax->as<syntax::CastExpressionSyntax>().left->sourceRange());
+                if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression)
+                    setLoc(cts, effCastSyn->as<syntax::CastExpressionSyntax>().left->sourceRange());
             }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix);
@@ -1148,7 +1185,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 cts->VpiParent(rt);
             op->Typespec(rt);
             auto* operands = s.MakeAnyVec();
-            if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
+            if (nestedOperand)
+                operands->push_back(nestedOperand);
+            else if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
                 operands->push_back(e);
             op->Operands(operands);
             return op;
