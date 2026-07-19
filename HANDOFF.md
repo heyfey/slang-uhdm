@@ -1,6 +1,21 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Overnight autonomous session 2 (2026-07-19, ~16 commits)
+## Overnight autonomous session 2 (2026-07-19, ~22 commits)
+
+**FINAL: PASS 273->279, cmp-passing 299->312, UNSUPPORTED 62->3.** The only
+remaining UNSUP: OneThis (NewClass — class support), sva_counter
+(AssertionInstance), sva_value_change_sim (ClockingEvent). Everything else
+EMITS; convergence work continues in DIFF (296).
+
+Late additions beyond the list below: Final procedures; member access +
+range/element selects over ANY compound base (interface arrays, struct-port
+chains, 2D arrays) via relaxed dotted-builder gating; unpacked-array typedefs
+(named array_typespec) + bare array_typespec struct members; package sub-call
+shells; Invalid-child unwrap; casts to NAMED typedefs (my_struct'(a)) use the
+shared typedef ts — the "Invalid" cluster was OUR size-cast misroute, NOT
+slang (CastStruct/PackageCast cmp-pass); inside op + case-inside; built-in
+method calls; $readmemh (NOTE: UHDM group setters SILENTLY reject vectors
+with invalid members — a poisoned vector simply doesn't set).
 
 **PASS 273->279, cmp-passing 299->310, UNSUPPORTED 62->16.** Zero demotions
 throughout (PASS-only + cmp-only checks each commit). Features landed:
