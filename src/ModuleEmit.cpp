@@ -26,6 +26,22 @@ static bool isPkgStructType(const Symbol& sym) {
     return false;
 }
 
+// A struct with a nested-struct field: Surelog leaves its net UNTYPED
+// (no vpiNetType), unlike flat vector/scalar-member structs.
+static bool hasStructFieldMember(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return false;
+    auto& ct = dt->getType().getCanonicalType();
+    if (!ct.isStruct())
+        return false;
+    for (auto& f : ct.as<Scope>().members())
+        if (f.kind == SymbolKind::Field &&
+            f.as<FieldSymbol>().getType().getCanonicalType().isStruct())
+            return true;
+    return false;
+}
+
 UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
@@ -76,8 +92,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
         if (int32_t nt = netTypeFor(*it.sym))
             n->VpiNetType(nt);
-        // A PACKAGE-typedef struct PORT net (input p::dec_t dec) is a wire.
-        else if (it.port && isPkgStructType(*it.sym))
+        // A PACKAGE-typedef struct net (port, or a flat-member local) is a
+        // wire; nested-struct-member locals stay untyped.
+        else if (isPkgStructType(*it.sym) &&
+                 (it.port || !hasStructFieldMember(*it.sym)))
             n->VpiNetType(vpiWire);
         // Implicit nets print no typespec.
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
@@ -1051,6 +1069,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             else if (it.port && n->UhdmType() == UHDM::uhdmlogic_net &&
                      isPkgStructType(*it.sym))
                 ((UHDM::logic_net*)n)->VpiNetType(vpiWire);
+            // A pkg-typedef struct net (non-port, flat members) is a WIRE
+            // struct_net; nested-struct members stay untyped.
+            else if (isStruct && isPkgStructType(*it.sym) &&
+                     !hasStructFieldMember(*it.sym))
+                ((UHDM::struct_net*)n)->VpiNetType(vpiWire);
             if (rt) {
                 rt->VpiParent(n);
                 n->Typespec(rt);

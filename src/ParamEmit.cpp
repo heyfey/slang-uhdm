@@ -926,15 +926,83 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         else if (ct.kind == SymbolKind::PackedStructType) {
             // Package struct member refs use pkg::pkg::T::m (doubled prefix);
             // each field typespec carries vpiInstance = package.
+            // DEF-view member bounds stay UNFOLDED (member-scoped refs bound
+            // to the params' def init constants); the elab view folds them.
             std::string alias = prefix + prefix + std::string(ta.name);
+            bool savedTf = tfContext;
+            if (topView)
+                tfContext = true;
             auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias, "::");
+            tfContext = savedTf;
             sts->VpiParent(up);
             if (sts->Members())
                 for (auto* tm : *sts->Members())
-                    if (tm->Typespec() && tm->Typespec()->Actual_typespec())
-                        tm->Typespec()->Actual_typespec()->Instance((UHDM::instance*)up);
+                    if (tm->Typespec() && tm->Typespec()->Actual_typespec()) {
+                        auto* mts = tm->Typespec()->Actual_typespec();
+                        mts->Instance((UHDM::instance*)up);
+                        if (topView && mts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                            std::function<void(UHDM::any*)> bindRefs2 =
+                                [&](UHDM::any* e) {
+                                    if (!e)
+                                        return;
+                                    if (e->UhdmType() == UHDM::uhdmref_obj) {
+                                        auto* r = (UHDM::ref_obj*)e;
+                                        if (!r->Actual_group())
+                                            if (auto* sym = pkg.find(r->VpiName()))
+                                                if (auto pit = pkgParamConst.find(sym);
+                                                    pit != pkgParamConst.end())
+                                                    r->Actual_group(pit->second);
+                                    }
+                                    else if (e->UhdmType() == UHDM::uhdmoperation) {
+                                        if (auto* ops =
+                                                ((UHDM::operation*)e)->Operands())
+                                            for (auto* op : *ops)
+                                                bindRefs2(op);
+                                    }
+                                };
+                            if (auto* rs = ((UHDM::logic_typespec*)mts)->Ranges())
+                                for (auto* r : *rs) {
+                                    bindRefs2(r->Left_expr());
+                                    bindRefs2(r->Right_expr());
+                                }
+                        }
+                    }
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
+            // Surelog CROSS-WIRES the two views' member typespecs: the
+            // first-created (folded) member ts belongs to the TOP struct, the
+            // second-created (unfolded) one to the DEF struct — while each
+            // view's struct container keeps its own creation slot. Swap the
+            // member actuals (and their parents/instances) after the top
+            // build.
+            if (!topView)
+                pkgDefStructTs[&ta] = sts;
+            else if (auto dit0 = pkgDefStructTs.find(&ta);
+                     dit0 != pkgDefStructTs.end() && dit0->second->Members() &&
+                     sts->Members() &&
+                     dit0->second->Members()->size() == sts->Members()->size()) {
+                auto* dsts = dit0->second;
+                auto* dup2 = (UHDM::instance*)dsts->Instance();
+                for (size_t mi = 0; mi < sts->Members()->size(); mi++) {
+                    auto* dm = (*dsts->Members())[mi];
+                    auto* tmM = (*sts->Members())[mi];
+                    if (!dm->Typespec() || !tmM->Typespec())
+                        continue;
+                    auto* da = dm->Typespec()->Actual_typespec();
+                    auto* taA = tmM->Typespec()->Actual_typespec();
+                    if (!da || !taA || da->UhdmType() != taA->UhdmType())
+                        continue;
+                    dm->Typespec()->Actual_typespec(taA);
+                    tmM->Typespec()->Actual_typespec(da);
+                    if (!taA->VpiName().length())
+                        taA->VpiParent(dm);
+                    if (!da->VpiName().length())
+                        da->VpiParent(tmM);
+                    if (dup2)
+                        taA->Instance(dup2);
+                    da->Instance((UHDM::instance*)up);
+                }
+            }
             ts = sts;
         }
         else if (ct.kind == SymbolKind::EnumType) {

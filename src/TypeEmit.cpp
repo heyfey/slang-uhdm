@@ -885,8 +885,18 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType)
             fts = s.MakeArray_typespec(); // bare (Surelog)
-        else
+        else {
+            // Typedef-context member bound refs scope through the member
+            // (pkg::pkg::T::m::PARAM).
+            std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+            if (tfContext && !aliasName.empty()) {
+                syntaxRefPrefix = aliasName + memberSep + std::string(fm.name);
+                syntaxRefSep = memberSep;
+            }
             fts = makeTypespec(fm, memberTypeSyn);
+            syntaxRefPrefix = savedPfx;
+            syntaxRefSep = savedSep;
+        }
         // Fresh member typespecs parent at the member; shared typedef
         // typespecs (named) keep their own parent.
         if (fts->VpiName().empty())
@@ -940,8 +950,18 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType)
             fts = s.MakeArray_typespec(); // bare (Surelog)
-        else
+        else {
+            // Typedef-context member bound refs scope through the member
+            // (pkg::pkg::T::m::PARAM).
+            std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+            if (tfContext && !aliasName.empty()) {
+                syntaxRefPrefix = aliasName + memberSep + std::string(fm.name);
+                syntaxRefSep = memberSep;
+            }
             fts = makeTypespec(fm, memberTypeSyn);
+            syntaxRefPrefix = savedPfx;
+            syntaxRefSep = savedSep;
+        }
         if (fts->VpiName().empty())
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
