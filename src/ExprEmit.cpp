@@ -908,8 +908,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return nullptr;
             }
             // Type-query calls ($bits/$size) fold to constants when
-            // evaluable.
-            if (name == "$bits") {
+            // evaluable — but NOT when the argument is an expression
+            // (Surelog keeps $bits(~x) as a sys_func_call).
+            bool bitsExprArg =
+                !call.arguments().empty() &&
+                (call.arguments()[0]->kind == ExpressionKind::UnaryOp ||
+                 call.arguments()[0]->kind == ExpressionKind::BinaryOp ||
+                 call.arguments()[0]->kind == ExpressionKind::ConditionalOp);
+            if (name == "$bits" && !bitsExprArg) {
                 ASTContext qctx(comp.getRoot(), LookupLocation::max);
                 if (auto cv = qctx.tryEval(expr); cv && cv.isInteger()) {
                     auto* c = s.MakeConstant();
