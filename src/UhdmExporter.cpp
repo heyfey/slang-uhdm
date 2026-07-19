@@ -176,6 +176,23 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
                 }
+                else if (ct.kind == SymbolKind::PackedArrayType ||
+                         ct.kind == SymbolKind::ScalarType) {
+                    // Vector/scalar typedef: a NAMED logic_typespec with its
+                    // ranges at the target type syntax (like module-scope
+                    // vector typedefs).
+                    bypassTypedefShare = true;
+                    bool savedTf = tfContext;
+                    tfContext = true;
+                    typedefTsContext = true;
+                    ts = makeTypespec(ta, typeSyn);
+                    typedefTsContext = false;
+                    tfContext = savedTf;
+                    bypassTypedefShare = false;
+                    ts->VpiParent(d);
+                    if (typeSyn)
+                        setLoc(ts, typeSyn->sourceRange());
+                }
                 else {
                     noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
                     continue;
