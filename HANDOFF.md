@@ -1,9 +1,29 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Small-DIFF pickoff r106-r111 (2026-07-19)
+## Small-DIFF pickoff r106-r112 (2026-07-19)
 
-PASS 263->269, CMP_ONLY 17->19, all merged to main, zero regressions (goldens
+PASS 263->270, CMP_ONLY 17->18, all merged to main, zero regressions (goldens
 23/23 + full corpus + manual PASS->CMP_ONLY demotion check each commit).
+- r112 unpacked_array_shift_ff PASS: the UnbasedUnsizedIntegerLiteral parent
+  rule ignored suppressConstParent (IntegerLiteral honors it), so a
+  '{default: '0} pattern default got wrongly parented to the operation. Added
+  the !suppressConstParent guard. ExprEmit.
+
+**CMP_ONLY closest-to-PASS scan (dump-diff lines):** most are weakly-tail
+ORDERING (same int_typespec/logic_typespec objects, different tail position by
+UhdmId — cmp tolerates, byte-match needs matching Surelog's creation/id order,
+broad+hard) or Surelog location bugs:
+- StringWithBackslash (8): Surelog's string end column (3:47) is PAST the actual
+  line end (`;` at col 39) — an escape-counting bug, not sensibly matchable.
+- partsel_simple (6): a shared logic_typespec's VpiParent differs (logic_net vs
+  ref_typespec) AND tail position — parent + ordering.
+- CellNamedLikeModule / InterfaceAssign / InterfaceWithPort / iface_param_* /
+  InterfaceParameter*: int_typespec/logic_typespec tail ordering.
+Matching the weakly-tail id order across these would flip several CMP_ONLY->PASS
+at once but needs the serializer creation-order to match Surelog — a larger
+structural effort (see the weakly-tail mechanism in the modport section).
+
+### r106-r111 detail
 - r110 (no test flip): a 1-bit 'x based literal formats UPPERCASE (1'bx->1'bX /
   BIN:X) but 1-bit z and all multi-bit x/z stay lowercase (Surelog quirk,
   confirmed exhaustively). ExprEmit IntegerLiteral. Cuts unbased_unsized 26->18.
