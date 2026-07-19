@@ -40,13 +40,29 @@ iface_modport_conn (68), AssignArraySelPlus (69), ImportTypeOfPort (69),
 TypedefAliasInPackage (70), iface_modport_out (72),
 BitSelectPartSelectInFunction (73).
 
-Probed ParameterInitializedByPartSelectOfParameters (`localparam bit
-[DepthW:0] FullDepth = WidthRatio[DepthW:0]`): needs (1) def part_select
-ref fullname scoping in PARAM context (part_select -> work@top.WidthRatio;
-its DepthW leftrange -> work@top.WidthRatio.DepthW; the right-range const
-unparented), and (2) the elab param RHS folds to a BIN constant
-(WidthRatio[5:0]=20 -> 6'b010100) SHARED with the o=FullDepth cont-assign
-(like the StringLocalParam share, but a part-select value). Two-part.
+**ParameterInitializedByPartSelectOfParameters** (`localparam bit
+[DepthW:0] FullDepth = WidthRatio[DepthW:0]`): def part_select scoping
+DONE (commit 19855da — regression-free). TWO parts remain, both verified
+against golden:
+  1. The ELAB param RHS folds to a BIN constant (WidthRatio[5:0]=20 ->
+     BIN:010100, size 6, decompile 6'b010100, constType 3) and is SHARED
+     with the o=FullDepth cont-assign (parent = the cont_assign, the
+     param_assign back-references it — exactly the StringLocalParam
+     moduleStringParamConst pattern but a bit-vector part-select value).
+     Ours currently folds UINT:20 at the param_assign. Add a
+     part-select/bit-vector BIN fold in the typedParam RHS path + a
+     moduleParamConst-style share.
+  2. The `[DepthW:0]` bit_typespec bound keeps a REF to DepthW
+     (ref_obj work@top.FullDepth.DepthW), NOT a folded constant. This is a
+     BARE-direct-param-ref bound (unlike `[ADDR_WIDTH-1:0]` expression
+     bounds which fold via boundOwnerFullName) — the discriminator is a
+     direct NamedValue(param) bound. emitBound in makeTypespec needs a
+     "bare param-ref bound stays a scoped ref" branch (fullname
+     work@top.<param>.<boundparam>). Both views.
+
+Remaining after that: PatternInFunction (67), iface_modport_conn (68),
+AssignArraySelPlus (69), ImportTypeOfPort (69), TypedefAliasInPackage
+(70), iface_modport_out (72), BitSelectPartSelectInFunction (73).
 
 ## Session 8: ENTIRE session-7 ladder converged (2026-07-19, 10 commits)
 
