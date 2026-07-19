@@ -31,6 +31,23 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
                 c0.syntax->as<syntax::CastExpressionSyntax>().left->kind))
             return nullptr;
     }
+    // Expressions CONTAINING unbased-unsized literals ('0 << 8) never fold:
+    // Surelog's folded model re-emits the operation.
+    {
+        bool hasUnbased = false;
+        expr.visit(makeVisitor([&](auto& v, const UnbasedUnsizedIntegerLiteral& u) {
+            hasUnbased = true;
+            v.visitDefault(u);
+        }));
+        // Only OPERATIONS over unbased literals stay unfolded (casts and
+        // direct literals still fold — param defaults/size casts re-encode).
+        auto k0 = stripImplicitConv(expr).kind;
+        if (hasUnbased &&
+            (k0 == ExpressionKind::BinaryOp || k0 == ExpressionKind::UnaryOp ||
+             k0 == ExpressionKind::ConditionalOp ||
+             k0 == ExpressionKind::Concatenation))
+            return nullptr;
+    }
     ASTContext ctx(comp.getRoot(), LookupLocation::max);
     ConstantValue cv = ctx.tryEval(expr);
     if (!cv || !cv.isInteger())
