@@ -388,6 +388,7 @@ inline bool containsOperation(const Expression& expr) {
         }
         case ExpressionKind::SimpleAssignmentPattern:
         case ExpressionKind::StructuredAssignmentPattern:
+        case ExpressionKind::ReplicatedAssignmentPattern:
             return true;
         default:
             return false;

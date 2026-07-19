@@ -2319,10 +2319,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiOpType(vpiMultiAssignmentPatternOp);
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
+            // In a PLAIN def cont-assign context the operands stay unparented
+            // at 64 bits; init/re-emit contexts parent them (count at 32).
+            bool plainCtx =
+                !reemitting && !suppressConstParent && !forceConstParent;
+            bool sup0 = suppressConstParent;
+            if (plainCtx)
+                suppressConstParent = true;
             auto* operands = s.MakeAnyVec();
             if (auto* c = emitExpr(rap.count(), op, prefix, netMap)) {
-                // The replication count is a 32-bit constant.
-                if (c->UhdmType() == UHDM::uhdmconstant &&
+                // The replication count is a 32-bit constant in INIT
+                // contexts only (plain/re-emitted CAs keep 64).
+                if (sup0 && c->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::expr*)c)->VpiSize() == 64)
                     ((UHDM::expr*)c)->VpiSize(32);
                 operands->push_back(c);
@@ -2340,6 +2348,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             inner->Operands(innerOps);
             operands->push_back(inner);
             op->Operands(operands);
+            if (plainCtx)
+                suppressConstParent = sup0;
             return op;
         }
         case ExpressionKind::StructuredAssignmentPattern: {

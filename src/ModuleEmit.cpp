@@ -2534,6 +2534,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        if (getenv("DBGSHARE"))
+            fprintf(stderr,
+                    "DBGSHARE swd=%d di=%d idx=%zu/%zu plain=%d dotted=%d op=%d lit=%d enum=%d cfr=%d cf=%d\n",
+                    (int)shareWithDef, (int)(defInfo != nullptr), myIdx,
+                    defInfo ? defInfo->contAssigns.size() : 0, (int)plainLhs,
+                    (int)dottedLhs, (int)containsOperation(ae.right()),
+                    (int)literalRhs, (int)(enumRhs != nullptr), (int)(bool)cfr,
+                    (int)callFold.has_value());
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             ((!plainLhs && !dottedLhs) ||
              (plainLhs &&
@@ -2819,9 +2827,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         }
         if (!rhs && !bitsRhs)
             // Unbased-unsized RHS never general-folds here: '1 folded above,
-            // '0 shares the def constant, 'x/'z have unknowns.
-            rhs = (topView && stripImplicitConv(ae.right()).kind !=
-                                  ExpressionKind::UnbasedUnsizedIntegerLiteral)
+            // '0 shares the def constant, 'x/'z have unknowns. Replicated
+            // patterns re-emit as operations.
+            rhs = (topView &&
+                   stripImplicitConv(ae.right()).kind !=
+                       ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                   stripImplicitConv(ae.right()).kind !=
+                       ExpressionKind::ReplicatedAssignmentPattern)
                       ? tryFoldConst(ae.right())
                       : nullptr;
         // Assignment-pattern RHS folds format the constant as based-decimal
