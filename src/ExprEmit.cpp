@@ -115,6 +115,9 @@ bool UhdmExporter::isIntEncoded(const Expression& e) {
             auto& be = e.as<BinaryExpression>();
             if (be.op == BinaryOperator::Divide || be.op == BinaryOperator::Mod)
                 return true;
+            // A signed power (2**n) reduces to a signed (INT) constant.
+            if (be.op == BinaryOperator::Power && e.type && e.type->isSigned())
+                return true;
             return isIntEncoded(be.left()) || isIntEncoded(be.right());
         }
         case ExpressionKind::NamedValue: {
