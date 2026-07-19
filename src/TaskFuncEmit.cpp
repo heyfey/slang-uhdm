@@ -163,10 +163,28 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             bool typedefRetClone = false;
             if (!ts) {
                 auto& rdt = sub.getReturnType();
-                if (rdt.kind == SymbolKind::TypeAlias && typedefTs.count(&rdt) &&
-                    typedefTs[&rdt]->UhdmType() == UHDM::uhdmlogic_typespec) {
+                // The return alias may be a DISTINCT TypeAlias instance
+                // ($unit): match the registered typedef by name+canonical.
+                UHDM::typespec* retBase = nullptr;
+                const TypeAliasType* retAlias = nullptr;
+                if (rdt.kind == SymbolKind::TypeAlias) {
+                    retAlias = &rdt.as<TypeAliasType>();
+                    if (auto it0 = typedefTs.find(&rdt); it0 != typedefTs.end())
+                        retBase = it0->second;
+                    else
+                        for (auto& [sym0, tsp0] : typedefTs)
+                            if (sym0->kind == SymbolKind::TypeAlias &&
+                                sym0->name == rdt.name &&
+                                &sym0->as<TypeAliasType>().getCanonicalType() ==
+                                    &rdt.getCanonicalType()) {
+                                retBase = tsp0;
+                                retAlias = &sym0->as<TypeAliasType>();
+                                break;
+                            }
+                }
+                if (retBase && retBase->UhdmType() == UHDM::uhdmlogic_typespec) {
                     const syntax::SyntaxNode* targetSyn = nullptr;
-                    if (auto asyn = rdt.as<TypeAliasType>().getSyntax())
+                    if (auto asyn = retAlias->getSyntax())
                         if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
                             targetSyn =
                                 asyn->as<syntax::TypedefDeclarationSyntax>().type;
@@ -177,7 +195,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     auto* art = s.MakeRef_typespec();
                     art->VpiFullName(rdt.name);
                     art->VpiParent(ts);
-                    art->Actual_typespec(typedefTs[&rdt]);
+                    art->Actual_typespec(retBase);
                     ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
                     typedefRetClone = true;
                 }

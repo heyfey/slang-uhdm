@@ -3396,6 +3396,13 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             continue;
         if (pf.refs.empty() || !sub.returnValVar || sub.getReturnType().isVoid())
             continue;
+        // $UNIT functions with TYPEDEF'd returns get no return-var artifact
+        // (body refs stay unbound; the Return uses the Typedef_alias clone).
+        if (sub.getReturnType().kind == SymbolKind::TypeAlias) {
+            if (auto ps0 = sub.getParentScope();
+                ps0 && ps0->asSymbol().kind == SymbolKind::CompilationUnit)
+                continue;
+        }
         for (auto* r : pf.refs) {
             // The local's fullname mirrors the binding ref's scope (named
             // blocks included).

@@ -283,10 +283,36 @@ UHDM::design* UhdmExporter::exportDesign() {
                                        std::string(ta.name));
                     // A file-level packed struct used by a MODULE signal
                     // (net/port/var) parents at the design; one used only in
-                    // function returns etc. stays unparented.
+                    // function returns etc. stays unparented. One used by a
+                    // $UNIT function FORMAL parents at the design and anchors
+                    // at that first formal's type token.
+                    const syntax::SyntaxNode* formalSyn = nullptr;
+                    for (auto unit2 : comp.getCompilationUnits()) {
+                        for (auto& m2 : unit2->members()) {
+                            if (m2.kind != SymbolKind::Subroutine)
+                                continue;
+                            for (auto arg2 :
+                                 m2.as<SubroutineSymbol>().getArguments()) {
+                                if (&arg2->getType().getCanonicalType() != &ct)
+                                    continue;
+                                if (auto dt2 = arg2->getDeclaredType())
+                                    if (auto tsy2 = dt2->getTypeSyntax())
+                                        formalSyn = tsy2;
+                                break;
+                            }
+                            if (formalSyn)
+                                break;
+                        }
+                        if (formalSyn)
+                            break;
+                    }
                     if (structUsedByModuleSignal(ct))
                         ts->VpiParent(d);
-                    if (typeSyn)
+                    else if (formalSyn)
+                        ts->VpiParent(d);
+                    if (formalSyn && !structUsedByModuleSignal(ct))
+                        setLoc(ts, formalSyn->sourceRange());
+                    else if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
                 }
                 else if (ct.kind == SymbolKind::UnpackedStructType) {

@@ -998,8 +998,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else if (expr.type && expr.type->kind == SymbolKind::TypeAlias &&
                          typedefTs.count(expr.type)) {
                     // A cast to a NAMED typedef (my_struct'(a)): the shared
-                    // typedef typespec is the cast target.
+                    // typedef typespec is the cast target. In a $UNIT
+                    // function body, a VECTOR-typedef cast gets a FRESH
+                    // clone with a Typedef_alias ref instead.
                     cts = typedefTs[expr.type];
+                    if (currentSubSym && cts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        auto ps0 = currentSubSym->getParentScope();
+                        if (ps0 &&
+                            ps0->asSymbol().kind == SymbolKind::CompilationUnit) {
+                            auto& ta2 = expr.type->as<TypeAliasType>();
+                            const syntax::SyntaxNode* tSyn2 = nullptr;
+                            if (auto asyn2 = ta2.getSyntax())
+                                if (asyn2->kind ==
+                                    syntax::SyntaxKind::TypedefDeclaration)
+                                    tSyn2 = asyn2->as<
+                                                    syntax::TypedefDeclarationSyntax>()
+                                                .type;
+                            bypassTypedefShare = true;
+                            bool savedTf2 = tfContext;
+                            tfContext = true;
+                            auto* cl2 = makeTypespec(ta2, tSyn2);
+                            tfContext = savedTf2;
+                            bypassTypedefShare = false;
+                            cl2->VpiName(ta2.name);
+                            auto* art2 = s.MakeRef_typespec();
+                            art2->VpiFullName(std::string(ta2.name));
+                            art2->VpiParent(cl2);
+                            art2->Actual_typespec(cts);
+                            ((UHDM::logic_typespec*)cl2)->Typedef_alias(art2);
+                            cts = cl2;
+                        }
+                    }
                 }
                 else if (currentScope) {
                     // Non-literal cast sizes: integer_typespec carrying the
@@ -1185,10 +1214,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 cts->VpiParent(rt);
             op->Typespec(rt);
             auto* operands = s.MakeAnyVec();
+            // $UNIT-function bodies leave DIRECT formal refs under a cast
+            // unbound (Surelog quirk).
+            bool unitFnCast = false;
+            if (currentSubSym)
+                if (auto ps0 = currentSubSym->getParentScope();
+                    ps0 && ps0->asSymbol().kind == SymbolKind::CompilationUnit)
+                    unitFnCast = stripImplicitConv(conv.operand()).kind ==
+                                 ExpressionKind::NamedValue;
+            bool savedSRA = suppressRefActual;
+            if (unitFnCast)
+                suppressRefActual = true;
             if (nestedOperand)
                 operands->push_back(nestedOperand);
             else if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
                 operands->push_back(e);
+            suppressRefActual = savedSRA;
             op->Operands(operands);
             return op;
         }
