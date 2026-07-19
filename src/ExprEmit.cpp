@@ -781,12 +781,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         op->Operands(operandsD);
                         return op;
                     }
-                    // A plain PARAMETER width ((P)'(x)) reuses the param's own
-                    // int_typespec as the cast target; that ts gains a loc-less
-                    // vpiExpr ref_obj with a param-doubled fullname
-                    // (work@top.P.P) bound to the def parameter.
+                    // A BARE parameter width (P'(x)) mints a fresh NAMED
+                    // int_typespec carrying the param's folded value, at a
+                    // zero-width span on the param name token (per cast site).
                     auto& seCore = stripImplicitConv(sizeExpr);
                     if (seCore.kind == ExpressionKind::NamedValue &&
+                        seCore.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter &&
+                        cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
+                        auto& psym = seCore.as<NamedValueExpression>().symbol;
+                        auto* its = s.MakeInt_typespec();
+                        its->VpiName(psym.name);
+                        setLoc(its, SourceRange(psym.location, psym.location));
+                        auto& pv = psym.as<ParameterSymbol>().getValue();
+                        if (pv.isInteger() && !pv.integer().hasUnknown())
+                            its->VpiValue(
+                                "UINT:" +
+                                pv.integer().toString(LiteralBase::Decimal, false));
+                        cts = its;
+                    }
+                    // A PARENTHESIZED parameter width ((P)'(x)) reuses the
+                    // param's own int_typespec as the cast target; that ts
+                    // gains a loc-less vpiExpr ref_obj with a param-doubled
+                    // fullname (work@top.P.P) bound to the def parameter.
+                    if (!cts && seCore.kind == ExpressionKind::NamedValue &&
                         seCore.as<NamedValueExpression>().symbol.kind ==
                             SymbolKind::Parameter) {
                         auto& psym = seCore.as<NamedValueExpression>().symbol;
