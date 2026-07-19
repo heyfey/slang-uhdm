@@ -437,7 +437,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (rhsRt)
                     rhsRt->Actual_typespec(its);
                 prt->Actual_typespec(its);
-                if (typedParam || isRangedUntypedParam(ps))
+                bool signedImplicit = false;
+                if (auto d0 = ps.getDeclaredType())
+                    if (auto t0 = d0->getTypeSyntax())
+                        if (t0->kind == syntax::SyntaxKind::ImplicitType)
+                            signedImplicit =
+                                t0->as<syntax::ImplicitTypeSyntax>().signing.valid() &&
+                                t0->as<syntax::ImplicitTypeSyntax>().dimensions.empty();
+                if (typedParam || isRangedUntypedParam(ps) || signedImplicit)
                     its->VpiParent(up);
             }
         }
@@ -473,7 +480,8 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             }
         }
         // A ranged untyped param (parameter [0:0] X) locates its int_typespec
-        // at the packed-range span, not the whole declaration.
+        // at the packed-range span, not the whole declaration; a SIGNED
+        // implicit param (localparam unsigned P) at the signing keyword.
         if (auto declared = ps.getDeclaredType()) {
             if (auto tsyn = declared->getTypeSyntax()) {
                 if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
@@ -481,6 +489,8 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     if (!imp.dimensions.empty())
                         tr = SourceRange(imp.dimensions[0]->sourceRange().start(),
                                          imp.dimensions.back()->sourceRange().end());
+                    else if (imp.signing.valid())
+                        tr = imp.signing.range();
                 }
             }
         }

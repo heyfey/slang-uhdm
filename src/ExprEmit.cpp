@@ -1085,9 +1085,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                            a0.kind == ExpressionKind::ConditionalOp ||
                            (a0.kind == ExpressionKind::NamedValue &&
                             a0.as<NamedValueExpression>().symbol.kind ==
-                                SymbolKind::Parameter);
+                                SymbolKind::Parameter &&
+                            // A LOCALPARAM can't be overridden — its $bits
+                            // folds in the ELAB re-emit (def keeps the call).
+                            !(reemitting && a0.as<NamedValueExpression>()
+                                                .symbol.as<ParameterSymbol>()
+                                                .isLocalParam()));
             }
             if (name == "$bits" && !bitsKeep) {
+                bool localParamArg =
+                    !call.arguments().empty() &&
+                    call.arguments()[0]->kind == ExpressionKind::NamedValue &&
+                    call.arguments()[0]
+                            ->as<NamedValueExpression>()
+                            .symbol.kind == SymbolKind::Parameter;
                 ASTContext qctx(comp.getRoot(), LookupLocation::max);
                 if (auto cv = qctx.tryEval(expr); cv && cv.isInteger()) {
                     auto* c = s.MakeConstant();
@@ -1096,7 +1107,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     c->VpiSize(64);
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
-                    setLoc(c, expr.sourceRange);
+                    // The elab localparam-$bits fold is loc-less.
+                    if (!localParamArg)
+                        setLoc(c, expr.sourceRange);
                     if (forceConstParent ||
                         (!suppressConstParent && parent &&
                          (parent->UhdmType() == UHDM::uhdmoperation ||
