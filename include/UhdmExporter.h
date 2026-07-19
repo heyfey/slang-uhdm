@@ -241,6 +241,9 @@ private:
     // InterfacePort can bind its LowConn to the modport.
     std::map<const slang::ast::DefinitionSymbol*, std::map<std::string, UHDM::modport*>>
         modportsByDef;
+    // Elaborated interface instance -> its interface_inst, so a sibling
+    // module's InterfacePort HighConn can point at the connected instance.
+    std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifaceInstMap;
     std::set<std::string> unsupportedKinds;
     bool suppressConstParent = false;
     bool reemitting = false;

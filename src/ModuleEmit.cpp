@@ -767,8 +767,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             auto& child = member.as<InstanceSymbol>();
             // Interface instances become interface_inst under vpiInterface.
             if (useInterfacePath(child)) {
-                ifaceChildren->push_back(emitInterfaceInstance(
-                    child, prefix + "." + std::string(child.name), m, &topNets, &instRefs));
+                auto* ii = emitInterfaceInstance(
+                    child, prefix + "." + std::string(child.name), m, &topNets, &instRefs);
+                ifaceInstMap[&child] = ii;
+                ifaceChildren->push_back(ii);
                 continue;
             }
             // Bound instances path directly under the top module.
@@ -797,6 +799,45 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     if (!isTop) {
         auto* ports = s.MakePortVec();
         for (auto portBase : body.getPortList()) {
+            // Elab InterfacePort: LowConn ref_obj -> modport, HighConn ref_obj
+            // -> the connected interface_inst.
+            if (portBase->kind == SymbolKind::InterfacePort) {
+                auto& ip = portBase->as<InterfacePortSymbol>();
+                auto* p = s.MakePort();
+                p->VpiName(ip.name);
+                p->VpiParent(m);
+                setLocNamed(p, ip);
+                p->VpiDirection(vpiInout);
+                auto* lc = s.MakeRef_obj();
+                lc->VpiName(ip.name);
+                lc->VpiFullName(prefix + "." + std::string(ip.name));
+                lc->VpiParent(p);
+                setLocNamed(lc, ip);
+                if (ip.interfaceDef && !ip.modport.empty())
+                    if (auto dit = modportsByDef.find(ip.interfaceDef);
+                        dit != modportsByDef.end())
+                        if (auto mit = dit->second.find(std::string(ip.modport));
+                            mit != dit->second.end())
+                            lc->Actual_group(mit->second);
+                p->Low_conn(lc);
+                auto conn = ip.getConnection();
+                if (conn.first) {
+                    if (auto iit = ifaceInstMap.find(conn.first);
+                        iit != ifaceInstMap.end()) {
+                        auto* hc = s.MakeRef_obj();
+                        hc->VpiName(conn.first->name);
+                        hc->VpiFullName(parentPrefix + "." +
+                                        std::string(conn.first->name));
+                        hc->VpiParent(p);
+                        hc->Actual_group(iit->second);
+                        if (auto npc = findConnSyntax(inst, ip.name))
+                            setLoc(hc, npc->sourceRange());
+                        p->High_conn(hc);
+                    }
+                }
+                ports->push_back(p);
+                continue;
+            }
             if (portBase->kind != SymbolKind::Port)
                 continue;
             auto& ps = portBase->as<PortSymbol>();
@@ -1543,6 +1584,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             p->VpiName(ip.name);
             p->VpiParent(m);
             setLocNamed(p, ip);
+            p->VpiDirection(vpiInout);
             auto* lc = s.MakeRef_obj();
             lc->VpiName(ip.name);
             lc->VpiFullName(prefix + "." + std::string(ip.name) + "." +
@@ -1560,6 +1602,13 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             p->Low_conn(lc);
             auto* its = s.MakeInterface_typespec();
             its->VpiName(ip.modport.empty() ? ip.name : ip.modport);
+            // Locate the modport name (bus_if.master) in the port header.
+            if (auto psyn = ip.getSyntax())
+                if (psyn->kind == syntax::SyntaxKind::InterfacePortHeader) {
+                    auto& iph = psyn->as<syntax::InterfacePortHeaderSyntax>();
+                    if (iph.modport)
+                        setLoc(its, iph.modport->member.range());
+                }
             auto* rt = s.MakeRef_typespec();
             rt->VpiParent(p);
             rt->Actual_typespec(its);
