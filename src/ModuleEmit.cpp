@@ -152,6 +152,19 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         info.nets[it.sym] = n;
         nets->push_back(n);
     }
+    // Each interface port produces a bare logic_net (no typespec) at the port
+    // name, so hierarchical references through it resolve.
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::InterfacePort)
+            continue;
+        auto& ip = portBase->as<InterfacePortSymbol>();
+        auto* n = s.MakeLogic_net();
+        n->VpiName(ip.name);
+        n->VpiFullName(prefix + "." + std::string(ip.name));
+        n->VpiParent(m);
+        setLocNamed(n, ip);
+        nets->push_back(n);
+    }
     if (!nets->empty())
         m->Nets(nets);
 
