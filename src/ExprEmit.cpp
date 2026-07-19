@@ -572,6 +572,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         c->VpiConstType(vpiDecConst);
                         break;
                 }
+                // A signed based literal (1'sb1) carries a signed int_typespec
+                // ref; the int_typespec lands in the weaklyReferenced tail.
+                if (tick + 1 < raw.size() &&
+                    (raw[tick + 1] == 's' || raw[tick + 1] == 'S')) {
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiParent(c);
+                    auto* its = s.MakeInt_typespec();
+                    its->VpiSigned(true);
+                    rt->Actual_typespec(its);
+                    c->Typespec(rt);
+                }
             }
             (void)il;
             return c;
