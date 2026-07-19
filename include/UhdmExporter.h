@@ -23,6 +23,7 @@ class Type;
 class AssertionExpr;
 class ProceduralBlockSymbol;
 class PortSymbol;
+class InterfacePortSymbol;
 class ParameterSymbol;
 class PackageSymbol;
 class Scope;
@@ -135,6 +136,9 @@ private:
     // module_inst. emitInterfaceDef builds the generic def (nets); the elab
     // instance (vars + init) is referenced from a parent module via
     // Interfaces() (elab) and a ref_module whose Actual is the def (def view).
+    // The interface_typespec for an InterfacePort: a modport typespec
+    // (vpiIsModPort) whose parent is the base interface typespec.
+    UHDM::interface_typespec* makeIfacePortTs(const slang::ast::InterfacePortSymbol& ip);
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
     UHDM::interface_inst* emitInterfaceInstance(const slang::ast::InstanceSymbol& inst,
                                                 const std::string& path,

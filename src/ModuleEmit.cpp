@@ -853,14 +853,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         p->High_conn(hc);
                     }
                 }
-                auto* its = s.MakeInterface_typespec();
-                its->VpiName(ip.modport.empty() ? ip.name : ip.modport);
-                if (auto psyn = ip.getSyntax())
-                    if (psyn->kind == syntax::SyntaxKind::InterfacePortHeader) {
-                        auto& iph = psyn->as<syntax::InterfacePortHeaderSyntax>();
-                        if (iph.modport)
-                            setLoc(its, iph.modport->member.range());
-                    }
+                auto* its = makeIfacePortTs(ip);
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(ip.name));
                 rt->VpiParent(p);
@@ -1631,15 +1624,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 }
             }
             p->Low_conn(lc);
-            auto* its = s.MakeInterface_typespec();
-            its->VpiName(ip.modport.empty() ? ip.name : ip.modport);
-            // Locate the modport name (bus_if.master) in the port header.
-            if (auto psyn = ip.getSyntax())
-                if (psyn->kind == syntax::SyntaxKind::InterfacePortHeader) {
-                    auto& iph = psyn->as<syntax::InterfacePortHeaderSyntax>();
-                    if (iph.modport)
-                        setLoc(its, iph.modport->member.range());
-                }
+            auto* its = makeIfacePortTs(ip);
             auto* rt = s.MakeRef_typespec();
             rt->VpiParent(p);
             rt->Actual_typespec(its);
@@ -2617,6 +2602,34 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
 // the ELAB view emits them as variables with initializers. A parent module
 // references the def via a ref_module (Actual->interface_inst) and the elab
 // instance via Interfaces() (vpiInterface).
+
+UHDM::interface_typespec* UhdmExporter::makeIfacePortTs(const InterfacePortSymbol& ip) {
+    auto* its = s.MakeInterface_typespec();
+    its->VpiName(ip.modport.empty() ? ip.name : ip.modport);
+    const syntax::InterfacePortHeaderSyntax* iph = nullptr;
+    for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
+        if (sy->kind == syntax::SyntaxKind::InterfacePortHeader) {
+            iph = &sy->as<syntax::InterfacePortHeaderSyntax>();
+            break;
+        }
+        if (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+            const syntax::PortHeaderSyntax* h =
+                sy->as<syntax::ImplicitAnsiPortSyntax>().header;
+            if (h && h->kind == syntax::SyntaxKind::InterfacePortHeader)
+                iph = &h->as<syntax::InterfacePortHeaderSyntax>();
+            break;
+        }
+    }
+    if (iph && iph->modport) {
+        its->VpiIsModPort(true);
+        setLoc(its, iph->modport->member.range());
+        auto* baseTs = s.MakeInterface_typespec();
+        baseTs->VpiName(iph->nameOrKeyword.valueText());
+        setLoc(baseTs, iph->nameOrKeyword.range());
+        its->VpiParent(baseTs);
+    }
+    return its;
+}
 
 UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst) {
     auto& body = inst.body;
