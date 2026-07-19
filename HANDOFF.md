@@ -32,9 +32,30 @@ and the modport `Interface_inst` self-ref are likewise dump-fidelity only
 skip makeIfaceRefDup, the ifaceTailDup HighConn redirect, and the io_decl
 Expr / modport Interface_inst wiring without changing semantics.
 
-Debugging aids (scratchpad): finder/f2..f10 — small UHDM-linked programs that
+Debugging aids (scratchpad): finder/f2..f15 — small UHDM-linked programs that
 load two .uhdm files, run per-subobject `Compare`, and localize the first
 mismatched scalar/vector (uhdm-cmp only reports the leaf pair, not the path).
+Build: `g++ -std=c++17 -I$UHDM/include -I$UHDM/build/generated f.cpp
+$UHDM/build/lib/libuhdm.a <capnp .a's> /usr/lib64/libz.so.1`. f8/f11/f12
+bisect a module's/design's collections; f13-f15 dump nets+ref_modules.
+
+**BLOCKED — iface_modport_out/conn/passthrough (still DIFF/CMP_FAIL).** Root
+cause is the parent DEF view's connection-site NET + child-module ref_module,
+which Surelog emits by an OPAQUE rule that does NOT reduce to any of: "parent
+drives interface", net-present<=>refmod-present, or interface arity. Measured
+golden top-def state (net = interface-named wire in parent; refmod = child
+MODULE ref_module):
+  - iface_modport:      net YES, module-refmod YES  (top drives bus.in)
+  - iface_modport_out:  net NO,  module-refmod NO   (top reads bus.out only)
+  - iface_modport_conn: net NO,  module-refmod YES  (top reads s.cnt only)
+  - passthrough:        net YES, module-refmod YES  (top neither reads nor
+                        writes bus — only forwards it to u_mid)
+No single predicate fits all four; passthrough breaks "drives", conn breaks
+net<=>refmod. Mine currently emits BOTH net+refmod unconditionally (correct
+for modport/passthrough, wrong for out/conn). Do NOT gate these without a
+rule validated across ALL interface tests — a wrong gate regresses the ones
+that pass. Next: instrument what REFERENCES the connection-site net/refmod in
+each golden (holders) to reverse the actual trigger, or defer as low-value.
 
 ## Session r166-r173 + interface feature (2026-07-18, this session)
 
