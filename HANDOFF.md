@@ -1,5 +1,53 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 9: session-8 ladder (in progress, 2026-07-19)
+
+**PASS 335->339, DIFF 283->279.** Five items of the session-8 ladder are
+full byte-identical PASS:
+
+- **StringLocalParamInitByConcatenation**: a string localparam whose init
+  is a CONCAT folds to a STRING constant in the elab (def keeps the op,
+  literal operands unparented); a cont-assign READING the param (o = X)
+  shares that fold constant, re-parented at the cont-assign
+  (moduleStringParamConst; the typedParamRhs gate + integer-fold guard now
+  handle string params).
+- **StructPackedOutput**: a packed-array-of-package-struct PORT stays a NET
+  (new emitPackedStructArrayNet: packed_array_net wire + struct_net
+  element with a DOUBLED fullname, element carries no net type). The
+  package-struct leaf's packed_array_typespec is UNLOCATED; isPkgStructType
+  descends packed dims (def net -> wire). An UNCONNECTED child port
+  (dut d();) emits no ref_module port. A single-dim LVALUE base-select in
+  the ELAB cont-assign LHS parents its index (elabContAssignLhs; def +
+  multi-dim stay unparented).
+- **ParameterOfSizeOfPort**: $bits(SIGNAL) folds to a constant when the
+  signal width is FIXED (int o -> 32), stays a sys_func_call when
+  param-dependent or a TYPE; currentScope is set in the def param
+  pre-pass so the fold reaches both views (typeWidthUsesParam +
+  foldQuery). A single cast whose operand is a PARAM whose init references
+  no unknown-valued param folds loc-less (int'(X), X='1 -> 4294967295;
+  int'(C), C=A/B with A,B='x, stays an operation).
+- **AssignmentToConcatenation**: a packed-struct signal WITH an
+  initializer becomes an elab struct_VAR (init -> vpiExpr, operands
+  unparented, declarator-name span), not a struct_net. A CONTINUOUS-assign
+  LVALUE concat ({a,b}=...) locates at its FIRST operand (procedural <=
+  keeps the whole braces — concat_lhs_signext taught the gate). The
+  packed_array_typespec dim-span scan falls back to the typespec range
+  when the symbol has no getTypeSyntax() (struct members).
+
+**REMAINING session-8 ladder** (fresh difsize order):
+ParameterInitializedByPartSelectOfParameters (67), PatternInFunction (67),
+iface_modport_conn (68), AssignArraySelPlus (69), ImportTypeOfPort (69),
+TypedefAliasInPackage (70), iface_modport_out (72),
+BitSelectPartSelectInFunction (73).
+
+Probed ParameterInitializedByPartSelectOfParameters (`localparam bit
+[DepthW:0] FullDepth = WidthRatio[DepthW:0]`): needs (1) def part_select
+ref fullname scoping in PARAM context (part_select -> work@top.WidthRatio;
+its DepthW leftrange -> work@top.WidthRatio.DepthW; the right-range const
+unparented), and (2) the elab param RHS folds to a BIN constant
+(WidthRatio[5:0]=20 -> 6'b010100) SHARED with the o=FullDepth cont-assign
+(like the StringLocalParam share, but a part-select value). Two-part.
+
 ## Session 8: ENTIRE session-7 ladder converged (2026-07-19, 10 commits)
 
 **FINAL: PASS 325->335, DIFF 296->283, CMP_ONLY 40->43 (cmp-passing
