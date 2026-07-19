@@ -491,6 +491,23 @@ UHDM::design* UhdmExporter::exportDesign() {
     d->TopModules(topMods);
 
     s.MakeUhdmHandle(UHDM::uhdmdesign, d);
+    // $bits(SIGNAL) typespec-bound arg refs bind their DEF nets (deferred:
+    // the def param pre-pass ran before the nets existed).
+    for (auto& [r0, sym0] : pendingBitsBoundRefs) {
+        for (auto sc0 = sym0->getParentScope(); sc0;
+             sc0 = sc0->asSymbol().getParentScope()) {
+            if (sc0->asSymbol().kind != SymbolKind::InstanceBody)
+                continue;
+            auto dit0 =
+                defMap.find(&sc0->asSymbol().as<InstanceBodySymbol>().getDefinition());
+            if (dit0 != defMap.end())
+                if (auto nit0 = dit0->second.nets.find(sym0);
+                    nit0 != dit0->second.nets.end())
+                    r0->Actual_group(nit0->second);
+            break;
+        }
+    }
+    pendingBitsBoundRefs.clear();
     return d;
 }
 

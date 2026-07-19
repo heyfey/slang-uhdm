@@ -529,7 +529,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 pendingParamTs.push_back({&ps, up, prt, rhsRt, typedParam});
             }
             else {
+                // $bits(SIGNAL) bounds scope their refs through the param
+                // and bind this view's nets.
+                std::string savedPfx2 = syntaxRefPrefix;
+                syntaxRefPrefix = joinPath(prefix, ps.name);
                 auto* its = makeParamTs(ps, typedParam);
+                syntaxRefPrefix = savedPfx2;
                 if (inPackage)
                     its->Instance((UHDM::instance*)m);
                 if (di)
@@ -796,7 +801,10 @@ UHDM::typespec* UhdmExporter::makeBareVecParamTs(const ParameterSymbol& ps,
 void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
+        std::string savedPfx2 = syntaxRefPrefix;
+        syntaxRefPrefix = std::string(prt->VpiFullName());
         auto* its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+        syntaxRefPrefix = savedPfx2;
         if (rhsRt) {
             // The ELAB UINT-recomputed fold ('1 -> all-ones) of a VECTOR
             // param binds a fresh LOC-LESS bare clone (unparented bounds,

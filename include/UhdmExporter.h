@@ -512,6 +512,10 @@ private:
     // When set, emitSyntaxExpr refs carry this scope prefix in VpiFullName.
     std::string syntaxRefPrefix;
     std::string syntaxRefSep = ".";
+    // $bits(SIGNAL) typespec-bound arg refs bind their DEF nets once the
+    // nets exist (drained at the end of exportDesign).
+    std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
+        pendingBitsBoundRefs;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
     // Def-view fold-constant ts refs of VECTOR-typed params: bound late to a
     // fresh LOC-LESS bare clone (see patchParamTypespecs).

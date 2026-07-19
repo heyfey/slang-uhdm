@@ -426,10 +426,79 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                          int64_t value) -> UHDM::expr* {
                         if (!bsyn || bsyn->kind == syntax::SyntaxKind::IntegerLiteralExpression)
                             return makeBoundConst(bsyn, value, r);
-                        if (tfContext) {
+                        // A $bits(SIGNAL) bound stays UNFOLDED in module and
+                        // param contexts alike ($bits(type) still folds): the
+                        // sys call's arg ref scopes through the declaring
+                        // symbol and binds the signal's net.
+                        bool bitsOfSignal = false;
+                        const Scope* declScope = declSymbol.getParentScope();
+                        {
+                            std::function<void(const syntax::SyntaxNode&)> scan =
+                                [&](const syntax::SyntaxNode& sn) {
+                                    if (bitsOfSignal)
+                                        return;
+                                    if (sn.kind ==
+                                        syntax::SyntaxKind::InvocationExpression) {
+                                        auto& inv2 =
+                                            sn.as<syntax::InvocationExpressionSyntax>();
+                                        if (inv2.left->kind ==
+                                                syntax::SyntaxKind::SystemName &&
+                                            inv2.arguments && declScope)
+                                            for (auto a2 : inv2.arguments->parameters) {
+                                                auto* sy2 = declScope->find(std::string(
+                                                    rawText(a2->sourceRange())));
+                                                if (sy2 &&
+                                                    (sy2->kind == SymbolKind::Net ||
+                                                     sy2->kind == SymbolKind::Variable))
+                                                    bitsOfSignal = true;
+                                            }
+                                    }
+                                    for (size_t ci = 0; ci < sn.getChildCount(); ci++)
+                                        if (auto* cn = sn.childNode(ci))
+                                            scan(*cn);
+                                };
+                            if (bsyn)
+                                scan(*bsyn);
+                        }
+                        if (tfContext || bitsOfSignal) {
                             // Function/typedef context: unfolded expression.
-                            if (auto* e = emitSyntaxExpr(*bsyn, r))
+                            if (auto* e = emitSyntaxExpr(*bsyn, r)) {
+                                // The sys-call arg refs bind their DEF
+                                // nets — deferred until the nets exist.
+                                if (bitsOfSignal) {
+                                    std::function<void(UHDM::any*)> bindR =
+                                        [&](UHDM::any* n0) {
+                                            if (!n0)
+                                                return;
+                                            if (n0->UhdmType() == UHDM::uhdmref_obj) {
+                                                auto* r2 = (UHDM::ref_obj*)n0;
+                                                if (!r2->Actual_group() && declScope)
+                                                    if (auto* sy3 = declScope->find(
+                                                            std::string(r2->VpiName())))
+                                                        pendingBitsBoundRefs.push_back(
+                                                            {r2, sy3});
+                                            }
+                                            else if (n0->UhdmType() ==
+                                                     UHDM::uhdmoperation) {
+                                                if (auto* ops2 =
+                                                        ((UHDM::operation*)n0)
+                                                            ->Operands())
+                                                    for (auto* o2 : *ops2)
+                                                        bindR(o2);
+                                            }
+                                            else if (n0->UhdmType() ==
+                                                     UHDM::uhdmsys_func_call) {
+                                                if (auto* ar2 =
+                                                        ((UHDM::sys_func_call*)n0)
+                                                            ->Tf_call_args())
+                                                    for (auto* o2 : *ar2)
+                                                        bindR(o2);
+                                            }
+                                        };
+                                    bindR(e);
+                                }
                                 return (UHDM::expr*)e;
+                            }
                         }
                         // Elab IFACE views re-evaluate the bound at the
                         // DEFAULT param values (per-instance overrides are
