@@ -52,6 +52,15 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
         auto& op = stripImplicitConv(sc.as<ConversionExpression>().operand());
         signedSizeCast = op.kind != ExpressionKind::IntegerLiteral && op.type &&
                          op.type->isSigned();
+        // Only a size cast that actually yields a NEGATIVE value (truncation
+        // sets the new high bit) reinterprets as signed; a positive result
+        // (32'(1)) stays unsigned.
+        if (signedSizeCast) {
+            int w = (int)sc.type->getBitWidth();
+            uint64_t uv = iv.as<uint64_t>().value_or(0);
+            if (!(w > 0 && w < 64 && (uv & (1ULL << (w - 1)))))
+                signedSizeCast = false;
+        }
     }
     if (signedSizeCast) {
         int w = (int)sc.type->getBitWidth();

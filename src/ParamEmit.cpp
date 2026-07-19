@@ -293,9 +293,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 else if (!containsUserCall(*init) && (rhs = tryFoldConst(*init))) {
                     ((UHDM::constant*)rhs)->VpiParent(pa);
-                    // Typed params fold at the type width; untyped at 64.
+                    // Typed params fold at the type width; a size-cast value
+                    // (32'(ONE)) at the cast width; other untyped values at 64.
+                    auto& scv = stripImplicitConv(*init);
+                    bool sizeCastVal =
+                        scv.kind == ExpressionKind::Conversion &&
+                        !scv.as<ConversionExpression>().isImplicit() && scv.type &&
+                        scv.syntax &&
+                        scv.syntax->kind == syntax::SyntaxKind::CastExpression &&
+                        !isTypeSyntaxKind(
+                            scv.syntax->as<syntax::CastExpressionSyntax>().left->kind);
                     ((UHDM::constant*)rhs)
-                        ->VpiSize(typedParam ? (int32_t)ps.getType().getBitWidth() : 64);
+                        ->VpiSize(typedParam ? (int32_t)ps.getType().getBitWidth()
+                                  : sizeCastVal ? (int32_t)scv.type->getBitWidth()
+                                                : 64);
                     setLoc((UHDM::constant*)rhs, init->sourceRange);
                     // An assignment-pattern default ('{0,1}) folds to a
                     // based-decimal (2'd1) constant with NO typespec ref.
