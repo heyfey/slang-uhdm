@@ -176,6 +176,14 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
                 }
+                else if (ct.kind == SymbolKind::PackedUnionType) {
+                    ts = buildUnionTs(ct.as<PackedUnionType>(), true,
+                                      std::string(ta.name));
+                    if (structUsedByModuleSignal(ct))
+                        ts->VpiParent(d);
+                    if (typeSyn)
+                        setLoc(ts, typeSyn->sourceRange());
+                }
                 else if (ct.kind == SymbolKind::PackedArrayType ||
                          ct.kind == SymbolKind::ScalarType) {
                     // Vector/scalar typedef: a NAMED logic_typespec with its

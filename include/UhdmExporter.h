@@ -178,6 +178,9 @@ private:
                                      const slang::syntax::SyntaxNode* enumSyn,
                                      const std::string& refFullName,
                                      bool implicitBaseRef = false);
+    UHDM::union_typespec* buildUnionTs(const slang::ast::Scope& unionScope, bool packed,
+                                       const std::string& aliasName,
+                                       const std::string& memberSep = ".");
     UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
                                          const std::string& aliasName,
                                          const std::string& memberSep = ".");

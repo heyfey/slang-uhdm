@@ -797,6 +797,52 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
     return sts;
 }
 
+
+UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool packed,
+                                                 const std::string& aliasName,
+                                                 const std::string& memberSep) {
+    auto* uts = s.MakeUnion_typespec();
+    if (packed)
+        uts->VpiPacked(true);
+    auto* members = s.MakeTypespec_memberVec();
+    for (auto& fm : unionScope.members()) {
+        if (fm.kind != SymbolKind::Field)
+            continue;
+        auto* tm = s.MakeTypespec_member();
+        tm->VpiName(fm.name);
+        tm->VpiParent(uts);
+        setLoc(tm, nameSpan(fm.location, fm.name));
+        const syntax::SyntaxNode* memberTypeSyn = nullptr;
+        for (auto p2 = fm.getSyntax(); p2; p2 = p2->parent) {
+            if (p2->kind == syntax::SyntaxKind::StructUnionMember) {
+                memberTypeSyn = p2->as<syntax::StructUnionMemberSyntax>().type;
+                break;
+            }
+        }
+        auto* fts = makeTypespec(fm, memberTypeSyn);
+        if (fts->VpiName().empty())
+            fts->VpiParent(tm);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(aliasName + memberSep + std::string(fm.name));
+        rt->VpiParent(tm);
+        rt->Actual_typespec(fts);
+        tm->Typespec(rt);
+        if (memberTypeSyn) {
+            auto sr = memberTypeSyn->sourceRange();
+            if (sr.start() != SourceLocation::NoLocation) {
+                tm->VpiRefFile(fullFilePath(sr.start()));
+                tm->VpiRefLineNo(sm->getLineNumber(sr.start()));
+                tm->VpiRefColumnNo(sm->getColumnNumber(sr.start()));
+                tm->VpiRefEndLineNo(sm->getLineNumber(sr.end()));
+                tm->VpiRefEndColumnNo(sm->getColumnNumber(sr.end()));
+            }
+        }
+        members->push_back(tm);
+    }
+    uts->Members(members);
+    return uts;
+}
+
 // Typedefs (enums, packed structs): module Typespecs entries compiled at
 // module compile, shared by both views and by all declarations.
 void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_inst* m,
@@ -852,6 +898,16 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
             ts = sts;
+        }
+        else if (ct.kind == SymbolKind::PackedUnionType) {
+            // Packed unions mirror packed structs (BARE member refs like
+            // nested-typedef structs; union members are typedef'd shapes).
+            auto* uts = buildUnionTs(ct.as<PackedUnionType>(), true,
+                                     std::string(ta.name));
+            uts->VpiParent(m);
+            if (typeSyn)
+                setLoc(uts, typeSyn->sourceRange());
+            ts = uts;
         }
         else if (ct.kind == SymbolKind::PackedArrayType ||
                  ct.kind == SymbolKind::ScalarType) {
