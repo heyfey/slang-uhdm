@@ -417,8 +417,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (suppressRefActual) {
                     // Gen-scope process ref: left unbound.
                 }
-                else if (auto it = netMap.find(&nv.symbol); it != netMap.end())
+                else if (auto it = netMap.find(&nv.symbol); it != netMap.end()) {
                     ref->Actual_group(it->second);
+                    // Whole ref: may be re-pointed to a select object if this
+                    // variable is written via a select elsewhere in the body.
+                    if (selTrackActive)
+                        selWholeRefs.push_back({ref, &nv.symbol});
+                }
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
                 else if (nv.symbol.kind == SymbolKind::EnumValue)
@@ -1167,6 +1172,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bs->VpiName(nv.symbol.name);
             bs->VpiFullName(joinRef(prefix, nv.symbol.name));
             bs->VpiParent(parent);
+            // A bit-select write only re-points whole refs when the base is a
+            // function formal (io_decl); local vars/nets keep their own binding.
+            if (auto nit = netMap.find(&nv.symbol);
+                nit != netMap.end() && nit->second->UhdmType() == UHDM::uhdmio_decl)
+                noteSelectObj(&nv.symbol, bs);
             // Surelog anchors rvalue bit_selects at the index expression,
             // but lvalue ones span the whole select.
             setLoc(bs, inLhs ? expr.sourceRange : es.selector().sourceRange);
@@ -1380,6 +1390,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ips->VpiDefName(nv.symbol.name);
                 ips->VpiFullName(joinRef(prefix, nv.symbol.name));
                 ips->VpiParent(parent);
+                // An indexed part-select write re-points whole refs only when
+                // the base is a net (module reg); local vars keep their binding.
+                if (auto nit = netMap.find(&nv.symbol);
+                    nit != netMap.end() && nit->second->UhdmType() == UHDM::uhdmlogic_net)
+                    noteSelectObj(&nv.symbol, ips);
                 // Lvalue selects span the whole expression.
                 if (inLhs)
                     setLoc(ips, expr.sourceRange);
@@ -1420,6 +1435,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             psel->VpiName(nv.symbol.name);
             psel->VpiDefName(nv.symbol.name);
             psel->VpiParent(parent);
+            // Simple (constant) part-select writes do NOT re-point whole refs.
             // Fullname is frozen from the parent chain (matches Surelog's
             // lazily-computed values, incl. the doubled name under a
             // bit_select index).

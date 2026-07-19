@@ -783,7 +783,9 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             bypassTypedefShare = true;
             bool savedTf = tfContext;
             tfContext = true;
+            typedefTsContext = true;
             auto* lts = makeTypespec(ta, typeSyn);
+            typedefTsContext = false;
             tfContext = savedTf;
             bypassTypedefShare = false;
             lts->VpiParent(m);
@@ -913,9 +915,29 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // System call ($bits(dmi_t)): a sys_func_call with the argument
             // emitted as a ref_obj (type/name-token) argument.
             if (inv.left->kind == syntax::SyntaxKind::SystemName) {
+                auto sysName = inv.left->as<syntax::SystemNameSyntax>()
+                                   .systemIdentifier.valueText();
+                // Type-query calls ($bits(type)/$size(...)) fold to a constant
+                // when the argument resolves in the current scope.
+                if (typedefTsContext && currentScope &&
+                    (sysName == "$bits" || sysName == "$size" || sysName == "$clog2")) {
+                    ASTContext bctx(*currentScope, LookupLocation::max);
+                    auto& bound = Expression::bind(syn.as<syntax::ExpressionSyntax>(), bctx);
+                    if (auto cv = bctx.tryEval(bound); cv && cv.isInteger()) {
+                        auto* c = s.MakeConstant();
+                        std::string digits =
+                            cv.integer().toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(digits);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(parent);
+                        setLoc(c, syn.sourceRange());
+                        return c;
+                    }
+                }
                 auto* sfc = s.MakeSys_func_call();
-                sfc->VpiName(inv.left->as<syntax::SystemNameSyntax>()
-                                 .systemIdentifier.valueText());
+                sfc->VpiName(sysName);
                 sfc->VpiParent(parent);
                 setLoc(sfc, syn.sourceRange());
                 if (inv.arguments) {
