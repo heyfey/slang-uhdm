@@ -1,5 +1,42 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Small-DIFF pickoff r106-r109 (2026-07-19)
+
+PASS 263->267, CMP_ONLY 17->18, all merged to main, zero regressions (goldens
+23/23 + full corpus + manual PASS->CMP_ONLY demotion check each commit).
+- r106 UnsizedConstantsParameterParsing PASS: elab-view unbased-unsized 'x/'z
+  param default decompiles 'bX/'bZ (def view keeps bare 'X). ParamEmit.cpp.
+- r107 BitsCallOnType PASS: fold $bits/$size/$clog2 type-query bounds to a
+  constant ONLY inside a named typedef typespec (typedefTsContext flag); a
+  variable's inline type keeps the sys_func_call. TypeEmit emitSyntaxExpr.
+- r108 func_output_arg PASS: whole-ref -> select-object Actual binding. Rule
+  (derived across corpus, base-type gated): bit-select write re-points only if
+  base is io_decl; indexed-part-select write only if base is logic_net; simple
+  part-select never; local logic_var never. Per-body track+backpatch
+  (beginSelTrack/endSelTrack around process + function bodies).
+- r109 multiple_blocking PASS: signed power (2**n) -> INT const; a param
+  int-encoded from one propagates so net range bounds ([DINW:0]) emit INT.
+  isIntEncoded Power case + emitBound binds bound syntax to check isIntEncoded.
+
+**Near-DIFF triage (remaining, each now multi-issue / bespoke Surelog quirk):**
+- sign_part_assign (10): signed based-literal (1'sb1) needs a signed
+  int_typespec ref + weakly-tail int_typespec. Separate feature.
+- unbased_unsized (26): ABANDONED — Surelog inconsistently uppercases 1'bx->
+  1'bX but keeps 1'bz, 3'bxxx, 3'bzzz lowercase (x-only, 1-bit-only). Not a
+  sane rule; global uppercase regresses (34 lines).
+- Clog2OfSum.. / PatternAsFunctionArgument / BitsCallOnExpression / CastToSum..
+  / CastInFunctionToParameterWidth: "missing int_typespec/ref_typespec on an
+  expression (operation / $clog2 / cast)" cluster — Surelog attaches the
+  assignment target's typespec to certain folded expressions. Clog2 ALSO has
+  a port-LowConn int_var-vs-logic_net binding diff (3 issues).
+- StructMemberAsModuleInput (19): hier_path inner-ref fullname should scope
+  through the port-connection path (work@top.d.o.ping_p, not work@top.ping_p),
+  plus a missing struct_typespec ref + struct_net vpiExpr. 3 issues.
+- ImportParametrizedTypeAndDeclareParamWithTheSameName (10): package/module
+  param structural mismatch.
+Debugging aids still in scratchpad (finder/f2..f15, build cmd in the modport
+section below).
+
 ## Modport tail-dup convergence (2026-07-18, branch `iface-modport-tail`)
 
 iface_modport DIFF->CMP_ONLY (cmp now passes; 26-line dump diff is pure
