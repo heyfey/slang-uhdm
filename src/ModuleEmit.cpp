@@ -816,13 +816,18 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // -> the connected interface_inst.
             if (portBase->kind == SymbolKind::InterfacePort) {
                 auto& ip = portBase->as<InterfacePortSymbol>();
+                const PortConnection* iconn = nullptr;
+                for (auto c : inst.getPortConnections())
+                    if (&c->port == portBase) {
+                        iconn = c;
+                        break;
+                    }
                 auto* p = s.MakePort();
                 p->VpiName(ip.name);
                 p->VpiParent(m);
                 setLocNamed(p, ip);
                 p->VpiDirection(vpiInout);
                 auto* lc = s.MakeRef_obj();
-                lc->VpiName(ip.name);
                 lc->VpiFullName(prefix + "." + std::string(ip.name));
                 lc->VpiParent(p);
                 setLocNamed(lc, ip);
@@ -843,11 +848,24 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                         std::string(conn.first->name));
                         hc->VpiParent(p);
                         hc->Actual_group(iit->second);
-                        if (auto npc = findConnSyntax(inst, ip.name))
-                            setLoc(hc, npc->sourceRange());
+                        if (iconn && connectionExpr(*iconn))
+                            setLoc(hc, connectionExpr(*iconn)->sourceRange);
                         p->High_conn(hc);
                     }
                 }
+                auto* its = s.MakeInterface_typespec();
+                its->VpiName(ip.modport.empty() ? ip.name : ip.modport);
+                if (auto psyn = ip.getSyntax())
+                    if (psyn->kind == syntax::SyntaxKind::InterfacePortHeader) {
+                        auto& iph = psyn->as<syntax::InterfacePortHeaderSyntax>();
+                        if (iph.modport)
+                            setLoc(its, iph.modport->member.range());
+                    }
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix + "." + std::string(ip.name));
+                rt->VpiParent(p);
+                rt->Actual_typespec(its);
+                p->Typespec(rt);
                 ports->push_back(p);
                 continue;
             }
