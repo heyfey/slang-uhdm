@@ -712,10 +712,24 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             }
         }
         if (value.empty() && cv.isInteger() && !cv.integer().hasUnknown()) {
-            // Implicit value: INT at the base width (64 for implicit bases).
+            // A non-literal initializer (enum X = pkg::PARAM) keeps the SOURCE
+            // reference as the decompile and follows the base signedness;
+            // implicit/computed values decompile to the folded digits.
             std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
-            value = "INT:" + digits;
-            ec->VpiDecompile(digits);
+            auto* evInit = ev.getInitializer();
+            bool nonLitInit = evInit && stripImplicitConv(*evInit).kind !=
+                                            ExpressionKind::IntegerLiteral;
+            // Only an explicit UNSIGNED INTEGER base (enum int unsigned {..})
+            // encodes UINT; implicit / logic-vector / signed bases use INT.
+            bool unsignedIntBase =
+                baseSyn &&
+                et.baseType.getCanonicalType().kind == SymbolKind::PredefinedIntegerType &&
+                !et.baseType.isSigned();
+            value = (unsignedIntBase ? "UINT:" : "INT:") + digits;
+            if (nonLitInit)
+                ec->VpiDecompile(rawText(stripImplicitConv(*evInit).sourceRange));
+            else
+                ec->VpiDecompile(digits);
             ec->VpiSize(baseSyn ? (int32_t)et.baseType.getBitWidth() : 64);
         }
         if (!value.empty())
