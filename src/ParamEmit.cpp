@@ -654,6 +654,22 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
             rhsRt->Actual_typespec(its);
         prt->Actual_typespec(its);
         its->VpiParent(prt);
+        // A param used as a cast width hangs a vpiExpr ref on its def-view
+        // ts; the elab ts SHARES that ref_obj.
+        if (its->UhdmType() == UHDM::uhdmint_typespec) {
+            if (auto psc = ps->getParentScope();
+                psc && psc->asSymbol().kind == SymbolKind::InstanceBody) {
+                auto dit = defMap.find(
+                    &psc->asSymbol().as<InstanceBodySymbol>().getDefinition());
+                if (dit != defMap.end())
+                    if (auto pit = dit->second.paramTs.find(ps);
+                        pit != dit->second.paramTs.end() &&
+                        pit->second->UhdmType() == UHDM::uhdmint_typespec)
+                        if (auto* ce =
+                                ((UHDM::int_typespec*)pit->second)->Cast_to_expr())
+                            ((UHDM::int_typespec*)its)->Cast_to_expr(ce);
+            }
+        }
         (void)up;
     }
 }

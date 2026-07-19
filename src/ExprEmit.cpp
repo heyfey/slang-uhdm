@@ -781,14 +781,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         op->Operands(operandsD);
                         return op;
                     }
-                    auto* its = s.MakeInteger_typespec();
-                    setLoc(its, lr);
-                    bool savedCS = inCastSize;
-                    inCastSize = true;
-                    if (auto* e = emitExpr(sizeExpr, op, prefix, netMap))
-                        its->Expr((UHDM::expr*)e);
-                    inCastSize = savedCS;
-                    cts = its;
+                    // A plain PARAMETER width ((P)'(x)) reuses the param's own
+                    // int_typespec as the cast target; that ts gains a loc-less
+                    // vpiExpr ref_obj with a param-doubled fullname
+                    // (work@top.P.P) bound to the def parameter.
+                    auto& seCore = stripImplicitConv(sizeExpr);
+                    if (seCore.kind == ExpressionKind::NamedValue &&
+                        seCore.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter) {
+                        auto& psym = seCore.as<NamedValueExpression>().symbol;
+                        if (auto psc = psym.getParentScope();
+                            psc && psc->asSymbol().kind == SymbolKind::InstanceBody) {
+                            auto dit = defMap.find(
+                                &psc->asSymbol().as<InstanceBodySymbol>().getDefinition());
+                            if (dit != defMap.end()) {
+                                auto pit = dit->second.paramTs.find(&psym);
+                                if (pit != dit->second.paramTs.end() &&
+                                    pit->second->UhdmType() == UHDM::uhdmint_typespec) {
+                                    auto* ipts = (UHDM::int_typespec*)pit->second;
+                                    if (!ipts->Cast_to_expr()) {
+                                        UHDM::parameter* pobj = nullptr;
+                                        if (dit->second.mod && dit->second.mod->Parameters())
+                                            for (auto* pp : *dit->second.mod->Parameters())
+                                                if (pp->VpiName() == psym.name)
+                                                    pobj = (UHDM::parameter*)pp;
+                                        auto* r = s.MakeRef_obj();
+                                        r->VpiName(psym.name);
+                                        r->VpiParent(ipts);
+                                        if (pobj) {
+                                            r->VpiFullName(
+                                                std::string(pobj->VpiFullName()) + "." +
+                                                std::string(psym.name));
+                                            r->Actual_group(pobj);
+                                        }
+                                        ipts->Cast_to_expr(r);
+                                    }
+                                    cts = ipts;
+                                }
+                            }
+                        }
+                    }
+                    if (!cts) {
+                        auto* its = s.MakeInteger_typespec();
+                        setLoc(its, lr);
+                        bool savedCS = inCastSize;
+                        inCastSize = true;
+                        if (auto* e = emitExpr(sizeExpr, op, prefix, netMap))
+                            its->Expr((UHDM::expr*)e);
+                        inCastSize = savedCS;
+                        cts = its;
+                    }
                 }
             }
             if (deferredCast) {
