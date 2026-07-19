@@ -1359,12 +1359,25 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 continue;
             }
             // Bound instances path directly under the top module.
-            bool fromBind = false;
+            bool fromBind = false, bindInGen = false;
             for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
-                if (p2->kind == syntax::SyntaxKind::BindDirective) {
+                if (p2->kind == syntax::SyntaxKind::BindDirective)
                     fromBind = true;
+                else if (fromBind &&
+                         (p2->kind == syntax::SyntaxKind::GenerateBlock ||
+                          p2->kind == syntax::SyntaxKind::GenerateRegion ||
+                          p2->kind == syntax::SyntaxKind::IfGenerate ||
+                          p2->kind == syntax::SyntaxKind::LoopGenerate)) {
+                    bindInGen = true;
                     break;
                 }
+            }
+            // A bind directive INSIDE A GENERATE SCOPE never materializes
+            // (Surelog drops it; the bound def's port phase still runs in
+            // the write phase).
+            if (fromBind && bindInGen) {
+                droppedBindDefs.insert(&child.getDefinition());
+                continue;
             }
             if (fromBind && !currentTopPrefix.empty())
                 bindDisplayPath = currentTopPrefix + "." + std::string(child.name);

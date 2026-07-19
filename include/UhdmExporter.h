@@ -170,6 +170,9 @@ private:
     // created after the receiving child's port-view emission (arena order).
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::InterfacePortSymbol*>>
         pendingIfacePortTs;
+    // Defs whose ONLY instance was a dropped in-generate bind: their port
+    // phase runs in the write phase instead.
+    std::set<const slang::ast::Symbol*> droppedBindDefs;
     // InterfacePortSymbol -> its instance-scoped port view (passthrough
     // children bind their HighConn at the enclosing module's view).
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifacePortViewMap;

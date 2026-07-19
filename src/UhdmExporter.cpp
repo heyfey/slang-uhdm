@@ -423,6 +423,12 @@ UHDM::design* UhdmExporter::exportDesign() {
         // Simple interfaces have no top ports but do materialize their def-view
         // net typespecs (below), so they are NOT skipped here.
         auto* di = &defMap[&inst->getDefinition()];
+        // A def never reached by the instance walk (its only "instance" was
+        // a DROPPED bind under an implicit top) fills its port phase here.
+        if (!di->filled && droppedBindDefs.count(&inst->getDefinition())) {
+            di->filled = true;
+            emitModuleDefPorts(*inst);
+        }
         bool isTopDef = false;
         for (auto& tp : topPendings) {
             if (&tp.inst->getDefinition() == &inst->getDefinition()) {
