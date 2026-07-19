@@ -919,6 +919,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& conv = expr.as<ConversionExpression>();
             if (conv.isImplicit())
                 return emitExpr(conv.operand(), parent, prefix, netMap);
+            // A COMPILER-INSERTED string conversion of a string literal (the
+            // implicit string context of {NAME, "efgh"}) carries no cast
+            // syntax — Surelog emits the bare string constant, no cast op.
+            if (expr.type && expr.type->isString() &&
+                stripImplicitConv(conv.operand()).kind == ExpressionKind::StringLiteral &&
+                (!expr.syntax ||
+                 expr.syntax->kind != syntax::SyntaxKind::CastExpression))
+                return emitExpr(stripImplicitConv(conv.operand()), parent, prefix,
+                                netMap);
             // A cast around a streaming concat is dropped (Surelog emits the
             // stream operation directly).
             if (stripImplicitConv(conv.operand()).kind == ExpressionKind::Streaming)
@@ -1494,7 +1503,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // context. Nested expressions keep the normal rules.
             for (auto o : ce.operands()) {
                 bool saved = suppressConstParent, savedF = forceConstParent;
-                if (!reemitting && isLiteralExpr(*o)) {
+                // A string-literal operand hidden behind a compiler cast
+                // ({NAME,"efgh"}) counts as a direct literal too.
+                const Expression* olit = o;
+                while (olit->kind == ExpressionKind::Conversion)
+                    olit = &olit->as<ConversionExpression>().operand();
+                if (!reemitting && isLiteralExpr(*olit)) {
                     suppressConstParent = true;
                     // PACKAGE param concat inits unparent literal operands
                     // in BOTH views (the force flag would re-parent them).

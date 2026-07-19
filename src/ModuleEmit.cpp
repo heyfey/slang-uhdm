@@ -2984,6 +2984,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             c->VpiParent(ca);
             rhs = c;
         }
+        // A STRING-typed RHS (concat {NAME,"efgh"}) folds to a single
+        // loc-less STRING constant sized at 8 bits per character.
+        if (!rhs && topView && ae.right().type && ae.right().type->isString() &&
+            stripImplicitConv(ae.right()).kind == ExpressionKind::Concatenation) {
+            ASTContext sctx(comp.getRoot(), LookupLocation::max);
+            ConstantValue scv = sctx.tryEval(ae.right());
+            if (scv && scv.isString()) {
+                std::string sv = scv.str();
+                auto* c = s.MakeConstant();
+                c->VpiSize((int32_t)(sv.size() * 8));
+                c->VpiValue("STRING:" + sv);
+                c->VpiConstType(vpiStringConst);
+                rhs = c;
+            }
+        }
         // A NEGATIVE literal RHS (-1) folds loc-less at the LHS type:
         // signed targets keep INT:<neg>, unsigned targets wrap to UINT.
         if (!rhs && topView) {
