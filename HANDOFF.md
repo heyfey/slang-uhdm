@@ -1,5 +1,79 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 7b: session-7 ladder triage (2026-07-19)
+
+**PASS 324->325, DIFF 297->296.** Converged **StringAssignConcatenation**
+(a string literal in `{NAME,"efgh"}` is a NON-implicit compiler string
+conversion — Surelog drops the cast, emits the bare unparented string
+constant; the elab CA folds the whole string concat to one loc-less
+STRING constant at 8 bits/char). Also landed a validated-clean
+correctness fix: **vpiLocalParam now follows the WRITTEN keyword for
+module-body params too** (a body `parameter` is local per LRM with an
+ANSI header but a real parameter to Surelog) — partial progress on
+ParameterOfSizeOfParametrizedPort.
+
+**The rest of the session-7 ladder is SUBSTANTIAL FEATURES, not quick
+pickoffs** (80-130 line diffs each). Fully triaged; per-item mechanism +
+the exact discriminator found:
+
+- **ParameterOfSizeOfParametrizedPort** (localparam done; remainder:
+  `logic [$bits(o)-1:0] Y`): the `$bits(o)-1` typespec bound stays
+  UNFOLDED (sys_func_call + `o` ref, fullname `work@top.Y.o`, actual ->
+  the port net) in BOTH views. KEY DISCRIMINATOR (verified against the
+  PASSING BitsCallOnVar): `$bits` of a *type* (`$bits(dmi_t)`) FOLDS to a
+  constant; `$bits` of a *signal/port whose width is param-dependent*
+  (`$bits(o)`, o is `[X-1:0]`) stays UNFOLDED. emitSyntaxExpr already
+  emits the sys_func_call (TypeEmit ~1294) but its arg ref needs the
+  param-scoped fullname + a deferred actual-binding to the net.
+- **MixedPatterns** (module struct typedef + pattern): (1) elab CA folds
+  `'{third:0, default:'1}` to a packed constant `4'd13` (size 4); (2)
+  module typedef struct_typespec drops vpiParent (keeps vpiInstance
+  only); (3) member ref fullnames are BARE `struct_t.first` not
+  `work@top.struct_t.first`. DISCRIMINATOR (checked struct_array=bare vs
+  BitsCallOnVar=prefixed, both module/unit leaf structs): a struct that
+  is INSTANTIATED as a variable (`struct_t c;` — a struct_var/net of the
+  type exists) uses BARE refs; a struct used ONLY in `$bits(T)` (no
+  variable of the type) uses module-PREFIXED refs. The current
+  `hasNestedTypedef` gate in emitTypedefs (TypeEmit ~1012) is the wrong
+  axis — needs the "has-a-variable-of-this-type" test. RISKY (shared
+  gate; re-gate carefully against BitsCallOnVar/StructMemberAsModuleInput).
+- **OneClass** (module-local classes): (1) EASY: a class `int` field
+  emits bit_var, must be int_var+vpiSigned — the class-property var
+  builder in UhdmExporter.cpp ~357 only checks isFourState (int is
+  2-state -> bit_var); needs the predefined-int-type -> int_var mapping
+  like makeVar. (2) BIG: module-LOCAL classes (`class c` inside a module)
+  are not emitted at all — the class_defn loop only walks
+  `comp.getCompilationUnits()` (file-level). (3) class-typed nets
+  (`u one; c two;`) need a class_typespec on their logic_net typespec +
+  the weak-tail class_typespec entries.
+- **iface_param_width_per_inst** (parametrized interface port): the CORE
+  feature the test documents — a submodule's interface field width must
+  use the ELABORATED per-instance param (`#(.W(22))` -> data is [21:0],
+  we use the default W=3 -> [2:0]). Also: the interface override param
+  encodes UINT@valuewidth (we emit INT:-1), and the per-instance iface
+  emits `vpiParamAssign`(overriden) not a bare `vpiParameter`; the home
+  elab view drops the param block entirely.
+- **StructPackedArray** (`filter_ctl_t [1:0] a = '{...}`): packed_array_var
+  with an assignment-pattern vpiExpr (op 75), an outer packed range, and
+  an element struct_var; plus a spurious vpiNetType:36 on the port to
+  drop. We currently truncate the var span and omit the vpiExpr/range.
+- **nested_cast_repro / CastClog2...FromCommandLine**: nested casts
+  (`int'($clog2(X)'(X))`) lose the inner conversion's syntax so the inner
+  cast ts falls to the loc-less logic_typespec fallback; golden wants the
+  inner ts as integer_typespec@the-inner-span with vpiExpr = the bound
+  sys_func_call. Needs syntax pass-down from the outer CastExpression, and
+  the elab must RE-EMIT the whole nested cast (we mis-fold to a UINT wrap
+  — find the folder first).
+- **iface_passthrough / BindModuleWithInputPortsInGenScope**: interface
+  passthrough / bind-in-genscope machinery (see session-7 notes below and
+  the iface_passthrough paragraph). Order-sensitive; budget a session
+  each.
+
+**Recommended next-session order** (tractability-first): OneClass part-1
+int_var (trivial, may help other class tests) -> StructPackedArray ->
+MixedPatterns (fold + re-gate) -> iface_param_width_per_inst -> the cast
+cluster -> the interface/bind pair.
+
 ## Session 7: whole session-6 ladder converged (2026-07-19, 9 commits)
 
 **FINAL: PASS 314->324, cmp-passing 351->364, DIFF 310->297, CMP_ONLY
