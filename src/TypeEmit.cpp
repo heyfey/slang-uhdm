@@ -554,6 +554,57 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
     if (enumSyn && enumSyn->kind == syntax::SyntaxKind::EnumType)
         baseSyn = enumSyn->as<syntax::EnumTypeSyntax>().baseType;
     if (baseSyn) {
+        // An integer base (enum int/integer/... {..}) uses the matching integer
+        // typespec; a logic/bit vector base uses logic_typespec (with a range).
+        UHDM::typespec* bts = nullptr;
+        auto& bct = et.baseType.getCanonicalType();
+        if (bct.kind == SymbolKind::PredefinedIntegerType) {
+            bool sgn = et.baseType.isSigned();
+            switch (bct.as<PredefinedIntegerType>().integerKind) {
+                case PredefinedIntegerType::Int: {
+                    auto* t = s.MakeInt_typespec();
+                    if (sgn) t->VpiSigned(true);
+                    bts = t;
+                    break;
+                }
+                case PredefinedIntegerType::Integer: {
+                    auto* t = s.MakeInteger_typespec();
+                    if (sgn) t->VpiSigned(true);
+                    bts = t;
+                    break;
+                }
+                case PredefinedIntegerType::ShortInt: {
+                    auto* t = s.MakeShort_int_typespec();
+                    if (sgn) t->VpiSigned(true);
+                    bts = t;
+                    break;
+                }
+                case PredefinedIntegerType::LongInt: {
+                    auto* t = s.MakeLong_int_typespec();
+                    if (sgn) t->VpiSigned(true);
+                    bts = t;
+                    break;
+                }
+                case PredefinedIntegerType::Byte: {
+                    auto* t = s.MakeByte_typespec();
+                    if (sgn) t->VpiSigned(true);
+                    bts = t;
+                    break;
+                }
+                default:
+                    break;
+            }
+            if (bts)
+                setLoc(bts, baseSyn->sourceRange());
+        }
+        if (bts) {
+            auto* brt = s.MakeRef_typespec();
+            brt->VpiFullName(refFullName);
+            brt->VpiParent(ets);
+            brt->Actual_typespec(bts);
+            ets->Base_typespec(brt);
+        }
+        else {
         auto* bts = s.MakeLogic_typespec();
         if (et.baseType.isSigned())
             bts->VpiSigned(true);
@@ -603,6 +654,7 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
         brt->VpiParent(ets);
         brt->Actual_typespec(bts);
         ets->Base_typespec(brt);
+        }
     }
     else if (implicitBaseRef) {
         // An inline anonymous enum (enum {..} v) carries a bare base
