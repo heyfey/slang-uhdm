@@ -1112,12 +1112,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc->VpiParent(hp);
                         auto mStart = recv->sourceRange.end() + 1;
                         setLoc(mfc, SourceRange(mStart, mStart + name.size()));
-                        // Extra method args (past the receiver).
+                        // Extra method args (past the receiver); literal args
+                        // parent at the method call.
                         auto* margs = s.MakeAnyVec();
-                        for (size_t ai = 1; ai < call.arguments().size(); ai++)
+                        for (size_t ai = 1; ai < call.arguments().size(); ai++) {
+                            bool fs2 = forceConstParent;
+                            if (isLiteralExpr(*call.arguments()[ai]))
+                                forceConstParent = true;
                             if (auto* a2 =
                                     emitExpr(*call.arguments()[ai], mfc, prefix, netMap))
                                 margs->push_back(a2);
+                            forceConstParent = fs2;
+                        }
                         if (!margs->empty())
                             mfc->Tf_call_args(margs);
                         elems->push_back(mfc);

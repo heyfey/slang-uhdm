@@ -358,6 +358,9 @@ inline bool containsOperation(const Expression& expr) {
             if (!call.isSystemCall())
                 return false;
             auto n = call.getSubroutineName();
+            // Built-in METHOD calls (a.getc(i): no leading $) are shared.
+            if (n.empty() || n[0] != '$')
+                return false;
             return n != "$signed" && n != "$unsigned";
         }
         case ExpressionKind::SimpleAssignmentPattern:

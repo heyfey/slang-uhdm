@@ -928,8 +928,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         if (!enumRef && !concatInit)
                             forceConstParent = true;
                         if (auto* e = emitExpr(ic, v, fullName, topNets)) {
-                            // Bare-decimal inits size at the var type width.
+                            // Bare-decimal inits size at the var type width
+                            // (string literals keep their 8*len size).
                             if (e->UhdmType() == UHDM::uhdmconstant &&
+                                ic.kind != ExpressionKind::StringLiteral &&
                                 rawText(ic.sourceRange).find('\'') == std::string::npos)
                                 ((UHDM::constant*)e)->VpiSize(
                                     (int32_t)dt->getType().getBitWidth());
