@@ -1807,9 +1807,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             return hp;
         }
         case ExpressionKind::ArbitrarySymbol: {
+            std::string dotted = rawText(expr.sourceRange);
+            // A bare interface reference (no dot) is a plain ref_obj.
+            if (dotted.find('.') == std::string::npos) {
+                auto* r = s.MakeRef_obj();
+                r->VpiName(dotted);
+                r->VpiParent(parent);
+                setLoc(r, expr.sourceRange);
+                return r;
+            }
             // Interface-port member access (sub.sig): a hier_path with one
             // ref_obj element per dotted component.
-            std::string dotted = rawText(expr.sourceRange);
             auto* hp = s.MakeHier_path();
             hp->VpiName(dotted);
             hp->VpiFullName(dotted);
