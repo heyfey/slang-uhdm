@@ -1,5 +1,40 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Overnight autonomous session 2 (2026-07-19, ~16 commits)
+
+**PASS 273->279, cmp-passing 299->310, UNSUPPORTED 62->16.** Zero demotions
+throughout (PASS-only + cmp-only checks each commit). Features landed:
+- Package-scoped enums (pkg::pkg:: base fullname, view-dependent decompile,
+  both-view module fold, base ts Instance) — 3 tests cmp-pass.
+- Interfaces list imported pkg typedefs (SHARED top-view object re-parented,
+  base/member refs re-scoped work@<iface>.<pkg>::<ts>[.member]); elab home
+  view lists them too (not port views); elab folds pkg enum-const RHS loc-less.
+- Interface struct members: def net netType wire; elab home struct_net (Nets);
+  port views carry a fresh struct_net on the modport io_decl (doubled fullname
+  prefix.<modport>.<m>.<m>); pkg-typedef struct PORT nets are wires.
+- MemberAccess/selects over dotted interface paths: shared buildDottedHierPath
+  (name-only fullname trick: fullname==name is OMITTED by the dump and blocks
+  the lazy scoped recompute); Range/Element selects over dotted/array-element
+  bases -> hier_path with final (indexed_)part_/bit_select; a[0] components
+  become bit_selects. Fall-through gating on NamedValue bottoms.
+- Modport-qualified conns (.mon(s.mon)): hier HighConn, formal-anchored
+  LowConn, NO tail dup / conn-site net (both gated on a bare whole-iface conn).
+- Packed unions (buildUnionTs), file-level vector typedefs, NamedType+dims.
+- fork/join (+join types), disable (+implicit label wire), procedural assign,
+  streaming ops (stream-op wraps concat with SWAPPED spans; sliced adds the
+  slice const), $readmemh (EmptyArgument skip + output-arg Assignment unwrap —
+  NOTE: UHDM group setters SILENTLY REJECT invalid vectors), built-in method
+  calls (e.first() -> hier + method_func_call), inside op + case-inside,
+  package sub-call shells.
+
+Remaining UNSUP (16): Invalid-no-child (CastStruct/size_cast/PackageCast/
+ucsbece154b — slang leaves them unbound), member-access-base 3 (iface array
+struct whole/gen_delay/unpacked), member-select 2, range-select-in-for 2,
+Final procedure, sva x2 (AssertionInstance/ClockingEvent), NewClass, getc/putc
+remainder. Each needs specific feature work.
+
+## (prior sessions below)
+
 ## Autonomous convergence session (2026-07-19, uhdm-cmp=golden policy)
 
 FINAL: PASS 270->273, cmp-passing 289->294, ~15 commits, ZERO regressions
