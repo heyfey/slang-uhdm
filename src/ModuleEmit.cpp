@@ -2248,9 +2248,11 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                         val = (UHDM::any*)pat;
                 }
                 ops->push_back(val);
-                // The recompile re-parents the shared def operands at the
-                // orphan (this is also what pulls it into the dump).
-                val->VpiParent(op);
+                // The recompile re-parents SIMPLE-pattern operands at the
+                // orphan (this is also what pulls it into the dump); tagged
+                // (structured) pattern values stay unparented.
+                if (val == o)
+                    val->VpiParent(op);
             }
             op->Operands(ops);
         }
@@ -3018,6 +3020,46 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
             c->VpiParent(ca);
             rhs = c;
+        }
+        // A STRUCTURED assignment-pattern RHS re-emits EXPANDED in the elab
+        // view: op75 with one per-field value constant (field width, UINT,
+        // located at the source value token — the default's token repeats).
+        if (!rhs && topView &&
+            stripImplicitConv(ae.right()).kind ==
+                ExpressionKind::StructuredAssignmentPattern &&
+            stripImplicitConv(ae.right()).type &&
+            stripImplicitConv(ae.right()).type->getCanonicalType().isStruct()) {
+            auto& ap = stripImplicitConv(ae.right())
+                           .as<StructuredAssignmentPatternExpression>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiAssignmentPatternOp);
+            op->VpiParent(ca);
+            setLoc(op, ap.sourceRange);
+            auto* operands = s.MakeAnyVec();
+            bool ok = true;
+            for (auto el : ap.elements()) {
+                ASTContext ectx(comp.getRoot(), LookupLocation::max);
+                ConstantValue ecv = ectx.tryEval(*el);
+                if (!ecv || !ecv.isInteger() || ecv.integer().hasUnknown()) {
+                    ok = false;
+                    break;
+                }
+                auto eiv = ecv.integer();
+                eiv.setSigned(false);
+                std::string digits = eiv.toString(LiteralBase::Decimal, false);
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(digits);
+                c->VpiSize((int32_t)el->type->getBitWidth());
+                c->VpiValue("UINT:" + digits);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(op);
+                setLoc(c, el->sourceRange);
+                operands->push_back(c);
+            }
+            if (ok) {
+                op->Operands(operands);
+                rhs = op;
+            }
         }
         // A STRING-typed RHS (concat {NAME,"efgh"}) folds to a single
         // loc-less STRING constant sized at 8 bits per character.

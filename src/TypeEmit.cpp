@@ -1069,11 +1069,32 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
                     fct.kind == SymbolKind::EnumType)
                     hasNestedTypedef = true;
             }
-            std::string alias = hasNestedTypedef
-                                    ? std::string(ta.name)
-                                    : prefix + "." + std::string(ta.name);
+            // A struct whose variable is cont-assigned WHOLE (assign c = ...
+            // / assign b = c) is netlist-recompiled: BARE member refs, no
+            // module parent. Member-only or $bits-only uses keep the
+            // module-prefixed refs (alert_rx_t / dmi_t).
+            bool wholeAssigned = false;
+            for (auto& mb2 : body.members()) {
+                if (mb2.kind != SymbolKind::ContinuousAssign)
+                    continue;
+                auto& as2 = mb2.as<ContinuousAssignSymbol>().getAssignment();
+                if (as2.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& ae2 = as2.as<AssignmentExpression>();
+                for (auto* side : {&ae2.left(), &ae2.right()}) {
+                    auto& sc2 = stripImplicitConv(*side);
+                    if (sc2.kind == ExpressionKind::NamedValue &&
+                        &sc2.as<NamedValueExpression>()
+                                .symbol.getType()
+                                .getCanonicalType() == &ct)
+                        wholeAssigned = true;
+                }
+            }
+            bool bareRefs = hasNestedTypedef || wholeAssigned;
+            std::string alias = bareRefs ? std::string(ta.name)
+                                         : prefix + "." + std::string(ta.name);
             auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias);
-            if (!hasNestedTypedef)
+            if (!bareRefs)
                 sts->VpiParent(m);
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());

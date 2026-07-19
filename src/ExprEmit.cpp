@@ -2470,9 +2470,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* tp = s.MakeTagged_pattern();
                 tp->VpiParent(op);
                 setLoc(tp, setter.expr->sourceRange);
-                // The pattern value parents at the OPERATION.
+                // The pattern value parents at the OPERATION — except a
+                // literal value in a def CONT-ASSIGN, which stays unparented.
+                bool savedS2 = suppressConstParent, savedF2 = forceConstParent;
+                if (paramInitDef && isLiteralExpr(*setter.expr)) {
+                    suppressConstParent = true;
+                    forceConstParent = false;
+                }
                 if (auto* e = emitExpr(*setter.expr, op, prefix, netMap))
                     tp->Pattern((UHDM::expr*)e);
+                suppressConstParent = savedS2;
+                forceConstParent = savedF2;
                 // Tag: a string_typespec named by the member key.
                 auto* sts = s.MakeString_typespec();
                 sts->VpiName(setter.member->name);
