@@ -724,6 +724,32 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             syntaxRefSep = savedSep;
             bypassTypedefShare = false;
             lts->VpiParent(up);
+            // Def-view unfolded bound refs to package params bind vpiActual
+            // to the param's def-view init constant.
+            if (!topView && lts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                std::function<void(UHDM::any*)> bindRefs = [&](UHDM::any* e) {
+                    if (!e)
+                        return;
+                    if (e->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r = (UHDM::ref_obj*)e;
+                        if (!r->Actual_group())
+                            if (auto* sym = pkg.find(r->VpiName()))
+                                if (auto pit = pkgParamConst.find(sym);
+                                    pit != pkgParamConst.end())
+                                    r->Actual_group(pit->second);
+                    }
+                    else if (e->UhdmType() == UHDM::uhdmoperation) {
+                        if (auto* ops = ((UHDM::operation*)e)->Operands())
+                            for (auto* op : *ops)
+                                bindRefs(op);
+                    }
+                };
+                if (auto* rs = ((UHDM::logic_typespec*)lts)->Ranges())
+                    for (auto* r : *rs) {
+                        bindRefs(r->Left_expr());
+                        bindRefs(r->Right_expr());
+                    }
+            }
             typedefClone[&ta] = nullptr;
             ts = lts;
         }

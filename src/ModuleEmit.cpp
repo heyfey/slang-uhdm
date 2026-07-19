@@ -548,6 +548,30 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             }
         }
     }
+    // A module explicitly importing a package typedef (import pkg::T) lists
+    // the SHARED top-view package typespec in its Typespecs (before the
+    // import_typespec) and re-parents it to the module; fullnames keep their
+    // pkg:: scoping (unlike the interface re-scope above).
+    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        for (auto& mem : body.members()) {
+            if (mem.kind != SymbolKind::ExplicitImport)
+                continue;
+            auto* imported = mem.as<ExplicitImportSymbol>().importedSymbol();
+            if (!imported || imported->kind != SymbolKind::TypeAlias)
+                continue;
+            auto tit = pkgTopTypedefTs.find(imported);
+            if (tit == pkgTopTypedefTs.end())
+                continue;
+            auto* ts = tit->second;
+            ts->VpiParent(m);
+            if (!tds) {
+                tds = s.MakeTypespecVec();
+                m->Typespecs(tds);
+            }
+            if (std::find(tds->begin(), tds->end(), (UHDM::typespec*)ts) == tds->end())
+                tds->push_back(ts);
+        }
+    }
     for (auto& mem : body.members()) {
         std::string pkgName;
         if (mem.kind == SymbolKind::WildcardImport)
