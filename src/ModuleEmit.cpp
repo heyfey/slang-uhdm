@@ -12,6 +12,20 @@
 
 namespace slang_uhdm {
 
+// True when a declared type is a PACKAGE-scoped typedef'd struct.
+static bool isPkgStructType(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    if (!dt || !dt->getType().getCanonicalType().isStruct())
+        return false;
+    const Type* t = &dt->getType();
+    if (t->kind != SymbolKind::TypeAlias)
+        return false;
+    for (auto sc = t->getParentScope(); sc; sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::Package)
+            return true;
+    return false;
+}
+
 UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
@@ -62,6 +76,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
         if (int32_t nt = netTypeFor(*it.sym))
             n->VpiNetType(nt);
+        // A PACKAGE-typedef struct PORT net (input p::dec_t dec) is a wire.
+        else if (it.port && isPkgStructType(*it.sym))
+            n->VpiNetType(vpiWire);
         // Implicit nets print no typespec.
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
@@ -436,7 +453,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                             cc && cc->kind == SymbolKind::Instance) {
                             auto* r = (UHDM::ref_obj*)h;
                             r->VpiFullName(prefix + "." + std::string(child.name) + "." +
-                                           std::string(conn->port.name));
+                                           std::string(conn->port.name) + "." +
+                                           std::string(r->VpiName()));
                             if (auto nit = ifaceConnNet.find(cc); nit != ifaceConnNet.end())
                                 r->Actual_group(nit->second);
                         }
@@ -504,12 +522,23 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                     continue;
                 auto* ts = tit->second;
                 ts->VpiParent(m);
+                std::string scopedName = std::string(m->VpiDefName()) + "." +
+                                         std::string(pn) + "::" +
+                                         std::string(pm.as<TypeAliasType>().name);
                 if (ts->UhdmType() == UHDM::uhdmenum_typespec) {
                     auto* ets = (UHDM::enum_typespec*)ts;
                     if (ets->Base_typespec())
-                        ets->Base_typespec()->VpiFullName(
-                            std::string(m->VpiDefName()) + "." + std::string(pn) +
-                            "::" + std::string(pm.as<TypeAliasType>().name));
+                        ets->Base_typespec()->VpiFullName(scopedName);
+                }
+                // Struct typedefs: member typespec refs re-scope through the
+                // interface too (work@<iface>.<pkg>::<ts>.<member>).
+                if (ts->UhdmType() == UHDM::uhdmstruct_typespec) {
+                    auto* sts = (UHDM::struct_typespec*)ts;
+                    if (sts->Members())
+                        for (auto* tm : *sts->Members())
+                            if (tm->Typespec())
+                                tm->Typespec()->VpiFullName(
+                                    scopedName + "." + std::string(tm->VpiName()));
                 }
                 if (!tds) {
                     tds = s.MakeTypespecVec();
@@ -843,6 +872,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     it.sym->getDeclaredType()->getType().isSigned())
                     n->VpiSigned(true);
             }
+            else if (it.port && n->UhdmType() == UHDM::uhdmlogic_net &&
+                     isPkgStructType(*it.sym))
+                ((UHDM::logic_net*)n)->VpiNetType(vpiWire);
             if (rt) {
                 rt->VpiParent(n);
                 n->Typespec(rt);
@@ -933,20 +965,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 auto* lc = s.MakeRef_obj();
                 lc->VpiFullName(prefix + "." + std::string(ip.name));
                 lc->VpiParent(p);
-                // Anchored at the connection site (Surelog quirk), not port
-                // decl; a modport-qualified connection (.mon(s.mon)) anchors at
-                // the FORMAL name instead.
-                bool dottedConn =
-                    iconn && connectionExpr(*iconn) &&
-                    rawText(connectionExpr(*iconn)->sourceRange).find('.') !=
-                        std::string::npos;
-                if (dottedConn) {
-                    if (auto npc = findConnSyntax(inst, ip.name))
-                        setLoc(lc, SourceRange(npc->name.location(),
-                                               npc->name.location() + ip.name.size()));
-                    else
-                        setLoc(lc, connectionExpr(*iconn)->sourceRange);
-                }
+                // A NAMED connection (.tcb(bi)) anchors the LowConn at the
+                // FORMAL name; positional ones at the connection expression.
+                if (auto npc = findConnSyntax(inst, ip.name))
+                    setLoc(lc, SourceRange(npc->name.location(),
+                                           npc->name.location() + ip.name.size()));
                 else if (iconn && connectionExpr(*iconn))
                     setLoc(lc, connectionExpr(*iconn)->sourceRange);
                 else
@@ -3187,10 +3210,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     if (!elabNets->empty())
         iface->Nets(elabNets);
 
-    // The elab view lists the def view's typedef/import typespecs (SHARED
-    // objects; the def view was emitted first).
+    // The elab HOME view lists the def view's typedef/import typespecs (SHARED
+    // objects; the def view was emitted first). Port views don't.
     if (auto dIt = ifaceDefMap.find(&def);
-        dIt != ifaceDefMap.end() && dIt->second->Typespecs()) {
+        !portView && dIt != ifaceDefMap.end() && dIt->second->Typespecs()) {
         auto* tds2 = s.MakeTypespecVec();
         for (auto* t : *dIt->second->Typespecs())
             tds2->push_back(t);
