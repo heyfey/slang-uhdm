@@ -770,7 +770,13 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 break;
             }
         }
-        auto* fts = makeTypespec(fm, memberTypeSyn);
+        UHDM::typespec* fts = nullptr;
+        if (fm.getDeclaredType() &&
+            fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType)
+            fts = s.MakeArray_typespec(); // bare (Surelog)
+        else
+            fts = makeTypespec(fm, memberTypeSyn);
         // Fresh member typespecs parent at the member; shared typedef
         // typespecs (named) keep their own parent.
         if (fts->VpiName().empty())
@@ -819,7 +825,13 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 break;
             }
         }
-        auto* fts = makeTypespec(fm, memberTypeSyn);
+        UHDM::typespec* fts = nullptr;
+        if (fm.getDeclaredType() &&
+            fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType)
+            fts = s.MakeArray_typespec(); // bare (Surelog)
+        else
+            fts = makeTypespec(fm, memberTypeSyn);
         if (fts->VpiName().empty())
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
@@ -898,6 +910,36 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
             ts = sts;
+        }
+        else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            // typedef of an unpacked array (typedef bar_t foobar_t [2]):
+            // a NAMED array_typespec with the unpacked range(s).
+            auto* ats = s.MakeArray_typespec();
+            ats->VpiParent(m);
+            if (auto syn = ta.getSyntax())
+                setLoc(ats, syn->sourceRange());
+            auto& fua = ct.as<FixedSizeUnpackedArrayType>();
+            auto* rv = s.MakeRangeVec();
+            auto* r = s.MakeRange();
+            r->VpiParent(ats);
+            auto mkB = [&](int64_t v) {
+                auto* c = s.MakeConstant();
+                std::string digits = std::to_string(v);
+                c->VpiDecompile(digits);
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + digits);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(r);
+                return c;
+            };
+            r->Left_expr(mkB(fua.range.left));
+            r->Right_expr(mkB(fua.range.right));
+            // Range loc: the [N] dimension token from the declarator.
+            if (auto dsyn = ta.getSyntax())
+                setLoc(r, dsyn->sourceRange());
+            rv->push_back(r);
+            ats->Ranges(rv);
+            ts = ats;
         }
         else if (ct.kind == SymbolKind::PackedUnionType) {
             // Packed unions mirror packed structs (BARE member refs like
