@@ -1015,11 +1015,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* args = s.MakeAnyVec();
             callArgDepth++;
             for (auto arg : call.arguments()) {
+                // An output arg ($readmemh(f, mem)) binds as an Assignment;
+                // golden lists just the target ref (an assignment object would
+                // poison the tf_call_args group).
+                const Expression* argE = arg;
+                if (argE->kind == ExpressionKind::Assignment)
+                    argE = &argE->as<AssignmentExpression>().left();
                 // System-call direct literal args parent to the call.
                 bool forceSaved = forceConstParent;
-                if (isLiteralExpr(*arg))
+                if (isLiteralExpr(*argE))
                     forceConstParent = true;
-                if (auto* a = emitExpr(*arg, sc, prefix, netMap))
+                if (auto* a = emitExpr(*argE, sc, prefix, netMap))
                     args->push_back(a);
                 forceConstParent = forceSaved;
             }
@@ -2113,6 +2119,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             hp->Path_elems(elems);
             return hp;
         }
+        case ExpressionKind::EmptyArgument:
+            // An omitted optional call argument ($readmemh(file, mem, ,)):
+            // dropped (golden lists only the present args).
+            return nullptr;
         case ExpressionKind::Streaming: {
             // Streaming concatenation: a SLICED stream ({ << 8 {x} }) folds to
             // a plain CONCAT over the operands (full span); an unsliced one
