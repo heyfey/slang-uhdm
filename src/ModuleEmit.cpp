@@ -1141,8 +1141,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     const std::string& hcPrefix =
                         (!bindPath.empty() && !currentTopPrefix.empty()) ? currentTopPrefix
                                                                          : parentPrefix;
-                    if (auto* h = emitExpr(*expr, p, hcPrefix, *parentNets))
+                    if (auto* h = emitExpr(*expr, p, hcPrefix, *parentNets)) {
+                        // Elab-view literal HighConns parent at the port.
+                        if (h->UhdmType() == UHDM::uhdmconstant)
+                            h->VpiParent(p);
                         p->High_conn(h);
+                    }
                     refCollector = nullptr;
                 }
             }
@@ -2210,6 +2214,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rc.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
                 ASTContext ctx(comp.getRoot(), LookupLocation::max);
                 ConstantValue cv = ctx.tryEval(ae.right());
+                // '0 does NOT fold fresh: the elab Rhs shares the def-view
+                // constant (sized at the LHS width there). '1 folds to the
+                // all-ones UINT.
+                if (cv && cv.isInteger() && cv.integer() == 0)
+                    cv = nullptr;
                 if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();
                     std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
@@ -2340,7 +2349,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             rhs = c;
         }
         if (!rhs && !bitsRhs)
-            rhs = topView ? tryFoldConst(ae.right()) : nullptr;
+            // Unbased-unsized RHS never general-folds here: '1 folded above,
+            // '0 shares the def constant, 'x/'z have unknowns.
+            rhs = (topView && stripImplicitConv(ae.right()).kind !=
+                                  ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                      ? tryFoldConst(ae.right())
+                      : nullptr;
         // Assignment-pattern RHS folds format the constant as based-decimal
         // ("8'd255"), at the LHS width, with no constType, located at the
         // pattern span.
@@ -2390,6 +2404,15 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                  (literalRhs &&
                   rawText(stripImplicitConv(ae.right()).sourceRange).find('\'') ==
                       std::string::npos)))
+                ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+            // A def-view '0 RHS (alone among unbased-unsized) on a WHOLE-NET
+            // LHS sizes at the LHS width; the elab view then shares this
+            // constant. Select/dotted LHS keeps -1.
+            if (!topView && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue &&
+                stripImplicitConv(ae.right()).kind ==
+                    ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                rawText(stripImplicitConv(ae.right()).sourceRange) == "'0")
                 ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
         }
         if (rhs)
