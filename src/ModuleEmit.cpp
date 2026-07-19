@@ -2309,9 +2309,28 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // (RHS resized against the net width) when the RHS contains
         // operations or is a literal. Select-LHS assigns always stay shared.
         bool plainLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue;
+        // A dotted (member-access) LHS re-emits a FRESH elab cont_assign
+        // whose Rhs SHARES the def constant — but only when the elab base is
+        // VAR-backed (net bases keep the shared def cont_assign).
+        bool dottedLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::MemberAccess;
+        if (dottedLhs) {
+            const Expression* baseE = &stripImplicitConv(ae.left());
+            while (baseE->kind == ExpressionKind::MemberAccess)
+                baseE = &stripImplicitConv(baseE->as<MemberAccessExpression>().value());
+            if (baseE->kind == ExpressionKind::NamedValue) {
+                auto nit0 = netMap.find(&baseE->as<NamedValueExpression>().symbol);
+                if (nit0 != netMap.end()) {
+                    auto ut0 = nit0->second->UhdmType();
+                    if (ut0 == UHDM::uhdmlogic_net || ut0 == UHDM::uhdmstruct_net ||
+                        ut0 == UHDM::uhdminteger_net || ut0 == UHDM::uhdmarray_net)
+                        dottedLhs = false;
+                }
+            }
+        }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            (!plainLhs ||
-             (!containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
+            ((!plainLhs && !dottedLhs) ||
+             (plainLhs &&
+              !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
               !pkgParamSel))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
@@ -2575,6 +2594,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (raw.find('\'') != std::string::npos)
                 rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
         }
+        // Dotted-LHS re-emits share the def Rhs object wholesale.
+        if (!rhs && topView && dottedLhs && shareWithDef && defInfo &&
+            myIdx < defInfo->contAssigns.size())
+            rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
         if (!rhs) {
             if (topView) {
                 refCollector = instRefs;

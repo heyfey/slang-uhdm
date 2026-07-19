@@ -453,9 +453,17 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         v->VpiVisibility(1);
         return v;
     }
-    // Packed structs become struct_nets (handled by the net branch).
-    if (ct.kind == SymbolKind::PackedStructType)
+    // Packed structs become struct_nets (handled by the net branch) —
+    // except 2-STATE structs (int members etc.), which cannot be nets and
+    // elaborate as struct_vars.
+    if (ct.kind == SymbolKind::PackedStructType) {
+        if (!ct.isFourState()) {
+            auto* v = s.MakeStruct_var();
+            v->VpiVisibility(1);
+            return v;
+        }
         return nullptr;
+    }
     // A non-port logic variable, or a port with a separate `logic` body
     // redeclaration (input [3:0] a; logic [3:0] a;), is a logic_var; a plain
     // ANSI port stays a net. A port typed by a PACKAGE vector typedef
