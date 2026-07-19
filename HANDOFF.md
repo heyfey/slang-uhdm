@@ -2,7 +2,18 @@
 
 ## Overnight autonomous session 2 (2026-07-19, ~22 commits)
 
-**FINAL: PASS 273->279, cmp-passing 299->312, UNSUPPORTED 62->3.** The only
+**FINAL: PASS 273->280, cmp-passing 299->313, UNSUPPORTED 62->3.**
+(+EnumConcatenatedConst full PASS: computed enum-const inits encode BIN at
+base width; def decompile = de-spaced source, top decompile UNSET; module fold
+= <w>'b<bits>, ONE constant shared across both module views.)
+
+NEXT LEADS for the DIFF frontier (345): FunctionExportDPI (25 lines: exported
+fn loc = the export stmt line + DPI-import fn needs Return var + AccessType 4);
+ImportParametrizedType (10); PatternAsFunctionArgument (15, needs func-param
+elem ts + INT callFold); StructMemberAsModuleInput (19); TypedefInModulePort
+(21); CastToSum cluster (need param-override-gated range unfold, NOT blanket —
+blanket cost -19). Many newly-emitting ex-UNSUP tests have big diffs (500-7000
+lines) needing struct/array elaboration depth. The only
 remaining UNSUP: OneThis (NewClass — class support), sva_counter
 (AssertionInstance), sva_value_change_sim (ClockingEvent). Everything else
 EMITS; convergence work continues in DIFF (296).
