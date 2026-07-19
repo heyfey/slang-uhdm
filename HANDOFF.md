@@ -1,5 +1,107 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 7: whole session-6 ladder converged (2026-07-19, 9 commits)
+
+**FINAL: PASS 314->324, cmp-passing 351->364, DIFF 310->297, CMP_ONLY
+37->40.** Every named lead in the session-6 ladder is now a full PASS
+(plus bonus wins named_cover_assert; readmemh_param / InterfaceAsPort /
+StructInPackage -> CMP_ONLY). New full PASSes and their mechanisms:
+
+- **ParameterInitializationWithNegation** (`localparam logic[17:0] X =
+  ~(15)`): tryFoldConst gained a `typedConv` fallback param — when the
+  bare eval is NEGATIVE-SIGNED (and only then; the unknown-value refusal
+  is untouched so X-operand ops stay unfolded), it re-evaluates through
+  the implicit conversion to the param type (unsigned at type width).
+  The UINT fold then takes the existing bare-vec-ts drain path (loc-less
+  clone). DEF-view param-init UNARY operand constants are unparented
+  (`paramInitDef` flag; binary operands stay parented — probe showed
+  `15+1` keeps parents, `~15`/`~(15)` don't).
+- **clk2fflogic_effects** + **named_cover_assert**: a LABELED immediate
+  assertion (`eff3: assert(x);`, syntax != SequentialBlockStatement) gets
+  NO named_begin wrapper — the label becomes the assertion object's own
+  VpiName (refs still scope through the label via joinRef). Module
+  net-decl-assign unbased inits: '0 keeps BIN:0/'0 but sizes at the net
+  width; '1 UINT-folds at width; 'x/'z stay size -1.
+- **StringAssignment**: `parameter string N = "s"` — STRING:<v> value on
+  both views' parameter objects; LOCATED string_typespec at the `string`
+  keyword (def parents at the parameter, elab at the prt ref via the
+  pendingParamTs drain); the elab Rhs NEVER folds and decompiles WITHOUT
+  quotes (def keeps quotes).
+- **CastWidthFromPackage** (`pkg::W'(a)`): def mints a BARE (nameless,
+  loc-less) int_typespec carrying UINT:<value>; the ELAB CA folds the
+  cast through the operand VARIABLE's INITIAL value (Surelog reduce
+  quirk) to a loc-less unparented constant at the cast width — gated to
+  ScopedName widths ONLY (5'(a), (P+1)'(a), my_struct'(a) keep the
+  operation; three regressions taught that).
+- **InterfaceAsPortAssignValueInSubmodule**: plain (no-modport) iface
+  ports parse as VariablePortHeader — makeIfacePortTs falls back to the
+  dataType syntax: ts NAMED by the interface TYPE at the type token, and
+  is created LATE (pendingIfacePortTs, drained at emitTopPorts). Def
+  lowconn binds the def interface_inst; the child elab lowconn re-points
+  at the port view (parent CLEARED) and the view lists TWICE under
+  vpiInterface. An iface-member LHS CA in a CHILD elab re-emits FRESH:
+  hier_path (name==fullname, no work@ prefix) with name-only elements ALL
+  anchored at the LAST member token, Rhs = BARE loc-only constant. The
+  col-0 tail-dup's arena slot precedes the iface vars' typespecs
+  (dup shell created early, filled at the end).
+- **BitsCallOnSubArray**: pkg struct typedefs — Surelog CROSS-WIRES the
+  two views' member typespecs: first-created (FOLDED bounds) belongs to
+  the TOP struct, second-created (UNFOLDED ops with
+  pkg::pkg::T::member::PARAM refs bound to the def param constants) to
+  the DEF struct; member actuals swap after the top build (dump order
+  AND cmp graph both matter — dump alone matched with the wrong wiring).
+  Pkg-typedef struct nets get vpiNetType wire only with FLAT members
+  (nested-struct members stay untyped — BitsCallOnStructMember).
+- **MultipleCells**: if-generates WITHOUT else emit gen_if located at the
+  `if` keyword (with-else keeps loc-less gen_if_else); emitSyntaxExpr
+  learned prefix-UNARY ops (mapSyntaxUnaryOp: ! ~ - +). GENERATE-
+  containing children are uniquified by Surelog: their override
+  param_assign constants encode UINT at the VALUE width even for untyped
+  params, and their gen-scope CA RHS refs stay UNBOUND (LHS keeps its
+  actual).
+- **PkgParamAsFunctionArg**: func-call ARGS referencing pkg params stay
+  REFS — named `pkg::P` (fullname==name), anchored at the `pkg::`
+  qualifier span, actual -> the package's DEF parameter object, NO
+  formal-ts ref. Package CONCAT param inits keep the operation in BOTH
+  views with unparented literal operands (never fold). Elab call folds
+  with a 1-BIT result encode BIN:<b> / decompile w'b<b> (15/32-bit
+  results keep decimal INT/UINT — VarInFor + CastInFunctionToParameterWidth
+  taught the width gate).
+- **port_int_types**: def CAs unparent DIRECT-literal unary operands
+  (assign a = -1; nested ~A[3] keeps index parents — constmsk/lcov
+  taught the isLiteralExpr gate); the ELAB view folds a negative-literal
+  RHS to a loc-less INT:<neg> at the LHS type width REGARDLESS of
+  signedness (byte unsigned d=-4 -> INT:-4@16, not a UINT wrap).
+
+**NEXT LADDER (fresh difsize)**: iface_passthrough (48),
+CastClog2ToMinimalSizeOfParamValueFromCommandLine (58),
+ParameterOfSizeOfParametrizedPort (60), BindModuleWithInputPortsInGenScope
+(62), MixedPatterns (62), nested_cast_repro (62), OneClass (62),
+iface_param_width_per_inst (64), StringAssignConcatenation (64),
+StructPackedArray (66).
+
+Findings on the two probed-but-deferred:
+- **iface_passthrough**: iface port FORWARDED port-to-port (mid passes its
+  own port to leaf). Golden adds an implicit wire net (work@mid.bus at the
+  CONNECTION token) in mid's def view; leaf's def lowconn actual binds
+  work@mid.bus (ours wrongly binds top's elab var); the elab u_leaf
+  highconn actual resolves THROUGH the passthrough to the ORIGINAL
+  interface's col-0 tail dup (work@top.bus); the fresh-CA rule does NOT
+  apply (passthrough shares the def CA — discriminate via
+  ip.getConnection() kind Instance vs InterfacePort); weak-tail shows the
+  DEEPER port view's vars created before the shallower one and the def
+  port ts drain interleaved per-child. Order-sensitive; budget a session.
+- **CastClog2...FromCommandLine** (`int'($clog2(X)'(X))`): the INNER
+  conversion loses its syntax (nested casts) so the def inner-cast ts
+  falls to the loc-less logic_typespec fallback — golden wants
+  integer_typespec at the $clog2(X) span carrying vpiExpr = the bound
+  sys_func_call (needs a syntax-recovery pass-down from the outer
+  CastExpression). The ELAB view must RE-EMIT the whole nested cast
+  (outer ts -> shared int_typespec, inner ts -> loc-less logic_typespec,
+  ref X unbound) — we currently mis-fold it to UINT:4294967295 from an
+  unidentified branch (value is the signed-cast wrap; find the folder
+  first).
+
 ## Session 6: ladder continued — PASS overtakes DIFF (2026-07-19, ~6 commits)
 
 **FINAL: PASS 309->314, cmp-passing 346->351, DIFF 315->310.** PASS now
