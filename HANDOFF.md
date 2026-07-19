@@ -2,6 +2,23 @@
 
 ## Autonomous convergence session (2026-07-19, uhdm-cmp=golden policy)
 
+PASS 270->273, cmp-passing 289->294, all merged to main, zero regressions
+(later wins): 
+- **Typespec-on-expression cluster** (HIGH YIELD): a kept sys_func_call RHS of
+  a cont-assign carries a ref_typespec sharing the LHS net's typespec. The
+  mechanism already existed for $signed/$unsigned (pendingSysFuncTs, ModuleEmit
+  ~2198); extended to $bits and $clog2 -> SizeOfGeneratedWireArray + Clog2 both
+  DIFF->CMP_ONLY. To extend: add the sys-func name to that condition. (Not yet
+  done: operation-RHS carrying LHS typespec — likely more members.)
+- OneCast PASS: (1) signedSizeCast only reinterprets as signed when the result
+  is actually NEGATIVE (high bit set) — 32'(ONE) stays UINT; (2) a size-cast
+  param value takes the CAST width, not the untyped-64 default. ExprEmit+ParamEmit.
+- REVERTED (corpus caught, -19 PASS): setting tfContext to unfold param ranges
+  in ALL module def ports — most module def typespecs fold/share-with-elab
+  (unlike interfaces). CastToSum needs a NARROW trigger (param overridden at
+  instantiation), not a blanket unfold.
+
+(earlier this session)
 PASS 270->272, cmp-passing 289->291, all merged to main, zero regressions
 (every change corpus-checked with manual demotion check; regressive experiments
 reverted). Method: find over-restrictive gates / structural diffs, test on a
