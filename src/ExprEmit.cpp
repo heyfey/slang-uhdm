@@ -1228,6 +1228,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!call.arguments().empty()) {
                     auto* recv = call.arguments()[0];
                     std::string recvText = rawText(recv->sourceRange);
+                    // STATEMENT context (b.putc(2,"x");): a flat
+                    // method_func_call with an unbound receiver Prefix.
+                    if (stmtCtx && !recvText.empty()) {
+                        auto* mfc = s.MakeMethod_func_call();
+                        mfc->VpiName(name);
+                        mfc->VpiParent(parent);
+                        auto mStart = recv->sourceRange.end() + 1;
+                        setLoc(mfc, SourceRange(mStart, mStart + name.size()));
+                        auto* pr = s.MakeRef_obj();
+                        pr->VpiName(recvText);
+                        pr->VpiFullName(joinRef(prefix, recvText));
+                        pr->VpiParent(mfc);
+                        setLoc(pr, recv->sourceRange);
+                        mfc->Prefix(pr);
+                        auto* margs = s.MakeAnyVec();
+                        for (size_t ai = 1; ai < call.arguments().size(); ai++) {
+                            bool fs2 = forceConstParent;
+                            if (isLiteralExpr(*call.arguments()[ai]))
+                                forceConstParent = true;
+                            if (auto* a2 = emitExpr(*call.arguments()[ai], mfc,
+                                                    prefix, netMap))
+                                margs->push_back(a2);
+                            forceConstParent = fs2;
+                        }
+                        if (!margs->empty())
+                            mfc->Tf_call_args(margs);
+                        return mfc;
+                    }
                     if (!recvText.empty()) {
                         auto* hp = s.MakeHier_path();
                         std::string dotted = recvText + "." + name;
