@@ -2535,20 +2535,71 @@ UhdmExporter::CallFold UhdmExporter::resolveConstExpr(const Expression& e) {
 // (nested calls followed, local-var literal values tracked).
 UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
     CallFold none;
-    if (expr.kind != ExpressionKind::Call || expr.as<CallExpression>().isSystemCall() ||
-        !expr.as<CallExpression>().arguments().empty())
+    if (expr.kind != ExpressionKind::Call || expr.as<CallExpression>().isSystemCall())
         return none;
     auto& call = expr.as<CallExpression>();
     auto subp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
     if (!subp)
         return none;
     std::map<const Symbol*, CallFold> env;
+    // Formals bound to assignment patterns of literals (element-select
+    // resolution follows the selected element back to its source literal).
+    std::map<const Symbol*, const Expression*> patEnv;
+    {
+        auto formals = (*subp)->getArguments();
+        auto args = call.arguments();
+        if (!args.empty()) {
+            if (args.size() != formals.size())
+                return none;
+            for (size_t i = 0; i < args.size(); i++) {
+                auto& al = stripImplicitConv(*args[i]);
+                if (al.kind == ExpressionKind::IntegerLiteral) {
+                    CallFold f;
+                    f.lit = &al;
+                    env[formals[i]] = f;
+                }
+                else if (al.kind == ExpressionKind::SimpleAssignmentPattern) {
+                    bool allLit = true;
+                    for (auto* el :
+                         al.as<SimpleAssignmentPatternExpression>().elements())
+                        if (stripImplicitConv(*el).kind !=
+                            ExpressionKind::IntegerLiteral)
+                            allLit = false;
+                    if (!allLit)
+                        return none;
+                    patEnv[formals[i]] = &al;
+                }
+                else
+                    return none;
+            }
+        }
+    }
     auto resolve = [&](const Expression& e) -> CallFold {
         auto& l = stripImplicitConv(e);
         if (l.kind == ExpressionKind::NamedValue) {
             auto it = env.find(&l.as<NamedValueExpression>().symbol);
             if (it != env.end())
                 return it->second;
+        }
+        if (l.kind == ExpressionKind::ElementSelect) {
+            auto& es = l.as<ElementSelectExpression>();
+            auto& base = stripImplicitConv(es.value());
+            auto& sel = stripImplicitConv(es.selector());
+            if (base.kind == ExpressionKind::NamedValue &&
+                sel.kind == ExpressionKind::IntegerLiteral) {
+                auto pit = patEnv.find(&base.as<NamedValueExpression>().symbol);
+                if (pit != patEnv.end()) {
+                    auto elems =
+                        pit->second->as<SimpleAssignmentPatternExpression>()
+                            .elements();
+                    auto idx = sel.as<IntegerLiteral>().getValue().as<uint64_t>();
+                    if (idx && *idx < elems.size()) {
+                        CallFold f;
+                        f.lit = &stripImplicitConv(*elems[*idx]);
+                        return f;
+                    }
+                }
+            }
         }
         return resolveConstExpr(l);
     };

@@ -926,7 +926,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                       a->UhdmType() == UHDM::uhdmpart_select ||
                                       a->UhdmType() == UHDM::uhdmindexed_part_select;
                         bool otherArg = a->UhdmType() == UHDM::uhdmconstant ||
-                                        a->UhdmType() == UHDM::uhdmfunc_call;
+                                        a->UhdmType() == UHDM::uhdmfunc_call ||
+                                        a->UhdmType() == UHDM::uhdmoperation;
                         // Only outermost-call args carry formal-ts refs, and
                         // def-view function bodies never do (top pkg copies
                         // re-attach them).
