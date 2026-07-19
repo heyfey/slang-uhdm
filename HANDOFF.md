@@ -1,9 +1,40 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Small-DIFF pickoff r106-r109 (2026-07-19)
+## Small-DIFF pickoff r106-r111 (2026-07-19)
 
-PASS 263->267, CMP_ONLY 17->18, all merged to main, zero regressions (goldens
+PASS 263->269, CMP_ONLY 17->19, all merged to main, zero regressions (goldens
 23/23 + full corpus + manual PASS->CMP_ONLY demotion check each commit).
+- r110 (no test flip): a 1-bit 'x based literal formats UPPERCASE (1'bx->1'bX /
+  BIN:X) but 1-bit z and all multi-bit x/z stay lowercase (Surelog quirk,
+  confirmed exhaustively). ExprEmit IntegerLiteral. Cuts unbased_unsized 26->18.
+- r111 sign_part_assign + case_expr_const PASS: a SIGNED based literal ('sb/'sd)
+  carries vpiTypespec -> ref_typespec -> int_typespec(signed) (tail). Also moved
+  mixed_sign_ops DIFF->CMP_ONLY. ExprEmit IntegerLiteral. THIS IS THE SHARED
+  "signed int_typespec on a constant" CLUSTER — but the OTHER cluster members
+  (PatternAsFunctionArgument, Clog2, mixed_sign_ops) each have a 2nd issue.
+
+**Remaining near-DIFF (all now multi-issue; single-fix wins exhausted):**
+- mixed_sign_ops: CMP_ONLY. Remaining = location off-by-one ONLY on the
+  double-space `4'd2  ** u1` line (whitespace-sensitive span; low value).
+- PatternAsFunctionArgument (15): (a) assignment-pattern operation needs the
+  func-param element int_typespec ref; (b) folded call result 1 should be INT
+  (callFold path/signedness), no loc. mine: UINT + loc via tryFoldConst.
+- CastToSum.. / CastInFunctionToParameterWidth: cast folds an operation golden
+  keeps (P+.. as operation), + int_typespec-vs-integer_typespec type/loc.
+- BitsCallOnExpression: mine FOLDS $bits(expr) (pre-existing emitExpr fold at
+  ExprEmit ~883) but golden keeps the sys_func_call here — a "when NOT to fold
+  $bits" context distinction (opposite of r107's typedef fold).
+- Clog2.. (17): needs the target int_typespec ref on $clog2 + a port LowConn
+  int_var-vs-logic_net binding (2-3 issues).
+- unbased_unsized (18): elab cont-assign unbased '0 RHS sizing (64 vs -1),
+  def/elab constant sharing, + HighConn constant port parent (3 issues).
+- StructMemberAsModuleInput (19): hier-path fullname scoping + struct_typespec
+  + struct_net vpiExpr (3 issues).
+Highest remaining leverage: finish the signed/typespec-on-expression work
+(PatternAsFunctionArgument (b) signedness, Clog2/PatternAsFunctionArgument (a)
+target-typespec) — a real cluster, but each test needs both halves to flip.
+
+### Earlier this day: r106-r109
 - r106 UnsizedConstantsParameterParsing PASS: elab-view unbased-unsized 'x/'z
   param default decompiles 'bX/'bZ (def view keeps bare 'X). ParamEmit.cpp.
 - r107 BitsCallOnType PASS: fold $bits/$size/$clog2 type-query bounds to a
