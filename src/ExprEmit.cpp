@@ -14,7 +14,7 @@
 
 namespace slang_uhdm {
 
-UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
+UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
     // expressions with constant reduction. Fold only genuine expressions,
     // not plain literals (evaluating an implicitly-converted literal can
@@ -52,7 +52,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
     ConstantValue cv = ctx.tryEval(expr);
     if (!cv || !cv.isInteger())
         return nullptr;
-    auto& iv = cv.integer();
+    slang::SVInt iv = cv.integer();
     if (iv.hasUnknown())
         return nullptr;
     // A SIZE cast whose OPERAND is a signed non-literal (N'(signed_ref)) folds
@@ -97,8 +97,20 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr) {
         pendingSignedCastTs.push_back(rt);
         return c;
     }
-    if (iv.isSigned() && iv.isNegative())
-        return nullptr;
+    if (iv.isSigned() && iv.isNegative()) {
+        // A TYPED param init that evals negative-signed (~(15)) re-folds
+        // through the implicit conversion to the param type (unsigned at
+        // type width). The unknown-value refusal above is unaffected.
+        if (!typedConv)
+            return nullptr;
+        ConstantValue cv2 = ctx.tryEval(*typedConv);
+        if (!cv2 || !cv2.isInteger())
+            return nullptr;
+        slang::SVInt iv2 = cv2.integer();
+        if (iv2.hasUnknown() || (iv2.isSigned() && iv2.isNegative()))
+            return nullptr;
+        iv = iv2;
+    }
     // A folded CONCAT encodes as full-width binary, with no decompile.
     if (stripImplicitConv(expr).kind == ExpressionKind::Concatenation) {
         auto* c = s.MakeConstant();
@@ -695,8 +707,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
+            // Def-view param inits leave the unary operand constant
+            // unparented (~(15)); binary operands stay parented.
+            bool savedS = suppressConstParent, savedF = forceConstParent;
+            if (inParamInit && paramInitDef) {
+                suppressConstParent = true;
+                forceConstParent = false;
+            }
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
+            suppressConstParent = savedS;
+            forceConstParent = savedF;
             op->Operands(operands);
             return op;
         }

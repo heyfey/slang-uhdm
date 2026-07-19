@@ -298,7 +298,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (rhs)
                         ((UHDM::constant*)rhs)->VpiSize((int32_t)ps.getType().getBitWidth());
                 }
-                else if (!containsUserCall(*init) && (rhs = tryFoldConst(*init))) {
+                else if (!containsUserCall(*init) &&
+                         (rhs = tryFoldConst(
+                              *init, (typedParam && init != init0) ? init0
+                                                                   : nullptr))) {
                     ((UHDM::constant*)rhs)->VpiParent(pa);
                     // Typed params fold at the type width; a size-cast value
                     // (32'(ONE)) at the cast width; other untyped values at 64.
@@ -388,7 +391,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             if (!rhs) {
                 forceConstParent = true;
                 inParamInit = true;
+                paramInitDef = !topView;
                 rhs = emitExpr(*init, pa, prefix, netMap);
+                paramInitDef = false;
                 inParamInit = false;
                 forceConstParent = false;
                 // Elab typed-param op init with UNKNOWN param-ref operands:

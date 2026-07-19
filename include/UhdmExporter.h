@@ -208,7 +208,8 @@ private:
     UHDM::hier_path* emitMixedHierPath(const slang::ast::Expression& expr,
                                        UHDM::BaseClass* parent, const std::string& prefix,
                                        NetMap& netMap);
-    UHDM::any* tryFoldConst(const slang::ast::Expression& expr);
+    UHDM::any* tryFoldConst(const slang::ast::Expression& expr,
+                            const slang::ast::Expression* typedConv = nullptr);
     bool isIntEncoded(const slang::ast::Expression& e);
     void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
     void patchParamTypespecs(size_t lo, size_t hi);
@@ -291,6 +292,9 @@ private:
     bool callStmtContext = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
+    // DEF-view param inits leave UNARY-op operand constants unparented
+    // (binary operands stay parented).
+    bool paramInitDef = false;
     // Surelog can't resolve block-scoped localparams; refs to them bind an
     // implicit module-level wire created at the first reference.
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;
