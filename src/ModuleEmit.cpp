@@ -2671,8 +2671,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     if (auto dt = ps.getDeclaredType())
                         if (auto tsyn = dt->getTypeSyntax())
                             if (tsyn->kind != syntax::SyntaxKind::ImplicitType &&
-                                ps.getValue().isInteger() &&
-                                !ps.getValue().integer().hasUnknown())
+                                ((ps.getValue().isInteger() &&
+                                  !ps.getValue().integer().hasUnknown()) ||
+                                 (ps.getType().getCanonicalType().isString() &&
+                                  moduleStringParamConst.count(&sym))))
                                 typedParamRhs = &sym;
                 }
                 else if (sym.kind == SymbolKind::Variable &&
@@ -2920,10 +2922,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 rhs = c;
             }
         }
+        // A STRING typed-param ref (o = X) SHARES the param's elab fold
+        // constant (Surelog expression cache), re-parenting it at THIS
+        // cont-assign (the param_assign's Rhs then back-references it).
+        if (!rhs && topView && typedParamRhs &&
+            typedParamRhs->as<ParameterSymbol>().getType().getCanonicalType().isString()) {
+            if (auto sit = moduleStringParamConst.find(typedParamRhs);
+                sit != moduleStringParamConst.end()) {
+                rhs = sit->second;
+                ((UHDM::constant*)rhs)->VpiParent(ca);
+            }
+        }
         // Typed non-overridden param ref: folded default constant + a ref to
         // the param's typespec (cloned at the end of the write phase). Located
         // at the param's default-value expression.
-        if (!rhs && topView && typedParamRhs) {
+        if (!rhs && topView && typedParamRhs &&
+            typedParamRhs->as<ParameterSymbol>().getValue().isInteger()) {
             auto& ps2 = typedParamRhs->as<ParameterSymbol>();
             auto& iv = ps2.getValue().integer();
             bool neg = iv.isSigned() && iv.isNegative();

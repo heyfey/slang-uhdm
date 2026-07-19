@@ -1590,9 +1590,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     olit = &olit->as<ConversionExpression>().operand();
                 if (!reemitting && isLiteralExpr(*olit)) {
                     suppressConstParent = true;
-                    // PACKAGE param concat inits unparent literal operands
-                    // in BOTH views (the force flag would re-parent them).
-                    if (inParamInit && paramInitPkg)
+                    // PARAM concat inits unparent literal operands (the force
+                    // flag would re-parent them) — package and module alike.
+                    if (inParamInit)
                         forceConstParent = false;
                 }
                 if (auto* e = emitExpr(*o, op, prefix, netMap))

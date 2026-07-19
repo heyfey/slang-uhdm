@@ -517,6 +517,9 @@ private:
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
         pendingBitsBoundRefs;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
+    // Elab-view fold constant of a module STRING localparam (shared into a
+    // cont-assign that reads it — o = X).
+    std::map<const slang::ast::Symbol*, UHDM::constant*> moduleStringParamConst;
     // Def-view fold-constant ts refs of VECTOR-typed params: bound late to a
     // fresh LOC-LESS bare clone (see patchParamTypespecs).
     std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> pendingBareVecTs;

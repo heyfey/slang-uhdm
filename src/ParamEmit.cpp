@@ -309,6 +309,40 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (rhs)
                         ((UHDM::constant*)rhs)->VpiSize((int32_t)ps.getType().getBitWidth());
                 }
+                // A TYPED STRING param whose init is NON-literal (a concat)
+                // folds to a STRING constant in the ELAB view (the DEF view
+                // keeps the operation); a plain string literal re-emits
+                // (StringAssignment).
+                else if (ps.getType().getCanonicalType().isString() &&
+                         stripImplicitConv(*init).kind !=
+                             ExpressionKind::StringLiteral &&
+                         !containsUserCall(*init)) {
+                    ASTContext sctx(comp.getRoot(), LookupLocation::max);
+                    ConstantValue scv = sctx.tryEval(*init0);
+                    if (scv && scv.isString()) {
+                        std::string sv = scv.str();
+                        auto* c = s.MakeConstant();
+                        c->VpiSize((int32_t)(sv.size() * 8));
+                        c->VpiValue("STRING:" + sv);
+                        c->VpiConstType(vpiStringConst);
+                        c->VpiDecompile(sv);
+                        c->VpiParent(pa);
+                        setLoc(c, init->sourceRange);
+                        if (wantTs) {
+                            auto* rt = s.MakeRef_typespec();
+                            std::string tsPrefix = prefix;
+                            if (tsPrefix.size() >= 2 &&
+                                tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                                tsPrefix.resize(tsPrefix.size() - 2);
+                            rt->VpiFullName(tsPrefix);
+                            rt->VpiParent(c);
+                            c->Typespec(rt);
+                            rhsRt = rt;
+                        }
+                        moduleStringParamConst[&member] = c;
+                        rhs = c;
+                    }
+                }
                 // A TYPED string param never folds (the elab Rhs re-emits the
                 // string constant, decompiled without quotes). Pkg CONCAT
                 // inits keep the operation in both views.
