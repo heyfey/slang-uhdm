@@ -943,6 +943,23 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         if (!ports->empty())
             m->Ports(ports);
+        // A module with interface ports exposes an instance-scoped
+        // interface_inst view per port (work@top.m0.bus) under its vpiInterface.
+        auto* portIfaces = s.MakeInterface_instVec();
+        if (ifaceChildren)
+            for (auto* ic : *ifaceChildren)
+                portIfaces->push_back(ic);
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::InterfacePort)
+                continue;
+            auto conn = portBase->as<InterfacePortSymbol>().getConnection();
+            if (conn.first && conn.first->kind == SymbolKind::Instance)
+                portIfaces->push_back(emitInterfaceInstance(
+                    conn.first->as<InstanceSymbol>(),
+                    prefix + "." + std::string(portBase->name), m, &topNets, &instRefs));
+        }
+        if (!portIfaces->empty())
+            m->Interfaces(portIfaces);
     }
 
     std::set<const Symbol*> caLhsSyms;

@@ -2,118 +2,118 @@ test,class,detail
 1DUnpackedArray,PASS,
 2DeclarationsInFor,PASS,
 2DFunctionArg,PASS,
-2DParameterOfInstance,DIFF,DUMP_DIFF 842 lines (/tmp/uhdm-corpus.Itycs5/dump.diff) 
+2DParameterOfInstance,DIFF,DUMP_DIFF 842 lines (/tmp/uhdm-corpus.Bug56i/dump.diff) 
 2DUnpackedArray,PASS,
 2DUnpackedFunctionArgument,PASS,
 AdditionAsParameterInInstance,PASS,
-add_sub_bind_if,DIFF,DUMP_DIFF 250 lines (/tmp/uhdm-corpus.5Qm8W0/dump.diff) 
+add_sub_bind_if,DIFF,DUMP_DIFF 250 lines (/tmp/uhdm-corpus.SDpYva/dump.diff) 
 adff,PASS,
 adffn,PASS,
-aes_kexp128,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.isxMTi/dump.diff) 
+aes_kexp128,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.Hy3Xat/dump.diff) 
 AluOps,PASS,
 allconst_attr,PASS,
 allseq_attr,PASS,
-alu_sub,DIFF,DUMP_DIFF 118 lines (/tmp/uhdm-corpus.FMjbSq/dump.diff) 
+alu_sub,DIFF,DUMP_DIFF 118 lines (/tmp/uhdm-corpus.adRaVl/dump.diff) 
 always01,PASS,
 always02,PASS,
-AnonStructs,DIFF,DUMP_DIFF 220 lines (/tmp/uhdm-corpus.C6cVA1/dump.diff) 
 AnonymousEnum,PASS,
+AnonStructs,DIFF,DUMP_DIFF 220 lines (/tmp/uhdm-corpus.D4L6vO/dump.diff) 
 always03,PASS,
-AnonymousUnion,DIFF,DUMP_DIFF 102 lines (/tmp/uhdm-corpus.pItgWR/dump.diff) 
+AnonymousUnion,DIFF,DUMP_DIFF 102 lines (/tmp/uhdm-corpus.MgwoIC/dump.diff) 
 ArithShiftTernary,PASS,
 anyconst_attr,PASS,
 anyseq_attr,PASS,
-array-copy,CMP_ONLY,DUMP_DIFF 106 lines (/tmp/uhdm-corpus.igfMGG/dump.diff) 
-array_assign,DIFF,DUMP_DIFF 1504 lines (/tmp/uhdm-corpus.mdlhr2/dump.diff) 
-array_default_init,DIFF,DUMP_DIFF 30 lines (/tmp/uhdm-corpus.oVZ4k2/dump.diff) 
-arraycells,DIFF,DUMP_DIFF 8300 lines (/tmp/uhdm-corpus.Kz07xb/dump.diff) 
+array-copy,CMP_ONLY,DUMP_DIFF 106 lines (/tmp/uhdm-corpus.FdbuG4/dump.diff) 
+array_assign,DIFF,DUMP_DIFF 1504 lines (/tmp/uhdm-corpus.5uCYkQ/dump.diff) 
+array_default_init,DIFF,DUMP_DIFF 30 lines (/tmp/uhdm-corpus.Tkyol9/dump.diff) 
+arraycells,DIFF,DUMP_DIFF 8300 lines (/tmp/uhdm-corpus.4NFlwf/dump.diff) 
 ArrayInit,PASS,
 array_init_2d,PASS,
-arrays03,UNSUPPORTED,DUMP_DIFF 809 lines (/tmp/uhdm-corpus.PT9gH7/dump.diff) 
-arrays01,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.Va7Xvs/dump.diff) 
+arrays03,UNSUPPORTED,DUMP_DIFF 809 lines (/tmp/uhdm-corpus.4GBW0w/dump.diff) 
 ArraySize,PASS,
-asgn_binop,DIFF,DUMP_DIFF 3834 lines (/tmp/uhdm-corpus.BygRdy/dump.diff) 
-asgn_expr,DIFF,DUMP_DIFF 74 lines (/tmp/uhdm-corpus.OvZtoJ/dump.diff) 
-asgn_expr2,DIFF,DUMP_DIFF 91 lines (/tmp/uhdm-corpus.maBQLr/dump.diff) 
+arrays01,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.GMt2H5/dump.diff) 
+asgn_binop,DIFF,DUMP_DIFF 3834 lines (/tmp/uhdm-corpus.ACdtX5/dump.diff) 
+asgn_expr,DIFF,DUMP_DIFF 74 lines (/tmp/uhdm-corpus.ZIy1Da/dump.diff) 
+asgn_expr2,DIFF,DUMP_DIFF 91 lines (/tmp/uhdm-corpus.gZPaQX/dump.diff) 
 asgn_expr_sv,SURELOG_FAIL,
-AssignArraySelPlus,DIFF,DUMP_DIFF 69 lines (/tmp/uhdm-corpus.Pe5ulm/dump.diff) 
-asicworld_serial_crc,PASS,
+AssignArraySelPlus,DIFF,DUMP_DIFF 69 lines (/tmp/uhdm-corpus.QkRMxT/dump.diff) 
 asicworld_clk_div_45,PASS,
+asicworld_serial_crc,PASS,
 AssignBitSelectPartSelect,PASS,
-AssignmentPattern,DIFF,DUMP_DIFF 68 lines (/tmp/uhdm-corpus.936XVP/dump.diff) 
+AssignmentPattern,DIFF,DUMP_DIFF 68 lines (/tmp/uhdm-corpus.kzmHmT/dump.diff) 
+assignment-pattern,DIFF,DUMP_DIFF 460 lines (/tmp/uhdm-corpus.1s3AI3/dump.diff) 
 AssignGeneratedWireInAlways,PASS,
-assignment-pattern,DIFF,DUMP_DIFF 460 lines (/tmp/uhdm-corpus.3pXUoP/dump.diff) 
-AssignBitsCallToSubmoduleParameter,DIFF,DUMP_DIFF 64 lines (/tmp/uhdm-corpus.lIs2ay/dump.diff) 
-AssignmentPatternArrayPort,DIFF,DUMP_DIFF 33 lines (/tmp/uhdm-corpus.Dx3egl/dump.diff) 
+AssignBitsCallToSubmoduleParameter,DIFF,DUMP_DIFF 64 lines (/tmp/uhdm-corpus.WQWyoH/dump.diff) 
+AssignmentPatternArrayPort,DIFF,DUMP_DIFF 33 lines (/tmp/uhdm-corpus.Z6q4ia/dump.diff) 
 AssignmentToConcatenationWithSelect,PASS,
+AssignmentToConcatenation,DIFF,DUMP_DIFF 76 lines (/tmp/uhdm-corpus.0yeN4v/dump.diff) 
 AssignSumOfConstants,PASS,
-AssignmentToConcatenation,DIFF,DUMP_DIFF 76 lines (/tmp/uhdm-corpus.ApdjPs/dump.diff) 
 AssignSizeOfVar,PASS,
 AssignSumWithParameter,PASS,
 AssignSumOfConstantsInSubmodule,PASS,
 AssignSumWithParameterInSubmodule,PASS,
-AssignToUnionAndReadField,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.6czagf/dump.diff) 
-AssignToUnpackedUnionFieldAndReadOtherField,DIFF,DUMP_DIFF 176 lines (/tmp/uhdm-corpus.h5KMBO/dump.diff) 
-AssignTypedefedFunctionCall,DIFF,DUMP_DIFF 42 lines (/tmp/uhdm-corpus.1KdUsv/dump.diff) 
+AssignToUnionAndReadField,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.NL9mjw/dump.diff) 
+AssignToUnpackedUnionFieldAndReadOtherField,DIFF,DUMP_DIFF 176 lines (/tmp/uhdm-corpus.sBiGwv/dump.diff) 
+AssignTypedefedFunctionCall,DIFF,DUMP_DIFF 42 lines (/tmp/uhdm-corpus.KsPFrd/dump.diff) 
 async_reset_partsel,PASS,
-bind_hier,DIFF,DUMP_DIFF 182 lines (/tmp/uhdm-corpus.aAS98y/dump.diff) 
+bind_hier,DIFF,DUMP_DIFF 182 lines (/tmp/uhdm-corpus.8FKAMC/dump.diff) 
 BindModule,PASS,
-BindModuleWithInputPorts,CMP_ONLY,DUMP_DIFF 4 lines (/tmp/uhdm-corpus.qBStyp/dump.diff) 
-BindModuleWithInputPortsInGenScope,DIFF,DUMP_DIFF 68 lines (/tmp/uhdm-corpus.8gkKP2/dump.diff) 
-asym_ram_sdp_read_wider,DIFF,DUMP_DIFF 248 lines (/tmp/uhdm-corpus.dfN60k/dump.diff) 
-asym_ram_sdp_write_wider,DIFF,DUMP_DIFF 248 lines (/tmp/uhdm-corpus.ZTy1Ts/dump.diff) 
+BindModuleWithInputPorts,CMP_ONLY,DUMP_DIFF 4 lines (/tmp/uhdm-corpus.aDmDXp/dump.diff) 
+BindModuleWithInputPortsInGenScope,DIFF,DUMP_DIFF 68 lines (/tmp/uhdm-corpus.M5DjcB/dump.diff) 
+asym_ram_sdp_write_wider,DIFF,DUMP_DIFF 248 lines (/tmp/uhdm-corpus.ydRtkc/dump.diff) 
+asym_ram_sdp_read_wider,DIFF,DUMP_DIFF 248 lines (/tmp/uhdm-corpus.ciPWXt/dump.diff) 
 BindModuleWithOutputPorts,PASS,
-bind_toplevel,DIFF,DUMP_DIFF 182 lines (/tmp/uhdm-corpus.7gQ1Eh/dump.diff) 
-BitsCallOnExpression,DIFF,DUMP_DIFF 22 lines (/tmp/uhdm-corpus.JlQZV8/dump.diff) 
-BitsCallOnParametetrizedTypeFromPackage,DIFF,DUMP_DIFF 115 lines (/tmp/uhdm-corpus.G0qYBc/dump.diff) 
+BitsCallOnParametetrizedTypeFromPackage,DIFF,DUMP_DIFF 115 lines (/tmp/uhdm-corpus.YGxapG/dump.diff) 
+BitsCallOnExpression,DIFF,DUMP_DIFF 22 lines (/tmp/uhdm-corpus.PY4h4N/dump.diff) 
+bind_toplevel,DIFF,DUMP_DIFF 182 lines (/tmp/uhdm-corpus.Tz2Esk/dump.diff) 
 BitsCallOnStructMember,PASS,
-BitsCallOnSubArray,DIFF,DUMP_DIFF 50 lines (/tmp/uhdm-corpus.XoLS0A/dump.diff) 
+BitsCallOnSubArray,DIFF,DUMP_DIFF 50 lines (/tmp/uhdm-corpus.X1LkeD/dump.diff) 
 BitSelect,PASS,
+BitsCallOnType,DIFF,DUMP_DIFF 15 lines (/tmp/uhdm-corpus.GIRdUN/dump.diff) 
 BitsCallOnVar,PASS,
-BitsCallOnType,DIFF,DUMP_DIFF 15 lines (/tmp/uhdm-corpus.aSD3aN/dump.diff) 
 BitSelect2ndBitOfPattern,PASS,
-BitSelectPartSelectInFunction,DIFF,DUMP_DIFF 126 lines (/tmp/uhdm-corpus.rSAGy5/dump.diff) 
-BitSelectOfParameterPassedToSubmodule,DIFF,DUMP_DIFF 2081 lines (/tmp/uhdm-corpus.hrGpJF/dump.diff) 
-BitSelectOfParameterPassedToSubmoduleInGenFor,DIFF,DUMP_DIFF 1828 lines (/tmp/uhdm-corpus.CoAPhz/dump.diff) 
-BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,DIFF,DUMP_DIFF 2106 lines (/tmp/uhdm-corpus.KRJZa4/dump.diff) 
+BitSelectPartSelectInFunction,DIFF,DUMP_DIFF 126 lines (/tmp/uhdm-corpus.Su2Tws/dump.diff) 
+BitSelectOfParameterPassedToSubmodule,DIFF,DUMP_DIFF 2081 lines (/tmp/uhdm-corpus.1FkzqP/dump.diff) 
+BitSelectOfParameterPassedToSubmoduleInGenFor,DIFF,DUMP_DIFF 1828 lines (/tmp/uhdm-corpus.F7vtSg/dump.diff) 
+BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule,DIFF,DUMP_DIFF 2106 lines (/tmp/uhdm-corpus.nVRLaL/dump.diff) 
 bitwise_operations,SLANG_REJECT,
 bitwise_operations_reverted_range,SLANG_REJECT,
 blocking_temp_ff,PASS,
-blocking_temp_select,PASS,
 Break,PASS,
+blocking_temp_select,PASS,
 BreakContinue,PASS,
 BreakNested,PASS,
 BreakContinueWhile,PASS,
+blockrom,DIFF,DUMP_DIFF 112 lines (/tmp/uhdm-corpus.T1EmUq/dump.diff) 
 BreakWhile,PASS,
-blockrom,DIFF,DUMP_DIFF 112 lines (/tmp/uhdm-corpus.P9lI0H/dump.diff) 
-case_expr_const,DIFF,DUMP_DIFF 173 lines (/tmp/uhdm-corpus.XUFDf0/dump.diff) 
+case_expr_const,DIFF,DUMP_DIFF 173 lines (/tmp/uhdm-corpus.0yTtQR/dump.diff) 
 case_expr_extend,PASS,
-case_expr_non_const,DIFF,DUMP_DIFF 58 lines (/tmp/uhdm-corpus.CzhqZx/dump.diff) 
-CaseInside,UNSUPPORTED,  case condition kind   expression kind: ValueRange DUMP_DIFF 100 lines (/tmp/uhdm-corpus.gC1Qrj/dump.diff) 
+case_expr_non_const,DIFF,DUMP_DIFF 58 lines (/tmp/uhdm-corpus.vds7XP/dump.diff) 
+CaseInside,UNSUPPORTED,  case condition kind   expression kind: ValueRange DUMP_DIFF 100 lines (/tmp/uhdm-corpus.pKwyDD/dump.diff) 
 case_expr_query,PASS,
 CaseWithGeneratedWire,PASS,
-Casezx,DIFF,DUMP_DIFF 846 lines (/tmp/uhdm-corpus.wV06r6/dump.diff) 
-carryadd,DIFF,DUMP_DIFF 1554 lines (/tmp/uhdm-corpus.twLptB/dump.diff) 
-CastClog2,PASS,
+Casezx,DIFF,DUMP_DIFF 846 lines (/tmp/uhdm-corpus.MUUoKy/dump.diff) 
+carryadd,DIFF,DUMP_DIFF 1554 lines (/tmp/uhdm-corpus.nrrRjg/dump.diff) 
 CastClog2ToMinimalSizeOfParamValue,PASS,
+CastClog2,PASS,
 CastExpression,PASS,
-CastClog2ToMinimalSizeOfParamValueFromCommandLine,DIFF,DUMP_DIFF 58 lines (/tmp/uhdm-corpus.KY4HF5/dump.diff) 
+CastClog2ToMinimalSizeOfParamValueFromCommandLine,DIFF,DUMP_DIFF 58 lines (/tmp/uhdm-corpus.8gN134/dump.diff) 
 CastLogic,PASS,
-CastInFunctionToParameterWidth,DIFF,DUMP_DIFF 21 lines (/tmp/uhdm-corpus.75hFtZ/dump.diff) 
-CastInFunctionInGenBlock,DIFF,DUMP_DIFF 87 lines (/tmp/uhdm-corpus.tJPYtN/dump.diff) 
+CastInFunctionToParameterWidth,DIFF,DUMP_DIFF 21 lines (/tmp/uhdm-corpus.QAGHBj/dump.diff) 
 CastSize,PASS,
-CastStruct,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 53 lines (/tmp/uhdm-corpus.QjpQoL/dump.diff) 
+CastInFunctionInGenBlock,DIFF,DUMP_DIFF 87 lines (/tmp/uhdm-corpus.M3q5DT/dump.diff) 
+CastStruct,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 53 lines (/tmp/uhdm-corpus.3SJigI/dump.diff) 
 CastToSumOfConstants,PASS,
-CastStructArray,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 117 lines (/tmp/uhdm-corpus.kyokCx/dump.diff) 
-CastToSumWithParameterIn2InstancesOfSubmodule,DIFF,DUMP_DIFF 26 lines (/tmp/uhdm-corpus.VRMylO/dump.diff) 
-CastToSumWithParameterInSubmodule,DIFF,DUMP_DIFF 22 lines (/tmp/uhdm-corpus.GO5GTI/dump.diff) 
-CastWidthFromPackage,DIFF,DUMP_DIFF 48 lines (/tmp/uhdm-corpus.WE2q5m/dump.diff) 
+CastStructArray,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 117 lines (/tmp/uhdm-corpus.y2n6Wy/dump.diff) 
+CastToSumWithParameterIn2InstancesOfSubmodule,DIFF,DUMP_DIFF 26 lines (/tmp/uhdm-corpus.1toya7/dump.diff) 
+CastToSumWithParameterInSubmodule,DIFF,DUMP_DIFF 22 lines (/tmp/uhdm-corpus.dg6Qpx/dump.diff) 
+CastWidthFromPackage,DIFF,DUMP_DIFF 48 lines (/tmp/uhdm-corpus.R3opx2/dump.diff) 
 cdc_static_basic,PASS,
-CellNamedLikeModule,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.j4w9Lx/dump.diff) 
-Clog2OfSumWithParameterIn2InstancesOfSubmodule,DIFF,DUMP_DIFF 17 lines (/tmp/uhdm-corpus.akVSBR/dump.diff) 
-clk2fflogic_effects,DIFF,DUMP_DIFF 45 lines (/tmp/uhdm-corpus.qjEeJC/dump.diff) 
-code_hdl_models_decoder_2to4_gates,DIFF,DUMP_DIFF 534 lines (/tmp/uhdm-corpus.Z7P0yW/dump.diff) 
-ClogOfParamOfInstanceInitializedByStructMember,DIFF,DUMP_DIFF 183 lines (/tmp/uhdm-corpus.JWgXwN/dump.diff) 
+CellNamedLikeModule,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.0XI01k/dump.diff) 
+Clog2OfSumWithParameterIn2InstancesOfSubmodule,DIFF,DUMP_DIFF 17 lines (/tmp/uhdm-corpus.uoY9gj/dump.diff) 
+clk2fflogic_effects,DIFF,DUMP_DIFF 45 lines (/tmp/uhdm-corpus.orFAA1/dump.diff) 
+code_hdl_models_decoder_2to4_gates,DIFF,DUMP_DIFF 534 lines (/tmp/uhdm-corpus.WFoXdt/dump.diff) 
+ClogOfParamOfInstanceInitializedByStructMember,DIFF,DUMP_DIFF 183 lines (/tmp/uhdm-corpus.9d4KVl/dump.diff) 
 compound_assignments,PASS,
 code_hdl_models_parallel_crc,PASS,
 concat_lhs_signext,PASS,
@@ -122,77 +122,77 @@ conditional_if,SLANG_REJECT,
 ConcatWidth,PASS,
 conditional_if_else,PASS,
 const_ashift,PASS,
-const_arg_loop,DIFF,DUMP_DIFF 108 lines (/tmp/uhdm-corpus.cZLzZ4/dump.diff) 
-const_fold_func,DIFF,DUMP_DIFF 70 lines (/tmp/uhdm-corpus.BWZUro/dump.diff) 
+const_arg_loop,DIFF,DUMP_DIFF 108 lines (/tmp/uhdm-corpus.sXkRhM/dump.diff) 
+const_fold_func,DIFF,DUMP_DIFF 70 lines (/tmp/uhdm-corpus.VquTTm/dump.diff) 
 const_func_block_var,PASS,
-constmsk_test,PASS,
 ConstSizes,PASS,
-const_func_shadow,DIFF,DUMP_DIFF 190 lines (/tmp/uhdm-corpus.wINgNT/dump.diff) 
+constmsk_test,PASS,
+const_func_shadow,DIFF,DUMP_DIFF 190 lines (/tmp/uhdm-corpus.dbvQ5S/dump.diff) 
 Continue,PASS,
 ContinueNested,PASS,
 ContinueWhile,PASS,
 counter,PASS,
-const_func,DIFF,DUMP_DIFF 2105 lines (/tmp/uhdm-corpus.M1vfu0/dump.diff) 
+const_func,DIFF,DUMP_DIFF 2105 lines (/tmp/uhdm-corpus.b9imSB/dump.diff) 
 counter_ifelse_chain,PASS,
 counter_dual_xbranch,PASS,
-counters_repeat,PASS,
 counter_in_cpu_state,PASS,
 counter_unbased,PASS,
-CppMacroNameAsVariableName,PASS,
+counters_repeat,PASS,
 counter_xpath,PASS,
+CppMacroNameAsVariableName,PASS,
 custom_map_incomp,SLANG_REJECT,
 DeclarationInFor,PASS,
-defvalue,DIFF,DUMP_DIFF 211 lines (/tmp/uhdm-corpus.jjpmFv/dump.diff) 
+defvalue,DIFF,DUMP_DIFF 211 lines (/tmp/uhdm-corpus.Tj0hOI/dump.diff) 
 dffs,PASS,
-dff_different_styles,DIFF,DUMP_DIFF 184 lines (/tmp/uhdm-corpus.pzJWZe/dump.diff) 
+dff_different_styles,DIFF,DUMP_DIFF 184 lines (/tmp/uhdm-corpus.V9aRKk/dump.diff) 
 dffsr,PASS,
-cs_registers,DIFF,DUMP_DIFF 3988 lines (/tmp/uhdm-corpus.h1450L/dump.diff) 
+cs_registers,DIFF,DUMP_DIFF 3988 lines (/tmp/uhdm-corpus.9HsJrv/dump.diff) 
 dff_styles,PASS,
-Disable,UNSUPPORTED,  statement kind: Disable DUMP_DIFF 15 lines (/tmp/uhdm-corpus.bbmSge/dump.diff) 
+Disable,UNSUPPORTED,  statement kind: Disable DUMP_DIFF 15 lines (/tmp/uhdm-corpus.AIkapA/dump.diff) 
 display_lm,PASS,
 DisplayWithBinFormatSpecifier,PASS,
 DisplayWithHexFormatSpecifier,PASS,
-DotMultirange,DIFF,DUMP_DIFF 427 lines (/tmp/uhdm-corpus.l7redw/dump.diff) 
+DotMultirange,DIFF,DUMP_DIFF 427 lines (/tmp/uhdm-corpus.yFrPmK/dump.diff) 
 DotRange,PASS,
-DivisionOfSize,DIFF,DUMP_DIFF 256 lines (/tmp/uhdm-corpus.6BSY4p/dump.diff) 
-EmptyTask,PASS,
+DivisionOfSize,DIFF,DUMP_DIFF 256 lines (/tmp/uhdm-corpus.ayowtg/dump.diff) 
 DpiChandle,SLANG_REJECT,
+EmptyTask,PASS,
+EnumArray,DIFF,DUMP_DIFF 116 lines (/tmp/uhdm-corpus.8m1CBB/dump.diff) 
 dynslice,PASS,
-EnumArray,DIFF,DUMP_DIFF 116 lines (/tmp/uhdm-corpus.kA1MWU/dump.diff) 
+EnumArrayListedElements,DIFF,DUMP_DIFF 111 lines (/tmp/uhdm-corpus.zsMx80/dump.diff) 
+EnumConcatenatedConst,DIFF,DUMP_DIFF 39 lines (/tmp/uhdm-corpus.YOOQfa/dump.diff) 
 EnumBases,SLANG_REJECT,
-EnumArrayListedElements,DIFF,DUMP_DIFF 111 lines (/tmp/uhdm-corpus.OfSteQ/dump.diff) 
-EnumConcatenatedConst,DIFF,DUMP_DIFF 39 lines (/tmp/uhdm-corpus.Gk8MY6/dump.diff) 
-EnumConcat,DIFF,DUMP_DIFF 173 lines (/tmp/uhdm-corpus.jPA5xs/dump.diff) 
+EnumConcat,DIFF,DUMP_DIFF 173 lines (/tmp/uhdm-corpus.qpGAuE/dump.diff) 
 EnumConstX,PASS,
-EnumFirst,UNSUPPORTED,DUMP_DIFF 33 lines (/tmp/uhdm-corpus.tFXuCZ/dump.diff) 
-EnumFirstInInitial,UNSUPPORTED,  statement kind: ProceduralAssign DUMP_DIFF 29 lines (/tmp/uhdm-corpus.nHuEtX/dump.diff) 
-EnumInPackage,DIFF,DUMP_DIFF 158 lines (/tmp/uhdm-corpus.UZQ7gB/dump.diff) 
+EnumFirst,UNSUPPORTED,DUMP_DIFF 33 lines (/tmp/uhdm-corpus.KyBupM/dump.diff) 
+EnumFirstInInitial,UNSUPPORTED,  statement kind: ProceduralAssign DUMP_DIFF 29 lines (/tmp/uhdm-corpus.mi61Dk/dump.diff) 
+EnumInPackage,DIFF,DUMP_DIFF 158 lines (/tmp/uhdm-corpus.sIf0UL/dump.diff) 
 EnumParameterInNestedModules,SLANG_REJECT,
 enum_simple,PASS,
-EnumMultirange,SLANG_REJECT,
 enum_values,PASS,
+EnumMultirange,SLANG_REJECT,
 escape_id,PASS,
+EnumWidth,UNSUPPORTED,DUMP_DIFF 154 lines (/tmp/uhdm-corpus.ArDbbC/dump.diff) 
 EnumVariantInPackage,SLANG_REJECT,
-EnumWidth,UNSUPPORTED,DUMP_DIFF 154 lines (/tmp/uhdm-corpus.OY5Me8/dump.diff) 
 EscapedIdentifiersInHierPath,SLANG_REJECT,
-ExpressionInIndex,DIFF,DUMP_DIFF 174 lines (/tmp/uhdm-corpus.Y0saMT/dump.diff) 
+ExpressionInIndex,DIFF,DUMP_DIFF 174 lines (/tmp/uhdm-corpus.X4rROp/dump.diff) 
+fail_detect_width,DIFF,DUMP_DIFF 118 lines (/tmp/uhdm-corpus.yEPXr5/dump.diff) 
 event_implicit_expression_list,PASS,
-fail_detect_width,DIFF,DUMP_DIFF 118 lines (/tmp/uhdm-corpus.a1pnww/dump.diff) 
 fib_initial,PASS,
 fib,SLANG_REJECT,
-FileLevelParameter,DIFF,DUMP_DIFF 43 lines (/tmp/uhdm-corpus.H9MITE/dump.diff) 
-FileLevelUnionWithMultirange,UNSUPPORTED,DUMP_DIFF 231 lines (/tmp/uhdm-corpus.0FrO3e/dump.diff) 
+FileLevelParameter,DIFF,DUMP_DIFF 43 lines (/tmp/uhdm-corpus.04Na8h/dump.diff) 
+FileLevelUnionWithMultirange,UNSUPPORTED,DUMP_DIFF 231 lines (/tmp/uhdm-corpus.pWBbK7/dump.diff) 
 fib_recursion,PASS,
 fib_simple,PASS,
 flipflop,PASS,
-for_decl_shadow,DIFF,DUMP_DIFF 527 lines (/tmp/uhdm-corpus.0a4h3y/dump.diff) 
+for_decl_shadow,DIFF,DUMP_DIFF 527 lines (/tmp/uhdm-corpus.tAnWBY/dump.diff) 
 Forever,PASS,
 for_break,PASS,
 fmt_always_comb,PASS,
-Fork,UNSUPPORTED,  parallel block DUMP_DIFF 27 lines (/tmp/uhdm-corpus.FI5Zkv/dump.diff) 
-ForkJoinTypes,UNSUPPORTED,  parallel block DUMP_DIFF 53 lines (/tmp/uhdm-corpus.6W1PG2/dump.diff) 
+Fork,UNSUPPORTED,  parallel block DUMP_DIFF 27 lines (/tmp/uhdm-corpus.zWw2vQ/dump.diff) 
+ForkJoinTypes,UNSUPPORTED,  parallel block DUMP_DIFF 53 lines (/tmp/uhdm-corpus.j0JC1w/dump.diff) 
 forgen01,PASS,
-forgen02,DIFF,DUMP_DIFF 415 lines (/tmp/uhdm-corpus.hrEWRl/dump.diff) 
+forgen02,DIFF,DUMP_DIFF 415 lines (/tmp/uhdm-corpus.YCHCYV/dump.diff) 
 for_loop_nonconst_bound,PASS,
 forloops,PASS,
 fsm,PASS,
@@ -203,508 +203,508 @@ full_case_latch,PASS,
 fsm_using_function,PASS,
 func_block,PASS,
 func_clog2_partsel,PASS,
-func_local_array,DIFF,DUMP_DIFF 411 lines (/tmp/uhdm-corpus.4z40Ob/dump.diff) 
+func_local_array,DIFF,DUMP_DIFF 411 lines (/tmp/uhdm-corpus.sUZHIw/dump.diff) 
 func_forloop_onehot,PASS,
-func_port_implied_dir,DIFF,DUMP_DIFF 111 lines (/tmp/uhdm-corpus.VOC048/dump.diff) 
 func_struct_repro,PASS,
-func_output_arg,DIFF,DUMP_DIFF 4 lines (/tmp/uhdm-corpus.rDZ936/dump.diff) 
+func_port_implied_dir,DIFF,DUMP_DIFF 111 lines (/tmp/uhdm-corpus.X16xr3/dump.diff) 
+func_output_arg,DIFF,DUMP_DIFF 4 lines (/tmp/uhdm-corpus.FIQksu/dump.diff) 
 Function2Returns,PASS,
-func_tern_hint,DIFF,DUMP_DIFF 180 lines (/tmp/uhdm-corpus.Gye4Jy/dump.diff) 
+func_tern_hint,DIFF,DUMP_DIFF 180 lines (/tmp/uhdm-corpus.cQWXQv/dump.diff) 
 function_arith,PASS,
-function_bool,PASS,
 FunctionCallsFunctionWithIndexedPartSelectAsArgument,PASS,
-function_case,PASS,
-FunctionExportDPI,DIFF,DUMP_DIFF 25 lines (/tmp/uhdm-corpus.CIYlak/dump.diff) 
+function_bool,PASS,
 FunctionColonReference,PASS,
+function_case,PASS,
+FunctionExportDPI,DIFF,DUMP_DIFF 25 lines (/tmp/uhdm-corpus.Ab2J99/dump.diff) 
 FunctionOnDesignLevel,PASS,
 function_loop,PASS,
 function_nested,PASS,
 function_output,PASS,
 function_mixed,PASS,
+FunctionParam,DIFF,DUMP_DIFF 180 lines (/tmp/uhdm-corpus.Gp9Paa/dump.diff) 
 FunctionOutputArgument,SLANG_REJECT,
-FunctionParam,DIFF,DUMP_DIFF 180 lines (/tmp/uhdm-corpus.uJ027d/dump.diff) 
 FunctionReturnEnum,PASS,
 FunctionWithoutReturn,PASS,
 FunctionWireAssignmentOnDeclaration,PASS,
-func_typename_ret,UNSUPPORTED,DUMP_DIFF 337 lines (/tmp/uhdm-corpus.K7d9f4/dump.diff) 
+func_typename_ret,UNSUPPORTED,DUMP_DIFF 337 lines (/tmp/uhdm-corpus.O27eLs/dump.diff) 
 FunctionWithOverriddenParameter,PASS,
-genblk_order,DIFF,DUMP_DIFF 293 lines (/tmp/uhdm-corpus.fl65Vt/dump.diff) 
+genblk_order,DIFF,DUMP_DIFF 293 lines (/tmp/uhdm-corpus.MYyty3/dump.diff) 
 func_width_scope,SLANG_REJECT,
-generate_scope_implicit_net,DIFF,DUMP_DIFF 201 lines (/tmp/uhdm-corpus.uDOgJP/dump.diff) 
-GenIfInside,DIFF,DUMP_DIFF 454 lines (/tmp/uhdm-corpus.HE8ZvC/dump.diff) 
-generate_test,DIFF,DUMP_DIFF 3393 lines (/tmp/uhdm-corpus.kto77S/dump.diff) 
-genscope_async_ff_signal,DIFF,DUMP_DIFF 294 lines (/tmp/uhdm-corpus.JbVq7w/dump.diff) 
+generate_scope_implicit_net,DIFF,DUMP_DIFF 201 lines (/tmp/uhdm-corpus.x3HNJB/dump.diff) 
+GenIfInside,DIFF,DUMP_DIFF 454 lines (/tmp/uhdm-corpus.GorGe7/dump.diff) 
+generate_test,DIFF,DUMP_DIFF 3393 lines (/tmp/uhdm-corpus.h2m0jX/dump.diff) 
+genscope_async_ff_signal,DIFF,DUMP_DIFF 294 lines (/tmp/uhdm-corpus.M9khgr/dump.diff) 
 GenScopeFunction,PASS,
-gen_struct_access,UNSUPPORTED,  range select base DUMP_DIFF 332 lines (/tmp/uhdm-corpus.d6V5IZ/dump.diff) 
-genscope_cells,DIFF,DUMP_DIFF 3297 lines (/tmp/uhdm-corpus.DRmlr2/dump.diff) 
+gen_struct_access,UNSUPPORTED,  range select base DUMP_DIFF 332 lines (/tmp/uhdm-corpus.TynHML/dump.diff) 
+genscope_cells,DIFF,DUMP_DIFF 3297 lines (/tmp/uhdm-corpus.XJQGVS/dump.diff) 
+gen_test1,DIFF,DUMP_DIFF 5059 lines (/tmp/uhdm-corpus.Pt8MEA/dump.diff) 
 gen_test2,PASS,
-gen_test1,DIFF,DUMP_DIFF 5059 lines (/tmp/uhdm-corpus.J529FB/dump.diff) 
-gen_test3,DIFF,DUMP_DIFF 323 lines (/tmp/uhdm-corpus.MMzXYV/dump.diff) 
+gen_test3,DIFF,DUMP_DIFF 323 lines (/tmp/uhdm-corpus.QYqGeA/dump.diff) 
 gen_test6,PASS,
-gen_test4,DIFF,DUMP_DIFF 339 lines (/tmp/uhdm-corpus.QbG03W/dump.diff) 
-gen_test7,DIFF,DUMP_DIFF 707 lines (/tmp/uhdm-corpus.Vg7ozu/dump.diff) 
-gen_test8,DIFF,DUMP_DIFF 333 lines (/tmp/uhdm-corpus.FAGe58/dump.diff) 
-gen_test9,DIFF,DUMP_DIFF 259 lines (/tmp/uhdm-corpus.T5X6ZZ/dump.diff) 
+gen_test4,DIFF,DUMP_DIFF 339 lines (/tmp/uhdm-corpus.H4tleB/dump.diff) 
+gen_test7,DIFF,DUMP_DIFF 707 lines (/tmp/uhdm-corpus.RfXbP4/dump.diff) 
+gen_test8,DIFF,DUMP_DIFF 333 lines (/tmp/uhdm-corpus.d8S6L6/dump.diff) 
+gen_test9,DIFF,DUMP_DIFF 259 lines (/tmp/uhdm-corpus.7tk5xG/dump.diff) 
 genvar_loop_decl_1,SLANG_REJECT,
-genvar_iface_struct,UNSUPPORTED,DUMP_DIFF 2210 lines (/tmp/uhdm-corpus.U8RXKi/dump.diff) 
-genvar_loop_decl_2,DIFF,DUMP_DIFF 319 lines (/tmp/uhdm-corpus.aE1Ssy/dump.diff) 
-GetC,UNSUPPORTED,DUMP_DIFF 36 lines (/tmp/uhdm-corpus.lA33ic/dump.diff) 
-genvar_loop_decl_3,DIFF,DUMP_DIFF 357 lines (/tmp/uhdm-corpus.bWjmqZ/dump.diff) 
-gen_test5,DIFF,DUMP_DIFF 187781 lines (/tmp/uhdm-corpus.tHA7IY/dump.diff) 
-gpr_genscope_repro,DIFF,DUMP_DIFF 356 lines (/tmp/uhdm-corpus.wKu7mM/dump.diff) 
+genvar_loop_decl_2,DIFF,DUMP_DIFF 319 lines (/tmp/uhdm-corpus.2xNgP7/dump.diff) 
+genvar_iface_struct,UNSUPPORTED,DUMP_DIFF 2166 lines (/tmp/uhdm-corpus.jWxaO6/dump.diff) 
+GetC,UNSUPPORTED,DUMP_DIFF 36 lines (/tmp/uhdm-corpus.LoTX2O/dump.diff) 
+genvar_loop_decl_3,DIFF,DUMP_DIFF 357 lines (/tmp/uhdm-corpus.9k99X4/dump.diff) 
+gen_test5,DIFF,DUMP_DIFF 187781 lines (/tmp/uhdm-corpus.UE4P2O/dump.diff) 
+gpr_genscope_repro,DIFF,DUMP_DIFF 356 lines (/tmp/uhdm-corpus.i7K2uk/dump.diff) 
+hana_test_parse2synthtrans,DIFF,DUMP_DIFF 81 lines (/tmp/uhdm-corpus.QLfSLU/dump.diff) 
 hello-uvm,SURELOG_FAIL,
-hana_test_parse2synthtrans,DIFF,DUMP_DIFF 81 lines (/tmp/uhdm-corpus.8TgKB8/dump.diff) 
-hana_test_intermout,DIFF,DUMP_DIFF 3482 lines (/tmp/uhdm-corpus.kz67mu/dump.diff) 
-hierdefparam,DIFF,DUMP_DIFF 1344 lines (/tmp/uhdm-corpus.KbD73T/dump.diff) 
+hana_test_intermout,DIFF,DUMP_DIFF 3482 lines (/tmp/uhdm-corpus.9WSubv/dump.diff) 
+hierdefparam,DIFF,DUMP_DIFF 1344 lines (/tmp/uhdm-corpus.cScXLi/dump.diff) 
 hier_undriven_port,PASS,
-iface_array_count,DIFF,DUMP_DIFF 647 lines (/tmp/uhdm-corpus.QH87dG/dump.diff) 
-iface_array_elem_cfg_param,UNSUPPORTED,DUMP_DIFF 775 lines (/tmp/uhdm-corpus.D3BhNz/dump.diff) 
-iface_array_internal_assign,DIFF,DUMP_DIFF 381 lines (/tmp/uhdm-corpus.92T340/dump.diff) 
-iface_array_modport_drive,DIFF,DUMP_DIFF 1301 lines (/tmp/uhdm-corpus.uGpJBs/dump.diff) 
-iface_array_port,DIFF,DUMP_DIFF 1185 lines (/tmp/uhdm-corpus.pF4tTf/dump.diff) 
-iface_array_struct,UNSUPPORTED,DUMP_DIFF 1591 lines (/tmp/uhdm-corpus.aiMvsg/dump.diff) 
-hier_path,DIFF,DUMP_DIFF 33435 lines (/tmp/uhdm-corpus.0PRHqM/dump.diff) 
-iface_array_struct_field,UNSUPPORTED,DUMP_DIFF 710 lines (/tmp/uhdm-corpus.4V1xZT/dump.diff) 
-iface_array_struct_whole,DIFF,DUMP_DIFF 1013 lines (/tmp/uhdm-corpus.hICf91/dump.diff) 
-iface_arr_struct_field_partsel,UNSUPPORTED,  range select base DUMP_DIFF 344 lines (/tmp/uhdm-corpus.K2BEsP/dump.diff) 
-iface_arr_struct_whole_field,UNSUPPORTED,DUMP_DIFF 315 lines (/tmp/uhdm-corpus.W07piw/dump.diff) 
-iface_cfg_mem,DIFF,DUMP_DIFF 754 lines (/tmp/uhdm-corpus.EIRxxz/dump.diff) 
-iface_cfg_param_def_pass,UNSUPPORTED,DUMP_DIFF 552 lines (/tmp/uhdm-corpus.zFSUUZ/dump.diff) 
-iface_ff_genvar_partsel,UNSUPPORTED,  range select base DUMP_DIFF 581 lines (/tmp/uhdm-corpus.WOsNEr/dump.diff) 
-iface_field_assign,UNSUPPORTED,DUMP_DIFF 400 lines (/tmp/uhdm-corpus.lNgo31/dump.diff) 
-iface_field_assign_nocol,UNSUPPORTED,DUMP_DIFF 400 lines (/tmp/uhdm-corpus.Yx9V3x/dump.diff) 
-iface_field_partsel,UNSUPPORTED,DUMP_DIFF 270 lines (/tmp/uhdm-corpus.MR4XAh/dump.diff) 
-iface_gen_delay,UNSUPPORTED,  element select base DUMP_DIFF 292 lines (/tmp/uhdm-corpus.3JdlZl/dump.diff) 
-iface_internal_assign,DIFF,DUMP_DIFF 587 lines (/tmp/uhdm-corpus.yR9yRP/dump.diff) 
-iface_gen_delay_struct,UNSUPPORTED,DUMP_DIFF 425 lines (/tmp/uhdm-corpus.hL1z3F/dump.diff) 
-iface_local_in_sub,CMP_ONLY,DUMP_DIFF 72 lines (/tmp/uhdm-corpus.ZW5Gej/dump.diff) 
-iface_member_read_assign,UNSUPPORTED,DUMP_DIFF 161 lines (/tmp/uhdm-corpus.m1VcNb/dump.diff) 
-iface_member_port,UNSUPPORTED,DUMP_DIFF 286 lines (/tmp/uhdm-corpus.UKdZ6N/dump.diff) 
-iface_modport,DIFF,DUMP_DIFF 118 lines (/tmp/uhdm-corpus.VECxOJ/dump.diff) 
-iface_modport_out,DIFF,DUMP_DIFF 102 lines (/tmp/uhdm-corpus.KKry8h/dump.diff) 
+iface_array_count,DIFF,DUMP_DIFF 587 lines (/tmp/uhdm-corpus.Gm2REn/dump.diff) 
+iface_array_elem_cfg_param,UNSUPPORTED,DUMP_DIFF 789 lines (/tmp/uhdm-corpus.6fg5WS/dump.diff) 
+iface_array_internal_assign,DIFF,DUMP_DIFF 381 lines (/tmp/uhdm-corpus.XUmfGV/dump.diff) 
+iface_array_modport_drive,DIFF,DUMP_DIFF 1251 lines (/tmp/uhdm-corpus.wjDk74/dump.diff) 
+iface_array_port,DIFF,DUMP_DIFF 1185 lines (/tmp/uhdm-corpus.XQxPuP/dump.diff) 
+hier_path,DIFF,DUMP_DIFF 33435 lines (/tmp/uhdm-corpus.uBR6WW/dump.diff) 
+iface_array_struct,UNSUPPORTED,DUMP_DIFF 1559 lines (/tmp/uhdm-corpus.DOHoi1/dump.diff) 
+iface_array_struct_field,UNSUPPORTED,DUMP_DIFF 696 lines (/tmp/uhdm-corpus.7bTuhi/dump.diff) 
+iface_array_struct_whole,DIFF,DUMP_DIFF 1013 lines (/tmp/uhdm-corpus.p5axXX/dump.diff) 
+iface_arr_struct_field_partsel,UNSUPPORTED,  range select base DUMP_DIFF 353 lines (/tmp/uhdm-corpus.RzLprU/dump.diff) 
+iface_arr_struct_whole_field,UNSUPPORTED,DUMP_DIFF 324 lines (/tmp/uhdm-corpus.ghj7TW/dump.diff) 
+iface_cfg_mem,DIFF,DUMP_DIFF 709 lines (/tmp/uhdm-corpus.7E1jEb/dump.diff) 
+iface_cfg_param_def_pass,UNSUPPORTED,DUMP_DIFF 539 lines (/tmp/uhdm-corpus.EcQvDg/dump.diff) 
+iface_ff_genvar_partsel,UNSUPPORTED,  range select base DUMP_DIFF 531 lines (/tmp/uhdm-corpus.cZsXrM/dump.diff) 
+iface_field_assign,UNSUPPORTED,DUMP_DIFF 369 lines (/tmp/uhdm-corpus.bVKoPF/dump.diff) 
+iface_field_assign_nocol,UNSUPPORTED,DUMP_DIFF 369 lines (/tmp/uhdm-corpus.DAiTrU/dump.diff) 
+iface_field_partsel,UNSUPPORTED,DUMP_DIFF 262 lines (/tmp/uhdm-corpus.0mr4AH/dump.diff) 
+iface_gen_delay,UNSUPPORTED,  element select base DUMP_DIFF 292 lines (/tmp/uhdm-corpus.Yqi81C/dump.diff) 
+iface_internal_assign,DIFF,DUMP_DIFF 517 lines (/tmp/uhdm-corpus.hCJDmS/dump.diff) 
+iface_gen_delay_struct,UNSUPPORTED,DUMP_DIFF 425 lines (/tmp/uhdm-corpus.S0J7OV/dump.diff) 
+iface_local_in_sub,CMP_ONLY,DUMP_DIFF 72 lines (/tmp/uhdm-corpus.x4nL9N/dump.diff) 
+iface_member_port,UNSUPPORTED,DUMP_DIFF 278 lines (/tmp/uhdm-corpus.s7yvVX/dump.diff) 
+iface_member_read_assign,UNSUPPORTED,DUMP_DIFF 153 lines (/tmp/uhdm-corpus.KXxEsi/dump.diff) 
+iface_modport,DIFF,DUMP_DIFF 82 lines (/tmp/uhdm-corpus.PFLL0r/dump.diff) 
+iface_modport_out,DIFF,DUMP_DIFF 83 lines (/tmp/uhdm-corpus.KfUR9f/dump.diff) 
 iface_modport_passthrough,SLANG_REJECT,
-iface_modport_conn,DIFF,DUMP_DIFF 159 lines (/tmp/uhdm-corpus.YzfxWk/dump.diff) 
-iface_param_2level,DIFF,DUMP_DIFF 1020 lines (/tmp/uhdm-corpus.A7sz30/dump.diff) 
-iface_nested_param_field,DIFF,DUMP_DIFF 967 lines (/tmp/uhdm-corpus.bDkwBH/dump.diff) 
-iface_param_port_width,DIFF,DUMP_DIFF 226 lines (/tmp/uhdm-corpus.gVO7y4/dump.diff) 
-iface_param_set_value,CMP_ONLY,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.w967Mh/dump.diff) 
-iface_param_width_per_inst,DIFF,DUMP_DIFF 146 lines (/tmp/uhdm-corpus.2gmKcc/dump.diff) 
-iface_passthrough,DIFF,DUMP_DIFF 153 lines (/tmp/uhdm-corpus.Pzdqby/dump.diff) 
-iface_pkg_enum_item,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.clm7eO/dump.diff) 
-iface_samename_port,DIFF,DUMP_DIFF 582 lines (/tmp/uhdm-corpus.LmVPRD/dump.diff) 
-iface_scalar_localparam,UNSUPPORTED,  range select base DUMP_DIFF 961 lines (/tmp/uhdm-corpus.rRUtgk/dump.diff) 
-iface_struct_field,UNSUPPORTED,DUMP_DIFF 344 lines (/tmp/uhdm-corpus.6ZbHDX/dump.diff) 
-iface_sig_in_child_port,DIFF,DUMP_DIFF 277 lines (/tmp/uhdm-corpus.u8jbpO/dump.diff) 
-iface_struct_field_bitselect,UNSUPPORTED,  member select base DUMP_DIFF 214 lines (/tmp/uhdm-corpus.8O05VR/dump.diff) 
-iface_struct_field_param_width,UNSUPPORTED,DUMP_DIFF 1017 lines (/tmp/uhdm-corpus.BfnBu7/dump.diff) 
-iface_struct_field_partsel,UNSUPPORTED,  range select base DUMP_DIFF 970 lines (/tmp/uhdm-corpus.c3aoRv/dump.diff) 
-iface_struct_field_slice_read,UNSUPPORTED,  range select base DUMP_DIFF 501 lines (/tmp/uhdm-corpus.gPtuH3/dump.diff) 
-iface_unpacked_signal,UNSUPPORTED,  element select base DUMP_DIFF 438 lines (/tmp/uhdm-corpus.npGuxv/dump.diff) 
-iface_wholestruct_param,DIFF,DUMP_DIFF 1831 lines (/tmp/uhdm-corpus.uNyOVU/dump.diff) 
-iface_unpacked_struct_array,UNSUPPORTED,DUMP_DIFF 702 lines (/tmp/uhdm-corpus.V6aDSo/dump.diff) 
-ImportedDoubleCastedParameter,DIFF,DUMP_DIFF 477 lines (/tmp/uhdm-corpus.AqeAnU/dump.diff) 
-ImportedEnumCast,DIFF,DUMP_DIFF 397 lines (/tmp/uhdm-corpus.zfPhwd/dump.diff) 
-ImportedFunctionUsesAnotherFunction,PASS,
+iface_modport_conn,DIFF,DUMP_DIFF 115 lines (/tmp/uhdm-corpus.RP5fxd/dump.diff) 
+iface_param_port_width,DIFF,DUMP_DIFF 226 lines (/tmp/uhdm-corpus.wv8a6B/dump.diff) 
+iface_nested_param_field,DIFF,DUMP_DIFF 930 lines (/tmp/uhdm-corpus.T4wPjY/dump.diff) 
+iface_param_2level,DIFF,DUMP_DIFF 1008 lines (/tmp/uhdm-corpus.fSTpJm/dump.diff) 
+iface_param_set_value,CMP_ONLY,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.GoTQgA/dump.diff) 
+iface_passthrough,DIFF,DUMP_DIFF 99 lines (/tmp/uhdm-corpus.34yIPg/dump.diff) 
+iface_param_width_per_inst,DIFF,DUMP_DIFF 117 lines (/tmp/uhdm-corpus.0Bsdk9/dump.diff) 
+iface_pkg_enum_item,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.IFPQOX/dump.diff) 
+iface_samename_port,DIFF,DUMP_DIFF 514 lines (/tmp/uhdm-corpus.55MA43/dump.diff) 
+iface_scalar_localparam,UNSUPPORTED,  range select base DUMP_DIFF 882 lines (/tmp/uhdm-corpus.nCrjDT/dump.diff) 
+iface_sig_in_child_port,DIFF,DUMP_DIFF 232 lines (/tmp/uhdm-corpus.M3r0Ks/dump.diff) 
+iface_struct_field,UNSUPPORTED,DUMP_DIFF 331 lines (/tmp/uhdm-corpus.yaWTnO/dump.diff) 
+iface_struct_field_bitselect,UNSUPPORTED,  member select base DUMP_DIFF 217 lines (/tmp/uhdm-corpus.DkHnSC/dump.diff) 
+iface_struct_field_partsel,UNSUPPORTED,  range select base DUMP_DIFF 898 lines (/tmp/uhdm-corpus.OKrClB/dump.diff) 
+iface_struct_field_param_width,UNSUPPORTED,DUMP_DIFF 1000 lines (/tmp/uhdm-corpus.53xzC7/dump.diff) 
+iface_struct_field_slice_read,UNSUPPORTED,  range select base DUMP_DIFF 493 lines (/tmp/uhdm-corpus.02D5Ok/dump.diff) 
+iface_unpacked_signal,UNSUPPORTED,  element select base DUMP_DIFF 399 lines (/tmp/uhdm-corpus.i1SJlo/dump.diff) 
+iface_wholestruct_param,DIFF,DUMP_DIFF 1798 lines (/tmp/uhdm-corpus.L8GbT3/dump.diff) 
+iface_unpacked_struct_array,UNSUPPORTED,DUMP_DIFF 656 lines (/tmp/uhdm-corpus.1yKYxS/dump.diff) 
+ImportedDoubleCastedParameter,DIFF,DUMP_DIFF 477 lines (/tmp/uhdm-corpus.dsi95v/dump.diff) 
+ImportedEnumCast,DIFF,DUMP_DIFF 397 lines (/tmp/uhdm-corpus.u0GF2o/dump.diff) 
 ImportedFunctionCallInModuleAndSubmodule,PASS,
-ImportedParameter,DIFF,DUMP_DIFF 135 lines (/tmp/uhdm-corpus.Ov3npa/dump.diff) 
-ImportedPackageEnumItemInInterface,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.ib9CTf/dump.diff) 
-ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,DIFF,DUMP_DIFF 281 lines (/tmp/uhdm-corpus.UOYA0p/dump.diff) 
+ImportedFunctionUsesAnotherFunction,PASS,
+ImportedParameter,DIFF,DUMP_DIFF 135 lines (/tmp/uhdm-corpus.HkrQ20/dump.diff) 
+ImportedPackageEnumItemInInterface,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.nw0XLy/dump.diff) 
+ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,DIFF,DUMP_DIFF 281 lines (/tmp/uhdm-corpus.q2n7ga/dump.diff) 
+ImportFunction,DIFF,DUMP_DIFF 244 lines (/tmp/uhdm-corpus.TfKljo/dump.diff) 
 ImportPackageWithFunction,SLANG_REJECT,
-ImportFunction,DIFF,DUMP_DIFF 244 lines (/tmp/uhdm-corpus.e3Z6zK/dump.diff) 
-ImportParametrizedTypeAndDeclareParamWithTheSameName,DIFF,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.1cpdcQ/dump.diff) 
-ImportTypeOfPort,DIFF,DUMP_DIFF 54 lines (/tmp/uhdm-corpus.VZbkG1/dump.diff) 
-indexed_partsel_array,UNSUPPORTED,  range select base DUMP_DIFF 283 lines (/tmp/uhdm-corpus.0BE6ke/dump.diff) 
+ImportParametrizedTypeAndDeclareParamWithTheSameName,DIFF,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.tjJEj1/dump.diff) 
+ImportTypeOfPort,DIFF,DUMP_DIFF 54 lines (/tmp/uhdm-corpus.ojwQzv/dump.diff) 
+indexed_partsel_array,UNSUPPORTED,  range select base DUMP_DIFF 283 lines (/tmp/uhdm-corpus.5beQG0/dump.diff) 
 IndexedPartSelect,PASS,
-IndexedPartSelectInFor,UNSUPPORTED,  range select base DUMP_DIFF 441 lines (/tmp/uhdm-corpus.opATs6/dump.diff) 
-IndexedPartSelectInUniqueCase,DIFF,DUMP_DIFF 46 lines (/tmp/uhdm-corpus.oZ4jCW/dump.diff) 
-IndexedPartSelectOfArrayElement,UNSUPPORTED,  range select base DUMP_DIFF 218 lines (/tmp/uhdm-corpus.CXPKiH/dump.diff) 
-IndexedPartSelectOfMember,DIFF,DUMP_DIFF 198 lines (/tmp/uhdm-corpus.LhnNnb/dump.diff) 
-InterfaceAlways,CMP_ONLY,DUMP_DIFF 18 lines (/tmp/uhdm-corpus.txsm7C/dump.diff) 
+IndexedPartSelectInFor,UNSUPPORTED,  range select base DUMP_DIFF 441 lines (/tmp/uhdm-corpus.diDSGr/dump.diff) 
+IndexedPartSelectOfArrayElement,UNSUPPORTED,  range select base DUMP_DIFF 218 lines (/tmp/uhdm-corpus.IcyCb2/dump.diff) 
+IndexedPartSelectInUniqueCase,DIFF,DUMP_DIFF 46 lines (/tmp/uhdm-corpus.HfJQbT/dump.diff) 
+IndexedPartSelectOfMember,DIFF,DUMP_DIFF 198 lines (/tmp/uhdm-corpus.JWhloT/dump.diff) 
+InterfaceAlways,CMP_ONLY,DUMP_DIFF 18 lines (/tmp/uhdm-corpus.WHGDAj/dump.diff) 
 initval,SLANG_REJECT,
-interface_array,DIFF,DUMP_DIFF 1786 lines (/tmp/uhdm-corpus.INoFzD/dump.diff) 
-InterfaceAsPort,DIFF,DUMP_DIFF 90 lines (/tmp/uhdm-corpus.X8aLs9/dump.diff) 
-interface_array_fanout,DIFF,DUMP_DIFF 2412 lines (/tmp/uhdm-corpus.D9jHek/dump.diff) 
-InterfaceAsPortAssignValueInSubmodule,DIFF,DUMP_DIFF 88 lines (/tmp/uhdm-corpus.mjKwZx/dump.diff) 
-InterfaceAssign,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.eT5Kbx/dump.diff) 
-InterfaceInitial,CMP_ONLY,DUMP_DIFF 18 lines (/tmp/uhdm-corpus.tXoT2L/dump.diff) 
-InterfaceParameter,CMP_ONLY,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.BsdVbl/dump.diff) 
-InterfaceParameterSetValue,CMP_ONLY,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.WIbBjx/dump.diff) 
+interface_array,DIFF,DUMP_DIFF 1668 lines (/tmp/uhdm-corpus.Jmt0Iw/dump.diff) 
+InterfaceAsPort,DIFF,DUMP_DIFF 80 lines (/tmp/uhdm-corpus.ruYY9p/dump.diff) 
+interface_array_fanout,DIFF,DUMP_DIFF 2188 lines (/tmp/uhdm-corpus.jj0r2g/dump.diff) 
+InterfaceAsPortAssignValueInSubmodule,DIFF,DUMP_DIFF 72 lines (/tmp/uhdm-corpus.sgOPU8/dump.diff) 
+InterfaceAssign,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.nsSK9b/dump.diff) 
+InterfaceInitial,CMP_ONLY,DUMP_DIFF 18 lines (/tmp/uhdm-corpus.wzxXD0/dump.diff) 
+InterfaceParameter,CMP_ONLY,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.yIiL6p/dump.diff) 
+InterfaceParameterSetValue,CMP_ONLY,DUMP_DIFF 10 lines (/tmp/uhdm-corpus.Jt0c0G/dump.diff) 
 InterfaceVariable,PASS,
-InterfaceWithPort,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.FIzbAA/dump.diff) 
-int_port_signed,DIFF,DUMP_DIFF 117 lines (/tmp/uhdm-corpus.xv7Ohn/dump.diff) 
-int_types_blk1,DIFF,DUMP_DIFF 164 lines (/tmp/uhdm-corpus.tuCRHP/dump.diff) 
-issue326_packed_mem,DIFF,DUMP_DIFF 43 lines (/tmp/uhdm-corpus.CiNy4O/dump.diff) 
-jeras_gpr,DIFF,DUMP_DIFF 263 lines (/tmp/uhdm-corpus.SpCOtj/dump.diff) 
+InterfaceWithPort,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.LdZ6l3/dump.diff) 
+int_port_signed,DIFF,DUMP_DIFF 117 lines (/tmp/uhdm-corpus.OcX1Fx/dump.diff) 
+int_types_blk1,DIFF,DUMP_DIFF 164 lines (/tmp/uhdm-corpus.YsHjMG/dump.diff) 
+issue326_packed_mem,DIFF,DUMP_DIFF 43 lines (/tmp/uhdm-corpus.qQpgZg/dump.diff) 
+jeras_gpr,DIFF,DUMP_DIFF 263 lines (/tmp/uhdm-corpus.cwtkhA/dump.diff) 
 LargeModuleParameter,SLANG_REJECT,
-jeras_reverse,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 25 lines (/tmp/uhdm-corpus.vKnfte/dump.diff) 
+jeras_reverse,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 25 lines (/tmp/uhdm-corpus.XwUxpN/dump.diff) 
 latch_002,PASS,
 latchn,PASS,
-int_types,DIFF,DUMP_DIFF 28614 lines (/tmp/uhdm-corpus.FX0LFD/dump.diff) 
+int_types,DIFF,DUMP_DIFF 28614 lines (/tmp/uhdm-corpus.JCvg7F/dump.diff) 
 latchp,PASS,
 latchsr,PASS,
 load_and_derive,SLANG_REJECT,
 led_blink_counter,PASS,
 lcov,PASS,
-LocalParamSelect,DIFF,DUMP_DIFF 221 lines (/tmp/uhdm-corpus.ibiiBU/dump.diff) 
-LocalParamInNestedForLoops,DIFF,DUMP_DIFF 392 lines (/tmp/uhdm-corpus.nZtEwK/dump.diff) 
-local_nested_struct_field,DIFF,DUMP_DIFF 149 lines (/tmp/uhdm-corpus.55LBoe/dump.diff) 
-LogicPackedArray,DIFF,DUMP_DIFF 191 lines (/tmp/uhdm-corpus.H9Hfbf/dump.diff) 
+local_nested_struct_field,DIFF,DUMP_DIFF 149 lines (/tmp/uhdm-corpus.1l7zzU/dump.diff) 
+LocalParamInNestedForLoops,DIFF,DUMP_DIFF 392 lines (/tmp/uhdm-corpus.5Wongx/dump.diff) 
+LocalParamSelect,DIFF,DUMP_DIFF 221 lines (/tmp/uhdm-corpus.GlL4L8/dump.diff) 
 logic_ops,SLANG_REJECT,
+LogicPackedArray,DIFF,DUMP_DIFF 191 lines (/tmp/uhdm-corpus.W58UnM/dump.diff) 
 Longint,PASS,
-lut_map_and,PASS,
 local_var_in_always,PASS,
-lut_map_not,PASS,
+lut_map_and,PASS,
 lut_map_cmp,PASS,
+lut_map_not,PASS,
 lut_map_mux,PASS,
-func_upto,DIFF,DUMP_DIFF 1452136 lines (/tmp/uhdm-corpus.d5dAYU/dump.diff) 
+func_upto,DIFF,DUMP_DIFF 1452136 lines (/tmp/uhdm-corpus.nTGW9L/dump.diff) 
 lut_map_xor,PASS,
 lut_map_or,PASS,
-matching_end_labels,DIFF,DUMP_DIFF 277 lines (/tmp/uhdm-corpus.UrTKl6/dump.diff) 
-macro_arg_spaces,DIFF,DUMP_DIFF 192 lines (/tmp/uhdm-corpus.J7NCt8/dump.diff) 
-macc,DIFF,DUMP_DIFF 518 lines (/tmp/uhdm-corpus.qhLwZ8/dump.diff) 
-mem2reg_test1,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.CSpkxt/dump.diff) 
-mem2reg_test3,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.RYdqCs/dump.diff) 
-mem2reg_test2,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.3CVUdp/dump.diff) 
+macro_arg_spaces,DIFF,DUMP_DIFF 192 lines (/tmp/uhdm-corpus.OCS8Q4/dump.diff) 
+matching_end_labels,DIFF,DUMP_DIFF 277 lines (/tmp/uhdm-corpus.cDXGYD/dump.diff) 
+macc,DIFF,DUMP_DIFF 518 lines (/tmp/uhdm-corpus.9KeNJ4/dump.diff) 
+mem2reg_test1,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.x3jc1W/dump.diff) 
+mem2reg_test3,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.TrZYMV/dump.diff) 
+mem2reg_test2,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.4flG4r/dump.diff) 
 many_functions,PASS,
-mem2reg_test4,DIFF,DUMP_DIFF 186 lines (/tmp/uhdm-corpus.f0BA0q/dump.diff) 
-mem2reg_test5,DIFF,DUMP_DIFF 162 lines (/tmp/uhdm-corpus.KpnhXt/dump.diff) 
-mem2reg_test6,DIFF,DUMP_DIFF 114 lines (/tmp/uhdm-corpus.Z7FhjX/dump.diff) 
-MemberSelectOf2DStructPackedArray,DIFF,DUMP_DIFF 159 lines (/tmp/uhdm-corpus.9e1pFY/dump.diff) 
-MemoryInGenblock,DIFF,DUMP_DIFF 2907 lines (/tmp/uhdm-corpus.tMPRMO/dump.diff) 
-MemoryPort,DIFF,DUMP_DIFF 266 lines (/tmp/uhdm-corpus.MxtikZ/dump.diff) 
-mem_iface_index,UNSUPPORTED,DUMP_DIFF 421 lines (/tmp/uhdm-corpus.UXIwtS/dump.diff) 
+mem2reg_test4,DIFF,DUMP_DIFF 186 lines (/tmp/uhdm-corpus.NErofy/dump.diff) 
+mem2reg_test5,DIFF,DUMP_DIFF 162 lines (/tmp/uhdm-corpus.6wvztU/dump.diff) 
+mem2reg_test6,DIFF,DUMP_DIFF 114 lines (/tmp/uhdm-corpus.SjEkqH/dump.diff) 
+MemberSelectOf2DStructPackedArray,DIFF,DUMP_DIFF 159 lines (/tmp/uhdm-corpus.CTwBwU/dump.diff) 
+MemoryInGenblock,DIFF,DUMP_DIFF 2907 lines (/tmp/uhdm-corpus.SkvPaH/dump.diff) 
+MemoryPort,DIFF,DUMP_DIFF 266 lines (/tmp/uhdm-corpus.lsm4YS/dump.diff) 
+mem_iface_index,UNSUPPORTED,DUMP_DIFF 390 lines (/tmp/uhdm-corpus.7cKyBH/dump.diff) 
 MemorySlice,PASS,
-MixedPatterns,DIFF,DUMP_DIFF 64 lines (/tmp/uhdm-corpus.wJpTar/dump.diff) 
+MixedPatterns,DIFF,DUMP_DIFF 64 lines (/tmp/uhdm-corpus.hZBHyV/dump.diff) 
 mem_sub_plain,PASS,
 ModuleAlways,PASS,
-mixed_sign_ops,DIFF,DUMP_DIFF 31 lines (/tmp/uhdm-corpus.5Krltw/dump.diff) 
-mem_read_reg,UNSUPPORTED,  member select base   range select base DUMP_DIFF 808 lines (/tmp/uhdm-corpus.CnqsFH/dump.diff) 
-ModuleInstantiationAndIndirectParams,DIFF,DUMP_DIFF 418 lines (/tmp/uhdm-corpus.fOCR9j/dump.diff) 
-ModuleUsingStuctInput,DIFF,DUMP_DIFF 223 lines (/tmp/uhdm-corpus.U1pO4x/dump.diff) 
-MonitorInputPort,PASS,
+mixed_sign_ops,DIFF,DUMP_DIFF 31 lines (/tmp/uhdm-corpus.w3Otnm/dump.diff) 
+mem_read_reg,UNSUPPORTED,  member select base   range select base DUMP_DIFF 764 lines (/tmp/uhdm-corpus.VDnU2N/dump.diff) 
+ModuleInstantiationAndIndirectParams,DIFF,DUMP_DIFF 418 lines (/tmp/uhdm-corpus.NTHD01/dump.diff) 
+ModuleUsingStuctInput,DIFF,DUMP_DIFF 223 lines (/tmp/uhdm-corpus.sIqx5k/dump.diff) 
 mul,PASS,
-module_scope_func,SLANG_REJECT,
+MonitorInputPort,PASS,
 mul_plain,PASS,
+module_scope_func,SLANG_REJECT,
 MultiAssignmentPatternOfConcat,PASS,
+mul_sync_enable_test,PASS,
 mul_signed_async,PASS,
 mul_sync_reset_test,PASS,
-mul_sync_enable_test,PASS,
-multidim_hier_path7,DIFF,DUMP_DIFF 304 lines (/tmp/uhdm-corpus.67TQ2X/dump.diff) 
-multidim_hier_path8,DIFF,DUMP_DIFF 182 lines (/tmp/uhdm-corpus.K5bN6C/dump.diff) 
+multidim_hier_path7,DIFF,DUMP_DIFF 304 lines (/tmp/uhdm-corpus.AHIoue/dump.diff) 
+multidim_hier_path8,DIFF,DUMP_DIFF 182 lines (/tmp/uhdm-corpus.p8v5nB/dump.diff) 
+multidim_hier_path9,UNSUPPORTED,DUMP_DIFF 354 lines (/tmp/uhdm-corpus.FwCRNq/dump.diff) 
 multi_ff_slice,PASS,
-multi_input_gates,DIFF,DUMP_DIFF 926 lines (/tmp/uhdm-corpus.LxUdSp/dump.diff) 
-multidim_hier_path9,UNSUPPORTED,DUMP_DIFF 354 lines (/tmp/uhdm-corpus.YbS5wh/dump.diff) 
+multi_input_gates,DIFF,DUMP_DIFF 926 lines (/tmp/uhdm-corpus.J3AFwO/dump.diff) 
 MultipleAssignments,PASS,
-MultipleCells,DIFF,DUMP_DIFF 50 lines (/tmp/uhdm-corpus.cTFoaM/dump.diff) 
-MultipleNets,DIFF,DUMP_DIFF 316 lines (/tmp/uhdm-corpus.TrLbnT/dump.diff) 
+MultipleNets,DIFF,DUMP_DIFF 316 lines (/tmp/uhdm-corpus.PtMqvM/dump.diff) 
 multiple_blocking_gate,PASS,
-multiple_blocking,DIFF,DUMP_DIFF 14 lines (/tmp/uhdm-corpus.uprSKk/dump.diff) 
+MultipleCells,DIFF,DUMP_DIFF 50 lines (/tmp/uhdm-corpus.cqoWl8/dump.diff) 
+multiple_blocking,DIFF,DUMP_DIFF 14 lines (/tmp/uhdm-corpus.NIXqxN/dump.diff) 
 MultiplePrints,PASS,
-MultirangesStartNotFromZero,DIFF,DUMP_DIFF 1066 lines (/tmp/uhdm-corpus.RmncTB/dump.diff) 
-mul_unsigned,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.LqC1Y1/dump.diff) 
-mux16,PASS,
-mul_unsigned_sync,PASS,
+MultirangesStartNotFromZero,DIFF,DUMP_DIFF 1066 lines (/tmp/uhdm-corpus.b4oZRs/dump.diff) 
+mul_unsigned,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.75gr2m/dump.diff) 
 mul_unsigned_sync_simple,PASS,
+mul_unsigned_sync,PASS,
+mux16,PASS,
 mux4,PASS,
 mux8,PASS,
 mux2,PASS,
-multiplier,DIFF,DUMP_DIFF 17169 lines (/tmp/uhdm-corpus.OMtysT/dump.diff) 
-named_cover_assert,DIFF,DUMP_DIFF 190 lines (/tmp/uhdm-corpus.GfXLYE/dump.diff) 
-ndffnr,PASS,
+multiplier,DIFF,DUMP_DIFF 17169 lines (/tmp/uhdm-corpus.jL6OHz/dump.diff) 
+named_cover_assert,DIFF,DUMP_DIFF 190 lines (/tmp/uhdm-corpus.54hIU2/dump.diff) 
 NegationAsParameterOfInstance,SLANG_REJECT,
+ndffnr,PASS,
 NegationOfPatternParameter,PASS,
-named_genblk_cascade,DIFF,DUMP_DIFF 862 lines (/tmp/uhdm-corpus.VQc24n/dump.diff) 
+named_genblk_cascade,DIFF,DUMP_DIFF 862 lines (/tmp/uhdm-corpus.MBd0Or/dump.diff) 
 NegationOfParameterInInstance,PASS,
 NegationOfPatternParameterInInstance,PASS,
-NestedForLoops,DIFF,DUMP_DIFF 313 lines (/tmp/uhdm-corpus.96Wkse/dump.diff) 
+NestedForLoops,DIFF,DUMP_DIFF 313 lines (/tmp/uhdm-corpus.neaEBE/dump.diff) 
 NestedCallsOfTheSameFunction,PASS,
-nested_cast_repro,UNSUPPORTED,DUMP_DIFF 128 lines (/tmp/uhdm-corpus.4lwCnX/dump.diff) 
-NestedGenscopesInModuleWithMultidimensionalPorts,DIFF,DUMP_DIFF 2682 lines (/tmp/uhdm-corpus.W3PPx1/dump.diff) 
 nested_full_case,PASS,
+NestedGenscopesInModuleWithMultidimensionalPorts,DIFF,DUMP_DIFF 2682 lines (/tmp/uhdm-corpus.bRdHZr/dump.diff) 
+nested_cast_repro,UNSUPPORTED,DUMP_DIFF 128 lines (/tmp/uhdm-corpus.K4Ougy/dump.diff) 
 NestedParamSubstitution,PASS,
-NestedSelectOnInputPortInGenscope,DIFF,DUMP_DIFF 694 lines (/tmp/uhdm-corpus.ZIkxhy/dump.diff) 
-NestedSelectOnVarInGenscope,DIFF,DUMP_DIFF 694 lines (/tmp/uhdm-corpus.HiljGU/dump.diff) 
-NestedPatternPassedAsPort,DIFF,DUMP_DIFF 204 lines (/tmp/uhdm-corpus.LXJlqc/dump.diff) 
-net_types,DIFF,DUMP_DIFF 166 lines (/tmp/uhdm-corpus.G2zvxE/dump.diff) 
-NestedStructArrayParameterInitializedByPatternPassedAsPort,DIFF,DUMP_DIFF 2361 lines (/tmp/uhdm-corpus.Lz0mAJ/dump.diff) 
-nested_struct,DIFF,DUMP_DIFF 252 lines (/tmp/uhdm-corpus.TKRtlz/dump.diff) 
+NestedSelectOnInputPortInGenscope,DIFF,DUMP_DIFF 694 lines (/tmp/uhdm-corpus.Ij4vYe/dump.diff) 
+NestedPatternPassedAsPort,DIFF,DUMP_DIFF 204 lines (/tmp/uhdm-corpus.MM9aYi/dump.diff) 
+NestedSelectOnVarInGenscope,DIFF,DUMP_DIFF 694 lines (/tmp/uhdm-corpus.ixu3g9/dump.diff) 
+net_types,DIFF,DUMP_DIFF 166 lines (/tmp/uhdm-corpus.30Pa2N/dump.diff) 
+NestedStructArrayParameterInitializedByPatternPassedAsPort,DIFF,DUMP_DIFF 2361 lines (/tmp/uhdm-corpus.WvJVZ2/dump.diff) 
+nested_struct,DIFF,DUMP_DIFF 252 lines (/tmp/uhdm-corpus.G6JsM1/dump.diff) 
 nested_struct_nopack,PASS,
 OneArithShift,PASS,
 OneAlwaysComb,PASS,
-OneClass,DIFF,DUMP_DIFF 130 lines (/tmp/uhdm-corpus.otI5Ok/dump.diff) 
+OneClass,DIFF,DUMP_DIFF 130 lines (/tmp/uhdm-corpus.iP6BuK/dump.diff) 
 OneConcat,PASS,
-OneCast,DIFF,DUMP_DIFF 154 lines (/tmp/uhdm-corpus.RrdlSI/dump.diff) 
+OneCast,DIFF,DUMP_DIFF 154 lines (/tmp/uhdm-corpus.uIhkFD/dump.diff) 
 onenet,PASS,
-OneImport,DIFF,DUMP_DIFF 145 lines (/tmp/uhdm-corpus.1NRHay/dump.diff) 
-OneInside,UNSUPPORTED,  expression kind: Inside DUMP_DIFF 64 lines (/tmp/uhdm-corpus.kxjO2s/dump.diff) 
+OneImport,DIFF,DUMP_DIFF 145 lines (/tmp/uhdm-corpus.LU6iaK/dump.diff) 
+OneInside,UNSUPPORTED,  expression kind: Inside DUMP_DIFF 64 lines (/tmp/uhdm-corpus.f9Lb1h/dump.diff) 
 OneReplicate,PASS,
+OnePackage,DIFF,DUMP_DIFF 46 lines (/tmp/uhdm-corpus.Y4OVaq/dump.diff) 
 OneShift,PASS,
-OnePackage,DIFF,DUMP_DIFF 46 lines (/tmp/uhdm-corpus.RtDZrp/dump.diff) 
-OneNetModport,DIFF,DUMP_DIFF 187 lines (/tmp/uhdm-corpus.fAijuE/dump.diff) 
+OneNetModport,DIFF,DUMP_DIFF 192 lines (/tmp/uhdm-corpus.UBci3N/dump.diff) 
 OneSysFunc,PASS,
 opt_share_add_sub,PASS,
-OneStruct,DIFF,DUMP_DIFF 224 lines (/tmp/uhdm-corpus.OsPZx7/dump.diff) 
-OneThis,UNSUPPORTED,  expression kind: NewClass DUMP_DIFF 253 lines (/tmp/uhdm-corpus.Q90Kc5/dump.diff) 
-OutputSizeWithParameterOfInstanceInitializedByStructMember,DIFF,DUMP_DIFF 271 lines (/tmp/uhdm-corpus.wzgPQu/dump.diff) 
-PackageCast,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 94 lines (/tmp/uhdm-corpus.xWAfCn/dump.diff) 
-PackedArray,DIFF,DUMP_DIFF 73 lines (/tmp/uhdm-corpus.IbWgUd/dump.diff) 
-ParameterColonReference,DIFF,DUMP_DIFF 29 lines (/tmp/uhdm-corpus.UuUKEk/dump.diff) 
-ParameterDoubleUnderscoreInSvFrontend,DIFF,DUMP_DIFF 135 lines (/tmp/uhdm-corpus.RqFxLY/dump.diff) 
+OneStruct,DIFF,DUMP_DIFF 224 lines (/tmp/uhdm-corpus.p34cMx/dump.diff) 
+OneThis,UNSUPPORTED,  expression kind: NewClass DUMP_DIFF 253 lines (/tmp/uhdm-corpus.TZwfnq/dump.diff) 
+OutputSizeWithParameterOfInstanceInitializedByStructMember,DIFF,DUMP_DIFF 271 lines (/tmp/uhdm-corpus.ywjcBy/dump.diff) 
+PackageCast,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 94 lines (/tmp/uhdm-corpus.BsQ7PV/dump.diff) 
+PackedArray,DIFF,DUMP_DIFF 73 lines (/tmp/uhdm-corpus.jh36qN/dump.diff) 
+ParameterColonReference,DIFF,DUMP_DIFF 29 lines (/tmp/uhdm-corpus.PN9f6B/dump.diff) 
 ParameterConditionalAssignment,PASS,
-param_array_wildcard,DIFF,DUMP_DIFF 338 lines (/tmp/uhdm-corpus.2FAz28/dump.diff) 
-package_task_func,UNSUPPORTED,DUMP_DIFF 159 lines (/tmp/uhdm-corpus.QrLEXY/dump.diff) 
-ParameterInGenScopeInitializedWithLongConstant,DIFF,DUMP_DIFF 217 lines (/tmp/uhdm-corpus.cniNgW/dump.diff) 
-ParameterFromPkgInNestedModule,DIFF,DUMP_DIFF 375 lines (/tmp/uhdm-corpus.9hS9Hr/dump.diff) 
-ParameterFromPkgOnParameterPortList,DIFF,DUMP_DIFF 414 lines (/tmp/uhdm-corpus.6uJaUl/dump.diff) 
-ParameterInitializationWithNegation,DIFF,DUMP_DIFF 57 lines (/tmp/uhdm-corpus.CS7bgz/dump.diff) 
-ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,DIFF,DUMP_DIFF 298 lines (/tmp/uhdm-corpus.PZT1Qt/dump.diff) 
-ParameterInitializedByPartSelectOfParameters,DIFF,DUMP_DIFF 86 lines (/tmp/uhdm-corpus.N5ZbTX/dump.diff) 
-ParameterInitializedByPartSelectOfParametersAssignedToVar,DIFF,DUMP_DIFF 125 lines (/tmp/uhdm-corpus.1y3p4z/dump.diff) 
-ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,DIFF,DUMP_DIFF 298 lines (/tmp/uhdm-corpus.iTRany/dump.diff) 
-ParameterInitializedInTopOf5LevelHierarchy,DIFF,DUMP_DIFF 298 lines (/tmp/uhdm-corpus.qM6EIg/dump.diff) 
-ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,DIFF,DUMP_DIFF 375 lines (/tmp/uhdm-corpus.Kze2aK/dump.diff) 
-ParameterOfParametrizedType,DIFF,DUMP_DIFF 164 lines (/tmp/uhdm-corpus.hf750p/dump.diff) 
-ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,DIFF,DUMP_DIFF 505 lines (/tmp/uhdm-corpus.9W7kIg/dump.diff) 
-ParameterOfParametrizedTypeInSubmodule,DIFF,DUMP_DIFF 334 lines (/tmp/uhdm-corpus.nHvxpA/dump.diff) 
-ParameterOfSizeOfParametrizedPort,DIFF,DUMP_DIFF 97 lines (/tmp/uhdm-corpus.3QtFhH/dump.diff) 
-ParameterPackedArray,DIFF,DUMP_DIFF 369 lines (/tmp/uhdm-corpus.buLWRy/dump.diff) 
-ParameterOfSizeOfParametrizedPortInSubmodule,DIFF,DUMP_DIFF 279 lines (/tmp/uhdm-corpus.bDsOSV/dump.diff) 
-ParameterOfSizeOfPort,DIFF,DUMP_DIFF 87 lines (/tmp/uhdm-corpus.sTfT5g/dump.diff) 
-ParameterPackedArraySurelogSubstitution,DIFF,DUMP_DIFF 105 lines (/tmp/uhdm-corpus.ulaWYD/dump.diff) 
-ParameterPassedToSubmoduleOfSubmodule,DIFF,DUMP_DIFF 241 lines (/tmp/uhdm-corpus.Ak0aou/dump.diff) 
-ParameterPassedTo3TimesNestedSubmodule,DIFF,DUMP_DIFF 283 lines (/tmp/uhdm-corpus.QMmVn5/dump.diff) 
-ParameterPassedToSubmoduleInGenscopeOfSubmodule,DIFF,DUMP_DIFF 463 lines (/tmp/uhdm-corpus.T0DJ2J/dump.diff) 
+ParameterDoubleUnderscoreInSvFrontend,DIFF,DUMP_DIFF 135 lines (/tmp/uhdm-corpus.9nFzOI/dump.diff) 
+param_array_wildcard,DIFF,DUMP_DIFF 338 lines (/tmp/uhdm-corpus.a6GfgQ/dump.diff) 
+package_task_func,UNSUPPORTED,DUMP_DIFF 159 lines (/tmp/uhdm-corpus.6Pmjct/dump.diff) 
+ParameterInGenScopeInitializedWithLongConstant,DIFF,DUMP_DIFF 217 lines (/tmp/uhdm-corpus.aqIf3L/dump.diff) 
+ParameterInitializationWithNegation,DIFF,DUMP_DIFF 57 lines (/tmp/uhdm-corpus.f4iwmn/dump.diff) 
+ParameterFromPkgInNestedModule,DIFF,DUMP_DIFF 375 lines (/tmp/uhdm-corpus.TKTISU/dump.diff) 
+ParameterFromPkgOnParameterPortList,DIFF,DUMP_DIFF 414 lines (/tmp/uhdm-corpus.JKdEG3/dump.diff) 
+ParameterInitializedByOperationOnPackageParametersAndUsedInGenscope,DIFF,DUMP_DIFF 298 lines (/tmp/uhdm-corpus.w8uDfs/dump.diff) 
+ParameterInitializedByPartSelectOfParameters,DIFF,DUMP_DIFF 86 lines (/tmp/uhdm-corpus.v33tTk/dump.diff) 
+ParameterInitializedByPartSelectOfParametersAssignedToVar,DIFF,DUMP_DIFF 125 lines (/tmp/uhdm-corpus.n7MbL8/dump.diff) 
+ParameterInitializedInSubModuleOfTopOf5LevelHierarchy,DIFF,DUMP_DIFF 298 lines (/tmp/uhdm-corpus.ZRVe9m/dump.diff) 
+ParameterInitializedInTopOf5LevelHierarchy,DIFF,DUMP_DIFF 298 lines (/tmp/uhdm-corpus.UG4PcA/dump.diff) 
+ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamInTheMiddle,DIFF,DUMP_DIFF 375 lines (/tmp/uhdm-corpus.Etx0tU/dump.diff) 
+ParameterOfParametrizedType,DIFF,DUMP_DIFF 164 lines (/tmp/uhdm-corpus.onYj6J/dump.diff) 
+ParameterInitializedInTopOf5LevelHierarchyWithUnusedParamOfDifferentTypeInTheMiddle,DIFF,DUMP_DIFF 505 lines (/tmp/uhdm-corpus.T3MMFH/dump.diff) 
+ParameterOfParametrizedTypeInSubmodule,DIFF,DUMP_DIFF 334 lines (/tmp/uhdm-corpus.uQZDxm/dump.diff) 
+ParameterOfSizeOfParametrizedPort,DIFF,DUMP_DIFF 97 lines (/tmp/uhdm-corpus.6GmWWI/dump.diff) 
+ParameterPackedArray,DIFF,DUMP_DIFF 369 lines (/tmp/uhdm-corpus.TkepZt/dump.diff) 
+ParameterOfSizeOfPort,DIFF,DUMP_DIFF 87 lines (/tmp/uhdm-corpus.HwIxcd/dump.diff) 
+ParameterOfSizeOfParametrizedPortInSubmodule,DIFF,DUMP_DIFF 279 lines (/tmp/uhdm-corpus.czko3u/dump.diff) 
+ParameterPackedArraySurelogSubstitution,DIFF,DUMP_DIFF 105 lines (/tmp/uhdm-corpus.hDilho/dump.diff) 
+ParameterPassedTo3TimesNestedSubmodule,DIFF,DUMP_DIFF 283 lines (/tmp/uhdm-corpus.LJkPme/dump.diff) 
+ParameterPassedToSubmoduleOfSubmodule,DIFF,DUMP_DIFF 241 lines (/tmp/uhdm-corpus.xkGdu4/dump.diff) 
+ParameterPassedToSubmoduleInGenscopeOfSubmodule,DIFF,DUMP_DIFF 463 lines (/tmp/uhdm-corpus.8FCNoq/dump.diff) 
 ParameterRangeUsingDot,SLANG_REJECT,
-ParameterUnpackedArray,DIFF,DUMP_DIFF 664 lines (/tmp/uhdm-corpus.iBq62L/dump.diff) 
-ParameterUnpackedLogicArray,DIFF,DUMP_DIFF 617 lines (/tmp/uhdm-corpus.7uJEIJ/dump.diff) 
-ParameterSizeOfInstance,DIFF,DUMP_DIFF 415 lines (/tmp/uhdm-corpus.HWv8Qc/dump.diff) 
+ParameterUnpackedArray,DIFF,DUMP_DIFF 664 lines (/tmp/uhdm-corpus.CVepl8/dump.diff) 
+ParameterUnpackedLogicArray,DIFF,DUMP_DIFF 617 lines (/tmp/uhdm-corpus.6rNpot/dump.diff) 
+ParameterSizeOfInstance,DIFF,DUMP_DIFF 415 lines (/tmp/uhdm-corpus.rZxRTZ/dump.diff) 
 ParameterUnsignedInt,PASS,
 ParameterWithUnderscoreValue,PASS,
+param_int_types,DIFF,DUMP_DIFF 246 lines (/tmp/uhdm-corpus.GFybCZ/dump.diff) 
 ParameterWithUnderscoreValueDivided,PASS,
-param_int_types,DIFF,DUMP_DIFF 246 lines (/tmp/uhdm-corpus.Kftk02/dump.diff) 
-ParameterWithUnderscoreValueDividedPassedFromCommandLine,DIFF,DUMP_DIFF 39 lines (/tmp/uhdm-corpus.gOfipT/dump.diff) 
-param_packed_array_subst,DIFF,DUMP_DIFF 105 lines (/tmp/uhdm-corpus.Ll76qt/dump.diff) 
-paramod_genscope_child,DIFF,DUMP_DIFF 560 lines (/tmp/uhdm-corpus.Z7UT3h/dump.diff) 
-param_no_default,DIFF,DUMP_DIFF 356 lines (/tmp/uhdm-corpus.V83EGe/dump.diff) 
-paramod_struct_param,DIFF,DUMP_DIFF 215 lines (/tmp/uhdm-corpus.XNbGtT/dump.diff) 
+ParameterWithUnderscoreValueDividedPassedFromCommandLine,DIFF,DUMP_DIFF 39 lines (/tmp/uhdm-corpus.HqQLQH/dump.diff) 
+param_packed_array_subst,DIFF,DUMP_DIFF 105 lines (/tmp/uhdm-corpus.uE29A5/dump.diff) 
+paramod_genscope_child,DIFF,DUMP_DIFF 560 lines (/tmp/uhdm-corpus.NCQPX5/dump.diff) 
+paramod_struct_param,DIFF,DUMP_DIFF 215 lines (/tmp/uhdm-corpus.2L9fmU/dump.diff) 
+param_no_default,DIFF,DUMP_DIFF 356 lines (/tmp/uhdm-corpus.vxI3Sp/dump.diff) 
 PartSelect,PASS,
-PartSelectOfMember,DIFF,DUMP_DIFF 198 lines (/tmp/uhdm-corpus.Zl3jAz/dump.diff) 
-PartSelectInFor,UNSUPPORTED,  range select base DUMP_DIFF 552 lines (/tmp/uhdm-corpus.NysDea/dump.diff) 
+PartSelectOfMember,DIFF,DUMP_DIFF 198 lines (/tmp/uhdm-corpus.8lvpkv/dump.diff) 
 param_test,PASS,
+PartSelectInFor,UNSUPPORTED,  range select base DUMP_DIFF 552 lines (/tmp/uhdm-corpus.ekbL5B/dump.diff) 
 PartSelectOfPartSelectedBitSelect,PASS,
-partsel_simple,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.haAq23/dump.diff) 
-PatternAsFunctionArgument,DIFF,DUMP_DIFF 15 lines (/tmp/uhdm-corpus.VbIyOY/dump.diff) 
-PatternAsParameterOfInstance,PASS,
+partsel_simple,CMP_ONLY,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.ocZxgQ/dump.diff) 
+PatternAsFunctionArgument,DIFF,DUMP_DIFF 15 lines (/tmp/uhdm-corpus.g54Msy/dump.diff) 
 PatternDefault,PASS,
+PatternAsParameterOfInstance,PASS,
+PatternAssignmentOfStructParam,DIFF,DUMP_DIFF 187 lines (/tmp/uhdm-corpus.XiYFwU/dump.diff) 
 PatternIndexes,PASS,
-PatternAssignmentOfStructParam,DIFF,DUMP_DIFF 187 lines (/tmp/uhdm-corpus.b38BNK/dump.diff) 
 past_assert,PASS,
-PatternInFunction,DIFF,DUMP_DIFF 67 lines (/tmp/uhdm-corpus.6acC0H/dump.diff) 
-PatternStruct,DIFF,DUMP_DIFF 82 lines (/tmp/uhdm-corpus.83EdJu/dump.diff) 
-PatternParameterInSubmodule,DIFF,DUMP_DIFF 233 lines (/tmp/uhdm-corpus.iIebyN/dump.diff) 
+PatternInFunction,DIFF,DUMP_DIFF 67 lines (/tmp/uhdm-corpus.ExCjM4/dump.diff) 
+PatternStruct,DIFF,DUMP_DIFF 82 lines (/tmp/uhdm-corpus.wQ5G0M/dump.diff) 
+PatternParameterInSubmodule,DIFF,DUMP_DIFF 233 lines (/tmp/uhdm-corpus.iDsCe5/dump.diff) 
 PatternType,SLANG_REJECT,
+port_int_types,DIFF,DUMP_DIFF 56 lines (/tmp/uhdm-corpus.x4sg8l/dump.diff) 
 pico_count_cycle,PASS,
-port_int_types,DIFF,DUMP_DIFF 56 lines (/tmp/uhdm-corpus.hjht6R/dump.diff) 
-PkgParamAsFunctionArg,DIFF,DUMP_DIFF 56 lines (/tmp/uhdm-corpus.nH3pfu/dump.diff) 
+PkgParamAsFunctionArg,DIFF,DUMP_DIFF 56 lines (/tmp/uhdm-corpus.0sR4Tw/dump.diff) 
 power_state,PASS,
 print_trg_mixed_edges,PASS,
 print_trg_multi_edge,PASS,
 print_trg_single_edge,PASS,
-priority_if,PASS,
 priority_case,PASS,
-prefix,DIFF,DUMP_DIFF 7304 lines (/tmp/uhdm-corpus.CMVAJr/dump.diff) 
+priority_if,PASS,
+prefix,DIFF,DUMP_DIFF 7304 lines (/tmp/uhdm-corpus.8hC1Mp/dump.diff) 
 rand_const,SLANG_REJECT,
-PutC,UNSUPPORTED,DUMP_DIFF 30 lines (/tmp/uhdm-corpus.WkWz06/dump.diff) 
-priority_memory,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.6RE9CD/dump.diff) 
+PutC,UNSUPPORTED,DUMP_DIFF 30 lines (/tmp/uhdm-corpus.pIp2jN/dump.diff) 
+priority_memory,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.vMf0kU/dump.diff) 
 ReadmemhInGenblock,SLANG_REJECT,
-readmemh_param,UNSUPPORTED,  expression kind: EmptyArgument DUMP_DIFF 121 lines (/tmp/uhdm-corpus.DPwplD/dump.diff) 
-readmemh_rom,UNSUPPORTED,  expression kind: EmptyArgument DUMP_DIFF 18 lines (/tmp/uhdm-corpus.yQsXIZ/dump.diff) 
+readmemh_param,UNSUPPORTED,  expression kind: EmptyArgument DUMP_DIFF 121 lines (/tmp/uhdm-corpus.TsxiyG/dump.diff) 
+readmemh_rom,UNSUPPORTED,  expression kind: EmptyArgument DUMP_DIFF 18 lines (/tmp/uhdm-corpus.pc6wBv/dump.diff) 
 RealValue,PASS,
-ReferencedPackageParameterInEnum,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.bNDlT0/dump.diff) 
-realexpr,DIFF,DUMP_DIFF 395 lines (/tmp/uhdm-corpus.xElGFQ/dump.diff) 
+ReferencedPackageParameterInEnum,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.YIgcNX/dump.diff) 
 Repeat,PASS,
+realexpr,DIFF,DUMP_DIFF 395 lines (/tmp/uhdm-corpus.xdeFBz/dump.diff) 
+Replication,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.hEgGi7/dump.diff) 
 reg_wire_error,SLANG_REJECT,
-Replication,DIFF,DUMP_DIFF 44 lines (/tmp/uhdm-corpus.AUxMKS/dump.diff) 
-read_remux,DIFF,DUMP_DIFF 285 lines (/tmp/uhdm-corpus.TwBH0Q/dump.diff) 
-ReplicationPassedToInstance,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.1nrEsP/dump.diff) 
+read_remux,DIFF,DUMP_DIFF 285 lines (/tmp/uhdm-corpus.9GvjUl/dump.diff) 
+ReplicationPassedToInstance,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.qIE3a1/dump.diff) 
+ReturnEnumArray,DIFF,DUMP_DIFF 121 lines (/tmp/uhdm-corpus.N5iyAe/dump.diff) 
 resolve_types,SLANG_REJECT,
-ReturnEnumArray,DIFF,DUMP_DIFF 121 lines (/tmp/uhdm-corpus.3WAN1E/dump.diff) 
-repwhile,DIFF,DUMP_DIFF 172 lines (/tmp/uhdm-corpus.cDNIQG/dump.diff) 
 ReturnFunctionCall,PASS,
-sat_asserts_seq,DIFF,DUMP_DIFF 293 lines (/tmp/uhdm-corpus.xvvw9w/dump.diff) 
+repwhile,DIFF,DUMP_DIFF 172 lines (/tmp/uhdm-corpus.oWhFNB/dump.diff) 
+sat_asserts_seq,DIFF,DUMP_DIFF 293 lines (/tmp/uhdm-corpus.zJWqsH/dump.diff) 
 scope_func,PASS,
-rsp_gen_minimal,DIFF,DUMP_DIFF 932 lines (/tmp/uhdm-corpus.b2X0Fr/dump.diff) 
-rotate,DIFF,DUMP_DIFF 25603 lines (/tmp/uhdm-corpus.s6sn53/dump.diff) 
+rsp_gen_minimal,DIFF,DUMP_DIFF 932 lines (/tmp/uhdm-corpus.dMpzor/dump.diff) 
+rotate,DIFF,DUMP_DIFF 25603 lines (/tmp/uhdm-corpus.t3O8fM/dump.diff) 
 scopes,PASS,
 scope_task,PASS,
-SelectFromUnpackedInFunction,DIFF,DUMP_DIFF 76 lines (/tmp/uhdm-corpus.Q1bLBg/dump.diff) 
-SelectGivenBySelectOnParameterInFunction,UNSUPPORTED,  procedure kind: Final DUMP_DIFF 261 lines (/tmp/uhdm-corpus.yqcLmA/dump.diff) 
+SelectFromUnpackedInFunction,DIFF,DUMP_DIFF 76 lines (/tmp/uhdm-corpus.HP5nR1/dump.diff) 
+SelectGivenBySelectOnParameterInFunction,UNSUPPORTED,  procedure kind: Final DUMP_DIFF 261 lines (/tmp/uhdm-corpus.73dbtE/dump.diff) 
 SelfPartSelectInBitSelect,PASS,
-SelectOnMemberSelectedFrom2DArray,UNSUPPORTED,  member select base DUMP_DIFF 193 lines (/tmp/uhdm-corpus.Jh0bYG/dump.diff) 
+SelectOnMemberSelectedFrom2DArray,UNSUPPORTED,  member select base DUMP_DIFF 193 lines (/tmp/uhdm-corpus.6bND04/dump.diff) 
 SelfSelectsInBitSelectAfterBitSelect,PASS,
 Shortint,PASS,
-setundef,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.1t5BG7/dump.diff) 
-Shortreal,PASS,
+setundef,DIFF,DUMP_DIFF 98 lines (/tmp/uhdm-corpus.RgwTGt/dump.diff) 
 ShiftTernary,PASS,
+Shortreal,PASS,
 signed_compare,PASS,
 SignedWire,PASS,
 signed_ext_case,PASS,
-sign_part_assign,DIFF,DUMP_DIFF 14 lines (/tmp/uhdm-corpus.xBwkcI/dump.diff) 
+sign_part_assign,DIFF,DUMP_DIFF 14 lines (/tmp/uhdm-corpus.jK1WwZ/dump.diff) 
 signed_partsel_ext,PASS,
 simple_always_ff,PASS,
 simple_assign,PASS,
-simple_always_ifelse,DIFF,DUMP_DIFF 306 lines (/tmp/uhdm-corpus.wXZvPu/dump.diff) 
+simple_always_ifelse,DIFF,DUMP_DIFF 306 lines (/tmp/uhdm-corpus.O7m7QA/dump.diff) 
 simple_abc9,SLANG_REJECT,
 simple_counter,PASS,
 simple_enum,PASS,
-simple_fsm,DIFF,DUMP_DIFF 234 lines (/tmp/uhdm-corpus.bmZ2t5/dump.diff) 
+simple_fsm,DIFF,DUMP_DIFF 234 lines (/tmp/uhdm-corpus.bwXevZ/dump.diff) 
 simple_generate,PASS,
 simple_function,PASS,
-simple_instance_array,DIFF,DUMP_DIFF 724 lines (/tmp/uhdm-corpus.BgdCi7/dump.diff) 
-simple_hierarchy,DIFF,DUMP_DIFF 300 lines (/tmp/uhdm-corpus.TiEbum/dump.diff) 
-simple_interface,DIFF,DUMP_DIFF 1161 lines (/tmp/uhdm-corpus.XjeXUP/dump.diff) 
+simple_hierarchy,DIFF,DUMP_DIFF 300 lines (/tmp/uhdm-corpus.JxX4Aw/dump.diff) 
+simple_instance_array,DIFF,DUMP_DIFF 724 lines (/tmp/uhdm-corpus.cxKRfH/dump.diff) 
+simple_interface,DIFF,DUMP_DIFF 910 lines (/tmp/uhdm-corpus.EqsZAv/dump.diff) 
 simple_memory_noreset,PASS,
-simple_memory,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.rkJqhp/dump.diff) 
 simple_nested_struct_nopack,PASS,
-simple_unary_op_not_log,PASS,
+simple_memory,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.1BWL40/dump.diff) 
 simple_unary_op_minus,PASS,
+simple_unary_op_not_log,PASS,
 simple_unary_op_plus,PASS,
-simple_struct,CMP_ONLY,DUMP_DIFF 86 lines (/tmp/uhdm-corpus.hjrSE8/dump.diff) 
-simple_package,DIFF,DUMP_DIFF 583 lines (/tmp/uhdm-corpus.zDSZ5h/dump.diff) 
+simple_struct,CMP_ONLY,DUMP_DIFF 86 lines (/tmp/uhdm-corpus.w6dRF1/dump.diff) 
+simple_package,DIFF,DUMP_DIFF 583 lines (/tmp/uhdm-corpus.BebIqM/dump.diff) 
 sincos,PASS,
 sizebits,SLANG_REJECT,
-size_cast_param,DIFF,DUMP_DIFF 317 lines (/tmp/uhdm-corpus.jdaTVQ/dump.diff) 
-SizeOfGeneratedWireArray,DIFF,DUMP_DIFF 47 lines (/tmp/uhdm-corpus.GNT2ik/dump.diff) 
-SizeOfUnsignedParameter,DIFF,DUMP_DIFF 60 lines (/tmp/uhdm-corpus.G0jmvs/dump.diff) 
-size_cast,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 7946 lines (/tmp/uhdm-corpus.MxWTDu/dump.diff) 
-sp_read_first,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.M8olX3/dump.diff) 
-sp_read_or_write,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.pVgPIL/dump.diff) 
-sp_write_first,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.1hc7FA/dump.diff) 
-StreamOp,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 254 lines (/tmp/uhdm-corpus.dAR1rU/dump.diff) 
-static_cast_simple,DIFF,DUMP_DIFF 423 lines (/tmp/uhdm-corpus.sM28FY/dump.diff) 
-StreamOperatorBitReverseFunction,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 49 lines (/tmp/uhdm-corpus.3xUyYZ/dump.diff) 
-StreamOpImplicitSliceSize,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 87 lines (/tmp/uhdm-corpus.HLnMK7/dump.diff) 
-StringAssignConcatenation,DIFF,DUMP_DIFF 107 lines (/tmp/uhdm-corpus.5pBTeI/dump.diff) 
+size_cast_param,DIFF,DUMP_DIFF 317 lines (/tmp/uhdm-corpus.dJWs30/dump.diff) 
+SizeOfGeneratedWireArray,DIFF,DUMP_DIFF 47 lines (/tmp/uhdm-corpus.gJN142/dump.diff) 
+SizeOfUnsignedParameter,DIFF,DUMP_DIFF 60 lines (/tmp/uhdm-corpus.8TXgA5/dump.diff) 
+sp_read_first,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.WUngz6/dump.diff) 
+size_cast,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 7946 lines (/tmp/uhdm-corpus.eQ3ezq/dump.diff) 
+sp_read_or_write,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.1DSLNC/dump.diff) 
+sp_write_first,DIFF,DUMP_DIFF 94 lines (/tmp/uhdm-corpus.Dow7Is/dump.diff) 
+StreamOp,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 254 lines (/tmp/uhdm-corpus.O0GQBS/dump.diff) 
+static_cast_simple,DIFF,DUMP_DIFF 423 lines (/tmp/uhdm-corpus.3U3ZVd/dump.diff) 
+StreamOperatorBitReverseFunction,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 49 lines (/tmp/uhdm-corpus.DnF72Q/dump.diff) 
+StreamOpImplicitSliceSize,UNSUPPORTED,  expression kind: Streaming DUMP_DIFF 87 lines (/tmp/uhdm-corpus.zgRTFa/dump.diff) 
+StringAssignConcatenation,DIFF,DUMP_DIFF 107 lines (/tmp/uhdm-corpus.sIcLzW/dump.diff) 
 StreamOpInitialAlways,SLANG_REJECT,
-StringAssignment,DIFF,DUMP_DIFF 45 lines (/tmp/uhdm-corpus.g1EEYz/dump.diff) 
-StringLocalParamInitByConcatenation,DIFF,DUMP_DIFF 143 lines (/tmp/uhdm-corpus.HIVfPl/dump.diff) 
-StringWithBackslash,CMP_ONLY,DUMP_DIFF 8 lines (/tmp/uhdm-corpus.U8eSl1/dump.diff) 
-struct_3d_packed_array,DIFF,DUMP_DIFF 195 lines (/tmp/uhdm-corpus.5CdqiV/dump.diff) 
-struct_array_indexed_write,DIFF,DUMP_DIFF 160 lines (/tmp/uhdm-corpus.hCzDj5/dump.diff) 
+StringLocalParamInitByConcatenation,DIFF,DUMP_DIFF 143 lines (/tmp/uhdm-corpus.Nxu5uG/dump.diff) 
+StringAssignment,DIFF,DUMP_DIFF 45 lines (/tmp/uhdm-corpus.0LA1Th/dump.diff) 
+StringWithBackslash,CMP_ONLY,DUMP_DIFF 8 lines (/tmp/uhdm-corpus.iwIDUU/dump.diff) 
+struct_3d_packed_array,DIFF,DUMP_DIFF 195 lines (/tmp/uhdm-corpus.b8HwgV/dump.diff) 
+struct_array_indexed_write,DIFF,DUMP_DIFF 160 lines (/tmp/uhdm-corpus.0eBvRv/dump.diff) 
 struct_array,PASS,
-struct_init_partial_write,DIFF,DUMP_DIFF 185 lines (/tmp/uhdm-corpus.c1ND4s/dump.diff) 
-StructArrayParameterInitializedByPatternPassedAsPort,DIFF,DUMP_DIFF 1557 lines (/tmp/uhdm-corpus.gw50su/dump.diff) 
-StructInPackage,DIFF,DUMP_DIFF 107 lines (/tmp/uhdm-corpus.bjz2Vz/dump.diff) 
-struct_dynamic_range,DIFF,DUMP_DIFF 1306 lines (/tmp/uhdm-corpus.54WeKN/dump.diff) 
-struct_access,DIFF,DUMP_DIFF 9802 lines (/tmp/uhdm-corpus.SlcckY/dump.diff) 
-struct_little_endian_bit_array,DIFF,DUMP_DIFF 160 lines (/tmp/uhdm-corpus.BLGrfE/dump.diff) 
-StructLocalParam,DIFF,DUMP_DIFF 103 lines (/tmp/uhdm-corpus.VXlwV6/dump.diff) 
+struct_init_partial_write,DIFF,DUMP_DIFF 185 lines (/tmp/uhdm-corpus.b6NvSv/dump.diff) 
+StructArrayParameterInitializedByPatternPassedAsPort,DIFF,DUMP_DIFF 1557 lines (/tmp/uhdm-corpus.EmWZ5x/dump.diff) 
+StructInPackage,DIFF,DUMP_DIFF 107 lines (/tmp/uhdm-corpus.Q3Z68Q/dump.diff) 
+struct_access,DIFF,DUMP_DIFF 9802 lines (/tmp/uhdm-corpus.eoo9zv/dump.diff) 
+struct_dynamic_range,DIFF,DUMP_DIFF 1306 lines (/tmp/uhdm-corpus.rRWiJr/dump.diff) 
+struct_little_endian_bit_array,DIFF,DUMP_DIFF 160 lines (/tmp/uhdm-corpus.h09rJY/dump.diff) 
+StructLocalParam,DIFF,DUMP_DIFF 103 lines (/tmp/uhdm-corpus.Nr8Jqv/dump.diff) 
 struct_negative_index,SLANG_REJECT,
-StructPackedArray,DIFF,DUMP_DIFF 66 lines (/tmp/uhdm-corpus.dDjzCd/dump.diff) 
-StructMemberAsModuleInput,DIFF,DUMP_DIFF 19 lines (/tmp/uhdm-corpus.PAB5A4/dump.diff) 
-StructOfArrayOfStructs,DIFF,DUMP_DIFF 141 lines (/tmp/uhdm-corpus.dvLRuS/dump.diff) 
-StructPackedOutput,DIFF,DUMP_DIFF 160 lines (/tmp/uhdm-corpus.qwcL5L/dump.diff) 
-StructParameter,DIFF,DUMP_DIFF 103 lines (/tmp/uhdm-corpus.w26PRK/dump.diff) 
-struct_param_dim,DIFF,DUMP_DIFF 121 lines (/tmp/uhdm-corpus.LFlDxY/dump.diff) 
-StructParameterInitializedWithPatternAndReferenced,DIFF,DUMP_DIFF 135 lines (/tmp/uhdm-corpus.EkZyVZ/dump.diff) 
-struct_part_select_write,DIFF,DUMP_DIFF 110 lines (/tmp/uhdm-corpus.srzX3f/dump.diff) 
-struct_pat_fill,DIFF,DUMP_DIFF 86 lines (/tmp/uhdm-corpus.sXH32s/dump.diff) 
-struct_pattern_loop,DIFF,DUMP_DIFF 138 lines (/tmp/uhdm-corpus.j1R0Zr/dump.diff) 
+StructPackedArray,DIFF,DUMP_DIFF 66 lines (/tmp/uhdm-corpus.PvR3ZY/dump.diff) 
+StructMemberAsModuleInput,DIFF,DUMP_DIFF 19 lines (/tmp/uhdm-corpus.Zd3Dum/dump.diff) 
+StructOfArrayOfStructs,DIFF,DUMP_DIFF 141 lines (/tmp/uhdm-corpus.YmIonj/dump.diff) 
+StructPackedOutput,DIFF,DUMP_DIFF 160 lines (/tmp/uhdm-corpus.FlPyd9/dump.diff) 
+StructParameter,DIFF,DUMP_DIFF 103 lines (/tmp/uhdm-corpus.FmdOTi/dump.diff) 
+struct_param_dim,DIFF,DUMP_DIFF 121 lines (/tmp/uhdm-corpus.6hVN9y/dump.diff) 
+StructParameterInitializedWithPatternAndReferenced,DIFF,DUMP_DIFF 135 lines (/tmp/uhdm-corpus.IR4jDv/dump.diff) 
+struct_part_select_write,DIFF,DUMP_DIFF 110 lines (/tmp/uhdm-corpus.yS9opS/dump.diff) 
+struct_pat_fill,DIFF,DUMP_DIFF 86 lines (/tmp/uhdm-corpus.kHERLt/dump.diff) 
+struct_pattern_loop,DIFF,DUMP_DIFF 138 lines (/tmp/uhdm-corpus.vpnmzS/dump.diff) 
 StructParameterInGenScope,SLANG_REJECT,
 struct_unpacked_array_member,SURELOG_FAIL,
-struct_typedef_packed_array,DIFF,DUMP_DIFF 267 lines (/tmp/uhdm-corpus.CHNerW/dump.diff) 
-subbytes,DIFF,DUMP_DIFF 188 lines (/tmp/uhdm-corpus.7bQgfR/dump.diff) 
-SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,DIFF,DUMP_DIFF 494 lines (/tmp/uhdm-corpus.cUvPIy/dump.diff) 
-SumOfParametersInNestedForLoops,DIFF,DUMP_DIFF 197 lines (/tmp/uhdm-corpus.dM4n8t/dump.diff) 
-SumOfParameters,DIFF,DUMP_DIFF 144 lines (/tmp/uhdm-corpus.xOOk7E/dump.diff) 
+struct_typedef_packed_array,DIFF,DUMP_DIFF 267 lines (/tmp/uhdm-corpus.k1qMOk/dump.diff) 
+subbytes,DIFF,DUMP_DIFF 188 lines (/tmp/uhdm-corpus.Kijs9L/dump.diff) 
+SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule,DIFF,DUMP_DIFF 494 lines (/tmp/uhdm-corpus.5HddyI/dump.diff) 
+SumOfParametersInNestedForLoops,DIFF,DUMP_DIFF 197 lines (/tmp/uhdm-corpus.O5Jht8/dump.diff) 
+SumOfParameters,DIFF,DUMP_DIFF 144 lines (/tmp/uhdm-corpus.VMhYov/dump.diff) 
 struct_sizebits,SLANG_REJECT,
 sva_basic01,PASS,
+sva_basic02,CMP_ONLY,DUMP_DIFF 46 lines (/tmp/uhdm-corpus.a5KGsD/dump.diff) 
 sva_basic00,PASS,
-sva_basic02,CMP_ONLY,DUMP_DIFF 46 lines (/tmp/uhdm-corpus.bMqyi9/dump.diff) 
+sva_range,DIFF,DUMP_DIFF 76 lines (/tmp/uhdm-corpus.gUl8gb/dump.diff) 
 sva_basic03,PASS,
-sva_range,DIFF,DUMP_DIFF 76 lines (/tmp/uhdm-corpus.uLPF1C/dump.diff) 
 sva_not,PASS,
 sva_throughout,PASS,
-sva_counter,UNSUPPORTED,  expression kind: AssertionInstance DUMP_DIFF 306 lines (/tmp/uhdm-corpus.rG49BY/dump.diff) 
+sva_counter,UNSUPPORTED,  expression kind: AssertionInstance DUMP_DIFF 306 lines (/tmp/uhdm-corpus.WTtqA0/dump.diff) 
 sva_value_change_changed,PASS,
 sva_value_change_rose,PASS,
 svinterface1,SLANG_REJECT,
-svinterface_at_top,SLANG_REJECT,
 sva_value_change_changed_wide,PASS,
+svinterface_at_top,SLANG_REJECT,
 svtypes_enum_simple,SLANG_REJECT,
-svtypes_struct_simple,DIFF,DUMP_DIFF 1025 lines (/tmp/uhdm-corpus.UHL8JY/dump.diff) 
 svtypes_struct_array,SURELOG_FAIL,
-sva_value_change_sim,UNSUPPORTED,  expression kind: ClockingEvent   statement kind: ConcurrentAssertion DUMP_DIFF 1288 lines (/tmp/uhdm-corpus.NtDvhD/dump.diff) 
-TaskExportDPI,PASS,
+svtypes_struct_simple,DIFF,DUMP_DIFF 1025 lines (/tmp/uhdm-corpus.5tqxoV/dump.diff) 
+sva_value_change_sim,UNSUPPORTED,  expression kind: ClockingEvent   statement kind: ConcurrentAssertion DUMP_DIFF 1288 lines (/tmp/uhdm-corpus.E9Kf51/dump.diff) 
 TaskImportDPI,PASS,
+TaskExportDPI,PASS,
 synthesis,SLANG_REJECT,
 SystemFunctions,PASS,
 TypedefAlias,SLANG_REJECT,
-TypedefAliasInPackage,DIFF,DUMP_DIFF 92 lines (/tmp/uhdm-corpus.SfRrJp/dump.diff) 
+TypedefAliasInPackage,DIFF,DUMP_DIFF 92 lines (/tmp/uhdm-corpus.eTNtni/dump.diff) 
 TaskOutputArgument,SLANG_REJECT,
-TaskReturn,UNSUPPORTED,  statement kind: ProceduralAssign DUMP_DIFF 102 lines (/tmp/uhdm-corpus.9d50Hx/dump.diff) 
-TypedefedFunctionReturn,DIFF,DUMP_DIFF 53 lines (/tmp/uhdm-corpus.KS4oz2/dump.diff) 
-TypedefedFunctionArgument,DIFF,DUMP_DIFF 35 lines (/tmp/uhdm-corpus.X9t8sc/dump.diff) 
-TypedefedRangedFunctionReturn,UNSUPPORTED,DUMP_DIFF 122 lines (/tmp/uhdm-corpus.OX9Z15/dump.diff) 
-TypedefedRangedFunctionArgument,UNSUPPORTED,DUMP_DIFF 90 lines (/tmp/uhdm-corpus.nJ3hVm/dump.diff) 
-TypedefOnFileLevel,DIFF,DUMP_DIFF 34 lines (/tmp/uhdm-corpus.5NBBGP/dump.diff) 
+TaskReturn,UNSUPPORTED,  statement kind: ProceduralAssign DUMP_DIFF 102 lines (/tmp/uhdm-corpus.gxC6Qb/dump.diff) 
+TypedefedFunctionReturn,DIFF,DUMP_DIFF 53 lines (/tmp/uhdm-corpus.pJZEkK/dump.diff) 
+TypedefedFunctionArgument,DIFF,DUMP_DIFF 35 lines (/tmp/uhdm-corpus.JWQ5mV/dump.diff) 
+TypedefedRangedFunctionReturn,UNSUPPORTED,DUMP_DIFF 122 lines (/tmp/uhdm-corpus.pK425y/dump.diff) 
+TypedefedRangedFunctionArgument,UNSUPPORTED,DUMP_DIFF 90 lines (/tmp/uhdm-corpus.Pgc04k/dump.diff) 
 TypedefInModule,PASS,
-TypedefInModulePort,DIFF,DUMP_DIFF 21 lines (/tmp/uhdm-corpus.woYYcZ/dump.diff) 
-TypedefEnum,DIFF,DUMP_DIFF 116 lines (/tmp/uhdm-corpus.NmTRgW/dump.diff) 
+TypedefInModulePort,DIFF,DUMP_DIFF 21 lines (/tmp/uhdm-corpus.4bL5gf/dump.diff) 
+TypedefOnFileLevel,DIFF,DUMP_DIFF 34 lines (/tmp/uhdm-corpus.vNIbye/dump.diff) 
+TypedefEnum,DIFF,DUMP_DIFF 116 lines (/tmp/uhdm-corpus.HVnqy6/dump.diff) 
 typedef_param,SURELOG_FAIL,
-typedef_packed_enum_array,UNSUPPORTED,DUMP_DIFF 170 lines (/tmp/uhdm-corpus.9tW6DA/dump.diff) 
-TypedefPackedDimensions,UNSUPPORTED,DUMP_DIFF 180 lines (/tmp/uhdm-corpus.jX0bfh/dump.diff) 
-typedef_package,DIFF,DUMP_DIFF 340 lines (/tmp/uhdm-corpus.E9lwKJ/dump.diff) 
-typedef_simple,UNSUPPORTED,DUMP_DIFF 108 lines (/tmp/uhdm-corpus.SGhdHj/dump.diff) 
-TypedefStructArray,UNSUPPORTED,DUMP_DIFF 79 lines (/tmp/uhdm-corpus.IYkj2t/dump.diff) 
-TypedefStructParamWithRangeInSubmodule,DIFF,DUMP_DIFF 1903 lines (/tmp/uhdm-corpus.6cghIm/dump.diff) 
-typedef_unpacked_input,DIFF,DUMP_DIFF 163 lines (/tmp/uhdm-corpus.ErligY/dump.diff) 
-TypedefWithParameter,DIFF,DUMP_DIFF 61 lines (/tmp/uhdm-corpus.5I6yyI/dump.diff) 
-TypedefVariableDimensions,DIFF,DUMP_DIFF 138 lines (/tmp/uhdm-corpus.l5KzuF/dump.diff) 
-TypeParameterAsPortTypeWithEnum,DIFF,DUMP_DIFF 275 lines (/tmp/uhdm-corpus.EewyP0/dump.diff) 
-TypeParameterAsPortTypeWithEnumOfParametrizedWidth,DIFF,DUMP_DIFF 131 lines (/tmp/uhdm-corpus.T2LxN5/dump.diff) 
-TypeParameterAsPortTypeWithLogic,UNSUPPORTED,DUMP_DIFF 229 lines (/tmp/uhdm-corpus.cV8DjL/dump.diff) 
-TypeParameterAsPortTypeWithLogicAnonymous,UNSUPPORTED,DUMP_DIFF 132 lines (/tmp/uhdm-corpus.1DTQ6F/dump.diff) 
+typedef_packed_enum_array,UNSUPPORTED,DUMP_DIFF 170 lines (/tmp/uhdm-corpus.kVWVWI/dump.diff) 
+TypedefPackedDimensions,UNSUPPORTED,DUMP_DIFF 180 lines (/tmp/uhdm-corpus.eK5Mtn/dump.diff) 
+typedef_package,DIFF,DUMP_DIFF 340 lines (/tmp/uhdm-corpus.sg819D/dump.diff) 
+typedef_simple,UNSUPPORTED,DUMP_DIFF 108 lines (/tmp/uhdm-corpus.YAKoZo/dump.diff) 
+TypedefStructArray,UNSUPPORTED,DUMP_DIFF 79 lines (/tmp/uhdm-corpus.vPpMGM/dump.diff) 
+TypedefStructParamWithRangeInSubmodule,DIFF,DUMP_DIFF 1903 lines (/tmp/uhdm-corpus.QjqAzr/dump.diff) 
+TypedefWithParameter,DIFF,DUMP_DIFF 61 lines (/tmp/uhdm-corpus.4X4aRO/dump.diff) 
+typedef_unpacked_input,DIFF,DUMP_DIFF 163 lines (/tmp/uhdm-corpus.mTMCpe/dump.diff) 
+TypedefVariableDimensions,DIFF,DUMP_DIFF 138 lines (/tmp/uhdm-corpus.I9WZWf/dump.diff) 
+TypeParameterAsPortTypeWithEnum,DIFF,DUMP_DIFF 275 lines (/tmp/uhdm-corpus.hUHsmH/dump.diff) 
+TypeParameterAsPortTypeWithEnumOfParametrizedWidth,DIFF,DUMP_DIFF 131 lines (/tmp/uhdm-corpus.VdFESc/dump.diff) 
+TypeParameterAsPortTypeWithLogic,UNSUPPORTED,DUMP_DIFF 229 lines (/tmp/uhdm-corpus.Slddgu/dump.diff) 
+TypeParameterAsPortTypeWithLogicAnonymous,UNSUPPORTED,DUMP_DIFF 132 lines (/tmp/uhdm-corpus.bHG4Hm/dump.diff) 
 unary_op_not_log,PASS,
 unary_op_minus,PASS,
 unary_op_plus,PASS,
-unbased_unsized_shift,DIFF,DUMP_DIFF 52 lines (/tmp/uhdm-corpus.ZbeuJE/dump.diff) 
-unbased_unsized,DIFF,DUMP_DIFF 26 lines (/tmp/uhdm-corpus.xPEF9I/dump.diff) 
-ucsbece154b_victim_cache,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 859 lines (/tmp/uhdm-corpus.AYyoCo/dump.diff) 
-unbased_unsized_param,DIFF,DUMP_DIFF 484 lines (/tmp/uhdm-corpus.cHwYy7/dump.diff) 
+unbased_unsized_shift,DIFF,DUMP_DIFF 52 lines (/tmp/uhdm-corpus.o8wKC1/dump.diff) 
+ucsbece154b_victim_cache,UNSUPPORTED,  expression kind: Invalid DUMP_DIFF 859 lines (/tmp/uhdm-corpus.bSED2O/dump.diff) 
+unbased_unsized,DIFF,DUMP_DIFF 26 lines (/tmp/uhdm-corpus.IUtrsT/dump.diff) 
+unbased_unsized_param,DIFF,DUMP_DIFF 484 lines (/tmp/uhdm-corpus.lzg5TO/dump.diff) 
 UnionInPackageWithMultirange,SLANG_REJECT,
-UnionCustomTypeMultirange,DIFF,DUMP_DIFF 929 lines (/tmp/uhdm-corpus.p1Wzwb/dump.diff) 
+UnionCustomTypeMultirange,DIFF,DUMP_DIFF 929 lines (/tmp/uhdm-corpus.JT7myx/dump.diff) 
 union4_repro,SLANG_REJECT,
-UnionInsideStruct,UNSUPPORTED,DUMP_DIFF 158 lines (/tmp/uhdm-corpus.DWCUrv/dump.diff) 
-UnionParameter,DIFF,DUMP_DIFF 249 lines (/tmp/uhdm-corpus.5WwueC/dump.diff) 
-union_simple,UNSUPPORTED,DUMP_DIFF 1170 lines (/tmp/uhdm-corpus.I4jvPN/dump.diff) 
+UnionInsideStruct,UNSUPPORTED,DUMP_DIFF 158 lines (/tmp/uhdm-corpus.sX8sTD/dump.diff) 
+UnionParameter,DIFF,DUMP_DIFF 249 lines (/tmp/uhdm-corpus.aIdikl/dump.diff) 
+union_simple,UNSUPPORTED,DUMP_DIFF 1170 lines (/tmp/uhdm-corpus.cOfPpv/dump.diff) 
+union_param_repro,UNSUPPORTED,DUMP_DIFF 74 lines (/tmp/uhdm-corpus.1aWQKv/dump.diff) 
 unique_case,PASS,
-union_param_repro,UNSUPPORTED,DUMP_DIFF 74 lines (/tmp/uhdm-corpus.z6d2UU/dump.diff) 
 unique_case_default,PASS,
-UnpackedArray,DIFF,DUMP_DIFF 95 lines (/tmp/uhdm-corpus.rjEYDX/dump.diff) 
-UnitForLoop,PASS,
 unnamed_block_decl,PASS,
+UnitForLoop,PASS,
+UnpackedArray,DIFF,DUMP_DIFF 95 lines (/tmp/uhdm-corpus.7S0GPH/dump.diff) 
+UnsizedConst,CMP_ONLY,DUMP_DIFF 21 lines (/tmp/uhdm-corpus.Q4enR3/dump.diff) 
 UnsizedConstant,PASS,
-UnsizedConst,CMP_ONLY,DUMP_DIFF 21 lines (/tmp/uhdm-corpus.cCCQ9Z/dump.diff) 
-unpacked_struct_array_typedef,UNSUPPORTED,  member select base DUMP_DIFF 366 lines (/tmp/uhdm-corpus.x0At6I/dump.diff) 
-UnsizedConstantsParameterParsing,DIFF,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.JUB1wi/dump.diff) 
-unpacked_array_shift_ff,CMP_ONLY,DUMP_DIFF 4 lines (/tmp/uhdm-corpus.lc74Gn/dump.diff) 
-UnsizedConstantParameter,DIFF,DUMP_DIFF 37 lines (/tmp/uhdm-corpus.3OyTCc/dump.diff) 
+unpacked_struct_array_typedef,UNSUPPORTED,  member select base DUMP_DIFF 366 lines (/tmp/uhdm-corpus.tQRbKM/dump.diff) 
+UnsizedConstantsParameterParsing,DIFF,DUMP_DIFF 6 lines (/tmp/uhdm-corpus.vGvrj1/dump.diff) 
+unpacked_array_shift_ff,CMP_ONLY,DUMP_DIFF 4 lines (/tmp/uhdm-corpus.xEC9qs/dump.diff) 
+UnsizedConstantParameter,DIFF,DUMP_DIFF 37 lines (/tmp/uhdm-corpus.gZO0MP/dump.diff) 
 UnsizedConstantsParsing,PASS,
 UnsizedConstantParameterInInstance,PASS,
 VarInFor,PASS,
-various_abc9,PASS,
 various_struct_access,SLANG_REJECT,
-VarPassedTo2Submodules,DIFF,DUMP_DIFF 340 lines (/tmp/uhdm-corpus.TGeN3A/dump.diff) 
+various_abc9,PASS,
+VarPassedTo2Submodules,DIFF,DUMP_DIFF 340 lines (/tmp/uhdm-corpus.63hWlh/dump.diff) 
 VarSelect,PASS,
-verilog_primitives,DIFF,DUMP_DIFF 526 lines (/tmp/uhdm-corpus.iqfcML/dump.diff) 
+verilog_primitives,DIFF,DUMP_DIFF 526 lines (/tmp/uhdm-corpus.080HpR/dump.diff) 
 VoidFunction,PASS,
 VoidFunctionWithoutReturn,PASS,
 VoidFunction2Returns,SLANG_REJECT,
-vector_index,DIFF,DUMP_DIFF 946 lines (/tmp/uhdm-corpus.ePaWjp/dump.diff) 
-wildcard_eq,DIFF,DUMP_DIFF 214 lines (/tmp/uhdm-corpus.drL4Lx/dump.diff) 
+vector_index,DIFF,DUMP_DIFF 946 lines (/tmp/uhdm-corpus.8OxhVA/dump.diff) 
+wildcard_eq,DIFF,DUMP_DIFF 214 lines (/tmp/uhdm-corpus.F4XaUK/dump.diff) 
 WireNotStartingFromZero,PASS,
-wandwor,DIFF,DUMP_DIFF 280 lines (/tmp/uhdm-corpus.kiY61P/dump.diff) 
+wandwor,DIFF,DUMP_DIFF 280 lines (/tmp/uhdm-corpus.hW1Fts/dump.diff) 
 wreduce_test0,PASS,
 wreduce_test1,PASS,
 xor_assignment,PASS,
