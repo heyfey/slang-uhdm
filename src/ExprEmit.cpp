@@ -1307,10 +1307,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // (sub.req.arr[i]): hier_path with a final bit_select element.
             {
                 const Expression* bb = &stripImplicitConv(es.value());
-                while (bb->kind == ExpressionKind::MemberAccess)
-                    bb = &bb->as<MemberAccessExpression>().value();
+                while (bb->kind == ExpressionKind::MemberAccess ||
+                       bb->kind == ExpressionKind::ElementSelect) {
+                    if (bb->kind == ExpressionKind::MemberAccess)
+                        bb = &bb->as<MemberAccessExpression>().value();
+                    else
+                        bb = &bb->as<ElementSelectExpression>().value();
+                }
                 if (bb->kind == ExpressionKind::ArbitrarySymbol ||
-                    bb->kind == ExpressionKind::HierarchicalValue) {
+                    bb->kind == ExpressionKind::HierarchicalValue ||
+                    (bb->kind == ExpressionKind::NamedValue &&
+                     stripImplicitConv(es.value()).kind !=
+                         ExpressionKind::NamedValue)) {
                     std::string baseDotted = rawText(es.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
                         std::string selText = rawText(expr.sourceRange);
