@@ -238,6 +238,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         n->VpiFullName(prefix + "." + std::string(ip.name));
         n->VpiParent(m);
         setLocNamed(n, ip);
+        info.nets[portBase] = n;
         nets->push_back(n);
     }
     // Connection-site logic_net for each scalar interface passed to a child
@@ -251,6 +252,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 continue;
             auto conn = pb->as<InterfacePortSymbol>().getConnection();
             if (!conn.first || conn.first->kind != SymbolKind::Instance)
+                continue;
+            // A PASSTHROUGH conn (the iface lives in an OUTER module) gets
+            // no connection-site net here.
+            if (conn.first->getParentScope() != (const Scope*)&body)
                 continue;
             const PortConnection* pc = nullptr;
             for (auto cc : child.getPortConnections())
@@ -597,7 +602,17 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                             r->VpiFullName(prefix + "." + std::string(child.name) + "." +
                                            std::string(conn->port.name) + "." +
                                            std::string(r->VpiName()));
-                            if (auto nit = ifaceConnNet.find(cc); nit != ifaceConnNet.end())
+                            // A PASSTHROUGH conn binds this module's own
+                            // iface-port net, not the outer instance's.
+                            const Symbol* site =
+                                body.find(std::string(r->VpiName()));
+                            if (site && site->kind == SymbolKind::InterfacePort) {
+                                if (auto nit2 = info.nets.find(site);
+                                    nit2 != info.nets.end())
+                                    r->Actual_group(nit2->second);
+                            }
+                            else if (auto nit = ifaceConnNet.find(cc);
+                                     nit != ifaceConnNet.end())
                                 r->Actual_group(nit->second);
                         }
                     }
@@ -1163,48 +1178,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         currentTopPrefix = prefix;
         currentTopNets = &topNets;
     }
-    auto* children = s.MakeModule_instVec();
-    auto* ifaceChildren = s.MakeInterface_instVec();
-    for (auto& member : body.members()) {
-        if (member.kind == SymbolKind::Instance) {
-            auto& child = member.as<InstanceSymbol>();
-            // Interface instances become interface_inst under vpiInterface.
-            if (useInterfacePath(child)) {
-                auto* ii = emitInterfaceInstance(
-                    child, prefix + "." + std::string(child.name), m, &topNets, &instRefs);
-                ifaceInstMap[&child] = ii;
-                ifaceChildren->push_back(ii);
-                continue;
-            }
-            // Bound instances path directly under the top module.
-            bool fromBind = false;
-            for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
-                if (p2->kind == syntax::SyntaxKind::BindDirective) {
-                    fromBind = true;
-                    break;
-                }
-            }
-            if (fromBind && !currentTopPrefix.empty())
-                bindDisplayPath = currentTopPrefix + "." + std::string(child.name);
-            children->push_back(emitInstance(child, prefix + "." + std::string(child.name), m,
-                                             &topNets, &instRefs, /*isTop=*/false));
-            bindDisplayPath.clear();
-        }
-    }
-    if (!children->empty())
-        m->Modules(children);
-    if (!ifaceChildren->empty())
-        m->Interfaces(ifaceChildren);
-
-    // Instance-view ports each get a fresh typespec object (no sharing).
-    // Top-level instances' ports are emitted in a second pass over all tops
-    // (Surelog write phase), after every top's netlist elaboration.
+    // Interface PORTS and their instance-scoped views are emitted BEFORE
+    // the children (their typespecs/views precede child objects in
+    // Surelog's arena); regular ports keep the children-first order.
+    std::map<const Symbol*, UHDM::port*> ifacePortObjs;
+    auto* portIfaces = s.MakeInterface_instVec();
     if (!isTop) {
-        auto* ports = s.MakePortVec();
+        std::vector<UHDM::port*> ifPortList;
         for (auto portBase : body.getPortList()) {
-            // Elab InterfacePort: LowConn ref_obj -> modport, HighConn ref_obj
-            // -> the connected interface_inst.
-            if (portBase->kind == SymbolKind::InterfacePort) {
+            if (portBase->kind != SymbolKind::InterfacePort)
+                continue;
+            {
                 auto& ip = portBase->as<InterfacePortSymbol>();
                 const PortConnection* iconn = nullptr;
                 for (auto c : inst.getPortConnections())
@@ -1289,10 +1273,21 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         hc->VpiParent(p);
                         // Points at the col-0 tail duplicate of the interface
                         // (weak ref → weaklyReferenced tail), falling back to
-                        // the home view when no dup exists.
+                        // the home view when no dup exists. A PASSTHROUGH
+                        // (the conn names the ENCLOSING module's own iface
+                        // PORT) binds that module's port view instead.
+                        const Symbol* connSite = nullptr;
+                        if (iconn && connectionExpr(*iconn))
+                            if (auto ps9 = inst.getParentScope())
+                                connSite = ps9->find(
+                                    rawText(connectionExpr(*iconn)->sourceRange));
+                        auto pvIt = connSite && connSite->kind == SymbolKind::InterfacePort
+                                        ? ifacePortViewMap.find(connSite)
+                                        : ifacePortViewMap.end();
                         auto dit = ifaceTailDup.find(conn.first);
-                        hc->Actual_group(dit != ifaceTailDup.end() ? dit->second
-                                                                   : iit->second);
+                        hc->Actual_group(pvIt != ifacePortViewMap.end() ? pvIt->second
+                                         : dit != ifaceTailDup.end()   ? dit->second
+                                                                       : iit->second);
                         if (iconn && connectionExpr(*iconn))
                             setLoc(hc, connectionExpr(*iconn)->sourceRange);
                         p->High_conn(hc);
@@ -1304,7 +1299,96 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 rt->VpiParent(p);
                 rt->Actual_typespec(its);
                 p->Typespec(rt);
-                ports->push_back(p);
+                ifacePortObjs[portBase] = p;
+                ifPortList.push_back(p);
+            }
+        }
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip = portBase->as<InterfacePortSymbol>();
+            auto conn = ip.getConnection();
+            if (conn.first && conn.first->kind == SymbolKind::Instance) {
+                auto* ii = emitInterfaceInstance(
+                    conn.first->as<InstanceSymbol>(),
+                    prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
+                    /*portView=*/&inst);
+                // A port view is named by the PORT, not the connected instance.
+                ii->VpiName(std::string(portBase->name));
+                portIfaces->push_back(ii);
+                ifacePortViewMap[portBase] = ii;
+                // A plain (no-modport) interface port lists the view TWICE
+                // under vpiInterface and re-points the LowConn ref at it,
+                // dropping the ref's port parent (Surelog quirks).
+                if (ip.modport.empty()) {
+                    portIfaces->push_back(ii);
+                    for (auto* pp : ifPortList)
+                        if (pp->VpiName() == ip.name && pp->Low_conn() &&
+                            pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj) {
+                            auto* lr = (UHDM::ref_obj*)pp->Low_conn();
+                            lr->Actual_group(ii);
+                            lr->VpiParent(nullptr);
+                        }
+                }
+                // Re-point the port's Low_conn ref_obj from the shared def
+                // modport to this port view's own modport (which carries the
+                // io_decl exprs + Interface_inst back-pointer Surelog expects).
+                if (!ip.modport.empty() && ii->Modports())
+                    for (auto* pp : ifPortList)
+                        if (pp->VpiName() == ip.name && pp->Low_conn() &&
+                            pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
+                            for (auto* umod : *ii->Modports())
+                                if (umod->VpiName() == ip.modport)
+                                    ((UHDM::ref_obj*)pp->Low_conn())
+                                        ->Actual_group(umod);
+            }
+        }
+    }
+
+    auto* children = s.MakeModule_instVec();
+    auto* ifaceChildren = s.MakeInterface_instVec();
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::Instance) {
+            auto& child = member.as<InstanceSymbol>();
+            // Interface instances become interface_inst under vpiInterface.
+            if (useInterfacePath(child)) {
+                auto* ii = emitInterfaceInstance(
+                    child, prefix + "." + std::string(child.name), m, &topNets, &instRefs);
+                ifaceInstMap[&child] = ii;
+                ifaceChildren->push_back(ii);
+                continue;
+            }
+            // Bound instances path directly under the top module.
+            bool fromBind = false;
+            for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
+                if (p2->kind == syntax::SyntaxKind::BindDirective) {
+                    fromBind = true;
+                    break;
+                }
+            }
+            if (fromBind && !currentTopPrefix.empty())
+                bindDisplayPath = currentTopPrefix + "." + std::string(child.name);
+            children->push_back(emitInstance(child, prefix + "." + std::string(child.name), m,
+                                             &topNets, &instRefs, /*isTop=*/false));
+            bindDisplayPath.clear();
+        }
+    }
+    if (!children->empty())
+        m->Modules(children);
+    if (!ifaceChildren->empty())
+        m->Interfaces(ifaceChildren);
+
+    // Instance-view ports each get a fresh typespec object (no sharing).
+    // Top-level instances' ports are emitted in a second pass over all tops
+    // (Surelog write phase), after every top's netlist elaboration.
+    if (!isTop) {
+        auto* ports = s.MakePortVec();
+        for (auto portBase : body.getPortList()) {
+            // Elab InterfacePort: emitted in the pre-children pass above.
+            if (portBase->kind == SymbolKind::InterfacePort) {
+                if (auto it9 = ifacePortObjs.find(portBase);
+                    it9 != ifacePortObjs.end())
+                    ports->push_back(it9->second);
                 continue;
             }
             if (portBase->kind != SymbolKind::Port)
@@ -1456,53 +1540,16 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         if (!ports->empty())
             m->Ports(ports);
-        // A module with interface ports exposes an instance-scoped
-        // interface_inst view per port (work@top.m0.bus) under its vpiInterface.
-        auto* portIfaces = s.MakeInterface_instVec();
+        // Interfaces: declared iface children first, then the port views
+        // (built in the pre-children pass).
+        auto* allIf = s.MakeInterface_instVec();
         if (ifaceChildren)
             for (auto* ic : *ifaceChildren)
-                portIfaces->push_back(ic);
-        for (auto portBase : body.getPortList()) {
-            if (portBase->kind != SymbolKind::InterfacePort)
-                continue;
-            auto& ip = portBase->as<InterfacePortSymbol>();
-            auto conn = ip.getConnection();
-            if (conn.first && conn.first->kind == SymbolKind::Instance) {
-                auto* ii = emitInterfaceInstance(
-                    conn.first->as<InstanceSymbol>(),
-                    prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
-                    /*portView=*/&inst);
-                // A port view is named by the PORT, not the connected instance.
-                ii->VpiName(std::string(portBase->name));
-                portIfaces->push_back(ii);
-                // A plain (no-modport) interface port lists the view TWICE
-                // under vpiInterface and re-points the LowConn ref at it,
-                // dropping the ref's port parent (Surelog quirks).
-                if (ip.modport.empty()) {
-                    portIfaces->push_back(ii);
-                    for (auto* pp : *ports)
-                        if (pp->VpiName() == ip.name && pp->Low_conn() &&
-                            pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj) {
-                            auto* lr = (UHDM::ref_obj*)pp->Low_conn();
-                            lr->Actual_group(ii);
-                            lr->VpiParent(nullptr);
-                        }
-                }
-                // Re-point the port's Low_conn ref_obj from the shared def
-                // modport to this port view's own modport (which carries the
-                // io_decl exprs + Interface_inst back-pointer Surelog expects).
-                if (!ip.modport.empty() && ii->Modports())
-                    for (auto* pp : *ports)
-                        if (pp->VpiName() == ip.name && pp->Low_conn() &&
-                            pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
-                            for (auto* umod : *ii->Modports())
-                                if (umod->VpiName() == ip.modport)
-                                    ((UHDM::ref_obj*)pp->Low_conn())
-                                        ->Actual_group(umod);
-            }
-        }
-        if (!portIfaces->empty())
-            m->Interfaces(portIfaces);
+                allIf->push_back(ic);
+        for (auto* pv : *portIfaces)
+            allIf->push_back(pv);
+        if (!allIf->empty())
+            m->Interfaces(allIf);
     }
 
     std::set<const Symbol*> caLhsSyms;
@@ -2018,8 +2065,9 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     auto& body = tp.inst->body;
     // Deferred DEF iface-port typespecs precede the top write-phase ts
     // (created after the whole netlist-elab pass; Surelog arena order).
-    for (auto& [prt2, pip] : pendingIfacePortTs)
-        prt2->Actual_typespec(makeIfacePortTs(*pip));
+    for (auto it9 = pendingIfacePortTs.rbegin(); it9 != pendingIfacePortTs.rend();
+         ++it9)
+        it9->first->Actual_typespec(makeIfacePortTs(*it9->second));
     pendingIfacePortTs.clear();
     // Package function return locals precede all module write-phase ts.
     drainFuncRet(/*pkgOnly=*/true);
@@ -2680,8 +2728,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (topView && l0.kind == ExpressionKind::HierarchicalValue &&
                 prefix.find('.') != std::string::npos && ldot != std::string::npos) {
                 auto* bsym = body.find(lraw.substr(0, ldot));
-                if (bsym && bsym->kind == SymbolKind::InterfacePort)
+                if (bsym && bsym->kind == SymbolKind::InterfacePort) {
                     ifaceDotFresh = true;
+                    // A PASSTHROUGH-connected port (the conn names the
+                    // instantiating module's own iface PORT) keeps the
+                    // SHARED def cont_assign.
+                    if (auto pi9 = body.parentInstance)
+                        for (auto pc9 : pi9->getPortConnections())
+                            if (&pc9->port == bsym)
+                                if (auto ce9 = connectionExpr(*pc9))
+                                    if (auto ps9 = pi9->getParentScope())
+                                        if (auto* cs9 = ps9->find(
+                                                rawText(ce9->sourceRange));
+                                            cs9 && cs9->kind ==
+                                                       SymbolKind::InterfacePort)
+                                            ifaceDotFresh = false;
+                }
             }
         }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&

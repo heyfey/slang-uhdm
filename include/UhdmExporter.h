@@ -170,6 +170,9 @@ private:
     // created after the receiving child's port-view emission (arena order).
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::InterfacePortSymbol*>>
         pendingIfacePortTs;
+    // InterfacePortSymbol -> its instance-scoped port view (passthrough
+    // children bind their HighConn at the enclosing module's view).
+    std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifacePortViewMap;
     // Interface instance -> its col-0 tail duplicate (see makeIfaceRefDup).
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifaceTailDup;
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
