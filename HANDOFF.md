@@ -2,7 +2,29 @@
 
 ## Autonomous convergence session (2026-07-19, uhdm-cmp=golden policy)
 
-PASS 270->273, cmp-passing 289->294, all merged to main, zero regressions
+FINAL: PASS 270->273, cmp-passing 289->294, ~15 commits, ZERO regressions
+(goldens 23/23 + full corpus + manual demotion check on every commit). Flips:
+simple_fsm, alu_sub, OneCast -> PASS; BitsCallOnExpression, Clog2,
+SizeOfGeneratedWireArray -> CMP_ONLY. Method that worked: branch + patch +
+full corpus + demotion check; commit clean wins, revert regressions.
+
+Frontier is now uniformly FEATURE-LEVEL (verified by categorizing all ~296
+DIFF cmp-failures by first-object): imported typedefs in modules, function-
+scoped casts, package enums referencing pkg params (fullname doubling
+pkg::pkg::), anon structs/unions (struct/union typespecs + members), real
+arithmetic, interface struct-member access (22 UNSUP), multidim packed arrays
+(7 UNSUP), assignment-as-expression (asgn_expr), packed unions. Each is hours
+of feature work with regression risk — NOT rushed autonomously. Correct
+partials already landed that ADVANCE many (no-default params, real typespec/
+value, enum-int base, typed/ranged param ts, string_typespec).
+
+Highest next leads (documented per-test above/below): (1) typespec-on-
+expression — extend the sys_func_call-RHS typespec mechanism (add names /
+investigate operation-RHS); (2) enum-with-pkg-param value + fullname doubling
+(3 tests: ReferencedPackageParameterInEnum, iface_pkg_enum_item,
+ImportedPackageEnumItemInInterface); (3) CastToSum range-unfold needs a NARROW
+trigger (param overridden), not the blanket def-port unfold (which cost -19).
+
 (later wins): 
 - **Typespec-on-expression cluster** (HIGH YIELD): a kept sys_func_call RHS of
   a cont-assign carries a ref_typespec sharing the LHS net's typespec. The
