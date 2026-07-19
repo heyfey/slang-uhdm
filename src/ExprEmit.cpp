@@ -1593,8 +1593,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (bb->kind == ExpressionKind::ArbitrarySymbol ||
                     bb->kind == ExpressionKind::HierarchicalValue ||
                     (bb->kind == ExpressionKind::NamedValue &&
-                     stripImplicitConv(rs.value()).kind ==
-                         ExpressionKind::MemberAccess)) {
+                     stripImplicitConv(rs.value()).kind !=
+                         ExpressionKind::NamedValue)) {
                     std::string baseDotted = rawText(rs.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
                         std::string selText = rawText(expr.sourceRange);
