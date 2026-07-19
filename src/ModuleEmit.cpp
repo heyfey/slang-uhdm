@@ -2305,6 +2305,28 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
                 ((UHDM::expr*)rhs)->VpiSize() == 64)
                 ((UHDM::expr*)rhs)->VpiSize((int32_t)dt->getType().getBitWidth());
+            // Unbased-unsized inits: '0 keeps BIN:0 but sizes at the net
+            // width; '1 UINT-folds at the width; 'x/'z stay unsized.
+            if (rhs->UhdmType() == UHDM::uhdmconstant &&
+                ((UHDM::expr*)rhs)->VpiSize() == -1) {
+                auto& uic = stripImplicitConv(*dt->getInitializer());
+                if (uic.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    logic_t ub = uic.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+                    auto* rc = (UHDM::constant*)rhs;
+                    int32_t w = (int32_t)dt->getType().getBitWidth();
+                    if (!ub.isUnknown()) {
+                        rc->VpiSize(w);
+                        if (ub.value) {
+                            slang::SVInt ones((slang::bitwidth_t)w, 0, false);
+                            ones = ~ones;
+                            std::string digits = ones.toString(LiteralBase::Decimal, false);
+                            rc->VpiValue("UINT:" + digits);
+                            rc->VpiDecompile(digits);
+                            rc->VpiConstType(vpiUIntConst);
+                        }
+                    }
+                }
+            }
             // A SIGNED based-literal RHS ('sb..) re-encodes as its signed
             // value (INT:<v>, decompile <v>, vpiIntConst).
             if (rhs->UhdmType() == UHDM::uhdmconstant) {

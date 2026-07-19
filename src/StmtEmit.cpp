@@ -258,6 +258,32 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 return result;
             }
+            // A LABELED immediate assertion (eff3: assert(x);) gets NO
+            // named_begin wrapper: the label becomes the assertion's own
+            // name (refs still scope through the label).
+            if (bs.blockSymbol && !bs.blockSymbol->name.empty() && !isFork &&
+                (!bs.syntax ||
+                 bs.syntax->kind != syntax::SyntaxKind::SequentialBlockStatement)) {
+                const Statement* inner = &bs.body;
+                if (inner->kind == StatementKind::List) {
+                    auto lst = inner->as<StatementList>().list;
+                    if (lst.size() == 1)
+                        inner = lst[0];
+                }
+                if (inner->kind == StatementKind::ImmediateAssertion) {
+                    std::string innerPfx = joinRef(prefix, bs.blockSymbol->name);
+                    auto* ua = emitStmt(*inner, parent, innerPfx, netMap);
+                    if (ua) {
+                        if (ua->UhdmType() == UHDM::uhdmimmediate_assert)
+                            ((UHDM::immediate_assert*)ua)->VpiName(bs.blockSymbol->name);
+                        else if (ua->UhdmType() == UHDM::uhdmimmediate_assume)
+                            ((UHDM::immediate_assume*)ua)->VpiName(bs.blockSymbol->name);
+                        else if (ua->UhdmType() == UHDM::uhdmimmediate_cover)
+                            ((UHDM::immediate_cover*)ua)->VpiName(bs.blockSymbol->name);
+                    }
+                    return ua;
+                }
+            }
             UHDM::scope* b = nullptr;
             std::string innerPrefix = prefix;
             if (bs.blockSymbol && !bs.blockSymbol->name.empty()) {
