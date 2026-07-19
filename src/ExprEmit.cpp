@@ -1254,6 +1254,61 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // Element select over a DOTTED interface-member path
+            // (sub.req.arr[i]): hier_path with a final bit_select element.
+            {
+                const Expression* bb = &stripImplicitConv(es.value());
+                while (bb->kind == ExpressionKind::MemberAccess)
+                    bb = &bb->as<MemberAccessExpression>().value();
+                if (bb->kind == ExpressionKind::ArbitrarySymbol ||
+                    bb->kind == ExpressionKind::HierarchicalValue) {
+                    std::string baseDotted = rawText(es.value().sourceRange);
+                    if (baseDotted.find('.') != std::string::npos) {
+                        std::string selText = rawText(expr.sourceRange);
+                        auto* hp = s.MakeHier_path();
+                        hp->VpiName(selText);
+                        hp->VpiFullName(selText);
+                        hp->VpiParent(parent);
+                        setLoc(hp, expr.sourceRange);
+                        auto* elems = s.MakeAnyVec();
+                        auto exprStart = es.value().sourceRange.start();
+                        std::vector<std::pair<std::string, size_t>> comps;
+                        for (size_t st = 0; st <= baseDotted.size();) {
+                            auto dot = baseDotted.find('.', st);
+                            if (dot == std::string::npos)
+                                dot = baseDotted.size();
+                            comps.emplace_back(baseDotted.substr(st, dot - st), st);
+                            if (dot == baseDotted.size())
+                                break;
+                            st = dot + 1;
+                        }
+                        for (size_t ci = 0; ci + 1 < comps.size(); ci++) {
+                            auto& [cn, co] = comps[ci];
+                            auto* r2 = s.MakeRef_obj();
+                            r2->VpiName(cn);
+                            r2->VpiFullName(cn); // name-only (dump omits)
+                            r2->VpiParent(hp);
+                            setLoc(r2, SourceRange(exprStart + co,
+                                                   exprStart + co + cn.size()));
+                            elems->push_back(r2);
+                        }
+                        std::string lastName =
+                            comps.empty() ? std::string{} : comps.back().first;
+                        size_t lastOff = comps.empty() ? 0 : comps.back().second;
+                        auto* bs2 = s.MakeBit_select();
+                        bs2->VpiName(lastName);
+                        bs2->VpiFullName(selText);
+                        bs2->VpiParent(hp);
+                        setLoc(bs2, SourceRange(exprStart + lastOff,
+                                                expr.sourceRange.end()));
+                        if (auto* ix2 = emitExpr(es.selector(), bs2, prefix, netMap))
+                            bs2->VpiIndex((UHDM::expr*)ix2);
+                        elems->push_back(bs2);
+                        hp->Path_elems(elems);
+                        return hp;
+                    }
+                }
+            }
             if (es.value().kind != ExpressionKind::NamedValue) {
                 noteUnsupported("element select base");
                 return nullptr;
@@ -1468,6 +1523,101 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     hp->Path_elems(elems);
                     return hp;
+                }
+            }
+            // Range select over a DOTTED interface-member path
+            // (sub.req.adr[A:B]): hier_path whose final element is the
+            // (indexed_)part_select named by the last component.
+            {
+                const Expression* bb = &stripImplicitConv(rs.value());
+                while (bb->kind == ExpressionKind::MemberAccess)
+                    bb = &bb->as<MemberAccessExpression>().value();
+                if (bb->kind == ExpressionKind::ArbitrarySymbol ||
+                    bb->kind == ExpressionKind::HierarchicalValue) {
+                    std::string baseDotted = rawText(rs.value().sourceRange);
+                    if (baseDotted.find('.') != std::string::npos) {
+                        std::string selText = rawText(expr.sourceRange);
+                        auto* hp = s.MakeHier_path();
+                        hp->VpiName(selText);
+                        hp->VpiFullName(selText);
+                        hp->VpiParent(parent);
+                        setLoc(hp, expr.sourceRange);
+                        auto* elems = s.MakeAnyVec();
+                        auto exprStart = rs.value().sourceRange.start();
+                        std::vector<std::pair<std::string, size_t>> comps;
+                        for (size_t st = 0; st <= baseDotted.size();) {
+                            auto dot = baseDotted.find('.', st);
+                            if (dot == std::string::npos)
+                                dot = baseDotted.size();
+                            comps.emplace_back(baseDotted.substr(st, dot - st), st);
+                            if (dot == baseDotted.size())
+                                break;
+                            st = dot + 1;
+                        }
+                        for (size_t ci = 0; ci + 1 < comps.size(); ci++) {
+                            auto& [cn, co] = comps[ci];
+                            auto* r2 = s.MakeRef_obj();
+                            r2->VpiName(cn);
+                            r2->VpiFullName(cn); // name-only (dump omits)
+                            r2->VpiParent(hp);
+                            setLoc(r2, SourceRange(exprStart + co,
+                                                   exprStart + co + cn.size()));
+                            elems->push_back(r2);
+                        }
+                        std::string lastName =
+                            comps.empty() ? std::string{} : comps.back().first;
+                        size_t lastOff = comps.empty() ? 0 : comps.back().second;
+                        SourceRange selLoc(exprStart + lastOff, expr.sourceRange.end());
+                        bool constSel = false;
+                        {
+                            ASTContext cctx(comp.getRoot(), LookupLocation::max);
+                            constSel =
+                                (rs.left().kind == ExpressionKind::IntegerLiteral ||
+                                 cctx.tryEval(rs.left())) &&
+                                (rs.right().kind == ExpressionKind::IntegerLiteral ||
+                                 cctx.tryEval(rs.right()));
+                        }
+                        bool sup = suppressConstParent;
+                        if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
+                            auto* ps2 = s.MakePart_select();
+                            ps2->VpiName(lastName);
+                            ps2->VpiFullName(selText);
+                            ps2->VpiParent(hp);
+                            setLoc(ps2, selLoc);
+                            if (constSel)
+                                ps2->VpiConstantSelect(true);
+                            suppressConstParent = isLiteralExpr(rs.left());
+                            if (auto* l = emitExpr(rs.left(), ps2, prefix, netMap))
+                                ps2->Left_range((UHDM::expr*)l);
+                            suppressConstParent = isLiteralExpr(rs.right());
+                            if (auto* r3 = emitExpr(rs.right(), ps2, prefix, netMap))
+                                ps2->Right_range((UHDM::expr*)r3);
+                            elems->push_back(ps2);
+                        }
+                        else {
+                            auto* ips2 = s.MakeIndexed_part_select();
+                            ips2->VpiName(lastName);
+                            ips2->VpiFullName(selText);
+                            ips2->VpiParent(hp);
+                            setLoc(ips2, selLoc);
+                            ips2->VpiIndexedPartSelectType(
+                                rs.getSelectionKind() == RangeSelectionKind::IndexedUp
+                                    ? 1
+                                    : 2);
+                            if (constSel)
+                                ips2->VpiConstantSelect(true);
+                            suppressConstParent = isLiteralExpr(rs.left());
+                            if (auto* b2 = emitExpr(rs.left(), ips2, prefix, netMap))
+                                ips2->Base_expr((UHDM::expr*)b2);
+                            suppressConstParent = isLiteralExpr(rs.right());
+                            if (auto* w2 = emitExpr(rs.right(), ips2, prefix, netMap))
+                                ips2->Width_expr((UHDM::expr*)w2);
+                            elems->push_back(ips2);
+                        }
+                        suppressConstParent = sup;
+                        hp->Path_elems(elems);
+                        return hp;
+                    }
                 }
             }
             if (rs.value().kind != ExpressionKind::NamedValue) {
