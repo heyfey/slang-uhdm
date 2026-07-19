@@ -399,6 +399,10 @@ private:
     // Task/function typespecs keep unfolded range expressions; module-level
     // typespecs fold them to INT constants.
     bool tfContext = false;
+    // True only while emitting a NAMED typedef's typespec: Surelog folds
+    // type-query bounds ($bits(t)) there, but keeps them as sys_func_call in a
+    // variable's inline/anonymous type. Gates the $bits fold in emitSyntaxExpr.
+    bool typedefTsContext = false;
     // Skip the shared-typedef shortcut (def-net drains clone vector
     // typedefs fresh).
     bool bypassTypedefShare = false;
