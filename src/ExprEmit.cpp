@@ -965,6 +965,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Built-in METHOD calls (e.first(), arr.size(): no leading $)
             // become hier_path shapes - not yet supported.
             if (name.empty() || name[0] != '$') {
+                // Built-in METHOD call (e.first(), s.putc(...)): hier_path
+                // [receiver ref (name-only), method_func_call named by the
+                // method] — Surelog's folded shape.
+                if (!call.arguments().empty()) {
+                    auto* recv = call.arguments()[0];
+                    std::string recvText = rawText(recv->sourceRange);
+                    if (!recvText.empty()) {
+                        auto* hp = s.MakeHier_path();
+                        std::string dotted = recvText + "." + name;
+                        hp->VpiName(dotted);
+                        hp->VpiFullName(dotted);
+                        hp->VpiParent(parent);
+                        setLoc(hp, expr.sourceRange);
+                        auto* elems = s.MakeAnyVec();
+                        auto* r0 = s.MakeRef_obj();
+                        r0->VpiName(recvText);
+                        r0->VpiFullName(recvText); // name-only (dump omits)
+                        r0->VpiParent(hp);
+                        setLoc(r0, recv->sourceRange);
+                        elems->push_back(r0);
+                        auto* mfc = s.MakeMethod_func_call();
+                        mfc->VpiName(name);
+                        mfc->VpiParent(hp);
+                        auto mStart = recv->sourceRange.end() + 1;
+                        setLoc(mfc, SourceRange(mStart, mStart + name.size()));
+                        // Extra method args (past the receiver).
+                        auto* margs = s.MakeAnyVec();
+                        for (size_t ai = 1; ai < call.arguments().size(); ai++)
+                            if (auto* a2 =
+                                    emitExpr(*call.arguments()[ai], mfc, prefix, netMap))
+                                margs->push_back(a2);
+                        if (!margs->empty())
+                            mfc->Tf_call_args(margs);
+                        elems->push_back(mfc);
+                        hp->Path_elems(elems);
+                        return hp;
+                    }
+                }
                 noteUnsupported("system method call: " + name);
                 return nullptr;
             }
