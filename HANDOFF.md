@@ -2,14 +2,34 @@
 
 ## Session 9: session-8 ladder (in progress, 2026-07-19)
 
-**PASS 335->341, DIFF 283->277.** SEVEN items of the session-8 ladder are
-full byte-identical PASS: StringLocalParamInitByConcatenation,
-StructPackedOutput, ParameterOfSizeOfPort, AssignmentToConcatenation,
-ParameterInitializedByPartSelectOfParameters, **PatternInFunction** (now
-DONE — the function-body block lists the element int_var as a sibling
-before the array_var, and a folded call returning a[K] of a
-pattern-inited local locates its constant at the source element token by
-tracing the return expr's element-select through the local's pattern).
+**PASS 335->344, DIFF 283->274.** NINE items converged (byte-identical
+PASS): StringLocalParamInitByConcatenation, StructPackedOutput,
+ParameterOfSizeOfPort, AssignmentToConcatenation,
+ParameterInitializedByPartSelectOfParameters, PatternInFunction,
+wildcard_eq, asgn_expr (+ asgn_expr2 bonus).
+
+- **PatternInFunction**: function-body block lists the element int_var as
+  a sibling before the array_var; a folded call returning a[K] of a
+  pattern-inited local locates its constant at the source element token
+  (traces the return element-select through the local's pattern).
+- **wildcard_eq**: digit-separator underscores (4'b001x, 16'bxxxx_xxxx)
+  removed from decompile+value; a CONCAT with x/z bits folds (tryFoldConst)
+  to a full-width BINARY constant preserving 0/1/x/z (w'b<bits> decompile).
+- **asgn_expr / asgn_expr2**: an assignment used as an OPERAND or another
+  assignment's RHS (x = (y=...)+1) emits operation(vpiAssignmentOp=82) with
+  [lhs,rhs] operands + paren-inclusive span; a statement assignment stays
+  an assignment object. The embedded op's LHS ref parents at the ENCLOSING
+  assignment (enclosingAssign member), not its own op; a direct leaf-const
+  RHS unparents while nested-op operands parent normally.
+
+Probed **ParameterInitializedByPartSelectOfParametersAssignedToVar** (80):
+the same part-select param (`bit [DepthW:0] FullDepth = WidthRatio[..]`)
+but READ inside a GENERATE scope (`assign max_value = FullDepth`). Needs
+the gen-scope cont-assign path (emitGenScopes — a SEPARATE simpler emitter)
+to gain the typedParamRhs / moduleParamFoldConst fold+share machinery and
+the int'(x) cast emission that emitContAssigns already has; plus the fold
+constant's ts here is the param's bit_typespec (4:15-4:29), not the fresh
+logic_typespec. Substantial (duplicate the fold logic into emitGenScopes).
 
 **NEXT LADDER (fresh difsize)**: iface_modport_conn (68), AssignArraySelPlus
 (69), ImportTypeOfPort (69), TypedefAliasInPackage (70), iface_modport_out
