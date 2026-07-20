@@ -585,7 +585,9 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         if (syntax::BinaryExpressionSyntax::isKind(bsyn->kind)) {
                             // A subtract bound (N-1) reduces to a signed INT;
                             // other operators (N+1, N*2) reduce to UINT. Both
-                            // anchor at the left-operand span.
+                            // anchor at the left-operand span — except in a
+                            // typedef-signal CLONE, where the constant stays
+                            // BARE (no loc, no parent).
                             if (bsyn->kind == syntax::SyntaxKind::SubtractExpression) {
                                 c->VpiConstType(vpiIntConst);
                                 c->VpiValue("INT:" + digits);
@@ -594,8 +596,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 c->VpiConstType(vpiUIntConst);
                                 c->VpiValue("UINT:" + digits);
                             }
-                            setLoc(c, bsyn->as<syntax::BinaryExpressionSyntax>()
-                                          .left->sourceRange());
+                            if (bareCloneComputedBounds)
+                                c->VpiParent(nullptr);
+                            else
+                                setLoc(c, bsyn->as<syntax::BinaryExpressionSyntax>()
+                                              .left->sourceRange());
                         }
                         else {
                             // A bound that references an int-encoded param

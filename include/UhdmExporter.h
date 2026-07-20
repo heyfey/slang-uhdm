@@ -537,6 +537,9 @@ private:
     // type-query bounds ($bits(t)) there, but keeps them as sys_func_call in a
     // variable's inline/anonymous type. Gates the $bits fold in emitSyntaxExpr.
     bool typedefTsContext = false;
+    // Set during a vector-typedef signal CLONE emission: a COMPUTED range
+    // bound (cW-1) folds to a BARE constant (no loc, no parent).
+    bool bareCloneComputedBounds = false;
     // Skip the shared-typedef shortcut (def-net drains clone vector
     // typedefs fresh).
     bool bypassTypedefShare = false;

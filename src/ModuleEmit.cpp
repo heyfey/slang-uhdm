@@ -964,7 +964,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
                 }
                 bypassTypedefShare = true;
+                // Non-port clone signals fold computed bounds BARE; a PORT'S
+                // clone keeps the anchored fold (TypedefInModulePort).
+                bareCloneComputedBounds = it.port == nullptr;
                 ts = makeTypespec(*it.sym, targetSyn);
+                bareCloneComputedBounds = false;
                 bypassTypedefShare = false;
                 ts->VpiName(tv.name);
                 // Package-typedef clones keep the package instance link
@@ -2288,8 +2292,17 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 aStart = tsn->sourceRange().start();
             if (auto dsyn = internal->getSyntax();
                 dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
-                for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions) {
                     aEnd = dim->sourceRange().end();
+                    // A SIZE dim ([4]) ends BEFORE its bracket; a ranged dim
+                    // ([15:0]) includes it (Surelog quirk).
+                    if (dim->specifier &&
+                        dim->specifier->kind ==
+                            syntax::SyntaxKind::RangeDimensionSpecifier &&
+                        dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                            .selector->kind == syntax::SyntaxKind::BitSelect)
+                        aEnd = aEnd - 1;
+                }
             setLoc(ats, SourceRange(aStart, aEnd));
             if (auto* ranges = buildUnpackedRanges(*internal, ats))
                 ats->Ranges(ranges);
