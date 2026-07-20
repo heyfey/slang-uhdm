@@ -2,7 +2,41 @@
 
 ## Session 12 (autonomous 8h block, 2026-07-20, in progress)
 
-**Diff-reduction partials so far (PASS still 377):**
+**PASS 377 -> 384 (+7) this block. Converged:**
+- func_port_implied_dir (378): port-init HighConn/var-vpiExpr via ASTContext
+  tryEval (call->INT, literal->UINT) at emitTopPorts (elab top-port owner).
+- Interface port typespecs precede elab var typespecs (382, +4): an interface
+  instance's PORT typespec was created AFTER its variable typespecs, reversing
+  Surelog's [port-ts, var-ts] weak-tail order. Fix: pre-create port typespecs
+  (portTsPre map) before the variable loop in emitInterfaceInstance. Cleared
+  InterfaceAssign, InterfaceWithPort, iface_pkg_enum_item,
+  ImportedPackageEnumItemInInterface; reduced 10 more iface tests.
+- Procedural assign_stmt span ends at RHS not ';' (383): EnumFirstInInitial;
+  bonus TaskReturn 32->12. (StmtEmit ProceduralAssign: SourceRange(start,
+  ae.right().end).)
+- Case-inside members carry no vpiParent on constants (384): CaseInside.
+  StmtEmit case-inside path uses suppressConstParent; ValueRange respects an
+  incoming suppression (only force-parents its bounds when NOT suppressed).
+- Var-init param-ref folds to a constant + var-init call args drop formal-ts:
+  int_types_blk1 110->62, package_task_func 96->93 (diff-reduction, no PASS).
+  ModuleEmit signal loop: NamedValue-of-Parameter init -> folded constant
+  (makeParamTs ts ref); Call init sets portInitCtx to drop arg formal-ts.
+
+**Skipped as low-ROI / Surelog quirks (documented, not bugs in ours):**
+- StringWithBackslash (8): golden end col = start + raw.size() + 2*(backslash
+  count); Surelog's buggy escape-column math, past the actual line end.
+- mixed_sign_ops (22): golden places `u1` one column early on `4'd2  ** u1`
+  (double-space) — a Surelog column-counting quirk; every child span shifts -1.
+- InterfaceParameter/iface_param_set_value/InterfaceParameterSetValue (10 x3):
+  the module cont-assign cast typespec (int'(...)) must be created BEFORE the
+  elab interface-instance param typespec; needs cont-assign-vs-child reorder.
+- OnePackage (12): package param typespec created before the enum typedef ts
+  (emitParameters runs before typedefs in emitPackage); golden reverses.
+  Swapping risks param-typed-by-typedef cases.
+- union_param_repro (16): union_typespec located at first-USE (function arg
+  `u_t op`, 7:31) not its definition (5:9); plus struct_typespec parent->design.
+
+**Diff-reduction partials (earlier in block):**
 - ParameterInitializedByPartSelectOfParametersAssignedToVar 60->24 (DIFF->
   CMP_ONLY): emitGenScopes folds a plain param-ref RHS carrying a part-select
   fold constant, with a fresh bit/logic_typespec scoped to the gen scope
