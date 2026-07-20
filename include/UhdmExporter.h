@@ -257,6 +257,14 @@ private:
     UHDM::array_var* emitArrayVar(const slang::ast::Symbol& sym, const std::string& name,
                                   const std::string& fullName, UHDM::BaseClass* m,
                                   UHDM::typespec* elemTs);
+    // Instance-view array_net for an unpacked array of a NET-type leaf
+    // (reg/logic memory): array_net { vpiRange x N + vpiNet = logic_net }.
+    UHDM::array_net* emitArrayNet(const slang::ast::Symbol& sym, const std::string& name,
+                                  const std::string& fullName, UHDM::BaseClass* m,
+                                  UHDM::typespec* elemTs);
+    // True when an unpacked-array signal's leaf element resolves to a NET
+    // (reg, ANSI net port, 4-state packed struct) rather than a variable.
+    bool unpackedArrayLeafIsNet(const slang::ast::Symbol& sym, bool portBacked);
     // Top(elab)-view packed-array-of-struct var (filter_ctl_t [1:0][2:0] a):
     // packed_array_var { vpiRange x N + vpiElement = struct_var }.
     UHDM::packed_array_var* emitPackedStructArrayVar(const slang::ast::Symbol& sym,

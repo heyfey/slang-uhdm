@@ -1866,6 +1866,113 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     return av;
 }
 
+bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return false;
+    if (declared->getType().getCanonicalType().kind !=
+        SymbolKind::FixedSizeUnpackedArrayType)
+        return false;
+    const Type* leaf = &declared->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+        leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+    auto& lct = leaf->getCanonicalType();
+    // Explicit variable-only leaves stay array_var.
+    if (lct.kind == SymbolKind::EnumType || lct.kind == SymbolKind::FloatingType ||
+        lct.kind == SymbolKind::StringType || lct.kind == SymbolKind::ClassType ||
+        lct.kind == SymbolKind::PredefinedIntegerType ||
+        lct.kind == SymbolKind::UnpackedStructType)
+        return false;
+    // A 4-state packed struct is a net; a 2-state one is a var.
+    if (lct.kind == SymbolKind::PackedStructType)
+        return lct.isFourState();
+    // A 4-state logic/reg leaf mirrors makeVar's scalar carve-out: a non-port
+    // `logic` VARIABLE is a var (array_var); a `reg`, or a plain ANSI port,
+    // stays a net (array_net).
+    if (lct.isIntegral() && lct.isFourState()) {
+        bool regDecl = false;
+        if (auto tsyn = declared->getTypeSyntax())
+            regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
+        bool isVar = (!portBacked || hasBodyDecl(sym)) && !regDecl &&
+                     sym.kind == SymbolKind::Variable;
+        return !isVar;
+    }
+    return true;
+}
+
+// The NET form of an unpacked array whose leaf is a net-type (reg memory):
+// array_net { vpiSize, vpiRange x N, vpiNet = logic_net(elemTs, netType) }.
+// No array_typespec / rand / visibility (unlike array_var).
+UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string& name,
+                                            const std::string& fullName, UHDM::BaseClass* m,
+                                            UHDM::typespec* elemTs) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    if (declared->getType().getCanonicalType().kind !=
+        SymbolKind::FixedSizeUnpackedArrayType)
+        return nullptr;
+
+    auto* an = s.MakeArray_net();
+    an->VpiName(name);
+    an->VpiFullName(fullName);
+    an->VpiParent(m);
+    setLoc(an, nameSpan(sym.location, sym.name));
+
+    // Total element count = product of unpacked dim widths (param-sized dims
+    // contribute 1, matching array_var).
+    int32_t total = 1;
+    {
+        std::vector<const syntax::VariableDimensionSyntax*> dimSyns;
+        if (auto dsyn0 = sym.getSyntax();
+            dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
+            for (auto dim0 : dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
+                dimSyns.push_back(dim0);
+        size_t di0 = 0;
+        for (const Type* t = &declared->getType().getCanonicalType();
+             t->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType;) {
+            auto& ua = t->getCanonicalType().as<FixedSizeUnpackedArrayType>();
+            bool paramSized = false;
+            if (di0 < dimSyns.size() && dimSyns[di0]->specifier &&
+                dimSyns[di0]->specifier->kind ==
+                    syntax::SyntaxKind::RangeDimensionSpecifier) {
+                auto& sel0 = *dimSyns[di0]
+                                  ->specifier
+                                  ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                  .selector;
+                if (auto* bss0 = sel0.as_if<syntax::BitSelectSyntax>())
+                    paramSized = bss0->expr->kind !=
+                                 syntax::SyntaxKind::IntegerLiteralExpression;
+            }
+            if (!paramSized)
+                total *= (int32_t)ua.range.width();
+            t = &ua.elementType;
+            di0++;
+        }
+    }
+    an->VpiSize(total);
+
+    if (auto* ranges = buildUnpackedRanges(sym, an))
+        an->Ranges(ranges);
+
+    auto* ln = s.MakeLogic_net();
+    ln->VpiFullName(fullName);
+    ln->VpiParent(an);
+    setLoc(ln, nameSpan(sym.location, sym.name));
+    if (int32_t nt = netTypeFor(sym))
+        ln->VpiNetType(nt);
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(fullName);
+    rt->VpiParent(ln);
+    rt->Actual_typespec(elemTs);
+    ln->Typespec(rt);
+    elemTs->VpiParent(ln);
+    auto* nvec = s.MakeNetVec();
+    nvec->push_back(ln);
+    an->Nets(nvec);
+    return an;
+}
+
 UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym,
                                                                const std::string& name,
                                                                const std::string& fullName,

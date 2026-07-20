@@ -895,6 +895,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
     auto* nets = s.MakeNetVec();
     auto* vars = s.MakeVariablesVec();
+    auto* arrayNets = s.MakeArray_netVec();
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
@@ -931,6 +932,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             boundOwnerFullName = fullName;
             ts = sharedTypespec(*it.sym, netTs);
             boundOwnerFullName.clear();
+        }
+        // Unpacked array of a NET-type leaf (reg memory): the instance view
+        // is an array_net (vpiNet = logic_net), not an array_var.
+        if (!implicitNet && !realVar &&
+            unpackedArrayLeafIsNet(*it.sym, it.port != nullptr)) {
+            if (auto* an = emitArrayNet(*it.sym, name, fullName, m, ts)) {
+                topNets[it.sym] = an;
+                sigOrder.emplace_back(it.sym, an);
+                arrayNets->push_back(an);
+                continue;
+            }
         }
         // Unpacked-array signals: the instance view is an array_var (ranges
         // per unpacked dim, an inner reg carrying the element typespec, an
@@ -1225,6 +1237,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         m->Nets(nets);
     if (!vars->empty())
         m->Variables(vars);
+    if (!arrayNets->empty())
+        ((UHDM::instance*)m)->Array_nets(arrayNets);
 
     // Children are elaborated before the instance's own ports (typespec
     // creation order follows Surelog).
