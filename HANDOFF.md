@@ -60,6 +60,10 @@ read `$W/cmp.log` (LHS/RHS) — NOT the dump diff.
 - Packed-array-of-ENUM typedef -> packed_array_typespec + enum_typespec element
   (emitTypedefs packed-array branch, enum leaf): typedef_packed_enum_array
   (cmp-ADVANCED past the typespec, still DIFF at a later module_inst diff).
+- Unpacked-array-of-anonymous-struct: element gets struct_typespec (makeTypespec
+  struct branch now unwraps FixedSizeUnpackedArray dims): ucsbece154b_victim_cache
+  574->315 (cmp-advanced, now blocked by the named-vector-typedef ref = the
+  SYSTEMATIC ROOT above).
 - Struct/union-typed PARAM -> struct/union_typespec not int_typespec
   (makeParamTs): advances ~16 param tests past the typespec (still DIFF pending
   the pattern RHS below).
