@@ -431,9 +431,54 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     continue;
                 }
                 std::string vfull = fullName + sep + std::string(fmv.name);
-                tfContext = true;
-                auto* vts = makeTypespec(fmv);
-                tfContext = false;
+                bool hasInit = fmv.getDeclaredType()->getInitializer() != nullptr;
+                // A local declared via a NAMED typedef (box_t result) is a
+                // body-BLOCK member in Surelog's model: name-loc, no
+                // vpiAutomatic, re-parented to the body begin after the body
+                // emits. Builtin-typed locals (reg/integer/logic) stay at the
+                // function with the type-span loc + vpiAutomatic.
+                bool namedTypeLocal = false;
+                if (!hasInit && !pkgScope)
+                    if (auto tsyn0 = fmv.getDeclaredType()->getTypeSyntax())
+                        namedTypeLocal = tsyn0->kind == syntax::SyntaxKind::NamedType;
+                // A VECTOR-typedef block-local binds a fresh NAMED clone (at
+                // the typedef target syntax, with a Typedef_alias ref to the
+                // shared typedef and its own unfolded ranges) instead of the
+                // shared typedef itself.
+                UHDM::typespec* vts = nullptr;
+                if (namedTypeLocal) {
+                    auto& vdt = fmv.getDeclaredType()->getType();
+                    if (vdt.kind == SymbolKind::TypeAlias) {
+                        if (auto it0 = typedefTs.find(&vdt);
+                            it0 != typedefTs.end() &&
+                            it0->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                            const syntax::SyntaxNode* targetSyn = nullptr;
+                            if (auto asyn = vdt.as<TypeAliasType>().getSyntax())
+                                if (asyn->kind ==
+                                    syntax::SyntaxKind::TypedefDeclaration)
+                                    targetSyn = asyn->as<
+                                                    syntax::TypedefDeclarationSyntax>()
+                                                    .type;
+                            bypassTypedefShare = true;
+                            tfContext = true;
+                            auto* cl = makeTypespec(fmv, targetSyn);
+                            tfContext = false;
+                            bypassTypedefShare = false;
+                            cl->VpiName(vdt.name);
+                            auto* art = s.MakeRef_typespec();
+                            art->VpiFullName(std::string(vdt.name));
+                            art->VpiParent(cl);
+                            art->Actual_typespec(it0->second);
+                            ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                            vts = cl;
+                        }
+                    }
+                }
+                if (!vts) {
+                    tfContext = true;
+                    vts = makeTypespec(fmv);
+                    tfContext = false;
+                }
                 if (pkgScope)
                     vts->Instance((UHDM::instance*)m);
                 // A packed-array-of-enum local is a packed_array_var (range +
@@ -445,16 +490,6 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 v->VpiName(fmv.name);
                 v->VpiFullName(vfull);
                 v->VpiParent(tf);
-                bool hasInit = fmv.getDeclaredType()->getInitializer() != nullptr;
-                // A local declared via a NAMED typedef (box_t result) is a
-                // body-BLOCK member in Surelog's model: name-loc, no
-                // vpiAutomatic, re-parented to the body begin after the body
-                // emits. Builtin-typed locals (reg/integer/logic) stay at the
-                // function with the type-span loc + vpiAutomatic.
-                bool namedTypeLocal = false;
-                if (!hasInit && !pkgScope)
-                    if (auto tsyn0 = fmv.getDeclaredType()->getTypeSyntax())
-                        namedTypeLocal = tsyn0->kind == syntax::SyntaxKind::NamedType;
                 bool blockLocal = isEnumArr || namedTypeLocal;
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the

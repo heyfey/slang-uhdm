@@ -1423,6 +1423,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         forceConstParent = true;
                     auto* a = emitExpr(*arg, fc, prefix, netMap);
                     forceConstParent = forceSaved;
+                    // An UNBASED-UNSIZED literal arg ('1): the def-view
+                    // cont-assign copy stays bare (no formal-ts ref); the elab
+                    // copy folds to the formal's width (repeated digit BIN).
+                    bool unbasedArg =
+                        stripImplicitConv(*arg).kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral;
+                    if (unbasedArg && contAssignView == 2 && a &&
+                        a->UhdmType() == UHDM::uhdmconstant && arg->type) {
+                        logic_t ab = stripImplicitConv(*arg)
+                                         .as<UnbasedUnsizedIntegerLiteral>()
+                                         .getLiteralValue();
+                        if (!ab.isUnknown()) {
+                            int32_t w = (int32_t)arg->type->getBitWidth();
+                            std::string digits((size_t)w, ab.value ? '1' : '0');
+                            auto* ac = (UHDM::constant*)a;
+                            ac->VpiDecompile(digits);
+                            ac->VpiSize(w);
+                            ac->VpiValue("BIN:" + digits);
+                        }
+                    }
                     if (a) {
                         // Function call arg refs carry a typespec ref to the
                         // formal's typespec (tasks don't; procedural-context
@@ -1444,6 +1464,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             std::string(((UHDM::ref_obj*)a)->VpiName()).find("::") !=
                                 std::string::npos;
                         if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
+                            !(unbasedArg && contAssignView == 1) &&
                             (refArg || otherArg) && argIdx < si.argTs.size()) {
                             auto* r = (UHDM::expr*)a;
                             auto* rt = s.MakeRef_typespec();

@@ -339,6 +339,10 @@ private:
     // Set during an ELAB (top-view) cont-assign LHS emission — single-dim
     // base-select indices parent only here.
     bool elabContAssignLhs = false;
+    // Which cont-assign RHS view is being emitted: 0 = not in a cont-assign
+    // RHS, 1 = def (allModules), 2 = elab (topModules). Unbased-unsized
+    // func-call args key their formal-ts/fold behavior on this.
+    int contAssignView = 0;
     // The nearest enclosing assignment/op-82 object — an embedded assignment
     // expression's LHS ref parents here (not at its own op).
     UHDM::BaseClass* enclosingAssign = nullptr;

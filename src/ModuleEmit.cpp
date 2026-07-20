@@ -3486,7 +3486,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (literalRhs || bitsRhs)
                 forceConstParent = true;
             paramInitDef = !topView;
+            contAssignView = topView ? 2 : 1;
             rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
+            contAssignView = 0;
             paramInitDef = false;
             forceConstParent = forceSaved;
             refCollector = nullptr;
