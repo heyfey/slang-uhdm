@@ -236,17 +236,32 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (member.kind == SymbolKind::Subroutine &&
                     &member.as<SubroutineSymbol>().getReturnType().getCanonicalType() == target)
                     return false;
+        bool directUse = false;
         for (auto& [name, inst] : defs) {
             for (auto& member : inst->body.members()) {
                 const DeclaredType* dt = nullptr;
                 if (member.kind == SymbolKind::Net || member.kind == SymbolKind::Variable ||
                     member.kind == SymbolKind::Port)
                     dt = member.getDeclaredType();
-                if (dt && &dt->getType().getCanonicalType() == target)
-                    return true;
+                if (!dt)
+                    continue;
+                auto& mct = dt->getType().getCanonicalType();
+                if (&mct == target)
+                    directUse = true;
+                // A signal whose type is a PACKED ARRAY of the struct references
+                // it via the packed_array_typespec's Elem_typespec, so Surelog
+                // leaves the struct_typespec unparented (even if also used
+                // directly elsewhere).
+                else if (mct.isPackedArray()) {
+                    const Type* el = &mct;
+                    while (el->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                        el = &el->getCanonicalType().as<PackedArrayType>().elementType;
+                    if (&el->getCanonicalType() == target)
+                        return false;
+                }
             }
         }
-        return false;
+        return directUse;
     };
 
     // File-level (compilation-unit) typedefs: the typespec OBJECTS are built
