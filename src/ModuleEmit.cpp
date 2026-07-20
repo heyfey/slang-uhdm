@@ -2271,12 +2271,41 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         tfContext = true;
         auto* pts = makeTypespec(*internal, nullptr, &ps);
         tfContext = false;
+        // An UNPACKED-array port's DEF-side re-bound typespec is an
+        // array_typespec wrapping the fresh element ts (vpiArrayType + one
+        // range per unpacked dim, spanning type..last-dim), created here in
+        // the write phase (arena tail); the TOP port keeps the def's original
+        // bare element ts via the swap below.
+        UHDM::typespec* defPts = pts;
+        if (internal && internal->getDeclaredType() &&
+            internal->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType) {
+            auto* ats = s.MakeArray_typespec();
+            ats->VpiParent(p);
+            ats->VpiArrayType(1);
+            SourceLocation aStart = internal->location, aEnd = internal->location;
+            if (auto tsn = internal->getDeclaredType()->getTypeSyntax())
+                aStart = tsn->sourceRange().start();
+            if (auto dsyn = internal->getSyntax();
+                dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+                for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                    aEnd = dim->sourceRange().end();
+            setLoc(ats, SourceRange(aStart, aEnd));
+            if (auto* ranges = buildUnpackedRanges(*internal, ats))
+                ats->Ranges(ranges);
+            auto* ert = s.MakeRef_typespec();
+            ert->VpiParent(ats);
+            ert->VpiFullName(tp.prefix + "." + std::string(ps.name));
+            ert->Actual_typespec(pts);
+            ats->Elem_typespec(ert);
+            defPts = ats;
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(tp.prefix + "." + std::string(ps.name));
         rt->VpiParent(p);
         rt->Actual_typespec(defActual ? defActual : pts);
         if (defRt)
-            defRt->Actual_typespec(pts);
+            defRt->Actual_typespec(defPts);
         p->Typespec(rt);
         ports->push_back(p);
     }
