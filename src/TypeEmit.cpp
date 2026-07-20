@@ -1389,12 +1389,12 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
                      const Type* lf = &ct;
                      while (lf->getCanonicalType().kind == SymbolKind::PackedArrayType)
                          lf = &lf->getCanonicalType().as<PackedArrayType>().elementType;
-                     return lf->getCanonicalType().kind == SymbolKind::PackedStructType;
+                     return lf->getCanonicalType().kind == SymbolKind::PackedStructType ||
+                            lf->getCanonicalType().kind == SymbolKind::EnumType;
                  }()) {
             // A packed array over a packed struct (struct packed {...} [31:0]
-            // T): a NAMED packed_array_typespec whose Elem_typespec is a fresh
-            // struct_typespec. The struct's members re-parent to the ARRAY
-            // typespec, and the struct_typespec sits at the `struct` keyword.
+            // T) or an ENUM (typedef u[0:1] crash): a NAMED packed_array_typespec
+            // whose Elem_typespec is a fresh struct_typespec / enum_typespec.
             std::string alias = prefix + "." + std::string(ta.name);
             const Type* leaf = &ct;
             int arrDims = 0;
@@ -1402,13 +1402,29 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
                 arrDims++;
                 leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
             }
-            auto* sts = buildStructTs(leaf->getCanonicalType().as<PackedStructType>(),
-                                      true, alias);
+            bool enumLeaf =
+                leaf->getCanonicalType().kind == SymbolKind::EnumType;
+            std::string ename =
+                leaf->kind == SymbolKind::TypeAlias ? std::string(leaf->name) : "";
+            const syntax::SyntaxNode* esyn = leaf->getCanonicalType().getSyntax();
+            UHDM::typespec* sts =
+                enumLeaf
+                    ? (UHDM::typespec*)buildEnumTs(leaf->getCanonicalType().as<EnumType>(),
+                                                   esyn, ename)
+                    : (UHDM::typespec*)buildStructTs(
+                          leaf->getCanonicalType().as<PackedStructType>(), true, alias);
+            if (enumLeaf) {
+                sts->VpiName(ename);
+                if (esyn)
+                    setLoc(sts, esyn->sourceRange());
+            }
             // struct_typespec loc = the `struct` keyword token.
-            if (typeSyn)
+            else if (typeSyn)
                 setLoc(sts, typeSyn->getFirstToken().range());
             auto* pat = s.MakePacked_array_typespec();
             pat->VpiParent(m);
+            if (enumLeaf)
+                pat->VpiName(ta.name);
             if (typeSyn)
                 setLoc(pat, typeSyn->sourceRange());
             // One range per packed dim (bounds 64-bit UINT; loc from the dim
@@ -1456,8 +1472,8 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             ert->Actual_typespec(sts);
             pat->Elem_typespec(ert);
             // Surelog re-parents the struct's members to the ARRAY typespec.
-            if (sts->Members())
-                for (auto* tm : *sts->Members())
+            if (!enumLeaf && ((UHDM::struct_typespec*)sts)->Members())
+                for (auto* tm : *((UHDM::struct_typespec*)sts)->Members())
                     tm->VpiParent(pat);
             ts = pat;
         }
