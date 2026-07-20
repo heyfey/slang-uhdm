@@ -4089,6 +4089,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         }
         inLhs = true;
         elabContAssignLhs = topView;
+        elabLhsReelab = topView && (literalRhs || bitsRhs ||
+                                    containsOperation(ae.right()));
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
@@ -4099,6 +4101,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (auto* l = emitExpr(ae.left(), ca, prefix, lhsMap))
             ca->Lhs((UHDM::expr*)l);
         elabContAssignLhs = false;
+        elabLhsReelab = false;
         inLhs = false;
         cas->push_back(ca);
         if (defInfo)

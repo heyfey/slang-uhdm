@@ -342,6 +342,10 @@ private:
     // Set during an ELAB (top-view) cont-assign LHS emission — single-dim
     // base-select indices parent only here.
     bool elabContAssignLhs = false;
+    // True while emitting an elab cont-assign LHS whose RHS triggers netlist
+    // re-elaboration (literal/operation): a PACKED multi-dim member-select LHS
+    // then parents its index constants (group_status[0][0].a).
+    bool elabLhsReelab = false;
     // Which cont-assign RHS view is being emitted: 0 = not in a cont-assign
     // RHS, 1 = def (allModules), 2 = elab (topModules). Unbased-unsized
     // func-call args key their formal-ts/fold behavior on this.
