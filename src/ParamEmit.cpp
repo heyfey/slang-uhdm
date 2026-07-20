@@ -362,15 +362,35 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                      return true;
                              return false;
                          }()) &&
-                         // A struct-typed param keeps its assignment pattern
-                         // (def: tagged_pattern op; elab: flat op-75 below).
+                         // A MODULE struct-typed param never folds its RHS
+                         // (patterns keep the op forms; casts keep the cast
+                         // op). A PACKAGE struct param keeps only PATTERN ops
+                         // (other pkg inits still fold — Surelog).
                          !([&] {
                              if (ps.getType().getCanonicalType().kind !=
                                  SymbolKind::PackedStructType)
                                  return false;
+                             if (!inPackage)
+                                 return true;
                              auto k = stripImplicitConv(*init).kind;
                              return k == ExpressionKind::StructuredAssignmentPattern ||
                                     k == ExpressionKind::SimpleAssignmentPattern;
+                         }()) &&
+                         // An init reading a struct-param MEMBER keeps the
+                         // hier_path (Info.x) in BOTH views (Surelog).
+                         !([&] {
+                             auto& si = stripImplicitConv(*init);
+                             if (si.kind != ExpressionKind::MemberAccess)
+                                 return false;
+                             auto& base = stripImplicitConv(
+                                 si.as<MemberAccessExpression>().value());
+                             return base.kind == ExpressionKind::NamedValue &&
+                                    base.as<NamedValueExpression>().symbol.kind ==
+                                        SymbolKind::Parameter &&
+                                    base.as<NamedValueExpression>()
+                                            .symbol.getType()
+                                            .getCanonicalType()
+                                            .kind == SymbolKind::PackedStructType;
                          }()) &&
                          !containsUserCall(*init) &&
                          (rhs = tryFoldConst(
