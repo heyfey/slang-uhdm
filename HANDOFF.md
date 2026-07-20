@@ -1,5 +1,55 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 10: memory/array + typedef ladder (2026-07-19)
+
+**PASS 344->360, DIFF 274->256.** Five features, +16 PASS (one fix cleared a
+12-test cluster):
+
+- **Unpacked array of a NET-type leaf → array_net (12 tests)**: a `reg`
+  memory (`reg [W-1:0] mem [0:D-1]`), an ANSI net port, or a 4-state packed
+  struct array elaborates as an `array_net` (vpiNet = logic_net element, no
+  array_typespec/rand/visibility) not an array_var. `unpackedArrayLeafIsNet`
+  mirrors makeVar's scalar carve-out (non-port `logic` variable stays var;
+  reg/port/4-state-struct is net); new `emitArrayNet` builds it
+  (buildUnpackedRanges + logic_net element + netTypeFor). Cleared
+  simple_memory, priority_memory, sp_read_first/or_write/write_first,
+  mem2reg_test1/3/6, aes_kexp128, arrays01, mul_unsigned, repwhile.
+  mem2reg_test2: the array_net + its element both carry the signal's
+  (* mem2reg *) attribute (shared from attrMap).
+- **ReturnEnumArray**: a function local/return of type `sp2v_e [1:0]` (packed
+  enum array) is a packed_array_var (range + enum_var element mirroring the
+  packed_array_typespec) not logic_var; `makeEnumArrayVar` helper. The
+  function-var-loop copy of a body-block local is re-parented to the body
+  begin block after the body is emitted.
+- **blockrom**: computed body localparams `W = (X-1)`: isOverriddenParam no
+  longer misfires on a parenthesized default (inner-expr syntax differs but
+  its tokens lie within the default's range — containment check); the folded
+  RHS constant spans the parens; analyzeParamEnc marks a subtract-init param
+  int-encoded so a bare `[W:0]` bound folds signed INT.
+- **TypedefStructArray**: a `struct packed {..} [31:0] T` typedef → NAMED
+  packed_array_typespec whose Elem_typespec is a fresh struct_typespec
+  (members re-parent to the array ts; struct ts at the `struct` keyword); a
+  var of that type is a struct_var (element struct anonymous, so
+  emitPackedStructArrayVar doesn't fire).
+
+**DEFERRED — AssignArraySelPlus / typedef_unpacked_input (unpacked-array
+PORT typespec)**: golden's ALLMODULES (def) port typespec is an
+array_typespec wrapping the element logic_typespec; ELAB keeps the bare
+logic_typespec. Attempts to wrap in emitPorts(topView=false) landed the
+array_typespec in the TOPMODULES view, and the def-view port's `internal`
+symbol does not carry a FixedSizeUnpackedArrayType (the unpacked dim is
+modelled elsewhere for the def net) — so the condition never fired. Needs
+the def-net's unpacked-dim source + a DEFERRED array_typespec placed late in
+the weak tail (after the process constants). Genuine arena/view puzzle.
+
+**NEXT LADDER (fresh difsize)**: AssignArraySelPlus (35, deferred),
+typedef_unpacked_input (49, same family), OneStruct (57, unpacked struct
+arrays), iface_modport_conn (68, arena), ImportTypeOfPort (69),
+TypedefAliasInPackage (70), iface_modport_out (72),
+BitSelectPartSelectInFunction (73), sva_range (76),
+ParameterInitializedByPartSelectOfParametersAssignedToVar (80, gen-scope),
+hana_test_parse2synthtrans (81), TypedefedRangedFunctionArgument (82).
+
 ## Session 9: session-8 ladder (in progress, 2026-07-19)
 
 **PASS 335->344, DIFF 283->274.** NINE items converged (byte-identical
