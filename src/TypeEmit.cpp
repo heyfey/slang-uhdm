@@ -751,7 +751,8 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
         v->VpiVisibility(1);
-        if (ct.isSigned())
+        // TYPEDEF'd vars carry signedness on the shared typespec only.
+        if (ct.isSigned() && declared->getType().kind != SymbolKind::TypeAlias)
             v->VpiSigned(true);
         return v;
     }
@@ -1405,6 +1406,31 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
                 for (auto* tm : *sts->Members())
                     tm->VpiParent(pat);
             ts = pat;
+        }
+        else if ((ct.kind == SymbolKind::PackedArrayType ||
+                  ct.kind == SymbolKind::ScalarType) &&
+                 ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                 typedefTs.count(&ta.targetType.getType()) &&
+                 typedefTs[&ta.targetType.getType()]->UhdmType() ==
+                     UHDM::uhdmlogic_typespec) {
+            // A typedef ALIAS of another vector typedef (typedef int8_t
+            // char_t): a NAMED clone at the TARGET typedef's type span with
+            // its ranges and a Typedef_alias ref to the target's shared ts.
+            auto& tgt = ta.targetType.getType().as<TypeAliasType>();
+            const syntax::SyntaxNode* tgtSyn = nullptr;
+            if (auto asyn = tgt.getSyntax())
+                if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+            bypassTypedefShare = true;
+            auto* cl = makeTypespec(tgt, tgtSyn);
+            bypassTypedefShare = false;
+            auto* art = s.MakeRef_typespec();
+            art->VpiFullName(prefix + "." + std::string(ta.name));
+            art->VpiParent(cl);
+            art->Actual_typespec(typedefTs[&ta.targetType.getType()]);
+            ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+            cl->VpiParent(m);
+            ts = cl;
         }
         else if (ct.kind == SymbolKind::PackedArrayType ||
                  ct.kind == SymbolKind::ScalarType) {

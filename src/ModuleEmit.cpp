@@ -1195,6 +1195,46 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         op2->Operands(opnds);
                         v->Expr(op2);
                     }
+                    else if (ic.kind == ExpressionKind::UnaryOp &&
+                             ic.as<UnaryExpression>().op == UnaryOperator::Minus &&
+                             stripImplicitConv(ic.as<UnaryExpression>().operand())
+                                     .kind == ExpressionKind::IntegerLiteral) {
+                        // A NEGATED-literal init (int4_t x = -1): the minus
+                        // operation is the var Expr; its constant operand is
+                        // UNPARENTED and sized at the var width.
+                        auto* nop = s.MakeOperation();
+                        nop->VpiOpType(mapUnaryOp(UnaryOperator::Minus));
+                        nop->VpiParent(v);
+                        setLoc(nop, ic.sourceRange);
+                        auto& lit0 =
+                            stripImplicitConv(ic.as<UnaryExpression>().operand());
+                        auto liv = lit0.as<IntegerLiteral>().getValue();
+                        auto* c0 = s.MakeConstant();
+                        std::string dg0 = liv.toString(LiteralBase::Decimal, false);
+                        c0->VpiDecompile(dg0);
+                        c0->VpiSize((int32_t)dt->getType().getBitWidth());
+                        c0->VpiValue("UINT:" + dg0);
+                        c0->VpiConstType(vpiUIntConst);
+                        setLoc(c0, lit0.sourceRange);
+                        auto* nops = s.MakeAnyVec();
+                        nops->push_back(c0);
+                        nop->Operands(nops);
+                        v->Expr(nop);
+                    }
+                    else if (ic.kind == ExpressionKind::NamedValue && !enumRef) {
+                        // A VAR-ref init (int8_t y = int4): a ref_obj scoped
+                        // through the initialized var (work@top.y.int4) whose
+                        // actual is the referenced var object.
+                        auto& rsym = ic.as<NamedValueExpression>().symbol;
+                        auto* r0 = s.MakeRef_obj();
+                        r0->VpiName(rsym.name);
+                        r0->VpiFullName(fullName + "." + std::string(rsym.name));
+                        r0->VpiParent(v);
+                        setLoc(r0, ic.sourceRange);
+                        if (auto tit0 = topNets.find(&rsym); tit0 != topNets.end())
+                            r0->Actual_group(tit0->second);
+                        v->Expr((UHDM::expr*)r0);
+                    }
                     else if (enumRef || isLiteralExpr(ic) || concatInit) {
                         bool forceSaved = forceConstParent;
                         // Concat ops self-parent; only bare literals need the
