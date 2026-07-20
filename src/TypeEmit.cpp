@@ -2045,20 +2045,59 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
     if (auto* ranges = buildUnpackedRanges(sym, an))
         an->Ranges(ranges);
 
-    auto* ln = s.MakeLogic_net();
-    ln->VpiFullName(fullName);
-    ln->VpiParent(an);
-    setLoc(ln, nameSpan(sym.location, sym.name));
-    if (int32_t nt = netTypeFor(sym))
-        ln->VpiNetType(nt);
-    auto* rt = s.MakeRef_typespec();
-    rt->VpiFullName(fullName);
-    rt->VpiParent(ln);
-    rt->Actual_typespec(elemTs);
-    ln->Typespec(rt);
-    elemTs->VpiParent(ln);
+    // A struct-element array (mem_s mem[8]) carries a struct_net element whose
+    // fullname DOUBLES the signal name, referencing the shared struct_typespec.
+    const Type* leaf = &declared->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+        leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+    auto& lc = leaf->getCanonicalType();
+    UHDM::typespec* structTs = nullptr;
+    if (lc.kind == SymbolKind::PackedStructType)
+        for (auto& [s2, tsp] : typedefTs)
+            if (s2->kind == SymbolKind::TypeAlias &&
+                &s2->as<TypeAliasType>().getCanonicalType() == &lc) {
+                structTs = tsp;
+                break;
+            }
     auto* nvec = s.MakeNetVec();
-    nvec->push_back(ln);
+    if (structTs) {
+        std::string dbl = fullName + "." + name;
+        auto* sn = s.MakeStruct_net();
+        sn->VpiParent(an);
+        sn->VpiName(name);
+        sn->VpiFullName(dbl);
+        // The struct_net element spans the name through the FIRST unpacked
+        // dim (Surelog quirk: multi-dim arrays still stop at dim 0's end).
+        SourceLocation snEnd = sym.location + sym.name.size();
+        if (auto dsyn = sym.getSyntax();
+            dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
+            auto& dims = dsyn->as<syntax::DeclaratorSyntax>().dimensions;
+            if (!dims.empty())
+                snEnd = dims[0]->sourceRange().end();
+        }
+        setLoc(sn, SourceRange(sym.location, snEnd));
+        auto* srt = s.MakeRef_typespec();
+        srt->VpiParent(sn);
+        srt->VpiFullName(dbl);
+        srt->Actual_typespec(structTs);
+        sn->Typespec(srt);
+        nvec->push_back(sn);
+    }
+    else {
+        auto* ln = s.MakeLogic_net();
+        ln->VpiFullName(fullName);
+        ln->VpiParent(an);
+        setLoc(ln, nameSpan(sym.location, sym.name));
+        if (int32_t nt = netTypeFor(sym))
+            ln->VpiNetType(nt);
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(fullName);
+        rt->VpiParent(ln);
+        rt->Actual_typespec(elemTs);
+        ln->Typespec(rt);
+        elemTs->VpiParent(ln);
+        nvec->push_back(ln);
+    }
     an->Nets(nvec);
     return an;
 }
