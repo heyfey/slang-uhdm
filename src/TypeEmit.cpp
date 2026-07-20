@@ -2146,6 +2146,8 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
         ln->VpiFullName(fullName);
         ln->VpiParent(an);
         setLoc(ln, nameSpan(sym.location, sym.name));
+        if (leaf->isSigned())
+            ln->VpiSigned(true);
         if (int32_t nt = netTypeFor(sym))
             ln->VpiNetType(nt);
         auto* rt = s.MakeRef_typespec();

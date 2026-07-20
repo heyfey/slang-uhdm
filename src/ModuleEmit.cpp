@@ -3064,8 +3064,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // A select-LHS over an UNPACKED-array base (intermediate[3] = ...,
+        // intermediate[depth2Index(1)] = ...) re-emits a FRESH elab
+        // cont_assign whose Rhs shares the def constant; vector-base selects
+        // stay shared.
+        bool callIdxLhs = false;
+        if (auto& l1 = stripImplicitConv(ae.left());
+            l1.kind == ExpressionKind::ElementSelect) {
+            auto& b1 = stripImplicitConv(l1.as<ElementSelectExpression>().value());
+            if (b1.kind == ExpressionKind::NamedValue &&
+                b1.as<NamedValueExpression>()
+                        .symbol.getType()
+                        .getCanonicalType()
+                        .kind == SymbolKind::FixedSizeUnpackedArrayType)
+                callIdxLhs = true;
+        }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            ((!plainLhs && !dottedLhs && !ifaceDotFresh) ||
+            ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs) ||
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
@@ -3734,7 +3749,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
         }
         // Dotted-LHS re-emits share the def Rhs object wholesale.
-        if (!rhs && topView && dottedLhs && shareWithDef && defInfo &&
+        if (!rhs && topView && (dottedLhs || callIdxLhs) && shareWithDef && defInfo &&
             myIdx < defInfo->contAssigns.size())
             rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
         if (!rhs) {

@@ -1382,7 +1382,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                            : (UHDM::tf_call*)s.MakeTask_call();
                 fc->VpiName(sub.name);
                 fc->VpiParent(parent);
-                if (inParamInit)
+                // Param-init calls and LHS bit-select INDEX calls
+                // (intermediate[depth2Index(1)] = ...) anchor at the name.
+                if (inParamInit || inLhs)
                     setLoc(fc, nameSpan(expr.sourceRange.start(), sub.name));
                 else
                     setLoc(fc, expr.sourceRange);
@@ -1478,7 +1480,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          (!pkgScopeInst && callArgDepth == 1 &&
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           !intFormal))
-                                      : (!defOpArg &&
+                                      : (!inLhs && !defOpArg &&
                                          (refArg || callArgDepth == 1));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =
