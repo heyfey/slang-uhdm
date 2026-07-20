@@ -412,9 +412,13 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             r->VpiName(comp.name);
             (void)r->VpiFullName();
             if (baseSelMode && !comp.isBase) {
-                // Trailing member of a base-select path: member name, full
-                // dotted fullname.
-                r->VpiFullName(dottedAt);
+                // Trailing member of a base-select path: an RVALUE resolves to
+                // the struct member's own fullname (work@top.min_v); an LVALUE
+                // keeps the dotted path.
+                if (!inLhs && lastMember)
+                    r->VpiFullName(prefix + "." + comp.name);
+                else
+                    r->VpiFullName(dottedAt);
             }
             else if (!inLhs && lastMember && !comp.isBase)
                 r->VpiFullName(prefix + "." + comp.name);
