@@ -342,7 +342,9 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     hp->VpiName(dotted);
     hp->VpiFullName(dotted);
     hp->VpiParent(parent);
-    setLoc(hp, baseSelMode ? comps[0].nameSpan : expr.sourceRange);
+    // A base multi-dim select LVALUE anchors the hier_path at the base name;
+    // an RVALUE spans the whole path (a[0][0].min_v).
+    setLoc(hp, (baseSelMode && inLhs) ? comps[0].nameSpan : expr.sourceRange);
     auto* elems = s.MakeAnyVec();
     // The first member's name token (used to anchor an lvalue base ref).
     SourceRange firstMemberSpan =
