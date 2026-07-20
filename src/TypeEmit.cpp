@@ -682,6 +682,13 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         v->VpiVisibility(1);
         return v;
     }
+    // Union variables elaborate as union_vars.
+    if (ct.kind == SymbolKind::PackedUnionType &&
+        internal.kind == SymbolKind::Variable) {
+        auto* v = s.MakeUnion_var();
+        v->VpiVisibility(1);
+        return v;
+    }
     // Real/shortreal signals are variables, never nets.
     if (ct.kind == SymbolKind::FloatingType) {
         auto* v = ct.as<FloatingType>().floatKind == FloatingType::ShortReal
@@ -1210,22 +1217,12 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             ts = ets;
         }
         else if (ct.kind == SymbolKind::PackedStructType) {
-            // A module-level LEAF packed struct (all fields scalar/vector) has
-            // module-prefixed member refs + a module parent; a struct that
-            // contains a nested struct/enum typedef keeps BARE member refs.
-            bool hasNestedTypedef = false;
-            for (auto& fm : ct.as<PackedStructType>().members()) {
-                if (fm.kind != SymbolKind::Field)
-                    continue;
-                auto& fct = fm.as<FieldSymbol>().getType().getCanonicalType();
-                if (fct.kind == SymbolKind::PackedStructType ||
-                    fct.kind == SymbolKind::EnumType)
-                    hasNestedTypedef = true;
-            }
-            // A struct whose variable is cont-assigned WHOLE (assign c = ...
-            // / assign b = c) is netlist-recompiled: BARE member refs, no
-            // module parent. Member-only or $bits-only uses keep the
-            // module-prefixed refs (alert_rx_t / dmi_t).
+            // A struct whose variable is assigned WHOLE — cont-assigned
+            // (assign c = ... / assign b = c) or declared with an initializer
+            // (hw2reg_wrap_t w = {c, d}) — is netlist-recompiled: BARE member
+            // refs, no module parent. Member-only or $bits-only uses keep the
+            // module-prefixed refs + module parent (alert_rx_t / dmi_t /
+            // EnumWidth's bar_t), regardless of nested typedef members.
             bool wholeAssigned = false;
             for (auto& mb2 : body.members()) {
                 if (mb2.kind != SymbolKind::ContinuousAssign)
@@ -1243,8 +1240,18 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
                         wholeAssigned = true;
                 }
             }
-            bool bareRefs = hasNestedTypedef || wholeAssigned;
-            if (!bareRefs)
+            bool bareRefs = wholeAssigned;
+            // The def-net typespec drop applies only to structs with NO
+            // nested UNION member (UnionInsideStruct's bar_t keeps its ts).
+            bool hasUnionMember = false;
+            for (auto& fm : ct.as<PackedStructType>().members()) {
+                if (fm.kind != SymbolKind::Field)
+                    continue;
+                if (fm.as<FieldSymbol>().getType().getCanonicalType().kind ==
+                    SymbolKind::PackedUnionType)
+                    hasUnionMember = true;
+            }
+            if (!bareRefs && !hasUnionMember)
                 modulePrefixedStructs.insert(&ct);
             std::string alias = bareRefs ? std::string(ta.name)
                                          : prefix + "." + std::string(ta.name);
@@ -1295,10 +1302,28 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             ts = ats;
         }
         else if (ct.kind == SymbolKind::PackedUnionType) {
-            // Packed unions mirror packed structs (BARE member refs like
-            // nested-typedef structs; union members are typedef'd shapes).
+            // Packed unions mirror packed structs: WHOLE-assigned unions keep
+            // BARE member refs; member-only uses take module-prefixed refs.
+            bool uWhole = false;
+            for (auto& mb2 : body.members()) {
+                if (mb2.kind != SymbolKind::ContinuousAssign)
+                    continue;
+                auto& as2 = mb2.as<ContinuousAssignSymbol>().getAssignment();
+                if (as2.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& ae2 = as2.as<AssignmentExpression>();
+                for (auto* side : {&ae2.left(), &ae2.right()}) {
+                    auto& sc2 = stripImplicitConv(*side);
+                    if (sc2.kind == ExpressionKind::NamedValue &&
+                        &sc2.as<NamedValueExpression>()
+                                .symbol.getType()
+                                .getCanonicalType() == &ct)
+                        uWhole = true;
+                }
+            }
             auto* uts = buildUnionTs(ct.as<PackedUnionType>(), true,
-                                     std::string(ta.name));
+                                     uWhole ? std::string(ta.name)
+                                            : prefix + "." + std::string(ta.name));
             uts->VpiParent(m);
             if (typeSyn)
                 setLoc(uts, typeSyn->sourceRange());

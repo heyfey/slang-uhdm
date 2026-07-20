@@ -171,6 +171,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             prefixedStructNet =
                 lf->getCanonicalType().kind == SymbolKind::PackedStructType &&
                 modulePrefixedStructs.count(&lf->getCanonicalType());
+
             if (prefixedStructNet) {
                 for (auto& mb : body.members()) {
                     if (mb.kind != SymbolKind::Instance)
