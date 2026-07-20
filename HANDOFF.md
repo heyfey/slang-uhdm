@@ -1,5 +1,35 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 11 (autonomous 8h block, 2026-07-20, in progress)
+
+**PASS 360->368 so far.** Converged: BitSelectPartSelectInFunction (4 parts:
+NamedType block-local predicate — typedef-typed non-init function locals are
+body-block members, builtin-typed stay at function w/ vpiAutomatic; '1 args
+in def cont-assign stay bare / elab fold to formal width repeated-digit BIN
+via new contAssignView member; vector-typedef block-local binds a fresh
+NAMED alias clone), OneStruct (module-prefixed struct nets drop def
+typespec — !bareRefs set from emitTypedefs, carve-outs: initializer /
+child-port-conn use; array_net struct_net element w/ doubled fullname,
+loc=name..first-dim-end), const_fold_func (module-function constant args get
+formal-ts + width for VECTOR formals only; REF args ts at any depth;
+impure-function calls (subWritesNonLocal) never fold — def ca shared into
+elab), AssignArraySelPlus + typedef_unpacked_input (THE unpacked-array-port
+arena puzzle: the def-side array_typespec is created at emitTopPorts'
+ts-swap re-bind point (write phase); size-dims end before ']', ranged dims
+after; non-port clone computed bounds fold BARE), UnpackedArray (nested
+pattern: def leaves unparented, elab sizes only outermost first operand, no
+orphan), MultipleNets (pkg-enum-typedef ports are enum_vars; time ports stay
+logic_nets), TypedefedRangedFunctionArgument (packed-array-of-typedef formal
+ts: Elem_typespec -> named alias clone + array-dim ranges; typedef-return
+calls WITH args fold; def concat args carry no formal-ts, patterns do).
+Partial: ImportTypeOfPort 69->37 (imported-unqualified pkg-typedef ports
+are NETS binding shared ts; top port gets alias clone; REMAINING: cross-view
+pkg-ts parent placement + a second QUALIFIED tail clone at the write-phase
+arena position — same defer problem as the listing-order/insert experiment
+that briefly made it worse, reverted).
+Also: continuation ANSI net-port declarators (out2/out3 get bare
+VariablePortHeaders) inherit the preceding explicit net keyword.
+
 ## Session 10: memory/array + typedef ladder (2026-07-19)
 
 **PASS 344->360, DIFF 274->256.** Five features, +16 PASS (one fix cleared a
