@@ -346,6 +346,9 @@ private:
     // re-elaboration (literal/operation): a PACKED multi-dim member-select LHS
     // then parents its index constants (group_status[0][0].a).
     bool elabLhsReelab = false;
+    // True while building a struct/union MEMBER typespec: a multi-dim packed
+    // array member keeps its full span (a signal/net decl truncates to dim 1).
+    bool structMemberTsCtx = false;
     // Which cont-assign RHS view is being emitted: 0 = not in a cont-assign
     // RHS, 1 = def (allModules), 2 = elab (topModules). Unbased-unsized
     // func-call args key their formal-ts/fold behavior on this.

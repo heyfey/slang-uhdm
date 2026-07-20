@@ -248,6 +248,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             std::string(rawText(SourceRange(tStart, tEnd))), tStart);
                 }
                 SourceRange patLoc = range;
+                // A multi-dim packed array typespec span truncates to the end
+                // of the FIRST dimension (Surelog), like the def-net path — but
+                // NOT for a struct/union member, which keeps its full span.
+                if (arrDims >= 2 && !spans.empty() && !structMemberTsCtx)
+                    patLoc = SourceRange(range.start(), spans[0].range.end());
                 auto* rvec = s.MakeRangeVec();
                 for (int i = 0; i < arrDims; i++) {
                     auto* r = s.MakeRange();
@@ -1101,7 +1106,9 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 syntaxRefPrefix = aliasName + memberSep + std::string(fm.name);
                 syntaxRefSep = memberSep;
             }
+            structMemberTsCtx = true;
             fts = makeTypespec(fm, memberTypeSyn);
+            structMemberTsCtx = false;
             syntaxRefPrefix = savedPfx;
             syntaxRefSep = savedSep;
         }
@@ -1166,7 +1173,9 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 syntaxRefPrefix = aliasName + memberSep + std::string(fm.name);
                 syntaxRefSep = memberSep;
             }
+            structMemberTsCtx = true;
             fts = makeTypespec(fm, memberTypeSyn);
+            structMemberTsCtx = false;
             syntaxRefPrefix = savedPfx;
             syntaxRefSep = savedSep;
         }
