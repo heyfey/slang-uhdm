@@ -1,6 +1,30 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Session 12 (autonomous 8h block, 2026-07-20, in progress)
+## Session 12 (autonomous 8h block, 2026-07-20)
+
+**Remaining top-ladder triage (all characterized, all HARD):**
+- InterfaceParameter / iface_param_set_value / InterfaceParameterSetValue
+  (10 x3): SHARED root — Surelog creates the module cont-assign CAST typespec
+  (int'(u_sim_sram_if.start_addr)) BEFORE the interface instance's param W
+  typespec; ours reverses because emitInstance emits children (interface
+  instances, ~L1633) BEFORE emitContAssigns (~L1854). A cont-assign-before-
+  children reorder would fix it but shuffles every module's weak tail (broad
+  regression risk). A targeted cast-ts pre-create is hard (buried in a CA RHS).
+- iface_modport (39): multi-issue — interface-port HighConn ref_obj fullname
+  doubles the last hop (work@top.m0.bus.bus vs .bus) AND a bus.out hier_path.
+- ReplicationPassedToInstance (91): a submodule-param ref inside a replication
+  count scopes through the instance path (work@top.u_dut.wmask_i.Width) in
+  golden; ours flattens to work@top.Width.
+- MemberSelectOf2DStructPackedArray (8, from 50): last issue is a bare '1
+  member-select-LHS RHS — golden keeps it UNBASED (size -1, BIN:1), ours folds
+  to the member width (UINT:1023). Not via tryFoldConst (suppressUnbasedFold on
+  dottedLhs was inert) — slang likely pre-evaluates it; needs the raw-'1 path.
+- subbytes (4): Surelog ARTIFACT — a whole-var ref's vpiActual points at a
+  part_select of a prior blocked assignment (data_reg_128[31:24]=...), not the
+  net. sva_range (76): SVA property_spec/operation structure.
+- Still-open earlier notes below (StringWithBackslash escape-col quirk,
+  mixed_sign_ops column quirk, OnePackage/case_expr weak-tail ordering,
+  union_param_repro first-use typespec loc).
 
 **PASS 377 -> 388 (+11) this block. Converged:**
 - DotMultirange (388): completed via a 3-part multi-dim packed-struct-array
