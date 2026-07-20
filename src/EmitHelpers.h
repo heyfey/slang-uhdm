@@ -85,6 +85,43 @@ inline const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) 
                 auto& nh = ap.header->as<syntax::NetPortHeaderSyntax>();
                 if (nh.netType.valid())
                     return &nh;
+                return nullptr;
+            }
+            // A CONTINUATION declarator (output wire [3:0] a, b, c: slang
+            // gives b/c a bare VariablePortHeader with no direction) of a NET
+            // port inherits the nearest PRECEDING port's explicit net header.
+            if (internal.kind == SymbolKind::Net &&
+                ap.header->kind == syntax::SyntaxKind::VariablePortHeader &&
+                !ap.header->as<syntax::VariablePortHeaderSyntax>()
+                     .direction.valid() &&
+                p->parent) {
+                const syntax::SyntaxNode* list = p->parent;
+                const syntax::NetPortHeaderSyntax* found = nullptr;
+                for (size_t ci = 0; ci < list->getChildCount(); ci++) {
+                    const syntax::SyntaxNode* cn = list->childNode(ci);
+                    if (!cn)
+                        continue;
+                    if (cn == p)
+                        return found;
+                    if (cn->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+                        auto& ap2 = cn->as<syntax::ImplicitAnsiPortSyntax>();
+                        if (ap2.header->kind == syntax::SyntaxKind::NetPortHeader) {
+                            auto& nh2 =
+                                ap2.header->as<syntax::NetPortHeaderSyntax>();
+                            found = nh2.netType.valid() ? &nh2 : nullptr;
+                        }
+                        else if (ap2.header->kind ==
+                                     syntax::SyntaxKind::VariablePortHeader &&
+                                 !ap2.header
+                                      ->as<syntax::VariablePortHeaderSyntax>()
+                                      .direction.valid()) {
+                            // Another continuation: chain unchanged.
+                        }
+                        else {
+                            found = nullptr;
+                        }
+                    }
+                }
             }
             return nullptr;
         }
