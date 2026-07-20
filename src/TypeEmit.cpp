@@ -689,7 +689,18 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     bool regDecl = false;
     if (auto tsyn = declared->getTypeSyntax())
         regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
-    if (ct.kind == SymbolKind::EnumType && internal.kind == SymbolKind::Variable) {
+    // Enum variables — and PORTS typed by a PACKAGE enum typedef
+    // (input custom::enum1 e) — elaborate as enum_vars.
+    bool pkgEnumAlias = false;
+    if (ct.kind == SymbolKind::EnumType) {
+        auto& t0 = declared->getType();
+        if (t0.kind == SymbolKind::TypeAlias)
+            if (auto sc0 = t0.as<TypeAliasType>().getParentScope();
+                sc0 && sc0->asSymbol().kind == SymbolKind::Package)
+                pkgEnumAlias = true;
+    }
+    if (ct.kind == SymbolKind::EnumType &&
+        (internal.kind == SymbolKind::Variable || pkgEnumAlias)) {
         auto* v = s.MakeEnum_var();
         v->VpiVisibility(1);
         return v;
@@ -793,6 +804,10 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
                 return v;
             }
             case PredefinedIntegerType::Time: {
+                // A `time` PORT stays a logic_net (time_typespec actual);
+                // only non-port time variables become time_vars.
+                if (portBacked)
+                    return nullptr;
                 auto* v = s.MakeTime_var();
                 v->VpiVisibility(1);
                 return v;
