@@ -677,6 +677,36 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) 
     return s.MakeLogic_var();
 }
 
+// Packed dims written after a NAMED type (filter_ctl_t [1:0] a) live neither
+// in the type syntax nor in getResolvedDimensions; scan the source between
+// the type name and the declarator for bracket groups. Returns
+// (range-span, left-bound-span, right-bound-span) per dim.
+struct DimSpan {
+    SourceRange range, left, right;
+};
+inline std::vector<DimSpan> scanDimSpans(const std::string& raw, SourceLocation base) {
+    std::vector<DimSpan> out;
+    for (size_t i = 0; i < raw.size(); i++) {
+        if (raw[i] != '[')
+            continue;
+        auto close = raw.find(']', i);
+        auto colon = raw.find(':', i);
+        if (close == std::string::npos || colon == std::string::npos || colon > close)
+            continue;
+        auto trim = [&](size_t a, size_t b) {
+            while (a < b && isspace((unsigned char)raw[a]))
+                a++;
+            while (b > a && isspace((unsigned char)raw[b - 1]))
+                b--;
+            return SourceRange(base + a, base + b);
+        };
+        out.push_back({SourceRange(base + i, base + close + 1), trim(i + 1, colon),
+                       trim(colon + 1, close)});
+        i = close;
+    }
+    return out;
+}
+
 // Strips slang's implicit conversion wrappers (Surelog has no equivalent).
 inline const Expression& stripImplicitConv(const Expression& e) {
     const Expression* p = &e;

@@ -1466,12 +1466,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool intFormal =
                             arg->type && arg->type->getCanonicalType().kind ==
                                              SymbolKind::PredefinedIntegerType;
+                        // DEF-view cont-assign CONCAT args ({a,b}) carry no
+                        // formal-ts ref (patterns '{0,1} keep theirs).
+                        bool defOpArg = contAssignView == 1 &&
+                                        a->UhdmType() == UHDM::uhdmoperation &&
+                                        ((UHDM::operation*)a)->VpiOpType() ==
+                                            vpiConcatOp;
                         bool argCtxOk =
                             currentTf ? (pkgTopEmit ||
                                          (!pkgScopeInst && callArgDepth == 1 &&
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           !intFormal))
-                                      : (refArg || callArgDepth == 1);
+                                      : (!defOpArg &&
+                                         (refArg || callArgDepth == 1));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =
                             a->UhdmType() == UHDM::uhdmref_obj &&

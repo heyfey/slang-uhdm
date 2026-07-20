@@ -268,6 +268,93 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (bareImplicit) {
                 pendingIoTs.push_back({rt, argTsyn});
             }
+            else if (arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                         SymbolKind::PackedArrayType &&
+                     [&]() -> bool {
+                         // A PACKED ARRAY over a vector typedef (word [1:0] w).
+                         auto& at0 = arg->getDeclaredType()->getType();
+                         if (at0.kind != SymbolKind::PackedArrayType)
+                             return false;
+                         auto& el0 = at0.as<PackedArrayType>().elementType;
+                         return el0.kind == SymbolKind::TypeAlias &&
+                                typedefTs.count(&el0) &&
+                                typedefTs[&el0]->UhdmType() ==
+                                    UHDM::uhdmlogic_typespec;
+                     }()) {
+                // The formal ts spans type..dims: a logic_typespec whose
+                // Elem_typespec (bare ref) is a fresh NAMED typedef clone
+                // (Typedef_alias -> shared) and whose Ranges hold the ARRAY
+                // dims (UINT bounds at the source dim spans).
+                auto& at0 = arg->getDeclaredType()->getType();
+                auto& el0 = at0.as<PackedArrayType>().elementType;
+                auto& elAlias = el0.as<TypeAliasType>();
+                const syntax::SyntaxNode* targetSyn = nullptr;
+                if (auto asyn = elAlias.getSyntax())
+                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                bypassTypedefShare = true;
+                auto* cl = makeTypespec(elAlias, targetSyn);
+                bypassTypedefShare = false;
+                cl->VpiName(elAlias.name);
+                auto* art = s.MakeRef_typespec();
+                art->VpiFullName(elAlias.name);
+                art->VpiParent(cl);
+                art->Actual_typespec(typedefTs[&el0]);
+                ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+
+                auto* outer = s.MakeLogic_typespec();
+                SourceLocation tStart = arg->location;
+                if (auto tsn0 = arg->getDeclaredType()->getTypeSyntax())
+                    tStart = tsn0->sourceRange().start();
+                std::vector<DimSpan> spans;
+                if (tStart < arg->location)
+                    spans = scanDimSpans(
+                        std::string(rawText(SourceRange(tStart, arg->location))),
+                        tStart);
+                SourceLocation tEnd = arg->location;
+                if (!spans.empty())
+                    tEnd = spans.back().range.end();
+                setLoc(outer, SourceRange(tStart, tEnd));
+                std::vector<ConstantRange> arrRanges;
+                for (const Type* t2 = &arg->getDeclaredType()->getType();
+                     t2->getCanonicalType().kind == SymbolKind::PackedArrayType;) {
+                    arrRanges.push_back(
+                        t2->getCanonicalType().as<PackedArrayType>().range);
+                    t2 = &t2->getCanonicalType().as<PackedArrayType>().elementType;
+                    if (t2->kind == SymbolKind::TypeAlias)
+                        break;
+                }
+                auto* rvec = s.MakeRangeVec();
+                for (size_t ri = 0; ri < arrRanges.size(); ri++) {
+                    auto* r = s.MakeRange();
+                    r->VpiParent(outer);
+                    const DimSpan* ds = ri < spans.size() ? &spans[ri] : nullptr;
+                    if (ds)
+                        setLoc(r, ds->range);
+                    auto mkB = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+                        auto* c = s.MakeConstant();
+                        std::string digits = std::to_string(v);
+                        c->VpiDecompile(digits);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(r);
+                        if (loc)
+                            setLoc(c, *loc);
+                        return c;
+                    };
+                    r->Left_expr(mkB(arrRanges[ri].left, ds ? &ds->left : nullptr));
+                    r->Right_expr(mkB(arrRanges[ri].right, ds ? &ds->right : nullptr));
+                    rvec->push_back(r);
+                }
+                outer->Ranges(rvec);
+                auto* ert = s.MakeRef_typespec();
+                ert->VpiParent(outer);
+                ert->Actual_typespec(cl);
+                outer->Elem_typespec(ert);
+                ts = outer;
+                rt->Actual_typespec(ts);
+            }
             else if (arg->getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
                      typedefTs.count(&arg->getDeclaredType()->getType()) &&
                      typedefTs[&arg->getDeclaredType()->getType()]->UhdmType() ==

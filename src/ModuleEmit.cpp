@@ -2852,8 +2852,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 !rc.as<CallExpression>().isSystemCall())
                 if (auto subp0 = std::get_if<const SubroutineSymbol*>(
                         &rc.as<CallExpression>().subroutine))
+                    // A typedef-return call WITHOUT args never folds
+                    // (TypedefedFunctionReturn); with args it still folds
+                    // (TypedefedRangedFunctionArgument).
                     typedefRet =
-                        (*subp0)->getReturnType().kind == SymbolKind::TypeAlias;
+                        (*subp0)->getReturnType().kind == SymbolKind::TypeAlias &&
+                        rc.as<CallExpression>().arguments().empty();
         }
         CallFold cfr = (topView && !typedefRet)
                            ? constCallFold(stripImplicitConv(ae.right()))
