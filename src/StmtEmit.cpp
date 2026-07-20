@@ -1043,6 +1043,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // Package-scope locals re-parent at the wrapper.
                     if (pkgCtx)
                         it->second->VpiParent(ub);
+                    // An unpacked-array local ALSO lists its element reg
+                    // (int_var) as a sibling BEFORE the array_var.
+                    if (it->second->UhdmType() == UHDM::uhdmarray_var) {
+                        auto* av = (UHDM::array_var*)it->second;
+                        if (av->Variables() && !av->Variables()->empty())
+                            bvars->push_back((*av->Variables())[0]);
+                    }
                     bvars->push_back((UHDM::variables*)it->second);
                 }
             if (!bvars->empty())

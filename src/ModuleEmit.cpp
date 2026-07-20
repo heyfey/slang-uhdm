@@ -3178,6 +3178,54 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 c->VpiConstType(sgn ? vpiIntConst : vpiUIntConst);
             }
             c->VpiParent(ca);
+            // A folded call that returns a[K] of a pattern-initialized local
+            // (get_a1 -> a[1] of '{0,1}) locates at the SOURCE element token.
+            if (rcCall.kind == ExpressionKind::Call) {
+                if (auto sp0 = std::get_if<const SubroutineSymbol*>(
+                        &rcCall.as<CallExpression>().subroutine)) {
+                    const Statement* body = &(*sp0)->getBody();
+                    const Expression* retExpr = nullptr;
+                    std::function<void(const Statement&)> findRet =
+                        [&](const Statement& st) {
+                            if (retExpr)
+                                return;
+                            if (st.kind == StatementKind::Return) {
+                                retExpr = st.as<ReturnStatement>().expr;
+                                return;
+                            }
+                            if (st.kind == StatementKind::List)
+                                for (auto s2 : st.as<StatementList>().list)
+                                    findRet(*s2);
+                            else if (st.kind == StatementKind::Block)
+                                findRet(st.as<BlockStatement>().body);
+                        };
+                    if (body)
+                        findRet(*body);
+                    auto& re0 = retExpr ? stripImplicitConv(*retExpr) : rcCall;
+                    if (re0.kind == ExpressionKind::ElementSelect) {
+                        auto& es0 = re0.as<ElementSelectExpression>();
+                        ASTContext ictx(comp.getRoot(), LookupLocation::max);
+                        auto icv = ictx.tryEval(es0.selector());
+                        auto& base0 = stripImplicitConv(es0.value());
+                        if (icv && icv.isInteger() &&
+                            base0.kind == ExpressionKind::NamedValue) {
+                            auto* bsym = &base0.as<NamedValueExpression>().symbol;
+                            if (auto bdt = bsym->getDeclaredType())
+                                if (auto binit = bdt->getInitializer()) {
+                                    auto& bp = stripImplicitConv(*binit);
+                                    int idx = (int)icv.integer().as<int64_t>().value_or(0);
+                                    if (bp.kind == ExpressionKind::SimpleAssignmentPattern) {
+                                        auto els =
+                                            bp.as<SimpleAssignmentPatternExpression>()
+                                                .elements();
+                                        if (idx >= 0 && idx < (int)els.size())
+                                            setLoc(c, els[idx]->sourceRange);
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
             rhs = c;
         }
         // A STRUCTURED assignment-pattern RHS re-emits EXPANDED in the elab
