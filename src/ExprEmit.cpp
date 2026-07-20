@@ -466,6 +466,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
     switch (expr.kind) {
         case ExpressionKind::Assignment: {
             auto& ae = expr.as<AssignmentExpression>();
+            // An EMBEDDED assignment expression (x = (y = ...) + 1) — one used
+            // as an OPERAND or as another assignment's RHS — is an
+            // operation(vpiAssignmentOp=82) with [lhs, rhs] operands
+            // (paren-inclusive span); a STATEMENT-level assignment (parent is
+            // a block/process) stays an assignment object (handled below).
+            if (parent &&
+                (parent->UhdmType() == UHDM::uhdmoperation ||
+                 parent->UhdmType() == UHDM::uhdmassignment) &&
+                !ae.isCompound()) {
+                auto* op = s.MakeOperation();
+                op->VpiOpType(kVpiAssignmentOp);
+                op->VpiParent(parent);
+                // The span reaches the enclosing parentheses.
+                SourceRange sr = expr.sourceRange;
+                if (expr.syntax &&
+                    expr.syntax->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    sr = expr.syntax->sourceRange();
+                setLoc(op, sr);
+                auto* operands = s.MakeAnyVec();
+                // The LHS ref parents at the ENCLOSING assignment context,
+                // not this op.
+                UHDM::BaseClass* lhsParent = enclosingAssign ? enclosingAssign : op;
+                inLhs = true;
+                if (auto* l = emitExpr(ae.left(), lhsParent, prefix, netMap))
+                    operands->push_back(l);
+                inLhs = false;
+                // A DIRECT leaf-constant RHS (z = 99) unparents; a nested op
+                // RHS ((z=99)+1) self-parents and its operands parent
+                // normally. This op is the enclosing context for the RHS.
+                auto* savedEncl = enclosingAssign;
+                enclosingAssign = op;
+                bool savedS = suppressConstParent;
+                if (isLiteralExpr(stripImplicitConv(ae.right())))
+                    suppressConstParent = true;
+                if (auto* r = emitExpr(ae.right(), op, prefix, netMap))
+                    operands->push_back(r);
+                suppressConstParent = savedS;
+                enclosingAssign = savedEncl;
+                op->Operands(operands);
+                return op;
+            }
             auto* asn = s.MakeAssignment();
             // Compound assignments (o += 10) carry the operator as the
             // assignment op type; the Rhs is the value operand (the implicit
@@ -507,7 +548,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
             }
             inLhs = false;
-            if (auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap)) {
+            // This assignment is the enclosing context for any embedded
+            // assignment expressions in its RHS.
+            auto* savedEncl0 = enclosingAssign;
+            enclosingAssign = asn;
+            auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap);
+            enclosingAssign = savedEncl0;
+            if (rhs) {
                 // In a FUNCTION body, an unbased-unsized '0/'1/'x RHS takes the
                 // LHS width (an always-block leaves it unsized). Only the direct
                 // assignment RHS is sized, not '0 as an operation operand.
