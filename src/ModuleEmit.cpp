@@ -3269,7 +3269,19 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         }
         auto* ca = s.MakeCont_assign();
         ca->VpiParent(m);
-        setLoc(ca, assign.sourceRange);
+        // A comma-list continuous assign (assign a=0, b=1;) gives EVERY
+        // cont_assign the whole list's span (Surelog quirk), not each
+        // sub-assign's.
+        SourceRange caLoc = assign.sourceRange;
+        if (auto* asyn = casym.getSyntax())
+            for (auto p = asyn->parent; p; p = p->parent)
+                if (p->kind == syntax::SyntaxKind::ContinuousAssign) {
+                    auto& cas = p->as<syntax::ContinuousAssignSyntax>();
+                    if (cas.assignments.size() > 1)
+                        caLoc = cas.assignments.sourceRange();
+                    break;
+                }
+        setLoc(ca, caLoc);
         if (ifaceDotFresh) {
             // hier_path Lhs: name-only ref elements, ALL anchored at the
             // LAST member token; bare loc-only Rhs constant.
