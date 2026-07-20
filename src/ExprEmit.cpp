@@ -2915,7 +2915,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             setLoc(ol, expr.sourceRange);
             auto* bounds = s.MakeAnyVec();
             bool fcp2 = forceConstParent;
-            forceConstParent = true;
+            // Case-inside members leave their bounds unparented (caller sets
+            // suppressConstParent); a standalone `inside {[a:b]}` forces them.
+            if (!suppressConstParent)
+                forceConstParent = true;
             if (auto* l = emitExpr(vr.left(), ol, prefix, netMap))
                 bounds->push_back(l);
             if (auto* r = emitExpr(vr.right(), ol, prefix, netMap))

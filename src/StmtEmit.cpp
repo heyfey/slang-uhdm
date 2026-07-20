@@ -797,10 +797,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                g.expressions.back()->sourceRange.end()));
                     auto* iops = s.MakeAnyVec();
                     for (auto e : g.expressions) {
-                        bool fcp3 = forceConstParent;
-                        forceConstParent = true;
+                        // A bare constant member carries NO parent (it nests in
+                        // the wrapping list-op); range bounds re-force their own.
+                        bool scp3 = suppressConstParent;
+                        suppressConstParent = true;
                         auto* ue = emitExpr(*e, oi, prefix, netMap);
-                        forceConstParent = fcp3;
+                        suppressConstParent = scp3;
                         if (!ue)
                             continue;
                         if (ue->UhdmType() == UHDM::uhdmoperation &&
