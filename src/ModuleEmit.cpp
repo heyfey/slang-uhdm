@@ -2059,8 +2059,51 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (isLiteralExpr(ae.right()))
                 forceConstParent = true;
             UHDM::any* rhs = nullptr;
+            // A gen-scope RHS that is a plain ref to a module PARAM with a
+            // shared part-select fold constant (FullDepth) re-folds FRESH at
+            // the ref location, copying the value + the param's typespec.
+            if (auto& rcp = stripImplicitConv(ae.right());
+                rcp.kind == ExpressionKind::NamedValue) {
+                auto fit = moduleParamFoldConst.find(
+                    &rcp.as<NamedValueExpression>().symbol);
+                if (fit != moduleParamFoldConst.end()) {
+                    auto* src = fit->second;
+                    auto* c = s.MakeConstant();
+                    c->VpiValue(std::string(src->VpiValue()));
+                    c->VpiSize(src->VpiSize());
+                    c->VpiConstType(src->VpiConstType());
+                    c->VpiDecompile(std::string(src->VpiDecompile()));
+                    c->VpiParent(ca);
+                    setLoc(c, rcp.sourceRange);
+                    // A FRESH bit/logic_typespec whose range refs are scoped
+                    // to THIS gen scope (work@<gen>.<bound>), built from the
+                    // param's own type syntax.
+                    auto& fsym = rcp.as<NamedValueExpression>().symbol;
+                    if (fsym.getDeclaredType()) {
+                        std::string savedPfx = syntaxRefPrefix,
+                                    savedSep = syntaxRefSep;
+                        bool savedTf = tfContext;
+                        syntaxRefPrefix = fullName;
+                        syntaxRefSep = ".";
+                        tfContext = true;
+                        auto* fts = makeTypespec(fsym);
+                        tfContext = savedTf;
+                        syntaxRefPrefix = savedPfx;
+                        syntaxRefSep = savedSep;
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiFullName(fullName);
+                        rt->VpiParent(c);
+                        rt->Actual_typespec(fts);
+                        if (fts)
+                            fts->VpiParent(rt);
+                        c->Typespec(rt);
+                    }
+                    rhs = c;
+                }
+            }
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
+            if (!rhs)
             if (auto cfr2 = constCallFold(stripImplicitConv(ae.right()));
                 cfr2.lit && !cfr2.param) {
                 forceConstParent = true;
