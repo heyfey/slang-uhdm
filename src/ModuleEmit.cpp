@@ -797,8 +797,17 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             auto tit = pkgTopTypedefTs.find(imported);
             if (tit == pkgTopTypedefTs.end())
                 continue;
+            // A HEADER import (module top import pkg::T; (...)) lists the
+            // typespec but keeps its package parent; body imports re-parent.
+            bool headerImport = false;
+            for (auto q = mem.getSyntax(); q; q = q->parent)
+                if (q->kind == syntax::SyntaxKind::ModuleHeader) {
+                    headerImport = true;
+                    break;
+                }
             auto* ts = tit->second;
-            ts->VpiParent(m);
+            if (!headerImport)
+                ts->VpiParent(m);
             if (!tds) {
                 tds = s.MakeTypespecVec();
                 m->Typespecs(tds);
@@ -957,7 +966,19 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         UHDM::typespec* ts = nullptr;
         if (auto dtv = it.sym->getDeclaredType(); dtv && !implicitNet) {
             auto& tv = dtv->getType();
-            if (typedefClone.count(&tv)) {
+            // An IMPORTED-unqualified pkg-typedef signal (import pkg::T;
+            // output T o) binds the SHARED pkg typespec, not a clone (the
+            // elab PORT gets the clone instead — emitTopPorts).
+            bool importedUnqual = false;
+            if (tv.kind == SymbolKind::TypeAlias)
+                if (auto sc0 = tv.as<TypeAliasType>().getParentScope();
+                    sc0 && sc0->asSymbol().kind == SymbolKind::Package)
+                    if (auto tsyn0 = dtv->getTypeSyntax();
+                        tsyn0 && tsyn0->kind == syntax::SyntaxKind::NamedType &&
+                        tsyn0->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::IdentifierName)
+                        importedUnqual = true;
+            if (!importedUnqual && typedefClone.count(&tv)) {
                 const syntax::SyntaxNode* targetSyn = nullptr;
                 if (auto asyn = tv.as<TypeAliasType>().getSyntax()) {
                     if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
@@ -2313,10 +2334,47 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             ats->Elem_typespec(ert);
             defPts = ats;
         }
+        // An IMPORTED-unqualified pkg-typedef port's TOP typespec is a fresh
+        // NAMED clone (unqualified name, Typedef_alias ref to the shared pkg
+        // ts, anchored range bounds); def port and net keep the shared ts.
+        UHDM::typespec* topActual = defActual ? defActual : pts;
+        if (internal && internal->getDeclaredType()) {
+            auto& pt0 = internal->getDeclaredType()->getType();
+            if (pt0.kind == SymbolKind::TypeAlias) {
+                auto sc0 = pt0.as<TypeAliasType>().getParentScope();
+                auto tsyn0 = internal->getDeclaredType()->getTypeSyntax();
+                if (sc0 && sc0->asSymbol().kind == SymbolKind::Package && tsyn0 &&
+                    tsyn0->kind == syntax::SyntaxKind::NamedType &&
+                    tsyn0->as<syntax::NamedTypeSyntax>().name->kind ==
+                        syntax::SyntaxKind::IdentifierName) {
+                    if (auto tit0 = typedefTs.find(&pt0);
+                        tit0 != typedefTs.end() &&
+                        tit0->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        const syntax::SyntaxNode* targetSyn = nullptr;
+                        if (auto asyn = pt0.as<TypeAliasType>().getSyntax())
+                            if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                                targetSyn =
+                                    asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                        bypassTypedefShare = true;
+                        auto* cl = makeTypespec(*internal, targetSyn);
+                        bypassTypedefShare = false;
+                        cl->VpiName(pt0.name);
+                        auto* art = s.MakeRef_typespec();
+                        art->VpiFullName(std::string(pt0.name));
+                        art->VpiParent(cl);
+                        art->Actual_typespec(tit0->second);
+                        ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                        if (tit0->second->Instance())
+                            cl->Instance(tit0->second->Instance());
+                        topActual = cl;
+                    }
+                }
+            }
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(tp.prefix + "." + std::string(ps.name));
         rt->VpiParent(p);
-        rt->Actual_typespec(defActual ? defActual : pts);
+        rt->Actual_typespec(topActual);
         if (defRt)
             defRt->Actual_typespec(defPts);
         p->Typespec(rt);

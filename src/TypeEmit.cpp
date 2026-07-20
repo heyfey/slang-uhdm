@@ -751,15 +751,22 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     }
     // A non-port logic variable, or a port with a separate `logic` body
     // redeclaration (input [3:0] a; logic [3:0] a;), is a logic_var; a plain
-    // ANSI port stays a net. A port typed by a PACKAGE vector typedef
-    // (output my_pkg::word o) is a logic_var too.
+    // ANSI port stays a net. A port typed by a SCOPED package vector typedef
+    // (output my_pkg::word o) is a logic_var too — but an IMPORTED
+    // unqualified typedef port (import pkg::T; output T o) stays a net.
     bool pkgAliasPort = false;
     {
         auto& t = declared->getType();
         if (t.kind == SymbolKind::TypeAlias)
             if (auto sc = t.as<TypeAliasType>().getParentScope();
-                sc && sc->asSymbol().kind == SymbolKind::Package)
+                sc && sc->asSymbol().kind == SymbolKind::Package) {
                 pkgAliasPort = true;
+                if (auto tsyn = declared->getTypeSyntax();
+                    tsyn && tsyn->kind == syntax::SyntaxKind::NamedType &&
+                    tsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                        syntax::SyntaxKind::IdentifierName)
+                    pkgAliasPort = false;
+            }
     }
     if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort) && !regDecl &&
         internal.kind == SymbolKind::Variable &&

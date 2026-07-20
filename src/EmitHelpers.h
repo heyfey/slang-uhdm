@@ -197,7 +197,12 @@ inline int32_t netTypeFor(const Symbol& internal) {
                 if ((ct.kind == SymbolKind::PackedArrayType ||
                      ct.kind == SymbolKind::ScalarType) &&
                     ct.isFourState()) {
-                    if (t.kind == SymbolKind::TypeAlias)
+                    // SCOPED pkg-typedef references (pkg::T) print none; an
+                    // IMPORTED unqualified name (import pkg::T; output T o)
+                    // behaves like a local typedef and keeps vpiNet.
+                    if (t.kind == SymbolKind::TypeAlias &&
+                        tsyn->as<syntax::NamedTypeSyntax>().name->kind !=
+                            syntax::SyntaxKind::IdentifierName)
                         if (auto sc = t.as<TypeAliasType>().getParentScope();
                             sc && sc->asSymbol().kind == SymbolKind::Package)
                             return 0;

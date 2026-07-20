@@ -540,6 +540,15 @@ private:
     // Set during a vector-typedef signal CLONE emission: a COMPUTED range
     // bound (cW-1) folds to a BARE constant (no loc, no parent).
     bool bareCloneComputedBounds = false;
+    // HEADER-imported pkg typedefs (module top import pkg::T; ...): the def
+    // listing shows a QUALIFIED clone (Typedef_alias -> shared pkg ts, no
+    // parent) created in the WRITE phase and inserted at the recorded index.
+    struct PendingHeaderImportTs {
+        const slang::ast::Symbol* imported;
+        UHDM::VectorOftypespec* tds;
+        size_t idx;
+    };
+    std::vector<PendingHeaderImportTs> pendingHeaderImportTs;
     // Skip the shared-typedef shortcut (def-net drains clone vector
     // typedefs fresh).
     bool bypassTypedefShare = false;
