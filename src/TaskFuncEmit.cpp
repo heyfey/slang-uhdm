@@ -344,7 +344,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
 
         // Function-local variables attach to the function's Variables
         // (loc = the declared type span).
-        std::vector<UHDM::packed_array_var*> fnBlockLocalPav;
+        std::vector<UHDM::variables*> fnBlockLocalPav;
         {
             auto* fvars = s.MakeVariablesVec();
             for (auto& fmv : sub.members()) {
@@ -445,11 +445,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 v->VpiName(fmv.name);
                 v->VpiFullName(vfull);
                 v->VpiParent(tf);
+                bool hasInit = fmv.getDeclaredType()->getInitializer() != nullptr;
+                // A local declared via a NAMED typedef (box_t result) is a
+                // body-BLOCK member in Surelog's model: name-loc, no
+                // vpiAutomatic, re-parented to the body begin after the body
+                // emits. Builtin-typed locals (reg/integer/logic) stay at the
+                // function with the type-span loc + vpiAutomatic.
+                bool namedTypeLocal = false;
+                if (!hasInit && !pkgScope)
+                    if (auto tsyn0 = fmv.getDeclaredType()->getTypeSyntax())
+                        namedTypeLocal = tsyn0->kind == syntax::SyntaxKind::NamedType;
+                bool blockLocal = isEnumArr || namedTypeLocal;
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the
                 // automatic flag).
-                bool hasInit = fmv.getDeclaredType()->getInitializer() != nullptr;
-                if (isEnumArr || hasInit || pkgScope) {
+                if (blockLocal || hasInit || pkgScope) {
                     setLoc(v, nameSpan(fmv.location, fmv.name));
                 }
                 else if (auto dt = fmv.getDeclaredType()) {
@@ -464,10 +474,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 vrt->VpiParent(v);
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                if (!hasInit && !pkgScope && !isEnumArr)
+                if (!hasInit && !pkgScope && !blockLocal)
                     v->VpiAutomatic(true);
-                if (isEnumArr)
-                    fnBlockLocalPav.push_back((UHDM::packed_array_var*)v);
+                if (blockLocal)
+                    fnBlockLocalPav.push_back(v);
                 funcMap[&fmv] = v;
                 fvars->push_back(v);
             }
