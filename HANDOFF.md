@@ -2,8 +2,30 @@
 
 ## Session 9: session-8 ladder (in progress, 2026-07-19)
 
-**PASS 335->339, DIFF 283->279.** Five items of the session-8 ladder are
-full byte-identical PASS:
+**PASS 335->340, DIFF 283->278.** SIX items of the session-8 ladder are
+full byte-identical PASS (StringLocalParamInitByConcatenation,
+StructPackedOutput, ParameterOfSizeOfPort, AssignmentToConcatenation,
+ParameterInitializedByPartSelectOfParameters), plus regression-free
+PARTIAL progress on PatternInFunction (102->6 line diff).
+
+- **ParameterInitializedByPartSelectOfParameters** (DONE): def
+  part_select param-scoping + the elab BIN fold shared into the reading
+  cont-assign (moduleParamFoldConst, own bare-bound tail logic_typespec)
+  + a bare param-ref bound in a PARAMETER's typespec ([DepthW:0]) staying
+  a scoped ref_obj (owner-is-Parameter discriminator vs issue326's
+  var/net typespec which folds).
+- **PatternInFunction** (PARTIAL, commit a2dc4dd): function-local
+  unpacked-array (int a [2]) now emits an array_var (vpiReg element
+  int_var + ranged array_typespec, Elem_typespec shared with the reg) via
+  emitArrayVar's parent widened to BaseClass*. REMAINING 6 lines: (a) one
+  Surelog function COPY lists the element int_var as an EXTRA sibling
+  before the array_var in its body `begin` block (the block var listing
+  emits both element + wrapper for an unpacked-array local — the
+  design-level func copy lists array_var only, so it's copy-specific);
+  (b) the o=get_a1() call-fold constant needs loc 5:24-5:25 (the folded
+  a[1] source token).
+
+Original session-9 five converged items:
 
 - **StringLocalParamInitByConcatenation**: a string localparam whose init
   is a CONCAT folds to a STRING constant in the elab (def keeps the op,
