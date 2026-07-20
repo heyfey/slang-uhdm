@@ -372,23 +372,34 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         return uts;
     }
     // An ANONYMOUS packed struct (struct packed {..} s;) builds an unnamed
-    // struct_typespec (typedef'd structs share their named ts above).
-    if (declared && declared->getType().kind == SymbolKind::PackedStructType) {
-        auto& ctS = declared->getType().getCanonicalType();
-        auto* sts = buildStructTs(ctS.as<PackedStructType>(), true, "");
-        if (auto tsyn = declared->getTypeSyntax()) {
-            if (auto* su = tsyn->as_if<syntax::StructUnionTypeSyntax>()) {
-                SourceLocation e = su->keyword.range().end();
-                if (su->packed && su->packed.range().end() > e)
-                    e = su->packed.range().end();
-                if (su->signing && su->signing.range().end() > e)
-                    e = su->signing.range().end();
-                setLoc(sts, SourceRange(su->keyword.range().start(), e));
-            }
-            else
-                setLoc(sts, tsyn->sourceRange());
+    // struct_typespec — directly, or as the ELEMENT of an unpacked array
+    // (struct packed {..} a [4]; the array emission wraps this in an
+    // array_typespec). Typedef'd structs share their named ts above.
+    if (declared) {
+        const Type* st = &declared->getType();
+        bool arrayElem = false;
+        while (st->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            st = &st->as<FixedSizeUnpackedArrayType>().elementType;
+            arrayElem = true;
         }
-        return sts;
+        if (st->kind == SymbolKind::PackedStructType) {
+            auto* sts = buildStructTs(st->as<PackedStructType>(), true, "");
+            const syntax::SyntaxNode* ssyn =
+                arrayElem ? st->getSyntax() : declared->getTypeSyntax();
+            if (ssyn) {
+                if (auto* su = ssyn->as_if<syntax::StructUnionTypeSyntax>()) {
+                    SourceLocation e = su->keyword.range().end();
+                    if (su->packed && su->packed.range().end() > e)
+                        e = su->packed.range().end();
+                    if (su->signing && su->signing.range().end() > e)
+                        e = su->signing.range().end();
+                    setLoc(sts, SourceRange(su->keyword.range().start(), e));
+                }
+                else
+                    setLoc(sts, ssyn->sourceRange());
+            }
+            return sts;
+        }
     }
     // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
     UHDM::typespec* ts0;
