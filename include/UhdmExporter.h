@@ -255,7 +255,7 @@ private:
     UHDM::variables* makeVar(const slang::ast::Symbol& internal, bool portBacked);
     // Instance-view array_var for unpacked-array signals (null otherwise).
     UHDM::array_var* emitArrayVar(const slang::ast::Symbol& sym, const std::string& name,
-                                  const std::string& fullName, UHDM::module_inst* m,
+                                  const std::string& fullName, UHDM::BaseClass* m,
                                   UHDM::typespec* elemTs);
     // Top(elab)-view packed-array-of-struct var (filter_ctl_t [1:0][2:0] a):
     // packed_array_var { vpiRange x N + vpiElement = struct_var }.

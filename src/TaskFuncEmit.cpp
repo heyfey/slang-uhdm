@@ -354,6 +354,77 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         isArg = true;
                 if (isArg)
                     continue;
+                // An UNPACKED-array local (int a [2]) is an array_var whose
+                // vpiReg is the element var (int_var); the array_typespec
+                // (not the array_var) carries the unpacked-dim range, and its
+                // Elem_typespec is SHARED with the reg. Not a flat var.
+                if (fmv.getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::FixedSizeUnpackedArrayType) {
+                    std::string afull = fullName + sep + std::string(fmv.name);
+                    const Type* leaf = &fmv.getDeclaredType()->getType().getCanonicalType();
+                    while (leaf->getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType)
+                        leaf = &leaf->getCanonicalType()
+                                    .as<FixedSizeUnpackedArrayType>()
+                                    .elementType;
+                    // The element typespec (int_typespec for int/...), shared
+                    // by the reg AND the array_typespec's Elem_typespec.
+                    UHDM::typespec* elemTs = nullptr;
+                    if (leaf->getCanonicalType().kind ==
+                        SymbolKind::PredefinedIntegerType) {
+                        auto* its = s.MakeInt_typespec();
+                        its->VpiSigned(leaf->isSigned());
+                        if (auto tsyn3 = fmv.getDeclaredType()->getTypeSyntax())
+                            setLoc(its, tsyn3->getFirstToken().range());
+                        elemTs = its;
+                    }
+                    else
+                        elemTs = s.MakeLogic_typespec();
+
+                    auto* av = s.MakeArray_var();
+                    av->VpiName(fmv.name);
+                    av->VpiFullName(afull);
+                    av->VpiParent(tf);
+                    av->VpiArrayType(vpiStaticArray);
+                    setLoc(av, nameSpan(fmv.location, fmv.name));
+                    auto* ats = s.MakeArray_typespec();
+                    {
+                        SourceLocation aEnd = fmv.location + fmv.name.size();
+                        if (auto dsyn0 = fmv.getSyntax();
+                            dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
+                            for (auto dim0 :
+                                 dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
+                                aEnd = dim0->sourceRange().end() - 1;
+                        setLoc(ats, SourceRange(fmv.location, aEnd));
+                    }
+                    if (auto* arng = buildUnpackedRanges(fmv, ats))
+                        ats->Ranges(arng);
+                    auto* ert = s.MakeRef_typespec();
+                    ert->VpiParent(ats);
+                    ert->Actual_typespec(elemTs);
+                    ats->Elem_typespec(ert);
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(afull);
+                    art->VpiParent(av);
+                    art->Actual_typespec(ats);
+                    av->Typespec(art);
+                    auto* reg = makeReturnVar(s, *leaf);
+                    reg->VpiParent(av);
+                    setLoc(reg, nameSpan(fmv.location, fmv.name));
+                    auto* regRt = s.MakeRef_typespec();
+                    regRt->VpiFullName(afull);
+                    regRt->VpiParent(reg);
+                    regRt->Actual_typespec(elemTs);
+                    reg->Typespec(regRt);
+                    if (leaf->isSigned())
+                        reg->VpiSigned(true);
+                    auto* rv = s.MakeVariablesVec();
+                    rv->push_back(reg);
+                    av->Variables(rv);
+                    funcMap[&fmv] = av;
+                    fvars->push_back(av);
+                    continue;
+                }
                 auto* v = makeReturnVar(s, fmv.getDeclaredType()->getType());
                 v->VpiName(fmv.name);
                 v->VpiFullName(fullName + sep + std::string(fmv.name));

@@ -1747,7 +1747,7 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
 }
 
 UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string& name,
-                                            const std::string& fullName, UHDM::module_inst* m,
+                                            const std::string& fullName, UHDM::BaseClass* m,
                                             UHDM::typespec* elemTs) {
     auto declared = sym.getDeclaredType();
     if (!declared)
