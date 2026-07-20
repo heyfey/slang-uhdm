@@ -497,7 +497,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 auto& ae = pas.assignment.as<AssignmentExpression>();
                 auto* as2 = s.MakeAssign_stmt();
                 as2->VpiParent(parent);
-                setLoc(as2, stmt.sourceRange);
+                // Span reaches the RHS end (not the trailing ';'), matching
+                // Surelog.
+                setLoc(as2, SourceRange(stmt.sourceRange.start(),
+                                        ae.right().sourceRange.end()));
                 if (auto* r = emitExpr(ae.right(), as2, prefix, netMap))
                     as2->Rhs((UHDM::expr*)r);
                 inLhs = true;
