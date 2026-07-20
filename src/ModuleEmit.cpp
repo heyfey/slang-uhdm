@@ -1794,6 +1794,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             auto* tds = s.MakeTypespecVec();
             for (auto* td : it->second.typedefs)
                 tds->push_back(td);
+            // Name-sorted like the def listing (Surelog's name-keyed registry).
+            std::stable_sort(tds->begin(), tds->end(),
+                             [](const UHDM::typespec* a, const UHDM::typespec* b) {
+                                 return a->VpiName() < b->VpiName();
+                             });
             m->Typespecs(tds);
         }
     }

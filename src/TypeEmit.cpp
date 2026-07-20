@@ -1440,8 +1440,15 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             }
         }
     }
-    if (!tds->empty())
+    if (!tds->empty()) {
+        // Surelog lists module typedefs NAME-SORTED (its typespec registry
+        // is a name-keyed map), not in declaration order.
+        std::stable_sort(tds->begin(), tds->end(),
+                         [](const UHDM::typespec* a, const UHDM::typespec* b) {
+                             return a->VpiName() < b->VpiName();
+                         });
         m->Typespecs(tds);
+    }
 }
 
 // Maps binary expression syntax kinds to vpi op codes (range-bound exprs).
