@@ -670,8 +670,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     return ref;
                 }
                 // Module-side references to package params are folded inline
-                // to constants carrying the reference's location.
+                // to constants carrying the reference's location. STRUCT/UNION
+                // typed pkg params stay refs bound to the pkg parameter
+                // (Surelog keeps the ref_obj).
                 auto& psym = nv.symbol.as<ParameterSymbol>();
+                auto ckP = psym.getType().getCanonicalType().kind;
+                if (ckP == SymbolKind::PackedStructType ||
+                    ckP == SymbolKind::PackedUnionType) {
+                    std::string pn = std::string(scope->asSymbol().name) + "::" +
+                                     std::string(nv.symbol.name);
+                    ref->VpiName(pn);
+                    ref->VpiParent(parent);
+                    if (auto pit2 = pkgDefMap.find(&scope->asSymbol());
+                        pit2 != pkgDefMap.end() && pit2->second->Parameters())
+                        for (auto* pp2 : *pit2->second->Parameters())
+                            if (pp2->VpiName() == nv.symbol.name)
+                                ref->Actual_group(pp2);
+                    setLoc(ref, SourceRange(expr.sourceRange.start(),
+                                            expr.sourceRange.start() +
+                                                scope->asSymbol().name.size() + 2));
+                    return ref;
+                }
                 auto& cv = psym.getValue();
                 if (cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();

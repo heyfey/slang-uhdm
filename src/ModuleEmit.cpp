@@ -3188,7 +3188,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     noDefOvRhs = &sym;
                 else if (sym.kind == SymbolKind::Parameter) {
                     auto& ps = sym.as<ParameterSymbol>();
-                    if (auto dt = ps.getDeclaredType())
+                    // A whole STRUCT/UNION-typed param ref stays a shared ref
+                    // in the elab CA (Surelog keeps the ref_obj, no fold).
+                    auto ck9 = ps.getType().getCanonicalType().kind;
+                    if (auto dt = ps.getDeclaredType();
+                        dt && ck9 != SymbolKind::PackedStructType &&
+                        ck9 != SymbolKind::PackedUnionType)
                         if (auto tsyn = dt->getTypeSyntax())
                             if (tsyn->kind != syntax::SyntaxKind::ImplicitType &&
                                 ((ps.getValue().isInteger() &&
@@ -3864,7 +3869,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
-        if (!rhs && !bitsRhs && !skipGeneralFold && !structParamSetter)
+        // Whole struct/union-param refs never general-fold (SL keeps the ref).
+        bool structWholeParamRef = false;
+        {
+            auto& rc9 = stripImplicitConv(ae.right());
+            if (rc9.kind == ExpressionKind::NamedValue &&
+                rc9.as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter) {
+                auto ck9 = rc9.as<NamedValueExpression>()
+                               .symbol.getType()
+                               .getCanonicalType()
+                               .kind;
+                structWholeParamRef = ck9 == SymbolKind::PackedStructType ||
+                                      ck9 == SymbolKind::PackedUnionType;
+            }
+        }
+        if (!rhs && !bitsRhs && !skipGeneralFold && !structParamSetter &&
+            !structWholeParamRef)
             // Unbased-unsized RHS never general-folds here: '1 folded above,
             // '0 shares the def constant, 'x/'z have unknowns. Replicated
             // patterns re-emit as operations.
