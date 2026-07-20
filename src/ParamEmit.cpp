@@ -349,6 +349,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 else if (!ps.getType().getCanonicalType().isString() &&
                          !(inPackage && stripImplicitConv(*init).kind ==
                                             ExpressionKind::Concatenation) &&
+                         // A NESTED assignment pattern ('{'{1,0,0,0}}) keeps
+                         // its operation in the elab view (not folded).
+                         !([&] {
+                             auto& si = stripImplicitConv(*init);
+                             if (si.kind != ExpressionKind::SimpleAssignmentPattern)
+                                 return false;
+                             for (auto* el : si.as<SimpleAssignmentPatternExpression>()
+                                                 .elements())
+                                 if (stripImplicitConv(*el).kind ==
+                                     ExpressionKind::SimpleAssignmentPattern)
+                                     return true;
+                             return false;
+                         }()) &&
                          !containsUserCall(*init) &&
                          (rhs = tryFoldConst(
                               *init, (typedParam && init != init0) ? init0
@@ -484,11 +497,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
             }
             if (!rhs) {
-                forceConstParent = true;
+                // A DEF-view NESTED pattern leaves leaf constants UNPARENTED
+                // (only the nested pattern operations self-parent), so it does
+                // NOT force the const parent.
+                bool nestedPat = false;
+                {
+                    auto& si = stripImplicitConv(*init);
+                    if (si.kind == ExpressionKind::SimpleAssignmentPattern)
+                        for (auto* el : si.as<SimpleAssignmentPatternExpression>()
+                                            .elements())
+                            if (stripImplicitConv(*el).kind ==
+                                ExpressionKind::SimpleAssignmentPattern)
+                                nestedPat = true;
+                }
+                forceConstParent = !nestedPat;
                 inParamInit = true;
                 paramInitDef = !topView;
                 paramInitPkg = inPackage;
+                bool savedSuppP = suppressConstParent;
+                if (!topView && nestedPat)
+                    suppressConstParent = true;
                 rhs = emitExpr(*init, pa, prefix, netMap);
+                suppressConstParent = savedSuppP;
                 paramInitPkg = false;
                 paramInitDef = false;
                 inParamInit = false;
