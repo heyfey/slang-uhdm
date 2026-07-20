@@ -7,13 +7,16 @@
   now builds an unnamed union_typespec (AnonymousUnion 109->47,
   AssignToUnionAndReadField 119->49, union_simple 592->540). REMAINING: the
   ELAB view models an anonymous union signal as a struct_net (golden), ours
-  emits union_var; the DEF view already matches (logic_net). Fix = route an
-  anonymous union (declared->getType().kind == PackedUnionType, non-alias) to
-  the NET path (isStruct=true -> struct_net) in emitInstance ~L1366, and make
-  makeVar (~L691) return null for it. Delicate (union_var branch + makeVar
-  fall-through to bit_var); typedef'd unions must keep elab union_var. Also
-  the anonymous union_typespec span is the `union packed` HEADER (2:4-2:16),
-  not the whole body (named unions use the whole body).
+  emits union_var; the DEF view already matches (logic_net). Attempted fix
+  (REVERTED): route an anonymous union to the NET path (isStruct=true ->
+  struct_net) + makeVar returns null for it. It helped AnonymousUnion 47->34
+  and AssignToUnionAndReadField 49->22 but REGRESSED union_simple +18 — its
+  `s1` (typedef'd 4-state struct) started emitting a struct_net it shouldn't,
+  and golden nets its anonymous union `u` (line 82, struct-member) but the
+  rule is NOT simply "anonymous -> net" (depends on member composition/context,
+  unresolved). Also the anonymous union_typespec span is the `union packed`
+  HEADER (2:4-2:16), not the whole body (named unions use the whole body). The
+  union_typespec partial IS committed and clean.
 - InterfaceParameter / iface_param_set_value / InterfaceParameterSetValue
   (10 x3): SHARED root — Surelog creates the module cont-assign CAST typespec
   (int'(u_sim_sram_if.start_addr)) BEFORE the interface instance's param W
