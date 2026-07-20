@@ -1261,26 +1261,28 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         forceConstParent = forceSaved;
                     }
                 }
-                // A port-backed var whose PORT carries an initializer holds
-                // the FOLDED substituted value as vpiExpr.
-                else if (it.port && it.port->getInitializer()) {
+                // A port-backed var whose PORT carries an initializer (and the
+                // var itself none) holds the FOLDED substituted value as
+                // vpiExpr.
+                if (!dt->getInitializer() && it.port && it.port->getInitializer()) {
                     auto* pinit = it.port->getInitializer();
-                    if (auto* fc = tryFoldConst(*pinit);
-                        fc && fc->UhdmType() == UHDM::uhdmconstant) {
-                        auto* rc = (UHDM::constant*)fc;
+                    ASTContext pctx(comp.getRoot(), LookupLocation::max);
+                    ConstantValue pcv = pctx.tryEval(*pinit);
+                    if (pcv && pcv.isInteger() && !pcv.integer().hasUnknown()) {
+                        auto piv = pcv.integer();
+                        // A CALL-folded init encodes signed (INT); a literal
+                        // stays UINT.
+                        bool isCall =
+                            stripImplicitConv(*pinit).kind == ExpressionKind::Call;
+                        std::string digits = piv.toString(LiteralBase::Decimal, false);
+                        auto* rc = s.MakeConstant();
                         rc->VpiParent(v);
                         rc->VpiSize((int32_t)dt->getType().getBitWidth());
+                        rc->VpiDecompile(digits);
+                        rc->VpiValue((isCall ? "INT:" : "UINT:") + digits);
+                        rc->VpiConstType(isCall ? vpiIntConst : vpiUIntConst);
                         setLoc(rc, pinit->sourceRange);
-                        // A CALL-folded init encodes signed (INT); a literal
-                        // keeps tryFoldConst's UINT.
-                        if (stripImplicitConv(*pinit).kind == ExpressionKind::Call) {
-                            std::string_view vv = rc->VpiValue();
-                            if (vv.rfind("UINT:", 0) == 0) {
-                                rc->VpiValue("INT:" + std::string(vv.substr(5)));
-                                rc->VpiConstType(vpiIntConst);
-                            }
-                        }
-                        v->Expr((UHDM::expr*)fc);
+                        v->Expr((UHDM::expr*)rc);
                     }
                 }
             }
@@ -1778,23 +1780,6 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
             }
 
-            // A top-module port with an INITIALIZER and no connection
-            // (output integer w = bar(4)) carries a FOLDED-value HighConn.
-            if (!p->High_conn())
-                if (auto* pinit = ps.getInitializer())
-                    if (auto* fc = tryFoldConst(*pinit);
-                        fc && fc->UhdmType() == UHDM::uhdmconstant) {
-                        auto* rc = (UHDM::constant*)fc;
-                        setLoc(rc, pinit->sourceRange);
-                        if (stripImplicitConv(*pinit).kind == ExpressionKind::Call) {
-                            std::string_view vv = rc->VpiValue();
-                            if (vv.rfind("UINT:", 0) == 0) {
-                                rc->VpiValue("INT:" + std::string(vv.substr(5)));
-                                rc->VpiConstType(vpiIntConst);
-                            }
-                        }
-                        p->High_conn((UHDM::expr*)fc);
-                    }
             auto* pts = makeTypespec(*internal, nullptr, &ps);
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
@@ -2454,6 +2439,26 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         if (auto it = tp.nets.find(internal); it != tp.nets.end())
             lc->Actual_group(it->second);
         p->Low_conn(lc);
+
+        // A top-module port with an INITIALIZER carries a FOLDED-value
+        // HighConn (64-bit; a call-fold encodes signed INT, a literal UINT).
+        if (auto* pinit = ps.getInitializer()) {
+            ASTContext hctx(comp.getRoot(), LookupLocation::max);
+            ConstantValue hcv = hctx.tryEval(*pinit);
+            if (hcv && hcv.isInteger() && !hcv.integer().hasUnknown()) {
+                bool isCall =
+                    stripImplicitConv(*pinit).kind == ExpressionKind::Call;
+                std::string digits =
+                    hcv.integer().toString(LiteralBase::Decimal, false);
+                auto* rc = s.MakeConstant();
+                rc->VpiSize(64);
+                rc->VpiDecompile(digits);
+                rc->VpiValue((isCall ? "INT:" : "UINT:") + digits);
+                rc->VpiConstType(isCall ? vpiIntConst : vpiUIntConst);
+                setLoc(rc, pinit->sourceRange);
+                p->High_conn((UHDM::expr*)rc);
+            }
+        }
 
         // The write phase recompiles the port typespec with UNFOLDED range
         // bounds and swaps attachments with the DEF port: the def port's ref
