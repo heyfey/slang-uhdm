@@ -3,6 +3,17 @@
 ## Session 12 (autonomous 8h block, 2026-07-20)
 
 **Remaining top-ladder triage (all characterized, all HARD):**
+- Anonymous packed union (union packed {..} u;): PARTIAL done — makeTypespec
+  now builds an unnamed union_typespec (AnonymousUnion 109->47,
+  AssignToUnionAndReadField 119->49, union_simple 592->540). REMAINING: the
+  ELAB view models an anonymous union signal as a struct_net (golden), ours
+  emits union_var; the DEF view already matches (logic_net). Fix = route an
+  anonymous union (declared->getType().kind == PackedUnionType, non-alias) to
+  the NET path (isStruct=true -> struct_net) in emitInstance ~L1366, and make
+  makeVar (~L691) return null for it. Delicate (union_var branch + makeVar
+  fall-through to bit_var); typedef'd unions must keep elab union_var. Also
+  the anonymous union_typespec span is the `union packed` HEADER (2:4-2:16),
+  not the whole body (named unions use the whole body).
 - InterfaceParameter / iface_param_set_value / InterfaceParameterSetValue
   (10 x3): SHARED root — Surelog creates the module cont-assign CAST typespec
   (int'(u_sim_sram_if.start_addr)) BEFORE the interface instance's param W
