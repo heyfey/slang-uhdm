@@ -3500,7 +3500,49 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
-        if (!rhs && !bitsRhs)
+        // Unary-PLUS over a param ref keeps the operation (no fold);
+        // unary-MINUS / binary-SUBTRACT over params fold to a loc-less
+        // signed INT at the UNCONVERTED value, sized to the LHS width.
+        bool skipGeneralFold = false;
+        if (!rhs && topView) {
+            auto& rn = stripImplicitConv(ae.right());
+            bool unaryPlusParam =
+                rn.kind == ExpressionKind::UnaryOp &&
+                rn.as<UnaryExpression>().op == UnaryOperator::Plus &&
+                stripImplicitConv(rn.as<UnaryExpression>().operand()).kind ==
+                    ExpressionKind::NamedValue;
+            if (unaryPlusParam)
+                skipGeneralFold = true;
+            bool minusParam =
+                (rn.kind == ExpressionKind::UnaryOp &&
+                 rn.as<UnaryExpression>().op == UnaryOperator::Minus &&
+                 stripImplicitConv(rn.as<UnaryExpression>().operand()).kind ==
+                     ExpressionKind::NamedValue) ||
+                (rn.kind == ExpressionKind::BinaryOp &&
+                 rn.as<BinaryExpression>().op == BinaryOperator::Subtract &&
+                 (stripImplicitConv(rn.as<BinaryExpression>().left()).kind ==
+                      ExpressionKind::NamedValue ||
+                  stripImplicitConv(rn.as<BinaryExpression>().right()).kind ==
+                      ExpressionKind::NamedValue));
+            if (minusParam) {
+                ASTContext nctx(comp.getRoot(), LookupLocation::max);
+                ConstantValue ncv = nctx.tryEval(rn);
+                int32_t w = (int32_t)ae.left().type->getBitWidth();
+                if (ncv && ncv.isInteger() && !ncv.integer().hasUnknown() &&
+                    w > 0) {
+                    auto niv = ncv.integer();
+                    niv.setSigned(true);
+                    auto* c = s.MakeConstant();
+                    c->VpiSize(w);
+                    std::string digits = niv.toString(LiteralBase::Decimal, false);
+                    c->VpiDecompile(digits);
+                    c->VpiValue("INT:" + digits);
+                    c->VpiConstType(vpiIntConst);
+                    rhs = c;
+                }
+            }
+        }
+        if (!rhs && !bitsRhs && !skipGeneralFold)
             // Unbased-unsized RHS never general-folds here: '1 folded above,
             // '0 shares the def constant, 'x/'z have unknowns. Replicated
             // patterns re-emit as operations.
@@ -3673,13 +3715,31 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             refCollector = nullptr;
             reemitting = false;
             // Re-emitted BARE literals and $bits folds size at the LHS
-            // type width.
+            // type width; a bare literal WIDER than the LHS also truncates
+            // its value (out = 74 on a 1-bit net -> UINT:0).
             if (topView && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
                 (bitsRhs ||
                  (literalRhs &&
                   rawText(stripImplicitConv(ae.right()).sourceRange).find('\'') ==
-                      std::string::npos)))
-                ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+                      std::string::npos))) {
+                int32_t w = (int32_t)ae.left().type->getBitWidth();
+                auto* rc = (UHDM::constant*)rhs;
+                rc->VpiSize(w);
+                if (literalRhs && !bitsRhs &&
+                    stripImplicitConv(ae.right()).kind ==
+                        ExpressionKind::IntegerLiteral) {
+                    auto lv =
+                        stripImplicitConv(ae.right()).as<IntegerLiteral>().getValue();
+                    if (!lv.hasUnknown() && w > 0 &&
+                        (int32_t)lv.getActiveBits() > w) {
+                        auto tv = lv.trunc((slang::bitwidth_t)w);
+                        tv.setSigned(false);
+                        std::string digits = tv.toString(LiteralBase::Decimal, false);
+                        rc->VpiDecompile(digits);
+                        rc->VpiValue("UINT:" + digits);
+                    }
+                }
+            }
             // A def-view '0 RHS (alone among unbased-unsized) on a WHOLE-NET
             // LHS sizes at the LHS width; the elab view then shares this
             // constant. Select/dotted LHS keeps -1.
