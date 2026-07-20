@@ -5359,17 +5359,26 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         if (!elabCas->empty())
             iface->Cont_assigns(elabCas);
     }
+    // The folded process is parented at the DEF interface_inst and its block
+    // names use the DEF prefix (work@<iface>), though ref actuals still resolve
+    // to this elab instance's vars (via netMap). Surelog folds one process
+    // object into both interface_inst views.
+    auto iitP = ifaceDefMap.find(&def);
+    UHDM::interface_inst* procParent =
+        iitP != ifaceDefMap.end() ? iitP->second : iface;
+    std::string procPrefix =
+        iitP != ifaceDefMap.end() ? "work@" + std::string(def.name) : prefix;
     auto* procs = s.MakeProcess_stmtVec();
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::ProceduralBlock)
-            if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), iface, prefix, netMap))
+            if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), procParent,
+                                      procPrefix, netMap))
                 procs->push_back(p);
     }
     if (!procs->empty()) {
         instSetProcess(iface, procs);
-        // Surelog folds one process object into both interface_inst views.
-        if (auto iit3 = ifaceDefMap.find(&def); iit3 != ifaceDefMap.end())
-            instSetProcess(iit3->second, procs);
+        if (iitP != ifaceDefMap.end())
+            instSetProcess(iitP->second, procs);
     }
 
     // Elab-view ports carry both LowConn (own var) and HighConn (parent
