@@ -709,9 +709,13 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         v->VpiVisibility(1);
         return v;
     }
-    // Union variables elaborate as union_vars.
+    // A TYPEDEF'd union variable elaborates as a union_var; an ANONYMOUS one
+    // (declared type IS the union, not an alias) routes to the net path as a
+    // struct_net (Surelog) — return null so the caller falls through.
     if (ct.kind == SymbolKind::PackedUnionType &&
         internal.kind == SymbolKind::Variable) {
+        if (declared->getType().kind == SymbolKind::PackedUnionType)
+            return nullptr;
         auto* v = s.MakeUnion_var();
         v->VpiVisibility(1);
         return v;

@@ -1367,7 +1367,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             bool isStruct = false;
             if (auto dt = it.sym->getDeclaredType())
                 isStruct = dt->getType().getCanonicalType().kind ==
-                           SymbolKind::PackedStructType;
+                               SymbolKind::PackedStructType ||
+                           dt->getType().kind == SymbolKind::PackedUnionType;
             // A packed-struct signal WITH an initializer is a struct_VAR
             // (the init becomes its vpiExpr, operands unparented), spanning
             // the declarator name.
