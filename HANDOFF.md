@@ -1,5 +1,54 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## ⭐ KEY INSIGHT (Session 12 end) — PRIORITIZE DIFF (cmp-failing) OVER CMP_ONLY
+
+uhdm-cmp is the SEMANTIC comparator. Classes: **PASS** (dump byte-identical +
+cmp-equivalent), **CMP_ONLY** (cmp PASSES, only dump TEXT differs — Surelog
+quirks: weak-tail ordering, span columns, cosmetic parents; semantically
+CORRECT, downstream-safe), **DIFF** (cmp FAILS — a REAL semantic bug).
+Current: PASS 388 / CMP_ONLY 47 / DIFF 226. The small-dump-diff ladder is
+mostly CMP_ONLY quirks; the REAL bugs are the DIFF tests (cmp-failing).
+**User priority: reduce DIFFs (and uhdm-cmp diffs) over CMP_ONLY.** Dump-line
+increases on a still-DIFF test are FINE if cmp advances; the ONLY hard rule is
+never demote PASS or CMP_ONLY. uhdm-cmp reports the FIRST diverging object
+(LHS=Surelog, RHS=ours) — fixing a DIFF test is iterative: fix first mismatch,
+re-run, repeat until cmp passes. Workflow: `WORK=$W converge.sh dut.sv` then
+read `$W/cmp.log` (LHS/RHS) — NOT the dump diff.
+
+**Session-12-end cmp-focus wins (11 real bugs DIFF->CMP_ONLY):**
+- Anonymous packed struct signal -> struct_typespec not bit_typespec
+  (makeTypespec had no non-typedef struct branch): 9 tests — AnonStructs,
+  IndexedPartSelectOfMember, PartSelectOfMember, multidim_hier_path7,
+  struct_3d_packed_array, struct_array_indexed_write, struct_init_partial_write,
+  struct_little_endian_bit_array, struct_part_select_write.
+- Anonymous packed union SIGNAL -> struct_net not union_var (net-vs-var):
+  AnonymousUnion, AssignToUnionAndReadField.
+- Struct/union-typed PARAM -> struct/union_typespec not int_typespec
+  (makeParamTs): advances ~16 param tests past the typespec (still DIFF pending
+  the pattern RHS below).
+
+**Systematic DIFF patterns still open (from cmp.log survey of smallest DIFFs):**
+- STRUCT-PARAM PATTERN RHS (~16 tests, HIGH leverage): `parameter T P='{a:1}`
+  — Surelog emits a FLAT op-75 (per-member folded value constants + a
+  struct_typespec ref on the op), ours folds to a constant OR emits emitExpr's
+  tagged_pattern. The signal path (ModuleEmit ~L1153, struct_var pattern) does
+  exactly the flat form — REUSE it. BLOCKER: the op needs the param's
+  struct_typespec, but makeParamTs builds it AFTER the RHS in emitParameters;
+  a fresh buildStructTs duplicates it (dump 65->112). FIX: build the param
+  struct_typespec ONCE before the RHS and share it with the op.
+- makeReturnVar packed_array_var: a multi-dim packed-array function return
+  (word[1:0]) should be packed_array_var (TypedefedRangedFunctionReturn), but
+  "element isPackedArray -> packed_array_var" REGRESSED BitSelectPartSelectIn
+  Function (PASS->DIFF). Rule is subtler — needs the exact multi-dim vs
+  vector-of-typedef distinction.
+- operation-vs-constant FOLD mismatch (int_types_blk1: ours op / SL constant;
+  ReplicationPassedToInstance + ParameterOfSizeOf...: ours constant / SL op) —
+  per-context fold rules, not one fix.
+- missing ref_typespec (ImportTypeOfPort, param_packed_array_subst pair);
+  extra `package` (package_task_func, fail_detect_width — recursion/$unit?);
+  hier_path multi-dim (SelectOnMember/IndexedPartSelectOfArrayElement).
+
+
 ## Session 12 (autonomous 8h block, 2026-07-20)
 
 **Remaining top-ladder triage (all characterized, all HARD):**
