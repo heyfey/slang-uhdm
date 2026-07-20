@@ -721,7 +721,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             : v.rfind("DEC:", 0) == 0 ? vpiDecConst
                                                                       : vpiUIntConst);
                             setLoc(c, expr.sourceRange);
-                            if (parent &&
+                            if (!suppressConstParent && parent &&
                                 parent->UhdmType() == UHDM::uhdmoperation)
                                 c->VpiParent(parent);
                             return c;

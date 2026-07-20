@@ -2169,7 +2169,8 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     auto declared = sym.getDeclaredType();
     if (!declared || !declared->getType().isPackedArray())
         return nullptr;
-    // Descend the packed dims to the leaf; it must be a shared struct typedef.
+    // Descend the packed dims to the leaf; it must be a shared struct or
+    // enum typedef.
     int arrDims = 0;
     const Type* leaf = &declared->getType().getCanonicalType();
     while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType) {
@@ -2177,7 +2178,7 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
         leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
     }
     auto& lc = leaf->getCanonicalType();
-    if (lc.kind != SymbolKind::PackedStructType)
+    if (lc.kind != SymbolKind::PackedStructType && lc.kind != SymbolKind::EnumType)
         return nullptr;
     UHDM::typespec* elemTs = nullptr;
     for (auto& [s2, tsp] : typedefTs)
@@ -2245,8 +2246,11 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     }
     pav->Ranges(rvec);
 
-    // vpiElement: a struct_var referencing the shared struct_typespec.
-    auto* sv = s.MakeStruct_var();
+    // vpiElement: a struct_var (or enum_var for enum leaves) referencing the
+    // shared typedef typespec.
+    UHDM::variables* sv = lc.kind == SymbolKind::EnumType
+                              ? (UHDM::variables*)s.MakeEnum_var()
+                              : (UHDM::variables*)s.MakeStruct_var();
     sv->VpiParent(pav);
     sv->VpiFullName(fullName);
     auto* srt = s.MakeRef_typespec();
