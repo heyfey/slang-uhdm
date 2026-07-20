@@ -938,6 +938,20 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         if (!implicitNet && !realVar &&
             unpackedArrayLeafIsNet(*it.sym, it.port != nullptr)) {
             if (auto* an = emitArrayNet(*it.sym, name, fullName, m, ts)) {
+                // Share the def-view attribute objects onto both the array_net
+                // and its element logic_net (Surelog attaches to both).
+                if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
+                    auto* av1 = s.MakeAttributeVec();
+                    for (auto* ua : ait->second)
+                        av1->push_back(ua);
+                    an->Attributes(av1);
+                    if (an->Nets() && !an->Nets()->empty()) {
+                        auto* av2 = s.MakeAttributeVec();
+                        for (auto* ua : ait->second)
+                            av2->push_back(ua);
+                        (*an->Nets())[0]->Attributes(av2);
+                    }
+                }
                 topNets[it.sym] = an;
                 sigOrder.emplace_back(it.sym, an);
                 arrayNets->push_back(an);
