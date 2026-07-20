@@ -15,7 +15,7 @@ never demote PASS or CMP_ONLY. uhdm-cmp reports the FIRST diverging object
 re-run, repeat until cmp passes. Workflow: `WORK=$W converge.sh dut.sv` then
 read `$W/cmp.log` (LHS/RHS) — NOT the dump diff.
 
-**Session-12-end cmp-focus wins (11 real bugs DIFF->CMP_ONLY):**
+**Session-12-end cmp-focus wins (12 real bugs DIFF->CMP_ONLY; DIFF 237->225):**
 - Anonymous packed struct signal -> struct_typespec not bit_typespec
   (makeTypespec had no non-typedef struct branch): 9 tests — AnonStructs,
   IndexedPartSelectOfMember, PartSelectOfMember, multidim_hier_path7,
@@ -23,9 +23,24 @@ read `$W/cmp.log` (LHS/RHS) — NOT the dump diff.
   struct_little_endian_bit_array, struct_part_select_write.
 - Anonymous packed union SIGNAL -> struct_net not union_var (net-vs-var):
   AnonymousUnion, AssignToUnionAndReadField.
+- Anonymous UNPACKED union -> union_typespec + struct_net (extended makeTypespec
+  union branch to UnpackedUnionType + isStruct): AssignToUnpackedUnionField...
+- Packed-array-of-ENUM typedef -> packed_array_typespec + enum_typespec element
+  (emitTypedefs packed-array branch, enum leaf): typedef_packed_enum_array
+  (cmp-ADVANCED past the typespec, still DIFF at a later module_inst diff).
 - Struct/union-typed PARAM -> struct/union_typespec not int_typespec
   (makeParamTs): advances ~16 param tests past the typespec (still DIFF pending
   the pattern RHS below).
+The pattern: makeTypespec/makeParamTs/emitTypedefs/buildStructTs default
+aggregate & array-of-typedef types to scalar typespecs. Anonymous
+(non-typedef) aggregates were the clean early-return fixes. STILL-OPEN
+same-class (riskier, in core/param paths): packed-array-of-VECTOR-typedef
+struct member (struct_typedef_packed_array, makeTypespec pa-branch needs
+named-typedef leaf); named-vector-typedef PARAM (ParameterOfParametrizedType,
+timing — makeTypespec returns fresh unnamed for the parametrized typedef);
+function return var types (TypedefedRangedFunctionReturn packed_array_var,
+func_tern_hint signed-vector->int_var); unpacked-array typespec
+(struct_pattern_loop array_typespec).
 
 **Systematic DIFF patterns still open (from cmp.log survey of smallest DIFFs):**
 - STRUCT-PARAM PATTERN RHS (~16 tests, HIGH leverage): `parameter T P='{a:1}`
