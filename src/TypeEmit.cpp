@@ -352,8 +352,20 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     if (declared && declared->getType().kind == SymbolKind::PackedUnionType) {
         auto& ctU = declared->getType().getCanonicalType();
         auto* uts = buildUnionTs(ctU.as<PackedUnionType>(), true, "");
-        if (auto tsyn = declared->getTypeSyntax())
-            setLoc(uts, tsyn->sourceRange());
+        if (auto tsyn = declared->getTypeSyntax()) {
+            // Anonymous union ts spans only the `union packed` HEADER (Surelog),
+            // not the whole {..} body.
+            if (auto* su = tsyn->as_if<syntax::StructUnionTypeSyntax>()) {
+                SourceLocation e = su->keyword.range().end();
+                if (su->packed && su->packed.range().end() > e)
+                    e = su->packed.range().end();
+                if (su->signing && su->signing.range().end() > e)
+                    e = su->signing.range().end();
+                setLoc(uts, SourceRange(su->keyword.range().start(), e));
+            }
+            else
+                setLoc(uts, tsyn->sourceRange());
+        }
         return uts;
     }
     // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
