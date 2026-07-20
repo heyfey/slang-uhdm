@@ -1,5 +1,35 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 12 (autonomous 8h block, 2026-07-20, in progress)
+
+**Diff-reduction partials so far (PASS still 377):**
+- ParameterInitializedByPartSelectOfParametersAssignedToVar 60->24 (DIFF->
+  CMP_ONLY): emitGenScopes folds a plain param-ref RHS carrying a part-select
+  fold constant, with a fresh bit/logic_typespec scoped to the gen scope
+  (makeTypespec + syntaxRefPrefix). REMAINING: the DEF param_assign fold ts
+  is bit_typespec vs logic_typespec is GEN-REFERENCE-gated (base test wants
+  logic, this variant bit — same source, distinguisher is gen-block use);
+  sharing the param's bit_typespec directly REGRESSES the base.
+- param_packed_array_subst / ParameterPackedArraySurelogSubstitution 105->70:
+  nested-pattern params keep their operation in the elab view (no fold), def
+  operands unparented. REMAINING: Surelog REORDERS packed-array pattern
+  operands to bit-index order + vpiReordered:1 + outer-op typespec ref.
+- func_port_implied_dir 111->64: port initializers -> vpiHighConn (call stays
+  a name-anchored func_call w/ no arg ts via portInitCtx; literal stays an
+  unparented constant); elab port folded HighConn + port-backed var vpiExpr
+  (call-fold INT, literal UINT). REMAINING: gold's MULTI-declarator ports
+  (output integer w=16, x=4, ...) don't reach the it.port init link.
+- ImportTypeOfPort 37: DEFERRED. The pkg-typedef ts parent is use-dependent
+  (allPackages def wants package parent, topPackages top wants none; the
+  cont-assign-LHS clearing loop nulls it). Restoring the pkg parent REGRESSES
+  TypedefEnum + TypedefInModulePort. A precise use-based predicate is needed.
+- struct-param pair (StructLocalParam/StructParameter 101): a struct/enum
+  param should share the typedef ts. BLOCKED: the DEF param typespec is built
+  BEFORE emitTypedefs populates typedefTs (typedefTsSize=0 at the first
+  makeParamTs call), so the shared ts isn't found; also the deferred drain
+  re-parents the shared object to the param ref. Needs phase coordination +
+  a re-parent guard (its->VpiName().empty()), plus a pattern-op RHS.
+
 ## Session 11 (autonomous 8h block, 2026-07-20) — FINAL
 
 **PASS 360->377 (+17), DIFF 274->239.** Converged in the second half (on top
