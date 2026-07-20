@@ -784,6 +784,21 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind))
                 its = makeTypespec(ps);
         }
+        // A struct/union-typed param carries the aggregate typespec (named by
+        // the typedef, located at the struct/union body), not an int_typespec.
+        else if (ct.kind == SymbolKind::PackedStructType ||
+                 ct.kind == SymbolKind::PackedUnionType) {
+            std::string alias;
+            if (auto d0 = ps.getDeclaredType())
+                if (d0->getType().kind == SymbolKind::TypeAlias)
+                    alias = std::string(d0->getType().name);
+            its = ct.kind == SymbolKind::PackedStructType
+                      ? (UHDM::typespec*)buildStructTs(ct.as<PackedStructType>(), true, alias)
+                      : (UHDM::typespec*)buildUnionTs(ct.as<PackedUnionType>(), true, alias);
+            its->VpiName(alias);
+            if (auto* csyn = ct.getSyntax())
+                tr = csyn->sourceRange();
+        }
     }
     // An untyped param initialized with a string literal (parameter X = "FOO")
     // is a bare (unlocated) string_typespec, not an int_typespec.
