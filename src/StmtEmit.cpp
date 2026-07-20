@@ -501,8 +501,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // Surelog.
                 setLoc(as2, SourceRange(stmt.sourceRange.start(),
                                         ae.right().sourceRange.end()));
+                // Surelog parents an assign_stmt's RHS constant at the
+                // assign_stmt (in every context, incl. package tasks).
+                bool sfcp = forceConstParent;
+                forceConstParent = true;
                 if (auto* r = emitExpr(ae.right(), as2, prefix, netMap))
                     as2->Rhs((UHDM::expr*)r);
+                forceConstParent = sfcp;
                 inLhs = true;
                 if (auto* l = emitExpr(ae.left(), as2, prefix, netMap))
                     as2->Lhs((UHDM::expr*)l);
