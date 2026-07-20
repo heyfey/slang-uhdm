@@ -42,9 +42,21 @@ modelled elsewhere for the def net) — so the condition never fired. Needs
 the def-net's unpacked-dim source + a DEFERRED array_typespec placed late in
 the weak tail (after the process constants). Genuine arena/view puzzle.
 
+**DEFERRED — OneStruct (unpacked struct arrays)**: two parts, one solved
+one blocked. (1) SOLVED in a throwaway branch: emitArrayNet's element for a
+struct leaf must be a struct_net (doubled fullname work@m.sig.sig →
+shared struct_typespec), located name..FIRST-unpacked-dim-end (Surelog stops
+at dim 0 even for [10][20]) — a clean extension of this session's array_net.
+(2) BLOCKED: golden's DEF-view nets for OneStruct's memArray/memMulti/mem
+carry NO typespec, but gating ALL struct-leaf def nets off the pendingNetTs
+typespec regressed 12 tests + a golden (most struct def nets DO keep it).
+The distinguisher is member-access-ONLY structs (mem.wr/.addr/.data, never
+whole-assigned) drop the def typespec — needs a precise "member-access-only"
+predicate before the array_net struct-element extension can land.
+
 **NEXT LADDER (fresh difsize)**: AssignArraySelPlus (35, deferred),
-typedef_unpacked_input (49, same family), OneStruct (57, unpacked struct
-arrays), iface_modport_conn (68, arena), ImportTypeOfPort (69),
+typedef_unpacked_input (49, same family), OneStruct (57, deferred above),
+iface_modport_conn (68, arena), ImportTypeOfPort (69),
 TypedefAliasInPackage (70), iface_modport_out (72),
 BitSelectPartSelectInFunction (73), sva_range (76),
 ParameterInitializedByPartSelectOfParametersAssignedToVar (80, gen-scope),
