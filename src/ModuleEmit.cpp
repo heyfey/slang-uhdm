@@ -1363,12 +1363,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             vars->push_back(v);
         }
         else {
-            // Packed-struct signals become struct_nets in the instance view.
+            // Packed-struct signals — and anonymous packed/unpacked union
+            // signals — become struct_nets in the instance view.
             bool isStruct = false;
             if (auto dt = it.sym->getDeclaredType())
                 isStruct = dt->getType().getCanonicalType().kind ==
                                SymbolKind::PackedStructType ||
-                           dt->getType().kind == SymbolKind::PackedUnionType;
+                           dt->getType().kind == SymbolKind::PackedUnionType ||
+                           dt->getType().kind == SymbolKind::UnpackedUnionType;
             // A packed-struct signal WITH an initializer is a struct_VAR
             // (the init becomes its vpiExpr, operands unparented), spanning
             // the declarator name.

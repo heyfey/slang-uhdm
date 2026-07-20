@@ -349,13 +349,16 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // An ANONYMOUS packed union (union packed {..} u;) builds an unnamed
     // union_typespec. A TYPEDEF'd union (kind == TypeAlias) is excluded — it
     // shares the named typedef ts (or is cloned by the typedef paths).
-    if (declared && declared->getType().kind == SymbolKind::PackedUnionType) {
+    if (declared && (declared->getType().kind == SymbolKind::PackedUnionType ||
+                     declared->getType().kind == SymbolKind::UnpackedUnionType)) {
+        bool pk = declared->getType().kind == SymbolKind::PackedUnionType;
         auto& ctU = declared->getType().getCanonicalType();
-        auto* uts = buildUnionTs(ctU.as<PackedUnionType>(), true, "");
+        auto* uts = pk ? buildUnionTs(ctU.as<PackedUnionType>(), true, "")
+                       : buildUnionTs(ctU.as<UnpackedUnionType>(), false, "");
         if (auto tsyn = declared->getTypeSyntax()) {
-            // Anonymous union ts spans only the `union packed` HEADER (Surelog),
-            // not the whole {..} body.
-            if (auto* su = tsyn->as_if<syntax::StructUnionTypeSyntax>()) {
+            // A PACKED anonymous union ts spans only the `union packed` HEADER;
+            // an UNPACKED one spans the whole syntax (Surelog).
+            if (auto* su = tsyn->as_if<syntax::StructUnionTypeSyntax>(); su && pk) {
                 SourceLocation e = su->keyword.range().end();
                 if (su->packed && su->packed.range().end() > e)
                     e = su->packed.range().end();
