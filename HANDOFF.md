@@ -43,14 +43,28 @@ func_tern_hint signed-vector->int_var); unpacked-array typespec
 (struct_pattern_loop array_typespec).
 
 **Systematic DIFF patterns still open (from cmp.log survey of smallest DIFFs):**
-- STRUCT-PARAM PATTERN RHS (~16 tests, HIGH leverage): `parameter T P='{a:1}`
-  — Surelog emits a FLAT op-75 (per-member folded value constants + a
-  struct_typespec ref on the op), ours folds to a constant OR emits emitExpr's
-  tagged_pattern. The signal path (ModuleEmit ~L1153, struct_var pattern) does
-  exactly the flat form — REUSE it. BLOCKER: the op needs the param's
-  struct_typespec, but makeParamTs builds it AFTER the RHS in emitParameters;
-  a fresh buildStructTs duplicates it (dump 65->112). FIX: build the param
-  struct_typespec ONCE before the RHS and share it with the op.
+- STRUCT-PARAM CLUSTER (~16 tests, HIGH leverage) — DEEPLY investigated, has
+  THREE stacked blockers (fix in cmp.log order):
+  (1) UPSTREAM BLOCKER (fix FIRST): the def-view module_inst cmp-fails with
+      RHS=<null> BEFORE the pattern even matters — the struct_typespec built in
+      makeParamTs (my struct-param-typespec commit) isn't fully wired into the
+      module structure. Found one missing piece: its vpiInstance was 1 vs SL's
+      2 (fix: set its->Instance((instance*)up->VpiParent()) in
+      patchParamTypespecs for struct/union its — verified 2==2, no regress, but
+      does NOT clear the module_inst-null, so there's ANOTHER missing
+      module_inst reference in the def view). Diagnose by comparing every
+      vpiInstance/vpiParent->module_inst between SL and ours dumps.
+  (2) Param RHS is a def/elab ASYMMETRY: Surelog's DEF-view op-75 uses a
+      tagged_pattern (emitExpr's form, KEEP IT), the ELAB-view op-75 uses FLAT
+      per-member constants. So skip the fold for struct params + emit the flat
+      op-75 only when topView (elab); the def view keeps emitExpr. The op's
+      typespec ref binds to the SHARED param struct_typespec via rhsRt (set
+      rhsRt=the op's ref_typespec; patchParamTypespecs binds it — the op-parent
+      path skips the uintFold special case). Clean structure: emit op-75 setting
+      rhs, then guard `if(!rhs) rhs=emitExpr(...)` (no if/else restructure).
+      This got StructParameter 65->48 but stays blocked by (1).
+  (3) The elab flat constant should keep the based-literal decompile (1'b1),
+      not decimal (my op-75 emitted UINT decimal "1" vs SL "1'b1").
 - makeReturnVar packed_array_var: a multi-dim packed-array function return
   (word[1:0]) should be packed_array_var (TypedefedRangedFunctionReturn), but
   "element isPackedArray -> packed_array_var" REGRESSED BitSelectPartSelectIn
