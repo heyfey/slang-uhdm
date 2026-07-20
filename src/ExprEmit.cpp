@@ -53,8 +53,26 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     if (!cv || !cv.isInteger())
         return nullptr;
     slang::SVInt iv = cv.integer();
-    if (iv.hasUnknown())
-        return nullptr;
+    // A CONCAT with x/z bits ({12'h800, 4'b001x, 16'bx...}) still folds — to
+    // a full-width BINARY constant preserving the 0/1/x/z bits. Other
+    // unknown-valued expressions refuse.
+    if (iv.hasUnknown()) {
+        if (stripImplicitConv(expr).kind != ExpressionKind::Concatenation)
+            return nullptr;
+        auto* c = s.MakeConstant();
+        c->VpiSize((int32_t)expr.type->getBitWidth());
+        std::string bits;
+        for (int32_t i = (int32_t)expr.type->getBitWidth() - 1; i >= 0; i--) {
+            auto b = iv[i];
+            bits += b.isUnknown() ? (b.value == slang::logic_t::Z_VALUE ? 'z' : 'x')
+                    : (b.value ? '1' : '0');
+        }
+        c->VpiValue("BIN:" + bits);
+        c->VpiConstType(vpiBinaryConst);
+        c->VpiDecompile(std::to_string((int32_t)expr.type->getBitWidth()) + "'b" +
+                        bits);
+        return c;
+    }
     // A SIZE cast whose OPERAND is a signed non-literal (N'(signed_ref)) folds
     // to a SIGNED constant reinterpreted at the cast width (2'(3) -> -1),
     // carrying a signed logic_typespec and no decompile. A literal operand
@@ -795,6 +813,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 raw = comp;
             }
+            // Digit-separator underscores (4'b001x, xxxx_xxxx) are removed in
+            // both the decompile and the value (Surelog quirk).
+            if (raw.find('\'') != std::string::npos)
+                raw.erase(std::remove(raw.begin(), raw.end(), '_'), raw.end());
             c->VpiDecompile(raw);
             c->VpiSize((int32_t)expr.type->getBitWidth());
             if (spc)
