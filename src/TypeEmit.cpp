@@ -346,6 +346,16 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         }
     }
 
+    // An ANONYMOUS packed union (union packed {..} u;) builds an unnamed
+    // union_typespec. A TYPEDEF'd union (kind == TypeAlias) is excluded — it
+    // shares the named typedef ts (or is cloned by the typedef paths).
+    if (declared && declared->getType().kind == SymbolKind::PackedUnionType) {
+        auto& ctU = declared->getType().getCanonicalType();
+        auto* uts = buildUnionTs(ctU.as<PackedUnionType>(), true, "");
+        if (auto tsyn = declared->getTypeSyntax())
+            setLoc(uts, tsyn->sourceRange());
+        return uts;
+    }
     // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
     UHDM::typespec* ts0;
     if (declared && declared->getType().isIntegral() &&
