@@ -1172,7 +1172,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             syntaxRefSep = savedSep;
         }
         // Fresh member typespecs parent at the member; shared typedef
-        // typespecs (named) keep their own parent.
+        // typespecs (named) keep their own parent. Elab param CLONES parent
+        // them at the member's REF instead (Surelog clone form).
         if (fts->VpiName().empty())
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
@@ -1180,6 +1181,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         rt->VpiParent(tm);
         rt->Actual_typespec(fts);
         tm->Typespec(rt);
+        if (structCloneMemberRefParent && fts->VpiName().empty())
+            fts->VpiParent(rt);
         // Ref* fields point at the member's type syntax.
         if (memberTypeSyn) {
             auto sr = memberTypeSyn->sourceRange();

@@ -425,6 +425,8 @@ UHDM::design* UhdmExporter::exportDesign() {
         else
             emitModuleDef(*inst, false);
     }
+    // Deferred def-view aggregate-typedef param ts (typedefTs is now full).
+    drainDefParamTs();
 
     // File-level class definitions -> design->AllClasses: properties as
     // ::-scoped automatic vars, methods via emitTaskFuncs (class scope).

@@ -3138,6 +3138,41 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // folds (top view) to its init value.
         const Symbol* constVarRhs = nullptr;
         const Expression* constVarInit = nullptr;
+        // A member access on a STRUCT-typed param (assign o = P.a) folds in
+        // the ELAB view to the member's pattern-setter constant (fresh CA,
+        // def CA not shared).
+        const Expression* structParamSetter = nullptr;
+        if (topView) {
+            auto& rc = stripImplicitConv(ae.right());
+            if (rc.kind == ExpressionKind::MemberAccess) {
+                auto& ma = rc.as<MemberAccessExpression>();
+                auto& base = stripImplicitConv(ma.value());
+                if (base.kind == ExpressionKind::NamedValue &&
+                    base.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter) {
+                    auto& psym = base.as<NamedValueExpression>()
+                                     .symbol.as<ParameterSymbol>();
+                    if (psym.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedStructType) {
+                        if (auto pinit = psym.getInitializer()) {
+                            auto& ic = stripImplicitConv(*pinit);
+                            if (ic.kind ==
+                                ExpressionKind::StructuredAssignmentPattern) {
+                                auto& ap =
+                                    ic.as<StructuredAssignmentPatternExpression>();
+                                for (auto& ms : ap.memberSetters)
+                                    if (ms.member == &ma.member) {
+                                        structParamSetter = ms.expr;
+                                        break;
+                                    }
+                                if (!structParamSetter)
+                                    structParamSetter = ap.defaultSetter;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         // A ref to a NO-DEFAULT overridden param folds to a raw-encoded
         // LOC-LESS constant shared into the param_assign Rhs.
         const Symbol* noDefOvRhs = nullptr;
@@ -3266,7 +3301,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
-              !pkgParamSel && !noDefOvRhs))) {
+              !pkgParamSel && !noDefOvRhs && !structParamSetter))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -3829,7 +3864,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
-        if (!rhs && !bitsRhs && !skipGeneralFold)
+        if (!rhs && !bitsRhs && !skipGeneralFold && !structParamSetter)
             // Unbased-unsized RHS never general-folds here: '1 folded above,
             // '0 shares the def constant, 'x/'z have unknowns. Replicated
             // patterns re-emit as operations.
@@ -3967,6 +4002,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (!rhs && topView && (dottedLhs || callIdxLhs) && shareWithDef && defInfo &&
             myIdx < defInfo->contAssigns.size())
             rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
+        // Struct-param member access folds to the member's setter constant
+        // (source encoding + setter loc, parented at the ca).
+        if (!rhs && topView && structParamSetter) {
+            bool fsp = forceConstParent;
+            forceConstParent = true;
+            rhs = emitExpr(*structParamSetter, ca, prefix, netMap);
+            forceConstParent = fsp;
+        }
         if (!rhs) {
             if (topView) {
                 refCollector = instRefs;

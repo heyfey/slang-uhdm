@@ -362,6 +362,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                      return true;
                              return false;
                          }()) &&
+                         // A struct-typed param keeps its assignment pattern
+                         // (def: tagged_pattern op; elab: flat op-75 below).
+                         !([&] {
+                             if (ps.getType().getCanonicalType().kind !=
+                                 SymbolKind::PackedStructType)
+                                 return false;
+                             auto k = stripImplicitConv(*init).kind;
+                             return k == ExpressionKind::StructuredAssignmentPattern ||
+                                    k == ExpressionKind::SimpleAssignmentPattern;
+                         }()) &&
                          !containsUserCall(*init) &&
                          (rhs = tryFoldConst(
                               *init, (typedParam && init != init0) ? init0
@@ -510,6 +520,79 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ExpressionKind::SimpleAssignmentPattern)
                                 nestedPat = true;
                 }
+                // Struct-typed param pattern RHS (Surelog 3-object model):
+                // ELAB view: a FLAT op-75 (per-member folded constants) whose
+                // ts ref (rhsRt) binds the elab param clone in
+                // patchParamTypespecs. DEF view: emitExpr's tagged_pattern op
+                // plus a ts ref to a FRESH def clone (deferred to
+                // drainDefParamTs, scoped work@<mod>.<ty>.<member>).
+                bool structPat = false;
+                {
+                    auto& pctS = ps.getType().getCanonicalType();
+                    auto k0 = stripImplicitConv(*init).kind;
+                    structPat = pctS.kind == SymbolKind::PackedStructType &&
+                                (k0 == ExpressionKind::StructuredAssignmentPattern ||
+                                 k0 == ExpressionKind::SimpleAssignmentPattern);
+                }
+                if (structPat && topView) {
+                    auto& pctS = ps.getType().getCanonicalType();
+                    auto& sinitK = stripImplicitConv(*init);
+                    auto* op2 = s.MakeOperation();
+                    op2->VpiOpType(75);
+                    op2->VpiParent(pa);
+                    setLoc(op2, init->sourceRange);
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiParent(op2);
+                    op2->Typespec(rt);
+                    rhsRt = rt; // -> elab param clone (patchParamTypespecs)
+                    auto* opnds = s.MakeAnyVec();
+                    ASTContext ectx(comp.getRoot(), LookupLocation::max);
+                    for (auto& fld :
+                         pctS.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+                        const Expression* se = nullptr;
+                        if (sinitK.kind ==
+                            ExpressionKind::StructuredAssignmentPattern) {
+                            auto& ap =
+                                sinitK.as<StructuredAssignmentPatternExpression>();
+                            for (auto& ms : ap.memberSetters)
+                                if (ms.member == &fld) {
+                                    se = ms.expr;
+                                    break;
+                                }
+                            if (!se)
+                                se = ap.defaultSetter;
+                        }
+                        if (!se)
+                            continue;
+                        // A LITERAL setter keeps its source encoding (1'b1 ->
+                        // BIN, parented at the op via emitExpr); non-literal
+                        // setters fold to UINT at the member width.
+                        if (stripImplicitConv(*se).kind ==
+                            ExpressionKind::IntegerLiteral) {
+                            if (auto* e2 = emitExpr(*se, op2, prefix, netMap)) {
+                                ((UHDM::expr*)e2)->VpiParent(op2);
+                                opnds->push_back(e2);
+                            }
+                            continue;
+                        }
+                        ConstantValue cvm = ectx.tryEval(*se);
+                        if (cvm && cvm.isInteger() && !cvm.integer().hasUnknown()) {
+                            auto* c2 = s.MakeConstant();
+                            slang::SVInt uvm = cvm.integer();
+                            uvm.setSigned(false);
+                            std::string dg = uvm.toString(LiteralBase::Decimal, false);
+                            c2->VpiDecompile(dg);
+                            c2->VpiSize((int32_t)fld.getType().getBitWidth());
+                            c2->VpiValue("UINT:" + dg);
+                            c2->VpiConstType(vpiUIntConst);
+                            c2->VpiParent(op2);
+                            setLoc(c2, se->sourceRange);
+                            opnds->push_back(c2);
+                        }
+                    }
+                    op2->Operands(opnds);
+                    rhs = op2;
+                }
                 forceConstParent = !nestedPat;
                 inParamInit = true;
                 paramInitDef = !topView;
@@ -517,7 +600,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
                     suppressConstParent = true;
-                rhs = emitExpr(*init, pa, prefix, netMap);
+                if (!rhs)
+                    rhs = emitExpr(*init, pa, prefix, netMap);
                 suppressConstParent = savedSuppP;
                 paramInitPkg = false;
                 paramInitDef = false;
@@ -632,9 +716,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         passigns->push_back(pa);
+        // DEF-view aggregate-typedef params (typedef struct/union/enum T; then
+        // parameter T P) defer their ts binding past emitTypedefs so they can
+        // SHARE the named typedef typespec (drainDefParamTs).
+        bool deferAggTs = false;
+        if (auto dAgg = ps.getDeclaredType()) {
+            auto& dtAgg = dAgg->getType();
+            auto ckAgg = dtAgg.getCanonicalType().kind;
+            deferAggTs = dtAgg.kind == SymbolKind::TypeAlias &&
+                         (ckAgg == SymbolKind::PackedStructType ||
+                          ckAgg == SymbolKind::PackedUnionType ||
+                          ckAgg == SymbolKind::EnumType);
+        }
         if (prt) {
             if (topView && !inPackage) {
                 pendingParamTs.push_back({&ps, up, prt, rhsRt, typedParam});
+            }
+            else if (deferAggTs) {
+                pendingDefParamTs.push_back({&ps, up, prt, rhsRt, typedParam, m,
+                                             &member, di, inPackage,
+                                             joinPath(prefix, ps.name)});
             }
             else {
                 // $bits(SIGNAL) bounds scope their refs through the param
@@ -784,17 +885,24 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind))
                 its = makeTypespec(ps);
         }
-        // A struct/union-typed param carries the aggregate typespec (named by
-        // the typedef, located at the struct/union body), not an int_typespec.
+        // A struct/union-typed param carries a FRESH aggregate typespec clone
+        // (named by the typedef, located at the struct/union body), not an
+        // int_typespec. Member refs scope through the calling context
+        // (syntaxRefPrefix: the elab param clone uses work@top.P.<ty>.<m>).
         else if (ct.kind == SymbolKind::PackedStructType ||
                  ct.kind == SymbolKind::PackedUnionType) {
             std::string alias;
             if (auto d0 = ps.getDeclaredType())
                 if (d0->getType().kind == SymbolKind::TypeAlias)
                     alias = std::string(d0->getType().name);
+            std::string memberScope = alias;
+            if (!syntaxRefPrefix.empty() && !alias.empty())
+                memberScope = syntaxRefPrefix + "." + alias;
             its = ct.kind == SymbolKind::PackedStructType
-                      ? (UHDM::typespec*)buildStructTs(ct.as<PackedStructType>(), true, alias)
-                      : (UHDM::typespec*)buildUnionTs(ct.as<PackedUnionType>(), true, alias);
+                      ? (UHDM::typespec*)buildStructTs(ct.as<PackedStructType>(), true,
+                                                       memberScope)
+                      : (UHDM::typespec*)buildUnionTs(ct.as<PackedUnionType>(), true,
+                                                      memberScope);
             its->VpiName(alias);
             if (auto* csyn = ct.getSyntax())
                 tr = csyn->sourceRange();
@@ -929,11 +1037,41 @@ UHDM::typespec* UhdmExporter::makeBareVecParamTs(const ParameterSymbol& ps,
 void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
+        // The ELAB param ts is a FRESH clone (Surelog: parented at the elab
+        // ref below; struct/union clones also carry vpiInstance -> the module).
+        // A struct-pattern param's ELAB OP ts (rhsRt on an operation) binds its
+        // OWN module-scoped clone (created FIRST — Surelog tail order), with
+        // member leaf ts parented at the member refs.
         std::string savedPfx2 = syntaxRefPrefix;
+        bool aggParam = ps->getType().getCanonicalType().kind ==
+                            SymbolKind::PackedStructType ||
+                        ps->getType().getCanonicalType().kind ==
+                            SymbolKind::PackedUnionType;
+        UHDM::typespec* opClone = nullptr;
+        if (aggParam && rhsRt && rhsRt->VpiParent() &&
+            rhsRt->VpiParent()->UhdmType() == UHDM::uhdmoperation) {
+            std::string full(prt->VpiFullName());
+            auto dot = full.rfind('.');
+            syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
+            structCloneMemberRefParent = true;
+            opClone = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+            structCloneMemberRefParent = false;
+            rhsRt->Actual_typespec(opClone);
+            opClone->VpiParent(rhsRt);
+            if (rhsRt->VpiFullName().empty())
+                rhsRt->VpiFullName(syntaxRefPrefix);
+        }
         syntaxRefPrefix = std::string(prt->VpiFullName());
+        if (aggParam)
+            structCloneMemberRefParent = true;
         auto* its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+        structCloneMemberRefParent = false;
         syntaxRefPrefix = savedPfx2;
-        if (rhsRt) {
+        if (its->UhdmType() == UHDM::uhdmstruct_typespec ||
+            its->UhdmType() == UHDM::uhdmunion_typespec)
+            if (auto* par = up->VpiParent())
+                its->Instance((UHDM::instance*)par);
+        if (rhsRt && !opClone) {
             // The ELAB UINT-recomputed fold ('1 -> all-ones) of a VECTOR
             // param binds a fresh LOC-LESS bare clone (unparented bounds,
             // no clone parent); BIN-valued folds keep the located ts.
@@ -974,6 +1112,43 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
         }
         (void)up;
     }
+}
+
+// Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef
+// typespec now that emitTypedefs has populated typedefTs. The shared object
+// keeps its own parent/instance. Falls back to a fresh makeParamTs when the
+// typedef wasn't materialized (mirrors the non-deferred path).
+void UhdmExporter::drainDefParamTs() {
+    for (auto& pd : pendingDefParamTs) {
+        UHDM::typespec* its = nullptr;
+        bool sharedTs = false;
+        if (auto d0 = pd.ps->getDeclaredType()) {
+            if (auto tit = typedefTs.find(&d0->getType()); tit != typedefTs.end()) {
+                its = tit->second;
+                sharedTs = true;
+            }
+        }
+        if (!its) {
+            std::string savedPfx2 = syntaxRefPrefix;
+            const Scope* savedCS = currentScope;
+            syntaxRefPrefix = pd.refFullName;
+            if (!currentScope)
+                currentScope = pd.ps->getParentScope();
+            its = makeParamTs(*pd.ps, pd.typedParam);
+            currentScope = savedCS;
+            syntaxRefPrefix = savedPfx2;
+        }
+        if (pd.inPackage && !sharedTs)
+            its->Instance((UHDM::instance*)pd.m);
+        if (pd.di)
+            pd.di->paramTs[pd.member] = its;
+        if (pd.rhsRt)
+            pd.rhsRt->Actual_typespec(its);
+        pd.prt->Actual_typespec(its);
+        if (!sharedTs && pd.typedParam)
+            its->VpiParent(pd.up);
+    }
+    pendingDefParamTs.clear();
 }
 
 void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {

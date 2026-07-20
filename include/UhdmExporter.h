@@ -117,6 +117,29 @@ private:
         bool typedParam;
     };
 
+    // DEF-view params typed by a NAMED AGGREGATE typedef (struct/union/enum
+    // alias): their ts binding defers past emitTypedefs so they can share the
+    // named typedef typespec (Surelog's def param ref points at the ONE
+    // typedef object). Drained in exportDesign after the def-content loop.
+    struct PendingDefParamTs {
+        const slang::ast::ParameterSymbol* ps;
+        UHDM::parameter* up;
+        UHDM::ref_typespec* prt;
+        UHDM::ref_typespec* rhsRt;
+        bool typedParam;
+        UHDM::scope* m;
+        const slang::ast::Symbol* member;
+        DefInfo* di;
+        bool inPackage;
+        std::string refFullName;
+    };
+    std::vector<PendingDefParamTs> pendingDefParamTs;
+    void drainDefParamTs();
+    // True while building an elab struct/union param ts CLONE: member leaf
+    // typespecs parent at the member's ref_typespec (Surelog clone form)
+    // instead of the typespec_member.
+    bool structCloneMemberRefParent = false;
+
     // Per top instance: state carried from the netlist pass to the second
     // (port + deferred-typespec) pass.
     struct TopPending {
