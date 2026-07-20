@@ -153,7 +153,52 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             if (!written)
                 classHandle = false;
         }
-        if (!it.port && !implicitNet && !classHandle) {
+        // A net whose UNPACKED-leaf type is a MODULE-PREFIXED struct typedef
+        // (member-only use: neither nested nor whole-assigned) carries NO
+        // def-view typespec — unless it has an initializer or feeds a child
+        // instance port connection. Packed-array-of-struct nets keep theirs.
+        bool prefixedStructNet = false;
+        if (auto dtn = it.sym->getDeclaredType();
+            dtn && !dtn->getInitializer()) {
+            const Type* lf = &dtn->getType().getCanonicalType();
+            while (lf->getCanonicalType().kind ==
+                   SymbolKind::FixedSizeUnpackedArrayType)
+                lf = &lf->getCanonicalType()
+                          .as<FixedSizeUnpackedArrayType>()
+                          .elementType;
+            prefixedStructNet =
+                lf->getCanonicalType().kind == SymbolKind::PackedStructType &&
+                modulePrefixedStructs.count(&lf->getCanonicalType());
+            if (prefixedStructNet) {
+                for (auto& mb : body.members()) {
+                    if (mb.kind != SymbolKind::Instance)
+                        continue;
+                    for (auto pc : mb.as<InstanceSymbol>().getPortConnections()) {
+                        if (auto* pe = pc->getExpression()) {
+                            // Output conns wrap as Assignment(lval, Empty).
+                            if (pe->kind == ExpressionKind::Assignment)
+                                pe = &pe->as<AssignmentExpression>().left();
+                            std::set<const Symbol*> syms;
+                            collectLhsSyms(*pe, syms);
+                            const Expression* bot = &stripImplicitConv(*pe);
+                            while (bot->kind == ExpressionKind::MemberAccess)
+                                bot = &stripImplicitConv(
+                                    bot->as<MemberAccessExpression>().value());
+                            if (bot->kind == ExpressionKind::NamedValue)
+                                syms.insert(
+                                    &bot->as<NamedValueExpression>().symbol);
+                            if (syms.count(it.sym)) {
+                                prefixedStructNet = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!prefixedStructNet)
+                        break;
+                }
+            }
+        }
+        if (!it.port && !implicitNet && !classHandle && !prefixedStructNet) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
             auto* rt = s.MakeRef_typespec();

@@ -391,6 +391,11 @@ private:
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
     // Typedef typespecs shared across views; enum consts for value refs.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefTs;
+    // Canonical types of module-scope struct typedefs whose member refs are
+    // MODULE-PREFIXED (neither nested-typedef nor whole-assigned). Def-view
+    // nets of such structs (scalar or unpacked-array; NOT packed-array) carry
+    // no typespec ref (Surelog).
+    std::set<const void*> modulePrefixedStructs;
     // Vector typedefs: the write-side clone referenced via TypedefAlias.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefClone;
     // Instance-view refs to vector typedefs, patched with the late wrapper.

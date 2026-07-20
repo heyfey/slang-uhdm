@@ -1246,6 +1246,8 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
                 }
             }
             bool bareRefs = hasNestedTypedef || wholeAssigned;
+            if (!bareRefs)
+                modulePrefixedStructs.insert(&ct);
             std::string alias = bareRefs ? std::string(ta.name)
                                          : prefix + "." + std::string(ta.name);
             auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias);
