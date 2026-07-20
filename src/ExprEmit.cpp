@@ -366,16 +366,22 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 bs->VpiParent(hp);
                 bs->VpiFullName(dottedAt);
                 setLoc(bs, k == 0 ? comp.nameSpan : comp.sels[k - 1].sel->sourceRange);
-                // Base-select index constants parent to the bit_select in an
-                // ELAB cont-assign LHS: a single-dim select (flash_rsp_o[0].ack)
-                // or a multi-dim select into a PACKED array whose RHS triggers
-                // re-elaboration (group_status[0][0].a = 1'b1). A multi-dim
-                // UNPACKED select (a[0][0].x), a packed one with a plain-ref RHS
-                // (int_port_signed), and the def view stay unparented.
+                // Base-select index constants parent to the bit_select when:
+                //  - an ELAB cont-assign LHS single-dim select (flash_rsp_o[0]
+                //    .ack), or a multi-dim PACKED select whose RHS re-elaborates
+                //    (group_status[0][0].a = 1'b1); or
+                //  - a re-elaborated RVALUE select into a PACKED array
+                //    (int'(a[0][0].min_v)).
+                // A multi-dim UNPACKED select (a[0][0].x), a packed LHS with a
+                // plain-ref RHS (int_port_signed), and the def view stay
+                // unparented.
                 bool basePacked = baseNv->symbol.getType().isPackedArray();
+                bool doParent =
+                    (inLhs && elabContAssignLhs &&
+                     (comp.sels.size() == 1 || (basePacked && elabLhsReelab))) ||
+                    (!inLhs && reemitting && basePacked);
                 bool savedSCP = suppressConstParent;
-                if ((comp.sels.size() > 1 && !(basePacked && elabLhsReelab)) ||
-                    !inLhs || !elabContAssignLhs)
+                if (!doParent)
                     suppressConstParent = true;
                 if (auto* ix = emitExpr(*comp.sels[k].sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
