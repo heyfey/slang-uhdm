@@ -1129,32 +1129,32 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 auto& tgt = ta.targetType.getType().as<TypeAliasType>();
                 const syntax::SyntaxNode* tgtSyn = nullptr;
                 SourceLocation tgtStart = tgt.location;
+                SourceRange tgtDecl;
                 if (auto asyn = tgt.getSyntax();
                     asyn && asyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
                     tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
                     tgtStart = asyn->sourceRange().start();
+                    tgtDecl = asyn->sourceRange();
                 }
-                auto* ets = buildEnumTs(ct.as<EnumType>(), tgtSyn,
-                                        prefix + prefix + std::string(ta.name));
-                ets->VpiParent(up);
-                if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec()) {
-                    auto* bts = ets->Base_typespec()->Actual_typespec();
-                    bts->Instance((UHDM::instance*)up);
-                    bts->VpiParent(ets->Base_typespec());
-                }
-                auto* art = s.MakeRef_typespec();
-                art->VpiFullName(prefix + prefix + std::string(ta.name));
-                art->VpiParent(ets);
-                ets->Typedef_alias(art);
-                // Span end: the first module member declared with this alias.
+                // A module VARIABLE of the alias type extends the span to its
+                // declarator end, DOUBLES the ref scoping and parents at the
+                // package; port-only uses keep the TARGET's decl span, single
+                // scoping and no parent.
                 SourceLocation useEnd = SourceLocation::NoLocation;
                 for (auto inst : comp.getRoot().topInstances) {
                     for (auto& mb : inst->body.members()) {
-                        if (mb.kind != SymbolKind::Variable &&
-                            mb.kind != SymbolKind::Net)
+                        if (mb.kind != SymbolKind::Variable)
                             continue;
                         auto dt0 = mb.getDeclaredType();
                         if (!dt0 || &dt0->getType() != (const Type*)&ta)
+                            continue;
+                        // PORT-backed variables (output pkg::b o) don't count.
+                        bool portBacked = false;
+                        for (auto pb : inst->body.getPortList())
+                            if (pb->kind == SymbolKind::Port &&
+                                pb->as<PortSymbol>().internalSymbol == &mb)
+                                portBacked = true;
+                        if (portBacked)
                             continue;
                         if (auto dsyn0 = mb.getSyntax())
                             useEnd = dsyn0->sourceRange().end();
@@ -1163,8 +1163,26 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     if (useEnd != SourceLocation::NoLocation)
                         break;
                 }
-                if (useEnd != SourceLocation::NoLocation)
+                bool varUse = useEnd != SourceLocation::NoLocation;
+                std::string refName = varUse
+                                          ? prefix + prefix + std::string(ta.name)
+                                          : prefix + std::string(ta.name);
+                auto* ets = buildEnumTs(ct.as<EnumType>(), tgtSyn, refName);
+                if (varUse)
+                    ets->VpiParent(up);
+                if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec()) {
+                    auto* bts = ets->Base_typespec()->Actual_typespec();
+                    bts->Instance((UHDM::instance*)up);
+                    bts->VpiParent(ets->Base_typespec());
+                }
+                auto* art = s.MakeRef_typespec();
+                art->VpiFullName(refName);
+                art->VpiParent(ets);
+                ets->Typedef_alias(art);
+                if (varUse)
                     setLoc(ets, SourceRange(tgtStart, useEnd));
+                else if (tgtDecl.start() != SourceLocation::NoLocation)
+                    setLoc(ets, tgtDecl);
                 else if (auto syn = ta.getSyntax())
                     setLoc(ets, syn->sourceRange());
                 ets->VpiName(prefix + std::string(ta.name));

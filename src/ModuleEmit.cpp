@@ -3146,6 +3146,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Interface def views keep the enum-const ref (module views fold).
         if (m->UhdmType() != UHDM::uhdmmodule_inst)
             pkgEnumRhs = false;
+        // An enum-ALIAS-typed LHS (output pkg::b o; assign o = pkg::x): the
+        // TOP view folds FRESH (decimal decompile, parented at the ca, sized
+        // to the LHS enum width, at the RHS span) instead of sharing the pkg
+        // fold constant.
+        bool aliasEnumLhs = false;
+        if (topView && pkgEnumRhs) {
+            auto& l2 = stripImplicitConv(ae.left());
+            if (l2.kind == ExpressionKind::NamedValue) {
+                auto& lt2 = l2.as<NamedValueExpression>().symbol.getType();
+                if (lt2.kind == SymbolKind::TypeAlias &&
+                    lt2.as<TypeAliasType>().targetType.getType().kind ==
+                        SymbolKind::TypeAlias) {
+                    pkgEnumRhs = false;
+                    aliasEnumLhs = true;
+                }
+            }
+        }
         if (enumRhs && (topView || pkgEnumRhs)) {
             if (auto eit = enumConstMap.find(enumRhs); eit != enumConstMap.end()) {
                 auto* src = (UHDM::enum_const*)eit->second;
@@ -3176,6 +3193,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
                 else
                     c->VpiDecompile(src->VpiDecompile());
+                if (aliasEnumLhs) {
+                    c->VpiSize((int32_t)ae.left().type->getBitWidth());
+                    setLoc(c, stripImplicitConv(ae.right()).sourceRange);
+                }
                 if (v.rfind("BIN:", 0) == 0)
                     c->VpiConstType(vpiBinaryConst);
                 else if (v.rfind("HEX:", 0) == 0)
@@ -3880,7 +3901,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Literal-RHS re-emits bind BOTH sides to def-view objects.
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
-                           typedParamRhs || constVarRhs || noDefOvRhs) &&
+                           typedParamRhs || constVarRhs || noDefOvRhs || enumRhs) &&
                           defInfo)
                              ? defInfo->nets
                              : netMap;
