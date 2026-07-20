@@ -2,7 +2,28 @@
 
 ## Session 12 (autonomous 8h block, 2026-07-20, in progress)
 
-**PASS 377 -> 387 (+10) this block. Converged:**
+**PASS 377 -> 388 (+11) this block. Converged:**
+- DotMultirange (388): completed via a 3-part multi-dim packed-struct-array
+  fix — (1) packed multi-dim member-select LHS parents its index when the RHS
+  re-elaborates (elabLhsReelab); (2) a multi-dim packed-array NET typespec
+  truncates to the first-dim span (gated !structMemberTsCtx so union/struct
+  members keep full span); (3) a struct used as a packed-ARRAY element stays
+  unparented at the design (structUsedByModuleSignal returns false on any
+  packed-array use). Plus two SHARED base-multi-dim-select fixes below.
+
+**Big shared diff-reductions this block (multi-dim member-select cluster):**
+- Base multi-dim select RVALUE hier_path spans the whole path (gate base-name
+  span on inLhs): 11 tests, e.g. ExpressionInIndex 260->224,
+  TypedefVariableDimensions 209->185, hier_path -60.
+- Base multi-dim select RVALUE trailing member resolves to its own fullname
+  (work@top.min_v, gate on !inLhs && lastMember): 11 tests, e.g.
+  TypedefVariableDimensions 185->169, TypedefPackedDimensions 234->218.
+  Combined the cluster dropped ~200+ diff lines. MemberSelectOf2DStructPacked
+  Array 50->12 (remaining: RVALUE base-select index parenting is golden-
+  parented but our base-select rule suppresses !inLhs — entangled with the
+  tuned unpacked/ref-RHS cases; and the '1 def/elab constant sharing).
+
+**Earlier this block. Converged:**
 - func_port_implied_dir (378): port-init HighConn/var-vpiExpr via ASTContext
   tryEval (call->INT, literal->UINT) at emitTopPorts (elab top-port owner).
 - Interface port typespecs precede elab var typespecs (382, +4): an interface
