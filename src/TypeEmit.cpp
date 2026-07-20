@@ -720,6 +720,19 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         }
         return nullptr;
     }
+    // A packed array over a packed struct that reached here (its element is an
+    // ANONYMOUS struct, so emitPackedStructArrayVar didn't fire) is a
+    // struct_var carrying the shared packed_array_typespec.
+    if (ct.kind == SymbolKind::PackedArrayType) {
+        const Type* lf = &ct;
+        while (lf->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            lf = &lf->getCanonicalType().as<PackedArrayType>().elementType;
+        if (lf->getCanonicalType().kind == SymbolKind::PackedStructType) {
+            auto* v = s.MakeStruct_var();
+            v->VpiVisibility(1);
+            return v;
+        }
+    }
     // A non-port logic variable, or a port with a separate `logic` body
     // redeclaration (input [3:0] a; logic [3:0] a;), is a logic_var; a plain
     // ANSI port stays a net. A port typed by a PACKAGE vector typedef
@@ -1290,6 +1303,83 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_ins
             if (typeSyn)
                 setLoc(uts, typeSyn->sourceRange());
             ts = uts;
+        }
+        else if (ct.kind == SymbolKind::PackedArrayType &&
+                 [&] {
+                     const Type* lf = &ct;
+                     while (lf->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                         lf = &lf->getCanonicalType().as<PackedArrayType>().elementType;
+                     return lf->getCanonicalType().kind == SymbolKind::PackedStructType;
+                 }()) {
+            // A packed array over a packed struct (struct packed {...} [31:0]
+            // T): a NAMED packed_array_typespec whose Elem_typespec is a fresh
+            // struct_typespec. The struct's members re-parent to the ARRAY
+            // typespec, and the struct_typespec sits at the `struct` keyword.
+            std::string alias = prefix + "." + std::string(ta.name);
+            const Type* leaf = &ct;
+            int arrDims = 0;
+            while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+                arrDims++;
+                leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+            }
+            auto* sts = buildStructTs(leaf->getCanonicalType().as<PackedStructType>(),
+                                      true, alias);
+            // struct_typespec loc = the `struct` keyword token.
+            if (typeSyn)
+                setLoc(sts, typeSyn->getFirstToken().range());
+            auto* pat = s.MakePacked_array_typespec();
+            pat->VpiParent(m);
+            if (typeSyn)
+                setLoc(pat, typeSyn->sourceRange());
+            // One range per packed dim (bounds 64-bit UINT; loc from the dim
+            // brackets scanned between the struct body and the declarator).
+            std::vector<ConstantRange> arrRanges;
+            {
+                const Type* t2 = &ct;
+                for (int i = 0; i < arrDims; i++) {
+                    arrRanges.push_back(t2->getCanonicalType().as<PackedArrayType>().range);
+                    t2 = &t2->getCanonicalType().as<PackedArrayType>().elementType;
+                }
+            }
+            std::vector<DimSpan> spans;
+            if (typeSyn) {
+                auto full = typeSyn->sourceRange();
+                spans = scanDimSpans(std::string(rawText(full)), full.start());
+            }
+            auto* rvec = s.MakeRangeVec();
+            for (int i = 0; i < arrDims; i++) {
+                auto* r = s.MakeRange();
+                r->VpiParent(pat);
+                const DimSpan* ds = i < (int)spans.size() ? &spans[i] : nullptr;
+                if (ds)
+                    setLoc(r, ds->range);
+                auto mkB = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+                    auto* c = s.MakeConstant();
+                    std::string digits = std::to_string(v);
+                    c->VpiDecompile(digits);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(r);
+                    if (loc)
+                        setLoc(c, *loc);
+                    return c;
+                };
+                r->Left_expr(mkB(arrRanges[i].left, ds ? &ds->left : nullptr));
+                r->Right_expr(mkB(arrRanges[i].right, ds ? &ds->right : nullptr));
+                rvec->push_back(r);
+            }
+            pat->Ranges(rvec);
+            auto* ert = s.MakeRef_typespec();
+            ert->VpiParent(pat);
+            ert->VpiFullName(alias);
+            ert->Actual_typespec(sts);
+            pat->Elem_typespec(ert);
+            // Surelog re-parents the struct's members to the ARRAY typespec.
+            if (sts->Members())
+                for (auto* tm : *sts->Members())
+                    tm->VpiParent(pat);
+            ts = pat;
         }
         else if (ct.kind == SymbolKind::PackedArrayType ||
                  ct.kind == SymbolKind::ScalarType) {
