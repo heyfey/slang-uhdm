@@ -1115,6 +1115,78 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             ts = sts;
         }
+        else if (ct.kind == SymbolKind::EnumType &&
+                 ta.targetType.getType().kind == SymbolKind::TypeAlias) {
+            // A pkg ENUM-typedef ALIAS (typedef lc_tx_e lc_tx_t): CREATED in
+            // the DEF pass (arena: before the top-pkg clones) but LISTED only
+            // in the TOP view. The clone is built from the TARGET's enum
+            // syntax (own consts + fresh base at the target's base span) with
+            // a Typedef_alias ref (doubled pkg scoping) to the target's
+            // shared TOP ts (bound later, in the top pass). Its span runs
+            // from the TARGET typedef's start to the first USE declarator's
+            // end.
+            if (!topView) {
+                auto& tgt = ta.targetType.getType().as<TypeAliasType>();
+                const syntax::SyntaxNode* tgtSyn = nullptr;
+                SourceLocation tgtStart = tgt.location;
+                if (auto asyn = tgt.getSyntax();
+                    asyn && asyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                    tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                    tgtStart = asyn->sourceRange().start();
+                }
+                auto* ets = buildEnumTs(ct.as<EnumType>(), tgtSyn,
+                                        prefix + prefix + std::string(ta.name));
+                ets->VpiParent(up);
+                if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec()) {
+                    auto* bts = ets->Base_typespec()->Actual_typespec();
+                    bts->Instance((UHDM::instance*)up);
+                    bts->VpiParent(ets->Base_typespec());
+                }
+                auto* art = s.MakeRef_typespec();
+                art->VpiFullName(prefix + prefix + std::string(ta.name));
+                art->VpiParent(ets);
+                ets->Typedef_alias(art);
+                // Span end: the first module member declared with this alias.
+                SourceLocation useEnd = SourceLocation::NoLocation;
+                for (auto inst : comp.getRoot().topInstances) {
+                    for (auto& mb : inst->body.members()) {
+                        if (mb.kind != SymbolKind::Variable &&
+                            mb.kind != SymbolKind::Net)
+                            continue;
+                        auto dt0 = mb.getDeclaredType();
+                        if (!dt0 || &dt0->getType() != (const Type*)&ta)
+                            continue;
+                        if (auto dsyn0 = mb.getSyntax())
+                            useEnd = dsyn0->sourceRange().end();
+                        break;
+                    }
+                    if (useEnd != SourceLocation::NoLocation)
+                        break;
+                }
+                if (useEnd != SourceLocation::NoLocation)
+                    setLoc(ets, SourceRange(tgtStart, useEnd));
+                else if (auto syn = ta.getSyntax())
+                    setLoc(ets, syn->sourceRange());
+                ets->VpiName(prefix + std::string(ta.name));
+                ets->Instance((UHDM::instance*)up);
+                // Module signals of the alias type (BOTH views) bind this
+                // clone; the def LISTING omits it.
+                typedefTs[&ta] = ets;
+                continue;
+            }
+            // TOP pass: bind the alias target (now emitted) and list.
+            auto tit0 = typedefTs.find(&ta);
+            if (tit0 == typedefTs.end())
+                continue;
+            auto* ets = (UHDM::enum_typespec*)tit0->second;
+            if (ets->Typedef_alias())
+                if (auto tgtIt = pkgTopTypedefTs.find(&ta.targetType.getType());
+                    tgtIt != pkgTopTypedefTs.end())
+                    ets->Typedef_alias()->Actual_typespec(tgtIt->second);
+            pkgTopTypedefTs[&ta] = ets;
+            tds->push_back(ets);
+            continue;
+        }
         else if (ct.kind == SymbolKind::EnumType) {
             // The base ref fullname doubles the package scope
             // (pkg::pkg::name — Surelog scopes the already-prefixed typedef

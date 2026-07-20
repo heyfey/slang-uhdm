@@ -1249,6 +1249,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                 rawText(ic.sourceRange).find('\'') == std::string::npos)
                                 ((UHDM::constant*)e)->VpiSize(
                                     (int32_t)dt->getType().getBitWidth());
+                            // A pkg-scoped enum-const init on an enum_var
+                            // parents at the var.
+                            if (enumRef && e->UhdmType() == UHDM::uhdmconstant &&
+                                !e->VpiParent())
+                                e->VpiParent(v);
                             v->Expr((UHDM::expr*)e);
                         }
                         forceConstParent = forceSaved;
@@ -1266,9 +1271,20 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (ts && ts->UhdmType() != UHDM::uhdmenum_typespec &&
                 ts->UhdmType() != UHDM::uhdmstruct_typespec && ts->VpiName().empty())
                 ts->VpiParent(v);
-            // Initialized plain-typed vars span declarator..init.
+            // Initialized plain-typed vars span declarator..init; a var of a
+            // pkg typedef-ALIAS type (lc_ctrl_pkg::lc_tx_t x = ...) does too.
+            bool aliasOfAlias = false;
+            if (it.sym->getDeclaredType() &&
+                it.sym->getDeclaredType()->getType().kind == SymbolKind::TypeAlias) {
+                auto& at0 = it.sym->getDeclaredType()->getType().as<TypeAliasType>();
+                if (at0.targetType.getType().kind == SymbolKind::TypeAlias)
+                    if (auto sc0 = at0.getParentScope();
+                        sc0 && sc0->asSymbol().kind == SymbolKind::Package)
+                        aliasOfAlias = true;
+            }
             if (auto dtl = it.sym->getDeclaredType();
-                dtl && dtl->getInitializer() && (realVar || (ts && ts->VpiName().empty()))) {
+                dtl && dtl->getInitializer() &&
+                (realVar || aliasOfAlias || (ts && ts->VpiName().empty()))) {
                 if (auto dsyn = it.sym->getSyntax()) {
                     auto dr = dsyn->sourceRange();
                     if (dr.start() != SourceLocation::NoLocation)
