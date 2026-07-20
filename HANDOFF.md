@@ -17,12 +17,20 @@ StructLocalParam + ~14 pass-through tests), enum_typespec ordering
 (ParameterInitializedIn*5LevelHierarchy x4). The ELAB view CAN share (deferred
 via pendingParamTs -> patchParamTypespecs, which runs after typedefs) but the
 DEF view (AllModules, which uhdm-cmp compares FIRST) cannot without either
-(a) reordering emitTypedefs before the def-param emit — RISKY: shuffles the
-weak-tail arena order and can DEMOTE PASS tests (byte-identity), or (b) a
-deferred def-param-ts drain that binds to typedefTs after emitTypedefs. This is
-the single highest-leverage fix left; it also unblocks the struct-param op-75
-pattern work (already prototyped, see below). Verify a candidate fix with the
-FULL gate watching for PASS->CMP_ONLY demotions.
+(a) reordering emitTypedefs before the def-param emit, or (b) a deferred
+def-param-ts drain that binds to typedefTs after emitTypedefs.
+CONFIRMED SL ARENA ORDER favors (a): in StructParameter's cmp dump the typedef
+struct_typespec is id:1 and the parameter is id:5 — Surelog creates TYPEDEFS
+BEFORE PARAMS. So our current params-first order is itself wrong vs Surelog;
+reordering (emitTypedefs before the def-param loop) ALIGNS with SL rather than
+risking it (PASS tests without typedefs are unaffected; tests with typedefs
+should improve). The def-param emit lives in a SEPARATE loop
+(UhdmExporter.cpp def-params loop, BEFORE the emitModuleDef/emitTypedefs loop) —
+the refactor is to run typedefs first, then make makeParamTs return the shared
+typedefTs entry for a named-typedef param (struct/union/enum/vector). This is
+the single highest-leverage fix left (~20+ DIFF tests) and also unblocks the
+struct-param op-75 pattern work. STILL gate the FULL corpus for PASS->CMP_ONLY
+demotions (weak-tail shuffle), but expect it to be net-positive.
 
 ## ⭐ KEY INSIGHT (Session 12 end) — PRIORITIZE DIFF (cmp-failing) OVER CMP_ONLY
 
