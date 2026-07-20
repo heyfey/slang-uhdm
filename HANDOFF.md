@@ -2,11 +2,38 @@
 
 ## Session 9: session-8 ladder (in progress, 2026-07-19)
 
-**PASS 335->340, DIFF 283->278.** SIX items of the session-8 ladder are
-full byte-identical PASS (StringLocalParamInitByConcatenation,
+**PASS 335->341, DIFF 283->277.** SEVEN items of the session-8 ladder are
+full byte-identical PASS: StringLocalParamInitByConcatenation,
 StructPackedOutput, ParameterOfSizeOfPort, AssignmentToConcatenation,
-ParameterInitializedByPartSelectOfParameters), plus regression-free
-PARTIAL progress on PatternInFunction (102->6 line diff).
+ParameterInitializedByPartSelectOfParameters, **PatternInFunction** (now
+DONE — the function-body block lists the element int_var as a sibling
+before the array_var, and a folded call returning a[K] of a
+pattern-inited local locates its constant at the source element token by
+tracing the return expr's element-select through the local's pattern).
+
+**NEXT LADDER (fresh difsize)**: iface_modport_conn (68), AssignArraySelPlus
+(69), ImportTypeOfPort (69), TypedefAliasInPackage (70), iface_modport_out
+(72), BitSelectPartSelectInFunction (73), asgn_expr (74), wildcard_eq (74),
+sva_range (76), TypedefStructArray (78),
+ParameterInitializedByPartSelectOfParametersAssignedToVar (80),
+ReturnEnumArray (81), TypedefedRangedFunctionArgument (82).
+
+**AssignArraySelPlus** (attempted, REVERTED — deep arena puzzle):
+`output logic [3:0] data [15:0]` assigned in an initial block. slang makes
+`data` a Variable (procedurally assigned) so we emit an array_var; Surelog
+keeps the output-port NET an **array_net** (vpiArrayNet: logic_net element
+via Nets(), no vpiTypespec on the array_net; no var-only
+randType/visibility/arrayType flags) — gate on `it.port && netTypeFor()`.
+A written emitArrayNet + instance Array_nets() worked for the signal. The
+BLOCKER: the PORT's typespec must be a full array_typespec (vpiArrayType,
+[15:0] range via buildUnpackedRanges, Elem_typespec -> the shared element
+logic_typespec, loc 1:20-1:43) that Surelog creates LATE in the
+write-phase weak tail — creating it inline in emitPorts/emitTopPorts
+shifts the arena and mislabels the def net's shared logic_typespec. Needs
+a DEFERRED array_typespec (pending list drained in the write phase, shared
+by both def + top port refs) rather than inline creation. makeArrayTypespec
+helper + emitArrayNet were written and are recoverable from git reflog
+(reverted commit-less).
 
 - **ParameterInitializedByPartSelectOfParameters** (DONE): def
   part_select param-scoping + the elab BIN fold shared into the reading
