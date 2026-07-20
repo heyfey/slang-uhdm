@@ -2987,6 +2987,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 ((UHDM::constant*)rhs)->VpiParent(ca);
             }
         }
+        // A typed PART-SELECT param ref (o = FullDepth) shares the param's
+        // BIN fold constant the same way.
+        if (!rhs && topView) {
+            const Symbol* pref = nullptr;
+            if (auto& rcp = stripImplicitConv(ae.right());
+                rcp.kind == ExpressionKind::NamedValue &&
+                rcp.as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter)
+                pref = &rcp.as<NamedValueExpression>().symbol;
+            if (pref) {
+                if (auto fit = moduleParamFoldConst.find(pref);
+                    fit != moduleParamFoldConst.end()) {
+                    rhs = fit->second;
+                    ((UHDM::constant*)rhs)->VpiParent(ca);
+                }
+            }
+        }
         // Typed non-overridden param ref: folded default constant + a ref to
         // the param's typespec (cloned at the end of the write phase). Located
         // at the param's default-value expression.

@@ -353,6 +353,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          (rhs = tryFoldConst(
                               *init, (typedParam && init != init0) ? init0
                                                                    : nullptr))) {
+                    bool partSelectFold = false;
                     ((UHDM::constant*)rhs)->VpiParent(pa);
                     // Typed params fold at the type width; a size-cast value
                     // (32'(ONE)) at the cast width; other untyped values at 64.
@@ -425,8 +426,43 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c->VpiDecompile(digits);
                         }
                     }
+                    // A typed-param PART-SELECT init (WidthRatio[5:0]) folds
+                    // to BINARY at the type width (Surelog quirk) and is
+                    // SHARED into a reading cont-assign (o = FullDepth).
+                    if (sinit.kind == ExpressionKind::RangeSelect && typedParam &&
+                        topView) {
+                        auto* c = (UHDM::constant*)rhs;
+                        int32_t w = (int32_t)ps.getType().getBitWidth();
+                        std::string v(c->VpiValue());
+                        std::string digits = v.find(':') != std::string::npos
+                                                 ? v.substr(v.find(':') + 1)
+                                                 : v;
+                        slang::SVInt sv2 =
+                            slang::SVInt::fromString(std::string_view(digits));
+                        slang::SVInt wv(
+                            (slang::bitwidth_t)(w > 0 ? w : 1), 0, false);
+                        wv = sv2.resize((slang::bitwidth_t)(w > 0 ? w : 1));
+                        std::string bits;
+                        for (int32_t bi = w - 1; bi >= 0; bi--)
+                            bits += (wv[bi] == slang::logic_t(1)) ? '1' : '0';
+                        c->VpiValue("BIN:" + bits);
+                        c->VpiConstType(vpiBinaryConst);
+                        c->VpiDecompile(std::to_string(w) + "'b" + bits);
+                        moduleParamFoldConst[&member] = c;
+                        // Its own FRESH unlocated logic_typespec (range =
+                        // the param's fixed range, BARE UINT bounds) — NOT
+                        // the param's bit_typespec — created in the write-
+                        // phase tail (deferred).
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiFullName(prefix);
+                        rt->VpiParent(c);
+                        c->Typespec(rt);
+                        auto fr = ps.getType().getCanonicalType().getFixedRange();
+                        pendingPartSelFoldTs.push_back({rt, fr.left, fr.right});
+                        partSelectFold = true;
+                    }
                     // Typed-param (non-pattern) folds carry a ts ref to the param.
-                    if (typedParam && wantTs && !isPattern) {
+                    if (typedParam && wantTs && !isPattern && !partSelectFold) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&

@@ -504,7 +504,24 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (bsyn)
                                 scan(*bsyn);
                         }
-                        if (tfContext || bitsOfSignal) {
+                        // A BARE param-ref bound in a PARAMETER's own typespec
+                        // ([DepthW:0] on localparam FullDepth) stays a scoped
+                        // ref_obj (a VAR/NET typespec folds it — issue326).
+                        bool bareParamInParamTs = false;
+                        if (declSymbol.kind == SymbolKind::Parameter && bsyn &&
+                            bsyn->kind == syntax::SyntaxKind::IdentifierName &&
+                            currentScope) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            if (!be.bad() &&
+                                stripImplicitConv(be).kind ==
+                                    ExpressionKind::NamedValue &&
+                                stripImplicitConv(be)
+                                        .as<NamedValueExpression>()
+                                        .symbol.kind == SymbolKind::Parameter)
+                                bareParamInParamTs = true;
+                        }
+                        if (tfContext || bitsOfSignal || bareParamInParamTs) {
                             // Function/typedef context: unfolded expression.
                             if (auto* e = emitSyntaxExpr(*bsyn, r)) {
                                 // The sys-call arg refs bind their DEF

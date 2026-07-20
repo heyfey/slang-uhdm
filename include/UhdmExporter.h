@@ -527,6 +527,16 @@ private:
     // Elab-view fold constant of a module STRING localparam (shared into a
     // cont-assign that reads it — o = X).
     std::map<const slang::ast::Symbol*, UHDM::constant*> moduleStringParamConst;
+    // Elab-view BIN fold constant of a typed part-select localparam (shared
+    // into a reading cont-assign, like the string case).
+    std::map<const slang::ast::Symbol*, UHDM::constant*> moduleParamFoldConst;
+    // Part-select fold constants' own logic_typespecs (bare-bound range),
+    // materialized in the write-phase tail.
+    struct PendingPartSelTs {
+        UHDM::ref_typespec* rt;
+        int64_t left, right;
+    };
+    std::vector<PendingPartSelTs> pendingPartSelFoldTs;
     // Def-view fold-constant ts refs of VECTOR-typed params: bound late to a
     // fresh LOC-LESS bare clone (see patchParamTypespecs).
     std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> pendingBareVecTs;

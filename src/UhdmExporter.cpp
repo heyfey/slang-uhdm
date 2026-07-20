@@ -534,6 +534,25 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
     }
     pendingBitsBoundRefs.clear();
+    // Part-select fold constants' own logic_typespecs (bare-bound range),
+    // materialized last (weak tail).
+    for (auto& p : pendingPartSelFoldTs) {
+        auto* lts = s.MakeLogic_typespec();
+        auto* rg = s.MakeRange();
+        rg->VpiParent(lts);
+        auto mkb = [&](int64_t val) {
+            auto* bc = s.MakeConstant();
+            bc->VpiValue("UINT:" + std::to_string(val));
+            return bc;
+        };
+        rg->Left_expr(mkb(p.left));
+        rg->Right_expr(mkb(p.right));
+        auto* rgv = s.MakeRangeVec();
+        rgv->push_back(rg);
+        lts->Ranges(rgv);
+        p.rt->Actual_typespec(lts);
+    }
+    pendingPartSelFoldTs.clear();
     return d;
 }
 
