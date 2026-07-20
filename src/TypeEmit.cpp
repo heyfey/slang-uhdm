@@ -368,6 +368,25 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         }
         return uts;
     }
+    // An ANONYMOUS packed struct (struct packed {..} s;) builds an unnamed
+    // struct_typespec (typedef'd structs share their named ts above).
+    if (declared && declared->getType().kind == SymbolKind::PackedStructType) {
+        auto& ctS = declared->getType().getCanonicalType();
+        auto* sts = buildStructTs(ctS.as<PackedStructType>(), true, "");
+        if (auto tsyn = declared->getTypeSyntax()) {
+            if (auto* su = tsyn->as_if<syntax::StructUnionTypeSyntax>()) {
+                SourceLocation e = su->keyword.range().end();
+                if (su->packed && su->packed.range().end() > e)
+                    e = su->packed.range().end();
+                if (su->signing && su->signing.range().end() > e)
+                    e = su->signing.range().end();
+                setLoc(sts, SourceRange(su->keyword.range().start(), e));
+            }
+            else
+                setLoc(sts, tsyn->sourceRange());
+        }
+        return sts;
+    }
     // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
     UHDM::typespec* ts0;
     if (declared && declared->getType().isIntegral() &&
