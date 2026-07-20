@@ -12,6 +12,8 @@
 
 namespace slang_uhdm {
 
+static bool subWritesNonLocal(const SubroutineSymbol& sub);
+
 // True when a declared type is a PACKAGE-scoped typedef'd struct.
 static bool isPkgStructType(const Symbol& sym) {
     auto* dt = sym.getDeclaredType();
@@ -2765,8 +2767,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rc.kind == ExpressionKind::Call && !rc.as<CallExpression>().isSystemCall()) {
                 ASTContext ctx(comp.getRoot(), LookupLocation::max);
                 ConstantValue cv = ctx.tryEval(ae.right());
-                if (cv && cv.isInteger() && !cv.integer().hasUnknown())
-                    callFold = std::move(cv);
+                if (cv && cv.isInteger() && !cv.integer().hasUnknown()) {
+                    // An IMPURE function (writes a symbol outside itself)
+                    // is not folded: the def cont_assign is shared into the
+                    // elab view instead.
+                    auto subp2 =
+                        std::get_if<const SubroutineSymbol*>(
+                            &rc.as<CallExpression>().subroutine);
+                    if (!subp2 || !subWritesNonLocal(**subp2))
+                        callFold = std::move(cv);
+                }
             }
         }
         // Overridden-param RHS forces an instance-view re-emit: a folded
@@ -3707,6 +3717,30 @@ UhdmExporter::CallFold UhdmExporter::resolveConstExpr(const Expression& e) {
 
 // What an argument-less user call reduces to via straight-line execution
 // (nested calls followed, local-var literal values tracked).
+// True when the subroutine's immediate body writes a symbol OUTSIDE itself
+// (out6[exp] = ... in a function): such calls never fold — the def
+// cont_assign is shared into the elab view instead.
+static bool subWritesNonLocal(const SubroutineSymbol& sub) {
+    bool impure = false;
+    sub.getBody().visit(makeVisitor([&](auto& vis, const AssignmentExpression& ax) {
+        std::set<const Symbol*> ls;
+        collectLhsSyms(ax.left(), ls);
+        for (auto* s2 : ls) {
+            bool inSub = false;
+            for (auto sc = s2->getParentScope(); sc;
+                 sc = sc->asSymbol().getParentScope())
+                if (&sc->asSymbol() == (const Symbol*)&sub) {
+                    inSub = true;
+                    break;
+                }
+            if (!inSub)
+                impure = true;
+        }
+        vis.visitDefault(ax);
+    }));
+    return impure;
+}
+
 UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
     CallFold none;
     if (expr.kind != ExpressionKind::Call || expr.as<CallExpression>().isSystemCall())
@@ -3714,6 +3748,8 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
     auto& call = expr.as<CallExpression>();
     auto subp = std::get_if<const SubroutineSymbol*>(&call.subroutine);
     if (!subp)
+        return none;
+    if (subWritesNonLocal(**subp))
         return none;
     std::map<const Symbol*, CallFold> env;
     // Formals bound to assignment patterns of literals (element-select

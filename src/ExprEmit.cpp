@@ -1454,10 +1454,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool otherArg = a->UhdmType() == UHDM::uhdmconstant ||
                                         a->UhdmType() == UHDM::uhdmfunc_call ||
                                         a->UhdmType() == UHDM::uhdmoperation;
-                        // Only outermost-call args carry formal-ts refs, and
-                        // def-view function bodies never do (top pkg copies
-                        // re-attach them).
-                        bool argCtxOk = currentTf ? pkgTopEmit : callArgDepth == 1;
+                        // Only outermost-call CONSTANT/operation args carry
+                        // formal-ts refs (REF args carry them at any nesting
+                        // depth); def-view PACKAGE function bodies never do
+                        // (top pkg copies re-attach them), while MODULE
+                        // function bodies attach like any other context.
+                        // Formals of a PREDEFINED integer type (int i) keep
+                        // 64-bit constants and take no in-function ts ref;
+                        // VECTOR formals ([3:0] inp) size their constant args
+                        // and carry the ts ref even inside function bodies.
+                        bool intFormal =
+                            arg->type && arg->type->getCanonicalType().kind ==
+                                             SymbolKind::PredefinedIntegerType;
+                        bool argCtxOk =
+                            currentTf ? (pkgTopEmit ||
+                                         (!pkgScopeInst && callArgDepth == 1 &&
+                                          a->UhdmType() == UHDM::uhdmconstant &&
+                                          !intFormal))
+                                      : (refArg || callArgDepth == 1);
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =
                             a->UhdmType() == UHDM::uhdmref_obj &&
@@ -1488,6 +1502,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else if (bareKey)
                                 pendingIoTs.push_back({rt, bareKey});
                             r->Typespec(rt);
+                            // A constant arg carrying a formal-ts ref sizes at
+                            // the formal's width (loop(2) -> UINT:2 size 4) —
+                            // VECTOR formals only (int formals keep 64).
+                            if (a->UhdmType() == UHDM::uhdmconstant && arg->type &&
+                                !intFormal &&
+                                !stripImplicitConv(*arg).type->isString())
+                                ((UHDM::constant*)a)
+                                    ->VpiSize((int32_t)arg->type->getBitWidth());
                         }
                         args->push_back(a);
                     }
