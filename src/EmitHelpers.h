@@ -318,14 +318,20 @@ inline bool isOverriddenParam(const Symbol& sym) {
     auto* bi = ps.getInitializer();
     if (!bi || !defaultSyn)
         return false;
-    if (bi->syntax && bi->syntax != defaultSyn)
-        return true;
-    // Fallback: the bound init's tokens come from somewhere else entirely.
-    auto br = bi->sourceRange;
     auto dr = defaultSyn->sourceRange();
-    return br.start() != SourceLocation::NoLocation &&
-           dr.start() != SourceLocation::NoLocation && br.start() != dr.start() &&
-           br.end() != dr.end();
+    // The bound initializer's source span: its syntax node if present (a
+    // PARENTHESIZED default binds to the inner expr, so the node differs from
+    // the default's paren node), else the folded expression's range.
+    SourceRange br = bi->syntax ? bi->syntax->sourceRange() : bi->sourceRange;
+    if (br.start() == SourceLocation::NoLocation ||
+        dr.start() == SourceLocation::NoLocation)
+        return bi->syntax && bi->syntax != defaultSyn;
+    // A default (even parenthesized) has its tokens WITHIN the declaration
+    // default's range; a real override binds syntax from the instantiation,
+    // OUTSIDE that range.
+    if (br.start() >= dr.start() && br.end() <= dr.end())
+        return false;
+    return true;
 }
 
 // Data-type syntax kinds that can appear as a cast target.

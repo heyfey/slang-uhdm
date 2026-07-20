@@ -369,7 +369,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ->VpiSize(typedParam ? (int32_t)ps.getType().getBitWidth()
                                   : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                 : 64);
-                    setLoc((UHDM::constant*)rhs, init->sourceRange);
+                    // A PARENTHESIZED default (localparam W = (X-1)) folds to a
+                    // constant spanning the parens, not the inner expression.
+                    SourceRange rhsLoc = init->sourceRange;
+                    if (!overridden)
+                        if (auto* dsyn = paramDefaultSyn(ps))
+                            if (dsyn->kind ==
+                                syntax::SyntaxKind::ParenthesizedExpression)
+                                rhsLoc = dsyn->sourceRange();
+                    setLoc((UHDM::constant*)rhs, rhsLoc);
                     // A SUBTRACT init (W - 19) folds signed (INT).
                     if (scv.kind == ExpressionKind::BinaryOp &&
                         scv.as<BinaryExpression>().op == BinaryOperator::Subtract) {
@@ -930,6 +938,13 @@ void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {
         auto& ps = member.as<ParameterSymbol>();
         if (auto init = ps.getInitializer()) {
             if (init->kind != ExpressionKind::IntegerLiteral && isIntEncoded(*init))
+                paramIntEnc[&member] = true;
+            // A subtract init (localparam W = X-1) is signed arithmetic, so a
+            // bare reference to W as a range bound folds to a signed INT
+            // constant — mirroring the direct-subtract-bound rule.
+            else if (auto& si = stripImplicitConv(*init);
+                     si.kind == ExpressionKind::BinaryOp &&
+                     si.as<BinaryExpression>().op == BinaryOperator::Subtract)
                 paramIntEnc[&member] = true;
         }
     }
