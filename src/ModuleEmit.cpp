@@ -5062,6 +5062,17 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                        .first;
         ifaceDefaultScope = &dit0->second->body;
     }
+    // Pre-create each port's typespec BEFORE the variable typespecs so their
+    // arena ids precede the elab var typespecs — matching Surelog's
+    // [port-ts, var-ts] weak-tail order. Reused by the port loop below.
+    std::map<const Symbol*, UHDM::typespec*> portTsPre;
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::Port)
+            continue;
+        auto& ps0 = portBase->as<PortSymbol>();
+        if (ps0.internalSymbol)
+            portTsPre[portBase] = makeTypespec(*ps0.internalSymbol, nullptr, &ps0);
+    }
     auto* vars = s.MakeVariablesVec();
     auto* elabNets = s.MakeNetVec();
     for (auto& it : collectNetOrder(body)) {
@@ -5411,7 +5422,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 refCollector = nullptr;
             }
         }
-        auto* pts = makeTypespec(*internal, nullptr, &ps);
+        auto ptp = portTsPre.find(portBase);
+        auto* pts = ptp != portTsPre.end() ? ptp->second
+                                           : makeTypespec(*internal, nullptr, &ps);
         auto* prt = s.MakeRef_typespec();
         prt->VpiFullName(prefix + "." + std::string(ps.name));
         prt->VpiParent(p);
