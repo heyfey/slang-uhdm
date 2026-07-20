@@ -54,6 +54,29 @@ The distinguisher is member-access-ONLY structs (mem.wr/.addr/.data, never
 whole-assigned) drop the def typespec — needs a precise "member-access-only"
 predicate before the array_net struct-element extension can land.
 
+**NEGATIVE RESULT — block-local var re-parenting is NOT general**:
+BitSelectPartSelectInFunction's `result` (non-init function local) is
+parented at the body begin (name-loc, no vpiAutomatic) like ReturnEnumArray's
+`out`. But generalizing that (all non-init module-scope function locals →
+name-loc + no-automatic + re-parent to begin) REGRESSED 7 tests
+(func_block, function_arith, function_loop, function_mixed, many_functions,
+scope_task, scopes) whose locals golden keeps at parent=function with
+type-span loc + vpiAutomatic. Both families have begin-block bodies, so the
+distinguisher is NOT "has a body block" — it is finer (still uncharacterised;
+func_block's `idx` is used only inside a `for ... begin:blk`, iota's `result`
+in bare body statements). Needs the precise predicate before
+BitSelectPartSelectInFunction's block-local part (one of its FOUR parts:
+block-local + '1-arg-sizing-to-formal + '1-typespec + box_t 2D-packed-logic
+typedef with typedefAlias+2 ranges) can land.
+
+**NEGATIVE RESULT — TypedefAliasInPackage**: an enum-typedef ALIAS
+(`typedef lc_tx_e lc_tx_t` in a package) — golden emits it ONLY in the elab
+(topPackages) view as an enum_typespec WITH vpiTypedefAlias (ref→lc_tx_e) +
+vpiBaseTypespec + a wide loc (2:4..11:50, spanning into the module's use);
+the def (allPackages) view OMITS it. Ours does the opposite (fresh copy in
+both, no alias). The wide canonical-enum loc + def-omission + alias-wiring
+are all specific quirks; not a quick fix.
+
 **NEXT LADDER (fresh difsize)**: AssignArraySelPlus (35, deferred),
 typedef_unpacked_input (49, same family), OneStruct (57, deferred above),
 iface_modport_conn (68, arena), ImportTypeOfPort (69),
