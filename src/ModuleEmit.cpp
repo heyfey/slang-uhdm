@@ -1142,8 +1142,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     else if (ic.kind == ExpressionKind::Call &&
                              !ic.as<CallExpression>().isSystemCall()) {
                         // User-call inits keep the func_call as the var Expr.
+                        // Like port-init calls, var-init call args carry no
+                        // formal-ts ref (Surelog omits it in this view).
+                        bool savePic = portInitCtx;
+                        portInitCtx = true;
                         if (auto* e = emitExpr(ic, v, fullName, topNets))
                             v->Expr((UHDM::expr*)e);
+                        portInitCtx = savePic;
                     }
                     else if (ic.kind == ExpressionKind::StructuredAssignmentPattern &&
                              v->UhdmType() == UHDM::uhdmstruct_var) {
@@ -1222,6 +1227,42 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         nops->push_back(c0);
                         nop->Operands(nops);
                         v->Expr(nop);
+                    }
+                    else if (ic.kind == ExpressionKind::NamedValue && !enumRef &&
+                             ic.as<NamedValueExpression>().symbol.kind ==
+                                 SymbolKind::Parameter) {
+                        // A PARAM-ref init (logic [127:0] b = y_int) FOLDS to
+                        // the param's value (sized at the var width) with a ts
+                        // ref to the param's typespec (scoped at the var).
+                        auto& psym =
+                            ic.as<NamedValueExpression>().symbol.as<ParameterSymbol>();
+                        auto& pcv = psym.getValue();
+                        if (pcv.isInteger() && !pcv.integer().hasUnknown()) {
+                            auto piv = pcv.integer();
+                            bool neg = piv.isSigned() && piv.isNegative();
+                            // toString(Decimal, false) already includes the
+                            // sign for a negative signed value.
+                            std::string digits = piv.toString(LiteralBase::Decimal, false);
+                            auto* c = s.MakeConstant();
+                            c->VpiParent(v);
+                            c->VpiSize((int32_t)dt->getType().getBitWidth());
+                            c->VpiDecompile(digits);
+                            c->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                            c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+                            setLoc(c, ic.sourceRange);
+                            bool tP = false;
+                            if (auto d2 = psym.getDeclaredType())
+                                if (auto t2 = d2->getTypeSyntax())
+                                    tP = t2->kind != syntax::SyntaxKind::ImplicitType;
+                            if (auto* its = makeParamTs(psym, tP)) {
+                                auto* rt = s.MakeRef_typespec();
+                                rt->VpiFullName(fullName);
+                                rt->VpiParent(c);
+                                rt->Actual_typespec(its);
+                                c->Typespec(rt);
+                            }
+                            v->Expr((UHDM::expr*)c);
+                        }
                     }
                     else if (ic.kind == ExpressionKind::NamedValue && !enumRef) {
                         // A VAR-ref init (int8_t y = int4): a ref_obj scoped
