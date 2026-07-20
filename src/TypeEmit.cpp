@@ -1981,6 +1981,74 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     return pav;
 }
 
+// A packed array whose element is an enum (sp2v_e [1:0]) becomes a
+// packed_array_var carrying one vpiRange per packed dim + a vpiElement
+// enum_var. The typespec `ts` (already built by makeTypespec) supplies both
+// the ranges (cloned with their source locs) and the shared enum_typespec.
+UHDM::packed_array_var* UhdmExporter::makeEnumArrayVar(UHDM::typespec* ts,
+                                                       const std::string& fullName,
+                                                       UHDM::BaseClass* parent) {
+    if (!ts || ts->UhdmType() != UHDM::uhdmpacked_array_typespec)
+        return nullptr;
+    auto* pat = (UHDM::packed_array_typespec*)ts;
+    UHDM::typespec* elemTs = nullptr;
+    if (auto* ert = pat->Elem_typespec())
+        elemTs = ert->Actual_typespec();
+    if (!elemTs || elemTs->UhdmType() != UHDM::uhdmenum_typespec)
+        return nullptr;
+
+    auto cloneLoc = [](UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
+        dst->VpiFile(src->VpiFile());
+        dst->VpiLineNo(src->VpiLineNo());
+        dst->VpiColumnNo(src->VpiColumnNo());
+        dst->VpiEndLineNo(src->VpiEndLineNo());
+        dst->VpiEndColumnNo(src->VpiEndColumnNo());
+    };
+
+    auto* pav = s.MakePacked_array_var();
+    pav->VpiFullName(fullName);
+    pav->VpiParent(parent);
+
+    if (auto* prs = pat->Ranges()) {
+        auto* rvec = s.MakeRangeVec();
+        for (auto* pr : *prs) {
+            auto* r = s.MakeRange();
+            r->VpiParent(pav);
+            cloneLoc(r, pr);
+            auto cloneBound = [&](UHDM::expr* src) -> UHDM::expr* {
+                auto* sc = (UHDM::constant*)src;
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(sc->VpiDecompile());
+                c->VpiSize(sc->VpiSize());
+                c->VpiValue(sc->VpiValue());
+                c->VpiConstType(sc->VpiConstType());
+                c->VpiParent(r);
+                cloneLoc(c, sc);
+                return c;
+            };
+            if (pr->Left_expr())
+                r->Left_expr(cloneBound(pr->Left_expr()));
+            if (pr->Right_expr())
+                r->Right_expr(cloneBound(pr->Right_expr()));
+            rvec->push_back(r);
+        }
+        pav->Ranges(rvec);
+    }
+
+    auto* ev = s.MakeEnum_var();
+    ev->VpiParent(pav);
+    ev->VpiFullName(fullName);
+    auto* ert = s.MakeRef_typespec();
+    ert->VpiParent(ev);
+    ert->VpiFullName(fullName);
+    ert->Actual_typespec(elemTs);
+    ev->Typespec(ert);
+    auto* elems = s.MakeAnyVec();
+    elems->push_back(ev);
+    pav->Elements(elems);
+    return pav;
+}
+
 // The NET form of a packed-array-of-struct (a child-instance PORT stays a
 // net): packed_array_net (wire) + struct_net element whose fullname DOUBLES
 // the signal name (work@m.d.sig.sig); the packed_array_typespec is shared

@@ -205,6 +205,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
                 tfContext = false;
             }
+            // A packed-array-of-enum return is a packed_array_var (range +
+            // enum_var element) rather than a flat logic_var.
+            if (auto* pav = makeEnumArrayVar(ts, fullName, tf))
+                rv = pav;
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
@@ -340,6 +344,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
 
         // Function-local variables attach to the function's Variables
         // (loc = the declared type span).
+        std::vector<UHDM::packed_array_var*> fnBlockLocalPav;
         {
             auto* fvars = s.MakeVariablesVec();
             for (auto& fmv : sub.members()) {
@@ -425,15 +430,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     fvars->push_back(av);
                     continue;
                 }
-                auto* v = makeReturnVar(s, fmv.getDeclaredType()->getType());
+                std::string vfull = fullName + sep + std::string(fmv.name);
+                tfContext = true;
+                auto* vts = makeTypespec(fmv);
+                tfContext = false;
+                if (pkgScope)
+                    vts->Instance((UHDM::instance*)m);
+                // A packed-array-of-enum local is a packed_array_var (range +
+                // enum_var element), anchored at its name and NOT automatic.
+                UHDM::variables* v = makeEnumArrayVar(vts, vfull, tf);
+                bool isEnumArr = v != nullptr;
+                if (!v)
+                    v = makeReturnVar(s, fmv.getDeclaredType()->getType());
                 v->VpiName(fmv.name);
-                v->VpiFullName(fullName + sep + std::string(fmv.name));
+                v->VpiFullName(vfull);
                 v->VpiParent(tf);
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the
                 // automatic flag).
                 bool hasInit = fmv.getDeclaredType()->getInitializer() != nullptr;
-                if (hasInit || pkgScope) {
+                if (isEnumArr || hasInit || pkgScope) {
                     setLoc(v, nameSpan(fmv.location, fmv.name));
                 }
                 else if (auto dt = fmv.getDeclaredType()) {
@@ -443,18 +459,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             setLoc(v, sr);
                     }
                 }
-                tfContext = true;
-                auto* vts = makeTypespec(fmv);
-                tfContext = false;
-                if (pkgScope)
-                    vts->Instance((UHDM::instance*)m);
                 auto* vrt = s.MakeRef_typespec();
-                vrt->VpiFullName(fullName + sep + std::string(fmv.name));
+                vrt->VpiFullName(vfull);
                 vrt->VpiParent(v);
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                if (!hasInit && !pkgScope)
+                if (!hasInit && !pkgScope && !isEnumArr)
                     v->VpiAutomatic(true);
+                if (isEnumArr)
+                    fnBlockLocalPav.push_back((UHDM::packed_array_var*)v);
                 funcMap[&fmv] = v;
                 fvars->push_back(v);
             }
@@ -480,8 +493,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         auto* savedSubSym = currentSubSym;
         currentSubSym = &sub;
         bool selOwner = beginSelTrack();
-        if (auto* st = emitStmt(sub.getBody(), tf, fullName, funcMap))
-            tf->Stmt(st);
+        auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
+        if (body)
+            tf->Stmt(body);
+        // A packed-array-of-enum local is a body-block member in Surelog's
+        // model; re-parent the function-var-loop copy from the function to
+        // that block (the body's begin) so both listings agree.
+        if (body && (body->UhdmType() == UHDM::uhdmbegin ||
+                     body->UhdmType() == UHDM::uhdmnamed_begin))
+            for (auto* pav : fnBlockLocalPav)
+                pav->VpiParent(body);
         if (selOwner)
             endSelTrack();
         currentTf = savedTf;

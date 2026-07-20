@@ -267,6 +267,13 @@ private:
                                                      const std::string& name,
                                                      const std::string& fullName,
                                                      UHDM::module_inst* m);
+    // If `ts` is a packed_array_typespec whose element is an enum, returns a
+    // fresh packed_array_var mirroring its ranges (bounds+loc cloned) with an
+    // enum_var element referencing the shared enum_typespec; else nullptr.
+    // The caller sets vpiName / loc / the var's own typespec ref.
+    UHDM::packed_array_var* makeEnumArrayVar(UHDM::typespec* ts,
+                                             const std::string& fullName,
+                                             UHDM::BaseClass* parent);
     // One uhdm range per unpacked dimension (bounds from ConstantRange, loc
     // from the declarator dimension syntax), each parented at `parent`.
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,

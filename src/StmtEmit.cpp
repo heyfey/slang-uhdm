@@ -345,11 +345,6 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 for (auto& bm : bs.blockSymbol->members()) {
                     if (bm.kind != SymbolKind::Variable)
                         continue;
-                    auto* v = makeReturnVar(s, bm.getDeclaredType()->getType());
-                    v->VpiName(bm.name);
-                    v->VpiFullName(innerPrefix + "." + std::string(bm.name));
-                    v->VpiParent(b);
-                    setLoc(v, nameSpan(bm.location, bm.name));
                     // Block-local var typespecs keep their range bounds
                     // UNFOLDED (Surelog's procedural-decl form).
                     bool savedTf = tfContext;
@@ -358,8 +353,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     tfContext = savedTf;
                     if (pkgScopeInst)
                         ts->Instance(pkgScopeInst);
+                    std::string bfull = innerPrefix + "." + std::string(bm.name);
+                    UHDM::variables* v = makeEnumArrayVar(ts, bfull, b);
+                    if (!v)
+                        v = makeReturnVar(s, bm.getDeclaredType()->getType());
+                    v->VpiName(bm.name);
+                    v->VpiFullName(bfull);
+                    v->VpiParent(b);
+                    setLoc(v, nameSpan(bm.location, bm.name));
                     auto* rt = s.MakeRef_typespec();
-                    rt->VpiFullName(innerPrefix + "." + std::string(bm.name));
+                    rt->VpiFullName(bfull);
                     rt->VpiParent(v);
                     rt->Actual_typespec(ts);
                     v->Typespec(rt);
