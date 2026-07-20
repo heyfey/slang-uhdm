@@ -18,6 +18,25 @@ sva_range (76), TypedefStructArray (78),
 ParameterInitializedByPartSelectOfParametersAssignedToVar (80),
 ReturnEnumArray (81), TypedefedRangedFunctionArgument (82).
 
+Two more PROBED (not yet done):
+- **ImportTypeOfPort** (`import pkg::lc_tx_t; output lc_tx_t o; assign o=5`):
+  the port `o` (package vector-typedef, continuously assigned) should be a
+  logic_NET (with the vpiTypedef logic_typespec + an import_typespec entry,
+  vpiNetType:36), but slang classifies it a Variable so we emit a
+  logic_var. Also the imported typedef's logic_typespec gets a spurious
+  vpiParent module_inst (drop it). Same net-vs-var-for-a-net-port family as
+  AssignArraySelPlus + StructPackedOutput — the pkg-typedef output port is
+  a net.
+- **TypedefAliasInPackage** (`typedef lc_tx_e lc_tx_t;` — alias of an enum
+  typedef): golden emits lc_tx_t as an enum_typespec in the TYPEDEF-ALIAS
+  form (vpiTypedefAlias -> ref -> lc_tx_e's enum, plus vpiBaseTypespec,
+  spanning a merged 2:4..11:50 loc); we emit a plain enum copy at the alias
+  decl (6:4-6:28) with no alias link. buildEnumTs needs an alias branch for
+  a typedef whose target is ANOTHER named enum typedef (vs an inline enum):
+  reuse the base enum's ts via a Typedef_alias ref rather than rebuilding.
+  Downstream the enum_var lc_en_i span shrinks to the name (11:25-11:32) and
+  its vpiExpr constant unparents.
+
 **AssignArraySelPlus** (attempted, REVERTED — deep arena puzzle):
 `output logic [3:0] data [15:0]` assigned in an initial block. slang makes
 `data` a Variable (procedurally assigned) so we emit an array_var; Surelog
