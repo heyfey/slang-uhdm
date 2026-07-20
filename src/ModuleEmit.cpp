@@ -3582,11 +3582,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             bool forceSaved = forceConstParent;
             if (literalRhs || bitsRhs)
                 forceConstParent = true;
+            // DEF-view NESTED assignment-pattern RHS ('{'{0,1},..}): leaf
+            // constants stay UNPARENTED (only the nested pattern operations
+            // self-parent); the elab re-emit parents them normally. Flat and
+            // replicated patterns keep their existing parenting/sizing.
+            bool suppSaved = suppressConstParent;
+            if (!topView) {
+                auto& prc = stripImplicitConv(ae.right());
+                if (prc.kind == ExpressionKind::SimpleAssignmentPattern)
+                    for (auto* el :
+                         prc.as<SimpleAssignmentPatternExpression>().elements())
+                        if (stripImplicitConv(*el).kind ==
+                            ExpressionKind::SimpleAssignmentPattern)
+                            suppressConstParent = true;
+            }
             paramInitDef = !topView;
             contAssignView = topView ? 2 : 1;
             rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
             contAssignView = 0;
             paramInitDef = false;
+            suppressConstParent = suppSaved;
             forceConstParent = forceSaved;
             refCollector = nullptr;
             reemitting = false;
@@ -3638,8 +3653,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (topView && defInfo && myIdx < defInfo->contAssigns.size() && rhs &&
             rhs->UhdmType() != UHDM::uhdmconstant) {
             auto& rc = stripImplicitConv(ae.right());
-            if (rc.kind == ExpressionKind::SimpleAssignmentPattern ||
-                rc.kind == ExpressionKind::StructuredAssignmentPattern) {
+            // A NESTED pattern ('{'{..},..}) leaves no orphan.
+            bool nestedPat = false;
+            if (rc.kind == ExpressionKind::SimpleAssignmentPattern)
+                for (auto* el : rc.as<SimpleAssignmentPatternExpression>().elements())
+                    if (stripImplicitConv(*el).kind ==
+                        ExpressionKind::SimpleAssignmentPattern)
+                        nestedPat = true;
+            if (!nestedPat &&
+                (rc.kind == ExpressionKind::SimpleAssignmentPattern ||
+                 rc.kind == ExpressionKind::StructuredAssignmentPattern)) {
                 auto* defCa = defInfo->contAssigns[myIdx];
                 if (defCa->Rhs() && defCa->Rhs()->UhdmType() == UHDM::uhdmoperation) {
                     UHDM::typespec* pts = nullptr;

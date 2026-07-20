@@ -2587,12 +2587,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             inAssignPattern = true;
             for (auto el : ap.elements()) {
                 if (auto* e = emitExpr(*el, op, prefix, netMap)) {
-                    // Re-emitted patterns size their FIRST operand. In the
-                    // OUTERMOST pattern (a direct var initializer) Surelog
-                    // resizes each bare-decimal element (default 64) to the
-                    // element type; nested-pattern elements keep 64.
+                    // Re-emitted OUTERMOST patterns size their FIRST operand;
+                    // NESTED patterns ('{'{0,..},..}) keep every element 64.
                     if (reemitting) {
-                        if (operands->empty())
+                        if (operands->empty() && !wasInPattern)
                             ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
                     }
                     // Outermost bare-decimal elements: a direct var initializer
