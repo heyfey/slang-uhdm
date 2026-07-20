@@ -10,6 +10,8 @@
 
 #include "EmitHelpers.h"
 
+#include "slang/ast/EvalContext.h"
+
 namespace slang_uhdm {
 
 static bool subWritesNonLocal(const SubroutineSymbol& sub);
@@ -2067,6 +2069,40 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     rawText(cfr2.lit->sourceRange).find('\'') == std::string::npos)
                     ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+            }
+            // A gen-scope call RHS (possibly cast-wrapped: int'(f())) that
+            // evaluates folds to a LOC-LESS constant sized at the LHS width.
+            if (!rhs) {
+                const Expression* callE = &stripImplicitConv(ae.right());
+                if (callE->kind == ExpressionKind::Conversion)
+                    callE = &stripImplicitConv(
+                        callE->as<ConversionExpression>().operand());
+                if (callE->kind == ExpressionKind::Call &&
+                    !callE->as<CallExpression>().isSystemCall()) {
+                    auto subp3 = std::get_if<const SubroutineSymbol*>(
+                        &callE->as<CallExpression>().subroutine);
+                    ASTContext gctx(comp.getRoot(), LookupLocation::max);
+                    ConstantValue gcv = gctx.tryEval(ae.right());
+                    if (!gcv) {
+                        // Functions DECLARED in generate blocks fail strict
+                        // constant-function rules; script-mode eval relaxes.
+                        EvalContext ectx2(gctx, EvalFlags::IsScript);
+                        gcv = ae.right().eval(ectx2);
+                    }
+                    if (gcv && gcv.isInteger() && !gcv.integer().hasUnknown() &&
+                        (!subp3 || !subWritesNonLocal(**subp3))) {
+                        auto giv = gcv.integer();
+                        giv.setSigned(false);
+                        auto* c = s.MakeConstant();
+                        std::string digits =
+                            giv.toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(digits);
+                        c->VpiSize((int32_t)ae.left().type->getBitWidth());
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        rhs = c;
+                    }
+                }
             }
             if (!rhs) {
                 // Gen-scope STREAMING operand refs stay unbound (Surelog).

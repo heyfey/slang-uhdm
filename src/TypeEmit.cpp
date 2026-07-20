@@ -1718,6 +1718,39 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             setLoc(fc, syn.sourceRange());
             return fc;
         }
+        case syntax::SyntaxKind::CastExpression: {
+            // int'(expr) at module compile: operation 67 with a scoped ts ref
+            // (int_typespec at the cast-target token) + the operand.
+            auto& ce = syn.as<syntax::CastExpressionSyntax>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiCastOp);
+            op->VpiParent(parent);
+            setLoc(op, syn.sourceRange());
+            UHDM::typespec* cts = nullptr;
+            if (ce.left->kind == syntax::SyntaxKind::IntType) {
+                auto* t = s.MakeInt_typespec();
+                t->VpiSigned(true);
+                cts = t;
+            }
+            else {
+                cts = s.MakeLogic_typespec();
+            }
+            setLoc((UHDM::BaseClass*)cts, ce.left->sourceRange());
+            auto* rt = s.MakeRef_typespec();
+            if (!syntaxRefPrefix.empty())
+                rt->VpiFullName(syntaxRefPrefix);
+            rt->VpiParent(op);
+            rt->Actual_typespec(cts);
+            op->Typespec(rt);
+            auto* operands = s.MakeAnyVec();
+            const syntax::SyntaxNode* opnd = ce.right;
+            if (opnd->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                opnd = opnd->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (auto* e = emitSyntaxExpr(*opnd, op))
+                operands->push_back(e);
+            op->Operands(operands);
+            return op;
+        }
         default: {
             if (int32_t opType = mapSyntaxUnaryOp(syn.kind)) {
                 auto& ue = syn.as<syntax::PrefixUnaryExpressionSyntax>();
