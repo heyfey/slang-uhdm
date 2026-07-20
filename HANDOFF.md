@@ -2,7 +2,7 @@
 
 ## Session 12 (autonomous 8h block, 2026-07-20, in progress)
 
-**PASS 377 -> 384 (+7) this block. Converged:**
+**PASS 377 -> 387 (+10) this block. Converged:**
 - func_port_implied_dir (378): port-init HighConn/var-vpiExpr via ASTContext
   tryEval (call->INT, literal->UINT) at emitTopPorts (elab top-port owner).
 - Interface port typespecs precede elab var typespecs (382, +4): an interface
@@ -17,10 +17,23 @@
 - Case-inside members carry no vpiParent on constants (384): CaseInside.
   StmtEmit case-inside path uses suppressConstParent; ValueRange respects an
   incoming suppression (only force-parents its bounds when NOT suppressed).
+- Interface processes parent at the DEF view (386, +2): InterfaceAlways +
+  InterfaceInitial. The folded always/initial + begin were named/parented at
+  the elab instance (work@top.u_sw); Surelog uses the DEF interface_inst
+  (work@<iface>) with def-prefixed block names, ref actuals still elab vars.
+  Fix: emitInterfaceInstance emits processes with procParent=ifaceDefMap[&def]
+  + procPrefix="work@"+def.name.
+- assign_stmt RHS constant parents at the assign_stmt (387): TaskReturn.
+  Surelog parents it in EVERY context; ours only where an outer
+  forceConstParent leaked (module procedural), not package-task bodies. Force.
 - Var-init param-ref folds to a constant + var-init call args drop formal-ts:
   int_types_blk1 110->62, package_task_func 96->93 (diff-reduction, no PASS).
   ModuleEmit signal loop: NamedValue-of-Parameter init -> folded constant
   (makeParamTs ts ref); Call init sets portInitCtx to drop arg formal-ts.
+- Comma-list continuous assign spans the whole list (diff-reduction): each
+  cont_assign of 'assign a=0,b=1;' spans the full assignment list
+  (ContinuousAssignSyntax.assignments.sourceRange when size>1). mem2reg_test5
+  40->20, wandwor 280->216.
 
 **Skipped as low-ROI / Surelog quirks (documented, not bugs in ours):**
 - StringWithBackslash (8): golden end col = start + raw.size() + 2*(backslash
@@ -35,6 +48,35 @@
   Swapping risks param-typed-by-typedef cases.
 - union_param_repro (16): union_typespec located at first-USE (function arg
   `u_t op`, 7:31) not its definition (5:9); plus struct_typespec parent->design.
+
+**Weak-tail ORDERING cluster (fragile; ordering by UhdmId/creation order —
+each needs a targeted pre-create/defer, like the interface port-ts win):**
+- BindModuleWithInputPorts (4), CellNamedLikeModule (6): a bare logic_typespec
+  emitted at the wrong weak-tail position (two modules' typespec creation
+  interleave differently than Surelog).
+- partsel_simple (6): net-decl-assign (offset = idx<<2) has TWO logic_typespec
+  copies; golden parents the EARLIER (elab) one to the logic_net + leaves the
+  later unparented, ours does the reverse. Entangled with the lhsSyms/fresh-
+  Lhs-net mechanism (clearing the module net ts parent + pendingNetDeclTs).
+- case_expr_non_const (22): 8 folded case-comparison int_typespec (empty loc)
+  in a different weak-tail order (same count).
+- InterfaceAsPort (29): int_typespec 5:38 (dut's `a` port) ordered early; plus
+  a folded interface-member cont_assign appears 5x in golden vs 4x in ours
+  (def+elab view duplication of `assign u_sim_sram_if.start_addr = ...`).
+
+**Use-dependent predicates / multi-issue (risky or entangled):**
+- DotMultirange (46): 3 roots — (a) packed_array_typespec span should truncate
+  to the FIRST dim (13:17 not 13:22); (b) struct_typespec parent->design
+  (structUsedByModuleSignal predicate too broad here); (c) multi-dim LHS
+  member-select index constants (group_status[0][0].a) ARE parented in golden,
+  but ExprEmit:372 suppresses for sels.size()>1 (tuned for unpacked a[0][0].x).
+  Packed-vs-unpacked may be the real distinguisher.
+- Clog2OfSum (10): submodule param `a` elab constant's actual binds to the DEF
+  logic_net (work@submodule.a) in golden, elab int_var in ours; + const parent.
+- AssignBitsCallToSubmoduleParameter (40): bit_select fullname must scope
+  through the submodule port (work@top.u_reg...we_i.key_init_we), ours flattens.
+- SelectFromUnpackedInFunction (38): tagged_pattern + string_typespec(default)
+  lose their location in ours.
 
 **Diff-reduction partials (earlier in block):**
 - ParameterInitializedByPartSelectOfParametersAssignedToVar 60->24 (DIFF->
