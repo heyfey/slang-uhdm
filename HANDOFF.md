@@ -1,8 +1,50 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
-## Session 11 (autonomous 8h block, 2026-07-20, in progress)
+## Session 11 (autonomous 8h block, 2026-07-20) — FINAL
 
-**PASS 360->368 so far.** Converged: BitSelectPartSelectInFunction (4 parts:
+**PASS 360->377 (+17), DIFF 274->239.** Converged in the second half (on top
+of the first-half list below): struct_pat_fill + module typedef listings are
+NAME-SORTED (Surelog's registry is a name-keyed map; def AND elab listings,
+creation order unchanged), typedef_simple (module typedef-of-typedef alias
+clones at the TARGET's span w/ Typedef_alias; typedef'd logic vars carry NO
+vpiSigned; var-init vpiExpr forms: -1 -> minus op w/ unparented width-sized
+constant, y = x -> ref_obj scoped work@top.y.x bound to the var),
+EnumWidth + UnionInsideStruct (member-ref prefixing driven by
+WHOLE-cont-assignment only — hasNestedTypedef was a coincidence of its
+motivating tests; unions follow the same rule; union vars -> union_var;
+def-ts drop skips structs w/ a union member), TypedefAliasInPackage +
+TypedefEnum (pkg enum-alias clones: created at DEF time/listed TOP-only,
+VARIABLE use -> wide span to the use declarator + doubled pkg::pkg:: refs +
+pkg parent, PORT-only use -> target-decl span + single scoping + no parent;
+port-backed vars don't count as uses; alias-LHS enum-const assigns fold
+FRESH in TOP at LHS width/RHS span), mem2reg_test4 (unpacked-array
+select-LHS cont-assigns re-emit fresh in elab w/ shared def Rhs constant;
+LHS-index func_calls anchor at the callee name, args carry no formal-ts;
+array_net signed leaves), EnumArray + EnumArrayListedElements
+(emitPackedStructArrayVar accepts ENUM leaves; suppressConstParent honored
+by pattern enum-const operands; netTypeFor descends packed dims to the leaf
+alias).
+
+**Partials (diff reductions, zero corpus delta):** ImportTypeOfPort 69->37
+(imported-unqualified pkg-typedef ports are NETS w/ shared ts; top port
+gets an alias clone; REMAINING: cross-view pkg-ts parent placement + a
+second QUALIFIED tail clone), hana 81->48 (param-arith folds: unary-plus
+keeps op, minus/subtract fold signed INT untruncated at LHS width; process
+unary literal operands unparented; bare literals truncate at LHS width;
+REMAINING: untyped-param fold w/ int_typespec + multi-top param-ts drain
+ordering), CastInFunctionInGenBlock 94->50 (emitSyntaxExpr CastExpression
+case; emitGenScopes call fold with EvalFlags::IsScript retry — const-fn-in-
+generate fails strict rules; REMAINING: in-function (PtrWidth)'(Depth)
+operand/size fold shapes).
+
+**NEXT LADDER**: ImportTypeOfPort 37, hana 48, CastInFunctionInGenBlock 50,
+ParameterInit...AssignedToVar 60 (gen-scope param fold — partially helped by
+the new gen fold), iface_modport_conn 68 / iface_modport_out 72 (arena),
+sva_range 76, ReplicationPassedToInstance 91 (high-conn replication folds to
+BIN all-ones at bound width + no-default child param RHS fold),
+package_task_func 96, struct_part_select_write 97, StructLocalParam 101.
+
+### First-half detail (PASS 360->368) Converged: BitSelectPartSelectInFunction (4 parts:
 NamedType block-local predicate — typedef-typed non-init function locals are
 body-block members, builtin-typed stay at function w/ vpiAutomatic; '1 args
 in def cont-assign stay bare / elab fold to formal width repeated-digit BIN
