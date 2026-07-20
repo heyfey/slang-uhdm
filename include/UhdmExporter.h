@@ -331,6 +331,9 @@ private:
     bool callStmtContext = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
+    // Set while emitting a port's initializer expression (output w = bar(4));
+    // its call args carry no formal-ts refs.
+    bool portInitCtx = false;
     // DEF-view param inits leave UNARY-op operand constants unparented
     // (binary operands stay parented).
     bool paramInitDef = false;

@@ -1261,6 +1261,28 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         forceConstParent = forceSaved;
                     }
                 }
+                // A port-backed var whose PORT carries an initializer holds
+                // the FOLDED substituted value as vpiExpr.
+                else if (it.port && it.port->getInitializer()) {
+                    auto* pinit = it.port->getInitializer();
+                    if (auto* fc = tryFoldConst(*pinit);
+                        fc && fc->UhdmType() == UHDM::uhdmconstant) {
+                        auto* rc = (UHDM::constant*)fc;
+                        rc->VpiParent(v);
+                        rc->VpiSize((int32_t)dt->getType().getBitWidth());
+                        setLoc(rc, pinit->sourceRange);
+                        // A CALL-folded init encodes signed (INT); a literal
+                        // keeps tryFoldConst's UINT.
+                        if (stripImplicitConv(*pinit).kind == ExpressionKind::Call) {
+                            std::string_view vv = rc->VpiValue();
+                            if (vv.rfind("UINT:", 0) == 0) {
+                                rc->VpiValue("INT:" + std::string(vv.substr(5)));
+                                rc->VpiConstType(vpiIntConst);
+                            }
+                        }
+                        v->Expr((UHDM::expr*)fc);
+                    }
+                }
             }
             if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
                 auto* av = s.MakeAttributeVec();
@@ -1756,6 +1778,23 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
             }
 
+            // A top-module port with an INITIALIZER and no connection
+            // (output integer w = bar(4)) carries a FOLDED-value HighConn.
+            if (!p->High_conn())
+                if (auto* pinit = ps.getInitializer())
+                    if (auto* fc = tryFoldConst(*pinit);
+                        fc && fc->UhdmType() == UHDM::uhdmconstant) {
+                        auto* rc = (UHDM::constant*)fc;
+                        setLoc(rc, pinit->sourceRange);
+                        if (stripImplicitConv(*pinit).kind == ExpressionKind::Call) {
+                            std::string_view vv = rc->VpiValue();
+                            if (vv.rfind("UINT:", 0) == 0) {
+                                rc->VpiValue("INT:" + std::string(vv.substr(5)));
+                                rc->VpiConstType(vpiIntConst);
+                            }
+                        }
+                        p->High_conn((UHDM::expr*)fc);
+                    }
             auto* pts = makeTypespec(*internal, nullptr, &ps);
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
@@ -2785,6 +2824,21 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
         if (auto it = netMap.find(internal); it != netMap.end())
             lc->Actual_group(it->second);
         p->Low_conn(lc);
+
+        // A port with an INITIALIZER (output integer w = bar(4)) carries a
+        // vpiHighConn = the init expression (a call stays a call; a literal
+        // folds to a constant).
+        if (auto* init0 = ps.getInitializer()) {
+            bool sip = inParamInit, spc = portInitCtx;
+            // A port-init call anchors at the callee name and its args carry
+            // no formal-ts refs; a literal HighConn stays UNPARENTED.
+            inParamInit = true;
+            portInitCtx = true;
+            if (auto* h = emitExpr(*init0, p, prefix, netMap))
+                p->High_conn((UHDM::expr*)h);
+            inParamInit = sip;
+            portInitCtx = spc;
+        }
 
         // A def-view INTERFACE port carries no typespec (unlike a module port).
         if (!(m->UhdmType() == UHDM::uhdminterface_inst && !topView)) {

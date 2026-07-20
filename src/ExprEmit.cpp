@@ -1480,7 +1480,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          (!pkgScopeInst && callArgDepth == 1 &&
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           !intFormal))
-                                      : (!inLhs && !defOpArg &&
+                                      : (!inLhs && !defOpArg && !portInitCtx &&
                                          (refArg || callArgDepth == 1));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =
