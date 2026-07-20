@@ -1,5 +1,29 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## ⭐⭐ SYSTEMATIC ROOT (blocks ~20+ DIFF tests) — param-ts-before-typedef timing
+
+A parameter typed by a NAMED typedef (struct/union/enum/vector) needs its
+typespec to be the SHARED named typedef typespec (Surelog points param ->
+ref_typespec -> the ONE typedefTs object). But `emitParameters` runs BEFORE
+`emitTypedefs` populates `typedefTs` (both for modules — UhdmExporter def loop
+runs all params, THEN emitModuleDef/emitTypedefs; and packages — emitPackage
+does params at L1003 then typedefs at L1007), by design ("def-view param
+typespecs precede elaboration typespecs", arena order). So makeParamTs builds a
+FRESH typespec (wrong kind: int_typespec for a vector/struct/union typedef; or
+fresh-unnamed for a parametrized vector), never the shared one. Symptoms across
+the DIFF set: logic_typespec->int_typespec (typedef_package,
+ParameterOfParametrizedType[InSubmodule]), struct_typespec (StructParameter/
+StructLocalParam + ~14 pass-through tests), enum_typespec ordering
+(ParameterInitializedIn*5LevelHierarchy x4). The ELAB view CAN share (deferred
+via pendingParamTs -> patchParamTypespecs, which runs after typedefs) but the
+DEF view (AllModules, which uhdm-cmp compares FIRST) cannot without either
+(a) reordering emitTypedefs before the def-param emit — RISKY: shuffles the
+weak-tail arena order and can DEMOTE PASS tests (byte-identity), or (b) a
+deferred def-param-ts drain that binds to typedefTs after emitTypedefs. This is
+the single highest-leverage fix left; it also unblocks the struct-param op-75
+pattern work (already prototyped, see below). Verify a candidate fix with the
+FULL gate watching for PASS->CMP_ONLY demotions.
+
 ## ⭐ KEY INSIGHT (Session 12 end) — PRIORITIZE DIFF (cmp-failing) OVER CMP_ONLY
 
 uhdm-cmp is the SEMANTIC comparator. Classes: **PASS** (dump byte-identical +
