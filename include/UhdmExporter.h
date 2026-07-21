@@ -543,6 +543,19 @@ private:
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;
     // Gen-scope genvar param int_typespecs drain LAST (after net-decl typespecs).
     std::vector<UHDM::ref_typespec*> pendingGenvarTs;
+    // Gen-block REAL localparams: their typed ts + the CA-shared constant's
+    // bare clone are write-phase objects (after the top-port ts, before the
+    // genvar int ts — Surelog arena order). crt gets the clone, rt the ts.
+    struct PendingGenLpTs {
+        UHDM::ref_typespec* rt;
+        UHDM::ref_typespec* crt;
+        const slang::ast::ParameterSymbol* ps;
+        bool typedLp;
+    };
+    std::vector<PendingGenLpTs> pendingGenLpTs;
+    // DEF-view gen-block localparam typespecs, SHARED into the elab param ref
+    // (which parents them); a dangling unparented copy closes the tail.
+    std::map<const slang::ast::ParameterSymbol*, UHDM::typespec*> defGenLpTs;
     // Signed size-cast fold result typespecs (signed logic_typespec) drain at
     // the very end of the arena tail.
     std::vector<UHDM::ref_typespec*> pendingSignedCastTs;

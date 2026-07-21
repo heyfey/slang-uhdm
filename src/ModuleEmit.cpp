@@ -448,7 +448,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         // A generate branch body: named begin for labeled blocks, anonymous
         // begin (module fullname) otherwise; cont_assigns from syntax.
         auto emitBranch = [&](const syntax::SyntaxNode& memSyn,
-                              UHDM::BaseClass* parent) -> UHDM::any* {
+                              UHDM::BaseClass* parent,
+                              const Scope* astBlock = nullptr) -> UHDM::any* {
             UHDM::scope* b = nullptr;
             std::string branchPrefix = prefix;
             std::vector<const syntax::SyntaxNode*> items;
@@ -480,6 +481,60 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             }
             b->VpiParent(parent);
             auto* stmts = s.MakeAnyVec();
+            // Gen-block localparams (def view): a param_assign stmt whose
+            // parameter carries the typed ts (via the AST symbol) and whose
+            // Rhs keeps the source literal encoding, unparented (Surelog).
+            std::map<std::string, UHDM::parameter*> branchParams;
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::ParameterDeclarationStatement ||
+                    !astBlock)
+                    continue;
+                auto& pds = item->as<syntax::ParameterDeclarationStatementSyntax>();
+                if (pds.parameter->kind != syntax::SyntaxKind::ParameterDeclaration)
+                    continue;
+                auto& pd = pds.parameter->as<syntax::ParameterDeclarationSyntax>();
+                bool isLocal2 = pd.keyword.valueText() == "localparam";
+                bool typedP2 = pd.type->kind != syntax::SyntaxKind::ImplicitType;
+                for (auto* dcl : pd.declarators) {
+                    std::string pname(dcl->name.valueText());
+                    const ParameterSymbol* psym = nullptr;
+                    for (auto& mb : astBlock->members())
+                        if (mb.kind == SymbolKind::Parameter && mb.name == pname)
+                            psym = &mb.as<ParameterSymbol>();
+                    if (!psym)
+                        continue;
+                    auto* pa2 = s.MakeParam_assign();
+                    pa2->VpiParent(b);
+                    setLoc(pa2, dcl->sourceRange());
+                    auto* up2 = s.MakeParameter();
+                    up2->VpiName(pname);
+                    up2->VpiFullName(branchPrefix + "." + pname);
+                    up2->VpiParent(pa2);
+                    setLoc(up2, dcl->sourceRange());
+                    if (isLocal2)
+                        up2->VpiLocalParam(true);
+                    auto* prt2 = s.MakeRef_typespec();
+                    prt2->VpiFullName(branchPrefix + "." + pname);
+                    prt2->VpiParent(up2);
+                    if (auto* its2 = makeParamTs(*psym, typedP2)) {
+                        prt2->Actual_typespec(its2);
+                        defGenLpTs[psym] = its2; // shared into the elab ref
+                    }
+                    up2->Typespec(prt2);
+                    pa2->Lhs(up2);
+                    if (dcl->initializer) {
+                        syntaxRefPrefix = branchPrefix;
+                        if (auto* rc2 =
+                                emitSyntaxExpr(*dcl->initializer->expr, pa2)) {
+                            ((UHDM::expr*)rc2)->VpiParent(nullptr);
+                            pa2->Rhs((UHDM::expr*)rc2);
+                        }
+                        syntaxRefPrefix.clear();
+                    }
+                    branchParams[pname] = up2;
+                    stmts->push_back(pa2);
+                }
+            }
             for (auto* item : items) {
                 if (item->kind != syntax::SyntaxKind::ContinuousAssign)
                     continue;
@@ -489,6 +544,23 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     ca->VpiParent(b);
                     setLoc(ca, asyn->sourceRange());
                     syntaxRefPrefix = branchPrefix;
+                    // Refs naming a branch localparam bind that parameter.
+                    std::function<void(UHDM::any*)> bindP = [&](UHDM::any* e) {
+                        if (!e)
+                            return;
+                        if (e->UhdmType() == UHDM::uhdmref_obj) {
+                            auto* r0 = (UHDM::ref_obj*)e;
+                            if (auto bp = branchParams.find(std::string(r0->VpiName()));
+                                bp != branchParams.end() && !r0->Actual_group())
+                                r0->Actual_group(bp->second);
+                        }
+                        else if (e->UhdmType() == UHDM::uhdmoperation) {
+                            if (auto* ops = ((UHDM::operation*)e)->Operands())
+                                for (auto* o : *ops)
+                                    bindP(o);
+                        }
+                    };
+                    (void)bindP; // SL leaves def-view gen CA refs unbound
                     if (asyn->kind == syntax::SyntaxKind::AssignmentExpression) {
                         auto& be = asyn->as<syntax::BinaryExpressionSyntax>();
                         if (auto* l = emitSyntaxExpr(*be.left, ca))
@@ -555,6 +627,116 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie))
                         gie->VpiElseStmt((UHDM::any*)e);
                 regions->push_back(g0);
+                continue;
+            }
+            // FOR-generates: a LOC-LESS gen_for with the genvar init
+            // assignment (int_var + 64-bit UINT), the condition (refs bound to
+            // the int_var), the incr op, and the block body (Surelog def view).
+            const syntax::LoopGenerateSyntax* loopSyn = nullptr;
+            if (member.kind == SymbolKind::GenerateBlockArray)
+                for (auto q = member.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                        loopSyn = &q->as<syntax::LoopGenerateSyntax>();
+                        break;
+                    }
+            // Only an INLINE-genvar loop (for (genvar c = ...)) becomes a
+            // gen_for; a separate `genvar i;` + loop keeps the gen_region
+            // placeholder (Surelog).
+            if (loopSyn && !loopSyn->genvar)
+                loopSyn = nullptr;
+            if (loopSyn) {
+                auto* gf = s.MakeGen_for();
+                gf->VpiParent(m);
+                std::string gname(loopSyn->identifier.valueText());
+                std::string gfull = prefix + "." + gname;
+                // Init: assignment spanning genvar..init, Lhs a SIGNED int_var
+                // with an int_typespec at the name token, Rhs the init value.
+                auto* asn = s.MakeAssignment();
+                asn->VpiParent(gf);
+                SourceLocation initStart = loopSyn->genvar
+                                               ? loopSyn->genvar.range().start()
+                                               : loopSyn->identifier.range().start();
+                setLoc(asn, SourceRange(initStart,
+                                        loopSyn->initialExpr->sourceRange().end()));
+                auto* iv = s.MakeInt_var();
+                iv->VpiName(gname);
+                iv->VpiFullName(gfull);
+                iv->VpiParent(asn);
+                setLoc(iv, loopSyn->identifier.range());
+                iv->VpiSigned(true);
+                auto* ivrt = s.MakeRef_typespec();
+                ivrt->VpiFullName(gfull);
+                ivrt->VpiParent(iv);
+                auto* ivts = s.MakeInt_typespec();
+                setLoc(ivts, loopSyn->identifier.range());
+                ivrt->Actual_typespec(ivts);
+                iv->Typespec(ivrt);
+                syntaxRefPrefix = prefix;
+                if (auto* rc = emitSyntaxExpr(*loopSyn->initialExpr, asn)) {
+                    ((UHDM::expr*)rc)->VpiParent(nullptr); // SL: unparented
+                    asn->Rhs((UHDM::expr*)rc);
+                }
+                asn->Lhs((UHDM::expr*)iv);
+                // Surelog: the init goes in the PLURAL vector, the incr in the
+                // SINGULAR field (dump-identical either way; Compare differs).
+                {
+                    auto* iniv = s.MakeAnyVec();
+                    iniv->push_back(asn);
+                    gf->VpiForInitStmts(iniv);
+                }
+                // Condition: refs to the genvar bind the int_var.
+                std::function<void(UHDM::any*)> bindGenvar = [&](UHDM::any* e) {
+                    if (!e)
+                        return;
+                    if (e->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r = (UHDM::ref_obj*)e;
+                        if (r->VpiName() == gname) {
+                            r->VpiFullName(gfull);
+                            r->Actual_group(iv);
+                        }
+                    }
+                    else if (e->UhdmType() == UHDM::uhdmoperation) {
+                        if (auto* ops = ((UHDM::operation*)e)->Operands())
+                            for (auto* o : *ops)
+                                bindGenvar(o);
+                    }
+                };
+                if (auto* c = emitSyntaxExpr(*loopSyn->stopExpr, gf)) {
+                    bindGenvar(c);
+                    gf->VpiCondition((UHDM::expr*)c);
+                }
+                syntaxRefPrefix.clear();
+                // Incr (c++): op 62 at the operator span, LOC-LESS ref operand
+                // parented at the gen_for (Surelog quirk).
+                {
+                    auto* op = s.MakeOperation();
+                    op->VpiOpType(62);
+                    op->VpiParent(gf);
+                    // Anchored at the OPERAND token (Surelog quirk).
+                    auto ir = loopSyn->iterationExpr->sourceRange();
+                    setLoc(op, SourceRange(ir.start(), ir.start() + gname.size()));
+                    auto* r = s.MakeRef_obj();
+                    r->VpiName(gname);
+                    r->VpiFullName(gfull);
+                    r->VpiParent(gf);
+                    r->Actual_group(iv);
+                    auto* ops = s.MakeAnyVec();
+                    ops->push_back(r);
+                    op->Operands(ops);
+                    gf->VpiForIncStmt(op);
+                }
+                {
+                    const Scope* astBlock = nullptr;
+                    auto& arr2 = member.as<GenerateBlockArraySymbol>();
+                    for (auto entry2 : arr2.entries)
+                        if (entry2 && !entry2->isUninstantiated) {
+                            astBlock = entry2;
+                            break;
+                        }
+                    if (auto* b = emitBranch(*loopSyn->block, gf, astBlock))
+                        gf->VpiStmt(b);
+                }
+                regions->push_back(gf);
                 continue;
             }
             auto* gr = s.MakeGen_region();
@@ -1985,9 +2167,24 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
 
         // Genvar localparam: line of the generate loop, column 0, no end.
         auto* params = s.MakeAnyVec();
+        auto* genPas = s.MakeParam_assignVec();
+        // Block-localparam fold constants, SHARED into gen CA RHS folds.
+        std::map<const Symbol*, UHDM::constant*> genLpConst;
+        // REAL localparams list before the genvar localparam (Surelog order).
+        for (int lpPass = 0; lpPass < 2; lpPass++)
         for (auto& gm : blk.members()) {
             if (gm.kind != SymbolKind::Parameter)
                 continue;
+            {
+                bool isReal = false;
+                for (auto q = gm.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                        isReal = true;
+                        break;
+                    }
+                if ((lpPass == 0) != isReal)
+                    continue;
+            }
             auto& ps = gm.as<ParameterSymbol>();
             auto* up = s.MakeParameter();
             up->VpiName(ps.name);
@@ -1999,6 +2196,87 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 bool neg = cv.integer().isSigned() && cv.integer().isNegative();
                 std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
                 up->VpiValue((neg ? "INT:" : "UINT:") + digits);
+            }
+            // A REAL block localparam (written `localparam ... = ...`) keeps
+            // its name span, source-base value encoding, and typed ts; the
+            // GENVAR localparam keeps the loop-line/col-0 deferred-int form.
+            bool realLp = false;
+            for (auto q = ps.getSyntax(); q; q = q->parent)
+                if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                    realLp = true;
+                    break;
+                }
+            if (realLp) {
+                setLoc(up, nameSpan(ps.location, ps.name));
+                if (auto init = ps.getInitializer()) {
+                    auto& lit = stripImplicitConv(*init);
+                    std::string raw = rawText(lit.sourceRange);
+                    auto tick = raw.find('\'');
+                    if (lit.kind == ExpressionKind::IntegerLiteral &&
+                        tick != std::string::npos) {
+                        size_t bp = tick + 1;
+                        if (bp < raw.size() && (raw[bp] == 's' || raw[bp] == 'S'))
+                            bp++;
+                        char bch = bp < raw.size() ? (char)tolower(raw[bp]) : 'd';
+                        std::string dg =
+                            bp + 1 <= raw.size() ? raw.substr(bp + 1) : "";
+                        dg.erase(std::remove(dg.begin(), dg.end(), '_'), dg.end());
+                        if (bch == 'h')
+                            up->VpiValue("HEX:" + dg);
+                        else if (bch == 'b')
+                            up->VpiValue("BIN:" + dg);
+                        else if (bch == 'o')
+                            up->VpiValue("OCT:" + dg);
+                    }
+                }
+                bool typedLp = false;
+                if (auto d0 = ps.getDeclaredType())
+                    if (auto t0 = d0->getTypeSyntax())
+                        typedLp = t0->kind != syntax::SyntaxKind::ImplicitType;
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(fullName + "." + std::string(ps.name));
+                rt->VpiParent(up);
+                up->Typespec(rt);
+                params->push_back(up);
+                // The gen-scope param_assign: Rhs is a source-encoded constant
+                // (init span, gen-scope-scoped ts ref) SHARED into the gen CA
+                // fold (its parent becomes the sharing cont_assign).
+                if (auto init = ps.getInitializer()) {
+                    auto& lit = stripImplicitConv(*init);
+                    if (lit.kind == ExpressionKind::IntegerLiteral) {
+                        auto* pa2 = s.MakeParam_assign();
+                        pa2->VpiParent(gs);
+                        if (auto dsyn = ps.getSyntax();
+                            dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+                            setLoc(pa2, dsyn->sourceRange());
+                        auto* c2 = s.MakeConstant();
+                        std::string raw2 = rawText(lit.sourceRange);
+                        c2->VpiDecompile(raw2);
+                        c2->VpiSize((int32_t)ps.getType().getBitWidth());
+                        std::string_view v2 = up->VpiValue();
+                        c2->VpiValue(std::string(v2));
+                        c2->VpiConstType(v2.rfind("HEX:", 0) == 0   ? vpiHexConst
+                                         : v2.rfind("BIN:", 0) == 0 ? vpiBinaryConst
+                                         : v2.rfind("OCT:", 0) == 0 ? vpiOctConst
+                                                                    : vpiUIntConst);
+                        setLoc(c2, lit.sourceRange);
+                        auto* crt = s.MakeRef_typespec();
+                        crt->VpiFullName(fullName);
+                        crt->VpiParent(c2);
+                        // Actuals (bare clone + typed ts) fill in the write
+                        // phase (Surelog arena order).
+                        pendingGenLpTs.push_back({rt, crt, &ps, typedLp});
+                        rt = nullptr; // consumed
+                        c2->Typespec(crt);
+                        pa2->Rhs(c2);
+                        pa2->Lhs(up);
+                        genPas->push_back(pa2);
+                        genLpConst[&gm] = c2;
+                    }
+                }
+                if (rt)
+                    pendingGenLpTs.push_back({rt, nullptr, &ps, typedLp});
+                continue;
             }
             if (auto syn = blk.getSyntax()) {
                 up->VpiLineNo(sm->getLineNumber(syn->sourceRange().start()));
@@ -2015,6 +2293,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         if (!params->empty())
             gs->Parameters(params);
+        if (!genPas->empty())
+            gs->Param_assigns(genPas);
 
         // Local nets declared inside the block (wire tmp; ...).
         auto* gnets = s.MakeNetVec();
@@ -2127,11 +2407,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (isLiteralExpr(ae.right()))
                 forceConstParent = true;
             UHDM::any* rhs = nullptr;
+            // A gen CA reading a BLOCK localparam SHARES the param_assign's
+            // fold constant (its parent becomes this cont_assign).
+            if (auto& rcp0 = stripImplicitConv(ae.right());
+                rcp0.kind == ExpressionKind::NamedValue) {
+                if (auto lit0 = genLpConst.find(
+                        &rcp0.as<NamedValueExpression>().symbol);
+                    lit0 != genLpConst.end()) {
+                    lit0->second->VpiParent(ca);
+                    rhs = lit0->second;
+                }
+            }
             // A gen-scope RHS that is a plain ref to a module PARAM with a
             // shared part-select fold constant (FullDepth) re-folds FRESH at
             // the ref location, copying the value + the param's typespec.
             if (auto& rcp = stripImplicitConv(ae.right());
-                rcp.kind == ExpressionKind::NamedValue) {
+                !rhs && rcp.kind == ExpressionKind::NamedValue) {
                 auto fit = moduleParamFoldConst.find(
                     &rcp.as<NamedValueExpression>().symbol);
                 if (fit != moduleParamFoldConst.end()) {
@@ -2731,6 +3022,22 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         rt->Actual_typespec(fts);
     }
     pendingNetDeclTs.clear();
+    // Gen-block REAL-localparam typespecs: the CA constant's LOC-LESS bare
+    // clone, then the typed param ts (Surelog: after the top-port ts, before
+    // the genvar int ts).
+    for (auto& gl : pendingGenLpTs) {
+        if (gl.crt)
+            if (auto* bare = makeBareVecParamTs(*gl.ps, false))
+                gl.crt->Actual_typespec(bare);
+        // A FRESH elab ts, parented at the elab ref (Surelog).
+        if (auto* its = makeParamTs(*gl.ps, gl.typedLp)) {
+            gl.rt->Actual_typespec(its);
+            its->VpiParent(gl.rt);
+            if (gl.crt && !gl.crt->Actual_typespec())
+                gl.crt->Actual_typespec(its);
+        }
+    }
+    pendingGenLpTs.clear();
     // Gen-scope genvar int_typespecs are the very last arena objects.
     for (auto* rt : pendingGenvarTs)
         rt->Actual_typespec(s.MakeInt_typespec());

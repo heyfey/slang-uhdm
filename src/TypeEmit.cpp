@@ -1673,6 +1673,45 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             setLoc(c, syn.sourceRange());
             return c;
         }
+        case syntax::SyntaxKind::IntegerVectorExpression: {
+            // Based literal (64'h123..): raw decompile, size from the prefix,
+            // value in the written base.
+            auto* c = s.MakeConstant();
+            std::string raw = rawText(syn.sourceRange());
+            c->VpiDecompile(raw);
+            auto tick = raw.find('\'');
+            int32_t sz = 0;
+            if (tick != std::string::npos && tick > 0)
+                sz = (int32_t)atoi(raw.substr(0, tick).c_str());
+            size_t basePos = tick == std::string::npos ? 0 : tick + 1;
+            if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))
+                basePos++;
+            char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
+            std::string digits = basePos + 1 <= raw.size() ? raw.substr(basePos + 1) : "";
+            digits.erase(std::remove(digits.begin(), digits.end(), '_'), digits.end());
+            switch (base) {
+                case 'h':
+                    c->VpiValue("HEX:" + digits);
+                    c->VpiConstType(vpiHexConst);
+                    break;
+                case 'b':
+                    c->VpiValue("BIN:" + digits);
+                    c->VpiConstType(vpiBinaryConst);
+                    break;
+                case 'o':
+                    c->VpiValue("OCT:" + digits);
+                    c->VpiConstType(vpiOctConst);
+                    break;
+                default:
+                    c->VpiValue("DEC:" + digits);
+                    c->VpiConstType(vpiDecConst);
+                    break;
+            }
+            c->VpiSize(sz ? sz : 64);
+            c->VpiParent(parent);
+            setLoc(c, syn.sourceRange());
+            return c;
+        }
         case syntax::SyntaxKind::ParenthesizedExpression:
             return emitSyntaxExpr(*syn.as<syntax::ParenthesizedExpressionSyntax>().expression,
                                   parent);
