@@ -2782,6 +2782,26 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 }
             }
             if (!rhs) {
+                // A gen-scope CA RHS selecting an element of an UNPACKED-ARRAY
+                // param (RhoOffset[1]) folds to the constant value (Surelog
+                // elab), mirroring the module-level unpackedParamSel path.
+                auto& usel = stripImplicitConv(ae.right());
+                const Expression* uselBase = &usel;
+                while (uselBase->kind == ExpressionKind::ElementSelect)
+                    uselBase = &stripImplicitConv(
+                        uselBase->as<ElementSelectExpression>().value());
+                if (usel.kind == ExpressionKind::ElementSelect &&
+                    uselBase->kind == ExpressionKind::NamedValue &&
+                    uselBase->as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter &&
+                    uselBase->as<NamedValueExpression>()
+                            .symbol.getType()
+                            .getCanonicalType()
+                            .kind == SymbolKind::FixedSizeUnpackedArrayType)
+                    if (auto* fc = tryFoldConst(ae.right()))
+                        rhs = fc;
+            }
+            if (!rhs) {
                 // Gen-scope STREAMING operand refs stay unbound (Surelog).
                 const Expression* rc0 = &stripImplicitConv(ae.right());
                 if (rc0->kind == ExpressionKind::Conversion)
@@ -2832,8 +2852,29 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 ca->Rhs((UHDM::expr*)rhs);
             forceConstParent = forceSaved;
             inLhs = true;
+            // A FOR-loop gen-scope CA whose LHS is a whole-ref to an outer
+            // VARIABLE (output int o) leaves its actual UNBOUND — Surelog (else
+            // ours mints a fresh int_var actual). A NET LHS (output logic o)
+            // still binds, as do single-instance (if/named) gen-scopes and
+            // bit/part-selects.
+            bool lhsSuppress = false;
+            if (auto& lcl = stripImplicitConv(ae.left());
+                lcl.kind == ExpressionKind::NamedValue &&
+                lcl.as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::Variable &&
+                lcl.type && !lcl.type->getCanonicalType().isFourState()) {
+                for (auto q = blk.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                        lhsSuppress = true;
+                        break;
+                    }
+            }
+            if (lhsSuppress)
+                suppressRefActual = true;
             if (auto* l = emitExpr(ae.left(), ca, fullName, netMap))
                 ca->Lhs((UHDM::expr*)l);
+            if (lhsSuppress)
+                suppressRefActual = false;
             inLhs = false;
             cas->push_back(ca);
         }
