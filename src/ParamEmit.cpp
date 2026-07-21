@@ -978,6 +978,39 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             auto* tsyn = ps.getDeclaredType() ? ps.getDeclaredType()->getTypeSyntax() : nullptr;
             if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind))
                 its = makeTypespec(ps);
+            // A param typed by a VECTOR TYPEDEF (parameter my_type_t Y) uses a
+            // NAMED clone of the typedef's logic_typespec with a Typedef_alias
+            // ref to the shared typedef ts (Surelog), not a bare int_typespec.
+            // (Only once emitTypedefs has populated typedefTs — the def
+            // pre-pass falls back and is patched later.)
+            else if (auto d0 = ps.getDeclaredType();
+                     d0 && d0->getType().kind == SymbolKind::TypeAlias) {
+                auto& taSym = d0->getType().as<TypeAliasType>();
+                if (auto tit = typedefTs.find(&taSym);
+                    tit != typedefTs.end() &&
+                    tit->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    const syntax::SyntaxNode* tgtSyn = nullptr;
+                    if (auto asyn = taSym.getSyntax())
+                        if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tgtSyn =
+                                asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                    bypassTypedefShare = true;
+                    auto* cl = makeTypespec(taSym, tgtSyn);
+                    bypassTypedefShare = false;
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(syntaxRefPrefix.empty()
+                                         ? std::string(taSym.name)
+                                         : syntaxRefPrefix + "." +
+                                               std::string(taSym.name));
+                    art->VpiParent(cl);
+                    art->Actual_typespec(tit->second);
+                    ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                    cl->VpiName(taSym.name);
+                    its = cl;
+                    if (tgtSyn)
+                        tr = tgtSyn->sourceRange();
+                }
+            }
         }
         // A struct/union-typed param carries a FRESH aggregate typespec clone
         // (named by the typedef, located at the struct/union body), not an
