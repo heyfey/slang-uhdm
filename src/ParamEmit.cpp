@@ -914,8 +914,20 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     SourceRange tr(ps.location, ps.location + ps.name.size());
     if (typedParam) {
         if (auto declared = ps.getDeclaredType())
-            if (auto tsyn = declared->getTypeSyntax())
-                tr = tsyn->sourceRange();
+            if (auto tsyn = declared->getTypeSyntax()) {
+                // An UNTYPED param forced to typedParam (the imported-integral
+                // fallback) still locates its typespec at the DECLARATION span,
+                // like a normal untyped param — not the empty implicit-type span.
+                if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                    for (auto q = ps.getSyntax(); q; q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                            tr = q->sourceRange();
+                            break;
+                        }
+                }
+                else
+                    tr = tsyn->sourceRange();
+            }
     }
     else {
         for (auto q = ps.getSyntax(); q; q = q->parent) {
