@@ -582,6 +582,13 @@ private:
     // Task/function typespecs keep unfolded range expressions; module-level
     // typespecs fold them to INT constants.
     bool tfContext = false;
+    // True while emitting a NON-TOP module def's ports: a packed-dim bound
+    // referencing an OVERRIDABLE module parameter (parameter, not localparam)
+    // stays symbolic — the param is unresolved in the unelaborated child def
+    // (instances override it). Safe because a non-top def's port typespec is
+    // NOT shared with the elab (child) port ts (that one is re-made folded);
+    // a TOP def's ports are handled by the write-phase swap instead.
+    bool defPortDim = false;
     // True only while emitting a NAMED typedef's typespec: Surelog folds
     // type-query bounds ($bits(t)) there, but keeps them as sys_func_call in a
     // variable's inline/anonymous type. Gates the $bits fold in emitSyntaxExpr.

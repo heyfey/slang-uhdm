@@ -552,7 +552,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         .symbol.kind == SymbolKind::Parameter)
                                 bareParamInParamTs = true;
                         }
-                        if (tfContext || bitsOfSignal || bareParamInParamTs) {
+                        // A NON-TOP def port dim bound referencing an
+                        // OVERRIDABLE module parameter (X-1 on parameter int X)
+                        // stays symbolic: unresolved in the child def view.
+                        bool defModuleParamDim = false;
+                        if (defPortDim && bsyn && currentScope) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            if (!be.bad())
+                                be.visit(makeVisitor(
+                                    [&](auto& v, const NamedValueExpression& nv) {
+                                        if (nv.symbol.kind ==
+                                                SymbolKind::Parameter &&
+                                            !nv.symbol.as<ParameterSymbol>()
+                                                 .isLocalParam())
+                                            defModuleParamDim = true;
+                                        v.visitDefault(nv);
+                                    }));
+                        }
+                        if (tfContext || bitsOfSignal || bareParamInParamTs ||
+                            defModuleParamDim) {
                             // Function/typedef context: unfolded expression.
                             if (auto* e = emitSyntaxExpr(*bsyn, r)) {
                                 // The sys-call arg refs bind their DEF

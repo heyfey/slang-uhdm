@@ -780,8 +780,20 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
 
     // Def-view ports share one typespec object per declaration (Surelog's
     // TypespecCache behavior), with no parent set; their param-dim bounds
-    // are folded (recompiled), unlike local-net typespecs.
+    // are folded (recompiled), unlike local-net typespecs. EXCEPT for a
+    // NON-TOP (child-instantiated) def: its overridable-module-param dim
+    // bounds stay symbolic (defPortDim) — the def ts is not shared with the
+    // elab child port ts. A TOP def's ports get the write-phase swap instead,
+    // so leave them folded here (that folded object becomes the elab port).
+    bool isTopDef = false;
+    for (auto ti : comp.getRoot().topInstances)
+        if (&ti->getDefinition() == &def) {
+            isTopDef = true;
+            break;
+        }
+    defPortDim = !isTopDef;
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
+    defPortDim = false;
 
     // Child instance references (def view uses ref_module stubs; bound
     // instances are skipped in the def view).
