@@ -148,6 +148,14 @@ UHDM::design* UhdmExporter::exportDesign() {
     std::stable_sort(pkgs.begin(), pkgs.end(), [](auto* a, auto* b) {
         return a->location < b->location;
     });
+    // Which packages are wildcard-imported by a module body (their
+    // nested-container struct typedefs take a special TOP form).
+    for (auto& [name, inst] : defs)
+        for (auto& mem : inst->body.members())
+            if (mem.kind == SymbolKind::WildcardImport)
+                if (auto* p0 = comp.getPackage(
+                        mem.as<WildcardImportSymbol>().packageName))
+                    wildcardImportedPkgs.insert(p0);
     if (!pkgs.empty()) {
         auto* allP = s.MakePackageVec();
         for (auto pkg : pkgs)

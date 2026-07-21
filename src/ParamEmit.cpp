@@ -1239,14 +1239,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // signals/params resolve.
     auto* tds = s.MakeTypespecVec();
     pkgTopEmit = topView; // enum-const decompile is view-dependent (buildEnumTs)
-    // Package typedefs compile NAME-SORTED (Surelog's map order), like module
-    // typedef lists.
+    // Package typedefs are CREATED in source order (so intra-package
+    // references resolve via typedefTs) but LISTED name-sorted (Surelog).
     std::vector<const Symbol*> pkgAliases;
     for (auto& member : pkg.members())
         if (member.kind == SymbolKind::TypeAlias)
             pkgAliases.push_back(&member);
-    std::stable_sort(pkgAliases.begin(), pkgAliases.end(),
-                     [](const Symbol* a, const Symbol* b) { return a->name < b->name; });
+    std::vector<std::pair<std::string, UHDM::typespec*>> pkgTdByName;
     for (auto* memberP : pkgAliases) {
         auto& member = *memberP;
         auto& ta = member.as<TypeAliasType>();
@@ -1308,13 +1307,26 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             // each field typespec carries vpiInstance = package.
             // DEF-view member bounds stay UNFOLDED (member-scoped refs bound
             // to the params' def init constants); the elab view folds them.
-            std::string alias = prefix + prefix + std::string(ta.name);
+            // A NESTED-struct-containing typedef's TOP view instead scopes
+            // members pkg::T.m (single prefix, dot) and stays UNPARENTED.
+            bool nestedStruct = false;
+            for (auto& fm : ct.as<PackedStructType>().membersOfType<FieldSymbol>())
+                if (fm.getType().getCanonicalType().kind ==
+                    SymbolKind::PackedStructType)
+                    nestedStruct = true;
+            bool topNested = topView && nestedStruct &&
+                             wildcardImportedPkgs.count(&pkg);
+            std::string alias = topNested
+                                    ? prefix + std::string(ta.name)
+                                    : prefix + prefix + std::string(ta.name);
             bool savedTf = tfContext;
             if (topView)
                 tfContext = true;
-            auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias, "::");
+            auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias,
+                                      topNested ? "." : "::");
             tfContext = savedTf;
-            sts->VpiParent(up);
+            if (!topNested)
+                sts->VpiParent(up);
             if (sts->Members())
                 for (auto* tm : *sts->Members())
                     if (tm->Typespec() && tm->Typespec()->Actual_typespec()) {
@@ -1472,7 +1484,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     tgtIt != pkgTopTypedefTs.end())
                     ets->Typedef_alias()->Actual_typespec(tgtIt->second);
             pkgTopTypedefTs[&ta] = ets;
-            tds->push_back(ets);
+            pkgTdByName.emplace_back(std::string(ta.name), ets);
             continue;
         }
         else if (ct.kind == SymbolKind::EnumType) {
@@ -1497,8 +1509,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             typedefTs[&ta] = ts;
         else
             pkgTopTypedefTs[&ta] = ts;
-        tds->push_back(ts);
+        pkgTdByName.emplace_back(std::string(ta.name), ts);
     }
+    // The Typespecs LIST is name-sorted (creation stayed source-ordered).
+    std::stable_sort(pkgTdByName.begin(), pkgTdByName.end(),
+                     [](auto& a, auto& b) { return a.first < b.first; });
+    for (auto& [nm0, ts0] : pkgTdByName)
+        tds->push_back(ts0);
     if (!tds->empty())
         up->Typespecs(tds);
     pkgTopEmit = topView;

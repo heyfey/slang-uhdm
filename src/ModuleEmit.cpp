@@ -1014,8 +1014,44 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                     break;
                 }
             auto* ts = tit->second;
-            if (!headerImport)
+            // A WILDCARD-imported FLAT typedef re-parents to the module and
+            // re-scopes member/base refs to work@<mod>.<pkg>::<name>[.m]
+            // (interface-style, last-writer). NESTED-struct-containing
+            // typedefs keep their package parent and scoping.
+            bool nestedContainer = false;
+            if (imported->kind == SymbolKind::TypeAlias) {
+                auto& ict = imported->as<TypeAliasType>().getCanonicalType();
+                if (ict.kind == SymbolKind::PackedStructType)
+                    for (auto& fm :
+                         ict.as<PackedStructType>().membersOfType<FieldSymbol>())
+                        if (fm.getType().getCanonicalType().kind ==
+                            SymbolKind::PackedStructType)
+                            nestedContainer = true;
+            }
+            bool wildcard = mem.kind == SymbolKind::WildcardImport;
+            if (!headerImport && !nestedContainer) {
                 ts->VpiParent(m);
+                if (wildcard) {
+                    std::string pn(mem.as<WildcardImportSymbol>().packageName);
+                    std::string scopedName =
+                        std::string(m->VpiDefName()) + "." + pn + "::" +
+                        std::string(imported->name);
+                    if (ts->UhdmType() == UHDM::uhdmenum_typespec) {
+                        auto* ets = (UHDM::enum_typespec*)ts;
+                        if (ets->Base_typespec())
+                            ets->Base_typespec()->VpiFullName(scopedName);
+                    }
+                    if (ts->UhdmType() == UHDM::uhdmstruct_typespec) {
+                        auto* sts = (UHDM::struct_typespec*)ts;
+                        if (sts->Members())
+                            for (auto* tm : *sts->Members())
+                                if (tm->Typespec())
+                                    tm->Typespec()->VpiFullName(
+                                        scopedName + "." +
+                                        std::string(tm->VpiName()));
+                    }
+                }
+            }
             if (!tds) {
                 tds = s.MakeTypespecVec();
                 m->Typespecs(tds);

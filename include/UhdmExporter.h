@@ -556,6 +556,9 @@ private:
     // DEF-view gen-block localparam typespecs, SHARED into the elab param ref
     // (which parents them); a dangling unparented copy closes the tail.
     std::map<const slang::ast::ParameterSymbol*, UHDM::typespec*> defGenLpTs;
+    // Packages wildcard-imported by some module (their nested-container struct
+    // typedefs take the single-prefix dot-scoped unparented TOP form).
+    std::set<const slang::ast::Symbol*> wildcardImportedPkgs;
     // Signed size-cast fold result typespecs (signed logic_typespec) drain at
     // the very end of the arena tail.
     std::vector<UHDM::ref_typespec*> pendingSignedCastTs;

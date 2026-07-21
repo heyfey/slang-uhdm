@@ -2705,6 +2705,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiOpType(vpiAssignmentPatternOp);
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
+            // A NESTED pattern (member setter of an outer pattern): no
+            // first-operand VpiSize, and a BARE ts ref to the member's
+            // typedef struct typespec (Surelog).
+            bool nestedPat = parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                             ((UHDM::operation*)parent)->VpiOpType() ==
+                                 vpiAssignmentPatternOp;
+            if (nestedPat && reemitting && expr.type) {
+                UHDM::typespec* mts = nullptr;
+                if (auto tit = pkgTopTypedefTs.find(
+                        (const Symbol*)&expr.type->getCanonicalType());
+                    tit != pkgTopTypedefTs.end())
+                    mts = tit->second;
+                if (!mts && expr.type->kind == SymbolKind::TypeAlias) {
+                    if (auto tit2 = pkgTopTypedefTs.find(
+                            &expr.type->as<TypeAliasType>());
+                        tit2 != pkgTopTypedefTs.end())
+                        mts = tit2->second;
+                    if (!mts)
+                        if (auto tit3 = typedefTs.find(expr.type);
+                            tit3 != typedefTs.end())
+                            mts = tit3->second;
+                }
+                if (mts) {
+                    auto* rt = s.MakeRef_typespec();
+                    rt->Actual_typespec(mts);
+                    op->Typespec(rt);
+                }
+            }
             auto* operands = s.MakeAnyVec();
             // Tag key locations come from the pattern item syntax, matched
             // to member setters by name.
@@ -2721,7 +2749,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // the raw values, and the first one carries VpiSize.
                 if (reemitting) {
                     if (auto* e = emitExpr(*setter.expr, op, prefix, netMap)) {
-                        if (operands->empty())
+                        if (operands->empty() && !nestedPat)
                             ((UHDM::expr*)e)->VpiSize(
                                 (int32_t)setter.expr->type->getBitWidth());
                         operands->push_back(e);
