@@ -57,6 +57,32 @@ static void collectImportedParams(const Scope& body,
         else if (m.kind == SymbolKind::ProceduralBlock)
             m.as<ProceduralBlockSymbol>().getBody().visit(v);
     }
+    // A wildcard-imported TYPEDEF whose range references an imported param
+    // (typedef logic [SramAw-1:0] t;) materializes that param too — the
+    // module lists the typedef and its range keeps a symbolic ref to the
+    // param, even when the only use ($bits(t)) folds to a constant.
+    std::function<void(const syntax::SyntaxNode&, const Scope&)> scanTd =
+        [&](const syntax::SyntaxNode& sn, const Scope& psc) {
+            if (sn.kind == syntax::SyntaxKind::IdentifierName) {
+                auto nm = sn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                if (auto* sym = psc.find(std::string(nm)))
+                    if (sym->kind == SymbolKind::Parameter && sym->getParentScope() &&
+                        wildcardPkgs.count(&sym->getParentScope()->asSymbol()) &&
+                        seen.insert(sym).second)
+                        out.push_back(&sym->as<ParameterSymbol>());
+            }
+            for (size_t i = 0; i < sn.getChildCount(); i++)
+                if (auto* cn = sn.childNode(i))
+                    scanTd(*cn, psc);
+        };
+    for (auto* pkgSym : wildcardPkgs) {
+        auto& psc = pkgSym->as<PackageSymbol>();
+        for (auto& pm : psc.members())
+            if (pm.kind == SymbolKind::TypeAlias)
+                if (auto* tsyn = pm.getSyntax();
+                    tsyn && tsyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    scanTd(*tsyn->as<syntax::TypedefDeclarationSyntax>().type, psc);
+    }
 }
 
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
