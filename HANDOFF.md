@@ -1,5 +1,12 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+> **READ [PLAYBOOK.md](PLAYBOOK.md) FIRST.** It governs HOW to work: the goal
+> is 0 DIFF / 0 CMP_ONLY, autonomous blocks never pause at milestones or ask
+> to continue, risk is a gate to run (not a reason to stop), and every
+> regression is the experiment that reveals the missing distinguisher
+> (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
+> are; the playbook records HOW to keep moving.
+
 ## Session 13 (fable, autonomous, 2026-07-20) — systematic-root + gen_for
 
 **FINAL: PASS 391 / CMP_ONLY 58 / DIFF 212** (session start: 388/48/225;
