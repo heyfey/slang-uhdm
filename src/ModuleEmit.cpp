@@ -2292,8 +2292,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                  const std::string& prefix, NetMap& netMap) {
     std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
-    auto emitBlock = [&](const GenerateBlockSymbol& blk, const std::string& name) {
-        std::string fullName = prefix + "." + name;
+    std::function<UHDM::gen_scope_array*(const GenerateBlockSymbol&,
+                                         const std::string&, const std::string&)>
+        emitBlock = [&](const GenerateBlockSymbol& blk, const std::string& name,
+                        const std::string& parentFull) -> UHDM::gen_scope_array* {
+        std::string fullName = parentFull + "." + name;
         auto* gsa = s.MakeGen_scope_array();
         gsa->VpiName(name);
         gsa->VpiFullName(fullName);
@@ -2719,7 +2722,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         if (!procs->empty())
             gs->Process(procs);
 
-        gsas->push_back(gsa);
+        // NESTED generates (for/if inside this block): their gen_scope_arrays
+        // attach to THIS gen_scope (not the module).
+        auto* nestedGsas = s.MakeGen_scope_arrayVec();
+        for (auto& gm : blk.members()) {
+            if (gm.kind == SymbolKind::GenerateBlockArray) {
+                auto& arr2 = gm.as<GenerateBlockArraySymbol>();
+                for (auto entry2 : arr2.entries) {
+                    if (entry2->isUninstantiated)
+                        continue;
+                    std::string idx2;
+                    if (entry2->arrayIndex)
+                        idx2 = entry2->arrayIndex->toString(LiteralBase::Decimal, false);
+                    std::string nm2 =
+                        std::string(arr2.getExternalName()) + "[" + idx2 + "]";
+                    if (auto* ng = emitBlock(*entry2, nm2, fullName))
+                        nestedGsas->push_back(ng);
+                }
+            }
+            else if (gm.kind == SymbolKind::GenerateBlock) {
+                auto& blk2 = gm.as<GenerateBlockSymbol>();
+                if (!blk2.isUninstantiated)
+                    if (auto* ng = emitBlock(
+                            blk2, std::string(blk2.getExternalName()), fullName))
+                        nestedGsas->push_back(ng);
+            }
+        }
+        if (!nestedGsas->empty())
+            gs->Gen_scope_arrays(nestedGsas);
+
+        return gsa;
     };
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::GenerateBlockArray) {
@@ -2731,13 +2763,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (entry->arrayIndex)
                     idx = entry->arrayIndex->toString(LiteralBase::Decimal, false);
                 std::string name = std::string(arr.getExternalName()) + "[" + idx + "]";
-                emitBlock(*entry, name);
+                if (auto* g = emitBlock(*entry, name, prefix))
+                    gsas->push_back(g);
             }
         }
         else if (member.kind == SymbolKind::GenerateBlock) {
             auto& blk = member.as<GenerateBlockSymbol>();
             if (!blk.isUninstantiated)
-                emitBlock(blk, std::string(blk.getExternalName()));
+                if (auto* g = emitBlock(blk, std::string(blk.getExternalName()), prefix))
+                    gsas->push_back(g);
         }
     }
     if (!gsas->empty())
