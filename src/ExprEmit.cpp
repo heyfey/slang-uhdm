@@ -2829,15 +2829,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
             }
             inAssignPattern = wasInPattern;
-            // A re-emitted (elab) PACKED-VECTOR param pattern stores its scalar
-            // operands LSB-first — reversed from source order — and flags
+            // A re-emitted (elab) PACKED-VECTOR (or UNPACKED-ARRAY) param
+            // pattern stores its operands reversed from source order and flags
             // vpiReordered (Surelog); the def view keeps source order.
+            // Only a SINGLE-dim unpacked array (element is a leaf, not another
+            // unpacked array) — multi-dim needs nested array_typespecs (TODO).
+            bool isUnpackedArr =
+                expr.type && expr.type->getCanonicalType().kind ==
+                                 SymbolKind::FixedSizeUnpackedArrayType &&
+                expr.type->getCanonicalType()
+                        .as<FixedSizeUnpackedArrayType>()
+                        .elementType.getCanonicalType()
+                        .kind != SymbolKind::FixedSizeUnpackedArrayType;
             if (inParamInit && !paramInitDef && expr.type &&
-                expr.type->isIntegral() && !expr.type->getCanonicalType().isScalar() &&
+                ((expr.type->isIntegral() &&
+                  !expr.type->getCanonicalType().isScalar()) ||
+                 isUnpackedArr) &&
                 operands->size() > 1) {
                 std::reverse(operands->begin(), operands->end());
                 op->VpiReordered(1);
-                op->VpiSize(1);
+                if (!isUnpackedArr)
+                    op->VpiSize(1);
+                // Unpacked-array leaf elements size to the element width
+                // (int -> 32) and parent to the op (the def view left them 64
+                // and unparented); packed vectors keep op VpiSize(1).
+                if (isUnpackedArr) {
+                    auto& elemT = expr.type->getCanonicalType()
+                                      .as<FixedSizeUnpackedArrayType>()
+                                      .elementType;
+                    for (auto* o : *operands) {
+                        // Only the OUTERMOST pattern's direct leaf elements
+                        // resize (int -> 32); nested-pattern leaves keep 64.
+                        if (!wasInPattern && elemT.isIntegral() &&
+                            o->UhdmType() == UHDM::uhdmconstant &&
+                            ((UHDM::expr*)o)->VpiSize() == 64)
+                            ((UHDM::expr*)o)->VpiSize((int32_t)elemT.getBitWidth());
+                        o->VpiParent(op);
+                    }
+                }
             }
             op->Operands(operands);
             return op;

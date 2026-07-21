@@ -311,45 +311,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 up->Ranges(prng);
             up->VpiSize(1);
             up->VpiSigned(leaf->isSigned());
-            // Element typespec (int_typespec for int/..., logic_typespec else)
-            // at the declared-type keyword span.
-            UHDM::typespec* elemTs = nullptr;
-            SourceRange typeR(ps.location, ps.location);
-            if (auto declared = ps.getDeclaredType())
-                if (auto tsyn = declared->getTypeSyntax())
-                    typeR = tsyn->getFirstToken().range();
-            if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
-                auto* its = s.MakeInt_typespec();
-                its->VpiSigned(leaf->isSigned());
-                setLoc(its, typeR);
-                elemTs = its;
-            }
-            else {
-                auto* lts = s.MakeLogic_typespec();
-                setLoc(lts, typeR);
-                elemTs = lts;
-            }
-            auto* ats = s.MakeArray_typespec();
-            ats->VpiParent(up);
-            // loc: type-start .. last unpacked-dim end.
-            SourceLocation aStart = typeR.start();
-            SourceLocation aEnd = ps.location + ps.name.size();
-            if (auto dsyn = ps.getSyntax();
-                dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
-                for (auto dim0 : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
-                    aEnd = dim0->sourceRange().end();
-            setLoc(ats, SourceRange(aStart, aEnd));
-            if (prng) {
-                auto* atsR = s.MakeRangeVec();
-                for (auto* r0 : *prng)
-                    atsR->push_back(r0);
-                ats->Ranges(atsR);
-            }
-            auto* ert = s.MakeRef_typespec();
-            ert->VpiFullName(afull);
-            ert->VpiParent(ats);
-            ert->Actual_typespec(elemTs);
-            ats->Elem_typespec(ert);
+            auto* ats = makeUnpackedArrayParamTs(ps, afull, up, prng);
             auto* art = s.MakeRef_typespec();
             art->VpiFullName(afull);
             art->VpiParent(up);
@@ -818,7 +780,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     bool packedArrayOp =
                         ps.getType().getCanonicalType().isPackedArray() &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
-                    if (anyUnknown || packedArrayOp) {
+                    // An UNPACKED-array param's elab-view pattern op also gets a
+                    // ts ref, but its actual is a FRESH array_typespec (not the
+                    // deferred/patched param typespec) — built inline here.
+                    bool unpackedArrayOp =
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::FixedSizeUnpackedArrayType &&
+                        ps.getType()
+                                .getCanonicalType()
+                                .as<FixedSizeUnpackedArrayType>()
+                                .elementType.getCanonicalType()
+                                .kind != SymbolKind::FixedSizeUnpackedArrayType &&
+                        opr->VpiOpType() == vpiAssignmentPatternOp;
+                    if (anyUnknown || packedArrayOp || unpackedArrayOp) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
@@ -827,7 +801,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rt->VpiFullName(tsPrefix);
                         rt->VpiParent(opr);
                         opr->Typespec(rt);
-                        rhsRt = rt;
+                        if (unpackedArrayOp)
+                            rt->Actual_typespec(makeUnpackedArrayParamTs(
+                                ps, joinPath(prefix, ps.name), rt, nullptr));
+                        else
+                            rhsRt = rt;
                     }
                 }
             }
@@ -970,6 +948,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         m->Parameters(params);
     if (!passigns->empty())
         m->Param_assigns(passigns);
+}
+
+UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
+    const ParameterSymbol& ps, const std::string& elemFull,
+    UHDM::BaseClass* parent, UHDM::VectorOfrange* sharedRanges) {
+    const Type* leaf = &ps.getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
+        leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+    // Element typespec (int_typespec for int/..., logic_typespec else) at the
+    // declared-type keyword span.
+    SourceRange typeR(ps.location, ps.location);
+    if (auto declared = ps.getDeclaredType())
+        if (auto tsyn = declared->getTypeSyntax())
+            typeR = tsyn->getFirstToken().range();
+    UHDM::typespec* elemTs = nullptr;
+    if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
+        auto* its = s.MakeInt_typespec();
+        its->VpiSigned(leaf->isSigned());
+        setLoc(its, typeR);
+        elemTs = its;
+    }
+    else {
+        auto* lts = s.MakeLogic_typespec();
+        setLoc(lts, typeR);
+        elemTs = lts;
+    }
+    auto* ats = s.MakeArray_typespec();
+    ats->VpiParent(parent);
+    // loc: type-start .. last unpacked-dim end.
+    SourceLocation aEnd = ps.location + ps.name.size();
+    if (auto dsyn = ps.getSyntax();
+        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+        for (auto dim0 : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+            aEnd = dim0->sourceRange().end();
+    setLoc(ats, SourceRange(typeR.start(), aEnd));
+    // Ranges: reuse the shared range objects if given, else build fresh.
+    UHDM::VectorOfrange* rsrc = sharedRanges ? sharedRanges : buildUnpackedRanges(ps, ats);
+    if (rsrc) {
+        auto* atsR = s.MakeRangeVec();
+        for (auto* r0 : *rsrc)
+            atsR->push_back(r0);
+        ats->Ranges(atsR);
+    }
+    auto* ert = s.MakeRef_typespec();
+    ert->VpiFullName(elemFull);
+    ert->VpiParent(ats);
+    ert->Actual_typespec(elemTs);
+    ats->Elem_typespec(ert);
+    return ats;
 }
 
 bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {

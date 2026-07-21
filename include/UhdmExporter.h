@@ -309,6 +309,12 @@ private:
     // from the declarator dimension syntax), each parented at `parent`.
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
                                              UHDM::BaseClass* parent);
+    // array_typespec for an unpacked-array param: unpacked-dim Ranges +
+    // Elem_typespec ref (int/logic at the type-keyword span). `elemFull` is
+    // the Elem_typespec ref fullname; `parent` the ts's vpiParent.
+    UHDM::array_typespec* makeUnpackedArrayParamTs(
+        const slang::ast::ParameterSymbol& ps, const std::string& elemFull,
+        UHDM::BaseClass* parent, UHDM::VectorOfrange* sharedRanges);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     // setLoc with the end shrunk by whitespace Surelog compacts out of
