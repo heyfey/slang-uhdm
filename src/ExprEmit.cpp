@@ -1223,7 +1223,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // param's own int_typespec as the cast target; that ts
                     // gains a loc-less vpiExpr ref_obj with a param-doubled
                     // fullname (work@top.P.P) bound to the def parameter.
-                    if (!cts && seCore.kind == ExpressionKind::NamedValue &&
+                    // Only for a function DIRECTLY in the module: a function
+                    // inside an elaborated GENERATE block builds a FRESH
+                    // integer_typespec at the cast site instead (its params
+                    // fold), so skip the param-reuse there.
+                    bool inGenBlockFn = false;
+                    if (currentSubSym)
+                        for (auto gsc = currentSubSym->getParentScope(); gsc;
+                             gsc = gsc->asSymbol().getParentScope()) {
+                            auto gk = gsc->asSymbol().kind;
+                            if (gk == SymbolKind::GenerateBlock ||
+                                gk == SymbolKind::GenerateBlockArray) {
+                                inGenBlockFn = true;
+                                break;
+                            }
+                            if (gk == SymbolKind::InstanceBody)
+                                break;
+                        }
+                    if (!cts && !inGenBlockFn &&
+                        seCore.kind == ExpressionKind::NamedValue &&
                         seCore.as<NamedValueExpression>().symbol.kind ==
                             SymbolKind::Parameter) {
                         auto& psym = seCore.as<NamedValueExpression>().symbol;
