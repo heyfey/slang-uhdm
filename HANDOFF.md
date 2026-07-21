@@ -7,6 +7,55 @@
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
 
+## Session 14 (opus 4.8[1m], autonomous, 2026-07-21) — imports + negative folds
+
+**Running: PASS 391 / CMP_ONLY 63 / DIFF 207** (start 391/58/212). Five
+DIFF->CMP_ONLY conversions + one cmp-advance, all gated clean (PASS 391 held
+throughout, no demotions, goldens 23/23):
+
+1. **Imported package param materializes as a module param** (ImportedParameter,
+   ParameterDoubleUnderscoreInSvFrontend DIFF->CMP_ONLY). An `import pkg::P;`
+   param referenced in the body materializes as a module `parameter` with
+   `vpiImported`. It is a RESOLVED copy: def param_assign RHS sized at the TYPE
+   width (int->32, not the package def's 64-bit bare decimal); int_typespec
+   instanced at the source package; the written-in-cont-assign fold locates at
+   the REFERENCE site (elab) and carries a ref_typespec->the imported param's
+   def typespec (def). `importedParamDefTs` maps pkg-param symbol -> def ts.
+   Gated to actual imports (wildcardPkgs/explicitSyms) + cont_assign parents so
+   qualified `pkg::P` folds are untouched. OneImport still DIFF (explicit-import
+   import_typespec multiplicity — distinct cluster).
+2. **Header-imported typedef port emits BOTH alias clones** (ImportTypeOfPort
+   DIFF->CMP_ONLY). A header-imported pkg typedef used unqualified as a port
+   type makes TWO typedef-alias logic_typespec clones: elab (unqualified name)
+   AND def (qualified name, self-alias, pkg instance, copied range). Ours had
+   only the elab clone; added the def sibling. Residual 6-line vpiParent:package
+   ordering cosmetic (cmp accepts).
+3. **Param cast width in a GEN-BLOCK function** (CastInFunctionInGenBlock
+   cmp-advance 50->43, still DIFF). `(P)'(x)` reuses the param's int_typespec +
+   hangs a doubled-name (P.P) vpiExpr ref_obj ONLY for a function directly in
+   the module; a function inside an elaborated generate block builds a fresh
+   integer_typespec (params fold). Gated on currentSubSym having no
+   GenerateBlock ancestor. (Distinguisher via demotion: plain in-function gate
+   regressed CastInFunctionToParameterWidth.) OPEN: the remaining elab operand
+   fold (Depth->500, PtrWidth->3 inside the gen-block function body).
+4. **Negative-signed param init folds to INT** (int_types_blk1 DIFF->CMP_ONLY).
+   tryFoldConst refused negative-signed values w/o typedConv, so `localparam
+   integer y = -1` kept the unary op in elab; SL folds to INT:-1/32. Pass init0
+   as typedConv for ALL typed params; fold negative directly (INT) when the
+   TARGET type is signed integral, else re-fold through the conversion to the
+   unsigned type width; encode still-negative as INT (never UINT:-n -> 0).
+   TARGET type governs, not the init self-type (`~(15)` self-typed int but a
+   logic[17:0] param wants UINT:262128 — via ParameterInitializationWithNegation
+   demotion).
+5. **Cont-assign param concat stays an operation** (param_int_types
+   DIFF->CMP_ONLY). SL reduces a literal-only concat to a packed constant but
+   leaves `{a,b,c}` of params as an op with ref_objs. Skip the cont-assign
+   general fold when the concat contains any Parameter NamedValue (literal-only
+   still folds — StreamOp demotion set the line).
+
+**Method note (holds):** every regression above was the informative experiment
+— diff the demoted DUT vs the helped DUT, the difference IS the gate.
+
 ## Session 13 (fable, autonomous, 2026-07-20) — systematic-root + gen_for
 
 **FINAL: PASS 391 / CMP_ONLY 58 / DIFF 212** (session start: 388/48/225;
