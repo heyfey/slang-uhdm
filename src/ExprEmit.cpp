@@ -2832,22 +2832,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // A re-emitted (elab) PACKED-VECTOR (or UNPACKED-ARRAY) param
             // pattern stores its operands reversed from source order and flags
             // vpiReordered (Surelog); the def view keeps source order.
-            // Only a SINGLE-dim unpacked array (element is a leaf, not another
-            // unpacked array) — multi-dim needs nested array_typespecs (TODO).
+            // Each nesting level reorders per its OWN range direction: a
+            // DESCENDING unpacked range ([1:0]) reverses LSB-first + flags
+            // vpiReordered; an ascending [N] (== [0:N-1]) keeps source order.
             bool isUnpackedArr =
                 expr.type && expr.type->getCanonicalType().kind ==
-                                 SymbolKind::FixedSizeUnpackedArrayType &&
-                expr.type->getCanonicalType()
-                        .as<FixedSizeUnpackedArrayType>()
-                        .elementType.getCanonicalType()
-                        .kind != SymbolKind::FixedSizeUnpackedArrayType;
+                                 SymbolKind::FixedSizeUnpackedArrayType;
+            bool descUnpacked =
+                isUnpackedArr && expr.type->getCanonicalType()
+                                         .as<FixedSizeUnpackedArrayType>()
+                                         .range.left >
+                                     expr.type->getCanonicalType()
+                                         .as<FixedSizeUnpackedArrayType>()
+                                         .range.right;
             if (inParamInit && !paramInitDef && expr.type &&
                 ((expr.type->isIntegral() &&
                   !expr.type->getCanonicalType().isScalar()) ||
                  isUnpackedArr) &&
                 operands->size() > 1) {
-                std::reverse(operands->begin(), operands->end());
-                op->VpiReordered(1);
+                if (!isUnpackedArr || descUnpacked) {
+                    std::reverse(operands->begin(), operands->end());
+                    op->VpiReordered(1);
+                }
                 if (!isUnpackedArr)
                     op->VpiSize(1);
                 // Unpacked-array leaf elements size to the element width
@@ -2857,6 +2863,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& elemT = expr.type->getCanonicalType()
                                       .as<FixedSizeUnpackedArrayType>()
                                       .elementType;
+                    bool elemIsArray = elemT.getCanonicalType().kind ==
+                                       SymbolKind::FixedSizeUnpackedArrayType;
+                    const Type* leaf = &elemT.getCanonicalType();
+                    while (leaf->getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType)
+                        leaf = &leaf->getCanonicalType()
+                                    .as<FixedSizeUnpackedArrayType>()
+                                    .elementType;
+                    // A NESTED op whose elements are themselves sub-arrays gets
+                    // vpiSize = leaf width (the outermost carries the
+                    // array_typespec instead; the innermost, whose elements are
+                    // leaf constants, gets nothing).
+                    if (wasInPattern && elemIsArray && leaf->isIntegral())
+                        op->VpiSize((int32_t)leaf->getBitWidth());
                     for (auto* o : *operands) {
                         // Only the OUTERMOST pattern's direct leaf elements
                         // resize (int -> 32); nested-pattern leaves keep 64.

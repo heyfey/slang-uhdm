@@ -786,11 +786,6 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     bool unpackedArrayOp =
                         ps.getType().getCanonicalType().kind ==
                             SymbolKind::FixedSizeUnpackedArrayType &&
-                        ps.getType()
-                                .getCanonicalType()
-                                .as<FixedSizeUnpackedArrayType>()
-                                .elementType.getCanonicalType()
-                                .kind != SymbolKind::FixedSizeUnpackedArrayType &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
                     if (anyUnknown || packedArrayOp || unpackedArrayOp) {
                         auto* rt = s.MakeRef_typespec();
@@ -976,12 +971,13 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     }
     auto* ats = s.MakeArray_typespec();
     ats->VpiParent(parent);
-    // loc: type-start .. last unpacked-dim end.
+    // loc: type-start .. FIRST unpacked-dim end (Surelog; the flat ts holds
+    // every dim as a range but its span stops at the first).
     SourceLocation aEnd = ps.location + ps.name.size();
     if (auto dsyn = ps.getSyntax();
         dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
-        for (auto dim0 : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
-            aEnd = dim0->sourceRange().end();
+        if (auto& dims = dsyn->as<syntax::DeclaratorSyntax>().dimensions; !dims.empty())
+            aEnd = dims[0]->sourceRange().end();
     setLoc(ats, SourceRange(typeR.start(), aEnd));
     // Ranges: reuse the shared range objects if given, else build fresh.
     UHDM::VectorOfrange* rsrc = sharedRanges ? sharedRanges : buildUnpackedRanges(ps, ats);
