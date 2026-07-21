@@ -699,6 +699,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                 scope->asSymbol().name.size() + 2));
                     return ref;
                 }
+                // A PACKAGE param initialized by ANOTHER package's qualified
+                // param keeps a doubled-scope ref_obj (pkg::otherpkg::P) bound
+                // to that param — Surelog does not fold a cross-package
+                // pkg-param ref inside a package init.
+                if (paramInitPkg) {
+                    std::string curPkg = prefix;
+                    if (auto p2 = curPkg.find("::"); p2 != std::string::npos)
+                        curPkg.resize(p2);
+                    if (curPkg != std::string(scope->asSymbol().name)) {
+                        std::string pn = std::string(scope->asSymbol().name) +
+                                         "::" + std::string(nv.symbol.name);
+                        ref->VpiName(pn);
+                        ref->VpiParent(parent);
+                        std::string full = prefix;
+                        if (full.size() < 2 ||
+                            full.compare(full.size() - 2, 2, "::") != 0)
+                            full += "::";
+                        ref->VpiFullName(full + pn);
+                        if (auto pit2 = pkgDefMap.find(&scope->asSymbol());
+                            pit2 != pkgDefMap.end() && pit2->second->Parameters())
+                            for (auto* pp2 : *pit2->second->Parameters())
+                                if (pp2->VpiName() == nv.symbol.name)
+                                    ref->Actual_group(pp2);
+                        setLoc(ref, expr.sourceRange);
+                        return ref;
+                    }
+                }
                 auto& cv = psym.getValue();
                 if (cv.isInteger() && !cv.integer().hasUnknown()) {
                     auto* c = s.MakeConstant();
