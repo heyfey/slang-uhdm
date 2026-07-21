@@ -1712,7 +1712,19 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 vars->push_back(sv);
                 continue;
             }
-            if (isStruct && it.sym->getDeclaredType()->getInitializer()) {
+            // A packed-struct signal initialized by an ASSIGNMENT PATTERN
+            // ('{...}) is a struct_NET whose init becomes a net-decl cont_assign
+            // (Surelog) — a bare-expression init (concat, literal) stays a
+            // struct_VAR carrying the init as its vpiExpr.
+            bool patternInit = false;
+            if (auto* ini = it.sym->getDeclaredType()->getInitializer()) {
+                auto k = stripImplicitConv(*ini).kind;
+                patternInit = k == ExpressionKind::SimpleAssignmentPattern ||
+                              k == ExpressionKind::StructuredAssignmentPattern ||
+                              k == ExpressionKind::ReplicatedAssignmentPattern;
+            }
+            if (isStruct && it.sym->getDeclaredType()->getInitializer() &&
+                !patternInit) {
                 auto* sv = s.MakeStruct_var();
                 sv->VpiName(name);
                 sv->VpiFullName(fullName);
@@ -1745,6 +1757,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             n->VpiParent(m);
             if (it.port && !it.bodyDecl)
                 setLocNamed(n, *it.port);
+            else if (patternInit && isStruct)
+                // A pattern-init struct_net spans the NAME only (the init lives
+                // in its net-decl cont_assign, not the net decl).
+                setLoc(n, nameSpan(it.sym->location, it.sym->name));
             else
                 setLoc(n, regNetSpan(*it.sym));
             if (!isStruct) {
@@ -3567,10 +3583,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             continue;
         // Nets, and INTEGRAL reg variables emitted as logic_nets (reg b = 0),
         // get net-declaration assignments (real vars keep their own form).
+        // Packed-struct signals with an assignment-pattern init are emitted as
+        // struct_nets (see emitInstance) and likewise take a net-decl assign.
         if (it.sym->kind != SymbolKind::Net &&
             !(it.sym->kind == SymbolKind::Variable &&
               nit->second->UhdmType() == UHDM::uhdmlogic_net &&
-              dt->getType().isIntegral()))
+              dt->getType().isIntegral()) &&
+            !(it.sym->kind == SymbolKind::Variable &&
+              nit->second->UhdmType() == UHDM::uhdmstruct_net))
             continue;
         auto* ca = s.MakeCont_assign();
         ca->VpiParent(m);
@@ -3578,7 +3598,31 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         setLoc(ca, nameSpan(it.sym->location, it.sym->name));
         bool fcp = forceConstParent;
         forceConstParent = true;
-        if (auto* rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap)) {
+        UHDM::any* rhs = nullptr;
+        // A PACKED-struct assignment-pattern net-decl RHS folds to an op75
+        // wrapping the packed constant value (Surelog), not a tagged-pattern
+        // tree — the struct is integral, so the whole pattern is one constant.
+        if (nit->second->UhdmType() == UHDM::uhdmstruct_net) {
+            auto& pat = stripImplicitConv(*dt->getInitializer());
+            if (pat.kind == ExpressionKind::SimpleAssignmentPattern ||
+                pat.kind == ExpressionKind::StructuredAssignmentPattern ||
+                pat.kind == ExpressionKind::ReplicatedAssignmentPattern) {
+                if (auto* fc = tryFoldConst(*dt->getInitializer())) {
+                    auto* op = s.MakeOperation();
+                    op->VpiOpType(vpiAssignmentPatternOp);
+                    op->VpiParent(ca);
+                    setLoc(op, pat.sourceRange);
+                    fc->VpiParent(op);
+                    auto* ov = s.MakeAnyVec();
+                    ov->push_back(fc);
+                    op->Operands(ov);
+                    rhs = op;
+                }
+            }
+        }
+        if (!rhs)
+            rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap);
+        if (rhs) {
             // Surelog sizes a bare-decimal RHS (default 64) to the net width.
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
                 ((UHDM::expr*)rhs)->VpiSize() == 64)
@@ -3633,14 +3677,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Literal or operation RHS -> netlist re-elaboration (fresh Lhs);
         // pure ref/select RHS -> shared module net (bare).
         if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit)) {
-            auto* lnet = s.MakeLogic_net();
+            bool isStructNet = nit->second->UhdmType() == UHDM::uhdmstruct_net;
+            UHDM::net* lnet = isStructNet ? (UHDM::net*)s.MakeStruct_net()
+                                          : (UHDM::net*)s.MakeLogic_net();
             lnet->VpiName(it.sym->name);
             lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
             lnet->VpiParent(ca);
-            lnet->VpiNetType(mnet->VpiNetType());
-            if (mnet->VpiSigned())
-                lnet->VpiSigned(true);
-            setLoc(lnet, regNetSpan(*it.sym));
+            if (isStructNet)
+                // A struct_net re-elaborated LHS spans the NAME only.
+                setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
+            else {
+                ((UHDM::logic_net*)lnet)->VpiNetType(mnet->VpiNetType());
+                if (mnet->VpiSigned())
+                    lnet->VpiSigned(true);
+                setLoc(lnet, regNetSpan(*it.sym));
+            }
             if (mnet->Typespec() && mnet->Typespec()->Actual_typespec()) {
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(it.sym->name));
