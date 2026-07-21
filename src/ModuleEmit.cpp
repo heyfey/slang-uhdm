@@ -2566,7 +2566,18 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             auto& ae = assign.as<AssignmentExpression>();
             auto* ca = s.MakeCont_assign();
             ca->VpiParent(gs);
-            setLoc(ca, assign.sourceRange);
+            // A comma-list continuous assign gives EVERY cont_assign the whole
+            // list's span (Surelog quirk), like the module-level emitter.
+            SourceRange caLoc = assign.sourceRange;
+            if (auto* asyn = casym.getSyntax())
+                for (auto p = asyn->parent; p; p = p->parent)
+                    if (p->kind == syntax::SyntaxKind::ContinuousAssign) {
+                        auto& cas = p->as<syntax::ContinuousAssignSyntax>();
+                        if (cas.assignments.size() > 1)
+                            caLoc = cas.assignments.sourceRange();
+                        break;
+                    }
+            setLoc(ca, caLoc);
             {
                 auto& lc0 = stripImplicitConv(ae.left());
                 if (lc0.kind == ExpressionKind::NamedValue)
