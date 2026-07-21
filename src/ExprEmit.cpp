@@ -1938,6 +1938,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             const Expression* esBottom = &es.value();
             while (esBottom->kind == ExpressionKind::MemberAccess)
                 esBottom = &esBottom->as<MemberAccessExpression>().value();
+            // A member-access select whose base threads through MULTIPLE
+            // element selects (a[0][0].x[2]) routes through the mixed hier-path
+            // builder, which emits one bit_select per base dim; the single-dim
+            // path below handles only a NamedValue base (a[0].x[2]).
+            if (es.value().kind == ExpressionKind::MemberAccess &&
+                esBottom->kind == ExpressionKind::ElementSelect) {
+                if (auto* hp = emitMixedHierPath(expr, parent, prefix, netMap))
+                    return hp;
+            }
             if (es.value().kind == ExpressionKind::MemberAccess &&
                 esBottom->kind == ExpressionKind::NamedValue) {
                 std::vector<const Expression*> chain;
