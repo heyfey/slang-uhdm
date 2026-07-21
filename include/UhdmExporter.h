@@ -328,6 +328,9 @@ private:
     slang::SourceRange regNetSpan(const slang::ast::Symbol& sym);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
+    // vpiDirection for a modport interface port (Surelog rule).
+    int32_t interfacePortDirection(
+        const slang::ast::InterfacePortSymbol& ip);
     void noteUnsupported(const std::string& what);
 
     slang::ast::Compilation& comp;

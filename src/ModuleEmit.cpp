@@ -1179,6 +1179,34 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     }
 }
 
+// Surelog's vpiDirection for a modport interface port (X_if.mp Y): vpiInput
+// iff the connection explicitly names the modport (.Y(x.mp), a dotted actual)
+// AND the modport declares >=1 OUTPUT member. Otherwise vpiInout — a plain
+// interface connection (.Y(x)), an input-only modport, or a bare interface
+// port. Decoded across 16 iface tests (conn/field_assign/cfg_mem = input;
+// out/modport/member_port/member_read_assign/... = inout).
+int32_t UhdmExporter::interfacePortDirection(const InterfacePortSymbol& ip) {
+    if (ip.modport.empty())
+        return vpiInout;
+    auto ce = ip.getConnectionAndExpr();
+    const ModportSymbol* mp = ce.first.second;
+    if (!mp)
+        return vpiInout;
+    bool hasOut = false;
+    for (auto& mm : mp->members())
+        if (mm.kind == SymbolKind::ModportPort &&
+            mm.as<ModportPortSymbol>().direction == ArgumentDirection::Out) {
+            hasOut = true;
+            break;
+        }
+    if (!hasOut)
+        return vpiInout;
+    const Expression* ex = ce.second;
+    bool qualified =
+        ex && rawText(ex->sourceRange).find('.') != std::string::npos;
+    return qualified ? vpiInput : vpiInout;
+}
+
 UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                               UHDM::module_inst* parentM, NetMap* parentNets,
                                               std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -1851,7 +1879,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 p->VpiName(ip.name);
                 p->VpiParent(m);
                 setLocNamed(p, ip);
-                p->VpiDirection(vpiInout);
+                p->VpiDirection(interfacePortDirection(ip));
                 auto* lc = s.MakeRef_obj();
                 lc->VpiFullName(prefix + "." + std::string(ip.name));
                 lc->VpiParent(p);
@@ -3496,7 +3524,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             p->VpiName(ip.name);
             p->VpiParent(m);
             setLocNamed(p, ip);
-            p->VpiDirection(vpiInout);
+            p->VpiDirection(interfacePortDirection(ip));
             auto* lc = s.MakeRef_obj();
             lc->VpiName(ip.name);
             lc->VpiFullName(prefix + "." + std::string(ip.name) + "." +
