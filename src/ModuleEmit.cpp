@@ -2438,7 +2438,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 continue;
             }
             if (auto syn = blk.getSyntax()) {
-                up->VpiLineNo(sm->getLineNumber(syn->sourceRange().start()));
+                // Locate the genvar at the LOOP line (Surelog), not the block
+                // body line — a no-begin `for(i..) <stmt>` block is the stmt.
+                const syntax::SyntaxNode* loopSyn = syn;
+                for (auto q = syn; q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                        loopSyn = q;
+                        break;
+                    }
+                up->VpiLineNo(sm->getLineNumber(loopSyn->sourceRange().start()));
                 up->VpiColumnNo(0);
             }
             auto* rt = s.MakeRef_typespec();
