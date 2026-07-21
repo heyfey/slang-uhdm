@@ -588,6 +588,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 ((UHDM::begin*)b)->Stmts(stmts);
             return b;
         };
+        // Surelog wraps a whole explicit `generate...endgenerate` region in ONE
+        // gen_region placeholder; dedup the fallback by GenerateRegion syntax.
+        std::set<const syntax::SyntaxNode*> doneFallbackRegions;
         for (auto& member : body.members()) {
             if (member.kind != SymbolKind::GenerateBlockArray &&
                 member.kind != SymbolKind::GenerateBlock)
@@ -749,6 +752,15 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 regions->push_back(gf);
                 continue;
             }
+            // Fallback placeholder: only ONCE per explicit generate region.
+            const syntax::SyntaxNode* genRegion = nullptr;
+            for (auto q = member.getSyntax(); q; q = q->parent)
+                if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                    genRegion = q;
+                    break;
+                }
+            if (genRegion && !doneFallbackRegions.insert(genRegion).second)
+                continue;
             auto* gr = s.MakeGen_region();
             gr->VpiParent(m);
             auto* b = s.MakeBegin();
