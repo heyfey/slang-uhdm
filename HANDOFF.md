@@ -56,6 +56,38 @@ throughout, no demotions, goldens 23/23):
 **Method note (holds):** every regression above was the informative experiment
 — diff the demoted DUT vs the helped DUT, the difference IS the gate.
 
+**Session 14 continued (2nd block) — structural cracks + more imports:**
+6. **Non-top def port range stays symbolic** (ParameterOfSizeOfParametrizedPort
+   + ReplicationPassedToInstance: BOTH def views -> r=0). Cracked the
+   def/elab shared-typespec blocker: a defPortDim flag around
+   emitModuleDefPorts's emitPorts unfolds module-param dim bounds ONLY for
+   NON-TOP defs (a top def's ports get the write-phase swap; a non-top def's
+   port ts is not shared with the elab child port ts — safe). Both tests keep
+   elab layers ($bits(a) param at 4:25; replication param-subst scoping).
+7. **Vector-typedef param DEF ts shares the typedef logic_typespec**
+   (ParameterOfParametrizedType def -> matches, 166->100). deferAggTs now
+   includes PackedArrayType-integral TypeAlias; elab keeps the aliased clone
+   (makeParamTs). OPEN: elab needs a 2ND aliased my_type_t clone for the
+   int'(Y) cast ref (SL has 2 elab aliases, ours 1; that clone parents to a
+   ref_typespec (work@top.Y)).
+8. **Wildcard-imported typedef's range param materializes** (BitsCall
+   DIFF->CMP_ONLY; fail_detect_width advanced). collectImportedParams now
+   scans each wildcard pkg's typedef range SYNTAX for identifiers resolving to
+   imported params. fail_detect_width OPEN: imported UNTYPED param int_typespec
+   loc (SL 19:3-19:34 full decl, ours 19:13 name — side-effect of the
+   typedParam fallback taking the implicit-type span) + design-level package
+   ordering (LHS null / RHS package, shared with package_task_func).
+9. **Cross-package pkg-param ref in a package init keeps its ref_obj**
+   (ModuleUsingStuctInput 98->74). paramInitPkg + ref pkg != current pkg
+   (first ::-segment of prefix) -> doubled-scope ref_obj (pkg::otherpkg::P).
+
+**Open (interface modport direction):** iface_modport_conn's instance-side
+interface port (ModuleEmit ~1783) hardcodes vpiInout(3); SL wants 1 for that
+`tcb_if.sub s` port. iface_modport_out already MATCHES (3,1,1,2), so the rule
+is NOT "modport->N" — the 1783 path is the specific wrong one. Derive the
+direction there (def-side dev port `s` is also 3-vs-1). Cluster: 5 iface_*
+tests.
+
 **Open cluster-roots decoded this session (resume here):**
 - **DEF-view port range with an overridable module param folds when it should
   stay symbolic** (cluster: ParameterOfSizeOfParametrizedPortInSubmodule 4:18,
