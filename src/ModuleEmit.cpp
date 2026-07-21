@@ -5987,8 +5987,34 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             continue;
         }
         auto* v = makeVar(*it.sym, /*portBacked=*/false);
-        if (!v)
+        if (!v) {
+            // A LOGIC/wire interface net (input logic clk/rst) that makeVar
+            // does not model becomes a logic_net under the interface instance
+            // (HOME view) — Surelog. (makeVar already handles var-typed
+            // interface signals: input int x -> int_var.)
+            if (it.sym->kind == SymbolKind::Net && !portView) {
+                auto* ln = s.MakeLogic_net();
+                ln->VpiName(name);
+                ln->VpiFullName(fullName);
+                ln->VpiParent(iface);
+                setLoc(ln, nameSpan(it.sym->location, it.sym->name));
+                if (int32_t nt = netTypeFor(*it.sym))
+                    ln->VpiNetType(nt);
+                if (it.sym->getDeclaredType() &&
+                    it.sym->getDeclaredType()->getType().isSigned())
+                    ln->VpiSigned(true);
+                if (auto* ts = makeTypespec(*it.sym)) {
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(fullName);
+                    rt->VpiParent(ln);
+                    rt->Actual_typespec(ts);
+                    ln->Typespec(rt);
+                }
+                netMap[it.sym] = ln;
+                elabNets->push_back(ln);
+            }
             continue;
+        }
         v->VpiName(name);
         v->VpiFullName(fullName);
         v->VpiParent(iface);
