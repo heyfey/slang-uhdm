@@ -1081,16 +1081,38 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
             if (rhsRt->VpiFullName().empty())
                 rhsRt->VpiFullName(syntaxRefPrefix);
         }
-        syntaxRefPrefix = std::string(prt->VpiFullName());
-        if (aggParam)
-            structCloneMemberRefParent = true;
-        auto* its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
-        structCloneMemberRefParent = false;
+        // A param typed by a PACKAGE typedef shares the pkg's TOP typespec
+        // (no clone); module-local aggregate typedefs get the fresh clone C.
+        UHDM::typespec* its = nullptr;
+        bool sharedPkgTs = false;
+        if (aggParam) {
+            if (auto d0 = ps->getDeclaredType()) {
+                auto& dt0 = d0->getType();
+                if (dt0.kind == SymbolKind::TypeAlias) {
+                    auto& taSym = dt0.as<TypeAliasType>();
+                    if (auto sc = taSym.getParentScope();
+                        sc && sc->asSymbol().kind == SymbolKind::Package) {
+                        if (auto tit = pkgTopTypedefTs.find(&taSym);
+                            tit != pkgTopTypedefTs.end()) {
+                            its = tit->second;
+                            sharedPkgTs = true;
+                        }
+                    }
+                }
+            }
+        }
+        if (!its) {
+            syntaxRefPrefix = std::string(prt->VpiFullName());
+            if (aggParam)
+                structCloneMemberRefParent = true;
+            its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+            structCloneMemberRefParent = false;
+            if (its->UhdmType() == UHDM::uhdmstruct_typespec ||
+                its->UhdmType() == UHDM::uhdmunion_typespec)
+                if (auto* par = up->VpiParent())
+                    its->Instance((UHDM::instance*)par);
+        }
         syntaxRefPrefix = savedPfx2;
-        if (its->UhdmType() == UHDM::uhdmstruct_typespec ||
-            its->UhdmType() == UHDM::uhdmunion_typespec)
-            if (auto* par = up->VpiParent())
-                its->Instance((UHDM::instance*)par);
         if (rhsRt && !opClone) {
             // The ELAB UINT-recomputed fold ('1 -> all-ones) of a VECTOR
             // param binds a fresh LOC-LESS bare clone (unparented bounds,
@@ -1107,7 +1129,8 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                 rhsRt->Actual_typespec(its);
         }
         prt->Actual_typespec(its);
-        its->VpiParent(prt);
+        if (!sharedPkgTs)
+            its->VpiParent(prt);
         // No-default override fold-constant ts refs share this elab ts.
         if (auto nit = noDefOvTsRef.find(ps); nit != noDefOvTsRef.end()) {
             for (auto* r0 : nit->second)
@@ -1216,9 +1239,16 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // signals/params resolve.
     auto* tds = s.MakeTypespecVec();
     pkgTopEmit = topView; // enum-const decompile is view-dependent (buildEnumTs)
-    for (auto& member : pkg.members()) {
-        if (member.kind != SymbolKind::TypeAlias)
-            continue;
+    // Package typedefs compile NAME-SORTED (Surelog's map order), like module
+    // typedef lists.
+    std::vector<const Symbol*> pkgAliases;
+    for (auto& member : pkg.members())
+        if (member.kind == SymbolKind::TypeAlias)
+            pkgAliases.push_back(&member);
+    std::stable_sort(pkgAliases.begin(), pkgAliases.end(),
+                     [](const Symbol* a, const Symbol* b) { return a->name < b->name; });
+    for (auto* memberP : pkgAliases) {
+        auto& member = *memberP;
         auto& ta = member.as<TypeAliasType>();
         auto& ct = ta.targetType.getType().getCanonicalType();
         const syntax::SyntaxNode* typeSyn = nullptr;

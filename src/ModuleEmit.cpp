@@ -973,12 +973,35 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // import_typespec) and re-parents it to the module; fullnames keep their
     // pkg:: scoping (unlike the interface re-scope above).
     if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        // Collect imported typedef symbols: explicit imports name one; a
+        // WILDCARD import lists every package typedef (name-sorted, matching
+        // the package's own list order).
+        std::vector<std::pair<const Symbol*, const Symbol*>> importedTds;
         for (auto& mem : body.members()) {
-            if (mem.kind != SymbolKind::ExplicitImport)
-                continue;
-            auto* imported = mem.as<ExplicitImportSymbol>().importedSymbol();
-            if (!imported || imported->kind != SymbolKind::TypeAlias)
-                continue;
+            if (mem.kind == SymbolKind::ExplicitImport) {
+                auto* imported = mem.as<ExplicitImportSymbol>().importedSymbol();
+                if (imported && imported->kind == SymbolKind::TypeAlias)
+                    importedTds.emplace_back(&mem, imported);
+            }
+            else if (mem.kind == SymbolKind::WildcardImport) {
+                auto* pkg = comp.getPackage(
+                    mem.as<WildcardImportSymbol>().packageName);
+                if (!pkg)
+                    continue;
+                std::vector<const Symbol*> tas;
+                for (auto& pm : pkg->members())
+                    if (pm.kind == SymbolKind::TypeAlias)
+                        tas.push_back(&pm);
+                std::stable_sort(tas.begin(), tas.end(),
+                                 [](const Symbol* a, const Symbol* b) {
+                                     return a->name < b->name;
+                                 });
+                for (auto* ta : tas)
+                    importedTds.emplace_back(&mem, ta);
+            }
+        }
+        for (auto& [memP, imported] : importedTds) {
+            auto& mem = *memP;
             auto tit = pkgTopTypedefTs.find(imported);
             if (tit == pkgTopTypedefTs.end())
                 continue;
