@@ -811,7 +811,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             deferAggTs = dtAgg.kind == SymbolKind::TypeAlias &&
                          (ckAgg == SymbolKind::PackedStructType ||
                           ckAgg == SymbolKind::PackedUnionType ||
-                          ckAgg == SymbolKind::EnumType);
+                          ckAgg == SymbolKind::EnumType ||
+                          // A local VECTOR typedef param defers too so its DEF
+                          // ts SHARES the typedef's logic_typespec (drained
+                          // past emitTypedefs) instead of the int_typespec
+                          // fallback; the ELAB view keeps its aliased clone.
+                          (ckAgg == SymbolKind::PackedArrayType &&
+                           dtAgg.getCanonicalType().isIntegral()));
         }
         if (prt) {
             if (topView && !inPackage) {
