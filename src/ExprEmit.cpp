@@ -874,7 +874,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                 if (suppressRefActual) {
-                    // Gen-scope process ref: left unbound.
+                    // Gen-scope process ref: net/var refs stay unbound
+                    // (Surelog), but an enum-const ref still binds — SL mints
+                    // a FRESH loc-less enum_const per ref (parented to the
+                    // ref) carrying the value, since the shared package const
+                    // can't be reused across elaborated gen-block instances.
+                    if (nv.symbol.kind == SymbolKind::EnumValue) {
+                        if (auto eit = enumConstMap.find(&nv.symbol);
+                            eit != enumConstMap.end() &&
+                            eit->second->UhdmType() == UHDM::uhdmenum_const) {
+                            auto* shared = (UHDM::enum_const*)eit->second;
+                            auto* ec = s.MakeEnum_const();
+                            ec->VpiName(shared->VpiName());
+                            ec->VpiValue(std::string(shared->VpiValue()));
+                            ec->VpiDecompile(shared->VpiDecompile());
+                            ec->VpiSize(shared->VpiSize());
+                            ec->VpiParent(ref);
+                            ref->Actual_group(ec);
+                        }
+                    }
                 }
                 else if (auto it = netMap.find(&nv.symbol); it != netMap.end()) {
                     ref->Actual_group(it->second);
