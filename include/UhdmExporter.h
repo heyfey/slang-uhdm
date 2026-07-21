@@ -618,6 +618,11 @@ private:
     // Elab-view BIN fold constant of a typed part-select localparam (shared
     // into a reading cont-assign, like the string case).
     std::map<const slang::ast::Symbol*, UHDM::constant*> moduleParamFoldConst;
+    // An imported param's DEF-view int_typespec (instanced at its package),
+    // keyed by the package parameter symbol — attached to the def-view
+    // cont-assign fold constant that reads it (Surelog gives that fold a
+    // ref_typespec -> this typespec).
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> importedParamDefTs;
     // Part-select fold constants' own logic_typespecs (bare-bound range),
     // materialized in the write-phase tail.
     struct PendingPartSelTs {

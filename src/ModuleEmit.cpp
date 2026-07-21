@@ -3986,7 +3986,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
             c->VpiSize((int32_t)iv.getBitWidth());
             c->VpiParent(ca);
-            if (auto* dsy = paramDefaultSyn(ps2))
+            // A LOCAL param folds at its default-value expression; an IMPORTED
+            // param (package-scoped, materialized here) folds at the REFERENCE
+            // site instead — the copy is resolved at the use, not the source
+            // declaration (Surelog).
+            bool impRef = ps2.getParentScope() &&
+                          ps2.getParentScope()->asSymbol().kind ==
+                              SymbolKind::Package;
+            if (impRef)
+                setLoc(c, stripImplicitConv(ae.right()).sourceRange);
+            else if (auto* dsy = paramDefaultSyn(ps2))
                 setLoc(c, dsy->sourceRange());
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix);

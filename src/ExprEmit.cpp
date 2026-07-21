@@ -710,6 +710,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(c, expr.sourceRange);
                     if (parent && parent->UhdmType() == UHDM::uhdmoperation)
                         c->VpiParent(parent);
+                    // A def-view cont-assign fold that READS an IMPORTED param
+                    // carries a ref_typespec to the imported param's def
+                    // typespec (module-named, instanced at the package) — the
+                    // fold is a resolved copy of a typed param (Surelog).
+                    if (parent && parent->UhdmType() == UHDM::uhdmcont_assign)
+                        if (auto tit = importedParamDefTs.find(&nv.symbol);
+                            tit != importedParamDefTs.end()) {
+                            auto* rt = s.MakeRef_typespec();
+                            rt->VpiFullName(prefix);
+                            rt->VpiParent(c);
+                            rt->Actual_typespec(tit->second);
+                            c->Typespec(rt);
+                        }
                     return c;
                 }
                 ref->VpiFullName(std::string(scope->asSymbol().name) + "::" +
