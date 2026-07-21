@@ -291,6 +291,71 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             prt->VpiParent(up);
             up->Typespec(prt);
         }
+        // An UNPACKED-ARRAY param (int X [1:0]) is not isIntegral, so the
+        // wantTs path skips it. Surelog gives it an array_typespec (unpacked
+        // range + Elem_typespec) plus the element's signedness/size and the
+        // unpacked-dim range ON the parameter (shared range object).
+        else if (ps.getType().getCanonicalType().kind ==
+                 SymbolKind::FixedSizeUnpackedArrayType) {
+            const Type* leaf = &ps.getType().getCanonicalType();
+            while (leaf->getCanonicalType().kind ==
+                   SymbolKind::FixedSizeUnpackedArrayType)
+                leaf = &leaf->getCanonicalType()
+                            .as<FixedSizeUnpackedArrayType>()
+                            .elementType;
+            std::string afull = joinPath(prefix, ps.name);
+            // Unpacked-dim range, parented to the param and SHARED with the
+            // array_typespec (Surelog uses one range object for both).
+            auto* prng = buildUnpackedRanges(ps, up);
+            if (prng)
+                up->Ranges(prng);
+            up->VpiSize(1);
+            up->VpiSigned(leaf->isSigned());
+            // Element typespec (int_typespec for int/..., logic_typespec else)
+            // at the declared-type keyword span.
+            UHDM::typespec* elemTs = nullptr;
+            SourceRange typeR(ps.location, ps.location);
+            if (auto declared = ps.getDeclaredType())
+                if (auto tsyn = declared->getTypeSyntax())
+                    typeR = tsyn->getFirstToken().range();
+            if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
+                auto* its = s.MakeInt_typespec();
+                its->VpiSigned(leaf->isSigned());
+                setLoc(its, typeR);
+                elemTs = its;
+            }
+            else {
+                auto* lts = s.MakeLogic_typespec();
+                setLoc(lts, typeR);
+                elemTs = lts;
+            }
+            auto* ats = s.MakeArray_typespec();
+            ats->VpiParent(up);
+            // loc: type-start .. last unpacked-dim end.
+            SourceLocation aStart = typeR.start();
+            SourceLocation aEnd = ps.location + ps.name.size();
+            if (auto dsyn = ps.getSyntax();
+                dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+                for (auto dim0 : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                    aEnd = dim0->sourceRange().end();
+            setLoc(ats, SourceRange(aStart, aEnd));
+            if (prng) {
+                auto* atsR = s.MakeRangeVec();
+                for (auto* r0 : *prng)
+                    atsR->push_back(r0);
+                ats->Ranges(atsR);
+            }
+            auto* ert = s.MakeRef_typespec();
+            ert->VpiFullName(afull);
+            ert->VpiParent(ats);
+            ert->Actual_typespec(elemTs);
+            ats->Elem_typespec(ert);
+            auto* art = s.MakeRef_typespec();
+            art->VpiFullName(afull);
+            art->VpiParent(up);
+            art->Actual_typespec(ats);
+            up->Typespec(art);
+        }
         params->push_back(up);
         if (funcScope)
             netMap[&member] = up;
