@@ -227,6 +227,64 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             else {
                 copyLoc(rv, ts);
             }
+            // A packed-array-of-VECTOR return (word[1:0], element a named
+            // vector typedef) is a packed_array_var carrying the ARRAY range
+            // and a bare logic_var element — Surelog. makeEnumArrayVar only
+            // populates the enum-element form; add the vector form here.
+            if (rv->UhdmType() == UHDM::uhdmpacked_array_var &&
+                !((UHDM::packed_array_var*)rv)->Ranges()) {
+                auto& rct = sub.getReturnType().getCanonicalType();
+                if (rct.kind == SymbolKind::PackedArrayType) {
+                    auto pr = rct.as<PackedArrayType>().range;
+                    auto* rng = s.MakeRange();
+                    rng->VpiParent(rv);
+                    copyLoc(rng, ts);
+                    auto mkC = [&](int32_t v) -> UHDM::expr* {
+                        auto* c = s.MakeConstant();
+                        c->VpiDecompile(std::to_string(v));
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + std::to_string(v));
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(rng);
+                        return c;
+                    };
+                    rng->Left_expr(mkC(pr.left));
+                    rng->Right_expr(mkC(pr.right));
+                    auto* rvec = s.MakeRangeVec();
+                    rvec->push_back(rng);
+                    ((UHDM::packed_array_var*)rv)->Ranges(rvec);
+                    auto* ev = s.MakeLogic_var();
+                    ev->VpiParent(rv);
+                    ev->VpiFullName(fullName);
+                    auto* elems = s.MakeAnyVec();
+                    elems->push_back(ev);
+                    ((UHDM::packed_array_var*)rv)->Elements(elems);
+                    // The array logic_typespec carries an Elem_typespec ->
+                    // the element typedef's (word) typespec.
+                    if (ts->UhdmType() == UHDM::uhdmlogic_typespec &&
+                        !((UHDM::logic_typespec*)ts)->Elem_typespec()) {
+                        auto& et = rct.as<PackedArrayType>().elementType;
+                        UHDM::typespec* wts = nullptr;
+                        if (auto it0 = typedefTs.find(&et); it0 != typedefTs.end())
+                            wts = it0->second;
+                        else
+                            for (auto& [sym0, tsp0] : typedefTs)
+                                if (sym0->kind == SymbolKind::TypeAlias &&
+                                    &sym0->as<TypeAliasType>()
+                                            .getCanonicalType() ==
+                                        &et.getCanonicalType()) {
+                                    wts = tsp0;
+                                    break;
+                                }
+                        if (wts) {
+                            auto* ert = s.MakeRef_typespec();
+                            ert->VpiParent(ts);
+                            ert->Actual_typespec(wts);
+                            ((UHDM::logic_typespec*)ts)->Elem_typespec(ert);
+                        }
+                    }
+                }
+            }
             ((UHDM::function*)tf)->Return(rv);
             }
         }
