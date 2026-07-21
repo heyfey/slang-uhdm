@@ -2305,14 +2305,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
     std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
     std::function<UHDM::gen_scope_array*(const GenerateBlockSymbol&,
-                                         const std::string&, const std::string&)>
+                                         const std::string&, const std::string&,
+                                         UHDM::BaseClass*)>
         emitBlock = [&](const GenerateBlockSymbol& blk, const std::string& name,
-                        const std::string& parentFull) -> UHDM::gen_scope_array* {
+                        const std::string& parentFull,
+                        UHDM::BaseClass* parentObj) -> UHDM::gen_scope_array* {
         std::string fullName = parentFull + "." + name;
         auto* gsa = s.MakeGen_scope_array();
         gsa->VpiName(name);
         gsa->VpiFullName(fullName);
-        gsa->VpiParent(m);
+        gsa->VpiParent(parentObj);
         auto* gs = s.MakeGen_scope();
         gs->VpiFullName(fullName);
         gs->VpiParent(gsa);
@@ -2707,7 +2709,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 bool streamRhs = rc0->kind == ExpressionKind::Streaming;
                 // CHILD-instance gen-scope CA RHS refs stay unbound too
                 // (the LHS ref keeps its net actual).
-                bool childGen = prefix.find('.') != std::string::npos;
+                // Child-instance OR NESTED gen-scope CA RHS refs to outer
+                // signals stay unbound (parentFull has a '.' once nested).
+                bool childGen = prefix.find('.') != std::string::npos ||
+                                parentFull.find('.') != std::string::npos;
                 if (streamRhs || childGen)
                     suppressRefActual = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
@@ -2756,7 +2761,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         idx2 = entry2->arrayIndex->toString(LiteralBase::Decimal, false);
                     std::string nm2 =
                         std::string(arr2.getExternalName()) + "[" + idx2 + "]";
-                    if (auto* ng = emitBlock(*entry2, nm2, fullName))
+                    if (auto* ng = emitBlock(*entry2, nm2, fullName, gs))
                         nestedGsas->push_back(ng);
                 }
             }
@@ -2764,7 +2769,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 auto& blk2 = gm.as<GenerateBlockSymbol>();
                 if (!blk2.isUninstantiated)
                     if (auto* ng = emitBlock(
-                            blk2, std::string(blk2.getExternalName()), fullName))
+                            blk2, std::string(blk2.getExternalName()), fullName, gs))
                         nestedGsas->push_back(ng);
             }
         }
@@ -2783,14 +2788,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (entry->arrayIndex)
                     idx = entry->arrayIndex->toString(LiteralBase::Decimal, false);
                 std::string name = std::string(arr.getExternalName()) + "[" + idx + "]";
-                if (auto* g = emitBlock(*entry, name, prefix))
+                if (auto* g = emitBlock(*entry, name, prefix, m))
                     gsas->push_back(g);
             }
         }
         else if (member.kind == SymbolKind::GenerateBlock) {
             auto& blk = member.as<GenerateBlockSymbol>();
             if (!blk.isUninstantiated)
-                if (auto* g = emitBlock(blk, std::string(blk.getExternalName()), prefix))
+                if (auto* g = emitBlock(blk, std::string(blk.getExternalName()), prefix, m))
                     gsas->push_back(g);
         }
     }
