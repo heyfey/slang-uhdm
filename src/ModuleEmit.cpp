@@ -1085,6 +1085,21 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             pkgName = std::string(mem.as<ExplicitImportSymbol>().packageName);
         else
             continue;
+        // An EXPLICIT import whose package is ALSO wildcard-imported in this
+        // body carries no import_typespec of its own — the wildcard import's
+        // import_typespec already covers the package (Surelog de-dups). An
+        // explicit import of a package with no wildcard keeps its own.
+        if (mem.kind == SymbolKind::ExplicitImport) {
+            bool pkgWildcarded = false;
+            for (auto& w : body.members())
+                if (w.kind == SymbolKind::WildcardImport &&
+                    w.as<WildcardImportSymbol>().packageName == pkgName) {
+                    pkgWildcarded = true;
+                    break;
+                }
+            if (pkgWildcarded)
+                continue;
+        }
         auto* its = s.MakeImport_typespec();
         its->VpiName(pkgName);
         its->VpiParent(m);
