@@ -466,6 +466,9 @@ private:
     // Net-declaration-assignment Lhs typespecs: created at the very end of the
     // write phase so they land last in the arena (matching Surelog's tail).
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> pendingNetDeclTs;
+    // Array-of-struct net-decl-assign Lhs: resolves to the ELEMENT struct
+    // typespec (via typedefTs) rather than the array net's own typespec.
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Type*>> pendingNetDeclElemTs;
     // Abandoned first-compile of re-emitted pattern cont_assigns: an orphan
     // op sharing the def operands, typed by the pattern's target typespec.
     struct PendingPatternOrphan {

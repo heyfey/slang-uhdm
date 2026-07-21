@@ -3653,6 +3653,16 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         rt->Actual_typespec(fts);
     }
     pendingNetDeclTs.clear();
+    // Array-of-struct net-decl-assign Lhs: the ELEMENT struct typespec (the
+    // shared typedef object), not the array net's own array/logic typespec.
+    for (auto& [rt, ety] : pendingNetDeclElemTs) {
+        UHDM::typespec* ets = nullptr;
+        if (auto tit = typedefTs.find(ety); tit != typedefTs.end())
+            ets = tit->second;
+        if (ets)
+            rt->Actual_typespec(ets);
+    }
+    pendingNetDeclElemTs.clear();
     // Gen-block REAL-localparam typespecs: the CA constant's LOC-LESS bare
     // clone, then the typed param ts (Surelog: after the top-port ts, before
     // the genvar int ts).
@@ -3877,12 +3887,29 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // get net-declaration assignments (real vars keep their own form).
         // Packed-struct signals with an assignment-pattern init are emitted as
         // struct_nets (see emitInstance) and likewise take a net-decl assign.
+        // An unpacked array-of-struct with an assignment-pattern init
+        // (tl_h2d_t a[1:0] = '{...}) is an array_net that likewise takes a
+        // net-decl assign (fresh struct_net Lhs of the ELEMENT type).
+        bool arrOfStruct = false;
+        const Type* arrElemTy = nullptr; // non-canonical element (the alias)
+        if (it.sym->kind == SymbolKind::Variable &&
+            nit->second->UhdmType() == UHDM::uhdmarray_net) {
+            const Type* el = &dt->getType();
+            while (el->getCanonicalType().kind ==
+                   SymbolKind::FixedSizeUnpackedArrayType)
+                el = &el->getCanonicalType()
+                          .as<FixedSizeUnpackedArrayType>()
+                          .elementType;
+            arrOfStruct = el->getCanonicalType().isStruct();
+            arrElemTy = el;
+        }
         if (it.sym->kind != SymbolKind::Net &&
             !(it.sym->kind == SymbolKind::Variable &&
               nit->second->UhdmType() == UHDM::uhdmlogic_net &&
               dt->getType().isIntegral()) &&
             !(it.sym->kind == SymbolKind::Variable &&
-              nit->second->UhdmType() == UHDM::uhdmstruct_net))
+              nit->second->UhdmType() == UHDM::uhdmstruct_net) &&
+            !arrOfStruct)
             continue;
         auto* ca = s.MakeCont_assign();
         ca->VpiParent(m);
@@ -3969,7 +3996,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Literal or operation RHS -> netlist re-elaboration (fresh Lhs);
         // pure ref/select RHS -> shared module net (bare).
         if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit)) {
-            bool isStructNet = nit->second->UhdmType() == UHDM::uhdmstruct_net;
+            bool isStructNet =
+                nit->second->UhdmType() == UHDM::uhdmstruct_net || arrOfStruct;
             UHDM::net* lnet = isStructNet ? (UHDM::net*)s.MakeStruct_net()
                                           : (UHDM::net*)s.MakeLogic_net();
             lnet->VpiName(it.sym->name);
@@ -3984,12 +4012,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     lnet->VpiSigned(true);
                 setLoc(lnet, regNetSpan(*it.sym));
             }
-            if (mnet->Typespec() && mnet->Typespec()->Actual_typespec()) {
+            if ((mnet->Typespec() && mnet->Typespec()->Actual_typespec()) ||
+                arrOfStruct) {
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(it.sym->name));
                 rt->VpiParent(lnet);
                 lnet->Typespec(rt);
-                pendingNetDeclTs.push_back({rt, it.sym});
+                if (arrOfStruct && arrElemTy)
+                    pendingNetDeclElemTs.push_back({rt, arrElemTy});
+                else
+                    pendingNetDeclTs.push_back({rt, it.sym});
             }
             ca->Lhs(lnet);
         }
