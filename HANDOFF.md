@@ -2,10 +2,14 @@
 
 ## Session 13 (fable, autonomous, 2026-07-20) — systematic-root + gen_for
 
-**PASS 391 / CMP_ONLY 56 / DIFF 214** (session start: 388/48/225; pivot
-baseline DIFF 237 -> 23 real bugs fixed total; 3 straight DIFF->PASS:
+**FINAL: PASS 391 / CMP_ONLY 58 / DIFF 212** (session start: 388/48/225;
+pivot baseline DIFF 237 -> 25 real bugs fixed total; 3 straight DIFF->PASS:
 ParameterInGenScopeInitializedWithLongConstant, MemoryPort,
-local_nested_struct_field).
+local_nested_struct_field; late adds: StructOfArrayOfStructs + PackedArray
+DIFF->CMP_ONLY via the pkg-struct-with-ARRAY-of-struct-member -> struct_var
+rule; hasStructFieldMember counts array-of-struct members; module Typespecs
+interleave own+imported typedefs name-sorted. EnumInPackage open: elab-view
+import-listing order in a different container.)
 
 **Late-session additions (after the gen_for checkpoint):**
 - Elab gen CA genvar-ref fold -> iteration value (MemoryPort DIFF->PASS).
