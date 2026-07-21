@@ -3564,17 +3564,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // A select of a PACKAGE parameter (pkg::A[0]) folds in the elab view
         // to a BIN constant anchored at the param init's first char.
         const ParameterSymbol* pkgParamSel = nullptr;
+        // An element-select on an UNPACKED-ARRAY param (LP[0], P[i][j]): the
+        // elab view re-emits it FOLDED to the element constant (Surelog), so it
+        // must NOT share the def-view var_select/bit_select.
+        bool unpackedParamSel = false;
         {
             auto& rc = stripImplicitConv(ae.right());
-            if (rc.kind == ExpressionKind::ElementSelect) {
-                auto& bser =
-                    stripImplicitConv(rc.as<ElementSelectExpression>().value());
-                if (bser.kind == ExpressionKind::NamedValue) {
-                    auto& bsym = bser.as<NamedValueExpression>().symbol;
-                    if (bsym.kind == SymbolKind::Parameter)
-                        if (auto sc0 = bsym.getParentScope();
-                            sc0 && sc0->asSymbol().kind == SymbolKind::Package)
-                            pkgParamSel = &bsym.as<ParameterSymbol>();
+            const Expression* selBase = &rc;
+            while (selBase->kind == ExpressionKind::ElementSelect)
+                selBase =
+                    &stripImplicitConv(selBase->as<ElementSelectExpression>().value());
+            if (rc.kind == ExpressionKind::ElementSelect &&
+                selBase->kind == ExpressionKind::NamedValue) {
+                auto& bsym = selBase->as<NamedValueExpression>().symbol;
+                if (bsym.kind == SymbolKind::Parameter) {
+                    if (bsym.getType().getCanonicalType().kind ==
+                        SymbolKind::FixedSizeUnpackedArrayType)
+                        unpackedParamSel = true;
+                    if (auto sc0 = bsym.getParentScope();
+                        sc0 && sc0->asSymbol().kind == SymbolKind::Package)
+                        pkgParamSel = &bsym.as<ParameterSymbol>();
                 }
             }
         }
@@ -3798,7 +3807,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
-              !pkgParamSel && !noDefOvRhs && !structParamSetter))) {
+              !pkgParamSel && !unpackedParamSel && !noDefOvRhs &&
+              !structParamSetter))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
