@@ -2,8 +2,30 @@
 
 ## Session 13 (fable, autonomous, 2026-07-20) — systematic-root + gen_for
 
-**PASS 389 / CMP_ONLY 52 / DIFF 220** (session start: 388/48/225; pivot
-baseline: DIFF 237 -> 17 real bugs fixed total).
+**PASS 391 / CMP_ONLY 56 / DIFF 214** (session start: 388/48/225; pivot
+baseline DIFF 237 -> 23 real bugs fixed total; 3 straight DIFF->PASS:
+ParameterInGenScopeInitializedWithLongConstant, MemoryPort,
+local_nested_struct_field).
+
+**Late-session additions (after the gen_for checkpoint):**
+- Elab gen CA genvar-ref fold -> iteration value (MemoryPort DIFF->PASS).
+- PACKAGE TYPEDEF RULES (4x 5Level DIFF->CMP_ONLY + local_nested PASS):
+  (1) emitPackage creates typedefs in SOURCE order but LISTS name-sorted;
+  (2) module WILDCARD imports list every pkg typedef (name-sorted, shared),
+  re-parenting + re-scoping FLAT ones interface-style
+  (work@<mod>.<pkg>::<T>[.m], last-writer) while NESTED-container structs
+  keep pkg parent; (3) elab params typed by a PKG typedef share the pkg TOP
+  ts (no clone); (4) a wildcard-imported pkg's NESTED-container struct
+  typedef's TOP view scopes members pkg::T.m (single prefix, dot) and is
+  UNPARENTED — gated on wildcardImportedPkgs (qualified-only use keeps the
+  doubled pkg::pkg::T::m form — BitsCallOnStructMember); (5) nested pattern
+  ops (reemitting): no first-operand VpiSize + bare ts ref to the member
+  typedef.
+- hasStructFieldMember also counts packed-ARRAY-of-struct members (no wire
+  type on such nets).
+- OPEN: StructOfArrayOfStructs (53) — SL models the array-of-struct-container
+  pkg signal as a struct_VAR (ours logic_net); direct-struct containers stay
+  untyped logic_net (local_nested passes). Another micro-distinction to chase.
 
 **STRUCT-PARAM SYSTEMATIC ROOT CRACKED (5 tests DIFF->CMP_ONLY):**
 StructParameter, StructLocalParam, paramod_struct_param,
