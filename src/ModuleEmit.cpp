@@ -4358,17 +4358,30 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
         }
         if (!rhs && !bitsRhs && !skipGeneralFold && !structParamSetter &&
-            !structWholeParamRef)
+            !structWholeParamRef) {
             // Unbased-unsized RHS never general-folds here: '1 folded above,
             // '0 shares the def constant, 'x/'z have unknowns. Replicated
-            // patterns re-emit as operations.
-            rhs = (topView &&
+            // patterns re-emit as operations. A CONCATENATION that references a
+            // PARAMETER also stays an operation (its param operands keep their
+            // ref_obj) — Surelog reduces a literal-only concat to a packed
+            // constant but leaves a param concat ({a,b,c} of params) unfolded.
+            bool paramConcat = false;
+            if (stripImplicitConv(ae.right()).kind ==
+                ExpressionKind::Concatenation)
+                stripImplicitConv(ae.right())
+                    .visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                        if (nv.symbol.kind == SymbolKind::Parameter)
+                            paramConcat = true;
+                        v.visitDefault(nv);
+                    }));
+            rhs = (topView && !paramConcat &&
                    stripImplicitConv(ae.right()).kind !=
                        ExpressionKind::UnbasedUnsizedIntegerLiteral &&
                    stripImplicitConv(ae.right()).kind !=
                        ExpressionKind::ReplicatedAssignmentPattern)
                       ? tryFoldConst(ae.right())
                       : nullptr;
+        }
         // A NESTED cast RHS, or a cast whose operand is a PARAMETER ref
         // (int'(X)), that evals fully folds loc-less: UINT by magnitude at
         // the result width (signed wraps encode 4294967295-style). Casts of
