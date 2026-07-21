@@ -3029,6 +3029,22 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                         if (tit0->second->Instance())
                             cl->Instance(tit0->second->Instance());
                         topActual = cl;
+                        // The DEF-view port clones too — a QUALIFIED-named
+                        // sibling (typedef-aliased to the shared pkg ts,
+                        // instanced at the package). It does NOT share the pkg
+                        // ts like a plain qualified-port would (Surelog).
+                        bypassTypedefShare = true;
+                        auto* dcl = makeTypespec(*internal, targetSyn);
+                        bypassTypedefShare = false;
+                        dcl->VpiName(std::string(tit0->second->VpiName()));
+                        auto* dart = s.MakeRef_typespec();
+                        dart->VpiFullName(std::string(tit0->second->VpiName()));
+                        dart->VpiParent(dcl);
+                        dart->Actual_typespec(tit0->second);
+                        ((UHDM::logic_typespec*)dcl)->Typedef_alias(dart);
+                        if (tit0->second->Instance())
+                            dcl->Instance(tit0->second->Instance());
+                        defPts = dcl;
                     }
                 }
             }
