@@ -6321,6 +6321,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             iface->Typespecs(tds2);
     }
 
+    // Fresh logic_nets created for interface-HEADER-port modport members
+    // (clk/rst), keyed by member name so the header-port LowConn below can
+    // share the same object as vpiActual (Surelog reuses one net).
+    std::map<std::string, UHDM::logic_net*> ifacePortMemberNet;
     // Elab-view modports (fresh objects parented to this interface_inst). Each
     // modport's Interface_inst self-references this view. A reference-style port
     // view additionally carries a vpiExpr on each io_decl (pointing at this
@@ -6416,6 +6420,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                             ln->Typespec(mrt);
                         }
                         io->Expr(ln);
+                        ifacePortMemberNet[mname] = ln;
                     }
                 }
                 iodecls->push_back(io);
@@ -6579,6 +6584,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             setLocNamed(lc, ps);
         if (auto it2 = netMap.find(internal); it2 != netMap.end())
             lc->Actual_group(it2->second);
+        else if (auto it3 = ifacePortMemberNet.find(std::string(ps.name));
+                 it3 != ifacePortMemberNet.end())
+            lc->Actual_group(it3->second); // share the io_decl's logic_net
         p->Low_conn(lc);
         // A PORT VIEW's header ports carry only LowConn + typedef; the actual
         // connection HighConn belongs to the HOME view only (Surelog).
