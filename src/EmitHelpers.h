@@ -677,6 +677,11 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) 
             return s.MakeShort_real_var();
         return s.MakeReal_var();
     }
+    // A packed array whose ELEMENT is a NAMED TYPEDEF (word[1:0]) is a
+    // packed_array_var; plain vectors (logic [1:0]) stay logic_vars.
+    if (ct.kind == SymbolKind::PackedArrayType &&
+        ct.as<PackedArrayType>().elementType.kind == SymbolKind::TypeAlias)
+        return s.MakePacked_array_var();
     // Signedness rides on the typespec, not the logic_var.
     return s.MakeLogic_var();
 }
