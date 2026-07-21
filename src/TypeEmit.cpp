@@ -1978,6 +1978,79 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             op->Operands(operands);
             return op;
         }
+        case syntax::SyntaxKind::ScopedName: {
+            // A dotted HIERARCHICAL name (B.y, blk[0].sub.x) in a DEF-view
+            // gen-block cont_assign: a hier_path built from the source text,
+            // mirroring the ELAB HierarchicalValue handler (ExprEmit). A
+            // package-scoped name (pkg::x) has no '.' -> <2 parts -> falls
+            // through to null (unchanged). syntaxRefPrefix is the enclosing
+            // gen-scope fullname (work@gen_test9.A); the leaf ref carries
+            // prefix.<leaf> (Surelog flattens intermediate blocks: A.y not
+            // A.B.y). Other (non-gen) callers have an empty/param prefix, so
+            // the leaf simply gets no fullname.
+            std::string raw = rawText(syn.sourceRange());
+            std::vector<std::pair<std::string, size_t>> parts;
+            {
+                size_t pos = 0;
+                while (pos <= raw.size()) {
+                    size_t dot = raw.find('.', pos);
+                    if (dot == std::string::npos)
+                        dot = raw.size();
+                    parts.emplace_back(raw.substr(pos, dot - pos), pos);
+                    if (dot == raw.size())
+                        break;
+                    pos = dot + 1;
+                }
+            }
+            if (parts.size() < 2)
+                return nullptr;
+            auto* hp = s.MakeHier_path();
+            hp->VpiName(raw);
+            hp->VpiFullName(raw);
+            hp->VpiParent(parent);
+            setLoc(hp, syn.sourceRange());
+            auto* elems = s.MakeAnyVec();
+            auto exprStart = syn.sourceRange().start();
+            std::string dottedSoFar;
+            for (size_t i = 0; i < parts.size(); i++) {
+                auto& [pname, off] = parts[i];
+                dottedSoFar += (i == 0 ? pname : "." + pname);
+                auto lb = pname.find('[');
+                auto rb = pname.find(']');
+                if (lb != std::string::npos && rb != std::string::npos &&
+                    rb > lb + 1 &&
+                    pname.find_first_not_of("0123456789", lb + 1) == rb) {
+                    std::string base = pname.substr(0, lb);
+                    std::string idx = pname.substr(lb + 1, rb - lb - 1);
+                    auto* bs = s.MakeBit_select();
+                    bs->VpiName(base);
+                    bs->VpiParent(hp);
+                    bs->VpiFullName(dottedSoFar);
+                    setLoc(bs, SourceRange(exprStart + off,
+                                           exprStart + off + base.size()));
+                    auto* c = s.MakeConstant();
+                    c->VpiDecompile(idx);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + idx);
+                    c->VpiConstType(vpiUIntConst);
+                    size_t digitOff = off + lb + 1;
+                    setLoc(c, SourceRange(exprStart + digitOff,
+                                          exprStart + digitOff + idx.size()));
+                    bs->VpiIndex(c);
+                    elems->push_back(bs);
+                    continue;
+                }
+                auto* r = s.MakeRef_obj();
+                r->VpiName(pname);
+                if (i + 1 == parts.size() && !syntaxRefPrefix.empty())
+                    r->VpiFullName(syntaxRefPrefix + "." + pname);
+                r->VpiParent(hp);
+                setLoc(r, SourceRange(exprStart + off, exprStart + off + pname.size()));
+                elems->push_back(r);
+            }
+            hp->Path_elems(elems);
+            return hp;
+        }
         default: {
             if (int32_t opType = mapSyntaxUnaryOp(syn.kind)) {
                 auto& ue = syn.as<syntax::PrefixUnaryExpressionSyntax>();
