@@ -97,7 +97,7 @@ throughout, no demotions, goldens 23/23):
 
 **Note on the non-top def-range fix (#6):** it makes the SHARED submodule port
 typespec symbolic, so ParameterOfSizeOfParametrizedPort's ELAB port range is
-now also symbolic (should fold per instance) — masked (test stayed DIFF, gate
+handled correctly (elab leftRanges match SL); the def range is the symbolic one. Gate
 clean, no CMP_ONLY->DIFF). The elab needs a FRESH folded port ts per instance
 (not the shared def one). Also elab is missing a logic_net(submodule.a).
 
