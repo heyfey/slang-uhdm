@@ -53,9 +53,19 @@ static bool hasStructFieldMember(const Symbol& sym) {
     if (!ct.isStruct())
         return false;
     for (auto& f : ct.as<Scope>().members())
-        if (f.kind == SymbolKind::Field &&
-            f.as<FieldSymbol>().getType().getCanonicalType().isStruct())
-            return true;
+        if (f.kind == SymbolKind::Field) {
+            auto& fct = f.as<FieldSymbol>().getType().getCanonicalType();
+            if (fct.isStruct())
+                return true;
+            // A packed-ARRAY-of-struct member also makes the net non-flat.
+            if (fct.kind == SymbolKind::PackedArrayType) {
+                const Type* el = &fct;
+                while (el->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                    el = &el->getCanonicalType().as<PackedArrayType>().elementType;
+                if (el->getCanonicalType().isStruct())
+                    return true;
+            }
+        }
     return false;
 }
 
