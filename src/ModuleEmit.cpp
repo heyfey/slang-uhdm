@@ -5623,9 +5623,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         setLoc(n, nameSpan(it.sym->location, it.sym->name));
         if (int32_t nt = netTypeFor(*it.sym))
             n->VpiNetType(nt);
-        // A struct-typed interface VARIABLE (p::req_t req) nets as a wire.
-        else if (it.sym->kind == SymbolKind::Variable && it.sym->getDeclaredType() &&
-                 it.sym->getDeclaredType()->getType().getCanonicalType().isStruct())
+        // A PACKAGE struct-typed interface VARIABLE (p::req_t req) nets as a
+        // wire; a $unit/module-scope struct typedef (req_t req) stays UNTYPED
+        // (Surelog) — same isPkgStructType gate as module struct nets.
+        else if (it.sym->kind == SymbolKind::Variable &&
+                 isPkgStructType(*it.sym) && !hasStructFieldMember(*it.sym))
             n->VpiNetType(vpiWire);
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
@@ -5968,7 +5970,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             sn->VpiName(name);
             sn->VpiFullName(fullName);
             sn->VpiParent(iface);
-            sn->VpiNetType(vpiWire);
+            // Only a PACKAGE struct interface signal nets as a wire; a
+            // $unit/module-scope struct typedef stays untyped (Surelog).
+            if (isPkgStructType(*it.sym) && !hasStructFieldMember(*it.sym))
+                sn->VpiNetType(vpiWire);
             setLoc(sn, nameSpan(it.sym->location, it.sym->name));
             // The elab view shares the TOP-view package typedef typespec.
             UHDM::typespec* ts = nullptr;
