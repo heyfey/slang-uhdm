@@ -20,15 +20,62 @@ static bool containsUserCall(const Expression& e) {
     return found;
 }
 
+// A module that IMPORTS (via wildcard or explicit import) and REFERENCES a
+// package parameter materializes it as a module-local parameter (Surelog sets
+// vpiImported = the package name). A QUALIFIED reference (pkg::P) with no
+// import does NOT materialize it (ParameterColonReference, PkgParamAsFunctionArg).
+static void collectImportedParams(const Scope& body,
+                                  std::vector<const ParameterSymbol*>& out) {
+    std::set<const Symbol*> wildcardPkgs; // packages wildcard-imported
+    std::set<const Symbol*> explicitSyms; // explicitly imported symbols
+    for (auto& m : body.members()) {
+        if (m.kind == SymbolKind::WildcardImport) {
+            if (auto* p = m.as<WildcardImportSymbol>().getPackage())
+                wildcardPkgs.insert(p);
+        }
+        else if (m.kind == SymbolKind::ExplicitImport) {
+            if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol())
+                explicitSyms.insert(imp);
+        }
+    }
+    if (wildcardPkgs.empty() && explicitSyms.empty())
+        return;
+    std::set<const Symbol*> seen;
+    auto v = makeVisitor([&](auto& vis, const NamedValueExpression& nv) {
+        if (nv.symbol.kind == SymbolKind::Parameter) {
+            auto sc = nv.symbol.getParentScope();
+            bool imported = explicitSyms.count(&nv.symbol) ||
+                            (sc && wildcardPkgs.count(&sc->asSymbol()));
+            if (imported && seen.insert(&nv.symbol).second)
+                out.push_back(&nv.symbol.as<ParameterSymbol>());
+        }
+        vis.visitDefault(nv);
+    });
+    for (auto& m : body.members()) {
+        if (m.kind == SymbolKind::ContinuousAssign)
+            m.as<ContinuousAssignSymbol>().getAssignment().visit(v);
+        else if (m.kind == SymbolKind::ProceduralBlock)
+            m.as<ProceduralBlockSymbol>().getBody().visit(v);
+    }
+}
+
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
                                   NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
                                   bool topShareTs, bool funcScope) {
     auto* params = s.MakeAnyVec();
     auto* passigns = s.MakeParam_assignVec();
-    for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::Parameter)
-            continue;
-        auto& ps = member.as<ParameterSymbol>();
+    std::vector<const ParameterSymbol*> paramSyms;
+    for (auto& member0 : body.members())
+        if (member0.kind == SymbolKind::Parameter)
+            paramSyms.push_back(&member0.as<ParameterSymbol>());
+    if (!inPackage && !funcScope)
+        collectImportedParams(body, paramSyms);
+    for (auto* psPtr : paramSyms) {
+        const Symbol& member = *psPtr;
+        auto& ps = *psPtr;
+        // Imported = the param belongs to ANOTHER scope (a package), not the
+        // body being emitted (a package emitting its own params is NOT that).
+        bool isImported = ps.getParentScope() != &body;
         // Instance overrides: the bound initializer's syntax is the
         // override expression at the instantiation, not the declaration
         // default. Both views keep DEFAULT-derived values; the instance
@@ -52,6 +99,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         up->VpiFullName(joinPath(prefix, ps.name));
         up->VpiParent(m);
         setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
+        if (isImported)
+            up->VpiImported(std::string(ps.getParentScope()->asSymbol().name));
 
         // Surelog reports vpiLocalParam by the WRITTEN keyword, not slang's
         // LRM-derived local flag: a module-BODY `parameter` (local per LRM
