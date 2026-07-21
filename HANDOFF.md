@@ -129,6 +129,16 @@ Next: FIND the untyped-param cont-assign fold that emits the located+typespec
 constant (grep for a fold at paramDefaultSyn w/o typedParamRhs) and truncate
 its value to ae.left() width. All 18 other module-views already match.
 
+**Open (2D-array member hier_path — SelectOnMemberSelectedFrom2DArray +
+IndexedPartSelectOfArrayElement):** `a[0][0].x[2]` (member access whose base
+is a 2-D packed-struct-array element select) — ours emits a flat
+`ref_obj (a[0][0])` where SL emits NESTED bit_selects (a[0] then a[0][0]).
+The ExprEmit ElementSelect member-base path (~1941) only fires when the
+base's esBottom is a NamedValue (single-dim `a[0].x[2]`); a 2-D base makes
+esBottom an ElementSelect, so it falls through. Fix: extend that path to walk
+a base ElementSelect chain and emit one bit_select per dim before the member
+elems (mirror emitMixedHierPath's baseSelMode).
+
 **Open (interface modport direction):** iface_modport_conn's instance-side
 interface port (ModuleEmit ~1783) hardcodes vpiInout(3); SL wants 1 for that
 `tcb_if.sub s` port. iface_modport_out already MATCHES (3,1,1,2), so the rule
