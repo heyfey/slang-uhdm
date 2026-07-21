@@ -2434,6 +2434,33 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         genPas->push_back(pa2);
                         genLpConst[&gm] = c2;
                     }
+                    else if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                        // NON-literal init (localparam PREV = i-1): param_assign
+                        // with the FOLDED signed constant at the init span.
+                        auto* pa2 = s.MakeParam_assign();
+                        pa2->VpiParent(gs);
+                        if (auto dsyn = ps.getSyntax();
+                            dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+                            setLoc(pa2, dsyn->sourceRange());
+                        auto* c2 = s.MakeConstant();
+                        int64_t sv = cv.integer().as<int64_t>().value_or(0);
+                        std::string sd = std::to_string(sv);
+                        c2->VpiDecompile(sd);
+                        c2->VpiSize((int32_t)ps.getType().getBitWidth());
+                        c2->VpiValue("INT:" + sd);
+                        c2->VpiConstType(vpiIntConst);
+                        setLoc(c2, lit.sourceRange);
+                        auto* crt = s.MakeRef_typespec();
+                        crt->VpiFullName(fullName);
+                        crt->VpiParent(c2);
+                        pendingGenLpTs.push_back({rt, crt, &ps, typedLp});
+                        rt = nullptr;
+                        c2->Typespec(crt);
+                        pa2->Rhs(c2);
+                        pa2->Lhs(up);
+                        genPas->push_back(pa2);
+                        genLpConst[&gm] = c2;
+                    }
                 }
                 if (rt)
                     pendingGenLpTs.push_back({rt, nullptr, &ps, typedLp});
