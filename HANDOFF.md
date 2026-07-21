@@ -67,6 +67,14 @@ throughout, no demotions, goldens 23/23):
   already keeps non-literal bounds unfolded (TypeEmit ~994-1004); the plain
   logic_typespec port-range path needs the same DEF-view gate. Both tests have
   further layers ($bits(a) param, param-substitution scoping) after this root.
+  - BLOCKER (tried + reverted): a `defPortDim` flag around emitModuleDefPorts's
+    emitPorts + a module-param detector in emitBound made BOTH def views
+    cmp-MATCH (r=0!) — but def & elab ports SHARE one typespec object (TsCache,
+    ModuleEmit ~781), so unfolding the def bound ALSO unfolds the ELAB port
+    range (SL folds it there), breaking 2 goldens (23->21). Fix needs SEPARATE
+    def vs elab port typespecs for module-param-dim ports (don't share the
+    TsCache entry) BEFORE gating the def bound symbolic. "Stays symbolic" gate =
+    the bound refs a non-local module `parameter` (localparam bounds fold).
 - **ParameterOfParametrizedType DEF-view share** (elab clone landed, 166->103).
   DEF-view param typed by a local vector typedef wants the SHARED typedef
   logic_typespec (NO alias); ELAB wants the aliased clone (done, in
