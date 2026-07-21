@@ -858,6 +858,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (!suppressConstParent && parent &&
                             parent->UhdmType() == UHDM::uhdmoperation)
                             c->VpiParent(parent);
+                        // SL carries the folded param's type as a ref_typespec
+                        // whose fullname is the enclosing (function) scope.
+                        auto* its = s.MakeInt_typespec();
+                        if (auto dt = psym.getDeclaredType())
+                            if (auto tsy = dt->getTypeSyntax())
+                                setLoc(its, tsy->sourceRange());
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiParent(c);
+                        rt->VpiFullName(prefix);
+                        rt->Actual_typespec(its);
+                        c->Typespec(rt);
                         return c;
                     }
                 }
@@ -1359,6 +1370,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     cts = ipts;
                                 }
                             }
+                        }
+                    }
+                    // In an elaborated gen-block function, a bare param cast
+                    // width folds to a SIZED integer_typespec (direct UINT
+                    // VpiValue), not a vpiExpr constant — the gen block is a
+                    // concrete instance so the width is known.
+                    if (!cts && inGenBlockFn &&
+                        seCore.kind == ExpressionKind::NamedValue &&
+                        seCore.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter) {
+                        auto& pv = seCore.as<NamedValueExpression>()
+                                       .symbol.as<ParameterSymbol>()
+                                       .getValue();
+                        if (pv.isInteger() && !pv.integer().hasUnknown()) {
+                            auto* its = s.MakeInteger_typespec();
+                            setLoc(its, lr);
+                            its->VpiValue(
+                                "UINT:" +
+                                pv.integer().toString(LiteralBase::Decimal, false));
+                            cts = its;
                         }
                     }
                     if (!cts) {

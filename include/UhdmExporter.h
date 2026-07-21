@@ -589,6 +589,11 @@ private:
     // NOT shared with the elab (child) port ts (that one is re-made folded);
     // a TOP def's ports are handled by the write-phase swap instead.
     bool defPortDim = false;
+    // Non-null while emitting a type bound for a local var of a function that
+    // lives in an elaborated GEN block: its module-param-ref bounds fold to
+    // their values (concrete instance). Set off declSymbol because the local
+    // var typespec drains in a deferred pass where currentSubSym is null.
+    const slang::ast::Scope* genBlockFnScope = nullptr;
     // True only while emitting a NAMED typedef's typespec: Surelog folds
     // type-query bounds ($bits(t)) there, but keeps them as sys_func_call in a
     // variable's inline/anonymous type. Gates the $bits fold in emitSyntaxExpr.

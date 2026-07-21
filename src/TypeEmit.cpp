@@ -42,6 +42,44 @@ static bool typeWidthUsesParam(const Symbol& sym) {
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
+    // A local var of a function inside an elaborated GEN block: fold its
+    // param-ref type bounds (concrete instance). declSymbol's parent chain
+    // reaches the function+gen-block even in the deferred typespec drain.
+    const Scope* savedGbf = genBlockFnScope;
+    {
+        bool inFn = false, inGen = false;
+        const Scope* fnScope = nullptr;
+        for (auto sc = declSymbol.getParentScope(); sc;
+             sc = sc->asSymbol().getParentScope()) {
+            auto k = sc->asSymbol().kind;
+            if (k == SymbolKind::Subroutine) {
+                inFn = true;
+                fnScope = sc;
+            }
+            if (k == SymbolKind::GenerateBlock ||
+                k == SymbolKind::GenerateBlockArray)
+                inGen = true;
+            if (k == SymbolKind::InstanceBody)
+                break;
+        }
+        // The function RETURN type keeps its param-ref bounds as refs (like a
+        // normal function type); only genuine LOCAL VARS fold. So exclude the
+        // subroutine's return-value var.
+        if (inFn && inGen && fnScope) {
+            auto& fnSym = fnScope->asSymbol();
+            const Symbol* retVar =
+                fnSym.kind == SymbolKind::Subroutine
+                    ? fnSym.as<SubroutineSymbol>().returnValVar
+                    : nullptr;
+            if (&declSymbol != retVar)
+                genBlockFnScope = fnScope;
+        }
+    }
+    struct GbfGuard {
+        const Scope*& slot;
+        const Scope* prev;
+        ~GbfGuard() { slot = prev; }
+    } gbfGuard{genBlockFnScope, savedGbf};
     auto declared = declSymbol.getDeclaredType();
     // Typedef'd declarations share the typedef's typespec object; anonymous
     // enums build an unnamed, unlocated enum_typespec per declaration.
@@ -1675,22 +1713,12 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             auto name = syn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
             // A module param identifier inside an elaborated GEN-BLOCK
             // function's type bound folds to its value (matching the ExprEmit
-            // fold) — the gen block is a concrete instance.
-            if (currentSubSym && currentScope) {
-                bool inGenFn = false;
-                for (auto gsc = currentSubSym->getParentScope(); gsc;
-                     gsc = gsc->asSymbol().getParentScope()) {
-                    auto gk = gsc->asSymbol().kind;
-                    if (gk == SymbolKind::GenerateBlock ||
-                        gk == SymbolKind::GenerateBlockArray) {
-                        inGenFn = true;
-                        break;
-                    }
-                    if (gk == SymbolKind::InstanceBody)
-                        break;
-                }
-                if (inGenFn) {
-                    ASTContext bctx(*currentScope, LookupLocation::max);
+            // fold) — the gen block is a concrete instance. genBlockFnScope is
+            // set off declSymbol in makeTypespec, so this works in the deferred
+            // typespec drain where currentSubSym is null.
+            if (genBlockFnScope) {
+                {
+                    ASTContext bctx(*genBlockFnScope, LookupLocation::max);
                     auto& be = Expression::bind(syn.as<syntax::ExpressionSyntax>(),
                                                 bctx);
                     if (!be.bad() && stripImplicitConv(be).kind ==
@@ -1711,6 +1739,16 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 c->VpiConstType(vpiUIntConst);
                                 c->VpiParent(parent);
                                 setLoc(c, syn.sourceRange());
+                                // SL carries the folded param's type as a
+                                // ref_typespec (no fullname in type context).
+                                auto* its = s.MakeInt_typespec();
+                                if (auto dt = psy.getDeclaredType())
+                                    if (auto tsy = dt->getTypeSyntax())
+                                        setLoc(its, tsy->sourceRange());
+                                auto* rt = s.MakeRef_typespec();
+                                rt->VpiParent(c);
+                                rt->Actual_typespec(its);
+                                c->Typespec(rt);
                                 return c;
                             }
                         }
