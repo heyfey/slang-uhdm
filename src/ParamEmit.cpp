@@ -119,6 +119,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             if (auto tsyn = declared->getTypeSyntax())
                 typedParam = tsyn->kind != syntax::SyntaxKind::ImplicitType;
         }
+        // An imported param's type syntax may not resolve from the importing
+        // module; fall back to a definite integral kind (int/scalar/vector).
+        if (isImported && !typedParam) {
+            auto& ct0 = ps.getType().getCanonicalType();
+            typedParam = ct0.kind == SymbolKind::PredefinedIntegerType ||
+                         ct0.kind == SymbolKind::ScalarType ||
+                         (ct0.kind == SymbolKind::PackedArrayType && ct0.isIntegral());
+        }
         bool wantTs = false;
         if (isLocal)
             up->VpiLocalParam(true);
@@ -728,6 +736,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             if (rhs) {
                 pa->Rhs(rhs);
+                // An IMPORTED param's def-view copy is a materialized (already
+                // resolved) param: its bare-decimal RHS folds to the type width
+                // (int -> 32), exactly like the elab view — NOT the package
+                // def's raw 64-bit bare decimal (Surelog sizes the copy, not
+                // the source literal).
+                if (isImported && !topView && typedParam &&
+                    rhs->UhdmType() == UHDM::uhdmconstant)
+                    ((UHDM::constant*)rhs)
+                        ->VpiSize((int32_t)ps.getType().getBitWidth());
                 if (inPackage && !topView && rhs->UhdmType() == UHDM::uhdmconstant)
                     pkgParamConst[&member] = (UHDM::constant*)rhs;
                 // Literal inits of typed params carry the param typespec
@@ -820,6 +837,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 syntaxRefPrefix = savedPfx2;
                 if (inPackage)
                     its->Instance((UHDM::instance*)m);
+                else if (isImported && ps.getParentScope()) {
+                    // An imported param's typespec is INSTANCED at its package.
+                    if (auto pit = pkgDefMap.find(&ps.getParentScope()->asSymbol());
+                        pit != pkgDefMap.end())
+                        its->Instance((UHDM::instance*)pit->second);
+                }
                 if (di)
                     di->paramTs[&member] = its;
                 if (rhsRt)
@@ -1160,6 +1183,12 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                 its->UhdmType() == UHDM::uhdmunion_typespec)
                 if (auto* par = up->VpiParent())
                     its->Instance((UHDM::instance*)par);
+            // An imported param's typespec is INSTANCED at its package.
+            if (ps->getParentScope() &&
+                ps->getParentScope()->asSymbol().kind == SymbolKind::Package)
+                if (auto pit = pkgDefMap.find(&ps->getParentScope()->asSymbol());
+                    pit != pkgDefMap.end())
+                    its->Instance((UHDM::instance*)pit->second);
         }
         syntaxRefPrefix = savedPfx2;
         if (rhsRt && !opClone) {
