@@ -752,6 +752,22 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 regions->push_back(gf);
                 continue;
             }
+            // An UNCONDITIONAL named generate block (generate begin : A ... end
+            // — not if/for) becomes a gen_region wrapping a named_begin that
+            // carries the label and the block contents (Surelog), not the empty
+            // placeholder begin below.
+            if (member.kind == SymbolKind::GenerateBlock) {
+                if (auto* gsyn = member.getSyntax();
+                    gsyn && gsyn->kind == syntax::SyntaxKind::GenerateBlock &&
+                    gsyn->as<syntax::GenerateBlockSyntax>().beginName) {
+                    auto* gr = s.MakeGen_region();
+                    gr->VpiParent(m);
+                    if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>()))
+                        gr->VpiStmt(b);
+                    regions->push_back(gr);
+                    continue;
+                }
+            }
             // Fallback placeholder: only ONCE per explicit generate region.
             const syntax::SyntaxNode* genRegion = nullptr;
             for (auto q = member.getSyntax(); q; q = q->parent)
