@@ -2213,7 +2213,6 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
     auto* children = s.MakeModule_instVec();
     auto* ifaceChildren = s.MakeInterface_instVec();
-    UHDM::VectorOfmodule_array* moduleArrays = nullptr;
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
@@ -2254,14 +2253,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         else if (member.kind == SymbolKind::InstanceArray) {
             auto& arr = member.as<InstanceArraySymbol>();
-            if (auto* ma = emitModuleArray(arr, m, prefix, topNets,
-                                           /*withInstances=*/false)) {
-                if (!moduleArrays)
-                    moduleArrays = s.MakeModule_arrayVec();
-                moduleArrays->push_back(ma);
-            }
-            // The elab view carries the per-index interface_inst elements under
-            // vpiInterface (not under the module_array — Surelog).
+            // The module_array object lives in the DEF view ONLY (emitModuleDef);
+            // the ELAB view carries just the per-index interface_inst elements
+            // under vpiInterface (Surelog — the elab dut has no vpiModuleArray).
             int32_t alo = std::min(arr.range.left, arr.range.right);
             for (size_t i = 0; i < arr.elements.size(); i++) {
                 auto* e = arr.elements[i];
@@ -2280,8 +2274,6 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     }
     if (!children->empty())
         m->Modules(children);
-    if (moduleArrays && !moduleArrays->empty())
-        m->Module_arrays(moduleArrays);
     if (!ifaceChildren->empty())
         m->Interfaces(ifaceChildren);
 
