@@ -2771,6 +2771,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
             }
             inAssignPattern = wasInPattern;
+            // A re-emitted (elab) PACKED-VECTOR param pattern stores its scalar
+            // operands LSB-first — reversed from source order — and flags
+            // vpiReordered (Surelog); the def view keeps source order.
+            if (inParamInit && !paramInitDef && expr.type &&
+                expr.type->isIntegral() && !expr.type->getCanonicalType().isScalar() &&
+                operands->size() > 1) {
+                std::reverse(operands->begin(), operands->end());
+                op->VpiReordered(1);
+                op->VpiSize(1);
+            }
             op->Operands(operands);
             return op;
         }

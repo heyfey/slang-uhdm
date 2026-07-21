@@ -746,7 +746,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 break;
                             }
                         }
-                    if (anyUnknown) {
+                    // A PACKED-ARRAY typed param's ASSIGNMENT-PATTERN op ('{..})
+                    // also carries a ts ref to the param's typespec (Surelog),
+                    // even when all its operands are known literals. A
+                    // CONCATENATION init ({a,b}) does NOT (PkgParamAsFunctionArg).
+                    bool packedArrayOp =
+                        ps.getType().getCanonicalType().isPackedArray() &&
+                        opr->VpiOpType() == vpiAssignmentPatternOp;
+                    if (anyUnknown || packedArrayOp) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
