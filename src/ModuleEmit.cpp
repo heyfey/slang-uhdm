@@ -2724,10 +2724,38 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // signals stay unbound (parentFull has a '.' once nested).
                 bool childGen = prefix.find('.') != std::string::npos ||
                                 parentFull.find('.') != std::string::npos;
-                if (streamRhs || childGen)
+                // A gen-scope cont_assign RHS with NO parameter reference
+                // leaves its WHOLE net refs unbound (Surelog); bit_selects
+                // still bind. A param-referencing RHS keeps binding/folding.
+                // Suppress (unbind whole net refs) UNLESS the RHS references a
+                // BINDABLE symbol: an OUTER (module) param, or a signal DRIVEN
+                // in this gen-scope (in genLhsSyms). A gen-block genvar and a
+                // read-only outer net (sel) do not count.
+                bool hasBindableRef = false;
+                ae.right().visit(makeVisitor(
+                    [&](auto& v, const NamedValueExpression& nvp) {
+                        if (nvp.symbol.kind == SymbolKind::Parameter) {
+                            for (auto sc0 = nvp.symbol.getParentScope(); sc0;
+                                 sc0 = sc0->asSymbol().getParentScope()) {
+                                auto sk = sc0->asSymbol().kind;
+                                if (sk == SymbolKind::GenerateBlock ||
+                                    sk == SymbolKind::GenerateBlockArray)
+                                    break;
+                                if (sk == SymbolKind::InstanceBody) {
+                                    hasBindableRef = true;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (genLhsSyms.count(&nvp.symbol))
+                            hasBindableRef = true;
+                        v.visitDefault(nvp);
+                    }));
+                bool suppress = streamRhs || childGen || !hasBindableRef;
+                if (suppress)
                     suppressRefActual = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
-                if (streamRhs || childGen)
+                if (suppress)
                     suppressRefActual = false;
             }
             if (rhs)
