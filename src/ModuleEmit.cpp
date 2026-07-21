@@ -2227,11 +2227,25 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             bindDisplayPath.clear();
         }
         else if (member.kind == SymbolKind::InstanceArray) {
-            if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
-                                           prefix, topNets, true)) {
+            auto& arr = member.as<InstanceArraySymbol>();
+            if (auto* ma = emitModuleArray(arr, m, prefix, topNets,
+                                           /*withInstances=*/false)) {
                 if (!moduleArrays)
                     moduleArrays = s.MakeModule_arrayVec();
                 moduleArrays->push_back(ma);
+            }
+            // The elab view carries the per-index interface_inst elements under
+            // vpiInterface (not under the module_array — Surelog).
+            int32_t alo = std::min(arr.range.left, arr.range.right);
+            for (size_t i = 0; i < arr.elements.size(); i++) {
+                auto* e = arr.elements[i];
+                if (!e || e->kind != SymbolKind::Instance ||
+                    !useInterfacePath(e->as<InstanceSymbol>()))
+                    continue;
+                std::string ipath = prefix + "." + std::string(arr.name) + "[" +
+                                    std::to_string(alo + (int32_t)i) + "]";
+                ifaceChildren->push_back(emitInterfaceInstance(
+                    e->as<InstanceSymbol>(), ipath, m, &topNets, &instRefs));
             }
         }
     }
