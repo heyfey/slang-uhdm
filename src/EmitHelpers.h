@@ -317,14 +317,24 @@ inline int32_t mapBinaryOp(BinaryOperator op) {
 // Collects one representative instance per definition, recursively.
 inline void collectDefs(const InstanceBodySymbol& body,
                         std::map<std::string, const InstanceSymbol*>& defs) {
-    for (auto& member : body.members()) {
+    // An INSTANCE ARRAY (myif arr[N], producer p[N]) is an InstanceArraySymbol
+    // whose elements are the per-index InstanceSymbols (or nested arrays) — its
+    // definition must be collected too, else the interface/module def is
+    // dropped from AllInterfaces/AllModules entirely.
+    std::function<void(const Symbol&)> visit = [&](const Symbol& member) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
             auto name = std::string(child.getDefinition().name);
             if (defs.emplace(name, &child).second)
                 collectDefs(child.body, defs);
         }
-    }
+        else if (member.kind == SymbolKind::InstanceArray) {
+            for (auto* e : member.as<InstanceArraySymbol>().elements)
+                visit(*e);
+        }
+    };
+    for (auto& member : body.members())
+        visit(member);
 }
 
 // Finds the named port connection syntax for a formal port name, so locations
