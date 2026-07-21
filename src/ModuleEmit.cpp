@@ -2178,7 +2178,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 auto* ii = emitInterfaceInstance(
                     conn.first->as<InstanceSymbol>(),
                     prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
-                    /*portView=*/&inst);
+                    /*portView=*/&inst, /*connModport=*/std::string(ip.modport));
                 // A port view is named by the PORT, not the connected instance.
                 ii->VpiName(std::string(portBase->name));
                 portIfaces->push_back(ii);
@@ -6039,7 +6039,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                           UHDM::module_inst* parentM,
                                                           NetMap* parentNets,
                                                           std::set<const Symbol*>* parentRefs,
-                                                          const InstanceSymbol* portView) {
+                                                          const InstanceSymbol* portView,
+                                                          const std::string& connModport) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;
@@ -6085,10 +6086,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         emitParameters(body, iface, prefix, netMap, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false);
     }
-    // A PORT VIEW lists each parameter TWICE at its DEFAULT value and
-    // carries NO param_assigns (Surelog quirk).
-    if (portView && iface->Parameters()) {
+    // EVERY port view carries NO param_assigns (Surelog quirk).
+    if (portView)
         iface->Param_assigns(nullptr);
+    // A PLAIN (non-modport) PORT VIEW additionally lists each parameter TWICE
+    // at its DEFAULT value. A MODPORT-qualified port view (myif.man b) keeps a
+    // single param.
+    if (portView && connModport.empty() && iface->Parameters()) {
         auto* plist = iface->Parameters();
         size_t n0 = plist->size();
         for (size_t i = 0; i < n0; i++) {
@@ -6327,6 +6331,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (member.kind != SymbolKind::Modport)
                 continue;
             auto& mp = member.as<ModportSymbol>();
+            // A MODPORT-qualified port view (myif.man b) carries ONLY the
+            // connected modport, not every modport the interface declares.
+            if (!connModport.empty() && mp.name != connModport)
+                continue;
             auto* umod = s.MakeModport();
             umod->VpiName(mp.name);
             umod->VpiParent(iface);
@@ -6382,6 +6390,32 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         mrt->Actual_typespec(mts);
                         sn2->Typespec(mrt);
                         io->Expr(sn2);
+                    }
+                    else if (mpp.internalSymbol) {
+                        // An interface-PORT modport member (clk/rst declared in
+                        // the iface header, not a local signal — so absent from
+                        // netMap): a fresh scalar logic_net whose fullname is
+                        // doubled through the modport and member
+                        // (prefix.<modport>.<member>.<member> — the same
+                        // Surelog quirk as the struct-member case above).
+                        auto& msym = *mpp.internalSymbol;
+                        std::string mname(msym.name);
+                        std::string dfull = prefix + "." + std::string(mp.name) +
+                                            "." + mname + "." + mname;
+                        auto* ln = s.MakeLogic_net();
+                        ln->VpiName(mname);
+                        ln->VpiFullName(dfull);
+                        ln->VpiParent(io);
+                        ln->VpiNetType(vpiNet); // 36 — SL's quirk for these
+                        setLoc(ln, nameSpan(msym.location, msym.name));
+                        if (auto* mts = makeTypespec(msym)) {
+                            auto* mrt = s.MakeRef_typespec();
+                            mrt->VpiFullName(dfull);
+                            mrt->VpiParent(ln);
+                            mrt->Actual_typespec(mts);
+                            ln->Typespec(mrt);
+                        }
+                        io->Expr(ln);
                     }
                 }
                 iodecls->push_back(io);
@@ -6546,7 +6580,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         if (auto it2 = netMap.find(internal); it2 != netMap.end())
             lc->Actual_group(it2->second);
         p->Low_conn(lc);
-        if (conn && parentNets) {
+        // A PORT VIEW's header ports carry only LowConn + typedef; the actual
+        // connection HighConn belongs to the HOME view only (Surelog).
+        if (conn && parentNets && !portView) {
             if (auto expr = connectionExpr(*conn)) {
                 refCollector = parentRefs;
                 forceConstParent = true;
