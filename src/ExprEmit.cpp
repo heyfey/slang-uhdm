@@ -788,6 +788,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (sc2->asSymbol().kind == SymbolKind::InstanceBody)
                             break;
                     }
+                    // An IMPORTED (unqualified) enum value keeps its ref bound
+                    // to the enum const (materialized like an imported param);
+                    // only a QUALIFIED pkg::VALUE reference folds to a constant.
+                    if (inPkg && expr.syntax &&
+                        expr.syntax->kind != syntax::SyntaxKind::ScopedName)
+                        inPkg = false;
                     // Only MODULE contexts fold; interfaces keep the ref.
                     if (inPkg) {
                         const UHDM::BaseClass* pw = parent;
