@@ -101,6 +101,34 @@ handled correctly (elab leftRanges match SL); the def range is the symbolic one.
 clean, no CMP_ONLY->DIFF). The elab needs a FRESH folded port ts per instance
 (not the shared def one). Also elab is missing a logic_net(submodule.a).
 
+**More block-2 wins (2026-07-21):**
+13. **Imported unqualified enum value keeps its ref_obj** (OneImport
+    DIFF->CMP_ONLY). Gate the package-enum-const fold on ScopedName syntax;
+    unqualified (imported) enum refs fall through to the general ref path
+    (binds enumConstMap, names work@mod.V). EnumConcat advanced 124->92.
+14. **Packed-array param assignment-pattern: op typespec + LSB-first reorder**
+    (ParameterPackedArraySurelogSubstitution + param_packed_array_subst pair
+    DIFF->CMP_ONLY). ParamEmit: a packed-array param's ASSIGNMENT-PATTERN op
+    (opType 75, not concat — PkgParamAsFunctionArg demotion pinned that) gets a
+    ref_typespec even w/ known operands. ExprEmit SimpleAssignmentPattern: elab
+    param patterns (inParamInit && !paramInitDef) of an integral non-scalar
+    type with >1 operand REVERSE operands + vpiReordered:1 + vpiSize:1.
+15. **selName** (mem_read_reg), **imported-untyped decl-span loc**
+    (fail_detect_width 116->53), **gen-block fn param fold** (CastInFunction-
+    InGenBlock 43->37).
+
+**Open (hana_test, 1-of-19-module-views from conversion!):** ONLY f6_test's
+elab `assign out = p` differs — p (untyped param, =10) folds to a size-32
+constant (value 10) but SL TRUNCATES to the 1-bit LHS `out` -> UINT:0 size 1,
+located at the param default (84:15) with a ref_typespec->int_typespec. It is
+NOT the 4020 typedParamRhs path (untyped p sets no typedParamRhs). Tried:
+(a) LHS-width trunc in the 4020 path (no-op, wrong path); (b) excluding the
+RHS from the shareWithDef def-cont-assign share (48->34 but the fresh fold
+STILL gives 10, not 0, + weak-tail int_typespec reorder) — both reverted.
+Next: FIND the untyped-param cont-assign fold that emits the located+typespec
+constant (grep for a fold at paramDefaultSyn w/o typedParamRhs) and truncate
+its value to ae.left() width. All 18 other module-views already match.
+
 **Open (interface modport direction):** iface_modport_conn's instance-side
 interface port (ModuleEmit ~1783) hardcodes vpiInout(3); SL wants 1 for that
 `tcb_if.sub s` port. iface_modport_out already MATCHES (3,1,1,2), so the rule
