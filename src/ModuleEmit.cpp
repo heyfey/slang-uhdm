@@ -1069,6 +1069,13 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             if (std::find(tds->begin(), tds->end(), (UHDM::typespec*)ts) == tds->end())
                 tds->push_back(ts);
         }
+        // The module's Typespecs list interleaves its own and imported
+        // typedefs NAME-SORTED (enum3 < pkg3::enum2 — Surelog).
+        if (tds)
+            std::stable_sort(tds->begin(), tds->end(),
+                             [](const UHDM::typespec* a, const UHDM::typespec* b) {
+                                 return a->VpiName() < b->VpiName();
+                             });
     }
     for (auto& mem : body.members()) {
         std::string pkgName;
