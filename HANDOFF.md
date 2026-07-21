@@ -80,6 +80,26 @@ throughout, no demotions, goldens 23/23):
 9. **Cross-package pkg-param ref in a package init keeps its ref_obj**
    (ModuleUsingStuctInput 98->74). paramInitPkg + ref pkg != current pkg
    (first ::-segment of prefix) -> doubled-scope ref_obj (pkg::otherpkg::P).
+10. **Hier_path range-select name drops source whitespace** (mem_read_reg
+    112->88). selName() helper strips spaces/tabs from the rawText used for
+    hier_path range names (sub.req.wdt[ 7: 0] -> [7:0]).
+11. **Module param in an elaborated gen-block function folds** (CastInFunc-
+    tionInGenBlock 43->37). ExprEmit NamedValue + emitSyntaxExpr IdentifierName,
+    gated on currentSubSym having a GenerateBlock ancestor. OPEN: the LOCAL-VAR
+    range bound [PtrWidth-1:0] emits in a DEFERRED typespec pass (currentSubSym
+    null) so it stays a ref — thread the gen-fn ctx into pendingNetTs; plus the
+    folded constants need a vpiTypespec.
+12. **Imported UNTYPED param typespec locates at the decl span** (fail_detect_-
+    width 116->53). makeParamTs: typedParam+ImplicitType (imported fallback)
+    uses the ParameterDeclaration span, not the empty implicit-type span.
+    fail_detect_width still DIFF (small t2254 int-vs-logic_typespec + design
+    package-ref layer).
+
+**Note on the non-top def-range fix (#6):** it makes the SHARED submodule port
+typespec symbolic, so ParameterOfSizeOfParametrizedPort's ELAB port range is
+now also symbolic (should fold per instance) — masked (test stayed DIFF, gate
+clean, no CMP_ONLY->DIFF). The elab needs a FRESH folded port ts per instance
+(not the shared def one). Also elab is missing a logic_net(submodule.a).
 
 **Open (interface modport direction):** iface_modport_conn's instance-side
 interface port (ModuleEmit ~1783) hardcodes vpiInout(3); SL wants 1 for that
