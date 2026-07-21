@@ -1672,8 +1672,52 @@ static int32_t mapSyntaxBinOp(syntax::SyntaxKind k) {
 UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::BaseClass* parent) {
     switch (syn.kind) {
         case syntax::SyntaxKind::IdentifierName: {
-            auto* ref = s.MakeRef_obj();
             auto name = syn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            // A module param identifier inside an elaborated GEN-BLOCK
+            // function's type bound folds to its value (matching the ExprEmit
+            // fold) — the gen block is a concrete instance.
+            if (currentSubSym && currentScope) {
+                bool inGenFn = false;
+                for (auto gsc = currentSubSym->getParentScope(); gsc;
+                     gsc = gsc->asSymbol().getParentScope()) {
+                    auto gk = gsc->asSymbol().kind;
+                    if (gk == SymbolKind::GenerateBlock ||
+                        gk == SymbolKind::GenerateBlockArray) {
+                        inGenFn = true;
+                        break;
+                    }
+                    if (gk == SymbolKind::InstanceBody)
+                        break;
+                }
+                if (inGenFn) {
+                    ASTContext bctx(*currentScope, LookupLocation::max);
+                    auto& be = Expression::bind(syn.as<syntax::ExpressionSyntax>(),
+                                                bctx);
+                    if (!be.bad() && stripImplicitConv(be).kind ==
+                                         ExpressionKind::NamedValue) {
+                        auto& psy =
+                            stripImplicitConv(be).as<NamedValueExpression>().symbol;
+                        if (psy.kind == SymbolKind::Parameter) {
+                            auto& cv = psy.as<ParameterSymbol>().getValue();
+                            if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                                auto* c = s.MakeConstant();
+                                std::string digits = cv.integer().toString(
+                                    LiteralBase::Decimal, false);
+                                c->VpiDecompile(digits);
+                                c->VpiSize((int32_t)psy.as<ParameterSymbol>()
+                                               .getType()
+                                               .getBitWidth());
+                                c->VpiValue("UINT:" + digits);
+                                c->VpiConstType(vpiUIntConst);
+                                c->VpiParent(parent);
+                                setLoc(c, syn.sourceRange());
+                                return c;
+                            }
+                        }
+                    }
+                }
+            }
+            auto* ref = s.MakeRef_obj();
             ref->VpiName(name);
             if (!syntaxRefPrefix.empty())
                 ref->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(name));

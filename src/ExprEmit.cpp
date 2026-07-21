@@ -821,6 +821,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                 }
+                // A MODULE parameter referenced inside an elaborated GEN-BLOCK
+                // function folds to its value (the gen block is a concrete
+                // instance), unlike a plain-module function which keeps the ref
+                // (tfContext). Carries the param's type as a ref_typespec.
+                if (nv.symbol.kind == SymbolKind::Parameter && currentSubSym) {
+                    bool inGenFn = false;
+                    for (auto gsc = currentSubSym->getParentScope(); gsc;
+                         gsc = gsc->asSymbol().getParentScope()) {
+                        auto gk = gsc->asSymbol().kind;
+                        if (gk == SymbolKind::GenerateBlock ||
+                            gk == SymbolKind::GenerateBlockArray) {
+                            inGenFn = true;
+                            break;
+                        }
+                        if (gk == SymbolKind::InstanceBody)
+                            break;
+                    }
+                    auto& psym = nv.symbol.as<ParameterSymbol>();
+                    auto& cv = psym.getValue();
+                    if (inGenFn && cv.isInteger() && !cv.integer().hasUnknown()) {
+                        auto* c = s.MakeConstant();
+                        std::string digits =
+                            cv.integer().toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(digits);
+                        c->VpiSize((int32_t)psym.getType().getBitWidth());
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        setLoc(c, expr.sourceRange);
+                        if (!suppressConstParent && parent &&
+                            parent->UhdmType() == UHDM::uhdmoperation)
+                            c->VpiParent(parent);
+                        return c;
+                    }
+                }
                 ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                 if (suppressRefActual) {
                     // Gen-scope process ref: left unbound.
