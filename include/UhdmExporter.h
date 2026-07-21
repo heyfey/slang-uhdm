@@ -600,6 +600,10 @@ private:
     // their values (concrete instance). Set off declSymbol because the local
     // var typespec drains in a deferred pass where currentSubSym is null.
     const slang::ast::Scope* genBlockFnScope = nullptr;
+    // True while emitting a PROCESS body inside an elaborated gen-scope: a
+    // module-param ref folds to its value (the gen block is a concrete
+    // instance), like the gen-block-function case.
+    bool inGenScopeProc = false;
     // True only while emitting a NAMED typedef's typespec: Surelog folds
     // type-query bounds ($bits(t)) there, but keeps them as sys_func_call in a
     // variable's inline/anonymous type. Gates the $bits fold in emitSyntaxExpr.

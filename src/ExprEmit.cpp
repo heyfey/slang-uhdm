@@ -831,10 +831,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // function folds to its value (the gen block is a concrete
                 // instance), unlike a plain-module function which keeps the ref
                 // (tfContext). Carries the param's type as a ref_typespec.
-                if (nv.symbol.kind == SymbolKind::Parameter && currentSubSym) {
-                    bool inGenFn = false;
-                    for (auto gsc = currentSubSym->getParentScope(); gsc;
-                         gsc = gsc->asSymbol().getParentScope()) {
+                if (nv.symbol.kind == SymbolKind::Parameter &&
+                    (currentSubSym || inGenScopeProc)) {
+                    bool inGenFn = inGenScopeProc;
+                    for (auto gsc = currentSubSym ? currentSubSym->getParentScope()
+                                                  : nullptr;
+                         gsc && !inGenFn; gsc = gsc->asSymbol().getParentScope()) {
                         auto gk = gsc->asSymbol().kind;
                         if (gk == SymbolKind::GenerateBlock ||
                             gk == SymbolKind::GenerateBlockArray) {
@@ -843,6 +845,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         if (gk == SymbolKind::InstanceBody)
                             break;
+                    }
+                    // A gen-scope PROCESS folds only MODULE params (declared
+                    // in the InstanceBody), NOT gen-block-local genvars /
+                    // localparams — those keep their existing handling (folding
+                    // the genvar regressed async_reset_partsel/simple_generate).
+                    if (inGenScopeProc && !currentSubSym) {
+                        bool moduleParam = false;
+                        for (auto sc0 = nv.symbol.getParentScope(); sc0;
+                             sc0 = sc0->asSymbol().getParentScope()) {
+                            auto sk = sc0->asSymbol().kind;
+                            if (sk == SymbolKind::GenerateBlock ||
+                                sk == SymbolKind::GenerateBlockArray)
+                                break;
+                            if (sk == SymbolKind::InstanceBody) {
+                                moduleParam = true;
+                                break;
+                            }
+                        }
+                        if (!moduleParam)
+                            inGenFn = false;
                     }
                     auto& psym = nv.symbol.as<ParameterSymbol>();
                     auto& cv = psym.getValue();
