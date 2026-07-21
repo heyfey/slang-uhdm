@@ -56,6 +56,26 @@ throughout, no demotions, goldens 23/23):
 **Method note (holds):** every regression above was the informative experiment
 — diff the demoted DUT vs the helped DUT, the difference IS the gate.
 
+**Open cluster-roots decoded this session (resume here):**
+- **DEF-view port range with an overridable module param folds when it should
+  stay symbolic** (cluster: ParameterOfSizeOfParametrizedPortInSubmodule 4:18,
+  ReplicationPassedToInstance 5:11). `output logic [X-1:0] a` where X is a
+  module parameter (default OR no-default): the DEF (unelaborated) view keeps
+  `X-1` as an OPERATION (X unresolved / overridable); ours folds it to a
+  constant using the default. The range-bound fold path in TypeEmit chooses
+  makeBoundConst (folded) vs emitSyntaxExpr (unfolded) — the enum base ts
+  already keeps non-literal bounds unfolded (TypeEmit ~994-1004); the plain
+  logic_typespec port-range path needs the same DEF-view gate. Both tests have
+  further layers ($bits(a) param, param-substitution scoping) after this root.
+- **ParameterOfParametrizedType DEF-view share** (elab clone landed, 166->103).
+  DEF-view param typed by a local vector typedef wants the SHARED typedef
+  logic_typespec (NO alias); ELAB wants the aliased clone (done, in
+  makeParamTs). Routing the def param through deferAggTs->drainDefParamTs
+  (direct-share) interfered with the elab clone (shared object re-point) — the
+  def needs its own share without disturbing typedefTs[ta]. Next: give the def
+  param a fresh NON-aliased clone (or a copy) instead of sharing typedefTs[ta]
+  directly.
+
 ## Session 13 (fable, autonomous, 2026-07-20) — systematic-root + gen_for
 
 **FINAL: PASS 391 / CMP_ONLY 58 / DIFF 212** (session start: 388/48/225;
