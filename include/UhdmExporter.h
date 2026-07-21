@@ -333,9 +333,11 @@ private:
     int32_t interfacePortDirection(
         const slang::ast::InterfacePortSymbol& ip);
     // A module_array (vpiModuleArray) for an interface/module instance array.
+    // withInstances: the elab view carries the per-index interface_inst
+    // elements; the def view omits them (Surelog).
     UHDM::module_array* emitModuleArray(
         const slang::ast::InstanceArraySymbol& arr, UHDM::module_inst* m,
-        const std::string& prefix, NetMap& nets);
+        const std::string& prefix, NetMap& nets, bool withInstances);
     void noteUnsupported(const std::string& what);
 
     slang::ast::Compilation& comp;

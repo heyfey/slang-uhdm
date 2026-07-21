@@ -802,7 +802,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
 UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr,
                                                   UHDM::module_inst* m,
                                                   const std::string& prefix,
-                                                  NetMap& nets) {
+                                                  NetMap& nets,
+                                                  bool withInstances) {
     const InstanceSymbol* rep = nullptr;
     for (auto* e : arr.elements)
         if (e && e->kind == SymbolKind::Instance) {
@@ -895,20 +896,22 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     }
     if (!mports->empty())
         ma->Ports(mports);
-    int32_t lo = std::min(arr.range.left, arr.range.right);
-    auto* insts = s.MakeInstanceVec();
-    std::set<const Symbol*> arrRefs;
-    for (size_t i = 0; i < arr.elements.size(); i++) {
-        auto* e = arr.elements[i];
-        if (!e || e->kind != SymbolKind::Instance)
-            continue;
-        std::string ipath = prefix + "." + std::string(arr.name) + "[" +
-                            std::to_string(lo + (int32_t)i) + "]";
-        insts->push_back(emitInterfaceInstance(e->as<InstanceSymbol>(), ipath, m,
-                                               &nets, &arrRefs));
+    if (withInstances) {
+        int32_t lo = std::min(arr.range.left, arr.range.right);
+        auto* insts = s.MakeInstanceVec();
+        std::set<const Symbol*> arrRefs;
+        for (size_t i = 0; i < arr.elements.size(); i++) {
+            auto* e = arr.elements[i];
+            if (!e || e->kind != SymbolKind::Instance)
+                continue;
+            std::string ipath = prefix + "." + std::string(arr.name) + "[" +
+                                std::to_string(lo + (int32_t)i) + "]";
+            insts->push_back(emitInterfaceInstance(e->as<InstanceSymbol>(),
+                                                   ipath, m, &nets, &arrRefs));
+        }
+        if (!insts->empty())
+            ma->Instances(insts);
     }
-    if (!insts->empty())
-        ma->Instances(insts);
     return ma;
 }
 
@@ -947,7 +950,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::InstanceArray) {
             if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
-                                           prefix, info.nets)) {
+                                           prefix, info.nets, false)) {
                 if (!moduleArrays)
                     moduleArrays = s.MakeModule_arrayVec();
                 moduleArrays->push_back(ma);
@@ -1018,6 +1021,35 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                                                       "." + std::string(conn->port.name)
                                                 : prefix,
                                             info.nets)) {
+                    // An interface-ARRAY element connection (.b(arr[0])) is a
+                    // bit_select on the module_array, named by the array and
+                    // scoped by the child instance (work@dut.p0.arr) — Surelog.
+                    if (conn->port.kind == SymbolKind::InterfacePort &&
+                        h->UhdmType() == UHDM::uhdmref_obj) {
+                        std::string rn(((UHDM::ref_obj*)h)->VpiName());
+                        if (auto lb = rn.find('[');
+                            lb != std::string::npos && !rn.empty() &&
+                            rn.back() == ']') {
+                            std::string base = rn.substr(0, lb);
+                            std::string idxS =
+                                rn.substr(lb + 1, rn.size() - lb - 2);
+                            auto* bs = s.MakeBit_select();
+                            bs->VpiName(base);
+                            bs->VpiFullName(prefix + "." + std::string(child.name) +
+                                            "." + base);
+                            bs->VpiParent(p);
+                            setLoc(bs, expr->sourceRange);
+                            auto* ic = s.MakeConstant();
+                            ic->VpiValue("UINT:" + idxS);
+                            ic->VpiDecompile(idxS);
+                            ic->VpiSize(64);
+                            ic->VpiConstType(vpiUIntConst);
+                            ic->VpiParent(bs);
+                            setLoc(ic, expr->sourceRange);
+                            bs->VpiIndex(ic);
+                            h = bs;
+                        }
+                    }
                     if (conn->port.kind == SymbolKind::InterfacePort &&
                         h->UhdmType() == UHDM::uhdmref_obj) {
                         if (auto cc =
@@ -2196,7 +2228,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         else if (member.kind == SymbolKind::InstanceArray) {
             if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
-                                           prefix, topNets)) {
+                                           prefix, topNets, true)) {
                 if (!moduleArrays)
                     moduleArrays = s.MakeModule_arrayVec();
                 moduleArrays->push_back(ma);
