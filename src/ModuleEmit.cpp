@@ -2369,6 +2369,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 }
             if (realLp) {
                 setLoc(up, nameSpan(ps.location, ps.name));
+                // A SIGNED-typed gen-scope localparam (localparam int Offset)
+                // carries vpiSigned (Surelog).
+                if (ps.getType().getCanonicalType().isSigned())
+                    up->VpiSigned(true);
                 if (auto init = ps.getInitializer()) {
                     auto& lit = stripImplicitConv(*init);
                     std::string raw = rawText(lit.sourceRange);
@@ -2447,8 +2451,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         std::string sd = std::to_string(sv);
                         c2->VpiDecompile(sd);
                         c2->VpiSize((int32_t)ps.getType().getBitWidth());
-                        c2->VpiValue("INT:" + sd);
-                        c2->VpiConstType(vpiIntConst);
+                        // Negative folds encode INT (signed); non-negative UINT.
+                        if (sv < 0) {
+                            c2->VpiValue("INT:" + sd);
+                            c2->VpiConstType(vpiIntConst);
+                        }
+                        else {
+                            c2->VpiValue("UINT:" + sd);
+                            c2->VpiConstType(vpiUIntConst);
+                        }
                         setLoc(c2, lit.sourceRange);
                         auto* crt = s.MakeRef_typespec();
                         crt->VpiFullName(fullName);
