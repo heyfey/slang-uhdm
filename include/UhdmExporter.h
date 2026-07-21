@@ -25,6 +25,7 @@ class AssertionExpr;
 class ProceduralBlockSymbol;
 class PortSymbol;
 class InterfacePortSymbol;
+class InstanceArraySymbol;
 class ParameterSymbol;
 class PackageSymbol;
 class Scope;
@@ -331,6 +332,10 @@ private:
     // vpiDirection for a modport interface port (Surelog rule).
     int32_t interfacePortDirection(
         const slang::ast::InterfacePortSymbol& ip);
+    // A module_array (vpiModuleArray) for an interface/module instance array.
+    UHDM::module_array* emitModuleArray(
+        const slang::ast::InstanceArraySymbol& arr, UHDM::module_inst* m,
+        const std::string& prefix, NetMap& nets);
     void noteUnsupported(const std::string& what);
 
     slang::ast::Compilation& comp;

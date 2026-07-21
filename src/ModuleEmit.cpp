@@ -795,6 +795,123 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     return m;
 }
 
+// An INSTANCE ARRAY (myif arr[N]) is a module_array (vpiModuleArray) — the
+// def module_typespec as element type, the array range, broadcast port
+// connections (HighConn ref_obj -> the parent net), and the per-index
+// interface instances. Surelog emits it in BOTH the def and elab views.
+UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr,
+                                                  UHDM::module_inst* m,
+                                                  const std::string& prefix,
+                                                  NetMap& nets) {
+    const InstanceSymbol* rep = nullptr;
+    for (auto* e : arr.elements)
+        if (e && e->kind == SymbolKind::Instance) {
+            rep = &e->as<InstanceSymbol>();
+            break;
+        }
+    if (!rep || !useInterfacePath(*rep))
+        return nullptr;
+    auto& adef = rep->getDefinition();
+    auto* ma = s.MakeModule_array();
+    ma->VpiName(arr.name);
+    ma->VpiFullName("work@" + std::string(adef.name));
+    ma->VpiParent(m);
+    setLoc(ma, SourceRange(arr.location, arr.location + arr.name.size()));
+    // Range bounds keep their SOURCE op-form (arr[2-1:0] -> LeftRange = op 2-1)
+    // via emitSyntaxExpr; fall back to the folded constant if no syntax.
+    const syntax::ExpressionSyntax* leftSyn = nullptr;
+    const syntax::ExpressionSyntax* rightSyn = nullptr;
+    if (auto* asyn = arr.getSyntax();
+        asyn && asyn->kind == syntax::SyntaxKind::HierarchicalInstance) {
+        if (auto* decl = asyn->as<syntax::HierarchicalInstanceSyntax>().decl;
+            decl && !decl->dimensions.empty()) {
+            auto* dim = *decl->dimensions.begin();
+            if (dim->specifier &&
+                dim->specifier->kind ==
+                    syntax::SyntaxKind::RangeDimensionSpecifier) {
+                auto& spec =
+                    dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>();
+                if (spec.selector->kind == syntax::SyntaxKind::SimpleRangeSelect) {
+                    auto& sel = spec.selector->as<syntax::RangeSelectSyntax>();
+                    leftSyn = sel.left;
+                    rightSyn = sel.right;
+                }
+            }
+        }
+    }
+    auto* rng = s.MakeRange();
+    rng->VpiParent(ma);
+    auto mkBound = [&](const syntax::ExpressionSyntax* bs, int32_t v) -> UHDM::expr* {
+        if (bs) {
+            std::string sp = syntaxRefPrefix;
+            syntaxRefPrefix = prefix;
+            auto* e = emitSyntaxExpr(*bs, rng);
+            syntaxRefPrefix = sp;
+            if (e)
+                return (UHDM::expr*)e;
+        }
+        auto* c = s.MakeConstant();
+        c->VpiDecompile(std::to_string(v));
+        c->VpiSize(64);
+        c->VpiValue("UINT:" + std::to_string(v));
+        c->VpiConstType(vpiUIntConst);
+        c->VpiParent(rng);
+        return c;
+    };
+    rng->Left_expr(mkBound(leftSyn, arr.range.left));
+    rng->Right_expr(mkBound(rightSyn, arr.range.right));
+    auto* rvec = s.MakeRangeVec();
+    rvec->push_back(rng);
+    ma->Ranges(rvec);
+    auto* mts = s.MakeModule_typespec();
+    mts->VpiName(adef.name);
+    auto* ert = s.MakeRef_typespec();
+    ert->VpiFullName(prefix + "." + std::string(arr.name));
+    ert->VpiParent(ma);
+    ert->Actual_typespec(mts);
+    ma->Elem_typespec(ert);
+    auto* mports = s.MakePortVec();
+    for (auto conn : rep->getPortConnections()) {
+        auto* ax = connectionExpr(*conn);
+        if (!ax || ax->kind != ExpressionKind::NamedValue)
+            continue;
+        auto& nv = ax->as<NamedValueExpression>();
+        auto* p = s.MakePort();
+        p->VpiName(conn->port.name);
+        p->VpiParent(ma);
+        if (auto npc = findConnSyntax(*rep, conn->port.name))
+            setLoc(p, npc->sourceRange());
+        auto* r = s.MakeRef_obj();
+        r->VpiName(nv.symbol.name);
+        r->VpiFullName(prefix + "." + std::string(arr.name) + "." +
+                       std::string(conn->port.name) + "." +
+                       std::string(nv.symbol.name));
+        r->VpiParent(p);
+        setLoc(r, ax->sourceRange);
+        if (auto nit = nets.find(&nv.symbol); nit != nets.end())
+            r->Actual_group(nit->second);
+        p->High_conn(r);
+        mports->push_back(p);
+    }
+    if (!mports->empty())
+        ma->Ports(mports);
+    int32_t lo = std::min(arr.range.left, arr.range.right);
+    auto* insts = s.MakeInstanceVec();
+    std::set<const Symbol*> arrRefs;
+    for (size_t i = 0; i < arr.elements.size(); i++) {
+        auto* e = arr.elements[i];
+        if (!e || e->kind != SymbolKind::Instance)
+            continue;
+        std::string ipath = prefix + "." + std::string(arr.name) + "[" +
+                            std::to_string(lo + (int32_t)i) + "]";
+        insts->push_back(emitInterfaceInstance(e->as<InstanceSymbol>(), ipath, m,
+                                               &nets, &arrRefs));
+    }
+    if (!insts->empty())
+        ma->Instances(insts);
+    return ma;
+}
+
 // Encounter-phase def artifacts: ports, child stubs, imports. (Content is
 // compiled for every def before any instance; see exportDesign.)
 UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
@@ -826,7 +943,17 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
     // Child instance references (def view uses ref_module stubs; bound
     // instances are skipped in the def view).
     auto* refmods = s.MakeRef_moduleVec();
+    UHDM::VectorOfmodule_array* moduleArrays = nullptr;
     for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::InstanceArray) {
+            if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
+                                           prefix, info.nets)) {
+                if (!moduleArrays)
+                    moduleArrays = s.MakeModule_arrayVec();
+                moduleArrays->push_back(ma);
+            }
+            continue;
+        }
         if (member.kind != SymbolKind::Instance)
             continue;
         auto& child = member.as<InstanceSymbol>();
@@ -959,6 +1086,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
     }
     if (!refmods->empty())
         m->Ref_modules(refmods);
+    if (moduleArrays && !moduleArrays->empty())
+        m->Module_arrays(moduleArrays);
 
     emitImportArtifacts(body, m);
 
@@ -2026,6 +2155,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
     auto* children = s.MakeModule_instVec();
     auto* ifaceChildren = s.MakeInterface_instVec();
+    UHDM::VectorOfmodule_array* moduleArrays = nullptr;
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
@@ -2064,9 +2194,19 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                              &topNets, &instRefs, /*isTop=*/false));
             bindDisplayPath.clear();
         }
+        else if (member.kind == SymbolKind::InstanceArray) {
+            if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
+                                           prefix, topNets)) {
+                if (!moduleArrays)
+                    moduleArrays = s.MakeModule_arrayVec();
+                moduleArrays->push_back(ma);
+            }
+        }
     }
     if (!children->empty())
         m->Modules(children);
+    if (moduleArrays && !moduleArrays->empty())
+        m->Module_arrays(moduleArrays);
     if (!ifaceChildren->empty())
         m->Interfaces(ifaceChildren);
 
