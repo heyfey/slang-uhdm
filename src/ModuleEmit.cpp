@@ -1625,6 +1625,47 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // A packed-struct signal WITH an initializer is a struct_VAR
             // (the init becomes its vpiExpr, operands unparented), spanning
             // the declarator name.
+            // A pkg-typedef struct with a packed-ARRAY-of-struct member
+            // elaborates as a struct_var (ts ref -> the shared pkg TOP ts);
+            // direct-struct containers stay untyped logic_nets.
+            bool arrOfStructMember = false;
+            if (auto dtA = it.sym->getDeclaredType()) {
+                auto& ctA = dtA->getType().getCanonicalType();
+                if (ctA.isStruct())
+                    for (auto& fA : ctA.as<Scope>().members())
+                        if (fA.kind == SymbolKind::Field) {
+                            auto& fct = fA.as<FieldSymbol>()
+                                            .getType()
+                                            .getCanonicalType();
+                            if (fct.kind == SymbolKind::PackedArrayType) {
+                                const Type* el = &fct;
+                                while (el->getCanonicalType().kind ==
+                                       SymbolKind::PackedArrayType)
+                                    el = &el->getCanonicalType()
+                                              .as<PackedArrayType>()
+                                              .elementType;
+                                if (el->getCanonicalType().isStruct())
+                                    arrOfStructMember = true;
+                            }
+                        }
+            }
+            if (isStruct && arrOfStructMember && isPkgStructType(*it.sym) &&
+                !it.sym->getDeclaredType()->getInitializer()) {
+                auto* sv = s.MakeStruct_var();
+                sv->VpiName(name);
+                sv->VpiFullName(fullName);
+                sv->VpiParent(m);
+                setLoc(sv, nameSpan(it.sym->location, it.sym->name));
+                sv->VpiVisibility(1);
+                if (rt) {
+                    rt->VpiParent(sv);
+                    sv->Typespec(rt);
+                }
+                topNets[it.sym] = sv;
+                sigOrder.emplace_back(it.sym, sv);
+                vars->push_back(sv);
+                continue;
+            }
             if (isStruct && it.sym->getDeclaredType()->getInitializer()) {
                 auto* sv = s.MakeStruct_var();
                 sv->VpiName(name);
