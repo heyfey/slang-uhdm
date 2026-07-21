@@ -2104,7 +2104,33 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     p->High_conn(hp);
                 }
                 else if (conn.first) {
-                    if (auto iit = ifaceInstMap.find(conn.first);
+                    // An interface-ARRAY element connection (.b(arr[0])): a
+                    // bit_select named by the array, scoped by this producer
+                    // instance (work@dut.p0.arr), index = the element constant.
+                    std::string::size_type albr;
+                    if ((albr = connRaw.find('[')) != std::string::npos &&
+                        !connRaw.empty() && connRaw.back() == ']') {
+                        std::string base = connRaw.substr(0, albr);
+                        std::string idxS =
+                            connRaw.substr(albr + 1, connRaw.size() - albr - 2);
+                        auto* bs = s.MakeBit_select();
+                        bs->VpiName(base);
+                        bs->VpiFullName(prefix + "." + base);
+                        bs->VpiParent(p);
+                        if (iconn && connectionExpr(*iconn))
+                            setLoc(bs, connectionExpr(*iconn)->sourceRange);
+                        auto* ic = s.MakeConstant();
+                        ic->VpiValue("UINT:" + idxS);
+                        ic->VpiDecompile(idxS);
+                        ic->VpiSize(64);
+                        ic->VpiConstType(vpiUIntConst);
+                        ic->VpiParent(bs);
+                        if (iconn && connectionExpr(*iconn))
+                            setLoc(ic, connectionExpr(*iconn)->sourceRange);
+                        bs->VpiIndex(ic);
+                        p->High_conn(bs);
+                    }
+                    else if (auto iit = ifaceInstMap.find(conn.first);
                         iit != ifaceInstMap.end()) {
                         auto* hc = s.MakeRef_obj();
                         hc->VpiName(conn.first->name);
@@ -2242,10 +2268,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 if (!e || e->kind != SymbolKind::Instance ||
                     !useInterfacePath(e->as<InstanceSymbol>()))
                     continue;
-                std::string ipath = prefix + "." + std::string(arr.name) + "[" +
+                std::string iname = std::string(arr.name) + "[" +
                                     std::to_string(alo + (int32_t)i) + "]";
-                ifaceChildren->push_back(emitInterfaceInstance(
-                    e->as<InstanceSymbol>(), ipath, m, &topNets, &instRefs));
+                std::string ipath = prefix + "." + iname;
+                auto* ii = emitInterfaceInstance(e->as<InstanceSymbol>(), ipath,
+                                                 m, &topNets, &instRefs);
+                ii->VpiName(iname);
+                ifaceChildren->push_back(ii);
             }
         }
     }
