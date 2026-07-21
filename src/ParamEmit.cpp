@@ -450,9 +450,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             .kind == SymbolKind::PackedStructType;
                          }()) &&
                          !containsUserCall(*init) &&
-                         (rhs = tryFoldConst(
-                              *init, (typedParam && init != init0) ? init0
-                                                                   : nullptr))) {
+                         (rhs = tryFoldConst(*init,
+                                             typedParam ? init0 : nullptr))) {
                     bool partSelectFold = false;
                     ((UHDM::constant*)rhs)->VpiParent(pa);
                     // Typed params fold at the type width; a size-cast value
@@ -842,6 +841,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (auto pit = pkgDefMap.find(&ps.getParentScope()->asSymbol());
                         pit != pkgDefMap.end())
                         its->Instance((UHDM::instance*)pit->second);
+                    // Remember it so a def-view fold that READS this imported
+                    // param can carry a ref_typespec to it.
+                    importedParamDefTs[&ps] = its;
                 }
                 if (di)
                     di->paramTs[&member] = its;

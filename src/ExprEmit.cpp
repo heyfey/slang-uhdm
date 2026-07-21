@@ -116,18 +116,24 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         return c;
     }
     if (iv.isSigned() && iv.isNegative()) {
-        // A TYPED param init that evals negative-signed (~(15)) re-folds
-        // through the implicit conversion to the param type (unsigned at
-        // type width). The unknown-value refusal above is unaffected.
         if (!typedConv)
             return nullptr;
-        ConstantValue cv2 = ctx.tryEval(*typedConv);
-        if (!cv2 || !cv2.isInteger())
-            return nullptr;
-        slang::SVInt iv2 = cv2.integer();
-        if (iv2.hasUnknown() || (iv2.isSigned() && iv2.isNegative()))
-            return nullptr;
-        iv = iv2;
+        // A SIGNED integral typed param keeps the negative value as a signed
+        // INT constant at the type width (integer y = -1 -> INT:-1/32). An
+        // UNSIGNED typed param instead re-folds the negative intermediate
+        // (logic[17:0] X = ~(15) -> UINT:262128) through its conversion to
+        // the unsigned type width. The TARGET (param) type governs — NOT the
+        // init expression's self-determined type (~(15) is self-typed int).
+        if (!(typedConv->type && typedConv->type->isSigned() &&
+              typedConv->type->isIntegral())) {
+            ConstantValue cv2 = ctx.tryEval(*typedConv);
+            if (!cv2 || !cv2.isInteger())
+                return nullptr;
+            slang::SVInt iv2 = cv2.integer();
+            if (iv2.hasUnknown() || (iv2.isSigned() && iv2.isNegative()))
+                return nullptr;
+            iv = iv2;
+        }
     }
     // A folded CONCAT encodes as full-width binary, with no decompile.
     if (stripImplicitConv(expr).kind == ExpressionKind::Concatenation) {
@@ -160,7 +166,9 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         c->VpiValue("BIN:" + digits);
         c->VpiConstType(vpiBinaryConst);
     }
-    else if (isIntEncoded(expr)) {
+    // A NEGATIVE signed result always encodes as a signed INT (Surelog):
+    // integer y = -1 -> INT:-1, never UINT:-1 (which serializes as 0).
+    else if (isIntEncoded(expr) || (iv.isSigned() && iv.isNegative())) {
         c->VpiValue("INT:" + digits);
         c->VpiConstType(vpiIntConst);
     }
