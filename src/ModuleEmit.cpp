@@ -2411,11 +2411,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // fold constant (its parent becomes this cont_assign).
             if (auto& rcp0 = stripImplicitConv(ae.right());
                 rcp0.kind == ExpressionKind::NamedValue) {
-                if (auto lit0 = genLpConst.find(
-                        &rcp0.as<NamedValueExpression>().symbol);
+                auto& rsym0 = rcp0.as<NamedValueExpression>().symbol;
+                if (auto lit0 = genLpConst.find(&rsym0);
                     lit0 != genLpConst.end()) {
                     lit0->second->VpiParent(ca);
                     rhs = lit0->second;
+                }
+                // The GENVAR ref folds to its iteration value: a LOC-LESS
+                // 64-bit UINT constant parented at the ca (Surelog). Real
+                // block localparams (written `localparam`) are excluded.
+                else if (rsym0.kind == SymbolKind::Parameter &&
+                         rsym0.getParentScope() == &blk &&
+                         ![&] {
+                             for (auto q = rsym0.getSyntax(); q; q = q->parent)
+                                 if (q->kind ==
+                                     syntax::SyntaxKind::ParameterDeclaration)
+                                     return true;
+                             return false;
+                         }()) {
+                    auto& gv = rsym0.as<ParameterSymbol>().getValue();
+                    if (gv.isInteger() && !gv.integer().hasUnknown()) {
+                        auto* c = s.MakeConstant();
+                        std::string dg =
+                            gv.integer().toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(dg);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + dg);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(ca);
+                        rhs = c;
+                    }
                 }
             }
             // A gen-scope RHS that is a plain ref to a module PARAM with a
