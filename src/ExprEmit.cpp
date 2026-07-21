@@ -14,6 +14,16 @@
 
 namespace slang_uhdm {
 
+// A selector's source text used inside a hier_path/select NAME drops
+// whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
+// object name even when the source spaced it.
+static std::string selName(std::string s) {
+    s.erase(std::remove_if(s.begin(), s.end(),
+                           [](unsigned char c) { return c == ' ' || c == '\t'; }),
+            s.end());
+    return s;
+}
+
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
     // expressions with constant reduction. Fold only genuine expressions,
@@ -2065,7 +2075,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          ExpressionKind::NamedValue)) {
                     std::string baseDotted = rawText(es.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
-                        std::string selText = rawText(expr.sourceRange);
+                        std::string selText = selName(rawText(expr.sourceRange));
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);
                         hp->VpiFullName(selText);
@@ -2265,8 +2275,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         dotted += "." +
                                   std::string(
                                       (*it2)->as<MemberAccessExpression>().member.name);
-                    std::string selText = rawText(SourceRange(rs.left().sourceRange.start(),
-                                                              rs.right().sourceRange.end()));
+                    std::string selText = selName(rawText(SourceRange(
+                        rs.left().sourceRange.start(), rs.right().sourceRange.end())));
                     dotted += "[" + selText + "]";
                     hp->VpiName(dotted);
                     hp->VpiFullName(dotted);
@@ -2370,7 +2380,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          ExpressionKind::NamedValue)) {
                     std::string baseDotted = rawText(rs.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
-                        std::string selText = rawText(expr.sourceRange);
+                        std::string selText = selName(rawText(expr.sourceRange));
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);
                         hp->VpiFullName(selText);
