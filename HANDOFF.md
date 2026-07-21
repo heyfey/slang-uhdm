@@ -1,5 +1,44 @@
 # HANDOFF — slang-uhdm convergence campaign (r171 state)
 
+## Session 13 (fable, autonomous, 2026-07-20) — systematic-root + gen_for
+
+**PASS 389 / CMP_ONLY 52 / DIFF 220** (session start: 388/48/225; pivot
+baseline: DIFF 237 -> 17 real bugs fixed total).
+
+**STRUCT-PARAM SYSTEMATIC ROOT CRACKED (5 tests DIFF->CMP_ONLY):**
+StructParameter, StructLocalParam, paramod_struct_param,
+PatternAssignmentOfStructParam (+earlier AssignToUnpackedUnionField...).
+The SL model (StructParameter cmp dump, 3 objects): (A) DEF param ref ->
+SHARED named typedef ts, via NEW deferred drain `pendingDefParamTs` ->
+`drainDefParamTs()` (UhdmExporter.cpp calls it after the def-content loop,
+when typedefTs is populated; aggregate-typedef params only, def path in
+emitParameters defers). (B) ELAB op-75 ts ref -> OWN module-scoped clone
+(created FIRST). (C) ELAB param ref -> fresh clone, vpiInstance=module,
+members scoped work@top.P.<ty>.<m> (makeParamTs memberScope via
+syntaxRefPrefix; clone member-leaf ts parents at the member REF via
+structCloneMemberRefParent). Fold rules: module struct params NEVER fold
+(cast keeps cast-op, patterns keep ops; elab pattern = FLAT op-75 w/
+source-encoded literal operands via emitExpr); pkg struct params keep only
+PATTERN ops; whole-struct-param refs stay refs (module: share def CA;
+pkg: pkg::-named ref bound to pkg def parameter); struct-param member
+reads (N = Info.x) keep hier_path in BOTH views; elab CA o = P.a folds to
+the member's pattern-setter constant (fresh CA).
+
+**gen_for FULL MODEL (ParameterInGenScopeInitializedWithLongConstant
+DIFF -> straight PASS):** inline-genvar for-generates only (separate
+`genvar i;` keeps gen_region — gen_test6 golden). KEY DISCOVERY: uhdm-cmp
+Compare distinguishes fields the DUMP prints identically — SL fills the
+PLURAL VpiForInitStmts but the SINGULAR VpiForIncStmt (diagnosed with a
+field-bisect tool $SP/cmptool linking libuhdm — REUSE THIS for future
+DUMP_MATCH+CMP_FAIL puzzles). Full recipe in commit 305890e. Remaining
+gen tests: MemoryPort (82), SumOfParametersInNestedForLoops (134) — nested
+loops / next layers.
+
+**Struct-param override layer still open:** instance-override param_assign
+RHS should keep hier_path (Info.x) at the override site w/ NumScrmblBlocks'
+int ts (Clog/OutputSize...InitializedByStructMember, ~115/183) — override
+machinery (emitParameters override RHS path).
+
 ## ⭐⭐ SYSTEMATIC ROOT (blocks ~20+ DIFF tests) — param-ts-before-typedef timing
 
 A parameter typed by a NAMED typedef (struct/union/enum/vector) needs its
