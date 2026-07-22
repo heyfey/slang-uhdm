@@ -296,6 +296,38 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     auto* r = s.MakeRange();
                     r->VpiParent(pat);
                     auto mkBound = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+                        // Typedef-member context: an IDENTIFIER bound
+                        // ([MpRegions:0]) keeps a member-scoped ref_obj
+                        // chained to the pkg param's def Rhs (Surelog).
+                        if (loc && tfContext && structMemberTsCtx &&
+                            !syntaxRefPrefix.empty()) {
+                            std::string raw(rawText(*loc));
+                            bool ident = !raw.empty() &&
+                                         (isalpha((unsigned char)raw[0]) ||
+                                          raw[0] == '_');
+                            for (char ch : raw)
+                                if (!(isalnum((unsigned char)ch) || ch == '_')) {
+                                    ident = false;
+                                    break;
+                                }
+                            if (ident) {
+                                auto* ro = s.MakeRef_obj();
+                                ro->VpiName(raw);
+                                ro->VpiFullName(syntaxRefPrefix + syntaxRefSep +
+                                                raw);
+                                ro->VpiParent(r);
+                                setLoc(ro, *loc);
+                                for (auto& [ps9, rhs9] : pkgParamDefRhs)
+                                    if (ps9->name == raw &&
+                                        ps9->getParentScope() &&
+                                        ps9->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::Package) {
+                                        ro->Actual_group(rhs9);
+                                        break;
+                                    }
+                                return (UHDM::expr*)ro;
+                            }
+                        }
                         auto* c = s.MakeConstant();
                         std::string digits = std::to_string(v);
                         c->VpiDecompile(digits);
