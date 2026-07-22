@@ -2727,6 +2727,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // (WidthRatio[DepthW:0]) scopes explicitly by the module prefix.
             if (inParamInit)
                 psel->VpiFullName(joinRef(prefix, nv.symbol.name));
+            else if (prefix.find('[') != std::string::npos)
+                // Under a gen-scope-array path the lazy parent-chain walk
+                // drops the [idx] segment; cache the explicit path.
+                psel->VpiFullName(joinRef(prefix, nv.symbol.name));
             else
                 (void)psel->VpiFullName();
             setLoc(psel, expr.sourceRange);
