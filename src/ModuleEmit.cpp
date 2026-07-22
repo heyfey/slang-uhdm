@@ -6260,10 +6260,16 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
     }
 
     // Shares the home view's variable objects (shown shallow in the tail dump).
+    // VARIABLE symbols only — NET-kind symbols (header-port-backing clk/rst
+    // wires) are not listed as dup Variables (Surelog); they reach the dup via
+    // the modport io_decl exprs instead.
     auto* vars = s.MakeVariablesVec();
     for (auto& it : collectNetOrder(body))
-        if (auto nit = sharedNets.find(it.sym); nit != sharedNets.end())
+        if (auto nit = sharedNets.find(it.sym); nit != sharedNets.end()) {
+            if (it.sym->kind == SymbolKind::Net)
+                continue;
             vars->push_back((UHDM::variables*)nit->second);
+        }
     if (!vars->empty())
         dup->Variables(vars);
 
