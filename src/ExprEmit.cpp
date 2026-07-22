@@ -836,13 +836,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // at its decl type span — Surelog).
                 if (genCaLhsParamFold && inPsBound &&
                     nv.symbol.kind == SymbolKind::Parameter) {
-                    // RHS select bounds SHARE the param's own elab value
-                    // constant (parent stays its param_assign — Surelog).
+                    // RHS select bounds fold to a USE-SITE constant whose
+                    // parent is the param's own param_assign; ts ref scopes
+                    // at the enclosing INSTANCE (Surelog).
                     if (!inLhs) {
                         for (auto& [esym, econ] : elabParamConst)
                             if (esym->location == nv.symbol.location &&
-                                esym->name == nv.symbol.name)
-                                return econ;
+                                esym->name == nv.symbol.name) {
+                                auto* c2 = s.MakeConstant();
+                                c2->VpiDecompile(econ->VpiDecompile());
+                                c2->VpiSize(econ->VpiSize());
+                                c2->VpiValue(std::string(econ->VpiValue()));
+                                c2->VpiConstType(econ->VpiConstType());
+                                c2->VpiParent((UHDM::any*)econ->VpiParent());
+                                setLoc(c2, expr.sourceRange);
+                                auto* rt2 = s.MakeRef_typespec();
+                                std::string ipfx = prefix;
+                                for (int k2 = 0; k2 < 2; k2++)
+                                    if (auto dpos = ipfx.rfind('.');
+                                        dpos != std::string::npos)
+                                        ipfx.resize(dpos);
+                                rt2->VpiFullName(ipfx);
+                                rt2->VpiParent(c2);
+                                auto* it2 = s.MakeInt_typespec();
+                                it2->VpiSigned(true);
+                                if (auto dtF =
+                                        nv.symbol.as<ParameterSymbol>()
+                                            .getDeclaredType())
+                                    if (auto tsnF = dtF->getTypeSyntax())
+                                        setLoc(it2, tsnF->sourceRange());
+                                rt2->Actual_typespec(it2);
+                                c2->Typespec(rt2);
+                                return c2;
+                            }
                     }
                     auto& psF = nv.symbol.as<ParameterSymbol>();
                     auto& cvF = psF.getValue();
@@ -861,6 +887,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rtF->VpiFullName(prefix);
                         rtF->VpiParent(c);
                         auto* itsF = s.MakeInt_typespec();
+                        itsF->VpiSigned(true);
                         if (auto dtF = psF.getDeclaredType())
                             if (auto tsnF = dtF->getTypeSyntax())
                                 setLoc(itsF, tsnF->sourceRange());

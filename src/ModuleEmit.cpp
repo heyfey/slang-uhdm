@@ -730,14 +730,12 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                                 auto* r3 = s.MakeRange();
                                 r3->VpiParent(lt2);
                                 setLoc(r3, dim->sourceRange());
-                                syntaxRefPrefix = branchPrefix;
                                 if (auto* le =
                                         emitSyntaxExpr(*rs3.left, r3))
                                     r3->Left_expr((UHDM::expr*)le);
                                 if (auto* re =
                                         emitSyntaxExpr(*rs3.right, r3))
                                     r3->Right_expr((UHDM::expr*)re);
-                                syntaxRefPrefix.clear();
                                 rvec3->push_back(r3);
                             }
                             if (!rvec3->empty())
