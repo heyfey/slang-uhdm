@@ -3452,8 +3452,30 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         // Local nets declared inside the block (wire tmp; ...).
         auto* gnets = s.MakeNetVec();
         std::vector<UHDM::cont_assign*> ndaCas;
+        // A scalar REG local driven by a block cont_assign elaborates as a
+        // logic_net (NetType 48) instead of a logic_var (Surelog).
+        auto caDrivenVar = [&](const Symbol& gm) {
+            if (gm.kind != SymbolKind::Variable ||
+                gm.as<VariableSymbol>().getType().getCanonicalType().kind !=
+                    SymbolKind::ScalarType)
+                return false;
+            for (auto& cm : blk.members()) {
+                if (cm.kind != SymbolKind::ContinuousAssign)
+                    continue;
+                auto& asn = cm.as<ContinuousAssignSymbol>().getAssignment();
+                if (asn.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& lc =
+                    stripImplicitConv(asn.as<AssignmentExpression>().left());
+                if (lc.kind == ExpressionKind::NamedValue &&
+                    &lc.as<NamedValueExpression>().symbol == &gm)
+                    return true;
+            }
+            return false;
+        };
         for (auto& gm : blk.members()) {
-            if (gm.kind != SymbolKind::Net)
+            bool caVar = gm.kind == SymbolKind::Variable && caDrivenVar(gm);
+            if (gm.kind != SymbolKind::Net && !caVar)
                 continue;
             std::string nfull = fullName + "." + std::string(gm.name);
             auto* n = s.MakeLogic_net();
@@ -3461,7 +3483,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             n->VpiFullName(nfull);
             n->VpiParent(gs);
             setLoc(n, nameSpan(gm.location, gm.name));
-            int32_t nt = netTypeFor(gm);
+            if (caVar) {
+                n->VpiNetType(48);
+                netMap[&gm] = n;
+            }
+            int32_t nt = caVar ? 0 : netTypeFor(gm);
             if (nt)
                 n->VpiNetType(nt);
             auto* dt = gm.getDeclaredType();
@@ -3536,6 +3562,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         for (auto& gm : blk.members()) {
             if (gm.kind != SymbolKind::Variable)
                 continue;
+            if (caDrivenVar(gm))
+                continue; // emitted as a logic_net above
             auto& vct = gm.as<VariableSymbol>().getType().getCanonicalType();
             // Unpacked-array locals: the standard elab array_var (folded
             // ranges, bare array_typespec ref), parented at the gen_scope.
@@ -3962,9 +3990,40 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         else if (member.kind == SymbolKind::GenerateBlock) {
             auto& blk = member.as<GenerateBlockSymbol>();
-            if (!blk.isUninstantiated)
-                if (auto* g = emitBlock(blk, std::string(blk.getExternalName()), prefix, m))
+            if (!blk.isUninstantiated) {
+                std::string gname(blk.getExternalName());
+                // Surelog identifies an UNNAMED gen block containing nested
+                // generate constructs by its FIRST nested construct: named
+                // genblk<idx+1> and spanning that construct.
+                const syntax::SyntaxNode* spanOv = nullptr;
+                if (gname.rfind("genblk", 0) == 0) {
+                    for (auto& nm2 : blk.members()) {
+                        if (nm2.kind != SymbolKind::GenerateBlock &&
+                            nm2.kind != SymbolKind::GenerateBlockArray)
+                            continue;
+                        for (auto q = nm2.getSyntax(); q; q = q->parent)
+                            if (q->kind == syntax::SyntaxKind::IfGenerate ||
+                                q->kind == syntax::SyntaxKind::LoopGenerate ||
+                                q->kind == syntax::SyntaxKind::CaseGenerate) {
+                                spanOv = q;
+                                break;
+                            }
+                        break;
+                    }
+                    if (spanOv && gname.rfind("genblk", 0) == 0)
+                        gname = "genblk" +
+                                std::to_string(atoi(gname.c_str() + 6) + 1);
+                }
+                if (auto* g = emitBlock(blk, gname, prefix, m)) {
+                    if (spanOv) {
+                        setLoc(g, spanOv->sourceRange());
+                        if (g->Gen_scopes() && !g->Gen_scopes()->empty())
+                            setLoc((*g->Gen_scopes())[0],
+                                   spanOv->sourceRange());
+                    }
                     gsas->push_back(g);
+                }
+            }
         }
     }
     if (!gsas->empty())
