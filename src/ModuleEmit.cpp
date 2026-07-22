@@ -17,6 +17,20 @@ namespace slang_uhdm {
 static bool subWritesNonLocal(const SubroutineSymbol& sub);
 
 // True when a declared type is a PACKAGE-scoped typedef'd struct.
+// True when the declaration EXPLICITLY package-qualifies the type
+// (p::req_t x). A wildcard-imported bare name (import p::*; req_t x)
+// returns false — Surelog keys interface net-type quirks on the WRITTEN form.
+static bool isExplicitPkgQualified(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return false;
+    return tsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+           syntax::SyntaxKind::ScopedName;
+}
+
 static bool isPkgStructType(const Symbol& sym) {
     auto* dt = sym.getDeclaredType();
     if (!dt)
@@ -6139,11 +6153,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         setLoc(n, nameSpan(it.sym->location, it.sym->name));
         if (int32_t nt = netTypeFor(*it.sym))
             n->VpiNetType(nt);
-        // A PACKAGE struct-typed interface VARIABLE (p::req_t req) nets as a
-        // wire; a $unit/module-scope struct typedef (req_t req) stays UNTYPED
-        // (Surelog) — same isPkgStructType gate as module struct nets.
+        // An EXPLICITLY package-qualified struct interface VARIABLE
+        // (p::req_t req) nets as a wire; an imported bare name (import p::*;
+        // req_t req) or local typedef stays UNTYPED (Surelog keys on the
+        // written form).
         else if (it.sym->kind == SymbolKind::Variable &&
-                 isPkgStructType(*it.sym) && !hasStructFieldMember(*it.sym))
+                 isPkgStructType(*it.sym) && isExplicitPkgQualified(*it.sym) &&
+                 !hasStructFieldMember(*it.sym))
             n->VpiNetType(vpiWire);
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
@@ -6490,9 +6506,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             sn->VpiName(name);
             sn->VpiFullName(fullName);
             sn->VpiParent(iface);
-            // Only a PACKAGE struct interface signal nets as a wire; a
-            // $unit/module-scope struct typedef stays untyped (Surelog).
-            if (isPkgStructType(*it.sym) && !hasStructFieldMember(*it.sym))
+            // Only an EXPLICITLY package-qualified struct interface signal
+            // nets as a wire; imported/local typedefs stay untyped (Surelog).
+            if (isPkgStructType(*it.sym) && isExplicitPkgQualified(*it.sym) &&
+                !hasStructFieldMember(*it.sym))
                 sn->VpiNetType(vpiWire);
             setLoc(sn, nameSpan(it.sym->location, it.sym->name));
             // The elab view shares the TOP-view package typedef typespec.
