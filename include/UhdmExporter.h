@@ -503,6 +503,8 @@ private:
     // Elab instances past the first carry DISTINCT body symbols; fall back
     // to name+location identity when the pointer key misses.
     const std::vector<UHDM::attribute*>* findAttrs(const slang::ast::Symbol* sym);
+    bool implicitNetKeptInElab(const slang::ast::Symbol* sym,
+                               const slang::ast::InstanceBodySymbol& body);
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
     void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m);

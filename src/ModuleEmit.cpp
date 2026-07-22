@@ -841,6 +841,33 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     stmts->push_back(ca);
                 }
             }
+            // Def-view gen-block PROCESSES: each always/initial re-emits
+            // under the branch begin with branch-prefix-scoped UNBOUND refs.
+            if (astBlock) {
+                for (auto* item : items) {
+                    if (item->kind != syntax::SyntaxKind::AlwaysBlock &&
+                        item->kind != syntax::SyntaxKind::AlwaysCombBlock &&
+                        item->kind != syntax::SyntaxKind::AlwaysFFBlock &&
+                        item->kind != syntax::SyntaxKind::AlwaysLatchBlock &&
+                        item->kind != syntax::SyntaxKind::InitialBlock)
+                        continue;
+                    const ProceduralBlockSymbol* pbs = nullptr;
+                    for (auto& mb : astBlock->members())
+                        if (mb.kind == SymbolKind::ProceduralBlock &&
+                            mb.getSyntax() == item)
+                            pbs = &mb.as<ProceduralBlockSymbol>();
+                    if (!pbs)
+                        continue;
+                    NetMap unbound;
+                    if (auto* p = emitProcess(
+                            *pbs, m,
+                            branchPrefix.empty() ? prefix : branchPrefix,
+                            unbound)) {
+                        p->VpiParent(b);
+                        stmts->push_back(p);
+                    }
+                }
+            }
             if (b->UhdmType() == UHDM::uhdmnamed_begin)
                 ((UHDM::named_begin*)b)->Stmts(stmts);
             else
@@ -1735,6 +1762,32 @@ int32_t UhdmExporter::interfacePortDirection(const InterfacePortSymbol& ip) {
     return qualified ? vpiInput : vpiInout;
 }
 
+// An implicit net stays in the elab view only when it feeds a child
+// instance port connection; one referenced only from gen scopes is dropped
+// (its module-level cont_assign shares the def object bare).
+bool UhdmExporter::implicitNetKeptInElab(const Symbol* sym,
+                                         const InstanceBodySymbol& body) {
+    for (auto& mb : body.members()) {
+        if (mb.kind != SymbolKind::Instance)
+            continue;
+        for (auto pc : mb.as<InstanceSymbol>().getPortConnections()) {
+            if (auto* pe = pc->getExpression()) {
+                const Expression* e = pe;
+                if (e->kind == ExpressionKind::Assignment)
+                    e = &e->as<AssignmentExpression>().left();
+                std::set<const Symbol*> syms;
+                collectLhsSyms(*e, syms);
+                const Expression* bot = &stripImplicitConv(*e);
+                if (bot->kind == ExpressionKind::NamedValue)
+                    syms.insert(&bot->as<NamedValueExpression>().symbol);
+                if (syms.count(sym))
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
 const std::vector<UHDM::attribute*>* UhdmExporter::findAttrs(const Symbol* sym) {
     if (auto it = attrMap.find(sym); it != attrMap.end())
         return &it->second;
@@ -1839,6 +1892,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         // Implicit nets carry no typespec (and print a bare wire net type).
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
+        // Implicit nets not feeding a child instance conn are dropped from
+        // the elab view (their cont_assigns share the def object bare).
+        if (implicitNet && !implicitNetKeptInElab(it.sym, body))
+            continue;
         // A real/shortreal var carries no typespec ref; its init is a vpiExpr.
         bool realVar = it.sym->getDeclaredType() &&
                        it.sym->getDeclaredType()->getType().isFloating();
@@ -4633,8 +4690,20 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             continue;
         }
         auto& ae = assign.as<AssignmentExpression>();
-        // Only whole-net LHS assigns get netlist-elaborated (and so lose
-        // their net-typespec parent); select-LHS assigns don't.
+        // An implicit-net LHS cont_assign shares the DEF-view object into
+        // the elab list bare (the net itself is dropped there — Surelog).
+        if (topView) {
+            auto& lc0 = stripImplicitConv(ae.left());
+            if (lc0.kind == ExpressionKind::NamedValue &&
+                lc0.as<NamedValueExpression>().symbol.kind == SymbolKind::Net &&
+                lc0.as<NamedValueExpression>().symbol.as<NetSymbol>().isImplicit &&
+                !implicitNetKeptInElab(&lc0.as<NamedValueExpression>().symbol,
+                                       body)) {
+                if (defInfo && myIdx < defInfo->contAssigns.size())
+                    cas->push_back(defInfo->contAssigns[myIdx]);
+                continue;
+            }
+        }
         if (lhsSyms) {
             auto& lhsCore = stripImplicitConv(ae.left());
             if (lhsCore.kind == ExpressionKind::NamedValue)
