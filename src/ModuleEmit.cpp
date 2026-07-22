@@ -4354,6 +4354,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         auto git9 = genScopeNets.find(&ls9);
                         if (parentNet9 && git9 != genScopeNets.end())
                             ((UHDM::ref_obj*)l)->Actual_group(git9->second);
+                        else if (git9 != genScopeNets.end()) {
+                            // Own-scope net: SL resolves the NAME against
+                            // the MODULE scope (binds the module net of the
+                            // same name when one exists).
+                            for (auto& [ms9, mo9] : netMap)
+                                if (ms9->name == ls9.name &&
+                                    ms9->getParentScope() &&
+                                    ms9->getParentScope()->asSymbol().kind ==
+                                        SymbolKind::InstanceBody) {
+                                    ((UHDM::ref_obj*)l)->Actual_group(mo9);
+                                    break;
+                                }
+                        }
                     }
                 }
                 ca->Lhs((UHDM::expr*)l);
