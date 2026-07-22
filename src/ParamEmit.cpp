@@ -1528,7 +1528,75 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
                 typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
         UHDM::typespec* ts = nullptr;
-        if (ct.kind == SymbolKind::PackedArrayType || ct.kind == SymbolKind::ScalarType) {
+        // A packed-array-of-AGGREGATE typedef (typedef a[1:0] b, a = struct):
+        // a packed_array_typespec with a Typedef_alias (bare clone), the [1:0]
+        // Range (UINT bounds), and an Elem ref -> the SHARED element typedef
+        // ts — all refs doubled-scoped pkg::pkg::b (Surelog).
+        bool aggArray = false;
+        if (ct.kind == SymbolKind::PackedArrayType) {
+            const Type* el0 = &ct;
+            while (el0->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                el0 = &el0->getCanonicalType().as<PackedArrayType>().elementType;
+            auto& elc = el0->getCanonicalType();
+            aggArray = elc.isStruct() || elc.isUnion();
+        }
+        if (aggArray) {
+            // Listed in the TOP package view only (Surelog).
+            if (!topView)
+                continue;
+            auto& pat = ct.as<PackedArrayType>();
+            std::string dblName = prefix + prefix + std::string(ta.name);
+            auto* outer = s.MakePacked_array_typespec();
+            outer->VpiParent(up);
+            if (typeSyn)
+                setLoc(outer, typeSyn->sourceRange());
+            auto* cl = s.MakePacked_array_typespec();
+            auto* art = s.MakeRef_typespec();
+            art->VpiFullName(dblName);
+            art->VpiParent(outer);
+            art->Actual_typespec(cl);
+            outer->Typedef_alias(art);
+            auto* rvec = s.MakeRangeVec();
+            auto* r = s.MakeRange();
+            r->VpiParent(outer);
+            auto mkB2 = [&](int64_t v) -> UHDM::expr* {
+                auto* c = s.MakeConstant();
+                std::string d = std::to_string(v);
+                c->VpiDecompile(d);
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + d);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(r);
+                return c;
+            };
+            r->Left_expr(mkB2(pat.range.left));
+            r->Right_expr(mkB2(pat.range.right));
+            rvec->push_back(r);
+            outer->Ranges(rvec);
+            // Element ref -> the shared element typedef ts (by alias Type, or
+            // canonical match).
+            const Type* elAl = &pat.elementType;
+            UHDM::typespec* ets2 = nullptr;
+            if (auto tit = typedefTs.find(elAl); tit != typedefTs.end())
+                ets2 = tit->second;
+            else
+                for (auto& [sym0, tsp0] : typedefTs)
+                    if (sym0->kind == SymbolKind::TypeAlias &&
+                        &((const Type*)sym0)->getCanonicalType() ==
+                            &elAl->getCanonicalType()) {
+                        ets2 = tsp0;
+                        break;
+                    }
+            if (ets2) {
+                auto* ert = s.MakeRef_typespec();
+                ert->VpiFullName(dblName);
+                ert->VpiParent(outer);
+                ert->Actual_typespec(ets2);
+                outer->Elem_typespec(ert);
+            }
+            ts = outer;
+        }
+        else if (ct.kind == SymbolKind::PackedArrayType || ct.kind == SymbolKind::ScalarType) {
             // A param-bounded range (logic [X-1:0]) stays UNFOLDED in the DEF
             // view with a pkg::pkg::T::-scoped ref (tfContext + :: separator);
             // the elaborated view folds it.
@@ -1773,6 +1841,34 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec())
                 ets->Base_typespec()->Actual_typespec()->Instance((UHDM::instance*)up);
             ts = ets;
+        }
+        else if (ct.kind == SymbolKind::PackedUnionType ||
+                 ct.kind == SymbolKind::UnpackedUnionType) {
+            // Package UNION typedef -> union_typespec, members doubled-scoped
+            // p::p::T::m ("::"), parented at the package (sibling of the
+            // PackedStructType branch).
+            std::string alias = prefix + prefix + std::string(ta.name);
+            bool pk = ct.kind == SymbolKind::PackedUnionType;
+            // Member bounds ([K:0]) stay SYMBOLIC in the top view (mirror the
+            // PackedStructType branch's tfContext handling).
+            bool savedTfU = tfContext;
+            if (topView)
+                tfContext = true;
+            auto* uts = pk
+                            ? buildUnionTs(ct.as<PackedUnionType>(), true, alias,
+                                           "::")
+                            : buildUnionTs(ct.as<UnpackedUnionType>(), false,
+                                           alias, "::");
+            tfContext = savedTfU;
+            uts->VpiParent(up);
+            if (uts->Members())
+                for (auto* tm : *uts->Members())
+                    if (tm->Typespec() && tm->Typespec()->Actual_typespec())
+                        tm->Typespec()->Actual_typespec()->Instance(
+                            (UHDM::instance*)up);
+            if (typeSyn)
+                setLoc(uts, typeSyn->sourceRange());
+            ts = uts;
         }
         if (!ts)
             continue;
