@@ -147,6 +147,8 @@ private:
     // refs belonging to a GenerateBlock fold to their per-index constants
     // (Surelog folds them in INSTANCE CONNS but not process bodies).
     bool genvarConnFold = false;
+    // Conn-name prefix for gen-scope children (the gen scope's fullname).
+    std::string genConnPrefix;
 
     // Per top instance: state carried from the netlist pass to the second
     // (port + deferred-typespec) pass.
@@ -339,6 +341,14 @@ private:
     slang::SourceRange regNetSpan(const slang::ast::Symbol& sym);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
+    bool macroInvLineCol(slang::SourceLocation loc, uint32_t& line, uint32_t& col);
+    void buildLineShifts();
+    void fileLineCol(slang::SourceLocation lc, uint32_t& line, uint32_t& col);
+    bool lineShiftsBuilt = false;
+    // (file buffer id, line) -> sorted [(usage start col, col delta)]
+    std::map<std::pair<uint32_t, uint32_t>,
+             std::vector<std::pair<uint32_t, int32_t>>>
+        lineShifts;
     // vpiDirection for a modport interface port (Surelog rule).
     int32_t interfacePortDirection(
         const slang::ast::InterfacePortSymbol& ip);

@@ -2020,6 +2020,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     std::string parentPrefix;
     if (parentM && parentM->VpiFullName().length())
         parentPrefix = std::string(parentM->VpiFullName());
+    // Gen-scope children scope their conn names at the GEN SCOPE.
+    if (genvarConnFold && !genConnPrefix.empty())
+        parentPrefix = genConnPrefix;
 
     auto* m = s.MakeModule_inst();
     m->VpiDefName(defPrefix);
@@ -3055,6 +3058,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     }
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
+                    // Gen-scope child bit_select HighConns double through
+                    // the CHILD INSTANCE name (Surelog).
+                    if (h && genvarConnFold && !genConnPrefix.empty() &&
+                        h->UhdmType() == UHDM::uhdmbit_select) {
+                        auto* bsx = (UHDM::bit_select*)h;
+                        bsx->VpiFullName(genConnPrefix + "." +
+                                         std::string(inst.name) + "." +
+                                         std::string(bsx->VpiName()));
+                    }
                     if (h) {
                         // Elab-view literal HighConns parent at the port.
                         if (h->UhdmType() == UHDM::uhdmconstant)
@@ -3605,7 +3617,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                           vct.as<PredefinedIntegerType>().integerKind ==
                               PredefinedIntegerType::Integer;
             bool isScalar2 = vct.kind == SymbolKind::ScalarType;
-            if (!isInt2 && !isScalar2)
+            // Ranged logic locals (logic [63:W] x) emit a logic_var whose
+            // ts carries the folded ranges.
+            bool isRanged2 =
+                vct.kind == SymbolKind::PackedArrayType &&
+                vct.as<PackedArrayType>()
+                        .elementType.getCanonicalType()
+                        .kind == SymbolKind::ScalarType;
+            if (!isInt2 && !isScalar2 && !isRanged2)
                 continue;
             std::string vfull = fullName + "." + std::string(gm.name);
             UHDM::variables* iv;
@@ -3627,6 +3646,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 auto* t0 = s.MakeInteger_typespec();
                 t0->VpiSigned(true);
                 ivt = t0;
+            }
+            else if (isRanged2) {
+                ivt = makeTypespec(gm, gm.getDeclaredType()
+                                           ? gm.getDeclaredType()
+                                                 ->getTypeSyntax()
+                                           : nullptr);
             }
             else {
                 ivt = s.MakeLogic_typespec();
@@ -3657,9 +3682,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (useInterfacePath(ci))
                 continue;
             genvarConnFold = true;
+            genConnPrefix = fullName;
             auto* mi = emitInstance(ci, fullName + "." + std::string(ci.name),
                                     (UHDM::module_inst*)m, &netMap, nullptr,
                                     /*isTop=*/false);
+            genConnPrefix.clear();
             genvarConnFold = false;
             // A gen-scope child carries ONLY the gen_scope parent — Surelog
             // omits the vpiInstance/vpiModuleInst back-refs it gives normal

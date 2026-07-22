@@ -1885,10 +1885,24 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 pssel->VpiConstantSelect(true);
                 pssel->VpiParent(parent);
                 setLoc(pssel, syn.sourceRange());
-                if (auto* le = emitSyntaxExpr(*rs.left, pssel))
+                // Bound refs scope THROUGH the select base (prefix.base.P);
+                // bound constants stay unparented (Surelog).
+                std::string savedPfx2 = syntaxRefPrefix;
+                if (!syntaxRefPrefix.empty())
+                    syntaxRefPrefix += syntaxRefSep + std::string(bname);
+                auto unparentConst = [](UHDM::any* e) {
+                    if (e && e->UhdmType() == UHDM::uhdmconstant)
+                        ((UHDM::expr*)e)->VpiParent(nullptr);
+                };
+                if (auto* le = emitSyntaxExpr(*rs.left, pssel)) {
+                    unparentConst(le);
                     pssel->Left_range((UHDM::expr*)le);
-                if (auto* re = emitSyntaxExpr(*rs.right, pssel))
+                }
+                if (auto* re = emitSyntaxExpr(*rs.right, pssel)) {
+                    unparentConst(re);
                     pssel->Right_range((UHDM::expr*)re);
+                }
+                syntaxRefPrefix = savedPfx2;
                 return pssel;
             }
             auto* bs = s.MakeBit_select();

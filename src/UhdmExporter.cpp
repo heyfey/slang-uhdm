@@ -21,14 +21,32 @@ void UhdmExporter::noteUnsupported(const std::string& what) {
 void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
     if (range.start() == SourceLocation::NoLocation)
         return;
-    // Macro-expanded tokens report their macro-DEFINITION-site span.
-    if (sm->isMacroLoc(range.start()))
-        range = sm->getFullyOriginalRange(range);
-    obj->VpiLineNo(sm->getLineNumber(range.start()));
-    obj->VpiColumnNo(sm->getColumnNumber(range.start()));
+    // Macro-expanded tokens: SINGLE-LINE bodies lay out VIRTUALLY at the
+    // INVOCATION site (usage line, usage col + body offset); later lines of
+    // multi-line bodies keep their macro-DEFINITION-site span (Surelog).
+    auto lineColOf = [&](SourceLocation lc, uint32_t& L, uint32_t& C) {
+        uint32_t vl, vc;
+        if (sm->isMacroLoc(lc) && macroInvLineCol(lc, vl, vc)) {
+            L = vl;
+            C = vc;
+            return;
+        }
+        if (sm->isMacroLoc(lc)) {
+            lc = sm->getFullyOriginalLoc(lc);
+            L = (uint32_t)sm->getLineNumber(lc);
+            C = (uint32_t)sm->getColumnNumber(lc);
+            return;
+        }
+        fileLineCol(lc, L, C);
+    };
+    uint32_t l = 0, c = 0;
+    lineColOf(range.start(), l, c);
+    obj->VpiLineNo(l);
+    obj->VpiColumnNo(c);
     if (range.end() != SourceLocation::NoLocation) {
-        obj->VpiEndLineNo(sm->getLineNumber(range.end()));
-        obj->VpiEndColumnNo(sm->getColumnNumber(range.end()));
+        lineColOf(range.end(), l, c);
+        obj->VpiEndLineNo(l);
+        obj->VpiEndColumnNo(c);
     }
 }
 
@@ -585,6 +603,109 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     pendingPartSelFoldTs.clear();
     return d;
+}
+
+// Per-line column shifts from SINGLE-LINE macro expansions: any position
+// after a usage on the same line moves right by (bodyLen - usageLen), since
+// Surelog lays the line out with the expansion pasted in place.
+void UhdmExporter::buildLineShifts() {
+    lineShiftsBuilt = true;
+    for (auto buf : sm->getAllBuffers()) {
+        SourceLocation b0(buf, 0);
+        if (!sm->isMacroLoc(b0))
+            continue;
+        auto usage = sm->getExpansionRange(b0);
+        if (usage.start() == SourceLocation::NoLocation ||
+            sm->isMacroLoc(usage.start()) ||
+            usage.end() == SourceLocation::NoLocation ||
+            usage.start().buffer() != usage.end().buffer())
+            continue;
+        SourceLocation bodyStart = sm->getFullyOriginalLoc(b0);
+        if (bodyStart == SourceLocation::NoLocation ||
+            sm->isMacroLoc(bodyStart))
+            continue;
+        auto text = sm->getSourceText(bodyStart.buffer());
+        size_t p = bodyStart.offset();
+        if (p >= text.size())
+            continue;
+        size_t e = p;
+        while (e < text.size() && text[e] != '\n')
+            e++;
+        // Multi-line bodies (line-continuation backslash) keep definition
+        // spans; no shift.
+        size_t e2 = e;
+        while (e2 > p && (text[e2 - 1] == ' ' || text[e2 - 1] == '\t' ||
+                          text[e2 - 1] == '\r'))
+            e2--;
+        if (e2 > p && text[e2 - 1] == '\\')
+            continue;
+        int32_t bodyLen = (int32_t)(e2 - p);
+        int32_t usageLen =
+            (int32_t)(usage.end().offset() - usage.start().offset());
+        int32_t delta = bodyLen - usageLen;
+        if (delta == 0)
+            continue;
+        auto key = std::make_pair(usage.start().buffer().getId(),
+                                  (uint32_t)sm->getLineNumber(usage.start()));
+        lineShifts[key].push_back(
+            {(uint32_t)sm->getColumnNumber(usage.start()), delta});
+    }
+    for (auto& [k, v] : lineShifts)
+        std::sort(v.begin(), v.end());
+}
+
+// A FILE position's Surelog-layout line/col (col shifted right past any
+// single-line macro expansions earlier on the line).
+void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
+                               uint32_t& col) {
+    line = (uint32_t)sm->getLineNumber(lc);
+    col = (uint32_t)sm->getColumnNumber(lc);
+    if (!lineShiftsBuilt)
+        buildLineShifts();
+    auto it = lineShifts.find(std::make_pair(lc.buffer().getId(), line));
+    if (it == lineShifts.end())
+        return;
+    uint32_t c0 = col;
+    for (auto& [ucol, d] : it->second)
+        if (ucol < c0)
+            col = (uint32_t)((int32_t)col + d);
+}
+
+// For a token from a SINGLE-LINE macro body: the Surelog-style virtual
+// position (invocation line, invocation col + offset within the body).
+// Returns false for multi-line-body tokens (they keep definition spans).
+bool UhdmExporter::macroInvLineCol(SourceLocation loc, uint32_t& line,
+                                   uint32_t& col) {
+    if (!sm->isMacroLoc(loc))
+        return false;
+    SourceLocation orig = sm->getFullyOriginalLoc(loc);
+    SourceLocation bodyStart =
+        sm->getFullyOriginalLoc(SourceLocation(loc.buffer(), 0));
+    if (orig.buffer() != bodyStart.buffer() ||
+        orig.offset() < bodyStart.offset())
+        return false;
+    auto text = sm->getSourceText(orig.buffer());
+    for (size_t i = bodyStart.offset(); i < orig.offset() && i < text.size();
+         i++)
+        if (text[i] == '\n')
+            return false;
+    SourceLocation u = sm->getExpansionRange(loc).start();
+    uint32_t ul, uc;
+    if (sm->isMacroLoc(u)) {
+        if (!macroInvLineCol(u, ul, uc)) {
+            u = sm->getFullyOriginalLoc(u);
+            fileLineCol(u, ul, uc);
+        }
+    }
+    else if (u == SourceLocation::NoLocation) {
+        return false;
+    }
+    else {
+        fileLineCol(u, ul, uc);
+    }
+    line = ul;
+    col = uc + (uint32_t)loc.offset();
+    return true;
 }
 
 std::string UhdmExporter::rawText(SourceRange range) {
