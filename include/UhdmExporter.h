@@ -516,6 +516,9 @@ private:
     // Elab instances past the first carry DISTINCT body symbols; fall back
     // to name+location identity when the pointer key misses.
     const std::vector<UHDM::attribute*>* findAttrs(const slang::ast::Symbol* sym);
+    // ONE attribute object per (* *) spec, shared across a multi-declarator
+    // group (parent = the LAST net emitted with it — Surelog).
+    std::map<const void*, UHDM::attribute*> sharedAttrObjs;
     bool implicitNetKeptInElab(const slang::ast::Symbol* sym,
                                const slang::ast::InstanceBodySymbol& body);
     std::vector<PendingFuncRet> pendingFuncRet;

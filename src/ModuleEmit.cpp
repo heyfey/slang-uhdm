@@ -97,10 +97,30 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     m->VpiParent(d);
     m->VpiFile(fullFilePath(def.location));
     if (auto syntax = body.getSyntax()) {
-        setLoc(m, syntax->sourceRange());
-        if (syntax->kind == syntax::SyntaxKind::ModuleDeclaration)
-            if (auto* bn = syntax->as<syntax::ModuleDeclarationSyntax>().blockName)
+        // The module span starts at the `module` keyword (attribute
+        // instances excluded); module-level (* *) specs attach as
+        // vpiAttributes (Surelog).
+        auto mr0 = syntax->sourceRange();
+        if (syntax->kind == syntax::SyntaxKind::ModuleDeclaration) {
+            auto& md0 = syntax->as<syntax::ModuleDeclarationSyntax>();
+            mr0 = SourceRange(md0.header->moduleKeyword.location(), mr0.end());
+            if (auto* bn = md0.blockName)
                 m->VpiEndLabel(bn->name.valueText());
+            if (!md0.attributes.empty()) {
+                auto* mav = s.MakeAttributeVec();
+                for (auto* asp0 : md0.attributes)
+                    for (auto* aspec : asp0->specs) {
+                        auto* ua0 = s.MakeAttribute();
+                        ua0->VpiName(aspec->name.valueText());
+                        ua0->VpiParent(m);
+                        setLoc(ua0, aspec->sourceRange());
+                        mav->push_back(ua0);
+                    }
+                if (!mav->empty())
+                    m->Attributes(mav);
+            }
+        }
+        setLoc(m, mr0);
     }
 
     // (Def-view parameters were emitted in the exportDesign pre-pass.)
@@ -251,7 +271,16 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 auto asyn = a->getSyntax();
                 if (asyn && asyn->parent != lastGroup)
                     continue;
+                if (auto sit = sharedAttrObjs.find((const void*)asyn);
+                    asyn && sit != sharedAttrObjs.end()) {
+                    sit->second->VpiParent(n); // last-writer
+                    av->push_back(sit->second);
+                    stored.push_back(sit->second);
+                    continue;
+                }
                 auto* ua = s.MakeAttribute();
+                if (asyn)
+                    sharedAttrObjs[(const void*)asyn] = ua;
                 ua->VpiName(a->name);
                 if (asyn)
                     setLoc(ua, asyn->sourceRange());
@@ -1508,6 +1537,27 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
         }
         if (fromBind)
             continue;
+        // A MODULE child with an OPERATION among its positional conns
+        // (uut(clk, a && b, ...)) emits NO def ref_module at all
+        // (interfaces keep theirs — Surelog).
+        if (hasOrderedConns(child) &&
+            ifaceDefMap.find(&child.getDefinition()) == ifaceDefMap.end()) {
+            bool hasOpConn = false;
+            for (auto conn : child.getPortConnections()) {
+                auto* ex0 = connectionExpr(*conn);
+                if (!ex0)
+                    continue;
+                auto k0 = stripImplicitConv(*ex0).kind;
+                if (k0 == ExpressionKind::BinaryOp ||
+                    k0 == ExpressionKind::UnaryOp ||
+                    k0 == ExpressionKind::ConditionalOp) {
+                    hasOpConn = true;
+                    break;
+                }
+            }
+            if (hasOpConn)
+                continue;
+        }
         auto* rm = s.MakeRef_module();
         rm->VpiName(child.name);
         rm->VpiDefName("work@" + std::string(child.getDefinition().name));
