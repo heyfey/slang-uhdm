@@ -833,6 +833,28 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
             v->VpiVisibility(1);
             return v;
         }
+        // A 4-state struct whose TOP-LEVEL fields include an ATOM
+        // (byte/int/integer), an ENUM, or any 2-state member is a struct_var
+        // too (net_types decode) — but only for plain non-port, no-init,
+        // non-portBacked declarations.
+        if (!portBacked && internal.kind == SymbolKind::Variable &&
+            !internal.getDeclaredType()->getInitializer()) {
+            bool atomField = false;
+            for (auto& fm :
+                 ct.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+                auto& fct = fm.getType().getCanonicalType();
+                if (fct.kind == SymbolKind::PredefinedIntegerType ||
+                    fct.kind == SymbolKind::EnumType || !fct.isFourState()) {
+                    atomField = true;
+                    break;
+                }
+            }
+            if (atomField) {
+                auto* v = s.MakeStruct_var();
+                v->VpiVisibility(1);
+                return v;
+            }
+        }
         return nullptr;
     }
     // A packed array over a packed struct that reached here (its element is an
