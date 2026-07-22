@@ -1285,7 +1285,27 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         auto* r = s.MakeRange();
                         r->VpiParent(its);
                         setLoc(r, dim->sourceRange());
-                        auto mkB = [&](int64_t v, const syntax::ExpressionSyntax* es) {
+                        auto mkB = [&](int64_t v,
+                                       const syntax::ExpressionSyntax* es)
+                            -> UHDM::expr* {
+                            // A NAMED bound ([HI:LO]) stays a symbolic ref
+                            // scoped through the param (work@evil.A_VAL.HI) —
+                            // Surelog keeps it in both views. Literal bounds
+                            // fold to UINT constants.
+                            if (es &&
+                                es->kind ==
+                                    syntax::SyntaxKind::IdentifierName) {
+                                auto* r0 = s.MakeRef_obj();
+                                std::string bn(
+                                    es->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                                r0->VpiName(bn);
+                                if (!syntaxRefPrefix.empty())
+                                    r0->VpiFullName(syntaxRefPrefix + "." + bn);
+                                r0->VpiParent(r);
+                                setLoc(r0, es->sourceRange());
+                                return (UHDM::expr*)r0;
+                            }
                             auto* c = s.MakeConstant();
                             c->VpiDecompile(std::to_string(v));
                             c->VpiSize(64);
@@ -1294,7 +1314,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             c->VpiParent(r);
                             if (es)
                                 setLoc(c, es->sourceRange());
-                            return c;
+                            return (UHDM::expr*)c;
                         };
                         r->Left_expr(mkB(crange.left, lsyn));
                         r->Right_expr(mkB(crange.right, rsyn));
