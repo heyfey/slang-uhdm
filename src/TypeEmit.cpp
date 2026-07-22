@@ -1991,6 +1991,27 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     inv.left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
             fc->VpiParent(parent);
             setLoc(fc, syn.sourceRange());
+            // Arguments emit from syntax too (prefix_or(i[OFF-1:0])).
+            if (inv.arguments && !inv.arguments->parameters.empty()) {
+                auto* args = s.MakeAnyVec();
+                for (auto a2 : inv.arguments->parameters)
+                    if (a2->kind == syntax::SyntaxKind::OrderedArgument) {
+                        // Unwrap the property/sequence wrappers around a
+                        // plain expression argument.
+                        const syntax::SyntaxNode* ae =
+                            a2->as<syntax::OrderedArgumentSyntax>().expr;
+                        if (ae->kind == syntax::SyntaxKind::SimplePropertyExpr)
+                            ae = ae->as<syntax::SimplePropertyExprSyntax>()
+                                     .expr;
+                        if (ae->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+                            ae = ae->as<syntax::SimpleSequenceExprSyntax>()
+                                     .expr;
+                        if (auto* e2 = emitSyntaxExpr(*ae, fc))
+                            args->push_back(e2);
+                    }
+                if (!args->empty())
+                    fc->Tf_call_args(args);
+            }
             return fc;
         }
         case syntax::SyntaxKind::CastExpression: {
