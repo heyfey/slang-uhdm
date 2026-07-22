@@ -1558,6 +1558,18 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
             }
             if (hasOpConn)
                 continue;
+            // A NON-ANSI (1995-style port list) PARENT also omits its
+            // positional child ref_modules (wandwor — Surelog).
+            bool nonAnsiParent = false;
+            if (auto psyn9 = body.getSyntax();
+                psyn9 && psyn9->kind == syntax::SyntaxKind::ModuleDeclaration) {
+                auto& mh9 = *psyn9->as<syntax::ModuleDeclarationSyntax>().header;
+                if (mh9.ports &&
+                    mh9.ports->kind == syntax::SyntaxKind::NonAnsiPortList)
+                    nonAnsiParent = true;
+            }
+            if (nonAnsiParent)
+                continue;
         }
         auto* rm = s.MakeRef_module();
         rm->VpiName(child.name);
