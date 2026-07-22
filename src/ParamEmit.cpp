@@ -336,7 +336,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Instance view of an override: folded constant, base-encoded and
         // override-site-anchored for literal overrides; expression overrides
         // anchor at the DEFAULT initializer.
-        if (topView && overridden) {
+        // A NO-DEFAULT param bound to an EXPRESSION (.Width(A+B)) also folds
+        // directly here — the cont-assign backpatch (noDefOvPa) only shares
+        // LITERAL overrides, so an expression bind would otherwise get NO Rhs.
+        bool noDefExprOv =
+            !hasDefault && topView && boundInit &&
+            stripImplicitConv(*boundInit).kind != ExpressionKind::IntegerLiteral;
+        if (topView && (overridden || noDefExprOv)) {
             auto& cvo = ps.getValue();
             if (cvo.isInteger()) {
                 auto& iv = cvo.integer();
