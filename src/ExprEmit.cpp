@@ -831,6 +831,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // function folds to its value (the gen block is a concrete
                 // instance), unlike a plain-module function which keeps the ref
                 // (tfContext). Carries the param's type as a ref_typespec.
+                // Gen-scope instance CONNS fold genvar/localparam refs that
+                // live in a GenerateBlock to their per-index UINT constants.
+                if (genvarConnFold && nv.symbol.kind == SymbolKind::Parameter) {
+                    bool genLocal = false;
+                    for (auto sc9 = nv.symbol.getParentScope(); sc9;
+                         sc9 = sc9->asSymbol().getParentScope()) {
+                        auto k9 = sc9->asSymbol().kind;
+                        if (k9 == SymbolKind::GenerateBlock ||
+                            k9 == SymbolKind::GenerateBlockArray) {
+                            genLocal = true;
+                            break;
+                        }
+                        if (k9 == SymbolKind::InstanceBody)
+                            break;
+                    }
+                    auto& cv9 = nv.symbol.as<ParameterSymbol>().getValue();
+                    if (genLocal && cv9.isInteger() &&
+                        !cv9.integer().hasUnknown()) {
+                        auto* c = s.MakeConstant();
+                        std::string d9 =
+                            cv9.integer().toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(d9);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + d9);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(parent);
+                        setLoc(c, expr.sourceRange);
+                        return c;
+                    }
+                }
                 if (nv.symbol.kind == SymbolKind::Parameter &&
                     (currentSubSym || inGenScopeProc)) {
                     bool inGenFn = inGenScopeProc;

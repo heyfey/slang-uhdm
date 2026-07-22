@@ -143,6 +143,10 @@ private:
     // True while drainDefParamTs builds DEF-view param typespec clones —
     // those omit the module Instance link the ELAB clones carry.
     bool defViewParamTs = false;
+    // True while emitting a gen-scope child instance's conns: genvar/localparam
+    // refs belonging to a GenerateBlock fold to their per-index constants
+    // (Surelog folds them in INSTANCE CONNS but not process bodies).
+    bool genvarConnFold = false;
 
     // Per top instance: state carried from the netlist pass to the second
     // (port + deferred-typespec) pass.
