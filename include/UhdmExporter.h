@@ -659,6 +659,11 @@ private:
     // ...and when its RHS is a literal (netlist re-elab), direct literal
     // bounds parent at the part_select.
     bool genCaLhsReelab = false;
+    // True inside part_select bound emission (fold scope for the above).
+    bool inPsBound = false;
+    // Elab (top-view) param_assign Rhs constants, shared into RHS select
+    // bound folds.
+    std::map<const slang::ast::Symbol*, UHDM::constant*> elabParamConst;
     // Depth of procedural for-stmt bodies being emitted (refs escaping the
     // loop stay unbound in gen-scope processes).
     int procForDepth = 0;

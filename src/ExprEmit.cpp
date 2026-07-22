@@ -834,11 +834,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // ELAB gen-scope CA LHS select bounds fold PARAM refs to
                 // typed constants (base-scoped ts ref -> the param's int ts
                 // at its decl type span — Surelog).
-                if (genCaLhsParamFold &&
+                if (genCaLhsParamFold && inPsBound &&
                     nv.symbol.kind == SymbolKind::Parameter) {
+                    // RHS select bounds SHARE the param's own elab value
+                    // constant (parent stays its param_assign — Surelog).
+                    if (!inLhs) {
+                        for (auto& [esym, econ] : elabParamConst)
+                            if (esym->location == nv.symbol.location &&
+                                esym->name == nv.symbol.name)
+                                return econ;
+                    }
                     auto& psF = nv.symbol.as<ParameterSymbol>();
                     auto& cvF = psF.getValue();
-                    if (cvF.isInteger() && !cvF.integer().hasUnknown()) {
+                    if (inLhs && cvF.isInteger() &&
+                        !cvF.integer().hasUnknown()) {
                         auto* c = s.MakeConstant();
                         std::string dF =
                             cvF.integer().toString(LiteralBase::Decimal, false);
@@ -2794,10 +2803,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bool savedF2 = forceConstParent;
             if (inParamInit)
                 forceConstParent = false;
+            inPsBound = true;
             if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap))
                 psel->Left_range((UHDM::expr*)l);
             if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap))
                 psel->Right_range((UHDM::expr*)r);
+            inPsBound = false;
             suppressConstParent = savedSup2;
             forceConstParent = savedF2;
             return psel;

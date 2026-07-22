@@ -3929,7 +3929,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 bool suppress = streamRhs || childGen || !hasBindableRef;
                 if (suppress)
                     suppressRefActual = true;
+                bool blkInLoop3 = false;
+                for (auto q = blk.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                        blkInLoop3 = true;
+                        break;
+                    }
+                genCaLhsParamFold = !blkInLoop3;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
+                genCaLhsParamFold = false;
                 if (suppress)
                     suppressRefActual = false;
             }

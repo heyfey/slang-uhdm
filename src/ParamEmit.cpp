@@ -409,6 +409,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     rhsRt = rt;
                 }
                 pa->Rhs(c);
+                if (topView)
+                    elabParamConst[&ps] = c;
                 passigns->push_back(pa);
                 if (prt) {
                     if (!inPackage) {
