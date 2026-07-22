@@ -578,23 +578,36 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     if (!vsym)
                         continue;
                     auto& vct = vsym->getType().getCanonicalType();
-                    if (vct.kind != SymbolKind::PredefinedIntegerType ||
-                        vct.as<PredefinedIntegerType>().integerKind !=
-                            PredefinedIntegerType::Integer)
+                    bool isInt =
+                        vct.kind == SymbolKind::PredefinedIntegerType &&
+                        vct.as<PredefinedIntegerType>().integerKind ==
+                            PredefinedIntegerType::Integer;
+                    bool isScalar = vct.kind == SymbolKind::ScalarType;
+                    if (!isInt && !isScalar)
                         continue;
                     auto* as2 = s.MakeAssignment();
                     as2->VpiParent(b);
                     as2->VpiOpType(82);
                     as2->VpiBlocking(true);
                     setLoc(as2, nameSpan(dcl->name.location(), vname));
-                    auto* iv = s.MakeInteger_var();
+                    UHDM::variables* iv;
+                    UHDM::typespec* it2;
+                    if (isInt) {
+                        auto* v0 = s.MakeInteger_var();
+                        v0->VpiSigned(true);
+                        auto* t0 = s.MakeInteger_typespec();
+                        t0->VpiSigned(true);
+                        iv = v0;
+                        it2 = t0;
+                    }
+                    else {
+                        iv = s.MakeLogic_var();
+                        it2 = s.MakeLogic_typespec();
+                    }
                     iv->VpiName(vname);
                     iv->VpiFullName(branchPrefix + "." + vname);
                     iv->VpiParent(as2);
-                    iv->VpiSigned(true);
                     setLoc(iv, nameSpan(dcl->name.location(), vname));
-                    auto* it2 = s.MakeInteger_typespec();
-                    it2->VpiSigned(true);
                     setLoc(it2, dd.type->sourceRange());
                     auto* rt2 = s.MakeRef_typespec();
                     rt2->VpiFullName(branchPrefix + "." + vname);
@@ -636,13 +649,59 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         p->VpiParent(rm);
                         p->VpiName(formal);
                         setLoc(p, conn->sourceRange());
-                        auto* r = s.MakeRef_obj();
-                        r->VpiParent(p);
-                        r->VpiName(act);
-                        r->VpiFullName(branchPrefix + "." + iname + "." +
-                                       formal + "." + act);
-                        setLoc(r, npc.expr->sourceRange());
-                        p->High_conn(r);
+                        auto lb2 = act.find('[');
+                        if (lb2 != std::string::npos && !act.empty() &&
+                            act.back() == ']') {
+                            // A SELECT actual (sig[i]): bit_select named by
+                            // the BASE, fullname prefix.<inst>.<base> (no
+                            // formal doubling), loc at the INDEX; index is a
+                            // genvar ref (or a constant for digits).
+                            std::string base2 = act.substr(0, lb2);
+                            std::string idxT =
+                                act.substr(lb2 + 1, act.size() - lb2 - 2);
+                            auto idxStart =
+                                npc.expr->sourceRange().start() + (lb2 + 1);
+                            auto* bs = s.MakeBit_select();
+                            bs->VpiParent(p);
+                            bs->VpiName(base2);
+                            bs->VpiFullName(branchPrefix + "." + iname + "." +
+                                            base2);
+                            setLoc(bs, SourceRange(idxStart,
+                                                   idxStart + idxT.size()));
+                            if (!idxT.empty() &&
+                                idxT.find_first_not_of("0123456789") ==
+                                    std::string::npos) {
+                                auto* ic2 = s.MakeConstant();
+                                ic2->VpiDecompile(idxT);
+                                ic2->VpiSize(64);
+                                ic2->VpiValue("UINT:" + idxT);
+                                ic2->VpiConstType(vpiUIntConst);
+                                ic2->VpiParent(bs);
+                                setLoc(ic2, SourceRange(idxStart,
+                                                        idxStart + idxT.size()));
+                                bs->VpiIndex(ic2);
+                            }
+                            else {
+                                auto* ir = s.MakeRef_obj();
+                                ir->VpiName(idxT);
+                                ir->VpiFullName(branchPrefix + "." + iname +
+                                                "." + idxT);
+                                ir->VpiParent(bs);
+                                setLoc(ir, SourceRange(idxStart,
+                                                       idxStart + idxT.size()));
+                                bs->VpiIndex(ir);
+                            }
+                            p->High_conn(bs);
+                        }
+                        else {
+                            auto* r = s.MakeRef_obj();
+                            r->VpiParent(p);
+                            r->VpiName(act);
+                            r->VpiFullName(branchPrefix + "." + iname + "." +
+                                           formal + "." + act);
+                            setLoc(r, npc.expr->sourceRange());
+                            p->High_conn(r);
+                        }
                         rports->push_back(p);
                     }
                     if (!rports->empty())
@@ -735,22 +794,32 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         gi->VpiCondition((UHDM::expr*)c);
                 }
                 syntaxRefPrefix.clear();
-                // The AST scope for the TAKEN branch (member is that
-                // GenerateBlock when its syntax is the if-block).
+                // The AST scope for EACH branch: the GenerateBlock member
+                // whose syntax is that branch (the dedup means we emit both
+                // branches from the FIRST member's visit, so search all).
+                auto findBranchScope =
+                    [&](const syntax::SyntaxNode* bs) -> const Scope* {
+                    for (auto& m2 : body.members())
+                        if (m2.kind == SymbolKind::GenerateBlock &&
+                            m2.getSyntax() == bs)
+                            return &m2.as<Scope>();
+                    return nullptr;
+                };
                 const Scope* tbScope =
-                    member.getSyntax() ==
-                            (const syntax::SyntaxNode*)ifSyn->block
-                        ? &member.as<Scope>()
-                        : nullptr;
+                    findBranchScope((const syntax::SyntaxNode*)ifSyn->block);
                 if (auto* t = emitBranch(*ifSyn->block, g0, tbScope)) {
                     if (gie)
                         gie->VpiStmt(t);
                     else
                         gi->VpiStmt(t);
                 }
-                if (ifSyn->elseClause)
-                    if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie))
+                if (ifSyn->elseClause) {
+                    const Scope* ebScope = findBranchScope(
+                        (const syntax::SyntaxNode*)ifSyn->elseClause->clause);
+                    if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie,
+                                             ebScope))
                         gie->VpiElseStmt((UHDM::any*)e);
+                }
                 regions->push_back(g0);
                 continue;
             }
@@ -2999,20 +3068,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (gm.kind != SymbolKind::Variable)
                 continue;
             auto& vct = gm.as<VariableSymbol>().getType().getCanonicalType();
-            if (vct.kind != SymbolKind::PredefinedIntegerType ||
-                vct.as<PredefinedIntegerType>().integerKind !=
-                    PredefinedIntegerType::Integer)
+            bool isInt2 = vct.kind == SymbolKind::PredefinedIntegerType &&
+                          vct.as<PredefinedIntegerType>().integerKind ==
+                              PredefinedIntegerType::Integer;
+            bool isScalar2 = vct.kind == SymbolKind::ScalarType;
+            if (!isInt2 && !isScalar2)
                 continue;
             std::string vfull = fullName + "." + std::string(gm.name);
-            auto* iv = s.MakeInteger_var();
+            UHDM::variables* iv;
+            if (isInt2) {
+                auto* v0 = s.MakeInteger_var();
+                v0->VpiSigned(true);
+                iv = v0;
+            }
+            else {
+                iv = s.MakeLogic_var();
+            }
             iv->VpiName(gm.name);
             iv->VpiFullName(vfull);
             iv->VpiParent(gs);
-            iv->VpiSigned(true);
             iv->VpiVisibility(1);
             setLoc(iv, nameSpan(gm.location, gm.name));
-            auto* ivt = s.MakeInteger_typespec();
-            ivt->VpiSigned(true);
+            UHDM::typespec* ivt;
+            if (isInt2) {
+                auto* t0 = s.MakeInteger_typespec();
+                t0->VpiSigned(true);
+                ivt = t0;
+            }
+            else {
+                ivt = s.MakeLogic_typespec();
+            }
             if (auto* dt2 = gm.getDeclaredType())
                 if (auto* tsn2 = dt2->getTypeSyntax())
                     setLoc(ivt, tsn2->sourceRange());
