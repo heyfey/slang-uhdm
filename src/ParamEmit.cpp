@@ -413,7 +413,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                     else {
                         auto* its = makeParamTs(ps, typedParam);
-                        its->Instance((UHDM::instance*)m);
+                        // Surelog instances the ts at the package only for
+                        // TYPED params; untyped ones stay Instance-less.
+                        if (typedParam)
+                            its->Instance((UHDM::instance*)m);
                         if (rhsRt)
                             rhsRt->Actual_typespec(its);
                         prt->Actual_typespec(its);
@@ -937,9 +940,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 auto* its = makeParamTs(ps, typedParam);
                 currentScope = savedCS;
                 syntaxRefPrefix = savedPfx2;
-                if (inPackage)
+                if (inPackage && typedParam)
                     its->Instance((UHDM::instance*)m);
-                else if (isImported && ps.getParentScope()) {
+                else if (!inPackage && isImported && ps.getParentScope()) {
                     // An imported param's typespec is INSTANCED at its package.
                     if (auto pit = pkgDefMap.find(&ps.getParentScope()->asSymbol());
                         pit != pkgDefMap.end())
@@ -1218,8 +1221,18 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                                       memberScope);
             its->VpiName(alias);
             if (aliasPkg)
-                if (auto pit = pkgDefMap.find(aliasPkg); pit != pkgDefMap.end())
+                if (auto pit = pkgDefMap.find(aliasPkg); pit != pkgDefMap.end()) {
                     its->Instance(pit->second);
+                    // Fresh member-actual clones carry the package Instance
+                    // too (shared package typespecs already have it).
+                    if (auto* mems = ((UHDM::struct_typespec*)its)->Members())
+                        for (auto* tm : *mems)
+                            if (tm->Typespec() &&
+                                tm->Typespec()->Actual_typespec() &&
+                                !tm->Typespec()->Actual_typespec()->Instance())
+                                tm->Typespec()->Actual_typespec()->Instance(
+                                    pit->second);
+                }
             if (auto* csyn = ct.getSyntax())
                 tr = csyn->sourceRange();
         }
@@ -1492,7 +1505,7 @@ void UhdmExporter::drainDefParamTs() {
             currentScope = savedCS;
             syntaxRefPrefix = savedPfx2;
         }
-        if (pd.inPackage && !sharedTs)
+        if (pd.inPackage && !sharedTs && pd.typedParam)
             its->Instance((UHDM::instance*)pd.m);
         if (pd.di)
             pd.di->paramTs[pd.member] = its;
