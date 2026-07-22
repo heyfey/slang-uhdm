@@ -512,8 +512,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         hasDir = q->as<syntax::FunctionPortSyntax>().direction.valid();
                         break;
                     }
-                    if (q->kind == syntax::SyntaxKind::PortDeclaration ||
-                        q->kind == syntax::SyntaxKind::FunctionDeclaration)
+                    // Body-style io declarations (input reg [2:0] x;) always
+                    // carry a direction keyword.
+                    if (q->kind == syntax::SyntaxKind::PortDeclaration) {
+                        hasDir = true;
+                        break;
+                    }
+                    if (q->kind == syntax::SyntaxKind::FunctionDeclaration)
                         break;
                 }
                 if (!hasDir && argTsyn && argTsyn->kind != syntax::SyntaxKind::ImplicitType) {
