@@ -1140,7 +1140,13 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             tgtSyn =
                                 asyn->as<syntax::TypedefDeclarationSyntax>().type;
                     bypassTypedefShare = true;
+                    // Keep the typedef clone's parametrized range SYMBOLIC
+                    // ([X-1:0], not folded to [19:0]) — Surelog keeps the X-1
+                    // operation on the alias clone in both views.
+                    bool savedTf2 = tfContext;
+                    tfContext = true;
                     auto* cl = makeTypespec(taSym, tgtSyn);
+                    tfContext = savedTf2;
                     bypassTypedefShare = false;
                     auto* art = s.MakeRef_typespec();
                     art->VpiFullName(syntaxRefPrefix.empty()
@@ -1424,7 +1430,16 @@ void UhdmExporter::drainDefParamTs() {
         UHDM::typespec* its = nullptr;
         bool sharedTs = false;
         if (auto d0 = pd.ps->getDeclaredType()) {
-            if (auto tit = typedefTs.find(&d0->getType()); tit != typedefTs.end()) {
+            auto& dt0 = d0->getType();
+            // A VECTOR typedef (typedef logic[X-1:0] my_type_t) is CLONED with a
+            // Typedef_alias in both views (like struct/union/enum params take the
+            // share shortcut) — fall through to makeParamTs for the clone.
+            bool vectorAlias =
+                dt0.kind == SymbolKind::TypeAlias &&
+                dt0.getCanonicalType().kind == SymbolKind::PackedArrayType &&
+                dt0.getCanonicalType().isIntegral();
+            if (auto tit = typedefTs.find(&dt0);
+                tit != typedefTs.end() && !vectorAlias) {
                 its = tit->second;
                 sharedTs = true;
             }
