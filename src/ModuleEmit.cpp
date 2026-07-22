@@ -3016,7 +3016,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             auto* mi = emitInstance(ci, fullName + "." + std::string(ci.name),
                                     (UHDM::module_inst*)m, &netMap, nullptr,
                                     /*isTop=*/false);
+            // A gen-scope child carries ONLY the gen_scope parent — Surelog
+            // omits the vpiInstance/vpiModuleInst back-refs it gives normal
+            // (module-parented) children.
             mi->VpiParent(gs);
+            mi->Instance(nullptr);
+            mi->Module_inst(nullptr);
             gmods->push_back(mi);
         }
         if (!gmods->empty())
