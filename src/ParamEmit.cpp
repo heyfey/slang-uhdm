@@ -227,7 +227,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             pkgElabComputed = inPackage && topView && !literalInit &&
                               !unbasedInit && defaultInit && cv.isInteger() &&
-                              !cv.integer().hasUnknown();
+                              !cv.integer().hasUnknown() && [&] {
+                                  // Only inits that FOLD in the elab view:
+                                  // binary ops and const-function calls.
+                                  // Concats/patterns keep their operation
+                                  // and carry no param value (Surelog).
+                                  const Expression* d9 =
+                                      &stripImplicitConv(*defaultInit);
+                                  while (d9->kind == ExpressionKind::Conversion)
+                                      d9 = &d9->as<ConversionExpression>()
+                                                .operand();
+                                  return d9->kind == ExpressionKind::BinaryOp ||
+                                         containsUserCall(*defaultInit);
+                              }();
             if (!unbasedInit && (literalInit || pkgElabComputed) &&
                 cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
