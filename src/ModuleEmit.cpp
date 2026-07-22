@@ -3800,7 +3800,13 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                  vk.as<PackedArrayType>()
                          .elementType.getCanonicalType()
                          .kind == SymbolKind::ScalarType);
-            return okKind && blkWrites.count(&gm) != 0;
+            if (!okKind || !blkWrites.count(&gm))
+                return false;
+            // Only REG-keyword decls net-ify; `logic` locals stay vars.
+            if (auto dt0 = gm.getDeclaredType())
+                if (auto tsn0 = dt0->getTypeSyntax())
+                    return tsn0->kind == syntax::SyntaxKind::RegType;
+            return false;
         };
         auto* genArrayNets = s.MakeArray_netVec();
         for (auto& gm : blk.members()) {
