@@ -654,6 +654,66 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     vts = makeTypespec(fmv);
                     tfContext = false;
                 }
+                // A RANGED-typedef local (logic4 [1:0] out): the outer ts
+                // carries an Elem ref -> a fresh NAMED typedef clone
+                // (Typedef_alias -> shared), like the ranged-typedef ARG /
+                // RETURN paths (74f18de).
+                if (vts && vts->UhdmType() == UHDM::uhdmlogic_typespec &&
+                    !((UHDM::logic_typespec*)vts)->Elem_typespec()) {
+                    auto& vdt2 = fmv.getDeclaredType()->getType();
+                    if (vdt2.kind == SymbolKind::PackedArrayType) {
+                        auto& el2 = vdt2.as<PackedArrayType>().elementType;
+                        if (auto it1 = typedefTs.find(&el2);
+                            el2.kind == SymbolKind::TypeAlias &&
+                            it1 != typedefTs.end() &&
+                            it1->second->UhdmType() ==
+                                UHDM::uhdmlogic_typespec) {
+                            auto& elAl2 = el2.as<TypeAliasType>();
+                            const syntax::SyntaxNode* tgt2 = nullptr;
+                            if (auto asyn2 = elAl2.getSyntax())
+                                if (asyn2->kind ==
+                                    syntax::SyntaxKind::TypedefDeclaration)
+                                    tgt2 = asyn2
+                                               ->as<syntax::
+                                                        TypedefDeclarationSyntax>()
+                                               .type;
+                            bypassTypedefShare = true;
+                            auto* cl2 = makeTypespec(elAl2, tgt2);
+                            bypassTypedefShare = false;
+                            cl2->VpiName(elAl2.name);
+                            auto* art2 = s.MakeRef_typespec();
+                            art2->VpiFullName(std::string(elAl2.name));
+                            art2->VpiParent(cl2);
+                            art2->Actual_typespec(it1->second);
+                            ((UHDM::logic_typespec*)cl2)->Typedef_alias(art2);
+                            auto* ert2 = s.MakeRef_typespec();
+                            ert2->VpiParent(vts);
+                            ert2->Actual_typespec(cl2);
+                            ((UHDM::logic_typespec*)vts)->Elem_typespec(ert2);
+                            // The outer ts owns its [N:M] range (UINT bounds).
+                            if (!((UHDM::logic_typespec*)vts)->Ranges()) {
+                                auto pr2 = vdt2.as<PackedArrayType>().range;
+                                auto* rng2 = s.MakeRange();
+                                rng2->VpiParent(vts);
+                                auto mkB3 = [&](int64_t vv) -> UHDM::expr* {
+                                    auto* c3 = s.MakeConstant();
+                                    std::string d3 = std::to_string(vv);
+                                    c3->VpiDecompile(d3);
+                                    c3->VpiSize(64);
+                                    c3->VpiValue("UINT:" + d3);
+                                    c3->VpiConstType(vpiUIntConst);
+                                    c3->VpiParent(rng2);
+                                    return c3;
+                                };
+                                rng2->Left_expr(mkB3(pr2.left));
+                                rng2->Right_expr(mkB3(pr2.right));
+                                auto* rv2 = s.MakeRangeVec();
+                                rv2->push_back(rng2);
+                                ((UHDM::logic_typespec*)vts)->Ranges(rv2);
+                            }
+                        }
+                    }
+                }
                 if (pkgScope)
                     vts->Instance((UHDM::instance*)m);
                 // A packed-array-of-enum local is a packed_array_var (range +
