@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (r171 state)
+# HANDOFF — slang-uhdm convergence campaign (155-DIFF state)
 
 > **READ [PLAYBOOK.md](PLAYBOOK.md) FIRST.** It governs HOW to work: the goal
 > is 0 DIFF / 0 CMP_ONLY, autonomous blocks never pause at milestones or ask
@@ -6,6 +6,78 @@
 > regression is the experiment that reveals the missing distinguisher
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
+
+## Session 15-17 (fable[1m], autonomous drives 1-3, 2026-07-21..22) — struct + def-view gen + macro layout
+
+**Running: PASS 397 / CMP_ONLY 109 / DIFF 155** (drives started at 391/63/207;
+drive 3 alone: 393/103/165 -> 397/109/155). ~70 gated commits across the three
+drives (through 0ff946e), goldens 23/23 throughout, zero net regressions.
+Full ranked roadmap + per-test decodes live in the agent memory
+(`~/.claude/projects/-home-heyfey-git-repos-slang-uhdm/memory/diff-fix-roadmap.md`)
+— two 45+64-agent triage fan-outs clustered ALL DIFF tests by shared fix; the
+re-runnable workflow script is referenced there.
+
+Drive-3 headline features (all in NOTES-worthy detail in memory):
+
+1. **Surelog macro-location model FULLY decoded** (947777d, eff740a, 1f658dc).
+   Positions = the EXPANDED-LINE layout: single-line macro bodies place
+   tokens VIRTUALLY at the invocation site (usage line, usage col + body
+   offset — `macroInvLineCol`); file tokens AFTER an expansion on the same
+   line shift right by bodyLen-usageLen (`buildLineShifts`/`fileLineCol`,
+   enumerating all macro buffers via SourceManager); multi-line bodies keep
+   DEFINITION-site spans (`getFullyOriginalLoc`); vpiFile maps to the
+   definition file. Cracked struct_access(+PASS), array_assign,
+   macro_arg_spaces->PASS, genscope_cells' macro layers. OPEN: arg-
+   substitution column shifts inside multi-line bodies (asgn_binop r=1).
+2. **Def-view gen-block content is now fully re-emitted** (86ddf3c..c8819e1).
+   emitBranch recurses NESTED if-generates (chained named_begin fullnames,
+   doneIfs dedup, construct-span on nested gen_if_else, loc-less top-level
+   unless in an explicit generate region); emits PROCESSES via emitProcess
+   with branch prefix + FULLY unbound refs (defGenProcessEmit — not even
+   enum_const mints); unpacked-array decls stmt-ify as Rhs-less assignments
+   with array_var (BARE symbolic dim refs, Elem_typespec link); stmts are
+   stable-sorted into source order. Elab side: gen_scope array_var/array_net
+   /ranged-logic locals, per-instance anon-struct ts clones, implicit nets
+   dropped unless feeding a child instance conn (their CAs share the def
+   object bare). Converted generate_scope_implicit_net(PASS),
+   gpr_genscope_repro, genblk_order(PASS), EnumConcat, matching_end_labels,
+   for_decl_shadow, gen_test9->PASS.
+3. **Elab gen-scope binding rules decoded** (803dcaa): if/named-gen processes
+   bind stmt-block locals + gen-block locals (plain refs); hier-path leaves
+   bind only OUTSIDE procedural for bodies; loop-gen scopes bind nothing.
+   `for (integer x=..)` -> integer_var. Unnamed gen block containing nested
+   constructs takes its Surelog identity from the FIRST nested construct
+   (genblk<idx+1> name + its span). Gen-scope reg local driven by a block
+   cont_assign -> logic_net NetType 48.
+4. **IF-gen elab CA select-bound param folds** (d077f71, bf1867c, 8f51c68):
+   LHS bounds fold param refs to typed constants (base-scoped ts ref ->
+   fresh SIGNED int_typespec at the param decl span); RHS bounds clone a
+   use-site constant PARENTED at the param's own param_assign with an
+   instance-scoped ts ref; literal-RHS re-elab parents direct literal
+   bounds at the part_select. Loop-gen scopes keep symbolic bounds
+   (gen_test1/3/6, MemoryPort, forgen02 were the distinguisher demotions).
+5. **Struct family cracked** (bf1657b, eff740a, a06529a, cf3cee3):
+   prefixedStructNet gate = NON-ANSI module header; 4-state struct with
+   atom/enum/2-state top-level field -> struct_var; unsized based literal
+   keeps vpiSize -1 on dotted CA LHS; anon packed-struct elab gets a
+   per-instance ts clone + name+location attr fallback (distinct instance
+   bodies break pointer maps — `findAttrs`).
+6. Assorted: hier_path non-leaf refs must CACHE name-only fullnames (else
+   the dump lazily recomputes scoped names — phantom-prefix diffs, also
+   fixed the [idx]-dropping lazy walk for part_select under gen arrays);
+   dotted sys-call args emit as hier_paths; gen-scope child conns scope at
+   the GEN path (bit_selects double via inst name); gen-scope $bits CA
+   carries a result-ts ref; alias-of-packed-array-of-alias nets omit
+   vpiNetType (arrays03 layer).
+
+Parked with decodes in memory: genvar_loop_decl_2 (int-ts identity graph —
+use probe tool), named_genblk_cascade (per-depth elab gen_scope nesting for
+else-if chains), genscope_cells (231 dump lines left: gen-local ts range
+folds), asgn_binop (multi-line-macro arg shifts), assignment-pattern (pkg
+struct ts: package parent + span stretched to the initialized use decl),
+arrays03 (alias-clone at TypeEmit ~1583, extend to PackedArrayType-of-alias
+targets), pinmux/2DParameterOfInstance clone graph, iface t2194 embed
+cluster, int_types (needs full def-view stmt coverage under heavy macros).
 
 ## Session 14 (opus 4.8[1m], autonomous, 2026-07-21) — imports + negative folds
 
