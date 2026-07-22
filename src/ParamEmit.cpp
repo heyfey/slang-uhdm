@@ -277,7 +277,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // Typed/ranged params always carry a typespec (its range/type is
             // independent of the value); only an untyped literal is gated on a
             // known value.
-            wantTs = (ctw.isIntegral() || ctw.isFloating() ||
+            wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && typedParam)) &&
                      (typedParam || isRangedUntypedParam(ps) ||
                       (literalInit && !unknownDefault));
@@ -1188,20 +1188,38 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
         // int_typespec. Member refs scope through the calling context
         // (syntaxRefPrefix: the elab param clone uses work@top.P.<ty>.<m>).
         else if (ct.kind == SymbolKind::PackedStructType ||
-                 ct.kind == SymbolKind::PackedUnionType) {
+                 ct.kind == SymbolKind::PackedUnionType ||
+                 ct.kind == SymbolKind::UnpackedStructType) {
             std::string alias;
+            const Symbol* aliasPkg = nullptr;
             if (auto d0 = ps.getDeclaredType())
-                if (d0->getType().kind == SymbolKind::TypeAlias)
+                if (d0->getType().kind == SymbolKind::TypeAlias) {
                     alias = std::string(d0->getType().name);
+                    // A PACKAGE-scoped typedef names the clone p::cfg_t and
+                    // instances it at the package (Surelog).
+                    for (auto sc2 = d0->getType().getParentScope(); sc2;
+                         sc2 = sc2->asSymbol().getParentScope())
+                        if (sc2->asSymbol().kind == SymbolKind::Package) {
+                            aliasPkg = &sc2->asSymbol();
+                            alias = std::string(aliasPkg->name) + "::" + alias;
+                            break;
+                        }
+                }
             std::string memberScope = alias;
             if (!syntaxRefPrefix.empty() && !alias.empty())
                 memberScope = syntaxRefPrefix + "." + alias;
             its = ct.kind == SymbolKind::PackedStructType
                       ? (UHDM::typespec*)buildStructTs(ct.as<PackedStructType>(), true,
                                                        memberScope)
+                      : ct.kind == SymbolKind::UnpackedStructType
+                      ? (UHDM::typespec*)buildStructTs(
+                            ct.as<UnpackedStructType>(), false, memberScope)
                       : (UHDM::typespec*)buildUnionTs(ct.as<PackedUnionType>(), true,
                                                       memberScope);
             its->VpiName(alias);
+            if (aliasPkg)
+                if (auto pit = pkgDefMap.find(aliasPkg); pit != pkgDefMap.end())
+                    its->Instance(pit->second);
             if (auto* csyn = ct.getSyntax())
                 tr = csyn->sourceRange();
         }
