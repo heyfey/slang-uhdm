@@ -935,7 +935,10 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
     c->VpiValue("UINT:" + std::to_string(value));
     if (syn) {
         setLoc(c, syn->sourceRange());
-        c->VpiDecompile(rawText(syn->sourceRange()));
+        // rawText returns "" for MACRO-expanded ranges (call-site offsets do
+        // not map into the buffer) — fall back to the numeric value.
+        std::string raw = rawText(syn->sourceRange());
+        c->VpiDecompile(raw.empty() ? std::to_string(value) : raw);
     }
     return c;
 }
@@ -1766,6 +1769,12 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
         case syntax::SyntaxKind::IntegerLiteralExpression: {
             auto* c = s.MakeConstant();
             std::string raw = rawText(syn.sourceRange());
+            // MACRO-expanded literals have call-site offsets rawText cannot
+            // map — fall back to the token's numeric value.
+            if (raw.empty())
+                raw = syn.as<syntax::LiteralExpressionSyntax>()
+                          .literal.intValue()
+                          .toString(LiteralBase::Decimal, false);
             c->VpiDecompile(raw);
             c->VpiSize(64);
             c->VpiValue("UINT:" + raw);
