@@ -877,7 +877,11 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
             v->VpiSigned(true);
         return v;
     }
-    if (ct.kind == SymbolKind::PredefinedIntegerType) {
+    // A NET of a predefined-integer type (wire integer x) stays a NET in
+    // the elab too (net_types decode: only Variables and ports become vars).
+    if (ct.kind == SymbolKind::PredefinedIntegerType &&
+        (internal.kind != SymbolKind::Net || portBacked ||
+         !hasExplicitNetKeyword(internal))) {
         auto& pit = ct.as<PredefinedIntegerType>();
         switch (pit.integerKind) {
             case PredefinedIntegerType::Int: {
