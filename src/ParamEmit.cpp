@@ -704,6 +704,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     m->UhdmType() == UHDM::uhdminterface_inst &&
                     ps.getType().kind == SymbolKind::TypeAlias &&
                     typedefTs.count(&ps.getType());
+                // NESTED struct params keep the tagged form (no fold).
+                if (ifaceStructDef)
+                    for (auto& fm9 : ps.getType()
+                                         .getCanonicalType()
+                                         .as<PackedStructType>()
+                                         .membersOfType<FieldSymbol>())
+                        if (fm9.getType().getCanonicalType().kind ==
+                            SymbolKind::PackedStructType)
+                            ifaceStructDef = false;
                 if (structPat && (topView || ifaceStructDef)) {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto& sinitK = stripImplicitConv(*init);
