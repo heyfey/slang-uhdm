@@ -715,6 +715,10 @@ private:
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
+    // Re-encode a folded constant in the enum literal's source HEX form when
+    // `init` chains (through param refs) to an enum value (Surelog).
+    bool enumOriginHexRecode(UHDM::constant* c,
+                             const slang::ast::Expression* init);
     // Elab-view fold constant of a module STRING localparam (shared into a
     // cont-assign that reads it — o = X).
     std::map<const slang::ast::Symbol*, UHDM::constant*> moduleStringParamConst;

@@ -765,6 +765,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                    : 64);
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
+                    // Enum-origin pkg params fold in the enum literal's
+                    // source HEX form module-side too (Surelog).
+                    if (typedPkgParam)
+                        enumOriginHexRecode(c, psym.getInitializer());
                     setLoc(c, expr.sourceRange);
                     if (parent && parent->UhdmType() == UHDM::uhdmoperation)
                         c->VpiParent(parent);

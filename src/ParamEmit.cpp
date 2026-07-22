@@ -880,43 +880,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // param refs) lands on an ENUM VALUE folds in the enum
                 // literal's source HEX form (8'hCC / HEX:CC) — Surelog.
                 if (topView && inPackage && typedParam &&
-                    rhs->UhdmType() == UHDM::uhdmconstant) {
-                    const Expression* ce = &stripImplicitConv(*init);
-                    const Expression* evInit = nullptr;
-                    for (int g = 0; ce && g < 8; g++) {
-                        if (ce->kind != ExpressionKind::NamedValue)
-                            break;
-                        auto& sym2 = ce->as<NamedValueExpression>().symbol;
-                        if (sym2.kind == SymbolKind::EnumValue) {
-                            evInit = sym2.as<EnumValueSymbol>().getInitializer();
-                            break;
-                        }
-                        if (sym2.kind != SymbolKind::Parameter)
-                            break;
-                        auto* ini2 = sym2.as<ParameterSymbol>().getInitializer();
-                        ce = ini2 ? &stripImplicitConv(*ini2) : nullptr;
-                    }
-                    if (evInit) {
-                        std::string lit =
-                            rawText(stripImplicitConv(*evInit).sourceRange);
-                        while (!lit.empty() && (unsigned char)lit.back() <= ' ')
-                            lit.pop_back();
-                        while (!lit.empty() && (unsigned char)lit.front() <= ' ')
-                            lit.erase(lit.begin());
-                        auto hp = lit.find("'h");
-                        if (hp == std::string::npos)
-                            hp = lit.find("'H");
-                        if (hp != std::string::npos) {
-                            auto* c = (UHDM::constant*)rhs;
-                            std::string digits = lit.substr(hp + 2);
-                            for (auto& ch : digits)
-                                ch = (char)toupper((unsigned char)ch);
-                            c->VpiValue("HEX:" + digits);
-                            c->VpiConstType(vpiHexConst);
-                            c->VpiDecompile(lit);
-                        }
-                    }
-                }
+                    rhs->UhdmType() == UHDM::uhdmconstant)
+                    enumOriginHexRecode((UHDM::constant*)rhs, init);
                 // Literal inits of typed params carry the param typespec
                 // (patched late together with the param ref).
                 // Unknown ('x/'z) defaults: uppercase digits and a BARE
@@ -1611,6 +1576,49 @@ void UhdmExporter::drainDefParamTs() {
             its->VpiParent(pd.up);
     }
     pendingDefParamTs.clear();
+}
+
+// A fold whose init chain (through param refs) lands on an ENUM VALUE takes
+// the enum literal's source HEX form (8'hCC / HEX:CC / constType 5) — Surelog.
+// Returns true when the recode applied.
+bool UhdmExporter::enumOriginHexRecode(UHDM::constant* c,
+                                       const Expression* init) {
+    if (!init)
+        return false;
+    const Expression* ce = &stripImplicitConv(*init);
+    const Expression* evInit = nullptr;
+    for (int g = 0; ce && g < 8; g++) {
+        if (ce->kind != ExpressionKind::NamedValue)
+            break;
+        auto& sym2 = ce->as<NamedValueExpression>().symbol;
+        if (sym2.kind == SymbolKind::EnumValue) {
+            evInit = sym2.as<EnumValueSymbol>().getInitializer();
+            break;
+        }
+        if (sym2.kind != SymbolKind::Parameter)
+            break;
+        auto* ini2 = sym2.as<ParameterSymbol>().getInitializer();
+        ce = ini2 ? &stripImplicitConv(*ini2) : nullptr;
+    }
+    if (!evInit)
+        return false;
+    std::string lit = rawText(stripImplicitConv(*evInit).sourceRange);
+    while (!lit.empty() && (unsigned char)lit.back() <= ' ')
+        lit.pop_back();
+    while (!lit.empty() && (unsigned char)lit.front() <= ' ')
+        lit.erase(lit.begin());
+    auto hp = lit.find("'h");
+    if (hp == std::string::npos)
+        hp = lit.find("'H");
+    if (hp == std::string::npos)
+        return false;
+    std::string digits = lit.substr(hp + 2);
+    for (auto& ch : digits)
+        ch = (char)toupper((unsigned char)ch);
+    c->VpiValue("HEX:" + digits);
+    c->VpiConstType(vpiHexConst);
+    c->VpiDecompile(lit);
+    return true;
 }
 
 void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {
