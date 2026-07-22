@@ -1735,6 +1735,15 @@ int32_t UhdmExporter::interfacePortDirection(const InterfacePortSymbol& ip) {
     return qualified ? vpiInput : vpiInout;
 }
 
+const std::vector<UHDM::attribute*>* UhdmExporter::findAttrs(const Symbol* sym) {
+    if (auto it = attrMap.find(sym); it != attrMap.end())
+        return &it->second;
+    for (auto& kv : attrMap)
+        if (kv.first->location == sym->location && kv.first->name == sym->name)
+            return &kv.second;
+    return nullptr;
+}
+
 UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                               UHDM::module_inst* parentM, NetMap* parentNets,
                                               std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -1872,6 +1881,24 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     ts->Instance(tit0->second->Instance());
             }
         }
+        // An ANONYMOUS packed-struct signal (no typedef, no initializer)
+        // gets a per-instance elab CLONE: instance-scoped member refs, span
+        // over the `struct` keyword only, parented at the struct_net.
+        bool anonStructClone = false;
+        if (!ts && !implicitNet && !realVar) {
+            if (auto dtv = it.sym->getDeclaredType();
+                dtv && !dtv->getInitializer() &&
+                dtv->getType().kind == SymbolKind::PackedStructType) {
+                auto* sts = buildStructTs(
+                    dtv->getType().as<PackedStructType>(), true, fullName);
+                if (auto tsyn = dtv->getTypeSyntax())
+                    if (auto* su =
+                            tsyn->as_if<syntax::StructUnionTypeSyntax>())
+                        setLoc(sts, su->keyword.range());
+                ts = sts;
+                anonStructClone = true;
+            }
+        }
         if (!ts && !implicitNet && !realVar) {
             boundOwnerFullName = fullName;
             ts = sharedTypespec(*it.sym, netTs);
@@ -1884,14 +1911,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (auto* an = emitArrayNet(*it.sym, name, fullName, m, ts)) {
                 // Share the def-view attribute objects onto both the array_net
                 // and its element logic_net (Surelog attaches to both).
-                if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
+                if (auto* attrs = findAttrs(it.sym)) {
                     auto* av1 = s.MakeAttributeVec();
-                    for (auto* ua : ait->second)
+                    for (auto* ua : *attrs)
                         av1->push_back(ua);
                     an->Attributes(av1);
                     if (an->Nets() && !an->Nets()->empty()) {
                         auto* av2 = s.MakeAttributeVec();
-                        for (auto* ua : ait->second)
+                        for (auto* ua : *attrs)
                             av2->push_back(ua);
                         (*an->Nets())[0]->Attributes(av2);
                     }
@@ -2204,9 +2231,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     }
                 }
             }
-            if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
+            if (auto* attrs = findAttrs(it.sym)) {
                 auto* av = s.MakeAttributeVec();
-                for (auto* ua : ait->second)
+                for (auto* ua : *attrs)
                     av->push_back(ua);
                 v->Attributes(av);
             }
@@ -2363,17 +2390,18 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 n->Typespec(rt);
             }
             // The instance-view net shares the def-view attribute objects.
-            if (auto ait = attrMap.find(it.sym); ait != attrMap.end()) {
+            if (auto* attrs = findAttrs(it.sym)) {
                 auto* av = s.MakeAttributeVec();
-                for (auto* ua : ait->second)
+                for (auto* ua : *attrs)
                     av->push_back(ua);
                 n->Attributes(av);
             }
             // Surelog parents the net typespec at creation; a shared
             // declaration-group typespec ends at the group's last net.
             // Typedef typespecs keep their own parent.
-            if (ts && ts->UhdmType() != UHDM::uhdmenum_typespec &&
-                ts->UhdmType() != UHDM::uhdmstruct_typespec)
+            if (ts && (anonStructClone ||
+                       (ts->UhdmType() != UHDM::uhdmenum_typespec &&
+                        ts->UhdmType() != UHDM::uhdmstruct_typespec)))
                 ts->VpiParent(n);
             topNets[it.sym] = n;
             sigOrder.emplace_back(it.sym, n);

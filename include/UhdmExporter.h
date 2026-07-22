@@ -500,6 +500,9 @@ private:
     };
     std::vector<PendingSysFuncTs> pendingSysFuncTs;
     std::map<const slang::ast::Symbol*, std::vector<UHDM::attribute*>> attrMap;
+    // Elab instances past the first carry DISTINCT body symbols; fall back
+    // to name+location identity when the pointer key misses.
+    const std::vector<UHDM::attribute*>* findAttrs(const slang::ast::Symbol* sym);
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
     void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m);
