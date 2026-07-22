@@ -5549,7 +5549,24 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         (*subp0)->getReturnType().kind == SymbolKind::TypeAlias &&
                         rc.as<CallExpression>().arguments().empty();
         }
-        CallFold cfr = (topView && !typedefRet)
+        // Signed-scalar-formal calls never straight-line-reduce (the body
+        // conversion changes the value).
+        bool sgnFormal9 = false;
+        {
+            auto& rc9e = stripImplicitConv(ae.right());
+            if (rc9e.kind == ExpressionKind::Call &&
+                !rc9e.as<CallExpression>().isSystemCall())
+                if (auto sp9e = std::get_if<const SubroutineSymbol*>(
+                        &rc9e.as<CallExpression>().subroutine))
+                    for (auto a9e : (*sp9e)->getArguments())
+                        if (a9e->getType().isSigned() &&
+                            a9e->getType().getCanonicalType().kind ==
+                                SymbolKind::ScalarType) {
+                            sgnFormal9 = true;
+                            break;
+                        }
+        }
+        CallFold cfr = (topView && !typedefRet && !sgnFormal9)
                            ? constCallFold(stripImplicitConv(ae.right()))
                            : CallFold{};
         const Expression* constFnRet = (cfr && !cfr.param) ? cfr.lit : nullptr;
@@ -6122,6 +6139,57 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
                 rawText(constFnRet->sourceRange).find('\'') == std::string::npos)
                 ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+        }
+        // A call whose FORMAL is SIGNED never straight-line-reduces (the
+        // body conversion changes the value); it falls to the eval fold
+        // with Surelog's shape: UINT at size 32, arg-span loc, formal-ts.
+        const SubroutineSymbol* sgnSub9 = nullptr;
+        {
+            auto& rc9c = stripImplicitConv(ae.right());
+            if (rc9c.kind == ExpressionKind::Call &&
+                !rc9c.as<CallExpression>().isSystemCall())
+                if (auto sp9 = std::get_if<const SubroutineSymbol*>(
+                        &rc9c.as<CallExpression>().subroutine))
+                    for (auto a9 : (*sp9)->getArguments())
+                        if (a9->getType().isSigned() &&
+                            a9->getType().getCanonicalType().kind ==
+                                SymbolKind::ScalarType) {
+                            sgnSub9 = *sp9;
+                            break;
+                        }
+        }
+        if (!rhs && topView && sgnSub9 && !callFold) {
+            ASTContext gctx9(comp.getRoot(), LookupLocation::max);
+            ConstantValue gcv9 = gctx9.tryEval(ae.right());
+            if (gcv9 && gcv9.isInteger() && !gcv9.integer().hasUnknown())
+                callFold = std::move(gcv9);
+        }
+        if (!rhs && topView && callFold && sgnSub9) {
+            auto& iv9 = callFold->integer();
+            auto uiv9 = iv9;
+            uiv9.setSigned(false);
+            std::string dg9 = uiv9.toString(LiteralBase::Decimal, false);
+            auto* c9 = s.MakeConstant();
+            c9->VpiDecompile(dg9);
+            c9->VpiSize(32);
+            c9->VpiValue("UINT:" + dg9);
+            c9->VpiConstType(vpiUIntConst);
+            c9->VpiParent(ca);
+            auto& rc9d = stripImplicitConv(ae.right());
+            if (!rc9d.as<CallExpression>().arguments().empty())
+                setLoc(c9, rc9d.as<CallExpression>()
+                               .arguments()[0]
+                               ->sourceRange);
+            if (auto smit9 = subMap.find(sgnSub9);
+                smit9 != subMap.end() && !smit9->second.argTs.empty() &&
+                smit9->second.argTs[0].first) {
+                auto* rt9c = s.MakeRef_typespec();
+                rt9c->VpiFullName(prefix);
+                rt9c->VpiParent(c9);
+                rt9c->Actual_typespec(smit9->second.argTs[0].first);
+                c9->Typespec(rt9c);
+            }
+            rhs = c9;
         }
         if (!rhs && topView && callFold) {
             auto& iv = callFold->integer();
@@ -6779,20 +6847,55 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(localFull);
             rt->VpiParent(lv);
-            tfContext = true;
-            syntaxRefPrefix = localFull;
-            auto* ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
-            syntaxRefPrefix.clear();
-            tfContext = false;
-            ts->VpiParent(rt);
+            // A PKG-typedef return binds the SHARED pkg ts unmutated (its
+            // package parent kept); other returns clone as before.
+            UHDM::typespec* ts = nullptr;
+            bool sharedPkg = false;
+            if (sub.getReturnType().kind == SymbolKind::TypeAlias) {
+                auto& rta = sub.getReturnType();
+                if (auto sc0 =
+                        rta.as<TypeAliasType>().getParentScope();
+                    sc0 &&
+                    (sc0->asSymbol().kind == SymbolKind::Package ||
+                     sc0->asSymbol().kind == SymbolKind::CompilationUnit))
+                    if (auto tit0 = typedefTs.find(&rta);
+                        tit0 != typedefTs.end()) {
+                        ts = tit0->second;
+                        sharedPkg = true;
+                    }
+            }
+            if (!ts) {
+                tfContext = true;
+                syntaxRefPrefix = localFull;
+                ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+                syntaxRefPrefix.clear();
+                tfContext = false;
+                ts->VpiParent(rt);
+                if (pf.inst)
+                    ts->Instance(pf.inst);
+            }
             rt->Actual_typespec(ts);
-            if (pf.inst)
-                ts->Instance(pf.inst);
             lv->Typespec(rt);
-            lv->VpiLineNo(ts->VpiLineNo());
-            lv->VpiColumnNo(ts->VpiColumnNo());
-            lv->VpiEndLineNo(ts->VpiEndLineNo());
-            lv->VpiEndColumnNo(ts->VpiEndColumnNo());
+            // The ret var spans the RETURN TYPE syntax (trailing ws
+            // trimmed).
+            if (auto* rtsyn = returnTypeSyntax(sub)) {
+                auto rr9 = rtsyn->sourceRange();
+                std::string rw9 = rawText(rr9);
+                auto re9 = rr9.end();
+                while (!rw9.empty() &&
+                       (rw9.back() == ' ' || rw9.back() == '\t')) {
+                    rw9.pop_back();
+                    re9 = re9 - 1;
+                }
+                setLoc(lv, SourceRange(rr9.start(), re9));
+            }
+            else {
+                lv->VpiLineNo(ts->VpiLineNo());
+                lv->VpiColumnNo(ts->VpiColumnNo());
+                lv->VpiEndLineNo(ts->VpiEndLineNo());
+                lv->VpiEndColumnNo(ts->VpiEndColumnNo());
+            }
+            (void)sharedPkg;
             r->Actual_group(lv);
         }
         pf.refs.clear(); // processed

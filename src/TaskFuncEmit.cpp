@@ -161,6 +161,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // typedef site) with a Typedef_alias ref; the return var anchors
             // at the return-type token.
             bool typedefRetClone = false;
+            bool pkgUnitRet9 = false;
             if (!ts) {
                 auto& rdt = sub.getReturnType();
                 // The return alias may be a DISTINCT TypeAlias instance
@@ -182,7 +183,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 break;
                             }
                 }
-                if (retBase && retBase->UhdmType() == UHDM::uhdmlogic_typespec) {
+                // Pkg/$unit typedef returns SHARE the typedef ts (no clone).
+                if (retAlias)
+                    if (auto scr9 = retAlias->getParentScope())
+                        pkgUnitRet9 =
+                            scr9->asSymbol().kind == SymbolKind::Package;
+                if (retBase && pkgUnitRet9) {
+                    ts = retBase;
+                }
+                else if (retBase &&
+                         retBase->UhdmType() == UHDM::uhdmlogic_typespec) {
                     const syntax::SyntaxNode* targetSyn = nullptr;
                     if (auto asyn = retAlias->getSyntax())
                         if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
@@ -191,9 +201,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     bypassTypedefShare = true;
                     ts = makeTypespec(*sub.returnValVar, targetSyn);
                     bypassTypedefShare = false;
-                    ts->VpiName(rdt.name);
+                    // Pkg typedefs qualify the clone name (P::S).
+                    std::string qn9(rdt.name);
+                    if (auto scq9 = retAlias->getParentScope();
+                        scq9 &&
+                        scq9->asSymbol().kind == SymbolKind::Package)
+                        qn9 = std::string(scq9->asSymbol().name) + "::" + qn9;
+                    ts->VpiName(qn9);
                     auto* art = s.MakeRef_typespec();
-                    art->VpiFullName(rdt.name);
+                    art->VpiFullName(qn9);
                     art->VpiParent(ts);
                     art->Actual_typespec(retBase);
                     ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
@@ -220,9 +236,19 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // the return var takes the return-TYPE syntax span instead (a
             // typedef'd-vector clone likewise).
             if (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
-                ts->UhdmType() == UHDM::uhdmenum_typespec || typedefRetClone) {
-                if (auto* rsyn = returnTypeSyntax(sub))
-                    setLoc(rv, rsyn->sourceRange());
+                ts->UhdmType() == UHDM::uhdmenum_typespec ||
+                typedefRetClone || pkgUnitRet9) {
+                if (auto* rsyn = returnTypeSyntax(sub)) {
+                    auto rr9 = rsyn->sourceRange();
+                    std::string rw9 = rawText(rr9);
+                    auto re9 = rr9.end();
+                    while (!rw9.empty() &&
+                           (rw9.back() == ' ' || rw9.back() == '\t')) {
+                        rw9.pop_back();
+                        re9 = re9 - 1;
+                    }
+                    setLoc(rv, SourceRange(rr9.start(), re9));
+                }
             }
             else {
                 copyLoc(rv, ts);

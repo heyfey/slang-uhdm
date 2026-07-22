@@ -1863,9 +1863,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // VECTOR formals only (int formals keep 64).
                             if (a->UhdmType() == UHDM::uhdmconstant && arg->type &&
                                 !intFormal &&
-                                !stripImplicitConv(*arg).type->isString())
-                                ((UHDM::constant*)a)
-                                    ->VpiSize((int32_t)arg->type->getBitWidth());
+                                !stripImplicitConv(*arg).type->isString()) {
+                                auto* ac9 = (UHDM::constant*)a;
+                                ac9->VpiSize(
+                                    (int32_t)arg->type->getBitWidth());
+                                // SIGNED formals re-encode the converted
+                                // value (1 -> 1'sb1 = -1) as INT (Surelog).
+                                if (arg->type->isSigned()) {
+                                    ASTContext sctx9(comp.getRoot(),
+                                                     LookupLocation::max);
+                                    ConstantValue cv9 = sctx9.tryEval(*arg);
+                                    if (cv9 && cv9.isInteger() &&
+                                        !cv9.integer().hasUnknown()) {
+                                        auto iv9 = cv9.integer();
+                                        iv9.setSigned(true);
+                                        if (iv9.isNegative()) {
+                                            std::string d9 = iv9.toString(
+                                                LiteralBase::Decimal, false);
+                                            ac9->VpiValue("INT:" + d9);
+                                            ac9->VpiDecompile(d9);
+                                            ac9->VpiConstType(vpiIntConst);
+                                        }
+                                    }
+                                }
+                            }
                         }
                         args->push_back(a);
                     }
