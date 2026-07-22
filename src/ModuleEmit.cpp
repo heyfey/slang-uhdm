@@ -749,7 +749,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         // Symbolic range bounds ([63:CounterWidth]) from the
                         // dim syntax, refs scoped at the branch.
                         if (isRangedLogic &&
-                            dd.type->kind == syntax::SyntaxKind::LogicType) {
+                            (dd.type->kind == syntax::SyntaxKind::LogicType ||
+                             dd.type->kind == syntax::SyntaxKind::RegType)) {
                             auto& its3 = dd.type->as<syntax::IntegerTypeSyntax>();
                             auto* rvec3 = s.MakeRangeVec();
                             for (auto* dim : its3.dimensions) {
@@ -3762,26 +3763,44 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         // Local nets declared inside the block (wire tmp; ...).
         auto* gnets = s.MakeNetVec();
         std::vector<UHDM::cont_assign*> ndaCas;
-        // A scalar REG local driven by a block cont_assign elaborates as a
-        // logic_net (NetType 48) instead of a logic_var (Surelog).
-        auto caDrivenVar = [&](const Symbol& gm) {
-            if (gm.kind != SymbolKind::Variable ||
-                gm.as<VariableSymbol>().getType().getCanonicalType().kind !=
-                    SymbolKind::ScalarType)
-                return false;
+        // A REG local (scalar or ranged) DRIVEN inside the block — by a
+        // cont_assign OR a process — elaborates as a logic_net (NetType 48)
+        // instead of a logic_var (Surelog). Undriven regs stay vars.
+        std::set<const Symbol*> blkWrites;
+        {
             for (auto& cm : blk.members()) {
-                if (cm.kind != SymbolKind::ContinuousAssign)
-                    continue;
-                auto& asn = cm.as<ContinuousAssignSymbol>().getAssignment();
-                if (asn.kind != ExpressionKind::Assignment)
-                    continue;
-                auto& lc =
-                    stripImplicitConv(asn.as<AssignmentExpression>().left());
-                if (lc.kind == ExpressionKind::NamedValue &&
-                    &lc.as<NamedValueExpression>().symbol == &gm)
-                    return true;
+                if (cm.kind == SymbolKind::ContinuousAssign) {
+                    auto& asn = cm.as<ContinuousAssignSymbol>().getAssignment();
+                    if (asn.kind == ExpressionKind::Assignment) {
+                        auto& lc = stripImplicitConv(
+                            asn.as<AssignmentExpression>().left());
+                        if (lc.kind == ExpressionKind::NamedValue)
+                            blkWrites.insert(
+                                &lc.as<NamedValueExpression>().symbol);
+                    }
+                }
+                else if (cm.kind == SymbolKind::ProceduralBlock) {
+                    cm.as<ProceduralBlockSymbol>().getBody().visit(makeVisitor(
+                        [&](auto&, const AssignmentExpression& ae9) {
+                            auto& lw = stripImplicitConv(ae9.left());
+                            if (lw.kind == ExpressionKind::NamedValue)
+                                blkWrites.insert(
+                                    &lw.as<NamedValueExpression>().symbol);
+                        }));
+                }
             }
-            return false;
+        }
+        auto caDrivenVar = [&](const Symbol& gm) {
+            if (gm.kind != SymbolKind::Variable)
+                return false;
+            auto& vk = gm.as<VariableSymbol>().getType().getCanonicalType();
+            bool okKind =
+                vk.kind == SymbolKind::ScalarType ||
+                (vk.kind == SymbolKind::PackedArrayType &&
+                 vk.as<PackedArrayType>()
+                         .elementType.getCanonicalType()
+                         .kind == SymbolKind::ScalarType);
+            return okKind && blkWrites.count(&gm) != 0;
         };
         auto* genArrayNets = s.MakeArray_netVec();
         for (auto& gm : blk.members()) {

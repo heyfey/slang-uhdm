@@ -1005,8 +1005,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                        : SymbolKind::Unknown;
                         if (pk0 == SymbolKind::StatementBlock ||
                             pk0 == SymbolKind::GenerateBlock) {
+                            // NET-kind locals (driven regs -> nets) stay
+                            // unbound in processes; VAR locals bind.
                             if (auto it0 = netMap.find(&nv.symbol);
-                                it0 != netMap.end())
+                                it0 != netMap.end() &&
+                                it0->second->UhdmType() !=
+                                    UHDM::uhdmlogic_net &&
+                                it0->second->UhdmType() !=
+                                    UHDM::uhdmstruct_net)
                                 ref->Actual_group(it0->second);
                         }
                     }
