@@ -1499,9 +1499,11 @@ void UhdmExporter::drainDefParamTs() {
             std::string savedPfx2 = syntaxRefPrefix;
             const Scope* savedCS = currentScope;
             syntaxRefPrefix = pd.refFullName;
+            defViewParamTs = true;
             if (!currentScope)
                 currentScope = pd.ps->getParentScope();
             its = makeParamTs(*pd.ps, pd.typedParam);
+            defViewParamTs = false;
             currentScope = savedCS;
             syntaxRefPrefix = savedPfx2;
         }

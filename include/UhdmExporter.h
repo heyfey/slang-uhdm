@@ -140,6 +140,9 @@ private:
     // typespecs parent at the member's ref_typespec (Surelog clone form)
     // instead of the typespec_member.
     bool structCloneMemberRefParent = false;
+    // True while drainDefParamTs builds DEF-view param typespec clones —
+    // those omit the module Instance link the ELAB clones carry.
+    bool defViewParamTs = false;
 
     // Per top instance: state carried from the netlist pass to the second
     // (port + deferred-typespec) pass.
