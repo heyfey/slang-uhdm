@@ -697,7 +697,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||
                                  k0 == ExpressionKind::SimpleAssignmentPattern);
                 }
-                if (structPat && topView) {
+                // The DEF view of an INTERFACE struct param uses the same
+                // folded op75 shape, its ts ref bound to the SHARED pkg ts.
+                bool ifaceStructDef =
+                    structPat && !topView &&
+                    m->UhdmType() == UHDM::uhdminterface_inst &&
+                    ps.getType().kind == SymbolKind::TypeAlias &&
+                    typedefTs.count(&ps.getType());
+                if (structPat && (topView || ifaceStructDef)) {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto& sinitK = stripImplicitConv(*init);
                     auto* op2 = s.MakeOperation();
@@ -707,7 +714,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiParent(op2);
                     op2->Typespec(rt);
-                    rhsRt = rt; // -> elab param clone (patchParamTypespecs)
+                    if (ifaceStructDef)
+                        rt->Actual_typespec(typedefTs[&ps.getType()]);
+                    else
+                        rhsRt = rt; // -> elab param clone (patchParamTypespecs)
                     auto* opnds = s.MakeAnyVec();
                     ASTContext ectx(comp.getRoot(), LookupLocation::max);
                     for (auto& fld :
@@ -729,9 +739,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             continue;
                         // A LITERAL setter keeps its source encoding (1'b1 ->
                         // BIN, parented at the op via emitExpr); non-literal
-                        // setters fold to UINT at the member width.
-                        if (stripImplicitConv(*se).kind ==
-                            ExpressionKind::IntegerLiteral) {
+                        // setters fold to UINT at the member width. Iface
+                        // DEF params fold literals too.
+                        if (!ifaceStructDef &&
+                            stripImplicitConv(*se).kind ==
+                                ExpressionKind::IntegerLiteral) {
                             if (auto* e2 = emitExpr(*se, op2, prefix, netMap)) {
                                 ((UHDM::expr*)e2)->VpiParent(op2);
                                 opnds->push_back(e2);
@@ -821,7 +833,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ps.getType().getCanonicalType().kind ==
                             SymbolKind::FixedSizeUnpackedArrayType &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
-                    if (anyUnknown || packedArrayOp || unpackedArrayOp) {
+                    if ((anyUnknown || packedArrayOp || unpackedArrayOp) &&
+                        !(opr->Typespec() &&
+                          opr->Typespec()->Actual_typespec())) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
