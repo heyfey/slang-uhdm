@@ -926,7 +926,31 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                                              ebScope))
                         gie->VpiElseStmt((UHDM::any*)e);
                 }
-                regions->push_back(g0);
+                // Inside an EXPLICIT generate...endgenerate region the if
+                // wraps gen_region -> UNNAMED begin (module fullname) -> the
+                // gen_if (Surelog drops nothing else).
+                bool inRegion = false;
+                for (auto q = (const syntax::SyntaxNode*)ifSyn; q;
+                     q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                        inRegion = true;
+                        break;
+                    }
+                if (inRegion) {
+                    auto* gr0 = s.MakeGen_region();
+                    gr0->VpiParent(m);
+                    auto* wb = s.MakeBegin();
+                    wb->VpiFullName(prefix);
+                    wb->VpiParent(gr0);
+                    auto* ws = s.MakeAnyVec();
+                    g0->VpiParent(wb);
+                    ws->push_back(g0);
+                    wb->Stmts(ws);
+                    gr0->VpiStmt(wb);
+                    regions->push_back(gr0);
+                }
+                else
+                    regions->push_back(g0);
                 continue;
             }
             // FOR-generates: a LOC-LESS gen_for with the genvar init
