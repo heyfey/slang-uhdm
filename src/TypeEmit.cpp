@@ -2118,6 +2118,43 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // A.B.y). Other (non-gen) callers have an empty/param prefix, so
             // the leaf simply gets no fullname.
             std::string raw = rawText(syn.sourceRange());
+            // A SYMBOLIC base index (STAGE[i-1].C) re-lexes with spaces
+            // around binary operators (Surelog) and needs the selector
+            // SYNTAX for the bit_select index emission.
+            const syntax::ExpressionSyntax* baseSelSyn = nullptr;
+            {
+                auto& scn0 = syn.as<syntax::ScopedNameSyntax>();
+                if (scn0.left->kind ==
+                    syntax::SyntaxKind::IdentifierSelectName) {
+                    auto& isn0 =
+                        scn0.left->as<syntax::IdentifierSelectNameSyntax>();
+                    if (isn0.selectors.size() == 1 &&
+                        isn0.selectors[0]->selector &&
+                        isn0.selectors[0]->selector->kind ==
+                            syntax::SyntaxKind::BitSelect)
+                        baseSelSyn = isn0.selectors[0]
+                                         ->selector
+                                         ->as<syntax::BitSelectSyntax>()
+                                         .expr;
+                }
+            }
+            auto spaceOps = [](const std::string& t) {
+                std::string o;
+                for (size_t i2 = 0; i2 < t.size(); i2++) {
+                    char ch = t[i2];
+                    if ((ch == '+' || ch == '-' || ch == '*' || ch == '/') &&
+                        i2 > 0 && t[i2 - 1] != ' ' && t[i2 - 1] != '[') {
+                        o += ' ';
+                        o += ch;
+                        if (i2 + 1 < t.size() && t[i2 + 1] != ' ')
+                            o += ' ';
+                    }
+                    else
+                        o += ch;
+                }
+                return o;
+            };
+            std::string dispRaw = spaceOps(raw);
             std::vector<std::pair<std::string, size_t>> parts;
             {
                 size_t pos = 0;
@@ -2134,8 +2171,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             if (parts.size() < 2)
                 return nullptr;
             auto* hp = s.MakeHier_path();
-            hp->VpiName(raw);
-            hp->VpiFullName(raw);
+            hp->VpiName(dispRaw);
+            hp->VpiFullName(dispRaw);
             hp->VpiParent(parent);
             setLoc(hp, syn.sourceRange());
             auto* elems = s.MakeAnyVec();
@@ -2166,6 +2203,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     setLoc(c, SourceRange(exprStart + digitOff,
                                           exprStart + digitOff + idx.size()));
                     bs->VpiIndex(c);
+                    elems->push_back(bs);
+                    continue;
+                }
+                // SYMBOLIC index on the base (STAGE[i-1]): bit_select named
+                // by the base, fullname with SPACED index, index from the
+                // selector syntax.
+                if (i == 0 && baseSelSyn && lb != std::string::npos &&
+                    rb != std::string::npos && rb > lb + 1) {
+                    std::string base = pname.substr(0, lb);
+                    auto* bs = s.MakeBit_select();
+                    bs->VpiName(base);
+                    bs->VpiParent(hp);
+                    bs->VpiFullName(spaceOps(pname));
+                    setLoc(bs, SourceRange(exprStart + off,
+                                           exprStart + off + base.size()));
+                    if (auto* ix = emitSyntaxExpr(*baseSelSyn, bs))
+                        bs->VpiIndex((UHDM::expr*)ix);
                     elems->push_back(bs);
                     continue;
                 }

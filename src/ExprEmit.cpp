@@ -3263,6 +3263,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Cross-instance references (u1.cnt) share the member-access
             // hier_path shape; elements come from the dotted source text.
             std::string raw = rawText(expr.sourceRange);
+            // SYMBOLIC base index (STAGE[i-1].C): SL re-lexes with spaces
+            // and emits a bit_select element whose index comes from the
+            // selector SYNTAX, refs doubled through the hier display name.
+            const syntax::ExpressionSyntax* baseSelSyn = nullptr;
+            if (expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::ScopedName) {
+                auto& scn0 = expr.syntax->as<syntax::ScopedNameSyntax>();
+                if (scn0.left->kind ==
+                    syntax::SyntaxKind::IdentifierSelectName) {
+                    auto& isn0 =
+                        scn0.left->as<syntax::IdentifierSelectNameSyntax>();
+                    if (isn0.selectors.size() == 1 &&
+                        isn0.selectors[0]->selector &&
+                        isn0.selectors[0]->selector->kind ==
+                            syntax::SyntaxKind::BitSelect) {
+                        const syntax::ExpressionSyntax* bsel0 =
+                            isn0.selectors[0]
+                                ->selector
+                                ->as<syntax::BitSelectSyntax>()
+                                .expr;
+                        if (bsel0->kind !=
+                            syntax::SyntaxKind::IntegerLiteralExpression)
+                            baseSelSyn = bsel0;
+                    }
+                }
+            }
+            auto spaceOps = [](const std::string& t) {
+                std::string o;
+                for (size_t i2 = 0; i2 < t.size(); i2++) {
+                    char ch = t[i2];
+                    if ((ch == '+' || ch == '-' || ch == '*' || ch == '/') &&
+                        i2 > 0 && t[i2 - 1] != ' ' && t[i2 - 1] != '[') {
+                        o += ' ';
+                        o += ch;
+                        if (i2 + 1 < t.size() && t[i2 + 1] != ' ')
+                            o += ' ';
+                    }
+                    else
+                        o += ch;
+                }
+                return o;
+            };
+            if (baseSelSyn)
+                raw = spaceOps(raw);
             std::vector<std::pair<std::string, size_t>> parts;
             {
                 size_t pos = 0;
@@ -3312,6 +3356,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     size_t digitOff = off + lb + 1;
                     setLoc(c, SourceRange(exprStart + digitOff, exprStart + digitOff + idx.size()));
                     bs->VpiIndex(c);
+                    elems->push_back(bs);
+                    continue;
+                }
+                // SYMBOLIC base index: bit_select named by the base,
+                // fullname keeps the spaced index; the index emits from
+                // syntax with refs doubled through the hier display.
+                if (i == 0 && baseSelSyn && lb != std::string::npos &&
+                    rb != std::string::npos && rb > lb + 1) {
+                    std::string base = pname.substr(0, lb);
+                    auto* bs = s.MakeBit_select();
+                    bs->VpiName(base);
+                    bs->VpiParent(hp);
+                    bs->VpiFullName(pname);
+                    setLoc(bs, SourceRange(exprStart + off,
+                                           exprStart + off + base.size()));
+                    std::string savedPfx = syntaxRefPrefix;
+                    std::string savedSep = syntaxRefSep;
+                    syntaxRefPrefix = prefix + "." + raw;
+                    syntaxRefSep = ".";
+                    if (auto* ix = emitSyntaxExpr(*baseSelSyn, hp))
+                        bs->VpiIndex((UHDM::expr*)ix);
+                    syntaxRefPrefix = savedPfx;
+                    syntaxRefSep = savedSep;
                     elems->push_back(bs);
                     continue;
                 }

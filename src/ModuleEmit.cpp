@@ -3643,6 +3643,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 ats->VpiParent(n);
             rt->Actual_typespec(ats);
             n->Typespec(rt);
+            genScopeNets[&gm] = n;
             gnets->push_back(n);
             // A net-declaration initializer (wire z = '1;) becomes a
             // net-decl-assign cont_assign with a FRESH Lhs net (own deferred
@@ -3676,19 +3677,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     ca->Rhs((UHDM::expr*)rhs);
                 }
                 forceConstParent = fcp;
-                auto* lnet = s.MakeLogic_net();
-                lnet->VpiName(gm.name);
-                lnet->VpiFullName(nfull);
-                lnet->VpiParent(ca);
-                if (nt)
-                    lnet->VpiNetType(nt);
-                setLoc(lnet, nameSpan(gm.location, gm.name));
-                auto* lrt = s.MakeRef_typespec();
-                lrt->VpiFullName(nfull);
-                lrt->VpiParent(lnet);
-                lnet->Typespec(lrt);
-                pendingNetDeclTs.push_back({lrt, &gm});
-                ca->Lhs(lnet);
+                // LOOP-gen scopes share the SCOPE NET bare as the Lhs for
+                // SCALAR nets; ranged nets (and if/named scopes) mint a
+                // fresh Lhs net (Surelog).
+                bool loopScope9 = false;
+                for (auto q = blk.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                        loopScope9 = true;
+                        break;
+                    }
+                if (loopScope9 && dt->getType().getCanonicalType().kind !=
+                                      SymbolKind::ScalarType)
+                    loopScope9 = false;
+                if (loopScope9) {
+                    ca->Lhs((UHDM::expr*)(UHDM::any*)n);
+                }
+                else {
+                    auto* lnet = s.MakeLogic_net();
+                    lnet->VpiName(gm.name);
+                    lnet->VpiFullName(nfull);
+                    lnet->VpiParent(ca);
+                    if (nt)
+                        lnet->VpiNetType(nt);
+                    setLoc(lnet, nameSpan(gm.location, gm.name));
+                    auto* lrt = s.MakeRef_typespec();
+                    lrt->VpiFullName(nfull);
+                    lrt->VpiParent(lnet);
+                    lnet->Typespec(lrt);
+                    pendingNetDeclTs.push_back({lrt, &gm});
+                    ca->Lhs(lnet);
+                }
                 ndaCas.push_back(ca);
             }
         }
@@ -4109,12 +4127,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
             }
             // A NESTED gen scope (parent scope is itself a generate block)
-            // leaves its whole-ref LHS unbound too (Surelog).
+            // leaves a MODULE-level whole-ref LHS unbound; refs to GEN-scope
+            // nets still bind (Surelog).
             if (!lhsSuppress &&
                 stripImplicitConv(ae.left()).kind ==
                     ExpressionKind::NamedValue) {
+                auto& lsym0 =
+                    stripImplicitConv(ae.left()).as<NamedValueExpression>().symbol;
+                bool symModuleLevel = false;
+                if (auto sps0 = lsym0.getParentScope())
+                    symModuleLevel =
+                        sps0->asSymbol().kind == SymbolKind::InstanceBody;
                 if (auto ps0 = blk.getParentScope();
-                    ps0 && ps0->asSymbol().kind == SymbolKind::GenerateBlock)
+                    ps0 && ps0->asSymbol().kind == SymbolKind::GenerateBlock &&
+                    (symModuleLevel || lsym0.kind == SymbolKind::Variable))
                     lhsSuppress = true;
             }
             if (lhsSuppress)
@@ -4128,8 +4154,26 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             genCaLhsParamFold = !blkInLoop2;
             genCaLhsReelab =
                 !blkInLoop2 && isLiteralExpr(stripImplicitConv(ae.right()));
-            if (auto* l = emitExpr(ae.left(), ca, fullName, netMap))
+            if (auto* l = emitExpr(ae.left(), ca, fullName, netMap)) {
+                // Nested-scope CA LHS refs to a PARENT gen scope's nets bind
+                // through the dedicated gen-net map.
+                if (!lhsSuppress && l->UhdmType() == UHDM::uhdmref_obj &&
+                    !((UHDM::ref_obj*)l)->Actual_group()) {
+                    auto& lc9 = stripImplicitConv(ae.left());
+                    if (lc9.kind == ExpressionKind::NamedValue) {
+                        auto& ls9 = lc9.as<NamedValueExpression>().symbol;
+                        // Only refs to a PARENT scope's nets bind; refs to
+                        // this block's own nets stay unbound (Surelog).
+                        bool parentNet9 = false;
+                        if (auto sp9 = ls9.getParentScope())
+                            parentNet9 = &sp9->asSymbol() != (const Symbol*)&blk;
+                        auto git9 = genScopeNets.find(&ls9);
+                        if (parentNet9 && git9 != genScopeNets.end())
+                            ((UHDM::ref_obj*)l)->Actual_group(git9->second);
+                    }
+                }
                 ca->Lhs((UHDM::expr*)l);
+            }
             genCaLhsReelab = false;
             genCaLhsParamFold = false;
             if (lhsSuppress)

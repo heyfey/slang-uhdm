@@ -664,6 +664,8 @@ private:
     // Elab (top-view) param_assign Rhs constants, shared into RHS select
     // bound folds.
     std::map<const slang::ast::Symbol*, UHDM::constant*> elabParamConst;
+    // Elab gen-scope net objects (for nested-scope CA LHS binding only).
+    std::map<const slang::ast::Symbol*, UHDM::any*> genScopeNets;
     // Depth of procedural for-stmt bodies being emitted (refs escaping the
     // loop stay unbound in gen-scope processes).
     int procForDepth = 0;
