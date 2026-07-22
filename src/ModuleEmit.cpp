@@ -5695,6 +5695,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     ExpressionKind::UnbasedUnsizedIntegerLiteral &&
                 rawText(stripImplicitConv(ae.right()).sourceRange) == "'0")
                 ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+            // An unsized BASED literal ('h42) keeps -1 on a dotted/select
+            // LHS; only a whole-net LHS gets the bare-CA size-0 form.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                ((UHDM::constant*)rhs)->VpiSize() == 0 &&
+                stripImplicitConv(ae.left()).kind != ExpressionKind::NamedValue &&
+                stripImplicitConv(ae.right()).kind ==
+                    ExpressionKind::IntegerLiteral) {
+                auto rtx = rawText(stripImplicitConv(ae.right()).sourceRange);
+                if (!rtx.empty() && rtx[0] == '\'')
+                    ((UHDM::constant*)rhs)->VpiSize(-1);
+            }
         }
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
