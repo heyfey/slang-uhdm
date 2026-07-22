@@ -2107,6 +2107,45 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             op->Operands(operands);
             return op;
         }
+        case syntax::SyntaxKind::AssignmentPatternExpression: {
+            // Structured pattern ('{f1: expr, ...}) in a DEF gen CA:
+            // operation 75 of tagged_patterns; each carries the member expr
+            // (parented at the operation) and a string_typespec ref named by
+            // the FIELD, scoped at the gen prefix (Surelog).
+            auto& ape = syn.as<syntax::AssignmentPatternExpressionSyntax>();
+            if (ape.pattern->kind !=
+                syntax::SyntaxKind::StructuredAssignmentPattern)
+                return nullptr;
+            auto& spn =
+                ape.pattern->as<syntax::StructuredAssignmentPatternSyntax>();
+            auto* op9 = s.MakeOperation();
+            op9->VpiOpType(75);
+            op9->VpiParent(parent);
+            setLoc(op9, ape.pattern->sourceRange());
+            auto* ops9 = s.MakeAnyVec();
+            for (auto* item9 : spn.items) {
+                if (item9->kind != syntax::SyntaxKind::AssignmentPatternItem)
+                    continue;
+                auto& api9 = item9->as<syntax::AssignmentPatternItemSyntax>();
+                auto* tp9 = s.MakeTagged_pattern();
+                tp9->VpiParent(op9);
+                setLoc(tp9, api9.expr->sourceRange());
+                if (auto* pe9 = emitSyntaxExpr(*api9.expr, op9))
+                    tp9->Pattern((UHDM::expr*)pe9);
+                auto* rt9 = s.MakeRef_typespec();
+                if (!syntaxRefPrefix.empty())
+                    rt9->VpiFullName(syntaxRefPrefix);
+                rt9->VpiParent(tp9);
+                auto* st9 = s.MakeString_typespec();
+                st9->VpiName(rawText(api9.key->sourceRange()));
+                setLoc(st9, api9.key->sourceRange());
+                rt9->Actual_typespec(st9);
+                tp9->Typespec(rt9);
+                ops9->push_back(tp9);
+            }
+            op9->Operands(ops9);
+            return op9;
+        }
         case syntax::SyntaxKind::ScopedName: {
             // A dotted HIERARCHICAL name (B.y, blk[0].sub.x) in a DEF-view
             // gen-block cont_assign: a hier_path built from the source text,
@@ -2205,6 +2244,44 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     bs->VpiIndex(c);
                     elems->push_back(bs);
                     continue;
+                }
+                // A [L:R] literal RANGE on an element (f1[63:0]):
+                // part_select named by the member, fullname = the dotted
+                // path incl. the select, ConstantSelect, UINT64 bounds.
+                {
+                    auto cl9 = pname.find(':');
+                    if (lb != std::string::npos && rb != std::string::npos &&
+                        cl9 != std::string::npos && cl9 > lb && cl9 < rb &&
+                        pname.find_first_not_of("0123456789",
+                                                lb + 1) == cl9 &&
+                        pname.find_first_not_of("0123456789",
+                                                cl9 + 1) == rb) {
+                        std::string base9 = pname.substr(0, lb);
+                        auto* ps9 = s.MakePart_select();
+                        ps9->VpiName(base9);
+                        ps9->VpiFullName(dottedSoFar);
+                        ps9->VpiParent(hp);
+                        ps9->VpiConstantSelect(true);
+                        setLoc(ps9, SourceRange(exprStart + off,
+                                                exprStart + off + rb));
+                        auto mkB9 = [&](size_t from, size_t to) {
+                            auto* c9 = s.MakeConstant();
+                            std::string dg9 =
+                                pname.substr(from, to - from);
+                            c9->VpiDecompile(dg9);
+                            c9->VpiSize(64);
+                            c9->VpiValue("UINT:" + dg9);
+                            c9->VpiConstType(vpiUIntConst);
+                            setLoc(c9,
+                                   SourceRange(exprStart + off + from,
+                                               exprStart + off + to));
+                            return c9;
+                        };
+                        ps9->Left_range(mkB9(lb + 1, cl9));
+                        ps9->Right_range(mkB9(cl9 + 1, rb));
+                        elems->push_back(ps9);
+                        continue;
+                    }
                 }
                 // SYMBOLIC index on the base (STAGE[i-1]): bit_select named
                 // by the base, fullname with SPACED index, index from the
