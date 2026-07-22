@@ -1784,6 +1784,83 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         if (member.kind == SymbolKind::TypeAlias)
             pkgAliases.push_back(&member);
     std::vector<std::pair<std::string, UHDM::typespec*>> pkgTdByName;
+    // A package IMPORTING another package lists the imported ENUM typedefs
+    // as ONE shared clone per typedef (created on first sight; module import
+    // listings share it) plus an import_typespec per import item (after the
+    // sorted typedefs).
+    std::vector<UHDM::typespec*> importTss;
+    if (true) {
+        for (auto& mem : pkg.members()) {
+            std::string_view pn;
+            if (mem.kind == SymbolKind::WildcardImport)
+                pn = mem.as<WildcardImportSymbol>().packageName;
+            else if (mem.kind == SymbolKind::ExplicitImport)
+                pn = mem.as<ExplicitImportSymbol>().packageName;
+            else
+                continue;
+            if (auto* spkg = comp.getPackage(pn)) {
+                for (auto& pm : spkg->members()) {
+                    if (pm.kind != SymbolKind::TypeAlias)
+                        continue;
+                    auto& ta2 = pm.as<TypeAliasType>();
+                    auto& ct2 = ta2.getCanonicalType();
+                    if (ct2.kind != SymbolKind::EnumType &&
+                        ct2.kind != SymbolKind::PackedStructType)
+                        continue;
+                    // ONE clone per imported typedef, shared by every module
+                    // import listing (direct and transitive) — created here
+                    // (the home pkg emitted earlier in source order).
+                    UHDM::enum_typespec* cl2 = nullptr;
+                    if (auto cit2 = pkgImportCloneTs.find(&pm);
+                        cit2 != pkgImportCloneTs.end())
+                        cl2 = (UHDM::enum_typespec*)cit2->second;
+                    else {
+                        const syntax::SyntaxNode* dSyn2 = ta2.getSyntax();
+                        const syntax::SyntaxNode* tSyn2 = nullptr;
+                        if (dSyn2 && dSyn2->kind ==
+                                         syntax::SyntaxKind::TypedefDeclaration)
+                            tSyn2 = dSyn2->as<syntax::TypedefDeclarationSyntax>()
+                                        .type;
+                        std::string nm2 =
+                            std::string(pn) + "::" + std::string(ta2.name);
+                        if (ct2.kind == SymbolKind::PackedStructType) {
+                            auto* scl = buildStructTs(
+                                ct2.as<PackedStructType>(), true, nm2, "::");
+                            scl->VpiName(nm2);
+                            if (tSyn2)
+                                setLoc(scl, tSyn2->sourceRange());
+                            scl->Instance((UHDM::instance*)up);
+                            pkgImportCloneTs[&pm] = scl;
+                            pkgTdByName.emplace_back(std::string(ta2.name),
+                                                     (UHDM::typespec*)scl);
+                            continue;
+                        }
+                        auto* ecl = buildEnumTs(ct2.as<EnumType>(), tSyn2, nm2);
+                        ecl->VpiName(nm2);
+                        if (dSyn2)
+                            setLoc(ecl, dSyn2->sourceRange());
+                        ecl->Instance((UHDM::instance*)up);
+                        if (ecl->Base_typespec() &&
+                            ecl->Base_typespec()->Actual_typespec())
+                            if (auto hip2 = pkgDefMap.find(&spkg->asSymbol());
+                                hip2 != pkgDefMap.end())
+                                ecl->Base_typespec()
+                                    ->Actual_typespec()
+                                    ->Instance(hip2->second);
+                        pkgImportCloneTs[&pm] = ecl;
+                        cl2 = ecl;
+                    }
+                    pkgTdByName.emplace_back(std::string(ta2.name),
+                                             (UHDM::typespec*)cl2);
+                }
+            }
+            auto* its2 = s.MakeImport_typespec();
+            its2->VpiName(std::string(pn));
+            if (auto msyn = mem.getSyntax())
+                setLoc(its2, msyn->sourceRange());
+            importTss.push_back(its2);
+        }
+    }
     for (auto* memberP : pkgAliases) {
         auto& member = *memberP;
         auto& ta = member.as<TypeAliasType>();
@@ -1937,6 +2014,27 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 for (auto* tm : *sts->Members())
                     if (tm->Typespec() && tm->Typespec()->Actual_typespec()) {
                         auto* mts = tm->Typespec()->Actual_typespec();
+                        // A member whose actual is ANOTHER package's shared
+                        // STRUCT typedef re-points at the import clone (never
+                        // mutate the home object's Instance).
+                        if (mts->UhdmType() == UHDM::uhdmstruct_typespec &&
+                            mts->Instance() &&
+                            mts->Instance() != (UHDM::instance*)up &&
+                            mts->Instance()->UhdmType() == UHDM::uhdmpackage) {
+                            const Symbol* homeSym9 = nullptr;
+                            for (auto& [sym9, tsp9] : typedefTs)
+                                if (tsp9 == mts) {
+                                    homeSym9 = sym9;
+                                    break;
+                                }
+                            if (homeSym9)
+                                if (auto cit9 = pkgImportCloneTs.find(homeSym9);
+                                    cit9 != pkgImportCloneTs.end()) {
+                                    tm->Typespec()->Actual_typespec(
+                                        cit9->second);
+                                    mts = cit9->second;
+                                }
+                        }
                         // A member whose actual is ANOTHER package's shared
                         // enum typedef gets a FRESH per-use clone (Instance ->
                         // THIS package) — never mutate the shared object
@@ -2278,69 +2376,6 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (auto dIt = typedefTs.find(&ta); dIt != typedefTs.end())
                 listTs = dIt->second;
         pkgTdByName.emplace_back(std::string(ta.name), listTs);
-    }
-    // A package IMPORTING another package lists the imported ENUM typedefs
-    // as ONE shared clone per typedef (created on first sight; module import
-    // listings share it) plus an import_typespec per import item (after the
-    // sorted typedefs).
-    std::vector<UHDM::typespec*> importTss;
-    if (true) {
-        for (auto& mem : pkg.members()) {
-            std::string_view pn;
-            if (mem.kind == SymbolKind::WildcardImport)
-                pn = mem.as<WildcardImportSymbol>().packageName;
-            else if (mem.kind == SymbolKind::ExplicitImport)
-                pn = mem.as<ExplicitImportSymbol>().packageName;
-            else
-                continue;
-            if (auto* spkg = comp.getPackage(pn)) {
-                for (auto& pm : spkg->members()) {
-                    if (pm.kind != SymbolKind::TypeAlias)
-                        continue;
-                    auto& ta2 = pm.as<TypeAliasType>();
-                    auto& ct2 = ta2.getCanonicalType();
-                    if (ct2.kind != SymbolKind::EnumType)
-                        continue;
-                    // ONE clone per imported typedef, shared by every module
-                    // import listing (direct and transitive) — created here
-                    // (the home pkg emitted earlier in source order).
-                    UHDM::enum_typespec* cl2 = nullptr;
-                    if (auto cit2 = pkgImportCloneTs.find(&pm);
-                        cit2 != pkgImportCloneTs.end())
-                        cl2 = (UHDM::enum_typespec*)cit2->second;
-                    else {
-                        const syntax::SyntaxNode* dSyn2 = ta2.getSyntax();
-                        const syntax::SyntaxNode* tSyn2 = nullptr;
-                        if (dSyn2 && dSyn2->kind ==
-                                         syntax::SyntaxKind::TypedefDeclaration)
-                            tSyn2 = dSyn2->as<syntax::TypedefDeclarationSyntax>()
-                                        .type;
-                        std::string nm2 =
-                            std::string(pn) + "::" + std::string(ta2.name);
-                        cl2 = buildEnumTs(ct2.as<EnumType>(), tSyn2, nm2);
-                        cl2->VpiName(nm2);
-                        if (dSyn2)
-                            setLoc(cl2, dSyn2->sourceRange());
-                        cl2->Instance((UHDM::instance*)up);
-                        if (cl2->Base_typespec() &&
-                            cl2->Base_typespec()->Actual_typespec())
-                            if (auto hip2 = pkgDefMap.find(&spkg->asSymbol());
-                                hip2 != pkgDefMap.end())
-                                cl2->Base_typespec()
-                                    ->Actual_typespec()
-                                    ->Instance(hip2->second);
-                        pkgImportCloneTs[&pm] = cl2;
-                    }
-                    pkgTdByName.emplace_back(std::string(ta2.name),
-                                             (UHDM::typespec*)cl2);
-                }
-            }
-            auto* its2 = s.MakeImport_typespec();
-            its2->VpiName(std::string(pn));
-            if (auto msyn = mem.getSyntax())
-                setLoc(its2, msyn->sourceRange());
-            importTss.push_back(its2);
-        }
     }
     // The Typespecs LIST is name-sorted (creation stayed source-ordered).
     std::stable_sort(pkgTdByName.begin(), pkgTdByName.end(),
