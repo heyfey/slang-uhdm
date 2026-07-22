@@ -41,13 +41,14 @@ static void collectImportedParams(const Scope& body,
     if (wildcardPkgs.empty() && explicitSyms.empty())
         return;
     std::set<const Symbol*> seen;
+    std::vector<const ParameterSymbol*> found;
     auto v = makeVisitor([&](auto& vis, const NamedValueExpression& nv) {
         if (nv.symbol.kind == SymbolKind::Parameter) {
             auto sc = nv.symbol.getParentScope();
             bool imported = explicitSyms.count(&nv.symbol) ||
                             (sc && wildcardPkgs.count(&sc->asSymbol()));
             if (imported && seen.insert(&nv.symbol).second)
-                out.push_back(&nv.symbol.as<ParameterSymbol>());
+                found.push_back(&nv.symbol.as<ParameterSymbol>());
         }
         vis.visitDefault(nv);
     });
@@ -56,6 +57,12 @@ static void collectImportedParams(const Scope& body,
             m.as<ContinuousAssignSymbol>().getAssignment().visit(v);
         else if (m.kind == SymbolKind::ProceduralBlock)
             m.as<ProceduralBlockSymbol>().getBody().visit(v);
+        // A module parameter whose DEFAULT references an imported package
+        // param (parameter x = PkgParam) materializes it too.
+        else if (m.kind == SymbolKind::Parameter) {
+            if (auto* init = m.as<ParameterSymbol>().getInitializer())
+                init->visit(v);
+        }
     }
     // A wildcard-imported TYPEDEF whose range references an imported param
     // (typedef logic [SramAw-1:0] t;) materializes that param too — the
@@ -69,7 +76,7 @@ static void collectImportedParams(const Scope& body,
                     if (sym->kind == SymbolKind::Parameter && sym->getParentScope() &&
                         wildcardPkgs.count(&sym->getParentScope()->asSymbol()) &&
                         seen.insert(sym).second)
-                        out.push_back(&sym->as<ParameterSymbol>());
+                        found.push_back(&sym->as<ParameterSymbol>());
             }
             for (size_t i = 0; i < sn.getChildCount(); i++)
                 if (auto* cn = sn.childNode(i))
@@ -83,6 +90,13 @@ static void collectImportedParams(const Scope& body,
                     tsyn && tsyn->kind == syntax::SyntaxKind::TypedefDeclaration)
                     scanTd(*tsyn->as<syntax::TypedefDeclarationSyntax>().type, psc);
     }
+    // Surelog orders materialized imported params by their DECLARATION order
+    // in the package, not by reference-discovery order.
+    std::stable_sort(found.begin(), found.end(),
+                     [](const ParameterSymbol* a, const ParameterSymbol* b) {
+                         return a->location < b->location;
+                     });
+    out.insert(out.end(), found.begin(), found.end());
 }
 
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
