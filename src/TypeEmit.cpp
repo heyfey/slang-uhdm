@@ -1326,7 +1326,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
 
 // Typedefs (enums, packed structs): module Typespecs entries compiled at
 // module compile, shared by both views and by all declarations.
-void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::module_inst* m,
+void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* m,
                                 const std::string& prefix, DefInfo& info) {
     auto* tds = s.MakeTypespecVec();
     for (auto& member : body.members()) {

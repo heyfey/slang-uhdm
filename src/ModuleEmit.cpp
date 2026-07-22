@@ -6124,6 +6124,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
 
     emitParameters(body, iface, prefix, info.nets, /*topView=*/false, &info, false);
 
+    // Interface-scope typedefs (typedef struct {...} req_t; INSIDE the
+    // interface) list under the interface_inst's Typespecs, exactly like
+    // module typedefs (member refs scope prefix.<td>.<member>).
+    emitTypedefs(body, iface, prefix, info);
+
     auto* nets = s.MakeNetVec();
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
@@ -6675,7 +6680,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         sn2->VpiName(mname);
                         sn2->VpiFullName(dfull);
                         sn2->VpiParent(io);
-                        sn2->VpiNetType(vpiWire);
+                        // Wire type only for PACKAGE-qualified struct types;
+                        // an interface-LOCAL typedef stays untyped (Surelog —
+                        // same distinguisher as the module struct-net gates).
+                        if (isPkgStructType(msym))
+                            sn2->VpiNetType(vpiWire);
                         setLoc(sn2, nameSpan(msym.location, msym.name));
                         UHDM::typespec* mts = nullptr;
                         if (auto tt2 = pkgTopTypedefTs.find(
