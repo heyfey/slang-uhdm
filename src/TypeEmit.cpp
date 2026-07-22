@@ -2347,8 +2347,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
     }
 }
 
-UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
-                                                       UHDM::BaseClass* parent) {
+UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
+    const Symbol& sym, UHDM::BaseClass* parent,
+    const std::string& defDimRefPrefix) {
     auto declared = sym.getDeclaredType();
     if (!declared)
         return nullptr;
@@ -2395,6 +2396,30 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
                 op->VpiOpType(11);
                 setLoc(op, sizeSyn->sourceRange());
                 auto* ops = s.MakeAnyVec();
+                // DEF-view port array_typespec: a PARAM-sized dim ([N]) keeps
+                // the size symbolic — a bare ref_obj <prefix>.N (no actual).
+                if (!defDimRefPrefix.empty() &&
+                    sizeSyn->kind == syntax::SyntaxKind::IdentifierName &&
+                    parent->UhdmType() == UHDM::uhdmarray_typespec) {
+                    auto* ro = s.MakeRef_obj();
+                    std::string nm(sizeSyn->as<syntax::IdentifierNameSyntax>()
+                                       .identifier.valueText());
+                    ro->VpiName(nm);
+                    ro->VpiFullName(defDimRefPrefix + "." + nm);
+                    ro->VpiParent(op);
+                    setLoc(ro, sizeSyn->sourceRange());
+                    ops->push_back(ro);
+                    auto* one = s.MakeConstant();
+                    one->VpiSize(64);
+                    one->VpiValue("INT:1");
+                    one->VpiConstType(vpiIntConst);
+                    ops->push_back(one);
+                    op->Operands(ops);
+                    r->Right_expr(op);
+                    ranges->push_back(r);
+                    dt = &ua.elementType;
+                    continue;
+                }
                 auto* sc = s.MakeConstant();
                 sc->VpiParent(op);
                 // A PARAM-sized dim ([DEPTH]) folds to the value at the
@@ -2402,7 +2427,8 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
                 // fullname = the var); literal sizes keep the raw text at 64.
                 if (sizeSyn->kind != syntax::SyntaxKind::IntegerLiteralExpression &&
                     currentScope &&
-                    parent->UhdmType() == UHDM::uhdmarray_var) {
+                    (parent->UhdmType() == UHDM::uhdmarray_var ||
+                     parent->UhdmType() == UHDM::uhdmarray_net)) {
                     std::string digits = std::to_string(ua.range.width());
                     sc->VpiDecompile(digits);
                     ASTContext bctx0(*currentScope, LookupLocation::max);
@@ -2417,8 +2443,10 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(const Symbol& sym,
                     sc->VpiSize(w0);
                     sc->VpiValue("UINT:" + digits);
                     auto* rt0 = s.MakeRef_typespec();
-                    rt0->VpiFullName(
-                        std::string(((UHDM::array_var*)parent)->VpiFullName()));
+                    rt0->VpiFullName(std::string(
+                        parent->UhdmType() == UHDM::uhdmarray_var
+                            ? ((UHDM::array_var*)parent)->VpiFullName()
+                            : ((UHDM::array_net*)parent)->VpiFullName()));
                     rt0->VpiParent(sc);
                     auto* its0 = s.MakeInt_typespec();
                     if (sgn0)

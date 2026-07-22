@@ -320,8 +320,11 @@ private:
                                              UHDM::BaseClass* parent);
     // One uhdm range per unpacked dimension (bounds from ConstantRange, loc
     // from the declarator dimension syntax), each parented at `parent`.
+    // `defDimRefPrefix` (def-view port array_typespec only): a PARAM-sized
+    // dim ([N]) keeps a bare ref_obj <prefix>.N instead of folding.
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
-                                             UHDM::BaseClass* parent);
+                                             UHDM::BaseClass* parent,
+                                             const std::string& defDimRefPrefix = {});
     // array_typespec for an unpacked-array param: unpacked-dim Ranges +
     // Elem_typespec ref (int/logic at the type-keyword span). `elemFull` is
     // the Elem_typespec ref fullname; `parent` the ts's vpiParent.

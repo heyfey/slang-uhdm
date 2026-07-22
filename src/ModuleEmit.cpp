@@ -4348,10 +4348,34 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (auto sps0 = lsym0.getParentScope())
                     symModuleLevel =
                         sps0->asSymbol().kind == SymbolKind::InstanceBody;
-                if (auto ps0 = blk.getParentScope();
-                    ps0 && ps0->asSymbol().kind == SymbolKind::GenerateBlock &&
-                    (symModuleLevel || lsym0.kind == SymbolKind::Variable))
-                    lhsSuppress = true;
+                if (auto ps0 = blk.getParentScope(); ps0) {
+                    auto pk0 = ps0->asSymbol().kind;
+                    // If-gen nested blocks leave module-level refs AND
+                    // variable refs unbound; loop-gen blocks (parent is the
+                    // GenerateBlockArray) leave only refs to module-level
+                    // VARIABLES (emitted as *_var — port-backed logic vars
+                    // become nets and still bind) unbound — Surelog.
+                    bool mapsToVar0 = false;
+                    if (lsym0.kind == SymbolKind::Variable)
+                        if (auto mit0 = netMap.find(&lsym0);
+                            mit0 != netMap.end())
+                            switch (mit0->second->UhdmType()) {
+                                case UHDM::uhdmlogic_net:
+                                case UHDM::uhdmarray_net:
+                                case UHDM::uhdmstruct_net:
+                                case UHDM::uhdmenum_net:
+                                case UHDM::uhdmpacked_array_net:
+                                case UHDM::uhdmnet_bit:
+                                    break;
+                                default:
+                                    mapsToVar0 = true;
+                            }
+                    if ((pk0 == SymbolKind::GenerateBlock &&
+                         (symModuleLevel ||
+                          lsym0.kind == SymbolKind::Variable)) ||
+                        (pk0 == SymbolKind::GenerateBlockArray && mapsToVar0))
+                        lhsSuppress = true;
+                }
             }
             if (lhsSuppress)
                 suppressRefActual = true;
@@ -4788,7 +4812,8 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                         aEnd = aEnd - 1;
                 }
             setLoc(ats, SourceRange(aStart, aEnd));
-            if (auto* ranges = buildUnpackedRanges(*internal, ats))
+            if (auto* ranges = buildUnpackedRanges(
+                    *internal, ats, tp.prefix + "." + std::string(ps.name)))
                 ats->Ranges(ranges);
             auto* ert = s.MakeRef_typespec();
             ert->VpiParent(ats);
