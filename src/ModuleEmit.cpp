@@ -1838,8 +1838,16 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         }
         for (auto& [memP, imported] : importedTds) {
             auto& mem = *memP;
-            auto tit = pkgTopTypedefTs.find(imported);
-            if (tit == pkgTopTypedefTs.end())
+            // A typedef whose home pkg is imported by ANOTHER pkg: all module
+            // listings share that ONE clone (Surelog).
+            UHDM::typespec* tsSel = nullptr;
+            if (auto cit = pkgImportCloneTs.find(imported);
+                cit != pkgImportCloneTs.end())
+                tsSel = cit->second;
+            else if (auto tit = pkgTopTypedefTs.find(imported);
+                     tit != pkgTopTypedefTs.end())
+                tsSel = tit->second;
+            if (!tsSel)
                 continue;
             // A HEADER import (module top import pkg::T; (...)) lists the
             // typespec but keeps its package parent; body imports re-parent.
@@ -1849,7 +1857,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                     headerImport = true;
                     break;
                 }
-            auto* ts = tit->second;
+            auto* ts = tsSel;
             // A WILDCARD-imported FLAT typedef re-parents to the module and
             // re-scopes member/base refs to work@<mod>.<pkg>::<name>[.m]
             // (interface-style, last-writer). NESTED-struct-containing
@@ -1891,7 +1899,10 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                             imported, std::string(m->VpiDefName()));
                         auto& taE = imported->as<TypeAliasType>();
                         auto& ectE = taE.getCanonicalType();
-                        if (auto cit9 = transitiveTdClone.find(clKey);
+                        if (auto pcit9 = pkgImportCloneTs.find(imported);
+                            pcit9 != pkgImportCloneTs.end())
+                            ts = pcit9->second;
+                        else if (auto cit9 = transitiveTdClone.find(clKey);
                             cit9 != transitiveTdClone.end()) {
                             ts = cit9->second;
                             // The def pass ran before packages existed —
@@ -1906,8 +1917,24 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                             std::string scopedE =
                                 std::string(m->VpiDefName()) + "." + homePn +
                                 "::" + std::string(imported->name);
+                            const syntax::SyntaxNode* eSyn9 = nullptr;
+                            if (auto dS9 = taE.getSyntax();
+                                dS9 && dS9->kind ==
+                                           syntax::SyntaxKind::TypedefDeclaration)
+                                eSyn9 = dS9->as<syntax::TypedefDeclarationSyntax>()
+                                            .type;
                             auto* cl9 = buildEnumTs(ectE.as<EnumType>(),
-                                                    nullptr, scopedE);
+                                                    eSyn9, scopedE);
+                            // The base actual is HOME-package-instanced,
+                            // like the home listing (Surelog).
+                            if (cl9->Base_typespec() &&
+                                cl9->Base_typespec()->Actual_typespec() &&
+                                homePkg)
+                                if (auto hip9 = pkgDefMap.find(homePkg);
+                                    hip9 != pkgDefMap.end())
+                                    cl9->Base_typespec()
+                                        ->Actual_typespec()
+                                        ->Instance(hip9->second);
                             cl9->VpiName(homePn + "::" +
                                          std::string(imported->name));
                             cl9->VpiParent(m);
@@ -1948,11 +1975,19 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 tds->push_back(ts);
         }
         // The module's Typespecs list interleaves its own and imported
-        // typedefs NAME-SORTED (enum3 < pkg3::enum2 — Surelog).
+        // typedefs by BASE name (the portion after the last ::) — full-name
+        // sorting misplaces transitive imports (pad_type_e before
+        // pinmux_pkg::target_cfg_t — Surelog).
         if (tds)
             std::stable_sort(tds->begin(), tds->end(),
                              [](const UHDM::typespec* a, const UHDM::typespec* b) {
-                                 return a->VpiName() < b->VpiName();
+                                 auto base = [](std::string_view n) {
+                                     auto p9 = n.rfind("::");
+                                     return p9 == std::string_view::npos
+                                                ? n
+                                                : n.substr(p9 + 2);
+                                 };
+                                 return base(a->VpiName()) < base(b->VpiName());
                              });
     }
     for (auto& mem : body.members()) {

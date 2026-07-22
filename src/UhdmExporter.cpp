@@ -180,6 +180,18 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (auto* p0 = comp.getPackage(
                         mem.as<WildcardImportSymbol>().packageName))
                     wildcardImportedPkgs.insert(p0);
+    for (auto pkg : pkgs)
+        for (auto& mem : pkg->members()) {
+            std::string_view pn9;
+            if (mem.kind == SymbolKind::WildcardImport)
+                pn9 = mem.as<WildcardImportSymbol>().packageName;
+            else if (mem.kind == SymbolKind::ExplicitImport)
+                pn9 = mem.as<ExplicitImportSymbol>().packageName;
+            else
+                continue;
+            if (auto* tp9 = comp.getPackage(pn9))
+                pkgImportedByPkg.insert(tp9);
+        }
     if (!pkgs.empty()) {
         auto* allP = s.MakePackageVec();
         for (auto pkg : pkgs)

@@ -1195,6 +1195,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     // The typespec class follows the declared integer kind (integer -> an
     // integer_typespec, etc.); untyped params default to int_typespec.
     UHDM::typespec* its = nullptr;
+    bool sharedAggTs = false;
     bool sgn = ps.getType().getCanonicalType().isSigned();
     if (typedParam) {
         auto& ct = ps.getType().getCanonicalType();
@@ -1303,6 +1304,28 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                 }
             }
         }
+        // An ENUM-typedef-typed param (parameter pad_type_e P) binds the
+        // SHARED enum typespec (def view: the def object; elab: the top
+        // object) — not a fresh int_typespec (Surelog).
+        else if (ct.kind == SymbolKind::EnumType) {
+            if (auto d0 = ps.getDeclaredType();
+                d0 && d0->getType().kind == SymbolKind::TypeAlias) {
+                auto& taSym = d0->getType().as<TypeAliasType>();
+                UHDM::typespec* found = nullptr;
+                if (defViewParamTs) {
+                    if (auto tit = typedefTs.find(&taSym);
+                        tit != typedefTs.end())
+                        found = tit->second;
+                }
+                else if (auto tit = pkgTopTypedefTs.find(&taSym);
+                         tit != pkgTopTypedefTs.end())
+                    found = tit->second;
+                if (found) {
+                    its = found;
+                    sharedAggTs = true;
+                }
+            }
+        }
         // A struct/union-typed param carries a FRESH aggregate typespec clone
         // (named by the typedef, located at the struct/union body), not an
         // int_typespec. Member refs scope through the calling context
@@ -1372,7 +1395,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             intTs->VpiSigned(sgn);
         its = intTs;
     }
-    if (!stringParam)
+    if (!stringParam && !sharedAggTs)
         setLoc(its, tr);
     // A ranged untyped param (parameter [0:0] X) carries the packed range on
     // its int_typespec, with located UINT bounds.
@@ -1536,8 +1559,17 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                 auto& dt0 = d0->getType();
                 if (dt0.kind == SymbolKind::TypeAlias) {
                     auto& taSym = dt0.as<TypeAliasType>();
+                    // Only QUALIFIED (pkg::T) params share; a wildcard-
+                    // imported BARE name gets the fresh clone (Surelog).
+                    bool qualified0 = false;
+                    if (auto* tsyn0 = d0->getTypeSyntax();
+                        tsyn0 && tsyn0->kind == syntax::SyntaxKind::NamedType)
+                        qualified0 =
+                            tsyn0->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::ScopedName;
                     if (auto sc = taSym.getParentScope();
-                        sc && sc->asSymbol().kind == SymbolKind::Package) {
+                        qualified0 && sc &&
+                        sc->asSymbol().kind == SymbolKind::Package) {
                         if (auto tit = pkgTopTypedefTs.find(&taSym);
                             tit != pkgTopTypedefTs.end()) {
                             its = tit->second;
@@ -2148,13 +2180,85 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             typedefTs[&ta] = ts;
         else
             pkgTopTypedefTs[&ta] = ts;
-        pkgTdByName.emplace_back(std::string(ta.name), ts);
+        UHDM::typespec* listTs = ts;
+        // A pkg imported by ANOTHER pkg lists its DEF enum object in the
+        // TOP view too (the top object appears only via module listings).
+        if (topView && ct.kind == SymbolKind::EnumType &&
+            pkgImportedByPkg.count(&pkg))
+            if (auto dIt = typedefTs.find(&ta); dIt != typedefTs.end())
+                listTs = dIt->second;
+        pkgTdByName.emplace_back(std::string(ta.name), listTs);
+    }
+    // A package IMPORTING another package lists the imported ENUM typedefs
+    // as ONE shared clone per typedef (created on first sight; module import
+    // listings share it) plus an import_typespec per import item (after the
+    // sorted typedefs).
+    std::vector<UHDM::typespec*> importTss;
+    if (true) {
+        for (auto& mem : pkg.members()) {
+            std::string_view pn;
+            if (mem.kind == SymbolKind::WildcardImport)
+                pn = mem.as<WildcardImportSymbol>().packageName;
+            else if (mem.kind == SymbolKind::ExplicitImport)
+                pn = mem.as<ExplicitImportSymbol>().packageName;
+            else
+                continue;
+            if (auto* spkg = comp.getPackage(pn)) {
+                for (auto& pm : spkg->members()) {
+                    if (pm.kind != SymbolKind::TypeAlias)
+                        continue;
+                    auto& ta2 = pm.as<TypeAliasType>();
+                    auto& ct2 = ta2.getCanonicalType();
+                    if (ct2.kind != SymbolKind::EnumType)
+                        continue;
+                    // ONE clone per imported typedef, shared by every module
+                    // import listing (direct and transitive) — created here
+                    // (the home pkg emitted earlier in source order).
+                    UHDM::enum_typespec* cl2 = nullptr;
+                    if (auto cit2 = pkgImportCloneTs.find(&pm);
+                        cit2 != pkgImportCloneTs.end())
+                        cl2 = (UHDM::enum_typespec*)cit2->second;
+                    else {
+                        const syntax::SyntaxNode* dSyn2 = ta2.getSyntax();
+                        const syntax::SyntaxNode* tSyn2 = nullptr;
+                        if (dSyn2 && dSyn2->kind ==
+                                         syntax::SyntaxKind::TypedefDeclaration)
+                            tSyn2 = dSyn2->as<syntax::TypedefDeclarationSyntax>()
+                                        .type;
+                        std::string nm2 =
+                            std::string(pn) + "::" + std::string(ta2.name);
+                        cl2 = buildEnumTs(ct2.as<EnumType>(), tSyn2, nm2);
+                        cl2->VpiName(nm2);
+                        if (dSyn2)
+                            setLoc(cl2, dSyn2->sourceRange());
+                        cl2->Instance((UHDM::instance*)up);
+                        if (cl2->Base_typespec() &&
+                            cl2->Base_typespec()->Actual_typespec())
+                            if (auto hip2 = pkgDefMap.find(&spkg->asSymbol());
+                                hip2 != pkgDefMap.end())
+                                cl2->Base_typespec()
+                                    ->Actual_typespec()
+                                    ->Instance(hip2->second);
+                        pkgImportCloneTs[&pm] = cl2;
+                    }
+                    pkgTdByName.emplace_back(std::string(ta2.name),
+                                             (UHDM::typespec*)cl2);
+                }
+            }
+            auto* its2 = s.MakeImport_typespec();
+            its2->VpiName(std::string(pn));
+            if (auto msyn = mem.getSyntax())
+                setLoc(its2, msyn->sourceRange());
+            importTss.push_back(its2);
+        }
     }
     // The Typespecs LIST is name-sorted (creation stayed source-ordered).
     std::stable_sort(pkgTdByName.begin(), pkgTdByName.end(),
                      [](auto& a, auto& b) { return a.first < b.first; });
     for (auto& [nm0, ts0] : pkgTdByName)
         tds->push_back(ts0);
+    for (auto* it9 : importTss)
+        tds->push_back(it9);
     if (!tds->empty())
         up->Typespecs(tds);
     pkgTopEmit = topView;
@@ -2162,5 +2266,9 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     pkgTopEmit = false;
     return up;
 }
+
+// After ALL def-view packages exist: insert the home def objects into the
+// importing packages' Typespecs slots, stamp Instance = the importing pkg,
+// and expose them for module import listings.
 
 } // namespace slang_uhdm

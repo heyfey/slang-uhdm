@@ -717,6 +717,25 @@ private:
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
+    // An imported typedef listed by an IMPORTING package's def view SHARES
+    // the home package's def object; module import listings share it too
+    // (last-writer scoping). Filled by drainPkgImportLists.
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> pkgImportCloneTs;
+    // Deferred def-view pkg import listings: the home def object may not
+    // exist yet at emit time (AllPackages order is alphabetical). Drained
+    // after the AllPackages loop.
+    struct PendingPkgImportList {
+        UHDM::package* up;
+        UHDM::VectorOftypespec* tds;
+        size_t index;
+        const slang::ast::Symbol* sym;
+    };
+    std::vector<PendingPkgImportList> pendingPkgImportLists;
+    void drainPkgImportLists();
+    // Packages imported by ANOTHER package: their top-view enum typedef
+    // LISTING shares the def object (the top object still backs module
+    // import listings via pkgTopTypedefTs).
+    std::set<const slang::ast::Symbol*> pkgImportedByPkg;
     // Re-encode a folded constant in the enum literal's source HEX form when
     // `init` chains (through param refs) to an enum value (Surelog).
     bool enumOriginHexRecode(UHDM::constant* c,
