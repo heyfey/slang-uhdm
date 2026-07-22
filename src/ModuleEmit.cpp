@@ -583,7 +583,14 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         vct.as<PredefinedIntegerType>().integerKind ==
                             PredefinedIntegerType::Integer;
                     bool isScalar = vct.kind == SymbolKind::ScalarType;
-                    if (!isInt && !isScalar)
+                    // Ranged logic (logic [63:W] x) also stmt-ifies; the ts
+                    // keeps its ranges symbolic (emitSyntaxExpr, branch scope).
+                    bool isRangedLogic =
+                        vct.kind == SymbolKind::PackedArrayType &&
+                        vct.as<PackedArrayType>()
+                                .elementType.getCanonicalType()
+                                .kind == SymbolKind::ScalarType;
+                    if (!isInt && !isScalar && !isRangedLogic)
                         continue;
                     auto* as2 = s.MakeAssignment();
                     as2->VpiParent(b);
@@ -602,7 +609,46 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     }
                     else {
                         iv = s.MakeLogic_var();
-                        it2 = s.MakeLogic_typespec();
+                        auto* lt2 = s.MakeLogic_typespec();
+                        // Symbolic range bounds ([63:CounterWidth]) from the
+                        // dim syntax, refs scoped at the branch.
+                        if (isRangedLogic &&
+                            dd.type->kind == syntax::SyntaxKind::LogicType) {
+                            auto& its3 = dd.type->as<syntax::IntegerTypeSyntax>();
+                            auto* rvec3 = s.MakeRangeVec();
+                            for (auto* dim : its3.dimensions) {
+                                if (!dim->specifier ||
+                                    dim->specifier->kind !=
+                                        syntax::SyntaxKind::
+                                            RangeDimensionSpecifier)
+                                    continue;
+                                auto& sel =
+                                    dim->specifier
+                                        ->as<syntax::
+                                                 RangeDimensionSpecifierSyntax>()
+                                        .selector;
+                                if (sel->kind !=
+                                    syntax::SyntaxKind::SimpleRangeSelect)
+                                    continue;
+                                auto& rs3 =
+                                    sel->as<syntax::RangeSelectSyntax>();
+                                auto* r3 = s.MakeRange();
+                                r3->VpiParent(lt2);
+                                setLoc(r3, dim->sourceRange());
+                                syntaxRefPrefix = branchPrefix;
+                                if (auto* le =
+                                        emitSyntaxExpr(*rs3.left, r3))
+                                    r3->Left_expr((UHDM::expr*)le);
+                                if (auto* re =
+                                        emitSyntaxExpr(*rs3.right, r3))
+                                    r3->Right_expr((UHDM::expr*)re);
+                                syntaxRefPrefix.clear();
+                                rvec3->push_back(r3);
+                            }
+                            if (!rvec3->empty())
+                                lt2->Ranges(rvec3);
+                        }
+                        it2 = lt2;
                     }
                     iv->VpiName(vname);
                     iv->VpiFullName(branchPrefix + "." + vname);
