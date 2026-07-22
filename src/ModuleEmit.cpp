@@ -2587,6 +2587,19 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         if (pcv.isInteger() && !pcv.integer().hasUnknown()) {
                             auto piv = pcv.integer();
                             bool neg = piv.isSigned() && piv.isNegative();
+                            // A CONST-FUNCTION-CALL-initialized param folds
+                            // INT (signed return) with NO ts ref (Surelog).
+                            bool callSigned = false;
+                            if (auto* pini = psym.getInitializer()) {
+                                bool hasCall = false;
+                                pini->visit(makeVisitor(
+                                    [&](auto& v9, const CallExpression& cc9) {
+                                        if (!cc9.isSystemCall())
+                                            hasCall = true;
+                                        v9.visitDefault(cc9);
+                                    }));
+                                callSigned = hasCall && piv.isSigned();
+                            }
                             // toString(Decimal, false) already includes the
                             // sign for a negative signed value.
                             std::string digits = piv.toString(LiteralBase::Decimal, false);
@@ -2594,20 +2607,23 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             c->VpiParent(v);
                             c->VpiSize((int32_t)dt->getType().getBitWidth());
                             c->VpiDecompile(digits);
-                            c->VpiValue((neg ? "INT:" : "UINT:") + digits);
-                            c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+                            c->VpiValue((neg || callSigned ? "INT:" : "UINT:") +
+                                        digits);
+                            c->VpiConstType(neg || callSigned ? vpiIntConst
+                                                              : vpiUIntConst);
                             setLoc(c, ic.sourceRange);
                             bool tP = false;
                             if (auto d2 = psym.getDeclaredType())
                                 if (auto t2 = d2->getTypeSyntax())
                                     tP = t2->kind != syntax::SyntaxKind::ImplicitType;
-                            if (auto* its = makeParamTs(psym, tP)) {
-                                auto* rt = s.MakeRef_typespec();
-                                rt->VpiFullName(fullName);
-                                rt->VpiParent(c);
-                                rt->Actual_typespec(its);
-                                c->Typespec(rt);
-                            }
+                            if (!callSigned)
+                                if (auto* its = makeParamTs(psym, tP)) {
+                                    auto* rt = s.MakeRef_typespec();
+                                    rt->VpiFullName(fullName);
+                                    rt->VpiParent(c);
+                                    rt->Actual_typespec(its);
+                                    c->Typespec(rt);
+                                }
                             v->Expr((UHDM::expr*)c);
                         }
                     }

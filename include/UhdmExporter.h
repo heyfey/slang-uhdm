@@ -464,6 +464,8 @@ private:
     bool rangeRefsOverriddenParam(const slang::ast::Symbol& sym);
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
+    // task_func SHELLS created by pre-def call sites, awaiting their def fill.
+    std::set<UHDM::task_func*> tfShells;
     // Typedef typespecs shared across views; enum consts for value refs.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typedefTs;
     // Canonical types of module-scope struct typedefs whose member refs are

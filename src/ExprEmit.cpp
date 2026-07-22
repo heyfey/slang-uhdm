@@ -663,6 +663,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (auto pit = pkgParamConst.find(&nv.symbol);
                         pit != pkgParamConst.end())
                         ref->Actual_group(pit->second);
+                    else if (auto pit2 = pkgParamDefRhs.find(&nv.symbol);
+                             pit2 != pkgParamDefRhs.end())
+                        // Non-constant def Rhs (an operation) chains the same
+                        // way (Surelog value-ref chaining).
+                        ref->Actual_group(pit2->second);
                     ref->VpiParent(parent);
                     setLoc(ref, expr.sourceRange);
                     return ref;
@@ -763,8 +768,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     c->VpiSize(typedPkgParam
                                    ? (int32_t)psym.getType().getBitWidth()
                                    : 64);
-                    c->VpiValue("UINT:" + digits);
-                    c->VpiConstType(vpiUIntConst);
+                    // A pkg param whose init is a CONST-FUNCTION CALL with a
+                    // signed return folds INT (Surelog); others fold UINT.
+                    bool callSigned9 = false;
+                    if (auto* pini9 = psym.getInitializer()) {
+                        bool hasCall9 = false;
+                        pini9->visit(
+                            makeVisitor([&](auto& v9, const CallExpression& cc9) {
+                                if (!cc9.isSystemCall())
+                                    hasCall9 = true;
+                                v9.visitDefault(cc9);
+                            }));
+                        callSigned9 = hasCall9 && cv.integer().isSigned();
+                    }
+                    c->VpiValue((callSigned9 ? "INT:" : "UINT:") + digits);
+                    c->VpiConstType(callSigned9 ? vpiIntConst : vpiUIntConst);
                     // Enum-origin pkg params fold in the enum literal's
                     // source HEX form module-side too (Surelog).
                     if (typedPkgParam)
@@ -776,7 +794,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // carries a ref_typespec to the imported param's def
                     // typespec (module-named, instanced at the package) — the
                     // fold is a resolved copy of a typed param (Surelog).
-                    if (parent && parent->UhdmType() == UHDM::uhdmcont_assign)
+                    if (parent && parent->UhdmType() == UHDM::uhdmcont_assign &&
+                        contAssignView != 2)
                         if (auto tit = importedParamDefTs.find(&nv.symbol);
                             tit != importedParamDefTs.end()) {
                             auto* rt = s.MakeRef_typespec();
@@ -1720,6 +1739,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                        ? (UHDM::task_func*)s.MakeFunction()
                                        : (UHDM::task_func*)s.MakeTask();
                         shell.tf->VpiName(sub.name);
+                        tfShells.insert(shell.tf);
                         it = subMap.emplace(&sub, shell).first;
                     }
                     else if (pscope && pscope->asSymbol().kind ==
@@ -1839,7 +1859,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         ((UHDM::operation*)a)->VpiOpType() ==
                                             vpiConcatOp;
                         bool argCtxOk =
-                            currentTf ? (pkgTopEmit ||
+                            currentTf ? ((pkgTopEmit &&
+                                          !(intFormal &&
+                                            a->UhdmType() ==
+                                                UHDM::uhdmoperation)) ||
                                          (!pkgScopeInst && callArgDepth == 1 &&
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           !intFormal))

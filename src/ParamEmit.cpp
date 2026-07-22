@@ -181,6 +181,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // All parameters — including plain local untyped ones (localparam
         // IDLE = 2'b00) — carry a value/typespec (Surelog); the inner
         // literalInit/wantTs gates decide the exact encoding.
+        // An ELAB-pkg param with a COMPUTED init (Y+1, g(4)) still carries
+        // its evaluated value and an int ts (Surelog folds package elabs).
+        bool pkgElabComputed = false;
         if (true) {
             // Params with non-literal initializers carry no value string.
             // Values derive from the DEFAULT initializer even when
@@ -222,10 +225,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     : (bit.value ? "1" : "0");
                 up->VpiValue("BIN:" + d);
             }
-            if (!unbasedInit && literalInit && cv.isInteger() &&
-                !cv.integer().hasUnknown()) {
+            pkgElabComputed = inPackage && topView && !literalInit &&
+                              !unbasedInit && defaultInit && cv.isInteger() &&
+                              !cv.integer().hasUnknown();
+            if (!unbasedInit && (literalInit || pkgElabComputed) &&
+                cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
-                bool neg = iv.isSigned() && iv.isNegative();
+                bool neg = (iv.isSigned() && iv.isNegative()) ||
+                           (pkgElabComputed && iv.isSigned() && defaultInit &&
+                            containsUserCall(*defaultInit));
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
                 std::string value = (neg ? "INT:" : "UINT:") + digits;
                 // Based-literal initializers keep their base encoding.
@@ -282,7 +290,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                    ExpressionKind::RealLiteral;
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && typedParam)) &&
-                     (typedParam || isRangedUntypedParam(ps) ||
+                     (typedParam || isRangedUntypedParam(ps) || pkgElabComputed ||
                       ((literalInit || realLit) && !unknownDefault));
         }
         if (auto declared0 = ps.getDeclaredType()) {
@@ -487,6 +495,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rhs = c;
                     }
                 }
+                // ELAB-pkg CONST-FUNCTION-CALL init (Z = g(4)) folds to the
+                // evaluated value: size 32, INT/UINT by the value's sign,
+                // whole-init span, ts ref patched to the param ts (Surelog).
+                else if (pkgElabComputed && containsUserCall(*init) &&
+                         ps.getValue().isInteger() &&
+                         !ps.getValue().integer().hasUnknown()) {
+                    auto& iv2 = ps.getValue().integer();
+                    std::string digits =
+                        iv2.toString(LiteralBase::Decimal, false);
+                    bool sgn2 = iv2.isSigned();
+                    auto* c = s.MakeConstant();
+                    c->VpiDecompile(digits);
+                    c->VpiSize(32);
+                    c->VpiValue((sgn2 ? "INT:" : "UINT:") + digits);
+                    c->VpiConstType(sgn2 ? vpiIntConst : vpiUIntConst);
+                    c->VpiParent(pa);
+                    setLoc(c, init->sourceRange);
+                    if (wantTs) {
+                        auto* rt = s.MakeRef_typespec();
+                        std::string tsPrefix = prefix;
+                        if (tsPrefix.size() >= 2 &&
+                            tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                            tsPrefix.resize(tsPrefix.size() - 2);
+                        rt->VpiFullName(tsPrefix);
+                        rt->VpiParent(c);
+                        c->Typespec(rt);
+                        rhsRt = rt;
+                    }
+                    rhs = c;
+                }
                 // A TYPED string param never folds (the elab Rhs re-emits the
                 // string constant, decompiled without quotes). Pkg CONCAT
                 // inits keep the operation in both views.
@@ -555,6 +593,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ->VpiSize(typedParam ? (int32_t)ps.getType().getBitWidth()
                                   : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                 : 64);
+                    // ELAB-pkg computed BinaryOp init folds at the LEFT
+                    // operand's span, sized 32, with a ts ref patched to the
+                    // param's int ts (Surelog).
+                    if (pkgElabComputed && !typedParam && wantTs) {
+                        auto* rt = s.MakeRef_typespec();
+                        std::string tsPrefix = prefix;
+                        if (tsPrefix.size() >= 2 &&
+                            tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                            tsPrefix.resize(tsPrefix.size() - 2);
+                        rt->VpiFullName(tsPrefix);
+                        rt->VpiParent((UHDM::constant*)rhs);
+                        ((UHDM::constant*)rhs)->Typespec(rt);
+                        rhsRt = rt;
+                    }
                     // A PARENTHESIZED default (localparam W = (X-1)) folds to a
                     // constant spanning the parens, not the inner expression.
                     SourceRange rhsLoc = init->sourceRange;
@@ -564,6 +616,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 syntax::SyntaxKind::ParenthesizedExpression)
                                 rhsLoc = dsyn->sourceRange();
                     setLoc((UHDM::constant*)rhs, rhsLoc);
+                    // ELAB-pkg computed BinaryOp init folds at the LEFT
+                    // operand's span, sized 32 (Surelog).
+                    {
+                        const Expression* se9 = &scv;
+                        while (se9->kind == ExpressionKind::Conversion)
+                            se9 = &se9->as<ConversionExpression>().operand();
+                        if (pkgElabComputed && !typedParam &&
+                            se9->kind == ExpressionKind::BinaryOp) {
+                            setLoc((UHDM::constant*)rhs,
+                                   se9->as<BinaryExpression>().left().sourceRange);
+                            ((UHDM::constant*)rhs)->VpiSize(32);
+                        }
+                    }
                     // A SUBTRACT init (W - 19) folds signed (INT).
                     if (scv.kind == ExpressionKind::BinaryOp &&
                         scv.as<BinaryExpression>().op == BinaryOperator::Subtract) {
@@ -874,7 +939,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
                 if (inPackage && !topView && rhs->UhdmType() == UHDM::uhdmconstant)
                     pkgParamConst[&member] = (UHDM::constant*)rhs;
-                if (inPackage && !topView)
+                // Registered per VIEW: the top-view pass overwrites with its
+                // elab Rhs so view-local refs chain within their own view.
+                if (inPackage)
                     pkgParamDefRhs[&member] = rhs;
                 // ELAB pkg typed-param whose init chain (through same-pkg
                 // param refs) lands on an ENUM VALUE folds in the enum

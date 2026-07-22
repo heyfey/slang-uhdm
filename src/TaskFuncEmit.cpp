@@ -56,11 +56,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                               : joinPath(prefix, sub.name);
 
         // Reuse a shell created by an early (param-init) call site. Package
-        // top-view re-emission must NOT reuse the def copy.
+        // top-view re-emission must NOT reuse the def copy — a shell is
+        // recognizable by its still-empty fullname.
         UHDM::task_func* tf = nullptr;
-        if (sharedScope)
-            if (auto sit = subMap.find(&sub); sit != subMap.end() && sit->second.tf)
-                tf = sit->second.tf;
+        bool reusedShell = false;
+        if (auto sit = subMap.find(&sub); sit != subMap.end() && sit->second.tf &&
+            (sharedScope || tfShells.count(sit->second.tf))) {
+            tf = sit->second.tf;
+            reusedShell = !sharedScope;
+            tfShells.erase(sit->second.tf);
+        }
         if (!tf)
             tf = isFunc ? (UHDM::task_func*)s.MakeFunction()
                         : (UHDM::task_func*)s.MakeTask();
@@ -782,7 +787,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         }
 
         // Register before the body so recursive calls bind this function.
-        if (sharedScope || !subMap.count(&sub))
+        if (sharedScope || reusedShell || !subMap.count(&sub))
             subMap[&sub] = si;
 
         // Body: refs to the return value bind a local var that Surelog only
