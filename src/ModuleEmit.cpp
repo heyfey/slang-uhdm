@@ -1802,6 +1802,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         op2->Operands(opnds);
                         v->Expr(op2);
                     }
+                    // A PACKED-array assignment-pattern init ('{'{...},...}
+                    // on logic[1:0][2:0][3:0]) keeps the FULL nested op75
+                    // tree with the as-written leaf constants (Surelog).
+                    else if (ic.kind == ExpressionKind::SimpleAssignmentPattern &&
+                             dt->getType().getCanonicalType().isPackedArray()) {
+                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                            v->Expr((UHDM::expr*)e);
+                    }
                     else if (ic.kind == ExpressionKind::UnaryOp &&
                              ic.as<UnaryExpression>().op == UnaryOperator::Minus &&
                              stripImplicitConv(ic.as<UnaryExpression>().operand())
