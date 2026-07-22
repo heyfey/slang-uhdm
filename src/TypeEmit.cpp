@@ -2418,6 +2418,25 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             return hp;
         }
         default: {
+            // Ternary (?:) — vpiConditionOp with [cond, true, false].
+            if (syn.kind == syntax::SyntaxKind::ConditionalExpression) {
+                auto& ce = syn.as<syntax::ConditionalExpressionSyntax>();
+                auto* op = s.MakeOperation();
+                op->VpiOpType(32);
+                op->VpiParent(parent);
+                setLoc(op, syn.sourceRange());
+                auto* operands = s.MakeAnyVec();
+                if (!ce.predicate->conditions.empty())
+                    if (auto* c0 = emitSyntaxExpr(
+                            *ce.predicate->conditions[0]->expr, op))
+                        operands->push_back(c0);
+                if (auto* l = emitSyntaxExpr(*ce.left, op))
+                    operands->push_back(l);
+                if (auto* r = emitSyntaxExpr(*ce.right, op))
+                    operands->push_back(r);
+                op->Operands(operands);
+                return op;
+            }
             if (int32_t opType = mapSyntaxUnaryOp(syn.kind)) {
                 auto& ue = syn.as<syntax::PrefixUnaryExpressionSyntax>();
                 auto* op = s.MakeOperation();
