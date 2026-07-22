@@ -931,7 +931,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // a FRESH loc-less enum_const per ref (parented to the
                     // ref) carrying the value, since the shared package const
                     // can't be reused across elaborated gen-block instances.
-                    if (nv.symbol.kind == SymbolKind::EnumValue) {
+                    // DEF-view gen-block processes leave even enum refs
+                    // fully unbound.
+                    if (nv.symbol.kind == SymbolKind::EnumValue &&
+                        !defGenProcessEmit) {
                         if (auto eit = enumConstMap.find(&nv.symbol);
                             eit != enumConstMap.end() &&
                             eit->second->UhdmType() == UHDM::uhdmenum_const) {

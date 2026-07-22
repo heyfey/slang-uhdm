@@ -1039,10 +1039,14 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     if (!pbs)
                         continue;
                     NetMap unbound;
-                    if (auto* p = emitProcess(
-                            *pbs, m,
-                            branchPrefix.empty() ? prefix : branchPrefix,
-                            unbound)) {
+                    suppressRefActual = true;
+                    defGenProcessEmit = true;
+                    auto* p = emitProcess(
+                        *pbs, m, branchPrefix.empty() ? prefix : branchPrefix,
+                        unbound);
+                    defGenProcessEmit = false;
+                    suppressRefActual = false;
+                    if (p) {
                         p->VpiParent(b);
                         stmts->push_back(p);
                     }
