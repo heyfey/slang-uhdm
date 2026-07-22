@@ -363,6 +363,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // port typespecs in Surelog's arena).
     emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
+    emitGates(body, m, prefix, info.nets, /*topView=*/false);
 
     // Named property declarations (property p(n); ... endproperty): a
     // property_decl with bare-ts formals and a formal-referenced body
@@ -2574,6 +2575,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         foldTypeCasts = false;
     }
 
+    emitGates(body, m, prefix, topNets, /*topView=*/true);
+
     // Generate scopes exist only in the instance view.
     emitGenScopes(body, m, prefix, topNets);
 
@@ -4042,6 +4045,89 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
     }
     if (!ports->empty())
         instSetPorts(m, ports);
+}
+
+// Gate primitives (and/or/nand/nor/xor/xnor/buf/not): a gate object per
+// instance under vpiPrimitive — DefName work@<prim>, PrimType from the vpi
+// enum, and a prim_term per connection (output first, TermIndex from 1; buf/
+// not have the INPUT last instead). Term exprs are ref_objs scoped through
+// the GATE instance (prefix.<gate>.<actual>), actual -> the module net.
+void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* m,
+                             const std::string& prefix, NetMap& netMap,
+                             bool topView) {
+    UHDM::VectorOfprimitive* prims = nullptr;
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::PrimitiveInstance)
+            continue;
+        auto& pi = member.as<PrimitiveInstanceSymbol>();
+        std::string pname(pi.primitiveType.name);
+        static const std::map<std::string, int32_t> primMap = {
+            {"and", vpiAndPrim},   {"nand", vpiNandPrim}, {"nor", vpiNorPrim},
+            {"or", vpiOrPrim},     {"xor", vpiXorPrim},   {"xnor", vpiXnorPrim},
+            {"buf", vpiBufPrim},   {"not", vpiNotPrim}};
+        auto pmIt = primMap.find(pname);
+        if (pmIt == primMap.end()) {
+            noteUnsupported("gate primitive: " + pname);
+            continue;
+        }
+        auto* g = s.MakeGate();
+        g->VpiParent(m);
+        g->VpiDefName("work@" + pname);
+        g->VpiName(member.name);
+        std::string gfull = prefix + "." + std::string(member.name);
+        g->VpiFullName(gfull);
+        g->VpiPrimType(pmIt->second);
+        if (auto syn = pi.getSyntax())
+            setLoc(g, syn->sourceRange());
+        auto* terms = s.MakePrim_termVec();
+        auto conns = pi.getPortConnections();
+        // DEF view: Surelog marks ONLY term 0 as the output — even for a
+        // multi-output buf/not. ELAB view: TRUE directions (buf/not: all but
+        // the last are outputs).
+        bool outLast = topView && (pname == "buf" || pname == "not");
+        int32_t idx = 0;
+        for (auto* ce : conns) {
+            if (!ce) {
+                idx++;
+                continue;
+            }
+            auto* t = s.MakePrim_term();
+            t->VpiParent(g);
+            setLoc(t, ce->sourceRange);
+            bool isOut = outLast ? (idx + 1 < (int32_t)conns.size()) : idx == 0;
+            t->VpiDirection(isOut ? vpiOutput : vpiInput);
+            if (idx > 0)
+                t->VpiTermIndex(idx);
+            // An OUTPUT terminal binds as an implicit assignment (o = <gate>);
+            // the term expr is its LHS.
+            const Expression* te = &stripImplicitConv(*ce);
+            if (te->kind == ExpressionKind::Assignment)
+                te = &stripImplicitConv(te->as<AssignmentExpression>().left());
+            auto& se = *te;
+            if (se.kind == ExpressionKind::NamedValue) {
+                auto& nv = se.as<NamedValueExpression>();
+                auto* r = s.MakeRef_obj();
+                r->VpiParent(g);
+                r->VpiName(nv.symbol.name);
+                r->VpiFullName(gfull + "." + std::string(nv.symbol.name));
+                setLoc(r, ce->sourceRange);
+                if (auto nit = netMap.find(&nv.symbol); nit != netMap.end())
+                    r->Actual_group(nit->second);
+                t->Expr(r);
+            }
+            else if (auto* e = emitExpr(*ce, t, prefix, netMap)) {
+                t->Expr((UHDM::expr*)e);
+            }
+            terms->push_back(t);
+            idx++;
+        }
+        g->Prim_terms(terms);
+        if (!prims)
+            prims = s.MakePrimitiveVec();
+        prims->push_back(g);
+    }
+    if (prims && !prims->empty())
+        m->Primitives(prims);
 }
 
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,

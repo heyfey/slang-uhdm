@@ -233,6 +233,8 @@ private:
     UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
                                          const std::string& aliasName,
                                          const std::string& memberSep = ".");
+    void emitGates(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+                   const std::string& prefix, NetMap& netMap, bool topView);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
