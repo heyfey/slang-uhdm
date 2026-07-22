@@ -2191,10 +2191,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 bypassTypedefShare = false;
                 ts->VpiName(tv.name);
                 // Package-typedef clones keep the package instance link
-                // (module-local clones carry none).
+                // (module-local clones carry none); file-level clones keep
+                // the DESIGN instance link.
                 if (auto tit0 = typedefTs.find(&tv);
                     tit0 != typedefTs.end() && tit0->second->Instance() &&
-                    tit0->second->Instance()->UhdmType() == UHDM::uhdmpackage)
+                    (tit0->second->Instance()->UhdmType() ==
+                         UHDM::uhdmpackage ||
+                     fileLevelVec))
                     ts->Instance(tit0->second->Instance());
                 if (fileLevelVec &&
                     ts->UhdmType() == UHDM::uhdmlogic_typespec) {

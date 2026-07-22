@@ -405,8 +405,28 @@ UHDM::design* UhdmExporter::exportDesign() {
                             SymbolKind::TypeAlias &&
                         typedefTs.count(
                             &tgtT.as<PackedArrayType>().elementType)) {
-                        auto* baseTs =
-                            typedefTs[&tgtT.as<PackedArrayType>().elementType];
+                        auto& elT = tgtT.as<PackedArrayType>().elementType;
+                        auto* baseTs = typedefTs[&elT];
+                        // Dedicated ELEM clone (named, ranges, parented at
+                        // the first Elem ref, NO alias link — Surelog).
+                        UHDM::typespec* elemCl = nullptr;
+                        {
+                            auto& eta = elT.as<TypeAliasType>();
+                            const syntax::SyntaxNode* etSyn = nullptr;
+                            if (auto easyn = eta.getSyntax())
+                                if (easyn->kind ==
+                                    syntax::SyntaxKind::TypedefDeclaration)
+                                    etSyn = easyn
+                                                ->as<syntax::
+                                                         TypedefDeclarationSyntax>()
+                                                .type;
+                            bypassTypedefShare = true;
+                            elemCl = makeTypespec(eta, etSyn);
+                            bypassTypedefShare = false;
+                            elemCl->VpiName(eta.name);
+                            if (etSyn)
+                                setLoc(elemCl, etSyn->sourceRange());
+                        }
                         auto tspan = typeSyn->sourceRange();
                         std::string raw = rawText(tspan);
                         auto lb = raw.find('[');
@@ -464,7 +484,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                         clA->Typedef_alias(tar);
                         auto* ear = s.MakeRef_typespec();
                         ear->VpiParent(clA);
-                        ear->Actual_typespec(baseTs);
+                        ear->Actual_typespec(elemCl ? elemCl : baseTs);
+                        if (elemCl)
+                            elemCl->VpiParent(ear);
                         clA->Elem_typespec(ear);
                         if (auto* rA = mkDimRange(clA)) {
                             auto* vA = s.MakeRangeVec();
