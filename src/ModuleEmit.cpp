@@ -2636,9 +2636,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 }
             if (realLp) {
                 setLoc(up, nameSpan(ps.location, ps.name));
-                // A SIGNED-typed gen-scope localparam (localparam int Offset)
-                // carries vpiSigned (Surelog).
-                if (ps.getType().getCanonicalType().isSigned())
+                // A signed gen-scope localparam carries vpiSigned ONLY when it
+                // is EXPLICITLY typed (localparam int Offset); an UNTYPED one
+                // (localparam PREV = i-1) whose value is merely inferred-signed
+                // omits it (Surelog) — mirror the def-view gate (ParamEmit:280).
+                bool explicitType = false;
+                if (auto dt0 = ps.getDeclaredType())
+                    if (auto tsyn0 = dt0->getTypeSyntax())
+                        explicitType =
+                            tsyn0->kind != syntax::SyntaxKind::ImplicitType;
+                if (explicitType && ps.getType().getCanonicalType().isSigned())
                     up->VpiSigned(true);
                 if (auto init = ps.getInitializer()) {
                     auto& lit = stripImplicitConv(*init);
