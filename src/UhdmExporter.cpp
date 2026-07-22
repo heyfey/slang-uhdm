@@ -640,6 +640,18 @@ UHDM::design* UhdmExporter::exportDesign() {
                         if (!dd9.initializer && dd9.dimensions.empty())
                             continue;
                     }
+                    // ANSI PORT uses don't stretch (Surelog).
+                    {
+                        bool ansiPort9 = false;
+                        for (auto q9 = dsyn9; q9; q9 = q9->parent)
+                            if (q9->kind ==
+                                syntax::SyntaxKind::ImplicitAnsiPort) {
+                                ansiPort9 = true;
+                                break;
+                            }
+                        if (ansiPort9)
+                            continue;
+                    }
                     auto e9 = dsyn9->sourceRange().end();
                     if (e9 != SourceLocation::NoLocation) {
                         tsP->VpiEndLineNo((uint32_t)sm->getLineNumber(e9));
