@@ -579,6 +579,109 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         vct.as<PackedArrayType>()
                                 .elementType.getCanonicalType()
                                 .kind == SymbolKind::ScalarType;
+                    // Unpacked-ARRAY decls (logic [..] mem [0:N-1]) stmt-ify
+                    // as a Rhs-less assignment whose Lhs is a bare array_var
+                    // (ts -> array_typespec with SYMBOLIC dim bounds; inner
+                    // reg logic_var carries the element logic_typespec).
+                    if (vct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                        auto* as3 = s.MakeAssignment();
+                        as3->VpiParent(b);
+                        as3->VpiOpType(82);
+                        as3->VpiBlocking(true);
+                        setLoc(as3, dcl->sourceRange());
+                        auto* av3 = s.MakeArray_var();
+                        av3->VpiName(vname);
+                        av3->VpiFullName(branchPrefix + "." + vname);
+                        av3->VpiParent(as3);
+                        setLoc(av3, nameSpan(dcl->name.location(), vname));
+                        av3->VpiArrayType(1);
+                        auto* ats3 = s.MakeArray_typespec();
+                        setLoc(ats3, dcl->sourceRange());
+                        auto* arv3 = s.MakeRangeVec();
+                        for (auto* dim : dcl->dimensions) {
+                            if (!dim->specifier ||
+                                dim->specifier->kind !=
+                                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                                continue;
+                            auto& sel3 =
+                                dim->specifier
+                                    ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                    .selector;
+                            if (sel3->kind !=
+                                syntax::SyntaxKind::SimpleRangeSelect)
+                                continue;
+                            auto& rs4 = sel3->as<syntax::RangeSelectSyntax>();
+                            auto* r4 = s.MakeRange();
+                            r4->VpiParent(ats3);
+                            setLoc(r4, dim->sourceRange());
+                            // Bounds refs stay BARE (name only — Surelog).
+                            if (auto* le = emitSyntaxExpr(*rs4.left, r4))
+                                r4->Left_expr((UHDM::expr*)le);
+                            if (auto* re = emitSyntaxExpr(*rs4.right, r4))
+                                r4->Right_expr((UHDM::expr*)re);
+                            arv3->push_back(r4);
+                        }
+                        if (!arv3->empty())
+                            ats3->Ranges(arv3);
+                        auto* rta3 = s.MakeRef_typespec();
+                        rta3->VpiFullName(branchPrefix + "." + vname);
+                        rta3->VpiParent(av3);
+                        rta3->Actual_typespec(ats3);
+                        av3->Typespec(rta3);
+                        auto* lv3 = s.MakeLogic_var();
+                        lv3->VpiFullName(branchPrefix + "." + vname);
+                        lv3->VpiParent(av3);
+                        setLoc(lv3, nameSpan(dcl->name.location(), vname));
+                        auto* lts3 = s.MakeLogic_typespec();
+                        setLoc(lts3, dd.type->sourceRange());
+                        if (dd.type->kind == syntax::SyntaxKind::LogicType) {
+                            auto& its4 = dd.type->as<syntax::IntegerTypeSyntax>();
+                            auto* prv3 = s.MakeRangeVec();
+                            for (auto* dim : its4.dimensions) {
+                                if (!dim->specifier ||
+                                    dim->specifier->kind !=
+                                        syntax::SyntaxKind::
+                                            RangeDimensionSpecifier)
+                                    continue;
+                                auto& sel4 =
+                                    dim->specifier
+                                        ->as<syntax::
+                                                 RangeDimensionSpecifierSyntax>()
+                                        .selector;
+                                if (sel4->kind !=
+                                    syntax::SyntaxKind::SimpleRangeSelect)
+                                    continue;
+                                auto& rs5 = sel4->as<syntax::RangeSelectSyntax>();
+                                auto* r5 = s.MakeRange();
+                                r5->VpiParent(lts3);
+                                setLoc(r5, dim->sourceRange());
+                                if (auto* le = emitSyntaxExpr(*rs5.left, r5))
+                                    r5->Left_expr((UHDM::expr*)le);
+                                if (auto* re = emitSyntaxExpr(*rs5.right, r5))
+                                    r5->Right_expr((UHDM::expr*)re);
+                                prv3->push_back(r5);
+                            }
+                            if (!prv3->empty())
+                                lts3->Ranges(prv3);
+                        }
+                        // The array_typespec links the shared element ts via
+                        // an unnamed Elem ref (Surelog).
+                        auto* ert3 = s.MakeRef_typespec();
+                        ert3->VpiParent(ats3);
+                        ert3->Actual_typespec(lts3);
+                        ats3->Elem_typespec(ert3);
+                        auto* rtl3 = s.MakeRef_typespec();
+                        rtl3->VpiFullName(branchPrefix + "." + vname);
+                        rtl3->VpiParent(lv3);
+                        rtl3->Actual_typespec(lts3);
+                        lv3->Typespec(rtl3);
+                        auto* regs3 = s.MakeVariablesVec();
+                        regs3->push_back(lv3);
+                        av3->Variables(regs3);
+                        as3->Lhs(av3);
+                        stmts->push_back(as3);
+                        continue;
+                    }
                     if (!isInt && !isScalar && !isRangedLogic)
                         continue;
                     auto* as2 = s.MakeAssignment();
@@ -832,10 +935,27 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     (void)bindP; // SL leaves def-view gen CA refs unbound
                     if (asyn->kind == syntax::SyntaxKind::AssignmentExpression) {
                         auto& be = asyn->as<syntax::BinaryExpressionSyntax>();
-                        if (auto* l = emitSyntaxExpr(*be.left, ca))
+                        // A def gen-CA bit_select spans its INDEX only.
+                        auto selSpan = [&](UHDM::any* e,
+                                           const syntax::ExpressionSyntax& sy) {
+                            if (e && e->UhdmType() == UHDM::uhdmbit_select &&
+                                sy.kind == syntax::SyntaxKind::
+                                               ElementSelectExpression) {
+                                auto& es2 = sy.as<
+                                    syntax::ElementSelectExpressionSyntax>();
+                                if (es2.select && es2.select->selector)
+                                    setLoc((UHDM::expr*)e,
+                                           es2.select->selector->sourceRange());
+                            }
+                        };
+                        if (auto* l = emitSyntaxExpr(*be.left, ca)) {
+                            selSpan(l, *be.left);
                             ca->Lhs((UHDM::expr*)l);
-                        if (auto* r = emitSyntaxExpr(*be.right, ca))
+                        }
+                        if (auto* r = emitSyntaxExpr(*be.right, ca)) {
+                            selSpan(r, *be.right);
                             ca->Rhs((UHDM::expr*)r);
+                        }
                     }
                     syntaxRefPrefix.clear();
                     stmts->push_back(ca);
@@ -868,6 +988,16 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     }
                 }
             }
+            // The def-view stmt list follows SOURCE order (decls, CAs and
+            // processes interleave as written).
+            std::stable_sort(stmts->begin(), stmts->end(),
+                             [](const UHDM::any* a1, const UHDM::any* a2) {
+                                 auto* e1 = (const UHDM::expr*)a1;
+                                 auto* e2 = (const UHDM::expr*)a2;
+                                 if (e1->VpiLineNo() != e2->VpiLineNo())
+                                     return e1->VpiLineNo() < e2->VpiLineNo();
+                                 return e1->VpiColumnNo() < e2->VpiColumnNo();
+                             });
             if (b->UhdmType() == UHDM::uhdmnamed_begin)
                 ((UHDM::named_begin*)b)->Stmts(stmts);
             else
@@ -952,6 +1082,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         inRegion = true;
                         break;
                     }
+                // Only region-wrapped gen_if_else carries a location (the
+                // whole if..else span); bare ones stay loc-less.
+                if (inRegion && gie)
+                    setLoc(gie, ifSyn->sourceRange());
                 if (inRegion) {
                     auto* gr0 = s.MakeGen_region();
                     gr0->VpiParent(m);
@@ -3339,6 +3473,21 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (gm.kind != SymbolKind::Variable)
                 continue;
             auto& vct = gm.as<VariableSymbol>().getType().getCanonicalType();
+            // Unpacked-array locals: the standard elab array_var (folded
+            // ranges, bare array_typespec ref), parented at the gen_scope.
+            if (vct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                std::string vfull2 = fullName + "." + std::string(gm.name);
+                UHDM::typespec* ets2 = nullptr;
+                if (auto* dt3 = gm.getDeclaredType())
+                    ets2 = makeTypespec(gm, dt3->getTypeSyntax());
+                if (ets2)
+                    if (auto* av2 = emitArrayVar(gm, std::string(gm.name),
+                                                 vfull2, gs, ets2)) {
+                        netMap[&gm] = av2;
+                        gvars->push_back(av2);
+                    }
+                continue;
+            }
             bool isInt2 = vct.kind == SymbolKind::PredefinedIntegerType &&
                           vct.as<PredefinedIntegerType>().integerKind ==
                               PredefinedIntegerType::Integer;
