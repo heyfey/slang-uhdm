@@ -599,6 +599,46 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     // Deferred def-view aggregate-typedef param ts (typedefTs is now full).
     drainDefParamTs();
+    // Pkg struct typedef ts spans stretch to the first module-signal USE
+    // declarator (Surelog).
+    for (auto& [tsP, aliasT] : pendingPkgTsStretch) {
+        // LAST use wins (Surelog last-writer semantics).
+        for (auto& [nm9, inst9] : defs) {
+            for (auto& member : inst9->body.members()) {
+                const DeclaredType* dt9 = nullptr;
+                if (member.kind == SymbolKind::Net ||
+                    member.kind == SymbolKind::Variable ||
+                    member.kind == SymbolKind::Port)
+                    dt9 = member.getDeclaredType();
+                if (!dt9)
+                    continue;
+                const Type* t9 = &dt9->getType();
+                while (t9->getCanonicalType().kind ==
+                       SymbolKind::FixedSizeUnpackedArrayType)
+                    t9 = &t9->getCanonicalType()
+                              .as<FixedSizeUnpackedArrayType>()
+                              .elementType;
+                if ((const Type*)t9 != aliasT)
+                    continue;
+                if (auto dsyn9 = member.getSyntax()) {
+                    // Only declarators extending past the name (an
+                    // initializer or unpacked dims) stretch the span.
+                    if (dsyn9->kind == syntax::SyntaxKind::Declarator) {
+                        auto& dd9 = dsyn9->as<syntax::DeclaratorSyntax>();
+                        if (!dd9.initializer && dd9.dimensions.empty())
+                            continue;
+                    }
+                    auto e9 = dsyn9->sourceRange().end();
+                    if (e9 != SourceLocation::NoLocation) {
+                        tsP->VpiEndLineNo((uint32_t)sm->getLineNumber(e9));
+                        tsP->VpiEndColumnNo(
+                            (uint32_t)sm->getColumnNumber(e9));
+                    }
+                }
+            }
+        }
+    }
+    pendingPkgTsStretch.clear();
 
     // File-level class definitions -> design->AllClasses: properties as
     // ::-scoped automatic vars, methods via emitTaskFuncs (class scope).

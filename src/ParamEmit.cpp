@@ -1827,6 +1827,12 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     }
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
+            // The TOP view's span stretches to the first module-signal USE
+            // declarator (patched once defs exist); the def view keeps the
+            // typedef span.
+            if (topView)
+                pendingPkgTsStretch.push_back(
+                    {(UHDM::typespec*)sts, (const Type*)&ta});
             // Surelog CROSS-WIRES the two views' member typespecs: the
             // first-created (folded) member ts belongs to the TOP struct, the
             // second-created (unfolded) one to the DEF struct — while each
