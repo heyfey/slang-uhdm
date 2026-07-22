@@ -717,6 +717,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string curPkg = prefix;
                     if (auto p2 = curPkg.find("::"); p2 != std::string::npos)
                         curPkg.resize(p2);
+                    // A SAME-package param ref in a DEF-view pkg init stays a
+                    // ref_obj (fullname pkg::P) whose actual is the referenced
+                    // param's own def Rhs node (Surelog chains value refs).
+                    if (paramInitDef &&
+                        curPkg == std::string(scope->asSymbol().name)) {
+                        ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                        if (auto rit = pkgParamDefRhs.find(&nv.symbol);
+                            rit != pkgParamDefRhs.end())
+                            ref->Actual_group(rit->second);
+                        ref->VpiParent(parent);
+                        setLoc(ref, expr.sourceRange);
+                        return ref;
+                    }
                     if (curPkg != std::string(scope->asSymbol().name)) {
                         std::string pn = std::string(scope->asSymbol().name) +
                                          "::" + std::string(nv.symbol.name);

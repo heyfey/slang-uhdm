@@ -709,6 +709,9 @@ private:
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
         pendingBitsBoundRefs;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
+    // DEF-view Rhs node of each package param (any kind) — a later same-pkg
+    // param ref chains its vpiActual to this node (Surelog).
+    std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
     // Elab-view fold constant of a module STRING localparam (shared into a
     // cont-assign that reads it — o = X).
     std::map<const slang::ast::Symbol*, UHDM::constant*> moduleStringParamConst;
