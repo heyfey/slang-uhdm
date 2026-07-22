@@ -2172,6 +2172,96 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 setLoc(uts, typeSyn->sourceRange());
             ts = uts;
         }
+        else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType && topView) {
+            // typedef a b[1:0] (TOP view only): an array_typespec spanning
+            // target-type .. dims, Range at the dim tokens, Elem ref
+            // (doubled pkg::pkg::b) -> the element typedef's ts (Surelog).
+            auto& ua = ct.as<FixedSizeUnpackedArrayType>();
+            auto* ats = s.MakeArray_typespec();
+            SourceLocation aS = ta.location, aE = ta.location;
+            if (typeSyn)
+                aS = typeSyn->sourceRange().start();
+            const syntax::SyntaxNode* dimSyn = nullptr;
+            if (auto dsyn = ta.getSyntax();
+                dsyn && dsyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                auto& td = dsyn->as<syntax::TypedefDeclarationSyntax>();
+                if (!td.dimensions.empty()) {
+                    dimSyn = td.dimensions[0];
+                    aE = td.dimensions[td.dimensions.size() - 1]
+                             ->sourceRange()
+                             .end();
+                }
+            }
+            setLoc(ats, SourceRange(aS, aE));
+            auto* r = s.MakeRange();
+            r->VpiParent(ats);
+            const syntax::ExpressionSyntax* lSyn = nullptr;
+            const syntax::ExpressionSyntax* rSyn = nullptr;
+            if (dimSyn) {
+                setLoc(r, dimSyn->sourceRange());
+                auto& vd = dimSyn->as<syntax::VariableDimensionSyntax>();
+                if (vd.specifier &&
+                    vd.specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& sel = *vd.specifier
+                                     ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                     .selector;
+                    if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                        lSyn = rss->left;
+                        rSyn = rss->right;
+                    }
+                }
+            }
+            auto mkAB = [&](int64_t v,
+                            const syntax::ExpressionSyntax* bs) -> UHDM::expr* {
+                auto* c = s.MakeConstant();
+                std::string digits = std::to_string(v);
+                c->VpiDecompile(digits);
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + digits);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(r);
+                if (bs)
+                    setLoc(c, bs->sourceRange());
+                return c;
+            };
+            r->Left_expr(mkAB(ua.range.left, lSyn));
+            r->Right_expr(mkAB(ua.range.right, rSyn));
+            auto* rvec = s.MakeRangeVec();
+            rvec->push_back(r);
+            ats->Ranges(rvec);
+            // Elem ref -> the element typedef's ts in THIS view.
+            UHDM::typespec* elemTs2 = nullptr;
+            const Type* et = &ua.elementType;
+            const Symbol* etSym =
+                et->kind == SymbolKind::TypeAlias
+                    ? (const Symbol*)&et->as<TypeAliasType>()
+                    : nullptr;
+            if (topView) {
+                if (auto eit = pkgTopTypedefTs.find(etSym);
+                    etSym && eit != pkgTopTypedefTs.end())
+                    elemTs2 = eit->second;
+            }
+            else if (auto eit = typedefTs.find(etSym);
+                     etSym && eit != typedefTs.end())
+                elemTs2 = eit->second;
+            if (!elemTs2 && !topView)
+                for (auto& [sym2, tsp2] : typedefTs)
+                    if (sym2->kind == SymbolKind::TypeAlias &&
+                        &sym2->as<TypeAliasType>().getCanonicalType() ==
+                            &et->getCanonicalType()) {
+                        elemTs2 = tsp2;
+                        break;
+                    }
+            if (elemTs2) {
+                auto* ert = s.MakeRef_typespec();
+                ert->VpiParent(ats);
+                ert->VpiFullName(prefix + prefix + std::string(ta.name));
+                ert->Actual_typespec(elemTs2);
+                ats->Elem_typespec(ert);
+            }
+            ts = ats;
+        }
         if (!ts)
             continue;
         ts->VpiName(prefix + std::string(ta.name));
