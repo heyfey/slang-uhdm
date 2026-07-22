@@ -277,10 +277,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // Typed/ranged params always carry a typespec (its range/type is
             // independent of the value); only an untyped literal is gated on a
             // known value.
+            bool realLit =
+                defaultInit && stripImplicitConv(*defaultInit).kind ==
+                                   ExpressionKind::RealLiteral;
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && typedParam)) &&
                      (typedParam || isRangedUntypedParam(ps) ||
-                      (literalInit && !unknownDefault));
+                      ((literalInit || realLit) && !unknownDefault));
         }
         if (auto declared0 = ps.getDeclaredType()) {
             if (auto tsyn0 = declared0->getTypeSyntax()) {
@@ -887,6 +890,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     (init->kind == ExpressionKind::IntegerLiteral ||
                      init->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
+                     init->kind == ExpressionKind::RealLiteral ||
                      (typedParam && init->kind == ExpressionKind::StringLiteral))) {
                     auto* rt = s.MakeRef_typespec();
                     std::string tsPrefix = prefix;
@@ -1116,8 +1120,9 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             }
         }
     }
-    // A real (real/shortreal) param is a real_typespec.
-    if (typedParam && !its && ps.getType().getCanonicalType().isFloating())
+    // A real (real/shortreal) param is a real_typespec — typed OR an untyped
+    // param inferred real from its literal (localparam p = 123.45).
+    if (!its && ps.getType().getCanonicalType().isFloating())
         its = s.MakeReal_typespec();
     // A TYPED string param (parameter string N) is a LOCATED string_typespec.
     if (typedParam && !its && ps.getType().getCanonicalType().isString())
