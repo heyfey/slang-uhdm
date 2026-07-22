@@ -270,17 +270,32 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     auto* rng = s.MakeRange();
                     rng->VpiParent(rv);
                     copyLoc(rng, ts);
-                    auto mkC = [&](int32_t v) -> UHDM::expr* {
+                    // The range and its bounds anchor at the DIM tokens
+                    // ([1:0] / 1 / 0) when the return-type syntax has them.
+                    std::vector<DimSpan> rSpans;
+                    if (auto* rsyn9 = returnTypeSyntax(sub)) {
+                        auto rr9 = rsyn9->sourceRange();
+                        if (rr9.start() != SourceLocation::NoLocation)
+                            rSpans = scanDimSpans(
+                                std::string(rawText(rr9)), rr9.start());
+                    }
+                    const DimSpan* rds = rSpans.empty() ? nullptr : &rSpans[0];
+                    if (rds)
+                        setLoc(rng, rds->range);
+                    auto mkC = [&](int32_t v,
+                                   const SourceRange* bl) -> UHDM::expr* {
                         auto* c = s.MakeConstant();
                         c->VpiDecompile(std::to_string(v));
                         c->VpiSize(64);
                         c->VpiValue("UINT:" + std::to_string(v));
                         c->VpiConstType(vpiUIntConst);
                         c->VpiParent(rng);
+                        if (bl)
+                            setLoc(c, *bl);
                         return c;
                     };
-                    rng->Left_expr(mkC(pr.left));
-                    rng->Right_expr(mkC(pr.right));
+                    rng->Left_expr(mkC(pr.left, rds ? &rds->left : nullptr));
+                    rng->Right_expr(mkC(pr.right, rds ? &rds->right : nullptr));
                     auto* rvec = s.MakeRangeVec();
                     rvec->push_back(rng);
                     ((UHDM::packed_array_var*)rv)->Ranges(rvec);
@@ -340,9 +355,36 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             ert->Actual_typespec(wts);
                             ((UHDM::logic_typespec*)ts)->Elem_typespec(ert);
                         }
-                        // NOTE: the outer ts ALSO needs the shared [1:0] Ranges
-                        // (rng) + the func-call constant fold in the cont_assign
-                        // to fully converge — deferred (see memory note).
+                        // The outer ts carries its OWN [1:0] range (dim-token
+                        // locs), parented at the ts (Surelog).
+                        if (!((UHDM::logic_typespec*)ts)->Ranges()) {
+                            auto* trng = s.MakeRange();
+                            trng->VpiParent(ts);
+                            const DimSpan* tds =
+                                rSpans.empty() ? nullptr : &rSpans[0];
+                            if (tds)
+                                setLoc(trng, tds->range);
+                            auto mkT = [&](int32_t bv,
+                                           const SourceRange* bl)
+                                -> UHDM::expr* {
+                                auto* c9 = s.MakeConstant();
+                                c9->VpiDecompile(std::to_string(bv));
+                                c9->VpiSize(64);
+                                c9->VpiValue("UINT:" + std::to_string(bv));
+                                c9->VpiConstType(vpiUIntConst);
+                                c9->VpiParent(trng);
+                                if (bl)
+                                    setLoc(c9, *bl);
+                                return c9;
+                            };
+                            trng->Left_expr(
+                                mkT(pr.left, tds ? &tds->left : nullptr));
+                            trng->Right_expr(
+                                mkT(pr.right, tds ? &tds->right : nullptr));
+                            auto* tvec = s.MakeRangeVec();
+                            tvec->push_back(trng);
+                            ((UHDM::logic_typespec*)ts)->Ranges(tvec);
+                        }
                     }
                 }
             }
@@ -731,7 +773,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 auto pr2 = vdt2.as<PackedArrayType>().range;
                                 auto* rng2 = s.MakeRange();
                                 rng2->VpiParent(vts);
-                                auto mkB3 = [&](int64_t vv) -> UHDM::expr* {
+                                // Range/bounds anchor at the dim tokens.
+                                std::vector<DimSpan> vSpans;
+                                {
+                                    SourceLocation vS = fmv.location;
+                                    if (auto tsy2 = fmv.getDeclaredType()
+                                                        ->getTypeSyntax())
+                                        vS = tsy2->sourceRange().start();
+                                    if (vS < fmv.location)
+                                        vSpans = scanDimSpans(
+                                            std::string(rawText(SourceRange(
+                                                vS, fmv.location))),
+                                            vS);
+                                }
+                                const DimSpan* vds =
+                                    vSpans.empty() ? nullptr : &vSpans[0];
+                                if (vds)
+                                    setLoc(rng2, vds->range);
+                                auto mkB3 = [&](int64_t vv,
+                                                const SourceRange* bl)
+                                    -> UHDM::expr* {
                                     auto* c3 = s.MakeConstant();
                                     std::string d3 = std::to_string(vv);
                                     c3->VpiDecompile(d3);
@@ -739,10 +800,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                     c3->VpiValue("UINT:" + d3);
                                     c3->VpiConstType(vpiUIntConst);
                                     c3->VpiParent(rng2);
+                                    if (bl)
+                                        setLoc(c3, *bl);
                                     return c3;
                                 };
-                                rng2->Left_expr(mkB3(pr2.left));
-                                rng2->Right_expr(mkB3(pr2.right));
+                                rng2->Left_expr(mkB3(
+                                    pr2.left, vds ? &vds->left : nullptr));
+                                rng2->Right_expr(mkB3(
+                                    pr2.right, vds ? &vds->right : nullptr));
                                 auto* rv2 = s.MakeRangeVec();
                                 rv2->push_back(rng2);
                                 ((UHDM::logic_typespec*)vts)->Ranges(rv2);
@@ -773,6 +838,56 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         auto sr = tsyn2->sourceRange();
                         if (sr.start() != SourceLocation::NoLocation)
                             setLoc(v, sr);
+                    }
+                }
+                // A packed-array-of-VECTOR local carries the ARRAY range
+                // (dim-token locs) and a bare logic_var element (Surelog).
+                if (v->UhdmType() == UHDM::uhdmpacked_array_var &&
+                    !((UHDM::packed_array_var*)v)->Ranges()) {
+                    auto& lct9 =
+                        fmv.getDeclaredType()->getType().getCanonicalType();
+                    if (lct9.kind == SymbolKind::PackedArrayType) {
+                        auto pr9 = lct9.as<PackedArrayType>().range;
+                        SourceLocation tS9 = fmv.location;
+                        if (auto tsyn9 = fmv.getDeclaredType()->getTypeSyntax())
+                            tS9 = tsyn9->sourceRange().start();
+                        std::vector<DimSpan> spans9;
+                        if (tS9 < fmv.location)
+                            spans9 = scanDimSpans(
+                                std::string(
+                                    rawText(SourceRange(tS9, fmv.location))),
+                                tS9);
+                        auto* rng9 = s.MakeRange();
+                        rng9->VpiParent(v);
+                        const DimSpan* ds9 =
+                            spans9.empty() ? nullptr : &spans9[0];
+                        if (ds9)
+                            setLoc(rng9, ds9->range);
+                        auto mkL9 = [&](int32_t bv,
+                                        const SourceRange* bl) -> UHDM::expr* {
+                            auto* c9 = s.MakeConstant();
+                            c9->VpiDecompile(std::to_string(bv));
+                            c9->VpiSize(64);
+                            c9->VpiValue("UINT:" + std::to_string(bv));
+                            c9->VpiConstType(vpiUIntConst);
+                            c9->VpiParent(rng9);
+                            if (bl)
+                                setLoc(c9, *bl);
+                            return c9;
+                        };
+                        rng9->Left_expr(mkL9(pr9.left,
+                                             ds9 ? &ds9->left : nullptr));
+                        rng9->Right_expr(mkL9(pr9.right,
+                                              ds9 ? &ds9->right : nullptr));
+                        auto* rvec9 = s.MakeRangeVec();
+                        rvec9->push_back(rng9);
+                        ((UHDM::packed_array_var*)v)->Ranges(rvec9);
+                        auto* ev9 = s.MakeLogic_var();
+                        ev9->VpiParent(v);
+                        ev9->VpiFullName(vfull);
+                        auto* elems9 = s.MakeAnyVec();
+                        elems9->push_back(ev9);
+                        ((UHDM::packed_array_var*)v)->Elements(elems9);
                     }
                 }
                 auto* vrt = s.MakeRef_typespec();

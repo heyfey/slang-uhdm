@@ -303,6 +303,12 @@ private:
     bool unpackedArrayLeafIsNet(const slang::ast::Symbol& sym, bool portBacked);
     // Top(elab)-view packed-array-of-struct var (filter_ctl_t [1:0][2:0] a):
     // packed_array_var { vpiRange x N + vpiElement = struct_var }.
+    // Packed array over a VECTOR TYPEDEF (logic4 [1:0] v): packed_array_var
+    // with the ARRAY dims as Ranges, a bare logic_var element, and a ts ref
+    // to the SHARED named typedef logic_typespec (Surelog).
+    UHDM::packed_array_var* emitVectorTypedefArrayVar(
+        const slang::ast::Symbol& sym, const std::string& name,
+        const std::string& fullName, UHDM::module_inst* m);
     UHDM::packed_array_var* emitPackedStructArrayVar(const slang::ast::Symbol& sym,
                                                      const std::string& name,
                                                      const std::string& fullName,

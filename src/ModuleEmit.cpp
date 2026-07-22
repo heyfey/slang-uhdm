@@ -2436,6 +2436,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 vars->push_back(pav);
                 continue;
             }
+            else if (auto* vav =
+                         emitVectorTypedefArrayVar(*it.sym, name, fullName, m)) {
+                topNets[it.sym] = vav;
+                sigOrder.emplace_back(it.sym, vav);
+                vars->push_back(vav);
+                continue;
+            }
         }
         UHDM::ref_typespec* rt = nullptr;
         if (!implicitNet && !realVar) {

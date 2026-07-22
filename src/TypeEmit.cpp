@@ -367,6 +367,62 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
         }
         }
+        // A packed array over a VECTOR TYPEDEF (logic4 [1:0] v) in module
+        // context: an anonymous logic ts at the type span with an Elem ref
+        // to the SHARED typedef ts and the ARRAY dim as its range (Surelog).
+        if (!tfContext && declared->getType().kind == SymbolKind::PackedArrayType) {
+            auto& et9 = declared->getType().as<PackedArrayType>().elementType;
+            if (et9.kind == SymbolKind::TypeAlias) {
+                if (auto tit9 = typedefTs.find(&et9);
+                    tit9 != typedefTs.end() &&
+                    tit9->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto* lts = s.MakeLogic_typespec();
+                    setLoc(lts, range);
+                    auto* ert9 = s.MakeRef_typespec();
+                    ert9->VpiParent(lts);
+                    ert9->Actual_typespec(tit9->second);
+                    lts->Elem_typespec(ert9);
+                    auto pr9 =
+                        declared->getType().as<PackedArrayType>().range;
+                    std::vector<DimSpan> spans9;
+                    {
+                        SourceLocation tS9 = range.start();
+                        if (auto tsy9 = declared->getTypeSyntax())
+                            tS9 = tsy9->sourceRange().start();
+                        if (tS9 < declSymbol.location)
+                            spans9 = scanDimSpans(
+                                std::string(rawText(
+                                    SourceRange(tS9, declSymbol.location))),
+                                tS9);
+                    }
+                    auto* rng9 = s.MakeRange();
+                    rng9->VpiParent(lts);
+                    const DimSpan* ds9 = spans9.empty() ? nullptr : &spans9[0];
+                    if (ds9)
+                        setLoc(rng9, ds9->range);
+                    auto mk9 = [&](int64_t v,
+                                   const SourceRange* loc) -> UHDM::expr* {
+                        auto* c = s.MakeConstant();
+                        std::string digits = std::to_string(v);
+                        c->VpiDecompile(digits);
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(rng9);
+                        if (loc)
+                            setLoc(c, *loc);
+                        return c;
+                    };
+                    rng9->Left_expr(mk9(pr9.left, ds9 ? &ds9->left : nullptr));
+                    rng9->Right_expr(
+                        mk9(pr9.right, ds9 ? &ds9->right : nullptr));
+                    auto* rvec9 = s.MakeRangeVec();
+                    rvec9->push_back(rng9);
+                    lts->Ranges(rvec9);
+                    return lts;
+                }
+            }
+        }
         if (ct.kind == SymbolKind::PredefinedIntegerType) {
             auto& pit = ct.as<PredefinedIntegerType>();
             UHDM::typespec* its = nullptr;
@@ -2817,6 +2873,113 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
     }
     an->Nets(nvec);
     return an;
+}
+
+UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
+    const Symbol& sym, const std::string& name, const std::string& fullName,
+    UHDM::module_inst* m) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    auto& dt = declared->getType();
+    if (dt.kind != SymbolKind::PackedArrayType)
+        return nullptr;
+    // Collect the ARRAY dims down to the typedef-alias element.
+    std::vector<ConstantRange> arrRanges;
+    const Type* t2 = &dt;
+    while (t2->kind == SymbolKind::PackedArrayType) {
+        arrRanges.push_back(t2->as<PackedArrayType>().range);
+        t2 = &t2->as<PackedArrayType>().elementType;
+    }
+    if (t2->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto tit = typedefTs.find(t2);
+    if (tit == typedefTs.end() ||
+        tit->second->UhdmType() != UHDM::uhdmlogic_typespec)
+        return nullptr;
+    auto* pav = s.MakePacked_array_var();
+    pav->VpiName(name);
+    pav->VpiFullName(fullName);
+    pav->VpiParent(m);
+    setLoc(pav, nameSpan(sym.location, sym.name));
+    pav->VpiVisibility(1);
+    // The var ts binds the SHARED typedef ts. The elab pass ALSO creates
+    // (unreferenced, arena-matching Surelog) a PLAIN named clone, an
+    // enriched anonymous array ts, and a NAMED alias clone (Typedef_alias ->
+    // shared, module-instanced).
+    {
+        auto& elAl0 = t2->as<TypeAliasType>();
+        const syntax::SyntaxNode* tgtSyn0 = nullptr;
+        if (auto asyn0 = elAl0.getSyntax())
+            if (asyn0->kind == syntax::SyntaxKind::TypedefDeclaration)
+                tgtSyn0 = asyn0->as<syntax::TypedefDeclarationSyntax>().type;
+        bypassTypedefShare = true;
+        auto* plainCl = makeTypespec(elAl0, tgtSyn0);
+        bypassTypedefShare = false;
+        plainCl->VpiName(elAl0.name);
+    }
+    (void)makeTypespec(sym);
+    auto& elAl = t2->as<TypeAliasType>();
+    const syntax::SyntaxNode* tgtSyn = nullptr;
+    if (auto asyn = elAl.getSyntax())
+        if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+            tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+    bypassTypedefShare = true;
+    auto* cl = makeTypespec(elAl, tgtSyn);
+    bypassTypedefShare = false;
+    cl->VpiName(elAl.name);
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(std::string(elAl.name));
+    art->VpiParent(cl);
+    art->Actual_typespec(tit->second);
+    ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+    cl->Instance((UHDM::instance*)m);
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(fullName);
+    rt->VpiParent(pav);
+    rt->Actual_typespec(tit->second);
+    pav->Typespec(rt);
+    // Dim spans scanned between the type-syntax start and the declarator.
+    std::vector<DimSpan> spans;
+    {
+        SourceLocation tStart = sym.location;
+        if (auto tsyn = declared->getTypeSyntax())
+            tStart = tsyn->sourceRange().start();
+        if (tStart < sym.location)
+            spans = scanDimSpans(
+                std::string(rawText(SourceRange(tStart, sym.location))), tStart);
+    }
+    auto* rvec = s.MakeRangeVec();
+    for (size_t i = 0; i < arrRanges.size(); i++) {
+        auto* r = s.MakeRange();
+        r->VpiParent(pav);
+        const DimSpan* ds = i < spans.size() ? &spans[i] : nullptr;
+        if (ds)
+            setLoc(r, ds->range);
+        auto mkB = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+            auto* c = s.MakeConstant();
+            std::string digits = std::to_string(v);
+            c->VpiDecompile(digits);
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + digits);
+            c->VpiConstType(vpiUIntConst);
+            c->VpiParent(r);
+            if (loc)
+                setLoc(c, *loc);
+            return c;
+        };
+        r->Left_expr(mkB(arrRanges[i].left, ds ? &ds->left : nullptr));
+        r->Right_expr(mkB(arrRanges[i].right, ds ? &ds->right : nullptr));
+        rvec->push_back(r);
+    }
+    pav->Ranges(rvec);
+    auto* ev = s.MakeLogic_var();
+    ev->VpiParent(pav);
+    ev->VpiFullName(fullName);
+    auto* elems = s.MakeAnyVec();
+    elems->push_back(ev);
+    pav->Elements(elems);
+    return pav;
 }
 
 UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym,
