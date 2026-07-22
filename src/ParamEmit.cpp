@@ -1745,6 +1745,37 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 for (auto* tm : *sts->Members())
                     if (tm->Typespec() && tm->Typespec()->Actual_typespec()) {
                         auto* mts = tm->Typespec()->Actual_typespec();
+                        // A member whose actual is ANOTHER package's shared
+                        // enum typedef gets a FRESH per-use clone (Instance ->
+                        // THIS package) — never mutate the shared object
+                        // (Surelog keeps home Instance on the home copy).
+                        if (mts->UhdmType() == UHDM::uhdmenum_typespec &&
+                            mts->Instance() &&
+                            mts->Instance() != (UHDM::instance*)up &&
+                            mts->Instance()->UhdmType() == UHDM::uhdmpackage) {
+                            const EnumType* et9 = nullptr;
+                            for (auto& [sym9, tsp9] : typedefTs)
+                                if (tsp9 == mts &&
+                                    sym9->kind == SymbolKind::TypeAlias) {
+                                    auto& c9 = sym9->as<TypeAliasType>()
+                                                   .getCanonicalType();
+                                    if (c9.kind == SymbolKind::EnumType)
+                                        et9 = &c9.as<EnumType>();
+                                    break;
+                                }
+                            if (et9) {
+                                auto* cl9 = buildEnumTs(
+                                    *et9, nullptr,
+                                    std::string(mts->VpiName()));
+                                cl9->VpiName(mts->VpiName());
+                                cl9->VpiLineNo(mts->VpiLineNo());
+                                cl9->VpiColumnNo(mts->VpiColumnNo());
+                                cl9->VpiEndLineNo(mts->VpiEndLineNo());
+                                cl9->VpiEndColumnNo(mts->VpiEndColumnNo());
+                                tm->Typespec()->Actual_typespec(cl9);
+                                mts = cl9;
+                            }
+                        }
                         mts->Instance((UHDM::instance*)up);
                         if (topView && mts->UhdmType() == UHDM::uhdmlogic_typespec) {
                             std::function<void(UHDM::any*)> bindRefs2 =

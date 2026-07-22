@@ -1564,9 +1564,22 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                     if (homePn != pn &&
                         ts->UhdmType() == UHDM::uhdmenum_typespec &&
                         imported->kind == SymbolKind::TypeAlias) {
+                        auto clKey = std::make_pair(
+                            imported, std::string(m->VpiDefName()));
                         auto& taE = imported->as<TypeAliasType>();
                         auto& ectE = taE.getCanonicalType();
-                        if (ectE.kind == SymbolKind::EnumType) {
+                        if (auto cit9 = transitiveTdClone.find(clKey);
+                            cit9 != transitiveTdClone.end()) {
+                            ts = cit9->second;
+                            // The def pass ran before packages existed —
+                            // fill the Instance on the later (elab) hit.
+                            if (!ts->Instance())
+                                if (auto* dp = comp.getPackage(pn))
+                                    if (auto pit9 = pkgDefMap.find(dp);
+                                        pit9 != pkgDefMap.end())
+                                        ts->Instance(pit9->second);
+                        }
+                        else if (ectE.kind == SymbolKind::EnumType) {
                             std::string scopedE =
                                 std::string(m->VpiDefName()) + "." + homePn +
                                 "::" + std::string(imported->name);
@@ -1581,6 +1594,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                 if (auto pit9 = pkgDefMap.find(dp);
                                     pit9 != pkgDefMap.end())
                                     cl9->Instance(pit9->second);
+                            transitiveTdClone[clKey] = cl9;
                             ts = cl9;
                         }
                     }

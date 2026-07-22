@@ -562,6 +562,11 @@ private:
     UHDM::ref_obj* emitPropFormalRef(std::string_view nm, slang::SourceRange nr,
                                      UHDM::BaseClass* parent, const std::string& prefix);
     std::map<const void*, UHDM::package*> pkgDefMap;
+    // Transitive wildcard-import typedef clones, shared def+elab per
+    // (typedef symbol, module def-name).
+    std::map<std::pair<const slang::ast::Symbol*, std::string>,
+             UHDM::enum_typespec*>
+        transitiveTdClone;
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).
     std::map<const void*, UHDM::typespec*> pkgTopTypedefTs;
