@@ -147,7 +147,19 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             setLocNamed(n, *it.port);
         else
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
-        if (int32_t nt = netTypeFor(*it.sym))
+        // A net typed by an ALIAS-OF-ALIAS typedef omits its net type
+        // (Surelog); other nets print it.
+        bool aliasOfAlias0 = false;
+        if (auto dt0 = it.sym->getDeclaredType())
+            if (dt0->getType().kind == SymbolKind::TypeAlias) {
+                auto& tt0 =
+                    dt0->getType().as<TypeAliasType>().targetType.getType();
+                aliasOfAlias0 =
+                    tt0.kind == SymbolKind::PackedArrayType &&
+                    tt0.as<PackedArrayType>().elementType.kind ==
+                        SymbolKind::TypeAlias;
+            }
+        if (int32_t nt = aliasOfAlias0 ? 0 : netTypeFor(*it.sym))
             n->VpiNetType(nt);
         // A PACKAGE-typedef struct net (port, or a flat-member local) is a
         // wire; nested-struct-member locals stay untyped.
