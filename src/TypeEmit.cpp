@@ -1598,19 +1598,33 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             std::string ename =
                 leaf->kind == SymbolKind::TypeAlias ? std::string(leaf->name) : "";
             const syntax::SyntaxNode* esyn = leaf->getCanonicalType().getSyntax();
-            UHDM::typespec* sts =
-                enumLeaf
-                    ? (UHDM::typespec*)buildEnumTs(leaf->getCanonicalType().as<EnumType>(),
-                                                   esyn, ename)
-                    : (UHDM::typespec*)buildStructTs(
-                          leaf->getCanonicalType().as<PackedStructType>(), true, alias);
-            if (enumLeaf) {
+            // An enum leaf that IS a named typedef in this scope SHARES the
+            // typedef's enum object (elem ref fullname = the outer alias's
+            // BARE name) — Surelog.
+            UHDM::typespec* sts = nullptr;
+            bool sharedEnumLeaf = false;
+            if (enumLeaf && leaf->kind == SymbolKind::TypeAlias)
+                if (auto sIt = typedefTs.find(
+                        (const Symbol*)&leaf->as<TypeAliasType>());
+                    sIt != typedefTs.end()) {
+                    sts = sIt->second;
+                    sharedEnumLeaf = true;
+                }
+            if (!sts)
+                sts = enumLeaf
+                          ? (UHDM::typespec*)buildEnumTs(
+                                leaf->getCanonicalType().as<EnumType>(), esyn,
+                                ename)
+                          : (UHDM::typespec*)buildStructTs(
+                                leaf->getCanonicalType().as<PackedStructType>(),
+                                true, alias);
+            if (enumLeaf && !sharedEnumLeaf) {
                 sts->VpiName(ename);
                 if (esyn)
                     setLoc(sts, esyn->sourceRange());
             }
             // struct_typespec loc = the `struct` keyword token.
-            else if (typeSyn)
+            else if (!enumLeaf && typeSyn)
                 setLoc(sts, typeSyn->getFirstToken().range());
             auto* pat = s.MakePacked_array_typespec();
             pat->VpiParent(m);
@@ -1659,7 +1673,7 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             pat->Ranges(rvec);
             auto* ert = s.MakeRef_typespec();
             ert->VpiParent(pat);
-            ert->VpiFullName(alias);
+            ert->VpiFullName(sharedEnumLeaf ? std::string(ta.name) : alias);
             ert->Actual_typespec(sts);
             pat->Elem_typespec(ert);
             // Surelog re-parents the struct's members to the ARRAY typespec.

@@ -2233,7 +2233,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     if (tt2.kind == SymbolKind::PackedArrayType &&
                         tt2.as<PackedArrayType>().elementType.kind ==
                             SymbolKind::TypeAlias) {
-                        auto* v2 = s.MakeLogic_var();
+                        // Enum-array typedefs (packed_array_typespec) get a
+                        // BARE packed_array_var; vector aliases a logic_var.
+                        UHDM::variables* v2 =
+                            typedefTs[&tv2]->UhdmType() ==
+                                    UHDM::uhdmpacked_array_typespec
+                                ? (UHDM::variables*)s.MakePacked_array_var()
+                                : (UHDM::variables*)s.MakeLogic_var();
                         v2->VpiName(name);
                         v2->VpiFullName(fullName);
                         v2->VpiParent(m);
