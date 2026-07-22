@@ -695,8 +695,68 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         p->VpiParent(rm);
                         p->VpiName(formal);
                         setLoc(p, conn->sourceRange());
+                        // Parse ALL [..] groups of the actual.
+                        std::vector<std::pair<size_t, std::string>> idxGroups;
+                        {
+                            size_t p0 = act.find('[');
+                            while (p0 != std::string::npos) {
+                                auto p1 = act.find(']', p0);
+                                if (p1 == std::string::npos)
+                                    break;
+                                idxGroups.emplace_back(
+                                    p0 + 1, act.substr(p0 + 1, p1 - p0 - 1));
+                                p0 = act.find('[', p1);
+                            }
+                        }
                         auto lb2 = act.find('[');
-                        if (lb2 != std::string::npos && !act.empty() &&
+                        if (idxGroups.size() >= 2 && !act.empty() &&
+                            act.back() == ']') {
+                            // MULTIDIM select (data_i[0][j]): a var_select
+                            // named by the base, fullname DOUBLED through the
+                            // formal (prefix.<inst>.<formal>.<base>), loc at
+                            // the whole select; indices are constants (digits)
+                            // or refs scoped vsFull.<idx>.
+                            std::string base2 = act.substr(0, lb2);
+                            std::string vsFull = branchPrefix + "." + iname +
+                                                 "." + formal + "." + base2;
+                            auto* vs = s.MakeVar_select();
+                            vs->VpiParent(p);
+                            vs->VpiName(base2);
+                            vs->VpiFullName(vsFull);
+                            setLoc(vs, npc.expr->sourceRange());
+                            auto* ixv = s.MakeExprVec();
+                            for (auto& [off9, tx9] : idxGroups) {
+                                auto ixStart =
+                                    npc.expr->sourceRange().start() + off9;
+                                if (!tx9.empty() &&
+                                    tx9.find_first_not_of("0123456789") ==
+                                        std::string::npos) {
+                                    auto* c9 = s.MakeConstant();
+                                    c9->VpiDecompile(tx9);
+                                    c9->VpiSize(64);
+                                    c9->VpiValue("UINT:" + tx9);
+                                    c9->VpiConstType(vpiUIntConst);
+                                    c9->VpiParent(vs);
+                                    setLoc(c9,
+                                           SourceRange(ixStart,
+                                                       ixStart + tx9.size()));
+                                    ixv->push_back(c9);
+                                }
+                                else {
+                                    auto* r9 = s.MakeRef_obj();
+                                    r9->VpiName(tx9);
+                                    r9->VpiFullName(vsFull + "." + tx9);
+                                    r9->VpiParent(vs);
+                                    setLoc(r9,
+                                           SourceRange(ixStart,
+                                                       ixStart + tx9.size()));
+                                    ixv->push_back(r9);
+                                }
+                            }
+                            vs->Exprs(ixv);
+                            p->High_conn(vs);
+                        }
+                        else if (lb2 != std::string::npos && !act.empty() &&
                             act.back() == ']') {
                             // A SELECT actual (sig[i]): bit_select named by
                             // the BASE, fullname prefix.<inst>.<base> (no
