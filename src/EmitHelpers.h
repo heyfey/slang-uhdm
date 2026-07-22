@@ -332,6 +332,17 @@ inline void collectDefs(const InstanceBodySymbol& body,
             for (auto* e : member.as<InstanceArraySymbol>().elements)
                 visit(*e);
         }
+        // Instances INSIDE generate blocks (begin:foo mod_a a(...); end) —
+        // their defs must reach AllModules too. Non-taken branches don't.
+        else if (member.kind == SymbolKind::GenerateBlock) {
+            if (!member.as<GenerateBlockSymbol>().isUninstantiated)
+                for (auto& gm : member.as<Scope>().members())
+                    visit(gm);
+        }
+        else if (member.kind == SymbolKind::GenerateBlockArray) {
+            for (auto& gm : member.as<Scope>().members())
+                visit(gm);
+        }
     };
     for (auto& member : body.members())
         visit(member);

@@ -590,6 +590,51 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     stmts->push_back(as2);
                 }
             }
+            // Gen-block module instances (def view): a ref_module stmt named by
+            // the instance, DefName work@<def>, with a port per NAMED conn —
+            // HighConn ref_obj scoped branchPrefix.<inst>.<formal>.<actual>
+            // (Surelog's doubled form). No LowConn/direction/actual link.
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::HierarchyInstantiation)
+                    continue;
+                auto& hi = item->as<syntax::HierarchyInstantiationSyntax>();
+                std::string defn(hi.type.valueText());
+                for (auto* hinst : hi.instances) {
+                    if (!hinst->decl)
+                        continue;
+                    std::string iname(hinst->decl->name.valueText());
+                    auto* rm = s.MakeRef_module();
+                    rm->VpiParent(b);
+                    rm->VpiName(iname);
+                    rm->VpiDefName("work@" + defn);
+                    setLoc(rm, nameSpan(hinst->decl->name.location(), iname));
+                    auto* rports = s.MakePortVec();
+                    for (auto* conn : hinst->connections) {
+                        if (conn->kind != syntax::SyntaxKind::NamedPortConnection)
+                            continue;
+                        auto& npc = conn->as<syntax::NamedPortConnectionSyntax>();
+                        if (!npc.expr)
+                            continue;
+                        std::string formal(npc.name.valueText());
+                        std::string act = rawText(npc.expr->sourceRange());
+                        auto* p = s.MakePort();
+                        p->VpiParent(rm);
+                        p->VpiName(formal);
+                        setLoc(p, conn->sourceRange());
+                        auto* r = s.MakeRef_obj();
+                        r->VpiParent(p);
+                        r->VpiName(act);
+                        r->VpiFullName(branchPrefix + "." + iname + "." +
+                                       formal + "." + act);
+                        setLoc(r, npc.expr->sourceRange());
+                        p->High_conn(r);
+                        rports->push_back(p);
+                    }
+                    if (!rports->empty())
+                        rm->Ports(rports);
+                    stmts->push_back(rm);
+                }
+            }
             for (auto* item : items) {
                 if (item->kind != syntax::SyntaxKind::ContinuousAssign)
                     continue;
@@ -2956,6 +3001,26 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         if (!gvars->empty())
             gs->Variables(gvars);
+
+        // Module instances declared inside the block: full elab children
+        // under vpiModule, re-parented at the gen_scope (Surelog). The
+        // enclosing module supplies the conn prefix (HighConns bind to the
+        // MODULE's nets, not the gen path).
+        auto* gmods = s.MakeModule_instVec();
+        for (auto& gm : blk.members()) {
+            if (gm.kind != SymbolKind::Instance)
+                continue;
+            auto& ci = gm.as<InstanceSymbol>();
+            if (useInterfacePath(ci))
+                continue;
+            auto* mi = emitInstance(ci, fullName + "." + std::string(ci.name),
+                                    (UHDM::module_inst*)m, &netMap, nullptr,
+                                    /*isTop=*/false);
+            mi->VpiParent(gs);
+            gmods->push_back(mi);
+        }
+        if (!gmods->empty())
+            gs->Modules(gmods);
 
         // Functions declared inside the block live on the gen_scope.
         {
