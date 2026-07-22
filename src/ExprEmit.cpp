@@ -831,6 +831,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // function folds to its value (the gen block is a concrete
                 // instance), unlike a plain-module function which keeps the ref
                 // (tfContext). Carries the param's type as a ref_typespec.
+                // ELAB gen-scope CA LHS select bounds fold PARAM refs to
+                // typed constants (base-scoped ts ref -> the param's int ts
+                // at its decl type span — Surelog).
+                if (genCaLhsParamFold &&
+                    nv.symbol.kind == SymbolKind::Parameter) {
+                    auto& psF = nv.symbol.as<ParameterSymbol>();
+                    auto& cvF = psF.getValue();
+                    if (cvF.isInteger() && !cvF.integer().hasUnknown()) {
+                        auto* c = s.MakeConstant();
+                        std::string dF =
+                            cvF.integer().toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(dF);
+                        c->VpiSize((int32_t)psF.getType().getBitWidth());
+                        c->VpiValue("UINT:" + dF);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(parent);
+                        setLoc(c, expr.sourceRange);
+                        auto* rtF = s.MakeRef_typespec();
+                        rtF->VpiFullName(prefix);
+                        rtF->VpiParent(c);
+                        auto* itsF = s.MakeInt_typespec();
+                        if (auto dtF = psF.getDeclaredType())
+                            if (auto tsnF = dtF->getTypeSyntax())
+                                setLoc(itsF, tsnF->sourceRange());
+                        rtF->Actual_typespec(itsF);
+                        c->Typespec(rtF);
+                        return c;
+                    }
+                }
                 // Gen-scope instance CONNS fold genvar/localparam refs that
                 // live in a GenerateBlock to their per-index UINT constants.
                 if (genvarConnFold && nv.symbol.kind == SymbolKind::Parameter) {
@@ -1117,7 +1146,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                   parent->UhdmType() == UHDM::uhdmbit_select ||
                   parent->UhdmType() == UHDM::uhdmcase_item ||
                   parent->UhdmType() == UHDM::uhdmimmediate_assert ||
-                  (reemitting && parent->UhdmType() == UHDM::uhdmpart_select))))
+                  ((reemitting || genCaLhsReelab) &&
+                   parent->UhdmType() == UHDM::uhdmpart_select))))
                 c->VpiParent(parent);
 
             auto tick = raw.find('\'');
@@ -2750,8 +2780,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             std::string basePfx = prefix + "." + std::string(nv.symbol.name);
             auto boundPfx = [&](const Expression& e) -> const std::string& {
                 // Function/task bodies AND param inits scope EVERY bound ref
-                // by the base name (Surelog's doubled part-select fullname).
-                if (currentSubSym || inParamInit)
+                // by the base name (Surelog's doubled part-select fullname);
+                // elab gen-CA LHS folds scope by the base too.
+                if (currentSubSym || inParamInit || genCaLhsParamFold)
                     return basePfx;
                 return stripImplicitConv(e).kind == ExpressionKind::NamedValue ? prefix
                                                                                : basePfx;

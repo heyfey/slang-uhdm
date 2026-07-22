@@ -4001,8 +4001,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             if (lhsSuppress)
                 suppressRefActual = true;
+            bool blkInLoop2 = false;
+            for (auto q = blk.getSyntax(); q; q = q->parent)
+                if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                    blkInLoop2 = true;
+                    break;
+                }
+            genCaLhsParamFold = !blkInLoop2;
+            genCaLhsReelab =
+                !blkInLoop2 && isLiteralExpr(stripImplicitConv(ae.right()));
             if (auto* l = emitExpr(ae.left(), ca, fullName, netMap))
                 ca->Lhs((UHDM::expr*)l);
+            genCaLhsReelab = false;
+            genCaLhsParamFold = false;
             if (lhsSuppress)
                 suppressRefActual = false;
             inLhs = false;

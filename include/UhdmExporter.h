@@ -653,6 +653,12 @@ private:
     // True when the gen scope whose processes are being emitted sits under a
     // LOOP generate (its refs stay unbound; if/named scopes bind locals).
     bool genScopeProcInLoop = false;
+    // True while emitting an ELAB gen-scope CA LHS: param refs in select
+    // bounds fold to typed constants (Surelog).
+    bool genCaLhsParamFold = false;
+    // ...and when its RHS is a literal (netlist re-elab), direct literal
+    // bounds parent at the part_select.
+    bool genCaLhsReelab = false;
     // Depth of procedural for-stmt bodies being emitted (refs escaping the
     // loop stay unbound in gen-scope processes).
     int procForDepth = 0;
