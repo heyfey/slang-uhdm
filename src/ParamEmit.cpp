@@ -131,6 +131,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (overridden) {
             ASTContext actx(body, LookupLocation::max);
             defaultInit = &Expression::bind(*defaultSyn, actx);
+            // A bare assignment PATTERN ('{...}) cannot bind without a target
+            // type — re-bind with the param's own type so pattern defaults
+            // keep their Rhs (tagged-pattern op) instead of silently dropping.
+            if (defaultInit->bad())
+                defaultInit = &Expression::bindRValue(
+                    ps.getType(), *defaultSyn, defaultSyn->sourceRange(), actx);
             if (defaultInit->bad())
                 defaultInit = nullptr;
         }
