@@ -461,11 +461,14 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         std::set<const syntax::SyntaxNode*> doneIfs;
         // A generate branch body: named begin for labeled blocks, anonymous
         // begin (module fullname) otherwise; cont_assigns from syntax.
-        auto emitBranch = [&](const syntax::SyntaxNode& memSyn,
-                              UHDM::BaseClass* parent,
-                              const Scope* astBlock = nullptr) -> UHDM::any* {
+        std::function<UHDM::any*(const syntax::SyntaxNode&, UHDM::BaseClass*,
+                                 const Scope*, const std::string&)>
+            emitBranch;
+        emitBranch = [&](const syntax::SyntaxNode& memSyn,
+                         UHDM::BaseClass* parent, const Scope* astBlock,
+                         const std::string& basePrefix) -> UHDM::any* {
             UHDM::scope* b = nullptr;
-            std::string branchPrefix = prefix;
+            std::string branchPrefix = basePrefix;
             std::vector<const syntax::SyntaxNode*> items;
             if (memSyn.kind == syntax::SyntaxKind::GenerateBlock) {
                 auto& gb = memSyn.as<syntax::GenerateBlockSyntax>();
@@ -475,13 +478,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 if (!label.empty()) {
                     auto* nb = s.MakeNamed_begin();
                     nb->VpiName(label);
-                    branchPrefix = prefix + "." + label;
+                    branchPrefix = basePrefix + "." + label;
                     nb->VpiFullName(branchPrefix);
                     b = nb;
                 }
                 else {
                     auto* ub = s.MakeBegin();
-                    ub->VpiFullName(prefix);
+                    ub->VpiFullName(basePrefix);
                     b = ub;
                 }
                 for (auto mem2 : gb.members)
@@ -489,7 +492,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             }
             else {
                 auto* ub = s.MakeBegin();
-                ub->VpiFullName(prefix);
+                ub->VpiFullName(basePrefix);
                 b = ub;
                 items.push_back(&memSyn);
             }
@@ -961,6 +964,63 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     stmts->push_back(ca);
                 }
             }
+            // NESTED if-generates recurse: a gen_if (keyword span) whose
+            // stmt is the nested branch begin, fullnames chaining through
+            // this branch's prefix.
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::IfGenerate)
+                    continue;
+                auto& nIf = item->as<syntax::IfGenerateSyntax>();
+                UHDM::gen_if_else* ngie = nullptr;
+                UHDM::gen_if* ngi = nullptr;
+                UHDM::gen_stmt* ng0;
+                if (nIf.elseClause) {
+                    ngie = s.MakeGen_if_else();
+                    ng0 = ngie;
+                }
+                else {
+                    ngi = s.MakeGen_if();
+                    setLoc(ngi, nIf.keyword.range());
+                    ng0 = ngi;
+                }
+                ng0->VpiParent(b);
+                syntaxRefPrefix = branchPrefix;
+                if (auto* c = emitSyntaxExpr(*nIf.condition, ng0)) {
+                    if (ngie)
+                        ngie->VpiCondition((UHDM::expr*)c);
+                    else
+                        ngi->VpiCondition((UHDM::expr*)c);
+                }
+                syntaxRefPrefix.clear();
+                auto findNested = [&](const syntax::SyntaxNode* bs)
+                    -> const Scope* {
+                    if (!astBlock)
+                        return nullptr;
+                    for (auto& m2 : astBlock->members())
+                        if (m2.kind == SymbolKind::GenerateBlock &&
+                            m2.getSyntax() == bs)
+                            return &m2.as<Scope>();
+                    return nullptr;
+                };
+                if (auto* t = emitBranch(
+                        *nIf.block, ng0,
+                        findNested((const syntax::SyntaxNode*)nIf.block),
+                        branchPrefix)) {
+                    if (ngie)
+                        ngie->VpiStmt((UHDM::any*)t);
+                    else
+                        ngi->VpiStmt(t);
+                }
+                if (nIf.elseClause && ngie) {
+                    if (auto* e = emitBranch(
+                            *nIf.elseClause->clause, ngie,
+                            findNested((const syntax::SyntaxNode*)nIf
+                                           .elseClause->clause),
+                            branchPrefix))
+                        ngie->VpiElseStmt((UHDM::any*)e);
+                }
+                stmts->push_back(ng0);
+            }
             // Def-view gen-block PROCESSES: each always/initial re-emits
             // under the branch begin with branch-prefix-scoped UNBOUND refs.
             if (astBlock) {
@@ -1059,7 +1119,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 };
                 const Scope* tbScope =
                     findBranchScope((const syntax::SyntaxNode*)ifSyn->block);
-                if (auto* t = emitBranch(*ifSyn->block, g0, tbScope)) {
+                if (auto* t = emitBranch(*ifSyn->block, g0, tbScope, prefix)) {
                     if (gie)
                         gie->VpiStmt(t);
                     else
@@ -1069,7 +1129,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     const Scope* ebScope = findBranchScope(
                         (const syntax::SyntaxNode*)ifSyn->elseClause->clause);
                     if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie,
-                                             ebScope))
+                                             ebScope, prefix))
                         gie->VpiElseStmt((UHDM::any*)e);
                 }
                 // Inside an EXPLICIT generate...endgenerate region the if
@@ -1207,7 +1267,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                             astBlock = entry2;
                             break;
                         }
-                    if (auto* b = emitBranch(*loopSyn->block, gf, astBlock))
+                    if (auto* b = emitBranch(*loopSyn->block, gf, astBlock, prefix))
                         gf->VpiStmt(b);
                 }
                 regions->push_back(gf);
@@ -1223,7 +1283,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     gsyn->as<syntax::GenerateBlockSyntax>().beginName) {
                     auto* gr = s.MakeGen_region();
                     gr->VpiParent(m);
-                    if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>()))
+                    if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>(), prefix))
                         gr->VpiStmt(b);
                     regions->push_back(gr);
                     continue;
@@ -3813,6 +3873,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         lhsSuppress = true;
                         break;
                     }
+            }
+            // A NESTED gen scope (parent scope is itself a generate block)
+            // leaves its whole-ref LHS unbound too (Surelog).
+            if (!lhsSuppress &&
+                stripImplicitConv(ae.left()).kind ==
+                    ExpressionKind::NamedValue) {
+                if (auto ps0 = blk.getParentScope();
+                    ps0 && ps0->asSymbol().kind == SymbolKind::GenerateBlock)
+                    lhsSuppress = true;
             }
             if (lhsSuppress)
                 suppressRefActual = true;
