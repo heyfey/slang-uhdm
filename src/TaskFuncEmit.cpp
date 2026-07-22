@@ -276,12 +276,42 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                     wts = tsp0;
                                     break;
                                 }
-                        if (wts) {
+                        if (wts && et.kind == SymbolKind::TypeAlias) {
+                            // The element ref points at a fresh NAMED clone of
+                            // the typedef (Typedef_alias -> the shared/canonical
+                            // ts), matching Surelog — not the canonical directly
+                            // (mirrors the typedef'd-arg path below).
+                            auto& elAlias = et.as<TypeAliasType>();
+                            const syntax::SyntaxNode* targetSyn = nullptr;
+                            if (auto asyn = elAlias.getSyntax())
+                                if (asyn->kind ==
+                                    syntax::SyntaxKind::TypedefDeclaration)
+                                    targetSyn =
+                                        asyn->as<syntax::TypedefDeclarationSyntax>()
+                                            .type;
+                            bypassTypedefShare = true;
+                            auto* cl = makeTypespec(elAlias, targetSyn);
+                            bypassTypedefShare = false;
+                            cl->VpiName(elAlias.name);
+                            auto* art = s.MakeRef_typespec();
+                            art->VpiFullName(elAlias.name);
+                            art->VpiParent(cl);
+                            art->Actual_typespec(wts);
+                            ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                            auto* ert = s.MakeRef_typespec();
+                            ert->VpiParent(ts);
+                            ert->Actual_typespec(cl);
+                            ((UHDM::logic_typespec*)ts)->Elem_typespec(ert);
+                        }
+                        else if (wts) {
                             auto* ert = s.MakeRef_typespec();
                             ert->VpiParent(ts);
                             ert->Actual_typespec(wts);
                             ((UHDM::logic_typespec*)ts)->Elem_typespec(ert);
                         }
+                        // NOTE: the outer ts ALSO needs the shared [1:0] Ranges
+                        // (rng) + the func-call constant fold in the cont_assign
+                        // to fully converge — deferred (see memory note).
                     }
                 }
             }
