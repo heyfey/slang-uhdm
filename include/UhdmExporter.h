@@ -640,6 +640,15 @@ private:
     // module-param ref folds to its value (the gen block is a concrete
     // instance), like the gen-block-function case.
     bool inGenScopeProc = false;
+    // True when the gen scope whose processes are being emitted sits under a
+    // LOOP generate (its refs stay unbound; if/named scopes bind locals).
+    bool genScopeProcInLoop = false;
+    // Depth of procedural for-stmt bodies being emitted (refs escaping the
+    // loop stay unbound in gen-scope processes).
+    int procForDepth = 0;
+    // Control vars of for-stmts currently being emitted: their refs bind
+    // even inside the loop body.
+    std::set<const slang::ast::Symbol*> activeForVars;
     // True only while emitting a NAMED typedef's typespec: Surelog folds
     // type-query bounds ($bits(t)) there, but keeps them as sys_func_call in a
     // variable's inline/anonymous type. Gates the $bits fold in emitSyntaxExpr.

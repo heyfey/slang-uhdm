@@ -614,7 +614,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     noteUnsupported("for loop var type");
                     return nullptr;
                 }
-                auto* v = s.MakeInt_var();
+                // `for (integer x = ..)` declares an integer_var (Surelog);
+                // `for (int i = ..)` an int_var.
+                UHDM::variables* v =
+                    ct.as<PredefinedIntegerType>().integerKind ==
+                            PredefinedIntegerType::Integer
+                        ? (UHDM::variables*)s.MakeInteger_var()
+                        : (UHDM::variables*)s.MakeInt_var();
                 v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
                 v->VpiName(lv->name);
                 v->VpiFullName(joinRef(prefix, lv->name));
@@ -705,8 +711,25 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 fs->VpiForIncStmts(incs);
             }
+            std::vector<const Symbol*> ctrlSyms;
+            for (auto* lv2 : fl.loopVars)
+                ctrlSyms.push_back(lv2);
+            for (auto init2 : fl.initializers)
+                if (init2->kind == ExpressionKind::Assignment) {
+                    auto& il2 = stripImplicitConv(
+                        init2->as<AssignmentExpression>().left());
+                    if (il2.kind == ExpressionKind::NamedValue)
+                        ctrlSyms.push_back(
+                            &il2.as<NamedValueExpression>().symbol);
+                }
+            for (auto* cs2 : ctrlSyms)
+                activeForVars.insert(cs2);
+            procForDepth++;
             if (auto* b = emitStmt(fl.body, fs, prefix, netMap))
                 fs->VpiStmt(b);
+            procForDepth--;
+            for (auto* cs2 : ctrlSyms)
+                activeForVars.erase(cs2);
             return fs;
         }
         case StatementKind::Case: {

@@ -926,6 +926,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                 if (suppressRefActual) {
+                    // ELAB gen-scope process refs to gen-block / stmt-block
+                    // LOCALS still bind (module-level signals stay unbound);
+                    // the DEF view binds nothing, and CA-suppress contexts
+                    // keep their own rules.
+                    if (!defGenProcessEmit && inGenScopeProc &&
+                        !genScopeProcInLoop) {
+                        // Stmt-block locals (loop vars) always bind;
+                        // gen-block locals bind only OUTSIDE for-loop bodies
+                        // (refs escaping a for stay unbound — Surelog).
+                        auto ps0 = nv.symbol.getParentScope();
+                        auto pk0 = ps0 ? ps0->asSymbol().kind
+                                       : SymbolKind::Unknown;
+                        if (pk0 == SymbolKind::StatementBlock ||
+                            pk0 == SymbolKind::GenerateBlock) {
+                            if (auto it0 = netMap.find(&nv.symbol);
+                                it0 != netMap.end())
+                                ref->Actual_group(it0->second);
+                        }
+                    }
                     // Gen-scope process ref: net/var refs stay unbound
                     // (Surelog), but an enum-const ref still binds — SL mints
                     // a FRESH loc-less enum_const per ref (parented to the
@@ -3230,6 +3249,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!inLhs && i + 1 == parts.size())
                     r->VpiFullName(prefix + "." + pname);
                 r->VpiParent(hp);
+                // In ELAB gen-scope processes the LAST element binds its
+                // resolved target (dotted refs are unambiguous — Surelog).
+                if (i + 1 == parts.size() && inGenScopeProc &&
+                    !genScopeProcInLoop && !defGenProcessEmit &&
+                    procForDepth == 0) {
+                    auto& hsym = expr.as<HierarchicalValueExpression>().symbol;
+                    if (auto hit = netMap.find(&hsym); hit != netMap.end())
+                        r->Actual_group(hit->second);
+                }
                 // Lvalue paths anchor the base ref at the SECOND element.
                 size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
                 auto& [lname, loff] = parts[locIdx];

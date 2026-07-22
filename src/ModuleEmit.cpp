@@ -3987,6 +3987,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         auto* procs = s.MakeProcess_stmtVec();
         suppressRefActual = true;
         inGenScopeProc = true;
+        genScopeProcInLoop = false;
+        for (auto q = blk.getSyntax(); q; q = q->parent)
+            if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                genScopeProcInLoop = true;
+                break;
+            }
         for (auto& gm : blk.members()) {
             if (gm.kind == SymbolKind::ProceduralBlock) {
                 if (auto* p = emitProcess(gm.as<ProceduralBlockSymbol>(), m, fullName, netMap)) {
