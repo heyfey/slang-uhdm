@@ -67,6 +67,9 @@ SourceRange UhdmExporter::nameSpan(SourceLocation loc, std::string_view name) {
 std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     if (loc == SourceLocation::NoLocation)
         return "";
+    // Macro-expansion buffers have no path; report the definition file.
+    if (sm->isMacroLoc(loc))
+        loc = sm->getFullyOriginalLoc(loc);
     return sm->getFullPath(loc.buffer()).string();
 }
 
