@@ -1845,6 +1845,26 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     return nullptr;
                 sel = isn.selectors[0]->selector;
             }
+            // A RANGE select (x[63:W]) is a part_select (DefName = base,
+            // ConstantSelect, Left/Right from the written bounds) — not a
+            // bit_select.
+            if (sel && sel->kind == syntax::SyntaxKind::SimpleRangeSelect) {
+                auto& rs = sel->as<syntax::RangeSelectSyntax>();
+                auto* pssel = s.MakePart_select();
+                pssel->VpiName(bname);
+                if (!syntaxRefPrefix.empty())
+                    pssel->VpiFullName(syntaxRefPrefix + syntaxRefSep +
+                                       std::string(bname));
+                pssel->VpiDefName(bname);
+                pssel->VpiConstantSelect(true);
+                pssel->VpiParent(parent);
+                setLoc(pssel, syn.sourceRange());
+                if (auto* le = emitSyntaxExpr(*rs.left, pssel))
+                    pssel->Left_range((UHDM::expr*)le);
+                if (auto* re = emitSyntaxExpr(*rs.right, pssel))
+                    pssel->Right_range((UHDM::expr*)re);
+                return pssel;
+            }
             auto* bs = s.MakeBit_select();
             bs->VpiName(bname);
             if (!syntaxRefPrefix.empty())
@@ -1856,6 +1876,25 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         *sel->as<syntax::BitSelectSyntax>().expr, bs))
                     bs->VpiIndex((UHDM::expr*)ix);
             return bs;
+        }
+        case syntax::SyntaxKind::UnbasedUnsizedLiteralExpression: {
+            // '0/'1/'x/'z: BIN digit, size -1, raw decompile ('x -> 'X).
+            auto* c = s.MakeConstant();
+            std::string raw = rawText(syn.sourceRange());
+            if (raw.empty())
+                raw = std::string(syn.as<syntax::LiteralExpressionSyntax>()
+                                      .literal.rawText());
+            for (auto& ch : raw)
+                if (ch == 'x' || ch == 'z')
+                    ch = (char)toupper(ch);
+            c->VpiDecompile(raw);
+            c->VpiSize(-1);
+            std::string digit = raw.size() > 1 ? raw.substr(1) : "0";
+            c->VpiValue("BIN:" + digit);
+            c->VpiConstType(vpiBinaryConst);
+            c->VpiParent(parent);
+            setLoc(c, syn.sourceRange());
+            return c;
         }
         case syntax::SyntaxKind::StreamingConcatenationExpression: {
             // {<< [N] {a,b}}: stream op at the INNER braces span wrapping a
