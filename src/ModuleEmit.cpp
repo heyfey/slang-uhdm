@@ -2278,9 +2278,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             // Bound instances path directly under the top module.
             bool fromBind = false, bindInGen = false;
+            const syntax::BindDirectiveSyntax* bindSyn = nullptr;
             for (auto p2 = child.getSyntax(); p2; p2 = p2->parent) {
-                if (p2->kind == syntax::SyntaxKind::BindDirective)
+                if (p2->kind == syntax::SyntaxKind::BindDirective) {
                     fromBind = true;
+                    bindSyn = &p2->as<syntax::BindDirectiveSyntax>();
+                }
                 else if (fromBind &&
                          (p2->kind == syntax::SyntaxKind::GenerateBlock ||
                           p2->kind == syntax::SyntaxKind::GenerateRegion ||
@@ -2294,6 +2297,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // (Surelog drops it; the bound def's port phase still runs in
             // the write phase).
             if (fromBind && bindInGen) {
+                droppedBindDefs.insert(&child.getDefinition());
+                continue;
+            }
+            // An INSTANCE-PATH-target bind (bind top.foo_i / $root.top.foo_i)
+            // materializes in the DEF view only — Surelog's ELAB omits the
+            // bound child. Module-NAME targets (bind foo ...) keep it. The
+            // bound def's port phase still runs in the write phase.
+            if (fromBind && bindSyn &&
+                bindSyn->target->kind != syntax::SyntaxKind::IdentifierName) {
                 droppedBindDefs.insert(&child.getDefinition());
                 continue;
             }
