@@ -971,11 +971,15 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 if (item->kind != syntax::SyntaxKind::IfGenerate)
                     continue;
                 auto& nIf = item->as<syntax::IfGenerateSyntax>();
+                doneIfs.insert(&nIf); // consumed here, not at top level
                 UHDM::gen_if_else* ngie = nullptr;
                 UHDM::gen_if* ngi = nullptr;
                 UHDM::gen_stmt* ng0;
                 if (nIf.elseClause) {
                     ngie = s.MakeGen_if_else();
+                    // NESTED (else-if chain) gen_if_else carries the whole
+                    // construct span, unlike the loc-less top-level one.
+                    setLoc(ngie, nIf.sourceRange());
                     ng0 = ngie;
                 }
                 else {
@@ -3473,10 +3477,25 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             return false;
         };
+        auto* genArrayNets = s.MakeArray_netVec();
         for (auto& gm : blk.members()) {
             bool caVar = gm.kind == SymbolKind::Variable && caDrivenVar(gm);
             if (gm.kind != SymbolKind::Net && !caVar)
                 continue;
+            // Unpacked-array nets (wire z [7]) elaborate as array_nets.
+            if (gm.kind == SymbolKind::Net && gm.getDeclaredType() &&
+                gm.getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::FixedSizeUnpackedArrayType) {
+                std::string nfull2 = fullName + "." + std::string(gm.name);
+                UHDM::typespec* ets3 =
+                    makeTypespec(gm, gm.getDeclaredType()->getTypeSyntax());
+                if (auto* an3 = emitArrayNet(gm, std::string(gm.name), nfull2,
+                                             gs, ets3)) {
+                    netMap[&gm] = an3;
+                    genArrayNets->push_back(an3);
+                }
+                continue;
+            }
             std::string nfull = fullName + "." + std::string(gm.name);
             auto* n = s.MakeLogic_net();
             n->VpiName(gm.name);
@@ -3553,6 +3572,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         if (!gnets->empty())
             gs->Nets(gnets);
+        if (!genArrayNets->empty())
+            gs->Array_nets(genArrayNets);
 
         // Local INTEGER variables declared inside the block (integer x, y;):
         // integer_var under Variables (signed, visible), ref -> an
@@ -3887,6 +3908,42 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             if (rhs)
                 ca->Rhs((UHDM::expr*)rhs);
+            // A gen-scope $bits/$signed-style sys call RHS carries a result
+            // typespec ref (gen-scope fullname, LHS net's actual) — Surelog.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmsys_func_call) {
+                auto& rcs = stripImplicitConv(ae.right());
+                if (rcs.kind == ExpressionKind::Call &&
+                    rcs.as<CallExpression>().isSystemCall()) {
+                    auto nm3 = rcs.as<CallExpression>().getSubroutineName();
+                    if (nm3 == "bits" || nm3 == "$bits" || nm3 == "signed" ||
+                        nm3 == "$signed" || nm3 == "unsigned" ||
+                        nm3 == "$unsigned" || nm3 == "clog2" ||
+                        nm3 == "$clog2") {
+                        auto& le3 = stripImplicitConv(ae.left());
+                        UHDM::typespec* act3 = nullptr;
+                        if (le3.kind == ExpressionKind::NamedValue) {
+                            auto nit3 = netMap.find(
+                                &le3.as<NamedValueExpression>().symbol);
+                            if (nit3 != netMap.end() &&
+                                nit3->second->UhdmType() ==
+                                    UHDM::uhdmlogic_net) {
+                                auto* srcTs =
+                                    ((UHDM::logic_net*)nit3->second)
+                                        ->Typespec();
+                                if (srcTs)
+                                    act3 = srcTs->Actual_typespec();
+                            }
+                        }
+                        if (act3) {
+                            auto* rt3 = s.MakeRef_typespec();
+                            rt3->VpiFullName(fullName);
+                            rt3->VpiParent(rhs);
+                            rt3->Actual_typespec(act3);
+                            ((UHDM::expr*)rhs)->Typespec(rt3);
+                        }
+                    }
+                }
+            }
             forceConstParent = forceSaved;
             inLhs = true;
             // A FOR-loop gen-scope CA whose LHS is a whole-ref to an outer

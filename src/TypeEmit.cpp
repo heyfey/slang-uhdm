@@ -1999,8 +1999,28 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 if (inv.arguments) {
                     auto* args = s.MakeAnyVec();
                     for (auto arg : inv.arguments->parameters) {
+                        // DOTTED args (blk1.w) re-emit as hier_paths (bare
+                        // base, prefix-scoped leaf).
+                        std::string argRaw = rawText(arg->sourceRange());
+                        if (argRaw.find('.') != std::string::npos &&
+                            arg->kind == syntax::SyntaxKind::OrderedArgument) {
+                            const syntax::SyntaxNode* ae =
+                                arg->as<syntax::OrderedArgumentSyntax>().expr;
+                            if (ae->kind ==
+                                syntax::SyntaxKind::SimplePropertyExpr)
+                                ae = ae->as<syntax::SimplePropertyExprSyntax>()
+                                         .expr;
+                            if (ae->kind ==
+                                syntax::SyntaxKind::SimpleSequenceExpr)
+                                ae = ae->as<syntax::SimpleSequenceExprSyntax>()
+                                         .expr;
+                            if (auto* e2 = emitSyntaxExpr(*ae, sfc)) {
+                                args->push_back(e2);
+                                continue;
+                            }
+                        }
                         auto* r = s.MakeRef_obj();
-                        r->VpiName(rawText(arg->sourceRange()));
+                        r->VpiName(argRaw);
                         r->VpiParent(sfc);
                         setLoc(r, arg->sourceRange());
                         args->push_back(r);
@@ -2139,6 +2159,10 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 r->VpiName(pname);
                 if (i + 1 == parts.size() && !syntaxRefPrefix.empty())
                     r->VpiFullName(syntaxRefPrefix + "." + pname);
+                else
+                    // Name-only cache blocks the dump-time lazy scoped
+                    // fullname recompute (Surelog shows the bare name).
+                    r->VpiFullName(pname);
                 r->VpiParent(hp);
                 setLoc(r, SourceRange(exprStart + off, exprStart + off + pname.size()));
                 elems->push_back(r);
