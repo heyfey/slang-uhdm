@@ -2116,6 +2116,36 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                        it.sym->getDeclaredType()->getType().isFloating();
         // Vector-typedef signals bind a fresh plain NAMED clone (built at
         // net-emission time, no alias link).
+        // A signal typed by an alias-of-packed-array-of-alias FILE typedef
+        // elaborates as a logic_var bound to the shared DESIGN ts (Surelog).
+        if (!implicitNet && !realVar) {
+            if (auto dtv2 = it.sym->getDeclaredType()) {
+                auto& tv2 = dtv2->getType();
+                if (tv2.kind == SymbolKind::TypeAlias &&
+                    typedefTs.count(&tv2)) {
+                    auto& tt2 = tv2.as<TypeAliasType>().targetType.getType();
+                    if (tt2.kind == SymbolKind::PackedArrayType &&
+                        tt2.as<PackedArrayType>().elementType.kind ==
+                            SymbolKind::TypeAlias) {
+                        auto* v2 = s.MakeLogic_var();
+                        v2->VpiName(name);
+                        v2->VpiFullName(fullName);
+                        v2->VpiParent(m);
+                        setLoc(v2, nameSpan(it.sym->location, it.sym->name));
+                        v2->VpiVisibility(1);
+                        auto* rt2 = s.MakeRef_typespec();
+                        rt2->VpiFullName(fullName);
+                        rt2->VpiParent(v2);
+                        rt2->Actual_typespec(typedefTs[&tv2]);
+                        v2->Typespec(rt2);
+                        topNets[it.sym] = v2;
+                        sigOrder.emplace_back(it.sym, v2);
+                        vars->push_back(v2);
+                        continue;
+                    }
+                }
+            }
+        }
         UHDM::typespec* ts = nullptr;
         if (auto dtv = it.sym->getDeclaredType(); dtv && !implicitNet) {
             auto& tv = dtv->getType();
@@ -2131,7 +2161,22 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         tsyn0->as<syntax::NamedTypeSyntax>().name->kind ==
                             syntax::SyntaxKind::IdentifierName)
                         importedUnqual = true;
-            if (!importedUnqual && typedefClone.count(&tv)) {
+            // A FILE-level vector-typedef signal also clones (named, at the
+            // typedef target span, with a Typedef_alias ref to the shared
+            // design ts — Surelog).
+            bool fileLevelVec = false;
+            if (tv.kind == SymbolKind::TypeAlias &&
+                !typedefClone.count(&tv))
+                if (auto sc1 = tv.as<TypeAliasType>().getParentScope();
+                    sc1 &&
+                    sc1->asSymbol().kind == SymbolKind::CompilationUnit)
+                    if (auto tit1 = typedefTs.find(&tv);
+                        tit1 != typedefTs.end() &&
+                        tit1->second->UhdmType() == UHDM::uhdmlogic_typespec &&
+                        tv.as<TypeAliasType>().targetType.getType().kind !=
+                            SymbolKind::TypeAlias)
+                        fileLevelVec = true;
+            if (!importedUnqual && (typedefClone.count(&tv) || fileLevelVec)) {
                 const syntax::SyntaxNode* targetSyn = nullptr;
                 if (auto asyn = tv.as<TypeAliasType>().getSyntax()) {
                     if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
@@ -2151,6 +2196,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     tit0 != typedefTs.end() && tit0->second->Instance() &&
                     tit0->second->Instance()->UhdmType() == UHDM::uhdmpackage)
                     ts->Instance(tit0->second->Instance());
+                if (fileLevelVec &&
+                    ts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto* art9 = s.MakeRef_typespec();
+                    art9->VpiFullName(tv.name);
+                    art9->VpiParent(ts);
+                    art9->Actual_typespec(typedefTs[&tv]);
+                    ((UHDM::logic_typespec*)ts)->Typedef_alias(art9);
+                }
             }
         }
         // An ANONYMOUS packed-struct signal (no typedef, no initializer)
@@ -2169,6 +2222,50 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         setLoc(sts, su->keyword.range());
                 ts = sts;
                 anonStructClone = true;
+            }
+        }
+        // A signal typed by a DIRECT packed array of a FILE-level vector
+        // alias (reg8_t [0:3] in): the elab ts ref binds a NAMED clone of
+        // the ELEMENT alias (Typedef_alias -> the shared design ts).
+        if (!ts && !implicitNet && !realVar) {
+            if (auto dtv3 = it.sym->getDeclaredType()) {
+                auto& tv3 = dtv3->getType();
+                if (tv3.kind == SymbolKind::PackedArrayType &&
+                    tv3.as<PackedArrayType>().elementType.kind ==
+                        SymbolKind::TypeAlias) {
+                    auto& el3 = tv3.as<PackedArrayType>().elementType;
+                    auto& ta3 = el3.as<TypeAliasType>();
+                    auto tit3 = typedefTs.find(&el3);
+                    bool fileLevel3 = false;
+                    if (auto sc3 = ta3.getParentScope())
+                        fileLevel3 = sc3->asSymbol().kind ==
+                                     SymbolKind::CompilationUnit;
+                    if (fileLevel3 && tit3 != typedefTs.end() &&
+                        tit3->second->UhdmType() ==
+                            UHDM::uhdmlogic_typespec) {
+                        const syntax::SyntaxNode* tgtSyn3 = nullptr;
+                        if (auto asyn3 = ta3.getSyntax())
+                            if (asyn3->kind ==
+                                syntax::SyntaxKind::TypedefDeclaration)
+                                tgtSyn3 =
+                                    asyn3->as<
+                                             syntax::
+                                                 TypedefDeclarationSyntax>()
+                                        .type;
+                        bypassTypedefShare = true;
+                        auto* cl3 = makeTypespec(ta3, tgtSyn3);
+                        bypassTypedefShare = false;
+                        cl3->VpiName(ta3.name);
+                        if (tgtSyn3)
+                            setLoc(cl3, tgtSyn3->sourceRange());
+                        auto* ar3 = s.MakeRef_typespec();
+                        ar3->VpiFullName(ta3.name);
+                        ar3->VpiParent(cl3);
+                        ar3->Actual_typespec(tit3->second);
+                        ((UHDM::logic_typespec*)cl3)->Typedef_alias(ar3);
+                        ts = cl3;
+                    }
+                }
             }
         }
         if (!ts && !implicitNet && !realVar) {

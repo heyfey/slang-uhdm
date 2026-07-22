@@ -393,6 +393,124 @@ UHDM::design* UhdmExporter::exportDesign() {
                     ts->VpiParent(d);
                     if (typeSyn)
                         setLoc(ts, typeSyn->sourceRange());
+                    // A typedef aliasing a NAMED vector typedef with ADDED
+                    // packed dims (typedef reg8_t [0:3] t2): Surelog's
+                    // multi-clone graph — the design ts spans the first USE,
+                    // Elem-refs an unnamed clone chain over the target span,
+                    // and SHARES a packed_array ts's range.
+                    auto& tgtT = ta.targetType.getType();
+                    if (ct.kind == SymbolKind::PackedArrayType && typeSyn &&
+                        tgtT.kind == SymbolKind::PackedArrayType &&
+                        tgtT.as<PackedArrayType>().elementType.kind ==
+                            SymbolKind::TypeAlias &&
+                        typedefTs.count(
+                            &tgtT.as<PackedArrayType>().elementType)) {
+                        auto* baseTs =
+                            typedefTs[&tgtT.as<PackedArrayType>().elementType];
+                        auto tspan = typeSyn->sourceRange();
+                        std::string raw = rawText(tspan);
+                        auto lb = raw.find('[');
+                        auto cl = raw.find(':');
+                        auto rb = raw.find(']');
+                        auto mkDimRange =
+                            [&](UHDM::BaseClass* pts) -> UHDM::range* {
+                            if (lb == std::string::npos ||
+                                cl == std::string::npos ||
+                                rb == std::string::npos)
+                                return nullptr;
+                            auto* r = s.MakeRange();
+                            r->VpiParent(pts);
+                            setLoc(r, SourceRange(tspan.start() + lb,
+                                                  tspan.start() + rb + 1));
+                            auto mkC = [&](size_t from, size_t to) {
+                                std::string dg = raw.substr(from, to - from);
+                                while (!dg.empty() && dg.front() == ' ') {
+                                    dg.erase(dg.begin());
+                                    from++;
+                                }
+                                while (!dg.empty() && dg.back() == ' ') {
+                                    dg.pop_back();
+                                    to--;
+                                }
+                                auto* c = s.MakeConstant();
+                                c->VpiDecompile(dg);
+                                c->VpiSize(64);
+                                c->VpiValue("UINT:" + dg);
+                                c->VpiConstType(vpiUIntConst);
+                                c->VpiParent(r);
+                                setLoc(c, SourceRange(tspan.start() + from,
+                                                      tspan.start() + to));
+                                return c;
+                            };
+                            r->Left_expr(mkC(lb + 1, cl));
+                            r->Right_expr(mkC(cl + 1, rb));
+                            return r;
+                        };
+                        auto* pat2 = s.MakePacked_array_typespec();
+                        setLoc(pat2, tspan);
+                        auto* shr = mkDimRange(pat2);
+                        if (shr) {
+                            auto* v0 = s.MakeRangeVec();
+                            v0->push_back(shr);
+                            pat2->Ranges(v0);
+                        }
+                        auto* clA = s.MakeLogic_typespec();
+                        setLoc(clA, tspan);
+                        auto* clB = s.MakeLogic_typespec();
+                        setLoc(clB, tspan);
+                        auto* tar = s.MakeRef_typespec();
+                        tar->VpiParent(clA);
+                        tar->Actual_typespec(clB);
+                        clA->Typedef_alias(tar);
+                        auto* ear = s.MakeRef_typespec();
+                        ear->VpiParent(clA);
+                        ear->Actual_typespec(baseTs);
+                        clA->Elem_typespec(ear);
+                        if (auto* rA = mkDimRange(clA)) {
+                            auto* vA = s.MakeRangeVec();
+                            vA->push_back(rA);
+                            clA->Ranges(vA);
+                        }
+                        auto* ebr = s.MakeRef_typespec();
+                        ebr->VpiParent(clB);
+                        ebr->Actual_typespec(baseTs);
+                        clB->Elem_typespec(ebr);
+                        if (auto* rB = mkDimRange(clB)) {
+                            auto* vB = s.MakeRangeVec();
+                            vB->push_back(rB);
+                            clB->Ranges(vB);
+                        }
+                        auto* der = s.MakeRef_typespec();
+                        der->VpiFullName(ta.name);
+                        der->VpiParent(ts);
+                        der->Actual_typespec(clA);
+                        ((UHDM::logic_typespec*)ts)->Elem_typespec(der);
+                        if (shr) {
+                            auto* vT = s.MakeRangeVec();
+                            vT->push_back(shr); // SHARED — parent stays pat2
+                            ((UHDM::logic_typespec*)ts)->Ranges(vT);
+                        }
+                        // Span the design ts at the FIRST module-signal USE.
+                        bool spanned = false;
+                        for (auto& [nm2, inst2] : defs) {
+                            for (auto& member : inst2->body.members()) {
+                                const DeclaredType* dtu = nullptr;
+                                if (member.kind == SymbolKind::Net ||
+                                    member.kind == SymbolKind::Variable ||
+                                    member.kind == SymbolKind::Port)
+                                    dtu = member.getDeclaredType();
+                                if (!dtu || &dtu->getType() != (const Type*)&ta)
+                                    continue;
+                                if (auto tsy = dtu->getTypeSyntax()) {
+                                    setLoc(ts, tsy->sourceRange());
+                                    spanned = true;
+                                }
+                                break;
+                            }
+                            if (spanned)
+                                break;
+                        }
+                    }
                 }
                 else {
                     noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
