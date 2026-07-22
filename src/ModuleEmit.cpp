@@ -4259,7 +4259,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 }
                             }
                         }
-                        else if (genLhsSyms.count(&nvp.symbol))
+                        else if (genLhsSyms.count(&nvp.symbol) ||
+                                 blkWrites.count(&nvp.symbol))
                             hasBindableRef = true;
                         v.visitDefault(nvp);
                     }));
