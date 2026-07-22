@@ -21,6 +21,9 @@ void UhdmExporter::noteUnsupported(const std::string& what) {
 void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
     if (range.start() == SourceLocation::NoLocation)
         return;
+    // Macro-expanded tokens report their macro-DEFINITION-site span.
+    if (sm->isMacroLoc(range.start()))
+        range = sm->getFullyOriginalRange(range);
     obj->VpiLineNo(sm->getLineNumber(range.start()));
     obj->VpiColumnNo(sm->getColumnNumber(range.start()));
     if (range.end() != SourceLocation::NoLocation) {
@@ -584,6 +587,9 @@ UHDM::design* UhdmExporter::exportDesign() {
 std::string UhdmExporter::rawText(SourceRange range) {
     if (range.start() == SourceLocation::NoLocation || range.end() == SourceLocation::NoLocation)
         return "";
+    // Macro-expansion buffers have no stored text; read the definition site.
+    if (sm->isMacroLoc(range.start()) && sm->isMacroLoc(range.end()))
+        range = sm->getFullyOriginalRange(range);
     auto text = sm->getSourceText(range.start().buffer());
     size_t start = range.start().offset();
     size_t end = range.end().offset();

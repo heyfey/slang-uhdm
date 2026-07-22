@@ -199,32 +199,21 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 modulePrefixedStructs.count(&lf->getCanonicalType());
 
             if (prefixedStructNet) {
-                for (auto& mb : body.members()) {
-                    if (mb.kind != SymbolKind::Instance)
-                        continue;
-                    for (auto pc : mb.as<InstanceSymbol>().getPortConnections()) {
-                        if (auto* pe = pc->getExpression()) {
-                            // Output conns wrap as Assignment(lval, Empty).
-                            if (pe->kind == ExpressionKind::Assignment)
-                                pe = &pe->as<AssignmentExpression>().left();
-                            std::set<const Symbol*> syms;
-                            collectLhsSyms(*pe, syms);
-                            const Expression* bot = &stripImplicitConv(*pe);
-                            while (bot->kind == ExpressionKind::MemberAccess)
-                                bot = &stripImplicitConv(
-                                    bot->as<MemberAccessExpression>().value());
-                            if (bot->kind == ExpressionKind::NamedValue)
-                                syms.insert(
-                                    &bot->as<NamedValueExpression>().symbol);
-                            if (syms.count(it.sym)) {
-                                prefixedStructNet = false;
-                                break;
-                            }
-                        }
+                // The ts drop is keyed on the module HEADER style: it
+                // happens only in NON-ANSI-header modules.
+                bool nonAnsi = false;
+                if (auto* dsyn = body.getDefinition().getSyntax()) {
+                    if (dsyn->kind ==
+                        slang::syntax::SyntaxKind::ModuleDeclaration) {
+                        auto& mds =
+                            dsyn->as<slang::syntax::ModuleDeclarationSyntax>();
+                        nonAnsi = mds.header->ports &&
+                                  mds.header->ports->kind ==
+                                      slang::syntax::SyntaxKind::NonAnsiPortList;
                     }
-                    if (!prefixedStructNet)
-                        break;
                 }
+                if (!nonAnsi)
+                    prefixedStructNet = false;
             }
         }
         if (!it.port && !implicitNet && !classHandle && !prefixedStructNet) {
