@@ -1487,9 +1487,24 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 if (!pkg)
                     continue;
                 std::vector<const Symbol*> tas;
-                for (auto& pm : pkg->members())
-                    if (pm.kind == SymbolKind::TypeAlias)
-                        tas.push_back(&pm);
+                // TRANSITIVE typedefs too: a package the imported package
+                // itself wildcard-imports contributes its typedefs to the
+                // module list (Surelog).
+                std::set<const Symbol*> seenPkgs;
+                std::function<void(const PackageSymbol&)> collectTas =
+                    [&](const PackageSymbol& p9) {
+                        if (!seenPkgs.insert(&p9).second)
+                            return;
+                        for (auto& pm : p9.members()) {
+                            if (pm.kind == SymbolKind::TypeAlias)
+                                tas.push_back(&pm);
+                            else if (pm.kind == SymbolKind::WildcardImport)
+                                if (auto* np = pm.as<WildcardImportSymbol>()
+                                                   .getPackage())
+                                    collectTas(*np);
+                        }
+                    };
+                collectTas(*pkg);
                 std::stable_sort(tas.begin(), tas.end(),
                                  [](const Symbol* a, const Symbol* b) {
                                      return a->name < b->name;
@@ -1530,9 +1545,47 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             if (!headerImport && !nestedContainer) {
                 ts->VpiParent(m);
                 if (wildcard) {
+                    // Scope by the typedef's HOME package (== the imported
+                    // one for direct imports; differs for transitives).
                     std::string pn(mem.as<WildcardImportSymbol>().packageName);
+                    std::string homePn = pn;
+                    const Symbol* homePkg = nullptr;
+                    for (auto sc9 = imported->getParentScope(); sc9;
+                         sc9 = sc9->asSymbol().getParentScope())
+                        if (sc9->asSymbol().kind == SymbolKind::Package) {
+                            homePkg = &sc9->asSymbol();
+                            homePn = std::string(homePkg->name);
+                            break;
+                        }
+                    // A TRANSITIVE typedef lists a FRESH CLONE (module-
+                    // parented, Instance -> the DIRECT import package, base
+                    // ref module-scoped) — never mutate the shared home-pkg
+                    // object.
+                    if (homePn != pn &&
+                        ts->UhdmType() == UHDM::uhdmenum_typespec &&
+                        imported->kind == SymbolKind::TypeAlias) {
+                        auto& taE = imported->as<TypeAliasType>();
+                        auto& ectE = taE.getCanonicalType();
+                        if (ectE.kind == SymbolKind::EnumType) {
+                            std::string scopedE =
+                                std::string(m->VpiDefName()) + "." + homePn +
+                                "::" + std::string(imported->name);
+                            auto* cl9 = buildEnumTs(ectE.as<EnumType>(),
+                                                    nullptr, scopedE);
+                            cl9->VpiName(homePn + "::" +
+                                         std::string(imported->name));
+                            cl9->VpiParent(m);
+                            if (auto tsyn9 = taE.getSyntax())
+                                setLoc(cl9, tsyn9->sourceRange());
+                            if (auto* dp = comp.getPackage(pn))
+                                if (auto pit9 = pkgDefMap.find(dp);
+                                    pit9 != pkgDefMap.end())
+                                    cl9->Instance(pit9->second);
+                            ts = cl9;
+                        }
+                    }
                     std::string scopedName =
-                        std::string(m->VpiDefName()) + "." + pn + "::" +
+                        std::string(m->VpiDefName()) + "." + homePn + "::" +
                         std::string(imported->name);
                     if (ts->UhdmType() == UHDM::uhdmenum_typespec) {
                         auto* ets = (UHDM::enum_typespec*)ts;
