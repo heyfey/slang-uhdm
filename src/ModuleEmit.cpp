@@ -1535,6 +1535,26 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                 if (auto expr0 = connectionExpr(*conn))
                     setLoc(p, expr0->sourceRange);
             }
+            // A `.name` SHORTHAND named conn — and a port left to its
+            // declared DEFAULT — carry NO HighConn (Surelog).
+            {
+                auto* npcS = findConnSyntax(child, conn->port.name);
+                if (npcS && !npcS->openParen) {
+                    rports->push_back(p);
+                    continue;
+                }
+                if (!npcS && !ordered && connectionExpr(*conn)) {
+                    // Default-value port (no conn written): NO ref_module
+                    // port at all.
+                    if (auto isynS = child.getSyntax()) {
+                        auto irS = isynS->sourceRange();
+                        auto esS = connectionExpr(*conn)->sourceRange.start();
+                        if (esS != SourceLocation::NoLocation &&
+                            (esS < irS.start() || esS > irS.end()))
+                            continue;
+                    }
+                }
+            }
             if (auto expr = connectionExpr(*conn)) {
                 if (expr->kind == ExpressionKind::NamedValue) {
                     auto& nv = expr->as<NamedValueExpression>();
@@ -3132,7 +3152,40 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             p->Low_conn(lc);
 
             if (conn && parentNets) {
-                if (auto expr = connectionExpr(*conn)) {
+                const Expression* connE9 = connectionExpr(*conn);
+                // A DEFAULT-value connection (port left unconnected, falling
+                // back to its declared default) carries NO HighConn
+                // (Surelog) — its expr lives at the CHILD's port decl,
+                // outside the instantiation syntax.
+                if (connE9) {
+                    if (auto isyn9 = inst.getSyntax()) {
+                        auto ir9 = isyn9->sourceRange();
+                        auto es9 = connE9->sourceRange.start();
+                        if (es9 != SourceLocation::NoLocation &&
+                            (es9 < ir9.start() || es9 > ir9.end())) {
+                            // Default-value conn: a folded 64-bit UINT
+                            // constant HighConn (unparented — Surelog).
+                            ASTContext dctx9(comp.getRoot(),
+                                             LookupLocation::max);
+                            ConstantValue dcv9 = dctx9.tryEval(*connE9);
+                            if (dcv9 && dcv9.isInteger() &&
+                                !dcv9.integer().hasUnknown()) {
+                                auto* cH9 = s.MakeConstant();
+                                std::string dg9 = dcv9.integer().toString(
+                                    LiteralBase::Decimal, false);
+                                cH9->VpiDecompile(dg9);
+                                cH9->VpiSize(64);
+                                cH9->VpiValue("UINT:" + dg9);
+                                cH9->VpiConstType(vpiUIntConst);
+                                setLoc(cH9, stripImplicitConv(*connE9)
+                                                .sourceRange);
+                                p->High_conn(cH9);
+                            }
+                            connE9 = nullptr;
+                        }
+                    }
+                }
+                if (auto expr = connE9) {
                     // Signals feeding child connections count as
                     // instance-view references (drives typespec reparenting
                     // in the parent).
@@ -3288,11 +3341,92 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     // single compiled copy); task/function and typedef objects too.
     if (true) {
         auto it = defMap.find(&def);
-        if (it != defMap.end() && !it->second.processes.empty()) {
+        {
             auto* procs = s.MakeProcess_stmtVec();
-            for (auto* p : it->second.processes)
-                procs->push_back(p);
-            m->Process(procs);
+        // An OUTPUT port INITIALIZER synthesizes a loc-less initial
+        // assigning the folded value: bare Lhs ref, Rhs = a use-site clone
+        // of the param's elab constant (Surelog).
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::Port)
+                continue;
+            auto& ps9 = portBase->as<PortSymbol>();
+            if (ps9.direction != ArgumentDirection::Out)
+                continue;
+            const Expression* init9 = ps9.getInitializer();
+            if (!init9 && ps9.internalSymbol)
+                if (auto* dts9 = ps9.internalSymbol->getDeclaredType())
+                    init9 = dts9->getInitializer();
+            if (!init9)
+                continue;
+            auto& ic9 = stripImplicitConv(*init9);
+            if (ic9.kind != ExpressionKind::NamedValue)
+                continue;
+            auto& is9 = ic9.as<NamedValueExpression>().symbol;
+            UHDM::constant* econ9 = nullptr;
+            if (m->Param_assigns())
+                for (auto* pa9 : *m->Param_assigns()) {
+                    auto* lp9 = (UHDM::parameter*)pa9->Lhs();
+                    if (lp9 && lp9->VpiName() == is9.name && pa9->Rhs() &&
+                        ((UHDM::any*)pa9->Rhs())->UhdmType() ==
+                            UHDM::uhdmconstant)
+                        econ9 = (UHDM::constant*)pa9->Rhs();
+                }
+            if (!econ9)
+                continue;
+            auto* ini9 = s.MakeInitial();
+            auto* as9 = s.MakeAssignment();
+            as9->VpiParent(ini9);
+            setLoc(as9, nameSpan(ps9.location, ps9.name));
+            auto* lr9 = s.MakeRef_obj();
+            lr9->VpiName(ps9.name);
+            lr9->VpiFullName(std::string(ps9.name));
+            lr9->VpiParent(as9);
+            setLoc(lr9, nameSpan(ps9.location, ps9.name));
+            as9->Lhs(lr9);
+            auto* rc9 = s.MakeConstant();
+            rc9->VpiDecompile(econ9->VpiDecompile());
+            rc9->VpiSize(econ9->VpiSize());
+            rc9->VpiValue(std::string(econ9->VpiValue()));
+            rc9->VpiConstType(econ9->VpiConstType());
+            rc9->VpiParent((UHDM::any*)econ9->VpiParent());
+            (void)0;
+            setLoc(rc9, ic9.sourceRange);
+            auto* rt9 = s.MakeRef_typespec();
+            rt9->VpiFullName(prefix);
+            rt9->VpiParent(rc9);
+            UHDM::typespec* pt9 = nullptr;
+            {
+                auto& pct9 = is9.as<ParameterSymbol>()
+                                 .getType()
+                                 .getCanonicalType();
+                if (pct9.kind == SymbolKind::PredefinedIntegerType &&
+                    pct9.as<PredefinedIntegerType>().integerKind ==
+                        PredefinedIntegerType::Integer) {
+                    auto* it9x = s.MakeInteger_typespec();
+                    it9x->VpiSigned(true);
+                    pt9 = it9x;
+                }
+                else {
+                    auto* it9x = s.MakeInt_typespec();
+                    it9x->VpiSigned(true);
+                    pt9 = it9x;
+                }
+                if (auto dt9 = is9.as<ParameterSymbol>().getDeclaredType())
+                    if (auto tsn9 = dt9->getTypeSyntax())
+                        setLoc(pt9, tsn9->sourceRange());
+            }
+            rt9->Actual_typespec(pt9);
+            pt9->VpiParent(rt9);
+            rc9->Typespec(rt9);
+            as9->Rhs(rc9);
+            ini9->Stmt(as9);
+            procs->push_back(ini9);
+        }
+            if (it != defMap.end())
+                for (auto* p : it->second.processes)
+                    procs->push_back(p);
+            if (!procs->empty())
+                m->Process(procs);
         }
         if (it != defMap.end() && !it->second.assertions.empty()) {
             auto* av = s.MakeAnyVec();
@@ -4936,8 +5070,17 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             // no formal-ts refs; a literal HighConn stays UNPARENTED.
             inParamInit = true;
             portInitCtx = true;
-            if (auto* h = emitExpr(*init0, p, prefix, netMap))
+            if (auto* h = emitExpr(*init0, p, prefix, netMap)) {
+                // A plain-ref default doubles its fullname through the
+                // PORT name (work@cnt.cnt.initval — Surelog).
+                if (h->UhdmType() == UHDM::uhdmref_obj)
+                    ((UHDM::ref_obj*)h)
+                        ->VpiFullName(prefix + "." + std::string(ps.name) +
+                                      "." +
+                                      std::string(
+                                          ((UHDM::ref_obj*)h)->VpiName()));
                 p->High_conn((UHDM::expr*)h);
+            }
             inParamInit = sip;
             portInitCtx = spc;
         }
@@ -6420,6 +6563,100 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         cas->push_back(ca);
         if (defInfo)
             defInfo->contAssigns.push_back(ca);
+    }
+    // An INPUT port DEFAULT (input [3:0] delta = 10) synthesizes an elab
+    // net-decl-assign cont_assign: fresh Lhs net (own ts) + the folded
+    // default constant (Surelog).
+    if (topView) {
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::Port)
+                continue;
+            auto& psD = portBase->as<PortSymbol>();
+            if (psD.direction != ArgumentDirection::In)
+                continue;
+            const Expression* initD = psD.getInitializer();
+            if (!initD && psD.internalSymbol)
+                if (auto* dtsD = psD.internalSymbol->getDeclaredType())
+                    initD = dtsD->getInitializer();
+            if (!initD)
+                continue;
+            ASTContext dctx(comp.getRoot(), LookupLocation::max);
+            ConstantValue dcv = dctx.tryEval(*initD);
+            if (!dcv || !dcv.isInteger() || dcv.integer().hasUnknown())
+                continue;
+            auto* caD = s.MakeCont_assign();
+            caD->VpiParent(m);
+            caD->VpiNetDeclAssign(true);
+            setLoc(caD, nameSpan(psD.location, psD.name));
+            auto* cD = s.MakeConstant();
+            std::string dg =
+                dcv.integer().toString(LiteralBase::Decimal, false);
+            cD->VpiDecompile(dg);
+            cD->VpiSize((int32_t)psD.getType().getBitWidth());
+            cD->VpiValue("UINT:" + dg);
+            cD->VpiConstType(vpiUIntConst);
+            cD->VpiParent(caD);
+            setLoc(cD, stripImplicitConv(*initD).sourceRange);
+            caD->Rhs(cD);
+            auto* lnD = s.MakeLogic_net();
+            lnD->VpiName(psD.name);
+            lnD->VpiFullName(prefix + "." + std::string(psD.name));
+            lnD->VpiParent(caD);
+            setLoc(lnD, nameSpan(psD.location, psD.name));
+            auto* rtD = s.MakeRef_typespec();
+            rtD->VpiFullName(prefix + "." + std::string(psD.name));
+            rtD->VpiParent(lnD);
+            auto* ltD = s.MakeLogic_typespec();
+            SourceRange ltSpanD{};
+            bool haveSpanD = false;
+            if (psD.internalSymbol)
+                if (auto* dtsD2 = psD.internalSymbol->getDeclaredType())
+                    if (auto tsnD = dtsD2->getTypeSyntax()) {
+                        auto trD = tsnD->sourceRange();
+                        std::string rwD = rawText(trD);
+                        auto eD = trD.end();
+                        while (!rwD.empty() &&
+                               (rwD.back() == ' ' || rwD.back() == '\t')) {
+                            rwD.pop_back();
+                            eD = eD - 1;
+                        }
+                        ltSpanD = SourceRange(trD.start(), eD);
+                        haveSpanD = true;
+                        setLoc(ltD, ltSpanD);
+                    }
+            // The default-CA lhs ts carries the FOLDED [hi:lo] range and
+            // stays UNPARENTED (Surelog).
+            {
+                auto& ptD = psD.getType().getCanonicalType();
+                if (ptD.isIntegral() && ptD.getBitWidth() > 1 && haveSpanD) {
+                    auto* rD = s.MakeRange();
+                    rD->VpiParent(ltD);
+                    setLoc(rD, ltSpanD);
+                    auto rngD = ptD.getFixedRange();
+                    auto mkCD = [&](int32_t v, int off) {
+                        auto* c2 = s.MakeConstant();
+                        std::string d2 = std::to_string(v);
+                        c2->VpiDecompile(d2);
+                        c2->VpiSize(64);
+                        c2->VpiValue("UINT:" + d2);
+                        c2->VpiConstType(vpiUIntConst);
+                        c2->VpiParent(rD);
+                        setLoc(c2, SourceRange(ltSpanD.start() + off,
+                                               ltSpanD.start() + off + 1));
+                        return c2;
+                    };
+                    rD->Left_expr(mkCD(rngD.left, 1));
+                    rD->Right_expr(mkCD(rngD.right, 3));
+                    auto* rvD = s.MakeRangeVec();
+                    rvD->push_back(rD);
+                    ltD->Ranges(rvD);
+                }
+            }
+            rtD->Actual_typespec(ltD);
+            lnD->Typespec(rtD);
+            caD->Lhs(lnD);
+            cas->push_back(caD);
+        }
     }
     if (!cas->empty())
         instSetContAssigns(m, cas);
