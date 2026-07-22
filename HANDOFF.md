@@ -7,6 +7,46 @@
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
 
+## Session 18 (fable[1m], 16h autonomous drive 4, 2026-07-22, in progress)
+
+**Running: PASS 398 / CMP_ONLY 114 / DIFF 149** (drive start 397/109/155).
+Converted: carryadd, defvalue, dff_different_styles, gen_test7,
+gen_test8(->PASS), genscope_async_ff_signal; byte-upgrades held. ~20 commits
+(37096df..97247f3), goldens 23/23, zero regressions (every demotion bisected
+back to green same-session). Highlights:
+
+1. **Port-default semantics decoded** (defvalue): def ref_module omits
+   `.name`-shorthand HighConns and default-conn ports entirely; def port
+   default refs double prefix.PORT.name; elab OUTPUT-port initializers
+   synthesize a loc-less initial (bare Lhs ref + use-site clone of THIS
+   instance's param const — walk m->Param_assigns() by name, pointer maps
+   cross specializations); elab INPUT-port defaults synthesize a
+   net-decl-assign CA (folded const + fresh Lhs net w/ folded-range ts);
+   unconnected-with-default elab port HighConn = folded UINT64 const.
+2. **Gen-scope binding refined further**: own-scope CA LHS refs resolve by
+   NAME against the module scope; DRIVEN REG-keyword locals (CA or process
+   writes) -> logic_net 48 (logic-keyword stays var); net-kind locals stay
+   unbound in processes; blkWrites feeds hasBindableRef; symbolic hier base
+   indices ([i-1]) -> bit_selects with SPACED re-lex in BOTH def emitters.
+3. **Attr sharing**: ONE attribute object per (* *) spec across
+   multi-declarator groups (keyed on AttributeSpecSyntax — symbols differ
+   per net), parent = last net; module-level attrs on module_inst (span
+   starts at the `module` keyword). def ref_module omitted when a
+   positional conn is an OPERATION.
+4. **Pkg struct ts span-stretch**: the TOP-view pkg struct typedef ts
+   stretches endln to the LAST signal-use declarator that extends past the
+   name (init or unpacked dims); def view keeps the typedef span.
+5. **Func-ret pkg semantics**: pkg-typedef returns share the pkg ts
+   (package parent kept), clones qualify names (P::S), ret vars span the
+   trimmed return-type syntax; signed-scalar formal calls re-encode
+   converted values (def INT:-1; elab folds to UINT32 at arg span with a
+   formal-ts ref).
+Parked with decodes in memory: arrays03 (per-use clone census),
+gen_struct_access (packed-array-of-filelevel-struct port var form),
+func_local_array (func-local begin-parenting minefield), iface struct-param
+cluster (elab layers), func_typename_ret (last t2304), genscope_cells
+(gen-local ts range folds).
+
 ## Session 15-17 (fable[1m], autonomous drives 1-3, 2026-07-21..22) — struct + def-view gen + macro layout
 
 **Running: PASS 397 / CMP_ONLY 109 / DIFF 155** (drives started at 391/63/207;
