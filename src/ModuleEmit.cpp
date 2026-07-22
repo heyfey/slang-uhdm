@@ -545,6 +545,51 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     stmts->push_back(pa2);
                 }
             }
+            // Gen-block INTEGER variable decls (integer x, y;): Surelog
+            // stmt-ifies each declarator as a Rhs-less blocking assignment
+            // (opType 82) whose Lhs is the integer_var (typespec ref -> an
+            // integer_typespec at the type-keyword span).
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::DataDeclaration ||
+                    !astBlock)
+                    continue;
+                auto& dd = item->as<syntax::DataDeclarationSyntax>();
+                for (auto* dcl : dd.declarators) {
+                    std::string vname(dcl->name.valueText());
+                    const VariableSymbol* vsym = nullptr;
+                    for (auto& mb : astBlock->members())
+                        if (mb.kind == SymbolKind::Variable && mb.name == vname)
+                            vsym = &mb.as<VariableSymbol>();
+                    if (!vsym)
+                        continue;
+                    auto& vct = vsym->getType().getCanonicalType();
+                    if (vct.kind != SymbolKind::PredefinedIntegerType ||
+                        vct.as<PredefinedIntegerType>().integerKind !=
+                            PredefinedIntegerType::Integer)
+                        continue;
+                    auto* as2 = s.MakeAssignment();
+                    as2->VpiParent(b);
+                    as2->VpiOpType(82);
+                    as2->VpiBlocking(true);
+                    setLoc(as2, nameSpan(dcl->name.location(), vname));
+                    auto* iv = s.MakeInteger_var();
+                    iv->VpiName(vname);
+                    iv->VpiFullName(branchPrefix + "." + vname);
+                    iv->VpiParent(as2);
+                    iv->VpiSigned(true);
+                    setLoc(iv, nameSpan(dcl->name.location(), vname));
+                    auto* it2 = s.MakeInteger_typespec();
+                    it2->VpiSigned(true);
+                    setLoc(it2, dd.type->sourceRange());
+                    auto* rt2 = s.MakeRef_typespec();
+                    rt2->VpiFullName(branchPrefix + "." + vname);
+                    rt2->VpiParent(iv);
+                    rt2->Actual_typespec(it2);
+                    iv->Typespec(rt2);
+                    as2->Lhs(iv);
+                    stmts->push_back(as2);
+                }
+            }
             for (auto* item : items) {
                 if (item->kind != syntax::SyntaxKind::ContinuousAssign)
                     continue;
@@ -630,7 +675,14 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         gi->VpiCondition((UHDM::expr*)c);
                 }
                 syntaxRefPrefix.clear();
-                if (auto* t = emitBranch(*ifSyn->block, g0)) {
+                // The AST scope for the TAKEN branch (member is that
+                // GenerateBlock when its syntax is the if-block).
+                const Scope* tbScope =
+                    member.getSyntax() ==
+                            (const syntax::SyntaxNode*)ifSyn->block
+                        ? &member.as<Scope>()
+                        : nullptr;
+                if (auto* t = emitBranch(*ifSyn->block, g0, tbScope)) {
                     if (gie)
                         gie->VpiStmt(t);
                     else
@@ -2855,6 +2907,43 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         if (!gnets->empty())
             gs->Nets(gnets);
+
+        // Local INTEGER variables declared inside the block (integer x, y;):
+        // integer_var under Variables (signed, visible), ref -> an
+        // integer_typespec at the type-keyword span (mirrors the def-view
+        // decl-assignment Lhs form).
+        auto* gvars = s.MakeVariablesVec();
+        for (auto& gm : blk.members()) {
+            if (gm.kind != SymbolKind::Variable)
+                continue;
+            auto& vct = gm.as<VariableSymbol>().getType().getCanonicalType();
+            if (vct.kind != SymbolKind::PredefinedIntegerType ||
+                vct.as<PredefinedIntegerType>().integerKind !=
+                    PredefinedIntegerType::Integer)
+                continue;
+            std::string vfull = fullName + "." + std::string(gm.name);
+            auto* iv = s.MakeInteger_var();
+            iv->VpiName(gm.name);
+            iv->VpiFullName(vfull);
+            iv->VpiParent(gs);
+            iv->VpiSigned(true);
+            iv->VpiVisibility(1);
+            setLoc(iv, nameSpan(gm.location, gm.name));
+            auto* ivt = s.MakeInteger_typespec();
+            ivt->VpiSigned(true);
+            if (auto* dt2 = gm.getDeclaredType())
+                if (auto* tsn2 = dt2->getTypeSyntax())
+                    setLoc(ivt, tsn2->sourceRange());
+            auto* ivr = s.MakeRef_typespec();
+            ivr->VpiFullName(vfull);
+            ivr->VpiParent(iv);
+            ivr->Actual_typespec(ivt);
+            iv->Typespec(ivr);
+            netMap[&gm] = iv;
+            gvars->push_back(iv);
+        }
+        if (!gvars->empty())
+            gs->Variables(gvars);
 
         // Functions declared inside the block live on the gen_scope.
         {
