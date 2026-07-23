@@ -1197,9 +1197,18 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             ets->Base_typespec(brt);
         }
         else {
-        auto* bts = s.MakeLogic_typespec();
-        if (et.baseType.isSigned())
-            bts->VpiSigned(true);
+        // A `bit`-based enum keeps a bit_typespec base (Surelog); logic and
+        // implicit vectors use logic_typespec.
+        bool bitBase9 = baseSyn->kind == syntax::SyntaxKind::BitType;
+        UHDM::typespec* bts =
+            bitBase9 ? (UHDM::typespec*)s.MakeBit_typespec()
+                     : (UHDM::typespec*)s.MakeLogic_typespec();
+        if (et.baseType.isSigned()) {
+            if (bitBase9)
+                ((UHDM::bit_typespec*)bts)->VpiSigned(true);
+            else
+                ((UHDM::logic_typespec*)bts)->VpiSigned(true);
+        }
         setLoc(bts, baseSyn->sourceRange());
         if (et.baseType.isPackedArray()) {
             auto range = et.baseType.getFixedRange();
@@ -1239,7 +1248,10 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             r->Right_expr(enumBound(rsyn, range.right));
             auto* rv = s.MakeRangeVec();
             rv->push_back(r);
-            bts->Ranges(rv);
+            if (bitBase9)
+                ((UHDM::bit_typespec*)bts)->Ranges(rv);
+            else
+                ((UHDM::logic_typespec*)bts)->Ranges(rv);
         }
         auto* brt = s.MakeRef_typespec();
         brt->VpiFullName(refFullName);
