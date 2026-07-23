@@ -238,7 +238,8 @@ private:
                         bool topShareTs = false, bool funcScope = false);
     UHDM::package* emitPackage(const slang::ast::PackageSymbol& pkg, bool topView);
     void emitTaskFuncs(const slang::ast::Scope& body, UHDM::BaseClass* m,
-                       const std::string& prefix, DefInfo* info, bool sharedScope = true);
+                       const std::string& prefix, DefInfo* info, bool sharedScope = true,
+                       const slang::ast::Symbol* onlySub = nullptr);
     void emitTypedefs(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                       const std::string& prefix, DefInfo& info);
     UHDM::enum_typespec* buildEnumTs(const slang::ast::EnumType& et,

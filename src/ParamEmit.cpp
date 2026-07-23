@@ -1918,6 +1918,34 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (auto msyn = mem.getSyntax())
                 setLoc(its2, msyn->sourceRange());
             importTss.push_back(its2);
+            // An EXPLICITLY imported SUBROUTINE (import pkg::f) re-emits in
+            // this package's scope (prefix-renamed) sharing the HOME
+            // function's Return var; calls keep binding the home object.
+            if (mem.kind == SymbolKind::ExplicitImport)
+                if (auto* is9 = mem.as<ExplicitImportSymbol>().importedSymbol();
+                    is9 && is9->kind == SymbolKind::Subroutine &&
+                    comp.getPackage(pn)) {
+                    UHDM::task_func* homeTf = nullptr;
+                    SubInfo homeSi;
+                    bool hadHome = false;
+                    if (auto sit9 = subMap.find(is9); sit9 != subMap.end()) {
+                        homeSi = sit9->second;
+                        homeTf = homeSi.tf;
+                        hadHome = true;
+                    }
+                    emitTaskFuncs(*comp.getPackage(pn), up, prefix, nullptr,
+                                  /*sharedScope=*/false, is9);
+                    if (homeTf && up->Task_funcs() &&
+                        !up->Task_funcs()->empty()) {
+                        auto* cp9 = up->Task_funcs()->back();
+                        if (cp9->UhdmType() == UHDM::uhdmfunction &&
+                            homeTf->UhdmType() == UHDM::uhdmfunction)
+                            ((UHDM::function*)cp9)
+                                ->Return(((UHDM::function*)homeTf)->Return());
+                    }
+                    if (hadHome)
+                        subMap[is9] = homeSi; // calls bind the home object
+                }
         }
     }
     for (auto* memberP : pkgAliases) {

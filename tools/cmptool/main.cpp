@@ -81,6 +81,10 @@ int main(int argc, char** argv) {
     walk("AllMod", da->AllModules(), db->AllModules());
     walk("TopMod", da->TopModules(), db->TopModules());
     walk("Pkg", da->AllPackages(), db->AllPackages());
+    walk("TopPkg", da->TopPackages(), db->TopPackages());
     walk("Iface", da->AllInterfaces(), db->AllInterfaces());
+    if (da->TopPackages() || db->TopPackages())
+        std::cout << "TopPackages " << vec(da->TopPackages()) << " vs "
+                  << vec(db->TopPackages()) << "\n";
     return 0;
 }

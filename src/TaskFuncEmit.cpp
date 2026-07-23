@@ -22,7 +22,7 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
 
 void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                  const std::string& prefix, DefInfo* info,
-                                 bool sharedScope) {
+                                 bool sharedScope, const Symbol* onlySub) {
     bool genScope = m->UhdmType() == UHDM::uhdmgen_scope;
     bool designScope = m->UhdmType() == UHDM::uhdmdesign;
     bool classScope = m->UhdmType() == UHDM::uhdmclass_defn;
@@ -34,6 +34,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     auto* tfs = s.MakeTask_funcVec();
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Subroutine)
+            continue;
+        if (onlySub && &member != onlySub)
             continue;
         auto& sub = member.as<SubroutineSymbol>();
         // Class scopes skip slang's implicit built-ins (randomize etc.).
@@ -952,8 +954,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             ((UHDM::design*)m)->Task_funcs(tfs);
         else if (classScope)
             ((UHDM::class_defn*)m)->Task_funcs(tfs);
-        else
-            ((UHDM::instance*)m)->Task_funcs(tfs);
+        else {
+            auto* inst9 = (UHDM::instance*)m;
+            if (auto* ex9 = inst9->Task_funcs())
+                for (auto* t9 : *tfs)
+                    ex9->push_back(t9);
+            else
+                inst9->Task_funcs(tfs);
+        }
     }
     pkgScopeInst = savedPkgInst;
 }
