@@ -571,6 +571,7 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     // via emitSyntaxExpr; fall back to the folded constant if no syntax.
     const syntax::ExpressionSyntax* leftSyn = nullptr;
     const syntax::ExpressionSyntax* rightSyn = nullptr;
+    const syntax::ExpressionSyntax* sizeSyn9 = nullptr;
     if (auto* asyn = arr.getSyntax();
         asyn && asyn->kind == syntax::SyntaxKind::HierarchicalInstance) {
         if (auto* decl = asyn->as<syntax::HierarchicalInstanceSyntax>().decl;
@@ -586,11 +587,52 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                     leftSyn = sel.left;
                     rightSyn = sel.right;
                 }
+                else if (spec.selector->kind ==
+                         syntax::SyntaxKind::BitSelect)
+                    sizeSyn9 =
+                        spec.selector->as<syntax::BitSelectSyntax>().expr;
             }
         }
     }
     auto* rng = s.MakeRange();
     rng->VpiParent(ma);
+    // A SIZE-form dim (m[2]) ranges [0 : 2-1]: loc at the size token,
+    // loc-less 0 left, op N-1 right (Surelog).
+    if (sizeSyn9) {
+        setLoc(rng, sizeSyn9->sourceRange());
+        auto* lc9 = s.MakeConstant();
+        lc9->VpiDecompile("0");
+        lc9->VpiSize(64);
+        lc9->VpiValue("UINT:0");
+        lc9->VpiConstType(vpiUIntConst);
+        lc9->VpiParent(rng);
+        rng->Left_expr(lc9);
+        auto* op9 = s.MakeOperation();
+        op9->VpiParent(rng);
+        op9->VpiOpType(11);
+        setLoc(op9, sizeSyn9->sourceRange());
+        auto* ops9 = s.MakeAnyVec();
+        auto* sc9 = s.MakeConstant();
+        sc9->VpiDecompile(
+            std::to_string(arr.range.width()));
+        sc9->VpiSize(64);
+        sc9->VpiValue("UINT:" + std::to_string(arr.range.width()));
+        sc9->VpiConstType(vpiUIntConst);
+        sc9->VpiParent(op9);
+        setLoc(sc9, sizeSyn9->sourceRange());
+        ops9->push_back(sc9);
+        auto* one9 = s.MakeConstant();
+        one9->VpiSize(64);
+        one9->VpiValue("INT:1");
+        one9->VpiConstType(vpiIntConst);
+        ops9->push_back(one9);
+        op9->Operands(ops9);
+        rng->Right_expr(op9);
+        auto* rvec9 = s.MakeRangeVec();
+        rvec9->push_back(rng);
+        ma->Ranges(rvec9);
+    }
+    else {
     auto mkBound = [&](const syntax::ExpressionSyntax* bs, int32_t v) -> UHDM::expr* {
         if (bs) {
             std::string sp = syntaxRefPrefix;
@@ -613,6 +655,7 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     auto* rvec = s.MakeRangeVec();
     rvec->push_back(rng);
     ma->Ranges(rvec);
+    }
     auto* mts = s.MakeModule_typespec();
     mts->VpiName(adef.name);
     auto* ert = s.MakeRef_typespec();
