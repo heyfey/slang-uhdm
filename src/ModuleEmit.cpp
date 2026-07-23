@@ -536,1056 +536,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // Def view: for-generates keep a gen_region placeholder (unlocated begin
     // naming the module scope); if-generates become gen_if_else with BOTH
     // branches re-emitted from SYNTAX (unbound refs, name-only calls).
-    {
-        auto* regions = s.MakeGen_stmtVec();
-        std::set<const syntax::SyntaxNode*> doneIfs;
-        std::set<const syntax::SyntaxNode*> doneCases;
-        // A generate branch body: named begin for labeled blocks, anonymous
-        // begin (module fullname) otherwise; cont_assigns from syntax.
-        std::function<UHDM::any*(const syntax::SyntaxNode&, UHDM::BaseClass*,
-                                 const Scope*, const std::string&, bool)>
-            emitBranch;
-        emitBranch = [&](const syntax::SyntaxNode& memSyn,
-                         UHDM::BaseClass* parent, const Scope* astBlock,
-                         const std::string& basePrefix,
-                         bool noFull) -> UHDM::any* {
-            UHDM::scope* b = nullptr;
-            std::string branchPrefix = basePrefix;
-            std::vector<const syntax::SyntaxNode*> items;
-            if (memSyn.kind == syntax::SyntaxKind::GenerateBlock) {
-                auto& gb = memSyn.as<syntax::GenerateBlockSyntax>();
-                std::string label;
-                if (gb.beginName)
-                    label = std::string(gb.beginName->name.valueText());
-                if (!label.empty()) {
-                    auto* nb = s.MakeNamed_begin();
-                    nb->VpiName(label);
-                    branchPrefix = basePrefix + "." + label;
-                    nb->VpiFullName(branchPrefix);
-                    b = nb;
-                }
-                else {
-                    auto* ub = s.MakeBegin();
-                    // A case-item begin carries NO fullname (Surelog).
-                    if (!noFull)
-                        ub->VpiFullName(basePrefix);
-                    b = ub;
-                }
-                for (auto mem2 : gb.members)
-                    items.push_back(mem2);
-            }
-            else {
-                auto* ub = s.MakeBegin();
-                if (!noFull)
-                    ub->VpiFullName(basePrefix);
-                b = ub;
-                items.push_back(&memSyn);
-            }
-            b->VpiParent(parent);
-            auto* stmts = s.MakeAnyVec();
-            // Gen-block localparams (def view): a param_assign stmt whose
-            // parameter carries the typed ts (via the AST symbol) and whose
-            // Rhs keeps the source literal encoding, unparented (Surelog).
-            std::map<std::string, UHDM::parameter*> branchParams;
-            for (auto* item : items) {
-                if (item->kind != syntax::SyntaxKind::ParameterDeclarationStatement ||
-                    !astBlock)
-                    continue;
-                auto& pds = item->as<syntax::ParameterDeclarationStatementSyntax>();
-                if (pds.parameter->kind != syntax::SyntaxKind::ParameterDeclaration)
-                    continue;
-                auto& pd = pds.parameter->as<syntax::ParameterDeclarationSyntax>();
-                bool isLocal2 = pd.keyword.valueText() == "localparam";
-                bool typedP2 = pd.type->kind != syntax::SyntaxKind::ImplicitType;
-                for (auto* dcl : pd.declarators) {
-                    std::string pname(dcl->name.valueText());
-                    const ParameterSymbol* psym = nullptr;
-                    for (auto& mb : astBlock->members())
-                        if (mb.kind == SymbolKind::Parameter && mb.name == pname)
-                            psym = &mb.as<ParameterSymbol>();
-                    if (!psym)
-                        continue;
-                    auto* pa2 = s.MakeParam_assign();
-                    pa2->VpiParent(b);
-                    setLoc(pa2, dcl->sourceRange());
-                    auto* up2 = s.MakeParameter();
-                    up2->VpiName(pname);
-                    up2->VpiFullName(branchPrefix + "." + pname);
-                    up2->VpiParent(pa2);
-                    setLoc(up2, dcl->sourceRange());
-                    if (isLocal2)
-                        up2->VpiLocalParam(true);
-                    auto* prt2 = s.MakeRef_typespec();
-                    prt2->VpiFullName(branchPrefix + "." + pname);
-                    prt2->VpiParent(up2);
-                    if (auto* its2 = makeParamTs(*psym, typedP2)) {
-                        prt2->Actual_typespec(its2);
-                        defGenLpTs[psym] = its2; // shared into the elab ref
-                    }
-                    up2->Typespec(prt2);
-                    pa2->Lhs(up2);
-                    if (dcl->initializer) {
-                        syntaxRefPrefix = branchPrefix;
-                        if (auto* rc2 =
-                                emitSyntaxExpr(*dcl->initializer->expr, pa2)) {
-                            ((UHDM::expr*)rc2)->VpiParent(nullptr);
-                            pa2->Rhs((UHDM::expr*)rc2);
-                        }
-                        syntaxRefPrefix.clear();
-                    }
-                    branchParams[pname] = up2;
-                    stmts->push_back(pa2);
-                }
-            }
-            // Gen-block INTEGER variable decls (integer x, y;): Surelog
-            // stmt-ifies each declarator as a Rhs-less blocking assignment
-            // (opType 82) whose Lhs is the integer_var (typespec ref -> an
-            // integer_typespec at the type-keyword span).
-            for (auto* item : items) {
-                if (item->kind != syntax::SyntaxKind::DataDeclaration ||
-                    !astBlock)
-                    continue;
-                auto& dd = item->as<syntax::DataDeclarationSyntax>();
-                for (auto* dcl : dd.declarators) {
-                    std::string vname(dcl->name.valueText());
-                    const VariableSymbol* vsym = nullptr;
-                    for (auto& mb : astBlock->members())
-                        if (mb.kind == SymbolKind::Variable && mb.name == vname)
-                            vsym = &mb.as<VariableSymbol>();
-                    if (!vsym)
-                        continue;
-                    auto& vct = vsym->getType().getCanonicalType();
-                    bool isInt =
-                        vct.kind == SymbolKind::PredefinedIntegerType &&
-                        vct.as<PredefinedIntegerType>().integerKind ==
-                            PredefinedIntegerType::Integer;
-                    bool isScalar = vct.kind == SymbolKind::ScalarType;
-                    // Ranged logic (logic [63:W] x) also stmt-ifies; the ts
-                    // keeps its ranges symbolic (emitSyntaxExpr, branch scope).
-                    bool isRangedLogic =
-                        vct.kind == SymbolKind::PackedArrayType &&
-                        vct.as<PackedArrayType>()
-                                .elementType.getCanonicalType()
-                                .kind == SymbolKind::ScalarType;
-                    // Unpacked-ARRAY decls (logic [..] mem [0:N-1]) stmt-ify
-                    // as a Rhs-less assignment whose Lhs is a bare array_var
-                    // (ts -> array_typespec with SYMBOLIC dim bounds; inner
-                    // reg logic_var carries the element logic_typespec).
-                    if (vct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
-                        auto* as3 = s.MakeAssignment();
-                        as3->VpiParent(b);
-                        as3->VpiOpType(82);
-                        as3->VpiBlocking(true);
-                        setLoc(as3, dcl->sourceRange());
-                        auto* av3 = s.MakeArray_var();
-                        av3->VpiName(vname);
-                        av3->VpiFullName(branchPrefix + "." + vname);
-                        av3->VpiParent(as3);
-                        setLoc(av3, nameSpan(dcl->name.location(), vname));
-                        av3->VpiArrayType(1);
-                        auto* ats3 = s.MakeArray_typespec();
-                        setLoc(ats3, dcl->sourceRange());
-                        auto* arv3 = s.MakeRangeVec();
-                        for (auto* dim : dcl->dimensions) {
-                            if (!dim->specifier ||
-                                dim->specifier->kind !=
-                                    syntax::SyntaxKind::RangeDimensionSpecifier)
-                                continue;
-                            auto& sel3 =
-                                dim->specifier
-                                    ->as<syntax::RangeDimensionSpecifierSyntax>()
-                                    .selector;
-                            if (sel3->kind !=
-                                syntax::SyntaxKind::SimpleRangeSelect)
-                                continue;
-                            auto& rs4 = sel3->as<syntax::RangeSelectSyntax>();
-                            auto* r4 = s.MakeRange();
-                            r4->VpiParent(ats3);
-                            setLoc(r4, dim->sourceRange());
-                            // Bounds refs stay BARE (name only — Surelog).
-                            if (auto* le = emitSyntaxExpr(*rs4.left, r4))
-                                r4->Left_expr((UHDM::expr*)le);
-                            if (auto* re = emitSyntaxExpr(*rs4.right, r4))
-                                r4->Right_expr((UHDM::expr*)re);
-                            arv3->push_back(r4);
-                        }
-                        if (!arv3->empty())
-                            ats3->Ranges(arv3);
-                        auto* rta3 = s.MakeRef_typespec();
-                        rta3->VpiFullName(branchPrefix + "." + vname);
-                        rta3->VpiParent(av3);
-                        rta3->Actual_typespec(ats3);
-                        av3->Typespec(rta3);
-                        auto* lv3 = s.MakeLogic_var();
-                        lv3->VpiFullName(branchPrefix + "." + vname);
-                        lv3->VpiParent(av3);
-                        setLoc(lv3, nameSpan(dcl->name.location(), vname));
-                        auto* lts3 = s.MakeLogic_typespec();
-                        setLoc(lts3, dd.type->sourceRange());
-                        if (dd.type->kind == syntax::SyntaxKind::LogicType) {
-                            auto& its4 = dd.type->as<syntax::IntegerTypeSyntax>();
-                            auto* prv3 = s.MakeRangeVec();
-                            for (auto* dim : its4.dimensions) {
-                                if (!dim->specifier ||
-                                    dim->specifier->kind !=
-                                        syntax::SyntaxKind::
-                                            RangeDimensionSpecifier)
-                                    continue;
-                                auto& sel4 =
-                                    dim->specifier
-                                        ->as<syntax::
-                                                 RangeDimensionSpecifierSyntax>()
-                                        .selector;
-                                if (sel4->kind !=
-                                    syntax::SyntaxKind::SimpleRangeSelect)
-                                    continue;
-                                auto& rs5 = sel4->as<syntax::RangeSelectSyntax>();
-                                auto* r5 = s.MakeRange();
-                                r5->VpiParent(lts3);
-                                setLoc(r5, dim->sourceRange());
-                                if (auto* le = emitSyntaxExpr(*rs5.left, r5))
-                                    r5->Left_expr((UHDM::expr*)le);
-                                if (auto* re = emitSyntaxExpr(*rs5.right, r5))
-                                    r5->Right_expr((UHDM::expr*)re);
-                                prv3->push_back(r5);
-                            }
-                            if (!prv3->empty())
-                                lts3->Ranges(prv3);
-                        }
-                        // The array_typespec links the shared element ts via
-                        // an unnamed Elem ref (Surelog).
-                        auto* ert3 = s.MakeRef_typespec();
-                        ert3->VpiParent(ats3);
-                        ert3->Actual_typespec(lts3);
-                        ats3->Elem_typespec(ert3);
-                        auto* rtl3 = s.MakeRef_typespec();
-                        rtl3->VpiFullName(branchPrefix + "." + vname);
-                        rtl3->VpiParent(lv3);
-                        rtl3->Actual_typespec(lts3);
-                        lv3->Typespec(rtl3);
-                        auto* regs3 = s.MakeVariablesVec();
-                        regs3->push_back(lv3);
-                        av3->Variables(regs3);
-                        as3->Lhs(av3);
-                        stmts->push_back(as3);
-                        continue;
-                    }
-                    if (!isInt && !isScalar && !isRangedLogic)
-                        continue;
-                    auto* as2 = s.MakeAssignment();
-                    as2->VpiParent(b);
-                    as2->VpiOpType(82);
-                    as2->VpiBlocking(true);
-                    setLoc(as2, nameSpan(dcl->name.location(), vname));
-                    UHDM::variables* iv;
-                    UHDM::typespec* it2;
-                    if (isInt) {
-                        auto* v0 = s.MakeInteger_var();
-                        v0->VpiSigned(true);
-                        auto* t0 = s.MakeInteger_typespec();
-                        t0->VpiSigned(true);
-                        iv = v0;
-                        it2 = t0;
-                    }
-                    else {
-                        iv = s.MakeLogic_var();
-                        auto* lt2 = s.MakeLogic_typespec();
-                        // Symbolic range bounds ([63:CounterWidth]) from the
-                        // dim syntax, refs scoped at the branch.
-                        if (isRangedLogic &&
-                            (dd.type->kind == syntax::SyntaxKind::LogicType ||
-                             dd.type->kind == syntax::SyntaxKind::RegType)) {
-                            auto& its3 = dd.type->as<syntax::IntegerTypeSyntax>();
-                            auto* rvec3 = s.MakeRangeVec();
-                            for (auto* dim : its3.dimensions) {
-                                if (!dim->specifier ||
-                                    dim->specifier->kind !=
-                                        syntax::SyntaxKind::
-                                            RangeDimensionSpecifier)
-                                    continue;
-                                auto& sel =
-                                    dim->specifier
-                                        ->as<syntax::
-                                                 RangeDimensionSpecifierSyntax>()
-                                        .selector;
-                                if (sel->kind !=
-                                    syntax::SyntaxKind::SimpleRangeSelect)
-                                    continue;
-                                auto& rs3 =
-                                    sel->as<syntax::RangeSelectSyntax>();
-                                auto* r3 = s.MakeRange();
-                                r3->VpiParent(lt2);
-                                setLoc(r3, dim->sourceRange());
-                                if (auto* le =
-                                        emitSyntaxExpr(*rs3.left, r3))
-                                    r3->Left_expr((UHDM::expr*)le);
-                                if (auto* re =
-                                        emitSyntaxExpr(*rs3.right, r3))
-                                    r3->Right_expr((UHDM::expr*)re);
-                                rvec3->push_back(r3);
-                            }
-                            if (!rvec3->empty())
-                                lt2->Ranges(rvec3);
-                        }
-                        it2 = lt2;
-                    }
-                    iv->VpiName(vname);
-                    iv->VpiFullName(branchPrefix + "." + vname);
-                    iv->VpiParent(as2);
-                    setLoc(iv, nameSpan(dcl->name.location(), vname));
-                    setLoc(it2, dd.type->sourceRange());
-                    auto* rt2 = s.MakeRef_typespec();
-                    rt2->VpiFullName(branchPrefix + "." + vname);
-                    rt2->VpiParent(iv);
-                    rt2->Actual_typespec(it2);
-                    iv->Typespec(rt2);
-                    as2->Lhs(iv);
-                    stmts->push_back(as2);
-                }
-            }
-            // Gen-block module instances (def view): a ref_module stmt named by
-            // the instance, DefName work@<def>, with a port per NAMED conn —
-            // HighConn ref_obj scoped branchPrefix.<inst>.<formal>.<actual>
-            // (Surelog's doubled form). No LowConn/direction/actual link.
-            for (auto* item : items) {
-                if (item->kind != syntax::SyntaxKind::HierarchyInstantiation)
-                    continue;
-                auto& hi = item->as<syntax::HierarchyInstantiationSyntax>();
-                std::string defn(hi.type.valueText());
-                for (auto* hinst : hi.instances) {
-                    if (!hinst->decl)
-                        continue;
-                    std::string iname(hinst->decl->name.valueText());
-                    auto* rm = s.MakeRef_module();
-                    rm->VpiParent(b);
-                    rm->VpiName(iname);
-                    rm->VpiDefName("work@" + defn);
-                    setLoc(rm, nameSpan(hinst->decl->name.location(), iname));
-                    auto* rports = s.MakePortVec();
-                    for (auto* conn : hinst->connections) {
-                        if (conn->kind != syntax::SyntaxKind::NamedPortConnection)
-                            continue;
-                        auto& npc = conn->as<syntax::NamedPortConnectionSyntax>();
-                        if (!npc.expr)
-                            continue;
-                        std::string formal(npc.name.valueText());
-                        std::string act = rawText(npc.expr->sourceRange());
-                        auto* p = s.MakePort();
-                        p->VpiParent(rm);
-                        p->VpiName(formal);
-                        setLoc(p, conn->sourceRange());
-                        // Parse ALL [..] groups of the actual.
-                        std::vector<std::pair<size_t, std::string>> idxGroups;
-                        {
-                            size_t p0 = act.find('[');
-                            while (p0 != std::string::npos) {
-                                auto p1 = act.find(']', p0);
-                                if (p1 == std::string::npos)
-                                    break;
-                                idxGroups.emplace_back(
-                                    p0 + 1, act.substr(p0 + 1, p1 - p0 - 1));
-                                p0 = act.find('[', p1);
-                            }
-                        }
-                        auto lb2 = act.find('[');
-                        if (idxGroups.size() >= 2 && !act.empty() &&
-                            act.back() == ']') {
-                            // MULTIDIM select (data_i[0][j]): a var_select
-                            // named by the base, fullname DOUBLED through the
-                            // formal (prefix.<inst>.<formal>.<base>), loc at
-                            // the whole select; indices are constants (digits)
-                            // or refs scoped vsFull.<idx>.
-                            std::string base2 = act.substr(0, lb2);
-                            std::string vsFull = branchPrefix + "." + iname +
-                                                 "." + formal + "." + base2;
-                            auto* vs = s.MakeVar_select();
-                            vs->VpiParent(p);
-                            vs->VpiName(base2);
-                            vs->VpiFullName(vsFull);
-                            setLoc(vs, npc.expr->sourceRange());
-                            auto* ixv = s.MakeExprVec();
-                            for (auto& [off9, tx9] : idxGroups) {
-                                auto ixStart =
-                                    npc.expr->sourceRange().start() + off9;
-                                if (!tx9.empty() &&
-                                    tx9.find_first_not_of("0123456789") ==
-                                        std::string::npos) {
-                                    auto* c9 = s.MakeConstant();
-                                    c9->VpiDecompile(tx9);
-                                    c9->VpiSize(64);
-                                    c9->VpiValue("UINT:" + tx9);
-                                    c9->VpiConstType(vpiUIntConst);
-                                    c9->VpiParent(vs);
-                                    setLoc(c9,
-                                           SourceRange(ixStart,
-                                                       ixStart + tx9.size()));
-                                    ixv->push_back(c9);
-                                }
-                                else {
-                                    auto* r9 = s.MakeRef_obj();
-                                    r9->VpiName(tx9);
-                                    r9->VpiFullName(vsFull + "." + tx9);
-                                    r9->VpiParent(vs);
-                                    setLoc(r9,
-                                           SourceRange(ixStart,
-                                                       ixStart + tx9.size()));
-                                    ixv->push_back(r9);
-                                }
-                            }
-                            vs->Exprs(ixv);
-                            p->High_conn(vs);
-                        }
-                        else if (lb2 != std::string::npos && !act.empty() &&
-                            act.back() == ']') {
-                            // A SELECT actual (sig[i]): bit_select named by
-                            // the BASE, fullname prefix.<inst>.<base> (no
-                            // formal doubling), loc at the INDEX; index is a
-                            // genvar ref (or a constant for digits).
-                            std::string base2 = act.substr(0, lb2);
-                            std::string idxT =
-                                act.substr(lb2 + 1, act.size() - lb2 - 2);
-                            auto idxStart =
-                                npc.expr->sourceRange().start() + (lb2 + 1);
-                            auto* bs = s.MakeBit_select();
-                            bs->VpiParent(p);
-                            bs->VpiName(base2);
-                            bs->VpiFullName(branchPrefix + "." + iname + "." +
-                                            base2);
-                            setLoc(bs, SourceRange(idxStart,
-                                                   idxStart + idxT.size()));
-                            if (!idxT.empty() &&
-                                idxT.find_first_not_of("0123456789") ==
-                                    std::string::npos) {
-                                auto* ic2 = s.MakeConstant();
-                                ic2->VpiDecompile(idxT);
-                                ic2->VpiSize(64);
-                                ic2->VpiValue("UINT:" + idxT);
-                                ic2->VpiConstType(vpiUIntConst);
-                                ic2->VpiParent(bs);
-                                setLoc(ic2, SourceRange(idxStart,
-                                                        idxStart + idxT.size()));
-                                bs->VpiIndex(ic2);
-                            }
-                            else {
-                                auto* ir = s.MakeRef_obj();
-                                ir->VpiName(idxT);
-                                ir->VpiFullName(branchPrefix + "." + iname +
-                                                "." + idxT);
-                                ir->VpiParent(bs);
-                                setLoc(ir, SourceRange(idxStart,
-                                                       idxStart + idxT.size()));
-                                bs->VpiIndex(ir);
-                            }
-                            p->High_conn(bs);
-                        }
-                        else if ([&] {
-                                     const syntax::SyntaxNode* e9 = npc.expr;
-                                     if (e9->kind == syntax::SyntaxKind::
-                                                         SimplePropertyExpr)
-                                         e9 = e9->as<syntax::
-                                                         SimplePropertyExprSyntax>()
-                                                  .expr;
-                                     if (e9->kind == syntax::SyntaxKind::
-                                                         SimpleSequenceExpr)
-                                         e9 = e9->as<syntax::
-                                                         SimpleSequenceExprSyntax>()
-                                                  .expr;
-                                     return e9->kind ==
-                                                syntax::SyntaxKind::
-                                                    InvocationExpression &&
-                                            e9->as<syntax::
-                                                       InvocationExpressionSyntax>()
-                                                    .left->kind ==
-                                                syntax::SyntaxKind::
-                                                    IdentifierName;
-                                 }()) {
-                            // A CALL actual (f(sig)): func_call named by the
-                            // function, args as formal-scoped refs (Surelog).
-                            const syntax::SyntaxNode* ie9 = npc.expr;
-                            if (ie9->kind ==
-                                syntax::SyntaxKind::SimplePropertyExpr)
-                                ie9 = ie9->as<syntax::SimplePropertyExprSyntax>()
-                                          .expr;
-                            if (ie9->kind ==
-                                syntax::SyntaxKind::SimpleSequenceExpr)
-                                ie9 = ie9->as<syntax::SimpleSequenceExprSyntax>()
-                                          .expr;
-                            auto& inv9 =
-                                ie9->as<syntax::InvocationExpressionSyntax>();
-                            auto* fc9 = s.MakeFunc_call();
-                            fc9->VpiName(inv9.left
-                                             ->as<syntax::IdentifierNameSyntax>()
-                                             .identifier.valueText());
-                            fc9->VpiParent(p);
-                            setLoc(fc9, npc.expr->sourceRange());
-                            if (inv9.arguments &&
-                                !inv9.arguments->parameters.empty()) {
-                                auto* args9 = s.MakeAnyVec();
-                                for (auto a9 : inv9.arguments->parameters) {
-                                    std::string ar9(
-                                        rawText(a9->sourceRange()));
-                                    auto* r9 = s.MakeRef_obj();
-                                    r9->VpiName(ar9);
-                                    r9->VpiFullName(branchPrefix + "." + iname +
-                                                    "." + formal + "." + ar9);
-                                    r9->VpiParent(fc9);
-                                    setLoc(r9, a9->sourceRange());
-                                    args9->push_back(r9);
-                                }
-                                fc9->Tf_call_args(args9);
-                            }
-                            p->High_conn(fc9);
-                        }
-                        else {
-                            auto* r = s.MakeRef_obj();
-                            r->VpiParent(p);
-                            r->VpiName(act);
-                            r->VpiFullName(branchPrefix + "." + iname + "." +
-                                           formal + "." + act);
-                            setLoc(r, npc.expr->sourceRange());
-                            p->High_conn(r);
-                        }
-                        rports->push_back(p);
-                    }
-                    if (!rports->empty())
-                        rm->Ports(rports);
-                    stmts->push_back(rm);
-                }
-            }
-            for (auto* item : items) {
-                if (item->kind != syntax::SyntaxKind::ContinuousAssign)
-                    continue;
-                auto& cas2 = item->as<syntax::ContinuousAssignSyntax>();
-                for (auto asyn : cas2.assignments) {
-                    auto* ca = s.MakeCont_assign();
-                    ca->VpiParent(b);
-                    setLoc(ca, asyn->sourceRange());
-                    syntaxRefPrefix = branchPrefix;
-                    // Refs naming a branch localparam bind that parameter.
-                    std::function<void(UHDM::any*)> bindP = [&](UHDM::any* e) {
-                        if (!e)
-                            return;
-                        if (e->UhdmType() == UHDM::uhdmref_obj) {
-                            auto* r0 = (UHDM::ref_obj*)e;
-                            if (auto bp = branchParams.find(std::string(r0->VpiName()));
-                                bp != branchParams.end() && !r0->Actual_group())
-                                r0->Actual_group(bp->second);
-                        }
-                        else if (e->UhdmType() == UHDM::uhdmoperation) {
-                            if (auto* ops = ((UHDM::operation*)e)->Operands())
-                                for (auto* o : *ops)
-                                    bindP(o);
-                        }
-                    };
-                    (void)bindP; // SL leaves def-view gen CA refs unbound
-                    if (asyn->kind == syntax::SyntaxKind::AssignmentExpression) {
-                        auto& be = asyn->as<syntax::BinaryExpressionSyntax>();
-                        // A def gen-CA bit_select spans its INDEX only.
-                        auto selSpan = [&](UHDM::any* e,
-                                           const syntax::ExpressionSyntax& sy) {
-                            if (!e || e->UhdmType() != UHDM::uhdmbit_select)
-                                return;
-                            if (sy.kind == syntax::SyntaxKind::
-                                               ElementSelectExpression) {
-                                auto& es2 = sy.as<
-                                    syntax::ElementSelectExpressionSyntax>();
-                                if (es2.select && es2.select->selector)
-                                    setLoc((UHDM::expr*)e,
-                                           es2.select->selector->sourceRange());
-                            }
-                            else if (sy.kind ==
-                                     syntax::SyntaxKind::IdentifierSelectName) {
-                                auto& isn2 =
-                                    sy.as<syntax::IdentifierSelectNameSyntax>();
-                                if (!isn2.selectors.empty() &&
-                                    isn2.selectors[0]->selector)
-                                    setLoc((UHDM::expr*)e,
-                                           isn2.selectors[0]
-                                               ->selector->sourceRange());
-                            }
-                        };
-                        if (auto* l = emitSyntaxExpr(*be.left, ca)) {
-                            // LHS selects keep the whole span (Surelog).
-                            if (be.left->kind ==
-                                syntax::SyntaxKind::ElementSelectExpression)
-                                selSpan(l, *be.left);
-                            ca->Lhs((UHDM::expr*)l);
-                        }
-                        selBaseScopeIdx = true;
-                        auto* r = emitSyntaxExpr(*be.right, ca);
-                        selBaseScopeIdx = false;
-                        if (r) {
-                            selSpan(r, *be.right);
-                            ca->Rhs((UHDM::expr*)r);
-                        }
-                    }
-                    syntaxRefPrefix.clear();
-                    stmts->push_back(ca);
-                }
-            }
-            // NESTED if-generates recurse: a gen_if (keyword span) whose
-            // stmt is the nested branch begin, fullnames chaining through
-            // this branch's prefix.
-            for (auto* item : items) {
-                if (item->kind != syntax::SyntaxKind::IfGenerate)
-                    continue;
-                auto& nIf = item->as<syntax::IfGenerateSyntax>();
-                doneIfs.insert(&nIf); // consumed here, not at top level
-                UHDM::gen_if_else* ngie = nullptr;
-                UHDM::gen_if* ngi = nullptr;
-                UHDM::gen_stmt* ng0;
-                if (nIf.elseClause) {
-                    ngie = s.MakeGen_if_else();
-                    // NESTED (else-if chain) gen_if_else carries the whole
-                    // construct span, unlike the loc-less top-level one.
-                    setLoc(ngie, nIf.sourceRange());
-                    ng0 = ngie;
-                }
-                else {
-                    ngi = s.MakeGen_if();
-                    setLoc(ngi, nIf.keyword.range());
-                    ng0 = ngi;
-                }
-                ng0->VpiParent(b);
-                syntaxRefPrefix = branchPrefix;
-                if (auto* c = emitSyntaxExpr(*nIf.condition, ng0)) {
-                    if (ngie)
-                        ngie->VpiCondition((UHDM::expr*)c);
-                    else
-                        ngi->VpiCondition((UHDM::expr*)c);
-                }
-                syntaxRefPrefix.clear();
-                auto findNested = [&](const syntax::SyntaxNode* bs)
-                    -> const Scope* {
-                    if (!astBlock)
-                        return nullptr;
-                    for (auto& m2 : astBlock->members())
-                        if (m2.kind == SymbolKind::GenerateBlock &&
-                            m2.getSyntax() == bs)
-                            return &m2.as<Scope>();
-                    return nullptr;
-                };
-                if (auto* t = emitBranch(
-                        *nIf.block, ng0,
-                        findNested((const syntax::SyntaxNode*)nIf.block),
-                        branchPrefix, false)) {
-                    if (ngie)
-                        ngie->VpiStmt((UHDM::any*)t);
-                    else
-                        ngi->VpiStmt(t);
-                }
-                if (nIf.elseClause && ngie) {
-                    if (auto* e = emitBranch(
-                            *nIf.elseClause->clause, ngie,
-                            findNested((const syntax::SyntaxNode*)nIf
-                                           .elseClause->clause),
-                            branchPrefix, false))
-                        ngie->VpiElseStmt((UHDM::any*)e);
-                }
-                stmts->push_back(ng0);
-            }
-            // Def-view gen-block PROCESSES: each always/initial re-emits
-            // under the branch begin with branch-prefix-scoped UNBOUND refs.
-            if (astBlock) {
-                for (auto* item : items) {
-                    if (item->kind != syntax::SyntaxKind::AlwaysBlock &&
-                        item->kind != syntax::SyntaxKind::AlwaysCombBlock &&
-                        item->kind != syntax::SyntaxKind::AlwaysFFBlock &&
-                        item->kind != syntax::SyntaxKind::AlwaysLatchBlock &&
-                        item->kind != syntax::SyntaxKind::InitialBlock)
-                        continue;
-                    const ProceduralBlockSymbol* pbs = nullptr;
-                    for (auto& mb : astBlock->members())
-                        if (mb.kind == SymbolKind::ProceduralBlock &&
-                            mb.getSyntax() == item)
-                            pbs = &mb.as<ProceduralBlockSymbol>();
-                    if (!pbs)
-                        continue;
-                    NetMap unbound;
-                    suppressRefActual = true;
-                    defGenProcessEmit = true;
-                    auto* p = emitProcess(
-                        *pbs, m, branchPrefix.empty() ? prefix : branchPrefix,
-                        unbound);
-                    defGenProcessEmit = false;
-                    suppressRefActual = false;
-                    if (p) {
-                        p->VpiParent(b);
-                        stmts->push_back(p);
-                    }
-                }
-            }
-            // The def-view stmt list follows SOURCE order (decls, CAs and
-            // processes interleave as written).
-            std::stable_sort(stmts->begin(), stmts->end(),
-                             [](const UHDM::any* a1, const UHDM::any* a2) {
-                                 auto* e1 = (const UHDM::expr*)a1;
-                                 auto* e2 = (const UHDM::expr*)a2;
-                                 if (e1->VpiLineNo() != e2->VpiLineNo())
-                                     return e1->VpiLineNo() < e2->VpiLineNo();
-                                 return e1->VpiColumnNo() < e2->VpiColumnNo();
-                             });
-            if (b->UhdmType() == UHDM::uhdmnamed_begin)
-                ((UHDM::named_begin*)b)->Stmts(stmts);
-            else
-                ((UHDM::begin*)b)->Stmts(stmts);
-            return b;
-        };
-        // Surelog wraps a whole explicit `generate...endgenerate` region in ONE
-        // gen_region placeholder; dedup the fallback by GenerateRegion syntax.
-        std::set<const syntax::SyntaxNode*> doneFallbackRegions;
-        for (auto& member : body.members()) {
-            if (member.kind != SymbolKind::GenerateBlockArray &&
-                member.kind != SymbolKind::GenerateBlock)
-                continue;
-            const syntax::IfGenerateSyntax* ifSyn = nullptr;
-            if (member.kind == SymbolKind::GenerateBlock) {
-                for (auto q = member.getSyntax(); q; q = q->parent) {
-                    if (q->kind == syntax::SyntaxKind::IfGenerate) {
-                        ifSyn = &q->as<syntax::IfGenerateSyntax>();
-                        break;
-                    }
-                }
-            }
-            if (ifSyn) {
-                if (!doneIfs.insert(ifSyn).second)
-                    continue;
-                // With an else clause: loc-less gen_if_else. Without: a
-                // gen_if located at the `if` keyword.
-                UHDM::gen_if_else* gie = nullptr;
-                UHDM::gen_if* gi = nullptr;
-                UHDM::gen_stmt* g0;
-                if (ifSyn->elseClause) {
-                    gie = s.MakeGen_if_else();
-                    g0 = gie;
-                }
-                else {
-                    gi = s.MakeGen_if();
-                    setLoc(gi, ifSyn->keyword.range());
-                    g0 = gi;
-                }
-                g0->VpiParent(m);
-                syntaxRefPrefix = prefix;
-                if (auto* c = emitSyntaxExpr(*ifSyn->condition, g0)) {
-                    // Enum-VALUE refs in the condition bind their enum_const
-                    // (Surelog).
-                    std::function<void(UHDM::any*)> bindEC =
-                        [&](UHDM::any* e) {
-                            if (!e)
-                                return;
-                            if (e->UhdmType() == UHDM::uhdmref_obj) {
-                                auto* r0 = (UHDM::ref_obj*)e;
-                                if (r0->Actual_group())
-                                    return;
-                                for (auto& [sym0, tsp0] : typedefTs) {
-                                    if (tsp0->UhdmType() !=
-                                        UHDM::uhdmenum_typespec)
-                                        continue;
-                                    auto* ets0 = (UHDM::enum_typespec*)tsp0;
-                                    if (ets0->Enum_consts())
-                                        for (auto* ec0 : *ets0->Enum_consts())
-                                            if (ec0->VpiName() ==
-                                                r0->VpiName()) {
-                                                r0->Actual_group(ec0);
-                                                return;
-                                            }
-                                }
-                            }
-                            else if (e->UhdmType() == UHDM::uhdmoperation) {
-                                if (auto* ops =
-                                        ((UHDM::operation*)e)->Operands())
-                                    for (auto* o : *ops)
-                                        bindEC(o);
-                            }
-                        };
-                    bindEC(c);
-                    if (gie)
-                        gie->VpiCondition((UHDM::expr*)c);
-                    else
-                        gi->VpiCondition((UHDM::expr*)c);
-                }
-                syntaxRefPrefix.clear();
-                // The AST scope for EACH branch: the GenerateBlock member
-                // whose syntax is that branch (the dedup means we emit both
-                // branches from the FIRST member's visit, so search all).
-                auto findBranchScope =
-                    [&](const syntax::SyntaxNode* bs) -> const Scope* {
-                    for (auto& m2 : body.members())
-                        if (m2.kind == SymbolKind::GenerateBlock &&
-                            m2.getSyntax() == bs)
-                            return &m2.as<Scope>();
-                    return nullptr;
-                };
-                const Scope* tbScope =
-                    findBranchScope((const syntax::SyntaxNode*)ifSyn->block);
-                if (auto* t = emitBranch(*ifSyn->block, g0, tbScope, prefix, false)) {
-                    if (gie)
-                        gie->VpiStmt(t);
-                    else
-                        gi->VpiStmt(t);
-                }
-                if (ifSyn->elseClause) {
-                    const Scope* ebScope = findBranchScope(
-                        (const syntax::SyntaxNode*)ifSyn->elseClause->clause);
-                    if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie,
-                                             ebScope, prefix, false))
-                        gie->VpiElseStmt((UHDM::any*)e);
-                }
-                // Inside an EXPLICIT generate...endgenerate region the if
-                // wraps gen_region -> UNNAMED begin (module fullname) -> the
-                // gen_if (Surelog drops nothing else).
-                bool inRegion = false;
-                for (auto q = (const syntax::SyntaxNode*)ifSyn; q;
-                     q = q->parent)
-                    if (q->kind == syntax::SyntaxKind::GenerateRegion) {
-                        inRegion = true;
-                        break;
-                    }
-                // Only region-wrapped gen_if_else carries a location (the
-                // whole if..else span); bare ones stay loc-less.
-                if (inRegion && gie)
-                    setLoc(gie, ifSyn->sourceRange());
-                if (inRegion) {
-                    auto* gr0 = s.MakeGen_region();
-                    gr0->VpiParent(m);
-                    auto* wb = s.MakeBegin();
-                    wb->VpiFullName(prefix);
-                    wb->VpiParent(gr0);
-                    auto* ws = s.MakeAnyVec();
-                    g0->VpiParent(wb);
-                    ws->push_back(g0);
-                    wb->Stmts(ws);
-                    gr0->VpiStmt(wb);
-                    regions->push_back(gr0);
-                }
-                else
-                    regions->push_back(g0);
-                continue;
-            }
-            // CASE-generates (def view): Surelog emits the WHOLE gen_case tree
-            // SYMBOLICALLY — the condition ref plus ALL case_items (taken AND
-            // untaken), each item's begin re-emitting its processes/assigns
-            // from syntax. Wrapped in a gen_region -> begin (module fullname),
-            // matching the explicit `generate...endgenerate` region shape.
-            const syntax::CaseGenerateSyntax* caseSyn = nullptr;
-            if (member.kind == SymbolKind::GenerateBlock)
-                for (auto q = member.getSyntax(); q; q = q->parent)
-                    if (q->kind == syntax::SyntaxKind::CaseGenerate) {
-                        caseSyn = &q->as<syntax::CaseGenerateSyntax>();
-                        break;
-                    }
-            if (caseSyn) {
-                if (!doneCases.insert(caseSyn).second)
-                    continue;
-                auto* gr = s.MakeGen_region();
-                gr->VpiParent(m);
-                auto* ob = s.MakeBegin();
-                ob->VpiFullName(prefix);
-                ob->VpiParent(gr);
-                auto* gc = s.MakeGen_case();
-                gc->VpiParent(ob);
-                setLoc(gc, SourceRange(caseSyn->keyword.range().start(),
-                                       caseSyn->endCase.range().end()));
-                syntaxRefPrefix = prefix;
-                if (auto* c = emitSyntaxExpr(*caseSyn->condition, gc))
-                    gc->VpiCondition((UHDM::expr*)c);
-                syntaxRefPrefix.clear();
-                // The AST GenerateBlock scope for a given case-item clause (its
-                // ProceduralBlock members exist even for UNINSTANTIATED items).
-                auto findItemScope =
-                    [&](const syntax::SyntaxNode* bs) -> const Scope* {
-                    for (auto& m2 : body.members())
-                        if (m2.kind == SymbolKind::GenerateBlock &&
-                            m2.getSyntax() == bs)
-                            return &m2.as<Scope>();
-                    return nullptr;
-                };
-                auto* citems = s.MakeCase_itemVec();
-                for (auto* ci : caseSyn->items) {
-                    auto* item = s.MakeCase_item();
-                    // Surelog leaves the case_item's parent UNSET; that stops
-                    // ComputeFullName so the item's begin (and its always) get
-                    // NO computed fullname (bare, symbolic def-view shape).
-                    const syntax::SyntaxNode* clause = nullptr;
-                    if (ci->kind == syntax::SyntaxKind::StandardCaseItem) {
-                        auto& sci = ci->as<syntax::StandardCaseItemSyntax>();
-                        clause = sci.clause;
-                        auto* exprs = s.MakeAnyVec();
-                        syntaxRefPrefix = prefix;
-                        for (auto* le : sci.expressions) {
-                            if (auto* e = emitSyntaxExpr(*le, item))
-                                exprs->push_back(e);
-                        }
-                        syntaxRefPrefix.clear();
-                        if (!exprs->empty())
-                            item->VpiExprs(exprs);
-                    }
-                    else if (ci->kind == syntax::SyntaxKind::DefaultCaseItem) {
-                        clause = ci->as<syntax::DefaultCaseItemSyntax>().clause;
-                    }
-                    if (clause) {
-                        const Scope* isc = findItemScope(clause);
-                        if (auto* bb = emitBranch(*clause, item, isc, prefix,
-                                                  /*noFull=*/true))
-                            item->Stmt(bb);
-                    }
-                    citems->push_back(item);
-                }
-                if (!citems->empty())
-                    gc->Case_items(citems);
-                auto* obs = s.MakeAnyVec();
-                obs->push_back(gc);
-                ob->Stmts(obs);
-                gr->VpiStmt(ob);
-                regions->push_back(gr);
-                continue;
-            }
-            // FOR-generates: a LOC-LESS gen_for with the genvar init
-            // assignment (int_var + 64-bit UINT), the condition (refs bound to
-            // the int_var), the incr op, and the block body (Surelog def view).
-            const syntax::LoopGenerateSyntax* loopSyn = nullptr;
-            if (member.kind == SymbolKind::GenerateBlockArray)
-                for (auto q = member.getSyntax(); q; q = q->parent)
-                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
-                        loopSyn = &q->as<syntax::LoopGenerateSyntax>();
-                        break;
-                    }
-            // Only an INLINE-genvar loop (for (genvar c = ...)) becomes a
-            // gen_for; a separate `genvar i;` + loop keeps the gen_region
-            // placeholder (Surelog).
-            if (loopSyn && !loopSyn->genvar)
-                loopSyn = nullptr;
-            if (loopSyn) {
-                auto* gf = s.MakeGen_for();
-                gf->VpiParent(m);
-                std::string gname(loopSyn->identifier.valueText());
-                std::string gfull = prefix + "." + gname;
-                // Init: assignment spanning genvar..init, Lhs a SIGNED int_var
-                // with an int_typespec at the name token, Rhs the init value.
-                auto* asn = s.MakeAssignment();
-                asn->VpiParent(gf);
-                SourceLocation initStart = loopSyn->genvar
-                                               ? loopSyn->genvar.range().start()
-                                               : loopSyn->identifier.range().start();
-                setLoc(asn, SourceRange(initStart,
-                                        loopSyn->initialExpr->sourceRange().end()));
-                auto* iv = s.MakeInt_var();
-                iv->VpiName(gname);
-                iv->VpiFullName(gfull);
-                iv->VpiParent(asn);
-                setLoc(iv, loopSyn->identifier.range());
-                iv->VpiSigned(true);
-                auto* ivrt = s.MakeRef_typespec();
-                ivrt->VpiFullName(gfull);
-                ivrt->VpiParent(iv);
-                auto* ivts = s.MakeInt_typespec();
-                setLoc(ivts, loopSyn->identifier.range());
-                ivrt->Actual_typespec(ivts);
-                iv->Typespec(ivrt);
-                syntaxRefPrefix = prefix;
-                if (auto* rc = emitSyntaxExpr(*loopSyn->initialExpr, asn)) {
-                    ((UHDM::expr*)rc)->VpiParent(nullptr); // SL: unparented
-                    asn->Rhs((UHDM::expr*)rc);
-                }
-                asn->Lhs((UHDM::expr*)iv);
-                // Surelog: the init goes in the PLURAL vector, the incr in the
-                // SINGULAR field (dump-identical either way; Compare differs).
-                {
-                    auto* iniv = s.MakeAnyVec();
-                    iniv->push_back(asn);
-                    gf->VpiForInitStmts(iniv);
-                }
-                // Condition: refs to the genvar bind the int_var.
-                std::function<void(UHDM::any*)> bindGenvar = [&](UHDM::any* e) {
-                    if (!e)
-                        return;
-                    if (e->UhdmType() == UHDM::uhdmref_obj) {
-                        auto* r = (UHDM::ref_obj*)e;
-                        if (r->VpiName() == gname) {
-                            r->VpiFullName(gfull);
-                            r->Actual_group(iv);
-                        }
-                    }
-                    else if (e->UhdmType() == UHDM::uhdmoperation) {
-                        if (auto* ops = ((UHDM::operation*)e)->Operands())
-                            for (auto* o : *ops)
-                                bindGenvar(o);
-                    }
-                };
-                if (auto* c = emitSyntaxExpr(*loopSyn->stopExpr, gf)) {
-                    bindGenvar(c);
-                    gf->VpiCondition((UHDM::expr*)c);
-                }
-                syntaxRefPrefix.clear();
-                // Incr (c++): op 62 at the operator span, LOC-LESS ref operand
-                // parented at the gen_for (Surelog quirk).
-                {
-                    auto* op = s.MakeOperation();
-                    op->VpiOpType(62);
-                    op->VpiParent(gf);
-                    // Anchored at the OPERAND token (Surelog quirk).
-                    auto ir = loopSyn->iterationExpr->sourceRange();
-                    setLoc(op, SourceRange(ir.start(), ir.start() + gname.size()));
-                    auto* r = s.MakeRef_obj();
-                    r->VpiName(gname);
-                    r->VpiFullName(gfull);
-                    r->VpiParent(gf);
-                    r->Actual_group(iv);
-                    auto* ops = s.MakeAnyVec();
-                    ops->push_back(r);
-                    op->Operands(ops);
-                    gf->VpiForIncStmt(op);
-                }
-                {
-                    const Scope* astBlock = nullptr;
-                    auto& arr2 = member.as<GenerateBlockArraySymbol>();
-                    for (auto entry2 : arr2.entries)
-                        if (entry2 && !entry2->isUninstantiated) {
-                            astBlock = entry2;
-                            break;
-                        }
-                    if (auto* b = emitBranch(*loopSyn->block, gf, astBlock, prefix, false))
-                        gf->VpiStmt(b);
-                }
-                regions->push_back(gf);
-                continue;
-            }
-            // An UNCONDITIONAL named generate block (generate begin : A ... end
-            // — not if/for) becomes a gen_region wrapping a named_begin that
-            // carries the label and the block contents (Surelog), not the empty
-            // placeholder begin below.
-            if (member.kind == SymbolKind::GenerateBlock) {
-                if (auto* gsyn = member.getSyntax();
-                    gsyn && gsyn->kind == syntax::SyntaxKind::GenerateBlock &&
-                    gsyn->as<syntax::GenerateBlockSyntax>().beginName) {
-                    auto* gr = s.MakeGen_region();
-                    gr->VpiParent(m);
-                    if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>(), prefix, false))
-                        gr->VpiStmt(b);
-                    regions->push_back(gr);
-                    continue;
-                }
-            }
-            // Fallback placeholder: only ONCE per explicit generate region.
-            const syntax::SyntaxNode* genRegion = nullptr;
-            for (auto q = member.getSyntax(); q; q = q->parent)
-                if (q->kind == syntax::SyntaxKind::GenerateRegion) {
-                    genRegion = q;
-                    break;
-                }
-            if (genRegion && !doneFallbackRegions.insert(genRegion).second)
-                continue;
-            auto* gr = s.MakeGen_region();
-            gr->VpiParent(m);
-            auto* b = s.MakeBegin();
-            b->VpiFullName(prefix);
-            b->VpiParent(gr);
-            gr->VpiStmt(b);
-            regions->push_back(gr);
-        }
-        if (!regions->empty())
-            m->Gen_stmts(regions);
-    }
+    emitDefGenStmts(body, m, prefix);
 
     (void)netTsAtEntry;
     (void)topDef;
@@ -4313,8 +3264,43 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         auto* genArrayNets = s.MakeArray_netVec();
         for (auto& gm : blk.members()) {
             bool caVar = gm.kind == SymbolKind::Variable && caDrivenVar(gm);
-            if (gm.kind != SymbolKind::Net && !caVar)
+            bool structVar = gm.kind == SymbolKind::Variable &&
+                             gm.getDeclaredType() &&
+                             gm.getDeclaredType()
+                                 ->getType()
+                                 .getCanonicalType()
+                                 .isStruct();
+            if (gm.kind != SymbolKind::Net && !caVar && !structVar)
                 continue;
+            // A STRUCT-typed gen-block local signal (pkt_t r) nets as a
+            // struct_net sharing the struct typespec — Surelog.
+            if (structVar && !caVar) {
+                std::string sfull = fullName + "." + std::string(gm.name);
+                UHDM::typespec* sts = nullptr;
+                if (auto tt = pkgTopTypedefTs.find(&gm.getDeclaredType()->getType());
+                    tt != pkgTopTypedefTs.end())
+                    sts = tt->second;
+                if (!sts)
+                    if (auto tt2 = typedefTs.find(&gm.getDeclaredType()->getType());
+                        tt2 != typedefTs.end())
+                        sts = tt2->second;
+                if (!sts)
+                    sts = makeTypespec(gm);
+                auto* sn = s.MakeStruct_net();
+                sn->VpiName(gm.name);
+                sn->VpiFullName(sfull);
+                sn->VpiParent(gs);
+                setLoc(sn, nameSpan(gm.location, gm.name));
+                auto* srt = s.MakeRef_typespec();
+                srt->VpiFullName(sfull);
+                srt->VpiParent(sn);
+                srt->Actual_typespec(sts);
+                sn->Typespec(srt);
+                genScopeNets[&gm] = sn;
+                netMap[&gm] = sn;
+                gnets->push_back(sn);
+                continue;
+            }
             // Unpacked-array nets (wire z [7]) elaborate as array_nets.
             if (gm.kind == SymbolKind::Net && gm.getDeclaredType() &&
                 gm.getDeclaredType()->getType().getCanonicalType().kind ==
@@ -8427,6 +7413,27 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
 
     auto* nets = s.MakeNetVec();
     UHDM::VectorOfarray_net* ifaceArrayNets9 = nullptr;
+    // An unpacked-array-of-STRUCT signal: its base/inner nets carry the shared
+    // struct ELEMENT typespec (the array dim lives on the array_net), just like
+    // a plain struct net — Surelog. Returns nullptr for non-struct elements.
+    auto structElemTs = [&](const Symbol& sym) -> UHDM::typespec* {
+        auto dtp = sym.getDeclaredType();
+        if (!dtp)
+            return nullptr;
+        const Type* canon = &dtp->getType().getCanonicalType();
+        const Type* named = nullptr;
+        while (canon->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            named = &canon->as<FixedSizeUnpackedArrayType>().elementType;
+            canon = &named->getCanonicalType();
+        }
+        if (!named || !canon->isStruct())
+            return nullptr;
+        if (auto i2 = typedefTs.find(named); i2 != typedefTs.end())
+            return i2->second;
+        if (auto i3 = pkgTopTypedefTs.find(named); i3 != pkgTopTypedefTs.end())
+            return i3->second;
+        return nullptr;
+    };
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         auto* n = s.MakeLogic_net();
@@ -8454,7 +7461,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             rt->VpiFullName(prefix + "." + name);
             rt->VpiParent(n);
             n->Typespec(rt);
-            pendingNetTs.push_back({it.sym, rt, &info});
+            // Array-of-struct: the base net shares the struct element typespec
+            // directly (no logic_typespec fold).
+            if (auto* sts = structElemTs(*it.sym))
+                rt->Actual_typespec(sts);
+            else
+                pendingNetTs.push_back({it.sym, rt, &info});
         }
         // Record the def net so def-view port LowConns can bind to it.
         info.nets[it.sym] = n;
@@ -8470,18 +7482,27 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             an9->VpiParent(iface);
             setLoc(an9, nameSpan(it.sym->location, it.sym->name));
             an9->VpiSize(1);
-            if (auto* rngs9 = buildUnpackedRanges(*it.sym, an9))
+            // Def-view array_net keeps PARAM-based dim bounds symbolic
+            // (ref_obj <arraynet>.<param>), so pass the array_net fullname.
+            if (auto* rngs9 = buildUnpackedRanges(*it.sym, an9, prefix + "." + name))
                 an9->Ranges(rngs9);
             auto* in9 = s.MakeLogic_net();
             in9->VpiName(name);
             in9->VpiFullName(prefix + "." + name + "." + name);
             in9->VpiParent(an9);
-            in9->VpiNetType(36);
             auto* irt9 = s.MakeRef_typespec();
             irt9->VpiFullName(prefix + "." + name + "." + name);
             irt9->VpiParent(in9);
             in9->Typespec(irt9);
-            pendingNetTs.push_back({it.sym, irt9, &info});
+            // Struct-element array: inner net shares the struct element ts and
+            // carries NO vpiNetType (Surelog); scalar-element arrays keep the
+            // logic-net form (netType 36, deferred logic typespec).
+            if (auto* sts = structElemTs(*it.sym))
+                irt9->Actual_typespec(sts);
+            else {
+                in9->VpiNetType(36);
+                pendingNetTs.push_back({it.sym, irt9, &info});
+            }
             auto* inv9 = s.MakeNetVec();
             inv9->push_back(in9);
             an9->Nets(inv9);
@@ -8537,6 +7558,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     emitPorts(body, iface, prefix, info.nets, /*topView=*/false, &info.defTs);
     emitImportArtifacts(body, iface);
     emitNamedClockingBlocks(body, iface, prefix, info.nets, /*defView=*/true);
+    // Def-view generate placeholders (gen_for/gen_if/gen_case + unelaborated
+    // begin bodies) — same emission the module def path uses.
+    emitDefGenStmts(body, iface, prefix);
     return iface;
 }
 
@@ -8840,6 +7864,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
     auto* vars = s.MakeVariablesVec();
     auto* elabNets = s.MakeNetVec();
+    UHDM::VectorOfarray_net* elabArrayNets = nullptr;
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
@@ -8875,6 +7900,67 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             netMap[it.sym] = sn;
             elabNets->push_back(sn);
             continue;
+        }
+        // An unpacked-array-of-STRUCT interface signal: elaborated array_net
+        // (vpiSize = element count) with a FOLDED [lo:hi] range and a single
+        // inner struct_net sharing the struct element typespec — Surelog. The
+        // scalar-element case falls through to makeVar/logic_net below.
+        if (it.sym->kind == SymbolKind::Variable && !portView &&
+            it.sym->getDeclaredType() &&
+            it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType) {
+            const Type* canon =
+                &it.sym->getDeclaredType()->getType().getCanonicalType();
+            const Type* elemNamed = nullptr;
+            int32_t total = 1;
+            while (canon->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                auto& ua0 = canon->as<FixedSizeUnpackedArrayType>();
+                total *= (int32_t)ua0.range.width();
+                elemNamed = &ua0.elementType;
+                canon = &elemNamed->getCanonicalType();
+            }
+            if (elemNamed && canon->isStruct()) {
+                UHDM::typespec* sts = nullptr;
+                if (auto tt = pkgTopTypedefTs.find(elemNamed);
+                    tt != pkgTopTypedefTs.end())
+                    sts = tt->second;
+                if (!sts)
+                    if (auto tt2 = typedefTs.find(elemNamed);
+                        tt2 != typedefTs.end())
+                        sts = tt2->second;
+                auto* an = s.MakeArray_net();
+                an->VpiName(name);
+                an->VpiFullName(fullName);
+                an->VpiParent(iface);
+                setLoc(an, nameSpan(it.sym->location, it.sym->name));
+                an->VpiSize(total);
+                if (auto* rngs = buildUnpackedRanges(*it.sym, an))
+                    an->Ranges(rngs);
+                auto* inr = s.MakeStruct_net();
+                inr->VpiName(name);
+                inr->VpiFullName(fullName + "." + name);
+                inr->VpiParent(an);
+                // Inner struct_net spans the declarator name through the dim.
+                if (auto* dsyn0 = it.sym->getSyntax();
+                    dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
+                    setLoc(inr, dsyn0->sourceRange());
+                else
+                    setLoc(inr, nameSpan(it.sym->location, it.sym->name));
+                auto* irt = s.MakeRef_typespec();
+                irt->VpiFullName(fullName + "." + name);
+                irt->VpiParent(inr);
+                if (sts)
+                    irt->Actual_typespec(sts);
+                inr->Typespec(irt);
+                auto* inv = s.MakeNetVec();
+                inv->push_back(inr);
+                an->Nets(inv);
+                if (!elabArrayNets)
+                    elabArrayNets = s.MakeArray_netVec();
+                elabArrayNets->push_back(an);
+                netMap[it.sym] = an;
+                continue;
+            }
         }
         auto* v = makeVar(*it.sym, /*portBacked=*/false);
         if (!v) {
@@ -9002,6 +8088,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         iface->Variables(vars);
     if (!elabNets->empty())
         iface->Nets(elabNets);
+    if (elabArrayNets)
+        iface->Array_nets(elabArrayNets);
 
     // The elab HOME view lists the def view's typedef/import typespecs (SHARED
     // objects; the def view was emitted first). Port views don't.
@@ -9326,7 +8414,1075 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
     if (!ports->empty())
         iface->Ports(ports);
+    // Elaborated generate scopes (gen_scope_array) — only the declaration-style
+    // HOME view carries them; a reference-style port view does not.
+    if (!portView)
+        emitGenScopes(body, iface, prefix, netMap);
     return iface;
+}
+
+void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instance* m,
+                                   const std::string& prefix) {
+        auto* regions = s.MakeGen_stmtVec();
+        std::set<const syntax::SyntaxNode*> doneIfs;
+        std::set<const syntax::SyntaxNode*> doneCases;
+        // A generate branch body: named begin for labeled blocks, anonymous
+        // begin (module fullname) otherwise; cont_assigns from syntax.
+        std::function<UHDM::any*(const syntax::SyntaxNode&, UHDM::BaseClass*,
+                                 const Scope*, const std::string&, bool)>
+            emitBranch;
+        emitBranch = [&](const syntax::SyntaxNode& memSyn,
+                         UHDM::BaseClass* parent, const Scope* astBlock,
+                         const std::string& basePrefix,
+                         bool noFull) -> UHDM::any* {
+            UHDM::scope* b = nullptr;
+            std::string branchPrefix = basePrefix;
+            std::vector<const syntax::SyntaxNode*> items;
+            if (memSyn.kind == syntax::SyntaxKind::GenerateBlock) {
+                auto& gb = memSyn.as<syntax::GenerateBlockSyntax>();
+                std::string label;
+                if (gb.beginName)
+                    label = std::string(gb.beginName->name.valueText());
+                if (!label.empty()) {
+                    auto* nb = s.MakeNamed_begin();
+                    nb->VpiName(label);
+                    branchPrefix = basePrefix + "." + label;
+                    nb->VpiFullName(branchPrefix);
+                    b = nb;
+                }
+                else {
+                    auto* ub = s.MakeBegin();
+                    // A case-item begin carries NO fullname (Surelog).
+                    if (!noFull)
+                        ub->VpiFullName(basePrefix);
+                    b = ub;
+                }
+                for (auto mem2 : gb.members)
+                    items.push_back(mem2);
+            }
+            else {
+                auto* ub = s.MakeBegin();
+                if (!noFull)
+                    ub->VpiFullName(basePrefix);
+                b = ub;
+                items.push_back(&memSyn);
+            }
+            b->VpiParent(parent);
+            auto* stmts = s.MakeAnyVec();
+            // Gen-block localparams (def view): a param_assign stmt whose
+            // parameter carries the typed ts (via the AST symbol) and whose
+            // Rhs keeps the source literal encoding, unparented (Surelog).
+            std::map<std::string, UHDM::parameter*> branchParams;
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::ParameterDeclarationStatement ||
+                    !astBlock)
+                    continue;
+                auto& pds = item->as<syntax::ParameterDeclarationStatementSyntax>();
+                if (pds.parameter->kind != syntax::SyntaxKind::ParameterDeclaration)
+                    continue;
+                auto& pd = pds.parameter->as<syntax::ParameterDeclarationSyntax>();
+                bool isLocal2 = pd.keyword.valueText() == "localparam";
+                bool typedP2 = pd.type->kind != syntax::SyntaxKind::ImplicitType;
+                for (auto* dcl : pd.declarators) {
+                    std::string pname(dcl->name.valueText());
+                    const ParameterSymbol* psym = nullptr;
+                    for (auto& mb : astBlock->members())
+                        if (mb.kind == SymbolKind::Parameter && mb.name == pname)
+                            psym = &mb.as<ParameterSymbol>();
+                    if (!psym)
+                        continue;
+                    auto* pa2 = s.MakeParam_assign();
+                    pa2->VpiParent(b);
+                    setLoc(pa2, dcl->sourceRange());
+                    auto* up2 = s.MakeParameter();
+                    up2->VpiName(pname);
+                    up2->VpiFullName(branchPrefix + "." + pname);
+                    up2->VpiParent(pa2);
+                    setLoc(up2, dcl->sourceRange());
+                    if (isLocal2)
+                        up2->VpiLocalParam(true);
+                    auto* prt2 = s.MakeRef_typespec();
+                    prt2->VpiFullName(branchPrefix + "." + pname);
+                    prt2->VpiParent(up2);
+                    if (auto* its2 = makeParamTs(*psym, typedP2)) {
+                        prt2->Actual_typespec(its2);
+                        defGenLpTs[psym] = its2; // shared into the elab ref
+                    }
+                    up2->Typespec(prt2);
+                    pa2->Lhs(up2);
+                    if (dcl->initializer) {
+                        syntaxRefPrefix = branchPrefix;
+                        if (auto* rc2 =
+                                emitSyntaxExpr(*dcl->initializer->expr, pa2)) {
+                            ((UHDM::expr*)rc2)->VpiParent(nullptr);
+                            pa2->Rhs((UHDM::expr*)rc2);
+                        }
+                        syntaxRefPrefix.clear();
+                    }
+                    branchParams[pname] = up2;
+                    stmts->push_back(pa2);
+                }
+            }
+            // Gen-block INTEGER variable decls (integer x, y;): Surelog
+            // stmt-ifies each declarator as a Rhs-less blocking assignment
+            // (opType 82) whose Lhs is the integer_var (typespec ref -> an
+            // integer_typespec at the type-keyword span).
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::DataDeclaration ||
+                    !astBlock)
+                    continue;
+                auto& dd = item->as<syntax::DataDeclarationSyntax>();
+                for (auto* dcl : dd.declarators) {
+                    std::string vname(dcl->name.valueText());
+                    const VariableSymbol* vsym = nullptr;
+                    for (auto& mb : astBlock->members())
+                        if (mb.kind == SymbolKind::Variable && mb.name == vname)
+                            vsym = &mb.as<VariableSymbol>();
+                    if (!vsym)
+                        continue;
+                    auto& vct = vsym->getType().getCanonicalType();
+                    bool isInt =
+                        vct.kind == SymbolKind::PredefinedIntegerType &&
+                        vct.as<PredefinedIntegerType>().integerKind ==
+                            PredefinedIntegerType::Integer;
+                    bool isScalar = vct.kind == SymbolKind::ScalarType;
+                    // Ranged logic (logic [63:W] x) also stmt-ifies; the ts
+                    // keeps its ranges symbolic (emitSyntaxExpr, branch scope).
+                    bool isRangedLogic =
+                        vct.kind == SymbolKind::PackedArrayType &&
+                        vct.as<PackedArrayType>()
+                                .elementType.getCanonicalType()
+                                .kind == SymbolKind::ScalarType;
+                    // Unpacked-ARRAY decls (logic [..] mem [0:N-1]) stmt-ify
+                    // as a Rhs-less assignment whose Lhs is a bare array_var
+                    // (ts -> array_typespec with SYMBOLIC dim bounds; inner
+                    // reg logic_var carries the element logic_typespec).
+                    if (vct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                        auto* as3 = s.MakeAssignment();
+                        as3->VpiParent(b);
+                        as3->VpiOpType(82);
+                        as3->VpiBlocking(true);
+                        setLoc(as3, dcl->sourceRange());
+                        auto* av3 = s.MakeArray_var();
+                        av3->VpiName(vname);
+                        av3->VpiFullName(branchPrefix + "." + vname);
+                        av3->VpiParent(as3);
+                        setLoc(av3, nameSpan(dcl->name.location(), vname));
+                        av3->VpiArrayType(1);
+                        auto* ats3 = s.MakeArray_typespec();
+                        setLoc(ats3, dcl->sourceRange());
+                        auto* arv3 = s.MakeRangeVec();
+                        for (auto* dim : dcl->dimensions) {
+                            if (!dim->specifier ||
+                                dim->specifier->kind !=
+                                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                                continue;
+                            auto& sel3 =
+                                dim->specifier
+                                    ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                    .selector;
+                            if (sel3->kind !=
+                                syntax::SyntaxKind::SimpleRangeSelect)
+                                continue;
+                            auto& rs4 = sel3->as<syntax::RangeSelectSyntax>();
+                            auto* r4 = s.MakeRange();
+                            r4->VpiParent(ats3);
+                            setLoc(r4, dim->sourceRange());
+                            // Bounds refs stay BARE (name only — Surelog).
+                            if (auto* le = emitSyntaxExpr(*rs4.left, r4))
+                                r4->Left_expr((UHDM::expr*)le);
+                            if (auto* re = emitSyntaxExpr(*rs4.right, r4))
+                                r4->Right_expr((UHDM::expr*)re);
+                            arv3->push_back(r4);
+                        }
+                        if (!arv3->empty())
+                            ats3->Ranges(arv3);
+                        auto* rta3 = s.MakeRef_typespec();
+                        rta3->VpiFullName(branchPrefix + "." + vname);
+                        rta3->VpiParent(av3);
+                        rta3->Actual_typespec(ats3);
+                        av3->Typespec(rta3);
+                        auto* lv3 = s.MakeLogic_var();
+                        lv3->VpiFullName(branchPrefix + "." + vname);
+                        lv3->VpiParent(av3);
+                        setLoc(lv3, nameSpan(dcl->name.location(), vname));
+                        auto* lts3 = s.MakeLogic_typespec();
+                        setLoc(lts3, dd.type->sourceRange());
+                        if (dd.type->kind == syntax::SyntaxKind::LogicType) {
+                            auto& its4 = dd.type->as<syntax::IntegerTypeSyntax>();
+                            auto* prv3 = s.MakeRangeVec();
+                            for (auto* dim : its4.dimensions) {
+                                if (!dim->specifier ||
+                                    dim->specifier->kind !=
+                                        syntax::SyntaxKind::
+                                            RangeDimensionSpecifier)
+                                    continue;
+                                auto& sel4 =
+                                    dim->specifier
+                                        ->as<syntax::
+                                                 RangeDimensionSpecifierSyntax>()
+                                        .selector;
+                                if (sel4->kind !=
+                                    syntax::SyntaxKind::SimpleRangeSelect)
+                                    continue;
+                                auto& rs5 = sel4->as<syntax::RangeSelectSyntax>();
+                                auto* r5 = s.MakeRange();
+                                r5->VpiParent(lts3);
+                                setLoc(r5, dim->sourceRange());
+                                if (auto* le = emitSyntaxExpr(*rs5.left, r5))
+                                    r5->Left_expr((UHDM::expr*)le);
+                                if (auto* re = emitSyntaxExpr(*rs5.right, r5))
+                                    r5->Right_expr((UHDM::expr*)re);
+                                prv3->push_back(r5);
+                            }
+                            if (!prv3->empty())
+                                lts3->Ranges(prv3);
+                        }
+                        // The array_typespec links the shared element ts via
+                        // an unnamed Elem ref (Surelog).
+                        auto* ert3 = s.MakeRef_typespec();
+                        ert3->VpiParent(ats3);
+                        ert3->Actual_typespec(lts3);
+                        ats3->Elem_typespec(ert3);
+                        auto* rtl3 = s.MakeRef_typespec();
+                        rtl3->VpiFullName(branchPrefix + "." + vname);
+                        rtl3->VpiParent(lv3);
+                        rtl3->Actual_typespec(lts3);
+                        lv3->Typespec(rtl3);
+                        auto* regs3 = s.MakeVariablesVec();
+                        regs3->push_back(lv3);
+                        av3->Variables(regs3);
+                        as3->Lhs(av3);
+                        stmts->push_back(as3);
+                        continue;
+                    }
+                    if (!isInt && !isScalar && !isRangedLogic)
+                        continue;
+                    auto* as2 = s.MakeAssignment();
+                    as2->VpiParent(b);
+                    as2->VpiOpType(82);
+                    as2->VpiBlocking(true);
+                    setLoc(as2, nameSpan(dcl->name.location(), vname));
+                    UHDM::variables* iv;
+                    UHDM::typespec* it2;
+                    if (isInt) {
+                        auto* v0 = s.MakeInteger_var();
+                        v0->VpiSigned(true);
+                        auto* t0 = s.MakeInteger_typespec();
+                        t0->VpiSigned(true);
+                        iv = v0;
+                        it2 = t0;
+                    }
+                    else {
+                        iv = s.MakeLogic_var();
+                        auto* lt2 = s.MakeLogic_typespec();
+                        // Symbolic range bounds ([63:CounterWidth]) from the
+                        // dim syntax, refs scoped at the branch.
+                        if (isRangedLogic &&
+                            (dd.type->kind == syntax::SyntaxKind::LogicType ||
+                             dd.type->kind == syntax::SyntaxKind::RegType)) {
+                            auto& its3 = dd.type->as<syntax::IntegerTypeSyntax>();
+                            auto* rvec3 = s.MakeRangeVec();
+                            for (auto* dim : its3.dimensions) {
+                                if (!dim->specifier ||
+                                    dim->specifier->kind !=
+                                        syntax::SyntaxKind::
+                                            RangeDimensionSpecifier)
+                                    continue;
+                                auto& sel =
+                                    dim->specifier
+                                        ->as<syntax::
+                                                 RangeDimensionSpecifierSyntax>()
+                                        .selector;
+                                if (sel->kind !=
+                                    syntax::SyntaxKind::SimpleRangeSelect)
+                                    continue;
+                                auto& rs3 =
+                                    sel->as<syntax::RangeSelectSyntax>();
+                                auto* r3 = s.MakeRange();
+                                r3->VpiParent(lt2);
+                                setLoc(r3, dim->sourceRange());
+                                if (auto* le =
+                                        emitSyntaxExpr(*rs3.left, r3))
+                                    r3->Left_expr((UHDM::expr*)le);
+                                if (auto* re =
+                                        emitSyntaxExpr(*rs3.right, r3))
+                                    r3->Right_expr((UHDM::expr*)re);
+                                rvec3->push_back(r3);
+                            }
+                            if (!rvec3->empty())
+                                lt2->Ranges(rvec3);
+                        }
+                        it2 = lt2;
+                    }
+                    iv->VpiName(vname);
+                    iv->VpiFullName(branchPrefix + "." + vname);
+                    iv->VpiParent(as2);
+                    setLoc(iv, nameSpan(dcl->name.location(), vname));
+                    setLoc(it2, dd.type->sourceRange());
+                    auto* rt2 = s.MakeRef_typespec();
+                    rt2->VpiFullName(branchPrefix + "." + vname);
+                    rt2->VpiParent(iv);
+                    rt2->Actual_typespec(it2);
+                    iv->Typespec(rt2);
+                    as2->Lhs(iv);
+                    stmts->push_back(as2);
+                }
+            }
+            // Gen-block module instances (def view): a ref_module stmt named by
+            // the instance, DefName work@<def>, with a port per NAMED conn —
+            // HighConn ref_obj scoped branchPrefix.<inst>.<formal>.<actual>
+            // (Surelog's doubled form). No LowConn/direction/actual link.
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::HierarchyInstantiation)
+                    continue;
+                auto& hi = item->as<syntax::HierarchyInstantiationSyntax>();
+                std::string defn(hi.type.valueText());
+                for (auto* hinst : hi.instances) {
+                    if (!hinst->decl)
+                        continue;
+                    std::string iname(hinst->decl->name.valueText());
+                    auto* rm = s.MakeRef_module();
+                    rm->VpiParent(b);
+                    rm->VpiName(iname);
+                    rm->VpiDefName("work@" + defn);
+                    setLoc(rm, nameSpan(hinst->decl->name.location(), iname));
+                    auto* rports = s.MakePortVec();
+                    for (auto* conn : hinst->connections) {
+                        if (conn->kind != syntax::SyntaxKind::NamedPortConnection)
+                            continue;
+                        auto& npc = conn->as<syntax::NamedPortConnectionSyntax>();
+                        if (!npc.expr)
+                            continue;
+                        std::string formal(npc.name.valueText());
+                        std::string act = rawText(npc.expr->sourceRange());
+                        auto* p = s.MakePort();
+                        p->VpiParent(rm);
+                        p->VpiName(formal);
+                        setLoc(p, conn->sourceRange());
+                        // Parse ALL [..] groups of the actual.
+                        std::vector<std::pair<size_t, std::string>> idxGroups;
+                        {
+                            size_t p0 = act.find('[');
+                            while (p0 != std::string::npos) {
+                                auto p1 = act.find(']', p0);
+                                if (p1 == std::string::npos)
+                                    break;
+                                idxGroups.emplace_back(
+                                    p0 + 1, act.substr(p0 + 1, p1 - p0 - 1));
+                                p0 = act.find('[', p1);
+                            }
+                        }
+                        auto lb2 = act.find('[');
+                        if (idxGroups.size() >= 2 && !act.empty() &&
+                            act.back() == ']') {
+                            // MULTIDIM select (data_i[0][j]): a var_select
+                            // named by the base, fullname DOUBLED through the
+                            // formal (prefix.<inst>.<formal>.<base>), loc at
+                            // the whole select; indices are constants (digits)
+                            // or refs scoped vsFull.<idx>.
+                            std::string base2 = act.substr(0, lb2);
+                            std::string vsFull = branchPrefix + "." + iname +
+                                                 "." + formal + "." + base2;
+                            auto* vs = s.MakeVar_select();
+                            vs->VpiParent(p);
+                            vs->VpiName(base2);
+                            vs->VpiFullName(vsFull);
+                            setLoc(vs, npc.expr->sourceRange());
+                            auto* ixv = s.MakeExprVec();
+                            for (auto& [off9, tx9] : idxGroups) {
+                                auto ixStart =
+                                    npc.expr->sourceRange().start() + off9;
+                                if (!tx9.empty() &&
+                                    tx9.find_first_not_of("0123456789") ==
+                                        std::string::npos) {
+                                    auto* c9 = s.MakeConstant();
+                                    c9->VpiDecompile(tx9);
+                                    c9->VpiSize(64);
+                                    c9->VpiValue("UINT:" + tx9);
+                                    c9->VpiConstType(vpiUIntConst);
+                                    c9->VpiParent(vs);
+                                    setLoc(c9,
+                                           SourceRange(ixStart,
+                                                       ixStart + tx9.size()));
+                                    ixv->push_back(c9);
+                                }
+                                else {
+                                    auto* r9 = s.MakeRef_obj();
+                                    r9->VpiName(tx9);
+                                    r9->VpiFullName(vsFull + "." + tx9);
+                                    r9->VpiParent(vs);
+                                    setLoc(r9,
+                                           SourceRange(ixStart,
+                                                       ixStart + tx9.size()));
+                                    ixv->push_back(r9);
+                                }
+                            }
+                            vs->Exprs(ixv);
+                            p->High_conn(vs);
+                        }
+                        else if (lb2 != std::string::npos && !act.empty() &&
+                            act.back() == ']') {
+                            // A SELECT actual (sig[i]): bit_select named by
+                            // the BASE, fullname prefix.<inst>.<base> (no
+                            // formal doubling), loc at the INDEX; index is a
+                            // genvar ref (or a constant for digits).
+                            std::string base2 = act.substr(0, lb2);
+                            std::string idxT =
+                                act.substr(lb2 + 1, act.size() - lb2 - 2);
+                            auto idxStart =
+                                npc.expr->sourceRange().start() + (lb2 + 1);
+                            auto* bs = s.MakeBit_select();
+                            bs->VpiParent(p);
+                            bs->VpiName(base2);
+                            bs->VpiFullName(branchPrefix + "." + iname + "." +
+                                            base2);
+                            setLoc(bs, SourceRange(idxStart,
+                                                   idxStart + idxT.size()));
+                            if (!idxT.empty() &&
+                                idxT.find_first_not_of("0123456789") ==
+                                    std::string::npos) {
+                                auto* ic2 = s.MakeConstant();
+                                ic2->VpiDecompile(idxT);
+                                ic2->VpiSize(64);
+                                ic2->VpiValue("UINT:" + idxT);
+                                ic2->VpiConstType(vpiUIntConst);
+                                ic2->VpiParent(bs);
+                                setLoc(ic2, SourceRange(idxStart,
+                                                        idxStart + idxT.size()));
+                                bs->VpiIndex(ic2);
+                            }
+                            else {
+                                auto* ir = s.MakeRef_obj();
+                                ir->VpiName(idxT);
+                                ir->VpiFullName(branchPrefix + "." + iname +
+                                                "." + idxT);
+                                ir->VpiParent(bs);
+                                setLoc(ir, SourceRange(idxStart,
+                                                       idxStart + idxT.size()));
+                                bs->VpiIndex(ir);
+                            }
+                            p->High_conn(bs);
+                        }
+                        else if ([&] {
+                                     const syntax::SyntaxNode* e9 = npc.expr;
+                                     if (e9->kind == syntax::SyntaxKind::
+                                                         SimplePropertyExpr)
+                                         e9 = e9->as<syntax::
+                                                         SimplePropertyExprSyntax>()
+                                                  .expr;
+                                     if (e9->kind == syntax::SyntaxKind::
+                                                         SimpleSequenceExpr)
+                                         e9 = e9->as<syntax::
+                                                         SimpleSequenceExprSyntax>()
+                                                  .expr;
+                                     return e9->kind ==
+                                                syntax::SyntaxKind::
+                                                    InvocationExpression &&
+                                            e9->as<syntax::
+                                                       InvocationExpressionSyntax>()
+                                                    .left->kind ==
+                                                syntax::SyntaxKind::
+                                                    IdentifierName;
+                                 }()) {
+                            // A CALL actual (f(sig)): func_call named by the
+                            // function, args as formal-scoped refs (Surelog).
+                            const syntax::SyntaxNode* ie9 = npc.expr;
+                            if (ie9->kind ==
+                                syntax::SyntaxKind::SimplePropertyExpr)
+                                ie9 = ie9->as<syntax::SimplePropertyExprSyntax>()
+                                          .expr;
+                            if (ie9->kind ==
+                                syntax::SyntaxKind::SimpleSequenceExpr)
+                                ie9 = ie9->as<syntax::SimpleSequenceExprSyntax>()
+                                          .expr;
+                            auto& inv9 =
+                                ie9->as<syntax::InvocationExpressionSyntax>();
+                            auto* fc9 = s.MakeFunc_call();
+                            fc9->VpiName(inv9.left
+                                             ->as<syntax::IdentifierNameSyntax>()
+                                             .identifier.valueText());
+                            fc9->VpiParent(p);
+                            setLoc(fc9, npc.expr->sourceRange());
+                            if (inv9.arguments &&
+                                !inv9.arguments->parameters.empty()) {
+                                auto* args9 = s.MakeAnyVec();
+                                for (auto a9 : inv9.arguments->parameters) {
+                                    std::string ar9(
+                                        rawText(a9->sourceRange()));
+                                    auto* r9 = s.MakeRef_obj();
+                                    r9->VpiName(ar9);
+                                    r9->VpiFullName(branchPrefix + "." + iname +
+                                                    "." + formal + "." + ar9);
+                                    r9->VpiParent(fc9);
+                                    setLoc(r9, a9->sourceRange());
+                                    args9->push_back(r9);
+                                }
+                                fc9->Tf_call_args(args9);
+                            }
+                            p->High_conn(fc9);
+                        }
+                        else {
+                            auto* r = s.MakeRef_obj();
+                            r->VpiParent(p);
+                            r->VpiName(act);
+                            r->VpiFullName(branchPrefix + "." + iname + "." +
+                                           formal + "." + act);
+                            setLoc(r, npc.expr->sourceRange());
+                            p->High_conn(r);
+                        }
+                        rports->push_back(p);
+                    }
+                    if (!rports->empty())
+                        rm->Ports(rports);
+                    stmts->push_back(rm);
+                }
+            }
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::ContinuousAssign)
+                    continue;
+                auto& cas2 = item->as<syntax::ContinuousAssignSyntax>();
+                for (auto asyn : cas2.assignments) {
+                    auto* ca = s.MakeCont_assign();
+                    ca->VpiParent(b);
+                    setLoc(ca, asyn->sourceRange());
+                    syntaxRefPrefix = branchPrefix;
+                    // Refs naming a branch localparam bind that parameter.
+                    std::function<void(UHDM::any*)> bindP = [&](UHDM::any* e) {
+                        if (!e)
+                            return;
+                        if (e->UhdmType() == UHDM::uhdmref_obj) {
+                            auto* r0 = (UHDM::ref_obj*)e;
+                            if (auto bp = branchParams.find(std::string(r0->VpiName()));
+                                bp != branchParams.end() && !r0->Actual_group())
+                                r0->Actual_group(bp->second);
+                        }
+                        else if (e->UhdmType() == UHDM::uhdmoperation) {
+                            if (auto* ops = ((UHDM::operation*)e)->Operands())
+                                for (auto* o : *ops)
+                                    bindP(o);
+                        }
+                    };
+                    (void)bindP; // SL leaves def-view gen CA refs unbound
+                    if (asyn->kind == syntax::SyntaxKind::AssignmentExpression) {
+                        auto& be = asyn->as<syntax::BinaryExpressionSyntax>();
+                        // A def gen-CA bit_select spans its INDEX only.
+                        auto selSpan = [&](UHDM::any* e,
+                                           const syntax::ExpressionSyntax& sy) {
+                            if (!e || e->UhdmType() != UHDM::uhdmbit_select)
+                                return;
+                            if (sy.kind == syntax::SyntaxKind::
+                                               ElementSelectExpression) {
+                                auto& es2 = sy.as<
+                                    syntax::ElementSelectExpressionSyntax>();
+                                if (es2.select && es2.select->selector)
+                                    setLoc((UHDM::expr*)e,
+                                           es2.select->selector->sourceRange());
+                            }
+                            else if (sy.kind ==
+                                     syntax::SyntaxKind::IdentifierSelectName) {
+                                auto& isn2 =
+                                    sy.as<syntax::IdentifierSelectNameSyntax>();
+                                if (!isn2.selectors.empty() &&
+                                    isn2.selectors[0]->selector)
+                                    setLoc((UHDM::expr*)e,
+                                           isn2.selectors[0]
+                                               ->selector->sourceRange());
+                            }
+                        };
+                        if (auto* l = emitSyntaxExpr(*be.left, ca)) {
+                            // LHS selects keep the whole span (Surelog).
+                            if (be.left->kind ==
+                                syntax::SyntaxKind::ElementSelectExpression)
+                                selSpan(l, *be.left);
+                            ca->Lhs((UHDM::expr*)l);
+                        }
+                        selBaseScopeIdx = true;
+                        auto* r = emitSyntaxExpr(*be.right, ca);
+                        selBaseScopeIdx = false;
+                        if (r) {
+                            selSpan(r, *be.right);
+                            ca->Rhs((UHDM::expr*)r);
+                        }
+                    }
+                    syntaxRefPrefix.clear();
+                    stmts->push_back(ca);
+                }
+            }
+            // NESTED if-generates recurse: a gen_if (keyword span) whose
+            // stmt is the nested branch begin, fullnames chaining through
+            // this branch's prefix.
+            for (auto* item : items) {
+                if (item->kind != syntax::SyntaxKind::IfGenerate)
+                    continue;
+                auto& nIf = item->as<syntax::IfGenerateSyntax>();
+                doneIfs.insert(&nIf); // consumed here, not at top level
+                UHDM::gen_if_else* ngie = nullptr;
+                UHDM::gen_if* ngi = nullptr;
+                UHDM::gen_stmt* ng0;
+                if (nIf.elseClause) {
+                    ngie = s.MakeGen_if_else();
+                    // NESTED (else-if chain) gen_if_else carries the whole
+                    // construct span, unlike the loc-less top-level one.
+                    setLoc(ngie, nIf.sourceRange());
+                    ng0 = ngie;
+                }
+                else {
+                    ngi = s.MakeGen_if();
+                    setLoc(ngi, nIf.keyword.range());
+                    ng0 = ngi;
+                }
+                ng0->VpiParent(b);
+                syntaxRefPrefix = branchPrefix;
+                if (auto* c = emitSyntaxExpr(*nIf.condition, ng0)) {
+                    if (ngie)
+                        ngie->VpiCondition((UHDM::expr*)c);
+                    else
+                        ngi->VpiCondition((UHDM::expr*)c);
+                }
+                syntaxRefPrefix.clear();
+                auto findNested = [&](const syntax::SyntaxNode* bs)
+                    -> const Scope* {
+                    if (!astBlock)
+                        return nullptr;
+                    for (auto& m2 : astBlock->members())
+                        if (m2.kind == SymbolKind::GenerateBlock &&
+                            m2.getSyntax() == bs)
+                            return &m2.as<Scope>();
+                    return nullptr;
+                };
+                if (auto* t = emitBranch(
+                        *nIf.block, ng0,
+                        findNested((const syntax::SyntaxNode*)nIf.block),
+                        branchPrefix, false)) {
+                    if (ngie)
+                        ngie->VpiStmt((UHDM::any*)t);
+                    else
+                        ngi->VpiStmt(t);
+                }
+                if (nIf.elseClause && ngie) {
+                    if (auto* e = emitBranch(
+                            *nIf.elseClause->clause, ngie,
+                            findNested((const syntax::SyntaxNode*)nIf
+                                           .elseClause->clause),
+                            branchPrefix, false))
+                        ngie->VpiElseStmt((UHDM::any*)e);
+                }
+                stmts->push_back(ng0);
+            }
+            // Def-view gen-block PROCESSES: each always/initial re-emits
+            // under the branch begin with branch-prefix-scoped UNBOUND refs.
+            if (astBlock) {
+                for (auto* item : items) {
+                    if (item->kind != syntax::SyntaxKind::AlwaysBlock &&
+                        item->kind != syntax::SyntaxKind::AlwaysCombBlock &&
+                        item->kind != syntax::SyntaxKind::AlwaysFFBlock &&
+                        item->kind != syntax::SyntaxKind::AlwaysLatchBlock &&
+                        item->kind != syntax::SyntaxKind::InitialBlock)
+                        continue;
+                    const ProceduralBlockSymbol* pbs = nullptr;
+                    for (auto& mb : astBlock->members())
+                        if (mb.kind == SymbolKind::ProceduralBlock &&
+                            mb.getSyntax() == item)
+                            pbs = &mb.as<ProceduralBlockSymbol>();
+                    if (!pbs)
+                        continue;
+                    NetMap unbound;
+                    suppressRefActual = true;
+                    defGenProcessEmit = true;
+                    auto* p = emitProcess(
+                        *pbs, m, branchPrefix.empty() ? prefix : branchPrefix,
+                        unbound);
+                    defGenProcessEmit = false;
+                    suppressRefActual = false;
+                    if (p) {
+                        p->VpiParent(b);
+                        stmts->push_back(p);
+                    }
+                }
+            }
+            // The def-view stmt list follows SOURCE order (decls, CAs and
+            // processes interleave as written).
+            std::stable_sort(stmts->begin(), stmts->end(),
+                             [](const UHDM::any* a1, const UHDM::any* a2) {
+                                 auto* e1 = (const UHDM::expr*)a1;
+                                 auto* e2 = (const UHDM::expr*)a2;
+                                 if (e1->VpiLineNo() != e2->VpiLineNo())
+                                     return e1->VpiLineNo() < e2->VpiLineNo();
+                                 return e1->VpiColumnNo() < e2->VpiColumnNo();
+                             });
+            if (b->UhdmType() == UHDM::uhdmnamed_begin)
+                ((UHDM::named_begin*)b)->Stmts(stmts);
+            else
+                ((UHDM::begin*)b)->Stmts(stmts);
+            return b;
+        };
+        // Surelog wraps a whole explicit `generate...endgenerate` region in ONE
+        // gen_region placeholder; dedup the fallback by GenerateRegion syntax.
+        std::set<const syntax::SyntaxNode*> doneFallbackRegions;
+        for (auto& member : body.members()) {
+            if (member.kind != SymbolKind::GenerateBlockArray &&
+                member.kind != SymbolKind::GenerateBlock)
+                continue;
+            const syntax::IfGenerateSyntax* ifSyn = nullptr;
+            if (member.kind == SymbolKind::GenerateBlock) {
+                for (auto q = member.getSyntax(); q; q = q->parent) {
+                    if (q->kind == syntax::SyntaxKind::IfGenerate) {
+                        ifSyn = &q->as<syntax::IfGenerateSyntax>();
+                        break;
+                    }
+                }
+            }
+            if (ifSyn) {
+                if (!doneIfs.insert(ifSyn).second)
+                    continue;
+                // With an else clause: loc-less gen_if_else. Without: a
+                // gen_if located at the `if` keyword.
+                UHDM::gen_if_else* gie = nullptr;
+                UHDM::gen_if* gi = nullptr;
+                UHDM::gen_stmt* g0;
+                if (ifSyn->elseClause) {
+                    gie = s.MakeGen_if_else();
+                    g0 = gie;
+                }
+                else {
+                    gi = s.MakeGen_if();
+                    setLoc(gi, ifSyn->keyword.range());
+                    g0 = gi;
+                }
+                g0->VpiParent(m);
+                syntaxRefPrefix = prefix;
+                if (auto* c = emitSyntaxExpr(*ifSyn->condition, g0)) {
+                    // Enum-VALUE refs in the condition bind their enum_const
+                    // (Surelog).
+                    std::function<void(UHDM::any*)> bindEC =
+                        [&](UHDM::any* e) {
+                            if (!e)
+                                return;
+                            if (e->UhdmType() == UHDM::uhdmref_obj) {
+                                auto* r0 = (UHDM::ref_obj*)e;
+                                if (r0->Actual_group())
+                                    return;
+                                for (auto& [sym0, tsp0] : typedefTs) {
+                                    if (tsp0->UhdmType() !=
+                                        UHDM::uhdmenum_typespec)
+                                        continue;
+                                    auto* ets0 = (UHDM::enum_typespec*)tsp0;
+                                    if (ets0->Enum_consts())
+                                        for (auto* ec0 : *ets0->Enum_consts())
+                                            if (ec0->VpiName() ==
+                                                r0->VpiName()) {
+                                                r0->Actual_group(ec0);
+                                                return;
+                                            }
+                                }
+                            }
+                            else if (e->UhdmType() == UHDM::uhdmoperation) {
+                                if (auto* ops =
+                                        ((UHDM::operation*)e)->Operands())
+                                    for (auto* o : *ops)
+                                        bindEC(o);
+                            }
+                        };
+                    bindEC(c);
+                    if (gie)
+                        gie->VpiCondition((UHDM::expr*)c);
+                    else
+                        gi->VpiCondition((UHDM::expr*)c);
+                }
+                syntaxRefPrefix.clear();
+                // The AST scope for EACH branch: the GenerateBlock member
+                // whose syntax is that branch (the dedup means we emit both
+                // branches from the FIRST member's visit, so search all).
+                auto findBranchScope =
+                    [&](const syntax::SyntaxNode* bs) -> const Scope* {
+                    for (auto& m2 : body.members())
+                        if (m2.kind == SymbolKind::GenerateBlock &&
+                            m2.getSyntax() == bs)
+                            return &m2.as<Scope>();
+                    return nullptr;
+                };
+                const Scope* tbScope =
+                    findBranchScope((const syntax::SyntaxNode*)ifSyn->block);
+                if (auto* t = emitBranch(*ifSyn->block, g0, tbScope, prefix, false)) {
+                    if (gie)
+                        gie->VpiStmt(t);
+                    else
+                        gi->VpiStmt(t);
+                }
+                if (ifSyn->elseClause) {
+                    const Scope* ebScope = findBranchScope(
+                        (const syntax::SyntaxNode*)ifSyn->elseClause->clause);
+                    if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie,
+                                             ebScope, prefix, false))
+                        gie->VpiElseStmt((UHDM::any*)e);
+                }
+                // Inside an EXPLICIT generate...endgenerate region the if
+                // wraps gen_region -> UNNAMED begin (module fullname) -> the
+                // gen_if (Surelog drops nothing else).
+                bool inRegion = false;
+                for (auto q = (const syntax::SyntaxNode*)ifSyn; q;
+                     q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                        inRegion = true;
+                        break;
+                    }
+                // Only region-wrapped gen_if_else carries a location (the
+                // whole if..else span); bare ones stay loc-less.
+                if (inRegion && gie)
+                    setLoc(gie, ifSyn->sourceRange());
+                if (inRegion) {
+                    auto* gr0 = s.MakeGen_region();
+                    gr0->VpiParent(m);
+                    auto* wb = s.MakeBegin();
+                    wb->VpiFullName(prefix);
+                    wb->VpiParent(gr0);
+                    auto* ws = s.MakeAnyVec();
+                    g0->VpiParent(wb);
+                    ws->push_back(g0);
+                    wb->Stmts(ws);
+                    gr0->VpiStmt(wb);
+                    regions->push_back(gr0);
+                }
+                else
+                    regions->push_back(g0);
+                continue;
+            }
+            // CASE-generates (def view): Surelog emits the WHOLE gen_case tree
+            // SYMBOLICALLY — the condition ref plus ALL case_items (taken AND
+            // untaken), each item's begin re-emitting its processes/assigns
+            // from syntax. Wrapped in a gen_region -> begin (module fullname),
+            // matching the explicit `generate...endgenerate` region shape.
+            const syntax::CaseGenerateSyntax* caseSyn = nullptr;
+            if (member.kind == SymbolKind::GenerateBlock)
+                for (auto q = member.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::CaseGenerate) {
+                        caseSyn = &q->as<syntax::CaseGenerateSyntax>();
+                        break;
+                    }
+            if (caseSyn) {
+                if (!doneCases.insert(caseSyn).second)
+                    continue;
+                auto* gr = s.MakeGen_region();
+                gr->VpiParent(m);
+                auto* ob = s.MakeBegin();
+                ob->VpiFullName(prefix);
+                ob->VpiParent(gr);
+                auto* gc = s.MakeGen_case();
+                gc->VpiParent(ob);
+                setLoc(gc, SourceRange(caseSyn->keyword.range().start(),
+                                       caseSyn->endCase.range().end()));
+                syntaxRefPrefix = prefix;
+                if (auto* c = emitSyntaxExpr(*caseSyn->condition, gc))
+                    gc->VpiCondition((UHDM::expr*)c);
+                syntaxRefPrefix.clear();
+                // The AST GenerateBlock scope for a given case-item clause (its
+                // ProceduralBlock members exist even for UNINSTANTIATED items).
+                auto findItemScope =
+                    [&](const syntax::SyntaxNode* bs) -> const Scope* {
+                    for (auto& m2 : body.members())
+                        if (m2.kind == SymbolKind::GenerateBlock &&
+                            m2.getSyntax() == bs)
+                            return &m2.as<Scope>();
+                    return nullptr;
+                };
+                auto* citems = s.MakeCase_itemVec();
+                for (auto* ci : caseSyn->items) {
+                    auto* item = s.MakeCase_item();
+                    // Surelog leaves the case_item's parent UNSET; that stops
+                    // ComputeFullName so the item's begin (and its always) get
+                    // NO computed fullname (bare, symbolic def-view shape).
+                    const syntax::SyntaxNode* clause = nullptr;
+                    if (ci->kind == syntax::SyntaxKind::StandardCaseItem) {
+                        auto& sci = ci->as<syntax::StandardCaseItemSyntax>();
+                        clause = sci.clause;
+                        auto* exprs = s.MakeAnyVec();
+                        syntaxRefPrefix = prefix;
+                        for (auto* le : sci.expressions) {
+                            if (auto* e = emitSyntaxExpr(*le, item))
+                                exprs->push_back(e);
+                        }
+                        syntaxRefPrefix.clear();
+                        if (!exprs->empty())
+                            item->VpiExprs(exprs);
+                    }
+                    else if (ci->kind == syntax::SyntaxKind::DefaultCaseItem) {
+                        clause = ci->as<syntax::DefaultCaseItemSyntax>().clause;
+                    }
+                    if (clause) {
+                        const Scope* isc = findItemScope(clause);
+                        if (auto* bb = emitBranch(*clause, item, isc, prefix,
+                                                  /*noFull=*/true))
+                            item->Stmt(bb);
+                    }
+                    citems->push_back(item);
+                }
+                if (!citems->empty())
+                    gc->Case_items(citems);
+                auto* obs = s.MakeAnyVec();
+                obs->push_back(gc);
+                ob->Stmts(obs);
+                gr->VpiStmt(ob);
+                regions->push_back(gr);
+                continue;
+            }
+            // FOR-generates: a LOC-LESS gen_for with the genvar init
+            // assignment (int_var + 64-bit UINT), the condition (refs bound to
+            // the int_var), the incr op, and the block body (Surelog def view).
+            const syntax::LoopGenerateSyntax* loopSyn = nullptr;
+            if (member.kind == SymbolKind::GenerateBlockArray)
+                for (auto q = member.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                        loopSyn = &q->as<syntax::LoopGenerateSyntax>();
+                        break;
+                    }
+            // Only an INLINE-genvar loop (for (genvar c = ...)) becomes a
+            // gen_for; a separate `genvar i;` + loop keeps the gen_region
+            // placeholder (Surelog).
+            if (loopSyn && !loopSyn->genvar)
+                loopSyn = nullptr;
+            if (loopSyn) {
+                auto* gf = s.MakeGen_for();
+                gf->VpiParent(m);
+                std::string gname(loopSyn->identifier.valueText());
+                std::string gfull = prefix + "." + gname;
+                // Init: assignment spanning genvar..init, Lhs a SIGNED int_var
+                // with an int_typespec at the name token, Rhs the init value.
+                auto* asn = s.MakeAssignment();
+                asn->VpiParent(gf);
+                SourceLocation initStart = loopSyn->genvar
+                                               ? loopSyn->genvar.range().start()
+                                               : loopSyn->identifier.range().start();
+                setLoc(asn, SourceRange(initStart,
+                                        loopSyn->initialExpr->sourceRange().end()));
+                auto* iv = s.MakeInt_var();
+                iv->VpiName(gname);
+                iv->VpiFullName(gfull);
+                iv->VpiParent(asn);
+                setLoc(iv, loopSyn->identifier.range());
+                iv->VpiSigned(true);
+                auto* ivrt = s.MakeRef_typespec();
+                ivrt->VpiFullName(gfull);
+                ivrt->VpiParent(iv);
+                auto* ivts = s.MakeInt_typespec();
+                setLoc(ivts, loopSyn->identifier.range());
+                ivrt->Actual_typespec(ivts);
+                iv->Typespec(ivrt);
+                syntaxRefPrefix = prefix;
+                if (auto* rc = emitSyntaxExpr(*loopSyn->initialExpr, asn)) {
+                    ((UHDM::expr*)rc)->VpiParent(nullptr); // SL: unparented
+                    asn->Rhs((UHDM::expr*)rc);
+                }
+                asn->Lhs((UHDM::expr*)iv);
+                // Surelog: the init goes in the PLURAL vector, the incr in the
+                // SINGULAR field (dump-identical either way; Compare differs).
+                {
+                    auto* iniv = s.MakeAnyVec();
+                    iniv->push_back(asn);
+                    gf->VpiForInitStmts(iniv);
+                }
+                // Condition: refs to the genvar bind the int_var.
+                std::function<void(UHDM::any*)> bindGenvar = [&](UHDM::any* e) {
+                    if (!e)
+                        return;
+                    if (e->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r = (UHDM::ref_obj*)e;
+                        if (r->VpiName() == gname) {
+                            r->VpiFullName(gfull);
+                            r->Actual_group(iv);
+                        }
+                    }
+                    else if (e->UhdmType() == UHDM::uhdmoperation) {
+                        if (auto* ops = ((UHDM::operation*)e)->Operands())
+                            for (auto* o : *ops)
+                                bindGenvar(o);
+                    }
+                };
+                if (auto* c = emitSyntaxExpr(*loopSyn->stopExpr, gf)) {
+                    bindGenvar(c);
+                    gf->VpiCondition((UHDM::expr*)c);
+                }
+                syntaxRefPrefix.clear();
+                // Incr (c++): op 62 at the operator span, LOC-LESS ref operand
+                // parented at the gen_for (Surelog quirk).
+                {
+                    auto* op = s.MakeOperation();
+                    op->VpiOpType(62);
+                    op->VpiParent(gf);
+                    // Anchored at the OPERAND token (Surelog quirk).
+                    auto ir = loopSyn->iterationExpr->sourceRange();
+                    setLoc(op, SourceRange(ir.start(), ir.start() + gname.size()));
+                    auto* r = s.MakeRef_obj();
+                    r->VpiName(gname);
+                    r->VpiFullName(gfull);
+                    r->VpiParent(gf);
+                    r->Actual_group(iv);
+                    auto* ops = s.MakeAnyVec();
+                    ops->push_back(r);
+                    op->Operands(ops);
+                    gf->VpiForIncStmt(op);
+                }
+                // An INTERFACE def-view for-generate carries only an EMPTY
+                // anonymous begin placeholder (fullname = interface); the
+                // elaborated body lives solely in the ELAB gen_scope_array
+                // (Surelog quirk — modules instead fill the def begin).
+                if (m->UhdmType() == UHDM::uhdminterface_inst) {
+                    auto* bb = s.MakeBegin();
+                    bb->VpiFullName(prefix);
+                    bb->VpiParent(gf);
+                    gf->VpiStmt(bb);
+                    regions->push_back(gf);
+                    continue;
+                }
+                {
+                    const Scope* astBlock = nullptr;
+                    auto& arr2 = member.as<GenerateBlockArraySymbol>();
+                    for (auto entry2 : arr2.entries)
+                        if (entry2 && !entry2->isUninstantiated) {
+                            astBlock = entry2;
+                            break;
+                        }
+                    if (auto* b = emitBranch(*loopSyn->block, gf, astBlock, prefix, false))
+                        gf->VpiStmt(b);
+                }
+                regions->push_back(gf);
+                continue;
+            }
+            // An UNCONDITIONAL named generate block (generate begin : A ... end
+            // — not if/for) becomes a gen_region wrapping a named_begin that
+            // carries the label and the block contents (Surelog), not the empty
+            // placeholder begin below.
+            if (member.kind == SymbolKind::GenerateBlock) {
+                if (auto* gsyn = member.getSyntax();
+                    gsyn && gsyn->kind == syntax::SyntaxKind::GenerateBlock &&
+                    gsyn->as<syntax::GenerateBlockSyntax>().beginName) {
+                    auto* gr = s.MakeGen_region();
+                    gr->VpiParent(m);
+                    if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>(), prefix, false))
+                        gr->VpiStmt(b);
+                    regions->push_back(gr);
+                    continue;
+                }
+            }
+            // Fallback placeholder: only ONCE per explicit generate region.
+            const syntax::SyntaxNode* genRegion = nullptr;
+            for (auto q = member.getSyntax(); q; q = q->parent)
+                if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                    genRegion = q;
+                    break;
+                }
+            if (genRegion && !doneFallbackRegions.insert(genRegion).second)
+                continue;
+            auto* gr = s.MakeGen_region();
+            gr->VpiParent(m);
+            auto* b = s.MakeBegin();
+            b->VpiFullName(prefix);
+            b->VpiParent(gr);
+            gr->VpiStmt(b);
+            regions->push_back(gr);
+        }
+        if (!regions->empty())
+            instSetGenStmts(m, regions);
 }
 
 } // namespace slang_uhdm

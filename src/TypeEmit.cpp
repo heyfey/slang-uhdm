@@ -2857,11 +2857,39 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 continue;
             }
             auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) -> UHDM::expr* {
+                // DEF-view array_net (interface/module def): a PARAM-based bound
+                // ([0:DLY]) stays SYMBOLIC — a bare ref_obj <arraynet>.<param>
+                // (no actual). The elab instance folds it to a constant.
+                if (es && es->kind == syntax::SyntaxKind::IdentifierName &&
+                    !defDimRefPrefix.empty() &&
+                    parent->UhdmType() == UHDM::uhdmarray_net) {
+                    auto* ro = s.MakeRef_obj();
+                    std::string nm(es->as<syntax::IdentifierNameSyntax>()
+                                       .identifier.valueText());
+                    ro->VpiName(nm);
+                    ro->VpiFullName(defDimRefPrefix + "." + nm);
+                    ro->VpiParent(r);
+                    setLoc(ro, es->sourceRange());
+                    return ro;
+                }
+                // An ELAB array_net/array_var bound that is a bare PARAM
+                // identifier ([0:DLY]) folds to a UINT constant (like a literal
+                // bound), not the INT N-1 form — Surelog.
+                bool arrParentIdBound =
+                    es && es->kind == syntax::SyntaxKind::IdentifierName &&
+                    (parent->UhdmType() == UHDM::uhdmarray_net ||
+                     parent->UhdmType() == UHDM::uhdmarray_var) &&
+                    // Only INTERFACE array bounds take the UINT form; module
+                    // arrays keep the INT N-1 fold (blockrom).
+                    parent->VpiParent() &&
+                    parent->VpiParent()->UhdmType() ==
+                        UHDM::uhdminterface_inst;
                 // Literal / absent bounds: UINT at the token span. Non-literal
                 // bounds (N-1) in module context fold to an INT constant
                 // anchored at the top operator's LEFT operand span; in
                 // function/typedef context they stay unfolded expressions.
-                if (es && es->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
+                if (!arrParentIdBound && es &&
+                    es->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
                     if (tfContext) {
                         if (auto* e = emitSyntaxExpr(*es, r))
                             return (UHDM::expr*)e;

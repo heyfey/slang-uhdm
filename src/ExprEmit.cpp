@@ -288,8 +288,42 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
             break;
         start = dot + 1;
     }
+    std::string dottedSoFar;
     for (size_t i = 0; i < parts.size(); i++) {
         auto& [pname, off] = parts[i];
+        // A CONSTANT-indexed component (dly[1]) becomes a bit_select whose name
+        // is the array base, fullname the dotted path so far (incl. the index),
+        // and vpiIndex a bare constant — Surelog. (Multi-dim / non-constant
+        // indices keep the flat ref approximation.)
+        auto lb = pname.find('[');
+        std::string base = lb == std::string::npos ? pname : pname.substr(0, lb);
+        dottedSoFar += (i == 0 ? base : "." + base);
+        bool oneConstSel = false;
+        std::string idxTxt;
+        if (lb != std::string::npos && pname.back() == ']' &&
+            pname.find('[', lb + 1) == std::string::npos) {
+            idxTxt = pname.substr(lb + 1, pname.size() - lb - 2);
+            oneConstSel = !idxTxt.empty() &&
+                          idxTxt.find_first_not_of("0123456789") == std::string::npos;
+        }
+        if (oneConstSel) {
+            dottedSoFar += "[" + idxTxt + "]";
+            auto* bs = s.MakeBit_select();
+            bs->VpiName(base);
+            bs->VpiFullName(dottedSoFar);
+            bs->VpiParent(hp);
+            setLoc(bs, SourceRange(exprStart + off, exprStart + off + base.size()));
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(idxTxt);
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + idxTxt);
+            c->VpiConstType(vpiUIntConst);
+            size_t ioff = off + lb + 1;
+            setLoc(c, SourceRange(exprStart + ioff, exprStart + ioff + idxTxt.size()));
+            bs->VpiIndex(c);
+            elems->push_back(bs);
+            continue;
+        }
         auto* r = s.MakeRef_obj();
         r->VpiName(pname);
         // Only the last element of an RVALUE path gets a scoped fullname; the

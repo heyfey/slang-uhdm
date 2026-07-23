@@ -231,6 +231,8 @@ private:
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);
+    void emitDefGenStmts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
+                         const std::string& prefix);
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);

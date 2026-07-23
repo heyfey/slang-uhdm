@@ -636,9 +636,11 @@ struct NetOrderItem {
 inline bool isSimpleInterfaceBody(const InstanceBodySymbol& body) {
     for (auto& m : body.members()) {
         switch (m.kind) {
+            // Child instances (interface/module instantiated INSIDE the
+            // interface) still fall through to the module_inst path. Generate
+            // blocks are now handled by the interface path (def-view gen_stmts +
+            // elab gen_scope_arrays).
             case SymbolKind::Instance:
-            case SymbolKind::GenerateBlock:
-            case SymbolKind::GenerateBlockArray:
                 return false;
             default:
                 break;
@@ -678,6 +680,12 @@ inline void instSetGenScopeArrays(UHDM::instance* m, UHDM::VectorOfgen_scope_arr
         ((UHDM::interface_inst*)m)->Gen_scope_arrays(v);
     else
         ((UHDM::module_inst*)m)->Gen_scope_arrays(v);
+}
+inline void instSetGenStmts(UHDM::instance* m, UHDM::VectorOfgen_stmt* v) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->Gen_stmts(v);
+    else
+        ((UHDM::module_inst*)m)->Gen_stmts(v);
 }
 
 inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body) {
