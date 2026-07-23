@@ -1249,7 +1249,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                              // Re-emitted instance views of a SHARED def use
                              // cloned body symbols; match the def net by
                              // name + decl location instead.
-                             if (i == netMap.end() && reemitting)
+                             if (i == netMap.end() &&
+                                 (reemitting || elabContAssignLhs))
                                  for (i = netMap.begin(); i != netMap.end();
                                       ++i)
                                      if (i->first->name == nv.symbol.name &&
@@ -1982,13 +1983,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(fc, expr.sourceRange);
                 // Package functions: qualified calls carry the scoped name
                 // and anchor at the package-name token only.
+                UHDM::function* boundClone = nullptr;
                 if (auto ps2 = sub.getParentScope();
                     ps2 && ps2->asSymbol().kind == SymbolKind::Package) {
                     std::string pkgName(ps2->asSymbol().name);
                     std::string raw = rawText(expr.sourceRange);
+                    // A call QUALIFIED through an IMPORTING package
+                    // (P::f() where P imports f from its home package): carry
+                    // the written qualifier, anchor at it, and bind P's CLONE
+                    // (not the shared home function) — no module Task_funcs.
+                    std::string wqual;
+                    if (auto qp = raw.find("::"); qp != std::string::npos)
+                        wqual = raw.substr(0, qp);
+                    const PackageSymbol* qpkg =
+                        (!wqual.empty() && wqual != pkgName) ? comp.getPackage(wqual)
+                                                             : nullptr;
+                    if (qpkg && isFunc) {
+                        auto cit = importCopyFunc.find({qpkg, &sub});
+                        if (cit != importCopyFunc.end())
+                            boundClone = cit->second;
+                    }
                     if (raw.rfind(pkgName + "::", 0) == 0) {
                         fc->VpiName(pkgName + "::" + std::string(sub.name));
                         setLoc(fc, nameSpan(expr.sourceRange.start(), pkgName));
+                    }
+                    else if (boundClone) {
+                        fc->VpiName(wqual + "::" + std::string(sub.name));
+                        setLoc(fc, nameSpan(expr.sourceRange.start(), wqual));
                     }
                     else if (currentScope && si.tf) {
                         // Import-resolved call: the module lists the shared
@@ -2005,7 +2026,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 if (isFunc)
-                    ((UHDM::func_call*)fc)->Function((UHDM::function*)si.tf);
+                    ((UHDM::func_call*)fc)->Function(
+                        boundClone ? boundClone : (UHDM::function*)si.tf);
                 else
                     ((UHDM::task_call*)fc)->Task((UHDM::task*)si.tf);
                 auto* args = s.MakeAnyVec();

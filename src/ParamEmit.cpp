@@ -459,7 +459,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool noDefExprOv =
             !hasDefault && topView && boundInit &&
             stripImplicitConv(*boundInit).kind != ExpressionKind::IntegerLiteral;
-        if (topView && (overridden || noDefExprOv)) {
+        // A NO-DEFAULT param positionally/named overridden by an integer
+        // LITERAL in a MULTIPARAM def: Surelog's uniquified elab param_assign
+        // carries a LOC-LESS folded UINT constant directly (an untyped one at
+        // width 64, no typespec; a typed one at its type width with typespec).
+        bool noDefLitMP =
+            !hasDefault && topView && boundInit && isMultiParamDef(body) &&
+            stripImplicitConv(*boundInit).kind == ExpressionKind::IntegerLiteral;
+        if (topView && (overridden || noDefExprOv || noDefLitMP)) {
             auto& cvo = ps.getValue();
             if (cvo.isInteger()) {
                 auto& iv = cvo.integer();
@@ -522,7 +529,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 else if (typedParam || genChild) {
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
-                    c->VpiSize((int32_t)iv.getBitWidth());
+                    // An untyped NO-DEFAULT param has no width source; Surelog's
+                    // uniquified override folds it at the 64-bit default width.
+                    c->VpiSize((noDefLitMP && !typedParam)
+                                   ? 64
+                                   : (int32_t)iv.getBitWidth());
                 }
                 else {
                     c->VpiValue("INT:" + digits);
@@ -2303,8 +2314,26 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             auto* its2 = s.MakeImport_typespec();
             its2->VpiName(std::string(pn));
+            its2->Instance((UHDM::instance*)up);
             if (auto msyn = mem.getSyntax())
                 setLoc(its2, msyn->sourceRange());
+            // Hidden item constant: "*" (loc-less) or the imported name (at
+            // its token). Dump-invisible but uhdm-cmp checked.
+            {
+                std::string itemName = "*";
+                auto* c = s.MakeConstant();
+                if (mem.kind == SymbolKind::ExplicitImport) {
+                    itemName =
+                        std::string(mem.as<ExplicitImportSymbol>().importName);
+                    setLoc(c, SourceRange(mem.location,
+                                          mem.location + itemName.size()));
+                }
+                c->VpiDecompile(itemName);
+                c->VpiSize((int32_t)itemName.size() * 8);
+                c->VpiValue("STRING:" + itemName);
+                c->VpiConstType(8); // Surelog's string-const encoding here
+                its2->Item(c);
+            }
             importTss.push_back(its2);
             // An EXPLICITLY imported SUBROUTINE (import pkg::f) re-emits in
             // this package's scope (prefix-renamed) sharing the HOME
@@ -2321,15 +2350,41 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         homeTf = homeSi.tf;
                         hadHome = true;
                     }
+                    // The clone's typespecs keep vpiInstance = the HOME
+                    // package (where the function is defined), not this
+                    // importing package.
+                    UHDM::instance* homeInst = nullptr;
+                    if (homeTf && homeTf->Instance())
+                        homeInst = (UHDM::instance*)homeTf->Instance();
+                    else if (auto hip9 =
+                                 pkgDefMap.find(&comp.getPackage(pn)->asSymbol());
+                             hip9 != pkgDefMap.end())
+                        homeInst = (UHDM::instance*)hip9->second;
+                    importCopyTsInst = homeInst;
+                    std::vector<UHDM::typespec*> copyTss;
+                    importCopyTsCollect = &copyTss;
                     emitTaskFuncs(*comp.getPackage(pn), up, prefix, nullptr,
                                   /*sharedScope=*/false, is9);
+                    importCopyTsCollect = nullptr;
+                    importCopyTsInst = nullptr;
+                    // The clone's own typespecs keep vpiInstance = the
+                    // ELABORATED (top) home package, resolved after both
+                    // package views are built.
+                    for (auto* cts : copyTss)
+                        importCopyTsFixups.emplace_back(cts, std::string(pn));
                     if (homeTf && up->Task_funcs() &&
                         !up->Task_funcs()->empty()) {
                         auto* cp9 = up->Task_funcs()->back();
                         if (cp9->UhdmType() == UHDM::uhdmfunction &&
-                            homeTf->UhdmType() == UHDM::uhdmfunction)
+                            homeTf->UhdmType() == UHDM::uhdmfunction) {
                             ((UHDM::function*)cp9)
                                 ->Return(((UHDM::function*)homeTf)->Return());
+                            // A P::f() call through this importing package binds
+                            // the ELABORATED clone (top view).
+                            if (topView)
+                                importCopyFunc[{&pkg, is9}] =
+                                    (UHDM::function*)cp9;
+                        }
                     }
                     if (hadHome)
                         subMap[is9] = homeSi; // calls bind the home object

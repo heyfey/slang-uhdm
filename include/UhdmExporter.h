@@ -467,6 +467,21 @@ private:
     std::string implicitNetPrefix;
     // Package scope currently emitting task_funcs (ts vpiInstance owner).
     UHDM::instance* pkgScopeInst = nullptr;
+    // During an explicit-import subroutine COPY re-emission, the typespecs of
+    // the clone keep vpiInstance = the HOME package (where the function is
+    // defined), not the importing package. Non-null only inside that clone.
+    UHDM::instance* importCopyTsInst = nullptr;
+    // While the clone emits, its own typespecs are collected here so their
+    // vpiInstance can be re-pointed at the ELABORATED (top) home package once
+    // both package views exist (the top view is built after all def views).
+    std::vector<UHDM::typespec*>* importCopyTsCollect = nullptr;
+    // Deferred: (clone typespec, home package name) to re-instance at the end.
+    std::vector<std::pair<UHDM::typespec*, std::string>> importCopyTsFixups;
+    // The explicit-import subroutine CLONE, keyed by (importing package symbol,
+    // home subroutine symbol): a P::f() call through the importer binds this.
+    std::map<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>,
+             UHDM::function*>
+        importCopyFunc;
     // Unqualified calls to package functions, per module def body.
     std::map<const void*,
              std::vector<std::pair<UHDM::task_func*, slang::SourceRange>>>

@@ -236,8 +236,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
             rt->Actual_typespec(ts);
-            if (pkgScope)
-                ts->Instance((UHDM::instance*)m);
+            if (pkgScope) {
+                ts->Instance(importCopyTsInst ? importCopyTsInst
+                                              : (UHDM::instance*)m);
+                if (importCopyTsInst && importCopyTsCollect)
+                    importCopyTsCollect->push_back(ts);
+            }
             rv->Typespec(rt);
             // A struct/enum return's shared typespec sits at the typedef, so
             // the return var takes the return-TYPE syntax span instead (a
@@ -570,8 +574,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         its2 && !its2->dimensions.empty())
                         setLoc((UHDM::BaseClass*)ts, its2->keyword.range());
                 }
-                if (pkgScope && !classScope)
-                    ((UHDM::typespec*)ts)->Instance((UHDM::instance*)m);
+                if (pkgScope && !classScope) {
+                    ((UHDM::typespec*)ts)->Instance(
+                        importCopyTsInst ? importCopyTsInst
+                                         : (UHDM::instance*)m);
+                    if (importCopyTsInst && importCopyTsCollect)
+                        importCopyTsCollect->push_back((UHDM::typespec*)ts);
+                }
                 rt->Actual_typespec(ts);
             }
             io->Typespec(rt);
@@ -820,8 +829,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         }
                     }
                 }
-                if (pkgScope)
-                    vts->Instance((UHDM::instance*)m);
+                if (pkgScope) {
+                    vts->Instance(importCopyTsInst ? importCopyTsInst
+                                                   : (UHDM::instance*)m);
+                    if (importCopyTsInst && importCopyTsCollect)
+                        importCopyTsCollect->push_back(vts);
+                }
                 // A packed-array-of-enum local is a packed_array_var (range +
                 // enum_var element), anchored at its name and NOT automatic.
                 UHDM::variables* v = makeEnumArrayVar(vts, vfull, tf);

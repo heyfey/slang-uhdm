@@ -266,6 +266,14 @@ UHDM::design* UhdmExporter::exportDesign() {
         for (auto pkg : pkgs)
             topP->push_back(emitPackage(*pkg, true));
         d->TopPackages(topP);
+        // Import-clone typespecs point vpiInstance at the ELABORATED (top)
+        // home package, which only exists now that the top views are built.
+        for (auto& [cts, pn] : importCopyTsFixups)
+            for (auto* tp : *topP)
+                if (tp->VpiName() == pn) {
+                    cts->Instance(tp);
+                    break;
+                }
     }
 
     // File-level ($unit) parameters -> DESIGN-level Parameters/Param_assigns

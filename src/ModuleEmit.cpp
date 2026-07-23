@@ -4796,6 +4796,31 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         auto* rc0 = pc.rt->VpiParent();
         bool uintFold = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
                         ((UHDM::constant*)rc0)->VpiValue().rfind("UINT:", 0) == 0;
+        // MULTIPARAM def: an UNTYPED defaulted param fold carries an
+        // int_typespec spanning the whole param declaration (Surelog
+        // resolves the implicit int type) — checked BEFORE the bare-vec
+        // branch, which would otherwise claim the implicit logic[31:0].
+        bool implicitMP = false;
+        if (auto d9 = pc.ps->getDeclaredType()) {
+            auto t9 = d9->getTypeSyntax();
+            if (!t9 || t9->kind == syntax::SyntaxKind::ImplicitType) {
+                auto sc9 = pc.ps->getParentScope();
+                implicitMP = sc9 &&
+                             sc9->asSymbol().kind == SymbolKind::InstanceBody &&
+                             isMultiParamDef(*sc9);
+            }
+        }
+        if (implicitMP) {
+            auto* it9 = s.MakeInt_typespec();
+            for (auto p9 = pc.ps->getSyntax(); p9; p9 = p9->parent)
+                if (p9->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                    setLoc(it9, p9->sourceRange());
+                    break;
+                }
+            it9->VpiParent(pc.rt);
+            pc.rt->Actual_typespec(it9);
+            continue;
+        }
         if (uintFold && !isOverriddenParam(*pc.ps) &&
             pc.ps->getType().getCanonicalType().isPackedArray()) {
             if (auto* bare = makeBareVecParamTs(*pc.ps, /*parentBounds=*/true)) {
@@ -5518,6 +5543,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                  (ps.getType().getCanonicalType().isString() &&
                                   moduleStringParamConst.count(&sym))))
                                 typedParamRhs = &sym;
+                    // An UNTYPED param with a default, non-overridden, inside a
+                    // uniquified MULTIPARAM def folds like a typed one (its
+                    // clone yields the int typespec) — Surelog re-compiles the
+                    // concrete value.
+                    if (!typedParamRhs && ck9 != SymbolKind::PackedStructType &&
+                        ck9 != SymbolKind::PackedUnionType &&
+                        paramDefaultSyn(ps) && isMultiParamDef(body) &&
+                        ps.getValue().isInteger() &&
+                        !ps.getValue().integer().hasUnknown())
+                        typedParamRhs = &sym;
                 }
                 else if (sym.kind == SymbolKind::Variable &&
                          sym.getDeclaredType() &&
@@ -5810,7 +5845,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 c->VpiDecompile(digits);
                 c->VpiValue("UINT:" + digits);
                 c->VpiConstType(vpiUIntConst);
-                c->VpiSize((int32_t)iv.getBitWidth());
+                // The fold is TRUNCATED to the assignment target width when the
+                // LHS net is narrower than the param (Surelog); a wider/equal
+                // LHS keeps the param's own width.
+                int32_t ovW = (int32_t)iv.getBitWidth();
+                if (ae.left().type &&
+                    (int32_t)ae.left().type->getBitWidth() < ovW)
+                    ovW = (int32_t)ae.left().type->getBitWidth();
+                c->VpiSize(ovW);
                 c->VpiParent(ca);
                 if (auto* dsy = paramDefaultSyn(ps2))
                     setLoc(c, dsy->sourceRange());
@@ -5865,7 +5907,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             c->VpiDecompile(digits);
             c->VpiValue((neg ? "INT:" : "UINT:") + digits);
             c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
-            c->VpiSize((int32_t)iv.getBitWidth());
+            // Truncated to a narrower assignment target width (Surelog).
+            int32_t tpW = (int32_t)iv.getBitWidth();
+            if (ae.left().type && (int32_t)ae.left().type->getBitWidth() < tpW)
+                tpW = (int32_t)ae.left().type->getBitWidth();
+            c->VpiSize(tpW);
             c->VpiParent(ca);
             // A LOCAL param folds at its default-value expression; an IMPORTED
             // param (package-scoped, materialized here) folds at the REFERENCE
@@ -5995,6 +6041,38 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     noDefOvPa.erase(npit);
                 }
                 rhs = c;
+            }
+            // A no-default TYPED param overridden by a plain (un-based) integer
+            // literal folds to a UINT constant carrying the param's own
+            // typespec (Surelog) — the untyped case keeps no typespec below.
+            else if (ovc.kind == ExpressionKind::IntegerLiteral &&
+                     ps2.getValue().isInteger() &&
+                     !ps2.getValue().integer().hasUnknown()) {
+                bool typed2 = false;
+                if (auto dt2 = ps2.getDeclaredType())
+                    if (auto tsyn2 = dt2->getTypeSyntax())
+                        typed2 =
+                            tsyn2->kind != syntax::SyntaxKind::ImplicitType;
+                if (typed2) {
+                    auto& iv = ps2.getValue().integer();
+                    std::string digits = iv.toString(LiteralBase::Decimal, false);
+                    auto* c = s.MakeConstant();
+                    c->VpiDecompile(digits);
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    int32_t nW = (int32_t)iv.getBitWidth();
+                    if (ae.left().type &&
+                        (int32_t)ae.left().type->getBitWidth() < nW)
+                        nW = (int32_t)ae.left().type->getBitWidth();
+                    c->VpiSize(nW);
+                    c->VpiParent(ca);
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(prefix);
+                    rt->VpiParent(c);
+                    c->Typespec(rt);
+                    pendingParamCloneTs.push_back({rt, &ps2});
+                    rhs = c;
+                }
             }
         }
         if (!rhs && topView && constFnRet) {
@@ -6543,6 +6621,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     ((UHDM::constant*)rhs)->VpiSize(-1);
             }
         }
+        // A bare folded RHS constant (e.g. an untyped param ref -> value) that
+        // no dedicated path parented takes the cont_assign as its parent —
+        // only inside a uniquified MULTIPARAM def (Surelog leaves the
+        // single-parameterization fold unparented).
+        if (topView && rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+            !rhs->VpiParent() && isMultiParamDef(body) &&
+            stripImplicitConv(ae.right()).kind == ExpressionKind::NamedValue)
+            rhs->VpiParent(ca);
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
         // A $signed/$unsigned sys_func_call carries a result typespec (= the
