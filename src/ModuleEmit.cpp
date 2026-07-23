@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 #include "UhdmExporter.h"
 
+#include <algorithm>
 #include <functional>
 
 #include "EmitHelpers.h"
@@ -15,6 +16,22 @@
 namespace slang_uhdm {
 
 static bool subWritesNonLocal(const SubroutineSymbol& sub);
+
+// Surelog stores an interface's modports in a name-keyed std::map, so it
+// emits them SORTED ALPHABETICALLY BY NAME (not in source-declaration order).
+// Collect the body's modports in that same order.
+static std::vector<const ModportSymbol*>
+sortedModports(const InstanceBodySymbol& body) {
+    std::vector<const ModportSymbol*> mps;
+    for (auto& member : body.members())
+        if (member.kind == SymbolKind::Modport)
+            mps.push_back(&member.as<ModportSymbol>());
+    std::stable_sort(mps.begin(), mps.end(),
+                     [](const ModportSymbol* a, const ModportSymbol* b) {
+                         return a->name < b->name;
+                     });
+    return mps;
+}
 
 // True when a declared type is a PACKAGE-scoped typedef'd struct.
 // True when the declaration EXPLICITLY package-qualifies the type
@@ -8315,10 +8332,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
 
     // Modports: name + one io_decl (direction + name) per modport port.
     auto* mports = s.MakeModportVec();
-    for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::Modport)
-            continue;
-        auto& mp = member.as<ModportSymbol>();
+    for (auto* mpPtr : sortedModports(body)) {
+        auto& mp = *mpPtr;
         auto* umod = s.MakeModport();
         umod->VpiName(mp.name);
         umod->VpiParent(iface);
@@ -8477,10 +8492,8 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
     }
 
     auto* mports = s.MakeModportVec();
-    for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::Modport)
-            continue;
-        auto& mp = member.as<ModportSymbol>();
+    for (auto* mpPtr : sortedModports(body)) {
+        auto& mp = *mpPtr;
         auto* dm = s.MakeModport();
         dm->VpiName(mp.name);
         dm->VpiParent(dup);
@@ -8840,10 +8853,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // view's variable); the declaration-style home view does not.
     {
         auto* mports = s.MakeModportVec();
-        for (auto& member : body.members()) {
-            if (member.kind != SymbolKind::Modport)
-                continue;
-            auto& mp = member.as<ModportSymbol>();
+        for (auto* mpPtr : sortedModports(body)) {
+            auto& mp = *mpPtr;
             // A MODPORT-qualified port view (myif.man b) carries ONLY the
             // connected modport, not every modport the interface declares.
             if (!connModport.empty() && mp.name != connModport)
