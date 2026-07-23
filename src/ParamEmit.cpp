@@ -476,6 +476,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         genChild = true;
                         break;
                     }
+                // A definition instantiated with MULTIPLE DISTINCT parameter
+                // values is uniquified by Surelog: its untyped overrides encode
+                // UINT at the value width (like the gen/interface case) rather
+                // than INT/size-1.
+                if (isMultiParamDef(body))
+                    genChild = true;
                 // A VECTOR-TYPEDEF param's literal override keeps its SOURCE
                 // base form (384'b1 -> BIN:1, binary const) — Surelog.
                 bool vecAliasOv8 = false;

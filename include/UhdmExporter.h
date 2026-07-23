@@ -281,6 +281,13 @@ private:
                             const slang::ast::Expression* typedConv = nullptr);
     bool isIntEncoded(const slang::ast::Expression& e);
     void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
+    // Design-global pre-pass: definitions instantiated with MULTIPLE DISTINCT
+    // parameter-value tuples (Surelog uniquifies these; their untyped overrides
+    // encode UINT/size32/ct9, and parameterized interface port-views keep a
+    // param_assign). Populated by computeParamMultiplicity().
+    std::set<const slang::ast::DefinitionSymbol*> multiParamDefs;
+    void computeParamMultiplicity();
+    bool isMultiParamDef(const slang::ast::Scope& body) const;
     void patchParamTypespecs(size_t lo, size_t hi);
     UHDM::typespec* makeBareVecParamTs(const slang::ast::ParameterSymbol& ps,
                                        bool parentBounds);

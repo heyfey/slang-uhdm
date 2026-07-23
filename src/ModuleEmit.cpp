@@ -7775,8 +7775,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         emitParameters(body, iface, prefix, netMap, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false);
     }
-    // EVERY port view carries NO param_assigns (Surelog quirk).
-    if (portView)
+    // EVERY port view carries NO param_assigns (Surelog quirk) — EXCEPT a
+    // parameterized (multi-distinct-value) interface def, whose port-view keeps
+    // the override param_assign.
+    bool multiParamIface = isMultiParamDef(body);
+    if (portView && !multiParamIface)
         iface->Param_assigns(nullptr);
     // A PLAIN (non-modport) PORT VIEW additionally lists each parameter TWICE
     // at its DEFAULT value. A MODPORT-qualified port view (myif.man b) keeps a
@@ -7842,8 +7845,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     UHDM::interface_inst* tailDupShell = wantTailDup ? s.MakeInterface_inst() : nullptr;
     // PORT-VIEW iface var bounds fold at the DEFAULT param values (Surelog
     // reads widths from the AllModules form, ignoring per-instance
-    // overrides); the HOME view keeps the instance values.
-    if (portView) {
+    // overrides); the HOME view keeps the instance values. EXCEPTION: a
+    // MULTI-parameterized interface def is uniquified per parameterization, so
+    // its port-view folds at the CONNECTED instance's own values (inst.body).
+    if (portView && !multiParamIface) {
         auto dit0 = ifaceDefaultInst.find(&def);
         if (dit0 == ifaceDefaultInst.end())
             dit0 = ifaceDefaultInst

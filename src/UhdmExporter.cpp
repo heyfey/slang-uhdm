@@ -146,8 +146,72 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     return cd;
 }
 
+// Builds a canonical string of an instance's parameterization (value +
+// type-parameter tuple) so distinct overrides can be counted per definition.
+static std::string paramTuple(const InstanceSymbol& inst) {
+    std::string key;
+    for (auto& mem : inst.body.members()) {
+        if (mem.kind == SymbolKind::Parameter) {
+            auto& ps = mem.as<ParameterSymbol>();
+            key += ps.name;
+            key += '=';
+            auto& v = ps.getValue();
+            key += v.bad() ? std::string("?") : v.toString();
+            key += ';';
+        }
+        else if (mem.kind == SymbolKind::TypeParameter) {
+            auto& tp = mem.as<TypeParameterSymbol>();
+            key += tp.name;
+            key += '#';
+            key += tp.targetType.getType().toString();
+            key += ';';
+        }
+    }
+    return key;
+}
+
+void UhdmExporter::computeParamMultiplicity() {
+    std::map<const DefinitionSymbol*, std::set<std::string>> perDef;
+    std::function<void(const Symbol&)> visit = [&](const Symbol& member) {
+        if (member.kind == SymbolKind::Instance) {
+            auto& child = member.as<InstanceSymbol>();
+            perDef[&child.getDefinition()].insert(paramTuple(child));
+            for (auto& gm : child.body.members())
+                visit(gm);
+        }
+        else if (member.kind == SymbolKind::InstanceArray) {
+            for (auto* e : member.as<InstanceArraySymbol>().elements)
+                visit(*e);
+        }
+        else if (member.kind == SymbolKind::GenerateBlock) {
+            if (!member.as<GenerateBlockSymbol>().isUninstantiated)
+                for (auto& gm : member.as<Scope>().members())
+                    visit(gm);
+        }
+        else if (member.kind == SymbolKind::GenerateBlockArray) {
+            for (auto& gb : member.as<GenerateBlockArraySymbol>().entries)
+                for (auto& gm : gb->members())
+                    visit(gm);
+        }
+    };
+    for (auto inst : comp.getRoot().topInstances)
+        for (auto& m : inst->body.members())
+            visit(m);
+    for (auto& [def, tuples] : perDef)
+        if (tuples.size() > 1)
+            multiParamDefs.insert(def);
+}
+
+bool UhdmExporter::isMultiParamDef(const Scope& body) const {
+    auto& sym = body.asSymbol();
+    if (sym.kind != SymbolKind::InstanceBody)
+        return false;
+    return multiParamDefs.count(&sym.as<InstanceBodySymbol>().getDefinition()) > 0;
+}
+
 UHDM::design* UhdmExporter::exportDesign() {
     auto& root = comp.getRoot();
+    computeParamMultiplicity();
 
     d = s.MakeDesign();
     if (!root.topInstances.empty())
