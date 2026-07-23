@@ -5103,6 +5103,68 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 if (!ts)
                     ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
                                   : makeTypespec(*internal, nullptr, &ps);
+                // A DEF-view UNPACKED-array port of a 2-STATE (bit) element
+                // wraps its element ts in an array_typespec (vpiArrayType,
+                // one range per unpacked dim, spanning type..last-dim) —
+                // Surelog. 4-state elements keep the bare element ts.
+                bool twoStateArr9 = false;
+                if (internal->getDeclaredType() &&
+                    internal->getDeclaredType()
+                            ->getType()
+                            .getCanonicalType()
+                            .kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                    const Type* lf9 = &internal->getDeclaredType()
+                                           ->getType()
+                                           .getCanonicalType();
+                    while (lf9->getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType)
+                        lf9 = &lf9->getCanonicalType()
+                                   .as<FixedSizeUnpackedArrayType>()
+                                   .elementType;
+                    auto& lc9 = lf9->getCanonicalType();
+                    // Only BIT-kind leaves (scalar/vector) wrap; predefined
+                    // int/byte etc. keep the bare element ts (Surelog).
+                    twoStateArr9 = (lc9.kind == SymbolKind::ScalarType ||
+                                    lc9.kind == SymbolKind::PackedArrayType) &&
+                                   lc9.isIntegral() && !lc9.isFourState();
+                }
+                if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
+                    twoStateArr9) {
+                    auto* ats = s.MakeArray_typespec();
+                    ats->VpiParent(p);
+                    ats->VpiArrayType(1);
+                    SourceLocation aStart = internal->location,
+                                   aEnd = internal->location;
+                    if (auto tsn = internal->getDeclaredType()->getTypeSyntax())
+                        aStart = tsn->sourceRange().start();
+                    if (auto dsyn = internal->getSyntax();
+                        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+                        for (auto dim :
+                             dsyn->as<syntax::DeclaratorSyntax>().dimensions) {
+                            aEnd = dim->sourceRange().end();
+                            if (dim->specifier &&
+                                dim->specifier->kind ==
+                                    syntax::SyntaxKind::
+                                        RangeDimensionSpecifier &&
+                                dim->specifier
+                                        ->as<syntax::
+                                                 RangeDimensionSpecifierSyntax>()
+                                        .selector->kind ==
+                                    syntax::SyntaxKind::BitSelect)
+                                aEnd = aEnd - 1;
+                        }
+                    setLoc(ats, SourceRange(aStart, aEnd));
+                    if (auto* ranges = buildUnpackedRanges(
+                            *internal, ats,
+                            prefix + "." + std::string(ps.name)))
+                        ats->Ranges(ranges);
+                    auto* ert = s.MakeRef_typespec();
+                    ert->VpiParent(ats);
+                    ert->VpiFullName(prefix + "." + std::string(ps.name));
+                    ert->Actual_typespec(ts);
+                    ats->Elem_typespec(ert);
+                    ts = ats;
+                }
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(ps.name));
                 rt->VpiParent(p);
@@ -6605,6 +6667,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
             contAssignView = 0;
             paramInitDef = false;
+            // Flat pattern on an UNPACKED-array LHS: based-literal leaves are
+            // SIZELESS in both views; the DEF view also leaves them UNPARENTED
+            // (the elab re-emit parents them at the fresh op) — Surelog.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmoperation &&
+                stripImplicitConv(ae.right()).kind ==
+                    ExpressionKind::SimpleAssignmentPattern &&
+                ae.left().type &&
+                ae.left().type->getCanonicalType().kind ==
+                    SymbolKind::FixedSizeUnpackedArrayType) {
+                if (auto* ops9 = ((UHDM::operation*)rhs)->Operands())
+                    for (auto* o9 : *ops9)
+                        if (o9->UhdmType() == UHDM::uhdmconstant) {
+                            if (!topView)
+                                o9->VpiParent(nullptr);
+                            auto ct9 = ((UHDM::constant*)o9)->VpiConstType();
+                            if (ct9 == vpiBinaryConst || ct9 == vpiHexConst ||
+                                ct9 == vpiOctConst)
+                                ((UHDM::expr*)o9)->VpiSize(0);
+                        }
+            }
             suppressConstParent = suppSaved;
             forceConstParent = forceSaved;
             refCollector = nullptr;

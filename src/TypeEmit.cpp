@@ -528,9 +528,16 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         }
     }
     // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
+    // An UNPACKED array's element ts keys on its packed LEAF (bit [0:0][0:0]
+    // b [0:0] still gets a bit_typespec element).
     UHDM::typespec* ts0;
-    if (declared && declared->getType().isIntegral() &&
-        !declared->getType().getCanonicalType().isFourState())
+    const Type* fsLeaf0 = declared ? &declared->getType().getCanonicalType() : nullptr;
+    while (fsLeaf0 && fsLeaf0->getCanonicalType().kind ==
+                          SymbolKind::FixedSizeUnpackedArrayType)
+        fsLeaf0 = &fsLeaf0->getCanonicalType()
+                       .as<FixedSizeUnpackedArrayType>()
+                       .elementType.getCanonicalType();
+    if (fsLeaf0 && fsLeaf0->isIntegral() && !fsLeaf0->isFourState())
         ts0 = s.MakeBit_typespec();
     else
         ts0 = s.MakeLogic_typespec();
@@ -899,6 +906,14 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         if (declared->getType().kind == SymbolKind::PackedUnionType)
             return nullptr;
         auto* v = s.MakeUnion_var();
+        v->VpiVisibility(1);
+        return v;
+    }
+    // A 2-STATE scalar (bit) signal can never be a net — bit_var, even for
+    // ports (Surelog).
+    if (ct.kind == SymbolKind::ScalarType && ct.isIntegral() &&
+        !ct.isFourState()) {
+        auto* v = s.MakeBit_var();
         v->VpiVisibility(1);
         return v;
     }
@@ -3213,8 +3228,9 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     av->VpiSize(total);
 
     // Ranges: one per unpacked dim.
-    if (auto* ranges = buildUnpackedRanges(sym, av))
-        av->Ranges(ranges);
+    UHDM::VectorOfrange* avRanges = buildUnpackedRanges(sym, av);
+    if (avRanges)
+        av->Ranges(avRanges);
 
     // Inner reg: a var of the ELEMENT class (int/integer/logic) carrying the
     // element typespec (the shared net ts strips dims to the element span).
@@ -3225,6 +3241,14 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
             reg = s.MakeInteger_var();
         else
             reg = s.MakeInt_var();
+    }
+    else if (leaf->getCanonicalType().isIntegral() &&
+             !leaf->getCanonicalType().isFourState()) {
+        // 2-STATE (bit) element: bit_var SHARING the array's dim range
+        // objects (Surelog).
+        reg = s.MakeBit_var();
+        if (avRanges)
+            ((UHDM::bit_var*)reg)->Ranges(avRanges);
     }
     else {
         reg = s.MakeLogic_var();
@@ -3292,6 +3316,10 @@ bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked) {
     // A 4-state packed struct is a net; a 2-state one is a var.
     if (lct.kind == SymbolKind::PackedStructType)
         return lct.isFourState();
+    // Any other 2-STATE integral leaf (bit scalars/vectors) can never be a
+    // net — array_var (Surelog).
+    if (lct.isIntegral() && !lct.isFourState())
+        return false;
     // A 4-state logic/reg leaf mirrors makeVar's scalar carve-out: a non-port
     // `logic` VARIABLE is a var (array_var); a `reg`, or a plain ANSI port,
     // stays a net (array_net).
