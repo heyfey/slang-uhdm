@@ -1374,6 +1374,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         else
                             rhsRt = rt;
                     }
+                    // Record the elab pattern op so a gen-scope localparam that
+                    // element-selects this array param can adopt its operand.
+                    if (unpackedArrayOp)
+                        elabArrayPatternOp[&ps] = opr;
                 }
             }
             if (rhs) {

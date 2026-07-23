@@ -7,6 +7,7 @@
 #include "UhdmExporter.h"
 
 #include "EmitHelpers.h"
+#include "slang/syntax/SyntaxTree.h"
 
 namespace slang_uhdm {
 
@@ -26,15 +27,19 @@ void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
     // multi-line bodies keep their macro-DEFINITION-site span (Surelog).
     auto lineColOf = [&](SourceLocation lc, uint32_t& L, uint32_t& C) {
         uint32_t vl, vc;
+        // Single-line macro bodies lay out at the invocation site; add the
+        // intra-body argument-substitution shift Surelog applies.
         if (sm->isMacroLoc(lc) && macroInvLineCol(lc, vl, vc)) {
             L = vl;
-            C = vc;
+            C = (uint32_t)((int32_t)vc + macroArgShift(lc));
             return;
         }
+        // Multi-line macro bodies keep their definition line; the column is the
+        // definition column shifted right past earlier argument substitutions.
         if (sm->isMacroLoc(lc)) {
-            lc = sm->getFullyOriginalLoc(lc);
-            L = (uint32_t)sm->getLineNumber(lc);
-            C = (uint32_t)sm->getColumnNumber(lc);
+            SourceLocation d = sm->getFullyOriginalLoc(lc);
+            L = (uint32_t)sm->getLineNumber(d);
+            C = (uint32_t)((int32_t)sm->getColumnNumber(d) + macroArgShift(lc));
             return;
         }
         fileLineCol(lc, L, C);
@@ -937,6 +942,92 @@ void UhdmExporter::buildLineShifts() {
     }
     for (auto& [k, v] : lineShifts)
         std::sort(v.begin(), v.end());
+}
+
+// Collect, per macro body-expansion buffer, the formal->actual argument
+// substitutions so a body token can be shifted to Surelog's virtual layout.
+// slang materializes each substituted argument as its own MacroArg buffer whose
+// getExpansionRange() points back to the formal parameter inside the body; the
+// pasted argument's length is the extent of the tokens carried by that buffer.
+void UhdmExporter::buildMacroArgSubs() {
+    macroArgSubsBuilt = true;
+    // Largest token-end offset seen within each MacroArg buffer == the pasted
+    // argument text length (multi-token args share one buffer).
+    std::map<slang::BufferID, uint32_t> argLen;
+    std::function<void(const slang::syntax::SyntaxNode&)> walk =
+        [&](const slang::syntax::SyntaxNode& node) {
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++) {
+                if (auto* child = node.childNode(i)) {
+                    walk(*child);
+                    continue;
+                }
+                auto tok = node.childToken(i);
+                if (!tok)
+                    continue;
+                auto loc = tok.location();
+                if (loc == SourceLocation::NoLocation || !sm->isMacroArgLoc(loc))
+                    continue;
+                uint32_t end = (uint32_t)(loc.offset() + tok.rawText().size());
+                auto it = argLen.find(loc.buffer());
+                if (it == argLen.end() || end > it->second)
+                    argLen[loc.buffer()] = end;
+            }
+        };
+    for (auto& tree : comp.getSyntaxTrees())
+        walk(tree->root());
+
+    for (auto& [buf, aLen] : argLen) {
+        SourceLocation a0(buf, 0);
+        auto er = sm->getExpansionRange(a0);
+        SourceLocation formal = er.start();
+        if (formal == SourceLocation::NoLocation || !sm->isMacroLoc(formal))
+            continue;
+        // The def line/col that Surelog uses to anchor the body.
+        SourceLocation fdef = sm->getFullyOriginalLoc(formal);
+        if (fdef == SourceLocation::NoLocation)
+            continue;
+        int32_t formalLen = (int32_t)(er.end().offset() - er.start().offset());
+        int32_t delta = (int32_t)aLen - formalLen;
+        if (delta == 0)
+            continue;
+        auto key = std::make_pair(formal.buffer().getId(),
+                                  (uint32_t)sm->getLineNumber(fdef));
+        macroArgSubs[key].push_back({(uint32_t)formal.offset(), delta});
+    }
+    for (auto& [k, v] : macroArgSubs)
+        std::sort(v.begin(), v.end(),
+                  [](const MacroArgSub& x, const MacroArgSub& y) {
+                      return x.formalOffset < y.formalOffset;
+                  });
+}
+
+// Column delta a macro-expanded token acquires from argument substitutions that
+// precede it within its macro body line. Body tokens anchor at their own body
+// offset; argument tokens anchor at the formal parameter they replaced (so the
+// substitution itself is excluded, but earlier ones on the line still count).
+int32_t UhdmExporter::macroArgShift(SourceLocation loc) {
+    if (loc == SourceLocation::NoLocation || !sm->isMacroLoc(loc))
+        return 0;
+    if (!macroArgSubsBuilt)
+        buildMacroArgSubs();
+    SourceLocation bodyLoc = loc;
+    if (sm->isMacroArgLoc(loc)) {
+        bodyLoc = sm->getExpansionRange(loc).start();
+        if (bodyLoc == SourceLocation::NoLocation || !sm->isMacroLoc(bodyLoc))
+            return 0;
+    }
+    SourceLocation fdef = sm->getFullyOriginalLoc(bodyLoc);
+    if (fdef == SourceLocation::NoLocation)
+        return 0;
+    auto it = macroArgSubs.find(std::make_pair(
+        bodyLoc.buffer().getId(), (uint32_t)sm->getLineNumber(fdef)));
+    if (it == macroArgSubs.end())
+        return 0;
+    int32_t shift = 0;
+    for (auto& sub : it->second)
+        if (sub.formalOffset < bodyLoc.offset())
+            shift += sub.delta;
+    return shift;
 }
 
 // A FILE position's Surelog-layout line/col (col shifted right past any

@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 #pragma once
 
+#include <functional>
 #include <map>
 #include <set>
 #include <string>
@@ -397,6 +398,22 @@ private:
     std::map<std::pair<uint32_t, uint32_t>,
              std::vector<std::pair<uint32_t, int32_t>>>
         lineShifts;
+    // Intra-macro-body column shift from formal->actual argument substitution.
+    // Surelog lays a macro body out with each `formal` replaced in place by the
+    // actual argument text; every body position after a substitution moves right
+    // by (actualArgLen - formalLen). A body token on a def line inherits the sum
+    // of deltas of all substitutions earlier on that same def line.
+    struct MacroArgSub {
+        uint32_t formalOffset;  // byte offset of the formal within the body buffer
+        int32_t delta;          // actualArgLen - formalLen
+    };
+    // (body-expansion buffer id, def line) -> subs sorted by formalOffset.
+    std::map<std::pair<uint32_t, uint32_t>, std::vector<MacroArgSub>> macroArgSubs;
+    bool macroArgSubsBuilt = false;
+    void buildMacroArgSubs();
+    // Column delta a macro-expanded token acquires from argument substitutions
+    // that precede it within its macro body line (0 for non-macro tokens).
+    int32_t macroArgShift(slang::SourceLocation loc);
     // vpiDirection for a modport interface port (Surelog rule).
     int32_t interfacePortDirection(
         const slang::ast::InterfacePortSymbol& ip);
@@ -695,8 +712,18 @@ private:
         UHDM::ref_typespec* crt;
         const slang::ast::ParameterSymbol* ps;
         bool typedLp;
+        // A gen-scope localparam whose init is a direct element-select of a
+        // top array param (localparam int O = RhoOffset[1]) adopts THAT elab
+        // pattern operand: the operand gains a ts ref (operandRt) whose actual
+        // is this localparam's own int typespec (Surelog shares the constant).
+        UHDM::ref_typespec* operandRt = nullptr;
     };
     std::vector<PendingGenLpTs> pendingGenLpTs;
+    // The elab (topView) assignment-pattern operation of each unpacked-array
+    // param, so a gen-scope localparam that element-selects it can adopt the
+    // matching operand constant (Surelog shares it).
+    std::map<const slang::ast::ParameterSymbol*, UHDM::operation*>
+        elabArrayPatternOp;
     // DEF-view gen-block localparam typespecs, SHARED into the elab param ref
     // (which parents them); a dangling unparented copy closes the tail.
     std::map<const slang::ast::ParameterSymbol*, UHDM::typespec*> defGenLpTs;

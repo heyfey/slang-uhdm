@@ -4197,15 +4197,31 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     pav->Ranges(rvec);
 
     // vpiElement: a struct_var (or enum_var for enum leaves) referencing the
-    // shared typedef typespec.
+    // shared typedef typespec. When the element type is an ALIAS-OF-ALIAS
+    // (typedef base_t; typedef base_t elem_t) Surelog emits a fresh element
+    // CLONE whose fullname DOUBLES the signal name (work@m.sig.sig) and which
+    // carries vpiName; a DIRECT enum/struct typedef keeps the single,
+    // name-less element.
+    bool aliasOfAlias = false;
+    {
+        const Type* de = &declared->getType();
+        while (de->kind == SymbolKind::PackedArrayType)
+            de = &de->as<PackedArrayType>().elementType;
+        if (de->kind == SymbolKind::TypeAlias)
+            aliasOfAlias = de->as<TypeAliasType>().targetType.getType().kind ==
+                           SymbolKind::TypeAlias;
+    }
+    std::string elemFull = aliasOfAlias ? fullName + "." + name : fullName;
     UHDM::variables* sv = lc.kind == SymbolKind::EnumType
                               ? (UHDM::variables*)s.MakeEnum_var()
                               : (UHDM::variables*)s.MakeStruct_var();
     sv->VpiParent(pav);
-    sv->VpiFullName(fullName);
+    if (aliasOfAlias)
+        sv->VpiName(name);
+    sv->VpiFullName(elemFull);
     auto* srt = s.MakeRef_typespec();
     srt->VpiParent(sv);
-    srt->VpiFullName(fullName);
+    srt->VpiFullName(elemFull);
     srt->Actual_typespec(elemTs);
     sv->Typespec(srt);
     auto* elems = s.MakeAnyVec();

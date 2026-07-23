@@ -3500,7 +3500,76 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         auto* crt = s.MakeRef_typespec();
                         crt->VpiFullName(fullName);
                         crt->VpiParent(c2);
-                        pendingGenLpTs.push_back({rt, crt, &ps, typedLp});
+                        // A localparam whose init is a direct element-select of
+                        // a top array param (int O = RhoOffset[1]) adopts THAT
+                        // elab pattern operand: Surelog gives the operand
+                        // constant a ts ref to this localparam's int typespec.
+                        UHDM::ref_typespec* operandRt = nullptr;
+                        if (typedLp) {
+                            if (auto* ie = ps.getInitializer()) {
+                                auto& se0 = stripImplicitConv(*ie);
+                                if (se0.kind == ExpressionKind::ElementSelect) {
+                                    auto& es0 =
+                                        se0.as<ElementSelectExpression>();
+                                    auto& bv = stripImplicitConv(es0.value());
+                                    if (bv.kind == ExpressionKind::NamedValue &&
+                                        bv.as<NamedValueExpression>()
+                                                .symbol.kind ==
+                                            SymbolKind::Parameter) {
+                                        auto& rp =
+                                            bv.as<NamedValueExpression>()
+                                                .symbol.as<ParameterSymbol>();
+                                        auto oit = elabArrayPatternOp.find(&rp);
+                                        auto& rpt =
+                                            rp.getType().getCanonicalType();
+                                        ASTContext ec0(comp.getRoot(),
+                                                       LookupLocation::max);
+                                        ConstantValue iv =
+                                            ec0.tryEval(es0.selector());
+                                        if (oit != elabArrayPatternOp.end() &&
+                                            iv && iv.isInteger() &&
+                                            rpt.kind ==
+                                                SymbolKind::
+                                                    FixedSizeUnpackedArrayType) {
+                                            auto* op0 = oit->second;
+                                            int64_t ix =
+                                                iv.integer()
+                                                    .as<int64_t>()
+                                                    .value_or(-1);
+                                            auto rng =
+                                                rpt.as<
+                                                       FixedSizeUnpackedArrayType>()
+                                                    .range;
+                                            int32_t lo = std::min(rng.left,
+                                                                  rng.right);
+                                            int64_t pos = ix - lo;
+                                            // Only the plain (source-ordered)
+                                            // pattern maps index->position 1:1.
+                                            if (op0->VpiReordered() != 1 &&
+                                                op0->Operands() && ix >= 0 &&
+                                                pos >= 0 &&
+                                                pos < (int64_t)op0->Operands()
+                                                          ->size()) {
+                                                auto* opnd =
+                                                    (*op0->Operands())[pos];
+                                                if (opnd->UhdmType() ==
+                                                        UHDM::uhdmconstant &&
+                                                    !((UHDM::constant*)opnd)
+                                                         ->Typespec()) {
+                                                    operandRt =
+                                                        s.MakeRef_typespec();
+                                                    operandRt->VpiParent(opnd);
+                                                    ((UHDM::constant*)opnd)
+                                                        ->Typespec(operandRt);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        pendingGenLpTs.push_back(
+                            {rt, crt, &ps, typedLp, operandRt});
                         rt = nullptr;
                         c2->Typespec(crt);
                         pa2->Rhs(c2);
@@ -5351,6 +5420,10 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             its->VpiParent(gl.rt);
             if (gl.crt && !gl.crt->Actual_typespec())
                 gl.crt->Actual_typespec(its);
+            // The adopted elab pattern operand shares this localparam's int
+            // typespec (Surelog: the operand IS the localparam value).
+            if (gl.operandRt && !gl.operandRt->Actual_typespec())
+                gl.operandRt->Actual_typespec(its);
         }
     }
     pendingGenLpTs.clear();
