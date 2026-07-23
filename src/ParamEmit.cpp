@@ -919,23 +919,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||
                                  k0 == ExpressionKind::SimpleAssignmentPattern);
                 }
-                // The DEF view of an INTERFACE struct param uses the same
-                // folded op75 shape, its ts ref bound to the SHARED pkg ts.
-                bool ifaceStructDef =
-                    structPat && !topView &&
-                    m->UhdmType() == UHDM::uhdminterface_inst &&
-                    ps.getType().kind == SymbolKind::TypeAlias &&
-                    typedefTs.count(&ps.getType());
-                // NESTED struct params keep the tagged form (no fold).
-                if (ifaceStructDef)
-                    for (auto& fm9 : ps.getType()
-                                         .getCanonicalType()
-                                         .as<PackedStructType>()
-                                         .membersOfType<FieldSymbol>())
-                        if (fm9.getType().getCanonicalType().kind ==
-                            SymbolKind::PackedStructType)
-                            ifaceStructDef = false;
-                if (structPat && (topView || ifaceStructDef)) {
+                // The DEF view of an INTERFACE struct param keeps the TAGGED
+                // form (emitExpr tagged_pattern op: constant size 64 + a ts ref
+                // to the member's string_typespec) — same as a module localparam
+                // pattern default; it does NOT fold to the flat op75. Only the
+                // ELAB (topView) view flattens. (Previously this DEF case took
+                // the flat op75 branch below, emitting a bare member constant +
+                // an op-level struct ts ref — which mismatched Surelog. Falling
+                // through to emitExpr with paramInitDef restores the tags.)
+                // NOTE follow-on (iface_cfg_param_def_pass, still DIFF): the ELAB
+                // override RHS (work@top.bus.CFG) should re-emit as an op75 at
+                // the override-connection site (constant at the value source),
+                // the reader's `32'(s.CFG.DAT)` must stay a hier_path cast op
+                // (Surelog does NOT fold interface-port struct-param reads), and
+                // the modport port-view needs its own override param_assign.
+                if (structPat && topView) {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto& sinitK = stripImplicitConv(*init);
                     auto* op2 = s.MakeOperation();
@@ -945,10 +943,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiParent(op2);
                     op2->Typespec(rt);
-                    if (ifaceStructDef)
-                        rt->Actual_typespec(typedefTs[&ps.getType()]);
-                    else
-                        rhsRt = rt; // -> elab param clone (patchParamTypespecs)
+                    rhsRt = rt; // -> elab param clone (patchParamTypespecs)
                     auto* opnds = s.MakeAnyVec();
                     ASTContext ectx(comp.getRoot(), LookupLocation::max);
                     for (auto& fld :
@@ -970,10 +965,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             continue;
                         // A LITERAL setter keeps its source encoding (1'b1 ->
                         // BIN, parented at the op via emitExpr); non-literal
-                        // setters fold to UINT at the member width. Iface
-                        // DEF params fold literals too.
-                        if (!ifaceStructDef &&
-                            stripImplicitConv(*se).kind ==
+                        // setters fold to UINT at the member width.
+                        if (stripImplicitConv(*se).kind ==
                                 ExpressionKind::IntegerLiteral) {
                             if (auto* e2 = emitExpr(*se, op2, prefix, netMap)) {
                                 ((UHDM::expr*)e2)->VpiParent(op2);

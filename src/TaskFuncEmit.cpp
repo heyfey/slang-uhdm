@@ -225,7 +225,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             if (!ts) {
                 tfContext = true;
+                tfTypeScope = pkgScope ? sub.getParentScope() : nullptr;
                 ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+                tfTypeScope = nullptr;
                 tfContext = false;
             }
             // A packed-array-of-enum return is a packed_array_var (range +
@@ -549,7 +551,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             else {
                 tfContext = true;
+                tfTypeScope = pkgScope ? sub.getParentScope() : nullptr;
                 ts = sharedTypespec(*arg, ioTs);
+                tfTypeScope = nullptr;
                 tfContext = false;
                 // DIRECTIONLESS explicit-keyword arg types anchor at the
                 // keyword token only (ranges keep their own spans); formals

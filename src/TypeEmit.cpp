@@ -2733,6 +2733,28 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 ref->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(name));
             ref->VpiParent(parent);
             setLoc(ref, syn.sourceRange());
+            // Inside a package function's return/arg TYPE range (logic
+            // [PARAM-1:0]), a reference to a package parameter binds to that
+            // param's def-init constant (Surelog value-ref chaining), not left
+            // dangling.
+            if (tfTypeScope && !ref->Actual_group()) {
+                ASTContext tctx(*tfTypeScope, LookupLocation::max);
+                auto& be = Expression::bind(syn.as<syntax::ExpressionSyntax>(),
+                                            tctx);
+                if (!be.bad() && stripImplicitConv(be).kind ==
+                                     ExpressionKind::NamedValue) {
+                    auto& psy =
+                        stripImplicitConv(be).as<NamedValueExpression>().symbol;
+                    if (psy.kind == SymbolKind::Parameter) {
+                        if (auto pit = pkgParamConst.find(&psy);
+                            pit != pkgParamConst.end())
+                            ref->Actual_group(pit->second);
+                        else if (auto pit2 = pkgParamDefRhs.find(&psy);
+                                 pit2 != pkgParamDefRhs.end())
+                            ref->Actual_group(pit2->second);
+                    }
+                }
+            }
             return ref;
         }
         case syntax::SyntaxKind::IntegerLiteralExpression: {

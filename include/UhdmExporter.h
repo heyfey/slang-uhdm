@@ -607,6 +607,10 @@ private:
     // Child-instance CA re-emission folds type casts (top modules keep them).
     bool foldTypeCasts = false;
     const slang::ast::SubroutineSymbol* currentSubSym = nullptr;
+    // Scope for resolving identifiers inside a pkg-function's return/arg TYPE
+    // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's
+    // def-init constant (pkgParamConst). Set only around those typespec builds.
+    const slang::ast::Scope* tfTypeScope = nullptr;
     std::map<const void*, UHDM::constant*> foldedRet;
     std::map<const void*, UHDM::typespec*> foldCloneTs;
     struct PendingParamCloneTs {
