@@ -183,7 +183,7 @@ inline void collectTypeParamArgTypes(const InstanceBodySymbol& body,
     }
 }
 
-inline int32_t netTypeFor(const Symbol& internal) {
+inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
     // A `parameter type T`-typed port carries no net type (Surelog).
     if (portTypeParam(internal))
         return 0;
@@ -192,8 +192,28 @@ inline int32_t netTypeFor(const Symbol& internal) {
         // or port connection) print as a bare wire.
         if (internal.as<NetSymbol>().isImplicit)
             return vpiWire;
+        // DEF view only (net_types; the ELAB/top view keeps real kinds):
+        // a PREDEFINED-INTEGER net (wire integer x) prints NO net type; a
+        // net declared via a MODULE-LOCAL vector typedef prints 36
+        // regardless of wire/wand/wor.
+        if (auto* dt0 = internal.getDeclaredType(); dt0 && defView) {
+            if (dt0->getType().getCanonicalType().kind ==
+                SymbolKind::PredefinedIntegerType)
+                return 0;
+            if (dt0->getType().kind == SymbolKind::TypeAlias) {
+                auto& ta1 = dt0->getType().as<TypeAliasType>();
+                auto ck1 = ta1.targetType.getType().getCanonicalType().kind;
+                if (auto ps1 = ta1.getParentScope();
+                    ps1 &&
+                    ps1->asSymbol().kind != SymbolKind::Package &&
+                    (ck1 == SymbolKind::PackedArrayType ||
+                     ck1 == SymbolKind::ScalarType))
+                    return 36;
+            }
+        }
         // A PREDEFINED-INTEGER ANSI net-port (input wire integer x) prints
-        // NO net type; a BODY declaration keeps its kind (Surelog).
+        // NO net type in every view; a BODY declaration keeps its kind in
+        // the elab view (Surelog).
         if (auto* dt0 = internal.getDeclaredType())
             if (dt0->getType().getCanonicalType().kind ==
                     SymbolKind::PredefinedIntegerType &&

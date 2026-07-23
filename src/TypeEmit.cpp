@@ -2575,7 +2575,19 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             typedefTsContext = false;
             tfContext = savedTf;
             bypassTypedefShare = false;
-            lts->VpiParent(m);
+            // A module vector typedef used by a NET declaration (wire
+            // typename x) carries only Instance, no VpiParent (net_types);
+            // var/function-typed typedefs keep the module parent.
+            bool netUse9 = false;
+            for (auto& nm9 : body.members())
+                if (nm9.kind == SymbolKind::Net)
+                    if (auto* nd9 = nm9.getDeclaredType();
+                        nd9 && &nd9->getType() == &ta) {
+                        netUse9 = true;
+                        break;
+                    }
+            if (!netUse9)
+                lts->VpiParent(m);
             typedefClone[&ta] = nullptr;
             ts = lts;
         }

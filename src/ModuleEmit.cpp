@@ -215,7 +215,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                                       .as<TypeAliasType>()
                                       .targetType.getType()
                                       .kind == SymbolKind::PackedArrayType;
-        if (int32_t nt = aliasOfAlias0 ? 0 : netTypeFor(*it.sym))
+        if (int32_t nt = aliasOfAlias0 ? 0 : netTypeFor(*it.sym, true))
             n->VpiNetType(nt);
         // A PACKAGE-typedef struct net (port, or a flat-member local) is a
         // wire; nested-struct-member locals stay untyped, and a struct with
@@ -1716,6 +1716,27 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     art9->VpiParent(ts);
                     art9->Actual_typespec(typedefTs[&tv]);
                     ((UHDM::logic_typespec*)ts)->Typedef_alias(art9);
+                }
+                // MODULE-LOCAL vector-typedef NET clones in the elab view
+                // carry a Typedef_alias ref to the shared module ts and the
+                // module Instance (Surelog, net_types). Var-backed signals
+                // keep the bare-clone form.
+                else if (it.sym->kind == SymbolKind::Net &&
+                         ts->UhdmType() == UHDM::uhdmlogic_typespec &&
+                         !((UHDM::logic_typespec*)ts)->Typedef_alias()) {
+                    if (auto tit9 = typedefTs.find(&tv);
+                        tit9 != typedefTs.end()) {
+                        if (auto sc9 = tv.as<TypeAliasType>().getParentScope();
+                            sc9 && sc9->asSymbol().kind !=
+                                       SymbolKind::Package) {
+                            auto* art9 = s.MakeRef_typespec();
+                            art9->VpiFullName(tv.name);
+                            art9->VpiParent(ts);
+                            art9->Actual_typespec(tit9->second);
+                            ((UHDM::logic_typespec*)ts)->Typedef_alias(art9);
+                            ts->Instance(tit9->second->Instance());
+                        }
+                    }
                 }
             }
         }
@@ -4660,6 +4681,32 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     if (auto dt2 = pn.sym->getDeclaredType()) {
         auto& t2 = dt2->getType();
         if (typedefClone.count(&t2)) {
+            // SINGLE-VIEW top module (def == top): the def net ref REUSES
+            // the elab view's per-net alias-clone — one clone per net,
+            // shared across views (Surelog, net_types).
+            if (pn.di && pn.di->mod) {
+                for (auto& tp9 : topPendings) {
+                    if (tp9.m->VpiDefName() != pn.di->mod->VpiDefName())
+                        continue;
+                    UHDM::any* ln9 = nullptr;
+                    if (auto nit9 = tp9.nets.find(pn.sym);
+                        nit9 != tp9.nets.end())
+                        ln9 = nit9->second;
+                    else
+                        for (auto& [ns9, no9] : tp9.nets)
+                            if (ns9->name == pn.sym->name &&
+                                ns9->location == pn.sym->location) {
+                                ln9 = no9;
+                                break;
+                            }
+                    if (ln9 && ln9->UhdmType() == UHDM::uhdmlogic_net)
+                        if (auto* rt9 = ((UHDM::logic_net*)ln9)->Typespec())
+                            if (auto* act9 = rt9->Actual_typespec()) {
+                                pn.rt->Actual_typespec(act9);
+                                return;
+                            }
+                }
+            }
             auto& ta2 = t2.as<TypeAliasType>();
             const syntax::SyntaxNode* targetSyn = nullptr;
             if (auto asyn = ta2.getSyntax()) {
