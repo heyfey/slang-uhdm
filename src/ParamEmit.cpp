@@ -447,6 +447,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         UHDM::ref_typespec* prt = nullptr;
+        // The unpacked-array param's own array_typespec, captured so the
+        // elab-view folded pattern op can SHARE it (Surelog points the op's ts
+        // ref at the SAME array_typespec object).
+        UHDM::array_typespec* paramArrayTs = nullptr;
         if (wantTs) {
             // The actual typespec object is created late (after the instance
             // ports) to match Surelog's arena order; the ref is patched then.
@@ -476,6 +480,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             up->VpiSize(1);
             up->VpiSigned(leaf->isSigned());
             auto* ats = makeUnpackedArrayParamTs(ps, afull, up, prng);
+            paramArrayTs = ats;
             auto* art = s.MakeRef_typespec();
             art->VpiFullName(afull);
             art->VpiParent(up);
@@ -515,6 +520,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 else if (auto tsy9 = dLhs->getTypeSyntax();
                          tsy9 &&
                          tsy9->kind != syntax::SyntaxKind::ImplicitType)
+                    wantLhsClone9 = true;
+                // A plain UNTYPED integral import (parameter W = 48) ALSO gets a
+                // separate def-view Lhs clone (Surelog; fail_detect_width). The
+                // implicit type canonicalizes to a packed logic vector, so no
+                // packed-array exclusion here (the TypeAlias vector case is
+                // handled by the first branch above).
+                else if (auto tsy9b = dLhs->getTypeSyntax();
+                         tsy9b &&
+                         tsy9b->kind == syntax::SyntaxKind::ImplicitType &&
+                         ps.getType().getCanonicalType().isIntegral())
                     wantLhsClone9 = true;
             }
             if (wantLhsClone9) {
@@ -860,8 +875,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         scv.syntax->kind == syntax::SyntaxKind::CastExpression &&
                         !isTypeSyntaxKind(
                             scv.syntax->as<syntax::CastExpressionSyntax>().left->kind);
+                    // A DEF-view materialized UNTYPED integral import folds at
+                    // the param's TYPE width (Surelog: 32 for a plain int
+                    // import), matching its elab view — not the 64-bit default.
+                    bool defUntypedImport =
+                        !topView && !inPackage && isImported && !typedParam &&
+                        ps.getType().getCanonicalType().isIntegral() &&
+                        ps.getDeclaredType() &&
+                        ps.getDeclaredType()->getTypeSyntax() &&
+                        ps.getDeclaredType()->getTypeSyntax()->kind ==
+                            syntax::SyntaxKind::ImplicitType;
                     ((UHDM::constant*)rhs)
-                        ->VpiSize(typedParam ? (int32_t)ps.getType().getBitWidth()
+                        ->VpiSize(typedParam || defUntypedImport
+                                      ? (int32_t)ps.getType().getBitWidth()
                                   : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                 : 64);
                     // ELAB-pkg computed BinaryOp init folds at the LEFT
@@ -1140,6 +1166,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     op2->Operands(opnds);
                     rhs = op2;
                 }
+                // ELAB (topView) view of a materialized UNPACKED-ARRAY-of-packed-
+                // struct param: Surelog FOLDS the '{'{...}} pattern. The outer op
+                // carries the param's array_typespec; the array element struct is
+                // ABSORBED (its members become the op's direct operands); each
+                // member value folds recursively — a struct whose fields are all
+                // scalar collapses to a constant, a struct with a sub-struct field
+                // stays an op75 tagged with that struct's typespec. (Refuses any
+                // shape it cannot fold exactly, leaving the baseline pattern.)
+                if (!rhs && topView && !inPackage && paramArrayTs) {
+                    std::string pfxA = prefix;
+                    if (pfxA.size() >= 2 &&
+                        pfxA.compare(pfxA.size() - 2, 2, "::") == 0)
+                        pfxA.resize(pfxA.size() - 2);
+                    if (auto* aop = foldUnpackedStructArrayPattern(
+                            *init, ps.getType(), paramArrayTs, pfxA, pa, prefix,
+                            netMap)) {
+                        rhs = aop;
+                    }
+                }
                 // DEF-view TYPEDEF-typed param whose default is an UNQUALIFIED
                 // ref to an imported pkg param (materialized in this module)
                 // keeps an UNBOUND ref_obj Rhs (Surelog), not a fold. A param
@@ -1220,6 +1265,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     suppressConstParent = true;
                 if (!rhs)
                     rhs = emitExpr(*init, pa, prefix, netMap);
+                // A DEF-view materialized UNTYPED integral import's Rhs constant
+                // is sized at the param's type width (Surelog: 32 for a plain
+                // int import) — matching its elab view, not the 64-bit default.
+                if (!topView && !inPackage && isImported && !typedParam && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ps.getType().getCanonicalType().isIntegral() &&
+                    ps.getDeclaredType() &&
+                    ps.getDeclaredType()->getTypeSyntax() &&
+                    ps.getDeclaredType()->getTypeSyntax()->kind ==
+                        syntax::SyntaxKind::ImplicitType)
+                    ((UHDM::constant*)rhs)
+                        ->VpiSize((int32_t)ps.getType().getBitWidth());
                 suppressConstParent = savedSuppP;
                 paramInitPkg = false;
                 paramInitDef = false;
@@ -1526,22 +1583,45 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 auto* its = makeParamTs(ps, typedParam);
                 currentScope = savedCS;
                 syntaxRefPrefix = savedPfx2;
+                bool untypedImport = !inPackage && isImported && !typedParam;
                 if (inPackage && typedParam)
                     its->Instance((UHDM::instance*)m);
                 else if (!inPackage && isImported && ps.getParentScope()) {
-                    // An imported param's typespec is INSTANCED at its package.
-                    if (auto pit = pkgDefMap.find(&ps.getParentScope()->asSymbol());
-                        pit != pkgDefMap.end())
-                        its->Instance((UHDM::instance*)pit->second);
+                    // An imported param's typespec is INSTANCED at its package —
+                    // but ONLY for TYPED imports. An UNTYPED import (parameter
+                    // W = 48) keeps its int_typespec Instance-less, exactly as
+                    // it is in its home package (Surelog; fail_detect_width).
+                    if (typedParam)
+                        if (auto pit = pkgDefMap.find(&ps.getParentScope()->asSymbol());
+                            pit != pkgDefMap.end())
+                            its->Instance((UHDM::instance*)pit->second);
                     // Remember it so a def-view fold that READS this imported
                     // param can carry a ref_typespec to it.
                     importedParamDefTs[&ps] = its;
                 }
                 if (di)
                     di->paramTs[&member] = its;
-                if (rhsRt)
-                    rhsRt->Actual_typespec(its);
+                if (rhsRt) {
+                    // An untyped import's Rhs constant ref binds its OWN fresh
+                    // int_typespec (Surelog builds a distinct typespec per ref,
+                    // not the shared param ts).
+                    if (untypedImport) {
+                        std::string savedPfxR = syntaxRefPrefix;
+                        syntaxRefPrefix = joinPath(prefix, ps.name);
+                        auto* itsR = makeParamTs(ps, typedParam);
+                        syntaxRefPrefix = savedPfxR;
+                        itsR->VpiParent(rhsRt);
+                        rhsRt->Actual_typespec(itsR);
+                    }
+                    else
+                        rhsRt->Actual_typespec(its);
+                }
                 prt->Actual_typespec(its);
+                // An untyped import's param-ref int_typespec is parented at its
+                // ref_typespec (Surelog); typed/ranged params handle this via the
+                // VpiParent(up) rule below.
+                if (untypedImport && !its->VpiParent())
+                    its->VpiParent(prt);
                 if (prtLhs9 && !prtLhs9->Actual_typespec()) {
                     // The Lhs clone gets its OWN fresh ts (pkg-Instanced,
                     // parented at the clone's ref) — Surelog.
@@ -1549,7 +1629,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     syntaxRefPrefix = joinPath(prefix, ps.name);
                     auto* itsL = makeParamTs(ps, typedParam);
                     syntaxRefPrefix = savedPfxL;
-                    if (!inPackage && isImported && ps.getParentScope())
+                    if (!inPackage && isImported && typedParam && ps.getParentScope())
                         if (auto pitL =
                                 pkgDefMap.find(&ps.getParentScope()->asSymbol());
                             pitL != pkgDefMap.end())
@@ -1672,6 +1752,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 std::string(tps.name)}] = its;
         params->push_back(tp);
     }
+    // Surelog lists MATERIALIZED imported params NAME-SORTED in the module
+    // Parameters vec (name-keyed registry); param_assigns keep location
+    // order (simple_package: ADDR_WIDTH before DATA_WIDTH).
+    {
+        std::set<std::string_view> matNames9;
+        for (auto* ps9 : paramSyms)
+            if (ps9->getParentScope() != &body)
+                matNames9.insert(ps9->name);
+        if (!matNames9.empty()) {
+            std::vector<size_t> idx9;
+            std::vector<UHDM::any*> mats9;
+            for (size_t i9 = 0; i9 < params->size(); i9++)
+                if ((*params)[i9]->UhdmType() == UHDM::uhdmparameter &&
+                    matNames9.count(
+                        ((UHDM::parameter*)(*params)[i9])->VpiName())) {
+                    idx9.push_back(i9);
+                    mats9.push_back((*params)[i9]);
+                }
+            std::stable_sort(
+                mats9.begin(), mats9.end(), [](UHDM::any* a, UHDM::any* b) {
+                    return ((UHDM::parameter*)a)->VpiName() <
+                           ((UHDM::parameter*)b)->VpiName();
+                });
+            for (size_t k9 = 0; k9 < idx9.size(); k9++)
+                (*params)[idx9[k9]] = mats9[k9];
+        }
+    }
     if (!params->empty())
         m->Parameters(params);
     if (!passigns->empty())
@@ -1737,6 +1844,148 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     ert->Actual_typespec(elemTs);
     ats->Elem_typespec(ert);
     return ats;
+}
+
+UHDM::operation* UhdmExporter::foldUnpackedStructArrayPattern(
+    const Expression& init, const Type& arrType, UHDM::typespec* arrTs,
+    const std::string& tsFullName, UHDM::any* parent, const std::string& prefix,
+    NetMap& netMap) {
+    auto& pctA = arrType.getCanonicalType();
+    if (pctA.kind != SymbolKind::FixedSizeUnpackedArrayType)
+        return nullptr;
+    const Type* leafA = &pctA;
+    while (leafA->getCanonicalType().kind ==
+           SymbolKind::FixedSizeUnpackedArrayType)
+        leafA = &leafA->getCanonicalType()
+                     .as<FixedSizeUnpackedArrayType>()
+                     .elementType;
+    if (leafA->getCanonicalType().kind != SymbolKind::PackedStructType)
+        return nullptr;
+    auto& sinitA = stripImplicitConv(init);
+    if (sinitA.kind != ExpressionKind::SimpleAssignmentPattern)
+        return nullptr;
+    // struct_typespec lookup for a (possibly typedef'd) type.
+    auto lookupStructTs = [&](const Type& t) -> UHDM::typespec* {
+        if (t.kind == SymbolKind::TypeAlias) {
+            if (auto it = typedefTs.find(&t.as<TypeAliasType>());
+                it != typedefTs.end())
+                return it->second;
+            if (auto it =
+                    pkgTopTypedefTs.find((const void*)&t.as<TypeAliasType>());
+                it != pkgTopTypedefTs.end())
+                return it->second;
+        }
+        const Symbol* canon = (const Symbol*)&t.getCanonicalType();
+        if (auto it = pkgTopTypedefTs.find((const void*)canon);
+            it != pkgTopTypedefTs.end())
+            return it->second;
+        if (auto it = typedefTs.find(canon); it != typedefTs.end())
+            return it->second;
+        return nullptr;
+    };
+    // Recursive value fold. Returns nullptr on any unfoldable shape.
+    std::function<UHDM::any*(const Expression&, const Type&, UHDM::any*)>
+        foldField = [&](const Expression& e, const Type& ft,
+                        UHDM::any* par) -> UHDM::any* {
+        auto& ce = stripImplicitConv(e);
+        auto& ctf = ft.getCanonicalType();
+        if (ctf.kind == SymbolKind::PackedStructType &&
+            ce.kind == ExpressionKind::StructuredAssignmentPattern) {
+            bool hasStructMember = false;
+            for (auto& f2 : ctf.as<PackedStructType>().membersOfType<FieldSymbol>())
+                if (f2.getType().getCanonicalType().kind ==
+                    SymbolKind::PackedStructType) {
+                    hasStructMember = true;
+                    break;
+                }
+            if (!hasStructMember)
+                return nullptr; // all-scalar multi/complex struct: bail
+            auto& ap2 = ce.as<StructuredAssignmentPatternExpression>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(75);
+            op->VpiParent(par);
+            setLoc(op, e.sourceRange);
+            if (auto* sts = lookupStructTs(ft)) {
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiParent(op);
+                rt->Actual_typespec(sts);
+                op->Typespec(rt);
+            }
+            auto* opn = s.MakeAnyVec();
+            for (auto& f2 :
+                 ctf.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+                const Expression* se2 = nullptr;
+                for (auto& ms : ap2.memberSetters)
+                    if (ms.member == &f2) {
+                        se2 = ms.expr;
+                        break;
+                    }
+                if (!se2)
+                    se2 = ap2.defaultSetter;
+                if (!se2)
+                    return nullptr;
+                auto* fv = foldField(*se2, f2.getType(), op);
+                if (!fv)
+                    return nullptr;
+                opn->push_back(fv);
+            }
+            op->Operands(opn);
+            return op;
+        }
+        // scalar / literal leaf: re-emit the source constant.
+        return emitExpr(e, par, prefix, netMap);
+    };
+    auto& apA = sinitA.as<SimpleAssignmentPatternExpression>();
+    auto& elemA = pctA.as<FixedSizeUnpackedArrayType>().elementType;
+    auto* aop = s.MakeOperation();
+    aop->VpiOpType(75);
+    aop->VpiParent(parent);
+    setLoc(aop, init.sourceRange);
+    if (arrTs) {
+        auto* rtA = s.MakeRef_typespec();
+        rtA->VpiParent(aop);
+        rtA->VpiFullName(tsFullName);
+        rtA->Actual_typespec(arrTs);
+        aop->Typespec(rtA);
+    }
+    auto* aopn = s.MakeAnyVec();
+    bool ok = true;
+    for (auto* el : apA.elements()) {
+        auto& ee = stripImplicitConv(*el);
+        auto& ect = elemA.getCanonicalType();
+        if (ee.kind != ExpressionKind::StructuredAssignmentPattern ||
+            ect.kind != SymbolKind::PackedStructType) {
+            ok = false;
+            break;
+        }
+        auto& eap = ee.as<StructuredAssignmentPatternExpression>();
+        for (auto& f2 : ect.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+            const Expression* se2 = nullptr;
+            for (auto& ms : eap.memberSetters)
+                if (ms.member == &f2) {
+                    se2 = ms.expr;
+                    break;
+                }
+            if (!se2)
+                se2 = eap.defaultSetter;
+            if (!se2) {
+                ok = false;
+                break;
+            }
+            auto* fv = foldField(*se2, f2.getType(), aop);
+            if (!fv) {
+                ok = false;
+                break;
+            }
+            aopn->push_back(fv);
+        }
+        if (!ok)
+            break;
+    }
+    if (!ok || aopn->empty())
+        return nullptr;
+    aop->Operands(aopn);
+    return aop;
 }
 
 bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
@@ -2273,8 +2522,15 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                 its->UhdmType() == UHDM::uhdmunion_typespec)
                 if (auto* par = up->VpiParent())
                     its->Instance((UHDM::instance*)par);
-            // An imported param's typespec is INSTANCED at its package.
-            if (ps->getParentScope() &&
+            // An imported param's typespec is INSTANCED at its package — but
+            // NOT a plain UNTYPED (implicit) integral import, whose int_typespec
+            // stays Instance-less in both views (Surelog; fail_detect_width).
+            bool implicitImport9 =
+                !typedParam && ps->getDeclaredType() &&
+                ps->getDeclaredType()->getTypeSyntax() &&
+                ps->getDeclaredType()->getTypeSyntax()->kind ==
+                    syntax::SyntaxKind::ImplicitType;
+            if (!implicitImport9 && ps->getParentScope() &&
                 ps->getParentScope()->asSymbol().kind == SymbolKind::Package)
                 if (auto pit = pkgDefMap.find(&ps->getParentScope()->asSymbol());
                     pit != pkgDefMap.end())

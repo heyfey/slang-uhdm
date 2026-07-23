@@ -2823,6 +2823,41 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             }
                         }
                     }
+                    // A named UNPACKED-ARRAY-of-packed-struct PARAM connection
+                    // (.port(HwDataAttr)) folds, in Surelog's elab, to the SAME
+                    // op75 the param's elab RHS uses: a conn-scoped array_typespec
+                    // ts ref (prefix.inst.port) over the folded pattern operands.
+                    if (!h) {
+                        auto& ce9 = stripImplicitConv(*expr);
+                        if (ce9.kind == ExpressionKind::NamedValue) {
+                            auto& csym9 = ce9.as<NamedValueExpression>().symbol;
+                            if (csym9.kind == SymbolKind::Parameter &&
+                                csym9.as<ParameterSymbol>()
+                                        .getType()
+                                        .getCanonicalType()
+                                        .kind ==
+                                    SymbolKind::FixedSizeUnpackedArrayType) {
+                                auto& pp9 = csym9.as<ParameterSymbol>();
+                                UHDM::typespec* arrTs9 = nullptr;
+                                if (auto pit9 = pkgParamObj.find(&csym9);
+                                    pit9 != pkgParamObj.end() &&
+                                    pit9->second->Typespec())
+                                    arrTs9 = pit9->second->Typespec()
+                                                 ->Actual_typespec();
+                                if (arrTs9 && pp9.getInitializer()) {
+                                    std::string cfn9 =
+                                        prefix + "." + std::string(inst.name) +
+                                        "." + std::string(ps.name);
+                                    if (auto* fop9 =
+                                            foldUnpackedStructArrayPattern(
+                                                *pp9.getInitializer(),
+                                                pp9.getType(), arrTs9, cfn9, p,
+                                                hcPrefix, *parentNets))
+                                        h = fop9;
+                                }
+                            }
+                        }
+                    }
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
                     // Child bit_select HighConns double through the CHILD

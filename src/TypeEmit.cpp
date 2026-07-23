@@ -1735,6 +1735,12 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             }
             if (!fts)
                 fts = makeTypespec(fm, memberTypeSyn);
+            // A nested ANONYMOUS struct member's struct_typespec is located at
+            // the `struct` keyword span (Surelog); makeTypespec leaves it
+            // loc-less for the anonymous form.
+            if (fts && fts->UhdmType() == UHDM::uhdmstruct_typespec &&
+                fts->VpiLineNo() == 0 && memberTypeSyn)
+                setLoc(fts, memberTypeSyn->getFirstToken().range());
             tfContext = savedTf;
             // Surelog points the member's Elem ref at a fresh NAMED alias-clone
             // (Typedef_alias -> shared base, Instance = module) rather than the
@@ -2126,6 +2132,12 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             }
             if (!fts)
                 fts = makeTypespec(fm, memberTypeSyn);
+            // A nested ANONYMOUS struct member's struct_typespec is located at
+            // the `struct` keyword span (Surelog); makeTypespec leaves it
+            // loc-less for the anonymous form.
+            if (fts && fts->UhdmType() == UHDM::uhdmstruct_typespec &&
+                fts->VpiLineNo() == 0 && memberTypeSyn)
+                setLoc(fts, memberTypeSyn->getFirstToken().range());
             tfContext = savedTf;
             // Surelog points the member's Elem ref at a fresh NAMED alias-clone
             // (Typedef_alias -> shared base, Instance = module) rather than the
@@ -3219,6 +3231,30 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         break;
                     pos = dot + 1;
                 }
+            }
+            // A PACKAGE-SCOPED reference (pkg::PARAM) in a symbolic TYPE range
+            // keeps a ref_obj bound to the package parameter — Surelog leaves the
+            // [pkg::WIDTH-1:0] bound UNFOLDED (fail_detect_width output port).
+            if (parts.size() < 2 && raw.find("::") != std::string::npos) {
+                auto* ref = s.MakeRef_obj();
+                ref->VpiName(raw);
+                ref->VpiFullName(raw);
+                ref->VpiParent(parent);
+                setLoc(ref, syn.sourceRange());
+                const Scope& bscope =
+                    currentScope ? *currentScope : (const Scope&)comp.getRoot();
+                ASTContext bctx(bscope, LookupLocation::max);
+                auto& be =
+                    Expression::bind(syn.as<syntax::ExpressionSyntax>(), bctx);
+                if (!be.bad() && stripImplicitConv(be).kind ==
+                                     ExpressionKind::NamedValue) {
+                    auto& psy =
+                        stripImplicitConv(be).as<NamedValueExpression>().symbol;
+                    if (auto poit = pkgParamObj.find(&psy);
+                        poit != pkgParamObj.end())
+                        ref->Actual_group(poit->second);
+                }
+                return ref;
             }
             if (parts.size() < 2)
                 return nullptr;

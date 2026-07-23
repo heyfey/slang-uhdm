@@ -366,6 +366,17 @@ private:
         const slang::ast::ParameterSymbol& ps, const std::string& elemFull,
         UHDM::BaseClass* parent, UHDM::VectorOfrange* sharedRanges);
 
+    // Surelog's ELAB fold of an unpacked-array-of-packed-struct '{..} pattern:
+    // an op75 carrying `arrTs` (fullname tsFullName); the array element struct
+    // is absorbed (its members become the op's direct operands); each member
+    // value folds recursively (all-scalar struct -> constant, struct-with-
+    // sub-struct -> nested op75 tagged with that struct's typespec). Returns
+    // nullptr for any shape it cannot fold exactly.
+    UHDM::operation* foldUnpackedStructArrayPattern(
+        const slang::ast::Expression& init, const slang::ast::Type& arrType,
+        UHDM::typespec* arrTs, const std::string& tsFullName,
+        UHDM::any* parent, const std::string& prefix, NetMap& netMap);
+
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     // setLoc with the end shrunk by whitespace Surelog compacts out of
     // spaced based literals within the range (8'd 3 -> 8'd3).
