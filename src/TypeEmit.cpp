@@ -1419,8 +1419,112 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         UHDM::typespec* fts = nullptr;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
-                SymbolKind::FixedSizeUnpackedArrayType)
-            fts = s.MakeArray_typespec(); // bare (Surelog)
+                SymbolKind::FixedSizeUnpackedArrayType) {
+            // Unpacked-array member (foo_t f [7]): a LOC-LESS array_typespec.
+            // With a TYPEDEF'd element it carries the dim range ([0 : N-1 op]
+            // at the size token) and an Elem ref to the shared element ts;
+            // otherwise it stays bare (Surelog).
+            auto* ats9 = s.MakeArray_typespec();
+            auto& ua9 = fm.getDeclaredType()
+                            ->getType()
+                            .getCanonicalType()
+                            .as<FixedSizeUnpackedArrayType>();
+            UHDM::typespec* ets9 = nullptr;
+            if (auto ei9 = typedefTs.find(&ua9.elementType);
+                ei9 != typedefTs.end())
+                ets9 = ei9->second;
+            if (ets9) {
+                const syntax::VariableDimensionSyntax* dim9 = nullptr;
+                if (auto ds9 = fm.getSyntax();
+                    ds9 && ds9->kind == syntax::SyntaxKind::Declarator) {
+                    auto& dd9 = ds9->as<syntax::DeclaratorSyntax>();
+                    if (!dd9.dimensions.empty())
+                        dim9 = dd9.dimensions[0];
+                }
+                const syntax::ExpressionSyntax* sz9 = nullptr;
+                if (dim9 && dim9->specifier &&
+                    dim9->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier)
+                    if (auto* bs9 =
+                            dim9->specifier
+                                ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                .selector->as_if<syntax::BitSelectSyntax>())
+                        sz9 = bs9->expr;
+                auto* r9 = s.MakeRange();
+                r9->VpiParent(ats9);
+                if (sz9)
+                    setLoc(r9, sz9->sourceRange());
+                auto mk9 = [&](int64_t v,
+                               const syntax::SyntaxNode* bs) -> UHDM::expr* {
+                    auto* c = s.MakeConstant();
+                    std::string d = std::to_string(v);
+                    c->VpiDecompile(d);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + d);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(r9);
+                    if (bs)
+                        setLoc(c, bs->sourceRange());
+                    return c;
+                };
+                r9->Left_expr(mk9(0, nullptr));
+                if (sz9) {
+                    auto* op9 = s.MakeOperation();
+                    op9->VpiOpType(vpiSubOp);
+                    op9->VpiParent(r9);
+                    setLoc(op9, sz9->sourceRange());
+                    auto* ops9v = s.MakeAnyVec();
+                    ops9v->push_back(mk9(ua9.range.width(), sz9));
+                    auto* one9 = s.MakeConstant();
+                    one9->VpiSize(64);
+                    one9->VpiValue("INT:1");
+                    one9->VpiConstType(vpiIntConst);
+                    one9->VpiParent(op9);
+                    ops9v->push_back(one9);
+                    op9->Operands(ops9v);
+                    r9->Right_expr(op9);
+                }
+                else
+                    r9->Right_expr(mk9(ua9.range.right, nullptr));
+                auto* rv9 = s.MakeRangeVec();
+                rv9->push_back(r9);
+                ats9->Ranges(rv9);
+                // The elem points at a fresh NAMED alias clone
+                // (Typedef_alias -> the shared element ts) — Surelog.
+                UHDM::typespec* tgt9 = ets9;
+                if (ua9.elementType.kind == SymbolKind::TypeAlias &&
+                    (ets9->UhdmType() == UHDM::uhdmbit_typespec ||
+                     ets9->UhdmType() == UHDM::uhdmlogic_typespec)) {
+                    auto* al9 = &ua9.elementType.as<TypeAliasType>();
+                    const syntax::SyntaxNode* tsn9 = nullptr;
+                    if (auto as9 = al9->getSyntax())
+                        if (as9->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tsn9 = as9->as<syntax::TypedefDeclarationSyntax>()
+                                       .type;
+                    bypassTypedefShare = true;
+                    auto* cl9e = makeTypespec(*al9, tsn9);
+                    bypassTypedefShare = false;
+                    cl9e->VpiName(al9->name);
+                    auto* art9e = s.MakeRef_typespec();
+                    art9e->VpiFullName(aliasName + memberSep +
+                                       std::string(fm.name));
+                    art9e->VpiParent(cl9e);
+                    art9e->Actual_typespec(ets9);
+                    if (cl9e->UhdmType() == UHDM::uhdmbit_typespec)
+                        ((UHDM::bit_typespec*)cl9e)->Typedef_alias(art9e);
+                    else if (cl9e->UhdmType() == UHDM::uhdmlogic_typespec)
+                        ((UHDM::logic_typespec*)cl9e)->Typedef_alias(art9e);
+                    tgt9 = cl9e;
+                }
+                auto* ert9 = s.MakeRef_typespec();
+                ert9->VpiFullName(aliasName + memberSep +
+                                  std::string(fm.name));
+                ert9->VpiParent(ats9);
+                ert9->Actual_typespec(tgt9);
+                ats9->Elem_typespec(ert9);
+            }
+            fts = ats9;
+        }
         else {
             // Typedef-context member bound refs scope through the member
             // (pkg::pkg::T::m::PARAM).
@@ -1652,8 +1756,112 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         UHDM::typespec* fts = nullptr;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
-                SymbolKind::FixedSizeUnpackedArrayType)
-            fts = s.MakeArray_typespec(); // bare (Surelog)
+                SymbolKind::FixedSizeUnpackedArrayType) {
+            // Unpacked-array member (foo_t f [7]): a LOC-LESS array_typespec.
+            // With a TYPEDEF'd element it carries the dim range ([0 : N-1 op]
+            // at the size token) and an Elem ref to the shared element ts;
+            // otherwise it stays bare (Surelog).
+            auto* ats9 = s.MakeArray_typespec();
+            auto& ua9 = fm.getDeclaredType()
+                            ->getType()
+                            .getCanonicalType()
+                            .as<FixedSizeUnpackedArrayType>();
+            UHDM::typespec* ets9 = nullptr;
+            if (auto ei9 = typedefTs.find(&ua9.elementType);
+                ei9 != typedefTs.end())
+                ets9 = ei9->second;
+            if (ets9) {
+                const syntax::VariableDimensionSyntax* dim9 = nullptr;
+                if (auto ds9 = fm.getSyntax();
+                    ds9 && ds9->kind == syntax::SyntaxKind::Declarator) {
+                    auto& dd9 = ds9->as<syntax::DeclaratorSyntax>();
+                    if (!dd9.dimensions.empty())
+                        dim9 = dd9.dimensions[0];
+                }
+                const syntax::ExpressionSyntax* sz9 = nullptr;
+                if (dim9 && dim9->specifier &&
+                    dim9->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier)
+                    if (auto* bs9 =
+                            dim9->specifier
+                                ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                .selector->as_if<syntax::BitSelectSyntax>())
+                        sz9 = bs9->expr;
+                auto* r9 = s.MakeRange();
+                r9->VpiParent(ats9);
+                if (sz9)
+                    setLoc(r9, sz9->sourceRange());
+                auto mk9 = [&](int64_t v,
+                               const syntax::SyntaxNode* bs) -> UHDM::expr* {
+                    auto* c = s.MakeConstant();
+                    std::string d = std::to_string(v);
+                    c->VpiDecompile(d);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + d);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(r9);
+                    if (bs)
+                        setLoc(c, bs->sourceRange());
+                    return c;
+                };
+                r9->Left_expr(mk9(0, nullptr));
+                if (sz9) {
+                    auto* op9 = s.MakeOperation();
+                    op9->VpiOpType(vpiSubOp);
+                    op9->VpiParent(r9);
+                    setLoc(op9, sz9->sourceRange());
+                    auto* ops9v = s.MakeAnyVec();
+                    ops9v->push_back(mk9(ua9.range.width(), sz9));
+                    auto* one9 = s.MakeConstant();
+                    one9->VpiSize(64);
+                    one9->VpiValue("INT:1");
+                    one9->VpiConstType(vpiIntConst);
+                    one9->VpiParent(op9);
+                    ops9v->push_back(one9);
+                    op9->Operands(ops9v);
+                    r9->Right_expr(op9);
+                }
+                else
+                    r9->Right_expr(mk9(ua9.range.right, nullptr));
+                auto* rv9 = s.MakeRangeVec();
+                rv9->push_back(r9);
+                ats9->Ranges(rv9);
+                // The elem points at a fresh NAMED alias clone
+                // (Typedef_alias -> the shared element ts) — Surelog.
+                UHDM::typespec* tgt9 = ets9;
+                if (ua9.elementType.kind == SymbolKind::TypeAlias &&
+                    (ets9->UhdmType() == UHDM::uhdmbit_typespec ||
+                     ets9->UhdmType() == UHDM::uhdmlogic_typespec)) {
+                    auto* al9 = &ua9.elementType.as<TypeAliasType>();
+                    const syntax::SyntaxNode* tsn9 = nullptr;
+                    if (auto as9 = al9->getSyntax())
+                        if (as9->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tsn9 = as9->as<syntax::TypedefDeclarationSyntax>()
+                                       .type;
+                    bypassTypedefShare = true;
+                    auto* cl9e = makeTypespec(*al9, tsn9);
+                    bypassTypedefShare = false;
+                    cl9e->VpiName(al9->name);
+                    auto* art9e = s.MakeRef_typespec();
+                    art9e->VpiFullName(aliasName + memberSep +
+                                       std::string(fm.name));
+                    art9e->VpiParent(cl9e);
+                    art9e->Actual_typespec(ets9);
+                    if (cl9e->UhdmType() == UHDM::uhdmbit_typespec)
+                        ((UHDM::bit_typespec*)cl9e)->Typedef_alias(art9e);
+                    else if (cl9e->UhdmType() == UHDM::uhdmlogic_typespec)
+                        ((UHDM::logic_typespec*)cl9e)->Typedef_alias(art9e);
+                    tgt9 = cl9e;
+                }
+                auto* ert9 = s.MakeRef_typespec();
+                ert9->VpiFullName(aliasName + memberSep +
+                                  std::string(fm.name));
+                ert9->VpiParent(ats9);
+                ert9->Actual_typespec(tgt9);
+                ats9->Elem_typespec(ert9);
+            }
+            fts = ats9;
+        }
         else {
             // Typedef-context member bound refs scope through the member
             // (pkg::pkg::T::m::PARAM).
@@ -1935,16 +2143,49 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
         }
         else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
             // typedef of an unpacked array (typedef bar_t foobar_t [2]):
-            // a NAMED array_typespec with the unpacked range(s).
+            // a NAMED array_typespec spanning target-type..last-dim; a
+            // SIZE-form dim ([2]) folds to [0 : N-1 op] at the size token,
+            // a ranged dim keeps its bounds at their tokens (Surelog —
+            // mirrors the pkg-typedef form).
             auto* ats = s.MakeArray_typespec();
             ats->VpiParent(m);
-            if (auto syn = ta.getSyntax())
-                setLoc(ats, syn->sourceRange());
             auto& fua = ct.as<FixedSizeUnpackedArrayType>();
+            SourceLocation aS = ta.location, aE = ta.location;
+            if (typeSyn)
+                aS = typeSyn->sourceRange().start();
+            const syntax::VariableDimensionSyntax* dimSyn = nullptr;
+            if (auto dsyn = ta.getSyntax();
+                dsyn && dsyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                auto& td = dsyn->as<syntax::TypedefDeclarationSyntax>();
+                if (!td.dimensions.empty()) {
+                    dimSyn = td.dimensions[0];
+                    aE = td.dimensions[td.dimensions.size() - 1]
+                             ->sourceRange()
+                             .end();
+                }
+            }
+            setLoc(ats, SourceRange(aS, aE));
             auto* rv = s.MakeRangeVec();
             auto* r = s.MakeRange();
             r->VpiParent(ats);
-            auto mkB = [&](int64_t v) {
+            const syntax::ExpressionSyntax* lSyn = nullptr;
+            const syntax::ExpressionSyntax* rSyn = nullptr;
+            const syntax::ExpressionSyntax* szSyn = nullptr;
+            if (dimSyn && dimSyn->specifier &&
+                dimSyn->specifier->kind ==
+                    syntax::SyntaxKind::RangeDimensionSpecifier) {
+                auto& sel = *dimSyn->specifier
+                                 ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                 .selector;
+                if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                    lSyn = rss->left;
+                    rSyn = rss->right;
+                }
+                else if (auto* bss = sel.as_if<syntax::BitSelectSyntax>())
+                    szSyn = bss->expr;
+            }
+            auto mkB = [&](int64_t v,
+                           const syntax::SyntaxNode* bs) -> UHDM::expr* {
                 auto* c = s.MakeConstant();
                 std::string digits = std::to_string(v);
                 c->VpiDecompile(digits);
@@ -1952,15 +2193,63 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 c->VpiValue("UINT:" + digits);
                 c->VpiConstType(vpiUIntConst);
                 c->VpiParent(r);
+                if (bs)
+                    setLoc(c, bs->sourceRange());
                 return c;
             };
-            r->Left_expr(mkB(fua.range.left));
-            r->Right_expr(mkB(fua.range.right));
-            // Range loc: the [N] dimension token from the declarator.
-            if (auto dsyn = ta.getSyntax())
-                setLoc(r, dsyn->sourceRange());
+            if (szSyn) {
+                // Size form: range at the size token, [0 : N-1 op] (the op
+                // located at the size token; the 1 is a loc-less INT).
+                setLoc(r, szSyn->sourceRange());
+                r->Left_expr(mkB(0, nullptr));
+                auto* op = s.MakeOperation();
+                op->VpiOpType(vpiSubOp);
+                op->VpiParent(r);
+                setLoc(op, szSyn->sourceRange());
+                auto* ops = s.MakeAnyVec();
+                auto* nC = mkB(fua.range.width(), szSyn);
+                nC->VpiParent(op);
+                ops->push_back(nC);
+                auto* one = s.MakeConstant();
+                one->VpiSize(64);
+                one->VpiValue("INT:1");
+                one->VpiConstType(vpiIntConst);
+                one->VpiParent(op);
+                ops->push_back(one);
+                op->Operands(ops);
+                r->Right_expr(op);
+            }
+            else {
+                if (dimSyn)
+                    setLoc(r, dimSyn->sourceRange());
+                r->Left_expr(mkB(fua.range.left, lSyn));
+                r->Right_expr(mkB(fua.range.right, rSyn));
+            }
             rv->push_back(r);
             ats->Ranges(rv);
+            // Elem ref -> the ELEMENT typedef's shared ts (typedef bar_t
+            // foobar_t [2] points at bar_t's struct ts) — Surelog.
+            {
+                const Type* el0 = &fua.elementType;
+                UHDM::typespec* ets0 = nullptr;
+                if (auto ei = typedefTs.find(el0); ei != typedefTs.end())
+                    ets0 = ei->second;
+                else
+                    for (auto& [sym0, tsp0] : typedefTs)
+                        if (sym0->kind == SymbolKind::TypeAlias &&
+                            &((const Type*)sym0)->getCanonicalType() ==
+                                &el0->getCanonicalType()) {
+                            ets0 = tsp0;
+                            break;
+                        }
+                if (ets0) {
+                    auto* ert = s.MakeRef_typespec();
+                    ert->VpiFullName(prefix + "." + std::string(ta.name));
+                    ert->VpiParent(ats);
+                    ert->Actual_typespec(ets0);
+                    ats->Elem_typespec(ert);
+                }
+            }
             ts = ats;
         }
         else if (ct.kind == SymbolKind::PackedUnionType) {

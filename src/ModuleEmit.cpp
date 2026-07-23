@@ -1509,6 +1509,35 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         // net-emission time, no alias link).
         // A signal typed by an alias-of-packed-array-of-alias FILE typedef
         // elaborates as a logic_var bound to the shared DESIGN ts (Surelog).
+        // A signal declared straight from an UNPACKED-ARRAY typedef
+        // (foobar_t fb): bare array_var referencing the SHARED named
+        // array_typespec (Surelog).
+        if (!implicitNet && !realVar) {
+            if (auto dtu9 = it.sym->getDeclaredType()) {
+                auto& tu9 = dtu9->getType();
+                if (tu9.kind == SymbolKind::TypeAlias) {
+                    if (auto ti9 = typedefTs.find(&tu9);
+                        ti9 != typedefTs.end() &&
+                        ti9->second->UhdmType() == UHDM::uhdmarray_typespec) {
+                        auto* av9 = s.MakeArray_var();
+                        av9->VpiName(name);
+                        av9->VpiFullName(fullName);
+                        av9->VpiParent(m);
+                        setLoc(av9, nameSpan(it.sym->location, it.sym->name));
+                        av9->VpiVisibility(1);
+                        auto* rt9 = s.MakeRef_typespec();
+                        rt9->VpiFullName(fullName);
+                        rt9->VpiParent(av9);
+                        rt9->Actual_typespec(ti9->second);
+                        av9->Typespec(rt9);
+                        topNets[it.sym] = av9;
+                        sigOrder.emplace_back(it.sym, av9);
+                        vars->push_back(av9);
+                        continue;
+                    }
+                }
+            }
+        }
         if (!implicitNet && !realVar) {
             if (auto dtv2 = it.sym->getDeclaredType()) {
                 auto& tv2 = dtv2->getType();
