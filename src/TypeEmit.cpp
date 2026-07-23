@@ -3535,6 +3535,38 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     auto declared = sym.getDeclaredType();
     if (!declared || !declared->getType().isPackedArray())
         return nullptr;
+    // A signal declared straight from a PACKAGE packed-array typedef
+    // (pkg::b c): bare packed_array_var referencing the SHARED named pkg
+    // typespec — no inline ranges/elements (Surelog).
+    if (declared->getType().kind == SymbolKind::TypeAlias) {
+        auto& ta9 = declared->getType();
+        if (auto ps9 = ta9.as<TypeAliasType>().getParentScope();
+            ps9 && ps9->asSymbol().kind == SymbolKind::Package) {
+            UHDM::typespec* sh9 = nullptr;
+            if (auto i9 = pkgTopTypedefTs.find(&ta9);
+                i9 != pkgTopTypedefTs.end() &&
+                i9->second->UhdmType() == UHDM::uhdmpacked_array_typespec)
+                sh9 = i9->second;
+            else if (auto i8 = typedefTs.find(&ta9);
+                     i8 != typedefTs.end() &&
+                     i8->second->UhdmType() == UHDM::uhdmpacked_array_typespec)
+                sh9 = i8->second;
+            if (sh9) {
+                auto* pav9 = s.MakePacked_array_var();
+                pav9->VpiName(name);
+                pav9->VpiFullName(fullName);
+                pav9->VpiParent(m);
+                setLoc(pav9, nameSpan(sym.location, sym.name));
+                pav9->VpiVisibility(1);
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(fullName);
+                rt9->VpiParent(pav9);
+                rt9->Actual_typespec(sh9);
+                pav9->Typespec(rt9);
+                return pav9;
+            }
+        }
+    }
     // Descend the packed dims to the leaf; it must be a shared struct or
     // enum typedef.
     int arrDims = 0;

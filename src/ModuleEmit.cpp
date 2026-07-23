@@ -200,11 +200,20 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     tt0.as<PackedArrayType>().elementType.kind ==
                         SymbolKind::TypeAlias;
             }
+        // A PACKED-ARRAY typedef signal (pkg::b c) carries NO net type even
+        // when its element leaf is a pkg struct (Surelog).
+        bool aliasPackedArr0 = false;
+        if (auto dt0 = it.sym->getDeclaredType())
+            if (dt0->getType().kind == SymbolKind::TypeAlias)
+                aliasPackedArr0 = dt0->getType()
+                                      .as<TypeAliasType>()
+                                      .targetType.getType()
+                                      .kind == SymbolKind::PackedArrayType;
         if (int32_t nt = aliasOfAlias0 ? 0 : netTypeFor(*it.sym))
             n->VpiNetType(nt);
         // A PACKAGE-typedef struct net (port, or a flat-member local) is a
         // wire; nested-struct-member locals stay untyped.
-        else if (isPkgStructType(*it.sym) &&
+        else if (!aliasPackedArr0 && isPkgStructType(*it.sym) &&
                  (it.port || !hasStructFieldMember(*it.sym)))
             n->VpiNetType(vpiWire);
         // Implicit nets print no typespec.
@@ -4374,6 +4383,32 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 art->VpiParent(ts);
                 art->Actual_typespec(mainTs);
                 ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
+            }
+        }
+    }
+    // A PACKAGE packed-array typedef signal (pkg::b c) shares the NAMED
+    // shared pkg typespec directly (Surelog).
+    if (!ts) {
+        if (auto dt3 = pn.sym->getDeclaredType()) {
+            auto& t3 = dt3->getType();
+            if (t3.kind == SymbolKind::TypeAlias) {
+                if (auto ps3 = t3.as<TypeAliasType>().getParentScope();
+                    ps3 && ps3->asSymbol().kind == SymbolKind::Package) {
+                    if (auto i4 = pkgTopTypedefTs.find(&t3);
+                        i4 != pkgTopTypedefTs.end() &&
+                        i4->second->UhdmType() ==
+                            UHDM::uhdmpacked_array_typespec)
+                        ts = i4->second;
+                    else if (auto i5 = typedefTs.find(&t3);
+                             i5 != typedefTs.end() &&
+                             i5->second->UhdmType() ==
+                                 UHDM::uhdmpacked_array_typespec)
+                        ts = i5->second;
+                    if (ts) {
+                        pn.rt->Actual_typespec(ts);
+                        return;
+                    }
+                }
             }
         }
     }
