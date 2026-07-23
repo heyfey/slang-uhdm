@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (155-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (98-DIFF state)
 
 > **READ [PLAYBOOK.md](PLAYBOOK.md) FIRST.** It governs HOW to work: the goal
 > is 0 DIFF / 0 CMP_ONLY, autonomous blocks never pause at milestones or ask
@@ -7,7 +7,7 @@
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
 
-## Session 21 (2026-07-23, drive 6 continuation): 405 PASS / 157 CMP_ONLY / 99 DIFF
+## Session 21 (2026-07-23, drive 6 continuation): 405 PASS / 158 CMP_ONLY / 98 DIFF (FINAL)
 
 DIFFs broke double digits (99). Serial lane + waves 5-6 (2 Opus worktree agents each).
 Converted this session: simple_hierarchy + wandwor (clone-body ref binding: slang clones
@@ -2087,7 +2087,7 @@ FINDINGS / dead-ends this session:
   ->UINT). No universal rule found.
 
 ---
-# HANDOFF — slang-uhdm convergence campaign (r163 state)
+# HANDOFF — slang-uhdm convergence campaign (98-DIFF state)
 
 For a fresh session picking up this project. Read this, then NOTES.md
 (quirk catalog — the accumulated ground truth), then PLAN.md Part II
