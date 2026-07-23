@@ -2418,6 +2418,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             return hp;
         }
         default: {
+            // `x inside {a, b}` — op 95 with [x, a, b, ...] (Surelog).
+            if (syn.kind == syntax::SyntaxKind::InsideExpression) {
+                auto& ie = syn.as<syntax::InsideExpressionSyntax>();
+                auto* op = s.MakeOperation();
+                op->VpiOpType(95);
+                op->VpiParent(parent);
+                setLoc(op, syn.sourceRange());
+                auto* operands = s.MakeAnyVec();
+                if (auto* l = emitSyntaxExpr(*ie.expr, op))
+                    operands->push_back(l);
+                if (ie.ranges)
+                    for (auto* vr : ie.ranges->valueRanges)
+                        if (auto* e = emitSyntaxExpr(*vr, op))
+                            operands->push_back(e);
+                op->Operands(operands);
+                return op;
+            }
             // Ternary (?:) — vpiConditionOp with [cond, true, false].
             if (syn.kind == syntax::SyntaxKind::ConditionalExpression) {
                 auto& ce = syn.as<syntax::ConditionalExpressionSyntax>();

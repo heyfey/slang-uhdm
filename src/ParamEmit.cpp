@@ -321,7 +321,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
                 if (tsyn0->kind != syntax::SyntaxKind::ImplicitType &&
-                    ps.getType().getCanonicalType().isSigned() && hasKeyword)
+                    ps.getType().getCanonicalType().isSigned() && hasKeyword &&
+                    // ENUM-typed params carry no vpiSigned (Surelog).
+                    ps.getType().getCanonicalType().kind != SymbolKind::EnumType)
                     up->VpiSigned(true);
             }
         }
