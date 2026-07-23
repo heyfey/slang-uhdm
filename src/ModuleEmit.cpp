@@ -6134,7 +6134,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 callIdxLhs = true;
         }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs) ||
+            ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs &&
+              !callFold) ||
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
@@ -6143,6 +6144,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
+        // A CONCAT-LHS const-call CA keeps the DEF form (func_call Rhs,
+        // already merged from the def pass) and adds a fresh elab CA with
+        // the folded constant (Surelog) — no extra share push.
         auto* ca = s.MakeCont_assign();
         ca->VpiParent(m);
         // A comma-list continuous assign (assign a=0, b=1;) gives EVERY
@@ -6579,6 +6583,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 for (int32_t i = w - 1; i >= 0; i--)
                     bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
                 c->VpiDecompile(std::to_string(w) + "'b" + bits);
+                c->VpiSize(w);
+                c->VpiValue("BIN:" + bits);
+                c->VpiConstType(vpiBinaryConst);
+            }
+            // A CONCAT-LHS call fold encodes BINARY at the full width, no
+            // decompile (Surelog).
+            else if (stripImplicitConv(ae.left()).kind ==
+                     ExpressionKind::Concatenation) {
+                int32_t w = (int32_t)iv.getBitWidth();
+                std::string bits;
+                for (int32_t i = w - 1; i >= 0; i--)
+                    bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
                 c->VpiSize(w);
                 c->VpiValue("BIN:" + bits);
                 c->VpiConstType(vpiBinaryConst);
