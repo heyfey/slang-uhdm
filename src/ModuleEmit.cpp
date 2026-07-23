@@ -3399,12 +3399,16 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     }
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
-                    // Gen-scope child bit_select HighConns double through
-                    // the CHILD INSTANCE name (Surelog).
-                    if (h && genvarConnFold && !genConnPrefix.empty() &&
-                        h->UhdmType() == UHDM::uhdmbit_select) {
+                    // Child bit_select HighConns double through the CHILD
+                    // INSTANCE name (gen scopes via genConnPrefix; regular
+                    // children via the parent prefix) — Surelog.
+                    if (h && h->UhdmType() == UHDM::uhdmbit_select) {
                         auto* bsx = (UHDM::bit_select*)h;
-                        bsx->VpiFullName(genConnPrefix + "." +
+                        const std::string& dblPfx =
+                            (genvarConnFold && !genConnPrefix.empty())
+                                ? genConnPrefix
+                                : hcPrefix;
+                        bsx->VpiFullName(dblPfx + "." +
                                          std::string(inst.name) + "." +
                                          std::string(bsx->VpiName()));
                     }
