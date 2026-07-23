@@ -2368,6 +2368,44 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (typeSyn)
                 setLoc(outer, typeSyn->sourceRange());
             auto* cl = s.MakePacked_array_typespec();
+            // The alias-actual clone is LOCATED at the typedef type span,
+            // pkg-Instanced, and carries the dim range with token-anchored
+            // bounds (Surelog).
+            if (typeSyn) {
+                setLoc(cl, typeSyn->sourceRange());
+                cl->Instance((UHDM::instance*)up);
+                std::vector<DimSpan> clSp9;
+                {
+                    auto full9 = typeSyn->sourceRange();
+                    clSp9 = scanDimSpans(std::string(rawText(full9)),
+                                         full9.start());
+                }
+                auto* clr9 = s.MakeRange();
+                clr9->VpiParent(cl);
+                const DimSpan* cds9 = clSp9.empty() ? nullptr : &clSp9[0];
+                if (cds9)
+                    setLoc(clr9, cds9->range);
+                auto mkB9c = [&](int64_t v9,
+                                 const SourceRange* lc9) -> UHDM::expr* {
+                    auto* c9 = s.MakeConstant();
+                    std::string d9 = std::to_string(v9);
+                    c9->VpiDecompile(d9);
+                    c9->VpiSize(64);
+                    c9->VpiValue("UINT:" + d9);
+                    c9->VpiConstType(vpiUIntConst);
+                    c9->VpiParent(clr9);
+                    if (lc9)
+                        setLoc(c9, *lc9);
+                    return c9;
+                };
+                clr9->Left_expr(
+                    mkB9c(pat.range.left, cds9 ? &cds9->left : nullptr));
+                clr9->Right_expr(
+                    mkB9c(pat.range.right, cds9 ? &cds9->right : nullptr));
+                auto* clrv9 = s.MakeRangeVec();
+                clrv9->push_back(clr9);
+                cl->Ranges(clrv9);
+            }
             auto* art = s.MakeRef_typespec();
             art->VpiFullName(dblName);
             art->VpiParent(outer);
