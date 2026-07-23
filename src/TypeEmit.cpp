@@ -2760,11 +2760,70 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                             ? ((UHDM::array_var*)parent)->VpiFullName()
                             : ((UHDM::array_net*)parent)->VpiFullName()));
                     rt0->VpiParent(sc);
-                    auto* its0 = s.MakeInt_typespec();
-                    if (sgn0)
-                        its0->VpiSigned(true);
-                    rt0->Actual_typespec(its0);
+                    // A STRUCT-PARAM MEMBER dim (mem[pt.t]) anchors the fold
+                    // at the param's DEFAULT literal (its raw decompile) and
+                    // binds the SHARED struct typedef ts (Surelog).
+                    UHDM::typespec* structTs0 = nullptr;
+                    if (!be0.bad()) {
+                        auto& ma0 = stripImplicitConv(be0);
+                        if (ma0.kind == ExpressionKind::MemberAccess) {
+                            auto& mb0 = stripImplicitConv(
+                                ma0.as<MemberAccessExpression>().value());
+                            if (mb0.kind == ExpressionKind::NamedValue &&
+                                mb0.as<NamedValueExpression>().symbol.kind ==
+                                    SymbolKind::Parameter) {
+                                auto& psb0 = mb0.as<NamedValueExpression>()
+                                                 .symbol.as<ParameterSymbol>();
+                                auto d0b = psb0.getDeclaredType();
+                                if (d0b &&
+                                    d0b->getType().kind ==
+                                        SymbolKind::TypeAlias) {
+                                    auto& ta0b =
+                                        d0b->getType().as<TypeAliasType>();
+                                    if (auto tIt0 = typedefTs.find(
+                                            (const Symbol*)&ta0b);
+                                        tIt0 != typedefTs.end())
+                                        structTs0 = tIt0->second;
+                                }
+                                if (auto* ini0 = psb0.getInitializer()) {
+                                    auto& li0 = stripImplicitConv(*ini0);
+                                    if (li0.kind ==
+                                        ExpressionKind::IntegerLiteral) {
+                                        setLoc(sc, li0.sourceRange);
+                                        sc->VpiDecompile(
+                                            rawText(li0.sourceRange));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (structTs0)
+                        rt0->Actual_typespec(structTs0);
+                    else {
+                        auto* its0 = s.MakeInt_typespec();
+                        if (sgn0)
+                            its0->VpiSigned(true);
+                        rt0->Actual_typespec(its0);
+                    }
                     sc->Typespec(rt0);
+                    if (!be0.bad() &&
+                        stripImplicitConv(be0).kind ==
+                            ExpressionKind::MemberAccess &&
+                        structTs0) {
+                        // Skip the generic loc set below.
+                        ops->push_back(sc);
+                        auto* one0 = s.MakeConstant();
+                        one0->VpiSize(64);
+                        one0->VpiValue("INT:1");
+                        one0->VpiConstType(vpiIntConst);
+                        sc->VpiConstType(vpiUIntConst);
+                        ops->push_back(one0);
+                        op->Operands(ops);
+                        r->Right_expr(op);
+                        ranges->push_back(r);
+                        dt = &ua.elementType;
+                        continue;
+                    }
                 }
                 else {
                     sc->VpiDecompile(rawText(sizeSyn->sourceRange()));
