@@ -770,6 +770,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (Surelog keeps the ref_obj).
                 auto& psym = nv.symbol.as<ParameterSymbol>();
                 auto ckP = psym.getType().getCanonicalType().kind;
+                // An interface/module PARAMETER DEFAULT that references a
+                // struct/union-typed package localparam is FOLDED to that
+                // param's VALUE expression (re-emitted in this scope, outer
+                // node re-anchored to the reference span) — Surelog inlines
+                // aggregate param defaults rather than keeping the ref_obj. A
+                // package-to-package init (paramInitPkg) keeps the ref chain.
+                if (inParamInit && !paramInitPkg &&
+                    (ckP == SymbolKind::PackedStructType ||
+                     ckP == SymbolKind::UnpackedStructType ||
+                     ckP == SymbolKind::PackedUnionType ||
+                     ckP == SymbolKind::UnpackedUnionType)) {
+                    if (auto* pini = psym.getInitializer()) {
+                        auto* folded = emitExpr(*pini, parent, prefix, netMap);
+                        if (folded) {
+                            // Surelog anchors the folded op at the package
+                            // qualifier span (pkg::) of the reference, not the
+                            // full pkg::NAME span.
+                            setLoc(folded,
+                                   SourceRange(expr.sourceRange.start(),
+                                               expr.sourceRange.start() +
+                                                   scope->asSymbol().name.size() +
+                                                   2));
+                            return folded;
+                        }
+                    }
+                }
                 if (ckP == SymbolKind::PackedStructType ||
                     ckP == SymbolKind::PackedUnionType) {
                     std::string pn = std::string(scope->asSymbol().name) + "::" +

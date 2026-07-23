@@ -1519,7 +1519,18 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
         if (auto tsyn = declared->getTypeSyntax())
             typeR = tsyn->getFirstToken().range();
     UHDM::typespec* elemTs = nullptr;
-    if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
+    // A struct/union/enum element type references the SHARED typedef typespec
+    // (Surelog), not a fresh logic_typespec — when it has been materialized.
+    if (auto lit = typedefTs.find(leaf);
+        lit != typedefTs.end() &&
+        (lit->second->UhdmType() == UHDM::uhdmstruct_typespec ||
+         lit->second->UhdmType() == UHDM::uhdmunion_typespec ||
+         lit->second->UhdmType() == UHDM::uhdmenum_typespec))
+        elemTs = lit->second;
+    if (elemTs) {
+        // shared typedef keeps its own parent/loc
+    }
+    else if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
         auto* its = s.MakeInt_typespec();
         its->VpiSigned(leaf->isSigned());
         setLoc(its, typeR);
@@ -2632,17 +2643,23 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             typedefClone[&ta] = nullptr;
             ts = lts;
         }
-        else if (ct.kind == SymbolKind::PackedStructType) {
+        else if (ct.kind == SymbolKind::PackedStructType ||
+                 ct.kind == SymbolKind::UnpackedStructType) {
             // Package struct member refs use pkg::pkg::T::m (doubled prefix);
             // each field typespec carries vpiInstance = package.
             // DEF-view member bounds stay UNFOLDED (member-scoped refs bound
             // to the params' def init constants); the elab view folds them.
             // A NESTED-struct-containing typedef's TOP view instead scopes
             // members pkg::T.m (single prefix, dot) and stays UNPARENTED.
+            bool pkStr = ct.kind == SymbolKind::PackedStructType;
+            const Scope& structScope =
+                pkStr ? (const Scope&)ct.as<PackedStructType>()
+                      : (const Scope&)ct.as<UnpackedStructType>();
             bool nestedStruct = false;
-            for (auto& fm : ct.as<PackedStructType>().membersOfType<FieldSymbol>())
-                if (fm.getType().getCanonicalType().kind ==
-                    SymbolKind::PackedStructType)
+            for (auto& fm : structScope.membersOfType<FieldSymbol>())
+                if (auto mk = fm.getType().getCanonicalType().kind;
+                    mk == SymbolKind::PackedStructType ||
+                    mk == SymbolKind::UnpackedStructType)
                     nestedStruct = true;
             bool topNested = topView && nestedStruct &&
                              wildcardImportedPkgs.count(&pkg);
@@ -2652,7 +2669,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             bool savedTf = tfContext;
             if (topView)
                 tfContext = true;
-            auto* sts = buildStructTs(ct.as<PackedStructType>(), true, alias,
+            auto* sts = buildStructTs(structScope, pkStr, alias,
                                       topNested ? "." : "::");
             tfContext = savedTf;
             if (!topNested)
@@ -3033,6 +3050,94 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         tds->push_back(it9);
     if (!tds->empty())
         up->Typespecs(tds);
+    // A struct/union-typed package parameter references the SHARED package
+    // typedef object (Surelog), not the fresh clone built during emitParameters
+    // (which ran before this typedef loop, so nested-struct members had no
+    // registered inner typedef and fell back to logic_typespec). Re-point each
+    // such param's typespec actual to the now-materialized typedef.
+    if (up->Parameters())
+        for (auto& member : pkg.members()) {
+            if (member.kind != SymbolKind::Parameter)
+                continue;
+            auto& ps2 = member.as<ParameterSymbol>();
+            auto d0 = ps2.getDeclaredType();
+            if (!d0 || d0->getType().kind != SymbolKind::TypeAlias)
+                continue;
+            auto ck2 = d0->getType().getCanonicalType().kind;
+            if (ck2 != SymbolKind::PackedStructType &&
+                ck2 != SymbolKind::UnpackedStructType &&
+                ck2 != SymbolKind::PackedUnionType &&
+                ck2 != SymbolKind::UnpackedUnionType)
+                continue;
+            auto& taSym2 = d0->getType().as<TypeAliasType>();
+            UHDM::typespec* shared = nullptr;
+            if (topView) {
+                if (auto tit = pkgTopTypedefTs.find(&taSym2);
+                    tit != pkgTopTypedefTs.end())
+                    shared = tit->second;
+            }
+            else if (auto tit = typedefTs.find(&d0->getType());
+                     tit != typedefTs.end())
+                shared = tit->second;
+            if (!shared)
+                continue;
+            for (auto* pv0 : *up->Parameters()) {
+                if (pv0->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                auto* pv = (UHDM::parameter*)pv0;
+                if (pv->VpiName() == ps2.name && pv->Typespec() &&
+                    pv->Typespec()->Actual_typespec() &&
+                    pv->Typespec()->Actual_typespec()->UhdmType() ==
+                        shared->UhdmType())
+                    pv->Typespec()->Actual_typespec(shared);
+            }
+        }
+    // An UNPACKED-ARRAY-of-struct/union/enum package parameter's array_typespec
+    // element also references the SHARED typedef; re-point its Elem actual
+    // (built as a logic_typespec before the typedef loop ran).
+    if (up->Parameters())
+        for (auto& member : pkg.members()) {
+            if (member.kind != SymbolKind::Parameter)
+                continue;
+            auto& ps2 = member.as<ParameterSymbol>();
+            const Type* leaf = &ps2.getType().getCanonicalType();
+            if (leaf->kind != SymbolKind::FixedSizeUnpackedArrayType)
+                continue;
+            while (leaf->getCanonicalType().kind ==
+                   SymbolKind::FixedSizeUnpackedArrayType)
+                leaf = &leaf->getCanonicalType()
+                            .as<FixedSizeUnpackedArrayType>()
+                            .elementType;
+            if (leaf->kind != SymbolKind::TypeAlias)
+                continue;
+            UHDM::typespec* shared = nullptr;
+            if (topView) {
+                if (auto tit = pkgTopTypedefTs.find(&leaf->as<TypeAliasType>());
+                    tit != pkgTopTypedefTs.end())
+                    shared = tit->second;
+            }
+            else if (auto tit = typedefTs.find(leaf);
+                     tit != typedefTs.end())
+                shared = tit->second;
+            if (!shared || (shared->UhdmType() != UHDM::uhdmstruct_typespec &&
+                            shared->UhdmType() != UHDM::uhdmunion_typespec &&
+                            shared->UhdmType() != UHDM::uhdmenum_typespec))
+                continue;
+            for (auto* pv0 : *up->Parameters()) {
+                if (pv0->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                auto* pv = (UHDM::parameter*)pv0;
+                if (pv->VpiName() != ps2.name || !pv->Typespec())
+                    continue;
+                auto* ats0 = pv->Typespec()->Actual_typespec();
+                if (ats0 && ats0->UhdmType() == UHDM::uhdmarray_typespec)
+                    if (auto* er = ((UHDM::array_typespec*)ats0)->Elem_typespec();
+                        er && er->Actual_typespec() &&
+                        er->Actual_typespec()->UhdmType() !=
+                            UHDM::uhdmstruct_typespec)
+                        er->Actual_typespec(shared);
+            }
+        }
     pkgTopEmit = topView;
     emitTaskFuncs(pkg, up, prefix, nullptr, /*sharedScope=*/false);
     pkgTopEmit = false;
