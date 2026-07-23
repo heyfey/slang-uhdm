@@ -7,6 +7,37 @@
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
 
+## Session 21 (2026-07-23, drive 6 continuation): 405 PASS / 157 CMP_ONLY / 99 DIFF
+
+DIFFs broke double digits (99). Serial lane + waves 5-6 (2 Opus worktree agents each).
+Converted this session: simple_hierarchy + wandwor (clone-body ref binding: slang clones
+InstanceBodySymbol per elaborated instance, so 2nd+ instances of a shared def missed the
+symbol-keyed defInfo->nets — fallback matches name+decl-loc, RHS via `reemitting`, LHS via
+`elabContAssignLhs`); union_simple (per-member vector-typedef alias clones in
+buildStructTs/buildUnionTs + packed-union field => struct_var); size_cast (cast clones at
+every scope + byte'() => byte_typespec incl. pendingCastTs drain); param_no_default +
+ImportFunction + ParameterPassedTo{SubmoduleOfSubmodule,3TimesNested,InGenscopeOfSubmodule}
+(wave-5); TypedefPackedDimensions (pkg packed-array typedef: shared named ts for net+var
+views, no spurious wire net-type, alias-twin nameless Elem ref); struct_pattern_loop
+(2-state bit model: bit_var scalars, array_var w/ shared-range bit_var element, BIT-element
+def-port array_typespec wrapper, sizeless based pattern leaves);
+iface_{samename_port,internal_assign,unpacked_signal,array_internal_assign} +
+ParameterFromPkgInNestedModule (wave-6: iface elab var model + P=X pkg-param clone fold).
+
+Key merge lessons: an agent's blanket "parent bare fold constants at ca" demoted ~26
+byte-PASS tests — gate landed as isMultiParamDef && NamedValue-RHS; wholesale def-CA sharing
+into iface elab views demoted InterfaceAssign — constant-RHS CAs keep the fresh per-view
+re-emit; the untyped multiparam param fold ts is int_typespec at the FULL param-decl span and
+must be checked BEFORE the bare-vec branch (implicit type is a packed logic[31:0]).
+
+Parked with decode notes (memory diff-fix-roadmap): iface_gen_delay (iface gen-scope
+Variables missing: logic_var tmp per gen_scope instance + bit_select naming),
+iface_cfg_param_def_pass (def iface struct-param pattern needs tagged_pattern operands:
+Pattern constant size 64 + string_typespec(member) ts ref; elab re-emits at override site),
+ImportedDoubleCastedParameter / BitSelectOfParameterPassedToSubmodule /
+ParameterFromPkgOnParameterPortList (pkg-level residues, wave-6 pk agent findings),
+nameless pkg twin decode (aggArray branch in ParamEmit ~2404 = the alias-actual twin builder).
+
 ## Session 20 (2026-07-23, drive 6, levers 1+2+3): 405 PASS / 134 CMP_ONLY / 122 DIFF (in progress)
 
 12-hour autonomous parallel drive (workflow opt-in). Serial lane + 4 waves of 2 Opus worktree
