@@ -2498,6 +2498,12 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         break;
                     }
             if (ets2) {
+                // The alias-actual TWIN also carries a NAMELESS Elem ref to
+                // the same shared element ts (Surelog).
+                auto* certn = s.MakeRef_typespec();
+                certn->VpiParent(cl);
+                certn->Actual_typespec(ets2);
+                cl->Elem_typespec(certn);
                 auto* ert = s.MakeRef_typespec();
                 ert->VpiFullName(dblName);
                 ert->VpiParent(outer);
