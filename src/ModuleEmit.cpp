@@ -5059,11 +5059,25 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     // clone, then the typed param ts (Surelog: after the top-port ts, before
     // the genvar int ts).
     for (auto& gl : pendingGenLpTs) {
-        if (gl.crt)
+        if (gl.crt && gl.typedLp)
             if (auto* bare = makeBareVecParamTs(*gl.ps, false))
                 gl.crt->Actual_typespec(bare);
-        // A FRESH elab ts, parented at the elab ref (Surelog).
-        if (auto* its = makeParamTs(*gl.ps, gl.typedLp)) {
+        // A FRESH elab ts, parented at the elab ref (Surelog). An UNTYPED
+        // gen localparam resolves to an int_typespec spanning the FULL
+        // parameter declaration (3rd sighting of the untyped->int rule).
+        UHDM::typespec* its = nullptr;
+        if (!gl.typedLp) {
+            auto* it9 = s.MakeInt_typespec();
+            for (auto q9 = gl.ps->getSyntax(); q9; q9 = q9->parent)
+                if (q9->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                    setLoc(it9, q9->sourceRange());
+                    break;
+                }
+            its = it9;
+        }
+        else
+            its = makeParamTs(*gl.ps, gl.typedLp);
+        if (its) {
             gl.rt->Actual_typespec(its);
             its->VpiParent(gl.rt);
             if (gl.crt && !gl.crt->Actual_typespec())
@@ -8995,14 +9009,62 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     setLoc(up2, dcl->sourceRange());
                     if (isLocal2)
                         up2->VpiLocalParam(true);
-                    auto* prt2 = s.MakeRef_typespec();
-                    prt2->VpiFullName(branchPrefix + "." + pname);
-                    prt2->VpiParent(up2);
-                    if (auto* its2 = makeParamTs(*psym, typedP2)) {
-                        prt2->Actual_typespec(its2);
-                        defGenLpTs[psym] = its2; // shared into the elab ref
+                    // An UNTYPED gen localparam whose init references the
+                    // loop GENVAR carries NO def-view typespec (its type is
+                    // iteration-dependent) — Surelog.
+                    bool genvarInit2 = false;
+                    if (!typedP2 && dcl->initializer) {
+                        std::string gvn2;
+                        for (auto q2 = item->parent; q2; q2 = q2->parent)
+                            if (q2->kind == syntax::SyntaxKind::LoopGenerate) {
+                                auto& lg2 =
+                                    q2->as<syntax::LoopGenerateSyntax>();
+                                gvn2 = lg2.identifier.valueText();
+                                break;
+                            }
+                        if (!gvn2.empty()) {
+                            std::string raw2(
+                                rawText(dcl->initializer->expr->sourceRange()));
+                            for (size_t p2 = raw2.find(gvn2);
+                                 p2 != std::string::npos;
+                                 p2 = raw2.find(gvn2, p2 + 1)) {
+                                bool lb2 = p2 == 0 ||
+                                           (!isalnum((unsigned char)
+                                                         raw2[p2 - 1]) &&
+                                            raw2[p2 - 1] != '_');
+                                size_t e2 = p2 + gvn2.size();
+                                bool rb2 = e2 >= raw2.size() ||
+                                           (!isalnum((unsigned char)
+                                                         raw2[e2]) &&
+                                            raw2[e2] != '_');
+                                if (lb2 && rb2) {
+                                    genvarInit2 = true;
+                                    break;
+                                }
+                            }
+                        }
                     }
-                    up2->Typespec(prt2);
+                    // UNTYPED gen localparams resolve to an int_typespec at
+                    // the FULL declaration span in the ELAB share (Surelog);
+                    // typed ones keep their makeParamTs form.
+                    UHDM::typespec* its2 = nullptr;
+                    if (!typedP2) {
+                        auto* it2g = s.MakeInt_typespec();
+                        setLoc(it2g, pds.parameter->sourceRange());
+                        its2 = it2g;
+                    }
+                    else
+                        its2 = makeParamTs(*psym, typedP2);
+                    if (its2) {
+                        defGenLpTs[psym] = its2; // shared into the elab ref
+                        if (!genvarInit2) {
+                            auto* prt2 = s.MakeRef_typespec();
+                            prt2->VpiFullName(branchPrefix + "." + pname);
+                            prt2->VpiParent(up2);
+                            prt2->Actual_typespec(its2);
+                            up2->Typespec(prt2);
+                        }
+                    }
                     pa2->Lhs(up2);
                     if (dcl->initializer) {
                         syntaxRefPrefix = branchPrefix;
