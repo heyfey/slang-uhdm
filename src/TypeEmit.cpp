@@ -936,7 +936,9 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
                  ct.as<PackedStructType>().membersOfType<FieldSymbol>()) {
                 auto& fct = fm.getType().getCanonicalType();
                 if (fct.kind == SymbolKind::PredefinedIntegerType ||
-                    fct.kind == SymbolKind::EnumType || !fct.isFourState()) {
+                    fct.kind == SymbolKind::EnumType ||
+                    fct.kind == SymbolKind::PackedUnionType ||
+                    !fct.isFourState()) {
                     atomField = true;
                     break;
                 }
@@ -1514,6 +1516,39 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 pat9->Elem_typespec(ert9);
                 fts = pat9;
             }
+            // A DIRECT vector-typedef member (reg_addr_t rs1;): Surelog gives
+            // the member its own NAMED alias clone (parent = the member,
+            // Typedef_alias -> the shared typedef ts, own range copy) instead
+            // of pointing at the shared ts.
+            if (!fts && fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias) {
+                auto& amt = fm.getDeclaredType()->getType();
+                if (auto tita = typedefTs.find(&amt);
+                    tita != typedefTs.end() &&
+                    tita->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto* dta = &amt.as<TypeAliasType>();
+                    const syntax::SyntaxNode* tgtSynD = nullptr;
+                    if (auto asynD = dta->getSyntax())
+                        if (asynD->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tgtSynD =
+                                asynD->as<syntax::TypedefDeclarationSyntax>()
+                                    .type;
+                    bypassTypedefShare = true;
+                    auto* clD = makeTypespec(*dta, tgtSynD);
+                    bypassTypedefShare = false;
+                    clD->VpiName(dta->name);
+                    clD->VpiParent(tm);
+                    auto* artD = s.MakeRef_typespec();
+                    artD->VpiFullName(aliasName + memberSep +
+                                      std::string(fm.name) + memberSep +
+                                      std::string(dta->name));
+                    artD->VpiParent(clD);
+                    artD->Actual_typespec(tita->second);
+                    if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
+                        ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
+                    fts = clD;
+                }
+            }
             if (!fts)
                 fts = makeTypespec(fm, memberTypeSyn);
             tfContext = savedTf;
@@ -1713,6 +1748,39 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 ert9->Actual_typespec(cl9);
                 pat9->Elem_typespec(ert9);
                 fts = pat9;
+            }
+            // A DIRECT vector-typedef member (reg_addr_t rs1;): Surelog gives
+            // the member its own NAMED alias clone (parent = the member,
+            // Typedef_alias -> the shared typedef ts, own range copy) instead
+            // of pointing at the shared ts.
+            if (!fts && fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias) {
+                auto& amt = fm.getDeclaredType()->getType();
+                if (auto tita = typedefTs.find(&amt);
+                    tita != typedefTs.end() &&
+                    tita->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto* dta = &amt.as<TypeAliasType>();
+                    const syntax::SyntaxNode* tgtSynD = nullptr;
+                    if (auto asynD = dta->getSyntax())
+                        if (asynD->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tgtSynD =
+                                asynD->as<syntax::TypedefDeclarationSyntax>()
+                                    .type;
+                    bypassTypedefShare = true;
+                    auto* clD = makeTypespec(*dta, tgtSynD);
+                    bypassTypedefShare = false;
+                    clD->VpiName(dta->name);
+                    clD->VpiParent(tm);
+                    auto* artD = s.MakeRef_typespec();
+                    artD->VpiFullName(aliasName + memberSep +
+                                      std::string(fm.name) + memberSep +
+                                      std::string(dta->name));
+                    artD->VpiParent(clD);
+                    artD->Actual_typespec(tita->second);
+                    if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
+                        ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
+                    fts = clD;
+                }
             }
             if (!fts)
                 fts = makeTypespec(fm, memberTypeSyn);
