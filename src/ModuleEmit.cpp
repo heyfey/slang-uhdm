@@ -3969,6 +3969,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         v.visitDefault(nvp);
                     }));
                 bool suppress = streamRhs || childGen || !hasBindableRef;
+                // INTERFACE gen scopes bind their CA refs to the gen-local
+                // vars (Surelog); module gen CAs keep the suppression rules.
+                if (m->UhdmType() == UHDM::uhdminterface_inst && !streamRhs &&
+                    !childGen)
+                    suppress = false;
                 if (suppress)
                     suppressRefActual = true;
                 bool blkInLoop3 = false;
@@ -4158,6 +4163,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 genScopeProcInLoop = true;
                 break;
             }
+        // INTERFACE gen scopes bind their for-generate locals (Surelog);
+        // module for-generate locals stay unbound.
+        if (genScopeProcInLoop && m->UhdmType() == UHDM::uhdminterface_inst)
+            genScopeProcInLoop = false;
         for (auto& gm : blk.members()) {
             if (gm.kind == SymbolKind::ProceduralBlock) {
                 if (auto* p = emitProcess(gm.as<ProceduralBlockSymbol>(), m, fullName, netMap)) {
