@@ -7,6 +7,34 @@
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
 
+## Session 20 (2026-07-23, drive 6, levers 1+2+3): 405 PASS / 134 CMP_ONLY / 122 DIFF (in progress)
+
+12-hour autonomous parallel drive (workflow opt-in). Serial lane + 4 waves of 2 Opus worktree
+agents. Converted so far: SumOfParameters, 2DParameterOfInstance, size_cast_param,
+named_genblk_cascade, TypedefedRangedFunctionReturn (byte PASS),
+ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor (byte PASS), TypeParameter family
+x4 (tp agent + clone finishers), StructParameterInitializedWithPatternAndReferenced,
+iface_struct_field_bitselect (modport ALPHABETICAL ordering — iface agent),
+multidim_hier_path9 (byte PASS) + multidim_hier_path8 + indexed_partsel_array (hp agent patch).
+
+Major decodes: imported-param materialization (instance-override scan, overridden-default
+re-bind, vector-typedef two-level alias clone chain, def Lhs param clone, source-form overrides,
+pkg-typedef cast keep); gen-case symbolic def emission + else-if re-pass (nested genblk1 wrap,
+first-item spans); concat/call conn scoping through instance+formal; const-call CA dual
+emission (def func_call + elab BIN fold); type_parameter model (def default from port-list
+syntax, per-tp typedef/enum clones); modports sort alphabetically (Surelog name-keyed map);
+materializeDefNetTs = the typedef-net ts builder; pkg struct-pattern folds (BIN concat setters).
+
+Agent-ops lessons: verify agent patches in the MAIN tree (claims can be placeholder junk);
+a dead-on-StructuredOutput agent may still leave a complete patch at patchPath; converge.sh
+sends exporter stderr to $WORK/slang.log.
+
+Parked (documented in memory diff-fix-roadmap.md): LocalParamInNestedForLoops (module-level
+extra param_assign model decoded, late-renamer unidentified), net_types dual net listing,
+TypedefVariableDimensions (array_var + shared pkg array ts model), ParameterFromPkg pair,
+simple_package pkg-fn return-range binding, wandwor multi-driver CA binding, ImportFunction
+pkg-fn copy clone forensics, multi-distinct-parameterization cluster (wave-4 agent on it).
+
 ## Session 19 (2026-07-22, drive 5): 402 PASS / 120 CMP_ONLY / 139 DIFF
 
 ~30 gated commits (fbadcb2..bdd3e21+). Converted: typedef_package, package_task_func (+2 bonus),
