@@ -7071,7 +7071,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
             paramInitDef = !topView;
             contAssignView = topView ? 2 : 1;
+            // When the ENTIRE RHS is a signed based literal, record the LHS
+            // target signedness (no implicit conversion is inserted for a
+            // same-width signedness change) so the literal's int_typespec drops
+            // vpiSigned for an unsigned target (Surelog).
+            int savedICT7 = implicitConvTargetSigned;
+            if (stripImplicitConv(ae.right()).kind ==
+                    ExpressionKind::IntegerLiteral &&
+                ae.left().type)
+                implicitConvTargetSigned = ae.left().type->isSigned() ? 1 : 0;
             rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
+            implicitConvTargetSigned = savedICT7;
             contAssignView = 0;
             paramInitDef = false;
             // Flat pattern on an UNPACKED-array LHS: based-literal leaves are

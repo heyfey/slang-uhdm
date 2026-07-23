@@ -1521,14 +1521,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         c->VpiConstType(vpiDecConst);
                         break;
                 }
-                // A signed based literal (1'sb1) carries a signed int_typespec
-                // ref; the int_typespec lands in the weaklyReferenced tail.
+                // A signed based literal (1'sb1) carries an int_typespec ref
+                // in the weaklyReferenced tail. When the literal is the WHOLE
+                // RHS of a continuous assignment, Surelog emits a PLAIN
+                // int_typespec (no vpiSigned) parented to its ref_typespec;
+                // in expression-operand contexts it stays signed and parentless.
                 if (tick + 1 < raw.size() &&
                     (raw[tick + 1] == 's' || raw[tick + 1] == 'S')) {
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiParent(c);
                     auto* its = s.MakeInt_typespec();
-                    its->VpiSigned(true);
+                    // A signed literal coerced to an UNSIGNED continuous-assign
+                    // target (assign w = 1'sb1; w a plain wire) yields a PLAIN
+                    // int_typespec parented to its ref_typespec (Surelog). In
+                    // every other context (expression operands, signed targets)
+                    // the typespec stays signed and parentless.
+                    bool unsignedContAssign =
+                        parent &&
+                        parent->UhdmType() == UHDM::uhdmcont_assign &&
+                        implicitConvTargetSigned == 0;
+                    if (unsignedContAssign)
+                        its->VpiParent(rt);
+                    else
+                        its->VpiSigned(true);
                     rt->Actual_typespec(its);
                     c->Typespec(rt);
                 }
@@ -1635,6 +1650,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* its = s.MakeInteger_typespec();
                         setLoc(its, cesyn.left->sourceRange());
                         its->VpiValue("INT:" + rawText(cesyn.left->sourceRange()));
+                        // A package-scope size cast's integer_typespec carries
+                        // vpiInstance = the package (Surelog).
+                        if (pkgScopeInst)
+                            its->Instance(pkgScopeInst);
                         cts = its;
                     }
                 }
@@ -1930,8 +1949,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             auto* rt = s.MakeRef_typespec();
             // DEF-view gen procedural casts keep the ref_typespec BARE.
-            if (!defGenProcessEmit)
-                rt->VpiFullName(prefix);
+            if (!defGenProcessEmit) {
+                // A package-qualified prefix ("pkg::") drops its trailing
+                // separator on a cast op's ref_typespec fullname (Surelog
+                // names it "pkg", not "pkg::").
+                std::string tsp = prefix;
+                if (tsp.size() >= 2 &&
+                    tsp.compare(tsp.size() - 2, 2, "::") == 0)
+                    tsp.resize(tsp.size() - 2);
+                rt->VpiFullName(tsp);
+            }
             rt->VpiParent(op);
             rt->Actual_typespec(cts);
             // Re-elaborated contexts parent the cast typespec at its ref.

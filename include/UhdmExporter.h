@@ -420,6 +420,11 @@ private:
     // nested-pattern element constants keep the bare-decimal default size).
     bool inAssignPattern = false;
     bool forceConstParent = false;
+    // Tri-state signedness of the target an implicit conversion is coercing a
+    // signed based-literal to (-1 unknown, 0 unsigned, 1 signed). Used to model
+    // Surelog's signed-literal int_typespec: an UNSIGNED continuous-assign
+    // target yields a plain (unsigned) parented typespec.
+    int implicitConvTargetSigned = -1;
     bool inLhs = false;
     // True while emitting an elaborated generate-scope process: refs to outer
     // (module) signals are left unbound (no Actual_group), as Surelog does.

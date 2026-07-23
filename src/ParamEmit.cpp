@@ -91,6 +91,20 @@ static void collectImportedParams(const Scope& body,
                         pe->visit(v);
         }
     }
+    // Surelog's allModules def is the ELABORATED unique instance: a module
+    // whose OWN port is driven (by its instantiator) with an imported package
+    // param materializes that param into the def too (the connected value flows
+    // into the child's elaborated instance). Scan this body's parent-instance
+    // port connections for imported params (the visitor gates on this body's
+    // own wildcard/explicit imports, so only params the child imports match).
+    if (body.asSymbol().kind == SymbolKind::InstanceBody)
+        if (auto* pi = body.asSymbol()
+                           .as<InstanceBodySymbol>()
+                           .parentInstance)
+            for (auto* pc : pi->getPortConnections())
+                if (pc)
+                    if (auto* pe = pc->getExpression())
+                        pe->visit(v);
     // A NET/VARIABLE declaration whose TYPE RANGE references an imported param
     // (logic [$bits(P)-1:0] x, or logic [P-1:0] y) materializes it too — the
     // range keeps a symbolic ref even when the width folds to a constant.
@@ -250,7 +264,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         }
         // An imported param's type syntax may not resolve from the importing
         // module; fall back to a definite integral kind (int/scalar/vector).
-        if (isImported && !typedParam) {
+        // An IMPLICITLY-typed imported param (parameter W = 48) is NOT promoted:
+        // it follows the untyped rules (default int_typespec) exactly as it
+        // does in its home package — otherwise a bare vector-canonical value
+        // would emit a spurious logic[31:0] typespec (fail_detect_width).
+        bool implicitImportDecl = false;
+        if (auto d0i = ps.getDeclaredType())
+            if (auto ts0i = d0i->getTypeSyntax())
+                implicitImportDecl =
+                    ts0i->kind == syntax::SyntaxKind::ImplicitType;
+        if (isImported && !typedParam && !implicitImportDecl) {
             auto& ct0 = ps.getType().getCanonicalType();
             typedParam = ct0.kind == SymbolKind::PredefinedIntegerType ||
                          ct0.kind == SymbolKind::ScalarType ||
@@ -754,8 +777,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // string constant, decompiled without quotes). Pkg CONCAT
                 // inits keep the operation in both views.
                 else if (!ps.getType().getCanonicalType().isString() &&
-                         !(inPackage && stripImplicitConv(*init).kind ==
-                                            ExpressionKind::Concatenation) &&
+                         !(inPackage && [&] {
+                             // A pkg param whose init is a concatenation — or
+                             // an explicit size/type cast wrapping one, e.g.
+                             // 3'({3'({3'h1})}) — keeps the operation in the
+                             // elab view (Surelog leaves the cast/concat tree
+                             // unfolded rather than reducing it to a constant).
+                             const Expression* e = &stripImplicitConv(*init);
+                             while (e->kind == ExpressionKind::Conversion &&
+                                    !e->as<ConversionExpression>().isImplicit())
+                                 e = &stripImplicitConv(
+                                     e->as<ConversionExpression>().operand());
+                             return e->kind == ExpressionKind::Concatenation;
+                         }()) &&
                          // A materialized IMPORTED param's concat init keeps
                          // the operation in the elab view too (Surelog).
                          !(isImported && stripImplicitConv(*init).kind ==
@@ -809,6 +843,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                              typedParam ? init0 : nullptr))) {
                     bool partSelectFold = false;
                     ((UHDM::constant*)rhs)->VpiParent(pa);
+                    // A materialized IMPORTED param whose default folds from a
+                    // NON-literal operation (cast/concat) yields a BARE folded
+                    // constant in the module view: no loc, no typespec ref
+                    // (Surelog). A simple-literal import (int W = 4) keeps
+                    // them, but that init takes the IntegerLiteral branch
+                    // above, not this fold path.
+                    bool importedFold = isImported && topView && !inPackage;
                     // Typed params fold at the type width; a size-cast value
                     // (32'(ONE)) at the cast width; other untyped values at 64.
                     auto& scv = stripImplicitConv(*init);
@@ -845,7 +886,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             if (dsyn->kind ==
                                 syntax::SyntaxKind::ParenthesizedExpression)
                                 rhsLoc = dsyn->sourceRange();
-                    setLoc((UHDM::constant*)rhs, rhsLoc);
+                    if (!importedFold)
+                        setLoc((UHDM::constant*)rhs, rhsLoc);
                     // ELAB-pkg computed BinaryOp init folds at the LEFT
                     // operand's span, sized 32 (Surelog).
                     {
@@ -964,7 +1006,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         partSelectFold = true;
                     }
                     // Typed-param (non-pattern) folds carry a ts ref to the param.
-                    if (typedParam && wantTs && !isPattern && !partSelectFold) {
+                    if (typedParam && wantTs && !isPattern && !partSelectFold &&
+                        !importedFold) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
@@ -2403,7 +2446,12 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 up->VpiEndLabel(bn->name.valueText());
     }
     NetMap none;
+    // Package-scope cast typespecs (size-literal integer_typespecs) carry
+    // vpiInstance = the package (Surelog); expose it during param emission.
+    auto* savedPkgInst0 = pkgScopeInst;
+    pkgScopeInst = (UHDM::instance*)up;
     emitParameters(pkg, up, prefix, none, topView, nullptr, true);
+    pkgScopeInst = savedPkgInst0;
     // Package typedefs: struct/enum/vector typespecs named pkg::T, parented and
     // instanced at the package, populating typedefTs so package-typedef'd
     // signals/params resolve.
