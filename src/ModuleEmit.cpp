@@ -1383,8 +1383,30 @@ int32_t UhdmExporter::interfacePortDirection(const InterfacePortSymbol& ip) {
             hasOut = true;
             break;
         }
-    if (!hasOut)
-        return vpiInout;
+    if (!hasOut) {
+        // Input-only modport: vpiInput only when the module never touches a
+        // modport MEMBER through the port (param-only access like
+        // s.CFG.BUS.DAT); any member access keeps inout
+        // (member_port/member_read_assign/struct_field_bitselect).
+        bool memberRef = false;
+        if (auto ps9 = ip.getParentScope()) {
+            if (auto msyn9 = ps9->asSymbol().getSyntax()) {
+                std::string body9 = rawText(msyn9->sourceRange());
+                for (auto& mm : mp->members()) {
+                    if (mm.kind != SymbolKind::ModportPort)
+                        continue;
+                    std::string pat9 =
+                        std::string(ip.name) + "." + std::string(mm.name);
+                    if (body9.find(pat9) != std::string::npos) {
+                        memberRef = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (memberRef)
+            return vpiInout;
+    }
     const Expression* ex = ce.second;
     bool qualified =
         ex && rawText(ex->sourceRange).find('.') != std::string::npos;
@@ -4595,11 +4617,15 @@ bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
     auto tsyn0 = dt0->getTypeSyntax();
     if (!tsyn0)
         return false;
-    auto* its0 = tsyn0->as_if<syntax::IntegerTypeSyntax>();
-    if (!its0)
+    std::span<syntax::VariableDimensionSyntax* const> dims0;
+    if (auto* its0 = tsyn0->as_if<syntax::IntegerTypeSyntax>())
+        dims0 = its0->dimensions;
+    else if (auto* imt0 = tsyn0->as_if<syntax::ImplicitTypeSyntax>())
+        dims0 = imt0->dimensions;
+    else
         return false;
     bool found = false;
-    for (auto* dim : its0->dimensions) {
+    for (auto* dim : dims0) {
         if (!dim->specifier ||
             dim->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
             continue;
