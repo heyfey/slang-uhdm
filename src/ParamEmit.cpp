@@ -1313,18 +1313,46 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             if (auto d0 = ps.getDeclaredType();
                 d0 && d0->getType().kind == SymbolKind::TypeAlias) {
                 auto& taSym = d0->getType().as<TypeAliasType>();
-                UHDM::typespec* found = nullptr;
                 if (defViewParamTs) {
                     if (auto tit = typedefTs.find(&taSym);
-                        tit != typedefTs.end())
-                        found = tit->second;
+                        tit != typedefTs.end()) {
+                        its = tit->second;
+                        sharedAggTs = true;
+                    }
                 }
-                else if (auto tit = pkgTopTypedefTs.find(&taSym);
-                         tit != pkgTopTypedefTs.end())
-                    found = tit->second;
-                if (found) {
-                    its = found;
-                    sharedAggTs = true;
+                else {
+                    // ELAB: a FRESH enum clone — base ref MODULE-scoped
+                    // (work@top.my_pkg::get_e), pkg-Instanced, spanning the
+                    // whole typedef; parent = the prt ref (caller).
+                    std::string aliasNm(taSym.name);
+                    const Symbol* homePkg9 = nullptr;
+                    if (auto sc9 = taSym.getParentScope();
+                        sc9 && sc9->asSymbol().kind == SymbolKind::Package) {
+                        homePkg9 = &sc9->asSymbol();
+                        aliasNm = std::string(homePkg9->name) + "::" + aliasNm;
+                    }
+                    std::string modPfx = syntaxRefPrefix;
+                    if (auto dp9 = modPfx.rfind('.'); dp9 != std::string::npos)
+                        modPfx.resize(dp9);
+                    const syntax::SyntaxNode* eSyn9 = nullptr;
+                    if (auto dS9 = taSym.getSyntax();
+                        dS9 &&
+                        dS9->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        eSyn9 =
+                            dS9->as<syntax::TypedefDeclarationSyntax>().type;
+                    auto* ecl = buildEnumTs(ct.as<EnumType>(), eSyn9,
+                                            modPfx.empty()
+                                                ? aliasNm
+                                                : modPfx + "." + aliasNm);
+                    ecl->VpiName(aliasNm);
+                    if (auto dS9 = taSym.getSyntax())
+                        setLoc(ecl, dS9->sourceRange());
+                    if (homePkg9)
+                        if (auto pit9 = pkgDefMap.find(homePkg9);
+                            pit9 != pkgDefMap.end())
+                            ecl->Instance(pit9->second);
+                    its = ecl;
+                    sharedAggTs = true; // caller skips setLoc; parent set below
                 }
             }
         }
