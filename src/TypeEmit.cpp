@@ -1407,6 +1407,22 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         tm->VpiName(fm.name);
         tm->VpiParent(sts);
         setLoc(tm, nameSpan(fm.location, fm.name));
+        // An UNPACKED-array member (foo_t f [7]) spans name..last dim
+        // (Surelog).
+        if (fm.getDeclaredType() &&
+            fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType)
+            if (auto dsm9 = fm.getSyntax();
+                dsm9 && dsm9->kind == syntax::SyntaxKind::Declarator) {
+                auto& ddm9 = dsm9->as<syntax::DeclaratorSyntax>();
+                if (!ddm9.dimensions.empty()) {
+                    auto de9 = ddm9.dimensions[ddm9.dimensions.size() - 1]
+                                   ->sourceRange()
+                                   .end();
+                    tm->VpiEndLineNo(sm->getLineNumber(de9));
+                    tm->VpiEndColumnNo(sm->getColumnNumber(de9));
+                }
+            }
         // The canonical struct's fields may lose their type-syntax link;
         // recover it from the member declaration syntax.
         const syntax::SyntaxNode* memberTypeSyn = nullptr;
@@ -1746,6 +1762,22 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         tm->VpiName(fm.name);
         tm->VpiParent(uts);
         setLoc(tm, nameSpan(fm.location, fm.name));
+        // An UNPACKED-array member (foo_t f [7]) spans name..last dim
+        // (Surelog).
+        if (fm.getDeclaredType() &&
+            fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType)
+            if (auto dsm9 = fm.getSyntax();
+                dsm9 && dsm9->kind == syntax::SyntaxKind::Declarator) {
+                auto& ddm9 = dsm9->as<syntax::DeclaratorSyntax>();
+                if (!ddm9.dimensions.empty()) {
+                    auto de9 = ddm9.dimensions[ddm9.dimensions.size() - 1]
+                                   ->sourceRange()
+                                   .end();
+                    tm->VpiEndLineNo(sm->getLineNumber(de9));
+                    tm->VpiEndColumnNo(sm->getColumnNumber(de9));
+                }
+            }
         const syntax::SyntaxNode* memberTypeSyn = nullptr;
         for (auto p2 = fm.getSyntax(); p2; p2 = p2->parent) {
             if (p2->kind == syntax::SyntaxKind::StructUnionMember) {
