@@ -981,8 +981,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                         // A def gen-CA bit_select spans its INDEX only.
                         auto selSpan = [&](UHDM::any* e,
                                            const syntax::ExpressionSyntax& sy) {
-                            if (e && e->UhdmType() == UHDM::uhdmbit_select &&
-                                sy.kind == syntax::SyntaxKind::
+                            if (!e || e->UhdmType() != UHDM::uhdmbit_select)
+                                return;
+                            if (sy.kind == syntax::SyntaxKind::
                                                ElementSelectExpression) {
                                 auto& es2 = sy.as<
                                     syntax::ElementSelectExpressionSyntax>();
@@ -990,12 +991,28 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                                     setLoc((UHDM::expr*)e,
                                            es2.select->selector->sourceRange());
                             }
+                            else if (sy.kind ==
+                                     syntax::SyntaxKind::IdentifierSelectName) {
+                                auto& isn2 =
+                                    sy.as<syntax::IdentifierSelectNameSyntax>();
+                                if (!isn2.selectors.empty() &&
+                                    isn2.selectors[0]->selector)
+                                    setLoc((UHDM::expr*)e,
+                                           isn2.selectors[0]
+                                               ->selector->sourceRange());
+                            }
                         };
                         if (auto* l = emitSyntaxExpr(*be.left, ca)) {
-                            selSpan(l, *be.left);
+                            // LHS selects keep the whole span (Surelog).
+                            if (be.left->kind ==
+                                syntax::SyntaxKind::ElementSelectExpression)
+                                selSpan(l, *be.left);
                             ca->Lhs((UHDM::expr*)l);
                         }
-                        if (auto* r = emitSyntaxExpr(*be.right, ca)) {
+                        selBaseScopeIdx = true;
+                        auto* r = emitSyntaxExpr(*be.right, ca);
+                        selBaseScopeIdx = false;
+                        if (r) {
                             selSpan(r, *be.right);
                             ca->Rhs((UHDM::expr*)r);
                         }

@@ -2013,10 +2013,17 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 bs->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(bname));
             bs->VpiParent(parent);
             setLoc(bs, syn.sourceRange());
-            if (sel && sel->kind == syntax::SyntaxKind::BitSelect)
+            if (sel && sel->kind == syntax::SyntaxKind::BitSelect) {
+                // Def gen-CA RHS: index subexpressions scope THROUGH the
+                // select base (prefix.base.<name>) — Surelog.
+                std::string savedPfx3 = syntaxRefPrefix;
+                if (selBaseScopeIdx && !syntaxRefPrefix.empty())
+                    syntaxRefPrefix += syntaxRefSep + std::string(bname);
                 if (auto* ix = emitSyntaxExpr(
                         *sel->as<syntax::BitSelectSyntax>().expr, bs))
                     bs->VpiIndex((UHDM::expr*)ix);
+                syntaxRefPrefix = savedPfx3;
+            }
             return bs;
         }
         case syntax::SyntaxKind::UnbasedUnsizedLiteralExpression: {

@@ -723,6 +723,9 @@ private:
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
+    // True while emitting a def gen-CA RHS: select-index subexpressions
+    // scope through the select base (prefix.base.<name>) — Surelog.
+    bool selBaseScopeIdx = false;
     // An imported typedef listed by an IMPORTING package's def view SHARES
     // the home package's def object; module import listings share it too
     // (last-writer scoping). Filled by drainPkgImportLists.
