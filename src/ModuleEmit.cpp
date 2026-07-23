@@ -8092,6 +8092,50 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                                      netMap);
         case AssertionExprKind::Binary: {
             auto& bae = ae.as<BinaryAssertionExpr>();
+            // Surelog binds |=> TIGHTER than until: lhs |=> c until d comes
+            // out as until(implies(lhs, c), d), the hoisted until op left
+            // UNPARENTED (sva_range).
+            if ((bae.op == BinaryAssertionOperator::NonOverlappedImplication ||
+                 bae.op == BinaryAssertionOperator::OverlappedImplication) &&
+                bae.right.kind == AssertionExprKind::Binary &&
+                (bae.right.as<BinaryAssertionExpr>().op ==
+                     BinaryAssertionOperator::Until ||
+                 bae.right.as<BinaryAssertionExpr>().op ==
+                     BinaryAssertionOperator::SUntil)) {
+                auto& rb = bae.right.as<BinaryAssertionExpr>();
+                auto* uop = s.MakeOperation();
+                uop->VpiOpType(mapAssertBinOp(rb.op));
+                if (ae.syntax)
+                    setLocCompact(uop, ae.syntax->sourceRange());
+                auto* iop = s.MakeOperation();
+                iop->VpiOpType(mapAssertBinOp(bae.op));
+                iop->VpiParent(uop);
+                if (bae.left.syntax && rb.left.syntax)
+                    setLoc(iop,
+                           SourceRange(bae.left.syntax->sourceRange().start(),
+                                       rb.left.syntax->sourceRange().end()));
+                auto* iops = s.MakeAnyVec();
+                if (auto* l =
+                        emitAssertionExpr(bae.left, iop, prefix, netMap))
+                    iops->push_back(l);
+                if (auto* r = emitAssertionExpr(rb.left, iop, prefix, netMap)) {
+                    // Hoist-context whole-refs are BARE-named (sva_range).
+                    if (r->UhdmType() == UHDM::uhdmref_obj)
+                        ((UHDM::ref_obj*)r)->VpiFullName("");
+                    iops->push_back(r);
+                }
+                iop->Operands(iops);
+                auto* uops = s.MakeAnyVec();
+                uops->push_back(iop);
+                if (auto* r2 =
+                        emitAssertionExpr(rb.right, uop, prefix, netMap)) {
+                    if (r2->UhdmType() == UHDM::uhdmref_obj)
+                        ((UHDM::ref_obj*)r2)->VpiFullName("");
+                    uops->push_back(r2);
+                }
+                uop->Operands(uops);
+                return uop;
+            }
             int32_t opt = mapAssertBinOp(bae.op);
             if (!opt) {
                 noteUnsupported("assertion binary op");
@@ -8137,20 +8181,39 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             // [a, N, b, M, c] (delay constants between elements).
             auto& sc = ae.as<SequenceConcatExpr>();
             auto* op = s.MakeOperation();
-            op->VpiOpType(vpiCycleDelayOp);
+            // An UNBOUNDED range delay (a ##[*] b) is opType 60 with NO
+            // delay constant and BARE-named operand refs; a LEADING delay
+            // (|=> ##5 d, single element) is the unary form (53) spanning
+            // from the delay constant (sva_range).
+            bool unboundedDelay9 = false;
+            for (auto& el : sc.elements)
+                if (!el.delay.max)
+                    unboundedDelay9 = true;
+            bool leadingDelay9 = sc.elements.size() == 1 &&
+                                 sc.elements[0].delay.min != 0;
+            op->VpiOpType(unboundedDelay9 ? 60
+                          : leadingDelay9 ? vpiUnaryCycleDelayOp
+                                          : vpiCycleDelayOp);
             op->VpiParent(parent);
             // Span the elements themselves (Surelog strips enclosing parens).
             if (!sc.elements.empty() && sc.elements.front().sequence->syntax &&
-                sc.elements.back().sequence->syntax)
+                sc.elements.back().sequence->syntax) {
+                auto st9 =
+                    sc.elements.front().sequence->syntax->sourceRange().start();
+                if (leadingDelay9 &&
+                    sc.elements[0].delayRange.start() !=
+                        SourceLocation::NoLocation)
+                    st9 = sc.elements[0].delayRange.start() - 2;
                 setLoc(op, SourceRange(
-                              sc.elements.front().sequence->syntax->sourceRange().start(),
+                              st9,
                               sc.elements.back().sequence->syntax->sourceRange().end()));
+            }
             else if (ae.syntax)
                 setLoc(op, ae.syntax->sourceRange());
             auto* operands = s.MakeAnyVec();
             bool first = true;
             for (auto& el : sc.elements) {
-                if (!first || el.delay.min != 0) {
+                if ((!first || el.delay.min != 0) && el.delay.max) {
                     auto* c = s.MakeConstant();
                     std::string d = std::to_string(el.delay.min);
                     c->VpiDecompile(d);
@@ -8162,8 +8225,13 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                         setLoc(c, SourceRange(el.delayRange.start() - 2, el.delayRange.end()));
                     operands->push_back(c);
                 }
-                if (auto* e = emitAssertionExpr(*el.sequence, op, prefix, netMap))
+                if (auto* e = emitAssertionExpr(*el.sequence, op, prefix, netMap)) {
+                    // Bare-named refs inside the unbounded-range op.
+                    if (unboundedDelay9 &&
+                        e->UhdmType() == UHDM::uhdmref_obj)
+                        ((UHDM::ref_obj*)e)->VpiFullName("");
                     operands->push_back(e);
+                }
                 first = false;
             }
             op->Operands(operands);
