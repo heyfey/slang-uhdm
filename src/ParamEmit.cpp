@@ -1172,6 +1172,45 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // A MODULE localparam initialized by a DIRECT const-call
+                // (localparam A = func(0)) folds BIN at the value width in
+                // the ELAB view; the def view keeps the func_call (Surelog).
+                if (!rhs && topView && !inPackage && isLocal) {
+                    auto& icc9 = stripImplicitConv(*init);
+                    if (icc9.kind == ExpressionKind::Call &&
+                        !icc9.as<CallExpression>().isSystemCall() &&
+                        // Only calls to AUTOMATIC functions fold; static
+                        // ones keep the func_call (const_func_block_var
+                        // distinguisher).
+                        [&] {
+                            auto sub9 = std::get_if<const SubroutineSymbol*>(
+                                &icc9.as<CallExpression>().subroutine);
+                            return sub9 && *sub9 &&
+                                   (*sub9)->defaultLifetime ==
+                                       VariableLifetime::Automatic;
+                        }()) {
+                        auto& pv9 = ps.getValue();
+                        if (pv9.isInteger() &&
+                            !pv9.integer().hasUnknown()) {
+                            auto iv9 = pv9.integer();
+                            int32_t w9 = (int32_t)iv9.getBitWidth();
+                            std::string bits9;
+                            for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
+                                bits9 += iv9[i9] == slang::logic_t(1)
+                                             ? '1'
+                                             : '0';
+                            auto* c9 = s.MakeConstant();
+                            c9->VpiDecompile(std::to_string(w9) + "'b" +
+                                             bits9);
+                            c9->VpiSize(w9);
+                            c9->VpiValue("BIN:" + bits9);
+                            c9->VpiConstType(vpiBinaryConst);
+                            c9->VpiParent(pa);
+                            setLoc(c9, icc9.sourceRange);
+                            rhs = c9;
+                        }
+                    }
+                }
                 forceConstParent = !nestedPat;
                 inParamInit = true;
                 paramInitDef = !topView;

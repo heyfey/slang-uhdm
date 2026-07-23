@@ -731,7 +731,8 @@ inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
 }
 
 // Return-value variables take the class of the function's return type.
-inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) {
+inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
+                                      bool signedImplicitRet = false) {
     auto& ct = retType.getCanonicalType();
     if (ct.kind == SymbolKind::PackedStructType ||
         ct.kind == SymbolKind::UnpackedStructType)
@@ -763,7 +764,15 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType) 
     if (ct.kind == SymbolKind::PackedArrayType &&
         ct.as<PackedArrayType>().elementType.kind == SymbolKind::TypeAlias)
         return s.MakePacked_array_var();
-    // Signedness rides on the typespec, not the logic_var.
+    // A SIGNED implicit-base packed return (function signed [3:0] f) is an
+    // int_var carrying vpiSigned (Surelog); other packed returns/vars stay
+    // logic_vars (signedness rides on the typespec).
+    if (signedImplicitRet && ct.kind == SymbolKind::PackedArrayType &&
+        retType.isSigned()) {
+        auto* v = s.MakeInt_var();
+        v->VpiSigned(true);
+        return v;
+    }
     return s.MakeLogic_var();
 }
 

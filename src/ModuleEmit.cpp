@@ -7387,7 +7387,12 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             std::string localFull(r->VpiFullName());
             if (localFull.empty())
                 localFull = pf.fullName + "." + std::string(sub.name);
-            auto* lv = makeReturnVar(s, sub.getReturnType());
+            auto* lv = makeReturnVar(s, sub.getReturnType(),
+                                     [&] {
+                                         auto* rs0 = returnTypeSyntax(sub);
+                                         return rs0 && rs0->kind ==
+                                             slang::syntax::SyntaxKind::ImplicitType;
+                                     }());
             lv->VpiName(sub.name);
             lv->VpiFullName(localFull);
             lv->VpiParent(r);
