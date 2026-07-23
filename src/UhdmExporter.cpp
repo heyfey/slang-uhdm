@@ -214,13 +214,22 @@ UHDM::design* UhdmExporter::exportDesign() {
     computeParamMultiplicity();
 
     d = s.MakeDesign();
-    if (!root.topInstances.empty())
-        d->VpiName("work@" + std::string(root.topInstances[0]->getDefinition().name));
+    // Multi-top designs: Surelog names the design after (and lists tops in)
+    // SOURCE order; slang's topInstances may differ.
+    std::vector<const InstanceSymbol*> orderedTops(root.topInstances.begin(),
+                                                   root.topInstances.end());
+    std::stable_sort(orderedTops.begin(), orderedTops.end(),
+                     [](const InstanceSymbol* a, const InstanceSymbol* b) {
+                         return a->getDefinition().location <
+                                b->getDefinition().location;
+                     });
+    if (!orderedTops.empty())
+        d->VpiName("work@" + std::string(orderedTops[0]->getDefinition().name));
 
     // All definitions used anywhere in the design, name-sorted like Surelog's
     // module map.
     std::map<std::string, const InstanceSymbol*> defs;
-    for (auto inst : root.topInstances) {
+    for (auto inst : orderedTops) {
         auto name = std::string(inst->getDefinition().name);
         if (defs.emplace(name, inst).second)
             collectDefs(inst->body, defs);
@@ -755,7 +764,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
 
 
-    for (auto inst : root.topInstances) {
+    for (auto inst : orderedTops) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
         topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
     }
