@@ -4745,9 +4745,17 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             auto& ct = pc.castType->getCanonicalType();
             UHDM::typespec* tts;
             if (ct.kind == SymbolKind::PredefinedIntegerType) {
-                auto* its2 = s.MakeInt_typespec();
-                its2->VpiSigned(ct.isSigned());
-                tts = its2;
+                auto ik = ct.as<PredefinedIntegerType>().integerKind;
+                if (ik == PredefinedIntegerType::Byte) {
+                    auto* bts2 = s.MakeByte_typespec();
+                    bts2->VpiSigned(ct.isSigned());
+                    tts = bts2;
+                }
+                else {
+                    auto* its2 = s.MakeInt_typespec();
+                    its2->VpiSigned(ct.isSigned());
+                    tts = its2;
+                }
             }
             else {
                 tts = s.MakeLogic_typespec();

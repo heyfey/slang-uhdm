@@ -1603,10 +1603,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // function body, a VECTOR-typedef cast gets a FRESH
                     // clone with a Typedef_alias ref instead.
                     cts = typedefTs[expr.type];
-                    if (currentSubSym && cts->UhdmType() == UHDM::uhdmlogic_typespec) {
-                        auto ps0 = currentSubSym->getParentScope();
-                        if (ps0 &&
-                            ps0->asSymbol().kind == SymbolKind::CompilationUnit) {
+                    if (cts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        auto ps0 = currentSubSym ? currentSubSym->getParentScope()
+                                                 : nullptr;
+                        // $UNIT function bodies AND module-scope cast sites
+                        // both mint the fresh self-named clone (Surelog).
+                        if (!currentSubSym ||
+                            (ps0 &&
+                             ps0->asSymbol().kind == SymbolKind::CompilationUnit)) {
                             auto& ta2 = expr.type->as<TypeAliasType>();
                             const syntax::SyntaxNode* tSyn2 = nullptr;
                             if (auto asyn2 = ta2.getSyntax())
@@ -1845,7 +1849,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             if (!cts) {
                 auto& ct = expr.type->getCanonicalType();
-                if (ct.kind == SymbolKind::PredefinedIntegerType) {
+                if (ct.kind == SymbolKind::PredefinedIntegerType &&
+                    ct.as<PredefinedIntegerType>().integerKind ==
+                        PredefinedIntegerType::Byte) {
+                    auto* bts = s.MakeByte_typespec();
+                    bts->VpiSigned(ct.isSigned());
+                    cts = bts;
+                }
+                else if (ct.kind == SymbolKind::PredefinedIntegerType) {
                     auto* its = s.MakeInt_typespec();
                     its->VpiSigned(ct.isSigned());
                     cts = its;
