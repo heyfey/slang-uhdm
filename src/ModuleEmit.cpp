@@ -3012,6 +3012,38 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (!init9)
                 continue;
             auto& ic9 = stripImplicitConv(*init9);
+            // A LITERAL init (output reg a_old = 0) synthesizes the same
+            // loc-less initial with a bare 64-bit fold (Surelog) — but NOT
+            // for predefined-integer outputs (integer w = 16), whose init
+            // rides on the var's vpiExpr instead.
+            if (ic9.kind == ExpressionKind::IntegerLiteral &&
+                !(ps9.internalSymbol && ps9.internalSymbol->getDeclaredType() &&
+                  ps9.internalSymbol->getDeclaredType()
+                          ->getType()
+                          .getCanonicalType()
+                          .kind == SymbolKind::PredefinedIntegerType)) {
+                auto* iniL = s.MakeInitial();
+                auto* asL = s.MakeAssignment();
+                asL->VpiParent(iniL);
+                setLoc(asL, nameSpan(ps9.location, ps9.name));
+                auto* lrL = s.MakeRef_obj();
+                lrL->VpiName(ps9.name);
+                lrL->VpiParent(asL);
+                setLoc(lrL, nameSpan(ps9.location, ps9.name));
+                asL->Lhs(lrL);
+                auto ivL = ic9.as<IntegerLiteral>().getValue();
+                auto* rcL = s.MakeConstant();
+                std::string dgL = ivL.toString(LiteralBase::Decimal, false);
+                rcL->VpiDecompile(dgL);
+                rcL->VpiSize(64);
+                rcL->VpiValue("UINT:" + dgL);
+                rcL->VpiConstType(vpiUIntConst);
+                setLoc(rcL, ic9.sourceRange);
+                asL->Rhs(rcL);
+                iniL->Stmt(asL);
+                procs->push_back(iniL);
+                continue;
+            }
             if (ic9.kind != ExpressionKind::NamedValue)
                 continue;
             auto& is9 = ic9.as<NamedValueExpression>().symbol;
