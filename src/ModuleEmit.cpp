@@ -189,6 +189,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         // Implicit nets print no typespec.
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
+
         // A class-handle def net carries a typespec ONLY when the handle is
         // never procedurally assigned (bar = new() strips it — OneThis vs
         // OneClass).
@@ -380,11 +381,22 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     pc = cc;
                     break;
                 }
-            // Only a BARE whole-interface connection (.bus(bus)) gets a
-            // connection-site net; modport-qualified ones (.mon(s.mon)) don't.
+            // Only a BARE whole-interface connection gets a connection-site
+            // net; modport-qualified (.mon(s.mon)) don't, and a POSITIONAL
+            // conn whose actual name EQUALS the formal's name is deduped
+            // (m0(bus, ...) with formal `bus`) — Surelog.
             if (!pc || !connectionExpr(*pc) ||
                 rawText(connectionExpr(*pc)->sourceRange).find('.') != std::string::npos)
                 continue;
+            {
+                bool mixed9 = false;
+                for (auto cc9 : child.getPortConnections())
+                    if (cc9->port.kind != SymbolKind::InterfacePort)
+                        mixed9 = true;
+                if (hasOrderedConns(child) && mixed9 &&
+                    conn.first->name == pb->name)
+                    continue;
+            }
             auto* n = s.MakeLogic_net();
             n->VpiName(conn.first->name);
             n->VpiFullName(prefix + "." + std::string(conn.first->name));
@@ -1593,7 +1605,23 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
         if (hasOrderedConns(child) &&
             ifaceDefMap.find(&child.getDefinition()) == ifaceDefMap.end()) {
             bool hasOpConn = false;
+            bool hasIfaceConn = false;
             for (auto conn : child.getPortConnections()) {
+                if (conn->port.kind == SymbolKind::InterfacePort) {
+                    // Only a SAME-NAME positional iface conn MIXED with
+                    // regular conns (m0(bus, din) with formal `bus`) omits
+                    // the ref_module; iface-only conn lists keep it (Surelog).
+                    bool mixed9 = false;
+                    for (auto cc9 : child.getPortConnections())
+                        if (cc9->port.kind != SymbolKind::InterfacePort)
+                            mixed9 = true;
+                    auto ic9 = conn->port.as<InterfacePortSymbol>()
+                                   .getConnection();
+                    if (mixed9 && ic9.first &&
+                        ic9.first->name == conn->port.name)
+                        hasIfaceConn = true;
+                    continue;
+                }
                 auto* ex0 = connectionExpr(*conn);
                 if (!ex0)
                     continue;
@@ -1605,7 +1633,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                     break;
                 }
             }
-            if (hasOpConn)
+            // A positional IFACE conn also omits the ref_module (Surelog).
+            if (hasOpConn || hasIfaceConn)
                 continue;
             // A NON-ANSI (1995-style port list) PARENT also omits its
             // positional child ref_modules (wandwor — Surelog).
@@ -2276,6 +2305,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         // Implicit nets carry no typespec (and print a bare wire net type).
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
+
         // Implicit nets not feeding a child instance conn are dropped from
         // the elab view (their cont_assigns share the def object bare).
         if (implicitNet && !implicitNetKeptInElab(it.sym, body))
@@ -7687,6 +7717,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             n->VpiNetType(vpiWire);
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
+
         if (!it.port && !implicitNet) {
             // Deferred to the write phase (Surelog arena order), which also
             // extends the span through an initializer.
