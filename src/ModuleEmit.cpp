@@ -572,11 +572,19 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     const syntax::ExpressionSyntax* leftSyn = nullptr;
     const syntax::ExpressionSyntax* rightSyn = nullptr;
     const syntax::ExpressionSyntax* sizeSyn9 = nullptr;
+    const syntax::SyntaxNode* dimSyn9 = nullptr;
+    const syntax::SyntaxNode* instTypeSyn9 = nullptr;
     if (auto* asyn = arr.getSyntax();
         asyn && asyn->kind == syntax::SyntaxKind::HierarchicalInstance) {
+        for (auto p9 = asyn->parent; p9; p9 = p9->parent)
+            if (p9->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+                instTypeSyn9 = p9;
+                break;
+            }
         if (auto* decl = asyn->as<syntax::HierarchicalInstanceSyntax>().decl;
             decl && !decl->dimensions.empty()) {
             auto* dim = *decl->dimensions.begin();
+            dimSyn9 = dim;
             if (dim->specifier &&
                 dim->specifier->kind ==
                     syntax::SyntaxKind::RangeDimensionSpecifier) {
@@ -650,6 +658,9 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
         c->VpiParent(rng);
         return c;
     };
+    // The explicit-range dim locates the range at the [..] tokens.
+    if (dimSyn9)
+        setLoc(rng, dimSyn9->sourceRange());
     rng->Left_expr(mkBound(leftSyn, arr.range.left));
     rng->Right_expr(mkBound(rightSyn, arr.range.right));
     auto* rvec = s.MakeRangeVec();
@@ -658,6 +669,11 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     }
     auto* mts = s.MakeModule_typespec();
     mts->VpiName(adef.name);
+    // Located at the instantiation's TYPE token (Surelog).
+    if (instTypeSyn9)
+        setLoc(mts,
+               instTypeSyn9->as<syntax::HierarchyInstantiationSyntax>()
+                   .type.range());
     auto* ert = s.MakeRef_typespec();
     ert->VpiFullName(prefix + "." + std::string(arr.name));
     ert->VpiParent(ma);
