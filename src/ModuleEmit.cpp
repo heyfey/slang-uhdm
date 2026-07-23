@@ -7109,9 +7109,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             .getParentScope()
                             ->asSymbol()
                             .kind == SymbolKind::Package &&
-                    psym.getType().getCanonicalType().kind ==
-                        SymbolKind::PackedArrayType &&
-                    psym.getType().getCanonicalType().isIntegral())
+                    ((psym.getType().getCanonicalType().kind ==
+                          SymbolKind::PackedArrayType &&
+                      psym.getType().getCanonicalType().isIntegral()) ||
+                     psym.getType().getCanonicalType().kind ==
+                         SymbolKind::PackedStructType))
                     paramCast = false;
             }
             if ((nestedCast || paramCast) && rc0.syntax &&

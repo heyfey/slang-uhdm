@@ -748,6 +748,8 @@ private:
     // Pkg param OBJECTS (def view) — bound by qualified member-access base
     // refs (pkg::P.member).
     std::map<const slang::ast::Symbol*, UHDM::parameter*> pkgParamObj;
+    // Emitting a struct-pattern member VALUE (tagged_pattern Pattern).
+    bool inPatternValue = false;
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;

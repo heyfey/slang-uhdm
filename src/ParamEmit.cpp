@@ -944,11 +944,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             auto* c2 = s.MakeConstant();
                             slang::SVInt uvm = cvm.integer();
                             uvm.setSigned(false);
-                            std::string dg = uvm.toString(LiteralBase::Decimal, false);
-                            c2->VpiDecompile(dg);
-                            c2->VpiSize((int32_t)fld.getType().getBitWidth());
-                            c2->VpiValue("UINT:" + dg);
-                            c2->VpiConstType(vpiUIntConst);
+                            // A CONCAT setter re-encodes BINARY at the member
+                            // width with a BARE ts ref (Surelog).
+                            if (stripImplicitConv(*se).kind ==
+                                ExpressionKind::Concatenation) {
+                                int32_t w8 =
+                                    (int32_t)fld.getType().getBitWidth();
+                                std::string bits8;
+                                for (int32_t i8 = w8 - 1; i8 >= 0; i8--)
+                                    bits8 += (uvm[i8] == slang::logic_t(1))
+                                                 ? '1'
+                                                 : '0';
+                                c2->VpiSize(w8);
+                                c2->VpiValue("BIN:" + bits8);
+                                c2->VpiConstType(vpiBinaryConst);
+                            }
+                            else {
+                                std::string dg = uvm.toString(
+                                    LiteralBase::Decimal, false);
+                                c2->VpiDecompile(dg);
+                                c2->VpiSize(
+                                    (int32_t)fld.getType().getBitWidth());
+                                c2->VpiValue("UINT:" + dg);
+                                c2->VpiConstType(vpiUIntConst);
+                            }
                             c2->VpiParent(op2);
                             setLoc(c2, se->sourceRange);
                             opnds->push_back(c2);

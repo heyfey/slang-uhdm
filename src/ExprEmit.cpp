@@ -741,6 +741,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string pn = std::string(scope->asSymbol().name) + "::" +
                                      std::string(nv.symbol.name);
                     ref->VpiName(pn);
+                    ref->VpiFullName(pn);
                     ref->VpiParent(parent);
                     if (auto pit2 = pkgDefMap.find(&scope->asSymbol());
                         pit2 != pkgDefMap.end() && pit2->second->Parameters())
@@ -760,6 +761,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string curPkg = prefix;
                     if (auto p2 = curPkg.find("::"); p2 != std::string::npos)
                         curPkg.resize(p2);
+                    // A SAME-package param ref inside a STRUCT-PATTERN value
+                    // FOLDS to a constant (size 64 UINT, ts ref -> the
+                    // param's own def ts, parent = its def param_assign) —
+                    // Surelog; plain def inits keep the symbolic ref below.
+                    if (paramInitDef && inPatternValue &&
+                        curPkg == std::string(scope->asSymbol().name)) {
+                        auto& cv9 = psym.getValue();
+                        if (cv9.isInteger() && !cv9.integer().hasUnknown()) {
+                            auto* c9 = s.MakeConstant();
+                            std::string dg9 = cv9.integer().toString(
+                                LiteralBase::Decimal, false);
+                            c9->VpiDecompile(dg9);
+                            c9->VpiSize(64);
+                            c9->VpiValue("UINT:" + dg9);
+                            c9->VpiConstType(vpiUIntConst);
+                            setLoc(c9, expr.sourceRange);
+                            if (auto cIt9 = pkgParamConst.find(&nv.symbol);
+                                cIt9 != pkgParamConst.end())
+                                c9->VpiParent(
+                                    (UHDM::BaseClass*)cIt9->second
+                                        ->VpiParent());
+                            auto* rt9 = s.MakeRef_typespec();
+                            rt9->VpiFullName(curPkg);
+                            rt9->VpiParent(c9);
+                            if (auto poIt9 = pkgParamObj.find(&nv.symbol);
+                                poIt9 != pkgParamObj.end() &&
+                                poIt9->second->Typespec())
+                                rt9->Actual_typespec(
+                                    poIt9->second->Typespec()
+                                        ->Actual_typespec());
+                            c9->Typespec(rt9);
+                            return c9;
+                        }
+                    }
                     // A SAME-package param ref in a DEF-view pkg init stays a
                     // ref_obj (fullname pkg::P) whose actual is the referenced
                     // param's own def Rhs node (Surelog chains value refs).
@@ -3341,6 +3376,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (operands->empty() && !nestedPat)
                             ((UHDM::expr*)e)->VpiSize(
                                 (int32_t)setter.expr->type->getBitWidth());
+                        // A CONCAT value that folded re-encodes BINARY at the
+                        // member width with a BARE ts ref (Surelog).
+                        if (((UHDM::any*)e)->UhdmType() ==
+                                UHDM::uhdmconstant &&
+                            stripImplicitConv(*setter.expr).kind ==
+                                ExpressionKind::Concatenation &&
+                            setter.expr->type) {
+                            ASTContext bctx8(comp.getRoot(),
+                                             LookupLocation::max);
+                            if (auto bcv8 = bctx8.tryEval(*setter.expr);
+                                bcv8 && bcv8.isInteger() &&
+                                !bcv8.integer().hasUnknown()) {
+                                auto biv8 = bcv8.integer();
+                                int32_t w8 = (int32_t)setter.expr->type
+                                                 ->getBitWidth();
+                                std::string bits8;
+                                for (int32_t i8 = w8 - 1; i8 >= 0; i8--)
+                                    bits8 +=
+                                        (biv8[i8] == slang::logic_t(1))
+                                            ? '1'
+                                            : '0';
+                                auto* bc8 = (UHDM::constant*)e;
+                                bc8->VpiValue("BIN:" + bits8);
+                                bc8->VpiConstType(vpiBinaryConst);
+                                bc8->VpiSize(w8);
+                                bc8->VpiDecompile("");
+                                if (auto* brt8 = bc8->Typespec())
+                                    brt8->VpiFullName("");
+                            }
+                        }
                         operands->push_back(e);
                     }
                     continue;
@@ -3348,6 +3413,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* tp = s.MakeTagged_pattern();
                 tp->VpiParent(op);
                 setLoc(tp, setter.expr->sourceRange);
+                bool savedPV2 = inPatternValue;
+                inPatternValue = true;
                 // The pattern value parents at the OPERATION — except a
                 // literal value in a def CONT-ASSIGN, which stays unparented.
                 bool savedS2 = suppressConstParent, savedF2 = forceConstParent;
@@ -3355,10 +3422,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     suppressConstParent = true;
                     forceConstParent = false;
                 }
-                if (auto* e = emitExpr(*setter.expr, op, prefix, netMap))
+                if (auto* e = emitExpr(*setter.expr, op, prefix, netMap)) {
+                    // A CONCAT pattern value that folded re-encodes BINARY at
+                    // the member width with a BARE ts ref (Surelog).
+                    if (paramInitDef &&
+                        ((UHDM::any*)e)->UhdmType() == UHDM::uhdmconstant &&
+                        stripImplicitConv(*setter.expr).kind ==
+                            ExpressionKind::Concatenation &&
+                        setter.expr->type) {
+                        ASTContext bctx9(comp.getRoot(), LookupLocation::max);
+                        if (auto bcv9 = bctx9.tryEval(*setter.expr);
+                            bcv9 && bcv9.isInteger() &&
+                            !bcv9.integer().hasUnknown()) {
+                            auto biv9 = bcv9.integer();
+                            int32_t w9 =
+                                (int32_t)setter.expr->type->getBitWidth();
+                            std::string bits9;
+                            for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
+                                bits9 += (biv9[i9] == slang::logic_t(1))
+                                             ? '1'
+                                             : '0';
+                            auto* bc9 = (UHDM::constant*)e;
+                            bc9->VpiValue("BIN:" + bits9);
+                            bc9->VpiConstType(vpiBinaryConst);
+                            bc9->VpiSize(w9);
+                            bc9->VpiDecompile("");
+                            if (auto* brt9 = bc9->Typespec())
+                                brt9->VpiFullName("");
+                        }
+                    }
                     tp->Pattern((UHDM::expr*)e);
+                }
                 suppressConstParent = savedS2;
                 forceConstParent = savedF2;
+                inPatternValue = savedPV2;
                 // Tag: a string_typespec named by the member key.
                 auto* sts = s.MakeString_typespec();
                 sts->VpiName(setter.member->name);
