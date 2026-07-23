@@ -1421,6 +1421,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             bool savedTf = tfContext;
             const TypeAliasType* vtaMem = nullptr;
             UHDM::typespec* vtaMemBase = nullptr;
+            const TypeAliasType* btaMem = nullptr;
+            UHDM::typespec* btaMemBase = nullptr;
             if (fm.getDeclaredType() &&
                 fm.getDeclaredType()->getType().kind ==
                     SymbolKind::PackedArrayType) {
@@ -1436,9 +1438,84 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         vtaMem = &etm.as<TypeAliasType>();
                         vtaMemBase = titm->second;
                     }
+                    else if (titm != typedefTs.end() &&
+                             titm->second->UhdmType() ==
+                                 UHDM::uhdmbit_typespec) {
+                        btaMem = &etm.as<TypeAliasType>();
+                        btaMemBase = titm->second;
+                    }
                 }
             }
-            fts = makeTypespec(fm, memberTypeSyn);
+            // A packed array over a BIT TYPEDEF member (bit8_t [3:0] a):
+            // packed_array_typespec with the array dim + Elem ref to a fresh
+            // NAMED bit clone (Typedef_alias -> shared base) — Surelog.
+            if (btaMem && btaMemBase) {
+                auto* pat9 = s.MakePacked_array_typespec();
+                if (memberTypeSyn)
+                    setLoc(pat9, memberTypeSyn->sourceRange());
+                auto& par9 =
+                    fm.getDeclaredType()->getType().as<PackedArrayType>();
+                std::vector<DimSpan> spans9;
+                if (memberTypeSyn) {
+                    auto full9 = memberTypeSyn->sourceRange();
+                    spans9 = scanDimSpans(std::string(rawText(full9)),
+                                          full9.start());
+                }
+                auto* r9 = s.MakeRange();
+                r9->VpiParent(pat9);
+                const DimSpan* ds9 =
+                    spans9.empty() ? nullptr : &spans9[0];
+                if (ds9)
+                    setLoc(r9, ds9->range);
+                auto mkB9 = [&](int64_t v9,
+                                const SourceRange* lc9) -> UHDM::expr* {
+                    auto* c9 = s.MakeConstant();
+                    std::string d9 = std::to_string(v9);
+                    c9->VpiDecompile(d9);
+                    c9->VpiSize(64);
+                    c9->VpiValue("UINT:" + d9);
+                    c9->VpiConstType(vpiUIntConst);
+                    c9->VpiParent(r9);
+                    if (lc9)
+                        setLoc(c9, *lc9);
+                    return c9;
+                };
+                r9->Left_expr(mkB9(par9.range.left, ds9 ? &ds9->left : nullptr));
+                r9->Right_expr(
+                    mkB9(par9.range.right, ds9 ? &ds9->right : nullptr));
+                auto* rv9 = s.MakeRangeVec();
+                rv9->push_back(r9);
+                pat9->Ranges(rv9);
+                const syntax::SyntaxNode* tgtSyn9 = nullptr;
+                if (auto asyn9 = btaMem->getSyntax())
+                    if (asyn9->kind ==
+                        syntax::SyntaxKind::TypedefDeclaration)
+                        tgtSyn9 =
+                            asyn9->as<syntax::TypedefDeclarationSyntax>().type;
+                bypassTypedefShare = true;
+                auto* cl9 = makeTypespec(*btaMem, tgtSyn9);
+                bypassTypedefShare = false;
+                cl9->VpiName(btaMem->name);
+                auto* art9 = s.MakeRef_typespec();
+                art9->VpiFullName(std::string(btaMem->name));
+                art9->VpiParent(cl9);
+                art9->Actual_typespec(btaMemBase);
+                if (cl9->UhdmType() == UHDM::uhdmbit_typespec)
+                    ((UHDM::bit_typespec*)cl9)->Typedef_alias(art9);
+                else if (cl9->UhdmType() == UHDM::uhdmlogic_typespec)
+                    ((UHDM::logic_typespec*)cl9)->Typedef_alias(art9);
+                if (savedTf)
+                    cl9->Instance(btaMemBase->Instance());
+                auto* ert9 = s.MakeRef_typespec();
+                ert9->VpiFullName(aliasName + memberSep +
+                                  std::string(fm.name));
+                ert9->VpiParent(pat9);
+                ert9->Actual_typespec(cl9);
+                pat9->Elem_typespec(ert9);
+                fts = pat9;
+            }
+            if (!fts)
+                fts = makeTypespec(fm, memberTypeSyn);
             tfContext = savedTf;
             // Surelog points the member's Elem ref at a fresh NAMED alias-clone
             // (Typedef_alias -> shared base, Instance = module) rather than the
@@ -1544,6 +1621,8 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             bool savedTf = tfContext;
             const TypeAliasType* vtaMem = nullptr;
             UHDM::typespec* vtaMemBase = nullptr;
+            const TypeAliasType* btaMem = nullptr;
+            UHDM::typespec* btaMemBase = nullptr;
             if (fm.getDeclaredType() &&
                 fm.getDeclaredType()->getType().kind ==
                     SymbolKind::PackedArrayType) {
@@ -1559,9 +1638,84 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         vtaMem = &etm.as<TypeAliasType>();
                         vtaMemBase = titm->second;
                     }
+                    else if (titm != typedefTs.end() &&
+                             titm->second->UhdmType() ==
+                                 UHDM::uhdmbit_typespec) {
+                        btaMem = &etm.as<TypeAliasType>();
+                        btaMemBase = titm->second;
+                    }
                 }
             }
-            fts = makeTypespec(fm, memberTypeSyn);
+            // A packed array over a BIT TYPEDEF member (bit8_t [3:0] a):
+            // packed_array_typespec with the array dim + Elem ref to a fresh
+            // NAMED bit clone (Typedef_alias -> shared base) — Surelog.
+            if (btaMem && btaMemBase) {
+                auto* pat9 = s.MakePacked_array_typespec();
+                if (memberTypeSyn)
+                    setLoc(pat9, memberTypeSyn->sourceRange());
+                auto& par9 =
+                    fm.getDeclaredType()->getType().as<PackedArrayType>();
+                std::vector<DimSpan> spans9;
+                if (memberTypeSyn) {
+                    auto full9 = memberTypeSyn->sourceRange();
+                    spans9 = scanDimSpans(std::string(rawText(full9)),
+                                          full9.start());
+                }
+                auto* r9 = s.MakeRange();
+                r9->VpiParent(pat9);
+                const DimSpan* ds9 =
+                    spans9.empty() ? nullptr : &spans9[0];
+                if (ds9)
+                    setLoc(r9, ds9->range);
+                auto mkB9 = [&](int64_t v9,
+                                const SourceRange* lc9) -> UHDM::expr* {
+                    auto* c9 = s.MakeConstant();
+                    std::string d9 = std::to_string(v9);
+                    c9->VpiDecompile(d9);
+                    c9->VpiSize(64);
+                    c9->VpiValue("UINT:" + d9);
+                    c9->VpiConstType(vpiUIntConst);
+                    c9->VpiParent(r9);
+                    if (lc9)
+                        setLoc(c9, *lc9);
+                    return c9;
+                };
+                r9->Left_expr(mkB9(par9.range.left, ds9 ? &ds9->left : nullptr));
+                r9->Right_expr(
+                    mkB9(par9.range.right, ds9 ? &ds9->right : nullptr));
+                auto* rv9 = s.MakeRangeVec();
+                rv9->push_back(r9);
+                pat9->Ranges(rv9);
+                const syntax::SyntaxNode* tgtSyn9 = nullptr;
+                if (auto asyn9 = btaMem->getSyntax())
+                    if (asyn9->kind ==
+                        syntax::SyntaxKind::TypedefDeclaration)
+                        tgtSyn9 =
+                            asyn9->as<syntax::TypedefDeclarationSyntax>().type;
+                bypassTypedefShare = true;
+                auto* cl9 = makeTypespec(*btaMem, tgtSyn9);
+                bypassTypedefShare = false;
+                cl9->VpiName(btaMem->name);
+                auto* art9 = s.MakeRef_typespec();
+                art9->VpiFullName(std::string(btaMem->name));
+                art9->VpiParent(cl9);
+                art9->Actual_typespec(btaMemBase);
+                if (cl9->UhdmType() == UHDM::uhdmbit_typespec)
+                    ((UHDM::bit_typespec*)cl9)->Typedef_alias(art9);
+                else if (cl9->UhdmType() == UHDM::uhdmlogic_typespec)
+                    ((UHDM::logic_typespec*)cl9)->Typedef_alias(art9);
+                if (savedTf)
+                    cl9->Instance(btaMemBase->Instance());
+                auto* ert9 = s.MakeRef_typespec();
+                ert9->VpiFullName(aliasName + memberSep +
+                                  std::string(fm.name));
+                ert9->VpiParent(pat9);
+                ert9->Actual_typespec(cl9);
+                pat9->Elem_typespec(ert9);
+                fts = pat9;
+            }
+            if (!fts)
+                fts = makeTypespec(fm, memberTypeSyn);
             tfContext = savedTf;
             // Surelog points the member's Elem ref at a fresh NAMED alias-clone
             // (Typedef_alias -> shared base, Instance = module) rather than the
