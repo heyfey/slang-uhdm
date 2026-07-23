@@ -1244,7 +1244,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                 }
-                else if (auto it = netMap.find(&nv.symbol); it != netMap.end()) {
+                else if (auto it = [&] {
+                             auto i = netMap.find(&nv.symbol);
+                             // Re-emitted instance views of a SHARED def use
+                             // cloned body symbols; match the def net by
+                             // name + decl location instead.
+                             if (i == netMap.end() && reemitting)
+                                 for (i = netMap.begin(); i != netMap.end();
+                                      ++i)
+                                     if (i->first->name == nv.symbol.name &&
+                                         i->first->location ==
+                                             nv.symbol.location)
+                                         break;
+                             return i;
+                         }();
+                         it != netMap.end()) {
                     ref->Actual_group(it->second);
                     // Whole ref: may be re-pointed to a select object if this
                     // variable is written via a select elsewhere in the body.
