@@ -423,10 +423,12 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
-            else if (inProcessEmit) {
-                // PROCESS-context rvalue: DOUBLED lazy-frozen fullname
-                // (work@<mod>.<dotted>.<name>) anchored at the INDEX span
-                // (Surelog).
+            else if (inProcessEmit ||
+                     baseNv->symbol.kind == SymbolKind::InterfacePort ||
+                     baseNv->symbol.kind == SymbolKind::Modport) {
+                // PROCESS-context and IFACE-PORT-based rvalues: DOUBLED
+                // lazy-frozen fullname (work@<mod>.<dotted>.<name>) anchored
+                // at the INDEX span (Surelog).
                 setLoc(bs, sel.sel->sourceRange);
                 (void)bs->VpiFullName();
                 if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
