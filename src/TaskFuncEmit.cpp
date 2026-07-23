@@ -610,7 +610,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     continue;
                 bool isArg = false;
                 for (auto arg : sub.getArguments())
-                    if (arg == &fmv)
+                    // A body re-declaration of a formal (input [4:0] r;
+                    // reg [4:0] r;) merges into the formal — no separate
+                    // local var (match by NAME, not symbol).
+                    if (arg == &fmv || arg->name == fmv.name)
                         isArg = true;
                 if (isArg)
                     continue;
