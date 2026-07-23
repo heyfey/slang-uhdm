@@ -706,7 +706,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         if (tfContext || bitsOfSignal || bareParamInParamTs ||
                             defModuleParamDim) {
                             // Function/typedef context: unfolded expression.
-                            if (auto* e = emitSyntaxExpr(*bsyn, r)) {
+                            bool savedBCN = boundCallNameSpan;
+                            boundCallNameSpan = true;
+                            auto* e0bcn = emitSyntaxExpr(*bsyn, r);
+                            boundCallNameSpan = savedBCN;
+                            if (auto* e = e0bcn) {
                                 // The sys-call arg refs bind their DEF
                                 // nets — deferred until the nets exist.
                                 if (bitsOfSignal) {
@@ -3025,13 +3029,25 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 }
                 return sfc;
             }
-            // Module-compile calls: name-only, unlinked.
+            // Module-compile calls: NAME-token span, linked to the module
+            // function when one matches by name (Surelog).
             auto* fc = s.MakeFunc_call();
             if (inv.left->kind == syntax::SyntaxKind::IdentifierName)
                 fc->VpiName(
                     inv.left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
             fc->VpiParent(parent);
-            setLoc(fc, syn.sourceRange());
+            // TYPE-BOUND contexts anchor at the callee NAME token; expression
+            // contexts keep the full call span (Surelog).
+            if (boundCallNameSpan)
+                setLoc(fc, inv.left->sourceRange());
+            else
+                setLoc(fc, syn.sourceRange());
+            for (auto& [subK, subI] : subMap)
+                if (subI.tf && subI.tf->VpiName() == fc->VpiName() &&
+                    subI.tf->UhdmType() == UHDM::uhdmfunction) {
+                    fc->Function((UHDM::function*)subI.tf);
+                    break;
+                }
             // Arguments emit from syntax too (prefix_or(i[OFF-1:0])).
             if (inv.arguments && !inv.arguments->parameters.empty()) {
                 auto* args = s.MakeAnyVec();

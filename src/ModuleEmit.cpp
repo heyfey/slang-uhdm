@@ -6827,7 +6827,44 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (!rhs && topView && shareWithDef && literalRhs && defInfo &&
             myIdx < defInfo->contAssigns.size()) {
             auto raw = rawText(stripImplicitConv(ae.right()).sourceRange);
-            if (raw.find('\'') != std::string::npos)
+            // A SIGNED based literal NARROWER than the LHS does not share:
+            // the elab view folds the sign-EXTENDED BIN at the net width
+            // (bit-string decompile, bare int ts ref) — Surelog.
+            bool signExt9 = false;
+            if ((raw.find("'s") != std::string::npos ||
+                 raw.find("'S") != std::string::npos) &&
+                ae.left().type) {
+                auto& lit9 = stripImplicitConv(ae.right());
+                int32_t lw9 = (int32_t)ae.left().type->getBitWidth();
+                if (lit9.type &&
+                    (int32_t)lit9.type->getBitWidth() < lw9) {
+                    ASTContext ctx9(comp.getRoot(), LookupLocation::max);
+                    if (auto cv9 = ctx9.tryEval(ae.right());
+                        cv9 && cv9.isInteger()) {
+                        auto iv9 = cv9.integer();
+                        std::string bits9;
+                        for (int32_t i9 = lw9 - 1; i9 >= 0; i9--)
+                            bits9 += iv9[i9] == slang::logic_t(1) ? '1' : '0';
+                        auto* c9 = s.MakeConstant();
+                        c9->VpiDecompile(bits9);
+                        c9->VpiSize(lw9);
+                        c9->VpiValue("BIN:" + bits9);
+                        c9->VpiConstType(vpiBinaryConst);
+                        c9->VpiParent(ca);
+                        setLoc(c9, lit9.sourceRange);
+                        auto* rt9 = s.MakeRef_typespec();
+                        rt9->VpiFullName(prefix);
+                        rt9->VpiParent(c9);
+                        auto* its9x = s.MakeInt_typespec();
+                        its9x->VpiParent(rt9);
+                        rt9->Actual_typespec(its9x);
+                        c9->Typespec(rt9);
+                        rhs = c9;
+                        signExt9 = true;
+                    }
+                }
+            }
+            if (!signExt9 && raw.find('\'') != std::string::npos)
                 rhs = (UHDM::any*)defInfo->contAssigns[myIdx]->Rhs();
         }
         // Dotted-LHS re-emits share the def Rhs object wholesale.
