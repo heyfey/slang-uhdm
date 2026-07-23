@@ -3482,7 +3482,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 auto* rt = s.MakeRef_typespec();
-                rt->VpiFullName(prefix);
+                {
+                    std::string tsPfx8 = prefix;
+                    if (tsPfx8.size() >= 2 &&
+                        tsPfx8.compare(tsPfx8.size() - 2, 2, "::") == 0)
+                        tsPfx8.resize(tsPfx8.size() - 2);
+                    rt->VpiFullName(tsPfx8);
+                }
                 rt->VpiParent(tp);
                 rt->Actual_typespec(sts);
                 tp->Typespec(rt);
@@ -3522,7 +3528,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             "INT:" + icv.integer().toString(LiteralBase::Decimal, false));
                 }
                 auto* rt = s.MakeRef_typespec();
-                rt->VpiFullName(prefix);
+                {
+                    std::string tsPfx8 = prefix;
+                    if (tsPfx8.size() >= 2 &&
+                        tsPfx8.compare(tsPfx8.size() - 2, 2, "::") == 0)
+                        tsPfx8.resize(tsPfx8.size() - 2);
+                    rt->VpiFullName(tsPfx8);
+                }
                 rt->VpiParent(tp);
                 rt->Actual_typespec(its);
                 tp->Typespec(rt);
