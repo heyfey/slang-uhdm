@@ -905,8 +905,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // carries a ref_typespec to the imported param's def
                     // typespec (module-named, instanced at the package) — the
                     // fold is a resolved copy of a typed param (Surelog).
-                    if (parent && parent->UhdmType() == UHDM::uhdmcont_assign &&
-                        contAssignView != 2)
+                    if ((parent &&
+                         parent->UhdmType() == UHDM::uhdmcont_assign &&
+                         contAssignView != 2) ||
+                        // A DEF param-init OPERATION operand fold reading an
+                        // imported param carries the ts ref too (Surelog).
+                        (inParamInit && paramInitDef && !paramInitPkg &&
+                         parent &&
+                         parent->UhdmType() == UHDM::uhdmoperation))
                         if (auto tit = importedParamDefTs.find(&nv.symbol);
                             tit != importedParamDefTs.end()) {
                             auto* rt = s.MakeRef_typespec();

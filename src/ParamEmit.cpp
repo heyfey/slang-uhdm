@@ -408,12 +408,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         UHDM::parameter* upLhs9 = nullptr;
         UHDM::ref_typespec* prtLhs9 = nullptr;
         if (!topView && !inPackage && isImported && prt) {
-            if (auto dLhs = ps.getDeclaredType();
-                dLhs && dLhs->getType().kind == SymbolKind::TypeAlias &&
-                ps.getType().getCanonicalType().kind ==
-                    SymbolKind::PackedArrayType &&
-                ps.getType().getCanonicalType().isIntegral() &&
-                dLhs->getType().getParentScope() == ps.getParentScope()) {
+            bool wantLhsClone9 = false;
+            if (auto dLhs = ps.getDeclaredType()) {
+                // Vector-typedef materialized imports (its home typedef) and
+                // plain TYPED materialized imports both clone.
+                if (dLhs->getType().kind == SymbolKind::TypeAlias &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedArrayType &&
+                    ps.getType().getCanonicalType().isIntegral() &&
+                    dLhs->getType().getParentScope() == ps.getParentScope())
+                    wantLhsClone9 = true;
+                else if (auto tsy9 = dLhs->getTypeSyntax();
+                         tsy9 &&
+                         tsy9->kind != syntax::SyntaxKind::ImplicitType)
+                    wantLhsClone9 = true;
+            }
+            if (wantLhsClone9) {
                 upLhs9 = s.MakeParameter();
                 upLhs9->VpiName(up->VpiName());
                 upLhs9->VpiFullName(up->VpiFullName());
@@ -422,6 +432,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 upLhs9->VpiEndLineNo(up->VpiEndLineNo());
                 upLhs9->VpiEndColumnNo(up->VpiEndColumnNo());
                 upLhs9->VpiImported(std::string(up->VpiImported()));
+                upLhs9->VpiValue(std::string(up->VpiValue()));
+                if (up->VpiSigned())
+                    upLhs9->VpiSigned(true);
+                if (up->VpiLocalParam())
+                    upLhs9->VpiLocalParam(true);
                 upLhs9->VpiParent(pa);
                 prtLhs9 = s.MakeRef_typespec();
                 prtLhs9->VpiFullName(std::string(prt->VpiFullName()));
@@ -1258,6 +1273,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (rhsRt)
                     rhsRt->Actual_typespec(its);
                 prt->Actual_typespec(its);
+                if (prtLhs9 && !prtLhs9->Actual_typespec()) {
+                    // The Lhs clone gets its OWN fresh ts (pkg-Instanced,
+                    // parented at the clone's ref) — Surelog.
+                    std::string savedPfxL = syntaxRefPrefix;
+                    syntaxRefPrefix = joinPath(prefix, ps.name);
+                    auto* itsL = makeParamTs(ps, typedParam);
+                    syntaxRefPrefix = savedPfxL;
+                    if (!inPackage && isImported && ps.getParentScope())
+                        if (auto pitL =
+                                pkgDefMap.find(&ps.getParentScope()->asSymbol());
+                            pitL != pkgDefMap.end())
+                            itsL->Instance((UHDM::instance*)pitL->second);
+                    itsL->VpiParent(prtLhs9);
+                    prtLhs9->Actual_typespec(itsL);
+                }
                 bool signedImplicit = false;
                 if (auto d0 = ps.getDeclaredType())
                     if (auto t0 = d0->getTypeSyntax())

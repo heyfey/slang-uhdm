@@ -4745,6 +4745,130 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         rhs = fc;
             }
             if (!rhs) {
+                // A gen CA RHS mixing params with NEVER-WRITTEN const-init
+                // module vars folds fully to a LOC-LESS BIN constant at the
+                // LHS width (Surelog re-elab). tryEval can't see through the
+                // var, so substitute manually.
+                bool cvOk9 = true, sawVar9 = false;
+                ae.right().visit(makeVisitor(
+                    [&](auto& v9, const NamedValueExpression& nv9) {
+                        if (nv9.symbol.kind == SymbolKind::Parameter) {
+                        }
+                        else if (nv9.symbol.kind == SymbolKind::Variable) {
+                            auto dt9 = nv9.symbol.getDeclaredType();
+                            const Expression* ini9 =
+                                dt9 ? dt9->getInitializer() : nullptr;
+                            bool written9 = false;
+                            for (auto& mm9 : body.members()) {
+                                if (mm9.kind != SymbolKind::ProceduralBlock)
+                                    continue;
+                                mm9.as<ProceduralBlockSymbol>()
+                                    .getBody()
+                                    .visit(makeVisitor(
+                                        [&](auto& vv9,
+                                            const AssignmentExpression& ax9) {
+                                            auto& lc9 = stripImplicitConv(
+                                                ax9.left());
+                                            if (lc9.kind ==
+                                                    ExpressionKind::
+                                                        NamedValue &&
+                                                &lc9.as<NamedValueExpression>()
+                                                         .symbol ==
+                                                    &nv9.symbol)
+                                                written9 = true;
+                                            vv9.visitDefault(ax9);
+                                        }));
+                            }
+                            if (ini9 && !written9)
+                                sawVar9 = true;
+                            else
+                                cvOk9 = false;
+                        }
+                        else
+                            cvOk9 = false;
+                        v9.visitDefault(nv9);
+                    }));
+                if (cvOk9 && sawVar9) {
+                    std::function<std::optional<int64_t>(const Expression&)>
+                        ev9 = [&](const Expression& e9)
+                        -> std::optional<int64_t> {
+                        auto& se9 = stripImplicitConv(e9);
+                        switch (se9.kind) {
+                            case ExpressionKind::IntegerLiteral: {
+                                ASTContext c9(comp.getRoot(),
+                                              LookupLocation::max);
+                                auto v9c = c9.tryEval(se9);
+                                if (v9c && v9c.isInteger())
+                                    return v9c.integer()
+                                        .as<int64_t>()
+                                        .value_or(0);
+                                return std::nullopt;
+                            }
+                            case ExpressionKind::NamedValue: {
+                                auto& sy9 =
+                                    se9.as<NamedValueExpression>().symbol;
+                                if (sy9.kind == SymbolKind::Parameter) {
+                                    auto& pv9 = sy9.as<ParameterSymbol>()
+                                                    .getValue();
+                                    if (pv9.isInteger())
+                                        return pv9.integer()
+                                            .as<int64_t>()
+                                            .value_or(0);
+                                    return std::nullopt;
+                                }
+                                if (sy9.kind == SymbolKind::Variable)
+                                    if (auto dt9b = sy9.getDeclaredType())
+                                        if (auto* i9b =
+                                                dt9b->getInitializer())
+                                            return ev9(*i9b);
+                                return std::nullopt;
+                            }
+                            case ExpressionKind::BinaryOp: {
+                                auto& b9 = se9.as<BinaryExpression>();
+                                auto l9 = ev9(b9.left()),
+                                     r9v = ev9(b9.right());
+                                if (!l9 || !r9v)
+                                    return std::nullopt;
+                                switch (b9.op) {
+                                    case BinaryOperator::Add:
+                                        return *l9 + *r9v;
+                                    case BinaryOperator::Subtract:
+                                        return *l9 - *r9v;
+                                    case BinaryOperator::Multiply:
+                                        return *l9 * *r9v;
+                                    case BinaryOperator::Divide:
+                                        if (!*r9v)
+                                            return std::nullopt;
+                                        return *l9 / *r9v;
+                                    case BinaryOperator::Equality:
+                                        return *l9 == *r9v ? 1 : 0;
+                                    case BinaryOperator::Inequality:
+                                        return *l9 != *r9v ? 1 : 0;
+                                    default:
+                                        return std::nullopt;
+                                }
+                            }
+                            default:
+                                return std::nullopt;
+                        }
+                    };
+                    if (auto vres9 = ev9(ae.right())) {
+                        int32_t w9 =
+                            (int32_t)ae.left().type->getBitWidth();
+                        auto* c9 = s.MakeConstant();
+                        std::string bits9;
+                        for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
+                            bits9 += ((*vres9 >> i9) & 1) ? '1' : '0';
+                        c9->VpiDecompile(
+                            std::to_string(*vres9));
+                        c9->VpiSize(w9);
+                        c9->VpiValue("BIN:" + bits9);
+                        c9->VpiConstType(vpiBinaryConst);
+                        rhs = c9;
+                    }
+                }
+            }
+            if (!rhs) {
                 // Gen-scope STREAMING operand refs stay unbound (Surelog).
                 const Expression* rc0 = &stripImplicitConv(ae.right());
                 if (rc0->kind == ExpressionKind::Conversion)
