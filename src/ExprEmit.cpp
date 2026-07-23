@@ -245,9 +245,34 @@ bool UhdmExporter::isIntEncoded(const Expression& e) {
 // elements anchor at their own token; the LAST element carries the
 // module-scoped fullname (work@mod.<last>) — Surelog quirk.
 UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
-                                                   const std::string& dotted,
+                                                   const std::string& dottedIn,
                                                    UHDM::BaseClass* parent,
                                                    const std::string& prefix) {
+    // Bracketed indices containing operators render with decompile-style
+    // spacing ([2-2] -> [2 - 2]) — Surelog.
+    std::string dotted = dottedIn;
+    {
+        std::string o9;
+        bool inIdx9 = false;
+        for (size_t i9 = 0; i9 < dotted.size(); i9++) {
+            char c9 = dotted[i9];
+            if (c9 == '[')
+                inIdx9 = true;
+            else if (c9 == ']')
+                inIdx9 = false;
+            if (inIdx9 &&
+                (c9 == '+' || c9 == '-' || c9 == '*' || c9 == '/') &&
+                i9 > 0 && dotted[i9 - 1] != ' ' && dotted[i9 - 1] != '[') {
+                o9 += ' ';
+                o9 += c9;
+                if (i9 + 1 < dotted.size() && dotted[i9 + 1] != ' ')
+                    o9 += ' ';
+            }
+            else
+                o9 += c9;
+        }
+        dotted = o9;
+    }
     auto* hp = s.MakeHier_path();
     hp->VpiName(dotted);
     hp->VpiFullName(dotted);
@@ -3784,7 +3809,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 return o;
             };
-            if (baseSelSyn)
+            // ANY bracketed index containing an operator renders with
+            // decompile-style spacing ([2-2] -> [2 - 2]) — Surelog.
+            bool opIdx9 = false;
+            {
+                size_t lb9 = raw.find('[');
+                while (lb9 != std::string::npos && !opIdx9) {
+                    size_t rb9 = raw.find(']', lb9);
+                    if (rb9 == std::string::npos)
+                        break;
+                    for (size_t k9 = lb9 + 1; k9 < rb9; k9++) {
+                        char c9 = raw[k9];
+                        if (c9 == '+' || c9 == '-' || c9 == '*' ||
+                            c9 == '/') {
+                            opIdx9 = true;
+                            break;
+                        }
+                    }
+                    lb9 = raw.find('[', rb9);
+                }
+            }
+            if (baseSelSyn || opIdx9)
                 raw = spaceOps(raw);
             std::vector<std::pair<std::string, size_t>> parts;
             {
