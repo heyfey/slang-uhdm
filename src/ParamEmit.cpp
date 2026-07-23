@@ -63,6 +63,15 @@ static void collectImportedParams(const Scope& body,
             if (auto* init = m.as<ParameterSymbol>().getInitializer())
                 init->visit(v);
         }
+        // A child INSTANCE param override referencing an imported param
+        // (#(.P(AddrSpace + ...))) materializes it too (Surelog).
+        else if (m.kind == SymbolKind::Instance) {
+            auto& ci = m.as<InstanceSymbol>();
+            for (auto& cm : ci.body.members())
+                if (cm.kind == SymbolKind::Parameter)
+                    if (auto* init2 = cm.as<ParameterSymbol>().getInitializer())
+                        init2->visit(v);
+        }
     }
     // A wildcard-imported TYPEDEF whose range references an imported param
     // (typedef logic [SramAw-1:0] t;) materializes that param too — the
@@ -644,11 +653,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         const Expression* se9 = &scv;
                         while (se9->kind == ExpressionKind::Conversion)
                             se9 = &se9->as<ConversionExpression>().operand();
-                        if (pkgElabComputed && !typedParam &&
+                        if (pkgElabComputed &&
                             se9->kind == ExpressionKind::BinaryOp) {
                             setLoc((UHDM::constant*)rhs,
                                    se9->as<BinaryExpression>().left().sourceRange);
-                            ((UHDM::constant*)rhs)->VpiSize(32);
+                            if (!typedParam)
+                                ((UHDM::constant*)rhs)->VpiSize(32);
                         }
                     }
                     // A SUBTRACT init (W - 19) folds signed (INT).
