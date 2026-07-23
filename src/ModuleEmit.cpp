@@ -188,6 +188,12 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             setLocNamed(n, *it.port);
         else
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
+        // An implicit net slang minted from a PATTERN MEMBER-KEY inside a
+        // port-connection value is dropped entirely (Surelog).
+        if (it.sym->kind == SymbolKind::Net &&
+            it.sym->as<NetSymbol>().isImplicit &&
+            implicitNetFromPatternKey(it.sym, body))
+            continue;
         // A net typed by an ALIAS-OF-ALIAS typedef omits its net type
         // (Surelog); other nets print it.
         bool aliasOfAlias0 = false;
@@ -1367,6 +1373,33 @@ int32_t UhdmExporter::interfacePortDirection(const InterfacePortSymbol& ip) {
 // An implicit net stays in the elab view only when it feeds a child
 // instance port connection; one referenced only from gen scopes is dropped
 // (its module-level cont_assign shares the def object bare).
+// True when an IMPLICIT net's declaration point sits inside a port-conn
+// assignment-pattern value (slang mints one for a member-key identifier).
+bool UhdmExporter::implicitNetFromPatternKey(const Symbol* sym,
+                                             const InstanceBodySymbol& body) {
+    for (auto& mb : body.members()) {
+        if (mb.kind != SymbolKind::Instance)
+            continue;
+        for (auto pc : mb.as<InstanceSymbol>().getPortConnections()) {
+            auto* pe = pc->getExpression();
+            if (!pe)
+                continue;
+            const Expression* e = pe;
+            if (e->kind == ExpressionKind::Assignment)
+                e = &e->as<AssignmentExpression>().left();
+            auto k = stripImplicitConv(*e).kind;
+            if (k != ExpressionKind::SimpleAssignmentPattern &&
+                k != ExpressionKind::StructuredAssignmentPattern &&
+                k != ExpressionKind::ReplicatedAssignmentPattern)
+                continue;
+            auto sr = e->sourceRange;
+            if (sym->location >= sr.start() && sym->location < sr.end())
+                return true;
+        }
+    }
+    return false;
+}
+
 bool UhdmExporter::implicitNetKeptInElab(const Symbol* sym,
                                          const InstanceBodySymbol& body) {
     for (auto& mb : body.members()) {
@@ -1377,6 +1410,14 @@ bool UhdmExporter::implicitNetKeptInElab(const Symbol* sym,
                 const Expression* e = pe;
                 if (e->kind == ExpressionKind::Assignment)
                     e = &e->as<AssignmentExpression>().left();
+                // An assignment-pattern conn value can't drive a net; a
+                // MEMBER-KEY identifier slang minted as an implicit net
+                // inside it must not keep the net alive (Surelog drops it).
+                auto pk9 = stripImplicitConv(*e).kind;
+                if (pk9 == ExpressionKind::SimpleAssignmentPattern ||
+                    pk9 == ExpressionKind::StructuredAssignmentPattern ||
+                    pk9 == ExpressionKind::ReplicatedAssignmentPattern)
+                    continue;
                 std::set<const Symbol*> syms;
                 collectLhsSyms(*e, syms);
                 const Expression* bot = &stripImplicitConv(*e);
@@ -2663,6 +2704,58 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                 c->VpiConstType(0);
                                 setLoc(c, hc0.sourceRange);
                                 h = c;
+                            }
+                        }
+                    }
+                    // An UNPACKED-ARRAY pattern conn with a SINGLE element
+                    // flattens to the ELEMENT pattern, carrying a nameless
+                    // ts ref to the shared element typedef ts (Surelog).
+                    if (!h) {
+                        auto& hcA = stripImplicitConv(*expr);
+                        if (hcA.kind ==
+                                ExpressionKind::SimpleAssignmentPattern &&
+                            hcA.type &&
+                            hcA.type->getCanonicalType().kind ==
+                                SymbolKind::FixedSizeUnpackedArrayType) {
+                            auto els9 =
+                                hcA.as<SimpleAssignmentPatternExpression>()
+                                    .elements();
+                            if (els9.size() == 1) {
+                                auto& in9 = stripImplicitConv(*els9[0]);
+                                if (in9.kind == ExpressionKind::
+                                                    StructuredAssignmentPattern ||
+                                    in9.kind ==
+                                        ExpressionKind::SimpleAssignmentPattern) {
+                                    bool savedRe9 = reemitting;
+                                    reemitting = true;
+                                    h = emitExpr(in9, p, hcPrefix,
+                                                 *parentNets);
+                                    reemitting = savedRe9;
+                                    if (h && h->UhdmType() ==
+                                                 UHDM::uhdmoperation) {
+                                        auto& etA =
+                                            hcA.type->getCanonicalType()
+                                                .as<FixedSizeUnpackedArrayType>()
+                                                .elementType;
+                                        UHDM::typespec* etsA = nullptr;
+                                        if (auto tiA = typedefTs.find(&etA);
+                                            tiA != typedefTs.end())
+                                            etsA = tiA->second;
+                                        else if (auto tiB =
+                                                     pkgTopTypedefTs.find(&etA);
+                                                 tiB != pkgTopTypedefTs.end())
+                                            etsA = tiB->second;
+                                        if (etsA) {
+                                            // PARENTLESS ref -> prints
+                                            // nameless (fullname is
+                                            // synthesized from parents).
+                                            auto* rtA = s.MakeRef_typespec();
+                                            rtA->Actual_typespec(etsA);
+                                            ((UHDM::operation*)h)->Typespec(
+                                                rtA);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -5189,11 +5282,13 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                                    .as<FixedSizeUnpackedArrayType>()
                                    .elementType;
                     auto& lc9 = lf9->getCanonicalType();
-                    // Only BIT-kind leaves (scalar/vector) wrap; predefined
-                    // int/byte etc. keep the bare element ts (Surelog).
-                    twoStateArr9 = (lc9.kind == SymbolKind::ScalarType ||
-                                    lc9.kind == SymbolKind::PackedArrayType) &&
-                                   lc9.isIntegral() && !lc9.isFourState();
+                    // BIT-kind leaves (scalar/vector) and packed-STRUCT
+                    // leaves wrap; predefined int/byte and plain logic
+                    // vectors keep the bare element ts (Surelog).
+                    twoStateArr9 = ((lc9.kind == SymbolKind::ScalarType ||
+                                     lc9.kind == SymbolKind::PackedArrayType) &&
+                                    lc9.isIntegral() && !lc9.isFourState()) ||
+                                   lc9.kind == SymbolKind::PackedStructType;
                 }
                 if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
                     twoStateArr9) {

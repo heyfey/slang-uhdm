@@ -585,6 +585,8 @@ private:
         pendingPkgTsStretch;
     bool implicitNetKeptInElab(const slang::ast::Symbol* sym,
                                const slang::ast::InstanceBodySymbol& body);
+    bool implicitNetFromPatternKey(const slang::ast::Symbol* sym,
+                                   const slang::ast::InstanceBodySymbol& body);
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
     void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m);
