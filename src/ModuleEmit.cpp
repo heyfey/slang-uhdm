@@ -218,8 +218,29 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         if (int32_t nt = aliasOfAlias0 ? 0 : netTypeFor(*it.sym))
             n->VpiNetType(nt);
         // A PACKAGE-typedef struct net (port, or a flat-member local) is a
-        // wire; nested-struct-member locals stay untyped.
+        // wire; nested-struct-member locals stay untyped, and a struct with
+        // an ATOM member (integer r;) carries no net type.
         else if (!aliasPackedArr0 && isPkgStructType(*it.sym) &&
+                 !([&] {
+                     auto d9 = it.sym->getDeclaredType();
+                     if (!d9)
+                         return false;
+                     auto& c9 = d9->getType().getCanonicalType();
+                     if (!c9.isStruct())
+                         return false;
+                     for (auto& f9 : c9.as<Scope>().members())
+                         if (f9.kind == SymbolKind::Field) {
+                             auto& fc9 = f9.as<FieldSymbol>()
+                                             .getType()
+                                             .getCanonicalType();
+                             if (fc9.kind ==
+                                     SymbolKind::PredefinedIntegerType ||
+                                 fc9.kind == SymbolKind::EnumType ||
+                                 !fc9.isFourState())
+                                 return true;
+                         }
+                     return false;
+                 }()) &&
                  (it.port || !hasStructFieldMember(*it.sym)))
             n->VpiNetType(vpiWire);
         // Implicit nets print no typespec.
@@ -4605,6 +4626,55 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
+    // An INITIALIZED pkg-struct signal (p::S m = '{...}) gets a FRESH
+    // pkg-scoped clone (doubled p::p::S member refs, parent+Instance = the
+    // package) spanning typedef-start .. the signal's INIT end (Surelog).
+    if (!ts) {
+        auto dt4 = pn.sym->getDeclaredType();
+        if (dt4 && dt4->getInitializer()) {
+            auto& t4 = dt4->getType();
+            if (t4.kind == SymbolKind::TypeAlias &&
+                t4.getCanonicalType().isStruct()) {
+                auto sc4 = t4.as<TypeAliasType>().getParentScope();
+                if (sc4 && sc4->asSymbol().kind == SymbolKind::Package) {
+                    std::string pn4(sc4->asSymbol().name);
+                    std::string alias4 =
+                        pn4 + "::" + pn4 + "::" + std::string(t4.name);
+                    auto& ct4 = t4.getCanonicalType();
+                    bool savedTf4 = tfContext;
+                    tfContext = true;
+                    UHDM::struct_typespec* cl4 =
+                        ct4.kind == SymbolKind::PackedStructType
+                            ? buildStructTs(ct4.as<PackedStructType>(), true,
+                                            alias4, "::")
+                            : buildStructTs(ct4.as<UnpackedStructType>(),
+                                            false, alias4, "::");
+                    tfContext = savedTf4;
+                    cl4->VpiName(pn4 + "::" + std::string(t4.name));
+                    if (auto pit4 = pkgDefMap.find(&sc4->asSymbol());
+                        pit4 != pkgDefMap.end()) {
+                        cl4->VpiParent(pit4->second);
+                        cl4->Instance(pit4->second);
+                    }
+                    SourceLocation st4;
+                    bool haveStart4 = false;
+                    if (auto as4 = t4.as<TypeAliasType>().getSyntax())
+                        if (as4->kind ==
+                            syntax::SyntaxKind::TypedefDeclaration) {
+                            st4 = as4->as<syntax::TypedefDeclarationSyntax>()
+                                      .type->sourceRange()
+                                      .start();
+                            haveStart4 = true;
+                        }
+                    auto en4 = dt4->getInitializer()->sourceRange.end();
+                    if (haveStart4)
+                        setLoc(cl4, SourceRange(st4, en4));
+                    pn.rt->Actual_typespec(cl4);
+                    return;
+                }
+            }
+        }
+    }
     // A def-view bound referencing an OVERRIDDEN param stays UNFOLDED
     // (name-only refs) — the folded value is override-dependent.
     if (!ts) {
@@ -5070,10 +5140,13 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     }
     pendingParamCloneTs.clear();
 
-    // Net-decl-assign Lhs typespecs (last in the arena).
+    // Net-decl-assign Lhs typespecs (last in the arena). A NAMED shared
+    // typedef ts keeps its own parent (the package); only fresh anonymous
+    // typespecs parent at the ref.
     for (auto& [rt, sym] : pendingNetDeclTs) {
         auto* fts = makeTypespec(*sym);
-        fts->VpiParent(rt);
+        if (fts->VpiName().empty())
+            fts->VpiParent(rt);
         rt->Actual_typespec(fts);
     }
     pendingNetDeclTs.clear();
