@@ -978,8 +978,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // An IMPORTED (unqualified) enum value keeps its ref bound
                     // to the enum const (materialized like an imported param);
                     // only a QUALIFIED pkg::VALUE reference folds to a constant.
-                    if (inPkg && expr.syntax &&
-                        expr.syntax->kind != syntax::SyntaxKind::ScopedName)
+                    // (expr.syntax can be null — test the raw text.)
+                    if (inPkg &&
+                        rawText(expr.sourceRange).find("::") ==
+                            std::string::npos)
                         inPkg = false;
                     // Only MODULE contexts fold; interfaces keep the ref.
                     if (inPkg) {
