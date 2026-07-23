@@ -433,6 +433,11 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     conn.first->name == pb->name)
                     continue;
             }
+            // An interface instance connected to MULTIPLE children gets a
+            // SINGLE connection-site net, anchored at the FIRST connection
+            // site (source order) — Surelog. Skip later duplicates.
+            if (ifaceConnNet.count(conn.first))
+                continue;
             auto* n = s.MakeLogic_net();
             n->VpiName(conn.first->name);
             n->VpiFullName(prefix + "." + std::string(conn.first->name));
@@ -8188,7 +8193,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         // (vpiSize = element count) with a FOLDED [lo:hi] range and a single
         // inner struct_net sharing the struct element typespec — Surelog. The
         // scalar-element case falls through to makeVar/logic_net below.
-        if (it.sym->kind == SymbolKind::Variable && !portView &&
+        if (it.sym->kind == SymbolKind::Variable &&
             it.sym->getDeclaredType() &&
             it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -8202,7 +8207,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 elemNamed = &ua0.elementType;
                 canon = &elemNamed->getCanonicalType();
             }
-            if (elemNamed && canon->isStruct()) {
+            if (!portView && elemNamed && canon->isStruct()) {
                 UHDM::typespec* sts = nullptr;
                 if (auto tt = pkgTopTypedefTs.find(elemNamed);
                     tt != pkgTopTypedefTs.end())
@@ -8243,6 +8248,20 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 elabArrayNets->push_back(an);
                 netMap[it.sym] = an;
                 continue;
+            }
+            // Scalar-element unpacked-array iface signal (logic d [0:1]): BOTH
+            // the elab HOME view and reference-style PORT views list an
+            // array_var (ranges + inner logic_var reg carrying the element
+            // typespec) under vpiVariables — Surelog. (Struct-element port
+            // views fall through to makeVar.)
+            if (!(elemNamed && canon->isStruct())) {
+                auto* elemTs = makeTypespec(*it.sym);
+                if (auto* av =
+                        emitArrayVar(*it.sym, name, fullName, iface, elemTs)) {
+                    netMap[it.sym] = av;
+                    vars->push_back(av);
+                    continue;
+                }
             }
         }
         auto* v = makeVar(*it.sym, /*portBacked=*/false);
@@ -8535,14 +8554,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 if (nit != dit->second.nets.end())
                     netToVar[nit->second] = var;
             }
-            auto rebind = [&](UHDM::expr* e) {
-                if (e && e->UhdmType() == UHDM::uhdmref_obj) {
+            std::function<void(UHDM::any*)> rebind = [&](UHDM::any* e) {
+                if (!e)
+                    return;
+                if (e->UhdmType() == UHDM::uhdmref_obj) {
                     auto* ro = (UHDM::ref_obj*)e;
                     if (auto* act = ro->Actual_group()) {
                         auto f = netToVar.find(act);
                         if (f != netToVar.end())
                             ro->Actual_group(f->second);
                     }
+                } else if (e->UhdmType() == UHDM::uhdmoperation) {
+                    // The RHS operation's operands are ref_objs into the same
+                    // def nets; recurse so they rebind to the elab vars too
+                    // (Surelog's folded def cont-assign binds every operand to
+                    // the primary instance's per-instance logic_var).
+                    auto* op = (UHDM::operation*)e;
+                    if (op->Operands())
+                        for (auto* opd : *op->Operands())
+                            rebind(opd);
                 }
             };
             for (auto* ca : *iit->second->Cont_assigns()) {
@@ -8554,10 +8584,34 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
 
     // Elab-view cont-assigns: the folded model shares the def cont-assign's
     // RHS object, pairing it with a fresh elab-prefixed, unbound LHS ref_obj.
+    // Only the HOME (declaration) view carries them; a reference-style port
+    // view (work@dut.c.bus) lists no cont_assigns (Surelog).
     if (auto iit2 = ifaceDefMap.find(&def);
-        iit2 != ifaceDefMap.end() && iit2->second->Cont_assigns()) {
+        !portView && iit2 != ifaceDefMap.end() && iit2->second->Cont_assigns()) {
         auto* elabCas = s.MakeCont_assignVec();
         for (auto* defCa : *iit2->second->Cont_assigns()) {
+            // Surelog folds ONE cont_assign object (parented at the DEF
+            // interface_inst, operands rebound to the PRIMARY instance's elab
+            // vars) and shares it into every elab interface_inst view. Only a
+            // pkg-enum-const RHS ref genuinely differs per view (it folds to a
+            // LOC-LESS constant), needing a fresh object; everything else
+            // references the def object directly.
+            bool needsFold = false;
+            if (auto* rhs0 = defCa->Rhs();
+                rhs0 && rhs0->UhdmType() == UHDM::uhdmref_obj) {
+                auto* ract0 = ((UHDM::ref_obj*)rhs0)->Actual_group();
+                if (ract0 && ract0->UhdmType() == UHDM::uhdmenum_const)
+                    needsFold = true;
+            }
+            // A plain CONSTANT RHS (assign x = 10) keeps the fresh per-view
+            // re-emit with an elab-prefixed Lhs ref (Surelog re-lists it).
+            else if (defCa->Rhs() &&
+                     defCa->Rhs()->UhdmType() == UHDM::uhdmconstant)
+                needsFold = true;
+            if (!needsFold) {
+                elabCas->push_back(defCa);
+                continue;
+            }
             auto* ca = s.MakeCont_assign();
             ca->VpiParent(iface);
             ca->VpiLineNo(defCa->VpiLineNo());

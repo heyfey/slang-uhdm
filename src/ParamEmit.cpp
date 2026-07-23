@@ -139,6 +139,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                              return a->location < b->location;
                          });
     }
+    // A materialized package parameter's emitted {param_assign, Rhs constant},
+    // keyed by its symbol: a LATER module param whose default is a bare ref to
+    // it (parameter logic[..] P = X) clones this constant in the ELAB view
+    // (ParameterFromPkg* family).
+    std::map<const Symbol*, std::pair<UHDM::param_assign*, UHDM::constant*>>
+        pkgRefSrc;
     for (auto* psPtr : paramSyms) {
         const Symbol& member = *psPtr;
         auto& ps = *psPtr;
@@ -397,6 +403,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             netMap[&member] = up;
 
         UHDM::ref_typespec* rhsRt = nullptr;
+        // The Rhs constant captured for pkgRefSrc, and a flag suppressing the
+        // deferred ts patch when a pkg-ref clone binds its own (pkg-located) ts.
+        UHDM::constant* rhsConstForMap = nullptr;
+        bool pkgRefFold = false;
         auto* pa = s.MakeParam_assign();
         pa->VpiParent(m);
         if (auto syn = ps.getSyntax())
@@ -1238,7 +1248,57 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ((UHDM::constant*)rhs)->Typespec(rt);
                     rhsRt = rt;
                 }
+                // A TYPED module param whose default is a BARE reference to a
+                // materialized package parameter Y (parameter logic[..] P = X):
+                // in the ELAB view Surelog does NOT re-fold — it CLONES Y's
+                // folded constant (Y's value/encoding/size), parents it at Y's
+                // param_assign, and gives its ts ref Y's package-located
+                // typespec (NOT a fresh bare recompute). ParameterFromPkg*.
+                if (topView && !inPackage && typedParam &&
+                    rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto& sref = stripImplicitConv(*init);
+                    if (sref.kind == ExpressionKind::NamedValue) {
+                        auto& ysym =
+                            sref.as<NamedValueExpression>().symbol;
+                        if (ysym.kind == SymbolKind::Parameter &&
+                            ysym.getParentScope() &&
+                            ysym.getParentScope()->asSymbol().kind ==
+                                SymbolKind::Package) {
+                            UHDM::param_assign* ypa = nullptr;
+                            UHDM::constant* yc = nullptr;
+                            for (auto& [msym, rec] : pkgRefSrc)
+                                if (msym->location == ysym.location &&
+                                    msym->name == ysym.name) {
+                                    ypa = rec.first;
+                                    yc = rec.second;
+                                    break;
+                                }
+                            if (ypa && yc && rhsRt) {
+                                auto* rc = (UHDM::constant*)rhs;
+                                rc->VpiValue(std::string(yc->VpiValue()));
+                                rc->VpiConstType(yc->VpiConstType());
+                                rc->VpiSize(yc->VpiSize());
+                                rc->VpiDecompile(
+                                    std::string(yc->VpiDecompile()));
+                                rc->VpiParent(ypa);
+                                auto* yts = makeParamTs(
+                                    ysym.as<ParameterSymbol>(), true);
+                                if (ysym.getParentScope())
+                                    if (auto pit = pkgDefMap.find(
+                                            &ysym.getParentScope()
+                                                 ->asSymbol());
+                                        pit != pkgDefMap.end())
+                                        yts->Instance(
+                                            (UHDM::instance*)pit->second);
+                                rhsRt->Actual_typespec(yts);
+                                pkgRefFold = true;
+                            }
+                        }
+                    }
+                }
             }
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant)
+                rhsConstForMap = (UHDM::constant*)rhs;
         }
         passigns->push_back(pa);
         // DEF-view aggregate-typedef params (typedef struct/union/enum T; then
@@ -1261,7 +1321,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         }
         if (prt) {
             if (topView && !inPackage) {
-                pendingParamTs.push_back({&ps, up, prt, rhsRt, typedParam});
+                // A pkg-ref clone already bound its Rhs ts to the pkg-located
+                // typespec; keep the deferred patch off that ref.
+                pendingParamTs.push_back(
+                    {&ps, up, prt, pkgRefFold ? nullptr : rhsRt, typedParam});
             }
             else if (deferAggTs) {
                 pendingDefParamTs.push_back({&ps, up, prt, rhsRt, typedParam, m,
@@ -1327,6 +1390,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     its->VpiParent(up);
             }
         }
+        // Record this param's {param_assign, Rhs constant} so a later module
+        // param whose default is a bare ref to it can clone the fold.
+        if (rhsConstForMap)
+            pkgRefSrc[&member] = {pa, rhsConstForMap};
     }
     // Type parameters (parameter type T = ...) emit as UHDM type_parameter
     // objects under vpiParameter. Surelog locates the DEF-view type_parameter
