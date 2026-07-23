@@ -7792,10 +7792,39 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
         if (auto nit = sharedNets.find(it.sym); nit != sharedNets.end()) {
             if (it.sym->kind == SymbolKind::Net)
                 continue;
+            // NET-CLASS home objects (struct_net members) are not dup
+            // Variables either — they reach the dup via modport io exprs.
+            switch (nit->second->UhdmType()) {
+                case UHDM::uhdmstruct_net:
+                case UHDM::uhdmlogic_net:
+                case UHDM::uhdmarray_net:
+                case UHDM::uhdmenum_net:
+                case UHDM::uhdmpacked_array_net:
+                    continue;
+                default:
+                    break;
+            }
             vars->push_back((UHDM::variables*)nit->second);
         }
     if (!vars->empty())
         dup->Variables(vars);
+    // The dup lists the iface's HEADER PORTS as BARE ports (name + decl
+    // name span only) — Surelog.
+    {
+        auto* dports = s.MakePortVec();
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::Port)
+                continue;
+            auto& ps9 = portBase->as<PortSymbol>();
+            auto* dp9 = s.MakePort();
+            dp9->VpiName(ps9.name);
+            dp9->VpiParent(dup);
+            setLocNamed(dp9, ps9);
+            dports->push_back(dp9);
+        }
+        if (!dports->empty())
+            dup->Ports(dports);
+    }
 
     // The dup carries its OWN default-valued parameter objects (fresh ts
     // refs, drained with the others) and SHARES the home view's
@@ -8207,8 +8236,18 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 if (dir)
                     io->VpiDirection(dir);
                 if (portView) {
+                    // Iface HEADER-PORT-backed members always take the
+                    // doubled fresh-net form (never the home net) — Surelog.
+                    bool portBacked9 = false;
+                    for (auto pb9 : body.getPortList())
+                        if (pb9->kind == SymbolKind::Port &&
+                            pb9->as<PortSymbol>().internalSymbol ==
+                                mpp.internalSymbol) {
+                            portBacked9 = true;
+                            break;
+                        }
                     if (auto nit = netMap.find(mpp.internalSymbol);
-                        nit != netMap.end())
+                        !portBacked9 && nit != netMap.end())
                         io->Expr((UHDM::expr*)nit->second);
                     // Struct member: fresh struct_net parented at the io_decl,
                     // fullname doubled through the modport and the member
@@ -8427,7 +8466,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         lc->VpiName(ps.name);
         lc->VpiFullName(prefix + "." + std::string(ps.name));
         lc->VpiParent(p);
-        if (auto npc = findConnSyntax(inst, ps.name))
+        // PORT-VIEW LowConn refs anchor at the iface PORT DECL; the home
+        // view anchors at the connection site (Surelog).
+        if (portView)
+            setLocNamed(lc, ps);
+        else if (auto npc = findConnSyntax(inst, ps.name))
             setLoc(lc, SourceRange(npc->name.location(),
                                    npc->name.location() + ps.name.size()));
         else if (hasOrderedConns(inst) && conn && connectionExpr(*conn))
