@@ -2927,7 +2927,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rs.getSelectionKind() == RangeSelectionKind::IndexedUp
                                     ? 1
                                     : 2);
-                            if (constSel)
+                            // An indexed part-select's WIDTH is always constant;
+                            // Surelog marks vpiConstantSelect on the width alone
+                            // (a dynamic base still yields a constant select).
+                            bool widthConst = false;
+                            {
+                                ASTContext wctx(comp.getRoot(), LookupLocation::max);
+                                widthConst =
+                                    rs.right().kind == ExpressionKind::IntegerLiteral ||
+                                    (bool)wctx.tryEval(rs.right());
+                            }
+                            if (widthConst)
                                 ips2->VpiConstantSelect(true);
                             suppressConstParent = isLiteralExpr(rs.left());
                             if (auto* b2 = emitExpr(rs.left(), ips2, prefix, netMap))

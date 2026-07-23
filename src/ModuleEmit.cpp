@@ -5214,8 +5214,55 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         bool savedTf0 = tfContext;
         if (rangeRefsOverriddenParam(*pn.sym))
             tfContext = true;
+        // A packed array over a VECTOR TYPEDEF (logic4 [1:0] v) needs the
+        // anonymous-logic-ts branch of makeTypespec (Elem ref -> typedef, array
+        // dim as range); that branch is tfContext-gated, but the write-phase
+        // drain runs with tfContext forced on. The dims here are literal, so
+        // clear it for this net.
+        bool vectorTypedefArray = false;
+        const TypeAliasType* vtaElem = nullptr;
+        UHDM::typespec* vtaBase = nullptr;
+        if (auto* dtv = pn.sym->getDeclaredType();
+            dtv && dtv->getType().kind == SymbolKind::PackedArrayType) {
+            auto& etv = dtv->getType().as<PackedArrayType>().elementType;
+            if (etv.kind == SymbolKind::TypeAlias) {
+                if (auto titv = typedefTs.find(&etv);
+                    titv != typedefTs.end() &&
+                    titv->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    vectorTypedefArray = true;
+                    vtaElem = &etv.as<TypeAliasType>();
+                    vtaBase = titv->second;
+                }
+            }
+        }
+        if (vectorTypedefArray)
+            tfContext = false;
         ts = makeTypespec(*pn.sym);
         tfContext = savedTf0;
+        // The anonymous logic ts's Elem ref binds the BARE shared typedef;
+        // Surelog instead points it at a fresh NAMED alias-clone (name, ranges,
+        // Typedef_alias -> the shared base, Instance = module) created per use.
+        if (vectorTypedefArray && vtaElem && vtaBase &&
+            ts->UhdmType() == UHDM::uhdmlogic_typespec) {
+            if (auto* et = ((UHDM::logic_typespec*)ts)->Elem_typespec()) {
+                const syntax::SyntaxNode* tgtSyn = nullptr;
+                if (auto asyn = vtaElem->getSyntax())
+                    if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        tgtSyn =
+                            asyn->as<syntax::TypedefDeclarationSyntax>().type;
+                bypassTypedefShare = true;
+                auto* cl = makeTypespec(*vtaElem, tgtSyn);
+                bypassTypedefShare = false;
+                cl->VpiName(vtaElem->name);
+                auto* art = s.MakeRef_typespec();
+                art->VpiFullName(std::string(vtaElem->name));
+                art->VpiParent(cl);
+                art->Actual_typespec(vtaBase);
+                ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                cl->Instance(vtaBase->Instance());
+                et->Actual_typespec(cl);
+            }
+        }
     }
     // Unpacked-array def-view nets: the typespec span reaches the end of the
     // FIRST unpacked dimension (Surelog's element-span-plus-first-dim).

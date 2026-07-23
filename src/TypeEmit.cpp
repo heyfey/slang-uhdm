@@ -1401,7 +1401,60 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 syntaxRefSep = memberSep;
             }
             structMemberTsCtx = true;
+            // A packed array over a VECTOR TYPEDEF member (logic4 [2:0] m)
+            // needs makeTypespec's anonymous-logic-ts branch (Elem ref ->
+            // typedef, array dim as range), which is tfContext-gated. A def-view
+            // struct/union typespec is built with tfContext forced on; the dims
+            // are literal, so clear it for this member.
+            bool savedTf = tfContext;
+            const TypeAliasType* vtaMem = nullptr;
+            UHDM::typespec* vtaMemBase = nullptr;
+            if (fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind ==
+                    SymbolKind::PackedArrayType) {
+                auto& etm = fm.getDeclaredType()
+                                ->getType()
+                                .as<PackedArrayType>()
+                                .elementType;
+                if (etm.kind == SymbolKind::TypeAlias) {
+                    if (auto titm = typedefTs.find(&etm);
+                        titm != typedefTs.end() &&
+                        titm->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        tfContext = false;
+                        vtaMem = &etm.as<TypeAliasType>();
+                        vtaMemBase = titm->second;
+                    }
+                }
+            }
             fts = makeTypespec(fm, memberTypeSyn);
+            tfContext = savedTf;
+            // Surelog points the member's Elem ref at a fresh NAMED alias-clone
+            // (Typedef_alias -> shared base, Instance = module) rather than the
+            // bare base the anonymous-ts branch bound.
+            if (vtaMem && vtaMemBase &&
+                fts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                if (auto* et = ((UHDM::logic_typespec*)fts)->Elem_typespec()) {
+                    const syntax::SyntaxNode* tgtSyn = nullptr;
+                    if (auto asyn = vtaMem->getSyntax())
+                        if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>()
+                                         .type;
+                    bypassTypedefShare = true;
+                    auto* cl = makeTypespec(*vtaMem, tgtSyn);
+                    bypassTypedefShare = false;
+                    cl->VpiName(vtaMem->name);
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(std::string(vtaMem->name));
+                    art->VpiParent(cl);
+                    art->Actual_typespec(vtaMemBase);
+                    ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                    // Only the DEF-view clone (tfContext build) carries
+                    // Instance; the elab-view clone leaves it null (Surelog).
+                    if (savedTf)
+                        cl->Instance(vtaMemBase->Instance());
+                    et->Actual_typespec(cl);
+                }
+            }
             structMemberTsCtx = false;
             syntaxRefPrefix = savedPfx;
             syntaxRefSep = savedSep;
@@ -1471,7 +1524,60 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 syntaxRefSep = memberSep;
             }
             structMemberTsCtx = true;
+            // A packed array over a VECTOR TYPEDEF member (logic4 [2:0] m)
+            // needs makeTypespec's anonymous-logic-ts branch (Elem ref ->
+            // typedef, array dim as range), which is tfContext-gated. A def-view
+            // struct/union typespec is built with tfContext forced on; the dims
+            // are literal, so clear it for this member.
+            bool savedTf = tfContext;
+            const TypeAliasType* vtaMem = nullptr;
+            UHDM::typespec* vtaMemBase = nullptr;
+            if (fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind ==
+                    SymbolKind::PackedArrayType) {
+                auto& etm = fm.getDeclaredType()
+                                ->getType()
+                                .as<PackedArrayType>()
+                                .elementType;
+                if (etm.kind == SymbolKind::TypeAlias) {
+                    if (auto titm = typedefTs.find(&etm);
+                        titm != typedefTs.end() &&
+                        titm->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        tfContext = false;
+                        vtaMem = &etm.as<TypeAliasType>();
+                        vtaMemBase = titm->second;
+                    }
+                }
+            }
             fts = makeTypespec(fm, memberTypeSyn);
+            tfContext = savedTf;
+            // Surelog points the member's Elem ref at a fresh NAMED alias-clone
+            // (Typedef_alias -> shared base, Instance = module) rather than the
+            // bare base the anonymous-ts branch bound.
+            if (vtaMem && vtaMemBase &&
+                fts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                if (auto* et = ((UHDM::logic_typespec*)fts)->Elem_typespec()) {
+                    const syntax::SyntaxNode* tgtSyn = nullptr;
+                    if (auto asyn = vtaMem->getSyntax())
+                        if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>()
+                                         .type;
+                    bypassTypedefShare = true;
+                    auto* cl = makeTypespec(*vtaMem, tgtSyn);
+                    bypassTypedefShare = false;
+                    cl->VpiName(vtaMem->name);
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(std::string(vtaMem->name));
+                    art->VpiParent(cl);
+                    art->Actual_typespec(vtaMemBase);
+                    ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                    // Only the DEF-view clone (tfContext build) carries
+                    // Instance; the elab-view clone leaves it null (Surelog).
+                    if (savedTf)
+                        cl->Instance(vtaMemBase->Instance());
+                    et->Actual_typespec(cl);
+                }
+            }
             structMemberTsCtx = false;
             syntaxRefPrefix = savedPfx;
             syntaxRefSep = savedSep;
@@ -3021,10 +3127,11 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
     pav->VpiParent(m);
     setLoc(pav, nameSpan(sym.location, sym.name));
     pav->VpiVisibility(1);
-    // The var ts binds the SHARED typedef ts. The elab pass ALSO creates
-    // (unreferenced, arena-matching Surelog) a PLAIN named clone, an
-    // enriched anonymous array ts, and a NAMED alias clone (Typedef_alias ->
-    // shared, module-instanced).
+    // The var ts binds a PLAIN named clone (name + ranges, NO alias, NO
+    // Instance — Surelog's per-var bare clone), created here. The elab pass
+    // ALSO creates an enriched anonymous array ts and a NAMED alias clone
+    // (Typedef_alias -> shared, module-instanced).
+    UHDM::typespec* plainCl = nullptr;
     {
         auto& elAl0 = t2->as<TypeAliasType>();
         const syntax::SyntaxNode* tgtSyn0 = nullptr;
@@ -3032,7 +3139,7 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
             if (asyn0->kind == syntax::SyntaxKind::TypedefDeclaration)
                 tgtSyn0 = asyn0->as<syntax::TypedefDeclarationSyntax>().type;
         bypassTypedefShare = true;
-        auto* plainCl = makeTypespec(elAl0, tgtSyn0);
+        plainCl = makeTypespec(elAl0, tgtSyn0);
         bypassTypedefShare = false;
         plainCl->VpiName(elAl0.name);
     }
@@ -3055,7 +3162,7 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
     auto* rt = s.MakeRef_typespec();
     rt->VpiFullName(fullName);
     rt->VpiParent(pav);
-    rt->Actual_typespec(tit->second);
+    rt->Actual_typespec(plainCl ? plainCl : tit->second);
     pav->Typespec(rt);
     // Dim spans scanned between the type-syntax start and the declarator.
     std::vector<DimSpan> spans;
