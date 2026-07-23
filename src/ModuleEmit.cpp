@@ -3628,6 +3628,25 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                         argPfx + std::string(r9->VpiName()));
                             }
                     }
+                    // A CONCAT HighConn's direct ref operands scope through
+                    // the child instance + formal too (Surelog).
+                    if (h && h->UhdmType() == UHDM::uhdmoperation &&
+                        ((UHDM::operation*)h)->VpiOpType() == vpiConcatOp) {
+                        const std::string& dblPfx =
+                            (genvarConnFold && !genConnPrefix.empty())
+                                ? genConnPrefix
+                                : hcPrefix;
+                        std::string opPfx = dblPfx + "." +
+                                            std::string(inst.name) + "." +
+                                            std::string(ps.name) + ".";
+                        if (auto* ops9 = ((UHDM::operation*)h)->Operands())
+                            for (auto* o9 : *ops9)
+                                if (o9->UhdmType() == UHDM::uhdmref_obj) {
+                                    auto* r9 = (UHDM::ref_obj*)o9;
+                                    r9->VpiFullName(
+                                        opPfx + std::string(r9->VpiName()));
+                                }
+                    }
                     if (h) {
                         // Elab-view literal HighConns parent at the port.
                         if (h->UhdmType() == UHDM::uhdmconstant)
