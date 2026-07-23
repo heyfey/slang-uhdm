@@ -7,6 +7,24 @@
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
 
+## Session 19 (2026-07-22, drive 5): 402 PASS / 120 CMP_ONLY / 139 DIFF
+
+~30 gated commits (fbadcb2..bdd3e21+). Converted: typedef_package, package_task_func (+2 bonus),
+MemoryInGenblock, typedef_packed_enum_array (byte PASS), jeras_gpr (byte PASS, 400-milestone),
+GenIfInside (byte PASS), iface_struct_field, iface_sig_in_child_port, iface_modport_out,
+add_sub_bind_if (byte PASS — clocking blocks landed!).
+
+Major features: r=601 family (pkg def-refs symbolic + enum-origin HEX folds), pkg fn/param elab
+semantics (tfShells, view-local chaining, computed folds), pkg-imports-pkg clones (enum+struct),
+vector/enum typedef array forms, emitSyntaxExpr ternary+inside ops, location-sorted param lists,
+iface group-10 (dup bare ports, port-view decl-span LowConns, doubled port-backed modport nets),
+NAMED clocking blocks (cross-view event binding), iface unpacked array_nets, non-ANSI/mixed-conn
+ref_module omission rules.
+
+All decodes and next targets in memory diff-fix-roadmap.md (the process-context hier-select rule
+blocks mem_read_reg/iface_field_partsel/iface_unpacked_signal; arena-content pairing blocks the
+ParameterPassedTo trio + multidim pair).
+
 ## Session 18 (fable[1m], 16h autonomous drive 4, 2026-07-22, in progress)
 
 **Running: PASS 398 / CMP_ONLY 114 / DIFF 149** (drive start 397/109/155).
