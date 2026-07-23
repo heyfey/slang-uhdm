@@ -951,6 +951,64 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                             }
                             p->High_conn(bs);
                         }
+                        else if ([&] {
+                                     const syntax::SyntaxNode* e9 = npc.expr;
+                                     if (e9->kind == syntax::SyntaxKind::
+                                                         SimplePropertyExpr)
+                                         e9 = e9->as<syntax::
+                                                         SimplePropertyExprSyntax>()
+                                                  .expr;
+                                     if (e9->kind == syntax::SyntaxKind::
+                                                         SimpleSequenceExpr)
+                                         e9 = e9->as<syntax::
+                                                         SimpleSequenceExprSyntax>()
+                                                  .expr;
+                                     return e9->kind ==
+                                                syntax::SyntaxKind::
+                                                    InvocationExpression &&
+                                            e9->as<syntax::
+                                                       InvocationExpressionSyntax>()
+                                                    .left->kind ==
+                                                syntax::SyntaxKind::
+                                                    IdentifierName;
+                                 }()) {
+                            // A CALL actual (f(sig)): func_call named by the
+                            // function, args as formal-scoped refs (Surelog).
+                            const syntax::SyntaxNode* ie9 = npc.expr;
+                            if (ie9->kind ==
+                                syntax::SyntaxKind::SimplePropertyExpr)
+                                ie9 = ie9->as<syntax::SimplePropertyExprSyntax>()
+                                          .expr;
+                            if (ie9->kind ==
+                                syntax::SyntaxKind::SimpleSequenceExpr)
+                                ie9 = ie9->as<syntax::SimpleSequenceExprSyntax>()
+                                          .expr;
+                            auto& inv9 =
+                                ie9->as<syntax::InvocationExpressionSyntax>();
+                            auto* fc9 = s.MakeFunc_call();
+                            fc9->VpiName(inv9.left
+                                             ->as<syntax::IdentifierNameSyntax>()
+                                             .identifier.valueText());
+                            fc9->VpiParent(p);
+                            setLoc(fc9, npc.expr->sourceRange());
+                            if (inv9.arguments &&
+                                !inv9.arguments->parameters.empty()) {
+                                auto* args9 = s.MakeAnyVec();
+                                for (auto a9 : inv9.arguments->parameters) {
+                                    std::string ar9(
+                                        rawText(a9->sourceRange()));
+                                    auto* r9 = s.MakeRef_obj();
+                                    r9->VpiName(ar9);
+                                    r9->VpiFullName(branchPrefix + "." + iname +
+                                                    "." + formal + "." + ar9);
+                                    r9->VpiParent(fc9);
+                                    setLoc(r9, a9->sourceRange());
+                                    args9->push_back(r9);
+                                }
+                                fc9->Tf_call_args(args9);
+                            }
+                            p->High_conn(fc9);
+                        }
                         else {
                             auto* r = s.MakeRef_obj();
                             r->VpiParent(p);
@@ -2221,7 +2279,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             v = s.MakeTask_funcVec();
             m->Task_funcs(v);
         }
-        for (auto* tf : it->second)
+        for (auto& [tf, rg9] : it->second)
             if (std::find(v->begin(), v->end(), tf) == v->end())
                 v->push_back(tf);
     }
@@ -3525,6 +3583,51 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                          std::string(inst.name) + "." +
                                          std::string(bsx->VpiName()));
                     }
+                    // A CALL HighConn's arg refs scope through the child
+                    // instance + formal and stay UNBOUND (Surelog). The
+                    // called imported function lists on the ENCLOSING module;
+                    // gen-scope conns also materialize an implicit wire.
+                    if (h && h->UhdmType() == UHDM::uhdmfunc_call) {
+                        auto* fc9h = (UHDM::func_call*)h;
+                        if (auto* fn9 = fc9h->Function(); fn9 && parentM) {
+                            pendingConnTfList.push_back(
+                                {parentM, (UHDM::task_func*)fn9});
+                            // The conn-call registration keyed the CHILD's
+                            // body — the child does NOT list it (Surelog).
+                            for (auto& [k9, v9] : importedTfCalls)
+                                v9.erase(std::remove_if(
+                                             v9.begin(), v9.end(),
+                                             [&](auto& pr9) {
+                                                 return pr9.first ==
+                                                        (UHDM::task_func*)fn9;
+                                             }),
+                                         v9.end());
+                        }
+                        if (genvarConnFold)
+                            pendingGenCallNets.push_back(
+                                {std::string(fc9h->VpiName()),
+                                 stripImplicitConv(*expr).sourceRange});
+                        const std::string& dblPfx =
+                            (genvarConnFold && !genConnPrefix.empty())
+                                ? genConnPrefix
+                                : hcPrefix;
+                        std::string argPfx = dblPfx + "." +
+                                             std::string(inst.name) + "." +
+                                             std::string(ps.name) + ".";
+                        if (auto* args9 =
+                                ((UHDM::func_call*)h)->Tf_call_args())
+                            for (auto* a9 : *args9) {
+                                if (a9->UhdmType() != UHDM::uhdmref_obj)
+                                    continue;
+                                auto* r9 = (UHDM::ref_obj*)a9;
+                                r9->VpiFullName(argPfx +
+                                                std::string(r9->VpiName()));
+                                r9->Actual_group(nullptr);
+                                if (auto* rt9 = r9->Typespec())
+                                    rt9->VpiFullName(
+                                        argPfx + std::string(r9->VpiName()));
+                            }
+                    }
                     if (h) {
                         // Elab-view literal HighConns parent at the port.
                         if (h->UhdmType() == UHDM::uhdmconstant)
@@ -3613,6 +3716,20 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
 
     // Generate scopes exist only in the instance view.
     emitGenScopes(body, m, prefix, topNets);
+    // Imported pkg functions called from GEN-SCOPE conns register during
+    // emitGenScopes — drain them into the module list late (the def-phase
+    // drain has already run).
+    if (auto itf9 = importedTfCalls.find((const Scope*)&body);
+        itf9 != importedTfCalls.end() && !itf9->second.empty()) {
+        auto* v9 = m->Task_funcs();
+        if (!v9) {
+            v9 = s.MakeTask_funcVec();
+            m->Task_funcs(v9);
+        }
+        for (auto& [tf9, rg9] : itf9->second)
+            if (std::find(v9->begin(), v9->end(), tf9) == v9->end())
+                v9->push_back(tf9);
+    }
 
     // Deferred typespecs drain in the second (port) pass over top instances.
 
@@ -3748,6 +3865,35 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             for (auto* tf : it->second.taskFuncs)
                 tfs->push_back(tf);
             m->Task_funcs(tfs);
+        }
+        // Imported functions called from THIS module's conns (queued during
+        // gen-scope/child emission; the shared-def assignment above must not
+        // wipe them).
+        if (!pendingConnTfList.empty()) {
+            for (auto& [pm9, tf9] : pendingConnTfList) {
+                if (pm9 != m)
+                    continue;
+                auto app9 = [&](UHDM::module_inst* mm9) {
+                    auto* tv9 = mm9->Task_funcs();
+                    if (!tv9) {
+                        tv9 = s.MakeTask_funcVec();
+                        mm9->Task_funcs(tv9);
+                    }
+                    if (std::find(tv9->begin(), tv9->end(), tf9) ==
+                        tv9->end())
+                        tv9->push_back(tf9);
+                };
+                app9(m);
+                // The DEF view lists it too (Surelog).
+                if (it != defMap.end() && it->second.mod &&
+                    it->second.mod != m)
+                    app9(it->second.mod);
+            }
+            pendingConnTfList.erase(
+                std::remove_if(pendingConnTfList.begin(),
+                               pendingConnTfList.end(),
+                               [&](auto& pr9) { return pr9.first == m; }),
+                pendingConnTfList.end());
         }
         if (isTop && it != defMap.end() && !it->second.typedefs.empty()) {
             auto* tds = s.MakeTypespecVec();
@@ -4317,6 +4463,25 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         if (!gmods->empty())
             gs->Modules(gmods);
+        // Implicit wires from gen-conn CALLS (queued during the child conn
+        // emission above).
+        if (!pendingGenCallNets.empty()) {
+            auto* nv9 = gs->Nets();
+            if (!nv9) {
+                nv9 = s.MakeNetVec();
+                gs->Nets(nv9);
+            }
+            for (auto& [nm9, rg9] : pendingGenCallNets) {
+                auto* ln9 = s.MakeLogic_net();
+                ln9->VpiName(nm9);
+                ln9->VpiFullName(fullName + "." + nm9);
+                ln9->VpiParent(gs);
+                ln9->VpiNetType(1);
+                setLoc(ln9, SourceRange(rg9.start(), rg9.start() + nm9.size()));
+                nv9->push_back(ln9);
+            }
+            pendingGenCallNets.clear();
+        }
 
         // Functions declared inside the block live on the gen_scope.
         {

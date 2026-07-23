@@ -1890,10 +1890,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     else if (currentScope && si.tf) {
                         // Import-resolved call: the module lists the shared
-                        // package function in its own Task_funcs.
+                        // package function in its own Task_funcs; a call from
+                        // a GEN-SCOPE conn also registers at the enclosing
+                        // instance body.
                         auto& v2 = importedTfCalls[currentScope];
-                        if (std::find(v2.begin(), v2.end(), si.tf) == v2.end())
-                            v2.push_back(si.tf);
+                        bool have9 = false;
+                        for (auto& pr9 : v2)
+                            if (pr9.first == si.tf)
+                                have9 = true;
+                        if (!have9)
+                            v2.push_back({si.tf, expr.sourceRange});
                     }
                 }
                 if (isFunc)

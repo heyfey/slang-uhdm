@@ -453,7 +453,16 @@ private:
     // Package scope currently emitting task_funcs (ts vpiInstance owner).
     UHDM::instance* pkgScopeInst = nullptr;
     // Unqualified calls to package functions, per module def body.
-    std::map<const void*, std::vector<UHDM::task_func*>> importedTfCalls;
+    std::map<const void*,
+             std::vector<std::pair<UHDM::task_func*, slang::SourceRange>>>
+        importedTfCalls;
+    // Gen-scope conn CALLS materialize an implicit wire named after the
+    // function in the gen scope (Surelog): {name, call range}.
+    std::vector<std::pair<std::string, slang::SourceRange>> pendingGenCallNets;
+    // (enclosing module, imported fn) — listed on the module AFTER the
+    // shared-def Task_funcs assignment.
+    std::vector<std::pair<UHDM::module_inst*, UHDM::task_func*>>
+        pendingConnTfList;
     // Cast-size exprs also keep name-token-only call spans.
     bool inCastSize = false;
     // Refs inside indexed-part-select base/width exprs are scoped by the
