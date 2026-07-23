@@ -956,10 +956,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     op2->Operands(opnds);
                     rhs = op2;
                 }
-                // DEF-view param whose default is an UNQUALIFIED ref to an
-                // imported pkg param (materialized in this module) keeps an
-                // UNBOUND ref_obj Rhs (Surelog), not a fold.
-                if (!rhs && !topView && !inPackage) {
+                // DEF-view TYPEDEF-typed param whose default is an UNQUALIFIED
+                // ref to an imported pkg param (materialized in this module)
+                // keeps an UNBOUND ref_obj Rhs (Surelog), not a fold. A param
+                // typed by a DIRECT vector (logic [7:0][3:0] P = X) still
+                // folds (ParameterFromPkg* distinguisher).
+                if (!rhs && !topView && !inPackage && ps.getDeclaredType() &&
+                    ps.getDeclaredType()->getType().kind ==
+                        SymbolKind::TypeAlias) {
                     auto& sref9 = stripImplicitConv(*init);
                     if (sref9.kind == ExpressionKind::NamedValue &&
                         sref9.as<NamedValueExpression>().symbol.kind ==

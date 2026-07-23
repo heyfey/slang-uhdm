@@ -512,14 +512,16 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     {
         auto* regions = s.MakeGen_stmtVec();
         std::set<const syntax::SyntaxNode*> doneIfs;
+        std::set<const syntax::SyntaxNode*> doneCases;
         // A generate branch body: named begin for labeled blocks, anonymous
         // begin (module fullname) otherwise; cont_assigns from syntax.
         std::function<UHDM::any*(const syntax::SyntaxNode&, UHDM::BaseClass*,
-                                 const Scope*, const std::string&)>
+                                 const Scope*, const std::string&, bool)>
             emitBranch;
         emitBranch = [&](const syntax::SyntaxNode& memSyn,
                          UHDM::BaseClass* parent, const Scope* astBlock,
-                         const std::string& basePrefix) -> UHDM::any* {
+                         const std::string& basePrefix,
+                         bool noFull) -> UHDM::any* {
             UHDM::scope* b = nullptr;
             std::string branchPrefix = basePrefix;
             std::vector<const syntax::SyntaxNode*> items;
@@ -537,7 +539,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 }
                 else {
                     auto* ub = s.MakeBegin();
-                    ub->VpiFullName(basePrefix);
+                    // A case-item begin carries NO fullname (Surelog).
+                    if (!noFull)
+                        ub->VpiFullName(basePrefix);
                     b = ub;
                 }
                 for (auto mem2 : gb.members)
@@ -545,7 +549,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             }
             else {
                 auto* ub = s.MakeBegin();
-                ub->VpiFullName(basePrefix);
+                if (!noFull)
+                    ub->VpiFullName(basePrefix);
                 b = ub;
                 items.push_back(&memSyn);
             }
@@ -1078,7 +1083,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 if (auto* t = emitBranch(
                         *nIf.block, ng0,
                         findNested((const syntax::SyntaxNode*)nIf.block),
-                        branchPrefix)) {
+                        branchPrefix, false)) {
                     if (ngie)
                         ngie->VpiStmt((UHDM::any*)t);
                     else
@@ -1089,7 +1094,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                             *nIf.elseClause->clause, ngie,
                             findNested((const syntax::SyntaxNode*)nIf
                                            .elseClause->clause),
-                            branchPrefix))
+                            branchPrefix, false))
                         ngie->VpiElseStmt((UHDM::any*)e);
                 }
                 stmts->push_back(ng0);
@@ -1228,7 +1233,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 };
                 const Scope* tbScope =
                     findBranchScope((const syntax::SyntaxNode*)ifSyn->block);
-                if (auto* t = emitBranch(*ifSyn->block, g0, tbScope, prefix)) {
+                if (auto* t = emitBranch(*ifSyn->block, g0, tbScope, prefix, false)) {
                     if (gie)
                         gie->VpiStmt(t);
                     else
@@ -1238,7 +1243,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     const Scope* ebScope = findBranchScope(
                         (const syntax::SyntaxNode*)ifSyn->elseClause->clause);
                     if (auto* e = emitBranch(*ifSyn->elseClause->clause, gie,
-                                             ebScope, prefix))
+                                             ebScope, prefix, false))
                         gie->VpiElseStmt((UHDM::any*)e);
                 }
                 // Inside an EXPLICIT generate...endgenerate region the if
@@ -1270,6 +1275,84 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 }
                 else
                     regions->push_back(g0);
+                continue;
+            }
+            // CASE-generates (def view): Surelog emits the WHOLE gen_case tree
+            // SYMBOLICALLY — the condition ref plus ALL case_items (taken AND
+            // untaken), each item's begin re-emitting its processes/assigns
+            // from syntax. Wrapped in a gen_region -> begin (module fullname),
+            // matching the explicit `generate...endgenerate` region shape.
+            const syntax::CaseGenerateSyntax* caseSyn = nullptr;
+            if (member.kind == SymbolKind::GenerateBlock)
+                for (auto q = member.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::CaseGenerate) {
+                        caseSyn = &q->as<syntax::CaseGenerateSyntax>();
+                        break;
+                    }
+            if (caseSyn) {
+                if (!doneCases.insert(caseSyn).second)
+                    continue;
+                auto* gr = s.MakeGen_region();
+                gr->VpiParent(m);
+                auto* ob = s.MakeBegin();
+                ob->VpiFullName(prefix);
+                ob->VpiParent(gr);
+                auto* gc = s.MakeGen_case();
+                gc->VpiParent(ob);
+                setLoc(gc, SourceRange(caseSyn->keyword.range().start(),
+                                       caseSyn->endCase.range().end()));
+                syntaxRefPrefix = prefix;
+                if (auto* c = emitSyntaxExpr(*caseSyn->condition, gc))
+                    gc->VpiCondition((UHDM::expr*)c);
+                syntaxRefPrefix.clear();
+                // The AST GenerateBlock scope for a given case-item clause (its
+                // ProceduralBlock members exist even for UNINSTANTIATED items).
+                auto findItemScope =
+                    [&](const syntax::SyntaxNode* bs) -> const Scope* {
+                    for (auto& m2 : body.members())
+                        if (m2.kind == SymbolKind::GenerateBlock &&
+                            m2.getSyntax() == bs)
+                            return &m2.as<Scope>();
+                    return nullptr;
+                };
+                auto* citems = s.MakeCase_itemVec();
+                for (auto* ci : caseSyn->items) {
+                    auto* item = s.MakeCase_item();
+                    // Surelog leaves the case_item's parent UNSET; that stops
+                    // ComputeFullName so the item's begin (and its always) get
+                    // NO computed fullname (bare, symbolic def-view shape).
+                    const syntax::SyntaxNode* clause = nullptr;
+                    if (ci->kind == syntax::SyntaxKind::StandardCaseItem) {
+                        auto& sci = ci->as<syntax::StandardCaseItemSyntax>();
+                        clause = sci.clause;
+                        auto* exprs = s.MakeAnyVec();
+                        syntaxRefPrefix = prefix;
+                        for (auto* le : sci.expressions) {
+                            if (auto* e = emitSyntaxExpr(*le, item))
+                                exprs->push_back(e);
+                        }
+                        syntaxRefPrefix.clear();
+                        if (!exprs->empty())
+                            item->VpiExprs(exprs);
+                    }
+                    else if (ci->kind == syntax::SyntaxKind::DefaultCaseItem) {
+                        clause = ci->as<syntax::DefaultCaseItemSyntax>().clause;
+                    }
+                    if (clause) {
+                        const Scope* isc = findItemScope(clause);
+                        if (auto* bb = emitBranch(*clause, item, isc, prefix,
+                                                  /*noFull=*/true))
+                            item->Stmt(bb);
+                    }
+                    citems->push_back(item);
+                }
+                if (!citems->empty())
+                    gc->Case_items(citems);
+                auto* obs = s.MakeAnyVec();
+                obs->push_back(gc);
+                ob->Stmts(obs);
+                gr->VpiStmt(ob);
+                regions->push_back(gr);
                 continue;
             }
             // FOR-generates: a LOC-LESS gen_for with the genvar init
@@ -1376,7 +1459,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                             astBlock = entry2;
                             break;
                         }
-                    if (auto* b = emitBranch(*loopSyn->block, gf, astBlock, prefix))
+                    if (auto* b = emitBranch(*loopSyn->block, gf, astBlock, prefix, false))
                         gf->VpiStmt(b);
                 }
                 regions->push_back(gf);
@@ -1392,7 +1475,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     gsyn->as<syntax::GenerateBlockSyntax>().beginName) {
                     auto* gr = s.MakeGen_region();
                     gr->VpiParent(m);
-                    if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>(), prefix))
+                    if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>(), prefix, false))
                         gr->VpiStmt(b);
                     regions->push_back(gr);
                     continue;
@@ -3732,6 +3815,31 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         if (auto syn = blk.getSyntax()) {
             setLoc(gsa, syn->sourceRange());
             setLoc(gs, syn->sourceRange());
+            // A CASE-generate taken BEGIN..END block spans its first member
+            // CONSTRUCT (the always/assign inside the clause), not the
+            // begin..end clause; a bare-statement item keeps the item span
+            // (Surelog).
+            bool underCase9 = syn->kind == syntax::SyntaxKind::GenerateBlock;
+            if (underCase9) {
+                underCase9 = false;
+                for (auto q = syn->parent; q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::CaseGenerate) {
+                        underCase9 = true;
+                        break;
+                    }
+            }
+            if (underCase9)
+                for (auto& gm9 : blk.members()) {
+                    if (gm9.kind == SymbolKind::Genvar ||
+                        gm9.kind == SymbolKind::Parameter ||
+                        gm9.kind == SymbolKind::TransparentMember)
+                        continue;
+                    if (auto* ms9 = gm9.getSyntax()) {
+                        setLoc(gsa, ms9->sourceRange());
+                        setLoc(gs, ms9->sourceRange());
+                        break;
+                    }
+                }
         }
         auto* gv = s.MakeGen_scopeVec();
         gv->push_back(gs);

@@ -1101,7 +1101,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return c;
                     }
                 }
-                ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                // DEF-view gen-block PROCEDURAL refs stay BARE (name only, no
+                // fullname) — Surelog re-emits always-body statements
+                // symbolically. (Continuous-assign / condition refs, emitted
+                // outside defGenProcessEmit, keep their scoped fullname.)
+                if (!defGenProcessEmit)
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                 if (suppressRefActual) {
                     // ELAB gen-scope process refs to gen-block / stmt-block
                     // LOCALS still bind (module-level signals stay unbound);
@@ -1125,6 +1130,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     UHDM::uhdmlogic_net &&
                                 it0->second->UhdmType() !=
                                     UHDM::uhdmstruct_net)
+                                ref->Actual_group(it0->second);
+                        }
+                        // A ref that is the OPERAND of a size-cast op (op 67)
+                        // binds even for module-level signals (Surelog
+                        // re-elaborates the cast).
+                        else if (parent &&
+                                 parent->UhdmType() == UHDM::uhdmoperation &&
+                                 ((UHDM::operation*)parent)->VpiOpType() ==
+                                     vpiCastOp) {
+                            if (auto it0 = netMap.find(&nv.symbol);
+                                it0 != netMap.end())
                                 ref->Actual_group(it0->second);
                         }
                     }
@@ -1537,7 +1553,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ASTContext bctx(*currentScope, LookupLocation::max);
                     auto& sizeExpr = Expression::bind(*cesyn.left, bctx);
                     auto lr = leftSyn->sourceRange();
-                    if (reemitting) {
+                    // DEF-view gen-block PROCEDURAL casts keep the size
+                    // SYMBOLIC: an unfolded parameter width P'(x) becomes an
+                    // unsupported_typespec named P at the cast-site token (no
+                    // value) — Surelog can't resolve the type in the def view.
+                    // cts is set here so the param-fold branches below (all
+                    // gated on !cts) are skipped, and the shared ref_typespec
+                    // wrap emits it.
+                    if (defGenProcessEmit) {
+                        auto* uts = s.MakeUnsupported_typespec();
+                        uts->VpiName(std::string(rawText(lr)));
+                        setLoc(uts, lr);
+                        cts = uts;
+                    }
+                    if (!defGenProcessEmit && reemitting) {
                         auto* rt0 = s.MakeRef_typespec();
                         rt0->VpiFullName(prefix);
                         rt0->VpiParent(op);
@@ -1557,7 +1586,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // int_typespec carrying the param's folded value, at a
                     // zero-width span on the param name token (per cast site).
                     auto& seCore = stripImplicitConv(sizeExpr);
-                    if (seCore.kind == ExpressionKind::NamedValue &&
+                    if (!cts && seCore.kind == ExpressionKind::NamedValue &&
                         seCore.as<NamedValueExpression>().symbol.kind ==
                             SymbolKind::Parameter &&
                         cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
@@ -1738,7 +1767,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(cts, effCastSyn->as<syntax::CastExpressionSyntax>().left->sourceRange());
             }
             auto* rt = s.MakeRef_typespec();
-            rt->VpiFullName(prefix);
+            // DEF-view gen procedural casts keep the ref_typespec BARE.
+            if (!defGenProcessEmit)
+                rt->VpiFullName(prefix);
             rt->VpiParent(op);
             rt->Actual_typespec(cts);
             // Re-elaborated contexts parent the cast typespec at its ref.
