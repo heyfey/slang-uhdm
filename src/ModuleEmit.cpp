@@ -7792,6 +7792,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     emitTypedefs(body, iface, prefix, info);
 
     auto* nets = s.MakeNetVec();
+    UHDM::VectorOfarray_net* ifaceArrayNets9 = nullptr;
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         auto* n = s.MakeLogic_net();
@@ -7824,9 +7825,41 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         // Record the def net so def-view port LowConns can bind to it.
         info.nets[it.sym] = n;
         nets->push_back(n);
+        // An UNPACKED-array iface signal ALSO lists an array_net (size 1,
+        // dim range, LOC-LESS doubled inner net) — Surelog.
+        if (it.sym->getDeclaredType() &&
+            it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType) {
+            auto* an9 = s.MakeArray_net();
+            an9->VpiName(name);
+            an9->VpiFullName(prefix + "." + name);
+            an9->VpiParent(iface);
+            setLoc(an9, nameSpan(it.sym->location, it.sym->name));
+            an9->VpiSize(1);
+            if (auto* rngs9 = buildUnpackedRanges(*it.sym, an9))
+                an9->Ranges(rngs9);
+            auto* in9 = s.MakeLogic_net();
+            in9->VpiName(name);
+            in9->VpiFullName(prefix + "." + name + "." + name);
+            in9->VpiParent(an9);
+            in9->VpiNetType(36);
+            auto* irt9 = s.MakeRef_typespec();
+            irt9->VpiFullName(prefix + "." + name + "." + name);
+            irt9->VpiParent(in9);
+            in9->Typespec(irt9);
+            pendingNetTs.push_back({it.sym, irt9, &info});
+            auto* inv9 = s.MakeNetVec();
+            inv9->push_back(in9);
+            an9->Nets(inv9);
+            if (!ifaceArrayNets9)
+                ifaceArrayNets9 = s.MakeArray_netVec();
+            ifaceArrayNets9->push_back(an9);
+        }
     }
     if (!nets->empty())
         iface->Nets(nets);
+    if (ifaceArrayNets9)
+        iface->Array_nets(ifaceArrayNets9);
 
     // Def-view cont-assigns and ports (LowConn only) reuse the shared helpers.
     // Processes are emitted once in the ELAB view and shared here (Surelog
