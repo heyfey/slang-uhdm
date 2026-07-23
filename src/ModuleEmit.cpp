@@ -8452,10 +8452,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         sn2->VpiName(mname);
                         sn2->VpiFullName(dfull);
                         sn2->VpiParent(io);
-                        // Wire type only for PACKAGE-qualified struct types;
-                        // an interface-LOCAL typedef stays untyped (Surelog —
+                        // Wire type only for EXPLICITLY package-qualified
+                        // struct types (p::req_t); imported bare names and
+                        // interface-local typedefs stay untyped (Surelog —
                         // same distinguisher as the module struct-net gates).
-                        if (isPkgStructType(msym))
+                        if (isPkgStructType(msym) &&
+                            isExplicitPkgQualified(msym))
                             sn2->VpiNetType(vpiWire);
                         setLoc(sn2, nameSpan(msym.location, msym.name));
                         UHDM::typespec* mts = nullptr;

@@ -309,7 +309,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 defaultInit && stripImplicitConv(*defaultInit).kind ==
                                    ExpressionKind::RealLiteral;
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
-                      (ctw.isString() && typedParam)) &&
+                      (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) || pkgElabComputed ||
                       ((literalInit || realLit) && !unknownDefault));
         }
@@ -1009,11 +1009,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (d.size() >= 2 && d.front() == '"' && d.back() == '"')
                         rc->VpiDecompile(d.substr(1, d.size() - 2));
                 }
-                if (wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
-                    (init->kind == ExpressionKind::IntegerLiteral ||
-                     init->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
-                     init->kind == ExpressionKind::RealLiteral ||
-                     (typedParam && init->kind == ExpressionKind::StringLiteral))) {
+                if (auto& sik = stripImplicitConv(*init);
+                    wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                    (sik.kind == ExpressionKind::IntegerLiteral ||
+                     sik.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
+                     sik.kind == ExpressionKind::RealLiteral ||
+                     sik.kind == ExpressionKind::StringLiteral ||
+                     // A TYPED param folded from a PKG-param ref carries the
+                     // ts too (Surelog).
+                     (typedParam && sik.kind == ExpressionKind::NamedValue &&
+                      sik.as<NamedValueExpression>().symbol.getParentScope() &&
+                      sik.as<NamedValueExpression>()
+                              .symbol.getParentScope()
+                              ->asSymbol()
+                              .kind == SymbolKind::Package))) {
                     auto* rt = s.MakeRef_typespec();
                     std::string tsPrefix = prefix;
                     if (tsPrefix.size() >= 2 &&
