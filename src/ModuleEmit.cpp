@@ -3710,7 +3710,29 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             iv->VpiFullName(vfull);
             iv->VpiParent(gs);
             iv->VpiVisibility(1);
-            setLoc(iv, nameSpan(gm.location, gm.name));
+            // INITIALIZED gen locals span decl..init in the ELAB view and
+            // carry the init constant as vpiExpr (32-bit, parent = the var).
+            if (gm.getDeclaredType() && gm.getDeclaredType()->getInitializer() &&
+                gm.getSyntax()) {
+                setLoc(iv, gm.getSyntax()->sourceRange());
+                auto* in0 = gm.getDeclaredType()->getInitializer();
+                ASTContext ic0(comp.getRoot(), LookupLocation::max);
+                if (auto cv0 = ic0.tryEval(*in0);
+                    cv0 && cv0.isInteger() && !cv0.integer().hasUnknown()) {
+                    auto* c0 = s.MakeConstant();
+                    std::string d0 = cv0.integer().toString(
+                        LiteralBase::Decimal, false);
+                    c0->VpiDecompile(d0);
+                    c0->VpiSize(32);
+                    c0->VpiValue("UINT:" + d0);
+                    c0->VpiConstType(vpiUIntConst);
+                    c0->VpiParent(iv);
+                    setLoc(c0, stripImplicitConv(*in0).sourceRange);
+                    iv->Expr(c0);
+                }
+            }
+            else
+                setLoc(iv, nameSpan(gm.location, gm.name));
             UHDM::typespec* ivt;
             if (isInt2) {
                 auto* t0 = s.MakeInteger_typespec();
@@ -4357,6 +4379,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         auto* procs = s.MakeProcess_stmtVec();
         suppressRefActual = true;
         inGenScopeProc = true;
+        currentGenBlkScope = &blk;
         genScopeProcInLoop = false;
         for (auto q = blk.getSyntax(); q; q = q->parent)
             if (q->kind == syntax::SyntaxKind::LoopGenerate) {
@@ -4376,6 +4399,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
         }
         inGenScopeProc = false;
+        currentGenBlkScope = nullptr;
         suppressRefActual = false;
         if (!procs->empty())
             gs->Process(procs);
@@ -9425,7 +9449,17 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     as2->VpiParent(b);
                     as2->VpiOpType(82);
                     as2->VpiBlocking(true);
-                    setLoc(as2, nameSpan(dcl->name.location(), vname));
+                    // An INITIALIZED decl (integer a = 1) spans decl..init
+                    // and carries the init constant as Rhs (Surelog);
+                    // bare decls keep the name-only span, no Rhs.
+                    if (dcl->initializer) {
+                        setLoc(as2, dcl->sourceRange());
+                        if (auto* rI2 =
+                                emitSyntaxExpr(*dcl->initializer->expr, as2))
+                            as2->Rhs((UHDM::expr*)rI2);
+                    }
+                    else
+                        setLoc(as2, nameSpan(dcl->name.location(), vname));
                     UHDM::variables* iv;
                     UHDM::typespec* it2;
                     if (isInt) {

@@ -1251,9 +1251,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (pk0 == SymbolKind::StatementBlock ||
                             pk0 == SymbolKind::GenerateBlock) {
                             // NET-kind locals (driven regs -> nets) stay
-                            // unbound in processes; VAR locals bind.
+                            // unbound in processes; VAR locals bind ONLY when
+                            // they belong to the SAME gen scope as the
+                            // process — refs to OUTER-scope gen locals stay
+                            // unbound (Surelog).
+                            bool sameScope0g =
+                                pk0 != SymbolKind::GenerateBlock ||
+                                !currentGenBlkScope ||
+                                nv.symbol.getParentScope() ==
+                                    currentGenBlkScope;
                             if (auto it0 = netMap.find(&nv.symbol);
-                                it0 != netMap.end() &&
+                                sameScope0g && it0 != netMap.end() &&
                                 it0->second->UhdmType() !=
                                     UHDM::uhdmlogic_net &&
                                 it0->second->UhdmType() !=

@@ -729,6 +729,8 @@ private:
     // True when the gen scope whose processes are being emitted sits under a
     // LOOP generate (its refs stay unbound; if/named scopes bind locals).
     bool genScopeProcInLoop = false;
+    // The gen block whose processes are currently being emitted (elab).
+    const slang::ast::Scope* currentGenBlkScope = nullptr;
     // True while emitting an ELAB gen-scope CA LHS: param refs in select
     // bounds fold to typed constants (Surelog).
     bool genCaLhsParamFold = false;
