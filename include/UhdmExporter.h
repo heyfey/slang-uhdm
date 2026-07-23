@@ -93,6 +93,15 @@ private:
     UHDM::clocking_block* emitDefaultClocking(const slang::ast::InstanceBodySymbol& body,
                                               UHDM::module_inst* m, const std::string& prefix,
                                               NetMap& netMap);
+    // NAMED clocking blocks (clocking cb @(posedge clk); input a; ...) on
+    // interfaces: clocking_block + event + clocking_io_decls. Def-view event
+    // refs bind cross-view (the ELAB var) — collected in pendingCbRefs and
+    // drained at the end of exportDesign.
+    void emitNamedClockingBlocks(const slang::ast::InstanceBodySymbol& body,
+                                 UHDM::instance* m, const std::string& prefix,
+                                 NetMap& nm, bool defView);
+    std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
+        pendingCbRefs;
 
     /// Per-subroutine emission products (call sites link to these). An arg
     /// typespec may be deferred (bare implicit): ts null, key set.

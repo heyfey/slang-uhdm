@@ -7477,6 +7477,95 @@ UHDM::clocking_block* UhdmExporter::emitDefaultClocking(const InstanceBodySymbol
     return nullptr;
 }
 
+void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
+                                           UHDM::instance* m,
+                                           const std::string& prefix,
+                                           NetMap& nm, bool defView) {
+    UHDM::VectorOfclocking_block* vec = nullptr;
+    // ELAB pass: resolve def-view event refs against this instance's nets.
+    if (!defView)
+        for (auto& [r9, sym9] : pendingCbRefs)
+            if (auto nit9 = nm.find(sym9); nit9 != nm.end())
+                r9->Actual_group(nit9->second);
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::ClockingBlock)
+            continue;
+        auto& cbs = member.as<ClockingBlockSymbol>();
+        auto csyn = cbs.getSyntax();
+        if (!csyn || csyn->kind != syntax::SyntaxKind::ClockingDeclaration)
+            continue;
+        auto& cdecl = csyn->as<syntax::ClockingDeclarationSyntax>();
+        if (cdecl.globalOrDefault.valueText() == "default")
+            continue; // handled by emitDefaultClocking
+        std::string cbName(cbs.name);
+        std::string cbFull = prefix + "." + cbName;
+        auto* cb = s.MakeClocking_block();
+        cb->VpiName(cbName);
+        cb->VpiFullName(cbFull);
+        cb->VpiParent(m);
+        setLoc(cb, csyn->sourceRange());
+        auto* ec = s.MakeEvent_control();
+        ec->VpiParent(cb);
+        setLoc(ec, SourceRange(cdecl.at.range().start(),
+                               cdecl.event->sourceRange().end()));
+        // Event refs emit UNBOUND in BOTH views; only the DEF ref binds
+        // (to the ELAB var, via pendingCbRefs) — Surelog.
+        NetMap emptyNm9;
+        if (auto* cond = emitEventExpr(cbs.getEvent(), ec, cbFull, emptyNm9)) {
+            ec->VpiCondition(cond);
+            if (defView) {
+                // Def-view event refs bind the ELAB var (patched late).
+                std::function<void(UHDM::any*)> collect = [&](UHDM::any* e) {
+                    if (!e)
+                        return;
+                    if (e->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r0 = (UHDM::ref_obj*)e;
+                        if (!r0->Actual_group())
+                            if (auto* sym0 =
+                                    body.find(std::string(r0->VpiName())))
+                                pendingCbRefs.emplace_back(r0, sym0);
+                    }
+                    else if (e->UhdmType() == UHDM::uhdmoperation) {
+                        if (auto* ops = ((UHDM::operation*)e)->Operands())
+                            for (auto* o : *ops)
+                                collect(o);
+                    }
+                };
+                collect(cond);
+            }
+        }
+        cb->Clocking_event(ec);
+        auto* ios = s.MakeClocking_io_declVec();
+        for (auto& cm : cbs.members()) {
+            if (cm.kind != SymbolKind::ClockVar)
+                continue;
+            auto& cv = cm.as<ClockVarSymbol>();
+            auto* io = s.MakeClocking_io_decl();
+            io->VpiName(cv.name);
+            io->VpiParent(cb);
+            setLoc(io, nameSpan(cv.location, cv.name));
+            int32_t dir = cv.direction == ArgumentDirection::In    ? vpiInput
+                          : cv.direction == ArgumentDirection::Out ? vpiOutput
+                          : cv.direction == ArgumentDirection::InOut ? vpiInout
+                                                                     : 0;
+            if (dir)
+                io->VpiDirection(dir);
+            ios->push_back(io);
+        }
+        if (!ios->empty())
+            cb->Clocking_io_decls(ios);
+        if (!vec)
+            vec = s.MakeClocking_blockVec();
+        vec->push_back(cb);
+    }
+    if (vec) {
+        if (m->UhdmType() == UHDM::uhdminterface_inst)
+            ((UHDM::interface_inst*)m)->Clocking_blocks(vec);
+        else if (m->UhdmType() == UHDM::uhdmmodule_inst)
+            ((UHDM::module_inst*)m)->Clocking_blocks(vec);
+    }
+}
+
 void UhdmExporter::setLocCompact(UHDM::BaseClass* obj, SourceRange range) {
     setLoc(obj, SourceRange(range.start(),
                             range.end() - basedLiteralSpaceCount(rawText(range))));
@@ -7687,8 +7776,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     iface->VpiFullName(prefix);
     iface->VpiParent(d);
     iface->VpiFile(fullFilePath(def.location));
-    if (auto syn = body.getSyntax())
+    if (auto syn = body.getSyntax()) {
         setLoc(iface, syn->sourceRange());
+        // endinterface: <label>
+        if (syn->kind == syntax::SyntaxKind::InterfaceDeclaration)
+            if (auto* bn = syn->as<syntax::ModuleDeclarationSyntax>().blockName)
+                iface->VpiEndLabel(bn->name.valueText());
+    }
 
     emitParameters(body, iface, prefix, info.nets, /*topView=*/false, &info, false);
 
@@ -7777,6 +7871,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
 
     emitPorts(body, iface, prefix, info.nets, /*topView=*/false, &info.defTs);
     emitImportArtifacts(body, iface);
+    emitNamedClockingBlocks(body, iface, prefix, info.nets, /*defView=*/true);
     return iface;
 }
 
@@ -8125,6 +8220,31 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // (HOME view) — Surelog. (makeVar already handles var-typed
             // interface signals: input int x -> int_var.)
             if (it.sym->kind == SymbolKind::Net && !portView) {
+                // A 2-STATE (bit) iface header port is a bit_var (Surelog).
+                if (it.sym->getDeclaredType() &&
+                    it.sym->getDeclaredType()->getType().isIntegral() &&
+                    !it.sym->getDeclaredType()
+                         ->getType()
+                         .getCanonicalType()
+                         .isFourState()) {
+                    auto* bv = s.MakeBit_var();
+                    bv->VpiName(name);
+                    bv->VpiFullName(fullName);
+                    bv->VpiParent(iface);
+                    setLoc(bv, nameSpan(it.sym->location, it.sym->name));
+                    bv->VpiVisibility(1);
+                    auto* brt = s.MakeRef_typespec();
+                    brt->VpiFullName(fullName);
+                    brt->VpiParent(bv);
+                    auto* bts9 = makeTypespec(*it.sym);
+                    brt->Actual_typespec(bts9);
+                    if (bts9 && bts9->VpiName().empty())
+                        bts9->VpiParent(bv);
+                    bv->Typespec(brt);
+                    netMap[it.sym] = bv;
+                    vars->push_back(bv);
+                    continue;
+                }
                 auto* ln = s.MakeLogic_net();
                 ln->VpiName(name);
                 ln->VpiFullName(fullName);
@@ -8140,6 +8260,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     rt->VpiFullName(fullName);
                     rt->VpiParent(ln);
                     rt->Actual_typespec(ts);
+                    if (ts->VpiName().empty())
+                        ts->VpiParent(ln);
                     ln->Typespec(rt);
                 }
                 netMap[it.sym] = ln;
@@ -8355,6 +8477,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         if (!mports->empty())
             iface->Modports(mports);
     }
+    if (!portView)
+        emitNamedClockingBlocks(body, iface, prefix, netMap,
+                                /*defView=*/false);
 
     // Home view: fill the col-0 tail duplicate (shares this view's vars) so a
     // receiving module port's HighConn ref_obj can weakly reference it — only
