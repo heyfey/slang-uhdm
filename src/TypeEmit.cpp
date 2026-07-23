@@ -1433,6 +1433,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             }
         }
         UHDM::typespec* fts = nullptr;
+        // Unpacked-array member ats parent policy (see branch below):
+        // MAIN (module-scoped) trees leave the ats/range/elem-ref/1-const
+        // PARENT-FREE; BARE clone trees parent the ats at the member's ref.
+        bool ats9MainFree = false;
+        bool ats9CloneRefParent = false;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -1441,6 +1446,10 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             // at the size token) and an Elem ref to the shared element ts;
             // otherwise it stays bare (Surelog).
             auto* ats9 = s.MakeArray_typespec();
+            bool main9 = aliasName.find('.') != std::string::npos ||
+                         aliasName.find(':') != std::string::npos;
+            ats9MainFree = main9;
+            ats9CloneRefParent = !main9;
             auto& ua9 = fm.getDeclaredType()
                             ->getType()
                             .getCanonicalType()
@@ -1467,7 +1476,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                                 .selector->as_if<syntax::BitSelectSyntax>())
                         sz9 = bs9->expr;
                 auto* r9 = s.MakeRange();
-                r9->VpiParent(ats9);
+                if (!main9)
+                    r9->VpiParent(ats9);
                 if (sz9)
                     setLoc(r9, sz9->sourceRange());
                 auto mk9 = [&](int64_t v,
@@ -1490,12 +1500,15 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     op9->VpiParent(r9);
                     setLoc(op9, sz9->sourceRange());
                     auto* ops9v = s.MakeAnyVec();
-                    ops9v->push_back(mk9(ua9.range.width(), sz9));
+                    auto* n9c = mk9(ua9.range.width(), sz9);
+                    n9c->VpiParent(op9);
+                    ops9v->push_back(n9c);
                     auto* one9 = s.MakeConstant();
                     one9->VpiSize(64);
                     one9->VpiValue("INT:1");
                     one9->VpiConstType(vpiIntConst);
-                    one9->VpiParent(op9);
+                    if (!main9)
+                        one9->VpiParent(op9);
                     ops9v->push_back(one9);
                     op9->Operands(ops9v);
                     r9->Right_expr(op9);
@@ -1522,22 +1535,46 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     bypassTypedefShare = false;
                     cl9e->VpiName(al9->name);
                     auto* art9e = s.MakeRef_typespec();
+                    // Alias-clone ref scopes through the member AND the
+                    // type name (work@top.bar_t.f.foo_t) — Surelog.
                     art9e->VpiFullName(aliasName + memberSep +
-                                       std::string(fm.name));
+                                       std::string(fm.name) + memberSep +
+                                       std::string(al9->name));
                     art9e->VpiParent(cl9e);
                     art9e->Actual_typespec(ets9);
                     if (cl9e->UhdmType() == UHDM::uhdmbit_typespec)
                         ((UHDM::bit_typespec*)cl9e)->Typedef_alias(art9e);
                     else if (cl9e->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)cl9e)->Typedef_alias(art9e);
+                    if (main9)
+                        cl9e->VpiParent(tm);
+                    else {
+                        // BARE clone tree: two-level chain — the alias ref
+                        // points at a SECOND named clone with located
+                        // ranges (Surelog); cloneA parents at the elem ref
+                        // (set below, after ert9 exists).
+                        bypassTypedefShare = true;
+                        auto* cl9b = makeTypespec(*al9, tsn9);
+                        bypassTypedefShare = false;
+                        cl9b->VpiName(al9->name);
+                        cl9b->VpiParent(art9e);
+                        art9e->Actual_typespec(cl9b);
+                    }
                     tgt9 = cl9e;
                 }
                 auto* ert9 = s.MakeRef_typespec();
-                ert9->VpiFullName(aliasName + memberSep +
-                                  std::string(fm.name));
-                ert9->VpiParent(ats9);
+                // The MODULE-scoped (main) member's elem ref is NAMELESS;
+                // a BARE-scoped clone tree names it alias.member (Surelog).
+                if (aliasName.find('.') == std::string::npos &&
+                    aliasName.find(':') == std::string::npos)
+                    ert9->VpiFullName(aliasName + memberSep +
+                                      std::string(fm.name));
+                if (!main9)
+                    ert9->VpiParent(ats9);
                 ert9->Actual_typespec(tgt9);
                 ats9->Elem_typespec(ert9);
+                if (!main9 && tgt9 != ets9)
+                    tgt9->VpiParent(ert9);
             }
             fts = ats9;
         }
@@ -1721,14 +1758,15 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         // Fresh member typespecs parent at the member; shared typedef
         // typespecs (named) keep their own parent. Elab param CLONES parent
         // them at the member's REF instead (Surelog clone form).
-        if (fts->VpiName().empty())
+        if (fts->VpiName().empty() && !ats9MainFree)
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(aliasName + memberSep + std::string(fm.name));
         rt->VpiParent(tm);
         rt->Actual_typespec(fts);
         tm->Typespec(rt);
-        if (structCloneMemberRefParent && fts->VpiName().empty())
+        if ((structCloneMemberRefParent || ats9CloneRefParent) &&
+            fts->VpiName().empty())
             fts->VpiParent(rt);
         // Ref* fields point at the member's type syntax.
         if (memberTypeSyn) {
@@ -1786,6 +1824,11 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             }
         }
         UHDM::typespec* fts = nullptr;
+        // Unpacked-array member ats parent policy (see branch below):
+        // MAIN (module-scoped) trees leave the ats/range/elem-ref/1-const
+        // PARENT-FREE; BARE clone trees parent the ats at the member's ref.
+        bool ats9MainFree = false;
+        bool ats9CloneRefParent = false;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -1794,6 +1837,10 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             // at the size token) and an Elem ref to the shared element ts;
             // otherwise it stays bare (Surelog).
             auto* ats9 = s.MakeArray_typespec();
+            bool main9 = aliasName.find('.') != std::string::npos ||
+                         aliasName.find(':') != std::string::npos;
+            ats9MainFree = main9;
+            ats9CloneRefParent = !main9;
             auto& ua9 = fm.getDeclaredType()
                             ->getType()
                             .getCanonicalType()
@@ -1820,7 +1867,8 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                                 .selector->as_if<syntax::BitSelectSyntax>())
                         sz9 = bs9->expr;
                 auto* r9 = s.MakeRange();
-                r9->VpiParent(ats9);
+                if (!main9)
+                    r9->VpiParent(ats9);
                 if (sz9)
                     setLoc(r9, sz9->sourceRange());
                 auto mk9 = [&](int64_t v,
@@ -1843,12 +1891,15 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     op9->VpiParent(r9);
                     setLoc(op9, sz9->sourceRange());
                     auto* ops9v = s.MakeAnyVec();
-                    ops9v->push_back(mk9(ua9.range.width(), sz9));
+                    auto* n9c = mk9(ua9.range.width(), sz9);
+                    n9c->VpiParent(op9);
+                    ops9v->push_back(n9c);
                     auto* one9 = s.MakeConstant();
                     one9->VpiSize(64);
                     one9->VpiValue("INT:1");
                     one9->VpiConstType(vpiIntConst);
-                    one9->VpiParent(op9);
+                    if (!main9)
+                        one9->VpiParent(op9);
                     ops9v->push_back(one9);
                     op9->Operands(ops9v);
                     r9->Right_expr(op9);
@@ -1875,22 +1926,46 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     bypassTypedefShare = false;
                     cl9e->VpiName(al9->name);
                     auto* art9e = s.MakeRef_typespec();
+                    // Alias-clone ref scopes through the member AND the
+                    // type name (work@top.bar_t.f.foo_t) — Surelog.
                     art9e->VpiFullName(aliasName + memberSep +
-                                       std::string(fm.name));
+                                       std::string(fm.name) + memberSep +
+                                       std::string(al9->name));
                     art9e->VpiParent(cl9e);
                     art9e->Actual_typespec(ets9);
                     if (cl9e->UhdmType() == UHDM::uhdmbit_typespec)
                         ((UHDM::bit_typespec*)cl9e)->Typedef_alias(art9e);
                     else if (cl9e->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)cl9e)->Typedef_alias(art9e);
+                    if (main9)
+                        cl9e->VpiParent(tm);
+                    else {
+                        // BARE clone tree: two-level chain — the alias ref
+                        // points at a SECOND named clone with located
+                        // ranges (Surelog); cloneA parents at the elem ref
+                        // (set below, after ert9 exists).
+                        bypassTypedefShare = true;
+                        auto* cl9b = makeTypespec(*al9, tsn9);
+                        bypassTypedefShare = false;
+                        cl9b->VpiName(al9->name);
+                        cl9b->VpiParent(art9e);
+                        art9e->Actual_typespec(cl9b);
+                    }
                     tgt9 = cl9e;
                 }
                 auto* ert9 = s.MakeRef_typespec();
-                ert9->VpiFullName(aliasName + memberSep +
-                                  std::string(fm.name));
-                ert9->VpiParent(ats9);
+                // The MODULE-scoped (main) member's elem ref is NAMELESS;
+                // a BARE-scoped clone tree names it alias.member (Surelog).
+                if (aliasName.find('.') == std::string::npos &&
+                    aliasName.find(':') == std::string::npos)
+                    ert9->VpiFullName(aliasName + memberSep +
+                                      std::string(fm.name));
+                if (!main9)
+                    ert9->VpiParent(ats9);
                 ert9->Actual_typespec(tgt9);
                 ats9->Elem_typespec(ert9);
+                if (!main9 && tgt9 != ets9)
+                    tgt9->VpiParent(ert9);
             }
             fts = ats9;
         }
@@ -2071,13 +2146,15 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             syntaxRefPrefix = savedPfx;
             syntaxRefSep = savedSep;
         }
-        if (fts->VpiName().empty())
+        if (fts->VpiName().empty() && !ats9MainFree)
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(aliasName + memberSep + std::string(fm.name));
         rt->VpiParent(tm);
         rt->Actual_typespec(fts);
         tm->Typespec(rt);
+        if (ats9CloneRefParent && fts->VpiName().empty())
+            fts->VpiParent(rt);
         if (memberTypeSyn) {
             auto sr = memberTypeSyn->sourceRange();
             if (sr.start() != SourceLocation::NoLocation) {
@@ -2275,10 +2352,37 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                             break;
                         }
                 if (ets0) {
+                    // A STRUCT element points at a fresh NAMED clone with a
+                    // BARE-scoped member tree and a Typedef_alias ref to the
+                    // shared ts (Surelog); other elements share directly.
+                    UHDM::typespec* tgt0 = ets0;
+                    if (el0->kind == SymbolKind::TypeAlias &&
+                        el0->getCanonicalType().isStruct() &&
+                        ets0->UhdmType() == UHDM::uhdmstruct_typespec) {
+                        auto& ela = el0->as<TypeAliasType>();
+                        auto& elc = el0->getCanonicalType();
+                        UHDM::struct_typespec* cl0 =
+                            elc.kind == SymbolKind::PackedStructType
+                                ? buildStructTs(elc.as<PackedStructType>(),
+                                                true, std::string(ela.name))
+                                : buildStructTs(elc.as<UnpackedStructType>(),
+                                                false, std::string(ela.name));
+                        cl0->VpiName(ela.name);
+                        cl0->VpiLineNo(ets0->VpiLineNo());
+                        cl0->VpiColumnNo(ets0->VpiColumnNo());
+                        cl0->VpiEndLineNo(ets0->VpiEndLineNo());
+                        cl0->VpiEndColumnNo(ets0->VpiEndColumnNo());
+                        auto* art0 = s.MakeRef_typespec();
+                        art0->VpiFullName(std::string(ela.name));
+                        art0->VpiParent(cl0);
+                        art0->Actual_typespec(ets0);
+                        cl0->Typedef_alias(art0);
+                        tgt0 = cl0;
+                    }
                     auto* ert = s.MakeRef_typespec();
                     ert->VpiFullName(prefix + "." + std::string(ta.name));
                     ert->VpiParent(ats);
-                    ert->Actual_typespec(ets0);
+                    ert->Actual_typespec(tgt0);
                     ats->Elem_typespec(ert);
                 }
             }
