@@ -83,7 +83,55 @@ static void collectImportedParams(const Scope& body,
                 if (cm.kind == SymbolKind::Parameter)
                     if (auto* init2 = cm.as<ParameterSymbol>().getInitializer())
                         init2->visit(v);
+            // A PORT CONNECTION whose actual references an imported param
+            // (.region_attrs_i(HwDataAttr)) materializes it in THIS module too.
+            for (auto* pc : ci.getPortConnections())
+                if (pc)
+                    if (auto* pe = pc->getExpression())
+                        pe->visit(v);
         }
+    }
+    // A NET/VARIABLE declaration whose TYPE RANGE references an imported param
+    // (logic [$bits(P)-1:0] x, or logic [P-1:0] y) materializes it too — the
+    // range keeps a symbolic ref even when the width folds to a constant.
+    // Resolve identifiers against the MODULE scope (body).
+    std::function<void(const syntax::SyntaxNode&)> scanDeclRange =
+        [&](const syntax::SyntaxNode& sn) {
+            if (sn.kind == syntax::SyntaxKind::IdentifierName) {
+                auto nm = std::string(
+                    sn.as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                // Explicit imports first, then each wildcard-imported package.
+                const Symbol* hit = nullptr;
+                for (auto* es : explicitSyms)
+                    if (es->name == nm && es->kind == SymbolKind::Parameter) {
+                        hit = es;
+                        break;
+                    }
+                if (!hit)
+                    for (auto* pkgSym : wildcardPkgs)
+                        if (auto* sym = pkgSym->as<PackageSymbol>().find(nm))
+                            if (sym->kind == SymbolKind::Parameter) {
+                                hit = sym;
+                                break;
+                            }
+                if (hit && seen.insert(hit).second)
+                    found.push_back(&hit->as<ParameterSymbol>());
+            }
+            for (size_t i = 0; i < sn.getChildCount(); i++)
+                if (auto* cn = sn.childNode(i))
+                    scanDeclRange(*cn);
+        };
+    std::set<const syntax::SyntaxNode*> scannedDecls;
+    for (auto& m : body.members()) {
+        if (m.kind != SymbolKind::Variable && m.kind != SymbolKind::Net)
+            continue;
+        // The member's syntax is the DECLARATOR; the TYPE (with its range
+        // dimensions) lives on the enclosing DataDeclaration/NetDeclaration.
+        const syntax::SyntaxNode* dsyn = m.getSyntax();
+        if (dsyn && dsyn->parent)
+            dsyn = dsyn->parent;
+        if (dsyn && scannedDecls.insert(dsyn).second)
+            scanDeclRange(*dsyn);
     }
     // A wildcard-imported TYPEDEF whose range references an imported param
     // (typedef logic [SramAw-1:0] t;) materializes that param too — the
@@ -1142,10 +1190,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // An UNPACKED-array param's elab-view pattern op also gets a
                     // ts ref, but its actual is a FRESH array_typespec (not the
                     // deferred/patched param typespec) — built inline here.
-                    bool unpackedArrayOp =
-                        ps.getType().getCanonicalType().kind ==
+                    // ONLY when the array's leaf element is a simple integral
+                    // (int X[1:0]='{0,1}): a STRUCT/UNION-element array
+                    // ('{'{phase:1'b1}}) keeps its nested tagged-pattern ops and
+                    // Surelog attaches NO typespec to the outer op.
+                    bool unpackedArrayOp = false;
+                    if (ps.getType().getCanonicalType().kind ==
                             SymbolKind::FixedSizeUnpackedArrayType &&
-                        opr->VpiOpType() == vpiAssignmentPatternOp;
+                        opr->VpiOpType() == vpiAssignmentPatternOp) {
+                        const Type* uleaf = &ps.getType().getCanonicalType();
+                        while (uleaf->getCanonicalType().kind ==
+                               SymbolKind::FixedSizeUnpackedArrayType)
+                            uleaf = &uleaf->getCanonicalType()
+                                         .as<FixedSizeUnpackedArrayType>()
+                                         .elementType;
+                        auto lk = uleaf->getCanonicalType().kind;
+                        unpackedArrayOp =
+                            lk != SymbolKind::PackedStructType &&
+                            lk != SymbolKind::UnpackedStructType &&
+                            lk != SymbolKind::PackedUnionType &&
+                            lk != SymbolKind::UnpackedUnionType;
+                    }
                     // A materialized IMPORTED vector-typedef param's elab
                     // CONCAT op also carries a ts ref (own clone pair).
                     bool importedConcatOp =

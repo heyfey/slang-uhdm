@@ -613,6 +613,43 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Function-local variables attach to the function's Variables
         // (loc = the declared type span).
         std::vector<UHDM::variables*> fnBlockLocalPav;
+        // A STATIC (non-automatic) module function that owns an UNPACKED-ARRAY
+        // local models ALL its locals under a synthesized BEGIN wrapping the
+        // body: locals dual-listed (also under the function), located at the
+        // NAME token, NO vpiAutomatic; the begin spans the LAST local
+        // declaration statement (Surelog). Functions without an unpacked-array
+        // local keep the flat form (decl-span loc + vpiAutomatic, no wrapper).
+        bool autoFunc = (sub.defaultLifetime == VariableLifetime::Automatic);
+        bool hasUnpackedLocal = false;
+        for (auto& fmv : sub.members()) {
+            if (fmv.kind != SymbolKind::Variable || &fmv == sub.returnValVar ||
+                fmv.name == "this")
+                continue;
+            bool isArg = false;
+            for (auto arg : sub.getArguments())
+                if (arg == &fmv || arg->name == fmv.name) {
+                    isArg = true;
+                    break;
+                }
+            if (!isArg && fmv.getDeclaredType() &&
+                fmv.getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::FixedSizeUnpackedArrayType) {
+                hasUnpackedLocal = true;
+                break;
+            }
+        }
+        bool staticFnModel = (m->UhdmType() == UHDM::uhdmmodule_inst) &&
+                             !autoFunc && !classScope && hasUnpackedLocal;
+        std::vector<UHDM::variables*> staticBeginVars;  // begin.Variables order
+        std::vector<UHDM::variables*> staticTopLocals;  // reparent to begin
+        const syntax::SyntaxNode* lastLocalDeclSyn = nullptr;
+        auto declStmtSpan = [&](const Symbol& v) -> const syntax::SyntaxNode* {
+            if (auto sy = v.getSyntax())
+                for (auto p = sy->parent; p; p = p->parent)
+                    if (p->kind == syntax::SyntaxKind::DataDeclaration)
+                        return p;
+            return nullptr;
+        };
         {
             auto* fvars = s.MakeVariablesVec();
             for (auto& fmv : sub.members()) {
@@ -654,8 +691,52 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             setLoc(its, tsyn3->getFirstToken().range());
                         elemTs = its;
                     }
-                    else
-                        elemTs = s.MakeLogic_typespec();
+                    else {
+                        // A packed-vector leaf (reg [3:0]) gets a LOCATED
+                        // logic_typespec spanning the element-type syntax with
+                        // its packed range (Surelog) — not a bare loc-less ts.
+                        auto* lts = s.MakeLogic_typespec();
+                        auto& lct = leaf->getCanonicalType();
+                        if (auto tsyn3 = fmv.getDeclaredType()->getTypeSyntax()) {
+                            auto sr3 = tsyn3->sourceRange();
+                            setLoc(lts, sr3);
+                            if (lct.kind == SymbolKind::PackedArrayType) {
+                                auto pr3 = lct.as<PackedArrayType>().range;
+                                std::vector<DimSpan> spans3;
+                                if (sr3.start() != SourceLocation::NoLocation)
+                                    spans3 = scanDimSpans(
+                                        std::string(rawText(sr3)), sr3.start());
+                                const DimSpan* ds3 =
+                                    spans3.empty() ? nullptr : &spans3.back();
+                                auto* rng3 = s.MakeRange();
+                                rng3->VpiParent(lts);
+                                if (ds3)
+                                    setLoc(rng3, ds3->range);
+                                auto mkR3 = [&](int64_t bv,
+                                                const SourceRange* bl)
+                                    -> UHDM::expr* {
+                                    auto* c3 = s.MakeConstant();
+                                    std::string d3 = std::to_string(bv);
+                                    c3->VpiDecompile(d3);
+                                    c3->VpiSize(64);
+                                    c3->VpiValue("UINT:" + d3);
+                                    c3->VpiConstType(vpiUIntConst);
+                                    c3->VpiParent(rng3);
+                                    if (bl)
+                                        setLoc(c3, *bl);
+                                    return c3;
+                                };
+                                rng3->Left_expr(
+                                    mkR3(pr3.left, ds3 ? &ds3->left : nullptr));
+                                rng3->Right_expr(
+                                    mkR3(pr3.right, ds3 ? &ds3->right : nullptr));
+                                auto* rvec3 = s.MakeRangeVec();
+                                rvec3->push_back(rng3);
+                                lts->Ranges(rvec3);
+                            }
+                        }
+                        elemTs = lts;
+                    }
 
                     auto* av = s.MakeArray_var();
                     av->VpiName(fmv.name);
@@ -699,6 +780,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     av->Variables(rv);
                     funcMap[&fmv] = av;
                     fvars->push_back(av);
+                    if (staticFnModel) {
+                        // begin.Variables lists the element reg THEN the
+                        // array_var; only the array_var re-parents to begin.
+                        staticBeginVars.push_back(reg);
+                        staticBeginVars.push_back(av);
+                        staticTopLocals.push_back(av);
+                        if (auto* d = declStmtSpan(fmv))
+                            lastLocalDeclSyn = d;
+                    }
                     continue;
                 }
                 std::string vfull = fullName + sep + std::string(fmv.name);
@@ -852,7 +942,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the
                 // automatic flag).
-                if (blockLocal || hasInit || pkgScope) {
+                if (blockLocal || hasInit || pkgScope || staticFnModel) {
+                    // Static-function locals anchor at the NAME token; the
+                    // automatic-function form keeps the declared-type span.
                     setLoc(v, nameSpan(fmv.location, fmv.name));
                 }
                 else if (auto dt = fmv.getDeclaredType()) {
@@ -917,10 +1009,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 vrt->VpiParent(v);
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                if (!hasInit && !pkgScope && !blockLocal)
+                if (!hasInit && !pkgScope && !blockLocal && !staticFnModel)
                     v->VpiAutomatic(true);
                 if (blockLocal)
                     fnBlockLocalPav.push_back(v);
+                if (staticFnModel && !blockLocal) {
+                    staticBeginVars.push_back(v);
+                    staticTopLocals.push_back(v);
+                    if (auto* d = declStmtSpan(fmv))
+                        lastLocalDeclSyn = d;
+                }
                 funcMap[&fmv] = v;
                 fvars->push_back(v);
             }
@@ -947,7 +1045,30 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         currentSubSym = &sub;
         bool selOwner = beginSelTrack();
         auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
-        if (body)
+        // A static module function with locals wraps its body in a synthesized
+        // begin (spanning the last local decl) that owns the locals; the
+        // source begin nests inside it (Surelog).
+        if (body && staticFnModel && !staticBeginVars.empty() &&
+            (body->UhdmType() == UHDM::uhdmbegin ||
+             body->UhdmType() == UHDM::uhdmnamed_begin)) {
+            auto* outer = s.MakeBegin();
+            outer->VpiParent(tf);
+            outer->VpiFullName(fullName);
+            if (lastLocalDeclSyn)
+                setLoc(outer, lastLocalDeclSyn->sourceRange());
+            for (auto* tl : staticTopLocals)
+                tl->VpiParent(outer);
+            auto* bvars = s.MakeVariablesVec();
+            for (auto* bv : staticBeginVars)
+                bvars->push_back(bv);
+            outer->Variables(bvars);
+            body->VpiParent(outer);
+            auto* ostmts = s.MakeAnyVec();
+            ostmts->push_back(body);
+            outer->Stmts(ostmts);
+            tf->Stmt(outer);
+        }
+        else if (body)
             tf->Stmt(body);
         // A packed-array-of-enum local is a body-block member in Surelog's
         // model; re-parent the function-var-loop copy from the function to
