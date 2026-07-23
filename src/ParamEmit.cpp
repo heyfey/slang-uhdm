@@ -1331,9 +1331,8 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         homePkg9 = &sc9->asSymbol();
                         aliasNm = std::string(homePkg9->name) + "::" + aliasNm;
                     }
-                    std::string modPfx = syntaxRefPrefix;
-                    if (auto dp9 = modPfx.rfind('.'); dp9 != std::string::npos)
-                        modPfx.resize(dp9);
+                    // Base ref scopes through the PARAM's full name
+                    // (work@top.GetWhat.my_pkg::get_e — Surelog).
                     const syntax::SyntaxNode* eSyn9 = nullptr;
                     if (auto dS9 = taSym.getSyntax();
                         dS9 &&
@@ -1341,16 +1340,29 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         eSyn9 =
                             dS9->as<syntax::TypedefDeclarationSyntax>().type;
                     auto* ecl = buildEnumTs(ct.as<EnumType>(), eSyn9,
-                                            modPfx.empty()
+                                            syntaxRefPrefix.empty()
                                                 ? aliasNm
-                                                : modPfx + "." + aliasNm);
+                                                : syntaxRefPrefix + "." +
+                                                      aliasNm);
                     ecl->VpiName(aliasNm);
                     if (auto dS9 = taSym.getSyntax())
                         setLoc(ecl, dS9->sourceRange());
                     if (homePkg9)
                         if (auto pit9 = pkgDefMap.find(homePkg9);
-                            pit9 != pkgDefMap.end())
+                            pit9 != pkgDefMap.end()) {
                             ecl->Instance(pit9->second);
+                            // The base actual is REF-parented and
+                            // pkg-Instanced (Surelog).
+                            if (ecl->Base_typespec() &&
+                                ecl->Base_typespec()->Actual_typespec()) {
+                                ecl->Base_typespec()
+                                    ->Actual_typespec()
+                                    ->VpiParent(ecl->Base_typespec());
+                                ecl->Base_typespec()
+                                    ->Actual_typespec()
+                                    ->Instance(pit9->second);
+                            }
+                        }
                     its = ecl;
                     sharedAggTs = true; // caller skips setLoc; parent set below
                 }

@@ -1148,6 +1148,38 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 g0->VpiParent(m);
                 syntaxRefPrefix = prefix;
                 if (auto* c = emitSyntaxExpr(*ifSyn->condition, g0)) {
+                    // Enum-VALUE refs in the condition bind their enum_const
+                    // (Surelog).
+                    std::function<void(UHDM::any*)> bindEC =
+                        [&](UHDM::any* e) {
+                            if (!e)
+                                return;
+                            if (e->UhdmType() == UHDM::uhdmref_obj) {
+                                auto* r0 = (UHDM::ref_obj*)e;
+                                if (r0->Actual_group())
+                                    return;
+                                for (auto& [sym0, tsp0] : typedefTs) {
+                                    if (tsp0->UhdmType() !=
+                                        UHDM::uhdmenum_typespec)
+                                        continue;
+                                    auto* ets0 = (UHDM::enum_typespec*)tsp0;
+                                    if (ets0->Enum_consts())
+                                        for (auto* ec0 : *ets0->Enum_consts())
+                                            if (ec0->VpiName() ==
+                                                r0->VpiName()) {
+                                                r0->Actual_group(ec0);
+                                                return;
+                                            }
+                                }
+                            }
+                            else if (e->UhdmType() == UHDM::uhdmoperation) {
+                                if (auto* ops =
+                                        ((UHDM::operation*)e)->Operands())
+                                    for (auto* o : *ops)
+                                        bindEC(o);
+                            }
+                        };
+                    bindEC(c);
                     if (gie)
                         gie->VpiCondition((UHDM::expr*)c);
                     else
@@ -1885,7 +1917,9 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                             nestedContainer = true;
             }
             bool wildcard = mem.kind == SymbolKind::WildcardImport;
-            if (!headerImport && !nestedContainer) {
+            // The header-import share-without-touch rule is EXPLICIT-only;
+            // wildcard header imports re-scope like body imports (Surelog).
+            if ((!headerImport || wildcard) && !nestedContainer) {
                 ts->VpiParent(m);
                 if (wildcard) {
                     // Scope by the typedef's HOME package (== the imported
@@ -4357,6 +4391,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             if (rhs)
                 ca->Rhs((UHDM::expr*)rhs);
+            // A BARE-decimal literal Rhs sizes at the LHS type width when
+            // the LHS is a 2-state typed var (assign out = 42 -> 32) —
+            // Surelog.
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
+                auto& rl9 = stripImplicitConv(ae.right());
+                auto& ll9 = stripImplicitConv(ae.left());
+                if (rl9.kind == ExpressionKind::IntegerLiteral &&
+                    rawText(rl9.sourceRange).find('\'') == std::string::npos &&
+                    ll9.type &&
+                    !ll9.type->getCanonicalType().isFourState() &&
+                    ll9.type->getCanonicalType().isIntegral())
+                    ((UHDM::constant*)rhs)->VpiSize(
+                        (int32_t)ll9.type->getBitWidth());
+            }
             // A gen-scope $bits/$signed-style sys call RHS carries a result
             // typespec ref (gen-scope fullname, LHS net's actual) — Surelog.
             if (rhs && rhs->UhdmType() == UHDM::uhdmsys_func_call) {
