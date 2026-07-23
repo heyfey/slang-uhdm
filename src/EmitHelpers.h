@@ -141,7 +141,52 @@ inline const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) 
 // Surelog derives vpiNetType from the declared type keyword: explicit
 // `logic` -> vpiNet, `reg` -> vpiReg, implicit -> unset; explicit net
 // keywords map to their vpi net types.
+// A signal whose declared type is written as a bare identifier that resolves
+// to a `parameter type T` — Surelog models these ports specially (def-view net
+// with no net type + type-param default typespec; elab-view logic_var).
+inline const TypeParameterSymbol* portTypeParam(const Symbol& internal) {
+    auto* dt = internal.getDeclaredType();
+    if (!dt)
+        return nullptr;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto& nt = tsyn->as<syntax::NamedTypeSyntax>();
+    if (nt.name->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    auto name = nt.name->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    auto* scope = internal.getParentScope();
+    if (!scope)
+        return nullptr;
+    auto* sym = scope->find(std::string(name));
+    if (sym && sym->kind == SymbolKind::TypeParameter)
+        return &sym->as<TypeParameterSymbol>();
+    return nullptr;
+}
+
+// The set of local types passed as `type` parameter arguments to child
+// instances of `body` — a module-local net of such a type omits its def-view
+// typespec (Surelog leaves it a bare logic_net; the elab view re-types it).
+inline void collectTypeParamArgTypes(const InstanceBodySymbol& body,
+                                     std::set<const Type*>& out) {
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Instance)
+            continue;
+        for (auto& cm : member.as<InstanceSymbol>().body.members()) {
+            if (cm.kind != SymbolKind::TypeParameter)
+                continue;
+            auto& tp = cm.as<TypeParameterSymbol>();
+            if (!tp.isOverridden())
+                continue;
+            out.insert(&tp.targetType.getType());
+        }
+    }
+}
+
 inline int32_t netTypeFor(const Symbol& internal) {
+    // A `parameter type T`-typed port carries no net type (Surelog).
+    if (portTypeParam(internal))
+        return 0;
     if (internal.kind == SymbolKind::Net) {
         // Implicitly-declared nets (created by an undeclared name in an assign
         // or port connection) print as a bare wire.

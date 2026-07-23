@@ -865,8 +865,12 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     bool regDecl = false;
     if (auto tsyn = declared->getTypeSyntax())
         regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
+    // A `parameter type T`-typed port elaborates as a variable of its resolved
+    // type (Surelog), even though the def view keeps it a net.
+    bool typeParamPort = portTypeParam(internal) != nullptr;
     // Enum variables — and PORTS typed by a PACKAGE enum typedef
-    // (input custom::enum1 e) — elaborate as enum_vars.
+    // (input custom::enum1 e), or by a `type` parameter resolving to an enum —
+    // elaborate as enum_vars.
     bool pkgEnumAlias = false;
     if (ct.kind == SymbolKind::EnumType) {
         auto& t0 = declared->getType();
@@ -876,7 +880,7 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
                 pkgEnumAlias = true;
     }
     if (ct.kind == SymbolKind::EnumType &&
-        (internal.kind == SymbolKind::Variable || pkgEnumAlias)) {
+        (internal.kind == SymbolKind::Variable || pkgEnumAlias || typeParamPort)) {
         auto* v = s.MakeEnum_var();
         v->VpiVisibility(1);
         return v;
@@ -977,8 +981,9 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
                     pkgAliasPort = false;
             }
     }
-    if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort) && !regDecl &&
-        internal.kind == SymbolKind::Variable &&
+    if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort || typeParamPort) &&
+        !regDecl &&
+        (internal.kind == SymbolKind::Variable || typeParamPort) &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
         v->VpiVisibility(1);
@@ -1055,6 +1060,62 @@ UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int6
         c->VpiDecompile(raw.empty() ? std::to_string(value) : raw);
     }
     return c;
+}
+
+UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
+    const syntax::DataTypeSyntax& defSyn, const Scope& body) {
+    ASTContext actx(body, LookupLocation::max);
+    const Type& dt = comp.getType(defSyn, actx);
+    const Type& ct = dt.getCanonicalType();
+    // A named typedef/enum default shares its already-emitted typespec.
+    for (auto& [sym, tsp] : typedefTs)
+        if (sym->kind == SymbolKind::TypeAlias &&
+            &sym->as<TypeAliasType>().getCanonicalType() == &ct)
+            return tsp;
+    auto* ts = s.MakeLogic_typespec();
+    setLoc(ts, defSyn.sourceRange());
+    if (dt.isSigned())
+        ts->VpiSigned(true);
+    // Packed vector dims -> ranges (bounds as UINT constants, source spans from
+    // the default type-syntax dimensions).
+    const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
+    if (syntax::IntegerTypeSyntax::isKind(defSyn.kind))
+        dimSyns = &defSyn.as<syntax::IntegerTypeSyntax>().dimensions;
+    if (dimSyns && ct.isPackedArray()) {
+        std::vector<ConstantRange> dims;
+        const Type* t = &ct;
+        while (t->isPackedArray()) {
+            dims.push_back(t->as<PackedArrayType>().range);
+            t = &t->as<PackedArrayType>().elementType.getCanonicalType();
+        }
+        if (dims.size() == dimSyns->size()) {
+            auto* ranges = s.MakeRangeVec();
+            for (size_t i = 0; i < dims.size(); i++) {
+                auto* dimSyn = (*dimSyns)[i];
+                auto* r = s.MakeRange();
+                r->VpiParent(ts);
+                setLoc(r, dimSyn->sourceRange());
+                const syntax::ExpressionSyntax* lsyn = nullptr;
+                const syntax::ExpressionSyntax* rsyn = nullptr;
+                if (dimSyn->specifier &&
+                    dimSyn->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& spec = dimSyn->specifier
+                                     ->as<syntax::RangeDimensionSpecifierSyntax>();
+                    if (spec.selector->kind == syntax::SyntaxKind::SimpleRangeSelect) {
+                        auto& sel = spec.selector->as<syntax::RangeSelectSyntax>();
+                        lsyn = sel.left;
+                        rsyn = sel.right;
+                    }
+                }
+                r->Left_expr(makeBoundConst(lsyn, dims[i].left, r));
+                r->Right_expr(makeBoundConst(rsyn, dims[i].right, r));
+                ranges->push_back(r);
+            }
+            ts->Ranges(ranges);
+        }
+    }
+    return ts;
 }
 
 UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& cache,

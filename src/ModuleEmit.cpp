@@ -155,6 +155,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     auto* nets = s.MakeNetVec();
     TsCache& defTs = info.defTs;
     (void)defTs;
+    // Local nets typed by a typedef passed as a `type` parameter argument to a
+    // child instance omit their def-view typespec (Surelog).
+    std::set<const Type*> typeParamArgTypes;
+    collectTypeParamArgTypes(body, typeParamArgTypes);
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         auto* n = s.MakeLogic_net();
@@ -249,7 +253,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                     prefixedStructNet = false;
             }
         }
-        if (!it.port && !implicitNet && !classHandle && !prefixedStructNet) {
+        // A local net typed by a typedef used as a child instance's `type`
+        // parameter argument stays a bare logic_net in the def view.
+        bool typeParamArgNet =
+            it.sym->getDeclaredType() &&
+            typeParamArgTypes.count(&it.sym->getDeclaredType()->getType());
+        if (!it.port && !implicitNet && !classHandle && !prefixedStructNet &&
+            !typeParamArgNet) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
             auto* rt = s.MakeRef_typespec();
@@ -2617,6 +2627,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
             }
         }
+        // A `parameter type T`-typed port variable SHARES the type param's
+        // resolved elab typespec object (Surelog).
+        if (!ts && !implicitNet && !realVar) {
+            if (auto* tpsym = portTypeParam(*it.sym))
+                if (auto tit = typeParamElabTs.find(tpsym);
+                    tit != typeParamElabTs.end())
+                    ts = tit->second;
+        }
         if (!ts && !implicitNet && !realVar) {
             boundOwnerFullName = fullName;
             ts = sharedTypespec(*it.sym, netTs);
@@ -3695,7 +3713,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
             }
 
-            auto* pts = makeTypespec(*internal, nullptr, &ps);
+            UHDM::typespec* pts = nullptr;
+            // A `parameter type T`-typed port's vpiTypedef shares the ONE
+            // def-view type-param DEFAULT typespec object (Surelog).
+            if (auto* tpp = portTypeParam(*internal)) {
+                auto tit = typeParamDefaultTs.find(
+                    {(const void*)&inst.getDefinition(), std::string(tpp->name)});
+                if (tit != typeParamDefaultTs.end())
+                    pts = tit->second;
+            }
+            if (!pts)
+                pts = makeTypespec(*internal, nullptr, &ps);
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
             rt->VpiParent(p);
@@ -5403,6 +5431,18 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 }
             }
         }
+        // A `parameter type T`-typed port's vpiTypedef (top AND def views)
+        // shares the ONE def-view type-param DEFAULT typespec object (Surelog).
+        if (internal) {
+            if (auto* tpp = portTypeParam(*internal)) {
+                auto tit = typeParamDefaultTs.find(
+                    {(const void*)&tp.inst->getDefinition(), std::string(tpp->name)});
+                if (tit != typeParamDefaultTs.end()) {
+                    topActual = tit->second;
+                    defPts = tit->second;
+                }
+            }
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(tp.prefix + "." + std::string(ps.name));
         rt->VpiParent(p);
@@ -5740,8 +5780,18 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 pendingNetTs.push_back({internal, rt, &defMap[&body.getDefinition()]});
             }
             else {
-                UHDM::typespec* ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
-                                              : makeTypespec(*internal, nullptr, &ps);
+                UHDM::typespec* ts = nullptr;
+                // A `parameter type T`-typed port's vpiTypedef shares the ONE
+                // def-view type-param DEFAULT typespec object (Surelog).
+                if (auto* tp = portTypeParam(*internal)) {
+                    auto tit = typeParamDefaultTs.find(
+                        {(const void*)&body.getDefinition(), std::string(tp->name)});
+                    if (tit != typeParamDefaultTs.end())
+                        ts = tit->second;
+                }
+                if (!ts)
+                    ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
+                                  : makeTypespec(*internal, nullptr, &ps);
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(ps.name));
                 rt->VpiParent(p);

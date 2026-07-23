@@ -662,8 +662,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          // op). A PACKAGE struct param keeps only PATTERN ops
                          // (other pkg inits still fold — Surelog).
                          !([&] {
-                             if (ps.getType().getCanonicalType().kind !=
-                                 SymbolKind::PackedStructType)
+                             auto ck9 = ps.getType().getCanonicalType().kind;
+                             if (ck9 != SymbolKind::PackedStructType &&
+                                 ck9 != SymbolKind::PackedUnionType)
                                  return false;
                              if (!inPackage)
                                  return true;
@@ -1092,6 +1093,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
                 if (inPackage && !topView && rhs->UhdmType() == UHDM::uhdmconstant)
                     pkgParamConst[&member] = (UHDM::constant*)rhs;
+                if (inPackage && !topView)
+                    pkgParamObj[&member] = up;
                 // Registered per VIEW: the top-view pass overwrites with its
                 // elab Rhs so view-local refs chain within their own view.
                 if (inPackage)
@@ -1247,6 +1250,105 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     its->VpiParent(up);
             }
         }
+    }
+    // Type parameters (parameter type T = ...) emit as UHDM type_parameter
+    // objects under vpiParameter. Surelog locates the DEF-view type_parameter
+    // at its name token and leaves the ELAB-view one unlocated (instance type
+    // params fold to id-only). The typespec Actual is the resolved default
+    // (def) or override (elab) type, built from the param's own targetType.
+    for (auto& member0 : body.members()) {
+        if (member0.kind != SymbolKind::TypeParameter)
+            continue;
+        auto& tps = member0.as<TypeParameterSymbol>();
+        auto* tp = s.MakeType_parameter();
+        tp->VpiName(tps.name);
+        tp->VpiFullName(joinPath(prefix, tps.name));
+        tp->VpiParent(m);
+        if (!topView)
+            setLoc(tp, SourceRange(tps.location, tps.location + tps.name.size()));
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(tp);
+        rt->VpiFullName(joinPath(prefix, tps.name));
+        std::string savedPfx = syntaxRefPrefix;
+        const Scope* savedCS = currentScope;
+        syntaxRefPrefix = joinPath(prefix, tps.name);
+        if (!currentScope)
+            currentScope = tps.getParentScope();
+        UHDM::typespec* its = nullptr;
+        // The def view shows the DECLARATION default; the elab view shows this
+        // instance's resolved (possibly overridden) type. The borrowed def-view
+        // instance body may carry an override AND its cloned type-param symbol
+        // can lose its declarator syntax, so read the default straight from the
+        // module's parameter-port-list syntax.
+        const syntax::DataTypeSyntax* defTypeSyn = nullptr;
+        if (!topView) {
+            const syntax::SyntaxNode* msyn =
+                tps.getParentScope() ? tps.getParentScope()->asSymbol().getSyntax()
+                                     : nullptr;
+            if (auto* mds = msyn ? msyn->as_if<syntax::ModuleDeclarationSyntax>()
+                                 : nullptr) {
+                if (auto* ppl = mds->header->parameters)
+                    for (auto* decl : ppl->declarations)
+                        if (auto* tpd = decl->as_if<
+                                syntax::TypeParameterDeclarationSyntax>())
+                            for (auto* d : tpd->declarators)
+                                if (d->name.valueText() == tps.name && d->assignment)
+                                    defTypeSyn = d->assignment->type;
+            }
+        }
+        if (defTypeSyn) {
+            its = makeTypeParamDefaultTs(*defTypeSyn, body);
+            // Surelog parents the def-view default typespec at the type param
+            // (it is shared with the port typedefs via ref_typespec).
+            if (its)
+                its->VpiParent(tp);
+        }
+        else if (topView &&
+                 tps.targetType.getType().kind == SymbolKind::TypeAlias) {
+            // An elab type_parameter resolved to a TYPEDEF carries its OWN
+            // bare-named CLONE of the typedef ts (parented at the type
+            // param), not the shared module typedef object (Surelog).
+            auto& ta9 = tps.targetType.getType().as<TypeAliasType>();
+            const syntax::SyntaxNode* tgt9 = nullptr;
+            if (auto asyn9 = ta9.getSyntax();
+                asyn9 && asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
+                tgt9 = asyn9->as<syntax::TypedefDeclarationSyntax>().type;
+            if (ta9.getCanonicalType().kind == SymbolKind::EnumType)
+                its = (UHDM::typespec*)buildEnumTs(
+                    ta9.getCanonicalType().as<EnumType>(), tgt9,
+                    std::string(ta9.name));
+            else {
+                bypassTypedefShare = true;
+                its = makeTypespec(ta9, tgt9);
+                bypassTypedefShare = false;
+            }
+            if (its) {
+                its->VpiName(ta9.name);
+                its->VpiParent(tp);
+            }
+            else
+                its = makeTypespec(tps);
+        }
+        else
+            its = makeTypespec(tps);
+        currentScope = savedCS;
+        syntaxRefPrefix = savedPfx;
+        if (its)
+            rt->Actual_typespec(its);
+        tp->Typespec(rt);
+        // Remember the elab-view resolved typespec so the port variable typed
+        // by this type param can SHARE it (Surelog uses one object).
+        if (topView && its)
+            typeParamElabTs[&tps] = its;
+        // Remember the def-view DEFAULT typespec so every type-param-typed
+        // port's vpiTypedef (all views) can SHARE this one object (Surelog).
+        if (!topView && its && defTypeSyn &&
+            body.asSymbol().kind == SymbolKind::InstanceBody)
+            typeParamDefaultTs[{(const void*)&body.asSymbol()
+                                    .as<InstanceBodySymbol>()
+                                    .getDefinition(),
+                                std::string(tps.name)}] = its;
+        params->push_back(tp);
     }
     if (!params->empty())
         m->Parameters(params);

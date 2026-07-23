@@ -3079,14 +3079,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 setLoc(hp, base->sourceRange);
             else
                 setLoc(hp, expr.sourceRange);
+            // A PKG-QUALIFIED param base (pkg::P.member): the hier_path is
+            // named by the MODULE prefix, and the base ref carries the
+            // qualified name, spans the pkg-qualifier token, and binds the
+            // pkg's def parameter object (Surelog).
+            bool pkgQualBase9 = false;
+            std::string pkgQualNm9;
+            if (nv.symbol.kind == SymbolKind::Parameter && base->syntax &&
+                base->syntax->kind == syntax::SyntaxKind::ScopedName)
+                if (auto psc9 = nv.symbol.getParentScope();
+                    psc9 && psc9->asSymbol().kind == SymbolKind::Package) {
+                    pkgQualBase9 = true;
+                    pkgQualNm9 = std::string(psc9->asSymbol().name);
+                    hp->VpiName(prefix);
+                    hp->VpiFullName(prefix);
+                }
             auto* elems = s.MakeAnyVec();
             {
                 auto* r = s.MakeRef_obj();
-                r->VpiName(nv.symbol.name);
+                if (pkgQualBase9)
+                    r->VpiName(pkgQualNm9 + "::" + std::string(nv.symbol.name));
+                else
+                    r->VpiName(nv.symbol.name);
                 // Freeze the lazily-computed fullname before parenting
                 // (Surelog's refs cache name-only fullnames).
                 (void)r->VpiFullName();
                 r->VpiParent(hp);
+                if (pkgQualBase9) {
+                    setLoc(r, SourceRange(base->sourceRange.start(),
+                                          base->sourceRange.start() +
+                                              (pkgQualNm9.size() + 2)));
+                    if (auto poIt9 = pkgParamObj.find(&nv.symbol);
+                        poIt9 != pkgParamObj.end())
+                        r->Actual_group(poIt9->second);
+                    elems->push_back(r);
+                }
+                else {
                 // Lvalue paths anchor the base ref at the FIRST member's
                 // token span.
                 if (inLhs && !chain.empty()) {
@@ -3100,6 +3128,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(r, base->sourceRange);
                 }
                 elems->push_back(r);
+                }
             }
             for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
                 auto& ma = (*it2)->as<MemberAccessExpression>();
@@ -3410,8 +3439,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool sup0 = suppressConstParent, fcp0 = forceConstParent;
                     suppressConstParent = true;
                     forceConstParent = false;
-                    if (auto* e = emitExpr(*ap.defaultSetter, op, prefix, netMap))
+                    if (auto* e = emitExpr(*ap.defaultSetter, op, prefix, netMap)) {
+                        // PKG def pattern constants size at INT width
+                        // (Surelog).
+                        if (!paramInitDef && prefix.size() >= 2 &&
+                            prefix.compare(prefix.size() - 2, 2, "::") == 0 &&
+                            ((UHDM::any*)e)->UhdmType() == UHDM::uhdmconstant)
+                            ((UHDM::constant*)e)->VpiSize(32);
                         tp->Pattern((UHDM::expr*)e);
+                    }
                     suppressConstParent = sup0;
                     forceConstParent = fcp0;
                     auto* sts = s.MakeString_typespec();
@@ -3429,7 +3465,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                     auto* rt = s.MakeRef_typespec();
-                    rt->VpiFullName(prefix);
+                    // PKG-scoped pattern ts refs drop the trailing '::'.
+                    std::string tsPfx9 = prefix;
+                    if (tsPfx9.size() >= 2 &&
+                        tsPfx9.compare(tsPfx9.size() - 2, 2, "::") == 0)
+                        tsPfx9.resize(tsPfx9.size() - 2);
+                    rt->VpiFullName(tsPfx9);
                     rt->VpiParent(tp);
                     rt->Actual_typespec(sts);
                     tp->Typespec(rt);

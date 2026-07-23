@@ -42,6 +42,7 @@ class SourceLocation;
 
 namespace slang::syntax {
 class SyntaxNode;
+struct DataTypeSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -290,6 +291,11 @@ private:
                                  const slang::ast::PortSymbol* portCtx = nullptr);
     UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache,
                                    const slang::ast::PortSymbol* portCtx = nullptr);
+    /// Def-view typespec for a `parameter type T = <default>` — resolved from
+    /// the DEFAULT type syntax (the instance body borrowed for the def view may
+    /// carry an override), independent of any instance parameterization.
+    UHDM::typespec* makeTypeParamDefaultTs(const slang::syntax::DataTypeSyntax& defSyn,
+                                           const slang::ast::Scope& body);
     UHDM::constant* makeBoundConst(const slang::syntax::SyntaxNode* syn, int64_t value,
                                    UHDM::BaseClass* parent);
     /// Unfolded range-bound expression built from syntax (function/typedef
@@ -739,6 +745,9 @@ private:
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
         pendingBitsBoundRefs;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
+    // Pkg param OBJECTS (def view) — bound by qualified member-access base
+    // refs (pkg::P.member).
+    std::map<const slang::ast::Symbol*, UHDM::parameter*> pkgParamObj;
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
@@ -779,6 +788,14 @@ private:
     // cont-assign fold constant that reads it (Surelog gives that fold a
     // ref_typespec -> this typespec).
     std::map<const slang::ast::Symbol*, UHDM::typespec*> importedParamDefTs;
+    // The elab-view resolved typespec of each `parameter type T` — shared with
+    // the type-param-typed port variable's typespec (Surelog uses one object).
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> typeParamElabTs;
+    // The def-view DEFAULT typespec of each `parameter type T`, keyed by
+    // (definition, param name). Every type-param-typed port's vpiTypedef (def
+    // and elab views alike) shares this one object (Surelog).
+    std::map<std::pair<const void*, std::string>, UHDM::typespec*>
+        typeParamDefaultTs;
     // Part-select fold constants' own logic_typespecs (bare-bound range),
     // materialized in the write-phase tail.
     struct PendingPartSelTs {
