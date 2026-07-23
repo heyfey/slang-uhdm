@@ -3827,6 +3827,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         underCase9 = true;
                         break;
                     }
+                // A taken ELSE-IF branch block (its IfGenerate hangs off an
+                // ElseClause) also spans its first member (Surelog re-pass).
+                if (!underCase9 && syn->parent &&
+                    syn->parent->kind == syntax::SyntaxKind::IfGenerate &&
+                    syn->parent->parent &&
+                    syn->parent->parent->kind ==
+                        syntax::SyntaxKind::ElseClause)
+                    underCase9 = true;
             }
             if (underCase9)
                 for (auto& gm9 : blk.members()) {
@@ -3835,6 +3843,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         gm9.kind == SymbolKind::TransparentMember)
                         continue;
                     if (auto* ms9 = gm9.getSyntax()) {
+                        // Span the whole top-level ITEM inside the block
+                        // (wire DECLARATION incl. keyword/semicolon, not just
+                        // the declarator).
+                        while (ms9->parent && ms9->parent != syn)
+                            ms9 = ms9->parent;
                         setLoc(gsa, ms9->sourceRange());
                         setLoc(gs, ms9->sourceRange());
                         break;
@@ -4807,7 +4820,55 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         gname = "genblk" +
                                 std::to_string(atoi(gname.c_str() + 6) + 1);
                 }
-                if (auto* g = emitBlock(blk, gname, prefix, m)) {
+                // A taken BARE-STATEMENT else-if branch (unnamed genblkN whose
+                // syntax is a plain statement under IfGenerate < ElseClause)
+                // is WRAPPED: outer genblkN spans the taken IfGenerate's whole
+                // remaining chain, and the content lives in a NESTED
+                // genblkN.genblk1 at the statement span (Surelog re-pass).
+                const syntax::SyntaxNode* elseIfChain9 = nullptr;
+                if (gname.rfind("genblk", 0) == 0 && !spanOv) {
+                    if (auto bs9 = blk.getSyntax();
+                        bs9 && bs9->kind != syntax::SyntaxKind::GenerateBlock &&
+                        bs9->parent &&
+                        bs9->parent->kind == syntax::SyntaxKind::IfGenerate &&
+                        bs9->parent->parent &&
+                        bs9->parent->parent->kind ==
+                            syntax::SyntaxKind::ElseClause)
+                        elseIfChain9 = bs9->parent;
+                }
+                if (elseIfChain9) {
+                    std::string outerFull = prefix + "." + gname;
+                    auto* ogsa = s.MakeGen_scope_array();
+                    ogsa->VpiName(gname);
+                    ogsa->VpiFullName(outerFull);
+                    ogsa->VpiParent(m);
+                    setLoc(ogsa, elseIfChain9->sourceRange());
+                    auto* ogs = s.MakeGen_scope();
+                    ogs->VpiFullName(outerFull);
+                    ogs->VpiParent(ogsa);
+                    setLoc(ogs, elseIfChain9->sourceRange());
+                    auto* ogv = s.MakeGen_scopeVec();
+                    ogv->push_back(ogs);
+                    ogsa->Gen_scopes(ogv);
+                    if (auto* ig = emitBlock(blk, "genblk1", outerFull, ogs)) {
+                        // The re-pass nested CA leaves its LHS ref UNBOUND
+                        // (Surelog).
+                        if (ig->Gen_scopes())
+                            for (auto* igs9 : *ig->Gen_scopes())
+                                if (auto* cas9 = igs9->Cont_assigns())
+                                    for (auto* ca9 : *cas9)
+                                        if (auto* lhs9 = ca9->Lhs();
+                                            lhs9 && lhs9->UhdmType() ==
+                                                        UHDM::uhdmref_obj)
+                                            ((UHDM::ref_obj*)lhs9)
+                                                ->Actual_group(nullptr);
+                        auto* igv = s.MakeGen_scope_arrayVec();
+                        igv->push_back(ig);
+                        ogs->Gen_scope_arrays(igv);
+                    }
+                    gsas->push_back(ogsa);
+                }
+                else if (auto* g = emitBlock(blk, gname, prefix, m)) {
                     if (spanOv) {
                         setLoc(g, spanOv->sourceRange());
                         if (g->Gen_scopes() && !g->Gen_scopes()->empty())
