@@ -2457,10 +2457,12 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             // BARE name) — Surelog.
             UHDM::typespec* sts = nullptr;
             bool sharedEnumLeaf = false;
-            if (enumLeaf && leaf->kind == SymbolKind::TypeAlias)
+            if (leaf->kind == SymbolKind::TypeAlias)
                 if (auto sIt = typedefTs.find(
                         (const Symbol*)&leaf->as<TypeAliasType>());
                     sIt != typedefTs.end()) {
+                    // A STRUCT leaf that is a named typedef shares its
+                    // struct object too (Surelog).
                     sts = sIt->second;
                     sharedEnumLeaf = true;
                 }
