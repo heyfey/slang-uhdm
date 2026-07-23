@@ -192,11 +192,12 @@ inline int32_t netTypeFor(const Symbol& internal) {
         // or port connection) print as a bare wire.
         if (internal.as<NetSymbol>().isImplicit)
             return vpiWire;
-        // A wire with a PREDEFINED-INTEGER data type (wire integer x) prints
-        // NO net type (Surelog).
+        // A PREDEFINED-INTEGER ANSI net-port (input wire integer x) prints
+        // NO net type; a BODY declaration keeps its kind (Surelog).
         if (auto* dt0 = internal.getDeclaredType())
             if (dt0->getType().getCanonicalType().kind ==
-                SymbolKind::PredefinedIntegerType)
+                    SymbolKind::PredefinedIntegerType &&
+                ansiNetHeader(internal) != nullptr)
                 return 0;
         // Explicit net declarations ("wire w;") and ANSI net-port headers
         // ("input wire x") carry the net kind; implicit port-backed nets do

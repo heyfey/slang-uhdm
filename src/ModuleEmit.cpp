@@ -3132,7 +3132,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (!isStruct) {
                 if (int32_t nt = netTypeFor(*it.sym))
                     ((UHDM::logic_net*)n)->VpiNetType(nt);
-                if (it.sym->getDeclaredType() &&
+                // An explicit PREDEFINED-INTEGER net decl (wire integer x)
+                // prints NO vpiSigned in the module listing (Surelog).
+                bool intBody9 =
+                    it.sym->kind == SymbolKind::Net &&
+                    hasExplicitNetKeyword(*it.sym) &&
+                    it.sym->getDeclaredType() &&
+                    it.sym->getDeclaredType()
+                            ->getType()
+                            .getCanonicalType()
+                            .kind == SymbolKind::PredefinedIntegerType;
+                if (!intBody9 && it.sym->getDeclaredType() &&
                     it.sym->getDeclaredType()->getType().isSigned())
                     n->VpiSigned(true);
             }
