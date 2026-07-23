@@ -3130,13 +3130,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // pkg's def parameter object (Surelog).
             bool pkgQualBase9 = false;
             std::string pkgQualNm9;
-            if (nv.symbol.kind == SymbolKind::Parameter && base->syntax &&
-                base->syntax->kind == syntax::SyntaxKind::ScopedName)
+            if (nv.symbol.kind == SymbolKind::Parameter &&
+                rawText(base->sourceRange).find("::") != std::string::npos)
                 if (auto psc9 = nv.symbol.getParentScope();
                     psc9 && psc9->asSymbol().kind == SymbolKind::Package) {
                     pkgQualBase9 = true;
                     pkgQualNm9 = std::string(psc9->asSymbol().name);
-                    hp->VpiName(prefix);
+                    hp->VpiName("");
                     hp->VpiFullName(prefix);
                 }
             auto* elems = s.MakeAnyVec();
@@ -3184,6 +3184,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!inLhs && *it2 == chain.front())
                     r->VpiFullName(prefix + "." + std::string(ma.member.name));
                 r->VpiParent(hp);
+                // Pkg-qualified param member refs bind the typespec_member
+                // of the param's def struct/union ts (Surelog).
+                if (pkgQualBase9) {
+                    if (auto poQ9 = pkgParamObj.find(&nv.symbol);
+                        poQ9 != pkgParamObj.end() &&
+                        poQ9->second->Typespec() &&
+                        poQ9->second->Typespec()->Actual_typespec()) {
+                        auto* atsQ9 =
+                            poQ9->second->Typespec()->Actual_typespec();
+                        UHDM::VectorOftypespec_member* mems9 = nullptr;
+                        if (atsQ9->UhdmType() == UHDM::uhdmstruct_typespec)
+                            mems9 =
+                                ((UHDM::struct_typespec*)atsQ9)->Members();
+                        else if (atsQ9->UhdmType() ==
+                                 UHDM::uhdmunion_typespec)
+                            mems9 = ((UHDM::union_typespec*)atsQ9)->Members();
+                        if (mems9)
+                            for (auto* tm9 : *mems9)
+                                if (tm9->VpiName() == ma.member.name) {
+                                    r->Actual_group(tm9);
+                                    break;
+                                }
+                    }
+                }
                 if (thisPath && *it2 == chain.front()) {
                     r->VpiFullName(joinRef(prefix, ma.member.name));
                 }
