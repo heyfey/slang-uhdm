@@ -3969,11 +3969,35 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         v.visitDefault(nvp);
                     }));
                 bool suppress = streamRhs || childGen || !hasBindableRef;
-                // INTERFACE gen scopes bind their CA refs to the gen-local
-                // vars (Surelog); module gen CAs keep the suppression rules.
-                if (m->UhdmType() == UHDM::uhdminterface_inst && !streamRhs &&
-                    !childGen)
-                    suppress = false;
+                // INTERFACE gen scopes bind their CA refs to gen-local VARS
+                // (Surelog) — net-mapped targets stay under the module rules.
+                // (The childGen prefix-dot test always trips for an iface
+                // HOME view — work@top.intf — so it doesn't apply here.)
+                if (m->UhdmType() == UHDM::uhdminterface_inst && !streamRhs) {
+                    bool allVarRefs = true;
+                    stripImplicitConv(ae.right())
+                        .visit(makeVisitor([&](auto& v,
+                                               const NamedValueExpression&
+                                                   nvp9) {
+                            auto mit9 = netMap.find(&nvp9.symbol);
+                            switch (mit9 != netMap.end()
+                                        ? mit9->second->UhdmType()
+                                        : UHDM::uhdmlogic_net) {
+                                case UHDM::uhdmlogic_net:
+                                case UHDM::uhdmstruct_net:
+                                case UHDM::uhdmarray_net:
+                                case UHDM::uhdmenum_net:
+                                case UHDM::uhdmpacked_array_net:
+                                    allVarRefs = false;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            v.visitDefault(nvp9);
+                        }));
+                    if (allVarRefs)
+                        suppress = false;
+                }
                 if (suppress)
                     suppressRefActual = true;
                 bool blkInLoop3 = false;
