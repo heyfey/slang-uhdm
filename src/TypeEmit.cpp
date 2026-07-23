@@ -3044,12 +3044,15 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 setLoc(fc, inv.left->sourceRange());
             else
                 setLoc(fc, syn.sourceRange());
-            for (auto& [subK, subI] : subMap)
-                if (subI.tf && subI.tf->VpiName() == fc->VpiName() &&
-                    subI.tf->UhdmType() == UHDM::uhdmfunction) {
-                    fc->Function((UHDM::function*)subI.tf);
-                    break;
-                }
+            // Only TYPEDEF/PORT-context bounds (tfContext) link the
+            // function; gen-conn call args stay unbound (Surelog).
+            if (tfContext)
+                for (auto& [subK, subI] : subMap)
+                    if (subI.tf && subI.tf->VpiName() == fc->VpiName() &&
+                        subI.tf->UhdmType() == UHDM::uhdmfunction) {
+                        fc->Function((UHDM::function*)subI.tf);
+                        break;
+                    }
             // Arguments emit from syntax too (prefix_or(i[OFF-1:0])).
             if (inv.arguments && !inv.arguments->parameters.empty()) {
                 auto* args = s.MakeAnyVec();
