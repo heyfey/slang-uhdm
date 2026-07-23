@@ -6669,6 +6669,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     }));
                 if (tainted)
                     paramCast = false;
+                // A PKG-TYPEDEF'd vector param cast (int'(P), P typed by an
+                // imported pkg typedef) keeps the cast op; module-local
+                // typedefs still fold (Surelog).
+                if (auto d1 = psym.getDeclaredType();
+                    paramCast && d1 &&
+                    d1->getType().kind == SymbolKind::TypeAlias &&
+                    d1->getType().getParentScope() &&
+                    d1->getType()
+                            .getParentScope()
+                            ->asSymbol()
+                            .kind == SymbolKind::Package &&
+                    psym.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedArrayType &&
+                    psym.getType().getCanonicalType().isIntegral())
+                    paramCast = false;
             }
             if ((nestedCast || paramCast) && rc0.syntax &&
                 rc0.syntax->kind == syntax::SyntaxKind::CastExpression) {

@@ -58,9 +58,21 @@ static void collectImportedParams(const Scope& body,
         else if (m.kind == SymbolKind::ProceduralBlock)
             m.as<ProceduralBlockSymbol>().getBody().visit(v);
         // A module parameter whose DEFAULT references an imported package
-        // param (parameter x = PkgParam) materializes it too.
+        // param (parameter x = PkgParam) materializes it too. For an
+        // OVERRIDDEN param the bound initializer is the override expression,
+        // so re-bind the declaration default to keep the pkg ref visible.
         else if (m.kind == SymbolKind::Parameter) {
-            if (auto* init = m.as<ParameterSymbol>().getInitializer())
+            auto& ps9 = m.as<ParameterSymbol>();
+            const Expression* init = ps9.getInitializer();
+            if (isOverriddenParam(ps9)) {
+                if (auto* dsyn = paramDefaultSyn(ps9)) {
+                    ASTContext actx(body, LookupLocation::max);
+                    auto* di9 = &Expression::bind(*dsyn, actx);
+                    if (!di9->bad())
+                        init = di9;
+                }
+            }
+            if (init)
                 init->visit(v);
         }
         // A child INSTANCE param override referencing an imported param
@@ -390,6 +402,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (auto syn = ps.getSyntax())
             setLoc(pa, syn->sourceRange());
         pa->Lhs(up);
+        // DEF-view materialized IMPORTED vector-typedef param: the param_assign
+        // Lhs is a SEPARATE parameter clone with its own ts clone chain
+        // (Surelog).
+        UHDM::parameter* upLhs9 = nullptr;
+        UHDM::ref_typespec* prtLhs9 = nullptr;
+        if (!topView && !inPackage && isImported && prt) {
+            if (auto dLhs = ps.getDeclaredType();
+                dLhs && dLhs->getType().kind == SymbolKind::TypeAlias &&
+                ps.getType().getCanonicalType().kind ==
+                    SymbolKind::PackedArrayType &&
+                ps.getType().getCanonicalType().isIntegral() &&
+                dLhs->getType().getParentScope() == ps.getParentScope()) {
+                upLhs9 = s.MakeParameter();
+                upLhs9->VpiName(up->VpiName());
+                upLhs9->VpiFullName(up->VpiFullName());
+                upLhs9->VpiLineNo(up->VpiLineNo());
+                upLhs9->VpiColumnNo(up->VpiColumnNo());
+                upLhs9->VpiEndLineNo(up->VpiEndLineNo());
+                upLhs9->VpiEndColumnNo(up->VpiEndColumnNo());
+                upLhs9->VpiImported(std::string(up->VpiImported()));
+                upLhs9->VpiParent(pa);
+                prtLhs9 = s.MakeRef_typespec();
+                prtLhs9->VpiFullName(std::string(prt->VpiFullName()));
+                prtLhs9->VpiParent(upLhs9);
+                upLhs9->Typespec(prtLhs9);
+                pa->Lhs(upLhs9);
+            }
+        }
         // Function-scope params parent at their param_assign.
         if (funcScope)
             up->VpiParent(pa);
@@ -421,9 +461,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         genChild = true;
                         break;
                     }
+                // A VECTOR-TYPEDEF param's literal override keeps its SOURCE
+                // base form (384'b1 -> BIN:1, binary const) — Surelog.
+                bool vecAliasOv8 = false;
+                if (typedParam && boundInit && ps.getDeclaredType() &&
+                    ps.getDeclaredType()->getType().kind ==
+                        SymbolKind::TypeAlias &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedArrayType &&
+                    stripImplicitConv(*boundInit).kind ==
+                        ExpressionKind::IntegerLiteral) {
+                    std::string raw8(
+                        rawText(stripImplicitConv(*boundInit).sourceRange));
+                    auto tick8 = raw8.find('\'');
+                    if (tick8 != std::string::npos && tick8 + 1 < raw8.size()) {
+                        size_t bp8 = tick8 + 1;
+                        if (raw8[bp8] == 's' || raw8[bp8] == 'S')
+                            bp8++;
+                        char base8 = (char)tolower((unsigned char)raw8[bp8]);
+                        std::string dg8 = raw8.substr(bp8 + 1);
+                        if (base8 == 'b' || base8 == 'h' || base8 == 'o') {
+                            c->VpiValue((base8 == 'b'   ? "BIN:"
+                                         : base8 == 'h' ? "HEX:"
+                                                        : "OCT:") +
+                                        dg8);
+                            c->VpiConstType(base8 == 'b'   ? vpiBinaryConst
+                                            : base8 == 'h' ? vpiHexConst
+                                                           : vpiOctConst);
+                            c->VpiSize((int32_t)iv.getBitWidth());
+                            c->VpiDecompile(raw8);
+                            vecAliasOv8 = true;
+                        }
+                    }
+                }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
-                if (typedParam || genChild) {
+                if (vecAliasOv8) {
+                }
+                else if (typedParam || genChild) {
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
                     c->VpiSize((int32_t)iv.getBitWidth());
@@ -442,7 +517,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (tsPrefix.size() >= 2 &&
                         tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
                         tsPrefix.resize(tsPrefix.size() - 2);
-                    rt->VpiFullName(tsPrefix);
+                    // Vector-typedef override Rhs ts refs are NAMELESS
+                    // (Surelog).
+                    if (!vecAliasOv8)
+                        rt->VpiFullName(tsPrefix);
                     rt->VpiParent(c);
                     c->Typespec(rt);
                     rhsRt = rt;
@@ -562,6 +640,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 else if (!ps.getType().getCanonicalType().isString() &&
                          !(inPackage && stripImplicitConv(*init).kind ==
                                             ExpressionKind::Concatenation) &&
+                         // A materialized IMPORTED param's concat init keeps
+                         // the operation in the elab view too (Surelog).
+                         !(isImported && stripImplicitConv(*init).kind ==
+                                             ExpressionKind::Concatenation) &&
                          // A NESTED assignment pattern ('{'{1,0,0,0}}) keeps
                          // its operation in the elab view (not folded).
                          !([&] {
@@ -874,6 +956,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     op2->Operands(opnds);
                     rhs = op2;
                 }
+                // DEF-view param whose default is an UNQUALIFIED ref to an
+                // imported pkg param (materialized in this module) keeps an
+                // UNBOUND ref_obj Rhs (Surelog), not a fold.
+                if (!rhs && !topView && !inPackage) {
+                    auto& sref9 = stripImplicitConv(*init);
+                    if (sref9.kind == ExpressionKind::NamedValue &&
+                        sref9.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter &&
+                        sref9.syntax &&
+                        sref9.syntax->kind ==
+                            syntax::SyntaxKind::IdentifierName) {
+                        auto& rsym9 = sref9.as<NamedValueExpression>().symbol;
+                        if (auto rsc9 = rsym9.getParentScope();
+                            rsc9 && rsc9->asSymbol().kind ==
+                                        SymbolKind::Package &&
+                            std::find(paramSyms.begin(), paramSyms.end(),
+                                      (const ParameterSymbol*)&rsym9) !=
+                                paramSyms.end()) {
+                            auto* ro9 = s.MakeRef_obj();
+                            ro9->VpiName(rsym9.name);
+                            ro9->VpiFullName(
+                                joinPath(prefix, std::string(rsym9.name)));
+                            ro9->VpiParent(pa);
+                            setLoc(ro9, init->sourceRange);
+                            rhs = ro9;
+                        }
+                    }
+                }
                 forceConstParent = !nestedPat;
                 inParamInit = true;
                 paramInitDef = !topView;
@@ -939,7 +1049,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ps.getType().getCanonicalType().kind ==
                             SymbolKind::FixedSizeUnpackedArrayType &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
-                    if ((anyUnknown || packedArrayOp || unpackedArrayOp) &&
+                    // A materialized IMPORTED vector-typedef param's elab
+                    // CONCAT op also carries a ts ref (own clone pair).
+                    bool importedConcatOp =
+                        isImported && typedParam &&
+                        ps.getType().getCanonicalType().isPackedArray() &&
+                        opr->VpiOpType() == vpiConcatOp;
+                    if ((anyUnknown || packedArrayOp || unpackedArrayOp ||
+                         importedConcatOp) &&
                         !(opr->Typespec() &&
                           opr->Typespec()->Actual_typespec())) {
                         auto* rt = s.MakeRef_typespec();
@@ -1038,7 +1155,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (tsPrefix.size() >= 2 &&
                         tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
                         tsPrefix.resize(tsPrefix.size() - 2);
-                    rt->VpiFullName(tsPrefix);
+                    // An OVERRIDDEN vector-typedef param's elab Rhs ts ref is
+                    // NAMELESS (Surelog).
+                    bool vecAliasOv9 =
+                        overridden && ps.getDeclaredType() &&
+                        ps.getDeclaredType()->getType().kind ==
+                            SymbolKind::TypeAlias &&
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::PackedArrayType;
+                    if (!vecAliasOv9)
+                        rt->VpiFullName(tsPrefix);
                     rt->VpiParent((UHDM::constant*)rhs);
                     ((UHDM::constant*)rhs)->Typespec(rt);
                     rhsRt = rt;
@@ -1072,6 +1198,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 pendingDefParamTs.push_back({&ps, up, prt, rhsRt, typedParam, m,
                                              &member, di, inPackage,
                                              joinPath(prefix, ps.name)});
+                // The def-Lhs parameter clone drains its OWN ts clone chain.
+                if (upLhs9 && prtLhs9)
+                    pendingDefParamTs.push_back(
+                        {&ps, upLhs9, prtLhs9, nullptr, typedParam, m, &member,
+                         nullptr, inPackage, joinPath(prefix, ps.name)});
             }
             else {
                 // $bits(SIGNAL) bounds scope their refs through the param
@@ -1319,12 +1450,57 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     tfContext = savedTf2;
                     bypassTypedefShare = false;
                     auto* art = s.MakeRef_typespec();
+                    // Package-scoped alias refs join with '::'; module-scoped
+                    // with '.' (Surelog). Context comes from the REF PREFIX,
+                    // not the symbol's home scope — a materialized imported
+                    // param lives in the pkg but is emitted module-side.
+                    bool psPkg = ps.getParentScope() &&
+                                 ps.getParentScope()->asSymbol().kind ==
+                                     SymbolKind::Package &&
+                                 syntaxRefPrefix.rfind(
+                                     std::string(
+                                         ps.getParentScope()->asSymbol().name),
+                                     0) == 0;
                     art->VpiFullName(syntaxRefPrefix.empty()
                                          ? std::string(taSym.name)
-                                         : syntaxRefPrefix + "." +
+                                         : syntaxRefPrefix +
+                                               (psPkg ? "::" : ".") +
                                                std::string(taSym.name));
                     art->VpiParent(cl);
-                    art->Actual_typespec(tit->second);
+                    // An IMPORTED vector typedef in MODULE context aliases to
+                    // a SECOND bare clone (pkg-Instanced, no alias) — not the
+                    // pkg's qualified ts; both clones Instance at the def pkg
+                    // (Surelog).
+                    // Only the MATERIALIZED IMPORTED param itself (ps lives in
+                    // the typedef's home pkg) gets the second clone; a module
+                    // param merely TYPED by the imported typedef aliases the
+                    // qualified pkg ts directly (Surelog).
+                    const Symbol* tdHome9 = nullptr;
+                    if (auto hs9 = taSym.getParentScope();
+                        hs9 && hs9->asSymbol().kind == SymbolKind::Package &&
+                        !psPkg && ps.getParentScope() == hs9)
+                        tdHome9 = &hs9->asSymbol();
+                    if (tdHome9 && pkgDefMap.count(tdHome9)) {
+                        bypassTypedefShare = true;
+                        tfContext = true;
+                        auto* clB = makeTypespec(taSym, tgtSyn);
+                        tfContext = savedTf2;
+                        bypassTypedefShare = false;
+                        clB->VpiName(taSym.name);
+                        clB->VpiParent(art);
+                        clB->Instance((UHDM::instance*)pkgDefMap[tdHome9]);
+                        art->Actual_typespec(clB);
+                    }
+                    else
+                        art->Actual_typespec(tit->second);
+                    // ANY module-context clone of a pkg typedef Instances at
+                    // the def pkg (Surelog).
+                    if (auto hsI9 = taSym.getParentScope();
+                        hsI9 && !psPkg &&
+                        hsI9->asSymbol().kind == SymbolKind::Package &&
+                        pkgDefMap.count(&hsI9->asSymbol()))
+                        cl->Instance(
+                            (UHDM::instance*)pkgDefMap[&hsI9->asSymbol()]);
                     ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
                     cl->VpiName(taSym.name);
                     its = cl;
@@ -1677,6 +1853,36 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                 ps->getType().getCanonicalType().isPackedArray()) {
                 if (auto* bare = makeBareVecParamTs(*ps, /*parentBounds=*/false))
                     rhsRt->Actual_typespec(bare);
+            }
+            // An IMPORTED vector-typedef param's elab OPERATION Rhs ts ref
+            // binds its OWN clone pair (module-prefix scoped), not the param's
+            // (Surelog).
+            else if ([&] {
+                         if (!rc0 || rc0->UhdmType() != UHDM::uhdmoperation)
+                             return false;
+                         auto d0 = ps->getDeclaredType();
+                         if (!d0 ||
+                             d0->getType().kind != SymbolKind::TypeAlias)
+                             return false;
+                         auto& ct9 = ps->getType().getCanonicalType();
+                         if (ct9.kind != SymbolKind::PackedArrayType ||
+                             !ct9.isIntegral())
+                             return false;
+                         auto hs9 = d0->getType()
+                                        .as<TypeAliasType>()
+                                        .getParentScope();
+                         return hs9 && hs9->asSymbol().kind ==
+                                           SymbolKind::Package &&
+                                ps->getParentScope() == hs9;
+                     }()) {
+                std::string full9(prt->VpiFullName());
+                auto dot9 = full9.rfind('.');
+                syntaxRefPrefix =
+                    dot9 == std::string::npos ? full9 : full9.substr(0, dot9);
+                auto* opTs9 = makeParamTs(*ps, typedParam);
+                syntaxRefPrefix = savedPfx2;
+                rhsRt->Actual_typespec(opTs9);
+                opTs9->VpiParent(rhsRt);
             }
             else
                 rhsRt->Actual_typespec(its);

@@ -41,6 +41,33 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
                 c0.syntax->as<syntax::CastExpressionSyntax>().left->kind))
             return nullptr;
     }
+    // A TYPE cast of a VECTOR-TYPEDEF param (int'(P) where P is a typedef'd
+    // packed array) keeps the cast op even in CHILD-instance CAs (Surelog).
+    {
+        auto& c1 = stripImplicitConv(expr);
+        if (c1.kind == ExpressionKind::Conversion && c1.syntax &&
+            c1.syntax->kind == syntax::SyntaxKind::CastExpression &&
+            isTypeSyntaxKind(
+                c1.syntax->as<syntax::CastExpressionSyntax>().left->kind)) {
+            auto& op1 = stripImplicitConv(c1.as<ConversionExpression>().operand());
+            if (op1.kind == ExpressionKind::NamedValue &&
+                op1.as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::Parameter) {
+                auto& pt1 = op1.as<NamedValueExpression>().symbol.as<ParameterSymbol>();
+                if (auto d1 = pt1.getDeclaredType();
+                    d1 && d1->getType().kind == SymbolKind::TypeAlias &&
+                    d1->getType().getParentScope() &&
+                    d1->getType()
+                            .getParentScope()
+                            ->asSymbol()
+                            .kind == SymbolKind::Package &&
+                    pt1.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedArrayType &&
+                    pt1.getType().getCanonicalType().isIntegral())
+                    return nullptr;
+            }
+        }
+    }
     // Expressions CONTAINING unbased-unsized literals ('0 << 8) never fold:
     // Surelog's folded model re-emits the operation.
     {
