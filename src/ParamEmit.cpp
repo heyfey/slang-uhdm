@@ -1178,6 +1178,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rc->VpiDecompile(d.substr(1, d.size() - 2));
                 }
                 if (auto& sik = stripImplicitConv(*init);
+                    // An ELAB MATERIALIZED MULTIDIM-vector import's literal
+                    // Rhs carries NO ts ref (Surelog); scalar/1-D imports
+                    // keep it.
+                    !(topView && isImported &&
+                      ps.getType().getCanonicalType().kind ==
+                          SymbolKind::PackedArrayType &&
+                      ps.getType()
+                              .getCanonicalType()
+                              .as<PackedArrayType>()
+                              .elementType.getCanonicalType()
+                              .kind == SymbolKind::PackedArrayType) &&
                     wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     (sik.kind == ExpressionKind::IntegerLiteral ||
                      sik.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
