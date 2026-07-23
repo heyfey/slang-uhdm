@@ -272,8 +272,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                   while (d9->kind == ExpressionKind::Conversion)
                                       d9 = &d9->as<ConversionExpression>()
                                                 .operand();
-                                  return d9->kind == ExpressionKind::BinaryOp ||
-                                         containsUserCall(*defaultInit);
+                                  if (d9->kind == ExpressionKind::BinaryOp ||
+                                      containsUserCall(*defaultInit))
+                                      return true;
+                                  // A QUALIFIED pkg-param ref init
+                                  // (ctrl_pkg::Banks) also folds (value
+                                  // carried; loc = the qualifier span).
+                                  if (d9->kind == ExpressionKind::NamedValue &&
+                                      d9->as<NamedValueExpression>()
+                                              .symbol.kind ==
+                                          SymbolKind::Parameter &&
+                                      rawText(d9->sourceRange)
+                                              .find("::") !=
+                                          std::string::npos)
+                                      return true;
+                                  return false;
                               }();
             if (!unbasedInit && (literalInit || pkgElabComputed) &&
                 cv.isInteger() && !cv.integer().hasUnknown()) {
@@ -797,6 +810,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                    se9->as<BinaryExpression>().left().sourceRange);
                             if (!typedParam)
                                 ((UHDM::constant*)rhs)->VpiSize(32);
+                        }
+                        // A QUALIFIED pkg-param ref init folds at the
+                        // QUALIFIER span (pkg:: incl. colons) — Surelog.
+                        else if (pkgElabComputed &&
+                                 se9->kind == ExpressionKind::NamedValue) {
+                            std::string rq9(rawText(se9->sourceRange));
+                            auto qp9 = rq9.rfind("::");
+                            if (qp9 != std::string::npos) {
+                                auto st9 = se9->sourceRange.start();
+                                setLoc((UHDM::constant*)rhs,
+                                       SourceRange(st9, st9 + qp9 + 2));
+                            }
                         }
                     }
                     // A SUBTRACT init (W - 19) folds signed (INT).
