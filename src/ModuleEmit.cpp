@@ -5717,6 +5717,20 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // A CHILD-instance PART-SELECT-of-parameter RHS folds fresh in the
+        // elab view (loc-less BIN) — it must not share the def CA.
+        bool paramPartSelRhs = false;
+        if (prefix.find('.') != std::string::npos) {
+            auto& rc0p = stripImplicitConv(ae.right());
+            if (rc0p.kind == ExpressionKind::RangeSelect) {
+                auto& b0p = stripImplicitConv(
+                    rc0p.as<RangeSelectExpression>().value());
+                if (b0p.kind == ExpressionKind::NamedValue &&
+                    b0p.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter)
+                    paramPartSelRhs = true;
+            }
+        }
         // Argument-less user calls returning a literal fold in the top view
         // to that literal (its own loc and base shape). Calls returning a
         // TYPEDEF'd type never fold — the elab view shares the def CA.
@@ -5966,7 +5980,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
               !pkgParamSel && !unpackedParamSel && !noDefOvRhs &&
-              !structParamSetter))) {
+              !paramPartSelRhs && !structParamSetter))) {
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -6197,6 +6211,38 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     fit != moduleParamFoldConst.end()) {
                     rhs = fit->second;
                     ((UHDM::constant*)rhs)->VpiParent(ca);
+                }
+            }
+        }
+        // A CHILD-instance CA whose RHS is a PART-SELECT of a parameter
+        // folds to a LOC-LESS BIN constant at the select width (bit-string
+        // decompile) — Surelog.
+        if (!rhs && topView && prefix.find('.') != std::string::npos) {
+            auto& rps9 = stripImplicitConv(ae.right());
+            if (rps9.kind == ExpressionKind::RangeSelect) {
+                auto& base9 = stripImplicitConv(
+                    rps9.as<RangeSelectExpression>().value());
+                if (base9.kind == ExpressionKind::NamedValue &&
+                    base9.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter) {
+                    ASTContext ctx9(comp.getRoot(), LookupLocation::max);
+                    if (auto cv9 = ctx9.tryEval(rps9);
+                        cv9 && cv9.isInteger() &&
+                        !cv9.integer().hasUnknown()) {
+                        auto iv9 = cv9.integer();
+                        int32_t w9 = (int32_t)iv9.getBitWidth();
+                        std::string bits9;
+                        for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
+                            bits9 +=
+                                iv9[i9] == slang::logic_t(1) ? '1' : '0';
+                        auto* c9 = s.MakeConstant();
+                        c9->VpiDecompile(bits9);
+                        c9->VpiSize(w9);
+                        c9->VpiValue("BIN:" + bits9);
+                        c9->VpiConstType(vpiBinaryConst);
+                        c9->VpiParent(ca);
+                        rhs = c9;
+                    }
                 }
             }
         }

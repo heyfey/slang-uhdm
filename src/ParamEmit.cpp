@@ -503,8 +503,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // base form (384'b1 -> BIN:1, binary const) — Surelog.
                 bool vecAliasOv8 = false;
                 if (typedParam && boundInit && ps.getDeclaredType() &&
-                    ps.getDeclaredType()->getType().kind ==
-                        SymbolKind::TypeAlias &&
+                    (ps.getDeclaredType()->getType().kind ==
+                         SymbolKind::TypeAlias ||
+                     // WIDE (>64-bit) direct-vector params too: the int64
+                     // fold would overflow — keep the source base form.
+                     ps.getType().getBitWidth() > 64) &&
                     ps.getType().getCanonicalType().kind ==
                         SymbolKind::PackedArrayType &&
                     stripImplicitConv(*boundInit).kind ==
@@ -535,6 +538,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
                 if (vecAliasOv8) {
+                }
+                else if (typedParam && iv.getBitWidth() > 64) {
+                    // WIDE values overflow the decimal fold — encode HEX at
+                    // the value width with a sized-hex decompile (Surelog).
+                    std::string hx8 = iv.toString(LiteralBase::Hex, false);
+                    c->VpiValue("HEX:" + hx8);
+                    c->VpiConstType(vpiHexConst);
+                    c->VpiSize((int32_t)iv.getBitWidth());
+                    c->VpiDecompile(std::to_string(iv.getBitWidth()) + "'h" +
+                                    hx8);
                 }
                 else if (typedParam || genChild) {
                     c->VpiValue("UINT:" + digits);
