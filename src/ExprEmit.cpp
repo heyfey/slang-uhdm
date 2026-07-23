@@ -783,6 +783,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     c->VpiValue((callSigned9 ? "INT:" : "UINT:") + digits);
                     c->VpiConstType(callSigned9 ? vpiIntConst : vpiUIntConst);
+                    // A BASED-literal-initialized pkg param keeps its base
+                    // encoding in the fold (32'habcd -> HEX:abcd) — Surelog.
+                    if (auto* pini8 = psym.getInitializer()) {
+                        auto& lit8 = stripImplicitConv(*pini8);
+                        if (lit8.kind == ExpressionKind::IntegerLiteral) {
+                            std::string raw8(rawText(lit8.sourceRange));
+                            auto tick8 = raw8.find('\'');
+                            if (tick8 != std::string::npos) {
+                                size_t bp8 = tick8 + 1;
+                                if (bp8 < raw8.size() &&
+                                    (raw8[bp8] == 's' || raw8[bp8] == 'S'))
+                                    bp8++;
+                                char base8 = bp8 < raw8.size()
+                                                 ? (char)tolower(raw8[bp8])
+                                                 : 'd';
+                                std::string dg8 = raw8.substr(bp8 + 1);
+                                switch (base8) {
+                                    case 'b':
+                                        c->VpiValue("BIN:" + dg8);
+                                        c->VpiConstType(vpiBinaryConst);
+                                        break;
+                                    case 'h':
+                                        c->VpiValue("HEX:" + dg8);
+                                        c->VpiConstType(vpiHexConst);
+                                        break;
+                                    case 'o':
+                                        c->VpiValue("OCT:" + dg8);
+                                        c->VpiConstType(vpiOctConst);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                if (base8 == 'b' || base8 == 'h' ||
+                                    base8 == 'o')
+                                    c->VpiDecompile(raw8);
+                            }
+                        }
+                    }
                     // Enum-origin pkg params fold in the enum literal's
                     // source HEX form module-side too (Surelog).
                     if (typedPkgParam)
