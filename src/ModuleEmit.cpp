@@ -3528,7 +3528,36 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(nfull);
             rt->VpiParent(n);
+            // Bind bounds in the gen-scope context ONLY when a dim
+            // references a sibling GEN-SCOPE localparam (so [w:0] folds at
+            // the param's int width) — module-param bounds keep the plain
+            // 64-bit fold path (enabling the bind for them regresses).
+            auto savedCS9 = currentScope;
+            {
+                bool genLpDim9 = false;
+                if (auto dt9 = gm.getDeclaredType())
+                    if (auto tsn9 = dt9->getTypeSyntax()) {
+                        std::string raw9(rawText(tsn9->sourceRange()));
+                        for (auto psc9 = gm.getParentScope();
+                             psc9 && !genLpDim9 &&
+                             psc9->asSymbol().kind != SymbolKind::InstanceBody;
+                             psc9 = psc9->asSymbol().getParentScope())
+                            for (auto& sib9 : psc9->members())
+                                if (sib9.kind == SymbolKind::Parameter &&
+                                    !sib9.as<ParameterSymbol>()
+                                         .isFromGenvar() &&
+                                    !sib9.name.empty() &&
+                                    raw9.find(sib9.name) !=
+                                        std::string::npos) {
+                                    genLpDim9 = true;
+                                    break;
+                                }
+                    }
+                if (genLpDim9)
+                    currentScope = gm.getParentScope();
+            }
             auto* ats = makeTypespec(gm);
+            currentScope = savedCS9;
             // A net-decl-assign net's list typespec loses its net parent (the
             // fresh Lhs net carries the parented one); a plain net keeps it.
             if (!hasInit)

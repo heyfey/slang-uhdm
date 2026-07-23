@@ -817,6 +817,15 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                             bsc->asSymbol().kind ==
                                                 SymbolKind::InstanceBody)
                                             boundParam = &bp;
+                                        // A GEN-SCOPE localparam bound folds
+                                        // BARE at 32 (untyped resolves to
+                                        // int) — Surelog.
+                                        else if (auto bsc2 =
+                                                     bp.getParentScope();
+                                                 bsc2 && !bp.isFromGenvar() &&
+                                                 bsc2->asSymbol().kind ==
+                                                     SymbolKind::GenerateBlock)
+                                            c->VpiSize(32);
                                     }
                                 }
                             }
