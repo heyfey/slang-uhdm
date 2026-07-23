@@ -4174,7 +4174,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 if (rl9.kind == ExpressionKind::IntegerLiteral &&
                     rawText(rl9.sourceRange).find('\'') == std::string::npos &&
                     ll9.type &&
-                    !ll9.type->getCanonicalType().isFourState() &&
+                    (!ll9.type->getCanonicalType().isFourState() ||
+                     // A 4-state LHS also sizes the fold when the gen scope
+                     // belongs to a CHILD instance (nested elaboration) —
+                     // Surelog. Top-module gen scopes keep 64.
+                     prefix.find('.') != std::string::npos) &&
                     ll9.type->getCanonicalType().isIntegral())
                     ((UHDM::constant*)rhs)->VpiSize(
                         (int32_t)ll9.type->getBitWidth());
