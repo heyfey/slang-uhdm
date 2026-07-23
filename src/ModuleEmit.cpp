@@ -5033,9 +5033,8 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             auto t9 = d9->getTypeSyntax();
             if (!t9 || t9->kind == syntax::SyntaxKind::ImplicitType) {
                 auto sc9 = pc.ps->getParentScope();
-                implicitMP = sc9 &&
-                             sc9->asSymbol().kind == SymbolKind::InstanceBody &&
-                             isMultiParamDef(*sc9);
+                implicitMP = sc9 && sc9->asSymbol().kind ==
+                                        SymbolKind::InstanceBody;
             }
         }
         if (implicitMP) {
@@ -5869,7 +5868,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     // concrete value.
                     if (!typedParamRhs && ck9 != SymbolKind::PackedStructType &&
                         ck9 != SymbolKind::PackedUnionType &&
-                        paramDefaultSyn(ps) && isMultiParamDef(body) &&
+                        paramDefaultSyn(ps) &&
+                        // CONST-FUNCTION-initialized params keep the def CA
+                        // share (no fresh elab fold) — Surelog.
+                        !([&] {
+                            if (!ps.getInitializer())
+                                return false;
+                            bool call9 = false;
+                            ps.getInitializer()->visit(makeVisitor(
+                                [&](auto& v9, const CallExpression& cc9) {
+                                    if (!cc9.isSystemCall())
+                                        call9 = true;
+                                    v9.visitDefault(cc9);
+                                }));
+                            return call9;
+                        }()) &&
                         ps.getValue().isInteger() &&
                         !ps.getValue().integer().hasUnknown())
                         typedParamRhs = &sym;
@@ -6252,17 +6265,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (!rhs && topView && typedParamRhs &&
             typedParamRhs->as<ParameterSymbol>().getValue().isInteger()) {
             auto& ps2 = typedParamRhs->as<ParameterSymbol>();
-            auto& iv = ps2.getValue().integer();
+            slang::SVInt iv = ps2.getValue().integer();
+            // Truncated (value AND size) to a narrower assignment target
+            // width (Surelog).
+            int32_t tpW = (int32_t)iv.getBitWidth();
+            if (ae.left().type && (int32_t)ae.left().type->getBitWidth() < tpW) {
+                tpW = (int32_t)ae.left().type->getBitWidth();
+                iv = iv.resize((slang::bitwidth_t)tpW);
+                // The truncated bits encode UNSIGNED (Surelog).
+                iv.setSigned(false);
+            }
             bool neg = iv.isSigned() && iv.isNegative();
             std::string digits = iv.toString(LiteralBase::Decimal, false);
             auto* c = s.MakeConstant();
             c->VpiDecompile(digits);
             c->VpiValue((neg ? "INT:" : "UINT:") + digits);
             c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
-            // Truncated to a narrower assignment target width (Surelog).
-            int32_t tpW = (int32_t)iv.getBitWidth();
-            if (ae.left().type && (int32_t)ae.left().type->getBitWidth() < tpW)
-                tpW = (int32_t)ae.left().type->getBitWidth();
             c->VpiSize(tpW);
             c->VpiParent(ca);
             // A LOCAL param folds at its default-value expression; an IMPORTED
