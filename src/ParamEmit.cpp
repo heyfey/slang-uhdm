@@ -108,8 +108,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     for (auto& member0 : body.members())
         if (member0.kind == SymbolKind::Parameter)
             paramSyms.push_back(&member0.as<ParameterSymbol>());
-    if (!inPackage && !funcScope)
+    if (!inPackage && !funcScope) {
         collectImportedParams(body, paramSyms);
+        // The module list is SOURCE-LOCATION ordered: materialized imported
+        // params (pkg locs, usually earlier) list before declared ones.
+        std::stable_sort(paramSyms.begin(), paramSyms.end(),
+                         [](const ParameterSymbol* a,
+                            const ParameterSymbol* b) {
+                             return a->location < b->location;
+                         });
+    }
     for (auto* psPtr : paramSyms) {
         const Symbol& member = *psPtr;
         auto& ps = *psPtr;
