@@ -2889,6 +2889,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             if (rhs) {
                 pa->Rhs(rhs);
+                // A DEF-view param_assign is a DEEP-CLONED object at
+                // elaboration, so Surelog re-parents its Rhs at the
+                // param_assign. Our fold/emit fallback leaves a bare constant
+                // for a MODULE param whose default is a pkg-param ref
+                // (P = X, P_INSTANCE = P_PKG). Package-param Rhs constants
+                // (which are SHARED into reading cont_assigns and re-parented
+                // there) and constants some later arm still parents are left
+                // alone: only claim a still-bare DEF-view MODULE Rhs here.
+                if (!topView && !inPackage &&
+                    rhs->UhdmType() == UHDM::uhdmconstant && !rhs->VpiParent())
+                    rhs->VpiParent(pa);
                 // An IMPORTED param's def-view copy is a materialized (already
                 // resolved) param: its bare-decimal RHS folds to the type width
                 // (int -> 32), exactly like the elab view — NOT the package

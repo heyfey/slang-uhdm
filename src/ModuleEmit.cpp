@@ -4326,6 +4326,60 @@ static bool genBlkIsLoopBody(const GenerateBlockSymbol& blk) {
 
 // Generate blocks: one gen_scope_array + gen_scope per unrolled iteration
 // (instance view only). The genvar becomes an unlocated localparam.
+// Surelog folds an UNPACKED-ARRAY param element-select (P[i][j][k]) to the
+// leaf value, anchored at the SOURCE pattern-leaf element's span and parented
+// at the cont_assign (claiming the pattern's own leaf). Walk the param's elab
+// pattern op — reordered per range direction, so pos = index - lo indexes it
+// directly at every nesting level — copy the reached operand's location onto
+// foldC and re-parent foldC at caParent. Returns true when a leaf was reached.
+bool UhdmExporter::claimUnpackedParamLeaf(const Expression& sel,
+                                          const ParameterSymbol& pbase,
+                                          UHDM::constant* foldC,
+                                          UHDM::any* caParent) {
+    auto oit = elabArrayPatternOp.find(&pbase);
+    if (oit == elabArrayPatternOp.end() || !foldC)
+        return false;
+    std::vector<int64_t> selIdx;  // innermost-select first
+    const Expression* cur = &sel;
+    while (cur->kind == ExpressionKind::ElementSelect) {
+        auto& es = cur->as<ElementSelectExpression>();
+        ASTContext sctx(comp.getRoot(), LookupLocation::max);
+        ConstantValue sv = sctx.tryEval(es.selector());
+        if (!sv || !sv.isInteger() || sv.integer().hasUnknown())
+            return false;
+        selIdx.push_back(sv.integer().as<int64_t>().value_or(-1));
+        cur = &stripImplicitConv(es.value());
+    }
+    if (selIdx.empty())
+        return false;
+    std::reverse(selIdx.begin(), selIdx.end());  // outermost first
+    UHDM::any* node = oit->second;
+    const Type* dt = &pbase.getType().getCanonicalType();
+    for (size_t d = 0; d < selIdx.size(); d++) {
+        if (!node || node->UhdmType() != UHDM::uhdmoperation ||
+            dt->kind != SymbolKind::FixedSizeUnpackedArrayType)
+            return false;
+        auto rng = dt->as<FixedSizeUnpackedArrayType>().range;
+        int32_t lo = std::min(rng.left, rng.right);
+        int64_t pos = selIdx[d] - lo;
+        auto* ops = ((UHDM::operation*)node)->Operands();
+        if (!ops || pos < 0 || pos >= (int64_t)ops->size())
+            return false;
+        node = (*ops)[pos];
+        dt = &dt->as<FixedSizeUnpackedArrayType>()
+                  .elementType.getCanonicalType();
+    }
+    if (!node || node->UhdmType() != UHDM::uhdmconstant)
+        return false;
+    foldC->VpiFile(node->VpiFile());
+    foldC->VpiLineNo(node->VpiLineNo());
+    foldC->VpiColumnNo(node->VpiColumnNo());
+    foldC->VpiEndLineNo(node->VpiEndLineNo());
+    foldC->VpiEndColumnNo(node->VpiEndColumnNo());
+    foldC->VpiParent(caParent);
+    return true;
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     std::set<const Symbol*> genLhsSyms;
@@ -9841,6 +9895,28 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             !rhs->VpiParent() && isMultiParamDef(body) &&
             stripImplicitConv(ae.right()).kind == ExpressionKind::NamedValue)
             rhs->VpiParent(ca);
+        // An UNPACKED-ARRAY param element-select RHS (assign a = P[0][0][2])
+        // folds to the leaf value in the elab view; Surelog anchors that
+        // constant at the SOURCE pattern-leaf element's span and parents it
+        // at the cont_assign (claiming the pattern's own leaf). Copy the leaf
+        // operand's location off the param's elab pattern op (reordered, so
+        // pos = index - lo indexes it directly at every nesting level) and
+        // re-parent at THIS cont_assign.
+        if (topView && unpackedParamSel && rhs &&
+            rhs->UhdmType() == UHDM::uhdmconstant && !rhs->VpiParent()) {
+            auto& rcU = stripImplicitConv(ae.right());
+            const Expression* base = &rcU;
+            while (base->kind == ExpressionKind::ElementSelect)
+                base = &stripImplicitConv(
+                    base->as<ElementSelectExpression>().value());
+            if (base->kind == ExpressionKind::NamedValue &&
+                base->as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::Parameter)
+                claimUnpackedParamLeaf(
+                    rcU,
+                    base->as<NamedValueExpression>().symbol.as<ParameterSymbol>(),
+                    (UHDM::constant*)rhs, ca);
+        }
         // An UNBASED-UNSIZED cont-assign RHS is never re-folded in the elab
         // view: Surelog reuses the DEF constant object as-is ('1 stays '1).
         if (topView && defInfo && myIdx < defInfo->contAssigns.size() &&
@@ -12471,10 +12547,15 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         syntaxRefPrefix = branchPrefix;
                         if (auto* rc2 =
                                 emitSyntaxExpr(*dcl->initializer->expr, pa2)) {
-                            // A literal/ref Rhs is unparented (Surelog parents
-                            // constants only as operation operands); an
-                            // OPERATION Rhs keeps its param_assign parent.
-                            if (rc2->UhdmType() != UHDM::uhdmoperation)
+                            // A REF Rhs re-parents at the cloned param_assign
+                            // (genvar_loop_decl_2 w = x); an OPERATION Rhs keeps
+                            // its param_assign parent; a LITERAL/computed
+                            // constant is unparented (Surelog parents constants
+                            // only as operation operands, and the compile-time
+                            // constant is not re-parented — LongConstant).
+                            if (rc2->UhdmType() == UHDM::uhdmref_obj)
+                                ((UHDM::expr*)rc2)->VpiParent(pa2);
+                            else if (rc2->UhdmType() != UHDM::uhdmoperation)
                                 ((UHDM::expr*)rc2)->VpiParent(nullptr);
                             pa2->Rhs((UHDM::expr*)rc2);
                         }

@@ -260,6 +260,11 @@ private:
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);
+    // Claim an unpacked-array param element-select's fold constant at the
+    // source pattern LEAF span + re-parent it at the cont_assign.
+    bool claimUnpackedParamLeaf(const slang::ast::Expression& sel,
+                                const slang::ast::ParameterSymbol& pbase,
+                                UHDM::constant* foldC, UHDM::any* caParent);
     void emitDefGenStmts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                          const std::string& prefix);
 
