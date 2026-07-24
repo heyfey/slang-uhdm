@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (98-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (68-DIFF state)
 
 > **READ [PLAYBOOK.md](PLAYBOOK.md) FIRST.** It governs HOW to work: the goal
 > is 0 DIFF / 0 CMP_ONLY, autonomous blocks never pause at milestones or ask
@@ -6,6 +6,71 @@
 > regression is the experiment that reveals the missing distinguisher
 > (revert-and-REFINE, never revert-and-abandon). This file records WHERE we
 > are; the playbook records HOW to keep moving.
+
+## Drive 7 (2026-07-23 12:00 -> 2026-07-24 ~03:00): 418 PASS / 175 CMP_ONLY / 68 DIFF (FINAL)
+
+16-hour Fable-serial + Opus-agent-wave drive (waves 12-21, 2 worktree agents each,
+calibration-hardened briefs). 98 -> 68 DIFF (30 removed), 405 -> 418 PASS. Goldens 23/23
+throughout; zero regressions kept (every gate = full corpus + movers diff vs
+results/baseline_auto.csv).
+
+### Converted this drive (DIFF -> CMP_ONLY/PASS)
+net_types, param_array_wildcard, ParameterPackedArray, sva_range(->PASS),
+StructArrayParameterInitializedByPatternPassedAsPort, fail_detect_width(->PASS),
+LocalParamInNestedForLoops, gen_test4, UnionCustomTypeMultirange, realexpr,
+iface_param_port_width, iface_cfg_mem, ModuleUsingStuctInput, ImportTypeOfPort(->PASS),
+OutputSizeWith...StructMember, ClogOfParam...StructMember, subbytes(->PASS),
+genscope_async_ff_signal(->PASS), MemoryInGenblock(->PASSS), StringWithBackslash(->PASS),
+BitsCallOnExpression(->PASS), struct_3d_packed_array(->PASS), struct_init_partial_write(->PASS),
+multidim_hier_path7(->PASS), asgn_binop(->PASS), Casezx(->PASS earlier in drive), and more.
+
+### The current 68 DIFFs — clustered from results/triage_drive7_final.txt (fresh r-sweep @ 002cc35)
+1. **iface-ARRAY family (5, r=-2359)**: iface_array_{modport_drive,port,struct,struct_whole} +
+   genvar_iface_struct — array_typespec(SL) vs interface_typespec(ours): interface ARRAY
+   ports need an array_typespec wrapper model. Single shared mechanism, biggest cluster.
+2. **module_inst rhsNULL family (~10, r=1)**: arraycells + simple_instance_array (PRIMITIVE
+   gate arrays — SymbolKind::PrimitiveInstance emission, P1 in batch-2 roadmap),
+   MIAIP (child vpiTypedef listing — wave-21 in flight), interface_array_fanout,
+   gen_struct_access, hier_path + ucsbece154b_victim_cache (select-member hier_path model:
+   csr_pmp_cfg_i[r].mode / dll_d[i].valid need hier_path + doubled elem struct_net),
+   VarPassedTo2Submodules (net-vs-var port modeling, decoded in memory),
+   TypedefVariableDimensions (array_var + pkg array_typespec ref), ParameterOfParametrizedTypeInSubmodule.
+3. **t2304 ref_typespec rhsNULL family (6, r=1)**: iface_scalar_localparam,
+   iface_struct_field_partsel (naming layer done, ONE ts ref missing),
+   iface_nested_param_field, iface_array_elem_cfg_param, ParameterFromPkgOnParameterPortList,
+   PartSelectInFor, func_typename_ret ($unit ret clone chain + orphan-serialization blocker
+   — see memory).
+4. **keep-symbolic stragglers (r=32/601)**: BitSelect*InGenFor* (gen-for variant of the
+   member-init family), iface_param_2level (2-level SYS_DAT un-fold, deferred as high-risk),
+   iface_wholestruct_param (module-localparam nested-pattern keep), simple_package (wave-14
+   partials landed; 3 sub-models decoded in memory), TypedefStructParamWithRangeInSubmodule,
+   MultirangesStartNotFromZero (packed-array-of-struct dims — wave-21 in flight).
+5. **Surelog-quirk / eval families**: func_upto r=12 (const-eval BAILS on variable-width
+   partial part-selects — keeps func_call for 512 instances), int_types + multiplier +
+   asym_ram pair (macro nested-arg width edge cases; asym at dl=63), cs_registers
+   (32'(P) cast keeps the param's SOURCE literal encoding DEC:1/2'd1), hierdefparam
+   (defparam), EnumInPackage (naming, parked), unbased_unsized_param (CA-claimed shared
+   constants), static_cast_simple, rotate + genscope_cells + generate_test + gen_test5
+   (gen HighConn/hier naming family), ExpressionInIndex + IndexedPartSelectInFor
+   (hier-path naming), prefix, const_func, const_arg_loop (func ts kinds), macc
+   (def bound const size-32 — emitter untraced), struct_param_dim (child elab CA def-share),
+   read_remux (gen CA select-bound localparam folds, decoded), rsp_gen_minimal (pkg
+   literal-op member bounds fold in ONE view + use-site ts span), assignment-pattern,
+   func_tern_hint (Surelog eval quirk), DivisionOfSize + nested_struct +
+   NestedStructArray... + arrays03 + ImportedDoubleCastedParameter + EnumInPackage
+   (pkg identity/orphan family).
+
+### In flight at close
+Wave-21 (wf_94c309bb-c7f, /tmp/final21.patch): MIAIP child typedef + Multiranges dims +
+BSOPPS TopPackages importer-first order. If not merged, verify the patch fresh (calibrate,
+gate) before applying.
+
+### Where the decodes live
+memory/diff-fix-roadmap.md carries the per-test decodes and refuted experiments for this
+whole drive (bottom half). Key reusable models discovered: member-init symbolic family,
+select-repoint ruleset, per-view netType policies, pkgTopMap cross-view linkage,
+macro arg-substitution columns, nested packed pattern vpiSize stamps, modport port-view
+param_assign keep, iface-member range keep-symbolic + elab fold-at-default.
 
 ## Session 21 (2026-07-23, drive 6 continuation): 405 PASS / 158 CMP_ONLY / 98 DIFF (FINAL)
 
