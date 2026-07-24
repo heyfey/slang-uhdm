@@ -296,6 +296,40 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     auto* r = s.MakeRange();
                     r->VpiParent(pat);
                     auto mkBound = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+                        // A packed-dim bound that is a bare ENUM-CONSTANT name
+                        // (logic [s_e:n_e] arr, s_e an enum member) stays
+                        // SYMBOLIC in the standalone typespec: Surelog emits a
+                        // ref_obj -> the enum_const (the packed_array_VAR view
+                        // still folds it to a constant). Resolve the source
+                        // identifier in the declaration's own scope.
+                        if (loc) {
+                            std::string raw(rawText(*loc));
+                            bool ident = !raw.empty() &&
+                                         (isalpha((unsigned char)raw[0]) ||
+                                          raw[0] == '_');
+                            for (char ch : raw)
+                                if (!(isalnum((unsigned char)ch) || ch == '_')) {
+                                    ident = false;
+                                    break;
+                                }
+                            if (ident) {
+                                if (auto* psc = declSymbol.getParentScope())
+                                    if (auto* bsym = psc->find(raw);
+                                        bsym &&
+                                        bsym->kind == SymbolKind::EnumValue)
+                                        if (auto eit = enumConstMap.find(bsym);
+                                            eit != enumConstMap.end() &&
+                                            eit->second->UhdmType() ==
+                                                UHDM::uhdmenum_const) {
+                                            auto* ro = s.MakeRef_obj();
+                                            ro->VpiName(raw);
+                                            ro->VpiParent(r);
+                                            setLoc(ro, *loc);
+                                            ro->Actual_group(eit->second);
+                                            return (UHDM::expr*)ro;
+                                        }
+                            }
+                        }
                         // Typedef-member context: an IDENTIFIER bound
                         // ([MpRegions:0]) keeps a member-scoped ref_obj
                         // chained to the pkg param's def Rhs (Surelog).
