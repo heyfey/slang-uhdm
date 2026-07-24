@@ -2702,6 +2702,10 @@ static int32_t mapSyntaxBinOp(syntax::SyntaxKind k) {
             return vpiEqOp;
         case syntax::SyntaxKind::InequalityExpression:
             return vpiNeqOp;
+        case syntax::SyntaxKind::WildcardEqualityExpression:
+            return 69; // vpiWildEqOp
+        case syntax::SyntaxKind::WildcardInequalityExpression:
+            return 70; // vpiWildNeqOp
         case syntax::SyntaxKind::LogicalAndExpression:
             return vpiLogAndOp;
         case syntax::SyntaxKind::LogicalOrExpression:
@@ -3618,6 +3622,53 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 continue;
             }
             auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) -> UHDM::expr* {
+                // DEF-view unpacked PARAM dim ([IFN-1:0]) referencing an
+                // OVERRIDDEN param: the bound stays a SYMBOLIC op11 with a
+                // bare ref <param>.<bound> (param_array_wildcard).
+                if (es && !defDimRefPrefix.empty() &&
+                    parent->UhdmType() == UHDM::uhdmparameter) {
+                    auto mkDimRef9 = [&](const syntax::ExpressionSyntax& is,
+                                         UHDM::BaseClass* rp) {
+                        auto* ro = s.MakeRef_obj();
+                        std::string nm(is.as<syntax::IdentifierNameSyntax>()
+                                           .identifier.valueText());
+                        ro->VpiName(nm);
+                        ro->VpiFullName(defDimRefPrefix + "." + nm);
+                        ro->VpiParent(rp);
+                        setLoc(ro, is.sourceRange());
+                        return ro;
+                    };
+                    if (es->kind == syntax::SyntaxKind::IdentifierName)
+                        return mkDimRef9(*es, r);
+                    if (es->kind == syntax::SyntaxKind::SubtractExpression) {
+                        auto& bs9 = es->as<syntax::BinaryExpressionSyntax>();
+                        if (bs9.left->kind ==
+                                syntax::SyntaxKind::IdentifierName &&
+                            bs9.right->kind ==
+                                syntax::SyntaxKind::IntegerLiteralExpression) {
+                            auto* op9 = s.MakeOperation();
+                            op9->VpiOpType(11);
+                            op9->VpiParent(r);
+                            setLoc(op9, es->sourceRange());
+                            auto* ops9 = s.MakeAnyVec();
+                            ops9->push_back(mkDimRef9(*bs9.left, op9));
+                            auto* c9 = s.MakeConstant();
+                            c9->VpiParent(op9);
+                            c9->VpiDecompile(
+                                rawText(bs9.right->sourceRange()));
+                            c9->VpiSize(64);
+                            c9->VpiValue(
+                                "UINT:" +
+                                std::string(
+                                    rawText(bs9.right->sourceRange())));
+                            c9->VpiConstType(vpiUIntConst);
+                            setLoc(c9, bs9.right->sourceRange());
+                            ops9->push_back(c9);
+                            op9->Operands(ops9);
+                            return (UHDM::expr*)op9;
+                        }
+                    }
+                }
                 // DEF-view array_net (interface/module def): a PARAM-based bound
                 // ([0:DLY]) stays SYMBOLIC — a bare ref_obj <arraynet>.<param>
                 // (no actual). The elab instance folds it to a constant.

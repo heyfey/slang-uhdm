@@ -474,7 +474,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             std::string afull = joinPath(prefix, ps.name);
             // Unpacked-dim range, parented to the param and SHARED with the
             // array_typespec (Surelog uses one range object for both).
-            auto* prng = buildUnpackedRanges(ps, up);
+            // BOTH views: dims referencing an OVERRIDDEN param keep SYMBOLIC
+            // bounds, bare refs scoped through the param
+            // (param_array_wildcard — elab uses op11 with the elab-scoped
+            // ref name too).
+            std::string dimPrefix9;
+            {
+                bool ovr9 = false;
+                if (auto dsyn9 = ps.getSyntax();
+                    dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator) {
+                    for (auto dim9 :
+                         dsyn9->as<syntax::DeclaratorSyntax>().dimensions) {
+                        std::function<void(const syntax::SyntaxNode&)> scan9 =
+                            [&](const syntax::SyntaxNode& sn9) {
+                                if (sn9.kind ==
+                                    syntax::SyntaxKind::IdentifierName) {
+                                    auto nm9 =
+                                        sn9.as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText();
+                                    if (auto* hit9 =
+                                            body.find(std::string(nm9));
+                                        hit9 &&
+                                        hit9->kind ==
+                                            SymbolKind::Parameter &&
+                                        isOverriddenParam(*hit9))
+                                        ovr9 = true;
+                                }
+                                for (size_t i9 = 0;
+                                     i9 < sn9.getChildCount(); i9++)
+                                    if (auto* cn9 = sn9.childNode(i9))
+                                        scan9(*cn9);
+                            };
+                        scan9(*dim9);
+                    }
+                }
+                if (ovr9)
+                    dimPrefix9 = afull;
+            }
+            auto* prng = buildUnpackedRanges(ps, up, dimPrefix9);
             if (prng)
                 up->Ranges(prng);
             up->VpiSize(1);
@@ -1185,6 +1222,75 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rhs = aop;
                     }
                 }
+                // ELAB OVERRIDDEN unpacked VECTOR-array param: the Rhs folds
+                // to ONE wide BIN constant of the OVERRIDE bits at the
+                // DEFAULT span, nameless ts ref -> the array_typespec.
+                // Surelog ZERO-extends sized 'b literals (17'bx -> 16 zeros
+                // + x), so fold TEXTUALLY from the override syntax and bail
+                // on any non-'b leaf (param_array_wildcard).
+                if (!rhs && topView && !inPackage && overridden &&
+                    paramArrayTs && boundInit && boundInit->syntax &&
+                    defaultSyn) {
+                    const Type* lf9 = &ps.getType().getCanonicalType();
+                    bool isArr9 =
+                        lf9->kind == SymbolKind::FixedSizeUnpackedArrayType;
+                    while (lf9->getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType)
+                        lf9 = &lf9->getCanonicalType()
+                                   .as<FixedSizeUnpackedArrayType>()
+                                   .elementType;
+                    if (isArr9 && lf9->getCanonicalType().isPackedArray()) {
+                        std::string bits9;
+                        std::function<bool(const syntax::SyntaxNode&)> fold9 =
+                            [&](const syntax::SyntaxNode& sn9) -> bool {
+                            if (sn9.kind == syntax::SyntaxKind::
+                                                ConcatenationExpression) {
+                                for (auto* el9 :
+                                     sn9.as<syntax::ConcatenationExpressionSyntax>()
+                                         .expressions)
+                                    if (!fold9(*el9))
+                                        return false;
+                                return true;
+                            }
+                            if (sn9.kind == syntax::SyntaxKind::
+                                                IntegerVectorExpression) {
+                                std::string t9(rawText(sn9.sourceRange()));
+                                auto q9 = t9.find('\'');
+                                if (q9 == std::string::npos || q9 == 0)
+                                    return false;
+                                size_t sz9 =
+                                    (size_t)atoi(t9.substr(0, q9).c_str());
+                                if (!sz9 || q9 + 1 >= t9.size() ||
+                                    (char)tolower(t9[q9 + 1]) != 'b')
+                                    return false;
+                                std::string dg9;
+                                for (char ch9 : t9.substr(q9 + 2))
+                                    if (ch9 != '_' && ch9 != ' ')
+                                        dg9 += (char)tolower(ch9);
+                                if (dg9.empty() || dg9.size() > sz9)
+                                    return false;
+                                bits9 +=
+                                    std::string(sz9 - dg9.size(), '0') + dg9;
+                                return true;
+                            }
+                            return false;
+                        };
+                        if (fold9(*boundInit->syntax) && !bits9.empty()) {
+                            auto* c9 = s.MakeConstant();
+                            c9->VpiDecompile(std::to_string(bits9.size()) +
+                                             "'b" + bits9);
+                            c9->VpiSize((int32_t)bits9.size());
+                            c9->VpiValue("BIN:" + bits9);
+                            c9->VpiConstType(vpiBinaryConst);
+                            setLoc(c9, defaultSyn->sourceRange());
+                            auto* rt9 = s.MakeRef_typespec();
+                            rt9->VpiParent(c9);
+                            rt9->Actual_typespec(paramArrayTs);
+                            c9->Typespec(rt9);
+                            rhs = c9;
+                        }
+                    }
+                }
                 // DEF-view TYPEDEF-typed param whose default is an UNQUALIFIED
                 // ref to an imported pkg param (materialized in this module)
                 // keeps an UNBOUND ref_obj Rhs (Surelog), not a fold. A param
@@ -1822,6 +1928,55 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     else {
         auto* lts = s.MakeLogic_typespec();
         setLoc(lts, typeR);
+        // A packed-VECTOR element (logic [31:0]) spans the full type syntax
+        // and carries its packed range with literal-folded bounds
+        // (param_array_wildcard).
+        if (auto declared9 = ps.getDeclaredType()) {
+            if (auto tsyn9 = declared9->getTypeSyntax()) {
+                if (auto* its9 = tsyn9->as_if<syntax::IntegerTypeSyntax>();
+                    its9 && !its9->dimensions.empty() &&
+                    leaf->getCanonicalType().isPackedArray()) {
+                    setLoc(lts, tsyn9->sourceRange());
+                    auto cr9 =
+                        leaf->getCanonicalType().as<PackedArrayType>().range;
+                    auto* dim9 = its9->dimensions[0];
+                    auto* rng9 = s.MakeRange();
+                    rng9->VpiParent(lts);
+                    setLoc(rng9, dim9->sourceRange());
+                    const syntax::ExpressionSyntax* ls9 = nullptr;
+                    const syntax::ExpressionSyntax* rs9 = nullptr;
+                    if (dim9->specifier &&
+                        dim9->specifier->kind ==
+                            syntax::SyntaxKind::RangeDimensionSpecifier)
+                        if (auto* rsel9 =
+                                dim9->specifier
+                                    ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                    .selector
+                                    ->as_if<syntax::RangeSelectSyntax>()) {
+                            ls9 = rsel9->left;
+                            rs9 = rsel9->right;
+                        }
+                    auto mkc9 = [&](int64_t v9,
+                                    const syntax::ExpressionSyntax* es9) {
+                        auto* c9 = s.MakeConstant();
+                        c9->VpiParent(rng9);
+                        std::string d9 = std::to_string(v9);
+                        c9->VpiDecompile(d9);
+                        c9->VpiSize(64);
+                        c9->VpiValue("UINT:" + d9);
+                        c9->VpiConstType(vpiUIntConst);
+                        if (es9)
+                            setLoc(c9, es9->sourceRange());
+                        return c9;
+                    };
+                    rng9->Left_expr(mkc9(cr9.left, ls9));
+                    rng9->Right_expr(mkc9(cr9.right, rs9));
+                    auto* rv9 = s.MakeRangeVec();
+                    rv9->push_back(rng9);
+                    lts->Ranges(rv9);
+                }
+            }
+        }
         elemTs = lts;
     }
     auto* ats = s.MakeArray_typespec();
