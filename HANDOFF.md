@@ -1,6 +1,6 @@
-# HANDOFF — slang-uhdm convergence campaign (11-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (10-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~14:35, Opus lane): 472 PASS / 178 CMP_ONLY / 11 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~15:00, Opus lane): 477 PASS / 174 CMP_ONLY / 10 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
@@ -128,7 +128,17 @@ AssignToUnionAndReadField, AssignToUnpackedUnionFieldAndReadOtherField.
 - Package struct-member bounds keep the written syntax in the def view and fold to a signed int at the
   identifier token in the elab view.
 
-### Waves 55-58 landings (each gated, zero regressions)
+### Waves 55-59 landings (each gated, zero regressions)
+- pp57: 5 CMP_ONLY->PASS (LocalParamSelect/NestedForLoops/ParameterUnpackedArray/
+  ParameterUnpackedLogicArray/PatternParameterInSubmodule). An unpacked-array-param ELEMENT SELECT
+  claims the pattern's leaf constant (leaf span + CA parent; its Lhs binds DEF nets so an `output int`
+  target reaches the def logic_net). The elab array_typespec is a WRITE-PHASE clone with its own ranges.
+- mac55: int_types DIFF->CMP_ONLY (8984->3040), cs_registers 1195->1013. NOT vpiSigned/typespec-count as
+  briefed — it is the elaborated gen-scope-local model: unnamed begin blocks count as genblkN at MODULE
+  scope, gen locals emit their true var/ts CLASS (int/shortint/longint/byte/bit) with per-view
+  signedness, and an INT-encoded fold (negative/multiplicative) SHARES the param's typespec.
+  (mac55 branched from an earlier HEAD; its UhdmExporter.h struct-field and ExprEmit unary-suppression
+  hunks conflicted with waves 57/58 — resolved by UNION, keeping both sets of flags.)
 - if55: 3 iface DIFF->CMP_ONLY. A CA reading an interface param through the module's OWN iface/modport
   port is exempt from the elab general fold (the cast keeps its hier_path). REFUTED "the def view always
   keeps the tagged form": the distinguisher is interface-ARRAY instantiation, where Surelog re-reduces the
