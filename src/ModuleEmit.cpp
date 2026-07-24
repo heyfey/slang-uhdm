@@ -48,23 +48,34 @@ static bool isExplicitPkgQualified(const Symbol& sym) {
            syntax::SyntaxKind::ScopedName;
 }
 
-static bool isPkgStructType(const Symbol& sym) {
+static bool isPkgStructType(const Symbol& sym, bool descendUnpacked = false) {
     auto* dt = sym.getDeclaredType();
     if (!dt)
         return false;
-    // Descend packed-array dims to the leaf (a packed array of a package
-    // struct is still a package-struct net).
+    // Descend packed (and, for the IFACE array arms only, unpacked) array
+    // dims to the leaf (an array of a package struct is still a
+    // package-struct net — iface_arr_struct_whole_field).
+    auto step9 = [&](const Type* t9) -> const Type* {
+        auto& c9 = t9->getCanonicalType();
+        if (c9.kind == SymbolKind::PackedArrayType)
+            return &c9.as<PackedArrayType>().elementType;
+        if (descendUnpacked &&
+            c9.kind == SymbolKind::FixedSizeUnpackedArrayType)
+            return &c9.as<FixedSizeUnpackedArrayType>().elementType;
+        return nullptr;
+    };
     const Type* leaf = &dt->getType().getCanonicalType();
-    while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType)
-        leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+    while (auto* n9 = step9(leaf))
+        leaf = n9;
     if (!leaf->getCanonicalType().isStruct())
         return false;
     // The named alias (possibly reached through the array dims).
     const Type* t = &dt->getType();
-    while (t->getCanonicalType().kind == SymbolKind::PackedArrayType) {
-        if (t->kind == SymbolKind::TypeAlias)
+    while (t->kind != SymbolKind::TypeAlias) {
+        auto* n9 = step9(t);
+        if (!n9)
             break;
-        t = &t->getCanonicalType().as<PackedArrayType>().elementType;
+        t = n9;
     }
     if (t->kind != SymbolKind::TypeAlias)
         return false;
@@ -9513,7 +9524,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         // req_t req) or local typedef stays UNTYPED (Surelog keys on the
         // written form).
         else if (it.sym->kind == SymbolKind::Variable &&
-                 isPkgStructType(*it.sym) && isExplicitPkgQualified(*it.sym) &&
+                 isPkgStructType(*it.sym, /*descendUnpacked=*/true) && isExplicitPkgQualified(*it.sym) &&
                  !hasStructFieldMember(*it.sym))
             n->VpiNetType(vpiWire);
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
@@ -9559,11 +9570,19 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             irt9->VpiFullName(prefix + "." + name + "." + name);
             irt9->VpiParent(in9);
             in9->Typespec(irt9);
-            // Struct-element array: inner net shares the struct element ts and
-            // carries NO vpiNetType (Surelog); scalar-element arrays keep the
-            // logic-net form (netType 36, deferred logic typespec).
-            if (auto* sts = structElemTs(*it.sym))
+            // Struct-element array: inner net shares the struct element ts;
+            // an EXPLICITLY pkg-qualified struct element is a wire
+            // (iface_arr_struct_whole_field), an imported bare name carries
+            // NO vpiNetType. Scalar-element arrays keep the logic-net form
+            // (netType 36, deferred logic typespec).
+            if (auto* sts = structElemTs(*it.sym)) {
                 irt9->Actual_typespec(sts);
+                if (it.sym->kind == SymbolKind::Variable &&
+                    isPkgStructType(*it.sym, /*descendUnpacked=*/true) &&
+                    isExplicitPkgQualified(*it.sym) &&
+                    !hasStructFieldMember(*it.sym))
+                    in9->VpiNetType(vpiWire);
+            }
             else {
                 in9->VpiNetType(36);
                 pendingNetTs.push_back({it.sym, irt9, &info});
