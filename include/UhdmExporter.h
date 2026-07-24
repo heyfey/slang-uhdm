@@ -192,6 +192,14 @@ private:
     // The interface_typespec for an InterfacePort: a modport typespec
     // (vpiIsModPort) whose parent is the base interface typespec.
     UHDM::interface_typespec* makeIfacePortTs(const slang::ast::InterfacePortSymbol& ip);
+    // An ARRAY interface port (myif.man m [2-1:0]): the port's actual typespec
+    // is an array_typespec wrapping the modport interface_typespec; the owning
+    // module_inst ALSO carries a def-view interface_array (name=port, fullname=
+    // the TYPE.MODPORT text). Returns the array_typespec (port actual) or null
+    // when the port is not an array.
+    UHDM::array_typespec* makeIfaceArrayPortTs(
+        const slang::ast::InterfacePortSymbol& ip, UHDM::instance* mod,
+        const std::string& prefix);
     // Dotted interface-member path (s.req.adr) -> hier_path with per-token
     // ref_obj elements; the LAST element carries a module-scoped fullname.
     UHDM::hier_path* buildDottedHierPath(const slang::ast::Expression& expr,

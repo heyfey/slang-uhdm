@@ -4297,7 +4297,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (sc9->asSymbol().kind == SymbolKind::InstanceBody)
                         break;
                 }
-                if (inLhs && genTgt9 && !elems->empty()) {
+                // Also applies through an INDEXED iface-array base
+                // (assign m[0].req = ... — iface_array_struct_whole).
+                bool idxBase9 =
+                    !parts.empty() &&
+                    parts[0].first.find('[') != std::string::npos;
+                if (inLhs && (genTgt9 || idxBase9) && !elems->empty()) {
                     auto* fe9 = (UHDM::expr*)elems->front();
                     hp->VpiEndLineNo(fe9->VpiEndLineNo());
                     hp->VpiEndColumnNo(fe9->VpiEndColumnNo());

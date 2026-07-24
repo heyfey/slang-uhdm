@@ -5852,9 +5852,18 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             p->Low_conn(lc);
             auto* rt = s.MakeRef_typespec();
             rt->VpiParent(p);
+            // An ARRAY interface port (myif.man m [2-1:0]): the DEF-view actual
+            // is an array_typespec wrapping the modport interface_typespec, and
+            // the module carries an interface_array. Non-array ports unchanged.
+            UHDM::array_typespec* arrTs = nullptr;
+            if (!ip.modport.empty() && !topView &&
+                m->UhdmType() == UHDM::uhdmmodule_inst)
+                arrTs = makeIfaceArrayPortTs(ip, m, prefix);
             // A plain (no-modport) DEF iface-port typespec is created LATE —
             // after the receiving child's port-view emission (arena order).
-            if (ip.modport.empty() && !topView &&
+            if (arrTs)
+                rt->Actual_typespec(arrTs);
+            else if (ip.modport.empty() && !topView &&
                 m->UhdmType() == UHDM::uhdmmodule_inst)
                 pendingIfacePortTs.push_back({rt, &ip});
             else
@@ -8872,6 +8881,111 @@ UHDM::interface_typespec* UhdmExporter::makeIfacePortTs(const InterfacePortSymbo
         setLoc(its, vdt->sourceRange());
     }
     return its;
+}
+
+UHDM::array_typespec* UhdmExporter::makeIfaceArrayPortTs(
+    const InterfacePortSymbol& ip, UHDM::instance* mod,
+    const std::string& prefix) {
+    // Locate the declarator (dimensions) and the interface-port header.
+    const syntax::DeclaratorSyntax* decl = nullptr;
+    const syntax::InterfacePortHeaderSyntax* iph = nullptr;
+    for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
+        if (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+            auto& iap = sy->as<syntax::ImplicitAnsiPortSyntax>();
+            decl = iap.declarator;
+            if (iap.header &&
+                iap.header->kind == syntax::SyntaxKind::InterfacePortHeader)
+                iph = &iap.header->as<syntax::InterfacePortHeaderSyntax>();
+            break;
+        }
+        if (sy->kind == syntax::SyntaxKind::Declarator && !decl)
+            decl = &sy->as<syntax::DeclaratorSyntax>();
+        if (sy->kind == syntax::SyntaxKind::InterfacePortHeader)
+            iph = &sy->as<syntax::InterfacePortHeaderSyntax>();
+    }
+    if (!decl || decl->dimensions.empty() || !iph)
+        return nullptr;
+    auto* dim = *decl->dimensions.begin();
+    // Build the modport interface_typespec now that we know this is an array.
+    UHDM::interface_typespec* elemTs = makeIfacePortTs(ip);
+    // Symbolic range from the dim SYNTAX ([2-1:0] -> op11 UINT:2/UINT:1, 0).
+    auto mkRange = [&](UHDM::BaseClass* rparent) -> UHDM::range* {
+        auto* r = s.MakeRange();
+        r->VpiParent(rparent);
+        setLoc(r, dim->sourceRange());
+        const syntax::ExpressionSyntax* leftSyn = nullptr;
+        const syntax::ExpressionSyntax* rightSyn = nullptr;
+        if (dim->specifier &&
+            dim->specifier->kind ==
+                syntax::SyntaxKind::RangeDimensionSpecifier) {
+            auto& sel = *dim->specifier
+                             ->as<syntax::RangeDimensionSpecifierSyntax>()
+                             .selector;
+            if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                leftSyn = rss->left;
+                rightSyn = rss->right;
+            }
+        }
+        if (leftSyn)
+            if (auto* le = emitSyntaxExpr(*leftSyn, r))
+                r->Left_expr((UHDM::expr*)le);
+        if (rightSyn)
+            if (auto* re = emitSyntaxExpr(*rightSyn, r))
+                r->Right_expr((UHDM::expr*)re);
+        return r;
+    };
+    // array_typespec spanning the whole port decl (type.modport name [dim]).
+    auto* ats = s.MakeArray_typespec();
+    ats->VpiParent(mod);
+    ats->VpiArrayType(1);
+    SourceLocation atsStart = iph->nameOrKeyword.range().start();
+    SourceLocation atsEnd = dim->sourceRange().end();
+    setLoc(ats, SourceRange(atsStart, atsEnd));
+    auto* arng = s.MakeRangeVec();
+    arng->push_back(mkRange(ats));
+    ats->Ranges(arng);
+    // Elem typespec ref -> the modport interface_typespec (man @type.modport).
+    auto* ert = s.MakeRef_typespec();
+    ert->VpiFullName(prefix + "." + std::string(ip.name));
+    ert->VpiParent(ats);
+    ert->Actual_typespec(elemTs);
+    ats->Elem_typespec(ert);
+
+    // The owning module carries an interface_array (name=port, fullname=the
+    // TYPE.MODPORT text). Its elem ref points at a SEPARATE interface_typespec
+    // named "type.modport" spanning the whole type.modport text.
+    auto* iarr = s.MakeInterface_array();
+    iarr->VpiParent(mod);
+    iarr->VpiName(std::string(ip.name));
+    std::string typeText(iph->nameOrKeyword.valueText());
+    if (iph->modport)
+        typeText += "." + std::string(iph->modport->member.valueText());
+    iarr->VpiFullName(typeText);
+    if (decl->name)
+        setLoc(iarr, decl->name.range());
+    auto* irng = s.MakeRangeVec();
+    irng->push_back(mkRange(iarr));
+    iarr->Ranges(irng);
+    auto* iet = s.MakeInterface_typespec();
+    iet->VpiName(typeText);
+    SourceLocation ietEnd = iph->modport
+                                ? iph->modport->member.range().end()
+                                : iph->nameOrKeyword.range().end();
+    setLoc(iet, SourceRange(iph->nameOrKeyword.range().start(), ietEnd));
+    auto* iert = s.MakeRef_typespec();
+    iert->VpiFullName(prefix + "." + std::string(ip.name));
+    iert->VpiParent(iarr);
+    iert->Actual_typespec(iet);
+    iarr->Elem_typespec(iert);
+
+    auto* mi = (UHDM::module_inst*)mod;
+    auto* iarrs = mi->Interface_arrays();
+    if (!iarrs) {
+        iarrs = s.MakeInterface_arrayVec();
+        mi->Interface_arrays(iarrs);
+    }
+    iarrs->push_back(iarr);
+    return ats;
 }
 
 UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst) {
