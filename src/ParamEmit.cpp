@@ -22,6 +22,57 @@ static bool containsUserCall(const Expression& e) {
     return found;
 }
 
+// Surelog's constant-function evaluator BAILS on a function whose body declares
+// a LOCALPARAM at any block level: the elab param_assign then keeps a symbolic
+// Rhs instead of the folded value (const_func_block_var). Plain block variables,
+// named blocks and loops fold fine — the lifetime (static vs automatic) does
+// NOT matter (asym_ram_sdp_*_wider's static `log2` folds).
+static bool subroutineDeclaresParam(const Scope& sc) {
+    for (auto& m : sc.members()) {
+        if (m.kind == SymbolKind::Parameter || m.kind == SymbolKind::TypeParameter)
+            return true;
+        if (m.kind == SymbolKind::StatementBlock &&
+            subroutineDeclaresParam(m.as<StatementBlockSymbol>()))
+            return true;
+    }
+    return false;
+}
+
+// Surelog INLINES a foldable const function's body, so the folded constant is
+// encoded by the same rules a plain expression fold uses — driven by the RETURN
+// assignment's expression kind: a CONCAT body ({..}) folds full-width BIN, a
+// comparison/logical body folds BIN with DECIMAL digits, everything else UINT.
+enum class ConstCallEnc { Uint, BoolBin, ConcatBin };
+
+static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
+    ConstCallEnc enc = ConstCallEnc::Uint;
+    auto classify = [&](const Expression& rhs) {
+        auto& se = stripImplicitConv(rhs);
+        if (se.kind == ExpressionKind::Concatenation)
+            enc = ConstCallEnc::ConcatBin;
+        else if (se.kind == ExpressionKind::BinaryOp) {
+            auto bop = se.as<BinaryExpression>().op;
+            enc = (OpInfo::isComparison(bop) || bop == BinaryOperator::LogicalAnd ||
+                   bop == BinaryOperator::LogicalOr ||
+                   bop == BinaryOperator::LogicalImplication ||
+                   bop == BinaryOperator::LogicalEquivalence)
+                      ? ConstCallEnc::BoolBin
+                      : ConstCallEnc::Uint;
+        }
+        else
+            enc = ConstCallEnc::Uint;
+    };
+    sub.getBody().visit(makeVisitor([&](auto& v, const AssignmentExpression& a) {
+        auto& lhs = a.left();
+        if (sub.returnValVar && lhs.kind == ExpressionKind::NamedValue &&
+            &lhs.as<NamedValueExpression>().symbol ==
+                (const Symbol*)sub.returnValVar)
+            classify(a.right());
+        v.visitDefault(a);
+    }));
+    return enc;
+}
+
 // A module that IMPORTS (via wildcard or explicit import) and REFERENCES a
 // package parameter materializes it as a module-local parameter (Surelog sets
 // vpiImported = the package name). A QUALIFIED reference (pkg::P) with no
@@ -1465,11 +1516,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // the unfolded ref_obj, so this only fires under topView.
                     bool rangedFold =
                         topView && !inPackage && isRangedUntypedParam(ps);
-                    ((UHDM::constant*)rhs)
-                        ->VpiSize(typedParam || defUntypedImport || rangedFold
-                                      ? (int32_t)ps.getType().getBitWidth()
-                                  : sizeCastVal ? (int32_t)scv.type->getBitWidth()
-                                                : 64);
+                    // An UNTYPED param whose default is a CONCAT
+                    // ({(A) > (B) ? (A) : (B)}, the classic `max()` macro)
+                    // folds at the concat's OWN self-determined width — not
+                    // the 64-bit untyped default — and, unlike a concat fold
+                    // in a cont-assign/statement (bare, no decompile), the
+                    // param_assign Rhs form carries a based-binary decompile
+                    // (Surelog).
+                    bool concatFold = !typedParam && !defUntypedImport &&
+                                      !rangedFold && !sizeCastVal &&
+                                      scv.kind == ExpressionKind::Concatenation;
+                    if (!concatFold)
+                        ((UHDM::constant*)rhs)
+                            ->VpiSize(typedParam || defUntypedImport || rangedFold
+                                          ? (int32_t)ps.getType().getBitWidth()
+                                      : sizeCastVal ? (int32_t)scv.type->getBitWidth()
+                                                    : 64);
+                    else {
+                        auto* cc9 = (UHDM::constant*)rhs;
+                        std::string_view cv9 = cc9->VpiValue();
+                        if (cv9.rfind("BIN:", 0) == 0 && !cc9->VpiDecompile().size())
+                            cc9->VpiDecompile(std::to_string(cc9->VpiSize()) + "'b" +
+                                              std::string(cv9.substr(4)));
+                    }
                     // ELAB-pkg computed BinaryOp init folds at the LEFT
                     // operand's span, sized 32, with a ts ref patched to the
                     // param's int ts (Surelog).
@@ -1923,22 +1992,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
                 // A MODULE localparam initialized by a DIRECT const-call
-                // (localparam A = func(0)) folds BIN at the value width in
-                // the ELAB view; the def view keeps the func_call (Surelog).
+                // (localparam A = func(0)) folds in the ELAB view; the def view
+                // keeps the func_call (Surelog).
                 if (!rhs && topView && !inPackage && isLocal) {
                     auto& icc9 = stripImplicitConv(*init);
+                    const SubroutineSymbol* csub9 = nullptr;
                     if (icc9.kind == ExpressionKind::Call &&
-                        !icc9.as<CallExpression>().isSystemCall() &&
-                        // Only calls to AUTOMATIC functions fold; static
-                        // ones keep the func_call (const_func_block_var
-                        // distinguisher).
-                        [&] {
-                            auto sub9 = std::get_if<const SubroutineSymbol*>(
-                                &icc9.as<CallExpression>().subroutine);
-                            return sub9 && *sub9 &&
-                                   (*sub9)->defaultLifetime ==
-                                       VariableLifetime::Automatic;
-                        }()) {
+                        !icc9.as<CallExpression>().isSystemCall())
+                        if (auto sp9 = std::get_if<const SubroutineSymbol*>(
+                                &icc9.as<CallExpression>().subroutine))
+                            csub9 = *sp9;
+                    // A function whose body declares a LOCALPARAM defeats
+                    // Surelog's const evaluator — the call stays symbolic
+                    // (const_func_block_var). Lifetime is irrelevant.
+                    if (csub9 && !subroutineDeclaresParam(*csub9)) {
                         auto& pv9 = ps.getValue();
                         if (pv9.isInteger() &&
                             !pv9.integer().hasUnknown()) {
@@ -1974,18 +2041,45 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 rhs = c9;
                             }
                             else {
-                            int32_t w9 = (int32_t)iv9.getBitWidth();
-                            std::string bits9;
-                            for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
-                                bits9 += iv9[i9] == slang::logic_t(1)
-                                             ? '1'
-                                             : '0';
+                            // Surelog sizes the inlined fold at the FUNCTION
+                            // RETURN type's width; a PREDEFINED-integer return
+                            // (`function integer log2`) carries no explicit
+                            // width, so it takes the untyped 64-bit default
+                            // ([30:0]/[7:0] returns keep 31/8).
+                            auto& rty9 = csub9->getReturnType();
+                            int32_t w9 = rty9.isPredefinedInteger()
+                                             ? 64
+                                             : (int32_t)rty9.getBitWidth();
+                            if (w9 <= 0)
+                                w9 = (int32_t)iv9.getBitWidth();
+                            auto enc9 = constCallEncoding(*csub9);
+                            std::string digits9 =
+                                iv9.toString(LiteralBase::Decimal, false);
                             auto* c9 = s.MakeConstant();
-                            c9->VpiDecompile(std::to_string(w9) + "'b" +
-                                             bits9);
+                            if (enc9 == ConstCallEnc::ConcatBin) {
+                                auto wv9 = iv9.resize((slang::bitwidth_t)w9);
+                                std::string bits9;
+                                for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
+                                    bits9 += wv9[i9] == slang::logic_t(1)
+                                                 ? '1'
+                                                 : '0';
+                                c9->VpiDecompile(std::to_string(w9) + "'b" +
+                                                 bits9);
+                                c9->VpiValue("BIN:" + bits9);
+                                c9->VpiConstType(vpiBinaryConst);
+                            }
+                            else if (enc9 == ConstCallEnc::BoolBin) {
+                                c9->VpiDecompile(std::to_string(w9) + "'b" +
+                                                 digits9);
+                                c9->VpiValue("BIN:" + digits9);
+                                c9->VpiConstType(vpiBinaryConst);
+                            }
+                            else {
+                                c9->VpiDecompile(digits9);
+                                c9->VpiValue("UINT:" + digits9);
+                                c9->VpiConstType(vpiUIntConst);
+                            }
                             c9->VpiSize(w9);
-                            c9->VpiValue("BIN:" + bits9);
-                            c9->VpiConstType(vpiBinaryConst);
                             c9->VpiParent(pa);
                             setLoc(c9, icc9.sourceRange);
                             rhs = c9;
