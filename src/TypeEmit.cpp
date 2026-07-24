@@ -1336,6 +1336,27 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 auto tick = raw.find('\'');
                 if (tick != std::string::npos) {
                     // Based literal: literal encoding at the literal size.
+                    // Surelog strips whitespace between the base char and
+                    // the digits (3'h 0 -> 3'h0), shrinking the end loc
+                    // (rsp_gen_minimal).
+                    {
+                        size_t bp9 = tick + 1;
+                        if (bp9 < raw.size() &&
+                            (raw[bp9] == 's' || raw[bp9] == 'S'))
+                            bp9++;
+                        size_t ws9 = 0;
+                        while (bp9 + 1 + ws9 < raw.size() &&
+                               (raw[bp9 + 1 + ws9] == ' ' ||
+                                raw[bp9 + 1 + ws9] == '\t'))
+                            ws9++;
+                        if (ws9) {
+                            raw.erase(bp9 + 1, ws9);
+                            if (ec->VpiEndColumnNo() >
+                                (int32_t)ws9)
+                                ec->VpiEndColumnNo(ec->VpiEndColumnNo() -
+                                                   (int32_t)ws9);
+                        }
+                    }
                     ec->VpiDecompile(raw);
                     ec->VpiSize((int32_t)lit.type->getBitWidth());
                     size_t basePos = tick + 1;
