@@ -621,6 +621,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         UHDM::constant* rhsConstForMap = nullptr;
         bool pkgRefFold = false;
         auto* pa = s.MakeParam_assign();
+        if (topView)
+            elabParamPa[&member] = pa;
         pa->VpiParent(m);
         if (auto syn = ps.getSyntax())
             setLoc(pa, syn->sourceRange());
@@ -908,6 +910,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // than INT/size-1.
                 if (isMultiParamDef(body))
                     genChild = true;
+                // Children INSTANTIATED INSIDE a gen scope are uniquified
+                // too (generate_test adder_inst) — UINT at the width.
+                if (!genChild &&
+                    body.asSymbol().kind == SymbolKind::InstanceBody &&
+                    body.asSymbol().as<InstanceBodySymbol>().parentInstance)
+                    if (auto psc9 = body.asSymbol()
+                                        .as<InstanceBodySymbol>()
+                                        .parentInstance->getParentScope();
+                        psc9 &&
+                        (psc9->asSymbol().kind == SymbolKind::GenerateBlock ||
+                         psc9->asSymbol().kind ==
+                             SymbolKind::GenerateBlockArray))
+                        genChild = true;
                 // A VECTOR-TYPEDEF param's literal override keeps its SOURCE
                 // base form (384'b1 -> BIN:1, binary const) — Surelog.
                 bool vecAliasOv8 = false;

@@ -1372,15 +1372,70 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (!suppressConstParent && parent &&
                             parent->UhdmType() == UHDM::uhdmoperation)
                             c->VpiParent(parent);
+                        // In a gen-scope PROCESS bound fold, the constant
+                        // claims the param's ELAB param_assign as parent and
+                        // scopes its ts ref at the MODULE (generate_test
+                        // result[i*W +: W]).
+                        bool genPsBound9 = inGenScopeProc && !currentSubSym;
+                        if (genPsBound9 && prefix != selectBasePrefix)
+                            for (auto& [esym9, epa9] : elabParamPa)
+                                if (esym9->location == nv.symbol.location &&
+                                    esym9->name == nv.symbol.name) {
+                                    c->VpiParent((UHDM::any*)epa9);
+                                    break;
+                                }
                         // SL carries the folded param's type as a ref_typespec
                         // whose fullname is the enclosing (function) scope.
                         auto* its = s.MakeInt_typespec();
-                        if (auto dt = psym.getDeclaredType())
-                            if (auto tsy = dt->getTypeSyntax())
-                                setLoc(its, tsy->sourceRange());
+                        bool locSet9 = false;
+                        if (genPsBound9) {
+                            // Full parameter-declaration span (28:5-29).
+                            for (auto q9 = psym.getSyntax(); q9;
+                                 q9 = q9->parent)
+                                if (syntax::ParameterDeclarationBaseSyntax::
+                                        isKind(q9->kind)) {
+                                    setLoc(its, q9->sourceRange());
+                                    locSet9 = true;
+                                    break;
+                                }
+                        }
+                        if (!locSet9)
+                            if (auto dt = psym.getDeclaredType())
+                                if (auto tsy = dt->getTypeSyntax())
+                                    setLoc(its, tsy->sourceRange());
                         auto* rt = s.MakeRef_typespec();
                         rt->VpiParent(c);
-                        rt->VpiFullName(prefix);
+                        std::string rpfx9 = prefix;
+                        if (genPsBound9 && currentGenBlkScope &&
+                            prefix != selectBasePrefix) {
+                            int drop9 = 0;
+                            for (auto w9 = &currentGenBlkScope->asSymbol();
+                                 w9;) {
+                                if (w9->kind == SymbolKind::GenerateBlock) {
+                                    auto* pp9 = w9->getParentScope();
+                                    if (pp9 && pp9->asSymbol().kind ==
+                                                   SymbolKind::
+                                                       GenerateBlockArray) {
+                                        drop9++;
+                                        w9 = &pp9->asSymbol();
+                                    }
+                                    else if (!w9->name.empty())
+                                        drop9++;
+                                }
+                                else if (w9->kind ==
+                                         SymbolKind::InstanceBody)
+                                    break;
+                                auto* pp9 = w9->getParentScope();
+                                if (!pp9)
+                                    break;
+                                w9 = &pp9->asSymbol();
+                            }
+                            for (int d9 = 0; d9 < drop9; d9++)
+                                if (auto dp9 = rpfx9.rfind('.');
+                                    dp9 != std::string::npos)
+                                    rpfx9.resize(dp9);
+                        }
+                        rt->VpiFullName(rpfx9);
                         rt->Actual_typespec(its);
                         c->Typespec(rt);
                         return c;
@@ -1484,7 +1539,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // unconnected gen locals stay unbound (gen_test7,
                         // genvar_loop_decl_3, iface_gen_delay_struct).
                         bool connUse9 = false;
-                        if (ps9s && nv.symbol.kind == SymbolKind::Variable &&
+                        if (genScopeProcInLoop && ps9s &&
+                            nv.symbol.kind == SymbolKind::Variable &&
                             nv.symbol.getDeclaredType() &&
                             nv.symbol.getDeclaredType()
                                     ->getType()
@@ -3800,6 +3856,59 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 selectBasePrefix = basePfx;
                 bool savedPsB9 = inPsBound;
                 inPsBound = true;
+                // ELAB gen-scope CONN bounds FOLD: base -> INT at the
+                // first-token span, width -> UINT at the value width
+                // (generate_test .a(data_in[i*W +: W])).
+                if (genvarConnFold) {
+                    ASTContext gcx9(comp.getRoot(), LookupLocation::max);
+                    UHDM::expr* bf9 = nullptr;
+                    UHDM::expr* wf9 = nullptr;
+                    if (auto bv9 = gcx9.tryEval(rs.left());
+                        bv9 && bv9.isInteger() &&
+                        !bv9.integer().hasUnknown()) {
+                        auto* c9 = s.MakeConstant();
+                        std::string d9 = bv9.integer().toString(
+                            LiteralBase::Decimal, false);
+                        c9->VpiDecompile(d9);
+                        c9->VpiSize(64);
+                        c9->VpiValue("INT:" + d9);
+                        c9->VpiConstType(vpiIntConst);
+                        auto st9 = rs.left().sourceRange.start();
+                        // Span = the FIRST source token of the base expr
+                        // (the `i` of i*W), regardless of digit count.
+                        std::string braw9(rawText(rs.left().sourceRange));
+                        size_t tok9 = 0;
+                        while (tok9 < braw9.size() &&
+                               (isalnum((unsigned char)braw9[tok9]) ||
+                                braw9[tok9] == '_' || braw9[tok9] == '$'))
+                            tok9++;
+                        if (!tok9)
+                            tok9 = d9.size();
+                        setLoc(c9, SourceRange(st9, st9 + tok9));
+                        bf9 = c9;
+                    }
+                    if (auto wv9 = gcx9.tryEval(rs.right());
+                        wv9 && wv9.isInteger() &&
+                        !wv9.integer().hasUnknown()) {
+                        auto* c9 = s.MakeConstant();
+                        std::string d9 = wv9.integer().toString(
+                            LiteralBase::Decimal, false);
+                        c9->VpiDecompile(d9);
+                        c9->VpiSize((int32_t)rs.right().type->getBitWidth());
+                        c9->VpiValue("UINT:" + d9);
+                        c9->VpiConstType(vpiUIntConst);
+                        setLoc(c9, rs.right().sourceRange);
+                        wf9 = c9;
+                    }
+                    if (bf9 && wf9) {
+                        ips->Base_expr(bf9);
+                        ips->Width_expr(wf9);
+                        inPsBound = savedPsB9;
+                        suppressConstParent = savedSup;
+                        selectBasePrefix = savedSel;
+                        return ips;
+                    }
+                }
                 suppressConstParent = isLiteralExpr(rs.left());
                 if (auto* b = emitExpr(rs.left(), ips, boundPfx(rs.left()), netMap))
                     ips->Base_expr((UHDM::expr*)b);

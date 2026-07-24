@@ -3464,6 +3464,19 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                          std::string(inst.name) + "." +
                                          std::string(bsx->VpiName()));
                     }
+                    // Indexed-part-select HighConns double through the
+                    // child instance AND the formal (generate_test).
+                    if (h && h->UhdmType() == UHDM::uhdmindexed_part_select) {
+                        auto* ipx = (UHDM::indexed_part_select*)h;
+                        const std::string& dblPfx =
+                            (genvarConnFold && !genConnPrefix.empty())
+                                ? genConnPrefix
+                                : hcPrefix;
+                        ipx->VpiFullName(dblPfx + "." +
+                                         std::string(inst.name) + "." +
+                                         std::string(ps.name) + "." +
+                                         std::string(ipx->VpiName()));
+                    }
                     // A CALL HighConn's arg refs scope through the child
                     // instance + formal and stay UNBOUND (Surelog). The
                     // called imported function lists on the ENCLOSING module;
