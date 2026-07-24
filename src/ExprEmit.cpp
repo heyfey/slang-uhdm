@@ -17,6 +17,28 @@ namespace slang_uhdm {
 // A selector's source text used inside a hier_path/select NAME drops
 // whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
 // object name even when the source spaced it.
+// Surelog's decompiler renders binary arithmetic operators inside index
+// text with surrounding single spaces (sram_otp_key_o[2-2] -> [2 - 2]).
+// Leaves unary +/- (at `[` or start) and already-spaced text alone; a plain
+// literal/identifier index (no operator) is untouched.
+static std::string spaceIdxOps(const std::string& in) {
+    std::string o;
+    for (size_t i = 0; i < in.size(); i++) {
+        char c = in[i];
+        if ((c == '+' || c == '-' || c == '*' || c == '/') && i > 0 &&
+            in[i - 1] != ' ' && in[i - 1] != '[' &&
+            !((c == '+' || c == '-') && i + 1 < in.size() && in[i + 1] == ':')) {
+            o += ' ';
+            o += c;
+            if (i + 1 < in.size() && in[i + 1] != ' ')
+                o += ' ';
+        }
+        else
+            o += c;
+    }
+    return o;
+}
+
 static std::string selName(std::string s) {
     // Surelog strips whitespace ADJACENT to select punctuation ([ ] : and
     // the +:/-: tokens) but keeps single spaces inside arithmetic
@@ -515,7 +537,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     for (size_t i = 0; i < comps.size(); ++i) {
         dotted += (i == 0 ? comps[i].name : "." + comps[i].name);
         for (auto& sel : comps[i].sels)
-            dotted += "[" + rawText(sel.sel->sourceRange) + "]";
+            dotted += "[" + spaceIdxOps(rawText(sel.sel->sourceRange)) + "]";
     }
 
     // A multi-dim element select on the BASE array (group_status[0][0].a)
@@ -546,7 +568,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // dotted fullnames; each bit_select's loc is the base name (first
             // dim) or the prior selector's span (later dims).
             for (size_t k = 0; k < comp.sels.size(); ++k) {
-                dottedAt += "[" + rawText(comp.sels[k].sel->sourceRange) + "]";
+                dottedAt += "[" + spaceIdxOps(rawText(comp.sels[k].sel->sourceRange)) + "]";
                 auto* bs = s.MakeBit_select();
                 if (k == 0) // only the first dim carries vpiName
                     bs->VpiName(comp.name);
@@ -578,7 +600,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         }
         else if (!comp.sels.empty()) {
             auto& sel = comp.sels[0];
-            dottedAt += "[" + rawText(sel.sel->sourceRange) + "]";
+            dottedAt += "[" + spaceIdxOps(rawText(sel.sel->sourceRange)) + "]";
             auto* bs = s.MakeBit_select();
             bs->VpiName(comp.name);
             bs->VpiParent(hp);
@@ -3063,6 +3085,135 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     vs->Exprs(idxs);
                     return vs;
+                }
+            }
+            // A member-path whose LAST member carries element-select(s) THEN a
+            // range (keymgr_key_i.key[0][i * 32+:32]) -> hier_path whose last
+            // element is a var_select (SL model): the member name, the leading
+            // element indices, and a final (indexed_)part_select index named by
+            // the member (fullname DOUBLED). (IndexedPartSelectInFor)
+            if (rs.value().kind == ExpressionKind::ElementSelect) {
+                std::vector<const Expression*> esels;
+                const Expression* eb = &rs.value();
+                while (eb->kind == ExpressionKind::ElementSelect) {
+                    esels.push_back(&eb->as<ElementSelectExpression>().selector());
+                    eb = &eb->as<ElementSelectExpression>().value();
+                }
+                std::vector<const Expression*> mchain;
+                const Expression* mb = eb;
+                while (mb->kind == ExpressionKind::MemberAccess) {
+                    mchain.push_back(mb);
+                    mb = &mb->as<MemberAccessExpression>().value();
+                }
+                if (!mchain.empty() && mb->kind == ExpressionKind::NamedValue &&
+                    (mb->as<NamedValueExpression>().symbol.kind ==
+                         SymbolKind::Variable ||
+                     mb->as<NamedValueExpression>().symbol.kind ==
+                         SymbolKind::Net)) {
+                    auto& bnv = mb->as<NamedValueExpression>();
+                    if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
+                        refCollector->insert(&bnv.symbol);
+                    std::string selText = selName(rawText(expr.sourceRange));
+                    auto* hp = s.MakeHier_path();
+                    hp->VpiName(selText);
+                    hp->VpiFullName(selText);
+                    hp->VpiParent(parent);
+                    setLoc(hp, expr.sourceRange);
+                    auto* elems = s.MakeAnyVec();
+                    {
+                        auto* r = s.MakeRef_obj();
+                        r->VpiName(bnv.symbol.name);
+                        (void)r->VpiFullName();
+                        r->VpiParent(hp);
+                        setLoc(r, mb->sourceRange);
+                        elems->push_back(r);
+                    }
+                    // mchain is outer..inner; iterate base-first (reverse).
+                    for (auto it2 = mchain.rbegin(); it2 != mchain.rend(); ++it2) {
+                        auto& ma = (*it2)->as<MemberAccessExpression>();
+                        bool last = *it2 == mchain.front();
+                        std::string memName(ma.member.name);
+                        auto memEnd = (*it2)->sourceRange.end();
+                        if (!last) {
+                            auto* r = s.MakeRef_obj();
+                            r->VpiName(memName);
+                            (void)r->VpiFullName();
+                            r->VpiParent(hp);
+                            setLoc(r, SourceRange(memEnd - memName.size(), memEnd));
+                            elems->push_back(r);
+                            continue;
+                        }
+                        auto* vs = s.MakeVar_select();
+                        vs->VpiName(memName);
+                        std::string vsFull =
+                            joinRef(prefix, selText) + "." + memName;
+                        vs->VpiFullName(vsFull);
+                        vs->VpiParent(hp);
+                        setLoc(vs, SourceRange(memEnd - memName.size(),
+                                               expr.sourceRange.end()));
+                        auto* idxs = s.MakeExprVec();
+                        bool savedFCP = forceConstParent;
+                        for (auto it3 = esels.rbegin(); it3 != esels.rend(); ++it3) {
+                            forceConstParent = isLiteralExpr(**it3);
+                            if (auto* ix = emitExpr(**it3, vs, prefix, netMap))
+                                idxs->push_back((UHDM::expr*)ix);
+                        }
+                        forceConstParent = savedFCP;
+                        SourceRange selRange(rs.left().sourceRange.start(),
+                                             rs.right().sourceRange.end());
+                        std::string dblFull = vsFull + "." + memName;
+                        bool widthConst = false;
+                        {
+                            ASTContext wctx(comp.getRoot(), LookupLocation::max);
+                            widthConst =
+                                rs.right().kind == ExpressionKind::IntegerLiteral ||
+                                (bool)wctx.tryEval(rs.right());
+                        }
+                        bool savedSup = suppressConstParent;
+                        if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
+                            auto* ps = s.MakePart_select();
+                            ps->VpiName(memName);
+                            ps->VpiDefName(memName);
+                            ps->VpiFullName(dblFull);
+                            ps->VpiParent(vs);
+                            setLoc(ps, selRange);
+                            if (widthConst)
+                                ps->VpiConstantSelect(true);
+                            suppressConstParent = true;
+                            if (auto* l = emitExpr(rs.left(), ps, dblFull, netMap))
+                                ps->Left_range((UHDM::expr*)l);
+                            if (auto* r2 = emitExpr(rs.right(), ps, dblFull, netMap))
+                                ps->Right_range((UHDM::expr*)r2);
+                            suppressConstParent = savedSup;
+                            idxs->push_back(ps);
+                        }
+                        else {
+                            auto* ips = s.MakeIndexed_part_select();
+                            ips->VpiName(memName);
+                            ips->VpiDefName(memName);
+                            ips->VpiFullName(dblFull);
+                            ips->VpiParent(vs);
+                            setLoc(ips, selRange);
+                            ips->VpiIndexedPartSelectType(
+                                rs.getSelectionKind() == RangeSelectionKind::IndexedUp
+                                    ? 1
+                                    : 2);
+                            if (widthConst)
+                                ips->VpiConstantSelect(true);
+                            suppressConstParent = isLiteralExpr(rs.left());
+                            if (auto* b = emitExpr(rs.left(), ips, dblFull, netMap))
+                                ips->Base_expr((UHDM::expr*)b);
+                            suppressConstParent = true; // width unparented (SL)
+                            if (auto* w = emitExpr(rs.right(), ips, dblFull, netMap))
+                                ips->Width_expr((UHDM::expr*)w);
+                            suppressConstParent = savedSup;
+                            idxs->push_back(ips);
+                        }
+                        vs->Exprs(idxs);
+                        elems->push_back(vs);
+                    }
+                    hp->Path_elems(elems);
+                    return hp;
                 }
             }
             // Range select of a member access (a.b[0+:8]) becomes a hier_path
