@@ -341,6 +341,9 @@ private:
                                 bool parentBounds = false);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
 
+    slang::SourceLocation structTypedefUseEnd(
+        const slang::ast::InstanceBodySymbol& body,
+        const slang::ast::Type& ta);
     UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol,
                                  const slang::syntax::SyntaxNode* typeSynOverride = nullptr,
                                  const slang::ast::PortSymbol* portCtx = nullptr);
@@ -698,6 +701,16 @@ private:
         UHDM::instance* pkgInst = nullptr;
     };
     std::vector<PendingCastTs> pendingCastTs;
+    // A cast to a packed-ARRAY-of-struct typedef: the fresh per-cast clone
+    // (array ts + its own element struct clone) is created at the very end of
+    // the write phase, after the def-net typespecs (Surelog arena order).
+    struct PendingCastAggTs {
+        UHDM::ref_typespec* rt;
+        UHDM::packed_array_typespec* shared;
+        const slang::ast::Type* aliasType;
+        std::string prefix;
+    };
+    std::vector<PendingCastAggTs> pendingCastAggTs;
     // Net-declaration-assignment Lhs typespecs: created at the very end of the
     // write phase so they land last in the arena (matching Surelog's tail).
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> pendingNetDeclTs;

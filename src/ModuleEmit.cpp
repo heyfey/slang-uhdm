@@ -5747,6 +5747,52 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
+    // An unpacked ARRAY of a MODULE-LOCAL struct typedef (tl_h2d_t a[1:0]):
+    // the def-view net binds a fresh BARE-named struct clone — bare member
+    // refs <T>.<m> with the member typespec parented at its ref, Instance =
+    // the module, span copied from the (already stretched) shared typedef
+    // object (Surelog).
+    if (!ts) {
+        auto dt5 = pn.sym->getDeclaredType();
+        if (dt5 && dt5->getType().getCanonicalType().kind ==
+                       SymbolKind::FixedSizeUnpackedArrayType) {
+            const Type* el5 = &dt5->getType().getCanonicalType();
+            while (el5->getCanonicalType().kind ==
+                   SymbolKind::FixedSizeUnpackedArrayType)
+                el5 = &el5->getCanonicalType()
+                           .as<FixedSizeUnpackedArrayType>()
+                           .elementType;
+            const Scope* hs5 =
+                el5->kind == SymbolKind::TypeAlias
+                    ? el5->as<TypeAliasType>().getParentScope()
+                    : nullptr;
+            auto tit5 = typedefTs.find(el5);
+            if (el5->kind == SymbolKind::TypeAlias &&
+                el5->getCanonicalType().kind == SymbolKind::PackedStructType &&
+                hs5 && hs5->asSymbol().kind != SymbolKind::Package &&
+                tit5 != typedefTs.end() &&
+                tit5->second->UhdmType() == UHDM::uhdmstruct_typespec) {
+                auto* shared5 = tit5->second;
+                auto* cl5 = buildStructTs(
+                    el5->getCanonicalType().as<PackedStructType>(), true,
+                    std::string(el5->name), ".");
+                cl5->VpiName(el5->name);
+                cl5->VpiLineNo(shared5->VpiLineNo());
+                cl5->VpiColumnNo(shared5->VpiColumnNo());
+                cl5->VpiEndLineNo(shared5->VpiEndLineNo());
+                cl5->VpiEndColumnNo(shared5->VpiEndColumnNo());
+                cl5->Instance(shared5->Instance());
+                if (auto* ms5 = cl5->Members())
+                    for (auto* tm5 : *ms5)
+                        if (auto* mr5 = tm5->Typespec())
+                            if (auto* ma5 = mr5->Actual_typespec();
+                                ma5 && ma5->VpiName().empty())
+                                ma5->VpiParent(mr5);
+                pn.rt->Actual_typespec(cl5);
+                return;
+            }
+        }
+    }
     // An INITIALIZED pkg-struct signal (p::S m = '{...}) gets a FRESH
     // pkg-scoped clone (doubled p::p::S member refs, parent+Instance = the
     // package) spanning typedef-start .. the signal's INIT end (Surelog).
@@ -6261,6 +6307,85 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     // their cast typespecs) is written, so they trail the drains above.
     patchParamTypespecs(tp.paramLo, tp.paramHi, &tp.inst->body,
                         /*descendants=*/true);
+    // A cast to a packed-ARRAY-of-struct typedef mints a FRESH clone: same
+    // name/span/Instance/ranges as the module typedef object, but its OWN
+    // element struct clone whose member refs nest through the array alias
+    // (work@<mod>.<arr>.<struct>.<member>) — the shared typedef object is
+    // never mutated (Surelog, CastStructArray).
+    for (auto& pa : pendingCastAggTs) {
+        auto cpLoc = [](UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
+            dst->VpiLineNo(src->VpiLineNo());
+            dst->VpiColumnNo(src->VpiColumnNo());
+            dst->VpiEndLineNo(src->VpiEndLineNo());
+            dst->VpiEndColumnNo(src->VpiEndColumnNo());
+        };
+        auto& ta9 = pa.aliasType->as<TypeAliasType>();
+        const Type* leaf9 = &pa.aliasType->getCanonicalType();
+        const Type* named9 = nullptr;
+        while (leaf9->getCanonicalType().kind == SymbolKind::PackedArrayType) {
+            named9 = &leaf9->getCanonicalType().as<PackedArrayType>().elementType;
+            leaf9 = &named9->getCanonicalType();
+        }
+        if (!named9 || leaf9->kind != SymbolKind::PackedStructType)
+            continue;
+        std::string aAlias = pa.prefix + "." + std::string(ta9.name);
+        auto* nPat = s.MakePacked_array_typespec();
+        nPat->VpiName(ta9.name);
+        cpLoc(nPat, pa.shared);
+        nPat->Instance(pa.shared->Instance());
+        nPat->VpiParent(pa.rt);
+        if (auto* ors = pa.shared->Ranges()) {
+            auto* nrv = s.MakeRangeVec();
+            for (auto* orr : *ors) {
+                auto* nr = s.MakeRange();
+                nr->VpiParent(nPat);
+                cpLoc(nr, orr);
+                auto cloneB = [&](const UHDM::expr* src) -> UHDM::expr* {
+                    if (!src || src->UhdmType() != UHDM::uhdmconstant)
+                        return nullptr;
+                    auto* oc = (const UHDM::constant*)src;
+                    auto* nc = s.MakeConstant();
+                    nc->VpiParent(nr);
+                    nc->VpiDecompile(oc->VpiDecompile());
+                    nc->VpiSize(oc->VpiSize());
+                    nc->VpiValue(oc->VpiValue());
+                    nc->VpiConstType(oc->VpiConstType());
+                    cpLoc(nc, oc);
+                    return nc;
+                };
+                nr->Left_expr(cloneB(orr->Left_expr()));
+                nr->Right_expr(cloneB(orr->Right_expr()));
+                nrv->push_back(nr);
+            }
+            nPat->Ranges(nrv);
+        }
+        auto* oldSts =
+            (UHDM::struct_typespec*)pa.shared->Elem_typespec()->Actual_typespec();
+        auto* nErt = s.MakeRef_typespec();
+        nErt->VpiParent(nPat);
+        nErt->VpiFullName(aAlias);
+        bool savedTf9 = tfContext;
+        tfContext = true;
+        auto* nSts = buildStructTs(leaf9->as<PackedStructType>(), true,
+                                   aAlias + "." + std::string(named9->name), ".");
+        tfContext = savedTf9;
+        nSts->VpiName(named9->name);
+        cpLoc(nSts, oldSts);
+        nSts->Instance(oldSts->Instance());
+        nSts->VpiParent(nErt);
+        // The clone's anonymous member typespecs parent at their member REF
+        // (not the typespec_member) — Surelog.
+        if (auto* nms = nSts->Members())
+            for (auto* tm9 : *nms)
+                if (auto* mr9 = tm9->Typespec())
+                    if (auto* ma9 = mr9->Actual_typespec();
+                        ma9 && ma9->VpiName().empty())
+                        ma9->VpiParent(mr9);
+        nErt->Actual_typespec(nSts);
+        nPat->Elem_typespec(nErt);
+        pa.rt->Actual_typespec(nPat);
+    }
+    pendingCastAggTs.clear();
 
     // Param-clone typespecs for param-backed call folds (very end).
     // VECTOR params clone a LOC-LESS bare typespec instead (parented bounds,
@@ -7057,6 +7182,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         }
         if (!rhs)
             rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap);
+        // An ARRAY-of-struct net-decl-assign pattern RHS keeps its element
+        // constants PARENTED at the assignment-pattern op (Surelog); the
+        // generic pattern path unparents outermost elements.
+        if (arrOfStruct && rhs && rhs->UhdmType() == UHDM::uhdmoperation)
+            if (auto* ops9 = ((UHDM::operation*)rhs)->Operands())
+                for (auto* o9 : *ops9)
+                    if (o9->UhdmType() == UHDM::uhdmconstant && !o9->VpiParent())
+                        o9->VpiParent(rhs);
         if (rhs) {
             // Surelog sizes a bare-decimal RHS (default 64) to the net width.
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
@@ -7151,6 +7284,19 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // (assignment-pattern m).
                 setLoc(lnet, regNetSpan(*it.sym));
                 ((UHDM::struct_net*)lnet)->VpiNetType(vpiWire);
+            }
+            else if (isStructNet && arrOfStruct) {
+                // An ARRAY-of-struct LHS spans the name through its FIRST
+                // unpacked dimension (Surelog).
+                auto ns9 = nameSpan(it.sym->location, it.sym->name);
+                auto e9 = ns9.end();
+                if (auto dsyn9 = it.sym->getSyntax();
+                    dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator) {
+                    auto& dd9 = dsyn9->as<syntax::DeclaratorSyntax>();
+                    if (!dd9.dimensions.empty())
+                        e9 = dd9.dimensions[0]->sourceRange().end();
+                }
+                setLoc(lnet, SourceRange(ns9.start(), e9));
             }
             else if (isStructNet)
                 // A struct_net re-elaborated LHS spans the NAME only.
@@ -10131,10 +10277,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         }
         if (!named || !canon->isStruct())
             return nullptr;
-        if (auto i2 = typedefTs.find(named); i2 != typedefTs.end())
-            return i2->second;
+        // A PACKAGE typedef's ELABORATED object (re-parented/span-stretched
+        // by its importer) is what every signal use binds — prefer it over
+        // the def-view listing object (same rule as makeTypespec).
         if (auto i3 = pkgTopTypedefTs.find(named); i3 != pkgTopTypedefTs.end())
             return i3->second;
+        if (auto i2 = typedefTs.find(named); i2 != typedefTs.end())
+            return i2->second;
         return nullptr;
     };
     for (auto& it : collectNetOrder(body)) {

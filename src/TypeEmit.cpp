@@ -39,6 +39,40 @@ static bool typeWidthUsesParam(const Symbol& sym) {
 
 
 
+// A module/interface-local STRUCT typedef whose signal is an INITIALIZED
+// UNPACKED ARRAY (tl_h2d_t a[1:0] = '{...}): Surelog re-stamps the shared
+// typespec's END at that declarator's FIRST unpacked dimension. A BARE array
+// declarator (mem_s memArray[8]) does NOT re-stamp (OneStruct). Returns
+// NoLocation when no such signal exists. Last use wins.
+SourceLocation UhdmExporter::structTypedefUseEnd(const InstanceBodySymbol& body,
+                                                 const Type& ta) {
+    SourceLocation out = SourceLocation::NoLocation;
+    for (auto& mb : body.members()) {
+        if (mb.kind != SymbolKind::Net && mb.kind != SymbolKind::Variable)
+            continue;
+        auto dt = mb.getDeclaredType();
+        if (!dt || dt->getType().getCanonicalType().kind !=
+                       SymbolKind::FixedSizeUnpackedArrayType)
+            continue;
+        const Type* el = &dt->getType().getCanonicalType();
+        while (el->getCanonicalType().kind ==
+               SymbolKind::FixedSizeUnpackedArrayType)
+            el = &el->getCanonicalType()
+                      .as<FixedSizeUnpackedArrayType>()
+                      .elementType;
+        if ((const Type*)el != (const Type*)&ta)
+            continue;
+        auto dsyn = mb.getSyntax();
+        if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
+            continue;
+        auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
+        if (dd.dimensions.empty() || !dd.initializer)
+            continue;
+        out = dd.dimensions[0]->sourceRange().end();
+    }
+    return out;
+}
+
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
@@ -85,8 +119,22 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // enums build an unnamed, unlocated enum_typespec per declaration.
     if (declared) {
         if (auto it = typedefTs.find(&declared->getType());
-            it != typedefTs.end() && !bypassTypedefShare)
+            it != typedefTs.end() && !bypassTypedefShare) {
+            // A PACKAGE typedef has two objects: the def-view one (listed in
+            // uhdmallPackages, keeping the typedef span) and the ELABORATED
+            // one (uhdmtopPackages, re-parented/re-scoped/span-stretched by
+            // its importer). Every real SIGNAL use binds the elaborated
+            // object — in both the def and the instance view (Surelog shares
+            // one mutated object across them).
+            // ...except a STRUCT typedef, whose elab clone is pattern-shared
+            // through parameters (NSAP) — those uses keep the def object.
+            if (auto t9 = pkgTopTypedefTs.find((const void*)&declared->getType());
+                t9 != pkgTopTypedefTs.end() &&
+                t9->second->UhdmType() == it->second->UhdmType() &&
+                t9->second->UhdmType() != UHDM::uhdmstruct_typespec)
+                return t9->second;
             return it->second;
+        }
         // Class handles: a fresh class_typespec per declaration, named by the
         // class and linked to its class_defn.
         if (auto& ct0 = declared->getType().getCanonicalType();
@@ -2916,6 +2964,14 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 sts->VpiParent(m);
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
+            // An UNPACKED-ARRAY signal of this typedef (tl_h2d_t a[1:0])
+            // stretches the typespec end to that declarator's FIRST unpacked
+            // dimension (Surelog re-stamps the shared object; last use wins).
+            if (auto e9 = structTypedefUseEnd(body, ta);
+                e9 != SourceLocation::NoLocation) {
+                sts->VpiEndLineNo((uint32_t)sm->getLineNumber(e9));
+                sts->VpiEndColumnNo((uint32_t)sm->getColumnNumber(e9));
+            }
             ts = sts;
         }
         else if (ct.kind == SymbolKind::UnpackedStructType) {
@@ -3138,13 +3194,18 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                           : (UHDM::typespec*)buildStructTs(
                                 leaf->getCanonicalType().as<PackedStructType>(),
                                 true, alias);
+            // A SHARED (named-typedef) struct leaf is NOT re-located or
+            // re-parented by the array typedef — it keeps its own typedef
+            // span and members (CastStructArray). Only a freshly built
+            // (anonymous) leaf takes the array typedef's spans.
+            bool sharedStructLeaf = sharedEnumLeaf && !enumLeaf;
             if (enumLeaf && !sharedEnumLeaf) {
                 sts->VpiName(ename);
                 if (esyn)
                     setLoc(sts, esyn->sourceRange());
             }
             // struct_typespec loc = the `struct` keyword token.
-            else if (!enumLeaf && typeSyn)
+            else if (!enumLeaf && typeSyn && !sharedStructLeaf)
                 setLoc(sts, typeSyn->getFirstToken().range());
             auto* pat = s.MakePacked_array_typespec();
             pat->VpiParent(m);
@@ -3193,11 +3254,14 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             pat->Ranges(rvec);
             auto* ert = s.MakeRef_typespec();
             ert->VpiParent(pat);
-            ert->VpiFullName(sharedEnumLeaf ? std::string(ta.name) : alias);
+            ert->VpiFullName(sharedEnumLeaf && !sharedStructLeaf
+                                 ? std::string(ta.name)
+                                 : alias);
             ert->Actual_typespec(sts);
             pat->Elem_typespec(ert);
             // Surelog re-parents the struct's members to the ARRAY typespec.
-            if (!enumLeaf && ((UHDM::struct_typespec*)sts)->Members())
+            if (!enumLeaf && !sharedStructLeaf &&
+                ((UHDM::struct_typespec*)sts)->Members())
                 for (auto* tm : *((UHDM::struct_typespec*)sts)->Members())
                     tm->VpiParent(pat);
             ts = pat;

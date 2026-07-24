@@ -14,6 +14,13 @@
 
 namespace slang_uhdm {
 
+static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
+    dst->VpiLineNo(src->VpiLineNo());
+    dst->VpiColumnNo(src->VpiColumnNo());
+    dst->VpiEndLineNo(src->VpiEndLineNo());
+    dst->VpiEndColumnNo(src->VpiEndColumnNo());
+}
+
 // A selector's source text used inside a hier_path/select NAME drops
 // whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
 // object name even when the source spaced it.
@@ -2281,6 +2288,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             cts = cl2;
                         }
                     }
+                    // A cast to a PACKED-ARRAY-of-struct typedef
+                    // (my_struct_array'(a)) mints a FRESH clone in the elab
+                    // pass: same name/span/Instance/ranges, but its own
+                    // ELEMENT struct clone whose member refs nest through the
+                    // array alias (work@top.my_struct_array.my_struct.x) —
+                    // the shared module typedef object is left untouched
+                    // (Surelog).
+                    else if (reemitting &&
+                             cts->UhdmType() ==
+                                 UHDM::uhdmpacked_array_typespec) {
+                        auto* oldPat = (UHDM::packed_array_typespec*)cts;
+                        const Type* leaf9 = &expr.type->getCanonicalType();
+                        const Type* named9 = nullptr;
+                        while (leaf9->getCanonicalType().kind ==
+                               SymbolKind::PackedArrayType) {
+                            named9 = &leaf9->getCanonicalType()
+                                          .as<PackedArrayType>()
+                                          .elementType;
+                            leaf9 = &named9->getCanonicalType();
+                        }
+                        if (named9 && named9->kind == SymbolKind::TypeAlias &&
+                            leaf9->kind == SymbolKind::PackedStructType &&
+                            oldPat->Elem_typespec() &&
+                            oldPat->Elem_typespec()->Actual_typespec() &&
+                            oldPat->Elem_typespec()
+                                    ->Actual_typespec()
+                                    ->UhdmType() == UHDM::uhdmstruct_typespec) {
+                            auto* rt0 = s.MakeRef_typespec();
+                            rt0->VpiFullName(prefix);
+                            rt0->VpiParent(op);
+                            pendingCastAggTs.push_back(
+                                {rt0, oldPat, expr.type, prefix});
+                            op->Typespec(rt0);
+                            deferredCast = true;
+                        }
+                    }
                 }
                 else if (currentScope) {
                     // Non-literal cast sizes: integer_typespec carrying the
@@ -3945,7 +3988,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 std::string ix = cn.substr(lb2 + 1, rb2 - lb2 - 1);
                                 auto* bsm = s.MakeBit_select();
                                 bsm->VpiName(bn);
-                                bsm->VpiFullName(bn);
+                                // Surelog names the element by its INDEXED
+                                // text (a[0]), not the bare base name.
+                                bsm->VpiFullName(cn);
                                 bsm->VpiParent(hp);
                                 setLoc(bsm, SourceRange(exprStart + co,
                                                         exprStart + co + bn.size()));
@@ -4026,7 +4071,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (widthConst)
                                 ips2->VpiConstantSelect(true);
                             suppressConstParent = isLiteralExpr(rs.left());
-                            if (auto* b2 = emitExpr(rs.left(), ips2, prefix, netMap))
+                            // A dynamic BASE ref is named through the select
+                            // itself (work@top.a[0].source[base-:2].base) —
+                            // Surelog scopes it by the hier-path element.
+                            if (auto* b2 = emitExpr(rs.left(), ips2,
+                                                    prefix + "." + selText,
+                                                    netMap))
                                 ips2->Base_expr((UHDM::expr*)b2);
                             suppressConstParent = isLiteralExpr(rs.right());
                             if (auto* w2 = emitExpr(rs.right(), ips2, prefix, netMap))

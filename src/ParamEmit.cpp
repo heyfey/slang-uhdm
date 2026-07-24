@@ -5319,6 +5319,33 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         tds->push_back(it9);
     if (!tds->empty())
         up->Typespecs(tds);
+    // A package STRUCT typedef named as a package SUBROUTINE ARGUMENT's type
+    // has its shared typespec RE-LOCATED to that argument's type reference —
+    // Surelog's last-writer stamp. A RETURN type does NOT relocate
+    // (rsp_gen_minimal: tl_d2h_t moves to the arg, tl_d2h_rsp_intg_t stays).
+    for (auto& mem9 : pkg.members()) {
+        if (mem9.kind != SymbolKind::Subroutine)
+            continue;
+        for (auto* arg9 : mem9.as<SubroutineSymbol>().getArguments()) {
+            auto dt9 = arg9->getDeclaredType();
+            if (!dt9 || dt9->getType().kind != SymbolKind::TypeAlias ||
+                !dt9->getType().getCanonicalType().isStruct())
+                continue;
+            UHDM::typespec* sh9 = nullptr;
+            if (topView) {
+                if (auto i9 = pkgTopTypedefTs.find((const void*)&dt9->getType());
+                    i9 != pkgTopTypedefTs.end())
+                    sh9 = i9->second;
+            }
+            else if (auto i8 = typedefTs.find(&dt9->getType());
+                     i8 != typedefTs.end())
+                sh9 = i8->second;
+            if (!sh9 || sh9->UhdmType() != UHDM::uhdmstruct_typespec)
+                continue;
+            if (auto tsy9 = dt9->getTypeSyntax())
+                setLoc(sh9, tsy9->sourceRange());
+        }
+    }
     // A struct/union-typed package parameter references the SHARED package
     // typedef object (Surelog), not the fresh clone built during emitParameters
     // (which ran before this typedef loop, so nested-struct members had no
