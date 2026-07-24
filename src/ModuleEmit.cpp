@@ -9159,12 +9159,26 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         emitParameters(body, iface, prefix, netMap, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false);
     }
-    // EVERY port view carries NO param_assigns (Surelog quirk) — EXCEPT a
-    // parameterized (multi-distinct-value) interface def, whose port-view keeps
-    // the override param_assign.
+    // A port view carries NO param_assigns (Surelog quirk) — EXCEPTIONS:
+    //  (a) a parameterized (multi-distinct-value) interface def keeps the
+    //      override param_assign; and
+    //  (b) an AGGREGATE (struct/union) parameter's value cannot be inlined on
+    //      the parameter object, so Surelog keeps its op75 param_assign even on
+    //      a single-parameterization modport port view (iface_param_2level /
+    //      iface_cfg_mem: the child's own interface_inst under vpiInterface).
+    // Scalar params fold their value inline (UINT on the parameter) and drop
+    // the param_assign.
     bool multiParamIface = isMultiParamDef(body);
-    if (portView && !multiParamIface)
-        iface->Param_assigns(nullptr);
+    if (portView && !multiParamIface) {
+        if (auto* pas0 = iface->Param_assigns()) {
+            auto* keep = s.MakeParam_assignVec();
+            for (auto* pa0 : *pas0)
+                if (pa0->Rhs() &&
+                    pa0->Rhs()->UhdmType() == UHDM::uhdmoperation)
+                    keep->push_back(pa0);
+            iface->Param_assigns(keep->empty() ? nullptr : keep);
+        }
+    }
     // A PLAIN (non-modport) PORT VIEW additionally lists each parameter TWICE
     // at its DEFAULT value. A MODPORT-qualified port view (myif.man b) keeps a
     // single param.

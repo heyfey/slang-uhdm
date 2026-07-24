@@ -68,6 +68,7 @@ bool UhdmExporter::beginSelTrack() {
     selFirstSelect.clear();
     selLhsSelVars.clear();
     selWholeRefs.clear();
+    selWholeWrittenVars.clear();
     return true;
 }
 
@@ -76,13 +77,21 @@ void UhdmExporter::endSelTrack() {
         if (!selLhsSelVars.count(sym))
             continue;
         auto it = selFirstSelect.find(sym);
-        if (it != selFirstSelect.end())
-            ref->Actual_group(it->second);
+        if (it == selFirstSelect.end())
+            continue;
+        // A var ALSO written whole keeps the net for PLAIN part-select
+        // targets (multiple_blocking_gate) but still repoints to an
+        // INDEXED part-select (multiple_blocking/sign_part_assign).
+        if (selWholeWrittenVars.count(sym) &&
+            it->second->UhdmType() == UHDM::uhdmpart_select)
+            continue;
+        ref->Actual_group(it->second);
     }
     selTrackActive = false;
     selFirstSelect.clear();
     selLhsSelVars.clear();
     selWholeRefs.clear();
+    selWholeWrittenVars.clear();
 }
 
 void UhdmExporter::noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj) {

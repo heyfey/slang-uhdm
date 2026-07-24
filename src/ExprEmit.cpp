@@ -1360,8 +1360,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ref->Actual_group(it->second);
                     // Whole ref: may be re-pointed to a select object if this
                     // variable is written via a select elsewhere in the body.
-                    if (selTrackActive)
+                    if (selTrackActive) {
                         selWholeRefs.push_back({ref, &nv.symbol});
+                        if (inLhs)
+                            selWholeWrittenVars.insert(&nv.symbol);
+                    }
                 }
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
@@ -3314,6 +3317,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             if (constSel)
                 psel->VpiConstantSelect(true);
+            // Part-select writes DO re-point later whole refs (subbytes:
+            // next_data_reg = data_reg_128 binds the [31:24] part_select) —
+            // but only TOP-LEVEL LHS selects count as writes; a select
+            // nested in another select's INDEX is a read
+            // (issue326_packed_mem's mem[write_ptr[..]] <= ...).
+            {
+                bool wr9 = parent &&
+                           (parent->UhdmType() == UHDM::uhdmassignment ||
+                            parent->UhdmType() == UHDM::uhdmcont_assign);
+                // Only BLOCKING procedural writes repoint (subbytes `=`);
+                // nonblocking `<=` keeps the net (unpacked_array_shift_ff).
+                if (wr9 && parent->UhdmType() == UHDM::uhdmassignment &&
+                    !((UHDM::assignment*)parent)->VpiBlocking())
+                    wr9 = false;
+                bool savedInLhs9 = inLhs;
+                if (!wr9)
+                    inLhs = false;
+                noteSelectObj(&nv.symbol, psel);
+                inLhs = savedInLhs9;
+            }
             // Refs nested in bound OPERATIONS scope by the base name; in a
             // function/task body EVERY bound ref (incl. bare params) scopes by
             // the base name (Surelog's doubled part-select-bound fullname).

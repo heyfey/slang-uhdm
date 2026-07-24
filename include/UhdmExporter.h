@@ -781,6 +781,9 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::expr*> selFirstSelect;
     std::set<const slang::ast::Symbol*> selLhsSelVars;
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>> selWholeRefs;
+    // Vars ALSO written whole (dout = ...) never repoint their whole refs
+    // (multiple_blocking_gate).
+    std::set<const slang::ast::Symbol*> selWholeWrittenVars;
     bool beginSelTrack();  // returns true if it newly activated tracking
     void endSelTrack();    // back-patches whole-refs and clears state
     void noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj);
