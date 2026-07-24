@@ -988,13 +988,21 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                 }
             }
             defRefModConn = true;
+            // Surelog leaves a port-connection ref's fullname UNSET and lets
+            // UHDM compute it at write time by walking the parent chain
+            // (ref -> port -> ref_module -> module). This is that walk: the
+            // module prefix, the child instance, then the port name only when
+            // the port object carries one (a POSITIONAL conn's port is
+            // nameless, so it contributes nothing).
+            std::string connScope9 =
+                prefix + "." + std::string(child.name) +
+                (ordered ? "" : "." + std::string(conn->port.name));
             if (auto expr = connectionExpr(*conn)) {
                 if (expr->kind == ExpressionKind::NamedValue) {
                     auto& nv = expr->as<NamedValueExpression>();
                     auto* r = s.MakeRef_obj();
                     r->VpiName(nv.symbol.name);
-                    r->VpiFullName(prefix + "." + std::string(child.name) +
-                                   (ordered ? "" : "." + std::string(conn->port.name)) + "." +
+                    r->VpiFullName(connScope9 + "." +
                                    std::string(nv.symbol.name));
                     r->VpiParent(p);
                     setLoc(r, expr->sourceRange);
@@ -1002,17 +1010,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                         r->Actual_group(nit->second);
                     p->High_conn(r);
                 }
-                else if (auto* h = emitExpr(*expr,  p,
-                                            stripImplicitConv(*expr).kind ==
-                                                        ExpressionKind::
-                                                            StructuredAssignmentPattern ||
-                                                    stripImplicitConv(*expr).kind ==
-                                                        ExpressionKind::
-                                                            SimpleAssignmentPattern
-                                                ? prefix + "." + std::string(child.name) +
-                                                      "." + std::string(conn->port.name)
-                                                : prefix,
-                                            info.nets)) {
+                else if (auto* h = emitExpr(*expr, p, connScope9, info.nets)) {
                     // A DEF-view bit_select HighConn doubles through the
                     // CHILD instance name (VarPassedTo2Submodules
                     // .lc_clk_byp_ack_i(lc_clk_byp_ack[0])).
@@ -1058,8 +1056,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                                 conn->port.as<InterfacePortSymbol>().getConnection().first;
                             cc && cc->kind == SymbolKind::Instance) {
                             auto* r = (UHDM::ref_obj*)h;
-                            r->VpiFullName(prefix + "." + std::string(child.name) + "." +
-                                           std::string(conn->port.name) + "." +
+                            r->VpiFullName(connScope9 + "." +
                                            std::string(r->VpiName()));
                             // A PASSTHROUGH conn binds this module's own
                             // iface-port net, not the outer instance's.
@@ -1082,9 +1079,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                         else if (const Symbol* aArr = expr->getSymbolReference();
                                  aArr && aArr->kind == SymbolKind::InstanceArray) {
                             auto* r = (UHDM::ref_obj*)h;
-                            r->VpiFullName(prefix + "." + std::string(child.name) +
-                                           "." + std::string(conn->port.name) +
-                                           "." + std::string(r->VpiName()));
+                            r->VpiFullName(connScope9 + "." +
+                                           std::string(r->VpiName()));
                             if (auto nit = ifaceConnNet.find(aArr);
                                 nit != ifaceConnNet.end())
                                 r->Actual_group(nit->second);
@@ -1104,8 +1100,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                             auto* last = hp2->Path_elems()->back();
                             if (last->UhdmType() == UHDM::uhdmref_obj)
                                 ((UHDM::ref_obj*)last)
-                                    ->VpiFullName(prefix + "." + std::string(child.name) +
-                                                  "." + std::string(conn->port.name) + "." +
+                                    ->VpiFullName(connScope9 + "." +
                                                   std::string(last->VpiName()));
                         }
                     }
@@ -1119,8 +1114,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                             auto* last = hp2->Path_elems()->back();
                             if (last->UhdmType() == UHDM::uhdmref_obj)
                                 ((UHDM::ref_obj*)last)
-                                    ->VpiFullName(prefix + "." + std::string(child.name) +
-                                                  "." + std::string(conn->port.name) + "." +
+                                    ->VpiFullName(connScope9 + "." +
                                                   std::string(last->VpiName()));
                         }
                     }
@@ -2828,11 +2822,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 lc->VpiFullName(prefix + "." + std::string(ip.name));
                 lc->VpiParent(p);
                 // A NAMED connection (.tcb(bi)) anchors the LowConn at the
-                // FORMAL name; positional ones at the connection expression.
+                // FORMAL name. A POSITIONAL one has no formal token: a
+                // MULTI-port instance falls back to the child's PORT
+                // DECLARATION span, a SINGLE-port one keeps the connection
+                // expression (Surelog).
                 if (auto npc = findConnSyntax(inst, ip.name))
                     setLoc(lc, SourceRange(npc->name.location(),
                                            npc->name.location() + ip.name.size()));
-                else if (iconn && connectionExpr(*iconn))
+                else if (iconn && connectionExpr(*iconn) &&
+                         inst.getPortConnections().size() < 2)
                     setLoc(lc, connectionExpr(*iconn)->sourceRange);
                 else
                     setLocNamed(lc, ip);
@@ -3317,12 +3315,26 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             lc->VpiFullName((bindPath.empty() ? prefix : bindPath) + "." +
                             std::string(ps.name));
             lc->VpiParent(p);
-            // Child low conns anchor at the formal name in the connection
-            // (positional: at the actual expression).
+            // Child low conns anchor at the formal name in the connection.
+            // A POSITIONAL connection has no formal token: an ANSI-header
+            // child keeps the actual expression's span, while a NON-ANSI
+            // header (module m(a,b); input a; ...) anchors at the port
+            // DECLARATION — Surelog builds that lowConn from the separate
+            // declaration node.
+            bool nonAnsiHdr9 = false;
+            if (auto* dsyn9 = inst.getDefinition().getSyntax())
+                if (dsyn9->kind == syntax::SyntaxKind::ModuleDeclaration) {
+                    auto& mh9 = *dsyn9->as<syntax::ModuleDeclarationSyntax>()
+                                     .header;
+                    nonAnsiHdr9 =
+                        mh9.ports &&
+                        mh9.ports->kind == syntax::SyntaxKind::NonAnsiPortList;
+                }
             if (auto npc = findConnSyntax(inst, ps.name))
                 setLoc(lc, SourceRange(npc->name.location(),
                                        npc->name.location() + ps.name.size()));
-            else if (hasOrderedConns(inst) && conn && connectionExpr(*conn))
+            else if (hasOrderedConns(inst) && conn && connectionExpr(*conn) &&
+                     !nonAnsiHdr9)
                 setLoc(lc, connectionExpr(*conn)->sourceRange);
             else
                 setLocNamed(lc, ps);
@@ -6837,8 +6849,12 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
                 continue;
             }
             std::string gfull = prefix + "." + std::string(member.name);
+            // DEF view: term refs are scoped THROUGH the gate instance
+            // (prefix.u_buf0.out_buf0); the ELAB view names them in the
+            // module scope (prefix.out_buf0) — same split as a gate ARRAY.
             auto* g = buildGate(pi, pname, pmIt->second, std::string(member.name),
-                                gfull, gfull, m, nullptr, false);
+                                gfull, topView ? prefix : gfull, m, nullptr,
+                                false);
             if (!prims)
                 prims = s.MakePrimitiveVec();
             prims->push_back(g);

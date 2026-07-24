@@ -325,6 +325,11 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
     hp->VpiFullName(dotted);
     hp->VpiParent(parent);
     setLoc(hp, expr.sourceRange);
+    // A dotted path used as a SELECT INDEX (mem[s.req.adr] <= ...) is a READ
+    // even inside an lvalue: its base anchors at its own token and its leaf
+    // takes the scoped fullname, exactly like any rvalue path.
+    bool lhsPath9 = inLhs && !(parent &&
+                               parent->UhdmType() == UHDM::uhdmbit_select);
     // this.member: the hier_path spans the `this` token; the this ref
     // anchors at the MEMBER token; the member ref is loc-less with a
     // scope-prefixed fullname.
@@ -459,13 +464,13 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
         // modport-array member path gives the LEAF the RAW dotted fullname.
         if (genVarBasePath && i + 1 == parts.size())
             r->VpiFullName(dotted);
-        else if (!inLhs && i + 1 == parts.size())
+        else if (!lhsPath9 && i + 1 == parts.size())
             r->VpiFullName(prefix + "." + pname);
         else
             r->VpiFullName(pname);
         r->VpiParent(hp);
         // Lvalue paths anchor the base ref at the SECOND element's span.
-        size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
+        size_t locIdx = (lhsPath9 && i == 0 && parts.size() > 1) ? 1 : i;
         auto& [lname, loff] = parts[locIdx];
         setLoc(r, SourceRange(exprStart + loff, exprStart + loff + lname.size()));
         elems->push_back(r);
@@ -617,7 +622,12 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             if (inLhs && inProcessEmit) {
                 setLoc(bs, SourceRange(comp.nameSpan.start(), sel.selEnd));
                 (void)bs->VpiFullName();
-                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                // A VARIABLE index ref names itself by the parent chain: the
+                // bit_select contributes nothing (UHDM skips a bit_select
+                // above a ref_obj) but the enclosing hier_path does, so the
+                // index scope is prefix + the whole dotted path.
+                if (auto* ix =
+                        emitExpr(*sel.sel, bs, prefix + "." + dotted, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
             else if (inLhs) {
@@ -628,19 +638,22 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
-            else if (inProcessEmit &&
-                     baseNv->symbol.kind == SymbolKind::Variable &&
+            else if (baseNv->symbol.kind == SymbolKind::Variable &&
                      !lastMember) {
-                // A process-context rvalue element-select on a struct
-                // VARIABLE member array that is FOLLOWED by a further member
-                // (t.my_array[0].a): Surelog keeps the SIMPLE dotted form
-                // (t.my_array[0]) at the MEMBER-name span with an UNPARENTED
-                // index constant — unlike the iface/modport doubled
-                // index-span form below.
+                // An rvalue element-select on a struct VARIABLE member array
+                // that is FOLLOWED by a further member (t.my_array[0].a):
+                // Surelog keeps the SIMPLE dotted form (t.my_array[0]) at the
+                // MEMBER-name span with an UNPARENTED index constant — in a
+                // process AND in a cont-assign — unlike the iface/modport
+                // doubled index-span form below.
                 setLoc(bs, comp.nameSpan);
                 bs->VpiFullName(dottedAt);
                 bool savedSCP = suppressConstParent;
-                suppressConstParent = true;
+                // A process context always leaves the index constant
+                // unparented; a cont-assign leaves it unparented in the
+                // module-compile (def) view and PARENTS it in the
+                // re-elaborated instance view.
+                suppressConstParent = inProcessEmit || !reemitting;
                 if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
                 suppressConstParent = savedSCP;
@@ -5007,6 +5020,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     pos = dot + 1;
                 }
             }
+            // The DISPLAY text may be re-lexed with spaces around index
+            // operators (STAGE[i-1] -> STAGE[i - 1]); every SPAN must still be
+            // measured on the ORIGINAL source text, so keep a parallel split.
+            std::vector<std::pair<std::string, size_t>> srcParts;
+            {
+                std::string rawSrc = rawText(expr.sourceRange);
+                size_t pos = 0;
+                while (pos <= rawSrc.size()) {
+                    size_t dot = rawSrc.find('.', pos);
+                    if (dot == std::string::npos)
+                        dot = rawSrc.size();
+                    srcParts.emplace_back(rawSrc.substr(pos, dot - pos), pos);
+                    if (dot == rawSrc.size())
+                        break;
+                    pos = dot + 1;
+                }
+                if (srcParts.size() != parts.size())
+                    srcParts = parts;
+            }
             if (parts.size() < 2) {
                 noteUnsupported("hierarchical reference form");
                 return nullptr;
@@ -5077,7 +5109,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             std::string dottedSoFar;
             bool genVarBaseEmitted = false;
             for (size_t i = 0; i < parts.size(); i++) {
-                auto& [pname, off] = parts[i];
+                auto& [pname, dispOff] = parts[i];
+                (void)dispOff;
+                // Spans come from the ORIGINAL (unspaced) source text.
+                const size_t off = srcParts[i].second;
                 dottedSoFar += (i == 0 ? pname : "." + pname);
                 // A gen-block / array index element (gen_blk[0]) is a
                 // bit_select: name-only ref + a bare UINT index constant.
@@ -5245,7 +5280,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 // Lvalue paths anchor the base ref at the SECOND element.
                 size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
-                auto& [lname, loff] = parts[locIdx];
+                auto& [lname, loff] = srcParts[locIdx];
                 setLoc(r, SourceRange(exprStart + loff, exprStart + loff + lname.size()));
                 elems->push_back(r);
             }
@@ -5276,7 +5311,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // the raw-leaf/base-endln override is LHS-only. (For the LHS
                 // gen-target/iface-array drive man[i].req.lck it still fires.)
                 (void)genVarBaseEmitted;
-                if (inLhs && (genTgt9 || idxBase9) && !elems->empty()) {
+                // Only a CONT-ASSIGN lvalue freezes the raw dotted path onto
+                // its leaf; a PROCEDURAL write (gen.x = 0 inside an initial)
+                // leaves every element name-only — Surelog computes the ref
+                // name lazily and the hier_path parent contributes nothing.
+                bool caLhs9 =
+                    parent && parent->UhdmType() == UHDM::uhdmcont_assign;
+                if (inLhs && caLhs9 && (genTgt9 || idxBase9) &&
+                    !elems->empty()) {
                     auto* fe9 = (UHDM::expr*)elems->front();
                     hp->VpiEndLineNo(fe9->VpiEndLineNo());
                     hp->VpiEndColumnNo(fe9->VpiEndColumnNo());
