@@ -5056,12 +5056,35 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
     if (lc.kind != SymbolKind::PackedStructType && lc.kind != SymbolKind::EnumType)
         return nullptr;
     UHDM::typespec* elemTs = nullptr;
-    for (auto& [s2, tsp] : typedefTs)
-        if (s2->kind == SymbolKind::TypeAlias &&
-            &s2->as<TypeAliasType>().getCanonicalType() == &lc) {
-            elemTs = tsp;
-            break;
+    // Prefer the DECLARED alias (typedef lc_tx_e lc_tx_t used as elem type
+    // resolves to lc_tx_t's clone, not the canonical enum's —
+    // VarPassedTo2Submodules).
+    {
+        const Type* deE = &declared->getType();
+        while (deE->kind != SymbolKind::TypeAlias &&
+               deE->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            deE = &deE->getCanonicalType().as<PackedArrayType>().elementType;
+        if (deE->kind == SymbolKind::TypeAlias &&
+            &deE->getCanonicalType() != &lc) {
+            auto& tgtE = deE->as<TypeAliasType>().targetType.getType();
+            if (tgtE.getCanonicalType().kind == SymbolKind::PackedArrayType)
+                deE = &tgtE.getCanonicalType()
+                           .as<PackedArrayType>()
+                           .elementType;
         }
+        if (deE->kind == SymbolKind::TypeAlias &&
+            &deE->getCanonicalType() == &lc)
+            if (auto itE = typedefTs.find((const Symbol*)deE);
+                itE != typedefTs.end())
+                elemTs = itE->second;
+    }
+    if (!elemTs)
+        for (auto& [s2, tsp] : typedefTs)
+            if (s2->kind == SymbolKind::TypeAlias &&
+                &s2->as<TypeAliasType>().getCanonicalType() == &lc) {
+                elemTs = tsp;
+                break;
+            }
     if (!elemTs)
         return nullptr;
 

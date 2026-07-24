@@ -1008,6 +1008,16 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                                                       "." + std::string(conn->port.name)
                                                 : prefix,
                                             info.nets)) {
+                    // A DEF-view bit_select HighConn doubles through the
+                    // CHILD instance name (VarPassedTo2Submodules
+                    // .lc_clk_byp_ack_i(lc_clk_byp_ack[0])).
+                    if (h->UhdmType() == UHDM::uhdmbit_select &&
+                        conn->port.kind != SymbolKind::InterfacePort) {
+                        auto* bsD = (UHDM::bit_select*)h;
+                        bsD->VpiFullName(prefix + "." +
+                                         std::string(child.name) + "." +
+                                         std::string(bsD->VpiName()));
+                    }
                     // An interface-ARRAY element connection (.b(arr[0])) is a
                     // bit_select on the module_array, named by the array and
                     // scoped by the child instance (work@dut.p0.arr) — Surelog.
@@ -2053,6 +2063,37 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         // net (packed_array_net, doubled element fullname).
         if (!implicitNet && !realVar) {
             if (it.port) {
+                // A CHILD elab view's OUTPUT port driven by the child's own
+                // continuous assign flips to a packed_array_VAR
+                // (VarPassedTo2Submodules lc_en_o); top views and undriven
+                // ports keep the net.
+                bool childDrivenOut9 = false;
+                if (!isTop && it.port->kind == SymbolKind::Port &&
+                    it.port->as<PortSymbol>().direction ==
+                        ArgumentDirection::Out) {
+                    for (auto& mb9 : body.members()) {
+                        if (mb9.kind != SymbolKind::ContinuousAssign)
+                            continue;
+                        auto& as9 =
+                            mb9.as<ContinuousAssignSymbol>().getAssignment();
+                        if (as9.kind != ExpressionKind::Assignment)
+                            continue;
+                        auto& le9 = stripImplicitConv(
+                            as9.as<AssignmentExpression>().left());
+                        if (le9.kind == ExpressionKind::NamedValue &&
+                            &le9.as<NamedValueExpression>().symbol == it.sym)
+                            childDrivenOut9 = true;
+                    }
+                }
+                if (childDrivenOut9) {
+                    if (auto* pav9 = emitPackedStructArrayVar(*it.sym, name,
+                                                              fullName, m)) {
+                        topNets[it.sym] = pav9;
+                        sigOrder.emplace_back(it.sym, pav9);
+                        vars->push_back(pav9);
+                        continue;
+                    }
+                }
                 if (auto* pan = emitPackedStructArrayNet(*it.sym, name, fullName, m)) {
                     topNets[it.sym] = pan;
                     sigOrder.emplace_back(it.sym, pan);

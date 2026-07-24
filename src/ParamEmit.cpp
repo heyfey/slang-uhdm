@@ -4350,13 +4350,37 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 // package; port-only uses keep the TARGET's decl span, single
                 // scoping and no parent.
                 SourceLocation useEnd = SourceLocation::NoLocation;
+                bool arrayAliasUse0 = false;
                 for (auto inst : comp.getRoot().topInstances) {
                     for (auto& mb : inst->body.members()) {
                         if (mb.kind != SymbolKind::Variable)
                             continue;
                         auto dt0 = mb.getDeclaredType();
-                        if (!dt0 || &dt0->getType() != (const Type*)&ta)
+                        if (!dt0)
                             continue;
+                        // Direct alias type OR a PACKED ARRAY of it
+                        // (VarPassedTo2Submodules lc_tx_t [0:0] var). An
+                        // ARRAY use doubles/parents but does NOT stretch
+                        // the span (useEnd stays unset).
+                        bool aliasDirect0 = &dt0->getType() == (const Type*)&ta;
+                        bool aliasUse0 = aliasDirect0;
+                        if (!aliasUse0)
+                            for (const Type* t0 = &dt0->getType();;) {
+                                if (t0 == (const Type*)&ta) {
+                                    aliasUse0 = true;
+                                    break;
+                                }
+                                auto& c0 = t0->getCanonicalType();
+                                if (c0.kind != SymbolKind::PackedArrayType)
+                                    break;
+                                t0 = &c0.as<PackedArrayType>().elementType;
+                            }
+                        if (!aliasUse0)
+                            continue;
+                        if (!aliasDirect0) {
+                            arrayAliasUse0 = true;
+                            break;
+                        }
                         // PORT-backed variables (output pkg::b o) don't count.
                         bool portBacked = false;
                         for (auto pb : inst->body.getPortList())
@@ -4372,7 +4396,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     if (useEnd != SourceLocation::NoLocation)
                         break;
                 }
-                bool varUse = useEnd != SourceLocation::NoLocation;
+                bool varUse =
+                    useEnd != SourceLocation::NoLocation || arrayAliasUse0;
                 std::string refName = varUse
                                           ? prefix + prefix + std::string(ta.name)
                                           : prefix + std::string(ta.name);
@@ -4388,7 +4413,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 art->VpiFullName(refName);
                 art->VpiParent(ets);
                 ets->Typedef_alias(art);
-                if (varUse)
+                if (varUse && useEnd != SourceLocation::NoLocation)
                     setLoc(ets, SourceRange(tgtStart, useEnd));
                 else if (tgtDecl.start() != SourceLocation::NoLocation)
                     setLoc(ets, tgtDecl);
