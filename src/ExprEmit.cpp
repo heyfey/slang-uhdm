@@ -723,6 +723,19 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                         emitExpr(*sel.sel, bs, prefix + "." + dotted, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
+            else if (inLhs && baseNv->symbol.kind == SymbolKind::Variable &&
+                     !lastMember) {
+                // A CONT-ASSIGN lvalue select on a struct VARIABLE member
+                // array that is FOLLOWED by a further member
+                // (assign t.my_array[0].a = ...) behaves like the process
+                // lvalue: member+index span with the lazily-frozen doubled
+                // fullname (work@<mod>.<dotted>.<name>) — Surelog.
+                setLoc(bs, SourceRange(comp.nameSpan.start(), sel.selEnd));
+                (void)bs->VpiFullName();
+                if (auto* ix =
+                        emitExpr(*sel.sel, bs, prefix + "." + dotted, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            }
             else if (inLhs) {
                 // A CONT-ASSIGN lvalue select anchors at the INDEX and keeps
                 // the dotted path as its name (Surelog).
@@ -3521,7 +3534,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* vs = s.MakeVar_select();
                     vs->VpiName(nv2.symbol.name);
                     std::string baseFull = joinRef(prefix, nv2.symbol.name);
-                    vs->VpiFullName(baseFull);
+                    // A port HIGH-CONN select carries no written fullname:
+                    // UHDM computes it through the port and the instance
+                    // (<inst>.<port>.<sig>), and only skips the port name for
+                    // a bit_select child.
+                    if (!parent || parent->UhdmType() != UHDM::uhdmport)
+                        vs->VpiFullName(baseFull);
                     vs->VpiParent(parent);
                     setLoc(vs, expr.sourceRange);
                     auto* idxs = s.MakeExprVec();
@@ -3778,16 +3796,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* ps = s.MakePart_select();
                         ps->VpiName(nvb.symbol.name);
                         ps->VpiDefName(nvb.symbol.name);
-                        ps->VpiFullName(baseFull + "." + std::string(nvb.symbol.name));
+                        // The part_select repeats the base name, so its own
+                        // fullname DOUBLES it; bound refs inside the ranges
+                        // scope through THAT (UHDM ComputeFullName only skips
+                        // a bit_select/indexed_part_select/hier_path parent).
+                        std::string psFull =
+                            baseFull + "." + std::string(nvb.symbol.name);
+                        ps->VpiFullName(psFull);
                         ps->VpiParent(vs);
                         setLoc(ps, selRange);
                         if (constSel)
                             ps->VpiConstantSelect(true);
+                        // A range endpoint that IS a literal stays unparented;
+                        // a constant nested in an endpoint OPERATION keeps its
+                        // operation parent (Surelog).
                         bool savedSup = suppressConstParent;
-                        suppressConstParent = true;
-                        if (auto* l = emitExpr(rs.left(), ps, baseFull, netMap))
+                        suppressConstParent = isLiteralExpr(rs.left());
+                        if (auto* l = emitExpr(rs.left(), ps, psFull, netMap))
                             ps->Left_range((UHDM::expr*)l);
-                        if (auto* r = emitExpr(rs.right(), ps, baseFull, netMap))
+                        suppressConstParent = isLiteralExpr(rs.right());
+                        if (auto* r = emitExpr(rs.right(), ps, psFull, netMap))
                             ps->Right_range((UHDM::expr*)r);
                         suppressConstParent = savedSup;
                         idxs->push_back(ps);

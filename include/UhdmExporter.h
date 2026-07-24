@@ -477,6 +477,16 @@ private:
     std::map<std::pair<uint32_t, uint32_t>,
              std::vector<std::pair<uint32_t, int32_t>>>
         lineShifts;
+    // Surelog's lexer swallows the whitespace that TRAILS a based number
+    // literal (1'b0/4'd2/...) into the number token, so a run of N spaces
+    // there counts as ONE column: every position later on that line moves
+    // LEFT by N-1. Memoized per (buffer id, line):
+    // sorted [(last space col, -(N-1))].
+    std::map<std::pair<uint32_t, uint32_t>,
+             std::vector<std::pair<uint32_t, int32_t>>>
+        numLitWsShifts;
+    const std::vector<std::pair<uint32_t, int32_t>>& numLitWsShift(
+        slang::SourceLocation lc, uint32_t line, uint32_t col);
     // One text replacement inside a macro body: Surelog lays a body out with
     // each `formal` replaced by the actual argument text AND each nested macro
     // call replaced by its (recursively) expanded body. Every body position

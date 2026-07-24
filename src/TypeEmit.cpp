@@ -4281,10 +4281,19 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             bs->VpiParent(parent);
             setLoc(bs, syn.sourceRange());
             if (sel && sel->kind == syntax::SyntaxKind::BitSelect) {
+                // Every def gen-CA RHS bit_select anchors at its INDEX, not
+                // just the top-level one (Surelog).
+                if (selBaseScopeIdx)
+                    setLoc(bs, sel->sourceRange());
                 // Def gen-CA RHS: index subexpressions scope THROUGH the
-                // select base (prefix.base.<name>) — Surelog.
+                // select base (prefix.base.<name>) — Surelog. A BARE
+                // identifier index is the bit_select's direct ref_obj child,
+                // and UHDM's ComputeFullName skips a bit_select parent for a
+                // ref_obj child, so it stays scope-level (prefix.<name>).
                 std::string savedPfx3 = syntaxRefPrefix;
-                if (selBaseScopeIdx && !syntaxRefPrefix.empty())
+                if (selBaseScopeIdx && !syntaxRefPrefix.empty() &&
+                    sel->as<syntax::BitSelectSyntax>().expr->kind !=
+                        syntax::SyntaxKind::IdentifierName)
                     syntaxRefPrefix += syntaxRefSep + std::string(bname);
                 if (auto* ix = emitSyntaxExpr(
                         *sel->as<syntax::BitSelectSyntax>().expr, bs))
@@ -4712,8 +4721,13 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     bs->VpiFullName(spaceOps(pname));
                     setLoc(bs, SourceRange(exprStart + off,
                                            exprStart + off + base.size()));
-                    if (auto* ix = emitSyntaxExpr(*baseSelSyn, bs))
+                    if (auto* ix = emitSyntaxExpr(*baseSelSyn, bs)) {
+                        // A VARIABLE index ref parents at the HIER_PATH;
+                        // operations/constants keep the bit_select (Surelog).
+                        if (((UHDM::any*)ix)->UhdmType() == UHDM::uhdmref_obj)
+                            ((UHDM::any*)ix)->VpiParent(hp);
                         bs->VpiIndex((UHDM::expr*)ix);
+                    }
                     elems->push_back(bs);
                     continue;
                 }

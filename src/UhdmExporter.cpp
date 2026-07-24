@@ -1334,18 +1334,71 @@ int32_t UhdmExporter::macroArgShift(SourceLocation loc) {
     return shift;
 }
 
+// Whitespace runs that TRAIL a based number literal on `line` (Surelog's
+// lexer folds each into a single column). Memoized per (buffer, line).
+const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
+    SourceLocation lc, uint32_t line, uint32_t col) {
+    auto key = std::make_pair(lc.buffer().getId(), line);
+    auto [it, fresh] = numLitWsShifts.try_emplace(key);
+    if (!fresh)
+        return it->second;
+    auto text = sm->getSourceText(lc.buffer());
+    if (col == 0 || lc.offset() + 1 < col)
+        return it->second;
+    size_t ls = lc.offset() - (size_t)(col - 1);
+    size_t le = text.find('\n', ls);
+    if (ls >= text.size())
+        return it->second;
+    std::string_view ln =
+        text.substr(ls, (le == std::string_view::npos ? text.size() : le) - ls);
+    // A based literal's VALUE characters (the base letter is one of them).
+    auto isVal = [](char ch) {
+        return (ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'f') ||
+               (ch >= 'A' && ch <= 'F') || ch == 'x' || ch == 'X' ||
+               ch == 'z' || ch == 'Z' || ch == '?' || ch == '_';
+    };
+    for (size_t p = 0; p < ln.size();) {
+        if (ln[p] != ' ') {
+            p++;
+            continue;
+        }
+        size_t q = p;
+        while (q < ln.size() && ln[q] == ' ')
+            q++;
+        size_t runLen = q - p;
+        if (runLen >= 2 && p > 0) {
+            size_t j = p;
+            while (j > 0 && isVal(ln[j - 1]))
+                j--;
+            // ...'<value>  or  ...'s<value>
+            bool based = j < p && j > 0 &&
+                         (ln[j - 1] == '\'' ||
+                          ((ln[j - 1] == 's' || ln[j - 1] == 'S') && j > 1 &&
+                           ln[j - 2] == '\''));
+            if (based)
+                it->second.push_back({(uint32_t)q, -(int32_t)(runLen - 1)});
+        }
+        p = q;
+    }
+    return it->second;
+}
+
 // A FILE position's Surelog-layout line/col (col shifted right past any
-// single-line macro expansions earlier on the line).
+// single-line macro expansions earlier on the line, and LEFT past any
+// whitespace run folded into a preceding based number literal).
 void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
                                uint32_t& col) {
     line = (uint32_t)sm->getLineNumber(lc);
     col = (uint32_t)sm->getColumnNumber(lc);
     if (!macroExpBuilt)
         buildMacroExpansions();
+    uint32_t c0 = col;
+    for (auto& [ucol, d] : numLitWsShift(lc, line, c0))
+        if (ucol < c0)
+            col = (uint32_t)((int32_t)col + d);
     auto it = lineShifts.find(std::make_pair(lc.buffer().getId(), line));
     if (it == lineShifts.end())
         return;
-    uint32_t c0 = col;
     for (auto& [ucol, d] : it->second)
         if (ucol < c0)
             col = (uint32_t)((int32_t)col + d);
