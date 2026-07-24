@@ -957,6 +957,12 @@ private:
         // ordered list so the drain reproduces Surelog's depth-first
         // per-gen-scope interleave (LAST_START, i, j, j, ... — gen_test5).
         bool genvarOnly = false;
+        // Gen-local var INITS that folded this localparam share its ts too
+        // (logic [127:0] b = y; -> constant with a ref to y's typespec).
+        std::vector<UHDM::ref_typespec*> shareRts;
+        // The fold encoded INT (negative/multiplicative): such a constant
+        // SHARES the param's typespec instead of binding a bare clone.
+        bool intFold = false;
     };
     std::vector<PendingGenLpTs> pendingGenLpTs;
     // Gen-scope localparam fold constants keyed by <genScopeFullName>.<name>

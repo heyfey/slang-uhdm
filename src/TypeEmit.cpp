@@ -4839,8 +4839,18 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 op->VpiParent(parent);
                 setLoc(op, syn.sourceRange());
                 auto* operands = s.MakeAnyVec();
-                if (auto* e = emitSyntaxExpr(*ue.operand, op))
+                if (auto* e = emitSyntaxExpr(*ue.operand, op)) {
+                    // A DIRECT literal operand of a UNARY op is built with
+                    // compileConst and stays UNPARENTED (Surelog); binary
+                    // operands and nested expressions keep the normal rules.
+                    if (e->UhdmType() == UHDM::uhdmconstant &&
+                        (ue.operand->kind ==
+                             syntax::SyntaxKind::IntegerLiteralExpression ||
+                         ue.operand->kind ==
+                             syntax::SyntaxKind::IntegerVectorExpression))
+                        ((UHDM::any*)e)->VpiParent(nullptr);
                     operands->push_back(e);
+                }
                 op->Operands(operands);
                 return op;
             }

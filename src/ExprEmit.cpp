@@ -1318,7 +1318,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (typedPkgParam)
                         enumOriginHexRecode(c, psym.getInitializer());
                     setLoc(c, expr.sourceRange);
-                    if (parent && parent->UhdmType() == UHDM::uhdmoperation)
+                    // A PROCEDURAL bit-select INDEX fold reading an imported
+                    // param parents at the select and carries a ts ref to the
+                    // param's def typespec, named by the SELECT (Surelog;
+                    // cs_registers csr_rdata_int[CSR_MSTATUS_MIE_BIT]).
+                    bool procSelFold9 = inProcessEmit && !inParamInit && parent &&
+                                        parent->UhdmType() ==
+                                            UHDM::uhdmbit_select;
+                    if ((parent && parent->UhdmType() == UHDM::uhdmoperation) ||
+                        procSelFold9)
                         c->VpiParent(parent);
                     // A DEF param-init SYS-FUNC-CALL argument fold reading an
                     // imported param ($clog2(DATA_WIDTH) with DATA_WIDTH an
@@ -1348,7 +1356,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (inParamInit && paramInitDef && !paramInitPkg &&
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
-                        procOpFold9 || sysFuncArgFold)
+                        procOpFold9 || sysFuncArgFold || procSelFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -1359,7 +1367,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rawText(expr.sourceRange).find("::") ==
                                 std::string::npos) {
                             auto* rt = s.MakeRef_typespec();
-                            rt->VpiFullName(prefix);
+                            if (procSelFold9)
+                                rt->VpiFullName(
+                                    ((UHDM::bit_select*)parent)->VpiFullName());
+                            else
+                                rt->VpiFullName(prefix);
                             rt->VpiParent(c);
                             // A CONT-ASSIGN fold binds its OWN clone of the
                             // imported param's typespec (Surelog mints one per
@@ -2034,7 +2046,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // A TASK/FUNCTION BODY is compiled once and never deep-cloned, so
             // its unary literal operands keep compileConst's null parent too
             // (func_tern_hint's `? -1 :`).
-            if ((paramInitDef || inProcessEmit || inParamInit || callArgUnary ||
+            if ((paramInitDef || inProcessEmit || inGenScopeProc ||
+                 defGenProcessEmit || inParamInit || callArgUnary ||
                  currentTf) &&
                 isLiteralExpr(ue.operand())) {
                 suppressConstParent = true;
@@ -3121,6 +3134,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                           !intFormal))
                                       : (!inLhs && !defOpArg && !portInitCtx &&
                                          !paramRef && !paramRootSel &&
+                                         !(intFormal &&
+                                           a->UhdmType() ==
+                                               UHDM::uhdmoperation) &&
                                          (refArg || callArgDepth == 1));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =

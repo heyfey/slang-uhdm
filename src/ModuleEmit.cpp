@@ -17,6 +17,105 @@ namespace slang_uhdm {
 
 static bool subWritesNonLocal(const SubroutineSymbol& sub);
 
+// Surelog's variable / typespec CLASS for a GEN-BLOCK local declaration
+// (`int x`, `shortint x`, `bit [1:0] x`, ...). Returns false when the type is
+// not one of the stmt-ified scalar/integer forms. `ranged` reports a packed
+// vector of the scalar type (its typespec carries the declared ranges).
+// `varSigned` carries the declared signedness onto the bit/logic VAR (the
+// elab view); the def-view stmt-ified copy keeps it on the typespec only.
+static bool genLocalVarClass(UHDM::Serializer& s, const Type& ct,
+                             UHDM::variables*& var, UHDM::typespec*& ts,
+                             bool& ranged, bool varSigned = true) {
+    var = nullptr;
+    ts = nullptr;
+    ranged = false;
+    if (ct.kind == SymbolKind::PredefinedIntegerType) {
+        auto& pit = ct.as<PredefinedIntegerType>();
+        bool sgn = pit.isSigned;
+        switch (pit.integerKind) {
+            case PredefinedIntegerType::Integer: {
+                auto* v = s.MakeInteger_var();
+                v->VpiSigned(sgn);
+                auto* t = s.MakeInteger_typespec();
+                t->VpiSigned(sgn);
+                var = v;
+                ts = t;
+                return true;
+            }
+            case PredefinedIntegerType::Int: {
+                auto* v = s.MakeInt_var();
+                v->VpiSigned(sgn);
+                auto* t = s.MakeInt_typespec();
+                t->VpiSigned(sgn);
+                var = v;
+                ts = t;
+                return true;
+            }
+            case PredefinedIntegerType::ShortInt: {
+                auto* v = s.MakeShort_int_var();
+                v->VpiSigned(sgn);
+                auto* t = s.MakeShort_int_typespec();
+                t->VpiSigned(sgn);
+                var = v;
+                ts = t;
+                return true;
+            }
+            case PredefinedIntegerType::LongInt: {
+                auto* v = s.MakeLong_int_var();
+                v->VpiSigned(sgn);
+                auto* t = s.MakeLong_int_typespec();
+                t->VpiSigned(sgn);
+                var = v;
+                ts = t;
+                return true;
+            }
+            case PredefinedIntegerType::Byte: {
+                auto* v = s.MakeByte_var();
+                v->VpiSigned(sgn);
+                auto* t = s.MakeByte_typespec();
+                t->VpiSigned(sgn);
+                var = v;
+                ts = t;
+                return true;
+            }
+            default:
+                return false;
+        }
+    }
+    const Type* base = &ct;
+    if (ct.kind == SymbolKind::PackedArrayType) {
+        auto& el = ct.as<PackedArrayType>().elementType.getCanonicalType();
+        if (el.kind != SymbolKind::ScalarType)
+            return false;
+        base = &el;
+        ranged = true;
+    }
+    if (base->kind != SymbolKind::ScalarType)
+        return false;
+    if (base->as<ScalarType>().scalarKind == ScalarType::Bit) {
+        auto* v = s.MakeBit_var();
+        auto* t = s.MakeBit_typespec();
+        if (ct.isSigned()) {
+            if (varSigned)
+                v->VpiSigned(true);
+            t->VpiSigned(true);
+        }
+        var = v;
+        ts = t;
+        return true;
+    }
+    auto* lv = s.MakeLogic_var();
+    auto* lt = s.MakeLogic_typespec();
+    if (ct.isSigned()) {
+        if (varSigned)
+            lv->VpiSigned(true);
+        lt->VpiSigned(true);
+    }
+    var = lv;
+    ts = lt;
+    return true;
+}
+
 // Surelog stores an interface's modports in a name-keyed std::map, so it
 // emits them SORTED ALPHABETICALLY BY NAME (not in source-declaration order).
 // Collect the body's modports in that same order.
@@ -4257,6 +4356,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         const std::string& parentFull,
                         UHDM::BaseClass* parentObj) -> UHDM::gen_scope_array* {
         std::string fullName = parentFull + "." + name;
+        // Gen-local variable initializers, emitted after the block's
+        // task/functions exist (see below).
+        struct PendingVarInit9 {
+            UHDM::variables* var;
+            const Symbol* sym;
+            std::string full;
+        };
+        std::vector<PendingVarInit9> pendingGenVarInit;
         auto* gsa = s.MakeGen_scope_array();
         gsa->VpiName(name);
         gsa->VpiFullName(fullName);
@@ -4288,10 +4395,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         syntax::SyntaxKind::ElseClause)
                     underCase9 = true;
             }
-            if (underCase9)
+            // An UNNAMED if-generate `begin..end` block is likewise identified
+            // by its FIRST MEMBER's span (Surelog builds the gen scope from
+            // the first object it places in it) — localparams included. Loop
+            // iterations (genblkN[i]) and NAMED blocks keep the begin..end
+            // span.
+            bool unnamedIf9 = false;
+            if (!underCase9 && syn->kind == syntax::SyntaxKind::GenerateBlock &&
+                blk.isUnnamed && !blk.getArrayIndex())
+                unnamedIf9 = true;
+            if (underCase9 || unnamedIf9)
                 for (auto& gm9 : blk.members()) {
                     if (gm9.kind == SymbolKind::Genvar ||
-                        gm9.kind == SymbolKind::Parameter ||
+                        (!unnamedIf9 && gm9.kind == SymbolKind::Parameter) ||
                         gm9.kind == SymbolKind::TransparentMember)
                         continue;
                     if (auto* ms9 = gm9.getSyntax()) {
@@ -4456,7 +4572,13 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
                             setLoc(pa2, dsyn->sourceRange());
                         auto* c2 = s.MakeConstant();
-                        int64_t sv = cv.integer().as<int64_t>().value_or(0);
+                        // The fold reads the value's BITS as signed whatever
+                        // the localparam's declared signedness (`localparam
+                        // integer unsigned y = -1` / `reg [1:0] y = -1` all
+                        // fold to -1) — Surelog.
+                        SVInt svv = cv.integer();
+                        svv.setSigned(true);
+                        int64_t sv = svv.as<int64_t>().value_or(0);
                         std::string sd = std::to_string(sv);
                         c2->VpiDecompile(sd);
                         c2->VpiSize((int32_t)ps.getType().getBitWidth());
@@ -4611,6 +4733,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         }
                         pendingGenLpTs.push_back(
                             {rt, crt, &ps, typedLp, operandRt});
+                        pendingGenLpTs.back().intFold = negSib9;
                         rt = nullptr;
                         c2->Typespec(crt);
                         pa2->Rhs(c2);
@@ -4693,7 +4816,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                  vk.as<PackedArrayType>()
                          .elementType.getCanonicalType()
                          .kind == SymbolKind::ScalarType);
-            if (!okKind || !blkWrites.count(&gm))
+            // A REG-keyword local net-ifies when DRIVEN in the block or when
+            // it carries a DECL INITIALIZER (`reg x = -1;` is a
+            // net-decl-assign for Surelog); `logic x = -1;` stays a var.
+            bool hasInit9 =
+                gm.getDeclaredType() && gm.getDeclaredType()->getInitializer();
+            if (!okKind || (!blkWrites.count(&gm) && !hasInit9))
                 return false;
             // Only REG-keyword decls net-ify; `logic` locals stay vars.
             if (auto dt0 = gm.getDeclaredType())
@@ -4763,6 +4891,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             setLoc(n, nameSpan(gm.location, gm.name));
             if (caVar) {
                 n->VpiNetType(48);
+                // A SIGNED reg decl (`reg signed x`) carries vpiSigned on the
+                // net-ified copy too (Surelog).
+                if (gm.getDeclaredType() &&
+                    gm.getDeclaredType()->getType().isSigned())
+                    n->VpiSigned(true);
                 netMap[&gm] = n;
             }
             int32_t nt = caVar ? 0 : netTypeFor(gm);
@@ -4770,6 +4903,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 n->VpiNetType(nt);
             auto* dt = gm.getDeclaredType();
             bool hasInit = dt && dt->getInitializer();
+            // A net-ified REG decl-assign (`reg x = -1;`) spans the whole
+            // DECLARATOR (name..init), not just the name (Surelog).
+            if (caVar && hasInit && gm.getSyntax())
+                setLoc(n, gm.getSyntax()->sourceRange());
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(nfull);
             rt->VpiParent(n);
@@ -4865,7 +5002,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     lnet->VpiParent(ca);
                     if (nt)
                         lnet->VpiNetType(nt);
-                    setLoc(lnet, nameSpan(gm.location, gm.name));
+                    else if (caVar) {
+                        lnet->VpiNetType(48);
+                        if (gm.getDeclaredType() &&
+                            gm.getDeclaredType()->getType().isSigned())
+                            lnet->VpiSigned(true);
+                    }
+                    if (caVar && gm.getSyntax())
+                        setLoc(lnet, gm.getSyntax()->sourceRange());
+                    else
+                        setLoc(lnet, nameSpan(gm.location, gm.name));
                     auto* lrt = s.MakeRef_typespec();
                     lrt->VpiFullName(nfull);
                     lrt->VpiParent(lnet);
@@ -4907,30 +5053,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                 continue;
             }
-            bool isInt2 = vct.kind == SymbolKind::PredefinedIntegerType &&
-                          vct.as<PredefinedIntegerType>().integerKind ==
-                              PredefinedIntegerType::Integer;
-            bool isScalar2 = vct.kind == SymbolKind::ScalarType;
-            // Ranged logic locals (logic [63:W] x) emit a logic_var whose
-            // ts carries the folded ranges.
-            bool isRanged2 =
-                vct.kind == SymbolKind::PackedArrayType &&
-                vct.as<PackedArrayType>()
-                        .elementType.getCanonicalType()
-                        .kind == SymbolKind::ScalarType;
-            if (!isInt2 && !isScalar2 && !isRanged2)
+            // int/shortint/longint/byte/bit locals carry their OWN var and
+            // typespec class (Surelog); ranged ones (logic [63:W] x) keep the
+            // folded-range typespec from makeTypespec.
+            UHDM::variables* iv = nullptr;
+            UHDM::typespec* clsTs2 = nullptr;
+            bool isRanged2 = false;
+            if (!genLocalVarClass(s, vct, iv, clsTs2, isRanged2))
                 continue;
             std::string vfull = fullName + "." + std::string(gm.name);
-            UHDM::variables* iv;
-            if (isInt2) {
-                auto* v0 = s.MakeInteger_var();
-                v0->VpiSigned(
-                    vct.as<PredefinedIntegerType>().isSigned);
-                iv = v0;
-            }
-            else {
-                iv = s.MakeLogic_var();
-            }
             iv->VpiName(gm.name);
             iv->VpiFullName(vfull);
             iv->VpiParent(gs);
@@ -4940,40 +5071,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (gm.getDeclaredType() && gm.getDeclaredType()->getInitializer() &&
                 gm.getSyntax()) {
                 setLoc(iv, gm.getSyntax()->sourceRange());
-                auto* in0 = gm.getDeclaredType()->getInitializer();
-                ASTContext ic0(comp.getRoot(), LookupLocation::max);
-                if (auto cv0 = ic0.tryEval(*in0);
-                    cv0 && cv0.isInteger() && !cv0.integer().hasUnknown()) {
-                    auto* c0 = s.MakeConstant();
-                    std::string d0 = cv0.integer().toString(
-                        LiteralBase::Decimal, false);
-                    c0->VpiDecompile(d0);
-                    c0->VpiSize(32);
-                    c0->VpiValue("UINT:" + d0);
-                    c0->VpiConstType(vpiUIntConst);
-                    c0->VpiParent(iv);
-                    setLoc(c0, stripImplicitConv(*in0).sourceRange);
-                    iv->Expr(c0);
-                }
+                // The init expression is emitted AFTER the block's functions
+                // exist (a `f(-1)` init must bind vpiFunction).
+                pendingGenVarInit.push_back({iv, &gm, vfull});
             }
             else
                 setLoc(iv, nameSpan(gm.location, gm.name));
-            UHDM::typespec* ivt;
-            if (isInt2) {
-                auto* t0 = s.MakeInteger_typespec();
-                t0->VpiSigned(
-                    vct.as<PredefinedIntegerType>().isSigned);
-                ivt = t0;
-            }
-            else if (isRanged2) {
-                ivt = makeTypespec(gm, gm.getDeclaredType()
-                                           ? gm.getDeclaredType()
-                                                 ->getTypeSyntax()
-                                           : nullptr);
-            }
-            else {
-                ivt = s.MakeLogic_typespec();
-            }
+            UHDM::typespec* ivt = clsTs2;
+            if (isRanged2)
+                if (auto* rt2 = makeTypespec(gm, gm.getDeclaredType()
+                                                     ? gm.getDeclaredType()
+                                                           ->getTypeSyntax()
+                                                     : nullptr))
+                    ivt = rt2;
             if (auto* dt2 = gm.getDeclaredType())
                 if (auto* tsn2 = dt2->getTypeSyntax())
                     setLoc(ivt,
@@ -5046,6 +5156,97 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             genInfo.nets = netMap;
             emitTaskFuncs(blk, gs, fullName, &genInfo);
         }
+
+        // Deferred gen-local var INITIALIZERS. The ELABORATED gen-local init
+        // keeps the source expression (Surelog re-compiles it in the
+        // instance):
+        //  - bare decimal literals are sized to the DECLARED variable width
+        //    (the def view keeps the 64-bit form),
+        //  - a whole-expression constant is parented at the var,
+        //  - a DIRECT literal operand of a UNARY op stays unparented.
+        for (auto& pv9 : pendingGenVarInit) {
+            auto* in0 = pv9.sym->getDeclaredType()->getInitializer();
+            int32_t vw0 =
+                (int32_t)pv9.sym->getDeclaredType()->getType().getBitWidth();
+            // A bare reference to a gen LOCALPARAM constant-propagates
+            // (Surelog): the init becomes the param's VALUE at the variable's
+            // width, carrying a ts ref to that localparam's typespec.
+            auto& in9 = stripImplicitConv(*in0);
+            if (in9.kind == ExpressionKind::NamedValue) {
+                auto& rsy9 = in9.as<NamedValueExpression>().symbol;
+                bool realLp9 = false;
+                if (rsy9.kind == SymbolKind::Parameter)
+                    for (auto q9 = rsy9.getSyntax(); q9; q9 = q9->parent)
+                        if (q9->kind ==
+                            syntax::SyntaxKind::ParameterDeclaration) {
+                            realLp9 = true;
+                            break;
+                        }
+                if (realLp9) {
+                    auto& psy9 = rsy9.as<ParameterSymbol>();
+                    auto& cv9 = psy9.getValue();
+                    if (cv9.isInteger() && !cv9.integer().hasUnknown()) {
+                        // The folded value prints as a SIGNED decimal whatever
+                        // the localparam's own signedness (`integer unsigned
+                        // y = -1` still folds to -1) — Surelog.
+                        SVInt sv9 = cv9.integer();
+                        sv9.setSigned(true);
+                        std::string d9 =
+                            sv9.toString(LiteralBase::Decimal, false);
+                        auto* c9 = s.MakeConstant();
+                        c9->VpiDecompile(d9);
+                        c9->VpiSize(vw0);
+                        c9->VpiValue("INT:" + d9);
+                        c9->VpiConstType(vpiIntConst);
+                        c9->VpiParent(pv9.var);
+                        setLoc(c9, in9.sourceRange);
+                        auto* rt9 = s.MakeRef_typespec();
+                        rt9->VpiFullName(pv9.full);
+                        rt9->VpiParent(c9);
+                        c9->Typespec(rt9);
+                        for (auto& gl9 : pendingGenLpTs)
+                            if (gl9.ps == &psy9) {
+                                gl9.shareRts.push_back(rt9);
+                                break;
+                            }
+                        pv9.var->Expr(c9);
+                        continue;
+                    }
+                }
+            }
+            auto* e0 = emitExpr(*in0, pv9.var, pv9.full, netMap);
+            if (!e0)
+                continue;
+            std::function<void(UHDM::any*)> resize0 = [&](UHDM::any* n0) {
+                if (!n0)
+                    return;
+                if (n0->UhdmType() == UHDM::uhdmconstant) {
+                    auto* c9 = (UHDM::constant*)n0;
+                    if (vw0 && c9->VpiConstType() == vpiUIntConst &&
+                        std::string(c9->VpiDecompile()).find('\'') ==
+                            std::string::npos)
+                        c9->VpiSize(vw0);
+                    return;
+                }
+                if (n0->UhdmType() != UHDM::uhdmoperation)
+                    return;
+                auto* op9 = (UHDM::operation*)n0;
+                auto* ops9 = op9->Operands();
+                if (!ops9)
+                    return;
+                bool unary9 = ops9->size() == 1;
+                for (auto* o9 : *ops9) {
+                    resize0(o9);
+                    if (unary9 && o9->UhdmType() == UHDM::uhdmconstant)
+                        o9->VpiParent(nullptr);
+                }
+            };
+            resize0(e0);
+            if (e0->UhdmType() == UHDM::uhdmconstant)
+                e0->VpiParent(pv9.var);
+            pv9.var->Expr((UHDM::expr*)e0);
+        }
+        pendingGenVarInit.clear();
 
         // Contents: net-decl-assigns first, then explicit cont_assigns and
         // processes with gen-scoped prefixes.
@@ -5751,8 +5952,44 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
 
         return gsa;
     };
+    // Surelog's genblk<N> numbering at MODULE scope also counts UNNAMED
+    // statement blocks (`initial begin..end`, `always @* begin..end`) as
+    // generate constructs, in source order; slang counts only the generate
+    // constructs. Track how many precede each block and shift its index.
+    // (Inside a generate scope Surelog does NOT count them — see p11.)
+    unsigned unnamedStmtBlocks9 = 0;
+    auto shiftGenName9 = [&](std::string gname) {
+        if (unnamedStmtBlocks9 && gname.rfind("genblk", 0) == 0) {
+            size_t br = gname.find('[');
+            std::string idxs = gname.substr(6, br == std::string::npos
+                                                   ? std::string::npos
+                                                   : br - 6);
+            std::string tail =
+                br == std::string::npos ? std::string() : gname.substr(br);
+            gname = "genblk" +
+                    std::to_string(atoi(idxs.c_str()) + unnamedStmtBlocks9) +
+                    tail;
+        }
+        return gname;
+    };
     for (auto& member : body.members()) {
-        if (member.kind == SymbolKind::GenerateBlockArray) {
+        if (member.kind == SymbolKind::ProceduralBlock) {
+            if (auto* psyn = member.getSyntax();
+                psyn && psyn->kind != syntax::SyntaxKind::ImmediateAssertionMember &&
+                psyn->kind != syntax::SyntaxKind::ConcurrentAssertionMember) {
+                const syntax::StatementSyntax* st9 =
+                    psyn->as<syntax::ProceduralBlockSyntax>().statement;
+                while (st9 &&
+                       st9->kind == syntax::SyntaxKind::TimingControlStatement)
+                    st9 = st9->as<syntax::TimingControlStatementSyntax>()
+                              .statement;
+                if (st9 && (st9->kind == syntax::SyntaxKind::SequentialBlockStatement ||
+                            st9->kind == syntax::SyntaxKind::ParallelBlockStatement) &&
+                    !st9->as<syntax::BlockStatementSyntax>().blockName)
+                    unnamedStmtBlocks9++;
+            }
+        }
+        else if (member.kind == SymbolKind::GenerateBlockArray) {
             auto& arr = member.as<GenerateBlockArraySymbol>();
             for (auto entry : arr.entries) {
                 if (entry->isUninstantiated)
@@ -5760,7 +5997,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 std::string idx;
                 if (entry->arrayIndex)
                     idx = entry->arrayIndex->toString(LiteralBase::Decimal, false);
-                std::string name = std::string(arr.getExternalName()) + "[" + idx + "]";
+                std::string name = shiftGenName9(
+                    std::string(arr.getExternalName()) + "[" + idx + "]");
                 if (auto* g = emitBlock(*entry, name, prefix, m))
                     gsas->push_back(g);
             }
@@ -5768,36 +6006,15 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         else if (member.kind == SymbolKind::GenerateBlock) {
             auto& blk = member.as<GenerateBlockSymbol>();
             if (!blk.isUninstantiated) {
-                std::string gname(blk.getExternalName());
-                // Surelog identifies an UNNAMED gen block containing nested
-                // generate constructs by its FIRST nested construct: named
-                // genblk<idx+1> and spanning that construct.
-                const syntax::SyntaxNode* spanOv = nullptr;
-                if (gname.rfind("genblk", 0) == 0) {
-                    for (auto& nm2 : blk.members()) {
-                        if (nm2.kind != SymbolKind::GenerateBlock &&
-                            nm2.kind != SymbolKind::GenerateBlockArray)
-                            continue;
-                        for (auto q = nm2.getSyntax(); q; q = q->parent)
-                            if (q->kind == syntax::SyntaxKind::IfGenerate ||
-                                q->kind == syntax::SyntaxKind::LoopGenerate ||
-                                q->kind == syntax::SyntaxKind::CaseGenerate) {
-                                spanOv = q;
-                                break;
-                            }
-                        break;
-                    }
-                    if (spanOv && gname.rfind("genblk", 0) == 0)
-                        gname = "genblk" +
-                                std::to_string(atoi(gname.c_str() + 6) + 1);
-                }
+                std::string gname = shiftGenName9(
+                    std::string(blk.getExternalName()));
                 // A taken BARE-STATEMENT else-if branch (unnamed genblkN whose
                 // syntax is a plain statement under IfGenerate < ElseClause)
                 // is WRAPPED: outer genblkN spans the taken IfGenerate's whole
                 // remaining chain, and the content lives in a NESTED
                 // genblkN.genblk1 at the statement span (Surelog re-pass).
                 const syntax::SyntaxNode* elseIfChain9 = nullptr;
-                if (gname.rfind("genblk", 0) == 0 && !spanOv) {
+                if (gname.rfind("genblk", 0) == 0) {
                     if (auto bs9 = blk.getSyntax();
                         bs9 && bs9->kind != syntax::SyntaxKind::GenerateBlock &&
                         bs9->parent &&
@@ -5839,15 +6056,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                     gsas->push_back(ogsa);
                 }
-                else if (auto* g = emitBlock(blk, gname, prefix, m)) {
-                    if (spanOv) {
-                        setLoc(g, spanOv->sourceRange());
-                        if (g->Gen_scopes() && !g->Gen_scopes()->empty())
-                            setLoc((*g->Gen_scopes())[0],
-                                   spanOv->sourceRange());
-                    }
+                else if (auto* g = emitBlock(blk, gname, prefix, m))
                     gsas->push_back(g);
-                }
             }
         }
     }
@@ -6888,7 +7098,10 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             gl.rt->Actual_typespec(s.MakeInt_typespec());
             continue;
         }
-        if (gl.crt && gl.typedLp)
+        // Only a UINT fold binds the bare clone; an INT-encoded fold
+        // (negative value) SHARES the param's own typespec (int_types
+        // `localparam reg [1:0] y = -1`).
+        if (gl.crt && gl.typedLp && !gl.intFold)
             if (auto* bare = makeBareVecParamTs(*gl.ps, false))
                 gl.crt->Actual_typespec(bare);
         // A FRESH elab ts, parented at the elab ref (Surelog). An UNTYPED
@@ -6917,6 +7130,9 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 gl.operandRt->Actual_typespec(its);
             if (gl.hierIdxRt && !gl.hierIdxRt->Actual_typespec())
                 gl.hierIdxRt->Actual_typespec(its);
+            for (auto* srt : gl.shareRts)
+                if (!srt->Actual_typespec())
+                    srt->Actual_typespec(its);
         }
     }
     pendingGenLpTs.clear();
@@ -12218,7 +12434,11 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         syntaxRefPrefix = branchPrefix;
                         if (auto* rc2 =
                                 emitSyntaxExpr(*dcl->initializer->expr, pa2)) {
-                            ((UHDM::expr*)rc2)->VpiParent(nullptr);
+                            // A literal/ref Rhs is unparented (Surelog parents
+                            // constants only as operation operands); an
+                            // OPERATION Rhs keeps its param_assign parent.
+                            if (rc2->UhdmType() != UHDM::uhdmoperation)
+                                ((UHDM::expr*)rc2)->VpiParent(nullptr);
                             pa2->Rhs((UHDM::expr*)rc2);
                         }
                         syntaxRefPrefix.clear();
@@ -12360,7 +12580,14 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         stmts->push_back(as3);
                         continue;
                     }
-                    if (!isInt && !isScalar && !isRangedLogic)
+                    // int/shortint/longint/byte/bit locals stmt-ify with
+                    // their OWN var/typespec class (Surelog).
+                    UHDM::variables* clsV2 = nullptr;
+                    UHDM::typespec* clsT2 = nullptr;
+                    bool clsRanged2 = false;
+                    bool haveCls2 = genLocalVarClass(s, vct, clsV2, clsT2,
+                                                     clsRanged2, false);
+                    if (!haveCls2 && !isInt && !isScalar && !isRangedLogic)
                         continue;
                     auto* as2 = s.MakeAssignment();
                     as2->VpiParent(b);
@@ -12377,59 +12604,43 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     }
                     else
                         setLoc(as2, nameSpan(dcl->name.location(), vname));
-                    UHDM::variables* iv;
-                    UHDM::typespec* it2;
-                    if (isInt) {
-                        bool isgn2 =
-                            vct.as<PredefinedIntegerType>().isSigned;
-                        auto* v0 = s.MakeInteger_var();
-                        v0->VpiSigned(isgn2);
-                        auto* t0 = s.MakeInteger_typespec();
-                        t0->VpiSigned(isgn2);
-                        iv = v0;
-                        it2 = t0;
-                    }
-                    else {
-                        iv = s.MakeLogic_var();
-                        auto* lt2 = s.MakeLogic_typespec();
-                        // Symbolic range bounds ([63:CounterWidth]) from the
-                        // dim syntax, refs scoped at the branch.
-                        if (isRangedLogic &&
-                            (dd.type->kind == syntax::SyntaxKind::LogicType ||
-                             dd.type->kind == syntax::SyntaxKind::RegType)) {
-                            auto& its3 = dd.type->as<syntax::IntegerTypeSyntax>();
-                            auto* rvec3 = s.MakeRangeVec();
-                            for (auto* dim : its3.dimensions) {
-                                if (!dim->specifier ||
-                                    dim->specifier->kind !=
-                                        syntax::SyntaxKind::
-                                            RangeDimensionSpecifier)
-                                    continue;
-                                auto& sel =
-                                    dim->specifier
-                                        ->as<syntax::
-                                                 RangeDimensionSpecifierSyntax>()
-                                        .selector;
-                                if (sel->kind !=
-                                    syntax::SyntaxKind::SimpleRangeSelect)
-                                    continue;
-                                auto& rs3 =
-                                    sel->as<syntax::RangeSelectSyntax>();
-                                auto* r3 = s.MakeRange();
-                                r3->VpiParent(lt2);
-                                setLoc(r3, dim->sourceRange());
-                                if (auto* le =
-                                        emitSyntaxExpr(*rs3.left, r3))
-                                    r3->Left_expr((UHDM::expr*)le);
-                                if (auto* re =
-                                        emitSyntaxExpr(*rs3.right, r3))
-                                    r3->Right_expr((UHDM::expr*)re);
-                                rvec3->push_back(r3);
-                            }
-                            if (!rvec3->empty())
-                                lt2->Ranges(rvec3);
+                    UHDM::variables* iv = clsV2;
+                    UHDM::typespec* it2 = clsT2;
+                    // Symbolic range bounds ([63:CounterWidth]) from the
+                    // dim syntax, refs scoped at the branch.
+                    if (clsRanged2 &&
+                        (dd.type->kind == syntax::SyntaxKind::LogicType ||
+                         dd.type->kind == syntax::SyntaxKind::RegType ||
+                         dd.type->kind == syntax::SyntaxKind::BitType)) {
+                        auto& its3 = dd.type->as<syntax::IntegerTypeSyntax>();
+                        auto* rvec3 = s.MakeRangeVec();
+                        for (auto* dim : its3.dimensions) {
+                            if (!dim->specifier ||
+                                dim->specifier->kind !=
+                                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                                continue;
+                            auto& sel =
+                                dim->specifier
+                                    ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                    .selector;
+                            if (sel->kind != syntax::SyntaxKind::SimpleRangeSelect)
+                                continue;
+                            auto& rs3 = sel->as<syntax::RangeSelectSyntax>();
+                            auto* r3 = s.MakeRange();
+                            r3->VpiParent(it2);
+                            setLoc(r3, dim->sourceRange());
+                            if (auto* le = emitSyntaxExpr(*rs3.left, r3))
+                                r3->Left_expr((UHDM::expr*)le);
+                            if (auto* re = emitSyntaxExpr(*rs3.right, r3))
+                                r3->Right_expr((UHDM::expr*)re);
+                            rvec3->push_back(r3);
                         }
-                        it2 = lt2;
+                        if (!rvec3->empty()) {
+                            if (it2->UhdmType() == UHDM::uhdmlogic_typespec)
+                                ((UHDM::logic_typespec*)it2)->Ranges(rvec3);
+                            else if (it2->UhdmType() == UHDM::uhdmbit_typespec)
+                                ((UHDM::bit_typespec*)it2)->Ranges(rvec3);
+                        }
                     }
                     iv->VpiName(vname);
                     iv->VpiFullName(branchPrefix + "." + vname);

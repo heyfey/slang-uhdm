@@ -804,6 +804,21 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
             v->VpiSigned(pit.isSigned);
             return v;
         }
+        if (pit.integerKind == PredefinedIntegerType::ShortInt) {
+            auto* v = s.MakeShort_int_var();
+            v->VpiSigned(pit.isSigned);
+            return v;
+        }
+        if (pit.integerKind == PredefinedIntegerType::LongInt) {
+            auto* v = s.MakeLong_int_var();
+            v->VpiSigned(pit.isSigned);
+            return v;
+        }
+        if (pit.integerKind == PredefinedIntegerType::Byte) {
+            auto* v = s.MakeByte_var();
+            v->VpiSigned(pit.isSigned);
+            return v;
+        }
     }
     if (ct.kind == SymbolKind::FloatingType) {
         if (ct.as<FloatingType>().floatKind == FloatingType::ShortReal)
@@ -823,6 +838,20 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
         auto* v = s.MakeInt_var();
         v->VpiSigned(true);
         return v;
+    }
+    // A `bit`-based return (bit f, bit [1:0] f) is a bit_var; four-state
+    // logic/reg returns stay logic_vars.
+    {
+        const Type* base9 = &ct;
+        if (base9->kind == SymbolKind::PackedArrayType)
+            base9 = &base9->as<PackedArrayType>()
+                         .elementType.getCanonicalType();
+        if (base9->kind == SymbolKind::ScalarType &&
+            base9->as<ScalarType>().scalarKind == ScalarType::Bit) {
+            // Signedness rides on the typespec only (Surelog leaves the
+            // bit_var itself unsigned even for `function bit signed f`).
+            return s.MakeBit_var();
+        }
     }
     return s.MakeLogic_var();
 }
