@@ -986,6 +986,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(c, expr.sourceRange);
                     if (parent && parent->UhdmType() == UHDM::uhdmoperation)
                         c->VpiParent(parent);
+                    // A DEF param-init SYS-FUNC-CALL argument fold reading an
+                    // imported param ($clog2(DATA_WIDTH) with DATA_WIDTH an
+                    // imported pkg param) also carries the ts ref, AND
+                    // re-parents the constant at the imported param's own
+                    // package param_assign (Surelog; simple_package).
+                    bool sysFuncArgFold =
+                        inParamInit && paramInitDef && !paramInitPkg && parent &&
+                        parent->UhdmType() == UHDM::uhdmsys_func_call;
                     // A def-view cont-assign fold that READS an IMPORTED param
                     // carries a ref_typespec to the imported param's def
                     // typespec (module-named, instanced at the package) — the
@@ -997,7 +1005,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // imported param carries the ts ref too (Surelog).
                         (inParamInit && paramInitDef && !paramInitPkg &&
                          parent &&
-                         parent->UhdmType() == UHDM::uhdmoperation))
+                         parent->UhdmType() == UHDM::uhdmoperation) ||
+                        sysFuncArgFold)
                         if (auto tit = importedParamDefTs.find(&nv.symbol);
                             tit != importedParamDefTs.end()) {
                             auto* rt = s.MakeRef_typespec();
@@ -1005,6 +1014,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rt->VpiParent(c);
                             rt->Actual_typespec(tit->second);
                             c->Typespec(rt);
+                            // The imported-param sys-func fold re-parents the
+                            // folded constant at the pkg param's param_assign.
+                            if (sysFuncArgFold)
+                                if (auto cIt = pkgParamConst.find(&nv.symbol);
+                                    cIt != pkgParamConst.end() &&
+                                    cIt->second->VpiParent())
+                                    c->VpiParent(cIt->second->VpiParent());
                         }
                     return c;
                 }
@@ -3445,17 +3461,70 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      expr.type->getCanonicalType()
                                          .as<FixedSizeUnpackedArrayType>()
                                          .range.right;
+            // A SINGLE-operand packed pattern whose operand is a nested op
+            // still runs the level logic (the stamp below reaches its mid —
+            // param_packed_array_subst).
+            bool nestedOpsPre9 = false;
+            for (auto* o9 : *operands)
+                if (o9->UhdmType() == UHDM::uhdmoperation) {
+                    nestedOpsPre9 = true;
+                    break;
+                }
             if (inParamInit && !paramInitDef && expr.type &&
                 ((expr.type->isIntegral() &&
                   !expr.type->getCanonicalType().isScalar()) ||
                  isUnpackedArr) &&
-                operands->size() > 1) {
-                if (!isUnpackedArr || descUnpacked) {
+                (operands->size() > 1 ||
+                 (nestedOpsPre9 && !isUnpackedArr))) {
+                if ((!isUnpackedArr || descUnpacked) &&
+                    operands->size() > 1) {
                     std::reverse(operands->begin(), operands->end());
                     op->VpiReordered(1);
                 }
-                if (!isUnpackedArr)
-                    op->VpiSize(1);
+                if (!isUnpackedArr) {
+                    // NESTED packed patterns: the op carries NO size at any
+                    // level; instead the OUTERMOST op stamps vpiSize =
+                    // total-bits / innermost-vector-bits on its FIRST and
+                    // LAST direct operand ops only (ParameterPackedArray,
+                    // 3 Surelog probes). Flat (constant-operand, top-level)
+                    // patterns keep VpiSize(1).
+                    bool nestedOps9 = false;
+                    for (auto* o9 : *operands)
+                        if (o9->UhdmType() == UHDM::uhdmoperation) {
+                            nestedOps9 = true;
+                            break;
+                        }
+                    if (!nestedOps9 && !wasInPattern)
+                        op->VpiSize(1);
+                    else if (nestedOps9 && !wasInPattern) {
+                        auto& pct9 = expr.type->getCanonicalType();
+                        int32_t tot9 = 0;
+                        if (pct9.kind == SymbolKind::PackedArrayType) {
+                            const Type* lv9 = &pct9;
+                            while (lv9->getCanonicalType()
+                                       .as<PackedArrayType>()
+                                       .elementType.getCanonicalType()
+                                       .kind == SymbolKind::PackedArrayType)
+                                lv9 = &lv9->getCanonicalType()
+                                           .as<PackedArrayType>()
+                                           .elementType;
+                            int32_t iw9 = (int32_t)lv9->getCanonicalType()
+                                              .getBitWidth();
+                            if (iw9 > 0)
+                                tot9 = (int32_t)pct9.getBitWidth() / iw9;
+                        }
+                        if (tot9 >= 1) {
+                            if (operands->front()->UhdmType() ==
+                                UHDM::uhdmoperation)
+                                ((UHDM::expr*)operands->front())
+                                    ->VpiSize(tot9);
+                            if (operands->back()->UhdmType() ==
+                                UHDM::uhdmoperation)
+                                ((UHDM::expr*)operands->back())
+                                    ->VpiSize(tot9);
+                        }
+                    }
+                }
                 // Unpacked-array leaf elements size to the element width
                 // (int -> 32) and parent to the op (the def view left them 64
                 // and unparented); packed vectors keep op VpiSize(1).

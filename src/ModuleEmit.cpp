@@ -221,6 +221,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         // wire; nested-struct-member locals stay untyped, and a struct with
         // an ATOM member (integer r;) carries no net type.
         else if (!aliasPackedArr0 && isPkgStructType(*it.sym) &&
+                 isExplicitPkgQualified(*it.sym) &&
                  !([&] {
                      auto d9 = it.sym->getDeclaredType();
                      if (!d9)
@@ -1361,6 +1362,35 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             if (std::find(v->begin(), v->end(), tf) == v->end())
                 v->push_back(tf);
     }
+    // A module that WILDCARD-imports a package materializes ALL that
+    // package's subroutines into its Task_funcs (the shared def object),
+    // whether or not any is called here — Surelog lists them in both the
+    // def and elab views. (Explicit imports name specific symbols; the
+    // call-site path above already covers those that are functions.)
+    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        for (auto& mem : body.members()) {
+            if (mem.kind != SymbolKind::WildcardImport)
+                continue;
+            auto* pkg = comp.getPackage(
+                mem.as<WildcardImportSymbol>().packageName);
+            if (!pkg)
+                continue;
+            for (auto& pm : pkg->members()) {
+                if (pm.kind != SymbolKind::Subroutine)
+                    continue;
+                auto sit = subMap.find(&pm);
+                if (sit == subMap.end() || !sit->second.tf)
+                    continue;
+                auto* v = m->Task_funcs();
+                if (!v) {
+                    v = s.MakeTask_funcVec();
+                    m->Task_funcs(v);
+                }
+                if (std::find(v->begin(), v->end(), sit->second.tf) == v->end())
+                    v->push_back(sit->second.tf);
+            }
+        }
+    }
 }
 
 // Surelog's vpiDirection for a modport interface port (X_if.mp Y): vpiInput
@@ -2322,11 +2352,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     n->VpiSigned(true);
             }
             else if (it.port && n->UhdmType() == UHDM::uhdmlogic_net &&
-                     isPkgStructType(*it.sym))
+                     isPkgStructType(*it.sym) &&
+                     isExplicitPkgQualified(*it.sym))
                 ((UHDM::logic_net*)n)->VpiNetType(vpiWire);
             // A pkg-typedef struct net (non-port, flat members) is a WIRE
             // struct_net; nested-struct members stay untyped.
             else if (isStruct && isPkgStructType(*it.sym) &&
+                     isExplicitPkgQualified(*it.sym) &&
                      !hasStructFieldMember(*it.sym))
                 ((UHDM::struct_net*)n)->VpiNetType(vpiWire);
             if (rt) {

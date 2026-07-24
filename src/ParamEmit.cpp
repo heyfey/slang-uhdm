@@ -3188,6 +3188,152 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             ts = outer;
         }
+        else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType &&
+                 (ct.as<FixedSizeUnpackedArrayType>()
+                          .elementType.getCanonicalType()
+                          .isStruct() ||
+                  ct.as<FixedSizeUnpackedArrayType>()
+                          .elementType.getCanonicalType()
+                          .isUnion())) {
+            // typedef of an UNPACKED array of a struct/union typedef
+            // (typedef a b[1:0]): a NAMED array_typespec (pkg::b, pkg-parented
+            // and -Instanced, listed in the TOP package view only). Its Elem
+            // ref (doubled name pkg::pkg::b) binds a fresh NAMED struct clone
+            // of the element typedef (pkg::a) with a Typedef_alias -> the
+            // shared element ts — mirrors the module emitTypedefs arm.
+            if (!topView)
+                continue;
+            auto& fua = ct.as<FixedSizeUnpackedArrayType>();
+            auto* ats = s.MakeArray_typespec();
+            ats->VpiParent(up);
+            ats->Instance((UHDM::instance*)up);
+            SourceLocation aS = ta.location, aE = ta.location;
+            if (typeSyn)
+                aS = typeSyn->sourceRange().start();
+            const syntax::VariableDimensionSyntax* dimSyn = nullptr;
+            if (auto dsyn = ta.getSyntax();
+                dsyn && dsyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                auto& td = dsyn->as<syntax::TypedefDeclarationSyntax>();
+                if (!td.dimensions.empty()) {
+                    dimSyn = td.dimensions[0];
+                    aE = td.dimensions[td.dimensions.size() - 1]
+                             ->sourceRange()
+                             .end();
+                }
+            }
+            setLoc(ats, SourceRange(aS, aE));
+            auto* rv = s.MakeRangeVec();
+            auto* r = s.MakeRange();
+            r->VpiParent(ats);
+            const syntax::ExpressionSyntax* lSyn = nullptr;
+            const syntax::ExpressionSyntax* rSyn = nullptr;
+            const syntax::ExpressionSyntax* szSyn = nullptr;
+            if (dimSyn && dimSyn->specifier &&
+                dimSyn->specifier->kind ==
+                    syntax::SyntaxKind::RangeDimensionSpecifier) {
+                auto& sel = *dimSyn->specifier
+                                 ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                 .selector;
+                if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                    lSyn = rss->left;
+                    rSyn = rss->right;
+                }
+                else if (auto* bss = sel.as_if<syntax::BitSelectSyntax>())
+                    szSyn = bss->expr;
+            }
+            auto mkB = [&](int64_t v,
+                           const syntax::SyntaxNode* bs) -> UHDM::expr* {
+                auto* c = s.MakeConstant();
+                std::string digits = std::to_string(v);
+                c->VpiDecompile(digits);
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + digits);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(r);
+                if (bs)
+                    setLoc(c, bs->sourceRange());
+                return c;
+            };
+            if (szSyn) {
+                setLoc(r, szSyn->sourceRange());
+                r->Left_expr(mkB(0, nullptr));
+                auto* op = s.MakeOperation();
+                op->VpiOpType(vpiSubOp);
+                op->VpiParent(r);
+                setLoc(op, szSyn->sourceRange());
+                auto* ops = s.MakeAnyVec();
+                auto* nC = mkB(fua.range.width(), szSyn);
+                nC->VpiParent(op);
+                ops->push_back(nC);
+                auto* one = s.MakeConstant();
+                one->VpiSize(64);
+                one->VpiValue("INT:1");
+                one->VpiConstType(vpiIntConst);
+                one->VpiParent(op);
+                ops->push_back(one);
+                op->Operands(ops);
+                r->Right_expr(op);
+            }
+            else {
+                if (dimSyn)
+                    setLoc(r, dimSyn->sourceRange());
+                r->Left_expr(mkB(fua.range.left, lSyn));
+                r->Right_expr(mkB(fua.range.right, rSyn));
+            }
+            rv->push_back(r);
+            ats->Ranges(rv);
+            const Type* el0 = &fua.elementType;
+            UHDM::typespec* ets0 = nullptr;
+            if (auto ei = typedefTs.find(el0); ei != typedefTs.end())
+                ets0 = ei->second;
+            else
+                for (auto& [sym0, tsp0] : typedefTs)
+                    if (sym0->kind == SymbolKind::TypeAlias &&
+                        &((const Type*)sym0)->getCanonicalType() ==
+                            &el0->getCanonicalType()) {
+                        ets0 = tsp0;
+                        break;
+                    }
+            if (ets0) {
+                UHDM::typespec* tgt0 = ets0;
+                if (el0->kind == SymbolKind::TypeAlias &&
+                    ets0->UhdmType() == UHDM::uhdmstruct_typespec) {
+                    auto& ela = el0->as<TypeAliasType>();
+                    auto& elc = el0->getCanonicalType();
+                    std::string clName = prefix + std::string(ela.name);
+                    UHDM::struct_typespec* cl0 =
+                        elc.kind == SymbolKind::PackedStructType
+                            ? buildStructTs(elc.as<PackedStructType>(), true,
+                                            clName)
+                            : buildStructTs(elc.as<UnpackedStructType>(), false,
+                                            clName);
+                    cl0->VpiName(clName);
+                    cl0->VpiLineNo(ets0->VpiLineNo());
+                    cl0->VpiColumnNo(ets0->VpiColumnNo());
+                    cl0->VpiEndLineNo(ets0->VpiEndLineNo());
+                    cl0->VpiEndColumnNo(ets0->VpiEndColumnNo());
+                    cl0->Instance((UHDM::instance*)up);
+                    if (auto* mems = cl0->Members())
+                        for (auto* tm : *mems)
+                            if (tm->Typespec() &&
+                                tm->Typespec()->Actual_typespec())
+                                tm->Typespec()->Actual_typespec()->Instance(
+                                    (UHDM::instance*)up);
+                    auto* art0 = s.MakeRef_typespec();
+                    art0->VpiFullName(clName);
+                    art0->VpiParent(cl0);
+                    art0->Actual_typespec(ets0);
+                    cl0->Typedef_alias(art0);
+                    tgt0 = cl0;
+                }
+                auto* ert = s.MakeRef_typespec();
+                ert->VpiFullName(prefix + prefix + std::string(ta.name));
+                ert->VpiParent(ats);
+                ert->Actual_typespec(tgt0);
+                ats->Elem_typespec(ert);
+            }
+            ts = ats;
+        }
         else if (ct.kind == SymbolKind::PackedArrayType || ct.kind == SymbolKind::ScalarType) {
             // A param-bounded range (logic [X-1:0]) stays UNFOLDED in the DEF
             // view with a pkg::pkg::T::-scoped ref (tfContext + :: separator);

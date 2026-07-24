@@ -506,7 +506,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                         auto& elT = tgtT.as<PackedArrayType>().elementType;
                         auto* baseTs = typedefTs[&elT];
                         // Dedicated ELEM clone (named, ranges, parented at
-                        // the first Elem ref, NO alias link — Surelog).
+                        // the first Elem ref) WITH a Typedef_alias ref back
+                        // to the base vector typedef's shared ts — Surelog.
                         UHDM::typespec* elemCl = nullptr;
                         {
                             auto& eta = elT.as<TypeAliasType>();
@@ -524,6 +525,14 @@ UHDM::design* UhdmExporter::exportDesign() {
                             elemCl->VpiName(eta.name);
                             if (etSyn)
                                 setLoc(elemCl, etSyn->sourceRange());
+                            if (elemCl->UhdmType() == UHDM::uhdmlogic_typespec) {
+                                auto* eal = s.MakeRef_typespec();
+                                eal->VpiFullName(eta.name);
+                                eal->VpiParent(elemCl);
+                                eal->Actual_typespec(baseTs);
+                                ((UHDM::logic_typespec*)elemCl)
+                                    ->Typedef_alias(eal);
+                            }
                         }
                         auto tspan = typeSyn->sourceRange();
                         std::string raw = rawText(tspan);
