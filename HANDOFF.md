@@ -1,6 +1,6 @@
-# HANDOFF — slang-uhdm convergence campaign (7-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (5-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~16:50, Opus lane): 487 PASS / 167 CMP_ONLY / 7 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~18:10, Opus lane): 487 PASS / 169 CMP_ONLY / 5 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
@@ -49,13 +49,16 @@ Found with a name-suffix instrumentation sweep over the 10 `->VpiName(<alias>.na
 stamping a unique marker at each candidate site and grepping the dump is the fastest way to identify
 which of several look-alike sites actually emits an object.
 
-### Remaining DIFF (7)
-arraycells (r=1, missing elab module_array), const_func (r=-601, elab gen-scope CA constant),
-cs_registers (r=70, pkg-param ts aliasing + always-block bit_select LHS), func_tern_hint (r=1, ONLY
-Surelog's evaluator arithmetic-shifting a signed operand — NOT worth a whole SL evaluator),
-func_upto (r=12, const-function fold, 28820 lines), multiplier (r=-32, elab genvar-fold/positional
-lowConn), rsp_gen_minimal (r=70, prim_secded blocker: SL binds data_o ref_obj vpiActual to the
-bit_select last-writer, we bind the logic_net).
+### Remaining DIFF (5)
+arraycells (r=1, missing elab module_array object with 32 vpiModule children + module_typespec),
+cs_registers (r=-601, pkg-param ts aliasing + always-block bit_select LHS),
+func_tern_hint (r=1, ONLY Surelog's evaluator arithmetic-shifting a signed operand `-1>>2` — replicating
+needs a whole SL constant evaluator; PARKED),
+func_upto (r=12, const-function fold, 28820 lines),
+multiplier (r=-32, elab genvar-fold/positional lowConn tail).
+CONVERTED since the 7-DIFF state: const_func + rsp_gen_minimal (df62 — string-param folds sized at LHS
+width in gen CAs; blocking-written whole logic_net repoints to its first bit_select; blocking-written
+pkg-struct port becomes struct_var). prefix, rotate, arrays03 (wave 58). int_types (mac55).
 
 ### REFUTED this stretch (do not retry blindly)
 - Parenting the synthetic op11 `INT:1` everywhere: 9 PASS demotions (it is view- and owner-dependent).
@@ -130,6 +133,16 @@ AssignToUnionAndReadField, AssignToUnpackedUnionFieldAndReadOtherField.
 - Anonymous struct/union typespec views; whole-assigned signals get bare member refs and no owner parent.
 - Package struct-member bounds keep the written syntax in the def view and fold to a signed int at the
   identifier token in the elab view.
+
+### Wave 62 landings (each gated vs a fresh HEAD baseline)
+- df62: const_func + rsp_gen_minimal DIFF->CMP_ONLY (2 conversions). See remaining-DIFF note above.
+- pat62: pattern-param byte reductions, no class change (no pendingPatternOrphans op for raw
+  unpacked-array cont_assign patterns; unary-op real-literal operands stay unparented). Confirmed the
+  per-ref struct/array typespec clone weak tail (~100 exact clones in pool order) is INTRACTABLE:
+  high PASS->CMP_ONLY risk, zero cmp benefit — do not attempt.
+- if62: hier-path param-init ref-span byte reductions, no class change (ClogOf 59->37, OutputSize
+  76->59). Family A (iface member-typespec tail ordering, 4 tests) needs an all-or-nothing 3-part arena
+  reorder (io60 also deferred it) — negative EV under the hard gate, left.
 
 ### Waves 60-61 landings (each gated, zero regressions)
 - io60: interface-array-port byte-polish, no class change (elab interface_array range stays bare;
