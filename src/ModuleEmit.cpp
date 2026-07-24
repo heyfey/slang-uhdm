@@ -1536,6 +1536,16 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                               std::set<const Symbol*>* parentRefs, bool isTop) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
+    // A non-top elaborated instance body folds iface-port-hop range bounds to
+    // their concrete per-instance width; restore the caller's view on return.
+    // The DEF fill below (emitModuleDefPorts) must stay in the caller's view
+    // (the def keeps the symbolic op tree), so arm the flag only afterwards.
+    bool savedElabInstTs = elabInstanceTs;
+    struct ElabTsGuard {
+        bool& slot;
+        bool prev;
+        ~ElabTsGuard() { slot = prev; }
+    } elabTsGuard{elabInstanceTs, savedElabInstTs};
     // Pending-typespec ranges owned by this top's tree (recorded before the
     // def fill, which already queues def-local net typespecs).
     size_t paramLo = pendingParamTs.size();
@@ -1547,6 +1557,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         defMap[&def].filled = true;
         emitModuleDefPorts(inst);
     }
+    elabInstanceTs = !isTop;
     std::string prefix = path;
     std::string defPrefix = "work@" + std::string(def.name);
     std::string parentPrefix;

@@ -157,6 +157,11 @@ private:
     // True while drainDefParamTs builds DEF-view param typespec clones —
     // those omit the module Instance link the ELAB clones carry.
     bool defViewParamTs = false;
+    // True while emitting a NON-TOP elaborated child-instance body: a packed
+    // range bound that reaches an interface param through a modport/interface
+    // port FOLDS to its concrete per-instance width here (Surelog), whereas the
+    // generic DEF view keeps the symbolic op tree.
+    bool elabInstanceTs = false;
     // True while emitting a gen-scope child instance's conns: genvar/localparam
     // refs belonging to a GenerateBlock fold to their per-index constants
     // (Surelog folds them in INSTANCE CONNS but not process bodies).

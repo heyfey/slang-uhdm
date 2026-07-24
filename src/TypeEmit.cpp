@@ -704,8 +704,63 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         v.visitDefault(nv);
                                     }));
                         }
+                        // A MODULE signal/net packed range bound that reaches
+                        // an INTERFACE member THROUGH a modport/interface port
+                        // (sub.OFF, s.CFG.BUS.DAT) stays a SYMBOLIC operation
+                        // tree in Surelog's elab view — the port hop is not
+                        // folded (unlike a bound referencing only local params
+                        // or the interface's own params directly, which fold).
+                        // Detected from the module PORT LIST (scope-independent:
+                        // the elab-view bind of a modport-hop bound can fail):
+                        // an identifier in the bound that names an interface/
+                        // modport PORT of the declaring module means the bound
+                        // reaches an interface member through the port hop.
+                        bool ifacePortBound = false;
+                        if (bsyn && !tfContext && !bitsOfSignal &&
+                            !bareParamInParamTs && !defModuleParamDim) {
+                            const InstanceBodySymbol* ib = nullptr;
+                            for (auto sc = declSymbol.getParentScope(); sc;
+                                 sc = sc->asSymbol().getParentScope())
+                                if (sc->asSymbol().kind == SymbolKind::InstanceBody) {
+                                    ib = &sc->asSymbol().as<InstanceBodySymbol>();
+                                    break;
+                                }
+                            if (ib) {
+                                std::set<std::string> ifacePortNames;
+                                for (auto pb : ib->getPortList())
+                                    if (pb && pb->kind == SymbolKind::InterfacePort)
+                                        ifacePortNames.insert(std::string(pb->name));
+                                if (!ifacePortNames.empty()) {
+                                    std::function<void(const syntax::SyntaxNode&)>
+                                        scan = [&](const syntax::SyntaxNode& sn) {
+                                            if (ifacePortBound)
+                                                return;
+                                            if (sn.kind ==
+                                                syntax::SyntaxKind::IdentifierName) {
+                                                auto txt = rawText(
+                                                    sn.as<syntax::IdentifierNameSyntax>()
+                                                        .identifier.range());
+                                                if (ifacePortNames.count(
+                                                        std::string(txt)))
+                                                    ifacePortBound = true;
+                                            }
+                                            for (size_t ci = 0;
+                                                 ci < sn.getChildCount(); ci++)
+                                                if (auto* cn = sn.childNode(ci))
+                                                    scan(*cn);
+                                        };
+                                    scan(*bsyn);
+                                }
+                            }
+                        }
+                        // ...but only in the DEF/generic view. An ELABORATED
+                        // child-instance body folds the bound to its concrete
+                        // per-instance width (Surelog). elabInstanceTs marks
+                        // the elab-instance net/var typespec emission.
+                        if (ifacePortBound && elabInstanceTs)
+                            ifacePortBound = false;
                         if (tfContext || bitsOfSignal || bareParamInParamTs ||
-                            defModuleParamDim) {
+                            defModuleParamDim || ifacePortBound) {
                             // Function/typedef context: unfolded expression.
                             bool savedBCN = boundCallNameSpan;
                             boundCallNameSpan = true;
