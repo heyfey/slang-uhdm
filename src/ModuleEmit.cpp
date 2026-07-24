@@ -3457,8 +3457,18 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 setLoc(lc, connectionExpr(*conn)->sourceRange);
             else
                 setLocNamed(lc, ps);
-            if (auto it = topNets.find(internal); it != topNets.end())
-                lc->Actual_group(it->second);
+            if (auto it = topNets.find(internal); it != topNets.end()) {
+                UHDM::any* act9 = it->second;
+                // An unpacked-array-of-packed-STRUCT port's low conn binds the
+                // array's ELEMENT struct_net (Surelog), not the array_net.
+                if (act9->UhdmType() == UHDM::uhdmarray_net) {
+                    auto* an9 = (UHDM::array_net*)act9;
+                    if (an9->Nets() && an9->Nets()->size() == 1 &&
+                        (*an9->Nets())[0]->UhdmType() == UHDM::uhdmstruct_net)
+                        act9 = (*an9->Nets())[0];
+                }
+                lc->Actual_group(act9);
+            }
             p->Low_conn(lc);
 
             if (conn && parentNets) {
@@ -3814,6 +3824,26 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     {(const void*)&inst.getDefinition(), std::string(tpp->name)});
                 if (tit != typeParamDefaultTs.end())
                     pts = tit->second;
+            }
+            // An unpacked-array-of-packed-STRUCT port's vpiTypedef binds the
+            // ELEMENT typedef's SHARED struct typespec (Surelog), not a
+            // synthesized element logic typespec.
+            if (!pts && internal->getDeclaredType()) {
+                const Type* cn9 =
+                    &internal->getDeclaredType()->getType().getCanonicalType();
+                const Type* en9 = nullptr;
+                while (cn9->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                    en9 = &cn9->as<FixedSizeUnpackedArrayType>().elementType;
+                    cn9 = &en9->getCanonicalType();
+                }
+                if (en9 && cn9->isStruct()) {
+                    if (auto tt9 = pkgTopTypedefTs.find(en9);
+                        tt9 != pkgTopTypedefTs.end())
+                        pts = tt9->second;
+                    else if (auto tt9b = typedefTs.find(en9);
+                             tt9b != typedefTs.end())
+                        pts = tt9b->second;
+                }
             }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
@@ -5194,8 +5224,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             .symbol.getType()
                             .getCanonicalType()
                             .kind == SymbolKind::FixedSizeUnpackedArrayType)
-                    if (auto* fc = tryFoldConst(ae.right()))
+                    if (auto* fc = tryFoldConst(ae.right())) {
                         rhs = fc;
+                        // Surelog's reduced element CLAIMS the pattern
+                        // leaf's span and parents at the reading CA.
+                        if (fc->UhdmType() == UHDM::uhdmconstant)
+                            if (auto* lf = unpackedParamPatternLeaf(usel)) {
+                                setLoc(fc, lf->sourceRange);
+                                fc->VpiParent(ca);
+                            }
+                    }
             }
             if (!rhs) {
                 // A gen CA RHS mixing params with NEVER-WRITTEN const-init
@@ -6606,6 +6644,15 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     patchParamTypespecs(tp.paramLo, tp.paramHi, &tp.inst->body,
                         /*descendants=*/false);
 
+    // Unpacked-array params get their own elab array_typespec clone here, in
+    // the write phase — after every net/port typespec of the design (Surelog).
+    if (!pendingElabArrayTs.empty()) {
+        auto mints = std::move(pendingElabArrayTs);
+        pendingElabArrayTs.clear();
+        for (auto& mint : mints)
+            mint();
+    }
+
     {
         std::map<const void*, UHDM::typespec*> bareCache;
         for (auto& [rt, key] : pendingIoTs) {
@@ -7187,6 +7234,29 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                                      lc9.kind == SymbolKind::PackedArrayType) &&
                                     lc9.isIntegral() && !lc9.isFourState()) ||
                                    lc9.kind == SymbolKind::PackedStructType;
+                }
+                // An unpacked-array-of-packed-STRUCT port's ELEMENT ts is the
+                // element typedef's SHARED struct typespec (Surelog), not a
+                // synthesized element logic typespec.
+                if (twoStateArr9 && !topView &&
+                    m->UhdmType() == UHDM::uhdmmodule_inst &&
+                    internal->getDeclaredType()) {
+                    const Type* cn8 = &internal->getDeclaredType()
+                                           ->getType()
+                                           .getCanonicalType();
+                    const Type* en8 = nullptr;
+                    while (cn8->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                        en8 = &cn8->as<FixedSizeUnpackedArrayType>().elementType;
+                        cn8 = &en8->getCanonicalType();
+                    }
+                    if (en8 && cn8->isStruct()) {
+                        if (auto t8 = pkgTopTypedefTs.find(en8);
+                            t8 != pkgTopTypedefTs.end())
+                            ts = t8->second;
+                        else if (auto t8b = typedefTs.find(en8);
+                                 t8b != typedefTs.end())
+                            ts = t8b->second;
+                    }
                 }
                 if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
                     twoStateArr9) {
@@ -9199,6 +9269,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                        ExpressionKind::ReplicatedAssignmentPattern)
                       ? tryFoldConst(ae.right())
                       : nullptr;
+            // An element select of an UNPACKED-ARRAY param reduces to the
+            // pattern's own leaf: Surelog's constant CLAIMS that leaf's
+            // source span and re-parents at the reading cont_assign.
+            if (rhs && unpackedParamSel && !pkgParamSel &&
+                rhs->UhdmType() == UHDM::uhdmconstant)
+                if (auto* lf =
+                        unpackedParamPatternLeaf(stripImplicitConv(ae.right()))) {
+                    setLoc(rhs, lf->sourceRange);
+                    rhs->VpiParent(ca);
+                }
         }
         // A NESTED cast RHS, or a cast whose operand is a PARAMETER ref
         // (int'(X)), that evals fully folds loc-less: UINT by magnitude at
@@ -9576,10 +9656,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         elabContAssignLhs = topView;
         elabLhsReelab = topView && (literalRhs || bitsRhs ||
                                     containsOperation(ae.right()));
-        // Literal-RHS re-emits bind BOTH sides to def-view objects.
+        // Literal-RHS re-emits bind BOTH sides to def-view objects. An
+        // unpacked-array-param select that reduced to its pattern leaf is
+        // such a re-emit too (its Lhs ref binds the DEF net, so an
+        // `output int` target reaches the def logic_net, not the elab var).
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
-                           typedParamRhs || constVarRhs || noDefOvRhs || enumRhs) &&
+                           typedParamRhs || constVarRhs || noDefOvRhs || enumRhs ||
+                           unpackedParamSel) &&
                           defInfo)
                              ? defInfo->nets
                              : netMap;

@@ -308,6 +308,14 @@ private:
                                        NetMap& netMap);
     UHDM::any* tryFoldConst(const slang::ast::Expression& expr,
                             const slang::ast::Expression* typedConv = nullptr);
+    // For an element select of an unpacked-array PARAMETER (LP[0],
+    // P[1][2][1]) whose initializer is an assignment pattern, returns the
+    // pattern's LEAF element expression the select reads. Surelog's elab
+    // fold CLAIMS that leaf's source span for the reduced constant, so the
+    // reader needs the leaf, not just the value. Null when any level is not
+    // a constant-index select over a simple pattern.
+    const slang::ast::Expression* unpackedParamPatternLeaf(
+        const slang::ast::Expression& sel);
     bool isIntEncoded(const slang::ast::Expression& e);
     void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
     // Design-global pre-pass: definitions instantiated with MULTIPLE DISTINCT
@@ -426,9 +434,13 @@ private:
     // array_typespec for an unpacked-array param: unpacked-dim Ranges +
     // Elem_typespec ref (int/logic at the type-keyword span). `elemFull` is
     // the Elem_typespec ref fullname; `parent` the ts's vpiParent.
+    // `elabClone` marks an ELABORATION clone: its freshly built element
+    // typespec is parented at the Elem_typespec ref that holds it (the
+    // compile-time def-view object leaves that element typespec parentless).
     UHDM::array_typespec* makeUnpackedArrayParamTs(
         const slang::ast::ParameterSymbol& ps, const std::string& elemFull,
-        UHDM::BaseClass* parent, UHDM::VectorOfrange* sharedRanges);
+        UHDM::BaseClass* parent, UHDM::VectorOfrange* sharedRanges,
+        bool elabClone = false, const std::string& dimRefPrefix = {});
 
     // Surelog's ELAB fold of an unpacked-array-of-packed-struct '{..} pattern:
     // an op75 carrying `arrTs` (fullname tsFullName); the array element struct
@@ -687,6 +699,10 @@ private:
     const slang::ast::Scope* currentScope = nullptr;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
+    // An ELAB unpacked-array param's own array_typespec clone is built after
+    // the instance's net/port typespecs (Surelog arena order); each entry
+    // mints one (idempotent — the folded-pattern path forces it early).
+    std::vector<std::function<void()>> pendingElabArrayTs;
     // Def-view local-net typespecs are created only after the top-level
     // instance's ports have been elaborated (Surelog arena order).
     struct PendingNetTs {

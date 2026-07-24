@@ -695,6 +695,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // elab-view folded pattern op can SHARE it (Surelog points the op's ts
         // ref at the SAME array_typespec object).
         UHDM::array_typespec* paramArrayTs = nullptr;
+        // In the ELAB view Surelog builds the param_assign RHS's typespec
+        // clone BEFORE the parameter's own, so the parameter's clone is
+        // created behind this closure (forced at the end of the param).
+        std::function<UHDM::array_typespec*()> paramArrTs =
+            [&paramArrayTs]() { return paramArrayTs; };
+        bool hasParamArrTs = false;
         if (wantTs) {
             // The actual typespec object is created late (after the instance
             // ports) to match Surelog's arena order; the ref is patched then.
@@ -760,13 +766,40 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 up->Ranges(prng);
             up->VpiSize(1);
             up->VpiSigned(leaf->isSigned());
-            auto* ats = makeUnpackedArrayParamTs(ps, afull, up, prng);
-            paramArrayTs = ats;
             auto* art = s.MakeRef_typespec();
             art->VpiFullName(afull);
             art->VpiParent(up);
-            art->Actual_typespec(ats);
             up->Typespec(art);
+            hasParamArrTs = true;
+            if (topView && !inPackage &&
+                m->UhdmType() == UHDM::uhdmmodule_inst) {
+                // ELAB clone: OWN range objects, parented at the ref_typespec
+                // that holds it (the def view keeps the compile-time shape:
+                // parent = the parameter, ranges shared with it). Minted after
+                // the instance's net/port typespecs unless the folded-pattern
+                // path needs it sooner.
+                auto mk = [this, psp = &ps, afull, art,
+                           dimPrefix9]() -> UHDM::array_typespec* {
+                    if (auto* ex = art->Actual_typespec())
+                        return (UHDM::array_typespec*)ex;
+                    // The clone's own "N-1" dim op parents its synthetic 1
+                    // (elab shape) even when minted in the write phase, and
+                    // its bounds stay symbolic when the def's did.
+                    bool saved = elabParamDim;
+                    elabParamDim = true;
+                    auto* ats = makeUnpackedArrayParamTs(*psp, afull, art,
+                                                         nullptr, true, dimPrefix9);
+                    elabParamDim = saved;
+                    art->Actual_typespec(ats);
+                    return ats;
+                };
+                paramArrTs = mk;
+                pendingElabArrayTs.push_back([mk]() { mk(); });
+            }
+            else {
+                paramArrayTs = makeUnpackedArrayParamTs(ps, afull, up, prng);
+                art->Actual_typespec(paramArrayTs);
+            }
         }
         params->push_back(up);
         if (funcScope)
@@ -2400,13 +2433,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // scalar collapses to a constant, a struct with a sub-struct field
                 // stays an op75 tagged with that struct's typespec. (Refuses any
                 // shape it cannot fold exactly, leaving the baseline pattern.)
-                if (!rhs && topView && !inPackage && paramArrayTs) {
+                bool structArrShape9 = false;
+                if (auto& pctA9 = ps.getType().getCanonicalType();
+                    pctA9.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                    const Type* lf9a = &pctA9;
+                    while (lf9a->getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType)
+                        lf9a = &lf9a->getCanonicalType()
+                                    .as<FixedSizeUnpackedArrayType>()
+                                    .elementType;
+                    structArrShape9 =
+                        lf9a->getCanonicalType().kind ==
+                            SymbolKind::PackedStructType &&
+                        init &&
+                        stripImplicitConv(*init).kind ==
+                            ExpressionKind::SimpleAssignmentPattern;
+                }
+                if (!rhs && topView && !inPackage && hasParamArrTs &&
+                    structArrShape9) {
                     std::string pfxA = prefix;
                     if (pfxA.size() >= 2 &&
                         pfxA.compare(pfxA.size() - 2, 2, "::") == 0)
                         pfxA.resize(pfxA.size() - 2);
                     if (auto* aop = foldUnpackedStructArrayPattern(
-                            *init, ps.getType(), paramArrayTs, pfxA, pa, prefix,
+                            *init, ps.getType(), paramArrTs(), pfxA, pa, prefix,
                             netMap)) {
                         rhs = aop;
                     }
@@ -2418,7 +2468,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // + x), so fold TEXTUALLY from the override syntax and bail
                 // on any non-'b leaf (param_array_wildcard).
                 if (!rhs && topView && !inPackage && overridden &&
-                    paramArrayTs && boundInit && boundInit->syntax &&
+                    hasParamArrTs && boundInit && boundInit->syntax &&
                     defaultSyn) {
                     const Type* lf9 = &ps.getType().getCanonicalType();
                     bool isArr9 =
@@ -2474,7 +2524,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             setLoc(c9, defaultSyn->sourceRange());
                             auto* rt9 = s.MakeRef_typespec();
                             rt9->VpiParent(c9);
-                            rt9->Actual_typespec(paramArrayTs);
+                            rt9->Actual_typespec(paramArrTs());
                             c9->Typespec(rt9);
                             rhs = c9;
                         }
@@ -2823,8 +2873,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rt->VpiParent(opr);
                         opr->Typespec(rt);
                         if (unpackedArrayOp)
+                            // The OP's clone names its element ref by the
+                            // holding ref_typespec's own fullname (the
+                            // instance prefix), not the parameter's.
                             rt->Actual_typespec(makeUnpackedArrayParamTs(
-                                ps, joinPath(prefix, ps.name), rt, nullptr));
+                                ps, tsPrefix, rt, nullptr, true));
                         else
                             rhsRt = rt;
                     }
@@ -3316,7 +3369,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
 
 UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     const ParameterSymbol& ps, const std::string& elemFull,
-    UHDM::BaseClass* parent, UHDM::VectorOfrange* sharedRanges) {
+    UHDM::BaseClass* parent, UHDM::VectorOfrange* sharedRanges,
+    bool elabClone, const std::string& dimRefPrefix) {
     const Type* leaf = &ps.getType().getCanonicalType();
     while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
         leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
@@ -3409,7 +3463,8 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
             aEnd = dims[0]->sourceRange().end();
     setLoc(ats, SourceRange(typeR.start(), aEnd));
     // Ranges: reuse the shared range objects if given, else build fresh.
-    UHDM::VectorOfrange* rsrc = sharedRanges ? sharedRanges : buildUnpackedRanges(ps, ats);
+    UHDM::VectorOfrange* rsrc =
+        sharedRanges ? sharedRanges : buildUnpackedRanges(ps, ats, dimRefPrefix);
     if (rsrc) {
         auto* atsR = s.MakeRangeVec();
         for (auto* r0 : *rsrc)
@@ -3421,6 +3476,10 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     ert->VpiParent(ats);
     ert->Actual_typespec(elemTs);
     ats->Elem_typespec(ert);
+    // An elaboration clone owns its element typespec, so that clone points
+    // back at the ref holding it; a SHARED typedef ts keeps its own parent.
+    if (elabClone && elemTs && !elemTs->VpiParent())
+        elemTs->VpiParent(ert);
     return ats;
 }
 

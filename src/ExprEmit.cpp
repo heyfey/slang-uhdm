@@ -159,6 +159,55 @@ static std::string selName(std::string s) {
     return o;
 }
 
+const Expression* UhdmExporter::unpackedParamPatternLeaf(const Expression& sel) {
+    // Walk the select chain down to the base symbol, recording each
+    // selector together with the ARRAY type it indexes.
+    std::vector<std::pair<const Expression*, const Type*>> chain;
+    const Expression* cur = &stripImplicitConv(sel);
+    while (cur->kind == ExpressionKind::ElementSelect) {
+        auto& es = cur->as<ElementSelectExpression>();
+        auto& base = stripImplicitConv(es.value());
+        if (!base.type)
+            return nullptr;
+        chain.push_back({&es.selector(), &base.type->getCanonicalType()});
+        cur = &base;
+    }
+    if (chain.empty() || cur->kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& bsym = cur->as<NamedValueExpression>().symbol;
+    if (bsym.kind != SymbolKind::Parameter)
+        return nullptr;
+    auto dt = bsym.getDeclaredType();
+    const Expression* pat = dt ? dt->getInitializer() : nullptr;
+    if (!pat)
+        return nullptr;
+    pat = &stripImplicitConv(*pat);
+    ASTContext ctx(comp.getRoot(), LookupLocation::max);
+    for (auto it = chain.rbegin(); it != chain.rend(); ++it) {
+        if (pat->kind != ExpressionKind::SimpleAssignmentPattern)
+            return nullptr;
+        if (it->second->kind != SymbolKind::FixedSizeUnpackedArrayType)
+            return nullptr;
+        ConstantValue icv = ctx.tryEval(*it->first);
+        if (!icv || !icv.isInteger() || icv.integer().hasUnknown())
+            return nullptr;
+        auto iopt = icv.integer().as<int32_t>();
+        if (!iopt)
+            return nullptr;
+        // The LEFTMOST pattern element takes the range's LEFT index; the
+        // rest follow toward the right bound (either direction).
+        auto rng = it->second->as<FixedSizeUnpackedArrayType>().range;
+        int64_t pos = (int64_t)*iopt - (int64_t)rng.left;
+        if (pos < 0)
+            pos = -pos;
+        auto els = pat->as<SimpleAssignmentPatternExpression>().elements();
+        if (pos >= (int64_t)els.size())
+            return nullptr;
+        pat = &stripImplicitConv(*els[(size_t)pos]);
+    }
+    return pat;
+}
+
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
     // expressions with constant reduction. Fold only genuine expressions,

@@ -5084,11 +5084,13 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 continue;
             }
             auto mkBound = [&](int64_t val, const syntax::ExpressionSyntax* es) -> UHDM::expr* {
-                // DEF-view unpacked PARAM dim ([IFN-1:0]) referencing an
-                // OVERRIDDEN param: the bound stays a SYMBOLIC op11 with a
-                // bare ref <param>.<bound> (param_array_wildcard).
+                // An unpacked PARAM dim ([IFN-1:0]) referencing an OVERRIDDEN
+                // param: the bound stays a SYMBOLIC op11 with a bare ref
+                // <param>.<bound> — in the def view's parameter ranges and in
+                // the elab array_typespec clone alike (param_array_wildcard).
                 if (es && !defDimRefPrefix.empty() &&
-                    parent->UhdmType() == UHDM::uhdmparameter) {
+                    (parent->UhdmType() == UHDM::uhdmparameter ||
+                     parent->UhdmType() == UHDM::uhdmarray_typespec)) {
                     auto mkDimRef9 = [&](const syntax::ExpressionSyntax& is,
                                          UHDM::BaseClass* rp) {
                         auto* ro = s.MakeRef_obj();
