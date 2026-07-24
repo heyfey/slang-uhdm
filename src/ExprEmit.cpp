@@ -2506,6 +2506,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             sk == SymbolKind::EnumValue);
                             }
                         }
+                        // A func-arg part-SELECT rooted at a PARAMETER (the
+                        // folded genvar i[OFF-1:0] in an elab gen-scope, or any
+                        // localparam-rooted select) carries no formal-ts stamp:
+                        // Surelog stamps net/var-rooted part-selects but leaves
+                        // param-rooted ones bare, mirroring the bare direct
+                        // param-ref rule (read_remux occurrence-1 arg).
+                        bool paramRootSel = false;
+                        {
+                            const Expression* cur = &stripImplicitConv(*arg);
+                            bool sawSel = false;
+                            while (cur) {
+                                if (cur->kind == ExpressionKind::ElementSelect) {
+                                    cur = &cur->as<ElementSelectExpression>()
+                                               .value();
+                                    sawSel = true;
+                                }
+                                else if (cur->kind ==
+                                         ExpressionKind::RangeSelect) {
+                                    cur = &cur->as<RangeSelectExpression>()
+                                               .value();
+                                    sawSel = true;
+                                }
+                                else if (cur->kind ==
+                                         ExpressionKind::MemberAccess) {
+                                    cur = &cur->as<MemberAccessExpression>()
+                                               .value();
+                                    sawSel = true;
+                                }
+                                else
+                                    break;
+                            }
+                            if (sawSel && cur &&
+                                cur->kind == ExpressionKind::NamedValue) {
+                                auto rk =
+                                    cur->as<NamedValueExpression>().symbol.kind;
+                                paramRootSel = (rk == SymbolKind::Parameter ||
+                                                rk == SymbolKind::Genvar ||
+                                                rk == SymbolKind::EnumValue);
+                            }
+                        }
                         // DEF-view cont-assign CONCAT args ({a,b}) carry no
                         // formal-ts ref (patterns '{0,1} keep theirs).
                         bool defOpArg = contAssignView == 1 &&
@@ -2521,7 +2561,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           !intFormal))
                                       : (!inLhs && !defOpArg && !portInitCtx &&
-                                         !paramRef &&
+                                         !paramRef && !paramRootSel &&
                                          (refArg || callArgDepth == 1));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =

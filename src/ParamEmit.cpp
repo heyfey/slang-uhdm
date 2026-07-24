@@ -25,7 +25,8 @@ static bool containsUserCall(const Expression& e) {
 // vpiImported = the package name). A QUALIFIED reference (pkg::P) with no
 // import does NOT materialize it (ParameterColonReference, PkgParamAsFunctionArg).
 static void collectImportedParams(const Scope& body,
-                                  std::vector<const ParameterSymbol*>& out) {
+                                  std::vector<const ParameterSymbol*>& out,
+                                  std::map<const ParameterSymbol*, std::string>& srcOut) {
     std::set<const Symbol*> wildcardPkgs; // packages wildcard-imported
     std::set<const Symbol*> explicitSyms; // explicitly imported symbols
     for (auto& m : body.members()) {
@@ -173,6 +174,44 @@ static void collectImportedParams(const Scope& body,
                     tsyn && tsyn->kind == syntax::SyntaxKind::TypedefDeclaration)
                     scanTd(*tsyn->as<syntax::TypedefDeclarationSyntax>().type, psc);
     }
+    // STRUCTURAL materialization: a wildcard import `import P::*` materializes
+    // ALL of P's transitively-EXPORTED parameters — P's own declared params
+    // PLUS the params P itself wildcard-imported (re-export) — regardless of
+    // whether any is referenced here. Surelog tags each with vpiImported = P
+    // (the immediately-imported package). BitSelectOfParameterPassedToSubmodule
+    // re-exports NDioPads through pinmux_pkg into work@top with
+    // vpiImported=pinmux_pkg. The srcOut map carries P's name so the emitter
+    // can override the param's home-scope name for the re-export case.
+    std::function<void(const Symbol*, std::set<const Symbol*>&,
+                       std::vector<const ParameterSymbol*>&)>
+        collectPkgParams = [&](const Symbol* pkgSym,
+                               std::set<const Symbol*>& vis,
+                               std::vector<const ParameterSymbol*>& acc) {
+            if (!vis.insert(pkgSym).second)
+                return;
+            auto& psc = pkgSym->as<PackageSymbol>();
+            for (auto& pm : psc.members()) {
+                if (pm.kind == SymbolKind::Parameter)
+                    acc.push_back(&pm.as<ParameterSymbol>());
+                else if (pm.kind == SymbolKind::WildcardImport)
+                    if (auto* q = pm.as<WildcardImportSymbol>().getPackage())
+                        collectPkgParams(q, vis, acc);
+            }
+        };
+    for (auto* pkgSym : wildcardPkgs) {
+        std::set<const Symbol*> vis;
+        std::vector<const ParameterSymbol*> acc;
+        collectPkgParams(pkgSym, vis, acc);
+        for (auto* pp : acc)
+            if (seen.insert(pp).second) {
+                found.push_back(pp);
+                // vpiImported = the immediately-imported package P (the home
+                // scope may be a deeper package for re-exported params).
+                if (pp->getParentScope() &&
+                    &pp->getParentScope()->asSymbol() != pkgSym)
+                    srcOut[pp] = std::string(pkgSym->name);
+            }
+    }
     // Surelog orders materialized imported params by their DECLARATION order
     // in the package, not by reference-discovery order.
     std::stable_sort(found.begin(), found.end(),
@@ -193,8 +232,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             paramSyms.push_back(&member0.as<ParameterSymbol>());
     // PACKAGES materialize imported params too (pinmux_pkg lists NDioPads
     // with vpiImported — BitSelectOfParameterPassedToSubmodule).
+    // srcImp maps a re-exported materialized param to the immediately-imported
+    // package name (its vpiImported), overriding its home-scope name.
+    std::map<const ParameterSymbol*, std::string> srcImp;
     if (!funcScope) {
-        collectImportedParams(body, paramSyms);
+        collectImportedParams(body, paramSyms, srcImp);
         // The list is SOURCE-LOCATION ordered: materialized imported
         // params (pkg locs, usually earlier) list before declared ones.
         std::stable_sort(paramSyms.begin(), paramSyms.end(),
@@ -215,6 +257,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Imported = the param belongs to ANOTHER scope (a package), not the
         // body being emitted (a package emitting its own params is NOT that).
         bool isImported = ps.getParentScope() != &body;
+        // The package instance a materialized param's typespec is INSTANCED at.
+        // For a package view (inPackage), a param DECLARED here instances at
+        // this package (m); a re-exported IMPORTED param (pinmux_pkg's
+        // materialized NDioPads) instances at its HOME package
+        // (prim_pad_wrapper_pkg), not the re-exporting one — Surelog
+        // (BitSelectOfParameterPassedToSubmodule).
+        auto pkgTsInstance = [&]() -> UHDM::instance* {
+            if (inPackage && isImported && ps.getParentScope()) {
+                if (auto pit = pkgDefMap.find(&ps.getParentScope()->asSymbol());
+                    pit != pkgDefMap.end())
+                    return (UHDM::instance*)pit->second;
+            }
+            return (UHDM::instance*)m;
+        };
         // Instance overrides: the bound initializer's syntax is the
         // override expression at the instantiation, not the declaration
         // default. Both views keep DEFAULT-derived values; the instance
@@ -244,8 +300,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         up->VpiFullName(joinPath(prefix, ps.name));
         up->VpiParent(m);
         setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
-        if (isImported)
-            up->VpiImported(std::string(ps.getParentScope()->asSymbol().name));
+        if (isImported) {
+            // Re-exported materialized params carry the IMMEDIATELY-imported
+            // package name (srcImp), not their deeper home scope.
+            auto siIt = srcImp.find(&ps);
+            up->VpiImported(siIt != srcImp.end()
+                                ? siIt->second
+                                : std::string(ps.getParentScope()->asSymbol().name));
+        }
 
         // Surelog reports vpiLocalParam by the WRITTEN keyword, not slang's
         // LRM-derived local flag: a module-BODY `parameter` (local per LRM
@@ -817,7 +879,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     else {
                         auto* its = makeParamTs(ps, typedParam);
                         if (typedParam)
-                            its->Instance((UHDM::instance*)m);
+                            its->Instance(pkgTsInstance());
                         prt->Actual_typespec(its);
                         if (typedParam || isRangedUntypedParam(ps))
                             its->VpiParent(up);
@@ -954,7 +1016,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // Surelog instances the ts at the package only for
                         // TYPED params; untyped ones stay Instance-less.
                         if (typedParam)
-                            its->Instance((UHDM::instance*)m);
+                            its->Instance(pkgTsInstance());
                         if (rhsRt)
                             rhsRt->Actual_typespec(its);
                         prt->Actual_typespec(its);
@@ -1001,7 +1063,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     else {
                         auto* its = makeParamTs(ps, typedParam);
                         if (typedParam)
-                            its->Instance((UHDM::instance*)m);
+                            its->Instance(pkgTsInstance());
                         if (rhsRt)
                             rhsRt->Actual_typespec(its);
                         prt->Actual_typespec(its);
@@ -2244,7 +2306,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 syntaxRefPrefix = savedPfx2;
                 bool untypedImport = !inPackage && isImported && !typedParam;
                 if (inPackage && typedParam)
-                    its->Instance((UHDM::instance*)m);
+                    its->Instance(pkgTsInstance());
                 else if (!inPackage && isImported && ps.getParentScope()) {
                     // An imported param's typespec is INSTANCED at its package —
                     // but ONLY for TYPED imports. An UNTYPED import (parameter

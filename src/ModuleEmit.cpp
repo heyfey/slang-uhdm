@@ -10237,6 +10237,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 if (sts)
                     irt->Actual_typespec(sts);
                 inr->Typespec(irt);
+                // An EXPLICITLY package-qualified struct element nets as a
+                // wire (NetType 1) — same rule the def view applies to the
+                // inner struct_net (iface_arr_struct_whole_field).
+                if (isPkgStructType(*it.sym, /*descendUnpacked=*/true) &&
+                    isExplicitPkgQualified(*it.sym) &&
+                    !hasStructFieldMember(*it.sym))
+                    inr->VpiNetType(vpiWire);
                 auto* inv = s.MakeNetVec();
                 inv->push_back(inr);
                 an->Nets(inv);
@@ -10488,6 +10495,70 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         mrt->Actual_typespec(mts);
                         sn2->Typespec(mrt);
                         io->Expr(sn2);
+                    }
+                    else if (mpp.internalSymbol &&
+                             mpp.internalSymbol->getDeclaredType() &&
+                             mpp.internalSymbol->getDeclaredType()
+                                     ->getType()
+                                     .getCanonicalType()
+                                     .kind ==
+                                 SymbolKind::FixedSizeUnpackedArrayType) {
+                        // Unpacked-array-of-STRUCT modport member: the io_decl
+                        // Expr is a struct_net (RAW doubled name.name fullname,
+                        // NetType 1 for pkg-qualified) parented at an array_net
+                        // (own folded dim range) — Surelog
+                        // (iface_arr_struct_whole_field).
+                        auto& msym = *mpp.internalSymbol;
+                        std::string mname(msym.name);
+                        const Type* canon =
+                            &msym.getDeclaredType()->getType().getCanonicalType();
+                        const Type* elemNamed = nullptr;
+                        while (canon->kind ==
+                               SymbolKind::FixedSizeUnpackedArrayType) {
+                            elemNamed =
+                                &canon->as<FixedSizeUnpackedArrayType>()
+                                     .elementType;
+                            canon = &elemNamed->getCanonicalType();
+                        }
+                        if (elemNamed && canon->isStruct()) {
+                            UHDM::typespec* mts = nullptr;
+                            if (auto tt = pkgTopTypedefTs.find(elemNamed);
+                                tt != pkgTopTypedefTs.end())
+                                mts = tt->second;
+                            if (!mts)
+                                if (auto tt2 = typedefTs.find(elemNamed);
+                                    tt2 != typedefTs.end())
+                                    mts = tt2->second;
+                            auto* an = s.MakeArray_net();
+                            an->VpiName(mname);
+                            an->VpiFullName(mname);
+                            setLoc(an, nameSpan(msym.location, msym.name));
+                            if (auto* rngs = buildUnpackedRanges(msym, an))
+                                an->Ranges(rngs);
+                            auto* sn3 = s.MakeStruct_net();
+                            sn3->VpiName(mname);
+                            sn3->VpiFullName(mname + "." + mname);
+                            sn3->VpiParent(an);
+                            if (auto* dsyn0 = msym.getSyntax();
+                                dsyn0 &&
+                                dsyn0->kind == syntax::SyntaxKind::Declarator)
+                                setLoc(sn3, dsyn0->sourceRange());
+                            else
+                                setLoc(sn3, nameSpan(msym.location, msym.name));
+                            if (isPkgStructType(msym, /*descendUnpacked=*/true) &&
+                                isExplicitPkgQualified(msym) &&
+                                !hasStructFieldMember(msym))
+                                sn3->VpiNetType(vpiWire);
+                            auto* mrt = s.MakeRef_typespec();
+                            mrt->VpiFullName(mname + "." + mname);
+                            mrt->VpiParent(sn3);
+                            mrt->Actual_typespec(mts);
+                            sn3->Typespec(mrt);
+                            auto* inv = s.MakeNetVec();
+                            inv->push_back(sn3);
+                            an->Nets(inv);
+                            io->Expr(sn3);
+                        }
                     }
                     else if (mpp.internalSymbol) {
                         // An interface-PORT modport member (clk/rst declared in
