@@ -1944,12 +1944,33 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         // gets a per-instance elab CLONE: instance-scoped member refs, span
         // over the `struct` keyword only, parented at the struct_net.
         bool anonStructClone = false;
+        bool anonStructWhole = false;
         if (!ts && !implicitNet && !realVar) {
             if (auto dtv = it.sym->getDeclaredType();
                 dtv && !dtv->getInitializer() &&
                 dtv->getType().kind == SymbolKind::PackedStructType) {
+                // A signal assigned/read WHOLE is netlist-recompiled: bare
+                // member refs and no owner parent (like the typedef'd form).
+                bool whole9 = false;
+                for (auto& mb9 : body.members()) {
+                    if (mb9.kind != SymbolKind::ContinuousAssign)
+                        continue;
+                    auto& as9 = mb9.as<ContinuousAssignSymbol>().getAssignment();
+                    if (as9.kind != ExpressionKind::Assignment)
+                        continue;
+                    auto& ae9 = as9.as<AssignmentExpression>();
+                    for (auto* side9 : {&ae9.left(), &ae9.right()}) {
+                        auto& sc9 = stripImplicitConv(*side9);
+                        if (sc9.kind == ExpressionKind::NamedValue &&
+                            &sc9.as<NamedValueExpression>().symbol == it.sym)
+                            whole9 = true;
+                    }
+                }
                 auto* sts = buildStructTs(
-                    dtv->getType().as<PackedStructType>(), true, fullName);
+                    dtv->getType().as<PackedStructType>(), true,
+                    whole9 ? std::string() : fullName);
+                if (whole9)
+                    anonStructWhole = true;
                 if (auto tsyn = dtv->getTypeSyntax())
                     if (auto* su =
                             tsyn->as_if<syntax::StructUnionTypeSyntax>())
@@ -2691,7 +2712,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // typedef ts keeps its DESIGN parent when the design has
             // MULTIPLE top modules (arrays03); single-top designs still
             // re-parent at the last using net (DotMultirange).
-            if (ts && (anonStructClone ||
+            if (ts && !anonStructWhole &&
+                (anonStructClone ||
                        (ts->UhdmType() != UHDM::uhdmenum_typespec &&
                         ts->UhdmType() != UHDM::uhdmstruct_typespec)) &&
                 !(ts->VpiParent() &&
