@@ -2934,8 +2934,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                       a->UhdmType() == UHDM::uhdmbit_select ||
                                       a->UhdmType() == UHDM::uhdmpart_select ||
                                       a->UhdmType() == UHDM::uhdmindexed_part_select;
+                        // A SYS-call arg counts too: ExprEval::evalFunc stamps
+                        // the formal's typespec onto every actual BEFORE it
+                        // discovers it cannot evaluate the body, so the stamp
+                        // survives on a call that stays symbolic
+                        // (const_func: negate($floor(W / X))).
                         bool otherArg = a->UhdmType() == UHDM::uhdmconstant ||
                                         a->UhdmType() == UHDM::uhdmfunc_call ||
+                                        a->UhdmType() == UHDM::uhdmsys_func_call ||
                                         a->UhdmType() == UHDM::uhdmoperation;
                         // A nested call to a PASS-THROUGH function (its return
                         // value IS one of its formals) is substituted by
@@ -3277,6 +3283,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 const Expression* argE = arg;
                 if (argE->kind == ExpressionKind::Assignment)
                     argE = &argE->as<AssignmentExpression>().left();
+                // ELAB param inits compile with Reduce::Yes, so an OPERATION
+                // argument of a sys call ExprEval cannot itself evaluate
+                // ($floor(W / X)) still folds to a 64-bit vpiIntConst —
+                // anchored, like every Surelog post-reduce constant, at the
+                // expression's FIRST CHILD node (the leftmost leaf).
+                auto& argS = stripImplicitConv(*argE);
+                if (inParamInit && !paramInitDef &&
+                    (argS.kind == ExpressionKind::BinaryOp ||
+                     argS.kind == ExpressionKind::UnaryOp)) {
+                    ASTContext fctx(comp.getRoot(), LookupLocation::max);
+                    if (auto fcv = fctx.tryEval(argS);
+                        fcv && fcv.isInteger() && !fcv.integer().hasUnknown()) {
+                        const Expression* leaf = &argS;
+                        while (true) {
+                            auto& l0 = stripImplicitConv(*leaf);
+                            if (l0.kind == ExpressionKind::BinaryOp)
+                                leaf = &l0.as<BinaryExpression>().left();
+                            else if (l0.kind == ExpressionKind::UnaryOp)
+                                leaf = &l0.as<UnaryExpression>().operand();
+                            else {
+                                leaf = &l0;
+                                break;
+                            }
+                        }
+                        auto* fc0 = s.MakeConstant();
+                        std::string dg0 =
+                            fcv.integer().toString(LiteralBase::Decimal, false);
+                        fc0->VpiDecompile(dg0);
+                        fc0->VpiSize(64);
+                        fc0->VpiValue("INT:" + dg0);
+                        fc0->VpiConstType(vpiIntConst);
+                        fc0->VpiParent(sc);
+                        setLoc(fc0, leaf->sourceRange);
+                        args->push_back(fc0);
+                        continue;
+                    }
+                }
                 // System-call direct literal args parent to the call.
                 bool forceSaved = forceConstParent;
                 if (isLiteralExpr(*argE))

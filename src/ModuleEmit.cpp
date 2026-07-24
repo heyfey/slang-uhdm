@@ -612,10 +612,29 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     auto* asserts = s.MakeAnyVec();
     refCollector = &info.processRefs;
     inProcessEmit = true;
+    // A process written DIRECTLY inside an explicit `generate...endgenerate`
+    // region is NOT compiled with the module's own items (Surelog's
+    // collectModuleObjects_ stops at paGenerate_region): instead
+    // DesignElaboration re-enters CompileModule with getGenBlockId() set to
+    // that generate ITEM, ONCE PER INSTANCE of the module, appending a FRESH
+    // process object to the DEFINITION each time. So the def's list is
+    // [own processes] followed by [region processes] x instance-count, with
+    // the instance loop OUTERMOST.
+    std::vector<const ProceduralBlockSymbol*> regionPbs;
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::ProceduralBlock)
             continue;
         auto& pb = member.as<ProceduralBlockSymbol>();
+        bool inGenRegion = false;
+        for (auto q = pb.getSyntax(); q; q = q->parent)
+            if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                inGenRegion = true;
+                break;
+            }
+        if (inGenRegion) {
+            regionPbs.push_back(&pb);
+            continue;
+        }
         if (auto* as = emitAssertion(pb, m, prefix, info.nets)) {
             asserts->push_back(as);
             info.assertions.push_back(as);
@@ -626,6 +645,16 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             procs->push_back(p);
             info.processes.push_back(p);
         }
+    }
+    if (!regionPbs.empty()) {
+        auto itc = defAllInstCount.find(&def);
+        unsigned reps = itc == defAllInstCount.end() ? 0 : itc->second;
+        for (unsigned k = 0; k < reps; k++)
+            for (auto* pb : regionPbs)
+                if (auto* p = emitProcess(*pb, m, prefix, info.nets)) {
+                    procs->push_back(p);
+                    info.processes.push_back(p);
+                }
     }
     inProcessEmit = false;
     refCollector = nullptr;
@@ -3266,6 +3295,25 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         else if (member.kind == SymbolKind::InstanceArray) {
             auto& arr = member.as<InstanceArraySymbol>();
+            // A MODULE instance array (aoi12 p[31:0](...)) has no per-element
+            // emission below (that loop is interface-only), so the ELEMENT
+            // definition would never have its port phase run at all: Surelog
+            // compiles the array's element module exactly like any other
+            // instantiated def, so fill it here in encounter order
+            // (arraycells: work@aoi12 keeps its four vpiPorts).
+            for (auto* e0 : arr.elements) {
+                if (!e0 || e0->kind != SymbolKind::Instance)
+                    continue;
+                auto& ei0 = e0->as<InstanceSymbol>();
+                if (!useInterfacePath(ei0)) {
+                    auto& edef0 = ei0.getDefinition();
+                    if (!defMap[&edef0].filled) {
+                        defMap[&edef0].filled = true;
+                        emitModuleDefPorts(ei0);
+                    }
+                }
+                break;
+            }
             // The module_array object lives in the DEF view ONLY (emitModuleDef);
             // the ELAB view carries just the per-index interface_inst elements
             // under vpiInterface (Surelog — the elab dut has no vpiModuleArray).
@@ -12825,10 +12873,47 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
         // Surelog wraps a whole explicit `generate...endgenerate` region in ONE
         // gen_region placeholder; dedup the fallback by GenerateRegion syntax.
         std::set<const syntax::SyntaxNode*> doneFallbackRegions;
+        // compileGenStmt(paGenerate_region) always MAKES the gen_region, but
+        // fills it from `compileStmt(fC->Child(region))` — ONLY the FIRST
+        // generate item — and CompileModule stops descending at the region, so
+        // every LATER item of an explicit region contributes NOTHING (the
+        // gen_region still exists, with an EMPTY begin when the first item is
+        // one CompileStmt has no case for: a genvar decl (gen_test6) or a
+        // loop-generate). const_func: the region's case-generate and
+        // loop-generate are simply absent, the leading if-generate is kept.
         for (auto& member : body.members()) {
             if (member.kind != SymbolKind::GenerateBlockArray &&
                 member.kind != SymbolKind::GenerateBlock)
                 continue;
+            // The explicit region enclosing this member (if any) and the
+            // region ITEM the member sits under.
+            const syntax::SyntaxNode* memRegion = nullptr;
+            const syntax::SyntaxNode* memRegItem = nullptr;
+            for (auto q = member.getSyntax(); q; q = q->parent)
+                if (q->parent &&
+                    q->parent->kind == syntax::SyntaxKind::GenerateRegion) {
+                    memRegion = q->parent;
+                    memRegItem = q;
+                    break;
+                }
+            if (memRegion) {
+                auto& grs9 = memRegion->as<syntax::GenerateRegionSyntax>();
+                bool isFirst9 =
+                    !grs9.members.empty() &&
+                    (const syntax::SyntaxNode*)grs9.members[0] == memRegItem;
+                if (!isFirst9) {
+                    if (doneFallbackRegions.insert(memRegion).second) {
+                        auto* gr9 = s.MakeGen_region();
+                        gr9->VpiParent(m);
+                        auto* b9 = s.MakeBegin();
+                        b9->VpiFullName(prefix);
+                        b9->VpiParent(gr9);
+                        gr9->VpiStmt(b9);
+                        regions->push_back(gr9);
+                    }
+                    continue;
+                }
+            }
             const syntax::IfGenerateSyntax* ifSyn = nullptr;
             if (member.kind == SymbolKind::GenerateBlock) {
                 for (auto q = member.getSyntax(); q; q = q->parent) {
@@ -12948,6 +13033,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     wb->Stmts(ws);
                     gr0->VpiStmt(wb);
                     regions->push_back(gr0);
+                    if (memRegion)
+                        doneFallbackRegions.insert(memRegion);
                 }
                 else
                     regions->push_back(g0);
@@ -13029,6 +13116,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 ob->Stmts(obs);
                 gr->VpiStmt(ob);
                 regions->push_back(gr);
+                if (memRegion)
+                    doneFallbackRegions.insert(memRegion);
                 continue;
             }
             // FOR-generates: a LOC-LESS gen_for with the genvar init
@@ -13257,6 +13346,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     if (auto* b = emitBranch(*gsyn, gr, &member.as<Scope>(), prefix, false))
                         gr->VpiStmt(b);
                     regions->push_back(gr);
+                    if (memRegion)
+                        doneFallbackRegions.insert(memRegion);
                     continue;
                 }
             }

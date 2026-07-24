@@ -693,6 +693,10 @@ private:
     /// the LAST instance of a def can be recognised while it is emitted.
     std::map<const slang::ast::DefinitionSymbol*, unsigned> defInstTotal;
     std::map<const slang::ast::DefinitionSymbol*, unsigned> defInstSeen;
+    /// Elaborated instances per definition INCLUDING top instances — the
+    /// number of times Surelog's DesignElaboration re-enters CompileModule on
+    /// the definition for each plain item of an explicit generate region.
+    std::map<const slang::ast::DefinitionSymbol*, unsigned> defAllInstCount;
     /// The port typespecs of a def's LAST elaborated instance are created in
     /// the WRITE phase (name-sorted def walk), not inline (Surelog arena
     /// order): every earlier instance keeps its inline slot.

@@ -2523,10 +2523,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         if (auto sp9 = std::get_if<const SubroutineSymbol*>(
                                 &icc9.as<CallExpression>().subroutine))
                             csub9 = *sp9;
+                    // An ARGUMENT Surelog cannot itself reduce to a constant
+                    // (a system call outside ExprEval's repertoire — $floor,
+                    // $ceil, ... as opposed to $bits/$clog2/$size/$signed)
+                    // makes EvalFunc report an invalid value, so the call
+                    // stays a func_call in the elab view too (const_func:
+                    // localparam signed Z = negate($floor(W / X))).
+                    bool unevalArg9 = false;
+                    if (csub9)
+                        for (auto* a9 : icc9.as<CallExpression>().arguments())
+                            a9->visit(makeVisitor(
+                                [&](auto& vis9, const CallExpression& ce9) {
+                                    static const std::set<std::string>
+                                        kEvalSys = {"$bits",  "$size",
+                                                    "$high",  "$low",
+                                                    "$left",  "$right",
+                                                    "$clog2", "$signed",
+                                                    "$unsigned"};
+                                    if (ce9.isSystemCall() &&
+                                        !kEvalSys.count(std::string(
+                                            ce9.getSubroutineName())))
+                                        unevalArg9 = true;
+                                    vis9.visitDefault(ce9);
+                                }));
                     // A function whose body declares a LOCALPARAM defeats
                     // Surelog's const evaluator — the call stays symbolic
                     // (const_func_block_var). Lifetime is irrelevant.
-                    if (csub9 && !subroutineDeclaresParam(*csub9)) {
+                    if (csub9 && !unevalArg9 && !subroutineDeclaresParam(*csub9)) {
                         auto& pv9 = ps.getValue();
                         if (pv9.isInteger() &&
                             !pv9.integer().hasUnknown()) {

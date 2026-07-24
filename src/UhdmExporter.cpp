@@ -230,6 +230,7 @@ void UhdmExporter::computeParamMultiplicity() {
             auto& child = member.as<InstanceSymbol>();
             perDef[&child.getDefinition()].insert(paramTuple(child));
             defInstTotal[&child.getDefinition()]++;
+            defAllInstCount[&child.getDefinition()]++;
             {
                 std::string ptxt9;
                 for (auto p9 = child.getSyntax(); p9; p9 = p9->parent)
@@ -262,9 +263,11 @@ void UhdmExporter::computeParamMultiplicity() {
                     visit(gm);
         }
     };
-    for (auto inst : comp.getRoot().topInstances)
+    for (auto inst : comp.getRoot().topInstances) {
+        defAllInstCount[&inst->getDefinition()]++;
         for (auto& m : inst->body.members())
             visit(m);
+    }
     for (auto& [def, tuples] : perDef)
         if (tuples.size() > 1)
             multiParamDefs.insert(def);

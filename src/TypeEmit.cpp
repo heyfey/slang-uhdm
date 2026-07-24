@@ -1700,12 +1700,42 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         std::string digits = std::to_string(value);
                         c->VpiDecompile(digits);
                         if (syntax::BinaryExpressionSyntax::isKind(bsyn->kind)) {
-                            // A subtract bound (N-1) reduces to a signed INT;
-                            // other operators (N+1, N*2) reduce to UINT. Both
-                            // anchor at the left-operand span — except in a
-                            // typedef-signal CLONE, where the constant stays
-                            // BARE (no loc, no parent).
-                            if (bsyn->kind == syntax::SyntaxKind::SubtractExpression) {
+                            // ExprEval::reduceExpr's per-operator value type:
+                            // sub/mult/div ALWAYS yield INT; add yields UINT
+                            // only when BOTH reduced operands are unsigned
+                            // constants, so `24 * 8 - 1 + 4` (whose left
+                            // operand already reduced to INT) is INT while
+                            // `N + 1` stays UINT. Both anchor at the
+                            // left-operand span — except in a typedef-signal
+                            // CLONE, where the constant stays BARE (no loc, no
+                            // parent).
+                            std::function<bool(const syntax::SyntaxNode*)>
+                                redInt = [&](const syntax::SyntaxNode* n)
+                                -> bool {
+                                if (!n)
+                                    return false;
+                                switch (n->kind) {
+                                    case syntax::SyntaxKind::SubtractExpression:
+                                    case syntax::SyntaxKind::MultiplyExpression:
+                                    case syntax::SyntaxKind::DivideExpression:
+                                        return true;
+                                    case syntax::SyntaxKind::AddExpression: {
+                                        auto& be9 =
+                                            n->as<syntax::BinaryExpressionSyntax>();
+                                        return redInt(be9.left) ||
+                                               redInt(be9.right);
+                                    }
+                                    case syntax::SyntaxKind::
+                                        ParenthesizedExpression:
+                                        return redInt(
+                                            n->as<syntax::
+                                                      ParenthesizedExpressionSyntax>()
+                                                .expression);
+                                    default:
+                                        return false;
+                                }
+                            };
+                            if (redInt(bsyn)) {
                                 c->VpiConstType(vpiIntConst);
                                 c->VpiValue("INT:" + digits);
                             }
@@ -4042,6 +4072,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             c->VpiSize(64);
             c->VpiValue("UINT:" + raw);
             c->VpiConstType(vpiUIntConst);
+            c->VpiParent(parent);
+            setLoc(c, syn.sourceRange());
+            return c;
+        }
+        case syntax::SyntaxKind::StringLiteralExpression: {
+            // A string literal re-emitted from SYNTAX (gen-if / gen-case
+            // condition, call argument): raw decompile WITH the quotes, size
+            // = 8 bits per source character (Surelog).
+            auto* c = s.MakeConstant();
+            std::string raw = rawText(syn.sourceRange());
+            c->VpiDecompile(raw);
+            std::string inner = raw;
+            if (inner.size() >= 2 && inner.front() == '"' && inner.back() == '"')
+                inner = inner.substr(1, inner.size() - 2);
+            c->VpiSize((int32_t)(inner.size() * 8));
+            c->VpiValue("STRING:" + inner);
+            c->VpiConstType(vpiStringConst);
             c->VpiParent(parent);
             setLoc(c, syn.sourceRange());
             return c;
