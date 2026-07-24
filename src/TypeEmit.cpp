@@ -4025,15 +4025,21 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                             }
                         }
                     }
-                    if (structTs0)
+                    // Surelog attaches the folded dim constant's int_typespec
+                    // ONLY when the sizing param is SIGNED (`int DEPTH` —
+                    // issue326_packed_mem). An `int unsigned` sizing param
+                    // (`int unsigned PMPNumChan` — hier_path) folds to a bare
+                    // UINT constant with no typespec.
+                    if (structTs0) {
                         rt0->Actual_typespec(structTs0);
-                    else {
-                        auto* its0 = s.MakeInt_typespec();
-                        if (sgn0)
-                            its0->VpiSigned(true);
-                        rt0->Actual_typespec(its0);
+                        sc->Typespec(rt0);
                     }
-                    sc->Typespec(rt0);
+                    else if (sgn0) {
+                        auto* its0 = s.MakeInt_typespec();
+                        its0->VpiSigned(true);
+                        rt0->Actual_typespec(its0);
+                        sc->Typespec(rt0);
+                    }
                     if (!be0.bad() &&
                         stripImplicitConv(be0).kind ==
                             ExpressionKind::MemberAccess &&
@@ -4322,6 +4328,65 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     return av;
 }
 
+// Root ValueSymbol of an lvalue expression (unwrapping selects / member
+// access / conversions down to the base named/hierarchical reference).
+static const Symbol* uaLvalueRoot(const Expression& e) {
+    const Expression* cur = &e;
+    while (cur) {
+        switch (cur->kind) {
+            case ExpressionKind::NamedValue:
+                return &cur->as<NamedValueExpression>().symbol;
+            case ExpressionKind::HierarchicalValue:
+                return &cur->as<HierarchicalValueExpression>().symbol;
+            case ExpressionKind::ElementSelect:
+                cur = &cur->as<ElementSelectExpression>().value();
+                break;
+            case ExpressionKind::RangeSelect:
+                cur = &cur->as<RangeSelectExpression>().value();
+                break;
+            case ExpressionKind::MemberAccess:
+                cur = &cur->as<MemberAccessExpression>().value();
+                break;
+            case ExpressionKind::Conversion:
+                cur = &cur->as<ConversionExpression>().operand();
+                break;
+            default:
+                return nullptr;
+        }
+    }
+    return nullptr;
+}
+
+// Whether `target` (or a select/member-access rooted at it) is the LHS of a
+// CONTINUOUS assignment in `scope`, recursing into generate blocks. Surelog
+// promotes a CONTINUOUSLY-driven unpacked-array-of-packed-struct signal to an
+// array_var (hier_path's `csr_pmp_cfg_i` driven by `assign x[i].m = ...`); a
+// signal driven only PROCEDURALLY (ucsbece154b's `dll_d`/`dll_q` written in
+// always_comb) or undriven (OneStruct's dead `memArray[8]`) stays an
+// array_net.
+static bool uaScopeDrives(const Scope& scope, const Symbol& target) {
+    for (auto& mem : scope.members()) {
+        if (mem.kind == SymbolKind::ContinuousAssign) {
+            auto& asn = mem.as<ContinuousAssignSymbol>().getAssignment();
+            if (asn.kind == ExpressionKind::Assignment) {
+                auto& ae = asn.as<AssignmentExpression>();
+                if (uaLvalueRoot(ae.left()) == &target)
+                    return true;
+            }
+        }
+        else if (mem.kind == SymbolKind::GenerateBlock) {
+            if (uaScopeDrives(mem.as<GenerateBlockSymbol>(), target))
+                return true;
+        }
+        else if (mem.kind == SymbolKind::GenerateBlockArray) {
+            for (auto& gb : mem.as<GenerateBlockArraySymbol>().entries)
+                if (uaScopeDrives(*gb, target))
+                    return true;
+        }
+    }
+    return false;
+}
+
 bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked) {
     auto declared = sym.getDeclaredType();
     if (!declared)
@@ -4339,9 +4404,22 @@ bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked) {
         lct.kind == SymbolKind::PredefinedIntegerType ||
         lct.kind == SymbolKind::UnpackedStructType)
         return false;
-    // A 4-state packed struct is a net; a 2-state one is a var.
-    if (lct.kind == SymbolKind::PackedStructType)
-        return lct.isFourState();
+    // A 4-state packed-struct unpacked array is a NET unless a continuous or
+    // procedural assignment DRIVES it (a member/element select rooted at the
+    // signal on some LHS), in which case Surelog promotes it to an array_var:
+    //   - hier_path `csr_pmp_cfg_i[N]` driven by `assign x[i].m = ...` -> var
+    //   - OneStruct dead `memArray[8]` (no driver) -> net
+    // A declaration `= '{...}` initializer is a net-decl-assign, NOT a driver,
+    // so `tl_h2d_t a[1:0] = '{...}` (IndexedPartSelectOfArrayElement) stays a
+    // net.
+    if (lct.kind == SymbolKind::PackedStructType) {
+        if (!lct.isFourState())
+            return false;
+        if (auto* sc = sym.getParentScope())
+            if (uaScopeDrives(*sc, sym))
+                return false;
+        return true;
+    }
     // Any other 2-STATE integral leaf (bit scalars/vectors) can never be a
     // net — array_var (Surelog).
     if (lct.isIntegral() && !lct.isFourState())
@@ -4422,13 +4500,21 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
         leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
     auto& lc = leaf->getCanonicalType();
     UHDM::typespec* structTs = nullptr;
-    if (lc.kind == SymbolKind::PackedStructType)
+    if (lc.kind == SymbolKind::PackedStructType) {
         for (auto& [s2, tsp] : typedefTs)
             if (s2->kind == SymbolKind::TypeAlias &&
                 &s2->as<TypeAliasType>().getCanonicalType() == &lc) {
                 structTs = tsp;
                 break;
             }
+        // ANONYMOUS packed-struct leaf (ucsbece154b `struct packed {...}
+        // dll_d[4]`): there is no named typedef ts to share, but the element
+        // typespec is itself a struct_typespec — use it directly so the
+        // element is still a DOUBLED-name struct_net (not a flat logic_net).
+        if (!structTs && elemTs &&
+            elemTs->UhdmType() == UHDM::uhdmstruct_typespec)
+            structTs = elemTs;
+    }
     auto* nvec = s.MakeNetVec();
     if (structTs) {
         std::string dbl = fullName + "." + name;
