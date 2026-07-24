@@ -4112,6 +4112,9 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (auto* dt2 = gm.getDeclaredType())
                 if (auto* tsn2 = dt2->getTypeSyntax())
                     setLoc(ivt, tsn2->sourceRange());
+            // The gen-local var ts parents at the var
+            // (genscope_async_ff_signal).
+            ivt->VpiParent(iv);
             auto* ivr = s.MakeRef_typespec();
             ivr->VpiFullName(vfull);
             ivr->VpiParent(iv);
