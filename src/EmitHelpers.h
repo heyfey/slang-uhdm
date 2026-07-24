@@ -473,6 +473,37 @@ inline bool isOverriddenParam(const Symbol& sym) {
     return true;
 }
 
+// True when a LOCALPARAM's initializer is a COMPUTED (non-literal) expression:
+// e.g. `localparam W = $clog2(DATA_WIDTH)`. Surelog keeps a def-view packed
+// range that references such a localparam UNFOLDED (op(ref W - 1)), just like
+// it does for overridden params, because the folded bound is not a plain
+// source literal. Restricted to LOCALPARAMs: an overridable module parameter
+// with a computed default (`parameter W = $clog2(N)`) still FOLDS in Surelog's
+// range (for_loop_nonconst_bound, multiple_blocking) — only the immutable
+// localparam form is kept symbolic. Literal-init (`localparam W = 32`) folds.
+inline bool paramInitIsComputed(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Parameter)
+        return false;
+    auto& ps = sym.as<ParameterSymbol>();
+    if (!ps.isLocalParam())
+        return false;
+    const Expression* bi = ps.getInitializer();
+    if (!bi)
+        return false;
+    // Unwrap implicit/explicit conversions (int cast around $clog2, etc.).
+    const Expression* e = bi;
+    while (e->kind == ExpressionKind::Conversion)
+        e = &e->as<ConversionExpression>().operand();
+    switch (e->kind) {
+        case ExpressionKind::IntegerLiteral:
+        case ExpressionKind::UnbasedUnsizedIntegerLiteral:
+        case ExpressionKind::RealLiteral:
+            return false;
+        default:
+            return true;
+    }
+}
+
 // Data-type syntax kinds that can appear as a cast target.
 inline bool isTypeSyntaxKind(syntax::SyntaxKind k) {
     switch (k) {

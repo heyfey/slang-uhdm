@@ -5365,7 +5365,8 @@ bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
                 if (!be0.bad())
                     be0.visit(makeVisitor([&](auto& v0, const NamedValueExpression& nv0) {
                         if (nv0.symbol.kind == SymbolKind::Parameter &&
-                            isOverriddenParam(nv0.symbol))
+                            (isOverriddenParam(nv0.symbol) ||
+                             paramInitIsComputed(nv0.symbol)))
                             found = true;
                         v0.visitDefault(nv0);
                     }));
