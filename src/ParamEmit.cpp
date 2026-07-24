@@ -304,12 +304,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // (ParameterFromPkg* family).
     std::map<const Symbol*, std::pair<UHDM::param_assign*, UHDM::constant*>>
         pkgRefSrc;
+    // param_assigns of PARAMETER-PORT-LIST params (for the elab reorder).
+    std::set<const UHDM::any*> portPa9;
+    // Tag every param_assign pushed while emitting a PARAMETER-PORT-LIST
+    // param (the pushes happen at several sites, so mark by loop iteration).
+    size_t paMark9 = 0;
+    bool paMarkPort9 = false;
+    auto flushPaTag9 = [&]() {
+        for (size_t i9 = paMark9; i9 < passigns->size(); i9++)
+            if (paMarkPort9)
+                portPa9.insert((const UHDM::any*)(*passigns)[i9]);
+        paMark9 = passigns->size();
+    };
     for (auto* psPtr : paramSyms) {
         const Symbol& member = *psPtr;
         auto& ps = *psPtr;
         // Imported = the param belongs to ANOTHER scope (a package), not the
         // body being emitted (a package emitting its own params is NOT that).
         bool isImported = ps.getParentScope() != &body;
+        flushPaTag9();
+        paMarkPort9 = !isImported && ps.isPortParam();
         // The package instance a materialized param's typespec is INSTANCED at.
         // For a package view (inPackage), a param DECLARED here instances at
         // this package (m); a re-exported IMPORTED param (pinmux_pkg's
@@ -2682,6 +2696,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
     }
+    flushPaTag9();
     // Type parameters (parameter type T = ...) emit as UHDM type_parameter
     // objects under vpiParameter. Surelog locates the DEF-view type_parameter
     // at its name token and leaves the ELAB-view one unlocated (instance type
@@ -2808,6 +2823,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 (*params)[idx9[k9]] = mats9[k9];
         }
     }
+    // The ELABORATED instance assigns its PARAMETER-PORT-LIST params first
+    // (they are resolved from the instantiation) and the rest — materialized
+    // imported params included — after, in source-location order. BODY params
+    // stay in plain location order in both views, so an imported param
+    // declared earlier still leads (ParameterFromPkgInNestedModule) — Surelog
+    // (ParameterFromPkgOnParameterPortList).
+    if (topView && !inPackage && !portPa9.empty() &&
+        portPa9.size() < passigns->size())
+        std::stable_partition(passigns->begin(), passigns->end(),
+                              [&](UHDM::param_assign* pa9) {
+                                  return portPa9.count(pa9) > 0;
+                              });
     if (!params->empty())
         m->Parameters(params);
     if (!passigns->empty())

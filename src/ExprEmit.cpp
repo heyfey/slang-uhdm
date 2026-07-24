@@ -1147,6 +1147,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // carries a ref_typespec to the imported param's def
                     // typespec (module-named, instanced at the package) — the
                     // fold is a resolved copy of a typed param (Surelog).
+                    // A PROCEDURAL operand fold reading an IMPORTED param
+                    // likewise carries the ts ref (scoped at the enclosing
+                    // statement block) — the fold resolves a typed param
+                    // materialized into this module (Surelog; PartSelectInFor
+                    // for (int i = 0; i < NumRegsKey; i++)).
+                    bool procOpFold9 = inProcessEmit && !inParamInit && parent &&
+                                       parent->UhdmType() ==
+                                           UHDM::uhdmoperation;
                     if ((parent &&
                          parent->UhdmType() == UHDM::uhdmcont_assign &&
                          contAssignView != 2) ||
@@ -1155,7 +1163,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (inParamInit && paramInitDef && !paramInitPkg &&
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
-                        sysFuncArgFold)
+                        procOpFold9 || sysFuncArgFold)
                         if (auto tit = importedParamDefTs.find(&nv.symbol);
                             tit != importedParamDefTs.end()) {
                             auto* rt = s.MakeRef_typespec();
@@ -1299,6 +1307,104 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rtF->Actual_typespec(itsF);
                         c->Typespec(rtF);
                         return c;
+                    }
+                }
+                // A FOR-generate gen-scope CA RHS folds MODULE-param refs in
+                // select bounds to typed constants too (the gen instance is
+                // concrete) — but NOT inside a function-call ARGUMENT, which
+                // Surelog re-emits symbolically (read_remux's two i[OFF-1:0]
+                // part-selects: the plain one folds, the call arg keeps the
+                // ref).
+                if (genCaLoopParamFold && (!inLhs || inPsBound) &&
+                    callArgDepth == 0 &&
+                    nv.symbol.kind == SymbolKind::Parameter) {
+                    bool outerParam9 = false;
+                    for (auto sc9 = nv.symbol.getParentScope(); sc9;
+                         sc9 = sc9->asSymbol().getParentScope()) {
+                        auto sk9 = sc9->asSymbol().kind;
+                        if (sk9 == SymbolKind::GenerateBlock ||
+                            sk9 == SymbolKind::GenerateBlockArray)
+                            break;
+                        if (sk9 == SymbolKind::InstanceBody) {
+                            outerParam9 = true;
+                            break;
+                        }
+                    }
+                    auto& psL9 = nv.symbol.as<ParameterSymbol>();
+                    auto& cvL9 = psL9.getValue();
+                    // OUTSIDE a select bound Surelog hands back the module
+                    // param's OWN elaborated constant (parented at its
+                    // param_assign, typespec named at the module); inside a
+                    // bound it mints a use-site constant scoped by the select
+                    // base. Skip the fold when that shared constant is not
+                    // available.
+                    UHDM::param_assign* pa9 = nullptr;
+                    const UHDM::module_inst* mi9 = nullptr;
+                    if (!inPsBound) {
+                        const UHDM::BaseClass* mw9 = parent;
+                        while (mw9 &&
+                               mw9->UhdmType() != UHDM::uhdmmodule_inst)
+                            mw9 = mw9->VpiParent();
+                        mi9 = (const UHDM::module_inst*)mw9;
+                        if (mi9 && mi9->Param_assigns())
+                            for (auto* pax9 : *mi9->Param_assigns())
+                                if (auto* l9 = pax9->Lhs();
+                                    l9 &&
+                                    l9->UhdmType() == UHDM::uhdmparameter &&
+                                    ((UHDM::parameter*)l9)->VpiName() ==
+                                        nv.symbol.name) {
+                                    pa9 = pax9;
+                                    break;
+                                }
+                    }
+                    if (outerParam9 && (inPsBound || pa9) &&
+                        cvL9.isInteger() && !cvL9.integer().hasUnknown()) {
+                        auto* c9 = s.MakeConstant();
+                        std::string dL9 = cvL9.integer().toString(
+                            LiteralBase::Decimal, false);
+                        c9->VpiDecompile(dL9);
+                        c9->VpiSize((int32_t)psL9.getType().getBitWidth());
+                        c9->VpiValue("UINT:" + dL9);
+                        c9->VpiConstType(vpiUIntConst);
+                        setLoc(c9, expr.sourceRange);
+                        std::string tsName9 = prefix;
+                        if (pa9) {
+                            c9->VpiParent(pa9);
+                            if (mi9)
+                                tsName9 = mi9->VpiFullName();
+                        }
+                        else
+                            c9->VpiParent(parent);
+                        auto* rtL9 = s.MakeRef_typespec();
+                        rtL9->VpiFullName(tsName9);
+                        rtL9->VpiParent(c9);
+                        auto* itsL9 = s.MakeInt_typespec();
+                        // A TYPED param's typespec spans its type syntax and
+                        // carries the signedness flag; an UNTYPED one spans
+                        // the whole parameter declaration and carries none
+                        // (same rule as the param's own typespec).
+                        bool typed9 = false;
+                        if (auto dtL9 = psL9.getDeclaredType())
+                            if (auto tsnL9 = dtL9->getTypeSyntax();
+                                tsnL9 && tsnL9->kind !=
+                                             syntax::SyntaxKind::ImplicitType) {
+                                typed9 = true;
+                                setLoc(itsL9, tsnL9->sourceRange());
+                                itsL9->VpiSigned(
+                                    psL9.getType().getCanonicalType().isSigned());
+                            }
+                        if (!typed9)
+                            for (auto q9 = nv.symbol.getSyntax(); q9;
+                                 q9 = q9->parent)
+                                if (q9->kind ==
+                                    syntax::SyntaxKind::ParameterDeclaration) {
+                                    setLoc(itsL9, q9->sourceRange());
+                                    break;
+                                }
+                        itsL9->VpiParent(rtL9);
+                        rtL9->Actual_typespec(itsL9);
+                        c9->Typespec(rtL9);
+                        return c9;
                     }
                 }
                 // Gen-scope instance CONNS fold genvar/localparam refs that
@@ -1624,7 +1730,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          break;
                              return i;
                          }();
-                         it != netMap.end()) {
+                         it != netMap.end() &&
+                         // ELAB gen-scope CA RHS refs nested inside a select
+                         // INDEX stay UNBOUND: Surelog names them under the
+                         // select base (work@m.genblk1[0].man_rdt.rsp_off),
+                         // a hier path that resolves to nothing, so it never
+                         // attaches an actual (read_remux).
+                         !(inGenScopeCaRhs && selIdxScopeDepth > 0)) {
                     ref->Actual_group(it->second);
                     // Whole ref: may be re-pointed to a select object if this
                     // variable is written via a select elsewhere in the body.
@@ -3329,9 +3441,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Refs nested in index OPERATIONS scope by the base name;
             // direct index refs stay module-scoped.
             std::string idxPrefix = prefix;
-            if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue)
+            bool idxRescoped = false;
+            if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue) {
                 idxPrefix = prefix + "." + std::string(nv.symbol.name);
-            if (auto* ix = emitExpr(es.selector(), bs, idxPrefix, netMap))
+                idxRescoped = true;
+            }
+            if (idxRescoped)
+                selIdxScopeDepth++;
+            auto* ix = emitExpr(es.selector(), bs, idxPrefix, netMap);
+            if (idxRescoped)
+                selIdxScopeDepth--;
+            if (ix)
                 bs->VpiIndex((UHDM::expr*)ix);
             return bs;
         }

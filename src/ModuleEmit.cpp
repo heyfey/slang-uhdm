@@ -2510,6 +2510,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 patternInit = k == ExpressionKind::SimpleAssignmentPattern ||
                               k == ExpressionKind::StructuredAssignmentPattern ||
                               k == ExpressionKind::ReplicatedAssignmentPattern;
+                // An UNBASED-UNSIZED fill ('1 / '0) is width-inferred from the
+                // struct, so Surelog re-elaborates it the same way a pattern
+                // init is: struct_NET + net-decl cont_assign, not a var Expr
+                // (PartSelectInFor).
+                if (k == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                    patternInit = true;
             }
             // A PACKAGE-typedef struct with a STRUCTURED (tagged) pattern
             // init stays a struct_VAR: Expr = op75 of bare per-member
@@ -3907,6 +3913,23 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     return m;
 }
 
+// True when this generate block IS a for-generate body — its nearest
+// enclosing generate construct is the LoopGenerate itself. An if/case branch
+// nested inside a for-generate is NOT: Surelog re-emits those symbolically
+// (hier_path's g_others keeps its PMPGranularity refs) while a direct loop
+// body is fully concrete and folds outer params (read_remux, multiplier).
+static bool genBlkIsLoopBody(const GenerateBlockSymbol& blk) {
+    for (auto q = blk.getSyntax(); q; q = q->parent) {
+        if (q->kind == syntax::SyntaxKind::LoopGenerate)
+            return true;
+        if (q->kind == syntax::SyntaxKind::IfGenerate ||
+            q->kind == syntax::SyntaxKind::CaseGenerate ||
+            q->kind == syntax::SyntaxKind::GenerateRegion)
+            return false;
+    }
+    return false;
+}
+
 // Generate blocks: one gen_scope_array + gen_scope per unrolled iteration
 // (instance view only). The genvar becomes an unlocated localparam.
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
@@ -4997,10 +5020,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // BINDABLE symbol: an OUTER (module) param, or a signal DRIVEN
                 // in this gen-scope (in genLhsSyms). A gen-block genvar and a
                 // read-only outer net (sel) do not count.
+                // In a FOR-generate instance Surelog FOLDS outer params to
+                // constants before binding, so a param reference can never
+                // make the RHS bindable there: module-signal refs stay
+                // unbound (multiplier's `assign gA = {A & {M{B[i]}}, ...}`).
+                // Single-instance (if/named) gen scopes keep the old rule.
+                bool blkInLoopRhs = false;
+                for (auto q = blk.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::LoopGenerate) {
+                        blkInLoopRhs = true;
+                        break;
+                    }
                 bool hasBindableRef = false;
                 ae.right().visit(makeVisitor(
                     [&](auto& v, const NamedValueExpression& nvp) {
-                        if (nvp.symbol.kind == SymbolKind::Parameter) {
+                        if (!blkInLoopRhs &&
+                            nvp.symbol.kind == SymbolKind::Parameter) {
                             for (auto sc0 = nvp.symbol.getParentScope(); sc0;
                                  sc0 = sc0->asSymbol().getParentScope()) {
                                 auto sk = sc0->asSymbol().kind;
@@ -5057,7 +5092,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         break;
                     }
                 genCaLhsParamFold = !blkInLoop3;
+                // Only a TOP-LEVEL for-generate body of this module folds
+                // outer params; nested / child-instance gen scopes re-emit
+                // them symbolically (hier_path's g_regions).
+                genCaLoopParamFold = !childGen && genBlkIsLoopBody(blk);
+                inGenScopeCaRhs = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
+                inGenScopeCaRhs = false;
+                genCaLoopParamFold = false;
                 genCaLhsParamFold = false;
                 if (suppress)
                     suppressRefActual = false;
@@ -5187,6 +5229,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     break;
                 }
             genCaLhsParamFold = !blkInLoop2;
+            // TOP-LEVEL FOR-generate LHS select bounds fold outer params too.
+            genCaLoopParamFold =
+                prefix.find('.') == std::string::npos &&
+                parentFull.find('.') == std::string::npos &&
+                genBlkIsLoopBody(blk);
             genCaLhsReelab =
                 !blkInLoop2 && isLiteralExpr(stripImplicitConv(ae.right()));
             if (auto* l = emitExpr(ae.left(), ca, fullName, netMap)) {
@@ -5224,6 +5271,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             genCaLhsReelab = false;
             genCaLhsParamFold = false;
+            genCaLoopParamFold = false;
             if (lhsSuppress)
                 suppressRefActual = false;
             inLhs = false;
@@ -6813,7 +6861,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     int32_t w = (int32_t)dt->getType().getBitWidth();
                     if (!ub.isUnknown()) {
                         rc->VpiSize(w);
-                        if (ub.value) {
+                        if (ub.value && w > 64) {
+                            // Wider than a UINT payload: Surelog keeps the
+                            // BINARY digit string (PartSelectInFor's 512-bit
+                            // struct fill).
+                            std::string bits((size_t)w, '1');
+                            rc->VpiValue("BIN:" + bits);
+                            rc->VpiDecompile(bits);
+                            rc->VpiConstType(vpiBinaryConst);
+                        }
+                        else if (ub.value) {
                             slang::SVInt ones((slang::bitwidth_t)w, 0, false);
                             ones = ~ones;
                             std::string digits = ones.toString(LiteralBase::Decimal, false);
@@ -8835,6 +8892,55 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                         ts = tit0->second;
                         sharedPkg = true;
                     }
+            }
+            // A VECTOR typedef return gets a per-REFERENCE named clone at the
+            // typedef's target syntax, not the shared typedef ts: a $unit
+            // typedef clone carries a Typedef_alias ref (fullname
+            // <localFull>.<typedef>) to a second design-instanced clone; a
+            // PACKAGE typedef clone is Instance'd at its package instead
+            // (Surelog; func_typename_ret).
+            if (ts && sharedPkg &&
+                ts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                auto& rta0 = sub.getReturnType().as<TypeAliasType>();
+                auto* sc1 = rta0.getParentScope();
+                bool unitTd = sc1 && sc1->asSymbol().kind ==
+                                         SymbolKind::CompilationUnit;
+                const syntax::SyntaxNode* tgtSyn0 = nullptr;
+                if (auto asyn0 = rta0.getSyntax())
+                    if (asyn0->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        tgtSyn0 =
+                            asyn0->as<syntax::TypedefDeclarationSyntax>().type;
+                if (tgtSyn0) {
+                    std::string qn0(rta0.name);
+                    if (!unitTd && sc1)
+                        qn0 = std::string(sc1->asSymbol().name) + "::" + qn0;
+                    auto mkClone0 = [&]() -> UHDM::typespec* {
+                        bypassTypedefShare = true;
+                        bool savedTf0 = tfContext;
+                        tfContext = true;
+                        auto* c0 = makeTypespec(*sub.returnValVar, tgtSyn0);
+                        tfContext = savedTf0;
+                        bypassTypedefShare = false;
+                        c0->VpiName(qn0);
+                        return c0;
+                    };
+                    auto* cl0 = mkClone0();
+                    if (unitTd) {
+                        auto* ar0 = s.MakeRef_typespec();
+                        ar0->VpiFullName(localFull + "." + std::string(rta0.name));
+                        ar0->VpiParent(cl0);
+                        auto* cl1 = mkClone0();
+                        cl1->VpiParent(ar0);
+                        cl1->Instance(ts->Instance());
+                        ar0->Actual_typespec(cl1);
+                        ((UHDM::logic_typespec*)cl0)->Typedef_alias(ar0);
+                    }
+                    else {
+                        cl0->Instance(ts->Instance());
+                    }
+                    cl0->VpiParent(rt);
+                    ts = cl0;
+                }
             }
             if (!ts) {
                 tfContext = true;

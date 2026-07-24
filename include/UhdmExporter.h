@@ -574,6 +574,16 @@ private:
     // Refs inside indexed-part-select base/width exprs are scoped by the
     // select base name.
     std::string selectBasePrefix;
+    // >0 while emitting a select INDEX whose nested refs are re-scoped under
+    // the select base name (work@m.mem.idx): Surelog synthesizes that same
+    // bogus hier path and then fails to resolve it, so such refs carry no
+    // actual in the elaborated gen-scope cont_assign RHS.
+    int selIdxScopeDepth = 0;
+    // True while emitting an elaborated gen-scope cont_assign RHS.
+    bool inGenScopeCaRhs = false;
+    // True while emitting a FOR-generate gen-scope cont_assign RHS: module
+    // params in select bounds fold to typed constants (outside call args).
+    bool genCaLoopParamFold = false;
     // Root prefix of the top instance currently being emitted (bind
     // instances DISPLAY directly under it while contents keep real paths).
     std::string currentTopPrefix;
