@@ -1383,6 +1383,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c->VpiConstType(vpiUIntConst);
                             c->VpiDecompile(digits);
                         }
+                        // The DEGENERATE fills ('0/'x/'z, ConstType BIN) are the
+                        // SAME constant object Surelog shares into the reading
+                        // cont-assign (bare stub, parent = that CA). '1 (UINT)
+                        // instead gets a FRESH fold at the read, so it is not
+                        // recorded here.
+                        if (topView && (bit.isUnknown() || bit.value == 0))
+                            unbasedSharedPaConst[&ps] = c;
                     }
                     // A typed-param PART-SELECT init (WidthRatio[5:0]) folds
                     // to BINARY at the type width (Surelog quirk) and is
@@ -2201,6 +2208,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // param whose default is a bare ref to it can clone the fold.
         if (rhsConstForMap)
             pkgRefSrc[&member] = {pa, rhsConstForMap};
+        // A DEGENERATE unbased fill ('x/'z) reaches its BIN Rhs constant via the
+        // fallback emitExpr path (not the fold arm above), so it is recorded
+        // here: Surelog shares this SAME object into the reading cont-assign.
+        // ('0 was already recorded in the fold arm; '1/UINT is excluded.)
+        if (topView && rhsConstForMap && !unbasedSharedPaConst.count(&ps)) {
+            if (auto* pinU = ps.getInitializer()) {
+                auto& siU = stripImplicitConv(*pinU);
+                if (siU.kind ==
+                    ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    slang::logic_t bU =
+                        siU.as<UnbasedUnsizedIntegerLiteral>()
+                            .getLiteralValue();
+                    if (bU.isUnknown() || bU.value == 0)
+                        unbasedSharedPaConst[&ps] = rhsConstForMap;
+                }
+            }
+        }
     }
     // Type parameters (parameter type T = ...) emit as UHDM type_parameter
     // objects under vpiParameter. Surelog locates the DEF-view type_parameter
@@ -3155,6 +3179,14 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
             auto* rc0 = rhsRt->VpiParent();
             bool uintFold = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
                             ((UHDM::constant*)rc0)->VpiValue().rfind("UINT:", 0) == 0;
+            // A DEGENERATE unbased fill's BIN constant only takes the LOC-LESS
+            // bare ts when it was actually SHARED into a reading cont-assign
+            // (its parent got re-stamped to that CA). An unshared '0 (used only
+            // in an override expr) keeps its LOCATED param ts.
+            bool unbasedSharedActive =
+                unbasedSharedPaConst.count(ps) && rc0 &&
+                rc0->VpiParent() &&
+                rc0->VpiParent()->UhdmType() == UHDM::uhdmcont_assign;
             // A RANGED UNTYPED param folded from a REAL literal binds a
             // fresh LOC-LESS bare logic_typespec (realexpr p1).
             bool realFold9 = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
@@ -3185,8 +3217,11 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                 }
                 rhsRt->Actual_typespec(lts9);
             }
-            else if (uintFold && typedParam && !isOverriddenParam(*ps) &&
+            else if ((uintFold || unbasedSharedActive) && typedParam &&
+                !isOverriddenParam(*ps) &&
                 ps->getType().getCanonicalType().isPackedArray()) {
+                // A DEGENERATE unbased fill ('0/'x/'z, BIN) binds the SAME
+                // loc-less bare vec ts as the '1 (UINT) recompute (Surelog).
                 if (auto* bare = makeBareVecParamTs(*ps, /*parentBounds=*/false))
                     rhsRt->Actual_typespec(bare);
             }

@@ -7066,7 +7066,20 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         .kind == SymbolKind::FixedSizeUnpackedArrayType)
                 callIdxLhs = true;
         }
+        // A ref to a TYPED param with a DEGENERATE unbased init ('0/'x/'z) does
+        // NOT share the def CA (which keeps a plain ref_obj); the elab view
+        // instead shares the param_assign's fold constant as a stub.
+        bool unbasedShareRhs = false;
+        if (topView) {
+            auto& rcS = stripImplicitConv(ae.right());
+            if (rcS.kind == ExpressionKind::NamedValue &&
+                rcS.as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::Parameter)
+                unbasedShareRhs = unbasedSharedPaConst.count(
+                                      &rcS.as<NamedValueExpression>().symbol) != 0;
+        }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
+            !unbasedShareRhs &&
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs &&
               !callFold) ||
              (plainLhs &&
@@ -7245,6 +7258,24 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     c->VpiParent(ca);
                     setLoc(c, rc.sourceRange);
                     rhs = c;
+                }
+            }
+        }
+        // A ref to a TYPED param whose init is a DEGENERATE unbased fill
+        // ('0/'x/'z) SHARES the param_assign's Rhs constant OBJECT in the elab
+        // cont-assign (printed as a bare stub), re-parenting it at THIS CA
+        // (Surelog's last-writer claim). '1 (UINT) is NOT shared — it folds
+        // fresh via the typed-param arm below.
+        if (!rhs && topView) {
+            auto& rcU = stripImplicitConv(ae.right());
+            if (rcU.kind == ExpressionKind::NamedValue &&
+                rcU.as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::Parameter) {
+                auto& psymU = rcU.as<NamedValueExpression>().symbol;
+                if (auto uit = unbasedSharedPaConst.find(&psymU);
+                    uit != unbasedSharedPaConst.end()) {
+                    rhs = uit->second;
+                    ((UHDM::constant*)rhs)->VpiParent(ca);
                 }
             }
         }
