@@ -2128,7 +2128,31 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             childDrivenOut9 = true;
                     }
                 }
-                if (childDrivenOut9) {
+                // A TOP-view port whose packed-array-of-struct element is
+                // READ from a generate scope also elaborates as a VAR:
+                // Surelog's isNet walk stops at the packed_array_typespec
+                // (it never runs the struct-member net test), so the named
+                // data type alone makes it a variable.
+                bool genReadPort9 = false;
+                if (!childDrivenOut9 && isTop)
+                    for (auto& mb9 : body.members()) {
+                        if (mb9.kind != SymbolKind::GenerateBlock &&
+                            mb9.kind != SymbolKind::GenerateBlockArray)
+                            continue;
+                        mb9.visit(makeVisitor(
+                            [&](auto& v9, const NamedValueExpression& nv9) {
+                                if (&nv9.symbol == it.sym)
+                                    genReadPort9 = true;
+                                v9.visitDefault(nv9);
+                            },
+                            [&](auto& v9, const HierarchicalValueExpression&
+                                              hv9) {
+                                if (&hv9.symbol == it.sym)
+                                    genReadPort9 = true;
+                                v9.visitDefault(hv9);
+                            }));
+                    }
+                if (childDrivenOut9 || genReadPort9) {
                     if (auto* pav9 = emitPackedStructArrayVar(*it.sym, name,
                                                               fullName, m)) {
                         topNets[it.sym] = pav9;
@@ -4043,6 +4067,86 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     return m;
 }
 
+// A STRUCT-typed assignment-pattern cont_assign is re-materialized by
+// Surelog's UhdmWriter through clone_tree + ExprEval::flattenPatternAssignments:
+// the tagged wrappers vanish (the emitter's `reemitting` mode already does
+// that) and, because the whole CA was DEEP-CLONED, every select constant in
+// the surviving operands carries a vpiParent. Each path operand also gets its
+// vpiExpr (hier_path root_value) bound to the elaborated base signal.
+void UhdmExporter::flattenPatternCaRhs(UHDM::operation* op,
+                                       const Expression& patExpr,
+                                       const NetMap& netMap) {
+    if (!op->Operands() ||
+        patExpr.kind != ExpressionKind::StructuredAssignmentPattern)
+        return;
+    auto& ap = patExpr.as<StructuredAssignmentPatternExpression>();
+    std::function<void(UHDM::any*)> fix = [&](UHDM::any* n) {
+        if (!n)
+            return;
+        auto parentConst = [](UHDM::expr* e, UHDM::any* p) {
+            if (e && e->UhdmType() == UHDM::uhdmconstant && !e->VpiParent())
+                e->VpiParent(p);
+        };
+        switch (n->UhdmType()) {
+            case UHDM::uhdmhier_path: {
+                auto* h = (UHDM::hier_path*)n;
+                if (h->Path_elems())
+                    for (auto* pe : *h->Path_elems())
+                        fix(pe);
+                break;
+            }
+            case UHDM::uhdmbit_select:
+                parentConst(((UHDM::bit_select*)n)->VpiIndex(), n);
+                break;
+            case UHDM::uhdmpart_select:
+                parentConst(((UHDM::part_select*)n)->Left_range(), n);
+                parentConst(((UHDM::part_select*)n)->Right_range(), n);
+                break;
+            case UHDM::uhdmindexed_part_select:
+                parentConst(((UHDM::indexed_part_select*)n)->Base_expr(), n);
+                parentConst(((UHDM::indexed_part_select*)n)->Width_expr(), n);
+                break;
+            case UHDM::uhdmvar_select: {
+                auto* v = (UHDM::var_select*)n;
+                if (v->Exprs())
+                    for (auto* e : *v->Exprs())
+                        fix(e);
+                break;
+            }
+            default:
+                break;
+        }
+    };
+    auto& ops = *op->Operands();
+    for (auto* o : ops)
+        fix(o);
+    // vpiExpr: the elaborated object the path's ROOT name resolves to.
+    if (ops.size() != ap.memberSetters.size())
+        return;
+    for (size_t i = 0; i < ops.size(); i++) {
+        if (ops[i]->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        const Expression* b = &stripImplicitConv(*ap.memberSetters[i].expr);
+        while (true) {
+            if (b->kind == ExpressionKind::RangeSelect)
+                b = &stripImplicitConv(b->as<RangeSelectExpression>().value());
+            else if (b->kind == ExpressionKind::ElementSelect)
+                b = &stripImplicitConv(
+                    b->as<ElementSelectExpression>().value());
+            else if (b->kind == ExpressionKind::MemberAccess)
+                b = &stripImplicitConv(
+                    b->as<MemberAccessExpression>().value());
+            else
+                break;
+        }
+        if (b->kind != ExpressionKind::NamedValue)
+            continue;
+        if (auto nit = netMap.find(&b->as<NamedValueExpression>().symbol);
+            nit != netMap.end())
+            ((UHDM::hier_path*)ops[i])->Root_value(nit->second);
+    }
+}
+
 // True when this generate block IS a for-generate body — its nearest
 // enclosing generate construct is the LoopGenerate itself. An if/case branch
 // nested inside a for-generate is NOT: Surelog re-emits those symbolically
@@ -4153,11 +4257,6 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             up->VpiParent(gs);
             up->VpiLocalParam(true);
             auto& cv = ps.getValue();
-            if (cv.isInteger() && !cv.integer().hasUnknown()) {
-                bool neg = cv.integer().isSigned() && cv.integer().isNegative();
-                std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
-                up->VpiValue((neg ? "INT:" : "UINT:") + digits);
-            }
             // A REAL block localparam (written `localparam ... = ...`) keeps
             // its name span, source-base value encoding, and typed ts; the
             // GENVAR localparam keeps the loop-line/col-0 deferred-int form.
@@ -4167,6 +4266,27 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     realLp = true;
                     break;
                 }
+            // A MULTIPLICATIVE init (a*b, a/b) encodes the fold SIGNED — on
+            // the param_assign constant (below) AND on the parameter's own
+            // value (gen_test5 PREV = step / CHUNK, DIM = WIDTH / step,
+            // LAST_START = i * CHUNK). Additive/plain refs keep UINT
+            // (genvar_loop_decl_2 w = x, LocalParamInNestedForLoops
+            // Offset = RhoOffset[1]).
+            bool mulDivLp9 = false;
+            if (realLp)
+                if (auto* ini9 = ps.getInitializer())
+                    ini9->visit(makeVisitor(
+                        [&](auto& v9x, const BinaryExpression& be9) {
+                            if (be9.op == BinaryOperator::Multiply ||
+                                be9.op == BinaryOperator::Divide)
+                                mulDivLp9 = true;
+                            v9x.visitDefault(be9);
+                        }));
+            if (cv.isInteger() && !cv.integer().hasUnknown()) {
+                bool neg = cv.integer().isSigned() && cv.integer().isNegative();
+                std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
+                up->VpiValue(((neg || mulDivLp9) ? "INT:" : "UINT:") + digits);
+            }
             if (realLp) {
                 setLoc(up, nameSpan(ps.location, ps.name));
                 // A signed gen-scope localparam carries vpiSigned ONLY when it
@@ -4325,6 +4445,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         auto* crt = s.MakeRef_typespec();
                         crt->VpiFullName(fullName);
                         crt->VpiParent(c2);
+                        // An UNTYPED computed gen localparam gets its int
+                        // typespec TWICE: once while the gen scope is
+                        // elaborated (interleaved with that scope's net
+                        // typespecs, HERE) and once in the write phase (the
+                        // parameter's own ts, below) — Surelog compiles the
+                        // declaration in both passes (gen_test5).
+                        if (!typedLp) {
+                            auto* its0 = s.MakeInt_typespec();
+                            for (auto q0 = ps.getSyntax(); q0; q0 = q0->parent)
+                                if (q0->kind ==
+                                    syntax::SyntaxKind::ParameterDeclaration) {
+                                    setLoc(its0, q0->sourceRange());
+                                    break;
+                                }
+                            crt->Actual_typespec(its0);
+                        }
                         // A localparam whose init is a direct element-select of
                         // a top array param (int O = RhoOffset[1]) adopts THAT
                         // elab pattern operand: Surelog gives the operand
@@ -4424,9 +4560,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + "." + std::string(ps.name));
             rt->VpiParent(up);
-            // Actual int_typespec created LAST in the write phase (after any
-            // gen-scope net-decl typespecs).
-            pendingGenvarTs.push_back(rt);
+            // Actual int_typespec created in the write phase, INTERLEAVED with
+            // this gen scope's real-localparam typespecs (Surelog walks the
+            // scopes depth-first: LAST_START, i, j, j, ... — gen_test5).
+            pendingGenLpTs.push_back(
+                {rt, nullptr, &ps, false, nullptr, nullptr, true});
             up->Typespec(rt);
             params->push_back(up);
         }
@@ -5230,7 +5368,52 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // them symbolically (hier_path's g_regions).
                 genCaLoopParamFold = !childGen && genBlkIsLoopBody(blk);
                 inGenScopeCaRhs = true;
+                // A STRUCT-typed pattern RHS flattens in the elab view:
+                // UhdmWriter runs ExprEval::flattenPatternAssignments, whose
+                // struct branch replaces the op's tagged_pattern operands
+                // with the bare member values (first one sized) — the same
+                // re-emit shape the module-level elab CA uses.
+                bool savedReP9 = reemitting;
+                bool patFlat9 =
+                    stripImplicitConv(ae.right()).kind ==
+                        ExpressionKind::StructuredAssignmentPattern &&
+                    ae.left().type &&
+                    ae.left().type->getCanonicalType().kind ==
+                        SymbolKind::PackedStructType;
+                if (patFlat9)
+                    reemitting = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
+                reemitting = savedReP9;
+                if (patFlat9 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation) {
+                    flattenPatternCaRhs((UHDM::operation*)rhs,
+                                        stripImplicitConv(ae.right()), netMap);
+                    // flattenPatternAssignments leaves its own (typed) clone
+                    // behind: an arena orphan parented at the cont_assign that
+                    // OWNS the flattened operands (UhdmWriter re-points
+                    // assign->Rhs at a later expand, but never re-parents the
+                    // operands) — that back-edge is what pulls the orphan into
+                    // the weakly-referenced tail.
+                    UHDM::typespec* lts9 = nullptr;
+                    if (auto tit9 = typedefTs.find(&ae.left().type->getCanonicalType());
+                        tit9 != typedefTs.end())
+                        lts9 = tit9->second;
+                    if (!lts9)
+                        for (auto& [s9, tsp9] : typedefTs)
+                            if (s9->kind == SymbolKind::TypeAlias &&
+                                &s9->as<TypeAliasType>().getCanonicalType() ==
+                                    &ae.left().type->getCanonicalType()) {
+                                lts9 = tsp9;
+                                break;
+                            }
+                    auto sr9 = stripImplicitConv(ae.right()).sourceRange;
+                    pendingPatternOrphans.push_back(
+                        {ca, (UHDM::operation*)rhs,
+                         sm->getLineNumber(sr9.start()),
+                         sm->getColumnNumber(sr9.start()),
+                         sm->getLineNumber(sr9.end()),
+                         sm->getColumnNumber(sr9.end()), lts9});
+                }
                 inGenScopeCaRhs = false;
                 genCaLoopParamFold = false;
                 genCaLhsParamFold = false;
@@ -5382,6 +5565,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         bool parentNet9 = false;
                         if (auto sp9 = ls9.getParentScope())
                             parentNet9 = &sp9->asSymbol() != (const Symbol*)&blk;
+                        // Surelog's elab writer only re-binds a cont_assign
+                        // LHS on the clone path it takes for an OPERATION
+                        // Rhs; a BARE hier_path Rhs leaves the whole-ref LHS
+                        // unbound (gen_test5 `assign temp =
+                        // steps[PREV].outer[LAST_START].val`), while
+                        // bit-select and operation Rhs keep the binding.
+                        if (rhs && rhs->UhdmType() == UHDM::uhdmhier_path)
+                            parentNet9 = false;
                         auto git9 = genScopeNets.find(&ls9);
                         if (parentNet9 && git9 != genScopeNets.end())
                             ((UHDM::ref_obj*)l)->Actual_group(git9->second);
@@ -6512,6 +6703,11 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     // clone, then the typed param ts (Surelog: after the top-port ts, before
     // the genvar int ts).
     for (auto& gl : pendingGenLpTs) {
+        // Genvar entries share this ordered list (bare int ts, no loc).
+        if (gl.genvarOnly) {
+            gl.rt->Actual_typespec(s.MakeInt_typespec());
+            continue;
+        }
         if (gl.crt && gl.typedLp)
             if (auto* bare = makeBareVecParamTs(*gl.ps, false))
                 gl.crt->Actual_typespec(bare);
@@ -6544,10 +6740,6 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         }
     }
     pendingGenLpTs.clear();
-    // Gen-scope genvar int_typespecs are the very last arena objects.
-    for (auto* rt : pendingGenvarTs)
-        rt->Actual_typespec(s.MakeInt_typespec());
-    pendingGenvarTs.clear();
     // Signed size-cast fold typespecs close out the tail.
     for (auto* rt : pendingSignedCastTs) {
         auto* lts = s.MakeLogic_typespec();
@@ -10801,6 +10993,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             p2->VpiEndColumnNo(p0->VpiEndColumnNo());
             if (p0->VpiLocalParam())
                 p2->VpiLocalParam(true);
+            // The port-view duplicate keeps the home parameter's vpiSigned
+            // (a signed `parameter int BYT`) — Surelog copies it, like the
+            // col-0 tail dup does (iface_ff_genvar_partsel).
+            if (p0->VpiSigned())
+                p2->VpiSigned(true);
             if (psym && p0->Typespec()) {
                 auto* prt2 = s.MakeRef_typespec();
                 prt2->VpiFullName(std::string(p0->Typespec()->VpiFullName()));
@@ -12691,6 +12888,20 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             // placeholder (Surelog).
             if (loopSyn && !loopSyn->genvar)
                 loopSyn = nullptr;
+            // A MODULE def view compiles an explicit `generate ... endgenerate`
+            // region through CompileStmt, which has NO loop-generate case
+            // (CompileStmt.cpp): the region's begin comes back EMPTY, so the
+            // placeholder below is what Surelog writes. An INTERFACE def view
+            // takes CompileInterface's own path and DOES expand the gen_for
+            // (iface_unpacked_struct_array), and a BARE (unwrapped) loop in a
+            // module keeps its gen_for too.
+            if (loopSyn && m->UhdmType() != UHDM::uhdminterface_inst) {
+                for (auto q = member.getSyntax(); q; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                        loopSyn = nullptr;
+                        break;
+                    }
+            }
             if (loopSyn) {
                 auto* gf = s.MakeGen_for();
                 gf->VpiParent(m);

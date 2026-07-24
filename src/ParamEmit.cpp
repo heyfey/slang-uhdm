@@ -639,9 +639,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             bool realLit =
                 defaultInit && stripImplicitConv(*defaultInit).kind ==
                                    ExpressionKind::RealLiteral;
+            // An implicitly-typed param carrying an explicit SIGNING keyword
+            // (localparam signed Y = $floor(W / X)) always gets its
+            // int_typespec — located at the signing keyword — even when the
+            // init is COMPUTED (Surelog; const_func Y/Z).
+            bool signedImplicitTs = false;
+            if (auto ds9 = ps.getDeclaredType())
+                if (auto ts9 = ds9->getTypeSyntax())
+                    if (ts9->kind == syntax::SyntaxKind::ImplicitType)
+                        signedImplicitTs =
+                            ts9->as<syntax::ImplicitTypeSyntax>()
+                                .signing.valid() &&
+                            ts9->as<syntax::ImplicitTypeSyntax>()
+                                .dimensions.empty();
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && (typedParam || literalInit))) &&
-                     (typedParam || isRangedUntypedParam(ps) || pkgElabComputed ||
+                     (typedParam || isRangedUntypedParam(ps) ||
+                      signedImplicitTs || pkgElabComputed ||
                       ((literalInit || realLit) && !unknownDefault));
         }
         if (auto declared0 = ps.getDeclaredType()) {
@@ -3611,8 +3625,18 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     UHDM::int_typespec* intTs = nullptr;
     if (!its) {
         intTs = s.MakeInt_typespec();
-        // Untyped parameters carry no signedness flag.
-        if (typedParam)
+        // Untyped parameters carry no signedness flag — EXCEPT one written
+        // with an explicit signing keyword (localparam signed Y), whose
+        // int_typespec spans that keyword and does carry it (const_func).
+        bool signKw9 = false;
+        if (auto d9 = ps.getDeclaredType())
+            if (auto t9 = d9->getTypeSyntax())
+                if (t9->kind == syntax::SyntaxKind::ImplicitType)
+                    signKw9 = t9->as<syntax::ImplicitTypeSyntax>()
+                                  .signing.valid() &&
+                              t9->as<syntax::ImplicitTypeSyntax>()
+                                  .dimensions.empty();
+        if (typedParam || signKw9)
             intTs->VpiSigned(sgn);
         its = intTs;
     }

@@ -3992,8 +3992,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             selText = selName(baseDotted) + "[" +
                                       renderBound9(rs.left()) + ":" +
                                       renderBound9(rs.right()) + "]";
-                        else
+                        else if (stripImplicitConv(rs.left()).kind ==
+                                 ExpressionKind::NamedValue)
                             selText = selName(rawText(expr.sourceRange));
+                        else
+                            // An ARITHMETIC indexed base decompiles with
+                            // operator spacing (sub.src[i*8+:8] ->
+                            // sub.src[i * 8+:8]); the +:/-: token and the
+                            // width stay tight (Surelog).
+                            selText =
+                                selName(baseDotted) + "[" +
+                                spaceOps9(selName(std::string(
+                                    rawText(rs.left().sourceRange)))) +
+                                (rs.getSelectionKind() ==
+                                         RangeSelectionKind::IndexedUp
+                                     ? "+:"
+                                     : "-:") +
+                                selName(std::string(
+                                    rawText(rs.right().sourceRange))) +
+                                "]";
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);
                         hp->VpiFullName(selText);
@@ -4045,8 +4062,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             r2->VpiName(cn);
                             r2->VpiFullName(cn); // name-only (dump omits)
                             r2->VpiParent(hp);
-                            setLoc(r2, SourceRange(exprStart + co,
-                                                   exprStart + co + cn.size()));
+                            // An LVALUE path anchors its BASE ref at the FIRST
+                            // member name's start (the select anchor), keeping
+                            // only its own length — Surelog, same as the
+                            // MemberAccess builder above.
+                            size_t co2 = co;
+                            if (inLhs && ci == 0 && comps.size() > 2 &&
+                                rs.getSelectionKind() !=
+                                    RangeSelectionKind::Simple)
+                                co2 = comps[1].second;
+                            setLoc(r2, SourceRange(exprStart + co2,
+                                                   exprStart + co2 + cn.size()));
                             elems->push_back(r2);
                         }
                         std::string lastName =
@@ -4086,7 +4112,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         else {
                             auto* ips2 = s.MakeIndexed_part_select();
                             ips2->VpiName(lastName);
-                            ips2->VpiFullName(selText);
+                            // A procedural WRITE freezes the select's scoped
+                            // (member-doubled) name and carries vpiDefName; a
+                            // READ keeps the bare hier text (Surelog).
+                            bool wrSel9 =
+                                inLhs && stripImplicitConv(rs.left()).kind !=
+                                             ExpressionKind::NamedValue;
+                            if (wrSel9) {
+                                ips2->VpiDefName(lastName);
+                                ips2->VpiFullName(prefix + "." + selText + "." +
+                                                  lastName);
+                            }
+                            else
+                                ips2->VpiFullName(selText);
                             ips2->VpiParent(hp);
                             setLoc(ips2, selLoc);
                             ips2->VpiIndexedPartSelectType(
@@ -4108,9 +4146,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             suppressConstParent = isLiteralExpr(rs.left());
                             // A dynamic BASE ref is named through the select
                             // itself (work@top.a[0].source[base-:2].base) —
-                            // Surelog scopes it by the hier-path element.
-                            if (auto* b2 = emitExpr(rs.left(), ips2,
-                                                    prefix + "." + selText,
+                            // Surelog scopes it by the hier-path element. A
+                            // ref one level DEEPER (inside an arithmetic base
+                            // op) also picks up the select's own name, since
+                            // ComputeFullName only skips a select DIRECTLY
+                            // above the ref (sub.src[i * 8+:8].src.i).
+                            std::string bPfx9 = prefix + "." + selText;
+                            if (stripImplicitConv(rs.left()).kind !=
+                                ExpressionKind::NamedValue)
+                                bPfx9 += "." + lastName;
+                            if (auto* b2 = emitExpr(rs.left(), ips2, bPfx9,
                                                     netMap))
                                 ips2->Base_expr((UHDM::expr*)b2);
                             suppressConstParent = isLiteralExpr(rs.right());

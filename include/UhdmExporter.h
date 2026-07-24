@@ -403,6 +403,12 @@ private:
                                                      const std::string& name,
                                                      const std::string& fullName,
                                                      UHDM::module_inst* m);
+    // ELAB fix-ups for a flattened (struct) assignment-pattern cont_assign
+    // RHS: the CA was deep-cloned, so every select constant carries a parent,
+    // and each path operand's vpiExpr binds the elaborated base signal.
+    void flattenPatternCaRhs(UHDM::operation* op,
+                             const slang::ast::Expression& patExpr,
+                             const NetMap& netMap);
     // If `ts` is a packed_array_typespec whose element is an enum, returns a
     // fresh packed_array_var mirroring its ranges (bounds+loc cloned) with an
     // enum_var element referencing the shared enum_typespec; else nullptr.
@@ -877,8 +883,6 @@ private:
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;
-    // Gen-scope genvar param int_typespecs drain LAST (after net-decl typespecs).
-    std::vector<UHDM::ref_typespec*> pendingGenvarTs;
     // Gen-block REAL localparams: their typed ts + the CA-shared constant's
     // bare clone are write-phase objects (after the top-port ts, before the
     // genvar int ts — Surelog arena order). crt gets the clone, rt the ts.
@@ -895,6 +899,11 @@ private:
         // A hier-path index that folded this localparam: its use-site
         // constant's ts ref shares the drain-built int ts (gen_test4).
         UHDM::ref_typespec* hierIdxRt = nullptr;
+        // A GENVAR localparam entry: `rt` alone, resolved to a bare
+        // int_typespec. Genvar and real-localparam typespecs share ONE
+        // ordered list so the drain reproduces Surelog's depth-first
+        // per-gen-scope interleave (LAST_START, i, j, j, ... — gen_test5).
+        bool genvarOnly = false;
     };
     std::vector<PendingGenLpTs> pendingGenLpTs;
     // Gen-scope localparam fold constants keyed by <genScopeFullName>.<name>

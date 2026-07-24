@@ -464,20 +464,58 @@ UHDM::design* UhdmExporter::exportDesign() {
                 auto& mct = dt->getType().getCanonicalType();
                 if (&mct == target)
                     directUse = true;
-                // A signal whose type is a PACKED ARRAY of the struct references
-                // it via the packed_array_typespec's Elem_typespec, so Surelog
-                // leaves the struct_typespec unparented (even if also used
-                // directly elsewhere).
+                // A signal whose type is a PACKED ARRAY of the struct reaches
+                // it through the packed_array_typespec's Elem_typespec, which
+                // still counts as a module-signal use.
                 else if (mct.isPackedArray()) {
                     const Type* el = &mct;
                     while (el->getCanonicalType().kind == SymbolKind::PackedArrayType)
                         el = &el->getCanonicalType().as<PackedArrayType>().elementType;
                     if (&el->getCanonicalType() == target)
-                        return false;
+                        directUse = true;
                 }
             }
         }
         return directUse;
+    };
+
+    // Surelog's UhdmWriter::writeCont_assign ends by CLEARING the vpiParent of
+    // the typespec it resolved for the assign's LHS (UhdmWriter.cpp:2295) —
+    // so a file-level struct typedef that types ANY continuous-assign target
+    // signal ends up unparented at the design, whatever the typedef pass set
+    // (DotMultirange status_t, gen_struct_access td2). Only a WHOLE-signal
+    // LHS resolves the signal's typespec; member/index selects do not.
+    auto structTypesContAssignLhs = [&](const Type& structType) -> bool {
+        const Type* target = &structType.getCanonicalType();
+        bool found = false;
+        std::function<void(const Scope&)> scan = [&](const Scope& sc) {
+            for (auto& mem : sc.members()) {
+                if (found)
+                    return;
+                if (mem.kind == SymbolKind::ContinuousAssign) {
+                    auto& asn =
+                        mem.as<ContinuousAssignSymbol>().getAssignment();
+                    if (asn.kind != ExpressionKind::Assignment)
+                        continue;
+                    auto& lc = stripImplicitConv(
+                        asn.as<AssignmentExpression>().left());
+                    if (lc.kind != ExpressionKind::NamedValue)
+                        continue;
+                    if (auto dt2 =
+                            lc.as<NamedValueExpression>().symbol.getDeclaredType();
+                        dt2 && &dt2->getType().getCanonicalType() == target)
+                        found = true;
+                }
+                else if (mem.kind == SymbolKind::GenerateBlock)
+                    scan(mem.as<GenerateBlockSymbol>());
+                else if (mem.kind == SymbolKind::GenerateBlockArray)
+                    for (auto* ge : mem.as<GenerateBlockArraySymbol>().entries)
+                        scan(*ge);
+            }
+        };
+        for (auto& [name, inst] : defs)
+            scan(inst->body);
+        return found;
     };
 
     // File-level (compilation-unit) typedefs: the typespec OBJECTS are built
@@ -537,7 +575,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                         if (formalSyn)
                             break;
                     }
-                    if (structUsedByModuleSignal(ct))
+                    if (structUsedByModuleSignal(ct) &&
+                        !structTypesContAssignLhs(ct))
                         ts->VpiParent(d);
                     else if (formalSyn)
                         ts->VpiParent(d);

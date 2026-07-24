@@ -4166,6 +4166,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 rt9->VpiParent(tp9);
                 auto* st9 = s.MakeString_typespec();
                 st9->VpiName(rawText(api9.key->sourceRange()));
+                st9->VpiParent(tp9);
                 setLoc(st9, api9.key->sourceRange());
                 rt9->Actual_typespec(st9);
                 tp9->Typespec(rt9);
