@@ -349,7 +349,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 pat->Ranges(rvec);
                 // A PACKAGE-struct leaf's packed_array_typespec is UNLOCATED
                 // (its struct_typespec lives at the package); a module-local
-                // one keeps the declaration span.
+                // one keeps the declaration span. A struct/union MEMBER (even
+                // with a package leaf) spans its member type..dims (Surelog).
                 bool pkgLeaf = false;
                 for (auto sc0 = lc.getParentScope(); sc0;
                      sc0 = sc0->asSymbol().getParentScope())
@@ -357,7 +358,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         pkgLeaf = true;
                         break;
                     }
-                if (!pkgLeaf)
+                if (!pkgLeaf || structMemberTsCtx)
                     setLoc(pat, patLoc);
                 auto* ert = s.MakeRef_typespec();
                 ert->VpiParent(pat);

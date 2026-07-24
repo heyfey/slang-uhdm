@@ -2723,7 +2723,18 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
             auto* rc0 = rhsRt->VpiParent();
             bool uintFold = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
                             ((UHDM::constant*)rc0)->VpiValue().rfind("UINT:", 0) == 0;
-            if (uintFold && typedParam && !isOverriddenParam(*ps) &&
+            // A RANGED UNTYPED param folded from a REAL literal binds a
+            // fresh LOC-LESS bare logic_typespec (realexpr p1).
+            bool realFold9 = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
+                             ((UHDM::constant*)rc0)
+                                     ->VpiValue()
+                                     .rfind("REAL:", 0) == 0;
+            if (realFold9 && !typedParam &&
+                ps->getType().getCanonicalType().isIntegral()) {
+                auto* lts9 = s.MakeLogic_typespec();
+                rhsRt->Actual_typespec(lts9);
+            }
+            else if (uintFold && typedParam && !isOverriddenParam(*ps) &&
                 ps->getType().getCanonicalType().isPackedArray()) {
                 if (auto* bare = makeBareVecParamTs(*ps, /*parentBounds=*/false))
                     rhsRt->Actual_typespec(bare);
@@ -3688,6 +3699,39 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     if (tm->Typespec() && tm->Typespec()->Actual_typespec())
                         tm->Typespec()->Actual_typespec()->Instance(
                             (UHDM::instance*)up);
+            // Mirror the struct arm: Surelog CROSS-WIRES the two views' member
+            // typespecs. The DEF pass folds member bounds ([K:0] -> constant);
+            // the TOP pass (tfContext) keeps them SYMBOLIC (ref_obj). Surelog
+            // wires the symbolic (top-built) member ts into the DEF union and
+            // the folded (def-built) one into the TOP union. Swap after top.
+            if (!topView)
+                pkgDefUnionTs[&ta] = uts;
+            else if (auto duit = pkgDefUnionTs.find(&ta);
+                     duit != pkgDefUnionTs.end() && duit->second->Members() &&
+                     uts->Members() &&
+                     duit->second->Members()->size() == uts->Members()->size()) {
+                auto* duts = duit->second;
+                auto* dup2 = (UHDM::instance*)duts->Instance();
+                for (size_t mi = 0; mi < uts->Members()->size(); mi++) {
+                    auto* dm = (*duts->Members())[mi];
+                    auto* tmM = (*uts->Members())[mi];
+                    if (!dm->Typespec() || !tmM->Typespec())
+                        continue;
+                    auto* da = dm->Typespec()->Actual_typespec();
+                    auto* taA = tmM->Typespec()->Actual_typespec();
+                    if (!da || !taA || da->UhdmType() != taA->UhdmType())
+                        continue;
+                    dm->Typespec()->Actual_typespec(taA);
+                    tmM->Typespec()->Actual_typespec(da);
+                    if (!taA->VpiName().length())
+                        taA->VpiParent(dm);
+                    if (!da->VpiName().length())
+                        da->VpiParent(tmM);
+                    if (dup2)
+                        taA->Instance(dup2);
+                    da->Instance((UHDM::instance*)up);
+                }
+            }
             if (typeSyn)
                 setLoc(uts, typeSyn->sourceRange());
             ts = uts;

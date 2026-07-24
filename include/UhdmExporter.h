@@ -209,6 +209,8 @@ private:
     // DEF-view package struct typespecs, for the cross-view member-actual
     // swap (Surelog wires the first-created member ts into the TOP struct).
     std::map<const slang::ast::Symbol*, UHDM::struct_typespec*> pkgDefStructTs;
+    // DEF-view package union typespecs, for the same cross-view swap.
+    std::map<const slang::ast::Symbol*, UHDM::union_typespec*> pkgDefUnionTs;
     // Package enum-const module-fold constants (shared across views).
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgEnumFoldConst;
     // Named begin/fork blocks by symbol (disable targets resolve to these).
