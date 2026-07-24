@@ -707,6 +707,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             enclosingAssign = asn;
             auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap);
             enclosingAssign = savedEncl0;
+            // A backslash-padded STRING Rhs stretches the assignment's end
+            // column to match (StringWithBackslash).
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                ((UHDM::constant*)rhs)->VpiConstType() == vpiStringConst &&
+                ((UHDM::expr*)rhs)->VpiEndLineNo() == asn->VpiEndLineNo() &&
+                ((UHDM::expr*)rhs)->VpiEndColumnNo() > asn->VpiEndColumnNo())
+                asn->VpiEndColumnNo(((UHDM::expr*)rhs)->VpiEndColumnNo());
             if (rhs) {
                 // In a FUNCTION body, an unbased-unsized '0/'1/'x RHS takes the
                 // LHS width (an always-block leaves it unsized). Only the direct
@@ -1635,6 +1642,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             c->VpiValue("STRING:" + inner);
             c->VpiConstType(vpiStringConst);
             setLoc(c, expr.sourceRange);
+            // Surelog's end column counts each backslash DOUBLED-ESCAPED
+            // (+2 per source backslash) — ASSIGNMENT Rhs only
+            // (StringWithBackslash); sys-call args keep the source span
+            // (display_lm).
+            if (parent && parent->UhdmType() == UHDM::uhdmassignment)
+                if (auto nbs9 = std::count(inner.begin(), inner.end(), '\\'))
+                    c->VpiEndColumnNo(c->VpiEndColumnNo() +
+                                      (int32_t)nbs9 * 2);
             if (forceConstParent ||
                 (!suppressConstParent && parent &&
                  (parent->UhdmType() == UHDM::uhdmoperation ||
