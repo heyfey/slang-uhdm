@@ -2804,7 +2804,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 noteSelectObj(&nv.symbol, bs);
             // Surelog anchors rvalue bit_selects at the index expression,
             // but lvalue ones span the whole select.
-            setLoc(bs, inLhs ? expr.sourceRange : es.selector().sourceRange);
+            // PARAM-INIT selects span the WHOLE select (func_upto's
+            // localparam !(SWAPS[0]) chains); other RHS selects keep the
+            // selector span.
+            setLoc(bs, (inLhs || inParamInit) ? expr.sourceRange
+                                              : es.selector().sourceRange);
             // Refs nested in index OPERATIONS scope by the base name;
             // direct index refs stay module-scoped.
             std::string idxPrefix = prefix;

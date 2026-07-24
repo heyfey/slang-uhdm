@@ -651,6 +651,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         bool staticFnModel = (m->UhdmType() == UHDM::uhdmmodule_inst) &&
                              !autoFunc && !classScope && hasUnpackedLocal;
         std::vector<UHDM::variables*> staticBeginVars;  // begin.Variables order
+        // AUTOMATIC module-fn locals reparent to the body begin
+        // (func_upto: parent=begin, name span, no per-var Automatic).
+        std::vector<UHDM::variables*> autoShareLocals9;
+        // Only fns whose body is an IMPLICIT statement list (no source
+        // `begin`) use the begin-share local shape (func_upto); an explicit
+        // begin keeps decl-span fn-parented Automatic locals
+        // (const_fold_func/func_block).
+        bool implicitFnBody9 = true;
+        if (auto fsyn9 = sub.getSyntax()) {
+            for (size_t i9 = 0; i9 < fsyn9->getChildCount(); i9++)
+                if (auto* cn9 = fsyn9->childNode(i9)) {
+                    if (cn9->kind ==
+                        syntax::SyntaxKind::SequentialBlockStatement)
+                        implicitFnBody9 = false;
+                    // items live in a list node one level down
+                    for (size_t j9 = 0; j9 < cn9->getChildCount(); j9++)
+                        if (auto* gn9 = cn9->childNode(j9);
+                            gn9 && gn9->kind ==
+                                       syntax::SyntaxKind::
+                                           SequentialBlockStatement)
+                            implicitFnBody9 = false;
+                }
+        }
         std::vector<UHDM::variables*> staticTopLocals;  // reparent to begin
         const syntax::SyntaxNode* lastLocalDeclSyn = nullptr;
         auto declStmtSpan = [&](const Symbol& v) -> const syntax::SyntaxNode* {
@@ -952,7 +975,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the
                 // automatic flag).
-                if (blockLocal || hasInit || pkgScope || staticFnModel) {
+                bool autoFnLocal9 = autoFunc && !classScope && !pkgScope &&
+                                    implicitFnBody9 &&
+                                    m->UhdmType() == UHDM::uhdmmodule_inst;
+                if (blockLocal || hasInit || pkgScope || staticFnModel ||
+                    autoFnLocal9) {
                     // Static-function locals anchor at the NAME token; the
                     // automatic-function form keeps the declared-type span.
                     setLoc(v, nameSpan(fmv.location, fmv.name));
@@ -1019,8 +1046,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 vrt->VpiParent(v);
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                if (!hasInit && !pkgScope && !blockLocal && !staticFnModel)
+                if (!hasInit && !pkgScope && !blockLocal && !staticFnModel &&
+                    !autoFnLocal9)
                     v->VpiAutomatic(true);
+                if (autoFnLocal9 && !blockLocal && !hasInit)
+                    autoShareLocals9.push_back(v);
                 if (blockLocal)
                     fnBlockLocalPav.push_back(v);
                 if (staticFnModel && !blockLocal) {
@@ -1055,6 +1085,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         currentSubSym = &sub;
         bool selOwner = beginSelTrack();
         auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
+        if (!autoShareLocals9.empty() && body &&
+            body->UhdmType() == UHDM::uhdmbegin)
+            for (auto* av9 : autoShareLocals9)
+                av9->VpiParent(body);
         // A static module function with locals wraps its body in a synthesized
         // begin (spanning the last local decl) that owns the locals; the
         // source begin nests inside it (Surelog).
