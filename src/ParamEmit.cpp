@@ -4182,6 +4182,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             // The base typespec is package-instanced too.
             if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec())
                 ets->Base_typespec()->Actual_typespec()->Instance((UHDM::instance*)up);
+            // The TOP clone's span stretches to the first module-signal USE
+            // declarator (a `pkg::e arr [N]` unpacked-array element extends the
+            // endln to the array_var decl end — Surelog). The def view keeps
+            // the typedef span.
+            if (topView)
+                pendingPkgTsStretch.push_back(
+                    {(UHDM::typespec*)ets, (const Type*)&ta});
             ts = ets;
         }
         else if (ct.kind == SymbolKind::PackedUnionType ||

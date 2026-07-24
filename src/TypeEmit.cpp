@@ -4482,6 +4482,42 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     if (avRanges)
         av->Ranges(avRanges);
 
+    // An ENUM- or packed-STRUCT-typedef unpacked-array element: the reg is an
+    // enum_var / struct_var carrying the SHARED per-use enum_typespec /
+    // struct_typespec clone (parented at the module, NOT the reg — Surelog).
+    // Resolve the element alias's top/def clone.
+    UHDM::typespec* aggElemTs = nullptr;
+    bool enumElem = false, structElem = false;
+    {
+        auto lck = leaf->getCanonicalType().kind;
+        if (lck == SymbolKind::EnumType || lck == SymbolKind::PackedStructType) {
+            const Type* leafDecl = &declared->getType();
+            while (leafDecl->getCanonicalType().kind ==
+                   SymbolKind::FixedSizeUnpackedArrayType)
+                leafDecl = &leafDecl->getCanonicalType()
+                                .as<FixedSizeUnpackedArrayType>()
+                                .elementType;
+            if (leafDecl->kind == SymbolKind::TypeAlias) {
+                auto& al = leafDecl->as<TypeAliasType>();
+                auto want = lck == SymbolKind::EnumType
+                                ? UHDM::uhdmenum_typespec
+                                : UHDM::uhdmstruct_typespec;
+                if (auto tit = pkgTopTypedefTs.find((const void*)&al);
+                    tit != pkgTopTypedefTs.end() &&
+                    tit->second->UhdmType() == want)
+                    aggElemTs = tit->second;
+                else if (auto tit2 = typedefTs.find(&al);
+                         tit2 != typedefTs.end() &&
+                         tit2->second->UhdmType() == want)
+                    aggElemTs = tit2->second;
+                if (aggElemTs) {
+                    enumElem = lck == SymbolKind::EnumType;
+                    structElem = !enumElem;
+                }
+            }
+        }
+    }
+
     // Inner reg: a var of the ELEMENT class (int/integer/logic) carrying the
     // element typespec (the shared net ts strips dims to the element span).
     UHDM::variables* reg;
@@ -4491,6 +4527,12 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
             reg = s.MakeInteger_var();
         else
             reg = s.MakeInt_var();
+    }
+    else if (enumElem) {
+        reg = s.MakeEnum_var();
+    }
+    else if (structElem) {
+        reg = s.MakeStruct_var();
     }
     else if (leaf->getCanonicalType().isIntegral() &&
              !leaf->getCanonicalType().isFourState()) {
@@ -4508,9 +4550,16 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     auto* regRt = s.MakeRef_typespec();
     regRt->VpiFullName(fullName);
     regRt->VpiParent(reg);
-    regRt->Actual_typespec(elemTs);
+    if (aggElemTs) {
+        // The shared aggregate clone keeps its module parent; only the ref
+        // links to it.
+        regRt->Actual_typespec(aggElemTs);
+    }
+    else {
+        regRt->Actual_typespec(elemTs);
+        elemTs->VpiParent(reg);
+    }
     reg->Typespec(regRt);
-    elemTs->VpiParent(reg);
     auto* rvars = s.MakeVariablesVec();
     rvars->push_back(reg);
     av->Variables(rvars);
