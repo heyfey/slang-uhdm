@@ -1294,6 +1294,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // in the InstanceBody), NOT gen-block-local genvars /
                     // localparams — those keep their existing handling (folding
                     // the genvar regressed async_reset_partsel/simple_generate).
+                    // And it folds them only inside SELECT BOUNDS
+                    // (i*DATA_WIDTH +: DATA_WIDTH, simple_always_ifelse) —
+                    // plain statement expressions keep the scoped ref
+                    // (hier_path for-init PMPNumRegions-1).
+                    if (inGenScopeProc && !currentSubSym && !inPsBound)
+                        inGenFn = false;
                     if (inGenScopeProc && !currentSubSym) {
                         bool moduleParam = false;
                         for (auto sc0 = nv.symbol.getParentScope(); sc0;
@@ -1410,6 +1416,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ec->VpiParent(ref);
                             ref->Actual_group(ec);
                         }
+                    }
+                    // ELAB gen-instance refs to an ACTIVE for-loop iterator
+                    // bind its int_var (hier_path `for (int r=...)`); the
+                    // def view leaves them unbound.
+                    if (!defGenProcessEmit && !ref->Actual_group() &&
+                        activeForVars.count(&nv.symbol)) {
+                        if (auto lit9 = netMap.find(&nv.symbol);
+                            lit9 != netMap.end())
+                            ref->Actual_group(lit9->second);
                     }
                 }
                 else if (auto it = [&] {
@@ -3362,12 +3377,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 };
                 bool savedSup = suppressConstParent;
                 selectBasePrefix = basePfx;
+                bool savedPsB9 = inPsBound;
+                inPsBound = true;
                 suppressConstParent = isLiteralExpr(rs.left());
                 if (auto* b = emitExpr(rs.left(), ips, boundPfx(rs.left()), netMap))
                     ips->Base_expr((UHDM::expr*)b);
                 suppressConstParent = isLiteralExpr(rs.right());
                 if (auto* w = emitExpr(rs.right(), ips, boundPfx(rs.right()), netMap))
                     ips->Width_expr((UHDM::expr*)w);
+                inPsBound = savedPsB9;
                 suppressConstParent = savedSup;
                 selectBasePrefix = savedSel;
                 return ips;

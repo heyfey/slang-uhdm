@@ -708,6 +708,21 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 noteUnsupported("for init form");
             }
 
+            std::vector<const Symbol*> ctrlSyms;
+            for (auto* lv2 : fl.loopVars)
+                ctrlSyms.push_back(lv2);
+            for (auto init2 : fl.initializers)
+                if (init2->kind == ExpressionKind::Assignment) {
+                    auto& il2 = stripImplicitConv(
+                        init2->as<AssignmentExpression>().left());
+                    if (il2.kind == ExpressionKind::NamedValue)
+                        ctrlSyms.push_back(
+                            &il2.as<NamedValueExpression>().symbol);
+                }
+            // Active BEFORE condition/inc emission — elab gen-instance
+            // condition/inc refs bind the loop var too (hier_path).
+            for (auto* cs2 : ctrlSyms)
+                activeForVars.insert(cs2);
             if (fl.stopExpr) {
                 if (auto* c = emitExpr(*fl.stopExpr, fs, prefix, netMap))
                     fs->VpiCondition((UHDM::expr*)c);
@@ -720,19 +735,6 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 fs->VpiForIncStmts(incs);
             }
-            std::vector<const Symbol*> ctrlSyms;
-            for (auto* lv2 : fl.loopVars)
-                ctrlSyms.push_back(lv2);
-            for (auto init2 : fl.initializers)
-                if (init2->kind == ExpressionKind::Assignment) {
-                    auto& il2 = stripImplicitConv(
-                        init2->as<AssignmentExpression>().left());
-                    if (il2.kind == ExpressionKind::NamedValue)
-                        ctrlSyms.push_back(
-                            &il2.as<NamedValueExpression>().symbol);
-                }
-            for (auto* cs2 : ctrlSyms)
-                activeForVars.insert(cs2);
             procForDepth++;
             if (auto* b = emitStmt(fl.body, fs, prefix, netMap))
                 fs->VpiStmt(b);
