@@ -4661,7 +4661,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             UHDM::variables* iv;
             if (isInt2) {
                 auto* v0 = s.MakeInteger_var();
-                v0->VpiSigned(true);
+                v0->VpiSigned(
+                    vct.as<PredefinedIntegerType>().isSigned);
                 iv = v0;
             }
             else {
@@ -4697,7 +4698,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             UHDM::typespec* ivt;
             if (isInt2) {
                 auto* t0 = s.MakeInteger_typespec();
-                t0->VpiSigned(true);
+                t0->VpiSigned(
+                    vct.as<PredefinedIntegerType>().isSigned);
                 ivt = t0;
             }
             else if (isRanged2) {
@@ -4711,7 +4713,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             if (auto* dt2 = gm.getDeclaredType())
                 if (auto* tsn2 = dt2->getTypeSyntax())
-                    setLoc(ivt, tsn2->sourceRange());
+                    setLoc(ivt,
+                           trimTypeSigning(tsn2, tsn2->sourceRange()));
             // The gen-local var ts parents at the var
             // (genscope_async_ff_signal).
             ivt->VpiParent(iv);
@@ -11838,10 +11841,12 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     UHDM::variables* iv;
                     UHDM::typespec* it2;
                     if (isInt) {
+                        bool isgn2 =
+                            vct.as<PredefinedIntegerType>().isSigned;
                         auto* v0 = s.MakeInteger_var();
-                        v0->VpiSigned(true);
+                        v0->VpiSigned(isgn2);
                         auto* t0 = s.MakeInteger_typespec();
-                        t0->VpiSigned(true);
+                        t0->VpiSigned(isgn2);
                         iv = v0;
                         it2 = t0;
                     }
@@ -11891,7 +11896,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     iv->VpiFullName(branchPrefix + "." + vname);
                     iv->VpiParent(as2);
                     setLoc(iv, nameSpan(dcl->name.location(), vname));
-                    setLoc(it2, dd.type->sourceRange());
+                    setLoc(it2,
+                           trimTypeSigning(dd.type, dd.type->sourceRange()));
                     auto* rt2 = s.MakeRef_typespec();
                     rt2->VpiFullName(branchPrefix + "." + vname);
                     rt2->VpiParent(iv);

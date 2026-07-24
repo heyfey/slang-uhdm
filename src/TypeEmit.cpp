@@ -620,7 +620,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     break;
             }
             if (its) {
-                setLoc(its, range);
+                setLoc(its, trimTypeSigning(typeSynFor(), range));
                 return its;
             }
         }

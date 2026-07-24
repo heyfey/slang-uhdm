@@ -105,6 +105,32 @@ SourceRange UhdmExporter::nameSpan(SourceLocation loc, std::string_view name) {
     return SourceRange(loc, loc + name.size());
 }
 
+SourceRange UhdmExporter::trimTypeSigning(const slang::syntax::SyntaxNode* tsyn,
+                                          SourceRange r) {
+    if (!tsyn || r.start() == SourceLocation::NoLocation)
+        return r;
+    // Only the integer ATOM types (signed by default) drop the keyword; a
+    // logic/reg/bit vector keeps `signed` in its typespec span.
+    switch (tsyn->kind) {
+        case slang::syntax::SyntaxKind::ByteType:
+        case slang::syntax::SyntaxKind::ShortIntType:
+        case slang::syntax::SyntaxKind::IntType:
+        case slang::syntax::SyntaxKind::LongIntType:
+        case slang::syntax::SyntaxKind::IntegerType:
+            break;
+        default:
+            return r;
+    }
+    auto* ity = tsyn->as_if<slang::syntax::IntegerTypeSyntax>();
+    if (!ity || !ity->signing ||
+        ity->signing.kind != slang::parsing::TokenKind::SignedKeyword)
+        return r;
+    auto ke = ity->keyword.range().end();
+    if (ke == SourceLocation::NoLocation || !(ke < r.end()))
+        return r;
+    return SourceRange(r.start(), ke);
+}
+
 std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     if (loc == SourceLocation::NoLocation)
         return "";
@@ -994,65 +1020,24 @@ UHDM::design* UhdmExporter::exportDesign() {
     return d;
 }
 
-// Per-line column shifts from SINGLE-LINE macro expansions: any position
-// after a usage on the same line moves right by (bodyLen - usageLen), since
-// Surelog lays the line out with the expansion pasted in place.
-void UhdmExporter::buildLineShifts() {
-    lineShiftsBuilt = true;
-    for (auto buf : sm->getAllBuffers()) {
-        SourceLocation b0(buf, 0);
-        if (!sm->isMacroLoc(b0))
-            continue;
-        auto usage = sm->getExpansionRange(b0);
-        if (usage.start() == SourceLocation::NoLocation ||
-            sm->isMacroLoc(usage.start()) ||
-            usage.end() == SourceLocation::NoLocation ||
-            usage.start().buffer() != usage.end().buffer())
-            continue;
-        SourceLocation bodyStart = sm->getFullyOriginalLoc(b0);
-        if (bodyStart == SourceLocation::NoLocation ||
-            sm->isMacroLoc(bodyStart))
-            continue;
-        auto text = sm->getSourceText(bodyStart.buffer());
-        size_t p = bodyStart.offset();
-        if (p >= text.size())
-            continue;
-        size_t e = p;
-        while (e < text.size() && text[e] != '\n')
-            e++;
-        // Multi-line bodies (line-continuation backslash) keep definition
-        // spans; no shift.
-        size_t e2 = e;
-        while (e2 > p && (text[e2 - 1] == ' ' || text[e2 - 1] == '\t' ||
-                          text[e2 - 1] == '\r'))
-            e2--;
-        if (e2 > p && text[e2 - 1] == '\\')
-            continue;
-        int32_t bodyLen = (int32_t)(e2 - p);
-        int32_t usageLen =
-            (int32_t)(usage.end().offset() - usage.start().offset());
-        int32_t delta = bodyLen - usageLen;
-        if (delta == 0)
-            continue;
-        auto key = std::make_pair(usage.start().buffer().getId(),
-                                  (uint32_t)sm->getLineNumber(usage.start()));
-        lineShifts[key].push_back(
-            {(uint32_t)sm->getColumnNumber(usage.start()), delta});
-    }
-    for (auto& [k, v] : lineShifts)
-        std::sort(v.begin(), v.end());
-}
+// Surelog reports source positions in the FULLY MACRO-EXPANDED text: every
+// macro call is replaced in place by its expanded body, recursively (nested
+// calls expanded, formals replaced by the actual argument text). This builder
+// measures every expansion once so both layers can be reproduced:
+//   * lineShifts   - a FILE position past a top-level macro call on its line
+//                    moves right by (expandedLen - callLen).
+//   * macroRepls   - a position INSIDE a macro body moves right by the deltas
+//                    of the replacements (argument substitutions AND nested
+//                    macro calls) that precede it on that body line.
+// slang models each expansion as its own buffer whose getExpansionRange()
+// names the text it replaces, so the buffers form the expansion tree directly.
+void UhdmExporter::buildMacroExpansions() {
+    macroExpBuilt = true;
 
-// Collect, per macro body-expansion buffer, the formal->actual argument
-// substitutions so a body token can be shifted to Surelog's virtual layout.
-// slang materializes each substituted argument as its own MacroArg buffer whose
-// getExpansionRange() points back to the formal parameter inside the body; the
-// pasted argument's length is the extent of the tokens carried by that buffer.
-void UhdmExporter::buildMacroArgSubs() {
-    macroArgSubsBuilt = true;
-    // Largest token-end offset seen within each MacroArg buffer == the pasted
-    // argument text length (multi-token args share one buffer).
-    std::map<slang::BufferID, uint32_t> argLen;
+    // Pasted-argument text per MacroArg buffer: slang gives EVERY token of a
+    // macro argument its own buffer, so record both the token extent and the
+    // whitespace that preceded it (the gap the next token pastes over).
+    std::map<uint32_t, uint32_t> argLen, argLead;
     std::function<void(const slang::syntax::SyntaxNode&)> walk =
         [&](const slang::syntax::SyntaxNode& node) {
             for (size_t i = 0, n = node.getChildCount(); i < n; i++) {
@@ -1067,48 +1052,204 @@ void UhdmExporter::buildMacroArgSubs() {
                 if (loc == SourceLocation::NoLocation || !sm->isMacroArgLoc(loc))
                     continue;
                 uint32_t end = (uint32_t)(loc.offset() + tok.rawText().size());
-                auto it = argLen.find(loc.buffer());
+                auto it = argLen.find(loc.buffer().getId());
                 if (it == argLen.end() || end > it->second)
-                    argLen[loc.buffer()] = end;
+                    argLen[loc.buffer().getId()] = end;
+                if (it == argLen.end()) {
+                    size_t tl = 0;
+                    for (auto& tv : tok.trivia())
+                        tl += tv.getRawText().size();
+                    argLead[loc.buffer().getId()] = (uint32_t)tl;
+                }
             }
         };
     for (auto& tree : comp.getSyntaxTrees())
         walk(tree->root());
 
-    for (auto& [buf, aLen] : argLen) {
-        SourceLocation a0(buf, 0);
-        auto er = sm->getExpansionRange(a0);
-        SourceLocation formal = er.start();
-        if (formal == SourceLocation::NoLocation || !sm->isMacroLoc(formal))
+    // Every expansion buffer: what it replaces, and its unexpanded length.
+    struct BufInfo {
+        slang::SourceRange usage;
+        int32_t rawLen = 0;
+        bool multiLine = false;
+    };
+    std::map<uint32_t, BufInfo> info;
+    std::vector<uint32_t> order;
+    for (auto buf : sm->getAllBuffers()) {
+        SourceLocation b0(buf, 0);
+        if (!sm->isMacroLoc(b0))
             continue;
-        // The def line/col that Surelog uses to anchor the body.
-        SourceLocation fdef = sm->getFullyOriginalLoc(formal);
-        if (fdef == SourceLocation::NoLocation)
+        BufInfo bi;
+        bi.usage = sm->getExpansionRange(b0);
+        if (bi.usage.start() == SourceLocation::NoLocation ||
+            bi.usage.end() == SourceLocation::NoLocation ||
+            bi.usage.start().buffer() != bi.usage.end().buffer())
             continue;
-        int32_t formalLen = (int32_t)(er.end().offset() - er.start().offset());
-        int32_t delta = (int32_t)aLen - formalLen;
+        if (sm->isMacroArgLoc(b0)) {
+            // An argument buffer with no surviving token is an intermediate
+            // hop (an actual that is itself a formal); it carries no text.
+            auto it = argLen.find(buf.getId());
+            if (it == argLen.end())
+                continue;
+            bi.rawLen = (int32_t)it->second;
+        }
+        else {
+            SourceLocation bodyStart = sm->getFullyOriginalLoc(b0);
+            if (bodyStart == SourceLocation::NoLocation ||
+                sm->isMacroLoc(bodyStart))
+                continue;
+            auto text = sm->getSourceText(bodyStart.buffer());
+            size_t p = bodyStart.offset();
+            if (p >= text.size())
+                continue;
+            size_t e = p;
+            while (e < text.size() && text[e] != '\n')
+                e++;
+            // Multi-line bodies (line-continuation backslash) keep definition
+            // spans; no single-line length applies.
+            size_t e2 = e;
+            while (e2 > p && (text[e2 - 1] == ' ' || text[e2 - 1] == '\t' ||
+                              text[e2 - 1] == '\r'))
+                e2--;
+            bi.multiLine = (e2 > p && text[e2 - 1] == '\\');
+            bi.rawLen = (int32_t)(e2 - p);
+        }
+        info[buf.getId()] = bi;
+        order.push_back(buf.getId());
+    }
+
+    // Attach each nested expansion to the body buffer it sits in.
+    for (auto id : order) {
+        auto& bi = info[id];
+        auto us = bi.usage.start();
+        if (!sm->isMacroLoc(us))
+            continue;
+        SourceLocation d = sm->getFullyOriginalLoc(us);
+        uint32_t dl = (d == SourceLocation::NoLocation || sm->isMacroLoc(d))
+                          ? 0
+                          : (uint32_t)sm->getLineNumber(d);
+        macroRepls[us.buffer().getId()].push_back(
+            {(uint32_t)us.offset(), (uint32_t)bi.usage.end().offset(), 0, dl,
+             {id}});
+    }
+    // Merge the parts that replace the SAME text (the tokens of one multi-token
+    // argument) and keep only the outermost replacements: a formal that lives
+    // inside a nested macro call is already covered by that call's expansion.
+    for (auto& [k, v] : macroRepls) {
+        std::sort(v.begin(), v.end(),
+                  [](const MacroRepl& a, const MacroRepl& b) {
+                      if (a.start != b.start)
+                          return a.start < b.start;
+                      if (a.end != b.end)
+                          return a.end > b.end;
+                      return a.parts.front() < b.parts.front();
+                  });
+        std::vector<MacroRepl> keep;
+        uint32_t covered = 0;
+        for (auto& r : v) {
+            if (!keep.empty() && r.start == keep.back().start &&
+                r.end == keep.back().end) {
+                keep.back().parts.push_back(r.parts.front());
+                continue;
+            }
+            if (!keep.empty() && r.start < covered)
+                continue;
+            keep.push_back(r);
+            covered = r.end;
+        }
+        v.swap(keep);
+    }
+
+    // Expanded length of a buffer's text, recursively.
+    std::map<uint32_t, int32_t> expLenMemo;
+    std::function<int32_t(uint32_t)> expLen = [&](uint32_t id) -> int32_t {
+        auto m = expLenMemo.find(id);
+        if (m != expLenMemo.end())
+            return m->second;
+        auto bi = info.find(id);
+        if (bi == info.end())
+            return 0;
+        expLenMemo[id] = bi->second.rawLen; // cycle guard
+        int32_t len = bi->second.rawLen;
+        auto ri = macroRepls.find(id);
+        if (ri != macroRepls.end()) {
+            for (auto& r : ri->second) {
+                int32_t sum = 0;
+                bool ok = true;
+                for (size_t pi = 0; pi < r.parts.size(); pi++) {
+                    auto ci = info.find(r.parts[pi]);
+                    if (ci == info.end() || ci->second.multiLine) {
+                        ok = false;
+                        break;
+                    }
+                    // The gap before each continuation token is pasted too.
+                    if (pi) {
+                        auto li = argLead.find(r.parts[pi]);
+                        if (li != argLead.end())
+                            sum += (int32_t)li->second;
+                    }
+                    sum += expLen(r.parts[pi]);
+                }
+                if (!ok)
+                    continue;
+                r.delta = sum - (int32_t)(r.end - r.start);
+                len += r.delta;
+            }
+        }
+        expLenMemo[id] = len;
+        return len;
+    };
+
+    // Resolve every replacement's delta (a multi-line body contributes no
+    // line shift of its own, but its arguments still shift its body columns).
+    for (auto id : order)
+        expLen(id);
+
+    // Where each continuation part lands inside its replacement.
+    for (auto& [k, v] : macroRepls) {
+        for (auto& r : v) {
+            uint32_t off = 0;
+            for (size_t pi = 0; pi < r.parts.size(); pi++) {
+                if (pi) {
+                    auto li = argLead.find(r.parts[pi]);
+                    off += (li == argLead.end() ? 0 : li->second);
+                    macroPartOffset[r.parts[pi]] = off;
+                }
+                auto ei = expLenMemo.find(r.parts[pi]);
+                off += (ei == expLenMemo.end() ? 0 : (uint32_t)ei->second);
+            }
+        }
+    }
+
+    // Top-level calls (the ones whose replaced text is in a real file) drive
+    // the per-line column shifts.
+    for (auto id : order) {
+        auto& bi = info[id];
+        if (bi.multiLine)
+            continue;
+        auto us = bi.usage.start();
+        if (sm->isMacroLoc(us))
+            continue;
+        int32_t delta =
+            expLen(id) - (int32_t)(bi.usage.end().offset() - us.offset());
         if (delta == 0)
             continue;
-        auto key = std::make_pair(formal.buffer().getId(),
-                                  (uint32_t)sm->getLineNumber(fdef));
-        macroArgSubs[key].push_back({(uint32_t)formal.offset(), delta});
+        auto key = std::make_pair(us.buffer().getId(),
+                                  (uint32_t)sm->getLineNumber(us));
+        lineShifts[key].push_back({(uint32_t)sm->getColumnNumber(us), delta});
     }
-    for (auto& [k, v] : macroArgSubs)
-        std::sort(v.begin(), v.end(),
-                  [](const MacroArgSub& x, const MacroArgSub& y) {
-                      return x.formalOffset < y.formalOffset;
-                  });
+    for (auto& [k, v] : lineShifts)
+        std::sort(v.begin(), v.end());
 }
 
-// Column delta a macro-expanded token acquires from argument substitutions that
+// Column delta a macro-expanded token acquires from the replacements that
 // precede it within its macro body line. Body tokens anchor at their own body
 // offset; argument tokens anchor at the formal parameter they replaced (so the
 // substitution itself is excluded, but earlier ones on the line still count).
 int32_t UhdmExporter::macroArgShift(SourceLocation loc) {
     if (loc == SourceLocation::NoLocation || !sm->isMacroLoc(loc))
         return 0;
-    if (!macroArgSubsBuilt)
-        buildMacroArgSubs();
+    if (!macroExpBuilt)
+        buildMacroExpansions();
     SourceLocation bodyLoc = loc;
     if (sm->isMacroArgLoc(loc)) {
         bodyLoc = sm->getExpansionRange(loc).start();
@@ -1116,16 +1257,16 @@ int32_t UhdmExporter::macroArgShift(SourceLocation loc) {
             return 0;
     }
     SourceLocation fdef = sm->getFullyOriginalLoc(bodyLoc);
-    if (fdef == SourceLocation::NoLocation)
+    if (fdef == SourceLocation::NoLocation || sm->isMacroLoc(fdef))
         return 0;
-    auto it = macroArgSubs.find(std::make_pair(
-        bodyLoc.buffer().getId(), (uint32_t)sm->getLineNumber(fdef)));
-    if (it == macroArgSubs.end())
+    uint32_t defLine = (uint32_t)sm->getLineNumber(fdef);
+    auto it = macroRepls.find(bodyLoc.buffer().getId());
+    if (it == macroRepls.end())
         return 0;
     int32_t shift = 0;
-    for (auto& sub : it->second)
-        if (sub.formalOffset < bodyLoc.offset())
-            shift += sub.delta;
+    for (auto& r : it->second)
+        if (r.end <= bodyLoc.offset() && r.defLine == defLine)
+            shift += r.delta;
     return shift;
 }
 
@@ -1135,8 +1276,8 @@ void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
                                uint32_t& col) {
     line = (uint32_t)sm->getLineNumber(lc);
     col = (uint32_t)sm->getColumnNumber(lc);
-    if (!lineShiftsBuilt)
-        buildLineShifts();
+    if (!macroExpBuilt)
+        buildMacroExpansions();
     auto it = lineShifts.find(std::make_pair(lc.buffer().getId(), line));
     if (it == lineShifts.end())
         return;
@@ -1171,6 +1312,12 @@ bool UhdmExporter::macroInvLineCol(SourceLocation loc, uint32_t& line,
             u = sm->getFullyOriginalLoc(u);
             fileLineCol(u, ul, uc);
         }
+        else if (!sm->isMacroArgLoc(loc)) {
+            // A nested call sits at its own shifted position inside the parent
+            // body. (For an argument paste the caller's macroArgShift already
+            // supplies that shift, anchored at the formal it replaced.)
+            uc = (uint32_t)((int32_t)uc + macroArgShift(u));
+        }
     }
     else if (u == SourceLocation::NoLocation) {
         return false;
@@ -1180,6 +1327,13 @@ bool UhdmExporter::macroInvLineCol(SourceLocation loc, uint32_t& line,
     }
     line = ul;
     col = uc + (uint32_t)loc.offset();
+    // A continuation token of a multi-token argument starts where the earlier
+    // parts of that argument end, not at the substitution point.
+    if (!macroExpBuilt)
+        buildMacroExpansions();
+    if (auto pi = macroPartOffset.find(loc.buffer().getId());
+        pi != macroPartOffset.end())
+        col += pi->second;
     return true;
 }
 

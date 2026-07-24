@@ -444,31 +444,43 @@ private:
     // A net's anchor span: the name token, or the whole declarator (name..init)
     // for a reg variable emitted as a net with an initializer (reg b = 0).
     slang::SourceRange regNetSpan(const slang::ast::Symbol& sym);
+    // A redundant `signed` on a predefined integer type is NOT part of the
+    // typespec span (integer signed -> "integer"); `unsigned` IS.
+    slang::SourceRange trimTypeSigning(const slang::syntax::SyntaxNode* tsyn,
+                                       slang::SourceRange r);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
     bool macroInvLineCol(slang::SourceLocation loc, uint32_t& line, uint32_t& col);
-    void buildLineShifts();
     void fileLineCol(slang::SourceLocation lc, uint32_t& line, uint32_t& col);
-    bool lineShiftsBuilt = false;
     // (file buffer id, line) -> sorted [(usage start col, col delta)]
     std::map<std::pair<uint32_t, uint32_t>,
              std::vector<std::pair<uint32_t, int32_t>>>
         lineShifts;
-    // Intra-macro-body column shift from formal->actual argument substitution.
-    // Surelog lays a macro body out with each `formal` replaced in place by the
-    // actual argument text; every body position after a substitution moves right
-    // by (actualArgLen - formalLen). A body token on a def line inherits the sum
-    // of deltas of all substitutions earlier on that same def line.
-    struct MacroArgSub {
-        uint32_t formalOffset;  // byte offset of the formal within the body buffer
-        int32_t delta;          // actualArgLen - formalLen
+    // One text replacement inside a macro body: Surelog lays a body out with
+    // each `formal` replaced by the actual argument text AND each nested macro
+    // call replaced by its (recursively) expanded body. Every body position
+    // past a replacement moves right by (replacementLen - replacedLen).
+    struct MacroRepl {
+        uint32_t start;    // offset of the replaced text within the body buffer
+        uint32_t end;      // one past its last byte
+        int32_t delta;     // expandedLen(parts) - (end - start)
+        uint32_t defLine;  // def-file line of the replaced text (multi-line bodies)
+        // Expansion buffers pasted over [start, end). slang gives every token
+        // of a multi-token macro argument its own buffer, so one replacement
+        // can have several parts.
+        std::vector<uint32_t> parts;
     };
-    // (body-expansion buffer id, def line) -> subs sorted by formalOffset.
-    std::map<std::pair<uint32_t, uint32_t>, std::vector<MacroArgSub>> macroArgSubs;
-    bool macroArgSubsBuilt = false;
-    void buildMacroArgSubs();
-    // Column delta a macro-expanded token acquires from argument substitutions
-    // that precede it within its macro body line (0 for non-macro tokens).
+    // body-expansion buffer id -> top-level replacements, sorted by start.
+    std::map<uint32_t, std::vector<MacroRepl>> macroRepls;
+    // Offset of a continuation part's text within its replacement: slang puts
+    // every token of a multi-token macro argument in its own buffer at offset
+    // 0, but Surelog lays them out one after another.
+    std::map<uint32_t, uint32_t> macroPartOffset;
+    bool macroExpBuilt = false;
+    void buildMacroExpansions();
+    // Column delta a macro-expanded token acquires from replacements (argument
+    // substitutions and nested macro expansions) that precede it within its
+    // macro body line (0 for non-macro tokens).
     int32_t macroArgShift(slang::SourceLocation loc);
     // vpiDirection for a modport interface port (Surelog rule).
     int32_t interfacePortDirection(

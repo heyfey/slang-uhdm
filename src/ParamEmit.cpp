@@ -3250,7 +3250,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         }
                 }
                 else
-                    tr = tsyn->sourceRange();
+                    tr = trimTypeSigning(tsyn, tsyn->sourceRange());
             }
     }
     else {

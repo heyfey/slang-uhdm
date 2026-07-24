@@ -21,6 +21,41 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiEndColumnNo(src->VpiEndColumnNo());
 }
 
+// The span Surelog gives an rvalue indexed part-select: the WHOLE selector
+// text between the brackets. slang's bound bound-expressions drop redundant
+// parentheses from their source range (d[(2) +: (4)] -> "2 ... 4"), so take
+// the selector syntax node when it is available and fall back to the bound
+// expressions otherwise.
+static void collectIndexedSelectors(
+    const slang::syntax::SyntaxNode& n,
+    std::vector<const slang::syntax::SyntaxNode*>& out) {
+    if (n.kind == slang::syntax::SyntaxKind::AscendingRangeSelect ||
+        n.kind == slang::syntax::SyntaxKind::DescendingRangeSelect) {
+        out.push_back(&n);
+        return;
+    }
+    for (size_t i = 0, c = n.getChildCount(); i < c; i++)
+        if (auto* ch = n.childNode(i))
+            collectIndexedSelectors(*ch, out);
+}
+
+static slang::SourceRange rangeSelectorSpan(
+    const slang::ast::RangeSelectExpression& rs) {
+    slang::SourceRange fallback(rs.left().sourceRange.start(),
+                                rs.right().sourceRange.end());
+    if (!rs.syntax)
+        return fallback;
+    std::vector<const slang::syntax::SyntaxNode*> sels;
+    collectIndexedSelectors(*rs.syntax, sels);
+    if (sels.size() != 1)
+        return fallback;
+    auto r = sels.front()->sourceRange();
+    if (r.start() == slang::SourceLocation::NoLocation ||
+        r.end() == slang::SourceLocation::NoLocation)
+        return fallback;
+    return r;
+}
+
 // A selector's source text used inside a hier_path/select NAME drops
 // whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
 // object name even when the source spaced it.
@@ -4111,8 +4146,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (inLhs)
                     setLoc(ips, expr.sourceRange);
                 else
-                    setLoc(ips, SourceRange(rs.left().sourceRange.start(),
-                                            rs.right().sourceRange.end()));
+                    setLoc(ips, rangeSelectorSpan(rs));
                 ips->VpiIndexedPartSelectType(
                     rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1 : 2);
                 // Constant width suffices (the base may be a variable).
