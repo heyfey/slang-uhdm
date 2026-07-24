@@ -729,8 +729,20 @@ private:
         // pattern operand: the operand gains a ts ref (operandRt) whose actual
         // is this localparam's own int typespec (Surelog shares the constant).
         UHDM::ref_typespec* operandRt = nullptr;
+        // A hier-path index that folded this localparam: its use-site
+        // constant's ts ref shares the drain-built int ts (gen_test4).
+        UHDM::ref_typespec* hierIdxRt = nullptr;
     };
     std::vector<PendingGenLpTs> pendingGenLpTs;
+    // Gen-scope localparam fold constants keyed by <genScopeFullName>.<name>
+    // so hier-path indexes can fold + claim the shared param_assign
+    // (gen_test4 foo[PREV].temp).
+    struct GenLpFoldInfo {
+        UHDM::param_assign* pa;
+        UHDM::constant* c;
+        const slang::ast::ParameterSymbol* ps;
+    };
+    std::map<std::string, GenLpFoldInfo> genLpFoldByPath;
     // The elab (topView) assignment-pattern operation of each unpacked-array
     // param, so a gen-scope localparam that element-selects it can adopt the
     // matching operand constant (Surelog shares it).

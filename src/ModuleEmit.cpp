@@ -3531,6 +3531,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         pa2->Lhs(up);
                         genPas->push_back(pa2);
                         genLpConst[&gm] = c2;
+                        genLpFoldByPath[fullName + "." +
+                                        std::string(ps.name)] = {pa2, c2, &ps};
                     }
                     else if (cv.isInteger() && !cv.integer().hasUnknown()) {
                         // NON-literal init (localparam PREV = i-1): param_assign
@@ -3545,8 +3547,38 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         std::string sd = std::to_string(sv);
                         c2->VpiDecompile(sd);
                         c2->VpiSize((int32_t)ps.getType().getBitWidth());
-                        // Negative folds encode INT (signed); non-negative UINT.
-                        if (sv < 0) {
+                        // Folds encode INT when ANY sibling instance of this
+                        // gen-array localparam is negative (gen_test4 PREV =
+                        // i-1: foo[0] is -1 so ALL fold INT); otherwise UINT
+                        // (LPINFL/gvl2 keep UINT on signed types).
+                        bool negSib9 = sv < 0;
+                        if (!negSib9) {
+                            if (auto bp9 = blk.getParentScope();
+                                bp9 && bp9->asSymbol().kind ==
+                                           SymbolKind::GenerateBlockArray) {
+                                for (auto& sb9 :
+                                     bp9->asSymbol()
+                                         .as<GenerateBlockArraySymbol>()
+                                         .entries) {
+                                    for (auto& sm9 : sb9->members())
+                                        if (sm9.kind ==
+                                                SymbolKind::Parameter &&
+                                            sm9.name == ps.name) {
+                                            auto& sv9 =
+                                                sm9.as<ParameterSymbol>()
+                                                    .getValue();
+                                            if (sv9.isInteger() &&
+                                                sv9.integer()
+                                                        .as<int64_t>()
+                                                        .value_or(0) < 0)
+                                                negSib9 = true;
+                                        }
+                                    if (negSib9)
+                                        break;
+                                }
+                            }
+                        }
+                        if (negSib9) {
                             c2->VpiValue("INT:" + sd);
                             c2->VpiConstType(vpiIntConst);
                         }
@@ -3554,6 +3586,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             c2->VpiValue("UINT:" + sd);
                             c2->VpiConstType(vpiUIntConst);
                         }
+                        // The computed fold's constant parents at its
+                        // param_assign when the fold is INT-signed
+                        // (gen_test4); UINT folds keep the sharing-claimed
+                        // parent (LPINFL).
+                        if (negSib9)
+                            c2->VpiParent(pa2);
                         setLoc(c2, lit.sourceRange);
                         auto* crt = s.MakeRef_typespec();
                         crt->VpiFullName(fullName);
@@ -3634,6 +3672,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         pa2->Lhs(up);
                         genPas->push_back(pa2);
                         genLpConst[&gm] = c2;
+                        genLpFoldByPath[fullName + "." +
+                                        std::string(ps.name)] = {pa2, c2, &ps};
                     }
                 }
                 if (rt)
@@ -5497,6 +5537,8 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             // typespec (Surelog: the operand IS the localparam value).
             if (gl.operandRt && !gl.operandRt->Actual_typespec())
                 gl.operandRt->Actual_typespec(its);
+            if (gl.hierIdxRt && !gl.hierIdxRt->Actual_typespec())
+                gl.hierIdxRt->Actual_typespec(its);
         }
     }
     pendingGenLpTs.clear();

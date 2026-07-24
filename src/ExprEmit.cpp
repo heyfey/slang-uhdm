@@ -3902,6 +3902,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // A gen-LOCALPARAM identifier index (foo[PREV].temp) FOLDS in
+            // the display name; the bit_select index is a use-site constant
+            // claiming the localparam's param_assign as parent + a
+            // gen-scope-named ts ref sharing the drain int ts (gen_test4).
+            const slang::ast::ParameterSymbol* lpFoldPs9 = nullptr;
+            UHDM::param_assign* lpFoldPa9 = nullptr;
+            UHDM::constant* lpFoldC9 = nullptr;
+            std::string lpFoldIdn9, lpFoldScope9;
+            if (baseSelSyn &&
+                baseSelSyn->kind == syntax::SyntaxKind::IdentifierName) {
+                std::string idn9(baseSelSyn->as<syntax::IdentifierNameSyntax>()
+                                     .identifier.valueText());
+                std::string scope9 = prefix;
+                while (true) {
+                    auto it9 = genLpFoldByPath.find(scope9 + "." + idn9);
+                    if (it9 != genLpFoldByPath.end()) {
+                        lpFoldPs9 = it9->second.ps;
+                        lpFoldPa9 = it9->second.pa;
+                        lpFoldC9 = it9->second.c;
+                        lpFoldIdn9 = idn9;
+                        lpFoldScope9 = scope9;
+                        break;
+                    }
+                    auto d9 = scope9.rfind('.');
+                    if (d9 == std::string::npos)
+                        break;
+                    scope9.resize(d9);
+                }
+                if (lpFoldPs9)
+                    baseSelSyn = nullptr;
+            }
             auto spaceOps = [](const std::string& t) {
                 std::string o;
                 for (size_t i2 = 0; i2 < t.size(); i2++) {
@@ -3958,8 +3989,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return nullptr;
             }
             auto* hp = s.MakeHier_path();
-            hp->VpiName(raw);
-            hp->VpiFullName(raw);
+            std::string disp9 = raw;
+            if (lpFoldPs9) {
+                auto p9 = disp9.find("[" + lpFoldIdn9 + "]");
+                if (p9 != std::string::npos)
+                    disp9 = disp9.substr(0, p9 + 1) +
+                            std::string(lpFoldC9->VpiDecompile()) +
+                            disp9.substr(p9 + 1 + lpFoldIdn9.size());
+            }
+            hp->VpiName(disp9);
+            hp->VpiFullName(disp9);
             hp->VpiParent(parent);
             setLoc(hp, expr.sourceRange);
             auto* elems = s.MakeAnyVec();
@@ -3972,6 +4011,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // bit_select: name-only ref + a bare UINT index constant.
                 auto lb = pname.find('[');
                 auto rb = pname.find(']');
+                if (lpFoldPs9 && lb != std::string::npos &&
+                    rb != std::string::npos && rb > lb + 1 &&
+                    pname.substr(lb + 1, rb - lb - 1) == lpFoldIdn9) {
+                    std::string base = pname.substr(0, lb);
+                    auto* bs = s.MakeBit_select();
+                    bs->VpiName(base);
+                    bs->VpiParent(hp);
+                    bs->VpiFullName(
+                        base + "[" + std::string(lpFoldC9->VpiDecompile()) +
+                        "]");
+                    setLoc(bs, SourceRange(exprStart + off,
+                                           exprStart + off + base.size()));
+                    auto* c9 = s.MakeConstant();
+                    c9->VpiDecompile(lpFoldC9->VpiDecompile());
+                    c9->VpiSize(lpFoldC9->VpiSize());
+                    c9->VpiValue(std::string(lpFoldC9->VpiValue()));
+                    c9->VpiConstType(lpFoldC9->VpiConstType());
+                    c9->VpiParent(lpFoldPa9);
+                    size_t idOff9 = off + lb + 1;
+                    setLoc(c9,
+                           SourceRange(exprStart + idOff9,
+                                       exprStart + idOff9 +
+                                           lpFoldIdn9.size()));
+                    auto* rt9 = s.MakeRef_typespec();
+                    rt9->VpiFullName(lpFoldScope9);
+                    rt9->VpiParent(c9);
+                    c9->Typespec(rt9);
+                    for (auto& gl9 : pendingGenLpTs)
+                        if (gl9.ps == lpFoldPs9 && !gl9.hierIdxRt) {
+                            gl9.hierIdxRt = rt9;
+                            break;
+                        }
+                    bs->VpiIndex(c9);
+                    elems->push_back(bs);
+                    continue;
+                }
                 if (lb != std::string::npos && rb != std::string::npos && rb > lb + 1 &&
                     pname.find_first_not_of("0123456789", lb + 1) == rb) {
                     std::string base = pname.substr(0, lb);
