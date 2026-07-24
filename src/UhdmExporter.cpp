@@ -203,6 +203,7 @@ void UhdmExporter::computeParamMultiplicity() {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
             perDef[&child.getDefinition()].insert(paramTuple(child));
+            defInstTotal[&child.getDefinition()]++;
             {
                 std::string ptxt9;
                 for (auto p9 = child.getSyntax(); p9; p9 = p9->parent)
@@ -871,6 +872,9 @@ UHDM::design* UhdmExporter::exportDesign() {
             di->filled = true;
             emitModuleDefPorts(*inst);
         }
+        // The def's LAST elaborated instance deferred its port typespecs to
+        // this slot (ports precede nets, as in the top-def phase).
+        drainElabPortTs(&inst->getDefinition());
         bool isTopDef = false;
         for (auto& tp : topPendings) {
             if (&tp.inst->getDefinition() == &inst->getDefinition()) {
@@ -892,6 +896,12 @@ UHDM::design* UhdmExporter::exportDesign() {
             tfContext = savedTf;
         }
     }
+    // A deferred instance whose def never appeared in the walk still needs its
+    // typespec (safety net; normally everything drained above).
+    for (auto& pe : pendingElabPortTs)
+        if (!pe.rt->Actual_typespec())
+            drainElabPortTs(pe.def);
+    pendingElabPortTs.clear();
     topPendings.clear();
     pendingParamTs.clear();
     pendingNetTs.clear();

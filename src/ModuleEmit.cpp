@@ -3207,6 +3207,20 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     // Top-level instances' ports are emitted in a second pass over all tops
     // (Surelog write phase), after every top's netlist elaboration.
     if (!isTop) {
+        // Surelog builds a def's OWN port typespecs in that def's slot of the
+        // name-sorted write-phase walk, and each instance's inline (ports
+        // before nets); we build the def's at def-fill and each instance's
+        // inline (nets before ports). The two sequences interleave to the
+        // same bytes when every port typespec of the def is INTERCHANGEABLE
+        // across the views (bare, with already-folded dims) — then deferring
+        // the LAST instance's port typespecs to the def's write-phase slot
+        // lines the two sequences up exactly, object for object. A
+        // param-dependent port width (logic [W-1:0]) is NOT interchangeable
+        // (the def keeps the symbolic bound), so those defs stay inline.
+        auto ditc = defInstTotal.find(&def);
+        bool deferPortTs = ditc != defInstTotal.end() &&
+                           ++defInstSeen[&def] == ditc->second &&
+                           defPortTsInterchangeable(def);
         auto* ports = s.MakePortVec();
         for (auto portBase : body.getPortList()) {
             // Elab InterfacePort: emitted in the pre-children pass above.
@@ -3624,12 +3638,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 if (tit != typeParamDefaultTs.end())
                     pts = tit->second;
             }
-            if (!pts)
-                pts = makeTypespec(*internal, nullptr, &ps);
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
             rt->VpiParent(p);
-            rt->Actual_typespec(pts);
+            if (!pts && deferPortTs)
+                pendingElabPortTs.push_back({rt, internal, &ps, &def, currentScope,
+                                             elabInstanceTs, tfContext});
+            else {
+                if (!pts)
+                    pts = makeTypespec(*internal, nullptr, &ps);
+                rt->Actual_typespec(pts);
+            }
             p->Typespec(rt);
             ports->push_back(p);
         }
@@ -5511,6 +5530,74 @@ bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
     return found;
 }
 
+// True when every port typespec of a definition is an object the def view and
+// every elaborated instance build IDENTICALLY (bare, with folded dims, or the
+// one shared named/aggregate object). Only then may the def's write-phase
+// typespec and an instance's inline one trade places (see the deferral in
+// emitInstance); a symbolic def dim or a per-view clone must stay put.
+bool UhdmExporter::defPortTsInterchangeable(const DefinitionSymbol& def) {
+    auto dit = defMap.find(&def);
+    if (dit == defMap.end() || !dit->second.mod)
+        return false;
+    auto* ports = dit->second.mod->Ports();
+    if (!ports || ports->empty())
+        return false;
+    for (auto* p : *ports) {
+        auto* rt = p->Typespec();
+        auto* ts = rt ? rt->Actual_typespec() : nullptr;
+        if (!ts)
+            return false;
+        const UHDM::VectorOfrange* rs = nullptr;
+        switch (ts->UhdmType()) {
+            case UHDM::uhdmlogic_typespec:
+                rs = ((UHDM::logic_typespec*)ts)->Ranges();
+                if (((UHDM::logic_typespec*)ts)->Typedef_alias() ||
+                    ts->Instance() || !ts->VpiName().empty())
+                    return false;
+                break;
+            case UHDM::uhdmbit_typespec:
+                rs = ((UHDM::bit_typespec*)ts)->Ranges();
+                break;
+            default:
+                // A named/aggregate port typespec is the ONE shared object in
+                // both views, so it trades places with itself.
+                continue;
+        }
+        // A def port dim whose bound is still symbolic (an overridable module
+        // param) folds per instance: the two views differ, so no trade.
+        if (!rs)
+            continue;
+        for (auto* r : *rs) {
+            auto* le = r->Left_expr();
+            auto* re = r->Right_expr();
+            if (!le || le->UhdmType() != UHDM::uhdmconstant ||
+                !re || re->UhdmType() != UHDM::uhdmconstant)
+                return false;
+        }
+    }
+    return true;
+}
+
+// The LAST elaborated instance of a definition builds its port typespecs in
+// that definition's slot of the name-sorted write-phase walk (Surelog arena
+// order); the emission context of the deferred site is restored so the object
+// is byte-identical to the inline one.
+void UhdmExporter::drainElabPortTs(const DefinitionSymbol* def) {
+    for (auto& pe : pendingElabPortTs) {
+        if (pe.def != def || pe.rt->Actual_typespec())
+            continue;
+        const Scope* savedScope = currentScope;
+        bool savedElab = elabInstanceTs, savedTf = tfContext;
+        currentScope = pe.scope;
+        elabInstanceTs = pe.elabTs;
+        tfContext = pe.tfCtx;
+        pe.rt->Actual_typespec(makeTypespec(*pe.internal, nullptr, pe.ps));
+        currentScope = savedScope;
+        elabInstanceTs = savedElab;
+        tfContext = savedTf;
+    }
+}
+
 // Builds a def-local net's typespec (fresh per net; vector typedefs get a
 // NAMED clone with Instance + TypedefAlias; anonymous enums fresh
 // unparented; initialized decls extend through the init).
@@ -6014,6 +6101,27 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         }
     }
     tfContext = false;
+
+    // The write phase walks definitions NAME-SORTED. A def sorting AFTER this
+    // top's own def still owes its last instance's port typespecs, and those
+    // belong between this top's def-net drain and the design-wide tail below
+    // (function return locals, instance param typespecs, ...).
+    {
+        std::string_view topName = tp.inst->getDefinition().name;
+        std::vector<const DefinitionSymbol*> later;
+        for (auto& pe : pendingElabPortTs) {
+            if (pe.rt->Actual_typespec() || pe.def->name <= topName)
+                continue;
+            if (std::find(later.begin(), later.end(), pe.def) == later.end())
+                later.push_back(pe.def);
+        }
+        std::stable_sort(later.begin(), later.end(),
+                         [](const DefinitionSymbol* a, const DefinitionSymbol* b) {
+                             return a->name < b->name;
+                         });
+        for (auto* d9 : later)
+            drainElabPortTs(d9);
+    }
 
     // Function return-value locals: one var + typespec pair per body ref
     // (Surelog creates them at each bind in the write phase).

@@ -629,6 +629,25 @@ private:
     };
     std::vector<PendingNetTs> pendingNetTs;
     void materializeDefNetTs(PendingNetTs& pn);
+    /// Elaborated instances count per definition (non-top instances only), so
+    /// the LAST instance of a def can be recognised while it is emitted.
+    std::map<const slang::ast::DefinitionSymbol*, unsigned> defInstTotal;
+    std::map<const slang::ast::DefinitionSymbol*, unsigned> defInstSeen;
+    /// The port typespecs of a def's LAST elaborated instance are created in
+    /// the WRITE phase (name-sorted def walk), not inline (Surelog arena
+    /// order): every earlier instance keeps its inline slot.
+    struct PendingElabPortTs {
+        UHDM::ref_typespec* rt;
+        const slang::ast::Symbol* internal;
+        const slang::ast::PortSymbol* ps;
+        const slang::ast::DefinitionSymbol* def;
+        const slang::ast::Scope* scope;
+        bool elabTs;
+        bool tfCtx;
+    };
+    std::vector<PendingElabPortTs> pendingElabPortTs;
+    void drainElabPortTs(const slang::ast::DefinitionSymbol* def);
+    bool defPortTsInterchangeable(const slang::ast::DefinitionSymbol& def);
     bool rangeRefsOverriddenParam(const slang::ast::Symbol& sym);
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
