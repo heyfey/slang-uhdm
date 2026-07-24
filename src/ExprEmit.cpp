@@ -1560,7 +1560,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // binary operands and nested expressions (~A[3]) keep the
             // normal rules.
             bool savedS = suppressConstParent, savedF = forceConstParent;
-            if ((paramInitDef || inProcessEmit) && isLiteralExpr(ue.operand())) {
+            if ((paramInitDef || inProcessEmit || inParamInit) &&
+                isLiteralExpr(ue.operand())) {
                 suppressConstParent = true;
                 forceConstParent = false;
             }
