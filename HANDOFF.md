@@ -28,7 +28,9 @@ design listing, one object) and ModuleEmit.cpp ~6643 (a NAMED per-port clone for
 typedef, gated by `fileLevelVec`). Surelog has BOTH of those too — its per-port clone sits at the PORT
 type span (42:12-42:22) where ours binds the shared typedef object (5:9-5:21). So this is not a
 "drop the duplicates" fix: the real gap is the ELEMENT clones (Surelog 14 reg8_t vs our 11) plus which
-object each port typespec ref binds. Treat the reg8_t element-clone-per-use rule as the lever.
+object each port typespec ref binds. Treat the reg8_t element-clone-per-use rule as the lever: Surelog has 12 `ref_typespec: (reg8_t)`
+Typedef_alias refs to our 10, i.e. exactly two use sites that never reach the ModuleEmit ~6643 helper
+mint no clone. Find those two uses (compare the reg8_t-bearing objects' parents between the dumps).
 Found with a name-suffix instrumentation sweep over the 10 `->VpiName(<alias>.name)` clone sites —
 stamping a unique marker at each candidate site and grepping the dump is the fastest way to identify
 which of several look-alike sites actually emits an object.
