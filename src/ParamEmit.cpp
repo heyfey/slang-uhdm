@@ -2907,9 +2907,30 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             else if (auto d0 = ps.getDeclaredType();
                      d0 && d0->getType().kind == SymbolKind::TypeAlias) {
                 auto& taSym = d0->getType().as<TypeAliasType>();
-                if (auto tit = typedefTs.find(&taSym);
-                    tit != typedefTs.end() &&
-                    tit->second->UhdmType() == UHDM::uhdmlogic_typespec) {
+                // A UNIQUIFIED instance body owns its OWN TypeAlias symbols,
+                // which are NOT the ones typedefTs holds (it holds the DEF
+                // body's, seen once at emitTypedefs). The elab child SHARES
+                // the def typedef object (see the isTop-removed listing), so
+                // fall back to it BY NAME when the per-instance symbol misses
+                // (ParameterOfParametrizedTypeInSubmodule u_sub_5/u_sub_10 Y).
+                UHDM::typespec* sharedTd = nullptr;
+                if (auto tit = typedefTs.find(&taSym); tit != typedefTs.end())
+                    sharedTd = tit->second;
+                else if (auto* psc = ps.getParentScope();
+                         psc &&
+                         psc->asSymbol().kind == SymbolKind::InstanceBody) {
+                    auto& defsym = psc->asSymbol()
+                                       .as<InstanceBodySymbol>()
+                                       .getDefinition();
+                    if (auto dit = defMap.find(&defsym); dit != defMap.end())
+                        for (auto* td : dit->second.typedefs)
+                            if (td->VpiName() == taSym.name) {
+                                sharedTd = td;
+                                break;
+                            }
+                }
+                if (sharedTd &&
+                    sharedTd->UhdmType() == UHDM::uhdmlogic_typespec) {
                     const syntax::SyntaxNode* tgtSyn = nullptr;
                     if (auto asyn = taSym.getSyntax())
                         if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
@@ -2967,7 +2988,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         art->Actual_typespec(clB);
                     }
                     else
-                        art->Actual_typespec(tit->second);
+                        art->Actual_typespec(sharedTd);
                     // ANY module-context clone of a pkg typedef Instances at
                     // the def pkg (Surelog).
                     if (auto hsI9 = taSym.getParentScope();

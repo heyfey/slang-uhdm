@@ -1468,12 +1468,76 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             lit9 != netMap.end())
                             ref->Actual_group(lit9->second);
                     }
-                    // NOTE (generate_test unit_result): SL binds SOME
-                    // gen-local var refs in elab gen processes, but a
-                    // blanket gen-local bind demoted 10 tests (carryadd,
+                    // Gen-local var refs bind ONLY when the var lives in an
+                    // ANCESTOR gen scope of the emitting block (nested
+                    // if-gen branch reading the for-scope's local —
+                    // generate_test unit_result). Same-scope refs stay
+                    // unbound (a blanket bind demoted 10 tests: carryadd,
                     // forgen02, gen_test1/4/7, MemoryInGenblock,
-                    // simple_generate, ...) — the distinguisher is still
-                    // unknown; refs stay unbound here.
+                    // simple_generate, ...).
+                    if (!defGenProcessEmit && !ref->Actual_group() &&
+                        currentGenBlkScope) {
+                        auto* ps9s = nv.symbol.getParentScope();
+                        // A gen-local VARIABLE wired to a CHILD-instance
+                        // connection in this gen scope binds
+                        // (generate_test unit_result -> adder_inst conns);
+                        // unconnected gen locals stay unbound (gen_test7,
+                        // genvar_loop_decl_3, iface_gen_delay_struct).
+                        bool connUse9 = false;
+                        if (ps9s && nv.symbol.kind == SymbolKind::Variable &&
+                            nv.symbol.getDeclaredType() &&
+                            nv.symbol.getDeclaredType()
+                                    ->getType()
+                                    .getCanonicalType()
+                                    .kind !=
+                                SymbolKind::PredefinedIntegerType &&
+                            ps9s->asSymbol().kind ==
+                                SymbolKind::GenerateBlock) {
+                            for (auto& gm9 : ps9s->members()) {
+                                if (gm9.kind != SymbolKind::Instance &&
+                                    gm9.kind != SymbolKind::GenerateBlock)
+                                    continue;
+                                std::function<void(const Scope&)> scanC9 =
+                                    [&](const Scope& sc9) {
+                                        for (auto& im9 : sc9.members()) {
+                                            if (im9.kind ==
+                                                SymbolKind::GenerateBlock) {
+                                                scanC9((const Scope&)
+                                                           im9.as<
+                                                               GenerateBlockSymbol>());
+                                                continue;
+                                            }
+                                            if (im9.kind !=
+                                                SymbolKind::Instance)
+                                                continue;
+                                            for (auto pc9 :
+                                                 im9.as<InstanceSymbol>()
+                                                     .getPortConnections()) {
+                                                auto* ce9 =
+                                                    connectionExpr(*pc9);
+                                                if (!ce9)
+                                                    continue;
+                                                ce9->visit(makeVisitor(
+                                                    [&](auto& v9,
+                                                        const NamedValueExpression&
+                                                            nv9) {
+                                                        if (&nv9.symbol ==
+                                                            &nv.symbol)
+                                                            connUse9 = true;
+                                                        v9.visitDefault(nv9);
+                                                    }));
+                                            }
+                                        }
+                                    };
+                                scanC9(*ps9s);
+                                break;
+                            }
+                            if (connUse9)
+                                if (auto nit9 = netMap.find(&nv.symbol);
+                                    nit9 != netMap.end())
+                                    ref->Actual_group(nit9->second);
+                        }
+                    }
                 }
                 else if (auto it = [&] {
                              auto i = netMap.find(&nv.symbol);
