@@ -619,7 +619,52 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Function-scope params parent at their param_assign.
         if (funcScope)
             up->VpiParent(pa);
-        if (topView && (overridden || (!hasDefault && boundInit)))
+        // A UNIQUIFIED (multi-param-def) instance also marks params whose
+        // VALUE differs from the default-eval as overriden — a DERIVED
+        // param ('1 sized by an overridden typedef width) counts
+        // (ParameterOfParametrizedTypeInSubmodule Y). Single-instance
+        // defparam targets stay unmarked (hierdefparam).
+        bool derivedOv9 = false;
+        if (topView && !overridden && hasDefault && defaultInit &&
+            !inPackage && isMultiParamDef(body)) {
+            // Derived = the declared type resolves through a TYPEDEF whose
+            // target references an OVERRIDDEN param of this body.
+            if (auto od9 = ps.getDeclaredType()) {
+                auto& dt9o = od9->getType();
+                if (dt9o.kind == SymbolKind::TypeAlias) {
+                    std::string tgt9;
+                    if (auto asyn9 = dt9o.as<TypeAliasType>().getSyntax())
+                        tgt9 = std::string(rawText(asyn9->sourceRange()));
+                    if (!tgt9.empty())
+                        for (auto& om9 : body.members()) {
+                            if (om9.kind != SymbolKind::Parameter ||
+                                !isOverriddenParam(om9))
+                                continue;
+                            auto p9 = tgt9.find(om9.name);
+                            while (p9 != std::string::npos) {
+                                bool lb9 =
+                                    p9 == 0 ||
+                                    (!isalnum((unsigned char)tgt9[p9 - 1]) &&
+                                     tgt9[p9 - 1] != '_');
+                                size_t e9 = p9 + om9.name.size();
+                                bool rb9 =
+                                    e9 >= tgt9.size() ||
+                                    (!isalnum((unsigned char)tgt9[e9]) &&
+                                     tgt9[e9] != '_');
+                                if (lb9 && rb9) {
+                                    derivedOv9 = true;
+                                    break;
+                                }
+                                p9 = tgt9.find(om9.name, p9 + 1);
+                            }
+                            if (derivedOv9)
+                                break;
+                        }
+                }
+            }
+        }
+        if (topView &&
+            (overridden || derivedOv9 || (!hasDefault && boundInit)))
             pa->VpiOverriden(true);
         // A module-scope typed localparam whose init element-selects an
         // UNPACKED-ARRAY param (localparam int C = Arr[Idx]) CLAIMS the
