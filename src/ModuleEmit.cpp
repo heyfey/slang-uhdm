@@ -4053,6 +4053,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 }
                             }
                         }
+                        // MULTIPLICATIVE inits (a*b, a/b) also encode INT
+                        // with the pa parent (gen_test5 PREV = step / CHUNK,
+                        // LAST_START = i * CHUNK); additive/plain refs keep
+                        // UINT (genvar_loop_decl_2 w = x).
+                        if (!negSib9 && ps.getInitializer()) {
+                            bool mulDiv9 = false;
+                            ps.getInitializer()->visit(makeVisitor(
+                                [&](auto& v9x, const BinaryExpression& be9) {
+                                    if (be9.op == BinaryOperator::Multiply ||
+                                        be9.op == BinaryOperator::Divide)
+                                        mulDiv9 = true;
+                                    v9x.visitDefault(be9);
+                                }));
+                            if (mulDiv9)
+                                negSib9 = true;
+                        }
                         if (negSib9) {
                             c2->VpiValue("INT:" + sd);
                             c2->VpiConstType(vpiIntConst);
