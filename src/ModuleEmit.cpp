@@ -6763,14 +6763,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // Interface def views keep the enum-const ref (module views fold).
         if (m->UhdmType() != UHDM::uhdmmodule_inst)
             pkgEnumRhs = false;
-        // An UNQUALIFIED imported enum const keeps its ref (only pkg::VALUE
-        // folds) — Surelog.
+        // An UNQUALIFIED imported enum const drops the LOCATED pkg-fold form
+        // (only pkg::VALUE folds that way), but the ELAB view still folds it
+        // like a module-local const (loc-less src-decompile constant) —
+        // EnumInPackage var3. The def view keeps the ref either way.
         if (pkgEnumRhs &&
             rawText(stripImplicitConv(ae.right()).sourceRange).find("::") ==
-                std::string::npos) {
+                std::string::npos)
             pkgEnumRhs = false;
-            enumRhs = nullptr;
-        }
         // An enum-ALIAS-typed LHS (output pkg::b o; assign o = pkg::x): the
         // TOP view folds FRESH (decimal decompile, parented at the ca, sized
         // to the LHS enum width, at the RHS span) instead of sharing the pkg
