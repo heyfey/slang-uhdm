@@ -866,10 +866,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 else
                 for (auto e : g.expressions) {
                     if (auto* ue = emitExpr(*e, it, prefix, netMap)) {
-                        // Case-item expr refs and sys calls parent at the
+                        // Case-item expr refs and calls parent at the
                         // enclosing scope (constants stay at the case_item).
                         if (ue->UhdmType() == UHDM::uhdmref_obj ||
-                            ue->UhdmType() == UHDM::uhdmsys_func_call)
+                            ue->UhdmType() == UHDM::uhdmsys_func_call ||
+                            ue->UhdmType() == UHDM::uhdmfunc_call)
                             ((UHDM::expr*)ue)->VpiParent(parent);
                         exprs->push_back(ue);
                     }

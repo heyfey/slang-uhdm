@@ -1006,6 +1006,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 else if (auto dt = fmv.getDeclaredType()) {
                     if (auto tsyn2 = dt->getTypeSyntax()) {
                         auto sr = tsyn2->sourceRange();
+                        // An IMPLICIT type carrying a signing keyword
+                        // (function signed [3:0] f) anchors at the signing
+                        // token alone, exactly like its typespec — Surelog.
+                        if (tsyn2->kind == syntax::SyntaxKind::ImplicitType) {
+                            auto& its2 =
+                                tsyn2->as<syntax::ImplicitTypeSyntax>();
+                            if (its2.signing.valid())
+                                sr = its2.signing.range();
+                        }
                         if (sr.start() != SourceLocation::NoLocation)
                             setLoc(v, sr);
                     }

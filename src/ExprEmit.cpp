@@ -21,6 +21,57 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiEndColumnNo(src->VpiEndColumnNo());
 }
 
+// A function that just hands one of its formals back (`f = inp;` /
+// `return inp;`). Surelog substitutes such a call for typing purposes, so a
+// NESTED call to it carries no formal-ts stamp of its own — the enclosing
+// call's stamp falls through to the substituted argument instead. A function
+// whose return value is computed (`f = ~inp;`, `f = g(inp);`) keeps the stamp.
+static bool isPassThroughFunc(const slang::ast::SubroutineSymbol& sub) {
+    using namespace slang::ast;
+    const Expression* ret = nullptr;
+    std::function<void(const Statement&)> scan = [&](const Statement& st) {
+        if (ret)
+            return;
+        if (st.kind == StatementKind::Return) {
+            ret = st.as<ReturnStatement>().expr;
+            return;
+        }
+        if (st.kind == StatementKind::List) {
+            for (auto s2 : st.as<StatementList>().list)
+                scan(*s2);
+            return;
+        }
+        if (st.kind == StatementKind::Block) {
+            scan(st.as<BlockStatement>().body);
+            return;
+        }
+        if (st.kind == StatementKind::ExpressionStatement) {
+            auto& e = st.as<ExpressionStatement>().expr;
+            if (e.kind == ExpressionKind::Assignment) {
+                auto& ae = e.as<AssignmentExpression>();
+                auto& lc = ae.left();
+                if (lc.kind == ExpressionKind::NamedValue &&
+                    &lc.as<NamedValueExpression>().symbol == sub.returnValVar)
+                    ret = &ae.right();
+            }
+        }
+    };
+    scan(sub.getBody());
+    if (!ret)
+        return false;
+    const Expression* r = ret;
+    while (r->kind == ExpressionKind::Conversion &&
+           r->as<ConversionExpression>().isImplicit())
+        r = &r->as<ConversionExpression>().operand();
+    if (r->kind != ExpressionKind::NamedValue)
+        return false;
+    auto* rs = &r->as<NamedValueExpression>().symbol;
+    for (auto a : sub.getArguments())
+        if (rs == a)
+            return true;
+    return false;
+}
+
 // The span Surelog gives an rvalue indexed part-select: the WHOLE selector
 // text between the brackets. slang's bound bound-expressions drop redundant
 // parentheses from their source range (d[(2) +: (4)] -> "2 ... 4"), so take
@@ -1911,7 +1962,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bool callArgUnary =
                 parent && (parent->UhdmType() == UHDM::uhdmfunc_call ||
                            parent->UhdmType() == UHDM::uhdmsys_func_call);
-            if ((paramInitDef || inProcessEmit || inParamInit || callArgUnary) &&
+            // A TASK/FUNCTION BODY is compiled once and never deep-cloned, so
+            // its unary literal operands keep compileConst's null parent too
+            // (func_tern_hint's `? -1 :`).
+            if ((paramInitDef || inProcessEmit || inParamInit || callArgUnary ||
+                 currentTf) &&
                 isLiteralExpr(ue.operand())) {
                 suppressConstParent = true;
                 forceConstParent = false;
@@ -2875,6 +2930,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool otherArg = a->UhdmType() == UHDM::uhdmconstant ||
                                         a->UhdmType() == UHDM::uhdmfunc_call ||
                                         a->UhdmType() == UHDM::uhdmoperation;
+                        // A nested call to a PASS-THROUGH function (its return
+                        // value IS one of its formals) is substituted by
+                        // Surelog for typing, so the call node itself carries
+                        // no formal-ts ref (the stamp falls through to the
+                        // substituted argument) — const_arg_loop's
+                        // operation1(pass_through(A), a). A computed nested
+                        // return (flip = ~inp) keeps the stamp (const_fold_func).
+                        if (a->UhdmType() == UHDM::uhdmfunc_call) {
+                            auto& ncall = stripImplicitConv(*arg);
+                            if (ncall.kind == ExpressionKind::Call &&
+                                !ncall.as<CallExpression>().isSystemCall())
+                                if (auto nsub = std::get_if<const SubroutineSymbol*>(
+                                        &ncall.as<CallExpression>().subroutine))
+                                    if (*nsub && isPassThroughFunc(**nsub))
+                                        otherArg = false;
+                        }
                         // Only outermost-call CONSTANT/operation args carry
                         // formal-ts refs (REF args carry them at any nesting
                         // depth); def-view PACKAGE function bodies never do
@@ -2900,6 +2971,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     baseArg.as<NamedValueExpression>().symbol.kind;
                                 paramRef = (sk == SymbolKind::Parameter ||
                                             sk == SymbolKind::EnumValue);
+                                // ...but the DEF-view param object itself has
+                                // its OWN typespec ref REBOUND to the formal's
+                                // typespec: Surelog's argument binding writes
+                                // through the parameter's ts ref, so the LAST
+                                // cont-assign call taking the param as a direct
+                                // actual wins (the elab param keeps its
+                                // declared ts). Procedural calls never rebind.
+                                if (contAssignView == 1 && isFunc && !currentTf &&
+                                    sk == SymbolKind::Parameter &&
+                                    argIdx < si.argTs.size() &&
+                                    si.argTs[argIdx].first) {
+                                    auto dpit = defParamTsRef.find(
+                                        &baseArg.as<NamedValueExpression>().symbol);
+                                    if (dpit != defParamTsRef.end() && dpit->second)
+                                        dpit->second->Actual_typespec(
+                                            si.argTs[argIdx].first);
+                                }
                             }
                         }
                         // A func-arg part-SELECT rooted at a PARAMETER (the

@@ -665,7 +665,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         // A packed array over a VECTOR TYPEDEF (logic4 [1:0] v) in module
         // context: an anonymous logic ts at the type span with an Elem ref
         // to the SHARED typedef ts and the ARRAY dim as its range (Surelog).
-        if (!tfContext && declared->getType().kind == SymbolKind::PackedArrayType) {
+        // (A write-phase PORT recompile passes portCtx with tfContext set —
+        // it still needs the full elem+range form, not a bare shell.)
+        if ((!tfContext || portCtx) &&
+            declared->getType().kind == SymbolKind::PackedArrayType) {
             auto& et9 = declared->getType().as<PackedArrayType>().elementType;
             if (et9.kind == SymbolKind::TypeAlias) {
                 if (auto tit9 = typedefTs.find(&et9);

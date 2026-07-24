@@ -8586,6 +8586,59 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
                 rawText(constFnRet->sourceRange).find('\'') == std::string::npos)
                 ((UHDM::constant*)rhs)->VpiSize((int32_t)ae.left().type->getBitWidth());
+            // The reduced constant IS the argument, so it keeps the formal-ts
+            // ref that argument carried in the def view — as a FRESH clone of
+            // the formal's typespec (Surelog leaves the io_decl's own object
+            // untouched and hangs a copy off the constant's ref).
+            if (rhs && rhs->UhdmType() == UHDM::uhdmconstant && defInfo &&
+                myIdx < defInfo->contAssigns.size() &&
+                !((UHDM::constant*)rhs)->Typespec()) {
+                auto& rcCall0 = stripImplicitConv(ae.right());
+                int aIdx0 = -1;
+                if (rcCall0.kind == ExpressionKind::Call) {
+                    auto args0 = rcCall0.as<CallExpression>().arguments();
+                    for (size_t i = 0; i < args0.size(); i++)
+                        if (&stripImplicitConv(*args0[i]) == constFnRet)
+                            aIdx0 = (int)i;
+                }
+                UHDM::typespec* fts0 = nullptr;
+                if (aIdx0 >= 0) {
+                    auto* dRhs0 = defInfo->contAssigns[myIdx]->Rhs();
+                    if (dRhs0 && dRhs0->UhdmType() == UHDM::uhdmfunc_call) {
+                        auto* dArgs0 = ((UHDM::func_call*)dRhs0)->Tf_call_args();
+                        if (dArgs0 && aIdx0 < (int)dArgs0->size())
+                            if (auto* de0 =
+                                    dynamic_cast<UHDM::expr*>((*dArgs0)[aIdx0]))
+                                if (auto* drt0 = de0->Typespec())
+                                    fts0 = drt0->Actual_typespec();
+                    }
+                }
+                if (fts0 && (fts0->UhdmType() == UHDM::uhdminteger_typespec ||
+                             fts0->UhdmType() == UHDM::uhdmint_typespec)) {
+                    UHDM::typespec* cts0 = nullptr;
+                    if (fts0->UhdmType() == UHDM::uhdminteger_typespec) {
+                        auto* i0 = s.MakeInteger_typespec();
+                        i0->VpiSigned(((UHDM::integer_typespec*)fts0)->VpiSigned());
+                        cts0 = i0;
+                    }
+                    else {
+                        auto* i0 = s.MakeInt_typespec();
+                        i0->VpiSigned(((UHDM::int_typespec*)fts0)->VpiSigned());
+                        cts0 = i0;
+                    }
+                    cts0->VpiLineNo(fts0->VpiLineNo());
+                    cts0->VpiColumnNo(fts0->VpiColumnNo());
+                    cts0->VpiEndLineNo(fts0->VpiEndLineNo());
+                    cts0->VpiEndColumnNo(fts0->VpiEndColumnNo());
+                    cts0->VpiFile(fts0->VpiFile());
+                    auto* rt0 = s.MakeRef_typespec();
+                    rt0->VpiFullName(prefix);
+                    rt0->VpiParent(rhs);
+                    rt0->Actual_typespec(cts0);
+                    cts0->VpiParent(rt0);
+                    ((UHDM::constant*)rhs)->Typespec(rt0);
+                }
+            }
         }
         // A call whose FORMAL is SIGNED never straight-line-reduces (the
         // body conversion changes the value); it falls to the eval fold
@@ -9701,8 +9754,19 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             rt->Actual_typespec(ts);
             lv->Typespec(rt);
             // The ret var spans the RETURN TYPE syntax (trailing ws
-            // trimmed).
-            if (auto* rtsyn = returnTypeSyntax(sub)) {
+            // trimmed) — but an IMPLICIT type carrying a signing keyword
+            // (function signed [3:0] f) anchors at the signing token alone,
+            // exactly like its typespec (Surelog; func_tern_hint).
+            const syntax::SyntaxNode* rtsyn = returnTypeSyntax(sub);
+            bool signOnly9 = false;
+            if (rtsyn && rtsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                auto& its9 = rtsyn->as<syntax::ImplicitTypeSyntax>();
+                if (its9.signing.valid()) {
+                    setLoc(lv, its9.signing.range());
+                    signOnly9 = true;
+                }
+            }
+            if (rtsyn && !signOnly9) {
                 auto rr9 = rtsyn->sourceRange();
                 std::string rw9 = rawText(rr9);
                 auto re9 = rr9.end();
@@ -9713,7 +9777,7 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                 }
                 setLoc(lv, SourceRange(rr9.start(), re9));
             }
-            else {
+            else if (!signOnly9) {
                 lv->VpiLineNo(ts->VpiLineNo());
                 lv->VpiColumnNo(ts->VpiColumnNo());
                 lv->VpiEndLineNo(ts->VpiEndLineNo());

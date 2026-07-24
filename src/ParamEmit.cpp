@@ -2844,6 +2844,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 if (di)
                     di->paramTs[&member] = its;
+                // Remember the DEF param's own ts ref: a cont-assign function
+                // call taking this param as a direct actual REBINDS it to the
+                // formal's typespec (Surelog).
+                if (di && !inPackage)
+                    defParamTsRef[&member] = prt;
                 if (rhsRt) {
                     // An untyped import's Rhs constant ref binds its OWN fresh
                     // int_typespec (Surelog builds a distinct typespec per ref,

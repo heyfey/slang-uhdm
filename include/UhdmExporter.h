@@ -1134,6 +1134,12 @@ private:
     // Def-view fold-constant ts refs of VECTOR-typed params: bound late to a
     // fresh LOC-LESS bare clone (see patchParamTypespecs).
     std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> pendingBareVecTs;
+    // DEF-view module params: their own ref_typespec. A param passed as a
+    // direct actual argument of a function call in a CONTINUOUS assign has
+    // this ref REBOUND to the formal's typespec (Surelog's arg-binding writes
+    // through the param's ts ref; the last such call in source order wins).
+    // Procedural calls and the elab-view param never rebind.
+    std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> defParamTsRef;
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
 
