@@ -857,6 +857,13 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::param_assign*> elabParamPa;
     // Unbased-unsized override pa Rhs constants (CA-claimed sharing).
     std::map<const slang::ast::Symbol*, UHDM::constant*> unbasedOvConst;
+    // Ts ref of an unbased-unsized override pa Rhs constant: bound to the
+    // param's OWN elab ts object once patchParamTypespecs creates it.
+    std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> unbasedOvTsRef;
+    // Ts refs of COPIES of that constant (a '1 fill read by a cont-assign):
+    // each binds a FRESH clone of the param ts, parented at the ref.
+    std::map<const slang::ast::Symbol*, std::vector<UHDM::ref_typespec*>>
+        unbasedOvCloneTsRef;
     // Elab (top-view) param_assign Rhs constants for TYPED params whose init is
     // a DEGENERATE unbased-unsized literal ('0/'x/'z, NOT '1). Surelog shares
     // this SAME constant object into the reading cont-assign (a bare stub) and

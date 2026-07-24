@@ -888,11 +888,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         tsPfx9.resize(tsPfx9.size() - 2);
                     rt9->VpiFullName(tsPfx9);
                     rt9->VpiParent(c9);
-                    auto* lts9 = s.MakeLogic_typespec();
-                    if (auto dt9 = ps.getDeclaredType())
-                        if (auto tsy9 = dt9->getTypeSyntax())
-                            setLoc(lts9, tsy9->sourceRange());
-                    rt9->Actual_typespec(lts9);
+                    if (prt) {
+                        // Bound below (patchParamTypespecs) to the param's own
+                        // elab ts object; copies of this constant clone it.
+                        unbasedOvTsRef[&ps] = rt9;
+                    }
+                    else {
+                        auto* lts9 = s.MakeLogic_typespec();
+                        if (auto dt9 = ps.getDeclaredType())
+                            if (auto tsy9 = dt9->getTypeSyntax())
+                                setLoc(lts9, tsy9->sourceRange());
+                        rt9->Actual_typespec(lts9);
+                    }
                     c9->Typespec(rt9);
                     pa->Rhs(c9);
                     elabParamConst[&ps] = c9;
@@ -3537,6 +3544,23 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
         prt->Actual_typespec(its);
         if (!sharedPkgTs)
             its->VpiParent(prt);
+        // Unbased-unsized override pa constant ts (see unbasedOvTsRef).
+        if (auto uit = unbasedOvTsRef.find(ps); uit != unbasedOvTsRef.end()) {
+            uit->second->Actual_typespec(its);
+            unbasedOvTsRef.erase(uit);
+        }
+        if (auto cit = unbasedOvCloneTsRef.find(ps);
+            cit != unbasedOvCloneTsRef.end()) {
+            for (auto* ubRt : cit->second) {
+                std::string savedPfx3 = syntaxRefPrefix;
+                syntaxRefPrefix = std::string(ubRt->VpiFullName());
+                auto* ubTs = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+                syntaxRefPrefix = savedPfx3;
+                ubRt->Actual_typespec(ubTs);
+                ubTs->VpiParent(ubRt);
+            }
+            unbasedOvCloneTsRef.erase(cit);
+        }
         // No-default override fold-constant ts refs share this elab ts.
         if (auto nit = noDefOvTsRef.find(ps); nit != noDefOvTsRef.end()) {
             for (auto* r0 : nit->second)

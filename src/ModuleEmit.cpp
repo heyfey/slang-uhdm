@@ -7524,14 +7524,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     c9->VpiSize(pc9->VpiSize());
                     c9->VpiValue(std::string(v9));
                     c9->VpiConstType(pc9->VpiConstType());
-                    if (pc9->Typespec() &&
-                        pc9->Typespec()->Actual_typespec()) {
+                    if (pc9->Typespec()) {
                         auto* rt9 = s.MakeRef_typespec();
                         rt9->VpiFullName(
                             std::string(pc9->Typespec()->VpiFullName()));
                         rt9->VpiParent(c9);
-                        rt9->Actual_typespec(
-                            pc9->Typespec()->Actual_typespec());
+                        if (auto* at9 = pc9->Typespec()->Actual_typespec())
+                            rt9->Actual_typespec(at9);
+                        else
+                            // The param ts doesn't exist yet: this copy takes
+                            // its OWN clone of it (Surelog) once it does.
+                            unbasedOvCloneTsRef[ubit9->first].push_back(rt9);
                         c9->Typespec(rt9);
                     }
                     rhs = c9;
