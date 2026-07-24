@@ -2830,11 +2830,19 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         hc->VpiFullName(parentPrefix + "." +
                                         std::string(arrSym.name));
                         hc->VpiParent(p);
-                        if (!arrSym.elements.empty())
-                            if (auto eit =
-                                    ifaceInstMap.find(arrSym.elements[0]);
-                                eit != ifaceInstMap.end())
+                        // Points at the col-0 tail duplicate of the first
+                        // element (weak ref → weaklyReferenced tail), falling
+                        // back to the home view when no dup exists.
+                        if (!arrSym.elements.empty()) {
+                            if (auto dit9 =
+                                    ifaceTailDup.find(arrSym.elements[0]);
+                                dit9 != ifaceTailDup.end())
+                                hc->Actual_group(dit9->second);
+                            else if (auto eit =
+                                         ifaceInstMap.find(arrSym.elements[0]);
+                                     eit != ifaceInstMap.end())
                                 hc->Actual_group(eit->second);
+                        }
                         setLoc(hc, ce->sourceRange);
                         p->High_conn(hc);
                     }
@@ -2887,6 +2895,118 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                 if (umod->VpiName() == ip.modport)
                                     ((UHDM::ref_obj*)pp->Low_conn())
                                         ->Actual_group(umod);
+            }
+            // A WHOLE interface-ARRAY port (.m(arr)): conn.first is a
+            // port-named InstanceArray whose .elements are the child-side
+            // element instances. Emit per-element modport port views
+            // (m[0]/m[1] under vpiInterface) and an interface_array wrapper
+            // (vpiInterfaceArray) whose vpiInstance list is those elements;
+            // the port LowConn ref binds the wrapper.
+            else if (conn.first &&
+                     conn.first->kind == SymbolKind::InstanceArray) {
+                auto& parr = conn.first->as<InstanceArraySymbol>();
+                int32_t plo = std::min(parr.range.left, parr.range.right);
+                auto* insts = s.MakeInstanceVec();
+                for (size_t i = 0; i < parr.elements.size(); i++) {
+                    auto* e = parr.elements[i];
+                    if (!e || e->kind != SymbolKind::Instance)
+                        continue;
+                    std::string ename = std::string(portBase->name) + "[" +
+                                        std::to_string(plo + (int32_t)i) + "]";
+                    auto* ei = emitInterfaceInstance(
+                        e->as<InstanceSymbol>(),
+                        prefix + "." + ename, m, &topNets, &instRefs,
+                        /*portView=*/&inst,
+                        /*connModport=*/std::string(ip.modport));
+                    ei->VpiName(ename);
+                    portIfaces->push_back(ei);
+                    insts->push_back(ei);
+                }
+                // The interface_array wrapper (name=port, fullname=path.port).
+                auto* iarr = s.MakeInterface_array();
+                iarr->VpiName(std::string(portBase->name));
+                iarr->VpiFullName(prefix + "." + std::string(portBase->name));
+                iarr->VpiParent(m);
+                iarr->VpiSize((int32_t)insts->size());
+                // Locate at the port-declarator name; range at the [dim].
+                const syntax::DeclaratorSyntax* decl = nullptr;
+                const syntax::VariableDimensionSyntax* dim = nullptr;
+                for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
+                    if (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+                        decl = sy->as<syntax::ImplicitAnsiPortSyntax>()
+                                   .declarator;
+                        break;
+                    }
+                    if (sy->kind == syntax::SyntaxKind::Declarator && !decl)
+                        decl = &sy->as<syntax::DeclaratorSyntax>();
+                }
+                if (decl) {
+                    setLoc(iarr, decl->name.range());
+                    if (!decl->dimensions.empty())
+                        dim = *decl->dimensions.begin();
+                }
+                if (dim) {
+                    auto* rng = s.MakeRange();
+                    rng->VpiParent(iarr);
+                    setLoc(rng, dim->sourceRange());
+                    const syntax::ExpressionSyntax* leftSyn = nullptr;
+                    const syntax::ExpressionSyntax* rightSyn = nullptr;
+                    if (dim->specifier &&
+                        dim->specifier->kind ==
+                            syntax::SyntaxKind::RangeDimensionSpecifier) {
+                        auto& sel =
+                            *dim->specifier
+                                 ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                 .selector;
+                        if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+                            leftSyn = rss->left;
+                            rightSyn = rss->right;
+                        }
+                    }
+                    // Folded bound constants: an operation-derived bound folds
+                    // to a signed INT (vpiIntConst); a bare literal stays UINT
+                    // (vpiUIntConst). Located at the bound's first token.
+                    auto mkFold = [&](const syntax::ExpressionSyntax* bs,
+                                      int32_t v) -> UHDM::constant* {
+                        auto* c = s.MakeConstant();
+                        c->VpiDecompile(std::to_string(v));
+                        c->VpiSize(64);
+                        c->VpiParent(rng);
+                        bool lit = bs && bs->kind ==
+                                             syntax::SyntaxKind::
+                                                 IntegerLiteralExpression;
+                        if (lit) {
+                            c->VpiValue("UINT:" + std::to_string(v));
+                            c->VpiConstType(vpiUIntConst);
+                        }
+                        else {
+                            c->VpiValue("INT:" + std::to_string(v));
+                            c->VpiConstType(vpiIntConst);
+                        }
+                        if (bs)
+                            setLoc(c, bs->getFirstToken().range());
+                        return c;
+                    };
+                    rng->Left_expr(mkFold(leftSyn, parr.range.left));
+                    rng->Right_expr(mkFold(rightSyn, parr.range.right));
+                    auto* rvec = s.MakeRangeVec();
+                    rvec->push_back(rng);
+                    iarr->Ranges(rvec);
+                }
+                if (!insts->empty())
+                    iarr->Instances(insts);
+                auto* iarrs = m->Interface_arrays();
+                if (!iarrs) {
+                    iarrs = s.MakeInterface_arrayVec();
+                    m->Interface_arrays(iarrs);
+                }
+                iarrs->push_back(iarr);
+                // Re-point the port LowConn ref from the def modport to the
+                // interface_array wrapper (Surelog).
+                for (auto* pp : ifPortList)
+                    if (pp->VpiName() == ip.name && pp->Low_conn() &&
+                        pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
+                        ((UHDM::ref_obj*)pp->Low_conn())->Actual_group(iarr);
             }
         }
     }
@@ -2949,6 +3069,23 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // the ELAB view carries just the per-index interface_inst elements
             // under vpiInterface (Surelog — the elab dut has no vpiModuleArray).
             int32_t alo = std::min(arr.range.left, arr.range.right);
+            // A WHOLE interface-ARRAY connection to a sibling child's iface
+            // port (.m(arr), bare) makes the FIRST element carry a col-0 tail
+            // duplicate that the receiving port's HighConn weakly references.
+            bool arrBareConn = false;
+            for (auto& sib : body.members()) {
+                if (sib.kind != SymbolKind::Instance)
+                    continue;
+                auto& sibInst = sib.as<InstanceSymbol>();
+                for (auto cc : sibInst.getPortConnections()) {
+                    if (cc->port.kind != SymbolKind::InterfacePort)
+                        continue;
+                    const Expression* ce = connectionExpr(*cc);
+                    if (ce && ce->getSymbolReference() == (const Symbol*)&arr &&
+                        rawText(ce->sourceRange).find('.') == std::string::npos)
+                        arrBareConn = true;
+                }
+            }
             for (size_t i = 0; i < arr.elements.size(); i++) {
                 auto* e = arr.elements[i];
                 if (!e || e->kind != SymbolKind::Instance ||
@@ -2957,9 +3094,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 std::string iname = std::string(arr.name) + "[" +
                                     std::to_string(alo + (int32_t)i) + "]";
                 std::string ipath = prefix + "." + iname;
-                auto* ii = emitInterfaceInstance(e->as<InstanceSymbol>(), ipath,
-                                                 m, &topNets, &instRefs);
+                auto* ii = emitInterfaceInstance(
+                    e->as<InstanceSymbol>(), ipath, m, &topNets, &instRefs,
+                    /*portView=*/nullptr, /*connModport=*/std::string{},
+                    /*forceTailDup=*/arrBareConn && i == 0);
                 ii->VpiName(iname);
+                // The col-0 tail duplicate (first element only) is named by the
+                // element too, so the receiving port's HighConn weak ref reads
+                // arr[0], not the base name.
+                if (auto dit9 = ifaceTailDup.find(&e->as<InstanceSymbol>());
+                    dit9 != ifaceTailDup.end())
+                    dit9->second->VpiName(iname);
                 // Keyed per-element so a whole-array port HighConn can bind the
                 // first element's interface_inst (see the InterfacePort loop).
                 ifaceInstMap[e] = ii;
@@ -9589,7 +9734,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                           NetMap* parentNets,
                                                           std::set<const Symbol*>* parentRefs,
                                                           const InstanceSymbol* portView,
-                                                          const std::string& connModport) {
+                                                          const std::string& connModport,
+                                                          bool forceTailDup) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;
@@ -9694,8 +9840,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
     // The col-0 tail duplicate's arena slot precedes the variables'
     // typespecs (Surelog creation order); its content fills in at the end.
-    bool wantTailDup = false;
-    if (!portView) {
+    bool wantTailDup = forceTailDup;
+    if (!portView && !wantTailDup) {
         if (auto* psc = inst.getParentScope()) {
             for (auto& sib : psc->members()) {
                 if (sib.kind != SymbolKind::Instance)

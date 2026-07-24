@@ -246,7 +246,8 @@ private:
                                                 UHDM::module_inst* parentM, NetMap* parentNets,
                                                 std::set<const slang::ast::Symbol*>* parentRefs,
                                                 const slang::ast::InstanceSymbol* portView = nullptr,
-                                                const std::string& connModport = "");
+                                                const std::string& connModport = "",
+                                                bool forceTailDup = false);
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);
