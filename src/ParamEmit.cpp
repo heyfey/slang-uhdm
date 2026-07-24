@@ -614,6 +614,65 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             up->VpiParent(pa);
         if (topView && (overridden || (!hasDefault && boundInit)))
             pa->VpiOverriden(true);
+        // A module-scope typed localparam whose init element-selects an
+        // UNPACKED-ARRAY param (localparam int C = Arr[Idx]) CLAIMS the
+        // selected operand of the array's ELAB pattern op: that operand
+        // constant gets a ts ref (module-scoped fullname) to a fresh
+        // int_typespec at the claiming param's declared-type span (Surelog;
+        // ModuleInstantiationAndIndirectParams — module-level twin of the
+        // gen-scope adopter in ModuleEmit).
+        if (topView && !inPackage && !overridden && defaultInit &&
+            ps.getType().getCanonicalType().kind ==
+                SymbolKind::PredefinedIntegerType) {
+            auto& se0 = stripImplicitConv(*defaultInit);
+            if (se0.kind == ExpressionKind::ElementSelect) {
+                auto& es0 = se0.as<ElementSelectExpression>();
+                auto& bv = stripImplicitConv(es0.value());
+                if (bv.kind == ExpressionKind::NamedValue &&
+                    bv.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter) {
+                    auto& rp =
+                        bv.as<NamedValueExpression>().symbol.as<ParameterSymbol>();
+                    auto oit = elabArrayPatternOp.find(&rp);
+                    auto& rpt = rp.getType().getCanonicalType();
+                    ASTContext ec0(comp.getRoot(), LookupLocation::max);
+                    ConstantValue iv = ec0.tryEval(es0.selector());
+                    if (oit != elabArrayPatternOp.end() && iv && iv.isInteger() &&
+                        rpt.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                        auto* op0 = oit->second;
+                        int64_t ix = iv.integer().as<int64_t>().value_or(-1);
+                        auto rng = rpt.as<FixedSizeUnpackedArrayType>().range;
+                        int32_t lo = std::min(rng.left, rng.right);
+                        int64_t pos = ix - lo;
+                        if (op0->VpiReordered() != 1 && op0->Operands() &&
+                            ix >= 0 && pos >= 0 &&
+                            pos < (int64_t)op0->Operands()->size()) {
+                            auto* opnd = (*op0->Operands())[pos];
+                            if (opnd->UhdmType() == UHDM::uhdmconstant &&
+                                !((UHDM::constant*)opnd)->Typespec()) {
+                                auto* ort = s.MakeRef_typespec();
+                                std::string tsPfx = prefix;
+                                if (tsPfx.size() >= 2 &&
+                                    tsPfx.compare(tsPfx.size() - 2, 2, "::") == 0)
+                                    tsPfx.resize(tsPfx.size() - 2);
+                                ort->VpiFullName(tsPfx);
+                                ort->VpiParent(opnd);
+                                auto* oits = s.MakeInt_typespec();
+                                oits->VpiSigned(true);
+                                SourceRange otr(ps.location, ps.location);
+                                if (auto od = ps.getDeclaredType())
+                                    if (auto otsyn = od->getTypeSyntax())
+                                        otr = otsyn->getFirstToken().range();
+                                setLoc(oits, otr);
+                                oits->VpiParent(ort);
+                                ort->Actual_typespec(oits);
+                                ((UHDM::constant*)opnd)->Typespec(ort);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         // Instance view of an override: folded constant, base-encoded and
         // override-site-anchored for literal overrides; expression overrides
         // anchor at the DEFAULT initializer.

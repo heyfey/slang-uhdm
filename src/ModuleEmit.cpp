@@ -3462,7 +3462,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                [&](auto& pr9) { return pr9.first == m; }),
                 pendingConnTfList.end());
         }
-        if (isTop && it != defMap.end() && !it->second.typedefs.empty()) {
+        // Elab CHILD instances list the shared def typedefs too (Surelog;
+        // ModuleInstantiationAndIndirectParams foo_instance).
+        if (it != defMap.end() && !it->second.typedefs.empty()) {
             auto* tds = s.MakeTypespecVec();
             for (auto* td : it->second.typedefs)
                 tds->push_back(td);
