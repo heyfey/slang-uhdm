@@ -2405,6 +2405,45 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                        (ts->UhdmType() != UHDM::uhdmenum_typespec &&
                         ts->UhdmType() != UHDM::uhdmstruct_typespec)))
                 ts->VpiParent(n);
+            // An INPUT struct port driven by a LITERAL constant at its
+            // instantiation is a struct_VAR (vpiVariables, Visibility) in
+            // the elab view (MUSI); signal-fed struct ports stay nets
+            // (simple_struct/DotRange distinguisher).
+            bool litConnVar9 = false;
+            if (isStruct && it.port && !it.bodyDecl) {
+                for (auto pc9 : inst.getPortConnections()) {
+                    if (&pc9->port != (const Symbol*)it.port)
+                        continue;
+                    if (auto* pe9 = pc9->getExpression()) {
+                        const Expression* ce9 = pe9;
+                        if (ce9->kind == ExpressionKind::Assignment)
+                            ce9 = &ce9->as<AssignmentExpression>().right();
+                        if (stripImplicitConv(*ce9).kind ==
+                            ExpressionKind::IntegerLiteral)
+                            litConnVar9 = true;
+                    }
+                    break;
+                }
+            }
+            if (litConnVar9) {
+                auto* sv9 = s.MakeStruct_var();
+                sv9->VpiName(name);
+                sv9->VpiFullName(fullName);
+                sv9->VpiParent(m);
+                sv9->VpiLineNo(n->VpiLineNo());
+                sv9->VpiColumnNo(n->VpiColumnNo());
+                sv9->VpiEndLineNo(n->VpiEndLineNo());
+                sv9->VpiEndColumnNo(n->VpiEndColumnNo());
+                sv9->VpiVisibility(1);
+                if (auto* rt9 = n->Typespec()) {
+                    rt9->VpiParent(sv9);
+                    sv9->Typespec(rt9);
+                }
+                topNets[it.sym] = sv9;
+                sigOrder.emplace_back(it.sym, sv9);
+                vars->push_back(sv9);
+                continue;
+            }
             topNets[it.sym] = n;
             sigOrder.emplace_back(it.sym, n);
             nets->push_back(n);

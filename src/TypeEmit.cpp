@@ -1265,13 +1265,34 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 !baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.empty())
                 setLoc(r, (*baseSyn->as<syntax::IntegerTypeSyntax>().dimensions.begin())
                               ->sourceRange());
-            // Non-literal bounds (logic [W-1:0]) stay UNFOLDED in the enum
-            // typedef's base typespec, like other typedef-context ranges.
+            // Non-literal bounds (logic [W-1:0]) stay UNFOLDED in a
+            // MODULE-local enum typedef's base; a PKG enum's base FOLDS to a
+            // signed INT constant anchored at the bound's leading
+            // identifier token (MUSI pkg::enum_t [Width-1:0] -> INT:3 at
+            // the Width span).
+            bool pkgEnum9 =
+                refFullName.find("::") != std::string::npos;
             auto enumBound = [&](const syntax::ExpressionSyntax* bsyn,
                                  int64_t val) -> UHDM::expr* {
-                if (bsyn && bsyn->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+                if (bsyn && bsyn->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
+                    if (pkgEnum9) {
+                        auto* c9 = s.MakeConstant();
+                        std::string d9 = std::to_string(val);
+                        c9->VpiDecompile(d9);
+                        c9->VpiSize(64);
+                        c9->VpiValue("INT:" + d9);
+                        c9->VpiConstType(vpiIntConst);
+                        c9->VpiParent(r);
+                        const syntax::SyntaxNode* anchor9 = bsyn;
+                        if (auto* be9 =
+                                bsyn->as_if<syntax::BinaryExpressionSyntax>())
+                            anchor9 = be9->left;
+                        setLoc(c9, anchor9->sourceRange());
+                        return c9;
+                    }
                     if (auto* e = emitSyntaxExpr(*bsyn, r))
                         return (UHDM::expr*)e;
+                }
                 return makeBoundConst(bsyn, val, r);
             };
             r->Left_expr(enumBound(lsyn, range.left));
