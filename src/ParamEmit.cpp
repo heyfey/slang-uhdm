@@ -858,6 +858,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool noDefLitMP =
             !hasDefault && topView && boundInit && isMultiParamDef(body) &&
             stripImplicitConv(*boundInit).kind == ExpressionKind::IntegerLiteral;
+        // ELAB view of a PACKED-STRUCT param OVERRIDDEN by a bare REFERENCE to
+        // a (local)param whose own init is an assignment PATTERN
+        // (`bus_if #(C) bus()`, `localparam p::cfg_t C = '{...}`): Surelog does
+        // NOT fold the aggregate to one packed constant — it re-emits the
+        // REFERENCED param's pattern as the flat op75 (per-member operands at
+        // their own source spans/encodings, nested member patterns kept as
+        // nested op75s), anchored at the OVERRIDE-SITE span and tagged with the
+        // instance-scoped struct typespec. Keeping the operation form also
+        // makes the modport port-view retain the param_assign (an aggregate
+        // value cannot inline on the parameter object).
+        // iface_wholestruct_param / iface_cfg_param_def_pass.
+        const Expression* structOvPat = nullptr;
+        SourceRange structOvLoc;
+        if (topView && overridden && boundInit &&
+            ps.getType().getCanonicalType().kind ==
+                SymbolKind::PackedStructType) {
+            auto& bi8 = stripImplicitConv(*boundInit);
+            const Symbol* rs8 = nullptr;
+            if (bi8.kind == ExpressionKind::NamedValue)
+                rs8 = &bi8.as<NamedValueExpression>().symbol;
+            else if (bi8.kind == ExpressionKind::HierarchicalValue)
+                rs8 = &bi8.as<HierarchicalValueExpression>().symbol;
+            if (rs8 && rs8->kind == SymbolKind::Parameter)
+                if (auto* rin8 = rs8->as<ParameterSymbol>().getInitializer()) {
+                    auto& si8 = stripImplicitConv(*rin8);
+                    if (si8.kind ==
+                            ExpressionKind::StructuredAssignmentPattern ||
+                        si8.kind == ExpressionKind::SimpleAssignmentPattern) {
+                        structOvPat = &si8;
+                        structOvLoc = bi8.sourceRange;
+                    }
+                }
+        }
         // An instance param OVERRIDE whose actual is a LOCALPARAM initialized
         // from a struct-param MEMBER (.Depth(N), N = Info.x) keeps a SYMBOLIC
         // hier_path Rhs (re-emit of N's init) at the override-site span, rather
@@ -894,7 +927,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
         }
-        if (topView && (overridden || noDefExprOv || noDefLitMP)) {
+        if (topView && (overridden || noDefExprOv || noDefLitMP) &&
+            !structOvPat) {
             auto& cvo = ps.getValue();
             // UNBASED-UNSIZED override actuals (#(.VALUE('0)) etc.,
             // unbased_unsized_param sp13..sp16): the pa Rhs constant keeps
@@ -1739,7 +1773,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 bool structWidePkg = false;
                 {
                     auto& pctS = ps.getType().getCanonicalType();
-                    auto k0 = stripImplicitConv(*init).kind;
+                    auto k0 = structOvPat ? structOvPat->kind
+                                          : stripImplicitConv(*init).kind;
                     structPat = pctS.kind == SymbolKind::PackedStructType &&
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||
                                  k0 == ExpressionKind::SimpleAssignmentPattern);
@@ -1769,11 +1804,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // the modport port-view needs its own override param_assign.
                 if (structPat && topView && !structWidePkg) {
                     auto& pctS = ps.getType().getCanonicalType();
-                    auto& sinitK = stripImplicitConv(*init);
+                    // An OVERRIDE by a param REFERENCE substitutes the
+                    // REFERENCED param's pattern, anchored at the override site.
+                    auto& sinitK =
+                        structOvPat ? *structOvPat : stripImplicitConv(*init);
                     auto* op2 = s.MakeOperation();
                     op2->VpiOpType(75);
                     op2->VpiParent(pa);
-                    setLoc(op2, init->sourceRange);
+                    setLoc(op2, structOvPat ? structOvLoc : init->sourceRange);
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiParent(op2);
                     op2->Typespec(rt);
@@ -1818,6 +1856,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 reemitting = savedRe;
                                 if (ne) {
                                     ((UHDM::any*)ne)->VpiParent(op2);
+                                    // An OVERRIDE-SUBSTITUTED pattern's nested
+                                    // member op is SIZED at the member width
+                                    // and its struct ts ref carries the
+                                    // instance-scoped fullname (Surelog,
+                                    // iface_wholestruct_param). A plain DEFAULT
+                                    // fold leaves both bare (iface_cfg_mem).
+                                    if (structOvPat &&
+                                        ne->UhdmType() == UHDM::uhdmoperation) {
+                                        auto* nop = (UHDM::operation*)ne;
+                                        nop->VpiSize((int32_t)fld.getType()
+                                                         .getBitWidth());
+                                        if (auto* nrt = nop->Typespec()) {
+                                            std::string tsP = prefix;
+                                            if (tsP.size() >= 2 &&
+                                                tsP.compare(tsP.size() - 2, 2,
+                                                            "::") == 0)
+                                                tsP.resize(tsP.size() - 2);
+                                            nrt->VpiFullName(tsP);
+                                            nrt->VpiParent(nop);
+                                        }
+                                    }
                                     opnds->push_back(ne);
                                 }
                                 continue;
@@ -1830,6 +1889,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ExpressionKind::IntegerLiteral) {
                             if (auto* e2 = emitExpr(*se, op2, prefix, netMap)) {
                                 ((UHDM::expr*)e2)->VpiParent(op2);
+                                // An UNSIZED decimal setter ('{DAT: 24}) is
+                                // sized at the MEMBER width in the elab fold —
+                                // like the non-literal path below — not left at
+                                // slang's 64-bit int default. A SIZED/BASED
+                                // literal (4'h5, 1'b1) already carries its own
+                                // width and keeps it (its raw text has a base
+                                // tick).
+                                if (e2->UhdmType() == UHDM::uhdmconstant &&
+                                    ((UHDM::constant*)e2)->VpiSize() == 64 &&
+                                    rawText(stripImplicitConv(*se).sourceRange)
+                                            .find('\'') == std::string::npos)
+                                    ((UHDM::constant*)e2)
+                                        ->VpiSize((int32_t)fld.getType()
+                                                      .getBitWidth());
                                 opnds->push_back(e2);
                             }
                             continue;
@@ -2227,11 +2300,43 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // the struct_typespec at the instance-scoped fullname). The
                     // PACKED-struct case is handled by the flat op75 branch
                     // above; here the op keeps its (reemitted) folded operands.
+                    //
+                    // ...but only when the value comes from the param's OWN
+                    // DEFAULT. An unpacked-struct param OVERRIDDEN by a bare
+                    // REFERENCE to another (package local)param — tif
+                    // #(p::CFG_PER) — instead takes Surelog's VERBATIM copy of
+                    // the referenced param's own Rhs tree: the outer pattern op
+                    // carries NO typespec at all (only the nested member ops
+                    // keep theirs), and it spans the REFERENCED param's
+                    // initializer. Distinguisher: iface_struct_field_param_width
+                    // (overridden by p::CFG_PER -> no outer ts, op@pkg-init
+                    // span) vs iface_nested_param_field (plain `tif s()`,
+                    // default p::CFG_DEF -> outer ts at the default span).
+                    bool structRefOv = false;
+                    if (overridden) {
+                        auto& ov0 = stripImplicitConv(*init);
+                        structRefOv =
+                            ov0.kind == ExpressionKind::NamedValue &&
+                            ov0.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter;
+                    }
                     bool structOp =
-                        !inPackage &&
+                        !inPackage && !structRefOv &&
                         ps.getType().getCanonicalType().kind ==
                             SymbolKind::UnpackedStructType &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
+                    // Same rule for the SPAN: the copied tree keeps the
+                    // referenced param's initializer source range.
+                    if (structRefOv &&
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::UnpackedStructType &&
+                        opr->VpiOpType() == vpiAssignmentPatternOp) {
+                        auto& ov1 = stripImplicitConv(*init);
+                        if (auto* rin = ov1.as<NamedValueExpression>()
+                                            .symbol.as<ParameterSymbol>()
+                                            .getInitializer())
+                            setLoc(opr, rin->sourceRange);
+                    }
                     if ((anyUnknown || packedArrayOp || unpackedArrayOp ||
                          importedConcatOp || structOp) &&
                         !(opr->Typespec() &&

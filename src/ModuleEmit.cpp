@@ -10129,14 +10129,18 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             for (auto* pa0 : *pas0) {
                 if (!pa0->Rhs())
                     continue;
-                // Aggregate (op75) param_assigns are always kept (their struct
-                // value cannot inline on the parameter). A scalar constant-Rhs
+                // Aggregate (op75) param_assigns are kept (their struct value
+                // cannot inline on the parameter) — but an interface-ARRAY
+                // ELEMENT view (.s(arr[0])) drops even those, leaving a
+                // value-less parameter stub (iface_array_elem_cfg_param).
+                // A scalar constant-Rhs
                 // param_assign is dropped UNLESS its Lhs is a LOCALPARAM derived
                 // inside the interface (e.g. BYT=CFG.BUS.DAT/8, OFF=$clog2(BYT)):
                 // Surelog keeps those in the modport port-view too. A plain
                 // scalar PARAMETER still folds inline and drops its param_assign.
                 bool keepIt =
-                    pa0->Rhs()->UhdmType() == UHDM::uhdmoperation;
+                    pa0->Rhs()->UhdmType() == UHDM::uhdmoperation &&
+                    inst.arrayPath.empty();
                 if (!keepIt &&
                     pa0->Rhs()->UhdmType() == UHDM::uhdmconstant) {
                     auto* lp0 = (UHDM::parameter*)pa0->Lhs();
@@ -10258,12 +10262,35 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         }
     }
     UHDM::interface_inst* tailDupShell = wantTailDup ? s.MakeInterface_inst() : nullptr;
+    // An AGGREGATE (struct/union) parameter's OVERRIDE survives on the port
+    // view — its value cannot inline on the parameter object, so Surelog keeps
+    // the op75 param_assign there (see the keep rule below) and consequently
+    // folds THIS view's var bounds at the CONNECTED instance's values. Scalar
+    // params are re-created at their DEFAULT on the port view, so their bounds
+    // fold at the default (iface_param_width_per_inst, iface_param_port_width
+    // DATA_WIDTH(8) vs 16 -> port view keeps 15). An interface-ARRAY ELEMENT
+    // view (.s(arr[0])) drops the param_assign entirely and folds at the
+    // default too (iface_array_elem_cfg_param: work@top.u.s.data is [7:0] from
+    // the default while work@top.arr[1].data is [15:0]).
+    bool aggOvPortView = false;
+    if (portView && inst.arrayPath.empty()) {
+        for (auto& mb8 : body.members()) {
+            if (mb8.kind != SymbolKind::Parameter || !isOverriddenParam(mb8))
+                continue;
+            auto k8 = mb8.as<ParameterSymbol>().getType().getCanonicalType().kind;
+            if (k8 == SymbolKind::PackedStructType ||
+                k8 == SymbolKind::UnpackedStructType ||
+                k8 == SymbolKind::PackedUnionType ||
+                k8 == SymbolKind::UnpackedUnionType)
+                aggOvPortView = true;
+        }
+    }
     // PORT-VIEW iface var bounds fold at the DEFAULT param values (Surelog
     // reads widths from the AllModules form, ignoring per-instance
     // overrides); the HOME view keeps the instance values. EXCEPTION: a
     // MULTI-parameterized interface def is uniquified per parameterization, so
     // its port-view folds at the CONNECTED instance's own values (inst.body).
-    if (portView && !multiParamIface) {
+    if (portView && !multiParamIface && !aggOvPortView) {
         auto dit0 = ifaceDefaultInst.find(&def);
         if (dit0 == ifaceDefaultInst.end())
             dit0 = ifaceDefaultInst
@@ -10945,6 +10972,26 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         auto ptp = portTsPre.find(portBase);
         auto* pts = ptp != portTsPre.end() ? ptp->second
                                            : makeTypespec(*internal, nullptr, &ps);
+        // A PORT VIEW's header port whose net is NOT reachable through the
+        // connected modport has no scoped net to bind — Surelog mints a FRESH
+        // BARE net (vpiName only, no fullname; its ts ref is bare-named too)
+        // as the LowConn actual. iface_array_modport_drive: `clk` appears in
+        // NEITHER modport, so every port view (modport-array element and plain
+        // modport port alike) carries its own bare clk net. A modport-EXPOSED
+        // port still binds the io_decl's scoped net (iface_struct_field).
+        if (portView && !lc->Actual_group()) {
+            auto* bn = s.MakeLogic_net();
+            bn->VpiName(ps.name);
+            setLocNamed(bn, ps);
+            if (int32_t nt0 = netTypeFor(*internal, true))
+                bn->VpiNetType(nt0);
+            auto* brt = s.MakeRef_typespec();
+            brt->VpiFullName(std::string(ps.name));
+            brt->VpiParent(bn);
+            brt->Actual_typespec(pts);
+            bn->Typespec(brt);
+            lc->Actual_group(bn);
+        }
         auto* prt = s.MakeRef_typespec();
         prt->VpiFullName(prefix + "." + std::string(ps.name));
         prt->VpiParent(p);
