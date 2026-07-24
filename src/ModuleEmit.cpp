@@ -1777,9 +1777,16 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (auto dtu9 = it.sym->getDeclaredType()) {
                 auto& tu9 = dtu9->getType();
                 if (tu9.kind == SymbolKind::TypeAlias) {
-                    if (auto ti9 = typedefTs.find(&tu9);
-                        ti9 != typedefTs.end() &&
-                        ti9->second->UhdmType() == UHDM::uhdmarray_typespec) {
+                    UHDM::typespec* aliasTs9 = nullptr;
+                    if (auto ti9 = typedefTs.find(&tu9); ti9 != typedefTs.end())
+                        aliasTs9 = ti9->second;
+                    // A PACKAGE-scoped array typedef (pkg::b c) shares the
+                    // package's own array_typespec the same way.
+                    else if (auto tp9 = pkgTopTypedefTs.find(&tu9);
+                             tp9 != pkgTopTypedefTs.end())
+                        aliasTs9 = tp9->second;
+                    if (aliasTs9 &&
+                        aliasTs9->UhdmType() == UHDM::uhdmarray_typespec) {
                         auto* av9 = s.MakeArray_var();
                         av9->VpiName(name);
                         av9->VpiFullName(fullName);
@@ -1789,7 +1796,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         auto* rt9 = s.MakeRef_typespec();
                         rt9->VpiFullName(fullName);
                         rt9->VpiParent(av9);
-                        rt9->Actual_typespec(ti9->second);
+                        rt9->Actual_typespec(aliasTs9);
                         av9->Typespec(rt9);
                         topNets[it.sym] = av9;
                         sigOrder.emplace_back(it.sym, av9);
