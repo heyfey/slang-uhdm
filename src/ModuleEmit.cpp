@@ -4638,11 +4638,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             c2->VpiConstType(vpiUIntConst);
                         }
                         // The computed fold's constant parents at its
-                        // param_assign when the fold is INT-signed
-                        // (gen_test4); UINT folds keep the sharing-claimed
-                        // parent (LPINFL).
-                        if (negSib9)
-                            c2->VpiParent(pa2);
+                        // param_assign by default; a gen CA that READS this
+                        // block localparam re-parents the shared constant to
+                        // that cont_assign (LPINFL/gen_test4 — see the
+                        // genLpConst share below). A localparam used only as a
+                        // process-index (prefix's `localparam x = i;` read in
+                        // an assert) is never shared, so it keeps the pa2
+                        // parent — matching Surelog.
+                        c2->VpiParent(pa2);
                         setLoc(c2, lit.sourceRange);
                         auto* crt = s.MakeRef_typespec();
                         crt->VpiFullName(fullName);
@@ -4816,14 +4819,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                  vk.as<PackedArrayType>()
                          .elementType.getCanonicalType()
                          .kind == SymbolKind::ScalarType);
-            // A REG-keyword local net-ifies when DRIVEN in the block or when
-            // it carries a DECL INITIALIZER (`reg x = -1;` is a
-            // net-decl-assign for Surelog); `logic x = -1;` stays a var.
-            bool hasInit9 =
-                gm.getDeclaredType() && gm.getDeclaredType()->getInitializer();
-            if (!okKind || (!blkWrites.count(&gm) && !hasInit9))
+            if (!okKind)
                 return false;
             // Only REG-keyword decls net-ify; `logic` locals stay vars.
+            // Being DRIVEN is irrelevant — Surelog nets EVERY `reg` gen-scope
+            // local (probed: undriven / whole-name / bit-select / nested-scope
+            // drivers all give logic_net NetType 48; `logic`/`integer`/`bit`
+            // always stay vars). rotate's `reg [31:0] out` is written only
+            // from a nested gen block.
             if (auto dt0 = gm.getDeclaredType())
                 if (auto tsn0 = dt0->getTypeSyntax())
                     return tsn0->kind == syntax::SyntaxKind::RegType;
@@ -7991,10 +7994,35 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             lhsSyms->insert(it.sym);
         cas->push_back(ca);
     }
+    // Surelog compiles the module body's OWN continuous assigns first and the
+    // ones lexically inside a `generate`/`endgenerate` region (which slang
+    // hoists into the module scope) only in the later generate-elaboration
+    // pass — so a bare `assign` inside a gen_region sorts AFTER every
+    // module-level one regardless of source order (rotate).
+    std::vector<const Symbol*> caOrder;
+    {
+        std::vector<const Symbol*> genRegionCas;
+        for (auto& member : body.members()) {
+            if (member.kind != SymbolKind::ContinuousAssign)
+                continue;
+            bool inGenRegion = false;
+            for (auto q = member.getSyntax(); q; q = q->parent) {
+                if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                    inGenRegion = true;
+                    break;
+                }
+                if (q->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                    q->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                    q->kind == syntax::SyntaxKind::ProgramDeclaration)
+                    break;
+            }
+            (inGenRegion ? genRegionCas : caOrder).push_back(&member);
+        }
+        caOrder.insert(caOrder.end(), genRegionCas.begin(), genRegionCas.end());
+    }
     size_t idx = 0;
-    for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::ContinuousAssign)
-            continue;
+    for (auto* memberP : caOrder) {
+        auto& member = *memberP;
         auto& casym = member.as<ContinuousAssignSymbol>();
         auto& assign = casym.getAssignment();
         size_t myIdx = idx++;
@@ -12599,8 +12627,12 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     if (dcl->initializer) {
                         setLoc(as2, dcl->sourceRange());
                         if (auto* rI2 =
-                                emitSyntaxExpr(*dcl->initializer->expr, as2))
+                                emitSyntaxExpr(*dcl->initializer->expr, as2)) {
+                            // Surelog leaves the def-view init RHS constant
+                            // UNPARENTED (same as the gen-for init value).
+                            ((UHDM::expr*)rI2)->VpiParent(nullptr);
                             as2->Rhs((UHDM::expr*)rI2);
+                        }
                     }
                     else
                         setLoc(as2, nameSpan(dcl->name.location(), vname));

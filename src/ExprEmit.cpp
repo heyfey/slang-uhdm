@@ -1836,6 +1836,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ref->Actual_group(it0->second);
                         }
                     }
+                    // A for-GENERATE gen-scope process (blk2/blk3 in prefix)
+                    // ALSO binds a plain self-name ref to its OWN gen-block
+                    // VARIABLE local (integer/logic/reg-var — NOT a net):
+                    // `assert(i == b)` in blk2's always. The ref must be a
+                    // top-level process statement (procForDepth==0): refs that
+                    // ESCAPE a procedural for stay unbound, and NET locals
+                    // (carryadd/simple_generate wires) never bind. Outer-scope
+                    // gen locals also stay unbound.
+                    if (!defGenProcessEmit && inGenScopeProc &&
+                        genScopeProcInLoop && procForDepth == 0 &&
+                        !ref->Actual_group()) {
+                        auto* ps0 = nv.symbol.getParentScope();
+                        if (ps0 &&
+                            ps0->asSymbol().kind == SymbolKind::GenerateBlock &&
+                            (!currentGenBlkScope ||
+                             ps0 == currentGenBlkScope)) {
+                            if (auto it0 = netMap.find(&nv.symbol);
+                                it0 != netMap.end() &&
+                                it0->second->UhdmType() !=
+                                    UHDM::uhdmlogic_net &&
+                                it0->second->UhdmType() !=
+                                    UHDM::uhdmstruct_net &&
+                                it0->second->UhdmType() !=
+                                    UHDM::uhdmarray_net)
+                                ref->Actual_group(it0->second);
+                        }
+                    }
                     // Gen-scope process ref: net/var refs stay unbound
                     // (Surelog), but an enum-const ref still binds — SL mints
                     // a FRESH loc-less enum_const per ref (parented to the
@@ -3729,8 +3756,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 break;
                             st = dot + 1;
                         }
+                        // A gen-scope PROCESS re-emits every indexed leading
+                        // component as a bit_select with a symbolic index ref
+                        // (`top.blk1.blk2[x].blk3[y].c[0]` in prefix), exactly
+                        // like the pure-hier_path path — the interface-member
+                        // cases (sub.req.arr[i]) keep the flat ref_obj chain.
+                        std::string dottedSoFar2;
                         for (size_t ci = 0; ci + 1 < comps.size(); ci++) {
                             auto& [cn, co] = comps[ci];
+                            auto lb2 = cn.find('[');
+                            std::string cbase =
+                                lb2 == std::string::npos ? cn : cn.substr(0, lb2);
+                            dottedSoFar2 += (ci == 0 ? cbase : "." + cbase);
+                            std::string cidx;
+                            if (inGenScopeProc && lb2 != std::string::npos &&
+                                cn.back() == ']' &&
+                                cn.find('[', lb2 + 1) == std::string::npos) {
+                                std::string ix = cn.substr(lb2 + 1,
+                                                           cn.size() - lb2 - 2);
+                                auto isIdS = [](char c) {
+                                    return (c >= 'a' && c <= 'z') ||
+                                           (c >= 'A' && c <= 'Z') || c == '_';
+                                };
+                                bool simple = !ix.empty() && isIdS(ix[0]);
+                                for (char ch : ix)
+                                    if (!(isIdS(ch) || (ch >= '0' && ch <= '9')))
+                                        simple = false;
+                                if (simple)
+                                    cidx = ix;
+                            }
+                            if (!cidx.empty()) {
+                                dottedSoFar2 += "[" + cidx + "]";
+                                auto* bs3 = s.MakeBit_select();
+                                bs3->VpiName(cbase);
+                                bs3->VpiFullName(dottedSoFar2);
+                                bs3->VpiParent(hp);
+                                setLoc(bs3, SourceRange(exprStart + co,
+                                                        exprStart + co +
+                                                            cbase.size()));
+                                auto* ir3 = s.MakeRef_obj();
+                                ir3->VpiName(cidx);
+                                ir3->VpiFullName(prefix + "." + cidx);
+                                ir3->VpiParent(hp);
+                                size_t io3 = co + lb2 + 1;
+                                setLoc(ir3, SourceRange(exprStart + io3,
+                                                        exprStart + io3 +
+                                                            cidx.size()));
+                                bs3->VpiIndex(ir3);
+                                elems->push_back(bs3);
+                                continue;
+                            }
                             auto* r2 = s.MakeRef_obj();
                             r2->VpiName(cn);
                             r2->VpiFullName(cn); // name-only (dump omits)
@@ -3745,12 +3820,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* bs2 = s.MakeBit_select();
                         bs2->VpiName(lastName);
                         // Surelog anchors the leaf select at its INDEX and
-                        // freezes the doubled lazy fullname.
+                        // freezes the doubled lazy fullname. In a gen-scope
+                        // process the frozen name is the SCOPE prefix + the raw
+                        // path display + the leaf name (prefix re-doubling).
                         bs2->VpiParent(hp);
-                        (void)bs2->VpiFullName();
+                        if (inGenScopeProc)
+                            bs2->VpiFullName(prefix + "." + selText + "." +
+                                             lastName);
+                        else
+                            (void)bs2->VpiFullName();
                         setLoc(bs2, es.selector().sourceRange);
-                        if (auto* ix2 = emitExpr(es.selector(), bs2, prefix, netMap))
+                        if (auto* ix2 = emitExpr(es.selector(), bs2, prefix, netMap)) {
+                            // A genvar TRAILING index (c[j]) freezes the same
+                            // doubled fullname as the leaf (Surelog): scope
+                            // prefix + raw display + the index name.
+                            if (inGenScopeProc &&
+                                ix2->UhdmType() == UHDM::uhdmref_obj)
+                                ((UHDM::ref_obj*)ix2)
+                                    ->VpiFullName(
+                                        prefix + "." + selText + "." +
+                                        std::string(
+                                            ((UHDM::ref_obj*)ix2)->VpiName()));
                             bs2->VpiIndex((UHDM::expr*)ix2);
+                        }
                         elems->push_back(bs2);
                         hp->Path_elems(elems);
                         return hp;
@@ -5332,26 +5424,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             std::string lpFoldIdn9, lpFoldScope9;
             if (baseSelSyn &&
                 baseSelSyn->kind == syntax::SyntaxKind::IdentifierName) {
-                std::string idn9(baseSelSyn->as<syntax::IdentifierNameSyntax>()
-                                     .identifier.valueText());
-                std::string scope9 = prefix;
-                while (true) {
-                    auto it9 = genLpFoldByPath.find(scope9 + "." + idn9);
-                    if (it9 != genLpFoldByPath.end()) {
-                        lpFoldPs9 = it9->second.ps;
-                        lpFoldPa9 = it9->second.pa;
-                        lpFoldC9 = it9->second.c;
-                        lpFoldIdn9 = idn9;
-                        lpFoldScope9 = scope9;
-                        break;
+                // A gen-scope PROCESS (always/assert in a gen block — prefix)
+                // never folds an identifier base index: Surelog re-emits the
+                // whole bit_select chain symbolically, so a localparam index
+                // `blk3[y]` stays a ref_obj(y) exactly like a genvar `blk3[j]`.
+                // Only cont_assign / declaration contexts fold (gen_test4/5).
+                if (!inGenScopeProc) {
+                    std::string idn9(
+                        baseSelSyn->as<syntax::IdentifierNameSyntax>()
+                            .identifier.valueText());
+                    std::string scope9 = prefix;
+                    while (true) {
+                        auto it9 = genLpFoldByPath.find(scope9 + "." + idn9);
+                        if (it9 != genLpFoldByPath.end()) {
+                            lpFoldPs9 = it9->second.ps;
+                            lpFoldPa9 = it9->second.pa;
+                            lpFoldC9 = it9->second.c;
+                            lpFoldIdn9 = idn9;
+                            lpFoldScope9 = scope9;
+                            break;
+                        }
+                        auto d9 = scope9.rfind('.');
+                        if (d9 == std::string::npos)
+                            break;
+                        scope9.resize(d9);
                     }
-                    auto d9 = scope9.rfind('.');
-                    if (d9 == std::string::npos)
-                        break;
-                    scope9.resize(d9);
                 }
-                if (lpFoldPs9)
-                    baseSelSyn = nullptr;
+                // A BARE-IDENTIFIER base index that is NOT a folded gen
+                // localparam (a genvar: netgen[i].out inside `router[i]`, or
+                // ANY identifier index in a gen-scope process) is NOT doubled
+                // through the hier display — Surelog emits a plain ref_obj
+                // index carrying the enclosing SCOPE-prefixed name
+                // (work@top.router[1].i), the same shape the 3+-component
+                // genvar-indexed form uses. Only an index EXPRESSION
+                // (STAGE[i-1].C) re-emits from syntax with doubled refs.
+                baseSelSyn = nullptr;
             }
             auto spaceOps = [](const std::string& t) {
                 std::string o;
@@ -5590,7 +5697,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (i>0) genvar/expression-indexed component of a base-indexed
                 // gen-scope-array path carries the cumulative dotted fullname
                 // (steps[step].outer[i]) — both are bit_selects.
-                if ((i == 0 || baseIndexed9) && lb != std::string::npos &&
+                // In a gen-scope PROCESS every indexed component is a
+                // bit_select regardless of whether the path BASE is indexed
+                // (`blk1.blk2[i].b` in prefix: `blk2[i]`/`blk3[j]` are middle
+                // components under a bare `blk1` base) — Surelog re-emits the
+                // full symbolic chain there.
+                if ((i == 0 || baseIndexed9 || inGenScopeProc) &&
+                    lb != std::string::npos &&
                     rb != std::string::npos && rb > lb + 1) {
                     std::string idx = pname.substr(lb + 1, rb - lb - 1);
                     auto isIdentStart = [](char c) {
@@ -5653,15 +5766,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!inLhs && i + 1 == parts.size())
                     r->VpiFullName(prefix + "." + pname);
                 r->VpiParent(hp);
-                // In ELAB gen-scope processes the LAST element binds its
-                // resolved target (dotted refs are unambiguous — Surelog).
-                if (i + 1 == parts.size() && inGenScopeProc &&
-                    !genScopeProcInLoop && !defGenProcessEmit &&
-                    procForDepth == 0) {
-                    auto& hsym = expr.as<HierarchicalValueExpression>().symbol;
-                    if (auto hit = netMap.find(&hsym); hit != netMap.end())
-                        r->Actual_group(hit->second);
-                }
+                // A DOTTED hier_path leaf in a gen-scope process stays
+                // UNBOUND — Surelog never attaches the target var to the
+                // final ref of a `blk1.a` / `top.blk1.a` path (prefix); only
+                // a PLAIN self-name ref (the NamedValue path above) binds its
+                // integer_var. (for_decl_shadow's `gen.x` refs live inside a
+                // procedural for, so this leaf-bind never applied to them.)
                 // Lvalue paths anchor the base ref at the SECOND element.
                 size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
                 auto& [lname, loff] = srcParts[locIdx];
