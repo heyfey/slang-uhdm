@@ -392,6 +392,29 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     ident = false;
                                     break;
                                 }
+                            // The member-scoped ref chains to the package
+                            // param's DEF-view Rhs constant. pkgParamDefRhs is
+                            // rewritten per view (the top pass overwrites it),
+                            // and this ts is built in the TOP pass then
+                            // cross-wired into the DEF struct — so prefer the
+                            // def-only pkgParamConst record.
+                            auto bindPkgParam = [&](UHDM::ref_obj* ro,
+                                                    const std::string& nm) {
+                                for (auto& [ps9, c9] : pkgParamConst)
+                                    if (ps9->name == nm && ps9->getParentScope() &&
+                                        ps9->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::Package) {
+                                        ro->Actual_group(c9);
+                                        return;
+                                    }
+                                for (auto& [ps9, rhs9] : pkgParamDefRhs)
+                                    if (ps9->name == nm && ps9->getParentScope() &&
+                                        ps9->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::Package) {
+                                        ro->Actual_group(rhs9);
+                                        return;
+                                    }
+                            };
                             if (ident) {
                                 auto* ro = s.MakeRef_obj();
                                 ro->VpiName(raw);
@@ -399,15 +422,86 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                 raw);
                                 ro->VpiParent(r);
                                 setLoc(ro, *loc);
-                                for (auto& [ps9, rhs9] : pkgParamDefRhs)
-                                    if (ps9->name == raw &&
-                                        ps9->getParentScope() &&
-                                        ps9->getParentScope()->asSymbol().kind ==
-                                            SymbolKind::Package) {
-                                        ro->Actual_group(rhs9);
+                                bindPkgParam(ro, raw);
+                                return (UHDM::expr*)ro;
+                            }
+                            // An IDENT-minus-LITERAL bound ([NDioPads-1:0])
+                            // keeps its SUB op tree symbolic the same way:
+                            // op11 { member-scoped ref_obj -> the param's def
+                            // Rhs, UINT literal } at their token sub-spans
+                            // (Surelog, BitSelectOfParameterPassedToSubmodule).
+                            size_t dash8 = raw.find('-');
+                            if (dash8 != std::string::npos && dash8 > 0) {
+                                auto trim8 = [](const std::string& t,
+                                                size_t& off) {
+                                    size_t b = t.find_first_not_of(" \t");
+                                    size_t e = t.find_last_not_of(" \t");
+                                    if (b == std::string::npos) {
+                                        off = 0;
+                                        return std::string();
+                                    }
+                                    off = b;
+                                    return t.substr(b, e - b + 1);
+                                };
+                                size_t lOff = 0, rOff = 0;
+                                std::string lTxt =
+                                    trim8(raw.substr(0, dash8), lOff);
+                                std::string rTxt = trim8(
+                                    raw.substr(dash8 + 1), rOff);
+                                rOff += dash8 + 1;
+                                bool lIdent =
+                                    !lTxt.empty() &&
+                                    (isalpha((unsigned char)lTxt[0]) ||
+                                     lTxt[0] == '_');
+                                for (char ch : lTxt)
+                                    if (!(isalnum((unsigned char)ch) ||
+                                          ch == '_')) {
+                                        lIdent = false;
                                         break;
                                     }
-                                return (UHDM::expr*)ro;
+                                bool rDigits = !rTxt.empty();
+                                for (char ch : rTxt)
+                                    if (!isdigit((unsigned char)ch)) {
+                                        rDigits = false;
+                                        break;
+                                    }
+                                if (lIdent && rDigits) {
+                                    auto* op8 = s.MakeOperation();
+                                    op8->VpiOpType(vpiSubOp);
+                                    op8->VpiParent(r);
+                                    setLoc(op8, *loc);
+                                    auto* opnds8 = s.MakeAnyVec();
+                                    auto* ro8 = s.MakeRef_obj();
+                                    ro8->VpiName(lTxt);
+                                    ro8->VpiFullName(syntaxRefPrefix +
+                                                     syntaxRefSep + lTxt);
+                                    ro8->VpiParent(op8);
+                                    setLoc(ro8, *loc);
+                                    ro8->VpiColumnNo(op8->VpiColumnNo() +
+                                                     (int32_t)lOff);
+                                    ro8->VpiEndColumnNo(
+                                        op8->VpiColumnNo() + (int32_t)lOff +
+                                        (int32_t)lTxt.size());
+                                    ro8->VpiEndLineNo(op8->VpiLineNo());
+                                    bindPkgParam(ro8, lTxt);
+                                    auto* c8 = s.MakeConstant();
+                                    c8->VpiDecompile(rTxt);
+                                    c8->VpiSize(64);
+                                    c8->VpiValue("UINT:" + rTxt);
+                                    c8->VpiConstType(vpiUIntConst);
+                                    c8->VpiParent(op8);
+                                    setLoc(c8, *loc);
+                                    c8->VpiColumnNo(op8->VpiColumnNo() +
+                                                    (int32_t)rOff);
+                                    c8->VpiEndColumnNo(
+                                        op8->VpiColumnNo() + (int32_t)rOff +
+                                        (int32_t)rTxt.size());
+                                    c8->VpiEndLineNo(op8->VpiLineNo());
+                                    opnds8->push_back(ro8);
+                                    opnds8->push_back(c8);
+                                    op8->Operands(opnds8);
+                                    return (UHDM::expr*)op8;
+                                }
                             }
                         }
                         // A literal-arithmetic bound (`1-1`, `66-1`) keeps
@@ -489,6 +583,54 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         foldedMemberBoundParam[c] = ps9;
                                         break;
                                     }
+                            // A folded ARITHMETIC bound over a package param
+                            // ([NDioPads-1:0]) is a SIGNED int constant spanning
+                            // the IDENTIFIER token alone (Surelog evaluates the
+                            // op and keeps the left operand's span).
+                            if (!ident) {
+                                size_t dash7 = raw.find('-');
+                                if (dash7 != std::string::npos && dash7 > 0) {
+                                    size_t lb7 = raw.find_first_not_of(" \t");
+                                    std::string lTxt7;
+                                    if (lb7 != std::string::npos) {
+                                        size_t le7 =
+                                            raw.find_last_not_of(" \t", dash7 - 1);
+                                        if (le7 != std::string::npos && le7 >= lb7)
+                                            lTxt7 = raw.substr(lb7, le7 - lb7 + 1);
+                                    }
+                                    bool lIdent7 =
+                                        !lTxt7.empty() &&
+                                        (isalpha((unsigned char)lTxt7[0]) ||
+                                         lTxt7[0] == '_');
+                                    for (char ch : lTxt7)
+                                        if (!(isalnum((unsigned char)ch) ||
+                                              ch == '_')) {
+                                            lIdent7 = false;
+                                            break;
+                                        }
+                                    bool pkgParam7 = false;
+                                    if (lIdent7)
+                                        for (auto& [ps7, rhs7] : pkgParamDefRhs)
+                                            if (ps7->name == lTxt7 &&
+                                                ps7->getParentScope() &&
+                                                ps7->getParentScope()
+                                                        ->asSymbol()
+                                                        .kind ==
+                                                    SymbolKind::Package) {
+                                                pkgParam7 = true;
+                                                break;
+                                            }
+                                    if (pkgParam7) {
+                                        c->VpiValue("INT:" + digits);
+                                        c->VpiConstType(vpiIntConst);
+                                        int32_t base7 = c->VpiColumnNo();
+                                        c->VpiColumnNo(base7 + (int32_t)lb7);
+                                        c->VpiEndColumnNo(base7 + (int32_t)lb7 +
+                                                          (int32_t)lTxt7.size());
+                                        c->VpiEndLineNo(c->VpiLineNo());
+                                    }
+                                }
+                            }
                         }
                         return c;
                     };

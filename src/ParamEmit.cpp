@@ -347,6 +347,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             return (UHDM::instance*)m;
         };
+        // ...and the home package it reaches is the ELABORATED (top) one in
+        // BOTH views — Surelog's cross-package instance links land on the
+        // elaborated package. The def-package pass runs before top packages
+        // exist, so record those for the post-build re-point.
+        auto stampPkgTsInst = [&](UHDM::typespec* ts9) {
+            if (inPackage && isImported && ps.getParentScope()) {
+                const void* home9 = &ps.getParentScope()->asSymbol();
+                if (auto tit9 = pkgTopMap.find(home9); tit9 != pkgTopMap.end()) {
+                    ts9->Instance(tit9->second);
+                    return;
+                }
+                if (auto pit9 = pkgDefMap.find(home9); pit9 != pkgDefMap.end()) {
+                    ts9->Instance(pit9->second);
+                    pkgImportTsTopFixups.emplace_back(ts9, home9);
+                    return;
+                }
+            }
+            ts9->Instance(pkgTsInstance());
+        };
         // Instance overrides: the bound initializer's syntax is the
         // override expression at the instantiation, not the declaration
         // default. Both views keep DEFAULT-derived values; the instance
@@ -1097,7 +1116,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     else {
                         auto* its = makeParamTs(ps, typedParam);
                         if (typedParam)
-                            its->Instance(pkgTsInstance());
+                            stampPkgTsInst(its);
                         prt->Actual_typespec(its);
                         if (typedParam || isRangedUntypedParam(ps))
                             its->VpiParent(up);
@@ -1247,7 +1266,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // Surelog instances the ts at the package only for
                         // TYPED params; untyped ones stay Instance-less.
                         if (typedParam)
-                            its->Instance(pkgTsInstance());
+                            stampPkgTsInst(its);
                         if (rhsRt)
                             rhsRt->Actual_typespec(its);
                         prt->Actual_typespec(its);
@@ -1294,7 +1313,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     else {
                         auto* its = makeParamTs(ps, typedParam);
                         if (typedParam)
-                            its->Instance(pkgTsInstance());
+                            stampPkgTsInst(its);
                         if (rhsRt)
                             rhsRt->Actual_typespec(its);
                         prt->Actual_typespec(its);
@@ -2728,7 +2747,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 syntaxRefPrefix = savedPfx2;
                 bool untypedImport = !inPackage && isImported && !typedParam;
                 if (inPackage && typedParam)
-                    its->Instance(pkgTsInstance());
+                    stampPkgTsInst(its);
                 else if (!inPackage && isImported && ps.getParentScope()) {
                     // An imported param's typespec is INSTANCED at its package —
                     // but ONLY for TYPED imports. An UNTYPED import (parameter
@@ -3550,9 +3569,20 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                       : (UHDM::typespec*)buildUnionTs(ct.as<PackedUnionType>(), true,
                                                       memberScope);
             its->VpiName(alias);
-            if (aliasPkg)
-                if (auto pit = pkgDefMap.find(aliasPkg); pit != pkgDefMap.end()) {
-                    its->Instance(pit->second);
+            if (aliasPkg) {
+                // A param-ts CLONE reaches the ELABORATED (top) home package
+                // when one exists — Surelog's cross-scope instance links land
+                // on the elaborated package (whose typedefs carry the FOLDED
+                // member bounds), not the def-view one. Package-owned
+                // typespecs keep their own view's package (set by the caller).
+                UHDM::package* homePkg0 = nullptr;
+                if (auto tit0 = pkgTopMap.find(aliasPkg); tit0 != pkgTopMap.end())
+                    homePkg0 = tit0->second;
+                else if (auto dit0 = pkgDefMap.find(aliasPkg);
+                         dit0 != pkgDefMap.end())
+                    homePkg0 = dit0->second;
+                if (homePkg0) {
+                    its->Instance(homePkg0);
                     // Fresh member-actual clones carry the package Instance
                     // too (shared package typespecs already have it).
                     if (auto* mems = ((UHDM::struct_typespec*)its)->Members())
@@ -3561,8 +3591,9 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                 tm->Typespec()->Actual_typespec() &&
                                 !tm->Typespec()->Actual_typespec()->Instance())
                                 tm->Typespec()->Actual_typespec()->Instance(
-                                    pit->second);
+                                    homePkg0);
                 }
+            }
             if (auto* csyn = ct.getSyntax())
                 tr = csyn->sourceRange();
         }
@@ -3835,6 +3866,8 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 structCloneMemberRefParent = true;
             its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
             structCloneMemberRefParent = false;
+            if (aggParam)
+                attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
             if (its->UhdmType() == UHDM::uhdmstruct_typespec ||
                 its->UhdmType() == UHDM::uhdmunion_typespec) {
                 // A $UNIT-level struct typedef clone is Instanced at the
@@ -4026,11 +4059,49 @@ void UhdmExporter::drainDefParamTs() {
                 dt0.kind == SymbolKind::TypeAlias &&
                 dt0.getCanonicalType().kind == SymbolKind::PackedArrayType &&
                 dt0.getCanonicalType().isIntegral();
-            if (auto tit = typedefTs.find(&dt0);
-                tit != typedefTs.end() && !vectorAlias) {
-                its = tit->second;
-                sharedTs = true;
+            // An aggregate param typed by a PACKAGE typedef named BARE (a
+            // wildcard-imported target_cfg_t / flash_req_t) gets a FRESH clone
+            // in the DEF view too — exactly the qualification rule the ELAB
+            // view applies (patchParamTypespecs). Only a QUALIFIED pkg::T use
+            // shares the package's typespec object.
+            bool bareAggPkgTd = false;
+            if (!pd.inPackage && dt0.kind == SymbolKind::TypeAlias) {
+                auto ck0 = dt0.getCanonicalType().kind;
+                if (ck0 == SymbolKind::PackedStructType ||
+                    ck0 == SymbolKind::PackedUnionType ||
+                    ck0 == SymbolKind::UnpackedStructType) {
+                    bool qualified0 = false;
+                    if (auto* tsyn0 = d0->getTypeSyntax();
+                        tsyn0 && tsyn0->kind == syntax::SyntaxKind::NamedType)
+                        qualified0 =
+                            tsyn0->as<syntax::NamedTypeSyntax>().name->kind ==
+                            syntax::SyntaxKind::ScopedName;
+                    if (!qualified0)
+                        if (auto* sc0 =
+                                dt0.as<TypeAliasType>().getParentScope();
+                            sc0 && sc0->asSymbol().kind == SymbolKind::Package)
+                            bareAggPkgTd = true;
+                }
             }
+            // A TOP-view package param shares its OWN view's typedef object
+            // (the module-scoped clone with folded member bounds), not the
+            // def-view one — Surelog's top package param_assign Lhs typespec
+            // is the top typedef (TypedefStructParamWithRangeInSubmodule).
+            bool topPkgView = pd.inPackage && pd.m &&
+                              pd.m->UhdmType() == UHDM::uhdmpackage &&
+                              ((UHDM::package*)pd.m)->VpiTop();
+            if (topPkgView && !vectorAlias)
+                if (auto tit0 = pkgTopTypedefTs.find((const void*)&dt0);
+                    tit0 != pkgTopTypedefTs.end()) {
+                    its = tit0->second;
+                    sharedTs = true;
+                }
+            if (!its)
+                if (auto tit = typedefTs.find(&dt0);
+                    tit != typedefTs.end() && !vectorAlias && !bareAggPkgTd) {
+                    its = tit->second;
+                    sharedTs = true;
+                }
         }
         if (!its) {
             std::string savedPfx2 = syntaxRefPrefix;
@@ -4039,7 +4110,19 @@ void UhdmExporter::drainDefParamTs() {
             defViewParamTs = true;
             if (!currentScope)
                 currentScope = pd.ps->getParentScope();
+            // A DEF-view aggregate CLONE is shaped like the elab one: member
+            // leaf typespecs parent at their ref_typespec, and folded
+            // package-param member bounds carry Surelog's size/typespec meta.
+            auto pck0 = pd.ps->getType().getCanonicalType().kind;
+            bool aggClone0 = pck0 == SymbolKind::PackedStructType ||
+                             pck0 == SymbolKind::PackedUnionType ||
+                             pck0 == SymbolKind::UnpackedStructType;
+            if (aggClone0)
+                structCloneMemberRefParent = true;
             its = makeParamTs(*pd.ps, pd.typedParam);
+            structCloneMemberRefParent = false;
+            if (aggClone0)
+                attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
             defViewParamTs = false;
             currentScope = savedCS;
             syntaxRefPrefix = savedPfx2;
@@ -4119,6 +4202,86 @@ void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {
     }
 }
 
+// After the def/top member cross-wire swap, each swapped-in FOLDED member
+// packed_array_typespec bound that came from a package-param identifier
+// ([K:0]) gets Surelog's metadata: vpiSize:32 + a vpiTypespec ref to a
+// FRESH int_typespec (the source param's type, instance-less). The ref
+// fullname copies the member's typespec fullname (rewritten to work@<mod>
+// form later, in the module typedef-listing pass).
+void UhdmExporter::attachFoldedBoundMeta(UHDM::typespec* container,
+                                         UHDM::instance* pkgInst) {
+    UHDM::VectorOftypespec_member* mems = nullptr;
+    if (container->UhdmType() == UHDM::uhdmstruct_typespec)
+        mems = ((UHDM::struct_typespec*)container)->Members();
+    else if (container->UhdmType() == UHDM::uhdmunion_typespec)
+        mems = ((UHDM::union_typespec*)container)->Members();
+    if (!mems)
+        return;
+    for (auto* tmM : *mems) {
+        if (!tmM->Typespec())
+            continue;
+        auto* mAct = tmM->Typespec()->Actual_typespec();
+        if (!mAct || mAct->UhdmType() != UHDM::uhdmpacked_array_typespec)
+            continue;
+        auto* pats = (UHDM::packed_array_typespec*)mAct;
+        if (!pats->Ranges())
+            continue;
+        std::string memFN(tmM->Typespec()->VpiFullName());
+        for (auto* rg : *pats->Ranges())
+            for (UHDM::expr* be : {rg->Left_expr(), rg->Right_expr()}) {
+                if (!be || be->UhdmType() != UHDM::uhdmconstant)
+                    continue;
+                auto* c = (UHDM::constant*)be;
+                auto fit = foldedMemberBoundParam.find(c);
+                if (fit == foldedMemberBoundParam.end())
+                    continue;
+                const Symbol* psym = fit->second;
+                c->VpiSize(32);
+                auto* its2 = s.MakeInt_typespec();
+                if (psym->kind == SymbolKind::Parameter) {
+                    auto& psp = psym->as<ParameterSymbol>();
+                    bool implicitSrc = false;
+                    if (auto dt0 = psp.getDeclaredType())
+                        if (auto* ts0 = dt0->getTypeSyntax())
+                            implicitSrc =
+                                ts0->kind == syntax::SyntaxKind::ImplicitType;
+                    // An UNTYPED source param leaves this synthesized ts
+                    // UNSIGNED (Surelog), even though its value type is int.
+                    if (!implicitSrc && psp.getType().getCanonicalType().isSigned())
+                        its2->VpiSigned(true);
+                    if (auto dt = psp.getDeclaredType())
+                        if (auto* tsyn = dt->getTypeSyntax()) {
+                            // An UNTYPED source param (parameter K = 8)
+                            // spans its whole DECLARATION, like every
+                            // other untyped param int_typespec (Surelog).
+                            if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
+                                for (auto q = psp.getSyntax(); q; q = q->parent)
+                                    if (q->kind ==
+                                        syntax::SyntaxKind::ParameterDeclaration) {
+                                        setLoc(its2, q->sourceRange());
+                                        break;
+                                    }
+                            }
+                            else
+                                setLoc(its2, tsyn->sourceRange());
+                        }
+                    // vpiInstance follows the source param's TYPING: a TYPED
+                    // one (parameter int K) carries the package; an UNTYPED
+                    // one stays instance-less — the same typed/untyped split
+                    // the param's own int_typespec follows (Surelog).
+                    if (!implicitSrc)
+                        its2->Instance(pkgInst);
+                }
+                auto* rt2 = s.MakeRef_typespec();
+                rt2->VpiParent(c);
+                rt2->VpiFullName(memFN);
+                rt2->Actual_typespec(its2);
+                its2->VpiParent(rt2);
+                c->Typespec(rt2);
+            }
+    }
+}
+
 UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView) {
     std::string prefix = std::string(pkg.name) + "::";
     auto* up = s.MakePackage();
@@ -4141,60 +4304,6 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 up->VpiEndLabel(bn->name.valueText());
     }
     NetMap none;
-    // After the def/top member cross-wire swap, each swapped-in FOLDED member
-    // packed_array_typespec bound that came from a package-param identifier
-    // ([K:0]) gets Surelog's metadata: vpiSize:32 + a vpiTypespec ref to a
-    // FRESH int_typespec (the source param's type, package-instanced). The ref
-    // fullname copies the member's typespec fullname (rewritten to work@<mod>
-    // form later, in the module typedef-listing pass).
-    auto attachFoldedBoundMeta = [&](UHDM::typespec* container,
-                                     UHDM::instance* pkgInst) {
-        UHDM::VectorOftypespec_member* mems = nullptr;
-        if (container->UhdmType() == UHDM::uhdmstruct_typespec)
-            mems = ((UHDM::struct_typespec*)container)->Members();
-        else if (container->UhdmType() == UHDM::uhdmunion_typespec)
-            mems = ((UHDM::union_typespec*)container)->Members();
-        if (!mems)
-            return;
-        for (auto* tmM : *mems) {
-            if (!tmM->Typespec())
-                continue;
-            auto* mAct = tmM->Typespec()->Actual_typespec();
-            if (!mAct || mAct->UhdmType() != UHDM::uhdmpacked_array_typespec)
-                continue;
-            auto* pats = (UHDM::packed_array_typespec*)mAct;
-            if (!pats->Ranges())
-                continue;
-            std::string memFN(tmM->Typespec()->VpiFullName());
-            for (auto* rg : *pats->Ranges())
-                for (UHDM::expr* be : {rg->Left_expr(), rg->Right_expr()}) {
-                    if (!be || be->UhdmType() != UHDM::uhdmconstant)
-                        continue;
-                    auto* c = (UHDM::constant*)be;
-                    auto fit = foldedMemberBoundParam.find(c);
-                    if (fit == foldedMemberBoundParam.end())
-                        continue;
-                    const Symbol* psym = fit->second;
-                    c->VpiSize(32);
-                    auto* its2 = s.MakeInt_typespec();
-                    if (psym->kind == SymbolKind::Parameter) {
-                        auto& psp = psym->as<ParameterSymbol>();
-                        if (psp.getType().getCanonicalType().isSigned())
-                            its2->VpiSigned(true);
-                        if (auto dt = psp.getDeclaredType())
-                            if (auto* tsyn = dt->getTypeSyntax())
-                                setLoc(its2, tsyn->sourceRange());
-                    }
-                    its2->Instance(pkgInst);
-                    auto* rt2 = s.MakeRef_typespec();
-                    rt2->VpiParent(c);
-                    rt2->VpiFullName(memFN);
-                    rt2->Actual_typespec(its2);
-                    its2->VpiParent(rt2);
-                    c->Typespec(rt2);
-                }
-        }
-    };
     // Package-scope cast typespecs (size-literal integer_typespecs) carry
     // vpiInstance = the package (Surelog); expose it during param emission.
     auto* savedPkgInst0 = pkgScopeInst;

@@ -151,6 +151,11 @@ private:
     };
     std::vector<PendingDefParamTs> pendingDefParamTs;
     void drainDefParamTs();
+    // Give every FOLDED struct/union member packed-array bound that came from
+    // a package-param identifier Surelog's metadata (vpiSize:32 + a fresh
+    // instance-less int_typespec ref named by the member's ts fullname).
+    void attachFoldedBoundMeta(UHDM::typespec* container,
+                               UHDM::instance* pkgInst = nullptr);
     // True while building an elab struct/union param ts CLONE: member leaf
     // typespecs parent at the member's ref_typespec (Surelog clone form)
     // instead of the typespec_member.
@@ -840,6 +845,10 @@ private:
     // Module- and package-side cross-view links whose Surelog equivalents reach
     // the ELAB pkg (folded param constants) flip from pkgDefMap to this.
     std::map<const void*, UHDM::package*> pkgTopMap;
+    // Materialized-import param typespecs created during the DEF package pass:
+    // their vpiInstance must reach the ELABORATED home package, which does not
+    // exist yet at creation time. Re-pointed once topPackages are built.
+    std::vector<std::pair<UHDM::typespec*, const void*>> pkgImportTsTopFixups;
     // Def-view package param inits that reference ANOTHER package's param
     // (pkg::otherpkg::P): the ref_obj is created during the def-package pass
     // (before top packages exist), so record it and re-point its Actual at the

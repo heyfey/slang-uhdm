@@ -366,6 +366,13 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
         }
         pkgCrossRefTopFixups.clear();
+        // Materialized-import param typespecs created in the DEF package pass
+        // reach the ELABORATED home package too (same rule as the import
+        // clones above) — BitSelectOfParameterPassedToSubmodule.
+        for (auto& [ts9, home9] : pkgImportTsTopFixups)
+            if (auto tit9 = pkgTopMap.find(home9); tit9 != pkgTopMap.end())
+                ts9->Instance(tit9->second);
+        pkgImportTsTopFixups.clear();
     }
 
     // File-level ($unit) parameters -> DESIGN-level Parameters/Param_assigns
