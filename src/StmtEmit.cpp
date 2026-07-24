@@ -587,13 +587,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     ie->VpiQualifier(vpiUniqueQualifier);
                 else if (cs.check == UniquePriorityCheck::Priority)
                     ie->VpiQualifier(vpiPriorityQualifier);
-                // ...except directly under a case_item, where the condition
-                // parents at the if itself (Surelog).
-                UHDM::BaseClass* condPar9 =
-                    (parent && parent->UhdmType() == UHDM::uhdmcase_item)
-                        ? (UHDM::BaseClass*)ie
-                        : parent;
-                if (auto* c = emitExpr(*cs.conditions[0].expr, condPar9, prefix, netMap))
+                if (auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap))
                     ie->VpiCondition((UHDM::expr*)c);
                 if (auto* t = emitStmt(cs.ifTrue, ie, prefix, netMap))
                     ie->VpiStmt(t);
@@ -608,11 +602,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 is->VpiQualifier(vpiUniqueQualifier);
             else if (cs.check == UniquePriorityCheck::Priority)
                 is->VpiQualifier(vpiPriorityQualifier);
-            UHDM::BaseClass* condPar8 =
-                (parent && parent->UhdmType() == UHDM::uhdmcase_item)
-                    ? (UHDM::BaseClass*)is
-                    : parent;
-            if (auto* c = emitExpr(*cs.conditions[0].expr, condPar8, prefix, netMap))
+            if (auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap))
                 is->VpiCondition((UHDM::expr*)c);
             if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
                 is->VpiStmt(t);
