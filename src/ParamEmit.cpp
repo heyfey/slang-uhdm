@@ -3028,6 +3028,15 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                 its->UhdmType() == UHDM::uhdmunion_typespec)
                 if (auto* par = up->VpiParent())
                     its->Instance((UHDM::instance*)par);
+            // A fresh ELAB enum clone of a MODULE-scoped named enum typedef
+            // (localparam enum_e P) carries vpiInstance = this module instance,
+            // like the struct/union clones above (Surelog). Package-scoped
+            // params are Instanced at their package below.
+            if (its->UhdmType() == UHDM::uhdmenum_typespec && !its->Instance() &&
+                ps->getParentScope() &&
+                ps->getParentScope()->asSymbol().kind != SymbolKind::Package)
+                if (auto* par = up->VpiParent())
+                    its->Instance((UHDM::instance*)par);
             // An imported param's typespec is INSTANCED at its package — but
             // NOT a plain UNTYPED (implicit) integral import, whose int_typespec
             // stays Instance-less in both views (Surelog; fail_detect_width).
