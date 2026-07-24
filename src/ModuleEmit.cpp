@@ -1895,6 +1895,62 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     auto* nets = s.MakeNetVec();
     auto* vars = s.MakeVariablesVec();
     auto* arrayNets = s.MakeArray_netVec();
+    // Surelog models struct-typed PORTS as struct_VARs (not struct_nets) when
+    // the module PROCEDURALLY writes a struct port (whole or member) — e.g.
+    // rsp_gen_minimal's `tl_o.d_user.rsp_intg = ...` in an always_comb. With no
+    // struct port procedurally driven, struct ports stay struct_nets
+    // (simple_package: bus_out is driven only by a submodule connection).
+    bool procWritesStructPort = false;
+    {
+        std::vector<const Symbol*> structPortSyms;
+        for (auto& it2 : collectNetOrder(body)) {
+            if (!it2.port || it2.bodyDecl)
+                continue;
+            if (auto dt = it2.sym->getDeclaredType()) {
+                auto k = dt->getType().getCanonicalType().kind;
+                if (k == SymbolKind::PackedStructType ||
+                    k == SymbolKind::PackedUnionType ||
+                    k == SymbolKind::UnpackedUnionType)
+                    structPortSyms.push_back(it2.sym);
+            }
+        }
+        if (!structPortSyms.empty())
+            for (auto& mb : body.members()) {
+                if (mb.kind != SymbolKind::ProceduralBlock)
+                    continue;
+                mb.as<ProceduralBlockSymbol>().getBody().visit(makeVisitor(
+                    [&](auto& v, const AssignmentExpression& ax) {
+                        // Only a BLOCKING struct-port write promotes to var; a
+                        // nonblocking one keeps the net (simple_package's
+                        // sub_module drives data_out via always_ff `<=`).
+                        if (ax.isNonBlocking()) {
+                            v.visitDefault(ax);
+                            return;
+                        }
+                        const Expression* l = &stripImplicitConv(ax.left());
+                        for (;;) {
+                            if (l->kind == ExpressionKind::MemberAccess)
+                                l = &stripImplicitConv(
+                                    l->as<MemberAccessExpression>().value());
+                            else if (l->kind == ExpressionKind::ElementSelect)
+                                l = &stripImplicitConv(
+                                    l->as<ElementSelectExpression>().value());
+                            else if (l->kind == ExpressionKind::RangeSelect)
+                                l = &stripImplicitConv(
+                                    l->as<RangeSelectExpression>().value());
+                            else
+                                break;
+                        }
+                        if (l->kind == ExpressionKind::NamedValue) {
+                            auto* wsym = &l->as<NamedValueExpression>().symbol;
+                            for (auto* psym : structPortSyms)
+                                if (psym == wsym)
+                                    procWritesStructPort = true;
+                        }
+                        v.visitDefault(ax);
+                    }));
+            }
+    }
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
@@ -2676,6 +2732,30 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             if (isStruct && arrOfStructMember && isPkgStructType(*it.sym) &&
                 !it.sym->getDeclaredType()->getInitializer()) {
+                auto* sv = s.MakeStruct_var();
+                sv->VpiName(name);
+                sv->VpiFullName(fullName);
+                sv->VpiParent(m);
+                setLoc(sv, nameSpan(it.sym->location, it.sym->name));
+                sv->VpiVisibility(1);
+                if (rt) {
+                    rt->VpiParent(sv);
+                    sv->Typespec(rt);
+                }
+                topNets[it.sym] = sv;
+                sigOrder.emplace_back(it.sym, sv);
+                vars->push_back(sv);
+                continue;
+            }
+            // A packed pkg-typedef STRUCT PORT referenced BARE via a wildcard
+            // import (not explicitly pkg::-qualified), in a module that
+            // procedurally drives a struct port, elaborates as a struct_VAR
+            // under vpiVariables (Surelog), not a struct_net: rsp_gen_minimal's
+            // `input/output tl_d2h_t tl_i/tl_o` under `import tlul_pkg::*` with
+            // `tl_o.d_user.rsp_intg = ...`.
+            if (isStruct && it.port && !it.bodyDecl && procWritesStructPort &&
+                !it.sym->getDeclaredType()->getInitializer() &&
+                isPkgStructType(*it.sym) && !isExplicitPkgQualified(*it.sym)) {
                 auto* sv = s.MakeStruct_var();
                 sv->VpiName(name);
                 sv->VpiFullName(fullName);
@@ -5403,6 +5483,66 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     rhs = c;
                 }
             }
+            // A gen-scope CA RHS that is a bare reference to an OUTER
+            // STRING-typed module param FOLDS to a STRING constant in the elab
+            // view (Surelog): value/size from the param's elaborated value, a
+            // FRESH ref_typespec -> string_typespec scoped to THIS gen scope
+            // (work@<gen>). const_func: `assign outB = OUTPUT` (OUTPUT="FOO").
+            if (!rhs) {
+                auto& rcpS = stripImplicitConv(ae.right());
+                if (rcpS.kind == ExpressionKind::NamedValue &&
+                    rcpS.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter) {
+                    auto& symS = rcpS.as<NamedValueExpression>().symbol;
+                    auto& psS = symS.as<ParameterSymbol>();
+                    // An IMPLICIT-TYPE (untyped) param initialized with a string
+                    // literal is a string param (bare string_typespec) — same
+                    // detection as ParamEmit's stringParam.
+                    bool untyped = false;
+                    if (auto dt = psS.getDeclaredType())
+                        if (auto tsyn = dt->getTypeSyntax())
+                            untyped =
+                                tsyn->kind == syntax::SyntaxKind::ImplicitType;
+                    auto* ini = psS.getInitializer();
+                    bool strLitInit =
+                        ini && stripImplicitConv(*ini).kind ==
+                                   ExpressionKind::StringLiteral;
+                    // Must be an OUTER (module) param, not gen-local.
+                    bool outerParam = false;
+                    for (auto sc0 = symS.getParentScope(); sc0;
+                         sc0 = sc0->asSymbol().getParentScope()) {
+                        auto sk = sc0->asSymbol().kind;
+                        if (sk == SymbolKind::GenerateBlock ||
+                            sk == SymbolKind::GenerateBlockArray)
+                            break;
+                        if (sk == SymbolKind::InstanceBody) {
+                            outerParam = true;
+                            break;
+                        }
+                    }
+                    if (untyped && strLitInit && outerParam) {
+                        std::string txt(stripImplicitConv(*ini)
+                                            .as<StringLiteral>()
+                                            .getValue());
+                        auto* c = s.MakeConstant();
+                        c->VpiDecompile(txt);
+                        c->VpiSize((int32_t)(txt.size() * 8));
+                        c->VpiValue("STRING:" + txt);
+                        c->VpiConstType(vpiStringConst);
+                        c->VpiParent(ca);
+                        setLoc(c, rcpS.sourceRange);
+                        // FRESH bare string_typespec under a ref_typespec
+                        // scoped to THIS gen scope (work@<gen>).
+                        auto* st = s.MakeString_typespec();
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiFullName(fullName);
+                        rt->VpiParent(c);
+                        rt->Actual_typespec(st);
+                        c->Typespec(rt);
+                        rhs = c;
+                    }
+                }
+            }
             // Constant gen-scope calls fold to the source literal, sized at
             // the LHS width.
             if (!rhs)
@@ -5599,6 +5739,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         c9->VpiConstType(vpiBinaryConst);
                         rhs = c9;
                     }
+                }
+            }
+            // A gen-scope CA RHS that is a bare STRING LITERAL is sized to the
+            // LHS width in the elab view (Surelog assignment-context sizing):
+            // `assign outB = "HI"` -> 24-bit (outB is [23:0]), not the 16-bit
+            // natural width. const_func e4.genblk2.
+            if (!rhs) {
+                auto& rlit = stripImplicitConv(ae.right());
+                if (rlit.kind == ExpressionKind::StringLiteral) {
+                    forceConstParent = true;
+                    rhs = emitExpr(rlit, ca, fullName, netMap);
+                    forceConstParent = forceSaved;
+                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                        ae.left().type)
+                        ((UHDM::constant*)rhs)
+                            ->VpiSize((int32_t)ae.left().type->getBitWidth());
                 }
             }
             if (!rhs) {

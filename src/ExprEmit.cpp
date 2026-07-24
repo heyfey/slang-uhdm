@@ -3877,11 +3877,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 bs->VpiParent(pp2);
                 }
             }
-            // A bit-select write only re-points whole refs when the base is a
-            // function formal (io_decl); local vars/nets keep their own binding.
-            if (auto nit = netMap.find(&nv.symbol);
-                nit != netMap.end() && nit->second->UhdmType() == UHDM::uhdmio_decl)
-                noteSelectObj(&nv.symbol, bs);
+            // A bit-select write re-points whole refs when the base is a
+            // function formal (io_decl), OR a logic_net written by a BLOCKING
+            // procedural assignment in this body: prim_secded's blocking
+            // `data_o[i] = ...` makes every whole data_o ref (incl. the earlier
+            // whole write) alias the first data_o[57] bit_select (Surelog). A
+            // NONBLOCKING bit-write keeps the net (asicworld_serial_crc,
+            // unpacked_array_shift_ff); local vars keep their own binding.
+            if (auto nit = netMap.find(&nv.symbol); nit != netMap.end()) {
+                bool doNote = nit->second->UhdmType() == UHDM::uhdmio_decl;
+                if (!doNote && inLhs &&
+                    nit->second->UhdmType() == UHDM::uhdmlogic_net && parent &&
+                    parent->UhdmType() == UHDM::uhdmassignment &&
+                    ((UHDM::assignment*)parent)->VpiBlocking())
+                    doNote = true;
+                if (doNote)
+                    noteSelectObj(&nv.symbol, bs);
+            }
             // Surelog anchors rvalue bit_selects at the index expression,
             // but lvalue ones span the whole select.
             // PARAM-INIT selects span the WHOLE select (func_upto's
