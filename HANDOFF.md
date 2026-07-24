@@ -1,6 +1,47 @@
-# HANDOFF — slang-uhdm convergence campaign (52-DIFF state, drive 8 in progress)
+# HANDOFF — slang-uhdm convergence campaign (38-DIFF state)
 
-## Drive 8 (2026-07-24 03:00 -> ~19:00, IN PROGRESS): 418 PASS / 190 CMP_ONLY / 52 DIFF @ ~08:00
+## Drive 8 (2026-07-24 03:00 -> ~19:00): 420 PASS / 203 CMP_ONLY / 38 DIFF @ ~17:20 (near-final)
+
+16-hour drive: 68 -> 38 DIFF (30 removed), 418 -> 420 PASS. Goldens 23/23 throughout;
+zero regressions kept (every gate = full corpus + movers diff). Waves 23-49 (one to
+three Opus worktree agents each) + a continuous Fable serial lane.
+
+### Converted this drive (DIFF -> CMP_ONLY unless ->PASS noted)
+hierdefparam, iface_array_{struct_whole,port,struct}, EnumInPackage, MIAIP
+(ModuleInstantiationAndIndirectParams), assignment-pattern, MultirangesStartNotFromZero,
+genvar_iface_struct, hier_path, ExpressionInIndex, iface_nested_param_field,
+simple_package, nested_struct, static_cast_simple, struct_param_dim(->PASS),
+simple_instance_array(->PASS), iface_scalar_localparam, iface_struct_field_partsel,
+genscope_cells, macc, generate_test, VarPassedTo2Submodules,
+ParameterOfParametrizedTypeInSubmodule, iface_unpacked_struct_array,
+interface_array_fanout, iface_arr_struct_{whole_field,field_partsel},
+ParameterOfSizeOfParametrizedPortInSubmodule, ImportedDoubleCastedParameter(earlier
+r-fix; still DIFF at pkg dup layer)... plus big cmp-advances left in DIFF: gen_test5
+(r=-502->-1), unbased_unsized_param (r=-9->1), ucsbece154b (dl 241->38), BSOPPS
+(r=9->-32 deeper), rotate (dl 4764->444).
+
+### The current 38 DIFFs — see results/triage_drive8.txt (fresh r-sweep @ b1513f9)
+Clusters: keep-symbolic op-vs-constant r=32 family (BitSelect*GenFor x2,
+iface_param_2level/wholestruct, TypedefStructParamWithRange — override-substituted
+iface ranges + gen-for pkg-param select folds); missing ref_typespec r=1 family
+(func_typename_ret, PartSelectInFor, ParameterFromPkgOnParameterPortList,
+iface_array_elem_cfg_param, iface_struct_field_param_width r=-1); near-r singles
+w/ banked decodes in memory drive8-progress (rotate = gen-local proc-driven REG
+netting NetType:48; gen_test5 = unnamed-genblk bind, no clean distinguisher found;
+prefix = assert hier-leaf bind asymmetry; func_tern_hint = Surelog const-func EVAL
+quirk — likely permanent park); structural bigs (arraycells module arrays,
+iface_ff_genvar_partsel gen_region wrapper, const_func gen-case elab, int_types
+macro-span clones, cs_registers span normalization, func_upto symbolic call keep,
+multiplier extra net).
+
+### Method notes for drive 9
+Agent-ops learnings in memory note drive8-progress (unique helpers, no git stash,
+main-tree gates only, small schemas + early StructuredOutput, always check
+/tmp/<label>.patch after agent deaths). Serial lane pattern that worked: probe ->
+decode distinguisher from BOTH dumps -> narrow gate -> corpus arbitration; every
+refuted broad rule became a narrower landed rule the same hour.
+
+## (superseded) Drive 8 mid-drive checkpoint @ ~08:00: 418/190/52
 
 Waves 23-36 + serial lane. Landed: iface-ARRAY family (def+elab layers, 4 tests),
 genvar_iface_struct, hier_path (biggest test), Multiranges, MIAIP, EnumInPackage,
