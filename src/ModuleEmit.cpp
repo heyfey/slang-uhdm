@@ -7436,7 +7436,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                      SymbolKind::Variable))
                 dottedLhs = false;
         }
-        if (dottedLhs) {
+        // A LITERAL RHS always re-compiles, even over a net base.
+        if (dottedLhs && !literalRhs) {
             const Expression* baseE = &stripImplicitConv(ae.left());
             while (baseE->kind == ExpressionKind::MemberAccess)
                 baseE = &stripImplicitConv(baseE->as<MemberAccessExpression>().value());
