@@ -18,10 +18,30 @@ namespace slang_uhdm {
 // whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
 // object name even when the source spaced it.
 static std::string selName(std::string s) {
-    s.erase(std::remove_if(s.begin(), s.end(),
-                           [](unsigned char c) { return c == ' ' || c == '\t'; }),
-            s.end());
-    return s;
+    // Surelog strips whitespace ADJACENT to select punctuation ([ ] : and
+    // the +:/-: tokens) but keeps single spaces inside arithmetic
+    // subexpressions (key[0][i * 32+:32] — IndexedPartSelectInFor).
+    std::string o;
+    for (size_t i = 0; i < s.size(); i++) {
+        char c = s[i];
+        if (c == ' ' || c == '\t') {
+            size_t j = i;
+            while (j < s.size() && (s[j] == ' ' || s[j] == '\t'))
+                j++;
+            char prev = o.empty() ? '\0' : o.back();
+            char next = j < s.size() ? s[j] : '\0';
+            bool nextSel = next == '[' || next == ']' || next == ':' ||
+                           ((next == '+' || next == '-') && j + 1 < s.size() &&
+                            s[j + 1] == ':');
+            bool prevSel = prev == '[' || prev == ':';
+            if (!nextSel && !prevSel && next != '\0')
+                o += ' ';
+            i = j - 1;
+            continue;
+        }
+        o += c;
+    }
+    return o;
 }
 
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv) {
