@@ -3587,7 +3587,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         r->VpiName(bnv.symbol.name);
                         (void)r->VpiFullName();
                         r->VpiParent(hp);
-                        setLoc(r, base->sourceRange);
+                        // Surelog spans the base ref from the FIRST member
+                        // name's start (the select anchor), not the base's own
+                        // token, keeping only its own length.
+                        SourceRange bsr9 = base->sourceRange;
+                        if (inLhs && !chain.empty()) {
+                            auto& fma9 =
+                                (*chain.rbegin())->as<MemberAccessExpression>();
+                            auto fst9 = (*chain.rbegin())->sourceRange.end() -
+                                        fma9.member.name.size();
+                            bsr9 = SourceRange(
+                                fst9, fst9 + bnv.symbol.name.size());
+                        }
+                        setLoc(r, bsr9);
                         elems->push_back(r);
                     }
                     for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
@@ -3605,7 +3617,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         SourceRange elemLoc(
                             (*it2)->sourceRange.end() - ma.member.name.size(),
-                            rs.right().sourceRange.end() + 1);
+                            rs.right().sourceRange.end());
                         bool constSel = false;
                         {
                             ASTContext cctx(comp.getRoot(), LookupLocation::max);
@@ -3617,8 +3629,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                             auto* ps = s.MakePart_select();
                             ps->VpiName(ma.member.name);
+                            // A procedural WRITE names the select (Surelog);
+                            // a read leaves it bare.
+                            if (inLhs)
+                                ps->VpiDefName(ma.member.name);
                             ps->VpiParent(hp);
-                            (void)ps->VpiFullName();
+                            // A READ's select keeps the hier text as its
+                            // fullname; a write freezes the lazy chain name.
+                            if (inLhs)
+                                (void)ps->VpiFullName();
+                            else
+                                ps->VpiFullName(dotted);
                             setLoc(ps, elemLoc);
                             if (constSel)
                                 ps->VpiConstantSelect(true);
