@@ -1,6 +1,6 @@
-# HANDOFF — slang-uhdm convergence campaign (19-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (11-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~13:30, Opus lane): 468 PASS / 174 CMP_ONLY / 19 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~14:35, Opus lane): 472 PASS / 178 CMP_ONLY / 11 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
@@ -127,6 +127,32 @@ AssignToUnionAndReadField, AssignToUnpackedUnionFieldAndReadOtherField.
 - Anonymous struct/union typespec views; whole-assigned signals get bare member refs and no owner parent.
 - Package struct-member bounds keep the written syntax in the def view and fold to a signed int at the
   identifier token in the elab view.
+
+### Waves 55-58 landings (each gated, zero regressions)
+- if55: 3 iface DIFF->CMP_ONLY. A CA reading an interface param through the module's OWN iface/modport
+  port is exempt from the elab general fold (the cast keeps its hier_path). REFUTED "the def view always
+  keeps the tagged form": the distinguisher is interface-ARRAY instantiation, where Surelog re-reduces the
+  DEFINITION's struct param default to a flat op75 with a BARE (unparented, unnamed) ts ref.
+- sm55: const_arg_loop DIFF->CMP_ONLY. A DEF-view param used as a direct actual of a cont-assign function
+  call has its own ref_typespec rebound to that call's formal ts (LAST call in source order wins);
+  procedural calls never rebind. A nested call to a PASS-THROUGH function (return value IS a formal)
+  carries no formal-ts stamp — that is the const_fold_func distinguisher I missed earlier.
+- sp55: all 4 struct-param tests DIFF->CMP_ONLY. A package struct param whose member carries a
+  PARAMETER-DEPENDENT packed dim never flattens its pattern in EITHER package view
+  (structHasSymbolicMemberDim) — the old "width > 64 keeps the tagged tree" gate was only a proxy.
+- ac56: no conversions but const_func 507->175 and arraycells element defs fixed. compileGenStmt always
+  makes ONE gen_region but fills it from only the FIRST generate item (later items contribute nothing;
+  the begin is EMPTY when the first item is a genvar decl or loop-generate — gen_test6's golden encodes
+  this). A process written directly in an explicit generate region is appended to the DEFINITION once per
+  INSTANCE. ExprEval::evalFunc stamps formal typespecs onto actual args BEFORE discovering it cannot
+  evaluate, so a call kept symbolic still carries them.
+- hp57: 4 CMP_ONLY->PASS, hier_path 3347->1323. A part_select REPEATS its base name so its own fullname
+  doubles, and refs inside its range expressions scope through it — ComputeFullName skips only
+  bit_select/indexed_part_select/hier_path, NOT part_select. A range endpoint that IS a literal stays
+  unparented; a constant nested in an endpoint operation keeps its operation parent. Surelog's lexer
+  folds whitespace TRAILING a based literal (1'b0/4'd2) into one column, shifting later columns left.
+- hier_path's remaining 1323 lines are BALANCED (661 SL-only vs 664 ours-only), dominated by 146 bare
+  anonymous int_typespec objects on each side: pure tail ORDERING, not missing objects.
 
 ### METHOD (reusable)
 The corpus CSV records each test's DUMP_DIFF line count. Sweeping every CMP_ONLY test into a
