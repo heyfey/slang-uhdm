@@ -7059,7 +7059,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // stay shared.
         bool callIdxLhs = false;
         if (auto& l1 = stripImplicitConv(ae.left());
-            l1.kind == ExpressionKind::ElementSelect) {
+            l1.kind == ExpressionKind::ElementSelect &&
+            // CHILD instance views keep the def share for unpacked-array
+            // select LHS (struct_param_dim mem[0]); only TOP modules
+            // re-emit fresh.
+            prefix.find('.') == std::string::npos) {
             auto& b1 = stripImplicitConv(l1.as<ElementSelectExpression>().value());
             if (b1.kind == ExpressionKind::NamedValue &&
                 b1.as<NamedValueExpression>()

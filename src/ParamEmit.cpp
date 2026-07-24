@@ -3180,9 +3180,23 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
             its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
             structCloneMemberRefParent = false;
             if (its->UhdmType() == UHDM::uhdmstruct_typespec ||
-                its->UhdmType() == UHDM::uhdmunion_typespec)
-                if (auto* par = up->VpiParent())
+                its->UhdmType() == UHDM::uhdmunion_typespec) {
+                // A $UNIT-level struct typedef clone is Instanced at the
+                // DESIGN (struct_param_dim test_struct_t), not the module.
+                bool unitTd9 = false;
+                if (ps->getDeclaredType()) {
+                    auto& dtT9 = ps->getDeclaredType()->getType();
+                    if (dtT9.kind == SymbolKind::TypeAlias)
+                        if (auto* scT9 =
+                                dtT9.as<TypeAliasType>().getParentScope())
+                            unitTd9 = scT9->asSymbol().kind ==
+                                      SymbolKind::CompilationUnit;
+                }
+                if (unitTd9)
+                    its->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
+                else if (auto* par = up->VpiParent())
                     its->Instance((UHDM::instance*)par);
+            }
             // A fresh ELAB enum clone of a MODULE-scoped named enum typedef
             // (localparam enum_e P) carries vpiInstance = this module instance,
             // like the struct/union clones above (Surelog). Package-scoped
