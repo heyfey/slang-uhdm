@@ -8672,6 +8672,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             !rhs->VpiParent() && isMultiParamDef(body) &&
             stripImplicitConv(ae.right()).kind == ExpressionKind::NamedValue)
             rhs->VpiParent(ca);
+        // An UNBASED-UNSIZED cont-assign RHS is never re-folded in the elab
+        // view: Surelog reuses the DEF constant object as-is ('1 stays '1).
+        if (topView && defInfo && myIdx < defInfo->contAssigns.size() &&
+            stripImplicitConv(ae.right()).kind ==
+                ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+            // Only a SELECTED target (a[0][0].min_v) keeps the unsized form;
+            // a whole-net assign folds to the net width in the elab view.
+            stripImplicitConv(ae.left()).kind != ExpressionKind::NamedValue)
+            if (auto* dr9 = defInfo->contAssigns[myIdx]->Rhs();
+                dr9 && dr9->UhdmType() == UHDM::uhdmconstant)
+                rhs = dr9;
         if (rhs)
             ca->Rhs((UHDM::expr*)rhs);
         // A $signed/$unsigned sys_func_call carries a result typespec (= the
