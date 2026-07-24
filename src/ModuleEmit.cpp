@@ -1734,7 +1734,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         tv.as<TypeAliasType>().targetType.getType().kind !=
                             SymbolKind::TypeAlias)
                         fileLevelVec = true;
-            if (!importedUnqual && (typedefClone.count(&tv) || fileLevelVec)) {
+            // A file-level vector-typedef PORT net binds the SHARED base ts:
+            // Surelog gives the per-use clone to the PORT's vpiTypedef (see
+            // portVectorTypedefClone), and leaves the port's NET pointing at
+            // the bare design typedef. Non-port file-level nets still clone.
+            if (!importedUnqual && fileLevelVec && it.port) {
+                if (auto tit = typedefTs.find(&tv); tit != typedefTs.end())
+                    ts = tit->second;
+            }
+            else if (!importedUnqual && (typedefClone.count(&tv) || fileLevelVec)) {
                 const syntax::SyntaxNode* targetSyn = nullptr;
                 if (auto asyn = tv.as<TypeAliasType>().getSyntax()) {
                     if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
@@ -5267,6 +5275,21 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 }
             }
         }
+        // A vector-typedef-typed port's vpiTypedef is a self-alias clone in
+        // BOTH views, but Surelog makes them DISTINCT: the DEF-view clone is
+        // bare (no Instance), the ELAB (top) clone carries the design/module
+        // Instance. The def view (emitPorts) already built the bare clone —
+        // keep it for defPts and mint a fresh instanced sibling for topActual.
+        // Skipped when the pkg / type-param branches above assigned clones.
+        if (internal && defPts == pts && defActual &&
+            defActual->UhdmType() == UHDM::uhdmlogic_typespec &&
+            ((UHDM::logic_typespec*)defActual)->Typedef_alias()) {
+            defPts = defActual;
+            if (auto* tcl = portVectorTypedefClone(*internal, /*withInstance=*/true))
+                topActual = tcl;
+            else
+                topActual = defActual;
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(tp.prefix + "." + std::string(ps.name));
         rt->VpiParent(p);
@@ -5525,6 +5548,68 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     pendingPatternOrphans.clear();
 }
 
+// A port typed by a vector typedef needs its vpiTypedef to be a fresh
+// self-alias clone (Typedef_alias -> shared base) rather than the bare shared
+// base — Surelog gives each such USE (net or port) its own clone. Mirrors the
+// net's fileLevelVec / module-local clone logic (emitInstance ~1690-1770).
+UHDM::logic_typespec* UhdmExporter::portVectorTypedefClone(const Symbol& internal,
+                                                           bool withInstance) {
+    auto dtv = internal.getDeclaredType();
+    if (!dtv)
+        return nullptr;
+    auto& tv = dtv->getType();
+    if (tv.kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto& ta = tv.as<TypeAliasType>();
+    auto* parentScope = ta.getParentScope();
+    if (!parentScope)
+        return nullptr;
+    auto parentKind = parentScope->asSymbol().kind;
+    // Package-typedef ports (qualified `pkg::T` OR imported-unqualified) bind
+    // the SHARED pkg base ts here; the emitTopPorts pkg branch builds the elab
+    // clone for the imported-unqualified case. Never clone them in this helper.
+    if (parentKind == SymbolKind::Package)
+        return nullptr;
+    // Applies to file-level (compilation unit) vector typedefs and module-local
+    // vector typedefs the def registered as clone sources (typedefClone). Both
+    // resolve to a bare logic_typespec base.
+    bool fileLevelVec = false;
+    if (!typedefClone.count(&tv) && parentKind == SymbolKind::CompilationUnit) {
+        if (auto tit1 = typedefTs.find(&tv);
+            tit1 != typedefTs.end() &&
+            tit1->second->UhdmType() == UHDM::uhdmlogic_typespec &&
+            ta.targetType.getType().kind != SymbolKind::TypeAlias)
+            fileLevelVec = true;
+    }
+    if (!(typedefClone.count(&tv) || fileLevelVec))
+        return nullptr;
+    auto tit0 = typedefTs.find(&tv);
+    if (tit0 == typedefTs.end() ||
+        tit0->second->UhdmType() != UHDM::uhdmlogic_typespec)
+        return nullptr;
+    const syntax::SyntaxNode* targetSyn = nullptr;
+    if (auto asyn = ta.getSyntax())
+        if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
+            targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+    bypassTypedefShare = true;
+    auto* cl = makeTypespec(internal, targetSyn);
+    bypassTypedefShare = false;
+    if (!cl || cl->UhdmType() != UHDM::uhdmlogic_typespec)
+        return nullptr;
+    cl->VpiName(tv.name);
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(std::string(tv.name));
+    art->VpiParent(cl);
+    art->Actual_typespec(tit0->second);
+    ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+    // The elab (top) port clone carries the shared base's Instance link; the
+    // def-view port clone omits it (Surelog: top-port clones instanced, def-
+    // port clones bare).
+    if (withInstance && tit0->second->Instance())
+        cl->Instance(tit0->second->Instance());
+    return (UHDM::logic_typespec*)cl;
+}
+
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                              const std::string& prefix,
                              NetMap& netMap, bool topView,
@@ -5666,6 +5751,11 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                     if (tit != typeParamDefaultTs.end())
                         ts = tit->second;
                 }
+                // A vector-typedef-typed port's vpiTypedef gets its OWN
+                // self-alias clone (Typedef_alias -> shared base), like the
+                // net's typespec, instead of the bare shared base (Surelog).
+                if (!ts)
+                    ts = portVectorTypedefClone(*internal);
                 if (!ts)
                     ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
                                   : makeTypespec(*internal, nullptr, &ps);

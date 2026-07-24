@@ -309,6 +309,13 @@ private:
                                  const slang::ast::PortSymbol* portCtx = nullptr);
     UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache,
                                    const slang::ast::PortSymbol* portCtx = nullptr);
+    /// A port typed by a vector typedef (file-level or module-local net) gets
+    /// its vpiTypedef its OWN self-alias clone (a fresh logic_typespec named
+    /// after the typedef, Typedef_alias -> the shared base ts) instead of the
+    /// bare shared base — mirroring what the net's typespec gets. Returns
+    /// nullptr when the port's type does not qualify (share the base instead).
+    UHDM::logic_typespec* portVectorTypedefClone(const slang::ast::Symbol& internal,
+                                                 bool withInstance = false);
     /// Def-view typespec for a `parameter type T = <default>` — resolved from
     /// the DEFAULT type syntax (the instance body borrowed for the def view may
     /// carry an override), independent of any instance parameterization.
