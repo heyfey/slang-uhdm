@@ -2113,9 +2113,13 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     auto* art9e = s.MakeRef_typespec();
                     // Alias-clone ref scopes through the member AND the
                     // type name (work@top.bar_t.f.foo_t) — Surelog.
-                    art9e->VpiFullName(aliasName + memberSep +
-                                       std::string(fm.name) + memberSep +
-                                       std::string(al9->name));
+                    // ANON structs (empty alias) scope BARE: member.alias
+                    // (ucsbece154b lru.way_index_t).
+                    art9e->VpiFullName(
+                        (aliasName.empty() ? std::string()
+                                           : aliasName + memberSep) +
+                        std::string(fm.name) + memberSep +
+                        std::string(al9->name));
                     art9e->VpiParent(cl9e);
                     art9e->Actual_typespec(ets9);
                     if (cl9e->UhdmType() == UHDM::uhdmbit_typespec)
@@ -2289,9 +2293,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     clD->VpiName(dta->name);
                     clD->VpiParent(tm);
                     auto* artD = s.MakeRef_typespec();
-                    artD->VpiFullName(aliasName + memberSep +
-                                      std::string(fm.name) + memberSep +
-                                      std::string(dta->name));
+                    artD->VpiFullName(
+                        (aliasName.empty() ? std::string()
+                                           : aliasName + memberSep) +
+                        std::string(fm.name) + memberSep +
+                        std::string(dta->name));
                     artD->VpiParent(clD);
                     artD->Actual_typespec(tita->second);
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
@@ -2517,9 +2523,13 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     auto* art9e = s.MakeRef_typespec();
                     // Alias-clone ref scopes through the member AND the
                     // type name (work@top.bar_t.f.foo_t) — Surelog.
-                    art9e->VpiFullName(aliasName + memberSep +
-                                       std::string(fm.name) + memberSep +
-                                       std::string(al9->name));
+                    // ANON structs (empty alias) scope BARE: member.alias
+                    // (ucsbece154b lru.way_index_t).
+                    art9e->VpiFullName(
+                        (aliasName.empty() ? std::string()
+                                           : aliasName + memberSep) +
+                        std::string(fm.name) + memberSep +
+                        std::string(al9->name));
                     art9e->VpiParent(cl9e);
                     art9e->Actual_typespec(ets9);
                     if (cl9e->UhdmType() == UHDM::uhdmbit_typespec)
@@ -2693,9 +2703,11 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     clD->VpiName(dta->name);
                     clD->VpiParent(tm);
                     auto* artD = s.MakeRef_typespec();
-                    artD->VpiFullName(aliasName + memberSep +
-                                      std::string(fm.name) + memberSep +
-                                      std::string(dta->name));
+                    artD->VpiFullName(
+                        (aliasName.empty() ? std::string()
+                                           : aliasName + memberSep) +
+                        std::string(fm.name) + memberSep +
+                        std::string(dta->name));
                     artD->VpiParent(clD);
                     artD->Actual_typespec(tita->second);
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
@@ -4874,6 +4886,35 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
         srt->VpiFullName(dbl);
         srt->Actual_typespec(structTs);
         sn->Typespec(srt);
+        // The ANON shared struct ts parents at the (last) element struct_net
+        // and its member refs scope through the doubled net name
+        // (ucsbece154b dll_q.dll_q.tag) — last writer wins.
+        if (structTs == elemTs &&
+            structTs->UhdmType() == UHDM::uhdmstruct_typespec &&
+            structTs->VpiName().empty()) {
+            structTs->VpiParent(sn);
+            if (auto* tms9 = ((UHDM::struct_typespec*)structTs)->Members())
+                for (auto* tm9 : *tms9) {
+                    if (!tm9->Typespec())
+                        continue;
+                    tm9->Typespec()->VpiFullName(
+                        dbl + "." + std::string(tm9->VpiName()));
+                    // Nested typedef-alias refs scope through the member
+                    // (dll_q.dll_q.lru.way_index_t).
+                    auto* ma9 = tm9->Typespec()->Actual_typespec();
+                    if (ma9 &&
+                        ma9->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        auto* al9 =
+                            ((UHDM::logic_typespec*)ma9)->Typedef_alias();
+                        if (al9 && al9->Actual_typespec())
+                            al9->VpiFullName(
+                                dbl + "." + std::string(tm9->VpiName()) +
+                                "." +
+                                std::string(
+                                    al9->Actual_typespec()->VpiName()));
+                    }
+                }
+        }
         nvec->push_back(sn);
     }
     else {
