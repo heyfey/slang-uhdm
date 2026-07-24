@@ -656,6 +656,15 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
+            else if (lastMember) {
+                // A TRAILING select anchors at the index with the doubled
+                // lazy name; a select followed by further members keeps the
+                // member span and the dotted path (Surelog).
+                setLoc(bs, sel.sel->sourceRange);
+                (void)bs->VpiFullName();
+                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            }
             else {
                 setLoc(bs, comp.nameSpan);
                 bs->VpiFullName(dottedAt);
