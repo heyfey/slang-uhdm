@@ -5590,7 +5590,16 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // package) spanning typedef-start .. the signal's INIT end (Surelog).
     if (!ts) {
         auto dt4 = pn.sym->getDeclaredType();
+        // Only a PATTERN init ('{...}) mints the fresh clone; a plain constant
+        // init keeps the shared package typespec (Surelog).
+        bool patInit4 = false;
         if (dt4 && dt4->getInitializer()) {
+            auto& ic4 = stripImplicitConv(*dt4->getInitializer());
+            patInit4 = ic4.kind == ExpressionKind::SimpleAssignmentPattern ||
+                       ic4.kind == ExpressionKind::StructuredAssignmentPattern ||
+                       ic4.kind == ExpressionKind::ReplicatedAssignmentPattern;
+        }
+        if (dt4 && dt4->getInitializer() && patInit4) {
             auto& t4 = dt4->getType();
             if (t4.kind == SymbolKind::TypeAlias &&
                 t4.getCanonicalType().isStruct()) {
