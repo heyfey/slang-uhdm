@@ -1,4 +1,22 @@
-# HANDOFF — slang-uhdm convergence campaign (68-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (52-DIFF state, drive 8 in progress)
+
+## Drive 8 (2026-07-24 03:00 -> ~19:00, IN PROGRESS): 418 PASS / 190 CMP_ONLY / 52 DIFF @ ~08:00
+
+Waves 23-36 + serial lane. Landed: iface-ARRAY family (def+elab layers, 4 tests),
+genvar_iface_struct, hier_path (biggest test), Multiranges, MIAIP, EnumInPackage,
+const_func string layers, assignment-pattern, simple_package, nested_struct,
+ExpressionInIndex, iface_nested_param_field, arrays03/struct_param_dim partials,
+selName/display policies, wave-24 array classification, gen-lp mulDiv INT rule.
+REFUTED: bsopps27 (pkg struct-pattern keep too broad — see memory drive8-progress).
+Agent-ops hardening: unique helper scripts, small schemas + early StructuredOutput
+(waves 21/25 died at the structured-output cap with good orphan patches — always
+check /tmp/<label>.patch), main-tree gates only (agents' worktree baselines lie).
+Running waves at this checkpoint: ifp33 (iface modport-port pa), vp34 (enum-alias +
+port-var-flip + gen_struct_access coupled), gsc35 (gen-instance ts clones + r=32
+family), tdc36 (typedef clone/share policy). See memory note drive8-progress for
+the full ledger and open decodes.
+
+
 
 > **READ [PLAYBOOK.md](PLAYBOOK.md) FIRST.** It governs HOW to work: the goal
 > is 0 DIFF / 0 CMP_ONLY, autonomous blocks never pause at milestones or ask
