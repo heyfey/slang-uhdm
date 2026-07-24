@@ -1111,11 +1111,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         c->VpiValue("OCT:" + dg8);
                                         c->VpiConstType(vpiOctConst);
                                         break;
+                                    case 'd':
+                                        // A based-DECIMAL init (2'd1) keeps its
+                                        // DEC encoding in the fold too (Surelog:
+                                        // vpiDecConst, decompile "2'd1"), unlike
+                                        // a bare decimal which is UINT.
+                                        c->VpiValue("DEC:" + dg8);
+                                        c->VpiConstType(vpiDecConst);
+                                        break;
                                     default:
                                         break;
                                 }
                                 if (base8 == 'b' || base8 == 'h' ||
-                                    base8 == 'o')
+                                    base8 == 'o' || base8 == 'd')
                                     c->VpiDecompile(raw8);
                             }
                         }
@@ -1940,7 +1948,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiCastOp);
             op->VpiParent(parent);
-            setLoc(op, expr.sourceRange);
+            // A cast whose operand is a SPACE-stripped based literal (96'(96'h
+            // 4c52...)) shrinks its end column by the removed whitespace, just
+            // as the inner literal's span does (Surelog re-lexes compactly).
+            {
+                SourceRange opr9 = expr.sourceRange;
+                if (size_t sp9 = basedLiteralSpaceCount(rawText(opr9)))
+                    opr9 = SourceRange(opr9.start(), opr9.end() - sp9);
+                setLoc(op, opr9);
+            }
             // An INNER signed'(x)/unsigned'(x) under a size cast is merged
             // into the conversion by slang — re-materialize it as a
             // $signed/$unsigned sys_func_call operand (static_cast_simple).
@@ -4438,7 +4454,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 auto* tp = s.MakeTagged_pattern();
                 tp->VpiParent(op);
-                setLoc(tp, setter.expr->sourceRange);
+                // A tagged-pattern value containing a SPACE-stripped based
+                // literal (Prefix: 96'(96'h 4c52...)) shrinks its end column
+                // by the removed whitespace (Surelog re-lexes compactly).
+                {
+                    SourceRange tpr9 = setter.expr->sourceRange;
+                    if (size_t sp9 = basedLiteralSpaceCount(rawText(tpr9)))
+                        tpr9 = SourceRange(tpr9.start(), tpr9.end() - sp9);
+                    setLoc(tp, tpr9);
+                }
                 bool savedPV2 = inPatternValue;
                 inPatternValue = true;
                 // The pattern value parents at the OPERATION — except a
