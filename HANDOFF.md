@@ -1,4 +1,60 @@
-# HANDOFF — slang-uhdm convergence campaign (38-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (24-DIFF state)
+
+## Drive 8b (2026-07-24 ~09:30 -> ongoing, Opus lane): 442 PASS / 195 CMP_ONLY / 24 DIFF
+
+Continuation of drive 8 after a network drop. Goldens 23/23 throughout; every landing
+gated on the full corpus + a verbatim movers diff. Waves 50-53 (Opus worktree agents,
+3-4 at a time) plus a continuous serial lane.
+
+### DIFF -> CMP_ONLY / PASS this stretch
+unbased_unsized_param, DivisionOfSize, TypedefVariableDimensions,
+ucsbece154b_victim_cache (PASS), asym_ram_sdp_read_wider + write_wider (PASS),
+read_remux (PASS), func_typename_ret, ParameterFromPkgOnParameterPortList,
+iface_struct_field_param_width, iface_wholestruct_param, iface_array_modport_drive,
+NestedStructArrayParameterInitializedByPatternPassedAsPort, ImportedDoubleCastedParameter.
+
+### CMP_ONLY -> PASS this stretch (byte-level rules)
+nested_struct, struct_typedef_packed_array, struct_array_indexed_write,
+struct_little_endian_bit_array, struct_part_select_write, multidim_hier_path8,
+MemberSelectOf2DStructPackedArray, ImportedParameter, ParameterDoubleUnderscoreInSvFrontend,
+BitsCallOnParametetrizedTypeFromPackage, InterfaceParameter, InterfaceParameterSetValue,
+iface_param_set_value, StructParameter, StructLocalParam, AnonymousUnion,
+AssignToUnionAndReadField, AssignToUnpackedUnionFieldAndReadOtherField.
+
+### Models landed (each gated separately)
+- Unbased-unsized override pa constants bind the param's OWN elab typespec; a '1 copy
+  read by a cont-assign takes its own clone. An unbased CA RHS into a SELECTED target
+  reuses the def constant instead of re-folding.
+- A module-view copy of an imported package param's initializer keeps pkg vpiInstance on
+  its size-cast typespecs and parents them at their ref_typespec.
+- A def-build member alias clone of a module typedef carries the typedef's vpiInstance;
+  cross-package struct members keep their HOME package instance; alias-less elem refs are
+  bare (no leading separator).
+- A var declared from a PACKAGE unpacked-array typedef is a MINIMAL array_var sharing the
+  package array_typespec.
+- Struct-member SELECT hier paths: the select span stops at the bracket; a PROCEDURAL write
+  names the select (vpiDefName) and anchors the base ref at the member token, a cont-assign
+  lvalue anchors at the index and keeps the dotted text, a read keeps the hier text.
+- Materialized imports: param typespec parents at its ref_typespec,each reference mints its own
+  clone, and a cont-assign fold constant parents at the package param_assign.
+- Anonymous unions: the ELAB clone spans the `union` keyword and scopes member refs through
+  the signal; the DEF object keeps the header span (packed) / stops at the first member
+  (unpacked).
+- A dotted-LHS cont_assign keeps the SHARED def object only when its RHS is a plain signal
+  reference (literals, operations, params and enum values all re-emit fresh).
+- Agent-landed: pkg-param based-DECIMAL folds keep DEC; untyped-param concat folds keep the
+  concat width; the const-function fold gate is "body declares a localparam", not lifetime;
+  overridden struct params copy the referenced param's Rhs tree; gen-scope CA index refs stay
+  unbound and loop-body params fold; an instance's own body typespecs drain before its
+  descendants'; >64b imported struct params strip tagged wrappers in the elab view.
+
+### METHOD (reusable)
+The corpus CSV records each test's DUMP_DIFF line count. Sweeping every CMP_ONLY test into a
+scratch dir and clustering the NORMALISED diffs (numbers -> N, names -> X) exposes shared
+byte-level rules fast: 4-line diffs cluster into 2-5 test families, and clustering by FIRST
+divergence found families of 20 (ref_obj spans), 12 (bit_select spans), 18 (operation-operand
+parenting), 43 (def cont_assign sharing). Count changed lines with `grep -c '^[-+]' dump.diff`
+minus 2 — NOT wc -l, which counts context lines.
 
 ## Drive 8 (2026-07-24 03:00 -> ~19:00): 420 PASS / 203 CMP_ONLY / 38 DIFF @ ~17:20 (near-final)
 

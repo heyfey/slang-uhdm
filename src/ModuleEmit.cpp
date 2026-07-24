@@ -7315,6 +7315,19 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // whose Rhs SHARES the def constant — but only when the elab base is
         // VAR-backed (net bases keep the shared def cont_assign).
         bool dottedLhs = stripImplicitConv(ae.left()).kind == ExpressionKind::MemberAccess;
+        // ...and only when the RHS is re-compiled at all: a plain SIGNAL
+        // reference RHS keeps the shared def cont_assign (Surelog;
+        // union_simple). Literals, operations and constant references
+        // (params/enum values) all re-emit fresh.
+        if (dottedLhs) {
+            auto& r0 = stripImplicitConv(ae.right());
+            if (r0.kind == ExpressionKind::NamedValue &&
+                (r0.as<NamedValueExpression>().symbol.kind ==
+                     SymbolKind::Net ||
+                 r0.as<NamedValueExpression>().symbol.kind ==
+                     SymbolKind::Variable))
+                dottedLhs = false;
+        }
         if (dottedLhs) {
             const Expression* baseE = &stripImplicitConv(ae.left());
             while (baseE->kind == ExpressionKind::MemberAccess)
