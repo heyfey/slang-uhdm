@@ -4281,6 +4281,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 setLoc(r, SourceRange(exprStart + loff, exprStart + loff + lname.size()));
                 elems->push_back(r);
             }
+            // Module-CA LHS hier into a GEN scope: the hier_path spans only
+            // the BASE elem and the LAST elem carries the raw dotted
+            // fullname (hierdefparam `assign bar[0].a = ...`).
+            {
+                bool genTgt9 = false;
+                auto& hsym9 =
+                    expr.as<HierarchicalValueExpression>().symbol;
+                for (auto sc9 = hsym9.getParentScope(); sc9;
+                     sc9 = sc9->asSymbol().getParentScope()) {
+                    if (sc9->asSymbol().kind == SymbolKind::GenerateBlock) {
+                        genTgt9 = true;
+                        break;
+                    }
+                    if (sc9->asSymbol().kind == SymbolKind::InstanceBody)
+                        break;
+                }
+                if (inLhs && genTgt9 && !elems->empty()) {
+                    auto* fe9 = (UHDM::expr*)elems->front();
+                    hp->VpiEndLineNo(fe9->VpiEndLineNo());
+                    hp->VpiEndColumnNo(fe9->VpiEndColumnNo());
+                    auto* le9 = elems->back();
+                    if (le9->UhdmType() == UHDM::uhdmref_obj)
+                        ((UHDM::ref_obj*)le9)->VpiFullName(raw);
+                }
+
+            }
             hp->Path_elems(elems);
             return hp;
         }

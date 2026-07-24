@@ -1960,6 +1960,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant)
                 rhsConstForMap = (UHDM::constant*)rhs;
+            // DEFPARAM'd param (value differs from the declared-default
+            // eval, but the initializer is still the default): Surelog keeps
+            // the DEFAULT value on the parameter and puts the DEFPARAM value
+            // in the param_assign Rhs (hierdefparam: UINT:44 / Rhs 42).
+            if (!inPackage && !overridden && hasDefault && defaultInit &&
+                rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
+                auto& cvd9 = ps.getValue();
+                if (cvd9.isInteger() && !cvd9.integer().hasUnknown() &&
+                    ps.getType().getCanonicalType().isIntegral()) {
+                ASTContext dctx9(body, LookupLocation::max);
+                auto dv9 = dctx9.tryEval(*defaultInit);
+                if (dv9 && dv9.isInteger() &&
+                    !dv9.integer().hasUnknown() &&
+                    dv9.integer() != cvd9.integer()) {
+                    std::string cd9 = cvd9.integer().toString(
+                        LiteralBase::Decimal, false);
+                    std::string dd9 = dv9.integer().toString(
+                        LiteralBase::Decimal, false);
+                    if (topView) {
+                        auto* rc9 = (UHDM::constant*)rhs;
+                        rc9->VpiDecompile(cd9);
+                        rc9->VpiValue("UINT:" + cd9);
+                    }
+                    up->VpiValue("UINT:" + dd9);
+                }
+                }
+            }
         }
         passigns->push_back(pa);
         // DEF-view aggregate-typedef params (typedef struct/union/enum T; then

@@ -845,6 +845,14 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::constant*> elabParamConst;
     // Elab gen-scope net objects (for nested-scope CA LHS binding only).
     std::map<const slang::ast::Symbol*, UHDM::any*> genScopeNets;
+    // ELAB hier refs into gen scopes bind their last elem to the gen net
+    // late (the CA emits before the gen scopes) — hierdefparam.
+    std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
+        pendingGenHierBinds;
+    // True while emitting ELAB-view cont assigns (gen-hier last-elem binds
+    // only apply there — single-instance defs share body symbols with the
+    // elab view, so symbol-based gating alone is not enough).
+    bool elabCaEmit = false;
     // Depth of procedural for-stmt bodies being emitted (refs escaping the
     // loop stay unbound in gen-scope processes).
     int procForDepth = 0;

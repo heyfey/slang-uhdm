@@ -3064,6 +3064,18 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     }
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
+                    // Gen-scope child HighConn refs bind their GEN-LOCAL
+                    // nets (hierdefparam mod_b(.A(a))).
+                    if (h && h->UhdmType() == UHDM::uhdmref_obj &&
+                        !((UHDM::ref_obj*)h)->Actual_group()) {
+                        auto& ce9 = stripImplicitConv(*expr);
+                        if (ce9.kind == ExpressionKind::NamedValue)
+                            if (auto git9 = genScopeNets.find(
+                                    &ce9.as<NamedValueExpression>().symbol);
+                                git9 != genScopeNets.end())
+                                ((UHDM::ref_obj*)h)->Actual_group(
+                                    git9->second);
+                    }
                     // Child bit_select HighConns double through the CHILD
                     // INSTANCE name (gen scopes via genConnPrefix; regular
                     // children via the parent prefix) — Surelog.
@@ -6140,6 +6152,13 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                    DefInfo* defInfo, bool shareWithDef,
                                    std::set<const Symbol*>* instRefs,
                                    std::set<const Symbol*>* lhsSyms) {
+    bool savedElabCa9 = elabCaEmit;
+    elabCaEmit = topView;
+    struct ElabCaRestore9 {
+        bool* p;
+        bool v;
+        ~ElabCaRestore9() { *p = v; }
+    } elabCaRestore9{&elabCaEmit, savedElabCa9};
     auto* cas = s.MakeCont_assignVec();
     // Net-declaration assignments (wire x = expr;) become cont_assigns with
     // vpiNetDeclAssign, before the explicit continuous assigns (top view only).
