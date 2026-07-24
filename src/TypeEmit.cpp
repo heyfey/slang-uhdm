@@ -620,12 +620,23 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 arrayElem ? st->getSyntax() : declared->getTypeSyntax();
             if (ssyn) {
                 if (auto* su = ssyn->as_if<syntax::StructUnionTypeSyntax>()) {
-                    SourceLocation e = su->keyword.range().end();
-                    if (su->packed && su->packed.range().end() > e)
-                        e = su->packed.range().end();
-                    if (su->signing && su->signing.range().end() > e)
-                        e = su->signing.range().end();
-                    setLoc(sts, SourceRange(su->keyword.range().start(), e));
+                    // Surelog locates an ANONYMOUS inline struct_typespec at
+                    // the bare `struct`/`union` keyword token (an unpacked-array
+                    // ELEMENT struct: `struct packed {..} a[4]` spans just
+                    // `struct`, NOT `struct packed`). A directly-declared
+                    // (non-array-element) anonymous struct keeps the extended
+                    // keyword+packed+signing span.
+                    if (arrayElem) {
+                        setLoc(sts, su->keyword.range());
+                    }
+                    else {
+                        SourceLocation e = su->keyword.range().end();
+                        if (su->packed && su->packed.range().end() > e)
+                            e = su->packed.range().end();
+                        if (su->signing && su->signing.range().end() > e)
+                            e = su->signing.range().end();
+                        setLoc(sts, SourceRange(su->keyword.range().start(), e));
+                    }
                 }
                 else
                     setLoc(sts, ssyn->sourceRange());
@@ -1230,6 +1241,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // int clone, var-scoped fullname).
                             bool intEnc = false;
                             const ParameterSymbol* boundParam = nullptr;
+                            // The MODULE (InstanceBody) param a bare bound
+                            // resolves to, captured regardless of typed-ness for
+                            // the elab-clone width fold below.
+                            const ParameterSymbol* elabModPar = nullptr;
                             if (currentScope) {
                                 ASTContext bctx(*currentScope, LookupLocation::max);
                                 auto& be = Expression::bind(*bsyn, bctx);
@@ -1263,6 +1278,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                  bsc2->asSymbol().kind ==
                                                      SymbolKind::GenerateBlock)
                                             c->VpiSize(32);
+                                        if (auto bsc3 = bp.getParentScope();
+                                            bsc3 &&
+                                            bsc3->asSymbol().kind ==
+                                                SymbolKind::InstanceBody)
+                                            elabModPar = &bp;
                                     }
                                 }
                             }
@@ -1280,6 +1300,29 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     its0->VpiSigned(true);
                                 rt0->Actual_typespec(its0);
                                 c->Typespec(rt0);
+                            }
+                            // An ELAB var-dim bound folding a MODULE-param ref
+                            // that did NOT take the typed+var-scoped ts-ref path
+                            // above (an untyped int-valued param, or a typed one
+                            // minted without a var-scoped owner as in a gen-child
+                            // typespec clone) takes the param's own width
+                            // (int-valued -> 32) but NO ts ref — Surelog.
+                            // A TYPED param always carries its width; an
+                            // UNTYPED param only takes its (narrow) width when
+                            // its initializer is a plain integer LITERAL — one
+                            // computed from a $clog2/func CALL keeps the bare
+                            // 64-bit fold (Surelog).
+                            else if (elabModPar && !intEnc &&
+                                     (boundParam ||
+                                      (elabModPar->getInitializer() &&
+                                       stripImplicitConv(
+                                           *elabModPar->getInitializer())
+                                               .kind ==
+                                           ExpressionKind::IntegerLiteral))) {
+                                c->VpiSize(
+                                    (int32_t)elabModPar->getType().getBitWidth());
+                                c->VpiConstType(vpiUIntConst);
+                                c->VpiValue("UINT:" + digits);
                             }
                             else {
                                 c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);

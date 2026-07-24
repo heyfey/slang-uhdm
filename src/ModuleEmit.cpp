@@ -9873,10 +9873,26 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     if (portView && !multiParamIface) {
         if (auto* pas0 = iface->Param_assigns()) {
             auto* keep = s.MakeParam_assignVec();
-            for (auto* pa0 : *pas0)
-                if (pa0->Rhs() &&
-                    pa0->Rhs()->UhdmType() == UHDM::uhdmoperation)
+            for (auto* pa0 : *pas0) {
+                if (!pa0->Rhs())
+                    continue;
+                // Aggregate (op75) param_assigns are always kept (their struct
+                // value cannot inline on the parameter). A scalar constant-Rhs
+                // param_assign is dropped UNLESS its Lhs is a LOCALPARAM derived
+                // inside the interface (e.g. BYT=CFG.BUS.DAT/8, OFF=$clog2(BYT)):
+                // Surelog keeps those in the modport port-view too. A plain
+                // scalar PARAMETER still folds inline and drops its param_assign.
+                bool keepIt =
+                    pa0->Rhs()->UhdmType() == UHDM::uhdmoperation;
+                if (!keepIt &&
+                    pa0->Rhs()->UhdmType() == UHDM::uhdmconstant) {
+                    auto* lp0 = (UHDM::parameter*)pa0->Lhs();
+                    if (lp0 && lp0->VpiLocalParam())
+                        keepIt = true;
+                }
+                if (keepIt)
                     keep->push_back(pa0);
+            }
             iface->Param_assigns(keep->empty() ? nullptr : keep);
         }
     }
