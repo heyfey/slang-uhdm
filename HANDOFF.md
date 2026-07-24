@@ -1,6 +1,6 @@
-# HANDOFF — slang-uhdm convergence campaign (10-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (7-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~15:00, Opus lane): 477 PASS / 174 CMP_ONLY / 10 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~16:00, Opus lane): 484 PASS / 170 CMP_ONLY / 7 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
@@ -49,10 +49,13 @@ Found with a name-suffix instrumentation sweep over the 10 `->VpiName(<alias>.na
 stamping a unique marker at each candidate site and grepping the dump is the fastest way to identify
 which of several look-alike sites actually emits an object.
 
-### Remaining DIFF (19)
-arraycells, arrays03, BitSelect trio, const_arg_loop, const_func, cs_registers, func_tern_hint,
-func_upto, iface_array_elem_cfg_param, iface_cfg_param_def_pass, iface_param_2level, int_types,
-multiplier, prefix, rotate, rsp_gen_minimal, TypedefStructParamWithRangeInSubmodule.
+### Remaining DIFF (7)
+arraycells (r=1, missing elab module_array), const_func (r=-601, elab gen-scope CA constant),
+cs_registers (r=70, pkg-param ts aliasing + always-block bit_select LHS), func_tern_hint (r=1, ONLY
+Surelog's evaluator arithmetic-shifting a signed operand — NOT worth a whole SL evaluator),
+func_upto (r=12, const-function fold, 28820 lines), multiplier (r=-32, elab genvar-fold/positional
+lowConn), rsp_gen_minimal (r=70, prim_secded blocker: SL binds data_o ref_obj vpiActual to the
+bit_select last-writer, we bind the logic_net).
 
 ### REFUTED this stretch (do not retry blindly)
 - Parenting the synthetic op11 `INT:1` everywhere: 9 PASS demotions (it is view- and owner-dependent).
