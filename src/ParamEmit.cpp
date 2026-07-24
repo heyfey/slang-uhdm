@@ -3595,9 +3595,62 @@ UHDM::typespec* UhdmExporter::makeBareVecParamTs(const ParameterSymbol& ps,
     return lts;
 }
 
-void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
+// The instance body a symbol is declared in (nullptr for package/$unit
+// params); generate blocks resolve to their enclosing instance.
+static const InstanceBodySymbol* paramOwnerBody(const Symbol& sym) {
+    for (auto* sc = sym.getParentScope(); sc;) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::InstanceBody)
+            return &ss.as<InstanceBodySymbol>();
+        sc = ss.getParentScope();
+    }
+    return nullptr;
+}
+
+// Surelog builds an aggregate param's ELAB pattern-op typespec clone while it
+// ELABORATES the param assign — before the instance's own net/port typespecs
+// are written. Minting it here (right after the instance's params are emitted)
+// puts it in that arena slot; patchParamTypespecs then reuses the clone.
+void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
+        auto& pct = ps->getType().getCanonicalType();
+        if (pct.kind != SymbolKind::PackedStructType &&
+            pct.kind != SymbolKind::PackedUnionType)
+            continue;
+        if (!rhsRt || !rhsRt->VpiParent() ||
+            rhsRt->VpiParent()->UhdmType() != UHDM::uhdmoperation)
+            continue;
+        if (paramOpClones.count(rhsRt))
+            continue;
+        std::string savedPfx = syntaxRefPrefix;
+        std::string full(prt->VpiFullName());
+        auto dot = full.rfind('.');
+        syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
+        structCloneMemberRefParent = true;
+        auto* opClone = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+        structCloneMemberRefParent = false;
+        rhsRt->Actual_typespec(opClone);
+        opClone->VpiParent(rhsRt);
+        if (rhsRt->VpiFullName().empty())
+            rhsRt->VpiFullName(syntaxRefPrefix);
+        syntaxRefPrefix = savedPfx;
+        paramOpClones[rhsRt] = opClone;
+    }
+}
+
+void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
+                                       const InstanceBodySymbol* ownBody,
+                                       bool descendants) {
+    for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
+        auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
+        if (ownBody) {
+            // Package/$unit params ride with the instance that pulled them in.
+            auto* ob = paramOwnerBody(*ps);
+            bool own = !ob || ob == ownBody;
+            if (own == descendants)
+                continue;
+        }
         // The ELAB param ts is a FRESH clone (Surelog: parented at the elab
         // ref below; struct/union clones also carry vpiInstance -> the module).
         // A struct-pattern param's ELAB OP ts (rhsRt on an operation) binds its
@@ -3609,8 +3662,11 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
                         ps->getType().getCanonicalType().kind ==
                             SymbolKind::PackedUnionType;
         UHDM::typespec* opClone = nullptr;
-        if (aggParam && rhsRt && rhsRt->VpiParent() &&
-            rhsRt->VpiParent()->UhdmType() == UHDM::uhdmoperation) {
+        if (auto oit = paramOpClones.find(rhsRt);
+            rhsRt && oit != paramOpClones.end())
+            opClone = oit->second; // minted at elaboration (mintParamOpClones)
+        else if (aggParam && rhsRt && rhsRt->VpiParent() &&
+                 rhsRt->VpiParent()->UhdmType() == UHDM::uhdmoperation) {
             std::string full(prt->VpiFullName());
             auto dot = full.rfind('.');
             syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);

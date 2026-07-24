@@ -19,6 +19,24 @@ void UhdmExporter::noteUnsupported(const std::string& what) {
     unsupportedKinds.insert(what);
 }
 
+// True when one of the body's own parameters is declared with a type alias
+// that is ALSO declared in that body (parameter alert_tx_t P = ...).
+static bool paramTypedByLocalTypedef(const Scope& body) {
+    for (auto& mem : body.members()) {
+        if (mem.kind != SymbolKind::Parameter)
+            continue;
+        auto dt = mem.as<ParameterSymbol>().getDeclaredType();
+        if (!dt)
+            continue;
+        auto& ty = dt->getType();
+        if (ty.kind != SymbolKind::TypeAlias)
+            continue;
+        if (ty.as<TypeAliasType>().getParentScope() == &body)
+            return true;
+    }
+    return false;
+}
+
 void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
     if (range.start() == SourceLocation::NoLocation)
         return;
@@ -731,6 +749,17 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (useInterfacePath(*inst))
             continue; // simple-interface params handled in emitInterfaceDef
         DefInfo& info = defMap[&inst->getDefinition()];
+        // A param TYPED BY one of the module's own typedefs forces that
+        // typedef's compile first (Surelog compiles the typedef declaration
+        // before the parameter that names it), so the typedef's member
+        // typespecs precede the param initializer's own objects.
+        if (!info.typedefsDone && paramTypedByLocalTypedef(inst->body)) {
+            info.typedefsDone = true;
+            const Scope* savedCS = currentScope;
+            currentScope = &inst->body;
+            emitTypedefs(inst->body, info.mod, "work@" + name, info);
+            currentScope = savedCS;
+        }
         emitParameters(inst->body, info.mod, "work@" + name, info.nets, /*topView=*/false,
                        &info, false);
     }

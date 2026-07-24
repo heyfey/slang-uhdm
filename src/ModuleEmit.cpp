@@ -154,8 +154,12 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // (Def-view parameters were emitted in the exportDesign pre-pass.)
 
     // Typedefs first: their base typespecs precede everything else in the
-    // def's arena region.
-    emitTypedefs(body, m, prefix, info);
+    // def's arena region. (A def whose own params are typed by one of them
+    // already ran this in the pre-pass.)
+    if (!info.typedefsDone) {
+        info.typedefsDone = true;
+        emitTypedefs(body, m, prefix, info);
+    }
 
     // Module-LOCAL class definitions attach under the def module's
     // vpiClassDefn (bare name, work@mod::name fullname).
@@ -1744,9 +1748,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     analyzeParamEnc(body);
     {
         auto pit = defMap.find(&def);
+        size_t opLo = pendingParamTs.size();
         emitParameters(body, m, prefix, topNets, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false,
                        /*topShareTs=*/isTop);
+        // The elab pattern-op typespec clones belong to the param-assign
+        // elaboration, ahead of this instance's net/port typespecs.
+        mintParamOpClones(opLo, pendingParamTs.size());
     }
     std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
     auto* nets = s.MakeNetVec();
@@ -6002,7 +6010,8 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     // (Surelog creates them at each bind in the write phase).
     drainFuncRet();
 
-    patchParamTypespecs(tp.paramLo, tp.paramHi);
+    patchParamTypespecs(tp.paramLo, tp.paramHi, &tp.inst->body,
+                        /*descendants=*/false);
 
     {
         std::map<const void*, UHDM::typespec*> bareCache;
@@ -6069,6 +6078,12 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         pc.rt->Actual_typespec(its);
     }
     pendingCastTs.clear();
+
+    // CHILD-instance param typespecs: Surelog's writer only descends into the
+    // sub-instances once the parent's own body (ports, nets, cont assigns and
+    // their cast typespecs) is written, so they trail the drains above.
+    patchParamTypespecs(tp.paramLo, tp.paramHi, &tp.inst->body,
+                        /*descendants=*/true);
 
     // Param-clone typespecs for param-backed call folds (very end).
     // VECTOR params clone a LOC-LESS bare typespec instead (parented bounds,

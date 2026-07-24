@@ -80,6 +80,10 @@ private:
         TsCache defTs;
         std::vector<UHDM::task_func*> taskFuncs;
         std::vector<UHDM::typespec*> typedefs;
+        // Set once emitTypedefs has run for this def (the def-param pre-pass
+        // may run it early so the typedef's member typespecs precede the
+        // params that are typed by it — Surelog compiles them in source order).
+        bool typedefsDone = false;
         std::vector<UHDM::concurrent_assertions*> assertions;
         UHDM::clocking_block* defaultClocking = nullptr;
     };
@@ -311,7 +315,26 @@ private:
     std::set<const slang::ast::DefinitionSymbol*> textMultiParamDefs;
     void computeParamMultiplicity();
     bool isMultiParamDef(const slang::ast::Scope& body) const;
-    void patchParamTypespecs(size_t lo, size_t hi);
+    // Surelog's writer finishes an instance (params, ports, nets, cont
+    // assigns) BEFORE descending into its child instances, so a child's elab
+    // param typespecs land after the parent's deferred body typespecs. The
+    // drain therefore runs in two passes over the same [lo,hi) window:
+    // ownBody==nullptr keeps the single-pass behaviour; otherwise pass 1
+    // (descendants=false) takes the entries owned by ownBody and pass 2 takes
+    // everything below it.
+    void patchParamTypespecs(size_t lo, size_t hi,
+                             const slang::ast::InstanceBodySymbol* ownBody = nullptr,
+                             bool descendants = false);
+    // An aggregate (struct/union) param whose ELAB pattern RHS carries its own
+    // module-scoped typespec clone: Surelog mints that clone while ELABORATING
+    // the param assign, i.e. before the instance's net/port typespecs, not in
+    // the write-phase param drain. Minted here, consumed by
+    // patchParamTypespecs.
+    // Keyed by the pending entry's own RHS ref (one instance's param assign):
+    // two instances sharing a slang body share the ParameterSymbol but not the
+    // ref, so each gets its own clone.
+    void mintParamOpClones(size_t lo, size_t hi);
+    std::map<UHDM::ref_typespec*, UHDM::typespec*> paramOpClones;
     UHDM::typespec* makeBareVecParamTs(const slang::ast::ParameterSymbol& ps,
                                        bool parentBounds);
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
