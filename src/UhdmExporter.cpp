@@ -681,6 +681,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
                 ts->VpiName(ta.name);
                 ts->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
+                // MULTI-TOP designs parent $unit typedefs at the DESIGN
+                // (arrays03); single-top ones leave them for net re-parenting
+                // (DotMultirange).
+                if (comp.getRoot().topInstances.size() > 1)
+                    ts->VpiParent((UHDM::BaseClass*)d);
                 typedefTs[&ta] = ts;
                 byName[std::string(ta.name)] = ts;
             }

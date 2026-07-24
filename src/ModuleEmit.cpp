@@ -2612,10 +2612,16 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             // Surelog parents the net typespec at creation; a shared
             // declaration-group typespec ends at the group's last net.
-            // Typedef typespecs keep their own parent.
+            // Typedef typespecs keep their own parent. A shared $UNIT
+            // typedef ts keeps its DESIGN parent when the design has
+            // MULTIPLE top modules (arrays03); single-top designs still
+            // re-parent at the last using net (DotMultirange).
             if (ts && (anonStructClone ||
                        (ts->UhdmType() != UHDM::uhdmenum_typespec &&
-                        ts->UhdmType() != UHDM::uhdmstruct_typespec)))
+                        ts->UhdmType() != UHDM::uhdmstruct_typespec)) &&
+                !(ts->VpiParent() &&
+                  ts->VpiParent()->UhdmType() == UHDM::uhdmdesign &&
+                  comp.getRoot().topInstances.size() > 1))
                 ts->VpiParent(n);
             // An INPUT struct port driven by a LITERAL constant at its
             // instantiation is a struct_VAR (vpiVariables, Visibility) in
