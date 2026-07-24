@@ -4269,10 +4269,37 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                                         SymbolKind::TypeAlias) {
                                     auto& ta0b =
                                         d0b->getType().as<TypeAliasType>();
+                                    auto& ctb0 = ta0b.getCanonicalType();
                                     if (auto tIt0 = typedefTs.find(
                                             (const Symbol*)&ta0b);
-                                        tIt0 != typedefTs.end())
-                                        structTs0 = tIt0->second;
+                                        tIt0 != typedefTs.end() &&
+                                        ctb0.kind ==
+                                            SymbolKind::PackedStructType) {
+                                        // Surelog mints a PER-USE struct clone
+                                        // at this folded bound (parent = the
+                                        // constant's ref, member refs scoped at
+                                        // the var, own logic ts at the member
+                                        // ref) — NOT the shared $unit object.
+                                        UHDM::typespec* sh0 = tIt0->second;
+                                        std::string alias0 =
+                                            std::string(rt0->VpiFullName()) +
+                                            "." + std::string(ta0b.name);
+                                        structCloneMemberRefParent = true;
+                                        auto* scl0 = buildStructTs(
+                                            ctb0.as<PackedStructType>(), true,
+                                            alias0, ".");
+                                        structCloneMemberRefParent = false;
+                                        scl0->VpiName(ta0b.name);
+                                        scl0->VpiParent(rt0);
+                                        scl0->VpiFile(
+                                            std::string(sh0->VpiFile()));
+                                        scl0->VpiLineNo(sh0->VpiLineNo());
+                                        scl0->VpiColumnNo(sh0->VpiColumnNo());
+                                        scl0->VpiEndLineNo(sh0->VpiEndLineNo());
+                                        scl0->VpiEndColumnNo(
+                                            sh0->VpiEndColumnNo());
+                                        structTs0 = scl0;
+                                    }
                                 }
                                 if (auto* ini0 = psb0.getInitializer()) {
                                     auto& li0 = stripImplicitConv(*ini0);
