@@ -277,6 +277,15 @@ static void collectImportedParams(const Scope& body,
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
                                   NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
                                   bool topShareTs, bool funcScope) {
+    // Elaborated module/interface params are clone_tree copies in Surelog, so
+    // their unpacked-dim "N-1" op parents its synthetic 1 (see elabParamDim).
+    bool savedEpd = elabParamDim;
+    elabParamDim = topView && !inPackage && !funcScope;
+    struct EpdRestore {
+        bool& f;
+        bool v;
+        ~EpdRestore() { f = v; }
+    } epdRestore{elabParamDim, savedEpd};
     auto* params = s.MakeAnyVec();
     auto* passigns = s.MakeParam_assignVec();
     std::vector<const ParameterSymbol*> paramSyms;
@@ -2249,6 +2258,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // emitExpr down the def path for it (WIDTH RULE).
                 paramInitDef = !topView || structWidePkg;
                 paramInitPkg = inPackage;
+                importedParamClone = isImported && !inPackage;
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
                     suppressConstParent = true;
@@ -2300,6 +2310,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 suppressConstParent = savedSuppP;
                 paramInitPkg = false;
                 paramInitDef = false;
+                importedParamClone = false;
                 inParamInit = false;
                 forceConstParent = false;
                 // Elab typed-param op init with UNKNOWN param-ref operands:

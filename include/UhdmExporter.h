@@ -514,6 +514,23 @@ private:
     // including enum consts).
     bool defGenProcessEmit = false;
     bool callStmtContext = false;
+    // Set while emitting an ELABORATED (top-view) module/interface PARAMETER.
+    // Surelog builds the [N] -> [0:N-1] "decr by 1" op with an UNPARENTED
+    // synthetic INT:1 (CompileExpression.cpp "Decr by 1"), but the elaborator
+    // DEEP-CLONES module parameters (and their array_typespecs) into the
+    // instance and clone_tree re-parents every child — so only the elaborated
+    // copies carry vpiParent on that operand. Package params and net/var
+    // ranges are never cloned, hence never parented.
+    bool elabParamDim = false;
+    // Set while emitting a MATERIALIZED IMPORTED package parameter's init in a
+    // module: that parameter is a clone_tree copy of the package one, so its
+    // concat literal operands carry vpiParent (the package original does not).
+    bool importedParamClone = false;
+    // Set while emitting a DEF-view ref_module port's HighConn expression.
+    // A tagged_pattern's literal value there is built by compileConst and never
+    // re-parented (Surelog parents pattern values only under a param_assign Rhs
+    // or an ELABORATED cont_assign Rhs).
+    bool defRefModConn = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
     // Set while emitting a port's initializer expression (output w = bar(4));

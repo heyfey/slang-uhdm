@@ -987,6 +987,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                     }
                 }
             }
+            defRefModConn = true;
             if (auto expr = connectionExpr(*conn)) {
                 if (expr->kind == ExpressionKind::NamedValue) {
                     auto& nv = expr->as<NamedValueExpression>();
@@ -1126,6 +1127,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                     p->High_conn(h);
                 }
             }
+            defRefModConn = false;
             rports->push_back(p);
         }
         if (!rports->empty())
@@ -2295,8 +2297,30 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     // tree with the as-written leaf constants (Surelog).
                     else if (ic.kind == ExpressionKind::SimpleAssignmentPattern &&
                              dt->getType().getCanonicalType().isPackedArray()) {
-                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                        if (auto* e = emitExpr(ic, v, fullName, topNets)) {
                             v->Expr((UHDM::expr*)e);
+                            // This init is COMPILED (not cloned) by Surelog's
+                            // netlist elaboration, so every literal operand in
+                            // the pattern tree stays unparented at EVERY level
+                            // (compileConst never sets VpiParent); only the
+                            // nested operations self-parent.
+                            std::function<void(UHDM::any*)> bareC9 =
+                                [&](UHDM::any* n9) {
+                                    if (!n9 ||
+                                        n9->UhdmType() != UHDM::uhdmoperation)
+                                        return;
+                                    if (auto* os9 =
+                                            ((UHDM::operation*)n9)->Operands())
+                                        for (auto* o9 : *os9) {
+                                            if (o9->UhdmType() ==
+                                                UHDM::uhdmconstant)
+                                                o9->VpiParent(nullptr);
+                                            else
+                                                bareC9(o9);
+                                        }
+                                };
+                            bareC9(e);
+                        }
                     }
                     else if (ic.kind == ExpressionKind::UnaryOp &&
                              ic.as<UnaryExpression>().op == UnaryOperator::Minus &&
@@ -6988,7 +7012,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 bool savedRe9 = reemitting;
                 reemitting = true;
                 forceConstParent = false;
+                // A NET-DECL assign has no def-view counterpart to clone from:
+                // Surelog compiles it fresh during netlist elaboration, so the
+                // pattern's leaf literals stay UNPARENTED (a written `assign`
+                // with the same RHS is cloned and does parent them).
+                bool savedSc9 = suppressConstParent;
+                suppressConstParent = true;
                 rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap);
+                suppressConstParent = savedSc9;
                 forceConstParent = true;
                 reemitting = savedRe9;
             }

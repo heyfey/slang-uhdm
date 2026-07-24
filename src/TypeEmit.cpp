@@ -4491,6 +4491,8 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 one->VpiSize(64);
                 one->VpiValue("INT:1");
                 one->VpiConstType(vpiIntConst);
+                if (elabParamDim)
+                    one->VpiParent(op);
                 ops->push_back(one);
                 op->Operands(ops);
                 r->Right_expr(op);

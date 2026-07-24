@@ -1849,7 +1849,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // binary operands and nested expressions (~A[3]) keep the
             // normal rules.
             bool savedS = suppressConstParent, savedF = forceConstParent;
-            if ((paramInitDef || inProcessEmit || inParamInit) &&
+            // A unary op that is itself a CALL ARGUMENT (f_int(-1), $bits(~x))
+            // leaves its literal operand unparented in BOTH views: Surelog
+            // builds the operand with compileConst (no VpiParent) and the arg
+            // is never re-parented by a clone.
+            bool callArgUnary =
+                parent && (parent->UhdmType() == UHDM::uhdmfunc_call ||
+                           parent->UhdmType() == UHDM::uhdmsys_func_call);
+            if ((paramInitDef || inProcessEmit || inParamInit || callArgUnary) &&
                 isLiteralExpr(ue.operand())) {
                 suppressConstParent = true;
                 forceConstParent = false;
@@ -3121,7 +3128,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 const Expression* olit = o;
                 while (olit->kind == ExpressionKind::Conversion)
                     olit = &olit->as<ConversionExpression>().operand();
-                if (!reemitting && isLiteralExpr(*olit)) {
+                if (!reemitting && !importedParamClone &&
+                    isLiteralExpr(*olit)) {
                     suppressConstParent = true;
                     // PARAM concat inits unparent literal operands (the force
                     // flag would re-parent them) — package and module alike.
@@ -4654,7 +4662,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // The pattern value parents at the OPERATION — except a
                 // literal value in a def CONT-ASSIGN, which stays unparented.
                 bool savedS2 = suppressConstParent, savedF2 = forceConstParent;
-                if (paramInitDef && isLiteralExpr(*setter.expr)) {
+                if ((paramInitDef || defRefModConn) &&
+                    isLiteralExpr(*setter.expr)) {
                     suppressConstParent = true;
                     forceConstParent = false;
                 }
