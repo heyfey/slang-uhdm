@@ -543,6 +543,10 @@ private:
     // the clone keep vpiInstance = the HOME package (where the function is
     // defined), not the importing package. Non-null only inside that clone.
     UHDM::instance* importCopyTsInst = nullptr;
+    // While re-emitting an IMPORTED package param's initializer in a MODULE
+    // view: size-cast typespecs of that copy keep vpiInstance = the home
+    // package (like the package view) and parent at their own ref_typespec.
+    UHDM::instance* importedInitPkgInst = nullptr;
     // While the clone emits, its own typespecs are collected here so their
     // vpiInstance can be re-pointed at the ELABORATED (top) home package once
     // both package views exist (the top view is built after all def views).

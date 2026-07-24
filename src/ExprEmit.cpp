@@ -2046,9 +2046,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(its, cesyn.left->sourceRange());
                         its->VpiValue("INT:" + rawText(cesyn.left->sourceRange()));
                         // A package-scope size cast's integer_typespec carries
-                        // vpiInstance = the package (Surelog).
+                        // vpiInstance = the package (Surelog) — and so does a
+                        // MODULE-view copy of an imported package param's init.
                         if (pkgScopeInst)
                             its->Instance(pkgScopeInst);
+                        else if (importedInitPkgInst)
+                            its->Instance(importedInitPkgInst);
                         cts = its;
                     }
                 }
@@ -2419,8 +2422,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             rt->VpiParent(op);
             rt->Actual_typespec(cts);
-            // Re-elaborated contexts parent the cast typespec at its ref.
-            if (reemitting)
+            // Re-elaborated contexts parent the cast typespec at its ref — as
+            // does an imported param's module-view init copy.
+            if (reemitting ||
+                (importedInitPkgInst &&
+                 cts->UhdmType() == UHDM::uhdminteger_typespec))
                 cts->VpiParent(rt);
             op->Typespec(rt);
             auto* operands = s.MakeAnyVec();

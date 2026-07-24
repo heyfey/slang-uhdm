@@ -2024,8 +2024,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 bool savedReemit0 = reemitting;
                 if (elabUnpStructPat)
                     reemitting = true;
+                auto* savedImpInst0 = importedInitPkgInst;
+                if (!inPackage && isImported && ps.getParentScope())
+                    if (auto pit0 =
+                            pkgDefMap.find(&ps.getParentScope()->asSymbol());
+                        pit0 != pkgDefMap.end())
+                        importedInitPkgInst = (UHDM::instance*)pit0->second;
                 if (!rhs)
                     rhs = emitExpr(*init, pa, prefix, netMap);
+                importedInitPkgInst = savedImpInst0;
                 reemitting = savedReemit0;
                 // A DEF-view materialized UNTYPED integral import's Rhs constant
                 // is sized at the param's type width (Surelog: 32 for a plain
