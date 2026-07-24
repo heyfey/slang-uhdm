@@ -3419,7 +3419,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                                             foldUnpackedStructArrayPattern(
                                                 *pp9.getInitializer(),
                                                 pp9.getType(), arrTs9, cfn9, p,
-                                                hcPrefix, *parentNets))
+                                                hcPrefix, *parentNets, true))
                                         h = fop9;
                                 }
                             }
@@ -5516,6 +5516,15 @@ bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
 // unparented; initialized decls extend through the init).
 void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     UHDM::typespec* ts = nullptr;
+    // Def-view range bounds stay symbolic for MODULE params but resolve for
+    // PACKAGE ones (see defNetTsScope).
+    auto* savedDnts = defNetTsScope;
+    defNetTsScope = pn.sym->getParentScope();
+    struct DntsGuard {
+        const Scope*& slot;
+        const Scope* prev;
+        ~DntsGuard() { slot = prev; }
+    } dntsGuard{defNetTsScope, savedDnts};
     if (auto dt2 = pn.sym->getDeclaredType()) {
         auto& t2 = dt2->getType();
         if (typedefClone.count(&t2)) {
@@ -6063,6 +6072,8 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         its->VpiColumnNo(pc.col);
         its->VpiEndLineNo(pc.endLine);
         its->VpiEndColumnNo(pc.endCol);
+        if (pc.pkgInst)
+            its->Instance(pc.pkgInst);
         if (pc.sizeExpr) {
             NetMap none;
             bool savedCS = inCastSize;
@@ -8139,6 +8150,33 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // unary-MINUS / binary-SUBTRACT over params fold to a loc-less
         // signed INT at the UNCONVERTED value, sized to the LHS width.
         bool skipGeneralFold = false;
+        // A CAST over a MEMBER READ of a struct-typed PARAMETER keeps the
+        // operation in the elab view too (32'(A.Prefix)): Surelog does not
+        // reduce struct-param member reads, only whole-param reads
+        // (ImportedDoubleCastedParameter; same shape as the interface
+        // `32'(s.CFG.DAT)` reader).
+        if (!rhs && topView) {
+            auto& rc9 = stripImplicitConv(ae.right());
+            if (rc9.kind == ExpressionKind::Conversion &&
+                !rc9.as<ConversionExpression>().isImplicit()) {
+                const Expression* b9 = &stripImplicitConv(
+                    rc9.as<ConversionExpression>().operand());
+                while (b9->kind == ExpressionKind::MemberAccess)
+                    b9 = &stripImplicitConv(
+                        b9->as<MemberAccessExpression>().value());
+                if (b9 != &stripImplicitConv(
+                              rc9.as<ConversionExpression>().operand()) &&
+                    b9->kind == ExpressionKind::NamedValue &&
+                    b9->as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter &&
+                    b9->as<NamedValueExpression>()
+                            .symbol.as<ParameterSymbol>()
+                            .getType()
+                            .getCanonicalType()
+                            .kind == SymbolKind::PackedStructType)
+                    skipGeneralFold = true;
+            }
+        }
         if (!rhs && topView) {
             auto& rn = stripImplicitConv(ae.right());
             bool unaryPlusParam =

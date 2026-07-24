@@ -1958,6 +1958,74 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     op2->Operands(opnds);
                     rhs = op2;
                 }
+                // A >64b struct param MATERIALIZED into an importing MODULE
+                // keeps the TAGGED tree in the module DEF view (and in both
+                // home-package views), but its ELAB view STRIPS the
+                // tagged_pattern wrappers: the op75's direct operands are the
+                // member VALUE expressions themselves, re-emitted as-is (a
+                // size cast stays an op67 over the source constant) and sized
+                // to the member width (ImportedDoubleCastedParameter
+                // kmac_pkg::A). Only member ops are re-sized; a plain
+                // constant member keeps its own literal size.
+                if (!rhs && structPat && topView && structWidePkg &&
+                    isImported && !inPackage) {
+                    auto& pctW = ps.getType().getCanonicalType();
+                    auto& sinitW = stripImplicitConv(*init);
+                    if (sinitW.kind ==
+                        ExpressionKind::StructuredAssignmentPattern) {
+                        auto& apW =
+                            sinitW.as<StructuredAssignmentPatternExpression>();
+                        auto* opW = s.MakeOperation();
+                        opW->VpiOpType(75);
+                        opW->VpiParent(pa);
+                        setLoc(opW, init->sourceRange);
+                        auto* opndW = s.MakeAnyVec();
+                        bool okW = true;
+                        for (auto& fld : pctW.as<PackedStructType>()
+                                             .membersOfType<FieldSymbol>()) {
+                            const Expression* se = nullptr;
+                            for (auto& ms : apW.memberSetters)
+                                if (ms.member == &fld) {
+                                    se = ms.expr;
+                                    break;
+                                }
+                            if (!se)
+                                se = apW.defaultSetter;
+                            if (!se) {
+                                okW = false;
+                                break;
+                            }
+                            bool savedRe = reemitting;
+                            reemitting = true;
+                            // The re-emitted size-cast typespecs belong to the
+                            // HOME package (vpiInstance), like every other
+                            // module-view copy of an imported param's init.
+                            auto* savedImpW = importedInitPkgInst;
+                            if (ps.getParentScope())
+                                if (auto pitW = pkgDefMap.find(
+                                        &ps.getParentScope()->asSymbol());
+                                    pitW != pkgDefMap.end())
+                                    importedInitPkgInst =
+                                        (UHDM::instance*)pitW->second;
+                            auto* me = emitExpr(*se, opW, prefix, netMap);
+                            importedInitPkgInst = savedImpW;
+                            reemitting = savedRe;
+                            if (!me) {
+                                okW = false;
+                                break;
+                            }
+                            me->VpiParent(opW);
+                            if (me->UhdmType() == UHDM::uhdmoperation)
+                                ((UHDM::operation*)me)->VpiSize(
+                                    (int32_t)fld.getType().getBitWidth());
+                            opndW->push_back(me);
+                        }
+                        if (okW && !opndW->empty()) {
+                            opW->Operands(opndW);
+                            rhs = opW;
+                        }
+                    }
+                }
                 // ELAB (topView) view of a materialized UNPACKED-ARRAY-of-packed-
                 // struct param: Surelog FOLDS the '{'{...}} pattern. The outer op
                 // carries the param's array_typespec; the array element struct is
@@ -2963,7 +3031,7 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
 UHDM::operation* UhdmExporter::foldUnpackedStructArrayPattern(
     const Expression& init, const Type& arrType, UHDM::typespec* arrTs,
     const std::string& tsFullName, UHDM::any* parent, const std::string& prefix,
-    NetMap& netMap) {
+    NetMap& netMap, bool connFold) {
     auto& pctA = arrType.getCanonicalType();
     if (pctA.kind != SymbolKind::FixedSizeUnpackedArrayType)
         return nullptr;
@@ -3019,6 +3087,11 @@ UHDM::operation* UhdmExporter::foldUnpackedStructArrayPattern(
             op->VpiOpType(75);
             op->VpiParent(par);
             setLoc(op, e.sourceRange);
+            // In the instance-CONNECTION flavour every nested member op is
+            // sized to its own struct width (the param_assign flavour, which
+            // re-uses the definition-view objects, leaves them sizeless).
+            if (connFold)
+                op->VpiSize((int32_t)ctf.getBitWidth());
             if (auto* sts = lookupStructTs(ft)) {
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiParent(op);

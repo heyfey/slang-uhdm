@@ -422,10 +422,14 @@ private:
     // value folds recursively (all-scalar struct -> constant, struct-with-
     // sub-struct -> nested op75 tagged with that struct's typespec). Returns
     // nullptr for any shape it cannot fold exactly.
+    // `connFold` selects the INSTANCE-CONNECTION flavour of the fold: there
+    // each nested member op carries vpiSize = that member type's bit width
+    // (the param_assign flavour leaves the nested ops sizeless).
     UHDM::operation* foldUnpackedStructArrayPattern(
         const slang::ast::Expression& init, const slang::ast::Type& arrType,
         UHDM::typespec* arrTs, const std::string& tsFullName,
-        UHDM::any* parent, const std::string& prefix, NetMap& netMap);
+        UHDM::any* parent, const std::string& prefix, NetMap& netMap,
+        bool connFold = false);
 
     void setLoc(UHDM::BaseClass* obj, slang::SourceRange range);
     // setLoc with the end shrunk by whitespace Surelog compacts out of
@@ -652,6 +656,10 @@ private:
         std::string prefix;
         // Type casts: build the target-type typespec at drain instead.
         const slang::ast::Type* castType = nullptr;
+        // Home-package instance the deferred typespec belongs to (a
+        // package-scope cast, or a module-view copy of an imported param's
+        // init) — stamped as vpiInstance at drain.
+        UHDM::instance* pkgInst = nullptr;
     };
     std::vector<PendingCastTs> pendingCastTs;
     // Net-declaration-assignment Lhs typespecs: created at the very end of the
@@ -869,6 +877,11 @@ private:
     // their values (concrete instance). Set off declSymbol because the local
     // var typespec drains in a deferred pass where currentSubSym is null.
     const slang::ast::Scope* genBlockFnScope = nullptr;
+    // Non-null while materializing a DEF-view net/var typespec: its unfolded
+    // range bounds keep module-param refs symbolic, but a reference to an
+    // IMPORTED PACKAGE parameter resolves to that parameter's value
+    // (Surelog compiles package constants before the module def).
+    const slang::ast::Scope* defNetTsScope = nullptr;
     // True while emitting a PROCESS body inside an elaborated gen-scope: a
     // module-param ref folds to its value (the gen block is a concrete
     // instance), like the gen-block-function case.

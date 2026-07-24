@@ -3398,6 +3398,62 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     }
                 }
             }
+            // A DEF-view net/var range bound referencing an IMPORTED PACKAGE
+            // parameter is already constant when the module def is compiled:
+            // Surelog folds it to the value, carrying a bare ref to a clone of
+            // the parameter's own typespec (cs_registers PMP_MAX_REGIONS-1).
+            // MODULE params stay symbolic (they are overridable).
+            if (defNetTsScope) {
+                ASTContext dctx(*defNetTsScope, LookupLocation::max);
+                auto& de = Expression::bind(syn.as<syntax::ExpressionSyntax>(),
+                                            dctx);
+                if (!de.bad() && stripImplicitConv(de).kind ==
+                                     ExpressionKind::NamedValue) {
+                    auto& dsy =
+                        stripImplicitConv(de).as<NamedValueExpression>().symbol;
+                    if (dsy.kind == SymbolKind::Parameter && dsy.getParentScope() &&
+                        dsy.getParentScope()->asSymbol().kind ==
+                            SymbolKind::Package) {
+                        auto& dp = dsy.as<ParameterSymbol>();
+                        auto& dcv = dp.getValue();
+                        if (dcv.isInteger() && !dcv.integer().hasUnknown()) {
+                            auto* c = s.MakeConstant();
+                            std::string digits =
+                                dcv.integer().toString(LiteralBase::Decimal, false);
+                            c->VpiDecompile(digits);
+                            c->VpiSize((int32_t)dp.getType().getBitWidth());
+                            c->VpiValue("UINT:" + digits);
+                            c->VpiConstType(vpiUIntConst);
+                            c->VpiParent(parent);
+                            setLoc(c, syn.sourceRange());
+                            // The ts ref binds the PACKAGE parameter's OWN
+                            // typespec (it already carries vpiInstance = the
+                            // package); only mint a clone when the package
+                            // parameter object is not around.
+                            UHDM::typespec* its = nullptr;
+                            if (auto poit = pkgParamObj.find(&dsy);
+                                poit != pkgParamObj.end() &&
+                                poit->second->Typespec())
+                                its = poit->second->Typespec()
+                                          ->Actual_typespec();
+                            if (!its) {
+                                auto* its0 = s.MakeInt_typespec();
+                                if (dp.getType().isSigned())
+                                    its0->VpiSigned(true);
+                                if (auto dt = dp.getDeclaredType())
+                                    if (auto tsy = dt->getTypeSyntax())
+                                        setLoc(its0, tsy->sourceRange());
+                                its = its0;
+                            }
+                            auto* rt = s.MakeRef_typespec();
+                            rt->VpiParent(c);
+                            rt->Actual_typespec(its);
+                            c->Typespec(rt);
+                            return c;
+                        }
+                    }
+                }
+            }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(name);
             if (!syntaxRefPrefix.empty())

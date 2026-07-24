@@ -2177,7 +2177,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             {rt0, sm->getLineNumber(lr.start()),
                              sm->getColumnNumber(lr.start()),
                              sm->getLineNumber(lr.end()), sm->getColumnNumber(lr.end()),
-                             "INT:" + rawText(lr)});
+                             "INT:" + rawText(lr), nullptr, "", nullptr,
+                             pkgScopeInst ? pkgScopeInst : importedInitPkgInst});
                         op->Typespec(rt0);
                         deferredCast = true;
                     }
