@@ -2491,6 +2491,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool intFormal =
                             arg->type && arg->type->getCanonicalType().kind ==
                                              SymbolKind::PredefinedIntegerType;
+                        // A ref arg that names a PARAMETER/localparam (its
+                        // referent is a param, not a net/var) carries no
+                        // formal-ts stamp in module/elab context — Surelog
+                        // stamps only net/var refs, part-selects and constants
+                        // (const_arg_loop: operationN(A,...) A refs are bare).
+                        bool paramRef = false;
+                        {
+                            const Expression& baseArg = stripImplicitConv(*arg);
+                            if (baseArg.kind == ExpressionKind::NamedValue) {
+                                auto sk =
+                                    baseArg.as<NamedValueExpression>().symbol.kind;
+                                paramRef = (sk == SymbolKind::Parameter ||
+                                            sk == SymbolKind::EnumValue);
+                            }
+                        }
                         // DEF-view cont-assign CONCAT args ({a,b}) carry no
                         // formal-ts ref (patterns '{0,1} keep theirs).
                         bool defOpArg = contAssignView == 1 &&
@@ -2506,6 +2521,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           !intFormal))
                                       : (!inLhs && !defOpArg && !portInitCtx &&
+                                         !paramRef &&
                                          (refArg || callArgDepth == 1));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =

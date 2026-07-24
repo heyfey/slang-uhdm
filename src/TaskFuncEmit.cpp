@@ -444,7 +444,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + sep + std::string(arg->name));
             rt->VpiParent(io);
-            if (bareImplicit) {
+            // A formal REDECLARED in the function body with an explicit type
+            // (input [4:0] r; reg [4:0] r; / input x; integer x;) — Surelog
+            // binds the io_decl's actual typespec to the REDECLARATION's type
+            // object (at the redecl span), not the port's own declared type.
+            // The redecl is a direct body Variable member sharing the name;
+            // a block-nested shadow (begin:s integer r) is NOT a redecl.
+            const Symbol* redeclSym = nullptr;
+            for (auto& mv : sub.members()) {
+                if (mv.kind != SymbolKind::Variable || &mv == sub.returnValVar ||
+                    mv.name.empty() || mv.name == "this" ||
+                    mv.name != arg->name)
+                    continue;
+                redeclSym = &mv;
+                break;
+            }
+            if (redeclSym) {
+                ts = makeTypespec(*redeclSym);
+                rt->Actual_typespec(ts);
+            }
+            else if (bareImplicit) {
                 pendingIoTs.push_back({rt, argTsyn});
             }
             else if (arg->getDeclaredType()->getType().getCanonicalType().kind ==

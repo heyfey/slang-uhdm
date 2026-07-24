@@ -6434,29 +6434,31 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
 void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* m,
                              const std::string& prefix, NetMap& netMap,
                              bool topView) {
-    UHDM::VectorOfprimitive* prims = nullptr;
-    for (auto& member : body.members()) {
-        if (member.kind != SymbolKind::PrimitiveInstance)
-            continue;
-        auto& pi = member.as<PrimitiveInstanceSymbol>();
-        std::string pname(pi.primitiveType.name);
-        static const std::map<std::string, int32_t> primMap = {
-            {"and", vpiAndPrim},   {"nand", vpiNandPrim}, {"nor", vpiNorPrim},
-            {"or", vpiOrPrim},     {"xor", vpiXorPrim},   {"xnor", vpiXnorPrim},
-            {"buf", vpiBufPrim},   {"not", vpiNotPrim}};
-        auto pmIt = primMap.find(pname);
-        if (pmIt == primMap.end()) {
-            noteUnsupported("gate primitive: " + pname);
-            continue;
-        }
+    static const std::map<std::string, int32_t> primMap = {
+        {"and", vpiAndPrim},   {"nand", vpiNandPrim}, {"nor", vpiNorPrim},
+        {"or", vpiOrPrim},     {"xor", vpiXorPrim},   {"xnor", vpiXnorPrim},
+        {"buf", vpiBufPrim},   {"not", vpiNotPrim}};
+    // Build one gate object from a primitive instance.
+    //   gateName/gateFull: this gate's identity.
+    //   refScope: prefix under which the term ref_objs are named.
+    //   locOverride: full-statement span for a gate-array rep (else the
+    //     instance's own syntax span).
+    //   stripToBase: an array rep connects to whole vectors — strip element/
+    //     range selects down to the base net (whole-vector prim_terms).
+    auto buildGate = [&](const PrimitiveInstanceSymbol& pi, const std::string& pname,
+                         int32_t primType, const std::string& gateName,
+                         const std::string& gateFull, const std::string& refScope,
+                         UHDM::BaseClass* parent, const SourceRange* locOverride,
+                         bool stripToBase) -> UHDM::gate* {
         auto* g = s.MakeGate();
-        g->VpiParent(m);
+        g->VpiParent(parent);
         g->VpiDefName("work@" + pname);
-        g->VpiName(member.name);
-        std::string gfull = prefix + "." + std::string(member.name);
-        g->VpiFullName(gfull);
-        g->VpiPrimType(pmIt->second);
-        if (auto syn = pi.getSyntax())
+        g->VpiName(gateName);
+        g->VpiFullName(gateFull);
+        g->VpiPrimType(primType);
+        if (locOverride)
+            setLoc(g, *locOverride);
+        else if (auto syn = pi.getSyntax())
             setLoc(g, syn->sourceRange());
         auto* terms = s.MakePrim_termVec();
         auto conns = pi.getPortConnections();
@@ -6472,7 +6474,6 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
             }
             auto* t = s.MakePrim_term();
             t->VpiParent(g);
-            setLoc(t, ce->sourceRange);
             bool isOut = outLast ? (idx + 1 < (int32_t)conns.size()) : idx == 0;
             t->VpiDirection(isOut ? vpiOutput : vpiInput);
             if (idx > 0)
@@ -6482,14 +6483,31 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
             const Expression* te = &stripImplicitConv(*ce);
             if (te->kind == ExpressionKind::Assignment)
                 te = &stripImplicitConv(te->as<AssignmentExpression>().left());
+            if (stripToBase) {
+                for (bool more = true; more;) {
+                    more = false;
+                    if (te->kind == ExpressionKind::ElementSelect) {
+                        te = &stripImplicitConv(
+                            te->as<ElementSelectExpression>().value());
+                        more = true;
+                    }
+                    else if (te->kind == ExpressionKind::RangeSelect) {
+                        te = &stripImplicitConv(
+                            te->as<RangeSelectExpression>().value());
+                        more = true;
+                    }
+                }
+            }
+            SourceRange termLoc = stripToBase ? te->sourceRange : ce->sourceRange;
+            setLoc(t, termLoc);
             auto& se = *te;
             if (se.kind == ExpressionKind::NamedValue) {
                 auto& nv = se.as<NamedValueExpression>();
                 auto* r = s.MakeRef_obj();
                 r->VpiParent(g);
                 r->VpiName(nv.symbol.name);
-                r->VpiFullName(gfull + "." + std::string(nv.symbol.name));
-                setLoc(r, ce->sourceRange);
+                r->VpiFullName(refScope + "." + std::string(nv.symbol.name));
+                setLoc(r, termLoc);
                 if (auto nit = netMap.find(&nv.symbol); nit != netMap.end())
                     r->Actual_group(nit->second);
                 t->Expr(r);
@@ -6501,12 +6519,114 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
             idx++;
         }
         g->Prim_terms(terms);
-        if (!prims)
-            prims = s.MakePrimitiveVec();
-        prims->push_back(g);
+        return g;
+    };
+
+    UHDM::VectorOfprimitive* prims = nullptr;
+    UHDM::VectorOfprimitive_array* primArrs = nullptr;
+    for (auto& member : body.members()) {
+        if (member.kind == SymbolKind::PrimitiveInstance) {
+            auto& pi = member.as<PrimitiveInstanceSymbol>();
+            std::string pname(pi.primitiveType.name);
+            auto pmIt = primMap.find(pname);
+            if (pmIt == primMap.end()) {
+                noteUnsupported("gate primitive: " + pname);
+                continue;
+            }
+            std::string gfull = prefix + "." + std::string(member.name);
+            auto* g = buildGate(pi, pname, pmIt->second, std::string(member.name),
+                                gfull, gfull, m, nullptr, false);
+            if (!prims)
+                prims = s.MakePrimitiveVec();
+            prims->push_back(g);
+        }
+        else if (member.kind == SymbolKind::InstanceArray) {
+            // Gate instance array (`and g[3:0] (...)`) — a gate_array under
+            // vpiPrimitiveArray carrying ONE representative gate with the
+            // whole-vector connections and the array range. DEF view doubles
+            // the rep name/scope (prefix.arr.arr); ELAB collapses it to the
+            // array fullname (prefix.arr) with module-scoped term refs.
+            auto& arr = member.as<InstanceArraySymbol>();
+            if (arr.elements.empty() || !arr.elements[0] ||
+                arr.elements[0]->kind != SymbolKind::PrimitiveInstance)
+                continue;
+            auto& rep = arr.elements[0]->as<PrimitiveInstanceSymbol>();
+            std::string pname(rep.primitiveType.name);
+            auto pmIt = primMap.find(pname);
+            if (pmIt == primMap.end()) {
+                noteUnsupported("gate primitive: " + pname);
+                continue;
+            }
+            auto* ga = s.MakeGate_array();
+            ga->VpiParent(m);
+            ga->VpiName(arr.name);
+            std::string afull = prefix + "." + std::string(arr.name);
+            ga->VpiFullName(afull);
+            SourceRange stmtLoc(arr.location, arr.location);
+            const syntax::SyntaxNode* dimSyn = nullptr;
+            const syntax::ExpressionSyntax* leftSyn = nullptr;
+            const syntax::ExpressionSyntax* rightSyn = nullptr;
+            if (auto* asyn = arr.getSyntax();
+                asyn && asyn->kind == syntax::SyntaxKind::HierarchicalInstance) {
+                stmtLoc = asyn->sourceRange();
+                if (auto* decl =
+                        asyn->as<syntax::HierarchicalInstanceSyntax>().decl;
+                    decl && !decl->dimensions.empty()) {
+                    auto* dim = *decl->dimensions.begin();
+                    dimSyn = dim;
+                    if (dim->specifier &&
+                        dim->specifier->kind ==
+                            syntax::SyntaxKind::RangeDimensionSpecifier) {
+                        auto& spec = dim->specifier->as<
+                            syntax::RangeDimensionSpecifierSyntax>();
+                        if (spec.selector->kind ==
+                            syntax::SyntaxKind::SimpleRangeSelect) {
+                            auto& sel =
+                                spec.selector->as<syntax::RangeSelectSyntax>();
+                            leftSyn = sel.left;
+                            rightSyn = sel.right;
+                        }
+                    }
+                }
+            }
+            setLoc(ga, stmtLoc);
+            auto* rng = s.MakeRange();
+            rng->VpiParent(ga);
+            if (dimSyn)
+                setLoc(rng, dimSyn->sourceRange());
+            auto mkBound = [&](const syntax::ExpressionSyntax* bs,
+                               int32_t v) -> UHDM::constant* {
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(std::to_string(v));
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + std::to_string(v));
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(rng);
+                if (bs)
+                    setLoc(c, bs->sourceRange());
+                return c;
+            };
+            rng->Left_expr(mkBound(leftSyn, arr.range.left));
+            rng->Right_expr(mkBound(rightSyn, arr.range.right));
+            auto* rvec = s.MakeRangeVec();
+            rvec->push_back(rng);
+            ga->Ranges(rvec);
+            std::string gfull = topView ? afull : (afull + "." + std::string(arr.name));
+            std::string refScope = topView ? prefix : gfull;
+            auto* g = buildGate(rep, pname, pmIt->second, std::string(arr.name),
+                                gfull, refScope, ga, &stmtLoc, true);
+            auto* gprims = s.MakePrimitiveVec();
+            gprims->push_back(g);
+            ga->Primitives(gprims);
+            if (!primArrs)
+                primArrs = s.MakePrimitive_arrayVec();
+            primArrs->push_back(ga);
+        }
     }
     if (prims && !prims->empty())
         m->Primitives(prims);
+    if (primArrs && !primArrs->empty())
+        m->Primitive_arrays(primArrs);
 }
 
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,
@@ -9747,6 +9867,10 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
             p2->VpiEndColumnNo(hp->VpiEndColumnNo());
             if (hp->VpiLocalParam())
                 p2->VpiLocalParam(true);
+            // The col-0 tail-dup parameter carries the home view's vpiSigned
+            // (a signed `parameter int DLY`) — Surelog keeps it on the dup too.
+            if (hp->VpiSigned())
+                p2->VpiSigned(true);
             if (psym && hp->Typespec()) {
                 auto* prt2 = s.MakeRef_typespec();
                 prt2->VpiFullName(std::string(hp->Typespec()->VpiFullName()));
