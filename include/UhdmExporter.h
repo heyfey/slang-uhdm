@@ -700,6 +700,20 @@ private:
     void drainElabPortTs(const slang::ast::DefinitionSymbol* def);
     bool defPortTsInterchangeable(const slang::ast::DefinitionSymbol& def);
     bool rangeRefsOverriddenParam(const slang::ast::Symbol& sym);
+    // True when the definition is instantiated as an ARRAY (arr[N] ())
+    // anywhere in the design; cached per definition.
+    bool defInstantiatedAsArray(const slang::ast::DefinitionSymbol& def);
+    std::map<const void*, bool> defArrayInstCache;
+    // ELAB interface-port LowConn ref_objs by their vpiFullName
+    // (<inst-path>.<port>): a child's kept-symbolic bound reuses the SAME
+    // object as the hier_path's vpiExpr (Surelog aliases it).
+    std::map<std::string, UHDM::ref_obj*> ifacePortLowConnByPath;
+    std::map<const slang::ast::Symbol*, UHDM::ref_obj*> ifacePortLowConnBySym;
+    // True when the expression reads a PARAMETER of an INTERFACE through an
+    // interface/modport PORT of `body` (s.CFG.DAT) — Surelog never reduces
+    // such a read, in either view.
+    bool ifacePortParamHopRead(const slang::ast::Expression& e,
+                               const slang::ast::InstanceBodySymbol& body);
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
     // task_func SHELLS created by pre-def call sites, awaiting their def fill.

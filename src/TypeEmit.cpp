@@ -1292,6 +1292,185 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         v.visitDefault(nv);
                                     }));
                         }
+                        // An ELAB child whose module parameter is OVERRIDDEN at
+                        // the instantiation by a HIERARCHICAL expression
+                        // (#(.SYS_DAT(s.CFG.BUS.DAT))) keeps the bound
+                        // SYMBOLIC, substituting that hier expression for the
+                        // param reference — Surelog's reduce never crosses the
+                        // interface-member hop, so the child's own widths stay
+                        // unfolded (iface_param_2level). The hier_path is
+                        // anchored at the BOUND's token span; its elements
+                        // carry the override-site spans.
+                        const ParameterSymbol* ovHierParam = nullptr;
+                        if (!memberInitParam && bsyn && currentScope &&
+                            elabInstanceTs && !tfContext && !bitsOfSignal &&
+                            !bareParamInParamTs && !defModuleParamDim &&
+                            !ifacePortBound) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            if (!be.bad())
+                                be.visit(makeVisitor(
+                                    [&](auto& v, const NamedValueExpression& nv) {
+                                        if (ovHierParam)
+                                            return;
+                                        if (nv.symbol.kind ==
+                                                SymbolKind::Parameter &&
+                                            isOverriddenParam(nv.symbol))
+                                            if (auto* pin =
+                                                    nv.symbol
+                                                        .as<ParameterSymbol>()
+                                                        .getInitializer()) {
+                                                auto& top0 =
+                                                    stripImplicitConv(*pin);
+                                                const Expression* b0 = &top0;
+                                                while (b0->kind ==
+                                                       ExpressionKind::MemberAccess)
+                                                    b0 = &stripImplicitConv(
+                                                        b0->as<MemberAccessExpression>()
+                                                            .value());
+                                                if (b0 != &top0 &&
+                                                    b0->kind ==
+                                                        ExpressionKind::HierarchicalValue &&
+                                                    b0->as<HierarchicalValueExpression>()
+                                                            .symbol.kind ==
+                                                        SymbolKind::Parameter)
+                                                    ovHierParam =
+                                                        &nv.symbol
+                                                             .as<ParameterSymbol>();
+                                            }
+                                        v.visitDefault(nv);
+                                    }));
+                        }
+                        if (ovHierParam) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            NetMap none;
+                            std::string bpfx = boundOwnerFullName;
+                            // Re-emit the OVERRIDE expression as a hier_path
+                            // anchored at `anchor` (the param-ref token in the
+                            // bound), with a ts ref scoped under the declaring
+                            // signal whose actual is the param's own typespec.
+                            auto emitOvHier =
+                                [&](UHDM::BaseClass* par,
+                                    const syntax::ExpressionSyntax* anchor)
+                                -> UHDM::expr* {
+                                auto* ovi = ovHierParam->getInitializer();
+                                auto* he = (UHDM::expr*)emitExpr(*ovi, par, bpfx,
+                                                                 none);
+                                if (he &&
+                                    he->UhdmType() == UHDM::uhdmhier_path) {
+                                    auto* hp = (UHDM::hier_path*)he;
+                                    if (anchor)
+                                        setLoc(hp, anchor->sourceRange());
+                                    auto* rt = s.MakeRef_typespec();
+                                    rt->VpiFullName(
+                                        bpfx.empty()
+                                            ? std::string(hp->VpiName())
+                                            : bpfx + "." +
+                                                  std::string(hp->VpiName()));
+                                    rt->VpiParent(hp);
+                                    auto* its = s.MakeInt_typespec();
+                                    if (auto dt = ovHierParam->getDeclaredType())
+                                        if (auto* tsyn = dt->getTypeSyntax())
+                                            setLoc(its, tsyn->sourceRange());
+                                    if (ovHierParam->getType().isSigned())
+                                        its->VpiSigned(true);
+                                    rt->Actual_typespec(its);
+                                    hp->Typespec(rt);
+                                    // An UNSCOPED (def-view) re-emit leaves the
+                                    // tail element BARE — no ".DAT" fullname.
+                                    if (bpfx.empty() && hp->Path_elems())
+                                        for (auto* pe0 : *hp->Path_elems())
+                                            if (pe0->UhdmType() ==
+                                                UHDM::uhdmref_obj) {
+                                                auto* r0 = (UHDM::ref_obj*)pe0;
+                                                if (!r0->VpiFullName().empty() &&
+                                                    r0->VpiFullName()[0] == '.')
+                                                    r0->VpiFullName("");
+                                            }
+                                    // vpiExpr = the ENCLOSING instance's
+                                    // interface-port LowConn ref (the very
+                                    // object Surelog aliases here).
+                                    std::string hn(hp->VpiName());
+                                    if (auto d0 = hn.find('.');
+                                        d0 != std::string::npos)
+                                        hn.resize(d0);
+                                    std::string up0 = bpfx;
+                                    for (int k0 = 0; k0 < 2; k0++)
+                                        if (auto d1 = up0.rfind('.');
+                                            d1 != std::string::npos)
+                                            up0.resize(d1);
+                                        else
+                                            up0.clear();
+                                    UHDM::ref_obj* lcRef = nullptr;
+                                    if (!up0.empty() && !hn.empty())
+                                        if (auto lit = ifacePortLowConnByPath.find(
+                                                up0 + "." + hn);
+                                            lit != ifacePortLowConnByPath.end())
+                                            lcRef = lit->second;
+                                    // Def-view re-emit (no instance path): reach
+                                    // the port SYMBOL through the AST instead.
+                                    if (!lcRef && !hn.empty()) {
+                                        const InstanceBodySymbol* ib9 = nullptr;
+                                        for (auto sc9 =
+                                                 ovHierParam->getParentScope();
+                                             sc9;
+                                             sc9 = sc9->asSymbol().getParentScope())
+                                            if (sc9->asSymbol().kind ==
+                                                SymbolKind::InstanceBody) {
+                                                ib9 = &sc9->asSymbol()
+                                                           .as<InstanceBodySymbol>();
+                                                break;
+                                            }
+                                        if (ib9 && ib9->parentInstance)
+                                            if (auto* psc9 =
+                                                    ib9->parentInstance
+                                                        ->getParentScope())
+                                                if (auto* sy9 = psc9->find(hn);
+                                                    sy9 &&
+                                                    sy9->kind ==
+                                                        SymbolKind::InterfacePort)
+                                                    if (auto sit9 =
+                                                            ifacePortLowConnBySym
+                                                                .find(sy9);
+                                                        sit9 !=
+                                                        ifacePortLowConnBySym.end())
+                                                        lcRef = sit9->second;
+                                    }
+                                    if (lcRef)
+                                        hp->Root_value(lcRef);
+                                }
+                                return he;
+                            };
+                            if (!be.bad() &&
+                                stripImplicitConv(be).kind ==
+                                    ExpressionKind::BinaryOp &&
+                                syntax::BinaryExpressionSyntax::isKind(
+                                    bsyn->kind)) {
+                                auto& bin =
+                                    stripImplicitConv(be).as<BinaryExpression>();
+                                auto& bsx =
+                                    bsyn->as<syntax::BinaryExpressionSyntax>();
+                                auto* op = s.MakeOperation();
+                                op->VpiOpType(mapBinaryOp(bin.op));
+                                op->VpiParent(r);
+                                setLoc(op, bsyn->sourceRange());
+                                auto* operands = s.MakeAnyVec();
+                                if (auto* l = emitOvHier(op, bsx.left))
+                                    operands->push_back(l);
+                                int64_t rval = 1;
+                                if (auto rcv = bctx.tryEval(bin.right());
+                                    rcv && rcv.isInteger())
+                                    rval = *rcv.integer().as<int64_t>();
+                                operands->push_back(
+                                    makeBoundConst(bsx.right, rval, op));
+                                op->Operands(operands);
+                                return op;
+                            }
+                            if (bsyn->kind == syntax::SyntaxKind::IdentifierName)
+                                if (auto* he = emitOvHier(r, bsyn))
+                                    return he;
+                        }
                         if (memberInitParam) {
                             ASTContext bctx(*currentScope, LookupLocation::max);
                             auto& be = Expression::bind(*bsyn, bctx);

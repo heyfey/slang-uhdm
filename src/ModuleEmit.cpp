@@ -2897,6 +2897,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             mit != dit->second.end())
                             lc->Actual_group(mit->second);
                 p->Low_conn(lc);
+                ifacePortLowConnByPath[std::string(lc->VpiFullName())] = lc;
+                ifacePortLowConnBySym[portBase] = lc;
                 auto conn = ip.getConnection();
                 std::string connRaw =
                     iconn && connectionExpr(*iconn)
@@ -5784,6 +5786,89 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
 // True when a packed-range bound of the symbol's declared type references a
 // parameter that is OVERRIDDEN at some instantiation (its folded value is
 // override-dependent, so the def view keeps the bound unfolded).
+// True when the definition is instantiated as an ARRAY anywhere in the design
+// (bus_if #(C) arr[1:0] ()). Surelog's array-instance elaboration re-reduces
+// the DEFINITION's parameter defaults, which changes the def view's form.
+bool UhdmExporter::defInstantiatedAsArray(const DefinitionSymbol& def) {
+    auto it = defArrayInstCache.find((const void*)&def);
+    if (it != defArrayInstCache.end())
+        return it->second;
+    bool found = false;
+    std::function<void(const Symbol&)> visit = [&](const Symbol& sym) {
+        if (found)
+            return;
+        if (sym.kind == SymbolKind::InstanceArray) {
+            for (auto* e : sym.as<InstanceArraySymbol>().elements) {
+                if (e->kind == SymbolKind::Instance &&
+                    &e->as<InstanceSymbol>().getDefinition() == &def)
+                    found = true;
+                visit(*e);
+            }
+            return;
+        }
+        if (sym.kind == SymbolKind::Instance) {
+            for (auto& mb : sym.as<InstanceSymbol>().body.members())
+                visit(mb);
+            return;
+        }
+        if (sym.kind == SymbolKind::GenerateBlock) {
+            if (!sym.as<GenerateBlockSymbol>().isUninstantiated)
+                for (auto& mb : sym.as<Scope>().members())
+                    visit(mb);
+            return;
+        }
+        if (sym.kind == SymbolKind::GenerateBlockArray) {
+            for (auto& gb : sym.as<GenerateBlockArraySymbol>().entries)
+                for (auto& mb : gb->members())
+                    visit(mb);
+            return;
+        }
+    };
+    for (auto* top : comp.getRoot().topInstances)
+        visit(*top);
+    defArrayInstCache[(const void*)&def] = found;
+    return found;
+}
+
+// True when the expression reaches a PARAMETER of an INTERFACE through an
+// interface/modport PORT of the declaring module (s.CFG.DAT). Surelog's
+// reduce never crosses the port hop: the read stays a hier_path (under its
+// cast/arith operation) in the ELAB view as well as the def view.
+bool UhdmExporter::ifacePortParamHopRead(const Expression& e,
+                                         const InstanceBodySymbol& body) {
+    std::set<std::string> ifacePortNames;
+    for (auto pb : body.getPortList())
+        if (pb && pb->kind == SymbolKind::InterfacePort)
+            ifacePortNames.insert(std::string(pb->name));
+    if (ifacePortNames.empty())
+        return false;
+    bool found = false;
+    e.visit(makeVisitor([&](auto& v, const HierarchicalValueExpression& hv) {
+        if (hv.symbol.kind == SymbolKind::Parameter) {
+            // The referenced parameter must live in an INTERFACE body...
+            const InstanceBodySymbol* ob = nullptr;
+            for (auto sc = hv.symbol.getParentScope(); sc;
+                 sc = sc->asSymbol().getParentScope())
+                if (sc->asSymbol().kind == SymbolKind::InstanceBody) {
+                    ob = &sc->asSymbol().as<InstanceBodySymbol>();
+                    break;
+                }
+            // ...and the reference must be written through one of THIS
+            // module's interface ports (s.CFG), not a local instance.
+            if (ob && ob->getDefinition().definitionKind ==
+                          DefinitionKind::Interface) {
+                std::string raw(rawText(hv.sourceRange));
+                auto dot = raw.find('.');
+                if (dot != std::string::npos &&
+                    ifacePortNames.count(raw.substr(0, dot)))
+                    found = true;
+            }
+        }
+        v.visitDefault(hv);
+    }));
+    return found;
+}
+
 bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
     auto dt0 = sym.getDeclaredType();
     if (!dt0)
@@ -8756,6 +8841,15 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     skipGeneralFold = true;
             }
         }
+        // A read of an INTERFACE PARAMETER through the module's own
+        // interface/modport PORT (32'(s.CFG.DAT)) is NOT reduced in the ELAB
+        // view either: Surelog leaves the port hop as a hier_path under the
+        // cast operation (iface_cfg_param_def_pass / iface_array_elem_cfg_param).
+        // Gated on the hierarchical reference actually crossing an INTERFACE
+        // PORT of the declaring module — a local interface instance or a plain
+        // module-param read still folds.
+        if (!rhs && topView && ifacePortParamHopRead(ae.right(), body))
+            skipGeneralFold = true;
         if (!rhs && topView) {
             auto& rn = stripImplicitConv(ae.right());
             bool unaryPlusParam =

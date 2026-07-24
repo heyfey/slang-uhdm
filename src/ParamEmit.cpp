@@ -1092,6 +1092,49 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     continue;
                 }
             }
+            // An override ACTUAL that reads a parameter through a HIERARCHICAL
+            // member path (#(.SYS_DAT(s.CFG.BUS.DAT))) keeps the SYMBOLIC
+            // hier_path Rhs at the override-site span: Surelog's reduce never
+            // crosses the interface-member hop (iface_param_2level). vpiExpr
+            // aliases the ENCLOSING instance's interface-port LowConn ref.
+            const Expression* ovHierInit = nullptr;
+            if (boundInit) {
+                auto& bi7 = stripImplicitConv(*boundInit);
+                const Expression* b7 = &bi7;
+                while (b7->kind == ExpressionKind::MemberAccess)
+                    b7 = &stripImplicitConv(
+                        b7->as<MemberAccessExpression>().value());
+                if (b7 != &bi7 &&
+                    b7->kind == ExpressionKind::HierarchicalValue &&
+                    b7->as<HierarchicalValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter)
+                    ovHierInit = &bi7;
+            }
+            if (ovHierInit) {
+                auto* he = (UHDM::expr*)emitExpr(*ovHierInit, pa, prefix, netMap);
+                if (he && he->UhdmType() == UHDM::uhdmhier_path) {
+                    auto* hp = (UHDM::hier_path*)he;
+                    std::string hn(hp->VpiName());
+                    if (auto d0 = hn.find('.'); d0 != std::string::npos)
+                        hn.resize(d0);
+                    std::string up0 = prefix;
+                    if (auto d1 = up0.rfind('.'); d1 != std::string::npos)
+                        up0.resize(d1);
+                    else
+                        up0.clear();
+                    if (!up0.empty() && !hn.empty())
+                        if (auto lit =
+                                ifacePortLowConnByPath.find(up0 + "." + hn);
+                            lit != ifacePortLowConnByPath.end())
+                            hp->Root_value(lit->second);
+                }
+                pa->Rhs(he);
+                passigns->push_back(pa);
+                if (prt)
+                    pendingParamTs.push_back(
+                        {&ps, up, prt, nullptr, typedParam});
+                continue;
+            }
             if (ovMemberInitParam) {
                 auto* init = ovMemberInitParam->getInitializer();
                 auto* he = (UHDM::expr*)emitExpr(*init, pa, prefix, netMap);
@@ -1896,7 +1939,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // the reader's `32'(s.CFG.DAT)` must stay a hier_path cast op
                 // (Surelog does NOT fold interface-port struct-param reads), and
                 // the modport port-view needs its own override param_assign.
-                if (structPat && topView && !structWidePkg) {
+                // ...EXCEPT when the interface is instantiated as an ARRAY
+                // (bus_if #(C) arr[1:0] ()). Surelog's array-instance path
+                // re-reduces the DEFINITION's parameter defaults, so the def
+                // view flat-folds too — with a BARE op ts ref (no parent, no
+                // fullname) instead of the elab clone's scoped one.
+                // (iface_array_elem_cfg_param.)
+                bool ifaceArrayDefFold = false;
+                if (structPat && !topView && !structWidePkg) {
+                    const InstanceBodySymbol* ob0 = nullptr;
+                    for (auto* sc0 = ps.getParentScope(); sc0;) {
+                        auto& ss0 = sc0->asSymbol();
+                        if (ss0.kind == SymbolKind::InstanceBody) {
+                            ob0 = &ss0.as<InstanceBodySymbol>();
+                            break;
+                        }
+                        sc0 = ss0.getParentScope();
+                    }
+                    if (ob0 && ob0->getDefinition().definitionKind ==
+                                   DefinitionKind::Interface &&
+                        defInstantiatedAsArray(ob0->getDefinition()))
+                        ifaceArrayDefFold = true;
+                }
+                if (structPat && (topView || ifaceArrayDefFold) &&
+                    !structWidePkg) {
                     auto& pctS = ps.getType().getCanonicalType();
                     // An OVERRIDE by a param REFERENCE substitutes the
                     // REFERENCED param's pattern, anchored at the override site.
@@ -1907,7 +1973,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     op2->VpiParent(pa);
                     setLoc(op2, structOvPat ? structOvLoc : init->sourceRange);
                     auto* rt = s.MakeRef_typespec();
-                    rt->VpiParent(op2);
+                    if (!ifaceArrayDefFold)
+                        rt->VpiParent(op2);
                     op2->Typespec(rt);
                     rhsRt = rt; // -> elab param clone (patchParamTypespecs)
                     auto* opnds = s.MakeAnyVec();
