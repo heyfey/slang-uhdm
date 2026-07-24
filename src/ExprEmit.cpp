@@ -3415,10 +3415,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         size_t lastOff = comps.empty() ? 0 : comps.back().second;
                         auto* bs2 = s.MakeBit_select();
                         bs2->VpiName(lastName);
-                        bs2->VpiFullName(selText);
+                        // Surelog anchors the leaf select at its INDEX and
+                        // freezes the doubled lazy fullname.
                         bs2->VpiParent(hp);
-                        setLoc(bs2, SourceRange(exprStart + lastOff,
-                                                expr.sourceRange.end()));
+                        (void)bs2->VpiFullName();
+                        setLoc(bs2, es.selector().sourceRange);
                         if (auto* ix2 = emitExpr(es.selector(), bs2, prefix, netMap))
                             bs2->VpiIndex((UHDM::expr*)ix2);
                         elems->push_back(bs2);
