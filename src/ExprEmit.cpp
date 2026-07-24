@@ -1435,6 +1435,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiOpType(opType);
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
+            // A unary op DIRECTLY under a sys_func_call arg anchors at the
+            // OPERATOR token only (BitsCallOnExpression's $bits(~dr_q)).
+            if (parent && parent->UhdmType() == UHDM::uhdmsys_func_call)
+                op->VpiEndColumnNo(op->VpiColumnNo() + 1);
             auto* operands = s.MakeAnyVec();
             // Def-view param inits, cont-assigns AND process bodies leave a
             // DIRECT-literal unary operand unparented (~(15), -1, a = -4);
