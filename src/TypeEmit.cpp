@@ -2610,6 +2610,9 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         // PARENT-FREE; BARE clone trees parent the ats at the member's ref.
         bool ats9MainFree = false;
         bool ats9CloneRefParent = false;
+        // Set when a struct PARAM clone's NAMED-enum member gets its own fresh
+        // scoped enum clone (parented at the member ref, below).
+        bool memberEnumClone = false;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -2921,6 +2924,68 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     fts = clD;
                 }
             }
+            // A struct/union PARAM clone (structCloneMemberRefParent) whose
+            // member is a NAMED package-enum typedef carries its OWN fresh
+            // scoped enum clone: parent = the member ref (below), instanced at
+            // the CONTAINER's package, base ref scoped through the member
+            // (…member.pkg::enum_e), base actual instanced at the ENUM's own
+            // home package (Surelog emits one member-enum clone per struct-
+            // param clone — the 5-level-hierarchy / passed-down families).
+            if (!fts && structCloneMemberRefParent && fm.getDeclaredType()) {
+                auto& mdt = fm.getDeclaredType()->getType();
+                if (mdt.kind == SymbolKind::TypeAlias &&
+                    mdt.getCanonicalType().kind == SymbolKind::EnumType) {
+                    auto& etAlias = mdt.as<TypeAliasType>();
+                    const Symbol* enumPkg = nullptr;
+                    for (auto* sc = etAlias.getParentScope(); sc;
+                         sc = sc->asSymbol().getParentScope())
+                        if (sc->asSymbol().kind == SymbolKind::Package) {
+                            enumPkg = &sc->asSymbol();
+                            break;
+                        }
+                    const Symbol* containerPkg = nullptr;
+                    for (auto* sc = fm.getParentScope(); sc;
+                         sc = sc->asSymbol().getParentScope())
+                        if (sc->asSymbol().kind == SymbolKind::Package) {
+                            containerPkg = &sc->asSymbol();
+                            break;
+                        }
+                    if (enumPkg) {
+                        std::string enumNm = std::string(enumPkg->name) +
+                                             "::" + std::string(etAlias.name);
+                        std::string memRefFull =
+                            aliasName.empty()
+                                ? std::string(fm.name)
+                                : aliasName + memberSep + std::string(fm.name);
+                        const syntax::SyntaxNode* eSyn = nullptr;
+                        if (auto dS = etAlias.getSyntax();
+                            dS && dS->kind ==
+                                      syntax::SyntaxKind::TypedefDeclaration)
+                            eSyn = dS->as<syntax::TypedefDeclarationSyntax>()
+                                       .type;
+                        auto* ecl = buildEnumTs(
+                            mdt.getCanonicalType().as<EnumType>(), eSyn,
+                            memRefFull + "." + enumNm);
+                        ecl->VpiName(enumNm);
+                        if (auto dS = etAlias.getSyntax())
+                            setLoc(ecl, dS->sourceRange());
+                        if (containerPkg)
+                            if (auto sit = pkgDefMap.find(containerPkg);
+                                sit != pkgDefMap.end())
+                                ecl->Instance(sit->second);
+                        if (auto eit = pkgDefMap.find(enumPkg);
+                            eit != pkgDefMap.end() && ecl->Base_typespec() &&
+                            ecl->Base_typespec()->Actual_typespec()) {
+                            ecl->Base_typespec()->Actual_typespec()->VpiParent(
+                                ecl->Base_typespec());
+                            ecl->Base_typespec()->Actual_typespec()->Instance(
+                                eit->second);
+                        }
+                        fts = ecl;
+                        memberEnumClone = true;
+                    }
+                }
+            }
             if (!fts)
                 fts = makeTypespec(fm, memberTypeSyn);
             // A nested ANONYMOUS struct member's struct_typespec is located at
@@ -2975,8 +3040,9 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         rt->VpiParent(tm);
         rt->Actual_typespec(fts);
         tm->Typespec(rt);
-        if ((structCloneMemberRefParent || ats9CloneRefParent) &&
-            fts->VpiName().empty())
+        if (((structCloneMemberRefParent || ats9CloneRefParent) &&
+             fts->VpiName().empty()) ||
+            memberEnumClone)
             fts->VpiParent(rt);
         // Ref* fields point at the member's type syntax.
         if (memberTypeSyn) {
@@ -3041,6 +3107,9 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         // PARENT-FREE; BARE clone trees parent the ats at the member's ref.
         bool ats9MainFree = false;
         bool ats9CloneRefParent = false;
+        // Set when a struct PARAM clone's NAMED-enum member gets its own fresh
+        // scoped enum clone (parented at the member ref, below).
+        bool memberEnumClone = false;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -3350,6 +3419,68 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         clD->Instance(aliasInst);
                     }
                     fts = clD;
+                }
+            }
+            // A struct/union PARAM clone (structCloneMemberRefParent) whose
+            // member is a NAMED package-enum typedef carries its OWN fresh
+            // scoped enum clone: parent = the member ref (below), instanced at
+            // the CONTAINER's package, base ref scoped through the member
+            // (…member.pkg::enum_e), base actual instanced at the ENUM's own
+            // home package (Surelog emits one member-enum clone per struct-
+            // param clone — the 5-level-hierarchy / passed-down families).
+            if (!fts && structCloneMemberRefParent && fm.getDeclaredType()) {
+                auto& mdt = fm.getDeclaredType()->getType();
+                if (mdt.kind == SymbolKind::TypeAlias &&
+                    mdt.getCanonicalType().kind == SymbolKind::EnumType) {
+                    auto& etAlias = mdt.as<TypeAliasType>();
+                    const Symbol* enumPkg = nullptr;
+                    for (auto* sc = etAlias.getParentScope(); sc;
+                         sc = sc->asSymbol().getParentScope())
+                        if (sc->asSymbol().kind == SymbolKind::Package) {
+                            enumPkg = &sc->asSymbol();
+                            break;
+                        }
+                    const Symbol* containerPkg = nullptr;
+                    for (auto* sc = fm.getParentScope(); sc;
+                         sc = sc->asSymbol().getParentScope())
+                        if (sc->asSymbol().kind == SymbolKind::Package) {
+                            containerPkg = &sc->asSymbol();
+                            break;
+                        }
+                    if (enumPkg) {
+                        std::string enumNm = std::string(enumPkg->name) +
+                                             "::" + std::string(etAlias.name);
+                        std::string memRefFull =
+                            aliasName.empty()
+                                ? std::string(fm.name)
+                                : aliasName + memberSep + std::string(fm.name);
+                        const syntax::SyntaxNode* eSyn = nullptr;
+                        if (auto dS = etAlias.getSyntax();
+                            dS && dS->kind ==
+                                      syntax::SyntaxKind::TypedefDeclaration)
+                            eSyn = dS->as<syntax::TypedefDeclarationSyntax>()
+                                       .type;
+                        auto* ecl = buildEnumTs(
+                            mdt.getCanonicalType().as<EnumType>(), eSyn,
+                            memRefFull + "." + enumNm);
+                        ecl->VpiName(enumNm);
+                        if (auto dS = etAlias.getSyntax())
+                            setLoc(ecl, dS->sourceRange());
+                        if (containerPkg)
+                            if (auto sit = pkgDefMap.find(containerPkg);
+                                sit != pkgDefMap.end())
+                                ecl->Instance(sit->second);
+                        if (auto eit = pkgDefMap.find(enumPkg);
+                            eit != pkgDefMap.end() && ecl->Base_typespec() &&
+                            ecl->Base_typespec()->Actual_typespec()) {
+                            ecl->Base_typespec()->Actual_typespec()->VpiParent(
+                                ecl->Base_typespec());
+                            ecl->Base_typespec()->Actual_typespec()->Instance(
+                                eit->second);
+                        }
+                        fts = ecl;
+                        memberEnumClone = true;
+                    }
                 }
             }
             if (!fts)

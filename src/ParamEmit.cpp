@@ -4288,18 +4288,34 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 // A $UNIT-level struct typedef clone is Instanced at the
                 // DESIGN (struct_param_dim test_struct_t), not the module.
                 bool unitTd9 = false;
+                // A PACKAGE-scoped struct/union typedef clone stays Instanced
+                // at its home PACKAGE (makeParamTs' aliasPkg link), even when
+                // used as a module param's type — Surelog keeps the pkg
+                // instance in both views (5-level-hierarchy family). Only
+                // MODULE-LOCAL typedef clones (no package/unit home) take the
+                // instantiating module instance. unitTd9 keys on the
+                // IMMEDIATE typedef scope; pkgTd9 on ANY package ancestor.
+                bool pkgTd9 = false;
                 if (ps->getDeclaredType()) {
                     auto& dtT9 = ps->getDeclaredType()->getType();
-                    if (dtT9.kind == SymbolKind::TypeAlias)
-                        if (auto* scT9 =
-                                dtT9.as<TypeAliasType>().getParentScope())
-                            unitTd9 = scT9->asSymbol().kind ==
+                    if (dtT9.kind == SymbolKind::TypeAlias) {
+                        auto& taT9 = dtT9.as<TypeAliasType>();
+                        if (auto* isc9 = taT9.getParentScope())
+                            unitTd9 = isc9->asSymbol().kind ==
                                       SymbolKind::CompilationUnit;
+                        for (auto* scT9 = taT9.getParentScope(); scT9;
+                             scT9 = scT9->asSymbol().getParentScope())
+                            if (scT9->asSymbol().kind == SymbolKind::Package) {
+                                pkgTd9 = true;
+                                break;
+                            }
+                    }
                 }
                 if (unitTd9)
                     its->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
-                else if (auto* par = up->VpiParent())
-                    its->Instance((UHDM::instance*)par);
+                else if (!pkgTd9 || !its->Instance())
+                    if (auto* par = up->VpiParent())
+                        its->Instance((UHDM::instance*)par);
             }
             // A fresh ELAB enum clone of a MODULE-scoped named enum typedef
             // (localparam enum_e P) carries vpiInstance = this module instance,
@@ -4414,6 +4430,14 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
         prt->Actual_typespec(its);
         if (!sharedPkgTs)
             its->VpiParent(prt);
+        // Record this ELAB struct/union param clone so a bare-package-typedef
+        // aggregate param's DEF view can SHARE it (shareDefAggParamTs), rather
+        // than mint its own def-scoped clone (Surelog: one clone per param).
+        if (its->UhdmType() == UHDM::uhdmstruct_typespec ||
+            its->UhdmType() == UHDM::uhdmunion_typespec)
+            if (auto* ob9 = paramOwnerBody(*ps))
+                elabAggParamClone[{&ob9->getDefinition(),
+                                   std::string(ps->name)}] = its;
         // Unbased-unsized override pa constant ts (see unbasedOvTsRef).
         if (auto uit = unbasedOvTsRef.find(ps); uit != unbasedOvTsRef.end()) {
             uit->second->Actual_typespec(its);
@@ -4465,6 +4489,7 @@ void UhdmExporter::drainDefParamTs() {
     for (auto& pd : pendingDefParamTs) {
         UHDM::typespec* its = nullptr;
         bool sharedTs = false;
+        bool bareAggPkgTd = false;
         if (auto d0 = pd.ps->getDeclaredType()) {
             auto& dt0 = d0->getType();
             // A VECTOR typedef (typedef logic[X-1:0] my_type_t) is CLONED with a
@@ -4479,7 +4504,6 @@ void UhdmExporter::drainDefParamTs() {
             // in the DEF view too — exactly the qualification rule the ELAB
             // view applies (patchParamTypespecs). Only a QUALIFIED pkg::T use
             // shares the package's typespec object.
-            bool bareAggPkgTd = false;
             if (!pd.inPackage && dt0.kind == SymbolKind::TypeAlias) {
                 auto ck0 = dt0.getCanonicalType().kind;
                 if (ck0 == SymbolKind::PackedStructType ||
@@ -4551,8 +4575,39 @@ void UhdmExporter::drainDefParamTs() {
         pd.prt->Actual_typespec(its);
         if (!sharedTs && pd.typedParam)
             its->VpiParent(pd.up);
+        // A bare-package-typedef aggregate param defers to SHARE its ELAB
+        // clone: Surelog emits ONE struct/union clone per param (parented at
+        // the elab ref, pkg-instanced) that BOTH the def and elab views use.
+        // The fresh def clone minted above is a fallback for an uninstantiated
+        // def; shareDefAggParamTs re-points these refs once the elab clone
+        // exists (5-level-hierarchy / parameter-passed-down families).
+        if (bareAggPkgTd)
+            if (auto* ob = paramOwnerBody(*pd.ps))
+                pendingDefAggShare.push_back({pd.prt, pd.rhsRt, pd.di,
+                                              pd.member, &ob->getDefinition(),
+                                              std::string(pd.ps->name)});
     }
     pendingDefParamTs.clear();
+}
+
+// Re-point deferred def-view bare-package-typedef aggregate param refs at the
+// single ELAB clone Surelog shares across both views. Leaves the fresh def
+// clone (now unreferenced) out of the dump; keeps it only when the def was
+// never elaborated (no matching elab clone).
+void UhdmExporter::shareDefAggParamTs() {
+    for (auto& e : pendingDefAggShare) {
+        auto it = elabAggParamClone.find({e.def, e.name});
+        if (it == elabAggParamClone.end())
+            continue;
+        auto* elab = it->second;
+        if (e.prt)
+            e.prt->Actual_typespec(elab);
+        if (e.rhsRt)
+            e.rhsRt->Actual_typespec(elab);
+        if (e.di && e.member)
+            e.di->paramTs[e.member] = elab;
+    }
+    pendingDefAggShare.clear();
 }
 
 // A fold whose init chain (through param refs) lands on an ENUM VALUE takes

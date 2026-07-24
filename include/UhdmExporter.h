@@ -151,6 +151,25 @@ private:
     };
     std::vector<PendingDefParamTs> pendingDefParamTs;
     void drainDefParamTs();
+    // ELAB aggregate (struct/union) param typespec clone, keyed by
+    // (definition, param name). Surelog emits ONE clone per struct/union
+    // param, parented at the ELAB ref and instanced at the typedef's package;
+    // a bare-package-typedef aggregate param's DEF view SHARES this single
+    // object (rather than minting its own def-scoped clone).
+    std::map<std::pair<const void*, std::string>, UHDM::typespec*>
+        elabAggParamClone;
+    struct DefAggShare {
+        UHDM::ref_typespec* prt;
+        UHDM::ref_typespec* rhsRt;
+        DefInfo* di;
+        const slang::ast::Symbol* member;
+        const void* def;
+        std::string name;
+    };
+    std::vector<DefAggShare> pendingDefAggShare;
+    // Re-point every deferred def-view bare-package-typedef aggregate param
+    // ref at the matching ELAB clone (run after all top instances emit).
+    void shareDefAggParamTs();
     // Give every FOLDED struct/union member packed-array bound that came from
     // a package-param identifier Surelog's metadata (vpiSize:32 + a fresh
     // instance-less int_typespec ref named by the member's ts fullname).

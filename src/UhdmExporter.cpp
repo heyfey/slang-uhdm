@@ -1008,6 +1008,10 @@ UHDM::design* UhdmExporter::exportDesign() {
             tfContext = savedTf;
         }
     }
+    // Re-point deferred def-view bare-package-typedef aggregate param refs at
+    // the ELAB clone Surelog shares between both views (all elab param clones
+    // now exist — they are minted in the emitTopPorts write phase above).
+    shareDefAggParamTs();
     // A deferred instance whose def never appeared in the walk still needs its
     // typespec (safety net; normally everything drained above).
     for (auto& pe : pendingElabPortTs)
