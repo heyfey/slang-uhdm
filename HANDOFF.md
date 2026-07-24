@@ -1,6 +1,6 @@
 # HANDOFF — slang-uhdm convergence campaign (7-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~16:00, Opus lane): 484 PASS / 170 CMP_ONLY / 7 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~16:50, Opus lane): 487 PASS / 167 CMP_ONLY / 7 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
@@ -130,6 +130,25 @@ AssignToUnionAndReadField, AssignToUnpackedUnionFieldAndReadOtherField.
 - Anonymous struct/union typespec views; whole-assigned signals get bare member refs and no owner parent.
 - Package struct-member bounds keep the written syntax in the def view and fold to a signed int at the
   identifier token in the elab view.
+
+### Waves 60-61 landings (each gated, zero regressions)
+- io60: interface-array-port byte-polish, no class change (elab interface_array range stays bare;
+  modport-port array_typespec parents at the port). Agent declined the deeper interface typespec-order
+  change as too risky on an already-passing cluster — left for later.
+- ms61: 3 member-select CA tests CMP_ONLY->PASS. A member-select (hier_path) LHS cont_assign keeps a
+  BARE loc-only RHS constant in the elab view — the "select-LHS literal re-compile" rule had
+  over-applied the parented/sized form to the hier_path-LHS case.
+- en61: enum-param clone byte reductions, no class change. An overridden enum param whose value
+  ORIGINATES (through param hops / member selects) in a different package instances its clone at the
+  VALUE-ORIGIN package, not the enum's home (new enumParamValueOriginPkg). Confirmed xt59's deferred
+  diagnosis via a marker sweep. Still-deferred: the E1/E2/L1 def/elab enum doubling (cross-wire
+  machinery) and the caFold9 bare base-ref fullname.
+- ro61: REVERTED. Its lowConn-span byte-reduction (wandwor 22->2, net-to-net-aliasing -> port-decl
+  span) regressed setundef PASS->CMP_ONLY — the agent gated against a stale baseline and missed it.
+  setundef is `foo #(2'b0x) foo(o);` connecting top's net `o` to foo's OUTPUT net `o` (SAME name,
+  passthrough), a net-to-net case where Surelog KEEPS the conn-site span. So the rule needs a further
+  gate (output-direction? different-object? passthrough exclusion). Patch parked at /tmp/ro61.patch;
+  re-derive the exclusion before relanding.
 
 ### Waves 55-59 landings (each gated, zero regressions)
 - pp57: 5 CMP_ONLY->PASS (LocalParamSelect/NestedForLoops/ParameterUnpackedArray/
