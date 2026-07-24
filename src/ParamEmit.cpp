@@ -1465,12 +1465,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // plus a ts ref to a FRESH def clone (deferred to
                 // drainDefParamTs, scoped work@<mod>.<ty>.<member>).
                 bool structPat = false;
+                // WIDTH RULE: a PACKAGE struct-pattern param whose struct bit
+                // width EXCEEDS 64 keeps the tagged_pattern tree in the ELAB
+                // view too (Surelog's package def and elab views are byte-
+                // identical: kmac_pkg::A 96b ImportedDoubleCastedParameter,
+                // pinmux_pkg::DefaultTargetCfg ~72b BSOPPS). A <=64b package
+                // struct param still flat-folds to the packed op75 constant
+                // (PatternAssignmentOfStructParam 4b,
+                // StructParameterInitializedWithPatternAndReferenced 4b). Our
+                // wide fold otherwise mints a BOGUS UINT:0 constant (int64
+                // overflow of a >64b decimal) — the gate removes it.
+                bool structWidePkg = false;
                 {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto k0 = stripImplicitConv(*init).kind;
                     structPat = pctS.kind == SymbolKind::PackedStructType &&
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||
                                  k0 == ExpressionKind::SimpleAssignmentPattern);
+                    // The rule follows the PACKAGE ORIGIN of the struct param:
+                    // it applies in its home package (inPackage) AND when the
+                    // param is MATERIALIZED into an importing module/package
+                    // (isImported) — kmac_pkg::A viewed in work@top keeps the
+                    // tagged tree too. A module-LOCAL struct param still flat-
+                    // folds.
+                    if (structPat && (inPackage || isImported) &&
+                        ps.getType().getBitWidth() > 64)
+                        structWidePkg = true;
                 }
                 // The DEF view of an INTERFACE struct param keeps the TAGGED
                 // form (emitExpr tagged_pattern op: constant size 64 + a ts ref
@@ -1486,7 +1506,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // the reader's `32'(s.CFG.DAT)` must stay a hier_path cast op
                 // (Surelog does NOT fold interface-port struct-param reads), and
                 // the modport port-view needs its own override param_assign.
-                if (structPat && topView) {
+                if (structPat && topView && !structWidePkg) {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto& sinitK = stripImplicitConv(*init);
                     auto* op2 = s.MakeOperation();
@@ -1783,7 +1803,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 forceConstParent = !nestedPat;
                 inParamInit = true;
-                paramInitDef = !topView;
+                // A wide (>64b) PACKAGE struct-pattern param's ELAB view is
+                // byte-identical to its DEF view (tagged_pattern tree); drive
+                // emitExpr down the def path for it (WIDTH RULE).
+                paramInitDef = !topView || structWidePkg;
                 paramInitPkg = inPackage;
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
