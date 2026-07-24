@@ -7473,6 +7473,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // A BIT/PART-select LHS with a LITERAL RHS re-compiles in the elab
+        // view too (vector_index Move_N[00] = 4'b...).
+        bool selLitLhs = false;
+        if (!plainLhs && !dottedLhs && literalRhs) {
+            auto& l9 = stripImplicitConv(ae.left());
+            selLitLhs = l9.kind == ExpressionKind::ElementSelect ||
+                        l9.kind == ExpressionKind::RangeSelect;
+        }
         // An interface-port member LHS (ss_if.start_addr) in a CHILD elab
         // instance re-emits a FRESH cont_assign (hier_path Lhs, bare Rhs).
         bool ifaceDotFresh = false;
@@ -7534,7 +7542,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             !unbasedShareRhs &&
-            ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs &&
+            ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
               !callFold) ||
              (plainLhs &&
               !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
