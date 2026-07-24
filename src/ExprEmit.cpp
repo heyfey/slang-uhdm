@@ -4744,6 +4744,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = base->as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // A PARAM-INIT read of a STRUCT-PARAM member (localparam N = Info.x,
+            // and the same path re-emitted at an instance param connection or a
+            // $clog2 arg): Surelog anchors the base ref at the MEMBER token span
+            // and leaves the leaf ref BARE (no scoped fullname) — the same
+            // span/name convention it uses for an LVALUE path.
+            bool paramInitStructMember =
+                inParamInit && !chain.empty() &&
+                nv.symbol.kind == SymbolKind::Parameter &&
+                nv.symbol.getType().getCanonicalType().kind ==
+                    SymbolKind::PackedStructType;
             auto* hp = s.MakeHier_path();
             std::string dotted(nv.symbol.name);
             for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
@@ -4794,9 +4804,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     elems->push_back(r);
                 }
                 else {
-                // Lvalue paths anchor the base ref at the FIRST member's
-                // token span.
-                if (inLhs && !chain.empty()) {
+                // Lvalue paths (and param-init struct-member reads) anchor the
+                // base ref at the FIRST member's token span.
+                if ((inLhs || paramInitStructMember) && !chain.empty()) {
                     auto& fm = *chain.back();
                     auto end = fm.sourceRange.end();
                     setLoc(r, SourceRange(
@@ -4814,8 +4824,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* r = s.MakeRef_obj();
                 r->VpiName(ma.member.name);
                 (void)r->VpiFullName();
-                // Only the last member of an rvalue path gets a fullname.
-                if (!inLhs && *it2 == chain.front())
+                // Only the last member of an rvalue path gets a fullname; a
+                // param-init struct-member read leaves the leaf BARE (lvalue).
+                if (!inLhs && !paramInitStructMember && *it2 == chain.front())
                     r->VpiFullName(prefix + "." + std::string(ma.member.name));
                 r->VpiParent(hp);
                 // Pkg-qualified param member refs bind the typespec_member

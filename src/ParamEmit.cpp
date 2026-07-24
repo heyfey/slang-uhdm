@@ -1205,7 +1205,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             if (ovMemberInitParam) {
                 auto* init = ovMemberInitParam->getInitializer();
+                // Re-emitting the referenced localparam's member-init path
+                // (Info.x): flag the param-init context so the hier_path uses
+                // the lvalue-style base span + bare leaf (Surelog).
+                inParamInit = true;
                 auto* he = (UHDM::expr*)emitExpr(*init, pa, prefix, netMap);
+                inParamInit = false;
                 if (he && he->UhdmType() == UHDM::uhdmhier_path) {
                     auto* hp = (UHDM::hier_path*)he;
                     if (boundInit)
@@ -1615,8 +1620,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     sc->VpiName(std::string(clogCall->getSubroutineName()));
                     sc->VpiParent(pa);
                     setLoc(sc, init->sourceRange);
+                    // The substituted member-init path (Info.x) uses the
+                    // param-init lvalue-style base span + bare leaf (Surelog).
+                    inParamInit = true;
                     auto* he = (UHDM::expr*)emitExpr(
                         *clogMemberInit->getInitializer(), sc, prefix, netMap);
+                    inParamInit = false;
                     if (he && he->UhdmType() == UHDM::uhdmhier_path) {
                         auto* hp = (UHDM::hier_path*)he;
                         setLoc(hp, clogCall->arguments()[0]->sourceRange);
