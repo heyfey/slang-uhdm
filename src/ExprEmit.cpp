@@ -318,6 +318,40 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
             break;
         start = dot + 1;
     }
+    // A gen-scope modport-array member LHS (man[i].req.lck in a genvar for):
+    // the BASE component is a variable(genvar)-indexed element. Surelog anchors
+    // the hier_path at the BASE-NAME token only, makes the base a bit_select
+    // with a genvar index ref that PARENTS AT THE HIER_PATH (not the
+    // bit_select), and gives the LEAF the RAW dotted fullname.
+    auto varIdxOf = [](const std::string& pn) -> std::string {
+        auto lb = pn.find('[');
+        if (lb == std::string::npos || pn.empty() || pn.back() != ']')
+            return "";
+        if (pn.find('[', lb + 1) != std::string::npos)
+            return "";
+        std::string idx = pn.substr(lb + 1, pn.size() - lb - 2);
+        if (idx.empty())
+            return "";
+        auto isIdentStart = [](char c) {
+            return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+        };
+        auto isIdentChar = [&](char c) {
+            return isIdentStart(c) || (c >= '0' && c <= '9');
+        };
+        if (!isIdentStart(idx[0]))
+            return "";
+        for (char ch : idx)
+            if (!isIdentChar(ch))
+                return "";
+        return idx;
+    };
+    bool genVarBasePath = !parts.empty() && !varIdxOf(parts[0].first).empty();
+    if (genVarBasePath) {
+        // The hier_path spans the base-name token only.
+        auto st0 = exprStart + parts[0].second;
+        std::string b0 = parts[0].first.substr(0, parts[0].first.find('['));
+        setLoc(hp, SourceRange(st0, st0 + b0.size()));
+    }
     std::string dottedSoFar;
     for (size_t i = 0; i < parts.size(); i++) {
         auto& [pname, off] = parts[i];
@@ -354,12 +388,36 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
             elems->push_back(bs);
             continue;
         }
+        // A GENVAR/variable-indexed component (man[i]) in a gen-scope
+        // modport-array member path: bit_select(base), fullname the raw
+        // component (man[i]), with a ref_obj index child that PARENTS AT THE
+        // HIER_PATH and carries the scope-prefixed genvar fullname (Surelog).
+        if (std::string varIdx = varIdxOf(pname); !varIdx.empty()) {
+            dottedSoFar += "[" + varIdx + "]";
+            auto* bs = s.MakeBit_select();
+            bs->VpiName(base);
+            bs->VpiFullName(pname);
+            bs->VpiParent(hp);
+            setLoc(bs, SourceRange(exprStart + off, exprStart + off + base.size()));
+            auto* ir = s.MakeRef_obj();
+            ir->VpiName(varIdx);
+            ir->VpiFullName(prefix + "." + varIdx);
+            ir->VpiParent(hp);
+            size_t ioff = off + lb + 1;
+            setLoc(ir, SourceRange(exprStart + ioff, exprStart + ioff + varIdx.size()));
+            bs->VpiIndex(ir);
+            elems->push_back(bs);
+            continue;
+        }
         auto* r = s.MakeRef_obj();
         r->VpiName(pname);
         // Only the last element of an RVALUE path gets a scoped fullname; the
         // others cache a NAME-ONLY fullname (the dump omits fullname == name,
-        // and it blocks the dump-time lazy scoped recompute).
-        if (!inLhs && i + 1 == parts.size())
+        // and it blocks the dump-time lazy scoped recompute). A gen-scope
+        // modport-array member path gives the LEAF the RAW dotted fullname.
+        if (genVarBasePath && i + 1 == parts.size())
+            r->VpiFullName(dotted);
+        else if (!inLhs && i + 1 == parts.size())
             r->VpiFullName(prefix + "." + pname);
         else
             r->VpiFullName(pname);
@@ -4196,6 +4254,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* elems = s.MakeAnyVec();
             auto exprStart = expr.sourceRange.start();
             std::string dottedSoFar;
+            bool genVarBaseEmitted = false;
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, off] = parts[i];
                 dottedSoFar += (i == 0 ? pname : "." + pname);
@@ -4282,6 +4341,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     elems->push_back(bs);
                     continue;
                 }
+                // A GENVAR/variable-indexed BASE component (man[i].req.lck in a
+                // genvar for): bit_select(base), raw component fullname, with a
+                // ref_obj index child that PARENTS AT THE HIER_PATH and carries
+                // the scope-prefixed genvar fullname (Surelog). Distinct from
+                // the constant-index and symbolic-doubled-index forms above.
+                if (i == 0 && lb != std::string::npos && rb != std::string::npos &&
+                    rb > lb + 1) {
+                    std::string idx = pname.substr(lb + 1, rb - lb - 1);
+                    auto isIdentStart = [](char c) {
+                        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                               c == '_';
+                    };
+                    bool simpleId = !idx.empty() && isIdentStart(idx[0]);
+                    for (char ch : idx)
+                        if (!(isIdentStart(ch) || (ch >= '0' && ch <= '9')))
+                            simpleId = false;
+                    if (simpleId) {
+                        std::string base = pname.substr(0, lb);
+                        auto* bs = s.MakeBit_select();
+                        bs->VpiName(base);
+                        bs->VpiParent(hp);
+                        bs->VpiFullName(pname);
+                        setLoc(bs, SourceRange(exprStart + off,
+                                               exprStart + off + base.size()));
+                        auto* ir = s.MakeRef_obj();
+                        ir->VpiName(idx);
+                        ir->VpiFullName(prefix + "." + idx);
+                        ir->VpiParent(hp);
+                        size_t idOff = off + lb + 1;
+                        setLoc(ir, SourceRange(exprStart + idOff,
+                                               exprStart + idOff + idx.size()));
+                        bs->VpiIndex(ir);
+                        elems->push_back(bs);
+                        genVarBaseEmitted = true;
+                        continue;
+                    }
+                }
                 auto* r = s.MakeRef_obj();
                 r->VpiName(pname);
                 (void)r->VpiFullName();
@@ -4325,7 +4421,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool idxBase9 =
                     !parts.empty() &&
                     parts[0].first.find('[') != std::string::npos;
-                if (inLhs && (genTgt9 || idxBase9) && !elems->empty()) {
+                if ((inLhs || genVarBaseEmitted) && (genTgt9 || idxBase9) &&
+                    !elems->empty()) {
                     auto* fe9 = (UHDM::expr*)elems->front();
                     hp->VpiEndLineNo(fe9->VpiEndLineNo());
                     hp->VpiEndColumnNo(fe9->VpiEndColumnNo());

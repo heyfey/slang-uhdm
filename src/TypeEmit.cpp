@@ -3889,6 +3889,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             auto* elems = s.MakeAnyVec();
             auto exprStart = syn.sourceRange().start();
             std::string dottedSoFar;
+            bool genVarBaseEmitted = false;
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, off] = parts[i];
                 dottedSoFar += (i == 0 ? pname : "." + pname);
@@ -3972,9 +3973,51 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     elems->push_back(bs);
                     continue;
                 }
+                // A GENVAR/variable-indexed BASE component (man[i].req.lck in a
+                // genvar for): bit_select(base), raw component fullname, with a
+                // ref_obj index child that PARENTS AT THE HIER_PATH and carries
+                // the gen-scope-prefixed genvar fullname (Surelog). Distinct
+                // from the constant-index and symbolic-doubled-index forms.
+                if (i == 0 && lb != std::string::npos && rb != std::string::npos &&
+                    rb > lb + 1) {
+                    std::string idx = pname.substr(lb + 1, rb - lb - 1);
+                    auto isIdentStart = [](char c) {
+                        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                               c == '_';
+                    };
+                    bool simpleId = !idx.empty() && isIdentStart(idx[0]);
+                    for (char ch : idx)
+                        if (!(isIdentStart(ch) || (ch >= '0' && ch <= '9')))
+                            simpleId = false;
+                    if (simpleId) {
+                        std::string base = pname.substr(0, lb);
+                        auto* bs = s.MakeBit_select();
+                        bs->VpiName(base);
+                        bs->VpiParent(hp);
+                        bs->VpiFullName(pname);
+                        setLoc(bs, SourceRange(exprStart + off,
+                                               exprStart + off + base.size()));
+                        auto* ir = s.MakeRef_obj();
+                        ir->VpiName(idx);
+                        if (!syntaxRefPrefix.empty())
+                            ir->VpiFullName(syntaxRefPrefix + "." + idx);
+                        ir->VpiParent(hp);
+                        size_t idOff = off + lb + 1;
+                        setLoc(ir, SourceRange(exprStart + idOff,
+                                               exprStart + idOff + idx.size()));
+                        bs->VpiIndex(ir);
+                        elems->push_back(bs);
+                        genVarBaseEmitted = true;
+                        continue;
+                    }
+                }
                 auto* r = s.MakeRef_obj();
                 r->VpiName(pname);
-                if (i + 1 == parts.size() && !syntaxRefPrefix.empty())
+                if (genVarBaseEmitted && i + 1 == parts.size())
+                    // A gen-scope modport-array member path gives the LEAF the
+                    // RAW dotted fullname (Surelog).
+                    r->VpiFullName(raw);
+                else if (i + 1 == parts.size() && !syntaxRefPrefix.empty())
                     r->VpiFullName(syntaxRefPrefix + "." + pname);
                 else
                     // Name-only cache blocks the dump-time lazy scoped
@@ -3983,6 +4026,13 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 r->VpiParent(hp);
                 setLoc(r, SourceRange(exprStart + off, exprStart + off + pname.size()));
                 elems->push_back(r);
+            }
+            // A gen-scope modport-array member path anchors the hier_path at the
+            // BASE-name token only (Surelog).
+            if (genVarBaseEmitted && !elems->empty()) {
+                auto* fe = (UHDM::expr*)elems->front();
+                hp->VpiEndLineNo(fe->VpiEndLineNo());
+                hp->VpiEndColumnNo(fe->VpiEndColumnNo());
             }
             hp->Path_elems(elems);
             return hp;
