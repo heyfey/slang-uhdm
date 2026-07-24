@@ -426,6 +426,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          cv.isReal())
                     up->VpiValue("UINT:" +
                                  std::string(rawText(il9.sourceRange)));
+                // A STRING-literal init on an (implicitly) integral param
+                // keeps STRING:<text> (const_func: parameter OUTPUT = "FOO").
+                else if (il9.kind == ExpressionKind::StringLiteral &&
+                         !cv.isString())
+                    up->VpiValue(
+                        "STRING:" +
+                        std::string(il9.as<StringLiteral>().getValue()));
             }
             // Untyped params carry a typespec only for LITERAL initializers;
             // computed values ($clog2(W), 2**S) get none. Typed and ranged
