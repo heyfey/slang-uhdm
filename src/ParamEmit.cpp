@@ -3650,6 +3650,71 @@ bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
     return false;
 }
 
+// Peel selects / member-access / conversions of an initializer down to its
+// root value symbol (the named/hierarchical reference the value flows from).
+static const Symbol* paramInitRootSym(const Expression& e) {
+    const Expression* cur = &e;
+    while (cur) {
+        switch (cur->kind) {
+            case ExpressionKind::NamedValue:
+                return &cur->as<NamedValueExpression>().symbol;
+            case ExpressionKind::HierarchicalValue:
+                return &cur->as<HierarchicalValueExpression>().symbol;
+            case ExpressionKind::ElementSelect:
+                cur = &cur->as<ElementSelectExpression>().value();
+                break;
+            case ExpressionKind::RangeSelect:
+                cur = &cur->as<RangeSelectExpression>().value();
+                break;
+            case ExpressionKind::MemberAccess:
+                cur = &cur->as<MemberAccessExpression>().value();
+                break;
+            case ExpressionKind::Conversion:
+                cur = &cur->as<ConversionExpression>().operand();
+                break;
+            default:
+                return nullptr;
+        }
+    }
+    return nullptr;
+}
+
+// An enum-typed parameter whose value ORIGINATES (through param hops / member
+// selects) in a package DIFFERENT from the enum's home instances its clone at
+// the value-origin package (Surelog: the pinmux TargetCfg.dio_pad_type family).
+// Follows the override initializer to its root value symbol; recurses through
+// an overridden PARAMETER root; otherwise returns the package that homes the
+// root symbol's declared (aggregate/enum) typedef. Returns null for the common
+// case (literal override, or same-package value), leaving the home instance.
+static const Symbol* enumParamValueOriginPkg(const ParameterSymbol& ps,
+                                             int depth) {
+    if (depth > 8)
+        return nullptr;
+    if (!isOverriddenParam(ps))
+        return nullptr;
+    const Expression* init = ps.getInitializer();
+    if (!init)
+        return nullptr;
+    const Symbol* root = paramInitRootSym(*init);
+    if (!root)
+        return nullptr;
+    // The value flows from another overridden parameter: recurse to ITS origin.
+    if (root->kind == SymbolKind::Parameter &&
+        isOverriddenParam(root->as<ParameterSymbol>()))
+        if (auto* r =
+                enumParamValueOriginPkg(root->as<ParameterSymbol>(), depth + 1))
+            return r;
+    // Otherwise the origin is the package that homes the root symbol's declared
+    // named typedef (a struct/enum whose home differs from the enum's own).
+    if (auto* dt = root->getDeclaredType())
+        if (dt->getType().kind == SymbolKind::TypeAlias)
+            for (auto* sc = dt->getType().getParentScope(); sc;
+                 sc = sc->asSymbol().getParentScope())
+                if (sc->asSymbol().kind == SymbolKind::Package)
+                    return &sc->asSymbol();
+    return nullptr;
+}
+
 UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam,
                                           bool parentBounds) {
     SourceRange tr(ps.location, ps.location + ps.name.size());
@@ -3915,7 +3980,20 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                     if (homePkg9)
                         if (auto pit9 = pkgDefMap.find(homePkg9);
                             pit9 != pkgDefMap.end()) {
-                            ecl->Instance(pit9->second);
+                            // The enum clone's OWN Instance is the VALUE-ORIGIN
+                            // package when the override value flows in from a
+                            // different package (Surelog: pinmux
+                            // TargetCfg.dio_pad_type -> PadType clone instanced
+                            // at pinmux, not prim_pad_wrapper); the base actual
+                            // keeps the enum's HOME package in both cases.
+                            UHDM::instance* enumInst = pit9->second;
+                            if (auto* origin =
+                                    enumParamValueOriginPkg(ps, 0);
+                                origin && origin != homePkg9)
+                                if (auto oit = pkgDefMap.find(origin);
+                                    oit != pkgDefMap.end())
+                                    enumInst = oit->second;
+                            ecl->Instance(enumInst);
                             // The base actual is REF-parented and
                             // pkg-Instanced (Surelog).
                             if (ecl->Base_typespec() &&
