@@ -1,17 +1,20 @@
-# HANDOFF — slang-uhdm convergence campaign (22-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (19-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~13:10, Opus lane): 465 PASS / 174 CMP_ONLY / 22 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~13:30, Opus lane): 468 PASS / 174 CMP_ONLY / 19 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
 rather than forced through.
 
-### IN FLIGHT WHEN THE STRETCH ENDED (pick this up first)
-if54 LANDED (commit above: 7 interface rules, iface_gen_delay + iface_local_in_sub -> PASS). One
-wave-54 agent was still running; its patch is on disk, self-gated by the agent, but NOT yet verified
-in the main tree:
-  /tmp/gen54.patch — gen/structural DIFFs (gen_struct_access, arraycells, const_func,
-                     iface_ff_genvar_partsel, gen_test5)
+### IN FLIGHT
+Wave 54 fully landed (ps54, if54, gen54 — gen54 gave gen_struct_access + gen_test5 +
+iface_ff_genvar_partsel DIFF->PASS). Wave 55 is running four agents over ALL 19 remaining DIFF tests:
+  /tmp/sp55.patch  — BitSelect trio + TypedefStructParamWithRangeInSubmodule
+  /tmp/if55.patch  — iface_cfg_param_def_pass, iface_array_elem_cfg_param, iface_param_2level
+  /tmp/mac55.patch — int_types, multiplier, cs_registers, func_upto
+  /tmp/sm55.patch  — const_arg_loop, func_tern_hint, rsp_gen_minimal, arrays03, prefix, rotate
+Apply each with `git apply --3way`, rebuild, spot-check, full-corpus gate, commit if clean.
+Still unowned: arraycells (r=1, ~8200 lines — module instance arrays; gen54 did not reach it).
 Apply with `git apply --3way`, rebuild, spot-check, then full-corpus gate before committing.
 NOTE on if54: it was written against the pre-ps54 HEAD and CONFLICTS in TypeEmit.cpp makeTypespec
 (~line 128) with the elaborated-pkg-typedef rule ps54 landed. Resolve by KEEPING OURS — ps54 fixed the
@@ -35,11 +38,10 @@ Found with a name-suffix instrumentation sweep over the 10 `->VpiName(<alias>.na
 stamping a unique marker at each candidate site and grepping the dump is the fastest way to identify
 which of several look-alike sites actually emits an object.
 
-### Remaining DIFF (22)
+### Remaining DIFF (19)
 arraycells, arrays03, BitSelect trio, const_arg_loop, const_func, cs_registers, func_tern_hint,
-func_upto, gen_struct_access, gen_test5, iface_array_elem_cfg_param, iface_cfg_param_def_pass,
-iface_ff_genvar_partsel, iface_param_2level, int_types, multiplier, prefix, rotate, rsp_gen_minimal,
-TypedefStructParamWithRangeInSubmodule.
+func_upto, iface_array_elem_cfg_param, iface_cfg_param_def_pass, iface_param_2level, int_types,
+multiplier, prefix, rotate, rsp_gen_minimal, TypedefStructParamWithRangeInSubmodule.
 
 ### REFUTED this stretch (do not retry blindly)
 - Parenting the synthetic op11 `INT:1` everywhere: 9 PASS demotions (it is view- and owner-dependent).
