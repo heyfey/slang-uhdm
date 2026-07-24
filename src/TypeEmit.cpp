@@ -337,6 +337,30 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         c->VpiParent(r);
                         if (loc)
                             setLoc(c, *loc);
+                        // A DEF-pass folded member bound derived from a package
+                        // param IDENTIFIER ([K:0]) records that param — the
+                        // post-swap TOP member pass gives it vpiSize:32 + a
+                        // vpiTypespec (ref -> fresh int_typespec) like Surelog.
+                        if (loc && structMemberTsCtx) {
+                            std::string raw(rawText(*loc));
+                            bool ident = !raw.empty() &&
+                                         (isalpha((unsigned char)raw[0]) ||
+                                          raw[0] == '_');
+                            for (char ch : raw)
+                                if (!(isalnum((unsigned char)ch) || ch == '_')) {
+                                    ident = false;
+                                    break;
+                                }
+                            if (ident)
+                                for (auto& [ps9, rhs9] : pkgParamDefRhs)
+                                    if (ps9->name == raw &&
+                                        ps9->getParentScope() &&
+                                        ps9->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::Package) {
+                                        foldedMemberBoundParam[c] = ps9;
+                                        break;
+                                    }
+                        }
                         return c;
                     };
                     const DimSpan* ds = i < (int)spans.size() ? &spans[i] : nullptr;

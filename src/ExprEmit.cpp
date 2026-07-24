@@ -200,6 +200,11 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     // Surelog's reduce encodes division results (and anything referencing a
     // param whose value was so encoded) as INT; everything else as UINT.
     if (boolFold) {
+        // A comparison/logical result is self-sized 1-bit; Surelog's reduce
+        // keeps that width, NOT the assignment target's (1'bx >= r -> size 1,
+        // not the [63:0] net width).
+        if (auto& fb = stripImplicitConv(expr); fb.type)
+            c->VpiSize((int32_t)fb.type->getBitWidth());
         c->VpiValue("BIN:" + digits);
         c->VpiConstType(vpiBinaryConst);
     }
@@ -508,6 +513,23 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 (void)bs->VpiFullName();
                 if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
+            }
+            else if (inProcessEmit &&
+                     baseNv->symbol.kind == SymbolKind::Variable &&
+                     !lastMember) {
+                // A process-context rvalue element-select on a struct
+                // VARIABLE member array that is FOLLOWED by a further member
+                // (t.my_array[0].a): Surelog keeps the SIMPLE dotted form
+                // (t.my_array[0]) at the MEMBER-name span with an UNPARENTED
+                // index constant — unlike the iface/modport doubled
+                // index-span form below.
+                setLoc(bs, comp.nameSpan);
+                bs->VpiFullName(dottedAt);
+                bool savedSCP = suppressConstParent;
+                suppressConstParent = true;
+                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+                suppressConstParent = savedSCP;
             }
             else if (inProcessEmit ||
                      baseNv->symbol.kind == SymbolKind::InterfacePort ||
@@ -2566,13 +2588,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 hp->VpiFullName(dotted);
                 hp->VpiParent(parent);
                 setLoc(hp, expr.sourceRange);
+                // The FIRST member token (member adjacent to the base): a
+                // cont-assign LVALUE anchors the base ref here and spans its
+                // bit_select member..index (Surelog), unlike an rvalue which
+                // keeps base/selector spans.
+                SourceRange firstMemTok = base->sourceRange;
+                if (!chain.empty()) {
+                    auto& fm = chain.back()->as<MemberAccessExpression>();
+                    auto e = chain.back()->sourceRange.end();
+                    firstMemTok = SourceRange(e - fm.member.name.size(), e);
+                }
                 auto* elems = s.MakeAnyVec();
                 {
                     auto* r = s.MakeRef_obj();
                     r->VpiName(bnv.symbol.name);
                     (void)r->VpiFullName();
                     r->VpiParent(hp);
-                    setLoc(r, base->sourceRange);
+                    setLoc(r, (inLhs && !chain.empty()) ? firstMemTok
+                                                        : base->sourceRange);
                     elems->push_back(r);
                 }
                 for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2) {
@@ -2591,7 +2624,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* bs2 = s.MakeBit_select();
                         bs2->VpiName(ma.member.name);
                         bs2->VpiParent(hp);
-                        setLoc(bs2, es.selector().sourceRange);
+                        if (inLhs) {
+                            auto mEnd = (*it2)->sourceRange.end();
+                            SourceRange mTok(mEnd - ma.member.name.size(), mEnd);
+                            setLoc(bs2, SourceRange(mTok.start(),
+                                                    expr.sourceRange.end()));
+                        }
+                        else
+                            setLoc(bs2, es.selector().sourceRange);
                         (void)bs2->VpiFullName();
                         if (auto* ix = emitExpr(es.selector(), bs2, prefix, netMap))
                             bs2->VpiIndex((UHDM::expr*)ix);

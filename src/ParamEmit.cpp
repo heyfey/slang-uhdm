@@ -757,6 +757,53 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 continue;
             }
+            // A REAL param OVERRIDE folds to the TRUNCATED integer value
+            // (Surelog: real p = 0 with #(1.0) -> UINT:1 size 32) at the
+            // default's site, carrying a ts ref to the param's real_typespec.
+            else if (cvo.isReal()) {
+                int64_t rv = (int64_t)cvo.real();
+                std::string digits = std::to_string(rv);
+                auto* c = s.MakeConstant();
+                c->VpiDecompile(digits);
+                c->VpiSize(32);
+                c->VpiValue("UINT:" + digits);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(pa);
+                if (defaultInit)
+                    setLoc(c, stripImplicitConv(*defaultInit).sourceRange);
+                if (wantTs) {
+                    auto* rt = s.MakeRef_typespec();
+                    std::string tsPrefix = prefix;
+                    if (tsPrefix.size() >= 2 &&
+                        tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                        tsPrefix.resize(tsPrefix.size() - 2);
+                    rt->VpiFullName(tsPrefix);
+                    rt->VpiParent(c);
+                    c->Typespec(rt);
+                    rhsRt = rt;
+                }
+                pa->Rhs(c);
+                if (topView)
+                    elabParamConst[&ps] = c;
+                passigns->push_back(pa);
+                if (prt) {
+                    if (!inPackage) {
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, rhsRt, typedParam});
+                    }
+                    else {
+                        auto* its = makeParamTs(ps, typedParam);
+                        if (typedParam)
+                            its->Instance((UHDM::instance*)m);
+                        if (rhsRt)
+                            rhsRt->Actual_typespec(its);
+                        prt->Actual_typespec(its);
+                        if (typedParam || isRangedUntypedParam(ps))
+                            its->VpiParent(up);
+                    }
+                }
+                continue;
+            }
         }
         // A NO-DEFAULT param carries no direct Rhs (the bound initializer is
         // the override expression); the ELAB param_assign later SHARES the
@@ -776,8 +823,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     forceConstParent = true;
                     rhs = emitExpr(*init, pa, prefix, netMap);
                     forceConstParent = false;
-                    if (rhs)
-                        ((UHDM::constant*)rhs)->VpiSize((int32_t)ps.getType().getBitWidth());
+                    // A REAL param initialized with an INTEGER literal keeps
+                    // the literal's natural width (localparam real p3 = 123 ->
+                    // UINT:123 size 32), NOT the real's 64-bit width (Surelog).
+                    if (rhs) {
+                        if (ps.getType().getCanonicalType().isFloating())
+                            ((UHDM::constant*)rhs)
+                                ->VpiSize(
+                                    (int32_t)init->type->getBitWidth());
+                        else
+                            ((UHDM::constant*)rhs)
+                                ->VpiSize(
+                                    (int32_t)ps.getType().getBitWidth());
+                    }
                 }
                 // A TYPED STRING param whose init is NON-literal (a concat)
                 // folds to a STRING constant in the ELAB view (the DEF view
@@ -2734,6 +2792,25 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi) {
             if (realFold9 && !typedParam &&
                 ps->getType().getCanonicalType().isIntegral()) {
                 auto* lts9 = s.MakeLogic_typespec();
+                // Surelog's bare logic_typespec carries a LOC-LESS range
+                // mirroring the param's packed [7:0] — loc-less bounds that
+                // print only their UINT value (no size/decompile/parent).
+                auto& ct9 = ps->getType().getCanonicalType();
+                if (ct9.isPackedArray()) {
+                    auto fr9 = ct9.getFixedRange();
+                    auto* rg9 = s.MakeRange();
+                    rg9->VpiParent(lts9);
+                    auto mkB9 = [&](int64_t v) -> UHDM::expr* {
+                        auto* c = s.MakeConstant();
+                        c->VpiValue("UINT:" + std::to_string(v));
+                        return c;
+                    };
+                    rg9->Left_expr(mkB9(fr9.left));
+                    rg9->Right_expr(mkB9(fr9.right));
+                    auto* rv9 = s.MakeRangeVec();
+                    rv9->push_back(rg9);
+                    lts9->Ranges(rv9);
+                }
                 rhsRt->Actual_typespec(lts9);
             }
             else if (uintFold && typedParam && !isOverriddenParam(*ps) &&
@@ -2933,6 +3010,60 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 up->VpiEndLabel(bn->name.valueText());
     }
     NetMap none;
+    // After the def/top member cross-wire swap, each swapped-in FOLDED member
+    // packed_array_typespec bound that came from a package-param identifier
+    // ([K:0]) gets Surelog's metadata: vpiSize:32 + a vpiTypespec ref to a
+    // FRESH int_typespec (the source param's type, package-instanced). The ref
+    // fullname copies the member's typespec fullname (rewritten to work@<mod>
+    // form later, in the module typedef-listing pass).
+    auto attachFoldedBoundMeta = [&](UHDM::typespec* container,
+                                     UHDM::instance* pkgInst) {
+        UHDM::VectorOftypespec_member* mems = nullptr;
+        if (container->UhdmType() == UHDM::uhdmstruct_typespec)
+            mems = ((UHDM::struct_typespec*)container)->Members();
+        else if (container->UhdmType() == UHDM::uhdmunion_typespec)
+            mems = ((UHDM::union_typespec*)container)->Members();
+        if (!mems)
+            return;
+        for (auto* tmM : *mems) {
+            if (!tmM->Typespec())
+                continue;
+            auto* mAct = tmM->Typespec()->Actual_typespec();
+            if (!mAct || mAct->UhdmType() != UHDM::uhdmpacked_array_typespec)
+                continue;
+            auto* pats = (UHDM::packed_array_typespec*)mAct;
+            if (!pats->Ranges())
+                continue;
+            std::string memFN(tmM->Typespec()->VpiFullName());
+            for (auto* rg : *pats->Ranges())
+                for (UHDM::expr* be : {rg->Left_expr(), rg->Right_expr()}) {
+                    if (!be || be->UhdmType() != UHDM::uhdmconstant)
+                        continue;
+                    auto* c = (UHDM::constant*)be;
+                    auto fit = foldedMemberBoundParam.find(c);
+                    if (fit == foldedMemberBoundParam.end())
+                        continue;
+                    const Symbol* psym = fit->second;
+                    c->VpiSize(32);
+                    auto* its2 = s.MakeInt_typespec();
+                    if (psym->kind == SymbolKind::Parameter) {
+                        auto& psp = psym->as<ParameterSymbol>();
+                        if (psp.getType().getCanonicalType().isSigned())
+                            its2->VpiSigned(true);
+                        if (auto dt = psp.getDeclaredType())
+                            if (auto* tsyn = dt->getTypeSyntax())
+                                setLoc(its2, tsyn->sourceRange());
+                    }
+                    its2->Instance(pkgInst);
+                    auto* rt2 = s.MakeRef_typespec();
+                    rt2->VpiParent(c);
+                    rt2->VpiFullName(memFN);
+                    rt2->Actual_typespec(its2);
+                    its2->VpiParent(rt2);
+                    c->Typespec(rt2);
+                }
+        }
+    };
     // Package-scope cast typespecs (size-literal integer_typespecs) carry
     // vpiInstance = the package (Surelog); expose it during param emission.
     auto* savedPkgInst0 = pkgScopeInst;
@@ -3570,6 +3701,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         taA->Instance(dup2);
                     da->Instance((UHDM::instance*)up);
                 }
+                attachFoldedBoundMeta(sts, (UHDM::instance*)up);
             }
             ts = sts;
         }
@@ -3733,6 +3865,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         taA->Instance(dup2);
                     da->Instance((UHDM::instance*)up);
                 }
+                attachFoldedBoundMeta(uts, (UHDM::instance*)up);
             }
             if (typeSyn)
                 setLoc(uts, typeSyn->sourceRange());

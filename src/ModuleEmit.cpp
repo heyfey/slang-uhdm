@@ -1286,15 +1286,49 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                         if (ets->Base_typespec())
                             ets->Base_typespec()->VpiFullName(scopedName);
                     }
-                    if (ts->UhdmType() == UHDM::uhdmstruct_typespec) {
-                        auto* sts = (UHDM::struct_typespec*)ts;
-                        if (sts->Members())
-                            for (auto* tm : *sts->Members())
-                                if (tm->Typespec())
-                                    tm->Typespec()->VpiFullName(
-                                        scopedName + "." +
-                                        std::string(tm->VpiName()));
-                    }
+                    // A struct/UNION typedef's elab (module vpiTypedef) view
+                    // scopes its members work@<mod>.<pkg>::<name>.<m>; the def/
+                    // package listing keeps the doubled pkg::pkg::T::m form
+                    // (Surelog). A FOLDED array-member bound constant's
+                    // vpiTypespec ref (attachFoldedBoundMeta) tracks the same
+                    // elab member fullname.
+                    auto rewriteAggMembers =
+                        [&](UHDM::VectorOftypespec_member* mems) {
+                            if (!mems)
+                                return;
+                            for (auto* tm : *mems) {
+                                if (!tm->Typespec())
+                                    continue;
+                                std::string mFN = scopedName + "." +
+                                                  std::string(tm->VpiName());
+                                tm->Typespec()->VpiFullName(mFN);
+                                auto* ma = tm->Typespec()->Actual_typespec();
+                                if (!ma ||
+                                    ma->UhdmType() !=
+                                        UHDM::uhdmpacked_array_typespec)
+                                    continue;
+                                auto* rs = ((UHDM::packed_array_typespec*)ma)
+                                               ->Ranges();
+                                if (!rs)
+                                    continue;
+                                for (auto* rg : *rs)
+                                    for (UHDM::expr* be :
+                                         {rg->Left_expr(), rg->Right_expr()})
+                                        if (be &&
+                                            be->UhdmType() ==
+                                                UHDM::uhdmconstant)
+                                            if (auto* cts =
+                                                    ((UHDM::constant*)be)
+                                                        ->Typespec())
+                                                cts->VpiFullName(mFN);
+                            }
+                        };
+                    if (ts->UhdmType() == UHDM::uhdmstruct_typespec)
+                        rewriteAggMembers(
+                            ((UHDM::struct_typespec*)ts)->Members());
+                    if (ts->UhdmType() == UHDM::uhdmunion_typespec)
+                        rewriteAggMembers(
+                            ((UHDM::union_typespec*)ts)->Members());
                 }
             }
             if (!tds) {
@@ -7273,6 +7307,140 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                .kind;
                 structWholeParamRef = ck9 == SymbolKind::PackedStructType ||
                                       ck9 == SymbolKind::PackedUnionType;
+            }
+        }
+        // A REAL-typed cont-assign RHS that references a param folds in REAL
+        // arithmetic using each param's ORIGINAL init literal value (Surelog
+        // reduce quirk: `assign y = p1 + 0.2` with `[7:0] p1 = 123.45` uses
+        // 123.45, NOT the truncated integral 123 — result REAL:123.650000,
+        // size 64, constType 2, loc-less). demo_002-style literal ternaries
+        // (no param ref) and comparison/logic RHS (non-floating) are excluded.
+        if (!rhs && topView) {
+            auto& rcR = stripImplicitConv(ae.right());
+            bool floatingRhs = rcR.type && rcR.type->isFloating();
+            bool refsRealParam = false;
+            if (floatingRhs)
+                rcR.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                    if (nv.symbol.kind == SymbolKind::Parameter)
+                        refsRealParam = true;
+                    v.visitDefault(nv);
+                }));
+            if (floatingRhs && refsRealParam) {
+                std::function<std::optional<double>(const Expression&)> evalReal =
+                    [&](const Expression& e0) -> std::optional<double> {
+                    const Expression& x = stripImplicitConv(e0);
+                    switch (x.kind) {
+                        case ExpressionKind::RealLiteral:
+                            return x.as<RealLiteral>().getValue();
+                        case ExpressionKind::IntegerLiteral: {
+                            auto iv = x.as<IntegerLiteral>().getValue();
+                            if (iv.hasUnknown())
+                                return std::nullopt;
+                            return (double)iv.as<int64_t>().value_or(0);
+                        }
+                        case ExpressionKind::NamedValue: {
+                            auto& sym = x.as<NamedValueExpression>().symbol;
+                            if (sym.kind == SymbolKind::Parameter)
+                                if (auto* pinit =
+                                        sym.as<ParameterSymbol>().getInitializer())
+                                    return evalReal(*pinit);
+                            return std::nullopt;
+                        }
+                        case ExpressionKind::UnaryOp: {
+                            auto vv = evalReal(x.as<UnaryExpression>().operand());
+                            if (!vv)
+                                return std::nullopt;
+                            switch (x.as<UnaryExpression>().op) {
+                                case UnaryOperator::Minus:
+                                    return -*vv;
+                                case UnaryOperator::Plus:
+                                    return *vv;
+                                default:
+                                    return std::nullopt;
+                            }
+                        }
+                        case ExpressionKind::BinaryOp: {
+                            auto& b = x.as<BinaryExpression>();
+                            auto l = evalReal(b.left());
+                            auto r = evalReal(b.right());
+                            if (!l || !r)
+                                return std::nullopt;
+                            switch (b.op) {
+                                case BinaryOperator::Add:
+                                    return *l + *r;
+                                case BinaryOperator::Subtract:
+                                    return *l - *r;
+                                case BinaryOperator::Multiply:
+                                    return *l * *r;
+                                case BinaryOperator::Divide:
+                                    return *r != 0.0
+                                               ? std::optional<double>(*l / *r)
+                                               : std::nullopt;
+                                default:
+                                    return std::nullopt;
+                            }
+                        }
+                        default:
+                            return std::nullopt;
+                    }
+                };
+                if (auto dv = evalReal(ae.right())) {
+                    char buf[64];
+                    snprintf(buf, sizeof(buf), "%f", *dv);
+                    auto* c = s.MakeConstant();
+                    c->VpiSize(64);
+                    c->VpiDecompile(buf);
+                    c->VpiValue(std::string("REAL:") + buf);
+                    c->VpiConstType(vpiRealConst);
+                    rhs = c;
+                }
+            }
+        }
+        // A CONSTANT-condition ternary (1 ? -1 : 0.0) folds to the SELECTED
+        // branch's OWN value/type — Surelog's reduce ignores the outer
+        // real/width conversion, keeping the integer's signedness (INT:-1)
+        // sized at the LHS width, rather than converting -1 through the real
+        // result type (which slang wraps to a large UINT).
+        if (!rhs && topView) {
+            const Expression* sel = &stripImplicitConv(ae.right());
+            bool sawTernary = false;
+            for (int guard = 0; guard < 32 &&
+                                sel->kind == ExpressionKind::ConditionalOp;
+                 ++guard) {
+                auto& co = sel->as<ConditionalExpression>();
+                if (co.conditions.size() != 1 || co.conditions[0].pattern)
+                    break;
+                ASTContext cctx(comp.getRoot(), LookupLocation::max);
+                ConstantValue pv = cctx.tryEval(*co.conditions[0].expr);
+                if (!pv || !pv.isInteger() || pv.integer().hasUnknown())
+                    break;
+                sawTernary = true;
+                sel = &stripImplicitConv(pv.isTrue() ? co.left() : co.right());
+            }
+            if (sawTernary && sel->kind != ExpressionKind::ConditionalOp) {
+                ASTContext sctx(comp.getRoot(), LookupLocation::max);
+                ConstantValue scv = sctx.tryEval(*sel);
+                if (scv && scv.isInteger() && !scv.integer().hasUnknown()) {
+                    auto iv = scv.integer();
+                    int32_t w = ae.left().type
+                                    ? (int32_t)ae.left().type->getBitWidth()
+                                    : (int32_t)iv.getBitWidth();
+                    // A NEGATED selected leaf (-1) keeps Surelog's signed
+                    // (INT) encoding even when slang's sibling-propagated type
+                    // made the folded value unsigned.
+                    if (sel->kind == ExpressionKind::UnaryOp &&
+                        sel->as<UnaryExpression>().op == UnaryOperator::Minus)
+                        iv.setSigned(true);
+                    bool neg = iv.isSigned() && iv.isNegative();
+                    std::string digits =
+                        iv.toString(LiteralBase::Decimal, false);
+                    auto* c = s.MakeConstant();
+                    c->VpiDecompile(digits);
+                    c->VpiSize(w);
+                    c->VpiValue((neg ? "INT:" : "UINT:") + digits);
+                    c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+                    rhs = c;
+                }
             }
         }
         if (!rhs && !bitsRhs && !skipGeneralFold && !structParamSetter &&

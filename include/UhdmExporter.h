@@ -860,6 +860,11 @@ private:
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
+    // A DEF-pass FOLDED struct/union member packed_array_typespec bound
+    // constant ([K:0]->2) records the pkg PARAM it folded, so the post-swap
+    // TOP member pass can attach Surelog's vpiSize:32 + vpiTypespec
+    // (ref_typespec -> fresh int_typespec = the param's type).
+    std::map<UHDM::constant*, const slang::ast::Symbol*> foldedMemberBoundParam;
     // True while emitting a def gen-CA RHS: select-index subexpressions
     // scope through the select base (prefix.base.<name>) — Surelog.
     bool selBaseScopeIdx = false;
