@@ -1788,8 +1788,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
                     suppressConstParent = true;
+                // ELAB (topView) view of an UNPACKED-struct typed param: Surelog
+                // FOLDS the elab default to the flat op form (each struct level
+                // is an op75 tagged with its struct_typespec; the leaf scalar is
+                // a bare constant), rather than the DEF tagged_pattern shape.
+                // Re-emit in `reemitting` mode to drop the tags; the outer op's
+                // struct ts ref is attached below (structOp -> rhsRt). The DEF
+                // view keeps the tagged form (paramInitDef).
+                // The elab default may reach us as a struct assignment pattern
+                // OR as a NamedValue reference to a struct-valued (local)param
+                // that emitExpr folds into the pattern op — both fold flat.
+                bool elabUnpStructPat = false;
+                if (topView && !inPackage && typedParam && !rhs) {
+                    auto& sk0 = stripImplicitConv(*init);
+                    elabUnpStructPat =
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::UnpackedStructType &&
+                        (sk0.kind == ExpressionKind::StructuredAssignmentPattern ||
+                         sk0.kind == ExpressionKind::SimpleAssignmentPattern ||
+                         sk0.kind == ExpressionKind::NamedValue);
+                }
+                bool savedReemit0 = reemitting;
+                if (elabUnpStructPat)
+                    reemitting = true;
                 if (!rhs)
                     rhs = emitExpr(*init, pa, prefix, netMap);
+                reemitting = savedReemit0;
                 // A DEF-view materialized UNTYPED integral import's Rhs constant
                 // is sized at the param's type width (Surelog: 32 for a plain
                 // int import) — matching its elab view, not the 64-bit default.
@@ -1881,8 +1905,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         isImported && typedParam &&
                         ps.getType().getCanonicalType().isPackedArray() &&
                         opr->VpiOpType() == vpiConcatOp;
+                    // An UNPACKED-struct typed param's elab assignment-pattern
+                    // op carries a ts ref to the param's struct typespec
+                    // (Surelog folds the elab default, tagging the outer op with
+                    // the struct_typespec at the instance-scoped fullname). The
+                    // PACKED-struct case is handled by the flat op75 branch
+                    // above; here the op keeps its (reemitted) folded operands.
+                    bool structOp =
+                        !inPackage &&
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::UnpackedStructType &&
+                        opr->VpiOpType() == vpiAssignmentPatternOp;
                     if ((anyUnknown || packedArrayOp || unpackedArrayOp ||
-                         importedConcatOp) &&
+                         importedConcatOp || structOp) &&
                         !(opr->Typespec() &&
                           opr->Typespec()->Actual_typespec())) {
                         auto* rt = s.MakeRef_typespec();
