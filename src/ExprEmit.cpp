@@ -4792,6 +4792,54 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 noteUnsupported("hierarchical reference form");
                 return nullptr;
             }
+            // Collect the per-component select syntax by flattening the
+            // dotted ScopedName chain. A DEEPER indexed component
+            // (steps[step].outer[i].inner[CHUNK-1]) whose index is a
+            // genvar/expression is a bit_select in Surelog, exactly like the
+            // constant-indexed and single-component base forms; the index
+            // comes from this selector syntax. Only used when the whole path's
+            // BASE is itself indexed (the gen-scope-array hier family).
+            std::vector<const syntax::ExpressionSyntax*> compSel(parts.size(),
+                                                                 nullptr);
+            bool baseIndexed9 =
+                !parts.empty() &&
+                parts[0].first.find('[') != std::string::npos;
+            if (baseIndexed9 && expr.syntax) {
+                std::vector<const syntax::NameSyntax*> nameParts;
+                std::function<void(const syntax::NameSyntax*)> fl9 =
+                    [&](const syntax::NameSyntax* n) {
+                        if (!n)
+                            return;
+                        if (n->kind == syntax::SyntaxKind::ScopedName) {
+                            auto& sc = n->as<syntax::ScopedNameSyntax>();
+                            fl9(sc.left);
+                            fl9(sc.right);
+                        }
+                        else
+                            nameParts.push_back(n);
+                    };
+                if (syntax::NameSyntax::isKind(expr.syntax->kind))
+                    fl9(&expr.syntax->as<syntax::NameSyntax>());
+                if (nameParts.size() == parts.size()) {
+                    for (size_t i9 = 0; i9 < nameParts.size(); i9++) {
+                        if (nameParts[i9]->kind ==
+                            syntax::SyntaxKind::IdentifierSelectName) {
+                            auto& isn =
+                                nameParts[i9]
+                                    ->as<syntax::IdentifierSelectNameSyntax>();
+                            if (isn.selectors.size() == 1 &&
+                                isn.selectors[0]->selector &&
+                                isn.selectors[0]->selector->kind ==
+                                    syntax::SyntaxKind::BitSelect)
+                                compSel[i9] =
+                                    isn.selectors[0]
+                                        ->selector
+                                        ->as<syntax::BitSelectSyntax>()
+                                        .expr;
+                        }
+                    }
+                }
+            }
             auto* hp = s.MakeHier_path();
             std::string disp9 = raw;
             if (lpFoldPs9) {
@@ -4900,8 +4948,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // ref_obj index child that PARENTS AT THE HIER_PATH and carries
                 // the scope-prefixed genvar fullname (Surelog). Distinct from
                 // the constant-index and symbolic-doubled-index forms above.
-                if (i == 0 && lb != std::string::npos && rb != std::string::npos &&
-                    rb > lb + 1) {
+                // The i==0 base uses its raw component fullname; a DEEPER
+                // (i>0) genvar/expression-indexed component of a base-indexed
+                // gen-scope-array path carries the cumulative dotted fullname
+                // (steps[step].outer[i]) — both are bit_selects.
+                if ((i == 0 || baseIndexed9) && lb != std::string::npos &&
+                    rb != std::string::npos && rb > lb + 1) {
                     std::string idx = pname.substr(lb + 1, rb - lb - 1);
                     auto isIdentStart = [](char c) {
                         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
@@ -4916,7 +4968,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* bs = s.MakeBit_select();
                         bs->VpiName(base);
                         bs->VpiParent(hp);
-                        bs->VpiFullName(pname);
+                        bs->VpiFullName(i == 0 ? pname : dottedSoFar);
                         setLoc(bs, SourceRange(exprStart + off,
                                                exprStart + off + base.size()));
                         auto* ir = s.MakeRef_obj();
@@ -4927,6 +4979,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(ir, SourceRange(exprStart + idOff,
                                                exprStart + idOff + idx.size()));
                         bs->VpiIndex(ir);
+                        elems->push_back(bs);
+                        genVarBaseEmitted = true;
+                        continue;
+                    }
+                    // Deeper EXPRESSION index (inner[CHUNK - 1]): bit_select
+                    // whose index emits from the selector syntax, refs doubled
+                    // through the hier display (prefix + raw), like the base
+                    // symbolic-index form above.
+                    if (baseIndexed9 && i > 0 && compSel[i]) {
+                        std::string base = pname.substr(0, lb);
+                        auto* bs = s.MakeBit_select();
+                        bs->VpiName(base);
+                        bs->VpiParent(hp);
+                        bs->VpiFullName(dottedSoFar);
+                        setLoc(bs, SourceRange(exprStart + off,
+                                               exprStart + off + base.size()));
+                        std::string savedPfx = syntaxRefPrefix;
+                        std::string savedSep = syntaxRefSep;
+                        syntaxRefPrefix = prefix + "." + raw;
+                        syntaxRefSep = ".";
+                        if (auto* ix = emitSyntaxExpr(*compSel[i], hp))
+                            bs->VpiIndex((UHDM::expr*)ix);
+                        syntaxRefPrefix = savedPfx;
+                        syntaxRefSep = savedSep;
                         elems->push_back(bs);
                         genVarBaseEmitted = true;
                         continue;
@@ -4975,8 +5051,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool idxBase9 =
                     !parts.empty() &&
                     parts[0].first.find('[') != std::string::npos;
-                if ((inLhs || genVarBaseEmitted) && (genTgt9 || idxBase9) &&
-                    !elems->empty()) {
+                // An RVALUE gen-scope-array hier READ (steps[step].outer[i]
+                // .inner[CHUNK-1].temp / steps[WIDTH].outer[0].val) spans the
+                // WHOLE path and gives its leaf the elab prefix fullname — so
+                // the raw-leaf/base-endln override is LHS-only. (For the LHS
+                // gen-target/iface-array drive man[i].req.lck it still fires.)
+                (void)genVarBaseEmitted;
+                if (inLhs && (genTgt9 || idxBase9) && !elems->empty()) {
                     auto* fe9 = (UHDM::expr*)elems->front();
                     hp->VpiEndLineNo(fe9->VpiEndLineNo());
                     hp->VpiEndColumnNo(fe9->VpiEndColumnNo());

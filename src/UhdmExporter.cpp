@@ -913,10 +913,22 @@ UHDM::design* UhdmExporter::exportDesign() {
                 continue;
             auto dit0 =
                 defMap.find(&sc0->asSymbol().as<InstanceBodySymbol>().getDefinition());
-            if (dit0 != defMap.end())
+            if (dit0 != defMap.end()) {
                 if (auto nit0 = dit0->second.nets.find(sym0);
                     nit0 != dit0->second.nets.end())
                     r0->Actual_group(nit0->second);
+                else {
+                    // Elaborated-instance param typespecs re-emit the $bits arg
+                    // ref against the instance's own net symbol, but the def
+                    // NetMap is keyed by the def-view body's symbols — bind by
+                    // name to the DEF net (Surelog reuses work@<def>.<sig>).
+                    for (auto& [ks, vn] : dit0->second.nets)
+                        if (ks->name == sym0->name) {
+                            r0->Actual_group(vn);
+                            break;
+                        }
+                }
+            }
             break;
         }
     }
