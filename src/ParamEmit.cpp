@@ -837,9 +837,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // A STRING-literal override keeps STRING:<text> with the bare
+                // text decompile at the value width (const_func #("BAR")).
+                bool strOv8 = false;
+                if (boundInit && stripImplicitConv(*boundInit).kind ==
+                                     ExpressionKind::StringLiteral) {
+                    std::string txt8(stripImplicitConv(*boundInit)
+                                         .as<StringLiteral>()
+                                         .getValue());
+                    c->VpiValue("STRING:" + txt8);
+                    c->VpiConstType(vpiStringConst);
+                    c->VpiSize((int32_t)iv.getBitWidth());
+                    c->VpiDecompile(txt8);
+                    strOv8 = true;
+                }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
-                if (vecAliasOv8) {
+                if (vecAliasOv8 || strOv8) {
                 }
                 else if (typedParam && iv.getBitWidth() > 64) {
                     // WIDE values overflow the decimal fold — encode HEX at
@@ -1137,6 +1151,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rhsRt = rt;
                     }
                     rhs = c;
+                }
+                // A STRING-literal init on an (implicitly) INTEGRAL param
+                // re-emits the string constant in the elab view, decompiled
+                // WITHOUT quotes (const_func e1) — not the UINT fold.
+                else if (stripImplicitConv(*init).kind ==
+                             ExpressionKind::StringLiteral &&
+                         !ps.getType().getCanonicalType().isString()) {
+                    forceConstParent = true;
+                    rhs = emitExpr(*init, pa, prefix, netMap);
+                    forceConstParent = false;
+                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
+                        auto* rc = (UHDM::constant*)rhs;
+                        std::string_view v0 = rc->VpiValue();
+                        if (v0.rfind("STRING:", 0) == 0)
+                            rc->VpiDecompile(std::string(v0.substr(7)));
+                    }
                 }
                 // A TYPED string param never folds (the elab Rhs re-emits the
                 // string constant, decompiled without quotes). Pkg CONCAT
