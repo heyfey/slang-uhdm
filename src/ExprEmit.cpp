@@ -2073,10 +2073,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // A TASK/FUNCTION BODY is compiled once and never deep-cloned, so
             // its unary literal operands keep compileConst's null parent too
             // (func_tern_hint's `? -1 :`).
+            // A REAL literal operand behaves like the integer/string cases:
+            // Surelog's compileConst leaves a unary real-literal operand
+            // unparented in the def/non-cloned view too (isLiteralExpr omits
+            // RealLiteral, so add it here). realexpr's `-1.17`.
+            bool unaryLitOperand =
+                isLiteralExpr(ue.operand()) ||
+                stripImplicitConv(ue.operand()).kind ==
+                    ExpressionKind::RealLiteral;
             if ((paramInitDef || inProcessEmit || inGenScopeProc ||
                  defGenProcessEmit || inParamInit || callArgUnary ||
                  currentTf) &&
-                isLiteralExpr(ue.operand())) {
+                unaryLitOperand) {
                 suppressConstParent = true;
                 forceConstParent = false;
             }

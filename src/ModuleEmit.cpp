@@ -10154,7 +10154,16 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     if (stripImplicitConv(*el).kind ==
                         ExpressionKind::SimpleAssignmentPattern)
                         nestedPat = true;
-            if (!nestedPat &&
+            // A raw UNPACKED-array cont_assign pattern (bit[..] b[..] = '{..})
+            // leaves NO first-compile orphan in Surelog: its def-view leaf
+            // operands stay bare (unlike a packed-struct pattern, whose
+            // recompile re-parents them and pulls the orphan into the weakly-
+            // referenced tail). Skip the orphan so the shared def-op operand is
+            // not re-parented and no spurious op is minted (struct_pattern_loop).
+            bool unpackedArrLhs =
+                ae.left().type && ae.left().type->getCanonicalType().kind ==
+                                      SymbolKind::FixedSizeUnpackedArrayType;
+            if (!nestedPat && !unpackedArrLhs &&
                 (rc.kind == ExpressionKind::SimpleAssignmentPattern ||
                  rc.kind == ExpressionKind::StructuredAssignmentPattern)) {
                 auto* defCa = defInfo->contAssigns[myIdx];
