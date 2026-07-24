@@ -585,18 +585,42 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                      declared->getType().kind == SymbolKind::UnpackedUnionType)) {
         bool pk = declared->getType().kind == SymbolKind::PackedUnionType;
         auto& ctU = declared->getType().getCanonicalType();
-        auto* uts = pk ? buildUnionTs(ctU.as<PackedUnionType>(), true, "")
-                       : buildUnionTs(ctU.as<UnpackedUnionType>(), false, "");
+        // The ELAB (net-bound) clone scopes its member refs through the
+        // signal's own full name; the DEF object keeps bare member names.
+        std::string uAlias = (!tfContext && !boundOwnerFullName.empty())
+                                 ? boundOwnerFullName
+                                 : std::string();
+        auto* uts = pk ? buildUnionTs(ctU.as<PackedUnionType>(), true, uAlias)
+                       : buildUnionTs(ctU.as<UnpackedUnionType>(), false, uAlias);
         if (auto tsyn = declared->getTypeSyntax()) {
             // A PACKED anonymous union ts spans only the `union packed` HEADER;
             // an UNPACKED one spans the whole syntax (Surelog).
             if (auto* su = tsyn->as_if<syntax::StructUnionTypeSyntax>(); su && pk) {
-                SourceLocation e = su->keyword.range().end();
-                if (su->packed && su->packed.range().end() > e)
-                    e = su->packed.range().end();
-                if (su->signing && su->signing.range().end() > e)
-                    e = su->signing.range().end();
-                setLoc(uts, SourceRange(su->keyword.range().start(), e));
+                // The DEF-view object spans the `union packed` header; the
+                // ELAB (net-bound) one spans the `union` keyword alone.
+                if (tfContext) {
+                    SourceLocation e = su->keyword.range().end();
+                    if (su->packed && su->packed.range().end() > e)
+                        e = su->packed.range().end();
+                    if (su->signing && su->signing.range().end() > e)
+                        e = su->signing.range().end();
+                    setLoc(uts, SourceRange(su->keyword.range().start(), e));
+                }
+                else
+                    setLoc(uts, su->keyword.range());
+            }
+            else if (auto* su2 = tsyn->as_if<syntax::StructUnionTypeSyntax>()) {
+                // An anonymous UNPACKED union: the ELAB clone spans the
+                // `union` keyword; the DEF object stops at the end of the
+                // FIRST member declaration (Surelog).
+                if (!tfContext)
+                    setLoc(uts, su2->keyword.range());
+                else if (!su2->members.empty())
+                    setLoc(uts,
+                           SourceRange(su2->keyword.range().start(),
+                                       su2->members[0]->sourceRange().end()));
+                else
+                    setLoc(uts, tsyn->sourceRange());
             }
             else
                 setLoc(uts, tsyn->sourceRange());
