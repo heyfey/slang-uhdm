@@ -930,6 +930,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             for (auto* pp2 : *pit2->second->Parameters())
                                 if (pp2->VpiName() == nv.symbol.name)
                                     ref->Actual_group(pp2);
+                        // Re-point at the ELAB home-package param once top
+                        // packages exist (Surelog's cross-package init ref
+                        // reaches the folded elab param, not the def one).
+                        pkgCrossRefTopFixups.emplace_back(
+                            ref, (const void*)&scope->asSymbol(),
+                            std::string(nv.symbol.name));
                         setLoc(ref, expr.sourceRange);
                         return ref;
                     }
@@ -3811,7 +3817,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     suppressConstParent = true;
                     forceConstParent = false;
                 }
-                if (auto* e = emitExpr(*setter.expr, op, prefix, netMap)) {
+                // A REPLICATION member value ({NDioPads{B}}) folds to the
+                // repeated bit pattern: a BIN constant at the member width with
+                // a BARE ts ref (Surelog). emitExpr would otherwise keep the
+                // op-34 multiconcat operation, so pre-build the folded constant.
+                UHDM::any* preE = nullptr;
+                if (paramInitDef &&
+                    stripImplicitConv(*setter.expr).kind ==
+                        ExpressionKind::Replication &&
+                    setter.expr->type) {
+                    ASTContext rctx7(comp.getRoot(), LookupLocation::max);
+                    if (auto rcv7 = rctx7.tryEval(*setter.expr);
+                        rcv7 && rcv7.isInteger() &&
+                        !rcv7.integer().hasUnknown()) {
+                        auto riv7 = rcv7.integer();
+                        int32_t rw7 =
+                            (int32_t)setter.expr->type->getBitWidth();
+                        std::string rbits7;
+                        for (int32_t bi7 = rw7 - 1; bi7 >= 0; bi7--)
+                            rbits7 += (riv7[bi7] == slang::logic_t(1)) ? '1'
+                                                                       : '0';
+                        auto* rc7 = s.MakeConstant();
+                        // DEF view leaves the folded pattern constant UNPARENTED
+                        // with a BARE (nameless) ts ref (Surelog).
+                        setLoc(rc7, setter.expr->sourceRange);
+                        rc7->VpiDecompile(rbits7);
+                        rc7->VpiSize(rw7);
+                        rc7->VpiValue("BIN:" + rbits7);
+                        rc7->VpiConstType(vpiBinaryConst);
+                        auto* rrt7 = s.MakeRef_typespec();
+                        rrt7->VpiParent(rc7);
+                        rrt7->VpiFullName("");
+                        rrt7->Actual_typespec(s.MakeInt_typespec());
+                        rc7->Typespec(rrt7);
+                        preE = rc7;
+                    }
+                }
+                if (auto* e = preE ? preE
+                                   : emitExpr(*setter.expr, op, prefix,
+                                              netMap)) {
                     // A CONCAT pattern value that folded re-encodes BINARY at
                     // the member width with a BARE ts ref (Surelog).
                     if (paramInitDef &&

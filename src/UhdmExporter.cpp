@@ -309,6 +309,18 @@ UHDM::design* UhdmExporter::exportDesign() {
                     cts->Instance(tp);
                     break;
                 }
+        // Cross-package def-init param refs re-point at the ELAB home-package
+        // parameter (Surelog's def-view init ref reaches the folded elab param).
+        for (auto& [ref, homeSym, pname] : pkgCrossRefTopFixups) {
+            auto tit = pkgTopMap.find(homeSym);
+            if (tit != pkgTopMap.end() && tit->second->Parameters())
+                for (auto* pp : *tit->second->Parameters())
+                    if (pp->VpiName() == pname) {
+                        ref->Actual_group(pp);
+                        break;
+                    }
+        }
+        pkgCrossRefTopFixups.clear();
     }
 
     // File-level ($unit) parameters -> DESIGN-level Parameters/Param_assigns

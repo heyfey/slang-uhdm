@@ -1487,9 +1487,15 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             // MODULE-local enum typedef's base; a PKG enum's base FOLDS to a
             // signed INT constant anchored at the bound's leading
             // identifier token (MUSI pkg::enum_t [Width-1:0] -> INT:3 at
-            // the Width span).
+            // the Width span). The fold applies in the ELABORATED (top)
+            // package view and in module-context clones; the DEF-view PACKAGE
+            // typedef LISTING keeps the bound SYMBOLIC (Surelog emits a
+            // symbolic def base + a folded elab base). inPkgTypedefEmit
+            // distinguishes the def-package listing from module context (both
+            // have pkgTopEmit == false).
             bool pkgEnum9 =
-                refFullName.find("::") != std::string::npos;
+                refFullName.find("::") != std::string::npos &&
+                !(inPkgTypedefEmit && !pkgTopEmit);
             auto enumBound = [&](const syntax::ExpressionSyntax* bsyn,
                                  int64_t val) -> UHDM::expr* {
                 if (bsyn && bsyn->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
@@ -1508,7 +1514,23 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                         setLoc(c9, anchor9->sourceRange());
                         return c9;
                     }
-                    if (auto* e = emitSyntaxExpr(*bsyn, r))
+                    // A DEF-view PACKAGE enum base bound (logic [Width-1:0])
+                    // keeps its param ref linked to the referenced package
+                    // param's def-init constant (Surelog value-ref chaining) —
+                    // activate the tf-type-scope resolver over the enum's home
+                    // package so the ref binds instead of dangling.
+                    const slang::ast::Scope* savedTfScope9 = tfTypeScope;
+                    bool setTf9 = false;
+                    if (!tfTypeScope && inPkgTypedefEmit &&
+                        refFullName.find("::") != std::string::npos)
+                        if (auto* esc9 = et.getParentScope()) {
+                            tfTypeScope = esc9;
+                            setTf9 = true;
+                        }
+                    auto* e = emitSyntaxExpr(*bsyn, r);
+                    if (setTf9)
+                        tfTypeScope = savedTfScope9;
+                    if (e)
                         return (UHDM::expr*)e;
                 }
                 return makeBoundConst(bsyn, val, r);

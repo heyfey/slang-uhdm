@@ -998,8 +998,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ps.getDeclaredType()->getTypeSyntax() &&
                         ps.getDeclaredType()->getTypeSyntax()->kind ==
                             syntax::SyntaxKind::ImplicitType;
+                    // A RANGED-UNTYPED localparam ([HI:LO] A_CONST = A_VAL)
+                    // whose default FOLDS in the elab view carries its value at
+                    // the (per-instance) RANGE width, with a ts ref to a fresh
+                    // int_typespec located at the range span — exactly like the
+                    // OVERRIDDEN ranged case (A_VAL above). The DEF view keeps
+                    // the unfolded ref_obj, so this only fires under topView.
+                    bool rangedFold =
+                        topView && !inPackage && isRangedUntypedParam(ps);
                     ((UHDM::constant*)rhs)
-                        ->VpiSize(typedParam || defUntypedImport
+                        ->VpiSize(typedParam || defUntypedImport || rangedFold
                                       ? (int32_t)ps.getType().getBitWidth()
                                   : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                 : 64);
@@ -1144,9 +1152,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         pendingPartSelFoldTs.push_back({rt, fr.left, fr.right});
                         partSelectFold = true;
                     }
-                    // Typed-param (non-pattern) folds carry a ts ref to the param.
-                    if (typedParam && wantTs && !isPattern && !partSelectFold &&
-                        !importedFold) {
+                    // Typed-param (non-pattern) folds carry a ts ref to the
+                    // param; a RANGED-UNTYPED elab fold carries the SAME ts ref
+                    // shape (fullname = instance prefix, actual = range
+                    // int_typespec) so its folded value is width-typed.
+                    if ((typedParam || rangedFold) && wantTs && !isPattern &&
+                        !partSelectFold && !importedFold) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
@@ -1446,6 +1457,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         if (pv9.isInteger() &&
                             !pv9.integer().hasUnknown()) {
                             auto iv9 = pv9.integer();
+                            // A RANGED-UNTYPED localparam const-call fold
+                            // ([HI:LO] C_CONST = F(..)) folds like A_CONST: UINT
+                            // at the (per-instance) RANGE width with a ts ref to
+                            // the range int_typespec — NOT the BIN value form a
+                            // plain untyped localparam takes.
+                            if (isRangedUntypedParam(ps)) {
+                                std::string digits9 =
+                                    iv9.toString(LiteralBase::Decimal, false);
+                                auto* c9 = s.MakeConstant();
+                                c9->VpiDecompile(digits9);
+                                c9->VpiSize(
+                                    (int32_t)ps.getType().getBitWidth());
+                                c9->VpiValue("UINT:" + digits9);
+                                c9->VpiConstType(vpiUIntConst);
+                                c9->VpiParent(pa);
+                                setLoc(c9, icc9.sourceRange);
+                                if (wantTs) {
+                                    auto* rt = s.MakeRef_typespec();
+                                    std::string tsPfx9 = prefix;
+                                    if (tsPfx9.size() >= 2 &&
+                                        tsPfx9.compare(tsPfx9.size() - 2, 2,
+                                                       "::") == 0)
+                                        tsPfx9.resize(tsPfx9.size() - 2);
+                                    rt->VpiFullName(tsPfx9);
+                                    rt->VpiParent(c9);
+                                    c9->Typespec(rt);
+                                    rhsRt = rt;
+                                }
+                                rhs = c9;
+                            }
+                            else {
                             int32_t w9 = (int32_t)iv9.getBitWidth();
                             std::string bits9;
                             for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
@@ -1461,6 +1503,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c9->VpiParent(pa);
                             setLoc(c9, icc9.sourceRange);
                             rhs = c9;
+                            }
                         }
                     }
                 }
@@ -3021,6 +3064,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     auto* up = s.MakePackage();
     if (!topView)
         pkgDefMap[&pkg] = up;
+    else
+        pkgTopMap[&pkg] = up;
     up->VpiName(pkg.name);
     up->VpiFullName(prefix);
     up->VpiDefName(pkg.name);
@@ -3101,6 +3146,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // signals/params resolve.
     auto* tds = s.MakeTypespecVec();
     pkgTopEmit = topView; // enum-const decompile is view-dependent (buildEnumTs)
+    inPkgTypedefEmit = true;
     // Package typedefs are CREATED in source order (so intra-package
     // references resolve via typedefTs) but LISTED name-sorted (Surelog).
     std::vector<const Symbol*> pkgAliases;
@@ -4101,6 +4147,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         er->Actual_typespec(shared);
             }
         }
+    inPkgTypedefEmit = false;
     pkgTopEmit = topView;
     emitTaskFuncs(pkg, up, prefix, nullptr, /*sharedScope=*/false);
     pkgTopEmit = false;

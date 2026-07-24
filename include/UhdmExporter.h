@@ -663,6 +663,11 @@ private:
     CallFold constCallFold(const slang::ast::Expression& expr);
     CallFold resolveConstExpr(const slang::ast::Expression& expr);
     bool pkgTopEmit = false;
+    // True only while emitting a package's typedef listing (both views). Lets
+    // buildEnumTs keep a DEF-view PACKAGE enum base bound symbolic while
+    // leaving module-context pkg-enum clones folded (distinguishes def-package
+    // from module context, which both have pkgTopEmit == false).
+    bool inPkgTypedefEmit = false;
     // Child-instance CA re-emission folds type casts (top modules keep them).
     bool foldTypeCasts = false;
     const slang::ast::SubroutineSymbol* currentSubSym = nullptr;
@@ -712,6 +717,17 @@ private:
     UHDM::ref_obj* emitPropFormalRef(std::string_view nm, slang::SourceRange nr,
                                      UHDM::BaseClass* parent, const std::string& prefix);
     std::map<const void*, UHDM::package*> pkgDefMap;
+    // ELAB/top-view package objects (filled in emitPackage when topView).
+    // Module- and package-side cross-view links whose Surelog equivalents reach
+    // the ELAB pkg (folded param constants) flip from pkgDefMap to this.
+    std::map<const void*, UHDM::package*> pkgTopMap;
+    // Def-view package param inits that reference ANOTHER package's param
+    // (pkg::otherpkg::P): the ref_obj is created during the def-package pass
+    // (before top packages exist), so record it and re-point its Actual at the
+    // ELAB (top) home-package parameter after topPackages are built — Surelog's
+    // cross-package init refs reach the elaborated (folded) home param.
+    std::vector<std::tuple<UHDM::ref_obj*, const void*, std::string>>
+        pkgCrossRefTopFixups;
     // Transitive wildcard-import typedef clones, shared def+elab per
     // (typedef symbol, module def-name).
     std::map<std::pair<const slang::ast::Symbol*, std::string>,

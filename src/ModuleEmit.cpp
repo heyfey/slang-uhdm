@@ -1915,6 +1915,28 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             boundOwnerFullName = fullName;
             ts = sharedTypespec(*it.sym, netTs);
             boundOwnerFullName.clear();
+            // ELAB net/var of a PACKAGE-homed struct/enum typedef references
+            // the top (elaborated) typespec object — its Instance link reaches
+            // the elab package (folded param constants), matching Surelog's
+            // module-content links. Byte-identical dump; only the object graph
+            // the cmp walk follows changes. Gated to the shared def object.
+            if (ts) {
+                if (auto* dtvT = it.sym->getDeclaredType()) {
+                    auto& ptyT = dtvT->getType();
+                    if (ptyT.kind == SymbolKind::TypeAlias) {
+                        auto* scT = ptyT.as<TypeAliasType>().getParentScope();
+                        if (scT && scT->asSymbol().kind ==
+                                       SymbolKind::Package) {
+                            auto dItT = typedefTs.find(&ptyT);
+                            auto tItT = pkgTopTypedefTs.find(&ptyT);
+                            if (dItT != typedefTs.end() &&
+                                tItT != pkgTopTypedefTs.end() &&
+                                ts == dItT->second)
+                                ts = tItT->second;
+                        }
+                    }
+                }
+            }
         }
         // Unpacked array of a NET-type leaf (reg memory): the instance view
         // is an array_net (vpiNet = logic_net), not an array_var.
@@ -5888,6 +5910,30 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 if (!ts)
                     ts = sharedTs ? sharedTypespec(*internal, *sharedTs, &ps)
                                   : makeTypespec(*internal, nullptr, &ps);
+                // A DEF-view MODULE port whose type is a PACKAGE-homed
+                // struct/enum typedef references the ELAB (top) typespec
+                // object — Surelog's module content links reach the elaborated
+                // package (whose param constants are folded), not the def
+                // package. Byte-identical dump; only the Instance link (and
+                // thus the cmp-walk graph) changes. Gated to the shared def
+                // object so per-use clones (handled above) are untouched.
+                if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst && ts) {
+                    if (auto* dtp9 = internal->getDeclaredType()) {
+                        auto& pty9 = dtp9->getType();
+                        if (pty9.kind == SymbolKind::TypeAlias) {
+                            auto* sc9 = pty9.as<TypeAliasType>().getParentScope();
+                            if (sc9 && sc9->asSymbol().kind ==
+                                           SymbolKind::Package) {
+                                auto dIt9 = typedefTs.find(&pty9);
+                                auto tIt9 = pkgTopTypedefTs.find(&pty9);
+                                if (dIt9 != typedefTs.end() &&
+                                    tIt9 != pkgTopTypedefTs.end() &&
+                                    ts == dIt9->second)
+                                    ts = tIt9->second;
+                            }
+                        }
+                    }
+                }
                 // A DEF-view UNPACKED-array port of a 2-STATE (bit) element
                 // wraps its element ts in an array_typespec (vpiArrayType,
                 // one range per unpacked dim, spanning type..last-dim) —
