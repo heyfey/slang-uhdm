@@ -23,7 +23,10 @@ iface_cfg_mem 611->647, so re-measure the finished patch before gating.
 An OBJECT-COUNT split on the $unit typedef `typedef reg8_t [0:3] reg2dim1_t`. Surelog emits ONE
 design-parented reg2dim1_t plus 14 per-use reg8_t ELEMENT clones; we emit 3 reg2dim1_t (the $unit
 typedef loop in UhdmExporter.cpp ~734 stamps it once per TOP in a multi-top design) and only 11
-reg8_t. Fix direction: dedup the $unit typedef object across tops, mint the element clone per use.
+reg8_t. Fix direction: find and drop the 2 extra reg2dim1_t clones, mint the reg8_t element clone per use.
+CAVEAT: the marker sweep proved the design listing object comes from UhdmExporter.cpp ~741 (the $unit
+alias loop, which runs ONCE, not per top), so the 2 extras come from a site the
+`->VpiName(<alias>.name)` regex did not cover — widen the sweep before theorising.
 Found with a name-suffix instrumentation sweep over the 10 `->VpiName(<alias>.name)` clone sites —
 stamping a unique marker at each candidate site and grepping the dump is the fastest way to identify
 which of several look-alike sites actually emits an object.
