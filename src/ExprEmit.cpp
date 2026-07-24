@@ -592,8 +592,14 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 bool savedSCP = suppressConstParent;
                 if (!doParent)
                     suppressConstParent = true;
-                if (auto* ix = emitExpr(*comp.sels[k].sel, bs, prefix, netMap))
+                if (auto* ix = emitExpr(*comp.sels[k].sel, bs, prefix, netMap)) {
+                    // VARIABLE index refs parent at the HIER_PATH
+                    // (ucsbece dll_d[i].valid); constants keep the
+                    // bit_select parent.
+                    if (((UHDM::any*)ix)->UhdmType() == UHDM::uhdmref_obj)
+                        ((UHDM::any*)ix)->VpiParent(hp);
                     bs->VpiIndex((UHDM::expr*)ix);
+                }
                 suppressConstParent = savedSCP;
                 elems->push_back(bs);
             }

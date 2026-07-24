@@ -2979,6 +2979,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         /*portView=*/&inst,
                         /*connModport=*/std::string(ip.modport));
                     ei->VpiName(ename);
+                    // An ARRAY-PORT element view (.m(arr)) is a minimal
+                    // reference-style view: it drops BOTH the parameter and
+                    // the override param_assign (interface_array_fanout).
+                    ei->Param_assigns(nullptr);
+                    ei->Parameters(nullptr);
                     portIfaces->push_back(ei);
                     insts->push_back(ei);
                 }
