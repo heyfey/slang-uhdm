@@ -8431,6 +8431,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             selLitLhs = l9.kind == ExpressionKind::ElementSelect ||
                         l9.kind == ExpressionKind::RangeSelect;
         }
+        // ...but when that select's base walks down to a struct MEMBER access
+        // (a.b[0], a[0][0].x[2] — a hier_path Lhs), Surelog does NOT re-compile
+        // the RHS value the way it does for a plain vector-select LHS: the
+        // fresh elab cont_assign's Rhs stays a BARE loc-only constant (no
+        // parent/size/decompile/UINT). Keep selLitLhs true (still a fresh CA
+        // with the hier_path Lhs); only the Rhs constant shape differs.
+        bool memberSelLitLhs = false;
+        if (selLitLhs) {
+            const Expression* b9 = &stripImplicitConv(ae.left());
+            while (b9->kind == ExpressionKind::ElementSelect ||
+                   b9->kind == ExpressionKind::RangeSelect)
+                b9 = &stripImplicitConv(
+                    b9->kind == ExpressionKind::ElementSelect
+                        ? b9->as<ElementSelectExpression>().value()
+                        : b9->as<RangeSelectExpression>().value());
+            memberSelLitLhs = b9->kind == ExpressionKind::MemberAccess;
+        }
         // An interface-member LHS (ss_if.start_addr, u_if.f) re-emits a FRESH
         // elab cont_assign (hier_path Lhs, bare Rhs) — but ONLY when the RHS
         // is a LITERAL.  Surelog re-compiles the assignment in the netlist
@@ -9782,6 +9799,15 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             forceConstParent = true;
             rhs = emitExpr(*structParamSetter, ca, prefix, netMap);
             forceConstParent = fsp;
+        }
+        // A MEMBER-select (hier_path) LHS with a literal RHS gets a BARE
+        // loc-only Rhs constant in the elab view — Surelog does not re-parent
+        // or re-size it (unlike the plain vector-select case, whose value
+        // folds to the LHS width below).
+        if (!rhs && topView && memberSelLitLhs) {
+            auto* bc = s.MakeConstant();
+            setLoc(bc, stripImplicitConv(ae.right()).sourceRange);
+            rhs = bc;
         }
         if (!rhs) {
             if (topView) {
