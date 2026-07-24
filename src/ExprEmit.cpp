@@ -4038,6 +4038,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     operands->push_back(tp);
                 }
             }
+            // Surelog lists tagged operands in SOURCE order — a default
+            // setter can come FIRST ('{default: 1, 31:0}, assignment-pattern
+            // j) while the setter groups above emit it last. Re-sort tagged
+            // operands by source location.
+            if (!reemitting && operands->size() > 1) {
+                bool allTagged9 = true;
+                for (auto* o9 : *operands)
+                    if (o9->UhdmType() != UHDM::uhdmtagged_pattern ||
+                        !((UHDM::tagged_pattern*)o9)->VpiLineNo()) {
+                        allTagged9 = false;
+                        break;
+                    }
+                if (allTagged9)
+                    std::stable_sort(
+                        operands->begin(), operands->end(),
+                        [](UHDM::any* a, UHDM::any* b) {
+                            auto* ta = (UHDM::tagged_pattern*)a;
+                            auto* tb = (UHDM::tagged_pattern*)b;
+                            return ta->VpiLineNo() != tb->VpiLineNo()
+                                       ? ta->VpiLineNo() < tb->VpiLineNo()
+                                       : ta->VpiColumnNo() < tb->VpiColumnNo();
+                        });
+            }
             op->Operands(operands);
             return op;
         }

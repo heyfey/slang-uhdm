@@ -2450,26 +2450,97 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                               k == ExpressionKind::StructuredAssignmentPattern ||
                               k == ExpressionKind::ReplicatedAssignmentPattern;
             }
+            // A PACKAGE-typedef struct with a STRUCTURED (tagged) pattern
+            // init stays a struct_VAR: Expr = op75 of bare per-member
+            // constants in member order, var span through the init
+            // (assignment-pattern l). Local-typedef structured inits and
+            // positional patterns keep the struct_net recompile.
+            bool structuredPkgPat = false;
+            if (patternInit &&
+                stripImplicitConv(*it.sym->getDeclaredType()->getInitializer())
+                        .kind == ExpressionKind::StructuredAssignmentPattern) {
+                auto& dtT = it.sym->getDeclaredType()->getType();
+                if (dtT.kind == SymbolKind::TypeAlias) {
+                    auto* scT = dtT.as<TypeAliasType>().getParentScope();
+                    structuredPkgPat =
+                        scT && scT->asSymbol().kind == SymbolKind::Package;
+                }
+            }
             if (isStruct && it.sym->getDeclaredType()->getInitializer() &&
-                !patternInit) {
+                (!patternInit || structuredPkgPat)) {
                 auto* sv = s.MakeStruct_var();
                 sv->VpiName(name);
                 sv->VpiFullName(fullName);
                 sv->VpiParent(m);
-                setLoc(sv, nameSpan(it.sym->location, it.sym->name));
+                if (structuredPkgPat)
+                    setLoc(sv, regNetSpan(*it.sym));
+                else
+                    setLoc(sv, nameSpan(it.sym->location, it.sym->name));
                 sv->VpiVisibility(1);
                 if (rt) {
                     rt->VpiParent(sv);
                     sv->Typespec(rt);
                 }
                 bool savedS = suppressConstParent, savedF = forceConstParent;
-                suppressConstParent = true;
-                forceConstParent = false;
+                suppressConstParent = !structuredPkgPat;
+                forceConstParent = structuredPkgPat;
+                bool savedRe8 = reemitting;
+                if (structuredPkgPat)
+                    reemitting = true;
                 if (auto* e = emitExpr(*it.sym->getDeclaredType()->getInitializer(),
                                        sv, fullName, topNets)) {
                     sv->Expr((UHDM::expr*)e);
                     e->VpiParent(sv);
+                    // Structured-pkg-pattern var Expr: unsized-decimal
+                    // member values keep the 64-bit default size, and the
+                    // op carries a NAMELESS ts ref to the shared struct ts
+                    // (Surelog).
+                    if (structuredPkgPat &&
+                        e->UhdmType() == UHDM::uhdmoperation) {
+                        auto* op8 = (UHDM::operation*)e;
+                        if (op8->Operands())
+                            for (auto* o8 : *op8->Operands())
+                                if (o8->UhdmType() == UHDM::uhdmconstant) {
+                                    auto* c8 = (UHDM::constant*)o8;
+                                    if (c8->VpiConstType() == vpiUIntConst &&
+                                        c8->VpiDecompile().find('\'') ==
+                                            std::string_view::npos)
+                                        c8->VpiSize(64);
+                                }
+                        // Operands in MEMBER-DECL order (Surelog), not
+                        // setter source order.
+                        auto& apo8 =
+                            stripImplicitConv(*it.sym->getDeclaredType()
+                                                   ->getInitializer())
+                                .as<StructuredAssignmentPatternExpression>();
+                        if (op8->Operands() &&
+                            op8->Operands()->size() ==
+                                apo8.memberSetters.size()) {
+                            auto* no8 = s.MakeAnyVec();
+                            auto& ct8 = it.sym->getDeclaredType()
+                                            ->getType()
+                                            .getCanonicalType();
+                            for (auto& fm8 : ct8.as<Scope>().members()) {
+                                if (fm8.kind != SymbolKind::Field)
+                                    continue;
+                                for (size_t si8 = 0;
+                                     si8 < apo8.memberSetters.size(); si8++)
+                                    if (apo8.memberSetters[si8].member ==
+                                        &fm8)
+                                        no8->push_back(
+                                            (*op8->Operands())[si8]);
+                            }
+                            if (no8->size() == op8->Operands()->size())
+                                op8->Operands(no8);
+                        }
+                        if (!op8->Typespec() && rt && rt->Actual_typespec()) {
+                            auto* rt8 = s.MakeRef_typespec();
+                            rt8->Actual_typespec(rt->Actual_typespec());
+                            op8->Typespec(rt8);
+                        }
+                    }
                 }
+                reemitting = savedRe8;
                 suppressConstParent = savedS;
                 forceConstParent = savedF;
                 topNets[it.sym] = sv;
@@ -2482,11 +2553,22 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             n->VpiName(name);
             n->VpiFullName(fullName);
             n->VpiParent(m);
+            bool pkgPatTypedef = false;
+            if (patternInit && isStruct) {
+                auto& dtT2 = it.sym->getDeclaredType()->getType();
+                if (dtT2.kind == SymbolKind::TypeAlias) {
+                    auto* scT2 = dtT2.as<TypeAliasType>().getParentScope();
+                    pkgPatTypedef =
+                        scT2 && scT2->asSymbol().kind == SymbolKind::Package;
+                }
+            }
             if (it.port && !it.bodyDecl)
                 setLocNamed(n, *it.port);
-            else if (patternInit && isStruct)
-                // A pattern-init struct_net spans the NAME only (the init lives
-                // in its net-decl cont_assign, not the net decl).
+            else if (patternInit && isStruct && !pkgPatTypedef)
+                // A LOCAL-typedef pattern-init struct_net spans the NAME only
+                // (the init lives in its net-decl cont_assign, not the net
+                // decl — PatternStruct); a PKG-typedef one keeps the full
+                // decl span (assignment-pattern m).
                 setLoc(n, nameSpan(it.sym->location, it.sym->name));
             else
                 setLoc(n, regNetSpan(*it.sym));
@@ -6310,7 +6392,27 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // tree — the struct is integral, so the whole pattern is one constant.
         if (nit->second->UhdmType() == UHDM::uhdmstruct_net) {
             auto& pat = stripImplicitConv(*dt->getInitializer());
-            if (pat.kind == ExpressionKind::SimpleAssignmentPattern ||
+            // A pattern with a NESTED pattern element keeps the symbolic
+            // op-in-op tree (source-encoded leaf constants) instead of the
+            // packed fold — assignment-pattern m.
+            bool nestedPat9 = false;
+            if (pat.kind == ExpressionKind::SimpleAssignmentPattern)
+                for (auto* el9 :
+                     pat.as<SimpleAssignmentPatternExpression>().elements())
+                    if (stripImplicitConv(*el9).kind ==
+                            ExpressionKind::SimpleAssignmentPattern ||
+                        stripImplicitConv(*el9).kind ==
+                            ExpressionKind::StructuredAssignmentPattern)
+                        nestedPat9 = true;
+            if (nestedPat9) {
+                bool savedRe9 = reemitting;
+                reemitting = true;
+                forceConstParent = false;
+                rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap);
+                forceConstParent = true;
+                reemitting = savedRe9;
+            }
+            else if (pat.kind == ExpressionKind::SimpleAssignmentPattern ||
                 pat.kind == ExpressionKind::StructuredAssignmentPattern ||
                 pat.kind == ExpressionKind::ReplicatedAssignmentPattern) {
                 if (auto* fc = tryFoldConst(*dt->getInitializer())) {
@@ -6382,6 +6484,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         auto& ncInit = *dt->getInitializer();
         // Literal or operation RHS -> netlist re-elaboration (fresh Lhs);
         // pure ref/select RHS -> shared module net (bare).
+        // A PKG-typedef pattern-init struct_net shares the MODULE net as the
+        // CA Lhs (full span, stretched ts — assignment-pattern m); only
+        // local-typedef ones re-elaborate a fresh name-only Lhs.
+        bool pkgPatShare9 = false;
+        if (nit->second->UhdmType() == UHDM::uhdmstruct_net) {
+            auto& pk9i = stripImplicitConv(ncInit);
+            if (pk9i.kind == ExpressionKind::SimpleAssignmentPattern ||
+                pk9i.kind == ExpressionKind::StructuredAssignmentPattern ||
+                pk9i.kind == ExpressionKind::ReplicatedAssignmentPattern) {
+                auto& dtT9 = dt->getType();
+                if (dtT9.kind == SymbolKind::TypeAlias) {
+                    auto* scT9 = dtT9.as<TypeAliasType>().getParentScope();
+                    pkgPatShare9 =
+                        scT9 && scT9->asSymbol().kind == SymbolKind::Package;
+                }
+            }
+        }
         if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit)) {
             bool isStructNet =
                 nit->second->UhdmType() == UHDM::uhdmstruct_net || arrOfStruct;
@@ -6390,7 +6509,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             lnet->VpiName(it.sym->name);
             lnet->VpiFullName(prefix + "." + std::string(it.sym->name));
             lnet->VpiParent(ca);
-            if (isStructNet)
+            if (isStructNet && pkgPatShare9) {
+                // A PKG-typedef pattern-init fresh LHS keeps the FULL decl
+                // span, NetType and the STRETCHED shared ts
+                // (assignment-pattern m).
+                setLoc(lnet, regNetSpan(*it.sym));
+                ((UHDM::struct_net*)lnet)->VpiNetType(vpiWire);
+            }
+            else if (isStructNet)
                 // A struct_net re-elaborated LHS spans the NAME only.
                 setLoc(lnet, nameSpan(it.sym->location, it.sym->name));
             else {
@@ -6407,6 +6533,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 lnet->Typespec(rt);
                 if (arrOfStruct && arrElemTy)
                     pendingNetDeclElemTs.push_back({rt, arrElemTy});
+                else if (pkgPatShare9 && mnet->Typespec() &&
+                         mnet->Typespec()->Actual_typespec())
+                    rt->Actual_typespec(mnet->Typespec()->Actual_typespec());
                 else
                     pendingNetDeclTs.push_back({rt, it.sym});
             }
@@ -7648,6 +7777,44 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
                     rhs = c;
                 }
+            }
+        }
+        // A STRUCTURED (index/default-tagged) pattern RHS onto a PREDEFINED
+        // INTEGER LHS keeps a FRESH tagged tree in the elab view
+        // (assignment-pattern i/j/k, `output integer`); packed-vector LHS
+        // still folds to the based-decimal constant (PatternDefault/Indexes).
+        if (!rhs && topView &&
+            ae.left().type->getCanonicalType().kind ==
+                SymbolKind::PredefinedIntegerType &&
+            stripImplicitConv(ae.right()).kind ==
+                ExpressionKind::StructuredAssignmentPattern) {
+            rhs = emitExpr(ae.right(), ca, prefix, netMap);
+            if (rhs && rhs->UhdmType() == UHDM::uhdmoperation) {
+                auto* opJ = (UHDM::operation*)rhs;
+                bool firstJ = true;
+                if (opJ->Operands())
+                    for (auto* oJ : *opJ->Operands()) {
+                        if (oJ->UhdmType() != UHDM::uhdmtagged_pattern)
+                            continue;
+                        auto* tpJ = (UHDM::tagged_pattern*)oJ;
+                        if (tpJ->Pattern() && tpJ->Pattern()->UhdmType() ==
+                                                  UHDM::uhdmconstant) {
+                            auto* cJ = (UHDM::constant*)tpJ->Pattern();
+                            cJ->VpiParent(tpJ);
+                            // Only a leading DEFAULT setter sizes at the
+                            // LHS width (j); index setters keep 64 (i).
+                            if (firstJ && cJ->VpiSize() == 64 &&
+                                tpJ->Typespec() &&
+                                tpJ->Typespec()->Actual_typespec() &&
+                                tpJ->Typespec()
+                                        ->Actual_typespec()
+                                        ->UhdmType() ==
+                                    UHDM::uhdmstring_typespec)
+                                cJ->VpiSize(
+                                    (int32_t)ae.left().type->getBitWidth());
+                        }
+                        firstJ = false;
+                    }
             }
         }
         if (!rhs && !bitsRhs && !skipGeneralFold && !structParamSetter &&
