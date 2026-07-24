@@ -1,15 +1,15 @@
 # HANDOFF — slang-uhdm convergence campaign (22-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~12:45, Opus lane): 463 PASS / 176 CMP_ONLY / 22 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~13:10, Opus lane): 465 PASS / 174 CMP_ONLY / 22 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
 rather than forced through.
 
-### IN FLIGHT WHEN THE STRETCH ENDED (pick these up first)
-Two wave-54 agents were still running; their patches are on disk and self-gated by the agent, but
-NOT yet verified in the main tree:
-  /tmp/if54.patch  — interface CMP_ONLY residues (the biggest remaining byte pile)
+### IN FLIGHT WHEN THE STRETCH ENDED (pick this up first)
+if54 LANDED (commit above: 7 interface rules, iface_gen_delay + iface_local_in_sub -> PASS). One
+wave-54 agent was still running; its patch is on disk, self-gated by the agent, but NOT yet verified
+in the main tree:
   /tmp/gen54.patch — gen/structural DIFFs (gen_struct_access, arraycells, const_func,
                      iface_ff_genvar_partsel, gen_test5)
 Apply with `git apply --3way`, rebuild, spot-check, then full-corpus gate before committing.
