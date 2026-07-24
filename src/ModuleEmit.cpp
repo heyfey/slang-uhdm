@@ -2115,8 +2115,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
         }
         // A signal typed by a DIRECT packed array of a FILE-level vector
-        // alias (reg8_t [0:3] in): the elab ts ref binds a NAMED clone of
-        // the ELEMENT alias (Typedef_alias -> the shared design ts).
+        // alias (reg8_t [0:3] in): the elab NET binds the SHARED design
+        // ELEMENT typedef object directly (Surelog collapses the array to its
+        // named element here — arrays03 pcktest2 in-net -> shared reg8_t).
         if (!ts && !implicitNet && !realVar) {
             if (auto dtv3 = it.sym->getDeclaredType()) {
                 auto& tv3 = dtv3->getType();
@@ -2133,27 +2134,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     if (fileLevel3 && tit3 != typedefTs.end() &&
                         tit3->second->UhdmType() ==
                             UHDM::uhdmlogic_typespec) {
-                        const syntax::SyntaxNode* tgtSyn3 = nullptr;
-                        if (auto asyn3 = ta3.getSyntax())
-                            if (asyn3->kind ==
-                                syntax::SyntaxKind::TypedefDeclaration)
-                                tgtSyn3 =
-                                    asyn3->as<
-                                             syntax::
-                                                 TypedefDeclarationSyntax>()
-                                        .type;
-                        bypassTypedefShare = true;
-                        auto* cl3 = makeTypespec(ta3, tgtSyn3);
-                        bypassTypedefShare = false;
-                        cl3->VpiName(ta3.name);
-                        if (tgtSyn3)
-                            setLoc(cl3, tgtSyn3->sourceRange());
-                        auto* ar3 = s.MakeRef_typespec();
-                        ar3->VpiFullName(ta3.name);
-                        ar3->VpiParent(cl3);
-                        ar3->Actual_typespec(tit3->second);
-                        ((UHDM::logic_typespec*)cl3)->Typedef_alias(ar3);
-                        ts = cl3;
+                        ts = tit3->second;
                     }
                 }
             }
@@ -6792,9 +6773,29 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         if (internal && defPts == pts && defActual &&
             defActual->UhdmType() == UHDM::uhdmlogic_typespec &&
             ((UHDM::logic_typespec*)defActual)->Typedef_alias()) {
+            // A FILE-LEVEL ($unit) typedef inverts the pairing: the instanced
+            // clone lands on the DEF port and the bare def-pass clone on the
+            // TOP port (Surelog, arrays03). Module-local / package typedefs
+            // keep the def=bare, top=instanced pairing.
+            bool designHomedTd = false;
+            if (auto* dtu = internal->getDeclaredType()) {
+                auto& tvu = dtu->getType();
+                if (tvu.kind == SymbolKind::TypeAlias)
+                    if (auto tiu = typedefTs.find(&tvu);
+                        tiu != typedefTs.end() && tiu->second->Instance() &&
+                        tiu->second->Instance()->UhdmType() ==
+                            UHDM::uhdmdesign)
+                        designHomedTd = true;
+            }
             defPts = defActual;
-            if (auto* tcl = portVectorTypedefClone(*internal, /*withInstance=*/true))
-                topActual = tcl;
+            if (auto* tcl = portVectorTypedefClone(*internal, /*withInstance=*/true)) {
+                if (designHomedTd) {
+                    defPts = tcl;
+                    topActual = defActual;
+                }
+                else
+                    topActual = tcl;
+            }
             else
                 topActual = defActual;
         }
@@ -7210,10 +7211,18 @@ UHDM::logic_typespec* UhdmExporter::portVectorTypedefClone(const Symbol& interna
     // resolve to a bare logic_typespec base.
     bool fileLevelVec = false;
     if (!typedefClone.count(&tv) && parentKind == SymbolKind::CompilationUnit) {
+        // A typedef over a packed array of a NAMED element (typedef reg8_t
+        // [0:3] t) is never per-use cloned: both port views bind the ONE
+        // design listing object (its span already tracks the use site).
+        auto& tgt1 = ta.targetType.getType();
+        bool namedElemArray =
+            tgt1.kind == SymbolKind::PackedArrayType &&
+            tgt1.as<PackedArrayType>().elementType.kind ==
+                SymbolKind::TypeAlias;
         if (auto tit1 = typedefTs.find(&tv);
             tit1 != typedefTs.end() &&
             tit1->second->UhdmType() == UHDM::uhdmlogic_typespec &&
-            ta.targetType.getType().kind != SymbolKind::TypeAlias)
+            tgt1.kind != SymbolKind::TypeAlias && !namedElemArray)
             fileLevelVec = true;
     }
     if (!(typedefClone.count(&tv) || fileLevelVec))

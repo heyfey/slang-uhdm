@@ -633,35 +633,44 @@ UHDM::design* UhdmExporter::exportDesign() {
                             &tgtT.as<PackedArrayType>().elementType)) {
                         auto& elT = tgtT.as<PackedArrayType>().elementType;
                         auto* baseTs = typedefTs[&elT];
-                        // Dedicated ELEM clone (named, ranges, parented at
-                        // the first Elem ref) WITH a Typedef_alias ref back
-                        // to the base vector typedef's shared ts — Surelog.
-                        UHDM::typespec* elemCl = nullptr;
-                        {
-                            auto& eta = elT.as<TypeAliasType>();
-                            const syntax::SyntaxNode* etSyn = nullptr;
-                            if (auto easyn = eta.getSyntax())
-                                if (easyn->kind ==
-                                    syntax::SyntaxKind::TypedefDeclaration)
-                                    etSyn = easyn
-                                                ->as<syntax::
-                                                         TypedefDeclarationSyntax>()
-                                                .type;
+                        // Dedicated ELEM clones (named reg8_t, ranges) — one
+                        // per array-clone level. Surelog mints a FRESH element
+                        // clone for BOTH the outer clone (clA.elem) and the
+                        // inner alias clone (clB.elem), and gives the outer
+                        // one a Typedef_alias to a BARE sibling clone (R1),
+                        // while the inner one aliases the shared design ts.
+                        auto& eta = elT.as<TypeAliasType>();
+                        const syntax::SyntaxNode* etSyn = nullptr;
+                        if (auto easyn = eta.getSyntax())
+                            if (easyn->kind ==
+                                syntax::SyntaxKind::TypedefDeclaration)
+                                etSyn = easyn
+                                            ->as<syntax::
+                                                     TypedefDeclarationSyntax>()
+                                            .type;
+                        // Mint a fresh named element clone; if aliasTgt is set,
+                        // give it a Typedef_alias ref to it (parented at the
+                        // clone). Returns null on a non-logic result.
+                        auto mintElem =
+                            [&](UHDM::typespec* aliasTgt) -> UHDM::typespec* {
                             bypassTypedefShare = true;
-                            elemCl = makeTypespec(eta, etSyn);
+                            auto* c = makeTypespec(eta, etSyn);
                             bypassTypedefShare = false;
-                            elemCl->VpiName(eta.name);
+                            if (!c)
+                                return nullptr;
+                            c->VpiName(eta.name);
                             if (etSyn)
-                                setLoc(elemCl, etSyn->sourceRange());
-                            if (elemCl->UhdmType() == UHDM::uhdmlogic_typespec) {
-                                auto* eal = s.MakeRef_typespec();
-                                eal->VpiFullName(eta.name);
-                                eal->VpiParent(elemCl);
-                                eal->Actual_typespec(baseTs);
-                                ((UHDM::logic_typespec*)elemCl)
-                                    ->Typedef_alias(eal);
+                                setLoc(c, etSyn->sourceRange());
+                            if (aliasTgt &&
+                                c->UhdmType() == UHDM::uhdmlogic_typespec) {
+                                auto* ar = s.MakeRef_typespec();
+                                ar->VpiFullName(eta.name);
+                                ar->VpiParent(c);
+                                ar->Actual_typespec(aliasTgt);
+                                ((UHDM::logic_typespec*)c)->Typedef_alias(ar);
                             }
-                        }
+                            return c;
+                        };
                         auto tspan = typeSyn->sourceRange();
                         std::string raw = rawText(tspan);
                         auto lb = raw.find('[');
@@ -713,6 +722,23 @@ UHDM::design* UhdmExporter::exportDesign() {
                         setLoc(clA, tspan);
                         auto* clB = s.MakeLogic_typespec();
                         setLoc(clB, tspan);
+                        // Mint the three reg8_t element clones in Surelog's
+                        // creation order: elemCl_B (clB.elem, alias -> shared
+                        // base), then elemCl (clA.elem), then its BARE alias
+                        // sibling R1.
+                        UHDM::typespec* elemClB = mintElem(baseTs);
+                        UHDM::typespec* elemCl = mintElem(nullptr);
+                        if (elemCl &&
+                            elemCl->UhdmType() == UHDM::uhdmlogic_typespec) {
+                            auto* r1 = mintElem(nullptr);
+                            auto* eal = s.MakeRef_typespec();
+                            eal->VpiFullName(eta.name);
+                            eal->VpiParent(elemCl);
+                            eal->Actual_typespec(r1 ? r1 : baseTs);
+                            if (r1)
+                                r1->VpiParent(eal);
+                            ((UHDM::logic_typespec*)elemCl)->Typedef_alias(eal);
+                        }
                         auto* tar = s.MakeRef_typespec();
                         tar->VpiParent(clA);
                         tar->Actual_typespec(clB);
@@ -730,7 +756,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                         }
                         auto* ebr = s.MakeRef_typespec();
                         ebr->VpiParent(clB);
-                        ebr->Actual_typespec(baseTs);
+                        ebr->Actual_typespec(elemClB ? elemClB : baseTs);
                         clB->Elem_typespec(ebr);
                         if (auto* rB = mkDimRange(clB)) {
                             auto* vB = s.MakeRangeVec();

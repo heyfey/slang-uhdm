@@ -5462,6 +5462,15 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     auto* taA = tmM->Typespec()->Actual_typespec();
                     if (!da || !taA || da->UhdmType() != taA->UhdmType())
                         continue;
+                    // A NESTED struct/union member is NOT cross-wired: each
+                    // view already built its own-view inner typedef (def ->
+                    // symbolic def object, top -> folded elab object), so a
+                    // swap would give each container the wrong-view inner
+                    // aggregate (rsp_gen_minimal tl_d2h_t.d_user). Only the
+                    // scalar (folded-vs-unfolded) leaves swap.
+                    if (da->UhdmType() == UHDM::uhdmstruct_typespec ||
+                        da->UhdmType() == UHDM::uhdmunion_typespec)
+                        continue;
                     dm->Typespec()->Actual_typespec(taA);
                     tmM->Typespec()->Actual_typespec(da);
                     if (!taA->VpiName().length())
@@ -5657,6 +5666,15 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     auto* da = dm->Typespec()->Actual_typespec();
                     auto* taA = tmM->Typespec()->Actual_typespec();
                     if (!da || !taA || da->UhdmType() != taA->UhdmType())
+                        continue;
+                    // A NESTED struct/union member is NOT cross-wired: each
+                    // view already built its own-view inner typedef (def ->
+                    // symbolic def object, top -> folded elab object), so a
+                    // swap would give each container the wrong-view inner
+                    // aggregate (rsp_gen_minimal tl_d2h_t.d_user). Only the
+                    // scalar (folded-vs-unfolded) leaves swap.
+                    if (da->UhdmType() == UHDM::uhdmstruct_typespec ||
+                        da->UhdmType() == UHDM::uhdmunion_typespec)
                         continue;
                     dm->Typespec()->Actual_typespec(taA);
                     tmM->Typespec()->Actual_typespec(da);

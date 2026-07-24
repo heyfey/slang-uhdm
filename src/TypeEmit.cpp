@@ -769,7 +769,45 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     setLoc(lts, range);
                     auto* ert9 = s.MakeRef_typespec();
                     ert9->VpiParent(lts);
-                    ert9->Actual_typespec(tit9->second);
+                    // A FILE-LEVEL ($unit) element typedef mints a per-USE
+                    // named clone (Typedef_alias -> the shared design ts);
+                    // module-local element typedefs share directly (Surelog:
+                    // arrays03 vs multidim_hier_path9). The write-phase port
+                    // recompile (def-view object) carries the design Instance,
+                    // the def-pass one (elab-view object) stays bare.
+                    UHDM::typespec* elemAct9 = tit9->second;
+                    if (auto sc9 = et9.as<TypeAliasType>().getParentScope();
+                        sc9 &&
+                        sc9->asSymbol().kind == SymbolKind::CompilationUnit) {
+                        auto& eta9 = et9.as<TypeAliasType>();
+                        const syntax::SyntaxNode* etSyn9 = nullptr;
+                        if (auto easyn9 = eta9.getSyntax())
+                            if (easyn9->kind ==
+                                syntax::SyntaxKind::TypedefDeclaration)
+                                etSyn9 =
+                                    easyn9
+                                        ->as<syntax::TypedefDeclarationSyntax>()
+                                        .type;
+                        bool sv9 = bypassTypedefShare;
+                        bypassTypedefShare = true;
+                        auto* ecl9 = makeTypespec(eta9, etSyn9);
+                        bypassTypedefShare = sv9;
+                        if (ecl9 &&
+                            ecl9->UhdmType() == UHDM::uhdmlogic_typespec) {
+                            ecl9->VpiName(eta9.name);
+                            if (etSyn9)
+                                setLoc(ecl9, etSyn9->sourceRange());
+                            auto* eal9 = s.MakeRef_typespec();
+                            eal9->VpiFullName(std::string(eta9.name));
+                            eal9->VpiParent(ecl9);
+                            eal9->Actual_typespec(tit9->second);
+                            ((UHDM::logic_typespec*)ecl9)->Typedef_alias(eal9);
+                            if (tfContext && portCtx && tit9->second->Instance())
+                                ecl9->Instance(tit9->second->Instance());
+                            elemAct9 = ecl9;
+                        }
+                    }
+                    ert9->Actual_typespec(elemAct9);
                     lts->Elem_typespec(ert9);
                     auto pr9 =
                         declared->getType().as<PackedArrayType>().range;
