@@ -2631,11 +2631,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // An untyped import's Rhs constant ref binds its OWN fresh
                     // int_typespec (Surelog builds a distinct typespec per ref,
                     // not the shared param ts).
-                    if (untypedImport) {
+                    if (!inPackage && isImported) {
                         std::string savedPfxR = syntaxRefPrefix;
                         syntaxRefPrefix = joinPath(prefix, ps.name);
                         auto* itsR = makeParamTs(ps, typedParam);
                         syntaxRefPrefix = savedPfxR;
+                        itsR->Instance(its->Instance());
                         itsR->VpiParent(rhsRt);
                         rhsRt->Actual_typespec(itsR);
                     }
@@ -2670,7 +2671,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             signedImplicit =
                                 t0->as<syntax::ImplicitTypeSyntax>().signing.valid() &&
                                 t0->as<syntax::ImplicitTypeSyntax>().dimensions.empty();
-                if (typedParam || isRangedUntypedParam(ps) || signedImplicit)
+                // A MATERIALIZED IMPORT's typespec parents at its
+                // ref_typespec, not the parameter (that form is for the
+                // param's HOME scope) — Surelog.
+                if (isImported && !inPackage) {
+                    if (!its->VpiParent())
+                        its->VpiParent(prt);
+                }
+                else if (typedParam || isRangedUntypedParam(ps) ||
+                         signedImplicit)
                     its->VpiParent(up);
             }
         }

@@ -1169,11 +1169,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             auto* rt = s.MakeRef_typespec();
                             rt->VpiFullName(prefix);
                             rt->VpiParent(c);
-                            rt->Actual_typespec(tit->second);
+                            // A CONT-ASSIGN fold binds its OWN clone of the
+                            // imported param's typespec (Surelog mints one per
+                            // reference); other folds share the def object.
+                            bool caFold9 =
+                                parent &&
+                                parent->UhdmType() == UHDM::uhdmcont_assign &&
+                                contAssignView != 2 &&
+                                nv.symbol.kind == SymbolKind::Parameter;
+                            if (caFold9) {
+                                std::string savedPfx9 = syntaxRefPrefix;
+                                syntaxRefPrefix = prefix;
+                                auto* cl9 = makeParamTs(
+                                    nv.symbol.as<ParameterSymbol>(), true);
+                                syntaxRefPrefix = savedPfx9;
+                                cl9->Instance(tit->second->Instance());
+                                cl9->VpiParent(rt);
+                                rt->Actual_typespec(cl9);
+                            }
+                            else
+                                rt->Actual_typespec(tit->second);
                             c->Typespec(rt);
                             // The imported-param sys-func fold re-parents the
-                            // folded constant at the pkg param's param_assign.
-                            if (sysFuncArgFold)
+                            // folded constant at the pkg param's param_assign;
+                            // so does a cont-assign fold.
+                            if (sysFuncArgFold || caFold9)
                                 if (auto cIt = pkgParamConst.find(&nv.symbol);
                                     cIt != pkgParamConst.end() &&
                                     cIt->second->VpiParent())
