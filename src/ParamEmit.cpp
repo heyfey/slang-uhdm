@@ -191,9 +191,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     for (auto& member0 : body.members())
         if (member0.kind == SymbolKind::Parameter)
             paramSyms.push_back(&member0.as<ParameterSymbol>());
-    if (!inPackage && !funcScope) {
+    // PACKAGES materialize imported params too (pinmux_pkg lists NDioPads
+    // with vpiImported — BitSelectOfParameterPassedToSubmodule).
+    if (!funcScope) {
         collectImportedParams(body, paramSyms);
-        // The module list is SOURCE-LOCATION ordered: materialized imported
+        // The list is SOURCE-LOCATION ordered: materialized imported
         // params (pkg locs, usually earlier) list before declared ones.
         std::stable_sort(paramSyms.begin(), paramSyms.end(),
                          [](const ParameterSymbol* a,
