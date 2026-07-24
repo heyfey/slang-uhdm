@@ -1,4 +1,4 @@
-# HANDOFF — slang-uhdm convergence campaign (24-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (22-DIFF state)
 
 ## Drive 8b (2026-07-24 ~09:30 -> ~12:45, Opus lane): 463 PASS / 176 CMP_ONLY / 22 DIFF
 
