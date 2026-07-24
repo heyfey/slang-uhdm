@@ -4010,6 +4010,77 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     nestedStruct = true;
             bool topNested = topView && nestedStruct &&
                              wildcardImportedPkgs.count(&pkg);
+            // A pkg struct consumed ONLY inside other package typedefs
+            // (never by a module signal, directly or via packed array)
+            // SHARES its def-view object into the elab pkg view instead of
+            // materializing a top copy (nested_struct base_struct_t).
+            if (topView && pkgDefStructTs.count(&ta)) {
+                bool modUse9 = false;
+                std::function<void(const InstanceBodySymbol&)> scan9 =
+                    [&](const InstanceBodySymbol& b9) {
+                        for (auto& mb9 : b9.members()) {
+                            const DeclaredType* dt9 = nullptr;
+                            if (mb9.kind == SymbolKind::Net ||
+                                mb9.kind == SymbolKind::Variable ||
+                                mb9.kind == SymbolKind::Port ||
+                                mb9.kind == SymbolKind::Parameter)
+                                dt9 = mb9.getDeclaredType();
+                            if (dt9) {
+                                const Type* t9 =
+                                    &dt9->getType().getCanonicalType();
+                                while (t9->getCanonicalType().kind ==
+                                           SymbolKind::PackedArrayType ||
+                                       t9->getCanonicalType().kind ==
+                                           SymbolKind::
+                                               FixedSizeUnpackedArrayType) {
+                                    auto& c9 = t9->getCanonicalType();
+                                    t9 = c9.kind == SymbolKind::PackedArrayType
+                                             ? &c9.as<PackedArrayType>()
+                                                    .elementType
+                                             : &c9.as<
+                                                     FixedSizeUnpackedArrayType>()
+                                                    .elementType;
+                                }
+                                if (&t9->getCanonicalType() ==
+                                    &ct.getCanonicalType())
+                                    modUse9 = true;
+                            }
+                            if (mb9.kind == SymbolKind::Instance)
+                                scan9(mb9.as<InstanceSymbol>().body);
+                        }
+                    };
+                for (auto* ti9 : comp.getRoot().topInstances)
+                    scan9(ti9->body);
+                // Share only when the struct is nested inside ANOTHER
+                // package's struct typedef (cross-pkg consumption).
+                bool crossPkgNest9 = false;
+                for (auto* opkg9 : comp.getPackages()) {
+                    if (opkg9 == &pkg)
+                        continue;
+                    for (auto& om9 : opkg9->members())
+                        if (om9.kind == SymbolKind::TypeAlias) {
+                            auto& oct9 = om9.as<TypeAliasType>()
+                                             .targetType.getType()
+                                             .getCanonicalType();
+                            if (oct9.isStruct())
+                                for (auto& of9 : oct9.as<Scope>().members())
+                                    if (of9.kind == SymbolKind::Field &&
+                                        &of9.as<FieldSymbol>()
+                                                .getType()
+                                                .getCanonicalType() ==
+                                            &ct.getCanonicalType())
+                                        crossPkgNest9 = true;
+                        }
+                }
+                if (!crossPkgNest9)
+                    modUse9 = true;
+                if (!modUse9) {
+                    auto* shared9 = pkgDefStructTs[&ta];
+                    pkgTopTypedefTs[&ta] = shared9;
+                    pkgTdByName.emplace_back(std::string(ta.name), shared9);
+                    continue;
+                }
+            }
             std::string alias = topNested
                                     ? prefix + std::string(ta.name)
                                     : prefix + prefix + std::string(ta.name);
@@ -4107,6 +4178,27 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     }
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
+            // NESTED inner-struct member clones carry the pkg Instance on
+            // their leaf member typespecs in the TOP view (nested_struct).
+            if (topView && sts->Members())
+                for (auto* tmN : *sts->Members())
+                    if (tmN->Typespec() && tmN->Typespec()->Actual_typespec() &&
+                        tmN->Typespec()->Actual_typespec()->UhdmType() ==
+                            UHDM::uhdmstruct_typespec) {
+                        auto* ists =
+                            (UHDM::struct_typespec*)tmN->Typespec()
+                                ->Actual_typespec();
+                        if (ists->Members())
+                            for (auto* itm : *ists->Members())
+                                if (itm->Typespec() &&
+                                    itm->Typespec()->Actual_typespec() &&
+                                    !itm->Typespec()
+                                         ->Actual_typespec()
+                                         ->Instance())
+                                    itm->Typespec()
+                                        ->Actual_typespec()
+                                        ->Instance((UHDM::instance*)up);
+                    }
             // The TOP view's span stretches to the first module-signal USE
             // declarator (patched once defs exist); the def view keeps the
             // typedef span.

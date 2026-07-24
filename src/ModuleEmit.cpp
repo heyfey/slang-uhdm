@@ -242,7 +242,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                          }
                      return false;
                  }()) &&
-                 (it.port || !hasStructFieldMember(*it.sym)))
+                 // NESTED-struct-member types drop the wire tag even on
+                 // ports (nested_struct in_data/out_data).
+                 !hasStructFieldMember(*it.sym))
             n->VpiNetType(vpiWire);
         // Implicit nets print no typespec.
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
