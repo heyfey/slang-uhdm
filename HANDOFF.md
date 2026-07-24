@@ -14,7 +14,18 @@ iface_ff_genvar_partsel DIFF->PASS). Wave 55 is running four agents over ALL 19 
   /tmp/mac55.patch — int_types, multiplier, cs_registers, func_upto
   /tmp/sm55.patch  — const_arg_loop, func_tern_hint, rsp_gen_minimal, arrays03, prefix, rotate
 Apply each with `git apply --3way`, rebuild, spot-check, full-corpus gate, commit if clean.
-Still unowned: arraycells (r=1, ~8200 lines — module instance arrays; gen54 did not reach it).
+ac56 owns the last two DIFFs (arraycells, const_func). Wave 57 additionally runs two agents on the
+biggest CMP_ONLY byte piles:
+  /tmp/hp57.patch — hier_path (3345 lines) + the ref-fullname family. Profile: ~500 lines are Surelog
+    naming a part_select <instance-prefix>.<own name> again (doubled) so every ref under it inherits
+    the doubled prefix via ComputeFullName, while we emit the single form — context-dependent, since
+    our dump already has the doubled form in 520 other places; ~248 lines are operands Surelog parents
+    at their operation. A marker sweep over the 8 MakePart_select sites is inconclusive because later
+    code overwrites vpiDefName there.
+  /tmp/pp57.patch — the pattern-parameter pile (NestedStructArrayParameter… 1620, StructArrayParameter…
+    999, plus assignment-pattern/struct_pattern_loop/ParameterUnpacked* relatives).
+LANDING ORDER when several arrive together: land the largest/most independent first, then `git apply
+--3way` the rest; expect conflicts in TypeEmit makeTypespec and the ModuleEmit cont-assign chain.
 Apply with `git apply --3way`, rebuild, spot-check, then full-corpus gate before committing.
 NOTE on if54: it was written against the pre-ps54 HEAD and CONFLICTS in TypeEmit.cpp makeTypespec
 (~line 128) with the elaborated-pkg-typedef rule ps54 landed. Resolve by KEEPING OURS — ps54 fixed the
