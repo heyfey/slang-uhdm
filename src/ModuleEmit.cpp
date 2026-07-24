@@ -477,6 +477,52 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             nets->push_back(n);
         }
     }
+    // Connection-site logic_net for a WHOLE interface ARRAY passed to a child's
+    // interface-ARRAY port (.m(arr)). getConnection() yields a per-port
+    // synthesized array (named by the formal, parented in the child), so the
+    // real actual is resolved from the connection expression. Element selects
+    // (.b(arr[0])) carry a '[' and are excluded; dotted/modport actuals too.
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::Instance)
+            continue;
+        auto& child = member.as<InstanceSymbol>();
+        for (auto pb : child.body.getPortList()) {
+            if (pb->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ipdef = pb->as<InterfacePortSymbol>();
+            auto dr = ipdef.getDeclaredRange();
+            if (!dr.has_value() || dr->empty())
+                continue; // only ARRAY interface ports
+            const PortConnection* pc = nullptr;
+            for (auto cc : child.getPortConnections())
+                if (&cc->port == pb) {
+                    pc = cc;
+                    break;
+                }
+            const Expression* cexpr = pc ? connectionExpr(*pc) : nullptr;
+            if (!cexpr)
+                continue;
+            std::string craw = rawText(cexpr->sourceRange);
+            if (craw.find('.') != std::string::npos ||
+                craw.find('[') != std::string::npos)
+                continue; // element select / modport-qualified: no whole net
+            const Symbol* actual = cexpr->getSymbolReference();
+            if (!actual || actual->kind != SymbolKind::InstanceArray)
+                continue;
+            if (actual->getParentScope() != (const Scope*)&body)
+                continue; // passthrough (array lives in an outer module)
+            if (ifaceConnNet.count(actual))
+                continue;
+            auto* n = s.MakeLogic_net();
+            n->VpiName(actual->name);
+            n->VpiFullName(prefix + "." + std::string(actual->name));
+            n->VpiParent(m);
+            n->VpiNetType(vpiWire);
+            setLoc(n, cexpr->sourceRange);
+            ifaceConnNet[actual] = n;
+            nets->push_back(n);
+        }
+    }
     if (!nets->empty())
         m->Nets(nets);
 
@@ -998,6 +1044,21 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                             }
                             else if (auto nit = ifaceConnNet.find(cc);
                                      nit != ifaceConnNet.end())
+                                r->Actual_group(nit->second);
+                        }
+                        // A WHOLE interface-ARRAY connection (.m(arr)):
+                        // getConnection() yields a port-named synthesized
+                        // array, so the actual is resolved from the expression.
+                        // The HighConn ref_obj doubles through the child port
+                        // and binds the connection-site net (Surelog).
+                        else if (const Symbol* aArr = expr->getSymbolReference();
+                                 aArr && aArr->kind == SymbolKind::InstanceArray) {
+                            auto* r = (UHDM::ref_obj*)h;
+                            r->VpiFullName(prefix + "." + std::string(child.name) +
+                                           "." + std::string(conn->port.name) +
+                                           "." + std::string(r->VpiName()));
+                            if (auto nit = ifaceConnNet.find(aArr);
+                                nit != ifaceConnNet.end())
                                 r->Actual_group(nit->second);
                         }
                     }
@@ -2671,6 +2732,30 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             setLoc(hc, connectionExpr(*iconn)->sourceRange);
                         p->High_conn(hc);
                     }
+                    // A WHOLE interface-ARRAY connection (.m(arr)): the elab
+                    // child's port HighConn is a ref_obj named by the array
+                    // (fullname = enclosing scope . array, NOT doubled) whose
+                    // vpiActual is the FIRST element's interface_inst (arr[0]).
+                    else if (const Expression* ce =
+                                 iconn ? connectionExpr(*iconn) : nullptr;
+                             ce && ce->getSymbolReference() &&
+                             ce->getSymbolReference()->kind ==
+                                 SymbolKind::InstanceArray) {
+                        auto& arrSym =
+                            ce->getSymbolReference()->as<InstanceArraySymbol>();
+                        auto* hc = s.MakeRef_obj();
+                        hc->VpiName(std::string(arrSym.name));
+                        hc->VpiFullName(parentPrefix + "." +
+                                        std::string(arrSym.name));
+                        hc->VpiParent(p);
+                        if (!arrSym.elements.empty())
+                            if (auto eit =
+                                    ifaceInstMap.find(arrSym.elements[0]);
+                                eit != ifaceInstMap.end())
+                                hc->Actual_group(eit->second);
+                        setLoc(hc, ce->sourceRange);
+                        p->High_conn(hc);
+                    }
                 }
                 auto* its = makeIfacePortTs(ip);
                 auto* rt = s.MakeRef_typespec();
@@ -2793,6 +2878,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 auto* ii = emitInterfaceInstance(e->as<InstanceSymbol>(), ipath,
                                                  m, &topNets, &instRefs);
                 ii->VpiName(iname);
+                // Keyed per-element so a whole-array port HighConn can bind the
+                // first element's interface_inst (see the InterfacePort loop).
+                ifaceInstMap[e] = ii;
                 ifaceChildren->push_back(ii);
             }
         }
