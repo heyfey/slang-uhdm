@@ -2147,8 +2147,10 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 // a BARE-scoped clone tree names it alias.member (Surelog).
                 if (aliasName.find('.') == std::string::npos &&
                     aliasName.find(':') == std::string::npos)
-                    ert9->VpiFullName(aliasName + memberSep +
-                                      std::string(fm.name));
+                    ert9->VpiFullName(
+                        (aliasName.empty() ? std::string()
+                                           : aliasName + memberSep) +
+                        std::string(fm.name));
                 if (!main9)
                     ert9->VpiParent(ats9);
                 ert9->Actual_typespec(tgt9);
@@ -2263,7 +2265,9 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 if (savedTf)
                     cl9->Instance(btaMemBase->Instance());
                 auto* ert9 = s.MakeRef_typespec();
-                ert9->VpiFullName(aliasName + memberSep +
+                ert9->VpiFullName((aliasName.empty()
+                                       ? std::string()
+                                       : aliasName + memberSep) +
                                   std::string(fm.name));
                 ert9->VpiParent(pat9);
                 ert9->Actual_typespec(cl9);
@@ -2303,10 +2307,21 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
                     // A typedef-definition-build clone carries vpiInstance =
-                    // the typedef's owning instance (Surelog), like the
-                    // packed-array element clone below.
-                    if (savedTf)
-                        clD->Instance(tita->second->Instance());
+                    // the typedef's OWN home scope (Surelog), like the
+                    // packed-array element clone below — for a PACKAGE typedef
+                    // that is its defining package, not the shared ts's owner
+                    // (which may be a re-exporting package).
+                    if (savedTf) {
+                        UHDM::instance* aliasInst = tita->second->Instance();
+                        if (auto asc = dta->getParentScope();
+                            asc && asc->asSymbol().kind == SymbolKind::Package) {
+                            auto pit0 = pkgDefMap.find(&asc->asSymbol());
+                            aliasInst = pit0 != pkgDefMap.end()
+                                            ? (UHDM::instance*)pit0->second
+                                            : nullptr;
+                        }
+                        clD->Instance(aliasInst);
+                    }
                     fts = clD;
                 }
             }
@@ -2562,8 +2577,10 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 // a BARE-scoped clone tree names it alias.member (Surelog).
                 if (aliasName.find('.') == std::string::npos &&
                     aliasName.find(':') == std::string::npos)
-                    ert9->VpiFullName(aliasName + memberSep +
-                                      std::string(fm.name));
+                    ert9->VpiFullName(
+                        (aliasName.empty() ? std::string()
+                                           : aliasName + memberSep) +
+                        std::string(fm.name));
                 if (!main9)
                     ert9->VpiParent(ats9);
                 ert9->Actual_typespec(tgt9);
@@ -2678,7 +2695,9 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 if (savedTf)
                     cl9->Instance(btaMemBase->Instance());
                 auto* ert9 = s.MakeRef_typespec();
-                ert9->VpiFullName(aliasName + memberSep +
+                ert9->VpiFullName((aliasName.empty()
+                                       ? std::string()
+                                       : aliasName + memberSep) +
                                   std::string(fm.name));
                 ert9->VpiParent(pat9);
                 ert9->Actual_typespec(cl9);
@@ -2718,10 +2737,21 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
                     // A typedef-definition-build clone carries vpiInstance =
-                    // the typedef's owning instance (Surelog), like the
-                    // packed-array element clone below.
-                    if (savedTf)
-                        clD->Instance(tita->second->Instance());
+                    // the typedef's OWN home scope (Surelog), like the
+                    // packed-array element clone below — for a PACKAGE typedef
+                    // that is its defining package, not the shared ts's owner
+                    // (which may be a re-exporting package).
+                    if (savedTf) {
+                        UHDM::instance* aliasInst = tita->second->Instance();
+                        if (auto asc = dta->getParentScope();
+                            asc && asc->asSymbol().kind == SymbolKind::Package) {
+                            auto pit0 = pkgDefMap.find(&asc->asSymbol());
+                            aliasInst = pit0 != pkgDefMap.end()
+                                            ? (UHDM::instance*)pit0->second
+                                            : nullptr;
+                        }
+                        clD->Instance(aliasInst);
+                    }
                     fts = clD;
                 }
             }

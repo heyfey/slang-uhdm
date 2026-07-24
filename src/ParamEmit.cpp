@@ -4,6 +4,8 @@
 //
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
+#include <functional>
+
 #include "UhdmExporter.h"
 
 #include "EmitHelpers.h"
@@ -3845,6 +3847,37 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             if (tSyn2)
                                 setLoc(scl, tSyn2->sourceRange());
                             scl->Instance((UHDM::instance*)up);
+                            // The clone's MEMBER typespecs stay instanced at
+                            // the struct's HOME package (Surelog) — only the
+                            // clone itself moves to the importing package.
+                            if (auto hip3 = pkgDefMap.find(&spkg->asSymbol());
+                                hip3 != pkgDefMap.end()) {
+                                std::function<void(UHDM::typespec*)> stampHome =
+                                    [&](UHDM::typespec* t3) {
+                                        if (!t3 ||
+                                            t3->UhdmType() !=
+                                                UHDM::uhdmstruct_typespec)
+                                            return;
+                                        auto* ms3 =
+                                            ((UHDM::struct_typespec*)t3)
+                                                ->Members();
+                                        if (!ms3)
+                                            return;
+                                        for (auto* tm3 : *ms3) {
+                                            if (!tm3->Typespec())
+                                                continue;
+                                            auto* at3 =
+                                                tm3->Typespec()
+                                                    ->Actual_typespec();
+                                            if (!at3)
+                                                continue;
+                                            if (at3->Instance())
+                                                at3->Instance(hip3->second);
+                                            stampHome(at3);
+                                        }
+                                    };
+                                stampHome(scl);
+                            }
                             pkgImportCloneTs[&pm] = scl;
                             pkgTdByName.emplace_back(std::string(ta2.name),
                                                      (UHDM::typespec*)scl);
@@ -4806,6 +4839,51 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             continue;
         ts->VpiName(prefix + std::string(ta.name));
         ts->Instance((UHDM::instance*)up);
+        // A member typed by ANOTHER package's struct typedef keeps that
+        // package's vpiInstance on the member's OWN sub-typespecs (Surelog);
+        // only this typedef's own objects move to the importing package.
+        if (ts->UhdmType() == UHDM::uhdmstruct_typespec) {
+            std::function<void(UHDM::typespec*, UHDM::instance*)> stampSub =
+                [&](UHDM::typespec* t4, UHDM::instance* inst4) {
+                    if (!t4 || t4->UhdmType() != UHDM::uhdmstruct_typespec)
+                        return;
+                    auto* ms4 = ((UHDM::struct_typespec*)t4)->Members();
+                    if (!ms4)
+                        return;
+                    for (auto* tm4 : *ms4) {
+                        if (!tm4->Typespec())
+                            continue;
+                        auto* at4 = tm4->Typespec()->Actual_typespec();
+                        if (!at4)
+                            continue;
+                        if (at4->Instance())
+                            at4->Instance(inst4);
+                        stampSub(at4, inst4);
+                    }
+                };
+            if (ct.kind == SymbolKind::PackedStructType) {
+                auto& pst4 = ct.as<PackedStructType>();
+                auto* ms5 = ((UHDM::struct_typespec*)ts)->Members();
+                for (auto& fld4 : pst4.membersOfType<FieldSymbol>()) {
+                    auto dt4 = fld4.getDeclaredType();
+                    if (!dt4 || dt4->getType().kind != SymbolKind::TypeAlias)
+                        continue;
+                    const Scope* hs4 = dt4->getType()
+                                           .as<TypeAliasType>()
+                                           .getParentScope();
+                    if (!hs4 || hs4->asSymbol().kind != SymbolKind::Package ||
+                        &hs4->asSymbol() == &pkg.asSymbol())
+                        continue;
+                    auto hip4 = pkgDefMap.find(&hs4->asSymbol());
+                    if (hip4 == pkgDefMap.end() || !ms5)
+                        continue;
+                    for (auto* tm5 : *ms5)
+                        if (tm5->VpiName() == fld4.name && tm5->Typespec())
+                            stampSub(tm5->Typespec()->Actual_typespec(),
+                                     (UHDM::instance*)hip4->second);
+                }
+            }
+        }
         if (!topView)
             typedefTs[&ta] = ts;
         else
