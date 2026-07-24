@@ -493,13 +493,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                       d9->as<NamedValueExpression>()
                                               .symbol.kind ==
                                           SymbolKind::Parameter &&
-                                      rawText(d9->sourceRange)
-                                              .find("::") !=
-                                          std::string::npos)
+                                      (rawText(d9->sourceRange).find("::") !=
+                                           std::string::npos ||
+                                       // ...and a WILDCARD-imported one, which
+                                       // is written bare.
+                                       [&] {
+                                           auto sc9 =
+                                               d9->as<NamedValueExpression>()
+                                                   .symbol.getParentScope();
+                                           return sc9 &&
+                                                  sc9->asSymbol().kind ==
+                                                      SymbolKind::Package;
+                                       }()))
                                       return true;
                                   return false;
                               }();
-            if (!unbasedInit && (literalInit || pkgElabComputed) &&
+            // A MODULE param whose default is a bare/qualified reference to a
+            // PACKAGE param carries the folded value too (Surelog).
+            bool modPkgRefFold9 =
+                !inPackage && !literalInit && !unbasedInit && defaultInit &&
+                cv.isInteger() && !cv.integer().hasUnknown() && [&] {
+                    const Expression* d8 = &stripImplicitConv(*defaultInit);
+                    while (d8->kind == ExpressionKind::Conversion)
+                        d8 = &d8->as<ConversionExpression>().operand();
+                    if (d8->kind != ExpressionKind::NamedValue)
+                        return false;
+                    auto& sy8 = d8->as<NamedValueExpression>().symbol;
+                    if (sy8.kind != SymbolKind::Parameter)
+                        return false;
+                    auto sc8 = sy8.getParentScope();
+                    return sc8 && sc8->asSymbol().kind == SymbolKind::Package;
+                }();
+            if (!unbasedInit && (literalInit || pkgElabComputed ||
+                                 modPkgRefFold9) &&
                 cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
                 bool neg = (iv.isSigned() && iv.isNegative()) ||
@@ -507,8 +533,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             containsUserCall(*defaultInit));
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
                 std::string value = (neg ? "INT:" : "UINT:") + digits;
-                // Based-literal initializers keep their base encoding.
-                if (auto init0 = defaultInit) {
+                // Based-literal initializers keep their base encoding — a
+                // pkg-param REFERENCE inherits the referenced param's.
+                const Expression* encSrc9 = defaultInit;
+                if (defaultInit) {
+                    auto& r9 = stripImplicitConv(*defaultInit);
+                    if (r9.kind == ExpressionKind::NamedValue &&
+                        r9.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter)
+                        if (auto* pi9 = r9.as<NamedValueExpression>()
+                                            .symbol.as<ParameterSymbol>()
+                                            .getInitializer())
+                            encSrc9 = pi9;
+                }
+                if (auto init0 = encSrc9) {
                     auto& lit = stripImplicitConv(*init0);
                     if (lit.kind == ExpressionKind::IntegerLiteral) {
                         std::string raw = rawText(lit.sourceRange);
