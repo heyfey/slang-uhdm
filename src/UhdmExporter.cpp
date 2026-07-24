@@ -836,6 +836,17 @@ UHDM::design* UhdmExporter::exportDesign() {
                         auto& dd9 = dsyn9->as<syntax::DeclaratorSyntax>();
                         if (!dd9.initializer && dd9.dimensions.empty())
                             continue;
+                        // A STRUCT typedef only relocates for an unpacked-dim
+                        // declarator or an assignment-PATTERN init; a bare
+                        // literal fill (hw_key_req_t k = '1) leaves the shared
+                        // typespec at its typedef span (PartSelectInFor).
+                        // Enum/alias typedefs stretch on any init
+                        // (typedef_package).
+                        if (tsP->UhdmType() == UHDM::uhdmstruct_typespec &&
+                            dd9.dimensions.empty() && dd9.initializer &&
+                            dd9.initializer->expr->kind !=
+                                syntax::SyntaxKind::AssignmentPatternExpression)
+                            continue;
                     }
                     // ANSI PORT uses don't stretch (Surelog).
                     {

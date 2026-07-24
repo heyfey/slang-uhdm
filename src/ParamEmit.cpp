@@ -5006,8 +5006,11 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
             // NESTED inner-struct member clones carry the pkg Instance on
-            // their leaf member typespecs in the TOP view (nested_struct).
-            if (topView && sts->Members())
+            // their leaf member typespecs in BOTH views (nested_struct): the
+            // def-view object is what the TOP struct ends up owning after the
+            // member cross-wire below, and a leaf left without vpiInstance
+            // breaks any Compare that reaches the top struct (NSAP).
+            if (sts->Members())
                 for (auto* tmN : *sts->Members())
                     if (tmN->Typespec() && tmN->Typespec()->Actual_typespec() &&
                         tmN->Typespec()->Actual_typespec()->UhdmType() ==

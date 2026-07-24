@@ -125,13 +125,12 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // one (uhdmtopPackages, re-parented/re-scoped/span-stretched by
             // its importer). Every real SIGNAL use binds the elaborated
             // object — in both the def and the instance view (Surelog shares
-            // one mutated object across them).
-            // ...except a STRUCT typedef, whose elab clone is pattern-shared
-            // through parameters (NSAP) — those uses keep the def object.
+            // one mutated object across them). STRUCT typedefs included: what
+            // used to break there (NSAP) was a nested inner-struct leaf left
+            // without vpiInstance, not the def/elab choice.
             if (auto t9 = pkgTopTypedefTs.find((const void*)&declared->getType());
                 t9 != pkgTopTypedefTs.end() &&
-                t9->second->UhdmType() == it->second->UhdmType() &&
-                t9->second->UhdmType() != UHDM::uhdmstruct_typespec)
+                t9->second->UhdmType() == it->second->UhdmType())
                 return t9->second;
             return it->second;
         }

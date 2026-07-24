@@ -2552,16 +2552,21 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // (Surelog) — a bare-expression init (concat, literal) stays a
             // struct_VAR carrying the init as its vpiExpr.
             bool patternInit = false;
+            bool literalInitNet = false;
             if (auto* ini = it.sym->getDeclaredType()->getInitializer()) {
                 auto k = stripImplicitConv(*ini).kind;
                 patternInit = k == ExpressionKind::SimpleAssignmentPattern ||
                               k == ExpressionKind::StructuredAssignmentPattern ||
                               k == ExpressionKind::ReplicatedAssignmentPattern;
-                // An UNBASED-UNSIZED fill ('1 / '0) is width-inferred from the
-                // struct, so Surelog re-elaborates it the same way a pattern
-                // init is: struct_NET + net-decl cont_assign, not a var Expr
-                // (PartSelectInFor).
-                if (k == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                // A bare INTEGER-LITERAL init — unbased-unsized fill ('1 / '0,
+                // width-inferred from the struct) or a sized literal
+                // (128'h...) — re-elaborates the same way a pattern init does:
+                // struct_NET + net-decl cont_assign, not a var Expr
+                // (PartSelectInFor / IndexedPartSelectInFor).
+                literalInitNet =
+                    k == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
+                    k == ExpressionKind::IntegerLiteral;
+                if (literalInitNet)
                     patternInit = true;
             }
             // A PACKAGE-typedef struct with a STRUCTURED (tagged) pattern
@@ -2668,7 +2673,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             n->VpiFullName(fullName);
             n->VpiParent(m);
             bool pkgPatTypedef = false;
-            if (patternInit && isStruct) {
+            // Only a REAL assignment pattern keeps the pkg-typedef net's full
+            // decl span; a plain literal init spans the NAME (its value lives
+            // in the net-decl cont_assign, not the decl).
+            if (isStruct && patternInit && !literalInitNet) {
                 auto& dtT2 = it.sym->getDeclaredType()->getType();
                 if (dtT2.kind == SymbolKind::TypeAlias) {
                     auto* scT2 = dtT2.as<TypeAliasType>().getParentScope();
