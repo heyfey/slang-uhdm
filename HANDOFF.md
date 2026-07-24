@@ -1,6 +1,35 @@
 # HANDOFF — slang-uhdm convergence campaign (24-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ongoing, Opus lane): 462 PASS / 175 CMP_ONLY / 24 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ~12:45, Opus lane): 463 PASS / 176 CMP_ONLY / 22 DIFF
+
+Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
+verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
+rather than forced through.
+
+### IN FLIGHT WHEN THE STRETCH ENDED (pick these up first)
+Two wave-54 agents were still running; their patches are on disk and self-gated by the agent, but
+NOT yet verified in the main tree:
+  /tmp/if54.patch  — interface CMP_ONLY residues (the biggest remaining byte pile)
+  /tmp/gen54.patch — gen/structural DIFFs (gen_struct_access, arraycells, const_func,
+                     iface_ff_genvar_partsel, gen_test5)
+Apply with `git apply --3way`, rebuild, spot-check, then full-corpus gate before committing.
+
+### Remaining DIFF (22)
+arraycells, arrays03, BitSelect trio, const_arg_loop, const_func, cs_registers, func_tern_hint,
+func_upto, gen_struct_access, gen_test5, iface_array_elem_cfg_param, iface_cfg_param_def_pass,
+iface_ff_genvar_partsel, iface_param_2level, int_types, multiplier, prefix, rotate, rsp_gen_minimal,
+TypedefStructParamWithRangeInSubmodule.
+
+### REFUTED this stretch (do not retry blindly)
+- Parenting the synthetic op11 `INT:1` everywhere: 9 PASS demotions (it is view- and owner-dependent).
+- Parenting def-view net typespecs at their net: partsel_simple / vector_index / simple_hierarchy all
+  get worse, whichever net object is used.
+- Parenting an if-condition at the if_stmt when the enclosing scope is a case_item: struct_access and
+  unique_case regress.
+- Suppressing the formal-ts ref on ALL nested call arguments: const_fold_func PASS->DIFF (a
+  module-context gate rescues NestedCallsOfTheSameFunction but not const_fold_func).
+
+## (superseded) Drive 8b interim: 462 PASS / 175 CMP_ONLY / 24 DIFF
 
 Continuation of drive 8 after a network drop. Goldens 23/23 throughout; every landing
 gated on the full corpus + a verbatim movers diff. Waves 50-53 (Opus worktree agents,
