@@ -3024,6 +3024,44 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             }
                         }
                     }
+                    // An ELAB conn REPLICATION actual folds to a full-width
+                    // BIN constant (bare-bits decompile) with a conn-scoped
+                    // ts ref to a loc-less int_typespec
+                    // (ReplicationPassedToInstance).
+                    if (!h) {
+                        auto& re9 = stripImplicitConv(*expr);
+                        if (re9.kind == ExpressionKind::Replication) {
+                            ASTContext rc9(comp.getRoot(),
+                                           LookupLocation::max);
+                            if (auto rv9 = rc9.tryEval(re9);
+                                rv9 && rv9.isInteger() &&
+                                !rv9.integer().hasUnknown()) {
+                                auto iv9 = rv9.integer();
+                                std::string bits9;
+                                for (int32_t b9 =
+                                         (int32_t)iv9.getBitWidth() - 1;
+                                     b9 >= 0; b9--)
+                                    bits9 += (iv9[b9] == slang::logic_t(1))
+                                                 ? '1'
+                                                 : '0';
+                                auto* c9 = s.MakeConstant();
+                                c9->VpiDecompile(bits9);
+                                c9->VpiSize((int32_t)iv9.getBitWidth());
+                                c9->VpiValue("BIN:" + bits9);
+                                c9->VpiConstType(vpiBinaryConst);
+                                setLoc(c9, re9.sourceRange);
+                                auto* rt9 = s.MakeRef_typespec();
+                                rt9->VpiFullName(
+                                    hcPrefix + "." +
+                                    std::string(p->VpiName()));
+                                rt9->VpiParent(c9);
+                                auto* it9 = s.MakeInt_typespec();
+                                rt9->Actual_typespec(it9);
+                                c9->Typespec(rt9);
+                                h = c9;
+                            }
+                        }
+                    }
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
                     // Child bit_select HighConns double through the CHILD
