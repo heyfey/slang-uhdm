@@ -7110,6 +7110,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 auto& sym = rc.as<NamedValueExpression>().symbol;
                 if (isOverriddenParam(sym))
                     ovParamRhs = &sym;
+                // UNBASED-UNSIZED overrides lose the override syntax on
+                // cloned bodies (isOverriddenParam misses them) — detect
+                // via the recorded pa constant for THIS instance.
+                else if (sym.kind == SymbolKind::Parameter &&
+                         [&] {
+                             for (auto& [k9, v9] : unbasedOvConst)
+                                 if (k9->location == sym.location &&
+                                     k9->name == sym.name && v9->Typespec() &&
+                                     std::string_view(
+                                         v9->Typespec()->VpiFullName()) ==
+                                         std::string_view(prefix))
+                                     return true;
+                             return false;
+                         }())
+                    ovParamRhs = &sym;
                 else if (sym.kind == SymbolKind::Parameter &&
                          !paramDefaultSyn(sym.as<ParameterSymbol>()) &&
                          sym.as<ParameterSymbol>().getInitializer())
@@ -7473,6 +7488,51 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (!rhs && topView && ovParamRhs) {
             auto& ps2 = ovParamRhs->as<ParameterSymbol>();
             auto& cvo = ps2.getValue();
+            // UNBASED-UNSIZED override reads: '0/'x/'z CLAIM the shared pa
+            // constant object (reparented at this CA); '1 copies it with
+            // the ts ref shared (unbased_unsized_param sp13..sp16).
+            auto ubit9 = unbasedOvConst.find(ovParamRhs);
+            if (ubit9 == unbasedOvConst.end())
+                for (auto it9 = unbasedOvConst.begin();
+                     it9 != unbasedOvConst.end(); ++it9)
+                    if (it9->first->location == ovParamRhs->location &&
+                        it9->first->name == ovParamRhs->name &&
+                        // Same INSTANCE: the pa constant's ts ref scopes at
+                        // this CA's prefix.
+                        it9->second->Typespec() &&
+                        std::string_view(
+                            it9->second->Typespec()->VpiFullName()) ==
+                            std::string_view(prefix)) {
+                        ubit9 = it9;
+                        break;
+                    }
+            if (ubit9 != unbasedOvConst.end()) {
+                auto* pc9 = ubit9->second;
+                std::string_view v9 = pc9->VpiValue();
+                if (v9 == "BIN:0" || v9 == "BIN:X" || v9 == "BIN:Z") {
+                    pc9->VpiParent(ca);
+                    rhs = pc9;
+                }
+                else {
+                    auto* c9 = s.MakeConstant();
+                    c9->VpiDecompile(pc9->VpiDecompile());
+                    c9->VpiSize(pc9->VpiSize());
+                    c9->VpiValue(std::string(v9));
+                    c9->VpiConstType(pc9->VpiConstType());
+                    if (pc9->Typespec() &&
+                        pc9->Typespec()->Actual_typespec()) {
+                        auto* rt9 = s.MakeRef_typespec();
+                        rt9->VpiFullName(
+                            std::string(pc9->Typespec()->VpiFullName()));
+                        rt9->VpiParent(c9);
+                        rt9->Actual_typespec(
+                            pc9->Typespec()->Actual_typespec());
+                        c9->Typespec(rt9);
+                    }
+                    rhs = c9;
+                }
+            }
+            else
             if (cvo.isInteger() && !cvo.integer().hasUnknown()) {
                 auto& iv = cvo.integer();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);

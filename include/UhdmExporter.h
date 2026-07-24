@@ -855,6 +855,8 @@ private:
     // ELAB (top-view) param_assign object per param symbol (gen-scope
     // bound folds claim it as the fold constant's parent).
     std::map<const slang::ast::Symbol*, UHDM::param_assign*> elabParamPa;
+    // Unbased-unsized override pa Rhs constants (CA-claimed sharing).
+    std::map<const slang::ast::Symbol*, UHDM::constant*> unbasedOvConst;
     // Elab (top-view) param_assign Rhs constants for TYPED params whose init is
     // a DEGENERATE unbased-unsized literal ('0/'x/'z, NOT '1). Surelog shares
     // this SAME constant object into the reading cont-assign (a bare stub) and

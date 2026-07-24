@@ -843,6 +843,67 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         }
         if (topView && (overridden || noDefExprOv || noDefLitMP)) {
             auto& cvo = ps.getValue();
+            // UNBASED-UNSIZED override actuals (#(.VALUE('0)) etc.,
+            // unbased_unsized_param sp13..sp16): the pa Rhs constant keeps
+            // the unbased encoding with a LOCATED declared-type ts; the
+            // child's reading cont_assign later CLAIMS the same object
+            // ('0/'x/'z) or copies it ('1).
+            if (boundInit) {
+                auto& ub9 = stripImplicitConv(*boundInit);
+                if (ub9.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    logic_t bit9 = ub9.as<UnbasedUnsizedIntegerLiteral>()
+                                       .getLiteralValue();
+                    auto* c9 = s.MakeConstant();
+                    if (bit9.isUnknown()) {
+                        std::string d9 =
+                            bit9.value == logic_t::X_VALUE ? "X" : "Z";
+                        c9->VpiDecompile("'b" + d9);
+                        c9->VpiSize(-1);
+                        c9->VpiValue("BIN:" + d9);
+                        c9->VpiConstType(vpiBinaryConst);
+                    }
+                    else if (bit9.value == 0) {
+                        c9->VpiDecompile("'b0");
+                        c9->VpiSize(64);
+                        c9->VpiValue("BIN:0");
+                        c9->VpiConstType(vpiBinaryConst);
+                    }
+                    else {
+                        slang::SVInt ones9(
+                            (slang::bitwidth_t)ps.getType().getBitWidth(), 0,
+                            false);
+                        ones9 = ~ones9;
+                        std::string d9 =
+                            ones9.toString(LiteralBase::Decimal, false);
+                        c9->VpiDecompile(d9);
+                        c9->VpiSize((int32_t)ps.getType().getBitWidth());
+                        c9->VpiValue("UINT:" + d9);
+                        c9->VpiConstType(vpiUIntConst);
+                    }
+                    c9->VpiParent(pa);
+                    auto* rt9 = s.MakeRef_typespec();
+                    std::string tsPfx9 = prefix;
+                    if (tsPfx9.size() >= 2 &&
+                        tsPfx9.compare(tsPfx9.size() - 2, 2, "::") == 0)
+                        tsPfx9.resize(tsPfx9.size() - 2);
+                    rt9->VpiFullName(tsPfx9);
+                    rt9->VpiParent(c9);
+                    auto* lts9 = s.MakeLogic_typespec();
+                    if (auto dt9 = ps.getDeclaredType())
+                        if (auto tsy9 = dt9->getTypeSyntax())
+                            setLoc(lts9, tsy9->sourceRange());
+                    rt9->Actual_typespec(lts9);
+                    c9->Typespec(rt9);
+                    pa->Rhs(c9);
+                    elabParamConst[&ps] = c9;
+                    unbasedOvConst[&ps] = c9;
+                    passigns->push_back(pa);
+                    if (prt)
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, nullptr, typedParam});
+                    continue;
+                }
+            }
             if (ovMemberInitParam) {
                 auto* init = ovMemberInitParam->getInitializer();
                 auto* he = (UHDM::expr*)emitExpr(*init, pa, prefix, netMap);
