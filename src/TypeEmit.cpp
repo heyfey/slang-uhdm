@@ -2302,6 +2302,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     artD->Actual_typespec(tita->second);
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
+                    // A typedef-definition-build clone carries vpiInstance =
+                    // the typedef's owning instance (Surelog), like the
+                    // packed-array element clone below.
+                    if (savedTf)
+                        clD->Instance(tita->second->Instance());
                     fts = clD;
                 }
             }
@@ -2712,6 +2717,11 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     artD->Actual_typespec(tita->second);
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
+                    // A typedef-definition-build clone carries vpiInstance =
+                    // the typedef's owning instance (Surelog), like the
+                    // packed-array element clone below.
+                    if (savedTf)
+                        clD->Instance(tita->second->Instance());
                     fts = clD;
                 }
             }
