@@ -3252,7 +3252,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
                 if (dim) {
                     auto* rng = s.MakeRange();
-                    rng->VpiParent(iarr);
+                    // The ELAB interface_array's dimension range is left bare
+                    // (no vpiParent) by Surelog — only its bound constants
+                    // back-point at the range. (The DEF-view interface_array,
+                    // built by makeIfaceArrayPortTs, DOES parent its range.)
                     setLoc(rng, dim->sourceRange());
                     const syntax::ExpressionSyntax* leftSyn = nullptr;
                     const syntax::ExpressionSyntax* rightSyn = nullptr;
@@ -7354,6 +7357,10 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             if (!ip.modport.empty() && !topView &&
                 m->UhdmType() == UHDM::uhdmmodule_inst)
                 arrTs = makeIfaceArrayPortTs(ip, m, prefix);
+            // Surelog parents the array_typespec at the PORT object, not the
+            // owning module_inst.
+            if (arrTs)
+                arrTs->VpiParent(p);
             // A plain (no-modport) DEF iface-port typespec is created LATE —
             // after the receiving child's port-view emission (arena order).
             if (arrTs)
