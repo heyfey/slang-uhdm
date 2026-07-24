@@ -630,8 +630,90 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool noDefLitMP =
             !hasDefault && topView && boundInit && isMultiParamDef(body) &&
             stripImplicitConv(*boundInit).kind == ExpressionKind::IntegerLiteral;
+        // An instance param OVERRIDE whose actual is a LOCALPARAM initialized
+        // from a struct-param MEMBER (.Depth(N), N = Info.x) keeps a SYMBOLIC
+        // hier_path Rhs (re-emit of N's init) at the override-site span, rather
+        // than folding to the connected value (Surelog).
+        const ParameterSymbol* ovMemberInitParam = nullptr;
+        if (topView && overridden && boundInit) {
+            auto& bi = stripImplicitConv(*boundInit);
+            const Symbol* refSym = nullptr;
+            if (bi.kind == ExpressionKind::NamedValue)
+                refSym = &bi.as<NamedValueExpression>().symbol;
+            else if (bi.kind == ExpressionKind::HierarchicalValue)
+                refSym = &bi.as<HierarchicalValueExpression>().symbol;
+            // Only a NON-overridden localparam holds a genuine member-init in
+            // its declared init; an OVERRIDDEN param's getInitializer() returns
+            // the override expression (e.g. PadType=TargetCfg.dio_pad_type),
+            // which Surelog folds at the connection instead of re-emitting.
+            if (refSym && refSym->kind == SymbolKind::Parameter &&
+                !isOverriddenParam(refSym->as<ParameterSymbol>()))
+                if (auto* pin =
+                        refSym->as<ParameterSymbol>().getInitializer()) {
+                    auto& si = stripImplicitConv(*pin);
+                    if (si.kind == ExpressionKind::MemberAccess) {
+                        auto& mb = stripImplicitConv(
+                            si.as<MemberAccessExpression>().value());
+                        if (mb.kind == ExpressionKind::NamedValue &&
+                            mb.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter &&
+                            mb.as<NamedValueExpression>()
+                                    .symbol.getType()
+                                    .getCanonicalType()
+                                    .kind == SymbolKind::PackedStructType)
+                            ovMemberInitParam =
+                                &refSym->as<ParameterSymbol>();
+                    }
+                }
+        }
         if (topView && (overridden || noDefExprOv || noDefLitMP)) {
             auto& cvo = ps.getValue();
+            if (ovMemberInitParam) {
+                auto* init = ovMemberInitParam->getInitializer();
+                auto* he = (UHDM::expr*)emitExpr(*init, pa, prefix, netMap);
+                if (he && he->UhdmType() == UHDM::uhdmhier_path) {
+                    auto* hp = (UHDM::hier_path*)he;
+                    if (boundInit)
+                        setLoc(hp, boundInit->sourceRange);
+                    // ref_typespec scoped to N's owning module (work@top.Info.x),
+                    // actual = N's own (int) typespec.
+                    std::string npfx = prefix;
+                    if (auto dp = npfx.rfind('.'); dp != std::string::npos)
+                        npfx.resize(dp);
+                    else
+                        npfx.clear();
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(npfx.empty()
+                                        ? std::string(hp->VpiName())
+                                        : npfx + "." + std::string(hp->VpiName()));
+                    rt->VpiParent(hp);
+                    auto* its = s.MakeInt_typespec();
+                    if (auto dt = ovMemberInitParam->getDeclaredType())
+                        if (auto* tsyn = dt->getTypeSyntax())
+                            setLoc(its, tsyn->sourceRange());
+                    if (ovMemberInitParam->getType().isSigned())
+                        its->VpiSigned(true);
+                    rt->Actual_typespec(its);
+                    hp->Typespec(rt);
+                }
+                pa->Rhs(he);
+                passigns->push_back(pa);
+                if (prt) {
+                    if (!inPackage) {
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, nullptr, typedParam});
+                    }
+                    else {
+                        auto* its = makeParamTs(ps, typedParam);
+                        if (typedParam)
+                            its->Instance((UHDM::instance*)m);
+                        prt->Actual_typespec(its);
+                        if (typedParam || isRangedUntypedParam(ps))
+                            its->VpiParent(up);
+                    }
+                }
+                continue;
+            }
             if (cvo.isInteger()) {
                 auto& iv = cvo.integer();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
@@ -818,6 +900,60 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                    init->as<ConversionExpression>().isImplicit())
                 init = &init->as<ConversionExpression>().operand();
             UHDM::any* rhs = nullptr;
+            // A localparam whose init is a single-argument SYSTEM function call
+            // ($clog2(Depth)) of an OVERRIDDEN param that resolves (through the
+            // override chain) to a member-init localparam (N = Info.x) keeps a
+            // SYMBOLIC sys_func_call in the elab view, with the arg substituted
+            // by the member-init hier_path (Surelog does not fold it).
+            std::function<const ParameterSymbol*(const ParameterSymbol*, int)>
+                resolveMemberInit = [&](const ParameterSymbol* p,
+                                        int depth) -> const ParameterSymbol* {
+                if (depth > 8)
+                    return nullptr;
+                auto* pin = p->getInitializer();
+                if (!pin)
+                    return nullptr;
+                auto& si = stripImplicitConv(*pin);
+                if (si.kind == ExpressionKind::MemberAccess) {
+                    auto& mb = stripImplicitConv(
+                        si.as<MemberAccessExpression>().value());
+                    if (mb.kind == ExpressionKind::NamedValue &&
+                        mb.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter &&
+                        mb.as<NamedValueExpression>()
+                                .symbol.getType()
+                                .getCanonicalType()
+                                .kind == SymbolKind::PackedStructType)
+                        return p;
+                    return nullptr;
+                }
+                const Symbol* rs = nullptr;
+                if (si.kind == ExpressionKind::NamedValue)
+                    rs = &si.as<NamedValueExpression>().symbol;
+                else if (si.kind == ExpressionKind::HierarchicalValue)
+                    rs = &si.as<HierarchicalValueExpression>().symbol;
+                if (rs && rs->kind == SymbolKind::Parameter)
+                    return resolveMemberInit(&rs->as<ParameterSymbol>(),
+                                             depth + 1);
+                return nullptr;
+            };
+            const ParameterSymbol* clogMemberInit = nullptr;
+            const CallExpression* clogCall = nullptr;
+            if (topView && init->kind == ExpressionKind::Call &&
+                init->as<CallExpression>().isSystemCall() &&
+                init->as<CallExpression>().arguments().size() == 1) {
+                auto& a0 = stripImplicitConv(
+                    *init->as<CallExpression>().arguments()[0]);
+                const Symbol* rs = nullptr;
+                if (a0.kind == ExpressionKind::NamedValue)
+                    rs = &a0.as<NamedValueExpression>().symbol;
+                else if (a0.kind == ExpressionKind::HierarchicalValue)
+                    rs = &a0.as<HierarchicalValueExpression>().symbol;
+                if (rs && rs->kind == SymbolKind::Parameter)
+                    if ((clogMemberInit = resolveMemberInit(
+                             &rs->as<ParameterSymbol>(), 0)))
+                        clogCall = &init->as<CallExpression>();
+            }
             if (topView) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
@@ -836,6 +972,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ->VpiSize(
                                     (int32_t)ps.getType().getBitWidth());
                     }
+                }
+                // Symbolic sys_func_call ($clog2(Info.x)) of a member-init
+                // param: re-emit the call with the argument substituted by the
+                // member-init hier_path (Surelog keeps it unfolded).
+                else if (clogMemberInit && clogCall) {
+                    auto* sc = s.MakeSys_func_call();
+                    sc->VpiName(std::string(clogCall->getSubroutineName()));
+                    sc->VpiParent(pa);
+                    setLoc(sc, init->sourceRange);
+                    auto* he = (UHDM::expr*)emitExpr(
+                        *clogMemberInit->getInitializer(), sc, prefix, netMap);
+                    if (he && he->UhdmType() == UHDM::uhdmhier_path) {
+                        auto* hp = (UHDM::hier_path*)he;
+                        setLoc(hp, clogCall->arguments()[0]->sourceRange);
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiFullName(prefix.empty()
+                                            ? std::string(hp->VpiName())
+                                            : prefix + "." +
+                                                  std::string(hp->VpiName()));
+                        rt->VpiParent(hp);
+                        auto* its = s.MakeInt_typespec();
+                        if (auto dt = clogMemberInit->getDeclaredType())
+                            if (auto* tsyn = dt->getTypeSyntax())
+                                setLoc(its, tsyn->sourceRange());
+                        if (clogMemberInit->getType().isSigned())
+                            its->VpiSigned(true);
+                        rt->Actual_typespec(its);
+                        hp->Typespec(rt);
+                    }
+                    if (he) {
+                        auto* args = s.MakeAnyVec();
+                        args->push_back(he);
+                        sc->Tf_call_args(args);
+                    }
+                    rhs = sc;
                 }
                 // A TYPED STRING param whose init is NON-literal (a concat)
                 // folds to a STRING constant in the ELAB view (the DEF view

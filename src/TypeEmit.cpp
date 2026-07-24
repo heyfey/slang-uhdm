@@ -922,8 +922,141 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         value = *dcv->integer().as<int64_t>();
                             }
                         }
+                        // A packed range bound referencing a LOCALPARAM whose
+                        // init reads a MEMBER of a struct-typed parameter
+                        // (localparam int N = Info.x) stays SYMBOLIC in Surelog:
+                        // the localparam ref is SUBSTITUTED by a re-emission of
+                        // its init hier_path (Info.x), kept unfolded. Applies in
+                        // both def and elab module views (module signal dims).
+                        // Follow a param's init chain: a param whose init reads
+                        // a struct-param MEMBER (N = Info.x) IS the member-init
+                        // param; a param whose init is a bare ref to another
+                        // param (an OVERRIDE, Depth = N) recurses. Returns the
+                        // member-init param whose init hier_path is re-emitted.
+                        std::function<const ParameterSymbol*(
+                            const ParameterSymbol*, int)>
+                            resolveMemberInit =
+                                [&](const ParameterSymbol* p,
+                                    int depth) -> const ParameterSymbol* {
+                            if (depth > 8)
+                                return nullptr;
+                            auto* pin = p->getInitializer();
+                            if (!pin)
+                                return nullptr;
+                            auto& si = stripImplicitConv(*pin);
+                            if (si.kind == ExpressionKind::MemberAccess) {
+                                auto& mb = stripImplicitConv(
+                                    si.as<MemberAccessExpression>().value());
+                                if (mb.kind == ExpressionKind::NamedValue &&
+                                    mb.as<NamedValueExpression>().symbol.kind ==
+                                        SymbolKind::Parameter &&
+                                    mb.as<NamedValueExpression>()
+                                            .symbol.getType()
+                                            .getCanonicalType()
+                                            .kind == SymbolKind::PackedStructType)
+                                    return p;
+                                return nullptr;
+                            }
+                            const Symbol* rs = nullptr;
+                            if (si.kind == ExpressionKind::NamedValue)
+                                rs = &si.as<NamedValueExpression>().symbol;
+                            else if (si.kind == ExpressionKind::HierarchicalValue)
+                                rs = &si.as<HierarchicalValueExpression>().symbol;
+                            if (rs && rs->kind == SymbolKind::Parameter)
+                                return resolveMemberInit(
+                                    &rs->as<ParameterSymbol>(), depth + 1);
+                            return nullptr;
+                        };
+                        const ParameterSymbol* memberInitParam = nullptr;
+                        if (bsyn && currentScope && !tfContext && !bitsOfSignal &&
+                            !bareParamInParamTs && !defModuleParamDim &&
+                            !ifacePortBound && !defPortDim) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            if (!be.bad())
+                                be.visit(makeVisitor(
+                                    [&](auto& v, const NamedValueExpression& nv) {
+                                        if (memberInitParam)
+                                            return;
+                                        if (nv.symbol.kind ==
+                                            SymbolKind::Parameter)
+                                            memberInitParam = resolveMemberInit(
+                                                &nv.symbol
+                                                     .as<ParameterSymbol>(),
+                                                0);
+                                        v.visitDefault(nv);
+                                    }));
+                        }
+                        if (memberInitParam) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            NetMap none;
+                            std::string bpfx = boundOwnerFullName;
+                            // Re-emit N's init (Info.x) as a hier_path, and
+                            // attach a ref_typespec scoped under the declaring
+                            // signal (work@top.data.Info.x) whose actual is N's
+                            // own (int) typespec.
+                            auto emitInitHier =
+                                [&](UHDM::BaseClass* par) -> UHDM::expr* {
+                                auto* init = memberInitParam->getInitializer();
+                                auto* he = (UHDM::expr*)emitExpr(*init, par, bpfx,
+                                                                 none);
+                                if (he &&
+                                    he->UhdmType() == UHDM::uhdmhier_path) {
+                                    auto* hp = (UHDM::hier_path*)he;
+                                    auto* rt = s.MakeRef_typespec();
+                                    rt->VpiFullName(
+                                        bpfx.empty()
+                                            ? std::string(hp->VpiName())
+                                            : bpfx + "." +
+                                                  std::string(hp->VpiName()));
+                                    rt->VpiParent(hp);
+                                    auto* its = s.MakeInt_typespec();
+                                    if (auto dt =
+                                            memberInitParam->getDeclaredType())
+                                        if (auto* tsyn = dt->getTypeSyntax())
+                                            setLoc(its, tsyn->sourceRange());
+                                    if (memberInitParam->getType().isSigned())
+                                        its->VpiSigned(true);
+                                    rt->Actual_typespec(its);
+                                    hp->Typespec(rt);
+                                }
+                                return he;
+                            };
+                            if (!be.bad() &&
+                                stripImplicitConv(be).kind ==
+                                    ExpressionKind::BinaryOp) {
+                                auto& bin =
+                                    stripImplicitConv(be).as<BinaryExpression>();
+                                auto* op = s.MakeOperation();
+                                op->VpiOpType(mapBinaryOp(bin.op));
+                                op->VpiParent(r);
+                                setLoc(op, bsyn->sourceRange());
+                                auto* operands = s.MakeAnyVec();
+                                if (auto* l = emitInitHier(op))
+                                    operands->push_back(l);
+                                const syntax::ExpressionSyntax* rsub = nullptr;
+                                if (syntax::BinaryExpressionSyntax::isKind(
+                                        bsyn->kind))
+                                    rsub =
+                                        bsyn->as<syntax::BinaryExpressionSyntax>()
+                                            .right;
+                                int64_t rval = 1;
+                                if (auto rcv = bctx.tryEval(bin.right());
+                                    rcv && rcv.isInteger())
+                                    rval = *rcv.integer().as<int64_t>();
+                                if (rsub)
+                                    operands->push_back(
+                                        makeBoundConst(rsub, rval, op));
+                                op->Operands(operands);
+                                return op;
+                            }
+                            if (auto* he = emitInitHier(r))
+                                return he;
+                        }
                         if (tfContext || bitsOfSignal || bareParamInParamTs ||
-                            defModuleParamDim || ifacePortBound) {
+                            defModuleParamDim || ifacePortBound ||
+                            structMemberSymBound) {
                             // Function/typedef context: unfolded expression.
                             bool savedBCN = boundCallNameSpan;
                             boundCallNameSpan = true;
@@ -1694,6 +1827,28 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
     auto* sts = s.MakeStruct_typespec();
     if (packed)
         sts->VpiPacked(true);
+    // A MODULE-scope NAMED struct typedef keeps its members' packed-dim
+    // OPERATION bounds symbolic in the elab view (Surelog); anonymous structs
+    // (declared inline on a variable) and PACKAGE typedefs fold them. Named =
+    // the struct's syntax sits inside a TypedefDeclaration; scope = no Package
+    // ancestor.
+    bool savedSymBound = structMemberSymBound;
+    {
+        bool namedTypedef = false;
+        for (auto sn = structScope.asSymbol().getSyntax(); sn; sn = sn->parent)
+            if (sn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+                namedTypedef = true;
+                break;
+            }
+        bool inPkg = false;
+        for (auto sc = structScope.asSymbol().getParentScope(); sc;
+             sc = sc->asSymbol().getParentScope())
+            if (sc->asSymbol().kind == SymbolKind::Package) {
+                inPkg = true;
+                break;
+            }
+        structMemberSymBound = namedTypedef && !inPkg;
+    }
     auto* members = s.MakeTypespec_memberVec();
     for (auto& fm : structScope.members()) {
         if (fm.kind != SymbolKind::Field)
@@ -1875,9 +2030,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         }
         else {
             // Typedef-context member bound refs scope through the member
-            // (pkg::pkg::T::m::PARAM).
+            // (pkg::pkg::T::m::PARAM). A module named typedef keeps its member
+            // bounds symbolic in the elab view too, with the same member-scoped
+            // ref name — so scope refs there as well.
             std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
-            if (tfContext && !aliasName.empty()) {
+            if ((tfContext || structMemberSymBound) && !aliasName.empty()) {
                 syntaxRefPrefix = aliasName + memberSep + std::string(fm.name);
                 syntaxRefSep = memberSep;
             }
@@ -2062,7 +2219,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         if (fts->VpiName().empty() && !ats9MainFree)
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(aliasName + memberSep + std::string(fm.name));
+        // ANONYMOUS structs (empty alias) name member refs bare, no
+        // leading separator (struct_3d_packed_array).
+        rt->VpiFullName(aliasName.empty()
+                            ? std::string(fm.name)
+                            : aliasName + memberSep + std::string(fm.name));
         rt->VpiParent(tm);
         rt->Actual_typespec(fts);
         tm->Typespec(rt);
@@ -2082,6 +2243,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         }
         members->push_back(tm);
     }
+    structMemberSymBound = savedSymBound;
     sts->Members(members);
     return sts;
 }
@@ -2272,9 +2434,11 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         }
         else {
             // Typedef-context member bound refs scope through the member
-            // (pkg::pkg::T::m::PARAM).
+            // (pkg::pkg::T::m::PARAM). A module named typedef keeps its member
+            // bounds symbolic in the elab view too, with the same member-scoped
+            // ref name — so scope refs there as well.
             std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
-            if (tfContext && !aliasName.empty()) {
+            if ((tfContext || structMemberSymBound) && !aliasName.empty()) {
                 syntaxRefPrefix = aliasName + memberSep + std::string(fm.name);
                 syntaxRefSep = memberSep;
             }
@@ -2456,7 +2620,11 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         if (fts->VpiName().empty() && !ats9MainFree)
             fts->VpiParent(tm);
         auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(aliasName + memberSep + std::string(fm.name));
+        // ANONYMOUS structs (empty alias) name member refs bare, no
+        // leading separator (struct_3d_packed_array).
+        rt->VpiFullName(aliasName.empty()
+                            ? std::string(fm.name)
+                            : aliasName + memberSep + std::string(fm.name));
         rt->VpiParent(tm);
         rt->Actual_typespec(fts);
         tm->Typespec(rt);

@@ -2295,9 +2295,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 v->Attributes(av);
             }
             // Vars creation-parent their (non-typedef) typespec like nets;
-            // a shared decl-group ts ends at the group's last var.
+            // a shared decl-group ts ends at the group's last var. ANONYMOUS
+            // (empty-named) struct clones parent too
+            // (struct_3d_packed_array).
             if (ts && ts->UhdmType() != UHDM::uhdmenum_typespec &&
-                ts->UhdmType() != UHDM::uhdmstruct_typespec && ts->VpiName().empty())
+                ts->VpiName().empty())
                 ts->VpiParent(v);
             // Initialized plain-typed vars span declarator..init; a var of a
             // pkg typedef-ALIAS type (lc_ctrl_pkg::lc_tx_t x = ...) does too.

@@ -498,6 +498,10 @@ private:
     // True while building a struct/union MEMBER typespec: a multi-dim packed
     // array member keeps its full span (a signal/net decl truncates to dim 1).
     bool structMemberTsCtx = false;
+    // True while building the members of a MODULE-scope NAMED struct typedef:
+    // Surelog keeps such members' packed-dim OPERATION bounds symbolic in the
+    // elab view too (anonymous structs and PACKAGE typedefs fold them).
+    bool structMemberSymBound = false;
     // Which cont-assign RHS view is being emitted: 0 = not in a cont-assign
     // RHS, 1 = def (allModules), 2 = elab (topModules). Unbased-unsized
     // func-call args key their formal-ts/fold behavior on this.
