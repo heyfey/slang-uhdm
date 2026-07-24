@@ -1,6 +1,6 @@
 # HANDOFF — slang-uhdm convergence campaign (24-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ongoing, Opus lane): 442 PASS / 195 CMP_ONLY / 24 DIFF
+## Drive 8b (2026-07-24 ~09:30 -> ongoing, Opus lane): 462 PASS / 175 CMP_ONLY / 24 DIFF
 
 Continuation of drive 8 after a network drop. Goldens 23/23 throughout; every landing
 gated on the full corpus + a verbatim movers diff. Waves 50-53 (Opus worktree agents,
@@ -47,6 +47,23 @@ AssignToUnionAndReadField, AssignToUnpackedUnionFieldAndReadOtherField.
   overridden struct params copy the referenced param's Rhs tree; gen-scope CA index refs stay
   unbound and loop-body params fold; an instance's own body typespecs drain before its
   descendants'; >64b imported struct params strip tagged wrappers in the elab view.
+
+### Later in the stretch (waves 52-53 agents + serial)
+- Operand constants carry vpiParent IFF their owning object was DEEP-CLONED at elaboration
+  (Surelog's compileConst never parents; clone_tree/DeepClone re-parents every child) — decoded from
+  Surelog's sources and verified across 441 dumps.
+- Ref fullnames are computed by UHDM's ComputeFullName walking vpiParent (skipping a bit_select or
+  hier_path directly above a ref_obj), so the fix is usually to LEAVE the fullname unset; spans anchor
+  on raw source tokens.
+- A package typedef exists as TWO objects (def listing + elaborated); signal uses bind the elaborated
+  one, struct-typedef PARAM uses keep the def one (NSAP vs PartSelectInFor).
+- Surelog reports source positions in the FULLY MACRO-EXPANDED text: recursive expanded-length model,
+  nested-call deltas, multi-line bodies, multi-token argument merging (int_types -800, multiplier -280).
+- cont_assign sharing: a dotted/select LHS keeps the shared def object only when the RHS is a plain
+  signal reference; literals, operations, params and enum values all re-emit fresh in the elab view.
+- Anonymous struct/union typespec views; whole-assigned signals get bare member refs and no owner parent.
+- Package struct-member bounds keep the written syntax in the def view and fold to a signed int at the
+  identifier token in the elab view.
 
 ### METHOD (reusable)
 The corpus CSV records each test's DUMP_DIFF line count. Sweeping every CMP_ONLY test into a
