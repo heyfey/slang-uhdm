@@ -19,6 +19,15 @@ NSAP root cause (a nested inner-struct leaf missing its package vpiInstance), so
 workaround is unnecessary. A mid-flight snapshot of if54 measured interface_array 258->174 but
 iface_cfg_mem 611->647, so re-measure the finished patch before gating.
 
+### Ready-to-act decode: arrays03 (r=1)
+An OBJECT-COUNT split on the $unit typedef `typedef reg8_t [0:3] reg2dim1_t`. Surelog emits ONE
+design-parented reg2dim1_t plus 14 per-use reg8_t ELEMENT clones; we emit 3 reg2dim1_t (the $unit
+typedef loop in UhdmExporter.cpp ~734 stamps it once per TOP in a multi-top design) and only 11
+reg8_t. Fix direction: dedup the $unit typedef object across tops, mint the element clone per use.
+Found with a name-suffix instrumentation sweep over the 10 `->VpiName(<alias>.name)` clone sites —
+stamping a unique marker at each candidate site and grepping the dump is the fastest way to identify
+which of several look-alike sites actually emits an object.
+
 ### Remaining DIFF (22)
 arraycells, arrays03, BitSelect trio, const_arg_loop, const_func, cs_registers, func_tern_hint,
 func_upto, gen_struct_access, gen_test5, iface_array_elem_cfg_param, iface_cfg_param_def_pass,
