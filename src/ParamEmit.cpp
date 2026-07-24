@@ -528,9 +528,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                   return false;
                               }();
             // A MODULE param whose default is a bare/qualified reference to a
-            // PACKAGE param carries the folded value too (Surelog).
+            // PACKAGE param carries the folded value too (Surelog) — but an
+            // AGGREGATE value never inlines on the parameter object (it lives
+            // only in the param_assign Rhs op; BSOPPS work@top.TargetCfg).
             bool modPkgRefFold9 =
                 !inPackage && !literalInit && !unbasedInit && defaultInit &&
+                ps.getType().getCanonicalType().kind !=
+                    SymbolKind::PackedStructType &&
+                ps.getType().getCanonicalType().kind !=
+                    SymbolKind::PackedUnionType &&
+                ps.getType().getCanonicalType().kind !=
+                    SymbolKind::UnpackedStructType &&
+                ps.getType().getCanonicalType().kind !=
+                    SymbolKind::UnpackedUnionType &&
                 cv.isInteger() && !cv.integer().hasUnknown() && [&] {
                     const Expression* d8 = &stripImplicitConv(*defaultInit);
                     while (d8->kind == ExpressionKind::Conversion)
@@ -985,6 +995,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
         }
+        // A module struct param DEFAULTED from a bare reference to a
+        // PACKAGE struct param (`parameter target_cfg_t TargetCfg =
+        // DefaultTargetCfg`) substitutes that param's pattern the same way in
+        // the ELAB view — as the FLAT op75 over the reference's own span (the
+        // DEF view keeps the plain ref_obj). BSOPPS*.
+        if (!structOvPat && topView && !inPackage && !overridden &&
+            ps.getType().getCanonicalType().kind ==
+                SymbolKind::PackedStructType &&
+            ps.getParentScope() == &body && ps.getInitializer()) {
+            auto& bi7 = stripImplicitConv(*ps.getInitializer());
+            if (bi7.kind == ExpressionKind::NamedValue) {
+                auto& rs7 = bi7.as<NamedValueExpression>().symbol;
+                if (rs7.kind == SymbolKind::Parameter && rs7.getParentScope() &&
+                    rs7.getParentScope()->asSymbol().kind == SymbolKind::Package)
+                    if (auto* rin7 = rs7.as<ParameterSymbol>().getInitializer()) {
+                        auto& si7 = stripImplicitConv(*rin7);
+                        if (si7.kind ==
+                                ExpressionKind::StructuredAssignmentPattern ||
+                            si7.kind == ExpressionKind::SimpleAssignmentPattern) {
+                            structOvPat = &si7;
+                            structOvLoc = bi7.sourceRange;
+                        }
+                    }
+            }
+        }
         // An instance param OVERRIDE whose actual is a LOCALPARAM initialized
         // from a struct-param MEMBER (.Depth(N), N = Info.x) keeps a SYMBOLIC
         // hier_path Rhs (re-emit of N's init) at the override-site span, rather
@@ -1265,9 +1300,81 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiDecompile(txt8);
                     strOv8 = true;
                 }
+                // An override whose value ORIGINATES in a bit-pattern
+                // expression (a concat/replication, however many param hops
+                // and struct-member selects away) keeps that BINARY encoding:
+                // BIN at the value width with a sized-binary decompile. A
+                // value that traces back to a plain integer stays UINT
+                // (Surelog: BSOPPS* .PadType(TargetCfg.dio_pad_type[k]) with
+                // '{dio_pad_type: {N{B}}} vs ParameterPassedToSubmodule* with
+                // TargetCfg = 1).
+                std::function<bool(const Expression&, int)> bitPatOrigin =
+                    [&](const Expression& e0, int d0) -> bool {
+                    if (d0 > 8)
+                        return false;
+                    auto& e8 = stripImplicitConv(e0);
+                    switch (e8.kind) {
+                        case ExpressionKind::Replication:
+                        case ExpressionKind::Concatenation:
+                            return true;
+                        case ExpressionKind::MemberAccess:
+                            return bitPatOrigin(
+                                e8.as<MemberAccessExpression>().value(), d0 + 1);
+                        case ExpressionKind::ElementSelect:
+                            return bitPatOrigin(
+                                e8.as<ElementSelectExpression>().value(), d0 + 1);
+                        case ExpressionKind::RangeSelect:
+                            return bitPatOrigin(
+                                e8.as<RangeSelectExpression>().value(), d0 + 1);
+                        case ExpressionKind::StructuredAssignmentPattern: {
+                            auto& ap8 =
+                                e8.as<StructuredAssignmentPatternExpression>();
+                            for (auto& ms8 : ap8.memberSetters)
+                                if (ms8.expr && bitPatOrigin(*ms8.expr, d0 + 1))
+                                    return true;
+                            return ap8.defaultSetter &&
+                                   bitPatOrigin(*ap8.defaultSetter, d0 + 1);
+                        }
+                        case ExpressionKind::SimpleAssignmentPattern: {
+                            for (auto* el8 :
+                                 e8.as<SimpleAssignmentPatternExpression>()
+                                     .elements())
+                                if (el8 && bitPatOrigin(*el8, d0 + 1))
+                                    return true;
+                            return false;
+                        }
+                        case ExpressionKind::NamedValue: {
+                            auto& sy8 = e8.as<NamedValueExpression>().symbol;
+                            if (sy8.kind != SymbolKind::Parameter)
+                                return false;
+                            if (auto* in8 =
+                                    sy8.as<ParameterSymbol>().getInitializer())
+                                return bitPatOrigin(*in8, d0 + 1);
+                            return false;
+                        }
+                        default:
+                            return false;
+                    }
+                };
+                bool enumOv8 = false;
+                if (typedParam && !vecAliasOv8 && !strOv8 &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::EnumType &&
+                    boundInit && bitPatOrigin(*boundInit, 0) &&
+                    iv.getBitWidth() <= 64) {
+                    int32_t w6 = (int32_t)iv.getBitWidth();
+                    std::string bits6;
+                    for (int32_t i6 = w6 - 1; i6 >= 0; i6--)
+                        bits6 += (iv[i6] == slang::logic_t(1)) ? '1' : '0';
+                    c->VpiValue("BIN:" + bits6);
+                    c->VpiConstType(vpiBinaryConst);
+                    c->VpiSize(w6);
+                    c->VpiDecompile(std::to_string(w6) + "'b" + bits6);
+                    enumOv8 = true;
+                }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
-                if (vecAliasOv8 || strOv8) {
+                if (vecAliasOv8 || strOv8 || enumOv8) {
                 }
                 else if (typedParam && iv.getBitWidth() > 64) {
                     // WIDE values overflow the decimal fold — encode HEX at
@@ -1924,6 +2031,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (structPat && (inPackage || isImported) &&
                         ps.getType().getBitWidth() > 64)
                         structWidePkg = true;
+                    // SYMBOLIC-DIM RULE: a struct whose member carries a
+                    // PARAMETER-DEPENDENT packed dimension
+                    // (pad_type_e [NDioPads-1:0] m) never flattens in either
+                    // HOME-PACKAGE view — Surelog leaves that pattern op
+                    // untyped (no struct ts ref) and therefore never runs its
+                    // flatten pass on it, so the elaborated package view is
+                    // byte-identical to the def view (BSOPPS*, TSPWRIS). A
+                    // fixed-dim member struct (logic [3:0] addr) still folds
+                    // flat in the elab package view. The importing MODULE
+                    // views are unaffected — they flatten either way.
+                    if (structPat && inPackage &&
+                        structHasSymbolicMemberDim(pctS))
+                        structWidePkg = true;
                 }
                 // The DEF view of an INTERFACE struct param keeps the TAGGED
                 // form (emitExpr tagged_pattern op: constant size 64 + a ts ref
@@ -2073,10 +2193,38 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             auto* c2 = s.MakeConstant();
                             slang::SVInt uvm = cvm.integer();
                             uvm.setSigned(false);
+                            // A REPLICATION setter ({NDioPads{B}}) folds to the
+                            // repeated bit pattern in the elab view too — the
+                            // SAME BIN constant the def view builds (decompile
+                            // = the bits), plus an INSTANCE-scoped ts ref to a
+                            // bare int_typespec (Surelog, BSOPPS*InGenFor).
+                            if (stripImplicitConv(*se).kind ==
+                                ExpressionKind::Replication) {
+                                int32_t w7 =
+                                    (int32_t)fld.getType().getBitWidth();
+                                std::string bits7;
+                                for (int32_t i7 = w7 - 1; i7 >= 0; i7--)
+                                    bits7 += (uvm[i7] == slang::logic_t(1))
+                                                 ? '1'
+                                                 : '0';
+                                c2->VpiDecompile(bits7);
+                                c2->VpiSize(w7);
+                                c2->VpiValue("BIN:" + bits7);
+                                c2->VpiConstType(vpiBinaryConst);
+                                std::string tsP7 = prefix;
+                                if (tsP7.size() >= 2 &&
+                                    tsP7.compare(tsP7.size() - 2, 2, "::") == 0)
+                                    tsP7.resize(tsP7.size() - 2);
+                                auto* rrt7 = s.MakeRef_typespec();
+                                rrt7->VpiParent(c2);
+                                rrt7->VpiFullName(tsP7);
+                                rrt7->Actual_typespec(s.MakeInt_typespec());
+                                c2->Typespec(rrt7);
+                            }
                             // A CONCAT setter re-encodes BINARY at the member
                             // width with a BARE ts ref (Surelog).
-                            if (stripImplicitConv(*se).kind ==
-                                ExpressionKind::Concatenation) {
+                            else if (stripImplicitConv(*se).kind ==
+                                     ExpressionKind::Concatenation) {
                                 int32_t w8 =
                                     (int32_t)fld.getType().getBitWidth();
                                 std::string bits8;
@@ -2141,6 +2289,77 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             if (!se) {
                                 okW = false;
                                 break;
+                            }
+                            // A REPLICATION member value keeps the SAME folded
+                            // BIN constant the def view built (Surelog reuses
+                            // the resolved value; only casts stay unfolded) —
+                            // with an instance-scoped ts ref to a bare
+                            // int_typespec. BSOPPS (72b pinmux_pkg).
+                            if (stripImplicitConv(*se).kind ==
+                                    ExpressionKind::Replication &&
+                                se->type) {
+                                ASTContext rctxW(comp.getRoot(),
+                                                 LookupLocation::max);
+                                if (auto rcvW = rctxW.tryEval(*se);
+                                    rcvW && rcvW.isInteger() &&
+                                    !rcvW.integer().hasUnknown()) {
+                                    auto rivW = rcvW.integer();
+                                    int32_t rwW =
+                                        (int32_t)se->type->getBitWidth();
+                                    std::string rbW;
+                                    for (int32_t bW = rwW - 1; bW >= 0; bW--)
+                                        rbW += (rivW[bW] == slang::logic_t(1))
+                                                   ? '1'
+                                                   : '0';
+                                    auto* rcW = s.MakeConstant();
+                                    rcW->VpiDecompile(rbW);
+                                    rcW->VpiSize(rwW);
+                                    rcW->VpiValue("BIN:" + rbW);
+                                    rcW->VpiConstType(vpiBinaryConst);
+                                    rcW->VpiParent(opW);
+                                    setLoc(rcW, se->sourceRange);
+                                    std::string tsPW = prefix;
+                                    if (tsPW.size() >= 2 &&
+                                        tsPW.compare(tsPW.size() - 2, 2,
+                                                     "::") == 0)
+                                        tsPW.resize(tsPW.size() - 2);
+                                    auto* rrtW = s.MakeRef_typespec();
+                                    rrtW->VpiParent(rcW);
+                                    rrtW->VpiFullName(tsPW);
+                                    rrtW->Actual_typespec(s.MakeInt_typespec());
+                                    rcW->Typespec(rrtW);
+                                    opndW->push_back(rcW);
+                                    continue;
+                                }
+                            }
+                            // An UNBASED-UNSIZED member value ('0) is the one
+                            // payload Surelog RESOLVES in the elab view: a
+                            // decimal UINT constant at the member width (the
+                            // def view keeps the '0 form). Casts and folded
+                            // bit patterns are re-emitted as they stand.
+                            // TypedefStructParamWithRangeInSubmodule.
+                            if (stripImplicitConv(*se).kind ==
+                                ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                                ASTContext uctx(comp.getRoot(),
+                                                LookupLocation::max);
+                                if (auto ucv = uctx.tryEval(*se);
+                                    ucv && ucv.isInteger() &&
+                                    !ucv.integer().hasUnknown()) {
+                                    auto uiv = ucv.integer();
+                                    uiv.setSigned(false);
+                                    std::string ud = uiv.toString(
+                                        LiteralBase::Decimal, false);
+                                    auto* uc = s.MakeConstant();
+                                    uc->VpiDecompile(ud);
+                                    uc->VpiSize(
+                                        (int32_t)fld.getType().getBitWidth());
+                                    uc->VpiValue("UINT:" + ud);
+                                    uc->VpiConstType(vpiUIntConst);
+                                    uc->VpiParent(opW);
+                                    setLoc(uc, se->sourceRange);
+                                    opndW->push_back(uc);
+                                    continue;
+                                }
                             }
                             bool savedRe = reemitting;
                             reemitting = true;

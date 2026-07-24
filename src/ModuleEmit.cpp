@@ -13117,8 +13117,85 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 bindGenvar(o);
                     }
                 };
+                // A loop bound that reads a PACKAGE parameter FOLDS even in
+                // the def view (a package param cannot be overridden, unlike a
+                // module param, so Surelog prints its value): a constant at
+                // the ref span, sized at the param's type, with a
+                // MODULE-scoped ts ref -> a fresh copy of the param's own
+                // typespec (BitSelectOfParameterPassedToSubmoduleInGenFor).
+                auto pkgLoopParam =
+                    [&](std::string_view nm) -> const ParameterSymbol* {
+                    auto* sy = Lookup::unqualified(body, nm);
+                    if (!sy || sy->kind != SymbolKind::Parameter ||
+                        !sy->getParentScope() ||
+                        sy->getParentScope()->asSymbol().kind !=
+                            SymbolKind::Package)
+                        return nullptr;
+                    return &sy->as<ParameterSymbol>();
+                };
+                std::function<void(UHDM::any*)> foldPkgLoopRefs =
+                    [&](UHDM::any* e) {
+                        if (!e || e->UhdmType() != UHDM::uhdmoperation)
+                            return;
+                        auto* ops = ((UHDM::operation*)e)->Operands();
+                        if (!ops)
+                            return;
+                        for (size_t i9 = 0; i9 < ops->size(); i9++) {
+                            auto* o = (*ops)[i9];
+                            if (o->UhdmType() == UHDM::uhdmoperation) {
+                                foldPkgLoopRefs(o);
+                                continue;
+                            }
+                            if (o->UhdmType() != UHDM::uhdmref_obj)
+                                continue;
+                            auto* r0 = (UHDM::ref_obj*)o;
+                            const ParameterSymbol* lps =
+                                pkgLoopParam(r0->VpiName());
+                            if (!lps)
+                                continue;
+                            auto& psp = *lps;
+                            auto& cv0 = psp.getValue();
+                            if (!cv0 || !cv0.isInteger() ||
+                                cv0.integer().hasUnknown())
+                                continue;
+                            std::string dg =
+                                cv0.integer().toString(LiteralBase::Decimal,
+                                                       false);
+                            auto* c0 = s.MakeConstant();
+                            c0->VpiDecompile(dg);
+                            c0->VpiSize((int32_t)psp.getType().getBitWidth());
+                            c0->VpiValue("UINT:" + dg);
+                            c0->VpiConstType(vpiUIntConst);
+                            c0->VpiParent(e);
+                            c0->VpiFile(r0->VpiFile());
+                            c0->VpiLineNo(r0->VpiLineNo());
+                            c0->VpiColumnNo(r0->VpiColumnNo());
+                            c0->VpiEndLineNo(r0->VpiEndLineNo());
+                            c0->VpiEndColumnNo(r0->VpiEndColumnNo());
+                            auto* its0 = s.MakeInt_typespec();
+                            if (auto dt0 = psp.getDeclaredType())
+                                if (auto* tsyn0 = dt0->getTypeSyntax())
+                                    setLoc(its0, tsyn0->sourceRange());
+                            if (psp.getType().getCanonicalType().isSigned())
+                                its0->VpiSigned(true);
+                            if (auto psc9 = psp.getParentScope())
+                                if (auto pit9 =
+                                        pkgDefMap.find(&psc9->asSymbol());
+                                    pit9 != pkgDefMap.end())
+                                    its0->Instance(
+                                        (UHDM::instance*)pit9->second);
+                            auto* rt0 = s.MakeRef_typespec();
+                            rt0->VpiFullName(prefix);
+                            rt0->VpiParent(c0);
+                            rt0->Actual_typespec(its0);
+                            its0->VpiParent(rt0);
+                            c0->Typespec(rt0);
+                            (*ops)[i9] = c0;
+                        }
+                    };
                 if (auto* c = emitSyntaxExpr(*loopSyn->stopExpr, gf)) {
                     bindGenvar(c);
+                    foldPkgLoopRefs(c);
                     gf->VpiCondition((UHDM::expr*)c);
                 }
                 syntaxRefPrefix.clear();

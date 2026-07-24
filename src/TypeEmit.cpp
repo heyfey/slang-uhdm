@@ -377,6 +377,34 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         }
                             }
                         }
+                        // A bound naming a param of ANOTHER package (imported
+                        // into the struct's package) is RESOLVED, not kept
+                        // symbolic: Surelog folds it like any cross-package
+                        // read (BitSelectOfParameterPassedToSubmodule's
+                        // pad_type_e [NDioPads-1:0] with NDioPads owned by
+                        // prim_pad_wrapper_pkg). Only a SAME-package param
+                        // stays a member-scoped ref.
+                        bool foreignPkgBound = false;
+                        if (loc && structPkgScope) {
+                            std::string rawF(rawText(*loc));
+                            std::string idF;
+                            for (char ch : rawF) {
+                                if (isalnum((unsigned char)ch) || ch == '_')
+                                    idF += ch;
+                                else if (!idF.empty())
+                                    break;
+                            }
+                            if (!idF.empty() &&
+                                !isdigit((unsigned char)idF[0]))
+                                if (auto* syF =
+                                        Lookup::unqualified(*structPkgScope, idF);
+                                    syF && syF->kind == SymbolKind::Parameter &&
+                                    syF->getParentScope() &&
+                                    syF->getParentScope()->asSymbol().kind ==
+                                        SymbolKind::Package &&
+                                    syF->getParentScope() != structPkgScope)
+                                    foreignPkgBound = true;
+                        }
                         // Typedef-member context: an IDENTIFIER bound
                         // ([MpRegions:0]) keeps a member-scoped ref_obj
                         // chained to the pkg param's def Rhs (Surelog).
@@ -414,7 +442,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         return;
                                     }
                             };
-                            if (ident) {
+                            if (ident && !foreignPkgBound) {
                                 auto* ro = s.MakeRef_obj();
                                 ro->VpiName(raw);
                                 ro->VpiFullName(syntaxRefPrefix + syntaxRefSep +
@@ -470,19 +498,82 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     op8->VpiParent(r);
                                     setLoc(op8, *loc);
                                     auto* opnds8 = s.MakeAnyVec();
-                                    auto* ro8 = s.MakeRef_obj();
-                                    ro8->VpiName(lTxt);
-                                    ro8->VpiFullName(syntaxRefPrefix +
-                                                     syntaxRefSep + lTxt);
-                                    ro8->VpiParent(op8);
-                                    setLoc(ro8, *loc);
-                                    ro8->VpiColumnNo(op8->VpiColumnNo() +
+                                    // A FOREIGN-package bound resolves its
+                                    // leaf: the op stays, but the identifier
+                                    // becomes the param's VALUE (size 32, a
+                                    // member-scoped ts ref -> a copy of the
+                                    // param's own int typespec, instanced at
+                                    // ITS package) — Surelog only leaves
+                                    // SAME-package bounds symbolic.
+                                    UHDM::expr* lf8 = nullptr;
+                                    if (foreignPkgBound && structPkgScope)
+                                        if (auto* fs8 = Lookup::unqualified(
+                                                *structPkgScope, lTxt))
+                                            if (fs8->kind ==
+                                                SymbolKind::Parameter) {
+                                                auto& fp8 =
+                                                    fs8->as<ParameterSymbol>();
+                                                auto& fv8 = fp8.getValue();
+                                                if (fv8 && fv8.isInteger() &&
+                                                    !fv8.integer()
+                                                         .hasUnknown()) {
+                                                    std::string fd8 =
+                                                        fv8.integer().toString(
+                                                            LiteralBase::Decimal,
+                                                            false);
+                                                    auto* fc8 = s.MakeConstant();
+                                                    fc8->VpiDecompile(fd8);
+                                                    fc8->VpiSize(32);
+                                                    fc8->VpiValue("UINT:" + fd8);
+                                                    fc8->VpiConstType(
+                                                        vpiUIntConst);
+                                                    auto* fts8 =
+                                                        s.MakeInt_typespec();
+                                                    if (auto fd0 =
+                                                            fp8.getDeclaredType())
+                                                        if (auto* ftsyn =
+                                                                fd0->getTypeSyntax())
+                                                            setLoc(fts8,
+                                                                   ftsyn->sourceRange());
+                                                    if (fp8.getType()
+                                                            .getCanonicalType()
+                                                            .isSigned())
+                                                        fts8->VpiSigned(true);
+                                                    if (auto fpsc =
+                                                            fp8.getParentScope())
+                                                        if (auto fpi = pkgDefMap.find(
+                                                                &fpsc->asSymbol());
+                                                            fpi != pkgDefMap.end())
+                                                            fts8->Instance(
+                                                                (UHDM::instance*)
+                                                                    fpi->second);
+                                                    auto* frt8 =
+                                                        s.MakeRef_typespec();
+                                                    frt8->VpiFullName(
+                                                        syntaxRefPrefix);
+                                                    frt8->VpiParent(fc8);
+                                                    frt8->Actual_typespec(fts8);
+                                                    fts8->VpiParent(frt8);
+                                                    fc8->Typespec(frt8);
+                                                    lf8 = fc8;
+                                                }
+                                            }
+                                    auto* ro8 = lf8 ? nullptr : s.MakeRef_obj();
+                                    if (ro8) {
+                                        ro8->VpiName(lTxt);
+                                        ro8->VpiFullName(syntaxRefPrefix +
+                                                         syntaxRefSep + lTxt);
+                                        bindPkgParam(ro8, lTxt);
+                                        lf8 = ro8;
+                                    }
+                                    lf8->VpiParent(op8);
+                                    setLoc(lf8, *loc);
+                                    lf8->VpiColumnNo(op8->VpiColumnNo() +
                                                      (int32_t)lOff);
-                                    ro8->VpiEndColumnNo(
+                                    lf8->VpiEndColumnNo(
                                         op8->VpiColumnNo() + (int32_t)lOff +
                                         (int32_t)lTxt.size());
-                                    ro8->VpiEndLineNo(op8->VpiLineNo());
-                                    bindPkgParam(ro8, lTxt);
+                                    lf8->VpiEndLineNo(op8->VpiLineNo());
                                     auto* c8 = s.MakeConstant();
                                     c8->VpiDecompile(rTxt);
                                     c8->VpiSize(64);
@@ -496,7 +587,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         op8->VpiColumnNo() + (int32_t)rOff +
                                         (int32_t)rTxt.size());
                                     c8->VpiEndLineNo(op8->VpiLineNo());
-                                    opnds8->push_back(ro8);
+                                    opnds8->push_back(lf8);
                                     opnds8->push_back(c8);
                                     op8->Operands(opnds8);
                                     return (UHDM::expr*)op8;
@@ -2340,6 +2431,45 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
     return ets;
 }
 
+// A member packed dimension written with an IDENTIFIER bound
+// (`pad_type_e [NDioPads-1:0] m`) leaves Surelog unable to type the struct's
+// pattern params, so those never flatten in the package views.  The dims live
+// in the member's TYPE syntax (between the type token and the declarator
+// name), so scan that raw text for a bracketed identifier.
+bool UhdmExporter::structHasSymbolicMemberDim(const Type& ty) {
+    auto& ct = ty.getCanonicalType();
+    if (ct.kind != SymbolKind::PackedStructType &&
+        ct.kind != SymbolKind::UnpackedStructType)
+        return false;
+    for (auto& fm : ct.as<Scope>().members()) {
+        if (fm.kind != SymbolKind::Field)
+            continue;
+        const syntax::SyntaxNode* mts = nullptr;
+        for (auto p2 = fm.getSyntax(); p2; p2 = p2->parent)
+            if (p2->kind == syntax::SyntaxKind::StructUnionMember) {
+                mts = p2->as<syntax::StructUnionMemberSyntax>().type;
+                break;
+            }
+        if (!mts)
+            continue;
+        SourceLocation a = mts->sourceRange().start(), b = fm.location;
+        if (!(a < b))
+            continue;
+        std::string txt = rawText(SourceRange(a, b));
+        int depth = 0;
+        for (char ch : txt) {
+            if (ch == '[')
+                depth++;
+            else if (ch == ']')
+                depth--;
+            else if (depth > 0 &&
+                     (isalpha((unsigned char)ch) || ch == '_'))
+                return true;
+        }
+    }
+    return false;
+}
+
 // Packed struct typespec: typespec_members with member-type Ref locations
 // and alias-scoped ref fullnames.
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
@@ -2366,8 +2496,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
              sc = sc->asSymbol().getParentScope())
             if (sc->asSymbol().kind == SymbolKind::Package) {
                 inPkg = true;
+                structPkgScope = sc;
                 break;
             }
+        if (!inPkg)
+            structPkgScope = nullptr;
         structMemberSymBound = namedTypedef && !inPkg;
     }
     auto* members = s.MakeTypespec_memberVec();
@@ -2791,6 +2924,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         members->push_back(tm);
     }
     structMemberSymBound = savedSymBound;
+    structPkgScope = nullptr;
     sts->Members(members);
     return sts;
 }

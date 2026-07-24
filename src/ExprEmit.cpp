@@ -1287,8 +1287,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || sysFuncArgFold)
+                        // Only a param MATERIALIZED into this module (read
+                        // through an import, i.e. UNQUALIFIED) carries the ts
+                        // ref; a QUALIFIED pkg::P read folds bare (the def ts
+                        // belongs to another module's import — Surelog,
+                        // BSOPPS*InGenForOfSubmodule).
                         if (auto tit = importedParamDefTs.find(&nv.symbol);
-                            tit != importedParamDefTs.end()) {
+                            tit != importedParamDefTs.end() &&
+                            rawText(expr.sourceRange).find("::") ==
+                                std::string::npos) {
                             auto* rt = s.MakeRef_typespec();
                             rt->VpiFullName(prefix);
                             rt->VpiParent(c);
@@ -4901,8 +4908,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // repeated bit pattern: a BIN constant at the member width with
                 // a BARE ts ref (Surelog). emitExpr would otherwise keep the
                 // op-34 multiconcat operation, so pre-build the folded constant.
+                // Only a PACKAGE param's pattern folds this way (in the package
+                // views and in an importing module's copy of it); a MODULE's OWN
+                // localparam pattern keeps the replication op in its def view
+                // (BSOPPS*InGenForOfSubmodule work@top.PinmuxTargetCfg).
                 UHDM::any* preE = nullptr;
-                if (paramInitDef &&
+                if (paramInitDef && (paramInitPkg || importedParamClone) &&
                     stripImplicitConv(*setter.expr).kind ==
                         ExpressionKind::Replication &&
                     setter.expr->type) {
@@ -4962,6 +4973,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             bc9->VpiDecompile("");
                             if (auto* brt9 = bc9->Typespec())
                                 brt9->VpiFullName("");
+                        }
+                    }
+                    // A MODULE-view copy of an imported param's pattern parents
+                    // its member-value constant at the TAGGED_PATTERN and names
+                    // that value's ts ref with the module prefix; the package
+                    // views leave both bare (Surelog, BSOPPS*/TSPWRIS def
+                    // views of work@<mod>.<imported param>).
+                    if (importedParamClone && paramInitDef &&
+                        e->UhdmType() == UHDM::uhdmconstant) {
+                        auto* mc9 = (UHDM::constant*)e;
+                        if (!mc9->VpiParent())
+                            mc9->VpiParent(tp);
+                        if (auto* mrt9 = mc9->Typespec();
+                            mrt9 && mrt9->VpiFullName().empty()) {
+                            std::string tsPfx9 = prefix;
+                            if (tsPfx9.size() >= 2 &&
+                                tsPfx9.compare(tsPfx9.size() - 2, 2, "::") == 0)
+                                tsPfx9.resize(tsPfx9.size() - 2);
+                            mrt9->VpiFullName(tsPfx9);
+                            mrt9->VpiParent(mc9);
                         }
                     }
                     tp->Pattern((UHDM::expr*)e);

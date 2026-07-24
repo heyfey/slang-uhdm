@@ -461,6 +461,11 @@ private:
                                        slang::SourceRange r);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
+    /// True when a packed struct/union has at least one member whose packed
+    /// dimension is written with an IDENTIFIER bound (`pad_type_e
+    /// [NDioPads-1:0] m`).  Surelog never flattens such a struct's pattern
+    /// param in the package views.
+    bool structHasSymbolicMemberDim(const slang::ast::Type& ty);
     /// `arr[3]` -> the span of the bare index token (`3`).  Surelog anchors the
     /// synthesized interface-array-element bit_select (and its index constant)
     /// there, not over the whole select expression.  Returns `range` unchanged
@@ -586,6 +591,10 @@ private:
     // Surelog keeps such members' packed-dim OPERATION bounds symbolic in the
     // elab view too (anonymous structs and PACKAGE typedefs fold them).
     bool structMemberSymBound = false;
+    // The PACKAGE scope declaring the struct currently being built (null for a
+    // module/$unit struct) — a member dim bound that resolves to a param of a
+    // DIFFERENT package folds instead of staying symbolic.
+    const slang::ast::Scope* structPkgScope = nullptr;
     // Which cont-assign RHS view is being emitted: 0 = not in a cont-assign
     // RHS, 1 = def (allModules), 2 = elab (topModules). Unbased-unsized
     // func-call args key their formal-ts/fold behavior on this.
