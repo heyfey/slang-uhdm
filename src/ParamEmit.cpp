@@ -409,6 +409,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // String params carry a STRING:<text> value.
             if (defaultInit && literalInit && cv.isString())
                 up->VpiValue("STRING:" + cv.str());
+            // The value mirrors the INIT LITERAL's kind, not the param type:
+            // a REAL literal keeps REAL:%f even on an integral param (p1);
+            // an INT literal keeps UINT even on a real param (p3) — realexpr.
+            if (defaultInit) {
+                auto& il9 = stripImplicitConv(*defaultInit);
+                if (il9.kind == ExpressionKind::RealLiteral && !cv.isReal()) {
+                    char buf9[64];
+                    snprintf(buf9, sizeof(buf9), "%f",
+                             il9.as<RealLiteral>().getValue());
+                    up->VpiValue(std::string("REAL:") + buf9);
+                }
+                else if (il9.kind == ExpressionKind::IntegerLiteral &&
+                         cv.isReal())
+                    up->VpiValue("UINT:" +
+                                 std::string(rawText(il9.sourceRange)));
+            }
             // Untyped params carry a typespec only for LITERAL initializers;
             // computed values ($clog2(W), 2**S) get none. Typed and ranged
             // params always do.
@@ -2487,7 +2503,11 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
             intTs->VpiSigned(sgn);
         its = intTs;
     }
-    if (!stringParam && !sharedAggTs)
+    // An UNTYPED param inferred REAL keeps its real_typespec LOC-LESS
+    // (realexpr p4); typed real params locate at the type token.
+    bool untypedReal9 =
+        !typedParam && ps.getType().getCanonicalType().isFloating();
+    if (!stringParam && !sharedAggTs && !untypedReal9)
         setLoc(its, tr);
     // A ranged untyped param (parameter [0:0] X) carries the packed range on
     // its int_typespec, with located UINT bounds.

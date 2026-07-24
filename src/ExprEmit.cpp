@@ -1575,6 +1575,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             char buf[64];
             snprintf(buf, sizeof(buf), "%f", rl.getValue());
             c->VpiValue(std::string("REAL:") + buf);
+            // A real literal in an ELAB PARAM INIT decompiles %f (the
+            // param-fold form, realexpr); the def view and expression
+            // literals keep the source text.
+            if (inParamInit && !paramInitDef)
+                c->VpiDecompile(buf);
             c->VpiConstType(vpiRealConst);
             setLoc(c, expr.sourceRange);
             if (forceConstParent ||

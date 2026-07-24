@@ -868,6 +868,14 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
             }
             if (nonAnsiParent)
                 continue;
+            // A child whose #(...) override TEXTS differ while the folded
+            // VALUES coincide (demo_003 #(1.0)/#(1)) omits the ref_module
+            // (Surelog's pre-elab textual uniquification conflicts with the
+            // value merge); value-distinct multis keep theirs
+            // (param_no_default).
+            if (textMultiParamDefs.count(&child.getDefinition()) &&
+                !multiParamDefs.count(&child.getDefinition()))
+                continue;
         }
         auto* rm = s.MakeRef_module();
         rm->VpiName(child.name);

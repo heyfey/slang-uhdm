@@ -177,10 +177,28 @@ static std::string paramTuple(const InstanceSymbol& inst) {
 
 void UhdmExporter::computeParamMultiplicity() {
     std::map<const DefinitionSymbol*, std::set<std::string>> perDef;
+    // TEXTUAL override multiplicity: distinct #(...) raw texts across
+    // instances (Surelog uniquifies pre-elab, so #(1.0) vs #(1) differ even
+    // when the folded values coincide — realexpr).
+    std::map<const DefinitionSymbol*, std::set<std::string>> perDefText;
     std::function<void(const Symbol&)> visit = [&](const Symbol& member) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
             perDef[&child.getDefinition()].insert(paramTuple(child));
+            {
+                std::string ptxt9;
+                for (auto p9 = child.getSyntax(); p9; p9 = p9->parent)
+                    if (p9->kind ==
+                        syntax::SyntaxKind::HierarchyInstantiation) {
+                        if (auto* pva9 =
+                                p9->as<syntax::HierarchyInstantiationSyntax>()
+                                    .parameters)
+                            ptxt9 = std::string(
+                                rawText(pva9->sourceRange()));
+                        break;
+                    }
+                perDefText[&child.getDefinition()].insert(ptxt9);
+            }
             for (auto& gm : child.body.members())
                 visit(gm);
         }
@@ -205,6 +223,9 @@ void UhdmExporter::computeParamMultiplicity() {
     for (auto& [def, tuples] : perDef)
         if (tuples.size() > 1)
             multiParamDefs.insert(def);
+    for (auto& [def, texts] : perDefText)
+        if (texts.size() > 1)
+            textMultiParamDefs.insert(def);
 }
 
 bool UhdmExporter::isMultiParamDef(const Scope& body) const {

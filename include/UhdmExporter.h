@@ -290,6 +290,9 @@ private:
     // encode UINT/size32/ct9, and parameterized interface port-views keep a
     // param_assign). Populated by computeParamMultiplicity().
     std::set<const slang::ast::DefinitionSymbol*> multiParamDefs;
+    // Defs with >1 DISTINCT #(...) override raw text (pre-elab textual
+    // uniquification, realexpr).
+    std::set<const slang::ast::DefinitionSymbol*> textMultiParamDefs;
     void computeParamMultiplicity();
     bool isMultiParamDef(const slang::ast::Scope& body) const;
     void patchParamTypespecs(size_t lo, size_t hi);
