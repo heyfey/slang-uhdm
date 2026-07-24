@@ -1808,11 +1808,71 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiOpType(vpiCastOp);
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
+            // An INNER signed'(x)/unsigned'(x) under a size cast is merged
+            // into the conversion by slang — re-materialize it as a
+            // $signed/$unsigned sys_func_call operand (static_cast_simple).
+            auto wrapSignCast9 = [&](UHDM::any* e0) -> UHDM::any* {
+                if (!e0 || e0->UhdmType() == UHDM::uhdmsys_func_call)
+                    return e0;
+                if (!effCastSyn ||
+                    effCastSyn->kind != syntax::SyntaxKind::CastExpression)
+                    return e0;
+                auto& ce0 = effCastSyn->as<syntax::CastExpressionSyntax>();
+                const syntax::SyntaxNode* r0 = ce0.right;
+                while (r0 &&
+                       r0->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    r0 = r0->as<syntax::ParenthesizedExpressionSyntax>()
+                             .expression;
+                if (!r0 ||
+                    r0->kind != syntax::SyntaxKind::SignedCastExpression)
+                    return e0;
+                auto& scs0 = r0->as<syntax::SignedCastExpressionSyntax>();
+                auto* sc0 = s.MakeSys_func_call();
+                sc0->VpiName("$" + std::string(scs0.signing.valueText()));
+                sc0->VpiParent(op);
+                setLoc(sc0, r0->sourceRange());
+                // If the syntax-less inner conversion emitted a generic
+                // cast op, unwrap it — the call's argument is the bare
+                // operand (Surelog).
+                UHDM::any* arg0 = e0;
+                if (e0->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)e0)->VpiOpType() == vpiCastOp &&
+                    ((UHDM::operation*)e0)->Operands() &&
+                    ((UHDM::operation*)e0)->Operands()->size() == 1)
+                    arg0 = (*((UHDM::operation*)e0)->Operands())[0];
+                auto* args0 = s.MakeAnyVec();
+                ((UHDM::any*)arg0)->VpiParent(sc0);
+                args0->push_back(arg0);
+                sc0->Tf_call_args(args0);
+                return (UHDM::any*)sc0;
+            };
             UHDM::typespec* cts = nullptr;
             // Size casts ("4'(x)") carry an integer_typespec at the size
             // literal; type casts use the target type's typespec.
             if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::SignedCastExpression) {
-                noteUnsupported("signed cast form");
+                // signed'(x)/unsigned'(x) -> a $signed/$unsigned
+                // sys_func_call wrapping the operand (static_cast_simple).
+                auto& scs9 = effCastSyn->as<syntax::SignedCastExpressionSyntax>();
+                auto* sc9 = s.MakeSys_func_call();
+                std::string kw9(scs9.signing.valueText());
+                sc9->VpiName("$" + kw9);
+                sc9->VpiParent(parent);
+                setLoc(sc9, effCastSyn->sourceRange());
+                // Skip the syntax-less reinterpret conversion slang nests
+                // under the sign cast.
+                const Expression* inner9 = &conv.operand();
+                while (inner9->kind == ExpressionKind::Conversion &&
+                       (inner9->as<ConversionExpression>().isImplicit() ||
+                        !inner9->syntax || inner9->syntax == effCastSyn ||
+                        inner9->syntax->kind ==
+                            syntax::SyntaxKind::SignedCastExpression))
+                    inner9 = &inner9->as<ConversionExpression>().operand();
+                if (auto* a9 = emitExpr(*inner9, sc9, prefix, netMap)) {
+                    auto* args9 = s.MakeAnyVec();
+                    args9->push_back(a9);
+                    sc9->Tf_call_args(args9);
+                }
+                return sc9;
             }
             bool deferredCast = false;
             if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
@@ -1936,9 +1996,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                  sm->getColumnNumber(lr.end()), "",
                                                  &sizeExpr, prefix});
                         op->Typespec(rt0);
+                        // Nested size casts (8'(4'(x))): the inner
+                        // conversion lost its syntax — pass it down.
+                        {
+                            const Expression* c1p9 = &conv.operand();
+                            while (c1p9->kind == ExpressionKind::Conversion &&
+                                   c1p9->as<ConversionExpression>().isImplicit())
+                                c1p9 = &c1p9->as<ConversionExpression>()
+                                            .operand();
+                            if (c1p9->kind == ExpressionKind::Conversion &&
+                                !c1p9->as<ConversionExpression>().isImplicit() &&
+                                (!c1p9->syntax ||
+                                 c1p9->syntax->kind !=
+                                     syntax::SyntaxKind::CastExpression)) {
+                                const syntax::ExpressionSyntax* rs9 =
+                                    effCastSyn
+                                        ->as<syntax::CastExpressionSyntax>()
+                                        .right->expression;
+                                while (rs9 && rs9->kind ==
+                                                  syntax::SyntaxKind::
+                                                      ParenthesizedExpression)
+                                    rs9 = rs9->as<syntax::
+                                                      ParenthesizedExpressionSyntax>()
+                                              .expression;
+                                if (rs9 &&
+                                    rs9->kind ==
+                                        syntax::SyntaxKind::CastExpression)
+                                    castSynOverride = rs9;
+                            }
+                        }
                         auto* operandsD = s.MakeAnyVec();
                         if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
-                            operandsD->push_back(e);
+                            operandsD->push_back(wrapSignCast9(e));
+                        castSynOverride = nullptr;
                         op->Operands(operandsD);
                         return op;
                     }
@@ -2070,9 +2160,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
             }
             if (deferredCast) {
+                // Nested size casts (8'(4'(x))) lose the INNER conversion's
+                // syntax in deferred (reemit) contexts too — pass it down.
+                {
+                    const Expression* c1p = &conv.operand();
+                    while (c1p->kind == ExpressionKind::Conversion &&
+                           c1p->as<ConversionExpression>().isImplicit())
+                        c1p = &c1p->as<ConversionExpression>().operand();
+                    if (c1p->kind == ExpressionKind::Conversion &&
+                        !c1p->as<ConversionExpression>().isImplicit() &&
+                        (!c1p->syntax ||
+                         c1p->syntax->kind !=
+                             syntax::SyntaxKind::CastExpression) &&
+                        effCastSyn &&
+                        effCastSyn->kind ==
+                            syntax::SyntaxKind::CastExpression) {
+                        const syntax::ExpressionSyntax* rsynD =
+                            effCastSyn->as<syntax::CastExpressionSyntax>()
+                                .right->expression;
+                        while (rsynD &&
+                               rsynD->kind ==
+                                   syntax::SyntaxKind::ParenthesizedExpression)
+                            rsynD =
+                                rsynD->as<syntax::ParenthesizedExpressionSyntax>()
+                                    .expression;
+                        if (rsynD &&
+                            rsynD->kind == syntax::SyntaxKind::CastExpression)
+                            castSynOverride = rsynD;
+                    }
+                }
                 auto* operandsD = s.MakeAnyVec();
                 if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
-                    operandsD->push_back(e);
+                    operandsD->push_back(wrapSignCast9(e));
+                castSynOverride = nullptr;
                 op->Operands(operandsD);
                 return op;
             }
@@ -2087,7 +2207,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // outer's in the arena), with the inner CastExpression syntax
             // recovered from the outer's parenthesized operand.
             UHDM::any* nestedOperand = nullptr;
-            if (!cts && effCastSyn &&
+            // (Runs regardless of cts — a size-in-size nest 8'(4'(x)) has
+            // cts already built for the OUTER but the inner still needs its
+            // syntax passed down — static_cast_simple u3/u4/u5.)
+            if (effCastSyn &&
                 effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
                 const Expression* c1p = &conv.operand();
                 while (c1p->kind == ExpressionKind::Conversion &&
@@ -2166,7 +2289,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (nestedOperand)
                 operands->push_back(nestedOperand);
             else if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
-                operands->push_back(e);
+                operands->push_back(wrapSignCast9(e));
             suppressRefActual = savedSRA;
             op->Operands(operands);
             return op;
