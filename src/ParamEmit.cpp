@@ -1231,6 +1231,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                         if (!se)
                             continue;
+                        // A NESTED struct-pattern member is KEPT as a nested
+                        // op75 in the ELAB view — Surelog does NOT fold the
+                        // inner pattern. Recurse via the reemitting path, which
+                        // builds the op with a BARE ts ref to the member's
+                        // typedef struct typespec and leaf constants at their
+                        // source encoding (based literals keep width; an
+                        // unbased int leaf keeps its 64-bit default size).
+                        {
+                            auto& seN = stripImplicitConv(*se);
+                            const Type& fct = fld.getType().getCanonicalType();
+                            if ((seN.kind ==
+                                     ExpressionKind::StructuredAssignmentPattern ||
+                                 seN.kind ==
+                                     ExpressionKind::SimpleAssignmentPattern) &&
+                                fct.kind == SymbolKind::PackedStructType) {
+                                bool savedRe = reemitting;
+                                reemitting = true;
+                                auto* ne = emitExpr(seN, op2, prefix, netMap);
+                                reemitting = savedRe;
+                                if (ne) {
+                                    ((UHDM::any*)ne)->VpiParent(op2);
+                                    opnds->push_back(ne);
+                                }
+                                continue;
+                            }
+                        }
                         // A LITERAL setter keeps its source encoding (1'b1 ->
                         // BIN, parented at the op via emitExpr); non-literal
                         // setters fold to UINT at the member width.

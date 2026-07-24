@@ -513,6 +513,12 @@ private:
     // default-instantiated body while the iface vars' typespecs are built.
     const slang::ast::Scope* ifaceDefaultScope = nullptr;
     std::map<const void*, const slang::ast::InstanceSymbol*> ifaceDefaultInst;
+    // Elab child-instance packed-range bounds that reach an interface param
+    // through a modport/interface port fold at the interface's DEFAULT param
+    // value (the AllModules width), NOT the connected override — Surelog.
+    // Keyed by the interface definition; the cached default instance supplies
+    // each through-port param's default value.
+    std::map<const void*, const slang::ast::InstanceSymbol*> moduleDefaultInst;
     // Surelog can't resolve block-scoped localparams; refs to them bind an
     // implicit module-level wire created at the first reference.
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;

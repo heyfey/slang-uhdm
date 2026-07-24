@@ -778,11 +778,150 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             }
                         }
                         // ...but only in the DEF/generic view. An ELABORATED
-                        // child-instance body folds the bound to its concrete
-                        // per-instance width (Surelog). elabInstanceTs marks
-                        // the elab-instance net/var typespec emission.
-                        if (ifacePortBound && elabInstanceTs)
+                        // child-instance body folds the bound (Surelog).
+                        // elabInstanceTs marks the elab-instance net/var
+                        // typespec emission. The fold uses the interface's
+                        // DEFAULT param value (the AllModules width), NOT the
+                        // connected per-instance override. Re-evaluate the
+                        // bound substituting each interface param reached
+                        // through the port with its DEFAULT value: an external
+                        // (through-port) parameter resolves to a default
+                        // instance of its OWN interface definition (safe to
+                        // instantiate — no port hop), while local params and
+                        // literals fold normally.
+                        if (ifacePortBound && elabInstanceTs) {
                             ifacePortBound = false;
+                            const InstanceBodySymbol* ib2 = nullptr;
+                            for (auto sc = declSymbol.getParentScope(); sc;
+                                 sc = sc->asSymbol().getParentScope())
+                                if (sc->asSymbol().kind ==
+                                    SymbolKind::InstanceBody) {
+                                    ib2 = &sc->asSymbol()
+                                               .as<InstanceBodySymbol>();
+                                    break;
+                                }
+                            if (ib2 && bsyn && currentScope) {
+                                ASTContext bctx(*currentScope,
+                                                LookupLocation::max);
+                                auto& be = Expression::bind(*bsyn, bctx);
+                                std::function<std::optional<ConstantValue>(
+                                    const Expression&)>
+                                    evalDef =
+                                        [&](const Expression& e)
+                                        -> std::optional<ConstantValue> {
+                                    switch (e.kind) {
+                                    case ExpressionKind::Conversion:
+                                        return evalDef(
+                                            e.as<ConversionExpression>()
+                                                .operand());
+                                    case ExpressionKind::UnaryOp: {
+                                        auto& u = e.as<UnaryExpression>();
+                                        auto ov = evalDef(u.operand());
+                                        if (!ov)
+                                            return std::nullopt;
+                                        if (u.op == UnaryOperator::Minus)
+                                            return ConstantValue(-ov->integer());
+                                        if (u.op == UnaryOperator::Plus)
+                                            return ov;
+                                        return std::nullopt;
+                                    }
+                                    case ExpressionKind::BinaryOp: {
+                                        auto& b = e.as<BinaryExpression>();
+                                        auto l = evalDef(b.left());
+                                        auto r = evalDef(b.right());
+                                        if (!l || !r)
+                                            return std::nullopt;
+                                        auto cv = OpInfo::eval(b.op, *l, *r);
+                                        if (cv.isInteger())
+                                            return cv;
+                                        return std::nullopt;
+                                    }
+                                    case ExpressionKind::NamedValue:
+                                    case ExpressionKind::HierarchicalValue: {
+                                        const Symbol& sym =
+                                            e.kind == ExpressionKind::NamedValue
+                                                ? e.as<NamedValueExpression>()
+                                                      .symbol
+                                                : e.as<HierarchicalValueExpression>()
+                                                      .symbol;
+                                        if (sym.kind == SymbolKind::Parameter) {
+                                            const InstanceBodySymbol* pib =
+                                                nullptr;
+                                            for (auto sc = sym.getParentScope();
+                                                 sc;
+                                                 sc = sc->asSymbol()
+                                                          .getParentScope())
+                                                if (sc->asSymbol().kind ==
+                                                    SymbolKind::InstanceBody) {
+                                                    pib = &sc->asSymbol()
+                                                               .as<InstanceBodySymbol>();
+                                                    break;
+                                                }
+                                            // External (through-port) interface
+                                            // param: substitute the interface
+                                            // DEFAULT value.
+                                            if (pib && pib != ib2 &&
+                                                pib->getDefinition()
+                                                        .definitionKind ==
+                                                    DefinitionKind::Interface) {
+                                                auto& pdef =
+                                                    pib->getDefinition();
+                                                auto dfIt =
+                                                    moduleDefaultInst.find(
+                                                        &pdef);
+                                                if (dfIt ==
+                                                    moduleDefaultInst.end())
+                                                    dfIt =
+                                                        moduleDefaultInst
+                                                            .emplace(
+                                                                &pdef,
+                                                                &InstanceSymbol::
+                                                                    createDefault(
+                                                                        comp,
+                                                                        pdef))
+                                                            .first;
+                                                if (auto* dsym =
+                                                        dfIt->second->body.find(
+                                                            std::string(
+                                                                sym.name));
+                                                    dsym &&
+                                                    dsym->kind ==
+                                                        SymbolKind::Parameter) {
+                                                    auto dv =
+                                                        dsym->as<ParameterSymbol>()
+                                                            .getValue();
+                                                    if (dv.isInteger())
+                                                        return dv;
+                                                }
+                                            }
+                                            auto pv =
+                                                sym.as<ParameterSymbol>()
+                                                    .getValue();
+                                            if (pv.isInteger())
+                                                return pv;
+                                            return std::nullopt;
+                                        }
+                                        return std::nullopt;
+                                    }
+                                    default: {
+                                        // Literals and param-free subtrees fold
+                                        // via the normal instance context.
+                                        ASTContext ec(*currentScope,
+                                                      LookupLocation::max);
+                                        if (auto cv = ec.tryEval(e);
+                                            cv && cv.isInteger())
+                                            return cv;
+                                        return std::nullopt;
+                                    }
+                                    }
+                                };
+                                if (!be.bad())
+                                    if (auto dcv = evalDef(be);
+                                        dcv && dcv->isInteger() &&
+                                        !dcv->integer().hasUnknown())
+                                        value = *dcv->integer().as<int64_t>();
+                            }
+                        }
                         if (tfContext || bitsOfSignal || bareParamInParamTs ||
                             defModuleParamDim || ifacePortBound) {
                             // Function/typedef context: unfolded expression.

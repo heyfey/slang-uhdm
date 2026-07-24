@@ -3073,7 +3073,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          ExpressionKind::NamedValue)) {
                     std::string baseDotted = rawText(rs.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
-                        std::string selText = selName(rawText(expr.sourceRange));
+                        // Surelog's decompiler renders the part-select NAME from
+                        // the bound exprs: binary operators get surrounding
+                        // SPACES ([ADR-1] -> [ADR - 1]), and a bound that is
+                        // itself a hier/dotted reference (sub.OFF) is DROPPED
+                        // (empty). The indexed (+:/-:) form keeps the raw
+                        // space-stripped text.
+                        auto spaceOps9 = [](const std::string& in) {
+                            std::string o;
+                            for (size_t i = 0; i < in.size(); i++) {
+                                char c = in[i];
+                                if ((c == '+' || c == '-' || c == '*' ||
+                                     c == '/') &&
+                                    i > 0 && in[i - 1] != ' ' && in[i - 1] != '[') {
+                                    o += ' ';
+                                    o += c;
+                                    if (i + 1 < in.size() && in[i + 1] != ' ')
+                                        o += ' ';
+                                }
+                                else
+                                    o += c;
+                            }
+                            return o;
+                        };
+                        auto renderBound9 = [&](const Expression& b) -> std::string {
+                            std::string raw = rawText(b.sourceRange);
+                            if (raw.find('.') != std::string::npos)
+                                return std::string();
+                            return spaceOps9(raw);
+                        };
+                        std::string selText;
+                        if (rs.getSelectionKind() == RangeSelectionKind::Simple)
+                            selText = selName(baseDotted) + "[" +
+                                      renderBound9(rs.left()) + ":" +
+                                      renderBound9(rs.right()) + "]";
+                        else
+                            selText = selName(rawText(expr.sourceRange));
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);
                         hp->VpiFullName(selText);
@@ -3130,7 +3165,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         std::string lastName =
                             comps.empty() ? std::string{} : comps.back().first;
                         size_t lastOff = comps.empty() ? 0 : comps.back().second;
-                        SourceRange selLoc(exprStart + lastOff, expr.sourceRange.end());
+                        // The part_select span stops at the LAST bound's end
+                        // (before the ']'), matching Surelog — not the whole
+                        // expr end.
+                        SourceRange selLoc(exprStart + lastOff,
+                                           rs.right().sourceRange.end());
                         bool constSel = false;
                         {
                             ASTContext cctx(comp.getRoot(), LookupLocation::max);
