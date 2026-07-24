@@ -774,6 +774,8 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     }
     auto* mts = s.MakeModule_typespec();
     mts->VpiName(adef.name);
+    // Parented at the module_array it types (Surelog).
+    mts->VpiParent(ma);
     // Located at the instantiation's TYPE token (Surelog).
     if (instTypeSyn9)
         setLoc(mts,
@@ -852,6 +854,20 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
             isTopDef = true;
             break;
         }
+    // Instance ARRAYS are compiled BEFORE this def's own ports (their
+    // module_array/module_typespec precede the port typespecs in Surelog's
+    // arena — visible as the weakly-referenced tail order).
+    UHDM::VectorOfmodule_array* moduleArrays = nullptr;
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::InstanceArray)
+            continue;
+        if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
+                                       prefix, info.nets, false)) {
+            if (!moduleArrays)
+                moduleArrays = s.MakeModule_arrayVec();
+            moduleArrays->push_back(ma);
+        }
+    }
     defPortDim = !isTopDef;
     emitPorts(body, m, prefix, info.nets, /*topView=*/false, &defTs);
     defPortDim = false;
@@ -859,17 +875,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
     // Child instance references (def view uses ref_module stubs; bound
     // instances are skipped in the def view).
     auto* refmods = s.MakeRef_moduleVec();
-    UHDM::VectorOfmodule_array* moduleArrays = nullptr;
     for (auto& member : body.members()) {
-        if (member.kind == SymbolKind::InstanceArray) {
-            if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
-                                           prefix, info.nets, false)) {
-                if (!moduleArrays)
-                    moduleArrays = s.MakeModule_arrayVec();
-                moduleArrays->push_back(ma);
-            }
-            continue;
-        }
         if (member.kind != SymbolKind::Instance)
             continue;
         auto& child = member.as<InstanceSymbol>();
@@ -1038,14 +1044,19 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
                             bs->VpiFullName(prefix + "." + std::string(child.name) +
                                             "." + base);
                             bs->VpiParent(p);
-                            setLoc(bs, expr->sourceRange);
+                            // Surelog spans this synthesized bit_select (and
+                            // its index constant) over the INDEX token only,
+                            // not the whole `arr[0]` connection expression.
+                            SourceRange ixr9 =
+                                ifaceElemIndexRange(expr->sourceRange);
+                            setLoc(bs, ixr9);
                             auto* ic = s.MakeConstant();
                             ic->VpiValue("UINT:" + idxS);
                             ic->VpiDecompile(idxS);
                             ic->VpiSize(64);
                             ic->VpiConstType(vpiUIntConst);
                             ic->VpiParent(bs);
-                            setLoc(ic, expr->sourceRange);
+                            setLoc(ic, ixr9);
                             bs->VpiIndex(ic);
                             h = bs;
                         }
@@ -2810,6 +2821,19 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     auto* portIfaces = s.MakeInterface_instVec();
     if (!isTop) {
         std::vector<UHDM::port*> ifPortList;
+        // A MODPORT-qualified elab port's interface_typespec is created AFTER
+        // the port's own interface VIEW (its member typespecs precede it in
+        // Surelog's arena).  A PLAIN interface port, and an ARRAY-ELEMENT
+        // connection (.b(arr[0])), keep the typespec-first order.
+        std::vector<std::pair<const Symbol*, UHDM::ref_typespec*>> elabIfPortTs;
+        auto fillIfPortTs = [&](const Symbol* key) {
+            for (auto& [k9, rt9] : elabIfPortTs)
+                if (k9 == key && rt9) {
+                    rt9->Actual_typespec(
+                        makeIfacePortTs(key->as<InterfacePortSymbol>()));
+                    rt9 = nullptr;
+                }
+        };
         for (auto portBase : body.getPortList()) {
             if (portBase->kind != SymbolKind::InterfacePort)
                 continue;
@@ -2906,8 +2930,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         bs->VpiName(base);
                         bs->VpiFullName(prefix + "." + base);
                         bs->VpiParent(p);
+                        // Surelog spans this synthesized bit_select (and its
+                        // index constant) over the INDEX token only, not the
+                        // whole `arr[0]` connection expression.
                         if (iconn && connectionExpr(*iconn))
-                            setLoc(bs, connectionExpr(*iconn)->sourceRange);
+                            setLoc(bs, ifaceElemIndexRange(
+                                           connectionExpr(*iconn)->sourceRange));
                         auto* ic = s.MakeConstant();
                         ic->VpiValue("UINT:" + idxS);
                         ic->VpiDecompile(idxS);
@@ -2915,7 +2943,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         ic->VpiConstType(vpiUIntConst);
                         ic->VpiParent(bs);
                         if (iconn && connectionExpr(*iconn))
-                            setLoc(ic, connectionExpr(*iconn)->sourceRange);
+                            setLoc(ic, ifaceElemIndexRange(
+                                           connectionExpr(*iconn)->sourceRange));
                         bs->VpiIndex(ic);
                         p->High_conn(bs);
                     }
@@ -2980,11 +3009,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         p->High_conn(hc);
                     }
                 }
-                auto* its = makeIfacePortTs(ip);
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(ip.name));
                 rt->VpiParent(p);
-                rt->Actual_typespec(its);
+                if (ip.modport.empty() ||
+                    connRaw.find('[') != std::string::npos)
+                    rt->Actual_typespec(makeIfacePortTs(ip));
+                else
+                    elabIfPortTs.push_back({portBase, rt});
                 p->Typespec(rt);
                 ifacePortObjs[portBase] = p;
                 ifPortList.push_back(p);
@@ -3146,7 +3178,12 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
                         ((UHDM::ref_obj*)pp->Low_conn())->Actual_group(iarr);
             }
+            fillIfPortTs(portBase);
         }
+        for (auto& [k9, rt9] : elabIfPortTs)
+            if (rt9)
+                rt9->Actual_typespec(
+                    makeIfacePortTs(k9->as<InterfacePortSymbol>()));
     }
 
     auto* children = s.MakeModule_instVec();
@@ -7685,32 +7722,26 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             selLitLhs = l9.kind == ExpressionKind::ElementSelect ||
                         l9.kind == ExpressionKind::RangeSelect;
         }
-        // An interface-port member LHS (ss_if.start_addr) in a CHILD elab
-        // instance re-emits a FRESH cont_assign (hier_path Lhs, bare Rhs).
+        // An interface-member LHS (ss_if.start_addr, u_if.f) re-emits a FRESH
+        // elab cont_assign (hier_path Lhs, bare Rhs) — but ONLY when the RHS
+        // is a LITERAL.  Surelog re-compiles the assignment in the netlist
+        // pass exactly when the RHS has to be re-sized against the interface
+        // member; every reference/select RHS keeps the SHARED def object.
+        // The base is either the module's own interface PORT or a LOCAL
+        // interface instance (InterfaceAsPort's top-level u_sim_sram_if).
         bool ifaceDotFresh = false;
         {
             auto& l0 = stripImplicitConv(ae.left());
             std::string lraw = std::string(rawText(l0.sourceRange));
             auto ldot = lraw.find('.');
-            if (topView && l0.kind == ExpressionKind::HierarchicalValue &&
-                prefix.find('.') != std::string::npos && ldot != std::string::npos) {
+            if (topView && literalRhs &&
+                l0.kind == ExpressionKind::HierarchicalValue &&
+                ldot != std::string::npos) {
                 auto* bsym = body.find(lraw.substr(0, ldot));
-                if (bsym && bsym->kind == SymbolKind::InterfacePort) {
+                if (bsym && (bsym->kind == SymbolKind::InterfacePort ||
+                             (bsym->kind == SymbolKind::Instance &&
+                              bsym->as<InstanceSymbol>().isInterface())))
                     ifaceDotFresh = true;
-                    // A PASSTHROUGH-connected port (the conn names the
-                    // instantiating module's own iface PORT) keeps the
-                    // SHARED def cont_assign.
-                    if (auto pi9 = body.parentInstance)
-                        for (auto pc9 : pi9->getPortConnections())
-                            if (&pc9->port == bsym)
-                                if (auto ce9 = connectionExpr(*pc9))
-                                    if (auto ps9 = pi9->getParentScope())
-                                        if (auto* cs9 = ps9->find(
-                                                rawText(ce9->sourceRange));
-                                            cs9 && cs9->kind ==
-                                                       SymbolKind::InterfacePort)
-                                            ifaceDotFresh = false;
-                }
             }
         }
         // A select-LHS over an UNPACKED-array base (intermediate[3] = ...,
@@ -10317,6 +10348,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         bool implicitNet = it.sym->kind == SymbolKind::Net &&
                            it.sym->as<NetSymbol>().isImplicit;
 
+        UHDM::ref_typespec* baseRt9 = nullptr;
         if (!it.port && !implicitNet) {
             // Deferred to the write phase (Surelog arena order), which also
             // extends the span through an initializer.
@@ -10328,8 +10360,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             // directly (no logic_typespec fold).
             if (auto* sts = structElemTs(*it.sym))
                 rt->Actual_typespec(sts);
-            else
+            else {
                 pendingNetTs.push_back({it.sym, rt, &info});
+                baseRt9 = rt;
+            }
         }
         // Record the def net so def-view port LowConns can bind to it.
         info.nets[it.sym] = n;
@@ -10369,6 +10403,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                     isExplicitPkgQualified(*it.sym) &&
                     !hasStructFieldMember(*it.sym))
                     in9->VpiNetType(vpiWire);
+            }
+            else if (baseRt9) {
+                // Base net and array_net inner net share ONE logic_typespec
+                // object (Surelog's per-declaration TypespecCache).
+                in9->VpiNetType(36);
+                netTsAlias.push_back({irt9, baseRt9});
             }
             else {
                 in9->VpiNetType(36);
@@ -10850,6 +10890,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     auto* vars = s.MakeVariablesVec();
     auto* elabNets = s.MakeNetVec();
     UHDM::VectorOfarray_net* elabArrayNets = nullptr;
+    // All declarators of ONE declaration (logic vld, rdy, trn;) share a single
+    // typespec object per interface view; its parent ends up the LAST net of
+    // the declaration (Surelog's TypespecCache — same as the module elab view).
+    TsCache ifaceNetTs;
     for (auto& it : collectNetOrder(body)) {
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
@@ -11010,7 +11054,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 if (it.sym->getDeclaredType() &&
                     it.sym->getDeclaredType()->getType().isSigned())
                     ln->VpiSigned(true);
-                if (auto* ts = makeTypespec(*it.sym)) {
+                if (auto* ts = sharedTypespec(*it.sym, ifaceNetTs)) {
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiFullName(fullName);
                     rt->VpiParent(ln);
@@ -11035,7 +11079,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 if (dr.start() != SourceLocation::NoLocation)
                     setLoc(v, dr);
             }
-        auto* ts = makeTypespec(*it.sym);
+        auto* ts = sharedTypespec(*it.sym, ifaceNetTs);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName);
         rt->VpiParent(v);

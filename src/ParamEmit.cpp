@@ -3848,8 +3848,15 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                         qualified0 =
                             tsyn0->as<syntax::NamedTypeSyntax>().name->kind ==
                             syntax::SyntaxKind::ScopedName;
+                    // An INTERFACE instance's aggregate parameter never shares
+                    // the package typespec: Surelog clones the whole struct
+                    // family per interface VIEW (iface_cfg_mem).
+                    bool ifaceOwner0 = false;
+                    if (auto* ob0 = paramOwnerBody(*ps))
+                        ifaceOwner0 = ob0->getDefinition().definitionKind ==
+                                      DefinitionKind::Interface;
                     if (auto sc = taSym.getParentScope();
-                        qualified0 && sc &&
+                        qualified0 && !ifaceOwner0 && sc &&
                         sc->asSymbol().kind == SymbolKind::Package) {
                         if (auto tit = pkgTopTypedefTs.find(&taSym);
                             tit != pkgTopTypedefTs.end()) {

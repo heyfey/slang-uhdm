@@ -949,6 +949,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     topPendings.clear();
     pendingParamTs.clear();
     pendingNetTs.clear();
+    for (auto& [dst, src] : netTsAlias)
+        if (dst && src && !dst->Actual_typespec())
+            dst->Actual_typespec(src->Actual_typespec());
+    netTsAlias.clear();
 
     // Bind enum-value refs whose enum_const was only materialized in the
     // deferred typespec pass (anonymous enums).
@@ -1367,6 +1371,21 @@ std::string UhdmExporter::rawText(SourceRange range) {
     if (end > text.size() || start > end)
         return "";
     return std::string(text.substr(start, end - start));
+}
+
+SourceRange UhdmExporter::ifaceElemIndexRange(SourceRange range) {
+    std::string t = rawText(range);
+    auto lb = t.find('[');
+    if (lb == std::string::npos || t.empty() || t.back() != ']')
+        return range;
+    size_t b = lb + 1, e = t.size() - 1;
+    while (b < e && isspace((unsigned char)t[b]))
+        ++b;
+    while (e > b && isspace((unsigned char)t[e - 1]))
+        --e;
+    if (b >= e)
+        return range;
+    return SourceRange(range.start() + b, range.start() + e);
 }
 
 } // namespace slang_uhdm

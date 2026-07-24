@@ -455,6 +455,11 @@ private:
                                        slang::SourceRange r);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
+    /// `arr[3]` -> the span of the bare index token (`3`).  Surelog anchors the
+    /// synthesized interface-array-element bit_select (and its index constant)
+    /// there, not over the whole select expression.  Returns `range` unchanged
+    /// when the text is not a bracketed select.
+    slang::SourceRange ifaceElemIndexRange(slang::SourceRange range);
     bool macroInvLineCol(slang::SourceLocation loc, uint32_t& line, uint32_t& col);
     void fileLineCol(slang::SourceLocation lc, uint32_t& line, uint32_t& col);
     // (file buffer id, line) -> sorted [(usage start col, col delta)]
@@ -665,6 +670,9 @@ private:
         DefInfo* di;
     };
     std::vector<PendingNetTs> pendingNetTs;
+    // (target, source) ref_typespec pairs that must end up sharing ONE
+    // typespec object; resolved after the pendingNetTs drain.
+    std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>> netTsAlias;
     void materializeDefNetTs(PendingNetTs& pn);
     /// Elaborated instances count per definition (non-top instances only), so
     /// the LAST instance of a def can be recognised while it is emitted.
