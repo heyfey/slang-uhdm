@@ -11049,6 +11049,126 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             p->High_conn(vs);
                         }
                         else if (lb2 != std::string::npos && !act.empty() &&
+                                 act.back() == ']' &&
+                                 (act.find("+:") != std::string::npos ||
+                                  act.find("-:") != std::string::npos)) {
+                            // An INDEXED-PART-SELECT actual
+                            // (result[i*W +: W]): indexed_part_select named
+                            // by the base, fullname DOUBLED through the
+                            // FORMAL, ConstantSelect, BaseExpr/WidthExpr from
+                            // the selector syntax with base-scoped refs
+                            // (generate_test extra_adder).
+                            std::string base2 = act.substr(0, lb2);
+                            std::string ipsFull = branchPrefix + "." + iname +
+                                                  "." + formal + "." + base2;
+                            auto* ips = s.MakeIndexed_part_select();
+                            ips->VpiParent(p);
+                            ips->VpiName(base2);
+                            ips->VpiDefName(base2);
+                            ips->VpiFullName(ipsFull);
+                            ips->VpiConstantSelect(true);
+                            setLoc(ips, npc.expr->sourceRange());
+                            // Span = the bracket INTERIOR (87:27-53).
+                            {
+                                auto lbOff9 = act.find('[');
+                                if (lbOff9 != std::string::npos) {
+                                    auto st9 = npc.expr->sourceRange().start() +
+                                               (lbOff9 + 1);
+                                    auto en9 = npc.expr->sourceRange().start() +
+                                               (act.size() - 1);
+                                    setLoc(ips, SourceRange(st9, en9));
+                                }
+                            }
+                            // Text-parse the selector: <base> +:/-: <width>
+                            {
+                                auto lbOff9 = act.find('[');
+                                std::string inner9 = act.substr(
+                                    lbOff9 + 1, act.size() - lbOff9 - 2);
+                                size_t opPos9 = inner9.find("+:");
+                                bool asc9 = opPos9 != std::string::npos;
+                                if (!asc9)
+                                    opPos9 = inner9.find("-:");
+                                ips->VpiIndexedPartSelectType(asc9 ? 1 : 2);
+                                auto trim9 = [](std::string t,
+                                                size_t base) {
+                                    size_t b = t.find_first_not_of(' ');
+                                    size_t e = t.find_last_not_of(' ');
+                                    return std::pair<std::string, size_t>(
+                                        b == std::string::npos
+                                            ? std::string()
+                                            : t.substr(b, e - b + 1),
+                                        base + (b == std::string::npos ? 0
+                                                                       : b));
+                                };
+                                size_t innerBase9 = lbOff9 + 1;
+                                auto [baseTx9, baseOff9] = trim9(
+                                    inner9.substr(0, opPos9), innerBase9);
+                                auto [widTx9, widOff9] =
+                                    trim9(inner9.substr(opPos9 + 2),
+                                          innerBase9 + opPos9 + 2);
+                                auto exprStart9 =
+                                    npc.expr->sourceRange().start();
+                                auto mkLeaf9 =
+                                    [&](const std::string& tx, size_t off,
+                                        UHDM::any* par,
+                                        const std::string& scope)
+                                    -> UHDM::expr* {
+                                    auto st = exprStart9 + off;
+                                    if (!tx.empty() &&
+                                        tx.find_first_not_of("0123456789") ==
+                                            std::string::npos) {
+                                        auto* c9 = s.MakeConstant();
+                                        c9->VpiDecompile(tx);
+                                        c9->VpiSize(64);
+                                        c9->VpiValue("UINT:" + tx);
+                                        c9->VpiConstType(vpiUIntConst);
+                                        c9->VpiParent(par);
+                                        setLoc(c9, SourceRange(
+                                                       st, st + tx.size()));
+                                        return c9;
+                                    }
+                                    auto* r9 = s.MakeRef_obj();
+                                    r9->VpiName(tx);
+                                    r9->VpiFullName(scope + "." + tx);
+                                    r9->VpiParent(par);
+                                    setLoc(r9,
+                                           SourceRange(st, st + tx.size()));
+                                    return r9;
+                                };
+                                std::string fmScope9 = branchPrefix + "." +
+                                                       iname + "." + formal;
+                                if (auto star9 = baseTx9.find('*');
+                                    star9 != std::string::npos) {
+                                    auto* opB = s.MakeOperation();
+                                    opB->VpiOpType(vpiMultOp);
+                                    opB->VpiParent(ips);
+                                    auto bs9 = exprStart9 + baseOff9;
+                                    setLoc(opB,
+                                           SourceRange(bs9, bs9 +
+                                                                baseTx9
+                                                                    .size()));
+                                    auto [l9, lo9] = trim9(
+                                        baseTx9.substr(0, star9), baseOff9);
+                                    auto [r9x, ro9] =
+                                        trim9(baseTx9.substr(star9 + 1),
+                                              baseOff9 + star9 + 1);
+                                    auto* ov9 = s.MakeAnyVec();
+                                    ov9->push_back(
+                                        mkLeaf9(l9, lo9, opB, ipsFull));
+                                    ov9->push_back(
+                                        mkLeaf9(r9x, ro9, opB, ipsFull));
+                                    opB->Operands(ov9);
+                                    ips->Base_expr(opB);
+                                }
+                                else
+                                    ips->Base_expr(mkLeaf9(
+                                        baseTx9, baseOff9, ips, ipsFull));
+                                ips->Width_expr(mkLeaf9(widTx9, widOff9, ips,
+                                                        fmScope9));
+                            }
+                            p->High_conn(ips);
+                        }
+                        else if (lb2 != std::string::npos && !act.empty() &&
                             act.back() == ']') {
                             // A SELECT actual (sig[i]): bit_select named by
                             // the BASE, fullname prefix.<inst>.<base> (no

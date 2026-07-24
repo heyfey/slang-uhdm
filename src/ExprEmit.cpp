@@ -1468,6 +1468,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             lit9 != netMap.end())
                             ref->Actual_group(lit9->second);
                     }
+                    // NOTE (generate_test unit_result): SL binds SOME
+                    // gen-local var refs in elab gen processes, but a
+                    // blanket gen-local bind demoted 10 tests (carryadd,
+                    // forgen02, gen_test1/4/7, MemoryInGenblock,
+                    // simple_generate, ...) — the distinguisher is still
+                    // unknown; refs stay unbound here.
                 }
                 else if (auto it = [&] {
                              auto i = netMap.find(&nv.symbol);
