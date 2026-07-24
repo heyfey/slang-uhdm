@@ -371,7 +371,8 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto& member : inst->body.members()) {
                 const DeclaredType* dt = nullptr;
                 if (member.kind == SymbolKind::Net || member.kind == SymbolKind::Variable ||
-                    member.kind == SymbolKind::Port)
+                    member.kind == SymbolKind::Port ||
+                    member.kind == SymbolKind::Parameter)
                     dt = member.getDeclaredType();
                 if (!dt)
                     continue;

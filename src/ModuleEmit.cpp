@@ -1172,15 +1172,25 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             // re-scopes member/base refs to work@<mod>.<pkg>::<name>[.m]
             // (interface-style, last-writer). NESTED-struct-containing
             // typedefs keep their package parent and scoping.
+            // Only SAME-package nesting keeps the pkg scoping; a member
+            // struct typedef'd in ANOTHER package (cross-pkg nesting) still
+            // re-scopes to the module (nested_struct).
             bool nestedContainer = false;
             if (imported->kind == SymbolKind::TypeAlias) {
                 auto& ict = imported->as<TypeAliasType>().getCanonicalType();
+                auto impPkg9 = imported->getParentScope();
                 if (ict.kind == SymbolKind::PackedStructType)
                     for (auto& fm :
                          ict.as<PackedStructType>().membersOfType<FieldSymbol>())
                         if (fm.getType().getCanonicalType().kind ==
-                            SymbolKind::PackedStructType)
-                            nestedContainer = true;
+                            SymbolKind::PackedStructType) {
+                            auto& ft9 = fm.getType();
+                            const Scope* fPkg9 = nullptr;
+                            if (ft9.kind == SymbolKind::TypeAlias)
+                                fPkg9 = ft9.as<TypeAliasType>().getParentScope();
+                            if (!fPkg9 || fPkg9 == impPkg9)
+                                nestedContainer = true;
+                        }
             }
             bool wildcard = mem.kind == SymbolKind::WildcardImport;
             // The header-import share-without-touch rule is EXPLICIT-only;
