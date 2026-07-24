@@ -614,9 +614,17 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // work@-prefixed doubled form, index constant parents to the
             // bit_select. Rvalue: loc is the member token only, fullname is the
             // dotted path so far, index constant is unparented.
-            if (inLhs) {
+            if (inLhs && inProcessEmit) {
                 setLoc(bs, SourceRange(comp.nameSpan.start(), sel.selEnd));
                 (void)bs->VpiFullName();
+                if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
+                    bs->VpiIndex((UHDM::expr*)ix);
+            }
+            else if (inLhs) {
+                // A CONT-ASSIGN lvalue select anchors at the INDEX and keeps
+                // the dotted path as its name (Surelog).
+                setLoc(bs, sel.sel->sourceRange);
+                bs->VpiFullName(dottedAt);
                 if (auto* ix = emitExpr(*sel.sel, bs, prefix, netMap))
                     bs->VpiIndex((UHDM::expr*)ix);
             }
