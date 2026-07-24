@@ -362,6 +362,53 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 return (UHDM::expr*)ro;
                             }
                         }
+                        // A literal-arithmetic bound (`1-1`, `66-1`) keeps
+                        // its SUB op tree in the standalone typespec
+                        // (MultirangesStartNotFromZero): op11 with UINT
+                        // digit constants at their sub-spans.
+                        if (loc) {
+                            std::string raw9(rawText(*loc));
+                            size_t dash9 = raw9.find('-');
+                            bool litSub9 = dash9 != std::string::npos &&
+                                           dash9 > 0 && dash9 + 1 < raw9.size();
+                            if (litSub9)
+                                for (size_t p9 = 0; p9 < raw9.size(); p9++)
+                                    if (p9 != dash9 &&
+                                        !isdigit((unsigned char)raw9[p9])) {
+                                        litSub9 = false;
+                                        break;
+                                    }
+                            if (litSub9) {
+                                auto* op9 = s.MakeOperation();
+                                op9->VpiOpType(vpiSubOp);
+                                op9->VpiParent(r);
+                                setLoc(op9, *loc);
+                                auto* opnds9 = s.MakeAnyVec();
+                                auto mkD9 = [&](const std::string& dg,
+                                                int32_t colOff,
+                                                int32_t len) -> UHDM::any* {
+                                    auto* c9 = s.MakeConstant();
+                                    c9->VpiDecompile(dg);
+                                    c9->VpiSize(64);
+                                    c9->VpiValue("UINT:" + dg);
+                                    c9->VpiConstType(vpiUIntConst);
+                                    c9->VpiParent(op9);
+                                    setLoc(c9, *loc);
+                                    c9->VpiColumnNo(op9->VpiColumnNo() +
+                                                    colOff);
+                                    c9->VpiEndColumnNo(op9->VpiColumnNo() +
+                                                       colOff + len);
+                                    return c9;
+                                };
+                                opnds9->push_back(mkD9(raw9.substr(0, dash9),
+                                                       0, (int32_t)dash9));
+                                opnds9->push_back(mkD9(
+                                    raw9.substr(dash9 + 1), (int32_t)dash9 + 1,
+                                    (int32_t)(raw9.size() - dash9 - 1)));
+                                op9->Operands(opnds9);
+                                return (UHDM::expr*)op9;
+                            }
+                        }
                         auto* c = s.MakeConstant();
                         std::string digits = std::to_string(v);
                         c->VpiDecompile(digits);
@@ -1782,7 +1829,9 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                             value = "OCT:" + digits;
                             break;
                         default:
-                            value = "DEC:" + digits;
+                            // Based-decimal enum inits (3'd0) encode INT
+                            // (MultirangesStartNotFromZero), not DEC.
+                            value = "INT:" + digits;
                             break;
                     }
                 }
@@ -3348,6 +3397,91 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // t[0] -> bit_select (prefix-scoped fullname, parented index).
             std::string_view bname;
             const syntax::SelectorSyntax* sel = nullptr;
+            // Multi-selector chain (x[i][e:w]) -> var_select with one
+            // vpiIndex per selector; a range selector becomes a nested
+            // part_select with base-doubled naming
+            // (MultirangesStartNotFromZero gen CA).
+            std::vector<const syntax::SelectorSyntax*> selChain;
+            std::string_view chainBase;
+            if (syn.kind == syntax::SyntaxKind::ElementSelectExpression) {
+                const syntax::SyntaxNode* walk = &syn;
+                while (walk->kind ==
+                       syntax::SyntaxKind::ElementSelectExpression) {
+                    auto& eseW = walk->as<syntax::ElementSelectExpressionSyntax>();
+                    if (!eseW.select || !eseW.select->selector)
+                        return nullptr;
+                    selChain.insert(selChain.begin(), eseW.select->selector);
+                    walk = eseW.left;
+                }
+                if (walk->kind != syntax::SyntaxKind::IdentifierName)
+                    return nullptr;
+                chainBase =
+                    walk->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            }
+            else {
+                auto& isnW = syn.as<syntax::IdentifierSelectNameSyntax>();
+                chainBase = isnW.identifier.valueText();
+                for (auto* s2 : isnW.selectors) {
+                    if (!s2->selector)
+                        return nullptr;
+                    selChain.push_back(s2->selector);
+                }
+            }
+            if (selChain.empty())
+                return nullptr;
+            if (selChain.size() > 1) {
+                auto* vs = s.MakeVar_select();
+                vs->VpiName(chainBase);
+                std::string vsFull;
+                if (!syntaxRefPrefix.empty()) {
+                    vsFull = syntaxRefPrefix + syntaxRefSep +
+                             std::string(chainBase);
+                    vs->VpiFullName(vsFull);
+                }
+                vs->VpiParent(parent);
+                setLoc(vs, syn.sourceRange());
+                auto* ixs = s.MakeExprVec();
+                std::string savedPfxV = syntaxRefPrefix;
+                if (!vsFull.empty())
+                    syntaxRefPrefix = vsFull;
+                for (auto* s3 : selChain) {
+                    if (s3->kind == syntax::SyntaxKind::BitSelect) {
+                        if (auto* ix = emitSyntaxExpr(
+                                *s3->as<syntax::BitSelectSyntax>().expr, vs))
+                            ixs->push_back((UHDM::expr*)ix);
+                    }
+                    else if (s3->kind ==
+                             syntax::SyntaxKind::SimpleRangeSelect) {
+                        auto& rsV = s3->as<syntax::RangeSelectSyntax>();
+                        auto* psV = s.MakePart_select();
+                        psV->VpiName(chainBase);
+                        if (!vsFull.empty())
+                            psV->VpiFullName(vsFull + syntaxRefSep +
+                                             std::string(chainBase));
+                        psV->VpiDefName(chainBase);
+                        psV->VpiConstantSelect(true);
+                        psV->VpiParent(vs);
+                        setLoc(psV, s3->sourceRange());
+                        std::string savedPfxP = syntaxRefPrefix;
+                        if (!vsFull.empty())
+                            syntaxRefPrefix =
+                                vsFull + syntaxRefSep + std::string(chainBase);
+                        if (auto* le = emitSyntaxExpr(*rsV.left, psV))
+                            psV->Left_range((UHDM::expr*)le);
+                        if (auto* re = emitSyntaxExpr(*rsV.right, psV))
+                            psV->Right_range((UHDM::expr*)re);
+                        syntaxRefPrefix = savedPfxP;
+                        ixs->push_back(psV);
+                    }
+                    else {
+                        syntaxRefPrefix = savedPfxV;
+                        return nullptr;
+                    }
+                }
+                syntaxRefPrefix = savedPfxV;
+                vs->Exprs(ixs);
+                return vs;
+            }
             if (syn.kind == syntax::SyntaxKind::ElementSelectExpression) {
                 auto& ese = syn.as<syntax::ElementSelectExpressionSyntax>();
                 if (ese.left->kind != syntax::SyntaxKind::IdentifierName)
@@ -4804,9 +4938,51 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
             c->VpiSize(64);
             c->VpiValue("UINT:" + digits);
             c->VpiConstType(vpiUIntConst);
+            // An ENUM-CONST bound folds SIGNED at the enum width in the
+            // signal view (MultirangesStartNotFromZero [s_e:n_e]).
+            if (loc) {
+                std::string rawB(rawText(*loc));
+                bool identB = !rawB.empty() &&
+                              (isalpha((unsigned char)rawB[0]) ||
+                               rawB[0] == '_');
+                for (char chB : rawB)
+                    if (!(isalnum((unsigned char)chB) || chB == '_')) {
+                        identB = false;
+                        break;
+                    }
+                if (identB)
+                    if (auto* pscB = sym.getParentScope())
+                        if (auto* bsB = pscB->find(rawB);
+                            bsB && bsB->kind == SymbolKind::EnumValue) {
+                            c->VpiValue("INT:" + digits);
+                            c->VpiConstType(vpiIntConst);
+                            c->VpiSize((int32_t)bsB->as<EnumValueSymbol>()
+                                           .getType()
+                                           .getBitWidth());
+                        }
+            }
             c->VpiParent(r);
             if (loc)
                 setLoc(c, *loc);
+            // A literal-arithmetic bound (1-1) folds with the FIRST digit
+            // token's span only (Surelog).
+            if (loc) {
+                std::string rawB2(rawText(*loc));
+                size_t d2 = rawB2.find('-');
+                bool litSub2 = d2 != std::string::npos && d2 > 0;
+                if (litSub2)
+                    for (size_t p2 = 0; p2 < rawB2.size(); p2++)
+                        if (p2 != d2 && !isdigit((unsigned char)rawB2[p2])) {
+                            litSub2 = false;
+                            break;
+                        }
+                if (litSub2) {
+                    c->VpiEndColumnNo(c->VpiColumnNo() + (int32_t)d2);
+                    // Arith folds encode INT (Surelog), size stays 64.
+                    c->VpiValue("INT:" + std::string(c->VpiDecompile()));
+                    c->VpiConstType(vpiIntConst);
+                }
+            }
             return c;
         };
         const DimSpan* ds = i < (int)spans.size() ? &spans[i] : nullptr;
@@ -5001,9 +5177,51 @@ UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym
             c->VpiSize(64);
             c->VpiValue("UINT:" + digits);
             c->VpiConstType(vpiUIntConst);
+            // An ENUM-CONST bound folds SIGNED at the enum width in the
+            // signal view (MultirangesStartNotFromZero [s_e:n_e]).
+            if (loc) {
+                std::string rawB(rawText(*loc));
+                bool identB = !rawB.empty() &&
+                              (isalpha((unsigned char)rawB[0]) ||
+                               rawB[0] == '_');
+                for (char chB : rawB)
+                    if (!(isalnum((unsigned char)chB) || chB == '_')) {
+                        identB = false;
+                        break;
+                    }
+                if (identB)
+                    if (auto* pscB = sym.getParentScope())
+                        if (auto* bsB = pscB->find(rawB);
+                            bsB && bsB->kind == SymbolKind::EnumValue) {
+                            c->VpiValue("INT:" + digits);
+                            c->VpiConstType(vpiIntConst);
+                            c->VpiSize((int32_t)bsB->as<EnumValueSymbol>()
+                                           .getType()
+                                           .getBitWidth());
+                        }
+            }
             c->VpiParent(r);
             if (loc)
                 setLoc(c, *loc);
+            // A literal-arithmetic bound (1-1) folds with the FIRST digit
+            // token's span only (Surelog).
+            if (loc) {
+                std::string rawB2(rawText(*loc));
+                size_t d2 = rawB2.find('-');
+                bool litSub2 = d2 != std::string::npos && d2 > 0;
+                if (litSub2)
+                    for (size_t p2 = 0; p2 < rawB2.size(); p2++)
+                        if (p2 != d2 && !isdigit((unsigned char)rawB2[p2])) {
+                            litSub2 = false;
+                            break;
+                        }
+                if (litSub2) {
+                    c->VpiEndColumnNo(c->VpiColumnNo() + (int32_t)d2);
+                    // Arith folds encode INT (Surelog), size stays 64.
+                    c->VpiValue("INT:" + std::string(c->VpiDecompile()));
+                    c->VpiConstType(vpiIntConst);
+                }
+            }
             return c;
         };
         const DimSpan* ds = i < (int)spans.size() ? &spans[i] : nullptr;
