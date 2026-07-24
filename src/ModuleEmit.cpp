@@ -10127,6 +10127,53 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     auto* lp0 = (UHDM::parameter*)pa0->Lhs();
                     if (lp0 && lp0->VpiLocalParam())
                         keepIt = true;
+                    // An EXPLICITLY-OVERRIDDEN scalar param (e.g.
+                    // bus_if #(.DLY(1))) keeps its constant-Rhs param_assign
+                    // on a MODPORT-qualified port view of a SCALAR (non-array)
+                    // interface instance — Surelog folds the value inline on
+                    // the parameter AND retains the vpiOverriden param_assign
+                    // (iface_unpacked_struct_array). A PLAIN port view
+                    // (iface_param_width_per_inst) and an interface-ARRAY
+                    // element view (interface_array) still drop it.
+                    else if (pa0->VpiOverriden() && !connModport.empty() &&
+                             inst.arrayPath.empty()) {
+                        // ...and ONLY when the override is a NO-OP (value
+                        // equals the declaration default — DLY(1) w/ default
+                        // 1). A value-changing override still drops
+                        // (iface_param_port_width DATA_WIDTH(8) vs 16).
+                        keepIt = false;
+                        if (pa0->Lhs()) {
+                            for (auto& mb9 : body.members()) {
+                                if (mb9.kind != SymbolKind::Parameter ||
+                                    mb9.name !=
+                                        std::string_view(
+                                            pa0->Lhs()->VpiName()))
+                                    continue;
+                                auto& ps9 = mb9.as<ParameterSymbol>();
+                                if (!ps9.getType()
+                                         .getCanonicalType()
+                                         .isIntegral() ||
+                                    ps9.getType()
+                                            .getCanonicalType()
+                                            .isStruct()) {
+                                    break;
+                                }
+                                if (auto* ds9 = paramDefaultSyn(ps9)) {
+                                    ASTContext dctx9(body,
+                                                     LookupLocation::max);
+                                    auto& de9 =
+                                        Expression::bind(*ds9, dctx9);
+                                    auto dv9 = dctx9.tryEval(de9);
+                                    auto& cv9 = ps9.getValue();
+                                    if (dv9 && dv9.isInteger() &&
+                                        cv9.isInteger() &&
+                                        dv9.integer() == cv9.integer())
+                                        keepIt = true;
+                                }
+                                break;
+                            }
+                        }
+                    }
                 }
                 if (keepIt)
                     keep->push_back(pa0);
