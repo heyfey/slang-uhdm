@@ -13,6 +13,11 @@ NOT yet verified in the main tree:
   /tmp/gen54.patch — gen/structural DIFFs (gen_struct_access, arraycells, const_func,
                      iface_ff_genvar_partsel, gen_test5)
 Apply with `git apply --3way`, rebuild, spot-check, then full-corpus gate before committing.
+NOTE on if54: it was written against the pre-ps54 HEAD and CONFLICTS in TypeEmit.cpp makeTypespec
+(~line 128) with the elaborated-pkg-typedef rule ps54 landed. Resolve by KEEPING OURS — ps54 fixed the
+NSAP root cause (a nested inner-struct leaf missing its package vpiInstance), so if54's span-stretch
+workaround is unnecessary. A mid-flight snapshot of if54 measured interface_array 258->174 but
+iface_cfg_mem 611->647, so re-measure the finished patch before gating.
 
 ### Remaining DIFF (22)
 arraycells, arrays03, BitSelect trio, const_arg_loop, const_func, cs_registers, func_tern_hint,
