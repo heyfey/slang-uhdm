@@ -134,15 +134,33 @@ class-scope methods taking no `vpiInstance`, class typedef enums, and
 Phase-1 result is unchanged and still gated: **488 PASS / 173 CMP_ONLY / 0
 DIFF**, goldens 23/23.
 
-### 3.2 Remaining UHDM-relevant gaps in slang-uhdm
+### 3.2 Remaining UHDM-relevant gaps — traced to their implementation
 
-| Surelog flag | Tests | What it does | Route |
+Every remaining blocker was traced to the code that implements it, because that
+decides whether we **reuse** a UHDM class (cheap, exact) or **reimplement**
+Surelog behaviour in our exporter (costly, approximate).
+
+| Surelog flag | Tests | Lives in | Route |
 |---|---|---|---|
-| `-synth` / `-formal` | 14 | Two effects. (a) Honours `// pragma translate_off/on` — **already available**: slang's `--translate-off-format pragma,translate_off,translate_on` reproduces it exactly (verified: both tools 13 → 0 occurrences). (b) Prunes net `ref_typespec`/`logic_typespec` (81 dump lines on `ParamArraySelect`) — **exporter work needed**. | (a) harness mapping, (b) exporter |
-| `-cfg` / `-cfgfile` | 4 | Selects a Verilog `config` block. slang accepts `--libmap`; whether its config handling matches is **unverified**. | investigate |
-| `-bb_mod` / `-bb_inst` | 4 | Blackboxes a known module/instance. `--ignore-unknown-modules` is *not* equivalent (missing ≠ blackboxed). | exporter/driver |
-| `--disable-feature=parametersubstitution` | 4 | Disables assignment-pattern substitution in parameters. | exporter |
-| `--disable-feature=letexprsubstitution` | 1 | Disables let-expression inlining. | exporter |
+| `-synth` / `-formal` | 14 | **UHDM library** — `SynthSubset` (`UHDM/templates/SynthSubset.{h,cpp}`, installed header present). Surelog only calls it: `SynthSubset(&s, objs, d, true, withFormal)` → `listenDesigns(designs)` → `filterNonSynthesizable()`. | **REUSE**, exactly like `--elabuhdm`. The pragma half is already slang's `--translate-off-format pragma,translate_off,translate_on` (verified identical: both tools 13 → 0). Highest value, lowest cost — do this first. |
+| `--disable-feature=parametersubstitution` | 4 | **Surelog** — `CompileExpression.cpp:96`, gates substituting assignment patterns into parameters. | Reimplement; small and localized. |
+| `-bb_mod` / `-bb_inst` | 4 | **Surelog** — `CompileModule.cpp` + `DesignElaboration.cpp`. | Reimplement; needs a blackboxing concept in the exporter. Medium. |
+| `-cfg` / `-cfgfile` | 2 | **Surelog** — `DesignElaboration.cpp` + `Config/ConfigSet` (Verilog `config` semantics). slang has `--libmap`/config support that may already cover it. | Investigate slang first, then decide. |
+| `--disable-feature=letexprsubstitution` | 1 | **Surelog** — `CompileHelper.cpp:4257`, inlines `let` declarations. | Reimplement; small. |
+| `-diffcompunit` | 1 | **Surelog** — harness behaviour (compiles both ways to diff), not a model option. | **Out of scope**; reclassify alongside `NO_DATABASE`. |
+| `-pythonevalscript` / `...perfile` | 1 | **Surelog** — embedded Python that mutates the model (measured: 3755 dump lines). | **Out of scope.** |
+
+So one reuse covers 14 of the 28, three small reimplementations cover 9, one
+needs investigation (2), and two are out of scope (2).
+
+**UHDM classes available to reuse.** `ElaboratorListener` and `UhdmAdjuster`
+(both already used by `--elabuhdm`), `SynthSubset`, `UhdmLint`, `ExprEval`.
+
+**`UhdmLint` needs no action — do not chase it.** Surelog runs it
+*unconditionally*, on every write, and we never do. That looks like a gap but is
+not: `UhdmLint.cpp` has 0 `Erase` calls, 0 `Make*` calls and no property
+setters; every `Vpi*()` call in it is a getter. It only invokes the serializer's
+error handler. It cannot change the database.
 
 ### 3.3 Measured baseline
 
@@ -165,26 +183,35 @@ both tools produced a database; `SLANG_REJECT` is out of scope).
 
 | | default | testflags |
 |---|---|---|
-| CMP_EQUAL | 181 | 170 |
-| CMP_NOTEQUAL | 301 | 279 |
-| SLANG_REJECT (out of scope) | 286 | 267 |
-| UNTRANSLATABLE | 0 | 51 |
-| SURELOG_FAIL | 26 | 22 |
+| CMP_EQUAL | 181 | 172 |
+| CMP_NOTEQUAL | 301 | 285 |
+| SLANG_REJECT (out of scope) | 286 | 279 |
+| UNTRANSLATABLE | 0 | 28 |
+| SURELOG_FAIL | 26 | 24 |
 | NO_DATABASE | 0 | 3 |
-| TIMEOUT / NO_UHDM | 0 | 2 |
-| **comparable** | **482** | **449** |
-| **CMP_EQUAL / comparable** | **37.6%** | **37.9%** |
+| TIMEOUT / NO_UHDM | 0 | 3 |
+| **comparable** | **482** | **457** |
+| **CMP_EQUAL / comparable** | **37.6%** | **37.6%** |
 
-`--builtins` took uhdm2rtlil `default` mode from **0 → 662**; before it, all 731
-failed on the 510-line builtin block alone.
+Builtins took uhdm2rtlil `default` mode from **0 → 662**; before them, all 731
+failed on the 510-line builtin block alone. Since `db83fc3` builtins are the
+default on both sides, so `default` mode passes no flag at all.
+
+`UNTRANSLATABLE` fell 51 → 28 once the foreign simulator flags found in `.sl`
+files were each measured against Surelog's dump and whitelisted: `+vcs+*`,
+`+warn=`, `+lint=`, `+OVM_TESTNAME=`, `+v2k`, `-ast`, `-PP`, `-full64`,
+`-notice`, `-line`, `-quiet`, `-Os`, `--assert`, `--trace`, `-output-split`,
+`-CFLAGS <arg>`, `-pythonlistener` — all 0 dump-line change. These were the
+harness refusing to compare tests it could have compared. `-pythonevalscript*`
+looked equally harmless and is not: 3755 dump lines, so it stays blocked.
 
 The two modes differ in denominator because `testflags` legitimately excludes 54
 tests before running (51 `UNTRANSLATABLE` + 3 `NO_DATABASE`) that `default` mode
 still attempts. That is the whole explanation for `default` showing more
 `SURELOG_FAIL` and `CMP_NOTEQUAL` — not a regression between modes.
 
-**Work remaining.** 301 (default) / 279 (testflags) Surelog-suite tests and
-16/17 uhdm2rtlil tests to converge, plus 51 `UNTRANSLATABLE` to unblock via
+**Work remaining.** 301 (default) / 285 (testflags) Surelog-suite tests and
+16/17 uhdm2rtlil tests to converge, plus 28 `UNTRANSLATABLE` to unblock via
 §3.2. Overlap between the two modes' failure sets is unmeasured; a fix will
 usually move both.
 

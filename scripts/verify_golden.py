@@ -77,7 +77,7 @@ IRRELEVANT_NOARG = {
     '-sv', '-sverilog',  # slang parses SystemVerilog unconditionally
     # Foreign simulator flags (VCS, Verilator) that appear in .sl files.  Surelog
     # accepts and ignores them: each was measured at 0 dump-line change.
-    '-ast', '-PP', '-full64', '-notice', '-line', '-Os',
+    '-ast', '-PP', '-full64', '-notice', '-line', '-Os', '-quiet', '+v2k',
     '--assert', '--trace', '-output-split',
 }
 IRRELEVANT_PREFIX = ('+vcs+', '+warn=', '+lint=', '+OVM_TESTNAME=', '-Wno-')
