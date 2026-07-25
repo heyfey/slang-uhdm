@@ -78,12 +78,21 @@ typedef from file 1 (Surelog default 0 errors, `-fileunit` 1 error; slang
 default errors, `--single-unit` clean). Irrelevant for single-source tests,
 load-bearing for multi-file ones.
 
-### 2.5 `SLANG_REJECT` is a real bucket, not an excuse
+### 2.5 `SLANG_REJECT` is OUT OF SCOPE
 
-slang is stricter than Surelog and legitimately rejects sources Surelog accepts
-leniently (unimported package identifiers, assignment-pattern arity). Those
-tests cannot be compared — but they must stay **visible and counted**, because
-some are genuine slang-side gaps worth fixing and only inspection tells which.
+slang is stricter than Surelog and rejects sources Surelog accepts leniently
+(unimported package identifiers, assignment-pattern arity, `\`protected`
+regions). **Patching slang is out of scope for this campaign.** We do not
+loosen slang and we do not chase its diagnostics.
+
+So `SLANG_REJECT` tests are excluded from the target: they are reported and
+counted, but never part of the denominator. The scope of phase 2 is exactly the
+**comparable** set — tests where BOTH tools produced a database — plus the
+`UNTRANSLATABLE` set, which we unblock by implementing §3.2.
+
+Practical consequence: the headline metric is `CMP_EQUAL / comparable`, not
+`CMP_EQUAL / total`. Reporting against total would understate progress and
+imply slang work we are not doing.
 
 ### 2.6 Builtins: our default differs from Surelog's — OPEN DECISION
 
@@ -93,10 +102,17 @@ slang-uhdm is the reverse: no builtins by default, `--builtins` to opt in.
 Consequence: "default vs default" is not literally default on both sides — the
 harness must pass `--builtins` for `default` mode to mean anything.
 
-Recommendation, **not yet applied**: flip slang-uhdm to match Surelog (builtins
-on by default, add `--nobuiltin` to opt out). Then `default` mode needs no flag
-at all and the word "default" is honest. Deferred because flipping a default is
-a user-visible behaviour change. See §5 question 1.
+**No name collision.** slang defines no `--builtins` (0 hits in its driver
+source, 0 in the upstream binary's help; the only adjacent option is `--std`).
+The flag is ours alone and cannot shadow a slang option, so no rename is needed
+on collision grounds.
+
+Recommendation, **not yet applied**: flip slang-uhdm to match Surelog — builtins
+on by default, plus a `--nobuiltin` opt-out spelled exactly as Surelog spells
+it. Then `default` mode needs no flag at all and the word "default" is honest.
+Keeping `--builtins` as an explicit no-op alias costs nothing and keeps existing
+invocations working. Deferred because flipping a default is a user-visible
+behaviour change. See §5 question 1.
 
 ---
 
@@ -130,40 +146,62 @@ DIFF**, goldens 23/23.
 
 ### 3.3 Measured baseline
 
-**uhdm2rtlil, 731 tests** (`--builtins` on):
+Measured 2026-07-25 with `--builtins` on, `scripts/verify_golden.py` at
+`f6baeb7`+. Headline metric is `CMP_EQUAL / comparable` per §2.5 (`comparable` =
+both tools produced a database; `SLANG_REJECT` is out of scope).
+
+**uhdm2rtlil, 731 tests**
 
 | | default | testflags |
 |---|---|---|
 | CMP_EQUAL | 662 | 662 |
 | CMP_NOTEQUAL | 16 | 17 |
-| SLANG_REJECT | 51 | 50 |
+| SLANG_REJECT (out of scope) | 51 | 50 |
 | SURELOG_FAIL | 2 | 2 |
+| **comparable** | **678** | **679** |
+| **CMP_EQUAL / comparable** | **97.6%** | **97.5%** |
 
-`--builtins` took `default` mode from **0 → 662**; before it, all 731 failed on
-the 510-line builtin block alone.
-
-**Surelog suite, 794 tests** (`--builtins` on, sources-only `default`):
+**Surelog suite, 794 tests**
 
 | | default | testflags |
 |---|---|---|
-| CMP_EQUAL | 182 | 170 |
-| CMP_NOTEQUAL | 290 | 279 |
-| SLANG_REJECT | 291 | 267 |
+| CMP_EQUAL | 181 | 170 |
+| CMP_NOTEQUAL | 301 | 279 |
+| SLANG_REJECT (out of scope) | 286 | 267 |
 | UNTRANSLATABLE | 0 | 51 |
-| SURELOG_FAIL | 31 | 22 |
+| SURELOG_FAIL | 26 | 22 |
 | NO_DATABASE | 0 | 3 |
-| TIMEOUT / NO_UHDM | 1 | 2 |
+| TIMEOUT / NO_UHDM | 0 | 2 |
+| **comparable** | **482** | **449** |
+| **CMP_EQUAL / comparable** | **37.6%** | **37.9%** |
 
-Caveat on that table: it was measured with `default` mode passing **only**
-sources, which strips `-I`/`+incdir+` and makes tests that need include paths
-fail on both sides (hence `SURELOG_FAIL` 31 > 22 — garbage-in, not a finding).
-§2.1's location-args refinement fixes this; numbers are being re-measured.
+`--builtins` took uhdm2rtlil `default` mode from **0 → 662**; before it, all 731
+failed on the 510-line builtin block alone.
 
-**Where the mass is.** On the Surelog suite the two big buckets are
-`SLANG_REJECT` (~35%) and `CMP_NOTEQUAL` (~35%) — roughly equal. So phase 2 is
-*two* campaigns: making slang accept more real-world SV, and converging the
-model. On uhdm2rtlil only ~67 tests remain, mostly the multi-file designs that
-phase 1 never looked at.
+The two modes differ in denominator because `testflags` legitimately excludes 54
+tests before running (51 `UNTRANSLATABLE` + 3 `NO_DATABASE`) that `default` mode
+still attempts. That is the whole explanation for `default` showing more
+`SURELOG_FAIL` and `CMP_NOTEQUAL` — not a regression between modes.
+
+**Work remaining.** 301 (default) / 279 (testflags) Surelog-suite tests and
+16/17 uhdm2rtlil tests to converge, plus 51 `UNTRANSLATABLE` to unblock via
+§3.2. Overlap between the two modes' failure sets is unmeasured; a fix will
+usually move both.
+
+**Harness bugs found and fixed while establishing this baseline** — both had
+inflated the failure counts, so earlier figures in this file's history are void:
+
+- `default` mode passed only sources, stripping `-I`/`+incdir+`. Tests needing
+  include paths then failed on BOTH sides, and comparing two failed compiles
+  measures nothing. Fixed by keeping point-at-the-sources args (§1).
+- `default` mode also dropped `-sv`/`-sverilog` from the **Surelog** side. That
+  is a parse-mode switch, not a model-shaping one, and Surelog needs it: without
+  it `SimpleClass1`'s `top.v` is 10 syntax errors and no database, because class
+  syntax in a `.v` file is not Verilog-1995. slang needs no equivalent (it parses
+  SystemVerilog unconditionally). Fixed as a Surelog-only passthrough; this alone
+  corrected 8 tests that were mis-reported as `SURELOG_FAIL`.
+- uhdm2rtlil discovery now adds `-sv` when any source is `.sv` and honours a
+  `# lang:` directive, matching what `test/project_files.sh` really does.
 
 ### 3.4 Coverage corrections made in phase 2
 
@@ -258,8 +296,7 @@ For phase 2 specifically, triage in this order:
    involvement — the cleanest signal available.
 2. **Then `testflags`-only failures.** A test failing `testflags` but passing
    `default` isolates the bug to flag handling.
-3. **`SLANG_REJECT` separately.** Read the diagnostic; decide slang gap vs
-   Surelog leniency. Do not fix by loosening slang blindly.
+3. **Skip `SLANG_REJECT` entirely** (§2.5) — out of scope, not a work item.
 4. **`UNTRANSLATABLE` by implementing §3.2**, largest bucket first.
 
 ### 4.4 Agent-ops rules (learned the hard way)
@@ -285,7 +322,8 @@ For phase 2 specifically, triage in this order:
    plus `--nobuiltin`, so `default` mode needs no flags. Needs sign-off — it
    changes observable behaviour for existing users.
 2. **Is `-cfg` covered by slang's `--libmap` config handling?** Unverified.
-3. **Are the 291 `SLANG_REJECT` tests slang gaps or Surelog leniency?**
-   Unsampled. This is ~35% of the Surelog suite and the single largest unknown.
+3. **Does `$RV_ROOT`-style variable expansion in `-f` files work?** slang's `-f`
+   reads the flist but does not appear to expand the variable (`CoresSweRV`:
+   "'/design/swerv_wrapper.sv': No such file or directory"). Affects 2 tests.
 4. **Elab-mode byte convergence.** `--elabuhdm` is cmp-equal on sampled tests
    but leaves ~86–96 dump-line differences. Untouched territory.

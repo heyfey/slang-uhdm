@@ -128,19 +128,28 @@ LOCATION_PREFIX = ('-I', '-D', '+incdir+', '+define+', '+libext+', '-U')
 
 
 def location_args(parts):
-    """Extract only the where-are-the-sources args, for both tools alike."""
-    out = []
+    """Extract the point-at-and-parse-the-sources args.
+
+    Returns (shared, surelog_only).  `-sv`/`-sverilog` is Surelog-only: it is a
+    parse-mode switch, not a model-shaping one, and Surelog genuinely needs it
+    (a `.v` file holding class syntax is 10 syntax errors and no database
+    without it) whereas slang parses SystemVerilog unconditionally.
+    """
+    shared, surelog_only = [], []
     i = 0
     while i < len(parts):
         p = parts[i]
         if p in LOCATION_ONEARG:
-            out += [p, parts[i + 1]] if i + 1 < len(parts) else [p]
+            shared += [p, parts[i + 1]] if i + 1 < len(parts) else [p]
             i += 2
             continue
-        if p.startswith(LOCATION_PREFIX) and p not in ('-D', '-I'):
-            out.append(p)
+        if p in ('-sv', '-sverilog'):
+            if p not in surelog_only:
+                surelog_only.append(p)
+        elif p.startswith(LOCATION_PREFIX) and p not in ('-D', '-I'):
+            shared.append(p)
         i += 1
-    return out
+    return shared, surelog_only
 
 
 def translate(parts):
@@ -293,10 +302,16 @@ def discover_uhdm2rtlil(pattern):
                     break
         if not srcs:
             continue
-        # The reference runner passes `-parse -nobuiltin -nocache` plus the
-        # project's own surelog directive.
+        # The reference runner (test/test_uhdm_workflow.sh + project_files.sh)
+        # passes `-parse -nobuiltin -nocache`, the project's own surelog
+        # directive, and `-sv` whenever ANY source is .sv.
         opts = ['-parse', '-nobuiltin', '-nocache']
         opts += shlex.split(directives.get('surelog', ''))
+        lang = directives.get('lang')
+        if lang:
+            opts += shlex.split(lang)
+        elif any(s.endswith('.sv') for s in srcs):
+            opts.append('-sv')
         if 'top' in directives and '-top' not in opts:
             opts += ['-top', directives['top']]
         tests[name] = (dirpath, opts + srcs)
@@ -368,12 +383,13 @@ def run_one(name, dirpath, parts, modes, workroot, timeout, builtins):
         # option, it is what makes Surelog emit a database at all.  Surelog's
         # default is one compilation unit, so slang needs --single-unit to match
         # that default, and Surelog's default also parses its builtin classes.
-        loc = location_args(parts)
+        loc, sl_only = location_args(parts)
         su = loc + list(sources) + ['--single-unit']
         if builtins:
             su.append('--builtins')
         results.append(compare(name, 'default', dirpath,
-                               ['-parse'] + loc + sources, su, workroot, timeout))
+                               ['-parse'] + loc + sl_only + sources, su,
+                               workroot, timeout))
 
     if 'testflags' in modes:
         su_args, blocking, nodb, nobuiltin = translate(parts)
