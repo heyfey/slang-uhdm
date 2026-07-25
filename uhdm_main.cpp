@@ -9,7 +9,9 @@
 
 #include <cstdio>
 #include <filesystem>
+#include <set>
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/SynthSubset.h>
 #include <uhdm/UhdmAdjuster.h>
 #include <uhdm/uhdm.h>
 
@@ -50,6 +52,15 @@ int main(int argc, char** argv) {
                        "Deprecated no-op: builtins are emitted by default; use --nobuiltin "
                        "to suppress them");
 
+    std::optional<bool> synth;
+    std::optional<bool> formal;
+    driver.cmdLine.add("--synth", synth,
+                       "Restrict the model to the synthesizable subset, as Surelog -synth does: "
+                       "non-synthesizable constructs are filtered out and "
+                       "'// pragma translate_off' regions are excluded");
+    driver.cmdLine.add("--formal", formal,
+                       "Like --synth but keeps model-checking constructs (Surelog -formal)");
+
     if (!driver.parseCommandLine(argc, argv))
         return 1;
 
@@ -63,6 +74,14 @@ int main(int argc, char** argv) {
         printf("slang-uhdm using slang version %s\n", VersionInfo::getVersionString().c_str());
         return 0;
     }
+
+    // Surelog's -synth/-formal honour `// pragma translate_off` / `translate_on`.
+    // slang already implements exactly that under --translate-off-format, so ask
+    // for it rather than reimplementing the exclusion. Injected before
+    // processOptions(), which is where the option is parsed into effect.
+    const bool synthSubset = (synth == true || formal == true);
+    if (synthSubset)
+        driver.options.translateOffOptions.push_back("pragma,translate_off,translate_on");
 
     if (!driver.processOptions())
         return 2;
@@ -101,19 +120,37 @@ int main(int argc, char** argv) {
         exporter.enableBuiltins(builtinPath);
     UHDM::design* design = exporter.exportDesign();
 
-    if (elabUhdm == true) {
-        // Mirrors Surelog UhdmWriter.cpp: UHDM elaborates its own model, then
-        // UhdmAdjuster rewrites the elaborated tree. uniquifyTypespec(false) is
-        // Surelog's non-default choice (the listener defaults it to true).
+    // Post-export UHDM passes, in the order Surelog's UhdmWriter runs them.
+    // (Surelog also runs UhdmLint here unconditionally; it is read-only -- no
+    // Erase, no Make, no setters -- so it cannot change the database and is
+    // deliberately not run.)
+    if (elabUhdm == true || synthSubset) {
         std::vector<vpiHandle> designs{
             reinterpret_cast<vpiHandle>(new uhdm_handle(UHDM::uhdmdesign, design))};
 
-        UHDM::ElaboratorContext elaboratorContext(&serializer, false, false);
-        elaboratorContext.m_elaborator.uniquifyTypespec(false);
-        elaboratorContext.m_elaborator.listenDesigns(designs);
+        if (elabUhdm == true) {
+            // UHDM elaborates its own model, then UhdmAdjuster rewrites the
+            // elaborated tree. uniquifyTypespec(false) is Surelog's non-default
+            // choice (the listener defaults it to true).
+            UHDM::ElaboratorContext elaboratorContext(&serializer, false, false);
+            elaboratorContext.m_elaborator.uniquifyTypespec(false);
+            elaboratorContext.m_elaborator.listenDesigns(designs);
 
-        UHDM::UhdmAdjuster adjuster(&serializer, design);
-        adjuster.listenDesigns(designs);
+            UHDM::UhdmAdjuster adjuster(&serializer, design);
+            adjuster.listenDesigns(designs);
+        }
+
+        if (synthSubset) {
+            // SynthSubset ships with UHDM, so -synth is reused rather than
+            // reimplemented. reportErrors mirrors Surelog's `true`; allowFormal
+            // is what separates -formal from -synth.
+            std::set<const UHDM::any*> nonSynthesizableObjects;
+            UHDM::SynthSubset synth_(&serializer, nonSynthesizableObjects, design,
+                                     /*reportErrors*/ true,
+                                     /*allowFormal*/ formal == true);
+            synth_.listenDesigns(designs);
+            synth_.filterNonSynthesizable();
+        }
     }
 
     serializer.Save(outputFile.value_or("slang.uhdm"));

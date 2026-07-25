@@ -91,10 +91,9 @@ ONEARG_MAP = {'-y': '-y', '-v': '-v', '-map': '--libmap', '-L': '-L',
               '-top': '--top', '--top-module': '--top', '-f': '-f', '-F': '-F'}
 
 # UHDM-relevant but not implemented in slang-uhdm: these BLOCK a comparison.
-# -synth/-formal prune net typespecs and honour translate_off pragmas;
 # -cfg/-cfgfile select Verilog config blocks; -bb_* blackbox parts of the
 # design; --disable-feature changes parameter/let elaboration.
-BLOCKING_NOARG = {'-synth', '-formal', '-diffcompunit', '-sepcomp', '-link',
+BLOCKING_NOARG = {'-diffcompunit', '-sepcomp', '-link',
                   '-pythonevalscript', '-pythonevalscriptperfile'}
 BLOCKING_ONEARG = {'-bb_mod', '-bb_inst', '-cfg', '-cfgfile'}
 
@@ -193,6 +192,10 @@ def translate(parts):
             args.append('--elabuhdm')
         elif p == '-fileunit':
             fileunit = True
+        elif p == '-synth':
+            args.append('--synth')
+        elif p == '-formal':
+            args.append('--formal')
         elif p in ONEARG_MAP:
             args += [ONEARG_MAP[p], parts[i + 1]]
             i += 2
