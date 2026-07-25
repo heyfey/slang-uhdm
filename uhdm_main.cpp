@@ -7,6 +7,8 @@
 #include "UhdmExporter.h"
 
 #include <cstdio>
+#include <uhdm/ElaboratorListener.h>
+#include <uhdm/UhdmAdjuster.h>
 #include <uhdm/uhdm.h>
 
 #include "slang/ast/Compilation.h"
@@ -26,6 +28,10 @@ int main(int argc, char** argv) {
     driver.cmdLine.add("-h,--help", showHelp, "Display available options");
     driver.cmdLine.add("--version", showVersion, "Display version information and exit");
     driver.cmdLine.add("-o,--output", outputFile, "Output UHDM database file", "<file>");
+
+    std::optional<bool> elabUhdm;
+    driver.cmdLine.add("--elabuhdm", elabUhdm,
+                       "Forces UHDM/VPI full elaboration; default is the folded model");
 
     if (!driver.parseCommandLine(argc, argv))
         return 1;
@@ -56,7 +62,23 @@ int main(int argc, char** argv) {
     // abandoned pattern first-compiles) are part of the reference shape.
     serializer.SetGCEnabled(false);
     slang_uhdm::UhdmExporter exporter(*compilation, serializer);
-    exporter.exportDesign();
+    UHDM::design* design = exporter.exportDesign();
+
+    if (elabUhdm == true) {
+        // Mirrors Surelog UhdmWriter.cpp: UHDM elaborates its own model, then
+        // UhdmAdjuster rewrites the elaborated tree. uniquifyTypespec(false) is
+        // Surelog's non-default choice (the listener defaults it to true).
+        std::vector<vpiHandle> designs{
+            reinterpret_cast<vpiHandle>(new uhdm_handle(UHDM::uhdmdesign, design))};
+
+        UHDM::ElaboratorContext elaboratorContext(&serializer, false, false);
+        elaboratorContext.m_elaborator.uniquifyTypespec(false);
+        elaboratorContext.m_elaborator.listenDesigns(designs);
+
+        UHDM::UhdmAdjuster adjuster(&serializer, design);
+        adjuster.listenDesigns(designs);
+    }
+
     serializer.Save(outputFile.value_or("slang.uhdm"));
 
     if (!exporter.unsupported().empty()) {
