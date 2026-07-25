@@ -1325,6 +1325,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool procSelFold9 = inProcessEmit && !inParamInit && parent &&
                                         parent->UhdmType() ==
                                             UHDM::uhdmbit_select;
+                    // A PROCEDURAL PART-select RANGE fold reading an imported
+                    // param carries the ts ref too, but scopes it at the
+                    // MODULE and re-parents the constant at the param's own
+                    // param_assign — the range bound is resolved through the
+                    // parameter, not through the select (Surelog;
+                    // cs_registers csr_rdata_int[HI:LO]).
+                    bool procPsFold9 = inProcessEmit && !inParamInit && parent &&
+                                       parent->UhdmType() ==
+                                           UHDM::uhdmpart_select;
                     if ((parent && parent->UhdmType() == UHDM::uhdmoperation) ||
                         procSelFold9)
                         c->VpiParent(parent);
@@ -1356,7 +1365,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (inParamInit && paramInitDef && !paramInitPkg &&
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
-                        procOpFold9 || sysFuncArgFold || procSelFold9)
+                        procOpFold9 || sysFuncArgFold || procSelFold9 ||
+                        procPsFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -1397,7 +1407,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // The imported-param sys-func fold re-parents the
                             // folded constant at the pkg param's param_assign;
                             // so does a cont-assign fold.
-                            if (sysFuncArgFold || caFold9)
+                            if (sysFuncArgFold || caFold9 || procPsFold9)
                                 if (auto cIt = pkgParamConst.find(&nv.symbol);
                                     cIt != pkgParamConst.end() &&
                                     cIt->second->VpiParent())
@@ -2908,6 +2918,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     return mfc;
                 }
                 auto it = subMap.find(&sub);
+                // A PARAM-INIT call in an ELAB instance body: bind the shared
+                // DEF function (the elab view lists it; Surelog's kept
+                // func_call points at it) rather than an empty shell.
+                if (it == subMap.end() && inParamInit && !paramInitDef)
+                    if (auto psc9 = sub.getParentScope();
+                        psc9 && psc9->asSymbol().kind == SymbolKind::InstanceBody) {
+                        auto dit9 = defSubByName.find(std::make_pair(
+                            (const Symbol*)&psc9->asSymbol()
+                                .as<InstanceBodySymbol>()
+                                .getDefinition(),
+                            std::string(sub.name)));
+                        if (dit9 != defSubByName.end())
+                            it = subMap.find(dit9->second);
+                    }
                 if (it == subMap.end()) {
                     // Calls seen before the def fill (param inits): create a
                     // shell now; emitTaskFuncs fills it later.
@@ -3034,6 +3058,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ac->VpiDecompile(digits);
                             ac->VpiSize(w);
                             ac->VpiValue("BIN:" + digits);
+                        }
+                    }
+                    // The ELAB view of a param-init func_call Surelog keeps
+                    // SYMBOLIC still has its actuals FOLDED (elaboration
+                    // substitutes param refs by value, and evalFunc's arg
+                    // binding then stamps the formal's typespec onto the
+                    // in-tree constant): func_upto's kept F(A_CONST, B_CONST)
+                    // carries two UINT constants, not A_CONST/B_CONST refs.
+                    bool elabParamArgFold = false;
+                    if (inParamInit && !paramInitDef && !paramInitPkg && isFunc &&
+                        !currentTf && callArgDepth == 1 && a &&
+                        a->UhdmType() == UHDM::uhdmref_obj) {
+                        auto& ba9 = stripImplicitConv(*arg);
+                        if (ba9.kind == ExpressionKind::NamedValue &&
+                            ba9.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter) {
+                            auto& pv9 = ba9.as<NamedValueExpression>()
+                                            .symbol.as<ParameterSymbol>()
+                                            .getValue();
+                            if (pv9.isInteger() && !pv9.integer().hasUnknown()) {
+                                std::string dg9 = pv9.integer().toString(
+                                    LiteralBase::Decimal, false);
+                                auto* c9 = s.MakeConstant();
+                                c9->VpiDecompile(dg9);
+                                c9->VpiSize((int32_t)pv9.integer().getBitWidth());
+                                c9->VpiValue("UINT:" + dg9);
+                                c9->VpiConstType(vpiUIntConst);
+                                c9->VpiParent(fc);
+                                setLoc(c9, arg->sourceRange);
+                                a = c9;
+                                elabParamArgFold = true;
+                            }
                         }
                     }
                     if (a) {
@@ -3168,7 +3224,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                           a->UhdmType() == UHDM::uhdmconstant &&
                                           !intFormal))
                                       : (!inLhs && !defOpArg && !portInitCtx &&
-                                         !paramRef && !paramRootSel &&
+                                         (!paramRef || elabParamArgFold) &&
+                                         !paramRootSel &&
                                          !(intFormal &&
                                            a->UhdmType() ==
                                                UHDM::uhdmoperation) &&
@@ -3180,7 +3237,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 std::string::npos;
                         if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
                             !(unbasedArg && contAssignView == 1) &&
-                            (refArg || otherArg) && argIdx < si.argTs.size()) {
+                            (refArg || otherArg) &&
+                            (argIdx < si.argTs.size() || elabParamArgFold)) {
                             auto* r = (UHDM::expr*)a;
                             auto* rt = s.MakeRef_typespec();
                             // Constant args (param-init context) name the
@@ -3197,11 +3255,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ((UHDM::indexed_part_select*)a)->VpiFullName();
                             rt->VpiFullName(argFull);
                             rt->VpiParent(r);
-                            auto [ats, bareKey] = si.argTs[argIdx];
-                            if (ats)
-                                rt->Actual_typespec(ats);
-                            else if (bareKey)
-                                pendingIoTs.push_back({rt, bareKey});
+                            if (argIdx < si.argTs.size()) {
+                                auto [ats, bareKey] = si.argTs[argIdx];
+                                if (ats)
+                                    rt->Actual_typespec(ats);
+                                else if (bareKey)
+                                    pendingIoTs.push_back({rt, bareKey});
+                            }
+                            else if (isFunc)
+                                // The callee's io_decls do not exist yet
+                                // (param_assigns precede Task_funcs): read the
+                                // formal's typespec off the bound function in
+                                // the write phase.
+                                pendingCallArgTs.push_back(
+                                    {rt, ((UHDM::func_call*)fc)->Function(),
+                                     argIdx});
                             r->Typespec(rt);
                             // A constant arg carrying a formal-ts ref sizes at
                             // the formal's width (loop(2) -> UINT:2 size 4) —
@@ -3909,6 +3977,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // selector span.
             setLoc(bs, (inLhs || inParamInit) ? expr.sourceRange
                                               : es.selector().sourceRange);
+            // ELAB gen-scope CONN index FOLD: an index OPERATION that is
+            // constant after genvar substitution (CC[i+1] in a for-generate
+            // body) collapses to ONE UINT constant spanning the FIRST source
+            // token of the index expression (Surelog folds the whole subtree).
+            if (genvarConnFold &&
+                stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue &&
+                !isLiteralExpr(es.selector())) {
+                ASTContext gcx8(comp.getRoot(), LookupLocation::max);
+                if (auto iv8 = gcx8.tryEval(es.selector());
+                    iv8 && iv8.isInteger() && !iv8.integer().hasUnknown()) {
+                    auto* c8 = s.MakeConstant();
+                    std::string d8 =
+                        iv8.integer().toString(LiteralBase::Decimal, false);
+                    c8->VpiDecompile(d8);
+                    c8->VpiSize(64);
+                    c8->VpiValue("UINT:" + d8);
+                    c8->VpiConstType(vpiUIntConst);
+                    c8->VpiParent(bs);
+                    auto st8 = es.selector().sourceRange.start();
+                    std::string braw8(rawText(es.selector().sourceRange));
+                    size_t tok8 = 0;
+                    while (tok8 < braw8.size() &&
+                           (isalnum((unsigned char)braw8[tok8]) ||
+                            braw8[tok8] == '_' || braw8[tok8] == '$'))
+                        tok8++;
+                    if (!tok8)
+                        tok8 = d8.size();
+                    setLoc(c8, SourceRange(st8, st8 + tok8));
+                    bs->VpiIndex(c8);
+                    return bs;
+                }
+            }
             // Refs nested in index OPERATIONS scope by the base name;
             // direct index refs stay module-scoped.
             std::string idxPrefix = prefix;

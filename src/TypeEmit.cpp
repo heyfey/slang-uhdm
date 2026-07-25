@@ -1840,6 +1840,25 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     }
                                 }
                             }
+                            // Is the module param a LITERAL-initialized param of
+                            // the very body this declaration lives in? (see the
+                            // elab-clone width fold below)
+                            auto litBoundOwnPar9 = [&]() -> bool {
+                                auto* in9 = elabModPar->getInitializer();
+                                if (!in9 ||
+                                    stripImplicitConv(*in9).kind !=
+                                        ExpressionKind::IntegerLiteral)
+                                    return false;
+                                auto body9 = [](const Symbol& sy9) -> const Scope* {
+                                    for (auto sc9 = sy9.getParentScope(); sc9;
+                                         sc9 = sc9->asSymbol().getParentScope())
+                                        if (sc9->asSymbol().kind ==
+                                            SymbolKind::InstanceBody)
+                                            return sc9;
+                                    return nullptr;
+                                };
+                                return body9(*elabModPar) == body9(declSymbol);
+                            };
                             if (boundParam && !boundOwnerFullName.empty() &&
                                 !intEnc) {
                                 c->VpiSize(
@@ -1866,13 +1885,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // its initializer is a plain integer LITERAL — one
                             // computed from a $clog2/func CALL keeps the bare
                             // 64-bit fold (Surelog).
+                            // ...and only when the literal-init param is one of
+                            // THIS body's own params. When slang re-uses (value-
+                            // dedups) an instance body under a second parent,
+                            // currentScope here is the ENCLOSING module, so a
+                            // same-named param of the parent resolves bogusly and
+                            // would lend its (narrow) default width; Surelog,
+                            // which never dedups, folds those at 64 (multiplier:
+                            // RippleCarryAdder#(M+i) instantiated from two
+                            // different top modules that both declare N).
                             else if (elabModPar && !intEnc &&
-                                     (boundParam ||
-                                      (elabModPar->getInitializer() &&
-                                       stripImplicitConv(
-                                           *elabModPar->getInitializer())
-                                               .kind ==
-                                           ExpressionKind::IntegerLiteral))) {
+                                     (boundParam || litBoundOwnPar9())) {
                                 c->VpiSize(
                                     (int32_t)elabModPar->getType().getBitWidth());
                                 c->VpiConstType(vpiUIntConst);

@@ -1097,6 +1097,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Register before the body so recursive calls bind this function.
         if (sharedScope || reusedShell || !subMap.count(&sub))
             subMap[&sub] = si;
+        // An ELAB instance's call site sees its OWN per-instance
+        // SubroutineSymbol, but the elab view lists (and Surelog binds) the
+        // DEF function object: remember the def-emitted subroutine keyed by
+        // (definition, name) so such call sites can reach it.
+        if (body.asSymbol().kind == SymbolKind::InstanceBody)
+            defSubByName.emplace(
+                std::make_pair((const Symbol*)&body.asSymbol()
+                                   .as<InstanceBodySymbol>()
+                                   .getDefinition(),
+                               std::string(sub.name)),
+                (const Symbol*)&sub);
 
         // Body: refs to the return value bind a local var that Surelog only
         // creates in the write phase; record them for late patching.

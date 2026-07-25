@@ -10,6 +10,8 @@
 
 #include "EmitHelpers.h"
 
+#include "slang/ast/EvalContext.h"
+
 namespace slang_uhdm {
 
 static bool containsUserCall(const Expression& e) {
@@ -36,6 +38,246 @@ static bool subroutineDeclaresParam(const Scope& sc) {
             return true;
     }
     return false;
+}
+
+// ---------------------------------------------------------------------------
+// Surelog's ExprEval::evalStmt reduces an ASSIGNMENT's Rhs with pexpr = the
+// ASSIGNMENT itself; in that context a bit/part SELECT of a FUNCTION-SCOPE
+// object (formal arg or body variable) does NOT resolve to the value evalFunc
+// stored for it, so the select stays symbolic. Operators that consume their
+// operands through the SHARED invalidValue flag (&&, ||, &, |, ^, ~, !, ==, *,
+// -, <<, ?:, and a select whose INDEX is such a select) then mark the whole
+// evaluation invalid and the call stays a func_call. vpiAddOp and concat use
+// LOCAL flags, so `x[i] + y[i]` / `{x[i],y[i]}` still fold, and a BARE select
+// Rhs (`F = D[0]`) folds because setValueInInstance re-reduces with pexpr=null.
+// The refusal is EXECUTION-dependent: the same statement inside a loop that
+// never runs does not defeat the fold (func_upto: `for (i=LO; i+SPAN<HI; ...)`
+// only has a live body for HI=2/LO=0/SPAN=1, which is exactly the 512 of 2144
+// instances where Surelog keeps the func_call).
+static const ValueSymbol* selectRootSym(const Expression& e) {
+    const Expression* p = &e;
+    for (int guard = 0; guard < 16; guard++) {
+        switch (p->kind) {
+            case ExpressionKind::ElementSelect:
+                p = &p->as<ElementSelectExpression>().value();
+                break;
+            case ExpressionKind::RangeSelect:
+                p = &p->as<RangeSelectExpression>().value();
+                break;
+            case ExpressionKind::MemberAccess:
+                p = &p->as<MemberAccessExpression>().value();
+                break;
+            case ExpressionKind::Conversion:
+                p = &p->as<ConversionExpression>().operand();
+                break;
+            case ExpressionKind::NamedValue:
+                return &p->as<NamedValueExpression>().symbol;
+            default:
+                return nullptr;
+        }
+    }
+    return nullptr;
+}
+
+static bool isFuncScopeValue(const ValueSymbol& sym, const SubroutineSymbol& sub) {
+    if (sym.kind != SymbolKind::Variable && sym.kind != SymbolKind::FormalArgument)
+        return false;
+    const Scope* sc = sym.getParentScope();
+    for (int guard = 0; sc && guard < 8; guard++) {
+        auto& ss = sc->asSymbol();
+        if (&ss == (const Symbol*)&sub)
+            return true;
+        if (ss.kind != SymbolKind::StatementBlock)
+            return false;
+        sc = ss.getParentScope();
+    }
+    return false;
+}
+
+static bool poisonsEvalFunc(const Expression& e, const SubroutineSymbol& sub) {
+    bool found = false;
+    std::function<void(const Expression&, bool)> walk = [&](const Expression& x,
+                                                            bool poisonCtx) {
+        if (found)
+            return;
+        switch (x.kind) {
+            case ExpressionKind::ElementSelect: {
+                auto& es = x.as<ElementSelectExpression>();
+                if (poisonCtx) {
+                    if (auto* rs = selectRootSym(es.value()))
+                        if (isFuncScopeValue(*rs, sub)) {
+                            found = true;
+                            return;
+                        }
+                }
+                walk(es.value(), poisonCtx);
+                walk(es.selector(), true);
+                return;
+            }
+            case ExpressionKind::RangeSelect: {
+                auto& rs2 = x.as<RangeSelectExpression>();
+                if (poisonCtx) {
+                    if (auto* rs = selectRootSym(rs2.value()))
+                        if (isFuncScopeValue(*rs, sub)) {
+                            found = true;
+                            return;
+                        }
+                }
+                walk(rs2.value(), poisonCtx);
+                walk(rs2.left(), true);
+                walk(rs2.right(), true);
+                return;
+            }
+            case ExpressionKind::BinaryOp: {
+                auto& b = x.as<BinaryExpression>();
+                bool p = poisonCtx || b.op != BinaryOperator::Add;
+                walk(b.left(), p);
+                walk(b.right(), p);
+                return;
+            }
+            case ExpressionKind::UnaryOp: {
+                auto& u = x.as<UnaryExpression>();
+                bool p = poisonCtx || u.op != UnaryOperator::Plus;
+                walk(u.operand(), p);
+                return;
+            }
+            case ExpressionKind::ConditionalOp: {
+                auto& c = x.as<ConditionalExpression>();
+                for (auto& cond : c.conditions)
+                    walk(*cond.expr, true);
+                walk(c.left(), true);
+                walk(c.right(), true);
+                return;
+            }
+            case ExpressionKind::Concatenation: {
+                for (auto* op : x.as<ConcatenationExpression>().operands())
+                    walk(*op, poisonCtx);
+                return;
+            }
+            case ExpressionKind::Replication: {
+                auto& r = x.as<ReplicationExpression>();
+                walk(r.count(), poisonCtx);
+                walk(r.concat(), poisonCtx);
+                return;
+            }
+            case ExpressionKind::Conversion:
+                walk(x.as<ConversionExpression>().operand(), poisonCtx);
+                return;
+            case ExpressionKind::Assignment: {
+                auto& a = x.as<AssignmentExpression>();
+                walk(a.left(), poisonCtx);
+                walk(a.right(), poisonCtx);
+                return;
+            }
+            default:
+                return;
+        }
+    };
+    walk(e, false);
+    return found;
+}
+
+// A for loop whose stop condition is FALSE on entry (evaluated with the
+// initializers applied) never runs, so nothing in its body can defeat the fold.
+static bool forLoopCanRun(const ForLoopStatement& fl, Compilation& comp) {
+    if (!fl.stopExpr)
+        return true;
+    ASTContext actx(comp.getRoot(), LookupLocation::max);
+    EvalContext ec(actx, EvalFlags::IsScript);
+    ec.pushEmptyFrame();
+    for (auto* lv : fl.loopVars) {
+        ConstantValue iv = lv->getInitializer() ? lv->getInitializer()->eval(ec)
+                                                : ConstantValue();
+        if (!iv)
+            return true;
+        ec.createLocal(lv, std::move(iv));
+    }
+    for (auto* init : fl.initializers) {
+        if (init->kind == ExpressionKind::Assignment) {
+            auto& lhs = init->as<AssignmentExpression>().left();
+            if (lhs.kind == ExpressionKind::NamedValue) {
+                auto& vs = lhs.as<NamedValueExpression>().symbol;
+                if (!ec.findLocal(&vs))
+                    ec.createLocal(&vs, vs.getType().getDefaultValue());
+            }
+        }
+        if (!init->eval(ec))
+            return true;
+    }
+    ConstantValue cv = fl.stopExpr->eval(ec);
+    if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+        return true;
+    return cv.isTrue();
+}
+
+static bool stmtPoisonsEvalFunc(const Statement& st, const SubroutineSymbol& sub,
+                                Compilation& comp) {
+    switch (st.kind) {
+        case StatementKind::List:
+            for (auto* s : st.as<StatementList>().list)
+                if (stmtPoisonsEvalFunc(*s, sub, comp))
+                    return true;
+            return false;
+        case StatementKind::Block:
+            return stmtPoisonsEvalFunc(st.as<BlockStatement>().body, sub, comp);
+        case StatementKind::ExpressionStatement: {
+            auto& e = st.as<ExpressionStatement>().expr;
+            if (e.kind == ExpressionKind::Assignment)
+                return poisonsEvalFunc(e, sub);
+            return false;
+        }
+        case StatementKind::Conditional: {
+            auto& cs = st.as<ConditionalStatement>();
+            // The CONDITION is reduced with pexpr=null (selects resolve there),
+            // so only the TAKEN branch matters when the condition folds.
+            int taken = -1;
+            if (cs.conditions.size() == 1 && !cs.conditions[0].pattern) {
+                ASTContext actx(comp.getRoot(), LookupLocation::max);
+                EvalContext ec(actx, EvalFlags::IsScript);
+                ec.pushEmptyFrame();
+                ConstantValue cv = cs.conditions[0].expr->eval(ec);
+                if (cv && cv.isInteger() && !cv.integer().hasUnknown())
+                    taken = cv.isTrue() ? 0 : 1;
+            }
+            if (taken != 1 && stmtPoisonsEvalFunc(cs.ifTrue, sub, comp))
+                return true;
+            if (taken != 0 && cs.ifFalse &&
+                stmtPoisonsEvalFunc(*cs.ifFalse, sub, comp))
+                return true;
+            return false;
+        }
+        case StatementKind::ForLoop: {
+            auto& fl = st.as<ForLoopStatement>();
+            if (!forLoopCanRun(fl, comp))
+                return false;
+            return stmtPoisonsEvalFunc(fl.body, sub, comp);
+        }
+        case StatementKind::WhileLoop:
+            return stmtPoisonsEvalFunc(st.as<WhileLoopStatement>().body, sub, comp);
+        case StatementKind::DoWhileLoop:
+            return stmtPoisonsEvalFunc(st.as<DoWhileLoopStatement>().body, sub, comp);
+        case StatementKind::RepeatLoop:
+            return stmtPoisonsEvalFunc(st.as<RepeatLoopStatement>().body, sub, comp);
+        case StatementKind::ForeverLoop:
+            return stmtPoisonsEvalFunc(st.as<ForeverLoopStatement>().body, sub, comp);
+        case StatementKind::ForeachLoop:
+            return stmtPoisonsEvalFunc(st.as<ForeachLoopStatement>().body, sub, comp);
+        case StatementKind::Case: {
+            auto& cst = st.as<CaseStatement>();
+            for (auto& item : cst.items)
+                if (stmtPoisonsEvalFunc(*item.stmt, sub, comp))
+                    return true;
+            if (cst.defaultCase)
+                return stmtPoisonsEvalFunc(*cst.defaultCase, sub, comp);
+            return false;
+        }
+        default:
+            return false;
+    }
+}
+
+static bool subroutinePoisonsEvalFunc(const SubroutineSymbol& sub, Compilation& comp) {
+    return stmtPoisonsEvalFunc(sub.getBody(), sub, comp);
 }
 
 // Surelog INLINES a foldable const function's body, so the folded constant is
@@ -71,6 +313,374 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
         v.visitDefault(a);
     }));
     return enc;
+}
+
+// ---------------------------------------------------------------------------
+// Surelog's constant-function evaluator (UHDM ExprEval) does NOT model LRM
+// expression widths: every intermediate value is a 64-bit word, and `>>`/`>>>`
+// are BOTH ((uint64_t)val0 >> val1) on that word (ExprEval reduceExpr,
+// vpiRShiftOp), while a ternary reduces to `INT:<selected branch>` — a SIGNED
+// 64-bit constant. So a signed-negative operand that the LRM would have
+// coerced to a NARROWER UNSIGNED type is SIGN-EXTENDED to 64 bits before the
+// shift, making the shift read as arithmetic:
+//     func = {(inp == 0 ? -1 : func(inp - 1)) >> 2};   // func_tern_hint
+// LRM: the ternary is 32-bit UNSIGNED (one arm is func's unsigned 31-bit
+// return), so -1 >> 2 = 0x3FFFFFFF. Surelog: (uint64_t)-1 >> 2 = 0x3FFF..FF,
+// masked to the 31-bit return width (evalFunc masks the func value to the
+// return logic_typespec's size) = 0x7FFFFFFF — and every recursion level
+// re-masks, so the whole A/B/C/D chain sits one bit off.
+// srlgFoldCall replays that 64-bit model over the narrow statement subset
+// where it can matter; it returns nullopt for anything it does not model, so
+// slang's LRM value stays authoritative for every other fold.
+
+// int64 view of a slang constant under Surelog's get_value(): a SIGNED value
+// keeps its sign (INT:), an unsigned one is zero-extended (UINT:).
+static std::optional<int64_t> srlgWord(const ConstantValue& cv) {
+    if (!cv.isInteger())
+        return std::nullopt;
+    const SVInt& iv = cv.integer();
+    if (iv.hasUnknown() || iv.getBitWidth() > 64)
+        return std::nullopt;
+    if (iv.isSigned()) {
+        if (auto v = iv.as<int64_t>())
+            return *v;
+        return std::nullopt;
+    }
+    if (auto v = iv.as<uint64_t>())
+        return (int64_t)*v;
+    return std::nullopt;
+}
+
+// Does Surelog give this type a logic_typespec whose width MASKS the value on
+// function return / formal-arg binding? A predefined integer (integer/int/...)
+// gets an int_typespec and is NOT masked (evalFunc only masks logic_typespec).
+static bool srlgMaskWidth(const Type& t, uint64_t& w) {
+    if (!t.isIntegral() || t.isPredefinedInteger() || t.isEnum())
+        return false;
+    auto& ct = t.getCanonicalType();
+    if (ct.kind != SymbolKind::ScalarType && ct.kind != SymbolKind::PackedArrayType)
+        return false;
+    w = t.getBitWidth();
+    return w > 0 && w < 64;
+}
+
+class SrlgFold {
+public:
+    // Replays Surelog's 64-bit fold of a user function call; nullopt when the
+    // body (or any operand) falls outside the modelled subset.
+    std::optional<int64_t> call(const SubroutineSymbol& sub,
+                                std::span<const Expression* const> args) {
+        std::vector<int64_t> argv;
+        for (auto* a : args) {
+            auto v = evalExpr(*a);
+            if (!v)
+                return std::nullopt;
+            argv.push_back(*v);
+        }
+        return invoke(sub, argv);
+    }
+
+private:
+    std::map<const Symbol*, int64_t> env;
+    const Symbol* retVar = nullptr;
+    int depth = 0;
+    bool bad = false;
+
+    static int64_t maskTo(int64_t v, uint64_t w, bool sgn) {
+        uint64_t mask = (1ull << w) - 1;
+        uint64_t t = (uint64_t)v & mask;
+        if (sgn && ((t >> (w - 1)) & 1))
+            t |= ~mask;
+        return (int64_t)t;
+    }
+
+    std::optional<int64_t> invoke(const SubroutineSymbol& sub,
+                                  const std::vector<int64_t>& argv) {
+        auto formals = sub.getArguments();
+        if (bad || ++depth > 64 || !sub.returnValVar ||
+            formals.size() != argv.size()) {
+            bad = true;
+            depth--;
+            return std::nullopt;
+        }
+        auto savedEnv = env;
+        auto* savedRet = retVar;
+        env.clear();
+        retVar = (const Symbol*)sub.returnValVar;
+        for (size_t i = 0; i < formals.size(); i++) {
+            if (formals[i]->direction != ArgumentDirection::In) {
+                bad = true;
+                break;
+            }
+            int64_t v = argv[i];
+            uint64_t fw = 0;
+            if (srlgMaskWidth(formals[i]->getType(), fw))
+                v = maskTo(v, fw, formals[i]->getType().isSigned());
+            env[formals[i]] = v;
+        }
+        std::optional<int64_t> out;
+        if (!bad) {
+            bool returned = false;
+            evalStmt(sub.getBody(), returned);
+            auto it = env.find(retVar);
+            if (!bad && it != env.end()) {
+                int64_t v = it->second;
+                uint64_t rw = 0;
+                if (srlgMaskWidth(sub.getReturnType(), rw))
+                    v = (int64_t)((uint64_t)v & ((1ull << rw) - 1));
+                out = v;
+            }
+            else
+                bad = true;
+        }
+        env = savedEnv;
+        retVar = savedRet;
+        depth--;
+        return bad ? std::nullopt : out;
+    }
+
+    void evalStmt(const Statement& st, bool& returned) {
+        if (bad || returned)
+            return;
+        switch (st.kind) {
+            case StatementKind::Empty:
+                return;
+            case StatementKind::List:
+                for (auto* s2 : st.as<StatementList>().list) {
+                    evalStmt(*s2, returned);
+                    if (bad || returned)
+                        return;
+                }
+                return;
+            case StatementKind::Block:
+                evalStmt(st.as<BlockStatement>().body, returned);
+                return;
+            case StatementKind::VariableDeclaration: {
+                auto& vs = st.as<VariableDeclStatement>().symbol;
+                if (auto* init = vs.getInitializer()) {
+                    if (auto v = evalExpr(*init))
+                        env[&vs] = *v;
+                    else
+                        bad = true;
+                }
+                return;
+            }
+            case StatementKind::ExpressionStatement: {
+                auto& e = st.as<ExpressionStatement>().expr;
+                if (e.kind != ExpressionKind::Assignment) {
+                    bad = true;
+                    return;
+                }
+                auto& asn = e.as<AssignmentExpression>();
+                auto& lhs = stripImplicitConv(asn.left());
+                if (asn.isCompound() || lhs.kind != ExpressionKind::NamedValue) {
+                    bad = true;
+                    return;
+                }
+                if (auto v = evalExpr(asn.right()))
+                    env[&lhs.as<NamedValueExpression>().symbol] = *v;
+                else
+                    bad = true;
+                return;
+            }
+            case StatementKind::Return: {
+                auto* re = st.as<ReturnStatement>().expr;
+                if (!re) {
+                    bad = true;
+                    return;
+                }
+                if (auto v = evalExpr(*re)) {
+                    env[retVar] = *v;
+                    returned = true;
+                }
+                else
+                    bad = true;
+                return;
+            }
+            case StatementKind::Conditional: {
+                auto& cs = st.as<ConditionalStatement>();
+                if (cs.conditions.size() != 1 || cs.conditions[0].pattern) {
+                    bad = true;
+                    return;
+                }
+                auto c = evalExpr(*cs.conditions[0].expr);
+                if (!c) {
+                    bad = true;
+                    return;
+                }
+                if (*c != 0)
+                    evalStmt(cs.ifTrue, returned);
+                else if (cs.ifFalse)
+                    evalStmt(*cs.ifFalse, returned);
+                return;
+            }
+            default:
+                bad = true;
+                return;
+        }
+    }
+
+    std::optional<int64_t> evalExpr(const Expression& e) {
+        if (bad)
+            return std::nullopt;
+        switch (e.kind) {
+            case ExpressionKind::Conversion: {
+                auto& cv = e.as<ConversionExpression>();
+                if (!cv.isImplicit()) // vpiCastOp: not modelled
+                    break;
+                return evalExpr(cv.operand());
+            }
+            case ExpressionKind::IntegerLiteral:
+                return srlgWord(ConstantValue(e.as<IntegerLiteral>().getValue()));
+            case ExpressionKind::NamedValue: {
+                auto& sym = e.as<NamedValueExpression>().symbol;
+                auto it = env.find(&sym);
+                if (it != env.end())
+                    return it->second;
+                if (sym.kind == SymbolKind::Parameter)
+                    return srlgWord(sym.as<ParameterSymbol>().getValue());
+                break;
+            }
+            case ExpressionKind::UnaryOp: {
+                auto& uo = e.as<UnaryExpression>();
+                auto v = evalExpr(uo.operand());
+                if (!v)
+                    break;
+                switch (uo.op) {
+                    case UnaryOperator::Plus:
+                        return *v;
+                    case UnaryOperator::Minus:
+                        return -*v;
+                    case UnaryOperator::LogicalNot:
+                        return *v == 0 ? 1 : 0;
+                    default:
+                        break;
+                }
+                break;
+            }
+            case ExpressionKind::ConditionalOp: {
+                auto& co = e.as<ConditionalExpression>();
+                if (co.conditions.size() != 1 || co.conditions[0].pattern)
+                    break;
+                auto c = evalExpr(*co.conditions[0].expr);
+                if (!c)
+                    break;
+                // Surelog reduces the ternary to INT:<selected branch>, keeping
+                // that branch's SIGNEDNESS (no LRM common type).
+                return evalExpr(*c != 0 ? co.left() : co.right());
+            }
+            case ExpressionKind::Concatenation: {
+                // A 1-element concat passes the value through; a wider one
+                // needs Surelog's per-operand VpiSize model (not replayed).
+                auto ops = e.as<ConcatenationExpression>().operands();
+                if (ops.size() == 1)
+                    return evalExpr(*ops[0]);
+                break;
+            }
+            case ExpressionKind::Call: {
+                auto& ce = e.as<CallExpression>();
+                if (ce.isSystemCall())
+                    break;
+                if (auto sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine))
+                    return call(**sp, ce.arguments());
+                break;
+            }
+            case ExpressionKind::BinaryOp: {
+                auto& bo = e.as<BinaryExpression>();
+                auto l = evalExpr(bo.left());
+                if (!l)
+                    break;
+                auto r = evalExpr(bo.right());
+                if (!r)
+                    break;
+                uint64_t ul = (uint64_t)*l, ur = (uint64_t)*r;
+                switch (bo.op) {
+                    case BinaryOperator::Add:
+                        return (int64_t)(ul + ur);
+                    case BinaryOperator::Subtract:
+                        return (int64_t)(ul - ur);
+                    case BinaryOperator::Multiply:
+                        return (int64_t)(ul * ur);
+                    case BinaryOperator::Divide:
+                        if (*r == 0 || *l < 0 || *r < 0)
+                            break;
+                        return *l / *r;
+                    case BinaryOperator::Mod:
+                        if (*r == 0 || *l < 0 || *r < 0)
+                            break;
+                        return *l % *r;
+                    case BinaryOperator::BinaryAnd:
+                        return (int64_t)(ul & ur);
+                    case BinaryOperator::BinaryOr:
+                        return (int64_t)(ul | ur);
+                    case BinaryOperator::BinaryXor:
+                        return (int64_t)(ul ^ ur);
+                    case BinaryOperator::LogicalAnd:
+                        return (*l != 0 && *r != 0) ? 1 : 0;
+                    case BinaryOperator::LogicalOr:
+                        return (*l != 0 || *r != 0) ? 1 : 0;
+                    case BinaryOperator::Equality:
+                        return *l == *r ? 1 : 0;
+                    case BinaryOperator::Inequality:
+                        return *l != *r ? 1 : 0;
+                    case BinaryOperator::GreaterThan:
+                        return *l > *r ? 1 : 0;
+                    case BinaryOperator::GreaterThanEqual:
+                        return *l >= *r ? 1 : 0;
+                    case BinaryOperator::LessThan:
+                        return *l < *r ? 1 : 0;
+                    case BinaryOperator::LessThanEqual:
+                        return *l <= *r ? 1 : 0;
+                    // vpiRShiftOp and vpiArithRShiftOp share ExprEval's
+                    // ((uint64_t)val0 >> val1) — the 64-bit word is what
+                    // decides whether the sign bit propagates.
+                    case BinaryOperator::LogicalShiftRight:
+                    case BinaryOperator::ArithmeticShiftRight:
+                        if (ur >= 64)
+                            break;
+                        return (int64_t)(ul >> ur);
+                    case BinaryOperator::LogicalShiftLeft:
+                    case BinaryOperator::ArithmeticShiftLeft:
+                        if (ur >= 64)
+                            break;
+                        return (int64_t)(ul << ur);
+                    default:
+                        break;
+                }
+                break;
+            }
+            default:
+                break;
+        }
+        bad = true;
+        return std::nullopt;
+    }
+};
+
+// Surelog's 64-bit fold can only DIVERGE from the LRM fold where a `>>`/`>>>`
+// left operand is NARROWER than 64 bits (so the LRM shifts within that width)
+// yet holds a SIGNED subexpression, whose negative value Surelog sign-extends
+// to 64 bits before shifting. Its own LRM signedness is irrelevant: a signed
+// `-1 >> 2` zero-fills at 32 bits per the LRM but propagates the sign bit
+// through Surelog's 64-bit word just the same. Gate the replay on that shape.
+static bool hasSignExtendedShift(const SubroutineSymbol& sub) {
+    bool found = false;
+    sub.getBody().visit(makeVisitor([&](auto& v, const BinaryExpression& b) {
+        if (b.op == BinaryOperator::LogicalShiftRight ||
+            b.op == BinaryOperator::ArithmeticShiftRight) {
+            auto& lhs = stripImplicitConv(b.left());
+            if (lhs.type->isIntegral() && lhs.type->getBitWidth() < 64) {
+                lhs.visit(makeVisitor(
+                    [&](auto& v2, std::derived_from<Expression> auto& sub2) {
+                        if (sub2.type->isIntegral() && sub2.type->isSigned())
+                            found = true;
+                        v2.visitDefault(sub2);
+                    }));
+            }
+        }
+        v.visitDefault(b);
+    }));
+    return found;
 }
 
 // A module that IMPORTS (via wildcard or explicit import) and REFERENCES a
@@ -2608,11 +3218,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // A function whose body declares a LOCALPARAM defeats
                     // Surelog's const evaluator — the call stays symbolic
                     // (const_func_block_var). Lifetime is irrelevant.
-                    if (csub9 && !unevalArg9 && !subroutineDeclaresParam(*csub9)) {
+                    if (csub9 && !unevalArg9 && !subroutineDeclaresParam(*csub9) &&
+                        !subroutinePoisonsEvalFunc(*csub9, comp)) {
                         auto& pv9 = ps.getValue();
                         if (pv9.isInteger() &&
                             !pv9.integer().hasUnknown()) {
                             auto iv9 = pv9.integer();
+                            // Surelog's 64-bit fold model (srlgFold) beats the
+                            // LRM value where a sign-extended `>>` is in play.
+                            if (hasSignExtendedShift(*csub9)) {
+                                SrlgFold sf9;
+                                if (auto wv9 = sf9.call(
+                                        *csub9,
+                                        icc9.as<CallExpression>().arguments()))
+                                    iv9 = SVInt(64, (uint64_t)*wv9, false);
+                            }
                             // A RANGED-UNTYPED localparam const-call fold
                             // ([HI:LO] C_CONST = F(..)) folds like A_CONST: UINT
                             // at the (per-instance) RANGE width with a ts ref to
@@ -2918,6 +3538,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     rhs->UhdmType() == UHDM::uhdmconstant)
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
+                // The ELAB (top-view) copy of an imported param re-emits the
+                // param's RESOLVED VALUE, so a BASED-DECIMAL default loses its
+                // base form: 2'd1 becomes a plain int constant (INT:1,
+                // decompile "1"). Other bases keep their source encoding
+                // (Surelog; cs_registers CSR_MISA_MXL).
+                if (isImported && topView && typedParam &&
+                    rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto* rc9 = (UHDM::constant*)rhs;
+                    std::string_view v9 = rc9->VpiValue();
+                    if (v9.rfind("DEC:", 0) == 0) {
+                        std::string dg9(v9.substr(4));
+                        rc9->VpiValue("INT:" + dg9);
+                        rc9->VpiConstType(vpiIntConst);
+                        rc9->VpiDecompile(dg9);
+                    }
+                }
                 if (inPackage && !topView && rhs->UhdmType() == UHDM::uhdmconstant)
                     pkgParamConst[&member] = (UHDM::constant*)rhs;
                 if (inPackage && !topView)
@@ -3149,10 +3785,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // but ONLY for TYPED imports. An UNTYPED import (parameter
                     // W = 48) keeps its int_typespec Instance-less, exactly as
                     // it is in its home package (Surelog; fail_detect_width).
-                    if (typedParam)
-                        if (auto pit = pkgDefMap.find(&ps.getParentScope()->asSymbol());
-                            pit != pkgDefMap.end())
+                    // ...and the package it reaches is the ELABORATED (top)
+                    // one — Surelog's cross-view instance links land on the
+                    // elab package, and UHDM's Compare follows
+                    // typespec->vpiInstance, so binding the DEF view drags the
+                    // UNELABORATED param constants into the comparison
+                    // (cs_registers: 64-bit def vs 32-bit elab pkg params).
+                    if (typedParam) {
+                        const void* home3 = &ps.getParentScope()->asSymbol();
+                        if (auto tit = pkgTopMap.find(home3);
+                            tit != pkgTopMap.end())
+                            its->Instance((UHDM::instance*)tit->second);
+                        else if (auto pit = pkgDefMap.find(home3);
+                                 pit != pkgDefMap.end()) {
                             its->Instance((UHDM::instance*)pit->second);
+                            pkgImportTsTopFixups.emplace_back(its, home3);
+                        }
+                    }
                     // Remember it so a def-view fold that READS this imported
                     // param can carry a ref_typespec to it.
                     importedParamDefTs[&ps] = its;

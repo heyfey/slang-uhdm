@@ -555,9 +555,13 @@ private:
     // A module_array (vpiModuleArray) for an interface/module instance array.
     // withInstances: the elab view carries the per-index interface_inst
     // elements; the def view omits them (Surelog).
+    // modElems (module instance arrays): the already-emitted per-index
+    // module_inst elements to list under vpiModule; passing it selects the
+    // MODULE flavour (no broadcast ports, ELAB view only).
     UHDM::module_array* emitModuleArray(
         const slang::ast::InstanceArraySymbol& arr, UHDM::module_inst* m,
-        const std::string& prefix, NetMap& nets, bool withInstances);
+        const std::string& prefix, NetMap& nets, bool withInstances,
+        UHDM::VectorOfmodule_inst* modElems = nullptr);
     void noteUnsupported(const std::string& what);
 
     slang::ast::Compilation& comp;
@@ -779,6 +783,12 @@ private:
                                const slang::ast::InstanceBodySymbol& body);
     std::vector<TopPending> topPendings;
     std::map<const slang::ast::Symbol*, SubInfo> subMap;
+    /// (module definition, subroutine name) -> the DEF-emitted subroutine
+    /// symbol, so an ELAB instance's param-init call site can bind the shared
+    /// def function object instead of minting an empty shell.
+    std::map<std::pair<const slang::ast::Symbol*, std::string>,
+             const slang::ast::Symbol*>
+        defSubByName;
     // task_func SHELLS created by pre-def call sites, awaiting their def fill.
     std::set<UHDM::task_func*> tfShells;
     // Typedef typespecs shared across views; enum consts for value refs.
@@ -960,6 +970,15 @@ private:
     // Bare implicit io-decl typespecs (unlocated) are created at the very
     // end of the write phase; keyed by type syntax for decl-group sharing.
     std::vector<std::pair<UHDM::ref_typespec*, const void*>> pendingIoTs;
+    // A PARAM-INIT func_call arg's formal-typespec ref: the callee's io_decls
+    // are emitted AFTER the param_assigns, so the stamp is resolved in the
+    // write phase (func_upto's kept F(A_CONST,B_CONST) constant args).
+    struct PendingCallArgTs {
+        UHDM::ref_typespec* rt;
+        UHDM::task_func* tf;
+        size_t idx;
+    };
+    std::vector<PendingCallArgTs> pendingCallArgTs;
     // Gen-block REAL localparams: their typed ts + the CA-shared constant's
     // bare clone are write-phase objects (after the top-port ts, before the
     // genvar int ts — Surelog arena order). crt gets the clone, rt the ts.

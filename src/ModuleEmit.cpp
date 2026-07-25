@@ -785,14 +785,19 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                                                   UHDM::module_inst* m,
                                                   const std::string& prefix,
                                                   NetMap& nets,
-                                                  bool withInstances) {
+                                                  bool withInstances,
+                                                  UHDM::VectorOfmodule_inst* modElems) {
     const InstanceSymbol* rep = nullptr;
     for (auto* e : arr.elements)
         if (e && e->kind == SymbolKind::Instance) {
             rep = &e->as<InstanceSymbol>();
             break;
         }
-    if (!rep || !useInterfacePath(*rep))
+    if (!rep)
+        return nullptr;
+    // MODULE instance arrays take the modElems flavour (elab view only);
+    // interface arrays the ports+instances one.
+    if (!modElems && !useInterfacePath(*rep))
         return nullptr;
     auto& adef = rep->getDefinition();
     auto* ma = s.MakeModule_array();
@@ -836,7 +841,11 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
         }
     }
     auto* rng = s.MakeRange();
-    rng->VpiParent(ma);
+    // The ELAB module-array dimension range is left bare (no vpiParent) by
+    // Surelog — only its bound constants back-point at it, exactly like the
+    // elab interface_array's range.
+    if (!modElems)
+        rng->VpiParent(ma);
     // A SIZE-form dim (m[2]) ranges [0 : 2-1]: loc at the size token,
     // loc-less 0 left, op N-1 right (Surelog).
     if (sizeSyn9) {
@@ -902,8 +911,10 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     }
     auto* mts = s.MakeModule_typespec();
     mts->VpiName(adef.name);
-    // Parented at the module_array it types (Surelog).
-    mts->VpiParent(ma);
+    // An INTERFACE array's element typespec is parented at the module_array it
+    // types; a MODULE array's stays bare (Surelog).
+    if (!modElems)
+        mts->VpiParent(ma);
     // Located at the instantiation's TYPE token (Surelog).
     if (instTypeSyn9)
         setLoc(mts,
@@ -914,6 +925,13 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     ert->VpiParent(ma);
     ert->Actual_typespec(mts);
     ma->Elem_typespec(ert);
+    // A MODULE array carries no broadcast port list: its per-index module_inst
+    // elements hold the (already sliced) connections (Surelog).
+    if (modElems) {
+        if (!modElems->empty())
+            ma->Modules(modElems);
+        return ma;
+    }
     auto* mports = s.MakePortVec();
     for (auto conn : rep->getPortConnections()) {
         auto* ax = connectionExpr(*conn);
@@ -1816,6 +1834,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     }
     elabInstanceTs = !isTop;
     std::string prefix = path;
+    // An INSTANCE-ARRAY element carries no slang name (the index lives only in
+    // the elaborated path), so its display name / conn-name doubling comes
+    // from the caller's path tail (p[0]).
+    std::string instNm = std::string(inst.name);
+    if (instNm.empty() && !inst.arrayPath.empty())
+        if (auto dp9 = prefix.rfind('.'); dp9 != std::string::npos)
+            instNm = prefix.substr(dp9 + 1);
     std::string defPrefix = "work@" + std::string(def.name);
     std::string parentPrefix;
     if (parentM && parentM->VpiFullName().length())
@@ -1856,7 +1881,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
     }
     else if (!isTop) {
-        m->VpiName(inst.name);
+        m->VpiName(instNm);
         m->VpiParent(parentM);
         m->Instance(parentM);
         m->Module_inst(parentM);
@@ -1879,6 +1904,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     // pointing at the last net of the declaration.
     NetMap topNets;
     TsCache netTs;
+    // Instance-array elements share one PORT typespec per declaration (a
+    // separate cache from the nets' — the two objects stay distinct).
+    TsCache elemPortTs;
     std::set<const Symbol*> instRefs;
     analyzeParamEnc(body);
     {
@@ -3458,17 +3486,17 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         else if (member.kind == SymbolKind::InstanceArray) {
             auto& arr = member.as<InstanceArraySymbol>();
-            // A MODULE instance array (aoi12 p[31:0](...)) has no per-element
-            // emission below (that loop is interface-only), so the ELEMENT
-            // definition would never have its port phase run at all: Surelog
-            // compiles the array's element module exactly like any other
-            // instantiated def, so fill it here in encounter order
-            // (arraycells: work@aoi12 keeps its four vpiPorts).
+            // A MODULE instance array (aoi12 p[31:0](...)) elaborates like any
+            // other child instantiation: the ELEMENT definition gets its port
+            // phase in encounter order (arraycells: work@aoi12 keeps its four
+            // vpiPorts) ahead of the per-index elements themselves.
+            bool modArr = false;
             for (auto* e0 : arr.elements) {
                 if (!e0 || e0->kind != SymbolKind::Instance)
                     continue;
                 auto& ei0 = e0->as<InstanceSymbol>();
                 if (!useInterfacePath(ei0)) {
+                    modArr = true;
                     auto& edef0 = ei0.getDefinition();
                     if (!defMap[&edef0].filled) {
                         defMap[&edef0].filled = true;
@@ -3477,10 +3505,39 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
                 break;
             }
-            // The module_array object lives in the DEF view ONLY (emitModuleDef);
-            // the ELAB view carries just the per-index interface_inst elements
-            // under vpiInterface (Surelog — the elab dut has no vpiModuleArray).
+            // The INTERFACE array's module_array object lives in the DEF view
+            // ONLY (emitModuleDef); its ELAB view carries just the per-index
+            // interface_inst elements under vpiInterface (Surelog).
             int32_t alo = std::min(arr.range.left, arr.range.right);
+            // A MODULE array is the mirror image: the per-index module_inst
+            // elements go under vpiModule of THIS instance and the ELAB view
+            // (not the def) carries the module_array wrapper listing them.
+            if (modArr) {
+                auto* melems = s.MakeModule_instVec();
+                for (size_t i = 0; i < arr.elements.size(); i++) {
+                    auto* e = arr.elements[i];
+                    if (!e || e->kind != SymbolKind::Instance)
+                        continue;
+                    std::string iname = std::string(arr.name) + "[" +
+                                        std::to_string(alo + (int32_t)i) + "]";
+                    auto* mi = emitInstance(e->as<InstanceSymbol>(),
+                                            prefix + "." + iname, m, &topNets,
+                                            &instRefs, /*isTop=*/false);
+                    mi->VpiName(iname);
+                    children->push_back(mi);
+                    melems->push_back(mi);
+                }
+                if (auto* ma = emitModuleArray(arr, m, prefix, topNets,
+                                               /*withInstances=*/false, melems)) {
+                    auto* mas = m->Module_arrays();
+                    if (!mas) {
+                        mas = s.MakeModule_arrayVec();
+                        m->Module_arrays(mas);
+                    }
+                    mas->push_back(ma);
+                }
+                continue;
+            }
             // A WHOLE interface-ARRAY connection to a sibling child's iface
             // port (.m(arr), bare) makes the FIRST element carry a col-0 tail
             // duplicate that the receiving port's HighConn weakly references.
@@ -3850,9 +3907,49 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             (genvarConnFold && !genConnPrefix.empty())
                                 ? genConnPrefix
                                 : hcPrefix;
-                        bsx->VpiFullName(dblPfx + "." +
-                                         std::string(inst.name) + "." +
+                        bsx->VpiFullName(dblPfx + "." + instNm + "." +
                                          std::string(bsx->VpiName()));
+                        // An INSTANCE-ARRAY element's connection is SLICED by
+                        // slang into an element select whose index literal has
+                        // no source text. Surelog's elaborator builds that
+                        // index itself: the folded index value, spanning the
+                        // CONNECTION token, with no vpiConstType and no parent
+                        // (arraycells .b -> b[0]).
+                        if (!inst.arrayPath.empty())
+                            if (auto* ixA = bsx->VpiIndex();
+                                ixA && ixA->UhdmType() == UHDM::uhdmconstant &&
+                                ((UHDM::constant*)ixA)->VpiDecompile().empty()) {
+                                int64_t iv9 = 0;
+                                if (auto& se9 = stripImplicitConv(*expr);
+                                    se9.kind == ExpressionKind::ElementSelect) {
+                                    auto& es9 =
+                                        se9.as<ElementSelectExpression>();
+                                    ASTContext ac9(comp.getRoot(),
+                                                   LookupLocation::max);
+                                    if (auto cv9 = ac9.tryEval(es9.selector());
+                                        cv9 && cv9.isInteger())
+                                        if (auto i9 =
+                                                cv9.integer().as<int64_t>())
+                                            iv9 = *i9;
+                                    // The slice binds the PARENT net it cuts.
+                                    if (auto& be9 =
+                                            stripImplicitConv(es9.value());
+                                        be9.kind == ExpressionKind::NamedValue)
+                                        if (auto nit9 = parentNets->find(
+                                                &be9.as<NamedValueExpression>()
+                                                     .symbol);
+                                            nit9 != parentNets->end())
+                                            bsx->Actual_group(nit9->second);
+                                }
+                                auto* cA9 = (UHDM::constant*)ixA;
+                                cA9->VpiDecompile(std::to_string(iv9));
+                                cA9->VpiValue("UINT:" + std::to_string(iv9));
+                                cA9->VpiSize(64);
+                                cA9->VpiConstType(0);
+                                cA9->VpiParent(nullptr);
+                                setLoc(cA9, expr->sourceRange);
+                                setLoc(bsx, expr->sourceRange);
+                            }
                     }
                     // Indexed-part-select HighConns double through the
                     // child instance AND the formal (generate_test).
@@ -4011,6 +4108,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
             rt->VpiParent(p);
+            // An INSTANCE-ARRAY element's port typespecs share one object per
+            // DECLARATION (`input a, b, c;` -> one logic_typespec), like its
+            // nets — Surelog's per-instance TypespecCache (arraycells).
+            if (!pts && !inst.arrayPath.empty())
+                pts = sharedTypespec(*internal, elemPortTs, &ps);
             if (!pts && deferPortTs)
                 pendingElabPortTs.push_back({rt, internal, &ps, &def, currentScope,
                                              elabInstanceTs, tfContext});
@@ -7080,6 +7182,22 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             mint();
     }
 
+    // Param-init call-arg formal-ts stamps: the callee's io_decl typespecs
+    // exist by now (Task_funcs are emitted after the param_assigns).
+    if (!pendingCallArgTs.empty()) {
+        for (auto& pca : pendingCallArgTs) {
+            if (!pca.tf || !pca.tf->Io_decls())
+                continue;
+            auto* ios9 = pca.tf->Io_decls();
+            if (pca.idx >= ios9->size())
+                continue;
+            if (auto* irt9 = ios9->at(pca.idx)->Typespec())
+                if (auto* ats9 = irt9->Actual_typespec())
+                    pca.rt->Actual_typespec(ats9);
+        }
+        pendingCallArgTs.clear();
+    }
+
     {
         std::map<const void*, UHDM::typespec*> bareCache;
         for (auto& [rt, key] : pendingIoTs) {
@@ -8795,6 +8913,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     }
                     pkgEnumFoldConst[enumRhs] = c;
                 }
+                // An INT-valued enum const (a based-DECIMAL literal, 4'd0)
+                // loses its base form in the ELAB fold: the resolved Value
+                // decompiles as the plain digits (Surelog; cs_registers
+                // XDEBUGVER_NO). Other bases keep the source decompile.
+                else if (v.rfind("INT:", 0) == 0)
+                    c->VpiDecompile(v.substr(4));
                 else
                     c->VpiDecompile(src->VpiDecompile());
                 if (aliasEnumLhs) {
@@ -8809,6 +8933,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     c->VpiConstType(vpiOctConst);
                 else if (v.rfind("DEC:", 0) == 0)
                     c->VpiConstType(vpiDecConst);
+                else if (v.rfind("INT:", 0) == 0)
+                    c->VpiConstType(vpiIntConst);
                 else
                     c->VpiConstType(vpiUIntConst);
                 rhs = c;
