@@ -792,6 +792,9 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
         return s.MakeEnum_var();
     if (ct.kind == SymbolKind::StringType)
         return s.MakeString_var();
+    // A class-handle return is a class_var (Surelog).
+    if (ct.kind == SymbolKind::ClassType)
+        return s.MakeClass_var();
     if (ct.kind == SymbolKind::PredefinedIntegerType) {
         auto& pit = ct.as<PredefinedIntegerType>();
         if (pit.integerKind == PredefinedIntegerType::Int) {

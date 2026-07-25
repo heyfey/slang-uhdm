@@ -59,6 +59,14 @@ public:
     /// Builds the UHDM design object tree. Returns the design root.
     UHDM::design* exportDesign();
 
+    /// Mirrors Surelog without -nobuiltin: synthesize the `builtin` package
+    /// (five empty class_defns) and treat @a builtinFile as the fake
+    /// <cwd>/builtin.sv compilation unit holding mailbox/process/semaphore.
+    void enableBuiltins(std::string builtinFile) {
+        builtins = true;
+        builtinFilePath = std::move(builtinFile);
+    }
+
     /// Names of AST node kinds that could not be mapped (empty on full success).
     const std::set<std::string>& unsupported() const { return unsupportedKinds; }
 
@@ -916,6 +924,20 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::property_decl*> propertyDeclMap;
     // Class definitions (design->AllClasses), keyed by the ClassType symbol.
     std::map<const slang::ast::Symbol*, UHDM::class_defn*> classDefnMap;
+    // --builtins: mirror Surelog's default (no -nobuiltin) content.
+    bool builtins = false;
+    std::string builtinFilePath;
+    // The synthesized `builtin` package (Part A), prepended to AllPackages /
+    // TopPackages exactly as Surelog's UhdmWriter does.
+    void emitBuiltinPackage(UHDM::VectorOfpackage*& allP, UHDM::VectorOfpackage*& topP);
+    // True for the injected <cwd>/builtin.sv compilation unit.
+    bool isBuiltinUnit(const slang::ast::Scope& unit);
+    // Class-scope typedefs (vpiTypedef on a class_defn); only the builtin
+    // `process::state` enum needs these today, so it stays behind --builtins.
+    void emitClassTypedefs(const slang::ast::ClassType& cls, UHDM::class_defn* cd);
+    // The class_defn currently being filled (a `new` constructor's synthesized
+    // return class_var points its class_typespec at it).
+    UHDM::class_defn* currentClassDefn = nullptr;
     // File-level ($unit) parameters -> design-level parameter objects (refs
     // bind these); their typespecs materialize at the very end.
     std::map<const slang::ast::Symbol*, UHDM::parameter*> unitParamMap;

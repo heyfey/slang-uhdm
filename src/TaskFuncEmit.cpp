@@ -74,7 +74,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tf->VpiName(sub.name);
         tf->VpiFullName(fullName);
         tf->VpiParent(m);
-        tf->VpiVisibility(1);
+        // A class CONSTRUCTOR carries no vpiVisibility (Surelog).
+        if (!(classScope && sub.name == "new"))
+            tf->VpiVisibility(1);
         bool dpiImport = (sub.flags & MethodFlags::DPIImport) != MethodFlags::None;
         if (dpiImport) {
             tf->VpiAccessType(4);
@@ -93,12 +95,50 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // (an exported TASK keeps its definition span).
         if (dpiExportSyn && sub.subroutineKind == SubroutineKind::Function)
             setLoc(tf, dpiExportSyn->sourceRange());
-        else if (auto syn = sub.getSyntax())
-            setLoc(tf, syn->sourceRange());
+        else if (auto syn = sub.getSyntax()) {
+            // A STATIC class method spans only its `static` qualifier token
+            // (a Surelog populateCoreMembers artifact).
+            const syntax::SyntaxNode* qualHolder =
+                classScope && syn->parent &&
+                        syn->parent->kind == syntax::SyntaxKind::ClassMethodDeclaration
+                    ? syn->parent
+                    : nullptr;
+            bool staticSpan = false;
+            if (qualHolder)
+                for (auto q : qualHolder->as<syntax::ClassMethodDeclarationSyntax>()
+                                  .qualifiers)
+                    if (q.kind == slang::parsing::TokenKind::StaticKeyword) {
+                        setLoc(tf, q.range());
+                        staticSpan = true;
+                        break;
+                    }
+            if (!staticSpan)
+                setLoc(tf, syn->sourceRange());
+        }
         if (designScope || classScope)
             tf->VpiMethod(true);
         if (!genScope && !designScope && !classScope)
             tf->Instance((UHDM::instance*)m);
+
+        // A class CONSTRUCTOR has no declared return type; Surelog still gives
+        // it a class_var return typed by the enclosing class (an unnamed,
+        // unlocated class_typespec), anchored at the FIRST formal's name span.
+        if (classScope && sub.name == "new" && currentClassDefn) {
+            auto* rv = s.MakeClass_var();
+            rv->VpiFullName(fullName);
+            rv->VpiParent(tf);
+            auto args0 = sub.getArguments();
+            if (!args0.empty())
+                setLoc(rv, nameSpan(args0[0]->location, args0[0]->name));
+            auto* cts = s.MakeClass_typespec();
+            cts->Class_defn(currentClassDefn);
+            auto* crt = s.MakeRef_typespec();
+            crt->VpiFullName(fullName);
+            crt->VpiParent(rv);
+            crt->Actual_typespec(cts);
+            rv->Typespec(crt);
+            ((UHDM::function*)tf)->Return(rv);
+        }
 
         SubInfo si;
         si.tf = tf;
@@ -233,6 +273,19 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     typedefRetClone = true;
                 }
             }
+            // A CLASS-HANDLE return: an ANONYMOUS class_typespec at the
+            // return-type token, linked to the class_defn (Surelog).
+            if (!ts) {
+                auto& rct9 = sub.getReturnType().getCanonicalType();
+                if (rct9.kind == SymbolKind::ClassType) {
+                    auto* cts9 = s.MakeClass_typespec();
+                    if (auto cit9 = classDefnMap.find(&rct9); cit9 != classDefnMap.end())
+                        cts9->Class_defn(cit9->second);
+                    if (auto* rsyn9 = returnTypeSyntax(sub))
+                        setLoc(cts9, rsyn9->sourceRange());
+                    ts = cts9;
+                }
+            }
             if (!ts) {
                 tfContext = true;
                 tfTypeScope = pkgScope ? sub.getParentScope() : nullptr;
@@ -248,7 +301,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
             rt->Actual_typespec(ts);
-            if (pkgScope) {
+            // A CLASS scope is not a vpiInstance (Surelog leaves method
+            // typespecs uninstanced, as the io_decl path already does).
+            if (pkgScope && !classScope) {
                 ts->Instance(importCopyTsInst ? importCopyTsInst
                                               : (UHDM::instance*)m);
                 if (importCopyTsInst && importCopyTsCollect)
@@ -425,11 +480,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 case ArgumentDirection::InOut:
                     io->VpiDirection(vpiInout);
                     break;
+                case ArgumentDirection::Ref:
+                    io->VpiDirection(vpiRef);
+                    break;
                 default:
                     noteUnsupported("subroutine arg direction");
                     break;
             }
             setLoc(io, nameSpan(arg->location, arg->name));
+            // A DEFAULT VALUE becomes the io_decl's vpiExpr (unparented, at the
+            // default expression's own span).
+            if (auto* dv = arg->getDefaultValue()) {
+                NetMap emptyMap;
+                if (auto* de = emitExpr(*dv, nullptr, fullName, emptyMap))
+                    io->Expr((UHDM::expr*)de);
+            }
             // Bare implicit arg types ("input x;") get an unlocated typespec
             // created at the very end of the write phase.
             UHDM::typespec* ts = nullptr;
@@ -440,6 +505,30 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 auto& its = argTsyn->as<syntax::ImplicitTypeSyntax>();
                 if (its.dimensions.empty() && !its.signing.valid())
                     bareImplicit = true;
+            }
+            // An ANSI formal written as a BARE NAME (task put(message); /
+            // task get(ref message);) has no data-type node at all, so Surelog
+            // gives its io_decl NO typespec. A body-style "input x;" does keep
+            // one (there the direction keyword is the type declaration).
+            if (bareImplicit) {
+                bool noTypeNode = false;
+                for (auto q = arg->getSyntax(); q; q = q->parent) {
+                    if (q->kind == syntax::SyntaxKind::FunctionPort) {
+                        noTypeNode = q->as<syntax::FunctionPortSyntax>().dataType == nullptr;
+                        break;
+                    }
+                    if (q->kind == syntax::SyntaxKind::PortDeclaration ||
+                        q->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                        q->kind == syntax::SyntaxKind::TaskDeclaration)
+                        break;
+                }
+                if (noTypeNode) {
+                    ios->push_back(io);
+                    if (!classScope)
+                        funcMap[arg] = io;
+                    si.argTs.push_back({nullptr, nullptr});
+                    continue;
+                }
             }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + sep + std::string(arg->name));

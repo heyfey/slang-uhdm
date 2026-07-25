@@ -1,0 +1,19 @@
+//------------------------------------------------------------------------------
+//! @file BuiltinSv.h
+//! @brief GENERATED from share/builtin.sv - do not edit.
+//
+// SPDX-License-Identifier: MIT
+//------------------------------------------------------------------------------
+#pragma once
+
+#include <string_view>
+
+namespace slang_uhdm {
+
+// Verbatim copy of the source string Surelog's Builtin::addBuiltinClasses()
+// parses as <cwd>/builtin.sv. The UHDM line:column spans of the mailbox /
+// process / semaphore class_defns depend on this text byte for byte.
+inline constexpr std::string_view kBuiltinSvText =
+    R"SLANGUHDM(@BUILTIN_SV_TEXT@)SLANGUHDM";
+
+} // namespace slang_uhdm

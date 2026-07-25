@@ -4,15 +4,18 @@
 //
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
+#include "BuiltinSv.h"
 #include "UhdmExporter.h"
 
 #include <cstdio>
+#include <filesystem>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/UhdmAdjuster.h>
 #include <uhdm/uhdm.h>
 
 #include "slang/ast/Compilation.h"
 #include "slang/driver/Driver.h"
+#include "slang/syntax/SyntaxTree.h"
 #include "slang/util/VersionInfo.h"
 
 using namespace slang;
@@ -33,6 +36,11 @@ int main(int argc, char** argv) {
     driver.cmdLine.add("--elabuhdm", elabUhdm,
                        "Forces UHDM/VPI full elaboration; default is the folded model");
 
+    std::optional<bool> builtins;
+    driver.cmdLine.add("--builtins", builtins,
+                       "Adds the SystemVerilog builtin package and builtin.sv classes, "
+                       "mirroring Surelog run WITHOUT -nobuiltin");
+
     if (!driver.parseCommandLine(argc, argv))
         return 1;
 
@@ -51,6 +59,20 @@ int main(int argc, char** argv) {
         return 2;
 
     bool ok = driver.parseAllSources();
+
+    // Surelog (unless given -nobuiltin) parses an embedded builtin.sv as a fake
+    // file in the CURRENT WORKING DIRECTORY; the UHDM class spans reference that
+    // path. Feed slang the same text under the same reported path so the parser
+    // yields identical line:column information.
+    std::string builtinPath;
+    if (builtins == true) {
+        builtinPath = (std::filesystem::current_path() / "builtin.sv").string();
+        auto buffer = driver.sourceManager.assignText(builtinPath, slang_uhdm::kBuiltinSvText);
+        auto tree = syntax::SyntaxTree::fromBuffer(buffer, driver.sourceManager,
+                                                   driver.createParseOptionBag());
+        driver.syntaxTrees.push_back(tree);
+    }
+
     auto compilation = driver.createCompilation();
     driver.reportCompilation(*compilation, /* quiet */ true);
     ok &= driver.reportDiagnostics(/* quiet */ true);
@@ -58,10 +80,15 @@ int main(int argc, char** argv) {
         return 3;
 
     UHDM::Serializer serializer;
-    // Surelog writes with GC off by default; stale compile artifacts (e.g.
-    // abandoned pattern first-compiles) are part of the reference shape.
+    // Kept off so stale compile artifacts (e.g. abandoned pattern
+    // first-compiles) survive into the database, as they do in the reference
+    // shape. Surelog's own default is GC ON (CommandLineParser m_gc(true)), but
+    // GC makes no measurable difference to its output and no corpus test passes
+    // -gc/-nogc, so this is a difference in reason rather than in result.
     serializer.SetGCEnabled(false);
     slang_uhdm::UhdmExporter exporter(*compilation, serializer);
+    if (builtins == true)
+        exporter.enableBuiltins(builtinPath);
     UHDM::design* design = exporter.exportDesign();
 
     if (elabUhdm == true) {

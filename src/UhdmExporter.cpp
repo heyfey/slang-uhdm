@@ -19,6 +19,51 @@ void UhdmExporter::noteUnsupported(const std::string& what) {
     unsupportedKinds.insert(what);
 }
 
+bool UhdmExporter::isBuiltinUnit(const Scope& unit) {
+    if (!builtins)
+        return false;
+    for (auto& mem : unit.members())
+        return fullFilePath(mem.location) == builtinFilePath;
+    return false;
+}
+
+// Surelog's Builtin::addBuiltinTypes() synthesizes a package named `builtin`
+// holding five empty class_defns; UhdmWriter then inserts it at the FRONT of
+// both package lists (the elaborated copy carries vpiTop + the class_defns,
+// the un-elaborated one just the names). Nothing has a source position.
+void UhdmExporter::emitBuiltinPackage(UHDM::VectorOfpackage*& allP,
+                                      UHDM::VectorOfpackage*& topP) {
+    static constexpr std::string_view kClasses[] = {"any_sverilog_class", "array",
+                                                    "queue", "string", "system"};
+    // TopPackages copy first (Surelog builds the elaborated views first).
+    auto* pTop = s.MakePackage();
+    pTop->VpiName("builtin");
+    pTop->VpiFullName("builtin::");
+    pTop->VpiDefName("builtin");
+    pTop->VpiParent(d);
+    pTop->VpiTop(true);
+    auto* cds = s.MakeClass_defnVec();
+    for (auto cn : kClasses) {
+        auto* cd = s.MakeClass_defn();
+        cd->VpiName(cn);
+        cd->VpiFullName("builtin::" + std::string(cn));
+        cd->VpiParent(pTop);
+        cds->push_back(cd);
+    }
+    pTop->Class_defns(cds);
+    auto* pAll = s.MakePackage();
+    pAll->VpiName("builtin");
+    pAll->VpiFullName("builtin::");
+    pAll->VpiDefName("builtin");
+    pAll->VpiParent(d);
+    if (!allP)
+        allP = s.MakePackageVec();
+    if (!topP)
+        topP = s.MakePackageVec();
+    allP->insert(allP->begin(), pAll);
+    topP->insert(topP->begin(), pTop);
+}
+
 // True when one of the body's own parameters is declared with a type alias
 // that is ALSO declared in that body (parameter alert_tx_t P = ...).
 static bool paramTypedByLocalTypedef(const Scope& body) {
@@ -191,8 +236,40 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     if (!vars->empty())
         cd->Variables(vars);
     classDefnMap[&cls] = cd;
+    if (builtins)
+        emitClassTypedefs(cls, cd);
+    currentClassDefn = cd;
     emitTaskFuncs(cls, cd, fullName + "::", nullptr, false);
+    currentClassDefn = nullptr;
     return cd;
+}
+
+// Class-scope typedefs (class_defn vpiTypedef). Only the builtin
+// `process::state` enum exercises this today, so it stays behind --builtins.
+void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd) {
+    auto* tds = s.MakeTypespecVec();
+    for (auto& member : cls.members()) {
+        if (member.kind != SymbolKind::TypeAlias)
+            continue;
+        auto& ta = member.as<TypeAliasType>();
+        auto& ct = ta.targetType.getType().getCanonicalType();
+        if (ct.kind != SymbolKind::EnumType)
+            continue;
+        const syntax::SyntaxNode* typeSyn = nullptr;
+        if (auto syn = ta.getSyntax())
+            if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+        auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn, std::string(ta.name));
+        ets->VpiName(ta.name);
+        ets->VpiParent(cd);
+        if (auto syn = ta.getSyntax())
+            setLoc(ets, syn->sourceRange());
+        // Registering it lets a method's return type share this object.
+        typedefTs[&ta] = ets;
+        tds->push_back(ets);
+    }
+    if (!tds->empty())
+        cd->Typespecs(tds);
 }
 
 // Builds a canonical string of an instance's parameterization (value +
@@ -376,6 +453,14 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (auto tit9 = pkgTopMap.find(home9); tit9 != pkgTopMap.end())
                 ts9->Instance(tit9->second);
         pkgImportTsTopFixups.clear();
+    }
+    // --builtins: the synthesized `builtin` package heads both lists.
+    if (builtins) {
+        auto* allP = d->AllPackages();
+        auto* topP = d->TopPackages();
+        emitBuiltinPackage(allP, topP);
+        d->AllPackages(allP);
+        d->TopPackages(topP);
     }
 
     // File-level ($unit) parameters -> DESIGN-level Parameters/Param_assigns
@@ -944,16 +1029,37 @@ UHDM::design* UhdmExporter::exportDesign() {
     // ::-scoped automatic vars, methods via emitTaskFuncs (class scope).
     {
         auto* classes = s.MakeClass_defnVec();
+        struct ClassEnt {
+            const ClassType* cls;
+            bool builtinFile;
+        };
+        std::vector<ClassEnt> ents;
         for (auto unit : comp.getCompilationUnits()) {
-            for (auto& mem : unit->members()) {
-                if (mem.kind != SymbolKind::ClassType)
-                    continue;
-                auto& cls = mem.as<ClassType>();
-                std::string cname = "work@" + std::string(cls.name);
-                auto* cd = emitClassDefn(cls, cname, cname, d);
-                classes->push_back(cd);
-            }
+            bool bi = isBuiltinUnit(*unit);
+            for (auto& mem : unit->members())
+                if (mem.kind == SymbolKind::ClassType)
+                    ents.push_back({&mem.as<ClassType>(), bi});
         }
+        // Surelog compiles builtin.sv before the user sources, so its
+        // class_defn objects lead the arena; the design's class LIST is then
+        // ordered by SHORT class name (Surelog's multimap<name, ClassDefn*>).
+        std::map<const ClassType*, UHDM::class_defn*> made;
+        auto emitOne = [&](const ClassType* c) {
+            std::string cname = "work@" + std::string(c->name);
+            made[c] = emitClassDefn(*c, cname, cname, d);
+        };
+        for (auto& e : ents)
+            if (e.builtinFile)
+                emitOne(e.cls);
+        for (auto& e : ents)
+            if (!e.builtinFile)
+                emitOne(e.cls);
+        std::stable_sort(ents.begin(), ents.end(),
+                         [](const ClassEnt& a, const ClassEnt& b) {
+                             return a.cls->name < b.cls->name;
+                         });
+        for (auto& e : ents)
+            classes->push_back(made[e.cls]);
         if (!classes->empty())
             d->AllClasses(classes);
     }

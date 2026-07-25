@@ -14,6 +14,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(slang CONFIG REQUIRED)
 find_package(UHDM CONFIG REQUIRED)
 
+# share/builtin.sv is Surelog's Builtin::addBuiltinClasses() source, extracted
+# byte for byte (the UHDM line:column spans depend on the exact text). Embed it
+# so --builtins needs no runtime data file.
+set(BUILTIN_SV_SRC ${CMAKE_CURRENT_SOURCE_DIR}/share/builtin.sv)
+set(BUILTIN_SV_HDR ${CMAKE_CURRENT_BINARY_DIR}/generated/BuiltinSv.h)
+file(READ ${BUILTIN_SV_SRC} BUILTIN_SV_TEXT)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/BuiltinSv.h.in ${BUILTIN_SV_HDR} @ONLY)
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${BUILTIN_SV_SRC})
+
 add_library(slang_uhdm_obj_lib OBJECT
     src/UhdmExporter.cpp
     src/ModuleEmit.cpp
@@ -22,7 +31,7 @@ add_library(slang_uhdm_obj_lib OBJECT
     src/TaskFuncEmit.cpp
     src/ExprEmit.cpp
     src/TypeEmit.cpp)
-target_include_directories(slang_uhdm_obj_lib PUBLIC include)
+target_include_directories(slang_uhdm_obj_lib PUBLIC include ${CMAKE_CURRENT_BINARY_DIR}/generated)
 target_link_libraries(slang_uhdm_obj_lib PUBLIC slang::slang uhdm::uhdm)
 
 add_executable(slang_uhdm uhdm_main.cpp)
