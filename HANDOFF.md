@@ -1,6 +1,44 @@
-# HANDOFF — slang-uhdm convergence campaign (5-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (ZERO-DIFF state)
 
-## Drive 8b (2026-07-24 ~09:30 -> ~18:10, Opus lane): 487 PASS / 169 CMP_ONLY / 5 DIFF
+## ⭐ ZERO DIFF REACHED (2026-07-24 ~21:20): 488 PASS / 173 CMP_ONLY / 0 DIFF
+
+Every corpus test is now at least SEMANTICALLY IDENTICAL to Surelog (uhdm-cmp DESIGN r=0); 488 are
+byte-identical. Goldens 23/23. Remaining work is byte-level only (173 CMP_ONLY).
+
+### Wave 63 — the final five (all converted, one combined gate, zero regressions)
+- func_tern_hint DIFF->PASS. Surelog's const-function evaluator (UHDM ExprEval.cpp) models NO LRM widths:
+  every intermediate is a 64-bit word, vpiConditionOp reduces to INT:<selected branch>, vpiRShiftOp and
+  vpiArithRShiftOp are BOTH a 64-bit logical shift, and evalFunc masks the value to the return
+  logic_typespec width on each return. New SrlgFold (ParamEmit) replays that model over a narrow
+  statement/expression subset and returns nullopt -> slang's LRM value for anything unmodelled.
+  REFUTED en route: "ternary takes the selected branch's signedness" (my own guess), value-based gates,
+  and LRM-signedness gates — a plain (-1 + inp) >> 2 diverges too.
+- cs_registers DIFF->CMP_ONLY. Materialized imported-param typespecs pointed vpiInstance at the DEF
+  package (AllPackages[0], 64-bit unelaborated constants) where Surelog points at the ELAB one
+  (TopPackages[0], 32-bit). UHDM's Compare follows typespec->Instance, so the def view dragged in the
+  wrong constants — a DUMP-INVISIBLE aliasing blocker, found with an instrumented per-container
+  comparator. Plus: an elab imported-param copy re-emits the resolved Value, so a based-decimal default
+  loses its base (2'd1 -> INT:1).
+- multiplier DIFF->CMP_ONLY. A gen-conn bit_select index that is constant after genvar substitution
+  folds to ONE UINT at the index expression's FIRST token. And an elab var-dim bound folds only when the
+  literal-init param lives in the SAME InstanceBody — slang value-dedups an instance body under a second
+  parent, so currentScope is then the ENCLOSING module and a bound resolves to the parent's same-named
+  param at its narrower width. (First predicate attempt regressed macc; refined.)
+- arraycells DIFF->CMP_ONLY (8133 -> 6 byte lines). A MODULE instance array emits per-index elements
+  under vpiModule PLUS a module_array wrapper in the ELAB view — the mirror of the interface array, whose
+  module_array is def-view-only — with its range and module_typespec left BARE. Also: a slang
+  instance-array element has an EMPTY name (the index lives in the elaborated path only), and Surelog's
+  elaborator builds the element-select index itself (folded, spanning the connection token, no
+  vpiConstType, unparented).
+- func_upto DIFF->CMP_ONLY. Surelog keeps the func_call for EXACTLY the 512 of 2144 instances whose body
+  loop runs at least once: evalStmt reduces an ASSIGNMENT's Rhs with pexpr set, and in that context a
+  bit/part select of a function-scope object does not resolve; operators that read operands through the
+  SHARED invalidValue flag (&&, ||, &, |, ^, ~, !, ==, *, -, <<, ?:, select indices) then abort the whole
+  fold, while vpiAddOp/concat use LOCAL flags and still fold. subroutinePoisonsEvalFunc reproduces the
+  per-instance fold/no-fold exactly (512/1632 on both sides). REFUTED: lifetime, body localparam,
+  $-system-call, recursion — none apply here.
+
+## (superseded) Drive 8b (2026-07-24 ~09:30 -> ~18:10, Opus lane): 487 PASS / 169 CMP_ONLY / 5 DIFF
 
 Started at 420/203/38. Goldens 23/23 throughout; every landing gated on a full corpus run plus a
 verbatim movers diff, and every regression was refined (or reverted with the distinguisher recorded)
