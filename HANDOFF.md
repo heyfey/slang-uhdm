@@ -1,6 +1,36 @@
-# HANDOFF — slang-uhdm convergence campaign (ZERO-DIFF state)
+# HANDOFF — slang-uhdm convergence campaign (uhdm2rtlil 0-DIFF; Surelog suite 41.6% equal)
 
-## ⭐ ZERO DIFF REACHED (2026-07-24 ~21:20): 488 PASS / 173 CMP_ONLY / 0 DIFF
+## ⚠️ SCOPE OF THE ZERO-DIFF CLAIM — verified, but corpus-specific (2026-07-24 ~21:40)
+
+Re-verified INDEPENDENTLY with the standard `uhdm-cmp` (UHDM 1.86,
+~/git-repos/UHDM/build/bin/uhdm-cmp) run directly on each .uhdm pair, not via converge.sh:
+  scripts/verify_stdcmp_uhdm2rtlil.sh -> results/verify_uhdm2rtlil_stdcmp.csv
+  uhdm2rtlil (710 tests): 661 CMP_EQUAL, 0 CMP_NOTEQUAL, 44 SLANG_REJECT, 5 SURELOG_FAIL.
+  (NOTE: run_corpus.sh/converge.sh ALREADY used the standard uhdm-cmp for PASS_CMP; the scratchpad
+   `cmptool` was only a diagnostic that printed failLhs. So 488/173/0 was always a standard-tool verdict.)
+
+BUT the uhdm2rtlil corpus is the corpus we OPTIMIZED AGAINST. Held-out check on Surelog's own suite
+(scripts/verify_stdcmp_surelog.sh -> results/verify_surelog_suite_stdcmp.csv), both tools run in
+Surelog's DEFAULT pre-elab mode (the mode this exporter targets):
+  Surelog tests (695): 176 CMP_EQUAL / 247 CMP_NOTEQUAL / 213 SLANG_REJECT / 53 SKIP_MULTIFILE / 6 SURELOG_FAIL
+  => of the 423 where both tools produced UHDM, only 176 (41.6%) compare equal.
+So "0 DIFF" means zero on uhdm2rtlil, NOT general Surelog equivalence. Generalization gap is real.
+
+Caveats in BOTH directions (do not over- or under-read the 41.6%):
+ - 623 of 695 Surelog tests pass `-elabuhdm` in their .sl (post-elab UHDM). We do not implement that
+   (task F). Comparing our pre-elab output to their post-elab output would be meaningless, so the runner
+   deliberately uses default mode for both sides instead of the tests' own .sl args.
+ - The runner therefore also DROPS per-test .sl flags: 33 of the 213 rejects need +incdir/-sv/-y/-v/UVM/
+   -fileunit that it does not pass — those are harness artifacts, not exporter gaps.
+ - The other ~180 rejects are slang (the FRONTEND) legitimately refusing code Surelog accepts leniently:
+   unknown module, undeclared identifier, duplicate definition, missing UVM library. Many Surelog tests
+   are deliberately partial fragments. These are frontend-tolerance issues, not exporter bugs.
+ - GOOD NEWS: the mismatches are mostly SMALL/near-converged — sampled 40, and Attributes2=9 lines,
+   CondOpPattern=10, BitsHierPath=11, BlackParrotSkipParam=16, AlwaysNoElab=17, ClogCast=18,
+   ComplexExprSize=22 ... i.e. the same rule families this campaign has been decoding. A wave aimed at
+   the Surelog suite's <=50-line mismatches should convert many.
+
+## ZERO DIFF on uhdm2rtlil (2026-07-24 ~21:20): 488 PASS / 173 CMP_ONLY / 0 DIFF
 
 Every corpus test is now at least SEMANTICALLY IDENTICAL to Surelog (uhdm-cmp DESIGN r=0); 488 are
 byte-identical. Goldens 23/23. Remaining work is byte-level only (173 CMP_ONLY).
