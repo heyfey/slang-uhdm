@@ -49,7 +49,8 @@ slang-uhdm is a UHDM emitter built on slang, **not** a Surelog clone. So:
   `--libmap`, `--top`, `-G`, `--timescale`, `-f`/`-F`, `+incdir+`, `+define+`,
   `+libext+` — all already present and all verified working (§4.1).
 - **UHDM-relevant flags are ours.** Anything that changes the emitted database
-  must exist in slang-uhdm: `--elabuhdm`, `--builtins`, and the gaps in §3.2.
+  must exist in slang-uhdm: `--elabuhdm`, builtins/`--nobuiltin`, `--synth`/
+  `--formal`, and the gaps in §3.2.
 - **Surelog-only plumbing is nobody's.** Caching, threading, logging,
   preprocessor dumps, output paths, Python hooks, GC, EDA-compat shims. These
   are dropped **by the harness**, on the slang side only. Surelog still runs
@@ -94,27 +95,26 @@ Practical consequence: the headline metric is `CMP_EQUAL / comparable`, not
 `CMP_EQUAL / total`. Reporting against total would understate progress and
 imply slang work we are not doing.
 
-### 2.6 Builtins: our default differs from Surelog's — OPEN DECISION
+### 2.6 Builtins match Surelog's default — RESOLVED (`db83fc3`)
 
-Surelog emits builtins **by default** and takes `-nobuiltin` to opt out.
-slang-uhdm is the reverse: no builtins by default, `--builtins` to opt in.
+Surelog emits builtins **by default** and takes `-nobuiltin` to opt out. We were
+originally the reverse (`--builtins` to opt in), which meant "default vs default"
+was not literally default on both sides.
 
-Consequence: "default vs default" is not literally default on both sides — the
-harness must pass `--builtins` for `default` mode to mean anything.
+Now aligned: slang-uhdm emits builtins by default and `--nobuiltin` opts out,
+spelled exactly as Surelog spells it. `--builtins` is kept as an accepted no-op
+so invocations written against the earlier spelling keep working. `default` mode
+therefore passes **no builtins flag on either side**.
 
-**No name collision.** slang defines no `--builtins` (0 hits in its driver
-source, 0 in the upstream binary's help; the only adjacent option is `--std`).
-The flag is ours alone and cannot shadow a slang option, so no rename is needed
-on collision grounds.
+**No name collision.** slang defines no `--builtins` of its own (0 hits in its
+driver source, 0 in the upstream binary's help; the only adjacent option is
+`--std`), so no rename was needed.
 
-Recommendation, **not yet applied**: flip slang-uhdm to match Surelog — builtins
-on by default, plus a `--nobuiltin` opt-out spelled exactly as Surelog spells
-it. Then `default` mode needs no flag at all and the word "default" is honest.
-Keeping `--builtins` as an explicit no-op alias costs nothing and keeps existing
-invocations working. Deferred because flipping a default is a user-visible
-behaviour change. See §5 question 1.
-
----
+**Flipping the default required a lockstep change to the gate scripts.**
+`converge.sh` and `check_goldens.sh` pass `-nobuiltin` to Surelog but were passing
+nothing to us; without adding `--nobuiltin` there, every corpus test would have
+regressed the moment the default flipped. Anything that changes a default must
+sweep the harness for the places that relied on the old one.
 
 ## 3. Status
 
@@ -123,9 +123,10 @@ behaviour change. See §5 question 1.
 | Flag | Commit | What it does |
 |---|---|---|
 | `--elabuhdm` | `fc22485` | UHDM full elaboration: `ElaboratorContext` + `uniquifyTypespec(false)` + `listenDesigns`, then `UhdmAdjuster` — verbatim from Surelog's `UhdmWriter.cpp`. Both classes ship with UHDM, so this is reproduced, not reimplemented. |
-| `--builtins` | `5286421` | The `builtin` package (5 empty `class_defn`s) plus `work@mailbox`/`process`/`semaphore` from `share/builtin.sv`, Surelog's embedded string kept byte-for-byte because the UHDM spans depend on the exact text. slang parses it under the same reported path so spans match by construction. |
+| builtins (default on) | `5286421`, `db83fc3` | The `builtin` package (5 empty `class_defn`s) plus `work@mailbox`/`process`/`semaphore` from `share/builtin.sv`, Surelog's embedded string kept byte-for-byte because the UHDM spans depend on the exact text. slang parses it under the same reported path so spans match by construction. `db83fc3` flipped the default to ON with `--nobuiltin` to opt out, matching Surelog exactly; `--builtins` remains an accepted no-op. |
+| `--synth` / `--formal` | `f5aed69` | Both halves were reuse. Filtering is UHDM's `SynthSubset`, called as Surelog calls it (`reportErrors=true`, `allowFormal` from `--formal`, `listenDesigns`, `filterNonSynthesizable()`) in the same pass-order slot. The `// pragma translate_off/on` half is slang's `--translate-off-format`, which `--synth` injects into `driver.options.translateOffOptions` before `processOptions()` so one flag implies both. |
 
-`--builtins` also closed real class-emission gaps: `ref` arg direction (was an
+The builtins work also closed real class-emission gaps: `ref` arg direction (was an
 outright unsupported-exit), `io_decl` default-value exprs, untyped ANSI formals
 taking no typespec, constructor `class_var` returns, static-method spans,
 class-scope methods taking no `vpiInstance`, class typedef enums, and
@@ -142,7 +143,6 @@ Surelog behaviour in our exporter (costly, approximate).
 
 | Surelog flag | Tests | Lives in | Route |
 |---|---|---|---|
-| `-synth` / `-formal` | 14 | **UHDM library** — `SynthSubset` (`UHDM/templates/SynthSubset.{h,cpp}`, installed header present). Surelog only calls it: `SynthSubset(&s, objs, d, true, withFormal)` → `listenDesigns(designs)` → `filterNonSynthesizable()`. | **REUSE**, exactly like `--elabuhdm`. The pragma half is already slang's `--translate-off-format pragma,translate_off,translate_on` (verified identical: both tools 13 → 0). Highest value, lowest cost — do this first. |
 | `--disable-feature=parametersubstitution` | 4 | **Surelog** — `CompileExpression.cpp:96`, gates substituting assignment patterns into parameters. | Reimplement; small and localized. |
 | `-bb_mod` / `-bb_inst` | 4 | **Surelog** — `CompileModule.cpp` + `DesignElaboration.cpp`. | Reimplement; needs a blackboxing concept in the exporter. Medium. |
 | `-cfg` / `-cfgfile` | 2 | **Surelog** — `DesignElaboration.cpp` + `Config/ConfigSet` (Verilog `config` semantics). slang has `--libmap`/config support that may already cover it. | Investigate slang first, then decide. |
@@ -150,8 +150,9 @@ Surelog behaviour in our exporter (costly, approximate).
 | `-diffcompunit` | 1 | **Surelog** — harness behaviour (compiles both ways to diff), not a model option. | **Out of scope**; reclassify alongside `NO_DATABASE`. |
 | `-pythonevalscript` / `...perfile` | 1 | **Surelog** — embedded Python that mutates the model (measured: 3755 dump lines). | **Out of scope.** |
 
-So one reuse covers 14 of the 28, three small reimplementations cover 9, one
-needs investigation (2), and two are out of scope (2).
+`-synth`/`-formal` is **done** (§3.1) — it was 14 of the original 28 and the only
+pure-reuse case. Of the 13 that remain, three small reimplementations cover 9,
+one needs investigation (2), and two are out of scope (2).
 
 **UHDM classes available to reuse.** `ElaboratorListener` and `UhdmAdjuster`
 (both already used by `--elabuhdm`), `SynthSubset`, `UhdmLint`, `ExprEval`.
@@ -164,9 +165,11 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline
 
-Measured 2026-07-25 with `--builtins` on, `scripts/verify_golden.py` at
-`f6baeb7`+. Headline metric is `CMP_EQUAL / comparable` per §2.5 (`comparable` =
-both tools produced a database; `SLANG_REJECT` is out of scope).
+Measured 2026-07-25 at `f5aed69` (builtins default-on, `--synth` implemented).
+Per-test CSVs are committed: `results/golden_surelog.csv`,
+`results/golden_uhdm2rtlil.csv`. Headline metric is `CMP_EQUAL / comparable` per
+§2.5 (`comparable` = both tools produced a database; `SLANG_REJECT` is out of
+scope). Neither mode passes a builtins flag any more — the defaults align.
 
 **uhdm2rtlil, 731 tests**
 
@@ -183,35 +186,38 @@ both tools produced a database; `SLANG_REJECT` is out of scope).
 
 | | default | testflags |
 |---|---|---|
-| CMP_EQUAL | 181 | 172 |
-| CMP_NOTEQUAL | 301 | 285 |
-| SLANG_REJECT (out of scope) | 286 | 279 |
-| UNTRANSLATABLE | 0 | 28 |
-| SURELOG_FAIL | 26 | 24 |
+| CMP_EQUAL | 181 | 177 |
+| CMP_NOTEQUAL | 301 | 290 |
+| SLANG_REJECT (out of scope) | 286 | 283 |
+| UNTRANSLATABLE | 0 | 13 |
+| SURELOG_FAIL | 26 | 25 |
 | NO_DATABASE | 0 | 3 |
 | TIMEOUT / NO_UHDM | 0 | 3 |
-| **comparable** | **482** | **457** |
-| **CMP_EQUAL / comparable** | **37.6%** | **37.6%** |
+| **comparable** | **482** | **467** |
+| **CMP_EQUAL / comparable** | **37.6%** | **37.9%** |
 
 Builtins took uhdm2rtlil `default` mode from **0 → 662**; before them, all 731
 failed on the 510-line builtin block alone. Since `db83fc3` builtins are the
-default on both sides, so `default` mode passes no flag at all.
+default on both sides, `default` mode passes no flag at all.
 
-`UNTRANSLATABLE` fell 51 → 28 once the foreign simulator flags found in `.sl`
-files were each measured against Surelog's dump and whitelisted: `+vcs+*`,
+`UNTRANSLATABLE` fell 51 → 28 → **13**. First, the foreign simulator flags found
+in `.sl` files were each measured against Surelog's dump and whitelisted: `+vcs+*`,
 `+warn=`, `+lint=`, `+OVM_TESTNAME=`, `+v2k`, `-ast`, `-PP`, `-full64`,
 `-notice`, `-line`, `-quiet`, `-Os`, `--assert`, `--trace`, `-output-split`,
 `-CFLAGS <arg>`, `-pythonlistener` — all 0 dump-line change. These were the
 harness refusing to compare tests it could have compared. `-pythonevalscript*`
-looked equally harmless and is not: 3755 dump lines, so it stays blocked.
+looked equally harmless and is not: 3755 dump lines, so it stays blocked. Then
+`--synth`/`--formal` (§3.1) unblocked the 14 `-synth` tests, which resolve to 5
+`CMP_EQUAL`, 5 `CMP_NOTEQUAL`, 3 `SLANG_REJECT` (out of scope) and 1
+`SURELOG_FAIL` — so `testflags` `CMP_EQUAL` rose 172 → 177.
 
-The two modes differ in denominator because `testflags` legitimately excludes 54
-tests before running (51 `UNTRANSLATABLE` + 3 `NO_DATABASE`) that `default` mode
+The two modes differ in denominator because `testflags` legitimately excludes 16
+tests before running (13 `UNTRANSLATABLE` + 3 `NO_DATABASE`) that `default` mode
 still attempts. That is the whole explanation for `default` showing more
 `SURELOG_FAIL` and `CMP_NOTEQUAL` — not a regression between modes.
 
-**Work remaining.** 301 (default) / 285 (testflags) Surelog-suite tests and
-16/17 uhdm2rtlil tests to converge, plus 28 `UNTRANSLATABLE` to unblock via
+**Work remaining.** 301 (default) / 290 (testflags) Surelog-suite tests and
+16/17 uhdm2rtlil tests to converge, plus 13 `UNTRANSLATABLE` to unblock via
 §3.2. Overlap between the two modes' failure sets is unmeasured; a fix will
 usually move both.
 
@@ -252,9 +258,10 @@ Phase 1's numbers understated the work:
 
     scripts/verify_golden.py --corpus surelog|uhdm2rtlil
                              --mode default|testflags|both
-                             --builtins
                              --out <csv> [--workdir <dir>]
                              [--jobs N] [--timeout S] [--filter <regex>]
+
+There is no builtins flag: the two tools' defaults agree (§2.6).
 
 Output CSV columns: `name,mode,status,detail,blocked_by`.
 Statuses: `CMP_EQUAL`, `CMP_NOTEQUAL`, `SLANG_REJECT`, `SURELOG_FAIL`,
@@ -264,12 +271,12 @@ Full sweeps (long; run detached):
 
     SP=<scratchpad>
     setsid nohup python3 scripts/verify_golden.py --corpus surelog \
-      --mode both --builtins --out $SP/sl.csv --workdir $SP/sls \
+      --mode both --out $SP/sl.csv --workdir $SP/sls \
       --jobs 3 --timeout 240 > $SP/sl.log 2>&1 < /dev/null &
 
 One test, both modes, to inspect a single divergence:
 
-    python3 scripts/verify_golden.py --corpus surelog --mode both --builtins \
+    python3 scripts/verify_golden.py --corpus surelog --mode both \
       --out /tmp/one.csv --workdir /tmp/onew --filter '^ParamCast$'
 
 Then read `/tmp/onew/<mode>/<name>/cmds.txt` for the **exact** two command
@@ -345,9 +352,9 @@ For phase 2 specifically, triage in this order:
 
 ## 5. Open questions
 
-1. **Flip the builtins default?** (§2.6) Recommend yes: builtins on by default
-   plus `--nobuiltin`, so `default` mode needs no flags. Needs sign-off — it
-   changes observable behaviour for existing users.
+1. ~~Flip the builtins default?~~ **RESOLVED** (`db83fc3`): builtins are on by
+   default with `--nobuiltin` to opt out, matching Surelog. `default` mode now
+   passes no flag on either side.
 2. **Is `-cfg` covered by slang's `--libmap` config handling?** Unverified.
 3. **Does `$RV_ROOT`-style variable expansion in `-f` files work?** slang's `-f`
    reads the flist but does not appear to expand the variable (`CoresSweRV`:
