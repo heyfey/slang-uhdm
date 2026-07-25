@@ -36,10 +36,19 @@ int main(int argc, char** argv) {
     driver.cmdLine.add("--elabuhdm", elabUhdm,
                        "Forces UHDM/VPI full elaboration; default is the folded model");
 
-    std::optional<bool> builtins;
-    driver.cmdLine.add("--builtins", builtins,
-                       "Adds the SystemVerilog builtin package and builtin.sv classes, "
-                       "mirroring Surelog run WITHOUT -nobuiltin");
+    // Builtins are ON by default and -nobuiltin opts out, matching Surelog's
+    // spelling and its default exactly, so `slang-uhdm <src>` and
+    // `surelog -parse <src>` agree without either side needing a flag.
+    // --builtins is kept as an accepted no-op for invocations written against
+    // the earlier opt-in spelling.
+    std::optional<bool> noBuiltin;
+    std::optional<bool> builtinsAlias;
+    driver.cmdLine.add("--nobuiltin", noBuiltin,
+                       "Do not emit the SystemVerilog builtin package or builtin.sv classes "
+                       "(default is to emit them, as Surelog does)");
+    driver.cmdLine.add("--builtins", builtinsAlias,
+                       "Deprecated no-op: builtins are emitted by default; use --nobuiltin "
+                       "to suppress them");
 
     if (!driver.parseCommandLine(argc, argv))
         return 1;
@@ -64,8 +73,9 @@ int main(int argc, char** argv) {
     // file in the CURRENT WORKING DIRECTORY; the UHDM class spans reference that
     // path. Feed slang the same text under the same reported path so the parser
     // yields identical line:column information.
+    const bool emitBuiltins = (noBuiltin != true);
     std::string builtinPath;
-    if (builtins == true) {
+    if (emitBuiltins) {
         builtinPath = (std::filesystem::current_path() / "builtin.sv").string();
         auto buffer = driver.sourceManager.assignText(builtinPath, slang_uhdm::kBuiltinSvText);
         auto tree = syntax::SyntaxTree::fromBuffer(buffer, driver.sourceManager,
@@ -87,7 +97,7 @@ int main(int argc, char** argv) {
     // -gc/-nogc, so this is a difference in reason rather than in result.
     serializer.SetGCEnabled(false);
     slang_uhdm::UhdmExporter exporter(*compilation, serializer);
-    if (builtins == true)
+    if (emitBuiltins)
         exporter.enableBuiltins(builtinPath);
     UHDM::design* design = exporter.exportDesign();
 

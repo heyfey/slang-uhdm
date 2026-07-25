@@ -73,12 +73,17 @@ IRRELEVANT_NOARG = {
     '-pploc', '-ppextra_loc', '-filterdirectives', '-filtercomments',
     '-filterprotected', '-verbose', '-nostdout', '-profile', '-replay',
     '-noinfo', '-nonote', '-nowarning', '-lowmem', '-batch', '-split',
-    '-nopython', '-gc', '-nogc', '-init',
+    '-nopython', '-gc', '-nogc', '-init', '-pythonlistener',
     '-sv', '-sverilog',  # slang parses SystemVerilog unconditionally
+    # Foreign simulator flags (VCS, Verilator) that appear in .sl files.  Surelog
+    # accepts and ignores them: each was measured at 0 dump-line change.
+    '-ast', '-PP', '-full64', '-notice', '-line', '-Os',
+    '--assert', '--trace', '-output-split',
 }
+IRRELEVANT_PREFIX = ('+vcs+', '+warn=', '+lint=', '+OVM_TESTNAME=', '-Wno-')
 IRRELEVANT_ONEARG = {'-d', '-o', '-l', '-cache', '-odir', '--Mdir', '-mt', '-mp',
                      '--threads', '-writeppfile', '-pythonlistenerfile', '-builtin',
-                     '-exe', '-wd', '-cd'}
+                     '-exe', '-wd', '-cd', '-CFLAGS'}
 IRRELEVANT_TWOARG = {'-remap', '-cmd_ign', '-cmd_ren', '-cmd_mrg'}
 
 # UHDM-relevant, translatable.
@@ -89,7 +94,8 @@ ONEARG_MAP = {'-y': '-y', '-v': '-v', '-map': '--libmap', '-L': '-L',
 # -synth/-formal prune net typespecs and honour translate_off pragmas;
 # -cfg/-cfgfile select Verilog config blocks; -bb_* blackbox parts of the
 # design; --disable-feature changes parameter/let elaboration.
-BLOCKING_NOARG = {'-synth', '-formal', '-diffcompunit', '-sepcomp', '-link'}
+BLOCKING_NOARG = {'-synth', '-formal', '-diffcompunit', '-sepcomp', '-link',
+                  '-pythonevalscript', '-pythonevalscriptperfile'}
 BLOCKING_ONEARG = {'-bb_mod', '-bb_inst', '-cfg', '-cfgfile'}
 
 # Surelog emits no database at all: nothing to compare.
@@ -160,7 +166,7 @@ def translate(parts):
     """
     args, blocking, nodb = [], [], []
     fileunit = False
-    nobuiltin = False
+    nobuiltin = False   # slang-uhdm, like Surelog, emits builtins by default
     i = 0
     while i < len(parts):
         p = parts[i]
@@ -204,8 +210,8 @@ def translate(parts):
         elif p.startswith('+') or p.startswith('-'):
             if p in ('+liborder', '+librescan', '+libverbose', '+nolibcell'):
                 pass                            # Surelog documents these as ignored
-            elif p.startswith('-Wno-'):
-                pass                            # lint suppression only
+            elif p.startswith(IRRELEVANT_PREFIX):
+                pass                            # measured DB-neutral
             else:
                 blocking.append(p)              # unknown: never guess
         else:
@@ -373,7 +379,7 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
     return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '')
 
 
-def run_one(name, dirpath, parts, modes, workroot, timeout, builtins):
+def run_one(name, dirpath, parts, modes, workroot, timeout):
     sources, _options = split_sources(parts)
     results = []
 
@@ -385,8 +391,6 @@ def run_one(name, dirpath, parts, modes, workroot, timeout, builtins):
         # that default, and Surelog's default also parses its builtin classes.
         loc, sl_only = location_args(parts)
         su = loc + list(sources) + ['--single-unit']
-        if builtins:
-            su.append('--builtins')
         results.append(compare(name, 'default', dirpath,
                                ['-parse'] + loc + sl_only + sources, su,
                                workroot, timeout))
@@ -400,13 +404,9 @@ def run_one(name, dirpath, parts, modes, workroot, timeout, builtins):
             results.append((name, 'testflags', 'UNTRANSLATABLE',
                             'UHDM-relevant flag not implemented in slang-uhdm',
                             ' '.join(blocking)))
-        elif not nobuiltin and not builtins:
-            results.append((name, 'testflags', 'UNTRANSLATABLE',
-                            'test omits -nobuiltin; slang-uhdm has no --builtins yet',
-                            'builtins'))
         else:
-            if not nobuiltin and builtins:
-                su_args.append('--builtins')
+            if nobuiltin:
+                su_args.append('--nobuiltin')
             results.append(compare(name, 'testflags', dirpath, parts, su_args,
                                    workroot, timeout))
     return results
@@ -421,8 +421,6 @@ def main():
     ap.add_argument('--jobs', type=int, default=4)
     ap.add_argument('--timeout', type=int, default=180)
     ap.add_argument('--filter', default=None)
-    ap.add_argument('--builtins', action='store_true',
-                    help='slang-uhdm has --builtins; use it where Surelog emits builtins')
     args = ap.parse_args()
 
     for tool in (SURELOG, SLANG_UHDM, UHDM_CMP):
@@ -438,7 +436,7 @@ def main():
     rows = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures = {pool.submit(run_one, n, d, p, modes, args.workdir,
-                               args.timeout, args.builtins): n
+                               args.timeout): n
                    for n, (d, p) in tests.items()}
         for done, fut in enumerate(concurrent.futures.as_completed(futures), 1):
             try:

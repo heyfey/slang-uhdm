@@ -24,7 +24,9 @@ SUHDM=$WORK/slpp_all/surelog.uhdm
 [ -f "$SUHDM" ] || { echo "SURELOG_NO_UHDM"; exit 5; }
 
 # Our producer
-"$SLANG_UHDM" "$SRC" -o slang.uhdm "$@" >slang.log 2>&1
+# Surelog is invoked with -nobuiltin below, so slang-uhdm must match it:
+# builtins are ON by default on both sides now.
+"$SLANG_UHDM" "$SRC" --nobuiltin -o slang.uhdm "$@" >slang.log 2>&1
 SLANG_EXIT=$?
 if [ $SLANG_EXIT -eq 4 ]; then
     echo "UNSUPPORTED:"

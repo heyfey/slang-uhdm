@@ -10,7 +10,7 @@ fail=0
 for g in "$DIR"/golden/*.dump; do
     t=$(basename "$g" .dump)
     W=$(mktemp -d)
-    "$SLANG_UHDM" "$CORPUS/$t/dut.sv" -o "$W/slang.uhdm" >/dev/null 2>&1
+    "$SLANG_UHDM" "$CORPUS/$t/dut.sv" --nobuiltin -o "$W/slang.uhdm" >/dev/null 2>&1
     "$UHDM_DUMP" "$W/slang.uhdm" 2>/dev/null | sed '1d' > "$W/slang.dump"
     if diff -q "$g" "$W/slang.dump" >/dev/null; then
         echo "PASS $t"
