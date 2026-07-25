@@ -3,6 +3,11 @@
 This document governs HOW to run the convergence campaign. HANDOFF.md records
 WHERE we are. If you read only one thing before working, read this.
 
+Phase 1 (uhdm2rtlil 0 DIFF) is done. The current target is **phase 2**:
+both corpora, both modes, all cmp-equal — see GOLDEN_EQUIVALENCE.md for that
+target, the decisions behind it, current status, and how to run it. The gates
+and method below still bind.
+
 ## Mission and posture
 
 - The goal is **0 DIFF, then 0 CMP_ONLY**. Nothing less. Byte-identity with

@@ -117,6 +117,32 @@ def split_sources(parts):
     return sources, options
 
 
+# Args that tell a tool WHERE the sources are, as opposed to shaping the model
+# built from them: include paths, macro defines, library search, command files.
+# `default` mode keeps these -- without them many tests cannot compile at all,
+# and a comparison of two failed compiles measures nothing.  Model-shaping flags
+# (-elabuhdm, -fileunit, -synth, -top, -P, -timescale, -cfg, -bb_*) are what
+# `default` mode deliberately excludes.
+LOCATION_ONEARG = {'-y', '-v', '-map', '-L', '-f', '-F', '-I', '--libext', '-Y'}
+LOCATION_PREFIX = ('-I', '-D', '+incdir+', '+define+', '+libext+', '-U')
+
+
+def location_args(parts):
+    """Extract only the where-are-the-sources args, for both tools alike."""
+    out = []
+    i = 0
+    while i < len(parts):
+        p = parts[i]
+        if p in LOCATION_ONEARG:
+            out += [p, parts[i + 1]] if i + 1 < len(parts) else [p]
+            i += 2
+            continue
+        if p.startswith(LOCATION_PREFIX) and p not in ('-D', '-I'):
+            out.append(p)
+        i += 1
+    return out
+
+
 def translate(parts):
     """Surelog argv -> (slang argv, blocking flags, nodb flags, nobuiltin).
 
@@ -337,15 +363,17 @@ def run_one(name, dirpath, parts, modes, workroot, timeout, builtins):
     results = []
 
     if 'default' in modes:
-        # Both tools get the sources and nothing else.  `-parse` is not a test
+        # Both tools get the sources plus only the args saying where to find
+        # them; no model-shaping flag on either side.  `-parse` is not a test
         # option, it is what makes Surelog emit a database at all.  Surelog's
         # default is one compilation unit, so slang needs --single-unit to match
         # that default, and Surelog's default also parses its builtin classes.
-        su = list(sources) + ['--single-unit']
+        loc = location_args(parts)
+        su = loc + list(sources) + ['--single-unit']
         if builtins:
             su.append('--builtins')
-        results.append(compare(name, 'default', dirpath, ['-parse'] + sources,
-                               su, workroot, timeout))
+        results.append(compare(name, 'default', dirpath,
+                               ['-parse'] + loc + sources, su, workroot, timeout))
 
     if 'testflags' in modes:
         su_args, blocking, nodb, nobuiltin = translate(parts)

@@ -1,4 +1,12 @@
-# HANDOFF — slang-uhdm convergence campaign (uhdm2rtlil 0-DIFF; Surelog suite 41.6% equal)
+# HANDOFF — slang-uhdm convergence campaign
+
+> **Phase 2 is now the target: see GOLDEN_EQUIVALENCE.md.** It supersedes the
+> scope section below. Two corrections that matter when reading this file:
+> the old harness covered 710 uhdm2rtlil tests (it skipped 24 multi-file dirs)
+> and 695 Surelog tests (it skipped nested dirs, all 90 third_party tests, and
+> 53 "multifile" dirs); real counts are **731** and **794**. The 41.6% Surelog
+> figure was measured with uniform flags rather than each test's own command
+> line and is **void** — use the tables in GOLDEN_EQUIVALENCE.md §3.3.
 
 ## ⚠️ SCOPE OF THE ZERO-DIFF CLAIM — verified, but corpus-specific (2026-07-24 ~21:40)
 
