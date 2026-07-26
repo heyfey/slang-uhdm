@@ -4091,9 +4091,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         portPa9.size() < passigns->size()) {
         // Rank 0: port-list pa's (resolved at instantiation, first). Rank 1:
         // body pa's. Rank 2: NO-OP-overridden module port-list pa's (value ==
-        // declaration default) — the override application re-creates them
-        // last (jeras_tcb_gpio: DLY localparam before GW(32)==32). A value-
-        // CHANGING override keeps the port-first slot
+        // declaration default) WHOSE OVERRIDE EXPRESSION IS A NAME REFERENCE
+        // — the late substitution re-creates them last (jeras_tcb_gpio:
+        // DLY localparam before GW(GW)==32). A LITERAL-text no-op override
+        // (.invert(0) over default 0) keeps the port-first slot with its
+        // Overriden stamp (LocalParam), as does a value-CHANGING override
         // (ParameterOfSizeOfParametrizedPortInSubmodule X(5)!=15).
         // Interfaces keep the plain port-first order.
         auto noopOv9 = [&](UHDM::param_assign* pa9) -> bool {
@@ -4105,6 +4107,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     mb9.name != std::string_view(pa9->Lhs()->VpiName()))
                     continue;
                 auto& ps9 = mb9.as<ParameterSymbol>();
+                auto* bi9 = ps9.getInitializer();
+                bool refOv9 = bi9 && bi9->syntax &&
+                              (bi9->syntax->kind ==
+                                   syntax::SyntaxKind::IdentifierName ||
+                               bi9->syntax->kind ==
+                                   syntax::SyntaxKind::ScopedName);
+                if (!refOv9)
+                    return false;
                 if (auto* ds9 = paramDefaultSyn(ps9)) {
                     ASTContext dctx9(body, LookupLocation::max);
                     auto& de9 = Expression::bind(*ds9, dctx9);
