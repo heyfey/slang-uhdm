@@ -30,6 +30,11 @@ and two modes per test:
   the claim that actually matters: *run the way the test is really run, and the
   databases match.*
 
+A third, diagnostic-only mode exists: **`folded`** runs an `-elabuhdm` test's
+own flags minus `-elabuhdm` on both sides. It is not part of the target — it
+exists to order the work (§4.3): folded-not-equal means fix the folded model
+first; folded-equal but testflags-not-equal means an elab-frontier bug.
+
 Done means `CMP_EQUAL` for every test in both modes, except where slang
 legitimately rejects the source (see §2.5).
 
@@ -285,9 +290,12 @@ Phase 1's numbers understated the work:
 ### 4.1 The harness
 
     scripts/verify_golden.py --corpus surelog|uhdm2rtlil
-                             --mode default|testflags|both
+                             --mode default|testflags|folded|both|all
                              --out <csv> [--workdir <dir>]
                              [--jobs N] [--timeout S] [--filter <regex>]
+
+`both` = default+testflags (the target modes); `all` adds the `folded`
+diagnostic overlay; `folded` alone emits rows only for `-elabuhdm` tests.
 
 There is no builtins flag: the two tools' defaults agree (§2.6).
 
@@ -357,14 +365,24 @@ fix worth many tests. Marker sweeps (append a unique suffix at every candidate
 emission site, rebuild once, grep the dump) locate which site emits an object —
 but beware later code overwriting the marked field.
 
-For phase 2 specifically, triage in this order:
+For phase 2 specifically: **fix the folded model first, then the elab-only
+residue.** Both tools now derive their elab output by running the same UHDM
+library passes (`ElaboratorListener` + `UhdmAdjuster`) over their own folded
+models, so folded divergences propagate downstream and folded fixes shrink elab
+diffs for free. The reverse is not true. Concretely:
 
-1. **`default`-mode failures first.** They are model bugs with no flag
-   involvement — the cleanest signal available.
-2. **Then `testflags`-only failures.** A test failing `testflags` but passing
-   `default` isolates the bug to flag handling.
-3. **Skip `SLANG_REJECT` entirely** (§2.5) — out of scope, not a work item.
-4. **`UNTRANSLATABLE` by implementing §3.2**, largest bucket first.
+1. **Folded divergences** — `default`-mode failures, the folded-only testflags
+   tests, and `folded`-mode failures of `-elabuhdm` tests. All are phase-1
+   home turf; the sweep-and-cluster method applies unchanged.
+2. **Flag-handling divergences** — failing `testflags` (or `folded`) while
+   passing `default`: the flag translation or a flag implementation is wrong,
+   not the emitter (e.g. the `-P`→`-G` cluster).
+3. **Elab-only divergences** — folded-equal but testflags-not-equal (e.g.
+   `ClogParam`, `UnsizedParam`). Decode these against the elaborated tree;
+   expect aliasing/`UhdmAdjuster` effects that dumps may not show. Start after
+   the folded queue is drained, from the smallest reproducers.
+4. **Skip `SLANG_REJECT` entirely** (§2.5) — out of scope, not a work item.
+5. **`UNTRANSLATABLE` by implementing §3.2**, largest bucket first.
 
 ### 4.4 Agent-ops rules (learned the hard way)
 
@@ -389,20 +407,22 @@ For phase 2 specifically, triage in this order:
    default with `--nobuiltin` to opt out, matching Surelog. `default` mode now
    passes no flag on either side.
 2. **Is `-cfg` covered by slang's `--libmap` config handling?** Unverified.
-2b. **Surelog rc≠0 but database written — compare or skip?** `asgn_expr_sv` and
-   `typedef_param`: Surelog exits rc=4 (errors reported) yet writes a complete
-   `.uhdm`. `converge.sh` treats rc≠0 as `SURELOG_FAIL` and skips;
-   `verify_golden.py` keys on the artifact and compares (both come out
-   not-equal). The two harnesses must agree. Recommendation: compare when the
-   artifact exists (Surelog's own regression tolerates errors recorded in its
-   golden logs), but carry the rc in the detail column. Needs a decision, then
-   align `converge.sh`.
-2c. **Is byte-identity still the end state?** PLAYBOOK's mission is 0 DIFF then
-   0 CMP_ONLY — byte-identical dumps. This document's §1 says done means
-   `CMP_EQUAL`, which is weaker (cmp-equal tolerates dump differences).
-   Recommendation: keep `CMP_EQUAL` as the phase-2 bar and declare byte
-   identity (a `DUMP_MATCH` column in `verify_golden.py`) as phase 3, so the
-   weakening is a stated decision rather than an accident.
+2b. **When Surelog errors but still writes a database, is that database a
+   golden?** Two uhdm2rtlil tests (`asgn_expr_sv`, `typedef_param`) make Surelog
+   print compile errors and exit nonzero (rc=4) — yet it still writes a full
+   `surelog.uhdm`. Our two harnesses currently disagree on what that means:
+   `converge.sh` looks at the exit code, calls it `SURELOG_FAIL`, and skips the
+   test; `verify_golden.py` looks for the `.uhdm` file, finds it, compares, and
+   reports not-equal. Same test, one harness says "skipped", the other says
+   "failing". The decision needed: treat an errored-but-written database as a
+   valid golden (compare it) or not (skip it)? Recommendation: compare — Surelog
+   itself ships these tests with the errors recorded in their golden logs, i.e.
+   upstream treats the output as the expected result. Once decided, make
+   `converge.sh` agree; note this reopens phase 1's count by 2 (they were always
+   divergent, just hidden behind the rc check).
+2c. ~~Is byte-identity still the end state?~~ **RESOLVED**: `CMP_EQUAL` is the
+   phase-2 bar; byte identity (a `DUMP_MATCH` column in `verify_golden.py`) is
+   phase 3, after both corpora are cmp-equal in both modes.
 3. **Does `$RV_ROOT`-style variable expansion in `-f` files work?** slang's `-f`
    reads the flist but does not appear to expand the variable (`CoresSweRV`:
    "'/design/swerv_wrapper.sv': No such file or directory"). Affects 2 tests.

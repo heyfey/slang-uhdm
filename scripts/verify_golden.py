@@ -13,6 +13,14 @@ be run in two modes:
                Nothing UHDM-relevant is ever dropped silently: an unimplemented
                UHDM-relevant flag classes the test UNTRANSLATABLE and names the
                flag.
+  folded    -- diagnostic overlay for the -elabuhdm tests only: the test's own
+               flags minus -elabuhdm on BOTH sides, comparing the folded models
+               those tests never normally show.  Elab output is derived from
+               the folded tree by shared UHDM library code, so a test that is
+               folded-not-equal should be fixed folded-first; one that is
+               folded-equal but testflags-not-equal is an elab-frontier bug.
+               Tests without -elabuhdm produce no folded row (testflags already
+               compares their folded model).
 
 slang-uhdm deliberately does NOT mirror Surelog's whole CLI -- it is a UHDM
 emitter, not a Surelog clone.  General compiler options are slang's business
@@ -398,6 +406,16 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
                                ['-parse'] + loc + sl_only + sources, su,
                                workroot, timeout))
 
+    if 'folded' in modes and '-elabuhdm' in parts:
+        su_args, blocking, nodb, nobuiltin = translate(parts)
+        if not blocking and not nodb:
+            if nobuiltin:
+                su_args.append('--nobuiltin')
+            sl_folded = [p for p in parts if p != '-elabuhdm']
+            su_folded = [a for a in su_args if a != '--elabuhdm']
+            results.append(compare(name, 'folded', dirpath, sl_folded,
+                                   su_folded, workroot, timeout))
+
     if 'testflags' in modes:
         su_args, blocking, nodb, nobuiltin = translate(parts)
         if nodb:
@@ -418,7 +436,9 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--corpus', choices=['surelog', 'uhdm2rtlil'], required=True)
-    ap.add_argument('--mode', choices=['default', 'testflags', 'both'], default='both')
+    ap.add_argument('--mode', default='both',
+                    choices=['default', 'testflags', 'folded', 'both', 'all'],
+                    help="'both'=default+testflags; 'all' adds the folded overlay")
     ap.add_argument('--out', required=True)
     ap.add_argument('--workdir', default='/tmp/verify_golden')
     ap.add_argument('--jobs', type=int, default=4)
@@ -430,7 +450,9 @@ def main():
         if not os.path.exists(tool):
             sys.exit(f'missing tool: {tool}')
 
-    modes = ['default', 'testflags'] if args.mode == 'both' else [args.mode]
+    mode_sets = {'both': ['default', 'testflags'],
+                 'all': ['default', 'testflags', 'folded']}
+    modes = mode_sets.get(args.mode, [args.mode])
     tests = (discover_surelog(args.filter) if args.corpus == 'surelog'
              else discover_uhdm2rtlil(args.filter))
     print(f'{len(tests)} tests in {args.corpus}; modes={",".join(modes)}', flush=True)
