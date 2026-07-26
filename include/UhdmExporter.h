@@ -191,6 +191,11 @@ private:
     // typespecs parent at the member's ref_typespec (Surelog clone form)
     // instead of the typespec_member.
     bool structCloneMemberRefParent = false;
+    // Building a module CAST's aggregate clone tree: struct-typedef members
+    // get FRESH threaded clones and vector-typedef members fresh folded twins
+    // (Surelog re-elaborates the cast target — jeras_union op32_t'(ins)).
+    bool castAggCloneCtx = false;
+    std::map<const slang::ast::Type*, UHDM::typespec*> castUnionClone;
     // True while emitting a TYPE-dimension bound expression: syntax
     // func_calls anchor at the callee NAME token (Surelog).
     bool boundCallNameSpan = false;
@@ -920,6 +925,11 @@ private:
                                    const slang::ast::InstanceBodySymbol& body);
     std::vector<PendingFuncRet> pendingFuncRet;
     void drainFuncRet(bool pkgOnly = false);
+    // A pkg ALIAS-of-vector-typedef's bare clone aliases the TARGET's
+    // TOP/module listing object (jeras_union imm_l_t); the top listing does
+    // not exist at def-pkg time, so the binding resolves after the top walk.
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>
+        pendingAliasChainTgt;
     void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m);
     // Straight-line constant reduction of user calls / simple exprs.
     struct CallFold {
@@ -1036,7 +1046,12 @@ private:
     bool inPkgTopStructBuild = false;
     // Per-function symbolic pkg-named twin backing a same-scope pkg fn's
     // typedef'd return clone chain (jeras_union imm_i_f).
-    std::map<const slang::ast::Symbol*, UHDM::typespec*> pkgSameScopeRetTwin;
+    // Fresh pkg-named twin backing a same-scope pkg fn's BODY-local return
+    // var clone — one per (function, view): the def fn's twin stays symbolic,
+    // the elab fn's folds (jeras_union imm_*_f).
+    std::map<std::pair<const slang::ast::Symbol*, const void*>,
+             UHDM::typespec*>
+        pkgSameScopeRetTwin;
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).
     std::map<const void*, UHDM::typespec*> pkgTopTypedefTs;

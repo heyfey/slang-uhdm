@@ -1167,6 +1167,20 @@ UHDM::design* UhdmExporter::exportDesign() {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
         topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
     }
+    // Bind pkg alias-of-vector-typedef chains to the TARGET's top/module
+    // listing object now that the top walk built it (jeras_union imm_l_t);
+    // fall back to the def listing when the package never top-emitted.
+    for (auto& [rt9, tgtSym9] : pendingAliasChainTgt) {
+        UHDM::typespec* t9 = nullptr;
+        if (auto it9 = pkgTopTypedefTs.find((const void*)tgtSym9);
+            it9 != pkgTopTypedefTs.end())
+            t9 = it9->second;
+        else if (auto it8 = typedefTs.find(tgtSym9); it8 != typedefTs.end())
+            t9 = it8->second;
+        if (t9)
+            rt9->Actual_typespec(t9);
+    }
+    pendingAliasChainTgt.clear();
     // Class property typespecs materialize post-elab (write phase).
     for (auto& pc : pendingClassPropTs) {
         auto* ts = makeTypespec(*pc.sym);
@@ -1613,7 +1627,25 @@ const std::vector<std::pair<uint32_t, int32_t>>& UhdmExporter::numLitWsShift(
                          (ln[j - 1] == '\'' ||
                           ((ln[j - 1] == 's' || ln[j - 1] == 'S') && j > 1 &&
                            ln[j - 2] == '\''));
-            if (based)
+            // A PLAIN DECIMAL literal's trailing run collapses too
+            // ("[12  -1:0]" pp-prints as "[12 -1:0]"; jeras_union imm_*) —
+            // but ONLY in files Surelog actively preprocesses (any `
+            // directive present); directive-free files pass through the pp
+            // verbatim (fsm's "#1  IDLE" keeps its spacing).
+            bool plain = false;
+            if (!based && j < p &&
+                text.find('`') != std::string_view::npos) {
+                bool digitsOnly = ln[j] >= '0' && ln[j] <= '9';
+                for (size_t k = j; digitsOnly && k < p; k++)
+                    if (!((ln[k] >= '0' && ln[k] <= '9') || ln[k] == '_'))
+                        digitsOnly = false;
+                char pc = j > 0 ? ln[j - 1] : ' ';
+                plain = digitsOnly &&
+                        !((pc >= 'a' && pc <= 'z') || (pc >= 'A' && pc <= 'Z') ||
+                          (pc >= '0' && pc <= '9') || pc == '_' || pc == '$' ||
+                          pc == '\'' || pc == '.');
+            }
+            if (based || plain)
                 it->second.push_back({(uint32_t)q, -(int32_t)(runLen - 1)});
         }
         p = q;

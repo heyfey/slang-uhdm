@@ -263,25 +263,23 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 asyn9->as<syntax::TypedefDeclarationSyntax>()
                                     .type;
                     bypassTypedefShare = true;
-                    tfContext = true;
+                    // The DEF-view return clone stays SYMBOLIC; the TOP-view
+                    // one FOLDS (Surelog re-elaborates it) — jeras_union
+                    // imm_*_f.
+                    tfContext = !pkgTopEmit;
                     tfTypeScope = sub.getParentScope();
                     ts = makeTypespec(*sub.returnValVar, targetSyn9);
-                    // The bare clone's alias binds a FRESH pkg-named SYMBOLIC
-                    // twin (one per function, shared with the body-ref local's
-                    // clone) — NOT the listing object (jeras_union imm_i_f).
-                    UHDM::typespec* rtw9 = nullptr;
-                    if (auto pit9 = pkgSameScopeRetTwin.find(&sub);
-                        pit9 != pkgSameScopeRetTwin.end())
-                        rtw9 = pit9->second;
-                    else {
-                        rtw9 = makeTypespec(*sub.returnValVar, targetSyn9);
-                        rtw9->VpiName(
-                            std::string(
-                                retAlias->getParentScope()->asSymbol().name) +
-                            "::" + std::string(rdt.name));
-                        rtw9->Instance(retBase->Instance());
-                        pkgSameScopeRetTwin[&sub] = rtw9;
-                    }
+                    // The return clone's alias binds the pkg LISTING object of
+                    // its own view: the def listing for the def fn, the
+                    // top/module listing for the elab fn (Surelog; the fresh
+                    // per-function twin belongs to the BODY-local clone, not
+                    // the return) — jeras_union imm_i_f.
+                    UHDM::typespec* rtw9 = retBase;
+                    if (pkgTopEmit)
+                        if (auto tt9 = pkgTopTypedefTs.find(
+                                (const void*)retAlias);
+                            tt9 != pkgTopTypedefTs.end())
+                            rtw9 = tt9->second;
                     tfTypeScope = nullptr;
                     tfContext = false;
                     bypassTypedefShare = false;

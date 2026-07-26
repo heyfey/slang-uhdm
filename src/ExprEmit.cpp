@@ -2576,6 +2576,49 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             cts = cl2;
                         }
                     }
+                    // A cast to a pkg UNION typedef (op32_t'(ins)) binds ONE
+                    // FRESH union clone tree shared by all views' cast sites:
+                    // threaded work@-scoped member refs, per-member struct
+                    // clones, fresh folded vector twins and member enum
+                    // clones (Surelog re-elaborates the cast target —
+                    // jeras_union).
+                    else if (!currentSubSym &&
+                             cts->UhdmType() == UHDM::uhdmunion_typespec &&
+                             expr.type->getCanonicalType().kind ==
+                                 SymbolKind::PackedUnionType) {
+                        if (auto cu9 = castUnionClone.find(expr.type);
+                            cu9 != castUnionClone.end())
+                            cts = cu9->second;
+                        else {
+                            auto& ta2 = expr.type->as<TypeAliasType>();
+                            std::string unm(ta2.name);
+                            for (auto sc9 = ta2.getParentScope(); sc9;
+                                 sc9 = sc9->asSymbol().getParentScope())
+                                if (sc9->asSymbol().kind ==
+                                    SymbolKind::Package) {
+                                    unm = std::string(sc9->asSymbol().name) +
+                                          "::" + unm;
+                                    break;
+                                }
+                            bool savedSCMRP9 = structCloneMemberRefParent;
+                            structCloneMemberRefParent = true;
+                            castAggCloneCtx = true;
+                            auto* ucl = buildUnionTs(
+                                expr.type->getCanonicalType()
+                                    .as<PackedUnionType>(),
+                                true, prefix + "." + unm, ".");
+                            castAggCloneCtx = false;
+                            structCloneMemberRefParent = savedSCMRP9;
+                            ucl->VpiName(unm);
+                            ucl->VpiLineNo(cts->VpiLineNo());
+                            ucl->VpiColumnNo(cts->VpiColumnNo());
+                            ucl->VpiEndLineNo(cts->VpiEndLineNo());
+                            ucl->VpiEndColumnNo(cts->VpiEndColumnNo());
+                            ucl->Instance(cts->Instance());
+                            castUnionClone[expr.type] = ucl;
+                            cts = ucl;
+                        }
+                    }
                     // A cast to a PACKED-ARRAY-of-struct typedef
                     // (my_struct_array'(a)) mints a FRESH clone in the elab
                     // pass: same name/span/Instance/ranges, but its own
@@ -2951,8 +2994,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             rt->VpiParent(op);
             rt->Actual_typespec(cts);
             // Re-elaborated contexts parent the cast typespec at its ref — as
-            // does an imported param's module-view init copy.
-            if (reemitting ||
+            // does an imported param's module-view init copy. A shared cast
+            // UNION clone re-parents at every cast ref (last-writer, Surelog).
+            bool castUnion9 = false;
+            for (auto& [ct9, cu9] : castUnionClone)
+                if (cu9 == cts)
+                    castUnion9 = true;
+            if (reemitting || castUnion9 ||
                 (importedInitPkgInst &&
                  cts->UhdmType() == UHDM::uhdminteger_typespec))
                 cts->VpiParent(rt);
@@ -3356,8 +3404,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         a->UhdmType() == UHDM::uhdmoperation &&
                                         ((UHDM::operation*)a)->VpiOpType() ==
                                             vpiConcatOp;
+                        // A STRUCT/UNION-typed formal's arg ref carries no
+                        // formal-ts stamp in pkg fn bodies (Surelog;
+                        // jeras_union dec32's imm_b_f(op)).
+                        bool structFormal9 =
+                            argIdx < si.argTs.size() && si.argTs[argIdx].first &&
+                            (si.argTs[argIdx].first->UhdmType() ==
+                                 UHDM::uhdmstruct_typespec ||
+                             si.argTs[argIdx].first->UhdmType() ==
+                                 UHDM::uhdmunion_typespec);
                         bool argCtxOk =
-                            currentTf ? ((pkgTopEmit &&
+                            currentTf ? ((pkgTopEmit && !structFormal9 &&
                                           !(intFormal &&
                                             a->UhdmType() ==
                                                 UHDM::uhdmoperation)) ||

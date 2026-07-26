@@ -3094,7 +3094,15 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                                 asynD->as<syntax::TypedefDeclarationSyntax>()
                                     .type;
                     bypassTypedefShare = true;
+                    // A DEF-pkg member clone keeps SYMBOLIC bounds (12-1 op);
+                    // the TOP/module-side clone folds (rewritten with its
+                    // work@-scoped alias in emitImportArtifacts) — Surelog,
+                    // jeras_union imm_*/fn3_t.
+                    bool savedTfD9 = tfContext;
+                    if (inPkgTypedefEmit && !pkgTopEmit)
+                        tfContext = true;
                     auto* clD = makeTypespec(*dta, tgtSynD);
+                    tfContext = savedTfD9;
                     bypassTypedefShare = false;
                     clD->VpiName(dta->name);
                     clD->VpiParent(tm);
@@ -3112,8 +3120,34 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     // (alias -> the folded pkg twin); the DEF-pkg build keeps
                     // the symbolic clone -> shared ts (jeras_union imm_*).
                     bool foldD = !inPkgTypedefEmit;
-                    UHDM::typespec* twD =
-                        foldD ? pkgVectorFoldTwin(amt, tita->second) : nullptr;
+                    UHDM::typespec* twD = nullptr;
+                    if (castAggCloneCtx) {
+                        // A CAST clone tree's vector-typedef member binds a
+                        // FRESH pkg-named FOLDED twin parented at this alias
+                        // ref — one per clone, not the shared listing twin
+                        // (Surelog; jeras_union op32_*'s fn3_t).
+                        bypassTypedefShare = true;
+                        bool sTfD = tfContext;
+                        tfContext = false;
+                        auto* ftw = makeTypespec(*dta, tgtSynD);
+                        tfContext = sTfD;
+                        bypassTypedefShare = false;
+                        std::string tnm(dta->name);
+                        for (auto sc9 = dta->getParentScope(); sc9;
+                             sc9 = sc9->asSymbol().getParentScope())
+                            if (sc9->asSymbol().kind == SymbolKind::Package) {
+                                tnm = std::string(sc9->asSymbol().name) +
+                                      "::" + tnm;
+                                break;
+                            }
+                        ftw->VpiName(tnm);
+                        ftw->Instance(tita->second->Instance());
+                        foldVectorTsBounds(ftw, amt.getCanonicalType());
+                        ftw->VpiParent(artD);
+                        twD = ftw;
+                    }
+                    else if (foldD)
+                        twD = pkgVectorFoldTwin(amt, tita->second);
                     artD->Actual_typespec(twD ? twD : tita->second);
                     if (twD)
                         foldVectorTsBounds(clD, amt.getCanonicalType());
@@ -3145,6 +3179,45 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             // (…member.pkg::enum_e), base actual instanced at the ENUM's own
             // home package (Surelog emits one member-enum clone per struct-
             // param clone — the 5-level-hierarchy / passed-down families).
+            // A CAST clone tree's STRUCT-typedef member gets its OWN fresh
+            // threaded clone (member refs <alias>.<mem>.<pkg::S>.<sm>),
+            // parented at the member ref, spans/Instance mirroring the shared
+            // typedef object (Surelog; jeras_union op32_t'(ins)).
+            if (!fts && castAggCloneCtx && fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::PackedStructType) {
+                auto& mta =
+                    fm.getDeclaredType()->getType().as<TypeAliasType>();
+                std::string mnm(mta.name);
+                for (auto sc9 = mta.getParentScope(); sc9;
+                     sc9 = sc9->asSymbol().getParentScope())
+                    if (sc9->asSymbol().kind == SymbolKind::Package) {
+                        mnm = std::string(sc9->asSymbol().name) + "::" + mnm;
+                        break;
+                    }
+                std::string subAlias =
+                    (aliasName.empty()
+                         ? std::string(fm.name)
+                         : aliasName + memberSep + std::string(fm.name)) +
+                    memberSep + mnm;
+                auto* scl = buildStructTs(
+                    mta.getCanonicalType().as<PackedStructType>(), true,
+                    subAlias, memberSep);
+                scl->VpiName(mnm);
+                if (auto sit9 = typedefTs.find(
+                        (const Symbol*)&fm.getDeclaredType()->getType());
+                    sit9 != typedefTs.end()) {
+                    auto* sh9 = sit9->second;
+                    scl->VpiLineNo(sh9->VpiLineNo());
+                    scl->VpiColumnNo(sh9->VpiColumnNo());
+                    scl->VpiEndLineNo(sh9->VpiEndLineNo());
+                    scl->VpiEndColumnNo(sh9->VpiEndColumnNo());
+                    scl->Instance(sh9->Instance());
+                }
+                fts = scl;
+                memberEnumClone = true; // ref-parent like the enum clones
+            }
             if (!fts && structCloneMemberRefParent && fm.getDeclaredType()) {
                 auto& mdt = fm.getDeclaredType()->getType();
                 if (mdt.kind == SymbolKind::TypeAlias &&
@@ -3616,7 +3689,15 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                                 asynD->as<syntax::TypedefDeclarationSyntax>()
                                     .type;
                     bypassTypedefShare = true;
+                    // A DEF-pkg member clone keeps SYMBOLIC bounds (12-1 op);
+                    // the TOP/module-side clone folds (rewritten with its
+                    // work@-scoped alias in emitImportArtifacts) — Surelog,
+                    // jeras_union imm_*/fn3_t.
+                    bool savedTfD9 = tfContext;
+                    if (inPkgTypedefEmit && !pkgTopEmit)
+                        tfContext = true;
                     auto* clD = makeTypespec(*dta, tgtSynD);
+                    tfContext = savedTfD9;
                     bypassTypedefShare = false;
                     clD->VpiName(dta->name);
                     clD->VpiParent(tm);
@@ -3634,8 +3715,34 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     // (alias -> the folded pkg twin); the DEF-pkg build keeps
                     // the symbolic clone -> shared ts (jeras_union imm_*).
                     bool foldD = !inPkgTypedefEmit;
-                    UHDM::typespec* twD =
-                        foldD ? pkgVectorFoldTwin(amt, tita->second) : nullptr;
+                    UHDM::typespec* twD = nullptr;
+                    if (castAggCloneCtx) {
+                        // A CAST clone tree's vector-typedef member binds a
+                        // FRESH pkg-named FOLDED twin parented at this alias
+                        // ref — one per clone, not the shared listing twin
+                        // (Surelog; jeras_union op32_*'s fn3_t).
+                        bypassTypedefShare = true;
+                        bool sTfD = tfContext;
+                        tfContext = false;
+                        auto* ftw = makeTypespec(*dta, tgtSynD);
+                        tfContext = sTfD;
+                        bypassTypedefShare = false;
+                        std::string tnm(dta->name);
+                        for (auto sc9 = dta->getParentScope(); sc9;
+                             sc9 = sc9->asSymbol().getParentScope())
+                            if (sc9->asSymbol().kind == SymbolKind::Package) {
+                                tnm = std::string(sc9->asSymbol().name) +
+                                      "::" + tnm;
+                                break;
+                            }
+                        ftw->VpiName(tnm);
+                        ftw->Instance(tita->second->Instance());
+                        foldVectorTsBounds(ftw, amt.getCanonicalType());
+                        ftw->VpiParent(artD);
+                        twD = ftw;
+                    }
+                    else if (foldD)
+                        twD = pkgVectorFoldTwin(amt, tita->second);
                     artD->Actual_typespec(twD ? twD : tita->second);
                     if (twD)
                         foldVectorTsBounds(clD, amt.getCanonicalType());
@@ -3667,6 +3774,45 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             // (…member.pkg::enum_e), base actual instanced at the ENUM's own
             // home package (Surelog emits one member-enum clone per struct-
             // param clone — the 5-level-hierarchy / passed-down families).
+            // A CAST clone tree's STRUCT-typedef member gets its OWN fresh
+            // threaded clone (member refs <alias>.<mem>.<pkg::S>.<sm>),
+            // parented at the member ref, spans/Instance mirroring the shared
+            // typedef object (Surelog; jeras_union op32_t'(ins)).
+            if (!fts && castAggCloneCtx && fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                fm.getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::PackedStructType) {
+                auto& mta =
+                    fm.getDeclaredType()->getType().as<TypeAliasType>();
+                std::string mnm(mta.name);
+                for (auto sc9 = mta.getParentScope(); sc9;
+                     sc9 = sc9->asSymbol().getParentScope())
+                    if (sc9->asSymbol().kind == SymbolKind::Package) {
+                        mnm = std::string(sc9->asSymbol().name) + "::" + mnm;
+                        break;
+                    }
+                std::string subAlias =
+                    (aliasName.empty()
+                         ? std::string(fm.name)
+                         : aliasName + memberSep + std::string(fm.name)) +
+                    memberSep + mnm;
+                auto* scl = buildStructTs(
+                    mta.getCanonicalType().as<PackedStructType>(), true,
+                    subAlias, memberSep);
+                scl->VpiName(mnm);
+                if (auto sit9 = typedefTs.find(
+                        (const Symbol*)&fm.getDeclaredType()->getType());
+                    sit9 != typedefTs.end()) {
+                    auto* sh9 = sit9->second;
+                    scl->VpiLineNo(sh9->VpiLineNo());
+                    scl->VpiColumnNo(sh9->VpiColumnNo());
+                    scl->VpiEndLineNo(sh9->VpiEndLineNo());
+                    scl->VpiEndColumnNo(sh9->VpiEndColumnNo());
+                    scl->Instance(sh9->Instance());
+                }
+                fts = scl;
+                memberEnumClone = true; // ref-parent like the enum clones
+            }
             if (!fts && structCloneMemberRefParent && fm.getDeclaredType()) {
                 auto& mdt = fm.getDeclaredType()->getType();
                 if (mdt.kind == SymbolKind::TypeAlias &&

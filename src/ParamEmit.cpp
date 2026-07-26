@@ -6244,24 +6244,16 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             bare9->VpiName(tgt9.name);
             bare9->Instance((UHDM::instance*)up);
             if (bare9->UhdmType() == UHDM::uhdmlogic_typespec) {
-                // ...whose Actual is a SEPARATE pkg-named SYMBOLIC clone of
-                // the target (Surelog's alias-chain twin keeps the unfolded
-                // bounds; only the outer two levels fold).
-                bypassTypedefShare = true;
-                bool savedTfA9 = tfContext;
-                tfContext = true;
-                auto* tgtCl9 =
-                    makeTypespec(ta, tgtTypeSyn9 ? tgtTypeSyn9 : typeSyn);
-                tfContext = savedTfA9;
-                bypassTypedefShare = false;
-                if (tgtTypeSyn9)
-                    setLoc(tgtCl9, tgtTypeSyn9->sourceRange());
-                tgtCl9->VpiName(prefix + std::string(tgt9.name));
-                tgtCl9->Instance((UHDM::instance*)up);
+                // ...whose Actual is the TARGET's TOP/module LISTING object
+                // (folded pkg-named twin, module-parented last-writer) —
+                // Surelog binds the alias chain into the elab family, not a
+                // fresh symbolic clone (jeras_union imm_l_t -> imm_i_t).
+                // The top listing does not exist yet; defer the binding.
                 auto* tart9 = s.MakeRef_typespec();
                 tart9->VpiFullName(std::string(tgt9.name));
                 tart9->VpiParent(bare9);
-                tart9->Actual_typespec(tgtCl9);
+                pendingAliasChainTgt.emplace_back(tart9,
+                                                  (const Symbol*)&tgt9);
                 ((UHDM::logic_typespec*)bare9)->Typedef_alias(tart9);
             }
             auto* art9 = s.MakeRef_typespec();
@@ -6971,7 +6963,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         for (auto* arg9 : mem9.as<SubroutineSymbol>().getArguments()) {
             auto dt9 = arg9->getDeclaredType();
             if (!dt9 || dt9->getType().kind != SymbolKind::TypeAlias ||
-                !dt9->getType().getCanonicalType().isStruct())
+                !(dt9->getType().getCanonicalType().isStruct() ||
+                  dt9->getType().getCanonicalType().isPackedUnion()))
                 continue;
             UHDM::typespec* sh9 = nullptr;
             if (topView) {
@@ -6982,7 +6975,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             else if (auto i8 = typedefTs.find(&dt9->getType());
                      i8 != typedefTs.end())
                 sh9 = i8->second;
-            if (!sh9 || sh9->UhdmType() != UHDM::uhdmstruct_typespec)
+            if (!sh9 || (sh9->UhdmType() != UHDM::uhdmstruct_typespec &&
+                         sh9->UhdmType() != UHDM::uhdmunion_typespec))
                 continue;
             if (auto tsy9 = dt9->getTypeSyntax())
                 setLoc(sh9, tsy9->sourceRange());

@@ -1587,6 +1587,22 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                             if (!fPkg9 || fPkg9 == impPkg9)
                                 nestedContainer = true;
                         }
+                // A nested container that is itself a MEMBER of a same-pkg
+                // packed UNION typedef re-elaborates through the union in
+                // module context and takes the work@ re-scope after all
+                // (Surelog; jeras_union op32_*).
+                if (nestedContainer && impPkg9)
+                    for (auto& om9 : impPkg9->members())
+                        if (om9.kind == SymbolKind::TypeAlias) {
+                            auto& oct9 =
+                                om9.as<TypeAliasType>().getCanonicalType();
+                            if (oct9.kind != SymbolKind::PackedUnionType)
+                                continue;
+                            for (auto& uf9 : oct9.as<PackedUnionType>()
+                                                 .membersOfType<FieldSymbol>())
+                                if (&uf9.getType().getCanonicalType() == &ict)
+                                    nestedContainer = false;
+                        }
             }
             bool wildcard = mem.kind == SymbolKind::WildcardImport;
             // The header-import share-without-touch rule is EXPLICIT-only;
@@ -1691,6 +1707,40 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                                   std::string(tm->VpiName());
                                 tm->Typespec()->VpiFullName(mFN);
                                 auto* ma = tm->Typespec()->Actual_typespec();
+                                // A VECTOR-typedef member CLONE on the
+                                // shared top object folds its bounds and
+                                // re-aims its Typedef_alias at the TOP/module
+                                // listing twin, alias fullname work@-scoped
+                                // (Surelog; jeras_union imm_*/fn3_t).
+                                if (ma &&
+                                    ma->UhdmType() ==
+                                        UHDM::uhdmlogic_typespec) {
+                                    auto* ml9 = (UHDM::logic_typespec*)ma;
+                                    if (auto* al9 = ml9->Typedef_alias()) {
+                                        al9->VpiFullName(
+                                            mFN + "." +
+                                            std::string(ml9->VpiName()));
+                                        const Symbol* tdSym9 = nullptr;
+                                        for (auto& [sy9, tsp9] : typedefTs)
+                                            if (tsp9 ==
+                                                al9->Actual_typespec()) {
+                                                tdSym9 = sy9;
+                                                break;
+                                            }
+                                        if (tdSym9) {
+                                            if (auto tt9 =
+                                                    pkgTopTypedefTs.find(
+                                                        (const void*)tdSym9);
+                                                tt9 != pkgTopTypedefTs.end())
+                                                al9->Actual_typespec(
+                                                    tt9->second);
+                                            foldVectorTsBounds(
+                                                ml9,
+                                                tdSym9->as<TypeAliasType>()
+                                                    .getCanonicalType());
+                                        }
+                                    }
+                                }
                                 if (!ma ||
                                     ma->UhdmType() !=
                                         UHDM::uhdmpacked_array_typespec)
@@ -10990,10 +11040,16 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                     std::string qn0(rta0.name);
                     if (!unitTd && sc1 && !sameScope0)
                         qn0 = std::string(sc1->asSymbol().name) + "::" + qn0;
+                    // A TOP-pkg fn's body-local clone FOLDS its bounds; the
+                    // def fn's stays symbolic (jeras_union imm_*_f).
+                    bool topPf0 = false;
+                    for (auto& [pk0, po0] : pkgTopMap)
+                        if ((UHDM::instance*)po0 == pf.inst)
+                            topPf0 = true;
                     auto mkClone0 = [&]() -> UHDM::typespec* {
                         bypassTypedefShare = true;
                         bool savedTf0 = tfContext;
-                        tfContext = true;
+                        tfContext = !topPf0;
                         auto* c0 = makeTypespec(*sub.returnValVar, tgtSyn0);
                         tfContext = savedTf0;
                         bypassTypedefShare = false;
@@ -11013,14 +11069,29 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                     }
                     else if (sameScope0) {
                         auto* ar0 = s.MakeRef_typespec();
-                        ar0->VpiFullName(std::string(rta0.name));
+                        // fn-scoped alias fullname (pkg::f::f::T — Surelog).
+                        ar0->VpiFullName(localFull + "::" +
+                                         std::string(rta0.name));
                         ar0->VpiParent(cl0);
-                        // Shares the per-function symbolic pkg-named twin
-                        // created for the Return clone (jeras_union imm_i_f).
-                        UHDM::typespec* rtw0 = ts;
-                        if (auto pit0 = pkgSameScopeRetTwin.find(&sub);
+                        // Binds a FRESH pkg-named twin, one per (function,
+                        // view), parented at this alias ref: symbolic for the
+                        // def fn, folded for the elab fn (jeras_union
+                        // imm_*_f).
+                        auto twKey0 = std::make_pair((const Symbol*)&sub,
+                                                     (const void*)pf.inst);
+                        UHDM::typespec* rtw0 = nullptr;
+                        if (auto pit0 = pkgSameScopeRetTwin.find(twKey0);
                             pit0 != pkgSameScopeRetTwin.end())
                             rtw0 = pit0->second;
+                        else {
+                            rtw0 = mkClone0();
+                            rtw0->VpiName(
+                                std::string(sc1->asSymbol().name) + "::" +
+                                std::string(rta0.name));
+                            rtw0->Instance(ts->Instance());
+                            pkgSameScopeRetTwin[twKey0] = rtw0;
+                        }
+                        rtw0->VpiParent(ar0);
                         ar0->Actual_typespec(rtw0);
                         ((UHDM::logic_typespec*)cl0)->Typedef_alias(ar0);
                         cl0->Instance(ts->Instance());
