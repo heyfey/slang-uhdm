@@ -240,13 +240,15 @@ themselves triage seeds:
 **Folded vs elaborated (measured).** In testflags mode the Surelog suite is
 mostly an **elaborated-model** comparison — 629 of its `.sl` files pass
 `-elabuhdm`. Of the comparable testflags tests: elab 168/418 equal (40.2%),
-folded 9/49 equal (18.4%). Phase 1 converged the folded model only, so the bulk
-of testflags convergence is new territory: the elaborated tree that
-`ElaboratorListener`/`UhdmAdjuster` produce from both sides. Two consequences:
-  - The 49 folded testflags tests (40 not-equal) are home turf for the
-    phase-1 sweep-and-cluster method — start there.
-  - Elab-mode dump diffs are larger and shaped differently; expect to re-tune
-    diff normalisation before clustering them.
+folded 9/49 equal (18.4%). That looked like a large new elaborated-model
+frontier — the `folded` overlay (run over all 637 `-elabuhdm` tests) then
+measured it away: **of the 250 elab-mode not-equal tests, 248 are also
+folded-not-equal; only 2 are elab-only** (`ClogParam`, `UnsizedParam`). So
+virtually all Surelog-suite divergence lives in the folded model — phase-1 home
+turf, sweep-and-cluster applies unchanged — and the elab-only queue is exactly
+those two tests. (3 tests are folded-not-equal yet elab-equal: elaboration can
+also wash a folded diff out. Fix folded first regardless; the folded model is
+the input the shared elab passes consume.)
 
 **uhdm2rtlil not-equal identities.** All 17 are either the multi-file
 `project.f` frontier (`iface_method_call`, `jeras_*`, `rp32_*`,
