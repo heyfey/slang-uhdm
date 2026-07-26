@@ -35,8 +35,16 @@ own flags minus `-elabuhdm` on both sides. It is not part of the target — it
 exists to order the work (§4.3): folded-not-equal means fix the folded model
 first; folded-equal but testflags-not-equal means an elab-frontier bug.
 
-Done means `CMP_EQUAL` for every test in both modes, except where slang
-legitimately rejects the source (see §2.5).
+Done means `CMP_EQUAL` for every **comparable** test in both modes (§2.5;
+extending slang is out of scope, so `SLANG_REJECT` is excluded by decision).
+
+Converge order (decided): **uhdm2rtlil default → uhdm2rtlil testflags →
+Surelog default → Surelog testflags.** The stages mostly contain each other:
+the u2r mode pair shares 16 of its 16/17 failures, the Surelog mode pair 286
+of 301/290 — and since `default` strips `-elabuhdm`, converging Surelog
+default IS the folded-first strategy, with only 2 elab-only tests left for
+testflags. The §3.2 flag implementations are **in-phase**, scheduled inside
+the Surelog-testflags stage (they only affect tests running those flags).
 
 **Why two modes.** One alone is not a claim. `default` alone would let a flag
 bug hide; `testflags` alone would let a model bug hide behind a flag we happen
@@ -366,6 +374,11 @@ Every change must clear, in the **main tree**:
 4. After committing: `cp /tmp/gate.csv results/gate_uhdm2rtlil.csv`
 5. Full two-mode sweeps of both corpora per wave (not per commit; ~45–60 min
    per corpus), refreshing `results/golden_*.csv` alongside.
+
+Gate cadence (decided): while converging, the per-commit gate stays goldens +
+u2r testflags (fast, bounded risk) with the Surelog suite gated per wave —
+balancing regression risk against dev overhead. **Once fully converged, the
+per-commit gate becomes u2r testflags + Surelog testflags, always.**
 
 ### 4.3 Working method
 
