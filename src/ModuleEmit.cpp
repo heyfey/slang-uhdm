@@ -499,7 +499,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                                 basePos++;
                             char base =
                                 basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
-                            std::string digits = raw.substr(basePos + 1);
+                            std::string digits = stripSep(raw.substr(basePos + 1));
                             const char* pfx = base == 'b'   ? "BIN:"
                                               : base == 'h' ? "HEX:"
                                               : base == 'o' ? "OCT:"
@@ -563,18 +563,23 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 }
             // Only a BARE whole-interface connection gets a connection-site
             // net; modport-qualified (.mon(s.mon)) don't, and a POSITIONAL
-            // conn whose actual name EQUALS the formal's name is deduped
-            // (m0(bus, ...) with formal `bus`) — Surelog.
+            // conn mixed with regular conns takes no connection-site net at
+            // all (iface_method_call h1(hintf, su, ...) — Surelog).
             if (!pc || !connectionExpr(*pc) ||
                 rawText(connectionExpr(*pc)->sourceRange).find('.') != std::string::npos)
                 continue;
+            // An IMPLICIT named connection (.intf, no parenthesized actual)
+            // compiles no actual expression in Surelog and mints NO
+            // connection-site net (load_and_derive).
+            if (auto* npc0 = findConnSyntax(child, pb->name))
+                if (!npc0->expr)
+                    continue;
             {
                 bool mixed9 = false;
                 for (auto cc9 : child.getPortConnections())
                     if (cc9->port.kind != SymbolKind::InterfacePort)
                         mixed9 = true;
-                if (hasOrderedConns(child) && mixed9 &&
-                    conn.first->name == pb->name)
+                if (hasOrderedConns(child) && mixed9)
                     continue;
             }
             // An interface instance connected to MULTIPLE children gets a
@@ -1022,6 +1027,26 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
     // instances are skipped in the def view).
     auto* refmods = s.MakeRef_moduleVec();
     for (auto& member : body.members()) {
+        // An UNRESOLVED instantiation (unknown module, or any child of an
+        // uninstantiated no-top def view) still emits its ref_module stub:
+        // defname from the instantiation text, Actual only when a same-named
+        // def exists (a recursive self-instantiation resolves to this very
+        // def — recursive_map).
+        if (member.kind == SymbolKind::UninstantiatedDef) {
+            auto& ud = member.as<UninstantiatedDefSymbol>();
+            auto* rm = s.MakeRef_module();
+            rm->VpiName(ud.name);
+            rm->VpiDefName("work@" + std::string(ud.definitionName));
+            rm->VpiParent(m);
+            setLoc(rm, SourceRange(ud.location, ud.location + ud.name.size()));
+            for (auto& [dp9, di9] : defMap)
+                if (dp9->name == ud.definitionName) {
+                    rm->Actual_group(di9.mod);
+                    break;
+                }
+            refmods->push_back(rm);
+            continue;
+        }
         if (member.kind != SymbolKind::Instance)
             continue;
         auto& child = member.as<InstanceSymbol>();
@@ -1043,17 +1068,14 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
             bool hasIfaceConn = false;
             for (auto conn : child.getPortConnections()) {
                 if (conn->port.kind == SymbolKind::InterfacePort) {
-                    // Only a SAME-NAME positional iface conn MIXED with
-                    // regular conns (m0(bus, din) with formal `bus`) omits
-                    // the ref_module; iface-only conn lists keep it (Surelog).
+                    // A positional iface conn MIXED with regular conns
+                    // (h1(hintf, su, ...)) omits the ref_module; iface-only
+                    // conn lists keep it (iface_method_call — Surelog).
                     bool mixed9 = false;
                     for (auto cc9 : child.getPortConnections())
                         if (cc9->port.kind != SymbolKind::InterfacePort)
                             mixed9 = true;
-                    auto ic9 = conn->port.as<InterfacePortSymbol>()
-                                   .getConnection();
-                    if (mixed9 && ic9.first &&
-                        ic9.first->name == conn->port.name)
+                    if (mixed9)
                         hasIfaceConn = true;
                     continue;
                 }
@@ -1297,6 +1319,125 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
 
 // Modules with package imports carry an import_typespec per import item and
 // list import-called package functions (shared def objects) in Task_funcs.
+// A pkg VECTOR typedef whose shared listing object kept SYMBOLIC bounds gets
+// ONE folded pkg-named twin (Surelog's module-side/alias-chain object) —
+// jeras_union imm_*. Returns null when no twin applies.
+UHDM::typespec* UhdmExporter::pkgVectorFoldTwin(const slang::ast::Symbol& taSym,
+                                                UHDM::typespec* sharedTs) {
+    if (!sharedTs || sharedTs->UhdmType() != UHDM::uhdmlogic_typespec ||
+        taSym.kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto* lt0 = (UHDM::logic_typespec*)sharedTs;
+    UHDM::range* symR0 = nullptr;
+    if (auto* rs0 = lt0->Ranges())
+        for (auto* r0 : *rs0)
+            if (r0->Left_expr() &&
+                r0->Left_expr()->UhdmType() == UHDM::uhdmoperation)
+                symR0 = r0;
+    auto& ict0 = taSym.as<TypeAliasType>().getCanonicalType();
+    if (!symR0 || ict0.kind != SymbolKind::PackedArrayType)
+        return nullptr;
+    auto clKeyV = std::make_pair((const Symbol*)&taSym, std::string());
+    if (auto vit0 = vectorTdFoldClone.find(clKeyV);
+        vit0 != vectorTdFoldClone.end())
+        return vit0->second;
+    auto* cl0 = s.MakeLogic_typespec();
+    cl0->VpiName(std::string(lt0->VpiName()));
+    cl0->VpiLineNo(lt0->VpiLineNo());
+    cl0->VpiColumnNo(lt0->VpiColumnNo());
+    cl0->VpiEndLineNo(lt0->VpiEndLineNo());
+    cl0->VpiEndColumnNo(lt0->VpiEndColumnNo());
+    if (lt0->VpiSigned())
+        cl0->VpiSigned(true);
+    cl0->Instance(lt0->Instance());
+    auto cr0 = ict0.as<PackedArrayType>().range;
+    auto* nr0 = s.MakeRange();
+    nr0->VpiParent(cl0);
+    nr0->VpiLineNo(symR0->VpiLineNo());
+    nr0->VpiColumnNo(symR0->VpiColumnNo());
+    nr0->VpiEndLineNo(symR0->VpiEndLineNo());
+    nr0->VpiEndColumnNo(symR0->VpiEndColumnNo());
+    auto mkFold0 = [&](int32_t v0, bool int0, UHDM::expr* old0) -> UHDM::expr* {
+        auto* c0 = s.MakeConstant();
+        std::string d0 = std::to_string(v0);
+        c0->VpiDecompile(d0);
+        c0->VpiSize(64);
+        c0->VpiValue((int0 ? "INT:" : "UINT:") + d0);
+        c0->VpiConstType(int0 ? vpiIntConst : vpiUIntConst);
+        c0->VpiParent(nr0);
+        UHDM::expr* an0 = old0;
+        if (old0 && old0->UhdmType() == UHDM::uhdmoperation)
+            if (auto* ops0 = ((UHDM::operation*)old0)->Operands();
+                ops0 && !ops0->empty())
+                an0 = (UHDM::expr*)(*ops0)[0];
+        if (an0) {
+            c0->VpiLineNo(an0->VpiLineNo());
+            c0->VpiColumnNo(an0->VpiColumnNo());
+            c0->VpiEndLineNo(an0->VpiEndLineNo());
+            c0->VpiEndColumnNo(an0->VpiEndColumnNo());
+        }
+        return c0;
+    };
+    bool leftOp0 = symR0->Left_expr() &&
+                   symR0->Left_expr()->UhdmType() == UHDM::uhdmoperation;
+    nr0->Left_expr(mkFold0(cr0.left, leftOp0, symR0->Left_expr()));
+    nr0->Right_expr(mkFold0(cr0.right,
+                            symR0->Right_expr() &&
+                                symR0->Right_expr()->UhdmType() ==
+                                    UHDM::uhdmoperation,
+                            symR0->Right_expr()));
+    auto* nrv0 = s.MakeRangeVec();
+    nrv0->push_back(nr0);
+    cl0->Ranges(nrv0);
+    vectorTdFoldClone[clKeyV] = cl0;
+    return cl0;
+}
+
+// In-place fold of a vector ts clone's symbolic bounds (module-context member
+// clones — jeras_union bare imm_* twins).
+void UhdmExporter::foldVectorTsBounds(UHDM::typespec* t,
+                                      const slang::ast::Type& canon) {
+    if (!t || t->UhdmType() != UHDM::uhdmlogic_typespec ||
+        canon.kind != SymbolKind::PackedArrayType)
+        return;
+    auto* lt0 = (UHDM::logic_typespec*)t;
+    auto* rs0 = lt0->Ranges();
+    if (!rs0 || rs0->empty())
+        return;
+    auto* r0 = (*rs0)[0];
+    if (!r0->Left_expr() ||
+        r0->Left_expr()->UhdmType() != UHDM::uhdmoperation)
+        return;
+    auto cr0 = canon.as<PackedArrayType>().range;
+    auto mk0 = [&](int32_t v0, bool int0, UHDM::expr* old0) -> UHDM::expr* {
+        auto* c0 = s.MakeConstant();
+        std::string d0 = std::to_string(v0);
+        c0->VpiDecompile(d0);
+        c0->VpiSize(64);
+        c0->VpiValue((int0 ? "INT:" : "UINT:") + d0);
+        c0->VpiConstType(int0 ? vpiIntConst : vpiUIntConst);
+        c0->VpiParent(r0);
+        UHDM::expr* an0 = old0;
+        if (old0 && old0->UhdmType() == UHDM::uhdmoperation)
+            if (auto* ops0 = ((UHDM::operation*)old0)->Operands();
+                ops0 && !ops0->empty())
+                an0 = (UHDM::expr*)(*ops0)[0];
+        if (an0) {
+            c0->VpiLineNo(an0->VpiLineNo());
+            c0->VpiColumnNo(an0->VpiColumnNo());
+            c0->VpiEndLineNo(an0->VpiEndLineNo());
+            c0->VpiEndColumnNo(an0->VpiEndColumnNo());
+        }
+        return c0;
+    };
+    r0->Left_expr(mk0(cr0.left, true, r0->Left_expr()));
+    r0->Right_expr(mk0(cr0.right,
+                       r0->Right_expr() &&
+                           r0->Right_expr()->UhdmType() ==
+                               UHDM::uhdmoperation,
+                       r0->Right_expr()));
+}
+
 void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::instance* m) {
     auto* tds = m->Typespecs();
     // An interface (def view) lists each imported package typedef in its own
@@ -1408,6 +1549,12 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 tsSel = tit->second;
             if (!tsSel)
                 continue;
+            // A pkg VECTOR typedef whose shared object kept SYMBOLIC bounds
+            // (consumed only inside the package) lists the FOLDED twin
+            // instead (jeras_union imm_* — Surelog re-elaborates the
+            // module-side view; the same twin backs member-clone aliases).
+            if (auto* tw0 = pkgVectorFoldTwin(*imported, tsSel))
+                tsSel = tw0;
             // A HEADER import (module top import pkg::T; (...)) lists the
             // typespec but keeps its package parent; body imports re-parent.
             bool headerImport = false;
@@ -1693,47 +1840,59 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
 // port. Decoded across 16 iface tests (conn/field_assign/cfg_mem = input;
 // out/modport/member_port/member_read_assign/... = inout).
 int32_t UhdmExporter::interfacePortDirection(const InterfacePortSymbol& ip) {
-    if (ip.modport.empty())
-        return vpiInout;
-    auto ce = ip.getConnectionAndExpr();
-    const ModportSymbol* mp = ce.first.second;
-    if (!mp)
-        return vpiInout;
-    bool hasOut = false;
-    for (auto& mm : mp->members())
-        if (mm.kind == SymbolKind::ModportPort &&
-            mm.as<ModportPortSymbol>().direction == ArgumentDirection::Out) {
-            hasOut = true;
+    // Surelog gives an interface port the direction INHERITED from the last
+    // explicit direction token earlier in the ANSI port list (the SV ANSI
+    // carry-over rule, applied even though interface ports take no direction
+    // of their own); a list-LEADING interface port stays inout.
+    // Verified: tcb_gpio `input gpio_i, tcb_if.sub bus` -> input;
+    // dev `(input logic clk, tcb_if.sub s)` -> input; reader/wrapper/DUT
+    // first-position ports -> inout (iface_field_assign, iface_cfg_mem,
+    // OneNetModport, iface_member_port, iface_struct_field).
+    const syntax::SyntaxNode* portNode = nullptr;
+    for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
+        if (sy->parent && (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort ||
+                           sy->kind == syntax::SyntaxKind::ExplicitAnsiPort)) {
+            portNode = sy;
             break;
         }
-    if (!hasOut) {
-        // Input-only modport: vpiInput only when the module never touches a
-        // modport MEMBER through the port (param-only access like
-        // s.CFG.BUS.DAT); any member access keeps inout
-        // (member_port/member_read_assign/struct_field_bitselect).
-        bool memberRef = false;
-        if (auto ps9 = ip.getParentScope()) {
-            if (auto msyn9 = ps9->asSymbol().getSyntax()) {
-                std::string body9 = rawText(msyn9->sourceRange());
-                for (auto& mm : mp->members()) {
-                    if (mm.kind != SymbolKind::ModportPort)
-                        continue;
-                    std::string pat9 =
-                        std::string(ip.name) + "." + std::string(mm.name);
-                    if (body9.find(pat9) != std::string::npos) {
-                        memberRef = true;
-                        break;
-                    }
-                }
-            }
-        }
-        if (memberRef)
-            return vpiInout;
     }
-    const Expression* ex = ce.second;
-    bool qualified =
-        ex && rawText(ex->sourceRange).find('.') != std::string::npos;
-    return qualified ? vpiInput : vpiInout;
+    if (!portNode)
+        return vpiInout;
+    const syntax::SyntaxNode& list = *portNode->parent;
+    int32_t dir = vpiInout;
+    for (size_t i = 0; i < list.getChildCount(); i++) {
+        auto child = list.childNode(i);
+        if (!child)
+            continue;
+        if (child == portNode)
+            break;
+        if (child->kind != syntax::SyntaxKind::ImplicitAnsiPort)
+            continue;
+        auto& ap = child->as<syntax::ImplicitAnsiPortSyntax>();
+        parsing::Token dtok;
+        if (ap.header->kind == syntax::SyntaxKind::VariablePortHeader)
+            dtok = ap.header->as<syntax::VariablePortHeaderSyntax>().direction;
+        else if (ap.header->kind == syntax::SyntaxKind::NetPortHeader)
+            dtok = ap.header->as<syntax::NetPortHeaderSyntax>().direction;
+        else if (ap.header->kind == syntax::SyntaxKind::InterfacePortHeader)
+            continue; // interface headers carry no direction token
+        if (!dtok.valid())
+            continue;
+        switch (dtok.kind) {
+            case parsing::TokenKind::InputKeyword:
+                dir = vpiInput;
+                break;
+            case parsing::TokenKind::OutputKeyword:
+                dir = vpiOutput;
+                break;
+            case parsing::TokenKind::InOutKeyword:
+                dir = vpiInout;
+                break;
+            default:
+                break;
+        }
+    }
+    return dir;
 }
 
 // An implicit net stays in the elab view only when it feeds a child
@@ -1878,6 +2037,9 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 stmtSyn = stmtSyn->parent;
             }
             setLoc(m, stmtSyn->sourceRange());
+            // A child instance's FILE is the INSTANTIATION site's, which can
+            // differ from the def's file (rp32_r5p_mouse_soc_simple_top).
+            m->VpiFile(fullFilePath(stmtSyn->sourceRange().start()));
         }
     }
     else if (!isTop) {
@@ -1887,6 +2049,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         m->Module_inst(parentM);
         m->VpiDefFile(fullFilePath(def.location));
         m->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+        // The elab child carries the INSTANTIATION site's file, which can
+        // differ from the def's file (multi-file: work@adders.h1 anchors in
+        // adders.sv not ha_mod.sv; rp32_r5p_mouse_soc_simple_top).
+        if (inst.location != SourceLocation::NoLocation)
+            m->VpiFile(fullFilePath(inst.location));
         // The child instance spans the whole instantiation statement.
         if (auto syn = inst.getSyntax()) {
             const syntax::SyntaxNode* stmtSyn = syn;
@@ -1895,6 +2062,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 stmtSyn = stmtSyn->parent;
             }
             setLoc(m, stmtSyn->sourceRange());
+            m->VpiFile(fullFilePath(stmtSyn->sourceRange().start()));
         }
     }
 
@@ -4565,10 +4733,220 @@ bool UhdmExporter::claimUnpackedParamLeaf(const Expression& sel,
     return true;
 }
 
+// Surelog's generate-if condition evaluator widens EVERY integral operand to
+// 64 bits by ITS OWN signedness (a signed 4-bit -1 becomes 64-bit -1; an
+// unsigned sized literal zero-extends) — unlike the LRM same-size comparison
+// slang performs. On `!(int4 == 4'b1111)` with int4 = -1 the two disagree:
+// slang folds false (branch uninstantiated), Surelog folds true and takes the
+// branch (typedef_param). Returns nullopt for any shape outside the
+// param/literal comparison family.
+static std::optional<int64_t> surelogEval64(const Expression& e) {
+    auto& se = stripImplicitConv(e);
+    switch (se.kind) {
+        case ExpressionKind::UnaryOp: {
+            auto& u = se.as<UnaryExpression>();
+            auto v = surelogEval64(u.operand());
+            if (!v)
+                return std::nullopt;
+            if (u.op == UnaryOperator::LogicalNot)
+                return *v ? 0 : 1;
+            return std::nullopt;
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = se.as<BinaryExpression>();
+            auto l = surelogEval64(b.left());
+            auto r = surelogEval64(b.right());
+            if (!l || !r)
+                return std::nullopt;
+            switch (b.op) {
+                case BinaryOperator::Equality:
+                    return *l == *r ? 1 : 0;
+                case BinaryOperator::Inequality:
+                    return *l != *r ? 1 : 0;
+                case BinaryOperator::LogicalAnd:
+                    return (*l && *r) ? 1 : 0;
+                case BinaryOperator::LogicalOr:
+                    return (*l || *r) ? 1 : 0;
+                case BinaryOperator::LessThan:
+                    return *l < *r ? 1 : 0;
+                case BinaryOperator::LessThanEqual:
+                    return *l <= *r ? 1 : 0;
+                case BinaryOperator::GreaterThan:
+                    return *l > *r ? 1 : 0;
+                case BinaryOperator::GreaterThanEqual:
+                    return *l >= *r ? 1 : 0;
+                default:
+                    return std::nullopt;
+            }
+        }
+        case ExpressionKind::NamedValue: {
+            auto& sym = se.as<NamedValueExpression>().symbol;
+            if (sym.kind != SymbolKind::Parameter)
+                return std::nullopt;
+            auto& cv = sym.as<ParameterSymbol>().getValue();
+            if (!cv.isInteger() || cv.integer().hasUnknown())
+                return std::nullopt;
+            auto ov = cv.integer().as<int64_t>();
+            return ov ? std::optional<int64_t>(*ov) : std::nullopt;
+        }
+        case ExpressionKind::IntegerLiteral: {
+            auto v = se.as<IntegerLiteral>().getValue();
+            if (v.hasUnknown())
+                return std::nullopt;
+            auto ov = v.as<int64_t>();
+            return ov ? std::optional<int64_t>(*ov) : std::nullopt;
+        }
+        default:
+            return std::nullopt;
+    }
+}
+
+// An UNINSTANTIATED else-less generate-if whose body is only elab system
+// tasks ($error — the STATIC_ASSERT macro shape), where Surelog's 64-bit
+// evaluator DISAGREES with slang and takes the branch: Surelog emits the gen
+// scope with the failed sys_task_call and a @@BAD_SYMBOL@@ string constant
+// argument placeholder (typedef_param genblk2-4).
+UHDM::gen_scope_array* UhdmExporter::emitSurelogMisevalGenIf(
+    const GenerateBlockSymbol& blk, const std::string& name,
+    const std::string& prefix, UHDM::instance* m) {
+    auto* bsyn = blk.getSyntax();
+    if (!bsyn || !bsyn->parent ||
+        bsyn->parent->kind != syntax::SyntaxKind::IfGenerate)
+        return nullptr;
+    auto& ig = bsyn->parent->as<syntax::IfGenerateSyntax>();
+    if (ig.elseClause || ig.block != bsyn)
+        return nullptr;
+    // Body: elab system tasks only.
+    std::vector<const ElabSystemTaskSymbol*> tasks;
+    for (auto& gm : blk.members()) {
+        if (gm.kind == SymbolKind::TransparentMember)
+            continue;
+        if (gm.kind != SymbolKind::ElabSystemTask)
+            return nullptr;
+        tasks.push_back(&gm.as<ElabSystemTaskSymbol>());
+    }
+    if (tasks.empty())
+        return nullptr;
+    // Surelog-eval must TAKE the branch slang rejected.
+    const Scope* psc = blk.getParentScope();
+    if (!psc)
+        return nullptr;
+    ASTContext ctx(*psc, LookupLocation::max);
+    auto& cond = Expression::bind(*ig.condition, ctx);
+    auto sv = surelogEval64(cond);
+    if (!sv || !*sv)
+        return nullptr;
+    std::string fullName = prefix + "." + name;
+    auto* gsa = s.MakeGen_scope_array();
+    gsa->VpiName(name);
+    gsa->VpiFullName(fullName);
+    gsa->VpiParent(m);
+    auto* gs = s.MakeGen_scope();
+    gs->VpiFullName(fullName);
+    gs->VpiParent(gsa);
+    auto* gv = s.MakeGen_scopeVec();
+    gv->push_back(gs);
+    gsa->Gen_scopes(gv);
+    auto* etv = s.MakeTf_callVec();
+    for (auto* et : tasks) {
+        auto* stc = s.MakeSys_task_call();
+        std::string tnm;
+        SourceRange sr = SourceRange(et->location, et->location);
+        size_t elen = 0;
+        if (auto esyn = et->getSyntax();
+            esyn && esyn->kind == syntax::SyntaxKind::ElabSystemTask) {
+            auto& es = esyn->as<syntax::ElabSystemTaskSyntax>();
+            tnm = std::string(es.name.valueText());
+            if (!tnm.empty() && tnm[0] == '$')
+                tnm.erase(0, 1);
+            sr = SourceRange(es.name.location(), es.name.location());
+            // Surelog lays the whole macro expansion out on the invocation
+            // line, SEMICOLON included: the end column is the start plus the
+            // EXPANDED statement text length.
+            std::string etxt = esyn->toString();
+            size_t b0 = etxt.find_first_not_of(" \t\r\n");
+            size_t b1 = etxt.find_last_not_of(" \t\r\n");
+            if (b0 != std::string::npos)
+                elen = b1 - b0 + 1;
+            if (es.arguments) {
+                // Surelog could not compile the macro-stringified argument:
+                // a bare string constant placeholder.
+                auto* c = s.MakeConstant();
+                c->VpiValue("STRING:@@BAD_SYMBOL@@");
+                c->VpiConstType(vpiStringConst);
+                auto* args = s.MakeAnyVec();
+                args->push_back(c);
+                stc->Tf_call_args(args);
+            }
+        }
+        stc->VpiName(tnm);
+        stc->VpiParent(gs);
+        setLoc(stc, sr);
+        if (elen) {
+            stc->VpiEndLineNo(stc->VpiLineNo());
+            stc->VpiEndColumnNo(stc->VpiColumnNo() + (uint32_t)elen);
+        }
+        // The scope pair anchors at the FIRST task's span.
+        if (etv->empty()) {
+            setLoc(gsa, sr);
+            setLoc(gs, sr);
+            if (elen) {
+                gsa->VpiEndLineNo(gsa->VpiLineNo());
+                gsa->VpiEndColumnNo(gsa->VpiColumnNo() + (uint32_t)elen);
+                gs->VpiEndLineNo(gs->VpiLineNo());
+                gs->VpiEndColumnNo(gs->VpiColumnNo() + (uint32_t)elen);
+            }
+        }
+        etv->push_back(stc);
+    }
+    gs->Elab_tasks(etv);
+    return gsa;
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
+    // INTERFACE elab views collapse an if-branch whose ONLY instantiated
+    // content is another taken IF-branch: Surelog erases the empty level and
+    // lists the leaf directly under the interface (jeras_tcb_gpio
+    // bus.gen_rsp, NOT bus.gen_dly.gen_rsp). Modules keep every level
+    // (genblk_order outer.foo).
+    std::set<const GenerateBlockSymbol*> collapsedGenLeaf9;
+    auto collapseIfLeaf9 =
+        [](const GenerateBlockSymbol* b) -> const GenerateBlockSymbol* {
+        while (true) {
+            const GenerateBlockSymbol* inner = nullptr;
+            bool other = false;
+            for (auto& gm : b->members()) {
+                if (gm.kind == SymbolKind::TransparentMember ||
+                    gm.kind == SymbolKind::Genvar)
+                    continue;
+                if (gm.kind == SymbolKind::GenerateBlock) {
+                    auto& g2 = gm.as<GenerateBlockSymbol>();
+                    if (g2.isUninstantiated)
+                        continue;
+                    bool fromIf = false;
+                    for (auto q = g2.getSyntax(); q; q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::IfGenerate) {
+                            fromIf = true;
+                            break;
+                        }
+                    if (inner || !fromIf) {
+                        other = true;
+                        break;
+                    }
+                    inner = &g2;
+                    continue;
+                }
+                other = true;
+                break;
+            }
+            if (other || !inner)
+                return b;
+            b = inner;
+        }
+    };
     std::function<UHDM::gen_scope_array*(const GenerateBlockSymbol&,
                                          const std::string&, const std::string&,
                                          UHDM::BaseClass*)>
@@ -4624,6 +5002,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (!underCase9 && syn->kind == syntax::SyntaxKind::GenerateBlock &&
                 blk.isUnnamed && !blk.getArrayIndex())
                 unnamedIf9 = true;
+            // A COLLAPSED leaf (hoisted through an empty if-branch level)
+            // also anchors at its first content item (Surelog).
+            if (!underCase9 && !unnamedIf9 && collapsedGenLeaf9.count(&blk))
+                underCase9 = true;
             if (underCase9 || unnamedIf9)
                 for (auto& gm9 : blk.members()) {
                     if (gm9.kind == SymbolKind::Genvar ||
@@ -5907,8 +6289,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 }
                             }
                         }
-                        else if (genLhsSyms.count(&nvp.symbol) ||
-                                 blkWrites.count(&nvp.symbol))
+                        // "Driven in this gen-scope" is PER-BLOCK: a signal
+                        // driven in a DIFFERENT gen block of the same module
+                        // stays unbound (r5p_gpr t_rs: driven in gen_default,
+                        // read in gen_wb_default — Surelog leaves it unbound).
+                        else if (blkWrites.count(&nvp.symbol))
                             hasBindableRef = true;
                         v.visitDefault(nvp);
                     }));
@@ -6303,7 +6688,23 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
         }
         else if (member.kind == SymbolKind::GenerateBlock) {
-            auto& blk = member.as<GenerateBlockSymbol>();
+            auto& blk0 = member.as<GenerateBlockSymbol>();
+            const GenerateBlockSymbol* blkP = &blk0;
+            if (m->UhdmType() == UHDM::uhdminterface_inst &&
+                !blk0.isUninstantiated) {
+                blkP = collapseIfLeaf9(&blk0);
+                if (blkP != &blk0)
+                    collapsedGenLeaf9.insert(blkP);
+            }
+            auto& blk = *blkP;
+            if (blk.isUninstantiated) {
+                // Surelog's evaluator may TAKE a branch slang rejected
+                // (typedef_param): emit its errored gen scope.
+                if (auto* mg = emitSurelogMisevalGenIf(
+                        blk, shiftGenName9(std::string(blk.getExternalName())),
+                        prefix, m))
+                    gsas->push_back(mg);
+            }
             if (!blk.isUninstantiated) {
                 std::string gname = shiftGenName9(
                     std::string(blk.getExternalName()));
@@ -6464,7 +6865,7 @@ bool UhdmExporter::ifacePortParamHopRead(const Expression& e,
     return found;
 }
 
-bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
+bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym, bool anyParam) {
     auto dt0 = sym.getDeclaredType();
     if (!dt0)
         return false;
@@ -6490,13 +6891,19 @@ bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym) {
         for (const syntax::ExpressionSyntax* bs : {sel0.left.get(), sel0.right.get()}) {
             if (bs->kind == syntax::SyntaxKind::IntegerLiteralExpression)
                 continue;
+            // A NON-TOP def view folds NO bound at all — literal operations
+            // ([2-1:0]) stay symbolic too (rp32_r5p_mouse_soc_simple_top).
+            if (anyParam) {
+                found = true;
+                break;
+            }
             if (auto psc0 = sym.getParentScope()) {
                 ASTContext bctx0(*psc0, LookupLocation::max);
                 auto& be0 = Expression::bind(*bs, bctx0);
                 if (!be0.bad())
                     be0.visit(makeVisitor([&](auto& v0, const NamedValueExpression& nv0) {
                         if (nv0.symbol.kind == SymbolKind::Parameter &&
-                            (isOverriddenParam(nv0.symbol) ||
+                            (anyParam || isOverriddenParam(nv0.symbol) ||
                              paramInitIsComputed(nv0.symbol)))
                             found = true;
                         v0.visitDefault(nv0);
@@ -6589,9 +6996,32 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         const Scope* prev;
         ~DntsGuard() { slot = prev; }
     } dntsGuard{defNetTsScope, savedDnts};
+    // Is the declaring def an INTERFACE? (Its def-view typedef binding rules
+    // differ from a module's — Surelog, resolve_types.)
+    bool ifaceHome = false;
+    if (auto ps0 = pn.sym->getParentScope()) {
+        auto& hs0 = ps0->asSymbol();
+        if (hs0.kind == SymbolKind::InstanceBody &&
+            hs0.as<InstanceBodySymbol>().getDefinition().definitionKind ==
+                DefinitionKind::Interface)
+            ifaceHome = true;
+    }
     if (auto dt2 = pn.sym->getDeclaredType()) {
         auto& t2 = dt2->getType();
         if (typedefClone.count(&t2)) {
+            // An INTERFACE-def net typed by a PACKAGE typedef binds the
+            // SHARED pkg typespec directly, no per-use clone (Surelog,
+            // resolve_types).
+            if (ifaceHome && t2.kind == SymbolKind::TypeAlias) {
+                if (auto sc2 = t2.as<TypeAliasType>().getParentScope();
+                    sc2 && sc2->asSymbol().kind == SymbolKind::Package) {
+                    if (auto tit2 = typedefTs.find(&t2);
+                        tit2 != typedefTs.end()) {
+                        pn.rt->Actual_typespec(tit2->second);
+                        return;
+                    }
+                }
+            }
             // SINGLE-VIEW top module (def == top): the def net ref REUSES
             // the elab view's per-net alias-clone — one clone per net,
             // shared across views (Surelog, net_types).
@@ -6637,6 +7067,43 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 art->VpiParent(ts);
                 art->Actual_typespec(mainTs);
                 ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
+            }
+        }
+    }
+    // An INTERFACE-def net typed by a FILE-level ($unit) VECTOR typedef binds
+    // a fresh bare-named clone with a Typedef_alias ref to the shared design
+    // typedef and the design Instance link (Surelog, resolve_types).
+    if (!ts && ifaceHome) {
+        if (auto dtU = pn.sym->getDeclaredType()) {
+            auto& tU = dtU->getType();
+            if (tU.kind == SymbolKind::TypeAlias) {
+                auto& taU = tU.as<TypeAliasType>();
+                auto scU = taU.getParentScope();
+                auto titU = typedefTs.find(&tU);
+                if (scU &&
+                    scU->asSymbol().kind == SymbolKind::CompilationUnit &&
+                    titU != typedefTs.end() &&
+                    titU->second->UhdmType() == UHDM::uhdmlogic_typespec &&
+                    taU.targetType.getType().kind != SymbolKind::TypeAlias) {
+                    const syntax::SyntaxNode* tgtU = nullptr;
+                    if (auto asynU = taU.getSyntax())
+                        if (asynU->kind ==
+                            syntax::SyntaxKind::TypedefDeclaration)
+                            tgtU = asynU->as<syntax::TypedefDeclarationSyntax>()
+                                       .type;
+                    bypassTypedefShare = true;
+                    ts = makeTypespec(*pn.sym, tgtU);
+                    bypassTypedefShare = false;
+                    if (ts && ts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        ts->VpiName(tU.name);
+                        ts->Instance(titU->second->Instance());
+                        auto* artU = s.MakeRef_typespec();
+                        artU->VpiFullName(tU.name);
+                        artU->VpiParent(ts);
+                        artU->Actual_typespec(titU->second);
+                        ((UHDM::logic_typespec*)ts)->Typedef_alias(artU);
+                    }
+                }
             }
         }
     }
@@ -6771,10 +7238,29 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         }
     }
     // A def-view bound referencing an OVERRIDDEN param stays UNFOLDED
-    // (name-only refs) — the folded value is override-dependent.
+    // (name-only refs) — the folded value is override-dependent. A NON-TOP
+    // def keeps EVERY param-ref bound symbolic (localparams included):
+    // Surelog's generic module view resolves nothing there, while a TOP def
+    // IS the elaborated view and folds (rp32_r5p_mouse_soc_simple_top vs the
+    // standalone rp32_r5p_mouse).
     if (!ts) {
+        bool nonTopDef0 = false;
+        for (auto sc0 = pn.sym->getParentScope(); sc0;
+             sc0 = sc0->asSymbol().getParentScope())
+            if (sc0->asSymbol().kind == SymbolKind::InstanceBody) {
+                auto& d0 = sc0->asSymbol()
+                               .as<InstanceBodySymbol>()
+                               .getDefinition();
+                nonTopDef0 = true;
+                for (auto ti0 : comp.getRoot().topInstances)
+                    if (&ti0->getDefinition() == &d0) {
+                        nonTopDef0 = false;
+                        break;
+                    }
+                break;
+            }
         bool savedTf0 = tfContext;
-        if (rangeRefsOverriddenParam(*pn.sym))
+        if (rangeRefsOverriddenParam(*pn.sym, nonTopDef0))
             tfContext = true;
         // A packed array over a VECTOR TYPEDEF (logic4 [1:0] v) needs the
         // anonymous-logic-ts branch of makeTypespec (Elem ref -> typedef, array
@@ -9238,9 +9724,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     (raw[basePos] == 's' || raw[basePos] == 'S'))
                     basePos++;
                 char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
-                std::string digits = raw.substr(basePos + 1);
+                std::string digits = stripSep(raw.substr(basePos + 1));
                 auto* c = s.MakeConstant();
-                c->VpiDecompile(raw);
+                c->VpiDecompile(stripSep(raw));
                 c->VpiSize((int32_t)ps2.getType().getBitWidth());
                 switch (base) {
                     case 'b':
@@ -10495,8 +10981,14 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                         tgtSyn0 =
                             asyn0->as<syntax::TypedefDeclarationSyntax>().type;
                 if (tgtSyn0) {
+                    // A function declared INSIDE the typedef's own package
+                    // keeps the BARE clone name with a Typedef_alias ref to
+                    // the shared pkg ts (jeras_union imm_i_f).
+                    bool sameScope0 =
+                        !unitTd && sub.getParentScope() == sc1 &&
+                        sc1->asSymbol().kind == SymbolKind::Package;
                     std::string qn0(rta0.name);
-                    if (!unitTd && sc1)
+                    if (!unitTd && sc1 && !sameScope0)
                         qn0 = std::string(sc1->asSymbol().name) + "::" + qn0;
                     auto mkClone0 = [&]() -> UHDM::typespec* {
                         bypassTypedefShare = true;
@@ -10518,6 +11010,20 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                         cl1->Instance(ts->Instance());
                         ar0->Actual_typespec(cl1);
                         ((UHDM::logic_typespec*)cl0)->Typedef_alias(ar0);
+                    }
+                    else if (sameScope0) {
+                        auto* ar0 = s.MakeRef_typespec();
+                        ar0->VpiFullName(std::string(rta0.name));
+                        ar0->VpiParent(cl0);
+                        // Shares the per-function symbolic pkg-named twin
+                        // created for the Return clone (jeras_union imm_i_f).
+                        UHDM::typespec* rtw0 = ts;
+                        if (auto pit0 = pkgSameScopeRetTwin.find(&sub);
+                            pit0 != pkgSameScopeRetTwin.end())
+                            rtw0 = pit0->second;
+                        ar0->Actual_typespec(rtw0);
+                        ((UHDM::logic_typespec*)cl0)->Typedef_alias(ar0);
+                        cl0->Instance(ts->Instance());
                     }
                     else {
                         cl0->Instance(ts->Instance());
@@ -11437,6 +11943,81 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     // module typedefs (member refs scope prefix.<td>.<member>).
     emitTypedefs(body, iface, prefix, info);
 
+    // Interface functions/tasks (exported methods — iface_method_call).
+    // Body refs of an INSTANTIATED interface bind lazily: signal refs
+    // re-point at the ELAB view's variables once that view exists (Surelog
+    // binds the shared def function during elaboration). An UNINSTANTIATED
+    // interface's function body keeps every ref bare — formals included.
+    {
+        bool hasSubs9 = false;
+        for (auto& mb9 : body.members())
+            if (mb9.kind == SymbolKind::Subroutine) {
+                hasSubs9 = true;
+                break;
+            }
+        if (hasSubs9) {
+            bool uninst9 = defAllInstCount[&def] == 0;
+            bool savedSRA9 = suppressRefActual;
+            if (uninst9)
+                suppressRefActual = true;
+            emitTaskFuncs(body, iface, prefix, &info);
+            suppressRefActual = savedSRA9;
+            if (!uninst9 && iface->Task_funcs()) {
+                // Collect UNBOUND signal refs for the elab-var fixup.
+                std::function<void(const UHDM::any*)> walk9 =
+                    [&](const UHDM::any* n9) {
+                        if (!n9)
+                            return;
+                        auto t9 = n9->UhdmType();
+                        if (t9 == UHDM::uhdmref_obj) {
+                            auto* r9 = (UHDM::ref_obj*)n9;
+                            if (!r9->Actual_group()) {
+                                if (auto* sy9 = body.find(
+                                        std::string_view(r9->VpiName())))
+                                    if (sy9->kind == SymbolKind::Variable ||
+                                        sy9->kind == SymbolKind::Net)
+                                        ifaceFnRefFixups[&def].push_back(
+                                            {sy9, r9});
+                            }
+                            return;
+                        }
+                        if (t9 == UHDM::uhdmoperation) {
+                            if (auto* ops9 =
+                                    ((const UHDM::operation*)n9)->Operands())
+                                for (auto* o9 : *ops9)
+                                    walk9(o9);
+                            return;
+                        }
+                        if (t9 == UHDM::uhdmassignment) {
+                            walk9(((const UHDM::assignment*)n9)->Rhs());
+                            walk9(((const UHDM::assignment*)n9)->Lhs());
+                            return;
+                        }
+                        if (t9 == UHDM::uhdmbegin) {
+                            if (auto* st9 = ((const UHDM::begin*)n9)->Stmts())
+                                for (auto* s9 : *st9)
+                                    walk9(s9);
+                            return;
+                        }
+                        if (t9 == UHDM::uhdmnamed_begin) {
+                            if (auto* st9 =
+                                    ((const UHDM::named_begin*)n9)->Stmts())
+                                for (auto* s9 : *st9)
+                                    walk9(s9);
+                            return;
+                        }
+                        if (t9 == UHDM::uhdmif_else) {
+                            walk9(((const UHDM::if_else*)n9)->VpiStmt());
+                            walk9(((const UHDM::if_else*)n9)->VpiElseStmt());
+                            return;
+                        }
+                    };
+                for (auto* tf9 : *iface->Task_funcs())
+                    walk9(tf9->Stmt());
+            }
+        }
+    }
+
     auto* nets = s.MakeNetVec();
     UHDM::VectorOfarray_net* ifaceArrayNets9 = nullptr;
     // An unpacked-array-of-STRUCT signal: its base/inner nets carry the shared
@@ -11798,6 +12379,10 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         iface->Instance(parentM);
         iface->VpiDefFile(fullFilePath(def.location));
         iface->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
+        // Home views anchor at the INSTANTIATION site's file (multi-file:
+        // work@adders.hintf lives in adders.sv, not intfce.sv).
+        if (inst.location != SourceLocation::NoLocation)
+            iface->VpiFile(fullFilePath(inst.location));
         if (auto syn = inst.getSyntax()) {
             const syntax::SyntaxNode* stmtSyn = syn;
             while (stmtSyn->parent &&
@@ -11836,7 +12421,20 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // Scalar params fold their value inline (UINT on the parameter) and drop
     // the param_assign.
     bool multiParamIface = isMultiParamDef(body);
-    if (portView && !multiParamIface) {
+    // A GENERATE-bearing interface's modport port view keeps EVERY
+    // param_assign, Overriden stamps included, exactly as the home view
+    // emits them (jeras_tcb_gpio: AW/DW stamped, BW/DLY plain).
+    bool ifaceHasGen9 = false;
+    for (auto& gm9 : body.members())
+        if (gm9.kind == SymbolKind::GenerateBlock ||
+            gm9.kind == SymbolKind::GenerateBlockArray) {
+            ifaceHasGen9 = true;
+            break;
+        }
+    if (portView && !multiParamIface && ifaceHasGen9) {
+        // keep-all: no filtering.
+    }
+    else if (portView && !multiParamIface) {
         if (auto* pas0 = iface->Param_assigns()) {
             auto* keep = s.MakeParam_assignVec();
             for (auto* pa0 : *pas0) {
@@ -12008,7 +12606,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // overrides); the HOME view keeps the instance values. EXCEPTION: a
     // MULTI-parameterized interface def is uniquified per parameterization, so
     // its port-view folds at the CONNECTED instance's own values (inst.body).
-    if (portView && !multiParamIface && !aggOvPortView) {
+    // A GENERATE-bearing interface is re-elaborated for the view, so its
+    // bounds keep the CONNECTED instance's values (jeras_tcb_gpio adr[14:0]).
+    if (portView && !multiParamIface && !aggOvPortView && !ifaceHasGen9) {
         auto dit0 = ifaceDefaultInst.find(&def);
         if (dit0 == ifaceDefaultInst.end())
             dit0 = ifaceDefaultInst
@@ -12219,7 +12819,43 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 if (dr.start() != SourceLocation::NoLocation)
                     setLoc(v, dr);
             }
-        auto* ts = sharedTypespec(*it.sym, ifaceNetTs);
+        // A $unit / PACKAGE VECTOR-typedef iface member: each elaborated
+        // interface view binds a FRESH BARE-named clone (no Typedef_alias;
+        // $unit clones carry no Instance, pkg clones keep the package link) —
+        // Surelog (resolve_types).
+        UHDM::typespec* ts = nullptr;
+        if (auto dtv9 = it.sym->getDeclaredType()) {
+            auto& tv9 = dtv9->getType();
+            if (tv9.kind == SymbolKind::TypeAlias) {
+                auto& ta9 = tv9.as<TypeAliasType>();
+                auto sc9 = ta9.getParentScope();
+                auto titc = typedefTs.find(&tv9);
+                if (sc9 &&
+                    (sc9->asSymbol().kind == SymbolKind::CompilationUnit ||
+                     sc9->asSymbol().kind == SymbolKind::Package) &&
+                    titc != typedefTs.end() &&
+                    titc->second->UhdmType() == UHDM::uhdmlogic_typespec &&
+                    ta9.targetType.getType().kind != SymbolKind::TypeAlias) {
+                    const syntax::SyntaxNode* tgt9 = nullptr;
+                    if (auto asyn9 = ta9.getSyntax())
+                        if (asyn9->kind ==
+                            syntax::SyntaxKind::TypedefDeclaration)
+                            tgt9 = asyn9->as<syntax::TypedefDeclarationSyntax>()
+                                       .type;
+                    bypassTypedefShare = true;
+                    ts = makeTypespec(*it.sym, tgt9);
+                    bypassTypedefShare = false;
+                    if (ts) {
+                        ts->VpiName(tv9.name);
+                        if (sc9->asSymbol().kind == SymbolKind::Package &&
+                            titc->second->Instance())
+                            ts->Instance(titc->second->Instance());
+                    }
+                }
+            }
+        }
+        if (!ts)
+            ts = sharedTypespec(*it.sym, ifaceNetTs);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName);
         rt->VpiParent(v);
@@ -12280,6 +12916,34 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         iface->Nets(elabNets);
     if (elabArrayNets)
         iface->Array_nets(elabArrayNets);
+
+    // The elab HOME view lists the def view's function/task objects (shared),
+    // and the def function bodies' signal refs bind THIS view's variables
+    // (Surelog elaborates the shared def function — iface_method_call).
+    if (!portView) {
+        if (auto dIt9 = defMap.find(&def);
+            dIt9 != defMap.end() && !dIt9->second.taskFuncs.empty()) {
+            auto* tfs9 = s.MakeTask_funcVec();
+            for (auto* tf9 : dIt9->second.taskFuncs)
+                tfs9->push_back(tf9);
+            iface->Task_funcs(tfs9);
+        }
+        if (auto fIt9 = ifaceFnRefFixups.find(&def);
+            fIt9 != ifaceFnRefFixups.end()) {
+            for (auto& [sy9, r9] : fIt9->second) {
+                if (r9->Actual_group())
+                    continue;
+                // The def and elab views are emitted from DIFFERENT
+                // InstanceBody clones of the same definition; match the
+                // elab member by NAME.
+                for (auto& [ns9, no9] : netMap)
+                    if (ns9->name == sy9->name) {
+                        r9->Actual_group((UHDM::any*)no9);
+                        break;
+                    }
+            }
+        }
+    }
 
     // The elab HOME view lists the def view's typedef/import typespecs (SHARED
     // objects; the def view was emitted first). Port views don't.
@@ -12935,8 +13599,52 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         av3->VpiParent(as3);
                         setLoc(av3, nameSpan(dcl->name.location(), vname));
                         av3->VpiArrayType(1);
+                        // ELEMENT logic_typespec first — Surelog compiles the
+                        // element type before the array wrapper, and the
+                        // weakly-referenced tail keeps arena order.
+                        auto* lts3 = s.MakeLogic_typespec();
+                        setLoc(lts3, dd.type->sourceRange());
+                        if (dd.type->kind == syntax::SyntaxKind::LogicType) {
+                            auto& its4 = dd.type->as<syntax::IntegerTypeSyntax>();
+                            auto* prv3 = s.MakeRangeVec();
+                            for (auto* dim : its4.dimensions) {
+                                if (!dim->specifier ||
+                                    dim->specifier->kind !=
+                                        syntax::SyntaxKind::
+                                            RangeDimensionSpecifier)
+                                    continue;
+                                auto& sel4 =
+                                    dim->specifier
+                                        ->as<syntax::
+                                                 RangeDimensionSpecifierSyntax>()
+                                        .selector;
+                                if (sel4->kind !=
+                                    syntax::SyntaxKind::SimpleRangeSelect)
+                                    continue;
+                                auto& rs5 = sel4->as<syntax::RangeSelectSyntax>();
+                                auto* r5 = s.MakeRange();
+                                r5->VpiParent(lts3);
+                                setLoc(r5, dim->sourceRange());
+                                if (auto* le = emitSyntaxExpr(*rs5.left, r5))
+                                    r5->Left_expr((UHDM::expr*)le);
+                                if (auto* re = emitSyntaxExpr(*rs5.right, r5))
+                                    r5->Right_expr((UHDM::expr*)re);
+                                prv3->push_back(r5);
+                            }
+                            if (!prv3->empty())
+                                lts3->Ranges(prv3);
+                        }
                         auto* ats3 = s.MakeArray_typespec();
-                        setLoc(ats3, dcl->sourceRange());
+                        // The array ts spans name..last-dim only (an
+                        // initializer does NOT extend it — Surelog).
+                        if (!dcl->dimensions.empty())
+                            setLoc(ats3,
+                                   SourceRange(dcl->name.location(),
+                                               dcl->dimensions.back()
+                                                   ->sourceRange()
+                                                   .end()));
+                        else
+                            setLoc(ats3, dcl->sourceRange());
                         auto* arv3 = s.MakeRangeVec();
                         for (auto* dim : dcl->dimensions) {
                             if (!dim->specifier ||
@@ -12972,38 +13680,6 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         lv3->VpiFullName(branchPrefix + "." + vname);
                         lv3->VpiParent(av3);
                         setLoc(lv3, nameSpan(dcl->name.location(), vname));
-                        auto* lts3 = s.MakeLogic_typespec();
-                        setLoc(lts3, dd.type->sourceRange());
-                        if (dd.type->kind == syntax::SyntaxKind::LogicType) {
-                            auto& its4 = dd.type->as<syntax::IntegerTypeSyntax>();
-                            auto* prv3 = s.MakeRangeVec();
-                            for (auto* dim : its4.dimensions) {
-                                if (!dim->specifier ||
-                                    dim->specifier->kind !=
-                                        syntax::SyntaxKind::
-                                            RangeDimensionSpecifier)
-                                    continue;
-                                auto& sel4 =
-                                    dim->specifier
-                                        ->as<syntax::
-                                                 RangeDimensionSpecifierSyntax>()
-                                        .selector;
-                                if (sel4->kind !=
-                                    syntax::SyntaxKind::SimpleRangeSelect)
-                                    continue;
-                                auto& rs5 = sel4->as<syntax::RangeSelectSyntax>();
-                                auto* r5 = s.MakeRange();
-                                r5->VpiParent(lts3);
-                                setLoc(r5, dim->sourceRange());
-                                if (auto* le = emitSyntaxExpr(*rs5.left, r5))
-                                    r5->Left_expr((UHDM::expr*)le);
-                                if (auto* re = emitSyntaxExpr(*rs5.right, r5))
-                                    r5->Right_expr((UHDM::expr*)re);
-                                prv3->push_back(r5);
-                            }
-                            if (!prv3->empty())
-                                lts3->Ranges(prv3);
-                        }
                         // The array_typespec links the shared element ts via
                         // an unnamed Elem ref (Surelog).
                         auto* ert3 = s.MakeRef_typespec();
@@ -13019,6 +13695,33 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         regs3->push_back(lv3);
                         av3->Variables(regs3);
                         as3->Lhs(av3);
+                        // An INITIALIZED array decl (= '{default: '0}) carries
+                        // the pattern as Rhs (operation 75 parented at the
+                        // assignment); the pattern VALUE constant stays
+                        // UNPARENTED (Surelog). Refs scope at the branch.
+                        if (dcl->initializer) {
+                            syntaxRefPrefix = branchPrefix;
+                            if (auto* rc3 = emitSyntaxExpr(
+                                    *dcl->initializer->expr, as3)) {
+                                if (rc3->UhdmType() == UHDM::uhdmoperation) {
+                                    if (auto* ops3 =
+                                            ((UHDM::operation*)rc3)->Operands())
+                                        for (auto* o3 : *ops3)
+                                            if (o3->UhdmType() ==
+                                                UHDM::uhdmtagged_pattern) {
+                                                auto* pt3 =
+                                                    ((UHDM::tagged_pattern*)o3)
+                                                        ->Pattern();
+                                                if (pt3 &&
+                                                    pt3->UhdmType() ==
+                                                        UHDM::uhdmconstant)
+                                                    pt3->VpiParent(nullptr);
+                                            }
+                                }
+                                as3->Rhs((UHDM::expr*)rc3);
+                            }
+                            syntaxRefPrefix.clear();
+                        }
                         stmts->push_back(as3);
                         continue;
                     }
@@ -13116,22 +13819,91 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     if (!hinst->decl)
                         continue;
                     std::string iname(hinst->decl->name.valueText());
-                    auto* rm = s.MakeRef_module();
-                    rm->VpiParent(b);
-                    rm->VpiName(iname);
-                    rm->VpiDefName("work@" + defn);
-                    setLoc(rm, nameSpan(hinst->decl->name.location(), iname));
+                    // An ARRAYED instance (gpr [2:1]) is a module_array:
+                    // fullname = work@<def> (the DEF name), one Range per
+                    // dim, Elem_typespec ref (branch-scoped inst name) ->
+                    // module_typespec at the TYPE token; ports attach to the
+                    // array (Surelog r5p_gpr_2r1w).
+                    UHDM::ref_module* rm = nullptr;
+                    UHDM::module_array* ma = nullptr;
+                    UHDM::BaseClass* iobj = nullptr;
+                    if (!hinst->decl->dimensions.empty()) {
+                        auto* ma0 = s.MakeModule_array();
+                        ma0->VpiParent(b);
+                        ma0->VpiName(iname);
+                        ma0->VpiFullName("work@" + defn);
+                        setLoc(ma0,
+                               nameSpan(hinst->decl->name.location(), iname));
+                        auto* rv0 = s.MakeRangeVec();
+                        for (auto* dim : hinst->decl->dimensions) {
+                            if (!dim->specifier ||
+                                dim->specifier->kind !=
+                                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                                continue;
+                            auto& sel0 =
+                                dim->specifier
+                                    ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                    .selector;
+                            if (sel0->kind !=
+                                syntax::SyntaxKind::SimpleRangeSelect)
+                                continue;
+                            auto& rs0 = sel0->as<syntax::RangeSelectSyntax>();
+                            auto* r0 = s.MakeRange();
+                            r0->VpiParent(ma0);
+                            setLoc(r0, dim->sourceRange());
+                            if (auto* le0 = emitSyntaxExpr(*rs0.left, r0))
+                                r0->Left_expr((UHDM::expr*)le0);
+                            if (auto* re0 = emitSyntaxExpr(*rs0.right, r0))
+                                r0->Right_expr((UHDM::expr*)re0);
+                            rv0->push_back(r0);
+                        }
+                        if (!rv0->empty())
+                            ma0->Ranges(rv0);
+                        auto* mts0 = s.MakeModule_typespec();
+                        mts0->VpiName(defn);
+                        mts0->VpiParent(ma0);
+                        setLoc(mts0, hi.type.range());
+                        auto* ert0 = s.MakeRef_typespec();
+                        ert0->VpiFullName(branchPrefix + "." + iname);
+                        ert0->VpiParent(ma0);
+                        ert0->Actual_typespec(mts0);
+                        ma0->Elem_typespec(ert0);
+                        ma = ma0;
+                        iobj = ma0;
+                    }
+                    else {
+                        rm = s.MakeRef_module();
+                        rm->VpiParent(b);
+                        rm->VpiName(iname);
+                        rm->VpiDefName("work@" + defn);
+                        setLoc(rm,
+                               nameSpan(hinst->decl->name.location(), iname));
+                        iobj = rm;
+                    }
                     auto* rports = s.MakePortVec();
                     for (auto* conn : hinst->connections) {
                         if (conn->kind != syntax::SyntaxKind::NamedPortConnection)
                             continue;
                         auto& npc = conn->as<syntax::NamedPortConnectionSyntax>();
-                        if (!npc.expr)
+                        if (!npc.expr) {
+                            // An EMPTY connection (.douta ()) is an ANONYMOUS
+                            // port — no name, no high_conn — at the conn span
+                            // (Surelog).
+                            if (npc.openParen) {
+                                auto* p0 = s.MakePort();
+                                p0->VpiParent(iobj);
+                                setLoc(p0, conn->sourceRange());
+                                rports->push_back(p0);
+                            }
                             continue;
+                        }
                         std::string formal(npc.name.valueText());
                         std::string act = rawText(npc.expr->sourceRange());
+                        // The actual's expr node, property/sequence wrappers
+                        // stripped (set by the literal-branch probe below).
+                        const syntax::SyntaxNode* actSyn9 = npc.expr;
                         auto* p = s.MakePort();
-                        p->VpiParent(rm);
+                        p->VpiParent(iobj);
                         p->VpiName(formal);
                         setLoc(p, conn->sourceRange());
                         // Parse ALL [..] groups of the actual.
@@ -13416,6 +14188,76 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             }
                             p->High_conn(fc9);
                         }
+                        else if ([&] {
+                                     const syntax::SyntaxNode* e9 = npc.expr;
+                                     if (e9->kind == syntax::SyntaxKind::
+                                                         SimplePropertyExpr)
+                                         e9 = e9->as<syntax::
+                                                         SimplePropertyExprSyntax>()
+                                                  .expr;
+                                     if (e9->kind == syntax::SyntaxKind::
+                                                         SimpleSequenceExpr)
+                                         e9 = e9->as<syntax::
+                                                         SimpleSequenceExprSyntax>()
+                                                  .expr;
+                                     actSyn9 = e9;
+                                     return e9->kind ==
+                                                syntax::SyntaxKind::
+                                                    IntegerVectorExpression ||
+                                            e9->kind ==
+                                                syntax::SyntaxKind::
+                                                    IntegerLiteralExpression ||
+                                            e9->kind ==
+                                                syntax::SyntaxKind::
+                                                    UnbasedUnsizedLiteralExpression ||
+                                            e9->kind ==
+                                                syntax::SyntaxKind::
+                                                    RealLiteralExpression ||
+                                            e9->kind ==
+                                                syntax::SyntaxKind::
+                                                    StringLiteralExpression;
+                                 }()) {
+                            // A LITERAL actual (.ena(1'b1)) is a plain
+                            // constant, UNPARENTED (Surelog).
+                            if (auto* c9 = emitSyntaxExpr(*actSyn9, p)) {
+                                ((UHDM::expr*)c9)->VpiParent(nullptr);
+                                p->High_conn((UHDM::expr*)c9);
+                            }
+                        }
+                        else if (actSyn9->kind ==
+                                 syntax::SyntaxKind::ConcatenationExpression) {
+                            // A CONCAT actual ({t_rs2, t_rs1}): operation 33
+                            // parented at the port; operand refs scope through
+                            // the FORMAL (prefix.<inst>.<formal>.<name>) —
+                            // Surelog.
+                            auto& cc9 = actSyn9->as<
+                                syntax::ConcatenationExpressionSyntax>();
+                            auto* op9 = s.MakeOperation();
+                            op9->VpiOpType(vpiConcatOp);
+                            op9->VpiParent(p);
+                            setLoc(op9, actSyn9->sourceRange());
+                            auto* ov9 = s.MakeAnyVec();
+                            std::string cscope9 = branchPrefix + "." + iname +
+                                                  "." + formal;
+                            for (auto* ce9 : cc9.expressions) {
+                                if (ce9->kind ==
+                                    syntax::SyntaxKind::IdentifierName) {
+                                    std::string cn9(
+                                        ce9->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText());
+                                    auto* r9 = s.MakeRef_obj();
+                                    r9->VpiName(cn9);
+                                    r9->VpiFullName(cscope9 + "." + cn9);
+                                    r9->VpiParent(op9);
+                                    setLoc(r9, ce9->sourceRange());
+                                    ov9->push_back(r9);
+                                }
+                                else if (auto* e9c = emitSyntaxExpr(*ce9, op9))
+                                    ov9->push_back(e9c);
+                            }
+                            op9->Operands(ov9);
+                            p->High_conn(op9);
+                        }
                         else {
                             auto* r = s.MakeRef_obj();
                             r->VpiParent(p);
@@ -13427,9 +14269,13 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         }
                         rports->push_back(p);
                     }
-                    if (!rports->empty())
-                        rm->Ports(rports);
-                    stmts->push_back(rm);
+                    if (!rports->empty()) {
+                        if (rm)
+                            rm->Ports(rports);
+                        else
+                            ma->Ports(rports);
+                    }
+                    stmts->push_back(rm ? (UHDM::any*)rm : (UHDM::any*)ma);
                 }
             }
             for (auto* item : items) {
@@ -13537,8 +14383,17 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 syntaxRefPrefix.clear();
                 auto findNested = [&](const syntax::SyntaxNode* bs)
                     -> const Scope* {
-                    if (!astBlock)
+                    // An else-if CHAIN reaches here with no astBlock (the
+                    // wrapper begin has no AST scope of its own) — the chain
+                    // branches are SIBLING GenerateBlocks of the module body,
+                    // so fall back to searching there (r5p_gpr gen_default).
+                    if (!astBlock) {
+                        for (auto& m2 : body.members())
+                            if (m2.kind == SymbolKind::GenerateBlock &&
+                                m2.getSyntax() == bs)
+                                return &m2.as<Scope>();
                         return nullptr;
+                    }
                     for (auto& m2 : astBlock->members())
                         if (m2.kind == SymbolKind::GenerateBlock &&
                             m2.getSyntax() == bs)
@@ -13750,14 +14605,17 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 }
                 // Inside an EXPLICIT generate...endgenerate region the if
                 // wraps gen_region -> UNNAMED begin (module fullname) -> the
-                // gen_if (Surelog drops nothing else).
+                // gen_if (Surelog drops nothing else). INTERFACE defs take no
+                // wrapper at all: their region if/else lists bare and loc-less
+                // under vpiGenStmt (jeras_tcb_gpio tcb_if).
                 bool inRegion = false;
-                for (auto q = (const syntax::SyntaxNode*)ifSyn; q;
-                     q = q->parent)
-                    if (q->kind == syntax::SyntaxKind::GenerateRegion) {
-                        inRegion = true;
-                        break;
-                    }
+                if (m->UhdmType() != UHDM::uhdminterface_inst)
+                    for (auto q = (const syntax::SyntaxNode*)ifSyn; q;
+                         q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                            inRegion = true;
+                            break;
+                        }
                 // Only region-wrapped gen_if_else carries a location (the
                 // whole if..else span); bare ones stay loc-less.
                 if (inRegion && gie)

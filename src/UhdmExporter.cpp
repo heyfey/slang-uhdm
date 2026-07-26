@@ -320,6 +320,8 @@ void UhdmExporter::computeParamMultiplicity() {
                                 rawText(pva9->sourceRange()));
                         break;
                     }
+                if (!ptxt9.empty())
+                    overriddenTextDefs.insert(&child.getDefinition());
                 perDefText[&child.getDefinition()].insert(ptxt9);
             }
             for (auto& gm : child.body.members())
@@ -360,6 +362,29 @@ bool UhdmExporter::isMultiParamDef(const Scope& body) const {
     return multiParamDefs.count(&sym.as<InstanceBodySymbol>().getDefinition()) > 0;
 }
 
+bool UhdmExporter::srcOrderLess(SourceLocation a, SourceLocation b) const {
+    if (bufRank.empty()) {
+        size_t seq = 0;
+        for (auto unit : comp.getCompilationUnits())
+            for (auto& mem : unit->members())
+                if (mem.location)
+                    bufRank.emplace(mem.location.buffer(), seq++);
+    }
+    auto rank = [&](SourceLocation l) -> size_t {
+        auto it = bufRank.find(l.buffer());
+        // Unranked buffers (no top-level member) keep bufferID order after
+        // every ranked one.
+        return it != bufRank.end() ? it->second
+                                   : (size_t)l.buffer().getId() + (1u << 20);
+    };
+    size_t ra = rank(a), rb = rank(b);
+    if (ra != rb)
+        return ra < rb;
+    if (a.buffer() != b.buffer())
+        return a.buffer() < b.buffer();
+    return a.offset() < b.offset();
+}
+
 UHDM::design* UhdmExporter::exportDesign() {
     auto& root = comp.getRoot();
     computeParamMultiplicity();
@@ -370,12 +395,14 @@ UHDM::design* UhdmExporter::exportDesign() {
     std::vector<const InstanceSymbol*> orderedTops(root.topInstances.begin(),
                                                    root.topInstances.end());
     std::stable_sort(orderedTops.begin(), orderedTops.end(),
-                     [](const InstanceSymbol* a, const InstanceSymbol* b) {
-                         return a->getDefinition().location <
-                                b->getDefinition().location;
+                     [this](const InstanceSymbol* a, const InstanceSymbol* b) {
+                         return srcOrderLess(a->getDefinition().location,
+                                             b->getDefinition().location);
                      });
     if (!orderedTops.empty())
         d->VpiName("work@" + std::string(orderedTops[0]->getDefinition().name));
+    else
+        d->VpiName("unnamed"); // no top module: Surelog's unnamed design
 
     // All definitions used anywhere in the design, name-sorted like Surelog's
     // module map.
@@ -385,6 +412,75 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (defs.emplace(name, inst).second)
             collectDefs(inst->body, defs);
     }
+    // Parsed-but-unreferenced module definitions (an explicit --top prunes
+    // them from the root) still get def views — Surelog compiles every parsed
+    // module (load_and_derive testflags: ref_mod under -top dut). Only
+    // safely-instantiable ones: modules with all params defaulted and no
+    // interface ports.
+    std::set<const DefinitionSymbol*> unrefDefs;
+    for (auto* udefSym : comp.getUnreferencedDefinitions()) {
+        auto& udef = *udefSym;
+        if (udef.definitionKind != DefinitionKind::Module)
+            continue;
+        if (defs.count(std::string(udef.name)))
+            continue;
+        // Library-unit (-y/-v) modules compile on demand only — an unused
+        // one gets NO def view (Surelog).
+        if (!udef.sourceLibrary.isDefault ||
+            (udef.syntaxTree && udef.syntaxTree->isLibraryUnit))
+            continue;
+        bool allDefaulted = true;
+        for (auto& up : udef.parameters)
+            if (!up.hasDefault()) {
+                allDefaulted = false;
+                break;
+            }
+        if (!allDefaulted)
+            continue;
+        auto& uinst = InstanceSymbol::createDefault(comp, udef);
+        bool ifacePorted = false;
+        for (auto pb : uinst.body.getPortList())
+            if (pb->kind == SymbolKind::InterfacePort) {
+                ifacePorted = true;
+                break;
+            }
+        if (ifacePorted)
+            continue;
+        if (defs.emplace(std::string(udef.name), &uinst).second) {
+            unrefDefs.insert(&udef);
+            collectDefs(uinst.body, defs);
+        }
+    }
+    // A design with NO top (recursive_map: every module is instantiated,
+    // recursively) still carries every module definition in allModules —
+    // Surelog compiles defs regardless of elaboration. Build uninstantiated
+    // def views; their child instantiations become UninstantiatedDefSymbols
+    // (ref_module stubs), so recursion cannot loop.
+    if (orderedTops.empty()) {
+        for (auto sym : comp.getDefinitions()) {
+            if (sym->kind != SymbolKind::Definition)
+                continue;
+            auto& defSym = sym->as<DefinitionSymbol>();
+            if (defSym.definitionKind != DefinitionKind::Module)
+                continue;
+            auto& inv = InstanceSymbol::createInvalid(comp, defSym);
+            defs.emplace(std::string(defSym.name), &inv);
+        }
+    }
+    // Surelog also lists UN-INSTANTIATED interface definitions in
+    // AllInterfaces (iface_method_call intf2) — emit them from a default
+    // parameterization. Modules stay instance-driven.
+    for (auto defSym : comp.getDefinitions()) {
+        if (defSym->kind != SymbolKind::Definition)
+            continue;
+        auto& d9 = defSym->as<DefinitionSymbol>();
+        if (d9.definitionKind != DefinitionKind::Interface)
+            continue;
+        if (defs.count(std::string(d9.name)))
+            continue;
+        auto& di9 = InstanceSymbol::createDefault(comp, d9);
+        defs.emplace(std::string(d9.name), &di9);
+    }
 
     // User packages (skip built-ins).
     std::vector<const PackageSymbol*> pkgs;
@@ -393,8 +489,8 @@ UHDM::design* UhdmExporter::exportDesign() {
             pkgs.push_back(pkg);
     }
     // Surelog keeps source (compile) order; slang name-sorts.
-    std::stable_sort(pkgs.begin(), pkgs.end(), [](auto* a, auto* b) {
-        return a->location < b->location;
+    std::stable_sort(pkgs.begin(), pkgs.end(), [this](auto* a, auto* b) {
+        return srcOrderLess(a->location, b->location);
     });
     // Which packages are wildcard-imported by a module body (their
     // nested-container struct typedefs take a special TOP form).
@@ -616,7 +712,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (member.kind == SymbolKind::TypeAlias)
                     srcAliases.push_back(&member);
         std::stable_sort(srcAliases.begin(), srcAliases.end(),
-                         [](auto* a, auto* b) { return a->location < b->location; });
+                         [this](auto* a, auto* b) {
+                             return srcOrderLess(a->location, b->location);
+                         });
         std::map<std::string, UHDM::typespec*> byName;
         {
             for (auto* memberPtr : srcAliases) {
@@ -1085,8 +1183,12 @@ UHDM::design* UhdmExporter::exportDesign() {
         // net typespecs (below), so they are NOT skipped here.
         auto* di = &defMap[&inst->getDefinition()];
         // A def never reached by the instance walk (its only "instance" was
-        // a DROPPED bind under an implicit top) fills its port phase here.
-        if (!di->filled && droppedBindDefs.count(&inst->getDefinition())) {
+        // a DROPPED bind under an implicit top, an unreferenced definition
+        // under an explicit --top, or the design has NO top at all —
+        // recursive_map) fills its port phase here.
+        if (!di->filled && (droppedBindDefs.count(&inst->getDefinition()) ||
+                            unrefDefs.count(&inst->getDefinition()) ||
+                            orderedTops.empty())) {
             di->filled = true;
             emitModuleDefPorts(*inst);
         }

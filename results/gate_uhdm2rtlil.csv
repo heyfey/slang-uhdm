@@ -35,7 +35,7 @@ ArraySize,testflags,CMP_EQUAL,,,match
 asgn_binop,testflags,CMP_EQUAL,,,match
 asgn_expr,testflags,CMP_EQUAL,,,match
 asgn_expr2,testflags,CMP_EQUAL,,,match
-asgn_expr_sv,testflags,CMP_NOTEQUAL,decompile:,,differ
+asgn_expr_sv,testflags,CMP_EQUAL,,,match
 asicworld_clk_div_45,testflags,CMP_EQUAL,,,match
 asicworld_serial_crc,testflags,CMP_EQUAL,,,match
 AssignArraySelPlus,testflags,CMP_EQUAL,,,match
@@ -252,7 +252,7 @@ genvar_loop_decl_1,testflags,SLANG_REJECT,dut.sv:8:27: error: cannot reference u
 genvar_loop_decl_2,testflags,CMP_EQUAL,,,differ
 genvar_loop_decl_3,testflags,CMP_EQUAL,,,differ
 GetC,testflags,CMP_EQUAL,,,match
-gpr_genscope_repro,testflags,CMP_EQUAL,,,differ
+gpr_genscope_repro,testflags,CMP_EQUAL,,,match
 hana_test_intermout,testflags,CMP_EQUAL,,,differ
 hana_test_parse2synthtrans,testflags,CMP_EQUAL,,,differ
 hello-uvm,testflags,SLANG_REJECT,dut.sv:4:8: error: unknown package 'uvm_pkg',,
@@ -281,7 +281,7 @@ iface_internal_assign,testflags,CMP_EQUAL,,,differ
 iface_local_in_sub,testflags,CMP_EQUAL,,,match
 iface_member_port,testflags,CMP_EQUAL,,,differ
 iface_member_read_assign,testflags,CMP_EQUAL,,,match
-iface_method_call,testflags,CMP_NOTEQUAL,decompile:,,differ
+iface_method_call,testflags,CMP_EQUAL,,,differ
 iface_modport,testflags,CMP_EQUAL,,,differ
 iface_modport_conn,testflags,CMP_EQUAL,,,differ
 iface_modport_out,testflags,CMP_EQUAL,,,differ
@@ -339,7 +339,7 @@ InterfaceWithPort,testflags,CMP_EQUAL,,,match
 issue326_packed_mem,testflags,CMP_EQUAL,,,match
 jeras_gpr,testflags,CMP_EQUAL,,,match
 jeras_reverse,testflags,CMP_EQUAL,,,match
-jeras_tcb_gpio,testflags,CMP_NOTEQUAL,decompile:,,differ
+jeras_tcb_gpio,testflags,CMP_EQUAL,,,differ
 jeras_union,testflags,CMP_NOTEQUAL,decompile:,,differ
 LargeModuleParameter,testflags,SLANG_REJECT,dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,match
@@ -348,7 +348,7 @@ latchp,testflags,CMP_EQUAL,,,match
 latchsr,testflags,CMP_EQUAL,,,match
 lcov,testflags,CMP_EQUAL,,,match
 led_blink_counter,testflags,CMP_EQUAL,,,match
-load_and_derive,testflags,CMP_NOTEQUAL,decompile:,,differ
+load_and_derive,testflags,CMP_EQUAL,,,differ
 local_nested_struct_field,testflags,CMP_EQUAL,,,match
 local_var_in_always,testflags,CMP_EQUAL,,,match
 LocalParamInNestedForLoops,testflags,CMP_EQUAL,,,differ
@@ -520,7 +520,7 @@ priority_case,testflags,CMP_EQUAL,,,match
 priority_if,testflags,CMP_EQUAL,,,match
 priority_memory,testflags,CMP_EQUAL,,,match
 PutC,testflags,CMP_EQUAL,,,match
-r5p_gpr_cosim,testflags,CMP_NOTEQUAL,decompile:,,differ
+r5p_gpr_cosim,testflags,CMP_EQUAL,,,match
 rand_const,testflags,SLANG_REJECT,dut.sv:10:19: error: constant variable must have an initializer,,
 read_remux,testflags,CMP_EQUAL,,,match
 readmemh_param,testflags,CMP_EQUAL,,,differ
@@ -528,14 +528,14 @@ readmemh_rom,testflags,CMP_EQUAL,,,match
 ReadmemhInGenblock,testflags,SLANG_REJECT,dut.sv:14:3: error: expected member,,
 realexpr,testflags,CMP_EQUAL,,,differ
 RealValue,testflags,CMP_EQUAL,,,match
-recursive_map,testflags,CMP_NOTEQUAL,decompile:,,differ
+recursive_map,testflags,CMP_EQUAL,,,match
 ReferencedPackageParameterInEnum,testflags,CMP_EQUAL,,,differ
 reg_wire_error,testflags,SLANG_REJECT,dut.sv:26:9: error: cannot assign to a net within a procedural context,,
 Repeat,testflags,CMP_EQUAL,,,match
 Replication,testflags,CMP_EQUAL,,,match
 ReplicationPassedToInstance,testflags,CMP_EQUAL,,,differ
 repwhile,testflags,CMP_EQUAL,,,match
-resolve_types,testflags,CMP_NOTEQUAL,decompile:,,differ
+resolve_types,testflags,CMP_EQUAL,,,differ
 ReturnEnumArray,testflags,CMP_EQUAL,,,match
 ReturnFunctionCall,testflags,CMP_EQUAL,,,match
 rotate,testflags,CMP_EQUAL,,,match
@@ -544,10 +544,10 @@ rp32_r5p_bru,testflags,CMP_NOTEQUAL,decompile:,,differ
 rp32_r5p_csr,testflags,SLANG_REJECT,../rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; explicit conversion exists; are you m,,
 rp32_r5p_degu,testflags,SLANG_REJECT,../rp32/degu/r5p_degu.sv:56:19: error: top-level module 'r5p_degu' has unconnected interface port 'tcb_ifu',,
 rp32_r5p_degu_soc_top,testflags,SURELOG_FAIL,[   NOTE] : 0,,
-rp32_r5p_gpr_1r1w,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_gpr_1r1w,testflags,CMP_EQUAL,,,match
 rp32_r5p_hamster,testflags,SLANG_REJECT,../rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
 rp32_r5p_mdu,testflags,CMP_NOTEQUAL,decompile:,,differ
-rp32_r5p_mouse,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_mouse,testflags,CMP_EQUAL,,,differ
 rp32_r5p_mouse_soc_simple_top,testflags,CMP_NOTEQUAL,decompile:,,differ
 rp32_r5p_wbu,testflags,CMP_NOTEQUAL,decompile:,,differ
 rp32_soc_vfriendly,testflags,SURELOG_FAIL,[   NOTE] : 0,,
@@ -663,7 +663,7 @@ TaskOutputArgument,testflags,SLANG_REJECT,dut.sv:9:24: error: cannot assign to a
 TaskReturn,testflags,CMP_EQUAL,,,match
 typedef_package,testflags,CMP_EQUAL,,,differ
 typedef_packed_enum_array,testflags,CMP_EQUAL,,,match
-typedef_param,testflags,CMP_NOTEQUAL,decompile:,,differ
+typedef_param,testflags,CMP_EQUAL,,,differ
 typedef_simple,testflags,CMP_EQUAL,,,match
 typedef_unpacked_input,testflags,CMP_EQUAL,,,match
 TypedefAlias,testflags,SLANG_REJECT,dut.sv:25:13: error: no implicit conversion from 'third_alias_t' (aka 'logic[7:0]') to 'alias_t' (aka 'enum_t'); explicit conversion exists;,,

@@ -240,12 +240,60 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 break;
                             }
                 }
-                // Pkg/$unit typedef returns SHARE the typedef ts (no clone).
+                // Pkg/$unit typedef returns SHARE the typedef ts (no clone) —
+                // EXCEPT a function declared INSIDE the typedef's own package,
+                // whose return gets a BARE-named clone with a Typedef_alias
+                // ref to the shared ts (jeras_union imm_i_f -> imm_i_t).
+                bool sameScopePkgFn9 = false;
                 if (retAlias)
-                    if (auto scr9 = retAlias->getParentScope())
+                    if (auto scr9 = retAlias->getParentScope()) {
                         pkgUnitRet9 =
                             scr9->asSymbol().kind == SymbolKind::Package;
-                if (retBase && pkgUnitRet9) {
+                        if (pkgUnitRet9 && pkgScope &&
+                            sub.getParentScope() == scr9)
+                            sameScopePkgFn9 = true;
+                    }
+                if (retBase && sameScopePkgFn9 &&
+                    retBase->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    const syntax::SyntaxNode* targetSyn9 = nullptr;
+                    if (auto asyn9 = retAlias->getSyntax())
+                        if (asyn9->kind ==
+                            syntax::SyntaxKind::TypedefDeclaration)
+                            targetSyn9 =
+                                asyn9->as<syntax::TypedefDeclarationSyntax>()
+                                    .type;
+                    bypassTypedefShare = true;
+                    tfContext = true;
+                    tfTypeScope = sub.getParentScope();
+                    ts = makeTypespec(*sub.returnValVar, targetSyn9);
+                    // The bare clone's alias binds a FRESH pkg-named SYMBOLIC
+                    // twin (one per function, shared with the body-ref local's
+                    // clone) — NOT the listing object (jeras_union imm_i_f).
+                    UHDM::typespec* rtw9 = nullptr;
+                    if (auto pit9 = pkgSameScopeRetTwin.find(&sub);
+                        pit9 != pkgSameScopeRetTwin.end())
+                        rtw9 = pit9->second;
+                    else {
+                        rtw9 = makeTypespec(*sub.returnValVar, targetSyn9);
+                        rtw9->VpiName(
+                            std::string(
+                                retAlias->getParentScope()->asSymbol().name) +
+                            "::" + std::string(rdt.name));
+                        rtw9->Instance(retBase->Instance());
+                        pkgSameScopeRetTwin[&sub] = rtw9;
+                    }
+                    tfTypeScope = nullptr;
+                    tfContext = false;
+                    bypassTypedefShare = false;
+                    ts->VpiName(rdt.name);
+                    auto* art9 = s.MakeRef_typespec();
+                    art9->VpiFullName(std::string(rdt.name));
+                    art9->VpiParent(ts);
+                    art9->Actual_typespec(rtw9);
+                    ((UHDM::logic_typespec*)ts)->Typedef_alias(art9);
+                    typedefRetClone = true;
+                }
+                else if (retBase && pkgUnitRet9) {
                     ts = retBase;
                 }
                 else if (retBase &&

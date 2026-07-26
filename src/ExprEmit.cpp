@@ -915,10 +915,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // operation(vpiAssignmentOp=82) with [lhs, rhs] operands
             // (paren-inclusive span); a STATEMENT-level assignment (parent is
             // a block/process) stays an assignment object (handled below).
+            // A COMPOUND embedded assignment (x = (y *= 2)) takes the same
+            // operation(82) — the compound operator itself is NOT encoded —
+            // with the value operand extracted from slang's expanded binary
+            // (asgn_expr_sv).
             if (parent &&
                 (parent->UhdmType() == UHDM::uhdmoperation ||
-                 parent->UhdmType() == UHDM::uhdmassignment) &&
-                !ae.isCompound()) {
+                 parent->UhdmType() == UHDM::uhdmassignment)) {
+                const Expression* rhsE = &ae.right();
+                if (ae.isCompound() && ae.op) {
+                    auto& rc = stripImplicitConv(ae.right());
+                    if (rc.kind == ExpressionKind::BinaryOp) {
+                        auto& be = rc.as<BinaryExpression>();
+                        rhsE = stripImplicitConv(be.left()).kind ==
+                                       ExpressionKind::LValueReference
+                                   ? &be.right()
+                                   : &be.left();
+                    }
+                }
                 auto* op = s.MakeOperation();
                 op->VpiOpType(kVpiAssignmentOp);
                 op->VpiParent(parent);
@@ -942,9 +956,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 auto* savedEncl = enclosingAssign;
                 enclosingAssign = op;
                 bool savedS = suppressConstParent;
-                if (isLiteralExpr(stripImplicitConv(ae.right())))
+                if (isLiteralExpr(stripImplicitConv(*rhsE)))
                     suppressConstParent = true;
-                if (auto* r = emitExpr(ae.right(), op, prefix, netMap))
+                if (auto* r = emitExpr(*rhsE, op, prefix, netMap))
                     operands->push_back(r);
                 suppressConstParent = savedS;
                 enclosingAssign = savedEncl;
@@ -1282,7 +1296,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 char base8 = bp8 < raw8.size()
                                                  ? (char)tolower(raw8[bp8])
                                                  : 'd';
-                                std::string dg8 = raw8.substr(bp8 + 1);
+                                std::string dg8 = stripSep(raw8.substr(bp8 + 1));
                                 switch (base8) {
                                     case 'b':
                                         c->VpiValue("BIN:" + dg8);
@@ -1309,7 +1323,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 }
                                 if (base8 == 'b' || base8 == 'h' ||
                                     base8 == 'o' || base8 == 'd')
-                                    c->VpiDecompile(raw8);
+                                    c->VpiDecompile(stripSep(raw8));
                             }
                         }
                     }
@@ -2059,6 +2073,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 noteUnsupported("unary op: " + std::string(toString(ue.op)));
                 return nullptr;
             }
+            // Surelog cannot compile an ATTRIBUTE on an inc/dec operator
+            // (asgn_expr_sv): a POSTFIX attributed op (y (* foo *) ++)
+            // collapses the WHOLE expression to an unsupported_expr anchored
+            // at the operand token; a PREFIX attributed op (++ (* foo *) z)
+            // keeps the operation but its OPERAND becomes the
+            // unsupported_expr. Payload: the raw source LINE.
+            {
+                bool attrPost = false, attrPre = false;
+                if (expr.syntax) {
+                    if ((ue.op == UnaryOperator::Postincrement ||
+                         ue.op == UnaryOperator::Postdecrement) &&
+                        syntax::PostfixUnaryExpressionSyntax::isKind(
+                            expr.syntax->kind))
+                        attrPost = !expr.syntax
+                                        ->as<syntax::PostfixUnaryExpressionSyntax>()
+                                        .attributes.empty();
+                    else if ((ue.op == UnaryOperator::Preincrement ||
+                              ue.op == UnaryOperator::Predecrement) &&
+                             syntax::PrefixUnaryExpressionSyntax::isKind(
+                                 expr.syntax->kind))
+                        attrPre = !expr.syntax
+                                       ->as<syntax::PrefixUnaryExpressionSyntax>()
+                                       .attributes.empty();
+                }
+                if (attrPost || attrPre) {
+                    auto mkUnsup = [&](UHDM::BaseClass* par) {
+                        auto* ux = s.MakeUnsupported_expr();
+                        ux->VpiParent(par);
+                        setLoc(ux, ue.operand().sourceRange);
+                        // The raw source line holding the statement,
+                        // whitespace included, newline excluded.
+                        auto text = sm->getSourceText(
+                            ue.operand().sourceRange.start().buffer());
+                        size_t off = ue.operand().sourceRange.start().offset();
+                        size_t ls = off;
+                        while (ls > 0 && text[ls - 1] != '\n')
+                            ls--;
+                        size_t le = off;
+                        while (le < text.size() && text[le] != '\n' &&
+                               text[le] != '\r')
+                            le++;
+                        ux->VpiValue("STRING:" +
+                                     std::string(text.substr(ls, le - ls)));
+                        return ux;
+                    };
+                    if (attrPost)
+                        return mkUnsup(parent);
+                    auto* op0 = s.MakeOperation();
+                    op0->VpiOpType(opType);
+                    op0->VpiParent(parent);
+                    setLoc(op0, expr.sourceRange);
+                    auto* opnds0 = s.MakeAnyVec();
+                    opnds0->push_back(mkUnsup(op0));
+                    op0->Operands(opnds0);
+                    return op0;
+                }
+            }
             auto* op = s.MakeOperation();
             op->VpiOpType(opType);
             op->VpiParent(parent);
@@ -2568,7 +2639,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(uts, lr);
                         cts = uts;
                     }
-                    if (!defGenProcessEmit && reemitting) {
+                    // A BARE parameter width (XLEN'(x)) mints the named
+                    // int_typespec in RE-EMITTED (elab) contexts too — same
+                    // shape as the def view below, NOT a deferred
+                    // integer_typespec + Expr (Surelog; rp32_r5p_mouse
+                    // shf_val).
+                    {
+                        auto& seCore0 = stripImplicitConv(sizeExpr);
+                        if (!cts && !defGenProcessEmit && reemitting &&
+                            seCore0.kind == ExpressionKind::NamedValue &&
+                            seCore0.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter &&
+                            cesyn.left->kind ==
+                                syntax::SyntaxKind::IdentifierName) {
+                            auto& psym0 =
+                                seCore0.as<NamedValueExpression>().symbol;
+                            auto* its0 = s.MakeInt_typespec();
+                            its0->VpiName(psym0.name);
+                            setLoc(its0,
+                                   SourceRange(psym0.location, psym0.location));
+                            auto& pv0 = psym0.as<ParameterSymbol>().getValue();
+                            if (pv0.isInteger() && !pv0.integer().hasUnknown())
+                                its0->VpiValue(
+                                    "UINT:" + pv0.integer().toString(
+                                                  LiteralBase::Decimal, false));
+                            cts = its0;
+                        }
+                    }
+                    if (!cts && !defGenProcessEmit && reemitting) {
                         auto* rt0 = s.MakeRef_typespec();
                         rt0->VpiFullName(prefix);
                         rt0->VpiParent(op);
@@ -2916,6 +3014,49 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (!margs->empty())
                         mfc->Tf_call_args(margs);
                     return mfc;
+                }
+                // INTERFACE method calls through a port (ha_intf.summ2(a,b)):
+                // a method_func_call at the method token whose vpiPrefix is a
+                // bare (unbound) receiver ref; args bind normally; NO function
+                // link (iface_method_call — Surelog).
+                if (auto psc1 = sub.getParentScope();
+                    psc1 &&
+                    psc1->asSymbol().kind == SymbolKind::InstanceBody &&
+                    psc1->asSymbol()
+                            .as<InstanceBodySymbol>()
+                            .getDefinition()
+                            .definitionKind == DefinitionKind::Interface) {
+                    std::string raw1 = rawText(expr.sourceRange);
+                    auto dot1 = raw1.find_last_of('.');
+                    if (dot1 != std::string::npos) {
+                        std::string recv1 = raw1.substr(0, dot1);
+                        auto* mfc = s.MakeMethod_func_call();
+                        mfc->VpiName(sub.name);
+                        mfc->VpiParent(parent);
+                        auto mstart1 = expr.sourceRange.start() + (dot1 + 1);
+                        setLoc(mfc, SourceRange(mstart1,
+                                                mstart1 + sub.name.size()));
+                        auto* pr = s.MakeRef_obj();
+                        pr->VpiName(recv1);
+                        pr->VpiFullName(joinRef(prefix, recv1));
+                        pr->VpiParent(mfc);
+                        setLoc(pr, SourceRange(expr.sourceRange.start(),
+                                               expr.sourceRange.start() +
+                                                   dot1));
+                        mfc->Prefix(pr);
+                        auto* margs = s.MakeAnyVec();
+                        for (auto arg : call.arguments()) {
+                            bool fs2 = forceConstParent;
+                            if (isLiteralExpr(*arg))
+                                forceConstParent = true;
+                            if (auto* a2 = emitExpr(*arg, mfc, prefix, netMap))
+                                margs->push_back(a2);
+                            forceConstParent = fs2;
+                        }
+                        if (!margs->empty())
+                            mfc->Tf_call_args(margs);
+                        return mfc;
+                    }
                 }
                 auto it = subMap.find(&sub);
                 // A PARAM-INIT call in an ELAB instance body: bind the shared
@@ -3814,7 +3955,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          ExpressionKind::NamedValue)) {
                     std::string baseDotted = rawText(es.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
-                        std::string selText = selName(rawText(expr.sourceRange));
+                        std::string selText = spaceIdxOps(selName(rawText(expr.sourceRange)));
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);
                         hp->VpiFullName(selText);
@@ -4148,7 +4289,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& bnv = mb->as<NamedValueExpression>();
                     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                         refCollector->insert(&bnv.symbol);
-                    std::string selText = selName(rawText(expr.sourceRange));
+                    std::string selText = spaceIdxOps(selName(rawText(expr.sourceRange)));
                     auto* hp = s.MakeHier_path();
                     hp->VpiName(selText);
                     hp->VpiFullName(selText);
@@ -4275,8 +4416,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         dotted += "." +
                                   std::string(
                                       (*it2)->as<MemberAccessExpression>().member.name);
-                    std::string selText = selName(rawText(SourceRange(
-                        rs.left().sourceRange.start(), rs.right().sourceRange.end())));
+                    std::string selText = spaceIdxOps(selName(rawText(SourceRange(
+                        rs.left().sourceRange.start(), rs.right().sourceRange.end()))));
                     dotted += "[" + selText + "]";
                     hp->VpiName(dotted);
                     hp->VpiFullName(dotted);
@@ -4735,6 +4876,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             else if (prefix.find('[') != std::string::npos)
                 // Under a gen-scope-array path the lazy parent-chain walk
                 // drops the [idx] segment; cache the explicit path.
+                psel->VpiFullName(joinRef(prefix, nv.symbol.name));
+            else if (defGenProcessEmit)
+                // Def-view gen-branch processes: the lazy walk stops at the
+                // instance and drops the gen-block segments; cache the branch
+                // path (jeras_tcb_gpio que[DLY-2:0]).
                 psel->VpiFullName(joinRef(prefix, nv.symbol.name));
             else
                 (void)psel->VpiFullName();

@@ -687,9 +687,10 @@ static bool hasSignExtendedShift(const SubroutineSymbol& sub) {
 // package parameter materializes it as a module-local parameter (Surelog sets
 // vpiImported = the package name). A QUALIFIED reference (pkg::P) with no
 // import does NOT materialize it (ParameterColonReference, PkgParamAsFunctionArg).
-static void collectImportedParams(const Scope& body,
-                                  std::vector<const ParameterSymbol*>& out,
-                                  std::map<const ParameterSymbol*, std::string>& srcOut) {
+static void collectImportedParams(
+    const Scope& body, std::vector<const ParameterSymbol*>& out,
+    std::map<const ParameterSymbol*, std::string>& srcOut,
+    const std::function<bool(SourceLocation, SourceLocation)>& locLess) {
     std::set<const Symbol*> wildcardPkgs; // packages wildcard-imported
     std::set<const Symbol*> explicitSyms; // explicitly imported symbols
     for (auto& m : body.members()) {
@@ -878,8 +879,8 @@ static void collectImportedParams(const Scope& body,
     // Surelog orders materialized imported params by their DECLARATION order
     // in the package, not by reference-discovery order.
     std::stable_sort(found.begin(), found.end(),
-                     [](const ParameterSymbol* a, const ParameterSymbol* b) {
-                         return a->location < b->location;
+                     [&](const ParameterSymbol* a, const ParameterSymbol* b) {
+                         return locLess(a->location, b->location);
                      });
     out.insert(out.end(), found.begin(), found.end());
 }
@@ -908,13 +909,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // package name (its vpiImported), overriding its home-scope name.
     std::map<const ParameterSymbol*, std::string> srcImp;
     if (!funcScope) {
-        collectImportedParams(body, paramSyms, srcImp);
+        collectImportedParams(body, paramSyms, srcImp,
+                              [this](SourceLocation a, SourceLocation b) {
+                                  return srcOrderLess(a, b);
+                              });
         // The list is SOURCE-LOCATION ordered: materialized imported
         // params (pkg locs, usually earlier) list before declared ones.
         std::stable_sort(paramSyms.begin(), paramSyms.end(),
-                         [](const ParameterSymbol* a,
-                            const ParameterSymbol* b) {
-                             return a->location < b->location;
+                         [this](const ParameterSymbol* a,
+                                const ParameterSymbol* b) {
+                             return srcOrderLess(a->location, b->location);
                          });
     }
     // A materialized package parameter's emitted {param_assign, Rhs constant},
@@ -1078,7 +1082,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 std::string raw = rawText(stripImplicitConv(*defaultInit).sourceRange);
                 auto tick = raw.find('\'');
                 if (tick != std::string::npos) {
-                    std::string digits = raw.substr(tick + 1);
+                    std::string digits = stripSep(raw.substr(tick + 1));
                     for (auto& ch : digits)
                         ch = (char)toupper(ch);
                     up->VpiValue("BIN:" + digits);
@@ -1197,7 +1201,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 basePos++;
                             char base = basePos < raw.size() ? (char)tolower(raw[basePos])
                                                              : 'd';
-                            std::string litDigits = raw.substr(basePos + 1);
+                            std::string litDigits = stripSep(raw.substr(basePos + 1));
                             switch (base) {
                                 case 'b':
                                     value = "BIN:" + litDigits;
@@ -1296,7 +1300,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (tsyn0->kind != syntax::SyntaxKind::ImplicitType &&
                     ps.getType().getCanonicalType().isSigned() && hasKeyword &&
                     // ENUM-typed params carry no vpiSigned (Surelog).
-                    ps.getType().getCanonicalType().kind != SymbolKind::EnumType)
+                    ps.getType().getCanonicalType().kind != SymbolKind::EnumType &&
+                    // TYPEDEF-typed params (localparam int4_t P) carry no
+                    // vpiSigned either — Surelog never resolves an alias's
+                    // signedness onto the parameter object (typedef_param).
+                    declared0->getType().kind != SymbolKind::TypeAlias)
                     up->VpiSigned(true);
             }
         }
@@ -1919,7 +1927,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         if (raw8[bp8] == 's' || raw8[bp8] == 'S')
                             bp8++;
                         char base8 = (char)tolower((unsigned char)raw8[bp8]);
-                        std::string dg8 = raw8.substr(bp8 + 1);
+                        std::string dg8 = stripSep(raw8.substr(bp8 + 1));
                         if (base8 == 'b' || base8 == 'h' || base8 == 'o') {
                             c->VpiValue((base8 == 'b'   ? "BIN:"
                                          : base8 == 'h' ? "HEX:"
@@ -1929,7 +1937,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             : base8 == 'h' ? vpiHexConst
                                                            : vpiOctConst);
                             c->VpiSize((int32_t)iv.getBitWidth());
-                            c->VpiDecompile(raw8);
+                            c->VpiDecompile(stripSep(raw8));
                             vecAliasOv8 = true;
                         }
                     }
@@ -2020,9 +2028,62 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiDecompile(std::to_string(w6) + "'b" + bits6);
                     enumOv8 = true;
                 }
+                // A typed VECTOR param override whose value ORIGINATES in a
+                // BASED hex/bin/oct literal — directly (#(.Q(8'hcd))) or
+                // through parameter refs (#(.P(PP)) with PP = 8'hab) — keeps
+                // that base encoding at the param width with the origin's
+                // sized decompile (Surelog; rp32_r5p_mouse_soc_simple_top
+                // cpu.IFU_RST <- soc IFU_RST = 32'h8000_0000).
+                bool srcBaseOv8 = false;
+                if (typedParam && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    boundInit &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedArrayType &&
+                    iv.getBitWidth() <= 64) {
+                    const Expression* org8 = &stripImplicitConv(*boundInit);
+                    for (int h8 = 0;
+                         h8 < 8 && org8->kind == ExpressionKind::NamedValue;
+                         h8++) {
+                        auto& sy9 = org8->as<NamedValueExpression>().symbol;
+                        if (sy9.kind != SymbolKind::Parameter)
+                            break;
+                        auto* in9 = sy9.as<ParameterSymbol>().getInitializer();
+                        if (!in9)
+                            break;
+                        org8 = &stripImplicitConv(*in9);
+                    }
+                    if (org8->kind == ExpressionKind::IntegerLiteral) {
+                        std::string raw9(rawText(org8->sourceRange));
+                        auto tick9 = raw9.find('\'');
+                        if (tick9 != std::string::npos) {
+                            size_t bp9 = tick9 + 1;
+                            if (bp9 < raw9.size() &&
+                                (raw9[bp9] == 's' || raw9[bp9] == 'S'))
+                                bp9++;
+                            char base9 = bp9 < raw9.size()
+                                             ? (char)tolower(raw9[bp9])
+                                             : 'd';
+                            if (base9 == 'h' || base9 == 'b' || base9 == 'o') {
+                                std::string dg9 =
+                                    stripSep(raw9.substr(bp9 + 1));
+                                c->VpiValue((base9 == 'h'   ? "HEX:"
+                                             : base9 == 'b' ? "BIN:"
+                                                            : "OCT:") +
+                                            dg9);
+                                c->VpiConstType(base9 == 'h' ? vpiHexConst
+                                                : base9 == 'b'
+                                                    ? vpiBinaryConst
+                                                    : vpiOctConst);
+                                c->VpiSize((int32_t)iv.getBitWidth());
+                                c->VpiDecompile(stripSep(raw9));
+                                srcBaseOv8 = true;
+                            }
+                        }
+                    }
+                }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
-                if (vecAliasOv8 || strOv8 || enumOv8) {
+                if (vecAliasOv8 || strOv8 || enumOv8 || srcBaseOv8) {
                 }
                 else if (typedParam && iv.getBitWidth() > 64) {
                     // WIDE values overflow the decimal fold — encode HEX at
@@ -3538,12 +3599,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     rhs->UhdmType() == UHDM::uhdmconstant)
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
-                // The ELAB (top-view) copy of an imported param re-emits the
-                // param's RESOLVED VALUE, so a BASED-DECIMAL default loses its
-                // base form: 2'd1 becomes a plain int constant (INT:1,
-                // decompile "1"). Other bases keep their source encoding
-                // (Surelog; cs_registers CSR_MISA_MXL).
-                if (isImported && topView && typedParam &&
+                // The ELAB (top-view) MODULE copy of a TYPED param re-emits
+                // the param's RESOLVED VALUE, so a BASED-DECIMAL default
+                // loses its base form: 2'd1 becomes a plain int constant
+                // (INT:1, decompile "1"). Other bases keep their source
+                // encoding; the DEF view AND the package views keep DEC
+                // (Surelog; cs_registers CSR_MISA_MXL / ibex_pkg,
+                // rp32_r5p_mouse ST0-ST3).
+                if (topView && typedParam && !inPackage &&
                     rhs->UhdmType() == UHDM::uhdmconstant) {
                     auto* rc9 = (UHDM::constant*)rhs;
                     std::string_view v9 = rc9->VpiValue();
@@ -4025,11 +4088,48 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // declared earlier still leads (ParameterFromPkgInNestedModule) — Surelog
     // (ParameterFromPkgOnParameterPortList).
     if (topView && !inPackage && !portPa9.empty() &&
-        portPa9.size() < passigns->size())
-        std::stable_partition(passigns->begin(), passigns->end(),
-                              [&](UHDM::param_assign* pa9) {
-                                  return portPa9.count(pa9) > 0;
-                              });
+        portPa9.size() < passigns->size()) {
+        // Rank 0: port-list pa's (resolved at instantiation, first). Rank 1:
+        // body pa's. Rank 2: NO-OP-overridden module port-list pa's (value ==
+        // declaration default) — the override application re-creates them
+        // last (jeras_tcb_gpio: DLY localparam before GW(32)==32). A value-
+        // CHANGING override keeps the port-first slot
+        // (ParameterOfSizeOfParametrizedPortInSubmodule X(5)!=15).
+        // Interfaces keep the plain port-first order.
+        auto noopOv9 = [&](UHDM::param_assign* pa9) -> bool {
+            if (!pa9->VpiOverriden() ||
+                m->UhdmType() != UHDM::uhdmmodule_inst || !pa9->Lhs())
+                return false;
+            for (auto& mb9 : body.members()) {
+                if (mb9.kind != SymbolKind::Parameter ||
+                    mb9.name != std::string_view(pa9->Lhs()->VpiName()))
+                    continue;
+                auto& ps9 = mb9.as<ParameterSymbol>();
+                if (auto* ds9 = paramDefaultSyn(ps9)) {
+                    ASTContext dctx9(body, LookupLocation::max);
+                    auto& de9 = Expression::bind(*ds9, dctx9);
+                    auto dv9 = dctx9.tryEval(de9);
+                    auto& cv9 = ps9.getValue();
+                    if (dv9 && dv9.isInteger() && cv9.isInteger() &&
+                        dv9.integer() == cv9.integer())
+                        return true;
+                }
+                return false;
+            }
+            return false;
+        };
+        auto rank9 = [&](UHDM::param_assign* pa9) -> int {
+            if (!portPa9.count(pa9))
+                return 1;
+            if (noopOv9(pa9))
+                return 2;
+            return 0;
+        };
+        std::stable_sort(passigns->begin(), passigns->end(),
+                         [&](UHDM::param_assign* a9, UHDM::param_assign* b9) {
+                             return rank9(a9) < rank9(b9);
+                         });
+    }
     if (!params->empty())
         m->Parameters(params);
     if (!passigns->empty())
@@ -4979,6 +5079,21 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
         // (no clone); module-local aggregate typedefs get the fresh clone C.
         UHDM::typespec* its = nullptr;
         bool sharedPkgTs = false;
+        // An ALIAS-OF-ALIAS vector typedef param (typedef int8_t char_t)
+        // binds the SHARED module typedef ts in the elab view too; Surelog's
+        // param-scoped clones stay orphaned (typedef_param ch).
+        if (ps->getDeclaredType()) {
+            auto& dtA = ps->getDeclaredType()->getType();
+            if (dtA.kind == SymbolKind::TypeAlias &&
+                dtA.getCanonicalType().kind == SymbolKind::PackedArrayType &&
+                dtA.getCanonicalType().isIntegral() &&
+                dtA.as<TypeAliasType>().targetType.getType().kind ==
+                    SymbolKind::TypeAlias)
+                if (auto titA = typedefTs.find(&dtA); titA != typedefTs.end()) {
+                    its = titA->second;
+                    sharedPkgTs = true; // shared: keeps its own parent
+                }
+        }
         if (aggParam) {
             if (auto d0 = ps->getDeclaredType()) {
                 auto& dt0 = d0->getType();
@@ -5160,6 +5275,37 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 rhsRt->Actual_typespec(opTs9);
                 opTs9->VpiParent(rhsRt);
             }
+            // A TYPEDEF'd vector param INITIALIZED BY a module-local PARAM
+            // REF (localparam int8_t int8 = int4): the elab fold's constant
+            // binds a FRESH bare int_typespec (signed per the param type),
+            // not the param's own typedef clone (typedef_param).
+            else if ([&] {
+                         if (!typedParam || !rc0 ||
+                             rc0->UhdmType() != UHDM::uhdmconstant)
+                             return false;
+                         auto d0 = ps->getDeclaredType();
+                         if (!d0 ||
+                             d0->getType().kind != SymbolKind::TypeAlias)
+                             return false;
+                         if (!ps->getType().getCanonicalType().isPackedArray())
+                             return false;
+                         auto init9 = ps->getInitializer();
+                         if (!init9)
+                             return false;
+                         auto& si9 = stripImplicitConv(*init9);
+                         if (si9.kind != ExpressionKind::NamedValue)
+                             return false;
+                         auto& sym9 = si9.as<NamedValueExpression>().symbol;
+                         return sym9.kind == SymbolKind::Parameter &&
+                                sym9.getParentScope() &&
+                                sym9.getParentScope()->asSymbol().kind !=
+                                    SymbolKind::Package;
+                     }()) {
+                auto* bi9 = s.MakeInt_typespec();
+                if (ps->getType().getCanonicalType().isSigned())
+                    bi9->VpiSigned(true);
+                rhsRt->Actual_typespec(bi9);
+            }
             else
                 rhsRt->Actual_typespec(its);
         }
@@ -5234,7 +5380,12 @@ void UhdmExporter::drainDefParamTs() {
             bool vectorAlias =
                 dt0.kind == SymbolKind::TypeAlias &&
                 dt0.getCanonicalType().kind == SymbolKind::PackedArrayType &&
-                dt0.getCanonicalType().isIntegral();
+                dt0.getCanonicalType().isIntegral() &&
+                // An ALIAS-OF-ALIAS (typedef int8_t char_t) SHARES the
+                // typedef ts instead — Surelog builds no usable param clone
+                // for it (typedef_param ch).
+                dt0.as<TypeAliasType>().targetType.getType().kind !=
+                    SymbolKind::TypeAlias;
             // An aggregate param typed by a PACKAGE typedef named BARE (a
             // wildcard-imported target_cfg_t / flash_req_t) gets a FRESH clone
             // in the DEF view too — exactly the qualification rule the ELAB
@@ -5976,6 +6127,143 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             ts = ats;
         }
+        else if ((ct.kind == SymbolKind::PackedArrayType ||
+                  ct.kind == SymbolKind::ScalarType) &&
+                 ta.targetType.getType().kind == SymbolKind::TypeAlias) {
+            // A packed ALIAS-of-typedef (typedef imm_i_t imm_l_t): ONE shared
+            // object cloned from the TARGET's declaration form — target type
+            // span, signed, range FOLDED to constants — carrying a
+            // Typedef_alias ref (module-scoped fullname) to a bare-named clone
+            // of the target's ts. It is OMITTED from both pkg listings; module
+            // listings and all member uses share it (jeras_union imm_l_t).
+            if (topView) {
+                // The TOP listing DOES carry the shared alias object (the def
+                // listing omitted it) — jeras_union imm_l_t.
+                if (auto tit9 = typedefTs.find(&ta); tit9 != typedefTs.end()) {
+                    pkgTopTypedefTs[&ta] = tit9->second;
+                    pkgTdByName.emplace_back(std::string(ta.name),
+                                             tit9->second);
+                }
+                continue;
+            }
+            auto& tgt9 = ta.targetType.getType().as<TypeAliasType>();
+            const syntax::SyntaxNode* tgtTypeSyn9 = nullptr;
+            if (auto asyn9 = tgt9.getSyntax();
+                asyn9 && asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
+                tgtTypeSyn9 = asyn9->as<syntax::TypedefDeclarationSyntax>().type;
+            // Left bound folds INT when written as a binary op (12-1), UINT
+            // for a literal — decided from the TARGET's dim syntax.
+            bool leftBin9 = false;
+            if (tgtTypeSyn9 &&
+                syntax::IntegerTypeSyntax::isKind(tgtTypeSyn9->kind)) {
+                auto& dims9 =
+                    tgtTypeSyn9->as<syntax::IntegerTypeSyntax>().dimensions;
+                if (!dims9.empty() && (*dims9.begin())->specifier &&
+                    (*dims9.begin())->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& sel9 = (*dims9.begin())
+                                     ->specifier
+                                     ->as<syntax::RangeDimensionSpecifierSyntax>();
+                    if (sel9.selector->kind ==
+                        syntax::SyntaxKind::SimpleRangeSelect)
+                        leftBin9 =
+                            sel9.selector->as<syntax::RangeSelectSyntax>()
+                                .left->kind !=
+                            syntax::SyntaxKind::IntegerLiteralExpression;
+                }
+            }
+            auto foldBounds9 = [&](UHDM::typespec* t9) {
+                if (!t9 || t9->UhdmType() != UHDM::uhdmlogic_typespec)
+                    return;
+                auto* rs9 = ((UHDM::logic_typespec*)t9)->Ranges();
+                if (!rs9 || rs9->empty())
+                    return;
+                auto cr9 = ct.kind == SymbolKind::PackedArrayType
+                               ? ct.as<PackedArrayType>().range
+                               : ConstantRange{0, 0};
+                auto mkC9 = [&](int32_t v9, bool int9,
+                                UHDM::expr* old9) -> UHDM::expr* {
+                    auto* c9 = s.MakeConstant();
+                    std::string d9 = std::to_string(v9);
+                    c9->VpiDecompile(d9);
+                    c9->VpiSize(64);
+                    c9->VpiValue((int9 ? "INT:" : "UINT:") + d9);
+                    c9->VpiConstType(int9 ? vpiIntConst : vpiUIntConst);
+                    c9->VpiParent((*rs9)[0]);
+                    if (old9) {
+                        // Anchor at the OLD bound's leading span (the left
+                        // operand of a folded N-1 op).
+                        UHDM::expr* anchor9 = old9;
+                        if (old9->UhdmType() == UHDM::uhdmoperation) {
+                            auto* ops9 = ((UHDM::operation*)old9)->Operands();
+                            if (ops9 && !ops9->empty())
+                                anchor9 = (UHDM::expr*)(*ops9)[0];
+                        }
+                        c9->VpiLineNo(anchor9->VpiLineNo());
+                        c9->VpiColumnNo(anchor9->VpiColumnNo());
+                        c9->VpiEndLineNo(anchor9->VpiEndLineNo());
+                        c9->VpiEndColumnNo(anchor9->VpiEndColumnNo());
+                    }
+                    return c9;
+                };
+                auto* r9 = (*rs9)[0];
+                bool leftOp9 = leftBin9 ||
+                               (r9->Left_expr() &&
+                                r9->Left_expr()->UhdmType() ==
+                                    UHDM::uhdmoperation);
+                r9->Left_expr(mkC9(cr9.left, leftOp9, r9->Left_expr()));
+                r9->Right_expr(mkC9(cr9.right, false, r9->Right_expr()));
+            };
+            bypassTypedefShare = true;
+            auto* lts9 = makeTypespec(ta, tgtTypeSyn9 ? tgtTypeSyn9 : typeSyn);
+            bypassTypedefShare = false;
+            foldBounds9(lts9);
+            if (tgtTypeSyn9)
+                setLoc(lts9, tgtTypeSyn9->sourceRange());
+            lts9->VpiName(prefix + std::string(ta.name));
+            lts9->Instance((UHDM::instance*)up);
+            // Typedef_alias -> a bare-named clone of the target's form, which
+            // itself carries a Typedef_alias ref (bare fullname) to the
+            // TARGET's shared listing object, instanced at the package.
+            bypassTypedefShare = true;
+            auto* bare9 = makeTypespec(ta, tgtTypeSyn9 ? tgtTypeSyn9 : typeSyn);
+            bypassTypedefShare = false;
+            foldBounds9(bare9);
+            if (tgtTypeSyn9)
+                setLoc(bare9, tgtTypeSyn9->sourceRange());
+            bare9->VpiName(tgt9.name);
+            bare9->Instance((UHDM::instance*)up);
+            if (bare9->UhdmType() == UHDM::uhdmlogic_typespec) {
+                // ...whose Actual is a SEPARATE pkg-named SYMBOLIC clone of
+                // the target (Surelog's alias-chain twin keeps the unfolded
+                // bounds; only the outer two levels fold).
+                bypassTypedefShare = true;
+                bool savedTfA9 = tfContext;
+                tfContext = true;
+                auto* tgtCl9 =
+                    makeTypespec(ta, tgtTypeSyn9 ? tgtTypeSyn9 : typeSyn);
+                tfContext = savedTfA9;
+                bypassTypedefShare = false;
+                if (tgtTypeSyn9)
+                    setLoc(tgtCl9, tgtTypeSyn9->sourceRange());
+                tgtCl9->VpiName(prefix + std::string(tgt9.name));
+                tgtCl9->Instance((UHDM::instance*)up);
+                auto* tart9 = s.MakeRef_typespec();
+                tart9->VpiFullName(std::string(tgt9.name));
+                tart9->VpiParent(bare9);
+                tart9->Actual_typespec(tgtCl9);
+                ((UHDM::logic_typespec*)bare9)->Typedef_alias(tart9);
+            }
+            auto* art9 = s.MakeRef_typespec();
+            art9->VpiFullName(std::string(d->VpiName()) + "." + prefix +
+                              std::string(ta.name));
+            art9->VpiParent(lts9);
+            art9->Actual_typespec(bare9);
+            lts9->Typedef_alias(art9);
+            typedefTs[&ta] = lts9;
+            typedefClone[&ta] = nullptr;
+            continue; // no def-listing entry
+        }
         else if (ct.kind == SymbolKind::PackedArrayType || ct.kind == SymbolKind::ScalarType) {
             // A param-bounded range (logic [X-1:0]) stays UNFOLDED in the DEF
             // view with a pkg::pkg::T::-scoped ref (tfContext + :: separator);
@@ -6120,8 +6408,10 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             bool savedTf = tfContext;
             if (topView)
                 tfContext = true;
+            inPkgTopStructBuild = topView;
             auto* sts = buildStructTs(structScope, pkStr, alias,
                                       topNested ? "." : "::");
+            inPkgTopStructBuild = false;
             tfContext = savedTf;
             if (!topNested)
                 sts->VpiParent(up);
@@ -6157,7 +6447,11 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         if (mts->UhdmType() == UHDM::uhdmenum_typespec &&
                             mts->Instance() &&
                             mts->Instance() != (UHDM::instance*)up &&
-                            mts->Instance()->UhdmType() == UHDM::uhdmpackage) {
+                            mts->Instance()->UhdmType() == UHDM::uhdmpackage &&
+                            // An ENUM-ALIAS ts (typedef op32_op62_et opc_t)
+                            // stays the ONE shared object across views —
+                            // never per-use cloned (jeras_union ctl_t.opc).
+                            !((UHDM::enum_typespec*)mts)->Typedef_alias()) {
                             const EnumType* et9 = nullptr;
                             for (auto& [sym9, tsp9] : typedefTs)
                                 if (tsp9 == mts &&
@@ -6435,11 +6729,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             bool savedTfU = tfContext;
             if (topView)
                 tfContext = true;
+            inPkgTopStructBuild = topView;
             auto* uts = pk
                             ? buildUnionTs(ct.as<PackedUnionType>(), true, alias,
                                            "::")
                             : buildUnionTs(ct.as<UnpackedUnionType>(), false,
                                            alias, "::");
+            inPkgTopStructBuild = false;
             tfContext = savedTfU;
             uts->VpiParent(up);
             if (uts->Members())

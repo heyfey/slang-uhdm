@@ -1130,40 +1130,79 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (bsyn)
                                 scan(*bsyn);
                         }
-                        // A BARE param-ref bound in a PARAMETER's own typespec
-                        // ([DepthW:0] on localparam FullDepth) stays a scoped
-                        // ref_obj (a VAR/NET typespec folds it — issue326).
+                        // A PARAMETER's own typespec keeps its range bounds
+                        // SYMBOLIC — a bare param ref ([DepthW:0] on
+                        // localparam FullDepth, issue326) as a scoped
+                        // ref_obj, and ANY operation bound as the unfolded op
+                        // tree, whether it references a param ([XLEN-1:0] on
+                        // parameter IFU_RST) or is literal-only ([3-1:0] on
+                        // localparam ADD) — rp32_r5p_mouse. A VAR/NET typespec
+                        // folds all of these.
                         bool bareParamInParamTs = false;
-                        if (declSymbol.kind == SymbolKind::Parameter && bsyn &&
-                            bsyn->kind == syntax::SyntaxKind::IdentifierName &&
-                            currentScope) {
-                            ASTContext bctx(*currentScope, LookupLocation::max);
-                            auto& be = Expression::bind(*bsyn, bctx);
-                            if (!be.bad() &&
-                                stripImplicitConv(be).kind ==
-                                    ExpressionKind::NamedValue &&
-                                stripImplicitConv(be)
-                                        .as<NamedValueExpression>()
-                                        .symbol.kind == SymbolKind::Parameter)
+                        if (declSymbol.kind == SymbolKind::Parameter && bsyn) {
+                            if (syntax::BinaryExpressionSyntax::isKind(
+                                    bsyn->kind))
                                 bareParamInParamTs = true;
+                            else if (bsyn->kind ==
+                                         syntax::SyntaxKind::IdentifierName &&
+                                     currentScope) {
+                                ASTContext bctx(*currentScope,
+                                                LookupLocation::max);
+                                auto& be = Expression::bind(*bsyn, bctx);
+                                if (!be.bad() &&
+                                    stripImplicitConv(be).kind ==
+                                        ExpressionKind::NamedValue &&
+                                    stripImplicitConv(be)
+                                            .as<NamedValueExpression>()
+                                            .symbol.kind ==
+                                        SymbolKind::Parameter)
+                                    bareParamInParamTs = true;
+                            }
                         }
-                        // A NON-TOP def port dim bound referencing an
-                        // OVERRIDABLE module parameter (X-1 on parameter int X)
-                        // stays symbolic: unresolved in the child def view.
+                        // A NON-TOP def port dim bound stays symbolic when
+                        // the def is instantiated WITH a #(...) override
+                        // (its module view compiles generically): every
+                        // non-literal bound, literal ops ([2-1:0] tcb_siz)
+                        // and overridable-param refs (X-1, POSOPPIS/
+                        // ReplicationPassedToInstance) included. A def whose
+                        // instances pass NO overrides folds those, keeping
+                        // only LOCALPARAM refs symbolic (XLEN-1 on tcb_adr —
+                        // rp32_r5p_mouse_soc_simple_top). Detected off the
+                        // instantiation SYNTAX (overriddenTextDefs):
+                        // isOverriddenParam misses cloned/canonical bodies.
                         bool defModuleParamDim = false;
                         if (defPortDim && bsyn && currentScope) {
-                            ASTContext bctx(*currentScope, LookupLocation::max);
-                            auto& be = Expression::bind(*bsyn, bctx);
-                            if (!be.bad())
-                                be.visit(makeVisitor(
-                                    [&](auto& v, const NamedValueExpression& nv) {
-                                        if (nv.symbol.kind ==
-                                                SymbolKind::Parameter &&
-                                            !nv.symbol.as<ParameterSymbol>()
-                                                 .isLocalParam())
-                                            defModuleParamDim = true;
-                                        v.visitDefault(nv);
-                                    }));
+                            bool defOvText9 = false;
+                            for (auto sc9 = declSymbol.getParentScope(); sc9;
+                                 sc9 = sc9->asSymbol().getParentScope())
+                                if (sc9->asSymbol().kind ==
+                                    SymbolKind::InstanceBody) {
+                                    defOvText9 = overriddenTextDefs.count(
+                                                     &sc9->asSymbol()
+                                                          .as<InstanceBodySymbol>()
+                                                          .getDefinition()) > 0;
+                                    break;
+                                }
+                            if (defOvText9 &&
+                                bsyn->kind !=
+                                    syntax::SyntaxKind::IntegerLiteralExpression)
+                                defModuleParamDim = true;
+                            if (!defModuleParamDim) {
+                                ASTContext bctx(*currentScope,
+                                                LookupLocation::max);
+                                auto& be = Expression::bind(*bsyn, bctx);
+                                if (!be.bad())
+                                    be.visit(makeVisitor(
+                                        [&](auto& v,
+                                            const NamedValueExpression& nv) {
+                                            if (nv.symbol.kind ==
+                                                    SymbolKind::Parameter &&
+                                                nv.symbol.as<ParameterSymbol>()
+                                                    .isLocalParam())
+                                                defModuleParamDim = true;
+                                            v.visitDefault(nv);
+                                        }));
+                            }
                         }
                         // A MODULE signal/net packed range bound that reaches
                         // an INTERFACE member THROUGH a modport/interface port
@@ -2330,10 +2369,67 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             bool pkgEnum9 =
                 refFullName.find("::") != std::string::npos &&
                 !(inPkgTypedefEmit && !pkgTopEmit);
+            // A $bits(...)-based bound INVERTS the fold assignment: the DEF
+            // package listing folds (INT anchored at the $bits span) while
+            // the elaborated view keeps the sys call symbolic (jeras_union
+            // fn3_alu_et/fn3_bru_et [$bits(fn3_t)-1:0]).
+            auto hasSysCall9 = [](const syntax::ExpressionSyntax* b9) {
+                if (!b9)
+                    return false;
+                bool found9 = false;
+                std::function<void(const syntax::SyntaxNode&)> scan9 =
+                    [&](const syntax::SyntaxNode& sn9) {
+                        if (found9)
+                            return;
+                        if (sn9.kind == syntax::SyntaxKind::SystemName) {
+                            found9 = true;
+                            return;
+                        }
+                        for (size_t ci9 = 0; ci9 < sn9.getChildCount(); ci9++)
+                            if (auto* cn9 = sn9.childNode(ci9))
+                                scan9(*cn9);
+                    };
+                scan9(*b9);
+                return found9;
+            };
             auto enumBound = [&](const syntax::ExpressionSyntax* bsyn,
                                  int64_t val) -> UHDM::expr* {
                 if (bsyn && bsyn->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
-                    if (pkgEnum9) {
+                    // The pkg fold: a bound REFERENCING a name folds in the
+                    // elab/top view and module clones (MUSI Width-1 -> INT:3);
+                    // a literal-only op ([2-1:0], riscv_priv_pkg) folds in
+                    // the DEF listing but stays SYMBOLIC in the TOP view —
+                    // Surelog's elab substitution never revisits a
+                    // param-free expression. A sys-call bound ($clog2) folds
+                    // in the def listing AND module clones; only the TOP-pkg
+                    // view keeps it symbolic (jeras_union).
+                    bool refBound9 = false;
+                    {
+                        std::function<void(const syntax::SyntaxNode&)> scanR9 =
+                            [&](const syntax::SyntaxNode& sn9) {
+                                if (refBound9)
+                                    return;
+                                if (sn9.kind ==
+                                        syntax::SyntaxKind::IdentifierName ||
+                                    sn9.kind == syntax::SyntaxKind::ScopedName)
+                                    refBound9 = true;
+                                for (size_t ci9 = 0;
+                                     ci9 < sn9.getChildCount(); ci9++)
+                                    if (auto* cn9 = sn9.childNode(ci9))
+                                        scanR9(*cn9);
+                            };
+                        scanR9(*bsyn);
+                    }
+                    bool pkgNamed9 =
+                        refFullName.find("::") != std::string::npos;
+                    bool fold9;
+                    if (pkgNamed9 && hasSysCall9(bsyn))
+                        fold9 = !pkgTopEmit;
+                    else if (refBound9)
+                        fold9 = pkgEnum9;
+                    else
+                        fold9 = pkgNamed9 && !pkgTopEmit;
+                    if (fold9) {
                         auto* c9 = s.MakeConstant();
                         std::string d9 = std::to_string(val);
                         c9->VpiDecompile(d9);
@@ -2431,13 +2527,15 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                                                    (int32_t)ws9);
                         }
                     }
-                    ec->VpiDecompile(raw);
+                    // Surelog strips digit-group underscores (5'b00_000 ->
+                    // 5'b00000) with NO end-loc shrink (jeras_union).
+                    ec->VpiDecompile(stripSep(raw));
                     ec->VpiSize((int32_t)lit.type->getBitWidth());
                     size_t basePos = tick + 1;
                     if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))
                         basePos++;
                     char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
-                    std::string digits = raw.substr(basePos + 1);
+                    std::string digits = stripSep(raw.substr(basePos + 1));
                     switch (base) {
                         case 'b':
                             value = "BIN:" + digits;
@@ -2478,16 +2576,84 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                                          ExpressionKind::NamedValue;
             if (nonLitInit && !refInit && baseSyn) {
                 int w = (int)et.baseType.getBitWidth();
-                auto& ivv = cv.integer();
+                // Surelog's enum-const VALUE evaluation drops the RHS of a
+                // bitwise-or: {RV_32E, RV_M | RV_C} encodes as
+                // {RV_32E, RV_M} (riscv_isa_pkg isa_spec_et; the correctly
+                // reduced number appears only in clone decompiles).
+                // Reproduce with `a | b` -> `a` when the init contains one.
+                SVInt quirkIv = cv.integer();
+                {
+                    auto& init9 = stripImplicitConv(*evInit);
+                    bool hasOr9 = false;
+                    init9.visit(makeVisitor(
+                        [&](auto& v9, const BinaryExpression& b9) {
+                            if (b9.op == BinaryOperator::BinaryOr)
+                                hasOr9 = true;
+                            v9.visitDefault(b9);
+                        }));
+                    std::function<std::optional<SVInt>(const Expression&)>
+                        quirkVal = [&](const Expression& e9)
+                        -> std::optional<SVInt> {
+                        auto& s9 = stripImplicitConv(e9);
+                        if (s9.kind == ExpressionKind::BinaryOp &&
+                            s9.as<BinaryExpression>().op ==
+                                BinaryOperator::BinaryOr)
+                            return quirkVal(s9.as<BinaryExpression>().left());
+                        if (s9.kind == ExpressionKind::Concatenation) {
+                            SmallVector<SVInt> parts9;
+                            for (auto* op9 :
+                                 s9.as<ConcatenationExpression>().operands()) {
+                                auto p9 = quirkVal(*op9);
+                                if (!p9)
+                                    return std::nullopt;
+                                parts9.push_back(*p9);
+                            }
+                            return SVInt::concat(parts9);
+                        }
+                        ASTContext ectx9(et, LookupLocation::max);
+                        auto lv9 = ectx9.tryEval(s9);
+                        if (lv9.isInteger() && !lv9.integer().hasUnknown())
+                            return lv9.integer();
+                        return std::nullopt;
+                    };
+                    if (hasOr9)
+                        if (auto qv9 = quirkVal(init9);
+                            qv9 && (int)qv9->getBitWidth() == w)
+                            quirkIv = *qv9;
+                }
+                auto& ivv = quirkIv;
                 std::string bits((size_t)w, '0');
                 for (int bi = 0; bi < w; bi++)
                     if (ivv[bi].value == 1)
                         bits[(size_t)(w - 1 - bi)] = '1';
                 ec->VpiValue("BIN:" + bits);
                 std::string raw = rawText(stripImplicitConv(*evInit).sourceRange);
-                raw.erase(std::remove_if(raw.begin(), raw.end(),
-                                         [](unsigned char ch) { return std::isspace(ch); }),
-                          raw.end());
+                // Whitespace strips only ADJACENT to commas/braces; interior
+                // operator spacing survives ({RV_32E , RV_M | RV_C} ->
+                // {RV_32E,RV_M | RV_C}) — Surelog.
+                {
+                    std::string comp9;
+                    comp9.reserve(raw.size());
+                    for (size_t i9 = 0; i9 < raw.size(); i9++) {
+                        if (std::isspace((unsigned char)raw[i9])) {
+                            size_t j9 = i9;
+                            while (j9 < raw.size() &&
+                                   std::isspace((unsigned char)raw[j9]))
+                                j9++;
+                            char pv9 = comp9.empty() ? '\0' : comp9.back();
+                            char nx9 = j9 < raw.size() ? raw[j9] : '\0';
+                            bool drop9 = pv9 == ',' || pv9 == '{' ||
+                                         pv9 == '}' || nx9 == ',' ||
+                                         nx9 == '{' || nx9 == '}';
+                            if (!drop9)
+                                comp9 += ' ';
+                            i9 = j9 - 1;
+                        }
+                        else
+                            comp9 += raw[i9];
+                    }
+                    raw = comp9;
+                }
                 // The TOP-view package const leaves the decompile UNSET.
                 if (!pkgTopEmit)
                     ec->VpiDecompile(raw);
@@ -2896,6 +3062,20 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 pat9->Elem_typespec(ert9);
                 fts = pat9;
             }
+            // A member typed by an ALIAS-OF-TYPEDEF (imm_l_t imm; where
+            // typedef imm_i_t imm_l_t) SHARES the package's alias object
+            // directly — no member clone (jeras_union ctl_ldu_t.imm).
+            if (!fts && fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                fm.getDeclaredType()
+                        ->getType()
+                        .as<TypeAliasType>()
+                        .targetType.getType()
+                        .kind == SymbolKind::TypeAlias) {
+                if (auto titA = typedefTs.find(&fm.getDeclaredType()->getType());
+                    titA != typedefTs.end() && !titA->second->VpiName().empty())
+                    fts = titA->second;
+            }
             // A DIRECT vector-typedef member (reg_addr_t rs1;): Surelog gives
             // the member its own NAMED alias clone (parent = the member,
             // Typedef_alias -> the shared typedef ts, own range copy) instead
@@ -2925,7 +3105,18 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         std::string(fm.name) + memberSep +
                         std::string(dta->name));
                     artD->VpiParent(clD);
-                    artD->Actual_typespec(tita->second);
+                    // MODULE-context clones alias the FOLDED twin; pkg
+                    // def/top builds keep the shared symbolic ts
+                    // (jeras_union imm_*).
+                    // The TOP-pkg build's and module-context clones FOLD
+                    // (alias -> the folded pkg twin); the DEF-pkg build keeps
+                    // the symbolic clone -> shared ts (jeras_union imm_*).
+                    bool foldD = !inPkgTypedefEmit;
+                    UHDM::typespec* twD =
+                        foldD ? pkgVectorFoldTwin(amt, tita->second) : nullptr;
+                    artD->Actual_typespec(twD ? twD : tita->second);
+                    if (twD)
+                        foldVectorTsBounds(clD, amt.getCanonicalType());
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
                     // A typedef-definition-build clone carries vpiInstance =
@@ -3393,6 +3584,20 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 pat9->Elem_typespec(ert9);
                 fts = pat9;
             }
+            // A member typed by an ALIAS-OF-TYPEDEF (imm_l_t imm; where
+            // typedef imm_i_t imm_l_t) SHARES the package's alias object
+            // directly — no member clone (jeras_union ctl_ldu_t.imm).
+            if (!fts && fm.getDeclaredType() &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
+                fm.getDeclaredType()
+                        ->getType()
+                        .as<TypeAliasType>()
+                        .targetType.getType()
+                        .kind == SymbolKind::TypeAlias) {
+                if (auto titA = typedefTs.find(&fm.getDeclaredType()->getType());
+                    titA != typedefTs.end() && !titA->second->VpiName().empty())
+                    fts = titA->second;
+            }
             // A DIRECT vector-typedef member (reg_addr_t rs1;): Surelog gives
             // the member its own NAMED alias clone (parent = the member,
             // Typedef_alias -> the shared typedef ts, own range copy) instead
@@ -3422,7 +3627,18 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         std::string(fm.name) + memberSep +
                         std::string(dta->name));
                     artD->VpiParent(clD);
-                    artD->Actual_typespec(tita->second);
+                    // MODULE-context clones alias the FOLDED twin; pkg
+                    // def/top builds keep the shared symbolic ts
+                    // (jeras_union imm_*).
+                    // The TOP-pkg build's and module-context clones FOLD
+                    // (alias -> the folded pkg twin); the DEF-pkg build keeps
+                    // the symbolic clone -> shared ts (jeras_union imm_*).
+                    bool foldD = !inPkgTypedefEmit;
+                    UHDM::typespec* twD =
+                        foldD ? pkgVectorFoldTwin(amt, tita->second) : nullptr;
+                    artD->Actual_typespec(twD ? twD : tita->second);
+                    if (twD)
+                        foldVectorTsBounds(clD, amt.getCanonicalType());
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
                         ((UHDM::logic_typespec*)clD)->Typedef_alias(artD);
                     // A typedef-definition-build clone carries vpiInstance =
@@ -4290,7 +4506,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // value in the written base.
             auto* c = s.MakeConstant();
             std::string raw = rawText(syn.sourceRange());
-            c->VpiDecompile(raw);
+            c->VpiDecompile(stripSep(raw));
             auto tick = raw.find('\'');
             int32_t sz = 0;
             if (tick != std::string::npos && tick > 0)

@@ -6,6 +6,7 @@
 //------------------------------------------------------------------------------
 #pragma once
 
+#include <algorithm>
 #include <functional>
 #include <map>
 #include <set>
@@ -33,6 +34,7 @@ class Scope;
 class TimingControl;
 class SubroutineSymbol;
 class EnumType;
+class GenerateBlockSymbol;
 } // namespace slang::ast
 
 namespace slang {
@@ -40,6 +42,8 @@ class SourceManager;
 class SourceRange;
 class SourceLocation;
 } // namespace slang
+
+#include "slang/text/SourceLocation.h"
 
 namespace slang::syntax {
 class SyntaxNode;
@@ -287,6 +291,11 @@ private:
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);
+    // Uninstantiated else-less gen-if that Surelog's own evaluator TAKES
+    // (typedef_param): its errored gen scope with $error placeholder args.
+    UHDM::gen_scope_array* emitSurelogMisevalGenIf(
+        const slang::ast::GenerateBlockSymbol& blk, const std::string& name,
+        const std::string& prefix, UHDM::instance* m);
     // Claim an unpacked-array param element-select's fold constant at the
     // source pattern LEAF span + re-parent it at the cont_assign.
     bool claimUnpackedParamLeaf(const slang::ast::Expression& sel,
@@ -358,8 +367,30 @@ private:
     // Defs with >1 DISTINCT #(...) override raw text (pre-elab textual
     // uniquification, realexpr).
     std::set<const slang::ast::DefinitionSymbol*> textMultiParamDefs;
+    // Defs instantiated with ANY #(...) override text. Syntax-based, so it
+    // stays reliable for uniquified/cloned bodies where isOverriddenParam
+    // misses the override. Gates the non-top def PORT-dim symbolic rule.
+    std::set<const slang::ast::DefinitionSymbol*> overriddenTextDefs;
     void computeParamMultiplicity();
     bool isMultiParamDef(const slang::ast::Scope& body) const;
+    // COMPILE-order comparator for cross-file sorts. Raw SourceLocation
+    // compare orders by BufferID, but slang loads source files with a thread
+    // pool, so buffer NUMBERING follows load-completion order and varies run
+    // to run. Compile order is recovered from the compilation units: units in
+    // insertion (command-line) order, members in parse order; the first
+    // top-level member seen in a buffer fixes that buffer's rank. Populated
+    // lazily by srcOrderLess().
+    mutable std::map<slang::BufferID, size_t> bufRank;
+    bool srcOrderLess(slang::SourceLocation a, slang::SourceLocation b) const;
+    // Surelog never keeps digit separators in a constant's value or in a
+    // based-literal decompile (32'h8000_0000 -> HEX:80000000, decompile
+    // 32'h80000000; source SPANS keep the underscore width). Applied wherever
+    // RAW source digits flow into VpiValue/VpiDecompile; folded paths print
+    // digits and cannot carry separators.
+    static std::string stripSep(std::string t) {
+        t.erase(std::remove(t.begin(), t.end(), '_'), t.end());
+        return t;
+    }
     // Surelog's writer finishes an instance (params, ports, nets, cont
     // assigns) BEFORE descending into its child instances, so a child's elab
     // param typespecs land after the parent's deferred body typespecs. The
@@ -668,6 +699,11 @@ private:
     // default-instantiated body while the iface vars' typespecs are built.
     const slang::ast::Scope* ifaceDefaultScope = nullptr;
     std::map<const void*, const slang::ast::InstanceSymbol*> ifaceDefaultInst;
+    // Interface-def function-body signal refs awaiting their ELAB-view
+    // variable binding (Surelog binds the shared def function at elab).
+    std::map<const slang::ast::DefinitionSymbol*,
+             std::vector<std::pair<const slang::ast::Symbol*, UHDM::ref_obj*>>>
+        ifaceFnRefFixups;
     // Elab child-instance packed-range bounds that reach an interface param
     // through a modport/interface port fold at the interface's DEFAULT param
     // value (the AllModules width), NOT the connected override — Surelog.
@@ -774,7 +810,10 @@ private:
     std::vector<PendingElabPortTs> pendingElabPortTs;
     void drainElabPortTs(const slang::ast::DefinitionSymbol* def);
     bool defPortTsInterchangeable(const slang::ast::DefinitionSymbol& def);
-    bool rangeRefsOverriddenParam(const slang::ast::Symbol& sym);
+    // anyParam widens the trigger to ANY parameter reference (a NON-TOP def
+    // view keeps every param-ref dim symbolic, localparams included).
+    bool rangeRefsOverriddenParam(const slang::ast::Symbol& sym,
+                                  bool anyParam = false);
     // True when the definition is instantiated as an ARRAY (arr[N] ())
     // anywhere in the design; cached per definition.
     bool defInstantiatedAsArray(const slang::ast::DefinitionSymbol& def);
@@ -984,6 +1023,20 @@ private:
     std::map<std::pair<const slang::ast::Symbol*, std::string>,
              UHDM::enum_typespec*>
         transitiveTdClone;
+    // Folded twins of pkg VECTOR typedefs whose shared object kept symbolic
+    // bounds (jeras_union imm_*), one per typedef symbol.
+    std::map<std::pair<const slang::ast::Symbol*, std::string>,
+             UHDM::typespec*>
+        vectorTdFoldClone;
+    UHDM::typespec* pkgVectorFoldTwin(const slang::ast::Symbol& taSym,
+                                      UHDM::typespec* sharedTs);
+    void foldVectorTsBounds(UHDM::typespec* t, const slang::ast::Type& canon);
+    // True while building a TOP-pkg-view struct/union typedef ts (its member
+    // vector clones fold — jeras_union imm_*).
+    bool inPkgTopStructBuild = false;
+    // Per-function symbolic pkg-named twin backing a same-scope pkg fn's
+    // typedef'd return clone chain (jeras_union imm_i_f).
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> pkgSameScopeRetTwin;
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).
     std::map<const void*, UHDM::typespec*> pkgTopTypedefTs;
