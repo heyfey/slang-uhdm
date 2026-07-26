@@ -185,6 +185,136 @@ std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     return sm->getFullPath(loc.buffer()).string();
 }
 
+// ---------------------------------------------------------------------------
+// Include file info
+// ---------------------------------------------------------------------------
+// Surelog hangs one include_file_info off the design for every ACTIVE
+// `include directive it preprocessed -- the Context::INCLUDE + Action::PUSH
+// records of each command-line file's root PreprocessFile, walked in
+// preprocessing pre-order (CompileDesign.cpp "Compile Include file info" +
+// UhdmWriter.cpp `d->Include_file_infos`).  Per record:
+//
+//   VpiFile         the ROOT source file of the include chain (the records all
+//                   live on the root PreprocessFile, so a nested include still
+//                   reports the command-line file)
+//   VpiIncludedFile the resolved path of the included file
+//   line/col        the filename token's span, EXCEPT that the line is
+//                   Surelog's FLATTENED preprocessor-output line: the
+//                   directive lines of the enclosing chain accumulate, and
+//                   every earlier include in the same file shifts the line by
+//                   the number of lines that include spliced in.
+//
+// slang gives us the same events from `SyntaxTree::getIncludeDirectives()`:
+// recorded per directive, in pre-order, skipped inside a false `ifdef branch
+// (parseBranchDirective consumes raw tokens), and with a FRESH buffer id per
+// inclusion so the include tree is recoverable through the includer buffer.
+// One asymmetry: when slang's header-guard detection suppresses a re-inclusion
+// it records the directive with NO buffer.  Surelog still re-reads the file and
+// records the event (its guarded body just appends nothing), so we keep those,
+// resolving their path from the earlier inclusion that did open the file.
+void UhdmExporter::emitIncludeFileInfos() {
+    struct Ev {
+        slang::BufferID inBuf;   // buffer holding the directive
+        slang::BufferID incBuf;  // buffer of the included file, if opened
+        uint32_t line = 0, col = 0, endLine = 0, endCol = 0;
+        std::string path;    // resolved path of the included file
+        uint32_t flat = 0;   // output lines this inclusion splices in
+        int32_t parent = -1; // enclosing inclusion, -1 at a root file
+    };
+    std::vector<Ev> evs;
+    std::map<uint32_t, size_t> evOfIncluded; // included buffer id -> event
+    std::map<std::string, std::string> resolved; // as written -> full path
+    for (auto tree : comp.getSyntaxTrees()) {
+        for (auto& im : tree->getIncludeDirectives()) {
+            if (!im.syntax)
+                continue;
+            auto r = im.syntax->fileName.range();
+            if (r.start() == SourceLocation::NoLocation)
+                continue;
+            Ev e;
+            e.inBuf = sm->getFullyExpandedLoc(r.start()).buffer();
+            if (im.buffer.id) {
+                e.incBuf = im.buffer.id;
+                e.path = sm->getFullPath(im.buffer.id).string();
+                resolved.emplace(std::string(im.path), e.path);
+            }
+            else {
+                // Guard-suppressed (or unopenable) include: no buffer of its
+                // own, so reuse the path this spelling resolved to before.
+                auto it = resolved.find(std::string(im.path));
+                if (it == resolved.end())
+                    continue;
+                e.path = it->second;
+            }
+            fileLineCol(r.start(), e.line, e.col);
+            if (r.end() != SourceLocation::NoLocation)
+                fileLineCol(r.end(), e.endLine, e.endCol);
+            else {
+                e.endLine = e.line;
+                e.endCol = e.col;
+            }
+            if (e.incBuf)
+                evOfIncluded.emplace(e.incBuf.getId(), evs.size());
+            evs.push_back(std::move(e));
+        }
+    }
+    if (evs.empty())
+        return;
+    // The enclosing inclusion is the event that opened the buffer this
+    // directive sits in; pre-order guarantees it comes first, which also keeps
+    // the parent walk below finite.
+    for (size_t i = 0; i < evs.size(); i++) {
+        auto it = evOfIncluded.find(evs[i].inBuf.getId());
+        if (it != evOfIncluded.end() && it->second < i)
+            evs[i].parent = (int32_t)it->second;
+    }
+    // How many output lines each inclusion splices into its includer: the
+    // included file's own line count plus whatever ITS includes splice in.  An
+    // inclusion slang suppressed (header guard already satisfied) splices
+    // nothing -- Surelog re-reads the file but its guarded body appends
+    // nothing.  Children always follow their parent in pre-order, so one
+    // reverse pass accumulates.
+    for (size_t i = evs.size(); i-- > 0;) {
+        auto& e = evs[i];
+        if (e.incBuf) {
+            auto text = sm->getSourceText(e.incBuf);
+            e.flat += (uint32_t)std::count(text.begin(), text.end(), '\n');
+        }
+        if (e.parent >= 0)
+            evs[(size_t)e.parent].flat += e.flat;
+    }
+    // Line within the includer's own output = raw line plus the splices of the
+    // earlier includes in that same buffer; the chain then adds each ancestor's
+    // own such line minus one (the directive line the content replaces).
+    std::map<uint32_t, uint32_t> shift; // includer buffer id -> lines spliced so far
+    std::vector<uint32_t> rel(evs.size(), 0);
+    for (size_t i = 0; i < evs.size(); i++) {
+        auto& e = evs[i];
+        rel[i] = e.line + shift[e.inBuf.getId()];
+        shift[e.inBuf.getId()] += e.flat;
+    }
+    auto* infos = s.MakeInclude_file_infoVec();
+    for (size_t i = 0; i < evs.size(); i++) {
+        auto& e = evs[i];
+        uint32_t line = rel[i];
+        auto* rootBuf = &e.inBuf;
+        for (int32_t p = e.parent; p >= 0; p = evs[(size_t)p].parent) {
+            line += rel[(size_t)p] - 1;
+            rootBuf = &evs[(size_t)p].inBuf;
+        }
+        auto* ifi = s.MakeInclude_file_info();
+        ifi->VpiParent(d);
+        ifi->VpiFile(sm->getFullPath(*rootBuf).string());
+        ifi->VpiIncludedFile(e.path);
+        ifi->VpiLineNo(line);
+        ifi->VpiColumnNo(e.col);
+        ifi->VpiEndLineNo(e.endLine > e.line ? line + (e.endLine - e.line) : line);
+        ifi->VpiEndColumnNo(e.endCol);
+        infos->push_back(ifi);
+    }
+    d->Include_file_infos(infos);
+}
+
 // A class definition (file-level or module-local): properties as ::-scoped
 // automatic vars (typespecs deferred to the write phase), methods via
 // emitTaskFuncs in class scope. File-level classes display their work@ name;
@@ -199,25 +329,87 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         cd->VpiFullName(fullName);
     cd->VpiParent(parent);
     cd->VpiFile(fullFilePath(cls.location));
-    if (auto syn = cls.getSyntax())
-        setLoc(cd, syn->sourceRange());
+    if (auto syn = cls.getSyntax()) {
+        // Surelog anchors a class_defn at the `class` KEYWORD (its
+        // sl_collect(modId, paCLASS) start node), so a `virtual class` starts
+        // past the `virtual`.
+        auto r = syn->sourceRange();
+        if (auto* cds = syn->as_if<syntax::ClassDeclarationSyntax>())
+            if (cds->classKeyword.range().start() != SourceLocation::NoLocation)
+                r = SourceRange(cds->classKeyword.range().start(), r.end());
+        setLoc(cd, r);
+    }
     auto* vars = s.MakeVariablesVec();
     for (auto& pm : cls.members()) {
         if (pm.kind != SymbolKind::ClassProperty)
             continue;
         auto& cp = pm.as<ClassPropertySymbol>();
         auto& ct = cp.getType().getCanonicalType();
-        if (!ct.isIntegral())
+        std::string pfn = fullName + "::" + std::string(cp.name);
+        // A DYNAMIC-array / QUEUE / ASSOC property is an array_var carrying a
+        // bare array_typespec, with the ELEMENT variable under vpiReg.
+        if (ct.kind == SymbolKind::DynamicArrayType ||
+            ct.kind == SymbolKind::QueueType ||
+            ct.kind == SymbolKind::AssociativeArrayType) {
+            const Type* et = nullptr;
+            int32_t akind = 2;
+            if (ct.kind == SymbolKind::DynamicArrayType)
+                et = &ct.as<DynamicArrayType>().elementType;
+            else if (ct.kind == SymbolKind::QueueType) {
+                et = &ct.as<QueueType>().elementType;
+                akind = 4;
+            }
+            else {
+                et = &ct.as<AssociativeArrayType>().elementType;
+                akind = 3;
+            }
+            auto* reg = classElemVar(*et);
+            if (!reg) {
+                noteUnsupported("class array property element");
+                continue;
+            }
+            auto* av = s.MakeArray_var();
+            av->VpiName(cp.name);
+            av->VpiFullName(pfn);
+            av->VpiParent(cd);
+            setLoc(av, nameSpan(cp.location, cp.name));
+            av->VpiSize(1);
+            av->VpiAutomatic(true);
+            av->VpiRandType(1);
+            av->VpiVisibility(1);
+            av->VpiArrayType(akind);
+            auto* ats = s.MakeArray_typespec();
+            auto* art = s.MakeRef_typespec();
+            art->VpiParent(av);
+            art->Actual_typespec(ats);
+            av->Typespec(art);
+            reg->VpiParent(av);
+            reg->VpiFullName(pfn);
+            setLoc(reg, nameSpan(cp.location, cp.name));
+            auto* rvars = s.MakeVariablesVec();
+            rvars->push_back(reg);
+            av->Variables(rvars);
+            vars->push_back(av);
             continue;
+        }
         // A predefined integer field (int/byte/...) is the matching typed
         // var (int_var + vpiSigned), not a bare bit_var; anonymous bit/logic
         // vectors keep bit/logic_var.
         UHDM::variables* v = nullptr;
-        if (ct.kind == SymbolKind::PredefinedIntegerType)
+        if (ct.isIntegral()) {
+            if (ct.kind == SymbolKind::PredefinedIntegerType)
+                v = makeVar(cp, /*portBacked=*/false);
+            if (!v)
+                v = ct.isFourState() ? (UHDM::variables*)s.MakeLogic_var()
+                                     : (UHDM::variables*)s.MakeBit_var();
+        }
+        else
             v = makeVar(cp, /*portBacked=*/false);
-        if (!v)
-            v = ct.isFourState() ? (UHDM::variables*)s.MakeLogic_var()
-                                 : (UHDM::variables*)s.MakeBit_var();
+        if (!v) {
+            noteUnsupported("class property type: " +
+                            std::string(toString(ct.kind)));
+            continue;
+        }
         v->VpiName(cp.name);
         v->VpiFullName(fullName + "::" + std::string(cp.name));
         v->VpiParent(cd);
@@ -238,10 +430,331 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     classDefnMap[&cls] = cd;
     if (builtins)
         emitClassTypedefs(cls, cd);
+    // `virtual class` / `pure virtual class`.
+    if (cls.isAbstract)
+        cd->VpiVirtual(true);
+    emitClassParameters(cls, cd, fullName);
     currentClassDefn = cd;
     emitTaskFuncs(cls, cd, fullName + "::", nullptr, false);
     currentClassDefn = nullptr;
+    // NESTED classes are their own class_defns parented at the enclosing one
+    // and listed in its vpiInternalScope (Surelog's
+    // CompileClass::compile_class_declaration_ pushes them onto Scopes()).
+    // They are NOT re-listed in the owning package/module class list.
+    {
+        auto* scopes = s.MakeScopeVec();
+        for (auto& nm : cls.members()) {
+            const ClassType* nested = nullptr;
+            if (nm.kind == SymbolKind::ClassType)
+                nested = &nm.as<ClassType>();
+            else if (nm.kind == SymbolKind::GenericClassDef) {
+                if (auto* dsp = nm.as<GenericClassDefSymbol>().getDefaultSpecialization(cls);
+                    dsp && dsp->kind == SymbolKind::ClassType)
+                    nested = &dsp->as<ClassType>();
+            }
+            if (!nested)
+                continue;
+            scopes->push_back(emitClassDefn(*nested, std::string(nm.name),
+                                            fullName + "::" + std::string(nm.name), cd));
+        }
+        if (!scopes->empty())
+            cd->Scopes(scopes);
+    }
+    // `extends` needs every class_defn in the design to exist first.
+    if (cls.getBaseClass())
+        pendingExtends.push_back({cd, &cls});
     return cd;
+}
+
+UHDM::typespec* UhdmExporter::sharedAliasTs(const Type& t) {
+    if (t.kind != SymbolKind::TypeAlias)
+        return nullptr;
+    if (auto it = pkgTopTypedefTs.find((const void*)&t); it != pkgTopTypedefTs.end())
+        return it->second;
+    if (auto it2 = typedefTs.find(&t); it2 != typedefTs.end())
+        return it2->second;
+    return nullptr;
+}
+
+UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
+    auto& ec = elemType.getCanonicalType();
+    UHDM::variables* v = nullptr;
+    UHDM::typespec* ts = nullptr;
+    if (ec.kind == SymbolKind::ClassType) {
+        v = s.MakeClass_var();
+        auto* cts = s.MakeClass_typespec();
+        cts->VpiName(ec.name);
+        pendingClassTsLink.push_back({cts, &ec});
+        ts = cts;
+    }
+    else if (ec.isStruct()) {
+        v = s.MakeStruct_var();
+        ts = sharedAliasTs(elemType);
+    }
+    else if (ec.isUnpackedUnion() || ec.isPackedUnion()) {
+        v = s.MakeUnion_var();
+        ts = sharedAliasTs(elemType);
+    }
+    else if (ec.kind == SymbolKind::EnumType) {
+        v = s.MakeEnum_var();
+        ts = sharedAliasTs(elemType);
+    }
+    else if (ec.kind == SymbolKind::StringType)
+        v = s.MakeString_var();
+    else if (ec.kind == SymbolKind::PredefinedIntegerType ||
+             ec.kind == SymbolKind::ScalarType || ec.kind == SymbolKind::PackedArrayType)
+        v = ec.isFourState() ? (UHDM::variables*)s.MakeLogic_var()
+                             : (UHDM::variables*)s.MakeBit_var();
+    if (!v)
+        return nullptr;
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiParent(v);
+    if (ts)
+        rt->Actual_typespec(ts);
+    v->Typespec(rt);
+    return v;
+}
+
+// Class-scope parameters. Surelog compiles them with Reduce::No, so only a
+// LITERAL initializer becomes a value: such a parameter carries the folded
+// value plus a synthesized int_typespec spanning its whole DECLARATION, shared
+// by every declarator of that declaration and by their RHS constants. A
+// parameter whose RHS is an expression (5 * p1) keeps neither. The param_assign
+// RHS is built from SYNTAX (unfolded), matching Surelog's un-reduced model.
+void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* cd,
+                                       const std::string& fullName) {
+    auto* params = s.MakeAnyVec();
+    auto* pas = s.MakeParam_assignVec();
+    // The `parameter <...>` declaration node a declarator belongs to (its span
+    // excludes the trailing `;`, which the class-property wrapper would add).
+    auto declNodeOf = [](const Symbol& sym) -> const syntax::SyntaxNode* {
+        for (auto p = sym.getSyntax(); p; p = p->parent)
+            if (p->kind == syntax::SyntaxKind::ParameterDeclaration ||
+                p->kind == syntax::SyntaxKind::TypeParameterDeclaration)
+                return p;
+        return nullptr;
+    };
+    for (auto& mem : cls.members()) {
+        if (mem.kind == SymbolKind::TypeParameter) {
+            auto& tps = mem.as<TypeParameterSymbol>();
+            auto* tp = s.MakeType_parameter();
+            tp->VpiName(tps.name);
+            tp->VpiFullName(fullName + "::" + std::string(tps.name));
+            tp->VpiParent(cd);
+            setLoc(tp, nameSpan(tps.location, tps.name));
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(tp);
+            auto& dt = tps.targetType.getType();
+            auto* dsyn = tps.targetType.getTypeSyntax();
+            UHDM::typespec* its = nullptr;
+            if (auto& dct = dt.getCanonicalType(); dct.kind == SymbolKind::ClassType) {
+                auto* cts = s.MakeClass_typespec();
+                cts->VpiName(dsyn ? std::string(rawText(dsyn->sourceRange()))
+                                  : std::string(dct.name));
+                cts->VpiParent(tp);
+                if (dsyn)
+                    setLoc(cts, dsyn->sourceRange());
+                pendingClassTsLink.push_back({cts, &dct});
+                its = cts;
+            }
+            else {
+                its = makeTypespec(mem, dsyn);
+                if (its)
+                    its->VpiParent(tp);
+            }
+            rt->Actual_typespec(its);
+            tp->Typespec(rt);
+            params->push_back(tp);
+            continue;
+        }
+        if (mem.kind != SymbolKind::Parameter)
+            continue;
+        auto& ps = mem.as<ParameterSymbol>();
+        auto* pv = s.MakeParameter();
+        pv->VpiName(ps.name);
+        pv->VpiFullName(fullName + "::" + std::string(ps.name));
+        pv->VpiParent(cd);
+        setLoc(pv, nameSpan(ps.location, ps.name));
+        // Class parameters are localparams by LRM, but Surelog reports
+        // vpiLocalParam off the WRITTEN keyword (paLocal_parameter_declaration).
+        if (auto* dn0 = declNodeOf(ps))
+            if (auto* pd0 = dn0->as_if<syntax::ParameterDeclarationBaseSyntax>();
+                pd0 && pd0->keyword.kind == parsing::TokenKind::LocalParamKeyword)
+                pv->VpiLocalParam(true);
+        params->push_back(pv);
+        // RHS from syntax (Surelog does not reduce class parameters).
+        const syntax::ExpressionSyntax* rhsSyn = nullptr;
+        if (auto dsyn = ps.getSyntax())
+            if (auto* dcl = dsyn->as_if<syntax::DeclaratorSyntax>();
+                dcl && dcl->initializer)
+                rhsSyn = dcl->initializer->expr;
+        if (!rhsSyn)
+            continue;
+        auto* pa = s.MakeParam_assign();
+        pa->VpiParent(cd);
+        setLoc(pa, SourceRange(ps.location, rhsSyn->sourceRange().end()));
+        auto* rhs = emitSyntaxExpr(*rhsSyn, pa);
+        if (!rhs) {
+            pas->push_back(pa);
+            pa->Lhs(pv);
+            continue;
+        }
+        pa->Rhs((UHDM::expr*)rhs);
+        pa->Lhs(pv);
+        pas->push_back(pa);
+        // A literal RHS folds: the parameter takes its value, and both the
+        // parameter and the constant share the declaration's int_typespec.
+        if (rhs->UhdmType() != UHDM::uhdmconstant)
+            continue;
+        auto* rc = (UHDM::constant*)rhs;
+        pv->VpiValue(rc->VpiValue());
+        // ONE int_typespec per DECLARATOR (three declarators on one
+        // `parameter` line give three objects), spanning the whole declaration
+        // and shared with that declarator's own fold constant. A SIZED literal
+        // RHS also gives it the literal's packed range.
+        auto* dn = declNodeOf(ps);
+        UHDM::typespec* dts = nullptr;
+        {
+            auto* its = s.MakeInt_typespec();
+            if (dn)
+                setLoc(its, dn->sourceRange());
+            if (rhsSyn->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                std::string raw0(rawText(rhsSyn->sourceRange()));
+                auto tick0 = raw0.find('\'');
+                int32_t sz0 = tick0 != std::string::npos && tick0 > 0
+                                  ? atoi(raw0.substr(0, tick0).c_str())
+                                  : 0;
+                if (sz0 > 0) {
+                    auto mk0 = [&](int64_t v) {
+                        auto* c0 = s.MakeConstant();
+                        c0->VpiValue("INT:" + std::to_string(v));
+                        return c0;
+                    };
+                    auto* rg0 = s.MakeRange();
+                    rg0->VpiParent(its);
+                    rg0->Left_expr(mk0(sz0 - 1));
+                    rg0->Right_expr(mk0(0));
+                    auto* rgv0 = s.MakeRangeVec();
+                    rgv0->push_back(rg0);
+                    its->Ranges(rgv0);
+                }
+            }
+            dts = its;
+        }
+        auto* prt = s.MakeRef_typespec();
+        prt->VpiParent(pv);
+        prt->Actual_typespec(dts);
+        pv->Typespec(prt);
+        auto* crt = s.MakeRef_typespec();
+        crt->VpiParent(rc);
+        crt->Actual_typespec(dts);
+        rc->Typespec(crt);
+    }
+    if (!params->empty())
+        cd->Parameters(params);
+    if (!pas->empty())
+        cd->Param_assigns(pas);
+}
+
+// PACKAGE-scope class definitions: emitted onto the ELABORATED package view
+// only, name-sorted (Surelog's multimap<name, ClassDefinition*>).
+void UhdmExporter::emitPackageClasses(const PackageSymbol& pkg, UHDM::package* up,
+                                      const std::string& prefix) {
+    std::vector<std::pair<std::string, const ClassType*>> pcls;
+    for (auto& mem : pkg.members()) {
+        if (mem.kind == SymbolKind::ClassType)
+            pcls.emplace_back(std::string(mem.name), &mem.as<ClassType>());
+        else if (mem.kind == SymbolKind::GenericClassDef) {
+            if (auto* dsp = mem.as<GenericClassDefSymbol>().getDefaultSpecialization(pkg);
+                dsp && dsp->kind == SymbolKind::ClassType)
+                pcls.emplace_back(std::string(mem.name), &dsp->as<ClassType>());
+        }
+    }
+    if (pcls.empty())
+        return;
+    std::stable_sort(pcls.begin(), pcls.end(),
+                     [](auto& a, auto& b) { return a.first < b.first; });
+    auto* cds = s.MakeClass_defnVec();
+    for (auto& [nm, c] : pcls)
+        cds->push_back(emitClassDefn(*c, nm, prefix + nm, up));
+    up->Class_defns(cds);
+}
+
+// The deferred `extends` pass. Surelog binds base classes by walking the
+// design-wide name-sorted class map (TestbenchElaboration::bindBaseClasses_),
+// so vpiDerivedClasses lists derived classes in NAME order. Two shapes:
+//   extends <class>      -> extends parented at the derived class_defn, the
+//                           class_typespec named/located at the written base
+//                           name, and the base gains a vpiDerivedClasses entry.
+//   extends <typeparam>  -> extends has NO vpiParent, the class_typespec is
+//                           loc-less and named after the parameter, its
+//                           vpiClassDefn copied from the type_parameter's own
+//                           class_typespec, and the base gains NO derived entry.
+void UhdmExporter::drainPendingExtends() {
+    for (auto& [cts, ty] : pendingClassTsLink) {
+        if (cts->Class_defn())
+            continue;
+        if (auto it = classDefnMap.find(ty); it != classDefnMap.end())
+            cts->Class_defn(it->second);
+    }
+    pendingClassTsLink.clear();
+    auto pend = pendingExtends;
+    pendingExtends.clear();
+    std::stable_sort(pend.begin(), pend.end(), [](const PendingExtends& a,
+                                                  const PendingExtends& b) {
+        return a.cls->name < b.cls->name;
+    });
+    for (auto& pe : pend) {
+        auto* base = pe.cls->getBaseClass();
+        if (!base)
+            continue;
+        // The base name AS WRITTEN (Surelog names the class_typespec after the
+        // extends-clause token, not after the resolved class).
+        std::string written;
+        const syntax::SyntaxNode* nameSyn = nullptr;
+        if (auto syn = pe.cls->getSyntax();
+            syn && syn->kind == syntax::SyntaxKind::ClassDeclaration)
+            if (auto* ec = syn->as<syntax::ClassDeclarationSyntax>().extendsClause) {
+                nameSyn = ec->baseName;
+                written = std::string(rawText(nameSyn->sourceRange()));
+            }
+        // `extends IF` where IF is one of this class's own type parameters.
+        const Symbol* tpSym = nullptr;
+        if (!written.empty())
+            for (auto& mem : pe.cls->members())
+                if (mem.kind == SymbolKind::TypeParameter && mem.name == written) {
+                    tpSym = &mem;
+                    break;
+                }
+        auto* ext = s.MakeExtends();
+        auto* rt = s.MakeRef_typespec();
+        auto* cts = s.MakeClass_typespec();
+        rt->VpiParent(ext);
+        rt->Actual_typespec(cts);
+        ext->Class_typespec(rt);
+        cts->VpiName(written.empty() ? std::string(base->name) : written);
+        auto& bct = base->getCanonicalType();
+        if (auto bit = classDefnMap.find(&bct); bit != classDefnMap.end())
+            cts->Class_defn(bit->second);
+        if (nameSyn)
+            setLoc(ext, nameSyn->sourceRange());
+        if (!tpSym) {
+            // The class-bound branch: the extends is parented, the typespec
+            // located, and the base collects the derived class.
+            ext->VpiParent(pe.cd);
+            if (nameSyn)
+                setLoc(cts, nameSyn->sourceRange());
+            if (auto* baseCd = (UHDM::class_defn*)cts->Class_defn()) {
+                auto* der = baseCd->Deriveds();
+                if (!der) {
+                    baseCd->Deriveds(s.MakeClass_defnVec());
+                    der = baseCd->Deriveds();
+                }
+                der->push_back(pe.cd);
+            }
+        }
+        pe.cd->Extends(ext);
+    }
 }
 
 // Class-scope typedefs (class_defn vpiTypedef). Only the builtin
@@ -417,43 +930,6 @@ UHDM::design* UhdmExporter::exportDesign() {
     computeParamMultiplicity();
 
     d = s.MakeDesign();
-    // `include occurrences -> design-level include_file_info entries
-    // (Surelog): located at the FILENAME TOKEN in the including file, with
-    // vpiIncludedFile = the included file's full path (mriscv_bind_sva
-    // jg_bind_wrapper.sv `include "rv32_opcodes.v").
-    {
-        auto* infos = s.MakeInclude_file_infoVec();
-        for (auto buf : sm->getAllBuffers()) {
-            auto incFrom = sm->getIncludedFrom(buf);
-            if (!incFrom)
-                continue;
-            auto* ifi = s.MakeInclude_file_info();
-            ifi->VpiIncludedFile(sm->getFullPath(buf).string());
-            ifi->VpiParent(d);
-            // incFrom points into the include directive; anchor at the quoted
-            // filename token (scan the source text from the directive).
-            auto text = sm->getSourceText(incFrom.buffer());
-            size_t off = incFrom.offset();
-            SourceRange r(incFrom, incFrom);
-            if (off < text.size()) {
-                auto q0 = text.find_first_of("\"<", off);
-                if (q0 != std::string_view::npos) {
-                    char close = text[q0] == '<' ? '>' : '"';
-                    auto q1 = text.find(close, q0 + 1);
-                    if (q1 != std::string_view::npos)
-                        r = SourceRange(
-                            SourceLocation(incFrom.buffer(), q0),
-                            SourceLocation(incFrom.buffer(), q1 + 1));
-                }
-            }
-            // The entry's own file is the INCLUDING file (the directive site).
-            ifi->VpiFile(fullFilePath(incFrom));
-            setLoc(ifi, r);
-            infos->push_back(ifi);
-        }
-        if (!infos->empty())
-            d->Include_file_infos(infos);
-    }
     // Multi-top designs: Surelog names the design after (and lists tops in)
     // SOURCE order; slang's topInstances may differ.
     std::vector<const InstanceSymbol*> orderedTops(root.topInstances.begin(),
@@ -480,6 +956,9 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->VpiName("work@" + std::string(orderedTops[0]->getDefinition().name));
     else
         d->VpiName("unnamed"); // no top module: Surelog's unnamed design
+
+    // Surelog attaches the include records before any model content.
+    emitIncludeFileInfos();
 
     // All definitions used anywhere in the design, name-sorted like Surelog's
     // module map.
@@ -1394,6 +1873,28 @@ UHDM::design* UhdmExporter::exportDesign() {
             ref->Actual_group(eit->second);
     pendingEnumRefs.clear();
 
+    // A foreach_stmt's iterated-array ref binds the array's OWN array_typespec.
+    // Surelog resolves the name against the module in declaration-object order,
+    // so an instance-view array_var's typespec wins over the port's — and only
+    // an array whose leaf is a NET (no array_var) falls back to the port's.
+    // Both are minted after the statement, hence the deferred bind.
+    for (auto& pf : pendingForeachArrayTs) {
+        if (pf.rt->Actual_typespec())
+            continue;
+        UHDM::typespec* act = nullptr;
+        if (auto ait = arrayVarArrayTs.find(pf.sym); ait != arrayVarArrayTs.end())
+            act = ait->second;
+        if (!act && pf.mod && pf.mod->Ports())
+            for (auto* pt : *pf.mod->Ports())
+                if (pt->VpiName() == pf.sym->name && pt->Typespec() &&
+                    pt->Typespec()->Actual_typespec() &&
+                    pt->Typespec()->Actual_typespec()->UhdmType() ==
+                        UHDM::uhdmarray_typespec)
+                    act = pt->Typespec()->Actual_typespec();
+        pf.rt->Actual_typespec(act ? act : s.MakeArray_typespec());
+    }
+    pendingForeachArrayTs.clear();
+
     // $signed/$unsigned result typespecs: share the LHS port's actual typespec
     // (no tail duplicate); fall back to a fresh one for non-port LHSs.
     for (auto& p : pendingSysFuncTs) {
@@ -1472,6 +1973,9 @@ UHDM::design* UhdmExporter::exportDesign() {
         p.rt->Actual_typespec(lts);
     }
     pendingPartSelFoldTs.clear();
+    // Base-class wiring last: every class_defn (package, module-local,
+    // file-level, nested) now exists, so a base in any scope resolves.
+    drainPendingExtends();
     return d;
 }
 

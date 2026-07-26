@@ -33,6 +33,33 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     pkgScopeInst = (pkgScope && !classScope) ? (UHDM::instance*)m : nullptr;
     auto* tfs = s.MakeTask_funcVec();
     for (auto& member : body.members()) {
+        // `pure virtual` class methods have no body: slang keeps them as
+        // prototypes, Surelog still emits the task/function shell (vpiDPIPure).
+        if (classScope && !onlySub && member.kind == SymbolKind::MethodPrototype) {
+            auto& mp = member.as<MethodPrototypeSymbol>();
+            if (!mp.flags.has(MethodFlags::Pure))
+                continue;
+            auto* pt = mp.subroutineKind == SubroutineKind::Function
+                           ? (UHDM::task_func*)s.MakeFunction()
+                           : (UHDM::task_func*)s.MakeTask();
+            pt->VpiName(mp.name);
+            pt->VpiFullName(joinPath(prefix, mp.name));
+            pt->VpiParent(m);
+            pt->VpiMethod(true);
+            pt->VpiVisibility(mp.visibility == Visibility::Protected
+                                  ? 2
+                                  : (mp.visibility == Visibility::Local ? 3 : 1));
+            if (mp.isVirtual())
+                pt->VpiVirtual(true);
+            pt->VpiDPIPure(true);
+            if (auto psyn = mp.getSyntax())
+                setLoc(pt, psyn->parent && psyn->parent->kind ==
+                                               syntax::SyntaxKind::ClassMethodPrototype
+                               ? psyn->parent->sourceRange()
+                               : psyn->sourceRange());
+            tfs->push_back(pt);
+            continue;
+        }
         if (member.kind != SymbolKind::Subroutine)
             continue;
         if (onlySub && &member != onlySub)
@@ -76,7 +103,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tf->VpiParent(m);
         // A class CONSTRUCTOR carries no vpiVisibility (Surelog).
         if (!(classScope && sub.name == "new"))
-            tf->VpiVisibility(1);
+            tf->VpiVisibility(
+                classScope ? (sub.visibility == Visibility::Protected
+                                  ? 2
+                                  : (sub.visibility == Visibility::Local ? 3 : 1))
+                           : 1);
+        if (classScope && (sub.flags & MethodFlags::Virtual) != MethodFlags::None)
+            tf->VpiVirtual(true);
         bool dpiImport = (sub.flags & MethodFlags::DPIImport) != MethodFlags::None;
         if (dpiImport) {
             tf->VpiAccessType(4);
@@ -104,16 +137,27 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     ? syn->parent
                     : nullptr;
             bool staticSpan = false;
+            bool virtualQual = false;
             if (qualHolder)
                 for (auto q : qualHolder->as<syntax::ClassMethodDeclarationSyntax>()
-                                  .qualifiers)
-                    if (q.kind == slang::parsing::TokenKind::StaticKeyword) {
+                                  .qualifiers) {
+                    // `static` / `local` / `protected` collapse the span onto
+                    // the qualifier token itself.
+                    if (q.kind == slang::parsing::TokenKind::StaticKeyword ||
+                        q.kind == slang::parsing::TokenKind::LocalKeyword ||
+                        q.kind == slang::parsing::TokenKind::ProtectedKeyword) {
                         setLoc(tf, q.range());
                         staticSpan = true;
                         break;
                     }
+                    if (q.kind == slang::parsing::TokenKind::VirtualKeyword)
+                        virtualQual = true;
+                }
             if (!staticSpan)
-                setLoc(tf, syn->sourceRange());
+                // A plain `virtual` method spans the WHOLE declaration,
+                // qualifier included.
+                setLoc(tf, virtualQual ? qualHolder->sourceRange()
+                                       : syn->sourceRange());
         }
         if (designScope || classScope)
             tf->VpiMethod(true);
@@ -132,6 +176,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 setLoc(rv, nameSpan(args0[0]->location, args0[0]->name));
             auto* cts = s.MakeClass_typespec();
             cts->Class_defn(currentClassDefn);
+            // Surelog names this typespec after the class's vpiName, which at
+            // compile time is only set for a NESTED class (a top-level class
+            // gets its name in the write phase, so its ctor typespec stays
+            // anonymous). compileClassConstructorDeclaration, CompileStmt.cpp.
+            if (auto* cp9 = currentClassDefn->VpiParent();
+                cp9 && cp9->UhdmType() == UHDM::uhdmclass_defn)
+                cts->VpiName(currentClassDefn->VpiName());
             auto* crt = s.MakeRef_typespec();
             crt->VpiFullName(fullName);
             crt->VpiParent(rv);

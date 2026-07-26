@@ -142,8 +142,20 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             cts->VpiName(ct0.name);
             if (auto cit = classDefnMap.find(&ct0); cit != classDefnMap.end())
                 cts->Class_defn(cit->second);
-            if (auto tsyn0 = declared->getTypeSyntax())
+            else
+                pendingClassTsLink.push_back({cts, &ct0});
+            if (auto tsyn0 = declared->getTypeSyntax()) {
                 setLoc(cts, tsyn0->sourceRange());
+                // A SCOPED class reference (pack::doorOpen) is named by the
+                // WRITTEN text and located at the class_scope prefix Surelog
+                // collects the node from (`pack::`).
+                if (auto* nt0 = tsyn0->as_if<syntax::NamedTypeSyntax>())
+                    if (auto* sn0 = nt0->name->as_if<syntax::ScopedNameSyntax>()) {
+                        cts->VpiName(std::string(rawText(sn0->sourceRange())));
+                        setLoc(cts, SourceRange(sn0->left->sourceRange().start(),
+                                                sn0->separator.range().end()));
+                    }
+            }
             return cts;
         }
         if (!typeSynOverride) {
@@ -5646,7 +5658,8 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 // the size symbolic — a bare ref_obj <prefix>.N (no actual).
                 if (!defDimRefPrefix.empty() &&
                     sizeSyn->kind == syntax::SyntaxKind::IdentifierName &&
-                    parent->UhdmType() == UHDM::uhdmarray_typespec) {
+                    (parent->UhdmType() == UHDM::uhdmarray_typespec ||
+                     parent->UhdmType() == UHDM::uhdmparameter)) {
                     auto* ro = s.MakeRef_obj();
                     std::string nm(sizeSyn->as<syntax::IdentifierNameSyntax>()
                                        .identifier.valueText());
@@ -6111,6 +6124,7 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     art->VpiParent(av);
     art->Actual_typespec(ats);
     av->Typespec(art);
+    arrayVarArrayTs[&sym] = ats;
     return av;
 }
 

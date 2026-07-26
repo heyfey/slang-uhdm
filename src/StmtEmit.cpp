@@ -12,6 +12,32 @@
 
 namespace slang_uhdm {
 
+// The variable class a typespec implies — UHDM's own
+// CompileHelper::getSimpleVarFromTypespec mapping, which is what Surelog uses
+// to materialize an IMPLICITLY declared variable (a foreach loop variable)
+// from the type it was resolved against. Null for typespecs it does not map.
+static UHDM::variables* varForTypespec(UHDM::Serializer& s, const UHDM::typespec* ts) {
+    switch (ts->UhdmType()) {
+        case UHDM::uhdmint_typespec: return s.MakeInt_var();
+        case UHDM::uhdminteger_typespec: return s.MakeInteger_var();
+        case UHDM::uhdmlong_int_typespec: return s.MakeLong_int_var();
+        case UHDM::uhdmshort_int_typespec: return s.MakeShort_int_var();
+        case UHDM::uhdmbyte_typespec: return s.MakeByte_var();
+        case UHDM::uhdmstring_typespec: return s.MakeString_var();
+        case UHDM::uhdmreal_typespec: return s.MakeReal_var();
+        case UHDM::uhdmshort_real_typespec: return s.MakeShort_real_var();
+        case UHDM::uhdmtime_typespec: return s.MakeTime_var();
+        case UHDM::uhdmbit_typespec: return s.MakeBit_var();
+        case UHDM::uhdmclass_typespec: return s.MakeClass_var();
+        case UHDM::uhdmenum_typespec: return s.MakeEnum_var();
+        case UHDM::uhdmunion_typespec: return s.MakeUnion_var();
+        case UHDM::uhdmstruct_typespec: return s.MakeStruct_var();
+        case UHDM::uhdmlogic_typespec:
+        case UHDM::uhdmvoid_typespec: return s.MakeLogic_var();
+        default: return nullptr;
+    }
+}
+
 UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block,
                                               UHDM::instance* m, const std::string& prefix,
                                               NetMap& netMap) {
@@ -100,6 +126,50 @@ void UhdmExporter::noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selO
     selFirstSelect.emplace(base, (UHDM::expr*)selObj);
     if (inLhs)
         selLhsSelVars.insert(base);
+}
+
+UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
+                                                    UHDM::BaseClass* parent) {
+    auto* dc = s.MakeDelay_control();
+    dc->VpiParent(parent);
+
+    // slang's DelayControl range starts at the value for some forms; Surelog's
+    // pound_delay_value always includes the '#'.
+    SourceRange dr = tc.sourceRange;
+    std::string raw = rawText(dr);
+    if (raw.empty() || raw[0] != '#') {
+        dr = SourceRange(dr.start() - 1, dr.end());
+        raw = rawText(dr);
+    }
+    setLoc(dc, dr);
+
+    // Split the raw text the way Surelog's lexer does: Pound_delay is
+    // '#' ' '* [0-9] [0-9_.]* and any trailing time_unit is a separate token.
+    size_t i = raw.empty() ? 0 : 1;
+    while (i < raw.size() && raw[i] == ' ')
+        ++i;
+    size_t numStart = i;
+    while (i < raw.size() && (isdigit((unsigned char)raw[i]) || raw[i] == '_' || raw[i] == '.'))
+        ++i;
+    if (i > numStart) {
+        dc->VpiDelay(raw.substr(0, i));
+    }
+    else if (!raw.empty()) {
+        // "#dly" / "#(expr)": the value is not a Pound_delay token, so Surelog
+        // takes it as a reference under Delay(). Its name is the value node's
+        // SymName — the identifier for `#dly`, EMPTY for a parenthesized
+        // expression (a Mintypmax_expression node carries no name).
+        std::string name = raw.substr(numStart);
+        if (!name.empty() && !(isalpha((unsigned char)name[0]) || name[0] == '_' ||
+                               name[0] == '\\'))
+            name.clear();
+        auto* ref = s.MakeRef_obj();
+        ref->VpiName(name);
+        ref->VpiParent(parent);
+        setLoc(ref, SourceRange(dr.start() + numStart, dr.end()));
+        dc->Delay(ref);
+    }
+    return dc;
 }
 
 UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass* parent,
@@ -231,6 +301,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         ec->Stmt(inner);
                     return ec;
                 }
+                case TimingControlKind::Delay: {
+                    // "#1 t;" / "always #5 clk = !clk;": a delay_control whose
+                    // Stmt is the delayed statement.
+                    auto* dc = emitDelayControl(timing, parent);
+                    if (auto* inner = emitStmt(timed.stmt, dc, prefix, netMap))
+                        dc->Stmt(inner);
+                    return dc;
+                }
                 default:
                     noteUnsupported("timing control: " + std::string(toString(timing.kind)));
                     return nullptr;
@@ -249,9 +327,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         case StatementKind::Block: {
             auto& bs = stmt.as<BlockStatement>();
             bool isFork = bs.blockKind != StatementBlockKind::Sequential;
-            // slang wraps for-loops with inline declarations in an implicit
+            // slang wraps for-loops with inline declarations, and every
+            // foreach (its loop variables are block-scoped), in an implicit
             // block; Surelog has no such wrapper.
-            if (bs.syntax && bs.syntax->kind == syntax::SyntaxKind::ForLoopStatement) {
+            if (bs.syntax &&
+                (bs.syntax->kind == syntax::SyntaxKind::ForLoopStatement ||
+                 bs.syntax->kind == syntax::SyntaxKind::ForeachLoopStatement)) {
                 UHDM::any* result = nullptr;
                 auto& fbody = bs.body;
                 if (fbody.kind == StatementKind::List) {
@@ -500,6 +581,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             return d;
         }
+        case StatementKind::DisableFork: {
+            auto* df = s.MakeDisable_fork();
+            df->VpiParent(parent);
+            setLoc(df, stmt.sourceRange);
+            return df;
+        }
         case StatementKind::ProceduralAssign: {
             auto& pas = stmt.as<ProceduralAssignStatement>();
             if (pas.assignment.kind == ExpressionKind::Assignment) {
@@ -570,6 +657,144 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (auto* b = emitStmt(fl.body, f, prefix, netMap))
                 f->VpiStmt(b);
             return f;
+        }
+        case StatementKind::ForeachLoop: {
+            auto& fe = stmt.as<ForeachLoopStatement>();
+            auto* fs = s.MakeForeach_stmt();
+            fs->VpiParent(parent);
+            fs->VpiFullName(prefix);
+            // Surelog anchors the foreach_stmt at the "foreach" keyword alone.
+            setLoc(fs, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 7));
+
+            const syntax::ForeachLoopListSyntax* ll = nullptr;
+            if (stmt.syntax &&
+                stmt.syntax->kind == syntax::SyntaxKind::ForeachLoopStatement)
+                ll = stmt.syntax->as<syntax::ForeachLoopStatementSyntax>().loopList;
+
+            // slang folds the LEADING index groups of a `foreach(a[i][j])` into
+            // the array reference and keeps only the last group as loop dims.
+            // Surelog keeps one flat index list against the BARE array, so peel
+            // the folded groups back off — outermost first. Each carries an
+            // already-open loop variable (declared by an enclosing foreach).
+            std::vector<const syntax::SyntaxNode*> foldedIdx;
+            const syntax::ExpressionSyntax* arrBase = ll ? &*ll->arrayName : nullptr;
+            while (arrBase &&
+                   arrBase->kind == syntax::SyntaxKind::ElementSelectExpression) {
+                auto& ese = arrBase->as<syntax::ElementSelectExpressionSyntax>();
+                foldedIdx.push_back(&*ese.select);
+                arrBase = &*ese.left;
+            }
+            std::reverse(foldedIdx.begin(), foldedIdx.end());
+            // A name-context parse yields identifier+selectors instead.
+            if (arrBase && arrBase->kind == syntax::SyntaxKind::IdentifierSelectName)
+                for (auto* sel : arrBase->as<syntax::IdentifierSelectNameSyntax>().selectors)
+                    foldedIdx.push_back(sel);
+
+            // vpiVariables: a ref_var naming the iterated array, its ref
+            // typespec bound to the array's OWN array_typespec.
+            const Symbol* arrSym = fe.arrayRef.getSymbolReference();
+            if (arrSym) {
+                auto* rv = s.MakeRef_var();
+                rv->VpiName(arrSym->name);
+                std::string afn = joinRef(prefix, std::string(arrSym->name));
+                rv->VpiFullName(afn);
+                rv->VpiParent(fs);
+                setLoc(rv, arrBase ? nameSpan(arrBase->sourceRange().start(), arrSym->name)
+                                   : fe.arrayRef.sourceRange);
+                auto* art = s.MakeRef_typespec();
+                art->VpiFullName(afn);
+                art->VpiParent(rv);
+                pendingForeachArrayTs.push_back({art, arrSym, implicitNetModule});
+                rv->Typespec(art);
+                fs->Variable(rv);
+            }
+
+            // vpiLoopVars: one variable per NAMED dimension, whose class and
+            // typespec follow the array's ELEMENT type (Surelog resolves the
+            // implicit declaration from the array, not from the index use); a
+            // vpiNullOp operation stands in for each SKIPPED dimension.
+            std::vector<std::string> declaredHere;
+            auto* lvars = s.MakeAnyVec();
+            auto declLoopVar = [&](std::string_view name, SourceRange span) {
+                std::string lvn(name);
+                // A NESTED foreach re-lists the enclosing loop's variable
+                // OBJECT rather than declaring a second one.
+                if (auto oit = openForeachVars.find(lvn); oit != openForeachVars.end()) {
+                    lvars->push_back(oit->second);
+                    return;
+                }
+                UHDM::typespec* lts = arrSym ? makeTypespec(*arrSym) : nullptr;
+                // The loop variable takes the array's ELEMENT type, so an
+                // array typespec is drilled through (Surelog's
+                // getSimpleVarFromTypespec recurses the same way).
+                while (lts && lts->UhdmType() == UHDM::uhdmarray_typespec) {
+                    auto* ert = ((UHDM::array_typespec*)lts)->Elem_typespec();
+                    if (!ert || !ert->Actual_typespec())
+                        break;
+                    lts = ert->Actual_typespec();
+                }
+                UHDM::variables* lv = lts ? varForTypespec(s, lts) : nullptr;
+                if (!lv) {
+                    lv = s.MakeInt_var();
+                    lts = s.MakeInt_typespec();
+                }
+                lv->VpiName(name);
+                lv->VpiFullName(joinRef(prefix, lvn));
+                lv->VpiParent(fs);
+                setLoc(lv, span);
+                auto* lrt = s.MakeRef_typespec();
+                lrt->VpiFullName(joinRef(prefix, lvn));
+                lrt->VpiParent(lv);
+                lrt->Actual_typespec(lts);
+                lv->Typespec(lrt);
+                lvars->push_back(lv);
+                openForeachVars[lvn] = lv;
+                declaredHere.push_back(lvn);
+            };
+            for (auto* sel : foldedIdx) {
+                auto& esy = sel->as<syntax::ElementSelectSyntax>();
+                const syntax::ExpressionSyntax* ie =
+                    esy.selector && esy.selector->kind == syntax::SyntaxKind::BitSelect
+                        ? &*esy.selector->as<syntax::BitSelectSyntax>().expr
+                        : nullptr;
+                if (ie && ie->kind == syntax::SyntaxKind::IdentifierName) {
+                    auto tok = ie->as<syntax::IdentifierNameSyntax>().identifier;
+                    declLoopVar(tok.valueText(), tok.range());
+                }
+                else {
+                    auto* op = s.MakeOperation();
+                    op->VpiOpType(vpiNullOp);
+                    lvars->push_back(op);
+                }
+            }
+            size_t dimIdx = 0;
+            for (auto& ld : fe.loopDims) {
+                if (!ld.loopVar) {
+                    // Surelog locates the placeholder at the comma PRECEDING
+                    // the empty slot.
+                    auto* op = s.MakeOperation();
+                    op->VpiOpType(vpiNullOp);
+                    if (ll && dimIdx > 0) {
+                        auto& lvl = ll->loopVariables;
+                        if (size_t sep = dimIdx * 2 - 1; sep < lvl.getChildCount())
+                            if (auto ch = lvl.getChild(sep); ch.isToken())
+                                setLoc(op, ch.range());
+                    }
+                    lvars->push_back(op);
+                    dimIdx++;
+                    continue;
+                }
+                declLoopVar(ld.loopVar->name,
+                            nameSpan(ld.loopVar->location, ld.loopVar->name));
+                dimIdx++;
+            }
+            fs->VpiLoopVars(lvars);
+
+            if (auto* b = emitStmt(fe.body, fs, prefix, netMap))
+                fs->VpiStmt(b);
+            for (auto& n : declaredHere)
+                openForeachVars.erase(n);
+            return fs;
         }
         case StatementKind::Conditional: {
             auto& cs = stmt.as<ConditionalStatement>();

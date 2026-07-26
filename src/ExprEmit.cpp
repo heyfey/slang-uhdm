@@ -930,8 +930,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // operation(82) — the compound operator itself is NOT encoded —
             // with the value operand extracted from slang's expanded binary
             // (asgn_expr_sv).
+            // A CALL ARGUMENT (f((i = 3))) is an operand position too: UHDM's
+            // tf_call_args group only accepts exprs, so an `assignment` there
+            // is rejected outright ("adding wrong object type (assignment) in
+            // a tf_call_args group") and left orphaned.
+            bool argCtx9 = false;
+            if (parent)
+                switch (parent->UhdmType()) {
+                    case UHDM::uhdmfunc_call:
+                    case UHDM::uhdmtask_call:
+                    case UHDM::uhdmmethod_func_call:
+                    case UHDM::uhdmmethod_task_call:
+                    case UHDM::uhdmsys_func_call:
+                    case UHDM::uhdmsys_task_call:
+                        argCtx9 = true;
+                        break;
+                    default:
+                        break;
+                }
             if (parent &&
-                (parent->UhdmType() == UHDM::uhdmoperation ||
+                (argCtx9 || parent->UhdmType() == UHDM::uhdmoperation ||
                  parent->UhdmType() == UHDM::uhdmassignment)) {
                 const Expression* rhsE = &ae.right();
                 if (ae.isCompound() && ae.op) {
@@ -1063,21 +1081,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 asn->Rhs(rhs);
             }
             // Intra-assignment delay ("state <= #1 next;").
-            if (ae.timingControl && ae.timingControl->kind == TimingControlKind::Delay) {
-                auto& delay = ae.timingControl->as<DelayControl>();
-                auto* dc = s.MakeDelay_control();
-                dc->VpiParent(asn);
-                SourceRange dr = ae.timingControl->sourceRange;
-                std::string raw = rawText(dr);
-                if (raw.empty() || raw[0] != '#') {
-                    dr = SourceRange(dr.start() - 1, dr.end());
-                    raw = rawText(dr);
-                }
-                dc->VpiDelay(raw);
-                setLoc(dc, dr);
-                (void)delay;
-                asn->Delay_control(dc);
-            }
+            if (ae.timingControl && ae.timingControl->kind == TimingControlKind::Delay)
+                asn->Delay_control(emitDelayControl(*ae.timingControl, asn));
             return asn;
         }
         case ExpressionKind::ConditionalOp: {
@@ -2055,12 +2060,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     pendingEnumRefs.push_back({ref, &nv.symbol});
                 else if (funcRetRefs && &nv.symbol == funcRetSym)
                     funcRetRefs->push_back(ref);
-                else if (nv.symbol.kind == SymbolKind::Parameter && implicitNetModule &&
-                         nv.symbol.getParentScope() &&
-                         nv.symbol.getParentScope()->asSymbol().kind ==
-                             SymbolKind::StatementBlock) {
-                    // Surelog can't resolve block-scoped localparams: refs
-                    // bind an implicit module wire minted at the first ref.
+                else if (implicitNetModule &&
+                         (nv.symbol.kind == SymbolKind::Iterator ||
+                          (nv.symbol.kind == SymbolKind::Parameter &&
+                           nv.symbol.getParentScope() &&
+                           nv.symbol.getParentScope()->asSymbol().kind ==
+                               SymbolKind::StatementBlock))) {
+                    // Surelog can't resolve block-scoped localparams, nor a
+                    // foreach loop variable (its declaration is implicit):
+                    // refs bind an implicit module wire minted at the first
+                    // reference.
                     auto& inet = implicitNetMap[&nv.symbol];
                     if (!inet) {
                         inet = s.MakeLogic_net();

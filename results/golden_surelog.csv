@@ -99,8 +99,8 @@ BindStmt,default,SLANG_REJECT,dut.sv:2:11: error: use of undeclared identifier '
 BindStmt,testflags,SLANG_REJECT,dut.sv:2:11: error: use of undeclared identifier 'd',,
 BindStmt2,default,SLANG_REJECT,dut.sv:8:10: error: unknown class or package 'lc_ctrl_pkg',,
 BindStmt2,testflags,SLANG_REJECT,dut.sv:8:10: error: unknown class or package 'lc_ctrl_pkg',,
-BindVarsAndEnum,default,CMP_NOTEQUAL,decompile:,,differ
-BindVarsAndEnum,testflags,CMP_NOTEQUAL,decompile:,,differ
+BindVarsAndEnum,default,CMP_EQUAL,,,match
+BindVarsAndEnum,testflags,CMP_EQUAL,,,match
 BitComplex,default,CMP_NOTEQUAL,decompile:,,differ
 BitComplex,testflags,CMP_NOTEQUAL,decompile:,,differ
 BitPartSelect,default,CMP_EQUAL,,,match
@@ -214,7 +214,7 @@ ClassExtendParam,testflags,SLANG_REJECT,dut.sv:16:32: error: implementation not 
 ClassExtends,default,CMP_NOTEQUAL,decompile:,,differ
 ClassExtends,testflags,CMP_NOTEQUAL,decompile:,,differ
 ClassFsm,default,CMP_NOTEQUAL,decompile:,,differ
-ClassFsm,testflags,CMP_NOTEQUAL,decompile:,,differ
+ClassFsm,testflags,CMP_EQUAL,,,differ
 ClassFuncProto,default,SLANG_REJECT,top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
 ClassFuncProto,testflags,SLANG_REJECT,top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
 ClassFuncTask,default,SLANG_REJECT,dut.sv:16:4: error: class 'C' does not have a super class,,
@@ -225,10 +225,10 @@ ClassMemberRef,default,SLANG_REJECT,dut.sv:27:27: error: use of undeclared ident
 ClassMemberRef,testflags,SLANG_REJECT,dut.sv:27:27: error: use of undeclared identifier 'en',,
 ClassMethodCall,default,SLANG_REJECT,dut.sv:15:5: error: use of undeclared identifier 'f2',,
 ClassMethodCall,testflags,SLANG_REJECT,dut.sv:15:5: error: use of undeclared identifier 'f2',,
-ClassMini,default,CMP_NOTEQUAL,decompile:,,differ
-ClassMini,testflags,CMP_NOTEQUAL,decompile:,,differ
-ClassParam,default,CMP_NOTEQUAL,decompile:,,differ
-ClassParam,testflags,CMP_NOTEQUAL,decompile:,,differ
+ClassMini,default,CMP_EQUAL,,,differ
+ClassMini,testflags,CMP_EQUAL,,,differ
+ClassParam,default,CMP_EQUAL,,,differ
+ClassParam,testflags,CMP_EQUAL,,,match
 ClassParamAsParam,default,CMP_NOTEQUAL,decompile:,,differ
 ClassParamAsParam,testflags,CMP_NOTEQUAL,decompile:,,differ
 ClassScope,default,SLANG_REJECT,dut.sv:64:5: error: packed dimensions require a full range specification,,
@@ -239,8 +239,8 @@ ClassTypeParamAlias,default,SLANG_REJECT,dut.sv:4:18: error: parameter declarati
 ClassTypeParamAlias,testflags,SLANG_REJECT,dut.sv:4:18: error: parameter declaration is missing an initializer,,
 ClassVar,default,CMP_NOTEQUAL,decompile:,,differ
 ClassVar,testflags,CMP_NOTEQUAL,decompile:,,differ
-ClassVirtual,default,CMP_NOTEQUAL,decompile:,,differ
-ClassVirtual,testflags,CMP_NOTEQUAL,decompile:,,differ
+ClassVirtual,default,CMP_EQUAL,,,differ
+ClassVirtual,testflags,CMP_EQUAL,,,match
 ClockingBlock,default,SLANG_REJECT,dut.sv:13:14: error: use of undeclared identifier 'from_Dut',,
 ClockingBlock,testflags,SLANG_REJECT,dut.sv:13:14: error: use of undeclared identifier 'from_Dut',,
 ClockingDrive,default,SLANG_REJECT,dut.sv:6:31: error: use of undeclared identifier 'clk',,
@@ -253,8 +253,8 @@ ClogParam,default,CMP_EQUAL,,,differ
 ClogParam,testflags,CMP_NOTEQUAL,decompile:,,differ
 CmdLineOverride,default,CMP_EQUAL,,,match
 CmdLineOverride,testflags,CMP_NOTEQUAL,decompile:,,differ
-Compl1001,default,CMP_NOTEQUAL,decompile:,,differ
-Compl1001,testflags,CMP_NOTEQUAL,decompile:,,differ
+Compl1001,default,CMP_EQUAL,,,match
+Compl1001,testflags,CMP_EQUAL,,,match
 ComplexBitSelect,default,SLANG_REJECT,dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
 ComplexBitSelect,testflags,SLANG_REJECT,dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
 ComplexEscaped,default,SLANG_REJECT,dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
@@ -287,8 +287,8 @@ CondOpPred,default,CMP_EQUAL,,,match
 CondOpPred,testflags,CMP_EQUAL,,,match
 Connection,default,CMP_NOTEQUAL,decompile:,,differ
 Connection,testflags,CMP_NOTEQUAL,decompile:,,differ
-ConstantBits,default,CMP_NOTEQUAL,decompile:,,differ
-ConstantBits,testflags,CMP_NOTEQUAL,decompile:,,differ
+ConstantBits,default,CMP_EQUAL,,,differ
+ConstantBits,testflags,CMP_EQUAL,,,differ
 ConstantNoElabUhdm,default,CMP_EQUAL,,,match
 ConstantNoElabUhdm,testflags,CMP_EQUAL,,,match
 ConstantRange,default,CMP_NOTEQUAL,decompile:,,differ
@@ -353,8 +353,8 @@ DelayAssign,default,CMP_NOTEQUAL,decompile:,,differ
 DelayAssign,testflags,CMP_NOTEQUAL,decompile:,,differ
 DiffSimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 DiffSimpleIncludeAndMacros,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-diffcompunit,
-Disable,default,CMP_NOTEQUAL,decompile:,,differ
-Disable,testflags,CMP_NOTEQUAL,decompile:,,differ
+Disable,default,CMP_EQUAL,,,match
+Disable,testflags,CMP_EQUAL,,,match
 DollarBits,default,CMP_EQUAL,,,differ
 DollarBits,testflags,CMP_EQUAL,,,differ
 DollarBitsUnary,default,SLANG_REJECT,dut.sv:8:15: error: use of undeclared identifier 'dr_x'; did you mean 'dr_q'?,,
@@ -463,8 +463,8 @@ FileResolutionFunction,default,CMP_NOTEQUAL,decompile:,,differ
 FileResolutionFunction,testflags,CMP_NOTEQUAL,decompile:,,differ
 FileTypespec,default,SLANG_REJECT,dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has width of 2; previously seen width was 1,,
 FileTypespec,testflags,SLANG_REJECT,dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has width of 2; previously seen width was 1,,
-ForeachArray,default,CMP_NOTEQUAL,decompile:,,differ
-ForeachArray,testflags,CMP_NOTEQUAL,decompile:,,differ
+ForeachArray,default,CMP_EQUAL,,,differ
+ForeachArray,testflags,CMP_EQUAL,,,differ
 ForeachClass,default,SLANG_REJECT,dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_reg_map',,
 ForeachClass,testflags,SLANG_REJECT,dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_reg_map',,
 ForeachClassParent,default,SLANG_REJECT,dut.sv:4:13: error: identifier 'uvm_phase' used before its declaration,,
@@ -473,8 +473,8 @@ ForeachForeach,default,SLANG_REJECT,dut.sv:8:17: error: out-of-block definition 
 ForeachForeach,testflags,SLANG_REJECT,dut.sv:8:17: error: out-of-block definition of 'get_adjacent_predecessor_nodes' does not match any declaration in 'uvm_phase',,
 ForeachFunction,default,CMP_NOTEQUAL,decompile:,,differ
 ForeachFunction,testflags,CMP_NOTEQUAL,decompile:,,differ
-ForeachSquare,default,CMP_NOTEQUAL,decompile:,,differ
-ForeachSquare,testflags,CMP_NOTEQUAL,decompile:,,differ
+ForeachSquare,default,CMP_EQUAL,,,differ
+ForeachSquare,testflags,CMP_EQUAL,,,differ
 ForElab,default,SLANG_REJECT,top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
 ForElab,testflags,SLANG_REJECT,top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
 ForLoop,default,CMP_NOTEQUAL,decompile:,,differ
@@ -641,10 +641,10 @@ HierPathPackedStruct,default,CMP_NOTEQUAL,decompile:,,differ
 HierPathPackedStruct,testflags,CMP_NOTEQUAL,decompile:,,differ
 HierPathPackedVar,default,SLANG_REJECT,dut.sv:4:5: error: unknown class or package 'ariane_axi',,
 HierPathPackedVar,testflags,SLANG_REJECT,dut.sv:4:5: error: unknown class or package 'ariane_axi',,
-HierPathSelect,default,CMP_NOTEQUAL,decompile:,,differ
-HierPathSelect,testflags,CMP_NOTEQUAL,decompile:,,differ
-HierPathStruct,default,CMP_NOTEQUAL,decompile:,,differ
-HierPathStruct,testflags,CMP_NOTEQUAL,decompile:,,differ
+HierPathSelect,default,CMP_EQUAL,,,match
+HierPathSelect,testflags,CMP_EQUAL,,,differ
+HierPathStruct,default,CMP_EQUAL,,,differ
+HierPathStruct,testflags,CMP_EQUAL,,,differ
 HierPathStructTypespec,default,CMP_NOTEQUAL,decompile:,,differ
 HierPathStructTypespec,testflags,CMP_NOTEQUAL,decompile:,,differ
 HierPathTfArg,default,SLANG_REJECT,dut.sv:27:18: error: use of undeclared identifier 'f',,
@@ -837,12 +837,12 @@ LoopParam,default,SLANG_REJECT,dut.sv:4:17: error: identifier 'P2' used before i
 LoopParam,testflags,SLANG_REJECT,dut.sv:4:17: error: identifier 'P2' used before its declaration,,
 LoopParamOver,default,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used before its declaration,,
 LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used before its declaration,,
-LoopVar,default,CMP_NOTEQUAL,decompile:,,differ
-LoopVar,testflags,CMP_NOTEQUAL,decompile:,,differ
+LoopVar,default,CMP_EQUAL,,,differ
+LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/sva_sls/t,,
+LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t,,
 LowMemPkg,default,CMP_NOTEQUAL,decompile:,,differ
-LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/sva_sls/t,,
+LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t,,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
@@ -913,8 +913,8 @@ OldLibrary,default,SLANG_REJECT,top.v:5:15: error: wrong number of port connecti
 OldLibrary,testflags,SLANG_REJECT,top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected 3),,
 OneAnd,default,CMP_NOTEQUAL,decompile:,,differ
 OneAnd,testflags,CMP_NOTEQUAL,decompile:,,differ
-OneClock,default,CMP_NOTEQUAL,decompile:,,differ
-OneClock,testflags,CMP_NOTEQUAL,decompile:,,differ
+OneClock,default,CMP_EQUAL,,,match
+OneClock,testflags,CMP_EQUAL,,,match
 OneDivider,default,CMP_NOTEQUAL,decompile:,,differ
 OneDivider,testflags,CMP_NOTEQUAL,decompile:,,differ
 OneFF,default,CMP_NOTEQUAL,decompile:,,differ
@@ -977,8 +977,8 @@ PackedArrayAssign,default,CMP_EQUAL,,,match
 PackedArrayAssign,testflags,CMP_EQUAL,,,match
 PackedArrayBind,default,CMP_NOTEQUAL,decompile:,,differ
 PackedArrayBind,testflags,CMP_NOTEQUAL,decompile:,,differ
-PackedArrayEnum,default,CMP_NOTEQUAL,decompile:,,differ
-PackedArrayEnum,testflags,CMP_NOTEQUAL,decompile:,,differ
+PackedArrayEnum,default,CMP_EQUAL,,,differ
+PackedArrayEnum,testflags,CMP_EQUAL,,,differ
 PackedArrayHierPath,default,SLANG_REJECT,dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements but 5 were provided,,
 PackedArrayHierPath,testflags,SLANG_REJECT,dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements but 5 were provided,,
 PackedArrayHighConn,default,CMP_NOTEQUAL,decompile:,,differ
@@ -1019,12 +1019,12 @@ ParamByValue,default,CMP_EQUAL,,,differ
 ParamByValue,testflags,CMP_EQUAL,,,differ
 ParamCast,default,CMP_NOTEQUAL,decompile:,,differ
 ParamCast,testflags,CMP_NOTEQUAL,decompile:,,differ
-ParamComplex,default,CMP_NOTEQUAL,decompile:,,differ
-ParamComplex,testflags,CMP_NOTEQUAL,decompile:,,differ
-ParamComplexVerilator,default,CMP_NOTEQUAL,decompile:,,differ
+ParamComplex,default,CMP_EQUAL,,,differ
+ParamComplex,testflags,CMP_EQUAL,,,differ
+ParamComplexVerilator,default,CMP_EQUAL,,,differ
 ParamComplexVerilator,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=parametersubstitution,
-ParamConcat,default,CMP_NOTEQUAL,decompile:,,differ
-ParamConcat,testflags,CMP_NOTEQUAL,decompile:,,differ
+ParamConcat,default,CMP_EQUAL,,,match
+ParamConcat,testflags,CMP_EQUAL,,,match
 ParamConst,default,CMP_EQUAL,,,differ
 ParamConst,testflags,CMP_EQUAL,,,differ
 ParamConstPush,default,CMP_EQUAL,,,differ
@@ -1035,13 +1035,13 @@ ParamElabMulti,default,CMP_NOTEQUAL,decompile:,,differ
 ParamElabMulti,testflags,CMP_NOTEQUAL,decompile:,,differ
 ParamEquivOp,default,CMP_NOTEQUAL,decompile:,,differ
 ParamEquivOp,testflags,CMP_NOTEQUAL,decompile:,,differ
-ParamFile,default,CMP_NOTEQUAL,decompile:,,differ
-ParamFile,testflags,CMP_NOTEQUAL,decompile:,,differ
+ParamFile,default,CMP_EQUAL,,,match
+ParamFile,testflags,CMP_EQUAL,,,match
 ParamFileMacro,default,SURELOG_FAIL,[   NOTE] : 0,,
 ParamFileMacro,testflags,SURELOG_FAIL,[   NOTE] : 0,,
-ParamFileNoTop,default,CMP_NOTEQUAL,decompile:,,differ
+ParamFileNoTop,default,CMP_EQUAL,,,match
 ParamFileNoTop,testflags,SLANG_REJECT,error: 'SRAMInitFile=/blah' is not a valid form of parameter override,,
-ParamFileOverr,default,CMP_NOTEQUAL,decompile:,,differ
+ParamFileOverr,default,CMP_EQUAL,,,match
 ParamFileOverr,testflags,SLANG_REJECT,error: 'SRAMInitFile=/blah' is not a valid form of parameter override,,
 ParamFromPackage,default,CMP_EQUAL,,,differ
 ParamFromPackage,testflags,CMP_EQUAL,,,differ
@@ -1107,7 +1107,7 @@ PatternAssignInteger,default,CMP_EQUAL,,,match
 PatternAssignInteger,testflags,CMP_EQUAL,,,match
 PatternAssignLogic,default,CMP_EQUAL,,,differ
 PatternAssignLogic,testflags,CMP_EQUAL,,,differ
-PatternAssignment,default,CMP_NOTEQUAL,decompile:,,differ
+PatternAssignment,default,CMP_EQUAL,,,match
 PatternAssignment,testflags,CMP_EQUAL,,,match
 PatternOrder,default,CMP_NOTEQUAL,decompile:,,differ
 PatternOrder,testflags,CMP_NOTEQUAL,decompile:,,differ
@@ -1139,8 +1139,8 @@ PortWildcard,default,SLANG_REJECT,dut.sv:16:1: error: can't use port declaration
 PortWildcard,testflags,SLANG_REJECT,dut.sv:16:1: error: can't use port declaration in module with ANSI style port list,,
 PoundDelay,default,SLANG_REJECT,dut.sv:3:11: error: use of undeclared identifier 'clk',,
 PoundDelay,testflags,SLANG_REJECT,dut.sv:3:11: error: use of undeclared identifier 'clk',,
-PoundDelayTask,default,CMP_NOTEQUAL,decompile:,,differ
-PoundDelayTask,testflags,CMP_NOTEQUAL,decompile:,,differ
+PoundDelayTask,default,CMP_EQUAL,,,match
+PoundDelayTask,testflags,CMP_EQUAL,,,match
 PoundParam,default,SLANG_REJECT,dut.v:39:8: error: missing '(' in parameter list,,
 PoundParam,testflags,SLANG_REJECT,dut.v:39:8: error: missing '(' in parameter list,,
 PPComment,default,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'b',,
@@ -1305,8 +1305,8 @@ SVSwitch,default,CMP_NOTEQUAL,decompile:,,differ
 SVSwitch,testflags,CMP_NOTEQUAL,decompile:,,differ
 SynthFilterDollarError,default,SLANG_REJECT,dut.sv:4:10: error: unknown package 'pack',,
 SynthFilterDollarError,testflags,SLANG_REJECT,dut.sv:4:10: error: unknown package 'pack',,
-SynthForeach,default,CMP_NOTEQUAL,decompile:,,differ
-SynthForeach,testflags,CMP_NOTEQUAL,decompile:,,differ
+SynthForeach,default,CMP_EQUAL,,,differ
+SynthForeach,testflags,CMP_EQUAL,,,differ
 SystemCall,default,SLANG_REJECT,dut.sv:3:23: error: use of undeclared identifier 'clock',,
 SystemCall,testflags,SLANG_REJECT,dut.sv:3:23: error: use of undeclared identifier 'clock',,
 SystemCallSize,default,CMP_NOTEQUAL,decompile:,,differ
@@ -1315,8 +1315,8 @@ TaggedParam,default,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsf
 TaggedParam,testflags,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
 TaggedPattern,default,CMP_NOTEQUAL,decompile:,,differ
 TaggedPattern,testflags,CMP_NOTEQUAL,decompile:,,differ
-TaggedPatternLogic,default,CMP_NOTEQUAL,decompile:,,differ
-TaggedPatternLogic,testflags,CMP_NOTEQUAL,decompile:,,differ
+TaggedPatternLogic,default,CMP_EQUAL,,,differ
+TaggedPatternLogic,testflags,CMP_EQUAL,,,differ
 TaskBind,default,CMP_EQUAL,,,match
 TaskBind,testflags,CMP_EQUAL,,,match
 TaskDeclNoOrder,default,SLANG_REJECT,dut.sv:17:9: error: use of undeclared identifier 'set_ibias_en',,
@@ -1525,8 +1525,8 @@ XValue,default,CMP_EQUAL,,,match
 XValue,testflags,CMP_EQUAL,,,differ
 Yosys,default,SLANG_REJECT,error: no input files,,
 Yosys,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
-YosysBigSimAes,default,CMP_NOTEQUAL,decompile:,,differ
-YosysBigSimAes,testflags,CMP_NOTEQUAL,decompile:,,differ
+YosysBigSimAes,default,CMP_EQUAL,,,differ
+YosysBigSimAes,testflags,CMP_EQUAL,,,differ
 YosysBigSimAmber23,default,SLANG_REJECT,rtl/a23_decode.v:175:24: error: expected a declaration name,,
 YosysBigSimAmber23,testflags,SLANG_REJECT,rtl/a23_decode.v:175:24: error: expected a declaration name,,
 YosysBigSimEllip,default,CMP_NOTEQUAL,decompile:,,differ

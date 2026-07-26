@@ -369,6 +369,13 @@ private:
                         const std::string& prefix, NetMap& netMap);
     UHDM::any* emitEventExpr(const slang::ast::TimingControl& tc, UHDM::BaseClass* parent,
                              const std::string& prefix, NetMap& netMap);
+    // "#5", "#10ns", "#dly": Surelog's delay_control. Sets VpiDelay to the
+    // Pound_delay TOKEN text (SV3_1aLexer.g4:65, '#' plus [0-9][0-9_.]*, so a
+    // trailing time_unit is NOT part of it) while the object's SPAN covers the
+    // whole pound_delay_value including that unit. A non-numeric delay value
+    // instead gets a ref_obj under Delay().
+    UHDM::delay_control* emitDelayControl(const slang::ast::TimingControl& tc,
+                                         UHDM::BaseClass* parent);
     UHDM::any* emitExpr(const slang::ast::Expression& expr, UHDM::BaseClass* parent,
                         const std::string& prefix, NetMap& netMap);
     // b.a[0].x / a[0].min_v -> hier_path threading bit_select elements through
@@ -566,6 +573,9 @@ private:
                                        slang::SourceRange r);
     std::string fullFilePath(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
+    /// One `include_file_info` per ACTIVE `include directive, hung off the
+    /// design (Surelog's "Compile Include file info" pass).
+    void emitIncludeFileInfos();
     /// True when a packed struct/union has at least one member whose packed
     /// dimension is written with an IDENTIFIER bound (`pad_type_e
     /// [NDioPads-1:0] m`).  Surelog never flattens such a struct's pattern
@@ -745,6 +755,20 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;
     UHDM::module_inst* implicitNetModule = nullptr;
     std::string implicitNetPrefix;
+    // foreach_stmt: the iterated array's ref_typespec binds the array's OWN
+    // array_typespec, which the instance view only mints later — so the ref is
+    // recorded here and filled in the deferred drain.
+    struct PendingForeachTs {
+        UHDM::ref_typespec* rt;
+        const slang::ast::Symbol* sym;
+        UHDM::module_inst* mod;
+    };
+    std::vector<PendingForeachTs> pendingForeachArrayTs;
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> arrayVarArrayTs;
+    // Loop variables of the foreach statements currently open, by name: a
+    // NESTED foreach re-lists the enclosing loop's variable OBJECT (Surelog's
+    // late-binding swap), it does not declare a second one.
+    std::map<std::string, UHDM::variables*> openForeachVars;
     // Package scope currently emitting task_funcs (ts vpiInstance owner).
     UHDM::instance* pkgScopeInst = nullptr;
     // During an explicit-import subroutine COPY re-emission, the typespecs of
@@ -1022,6 +1046,38 @@ private:
     // Class-scope typedefs (vpiTypedef on a class_defn); only the builtin
     // `process::state` enum needs these today, so it stays behind --builtins.
     void emitClassTypedefs(const slang::ast::ClassType& cls, UHDM::class_defn* cd);
+    // PACKAGE-scope class definitions, listed under the ELABORATED (top-view)
+    // package only — Surelog's un-elaborated Package carries an empty class map
+    // (UhdmWriter.cpp writePackage/getUnElabPackage). Listed name-sorted, the
+    // order of Surelog's multimap<name, ClassDefinition*>.
+    void emitPackageClasses(const slang::ast::PackageSymbol& pkg, UHDM::package* up,
+                            const std::string& prefix);
+    // A class's `extends` wiring is deferred: the base class_defn may not exist
+    // yet (another package, a later file-level class). Drained once every
+    // class_defn is built, derived-class-name-sorted so vpiDerivedClasses lands
+    // in Surelog's design-wide multimap order.
+    struct PendingExtends {
+        UHDM::class_defn* cd;
+        const slang::ast::ClassType* cls;
+    };
+    std::vector<PendingExtends> pendingExtends;
+    void drainPendingExtends();
+    // class_typespecs whose vpiClassDefn target may not have been emitted yet
+    // (name-sorted class lists put a base class after its user). Patched
+    // alongside the extends drain.
+    std::vector<std::pair<UHDM::class_typespec*, const slang::ast::Type*>>
+        pendingClassTsLink;
+    // Class-scope `parameter` / `localparam` / `parameter type` declarations:
+    // vpiParameter + vpiParamAssign on the class_defn.
+    void emitClassParameters(const slang::ast::ClassType& cls, UHDM::class_defn* cd,
+                             const std::string& fullName);
+    // The vpiReg element variable of a class-scope dynamic-array / queue /
+    // assoc property, typed by the shared element typespec. Null when the
+    // element type has no variable form here.
+    UHDM::variables* classElemVar(const slang::ast::Type& elemType);
+    // The already-emitted typespec object for a package/module/class TYPEDEF
+    // (the elaborated copy wins, as in makeTypespec); null when unregistered.
+    UHDM::typespec* sharedAliasTs(const slang::ast::Type& t);
     // The class_defn currently being filled (a `new` constructor's synthesized
     // return class_var points its class_typespec at it).
     UHDM::class_defn* currentClassDefn = nullptr;

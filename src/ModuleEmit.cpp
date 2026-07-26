@@ -210,6 +210,45 @@ static bool hasStructFieldMember(const Symbol& sym) {
     return false;
 }
 
+// `var d;` — a VARIABLE whose data type is written nowhere (no type keyword, no
+// signing, no dimensions). There is no syntax for the typespec to span, and
+// Surelog emits none at all (a net's implicit type still spans its `wire`
+// keyword, so nets are excluded).
+static bool hasBareImplicitType(const Symbol& sym) {
+    if (sym.kind == SymbolKind::Net)
+        return false;
+    auto* dt = sym.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != slang::syntax::SyntaxKind::ImplicitType)
+        return false;
+    auto& its = tsyn->as<slang::syntax::ImplicitTypeSyntax>();
+    return !its.signing && its.dimensions.empty();
+}
+
+// A "non-ANSI header": the declaration carries a `(...)` port list that is not
+// ANSI-declared — either a genuine non-ANSI list (module m(a, b);) or EMPTY
+// parens (module m();). A header with NO parens at all (module m;) is not one.
+// Surelog's definition-level net writer cannot resolve a bare typedef name in
+// such a component, which is what makes the def-view typespec disappear.
+static bool isNonAnsiHeader(const InstanceBodySymbol& body) {
+    auto* dsyn = body.getDefinition().getSyntax();
+    if (!dsyn)
+        return false;
+    const slang::syntax::ModuleHeaderSyntax* hdr = nullptr;
+    if (dsyn->kind == slang::syntax::SyntaxKind::ModuleDeclaration ||
+        dsyn->kind == slang::syntax::SyntaxKind::InterfaceDeclaration ||
+        dsyn->kind == slang::syntax::SyntaxKind::ProgramDeclaration)
+        hdr = dsyn->as<slang::syntax::ModuleDeclarationSyntax>().header;
+    if (!hdr || !hdr->ports)
+        return false;
+    if (hdr->ports->kind == slang::syntax::SyntaxKind::NonAnsiPortList)
+        return true;
+    return hdr->ports->kind == slang::syntax::SyntaxKind::AnsiPortList &&
+           hdr->ports->as<slang::syntax::AnsiPortListSyntax>().ports.empty();
+}
+
 UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
@@ -371,6 +410,16 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             it.sym->getDeclaredType() &&
             it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::ClassType;
+        // ...but a handle written with a SCOPED class name (pack::doorOpen)
+        // keeps its typespec regardless: Surelog resolves the class_scope
+        // reference eagerly, so the write never strips it (ClassMini).
+        if (classHandle)
+            if (auto dts9 = it.sym->getDeclaredType();
+                dts9 && dts9->getTypeSyntax() &&
+                dts9->getTypeSyntax()->kind == syntax::SyntaxKind::NamedType &&
+                dts9->getTypeSyntax()->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName)
+                classHandle = false;
         if (classHandle) {
             bool written = false;
             for (auto& mb : body.members()) {
@@ -388,39 +437,23 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             if (!written)
                 classHandle = false;
         }
-        // A net whose UNPACKED-leaf type is a MODULE-PREFIXED struct typedef
-        // (member-only use: neither nested nor whole-assigned) carries NO
-        // def-view typespec — unless it has an initializer or feeds a child
-        // instance port connection. Packed-array-of-struct nets keep theirs.
-        bool prefixedStructNet = false;
+        // In a NON-ANSI-HEADER module (a `(...)` port list that is not
+        // ANSI-declared — a non-ANSI list, or empty parens) Surelog fails to
+        // resolve a BARE typedef NAME while writing the definition's nets, so
+        // such a net carries NO def-view typespec. Only a simple unqualified
+        // name is affected: a package-qualified type (pk::t), a named type
+        // carrying packed dimensions (lt [1:0]) and every builtin/inline type
+        // keep theirs, and so does any declaration WITH an initializer.
+        bool namedTypeNet = false;
         if (auto dtn = it.sym->getDeclaredType();
-            dtn && !dtn->getInitializer()) {
-            const Type* lf = &dtn->getType().getCanonicalType();
-            while (lf->getCanonicalType().kind ==
-                   SymbolKind::FixedSizeUnpackedArrayType)
-                lf = &lf->getCanonicalType()
-                          .as<FixedSizeUnpackedArrayType>()
-                          .elementType;
-            prefixedStructNet =
-                lf->getCanonicalType().kind == SymbolKind::PackedStructType &&
-                modulePrefixedStructs.count(&lf->getCanonicalType());
-
-            if (prefixedStructNet) {
-                // The ts drop is keyed on the module HEADER style: it
-                // happens only in NON-ANSI-header modules.
-                bool nonAnsi = false;
-                if (auto* dsyn = body.getDefinition().getSyntax()) {
-                    if (dsyn->kind ==
-                        slang::syntax::SyntaxKind::ModuleDeclaration) {
-                        auto& mds =
-                            dsyn->as<slang::syntax::ModuleDeclarationSyntax>();
-                        nonAnsi = mds.header->ports &&
-                                  mds.header->ports->kind ==
-                                      slang::syntax::SyntaxKind::NonAnsiPortList;
-                    }
-                }
-                if (!nonAnsi)
-                    prefixedStructNet = false;
+            dtn && !dtn->getInitializer() && isNonAnsiHeader(body)) {
+            if (auto* tsyn = dtn->getTypeSyntax()) {
+                if (tsyn->kind == slang::syntax::SyntaxKind::NamedType)
+                    namedTypeNet =
+                        tsyn->as<slang::syntax::NamedTypeSyntax>().name->kind ==
+                        slang::syntax::SyntaxKind::IdentifierName;
+                else if (tsyn->kind == slang::syntax::SyntaxKind::TypeReference)
+                    namedTypeNet = true;
             }
         }
         // A local net typed by a typedef used as a child instance's `type`
@@ -428,8 +461,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         bool typeParamArgNet =
             it.sym->getDeclaredType() &&
             typeParamArgTypes.count(&it.sym->getDeclaredType()->getType());
-        if (!it.port && !implicitNet && !classHandle && !prefixedStructNet &&
-            !typeParamArgNet) {
+        if (!it.port && !implicitNet && !classHandle && !namedTypeNet &&
+            !typeParamArgNet && !hasBareImplicitType(*it.sym)) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
             auto* rt = s.MakeRef_typespec();
@@ -737,6 +770,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     auto* asserts = s.MakeAnyVec();
     refCollector = &info.processRefs;
     inProcessEmit = true;
+    // Process bodies resolve names against the module scope, so a name Surelog
+    // cannot bind there (a block label, a foreach loop variable) leaks as an
+    // implicit module wire minted at the first reference.
+    auto* savedProcINM = implicitNetModule;
+    auto savedProcINP = implicitNetPrefix;
+    implicitNetModule = m;
+    implicitNetPrefix = prefix;
     // A process written DIRECTLY inside an explicit `generate...endgenerate`
     // region is NOT compiled with the module's own items (Surelog's
     // collectModuleObjects_ stops at paGenerate_region): instead
@@ -787,6 +827,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 }
     }
     inProcessEmit = false;
+    implicitNetModule = savedProcINM;
+    implicitNetPrefix = savedProcINP;
     refCollector = nullptr;
     if (!procs->empty())
         m->Process(procs);
@@ -2403,7 +2445,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
         }
         UHDM::typespec* ts = nullptr;
-        if (auto dtv = it.sym->getDeclaredType(); dtv && !implicitNet) {
+        // A bare `var d;` body decl carries no typespec at all (nothing to span).
+        bool bareImplicit = !it.port && hasBareImplicitType(*it.sym);
+        if (auto dtv = it.sym->getDeclaredType();
+            dtv && !implicitNet && !bareImplicit) {
             auto& tv = dtv->getType();
             // An IMPORTED-unqualified pkg-typedef signal (import pkg::T;
             // output T o) binds the SHARED pkg typespec, not a clone (the
@@ -2711,7 +2756,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
         }
         UHDM::ref_typespec* rt = nullptr;
-        if (!implicitNet && !realVar) {
+        if (!implicitNet && !realVar && !bareImplicit) {
             rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName);
             rt->Actual_typespec(ts);
@@ -7741,6 +7786,18 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         // NAMED clone (unqualified name, Typedef_alias ref to the shared pkg
         // ts, anchored range bounds); def port and net keep the shared ts.
         UHDM::typespec* topActual = defActual ? defActual : pts;
+        // An UNPACKED-array port's TOP typespec is the BARE element ts: the
+        // array wrapper belongs to the def port alone. A 4-state leaf gets
+        // that for free (its def actual IS the element ts, and the wrapper is
+        // the write-phase object built just above), but a 2-STATE leaf was
+        // already wrapped by the def-view emitter — so reach back through it.
+        if (defActual && defActual->UhdmType() == UHDM::uhdmarray_typespec &&
+            internal && internal->getDeclaredType() &&
+            internal->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::FixedSizeUnpackedArrayType)
+            if (auto* aert = ((UHDM::array_typespec*)defActual)->Elem_typespec())
+                if (aert->Actual_typespec())
+                    topActual = aert->Actual_typespec();
         if (internal && internal->getDeclaredType()) {
             auto& pt0 = internal->getDeclaredType()->getType();
             if (pt0.kind == SymbolKind::TypeAlias) {

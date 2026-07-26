@@ -333,6 +333,19 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
 // where it can matter; it returns nullopt for anything it does not model, so
 // slang's LRM value stays authoritative for every other fold.
 
+// Is this parameter's own DECLARED default a string literal (parameter X =
+// "FOO")? Surelog types such a parameter from the module DEFINITION, so the
+// answer must not depend on an instance override — hence the declarator
+// syntax rather than getInitializer(), which an override replaces.
+static bool declaredStringLiteralParam(const ParameterSymbol& ps) {
+    if (auto* dsyn = ps.getSyntax())
+        if (auto* decl = dsyn->as_if<syntax::DeclaratorSyntax>())
+            return decl->initializer &&
+                   decl->initializer->expr->kind ==
+                       syntax::SyntaxKind::StringLiteralExpression;
+    return false;
+}
+
 // int64 view of a slang constant under Surelog's get_value(): a SIGNED value
 // keeps its sign (INT:), an unsigned one is zero-extended (UINT:).
 static std::optional<int64_t> srlgWord(const ConstantValue& cv) {
@@ -1397,6 +1410,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         scan9(*cn9);
                             };
                         scan9(*dim9);
+                        // A SIZE-style dim naming a parameter ([CNT]) keeps
+                        // the bound symbolic in BOTH views whether or not that
+                        // parameter is overridable — Surelog compiles the
+                        // declaration's own text (ParamArrayUnsizedPattern,
+                        // DefaultPatternModule). PACKAGE params are excluded:
+                        // there only the DEF view stays symbolic (and scopes
+                        // the ref with '::'), the elaborated package folds it
+                        // (DefaultPatternInt) — not modelled here.
+                        if (!ovr9 && !inPackage && dim9->specifier &&
+                            dim9->specifier->kind ==
+                                syntax::SyntaxKind::RangeDimensionSpecifier)
+                            if (auto* bs8 =
+                                    dim9->specifier
+                                        ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                        .selector->as_if<syntax::BitSelectSyntax>();
+                                bs8 && bs8->expr &&
+                                bs8->expr->kind ==
+                                    syntax::SyntaxKind::IdentifierName) {
+                                auto nm8 =
+                                    bs8->expr->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText();
+                                if (auto* hit8 = body.find(std::string(nm8));
+                                    hit8 && hit8->kind == SymbolKind::Parameter)
+                                    ovr9 = true;
+                            }
                     }
                 }
                 if (ovr9)
@@ -1733,6 +1771,154 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (topView && (overridden || noDefExprOv || noDefLitMP) &&
             !structOvPat) {
             auto& cvo = ps.getValue();
+            // An override actual that CONCATENATES a struct-typed parameter
+            // (.init({init_val})) is NOT folded: Surelog substitutes the
+            // referenced parameter with its own assignment pattern, flattened
+            // to one operand per struct member, and leaves the concatenation
+            // in place. The substituted op is parented at the REFERENCED
+            // param's param_assign (Surelog builds it while elaborating that
+            // assign) and carries its own module-scoped struct typespec clone.
+            // ParamConcat / ParamComplex / ParamComplexVerilator.
+            if (boundInit) {
+                auto& cc9 = stripImplicitConv(*boundInit);
+                const ParameterSymbol* csp9 = nullptr;
+                const Expression* cref9 = nullptr;
+                const Expression* cpat9 = nullptr;
+                if (cc9.kind == ExpressionKind::Concatenation &&
+                    cc9.as<ConcatenationExpression>().operands().size() == 1) {
+                    auto& el9 = stripImplicitConv(
+                        *cc9.as<ConcatenationExpression>().operands()[0]);
+                    const Symbol* rs9 = nullptr;
+                    if (el9.kind == ExpressionKind::NamedValue)
+                        rs9 = &el9.as<NamedValueExpression>().symbol;
+                    else if (el9.kind == ExpressionKind::HierarchicalValue)
+                        rs9 = &el9.as<HierarchicalValueExpression>().symbol;
+                    if (rs9 && rs9->kind == SymbolKind::Parameter &&
+                        rs9->as<ParameterSymbol>()
+                                .getType()
+                                .getCanonicalType()
+                                .kind == SymbolKind::PackedStructType) {
+                        if (auto* ri9 =
+                                rs9->as<ParameterSymbol>().getInitializer()) {
+                            auto& si9 = stripImplicitConv(*ri9);
+                            if (si9.kind == ExpressionKind::
+                                                StructuredAssignmentPattern ||
+                                si9.kind ==
+                                    ExpressionKind::SimpleAssignmentPattern) {
+                                csp9 = &rs9->as<ParameterSymbol>();
+                                cref9 = &el9;
+                                cpat9 = &si9;
+                            }
+                        }
+                    }
+                }
+                if (csp9) {
+                    auto* cop9 = s.MakeOperation();
+                    cop9->VpiOpType(vpiConcatOp);
+                    cop9->VpiParent(pa);
+                    setLoc(cop9, cc9.sourceRange);
+                    auto* pop9 = s.MakeOperation();
+                    pop9->VpiOpType(75);
+                    if (auto pit9 = elabParamPa.find(csp9);
+                        pit9 != elabParamPa.end())
+                        pop9->VpiParent(pit9->second);
+                    else
+                        pop9->VpiParent(cop9);
+                    setLoc(pop9, cref9->sourceRange);
+                    // The struct ts clone and its member refs scope at the
+                    // REFERENCING module (prefix minus this instance).
+                    std::string modPfx9 = prefix;
+                    if (auto d9 = modPfx9.rfind('.'); d9 != std::string::npos)
+                        modPfx9.resize(d9);
+                    else
+                        modPfx9.clear();
+                    auto* crt9 = s.MakeRef_typespec();
+                    crt9->VpiParent(pop9);
+                    crt9->VpiFullName(modPfx9);
+                    {
+                        std::string savedPfx9 = syntaxRefPrefix;
+                        syntaxRefPrefix = modPfx9;
+                        structCloneMemberRefParent = true;
+                        auto* scl9 = makeParamTs(*csp9, /*typedParam=*/true,
+                                                 /*parentBounds=*/true);
+                        structCloneMemberRefParent = false;
+                        syntaxRefPrefix = savedPfx9;
+                        crt9->Actual_typespec(scl9);
+                        scl9->VpiParent(crt9);
+                    }
+                    pop9->Typespec(crt9);
+                    ASTContext mctx9(comp.getRoot(), LookupLocation::max);
+                    auto* mops9 = s.MakeAnyVec();
+                    for (auto& fld9 : csp9->getType()
+                                          .getCanonicalType()
+                                          .as<PackedStructType>()
+                                          .membersOfType<FieldSymbol>()) {
+                        const Expression* se9 = nullptr;
+                        if (cpat9->kind ==
+                            ExpressionKind::StructuredAssignmentPattern) {
+                            auto& ap9 =
+                                cpat9->as<StructuredAssignmentPatternExpression>();
+                            for (auto& ms9 : ap9.memberSetters)
+                                if (ms9.member == &fld9) {
+                                    se9 = ms9.expr;
+                                    break;
+                                }
+                            if (!se9)
+                                se9 = ap9.defaultSetter;
+                        }
+                        if (!se9)
+                            continue;
+                        // A BASED/SIZED literal setter keeps its own source
+                        // encoding; anything else (an unbased '1, a param ref)
+                        // folds to UINT at the member width.
+                        if (stripImplicitConv(*se9).kind ==
+                            ExpressionKind::IntegerLiteral) {
+                            if (auto* e9 = emitExpr(*se9, pop9, prefix, netMap)) {
+                                ((UHDM::any*)e9)->VpiParent(pop9);
+                                mops9->push_back((UHDM::any*)e9);
+                            }
+                            continue;
+                        }
+                        ConstantValue mv9 = mctx9.tryEval(*se9);
+                        if (mv9 && mv9.isInteger() &&
+                            !mv9.integer().hasUnknown()) {
+                            slang::SVInt uv9 = mv9.integer();
+                            uv9.setSigned(false);
+                            std::string dg9 =
+                                uv9.toString(LiteralBase::Decimal, false);
+                            auto* c9 = s.MakeConstant();
+                            c9->VpiDecompile(dg9);
+                            c9->VpiSize((int32_t)fld9.getType().getBitWidth());
+                            c9->VpiValue("UINT:" + dg9);
+                            c9->VpiConstType(vpiUIntConst);
+                            c9->VpiParent(pop9);
+                            setLoc(c9, se9->sourceRange);
+                            mops9->push_back(c9);
+                        }
+                    }
+                    pop9->Operands(mops9);
+                    auto* cops9 = s.MakeAnyVec();
+                    cops9->push_back(pop9);
+                    cop9->Operands(cops9);
+                    pa->Rhs(cop9);
+                    passigns->push_back(pa);
+                    if (prt) {
+                        if (!inPackage) {
+                            pendingParamTs.push_back(
+                                {&ps, up, prt, nullptr, typedParam});
+                        }
+                        else {
+                            auto* its9 = makeParamTs(ps, typedParam);
+                            if (typedParam)
+                                stampPkgTsInst(its9);
+                            prt->Actual_typespec(its9);
+                            if (typedParam || isRangedUntypedParam(ps))
+                                its9->VpiParent(up);
+                        }
+                    }
+                    continue;
+                }
+            }
             // UNBASED-UNSIZED override actuals (#(.VALUE('0)) etc.,
             // unbased_unsized_param sp13..sp16): the pa Rhs constant keeps
             // the unbased encoding with a LOCATED declared-type ts; the
@@ -1899,7 +2085,40 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 auto& iv = cvo.integer();
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
                 auto* c = s.MakeConstant();
-                c->VpiDecompile(digits);
+                // An untyped param whose DECLARED default is a string literal
+                // is a string param to Surelog (makeParamTs' string_typespec).
+                // When such a param is overridden by a REFERENCE that itself
+                // resolves to a string literal, the elab Rhs is a BARE STRING
+                // constant — value only, no size, no decompile (ParamFile:
+                // .MemInitFile(SRAMInitFile), both defaulting to "").
+                bool strRefOv8 = false;
+                std::string strRefTxt8;
+                if (!typedParam && boundInit &&
+                    stripImplicitConv(*boundInit).kind !=
+                        ExpressionKind::StringLiteral &&
+                    declaredStringLiteralParam(ps)) {
+                    const Expression* org7 = &stripImplicitConv(*boundInit);
+                    for (int h7 = 0;
+                         h7 < 8 && org7->kind == ExpressionKind::NamedValue;
+                         h7++) {
+                        auto& sy7 = org7->as<NamedValueExpression>().symbol;
+                        if (sy7.kind != SymbolKind::Parameter)
+                            break;
+                        auto* in7 = sy7.as<ParameterSymbol>().getInitializer();
+                        if (!in7)
+                            break;
+                        org7 = &stripImplicitConv(*in7);
+                    }
+                    if (org7->kind == ExpressionKind::StringLiteral) {
+                        strRefTxt8 = std::string(
+                            org7->as<StringLiteral>().getValue());
+                        strRefOv8 = true;
+                        c->VpiValue("STRING:" + strRefTxt8);
+                        c->VpiConstType(vpiStringConst);
+                    }
+                }
+                if (!strRefOv8)
+                    c->VpiDecompile(digits);
                 // A GENERATE-containing child is uniquified by Surelog's
                 // elaboration: its overrides encode UINT at the value width
                 // even for untyped params. INTERFACE instances do the same.
@@ -2106,7 +2325,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
-                if (vecAliasOv8 || strOv8 || enumOv8 || srcBaseOv8) {
+                if (vecAliasOv8 || strOv8 || enumOv8 || srcBaseOv8 ||
+                    strRefOv8) {
                 }
                 else if (typedParam && iv.getBitWidth() > 64) {
                     // WIDE values overflow the decimal fold — encode HEX at
@@ -2866,13 +3086,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         {
                             auto& seN = stripImplicitConv(*se);
                             const Type& fct = fld.getType().getCanonicalType();
+                            // A VECTOR member with its own DEFAULT pattern
+                            // ('{default: '1} on a logic [1:0]) is kept the
+                            // same way, sized at the member width — the
+                            // tagged_pattern survives the fold
+                            // (TaggedPatternLogic).
+                            bool vecPat9 =
+                                fct.kind != SymbolKind::PackedStructType &&
+                                fct.isIntegral() &&
+                                seN.kind == ExpressionKind::
+                                                StructuredAssignmentPattern &&
+                                seN.as<StructuredAssignmentPatternExpression>()
+                                    .memberSetters.empty() &&
+                                seN.as<StructuredAssignmentPatternExpression>()
+                                        .defaultSetter != nullptr;
                             if ((seN.kind ==
                                      ExpressionKind::StructuredAssignmentPattern ||
                                  seN.kind ==
                                      ExpressionKind::SimpleAssignmentPattern) &&
-                                fct.kind == SymbolKind::PackedStructType) {
+                                (fct.kind == SymbolKind::PackedStructType ||
+                                 vecPat9)) {
                                 bool savedRe = reemitting;
-                                reemitting = true;
+                                // A VECTOR member's default pattern KEEPS its
+                                // tagged_pattern — reemitting would strip it
+                                // down to the bare value.
+                                reemitting = !vecPat9;
                                 auto* ne = emitExpr(seN, op2, prefix, netMap);
                                 reemitting = savedRe;
                                 if (ne) {
@@ -2883,7 +3121,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     // instance-scoped fullname (Surelog,
                                     // iface_wholestruct_param). A plain DEFAULT
                                     // fold leaves both bare (iface_cfg_mem).
-                                    if (structOvPat &&
+                                    if (vecPat9 &&
+                                        ne->UhdmType() == UHDM::uhdmoperation)
+                                        ((UHDM::operation*)ne)
+                                            ->VpiSize((int32_t)fld.getType()
+                                                          .getBitWidth());
+                                    if (structOvPat && !vecPat9 &&
                                         ne->UhdmType() == UHDM::uhdmoperation) {
                                         auto* nop = (UHDM::operation*)ne;
                                         nop->VpiSize((int32_t)fld.getType()
@@ -4887,8 +5130,17 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     // is a bare (unlocated) string_typespec, not an int_typespec.
     bool stringParam = false;
     if (!its && !typedParam) {
+        bool strLit = false;
         if (auto init = ps.getInitializer();
-            init && stripImplicitConv(*init).kind == ExpressionKind::StringLiteral) {
+            init && stripImplicitConv(*init).kind == ExpressionKind::StringLiteral)
+            strLit = true;
+        // An OVERRIDDEN port parameter's initializer is the OVERRIDE
+        // expression, so the literal test above misses it. Surelog types the
+        // parameter from the module DEFINITION's default, which lives on the
+        // declarator syntax and is override-independent (ParamFile).
+        if (!strLit && declaredStringLiteralParam(ps))
+            strLit = true;
+        if (strLit) {
             its = s.MakeString_typespec();
             stringParam = true;
         }
@@ -7212,6 +7464,11 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     pkgTopEmit = topView;
     emitTaskFuncs(pkg, up, prefix, nullptr, /*sharedScope=*/false);
     pkgTopEmit = false;
+    // Package classes ride the ELABORATED package view only
+    // (§emitPackageClasses), emitted while the package context vars are
+    // still in force, then the outer context is restored.
+    if (topView)
+        emitPackageClasses(pkg, up, prefix);
     curPkgEmitSym = savedCurPkg0;
     return up;
 }
