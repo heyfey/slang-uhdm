@@ -328,35 +328,44 @@ lines used, and diff the dumps:
 Changed-line metric is `grep -c '^[-+]'` minus 2 — **not** `wc -l`, which
 counts context lines.
 
-### 4.2 Gates (unchanged from PLAYBOOK.md — these still bind)
+### 4.2 Gates
+
+**One harness.** `verify_golden.py` is the single classification engine. The
+rc=4 episode (§5 2b) is why: two harnesses with independent policies did not
+merely duplicate effort, they *contradicted* — one scoreboard said "skipped",
+the other said "failing", for the same test. The division of labour now:
+
+| Tool | Role |
+|---|---|
+| `scripts/verify_golden.py` | THE harness: classification, both corpora, all modes, the `dump` column |
+| `tests/check_goldens.sh` | fast byte-identity microscope over 23 committed golden dumps |
+| `scripts/converge.sh` | single-test dev microscope; produces `dump.diff` for inspection; same artifact policy |
+| `scripts/run_corpus.sh` | **deprecated** — kept only to reproduce phase-1 CSVs |
+
+The `dump` column carries run_corpus's byte-identity distinction forward:
+phase-1 `PASS` ≡ `CMP_EQUAL`+`match`, `CMP_ONLY` ≡ `CMP_EQUAL`+`differ`,
+`DIFF` ≡ `CMP_NOTEQUAL`. `CMP_EQUAL` is the phase-2 bar; the `dump` column is
+the phase-3 metric, already measured so regressions in byte identity stay
+visible now.
 
 Every change must clear, in the **main tree**:
 
 1. `bash tests/check_goldens.sh 2>&1 | grep -c '^PASS'` == **23**
-2. Corpus unchanged or improved:
+2. The uhdm2rtlil gate, against the committed baseline:
 
-       JOBS=3 timeout 900 ./scripts/run_corpus.sh ~/git-repos/uhdm2rtlil/test \
-         results/<tag>.csv results/baseline_auto.csv
+       python3 scripts/verify_golden.py --corpus uhdm2rtlil --mode testflags \
+         --out /tmp/gate.csv --workdir /tmp/gatew --jobs 3
 
-   Wait for **711 lines** before diffing; a short CSV yields bogus movers.
-3. Movers reviewed one by one:
+       diff <(sort results/gate_uhdm2rtlil.csv) <(sort /tmp/gate.csv)
 
-       diff <(sort results/baseline_auto.csv | cut -d, -f1,2) \
-            <(sort results/<tag>.csv        | cut -d, -f1,2) | grep '^[<>]'
-
-   No PASS→anything demotions. No CMP_ONLY→DIFF.
-4. After committing: `cp results/<tag>.csv results/baseline_auto.csv`
-
-Phase-2 additions:
-
-5. No `CMP_EQUAL` → anything regressions in either corpus, either mode.
-6. A test moving into `UNTRANSLATABLE` is a **regression**, not a neutral
-   result — it means the harness stopped being able to compare it.
-
-Cadence: gates 1–4 (goldens + uhdm2rtlil corpus, ~15 min) run per commit.
-Gates 5–6 need a full two-mode sweep (~45–60 min per corpus) — run per wave and
-before any baseline refresh, then commit the refreshed
-`results/golden_*.csv` alongside, as step 4 does for `baseline_auto.csv`.
+   Wait for **732 lines** (731 tests + header) before diffing.
+3. Movers reviewed one by one. Regressions, none allowed:
+   - `CMP_EQUAL` → anything
+   - `dump` `match` → `differ` (byte-identity demotion — phase-1's PASS→CMP_ONLY)
+   - anything → `UNTRANSLATABLE` (the harness stopped being able to compare it)
+4. After committing: `cp /tmp/gate.csv results/gate_uhdm2rtlil.csv`
+5. Full two-mode sweeps of both corpora per wave (not per commit; ~45–60 min
+   per corpus), refreshing `results/golden_*.csv` alongside.
 
 ### 4.3 Working method
 
@@ -409,19 +418,16 @@ diffs for free. The reverse is not true. Concretely:
    default with `--nobuiltin` to opt out, matching Surelog. `default` mode now
    passes no flag on either side.
 2. **Is `-cfg` covered by slang's `--libmap` config handling?** Unverified.
-2b. **When Surelog errors but still writes a database, is that database a
-   golden?** Two uhdm2rtlil tests (`asgn_expr_sv`, `typedef_param`) make Surelog
-   print compile errors and exit nonzero (rc=4) — yet it still writes a full
-   `surelog.uhdm`. Our two harnesses currently disagree on what that means:
-   `converge.sh` looks at the exit code, calls it `SURELOG_FAIL`, and skips the
-   test; `verify_golden.py` looks for the `.uhdm` file, finds it, compares, and
-   reports not-equal. Same test, one harness says "skipped", the other says
-   "failing". The decision needed: treat an errored-but-written database as a
-   valid golden (compare it) or not (skip it)? Recommendation: compare — Surelog
-   itself ships these tests with the errors recorded in their golden logs, i.e.
-   upstream treats the output as the expected result. Once decided, make
-   `converge.sh` agree; note this reopens phase 1's count by 2 (they were always
-   divergent, just hidden behind the rc check).
+2b. ~~Errored-but-written Surelog database: golden or not?~~ **RESOLVED
+   (match Surelog, `e8434be`)**: the golden is the artifact — Surelog's own
+   regression records the errors in its golden logs and treats the output as
+   expected. `converge.sh` now keys on the artifact like `verify_golden.py`,
+   printing the rc when nonzero. `asgn_expr_sv` and `typedef_param` thereby
+   entered the corpus as DIFF (135/223 dump lines). The policy then emptied the
+   bucket entirely: every remaining "SURELOG_FAIL" was also rc=4-with-database
+   (slang rejects those sources). uhdm2rtlil is now **488 PASS / 173 CMP_ONLY /
+   2 DIFF / 47 SLANG_REJECT / 0 SURELOG_FAIL** — the 2 DIFF were always
+   divergent, only hidden behind the rc check.
 2c. ~~Is byte-identity still the end state?~~ **RESOLVED**: `CMP_EQUAL` is the
    phase-2 bar; byte identity (a `DUMP_MATCH` column in `verify_golden.py`) is
    phase 3, after both corpora are cmp-equal in both modes.

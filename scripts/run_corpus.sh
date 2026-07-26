@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# DEPRECATED as a gate: superseded by scripts/verify_golden.py
+#   python3 scripts/verify_golden.py --corpus uhdm2rtlil --mode testflags ...
+# which covers the same corpus plus multi-file project.f tests, uses the same
+# artifact-based Surelog policy, and carries the dump column (PASS==CMP_EQUAL+
+# match, CMP_ONLY==CMP_EQUAL+differ, DIFF==CMP_NOTEQUAL). Kept only to
+# reproduce phase-1 CSVs; do not build new gating on it.
 # run_corpus.sh [corpus-root] [results.csv] [prev-results.csv]
 # Parallel corpus scoreboard. Classes:
 #   PASS       dump identical + uhdm-cmp pass
@@ -26,7 +32,7 @@ run_one() {
     elif grep -q "PASS_CMP" <<<"$res" && grep -q "DUMP_DIFF" <<<"$res"; then cls=CMP_ONLY
     elif grep -q "UNSUPPORTED" <<<"$res"; then cls=UNSUPPORTED
     elif grep -q "DUMP_DIFF" <<<"$res"; then cls=DIFF
-    elif grep -q "SURELOG" <<<"$res"; then cls=SURELOG_FAIL
+    elif grep -qE "SURELOG_FAIL|SURELOG_NO_UHDM" <<<"$res"; then cls=SURELOG_FAIL
     elif grep -q "SLANG_FAIL" <<<"$res"; then cls=SLANG_REJECT
     else cls=CRASH
     fi

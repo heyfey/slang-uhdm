@@ -52,6 +52,7 @@ SURELOG = os.path.join(SURELOG_ROOT, 'build', 'bin', 'surelog')
 SLANG_UHDM = os.environ.get('SLANG_UHDM',
                             os.path.join(HOME, 'git-repos', 'slang-uhdm', 'build', 'slang-uhdm'))
 UHDM_CMP = os.path.join(HOME, 'git-repos', 'UHDM', 'build', 'bin', 'uhdm-cmp')
+UHDM_DUMP = os.path.join(HOME, 'git-repos', 'UHDM', 'build', 'bin', 'uhdm-dump')
 UVM_DIR = os.path.join(SURELOG_ROOT, 'third_party', 'UVM')
 
 SRC_EXTS = ('.v', '.sv', '.vh', '.svh', '.pkg', '.vlt')
@@ -344,6 +345,25 @@ def find_uhdm(workdir):
     return hits
 
 
+def dump_verdict(a, b, timeout):
+    """'match' if the two databases dump byte-identically (first line -- the
+    banner naming the file -- dropped), 'differ' otherwise, '' on dump failure.
+    This is run_corpus.sh's PASS-vs-CMP_ONLY distinction, kept so byte identity
+    (phase 3) stays measured while cmp-equality is the phase-2 bar."""
+    try:
+        da = subprocess.run([UHDM_DUMP, a], capture_output=True, text=True,
+                            timeout=timeout)
+        db = subprocess.run([UHDM_DUMP, b], capture_output=True, text=True,
+                            timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return ''
+    if da.returncode or db.returncode:
+        return ''
+    ta = da.stdout.partition('\n')[2]
+    tb = db.stdout.partition('\n')[2]
+    return 'match' if ta == tb else 'differ'
+
+
 def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
     work = os.path.join(workroot, mode, name)
     os.makedirs(work, exist_ok=True)
@@ -355,15 +375,15 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
         sl = subprocess.run(sl_argv, cwd=dirpath, capture_output=True, text=True,
                             timeout=timeout)
     except subprocess.TimeoutExpired:
-        return (name, mode, 'TIMEOUT', 'surelog timeout', '')
+        return (name, mode, 'TIMEOUT', 'surelog timeout', '', '')
 
     uhdms = find_uhdm(work)
     if not uhdms:
         tail = (sl.stdout or sl.stderr or '').strip().splitlines()
         return (name, mode, 'SURELOG_FAIL' if sl.returncode else 'NO_UHDM',
-                tail[-1][:140] if tail else f'rc={sl.returncode}', '')
+                tail[-1][:140] if tail else f'rc={sl.returncode}', '', '')
     if len(uhdms) > 1:
-        return (name, mode, 'NO_UHDM', f'{len(uhdms)} databases (fileunit)', '')
+        return (name, mode, 'NO_UHDM', f'{len(uhdms)} databases (fileunit)', '', '')
 
     slang_out = os.path.join(work, 'slang.uhdm')
     su_argv = [SLANG_UHDM] + su_args + ['-o', slang_out]
@@ -373,21 +393,22 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
         su = subprocess.run(su_argv, cwd=dirpath, capture_output=True, text=True,
                             timeout=timeout)
     except subprocess.TimeoutExpired:
-        return (name, mode, 'TIMEOUT', 'slang timeout', '')
+        return (name, mode, 'TIMEOUT', 'slang timeout', '', '')
     if not os.path.exists(slang_out):
         tail = (su.stderr or su.stdout or '').strip().splitlines()
         msg = next((l for l in tail if 'error' in l.lower()), tail[-1] if tail else '')
-        return (name, mode, 'SLANG_REJECT', msg[:140] or f'rc={su.returncode}', '')
+        return (name, mode, 'SLANG_REJECT', msg[:140] or f'rc={su.returncode}', '', '')
 
     try:
         cp = subprocess.run([UHDM_CMP, uhdms[0], slang_out], capture_output=True,
                             text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
-        return (name, mode, 'TIMEOUT', 'uhdm-cmp timeout', '')
+        return (name, mode, 'TIMEOUT', 'uhdm-cmp timeout', '', '')
+    dump = dump_verdict(uhdms[0], slang_out, timeout)
     if cp.returncode == 0:
-        return (name, mode, 'CMP_EQUAL', '', '')
+        return (name, mode, 'CMP_EQUAL', '', '', dump)
     tail = (cp.stdout or cp.stderr or '').strip().splitlines()
-    return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '')
+    return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '', dump)
 
 
 def run_one(name, dirpath, parts, modes, workroot, timeout):
@@ -420,11 +441,11 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
         su_args, blocking, nodb, nobuiltin = translate(parts)
         if nodb:
             results.append((name, 'testflags', 'NO_DATABASE',
-                            'test suppresses UHDM output', ' '.join(nodb)))
+                            'test suppresses UHDM output', ' '.join(nodb), ''))
         elif blocking:
             results.append((name, 'testflags', 'UNTRANSLATABLE',
                             'UHDM-relevant flag not implemented in slang-uhdm',
-                            ' '.join(blocking)))
+                            ' '.join(blocking), ''))
         else:
             if nobuiltin:
                 su_args.append('--nobuiltin')
@@ -468,20 +489,20 @@ def main():
                 rows.extend(fut.result())
             except Exception as exc:
                 rows.append((futures[fut], 'harness', 'SURELOG_FAIL',
-                             f'{exc}'[:140], ''))
+                             f'{exc}'[:140], '', ''))
             if done % 25 == 0:
                 print(f'  {done}/{len(tests)}', flush=True)
 
     rows.sort(key=lambda r: (r[0].lower(), r[1]))
     with open(args.out, 'wt') as f:
-        f.write('name,mode,status,detail,blocked_by\n')
-        for name, mode, status, detail, blocked in rows:
+        f.write('name,mode,status,detail,blocked_by,dump\n')
+        for name, mode, status, detail, blocked, dump in rows:
             detail = detail.replace(',', ';').replace('\n', ' ')
-            f.write(f'{name},{mode},{status},{detail},{blocked}\n')
+            f.write(f'{name},{mode},{status},{detail},{blocked},{dump}\n')
 
     for mode in modes:
         counts = {}
-        for _n, m, status, _d, _b in rows:
+        for _n, m, status, _d, _b, _dm in rows:
             if m == mode:
                 counts[status] = counts.get(status, 0) + 1
         total = sum(counts.values())
