@@ -386,7 +386,7 @@ ModuleAlways,testflags,CMP_EQUAL,,,match
 ModuleInstantiationAndIndirectParams,testflags,CMP_EQUAL,,,differ
 ModuleUsingStuctInput,testflags,CMP_EQUAL,,,differ
 MonitorInputPort,testflags,CMP_EQUAL,,,match
-mriscv_bind_sva,testflags,CMP_NOTEQUAL,decompile:,,differ
+mriscv_bind_sva,testflags,CMP_EQUAL,,,differ
 mul,testflags,CMP_EQUAL,,,match
 mul_plain,testflags,CMP_EQUAL,,,match
 mul_signed_async,testflags,CMP_EQUAL,,,match

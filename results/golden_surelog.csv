@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_NOTEQUAL,decompile:,,differ
 LoopVar,testflags,CMP_NOTEQUAL,decompile:,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w2_sls/te,,
+LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/sva_sls/t,,
 LowMemPkg,default,CMP_NOTEQUAL,decompile:,,differ
-LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w2_sls/te,,
+LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/sva_sls/t,,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
@@ -1123,10 +1123,10 @@ PortDefaultValue,default,CMP_NOTEQUAL,decompile:,,differ
 PortDefaultValue,testflags,CMP_NOTEQUAL,decompile:,,differ
 PortExpr,default,CMP_NOTEQUAL,decompile:,,differ
 PortExpr,testflags,CMP_NOTEQUAL,decompile:,,differ
-PortInitVal,default,CMP_NOTEQUAL,decompile:,,differ
-PortInitVal,testflags,CMP_NOTEQUAL,decompile:,,differ
-PortInitVal2,default,CMP_NOTEQUAL,decompile:,,differ
-PortInitVal2,testflags,CMP_NOTEQUAL,decompile:,,differ
+PortInitVal,default,CMP_EQUAL,,,differ
+PortInitVal,testflags,CMP_EQUAL,,,differ
+PortInitVal2,default,CMP_EQUAL,,,differ
+PortInitVal2,testflags,CMP_EQUAL,,,differ
 PortInterface,default,CMP_EQUAL,,,match
 PortInterface,testflags,CMP_EQUAL,,,differ
 PortMultiDim,default,CMP_EQUAL,,,match
@@ -1163,8 +1163,8 @@ PreProcMacroFunc,default,SLANG_REJECT,dut.sv:7:1: error: unexpected conditional 
 PreProcMacroFunc,testflags,SLANG_REJECT,dut.sv:7:1: error: unexpected conditional directive,,
 PreprocString,default,SLANG_REJECT,dut.sv:7:14: error: expected macro arguments for function-like macro,,
 PreprocString,testflags,SLANG_REJECT,dut.sv:7:14: error: expected macro arguments for function-like macro,,
-PreprocTest,default,CMP_NOTEQUAL,decompile:,,differ
-PreprocTest,testflags,CMP_NOTEQUAL,decompile:,,differ
+PreprocTest,default,CMP_EQUAL,,,differ
+PreprocTest,testflags,CMP_EQUAL,,,differ
 PreprocUhdmCov,default,SLANG_REJECT,dut.sv:30:2: error: unknown module 'prim_subreg',,
 PreprocUhdmCov,testflags,SLANG_REJECT,dut.sv:30:2: error: unknown module 'prim_subreg',,
 PrimTermExpr,default,CMP_NOTEQUAL,decompile:,,differ
@@ -1565,12 +1565,12 @@ YosysOldSimpleSpi,default,CMP_NOTEQUAL,decompile:,,differ
 YosysOldSimpleSpi,testflags,CMP_NOTEQUAL,decompile:,,differ
 YosysOldSpi,default,CMP_NOTEQUAL,decompile:,,differ
 YosysOldSpi,testflags,CMP_NOTEQUAL,decompile:,,differ
-YosysOldSsPcm,default,CMP_NOTEQUAL,decompile:,,differ
-YosysOldSsPcm,testflags,CMP_NOTEQUAL,decompile:,,differ
+YosysOldSsPcm,default,CMP_EQUAL,,,match
+YosysOldSsPcm,testflags,CMP_EQUAL,,,match
 YosysOldSystem,default,CMP_EQUAL,,,differ
 YosysOldSystem,testflags,CMP_EQUAL,,,differ
-YosysOldUsb,default,CMP_NOTEQUAL,decompile:,,differ
-YosysOldUsb,testflags,CMP_NOTEQUAL,decompile:,,differ
+YosysOldUsb,default,CMP_EQUAL,,,differ
+YosysOldUsb,testflags,CMP_EQUAL,,,differ
 YosysOpenSparc,default,SLANG_REJECT,t2.v:269093:6: error: expected a declaration name,,
 YosysOpenSparc,testflags,NO_DATABASE,test suppresses UHDM output,-nocomp,
 YosysRiscv,default,CMP_NOTEQUAL,decompile:,,differ

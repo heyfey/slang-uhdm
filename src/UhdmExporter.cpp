@@ -364,7 +364,34 @@ bool UhdmExporter::isMultiParamDef(const Scope& body) const {
 
 bool UhdmExporter::srcOrderLess(SourceLocation a, SourceLocation b) const {
     if (bufRank.empty()) {
+        // Rank buffers by SYNTAX order, not semantic-unit membership: modules
+        // are definitions, not compilation-unit members, so a module-only file
+        // never appears in unit->members() and would fall to the BufferID
+        // fallback — and BufferIDs follow parallel-load completion order,
+        // which flips run to run (mriscv_bind_sva design name work@Wrapper vs
+        // work@mriscvcore_top_s2qed). Syntax-tree member order is the parsed
+        // command-line order and covers every declaration kind.
         size_t seq = 0;
+        for (auto& tree : comp.getSyntaxTrees()) {
+            if (!tree)
+                continue;
+            auto& rootNode = tree->root();
+            if (rootNode.kind == syntax::SyntaxKind::CompilationUnit) {
+                for (auto mem :
+                     rootNode.as<syntax::CompilationUnitSyntax>().members) {
+                    auto loc = mem->sourceRange().start();
+                    if (loc != SourceLocation::NoLocation)
+                        bufRank.emplace(loc.buffer(), seq++);
+                }
+            }
+            else {
+                auto loc = rootNode.sourceRange().start();
+                if (loc != SourceLocation::NoLocation)
+                    bufRank.emplace(loc.buffer(), seq++);
+            }
+        }
+        // Semantic units still rank anything syntax missed (e.g. buffers
+        // whose only content expanded from directives).
         for (auto unit : comp.getCompilationUnits())
             for (auto& mem : unit->members())
                 if (mem.location)
