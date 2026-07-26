@@ -307,6 +307,17 @@ Phase 1's numbers understated the work:
 `both` = default+testflags (the target modes); `all` adds the `folded`
 diagnostic overlay; `folded` alone emits rows only for `-elabuhdm` tests.
 
+**Golden cache.** The golden side is immutable (pinned Surelog binary, pinned
+sources), so the harness caches each test's Surelog database + dump hash under
+`~/.cache/slang-uhdm-goldens`, keyed by Surelog binary identity + test dir +
+argv. A warm sweep runs NO Surelog and dumps NO goldens — only the slang side
+executes. Before this, every sweep by every agent, verifier, and gate re-ran
+all 731/794 Surelog compiles to regenerate identical goldens; tens of
+thousands of redundant compiles per wave-cycle. The cache is shared across
+worktrees (atomic writes), so agent sweeps warm each other. `GOLDEN_CACHE=0`
+disables it; a Surelog rebuild auto-invalidates (identity key). TIMEOUT
+results are never cached.
+
 There is no builtins flag: the two tools' defaults agree (§2.6).
 
 Output CSV columns: `name,mode,status,detail,blocked_by`.

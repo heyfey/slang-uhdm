@@ -9,14 +9,21 @@
 
 #include <cstdio>
 #include <filesystem>
+#include <functional>
+#include <map>
 #include <set>
+#include <string>
+#include <vector>
 #include <uhdm/ElaboratorListener.h>
 #include <uhdm/SynthSubset.h>
 #include <uhdm/UhdmAdjuster.h>
 #include <uhdm/uhdm.h>
 
 #include "slang/ast/Compilation.h"
+#include "slang/diagnostics/DiagnosticEngine.h"
+#include "slang/diagnostics/LookupDiags.h"
 #include "slang/driver/Driver.h"
+#include "slang/syntax/AllSyntax.h"
 #include "slang/syntax/SyntaxTree.h"
 #include "slang/util/VersionInfo.h"
 
@@ -102,9 +109,95 @@ int main(int argc, char** argv) {
         driver.syntaxTrees.push_back(tree);
     }
 
+    // One syntax walk collecting two bind facts:
+    //   * bindInstRanges -- the source range of every `bind` directive's
+    //     INSTANTIATION (instance name, parameter overrides, port connections).
+    //     Only the instantiation, never the bind TARGET name: an unresolvable
+    //     target stays a hard error.  See the leniency below.
+    //   * bindCarriers / instantiated -- which module lexically holds a bind,
+    //     and which module names are instantiated anywhere.  See syntheticTops.
+    std::vector<SourceRange> bindInstRanges;
+    std::set<std::string> bindCarriers, instantiated;
+    for (auto& tree : driver.syntaxTrees) {
+        std::function<void(const syntax::SyntaxNode&, const std::string&)> walk =
+            [&](const syntax::SyntaxNode& node, const std::string& mod) {
+                std::string cur = mod;
+                if (node.kind == syntax::SyntaxKind::ModuleDeclaration)
+                    cur = std::string(node.as<syntax::ModuleDeclarationSyntax>()
+                                          .header->name.valueText());
+                else if (node.kind == syntax::SyntaxKind::HierarchyInstantiation)
+                    instantiated.insert(std::string(
+                        node.as<syntax::HierarchyInstantiationSyntax>()
+                            .type.valueText()));
+                else if (node.kind == syntax::SyntaxKind::BindDirective) {
+                    auto& bd = node.as<syntax::BindDirectiveSyntax>();
+                    bindInstRanges.push_back(bd.instantiation->sourceRange());
+                    if (!cur.empty())
+                        bindCarriers.insert(cur);
+                }
+                for (size_t i = 0; i < node.getChildCount(); i++)
+                    if (auto* ch = node.childNode(i))
+                        walk(*ch, cur);
+            };
+        walk(tree->root(), "");
+    }
+
+    // A `bind` directive inside a module that is never instantiated (an SVA
+    // wrapper holding only the bind) never fires in slang's elaboration when
+    // --top prunes that module, but Surelog applies such binds globally
+    // (mriscv_bind_sva: `bind mriscvcore_top_s2qed s2qed ...` inside module
+    // Wrapper). Make the carrier module an extra top so the bind elaborates,
+    // and tell the exporter it is synthetic (def view only, not a design top).
+    // Only needed when --top was given: without it slang auto-selects the
+    // uninstantiated carrier as a top already, so the bind fires on its own.
+    std::set<std::string> syntheticTops;
+    if (!driver.options.topModules.empty()) {
+        std::set<std::string> tops(driver.options.topModules.begin(),
+                                   driver.options.topModules.end());
+        for (auto& mod : bindCarriers)
+            if (!instantiated.count(mod) && !tops.count(mod)) {
+                driver.options.topModules.push_back(mod);
+                syntheticTops.insert(mod);
+            }
+    }
+
     auto compilation = driver.createCompilation();
     driver.reportCompilation(*compilation, /* quiet */ true);
     ok &= driver.reportDiagnostics(/* quiet */ true);
+    if (!ok && !bindInstRanges.empty()) {
+        // Surelog accepts an unresolvable hierarchical name in a bind's port
+        // connections leniently -- it emits an unresolved hier_path and keeps
+        // going -- where slang hard-errors (mriscv_bind_sva
+        // .cpu0_rs1i(mriscvcore_inst0.DECODE_INSTR_inst.rs1i): the instance is
+        // really named DECO_INSTR_inst, so the path cannot resolve).
+        //
+        // Deliberately narrow, so this cannot mask a real rejection: it fires
+        // only when EVERY error in the compilation is that ONE diagnostic
+        // (CouldNotResolveHierarchicalPath) AND every one of them is located
+        // inside a bind directive's instantiation. Any other error code, or the
+        // same code anywhere outside a bind, still rejects.
+        bool excusable = false;
+        for (auto& diag : compilation->getAllDiagnostics()) {
+            if (driver.diagEngine.getSeverity(diag.code, diag.location) <
+                DiagnosticSeverity::Error)
+                continue;
+            bool inBindInst = false;
+            if (diag.code == diag::CouldNotResolveHierarchicalPath)
+                for (auto& br : bindInstRanges)
+                    if (diag.location.buffer() == br.start().buffer() &&
+                        diag.location >= br.start() &&
+                        diag.location <= br.end()) {
+                        inBindInst = true;
+                        break;
+                    }
+            if (!inBindInst) {
+                excusable = false;
+                break;
+            }
+            excusable = true;
+        }
+        ok = excusable;
+    }
     if (!ok)
         return 3;
 
@@ -118,6 +211,8 @@ int main(int argc, char** argv) {
     slang_uhdm::UhdmExporter exporter(*compilation, serializer);
     if (emitBuiltins)
         exporter.enableBuiltins(builtinPath);
+    if (!syntheticTops.empty())
+        exporter.setSyntheticTops(syntheticTops);
     UHDM::design* design = exporter.exportDesign();
 
     // Post-export UHDM passes, in the order Surelog's UhdmWriter runs them.

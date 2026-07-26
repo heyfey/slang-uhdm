@@ -1004,6 +1004,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             if (defaultInit->bad())
                 defaultInit = nullptr;
         }
+        // An UNTYPED param whose default is a DECIMAL-BASED sized literal
+        // (parameter reposo = 4'd0) carries NO typespec at all (unlike 'b/'h
+        // literals): def-view Rhs keeps 4'd0 with a DANGLING module-named ts
+        // ref, and the ELAB Rhs folds to a plain int constant (mriscv
+        // MEMORY_INTERFACE states; fsm's 3'b001 and param_test's 8'hAA keep
+        // their int_typespec).
+        bool decBasedInit = false;
+        if (defaultInit) {
+            auto& dl0 = stripImplicitConv(*defaultInit);
+            if (dl0.kind == ExpressionKind::IntegerLiteral) {
+                std::string rawL0 = std::string(rawText(dl0.sourceRange));
+                auto tk0 = rawL0.find('\'');
+                if (tk0 != std::string::npos) {
+                    auto bp0 = tk0 + 1;
+                    if (bp0 < rawL0.size() &&
+                        (rawL0[bp0] == 's' || rawL0[bp0] == 'S'))
+                        bp0++;
+                    decBasedInit = bp0 < rawL0.size() &&
+                                   (rawL0[bp0] == 'd' || rawL0[bp0] == 'D');
+                }
+            }
+        }
         auto* up = s.MakeParameter();
         up->VpiName(ps.name);
         up->VpiFullName(joinPath(prefix, ps.name));
@@ -1280,7 +1302,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                       (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) ||
                       signedImplicitTs || pkgElabComputed ||
-                      ((literalInit || realLit) && !unknownDefault));
+                      ((literalInit || realLit) && !unknownDefault &&
+                       !decBasedInit));
         }
         if (auto declared0 = ps.getDeclaredType()) {
             if (auto tsyn0 = declared0->getTypeSyntax()) {
@@ -2095,12 +2118,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiDecompile(std::to_string(iv.getBitWidth()) + "'h" +
                                     hx8);
                 }
-                else if (typedParam || genChild) {
+                // A RANGED untyped param (parameter [0:0] REG_ALU) folds its
+                // override like a typed one: UINT at the declared width
+                // (mriscv ALU_beq #(.REG_ALU(REG_ALU))).
+                else if (typedParam || genChild || isRangedUntypedParam(ps)) {
                     c->VpiValue("UINT:" + digits);
                     c->VpiConstType(vpiUIntConst);
                     // An untyped NO-DEFAULT param has no width source; Surelog's
                     // uniquified override folds it at the 64-bit default width.
-                    c->VpiSize((noDefLitMP && !typedParam)
+                    c->VpiSize((noDefLitMP && !typedParam &&
+                                !isRangedUntypedParam(ps))
                                    ? 64
                                    : (int32_t)iv.getBitWidth());
                 }
@@ -3606,8 +3633,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // encoding; the DEF view AND the package views keep DEC
                 // (Surelog; cs_registers CSR_MISA_MXL / ibex_pkg,
                 // rp32_r5p_mouse ST0-ST3).
-                if (topView && typedParam && !inPackage &&
-                    rhs->UhdmType() == UHDM::uhdmconstant) {
+                if (topView && (typedParam || (decBasedInit && !wantTs)) &&
+                    !inPackage && rhs->UhdmType() == UHDM::uhdmconstant) {
                     auto* rc9 = (UHDM::constant*)rhs;
                     std::string_view v9 = rc9->VpiValue();
                     if (v9.rfind("DEC:", 0) == 0) {
@@ -3658,6 +3685,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             brt->VpiParent(rc);
                             rc->Typespec(brt);
                         }
+                    }
+                    // A DEC-BASED untyped default (4'd0) keeps its source form
+                    // in the DEF view but its ts ref is DANGLING (fullname
+                    // only, never patched) — mriscv MEMORY_INTERFACE.
+                    if (decBasedInit && !typedParam && !topView && !wantTs &&
+                        !rc->Typespec()) {
+                        auto* brt = s.MakeRef_typespec();
+                        std::string tsPrefix = prefix;
+                        if (tsPrefix.size() >= 2 &&
+                            tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                            tsPrefix.resize(tsPrefix.size() - 2);
+                        brt->VpiFullName(tsPrefix);
+                        brt->VpiParent(rc);
+                        rc->Typespec(brt);
                     }
                 }
                 // Elab-view string constants decompile WITHOUT quotes (the

@@ -390,10 +390,60 @@ UHDM::design* UhdmExporter::exportDesign() {
     computeParamMultiplicity();
 
     d = s.MakeDesign();
+    // `include occurrences -> design-level include_file_info entries
+    // (Surelog): located at the FILENAME TOKEN in the including file, with
+    // vpiIncludedFile = the included file's full path (mriscv_bind_sva
+    // jg_bind_wrapper.sv `include "rv32_opcodes.v").
+    {
+        auto* infos = s.MakeInclude_file_infoVec();
+        for (auto buf : sm->getAllBuffers()) {
+            auto incFrom = sm->getIncludedFrom(buf);
+            if (!incFrom)
+                continue;
+            auto* ifi = s.MakeInclude_file_info();
+            ifi->VpiIncludedFile(sm->getFullPath(buf).string());
+            ifi->VpiParent(d);
+            // incFrom points into the include directive; anchor at the quoted
+            // filename token (scan the source text from the directive).
+            auto text = sm->getSourceText(incFrom.buffer());
+            size_t off = incFrom.offset();
+            SourceRange r(incFrom, incFrom);
+            if (off < text.size()) {
+                auto q0 = text.find_first_of("\"<", off);
+                if (q0 != std::string_view::npos) {
+                    char close = text[q0] == '<' ? '>' : '"';
+                    auto q1 = text.find(close, q0 + 1);
+                    if (q1 != std::string_view::npos)
+                        r = SourceRange(
+                            SourceLocation(incFrom.buffer(), q0),
+                            SourceLocation(incFrom.buffer(), q1 + 1));
+                }
+            }
+            // The entry's own file is the INCLUDING file (the directive site).
+            ifi->VpiFile(fullFilePath(incFrom));
+            setLoc(ifi, r);
+            infos->push_back(ifi);
+        }
+        if (!infos->empty())
+            d->Include_file_infos(infos);
+    }
     // Multi-top designs: Surelog names the design after (and lists tops in)
     // SOURCE order; slang's topInstances may differ.
     std::vector<const InstanceSymbol*> orderedTops(root.topInstances.begin(),
                                                    root.topInstances.end());
+    // Driver-added SYNTHETIC tops (bind carriers) are not design tops: pull
+    // them out; they are re-added below as uninstantiated def views only.
+    std::vector<const InstanceSymbol*> synthTops;
+    if (!syntheticTops.empty()) {
+        auto mid = std::stable_partition(
+            orderedTops.begin(), orderedTops.end(),
+            [this](const InstanceSymbol* t) {
+                return syntheticTops.count(
+                           std::string(t->getDefinition().name)) == 0;
+            });
+        synthTops.assign(mid, orderedTops.end());
+        orderedTops.erase(mid, orderedTops.end());
+    }
     std::stable_sort(orderedTops.begin(), orderedTops.end(),
                      [this](const InstanceSymbol* a, const InstanceSymbol* b) {
                          return srcOrderLess(a->getDefinition().location,
@@ -451,6 +501,31 @@ UHDM::design* UhdmExporter::exportDesign() {
             collectDefs(uinst.body, defs);
         }
     }
+    // Synthetic (bind-carrier) tops: def views only, filled like an
+    // unreferenced def in the write phase; never emitted as tops.
+    for (auto* st : synthTops)
+        if (defs.emplace(std::string(st->getDefinition().name), st).second) {
+            unrefDefs.insert(&st->getDefinition());
+            collectDefs(st->body, defs);
+        }
+    // Bound-child display paths (see bindDefDisplay).
+    for (auto* ti : orderedTops)
+        for (auto& member : ti->body.members()) {
+            if (member.kind != SymbolKind::Instance)
+                continue;
+            auto& child = member.as<InstanceSymbol>();
+            bool fromBind9 = false;
+            for (auto p2 = child.getSyntax(); p2; p2 = p2->parent)
+                if (p2->kind == syntax::SyntaxKind::BindDirective) {
+                    fromBind9 = true;
+                    break;
+                }
+            if (fromBind9)
+                bindDefDisplay.emplace(
+                    &child.getDefinition(),
+                    "work@" + std::string(ti->getDefinition().name) + "." +
+                        std::string(child.name));
+        }
     // A design with NO top (recursive_map: every module is instantiated,
     // recursively) still carries every module definition in allModules —
     // Surelog compiles defs regardless of elaboration. Build uninstantiated

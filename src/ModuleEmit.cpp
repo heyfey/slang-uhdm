@@ -661,6 +661,14 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // property_decl with bare-ts formals and a formal-referenced body
     // (default instance); formal refs mint implicit module wires.
     {
+        // A BOUND-ONLY def's property declarations compile from the bound
+        // instance: the shared property_decl objects carry the BIND path
+        // (work@top.S2QED_BIND.p_X) — and, at elab, the elab parent — while
+        // the def view's other members keep def naming (mriscv_bind_sva).
+        std::string propPrefix = prefix;
+        if (auto bdd = bindDefDisplay.find(&body.getDefinition());
+            bdd != bindDefDisplay.end())
+            propPrefix = bdd->second;
         auto* pdecls = s.MakeProperty_declVec();
         for (auto& member : body.members()) {
             if (member.kind != SymbolKind::Property)
@@ -668,7 +676,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             auto& prop = member.as<PropertySymbol>();
             auto* pd = s.MakeProperty_decl();
             pd->VpiName(prop.name);
-            pd->VpiFullName(prefix + "." + std::string(prop.name));
+            pd->VpiFullName(propPrefix + "." + std::string(prop.name));
             pd->VpiParent(m);
             setLoc(pd, SourceRange(prop.location, prop.location + prop.name.size()));
             auto* fdecls = s.MakeProp_formal_declVec();
@@ -693,9 +701,22 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
                 implicitNetModule = m;
                 implicitNetPrefix = prefix;
                 propDeclScope = &prop;
+                // A clocked property body (@(posedge clk) expr): the clocking
+                // becomes the spec's VpiClockingEvent, the rest the
+                // VpiPropertyExpr (mriscv s2qed p_S2QED_MAPPED_VAL).
+                const AssertionExpr* pbody = &aie.body;
+                if (pbody->kind == AssertionExprKind::Clocking) {
+                    auto& cae = pbody->as<ClockingAssertionExpr>();
+                    if (auto* clk = emitEventExpr(
+                            cae.clocking, psSpec,
+                            propPrefix + "." + std::string(prop.name),
+                            info.nets))
+                        psSpec->VpiClockingEvent((UHDM::expr*)clk);
+                    pbody = &cae.expr;
+                }
                 if (auto* bodyE =
-                        emitAssertionExpr(aie.body, psSpec,
-                                          prefix + "." + std::string(prop.name),
+                        emitAssertionExpr(*pbody, psSpec,
+                                          propPrefix + "." + std::string(prop.name),
                                           info.nets))
                     psSpec->VpiPropertyExpr(bodyE);
                 propDeclScope = nullptr;
@@ -739,7 +760,12 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             regionPbs.push_back(&pb);
             continue;
         }
-        if (auto* as = emitAssertion(pb, m, prefix, info.nets)) {
+        // A BOUND-ONLY def's assertions compile from the bound instance:
+        // named/scoped by the BIND path like its property_decls (mriscv).
+        std::string assertPrefix = prefix;
+        if (auto bdd9 = bindDefDisplay.find(&def); bdd9 != bindDefDisplay.end())
+            assertPrefix = bdd9->second;
+        if (auto* as = emitAssertion(pb, m, assertPrefix, info.nets)) {
             asserts->push_back(as);
             info.assertions.push_back(as);
             continue;
@@ -1126,7 +1152,32 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
 
         auto* rports = s.MakePortVec();
         bool ordered = hasOrderedConns(child);
-        for (auto conn : child.getPortConnections()) {
+        // Surelog emits a NAMED connection list's ports in the order the
+        // connections are WRITTEN at the instantiation, not the port
+        // declaration order (mriscv Count/divM: .freq before .RESET while the
+        // def declares RESET first). Sort by the connection syntax offset;
+        // conns with no named syntax (.*, defaults) keep decl order (key
+        // ties, stable sort).
+        auto connSpan = child.getPortConnections();
+        std::vector<const PortConnection*> ordConns(connSpan.begin(),
+                                                    connSpan.end());
+        if (!ordered) {
+            std::vector<std::pair<uint64_t, const PortConnection*>> keyed;
+            keyed.reserve(ordConns.size());
+            for (auto conn : ordConns) {
+                uint64_t key = UINT64_MAX;
+                if (auto* npc = findConnSyntax(child, conn->port.name))
+                    key = npc->sourceRange().start().offset();
+                keyed.emplace_back(key, conn);
+            }
+            std::stable_sort(keyed.begin(), keyed.end(),
+                             [](const auto& a, const auto& b) {
+                                 return a.first < b.first;
+                             });
+            for (size_t i = 0; i < keyed.size(); i++)
+                ordConns[i] = keyed[i].second;
+        }
+        for (auto conn : ordConns) {
             // An UNCONNECTED port (dut d();) emits no ref_module port.
             if (!connectionExpr(*conn) && !findConnSyntax(child, conn->port.name))
                 continue;
@@ -4359,6 +4410,51 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     }
                     refCollector = nullptr;
                 }
+                // Surelog keeps an UNRESOLVABLE hierarchical bind-port
+                // connection as a literal hier_path built from the source
+                // text. slang's lookup fails, so there is no expression to
+                // emit and the port would carry no HighConn at all
+                // (mriscv_bind_sva .cpu0_rs1i(mriscvcore_inst0.
+                // DECODE_INSTR_inst.rs1i) — the instance is really named
+                // DECO_INSTR_inst). Synthesize the path: plain dotted text
+                // only, no selects, and only for a bind child.
+                if (!bindPath.empty() && !p->High_conn() &&
+                    (!connE9 || connE9->bad())) {
+                    auto* npc9 = findConnSyntax(inst, ps.name);
+                    std::string raw9;
+                    if (npc9 && npc9->expr)
+                        raw9 = std::string(rawText(npc9->expr->sourceRange()));
+                    if (raw9.find('.') != std::string::npos &&
+                        raw9.find_first_of("[]() \t'\"{},:+-*/") ==
+                            std::string::npos) {
+                        auto* hp9 = s.MakeHier_path();
+                        hp9->VpiName(raw9);
+                        hp9->VpiParent(p);
+                        setLoc(hp9, npc9->expr->sourceRange());
+                        auto* els9 = s.MakeAnyVec();
+                        auto st9 = npc9->expr->sourceRange().start();
+                        for (size_t pos9 = 0; pos9 <= raw9.size();) {
+                            size_t dot9 = raw9.find('.', pos9);
+                            if (dot9 == std::string::npos)
+                                dot9 = raw9.size();
+                            auto* r9 = s.MakeRef_obj();
+                            r9->VpiName(raw9.substr(pos9, dot9 - pos9));
+                            r9->VpiParent(hp9);
+                            setLoc(r9, SourceRange(st9 + pos9, st9 + dot9));
+                            els9->push_back(r9);
+                            if (dot9 == raw9.size())
+                                break;
+                            pos9 = dot9 + 1;
+                        }
+                        hp9->Path_elems(els9);
+                        // The LEAF element scopes through the child port path.
+                        auto* lastE9 = (UHDM::ref_obj*)els9->back();
+                        lastE9->VpiFullName(bindPath + "." +
+                                            std::string(ps.name) + "." +
+                                            std::string(lastE9->VpiName()));
+                        p->High_conn(hp9);
+                    }
+                }
             }
 
             UHDM::typespec* pts = nullptr;
@@ -4599,18 +4695,29 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         }
         if (it != defMap.end() && !it->second.assertions.empty()) {
             auto* av = s.MakeAnyVec();
-            for (auto* a : it->second.assertions)
+            for (auto* a : it->second.assertions) {
+                // A BIND child claims the shared assertion objects (they
+                // carry the bind path already) — mriscv.
+                if (!bindPath.empty())
+                    a->VpiParent(m);
                 av->push_back(a);
+            }
             m->Assertions(av);
         }
-        // Elab views list the SHARED named-property declarations.
+        // Elab views list the SHARED named-property declarations. A BIND
+        // child claims them: the shared objects re-parent at the elab
+        // instance (Surelog compiles a bound-only module's properties from
+        // the bound instance — mriscv_bind_sva).
         {
             auto* pdecls = s.MakeProperty_declVec();
             for (auto& member : body.members())
                 if (member.kind == SymbolKind::Property)
                     if (auto pit = propertyDeclMap.find(&member);
-                        pit != propertyDeclMap.end())
+                        pit != propertyDeclMap.end()) {
+                        if (!bindPath.empty())
+                            pit->second->VpiParent(m);
                         pdecls->push_back(pit->second);
+                    }
             if (!pdecls->empty())
                 m->Property_decls(pdecls);
         }
@@ -6708,9 +6815,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         // module for-generate locals stay unbound.
         if (genScopeProcInLoop && m->UhdmType() == UHDM::uhdminterface_inst)
             genScopeProcInLoop = false;
+        // A concurrent assertion written inside a generate block is a
+        // gen_scope ASSERTION, exactly as at module level -- not a process
+        // wrapping one (mriscv_bind_sva s2qed's `for` of assume/assert
+        // p_S2QED_SAME_REG_N_STATE). emitProcess would otherwise wrap it in an
+        // always + named_begin.
+        auto* genAsserts = s.MakeAnyVec();
         for (auto& gm : blk.members()) {
             if (gm.kind == SymbolKind::ProceduralBlock) {
-                if (auto* p = emitProcess(gm.as<ProceduralBlockSymbol>(), m, fullName, netMap)) {
+                auto& gpb = gm.as<ProceduralBlockSymbol>();
+                if (auto* as = emitAssertion(gpb, gs, fullName, netMap)) {
+                    genAsserts->push_back(as);
+                    continue;
+                }
+                if (auto* p = emitProcess(gpb, m, fullName, netMap)) {
                     p->VpiParent(gs);
                     procs->push_back(p);
                 }
@@ -6719,6 +6837,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         inGenScopeProc = false;
         currentGenBlkScope = nullptr;
         suppressRefActual = false;
+        if (!genAsserts->empty())
+            gs->Assertions(genAsserts);
         if (!procs->empty())
             gs->Process(procs);
 
@@ -8400,6 +8520,11 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                                      lc9.kind == SymbolKind::PackedArrayType) &&
                                     lc9.isIntegral() && !lc9.isFourState()) ||
                                    lc9.kind == SymbolKind::PackedStructType;
+                    // A BOUND-ONLY def (compiled late from the bound
+                    // instance) wraps 4-state elements too (mriscv s2qed
+                    // cpu0_reg[31:0]).
+                    if (bindDefDisplay.count(&body.getDefinition()))
+                        twoStateArr9 = true;
                 }
                 // An unpacked-array-of-packed-STRUCT port's ELEMENT ts is the
                 // element typedef's SHARED struct typespec (Surelog), not a
@@ -11436,7 +11561,7 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
 }
 
 UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSymbol& pb,
-                                                         UHDM::module_inst* m,
+                                                         UHDM::BaseClass* m,
                                                          const std::string& prefix,
                                                          NetMap& netMap) {
     auto syn = pb.getSyntax();

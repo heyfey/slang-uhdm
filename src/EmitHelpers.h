@@ -740,7 +740,7 @@ inline void instSetGenStmts(UHDM::instance* m, UHDM::VectorOfgen_stmt* v) {
 }
 
 inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body) {
-    std::vector<NetOrderItem> sorted, implicitPorts;
+    std::vector<NetOrderItem> sorted, implicitPorts, mintedNets;
     std::set<const Symbol*> portInternals;
     for (auto pb : body.getPortList()) {
         if (pb->kind != SymbolKind::Port)
@@ -760,13 +760,22 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
             continue;
         if (portInternals.count(&member))
             continue;
-        sorted.push_back({&member, nullptr, true});
+        // A connection-MINTED implicit net (no declaration anywhere) sorts
+        // AFTER the non-ANSI port nets (mriscv top: clk/rstn before the
+        // implicit .trap(trap) nets); declared nets stay before them.
+        if (member.kind == SymbolKind::Net &&
+            member.as<NetSymbol>().isImplicit)
+            mintedNets.push_back({&member, nullptr, true});
+        else
+            sorted.push_back({&member, nullptr, true});
     }
-    std::stable_sort(sorted.begin(), sorted.end(), [](const NetOrderItem& a,
-                                                      const NetOrderItem& b) {
+    auto locLess = [](const NetOrderItem& a, const NetOrderItem& b) {
         return a.sym->location < b.sym->location;
-    });
+    };
+    std::stable_sort(sorted.begin(), sorted.end(), locLess);
+    std::stable_sort(mintedNets.begin(), mintedNets.end(), locLess);
     sorted.insert(sorted.end(), implicitPorts.begin(), implicitPorts.end());
+    sorted.insert(sorted.end(), mintedNets.begin(), mintedNets.end());
     return sorted;
 }
 

@@ -887,6 +887,15 @@ UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange 
     ref->VpiParent(parent);
     setLoc(ref, nr);
     auto& inet = implicitNetMap[fsym];
+    // SAME-NAMED formals of DIFFERENT properties share one module wire
+    // (Surelog mints per name: p_S2QED_MAPPED_VAL/SAME_VAL both use inp0).
+    if (!inet && implicitNetModule && implicitNetModule->Nets())
+        for (auto* n9 : *implicitNetModule->Nets())
+            if (n9->VpiName() == nm &&
+                n9->UhdmType() == UHDM::uhdmlogic_net) {
+                inet = (UHDM::logic_net*)n9;
+                break;
+            }
     if (!inet && implicitNetModule) {
         inet = s.MakeLogic_net();
         inet->VpiName(nm);
@@ -3466,6 +3475,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             std::string(((UHDM::ref_obj*)a)->VpiName()).find("::") !=
                                 std::string::npos;
                         if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
+                            // A PROPERTY-DECL body's call args carry no
+                            // formal-ts stamp (mriscv s2qed reg_map(inp1)).
+                            !propDeclScope &&
                             !(unbasedArg && contAssignView == 1) &&
                             (refArg || otherArg) &&
                             (argIdx < si.argTs.size() || elabParamArgFold)) {
@@ -6353,6 +6365,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     forceConstParent = false;
                     if (auto* a = emitExpr(**pe, fcArt, prefix, netMap)) {
                         a->VpiParent(fcArt);
+                        // A REF actual parents at the property_inst and is
+                        // scoped by the PROPERTY NAME (p_X.cpu0_rs1i), not
+                        // the assertion prefix (Surelog — mriscv assume
+                        // property(p_S2QED_MAPPED_VAL(cpu0_rs1i,...))).
+                        if (a->UhdmType() == UHDM::uhdmref_obj) {
+                            auto* ra = (UHDM::ref_obj*)a;
+                            ra->VpiParent(pi);
+                            ra->VpiFullName(std::string(aie.symbol.name) +
+                                            "." + std::string(ra->VpiName()));
+                        }
                         args->push_back(a);
                     }
                     suppressConstParent = ss;
@@ -6392,6 +6414,122 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!nm.empty())
                     if (auto* ref = emitPropFormalRef(nm, nr, parent, prefix))
                         return ref;
+                // A FORMAL-indexed select (cpu0_reg[num], cpu1_reg[
+                // reg_map(num)]) types as Invalid too: a bit_select named by
+                // the base, SPANNING THE INDEX, its index the formal ref or
+                // a func_call whose formal-ref args scope through the
+                // bit_select name (Surelog — mriscv s2qed
+                // p_S2QED_SAME_REG_N_STATE).
+                {
+                    const syntax::ExpressionSyntax* idxSyn = nullptr;
+                    std::string baseNm;
+                    if (expr.syntax &&
+                        expr.syntax->kind ==
+                            syntax::SyntaxKind::ElementSelectExpression) {
+                        auto& ese = expr.syntax
+                                        ->as<syntax::ElementSelectExpressionSyntax>();
+                        if (ese.select && ese.select->selector &&
+                            ese.select->selector->kind ==
+                                syntax::SyntaxKind::BitSelect)
+                            idxSyn = ese.select->selector
+                                         ->as<syntax::BitSelectSyntax>()
+                                         .expr;
+                        if (ese.left->kind == syntax::SyntaxKind::IdentifierName)
+                            baseNm = std::string(
+                                ese.left->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                    }
+                    else if (expr.syntax &&
+                             expr.syntax->kind ==
+                                 syntax::SyntaxKind::IdentifierSelectName) {
+                        auto& isn = expr.syntax
+                                        ->as<syntax::IdentifierSelectNameSyntax>();
+                        baseNm = std::string(isn.identifier.valueText());
+                        if (isn.selectors.size() == 1 &&
+                            isn.selectors[0]->selector &&
+                            isn.selectors[0]->selector->kind ==
+                                syntax::SyntaxKind::BitSelect)
+                            idxSyn = isn.selectors[0]
+                                         ->selector
+                                         ->as<syntax::BitSelectSyntax>()
+                                         .expr;
+                    }
+                    if (idxSyn && !baseNm.empty()) {
+                        auto* bs = s.MakeBit_select();
+                        bs->VpiName(baseNm);
+                        bs->VpiFullName(joinRef(prefix, baseNm));
+                        bs->VpiParent(parent);
+                        setLoc(bs, idxSyn->sourceRange());
+                        UHDM::any* ix = nullptr;
+                        if (idxSyn->kind == syntax::SyntaxKind::IdentifierName)
+                            ix = emitPropFormalRef(
+                                idxSyn->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText(),
+                                idxSyn->sourceRange(), bs, prefix);
+                        else if (idxSyn->kind ==
+                                 syntax::SyntaxKind::InvocationExpression) {
+                            auto& inv9 =
+                                idxSyn->as<syntax::InvocationExpressionSyntax>();
+                            auto* fc9 = s.MakeFunc_call();
+                            if (inv9.left->kind ==
+                                syntax::SyntaxKind::IdentifierName)
+                                fc9->VpiName(
+                                    inv9.left
+                                        ->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                            fc9->VpiParent(bs);
+                            setLoc(fc9, idxSyn->sourceRange());
+                            for (auto& [subK9, subI9] : subMap)
+                                if (subI9.tf &&
+                                    subI9.tf->VpiName() == fc9->VpiName() &&
+                                    subI9.tf->UhdmType() ==
+                                        UHDM::uhdmfunction) {
+                                    fc9->Function((UHDM::function*)subI9.tf);
+                                    break;
+                                }
+                            if (inv9.arguments &&
+                                !inv9.arguments->parameters.empty()) {
+                                auto* args9 = s.MakeAnyVec();
+                                for (auto a9 : inv9.arguments->parameters) {
+                                    if (a9->kind !=
+                                        syntax::SyntaxKind::OrderedArgument)
+                                        continue;
+                                    const syntax::SyntaxNode* ae9 =
+                                        a9->as<syntax::OrderedArgumentSyntax>()
+                                            .expr;
+                                    if (ae9->kind == syntax::SyntaxKind::
+                                                         SimplePropertyExpr)
+                                        ae9 = ae9->as<
+                                                  syntax::
+                                                      SimplePropertyExprSyntax>()
+                                                  .expr;
+                                    if (ae9->kind == syntax::SyntaxKind::
+                                                         SimpleSequenceExpr)
+                                        ae9 = ae9->as<
+                                                  syntax::
+                                                      SimpleSequenceExprSyntax>()
+                                                  .expr;
+                                    if (ae9->kind ==
+                                        syntax::SyntaxKind::IdentifierName)
+                                        if (auto* ar9 = emitPropFormalRef(
+                                                ae9->as<syntax::
+                                                            IdentifierNameSyntax>()
+                                                    .identifier.valueText(),
+                                                ae9->sourceRange(), fc9,
+                                                joinRef(prefix, baseNm)))
+                                            args9->push_back(ar9);
+                                }
+                                if (!args9->empty())
+                                    fc9->Tf_call_args(args9);
+                            }
+                            ix = fc9;
+                        }
+                        if (ix) {
+                            bs->VpiIndex((UHDM::expr*)ix);
+                            return bs;
+                        }
+                    }
+                }
             }
             if (iv2.child)
                 return emitExpr(*iv2.child, parent, prefix, netMap);

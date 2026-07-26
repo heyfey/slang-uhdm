@@ -74,6 +74,16 @@ public:
     /// Names of AST node kinds that could not be mapped (empty on full success).
     const std::set<std::string>& unsupported() const { return unsupportedKinds; }
 
+    /// Module names the DRIVER added as extra tops only so their bind
+    /// directives elaborate (a `bind` inside an otherwise-uninstantiated
+    /// module fires only when that module is instantiated — Surelog applies
+    /// such binds globally). These are NOT design tops: they are emitted as
+    /// uninstantiated def views only, and the bound children they produce
+    /// appear under the real tops (mriscv_bind_sva Wrapper).
+    void setSyntheticTops(std::set<std::string> names) {
+        syntheticTops = std::move(names);
+    }
+
 private:
     /// Maps slang value symbols to the UHDM net/variable object of the
     /// current view (definition or top instance).
@@ -101,8 +111,10 @@ private:
     };
     // Concurrent assertion (folded pre-elab form: label, clocking event as
     // a property_spec, else action). Returns null if not an assertion block.
+    // `m` is only the parent object -- a module_inst for a module-level
+    // assertion, a gen_scope for one written inside a generate block.
     UHDM::concurrent_assertions* emitAssertion(const slang::ast::ProceduralBlockSymbol& pb,
-                                               UHDM::module_inst* m, const std::string& prefix,
+                                               UHDM::BaseClass* m, const std::string& prefix,
                                                NetMap& netMap);
     // A property/sequence expression tree -> UHDM operation/leaf.
     UHDM::any* emitAssertionExpr(const slang::ast::AssertionExpr& ae, UHDM::BaseClass* parent,
@@ -280,6 +292,14 @@ private:
     // Defs whose ONLY instance was a dropped in-generate bind: their port
     // phase runs in the write phase instead.
     std::set<const slang::ast::Symbol*> droppedBindDefs;
+    // See setSyntheticTops().
+    std::set<std::string> syntheticTops;
+    // Defs whose instances are BIND children: display path of the bound
+    // instance ("work@top.S2QED_BIND"). Surelog compiles such a module's
+    // property declarations from the BOUND instance, so the shared
+    // property_decl objects carry the bind path and the elab parent even in
+    // the def view (mriscv_bind_sva).
+    std::map<const slang::ast::DefinitionSymbol*, std::string> bindDefDisplay;
     // InterfacePortSymbol -> its instance-scoped port view (passthrough
     // children bind their HighConn at the enclosing module's view).
     std::map<const slang::ast::Symbol*, UHDM::interface_inst*> ifacePortViewMap;

@@ -4578,6 +4578,19 @@ static int32_t mapSyntaxUnaryOp(syntax::SyntaxKind k) {
             return vpiMinusOp;
         case syntax::SyntaxKind::UnaryPlusExpression:
             return vpiPlusOp;
+        // Reduction operators (mriscv ALU: is_rd_nr & (&is_rd_reg)).
+        case syntax::SyntaxKind::UnaryBitwiseAndExpression:
+            return vpiUnaryAndOp;
+        case syntax::SyntaxKind::UnaryBitwiseNandExpression:
+            return vpiUnaryNandOp;
+        case syntax::SyntaxKind::UnaryBitwiseOrExpression:
+            return vpiUnaryOrOp;
+        case syntax::SyntaxKind::UnaryBitwiseNorExpression:
+            return vpiUnaryNorOp;
+        case syntax::SyntaxKind::UnaryBitwiseXorExpression:
+            return vpiUnaryXorOp;
+        case syntax::SyntaxKind::UnaryBitwiseXnorExpression:
+            return vpiUnaryXNorOp;
         default:
             return 0;
     }
