@@ -178,106 +178,44 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline
 
-Measured 2026-07-25 at `f5aed69` (builtins default-on, `--synth` implemented).
-Per-test CSVs are committed: `results/golden_surelog.csv`,
-`results/golden_uhdm2rtlil.csv`. Headline metric is `CMP_EQUAL / comparable` per
-§2.5 (`comparable` = both tools produced a database; `SLANG_REJECT` is out of
-scope). Neither mode passes a builtins flag any more — the defaults align.
+Measured 2026-07-26 at `b168622` (wave 3 integrated). Per-test CSVs:
+`results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv`,
+`results/gate_uhdm2rtlil.csv`. Headline metric per §2.5.
 
-**uhdm2rtlil, 731 tests**
+**uhdm2rtlil, 731 tests** — both modes identical:
 
 | | default | testflags |
 |---|---|---|
-| CMP_EQUAL | 662 | 662 |
-| CMP_NOTEQUAL | 16 | 17 |
-| SLANG_REJECT (out of scope) | 51 | 50 |
+| CMP_EQUAL | 674 | 674 |
+| CMP_NOTEQUAL | 5 | 5 |
+| SLANG_REJECT (out of scope) | 50 | 50 |
 | SURELOG_FAIL | 2 | 2 |
-| **comparable** | **678** | **679** |
-| **CMP_EQUAL / comparable** | **97.6%** | **97.5%** |
+| **CMP_EQUAL / comparable** | **99.3%** | **99.3%** |
 
-**Surelog suite, 794 tests**
+The 5: `jeras_union` + `rp32_r5p_{alu,bru,mdu,wbu}`, all with landed
+groundwork (`dfaef99`, `eebba99`) and ranked residues.
+
+**Surelog suite, 794 tests**:
 
 | | default | testflags |
 |---|---|---|
-| CMP_EQUAL | 181 | 177 |
-| CMP_NOTEQUAL | 301 | 290 |
-| SLANG_REJECT (out of scope) | 286 | 283 |
+| CMP_EQUAL | 224 | 216 |
+| CMP_NOTEQUAL | 257 | 250 |
+| SLANG_REJECT (out of scope) | 287 | 284 |
 | UNTRANSLATABLE | 0 | 13 |
 | SURELOG_FAIL | 26 | 25 |
-| NO_DATABASE | 0 | 3 |
-| TIMEOUT / NO_UHDM | 0 | 3 |
-| **comparable** | **482** | **467** |
-| **CMP_EQUAL / comparable** | **37.6%** | **37.9%** |
+| **CMP_EQUAL / comparable** | **46.6%** | **46.4%** |
 
-Builtins took uhdm2rtlil `default` mode from **0 → 662**; before them, all 731
-failed on the 510-line builtin block alone. Since `db83fc3` builtins are the
-default on both sides, `default` mode passes no flag at all.
+Wave history (block of 2026-07-26): 181/177 → 194/189 (wave-1 rules
+generalising) → 199/194 (mriscv + determinism) → 224/216 (wave-3 clusters,
+26 tests, zero regressions). Three tests are permanently unreachable on
+count: `BuildUVMPkg`/`SeqDriver`/`SimpleUVM` take include records from
+Surelog's precompiled-UVM PPCache pointing at a UVM version not on the
+command line — not reproducible from source (recorded by the include-file
+agent with evidence).
 
-`UNTRANSLATABLE` fell 51 → 28 → **13**. First, the foreign simulator flags found
-in `.sl` files were each measured against Surelog's dump and whitelisted: `+vcs+*`,
-`+warn=`, `+lint=`, `+OVM_TESTNAME=`, `+v2k`, `-ast`, `-PP`, `-full64`,
-`-notice`, `-line`, `-quiet`, `-Os`, `--assert`, `--trace`, `-output-split`,
-`-CFLAGS <arg>`, `-pythonlistener` — all 0 dump-line change. These were the
-harness refusing to compare tests it could have compared. `-pythonevalscript*`
-looked equally harmless and is not: 3755 dump lines, so it stays blocked. Then
-`--synth`/`--formal` (§3.1) unblocked the 14 `-synth` tests, which resolve to 5
-`CMP_EQUAL`, 5 `CMP_NOTEQUAL`, 3 `SLANG_REJECT` (out of scope) and 1
-`SURELOG_FAIL` — so `testflags` `CMP_EQUAL` rose 172 → 177.
-
-The two modes differ in denominator because `testflags` legitimately excludes 16
-tests before running (13 `UNTRANSLATABLE` + 3 `NO_DATABASE`) that `default` mode
-still attempts. That is the whole explanation for `default` showing more
-`SURELOG_FAIL` and `CMP_NOTEQUAL` — not a regression between modes.
-
-**Work remaining.** 301 (default) / 290 (testflags) Surelog-suite tests and
-16/17 uhdm2rtlil tests to converge, plus 13 `UNTRANSLATABLE` to unblock via
-§3.2.
-
-**Mode overlap (measured).** The two modes' `CMP_NOTEQUAL` sets are nearly the
-same set: Surelog suite 286 shared / 15 default-only / 4 testflags-only;
-uhdm2rtlil 16 shared / 1 testflags-only. So this is one convergence campaign,
-not two, and a fix normally moves both columns. The small asymmetric slices are
-themselves triage seeds:
-  - default-only is mostly tests whose testflags row is excluded
-    (`UNTRANSLATABLE` blackbox/feature flags) or `SLANG_REJECT`.
-  - testflags-only splits into two concrete clusters: `-P`→`-G` parameter
-    override divergence (`CmdLineOverride`, `DecValue`) and elab-only
-    divergence on tests whose folded models already match (`ClogParam`,
-    `UnsizedParam`).
-
-**Folded vs elaborated (measured).** In testflags mode the Surelog suite is
-mostly an **elaborated-model** comparison — 629 of its `.sl` files pass
-`-elabuhdm`. Of the comparable testflags tests: elab 168/418 equal (40.2%),
-folded 9/49 equal (18.4%). That looked like a large new elaborated-model
-frontier — the `folded` overlay (run over all 637 `-elabuhdm` tests) then
-measured it away: **of the 250 elab-mode not-equal tests, 248 are also
-folded-not-equal; only 2 are elab-only** (`ClogParam`, `UnsizedParam`). So
-virtually all Surelog-suite divergence lives in the folded model — phase-1 home
-turf, sweep-and-cluster applies unchanged — and the elab-only queue is exactly
-those two tests. (3 tests are folded-not-equal yet elab-equal: elaboration can
-also wash a folded diff out. Fix folded first regardless; the folded model is
-the input the shared elab passes consume.)
-
-**uhdm2rtlil not-equal identities.** All 17 are either the multi-file
-`project.f` frontier (`iface_method_call`, `jeras_*`, `rp32_*`,
-`load_and_derive`, `resolve_types`, `mriscv_bind_sva`, `r5p_gpr_cosim`), the
-`dut.v` test `recursive_map`, or the rc=4 pair below. No phase-1 single-file
-`dut.sv` test is not-equal — the phase-1 claim survives the new harness intact.
-
-**Harness bugs found and fixed while establishing this baseline** — both had
-inflated the failure counts, so earlier figures in this file's history are void:
-
-- `default` mode passed only sources, stripping `-I`/`+incdir+`. Tests needing
-  include paths then failed on BOTH sides, and comparing two failed compiles
-  measures nothing. Fixed by keeping point-at-the-sources args (§1).
-- `default` mode also dropped `-sv`/`-sverilog` from the **Surelog** side. That
-  is a parse-mode switch, not a model-shaping one, and Surelog needs it: without
-  it `SimpleClass1`'s `top.v` is 10 syntax errors and no database, because class
-  syntax in a `.v` file is not Verilog-1995. slang needs no equivalent (it parses
-  SystemVerilog unconditionally). Fixed as a Surelog-only passthrough; this alone
-  corrected 8 tests that were mis-reported as `SURELOG_FAIL`.
-- uhdm2rtlil discovery now adds `-sv` when any source is `.sv` and honours a
-  `# lang:` directive, matching what `test/project_files.sh` really does.
+Byte-identity (`dump=match`, the phase-3 metric) is tracked in every CSV and
+gated against demotion since the single-harness consolidation.
 
 ### 3.4 Coverage corrections made in phase 2
 
