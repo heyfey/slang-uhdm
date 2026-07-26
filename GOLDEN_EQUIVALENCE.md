@@ -218,8 +218,36 @@ still attempts. That is the whole explanation for `default` showing more
 
 **Work remaining.** 301 (default) / 290 (testflags) Surelog-suite tests and
 16/17 uhdm2rtlil tests to converge, plus 13 `UNTRANSLATABLE` to unblock via
-§3.2. Overlap between the two modes' failure sets is unmeasured; a fix will
-usually move both.
+§3.2.
+
+**Mode overlap (measured).** The two modes' `CMP_NOTEQUAL` sets are nearly the
+same set: Surelog suite 286 shared / 15 default-only / 4 testflags-only;
+uhdm2rtlil 16 shared / 1 testflags-only. So this is one convergence campaign,
+not two, and a fix normally moves both columns. The small asymmetric slices are
+themselves triage seeds:
+  - default-only is mostly tests whose testflags row is excluded
+    (`UNTRANSLATABLE` blackbox/feature flags) or `SLANG_REJECT`.
+  - testflags-only splits into two concrete clusters: `-P`→`-G` parameter
+    override divergence (`CmdLineOverride`, `DecValue`) and elab-only
+    divergence on tests whose folded models already match (`ClogParam`,
+    `UnsizedParam`).
+
+**Folded vs elaborated (measured).** In testflags mode the Surelog suite is
+mostly an **elaborated-model** comparison — 629 of its `.sl` files pass
+`-elabuhdm`. Of the comparable testflags tests: elab 168/418 equal (40.2%),
+folded 9/49 equal (18.4%). Phase 1 converged the folded model only, so the bulk
+of testflags convergence is new territory: the elaborated tree that
+`ElaboratorListener`/`UhdmAdjuster` produce from both sides. Two consequences:
+  - The 49 folded testflags tests (40 not-equal) are home turf for the
+    phase-1 sweep-and-cluster method — start there.
+  - Elab-mode dump diffs are larger and shaped differently; expect to re-tune
+    diff normalisation before clustering them.
+
+**uhdm2rtlil not-equal identities.** All 17 are either the multi-file
+`project.f` frontier (`iface_method_call`, `jeras_*`, `rp32_*`,
+`load_and_derive`, `resolve_types`, `mriscv_bind_sva`, `r5p_gpr_cosim`), the
+`dut.v` test `recursive_map`, or the rc=4 pair below. No phase-1 single-file
+`dut.sv` test is not-equal — the phase-1 claim survives the new harness intact.
 
 **Harness bugs found and fixed while establishing this baseline** — both had
 inflated the failure counts, so earlier figures in this file's history are void:
@@ -315,6 +343,11 @@ Phase-2 additions:
 6. A test moving into `UNTRANSLATABLE` is a **regression**, not a neutral
    result — it means the harness stopped being able to compare it.
 
+Cadence: gates 1–4 (goldens + uhdm2rtlil corpus, ~15 min) run per commit.
+Gates 5–6 need a full two-mode sweep (~45–60 min per corpus) — run per wave and
+before any baseline refresh, then commit the refreshed
+`results/golden_*.csv` alongside, as step 4 does for `baseline_auto.csv`.
+
 ### 4.3 Working method
 
 Unchanged from PLAYBOOK.md: sweep-and-cluster. Converge many failures into one
@@ -356,6 +389,20 @@ For phase 2 specifically, triage in this order:
    default with `--nobuiltin` to opt out, matching Surelog. `default` mode now
    passes no flag on either side.
 2. **Is `-cfg` covered by slang's `--libmap` config handling?** Unverified.
+2b. **Surelog rc≠0 but database written — compare or skip?** `asgn_expr_sv` and
+   `typedef_param`: Surelog exits rc=4 (errors reported) yet writes a complete
+   `.uhdm`. `converge.sh` treats rc≠0 as `SURELOG_FAIL` and skips;
+   `verify_golden.py` keys on the artifact and compares (both come out
+   not-equal). The two harnesses must agree. Recommendation: compare when the
+   artifact exists (Surelog's own regression tolerates errors recorded in its
+   golden logs), but carry the rc in the detail column. Needs a decision, then
+   align `converge.sh`.
+2c. **Is byte-identity still the end state?** PLAYBOOK's mission is 0 DIFF then
+   0 CMP_ONLY — byte-identical dumps. This document's §1 says done means
+   `CMP_EQUAL`, which is weaker (cmp-equal tolerates dump differences).
+   Recommendation: keep `CMP_EQUAL` as the phase-2 bar and declare byte
+   identity (a `DUMP_MATCH` column in `verify_golden.py`) as phase 3, so the
+   weakening is a stated decision rather than an accident.
 3. **Does `$RV_ROOT`-style variable expansion in `-f` files work?** slang's `-f`
    reads the flist but does not appear to expand the variable (`CoresSweRV`:
    "'/design/swerv_wrapper.sv': No such file or directory"). Affects 2 tests.
