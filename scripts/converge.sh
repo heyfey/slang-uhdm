@@ -15,13 +15,20 @@ WORK=${WORK:-$(mktemp -d /tmp/uhdm-converge.XXXXXX)}
 mkdir -p "$WORK"
 cd "$WORK" || exit 9
 
-# Reference producer
-if ! "$SURELOG" -parse -nobuiltin -nocache "$SRC" >surelog.log 2>&1; then
-    echo "SURELOG_FAIL ($WORK/surelog.log)"
+# Reference producer.
+# Policy (GOLDEN_EQUIVALENCE.md §5 2b, decided: match Surelog): the golden is
+# the ARTIFACT, not the exit code. Surelog can report compile errors (rc=4)
+# and still write a complete database, and its own regression suite records
+# those errors in the golden logs — i.e. upstream treats the output as the
+# expected result. Only a missing database is a Surelog failure.
+"$SURELOG" -parse -nobuiltin -nocache "$SRC" >surelog.log 2>&1
+SURELOG_EXIT=$?
+SUHDM=$WORK/slpp_all/surelog.uhdm
+if [ ! -f "$SUHDM" ]; then
+    echo "SURELOG_FAIL exit=$SURELOG_EXIT ($WORK/surelog.log)"
     exit 5
 fi
-SUHDM=$WORK/slpp_all/surelog.uhdm
-[ -f "$SUHDM" ] || { echo "SURELOG_NO_UHDM"; exit 5; }
+[ $SURELOG_EXIT -ne 0 ] && echo "SURELOG_RC=$SURELOG_EXIT (db written; compared anyway)"
 
 # Our producer
 # Surelog is invoked with -nobuiltin below, so slang-uhdm must match it:
