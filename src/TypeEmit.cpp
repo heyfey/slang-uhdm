@@ -2422,13 +2422,49 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     }
                     bool pkgNamed9 =
                         refFullName.find("::") != std::string::npos;
+                    // A package's own DEF-LISTING enum object folds its
+                    // bound IFF the enum is CONSUMED as a struct/union
+                    // member type somewhere (Surelog's member compile forces
+                    // the fold: jeras_union fn3_alu_et via ctl_alu_t.fn3,
+                    // rp32 csr_perm_t via csr_adr_t.perm); an un-consumed
+                    // enum keeps the written op ($bits or literal — rp32
+                    // isa_base_et, isa_priv_typ_t).
+                    bool memberUsed9 = false;
+                    if (pkgListingEnumBuild) {
+                        auto& etc9 = et.getCanonicalType();
+                        for (auto* p9 : comp.getPackages()) {
+                            for (auto& pm9 : p9->members()) {
+                                if (pm9.kind != SymbolKind::TypeAlias)
+                                    continue;
+                                auto& pct9 = pm9.as<TypeAliasType>()
+                                                 .getCanonicalType();
+                                if (!pct9.isStruct() && !pct9.isUnion())
+                                    continue;
+                                for (auto& f9 :
+                                     pct9.as<Scope>()
+                                         .membersOfType<FieldSymbol>())
+                                    if (&f9.getType().getCanonicalType() ==
+                                        &etc9)
+                                        memberUsed9 = true;
+                            }
+                            if (memberUsed9)
+                                break;
+                        }
+                    }
+                    bool sys9 = pkgNamed9 && hasSysCall9(bsyn);
                     bool fold9;
-                    if (pkgNamed9 && hasSysCall9(bsyn))
+                    if (pkgListingEnumBuild && (sys9 || !refBound9))
+                        fold9 = memberUsed9;
+                    else if (sys9)
                         fold9 = !pkgTopEmit;
                     else if (refBound9)
                         fold9 = pkgEnum9;
                     else
-                        fold9 = pkgNamed9 && !pkgTopEmit;
+                        // An import-listing CLONE keeps a literal-only op
+                        // bound SYMBOLIC (Surelog's elab never revisits a
+                        // param-free expression; rp32 csr_perm_t clone
+                        // [2-1:0] stays 2-1 while the home def folds).
+                        fold9 = pkgNamed9 && !pkgTopEmit && !importCloneEmit;
                     if (fold9) {
                         auto* c9 = s.MakeConstant();
                         std::string d9 = std::to_string(val);
@@ -2561,6 +2597,70 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 }
             }
         }
+        // A COMPUTED (concat) init with X/Z bits ({2'b10, 2'b??}) keeps the
+        // base width in BOTH views and the compacted source text as the DEF
+        // decompile only (rp32 PRIV_ECALL) — value BIN with x/z bit chars.
+        if (value.empty() && cv.isInteger() && cv.integer().hasUnknown() &&
+            baseSyn) {
+            auto* evInit9 = ev.getInitializer();
+            if (evInit9 &&
+                stripImplicitConv(*evInit9).kind !=
+                    ExpressionKind::IntegerLiteral &&
+                stripImplicitConv(*evInit9).kind !=
+                    ExpressionKind::NamedValue) {
+                int w9 = (int)et.baseType.getBitWidth();
+                auto& iv9 = cv.integer();
+                std::string initRaw9 =
+                    rawText(stripImplicitConv(*evInit9).sourceRange);
+                // Surelog's value string echoes the SOURCE spelling of a
+                // high-impedance bit: `?` stays `?` ({2'b10,2'b??} -> BIN:10??,
+                // rp32 PRIV_ECALL), and only a written z/Z prints as z.
+                char zc9 = initRaw9.find('z') != std::string::npos ||
+                                   initRaw9.find('Z') != std::string::npos
+                               ? 'z'
+                               : '?';
+                std::string bits9((size_t)w9, '0');
+                for (int bi9 = 0; bi9 < w9 && bi9 < (int)iv9.getBitWidth();
+                     bi9++) {
+                    auto b9 = iv9[bi9];
+                    char c9 = b9.isUnknown()
+                                  ? (b9.value == slang::logic_t::Z_VALUE ? zc9
+                                                                         : 'x')
+                                  : (b9.value ? '1' : '0');
+                    bits9[(size_t)(w9 - 1 - bi9)] = c9;
+                }
+                ec->VpiValue("BIN:" + bits9);
+                if (!pkgTopEmit) {
+                    const std::string& raw9 = initRaw9;
+                    std::string comp9;
+                    comp9.reserve(raw9.size());
+                    for (size_t i9 = 0; i9 < raw9.size(); i9++) {
+                        if (std::isspace((unsigned char)raw9[i9])) {
+                            size_t j9 = i9;
+                            while (j9 < raw9.size() &&
+                                   std::isspace((unsigned char)raw9[j9]))
+                                j9++;
+                            char pv9 = comp9.empty() ? '\0' : comp9.back();
+                            char nx9 = j9 < raw9.size() ? raw9[j9] : '\0';
+                            bool drop9 = pv9 == ',' || pv9 == '{' ||
+                                         pv9 == '}' || nx9 == ',' ||
+                                         nx9 == '{' || nx9 == '}';
+                            if (!drop9)
+                                comp9 += ' ';
+                            i9 = j9 - 1;
+                        }
+                        else
+                            comp9 += raw9[i9];
+                    }
+                    ec->VpiDecompile(comp9);
+                }
+                ec->VpiSize(w9);
+                consts->push_back(ec);
+                if (!enumConstMap.count(&ev))
+                    enumConstMap[&ev] = ec;
+                continue;
+            }
+        }
         if (value.empty() && cv.isInteger() && !cv.integer().hasUnknown()) {
             // A non-literal initializer (enum X = pkg::PARAM) keeps the SOURCE
             // reference as the decompile and follows the base signedness;
@@ -2655,7 +2755,60 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     raw = comp9;
                 }
                 // The TOP-view package const leaves the decompile UNSET.
-                if (!pkgTopEmit)
+                // An IMPORT-LISTING clone follows Surelog's clone rules: a
+                // concat of plain refs drops the decompile entirely; a concat
+                // containing an OPERATION re-decompiles with each operand
+                // FOLDED (enum ref -> <w>'b<bits>, operation -> decimal of
+                // its full value — no or-drop quirk) — rp32 isa_spec_et
+                // {RV_32E,RV_M | RV_C} -> {4'b1100,263168}.
+                if (importCloneEmit) {
+                    auto& init8 = stripImplicitConv(*evInit);
+                    if (init8.kind == ExpressionKind::Concatenation) {
+                        bool anyOp8 = false;
+                        for (auto* op8 :
+                             init8.as<ConcatenationExpression>().operands())
+                            if (auto k8 = stripImplicitConv(*op8).kind;
+                                k8 == ExpressionKind::BinaryOp ||
+                                k8 == ExpressionKind::UnaryOp)
+                                anyOp8 = true;
+                        if (anyOp8) {
+                            std::string txt8 = "{";
+                            bool first8 = true;
+                            for (auto* op8 : init8.as<ConcatenationExpression>()
+                                                 .operands()) {
+                                auto& so8 = stripImplicitConv(*op8);
+                                if (!first8)
+                                    txt8 += ",";
+                                first8 = false;
+                                ASTContext ectx8(et, LookupLocation::max);
+                                auto v8 = ectx8.tryEval(so8);
+                                if (v8.isInteger() &&
+                                    !v8.integer().hasUnknown() &&
+                                    so8.kind == ExpressionKind::NamedValue) {
+                                    int ow8 =
+                                        (int)v8.integer().getBitWidth();
+                                    std::string ob8((size_t)ow8, '0');
+                                    for (int bi8 = 0; bi8 < ow8; bi8++)
+                                        if (v8.integer()[bi8].value == 1)
+                                            ob8[(size_t)(ow8 - 1 - bi8)] =
+                                                '1';
+                                    txt8 += std::to_string(ow8) + "'b" + ob8;
+                                }
+                                else if (v8.isInteger() &&
+                                         !v8.integer().hasUnknown())
+                                    txt8 += v8.integer().toString(
+                                        LiteralBase::Decimal, false);
+                                else
+                                    txt8 += rawText(so8.sourceRange);
+                            }
+                            txt8 += "}";
+                            ec->VpiDecompile(txt8);
+                        }
+                    }
+                    else if (!pkgTopEmit)
+                        ec->VpiDecompile(raw);
+                }
+                else if (!pkgTopEmit)
                     ec->VpiDecompile(raw);
                 ec->VpiSize(w);
                 consts->push_back(ec);

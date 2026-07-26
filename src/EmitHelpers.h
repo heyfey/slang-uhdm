@@ -788,6 +788,10 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
     if (ct.kind == SymbolKind::PackedStructType ||
         ct.kind == SymbolKind::UnpackedStructType)
         return s.MakeStruct_var();
+    // A union-typed return is a union_var (Surelog, rp32 enc32/dec32).
+    if (ct.kind == SymbolKind::PackedUnionType ||
+        ct.kind == SymbolKind::UnpackedUnionType)
+        return s.MakeUnion_var();
     if (ct.kind == SymbolKind::EnumType)
         return s.MakeEnum_var();
     if (ct.kind == SymbolKind::StringType)

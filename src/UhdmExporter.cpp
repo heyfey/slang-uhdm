@@ -549,6 +549,43 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (auto tit9 = pkgTopMap.find(home9); tit9 != pkgTopMap.end())
                 ts9->Instance(tit9->second);
         pkgImportTsTopFixups.clear();
+        // Intra-package USES inside a pkg consumed by ANOTHER package bind
+        // the importer's ELAB clone (Surelog registry, last-writer): repoint
+        // def-listing struct/union member actuals from the HOME typedef
+        // object to its import clone once the clones exist (rp32
+        // csr_adr_t.perm -> csr_perm_t clone, isa_t.spec -> isa_spec_t
+        // clone). Clone-less typedefs keep the home binding.
+        for (auto pkg : pkgs) {
+            if (!pkgImportedByPkg.count(pkg))
+                continue;
+            auto dIt = pkgDefMap.find((const void*)pkg);
+            if (dIt == pkgDefMap.end() || !dIt->second->Typespecs())
+                continue;
+            for (auto* ts0 : *dIt->second->Typespecs()) {
+                UHDM::VectorOftypespec_member* ms0 = nullptr;
+                if (ts0->UhdmType() == UHDM::uhdmstruct_typespec)
+                    ms0 = ((UHDM::struct_typespec*)ts0)->Members();
+                else if (ts0->UhdmType() == UHDM::uhdmunion_typespec)
+                    ms0 = ((UHDM::union_typespec*)ts0)->Members();
+                if (!ms0)
+                    continue;
+                for (auto* tm0 : *ms0) {
+                    if (!tm0->Typespec())
+                        continue;
+                    auto* act0 = tm0->Typespec()->Actual_typespec();
+                    if (!act0)
+                        continue;
+                    for (auto& [aSym0, cl0] : pkgImportCloneTs) {
+                        auto hIt0 = typedefTs.find(aSym0);
+                        if (hIt0 != typedefTs.end() && hIt0->second == act0 &&
+                            cl0 != act0) {
+                            tm0->Typespec()->Actual_typespec(cl0);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
     // --builtins: the synthesized `builtin` package heads both lists.
     if (builtins) {

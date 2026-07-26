@@ -315,6 +315,11 @@ private:
                         NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
                         bool topShareTs = false, bool funcScope = false);
     UHDM::package* emitPackage(const slang::ast::PackageSymbol& pkg, bool topView);
+    // A same-named typedef in a package WILDCARD-imported by ta's home package
+    // (Surelog's symbol table lets the import overwrite the local typedef —
+    // rp32 riscv_isa_i_pkg::csr_adr_t vs riscv_priv_pkg::csr_adr_t). Returns
+    // the shadowing imported TypeAlias, or null.
+    const slang::ast::Symbol* importShadowOf(const slang::ast::Symbol& ta);
     void emitTaskFuncs(const slang::ast::Scope& body, UHDM::BaseClass* m,
                        const std::string& prefix, DefInfo* info, bool sharedScope = true,
                        const slang::ast::Symbol* onlySub = nullptr);
@@ -950,6 +955,19 @@ private:
     // leaving module-context pkg-enum clones folded (distinguishes def-package
     // from module context, which both have pkgTopEmit == false).
     bool inPkgTypedefEmit = false;
+    // The package currently being emitted by emitPackage (both views); null
+    // outside package emission. Distinguishes a HOME-package typedef listing
+    // from an import-clone build (whose enum's parent differs).
+    const slang::ast::Symbol* curPkgEmitSym = nullptr;
+    // True while buildEnumTs builds an IMPORT-LISTING clone of another
+    // package's enum typedef (emitPackage import arm): concat enum-const
+    // decompiles follow Surelog's clone rules (all-ref concat drops the
+    // decompile; op-containing concats fold each operand).
+    bool importCloneEmit = false;
+    // True while buildEnumTs builds a package's own DEF-LISTING enum object
+    // (emitPackage enum arms, def pass): sys-call base bounds stay SYMBOLIC
+    // there (member-use clones and import clones fold) — rp32 fn3_alu_et.
+    bool pkgListingEnumBuild = false;
     // Child-instance CA re-emission folds type casts (top modules keep them).
     bool foldTypeCasts = false;
     const slang::ast::SubroutineSymbol* currentSubSym = nullptr;

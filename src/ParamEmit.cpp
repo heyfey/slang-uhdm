@@ -5649,6 +5649,25 @@ void UhdmExporter::attachFoldedBoundMeta(UHDM::typespec* container,
     }
 }
 
+const Symbol* UhdmExporter::importShadowOf(const Symbol& ta) {
+    if (ta.kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto* sc = ta.getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    for (auto& mem : sc->asSymbol().as<PackageSymbol>().members()) {
+        if (mem.kind != SymbolKind::WildcardImport)
+            continue;
+        auto* sp = mem.as<WildcardImportSymbol>().getPackage();
+        if (!sp)
+            continue;
+        for (auto& pm : sp->members())
+            if (pm.kind == SymbolKind::TypeAlias && pm.name == ta.name)
+                return &pm;
+    }
+    return nullptr;
+}
+
 UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView) {
     std::string prefix = std::string(pkg.name) + "::";
     auto* up = s.MakePackage();
@@ -5671,6 +5690,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 up->VpiEndLabel(bn->name.valueText());
     }
     NetMap none;
+    auto* savedCurPkg0 = curPkgEmitSym;
+    curPkgEmitSym = &pkg;
     // Package-scope cast typespecs (size-literal integer_typespecs) carry
     // vpiInstance = the package (Surelog); expose it during param emission.
     auto* savedPkgInst0 = pkgScopeInst;
@@ -5710,6 +5731,17 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         continue;
                     auto& ta2 = pm.as<TypeAliasType>();
                     auto& ct2 = ta2.getCanonicalType();
+                    // An imported UNPACKED-struct typedef (rp32 isa_t) lists
+                    // the HOME shared object at the sorted position (Surelog
+                    // clones it at the first use site; one shared object
+                    // satisfies Compare on both roles).
+                    if (ct2.kind == SymbolKind::UnpackedStructType) {
+                        if (auto hIt2 = typedefTs.find(&pm);
+                            hIt2 != typedefTs.end())
+                            pkgTdByName.emplace_back(std::string(ta2.name),
+                                                     hIt2->second);
+                        continue;
+                    }
                     if (ct2.kind != SymbolKind::EnumType &&
                         ct2.kind != SymbolKind::PackedStructType)
                         continue;
@@ -5760,7 +5792,12 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                                     ->Actual_typespec();
                                             if (!at3)
                                                 continue;
-                                            if (at3->Instance())
+                                            // FRESH (unnamed) scalar member
+                                            // typespecs take the HOME pkg
+                                            // instance too (rp32 isa_base_t
+                                            // clone `bit E` members).
+                                            if (at3->Instance() ||
+                                                at3->VpiName().empty())
                                                 at3->Instance(hip3->second);
                                             stampHome(at3);
                                         }
@@ -5772,7 +5809,9 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                                      (UHDM::typespec*)scl);
                             continue;
                         }
+                        importCloneEmit = true;
                         auto* ecl = buildEnumTs(ct2.as<EnumType>(), tSyn2, nm2);
+                        importCloneEmit = false;
                         ecl->VpiName(nm2);
                         if (dSyn2)
                             setLoc(ecl, dSyn2->sourceRange());
@@ -5873,6 +5912,41 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     for (auto* memberP : pkgAliases) {
         auto& member = *memberP;
         auto& ta = member.as<TypeAliasType>();
+        // A LOCAL typedef name-shadowed by a WILDCARD-imported typedef never
+        // materializes (Surelog's import overwrites the symbol-table entry):
+        // no listing entry in either view, and every use binds the IMPORTED
+        // typespec (rp32 riscv_isa_i_pkg csr_adr_t -> riscv_priv_pkg's).
+        if (auto* sh0 = importShadowOf(member)) {
+            if (!topView) {
+                if (auto hIt0 = typedefTs.find(sh0); hIt0 != typedefTs.end())
+                    typedefTs[&ta] = hIt0->second;
+            }
+            else if (auto hIt1 = pkgTopTypedefTs.find(
+                         (const void*)&sh0->as<TypeAliasType>());
+                     hIt1 != pkgTopTypedefTs.end())
+                pkgTopTypedefTs[&ta] = hIt1->second;
+            else if (auto hIt2 = typedefTs.find(sh0); hIt2 != typedefTs.end())
+                pkgTopTypedefTs[&ta] = hIt2->second;
+            continue;
+        }
+        // A package consumed by ANOTHER package SHARES its typedef objects
+        // into the top view (Surelog builds no fresh elab clones there);
+        // last-writer registry: when an importing package built a CLONE,
+        // the top listing points at the CLONE, else at the def object —
+        // rp32 riscv_isa_pkg / riscv_priv_pkg.
+        if (topView && pkgImportedByPkg.count(&pkg)) {
+            UHDM::typespec* share0 = nullptr;
+            if (auto cIt0 = pkgImportCloneTs.find(&member);
+                cIt0 != pkgImportCloneTs.end())
+                share0 = cIt0->second;
+            else if (auto dIt0 = typedefTs.find(&ta); dIt0 != typedefTs.end())
+                share0 = dIt0->second;
+            if (share0) {
+                pkgTopTypedefTs[&ta] = share0;
+                pkgTdByName.emplace_back(std::string(ta.name), share0);
+                continue;
+            }
+        }
         auto& ct = ta.targetType.getType().getCanonicalType();
         const syntax::SyntaxNode* typeSyn = nullptr;
         if (auto syn = ta.getSyntax())
@@ -6408,6 +6482,14 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                     ? prefix + std::string(ta.name)
                                     : prefix + prefix + std::string(ta.name);
             bool savedTf = tfContext;
+            // NOTE (decoded, NOT yet actionable): Surelog's single-prefix TOP
+            // clone FOLDS its members' vector-typedef bounds (rp32
+            // riscv_isa_i_pkg::dec_t.fn3.fn3_t is [2:0], not [3-1:0]).
+            // Gating this on `!topNested` folds it correctly but also folds the
+            // op32_*_t top clones, which Surelog does not mint at all — its top
+            // view REUSES the module-scoped work@ clone and its DEF view mints
+            // the doubled-prefix pkg::pkg::T::m::name one. Fixing the fold
+            // needs that clone-per-view split first; measured net-worse alone.
             if (topView)
                 tfContext = true;
             inPkgTopStructBuild = topView;
@@ -6507,6 +6589,17 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     }
             if (typeSyn)
                 setLoc(sts, typeSyn->sourceRange());
+            // A FRESH (unnamed) scalar member typespec of a package struct
+            // listing carries the package vpiInstance (Surelog; rp32
+            // isa_base_t `bit E` members) — named shared typedefs keep
+            // their own.
+            if (sts->Members())
+                for (auto* tmS : *sts->Members())
+                    if (tmS->Typespec() && tmS->Typespec()->Actual_typespec()) {
+                        auto* atS = tmS->Typespec()->Actual_typespec();
+                        if (!atS->Instance() && atS->VpiName().empty())
+                            atS->Instance((UHDM::instance*)up);
+                    }
             // NESTED inner-struct member clones carry the pkg Instance on
             // their leaf member typespecs in BOTH views (nested_struct): the
             // def-view object is what the TOP struct ends up owning after the
@@ -6660,7 +6753,9 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 std::string refName = varUse
                                           ? prefix + prefix + std::string(ta.name)
                                           : prefix + std::string(ta.name);
+                pkgListingEnumBuild = true;
                 auto* ets = buildEnumTs(ct.as<EnumType>(), tgtSyn, refName);
+                pkgListingEnumBuild = false;
                 if (varUse)
                     ets->VpiParent(up);
                 if (ets->Base_typespec() && ets->Base_typespec()->Actual_typespec()) {
@@ -6702,8 +6797,10 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             // The base ref fullname doubles the package scope
             // (pkg::pkg::name — Surelog scopes the already-prefixed typedef
             // name by the package again).
+            pkgListingEnumBuild = true;
             auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn,
                                     prefix + prefix + std::string(ta.name));
+            pkgListingEnumBuild = false;
             ets->VpiParent(up);
             if (auto syn = ta.getSyntax())
                 setLoc(ets, syn->sourceRange());
@@ -7074,6 +7171,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     pkgTopEmit = topView;
     emitTaskFuncs(pkg, up, prefix, nullptr, /*sharedScope=*/false);
     pkgTopEmit = false;
+    curPkgEmitSym = savedCurPkg0;
     return up;
 }
 

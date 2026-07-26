@@ -1079,8 +1079,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* ub = s.MakeBegin();
             ub->VpiFullName(prefix);
             ub->VpiParent(parent);
-            // Anchored at the SECOND source item (decls count as items).
-            if (sl.list.size() >= 2)
+            // Anchored at the SECOND source item (decls count as items). A
+            // DECLARATION item spans its whole declaration statement — type
+            // keyword through semicolon (`op32_r_t t_op ;`, rp32 enc32) — not
+            // the declarator alone, which is all slang's statement range is.
+            const syntax::SyntaxNode* anch9 = nullptr;
+            if (sl.list.size() >= 2 &&
+                sl.list[1]->kind == StatementKind::VariableDeclaration)
+                if (auto* dsyn9 = sl.list[1]
+                                      ->as<VariableDeclStatement>()
+                                      .symbol.getSyntax())
+                    if (dsyn9->parent && dsyn9->parent->kind ==
+                                             syntax::SyntaxKind::DataDeclaration)
+                        anch9 = dsyn9->parent;
+            if (anch9)
+                setLoc(ub, anch9->sourceRange());
+            else if (sl.list.size() >= 2)
                 setLoc(ub, sl.list[1]->sourceRange);
             else
                 setLoc(ub, stmt.sourceRange);

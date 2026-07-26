@@ -607,7 +607,9 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
         if (genVarBasePath && i + 1 == parts.size())
             r->VpiFullName(dotted);
         else if (!lhsPath9 && i + 1 == parts.size())
-            r->VpiFullName(prefix + "." + pname);
+            // A PACKAGE-scope prefix keeps :: down to the leaf
+            // (riscv_isa_i_pkg::imm_i_f::imm_11_0 — Surelog).
+            r->VpiFullName(joinRef(prefix, pname));
         else
             r->VpiFullName(pname);
         r->VpiParent(hp);
@@ -1020,10 +1022,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ((UHDM::expr*)rhs)->VpiEndColumnNo() > asn->VpiEndColumnNo())
                 asn->VpiEndColumnNo(((UHDM::expr*)rhs)->VpiEndColumnNo());
             if (rhs) {
-                // In a FUNCTION body, an unbased-unsized '0/'1/'x RHS takes the
-                // LHS width (an always-block leaves it unsized). Only the direct
-                // assignment RHS is sized, not '0 as an operation operand.
-                if (currentSubSym && rhs->UhdmType() == UHDM::uhdmconstant &&
+                // In a MODULE FUNCTION body, an unbased-unsized '0/'1/'x RHS
+                // takes the LHS width (an always-block leaves it unsized). Only
+                // the direct assignment RHS is sized, not '0 as an operation
+                // operand. A PACKAGE function body keeps the literal UNSIZED
+                // (size -1, '0 decompile) — rp32 enc32 `enc32 = '0;`.
+                bool pkgSub9 = false;
+                if (currentSubSym)
+                    for (auto sc9 = currentSubSym->getParentScope(); sc9;
+                         sc9 = sc9->asSymbol().getParentScope())
+                        if (sc9->asSymbol().kind == SymbolKind::Package) {
+                            pkgSub9 = true;
+                            break;
+                        }
+                if (currentSubSym && !pkgSub9 &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::expr*)rhs)->VpiSize() == -1 &&
                     stripImplicitConv(*rhsExpr).kind ==
                         ExpressionKind::UnbasedUnsizedIntegerLiteral) {
@@ -2548,9 +2561,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (cts->UhdmType() == UHDM::uhdmlogic_typespec) {
                         auto ps0 = currentSubSym ? currentSubSym->getParentScope()
                                                  : nullptr;
+                        // A cast written inside a function of the typedef's OWN
+                        // package (riscv_isa_i_pkg's `imm_i_f = imm_t'(...)`)
+                        // mints the same fresh self-named clone: Surelog
+                        // re-elaborates the cast target per (function, view)
+                        // rather than sharing the package's typedef object.
+                        bool homePkgSub0 = false;
+                        if (ps0 && ps0->asSymbol().kind == SymbolKind::Package)
+                            for (auto sc0 = expr.type->getParentScope(); sc0;
+                                 sc0 = sc0->asSymbol().getParentScope())
+                                if (sc0->asSymbol().kind ==
+                                    SymbolKind::Package) {
+                                    homePkgSub0 = sc0 == ps0;
+                                    break;
+                                }
                         // $UNIT function bodies AND module-scope cast sites
                         // both mint the fresh self-named clone (Surelog).
-                        if (!currentSubSym ||
+                        if (!currentSubSym || homePkgSub0 ||
                             (ps0 &&
                              ps0->asSymbol().kind == SymbolKind::CompilationUnit)) {
                             auto& ta2 = expr.type->as<TypeAliasType>();
@@ -2563,11 +2590,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                 .type;
                             bypassTypedefShare = true;
                             bool savedTf2 = tfContext;
-                            tfContext = true;
+                            // The home-package clone's bounds follow the VIEW:
+                            // the def package's stay symbolic, the top
+                            // package's fold (rp32 imm_t 32-1 vs 31).
+                            tfContext = homePkgSub0 ? !pkgTopEmit : true;
                             auto* cl2 = makeTypespec(ta2, tSyn2);
                             tfContext = savedTf2;
                             bypassTypedefShare = false;
                             cl2->VpiName(ta2.name);
+                            if (homePkgSub0)
+                                cl2->Instance(cts->Instance());
                             auto* art2 = s.MakeRef_typespec();
                             art2->VpiFullName(std::string(ta2.name));
                             art2->VpiParent(cl2);
@@ -5130,7 +5162,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Only the last member of an rvalue path gets a fullname; a
                 // param-init struct-member read leaves the leaf BARE (lvalue).
                 if (!inLhs && !paramInitStructMember && *it2 == chain.front())
-                    r->VpiFullName(prefix + "." + std::string(ma.member.name));
+                    // A PACKAGE-scope prefix keeps :: down to the leaf
+                    // (riscv_isa_i_pkg::enc32::opc — Surelog).
+                    r->VpiFullName(joinRef(prefix, ma.member.name));
                 r->VpiParent(hp);
                 // Pkg-qualified param member refs bind the typespec_member
                 // of the param's def struct/union ts (Surelog).

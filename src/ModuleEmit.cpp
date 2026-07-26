@@ -1519,8 +1519,12 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                         if (!seenPkgs.insert(&p9).second)
                             return;
                         for (auto& pm : p9.members()) {
-                            if (pm.kind == SymbolKind::TypeAlias)
-                                tas.push_back(&pm);
+                            // A local typedef shadowed by a wildcard import
+                            // never lists (rp32 csr_adr_t).
+                            if (pm.kind == SymbolKind::TypeAlias) {
+                                if (!importShadowOf(pm))
+                                    tas.push_back(&pm);
+                            }
                             else if (pm.kind == SymbolKind::WildcardImport)
                                 if (auto* np = pm.as<WildcardImportSymbol>()
                                                    .getPackage())
@@ -2147,6 +2151,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     // struct port procedurally driven, struct ports stay struct_nets
     // (simple_package: bus_out is driven only by a submodule connection).
     bool procWritesStructPort = false;
+    // A struct-typed port ALSO elaborates as a struct_var when the module
+    // WIRES NO struct port at all — no procedural write, no cont assign, no
+    // child-instance connection on ANY of them (Surelog; rp32 r5p_bru's
+    // read-only `input dec_t dec`). The predicate is module-wide, not
+    // per-port: simple_package hands `bus_out` to a submodule, and that keeps
+    // its read-only `bus_in` a struct_net.
+    std::set<const Symbol*> undrivenStructPorts;
     {
         std::vector<const Symbol*> structPortSyms;
         for (auto& it2 : collectNetOrder(body)) {
@@ -2159,6 +2170,61 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     k == SymbolKind::UnpackedUnionType)
                     structPortSyms.push_back(it2.sym);
             }
+        }
+        if (!structPortSyms.empty()) {
+            std::set<const Symbol*> touched;
+            auto baseSym = [&](const Expression& e0) -> const Symbol* {
+                const Expression* l = &stripImplicitConv(e0);
+                for (;;) {
+                    if (l->kind == ExpressionKind::MemberAccess)
+                        l = &stripImplicitConv(
+                            l->as<MemberAccessExpression>().value());
+                    else if (l->kind == ExpressionKind::ElementSelect)
+                        l = &stripImplicitConv(
+                            l->as<ElementSelectExpression>().value());
+                    else if (l->kind == ExpressionKind::RangeSelect)
+                        l = &stripImplicitConv(
+                            l->as<RangeSelectExpression>().value());
+                    else
+                        break;
+                }
+                if (l->kind == ExpressionKind::NamedValue)
+                    return &l->as<NamedValueExpression>().symbol;
+                return nullptr;
+            };
+            for (auto& mb : body.members()) {
+                if (mb.kind == SymbolKind::ProceduralBlock)
+                    mb.as<ProceduralBlockSymbol>().getBody().visit(makeVisitor(
+                        [&](auto& v, const AssignmentExpression& ax) {
+                            if (auto* ws = baseSym(ax.left()))
+                                touched.insert(ws);
+                            v.visitDefault(ax);
+                        }));
+                else if (mb.kind == SymbolKind::ContinuousAssign) {
+                    auto& ce = mb.as<ContinuousAssignSymbol>().getAssignment();
+                    if (ce.kind == ExpressionKind::Assignment)
+                        if (auto* ws =
+                                baseSym(ce.as<AssignmentExpression>().left()))
+                            touched.insert(ws);
+                }
+                else if (mb.kind == SymbolKind::Instance) {
+                    for (auto* conn :
+                         mb.as<InstanceSymbol>().getPortConnections())
+                        if (auto* ex = conn->getExpression())
+                            ex->visit(makeVisitor(
+                                [&](auto& v2, const NamedValueExpression& nv) {
+                                    touched.insert(&nv.symbol);
+                                    v2.visitDefault(nv);
+                                }));
+                }
+            }
+            bool anyStructPortWired = false;
+            for (auto* psym : structPortSyms)
+                if (touched.count(psym))
+                    anyStructPortWired = true;
+            if (!anyStructPortWired)
+                for (auto* psym : structPortSyms)
+                    undrivenStructPorts.insert(psym);
         }
         if (!structPortSyms.empty())
             for (auto& mb : body.members()) {
@@ -2999,7 +3065,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             // under vpiVariables (Surelog), not a struct_net: rsp_gen_minimal's
             // `input/output tl_d2h_t tl_i/tl_o` under `import tlul_pkg::*` with
             // `tl_o.d_user.rsp_intg = ...`.
-            if (isStruct && it.port && !it.bodyDecl && procWritesStructPort &&
+            if (isStruct && it.port && !it.bodyDecl &&
+                (procWritesStructPort || undrivenStructPorts.count(it.sym)) &&
                 !it.sym->getDeclaredType()->getInitializer() &&
                 isPkgStructType(*it.sym) && !isExplicitPkgQualified(*it.sym)) {
                 auto* sv = s.MakeStruct_var();
