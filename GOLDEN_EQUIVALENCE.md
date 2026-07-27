@@ -378,6 +378,13 @@ integration gate ~5 min, so stream instead:
   consistent while mainline advances.
 - Stragglers that outlive the frontier get their worktree harvested
   (git diff HEAD) rather than holding integration.
+- **One cluster per agent context — no persistent workers.** An agent that
+  finishes does NOT pick up the next cluster: context filled with one
+  cluster's decode state invites mis-generalization on the next (the block
+  produced three "heuristics" that were really one Surelog parser rule, each
+  born from pattern-matching with stale context). Decode state transfers
+  between agents through groundwork commits, ranked residues, and in-code
+  NOTEs — never through a reused context.
 
 ### 4.4 Agent-ops rules (learned the hard way)
 
