@@ -131,17 +131,17 @@ BitsStructMember,default,SLANG_REJECT,dut.sv:17:16: error: use of undeclared ide
 BitsStructMember,testflags,SLANG_REJECT,dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
 BlackBePipeInt,default,CMP_NOTEQUAL,decompile:,,
 BlackBePipeInt,testflags,CMP_NOTEQUAL,decompile:,,
-BlackBox,default,CMP_NOTEQUAL,decompile:,,
-BlackBox,testflags,CMP_NOTEQUAL,decompile:,,
-BlackBoxInst,default,CMP_NOTEQUAL,decompile:,,
+BlackBox,default,CMP_EQUAL,,,match
+BlackBox,testflags,CMP_EQUAL,,,differ
+BlackBoxInst,default,CMP_EQUAL,,,match
 BlackBoxInst,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_inst,
-BlackBoxInstTop,default,CMP_NOTEQUAL,decompile:,,
+BlackBoxInstTop,default,CMP_EQUAL,,,match
 BlackBoxInstTop,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_inst,
 BlackboxMissingDef,default,SLANG_REJECT,dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
 BlackboxMissingDef,testflags,SLANG_REJECT,dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
-BlackBoxMod,default,CMP_NOTEQUAL,decompile:,,
+BlackBoxMod,default,CMP_EQUAL,,,match
 BlackBoxMod,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_mod,
-BlackBoxSubMod,default,CMP_NOTEQUAL,decompile:,,
+BlackBoxSubMod,default,CMP_EQUAL,,,match
 BlackBoxSubMod,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_mod,
 BlackConst,default,CMP_NOTEQUAL,decompile:,,
 BlackConst,testflags,CMP_NOTEQUAL,decompile:,,
@@ -879,8 +879,8 @@ MultiConcatValueSize,default,CMP_EQUAL,,,differ
 MultiConcatValueSize,testflags,CMP_EQUAL,,,differ
 MultiIndexBind,default,SLANG_REJECT,dut.sv:28:21: error: use of undeclared identifier 'i',,
 MultiIndexBind,testflags,SLANG_REJECT,dut.sv:28:21: error: use of undeclared identifier 'i',,
-MultiPartSelect,default,CMP_NOTEQUAL,decompile:,,
-MultiPartSelect,testflags,CMP_NOTEQUAL,decompile:,,
+MultiPartSelect,default,CMP_EQUAL,,,match
+MultiPartSelect,testflags,CMP_EQUAL,,,differ
 MultiPort,default,CMP_NOTEQUAL,decompile:,,
 MultiPort,testflags,CMP_NOTEQUAL,decompile:,,
 MultiSelect,default,CMP_EQUAL,,,match

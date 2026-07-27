@@ -21,6 +21,20 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiEndColumnNo(src->VpiEndColumnNo());
 }
 
+// The token text of a syntax subtree, trivia dropped. Used where the source
+// text of a construct cannot be read as one contiguous slice — a name whose
+// components come from a MACRO body plus the file (`CORE0.sig) has no single
+// buffer to slice, but its tokens still spell out the expanded text.
+static void appendTokenText(const slang::syntax::SyntaxNode& n,
+                            std::string& out) {
+    for (size_t i = 0; i < n.getChildCount(); i++) {
+        if (auto* c = n.childNode(i))
+            appendTokenText(*c, out);
+        else if (auto t = n.childToken(i))
+            out += t.rawText();
+    }
+}
+
 // A function that just hands one of its formals back (`f = inp;` /
 // `return inp;`). Surelog substitutes such a call for typing purposes, so a
 // NESTED call to it carries no formal-ts stamp of its own — the enclosing
@@ -4521,7 +4535,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         r->VpiName(bnv.symbol.name);
                         (void)r->VpiFullName();
                         r->VpiParent(hp);
-                        setLoc(r, mb->sourceRange);
+                        // An LVALUE hier_path anchors its base ref at the
+                        // FIRST MEMBER's name token (Surelog) — the same
+                        // second-element anchor the dotted-name paths use.
+                        SourceRange bSpan9 = mb->sourceRange;
+                        if (inLhs) {
+                            auto& m09 =
+                                mchain.back()->as<MemberAccessExpression>();
+                            auto m0e9 = mchain.back()->sourceRange.end();
+                            auto m0s9 = m0e9 - m09.member.name.size();
+                            bSpan9 = SourceRange(m0s9, m0e9);
+                        }
+                        setLoc(r, bSpan9);
                         elems->push_back(r);
                     }
                     // mchain is outer..inner; iterate base-first (reverse).
@@ -4537,6 +4562,118 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             r->VpiParent(hp);
                             setLoc(r, SourceRange(memEnd - memName.size(), memEnd));
                             elems->push_back(r);
+                            continue;
+                        }
+                        std::string selFull9 = joinRef(prefix, selText);
+                        SourceRange rngSpan9(rs.left().sourceRange.start(),
+                                             rs.right().sourceRange.end());
+                        bool widthConst9 = false;
+                        {
+                            ASTContext wctx(comp.getRoot(), LookupLocation::max);
+                            widthConst9 =
+                                rs.right().kind == ExpressionKind::IntegerLiteral ||
+                                (bool)wctx.tryEval(rs.right());
+                        }
+                        if (inLhs) {
+                            // LVALUE shape (Surelog's hier_path branch of
+                            // compileSelectExpression):
+                            //   field[i]        -> bit_select(field, i)
+                            //   field[i][j]...  -> var_select(field, [i,j..])
+                            //   ...[hi:lo]      -> a SEPARATE, UNNAMED
+                            //                      (indexed_)part_select ELEMENT
+                            // The trailing range is never an index of the
+                            // select — only an RVALUE read folds it in as the
+                            // var_select's last index (the form below, kept
+                            // for keymgr_key_i.key[0][i*32+:32]).
+                            UHDM::any* sel9 = nullptr;
+                            SourceRange selSpan9(
+                                memEnd - memName.size(),
+                                rs.value().sourceRange.end());
+                            bool savedFCP9 = forceConstParent;
+                            if (esels.size() == 1) {
+                                auto* bs = s.MakeBit_select();
+                                bs->VpiName(memName);
+                                bs->VpiFullName(selFull9 + "." + memName);
+                                bs->VpiParent(hp);
+                                setLoc(bs, selSpan9);
+                                forceConstParent = isLiteralExpr(*esels[0]);
+                                if (auto* ix =
+                                        emitExpr(*esels[0], bs, prefix, netMap))
+                                    bs->VpiIndex((UHDM::expr*)ix);
+                                sel9 = bs;
+                            }
+                            else {
+                                auto* vs = s.MakeVar_select();
+                                vs->VpiName(memName);
+                                vs->VpiFullName(selFull9 + "." + memName);
+                                vs->VpiParent(hp);
+                                setLoc(vs, selSpan9);
+                                auto* ix9 = s.MakeExprVec();
+                                for (auto it3 = esels.rbegin();
+                                     it3 != esels.rend(); ++it3) {
+                                    forceConstParent = isLiteralExpr(**it3);
+                                    if (auto* ix =
+                                            emitExpr(**it3, vs, prefix, netMap))
+                                        ix9->push_back((UHDM::expr*)ix);
+                                }
+                                vs->Exprs(ix9);
+                                sel9 = vs;
+                            }
+                            forceConstParent = savedFCP9;
+                            elems->push_back(sel9);
+                            // The trailing range's bounds parent to their
+                            // (indexed_)part_select only in the ELABORATED
+                            // re-emission of the cont-assign LHS; the def view
+                            // leaves them unparented (Surelog).
+                            bool savedSup9 = suppressConstParent;
+                            bool savedFC9 = forceConstParent;
+                            suppressConstParent = true;
+                            auto bound9 = [&](const Expression& e9) {
+                                forceConstParent =
+                                    elabContAssignLhs && isLiteralExpr(e9);
+                            };
+                            if (rs.getSelectionKind() ==
+                                RangeSelectionKind::Simple) {
+                                auto* ps = s.MakePart_select();
+                                ps->VpiFullName(selFull9);
+                                ps->VpiParent(hp);
+                                setLoc(ps, rngSpan9);
+                                if (widthConst9)
+                                    ps->VpiConstantSelect(true);
+                                bound9(rs.left());
+                                if (auto* l = emitExpr(rs.left(), ps, selFull9,
+                                                       netMap))
+                                    ps->Left_range((UHDM::expr*)l);
+                                bound9(rs.right());
+                                if (auto* r2 = emitExpr(rs.right(), ps, selFull9,
+                                                        netMap))
+                                    ps->Right_range((UHDM::expr*)r2);
+                                elems->push_back(ps);
+                            }
+                            else {
+                                auto* ips = s.MakeIndexed_part_select();
+                                ips->VpiFullName(selFull9);
+                                ips->VpiParent(hp);
+                                setLoc(ips, rngSpan9);
+                                ips->VpiIndexedPartSelectType(
+                                    rs.getSelectionKind() ==
+                                            RangeSelectionKind::IndexedUp
+                                        ? 1
+                                        : 2);
+                                if (widthConst9)
+                                    ips->VpiConstantSelect(true);
+                                bound9(rs.left());
+                                if (auto* b = emitExpr(rs.left(), ips, selFull9,
+                                                       netMap))
+                                    ips->Base_expr((UHDM::expr*)b);
+                                bound9(rs.right());
+                                if (auto* w = emitExpr(rs.right(), ips, selFull9,
+                                                       netMap))
+                                    ips->Width_expr((UHDM::expr*)w);
+                                elems->push_back(ips);
+                            }
+                            suppressConstParent = savedSup9;
+                            forceConstParent = savedFC9;
                             continue;
                         }
                         auto* vs = s.MakeVar_select();
@@ -6005,6 +6142,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Cross-instance references (u1.cnt) share the member-access
             // hier_path shape; elements come from the dotted source text.
             std::string raw = rawText(expr.sourceRange);
+            // MACRO-SPLICED path (`assign o = `CORE0.wb_writeback_en;` with
+            // `define CORE0 nyuzi.core_gen[0].core`): the head components live
+            // in the macro-body buffer and the tail in the file, so there is
+            // no contiguous slice and rawText() returns "". Surelog prints the
+            // EXPANDED dotted text and lays each element out at the invocation
+            // column plus its offset inside the expansion — which is exactly
+            // where each expanded TOKEN already maps (macroInvLineCol). So
+            // rebuild the display text from the name syntax and take every
+            // element span from its own token instead of from `raw` offsets.
+            std::vector<const syntax::NameSyntax*> nameParts9;
+            if (expr.syntax && syntax::NameSyntax::isKind(expr.syntax->kind)) {
+                std::function<void(const syntax::NameSyntax*)> fl0 =
+                    [&](const syntax::NameSyntax* n) {
+                        if (!n)
+                            return;
+                        if (n->kind == syntax::SyntaxKind::ScopedName) {
+                            auto& sc = n->as<syntax::ScopedNameSyntax>();
+                            fl0(sc.left);
+                            fl0(sc.right);
+                        }
+                        else
+                            nameParts9.push_back(n);
+                    };
+                fl0(&expr.syntax->as<syntax::NameSyntax>());
+            }
+            bool tokLoc9 = false;
+            if (raw.find('.') == std::string::npos && nameParts9.size() >= 2) {
+                raw.clear();
+                for (size_t i0 = 0; i0 < nameParts9.size(); i0++) {
+                    if (i0)
+                        raw += '.';
+                    appendTokenText(*nameParts9[i0], raw);
+                }
+                tokLoc9 = true;
+            }
             // SYMBOLIC base index (STAGE[i-1].C): SL re-lexes with spaces
             // and emits a bit_select element whose index comes from the
             // selector SYNTAX, refs doubled through the hier display name.
@@ -6133,7 +6305,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // measured on the ORIGINAL source text, so keep a parallel split.
             std::vector<std::pair<std::string, size_t>> srcParts;
             {
-                std::string rawSrc = rawText(expr.sourceRange);
+                std::string rawSrc =
+                    tokLoc9 ? raw : rawText(expr.sourceRange);
                 size_t pos = 0;
                 while (pos <= rawSrc.size()) {
                     size_t dot = rawSrc.find('.', pos);
@@ -6214,13 +6387,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             setLoc(hp, expr.sourceRange);
             auto* elems = s.MakeAnyVec();
             auto exprStart = expr.sourceRange.start();
+            // Element spans normally come from `exprStart + <offset in raw>`,
+            // valid only while the whole path is one contiguous slice. For a
+            // macro-spliced path each component anchors at its OWN token.
+            if (tokLoc9 && nameParts9.size() != parts.size())
+                tokLoc9 = false;
+            auto partStart = [&](size_t i9) {
+                return tokLoc9 ? nameParts9[i9]->getFirstToken().location()
+                               : exprStart + srcParts[i9].second;
+            };
             std::string dottedSoFar;
             bool genVarBaseEmitted = false;
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, dispOff] = parts[i];
                 (void)dispOff;
-                // Spans come from the ORIGINAL (unspaced) source text.
-                const size_t off = srcParts[i].second;
+                // This component's anchor location, measured on the ORIGINAL
+                // (unspaced) source text; every span below is an offset
+                // INSIDE the component, taken from here.
+                const auto cStart = partStart(i);
                 dottedSoFar += (i == 0 ? pname : "." + pname);
                 // A gen-block / array index element (gen_blk[0]) is a
                 // bit_select: name-only ref + a bare UINT index constant.
@@ -6236,18 +6420,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bs->VpiFullName(
                         base + "[" + std::string(lpFoldC9->VpiDecompile()) +
                         "]");
-                    setLoc(bs, SourceRange(exprStart + off,
-                                           exprStart + off + base.size()));
+                    setLoc(bs, SourceRange(cStart, cStart + base.size()));
                     auto* c9 = s.MakeConstant();
                     c9->VpiDecompile(lpFoldC9->VpiDecompile());
                     c9->VpiSize(lpFoldC9->VpiSize());
                     c9->VpiValue(std::string(lpFoldC9->VpiValue()));
                     c9->VpiConstType(lpFoldC9->VpiConstType());
                     c9->VpiParent(lpFoldPa9);
-                    size_t idOff9 = off + lb + 1;
+                    size_t idOff9 = lb + 1;
                     setLoc(c9,
-                           SourceRange(exprStart + idOff9,
-                                       exprStart + idOff9 +
+                           SourceRange(cStart + idOff9,
+                                       cStart + idOff9 +
                                            lpFoldIdn9.size()));
                     auto* rt9 = s.MakeRef_typespec();
                     rt9->VpiFullName(lpFoldScope9);
@@ -6270,14 +6453,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bs->VpiName(base);
                     bs->VpiParent(hp);
                     bs->VpiFullName(dottedSoFar);
-                    setLoc(bs, SourceRange(exprStart + off, exprStart + off + base.size()));
+                    setLoc(bs, SourceRange(cStart, cStart + base.size()));
                     auto* c = s.MakeConstant();
                     c->VpiDecompile(idx);
                     c->VpiSize(64);
                     c->VpiValue("UINT:" + idx);
                     c->VpiConstType(vpiUIntConst);
-                    size_t digitOff = off + lb + 1;
-                    setLoc(c, SourceRange(exprStart + digitOff, exprStart + digitOff + idx.size()));
+                    size_t digitOff = lb + 1;
+                    setLoc(c, SourceRange(cStart + digitOff, cStart + digitOff + idx.size()));
                     bs->VpiIndex(c);
                     elems->push_back(bs);
                     continue;
@@ -6292,8 +6475,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bs->VpiName(base);
                     bs->VpiParent(hp);
                     bs->VpiFullName(pname);
-                    setLoc(bs, SourceRange(exprStart + off,
-                                           exprStart + off + base.size()));
+                    setLoc(bs, SourceRange(cStart, cStart + base.size()));
                     std::string savedPfx = syntaxRefPrefix;
                     std::string savedSep = syntaxRefSep;
                     syntaxRefPrefix = prefix + "." + raw;
@@ -6337,15 +6519,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bs->VpiName(base);
                         bs->VpiParent(hp);
                         bs->VpiFullName(i == 0 ? pname : dottedSoFar);
-                        setLoc(bs, SourceRange(exprStart + off,
-                                               exprStart + off + base.size()));
+                        setLoc(bs, SourceRange(cStart, cStart + base.size()));
                         auto* ir = s.MakeRef_obj();
                         ir->VpiName(idx);
                         ir->VpiFullName(prefix + "." + idx);
                         ir->VpiParent(hp);
-                        size_t idOff = off + lb + 1;
-                        setLoc(ir, SourceRange(exprStart + idOff,
-                                               exprStart + idOff + idx.size()));
+                        size_t idOff = lb + 1;
+                        setLoc(ir, SourceRange(cStart + idOff,
+                                               cStart + idOff + idx.size()));
                         bs->VpiIndex(ir);
                         elems->push_back(bs);
                         genVarBaseEmitted = true;
@@ -6361,8 +6542,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bs->VpiName(base);
                         bs->VpiParent(hp);
                         bs->VpiFullName(dottedSoFar);
-                        setLoc(bs, SourceRange(exprStart + off,
-                                               exprStart + off + base.size()));
+                        setLoc(bs, SourceRange(cStart, cStart + base.size()));
                         std::string savedPfx = syntaxRefPrefix;
                         std::string savedSep = syntaxRefSep;
                         syntaxRefPrefix = prefix + "." + raw;
@@ -6391,8 +6571,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // procedural for, so this leaf-bind never applied to them.)
                 // Lvalue paths anchor the base ref at the SECOND element.
                 size_t locIdx = (inLhs && i == 0 && parts.size() > 1) ? 1 : i;
-                auto& [lname, loff] = srcParts[locIdx];
-                setLoc(r, SourceRange(exprStart + loff, exprStart + loff + lname.size()));
+                auto& lname = srcParts[locIdx].first;
+                auto lStart = partStart(locIdx);
+                setLoc(r, SourceRange(lStart, lStart + lname.size()));
                 elems->push_back(r);
             }
             // Module-CA LHS hier into a GEN scope: the hier_path spans only
