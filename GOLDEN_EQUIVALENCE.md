@@ -39,7 +39,10 @@ Done means `CMP_EQUAL` for every **comparable** test in both modes (§2.5;
 extending slang is out of scope, so `SLANG_REJECT` is excluded by decision).
 
 Converge order (decided): **uhdm2rtlil default → uhdm2rtlil testflags →
-Surelog default → Surelog testflags.** The stages mostly contain each other:
+Surelog default → Surelog testflags.** The first two stages are **COMPLETE**
+as of `b16eb6f` (2026-07-27): uhdm2rtlil is at 100.0% comparable-equal in
+both modes (679/679; the 50 SLANG_REJECT + 2 SURELOG_FAIL are the decided
+exclusions). All remaining convergence work is the Surelog suite. The stages mostly contain each other:
 the u2r mode pair shares 16 of its 16/17 failures, the Surelog mode pair 286
 of 301/290 — and since `default` strips `-elabuhdm`, converging Surelog
 default IS the folded-first strategy, with only 2 elab-only tests left for
@@ -198,10 +201,10 @@ exists.
 
 | Corpus | Mode | Total | Status breakdown | Comparable | Equal |
 |---|---|---|---|---|---|
-| Surelog suite | default | 794 | SLANG_REJECT=284 CMP_EQUAL=251 CMP_NOTEQUAL=229 SURELOG_FAIL=25 DEFERRED=5 | 480 | 251 (52.3%) |
-| Surelog suite | testflags | 794 | SLANG_REJECT=283 CMP_EQUAL=242 CMP_NOTEQUAL=223 SURELOG_FAIL=23 UNTRANSLATABLE=13 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 465 | 242 (52.0%) |
-| uhdm2rtlil | default | 731 | CMP_EQUAL=675 SLANG_REJECT=50 CMP_NOTEQUAL=4 SURELOG_FAIL=2 | 679 | 675 (99.4%) |
-| uhdm2rtlil | testflags | 731 | CMP_EQUAL=675 SLANG_REJECT=50 CMP_NOTEQUAL=4 SURELOG_FAIL=2 | 679 | 675 (99.4%) |
+| Surelog suite | default | 794 | SLANG_REJECT=284 CMP_EQUAL=261 CMP_NOTEQUAL=219 SURELOG_FAIL=25 DEFERRED=5 | 480 | 261 (54.4%) |
+| Surelog suite | testflags | 794 | SLANG_REJECT=283 CMP_EQUAL=252 CMP_NOTEQUAL=213 SURELOG_FAIL=23 UNTRANSLATABLE=13 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 465 | 252 (54.2%) |
+| uhdm2rtlil | default | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
+| uhdm2rtlil | testflags | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 
 Denominator accounting (every excluded test is one of): `SLANG_REJECT`
 (out of scope, §2.5), `DEFERRED` (5 memory giants, §2.5b), `UNTRANSLATABLE`
