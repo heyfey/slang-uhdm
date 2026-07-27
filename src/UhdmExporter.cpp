@@ -1147,6 +1147,14 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (auto tit9 = pkgTopMap.find(home9); tit9 != pkgTopMap.end())
                 ts9->Instance(tit9->second);
         pkgImportTsTopFixups.clear();
+        // A package subroutine that names ANOTHER package's typedef binds the
+        // ELABORATED listing object in both views (Surelog) — the def pass
+        // could only reach the def object, so re-point now (PackFunc).
+        for (auto& [rt9, aliasT9] : pkgForeignTsTopFixups)
+            if (auto t9 = pkgTopTypedefTs.find((const void*)aliasT9);
+                t9 != pkgTopTypedefTs.end() && t9->second)
+                rt9->Actual_typespec(t9->second);
+        pkgForeignTsTopFixups.clear();
         // NOTE: a pkg consumed by ANOTHER package keeps its DEF listing bound
         // to its OWN typedef objects (rp32 riscv_priv_pkg csr_adr_t.perm ->
         // the home csr_perm_t, riscv_isa_pkg isa_t.spec -> the home
@@ -1916,6 +1924,12 @@ UHDM::design* UhdmExporter::exportDesign() {
         p.rt->Actual_typespec(act ? act : makeTypespec(*p.sym));
     }
     pendingSysFuncTs.clear();
+
+    // Package-function return-value locals are normally drained from
+    // emitTopPorts; a design with NO module never reaches that call and the
+    // `f = ...` body refs would stay unbound (PackFunc is packages only).
+    // Already-processed entries carry no refs, so this is a no-op otherwise.
+    drainFuncRet(/*pkgOnly=*/true);
 
     // $unit param typespecs are the very last arena objects.
     for (auto& pu : pendingUnitParamTs) {

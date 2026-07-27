@@ -3365,6 +3365,39 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         }
                         forceConstParent = forceSaved;
                     }
+                    else if ([&] {
+                                 // A STRUCT-MEMBER-access init (`logic c =
+                                 // a[0].source[6-:2]`) is a hier_path vpiExpr
+                                 // (Surelog; RangeSelect). Selects above the
+                                 // member access are part of the path.
+                                 const Expression* b0 = &ic;
+                                 bool sawMember = false;
+                                 for (;;) {
+                                     if (b0->kind == ExpressionKind::MemberAccess) {
+                                         sawMember = true;
+                                         b0 = &stripImplicitConv(
+                                             b0->as<MemberAccessExpression>()
+                                                 .value());
+                                     }
+                                     else if (b0->kind ==
+                                              ExpressionKind::ElementSelect)
+                                         b0 = &stripImplicitConv(
+                                             b0->as<ElementSelectExpression>()
+                                                 .value());
+                                     else if (b0->kind ==
+                                              ExpressionKind::RangeSelect)
+                                         b0 = &stripImplicitConv(
+                                             b0->as<RangeSelectExpression>()
+                                                 .value());
+                                     else
+                                         break;
+                                 }
+                                 return sawMember &&
+                                        b0->kind == ExpressionKind::NamedValue;
+                             }()) {
+                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                            v->Expr((UHDM::expr*)e);
+                    }
                 }
                 // A port-backed var whose PORT carries an initializer (and the
                 // var itself none) holds the FOLDED substituted value as
@@ -3468,8 +3501,18 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // non-logic/non-struct member typespec — enum, packed array, bit,
             // int — demotes the signal to a struct_var. Ports keep the older
             // hand-tuned routes below; a plain body declaration takes this.
+            // Surelog's elab_signal_ reads the signal's typespec out of the
+            // component's typedef table; a `parameter type T`-typed signal has
+            // NO entry there, so `tps` comes back null, the struct net-vs-var
+            // arm never runs, and the signal stays the VAR the leading
+            // "dtype && no sub-net-type" test already made it — whatever type
+            // the override resolves to (TypeParamOverride's `resp_t err_resp`
+            // overridden with a package struct: def view logic_net, elab view
+            // struct_var).
+            bool typeParamTyped = portTypeParam(*it.sym) != nullptr;
             bool memberDemotesToVar =
-                isStruct && !it.port && !structTsIsNetLike(ts);
+                isStruct && !it.port &&
+                (typeParamTyped || !structTsIsNetLike(ts));
             if (isStruct &&
                 ((arrOfStructMember && isPkgStructType(*it.sym)) ||
                  memberDemotesToVar) &&
@@ -6391,6 +6434,18 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 UHDM::typespec* ets2 = nullptr;
                 if (auto* dt3 = gm.getDeclaredType())
                     ets2 = makeTypespec(gm, dt3->getTypeSyntax());
+                // ...unless the ELEMENT is net-like (a 4-state packed struct,
+                // a reg memory): then it is an array_NET exactly as at module
+                // level — the gen-scope path was missing the module rule
+                // (IfGenTypeBinding's `pmp_cfg_t pmp_cfg2 [N]`).
+                if (ets2 && unpackedArrayLeafIsNet(gm, /*portBacked=*/false)) {
+                    if (auto* an2 = emitArrayNet(gm, std::string(gm.name),
+                                                 vfull2, gs, ets2)) {
+                        netMap[&gm] = an2;
+                        genArrayNets->push_back(an2);
+                        continue;
+                    }
+                }
                 if (ets2)
                     if (auto* av2 = emitArrayVar(gm, std::string(gm.name),
                                                  vfull2, gs, ets2)) {
@@ -6447,6 +6502,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         if (!gvars->empty())
             gs->Variables(gvars);
+        // The variable loop can still mint an array_NET (a net-like unpacked
+        // element), so re-attach after it — the earlier attach fired only if
+        // the NET loop had already filled the vector.
+        if (!genArrayNets->empty() && !gs->Array_nets())
+            gs->Array_nets(genArrayNets);
 
         // Module instances declared inside the block: full elab children
         // under vpiModule, re-parented at the gen_scope (Surelog). The
@@ -14813,6 +14873,27 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     // (ts -> array_typespec with SYMBOLIC dim bounds; inner
                     // reg logic_var carries the element logic_typespec).
                     if (vct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                        // ...but only for a BUILT-IN element type. The whole
+                        // arm builds a logic_typespec element out of
+                        // `dd.type`, which a user typedef (`pmp_cfg_t cfg
+                        // [N]`) does not describe — and Surelog stmt-ifies
+                        // nothing for it, leaving the def-view gen block
+                        // empty (IfGenTypeBinding).
+                        const Type* el3 = &vct;
+                        while (el3->getCanonicalType().kind ==
+                               SymbolKind::FixedSizeUnpackedArrayType)
+                            el3 = &el3->getCanonicalType()
+                                       .as<FixedSizeUnpackedArrayType>()
+                                       .elementType;
+                        while (el3->getCanonicalType().kind ==
+                               SymbolKind::PackedArrayType)
+                            el3 = &el3->getCanonicalType()
+                                       .as<PackedArrayType>()
+                                       .elementType;
+                        auto elk3 = el3->getCanonicalType().kind;
+                        if (elk3 != SymbolKind::ScalarType &&
+                            elk3 != SymbolKind::PredefinedIntegerType)
+                            continue;
                         auto* as3 = s.MakeAssignment();
                         as3->VpiParent(b);
                         as3->VpiOpType(82);

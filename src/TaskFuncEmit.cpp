@@ -31,6 +31,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     std::string sep = pkgScope ? "::" : ".";
     auto* savedPkgInst = pkgScopeInst;
     pkgScopeInst = (pkgScope && !classScope) ? (UHDM::instance*)m : nullptr;
+    // The package these subroutines live in (null outside a package).
+    const Symbol* homePkgSym =
+        (pkgScope && !classScope) ? &body.asSymbol() : nullptr;
+    // True when `ts0` IS the shared typedef object of a type declared in a
+    // DIFFERENT package (`other_pkg::T` used here without an import clone).
+    // Surelog creates that object once, in its declaring package, and the
+    // using package neither re-instances nor relocates it — PackFunc's
+    // b::foo_bar_t named by package aa's function. A freshly minted clone is
+    // NOT the shared object and still takes this package's stamp.
+    auto foreignSharedTs = [&](const Symbol& declSym,
+                               const UHDM::typespec* ts0) {
+        if (!ts0 || !foreignPkgTypedef(declSym, homePkgSym))
+            return false;
+        const auto* ty0 = &declSym.getDeclaredType()->getType();
+        if (auto i0 = typedefTs.find(ty0);
+            i0 != typedefTs.end() && i0->second == ts0)
+            return true;
+        auto t0 = pkgTopTypedefTs.find((const void*)ty0);
+        return t0 != pkgTopTypedefTs.end() && t0->second == ts0;
+    };
+    // A use in the DEF pass binds the def-listing object because the home
+    // package's ELABORATED listing does not exist yet (packages are emitted
+    // def-pass-first). Surelog binds the elaborated object in BOTH views —
+    // the same rule makeTypespec already applies to signal uses — so record
+    // the ref and re-point it once the top listings are built (PackFunc).
+    auto deferForeignTopTs = [&](const Symbol& declSym, UHDM::ref_typespec* rt0,
+                                 const UHDM::typespec* ts0) {
+        if (pkgTopEmit || !rt0 || !foreignSharedTs(declSym, ts0))
+            return;
+        pkgForeignTsTopFixups.emplace_back(
+            rt0, &declSym.getDeclaredType()->getType());
+    };
     auto* tfs = s.MakeTask_funcVec();
     for (auto& member : body.members()) {
         // `pure virtual` class methods have no body: slang keeps them as
@@ -431,13 +463,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt->Actual_typespec(ts);
             // A CLASS scope is not a vpiInstance (Surelog leaves method
             // typespecs uninstanced, as the io_decl path already does).
-            if (pkgScope && !classScope) {
+            if (pkgScope && !classScope &&
+                !(sub.returnValVar && foreignSharedTs(*sub.returnValVar, ts))) {
                 ts->Instance(importCopyTsInst ? importCopyTsInst
                                               : (UHDM::instance*)m);
                 if (importCopyTsInst && importCopyTsCollect)
                     importCopyTsCollect->push_back(ts);
             }
             rv->Typespec(rt);
+            if (sub.returnValVar)
+                deferForeignTopTs(*sub.returnValVar, rt, ts);
             // A struct/enum/unpacked-array return's shared typespec sits at
             // the typedef, so the return var takes the return-TYPE syntax
             // span instead (a typedef'd-vector clone likewise).
@@ -857,6 +892,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // top-built formal typespecs are absent from the marker and
                 // still take the elaborated instance.
                 if (pkgScope && !classScope &&
+                    !foreignSharedTs(*arg, (const UHDM::typespec*)ts) &&
                     !(pkgTopEmit &&
                       defPassOwnedTs.count((UHDM::typespec*)ts))) {
                     ((UHDM::typespec*)ts)->Instance(
@@ -868,6 +904,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 rt->Actual_typespec(ts);
             }
             io->Typespec(rt);
+            deferForeignTopTs(*arg, rt, (const UHDM::typespec*)ts);
             // Unpacked-array formals carry one range per unpacked dimension;
             // a PARAM-sized dim ([CNT]) stays symbolic, scoped at the formal
             // (work@top.F.SRC.CNT) — Surelog (ArrayExprFuncArg).
@@ -947,6 +984,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             implicitFnBody9 = false;
                 }
         }
+        // The same implicit-vs-explicit-body split governs a PACKAGE
+        // automatic function: a body that IS one explicit `begin` keeps
+        // decl-span, function-parented AUTOMATIC locals (PackFunc), while a
+        // bare statement list keeps name-span non-automatic ones
+        // (PackFuncParent, VarInFor). The blanket pkgScope exclusion below was
+        // calibrated on the latter. `implicitFnBody9` is deliberately NOT
+        // reused: its grandchild scan also fires on a `for (...) begin`
+        // nested inside the statement list (VarInFor), which is not a body
+        // block. Only a DIRECT item counts.
+        bool pkgBodyBlock9 = false;
+        if (auto fsyn8 = sub.getSyntax())
+            if (auto* fd8 = fsyn8->as_if<syntax::FunctionDeclarationSyntax>())
+                for (auto* it8 : fd8->items)
+                    if (it8->kind == syntax::SyntaxKind::SequentialBlockStatement)
+                        pkgBodyBlock9 = true;
+        bool pkgAutoBlockLocal9 = pkgScope && autoFunc && pkgBodyBlock9;
         std::vector<UHDM::variables*> staticTopLocals;  // reparent to begin
         const syntax::SyntaxNode* lastLocalDeclSyn = nullptr;
         auto declStmtSpan = [&](const Symbol& v) -> const syntax::SyntaxNode* {
@@ -1229,7 +1282,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         }
                     }
                 }
-                if (pkgScope) {
+                if (pkgScope && !foreignSharedTs(fmv, vts)) {
                     vts->Instance(importCopyTsInst ? importCopyTsInst
                                                    : (UHDM::instance*)m);
                     if (importCopyTsInst && importCopyTsCollect)
@@ -1251,7 +1304,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 bool autoFnLocal9 = autoFunc && !classScope && !pkgScope &&
                                     implicitFnBody9 &&
                                     m->UhdmType() == UHDM::uhdmmodule_inst;
-                if (blockLocal || hasInit || pkgScope || staticFnModel ||
+                if (blockLocal || hasInit ||
+                    (pkgScope && !pkgAutoBlockLocal9) || staticFnModel ||
                     autoFnLocal9) {
                     // Static-function locals anchor at the NAME token; the
                     // automatic-function form keeps the declared-type span.
@@ -1328,8 +1382,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 vrt->VpiParent(v);
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
-                if (!hasInit && !pkgScope && !blockLocal && !staticFnModel &&
-                    !autoFnLocal9)
+                deferForeignTopTs(fmv, vrt, vts);
+                if (!hasInit && (!pkgScope || pkgAutoBlockLocal9) &&
+                    !blockLocal && !staticFnModel && !autoFnLocal9)
                     v->VpiAutomatic(true);
                 if (autoFnLocal9 && !blockLocal && !hasInit)
                     autoShareLocals9.push_back(v);
@@ -1366,6 +1421,52 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                    .getDefinition(),
                                std::string(sub.name)),
                 (const Symbol*)&sub);
+
+        // A `$bits(<formal>)` inside a LOCAL's type binds that formal's
+        // io_decl (Surelog). The deferred module-net drain never reaches it —
+        // it walks up to an InstanceBody and binds DEF nets, while a
+        // subroutine's formals are io_decls (PackFunc's
+        // `reg [$bits(a)-1:0] a_vec`). Both exist by now, so bind by name
+        // against this function's own io_decls.
+        if (!ios->empty() && tf->Variables())
+            for (auto* fv0 : *tf->Variables()) {
+                auto* frt0 = fv0->Typespec();
+                auto* fts0 = frt0 ? frt0->Actual_typespec() : nullptr;
+                if (!fts0 || fts0->UhdmType() != UHDM::uhdmlogic_typespec)
+                    continue;
+                auto* rgs0 = ((UHDM::logic_typespec*)fts0)->Ranges();
+                if (!rgs0)
+                    continue;
+                std::function<void(UHDM::any*)> bindIo = [&](UHDM::any* n0) {
+                    if (!n0)
+                        return;
+                    if (n0->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r2 = (UHDM::ref_obj*)n0;
+                        if (r2->Actual_group())
+                            return;
+                        for (auto* io0 : *ios)
+                            if (io0->VpiName() == r2->VpiName()) {
+                                r2->Actual_group(io0);
+                                break;
+                            }
+                    }
+                    else if (n0->UhdmType() == UHDM::uhdmoperation) {
+                        if (auto* ops2 = ((UHDM::operation*)n0)->Operands())
+                            for (auto* o2 : *ops2)
+                                bindIo(o2);
+                    }
+                    else if (n0->UhdmType() == UHDM::uhdmsys_func_call) {
+                        if (auto* ar2 =
+                                ((UHDM::sys_func_call*)n0)->Tf_call_args())
+                            for (auto* o2 : *ar2)
+                                bindIo(o2);
+                    }
+                };
+                for (auto* rg0 : *rgs0) {
+                    bindIo(rg0->Left_expr());
+                    bindIo(rg0->Right_expr());
+                }
+            }
 
         // Body: refs to the return value bind a local var that Surelog only
         // creates in the write phase; record them for late patching.

@@ -683,8 +683,8 @@ IfGen2,default,CMP_NOTEQUAL,decompile:,,
 IfGen2,testflags,CMP_NOTEQUAL,decompile:,,
 IfGen3,default,CMP_NOTEQUAL,decompile:,,
 IfGen3,testflags,CMP_NOTEQUAL,decompile:,,
-IfGenTypeBinding,default,CMP_NOTEQUAL,decompile:,,
-IfGenTypeBinding,testflags,CMP_NOTEQUAL,decompile:,,
+IfGenTypeBinding,default,CMP_EQUAL,,,differ
+IfGenTypeBinding,testflags,CMP_EQUAL,,,differ
 IllegalZeroValue,default,SLANG_REJECT,dut.sv:3:13: error: value must be positive,,
 IllegalZeroValue,testflags,SLANG_REJECT,dut.sv:3:13: error: value must be positive,,
 ImplFuncArg,default,CMP_EQUAL,,,match
@@ -997,8 +997,8 @@ PackedUnpackedIo,default,CMP_NOTEQUAL,decompile:,,
 PackedUnpackedIo,testflags,CMP_NOTEQUAL,decompile:,,
 PackEnumVal,default,SLANG_REJECT,dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion exists; are you missing a cast?,,
 PackEnumVal,testflags,SLANG_REJECT,dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion exists; are you missing a cast?,,
-PackFunc,default,CMP_NOTEQUAL,decompile:,,
-PackFunc,testflags,CMP_NOTEQUAL,decompile:,,
+PackFunc,default,CMP_EQUAL,,,differ
+PackFunc,testflags,CMP_EQUAL,,,differ
 PackFuncParent,default,CMP_EQUAL,,,match
 PackFuncParent,testflags,CMP_EQUAL,,,differ
 PackImport,default,CMP_EQUAL,,,differ
@@ -1175,8 +1175,8 @@ PropBinding,default,CMP_NOTEQUAL,decompile:,,
 PropBinding,testflags,CMP_NOTEQUAL,decompile:,,
 RangeInf,default,CMP_EQUAL,,,match
 RangeInf,testflags,CMP_EQUAL,,,match
-RangeSelect,default,CMP_NOTEQUAL,decompile:,,
-RangeSelect,testflags,CMP_NOTEQUAL,decompile:,,
+RangeSelect,default,CMP_EQUAL,,,differ
+RangeSelect,testflags,CMP_EQUAL,,,differ
 ReorderPatt,default,CMP_EQUAL,,,match
 ReorderPatt,testflags,CMP_EQUAL,,,differ
 RepeatStmt,default,CMP_EQUAL,,,match
@@ -1205,10 +1205,10 @@ Scr1SvTests,default,CMP_NOTEQUAL,decompile:,,
 Scr1SvTests,testflags,CMP_NOTEQUAL,decompile:,,
 SelectHierPath,default,CMP_NOTEQUAL,decompile:,,
 SelectHierPath,testflags,CMP_NOTEQUAL,decompile:,,
-Selects,default,CMP_NOTEQUAL,decompile:,,
-Selects,testflags,CMP_NOTEQUAL,decompile:,,
-SelectSelect,default,CMP_NOTEQUAL,decompile:,,
-SelectSelect,testflags,CMP_NOTEQUAL,decompile:,,
+Selects,default,CMP_EQUAL,,,match
+Selects,testflags,CMP_EQUAL,,,match
+SelectSelect,default,CMP_EQUAL,,,match
+SelectSelect,testflags,CMP_EQUAL,,,match
 SeqDriver,default,CMP_NOTEQUAL,decompile:,,
 SeqDriver,testflags,CMP_NOTEQUAL,decompile:,,
 SequenceInst,default,CMP_NOTEQUAL,decompile:,,
@@ -1291,8 +1291,8 @@ StructNetUnionTypespec,default,CMP_EQUAL,,,match
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,match
 StructStructHierPath,default,SLANG_REJECT,dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructStructHierPath,testflags,SLANG_REJECT,dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
-StructTypedef,default,CMP_NOTEQUAL,decompile:,,
-StructTypedef,testflags,CMP_NOTEQUAL,decompile:,,
+StructTypedef,default,CMP_EQUAL,,,differ
+StructTypedef,testflags,CMP_EQUAL,,,differ
 StructUnsizedVal,default,CMP_NOTEQUAL,decompile:,,
 StructUnsizedVal,testflags,CMP_NOTEQUAL,decompile:,,
 StructVar,default,SLANG_REJECT,dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
@@ -1387,8 +1387,8 @@ TypeParam2,default,SLANG_REJECT,dut.sv:2:46: error: use of undeclared identifier
 TypeParam2,testflags,SLANG_REJECT,dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
 TypeParamElab,default,CMP_NOTEQUAL,decompile:,,
 TypeParamElab,testflags,CMP_NOTEQUAL,decompile:,,
-TypeParamOverride,default,CMP_NOTEQUAL,decompile:,,
-TypeParamOverride,testflags,CMP_NOTEQUAL,decompile:,,
+TypeParamOverride,default,CMP_EQUAL,,,differ
+TypeParamOverride,testflags,CMP_EQUAL,,,differ
 TypespecBits,default,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
 TypespecBits,testflags,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
 TypespecExpr,default,CMP_NOTEQUAL,decompile:,,

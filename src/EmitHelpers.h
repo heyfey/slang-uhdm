@@ -182,6 +182,20 @@ inline const TypeParameterSymbol* portTypeParam(const Symbol& internal) {
     return nullptr;
 }
 
+// A declaration whose type is named through an explicit `other_pkg::T`
+// qualification: the shared typespec belongs to THAT package and every
+// vpiInstance / span stamp made while emitting the USING package must leave it
+// alone (Surelog creates the object once, in its declaring package —
+// PackFunc). `home` is the package currently being emitted; null outside one.
+inline bool foreignPkgTypedef(const Symbol& declSym, const Symbol* home) {
+    auto* dt = declSym.getDeclaredType();
+    if (!home || !dt || dt->getType().kind != SymbolKind::TypeAlias)
+        return false;
+    auto* sc = dt->getType().getParentScope();
+    return sc && sc->asSymbol().kind == SymbolKind::Package &&
+           &sc->asSymbol() != home;
+}
+
 // The set of local types passed as `type` parameter arguments to child
 // instances of `body` — a module-local net of such a type omits its def-view
 // typespec (Surelog leaves it a bare logic_net; the elab view re-types it).

@@ -4579,20 +4579,35 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             if (auto asyn9 = ta9.getSyntax();
                 asyn9 && asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
                 tgt9 = asyn9->as<syntax::TypedefDeclarationSyntax>().type;
-            if (ta9.getCanonicalType().kind == SymbolKind::EnumType)
+            // ...unless the override names a PACKAGE typedef: Surelog resolves
+            // `pkg::T` to the object that package already built (qualified
+            // name, package vpiInstance, typedef span) and both the type
+            // parameter and every signal it types point at that ONE object
+            // (TypeParamOverride). Only a MODULE-local typedef gets a clone.
+            if (auto* hsc9 = ta9.getParentScope();
+                hsc9 && hsc9->asSymbol().kind == SymbolKind::Package) {
+                if (auto t9 = pkgTopTypedefTs.find((const void*)&ta9);
+                    t9 != pkgTopTypedefTs.end() && t9->second)
+                    its = t9->second;
+                else if (auto d9 = typedefTs.find((const Symbol*)&ta9);
+                         d9 != typedefTs.end())
+                    its = d9->second;
+            }
+            bool sharedPkgTs9 = its != nullptr;
+            if (!its && ta9.getCanonicalType().kind == SymbolKind::EnumType)
                 its = (UHDM::typespec*)buildEnumTs(
                     ta9.getCanonicalType().as<EnumType>(), tgt9,
                     std::string(ta9.name));
-            else {
+            else if (!its) {
                 bypassTypedefShare = true;
                 its = makeTypespec(ta9, tgt9);
                 bypassTypedefShare = false;
             }
-            if (its) {
+            if (its && !sharedPkgTs9) {
                 its->VpiName(ta9.name);
                 its->VpiParent(tp);
             }
-            else
+            else if (!its)
                 its = makeTypespec(tps);
         }
         else
@@ -7069,12 +7084,34 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             cl->Instance((UHDM::instance*)up);
             // The clone's fresh member typespecs stay instanced at the BASE's
             // home package — only the clone itself belongs to this package.
-            if (auto* mems = cl->Members())
-                for (auto* tm : *mems)
-                    if (tm->Typespec())
-                        if (auto* mts = tm->Typespec()->Actual_typespec();
-                            mts && mts->VpiName().empty())
+            // The walk is RECURSIVE: a NESTED anonymous struct member carries
+            // its own leaf typespecs, and a leaf left without vpiInstance is a
+            // hard cmp blocker (instance::Compare recurses Instance(), so a
+            // null on our side reports failLhs=<the home package>, failRhs=
+            // null — StructTypedef's `struct packed { struct packed { logic q;
+            // } en; ... }` re-exported through a second package).
+            {
+                std::function<void(UHDM::typespec*)> stampClone =
+                    [&](UHDM::typespec* t0) {
+                        const UHDM::VectorOftypespec_member* mems0 = nullptr;
+                        if (t0->UhdmType() == UHDM::uhdmstruct_typespec)
+                            mems0 = ((UHDM::struct_typespec*)t0)->Members();
+                        else if (t0->UhdmType() == UHDM::uhdmunion_typespec)
+                            mems0 = ((UHDM::union_typespec*)t0)->Members();
+                        if (!mems0)
+                            return;
+                        for (auto* tm : *mems0) {
+                            if (!tm->Typespec())
+                                continue;
+                            auto* mts = tm->Typespec()->Actual_typespec();
+                            if (!mts || !mts->VpiName().empty())
+                                continue;
                             mts->Instance(base->Instance());
+                            stampClone(mts);
+                        }
+                    };
+                stampClone(cl);
+            }
             auto* art = s.MakeRef_typespec();
             art->VpiFullName(dbl);
             art->VpiParent(cl);
@@ -7881,6 +7918,15 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (auto ic9 = pkgImportCloneTs.find(&dt9->getType());
                 ic9 != pkgImportCloneTs.end())
                 sh9 = ic9->second;
+            // ...and a typedef named through an explicit `other_pkg::T`
+            // QUALIFICATION relocates nothing at all: the object belongs to
+            // its declaring package and Surelog leaves it at the typedef span
+            // (PackFunc's `input b::foo_bar_t a` in package aa). Only a
+            // typedef this package DECLARES is a last-writer target.
+            else if (const Scope* hs9 = dt9->getType().getParentScope();
+                     hs9 && hs9->asSymbol().kind == SymbolKind::Package &&
+                     &hs9->asSymbol() != (const Symbol*)&pkg)
+                continue;
             else if (topView) {
                 if (auto i9 = pkgTopTypedefTs.find((const void*)&dt9->getType());
                     i9 != pkgTopTypedefTs.end())

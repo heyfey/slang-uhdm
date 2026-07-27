@@ -1210,6 +1210,11 @@ private:
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).
     std::map<const void*, UHDM::typespec*> pkgTopTypedefTs;
+    // DEF-pass package-subroutine refs to a typedef homed in ANOTHER package:
+    // the home package's ELABORATED listing did not exist yet, so they bound
+    // the def object. Re-pointed once both views are built (see PackFunc).
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Type*>>
+        pkgForeignTsTopFixups;
     // Def-view type-cast typespecs, pre-created at module-compile time.
     std::map<const void*, UHDM::typespec*> castTsCache;
     // Bare implicit io-decl typespecs (unlocated) are created at the very
