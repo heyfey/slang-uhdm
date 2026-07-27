@@ -413,8 +413,11 @@ private:
     UHDM::hier_path* emitMixedHierPath(const slang::ast::Expression& expr,
                                        UHDM::BaseClass* parent, const std::string& prefix,
                                        NetMap& netMap);
+    // `paramCtx` marks a fold that becomes a PARAMETER's value (a param_assign
+    // Rhs) rather than an rvalue: those always carry a vpiDecompile.
     UHDM::any* tryFoldConst(const slang::ast::Expression& expr,
-                            const slang::ast::Expression* typedConv = nullptr);
+                            const slang::ast::Expression* typedConv = nullptr,
+                            bool paramCtx = false);
     // For an element select of an unpacked-array PARAMETER (LP[0],
     // P[1][2][1]) whose initializer is an assignment pattern, returns the
     // pattern's LEAF element expression the select reads. Surelog's elab

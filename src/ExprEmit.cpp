@@ -239,7 +239,8 @@ const Expression* UhdmExporter::unpackedParamPatternLeaf(const Expression& sel) 
     return pat;
 }
 
-UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv) {
+UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv,
+                                      bool paramCtx) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
     // expressions with constant reduction. Fold only genuine expressions,
     // not plain literals (evaluating an implicitly-converted literal can
@@ -408,15 +409,23 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
             iv = iv2;
         }
     }
-    // A folded CONCAT encodes as full-width binary, with no decompile.
+    // A folded CONCAT encodes as full-width binary. An RVALUE fold carries no
+    // decompile (StreamOp's cont_assign constants have neither decompile nor
+    // location); a PARAMETER value always does — across both corpora the only
+    // decompile-less param_assign constants in any golden are empty strings
+    // (tools/probe/w4bindec.cpp). rp32_r5p_mdu: localparam M8 = {1'b1,
+    // {XLEN-1{1'b0}}} -> 32'b1000...0.
     if (stripImplicitConv(expr).kind == ExpressionKind::Concatenation) {
         auto* c = s.MakeConstant();
-        c->VpiSize((int32_t)expr.type->getBitWidth());
+        int32_t w = (int32_t)expr.type->getBitWidth();
+        c->VpiSize(w);
         std::string bits;
-        for (int32_t i = (int32_t)expr.type->getBitWidth() - 1; i >= 0; i--)
+        for (int32_t i = w - 1; i >= 0; i--)
             bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
         c->VpiValue("BIN:" + bits);
         c->VpiConstType(vpiBinaryConst);
+        if (paramCtx)
+            c->VpiDecompile(std::to_string(w) + "'b" + bits);
         return c;
     }
     std::string digits = iv.toString(LiteralBase::Decimal, /*includeBase*/ false);

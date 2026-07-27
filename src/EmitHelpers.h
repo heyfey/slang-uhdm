@@ -481,6 +481,24 @@ inline const syntax::ExpressionSyntax* paramDefaultSyn(const ParameterSymbol& ps
     }
     return nullptr;
 }
+// True for a parameter-port-list entry written WITHOUT the `parameter` /
+// `localparam` keyword — the grammar's `data_type list_of_param_assignments`
+// form (`module m #( int unsigned XLEN = 32 )`), an IMPLICIT parameter. slang
+// leaves ParameterDeclarationSyntax::keyword invalid for it, so the test is
+// exact. Surelog re-creates these AFTER the body params in the elaborated
+// instance (see the rank comment in emitParameters).
+inline bool isImplicitPortParam(const ParameterSymbol& ps) {
+    if (!ps.isPortParam())
+        return false;
+    auto* n = ps.getSyntax();
+    // Declarator -> SeparatedSyntaxList -> ParameterDeclaration.
+    for (int i = 0; n && i < 4; i++, n = n->parent) {
+        if (n->kind != syntax::SyntaxKind::ParameterDeclaration)
+            continue;
+        return !n->as<syntax::ParameterDeclarationSyntax>().keyword;
+    }
+    return false;
+}
 inline bool isOverriddenParam(const Symbol& sym) {
     if (sym.kind != SymbolKind::Parameter)
         return false;

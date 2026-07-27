@@ -2819,8 +2819,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             .kind == SymbolKind::PackedStructType;
                          }()) &&
                          !containsUserCall(*init) &&
-                         (rhs = tryFoldConst(*init,
-                                             typedParam ? init0 : nullptr))) {
+                         (rhs = tryFoldConst(*init, typedParam ? init0 : nullptr,
+                                             /*paramCtx*/ true))) {
                     bool partSelectFold = false;
                     ((UHDM::constant*)rhs)->VpiParent(pa);
                     // A materialized IMPORTED param whose default folds from a
@@ -4665,74 +4665,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // declared earlier still leads (ParameterFromPkgInNestedModule) — Surelog
     // (ParameterFromPkgOnParameterPortList).
     //
-    // NOTE (measured, NOT modelled — rp32_r5p_mdu, the only u2r test still
-    // CMP_NOTEQUAL after the r3aggclone block). Its TOP view inverts this
-    // rank: golden lists M8@37, M1@39 (BODY localparams) and only then
-    // XLEN@23 (the sole port-list param), while its Parameters vec keeps
-    // declaration order XLEN, M8, M1 and its DEF view keeps it too. Rank 2
-    // (last) would produce exactly the golden order, but every predicate
-    // tried for "which port param demotes" is contradicted by a passing
-    // test:
-    //   - "port params last in a TOP module"        -> rp32_r5p_mouse (also
-    //     a design top, port list of 3 localparams + 7 parameters, body
-    //     localparams from line 57) keeps strict declaration order.
-    //   - "non-local port param with no override"   -> same counterexample.
-    //   - "no-op / absent override"                 -> mdu's golden carries
-    //     no vpiOverriden at all, on either view.
-    // The only syntactic property separating mdu from mouse is that mdu's
-    // entry is KEYWORD-LESS (`#( int unsigned XLEN = 32 )`, an implicit
-    // parameter) where mouse spells `parameter`/`localparam` — a one-point
-    // hypothesis, so it is deliberately NOT implemented here. A corpus-wide
-    // scan for the shape (tools/probe/w4parms.cpp + a TOP Param_assigns-vs-
-    // Parameters order diff over every golden) finds only 12 u2r goldens
-    // that reorder at all: 4 SLANG_REJECT, 7 already CMP_EQUAL under the
-    // rank + materialized-name-sort rules here, and mdu. Get a second data
-    // point from the Surelog suite before ranking on the keyword.
+    // ...EXCEPT that an IMPLICIT (keyword-less) port param is re-created LAST,
+    // behind the body params. rp32_r5p_mdu's elab view lists M8@37, M1@39
+    // (body localparams) and only then XLEN@23 (the sole port-list param),
+    // while its Parameters vec and its DEF view both keep declaration order.
+    // Decoded by scanning EVERY golden in both corpora for a Param_assigns
+    // vector out of source order (tools/probe/w4rord.cpp) and correlating the
+    // hits with the port-list syntax:
+    //   demote, keyword-less  — r5p_mdu `#( int unsigned XLEN = 32 )`;
+    //                           r5p_hamster `#( isa_ext_t XTEN = ..., ... )`
+    //                           (NOP@309 leads all 8 port params); tcb_gpio
+    //                           `#( int unsigned GW = 32 )` (DLY@39 before
+    //                           GW@25, in the elaborated instance).
+    //   keep,   keyword-ful   — r5p_mouse (3 `localparam` + 7 `parameter`
+    //                           entries, body localparams from line 57),
+    //                           LocalParam's `parameter invert = 0`,
+    //                           ParameterOfSizeOfParametrizedPortInSubmodule's
+    //                           `parameter int X = 15`, and every other
+    //                           module in either corpus.
+    // Nothing else in either corpus demotes: the remaining order anomalies are
+    // macro-expansion locations (BlackConst's `easy` reports the macro's
+    // line 12) or the materialized-imported-package pattern above.
     if (topView && !inPackage && !portPa9.empty() &&
         portPa9.size() < passigns->size()) {
         // Rank 0: port-list pa's (resolved at instantiation, first). Rank 1:
-        // body pa's. Rank 2: NO-OP-overridden module port-list pa's (value ==
-        // declaration default) WHOSE OVERRIDE EXPRESSION IS A NAME REFERENCE
-        // — the late substitution re-creates them last (jeras_tcb_gpio:
-        // DLY localparam before GW(GW)==32). A LITERAL-text no-op override
-        // (.invert(0) over default 0) keeps the port-first slot with its
-        // Overriden stamp (LocalParam), as does a value-CHANGING override
-        // (ParameterOfSizeOfParametrizedPortInSubmodule X(5)!=15).
-        // Interfaces keep the plain port-first order.
-        auto noopOv9 = [&](UHDM::param_assign* pa9) -> bool {
-            if (!pa9->VpiOverriden() ||
-                m->UhdmType() != UHDM::uhdmmodule_inst || !pa9->Lhs())
+        // body pa's. Rank 2: IMPLICIT (keyword-less) module port-list pa's —
+        // the late substitution re-creates them last. An EXPLICIT
+        // `parameter`/`localparam` entry keeps its port-first slot whatever
+        // its override (LocalParam's literal no-op .invert(0) keeps it with
+        // the Overriden stamp; ParameterOfSizeOfParametrizedPortInSubmodule's
+        // value-changing X(5) likewise). Interfaces keep port-first too.
+        // (This replaces a no-op-NAME-reference-override predicate calibrated
+        // on jeras_tcb_gpio alone: tcb_gpio's demoted GW is keyword-less, so
+        // the override form was never the distinguisher — the corpus scan
+        // above finds no keyword-ful demotion anywhere in either corpus.)
+        auto implicitPort9 = [&](UHDM::param_assign* pa9) -> bool {
+            if (m->UhdmType() != UHDM::uhdmmodule_inst || !pa9->Lhs())
                 return false;
             for (auto& mb9 : body.members()) {
                 if (mb9.kind != SymbolKind::Parameter ||
                     mb9.name != std::string_view(pa9->Lhs()->VpiName()))
                     continue;
-                auto& ps9 = mb9.as<ParameterSymbol>();
-                auto* bi9 = ps9.getInitializer();
-                bool refOv9 = bi9 && bi9->syntax &&
-                              (bi9->syntax->kind ==
-                                   syntax::SyntaxKind::IdentifierName ||
-                               bi9->syntax->kind ==
-                                   syntax::SyntaxKind::ScopedName);
-                if (!refOv9)
-                    return false;
-                if (auto* ds9 = paramDefaultSyn(ps9)) {
-                    ASTContext dctx9(body, LookupLocation::max);
-                    auto& de9 = Expression::bind(*ds9, dctx9);
-                    auto dv9 = dctx9.tryEval(de9);
-                    auto& cv9 = ps9.getValue();
-                    if (dv9 && dv9.isInteger() && cv9.isInteger() &&
-                        dv9.integer() == cv9.integer())
-                        return true;
-                }
-                return false;
+                return isImplicitPortParam(mb9.as<ParameterSymbol>());
             }
             return false;
         };
         auto rank9 = [&](UHDM::param_assign* pa9) -> int {
             if (!portPa9.count(pa9))
                 return 1;
-            if (noopOv9(pa9))
+            if (implicitPort9(pa9))
                 return 2;
             return 0;
         };

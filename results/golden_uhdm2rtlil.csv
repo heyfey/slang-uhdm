@@ -1093,8 +1093,8 @@ rp32_r5p_gpr_1r1w,default,CMP_EQUAL,,,match
 rp32_r5p_gpr_1r1w,testflags,CMP_EQUAL,,,match
 rp32_r5p_hamster,default,SLANG_REJECT,../rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
 rp32_r5p_hamster,testflags,SLANG_REJECT,../rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
-rp32_r5p_mdu,default,CMP_NOTEQUAL,decompile:,,
-rp32_r5p_mdu,testflags,CMP_NOTEQUAL,decompile:,,
+rp32_r5p_mdu,default,CMP_EQUAL,,,differ
+rp32_r5p_mdu,testflags,CMP_EQUAL,,,differ
 rp32_r5p_mouse,default,CMP_EQUAL,,,differ
 rp32_r5p_mouse,testflags,CMP_EQUAL,,,differ
 rp32_r5p_mouse_soc_simple_top,default,CMP_EQUAL,,,differ
