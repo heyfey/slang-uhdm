@@ -6024,19 +6024,9 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         continue;
                     auto& ta2 = pm.as<TypeAliasType>();
                     auto& ct2 = ta2.getCanonicalType();
-                    // An imported UNPACKED-struct typedef (rp32 isa_t) lists
-                    // the HOME shared object at the sorted position (Surelog
-                    // clones it at the first use site; one shared object
-                    // satisfies Compare on both roles).
-                    if (ct2.kind == SymbolKind::UnpackedStructType) {
-                        if (auto hIt2 = typedefTs.find(&pm);
-                            hIt2 != typedefTs.end())
-                            pkgTdByName.emplace_back(std::string(ta2.name),
-                                                     hIt2->second);
-                        continue;
-                    }
                     if (ct2.kind != SymbolKind::EnumType &&
-                        ct2.kind != SymbolKind::PackedStructType)
+                        ct2.kind != SymbolKind::PackedStructType &&
+                        ct2.kind != SymbolKind::UnpackedStructType)
                         continue;
                     // ONE clone per imported typedef, shared by every module
                     // import listing (direct and transitive) — created here
@@ -6054,9 +6044,16 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                         .type;
                         std::string nm2 =
                             std::string(pn) + "::" + std::string(ta2.name);
-                        if (ct2.kind == SymbolKind::PackedStructType) {
-                            auto* scl = buildStructTs(
-                                ct2.as<PackedStructType>(), true, nm2, "::");
+                        if (ct2.kind == SymbolKind::PackedStructType ||
+                            ct2.kind == SymbolKind::UnpackedStructType) {
+                            bool pkc2 =
+                                ct2.kind == SymbolKind::PackedStructType;
+                            auto* scl =
+                                pkc2 ? buildStructTs(ct2.as<PackedStructType>(),
+                                                     true, nm2, "::")
+                                     : buildStructTs(
+                                           ct2.as<UnpackedStructType>(), false,
+                                           nm2, "::");
                             scl->VpiName(nm2);
                             if (tSyn2)
                                 setLoc(scl, tSyn2->sourceRange());
@@ -6097,6 +6094,32 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                     };
                                 stampHome(scl);
                             }
+                            // ...but a member typed by ANOTHER already-cloned
+                            // typedef of the same home package binds that
+                            // typedef's CLONE, not the home object (rp32
+                            // riscv_priv_pkg csr_adr_t.perm -> the isa_i-
+                            // instanced csr_perm_t clone). Source order
+                            // guarantees the member's clone exists already.
+                            if (auto* ms4 = scl->Members())
+                                for (auto* tm4 : *ms4) {
+                                    if (!tm4->Typespec())
+                                        continue;
+                                    auto* at4 =
+                                        tm4->Typespec()->Actual_typespec();
+                                    if (!at4 || at4->VpiName().empty())
+                                        continue;
+                                    for (auto& [aSym4, cl4] :
+                                         pkgImportCloneTs) {
+                                        auto hIt4 = typedefTs.find(aSym4);
+                                        if (hIt4 != typedefTs.end() &&
+                                            hIt4->second == at4 &&
+                                            cl4 != at4) {
+                                            tm4->Typespec()->Actual_typespec(
+                                                cl4);
+                                            break;
+                                        }
+                                    }
+                                }
                             pkgImportCloneTs[&pm] = scl;
                             pkgTdByName.emplace_back(std::string(ta2.name),
                                                      (UHDM::typespec*)scl);
@@ -6775,14 +6798,6 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                     ? prefix + std::string(ta.name)
                                     : prefix + prefix + std::string(ta.name);
             bool savedTf = tfContext;
-            // NOTE (decoded, NOT yet actionable): Surelog's single-prefix TOP
-            // clone FOLDS its members' vector-typedef bounds (rp32
-            // riscv_isa_i_pkg::dec_t.fn3.fn3_t is [2:0], not [3-1:0]).
-            // Gating this on `!topNested` folds it correctly but also folds the
-            // op32_*_t top clones, which Surelog does not mint at all — its top
-            // view REUSES the module-scoped work@ clone and its DEF view mints
-            // the doubled-prefix pkg::pkg::T::m::name one. Fixing the fold
-            // needs that clone-per-view split first; measured net-worse alone.
             if (topView)
                 tfContext = true;
             inPkgTopStructBuild = topView;
@@ -6852,6 +6867,16 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 mts = cl9;
                             }
                         }
+                        // NOTE (decoded, blocked): Surelog leaves a member
+                        // actual the DEF pass already instanced at THIS
+                        // package on that def-view instance — one shared
+                        // object across both views (rp32 op32_op62_et/opc_t
+                        // and the imported enum clones are #DEF in every
+                        // listing). Guarding this stamp on that condition
+                        // measured net-worse alone (170 -> 322 cmp-relevant
+                        // typedef-forest lines): the fresh top-built members
+                        // that DO need the elab instance are indistinguishable
+                        // here without a per-object creation-pass marker.
                         mts->Instance((UHDM::instance*)up);
                         if (topView && mts->UhdmType() == UHDM::uhdmlogic_typespec) {
                             std::function<void(UHDM::any*)> bindRefs2 =
@@ -6955,6 +6980,15 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     if (da->UhdmType() == UHDM::uhdmstruct_typespec ||
                         da->UhdmType() == UHDM::uhdmunion_typespec)
                         continue;
+                    // Under a SINGLE-prefix (dot-scoped) top clone a NAMED
+                    // vector-typedef member clone is not cross-wired either:
+                    // each view built its own (def -> symbolic, aliasing the
+                    // def listing; top -> folded, aliasing the elab listing).
+                    // Only the ANONYMOUS scalar leaves swap (rp32 dec_t.fn3
+                    // vs rsp_gen_minimal tl_d2h_t.d_size).
+                    if (topNested &&
+                        (!da->VpiName().empty() || !taA->VpiName().empty()))
+                        continue;
                     dm->Typespec()->Actual_typespec(taA);
                     tmM->Typespec()->Actual_typespec(da);
                     if (!taA->VpiName().length())
@@ -6967,6 +7001,27 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 }
                 attachFoldedBoundMeta(sts, (UHDM::instance*)up);
             }
+            // The single-prefix TOP clone's per-member vector clones alias the
+            // ELABORATED (folded) typedef object, not the def-listing one
+            // (rp32 dec_t.fn3.fn3_t -> the module-scoped [2:0] fn3_t).
+            if (topView && topNested && sts->Members())
+                for (auto* tmA : *sts->Members()) {
+                    if (!tmA->Typespec())
+                        continue;
+                    auto* mtsA = tmA->Typespec()->Actual_typespec();
+                    if (!mtsA || mtsA->UhdmType() != UHDM::uhdmlogic_typespec)
+                        continue;
+                    auto* alA = ((UHDM::logic_typespec*)mtsA)->Typedef_alias();
+                    if (!alA || !alA->Actual_typespec())
+                        continue;
+                    for (auto& [symA, tspA] : typedefTs)
+                        if (tspA == alA->Actual_typespec()) {
+                            if (auto tA = pkgTopTypedefTs.find((const void*)symA);
+                                tA != pkgTopTypedefTs.end() && tA->second)
+                                alA->Actual_typespec(tA->second);
+                            break;
+                        }
+                }
             ts = sts;
         }
         else if (ct.kind == SymbolKind::EnumType &&
@@ -7357,7 +7412,14 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                   dt9->getType().getCanonicalType().isPackedUnion()))
                 continue;
             UHDM::typespec* sh9 = nullptr;
-            if (topView) {
+            // An IMPORTED typedef relocates this package's own CLONE, never
+            // the home package's def object (rp32 riscv_isa_pkg isa_t keeps
+            // its 148:9 declaration span; the riscv_isa_i_pkg clone takes the
+            // enc32 formal's span).
+            if (auto ic9 = pkgImportCloneTs.find(&dt9->getType());
+                ic9 != pkgImportCloneTs.end())
+                sh9 = ic9->second;
+            else if (topView) {
                 if (auto i9 = pkgTopTypedefTs.find((const void*)&dt9->getType());
                     i9 != pkgTopTypedefTs.end())
                     sh9 = i9->second;

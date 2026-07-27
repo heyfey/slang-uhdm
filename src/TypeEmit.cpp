@@ -2442,7 +2442,7 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     // enum keeps the written op ($bits or literal — rp32
                     // isa_base_et, isa_priv_typ_t).
                     bool memberUsed9 = false;
-                    if (pkgListingEnumBuild) {
+                    if (pkgListingEnumBuild || importCloneEmit) {
                         auto& etc9 = et.getCanonicalType();
                         for (auto* p9 : comp.getPackages()) {
                             for (auto& pm9 : p9->members()) {
@@ -2464,9 +2464,24 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                         }
                     }
                     bool sys9 = pkgNamed9 && hasSysCall9(bsyn);
+                    // When the enum's HOME package is itself imported by
+                    // ANOTHER package the fold moves to the importing
+                    // package's CLONE: the home DEF listing keeps the written
+                    // op and the clone carries the folded bound (rp32
+                    // riscv_priv_pkg csr_perm_t [2-1:0], consumed through
+                    // riscv_isa_i_pkg). curPkgEmitSym is the home package
+                    // here; the clone is built under importCloneEmit, whose
+                    // home is imported by construction.
+                    bool homeImported9 =
+                        curPkgEmitSym && pkgImportedByPkg.count(curPkgEmitSym);
                     bool fold9;
-                    if (pkgListingEnumBuild && (sys9 || !refBound9))
+                    if (importCloneEmit && !sys9 && !refBound9)
                         fold9 = memberUsed9;
+                    else if (pkgListingEnumBuild && (sys9 || !refBound9))
+                        // The ELABORATED package listing always folds; the DEF
+                        // listing folds only when a struct/union member compile
+                        // forced it AND no import clone took the fold instead.
+                        fold9 = pkgTopEmit || (memberUsed9 && !homeImported9);
                     else if (sys9)
                         fold9 = !pkgTopEmit;
                     else if (refBound9)
@@ -3278,13 +3293,13 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         std::string(fm.name) + memberSep +
                         std::string(dta->name));
                     artD->VpiParent(clD);
-                    // MODULE-context clones alias the FOLDED twin; pkg
-                    // def/top builds keep the shared symbolic ts
-                    // (jeras_union imm_*).
                     // The TOP-pkg build's and module-context clones FOLD
                     // (alias -> the folded pkg twin); the DEF-pkg build keeps
                     // the symbolic clone -> shared ts (jeras_union imm_*).
-                    bool foldD = !inPkgTypedefEmit;
+                    // The top-view fold reaches the clones nested inside an
+                    // aggregate typedef too (rp32 op32_t.r4.funct3), which the
+                    // listing-level cross-wire never sees.
+                    bool foldD = !inPkgTypedefEmit || pkgTopEmit;
                     UHDM::typespec* twD = nullptr;
                     if (castAggCloneCtx) {
                         // A CAST clone tree's vector-typedef member binds a
@@ -3311,8 +3326,19 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         ftw->VpiParent(artD);
                         twD = ftw;
                     }
-                    else if (foldD)
-                        twD = pkgVectorFoldTwin(amt, tita->second);
+                    else if (foldD) {
+                        // Inside the ELABORATED package listing the alias
+                        // binds that listing's OWN folded typedef object
+                        // rather than a fresh fold twin (rp32 dec_t.fn3 ->
+                        // the top-view fn3_t, package-top instanced).
+                        if (inPkgTypedefEmit && pkgTopEmit)
+                            if (auto tt0 =
+                                    pkgTopTypedefTs.find((const void*)&amt);
+                                tt0 != pkgTopTypedefTs.end() && tt0->second)
+                                twD = tt0->second;
+                        if (!twD)
+                            twD = pkgVectorFoldTwin(amt, tita->second);
+                    }
                     artD->Actual_typespec(twD ? twD : tita->second);
                     if (twD)
                         foldVectorTsBounds(clD, amt.getCanonicalType());
@@ -3873,13 +3899,13 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         std::string(fm.name) + memberSep +
                         std::string(dta->name));
                     artD->VpiParent(clD);
-                    // MODULE-context clones alias the FOLDED twin; pkg
-                    // def/top builds keep the shared symbolic ts
-                    // (jeras_union imm_*).
                     // The TOP-pkg build's and module-context clones FOLD
                     // (alias -> the folded pkg twin); the DEF-pkg build keeps
                     // the symbolic clone -> shared ts (jeras_union imm_*).
-                    bool foldD = !inPkgTypedefEmit;
+                    // The top-view fold reaches the clones nested inside an
+                    // aggregate typedef too (rp32 op32_t.r4.funct3), which the
+                    // listing-level cross-wire never sees.
+                    bool foldD = !inPkgTypedefEmit || pkgTopEmit;
                     UHDM::typespec* twD = nullptr;
                     if (castAggCloneCtx) {
                         // A CAST clone tree's vector-typedef member binds a
@@ -3906,8 +3932,19 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         ftw->VpiParent(artD);
                         twD = ftw;
                     }
-                    else if (foldD)
-                        twD = pkgVectorFoldTwin(amt, tita->second);
+                    else if (foldD) {
+                        // Inside the ELABORATED package listing the alias
+                        // binds that listing's OWN folded typedef object
+                        // rather than a fresh fold twin (rp32 dec_t.fn3 ->
+                        // the top-view fn3_t, package-top instanced).
+                        if (inPkgTypedefEmit && pkgTopEmit)
+                            if (auto tt0 =
+                                    pkgTopTypedefTs.find((const void*)&amt);
+                                tt0 != pkgTopTypedefTs.end() && tt0->second)
+                                twD = tt0->second;
+                        if (!twD)
+                            twD = pkgVectorFoldTwin(amt, tita->second);
+                    }
                     artD->Actual_typespec(twD ? twD : tita->second);
                     if (twD)
                         foldVectorTsBounds(clD, amt.getCanonicalType());

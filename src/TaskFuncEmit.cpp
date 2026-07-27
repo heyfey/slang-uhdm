@@ -390,6 +390,18 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 tfTypeScope = nullptr;
                 tfContext = false;
             }
+            // The ELABORATED package view's functions bind THAT view's typedef
+            // listing object (rp32 enc32's op32_t return), not the def-listing
+            // one the shared lookup returns. Only fires when `ts` IS the def
+            // listing object — a freshly minted return clone is left alone.
+            if (pkgTopEmit && ts)
+                for (auto& [sym0, tsp0] : typedefTs)
+                    if (tsp0 == ts) {
+                        if (auto t0 = pkgTopTypedefTs.find((const void*)sym0);
+                            t0 != pkgTopTypedefTs.end() && t0->second)
+                            ts = t0->second;
+                        break;
+                    }
             // A packed-array-of-enum return is a packed_array_var (range +
             // enum_var element) rather than a flat logic_var.
             if (auto* pav = makeEnumArrayVar(ts, fullName, tf))
@@ -770,6 +782,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ts = sharedTypespec(*arg, ioTs);
                 tfTypeScope = nullptr;
                 tfContext = false;
+                // A formal typed by an IMPORTED package typedef binds THIS
+                // package's import CLONE, not the home object: the stamp
+                // below would otherwise move the home typedef's vpiInstance
+                // to the importing package (rp32 riscv_isa_pkg::isa_t as the
+                // riscv_isa_i_pkg enc32/dec32 formal).
+                if (pkgScope && !classScope)
+                    if (auto adt0 = arg->getDeclaredType();
+                        adt0 && adt0->getType().kind == SymbolKind::TypeAlias)
+                        if (auto ic0 = pkgImportCloneTs.find(&adt0->getType());
+                            ic0 != pkgImportCloneTs.end() && ic0->second &&
+                            ic0->second != ts)
+                            ts = ic0->second;
+                // ...and the ELABORATED view's formals bind that view's
+                // typedef listing object (see the return above).
+                if (pkgTopEmit && ts)
+                    for (auto& [sym0, tsp0] : typedefTs)
+                        if (tsp0 == ts) {
+                            if (auto t0 =
+                                    pkgTopTypedefTs.find((const void*)sym0);
+                                t0 != pkgTopTypedefTs.end() && t0->second)
+                                ts = t0->second;
+                            break;
+                        }
                 // DIRECTIONLESS explicit-keyword arg types anchor at the
                 // keyword token only (ranges keep their own spans); formals
                 // with a direction keyword keep the whole type span.

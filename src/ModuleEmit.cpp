@@ -1938,6 +1938,74 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         }
         tds->push_back(its);
     }
+    // A module that WILDCARD-imports a package materializes ALL that
+    // package's subroutines into its Task_funcs (the shared def object),
+    // whether or not any is called here — Surelog lists them in both the
+    // def and elab views, in the PACKAGE's declaration order. This runs
+    // BEFORE the call-site pass so a called function keeps its declaration
+    // slot instead of being hoisted to the front (rp32 dec32).
+    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        for (auto& mem : body.members()) {
+            if (mem.kind != SymbolKind::WildcardImport)
+                continue;
+            auto* pkg = comp.getPackage(
+                mem.as<WildcardImportSymbol>().packageName);
+            if (!pkg)
+                continue;
+            // Collect this package's subroutines in DECLARATION order, then
+            // place the whole group at the slot the first of them already
+            // occupies (a call-site pass may have queued one ahead of us) or
+            // at the end. Entries outside the group keep their relative order.
+            //
+            // NOTE (decoded, blocked): Surelog names the package's ELABORATED
+            // twin here — its return/formal typespecs are the folded elab
+            // typedefs (rp32 dec32's dec_t is [2:0]; the def twin's stays
+            // 3-1). Listing the twin alone regresses
+            // ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,
+            // whose call sites bind the def object: the swap has to move the
+            // call binding with it.
+            std::vector<UHDM::task_func*> grp9;
+            for (auto& pm : pkg->members()) {
+                if (pm.kind != SymbolKind::Subroutine)
+                    continue;
+                auto sit = subMap.find(&pm);
+                if (sit == subMap.end() || !sit->second.tf)
+                    continue;
+                if (std::find(grp9.begin(), grp9.end(), sit->second.tf) ==
+                    grp9.end())
+                    grp9.push_back(sit->second.tf);
+            }
+            if (grp9.empty())
+                continue;
+            auto* v = m->Task_funcs();
+            if (!v) {
+                v = s.MakeTask_funcVec();
+                m->Task_funcs(v);
+            }
+            size_t at9 = v->size();
+            for (size_t i9 = 0; i9 < v->size(); i9++)
+                if (std::find(grp9.begin(), grp9.end(), (*v)[i9]) !=
+                    grp9.end()) {
+                    at9 = i9;
+                    break;
+                }
+            std::vector<UHDM::task_func*> rest9;
+            for (auto* e9 : *v)
+                if (std::find(grp9.begin(), grp9.end(), e9) == grp9.end())
+                    rest9.push_back(e9);
+            if (at9 > rest9.size())
+                at9 = rest9.size();
+            v->clear();
+            for (size_t i9 = 0; i9 < at9; i9++)
+                v->push_back(rest9[i9]);
+            for (auto* e9 : grp9)
+                v->push_back(e9);
+            for (size_t i9 = at9; i9 < rest9.size(); i9++)
+                v->push_back(rest9[i9]);
+        }
+    }
+    // Explicit imports name specific symbols; the call-site pass covers the
+    // functions a wildcard import did not already list.
     if (auto it = importedTfCalls.find((const Scope*)&body);
         it != importedTfCalls.end() && !it->second.empty()) {
         auto* v = m->Task_funcs();
@@ -1948,35 +2016,6 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         for (auto& [tf, rg9] : it->second)
             if (std::find(v->begin(), v->end(), tf) == v->end())
                 v->push_back(tf);
-    }
-    // A module that WILDCARD-imports a package materializes ALL that
-    // package's subroutines into its Task_funcs (the shared def object),
-    // whether or not any is called here — Surelog lists them in both the
-    // def and elab views. (Explicit imports name specific symbols; the
-    // call-site path above already covers those that are functions.)
-    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
-        for (auto& mem : body.members()) {
-            if (mem.kind != SymbolKind::WildcardImport)
-                continue;
-            auto* pkg = comp.getPackage(
-                mem.as<WildcardImportSymbol>().packageName);
-            if (!pkg)
-                continue;
-            for (auto& pm : pkg->members()) {
-                if (pm.kind != SymbolKind::Subroutine)
-                    continue;
-                auto sit = subMap.find(&pm);
-                if (sit == subMap.end() || !sit->second.tf)
-                    continue;
-                auto* v = m->Task_funcs();
-                if (!v) {
-                    v = s.MakeTask_funcVec();
-                    m->Task_funcs(v);
-                }
-                if (std::find(v->begin(), v->end(), sit->second.tf) == v->end())
-                    v->push_back(sit->second.tf);
-            }
-        }
     }
 }
 
