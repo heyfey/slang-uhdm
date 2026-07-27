@@ -5561,6 +5561,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         preE = rc7;
                     }
                 }
+                // ELAB package view that KEEPS the tagged tree: Surelog's
+                // reduce still runs over each member value, so a value written
+                // as an EXPRESSION collapses to one BIN constant at the member
+                // width, spanning the whole expression and left UNPARENTED and
+                // untyped (ValueSize `addr: {SeedBank, 2'b11}` -> BIN:0011).
+                // A value that is already a literal is untouched — PAssignType's
+                // `manual_operation: '0` keeps its unsized '0 form.
+                // A member whose value is itself a PATTERN keeps its nested
+                // tagged tree (Surelog reduces leaf expressions, not the
+                // pattern structure) — GenIfIfaceParamStructField `'{HSK:
+                // '{DLY: 1}}`.
+                bool nestedPatVal6 = false;
+                {
+                    auto& sv6 = stripImplicitConv(*setter.expr);
+                    nestedPatVal6 =
+                        sv6.kind == ExpressionKind::StructuredAssignmentPattern ||
+                        sv6.kind == ExpressionKind::SimpleAssignmentPattern ||
+                        sv6.kind == ExpressionKind::ReplicatedAssignmentPattern;
+                }
+                if (!preE && paramInitElabFold && !nestedPatVal6 &&
+                    setter.expr->type && !isLiteralExpr(*setter.expr) &&
+                    setter.expr->type->isIntegral()) {
+                    ASTContext fctx6(comp.getRoot(), LookupLocation::max);
+                    if (auto fcv6 = fctx6.tryEval(*setter.expr);
+                        fcv6 && fcv6.isInteger() &&
+                        !fcv6.integer().hasUnknown()) {
+                        auto fiv6 = fcv6.integer();
+                        int32_t fw6 = (int32_t)setter.expr->type->getBitWidth();
+                        std::string fb6;
+                        for (int32_t b6 = fw6 - 1; b6 >= 0; b6--)
+                            fb6 += (fiv6[b6] == slang::logic_t(1)) ? '1' : '0';
+                        auto* fc6 = s.MakeConstant();
+                        setLoc(fc6, setter.expr->sourceRange);
+                        fc6->VpiSize(fw6);
+                        fc6->VpiValue("BIN:" + fb6);
+                        fc6->VpiConstType(vpiBinaryConst);
+                        preE = fc6;
+                    }
+                }
                 if (auto* e = preE ? preE
                                    : emitExpr(*setter.expr, op, prefix,
                                               netMap)) {

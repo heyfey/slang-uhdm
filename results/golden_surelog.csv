@@ -25,8 +25,8 @@ ArianeElab,default,SLANG_REJECT,dut.sv:874:16: error: unknown class or package '
 ArianeElab,testflags,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
 ArianeElab2,default,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
 ArianeElab2,testflags,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
-ArrayExprFuncArg,default,CMP_NOTEQUAL,decompile:,,
-ArrayExprFuncArg,testflags,CMP_NOTEQUAL,decompile:,,
+ArrayExprFuncArg,default,CMP_EQUAL,,,differ
+ArrayExprFuncArg,testflags,CMP_EQUAL,,,differ
 ArrayInst,default,CMP_NOTEQUAL,decompile:,,
 ArrayInst,testflags,CMP_NOTEQUAL,decompile:,,
 ArrayMethodIterator,default,CMP_NOTEQUAL,decompile:,,
@@ -173,8 +173,8 @@ BuiltInMethod,default,SLANG_REJECT,dut.sv:4:10: error: redefinition of 'o' [-Wre
 BuiltInMethod,testflags,SLANG_REJECT,dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,differ
 CarryAdd,testflags,CMP_EQUAL,,,differ
-CarryTrans,default,CMP_NOTEQUAL,decompile:,,
-CarryTrans,testflags,CMP_NOTEQUAL,decompile:,,
+CarryTrans,default,CMP_EQUAL,,,differ
+CarryTrans,testflags,CMP_EQUAL,,,differ
 CaseDefault,default,CMP_EQUAL,,,match
 CaseDefault,testflags,CMP_EQUAL,,,differ
 CaseExpression,default,CMP_EQUAL,,,differ
@@ -279,8 +279,8 @@ ConcatWidth,default,CMP_EQUAL,,,match
 ConcatWidth,testflags,CMP_EQUAL,,,match
 ConditionalOp,default,CMP_EQUAL,,,differ
 ConditionalOp,testflags,CMP_EQUAL,,,differ
-CondOpLazyEval,default,CMP_NOTEQUAL,decompile:,,
-CondOpLazyEval,testflags,CMP_NOTEQUAL,decompile:,,
+CondOpLazyEval,default,CMP_EQUAL,,,match
+CondOpLazyEval,testflags,CMP_EQUAL,,,match
 CondOpPattern,default,CMP_NOTEQUAL,decompile:,,
 CondOpPattern,testflags,CMP_NOTEQUAL,decompile:,,
 CondOpPred,default,CMP_EQUAL,,,match
@@ -337,14 +337,14 @@ DefaultPatternAssign,default,CMP_NOTEQUAL,decompile:,,
 DefaultPatternAssign,testflags,CMP_NOTEQUAL,decompile:,,
 DefaultPatternInt,default,CMP_NOTEQUAL,decompile:,,
 DefaultPatternInt,testflags,CMP_NOTEQUAL,decompile:,,
-DefaultPatternModule,default,CMP_NOTEQUAL,decompile:,,
+DefaultPatternModule,default,CMP_EQUAL,,,differ
 DefaultPatternModule,testflags,CMP_NOTEQUAL,decompile:,,
 DefaultTag,default,CMP_EQUAL,,,match
 DefaultTag,testflags,CMP_EQUAL,,,match
 DeferAssert,default,CMP_NOTEQUAL,decompile:,,
 DeferAssert,testflags,CMP_NOTEQUAL,decompile:,,
-DefParamFromParam,default,CMP_NOTEQUAL,decompile:,,
-DefParamFromParam,testflags,CMP_NOTEQUAL,decompile:,,
+DefParamFromParam,default,CMP_EQUAL,,,match
+DefParamFromParam,testflags,CMP_EQUAL,,,match
 DefParamIndex,default,CMP_EQUAL,,,differ
 DefParamIndex,testflags,CMP_EQUAL,,,differ
 Delay2Param,default,SLANG_REJECT,dut.sv:1:44: error: port 'signedIn' has no I/O member declaration,,
@@ -382,9 +382,9 @@ Earlgrey,testflags,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: e
 Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
 Earlgrey_0_1,testflags,SLANG_REJECT,reqfifo_rdata.error,,
 Earlgrey_nexysvideo,default,SLANG_REJECT,../src/lowrisc_prim_xilinx_clock_buf_0/rtl/prim_xilinx_clock_buf.sv:10:3: error: unknown module 'BUFG',,
-Earlgrey_nexysvideo,testflags,SURELOG_FAIL,"[INF:PA0201] Parsing source file ""/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_nexysvideo/src/lowrisc_constants_top_pkg_0/rtl/t",,
+Earlgrey_nexysvideo,testflags,SURELOG_FAIL,[INF:PA0201] Parsing source file "/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_nexysvideo/src/lowrisc_constants_top_pkg_0/rtl/t,,
 Earlgrey_Verilator_01_05_21,default,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
-Earlgrey_Verilator_01_05_21,testflags,SURELOG_FAIL,"[INF:PA0201] Parsing source file ""/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_Verilator_01_05_21/src/lowrisc_constants_top_pkg",,
+Earlgrey_Verilator_01_05_21,testflags,SURELOG_FAIL,[INF:PA0201] Parsing source file "/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_Verilator_01_05_21/src/lowrisc_constants_top_pkg,,
 Earlgrey_Verilator_0_1,default,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
 Earlgrey_Verilator_0_1,testflags,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
 EarlgreyPackParam,default,CMP_NOTEQUAL,decompile:,,
@@ -433,8 +433,8 @@ Event,default,CMP_NOTEQUAL,decompile:,,
 Event,testflags,CMP_NOTEQUAL,decompile:,,
 ExpectStmt,default,CMP_NOTEQUAL,decompile:,,
 ExpectStmt,testflags,CMP_NOTEQUAL,decompile:,,
-ExplicitPort,default,CMP_NOTEQUAL,decompile:,,
-ExplicitPort,testflags,CMP_NOTEQUAL,decompile:,,
+ExplicitPort,default,CMP_EQUAL,,,differ
+ExplicitPort,testflags,CMP_EQUAL,,,differ
 ExplictiPorts,default,CMP_NOTEQUAL,decompile:,,
 ExplictiPorts,testflags,CMP_NOTEQUAL,decompile:,,
 ExponTimeIfElseGen,default,SLANG_REJECT,dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean 'ADDR_OFFSET_PART_1'?,,
@@ -447,8 +447,8 @@ ExprReductionBits,default,CMP_EQUAL,,,match
 ExprReductionBits,testflags,CMP_EQUAL,,,match
 ExtendClassMember,default,SLANG_REJECT,dut.sv:9:75: error: 'uvm_tlm_fifo' is not a generic class type,,
 ExtendClassMember,testflags,SLANG_REJECT,dut.sv:9:75: error: 'uvm_tlm_fifo' is not a generic class type,,
-FileList,default,CMP_NOTEQUAL,decompile:,,
-FileList,testflags,CMP_NOTEQUAL,decompile:,,
+FileList,default,CMP_EQUAL,,,match
+FileList,testflags,CMP_EQUAL,,,differ
 FileListWithCompressed,default,SURELOG_FAIL,[   NOTE] : 1,,
 FileListWithCompressed,testflags,SURELOG_FAIL,[   NOTE] : 1,,
 FileLocalParam,default,CMP_NOTEQUAL,decompile:,,
@@ -527,8 +527,8 @@ FuncParam,default,CMP_NOTEQUAL,decompile:,,
 FuncParam,testflags,CMP_NOTEQUAL,decompile:,,
 FuncParam2,default,CMP_EQUAL,,,match
 FuncParam2,testflags,CMP_EQUAL,,,match
-FuncRetArray,default,CMP_NOTEQUAL,decompile:,,
-FuncRetArray,testflags,CMP_NOTEQUAL,decompile:,,
+FuncRetArray,default,CMP_EQUAL,,,differ
+FuncRetArray,testflags,CMP_EQUAL,,,differ
 FuncReturnRange,default,CMP_NOTEQUAL,decompile:,,
 FuncReturnRange,testflags,CMP_NOTEQUAL,decompile:,,
 FuncSideEffect,default,CMP_EQUAL,,,match
@@ -547,8 +547,8 @@ FuncWidthScopeOverride,default,SLANG_REJECT,dut.sv:8:34: error: reference to 'WI
 FuncWidthScopeOverride,testflags,SLANG_REJECT,dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed in a constant expression,,
 GateLevel,default,SLANG_REJECT,dut.sv:1:53: error: port 'y10' has no I/O member declaration,,
 GateLevel,testflags,SLANG_REJECT,dut.sv:1:53: error: port 'y10' has no I/O member declaration,,
-Gates,default,CMP_NOTEQUAL,decompile:,,
-Gates,testflags,CMP_NOTEQUAL,decompile:,,
+Gates,default,CMP_EQUAL,,,match
+Gates,testflags,CMP_EQUAL,,,differ
 GenBlock,default,CMP_EQUAL,,,match
 GenBlock,testflags,CMP_EQUAL,,,match
 GenBlockVar,default,CMP_EQUAL,,,differ
@@ -657,8 +657,8 @@ HierPathUnpackedInPacked,default,SLANG_REJECT,dut.sv:10:17: error: packed member
 HierPathUnpackedInPacked,testflags,SLANG_REJECT,dut.sv:10:17: error: packed members must be of integral type (not 'logic[31:0]$[2]'),,
 HierPathVarArray,default,CMP_EQUAL,,,differ
 HierPathVarArray,testflags,CMP_EQUAL,,,differ
-HighConnPart,default,CMP_NOTEQUAL,decompile:,,
-HighConnPart,testflags,CMP_NOTEQUAL,decompile:,,
+HighConnPart,default,CMP_EQUAL,,,differ
+HighConnPart,testflags,CMP_EQUAL,,,differ
 HighLow,default,CMP_NOTEQUAL,decompile:,,
 HighLow,testflags,CMP_NOTEQUAL,decompile:,,
 Ibex,default,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t",,
+LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t,,
 LowMemPkg,default,CMP_NOTEQUAL,decompile:,,
-LowMemPkg,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t",,
+LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t,,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
@@ -911,14 +911,14 @@ NyuziProcessor,default,SLANG_REJECT,hardware/testbench/soc_tb.sv:470:17: error: 
 NyuziProcessor,testflags,SLANG_REJECT,hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within a final block,,
 OldLibrary,default,SLANG_REJECT,top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected 3),,
 OldLibrary,testflags,SLANG_REJECT,top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected 3),,
-OneAnd,default,CMP_NOTEQUAL,decompile:,,
-OneAnd,testflags,CMP_NOTEQUAL,decompile:,,
+OneAnd,default,CMP_EQUAL,,,match
+OneAnd,testflags,CMP_EQUAL,,,match
 OneClock,default,CMP_EQUAL,,,match
 OneClock,testflags,CMP_EQUAL,,,match
 OneDivider,default,CMP_NOTEQUAL,decompile:,,
 OneDivider,testflags,CMP_NOTEQUAL,decompile:,,
-OneFF,default,CMP_NOTEQUAL,decompile:,,
-OneFF,testflags,CMP_NOTEQUAL,decompile:,,
+OneFF,default,CMP_EQUAL,,,match
+OneFF,testflags,CMP_EQUAL,,,match
 OneImport,default,CMP_EQUAL,,,differ
 OneImport,testflags,CMP_EQUAL,,,differ
 OneNet,default,CMP_EQUAL,,,match
@@ -975,8 +975,8 @@ PackDataType,default,CMP_NOTEQUAL,decompile:,,
 PackDataType,testflags,CMP_NOTEQUAL,decompile:,,
 PackedArrayAssign,default,CMP_EQUAL,,,match
 PackedArrayAssign,testflags,CMP_EQUAL,,,match
-PackedArrayBind,default,CMP_NOTEQUAL,decompile:,,
-PackedArrayBind,testflags,CMP_NOTEQUAL,decompile:,,
+PackedArrayBind,default,CMP_EQUAL,,,match
+PackedArrayBind,testflags,CMP_EQUAL,,,match
 PackedArrayEnum,default,CMP_EQUAL,,,differ
 PackedArrayEnum,testflags,CMP_EQUAL,,,differ
 PackedArrayHierPath,default,SLANG_REJECT,dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements but 5 were provided,,
@@ -987,8 +987,8 @@ PackedArrayStruct,default,CMP_EQUAL,,,match
 PackedArrayStruct,testflags,CMP_EQUAL,,,match
 PackedArrayTypespec,default,CMP_NOTEQUAL,decompile:,,
 PackedArrayTypespec,testflags,CMP_NOTEQUAL,decompile:,,
-PackedEnum,default,CMP_NOTEQUAL,decompile:,,
-PackedEnum,testflags,CMP_NOTEQUAL,decompile:,,
+PackedEnum,default,CMP_EQUAL,,,match
+PackedEnum,testflags,CMP_EQUAL,,,match
 PackedEnumPort,default,CMP_EQUAL,,,differ
 PackedEnumPort,testflags,CMP_EQUAL,,,differ
 PackedEnumVar,default,CMP_NOTEQUAL,decompile:,,
@@ -1177,8 +1177,8 @@ RangeInf,default,CMP_EQUAL,,,match
 RangeInf,testflags,CMP_EQUAL,,,match
 RangeSelect,default,CMP_NOTEQUAL,decompile:,,
 RangeSelect,testflags,CMP_NOTEQUAL,decompile:,,
-ReorderPatt,default,CMP_NOTEQUAL,decompile:,,
-ReorderPatt,testflags,CMP_NOTEQUAL,decompile:,,
+ReorderPatt,default,CMP_EQUAL,,,match
+ReorderPatt,testflags,CMP_EQUAL,,,differ
 RepeatStmt,default,CMP_EQUAL,,,match
 RepeatStmt,testflags,CMP_EQUAL,,,match
 ReturnVal,default,CMP_EQUAL,,,match
@@ -1257,8 +1257,8 @@ SimpleUVM,default,CMP_NOTEQUAL,decompile:,,
 SimpleUVM,testflags,CMP_NOTEQUAL,decompile:,,
 SimpleVMM,default,SLANG_REJECT,../../UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but declared 'protected' in superclass method,,
 SimpleVMM,testflags,SLANG_REJECT,../../UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but declared 'protected' in superclass method,,
-SimplifyHierPath,default,CMP_EQUAL,,,differ
-SimplifyHierPath,testflags,CMP_EQUAL,,,differ
+SimplifyHierPath,default,CMP_EQUAL,,,match
+SimplifyHierPath,testflags,CMP_EQUAL,,,match
 Sky130Cell,default,SLANG_REJECT,error: no input files,,
 Sky130Cell,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
 Sky130Udp,default,SLANG_REJECT,error: no input files,,
@@ -1365,8 +1365,8 @@ TopParam,default,CMP_NOTEQUAL,decompile:,,
 TopParam,testflags,CMP_NOTEQUAL,decompile:,,
 TranslateOff,default,SURELOG_FAIL,[   NOTE] : 0,,
 TranslateOff,testflags,SLANG_REJECT,dut.sv:12:12: error: use of undeclared identifier 'b',,
-TypedefAlias,default,CMP_NOTEQUAL,decompile:,,
-TypedefAlias,testflags,CMP_NOTEQUAL,decompile:,,
+TypedefAlias,default,CMP_EQUAL,,,differ
+TypedefAlias,testflags,CMP_EQUAL,,,differ
 TypeDefGenScope,default,CMP_NOTEQUAL,decompile:,,
 TypeDefGenScope,testflags,CMP_NOTEQUAL,decompile:,,
 TypedefPack,default,CMP_EQUAL,,,differ
@@ -1399,14 +1399,14 @@ Udp,default,CMP_NOTEQUAL,decompile:,,
 Udp,testflags,CMP_NOTEQUAL,decompile:,,
 UhdmCoverage,default,SLANG_REJECT,dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
 UhdmCoverage,testflags,SLANG_REJECT,dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
-UnaryPlus,default,CMP_NOTEQUAL,decompile:,,
-UnaryPlus,testflags,CMP_NOTEQUAL,decompile:,,
+UnaryPlus,default,CMP_EQUAL,,,match
+UnaryPlus,testflags,CMP_EQUAL,,,match
 UnboundForLoop,default,CMP_EQUAL,,,match
 UnboundForLoop,testflags,CMP_EQUAL,,,match
 UndersVal,default,CMP_EQUAL,,,match
 UndersVal,testflags,CMP_EQUAL,,,match
-UnelabPack,default,CMP_NOTEQUAL,decompile:,,
-UnelabPack,testflags,CMP_NOTEQUAL,decompile:,,
+UnelabPack,default,CMP_EQUAL,,,match
+UnelabPack,testflags,CMP_EQUAL,,,match
 UnionCast,default,CMP_NOTEQUAL,decompile:,,
 UnionCast,testflags,CMP_NOTEQUAL,decompile:,,
 Unisim,default,SLANG_REJECT,error: no input files,,
@@ -1487,8 +1487,8 @@ Value4States,default,CMP_EQUAL,,,match
 Value4States,testflags,CMP_EQUAL,,,match
 Values,default,CMP_EQUAL,,,match
 Values,testflags,CMP_EQUAL,,,match
-ValueSize,default,CMP_NOTEQUAL,decompile:,,
-ValueSize,testflags,CMP_NOTEQUAL,decompile:,,
+ValueSize,default,CMP_EQUAL,,,differ
+ValueSize,testflags,CMP_EQUAL,,,differ
 VarDecl,default,CMP_EQUAL,,,match
 VarDecl,testflags,CMP_EQUAL,,,match
 VarDecl2,default,CMP_EQUAL,,,match

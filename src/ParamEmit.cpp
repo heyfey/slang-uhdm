@@ -1385,6 +1385,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             std::string dimPrefix9;
             {
                 bool ovr9 = false;
+                bool pkgDimSym9 = false;
                 if (auto dsyn9 = ps.getSyntax();
                     dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator) {
                     for (auto dim9 :
@@ -1417,7 +1418,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         // DefaultPatternModule). PACKAGE params are excluded:
                         // there only the DEF view stays symbolic (and scopes
                         // the ref with '::'), the elaborated package folds it
-                        // (DefaultPatternInt) — not modelled here.
+                        // (DefaultPatternInt) — that split is the next block.
+                        if (!ovr9 && inPackage && !topView && dim9->specifier &&
+                            dim9->specifier->kind ==
+                                syntax::SyntaxKind::RangeDimensionSpecifier)
+                            if (auto* bs7 =
+                                    dim9->specifier
+                                        ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                        .selector->as_if<syntax::BitSelectSyntax>();
+                                bs7 && bs7->expr &&
+                                bs7->expr->kind ==
+                                    syntax::SyntaxKind::IdentifierName) {
+                                auto nm7 =
+                                    bs7->expr->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText();
+                                if (auto* hit7 = body.find(std::string(nm7));
+                                    hit7 && hit7->kind == SymbolKind::Parameter)
+                                    pkgDimSym9 = true;
+                            }
                         if (!ovr9 && !inPackage && dim9->specifier &&
                             dim9->specifier->kind ==
                                 syntax::SyntaxKind::RangeDimensionSpecifier)
@@ -1439,8 +1457,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 if (ovr9)
                     dimPrefix9 = afull;
+                else if (pkgDimSym9)
+                    dimPrefix9 = afull + "::";
             }
+            std::string savedDfo9 = dimFoldOwner;
+            dimFoldOwner = afull;
+            // A MATERIALIZED IMPORT is a clone_tree copy like the elab view,
+            // so its dim op parents the synthetic 1 too (DefaultPatternInt).
+            bool savedEpd9 = elabParamDim;
+            elabParamDim = elabParamDim || isImported;
             auto* prng = buildUnpackedRanges(ps, up, dimPrefix9);
+            elabParamDim = savedEpd9;
+            dimFoldOwner = savedDfo9;
             if (prng)
                 up->Ranges(prng);
             up->VpiSize(1);
@@ -2511,7 +2539,67 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                              &rs->as<ParameterSymbol>(), 0)))
                         clogCall = &init->as<CallExpression>();
             }
-            if (topView) {
+            // `'{default: X}` on an unpacked-array parameter EXPANDS — outside
+            // the declaring scope's DEFINITION view — into an array_expr with
+            // one folded element constant per element, each at the default
+            // value's own span and the ELEMENT type's width (Surelog;
+            // DefaultPatternModule/DefaultPatternInt).  The copies an IMPORT
+            // makes parent their constants at the array_expr; the elaborator's
+            // own object leaves them unparented and, for a MODULE-local param,
+            // tags the array_expr with the param's array_typespec.
+            if ((topView || isImported) &&
+                ps.getType().getCanonicalType().kind ==
+                    SymbolKind::FixedSizeUnpackedArrayType) {
+                auto& dp8 = stripImplicitConv(*init);
+                const Expression* dexp8 = nullptr;
+                if (dp8.kind == ExpressionKind::StructuredAssignmentPattern) {
+                    auto& sap8 = dp8.as<StructuredAssignmentPatternExpression>();
+                    if (sap8.defaultSetter && sap8.memberSetters.empty() &&
+                        sap8.typeSetters.empty() && sap8.indexSetters.empty())
+                        dexp8 = sap8.defaultSetter;
+                }
+                auto& uat8 =
+                    ps.getType().getCanonicalType().as<FixedSizeUnpackedArrayType>();
+                const Type* uel8 = &uat8.elementType;
+                if (dexp8 && uel8->getCanonicalType().isIntegral()) {
+                    ASTContext dctx8(comp.getRoot(), LookupLocation::max);
+                    ConstantValue dcv8 = dctx8.tryEval(*dexp8);
+                    if (dcv8 && dcv8.isInteger() &&
+                        !dcv8.integer().hasUnknown()) {
+                        std::string dd8 =
+                            dcv8.integer().toString(LiteralBase::Decimal, false);
+                        auto* ae8 = s.MakeArray_expr();
+                        ae8->VpiParent(pa);
+                        auto* xv8 = s.MakeExprVec();
+                        for (uint32_t i8 = 0; i8 < uat8.range.width(); i8++) {
+                            auto* c8 = s.MakeConstant();
+                            c8->VpiDecompile(dd8);
+                            c8->VpiSize((int32_t)uel8->getBitWidth());
+                            c8->VpiValue("UINT:" + dd8);
+                            c8->VpiConstType(vpiUIntConst);
+                            setLoc(c8, dexp8->sourceRange);
+                            if (isImported)
+                                c8->VpiParent(ae8);
+                            xv8->push_back(c8);
+                        }
+                        ae8->Exprs(xv8);
+                        if (topView && !inPackage && !isImported) {
+                            auto* rt8 = s.MakeRef_typespec();
+                            std::string tsPfx8 = prefix;
+                            if (tsPfx8.size() >= 2 &&
+                                tsPfx8.compare(tsPfx8.size() - 2, 2, "::") == 0)
+                                tsPfx8.resize(tsPfx8.size() - 2);
+                            rt8->VpiFullName(tsPfx8);
+                            rt8->VpiParent(ae8);
+                            rt8->Actual_typespec(makeUnpackedArrayParamTs(
+                                ps, tsPfx8, rt8, nullptr, true, tsPfx8));
+                            ae8->Typespec(rt8);
+                        }
+                        rhs = ae8;
+                    }
+                }
+            }
+            if (!rhs && topView) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
                     rhs = emitExpr(*init, pa, prefix, netMap);
@@ -2764,9 +2852,48 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     bool concatFold = !typedParam && !defUntypedImport &&
                                       !rangedFold && !sizeCastVal &&
                                       scv.kind == ExpressionKind::Concatenation;
+                    // An ELAB-view fold whose source is a PARAMETER REFERENCE
+                    // — bare (width_b = width_a), qualified (Y = pkg1::X) or
+                    // SELECTED (a = x[0]) — is sized at the param's own TYPE
+                    // width, not the 64-bit unsized-literal default. Surelog
+                    // re-types its elaborated param constants (an untyped int
+                    // param's elab Rhs constant is size 32 where its DEF one is
+                    // 64), and a fold that READS one inherits that size.
+                    // Literal-arithmetic folds keep 64 — only reads of an
+                    // already-elaborated constant carry the narrower size.
+                    bool elabRefFold9 =
+                        topView && !typedParam && !defUntypedImport &&
+                        !rangedFold && !sizeCastVal && !concatFold &&
+                        ps.getType().getCanonicalType().isIntegral() && [&] {
+                            const Expression* r9 = &scv;
+                            for (;;) {
+                                if (r9->kind == ExpressionKind::Conversion) {
+                                    r9 = &stripImplicitConv(
+                                        r9->as<ConversionExpression>()
+                                            .operand());
+                                    continue;
+                                }
+                                if (r9->kind == ExpressionKind::ElementSelect) {
+                                    r9 = &stripImplicitConv(
+                                        r9->as<ElementSelectExpression>()
+                                            .value());
+                                    continue;
+                                }
+                                if (r9->kind == ExpressionKind::RangeSelect) {
+                                    r9 = &stripImplicitConv(
+                                        r9->as<RangeSelectExpression>().value());
+                                    continue;
+                                }
+                                break;
+                            }
+                            return r9->kind == ExpressionKind::NamedValue &&
+                                   r9->as<NamedValueExpression>().symbol.kind ==
+                                       SymbolKind::Parameter;
+                        }();
                     if (!concatFold)
                         ((UHDM::constant*)rhs)
-                            ->VpiSize(typedParam || defUntypedImport || rangedFold
+                            ->VpiSize(typedParam || defUntypedImport ||
+                                              rangedFold || elabRefFold9
                                           ? (int32_t)ps.getType().getBitWidth()
                                       : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                     : 64);
@@ -2975,6 +3102,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // wide fold otherwise mints a BOGUS UINT:0 constant (int64
                 // overflow of a >64b decimal) — the gate removes it.
                 bool structWidePkg = false;
+                // ...and the SCOPED-REFERENCE case of the same "tagged tree
+                // survives the elab view" behaviour, which (unlike the width
+                // and symbolic-dim rules) still REDUCES each member value.
+                bool structNoScopedRefPkg = false;
                 {
                     auto& pctS = ps.getType().getCanonicalType();
                     auto k0 = structOvPat ? structOvPat->kind
@@ -3004,6 +3135,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (structPat && inPackage &&
                         structHasSymbolicMemberDim(pctS))
                         structWidePkg = true;
+                    // SCOPED-REFERENCE RULE: the flatten pass runs off the
+                    // package-scope RESOLUTION of the parameter. `pkg::NAME`
+                    // somewhere in the sources reduces the package's own
+                    // elaborated param_assign in place; a wildcard-imported
+                    // unqualified read (PAssignType/ParamNoSubst) or no read at
+                    // all (ValueSize) never reaches that path, so the elab
+                    // package view keeps the tagged_pattern tree — with each
+                    // member VALUE still folded (see the topView fold below).
+                    // Measured on one source varying only the reference form.
+                    if (structPat && inPackage && !structWidePkg &&
+                        ps.getParentScope() &&
+                        !hasScopedPkgRef(ps.getParentScope()->asSymbol().name,
+                                         ps.name)) {
+                        structWidePkg = true;
+                        structNoScopedRefPkg = true;
+                    }
                 }
                 // The DEF view of an INTERFACE struct param keeps the TAGGED
                 // form (emitExpr tagged_pattern op: constant size 64 + a ts ref
@@ -3594,6 +3741,40 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                                 rhs = c9;
                             }
+                            // An explicitly-TYPED integral localparam
+                            // (localparam int unsigned M = F(..)) folds at the
+                            // PARAM's width, BIN-encoded (evalFunc hands back
+                            // the masked bit vector) and carrying the param's
+                            // own typespec ref — ArrayExprFuncArg MAX_VADDR.
+                            else if (typedParam && wantTs &&
+                                     ps.getType().getCanonicalType().kind ==
+                                         SymbolKind::PredefinedIntegerType) {
+                                int32_t w8 =
+                                    (int32_t)ps.getType().getBitWidth();
+                                auto wv8 = iv9.resize((slang::bitwidth_t)w8);
+                                std::string bits8;
+                                for (int32_t i8 = w8 - 1; i8 >= 0; i8--)
+                                    bits8 +=
+                                        wv8[i8] == slang::logic_t(1) ? '1' : '0';
+                                auto* c8 = s.MakeConstant();
+                                c8->VpiDecompile(std::to_string(w8) + "'b" +
+                                                 bits8);
+                                c8->VpiSize(w8);
+                                c8->VpiValue("BIN:" + bits8);
+                                c8->VpiConstType(vpiBinaryConst);
+                                c8->VpiParent(pa);
+                                setLoc(c8, icc9.sourceRange);
+                                auto* rt8 = s.MakeRef_typespec();
+                                std::string tsPfx8 = prefix;
+                                if (tsPfx8.size() >= 2 &&
+                                    tsPfx8.compare(tsPfx8.size() - 2, 2, "::") == 0)
+                                    tsPfx8.resize(tsPfx8.size() - 2);
+                                rt8->VpiFullName(tsPfx8);
+                                rt8->VpiParent(c8);
+                                c8->Typespec(rt8);
+                                rhsRt = rt8;
+                                rhs = c8;
+                            }
                             else {
                             // Surelog sizes the inlined fold at the FUNCTION
                             // RETURN type's width; a PREDEFINED-integer return
@@ -3647,6 +3828,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // byte-identical to its DEF view (tagged_pattern tree); drive
                 // emitExpr down the def path for it (WIDTH RULE).
                 paramInitDef = !topView || structWidePkg;
+                paramInitElabFold = topView && structNoScopedRefPkg;
                 paramInitPkg = inPackage;
                 importedParamClone = isImported && !inPackage;
                 bool savedSuppP = suppressConstParent;
@@ -3681,8 +3863,45 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             pkgDefMap.find(&ps.getParentScope()->asSymbol());
                         pit0 != pkgDefMap.end())
                         importedInitPkgInst = (UHDM::instance*)pit0->second;
+                // LAZY ternary. Surelog's elab reduce evaluates only the
+                // CONDITION and SUBSTITUTES the selected branch, then reduces
+                // that branch; the untaken branch and the ternary itself are
+                // gone from the elab Rhs. When the selected branch does NOT
+                // reduce — 8/A with A == 0, a division by zero ExprEval
+                // refuses — the branch OPERATION survives as the Rhs with its
+                // operands reduced. slang instead evaluates the whole ternary
+                // to 'x, so the generic fold above declined and we re-emitted
+                // the entire ternary tree (CondOpLazyEval B; its sibling C,
+                // whose branch is the literal 1, folds through the normal
+                // path and never reaches here).
+                const Expression* emitInit9 = init;
+                bool lazyTernary9 = false;
+                if (!rhs && topView && typedParam && !inPackage) {
+                    const Expression* sel9 = &stripImplicitConv(*init);
+                    for (int g9 = 0;
+                         g9 < 32 && sel9->kind == ExpressionKind::ConditionalOp;
+                         ++g9) {
+                        auto& co9 = sel9->as<ConditionalExpression>();
+                        if (co9.conditions.size() != 1 ||
+                            co9.conditions[0].pattern)
+                            break;
+                        ASTContext cc9(comp.getRoot(), LookupLocation::max);
+                        ConstantValue pv9 = cc9.tryEval(*co9.conditions[0].expr);
+                        if (!pv9 || !pv9.isInteger() ||
+                            pv9.integer().hasUnknown())
+                            break;
+                        sel9 = &stripImplicitConv(pv9.isTrue() ? co9.left()
+                                                               : co9.right());
+                        lazyTernary9 = true;
+                    }
+                    if (lazyTernary9 &&
+                        sel9->kind != ExpressionKind::ConditionalOp)
+                        emitInit9 = sel9;
+                    else
+                        lazyTernary9 = false;
+                }
                 if (!rhs)
-                    rhs = emitExpr(*init, pa, prefix, netMap);
+                    rhs = emitExpr(*emitInit9, pa, prefix, netMap);
                 importedInitPkgInst = savedImpInst0;
                 reemitting = savedReemit0;
                 // A DEF-view materialized UNTYPED integral import's Rhs constant
@@ -3700,9 +3919,51 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 suppressConstParent = savedSuppP;
                 paramInitPkg = false;
                 paramInitDef = false;
+                paramInitElabFold = false;
                 importedParamClone = false;
                 inParamInit = false;
                 forceConstParent = false;
+                // The substituted branch is REDUCED in place: its param refs
+                // fold to their elaborated values (A -> UINT:0 at the param's
+                // own type width, at the ref's span, parented at the
+                // operation) while literal operands keep their unsized 64-bit
+                // form.
+                if (lazyTernary9 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation) {
+                    auto* opl9 = (UHDM::operation*)rhs;
+                    if (opl9->Operands())
+                        for (auto*& o9 : *opl9->Operands()) {
+                            if (o9->UhdmType() != UHDM::uhdmref_obj)
+                                continue;
+                            auto* r9 = (UHDM::ref_obj*)o9;
+                            const ParameterSymbol* src9 = nullptr;
+                            for (auto& mem9 : body.members())
+                                if (mem9.kind == SymbolKind::Parameter &&
+                                    mem9.name == r9->VpiName())
+                                    src9 = &mem9.as<ParameterSymbol>();
+                            if (!src9)
+                                continue;
+                            auto& cvl9 = src9->getValue();
+                            if (!cvl9.isInteger() ||
+                                cvl9.integer().hasUnknown())
+                                continue;
+                            std::string dgl9 = cvl9.integer().toString(
+                                LiteralBase::Decimal, false);
+                            auto* cl9 = s.MakeConstant();
+                            cl9->VpiDecompile(dgl9);
+                            cl9->VpiSize(
+                                (int32_t)src9->getType().getBitWidth());
+                            cl9->VpiValue("UINT:" + dgl9);
+                            cl9->VpiConstType(vpiUIntConst);
+                            cl9->VpiParent(opl9);
+                            cl9->VpiFile(r9->VpiFile());
+                            cl9->VpiLineNo(r9->VpiLineNo());
+                            cl9->VpiColumnNo(r9->VpiColumnNo());
+                            cl9->VpiEndLineNo(r9->VpiEndLineNo());
+                            cl9->VpiEndColumnNo(r9->VpiEndColumnNo());
+                            o9 = cl9;
+                        }
+                }
                 // Elab typed-param op init with UNKNOWN param-ref operands:
                 // the refs fold to their BIN:X/Z constants and the op gains a
                 // ts ref (patched to the param's typespec).
@@ -3821,7 +4082,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             setLoc(opr, rin->sourceRange);
                     }
                     if ((anyUnknown || packedArrayOp || unpackedArrayOp ||
-                         importedConcatOp || structOp) &&
+                         importedConcatOp || structOp || lazyTernary9) &&
                         !(opr->Typespec() &&
                           opr->Typespec()->Actual_typespec())) {
                         auto* rt = s.MakeRef_typespec();
@@ -3837,7 +4098,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // holding ref_typespec's own fullname (the
                             // instance prefix), not the parameter's.
                             rt->Actual_typespec(makeUnpackedArrayParamTs(
-                                ps, tsPrefix, rt, nullptr, true));
+                                ps, tsPrefix, rt, nullptr, true, tsPrefix));
                         else
                             rhsRt = rt;
                     }
@@ -3849,6 +4110,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             if (rhs) {
                 pa->Rhs(rhs);
+                paramRhsObj[&member] = rhs;
                 // A DEF-view param_assign is a DEEP-CLONED object at
                 // elaboration, so Surelog re-parents its Rhs at the
                 // param_assign. Our fold/emit fallback leaves a bare constant
@@ -4458,7 +4720,13 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     else if (leaf->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
         auto* its = s.MakeInt_typespec();
         its->VpiSigned(leaf->isSigned());
-        setLoc(its, typeR);
+        // An integer-atom element spans its WHOLE type syntax, signing
+        // included (`int unsigned` -> both keywords) — Surelog.
+        SourceRange iR = typeR;
+        if (auto declared0 = ps.getDeclaredType())
+            if (auto tsyn0 = declared0->getTypeSyntax())
+                iR = tsyn0->sourceRange();
+        setLoc(its, iR);
         elemTs = its;
     }
     else {
@@ -4526,8 +4794,11 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
             aEnd = dims[0]->sourceRange().end();
     setLoc(ats, SourceRange(typeR.start(), aEnd));
     // Ranges: reuse the shared range objects if given, else build fresh.
+    std::string savedDfo8 = dimFoldOwner;
+    dimFoldOwner = elemFull;
     UHDM::VectorOfrange* rsrc =
         sharedRanges ? sharedRanges : buildUnpackedRanges(ps, ats, dimRefPrefix);
+    dimFoldOwner = savedDfo8;
     if (rsrc) {
         auto* atsR = s.MakeRangeVec();
         for (auto* r0 : *rsrc)
@@ -4543,6 +4814,11 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     // back at the ref holding it; a SHARED typedef ts keeps its own parent.
     if (elabClone && elemTs && !elemTs->VpiParent())
         elemTs->VpiParent(ert);
+    // A PACKAGE param's freshly minted element typespec links to its home
+    // package in every view (Surelog; DefaultPatternInt).
+    if (elemTs && !elemTs->Instance() && !elemTs->VpiName().length())
+        if (auto* hi8 = homePkgInstOf(ps))
+            elemTs->Instance(hi8);
     return ats;
 }
 
@@ -6225,6 +6501,23 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 }
         }
     }
+    // `typedef pkg1::type_t type_alias;` — the base struct typespec this
+    // alias re-names, if it is already built (a NAMED struct_typespec).
+    // Null for anything else, so the caller falls through to the normal
+    // fresh-struct branch.
+    auto structAliasBase = [&](const TypeAliasType& al) -> UHDM::typespec* {
+        auto& tgt = al.targetType.getType();
+        if (tgt.kind != SymbolKind::TypeAlias)
+            return nullptr;
+        auto bit = typedefTs.find(&tgt);
+        if (bit == typedefTs.end())
+            return nullptr;
+        auto* base = bit->second;
+        if (!base || base->UhdmType() != UHDM::uhdmstruct_typespec ||
+            base->VpiName().empty())
+            return nullptr;
+        return base;
+    };
     for (auto* memberP : pkgAliases) {
         auto& member = *memberP;
         auto& ta = member.as<TypeAliasType>();
@@ -6702,6 +6995,59 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             typedefClone[&ta] = nullptr;
             ts = lts;
+        }
+        else if ((ct.kind == SymbolKind::PackedStructType ||
+                  ct.kind == SymbolKind::UnpackedStructType) &&
+                 ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                 structAliasBase(ta) != nullptr) {
+            // A struct-typedef ALIAS (typedef pkg1::type_t type_alias):
+            // Surelog mints ONE shared CLONE of the base struct typespec —
+            // the BASE's span, this package's name/parent/Instance, a
+            // Typedef_alias ref (pkg::pkg::alias) back to the base object,
+            // and doubled-prefix member refs. It is OMITTED from the package
+            // DEF listing and appears only in the elaborated one, exactly
+            // like the packed alias-of-typedef case above.
+            if (topView) {
+                if (auto tit = typedefTs.find(&ta); tit != typedefTs.end()) {
+                    pkgTopTypedefTs[&ta] = tit->second;
+                    pkgTdByName.emplace_back(std::string(ta.name), tit->second);
+                }
+                continue;
+            }
+            auto* base = structAliasBase(ta);
+            bool pkStr0 = ct.kind == SymbolKind::PackedStructType;
+            const Scope& scope0 =
+                pkStr0 ? (const Scope&)ct.as<PackedStructType>()
+                       : (const Scope&)ct.as<UnpackedStructType>();
+            std::string aliasName = prefix + std::string(ta.name);
+            std::string dbl = prefix + aliasName;
+            bool savedRP = structCloneMemberRefParent;
+            structCloneMemberRefParent = true;
+            auto* cl = buildStructTs(scope0, pkStr0, dbl, "::");
+            structCloneMemberRefParent = savedRP;
+            cl->VpiName(aliasName);
+            cl->VpiFile(base->VpiFile());
+            cl->VpiLineNo(base->VpiLineNo());
+            cl->VpiColumnNo(base->VpiColumnNo());
+            cl->VpiEndLineNo(base->VpiEndLineNo());
+            cl->VpiEndColumnNo(base->VpiEndColumnNo());
+            cl->VpiParent(up);
+            cl->Instance((UHDM::instance*)up);
+            // The clone's fresh member typespecs stay instanced at the BASE's
+            // home package — only the clone itself belongs to this package.
+            if (auto* mems = cl->Members())
+                for (auto* tm : *mems)
+                    if (tm->Typespec())
+                        if (auto* mts = tm->Typespec()->Actual_typespec();
+                            mts && mts->VpiName().empty())
+                            mts->Instance(base->Instance());
+            auto* art = s.MakeRef_typespec();
+            art->VpiFullName(dbl);
+            art->VpiParent(cl);
+            art->Actual_typespec(base);
+            cl->Typedef_alias(art);
+            typedefTs[&ta] = cl;
+            continue;
         }
         else if (ct.kind == SymbolKind::PackedStructType ||
                  ct.kind == SymbolKind::UnpackedStructType) {

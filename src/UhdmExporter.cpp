@@ -185,6 +185,23 @@ std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     return sm->getFullPath(loc.buffer()).string();
 }
 
+bool UhdmExporter::verilogLexMode(SourceLocation loc) {
+    if (loc == SourceLocation::NoLocation)
+        return false;
+    if (sm->isMacroLoc(loc))
+        loc = sm->getFullyOriginalLoc(loc);
+    // The lexer mode is set once per COMMAND-LINE file, so an `included
+    // header inherits its includer's mode: walk to the root of the chain.
+    auto buf = loc.buffer();
+    for (int guard = 0; guard < 64; guard++) {
+        auto up = sm->getIncludedFrom(buf);
+        if (up == SourceLocation::NoLocation || !up.buffer().valid())
+            break;
+        buf = up.buffer();
+    }
+    return sm->getFullPath(buf).extension().string() != ".sv";
+}
+
 // ---------------------------------------------------------------------------
 // Include file info
 // ---------------------------------------------------------------------------

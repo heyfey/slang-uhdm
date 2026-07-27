@@ -7,6 +7,7 @@
 #include "UhdmExporter.h"
 
 #include "EmitHelpers.h"
+#include "slang/syntax/SyntaxTree.h"
 
 namespace slang_uhdm {
 
@@ -2907,6 +2908,51 @@ bool UhdmExporter::structHasSymbolicMemberDim(const Type& ty) {
     return false;
 }
 
+// Surelog reduces a PACKAGE parameter's elaborated param_assign RHS only when
+// something resolves that parameter THROUGH the package scope: `pkg::NAME`.
+// Reading the same parameter unqualified after a wildcard import, or never
+// reading it at all, leaves the elaborated RHS in its declared shape (measured:
+// same package + same pattern, only the reference form differing, flips the
+// elaborated view between the flat op75 and the tagged_pattern tree).
+// A reference written inside another PARAMETER DECLARATION does not count:
+// Surelog compiles parameter defaults in its parameter pass, which resolves the
+// package member without running the reduce (measured: the same `pkg::NAME`
+// read moved from a cont-assign into a module/interface parameter default flips
+// the elaborated package view back to the tagged tree — GenIfIfaceParamStructField
+// `parameter p::cfg_t CFG = p::CFG_DEF`).
+// One syntax walk over every tree collects the surviving `left::right` pairs.
+bool UhdmExporter::hasScopedPkgRef(std::string_view pkgName,
+                                   std::string_view name) {
+    if (!scopedPkgRefsBuilt) {
+        scopedPkgRefsBuilt = true;
+        auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
+                        bool inParamDecl) -> void {
+            if (node.kind == syntax::SyntaxKind::ParameterDeclaration ||
+                node.kind == syntax::SyntaxKind::TypeParameterDeclaration)
+                inParamDecl = true;
+            if (!inParamDecl && node.kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn = node.as<syntax::ScopedNameSyntax>();
+                if (sn.left && sn.right &&
+                    sn.left->kind == syntax::SyntaxKind::IdentifierName &&
+                    sn.right->kind == syntax::SyntaxKind::IdentifierName)
+                    scopedPkgRefs.insert(
+                        std::string(sn.left->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText()) +
+                        "::" +
+                        std::string(sn.right->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText()));
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch, inParamDecl);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root(), false);
+    }
+    return scopedPkgRefs.count(std::string(pkgName) + "::" +
+                               std::string(name)) > 0;
+}
+
 // Packed struct typespec: typespec_members with member-type Ref locations
 // and alias-scoped ref fullnames.
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
@@ -4139,6 +4185,211 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
     return uts;
 }
 
+// typedef of an unpacked array (typedef bar_t foobar_t [2]): a NAMED
+// array_typespec spanning target-type..last-dim; a SIZE-form dim ([2]) folds
+// to [0 : N-1 op] at the size token, a ranged dim keeps its bounds at their
+// tokens (Surelog — mirrors the pkg-typedef form).  `qname` is the fullname
+// this object's inner refs qualify with: the module-scoped name for the
+// Typespecs LISTING, the bare typedef name for a return-value CLONE.
+UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
+    const TypeAliasType& ta, const std::string& qname, bool cloneForm) {
+    const syntax::SyntaxNode* typeSyn = nullptr;
+    if (auto syn = ta.getSyntax())
+        if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
+            typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    auto& fua = ct.as<FixedSizeUnpackedArrayType>();
+    auto* ats = s.MakeArray_typespec();
+    SourceLocation aS = ta.location, aE = ta.location;
+    if (typeSyn)
+        aS = typeSyn->sourceRange().start();
+    const syntax::VariableDimensionSyntax* dimSyn = nullptr;
+    if (auto dsyn = ta.getSyntax();
+        dsyn && dsyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+        auto& td = dsyn->as<syntax::TypedefDeclarationSyntax>();
+        if (!td.dimensions.empty()) {
+            dimSyn = td.dimensions[0];
+            aE = td.dimensions[td.dimensions.size() - 1]->sourceRange().end();
+        }
+    }
+    setLoc(ats, SourceRange(aS, aE));
+    auto* rv = s.MakeRangeVec();
+    auto* r = s.MakeRange();
+    r->VpiParent(ats);
+    const syntax::ExpressionSyntax* lSyn = nullptr;
+    const syntax::ExpressionSyntax* rSyn = nullptr;
+    const syntax::ExpressionSyntax* szSyn = nullptr;
+    if (dimSyn && dimSyn->specifier &&
+        dimSyn->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier) {
+        auto& sel =
+            *dimSyn->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+        if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
+            lSyn = rss->left;
+            rSyn = rss->right;
+        }
+        else if (auto* bss = sel.as_if<syntax::BitSelectSyntax>())
+            szSyn = bss->expr;
+    }
+    auto mkB = [&](int64_t v, const syntax::SyntaxNode* bs) -> UHDM::expr* {
+        auto* c = s.MakeConstant();
+        std::string digits = std::to_string(v);
+        c->VpiDecompile(digits);
+        c->VpiSize(64);
+        c->VpiValue("UINT:" + digits);
+        c->VpiConstType(vpiUIntConst);
+        c->VpiParent(r);
+        if (bs)
+            setLoc(c, bs->sourceRange());
+        return c;
+    };
+    if (szSyn) {
+        // Size form: range at the size token, [0 : N-1 op] (the op located at
+        // the size token; the 1 is a loc-less INT).
+        setLoc(r, szSyn->sourceRange());
+        r->Left_expr(mkB(0, nullptr));
+        auto* op = s.MakeOperation();
+        op->VpiOpType(vpiSubOp);
+        op->VpiParent(r);
+        setLoc(op, szSyn->sourceRange());
+        auto* ops = s.MakeAnyVec();
+        // A NAME-reference size ([CNT]) stays SYMBOLIC: a ref_obj scoped under
+        // the typedef itself, and the synthetic 1 loses its parent (Surelog —
+        // ArrayExprFuncArg/DefaultPattern*).  A literal size still folds —
+        // and so does a size naming an IMPORTED (package) param, which
+        // Surelog resolves through the import and reduces to the value at the
+        // param's width with a ts ref to its home-package int typespec
+        // (DefaultPatternInt).
+        const ParameterSymbol* impP = nullptr;
+        bool symSize = szSyn->kind == syntax::SyntaxKind::IdentifierName ||
+                       szSyn->kind == syntax::SyntaxKind::ScopedName;
+        if (symSize && szSyn->kind == syntax::SyntaxKind::IdentifierName)
+            if (auto tsc = ta.getParentScope()) {
+                std::string nm6(rawText(szSyn->sourceRange()));
+                if (!tsc->find(nm6))
+                    if (auto* f6 = tsc->lookupName(nm6);
+                        f6 && f6->kind == SymbolKind::Parameter) {
+                        impP = &f6->as<ParameterSymbol>();
+                        symSize = false;
+                    }
+            }
+        if (symSize) {
+            auto* ro = s.MakeRef_obj();
+            std::string idn(rawText(szSyn->sourceRange()));
+            ro->VpiName(idn);
+            ro->VpiFullName(qname + "." + idn);
+            ro->VpiParent(op);
+            setLoc(ro, szSyn->sourceRange());
+            ops->push_back(ro);
+        }
+        else {
+            auto* nC = mkB(fua.range.width(), szSyn);
+            nC->VpiParent(op);
+            if (impP) {
+                ((UHDM::constant*)nC)
+                    ->VpiSize((int32_t)impP->getType().getBitWidth());
+                auto* rt6 = s.MakeRef_typespec();
+                rt6->VpiFullName(qname);
+                rt6->VpiParent(nC);
+                auto* its6 = s.MakeInt_typespec();
+                if (impP->getType().isSigned())
+                    its6->VpiSigned(true);
+                if (auto d6 = impP->getDeclaredType())
+                    if (auto* t6 = d6->getTypeSyntax())
+                        setLoc(its6, t6->sourceRange());
+                its6->VpiParent(rt6);
+                if (auto* hi6 = homePkgInstOf(*impP))
+                    its6->Instance(hi6);
+                rt6->Actual_typespec(its6);
+                ((UHDM::constant*)nC)->Typespec(rt6);
+            }
+            ops->push_back(nC);
+        }
+        auto* one = s.MakeConstant();
+        one->VpiSize(64);
+        one->VpiValue("INT:1");
+        one->VpiConstType(vpiIntConst);
+        // Only the compile-time LISTING object leaves the synthetic 1
+        // unparented; the elaborator-built clone parents it (Surelog).
+        if (!symSize || cloneForm)
+            one->VpiParent(op);
+        ops->push_back(one);
+        op->Operands(ops);
+        r->Right_expr(op);
+    }
+    else {
+        if (dimSyn)
+            setLoc(r, dimSyn->sourceRange());
+        r->Left_expr(mkB(fua.range.left, lSyn));
+        r->Right_expr(mkB(fua.range.right, rSyn));
+    }
+    rv->push_back(r);
+    ats->Ranges(rv);
+    // Elem ref -> the ELEMENT typedef's shared ts (typedef bar_t foobar_t [2]
+    // points at bar_t's struct ts) — Surelog.
+    {
+        const Type* el0 = &fua.elementType;
+        UHDM::typespec* ets0 = nullptr;
+        if (auto ei = typedefTs.find(el0); ei != typedefTs.end())
+            ets0 = ei->second;
+        else
+            for (auto& [sym0, tsp0] : typedefTs)
+                if (sym0->kind == SymbolKind::TypeAlias &&
+                    &((const Type*)sym0)->getCanonicalType() ==
+                        &el0->getCanonicalType()) {
+                    ets0 = tsp0;
+                    break;
+                }
+        // A BUILT-IN element type (typedef int unsigned T[CNT]) has no typedef
+        // ts to share: mint the element int_typespec at the target-type span.
+        if (!ets0 && el0->getCanonicalType().kind ==
+                         SymbolKind::PredefinedIntegerType && typeSyn) {
+            auto* its0 = s.MakeInt_typespec();
+            if (el0->isSigned())
+                its0->VpiSigned(true);
+            setLoc(its0, typeSyn->sourceRange());
+            ets0 = its0;
+        }
+        if (ets0) {
+            // A STRUCT element points at a fresh NAMED clone with a
+            // BARE-scoped member tree and a Typedef_alias ref to the
+            // shared ts (Surelog); other elements share directly.
+            UHDM::typespec* tgt0 = ets0;
+            if (el0->kind == SymbolKind::TypeAlias &&
+                el0->getCanonicalType().isStruct() &&
+                ets0->UhdmType() == UHDM::uhdmstruct_typespec) {
+                auto& ela = el0->as<TypeAliasType>();
+                auto& elc = el0->getCanonicalType();
+                UHDM::struct_typespec* cl0 =
+                    elc.kind == SymbolKind::PackedStructType
+                        ? buildStructTs(elc.as<PackedStructType>(), true,
+                                        std::string(ela.name))
+                        : buildStructTs(elc.as<UnpackedStructType>(), false,
+                                        std::string(ela.name));
+                cl0->VpiName(ela.name);
+                cl0->VpiLineNo(ets0->VpiLineNo());
+                cl0->VpiColumnNo(ets0->VpiColumnNo());
+                cl0->VpiEndLineNo(ets0->VpiEndLineNo());
+                cl0->VpiEndColumnNo(ets0->VpiEndColumnNo());
+                auto* art0 = s.MakeRef_typespec();
+                art0->VpiFullName(std::string(ela.name));
+                art0->VpiParent(cl0);
+                art0->Actual_typespec(ets0);
+                cl0->Typedef_alias(art0);
+                tgt0 = cl0;
+            }
+            auto* ert = s.MakeRef_typespec();
+            ert->VpiFullName(qname);
+            ert->VpiParent(ats);
+            ert->Actual_typespec(tgt0);
+            ats->Elem_typespec(ert);
+            // A clone's freshly-minted element ts parents at its ref.
+            if (cloneForm && !tgt0->VpiParent() && !tgt0->VpiName().length())
+                tgt0->VpiParent(ert);
+        }
+    }
+    return ats;
+}
+
 // Typedefs (enums, packed structs): module Typespecs entries compiled at
 // module compile, shared by both views and by all declarations.
 void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* m,
@@ -4227,141 +4478,9 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             ts = sts;
         }
         else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
-            // typedef of an unpacked array (typedef bar_t foobar_t [2]):
-            // a NAMED array_typespec spanning target-type..last-dim; a
-            // SIZE-form dim ([2]) folds to [0 : N-1 op] at the size token,
-            // a ranged dim keeps its bounds at their tokens (Surelog —
-            // mirrors the pkg-typedef form).
-            auto* ats = s.MakeArray_typespec();
+            auto* ats = buildUnpackedArrayTypedefTs(
+                ta, prefix + "." + std::string(ta.name));
             ats->VpiParent(m);
-            auto& fua = ct.as<FixedSizeUnpackedArrayType>();
-            SourceLocation aS = ta.location, aE = ta.location;
-            if (typeSyn)
-                aS = typeSyn->sourceRange().start();
-            const syntax::VariableDimensionSyntax* dimSyn = nullptr;
-            if (auto dsyn = ta.getSyntax();
-                dsyn && dsyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
-                auto& td = dsyn->as<syntax::TypedefDeclarationSyntax>();
-                if (!td.dimensions.empty()) {
-                    dimSyn = td.dimensions[0];
-                    aE = td.dimensions[td.dimensions.size() - 1]
-                             ->sourceRange()
-                             .end();
-                }
-            }
-            setLoc(ats, SourceRange(aS, aE));
-            auto* rv = s.MakeRangeVec();
-            auto* r = s.MakeRange();
-            r->VpiParent(ats);
-            const syntax::ExpressionSyntax* lSyn = nullptr;
-            const syntax::ExpressionSyntax* rSyn = nullptr;
-            const syntax::ExpressionSyntax* szSyn = nullptr;
-            if (dimSyn && dimSyn->specifier &&
-                dimSyn->specifier->kind ==
-                    syntax::SyntaxKind::RangeDimensionSpecifier) {
-                auto& sel = *dimSyn->specifier
-                                 ->as<syntax::RangeDimensionSpecifierSyntax>()
-                                 .selector;
-                if (auto* rss = sel.as_if<syntax::RangeSelectSyntax>()) {
-                    lSyn = rss->left;
-                    rSyn = rss->right;
-                }
-                else if (auto* bss = sel.as_if<syntax::BitSelectSyntax>())
-                    szSyn = bss->expr;
-            }
-            auto mkB = [&](int64_t v,
-                           const syntax::SyntaxNode* bs) -> UHDM::expr* {
-                auto* c = s.MakeConstant();
-                std::string digits = std::to_string(v);
-                c->VpiDecompile(digits);
-                c->VpiSize(64);
-                c->VpiValue("UINT:" + digits);
-                c->VpiConstType(vpiUIntConst);
-                c->VpiParent(r);
-                if (bs)
-                    setLoc(c, bs->sourceRange());
-                return c;
-            };
-            if (szSyn) {
-                // Size form: range at the size token, [0 : N-1 op] (the op
-                // located at the size token; the 1 is a loc-less INT).
-                setLoc(r, szSyn->sourceRange());
-                r->Left_expr(mkB(0, nullptr));
-                auto* op = s.MakeOperation();
-                op->VpiOpType(vpiSubOp);
-                op->VpiParent(r);
-                setLoc(op, szSyn->sourceRange());
-                auto* ops = s.MakeAnyVec();
-                auto* nC = mkB(fua.range.width(), szSyn);
-                nC->VpiParent(op);
-                ops->push_back(nC);
-                auto* one = s.MakeConstant();
-                one->VpiSize(64);
-                one->VpiValue("INT:1");
-                one->VpiConstType(vpiIntConst);
-                one->VpiParent(op);
-                ops->push_back(one);
-                op->Operands(ops);
-                r->Right_expr(op);
-            }
-            else {
-                if (dimSyn)
-                    setLoc(r, dimSyn->sourceRange());
-                r->Left_expr(mkB(fua.range.left, lSyn));
-                r->Right_expr(mkB(fua.range.right, rSyn));
-            }
-            rv->push_back(r);
-            ats->Ranges(rv);
-            // Elem ref -> the ELEMENT typedef's shared ts (typedef bar_t
-            // foobar_t [2] points at bar_t's struct ts) — Surelog.
-            {
-                const Type* el0 = &fua.elementType;
-                UHDM::typespec* ets0 = nullptr;
-                if (auto ei = typedefTs.find(el0); ei != typedefTs.end())
-                    ets0 = ei->second;
-                else
-                    for (auto& [sym0, tsp0] : typedefTs)
-                        if (sym0->kind == SymbolKind::TypeAlias &&
-                            &((const Type*)sym0)->getCanonicalType() ==
-                                &el0->getCanonicalType()) {
-                            ets0 = tsp0;
-                            break;
-                        }
-                if (ets0) {
-                    // A STRUCT element points at a fresh NAMED clone with a
-                    // BARE-scoped member tree and a Typedef_alias ref to the
-                    // shared ts (Surelog); other elements share directly.
-                    UHDM::typespec* tgt0 = ets0;
-                    if (el0->kind == SymbolKind::TypeAlias &&
-                        el0->getCanonicalType().isStruct() &&
-                        ets0->UhdmType() == UHDM::uhdmstruct_typespec) {
-                        auto& ela = el0->as<TypeAliasType>();
-                        auto& elc = el0->getCanonicalType();
-                        UHDM::struct_typespec* cl0 =
-                            elc.kind == SymbolKind::PackedStructType
-                                ? buildStructTs(elc.as<PackedStructType>(),
-                                                true, std::string(ela.name))
-                                : buildStructTs(elc.as<UnpackedStructType>(),
-                                                false, std::string(ela.name));
-                        cl0->VpiName(ela.name);
-                        cl0->VpiLineNo(ets0->VpiLineNo());
-                        cl0->VpiColumnNo(ets0->VpiColumnNo());
-                        cl0->VpiEndLineNo(ets0->VpiEndLineNo());
-                        cl0->VpiEndColumnNo(ets0->VpiEndColumnNo());
-                        auto* art0 = s.MakeRef_typespec();
-                        art0->VpiFullName(std::string(ela.name));
-                        art0->VpiParent(cl0);
-                        art0->Actual_typespec(ets0);
-                        cl0->Typedef_alias(art0);
-                        tgt0 = cl0;
-                    }
-                    auto* ert = s.MakeRef_typespec();
-                    ert->VpiFullName(prefix + "." + std::string(ta.name));
-                    ert->VpiParent(ats);
-                    ert->Actual_typespec(tgt0);
-                    ats->Elem_typespec(ert);
-                }
-            }
             ts = ats;
         }
         else if (ct.kind == SymbolKind::PackedUnionType) {
@@ -5642,6 +5761,18 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
     }
 }
 
+UHDM::instance* UhdmExporter::homePkgInstOf(const Symbol& sym) {
+    auto hs = sym.getParentScope();
+    if (!hs || hs->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    if (auto tt = pkgTopMap.find((const void*)&hs->asSymbol());
+        tt != pkgTopMap.end())
+        return (UHDM::instance*)tt->second;
+    if (auto pd = pkgDefMap.find(&hs->asSymbol()); pd != pkgDefMap.end())
+        return (UHDM::instance*)pd->second;
+    return nullptr;
+}
+
 UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     const Symbol& sym, UHDM::BaseClass* parent,
     const std::string& defDimRefPrefix) {
@@ -5696,19 +5827,37 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 if (!defDimRefPrefix.empty() &&
                     sizeSyn->kind == syntax::SyntaxKind::IdentifierName &&
                     (parent->UhdmType() == UHDM::uhdmarray_typespec ||
+                     parent->UhdmType() == UHDM::uhdmio_decl ||
                      parent->UhdmType() == UHDM::uhdmparameter)) {
                     auto* ro = s.MakeRef_obj();
                     std::string nm(sizeSyn->as<syntax::IdentifierNameSyntax>()
                                        .identifier.valueText());
                     ro->VpiName(nm);
-                    ro->VpiFullName(defDimRefPrefix + "." + nm);
+                    ro->VpiFullName(joinPath(defDimRefPrefix, nm));
                     ro->VpiParent(op);
                     setLoc(ro, sizeSyn->sourceRange());
+                    // A PACKAGE def-view dim ref BINDS the sized param's own
+                    // Rhs constant (Surelog resolves within the package) —
+                    // DefaultPatternInt pack::V::CNT -> the CNT constant.  A
+                    // MODULE dim ref stays unbound (ArrayExprFuncArg).
+                    if (defDimRefPrefix.size() >= 2 &&
+                        defDimRefPrefix.compare(defDimRefPrefix.size() - 2, 2,
+                                                "::") == 0)
+                    if (auto sc0 = sym.getParentScope())
+                        if (auto* tgt0 = sc0->find(nm))
+                            if (auto ai0 = paramRhsObj.find(tgt0);
+                                ai0 != paramRhsObj.end() && ai0->second)
+                                ro->Actual_group(ai0->second);
                     ops->push_back(ro);
                     auto* one = s.MakeConstant();
                     one->VpiSize(64);
                     one->VpiValue("INT:1");
                     one->VpiConstType(vpiIntConst);
+                    // Same clone_tree shape as the folded size below: only an
+                    // ELAB param dim parents its synthetic 1 (the def view and
+                    // port/net dims leave it unparented).
+                    if (elabParamDim)
+                        one->VpiParent(op);
                     ops->push_back(one);
                     op->Operands(ops);
                     r->Right_expr(op);
@@ -5840,6 +5989,55 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                         ranges->push_back(r);
                         dt = &ua.elementType;
                         continue;
+                    }
+                }
+                // A PARAM-sized PARAMETER dim that FOLDS (package elab view,
+                // and any imported copy) carries the VALUE as its decompile at
+                // the sized param's own width, with a ts ref named after the
+                // holder param and bound to a fresh copy of the sized param's
+                // int typespec (Surelog; DefaultPatternInt).
+                else if (!dimFoldOwner.empty() &&
+                         sizeSyn->kind == syntax::SyntaxKind::IdentifierName) {
+                    const ParameterSymbol* tp7 = nullptr;
+                    if (auto sc7 = sym.getParentScope()) {
+                        std::string nm7(
+                            sizeSyn->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText());
+                        auto* f7 = sc7->find(nm7);
+                        // A WILDCARD-imported size param (import pack::*)
+                        // is not a direct member: fall back to name lookup.
+                        if (!f7)
+                            f7 = sc7->lookupName(nm7);
+                        if (f7 && f7->kind == SymbolKind::Parameter)
+                            tp7 = &f7->as<ParameterSymbol>();
+                    }
+                    if (!tp7) {
+                        sc->VpiDecompile(rawText(sizeSyn->sourceRange()));
+                        sc->VpiSize(64);
+                        sc->VpiValue("UINT:" + std::to_string(ua.range.width()));
+                    }
+                    else {
+                        std::string d7 = std::to_string(ua.range.width());
+                        sc->VpiDecompile(d7);
+                        sc->VpiSize((int32_t)tp7->getType().getBitWidth());
+                        sc->VpiValue("UINT:" + d7);
+                        auto* rt7 = s.MakeRef_typespec();
+                        rt7->VpiFullName(dimFoldOwner);
+                        rt7->VpiParent(sc);
+                        // A FRESH int_typespec per fold, parented at its ref
+                        // and instanced at the sized param's home package
+                        // (Surelog mints one per view — DefaultPatternInt).
+                        auto* its7 = s.MakeInt_typespec();
+                        if (tp7->getType().isSigned())
+                            its7->VpiSigned(true);
+                        if (auto d7t = tp7->getDeclaredType())
+                            if (auto* t7s = d7t->getTypeSyntax())
+                                setLoc(its7, t7s->sourceRange());
+                        its7->VpiParent(rt7);
+                        if (auto* hi7 = homePkgInstOf(*tp7))
+                            its7->Instance(hi7);
+                        rt7->Actual_typespec(its7);
+                        sc->Typespec(rt7);
                     }
                 }
                 else {

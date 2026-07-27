@@ -8,6 +8,100 @@
 > figure was measured with uniform flags rather than each test's own command
 > line and is **void** — use the tables in GOLDEN_EQUIVALENCE.md §3.3.
 
+## Wave 4 "fold-family-2" (w4fold): unpacked-array param/typedef fold shapes
+
+Targets: ArrayExprFuncArg (194), DefaultPatternModule (192), DefaultPatternInt
+(581), GenerateUnnamed (813) — dump-diff lines, `default` mode. Result, 5
+improvement rows and no regressions:
+
+| test | default | testflags |
+|---|---|---|
+| ArrayExprFuncArg | **CMP_EQUAL** (194 -> 38) | **CMP_EQUAL** (404 -> 228) |
+| FuncRetArray (not targeted) | **CMP_EQUAL** | **CMP_EQUAL** |
+| DefaultPatternModule | **CMP_EQUAL** (192 -> 77) | NOTEQUAL (250 -> 145) |
+| DefaultPatternInt | NOTEQUAL (581 -> 262) | NOTEQUAL (624 -> 319) |
+| GenerateUnnamed | untouched (813) | untouched (813) |
+
+Decoded mechanisms (all `default`-mode/folded-model rules):
+
+1. **Unpacked-array function return is an `array_var`**, bare (no element reg,
+   no vpiArrayType), anchored at the RETURN-TYPE token, not at the typedef —
+   the array_typespec sits at the typedef, so the return var takes the
+   return-type span exactly like a struct/enum return already did.
+2. **The return's typespec is a CLONE of the module typedef listing**, named,
+   with BARE-scoped inner refs (`T.CNT`, elem ref `T`) and a `Typedef_alias`
+   ref back to the listed object. Same model as the existing logic_typespec
+   `typedefRetClone`; `buildUnpackedArrayTypedefTs(ta, qname, cloneForm)` now
+   builds both (extracted from `emitTypedefs`).
+3. **An unpacked-array typedef's SIZE dim keeps a NAME reference symbolic** —
+   `[CNT]` becomes `0 : (ref_obj CNT) - 1`, ref fullname `<qname>.CNT` — and in
+   the compile-time LISTING object the synthetic `1` is UNPARENTED (the
+   elaborator's clone parents it). A LITERAL size still folds.
+   **Exception, and the DefaultPatternInt distinguisher: a size naming an
+   IMPORTED (package) param FOLDS** — value at the param's width with a ts ref
+   to a fresh int_typespec instanced at the param's HOME package.
+4. **A built-in element type gets an Elem_typespec** (`typedef int unsigned
+   T[CNT]` -> int_typespec at the target-type span); previously only typedef'd
+   elements produced one.
+5. **`elabParamDim` also governs the SYMBOLIC dim**: only an ELAB param dim
+   parents its synthetic `1`; the def view and port/net dims leave it
+   unparented (MemoryInGenblock is the negative calibration point, and it
+   demoted match->differ on the first, sym.kind-based attempt). A MATERIALIZED
+   IMPORT counts as elab (clone_tree copy).
+6. **A folding param-sized dim carries the sized param's shape**: decompile =
+   the VALUE (not the name), size = that param's width, ts ref named after the
+   HOLDER param -> a fresh int_typespec at the sized param's type syntax with
+   `vpiInstance` = its home package. `dimFoldOwner` carries the holder name
+   into `buildUnpackedRanges`; `homePkgInstOf()` resolves the instance.
+   Surelog mints a FRESH typespec per fold (proved by the weak tail: several
+   `int_typespec 2:12-2:24` objects, each parented at its own ref) — sharing
+   the param's ts is wrong.
+7. **`int unsigned` spans split by context**: a data/param declaration's
+   int_typespec spans BOTH keywords, a function FORMAL's spans only the base
+   keyword. (The formal rule already existed for dimensioned types; the
+   signing case was missing.)
+8. **A function formal's unpacked dim is symbolic too**, scoped at the formal
+   (`work@top.F.SRC.CNT`).
+9. **`'{default: X}` on an unpacked-array param EXPANDS to an `array_expr`**
+   with one folded element constant per element (element-type width, at the
+   default value's span) — but ONLY outside the declaring scope's DEFINITION
+   view, which keeps the raw op75 + tagged_pattern. An IMPORT's copies parent
+   their constants at the array_expr; the elaborator's own object leaves them
+   unparented and, for a MODULE-local param, tags the array_expr with the
+   param's array_typespec.
+10. **An elab system task in a TAKEN generate block** becomes a gen_scope
+    `Elab_task` (`vpiSysTaskCall`) spanning the whole statement, semicolon
+    included, with ONLY the message string literal as an argument.
+11. **A TYPED integral localparam whose init is a const CALL** folds at the
+    PARAM's width, BIN-encoded, with the param's own typespec ref — unlike the
+    untyped case, which sizes at the function return type and stays UINT.
+
+Still open:
+- **DefaultPatternInt** (581 -> 262): cmp advanced four layers (pkg-def dim
+  ref -> package instance -> module typedef dim -> function-body ref). Next
+  blocker is decoded: a function-body reference to an IMPORTED package param
+  (`i < CNT` in ASSIGN_VADDR) folds to a constant that must carry a ts ref
+  (fullname = the function's fullname) -> the pkg int_typespec; we emit the
+  constant untypespec'd.
+- **GenerateUnnamed** (813, untouched): TWO separate families, neither in this
+  cluster. (a) the unelaborated gen_if_else tree drops a level when an
+  if-generate's then-branch is a BARE nested if (`if (p==1) if (q==0) ...`);
+  Surelog wraps it in an anonymous `begin`, we hoist the inner if. (b) the
+  elaborated view hoists taken case/if-generate scopes to the MODULE level
+  (`work@test1.u1`, `.genblk1`, `.n5` side by side) where we nest them
+  (`genblk1.u1`).
+
+Gate: goldens 23/23; u2r testflags 674 CMP_EQUAL / 5 CMP_NOTEQUAL, ZERO movers;
+Surelog both modes 227 default / 218 testflags CMP_EQUAL with exactly the 5
+improvement rows above. **Golden-cache poisoning warning (wave-wide, not this
+patch):** the concurrent-agent load made Surelog itself OOM on the giant
+designs, and `verify_golden.py` CACHES a SURELOG_FAIL status — so
+Earlgrey_nexysvideo, YosysOpenSparc and YosysSmallBoom showed up as
+`-> SURELOG_FAIL` movers. Re-running them with `GOLDEN_CACHE=0` restores their
+baselines exactly (SLANG_REJECT / SLANG_REJECT / CMP_NOTEQUAL). The cache is
+shared across worktrees, so a memory-starved run poisons every later sweep;
+consider not caching SURELOG_FAIL, only success.
+
 ## ⚠️ SCOPE OF THE ZERO-DIFF CLAIM — verified, but corpus-specific (2026-07-24 ~21:40)
 
 Re-verified INDEPENDENTLY with the standard `uhdm-cmp` (UHDM 1.86,

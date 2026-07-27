@@ -35,6 +35,7 @@ class TimingControl;
 class SubroutineSymbol;
 class EnumType;
 class GenerateBlockSymbol;
+class TypeAliasType;
 } // namespace slang::ast
 
 namespace slang {
@@ -345,6 +346,12 @@ private:
                        const slang::ast::Symbol* onlySub = nullptr);
     void emitTypedefs(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                       const std::string& prefix, DefInfo& info);
+    // The array_typespec of an unpacked-array typedef.  `qname` qualifies the
+    // object's inner refs (module-scoped for the Typespecs listing, bare for a
+    // function-return clone).
+    UHDM::array_typespec* buildUnpackedArrayTypedefTs(
+        const slang::ast::TypeAliasType& ta, const std::string& qname,
+        bool cloneForm = false);
     UHDM::enum_typespec* buildEnumTs(const slang::ast::EnumType& et,
                                      const slang::syntax::SyntaxNode* enumSyn,
                                      const std::string& refFullName,
@@ -532,6 +539,9 @@ private:
                                              UHDM::BaseClass* parent,
                                              const std::string& defDimRefPrefix = {});
     // array_typespec for an unpacked-array param: unpacked-dim Ranges +
+    // The package instance a symbol declared in a package links its minted
+    // typespecs to (the ELABORATED package once it exists), or null.
+    UHDM::instance* homePkgInstOf(const slang::ast::Symbol& sym);
     // Elem_typespec ref (int/logic at the type-keyword span). `elemFull` is
     // the Elem_typespec ref fullname; `parent` the ts's vpiParent.
     // `elabClone` marks an ELABORATION clone: its freshly built element
@@ -572,6 +582,14 @@ private:
     slang::SourceRange trimTypeSigning(const slang::syntax::SyntaxNode* tsyn,
                                        slang::SourceRange r);
     std::string fullFilePath(slang::SourceLocation loc);
+    /// True when Surelog would lex this location's ROOT source file in
+    /// Verilog (non-SystemVerilog) mode: `ParseFile.cpp` sets the lexer's
+    /// `sverilog` flag from the file EXTENSION (`.sv`) alone -- `-sv <file>`
+    /// keys on the command-line path and so never matches the preprocessed
+    /// file the parser actually reads.  The mode changes the parse tree, and
+    /// with it the emitted spans, so it is a model input (see the `logic`
+    /// net-declaration rule in materializeDefNetTs).
+    bool verilogLexMode(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
     /// One `include_file_info` per ACTIVE `include directive, hung off the
     /// design (Surelog's "Compile Include file info" pass).
@@ -581,6 +599,14 @@ private:
     /// [NDioPads-1:0] m`).  Surelog never flattens such a struct's pattern
     /// param in the package views.
     bool structHasSymbolicMemberDim(const slang::ast::Type& ty);
+    /// True when `pkg::<name>` appears as a SCOPED reference anywhere in the
+    /// sources.  Surelog only reduces a package parameter's ELABORATED
+    /// param_assign when something resolves it through the package scope; a
+    /// wildcard-imported (unqualified) read, or no read at all, leaves the
+    /// elaborated RHS in its declared shape.
+    bool hasScopedPkgRef(std::string_view pkgName, std::string_view name);
+    std::set<std::string> scopedPkgRefs;
+    bool scopedPkgRefsBuilt = false;
     /// `arr[3]` -> the span of the bare index token (`3`).  Surelog anchors the
     /// synthesized interface-array-element bit_select (and its index constant)
     /// there, not over the whole select expression.  Returns `range` unchanged
@@ -687,6 +713,14 @@ private:
     // copies carry vpiParent on that operand. Package params and net/var
     // ranges are never cloned, hence never parented.
     bool elabParamDim = false;
+    // The param_assign Rhs object most recently emitted per parameter symbol.
+    // A package DEF-view unpacked-dim ref binds the sized param's own constant
+    // through it (DefaultPatternInt pack::V::CNT -> the CNT constant).
+    std::map<const slang::ast::Symbol*, UHDM::any*> paramRhsObj;
+    // Fullname of the parameter that owns the unpacked dim being built; set
+    // while a PARAMETER's ranges are constructed so a folded param-sized dim
+    // can name its typespec ref after the holder (DefaultPatternInt).
+    std::string dimFoldOwner;
     // Set while emitting a MATERIALIZED IMPORTED package parameter's init in a
     // module: that parameter is a clone_tree copy of the package one, so its
     // concat literal operands carry vpiParent (the package original does not).
@@ -706,6 +740,11 @@ private:
     bool paramInitDef = false;
     // PACKAGE param inits: concat operands unparent in both views.
     bool paramInitPkg = false;
+    // ELAB package view of a struct param whose tagged_pattern tree SURVIVES
+    // (no `pkg::NAME` reference drives the flatten pass): Surelog still reduces
+    // each member VALUE that is an expression to a constant in place, leaving
+    // an already-constant value untouched.
+    bool paramInitElabFold = false;
     // Set during an ELAB (top-view) cont-assign LHS emission — single-dim
     // base-select indices parent only here.
     bool elabContAssignLhs = false;

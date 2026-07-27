@@ -539,6 +539,88 @@ inline bool hasOrderedConns(const InstanceSymbol& inst) {
     return false;
 }
 
+// A `net_lvalue` in the 1800 grammar: a (possibly hierarchical, possibly
+// selected) identifier, or a concatenation of those.  Nothing else --
+// literals, operations, calls and replications are all excluded.
+inline bool isNetLvalueSyntax(const syntax::ExpressionSyntax& e) {
+    switch (e.kind) {
+        case syntax::SyntaxKind::IdentifierName:
+        case syntax::SyntaxKind::IdentifierSelectName:
+        case syntax::SyntaxKind::ScopedName:
+        case syntax::SyntaxKind::MemberAccessExpression:
+        case syntax::SyntaxKind::ElementSelectExpression:
+        case syntax::SyntaxKind::ConcatenationExpression:
+            return true;
+        default:
+            return false;
+    }
+}
+
+// Surelog's parser resolves `foo f(a, b);` as a **udp_instantiation**, not a
+// module_instantiation: with an ordered connection list of two or more
+// terminals whose first parses as a `net_lvalue` (the UDP output), the
+// udp_instantiation alternative matches and ANTLR takes it -- whether or not
+// a UDP named `foo` exists.  CompileModule then routes the item to
+// compileUdpInstantiation, which builds NO `ref_module`, so the definition
+// view of the parent carries no child reference at all.  Measured on a
+// ten-shape probe: `i(x,y)`, `i(x,y,z)`, `i(x, y&z)` and `i({x,y}, z)` are
+// UDPs; `.a(x)` named lists, a non-net_lvalue FIRST terminal (`i(x&y, z)`,
+// `i(1'b0, z)`), an empty terminal (`i(x, , z)`) and single-terminal lists
+// all stay module_instantiations and keep their ref_module.
+//
+// A `#(...)` override does NOT by itself break the shape: `delay2 ::= # (
+// mintypmax_expression [, mintypmax_expression] )` swallows an ORDERED list
+// of one or two values, so `sub #(1) i(x,y)`, `sub #(1,2) i(x,y)` and
+// `Example #("FOO") e2(a,b,c,d)` are all UDPs.  Three or more values, or any
+// NAMED override, exceed delay2 and leave a module_instantiation (measured).
+inline bool udpShapedInstantiation(const InstanceSymbol& inst) {
+    auto syn = inst.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::HierarchicalInstance)
+        return false;
+    auto& hi = syn->as<syntax::HierarchicalInstanceSyntax>();
+    if (hi.connections.size() < 2)
+        return false;
+    const syntax::ExpressionSyntax* firstExpr = nullptr;
+    for (auto conn : hi.connections) {
+        if (conn->kind != syntax::SyntaxKind::OrderedPortConnection)
+            return false;
+        // A port connection's expression is wrapped in the property/sequence
+        // shells the assertion grammar shares with it.
+        const syntax::PropertyExprSyntax* pe =
+            conn->as<syntax::OrderedPortConnectionSyntax>().expr;
+        if (!pe || pe->kind != syntax::SyntaxKind::SimplePropertyExpr)
+            return false;
+        const syntax::SequenceExprSyntax* se =
+            pe->as<syntax::SimplePropertyExprSyntax>().expr;
+        if (!se || se->kind != syntax::SyntaxKind::SimpleSequenceExpr)
+            return false;
+        const syntax::ExpressionSyntax* e =
+            se->as<syntax::SimpleSequenceExprSyntax>().expr;
+        // An empty terminal (`i(x, , z)`) is not a UDP instance.
+        if (!e || e->getFirstToken().isMissing())
+            return false;
+        if (!firstExpr)
+            firstExpr = e;
+    }
+    // A `#(...)` override survives only while it still reads as delay2.
+    for (auto p = syn->parent; p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+            auto* pva = p->as<syntax::HierarchyInstantiationSyntax>().parameters;
+            if (pva) {
+                if (pva->parameters.size() > 2)
+                    return false;
+                for (auto pa : pva->parameters)
+                    if (pa->kind != syntax::SyntaxKind::OrderedParamAssignment)
+                        return false;
+            }
+            break;
+        }
+        if (p->kind == syntax::SyntaxKind::ModuleDeclaration)
+            break;
+    }
+    return firstExpr && isNetLvalueSyntax(*firstExpr);
+}
+
 // True when the expression tree contains anything Surelog's netlist
 // elaboration would re-compile as an operation (which forces a fresh
 // cont_assign object in the instance view instead of sharing the def's).
@@ -675,10 +757,78 @@ inline bool hasExplicitDeclLoc(const Symbol& sym) {
     return false;
 }
 
+// A non-ANSI header port written `.X1(internal)`: the port names itself and
+// the expression names what it connects to. Surelog keeps the two apart — the
+// PORT mints a net of its own name at the port-name location, while the
+// expression's symbol keeps the net (and gains the port) of its declaration.
+// A plain `(a)` header port shares one identity and is NOT explicit.
+inline bool isExplicitNonAnsiPort(const PortSymbol& ps) {
+    auto syn = ps.getSyntax();
+    return !ps.isAnsiPort && !ps.isNullPort && syn && syn->parent &&
+           syn->parent->kind == syntax::SyntaxKind::ExplicitNonAnsiPort;
+}
+
+// The distinct symbols named by a body's EXPLICIT ports, in port order.
+inline std::vector<const Symbol*> explicitPortInternals(
+    const InstanceBodySymbol& body) {
+    std::vector<const Symbol*> out;
+    for (auto pb : body.getPortList()) {
+        if (pb->kind != SymbolKind::Port)
+            continue;
+        auto& ps = pb->as<PortSymbol>();
+        if (!ps.internalSymbol || !isExplicitNonAnsiPort(ps))
+            continue;
+        if (std::find(out.begin(), out.end(), ps.internalSymbol) == out.end())
+            out.push_back(ps.internalSymbol);
+    }
+    return out;
+}
+
+// ...of those, the ones no header port is already named after: each is a port
+// declaration in its own right, so it earns its own port object.
+inline std::vector<const Symbol*> explicitPortOwnPorts(
+    const InstanceBodySymbol& body) {
+    std::vector<const Symbol*> out;
+    for (auto* isym : explicitPortInternals(body)) {
+        bool named = false;
+        for (auto pb : body.getPortList())
+            if (pb->name == isym->name)
+                named = true;
+        if (!named)
+            out.push_back(isym);
+    }
+    return out;
+}
+
+// The direction of the port declaration an explicit port's symbol came from,
+// read off the header ports that name it.
+inline int32_t explicitPortDirection(const InstanceBodySymbol& body,
+                                     const Symbol& isym) {
+    for (auto pb : body.getPortList()) {
+        if (pb->kind != SymbolKind::Port)
+            continue;
+        auto& ps = pb->as<PortSymbol>();
+        if (ps.internalSymbol != &isym)
+            continue;
+        switch (ps.direction) {
+            case ArgumentDirection::In:
+                return vpiInput;
+            case ArgumentDirection::Out:
+                return vpiOutput;
+            default:
+                return vpiInout;
+        }
+    }
+    return vpiInout;
+}
+
 struct NetOrderItem {
     const Symbol* sym;
     const PortSymbol* port;
     bool bodyDecl;
+    // The net an EXPLICIT non-ANSI port mints under its OWN name; `sym` is
+    // the expression's symbol (the lowConn actual), NOT this net's identity.
+    bool portExprNet = false;
 };
 
 // An interface handled by the interface_inst path: variables/nets/parameters/
@@ -739,6 +889,69 @@ inline void instSetGenStmts(UHDM::instance* m, UHDM::VectorOfgen_stmt* v) {
         ((UHDM::module_inst*)m)->Gen_stmts(v);
 }
 
+inline const Expression& stripImplicitConv(const Expression& e);
+
+// The def-view source span of an implicit net that slang minted at the FIRST
+// terminal of an UNNAMED gate. Surelog's def-view gate compile never lands
+// that terminal (see emitGates), so the net is not born there — it appears at
+// the first terminal Surelog does compile. Only such nets get an entry; every
+// other net keeps its own declaration span.
+inline std::map<const Symbol*, SourceRange> defImplicitNetLocs(
+    const InstanceBodySymbol& body) {
+    auto primOf = [](const Symbol& mb) -> const PrimitiveInstanceSymbol* {
+        if (mb.kind == SymbolKind::PrimitiveInstance)
+            return &mb.as<PrimitiveInstanceSymbol>();
+        if (mb.kind == SymbolKind::InstanceArray) {
+            auto& arr = mb.as<InstanceArraySymbol>();
+            if (!arr.elements.empty() && arr.elements[0] &&
+                arr.elements[0]->kind == SymbolKind::PrimitiveInstance)
+                return &arr.elements[0]->as<PrimitiveInstanceSymbol>();
+        }
+        return nullptr;
+    };
+    auto termSym = [](const Expression* ce) -> const Symbol* {
+        if (!ce)
+            return nullptr;
+        const Expression* te = &stripImplicitConv(*ce);
+        if (te->kind == ExpressionKind::Assignment)
+            te = &stripImplicitConv(te->as<AssignmentExpression>().left());
+        if (te->kind != ExpressionKind::NamedValue)
+            return nullptr;
+        auto& sym = te->as<NamedValueExpression>().symbol;
+        if (sym.kind != SymbolKind::Net || !sym.as<NetSymbol>().isImplicit)
+            return nullptr;
+        return &sym;
+    };
+    // Nets born on a terminal the def view drops.
+    std::set<const Symbol*> orphaned;
+    for (auto& mb : body.members()) {
+        auto* pi = primOf(mb);
+        if (!pi || !mb.name.empty())
+            continue;
+        auto conns = pi->getPortConnections();
+        if (conns.empty())
+            continue;
+        if (auto* sym = termSym(conns[0]);
+            sym && sym->location == conns[0]->sourceRange.start())
+            orphaned.insert(sym);
+    }
+    std::map<const Symbol*, SourceRange> locs;
+    if (orphaned.empty())
+        return locs;
+    for (auto& mb : body.members()) {
+        auto* pi = primOf(mb);
+        if (!pi)
+            continue;
+        auto conns = pi->getPortConnections();
+        for (size_t ci = mb.name.empty() ? 1u : 0u; ci < conns.size(); ci++) {
+            auto* sym = termSym(conns[ci]);
+            if (sym && orphaned.count(sym) && !locs.count(sym))
+                locs[sym] = conns[ci]->sourceRange;
+        }
+    }
+    return locs;
+}
+
 inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body) {
     std::vector<NetOrderItem> sorted, implicitPorts, mintedNets;
     std::set<const Symbol*> portInternals;
@@ -748,6 +961,13 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
         auto& ps = pb->as<PortSymbol>();
         if (!ps.internalSymbol)
             continue;
+        // An EXPLICIT port keeps its own net in the port group; the
+        // expression's symbol falls through to the member loop and sorts by
+        // its declaration, so BOTH nets exist (Surelog).
+        if (isExplicitNonAnsiPort(ps)) {
+            implicitPorts.push_back({ps.internalSymbol, &ps, false, true});
+            continue;
+        }
         portInternals.insert(ps.internalSymbol);
         NetOrderItem it{ps.internalSymbol, &ps, hasBodyDecl(*ps.internalSymbol)};
         if (it.bodyDecl || hasExplicitDeclLoc(*ps.internalSymbol))
@@ -794,6 +1014,12 @@ inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
 inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
                                       bool signedImplicitRet = false) {
     auto& ct = retType.getCanonicalType();
+    // An UNPACKED-array return (typedef int T[N]; function T f) is a bare
+    // array_var carrying only the ref to the array_typespec — Surelog
+    // (ArrayExprFuncArg/DefaultPattern*).  Unlike a function-LOCAL unpacked
+    // array it has no element reg and no vpiArrayType.
+    if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType)
+        return s.MakeArray_var();
     if (ct.kind == SymbolKind::PackedStructType ||
         ct.kind == SymbolKind::UnpackedStructType)
         return s.MakeStruct_var();

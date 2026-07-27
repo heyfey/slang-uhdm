@@ -210,6 +210,36 @@ static bool hasStructFieldMember(const Symbol& sym) {
     return false;
 }
 
+// Surelog's struct net-vs-var rule, verbatim (NetlistElaboration.cpp, the
+// `ttmp == uhdmstruct_typespec` arm of elab_signal_): a struct-typed signal is
+// a NET only while EVERY member's typespec is a logic_typespec or another
+// struct_typespec. One enum / packed-array / bit / int / real member and the
+// whole signal becomes a struct_VAR. Members carrying no actual typespec are
+// skipped, exactly as Surelog's `if (const typespec* mtps = ...)` skips them.
+//
+// The rule reads the EMITTED typespec rather than the slang type so the two
+// stay consistent by construction: whatever we decided to spell as a
+// packed_array_typespec is what Surelog's writer would have seen.
+static bool structTsIsNetLike(const UHDM::typespec* ts) {
+    if (!ts || ts->UhdmType() != UHDM::uhdmstruct_typespec)
+        return true;
+    auto* sts = (const UHDM::struct_typespec*)ts;
+    if (!sts->Members())
+        return true;
+    for (auto* mem : *sts->Members()) {
+        auto* mrt = mem->Typespec();
+        if (!mrt)
+            continue;
+        auto* mts = mrt->Actual_typespec();
+        if (!mts)
+            continue;
+        auto k = mts->UhdmType();
+        if (k != UHDM::uhdmlogic_typespec && k != UHDM::uhdmstruct_typespec)
+            return false;
+    }
+    return true;
+}
+
 // `var d;` — a VARIABLE whose data type is written nowhere (no type keyword, no
 // signing, no dimensions). There is no syntax for the typespec to span, and
 // Surelog emits none at all (a net's implicit type still spans its `wire`
@@ -329,7 +359,21 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // child instance omit their def-view typespec (Surelog).
     std::set<const Type*> typeParamArgTypes;
     collectTypeParamArgTypes(body, typeParamArgTypes);
+    auto implicitLocs = defImplicitNetLocs(body);
+    auto explicitPortSyms = explicitPortInternals(body);
     for (auto& it : collectNetOrder(body)) {
+        // The net an EXPLICIT port mints under its own name: bare (no net
+        // type, no typespec), anchored at the port-list name, and NOT the
+        // netMap entry for the expression's symbol.
+        if (it.portExprNet) {
+            auto* pn = s.MakeLogic_net();
+            pn->VpiName(it.port->name);
+            pn->VpiFullName(prefix + "." + std::string(it.port->name));
+            pn->VpiParent(m);
+            setLocNamed(pn, *it.port);
+            nets->push_back(pn);
+            continue;
+        }
         std::string name(it.sym->name);
         auto* n = s.MakeLogic_net();
         n->VpiName(name);
@@ -339,6 +383,8 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         // name; anything with a real declaration anchors there.
         if (it.port && !it.bodyDecl)
             setLocNamed(n, *it.port);
+        else if (auto ilit = implicitLocs.find(it.sym); ilit != implicitLocs.end())
+            setLoc(n, ilit->second);
         else
             setLoc(n, nameSpan(it.sym->location, it.sym->name));
         // An implicit net slang minted from a PATTERN MEMBER-KEY inside a
@@ -461,8 +507,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         bool typeParamArgNet =
             it.sym->getDeclaredType() &&
             typeParamArgTypes.count(&it.sym->getDeclaredType()->getType());
-        if (!it.port && !implicitNet && !classHandle && !namedTypeNet &&
-            !typeParamArgNet && !hasBareImplicitType(*it.sym)) {
+        // A symbol an EXPLICIT port names is still a PORT net for typespec
+        // purposes even though it reaches here as a body declaration.
+        bool explicitPortNet =
+            std::find(explicitPortSyms.begin(), explicitPortSyms.end(),
+                      it.sym) != explicitPortSyms.end();
+        if (!it.port && !explicitPortNet && !implicitNet && !classHandle &&
+            !namedTypeNet && !typeParamArgNet && !hasBareImplicitType(*it.sym)) {
             // Local nets carry a typespec whose actual is created only in
             // the write phase (Surelog arena order); the ref is patched then.
             auto* rt = s.MakeRef_typespec();
@@ -1132,6 +1183,11 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
         // (interfaces keep theirs — Surelog).
         if (hasOrderedConns(child) &&
             ifaceDefMap.find(&child.getDefinition()) == ifaceDefMap.end()) {
+            // The general form of the same effect: the instantiation parses
+            // as a udp_instantiation (see udpShapedInstantiation), which
+            // never produces a ref_module.
+            if (udpShapedInstantiation(child))
+                continue;
             bool hasOpConn = false;
             bool hasIfaceConn = false;
             for (auto conn : child.getPortConnections()) {
@@ -1161,18 +1217,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
             // A positional IFACE conn also omits the ref_module (Surelog).
             if (hasOpConn || hasIfaceConn)
                 continue;
-            // A NON-ANSI (1995-style port list) PARENT also omits its
-            // positional child ref_modules (wandwor — Surelog).
-            bool nonAnsiParent = false;
-            if (auto psyn9 = body.getSyntax();
-                psyn9 && psyn9->kind == syntax::SyntaxKind::ModuleDeclaration) {
-                auto& mh9 = *psyn9->as<syntax::ModuleDeclarationSyntax>().header;
-                if (mh9.ports &&
-                    mh9.ports->kind == syntax::SyntaxKind::NonAnsiPortList)
-                    nonAnsiParent = true;
-            }
-            if (nonAnsiParent)
-                continue;
+            // (A "NON-ANSI parent omits its positional child ref_modules"
+            // rule used to sit here, read off wandwor.  It was the udp-shape
+            // rule in disguise — wandwor's `wandwor_foo foo_0 (C, D, X);` is
+            // udp-shaped — and it over-fired on a non-ANSI parent whose child
+            // conn list is only ONE terminal, which stays a module
+            // instantiation and keeps its ref_module: UnitElabBlock's
+            // `mod amod(stim1), bmod(stim2);` inside `cct (stim1, stim2)`.)
             // A child whose #(...) override TEXTS differ while the folded
             // VALUES coincide (demo_003 #(1.0)/#(1)) omits the ref_module
             // (Surelog's pre-elab textual uniquification conflicts with the
@@ -1701,6 +1752,14 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                     nestedContainer = false;
                         }
             }
+            // A struct-typedef ALIAS clone (Typedef_alias -> the base object)
+            // re-scopes to the module even when the base nests structs: the
+            // BASE keeps its package scoping, the alias is what the module
+            // sees (StructTypedef mp_region_cfg_t).
+            if (nestedContainer && ts &&
+                ts->UhdmType() == UHDM::uhdmstruct_typespec &&
+                ((UHDM::struct_typespec*)ts)->Typedef_alias())
+                nestedContainer = false;
             bool wildcard = mem.kind == SymbolKind::WildcardImport;
             // The header-import share-without-touch rule is EXPLICIT-only;
             // wildcard header imports re-scope like body imports (Surelog).
@@ -1858,9 +1917,38 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                                 cts->VpiFullName(mFN);
                             }
                         };
-                    if (ts->UhdmType() == UHDM::uhdmstruct_typespec)
-                        rewriteAggMembers(
-                            ((UHDM::struct_typespec*)ts)->Members());
+                    // An ALIAS clone re-scopes its own Typedef_alias ref and
+                    // its NESTED member structs' member refs the same way
+                    // (work@<mod>.<pkg>::<alias>.<m>.<n>) — the clone tree is
+                    // the module's, only the base object stays pkg-scoped.
+                    std::function<void(UHDM::VectorOftypespec_member*,
+                                       const std::string&)>
+                        rescopeNested = [&](UHDM::VectorOftypespec_member* mems,
+                                            const std::string& base) {
+                            if (!mems)
+                                return;
+                            for (auto* tm : *mems) {
+                                if (!tm->Typespec())
+                                    continue;
+                                std::string mFN =
+                                    base + "." + std::string(tm->VpiName());
+                                tm->Typespec()->VpiFullName(mFN);
+                                auto* ma = tm->Typespec()->Actual_typespec();
+                                if (ma && ma->VpiName().empty() &&
+                                    ma->UhdmType() == UHDM::uhdmstruct_typespec)
+                                    rescopeNested(
+                                        ((UHDM::struct_typespec*)ma)->Members(),
+                                        mFN);
+                            }
+                        };
+                    if (ts->UhdmType() == UHDM::uhdmstruct_typespec) {
+                        auto* sts9 = (UHDM::struct_typespec*)ts;
+                        rewriteAggMembers(sts9->Members());
+                        if (auto* ali9 = sts9->Typedef_alias()) {
+                            ali9->VpiFullName(scopedName);
+                            rescopeNested(sts9->Members(), scopedName);
+                        }
+                    }
                     if (ts->UhdmType() == UHDM::uhdmunion_typespec)
                         rewriteAggMembers(
                             ((UHDM::union_typespec*)ts)->Members());
@@ -1943,9 +2031,32 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // whether or not any is called here — Surelog lists them in both the
     // def and elab views, in the PACKAGE's declaration order. This runs
     // BEFORE the call-site pass so a called function keeps its declaration
-    // slot instead of being hoisted to the front (rp32 dec32).
+    // slot instead of being hoisted to the front (rp32 dec32). An EXPLICIT
+    // import of a subroutine (import pkg::vbits;) lists exactly that one on
+    // the same no-call-required terms (FileList probe pair: import with no
+    // call still lists it; a QUALIFIED call with no import does not) — the
+    // IMPORT is the trigger, handled by the importedTfCalls pass below.
     if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        auto listTf9 = [&](const Symbol& psym9) {
+            if (psym9.kind != SymbolKind::Subroutine)
+                return;
+            auto sit = subMap.find(&psym9);
+            if (sit == subMap.end() || !sit->second.tf)
+                return;
+            auto* v = m->Task_funcs();
+            if (!v) {
+                v = s.MakeTask_funcVec();
+                m->Task_funcs(v);
+            }
+            if (std::find(v->begin(), v->end(), sit->second.tf) == v->end())
+                v->push_back(sit->second.tf);
+        };
         for (auto& mem : body.members()) {
+            if (mem.kind == SymbolKind::ExplicitImport) {
+                if (auto* is9 = mem.as<ExplicitImportSymbol>().importedSymbol())
+                    listTf9(*is9);
+                continue;
+            }
             if (mem.kind != SymbolKind::WildcardImport)
                 continue;
             auto* pkg = comp.getPackage(
@@ -2113,6 +2224,35 @@ bool UhdmExporter::implicitNetFromPatternKey(const Symbol* sym,
 
 bool UhdmExporter::implicitNetKeptInElab(const Symbol* sym,
                                          const InstanceBodySymbol& body) {
+    // A GATE terminal keeps its implicit net alive in the elab view too: the
+    // elaborated primitive's prim_term binds the net as its vpiActual, so the
+    // net must exist there (Gates: `not (a_inv, A)` mints a_inv).
+    for (auto& mb : body.members()) {
+        const PrimitiveInstanceSymbol* pi = nullptr;
+        if (mb.kind == SymbolKind::PrimitiveInstance)
+            pi = &mb.as<PrimitiveInstanceSymbol>();
+        else if (mb.kind == SymbolKind::InstanceArray) {
+            auto& arr = mb.as<InstanceArraySymbol>();
+            if (!arr.elements.empty() && arr.elements[0] &&
+                arr.elements[0]->kind == SymbolKind::PrimitiveInstance)
+                pi = &arr.elements[0]->as<PrimitiveInstanceSymbol>();
+        }
+        if (!pi)
+            continue;
+        for (auto* ce : pi->getPortConnections()) {
+            if (!ce)
+                continue;
+            const Expression* te = &stripImplicitConv(*ce);
+            if (te->kind == ExpressionKind::Assignment)
+                te = &stripImplicitConv(te->as<AssignmentExpression>().left());
+            std::set<const Symbol*> syms;
+            collectLhsSyms(*te, syms);
+            if (te->kind == ExpressionKind::NamedValue)
+                syms.insert(&te->as<NamedValueExpression>().symbol);
+            if (syms.count(sym))
+                return true;
+        }
+    }
     for (auto& mb : body.members()) {
         if (mb.kind != SymbolKind::Instance)
             continue;
@@ -2293,7 +2433,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     {
         std::vector<const Symbol*> structPortSyms;
         for (auto& it2 : collectNetOrder(body)) {
-            if (!it2.port || it2.bodyDecl)
+            if (!it2.port || it2.bodyDecl || it2.portExprNet)
                 continue;
             if (auto dt = it2.sym->getDeclaredType()) {
                 auto k = dt->getType().getCanonicalType().kind;
@@ -2395,7 +2535,43 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     }));
             }
     }
+    // An EXPLICIT non-ANSI port shares one internal symbol across several
+    // ports; only the FIRST of them carries the port typespec, and the net
+    // the others mint is left untyped — which Surelog's elaboration turns
+    // into a plain automatic VARIABLE instead of a net.
+    std::set<const Symbol*> explicitPortTsSeen;
     for (auto& it : collectNetOrder(body)) {
+        if (it.portExprNet) {
+            std::string pname(it.port->name);
+            std::string pfull = prefix + "." + pname;
+            bool firstTs = explicitPortTsSeen.insert(it.sym).second;
+            if (!firstTs) {
+                auto* pv = s.MakeLogic_var();
+                pv->VpiName(pname);
+                pv->VpiFullName(pfull);
+                pv->VpiParent(m);
+                setLocNamed(pv, *it.port);
+                pv->VpiAutomatic(true);
+                pv->VpiVisibility(1);
+                vars->push_back(pv);
+                continue;
+            }
+            auto* pn = s.MakeLogic_net();
+            pn->VpiName(pname);
+            pn->VpiFullName(pfull);
+            pn->VpiParent(m);
+            setLocNamed(pn, *it.port);
+            if (auto* pts = makeTypespec(*it.sym, nullptr, it.port)) {
+                auto* prt = s.MakeRef_typespec();
+                prt->VpiFullName(pfull);
+                prt->VpiParent(pn);
+                prt->Actual_typespec(pts);
+                pts->VpiParent(pn);
+                pn->Typespec(prt);
+            }
+            nets->push_back(pn);
+            continue;
+        }
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
         // Implicit nets carry no typespec (and print a bare wire net type).
@@ -3177,7 +3353,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             }
                         }
             }
-            if (isStruct && arrOfStructMember && isPkgStructType(*it.sym) &&
+            // The general form of the same rule (structTsIsNetLike): ANY
+            // non-logic/non-struct member typespec — enum, packed array, bit,
+            // int — demotes the signal to a struct_var. Ports keep the older
+            // hand-tuned routes below; a plain body declaration takes this.
+            bool memberDemotesToVar =
+                isStruct && !it.port && !structTsIsNetLike(ts);
+            if (isStruct &&
+                ((arrOfStructMember && isPkgStructType(*it.sym)) ||
+                 memberDemotesToVar) &&
                 !it.sym->getDeclaredType()->getInitializer()) {
                 auto* sv = s.MakeStruct_var();
                 sv->VpiName(name);
@@ -3189,6 +3373,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                     rt->VpiParent(sv);
                     sv->Typespec(rt);
                 }
+                // An ANONYMOUS struct clone parents at the signal object the
+                // same way the struct_net route parents it (below) — the
+                // demotion changes the signal's class, not the typespec's
+                // ownership.
+                if (memberDemotesToVar && ts && !anonStructWhole &&
+                    anonStructClone)
+                    ts->VpiParent(sv);
                 topNets[it.sym] = sv;
                 sigOrder.emplace_back(it.sym, sv);
                 vars->push_back(sv);
@@ -4075,25 +4266,22 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                             std::string(ps.name));
             lc->VpiParent(p);
             // Child low conns anchor at the formal name in the connection.
-            // A POSITIONAL connection has no formal token: an ANSI-header
-            // child keeps the actual expression's span, while a NON-ANSI
-            // header (module m(a,b); input a; ...) anchors at the port
-            // DECLARATION — Surelog builds that lowConn from the separate
-            // declaration node.
-            bool nonAnsiHdr9 = false;
-            if (auto* dsyn9 = inst.getDefinition().getSyntax())
-                if (dsyn9->kind == syntax::SyntaxKind::ModuleDeclaration) {
-                    auto& mh9 = *dsyn9->as<syntax::ModuleDeclarationSyntax>()
-                                     .header;
-                    nonAnsiHdr9 =
-                        mh9.ports &&
-                        mh9.ports->kind == syntax::SyntaxKind::NonAnsiPortList;
-                }
+            // A POSITIONAL connection has no formal token, so the actual
+            // expression's span is used instead — EXCEPT when the
+            // instantiation is udp-shaped (see udpShapedInstantiation): then
+            // Surelog never ran compileHighConn on it, and writeNets builds
+            // the lowConn ref_obj fresh from the DEFINITION's net node, i.e.
+            // at the formal port declaration.  (This replaces a "non-ANSI
+            // CHILD header anchors at the port declaration" rule read off the
+            // same symptom: measured on a ten-shape probe, an ANSI-header
+            // child of a udp-shaped instantiation anchors at the formal too,
+            // and UnitElabBlock's non-ANSI `mod (in)` under the ordinary
+            // one-terminal `mod amod(stim1)` anchors at the ACTUAL.)
             if (auto npc = findConnSyntax(inst, ps.name))
                 setLoc(lc, SourceRange(npc->name.location(),
                                        npc->name.location() + ps.name.size()));
             else if (hasOrderedConns(inst) && conn && connectionExpr(*conn) &&
-                     !nonAnsiHdr9)
+                     !udpShapedInstantiation(inst))
                 setLoc(lc, connectionExpr(*conn)->sourceRange);
             else
                 setLocNamed(lc, ps);
@@ -5335,6 +5523,46 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         auto* gv = s.MakeGen_scopeVec();
         gv->push_back(gs);
         gsa->Gen_scopes(gv);
+
+        // An elab system task ($info/$warning/...) inside a TAKEN generate
+        // block becomes a gen_scope Elab_task (vpiSysTaskCall) spanning the
+        // whole statement, semicolon included; only the MESSAGE string
+        // literal survives as an argument (Surelog compiles no others).
+        {
+            auto* etv9 = s.MakeTf_callVec();
+            for (auto& gm9 : blk.members()) {
+                if (gm9.kind != SymbolKind::ElabSystemTask)
+                    continue;
+                auto esyn9 = gm9.getSyntax();
+                if (!esyn9 || esyn9->kind != syntax::SyntaxKind::ElabSystemTask)
+                    continue;
+                auto& es9 = esyn9->as<syntax::ElabSystemTaskSyntax>();
+                auto* stc9 = s.MakeSys_task_call();
+                std::string tnm9(es9.name.valueText());
+                if (!tnm9.empty() && tnm9[0] == '$')
+                    tnm9.erase(0, 1);
+                stc9->VpiName(tnm9);
+                stc9->VpiParent(gs);
+                setLoc(stc9, esyn9->sourceRange());
+                if (es9.arguments && !es9.arguments->parameters.empty()) {
+                    std::string raw9(
+                        rawText(es9.arguments->parameters[0]->sourceRange()));
+                    if (raw9.size() >= 2 && raw9.front() == '"' &&
+                        raw9.back() == '"') {
+                        auto* c9 = s.MakeConstant();
+                        c9->VpiDecompile(raw9);
+                        c9->VpiValue("STRING:" + raw9);
+                        c9->VpiConstType(vpiStringConst);
+                        auto* args9 = s.MakeAnyVec();
+                        args9->push_back(c9);
+                        stc9->Tf_call_args(args9);
+                    }
+                }
+                etv9->push_back(stc9);
+            }
+            if (!etv9->empty())
+                gs->Elab_tasks(etv9);
+        }
 
         // Genvar localparam: line of the generate loop, column 0, no end.
         auto* params = s.MakeAnyVec();
@@ -7689,6 +7917,65 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
+    // Verilog-mode `logic x;` is a NET declaration, and its def-view typespec
+    // reaches the end of the FIRST declarator of the group.
+    //
+    // Surelog's lexer only knows `logic` as a keyword in SystemVerilog mode,
+    // which `ParseFile.cpp` derives from the file EXTENSION alone (`-sv <file>`
+    // keys on the command-line path, never on the preprocessed file the parser
+    // reads, so it does NOT switch the mode -- measured).  In a `.v` file
+    // `logic` therefore lexes as an identifier and `logic a, b;` parses as a
+    // Net_declaration with an EMPTY data-type-or-implicit slot; the slot that
+    // compileNetDeclaration reads the "packed dimension" out of then holds the
+    // FIRST Net_decl_assignment, and writeNets stretches the typespec end to
+    // it.  So both spans of `logic a, b;` end after `a`, and `logic a = 1, b;`
+    // ends both after `= 1` (measured: OneAnd/OneFF/UnitElabBlock/
+    // OneNetModPort plus a 14-case probe).
+    //
+    // Only the BARE keyword takes that path: `logic [7:0] x` and `logic signed
+    // x` fill the data-type slot properly (the latter is a Verilog-mode syntax
+    // error) and keep the ordinary type span, and `reg`/`bit`/`wire` are
+    // Verilog-1995 keywords in both modes, so they never extend -- not even
+    // `wire w = 1'b0`.  A declarator carrying its OWN unpacked dimension wins
+    // over the group rule (handled above) because compileNetDeclaration
+    // prefers the per-signal Unpacked_dimension.
+    if (ts && ts->UhdmType() == UHDM::uhdmlogic_typespec &&
+        ts->VpiName().empty() && !hasExplicitNetKeyword(*pn.sym)) {
+        auto dt6 = pn.sym->getDeclaredType();
+        const syntax::SyntaxNode* tsyn6 = dt6 ? dt6->getTypeSyntax() : nullptr;
+        bool bareLogic = false;
+        if (tsyn6 && tsyn6->kind == syntax::SyntaxKind::LogicType) {
+            auto& its6 = tsyn6->as<syntax::IntegerTypeSyntax>();
+            bareLogic = its6.dimensions.empty() && !its6.signing.valid();
+        }
+        auto dsyn6 = pn.sym->getSyntax();
+        if (bareLogic && dsyn6 &&
+            dsyn6->kind == syntax::SyntaxKind::Declarator &&
+            dsyn6->as<syntax::DeclaratorSyntax>().dimensions.empty() &&
+            verilogLexMode(tsyn6->sourceRange().start())) {
+            const syntax::DeclaratorSyntax* first = nullptr;
+            const syntax::SyntaxNode* grp = dsyn6->parent;
+            if (grp) {
+                if (grp->kind == syntax::SyntaxKind::DataDeclaration) {
+                    auto& dcls = grp->as<syntax::DataDeclarationSyntax>().declarators;
+                    if (!dcls.empty())
+                        first = dcls[0];
+                }
+                else if (grp->kind == syntax::SyntaxKind::NetDeclaration) {
+                    auto& dcls = grp->as<syntax::NetDeclarationSyntax>().declarators;
+                    if (!dcls.empty())
+                        first = dcls[0];
+                }
+            }
+            if (first) {
+                auto fe = first->sourceRange().end();
+                if (fe != SourceLocation::NoLocation) {
+                    ts->VpiEndLineNo(sm->getLineNumber(fe));
+                    ts->VpiEndColumnNo(sm->getColumnNumber(fe));
+                }
+            }
+        }
+    }
     pn.rt->Actual_typespec(ts);
 }
 
@@ -7705,6 +7992,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     // Package function return locals precede all module write-phase ts.
     drainFuncRet(/*pkgOnly=*/true);
     auto* ports = s.MakePortVec();
+    std::set<const Symbol*> explicitPortTs;
     for (auto portBase : body.getPortList()) {
         if (portBase->kind != SymbolKind::Port)
             continue;
@@ -7732,14 +8020,22 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 break;
         }
 
+        // An EXPLICIT port's LowConn names the EXPRESSION, not the port.
+        bool explicitPort = isExplicitNonAnsiPort(ps);
         auto* lc = s.MakeRef_obj();
-        lc->VpiName(ps.name);
-        lc->VpiFullName(tp.prefix + "." + std::string(ps.name));
+        lc->VpiName(explicitPort ? internal->name : ps.name);
+        lc->VpiFullName(tp.prefix + "." +
+                        std::string(explicitPort ? internal->name : ps.name));
         lc->VpiParent(p);
         setLocNamed(lc, ps);
         if (auto it = tp.nets.find(internal); it != tp.nets.end())
             lc->Actual_group(it->second);
         p->Low_conn(lc);
+        // Only the FIRST explicit port naming a symbol is typed (Surelog).
+        if (explicitPort && !explicitPortTs.insert(internal).second) {
+            ports->push_back(p);
+            continue;
+        }
 
         // A top-module port with an INITIALIZER carries a FOLDED-value
         // HighConn (64-bit; a call-fold encodes signed INT, a literal UINT).
@@ -7941,6 +8237,34 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             defRt->Actual_typespec(defPts);
         p->Typespec(rt);
         ports->push_back(p);
+    }
+    // The symbol an EXPLICIT port names carries its own port (its `inout
+    // internal;` declaration is a port declaration), after the header ports.
+    for (auto* isym : explicitPortOwnPorts(body)) {
+        auto* pd = s.MakePort();
+        pd->VpiName(isym->name);
+        pd->VpiParent(tp.m);
+        setLoc(pd, nameSpan(isym->location, isym->name));
+        pd->VpiDirection(explicitPortDirection(body, *isym));
+        auto* lc = s.MakeRef_obj();
+        lc->VpiName(isym->name);
+        lc->VpiFullName(tp.prefix + "." + std::string(isym->name));
+        lc->VpiParent(pd);
+        setLoc(lc, nameSpan(isym->location, isym->name));
+        if (auto it = tp.nets.find(isym); it != tp.nets.end())
+            lc->Actual_group(it->second);
+        pd->Low_conn(lc);
+        tfContext = true;
+        auto* pts = makeTypespec(*isym, nullptr, nullptr);
+        tfContext = false;
+        if (pts) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(tp.prefix + "." + std::string(isym->name));
+            rt->VpiParent(pd);
+            rt->Actual_typespec(pts);
+            pd->Typespec(rt);
+        }
+        ports->push_back(pd);
     }
     if (!ports->empty())
         tp.m->Ports(ports);
@@ -8409,6 +8733,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                              NetMap& netMap, bool topView,
                              TsCache* sharedTs) {
     auto* ports = s.MakePortVec();
+    std::set<const Symbol*> explicitPortTs;
     for (auto portBase : body.getPortList()) {
         // A module port of interface type (myif.s sub): LowConn ref_obj ->
         // the modport object; vpiTypedef -> interface_typespec(modport).
@@ -8494,23 +8819,43 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
         }
 
         auto* lc = s.MakeRef_obj();
-        // Def view: work@mod.<n>.<n> (port-scoped) with a name; ports whose
-        // net is re-declared in the body use work@mod.<n> and no name.
-        bool merged = internal && hasBodyDecl(*internal);
-        if (topView || merged) {
-            if (topView)
-                lc->VpiName(ps.name);
-            lc->VpiFullName(prefix + "." + std::string(ps.name));
+        // An EXPLICIT port's LowConn names the EXPRESSION, not the port:
+        // module-scoped, and in the def view unlocated and hung off the
+        // module_inst rather than the port (Surelog).
+        bool explicitPort = isExplicitNonAnsiPort(ps);
+        if (explicitPort) {
+            lc->VpiName(internal->name);
+            lc->VpiFullName(prefix + "." + std::string(internal->name));
+            if (topView) {
+                lc->VpiParent(p);
+                setLocNamed(lc, ps);
+            }
+            else
+                lc->VpiParent(m);
+            if (auto it = netMap.find(internal); it != netMap.end())
+                lc->Actual_group(it->second);
+            p->Low_conn(lc);
         }
         else {
-            lc->VpiName(ps.name);
-            lc->VpiFullName(prefix + "." + std::string(ps.name) + "." + std::string(ps.name));
+            // Def view: work@mod.<n>.<n> (port-scoped) with a name; ports
+            // whose net is re-declared in the body use work@mod.<n>, no name.
+            bool merged = internal && hasBodyDecl(*internal);
+            if (topView || merged) {
+                if (topView)
+                    lc->VpiName(ps.name);
+                lc->VpiFullName(prefix + "." + std::string(ps.name));
+            }
+            else {
+                lc->VpiName(ps.name);
+                lc->VpiFullName(prefix + "." + std::string(ps.name) + "." +
+                                std::string(ps.name));
+            }
+            lc->VpiParent(p);
+            setLocNamed(lc, ps);
+            if (auto it = netMap.find(internal); it != netMap.end())
+                lc->Actual_group(it->second);
+            p->Low_conn(lc);
         }
-        lc->VpiParent(p);
-        setLocNamed(lc, ps);
-        if (auto it = netMap.find(internal); it != netMap.end())
-            lc->Actual_group(it->second);
-        p->Low_conn(lc);
 
         // A port with an INITIALIZER (output integer w = bar(4)) carries a
         // vpiHighConn = the init expression (a call stays a call; a literal
@@ -8536,6 +8881,13 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             portInitCtx = spc;
         }
 
+        // Several EXPLICIT ports may name the same internal symbol; Surelog
+        // types only the first of them (the later ports carry no vpiTypedef,
+        // and their nets go untyped with them).
+        if (explicitPort && !explicitPortTs.insert(internal).second) {
+            ports->push_back(p);
+            continue;
+        }
         // A def-view INTERFACE port carries no typespec (unlike a module port).
         if (!(m->UhdmType() == UHDM::uhdminterface_inst && !topView)) {
             // Override-gated port ranges: the def ts defers to the write
@@ -8692,6 +9044,33 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
 
         ports->push_back(p);
     }
+    // The symbol an EXPLICIT port names is a port in its own right: its
+    // `inout internal;` declaration is a port declaration, so Surelog gives
+    // it the ordinary doubled-fullname port too, after the header ports.
+    for (auto* isym : explicitPortOwnPorts(body)) {
+        auto* pd = s.MakePort();
+        pd->VpiName(isym->name);
+        pd->VpiParent(m);
+        setLoc(pd, nameSpan(isym->location, isym->name));
+        pd->VpiDirection(explicitPortDirection(body, *isym));
+        auto* lc = s.MakeRef_obj();
+        lc->VpiName(isym->name);
+        lc->VpiFullName(prefix + "." + std::string(isym->name) + "." +
+                        std::string(isym->name));
+        lc->VpiParent(pd);
+        setLoc(lc, nameSpan(isym->location, isym->name));
+        if (auto it = netMap.find(isym); it != netMap.end())
+            lc->Actual_group(it->second);
+        pd->Low_conn(lc);
+        if (auto* ts = makeTypespec(*isym, nullptr, nullptr)) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(prefix + "." + std::string(isym->name));
+            rt->VpiParent(pd);
+            rt->Actual_typespec(ts);
+            pd->Typespec(rt);
+        }
+        ports->push_back(pd);
+    }
     if (!ports->empty())
         instSetPorts(m, ports);
 }
@@ -8708,6 +9087,149 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
         {"and", vpiAndPrim},   {"nand", vpiNandPrim}, {"nor", vpiNorPrim},
         {"or", vpiOrPrim},     {"xor", vpiXorPrim},   {"xnor", vpiXnorPrim},
         {"buf", vpiBufPrim},   {"not", vpiNotPrim}};
+    // The ENABLE gates and the bidirectional switches reach only the ELAB
+    // view: Surelog's def-view module compile knows just the n-input/n-output
+    // gate forms above, so a def-view bufif0/tranif0 is emitted by neither
+    // tool. Switches are switch_tran objects with two INOUT terminals ahead
+    // of the enable; enable gates stay `gate`s with the usual out-first rule.
+    static const std::map<std::string, int32_t> elabGateMap = {
+        {"bufif0", vpiBufif0Prim}, {"bufif1", vpiBufif1Prim},
+        {"notif0", vpiNotif0Prim}, {"notif1", vpiNotif1Prim}};
+    static const std::map<std::string, int32_t> elabSwitchMap = {
+        {"rtran", vpiRtranPrim},     {"rtranif0", vpiRtranif0Prim},
+        {"rtranif1", vpiRtranif1Prim}, {"tran", vpiTranPrim},
+        {"tranif0", vpiTranif0Prim}, {"tranif1", vpiTranif1Prim}};
+    // Resolve a primitive name to (vpi prim type, is-switch) for this view.
+    auto primKind = [&](const std::string& pname,
+                        int32_t& primType) -> std::optional<bool> {
+        if (auto it = primMap.find(pname); it != primMap.end()) {
+            primType = it->second;
+            return false;
+        }
+        if (topView) {
+            if (auto it = elabGateMap.find(pname); it != elabGateMap.end()) {
+                primType = it->second;
+                return false;
+            }
+            if (auto it = elabSwitchMap.find(pname); it != elabSwitchMap.end()) {
+                primType = it->second;
+                return true;
+            }
+        }
+        return std::nullopt;
+    };
+
+    // A gate DELAY (`#5`, `#(1,2)`, `#(1:2:3,4:5:6)`) is elab-view only. An
+    // UNPARENTHESISED delay is a bare constant that decompiles with its `#`;
+    // a parenthesised list is a vpiListOp over one vpiMinTypMaxOp per delay
+    // (a single delay drops the list and takes the whole `#(...)` span).
+    auto delayNum = [](const syntax::ExpressionSyntax& es,
+                       uint64_t& out) -> bool {
+        if (es.kind != syntax::SyntaxKind::IntegerLiteralExpression)
+            return false;
+        auto v = es.as<syntax::LiteralExpressionSyntax>().literal.intValue();
+        if (v.hasUnknown() || v.getBitWidth() > 64)
+            return false;
+        auto u = v.as<uint64_t>();
+        if (!u)
+            return false;
+        out = *u;
+        return true;
+    };
+    auto mkDelayConst = [&](uint64_t v, SourceRange r,
+                            const std::string& dec) -> UHDM::constant* {
+        auto* c = s.MakeConstant();
+        c->VpiDecompile(dec);
+        c->VpiSize(64);
+        c->VpiValue("UINT:" + std::to_string(v));
+        c->VpiConstType(vpiUIntConst);
+        setLoc(c, r);
+        return c;
+    };
+    auto buildDelay = [&](const PrimitiveInstanceSymbol& pi) -> UHDM::expr* {
+        auto syn = pi.getSyntax();
+        if (!syn || !syn->parent ||
+            syn->parent->kind != syntax::SyntaxKind::PrimitiveInstantiation)
+            return nullptr;
+        auto* dsyn =
+            syn->parent->as<syntax::PrimitiveInstantiationSyntax>().delay;
+        if (!dsyn)
+            return nullptr;
+        // `#5` never reaches the delay3 production (slang falls back to a
+        // plain timing control): a bare constant whose decompile keeps the
+        // `#` and whose span runs from the hash through the value.
+        if (dsyn->kind == syntax::SyntaxKind::DelayControl) {
+            auto& d1 = dsyn->as<syntax::DelaySyntax>();
+            uint64_t v = 0;
+            if (!delayNum(*d1.delayValue, v))
+                return nullptr;
+            return mkDelayConst(
+                v, SourceRange(d1.hash.location(),
+                               d1.delayValue->sourceRange().end()),
+                "#" + std::to_string(v));
+        }
+        if (dsyn->kind != syntax::SyntaxKind::Delay3)
+            return nullptr;
+        auto& d3 = dsyn->as<syntax::Delay3Syntax>();
+        std::vector<const syntax::ExpressionSyntax*> ds{d3.delay1};
+        if (d3.delay2)
+            ds.push_back(d3.delay2);
+        if (d3.delay3)
+            ds.push_back(d3.delay3);
+        SourceRange whole(d3.hash.location(),
+                          d3.closeParen ? d3.closeParen.range().end()
+                                        : ds.back()->sourceRange().end());
+        if (!d3.closeParen) {
+            uint64_t v = 0;
+            if (ds.size() != 1 || !delayNum(*ds[0], v))
+                return nullptr;
+            return mkDelayConst(v, whole, "#" + std::to_string(v));
+        }
+        auto mkMinTypMax = [&](const syntax::ExpressionSyntax& es,
+                               SourceRange span,
+                               UHDM::BaseClass* parent) -> UHDM::operation* {
+            auto* ops = s.MakeAnyVec();
+            auto add = [&](const syntax::ExpressionSyntax& e) -> bool {
+                uint64_t v = 0;
+                if (!delayNum(e, v))
+                    return false;
+                ops->push_back(
+                    mkDelayConst(v, e.sourceRange(), std::to_string(v)));
+                return true;
+            };
+            bool ok;
+            if (es.kind == syntax::SyntaxKind::MinTypMaxExpression) {
+                auto& mtm = es.as<syntax::MinTypMaxExpressionSyntax>();
+                ok = add(*mtm.min) && add(*mtm.typ) && add(*mtm.max);
+            }
+            else
+                ok = add(es);
+            if (!ok)
+                return nullptr;
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiMinTypMaxOp);
+            if (parent)
+                op->VpiParent(parent);
+            setLoc(op, span);
+            op->Operands(ops);
+            return op;
+        };
+        if (ds.size() == 1)
+            return mkMinTypMax(*ds[0], whole, nullptr);
+        auto* lop = s.MakeOperation();
+        lop->VpiOpType(vpiListOp);
+        setLoc(lop, whole);
+        auto* ops = s.MakeAnyVec();
+        for (auto* de : ds) {
+            auto* mo = mkMinTypMax(*de, de->sourceRange(), lop);
+            if (!mo)
+                return nullptr;
+            ops->push_back(mo);
+        }
+        lop->Operands(ops);
+        return lop;
+    };
+
     // Build one gate object from a primitive instance.
     //   gateName/gateFull: this gate's identity.
     //   refScope: prefix under which the term ref_objs are named.
@@ -8719,8 +9241,9 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
                          int32_t primType, const std::string& gateName,
                          const std::string& gateFull, const std::string& refScope,
                          UHDM::BaseClass* parent, const SourceRange* locOverride,
-                         bool stripToBase) -> UHDM::gate* {
-        auto* g = s.MakeGate();
+                         bool stripToBase, bool isSwitch = false) -> UHDM::primitive* {
+        UHDM::primitive* g = isSwitch ? (UHDM::primitive*)s.MakeSwitch_tran()
+                                      : (UHDM::primitive*)s.MakeGate();
         g->VpiParent(parent);
         g->VpiDefName("work@" + pname);
         g->VpiName(gateName);
@@ -8730,22 +9253,36 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
             setLoc(g, *locOverride);
         else if (auto syn = pi.getSyntax())
             setLoc(g, syn->sourceRange());
+        if (topView)
+            if (auto* dly = buildDelay(pi))
+                g->Delay(dly);
         auto* terms = s.MakePrim_termVec();
         auto conns = pi.getPortConnections();
+        // An UNNAMED gate (`not (a_inv, A);`) loses its FIRST terminal in the
+        // def view: Surelog's def-view gate compile indexes the terminal list
+        // past the (absent) instance-name slot, so terminal 0 never lands and
+        // the rest shift down. The elab view builds the terminals properly.
+        size_t skipTerms = (!topView && gateName.empty()) ? 1u : 0u;
         // DEF view: Surelog marks ONLY term 0 as the output — even for a
         // multi-output buf/not. ELAB view: TRUE directions (buf/not: all but
         // the last are outputs).
         bool outLast = topView && (pname == "buf" || pname == "not");
         int32_t idx = 0;
-        for (auto* ce : conns) {
+        for (size_t ci = skipTerms; ci < conns.size(); ci++) {
+            auto* ce = conns[ci];
             if (!ce) {
                 idx++;
                 continue;
             }
             auto* t = s.MakePrim_term();
             t->VpiParent(g);
-            bool isOut = outLast ? (idx + 1 < (int32_t)conns.size()) : idx == 0;
-            t->VpiDirection(isOut ? vpiOutput : vpiInput);
+            bool isOut = outLast ? (ci + 1 < conns.size()) : idx == 0;
+            // A bidirectional switch drives its first TWO terminals both
+            // ways; only the trailing enable is a plain input.
+            if (isSwitch && idx < 2)
+                t->VpiDirection(vpiInout);
+            else
+                t->VpiDirection(isOut ? vpiOutput : vpiInput);
             if (idx > 0)
                 t->VpiTermIndex(idx);
             // An OUTPUT terminal binds as an implicit assignment (o = <gate>);
@@ -8798,18 +9335,25 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
         if (member.kind == SymbolKind::PrimitiveInstance) {
             auto& pi = member.as<PrimitiveInstanceSymbol>();
             std::string pname(pi.primitiveType.name);
-            auto pmIt = primMap.find(pname);
-            if (pmIt == primMap.end()) {
+            int32_t primType = 0;
+            auto sw = primKind(pname, primType);
+            if (!sw) {
                 noteUnsupported("gate primitive: " + pname);
                 continue;
             }
-            std::string gfull = prefix + "." + std::string(member.name);
+            // An UNNAMED gate has no identity to build a def-view scope from,
+            // so Surelog falls back to the DEF name (work@mux.work@not); the
+            // elab view keeps the bare dangling `work@mux.`.
+            std::string gname(member.name);
+            std::string gfull =
+                prefix + "." +
+                ((!topView && gname.empty()) ? ("work@" + pname) : gname);
             // DEF view: term refs are scoped THROUGH the gate instance
             // (prefix.u_buf0.out_buf0); the ELAB view names them in the
             // module scope (prefix.out_buf0) — same split as a gate ARRAY.
-            auto* g = buildGate(pi, pname, pmIt->second, std::string(member.name),
+            auto* g = buildGate(pi, pname, primType, gname,
                                 gfull, topView ? prefix : gfull, m, nullptr,
-                                false);
+                                false, *sw);
             if (!prims)
                 prims = s.MakePrimitiveVec();
             prims->push_back(g);
@@ -8921,6 +9465,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
     for (auto& it : collectNetOrder(body)) {
         if (!topView)
             break;
+        if (it.portExprNet)
+            continue;
         auto nit = netMap.find(it.sym);
         if (nit == netMap.end())
             continue;
@@ -9201,9 +9747,33 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         auto& ae = assign.as<AssignmentExpression>();
         // An implicit-net LHS cont_assign shares the DEF-view object into
         // the elab list bare (the net itself is dropped there — Surelog).
+        // EXCEPT when the RHS itself folds in the elab view: an element
+        // select of an UNPACKED-ARRAY parameter (assign b = x[0]) still gets
+        // a FRESH elab cont_assign carrying the folded leaf constant — only
+        // the implicit NET is dropped, not the assign's re-elaboration
+        // (ReorderPatt). The general share decision below already knows this
+        // case as unpackedParamSel; the implicit-net shortcut must not
+        // pre-empt it.
         if (topView) {
             auto& lc0 = stripImplicitConv(ae.left());
-            if (lc0.kind == ExpressionKind::NamedValue &&
+            bool elabFoldRhs9 = false;
+            {
+                auto& rc9 = stripImplicitConv(ae.right());
+                const Expression* base9 = &rc9;
+                while (base9->kind == ExpressionKind::ElementSelect)
+                    base9 = &stripImplicitConv(
+                        base9->as<ElementSelectExpression>().value());
+                if (rc9.kind == ExpressionKind::ElementSelect &&
+                    base9->kind == ExpressionKind::NamedValue &&
+                    base9->as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter &&
+                    base9->as<NamedValueExpression>()
+                            .symbol.getType()
+                            .getCanonicalType()
+                            .kind == SymbolKind::FixedSizeUnpackedArrayType)
+                    elabFoldRhs9 = true;
+            }
+            if (!elabFoldRhs9 && lc0.kind == ExpressionKind::NamedValue &&
                 lc0.as<NamedValueExpression>().symbol.kind == SymbolKind::Net &&
                 lc0.as<NamedValueExpression>().symbol.as<NetSymbol>().isImplicit &&
                 !implicitNetKeptInElab(&lc0.as<NamedValueExpression>().symbol,
@@ -10710,12 +11280,35 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // pattern's own leaf: Surelog's constant CLAIMS that leaf's
             // source span and re-parents at the reading cont_assign.
             if (rhs && unpackedParamSel && !pkgParamSel &&
-                rhs->UhdmType() == UHDM::uhdmconstant)
+                rhs->UhdmType() == UHDM::uhdmconstant) {
+                // Surelog SUBSTITUTES the elaborated element, so the fold
+                // carries the ELEMENT's own value and width — never the
+                // assignment target's. tryFoldConst evaluates the assignment,
+                // which agrees whenever the target type matches the element
+                // (int a = P[..][..][..] -> 32, logic a -> 1) but truncates
+                // when it does not: `assign b = x[0]` onto an IMPLICIT 1-bit
+                // net gave UINT:1 size 1 where Surelog writes UINT:11 size 32
+                // (ReorderPatt). Re-derive from the select itself.
+                auto& rcL9 = stripImplicitConv(ae.right());
+                if (rcL9.type) {
+                    ASTContext ectx9(comp.getRoot(), LookupLocation::max);
+                    ConstantValue ev9 = ectx9.tryEval(rcL9);
+                    if (ev9 && ev9.isInteger() && !ev9.integer().hasUnknown()) {
+                        std::string dg9 = ev9.integer().toString(
+                            LiteralBase::Decimal, false);
+                        auto* rc9 = (UHDM::constant*)rhs;
+                        rc9->VpiDecompile(dg9);
+                        rc9->VpiValue("UINT:" + dg9);
+                        rc9->VpiConstType(vpiUIntConst);
+                        rc9->VpiSize((int32_t)rcL9.type->getBitWidth());
+                    }
+                }
                 if (auto* lf =
                         unpackedParamPatternLeaf(stripImplicitConv(ae.right()))) {
                     setLoc(rhs, lf->sourceRange);
                     rhs->VpiParent(ca);
                 }
+            }
         }
         // A NESTED cast RHS, or a cast whose operand is a PARAMETER ref
         // (int'(X)), that evals fully folds loc-less: UINT by magnitude at
@@ -12404,6 +12997,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         return nullptr;
     };
     for (auto& it : collectNetOrder(body)) {
+        if (it.portExprNet)
+            continue;
         std::string name(it.sym->name);
         auto* n = s.MakeLogic_net();
         n->VpiName(name);
@@ -12590,7 +13185,8 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
     // the modport io_decl exprs instead.
     auto* vars = s.MakeVariablesVec();
     for (auto& it : collectNetOrder(body))
-        if (auto nit = sharedNets.find(it.sym); nit != sharedNets.end()) {
+        if (auto nit = it.portExprNet ? sharedNets.end() : sharedNets.find(it.sym);
+            nit != sharedNets.end()) {
             if (it.sym->kind == SymbolKind::Net)
                 continue;
             // NET-CLASS home objects (struct_net members) are not dup
@@ -12994,6 +13590,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // the declaration (Surelog's TypespecCache — same as the module elab view).
     TsCache ifaceNetTs;
     for (auto& it : collectNetOrder(body)) {
+        if (it.portExprNet)
+            continue;
         std::string name(it.sym->name);
         std::string fullName = prefix + "." + name;
         // A struct-typed interface member is a struct_net (Nets, wire) in the
@@ -15246,20 +15844,44 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     gf->VpiCondition((UHDM::expr*)c);
                 }
                 syntaxRefPrefix.clear();
-                // Incr (c++): op 62 at the operator span, LOC-LESS ref operand
-                // parented at the gen_for (Surelog quirk).
+                // Incr. POSTFIX (i++): op 62 anchored at the OPERAND token,
+                // LOC-LESS ref operand parented at the gen_for (Surelog quirk).
+                // PREFIX (++i) is NOT that quirk: op 63/65 spans the WHOLE
+                // ++i, and its ref operand is LOCATED at the operand token and
+                // parented at the OPERATION (measured on a genvar probe with
+                // i++ / ++j side by side).
                 {
                     auto* op = s.MakeOperation();
-                    op->VpiOpType(62);
-                    op->VpiParent(gf);
-                    // Anchored at the OPERAND token (Surelog quirk).
                     auto ir = loopSyn->iterationExpr->sourceRange();
-                    setLoc(op, SourceRange(ir.start(), ir.start() + gname.size()));
+                    auto ik9 = loopSyn->iterationExpr->kind;
+                    bool preIncDec9 =
+                        ik9 == syntax::SyntaxKind::UnaryPreincrementExpression ||
+                        ik9 == syntax::SyntaxKind::UnaryPredecrementExpression;
+                    op->VpiOpType(
+                        ik9 == syntax::SyntaxKind::UnaryPredecrementExpression
+                            ? vpiPreDecOp
+                        : ik9 == syntax::SyntaxKind::UnaryPreincrementExpression
+                            ? vpiPreIncOp
+                        : ik9 == syntax::SyntaxKind::PostdecrementExpression
+                            ? vpiPostDecOp
+                            : vpiPostIncOp);
+                    op->VpiParent(gf);
                     auto* r = s.MakeRef_obj();
                     r->VpiName(gname);
                     r->VpiFullName(gfull);
-                    r->VpiParent(gf);
                     r->Actual_group(iv);
+                    if (preIncDec9) {
+                        setLoc(op, ir);
+                        setLoc(r, loopSyn->iterationExpr
+                                      ->as<syntax::PrefixUnaryExpressionSyntax>()
+                                      .operand->sourceRange());
+                        r->VpiParent(op);
+                    }
+                    else {
+                        setLoc(op,
+                               SourceRange(ir.start(), ir.start() + gname.size()));
+                        r->VpiParent(gf);
+                    }
                     auto* ops = s.MakeAnyVec();
                     ops->push_back(r);
                     op->Operands(ops);

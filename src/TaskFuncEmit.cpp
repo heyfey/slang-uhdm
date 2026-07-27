@@ -369,6 +369,25 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
                     typedefRetClone = true;
                 }
+                else if (retBase &&
+                         retBase->UhdmType() == UHDM::uhdmarray_typespec &&
+                         retAlias) {
+                    // An UNPACKED-ARRAY typedef return gets its OWN
+                    // array_typespec twin — same shape as the module listing
+                    // but BARE-scoped inner refs — carrying a Typedef_alias
+                    // back to the listed object (Surelog; ArrayExprFuncArg,
+                    // DefaultPattern*).
+                    auto* cl9 = buildUnpackedArrayTypedefTs(
+                        *retAlias, std::string(rdt.name), /*cloneForm=*/true);
+                    cl9->VpiName(rdt.name);
+                    auto* art = s.MakeRef_typespec();
+                    art->VpiFullName(std::string(rdt.name));
+                    art->VpiParent(cl9);
+                    art->Actual_typespec(retBase);
+                    cl9->Typedef_alias(art);
+                    ts = cl9;
+                    typedefRetClone = true;
+                }
             }
             // A CLASS-HANDLE return: an ANONYMOUS class_typespec at the
             // return-type token, linked to the class_defn (Surelog).
@@ -419,11 +438,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     importCopyTsCollect->push_back(ts);
             }
             rv->Typespec(rt);
-            // A struct/enum return's shared typespec sits at the typedef, so
-            // the return var takes the return-TYPE syntax span instead (a
-            // typedef'd-vector clone likewise).
+            // A struct/enum/unpacked-array return's shared typespec sits at
+            // the typedef, so the return var takes the return-TYPE syntax
+            // span instead (a typedef'd-vector clone likewise).
             if (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
                 ts->UhdmType() == UHDM::uhdmenum_typespec ||
+                ts->UhdmType() == UHDM::uhdmarray_typespec ||
                 typedefRetClone || pkgUnitRet9) {
                 if (auto* rsyn = returnTypeSyntax(sub)) {
                     auto rr9 = rsyn->sourceRange();
@@ -824,8 +844,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         break;
                 }
                 if (!hasDir && argTsyn && argTsyn->kind != syntax::SyntaxKind::ImplicitType) {
+                    // A SIGNING keyword (int unsigned SRC) is outside the
+                    // formal's typespec span too — Surelog anchors it on the
+                    // base keyword alone (ArrayExprFuncArg).
                     if (auto* its2 = argTsyn->as_if<syntax::IntegerTypeSyntax>();
-                        its2 && !its2->dimensions.empty())
+                        its2 && (!its2->dimensions.empty() || its2->signing))
                         setLoc((UHDM::BaseClass*)ts, its2->keyword.range());
                 }
                 if (pkgScope && !classScope) {
@@ -838,11 +861,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 rt->Actual_typespec(ts);
             }
             io->Typespec(rt);
-            // Unpacked-array formals carry one range per unpacked dimension.
+            // Unpacked-array formals carry one range per unpacked dimension;
+            // a PARAM-sized dim ([CNT]) stays symbolic, scoped at the formal
+            // (work@top.F.SRC.CNT) — Surelog (ArrayExprFuncArg).
             if (arg->getDeclaredType() &&
                 arg->getDeclaredType()->getType().getCanonicalType().kind ==
                     SymbolKind::FixedSizeUnpackedArrayType)
-                if (auto* ranges = buildUnpackedRanges(*arg, io))
+                if (auto* ranges = buildUnpackedRanges(
+                        *arg, io, fullName + sep + std::string(arg->name)))
                     io->Ranges(ranges);
             ios->push_back(io);
             // Class-method body refs to formals stay UNBOUND.
