@@ -98,6 +98,12 @@ CACHE_FAILURES = os.environ.get('GOLDEN_CACHE_FAILURES', '') == '1'
 def cache_store(cdir, uhdm_path, status_line):
     if uhdm_path is None and not CACHE_FAILURES:
         return
+    # A killed writer must not publish or strand state: 0-byte/partial uhdm
+    # files are never published (audit found one 0-byte live entry and ~200
+    # orphaned .tmp staging dirs, ~20GB, from sweeps killed mid-dump).
+    if uhdm_path is not None and os.path.getsize(uhdm_path) == 0:
+        return
+    tmp = None
     try:
         os.makedirs(CACHE_ROOT, exist_ok=True)
         tmp = cdir + '.tmp%d' % os.getpid()
@@ -119,6 +125,9 @@ def cache_store(cdir, uhdm_path, status_line):
             shutil.rmtree(tmp)
     except (OSError, subprocess.TimeoutExpired):
         pass  # cache is best-effort
+    finally:
+        if tmp and os.path.isdir(tmp):
+            shutil.rmtree(tmp, ignore_errors=True)
 
 
 def cache_load(cdir):
@@ -129,6 +138,8 @@ def cache_load(cdir):
     except OSError:
         return None
     up = os.path.join(cdir, 'golden.uhdm')
+    if os.path.isfile(up) and os.path.getsize(up) == 0:
+        return None  # corrupt entry: treat as miss
     hp = os.path.join(cdir, 'golden.dumphash')
     dh = None
     if os.path.isfile(hp):
