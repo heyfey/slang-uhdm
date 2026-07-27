@@ -83,7 +83,7 @@ BasicOh,default,CMP_NOTEQUAL,decompile:,,
 BasicOh,testflags,CMP_NOTEQUAL,decompile:,,
 BeginKeywords,default,CMP_NOTEQUAL,decompile:,,
 BeginKeywords,testflags,CMP_NOTEQUAL,decompile:,,
-BiasValue,default,CMP_NOTEQUAL,decompile:,,
+BiasValue,default,CMP_EQUAL,,,differ
 BiasValue,testflags,CMP_EQUAL,,,differ
 BinarySize,default,CMP_EQUAL,,,match
 BinarySize,testflags,CMP_EQUAL,,,differ
@@ -1553,8 +1553,8 @@ YosysMarlann,default,CMP_NOTEQUAL,decompile:,,
 YosysMarlann,testflags,CMP_NOTEQUAL,decompile:,,
 YosysOldAes,default,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
 YosysOldAes,testflags,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
-YosysOldI2c,default,CMP_NOTEQUAL,decompile:,,
-YosysOldI2c,testflags,CMP_NOTEQUAL,decompile:,,
+YosysOldI2c,default,CMP_EQUAL,,,differ
+YosysOldI2c,testflags,CMP_EQUAL,,,differ
 YosysOldOpen,default,CMP_NOTEQUAL,decompile:,,
 YosysOldOpen,testflags,CMP_NOTEQUAL,decompile:,,
 YosysOldOr,default,CMP_NOTEQUAL,decompile:,,
@@ -1573,8 +1573,8 @@ YosysOldUsb,default,CMP_EQUAL,,,differ
 YosysOldUsb,testflags,CMP_EQUAL,,,differ
 YosysOpenSparc,default,SLANG_REJECT,t2.v:269093:6: error: expected a declaration name,,
 YosysOpenSparc,testflags,NO_DATABASE,test suppresses UHDM output,-nocomp,
-YosysRiscv,default,CMP_NOTEQUAL,decompile:,,
-YosysRiscv,testflags,CMP_NOTEQUAL,decompile:,,
+YosysRiscv,default,CMP_EQUAL,,,differ
+YosysRiscv,testflags,CMP_EQUAL,,,differ
 YosysSmall,default,SLANG_REJECT,dspmac_16_40_tb.v:4:10: error: 'constants.vams': No such file or directory,,
 YosysSmall,testflags,SLANG_REJECT,dspmac_16_40_tb.v:4:10: error: 'constants.vams': No such file or directory,,
 YosysSmallBoom,default,DEFERRED,late-phase: golden uncacheable on this machine,,

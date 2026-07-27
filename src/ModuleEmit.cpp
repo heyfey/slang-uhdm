@@ -10043,6 +10043,93 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
         m->Primitive_arrays(primArrs);
 }
 
+// ---------------------------------------------------------------------------
+// Elaborated cont-assign parameter substitution.
+//
+// Surelog's netlist elaboration substitutes every PARAMETER reference inside a
+// NET-DECLARATION assignment's RHS, in the ELABORATED (top/instance) view, by
+// that parameter's elaborated value.  The substituted constant is a copy of the
+// instance's OWN `param_assign` Rhs constant — same decompile/size/value/
+// constType and the same typespec ref (instance-named, pointing at the param's
+// declared-type typespec) — re-anchored at the REFERENCE's span.  Measured on a
+// (top vs child) x (def vs elab) x (parameter vs localparam) probe matrix:
+//
+//   * def view (uhdmallModules)      : never substituted (refs kept);
+//   * top view, net-decl assign      : ALWAYS substituted, top module and child
+//                                      instances alike, `parameter` and
+//                                      `localparam` alike, in both -elabuhdm
+//                                      and plain modes;
+//   * top view, explicit `assign`    : NOT substituted — an unfoldable RHS
+//                                      keeps its ref_obj operands (probe
+//                                      `assign ex_mix = nn + PP`); only the
+//                                      whole-RHS constant collapse applies, and
+//                                      that path already exists.
+//
+// This is the rule behind BiasValue (`2000 + bias_adj_lp` -> operation with an
+// INT:-1792 operand) and YosysRiscv (`wire [2*M-1:0] mask = {M{1'b1}}` -> the
+// replication's M becomes UINT:1 with the integer_typespec ref).
+static bool substNdaParamRefs(
+    UHDM::Serializer& s, UHDM::any*& e,
+    const std::map<std::string, UHDM::constant*>& pmap, const std::string& prefix,
+    UHDM::any* parent,
+    std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>& tsAlias) {
+    if (!e || pmap.empty())
+        return false;
+    if (e->UhdmType() == UHDM::uhdmoperation) {
+        bool any9 = false;
+        auto* op = (UHDM::operation*)e;
+        if (auto* ops = op->Operands())
+            for (auto& slot : *ops) {
+                UHDM::any* cur = slot;
+                if (substNdaParamRefs(s, cur, pmap, prefix, op, tsAlias)) {
+                    slot = cur;
+                    any9 = true;
+                }
+            }
+        return any9;
+    }
+    if (e->UhdmType() != UHDM::uhdmref_obj)
+        return false;
+    auto* r = (UHDM::ref_obj*)e;
+    std::string nm(r->VpiName());
+    if (nm.empty())
+        return false;
+    // Only a reference resolving in THIS instance's scope substitutes; a
+    // ref reaching some outer/other scope keeps its ref_obj.
+    if (!r->VpiFullName().empty() &&
+        std::string(r->VpiFullName()) != prefix + "." + nm)
+        return false;
+    auto it = pmap.find(nm);
+    if (it == pmap.end())
+        return false;
+    auto* src = it->second;
+    auto* c = s.MakeConstant();
+    c->VpiDecompile(std::string(src->VpiDecompile()));
+    c->VpiSize(src->VpiSize());
+    c->VpiValue(std::string(src->VpiValue()));
+    c->VpiConstType(src->VpiConstType());
+    c->VpiLineNo(r->VpiLineNo());
+    c->VpiColumnNo(r->VpiColumnNo());
+    c->VpiEndLineNo(r->VpiEndLineNo());
+    c->VpiEndColumnNo(r->VpiEndColumnNo());
+    c->VpiParent(parent);
+    if (auto* srt = src->Typespec()) {
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(std::string(srt->VpiFullName()));
+        rt->VpiParent(c);
+        // The source param_assign's ts ref is itself bound LATE (the elab
+        // param typespec is minted in the write phase), so alias rather than
+        // copy: the shared deferred pass points both at the same typespec.
+        if (srt->Actual_typespec())
+            rt->Actual_typespec(srt->Actual_typespec());
+        else
+            tsAlias.push_back({rt, srt});
+        c->Typespec(rt);
+    }
+    e = c;
+    return true;
+}
+
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,
                                    const std::string& prefix, NetMap& netMap, bool topView,
                                    DefInfo* defInfo, bool shareWithDef,
@@ -10056,6 +10143,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         ~ElabCaRestore9() { *p = v; }
     } elabCaRestore9{&elabCaEmit, savedElabCa9};
     auto* cas = s.MakeCont_assignVec();
+    // The elaborated parameter values of THIS instance, keyed by name — the
+    // substitution table for top-view net-decl-assign RHSs (see
+    // substNdaParamRefs).  Only params whose param_assign folded to a constant
+    // participate.
+    std::map<std::string, UHDM::constant*> elabPmap9;
+    if (topView && m->Param_assigns())
+        for (auto* pa9 : *m->Param_assigns()) {
+            if (!pa9->Lhs() || !pa9->Rhs())
+                continue;
+            if (pa9->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            std::string pn9(pa9->Lhs()->VpiName());
+            if (!pn9.empty())
+                elabPmap9.emplace(pn9, (UHDM::constant*)pa9->Rhs());
+        }
     // Net-declaration assignments (wire x = expr;) become cont_assigns with
     // vpiNetDeclAssign, before the explicit continuous assigns (top view only).
     for (auto& it : collectNetOrder(body)) {
@@ -10162,6 +10264,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 for (auto* o9 : *ops9)
                     if (o9->UhdmType() == UHDM::uhdmconstant && !o9->VpiParent())
                         o9->VpiParent(rhs);
+        // Elab param substitution (see substNdaParamRefs): runs BEFORE the
+        // bare-RHS width fit below, so a substituted whole-RHS constant is
+        // sized to the net like any other literal RHS (Surelog).
+        bool ndaSubst9 =
+            substNdaParamRefs(s, rhs, elabPmap9, prefix, ca, netTsAlias);
         if (rhs) {
             // Surelog sizes a bare-decimal RHS (default 64) to the net width.
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
@@ -10242,7 +10349,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
-        if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit)) {
+        // A RHS that SUBSTITUTED to a bare constant counts as a literal for the
+        // netlist re-elaboration decision (Surelog: `wire w = PARAM;` in an
+        // instance gets the fresh Lhs net a literal RHS gets).
+        if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit) ||
+            (ndaSubst9 && rhs && rhs->UhdmType() == UHDM::uhdmconstant)) {
             bool isStructNet =
                 nit->second->UhdmType() == UHDM::uhdmstruct_net || arrOfStruct;
             UHDM::net* lnet = isStructNet ? (UHDM::net*)s.MakeStruct_net()
