@@ -211,8 +211,8 @@ ClassCons,default,SLANG_REJECT,top.sv:55:4: error: use of undeclared identifier 
 ClassCons,testflags,SLANG_REJECT,top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
 ClassExtendParam,default,SLANG_REJECT,dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wmember-impl-not-found],,
 ClassExtendParam,testflags,SLANG_REJECT,dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wmember-impl-not-found],,
-ClassExtends,default,CMP_NOTEQUAL,decompile:,,
-ClassExtends,testflags,CMP_NOTEQUAL,decompile:,,
+ClassExtends,default,CMP_EQUAL,,,differ
+ClassExtends,testflags,CMP_EQUAL,,,differ
 ClassFsm,default,CMP_NOTEQUAL,decompile:,,
 ClassFsm,testflags,CMP_EQUAL,,,differ
 ClassFuncProto,default,SLANG_REJECT,top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
@@ -827,8 +827,8 @@ LogicSize,default,CMP_EQUAL,,,match
 LogicSize,testflags,CMP_EQUAL,,,differ
 LogicTypedef,default,CMP_NOTEQUAL,decompile:,,
 LogicTypedef,testflags,CMP_NOTEQUAL,decompile:,,
-LogicTypespec,default,CMP_NOTEQUAL,decompile:,,
-LogicTypespec,testflags,CMP_NOTEQUAL,decompile:,,
+LogicTypespec,default,CMP_EQUAL,,,differ
+LogicTypespec,testflags,CMP_EQUAL,,,differ
 LongHex,default,CMP_NOTEQUAL,decompile:,,
 LongHex,testflags,CMP_NOTEQUAL,decompile:,,
 Loop,default,SLANG_REJECT,dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
@@ -957,8 +957,8 @@ PackageMemberTypespec,default,CMP_EQUAL,,,differ
 PackageMemberTypespec,testflags,CMP_EQUAL,,,differ
 PackageNet,default,CMP_NOTEQUAL,decompile:,,
 PackageNet,testflags,CMP_NOTEQUAL,decompile:,,
-PackageOrder,default,CMP_NOTEQUAL,decompile:,,
-PackageOrder,testflags,CMP_NOTEQUAL,decompile:,,
+PackageOrder,default,CMP_EQUAL,,,match
+PackageOrder,testflags,CMP_EQUAL,,,match
 PackageParam,default,SLANG_REJECT,dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
 PackageParam,testflags,SLANG_REJECT,dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
 PackageParamConst,default,CMP_EQUAL,,,match
@@ -993,8 +993,8 @@ PackedEnumPort,default,CMP_EQUAL,,,differ
 PackedEnumPort,testflags,CMP_EQUAL,,,differ
 PackedEnumVar,default,CMP_NOTEQUAL,decompile:,,
 PackedEnumVar,testflags,CMP_NOTEQUAL,decompile:,,
-PackedUnpackedIo,default,CMP_NOTEQUAL,decompile:,,
-PackedUnpackedIo,testflags,CMP_NOTEQUAL,decompile:,,
+PackedUnpackedIo,default,CMP_EQUAL,,,match
+PackedUnpackedIo,testflags,CMP_EQUAL,,,match
 PackEnumVal,default,SLANG_REJECT,dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion exists; are you missing a cast?,,
 PackEnumVal,testflags,SLANG_REJECT,dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion exists; are you missing a cast?,,
 PackFunc,default,CMP_EQUAL,,,differ

@@ -6475,6 +6475,91 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     pkgTdByName.emplace_back(std::string(ta2.name),
                                              (UHDM::typespec*)cl2);
                 }
+                // The typedefs the enum/struct rule above skips — vector,
+                // scalar and class aliases — list too, and TRANSITIVELY: a
+                // package that wildcard-imports a package which itself
+                // wildcard-imports a third one lists the third's typedefs,
+                // named after their OWN home package (PackageOrder: A imports
+                // D imports B, and A lists `B::C`).  One clone per typedef is
+                // shared by every importer and its vpiParent/vpiInstance
+                // follow the LAST package to list it (Surelog's last-writer
+                // stamp) — the module-side listing in emitImportArtifacts
+                // already ran this rule for all kinds; only the PACKAGE side
+                // was enum/struct-only.
+                std::vector<const Symbol*> otherTds;
+                std::set<const Symbol*> seenPkgs8;
+                std::function<void(const PackageSymbol&)> collectOther =
+                    [&](const PackageSymbol& p8) {
+                        if (!seenPkgs8.insert(&p8).second)
+                            return;
+                        for (auto& pm8 : p8.members()) {
+                            if (pm8.kind == SymbolKind::TypeAlias) {
+                                auto& ct8 =
+                                    pm8.as<TypeAliasType>().getCanonicalType();
+                                if (ct8.kind == SymbolKind::EnumType ||
+                                    ct8.kind == SymbolKind::PackedStructType ||
+                                    ct8.kind == SymbolKind::UnpackedStructType)
+                                    continue;
+                                // An EXPLICIT import lists only the named
+                                // symbol (the wildcard form lists them all).
+                                if (mem.kind == SymbolKind::ExplicitImport &&
+                                    mem.as<ExplicitImportSymbol>()
+                                            .importedSymbol() != &pm8)
+                                    continue;
+                                // A local typedef shadowed by a wildcard
+                                // import never lists.
+                                if (!importShadowOf(pm8))
+                                    otherTds.push_back(&pm8);
+                            }
+                            else if (pm8.kind == SymbolKind::WildcardImport) {
+                                if (auto* np8 = pm8.as<WildcardImportSymbol>()
+                                                    .getPackage())
+                                    collectOther(*np8);
+                            }
+                        }
+                    };
+                collectOther(*spkg);
+                for (auto* tdSym : otherTds) {
+                    auto& ta8 = tdSym->as<TypeAliasType>();
+                    auto* home8 = tdSym->getParentScope();
+                    if (!home8)
+                        continue;
+                    UHDM::typespec* cl8 = nullptr;
+                    if (auto cit8 = pkgImportCloneTs.find(tdSym);
+                        cit8 != pkgImportCloneTs.end())
+                        cl8 = cit8->second;
+                    else {
+                        const syntax::SyntaxNode* dSyn8 = ta8.getSyntax();
+                        const syntax::SyntaxNode* tSyn8 = nullptr;
+                        if (dSyn8 &&
+                            dSyn8->kind ==
+                                syntax::SyntaxKind::TypedefDeclaration)
+                            tSyn8 = dSyn8->as<syntax::TypedefDeclarationSyntax>()
+                                        .type;
+                        bypassTypedefShare = true;
+                        cl8 = makeTypespec(ta8, tSyn8);
+                        bypassTypedefShare = false;
+                        if (!cl8)
+                            continue;
+                        cl8->VpiName(std::string(home8->asSymbol().name) +
+                                     "::" + std::string(ta8.name));
+                        if (tSyn8)
+                            setLoc(cl8, tSyn8->sourceRange());
+                        pkgImportCloneTs[tdSym] = cl8;
+                        if (!topView)
+                            defPassOwnedTs.insert(cl8);
+                    }
+                    // The last-writer stamp is a DEF-pass effect only: the
+                    // elaborated pass re-lists the very same object and leaves
+                    // its owner alone, so a shared clone keeps the DEF package
+                    // of the last importer (PackageOrder's `B::C` is owned by
+                    // def-A even though top-A lists it afterwards).
+                    if (!topView || !cl8->Instance()) {
+                        cl8->VpiParent(up);
+                        cl8->Instance((UHDM::instance*)up);
+                    }
+                    pkgTdByName.emplace_back(std::string(ta8.name), cl8);
+                }
             }
             auto* its2 = s.MakeImport_typespec();
             its2->VpiName(std::string(pn));

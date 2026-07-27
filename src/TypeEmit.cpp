@@ -6752,6 +6752,13 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
         plainCl = makeTypespec(elAl0, tgtSyn0);
         bypassTypedefShare = false;
         plainCl->VpiName(elAl0.name);
+        // ...except when the typedef lives in a PACKAGE: Surelog resolved the
+        // type in the package's scope, so even the bare per-var clone keeps
+        // vpiInstance = that package (LogicTypespec).  A module-local typedef
+        // has nothing to inherit and its clone stays bare.
+        if (auto* hs0 = elAl0.getParentScope();
+            hs0 && hs0->asSymbol().kind == SymbolKind::Package)
+            plainCl->Instance(tit->second->Instance());
     }
     (void)makeTypespec(sym);
     auto& elAl = t2->as<TypeAliasType>();

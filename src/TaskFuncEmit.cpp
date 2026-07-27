@@ -19,6 +19,22 @@ static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiEndColumnNo(src->VpiEndColumnNo());
 }
 
+// A packed-array typespec written over a vector TYPEDEF (`sha_word_t [7:0]`)
+// owns a fresh NAMED element clone.  When the container takes a package's
+// vpiInstance, Surelog stamps that clone too — the whole per-use family is
+// resolved in the package's scope (PackedUnpackedIo).  An element that
+// already carries an instance (its own home package) is left alone.
+static void stampElemTsInstance(UHDM::typespec* t0, UHDM::instance* inst) {
+    if (!t0 || !inst || t0->UhdmType() != UHDM::uhdmlogic_typespec)
+        return;
+    auto* et = ((UHDM::logic_typespec*)t0)->Elem_typespec();
+    if (!et)
+        return;
+    auto* at = et->Actual_typespec();
+    if (at && !at->VpiName().empty() && !at->Instance())
+        at->Instance(inst);
+}
+
 
 void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                  const std::string& prefix, DefInfo* info,
@@ -467,6 +483,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 !(sub.returnValVar && foreignSharedTs(*sub.returnValVar, ts))) {
                 ts->Instance(importCopyTsInst ? importCopyTsInst
                                               : (UHDM::instance*)m);
+                stampElemTsInstance(ts, (UHDM::instance*)ts->Instance());
                 if (importCopyTsInst && importCopyTsCollect)
                     importCopyTsCollect->push_back(ts);
             }
@@ -581,6 +598,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             art->VpiParent(cl);
                             art->Actual_typespec(wts);
                             ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
+                            // This element clone is minted AFTER the return
+                            // typespec was instanced, so it misses that stamp;
+                            // in a package the whole per-use family carries
+                            // the package (PackedUnpackedIo).
+                            if (!cl->Instance())
+                                if (auto* ci0 = ts->Instance())
+                                    cl->Instance((UHDM::instance*)ci0);
                             auto* ert = s.MakeRef_typespec();
                             ert->VpiParent(ts);
                             ert->Actual_typespec(cl);
@@ -697,6 +721,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + sep + std::string(arg->name));
             rt->VpiParent(io);
+            // A PACKAGE subroutine's formal typespecs are resolved in the
+            // package's scope, so every one of them — including the fresh
+            // per-formal typedef CLONES the branches below mint — carries the
+            // package as vpiInstance.  The shared-typespec branch at the end
+            // already stamped its own; these clone branches did not
+            // (PackedUnpackedIo).
+            auto stampPkgFormalTs = [&](UHDM::typespec* t0) {
+                if (!t0 || !pkgScope || classScope)
+                    return;
+                if (pkgTopEmit && defPassOwnedTs.count(t0))
+                    return;
+                t0->Instance(importCopyTsInst ? importCopyTsInst
+                                              : (UHDM::instance*)m);
+                stampElemTsInstance(t0, (UHDM::instance*)t0->Instance());
+            };
             // A formal REDECLARED in the function body with an explicit type
             // (input [4:0] r; reg [4:0] r; / input x; integer x;) — Surelog
             // binds the io_decl's actual typespec to the REDECLARATION's type
@@ -712,6 +751,19 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 redeclSym = &mv;
                 break;
             }
+            // An UNPACKED array's io_decl typespec is its ELEMENT type — the
+            // unpacked dims live on the io_decl's own Ranges — so the packed
+            // form the branches below build from is the type with those
+            // wrappers stripped (`sha_word_t [7:0] hh_ii [16:0]`).
+            const Type* formalPkTy = nullptr;
+            if (auto adt5 = arg->getDeclaredType()) {
+                formalPkTy = &adt5->getType();
+                while (formalPkTy->getCanonicalType().kind ==
+                       SymbolKind::FixedSizeUnpackedArrayType)
+                    formalPkTy = &formalPkTy->getCanonicalType()
+                                      .as<FixedSizeUnpackedArrayType>()
+                                      .elementType;
+            }
             if (redeclSym) {
                 ts = makeTypespec(*redeclSym);
                 rt->Actual_typespec(ts);
@@ -719,11 +771,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             else if (bareImplicit) {
                 pendingIoTs.push_back({rt, argTsyn});
             }
-            else if (arg->getDeclaredType()->getType().getCanonicalType().kind ==
+            else if (formalPkTy &&
+                     formalPkTy->getCanonicalType().kind ==
                          SymbolKind::PackedArrayType &&
                      [&]() -> bool {
                          // A PACKED ARRAY over a vector typedef (word [1:0] w).
-                         auto& at0 = arg->getDeclaredType()->getType();
+                         auto& at0 = *formalPkTy;
                          if (at0.kind != SymbolKind::PackedArrayType)
                              return false;
                          auto& el0 = at0.as<PackedArrayType>().elementType;
@@ -736,7 +789,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // Elem_typespec (bare ref) is a fresh NAMED typedef clone
                 // (Typedef_alias -> shared) and whose Ranges hold the ARRAY
                 // dims (UINT bounds at the source dim spans).
-                auto& at0 = arg->getDeclaredType()->getType();
+                auto& at0 = *formalPkTy;
                 auto& el0 = at0.as<PackedArrayType>().elementType;
                 auto& elAlias = el0.as<TypeAliasType>();
                 const syntax::SyntaxNode* targetSyn = nullptr;
@@ -767,7 +820,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     tEnd = spans.back().range.end();
                 setLoc(outer, SourceRange(tStart, tEnd));
                 std::vector<ConstantRange> arrRanges;
-                for (const Type* t2 = &arg->getDeclaredType()->getType();
+                for (const Type* t2 = formalPkTy;
                      t2->getCanonicalType().kind == SymbolKind::PackedArrayType;) {
                     arrRanges.push_back(
                         t2->getCanonicalType().as<PackedArrayType>().range);
@@ -803,7 +856,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 ert->VpiParent(outer);
                 ert->Actual_typespec(cl);
                 outer->Elem_typespec(ert);
+                stampPkgFormalTs(cl);
                 ts = outer;
+                stampPkgFormalTs(ts);
                 rt->Actual_typespec(ts);
             }
             else if (arg->getDeclaredType()->getType().kind == SymbolKind::TypeAlias &&
@@ -829,6 +884,56 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 art->VpiParent(ts);
                 art->Actual_typespec(mainTs);
                 ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
+                stampPkgFormalTs(ts);
+                rt->Actual_typespec(ts);
+            }
+            // An UNPACKED array over a vector typedef (sha_word_t ww [16:0])
+            // gets the same NAMED per-formal clone: the io_decl's typespec is
+            // the ELEMENT type (its unpacked dims live on the io_decl's own
+            // Ranges), so the shared-typespec fallback below would leave it
+            // anonymous (PackedUnpackedIo).
+            else if (arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                         SymbolKind::FixedSizeUnpackedArrayType &&
+                     [&]() -> const Type* {
+                         const Type* e0 =
+                             &arg->getDeclaredType()->getType().getCanonicalType();
+                         while (e0->getCanonicalType().kind ==
+                                SymbolKind::FixedSizeUnpackedArrayType)
+                             e0 = &e0->getCanonicalType()
+                                       .as<FixedSizeUnpackedArrayType>()
+                                       .elementType;
+                         return e0->kind == SymbolKind::TypeAlias &&
+                                        typedefTs.count(e0) &&
+                                        typedefTs[e0]->UhdmType() ==
+                                            UHDM::uhdmlogic_typespec
+                                    ? e0
+                                    : nullptr;
+                     }() != nullptr) {
+                const Type* e0 =
+                    &arg->getDeclaredType()->getType().getCanonicalType();
+                while (e0->getCanonicalType().kind ==
+                       SymbolKind::FixedSizeUnpackedArrayType)
+                    e0 = &e0->getCanonicalType()
+                              .as<FixedSizeUnpackedArrayType>()
+                              .elementType;
+                auto& elAl0 = e0->as<TypeAliasType>();
+                const syntax::SyntaxNode* targetSyn0 = nullptr;
+                if (auto asyn0 = elAl0.getSyntax())
+                    if (asyn0->kind == syntax::SyntaxKind::TypedefDeclaration)
+                        targetSyn0 =
+                            asyn0->as<syntax::TypedefDeclarationSyntax>().type;
+                bypassTypedefShare = true;
+                ts = makeTypespec(elAl0, targetSyn0);
+                bypassTypedefShare = false;
+                ts->VpiName(elAl0.name);
+                if (argTsyn)
+                    setLoc((UHDM::BaseClass*)ts, argTsyn->sourceRange());
+                auto* art0 = s.MakeRef_typespec();
+                art0->VpiFullName(std::string(elAl0.name));
+                art0->VpiParent(ts);
+                art0->Actual_typespec(typedefTs[e0]);
+                ((UHDM::logic_typespec*)ts)->Typedef_alias(art0);
+                stampPkgFormalTs(ts);
                 rt->Actual_typespec(ts);
             }
             else {
@@ -898,6 +1003,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     ((UHDM::typespec*)ts)->Instance(
                         importCopyTsInst ? importCopyTsInst
                                          : (UHDM::instance*)m);
+                    stampElemTsInstance(
+                        (UHDM::typespec*)ts,
+                        (UHDM::instance*)((UHDM::typespec*)ts)->Instance());
                     if (importCopyTsInst && importCopyTsCollect)
                         importCopyTsCollect->push_back((UHDM::typespec*)ts);
                 }

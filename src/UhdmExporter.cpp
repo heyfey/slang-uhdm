@@ -769,6 +769,37 @@ void UhdmExporter::drainPendingExtends() {
                 }
                 der->push_back(pe.cd);
             }
+            // A base class named through the enclosing package's WILDCARD
+            // import also lists that typedef's shared import clone in the
+            // DERIVING class's own Typespecs — the package import-listing
+            // rule applied to the scope that actually resolved the name
+            // (ClassExtends: `class c2 extends c3` inside p2 lists p1::c3).
+            if (!written.empty())
+                if (auto* sc9 = pe.cls->getParentScope();
+                    sc9 && sc9->asSymbol().kind == SymbolKind::Package)
+                    for (auto& im9 : sc9->members()) {
+                        if (im9.kind != SymbolKind::WildcardImport)
+                            continue;
+                        auto* ip9 = im9.as<WildcardImportSymbol>().getPackage();
+                        if (!ip9)
+                            continue;
+                        for (auto& tm9 : ip9->members()) {
+                            if (tm9.kind != SymbolKind::TypeAlias ||
+                                tm9.name != written)
+                                continue;
+                            auto ic9 = pkgImportCloneTs.find(&tm9);
+                            if (ic9 == pkgImportCloneTs.end())
+                                continue;
+                            auto* tv9 = pe.cd->Typespecs();
+                            if (!tv9) {
+                                pe.cd->Typespecs(s.MakeTypespecVec());
+                                tv9 = pe.cd->Typespecs();
+                            }
+                            if (std::find(tv9->begin(), tv9->end(),
+                                          ic9->second) == tv9->end())
+                                tv9->push_back(ic9->second);
+                        }
+                    }
         }
         pe.cd->Extends(ext);
     }
