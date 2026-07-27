@@ -86,7 +86,18 @@ def golden_cache_dir(dirpath, sl_args):
     return os.path.join(CACHE_ROOT, key)
 
 
+# Failures are cached only when GOLDEN_CACHE_FAILURES=1 (a deliberate
+# quiet-machine populate run). By default a failure is retried next sweep:
+# genuine failures re-fail in seconds, while load-flake failures (OOM during
+# Surelog's model write) would otherwise become PERMANENT — the cache is
+# first-write-wins and a hit short-circuits the run, so a cached flake never
+# gets another chance to succeed.
+CACHE_FAILURES = os.environ.get('GOLDEN_CACHE_FAILURES', '') == '1'
+
+
 def cache_store(cdir, uhdm_path, status_line):
+    if uhdm_path is None and not CACHE_FAILURES:
+        return
     try:
         os.makedirs(CACHE_ROOT, exist_ok=True)
         tmp = cdir + '.tmp%d' % os.getpid()
