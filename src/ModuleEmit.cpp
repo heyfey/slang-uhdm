@@ -10221,36 +10221,142 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
 // This is the rule behind BiasValue (`2000 + bias_adj_lp` -> operation with an
 // INT:-1792 operand) and YosysRiscv (`wire [2*M-1:0] mask = {M{1'b1}}` -> the
 // replication's M becomes UINT:1 with the integer_typespec ref).
+//
+// SELECT INDICES take the same substitution, but with THREE different
+// attachment shapes (probe `child #(.PP(5))` with `vec[PP]`, `vec[PP+3 -: 4]`,
+// `vec[PP +: 4]`, `arr[PP]`):
+//
+//   * bit/element select index (`vec[PP]`, `arr[PP]`) — constant parented at
+//     the select, its ts ref named after the SELECTED OBJECT
+//     (`work@top.c1.vec` / `work@top.c1.arr`), not the instance;
+//   * a ref nested deeper inside a select's base/index expression
+//     (`vec[PP+3 -: 4]`, the operation operand) — same selected-object ts name,
+//     parented at its syntactic parent;
+//   * a ref that IS the indexed-part-select base (`vec[PP +: 4]`) — a straight
+//     copy of the param_assign Rhs: instance-named ts ref AND the param's own
+//     `param_assign` as the constant's parent.
+//
+// None of the three is cmp-visible (ref_typespec compares VpiName/VpiDefName,
+// never VpiFullName; parents are never compared) — they are reproduced so the
+// dumps line up under review.  What IS cmp-visible is the ref_obj -> constant
+// type flip in the index slot, which is the whole point.
+//
+// `selFull` carries the enclosing select's fullname down the recursion: it both
+// names the minted ts ref and widens the scope guard, because slang spells a
+// ref inside a select's base expression `<sel-fullname>.<param>` rather than
+// `<instance>.<param>`.
+//
+// SEAM EXHAUSTED — measured, do not re-mine.  An instrumented full Surelog
+// sweep (a trace fired from this function's select arm) says the pattern
+// occurs in exactly TWO tests: BlackConst (2 slots) and YosysOldOpen /
+// openmsp430 (65 slots).  Counting ref_objs inside every cont_assign RHS
+// subtree, golden vs slang, this extension takes BlackConst 2 -> 0 (golden 0)
+// and YosysOldOpen 881 -> 816 (golden 816): both land EXACTLY on golden.
+// Neither test converges, because each carries unrelated first-fails
+// (BlackConst: a typespec_member range; YosysOldOpen: a def-view container).
+// Across the other 184 CMP_NOTEQUAL tests the golden-vs-slang cont_assign
+// ref_obj counts already agree, so there is no third member to find.  The
+// sibling rule from the same probe — a whole net-decl-assign RHS
+// `$clog2(...)` collapsing to a constant — has ZERO occurrences in the suite
+// (same instrumentation, no hits at all) and is deliberately NOT implemented.
 static bool substNdaParamRefs(
     UHDM::Serializer& s, UHDM::any*& e,
     const std::map<std::string, UHDM::constant*>& pmap, const std::string& prefix,
     UHDM::any* parent,
-    std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>& tsAlias) {
+    std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>& tsAlias,
+    const std::string& selFull = std::string(), bool paAnchor = false) {
     if (!e || pmap.empty())
         return false;
-    if (e->UhdmType() == UHDM::uhdmoperation) {
-        bool any9 = false;
-        auto* op = (UHDM::operation*)e;
-        if (auto* ops = op->Operands())
-            for (auto& slot : *ops) {
-                UHDM::any* cur = slot;
-                if (substNdaParamRefs(s, cur, pmap, prefix, op, tsAlias)) {
-                    slot = cur;
-                    any9 = true;
+    // Descend one select slot; `direct` marks the ref-IS-the-slot shape, which
+    // only the indexed-part-select base treats specially.
+    auto descend9 = [&](UHDM::expr* cur9, UHDM::any* newParent, const std::string& sf9,
+                        bool paA9) -> UHDM::expr* {
+        if (!cur9)
+            return nullptr;
+        UHDM::any* slot9 = cur9;
+        if (substNdaParamRefs(s, slot9, pmap, prefix, newParent, tsAlias, sf9,
+                              paA9 && cur9->UhdmType() == UHDM::uhdmref_obj))
+            return (UHDM::expr*)slot9;
+        return nullptr;
+    };
+    switch (e->UhdmType()) {
+        case UHDM::uhdmoperation: {
+            bool any9 = false;
+            auto* op = (UHDM::operation*)e;
+            if (auto* ops = op->Operands())
+                for (auto& slot : *ops) {
+                    UHDM::any* cur = slot;
+                    if (substNdaParamRefs(s, cur, pmap, prefix, op, tsAlias, selFull)) {
+                        slot = cur;
+                        any9 = true;
+                    }
                 }
+            return any9;
+        }
+        case UHDM::uhdmbit_select: {
+            auto* bs = (UHDM::bit_select*)e;
+            std::string sf9(bs->VpiFullName());
+            if (auto* nw = descend9(bs->VpiIndex(), bs, sf9, false)) {
+                bs->VpiIndex(nw);
+                return true;
             }
-        return any9;
+            return false;
+        }
+        case UHDM::uhdmindexed_part_select: {
+            auto* ip = (UHDM::indexed_part_select*)e;
+            std::string sf9(ip->VpiFullName());
+            bool any9 = false;
+            if (auto* nw = descend9(ip->Base_expr(), ip, sf9, true)) {
+                ip->Base_expr(nw);
+                any9 = true;
+            }
+            if (auto* nw = descend9(ip->Width_expr(), ip, sf9, true)) {
+                ip->Width_expr(nw);
+                any9 = true;
+            }
+            return any9;
+        }
+        case UHDM::uhdmpart_select: {
+            auto* ps = (UHDM::part_select*)e;
+            std::string sf9(ps->VpiFullName());
+            bool any9 = false;
+            if (auto* nw = descend9(ps->Left_range(), ps, sf9, false)) {
+                ps->Left_range(nw);
+                any9 = true;
+            }
+            if (auto* nw = descend9(ps->Right_range(), ps, sf9, false)) {
+                ps->Right_range(nw);
+                any9 = true;
+            }
+            return any9;
+        }
+        case UHDM::uhdmvar_select: {
+            auto* vs = (UHDM::var_select*)e;
+            std::string sf9(vs->VpiFullName());
+            bool any9 = false;
+            if (auto* ixs = vs->Exprs())
+                for (auto& slot : *ixs)
+                    if (auto* nw = descend9(slot, vs, sf9, false)) {
+                        slot = nw;
+                        any9 = true;
+                    }
+            return any9;
+        }
+        case UHDM::uhdmref_obj:
+            break;
+        default:
+            return false;
     }
-    if (e->UhdmType() != UHDM::uhdmref_obj)
-        return false;
     auto* r = (UHDM::ref_obj*)e;
     std::string nm(r->VpiName());
     if (nm.empty())
         return false;
     // Only a reference resolving in THIS instance's scope substitutes; a
-    // ref reaching some outer/other scope keeps its ref_obj.
+    // ref reaching some outer/other scope keeps its ref_obj.  Inside a select,
+    // slang also spells the ref against the selected object.
     if (!r->VpiFullName().empty() &&
-        std::string(r->VpiFullName()) != prefix + "." + nm)
+        std::string(r->VpiFullName()) != prefix + "." + nm &&
+        (selFull.empty() || std::string(r->VpiFullName()) != selFull + "." + nm))
         return false;
     auto it = pmap.find(nm);
     if (it == pmap.end())
@@ -10265,10 +10371,12 @@ static bool substNdaParamRefs(
     c->VpiColumnNo(r->VpiColumnNo());
     c->VpiEndLineNo(r->VpiEndLineNo());
     c->VpiEndColumnNo(r->VpiEndColumnNo());
-    c->VpiParent(parent);
+    // The indexed-part-select base keeps the source constant's own parent.
+    c->VpiParent(paAnchor && src->VpiParent() ? src->VpiParent() : parent);
     if (auto* srt = src->Typespec()) {
         auto* rt = s.MakeRef_typespec();
-        rt->VpiFullName(std::string(srt->VpiFullName()));
+        rt->VpiFullName(!selFull.empty() && !paAnchor ? selFull
+                                                      : std::string(srt->VpiFullName()));
         rt->VpiParent(c);
         // The source param_assign's ts ref is itself bound LATE (the elab
         // param typespec is minted in the write phase), so alias rather than
