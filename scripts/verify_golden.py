@@ -152,6 +152,21 @@ UVM_DIR = os.path.join(SURELOG_ROOT, 'third_party', 'UVM')
 
 SRC_EXTS = ('.v', '.sv', '.vh', '.svh', '.pkg', '.vlt')
 
+# Deferred to a late phase (user decision 2026-07-27): golden generation for
+# these OOMs or times out on this machine, failures are uncacheable by design,
+# and re-running them to the timeout dominated every sweep's wall-clock
+# (~25 min of a ~35 min both-modes sweep). They emit status DEFERRED without
+# running either tool. GOLDEN_DEFER=0 disables (for the late-phase revisit on
+# capable hardware); GOLDEN_DEFER=<comma-list> overrides the set.
+_defer_env = os.environ.get('GOLDEN_DEFER', '')
+if _defer_env == '0':
+    DEFERRED_TESTS = set()
+elif _defer_env:
+    DEFERRED_TESTS = set(_defer_env.split(','))
+else:
+    DEFERRED_TESTS = {'Earlgrey_nexysvideo', 'Earlgrey_Verilator_01_05_21',
+                      'Rsd', 'Xgate', 'YosysSmallBoom'}
+
 # ---------------------------------------------------------------------------
 # Surelog flag classification.
 #
@@ -550,6 +565,10 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
 
 
 def run_one(name, dirpath, parts, modes, workroot, timeout):
+    if name in DEFERRED_TESTS:
+        return [(name, m, 'DEFERRED',
+                 'late-phase: golden uncacheable on this machine', '', '')
+                for m in modes if m != 'folded']
     sources, _options = split_sources(parts)
     results = []
 
