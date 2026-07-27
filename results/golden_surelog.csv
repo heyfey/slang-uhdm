@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
+LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
 LowMemPkg,default,CMP_NOTEQUAL,decompile:,,
-LowMemPkg,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
+LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
@@ -923,16 +923,16 @@ OneImport,default,CMP_EQUAL,,,differ
 OneImport,testflags,CMP_EQUAL,,,differ
 OneNet,default,CMP_EQUAL,,,match
 OneNet,testflags,CMP_EQUAL,,,match
-OneNetInterf,default,CMP_NOTEQUAL,decompile:,,
-OneNetInterf,testflags,CMP_NOTEQUAL,decompile:,,
+OneNetInterf,default,CMP_EQUAL,,,differ
+OneNetInterf,testflags,CMP_EQUAL,,,differ
 OneNetModPort,default,CMP_EQUAL,,,differ
 OneNetModPort,testflags,CMP_EQUAL,,,differ
 OneNetModPortGeneric,default,CMP_NOTEQUAL,decompile:,,
 OneNetModPortGeneric,testflags,CMP_NOTEQUAL,decompile:,,
 OneNetNonAnsi,default,CMP_NOTEQUAL,decompile:,,
 OneNetNonAnsi,testflags,CMP_NOTEQUAL,decompile:,,
-OneNetRange,default,CMP_NOTEQUAL,decompile:,,
-OneNetRange,testflags,CMP_NOTEQUAL,decompile:,,
+OneNetRange,default,CMP_EQUAL,,,differ
+OneNetRange,testflags,CMP_EQUAL,,,differ
 Opentitan,default,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Opentitan,testflags,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 OpTypespec,default,SLANG_REJECT,dut.sv:2:16: error: use of undeclared identifier 'Width',,

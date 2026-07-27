@@ -2379,6 +2379,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                    ? 64
                                    : (int32_t)iv.getBitWidth());
                 }
+                // An untyped param overridden by a bare REFERENCE to another
+                // param (dut #(width) dut1 with `parameter width = 16`):
+                // Surelog copies the referenced param's already-evaluated
+                // Value, which carries its type width — UINT at that width,
+                // not the unsized INT a literal override folds to
+                // (OneNetRange).
+                else if (overridden && boundInit &&
+                         stripImplicitConv(*boundInit).kind ==
+                             ExpressionKind::NamedValue &&
+                         stripImplicitConv(*boundInit)
+                                 .as<NamedValueExpression>()
+                                 .symbol.kind == SymbolKind::Parameter) {
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiSize((int32_t)iv.getBitWidth());
+                }
                 else {
                     c->VpiValue("INT:" + digits);
                     c->VpiConstType(vpiIntConst);

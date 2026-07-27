@@ -4809,6 +4809,38 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                         hp->Root_value(nit2->second);
                                 }
                             }
+                            // An IFACE-PORT member conn (.inp(conn.con_i)):
+                            // the hier_path's vpiExpr is the ENCLOSING
+                            // instance's iface-port LowConn ref itself
+                            // (work@dut.middle1.conn, spanning the iface port
+                            // connection) — the same object, not a copy.
+                            // Surelog's compileHighConn resolves the base
+                            // through the enclosing module's port binding and
+                            // records it as the path's root value. Only a
+                            // PLAIN iface port does: a MODPORT-qualified one
+                            // (tif.sub sub, .sys_wdt(sub.req.wdt)) resolves
+                            // through the modport and gets NO root value
+                            // (iface_member_port).
+                            if (!hp->Root_value()) {
+                                std::string hn9(hp->VpiName());
+                                auto dot9 = hn9.find('.');
+                                if (dot9 != std::string::npos)
+                                    if (auto* ps9 = inst.getParentScope()) {
+                                        const Symbol* bs9 =
+                                            ps9->find(hn9.substr(0, dot9));
+                                        if (bs9 &&
+                                            bs9->kind ==
+                                                SymbolKind::InterfacePort &&
+                                            bs9->as<InterfacePortSymbol>()
+                                                .modport.empty())
+                                            if (auto lit9 =
+                                                    ifacePortLowConnBySym.find(
+                                                        bs9);
+                                                lit9 !=
+                                                ifacePortLowConnBySym.end())
+                                                hp->Root_value(lit9->second);
+                                    }
+                            }
                         }
                         p->High_conn(h);
                     }
@@ -13786,7 +13818,15 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // its port-view folds at the CONNECTED instance's own values (inst.body).
     // A GENERATE-bearing interface is re-elaborated for the view, so its
     // bounds keep the CONNECTED instance's values (jeras_tcb_gpio adr[14:0]).
-    if (portView && !multiParamIface && !aggOvPortView && !ifaceHasGen9) {
+    // So is a def whose #(...) override TEXTS differ across instances even
+    // though the folded VALUES coincide: Surelog uniquifies PRE-elab, on the
+    // text, so those instances are separate modules and the port view reads
+    // its own (OneNetRange ConnectTB: `#(width)` in tb vs `#(.width(width))`
+    // in dut, both 16 -> con_i is [15:0] on the port view, not the default
+    // [0:0]).
+    bool textMultiIface9 = textMultiParamDefs.count(&def) > 0;
+    if (portView && !multiParamIface && !textMultiIface9 && !aggOvPortView &&
+        !ifaceHasGen9) {
         auto dit0 = ifaceDefaultInst.find(&def);
         if (dit0 == ifaceDefaultInst.end())
             dit0 = ifaceDefaultInst
