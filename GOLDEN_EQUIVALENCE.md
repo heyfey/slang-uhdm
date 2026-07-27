@@ -188,46 +188,31 @@ not: `UhdmLint.cpp` has 0 `Erase` calls, 0 `Make*` calls and no property
 setters; every `Vpi*()` call in it is a getter. It only invokes the serializer's
 error handler. It cannot change the database.
 
-### 3.3 Measured baseline
+### 3.3 Measured baseline — GENERATED, do not hand-edit numbers
 
-Measured 2026-07-26 at `b168622` (wave 3 integrated). Per-test CSVs:
-`results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv`,
-`results/gate_uhdm2rtlil.csv`. Headline metric per §2.5.
+The authoritative numbers come from the committed per-test CSVs via
+`python3 scripts/accounting.py` (`--md` for this table). Prose and commit
+messages are narrative; when they disagree with this table, the table wins —
+a hand-arithmetic drift of +2 in two block-2 commit messages is why this rule
+exists.
 
-**uhdm2rtlil, 731 tests** — both modes identical:
+| Corpus | Mode | Total | Status breakdown | Comparable | Equal |
+|---|---|---|---|---|---|
+| Surelog suite | default | 794 | SLANG_REJECT=284 CMP_EQUAL=251 CMP_NOTEQUAL=229 SURELOG_FAIL=25 DEFERRED=5 | 480 | 251 (52.3%) |
+| Surelog suite | testflags | 794 | SLANG_REJECT=283 CMP_EQUAL=242 CMP_NOTEQUAL=223 SURELOG_FAIL=23 UNTRANSLATABLE=13 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 465 | 242 (52.0%) |
+| uhdm2rtlil | default | 731 | CMP_EQUAL=675 SLANG_REJECT=50 CMP_NOTEQUAL=4 SURELOG_FAIL=2 | 679 | 675 (99.4%) |
+| uhdm2rtlil | testflags | 731 | CMP_EQUAL=675 SLANG_REJECT=50 CMP_NOTEQUAL=4 SURELOG_FAIL=2 | 679 | 675 (99.4%) |
 
-| | default | testflags |
-|---|---|---|
-| CMP_EQUAL | 674 | 674 |
-| CMP_NOTEQUAL | 5 | 5 |
-| SLANG_REJECT (out of scope) | 50 | 50 |
-| SURELOG_FAIL | 2 | 2 |
-| **CMP_EQUAL / comparable** | **99.3%** | **99.3%** |
+Denominator accounting (every excluded test is one of): `SLANG_REJECT`
+(out of scope, §2.5), `DEFERRED` (5 memory giants, §2.5b), `UNTRANSLATABLE`
+(unimplemented UHDM-relevant flags, §3.2, testflags only), `SURELOG_FAIL` /
+`NO_DATABASE` / `NO_UHDM` / `TIMEOUT` (golden side absent). Within
+`CMP_NOTEQUAL`, three suite tests are documented-unreachable
+(BuildUVMPkg/SeqDriver/SimpleUVM: Surelog precompiled-UVM PPCache include
+records not reproducible from source).
 
-The 5: `jeras_union` + `rp32_r5p_{alu,bru,mdu,wbu}`, all with landed
-groundwork (`dfaef99`, `eebba99`) and ranked residues.
-
-**Surelog suite, 794 tests**:
-
-| | default | testflags |
-|---|---|---|
-| CMP_EQUAL | 243 | 234 |
-| CMP_NOTEQUAL | 238 | 232 |
-| SLANG_REJECT (out of scope) | 287 | 284 |
-| UNTRANSLATABLE | 0 | 13 |
-| SURELOG_FAIL | 26 | 25 |
-| **CMP_EQUAL / comparable** | **50.5%** | **50.2%** |
-
-Wave history (block of 2026-07-26): 181/177 → 194/189 (wave-1 rules
-generalising) → 199/194 (mriscv + determinism) → 224/216 (wave-3, 26 tests)
-→ 243/234 (wave-4, 20 tests). Zero regressions across all waves. Three tests are permanently unreachable on
-count: `BuildUVMPkg`/`SeqDriver`/`SimpleUVM` take include records from
-Surelog's precompiled-UVM PPCache pointing at a UVM version not on the
-command line — not reproducible from source (recorded by the include-file
-agent with evidence).
-
-Byte-identity (`dump=match`, the phase-3 metric) is tracked in every CSV and
-gated against demotion since the single-harness consolidation.
+Byte identity (`dump=match`) is tracked on `CMP_EQUAL` rows only (phase-3
+metric; not-equal rows deliberately skip the dump).
 
 ### 3.4 Coverage corrections made in phase 2
 

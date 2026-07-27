@@ -681,8 +681,8 @@ jeras_reverse,default,CMP_EQUAL,,,match
 jeras_reverse,testflags,CMP_EQUAL,,,match
 jeras_tcb_gpio,default,CMP_EQUAL,,,differ
 jeras_tcb_gpio,testflags,CMP_EQUAL,,,differ
-jeras_union,default,CMP_NOTEQUAL,decompile:,,differ
-jeras_union,testflags,CMP_NOTEQUAL,decompile:,,differ
+jeras_union,default,CMP_EQUAL,,,differ
+jeras_union,testflags,CMP_EQUAL,,,differ
 LargeModuleParameter,default,SLANG_REJECT,dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 LargeModuleParameter,testflags,SLANG_REJECT,dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,default,CMP_EQUAL,,,match
@@ -1079,10 +1079,10 @@ ReturnFunctionCall,default,CMP_EQUAL,,,match
 ReturnFunctionCall,testflags,CMP_EQUAL,,,match
 rotate,default,CMP_EQUAL,,,match
 rotate,testflags,CMP_EQUAL,,,match
-rp32_r5p_alu,default,CMP_NOTEQUAL,decompile:,,differ
-rp32_r5p_alu,testflags,CMP_NOTEQUAL,decompile:,,differ
-rp32_r5p_bru,default,CMP_NOTEQUAL,decompile:,,differ
-rp32_r5p_bru,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_alu,default,CMP_NOTEQUAL,decompile:,,
+rp32_r5p_alu,testflags,CMP_NOTEQUAL,decompile:,,
+rp32_r5p_bru,default,CMP_NOTEQUAL,decompile:,,
+rp32_r5p_bru,testflags,CMP_NOTEQUAL,decompile:,,
 rp32_r5p_csr,default,SLANG_REJECT,../rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; explicit conversion exists; are you m,,
 rp32_r5p_csr,testflags,SLANG_REJECT,../rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; explicit conversion exists; are you m,,
 rp32_r5p_degu,default,SLANG_REJECT,../rp32/degu/r5p_degu.sv:56:19: error: top-level module 'r5p_degu' has unconnected interface port 'tcb_ifu',,
@@ -1093,14 +1093,14 @@ rp32_r5p_gpr_1r1w,default,CMP_EQUAL,,,match
 rp32_r5p_gpr_1r1w,testflags,CMP_EQUAL,,,match
 rp32_r5p_hamster,default,SLANG_REJECT,../rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
 rp32_r5p_hamster,testflags,SLANG_REJECT,../rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
-rp32_r5p_mdu,default,CMP_NOTEQUAL,decompile:,,differ
-rp32_r5p_mdu,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_mdu,default,CMP_NOTEQUAL,decompile:,,
+rp32_r5p_mdu,testflags,CMP_NOTEQUAL,decompile:,,
 rp32_r5p_mouse,default,CMP_EQUAL,,,differ
 rp32_r5p_mouse,testflags,CMP_EQUAL,,,differ
 rp32_r5p_mouse_soc_simple_top,default,CMP_EQUAL,,,differ
 rp32_r5p_mouse_soc_simple_top,testflags,CMP_EQUAL,,,differ
-rp32_r5p_wbu,default,CMP_NOTEQUAL,decompile:,,differ
-rp32_r5p_wbu,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_wbu,default,CMP_NOTEQUAL,decompile:,,
+rp32_r5p_wbu,testflags,CMP_NOTEQUAL,decompile:,,
 rp32_soc_vfriendly,default,SURELOG_FAIL,[   NOTE] : 0,,
 rp32_soc_vfriendly,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 rsp_gen_minimal,default,CMP_EQUAL,,,differ

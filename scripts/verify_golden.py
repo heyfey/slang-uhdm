@@ -33,7 +33,7 @@ Corpora:
               `project.f` filelist naming several sources plus directives.
 
 Statuses: CMP_EQUAL, CMP_NOTEQUAL, SLANG_REJECT, SURELOG_FAIL, NO_UHDM,
-UNTRANSLATABLE, NO_DATABASE, TIMEOUT.
+UNTRANSLATABLE, NO_DATABASE, TIMEOUT, DEFERRED.
 """
 
 import argparse
