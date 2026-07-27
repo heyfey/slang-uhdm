@@ -6648,7 +6648,9 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     }
     NetMap none;
     auto* savedCurPkg0 = curPkgEmitSym;
+    bool savedPkgTopView0 = pkgEmitTopView;
     curPkgEmitSym = &pkg;
+    pkgEmitTopView = topView;
     // Package-scope cast typespecs (size-literal integer_typespecs) carry
     // vpiInstance = the package (Surelog); expose it during param emission.
     auto* savedPkgInst0 = pkgScopeInst;
@@ -8487,6 +8489,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     if (topView)
         emitPackageClasses(pkg, up, prefix);
     curPkgEmitSym = savedCurPkg0;
+    pkgEmitTopView = savedPkgTopView0;
     return up;
 }
 

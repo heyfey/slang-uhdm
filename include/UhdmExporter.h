@@ -36,6 +36,7 @@ class SubroutineSymbol;
 class EnumType;
 class GenerateBlockSymbol;
 class TypeAliasType;
+class PrimitiveSymbol;
 } // namespace slang::ast
 
 namespace slang {
@@ -386,6 +387,12 @@ private:
                                          const std::string& memberSep = ".");
     void emitGates(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
                    const std::string& prefix, NetMap& netMap, bool topView);
+    // `primitive ... endprimitive` -> design->AllUdps.  Surelog builds one
+    // udp_defn per UDP declaration at module-compile time and hangs it off the
+    // design; the module-side `udp` instances (emitGates) point back at it in
+    // the elaborated view only.
+    void emitUdpDefns();
+    UHDM::udp_defn* buildUdpDefn(const slang::ast::PrimitiveSymbol& prim);
     void emitContAssigns(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                          const std::string& prefix, NetMap& netMap, bool topView,
                          DefInfo* defInfo, bool shareWithDef,
@@ -711,6 +718,9 @@ private:
     // Interface definitions -> their def-view interface_inst shell (referenced
     // by a parent module's ref_module Actual in the def view).
     std::map<const slang::ast::DefinitionSymbol*, UHDM::interface_inst*> ifaceDefMap;
+    // UDP declaration -> its design-level udp_defn (vpiUdpDefn of the
+    // elaborated `udp` instances).
+    std::map<const slang::ast::PrimitiveSymbol*, UHDM::udp_defn*> udpDefnMap;
     // (interface definition, modport name) -> emitted modport object, so an
     // InterfacePort can bind its LowConn to the modport.
     std::map<const slang::ast::DefinitionSymbol*, std::map<std::string, UHDM::modport*>>
@@ -1076,6 +1086,11 @@ private:
     // outside package emission. Distinguishes a HOME-package typedef listing
     // from an import-clone build (whose enum's parent differs).
     const slang::ast::Symbol* curPkgEmitSym = nullptr;
+    // Which VIEW of curPkgEmitSym is being emitted. Unlike pkgTopEmit (set
+    // only for the typedef/task-func arms) this covers the whole emitPackage
+    // body, including the PARAMETER arm — where a package param's own
+    // typespec range bound is view-dependent (makeTypespec's pkgParamTsRef).
+    bool pkgEmitTopView = false;
     // True while buildEnumTs builds an IMPORT-LISTING clone of another
     // package's enum typedef (emitPackage import arm): concat enum-const
     // decompiles follow Surelog's clone rules (all-ref concat drops the

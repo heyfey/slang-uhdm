@@ -1947,19 +1947,10 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->AllInterfaces(allIfaces);
     if (!allProgs->empty())
         d->AllPrograms(allProgs);
-    // NOTE (design-root family, Udp): design->AllUdps is never populated — we
-    // emit nothing for `primitive ... endprimitive`. slang models them fully
-    // (SymbolKind::Primitive: ports, table entries, initVal, and
-    // PrimitiveInstanceSymbol for the instantiations), and the UHDM compare
-    // surface is narrow: udp_defn compares DefName/VpiSize/VpiProtected/
-    // VpiPrimType/Attributes/Io_decls/Table_entrys/Initial, table_entry
-    // compares only VpiSize (the "? 1 : 1" string is NOT compared), prim_term
-    // compares VpiDirection/VpiTermIndex/Expr. The golden shapes: udp_defn
-    // VpiDefName "work@<name>", io_decl anchored at the header port name with
-    // vpiExpr = a logic_net anchored at the `output a;` declaration, and the
-    // module carrying a `udp` under vpiPrimitive whose def-view VpiDefName is
-    // the BARE name ("udp_body") and top-view VpiDefName is "work@udp_body".
-
+    // `primitive ... endprimitive` -> design->AllUdps, name-sorted like
+    // Surelog's module map (a UDP is a ModuleDefinition there, routed to
+    // AllUdps instead of AllModules by its declaration type).
+    emitUdpDefns();
 
     // Surelog compiles every module's parameters at module-compile time, so
     // all def-view parameter typespecs precede any elaboration typespecs.
@@ -2729,6 +2720,236 @@ std::string UhdmExporter::rawText(SourceRange range) {
     if (end > text.size() || start > end)
         return "";
     return std::string(text.substr(start, end - start));
+}
+
+// ---------------------------------------------------------------- UDP defns
+//
+// Surelog compiles a `primitive ... endprimitive` into a ModuleDefinition
+// whose declaration type is paUdp_declaration; UhdmWriter routes those to
+// design->AllUdps instead of AllModules (CompileModule::collectUdpObjects_
+// builds the udp_defn itself).  The compare surface is narrow: udp_defn
+// compares DefName/VpiSize/VpiProtected/VpiPrimType/Attributes/Io_decls/
+// Table_entrys/Initial; table_entry compares only VpiSize (its "? 1 : 1"
+// string is NOT compared); io_decl compares Direction/Name/Expr; attribute
+// compares only VpiName.  `initial::Compare` does not even recurse into its
+// statement — the body is emitted for dump fidelity only.
+//
+// Shapes taken from the Udp golden:
+//   * udp_defn VpiDefName is the QUALIFIED name ("work@udp_body"), spanning
+//     the `primitive` keyword through `endprimitive` (NOT the leading
+//     attribute group, which slang folds into the declaration's range).
+//   * one io_decl per HEADER port, in header order, anchored at the header
+//     name token, with vpiExpr = a logic_net anchored at the body
+//     declaration (`output a;` / `input b,c;` — both input nets carry the
+//     whole declaration's span and share its attribute objects).
+//   * VpiSize on a table_entry is the number of INPUT fields, where a
+//     parenthesised edge `(01)` counts as one and every other character
+//     counts as one (so it always equals ports-1).
+void UhdmExporter::emitUdpDefns() {
+    std::vector<const PrimitiveSymbol*> prims;
+    // getDefinitions() is already name-sorted, matching Surelog's module map.
+    for (auto* sym : comp.getDefinitions()) {
+        if (sym->kind != SymbolKind::Primitive)
+            continue;
+        auto& ps = sym->as<PrimitiveSymbol>();
+        // Built-in gate types live in slang's gateMap, never in the definition
+        // map, so only source-declared UDPs reach here; the guard documents
+        // the invariant (Surelog skips definitions with no file contents).
+        if (ps.primitiveKind != PrimitiveSymbol::UserDefined || !ps.getSyntax())
+            continue;
+        prims.push_back(&ps);
+    }
+    if (prims.empty())
+        return;
+    auto* udps = s.MakeUdp_defnVec();
+    for (auto* ps : prims)
+        udps->push_back(buildUdpDefn(*ps));
+    d->AllUdps(udps);
+}
+
+UHDM::udp_defn* UhdmExporter::buildUdpDefn(const PrimitiveSymbol& prim) {
+    auto* defn = s.MakeUdp_defn();
+    udpDefnMap[&prim] = defn;
+    std::string qname = "work@" + std::string(prim.name);
+    defn->VpiParent(d);
+    defn->VpiDefName(qname);
+
+    const syntax::UdpDeclarationSyntax* us = nullptr;
+    if (auto* syn = prim.getSyntax();
+        syn && syn->kind == syntax::SyntaxKind::UdpDeclaration)
+        us = &syn->as<syntax::UdpDeclarationSyntax>();
+    if (us)
+        setLoc(defn, SourceRange(us->primitive.location(),
+                                 us->endprimitive.range().end()));
+
+    // Attribute objects are shared between the declaration group's members
+    // (Surelog compiles the group once and hands the same vector out), so a
+    // net-level `(* clk = "foo" *) input clk, d;` gives clk and d the same
+    // attribute object — exactly as the golden prints it.
+    auto buildAttrs = [&](std::span<const AttributeSymbol* const> attrs,
+                          UHDM::BaseClass* parent) -> UHDM::VectorOfattribute* {
+        if (attrs.empty())
+            return nullptr;
+        auto* av = s.MakeAttributeVec();
+        for (auto* a : attrs) {
+            auto* asyn = a->getSyntax();
+            UHDM::attribute* ua = nullptr;
+            if (auto sit = sharedAttrObjs.find((const void*)asyn);
+                asyn && sit != sharedAttrObjs.end()) {
+                ua = sit->second;
+            }
+            else {
+                ua = s.MakeAttribute();
+                if (asyn) {
+                    sharedAttrObjs[(const void*)asyn] = ua;
+                    setLoc(ua, asyn->sourceRange());
+                }
+                ua->VpiName(a->name);
+                // Only a direct STRING clause is spelled out; the value is not
+                // part of attribute::Compare, so anything else is left unset.
+                if (asyn && asyn->kind == syntax::SyntaxKind::AttributeSpec)
+                    if (auto* vc = asyn->as<syntax::AttributeSpecSyntax>().value;
+                        vc && vc->expr->kind ==
+                                  syntax::SyntaxKind::StringLiteralExpression) {
+                        std::string raw = rawText(vc->expr->sourceRange());
+                        if (raw.size() >= 2 && raw.front() == '"' &&
+                            raw.back() == '"')
+                            raw = raw.substr(1, raw.size() - 2);
+                        ua->VpiValue("STRING:" + raw);
+                    }
+            }
+            ua->VpiParent(parent); // last writer, like Surelog's shared vectors
+            av->push_back(ua);
+        }
+        return av;
+    };
+
+    if (auto* av = buildAttrs(comp.getAttributes(prim), defn))
+        defn->Attributes(av);
+
+    // Header port-name spans (non-ANSI): slang moves PrimitivePortSymbol
+    // ::location onto the BODY declaration, so the header token has to come
+    // from the syntax.
+    std::map<std::string_view, SourceRange> hdrLoc;
+    if (us && us->portList->kind == syntax::SyntaxKind::NonAnsiUdpPortList)
+        for (auto* p : us->portList->as<syntax::NonAnsiUdpPortListSyntax>().ports)
+            hdrLoc.emplace(p->identifier.valueText(), p->identifier.range());
+
+    if (!prim.ports.empty()) {
+        auto* ios = s.MakeIo_declVec();
+        for (auto* port : prim.ports) {
+            auto* io = s.MakeIo_decl();
+            io->VpiParent(defn);
+            io->VpiName(port->name);
+            io->VpiDirection(port->direction == PrimitivePortDirection::In
+                                 ? vpiInput
+                                 : vpiOutput);
+            if (auto hit = hdrLoc.find(port->name); hit != hdrLoc.end())
+                setLoc(io, hit->second);
+            else
+                setLocNamed(io, *port);
+            auto* net = s.MakeLogic_net();
+            net->VpiParent(defn);
+            net->VpiName(port->name);
+            net->VpiFullName(qname + "." + std::string(port->name));
+            // The net is born at the BODY declaration; an input name syntax
+            // is one entry of `input b,c;`, so walk up to the declaration.
+            if (auto* psyn = port->getSyntax()) {
+                const syntax::SyntaxNode* dsyn = psyn;
+                for (auto* p = psyn; p; p = p->parent)
+                    if (p->kind == syntax::SyntaxKind::UdpInputPortDecl ||
+                        p->kind == syntax::SyntaxKind::UdpOutputPortDecl) {
+                        dsyn = p;
+                        break;
+                    }
+                setLoc(net, dsyn->sourceRange());
+            }
+            if (auto* av = buildAttrs(comp.getAttributes(*port), net))
+                net->Attributes(av);
+            io->Expr(net);
+            ios->push_back(io);
+        }
+        defn->Io_decls(ios);
+    }
+
+    if (!prim.table.empty()) {
+        auto* tes = s.MakeTable_entryVec();
+        // Row spans come from the syntax; slang drops a row it diagnosed, so
+        // only a 1:1 count lets the two lists be zipped.
+        const syntax::UdpEntrySyntax* const* esyn = nullptr;
+        if (us && us->body->entries.size() == prim.table.size())
+            esyn = us->body->entries.begin();
+        size_t ri = 0;
+        for (auto& row : prim.table) {
+            auto* te = s.MakeTable_entry();
+            te->VpiParent(defn);
+            int32_t nfields = 0;
+            std::string val = "STRING:";
+            for (size_t i = 0; i < row.inputs.size(); i++) {
+                if (row.inputs[i] == '(') {
+                    // `(01)` — Surelog writes the two edge chars unseparated.
+                    for (i++; i < row.inputs.size() && row.inputs[i] != ')'; i++)
+                        val += row.inputs[i];
+                    val += ' ';
+                }
+                else {
+                    val += row.inputs[i];
+                    val += ' ';
+                }
+                nfields++;
+            }
+            val += ": ";
+            if (row.state) {
+                val += row.state;
+                val += " : ";
+            }
+            // A sequential row's output keeps a trailing space; a `-` (no
+            // change) and every combinational output do not.
+            if (row.state && row.output != '-') {
+                val += row.output;
+                val += ' ';
+            }
+            else
+                val += row.output;
+            te->VpiValue(val);
+            te->VpiSize(nfields);
+            if (esyn && !esyn[ri]->inputs.empty())
+                setLoc(te, esyn[ri]->inputs.sourceRange());
+            tes->push_back(te);
+            ri++;
+        }
+        defn->Table_entrys(tes);
+    }
+
+    // `initial q = 0;` inside the primitive. Only the object's existence is
+    // compared, but the body is written out the way Surelog writes it.
+    if (prim.initVal && us && us->body->initialStmt) {
+        auto& is = *us->body->initialStmt;
+        auto* init = s.MakeInitial();
+        init->VpiParent(defn);
+        setLoc(init, is.sourceRange());
+        auto* asg = s.MakeAssignment();
+        asg->VpiParent(init);
+        setLoc(asg, is.sourceRange());
+        init->Stmt(asg);
+        auto* ref = s.MakeRef_obj();
+        ref->VpiParent(asg);
+        ref->VpiName(is.name.valueText());
+        ref->VpiFullName(qname + "." + std::string(is.name.valueText()));
+        setLoc(ref, is.name.range());
+        asg->Lhs(ref);
+        auto* c = s.MakeConstant();
+        c->VpiParent(asg);
+        std::string dec = rawText(is.value->sourceRange());
+        c->VpiValue("UINT:" + dec);
+        c->VpiDecompile(dec);
+        c->VpiSize(64);
+        c->VpiConstType(vpiUIntConst);
+        setLoc(c, is.value->sourceRange());
+        asg->Rhs(c);
+        defn->Initial(init);
+    }
+    return defn;
 }
 
 SourceRange UhdmExporter::ifaceElemIndexRange(SourceRange range) {

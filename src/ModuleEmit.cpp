@@ -9833,22 +9833,50 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
     //     instance's own syntax span).
     //   stripToBase: an array rep connects to whole vectors — strip element/
     //     range selects down to the base net (whole-vector prim_terms).
+    //   isUdp: a USER-DEFINED primitive instance is a `udp`, not a `gate`: no
+    //     vpiPrimType, the DEF view keeps the BARE definition name (Surelog's
+    //     compileUdpInstantiation reads the identifier straight out of the
+    //     source) while the elab view qualifies it, and the elab view alone
+    //     links vpiUdpDefn. Its terminals need no def-view shift — the udp
+    //     path indexes off the instance-name node, so terminal 0 always lands.
     auto buildGate = [&](const PrimitiveInstanceSymbol& pi, const std::string& pname,
                          int32_t primType, const std::string& gateName,
                          const std::string& gateFull, const std::string& refScope,
                          UHDM::BaseClass* parent, const SourceRange* locOverride,
-                         bool stripToBase, bool isSwitch = false) -> UHDM::primitive* {
-        UHDM::primitive* g = isSwitch ? (UHDM::primitive*)s.MakeSwitch_tran()
-                                      : (UHDM::primitive*)s.MakeGate();
+                         bool stripToBase, bool isSwitch = false,
+                         bool isUdp = false) -> UHDM::primitive* {
+        UHDM::primitive* g = isUdp    ? (UHDM::primitive*)s.MakeUdp()
+                             : isSwitch ? (UHDM::primitive*)s.MakeSwitch_tran()
+                                        : (UHDM::primitive*)s.MakeGate();
         g->VpiParent(parent);
-        g->VpiDefName("work@" + pname);
+        g->VpiDefName((isUdp && !topView) ? pname : ("work@" + pname));
         g->VpiName(gateName);
         g->VpiFullName(gateFull);
-        g->VpiPrimType(primType);
+        if (!isUdp)
+            g->VpiPrimType(primType);
         if (locOverride)
             setLoc(g, *locOverride);
-        else if (auto syn = pi.getSyntax())
-            setLoc(g, syn->sourceRange());
+        else if (auto syn = pi.getSyntax()) {
+            // A udp instance spans the WHOLE instantiation statement (Surelog
+            // populates from the udp_instantiation node), not just the
+            // instance clause a gate anchors at.
+            const syntax::SyntaxNode* ls = syn;
+            if (isUdp && syn->parent &&
+                (syn->parent->kind ==
+                     syntax::SyntaxKind::HierarchyInstantiation ||
+                 syn->parent->kind ==
+                     syntax::SyntaxKind::PrimitiveInstantiation))
+                ls = syn->parent;
+            setLoc(g, ls->sourceRange());
+            // Surelog stamps a udp instance with its source file (gates in
+            // this corpus carry none, so the write stays udp-only).
+            if (isUdp)
+                g->VpiFile(fullFilePath(ls->sourceRange().start()));
+        }
+        if (isUdp && topView)
+            if (auto uit = udpDefnMap.find(&pi.primitiveType);
+                uit != udpDefnMap.end())
+                ((UHDM::udp*)g)->Udp_defn(uit->second);
         if (topView)
             if (auto* dly = buildDelay(pi))
                 g->Delay(dly);
@@ -9858,7 +9886,7 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
         // def view: Surelog's def-view gate compile indexes the terminal list
         // past the (absent) instance-name slot, so terminal 0 never lands and
         // the rest shift down. The elab view builds the terminals properly.
-        size_t skipTerms = (!topView && gateName.empty()) ? 1u : 0u;
+        size_t skipTerms = (!topView && !isUdp && gateName.empty()) ? 1u : 0u;
         // DEF view: Surelog marks ONLY term 0 as the output — even for a
         // multi-output buf/not. ELAB view: TRUE directions (buf/not: all but
         // the last are outputs).
@@ -9932,7 +9960,10 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
             auto& pi = member.as<PrimitiveInstanceSymbol>();
             std::string pname(pi.primitiveType.name);
             int32_t primType = 0;
-            auto sw = primKind(pname, primType);
+            bool isUdp = pi.primitiveType.primitiveKind ==
+                         PrimitiveSymbol::UserDefined;
+            auto sw = isUdp ? std::optional<bool>(false)
+                            : primKind(pname, primType);
             if (!sw) {
                 noteUnsupported("gate primitive: " + pname);
                 continue;
@@ -9949,7 +9980,7 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
             // module scope (prefix.out_buf0) — same split as a gate ARRAY.
             auto* g = buildGate(pi, pname, primType, gname,
                                 gfull, topView ? prefix : gfull, m, nullptr,
-                                false, *sw);
+                                false, *sw, isUdp);
             if (!prims)
                 prims = s.MakePrimitiveVec();
             prims->push_back(g);

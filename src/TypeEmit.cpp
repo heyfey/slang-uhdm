@@ -1191,6 +1191,35 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     bareParamInParamTs = true;
                             }
                         }
+                        // ...except inside a PACKAGE, where such a bound is
+                        // VIEW-DEPENDENT. A package param's own typespec range
+                        // that READS another parameter ([NAlerts-1:0] on
+                        // alert_handler_reg_pkg::AsyncOn) keeps the symbolic op
+                        // tree in the DEF package and FOLDS in the ELABORATED
+                        // one — Surelog re-evaluates package ranges while
+                        // elaborating the package (EarlgreyPackParam,
+                        // LogicArrayParam, IntegerConcat). A literal-only op
+                        // ([3-1:0]) stays symbolic in both views, so the rule
+                        // keys off an actual parameter read.
+                        bool pkgParamTsRef = false;
+                        if (bareParamInParamTs && bsyn && currentScope &&
+                            declSymbol.getParentScope() &&
+                            curPkgEmitSym ==
+                                &declSymbol.getParentScope()->asSymbol()) {
+                            ASTContext pctx(*currentScope, LookupLocation::max);
+                            auto& pbe = Expression::bind(*bsyn, pctx);
+                            if (!pbe.bad())
+                                pbe.visit(makeVisitor(
+                                    [&](auto& v,
+                                        const NamedValueExpression& nv) {
+                                        if (nv.symbol.kind ==
+                                            SymbolKind::Parameter)
+                                            pkgParamTsRef = true;
+                                        v.visitDefault(nv);
+                                    }));
+                        }
+                        if (pkgParamTsRef && pkgEmitTopView)
+                            bareParamInParamTs = false;
                         // A NON-TOP def port dim bound stays symbolic when
                         // the def is instantiated WITH a #(...) override
                         // (its module view compiles generically): every
@@ -1747,7 +1776,21 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // Function/typedef context: unfolded expression.
                             bool savedBCN = boundCallNameSpan;
                             boundCallNameSpan = true;
+                            // A DEF-view PACKAGE param bound keeps its param
+                            // ref linked to the referenced package param's own
+                            // def Rhs (Surelog value-ref chaining) — the same
+                            // tf-type-scope resolver the package enum bases
+                            // use. Without it the ref_obj dangles and Compare
+                            // reports `failLhs=constant failRhs=<null>`.
+                            const slang::ast::Scope* savedTfS7 = tfTypeScope;
+                            bool setTf7 = false;
+                            if (pkgParamTsRef && !tfTypeScope) {
+                                tfTypeScope = declSymbol.getParentScope();
+                                setTf7 = true;
+                            }
                             auto* e0bcn = emitSyntaxExpr(*bsyn, r);
+                            if (setTf7)
+                                tfTypeScope = savedTfS7;
                             boundCallNameSpan = savedBCN;
                             if (auto* e = e0bcn) {
                                 // The sys-call arg refs bind their DEF

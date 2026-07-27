@@ -387,8 +387,8 @@ Earlgrey_Verilator_01_05_21,default,DEFERRED,late-phase: golden uncacheable on t
 Earlgrey_Verilator_01_05_21,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 Earlgrey_Verilator_0_1,default,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
 Earlgrey_Verilator_0_1,testflags,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
-EarlgreyPackParam,default,CMP_NOTEQUAL,decompile:,,
-EarlgreyPackParam,testflags,CMP_NOTEQUAL,decompile:,,
+EarlgreyPackParam,default,CMP_EQUAL,,,differ
+EarlgreyPackParam,testflags,CMP_EQUAL,,,differ
 ElabCParam,default,CMP_NOTEQUAL,decompile:,,
 ElabCParam,testflags,CMP_NOTEQUAL,decompile:,,
 ElabIf,default,SLANG_REJECT,dut.sv:8:18: error: use of undeclared identifier 'inp',,
@@ -1395,8 +1395,8 @@ TypespecExpr,default,CMP_EQUAL,,,differ
 TypespecExpr,testflags,CMP_NOTEQUAL,decompile:,,
 TypespecMask,default,CMP_EQUAL,,,differ
 TypespecMask,testflags,CMP_NOTEQUAL,decompile:,,
-Udp,default,CMP_NOTEQUAL,decompile:,,
-Udp,testflags,CMP_NOTEQUAL,decompile:,,
+Udp,default,CMP_EQUAL,,,differ
+Udp,testflags,CMP_EQUAL,,,differ
 UhdmCoverage,default,SLANG_REJECT,dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
 UhdmCoverage,testflags,SLANG_REJECT,dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
 UnaryPlus,default,CMP_EQUAL,,,match
