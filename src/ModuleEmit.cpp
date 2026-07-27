@@ -6102,7 +6102,33 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 mulDivLp9 = true;
                             v9x.visitDefault(be9);
                         }));
-            if (cv.isInteger() && !cv.integer().hasUnknown()) {
+            // A gen-scope localparam initialized by a BIT- or PART-SELECT off a
+            // PACKED base (localparam debug = AsyncOn[k]) takes the select
+            // encoding Surelog gives every other select fold: BINARY at the
+            // SELECT's own width, never a decimal (LogicArrayParam). The
+            // param_assign constant below re-reads this value.
+            std::string selBits9;
+            if (auto* ini8 = ps.getInitializer()) {
+                auto& si8 = stripImplicitConv(*ini8);
+                const Expression* sb8 =
+                    si8.kind == ExpressionKind::ElementSelect
+                        ? &si8.as<ElementSelectExpression>().value()
+                    : si8.kind == ExpressionKind::RangeSelect
+                        ? &si8.as<RangeSelectExpression>().value()
+                        : nullptr;
+                if (sb8 && sb8->type && sb8->type->isIntegral() && si8.type &&
+                    cv.isInteger() && !cv.integer().hasUnknown()) {
+                    int32_t w8 = (int32_t)si8.type->getBitWidth();
+                    if (w8 > 0 && w8 <= 64) {
+                        SVInt wv8 = cv.integer().resize((slang::bitwidth_t)w8);
+                        for (int32_t i8 = w8 - 1; i8 >= 0; i8--)
+                            selBits9 += (wv8[i8] == slang::logic_t(1)) ? '1' : '0';
+                    }
+                }
+            }
+            if (!selBits9.empty())
+                up->VpiValue("BIN:" + selBits9);
+            else if (cv.isInteger() && !cv.integer().hasUnknown()) {
                 bool neg = cv.integer().isSigned() && cv.integer().isNegative();
                 std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
                 up->VpiValue(((neg || mulDivLp9) ? "INT:" : "UINT:") + digits);
@@ -6253,7 +6279,17 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             if (mulDiv9)
                                 negSib9 = true;
                         }
-                        if (negSib9) {
+                        // A SELECT init keeps the select encoding decided on
+                        // the parameter above: BINARY at the select's width,
+                        // with the matching based decompile.
+                        if (!selBits9.empty()) {
+                            c2->VpiValue("BIN:" + selBits9);
+                            c2->VpiConstType(vpiBinaryConst);
+                            c2->VpiSize((int32_t)selBits9.size());
+                            c2->VpiDecompile(std::to_string(selBits9.size()) +
+                                             "'b" + selBits9);
+                        }
+                        else if (negSib9) {
                             c2->VpiValue("INT:" + sd);
                             c2->VpiConstType(vpiIntConst);
                         }

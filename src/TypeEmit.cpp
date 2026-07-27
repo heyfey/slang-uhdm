@@ -1201,12 +1201,29 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         // LogicArrayParam, IntegerConcat). A literal-only op
                         // ([3-1:0]) stays symbolic in both views, so the rule
                         // keys off an actual parameter read.
+                        // The DEF package view is the ONLY view that keeps it:
+                        // the same package parameter read from a MODULE (a
+                        // materialized wildcard-import copy, work@alert_handler
+                        // .AsyncOn) folds its bound too, exactly like the elab
+                        // package copy (LogicArrayParam).
                         bool pkgParamTsRef = false;
-                        if (bareParamInParamTs && bsyn && currentScope &&
+                        bool ownPkgDefView = false;
+                        // Bind the bound in the parameter's HOME package, not
+                        // in whatever scope is current: the module copies are
+                        // minted with no currentScope (patchParamTypespecs) or
+                        // with an elaborated body the bare name does not
+                        // resolve in, and the bound is a package declaration in
+                        // every view.
+                        const Scope* pkgBindScope = declSymbol.getParentScope();
+                        if (bareParamInParamTs && bsyn && pkgBindScope &&
                             declSymbol.getParentScope() &&
-                            curPkgEmitSym ==
-                                &declSymbol.getParentScope()->asSymbol()) {
-                            ASTContext pctx(*currentScope, LookupLocation::max);
+                            declSymbol.getParentScope()->asSymbol().kind ==
+                                SymbolKind::Package) {
+                            ownPkgDefView =
+                                !pkgEmitTopView &&
+                                curPkgEmitSym ==
+                                    &declSymbol.getParentScope()->asSymbol();
+                            ASTContext pctx(*pkgBindScope, LookupLocation::max);
                             auto& pbe = Expression::bind(*bsyn, pctx);
                             if (!pbe.bad())
                                 pbe.visit(makeVisitor(
@@ -1218,7 +1235,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         v.visitDefault(nv);
                                     }));
                         }
-                        if (pkgParamTsRef && pkgEmitTopView)
+                        if (pkgParamTsRef && !ownPkgDefView)
                             bareParamInParamTs = false;
                         // A NON-TOP def port dim bound stays symbolic when
                         // the def is instantiated WITH a #(...) override

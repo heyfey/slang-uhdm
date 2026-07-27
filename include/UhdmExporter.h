@@ -790,6 +790,11 @@ private:
     bool paramInitDef = false;
     // PACKAGE param inits: concat operands unparent in both views.
     bool paramInitPkg = false;
+    // ELAB package view of a MULTIDIMENSIONAL param (>1 packed range): Surelog
+    // compiles its value with Reduce::No (CompileHelper::isMultidimensional
+    // gates the reduce), so same-package param references inside the init stay
+    // ref_objs in the elab view instead of folding to constants.
+    bool pkgElabSymOperands = false;
     // ELAB package view of a struct param whose tagged_pattern tree SURVIVES
     // (no `pkg::NAME` reference drives the flatten pass): Surelog still reduces
     // each member VALUE that is an expression to a constant in place, leaving
@@ -1490,6 +1495,13 @@ private:
     // `init` chains (through param refs) to an enum value (Surelog).
     bool enumOriginHexRecode(UHDM::constant* c,
                              const slang::ast::Expression* init);
+    // Sibling of enumOriginHexRecode for PLAIN param chains: when `init`
+    // chains (through one or more param references, package boundaries
+    // included) to a BASED integer literal, the fold keeps that literal's
+    // SOURCE encoding (20'b0110... -> BIN / vpiBinaryConst / the literal
+    // text as the decompile) instead of a plain decimal UINT.
+    bool paramOriginBaseRecode(UHDM::constant* c,
+                               const slang::ast::Expression* init);
     // Elab-view fold constant of a module STRING localparam (shared into a
     // cont-assign that reads it — o = X).
     std::map<const slang::ast::Symbol*, UHDM::constant*> moduleStringParamConst;

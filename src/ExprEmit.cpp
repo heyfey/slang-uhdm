@@ -1364,7 +1364,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // A SAME-package param ref in a DEF-view pkg init stays a
                     // ref_obj (fullname pkg::P) whose actual is the referenced
                     // param's own def Rhs node (Surelog chains value refs).
-                    if (paramInitDef &&
+                    // The ELAB view of a MULTIDIMENSIONAL param takes the same
+                    // shape: Surelog compiles it Reduce::No, so nothing folds.
+                    if ((paramInitDef || pkgElabSymOperands) &&
                         curPkg == std::string(scope->asSymbol().name)) {
                         ref->VpiFullName(joinRef(prefix, nv.symbol.name));
                         if (auto rit = pkgParamDefRhs.find(&nv.symbol);

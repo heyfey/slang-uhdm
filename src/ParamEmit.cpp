@@ -24,6 +24,31 @@ static bool containsUserCall(const Expression& e) {
     return found;
 }
 
+// How many PACKED dimensions a parameter's type declares — the count Surelog's
+// CompileHelper::isMultidimensional reads off the emitted logic/bit/
+// packed_array typespec's `Ranges()`. `logic [19:0]` is 1, `logic [1:0][W-1:0]`
+// is 2, a plain scalar 0.
+static int packedDimCount(const Type& t) {
+    int n = 0;
+    const Type* ct = &t.getCanonicalType();
+    while (ct->kind == SymbolKind::PackedArrayType) {
+        n++;
+        ct = &ct->as<PackedArrayType>().elementType.getCanonicalType();
+    }
+    return n;
+}
+
+// Whether the OUTERMOST packed range of a parameter's type runs downwards
+// ([1:0]) — Surelog's CompileHelper::isDecreasingRange, which decides whether
+// an elab pattern/concat Rhs gets its operands reversed.
+static bool firstPackedRangeDecreasing(const Type& t) {
+    const Type& ct = t.getCanonicalType();
+    if (ct.kind != SymbolKind::PackedArrayType)
+        return false;
+    auto r = ct.as<PackedArrayType>().range;
+    return r.left > r.right;
+}
+
 // Surelog's constant-function evaluator BAILS on a function whose body declares
 // a LOCALPARAM at any block level: the elab param_assign then keeps a symbolic
 // Rhs instead of the folded value (const_func_block_var). Plain block variables,
@@ -3044,7 +3069,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // (Surelog). A simple-literal import (int W = 4) keeps
                     // them, but that init takes the IntegerLiteral branch
                     // above, not this fold path.
-                    bool importedFold = isImported && topView && !inPackage;
+                    // ...but a plain param REFERENCE default (AsyncOn =
+                    // other_pkg::AsyncOn) is not such an operation: its elab
+                    // module fold keeps the reference span and the ts ref,
+                    // exactly like the def-view copy (LogicArrayParam).
+                    bool importedFold = isImported && topView && !inPackage &&
+                                        stripImplicitConv(*init).kind !=
+                                            ExpressionKind::NamedValue;
                     // Typed params fold at the type width; a size-cast value
                     // (32'(ONE)) at the cast width; other untyped values at 64.
                     auto& scv = stripImplicitConv(*init);
@@ -4198,6 +4229,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 paramInitDef = !topView || structWidePkg;
                 paramInitElabFold = topView && structNoScopedRefPkg;
                 paramInitPkg = inPackage;
+                // Surelog compiles a MULTIDIMENSIONAL package parameter's value
+                // with Reduce::No (CompileHelper::isMultidimensional gates the
+                // reduce on the typespec carrying more than one packed range),
+                // so its ELAB Rhs keeps the very same symbolic operand tree the
+                // def view has — no operand folds to a constant (IntegerConcat).
+                pkgElabSymOperands =
+                    inPackage && topView && packedDimCount(ps.getType()) > 1;
                 importedParamClone = isImported && !inPackage;
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
@@ -4285,6 +4323,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
                 suppressConstParent = savedSuppP;
+                // Surelog reverses the operands of an elab package parameter's
+                // concat / assignment-pattern Rhs when the parameter's first
+                // packed range DECREASES ([1:0]) and the operands are still
+                // symbolic (the `(*operands)[0] is a ref_obj` guard in
+                // CompileHelper), marking the operation vpiReordered. The DEF
+                // view is built from the unreduced, unreordered expression and
+                // keeps source order (IntegerConcat).
+                if (pkgElabSymOperands && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation &&
+                    firstPackedRangeDecreasing(ps.getType())) {
+                    auto* opd9 = (UHDM::operation*)rhs;
+                    int ot9 = opd9->VpiOpType();
+                    if ((ot9 == vpiConcatOp || ot9 == vpiAssignmentPatternOp) &&
+                        opd9->Operands() && !opd9->Operands()->empty() &&
+                        (*opd9->Operands())[0]->UhdmType() ==
+                            UHDM::uhdmref_obj) {
+                        opd9->VpiReordered(true);
+                        std::reverse(opd9->Operands()->begin(),
+                                     opd9->Operands()->end());
+                    }
+                }
+                pkgElabSymOperands = false;
                 paramInitPkg = false;
                 paramInitDef = false;
                 paramInitElabFold = false;
@@ -4528,9 +4588,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // ELAB pkg typed-param whose init chain (through same-pkg
                 // param refs) lands on an ENUM VALUE folds in the enum
                 // literal's source HEX form (8'hCC / HEX:CC) — Surelog.
-                if (topView && inPackage && typedParam &&
+                if (topView && (inPackage || isImported) && typedParam &&
                     rhs->UhdmType() == UHDM::uhdmconstant)
-                    enumOriginHexRecode((UHDM::constant*)rhs, init);
+                    if (!enumOriginHexRecode((UHDM::constant*)rhs, init))
+                        // ...and the same chaining for a plain param
+                        // reference that lands on a BASED literal.
+                        paramOriginBaseRecode((UHDM::constant*)rhs, init);
                 // Literal inits of typed params carry the param typespec
                 // (patched late together with the param ref).
                 // Unknown ('x/'z) defaults: uppercase digits and a BARE
@@ -6503,6 +6566,76 @@ bool UhdmExporter::enumOriginHexRecode(UHDM::constant* c,
         ch = (char)toupper((unsigned char)ch);
     c->VpiValue("HEX:" + digits);
     c->VpiConstType(vpiHexConst);
+    c->VpiDecompile(lit);
+    return true;
+}
+
+// A pkg-param fold whose init chain (through param REFERENCES, across package
+// boundaries) lands on a BASED integer literal takes that literal's SOURCE
+// encoding, exactly as the enum-value chain above takes the enum literal's.
+// Surelog reduces `parameter bit [N-1:0] X = other_pkg::X;` by substituting
+// the referenced parameter's own compiled constant, which still carries the
+// base it was written in (20'b0110... -> BIN:0110... / vpiBinaryConst /
+// decompile "20'b0110..."), never a re-decimalised UINT (LogicArrayParam).
+// A DIRECT literal init is already handled by the emitter's own literal paths,
+// so at least one reference hop is required here.
+bool UhdmExporter::paramOriginBaseRecode(UHDM::constant* c,
+                                         const Expression* init) {
+    if (!init)
+        return false;
+    const Expression* ce = &stripImplicitConv(*init);
+    const Expression* lit0 = nullptr;
+    for (int g = 0; ce && g < 8; g++) {
+        if (ce->kind != ExpressionKind::NamedValue)
+            break;
+        auto& sym2 = ce->as<NamedValueExpression>().symbol;
+        if (sym2.kind != SymbolKind::Parameter)
+            break;
+        auto* ini2 = sym2.as<ParameterSymbol>().getInitializer();
+        if (!ini2)
+            break;
+        ce = &stripImplicitConv(*ini2);
+        if (ce->kind == ExpressionKind::IntegerLiteral) {
+            lit0 = ce;
+            break;
+        }
+    }
+    if (!lit0)
+        return false;
+    std::string lit = stripSep(std::string(rawText(lit0->sourceRange)));
+    auto tick = lit.find('\'');
+    if (tick == std::string::npos)
+        return false;
+    size_t bp = tick + 1;
+    if (bp < lit.size() && (lit[bp] == 's' || lit[bp] == 'S'))
+        bp++;
+    if (bp >= lit.size())
+        return false;
+    std::string digits = lit.substr(bp + 1);
+    if (digits.empty())
+        return false;
+    switch ((char)tolower((unsigned char)lit[bp])) {
+        case 'b':
+            c->VpiValue("BIN:" + digits);
+            c->VpiConstType(vpiBinaryConst);
+            break;
+        case 'h':
+            for (auto& ch : digits)
+                ch = (char)toupper((unsigned char)ch);
+            c->VpiValue("HEX:" + digits);
+            c->VpiConstType(vpiHexConst);
+            break;
+        case 'o':
+            c->VpiValue("OCT:" + digits);
+            c->VpiConstType(vpiOctConst);
+            break;
+        case 'd':
+            c->VpiValue("DEC:" + digits);
+            c->VpiConstType(vpiDecConst);
+            break;
+        default:
+            return false;
+    }
     c->VpiDecompile(lit);
     return true;
 }
