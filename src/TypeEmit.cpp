@@ -6669,7 +6669,7 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
 
 UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
     const Symbol& sym, const std::string& name, const std::string& fullName,
-    UHDM::module_inst* m) {
+    UHDM::instance* m) {
     auto declared = sym.getDeclaredType();
     if (!declared)
         return nullptr;
@@ -6778,7 +6778,7 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
 UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym,
                                                                const std::string& name,
                                                                const std::string& fullName,
-                                                               UHDM::module_inst* m) {
+                                                               UHDM::instance* m) {
     auto declared = sym.getDeclaredType();
     if (!declared || !declared->getType().isPackedArray())
         return nullptr;
@@ -7082,7 +7082,7 @@ UHDM::packed_array_var* UhdmExporter::makeEnumArrayVar(UHDM::typespec* ts,
 UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym,
                                                                const std::string& name,
                                                                const std::string& fullName,
-                                                               UHDM::module_inst* m) {
+                                                               UHDM::instance* m) {
     auto declared = sym.getDeclaredType();
     if (!declared || !declared->getType().isPackedArray())
         return nullptr;

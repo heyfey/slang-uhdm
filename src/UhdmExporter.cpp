@@ -1615,22 +1615,37 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     // Pre-create the definition shells so ref_modules can point at them
     // regardless of emission order. Interface defs get interface_inst shells
-    // in AllInterfaces; everything else module_inst shells in AllModules.
+    // in AllInterfaces, `program` defs get program shells in AllPrograms, and
+    // everything else module_inst shells in AllModules.
     auto* allIfaces = s.MakeInterface_instVec();
+    auto* allProgs = s.MakeProgramVec();
+    std::set<const DefinitionSymbol*> topDefs;
+    for (auto* ti : orderedTops)
+        topDefs.insert(&ti->getDefinition());
     for (auto& [name, inst] : defs) {
         if (useInterfacePath(*inst)) {
             auto* iface = s.MakeInterface_inst();
             ifaceDefMap[&inst->getDefinition()] = iface;
             allIfaces->push_back(iface);
         }
+        // A program elaborated as a TOP has no observed Surelog form here
+        // (design->TopModules is a module_inst vector), so it keeps the
+        // module_inst shell until a corpus test pins the real shape.
+        else if (isProgramDef(*inst) && !topDefs.count(&inst->getDefinition())) {
+            auto* prog = s.MakeProgram();
+            defMap[&inst->getDefinition()].mod = prog;
+            allProgs->push_back(prog);
+        }
         else {
             defMap[&inst->getDefinition()].mod = s.MakeModule_inst();
-            allMods->push_back(defMap[&inst->getDefinition()].mod);
+            allMods->push_back((UHDM::module_inst*)defMap[&inst->getDefinition()].mod);
         }
     }
     d->AllModules(allMods);
     if (!allIfaces->empty())
         d->AllInterfaces(allIfaces);
+    if (!allProgs->empty())
+        d->AllPrograms(allProgs);
 
 
     // Surelog compiles every module's parameters at module-compile time, so
@@ -1770,7 +1785,10 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     for (auto inst : orderedTops) {
         std::string prefix = "work@" + std::string(inst->getDefinition().name);
-        topMods->push_back(emitInstance(*inst, prefix, nullptr, nullptr, nullptr, /*isTop=*/true));
+        // isTop always yields a module_inst (see emitInstance): design->
+        // TopModules has no program variant.
+        topMods->push_back((UHDM::module_inst*)emitInstance(*inst, prefix, nullptr, nullptr,
+                                                            nullptr, /*isTop=*/true));
     }
     // Bind pkg alias-of-vector-typedef chains to the TARGET's top/module
     // listing object now that the top walk built it (jeras_union imm_l_t);
@@ -1871,8 +1889,8 @@ UHDM::design* UhdmExporter::exportDesign() {
         UHDM::typespec* act = nullptr;
         if (auto ait = arrayVarArrayTs.find(pf.sym); ait != arrayVarArrayTs.end())
             act = ait->second;
-        if (!act && pf.mod && pf.mod->Ports())
-            for (auto* pt : *pf.mod->Ports())
+        if (!act && pf.mod && instGetPorts(pf.mod))
+            for (auto* pt : *instGetPorts(pf.mod))
                 if (pt->VpiName() == pf.sym->name && pt->Typespec() &&
                     pt->Typespec()->Actual_typespec() &&
                     pt->Typespec()->Actual_typespec()->UhdmType() ==
@@ -1886,8 +1904,8 @@ UHDM::design* UhdmExporter::exportDesign() {
     // (no tail duplicate); fall back to a fresh one for non-port LHSs.
     for (auto& p : pendingSysFuncTs) {
         UHDM::typespec* act = nullptr;
-        if (p.mod && p.mod->Ports())
-            for (auto* pt : *p.mod->Ports())
+        if (p.mod && instGetPorts(p.mod))
+            for (auto* pt : *instGetPorts(p.mod))
                 if (pt->VpiName() == p.sym->name && pt->Typespec())
                     act = pt->Typespec()->Actual_typespec();
         // Non-port LHS: share the def NET's typespec.

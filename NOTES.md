@@ -1283,3 +1283,78 @@ bespoke work. LESSON (3rd time: packed_array_var, struct_var, vector-typedef):
 late-stage "clusters" are per-test fiddly work; the only real multi-test lever
 left is INTERFACES (45, ArbitrarySymbol) via the templating refactor (high-risk,
 dedicated effort). Reliable value = per-test DIFF/UNSUP pickoffs w/ coherent cause.
+
+## `program` blocks — Surelog's program writer is NOT its module writer
+`program TESTBENCH ... endprogram` is a UHDM `program`, not a `module_inst`:
+`design->AllPrograms` for the def view, `instance->Programs` (vpiProgram) for
+the elaborated child. `program` derives from `instance` and carries
+Ports/Process/Cont_assigns/Interfaces/Interface_arrays/Gen_scope_arrays, but
+NOT Modules/Module_arrays/Ref_modules/Gen_stmts/Primitives/Io_decls — which is
+consistent, since a program can instantiate no modules.
+
+Decoded from OneNetModPort / OneNetModPortGeneric / OneNetInterf / OneNetRange
+goldens. Beyond the object class, Surelog's program writer differs from its
+module writer in four measured ways — all DEF/ELAB-view asymmetries, none of
+them cosmetic:
+
+1. **DEF ports are bare.** name + direction + a LowConn ref_obj, and nothing
+   else. No `vpiTypedef` at all (module def ports always carry one), and for a
+   TYPED interface port (`ConnectTB.tb intf`) the LowConn has no Actual either.
+   Compare the sibling module `work@middle` in the same file: typedef ->
+   interface_typespec(dut), LowConn actual -> modport.
+2. **A TYPED interface port takes no DEF net.** `work@TESTBENCH` lists no
+   vpiNet; `work@middle` lists `work@middle.intf`. A GENERIC port
+   (`program p (interface intf)`) DOES take one — Surelog never recognises the
+   generic form as an interface port at all (see below), so it goes down the
+   ordinary net-backed-port path.
+3. **The ELAB view lists no parameters.** `TESTBENCH #(width) tb` in OneNetRange
+   puts vpiParameter/vpiParamAssign on the def `work@TESTBENCH` only; the elab
+   `work@TOP.tb` has neither, override or not.
+4. **The ELAB view materialises no port-view interface_inst.** A module gets
+   `vpiInterface` for each interface port (work@TOP.dut1.middle1.intf); the
+   program does not. It also sets vpiInstance but NOT vpiModule.
+5. **The body is compiled in the ELAB context and folded back**, the reverse
+   of the module direction. A module's processes are compiled once in the DEF
+   (refs bind def nets) and shared into every instance; a program's single
+   process object has the ELAB program as its vpiParent, elab block fullnames
+   (`work@tb.tb`), and elab-net ref actuals — and the DEF view points at that
+   same object. This is exactly what emitInterfaceInstance already does for
+   interfaces. It is not cosmetic: uhdm-cmp walks ref_obj->Actual->net->
+   Typespec, and a def net carries no typespec while the elab one does, so
+   binding the def net fails the compare (OneNetInterf work@tb.tb.drive).
+   Concurrent assertions do NOT move: they stay a def-pass product (no corpus
+   program has one, so the def-context binding is unverified but preserved).
+
+### Generic interface ports (`module m (interface intf)`) — separate cluster
+Surelog compiles the generic form as an ordinary port: a real net, a LowConn
+bound to that net, and a `vpiTypedef -> unsupported_typespec` NAMED AFTER THE
+PORT. We emit an `interface_typespec` named `interface` (the keyword token),
+no LowConn actual, and a spurious port-view interface_inst; the elab LowConn
+actual should be the connected modport, not the interface_inst. This is what
+still blocks OneNetModPortGeneric (195 cmp-relevant dump lines) and it is
+NOT program-specific — the sibling modules `work@middle` and `work@OBSERVER`
+in that test have the same three defects. `isGenericIfacePort()` in
+EmitHelpers.h is the predicate to build on.
+
+### Residues after the program work (measured, cmp-relevant dump lines)
+- OneNetModPort: 0 (converged, both modes).
+- OneNetInterf: ONE cmp-relevant defect left — an ELAB hier_path port HighConn
+  (`conn.con_i`) wants `vpiExpr -> ref_obj`, and the value is the enclosing
+  instance's iface-port LowConn ref_obj (work@dut.middle1.conn, already built
+  in the pre-children pass, so `ifacePortObjs` has it). This is the sole
+  uhdm-cmp failure for that test now; cracking it converts 2 rows. Note the
+  contrast with the MODPORT-qualified form: OneNetModPort's golden folds
+  `intf.drive` to the bound `logic_var` instead of keeping a hier_path, and it
+  converged anyway (that HighConn shape is not what cmp trips on).
+- OneNetRange 100: the same hier_path vpiExpr plus UINT/size-32 param-override
+  constants where we emit INT/size -1.
+- InterfaceModPort 316, SVSwitch 2767, SimpleConstraint 174: unrelated clusters.
+
+### Interface `output reg` header ports were dropped from the ELAB view
+`interface ConnectTB (input wire con_i, output reg con_o)`: slang models
+`output reg` as a Variable, makeVar declines it (reg stays a net), and
+emitInterfaceInstance's fall-through only re-homed Symbol::Net — so con_o
+vanished from the elaborated interface entirely and the port's LowConn stayed
+unbound. Fixed by admitting port-backed symbols to that arm (logic_net,
+netType 48). Halved the OneNetInterf/OneNetRange residues; converts neither on
+its own.

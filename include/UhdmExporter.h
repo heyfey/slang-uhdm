@@ -93,7 +93,11 @@ private:
     using TsCache = std::map<const void*, UHDM::typespec*>;
 
     struct DefInfo {
-        UHDM::module_inst* mod = nullptr;
+        // module_inst for a module def, program for a `program` def (both are
+        // UHDM::instance; interface defs use ifaceDefMap instead). Surelog
+        // writes program blocks into design->AllPrograms / instance->Programs,
+        // so the def shell's runtime type has to be decided up front.
+        UHDM::instance* mod = nullptr;
         bool filled = false;
         NetMap nets;
         std::vector<UHDM::process_stmt*> processes;
@@ -231,18 +235,18 @@ private:
     // (port + deferred-typespec) pass.
     struct TopPending {
         const slang::ast::InstanceSymbol* inst;
-        UHDM::module_inst* m;
+        UHDM::instance* m;
         std::string prefix;
         NetMap nets;
         size_t paramLo, paramHi, netTsLo, netTsHi;
     };
 
-    UHDM::module_inst* emitModuleDef(const slang::ast::InstanceSymbol& inst, bool topDef);
-    UHDM::module_inst* emitModuleDefPorts(const slang::ast::InstanceSymbol& inst);
-    UHDM::module_inst* emitInstance(const slang::ast::InstanceSymbol& inst,
-                                    const std::string& path, UHDM::module_inst* parentM,
-                                    NetMap* parentNets,
-                                    std::set<const slang::ast::Symbol*>* parentRefs, bool isTop);
+    UHDM::instance* emitModuleDef(const slang::ast::InstanceSymbol& inst, bool topDef);
+    UHDM::instance* emitModuleDefPorts(const slang::ast::InstanceSymbol& inst);
+    UHDM::instance* emitInstance(const slang::ast::InstanceSymbol& inst,
+                                 const std::string& path, UHDM::instance* parentM,
+                                 NetMap* parentNets,
+                                 std::set<const slang::ast::Symbol*>* parentRefs, bool isTop);
     // Interfaces are emitted as interface_inst (design->AllInterfaces), not
     // module_inst. emitInterfaceDef builds the generic def (nets); the elab
     // instance (vars + init) is referenced from a parent module via
@@ -274,7 +278,7 @@ private:
                                     UHDM::BaseClass* parent);
     UHDM::interface_inst* makeIfaceRefDup(const slang::ast::InstanceSymbol& inst,
                                           const std::string& path,
-                                          UHDM::module_inst* parentM, NetMap& sharedNets,
+                                          UHDM::instance* parentM, NetMap& sharedNets,
                                           UHDM::interface_inst* dup0 = nullptr,
                                           UHDM::interface_inst* home = nullptr);
     // DEF-view package struct typespecs, for the cross-view member-actual
@@ -327,7 +331,7 @@ private:
     UHDM::interface_inst* emitInterfaceDef(const slang::ast::InstanceSymbol& inst);
     UHDM::interface_inst* emitInterfaceInstance(const slang::ast::InstanceSymbol& inst,
                                                 const std::string& path,
-                                                UHDM::module_inst* parentM, NetMap* parentNets,
+                                                UHDM::instance* parentM, NetMap* parentNets,
                                                 std::set<const slang::ast::Symbol*>* parentRefs,
                                                 const slang::ast::InstanceSymbol* portView = nullptr,
                                                 const std::string& connModport = "",
@@ -527,15 +531,15 @@ private:
     // to the SHARED named typedef logic_typespec (Surelog).
     UHDM::packed_array_var* emitVectorTypedefArrayVar(
         const slang::ast::Symbol& sym, const std::string& name,
-        const std::string& fullName, UHDM::module_inst* m);
+        const std::string& fullName, UHDM::instance* m);
     UHDM::packed_array_var* emitPackedStructArrayVar(const slang::ast::Symbol& sym,
                                                      const std::string& name,
                                                      const std::string& fullName,
-                                                     UHDM::module_inst* m);
+                                                     UHDM::instance* m);
     UHDM::packed_array_net* emitPackedStructArrayNet(const slang::ast::Symbol& sym,
                                                      const std::string& name,
                                                      const std::string& fullName,
-                                                     UHDM::module_inst* m);
+                                                     UHDM::instance* m);
     // ELAB fix-ups for a flattened (struct) assignment-pattern cont_assign
     // RHS: the CA was deep-cloned, so every select constant carries a parent,
     // and each path operand's vpiExpr binds the elaborated base signal.
@@ -810,7 +814,7 @@ private:
     // Surelog can't resolve block-scoped localparams; refs to them bind an
     // implicit module-level wire created at the first reference.
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;
-    UHDM::module_inst* implicitNetModule = nullptr;
+    UHDM::instance* implicitNetModule = nullptr;
     std::string implicitNetPrefix;
     // foreach_stmt: the iterated array's ref_typespec binds the array's OWN
     // array_typespec, which the instance view only mints later — so the ref is
@@ -818,7 +822,7 @@ private:
     struct PendingForeachTs {
         UHDM::ref_typespec* rt;
         const slang::ast::Symbol* sym;
-        UHDM::module_inst* mod;
+        UHDM::instance* mod;
     };
     std::vector<PendingForeachTs> pendingForeachArrayTs;
     std::map<const slang::ast::Symbol*, UHDM::typespec*> arrayVarArrayTs;
@@ -856,7 +860,7 @@ private:
     std::vector<std::pair<std::string, slang::SourceRange>> pendingGenCallNets;
     // (enclosing module, imported fn) — listed on the module AFTER the
     // shared-def Task_funcs assignment.
-    std::vector<std::pair<UHDM::module_inst*, UHDM::task_func*>>
+    std::vector<std::pair<UHDM::instance*, UHDM::task_func*>>
         pendingConnTfList;
     // Cast-size exprs also keep name-token-only call spans.
     bool inCastSize = false;
@@ -1010,7 +1014,7 @@ private:
     // (deferred) actual typespec; fall back to a fresh typespec if unresolved.
     struct PendingSysFuncTs {
         UHDM::ref_typespec* rt;
-        UHDM::module_inst* mod;
+        UHDM::instance* mod;
         const slang::ast::Symbol* sym;
     };
     std::vector<PendingSysFuncTs> pendingSysFuncTs;

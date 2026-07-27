@@ -279,7 +279,7 @@ static bool isNonAnsiHeader(const InstanceBodySymbol& body) {
            hdr->ports->as<slang::syntax::AnsiPortListSyntax>().ports.empty();
 }
 
-UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
+UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     size_t netTsAtEntry = pendingNetTs.size();
@@ -301,7 +301,7 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             auto& md0 = syntax->as<syntax::ModuleDeclarationSyntax>();
             mr0 = SourceRange(md0.header->moduleKeyword.location(), mr0.end());
             if (auto* bn = md0.blockName)
-                m->VpiEndLabel(bn->name.valueText());
+                instSetEndLabel(m, bn->name.valueText());
             if (!md0.attributes.empty()) {
                 auto* mav = s.MakeAttributeVec();
                 for (auto* asp0 : md0.attributes)
@@ -615,6 +615,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
         if (portBase->kind != SymbolKind::InterfacePort)
             continue;
         auto& ip = portBase->as<InterfacePortSymbol>();
+        // A program's TYPED interface port gets none: Surelog's program writer
+        // emits nets only for the program's own signals (OneNetModPort
+        // work@TESTBENCH lists no vpiNet at all, while the sibling module
+        // work@middle -- same ConnectTB.<mp> port -- does). A GENERIC port
+        // does get one: Surelog never saw it as an interface port at all.
+        if (m->UhdmType() == UHDM::uhdmprogram && !isGenericIfacePort(ip))
+            continue;
         auto* n = s.MakeLogic_net();
         n->VpiName(ip.name);
         n->VpiFullName(prefix + "." + std::string(ip.name));
@@ -739,7 +746,9 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // port typespecs in Surelog's arena).
     emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
-    emitGates(body, m, prefix, info.nets, /*topView=*/false);
+    // Gates/primitives live only on module_inst (a program cannot hold them).
+    if (auto* gm = asModuleInst(m))
+        emitGates(body, gm, prefix, info.nets, /*topView=*/false);
 
     // Named property declarations (property p(n); ... endproperty): a
     // property_decl with bare-ts formals and a formal-referenced body
@@ -837,6 +846,13 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     // [own processes] followed by [region processes] x instance-count, with
     // the instance loop OUTERMOST.
     std::vector<const ProceduralBlockSymbol*> regionPbs;
+    // A `program`'s body is compiled ONCE, in the ELABORATED instance's
+    // context, and folded back into the def view (Surelog: the def
+    // work@TESTBENCH's vpiProcess is an initial whose parent is work@TOP.tb
+    // and whose block names / signal actuals are the elab instance's). So the
+    // def pass emits nothing here; emitInstance emits and shares (the same
+    // inversion emitInterfaceInstance already does for interfaces).
+    bool progDef = m->UhdmType() == UHDM::uhdmprogram;
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::ProceduralBlock)
             continue;
@@ -861,13 +877,17 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
             info.assertions.push_back(as);
             continue;
         }
+        // Concurrent assertions still compile here for a program (the def is
+        // the only place they are seen); only the PROCESS bodies move.
+        if (progDef)
+            continue;
         auto* p = emitProcess(pb, m, prefix, info.nets);
         if (p) {
             procs->push_back(p);
             info.processes.push_back(p);
         }
     }
-    if (!regionPbs.empty()) {
+    if (!regionPbs.empty() && !progDef) {
         auto itc = defAllInstCount.find(&def);
         unsigned reps = itc == defAllInstCount.end() ? 0 : itc->second;
         for (unsigned k = 0; k < reps; k++)
@@ -882,13 +902,15 @@ UHDM::module_inst* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool 
     implicitNetPrefix = savedProcINP;
     refCollector = nullptr;
     if (!procs->empty())
-        m->Process(procs);
+        instSetProcess(m, procs);
     if (!asserts->empty())
         m->Assertions(asserts);
 
     // Default clocking block (default clocking @(posedge clk); endclocking).
-    if (auto* cb = emitDefaultClocking(body, m, prefix, info.nets))
-        info.defaultClocking = cb;
+    if (auto* mm = asModuleInst(m)) {
+        if (auto* cb = emitDefaultClocking(body, mm, prefix, info.nets))
+            info.defaultClocking = cb;
+    }
 
     // Def view: for-generates keep a gen_region placeholder (unlocated begin
     // naming the module scope); if-generates become gen_if_else with BOTH
@@ -1119,7 +1141,7 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
 
 // Encounter-phase def artifacts: ports, child stubs, imports. (Content is
 // compiled for every def before any instance; see exportDesign.)
-UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
+UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = "work@" + std::string(def.name);
@@ -1145,10 +1167,16 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
     // module_array/module_typespec precede the port typespecs in Surelog's
     // arena — visible as the weakly-referenced tail order).
     UHDM::VectorOfmodule_array* moduleArrays = nullptr;
+    // Instance arrays / ref_modules are module_inst-only relations; a
+    // `program` def can hold neither (no module instantiation inside a
+    // program), so the whole child-stub phase is a no-op for one.
+    UHDM::module_inst* mmod = asModuleInst(m);
     for (auto& member : body.members()) {
+        if (!mmod)
+            break;
         if (member.kind != SymbolKind::InstanceArray)
             continue;
-        if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), m,
+        if (auto* ma = emitModuleArray(member.as<InstanceArraySymbol>(), mmod,
                                        prefix, info.nets, false)) {
             if (!moduleArrays)
                 moduleArrays = s.MakeModule_arrayVec();
@@ -1468,10 +1496,10 @@ UHDM::module_inst* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) 
             rm->Ports(rports);
         refmods->push_back(rm);
     }
-    if (!refmods->empty())
-        m->Ref_modules(refmods);
-    if (moduleArrays && !moduleArrays->empty())
-        m->Module_arrays(moduleArrays);
+    if (!refmods->empty() && mmod)
+        mmod->Ref_modules(refmods);
+    if (moduleArrays && !moduleArrays->empty() && mmod)
+        mmod->Module_arrays(moduleArrays);
 
     emitImportArtifacts(body, m);
 
@@ -2324,9 +2352,9 @@ const std::vector<UHDM::attribute*>* UhdmExporter::findAttrs(const Symbol* sym) 
     return nullptr;
 }
 
-UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
-                                              UHDM::module_inst* parentM, NetMap* parentNets,
-                                              std::set<const Symbol*>* parentRefs, bool isTop) {
+UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
+                                           UHDM::instance* parentM, NetMap* parentNets,
+                                           std::set<const Symbol*>* parentRefs, bool isTop) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     // A non-top elaborated instance body folds iface-port-hop range bounds to
@@ -2367,7 +2395,13 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     if (genvarConnFold && !genConnPrefix.empty())
         parentPrefix = genConnPrefix;
 
-    auto* m = s.MakeModule_inst();
+    // A `program` block elaborates into a UHDM program (parent->Programs),
+    // not a module_inst. A program can never be a design top here (see the
+    // def-shell loop in exportDesign), so isTop implies module_inst.
+    bool progInst = !isTop && defMap[&def].mod &&
+                    defMap[&def].mod->UhdmType() == UHDM::uhdmprogram;
+    UHDM::instance* m = progInst ? (UHDM::instance*)s.MakeProgram()
+                                 : (UHDM::instance*)s.MakeModule_inst();
     m->VpiDefName(defPrefix);
     m->VpiFullName(prefix);
     m->VpiFile(fullFilePath(def.location));
@@ -2375,7 +2409,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         m->VpiName(prefix);
         m->VpiParent(d);
         m->VpiTop(true);
-        m->VpiTopModule(true);
+        ((UHDM::module_inst*)m)->VpiTopModule(true);
         if (auto syntax = body.getSyntax())
             setLoc(m, syntax->sourceRange());
     }
@@ -2386,7 +2420,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         m->VpiFullName(bindPath);
         m->VpiParent(parentM);
         m->Instance(parentM);
-        m->Module_inst(parentM);
+        // Surelog's program writer sets vpiInstance but NOT vpiModule
+        // (OneNetModPort work@TOP.tb).
+        if (!progInst)
+            m->Module_inst(asModuleInst(parentM));
         m->VpiDefFile(fullFilePath(def.location));
         m->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
         if (auto syn = inst.getSyntax()) {
@@ -2405,7 +2442,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         m->VpiName(instNm);
         m->VpiParent(parentM);
         m->Instance(parentM);
-        m->Module_inst(parentM);
+        // Surelog's program writer sets vpiInstance but NOT vpiModule
+        // (OneNetModPort work@TOP.tb).
+        if (!progInst)
+            m->Module_inst(asModuleInst(parentM));
         m->VpiDefFile(fullFilePath(def.location));
         m->VpiDefLineNo((int32_t)sm->getLineNumber(def.location));
         // The elab child carries the INSTANTIATION site's file, which can
@@ -2436,7 +2476,11 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     TsCache elemPortTs;
     std::set<const Symbol*> instRefs;
     analyzeParamEnc(body);
-    {
+    // An elaborated PROGRAM lists no parameters: Surelog's program writer
+    // emits vpiParameter/vpiParamAssign in the DEF view only, even for an
+    // overridden instance (OneNetRange `TESTBENCH #(width) tb` -- work@TOP.tb
+    // carries neither, while the def work@TESTBENCH carries both).
+    if (!progInst) {
         auto pit = defMap.find(&def);
         size_t opLo = pendingParamTs.size();
         emitParameters(body, m, prefix, topNets, /*topView=*/true,
@@ -4091,10 +4135,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 }
                 if (!insts->empty())
                     iarr->Instances(insts);
-                auto* iarrs = m->Interface_arrays();
+                auto* iarrs = instGetInterfaceArrays(m);
                 if (!iarrs) {
                     iarrs = s.MakeInterface_arrayVec();
-                    m->Interface_arrays(iarrs);
+                    instSetInterfaceArrays(m, iarrs);
                 }
                 iarrs->push_back(iarr);
                 // Re-point the port LowConn ref from the def modport to the
@@ -4113,6 +4157,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     }
 
     auto* children = s.MakeModule_instVec();
+    auto* progChildren = s.MakeProgramVec();
     auto* ifaceChildren = s.MakeInterface_instVec();
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::Instance) {
@@ -4160,8 +4205,15 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
             if (fromBind && !currentTopPrefix.empty())
                 bindDisplayPath = currentTopPrefix + "." + std::string(child.name);
-            children->push_back(emitInstance(child, prefix + "." + std::string(child.name), m,
-                                             &topNets, &instRefs, /*isTop=*/false));
+            {
+                auto* ci9 = emitInstance(child, prefix + "." + std::string(child.name), m,
+                                         &topNets, &instRefs, /*isTop=*/false);
+                // A `program` child lists under vpiProgram, not vpiModule.
+                if (ci9->UhdmType() == UHDM::uhdmprogram)
+                    progChildren->push_back((UHDM::program*)ci9);
+                else
+                    children->push_back((UHDM::module_inst*)ci9);
+            }
             bindDisplayPath.clear();
         }
         else if (member.kind == SymbolKind::InstanceArray) {
@@ -4200,21 +4252,28 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                         continue;
                     std::string iname = std::string(arr.name) + "[" +
                                         std::to_string(alo + (int32_t)i) + "]";
-                    auto* mi = emitInstance(e->as<InstanceSymbol>(),
-                                            prefix + "." + iname, m, &topNets,
-                                            &instRefs, /*isTop=*/false);
-                    mi->VpiName(iname);
+                    auto* mi0 = emitInstance(e->as<InstanceSymbol>(),
+                                             prefix + "." + iname, m, &topNets,
+                                             &instRefs, /*isTop=*/false);
+                    mi0->VpiName(iname);
+                    auto* mi = asModuleInst(mi0);
+                    if (!mi) { // program array element
+                        progChildren->push_back((UHDM::program*)mi0);
+                        continue;
+                    }
                     children->push_back(mi);
                     melems->push_back(mi);
                 }
-                if (auto* ma = emitModuleArray(arr, m, prefix, topNets,
-                                               /*withInstances=*/false, melems)) {
-                    auto* mas = m->Module_arrays();
-                    if (!mas) {
-                        mas = s.MakeModule_arrayVec();
-                        m->Module_arrays(mas);
+                if (auto* mm9 = asModuleInst(m)) {
+                    if (auto* ma = emitModuleArray(arr, mm9, prefix, topNets,
+                                                   /*withInstances=*/false, melems)) {
+                        auto* mas = mm9->Module_arrays();
+                        if (!mas) {
+                            mas = s.MakeModule_arrayVec();
+                            mm9->Module_arrays(mas);
+                        }
+                        mas->push_back(ma);
                     }
-                    mas->push_back(ma);
                 }
                 continue;
             }
@@ -4261,10 +4320,14 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
         }
     }
-    if (!children->empty())
-        m->Modules(children);
+    if (!children->empty()) {
+        if (auto* mm9 = asModuleInst(m))
+            mm9->Modules(children);
+    }
+    if (!progChildren->empty())
+        m->Programs(progChildren);
     if (!ifaceChildren->empty())
-        m->Interfaces(ifaceChildren);
+        instSetInterfaces(m, ifaceChildren);
 
     // Instance-view ports each get a fresh typespec object (no sharing).
     // Top-level instances' ports are emitted in a second pass over all tops
@@ -4847,17 +4910,23 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             ports->push_back(p);
         }
         if (!ports->empty())
-            m->Ports(ports);
+            instSetPorts(m, ports);
         // Interfaces: declared iface children first, then the port views
         // (built in the pre-children pass).
         auto* allIf = s.MakeInterface_instVec();
         if (ifaceChildren)
             for (auto* ic : *ifaceChildren)
                 allIf->push_back(ic);
-        for (auto* pv : *portIfaces)
-            allIf->push_back(pv);
+        // A `program` instance lists NO port-view interface_inst: Surelog's
+        // program writer never materialises the per-iface-port instance view
+        // that its module writer does (OneNetModPort work@TOP.tb carries only
+        // vpiPort/vpiProcess, while the sibling module middle1 also carries
+        // vpiInterface intf).
+        if (m->UhdmType() != UHDM::uhdmprogram)
+            for (auto* pv : *portIfaces)
+                allIf->push_back(pv);
         if (!allIf->empty())
-            m->Interfaces(allIf);
+            instSetInterfaces(m, allIf);
     }
 
     std::set<const Symbol*> caLhsSyms;
@@ -4874,7 +4943,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         foldTypeCasts = false;
     }
 
-    emitGates(body, m, prefix, topNets, /*topView=*/true);
+    if (auto* gm9 = asModuleInst(m))
+        emitGates(body, gm9, prefix, topNets, /*topView=*/true);
 
     // Generate scopes exist only in the instance view.
     emitGenScopes(body, m, prefix, topNets);
@@ -5031,8 +5101,40 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             if (it != defMap.end())
                 for (auto* p : it->second.processes)
                     procs->push_back(p);
+            // A `program` body is compiled HERE, in the elab context (see
+            // emitModuleDef), then folded into the def view as one shared
+            // object -- so its statement refs bind THIS instance's nets.
+            if (progInst) {
+                auto* savedINM9 = implicitNetModule;
+                auto savedINP9 = implicitNetPrefix;
+                implicitNetModule = m;
+                implicitNetPrefix = prefix;
+                bool savedIPE9 = inProcessEmit;
+                inProcessEmit = true;
+                for (auto& member : body.members()) {
+                    if (member.kind != SymbolKind::ProceduralBlock)
+                        continue;
+                    // Concurrent assertions were claimed by the def pass.
+                    auto* pbs9 = member.as<ProceduralBlockSymbol>().getSyntax();
+                    if (pbs9 && pbs9->kind ==
+                                    syntax::SyntaxKind::ConcurrentAssertionMember)
+                        continue;
+                    if (auto* p = emitProcess(
+                            member.as<ProceduralBlockSymbol>(), m, prefix,
+                            topNets))
+                        procs->push_back(p);
+                }
+                inProcessEmit = savedIPE9;
+                implicitNetModule = savedINM9;
+                implicitNetPrefix = savedINP9;
+                // With several instances Surelog's fold is unobserved; the
+                // FIRST instance's copy is the one the def keeps.
+                if (it != defMap.end() && it->second.mod && !procs->empty() &&
+                    !((UHDM::program*)it->second.mod)->Process())
+                    instSetProcess(it->second.mod, procs);
+            }
             if (!procs->empty())
-                m->Process(procs);
+                instSetProcess(m, procs);
         }
         if (it != defMap.end() && !it->second.assertions.empty()) {
             auto* av = s.MakeAnyVec();
@@ -5063,8 +5165,10 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
                 m->Property_decls(pdecls);
         }
         // Each view gets its own clocking_block object (not shared).
-        if (it != defMap.end() && it->second.defaultClocking)
-            emitDefaultClocking(body, m, prefix, topNets);
+        if (it != defMap.end() && it->second.defaultClocking) {
+            if (auto* mm9 = asModuleInst(m))
+                emitDefaultClocking(body, mm9, prefix, topNets);
+        }
         if (it != defMap.end() && !it->second.taskFuncs.empty()) {
             auto* tfs = s.MakeTask_funcVec();
             for (auto* tf : it->second.taskFuncs)
@@ -5078,7 +5182,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             for (auto& [pm9, tf9] : pendingConnTfList) {
                 if (pm9 != m)
                     continue;
-                auto app9 = [&](UHDM::module_inst* mm9) {
+                auto app9 = [&](UHDM::instance* mm9) {
                     auto* tv9 = mm9->Task_funcs();
                     if (!tv9) {
                         tv9 = s.MakeTask_funcVec();
@@ -5131,7 +5235,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
             }
         }
         if (!procs->empty())
-            m->Process(procs);
+            instSetProcess(m, procs);
     }
 
     emitImportArtifacts(body, m);
@@ -6325,9 +6429,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 continue;
             genvarConnFold = true;
             genConnPrefix = fullName;
-            auto* mi = emitInstance(ci, fullName + "." + std::string(ci.name),
-                                    (UHDM::module_inst*)m, &netMap, nullptr,
-                                    /*isTop=*/false);
+            auto* mi = emitInstance(ci, fullName + "." + std::string(ci.name), m,
+                                    &netMap, nullptr, /*isTop=*/false);
             genConnPrefix.clear();
             genvarConnFold = false;
             // A gen-scope child carries ONLY the gen_scope parent — Surelog
@@ -6336,7 +6439,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             mi->VpiParent(gs);
             mi->Instance(nullptr);
             mi->Module_inst(nullptr);
-            gmods->push_back(mi);
+            if (auto* gmi = asModuleInst(mi))
+                gmods->push_back(gmi);
+            else if (mi->UhdmType() == UHDM::uhdmprogram) {
+                auto* gpv = gs->Programs();
+                if (!gpv) {
+                    gpv = s.MakeProgramVec();
+                    gs->Programs(gpv);
+                }
+                gpv->push_back((UHDM::program*)mi);
+            }
         }
         if (!gmods->empty())
             gs->Modules(gmods);
@@ -7541,7 +7653,7 @@ bool UhdmExporter::defPortTsInterchangeable(const DefinitionSymbol& def) {
     auto dit = defMap.find(&def);
     if (dit == defMap.end() || !dit->second.mod)
         return false;
-    auto* ports = dit->second.mod->Ports();
+    auto* ports = instGetPorts(dit->second.mod);
     if (!ports || ports->empty())
         return false;
     for (auto* p : *ports) {
@@ -8134,8 +8246,8 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         UHDM::ref_typespec* defRt = nullptr;
         {
             auto dit = defMap.find(&tp.inst->getDefinition());
-            if (dit != defMap.end() && dit->second.mod && dit->second.mod->Ports()) {
-                for (auto dp : *dit->second.mod->Ports()) {
+            if (dit != defMap.end() && dit->second.mod && instGetPorts(dit->second.mod)) {
+                for (auto dp : *instGetPorts(dit->second.mod)) {
                     if (dp->VpiName() == ps.name && dp->Typespec()) {
                         defRt = dp->Typespec();
                         defActual = defRt->Actual_typespec();
@@ -8336,7 +8448,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         ports->push_back(pd);
     }
     if (!ports->empty())
-        tp.m->Ports(ports);
+        instSetPorts(tp.m, ports);
 
     // Write-phase drains: def-view local-net typespecs (unfolded
     // module-compile ranges), then function return locals, then instance
@@ -8819,6 +8931,22 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                             std::string(ip.name));
             lc->VpiParent(p);
             setLocNamed(lc, ip);
+            // A `program` DEF port is bare: name + direction + an unbound
+            // LowConn ref_obj. Surelog's program writer runs no port-type
+            // binding pass, so neither the modport LowConn actual nor the
+            // vpiTypedef interface_typespec appears (OneNetModPort
+            // work@TESTBENCH.intf). The ELAB view is bound normally.
+            if (!topView && m->UhdmType() == UHDM::uhdmprogram) {
+                // A GENERIC port still binds its net (it is an ordinary port
+                // to Surelog); a typed one has no net to bind.
+                if (isGenericIfacePort(ip)) {
+                    if (auto nit = netMap.find(portBase); nit != netMap.end())
+                        lc->Actual_group(nit->second);
+                }
+                p->Low_conn(lc);
+                ports->push_back(p);
+                continue;
+            }
             if (ip.interfaceDef && !ip.modport.empty()) {
                 if (auto dit = modportsByDef.find(ip.interfaceDef);
                     dit != modportsByDef.end()) {
@@ -8957,8 +9085,13 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             ports->push_back(p);
             continue;
         }
-        // A def-view INTERFACE port carries no typespec (unlike a module port).
-        if (!(m->UhdmType() == UHDM::uhdminterface_inst && !topView)) {
+        // A def-view INTERFACE port carries no typespec (unlike a module port);
+        // neither does a def-view PROGRAM port of any kind -- Surelog's
+        // program writer skips the port-type binding pass entirely
+        // (OneNetInterf/OneNetRange work@TESTBENCH ports carry vpiName +
+        // vpiDirection + LowConn only).
+        if (!(!topView && (m->UhdmType() == UHDM::uhdminterface_inst ||
+                           m->UhdmType() == UHDM::uhdmprogram))) {
             // Override-gated port ranges: the def ts defers to the write
             // phase (arena tail) and unfolds there (materializeDefNetTs).
             if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
@@ -13245,7 +13378,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
 // can skip makeIfaceRefDup + the HighConn redirect entirely.
 UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
                                                     const std::string& path,
-                                                    UHDM::module_inst* parentM,
+                                                    UHDM::instance* parentM,
                                                     NetMap& sharedNets,
                                                     UHDM::interface_inst* dup0,
                                                     UHDM::interface_inst* home) {
@@ -13401,7 +13534,7 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
 
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
-                                                          UHDM::module_inst* parentM,
+                                                          UHDM::instance* parentM,
                                                           NetMap* parentNets,
                                                           std::set<const Symbol*>* parentRefs,
                                                           const InstanceSymbol* portView,
@@ -13805,7 +13938,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // does not model becomes a logic_net under the interface instance
             // (HOME view) — Surelog. (makeVar already handles var-typed
             // interface signals: input int x -> int_var.)
-            if (it.sym->kind == SymbolKind::Net && !portView) {
+            // A `reg`-declared HEADER PORT (interface ConnectTB(output reg
+            // con_o)) is a Variable to slang but makeVar declines it (reg
+            // stays a net); without the it.port arm it vanished from the elab
+            // view entirely, and the port's LowConn stayed unbound
+            // (OneNetInterf/OneNetRange work@dut.conntb.con_o).
+            if ((it.sym->kind == SymbolKind::Net || it.port) && !portView) {
                 // A 2-STATE (bit) iface header port is a bit_var (Surelog).
                 if (it.sym->getDeclaredType() &&
                     it.sym->getDeclaredType()->getType().isIntegral() &&

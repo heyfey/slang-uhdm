@@ -876,35 +876,125 @@ inline bool useInterfacePath(const InstanceSymbol& inst) {
 // signature) on module_inst and interface_inst, not on the common `instance`
 // base. These dispatch the setter on the runtime type so emission code can be
 // written against instance*.
+// The module_inst view of an instance object, or null when it is a program /
+// interface_inst (relations that exist only on module_inst).
+inline UHDM::module_inst* asModuleInst(UHDM::instance* m) {
+    return (m && m->UhdmType() == UHDM::uhdmmodule_inst) ? (UHDM::module_inst*)m
+                                                         : nullptr;
+}
+
 inline void instSetContAssigns(UHDM::instance* m, UHDM::VectorOfcont_assign* v) {
     if (m->UhdmType() == UHDM::uhdminterface_inst)
         ((UHDM::interface_inst*)m)->Cont_assigns(v);
+    else if (m->UhdmType() == UHDM::uhdmprogram)
+        ((UHDM::program*)m)->Cont_assigns(v);
     else
         ((UHDM::module_inst*)m)->Cont_assigns(v);
 }
 inline void instSetProcess(UHDM::instance* m, UHDM::VectorOfprocess_stmt* v) {
     if (m->UhdmType() == UHDM::uhdminterface_inst)
         ((UHDM::interface_inst*)m)->Process(v);
+    else if (m->UhdmType() == UHDM::uhdmprogram)
+        ((UHDM::program*)m)->Process(v);
     else
         ((UHDM::module_inst*)m)->Process(v);
 }
 inline void instSetPorts(UHDM::instance* m, UHDM::VectorOfport* v) {
     if (m->UhdmType() == UHDM::uhdminterface_inst)
         ((UHDM::interface_inst*)m)->Ports(v);
+    else if (m->UhdmType() == UHDM::uhdmprogram)
+        ((UHDM::program*)m)->Ports(v);
     else
         ((UHDM::module_inst*)m)->Ports(v);
+}
+inline UHDM::VectorOfport* instGetPorts(const UHDM::instance* m) {
+    if (!m)
+        return nullptr;
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        return ((const UHDM::interface_inst*)m)->Ports();
+    if (m->UhdmType() == UHDM::uhdmprogram)
+        return ((const UHDM::program*)m)->Ports();
+    if (m->UhdmType() == UHDM::uhdmmodule_inst)
+        return ((const UHDM::module_inst*)m)->Ports();
+    return nullptr;
 }
 inline void instSetGenScopeArrays(UHDM::instance* m, UHDM::VectorOfgen_scope_array* v) {
     if (m->UhdmType() == UHDM::uhdminterface_inst)
         ((UHDM::interface_inst*)m)->Gen_scope_arrays(v);
+    else if (m->UhdmType() == UHDM::uhdmprogram)
+        ((UHDM::program*)m)->Gen_scope_arrays(v);
     else
         ((UHDM::module_inst*)m)->Gen_scope_arrays(v);
 }
+inline void instSetInterfaces(UHDM::instance* m, UHDM::VectorOfinterface_inst* v) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->Interfaces(v);
+    else if (m->UhdmType() == UHDM::uhdmprogram)
+        ((UHDM::program*)m)->Interfaces(v);
+    else
+        ((UHDM::module_inst*)m)->Interfaces(v);
+}
+inline UHDM::VectorOfinterface_array* instGetInterfaceArrays(const UHDM::instance* m) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        return ((const UHDM::interface_inst*)m)->Interface_arrays();
+    if (m->UhdmType() == UHDM::uhdmprogram)
+        return ((const UHDM::program*)m)->Interface_arrays();
+    return ((const UHDM::module_inst*)m)->Interface_arrays();
+}
+inline void instSetInterfaceArrays(UHDM::instance* m, UHDM::VectorOfinterface_array* v) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->Interface_arrays(v);
+    else if (m->UhdmType() == UHDM::uhdmprogram)
+        ((UHDM::program*)m)->Interface_arrays(v);
+    else
+        ((UHDM::module_inst*)m)->Interface_arrays(v);
+}
+inline void instSetEndLabel(UHDM::instance* m, std::string_view lbl) {
+    if (m->UhdmType() == UHDM::uhdminterface_inst)
+        ((UHDM::interface_inst*)m)->VpiEndLabel(lbl);
+    else if (m->UhdmType() == UHDM::uhdmprogram)
+        ((UHDM::program*)m)->VpiEndLabel(lbl);
+    else
+        ((UHDM::module_inst*)m)->VpiEndLabel(lbl);
+}
 inline void instSetGenStmts(UHDM::instance* m, UHDM::VectorOfgen_stmt* v) {
+    // UHDM's `program` carries no gen_stmts relation, so a program def drops
+    // its generate placeholders (no corpus case yet).
     if (m->UhdmType() == UHDM::uhdminterface_inst)
         ((UHDM::interface_inst*)m)->Gen_stmts(v);
-    else
-        ((UHDM::module_inst*)m)->Gen_stmts(v);
+    else if (auto* mm = asModuleInst(m))
+        mm->Gen_stmts(v);
+}
+
+// A `program` block is written into design->AllPrograms / instance->Programs,
+// never AllModules. Surelog's program writer is a separate path from its
+// module writer, and the two differ in the def view (see emitModuleDef).
+inline bool isProgramDef(const InstanceSymbol& inst) {
+    return inst.getDefinition().definitionKind == DefinitionKind::Program;
+}
+// The GENERIC interface port form (`module m (interface intf);`) — the port
+// names no interface type. Surelog never recognises it as an interface port:
+// it compiles an ordinary net-backed port whose typespec is an
+// unsupported_typespec named after the PORT. Ports that do name a type
+// (`ConnectTB.tb intf`, `sim_sram_if ss_if`) take the interface path.
+inline bool isGenericIfacePort(const InterfacePortSymbol& ip) {
+    for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
+        const syntax::InterfacePortHeaderSyntax* iph = nullptr;
+        if (sy->kind == syntax::SyntaxKind::InterfacePortHeader)
+            iph = &sy->as<syntax::InterfacePortHeaderSyntax>();
+        else if (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+            const syntax::PortHeaderSyntax* h =
+                sy->as<syntax::ImplicitAnsiPortSyntax>().header;
+            if (h && h->kind == syntax::SyntaxKind::InterfacePortHeader)
+                iph = &h->as<syntax::InterfacePortHeaderSyntax>();
+        }
+        if (iph)
+            return !iph->modport &&
+                   iph->nameOrKeyword.kind == parsing::TokenKind::InterfaceKeyword;
+        if (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort)
+            break;
+    }
+    return false;
 }
 
 inline const Expression& stripImplicitConv(const Expression& e);

@@ -925,8 +925,8 @@ OneNet,default,CMP_EQUAL,,,match
 OneNet,testflags,CMP_EQUAL,,,match
 OneNetInterf,default,CMP_NOTEQUAL,decompile:,,
 OneNetInterf,testflags,CMP_NOTEQUAL,decompile:,,
-OneNetModPort,default,CMP_NOTEQUAL,decompile:,,
-OneNetModPort,testflags,CMP_NOTEQUAL,decompile:,,
+OneNetModPort,default,CMP_EQUAL,,,differ
+OneNetModPort,testflags,CMP_EQUAL,,,differ
 OneNetModPortGeneric,default,CMP_NOTEQUAL,decompile:,,
 OneNetModPortGeneric,testflags,CMP_NOTEQUAL,decompile:,,
 OneNetNonAnsi,default,CMP_NOTEQUAL,decompile:,,
