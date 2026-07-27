@@ -357,6 +357,28 @@ diffs for free. The reverse is not true. Concretely:
 4. **Skip `SLANG_REJECT` entirely** (§2.5) — out of scope, not a work item.
 5. **`UNTRANSLATABLE` by implementing §3.2**, largest bucket first.
 
+### 4.3b Dispatch: rolling frontier, not waves
+
+Batch waves (one 12-agent workflow, integrate when ALL finish) lose hours to
+stragglers: wave 3a's fastest cluster finished ~3h before its slowest while
+five verified patches sat idle. The batch shape was justified only while
+integration gates cost ~25 min each; the golden cache made a full
+integration gate ~5 min, so stream instead:
+
+- ONE workflow per cluster (implement+verify pair) — each completion wakes
+  the orchestrator individually.
+- Integrate every CONFIRMED patch immediately: apply → build → goldens +
+  warm gates → commit → refresh baselines. Cross-patch interactions surface
+  per-patch instead of six-at-once.
+- Keep 3-4 implement agents running; launch the next backlog cluster as each
+  finishes (the machine OOM-kills compilers at load ~20 — more concurrency
+  is not faster).
+- Streaming is safe: each worktree is frozen at its branch-point HEAD, so an
+  agent's committed baselines match its binary and its gates stay internally
+  consistent while mainline advances.
+- Stragglers that outlive the frontier get their worktree harvested
+  (git diff HEAD) rather than holding integration.
+
 ### 4.4 Agent-ops rules (learned the hard way)
 
 - Worktree agents **must** `export SLANG_UHDM=$PWD/build/slang-uhdm`.
