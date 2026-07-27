@@ -883,11 +883,42 @@ inline bool isExplicitNonAnsiPort(const PortSymbol& ps) {
            syn->parent->kind == syntax::SyntaxKind::ExplicitNonAnsiPort;
 }
 
+// ...and the same port written over a CONCATENATION rather than one symbol
+// (`module top(.op({\op[79] ,\op[78] }))`, `module c(.a({b, c}))`), which
+// slang gives back as a MultiPortSymbol over one sub-PortSymbol per operand.
+// Surelog splits it exactly as it splits `.X1(y)` — the port mints a net of
+// its own name, and every operand keeps its declared net and earns a port of
+// its own — so the operands' symbols ARE this port's internals. Returned in
+// source order, empty when the port is not that shape. An UNNAMED port
+// (`module f({a, b})`) is deliberately excluded: Surelog compiles that one
+// through its signal-list path and lands a different (and self-inconsistent)
+// net/port set.
+inline std::vector<const Symbol*> portExprSymbols(const Symbol& pb) {
+    std::vector<const Symbol*> out;
+    if (pb.kind != SymbolKind::MultiPort || pb.name.empty())
+        return out;
+    auto& mp = pb.as<MultiPortSymbol>();
+    if (mp.isNullPort)
+        return out;
+    for (auto* sp : mp.ports) {
+        if (!sp || !sp->internalSymbol)
+            return {};
+        out.push_back(sp->internalSymbol);
+    }
+    return out;
+}
+
 // The distinct symbols named by a body's EXPLICIT ports, in port order.
 inline std::vector<const Symbol*> explicitPortInternals(
     const InstanceBodySymbol& body) {
     std::vector<const Symbol*> out;
     for (auto pb : body.getPortList()) {
+        if (pb->kind == SymbolKind::MultiPort) {
+            for (auto* esym : portExprSymbols(*pb))
+                if (std::find(out.begin(), out.end(), esym) == out.end())
+                    out.push_back(esym);
+            continue;
+        }
         if (pb->kind != SymbolKind::Port)
             continue;
         auto& ps = pb->as<PortSymbol>();
@@ -920,6 +951,21 @@ inline std::vector<const Symbol*> explicitPortOwnPorts(
 inline int32_t explicitPortDirection(const InstanceBodySymbol& body,
                                      const Symbol& isym) {
     for (auto pb : body.getPortList()) {
+        // A concat port's operands all take the header port's own direction
+        // (`module c(.a({b, c})); input b; input c;` -> three vpiInput ports).
+        if (pb->kind == SymbolKind::MultiPort) {
+            auto pes = portExprSymbols(*pb);
+            if (std::find(pes.begin(), pes.end(), &isym) == pes.end())
+                continue;
+            switch (pb->as<MultiPortSymbol>().direction) {
+                case ArgumentDirection::In:
+                    return vpiInput;
+                case ArgumentDirection::Out:
+                    return vpiOutput;
+                default:
+                    return vpiInout;
+            }
+        }
         if (pb->kind != SymbolKind::Port)
             continue;
         auto& ps = pb->as<PortSymbol>();
@@ -944,6 +990,10 @@ struct NetOrderItem {
     // The net an EXPLICIT non-ANSI port mints under its OWN name; `sym` is
     // the expression's symbol (the lowConn actual), NOT this net's identity.
     bool portExprNet = false;
+    // ...and the header symbol that DOES name it — the port itself, or the
+    // MultiPortSymbol when the header port is written over a concatenation
+    // (whose `port` is only the first operand's sub-port).
+    const Symbol* netNameSym = nullptr;
 };
 
 // An interface handled by the interface_inst path: variables/nets/parameters/
@@ -1161,6 +1211,16 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
     std::vector<NetOrderItem> sorted, implicitPorts, mintedNets;
     std::set<const Symbol*> portInternals;
     for (auto pb : body.getPortList()) {
+        // A CONCAT port mints its net the same way; the first operand's
+        // sub-port stands in as `port`, which is what types that net.
+        if (pb->kind == SymbolKind::MultiPort) {
+            auto pes = portExprSymbols(*pb);
+            if (!pes.empty())
+                implicitPorts.push_back({pes.front(),
+                                         pb->as<MultiPortSymbol>().ports.front(),
+                                         false, true, pb});
+            continue;
+        }
         if (pb->kind != SymbolKind::Port)
             continue;
         auto& ps = pb->as<PortSymbol>();
@@ -1170,7 +1230,7 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
         // expression's symbol falls through to the member loop and sorts by
         // its declaration, so BOTH nets exist (Surelog).
         if (isExplicitNonAnsiPort(ps)) {
-            implicitPorts.push_back({ps.internalSymbol, &ps, false, true});
+            implicitPorts.push_back({ps.internalSymbol, &ps, false, true, &ps});
             continue;
         }
         portInternals.insert(ps.internalSymbol);

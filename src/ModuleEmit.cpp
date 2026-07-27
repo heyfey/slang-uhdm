@@ -373,7 +373,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // location, then port-declaration-only nets in port-list order.
     for (auto portBase : body.getPortList()) {
         if (portBase->kind != SymbolKind::Port &&
-            portBase->kind != SymbolKind::InterfacePort)
+            portBase->kind != SymbolKind::InterfacePort &&
+            !(portBase->kind == SymbolKind::MultiPort &&
+              !portExprSymbols(*portBase).empty()))
             noteUnsupported("port kind: " + std::string(toString(portBase->kind)));
     }
     auto* nets = s.MakeNetVec();
@@ -393,10 +395,10 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // netMap entry for the expression's symbol.
         if (it.portExprNet) {
             auto* pn = s.MakeLogic_net();
-            pn->VpiName(it.port->name);
-            pn->VpiFullName(prefix + "." + std::string(it.port->name));
+            pn->VpiName(it.netNameSym->name);
+            pn->VpiFullName(prefix + "." + std::string(it.netNameSym->name));
             pn->VpiParent(m);
-            setLocNamed(pn, *it.port);
+            setLocNamed(pn, *it.netNameSym);
             nets->push_back(pn);
             continue;
         }
@@ -990,11 +992,19 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //    the symbolic ref_obj we already emit. Everything else in that test is
 //    span-only. The elab param-fold machinery lives in TypeEmit's
 //    elabInstanceTs path; the module_array bound does not use it.
-//  * PortExpr / ExplictiPorts need EXPRESSION explicit ports (`.op({a,b})`,
-//    `module f({a, b})`): slang leaves PortSymbol::internalSymbol null and
-//    exposes the concat via getInternalExpr(), so explicitPortInternals()
-//    and collectNetOrder() drop the port entirely. Surelog emits a port +
-//    bare net under the PORT's own name plus one port per referenced signal.
+//  * PortExpr is DONE (r8gates): a NAMED concat port `.op({a,b})` is a
+//    MultiPortSymbol, and routing it through the existing explicit-port
+//    machinery (portExprSymbols) lands Surelog's split — a bare net + port
+//    under the PORT's own name, LowConn a vpiConcatOp of port-scoped
+//    ref_objs, plus one ordinary port per operand.
+//    ExplictiPorts still needs two more pieces: (a) the INSTANTIATION side,
+//    where a child's concat port must appear on the parent's ref_module as
+//    ONE port whose HighConn is the concat (we emit one port per operand);
+//    (b) `module f({a, b})` — an UNNAMED concat port, which Surelog compiles
+//    through its signal-list path to a net/port set that is not
+//    self-consistent (net `b` anchored in the header while `a` is anchored
+//    at its declaration; ports emitted b-then-a; port b's LowConn actual
+//    bound to module_inst work@a). Do not model (b) from first principles.
 //  * GenerateUnnamed mis-nests an else-if generate chain: the top-level
 //    scan finds the INNER IfGenerate as a member's nearest enclosing one and
 //    lists it again in Gen_stmts (~815 changed dump lines, not one rule).
@@ -2754,7 +2764,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     std::set<const Symbol*> explicitPortTsSeen;
     for (auto& it : collectNetOrder(body)) {
         if (it.portExprNet) {
-            std::string pname(it.port->name);
+            std::string pname(it.netNameSym->name);
             std::string pfull = prefix + "." + pname;
             bool firstTs = explicitPortTsSeen.insert(it.sym).second;
             if (!firstTs) {
@@ -2762,7 +2772,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 pv->VpiName(pname);
                 pv->VpiFullName(pfull);
                 pv->VpiParent(m);
-                setLocNamed(pv, *it.port);
+                setLocNamed(pv, *it.netNameSym);
                 pv->VpiAutomatic(true);
                 pv->VpiVisibility(1);
                 vars->push_back(pv);
@@ -2772,7 +2782,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             pn->VpiName(pname);
             pn->VpiFullName(pfull);
             pn->VpiParent(m);
-            setLocNamed(pn, *it.port);
+            setLocNamed(pn, *it.netNameSym);
             if (auto* pts = makeTypespec(*it.sym, nullptr, it.port)) {
                 auto* prt = s.MakeRef_typespec();
                 prt->VpiFullName(pfull);
@@ -8558,6 +8568,11 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
     auto* ports = s.MakePortVec();
     std::set<const Symbol*> explicitPortTs;
     for (auto portBase : body.getPortList()) {
+        if (portBase->kind == SymbolKind::MultiPort) {
+            if (auto* pe = emitPortExprPort(*portBase, tp.m, tp.prefix, tp.nets))
+                ports->push_back(pe);
+            continue;
+        }
         if (portBase->kind != SymbolKind::Port)
             continue;
         auto& ps = portBase->as<PortSymbol>();
@@ -9292,6 +9307,62 @@ UHDM::logic_typespec* UhdmExporter::portVectorTypedefClone(const Symbol& interna
     return (UHDM::logic_typespec*)cl;
 }
 
+UHDM::port* UhdmExporter::emitPortExprPort(const Symbol& pb, UHDM::instance* m,
+                                           const std::string& prefix,
+                                           NetMap& netMap) {
+    auto pes = portExprSymbols(pb);
+    if (pes.empty())
+        return nullptr;
+    auto& mp = pb.as<MultiPortSymbol>();
+    auto* p = s.MakePort();
+    p->VpiName(mp.name);
+    p->VpiParent(m);
+    setLocNamed(p, mp);
+    switch (mp.direction) {
+        case ArgumentDirection::In:
+            p->VpiDirection(vpiInput);
+            break;
+        case ArgumentDirection::Out:
+            p->VpiDirection(vpiOutput);
+            break;
+        default:
+            p->VpiDirection(vpiInout);
+            break;
+    }
+    // The LowConn is the concatenation itself; each operand is a ref_obj
+    // named through the PORT (work@top.op.op[79]) onto the operand's own net.
+    // Unlike a plain port's LowConn this doubling survives elaboration.
+    auto* cop = s.MakeOperation();
+    cop->VpiOpType(vpiConcatOp);
+    cop->VpiParent(p);
+    if (auto syn = mp.getSyntax())
+        setLoc(cop, syn->sourceRange());
+    auto* ops = s.MakeAnyVec();
+    for (size_t i = 0; i < pes.size(); i++) {
+        auto* r = s.MakeRef_obj();
+        r->VpiName(pes[i]->name);
+        r->VpiFullName(prefix + "." + std::string(mp.name) + "." +
+                       std::string(pes[i]->name));
+        r->VpiParent(cop);
+        setLoc(r, nameSpan(mp.ports[i]->location, pes[i]->name));
+        if (auto nit = netMap.find(pes[i]); nit != netMap.end())
+            r->Actual_group(nit->second);
+        ops->push_back(r);
+    }
+    cop->Operands(ops);
+    p->Low_conn(cop);
+    // The port's own type is the FIRST operand's — Surelog types the minted
+    // net and the port from the head of the concat.
+    if (auto* ts = makeTypespec(*pes.front(), nullptr, nullptr)) {
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(prefix + "." + std::string(mp.name));
+        rt->VpiParent(p);
+        rt->Actual_typespec(ts);
+        p->Typespec(rt);
+    }
+    return p;
+}
+
 void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                              const std::string& prefix,
                              NetMap& netMap, bool topView,
@@ -9370,6 +9441,11 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 rt->Actual_typespec(makeIfacePortTs(ip));
             p->Typespec(rt);
             ports->push_back(p);
+            continue;
+        }
+        if (portBase->kind == SymbolKind::MultiPort) {
+            if (auto* pe = emitPortExprPort(*portBase, m, prefix, netMap))
+                ports->push_back(pe);
             continue;
         }
         if (portBase->kind != SymbolKind::Port)
@@ -9943,7 +10019,17 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
                     r->Actual_group(nit->second);
                 t->Expr(r);
             }
-            else if (auto* e = emitExpr(*ce, t, prefix, netMap)) {
+            // Any other terminal expression (`y[0]`, `{a,b}`, a constant)
+            // emits from the UNWRAPPED expression too — feeding the raw
+            // connection here would re-emit an output terminal's implicit
+            // assignment wrapper as the term expr. Like the ref_obj above it
+            // hangs off the GATE, but it names through the GATE scope in BOTH
+            // views: elaboration re-binds a terminal ref_obj into the module
+            // scope and leaves a selected terminal's fullname as the def-view
+            // compile wrote it (`work@m.o1.y` next to a sibling `work@m.i1`).
+            // Its span is the whole terminal, not the selector's.
+            else if (auto* e = emitExpr(se, g, gateFull, netMap)) {
+                setLoc(e, termLoc);
                 t->Expr((UHDM::expr*)e);
             }
             terms->push_back(t);

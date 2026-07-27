@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
+LowMemLib,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
 LowMemPkg,default,CMP_NOTEQUAL,decompile:,,
-LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
+LowMemPkg,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
@@ -1121,8 +1121,8 @@ PortComplex,default,CMP_NOTEQUAL,decompile:,,
 PortComplex,testflags,CMP_NOTEQUAL,decompile:,,
 PortDefaultValue,default,CMP_EQUAL,,,differ
 PortDefaultValue,testflags,CMP_EQUAL,,,differ
-PortExpr,default,CMP_NOTEQUAL,decompile:,,
-PortExpr,testflags,CMP_NOTEQUAL,decompile:,,
+PortExpr,default,CMP_EQUAL,,,differ
+PortExpr,testflags,CMP_EQUAL,,,differ
 PortInitVal,default,CMP_EQUAL,,,differ
 PortInitVal,testflags,CMP_EQUAL,,,differ
 PortInitVal2,default,CMP_EQUAL,,,differ
@@ -1167,8 +1167,8 @@ PreprocTest,default,CMP_EQUAL,,,differ
 PreprocTest,testflags,CMP_EQUAL,,,differ
 PreprocUhdmCov,default,SLANG_REJECT,dut.sv:30:2: error: unknown module 'prim_subreg',,
 PreprocUhdmCov,testflags,SLANG_REJECT,dut.sv:30:2: error: unknown module 'prim_subreg',,
-PrimTermExpr,default,CMP_NOTEQUAL,decompile:,,
-PrimTermExpr,testflags,CMP_NOTEQUAL,decompile:,,
+PrimTermExpr,default,CMP_EQUAL,,,match
+PrimTermExpr,testflags,CMP_EQUAL,,,differ
 ProcForLoop,default,SLANG_REJECT,dut.sv:4:10: error: use of undeclared identifier 'f2',,
 ProcForLoop,testflags,SLANG_REJECT,dut.sv:4:10: error: use of undeclared identifier 'f2',,
 PropBinding,default,CMP_NOTEQUAL,decompile:,,

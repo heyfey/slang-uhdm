@@ -355,6 +355,12 @@ private:
 
     void emitPorts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                    const std::string& prefix, NetMap& netMap, bool topView, TsCache* sharedTs);
+    // The port object a non-ANSI header port written over an EXPRESSION
+    // (`.op({\op[79] ,\op[78] })`) contributes: a LowConn concat operation
+    // whose operands are port-scoped ref_objs onto the operands' own nets.
+    // Identical in the def and elab views. Null when `pb` is not one.
+    UHDM::port* emitPortExprPort(const slang::ast::Symbol& pb, UHDM::instance* m,
+                                 const std::string& prefix, NetMap& netMap);
     void emitParameters(const slang::ast::Scope& body, UHDM::scope* m, const std::string& prefix,
                         NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
                         bool topShareTs = false, bool funcScope = false);
