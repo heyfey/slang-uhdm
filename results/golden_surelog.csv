@@ -1005,8 +1005,8 @@ PackImport,default,CMP_EQUAL,,,differ
 PackImport,testflags,CMP_EQUAL,,,differ
 PackStructField,default,CMP_EQUAL,,,differ
 PackStructField,testflags,CMP_EQUAL,,,differ
-PackStructVar,default,CMP_NOTEQUAL,decompile:,,
-PackStructVar,testflags,CMP_NOTEQUAL,decompile:,,
+PackStructVar,default,CMP_EQUAL,,,differ
+PackStructVar,testflags,CMP_EQUAL,,,differ
 ParamArray,default,SLANG_REJECT,dut.sv:11:47: error: assignment pattern for 'part_info_t$[7]' requires 7 elements but 2 were provided,,
 ParamArray,testflags,SLANG_REJECT,dut.sv:11:47: error: assignment pattern for 'part_info_t$[7]' requires 7 elements but 2 were provided,,
 ParamArraySelect,default,SLANG_REJECT,dut.sv:61:25: error: use of undeclared identifier 'NumPart',,

@@ -6483,7 +6483,8 @@ static bool uaScopeDrives(const Scope& scope, const Symbol& target) {
     return false;
 }
 
-bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked) {
+bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked,
+                                          const UHDM::typespec* elemTs) {
     auto declared = sym.getDeclaredType();
     if (!declared)
         return false;
@@ -6511,6 +6512,29 @@ bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked) {
     if (lct.kind == SymbolKind::PackedStructType) {
         if (!lct.isFourState())
             return false;
+        // ...and only while EVERY member is logic/struct. Surelog runs the
+        // struct member scan (structTsIsNetLike) BEFORE the unpacked-dimension
+        // wrap, so one enum / packed-array / bit member makes the whole
+        // unpacked array an array_VAR of struct_vars — tlul_pkg::tl_h2d_t's
+        // `tl_d_op_e d_opcode` (PackStructVar), where the all-logic sibling
+        // typedefs (OneStruct mem_s, IfGenTypeBinding pmp_cfg_t) stay nets.
+        // The leaf's SHARED typedef object is what the element net/var binds
+        // (emitArrayNet's lookup, repeated here); `elemTs` covers the
+        // anonymous-struct leaf that has no named typedef.
+        {
+            const UHDM::typespec* leafTs = nullptr;
+            if (elemTs && elemTs->UhdmType() == UHDM::uhdmstruct_typespec)
+                leafTs = elemTs;
+            else
+                for (auto& [s2, tsp] : typedefTs)
+                    if (s2->kind == SymbolKind::TypeAlias &&
+                        &s2->as<TypeAliasType>().getCanonicalType() == &lct) {
+                        leafTs = tsp;
+                        break;
+                    }
+            if (leafTs && !structTsIsNetLike(leafTs))
+                return false;
+        }
         if (auto* sc = sym.getParentScope())
             if (uaScopeDrives(*sc, sym))
                 return false;

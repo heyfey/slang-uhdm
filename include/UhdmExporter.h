@@ -526,7 +526,11 @@ private:
                                   UHDM::typespec* elemTs);
     // True when an unpacked-array signal's leaf element resolves to a NET
     // (reg, ANSI net port, 4-state packed struct) rather than a variable.
-    bool unpackedArrayLeafIsNet(const slang::ast::Symbol& sym, bool portBacked);
+    // `elemTs` is the EMITTED element typespec when one is available: a
+    // packed-struct leaf is a net only while every member is logic/struct
+    // (structTsIsNetLike), the same test Surelog's elab_signal_ runs.
+    bool unpackedArrayLeafIsNet(const slang::ast::Symbol& sym, bool portBacked,
+                                const UHDM::typespec* elemTs = nullptr);
     // Top(elab)-view packed-array-of-struct var (filter_ctl_t [1:0][2:0] a):
     // packed_array_var { vpiRange x N + vpiElement = struct_var }.
     // Packed array over a VECTOR TYPEDEF (logic4 [1:0] v): packed_array_var

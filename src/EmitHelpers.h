@@ -40,6 +40,39 @@ using namespace slang::ast;
 
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
+// Surelog's struct net-vs-var rule, verbatim (NetlistElaboration.cpp, the
+// `ttmp == uhdmstruct_typespec` arm of elab_signal_): a struct-typed signal is
+// a NET only while EVERY member's typespec is a logic_typespec or another
+// struct_typespec. One enum / packed-array / bit / int / real member and the
+// whole signal becomes a struct_VAR. Members carrying no actual typespec are
+// skipped, exactly as Surelog's `if (const typespec* mtps = ...)` skips them.
+//
+// The rule reads the EMITTED typespec rather than the slang type so the two
+// stay consistent by construction: whatever we decided to spell as a
+// packed_array_typespec is what Surelog's writer would have seen.
+//
+// It governs the UNPACKED-ARRAY leaf too: the same `isNet` flag decides
+// array_net vs array_var (unpackedArrayLeafIsNet).
+inline bool structTsIsNetLike(const UHDM::typespec* ts) {
+    if (!ts || ts->UhdmType() != UHDM::uhdmstruct_typespec)
+        return true;
+    auto* sts = (const UHDM::struct_typespec*)ts;
+    if (!sts->Members())
+        return true;
+    for (auto* mem : *sts->Members()) {
+        auto* mrt = mem->Typespec();
+        if (!mrt)
+            continue;
+        auto* mts = mrt->Actual_typespec();
+        if (!mts)
+            continue;
+        auto k = mts->UhdmType();
+        if (k != UHDM::uhdmlogic_typespec && k != UHDM::uhdmstruct_typespec)
+            return false;
+    }
+    return true;
+}
+
 // Surelog re-lexes based literals compactly ("8'd 3" -> "8'd3"); spans that
 // contain them shrink by the whitespace between the base char and the digits.
 inline size_t basedLiteralSpaceCount(std::string_view text) {

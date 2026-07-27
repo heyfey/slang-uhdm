@@ -1155,6 +1155,115 @@ UHDM::design* UhdmExporter::exportDesign() {
                 t9 != pkgTopTypedefTs.end() && t9->second)
                 rt9->Actual_typespec(t9->second);
         pkgForeignTsTopFixups.clear();
+        // A DEF-view package TYPEDEF listing whose symbolic member bound names
+        // ANOTHER package's parameter ([top_pkg::TL_SZW-1:0] inside
+        // tlul_pkg::tl_h2d_t) binds the ELABORATED (folded) home parameter —
+        // the same rule pkgCrossRefTopFixups applies to def-view cross-package
+        // param INITS, here for type ranges. Done structurally because the
+        // bound ref is minted by several range-builder arms; the def→top param
+        // swap is keyed on the def param object, so only refs that actually
+        // reached a FOREIGN package's def listing move (Surelog,
+        // PackStructVar). A SAME-package bound is untouched: its def param is
+        // not in the foreign map.
+        {
+            // def parameter object -> (owning def package, elab twin)
+            std::map<const UHDM::any*, std::pair<UHDM::package*, UHDM::any*>>
+                defParamTwin;
+            for (auto* dp0 : *allP) {
+                UHDM::package* tp0 = nullptr;
+                for (auto* t0 : *topP)
+                    if (t0->VpiName() == dp0->VpiName()) {
+                        tp0 = t0;
+                        break;
+                    }
+                if (!tp0 || !dp0->Parameters() || !tp0->Parameters())
+                    continue;
+                for (auto* p0 : *dp0->Parameters())
+                    for (auto* p1 : *tp0->Parameters())
+                        if (p0->VpiName() == p1->VpiName()) {
+                            defParamTwin[p0] = {dp0, p1};
+                            break;
+                        }
+            }
+            std::function<void(UHDM::any*, UHDM::package*)> fixExpr =
+                [&](UHDM::any* e, UHDM::package* home) {
+                    if (!e)
+                        return;
+                    if (e->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r0 = (UHDM::ref_obj*)e;
+                        if (auto* act = r0->Actual_group())
+                            if (auto it0 = defParamTwin.find(act);
+                                it0 != defParamTwin.end() &&
+                                it0->second.first != home)
+                                r0->Actual_group(it0->second.second);
+                        return;
+                    }
+                    if (e->UhdmType() == UHDM::uhdmoperation)
+                        if (auto* ops = ((UHDM::operation*)e)->Operands())
+                            for (auto* o0 : *ops)
+                                fixExpr(o0, home);
+                };
+            auto fixRanges = [&](UHDM::VectorOfrange* rs, UHDM::package* home) {
+                if (!rs)
+                    return;
+                for (auto* r0 : *rs) {
+                    fixExpr((UHDM::any*)r0->Left_expr(), home);
+                    fixExpr((UHDM::any*)r0->Right_expr(), home);
+                }
+            };
+            std::function<void(UHDM::typespec*, UHDM::package*, int)> fixTs =
+                [&](UHDM::typespec* t0, UHDM::package* home, int depth) {
+                    if (!t0 || depth > 8)
+                        return;
+                    switch (t0->UhdmType()) {
+                        case UHDM::uhdmlogic_typespec:
+                            fixRanges(((UHDM::logic_typespec*)t0)->Ranges(),
+                                      home);
+                            break;
+                        case UHDM::uhdmbit_typespec:
+                            fixRanges(((UHDM::bit_typespec*)t0)->Ranges(), home);
+                            break;
+                        case UHDM::uhdmpacked_array_typespec: {
+                            auto* pt0 = (UHDM::packed_array_typespec*)t0;
+                            fixRanges(pt0->Ranges(), home);
+                            if (pt0->Elem_typespec())
+                                fixTs(pt0->Elem_typespec()->Actual_typespec(),
+                                      home, depth + 1);
+                            break;
+                        }
+                        case UHDM::uhdmarray_typespec: {
+                            auto* at0 = (UHDM::array_typespec*)t0;
+                            fixRanges(at0->Ranges(), home);
+                            if (at0->Elem_typespec())
+                                fixTs(at0->Elem_typespec()->Actual_typespec(),
+                                      home, depth + 1);
+                            break;
+                        }
+                        case UHDM::uhdmstruct_typespec:
+                            if (auto* ms =
+                                    ((UHDM::struct_typespec*)t0)->Members())
+                                for (auto* m0 : *ms)
+                                    if (m0->Typespec())
+                                        fixTs(m0->Typespec()->Actual_typespec(),
+                                              home, depth + 1);
+                            break;
+                        case UHDM::uhdmunion_typespec:
+                            if (auto* ms =
+                                    ((UHDM::union_typespec*)t0)->Members())
+                                for (auto* m0 : *ms)
+                                    if (m0->Typespec())
+                                        fixTs(m0->Typespec()->Actual_typespec(),
+                                              home, depth + 1);
+                            break;
+                        default:
+                            break;
+                    }
+                };
+            for (auto* dp0 : *allP)
+                if (dp0->Typespecs())
+                    for (auto* t0 : *dp0->Typespecs())
+                        fixTs(t0, dp0, 0);
+        }
         // NOTE: a pkg consumed by ANOTHER package keeps its DEF listing bound
         // to its OWN typedef objects (rp32 riscv_priv_pkg csr_adr_t.perm ->
         // the home csr_perm_t, riscv_isa_pkg isa_t.spec -> the home

@@ -210,36 +210,6 @@ static bool hasStructFieldMember(const Symbol& sym) {
     return false;
 }
 
-// Surelog's struct net-vs-var rule, verbatim (NetlistElaboration.cpp, the
-// `ttmp == uhdmstruct_typespec` arm of elab_signal_): a struct-typed signal is
-// a NET only while EVERY member's typespec is a logic_typespec or another
-// struct_typespec. One enum / packed-array / bit / int / real member and the
-// whole signal becomes a struct_VAR. Members carrying no actual typespec are
-// skipped, exactly as Surelog's `if (const typespec* mtps = ...)` skips them.
-//
-// The rule reads the EMITTED typespec rather than the slang type so the two
-// stay consistent by construction: whatever we decided to spell as a
-// packed_array_typespec is what Surelog's writer would have seen.
-static bool structTsIsNetLike(const UHDM::typespec* ts) {
-    if (!ts || ts->UhdmType() != UHDM::uhdmstruct_typespec)
-        return true;
-    auto* sts = (const UHDM::struct_typespec*)ts;
-    if (!sts->Members())
-        return true;
-    for (auto* mem : *sts->Members()) {
-        auto* mrt = mem->Typespec();
-        if (!mrt)
-            continue;
-        auto* mts = mrt->Actual_typespec();
-        if (!mts)
-            continue;
-        auto k = mts->UhdmType();
-        if (k != UHDM::uhdmlogic_typespec && k != UHDM::uhdmstruct_typespec)
-            return false;
-    }
-    return true;
-}
-
 // `var d;` — a VARIABLE whose data type is written nowhere (no type keyword, no
 // signing, no dimensions). There is no syntax for the typespec to span, and
 // Surelog emits none at all (a net's implicit type still spans its `wire`
@@ -2980,7 +2950,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // Unpacked array of a NET-type leaf (reg memory): the instance view
         // is an array_net (vpiNet = logic_net), not an array_var.
         if (!implicitNet && !realVar &&
-            unpackedArrayLeafIsNet(*it.sym, it.port != nullptr)) {
+            unpackedArrayLeafIsNet(*it.sym, it.port != nullptr, ts)) {
             if (auto* an = emitArrayNet(*it.sym, name, fullName, m, ts)) {
                 // Share the def-view attribute objects onto both the array_net
                 // and its element logic_net (Surelog attaches to both).
@@ -6451,7 +6421,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // a reg memory): then it is an array_NET exactly as at module
                 // level — the gen-scope path was missing the module rule
                 // (IfGenTypeBinding's `pmp_cfg_t pmp_cfg2 [N]`).
-                if (ets2 && unpackedArrayLeafIsNet(gm, /*portBacked=*/false)) {
+                if (ets2 &&
+                    unpackedArrayLeafIsNet(gm, /*portBacked=*/false, ets2)) {
                     if (auto* an2 = emitArrayNet(gm, std::string(gm.name),
                                                  vfull2, gs, ets2)) {
                         netMap[&gm] = an2;
@@ -7988,6 +7959,21 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                     ? el5->as<TypeAliasType>().getParentScope()
                     : nullptr;
             auto tit5 = typedefTs.find(el5);
+            // ...and a PACKAGE-homed struct element binds the ELABORATED
+            // package listing object directly — no clone, both module views
+            // pointing at the same elab typespec, exactly as the elab-view
+            // net/var rule already does (PackStructVar's
+            // `tlul_pkg::tl_h2d_t tl_fifo_h2d [2]`).
+            if (el5->kind == SymbolKind::TypeAlias &&
+                el5->getCanonicalType().kind == SymbolKind::PackedStructType &&
+                hs5 && hs5->asSymbol().kind == SymbolKind::Package) {
+                auto i6 = pkgTopTypedefTs.find(el5);
+                if (i6 != pkgTopTypedefTs.end() && i6->second &&
+                    i6->second->UhdmType() == UHDM::uhdmstruct_typespec) {
+                    pn.rt->Actual_typespec(i6->second);
+                    return;
+                }
+            }
             if (el5->kind == SymbolKind::TypeAlias &&
                 el5->getCanonicalType().kind == SymbolKind::PackedStructType &&
                 hs5 && hs5->asSymbol().kind != SymbolKind::Package &&
