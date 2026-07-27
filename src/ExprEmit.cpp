@@ -248,6 +248,27 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         return nullptr;
     // Explicit TYPE casts (logic'/int'...) are re-emitted in TOP modules,
     // never folded; child-instance CAs and size casts still fold.
+    //
+    // NOTE (r4fold, measured): a top-view cast over a CONST-FUNCTION CALL
+    // (int'(get_BA())) sometimes DOES fold to one constant in Surelog's top
+    // view — PackedEnumVar folds to UINT:7 — but the condition is a set of
+    // ExprEval bail rules, not the call itself. Ablations on one source
+    // (only the named line changed) measured THREE independent bails:
+    //   1. enum member values written in HEX bail; the SAME enum written in
+    //      BINARY folds. Measured by rewriting ONLY the two member literals
+    //      of one enum, everything else byte-identical: 3'b000/3'b111 ->
+    //      fold, 3'h0/3'h7 -> no fold; and in the other direction
+    //      4'h5/4'hA -> no fold, 4'b0101/4'b1010 -> fold. So it is the
+    //      literal BASE, not the width, the value, or the typedef.
+    //   2. a local the body leaves partly unassigned bails (ReturnEnumArray
+    //      assigns out[0] only; PackedEnumVar assigns both -> folds).
+    //   3. a part-select/bit-select return off a local bails
+    //      (BitSelectPartSelectInFunction, even with a sized argument).
+    // Folding on the call alone regressed exactly these three u2r tests
+    // (BitSelectPartSelectInFunction, FunctionReturnEnum, ReturnEnumArray),
+    // so the gate stays closed until the bail set is modelled — that belongs
+    // in SrlgFold (ParamEmit), which already replays Surelog's evaluator and
+    // returns nullopt for anything unmodelled.
     if (!foldTypeCasts) {
         auto& c0 = stripImplicitConv(expr);
         if (c0.kind == ExpressionKind::Conversion && c0.syntax &&
@@ -5683,6 +5704,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rrt7->Actual_typespec(s.MakeInt_typespec());
                         rc7->Typespec(rrt7);
                         preE = rc7;
+                    }
+                }
+                // A TYPE-CAST member value (RVC: bit'(CVA6ConfigCExtEn)) folds
+                // the same way, in BOTH package views — but to a BARE constant:
+                // BIN at the member width with NO decompile and NO ts ref.
+                // Surelog's reduce resolves the cast to a value and the cast
+                // typespec is not carried onto the member (FuncStructValSimple).
+                if (!preE && paramInitDef && (paramInitPkg || importedParamClone) &&
+                    setter.expr->type && setter.expr->type->isIntegral()) {
+                    auto& cv7 = stripImplicitConv(*setter.expr);
+                    if (cv7.kind == ExpressionKind::Conversion && cv7.syntax &&
+                        cv7.syntax->kind == syntax::SyntaxKind::CastExpression &&
+                        isTypeSyntaxKind(cv7.syntax
+                                             ->as<syntax::CastExpressionSyntax>()
+                                             .left->kind)) {
+                        ASTContext tctx7(comp.getRoot(), LookupLocation::max);
+                        if (auto tcv7 = tctx7.tryEval(*setter.expr);
+                            tcv7 && tcv7.isInteger() &&
+                            !tcv7.integer().hasUnknown()) {
+                            auto tiv7 = tcv7.integer();
+                            int32_t tw7 =
+                                (int32_t)setter.expr->type->getBitWidth();
+                            std::string tb7;
+                            for (int32_t bi7 = tw7 - 1; bi7 >= 0; bi7--)
+                                tb7 += (tiv7[bi7] == slang::logic_t(1)) ? '1'
+                                                                        : '0';
+                            auto* tc7 = s.MakeConstant();
+                            setLoc(tc7, setter.expr->sourceRange);
+                            tc7->VpiSize(tw7);
+                            tc7->VpiValue("BIN:" + tb7);
+                            tc7->VpiConstType(vpiBinaryConst);
+                            preE = tc7;
+                        }
                     }
                 }
                 // ELAB package view that KEEPS the tagged tree: Surelog's
