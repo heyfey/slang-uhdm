@@ -340,7 +340,7 @@ issue326_packed_mem,testflags,CMP_EQUAL,,,match
 jeras_gpr,testflags,CMP_EQUAL,,,match
 jeras_reverse,testflags,CMP_EQUAL,,,match
 jeras_tcb_gpio,testflags,CMP_EQUAL,,,differ
-jeras_union,testflags,CMP_NOTEQUAL,decompile:,,differ
+jeras_union,testflags,CMP_NOTEQUAL,decompile:,,
 LargeModuleParameter,testflags,SLANG_REJECT,dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,match
 latchn,testflags,CMP_EQUAL,,,match
@@ -539,17 +539,17 @@ resolve_types,testflags,CMP_EQUAL,,,differ
 ReturnEnumArray,testflags,CMP_EQUAL,,,match
 ReturnFunctionCall,testflags,CMP_EQUAL,,,match
 rotate,testflags,CMP_EQUAL,,,match
-rp32_r5p_alu,testflags,CMP_NOTEQUAL,decompile:,,differ
-rp32_r5p_bru,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_alu,testflags,CMP_NOTEQUAL,decompile:,,
+rp32_r5p_bru,testflags,CMP_NOTEQUAL,decompile:,,
 rp32_r5p_csr,testflags,SLANG_REJECT,../rp32/degu/r5p32_csr_pkg.sv:324:16: error: no implicit conversion from 'bit[0:0]' to 'csr_vector_t'; explicit conversion exists; are you m,,
 rp32_r5p_degu,testflags,SLANG_REJECT,../rp32/degu/r5p_degu.sv:56:19: error: top-level module 'r5p_degu' has unconnected interface port 'tcb_ifu',,
 rp32_r5p_degu_soc_top,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 rp32_r5p_gpr_1r1w,testflags,CMP_EQUAL,,,match
 rp32_r5p_hamster,testflags,SLANG_REJECT,../rp32/hamster/r5p_hamster.sv:267:22: error: no member named 'alu' in 'dec_t',,
-rp32_r5p_mdu,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_mdu,testflags,CMP_NOTEQUAL,decompile:,,
 rp32_r5p_mouse,testflags,CMP_EQUAL,,,differ
 rp32_r5p_mouse_soc_simple_top,testflags,CMP_EQUAL,,,differ
-rp32_r5p_wbu,testflags,CMP_NOTEQUAL,decompile:,,differ
+rp32_r5p_wbu,testflags,CMP_NOTEQUAL,decompile:,,
 rp32_soc_vfriendly,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 rsp_gen_minimal,testflags,CMP_EQUAL,,,differ
 sat_asserts_seq,testflags,CMP_EQUAL,,,differ

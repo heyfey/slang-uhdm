@@ -502,6 +502,13 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
                             capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
         return (name, mode, 'TIMEOUT', 'uhdm-cmp timeout', '', '')
+    if cp.returncode != 0:
+        # The dump column (byte identity, phase-3 metric) is only gate-relevant
+        # on CMP_EQUAL rows (match->differ demotion). Dumping the slang side of
+        # every not-equal test -- including the multi-million-line designs --
+        # bought nothing; skipped, recorded as ''.
+        tail = (cp.stdout or cp.stderr or '').strip().splitlines()
+        return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '', '')
     if golden_dumphash:
         # Hash the slang dump against the cached golden dump hash: the golden
         # side needs no uhdm-dump run at all.
@@ -517,10 +524,7 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
             pass
     else:
         dump = dump_verdict(golden_uhdm, slang_out, timeout)
-    if cp.returncode == 0:
-        return (name, mode, 'CMP_EQUAL', '', '', dump)
-    tail = (cp.stdout or cp.stderr or '').strip().splitlines()
-    return (name, mode, 'CMP_NOTEQUAL', tail[0][:140] if tail else '', '', dump)
+    return (name, mode, 'CMP_EQUAL', '', '', dump)
 
 
 def run_one(name, dirpath, parts, modes, workroot, timeout):
