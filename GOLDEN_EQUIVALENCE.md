@@ -199,16 +199,16 @@ groundwork (`dfaef99`, `eebba99`) and ranked residues.
 
 | | default | testflags |
 |---|---|---|
-| CMP_EQUAL | 224 | 216 |
-| CMP_NOTEQUAL | 257 | 250 |
+| CMP_EQUAL | 243 | 234 |
+| CMP_NOTEQUAL | 238 | 232 |
 | SLANG_REJECT (out of scope) | 287 | 284 |
 | UNTRANSLATABLE | 0 | 13 |
 | SURELOG_FAIL | 26 | 25 |
-| **CMP_EQUAL / comparable** | **46.6%** | **46.4%** |
+| **CMP_EQUAL / comparable** | **50.5%** | **50.2%** |
 
 Wave history (block of 2026-07-26): 181/177 → 194/189 (wave-1 rules
-generalising) → 199/194 (mriscv + determinism) → 224/216 (wave-3 clusters,
-26 tests, zero regressions). Three tests are permanently unreachable on
+generalising) → 199/194 (mriscv + determinism) → 224/216 (wave-3, 26 tests)
+→ 243/234 (wave-4, 20 tests). Zero regressions across all waves. Three tests are permanently unreachable on
 count: `BuildUVMPkg`/`SeqDriver`/`SimpleUVM` take include records from
 Surelog's precompiled-UVM PPCache pointing at a UVM version not on the
 command line — not reproducible from source (recorded by the include-file
