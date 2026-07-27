@@ -1022,6 +1022,47 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (auto* ranges = buildUnpackedRanges(
                         *arg, io, fullName + sep + std::string(arg->name)))
                     io->Ranges(ranges);
+            // A DYNAMIC-array formal (`input real driver []`) gets the
+            // unsized range Surelog mints for an unsized_dimension:
+            // [0 : "unsized"] (CompileExpression.cpp paUnsized_dimension).
+            if (arg->getDeclaredType() &&
+                arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::DynamicArrayType) {
+                const syntax::VariableDimensionSyntax* undim = nullptr;
+                if (auto* dsyn = arg->getSyntax())
+                    if (dsyn->kind == syntax::SyntaxKind::Declarator)
+                        for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                            if (!dim->specifier) {
+                                undim = dim;
+                                break;
+                            }
+                if (undim) {
+                    auto* r = s.MakeRange();
+                    r->VpiParent(io);
+                    setLoc(r, undim->sourceRange());
+                    auto* lc = s.MakeConstant();
+                    lc->VpiParent(r);
+                    lc->VpiDecompile("0");
+                    lc->VpiSize(64);
+                    lc->VpiValue("UINT:0");
+                    lc->VpiConstType(vpiUIntConst);
+                    setLoc(lc, undim->sourceRange());
+                    lc->VpiEndColumnNo(lc->VpiColumnNo() + 1);
+                    r->Left_expr(lc);
+                    auto* rc = s.MakeConstant();
+                    rc->VpiParent(r);
+                    rc->VpiDecompile("unsized");
+                    rc->VpiSize(0);
+                    rc->VpiValue("STRING:unsized");
+                    rc->VpiConstType(vpiStringConst);
+                    setLoc(rc, undim->sourceRange());
+                    rc->VpiEndColumnNo(rc->VpiColumnNo() + 1);
+                    r->Right_expr(rc);
+                    auto* rv = s.MakeRangeVec();
+                    rv->push_back(r);
+                    io->Ranges(rv);
+                }
+            }
             ios->push_back(io);
             // Class-method body refs to formals stay UNBOUND.
             if (!classScope)

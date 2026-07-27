@@ -90,6 +90,13 @@ int main(int argc, char** argv) {
     if (synthSubset)
         driver.options.translateOffOptions.push_back("pragma,translate_off,translate_on");
 
+    // Surelog predefines `SURELOG=1` for every compilation (SurelogMacro:
+    // `ifdef SURELOG guards the whole design, and the golden database contains
+    // work@top). It is a UHDM-relevant fact about the golden tool's
+    // environment, exactly like the builtin package, so mirror it. Prepended so
+    // an explicit -DSURELOG=... on the command line still wins.
+    driver.options.defines.insert(driver.options.defines.begin(), "SURELOG=1");
+
     if (!driver.processOptions())
         return 2;
 

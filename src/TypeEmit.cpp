@@ -283,8 +283,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // resolve to their ELEMENT type (the dims become array_var ranges).
     if (declared) {
         const Type* et = &declared->getType().getCanonicalType();
-        while (et->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
-            et = &et->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
+        // A DYNAMIC array resolves to its element type the same way a fixed
+        // unpacked array does; its single unsized dim becomes the declaring
+        // object's [0:"unsized"] range (FileResolutionFunction's
+        // `input real driver []` -> real_typespec + unsized io_decl range).
+        while (et->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType ||
+               et->getCanonicalType().kind == SymbolKind::DynamicArrayType) {
+            auto& ect = et->getCanonicalType();
+            et = ect.kind == SymbolKind::DynamicArrayType
+                     ? &ect.as<DynamicArrayType>().elementType
+                     : &ect.as<FixedSizeUnpackedArrayType>().elementType;
+        }
         auto& ct = et->getCanonicalType();
         if (ct.kind == SymbolKind::FloatingType) {
             UHDM::typespec* t = ct.as<FloatingType>().floatKind == FloatingType::ShortReal

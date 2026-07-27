@@ -729,11 +729,22 @@ void UhdmExporter::drainPendingExtends() {
         // extends-clause token, not after the resolved class).
         std::string written;
         const syntax::SyntaxNode* nameSyn = nullptr;
+        SourceRange nameRange;
         if (auto syn = pe.cls->getSyntax();
             syn && syn->kind == syntax::SyntaxKind::ClassDeclaration)
             if (auto* ec = syn->as<syntax::ClassDeclarationSyntax>().extendsClause) {
                 nameSyn = ec->baseName;
-                written = std::string(rawText(nameSyn->sourceRange()));
+                // A PARAMETERIZED base (`extends resource_db#(T)`) names and
+                // spans only the class IDENTIFIER — Surelog drops the
+                // parameter assignment from both (ClassParamAsParam).
+                if (auto* cn = nameSyn->as_if<syntax::ClassNameSyntax>()) {
+                    written = std::string(cn->identifier.valueText());
+                    nameRange = cn->identifier.range();
+                }
+                else {
+                    written = std::string(rawText(nameSyn->sourceRange()));
+                    nameRange = nameSyn->sourceRange();
+                }
             }
         // `extends IF` where IF is one of this class's own type parameters.
         const Symbol* tpSym = nullptr;
@@ -754,13 +765,13 @@ void UhdmExporter::drainPendingExtends() {
         if (auto bit = classDefnMap.find(&bct); bit != classDefnMap.end())
             cts->Class_defn(bit->second);
         if (nameSyn)
-            setLoc(ext, nameSyn->sourceRange());
+            setLoc(ext, nameRange);
         if (!tpSym) {
             // The class-bound branch: the extends is parented, the typespec
             // located, and the base collects the derived class.
             ext->VpiParent(pe.cd);
             if (nameSyn)
-                setLoc(cts, nameSyn->sourceRange());
+                setLoc(cts, nameRange);
             if (auto* baseCd = (UHDM::class_defn*)cts->Class_defn()) {
                 auto* der = baseCd->Deriveds();
                 if (!der) {
@@ -1004,6 +1015,14 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->VpiName("work@" + std::string(orderedTops[0]->getDefinition().name));
     else
         d->VpiName("unnamed"); // no top module: Surelog's unnamed design
+    // NOTE (design-root family, TopParam): a module whose parameter has NO
+    // default (`module top #(parameter param);`) is a design top for Surelog
+    // (design `work@top`, TopModules = [top], the child getting an overriding
+    // param_assign whose Rhs ref_obj resolves to top's own unset parameter),
+    // but slang refuses it both automatically and under an explicit --top
+    // ("'top' is not a valid top-level module"), so orderedTops comes back
+    // empty and the design falls to `unnamed` with a null TopModules. Not
+    // reachable without a slang change; the AllModules def views already match.
 
     // Surelog attaches the include records before any model content.
     emitIncludeFileInfos();
@@ -1011,10 +1030,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // All definitions used anywhere in the design, name-sorted like Surelog's
     // module map.
     std::map<std::string, const InstanceSymbol*> defs;
+    std::set<std::string> uninstGenDefNames;
     for (auto inst : orderedTops) {
         auto name = std::string(inst->getDefinition().name);
         if (defs.emplace(name, inst).second)
-            collectDefs(inst->body, defs);
+            collectDefs(inst->body, defs, &uninstGenDefNames);
     }
     // Parsed-but-unreferenced module definitions (an explicit --top prunes
     // them from the root) still get def views — Surelog compiles every parsed
@@ -1022,17 +1042,16 @@ UHDM::design* UhdmExporter::exportDesign() {
     // safely-instantiable ones: modules with all params defaulted and no
     // interface ports.
     std::set<const DefinitionSymbol*> unrefDefs;
-    for (auto* udefSym : comp.getUnreferencedDefinitions()) {
-        auto& udef = *udefSym;
+    auto addDefOnlyModule = [&](const DefinitionSymbol& udef, bool requireNoPorts = false) {
         if (udef.definitionKind != DefinitionKind::Module)
-            continue;
+            return;
         if (defs.count(std::string(udef.name)))
-            continue;
+            return;
         // Library-unit (-y/-v) modules compile on demand only — an unused
         // one gets NO def view (Surelog).
         if (!udef.sourceLibrary.isDefault ||
             (udef.syntaxTree && udef.syntaxTree->isLibraryUnit))
-            continue;
+            return;
         bool allDefaulted = true;
         for (auto& up : udef.parameters)
             if (!up.hasDefault()) {
@@ -1040,8 +1059,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                 break;
             }
         if (!allDefaulted)
-            continue;
+            return;
         auto& uinst = InstanceSymbol::createDefault(comp, udef);
+        // A def harvested from a NON-TAKEN generate branch is admitted only
+        // when it is PORTLESS. slang's createDefault instance has no
+        // connection syntax, and resolving the port connections of such an
+        // instance crashes inside slang for the Earlgrey_0_1 shapes; a
+        // portless def (HierPathEval's `module GOOD();`) never reaches that
+        // path. Widen only with a corpus test that proves the shape is safe.
+        if (requireNoPorts && !uinst.body.getPortList().empty())
+            return;
         bool ifacePorted = false;
         for (auto pb : uinst.body.getPortList())
             if (pb->kind == SymbolKind::InterfacePort) {
@@ -1049,10 +1076,51 @@ UHDM::design* UhdmExporter::exportDesign() {
                 break;
             }
         if (ifacePorted)
-            continue;
+            return;
         if (defs.emplace(std::string(udef.name), &uinst).second) {
             unrefDefs.insert(&udef);
-            collectDefs(uinst.body, defs);
+            collectDefs(uinst.body, defs, &uninstGenDefNames);
+        }
+    };
+    for (auto* udefSym : comp.getUnreferencedDefinitions())
+        addDefOnlyModule(*udefSym);
+    // Modules instantiated ONLY inside a non-taken generate branch: slang never
+    // reports them as unreferenced, but Surelog still compiled them, so they
+    // carry the same def-view-only entry in AllModules. A def added here can
+    // itself hide further non-taken branches, so run to a fixpoint over a
+    // snapshot (collectDefs keeps appending to uninstGenDefs).
+    //
+    // NOTE (design-root family): this closes the design ROOT of HierPathEval
+    // and UnsignedParam, both of which then diverge on CONSTANT EVALUATION,
+    // not on containers:
+    //   * HierPathEval — `.PadType(TargetCfg.dio_pad_type)` where TargetCfg is
+    //     a 2-bit packed struct {logic a; pad_type_e dio_pad_type} = 'b10.
+    //     slang folds the member select to 0 (first member is the MSB, per
+    //     LRM); Surelog folds it to 1. Matching golden means reproducing
+    //     Surelog's LSB-first member offset for this fold — do not do it
+    //     globally, it would break every converged packed-struct fold.
+    //   * UnsignedParam — `localparam signed [63:0] n` gives golden an
+    //     int_typespec with vpiSigned:1 that we do not set (a real, separate
+    //     gap), and beyond it `n4 == 10376293541461622783` is TRUE for Surelog
+    //     (64-bit unsigned) and FALSE for slang (the unsized decimal needs 65
+    //     bits as a SIGNED value), so the `GOOD good();` generate branch is
+    //     taken in golden's topModules and not in ours. Not reachable without
+    //     a slang change.
+    std::set<std::string> genDefsDone;
+    for (bool changed = true; changed;) {
+        changed = false;
+        std::vector<std::string> pending(uninstGenDefNames.begin(),
+                                         uninstGenDefNames.end());
+        for (auto& gname : pending) {
+            if (!genDefsDone.insert(gname).second)
+                continue;
+            changed = true;
+            for (auto* sym : comp.getDefinitions())
+                if (sym->kind == SymbolKind::Definition && sym->name == gname) {
+                    addDefOnlyModule(sym->as<DefinitionSymbol>(),
+                                     /*requireNoPorts=*/true);
+                    break;
+                }
         }
     }
     // Synthetic (bind-carrier) tops: def views only, filled like an
@@ -1780,17 +1848,57 @@ UHDM::design* UhdmExporter::exportDesign() {
                 byName[std::string(ta.name)] = ts;
             }
         }
+        // A user-defined NETTYPE (`nettype real my_real with my_function2`) is
+        // a design-level typespec too: Surelog emits the resolved DATA type
+        // under the nettype's name, with vpiInstance = the design and
+        // vpiFunction = the resolution function. The function object only
+        // exists after the $unit task_func pass below, so the binding is
+        // deferred (FileResolutionFunction).
+        std::vector<std::pair<UHDM::typespec*, std::string>> nettypeResolvers;
+        for (auto unit : comp.getCompilationUnits())
+            for (auto& member : unit->members()) {
+                if (member.kind != SymbolKind::NetType)
+                    continue;
+                auto& nt = member.as<NetType>();
+                if (nt.isBuiltIn())
+                    continue;
+                const syntax::SyntaxNode* dtSyn = nullptr;
+                if (auto syn = nt.getSyntax())
+                    if (syn->kind == syntax::SyntaxKind::NetTypeDeclaration)
+                        dtSyn = syn->as<syntax::NetTypeDeclarationSyntax>().type;
+                auto* ts = makeTypespec(nt, dtSyn);
+                if (!ts)
+                    continue;
+                ts->VpiName(nt.name);
+                ts->VpiParent(d);
+                ts->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
+                if (dtSyn)
+                    setLoc(ts, dtSyn->sourceRange());
+                byName[std::string(nt.name)] = ts;
+                if (auto* rf = nt.getResolutionFunction())
+                    nettypeResolvers.push_back({ts, std::string(rf->name)});
+            }
         if (!byName.empty()) {
             auto* tds = s.MakeTypespecVec();
             for (auto& [nm, ts] : byName)
                 tds->push_back(ts);
             d->Typespecs(tds);
         }
-    }
 
-    // $unit (compilation-unit) functions live on the design object.
-    for (auto unit : comp.getCompilationUnits())
-        emitTaskFuncs(*unit, d, "", nullptr);
+        // $unit (compilation-unit) functions live on the design object.
+        for (auto unit : comp.getCompilationUnits())
+            emitTaskFuncs(*unit, d, "", nullptr);
+
+        for (auto& [ts, fname] : nettypeResolvers) {
+            if (ts->UhdmType() != UHDM::uhdmreal_typespec || !d->Task_funcs())
+                continue;
+            for (auto* tf : *d->Task_funcs())
+                if (tf->UhdmType() == UHDM::uhdmfunction && tf->VpiName() == fname) {
+                    ((UHDM::real_typespec*)ts)->Resolution_func((UHDM::function*)tf);
+                    break;
+                }
+        }
+    }
 
     auto* allMods = s.MakeModule_instVec();
     auto* topMods = s.MakeModule_instVec();
@@ -1813,6 +1921,17 @@ UHDM::design* UhdmExporter::exportDesign() {
         // A program elaborated as a TOP has no observed Surelog form here
         // (design->TopModules is a module_inst vector), so it keeps the
         // module_inst shell until a corpus test pins the real shape.
+        //
+        // NOTE (design-root family, SimpleConstraint): Surelog does NOT make a
+        // file-scope `program` a design top at all — its golden design is
+        // `unnamed`, TopModules is null, AllModules is null, and the program
+        // sits alone in AllPrograms. Pulling program defs out of orderedTops
+        // reproduces that design root, but SimpleConstraint still diverges
+        // deeper (a `rand pkt_type` class property is an enum_var in golden and
+        // a bit_var here), and three currently-CMP_EQUAL program tests
+        // (OneNetInterf/OneNetModPort/OneNetRange) sit in the blast radius, so
+        // the rule is left unimplemented until the enum_var residue is fixed
+        // and the two can be gated together.
         else if (isProgramDef(*inst) && !topDefs.count(&inst->getDefinition())) {
             auto* prog = s.MakeProgram();
             defMap[&inst->getDefinition()].mod = prog;
@@ -1828,6 +1947,18 @@ UHDM::design* UhdmExporter::exportDesign() {
         d->AllInterfaces(allIfaces);
     if (!allProgs->empty())
         d->AllPrograms(allProgs);
+    // NOTE (design-root family, Udp): design->AllUdps is never populated — we
+    // emit nothing for `primitive ... endprimitive`. slang models them fully
+    // (SymbolKind::Primitive: ports, table entries, initVal, and
+    // PrimitiveInstanceSymbol for the instantiations), and the UHDM compare
+    // surface is narrow: udp_defn compares DefName/VpiSize/VpiProtected/
+    // VpiPrimType/Attributes/Io_decls/Table_entrys/Initial, table_entry
+    // compares only VpiSize (the "? 1 : 1" string is NOT compared), prim_term
+    // compares VpiDirection/VpiTermIndex/Expr. The golden shapes: udp_defn
+    // VpiDefName "work@<name>", io_decl anchored at the header port name with
+    // vpiExpr = a logic_net anchored at the `output a;` declaration, and the
+    // module carrying a `udp` under vpiPrimitive whose def-view VpiDefName is
+    // the BARE name ("udp_body") and top-view VpiDefName is "work@udp_body".
 
 
     // Surelog compiles every module's parameters at module-compile time, so
@@ -1936,9 +2067,35 @@ UHDM::design* UhdmExporter::exportDesign() {
         std::vector<ClassEnt> ents;
         for (auto unit : comp.getCompilationUnits()) {
             bool bi = isBuiltinUnit(*unit);
-            for (auto& mem : unit->members())
+            for (auto& mem : unit->members()) {
                 if (mem.kind == SymbolKind::ClassType)
                     ents.push_back({&mem.as<ClassType>(), bi});
+                // A PARAMETERIZED class declaration (`class resource #(type
+                // T=int)`) is a GenericClassDefSymbol in slang, not a
+                // ClassType, so it never reached AllClasses. Surelog compiles
+                // it once, from its DEFAULT specialization, exactly like the
+                // nested-class path above (ClassParamAsParam, ClassTypeParam,
+                // VirtualClass).
+                // NOTE: this closes the design ROOT for the three tests, and
+                // the parameters/param_assigns already match golden exactly.
+                // The residues are class-SCOPE typedefs (scope::Compare walks
+                // Typespecs): emitClassTypedefs is enum-only and gated behind
+                // --builtins, so (a) ClassParamAsParam wants a class_typespec
+                // `rsrc_t` in work@resource_db's Typespecs, with the property
+                // var pointing at THAT rather than at the resolved class, and
+                // (b) VirtualClass wants t_vector/t_array/t_struct with their
+                // SIZE-dependent ranges kept UNFOLDED (golden holds
+                // operation(SIZE-1); the default specialization folds SIZE=1
+                // to [0:0]). ClassTypeParam additionally needs the $unit
+                // typedef of a class specialization as a design-level
+                // class_typespec (`m_uvm_config_obj_misc`).
+                else if (mem.kind == SymbolKind::GenericClassDef) {
+                    auto& gc = mem.as<GenericClassDefSymbol>();
+                    if (auto* dsp = gc.getDefaultSpecialization(*unit);
+                        dsp && dsp->kind == SymbolKind::ClassType)
+                        ents.push_back({&dsp->as<ClassType>(), bi});
+                }
+            }
         }
         // Surelog compiles builtin.sv before the user sources, so its
         // class_defn objects lead the arena; the design's class LIST is then

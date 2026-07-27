@@ -459,8 +459,8 @@ FilePackUnion,default,SLANG_REJECT,dut.sv:31:3: error: cannot reference compilat
 FilePackUnion,testflags,SLANG_REJECT,dut.sv:31:3: error: cannot reference compilation unit item from within a package,,
 FileParam,default,CMP_NOTEQUAL,decompile:,,
 FileParam,testflags,CMP_NOTEQUAL,decompile:,,
-FileResolutionFunction,default,CMP_NOTEQUAL,decompile:,,
-FileResolutionFunction,testflags,CMP_NOTEQUAL,decompile:,,
+FileResolutionFunction,default,CMP_EQUAL,,,match
+FileResolutionFunction,testflags,CMP_EQUAL,,,match
 FileTypespec,default,SLANG_REJECT,dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has width of 2; previously seen width was 1,,
 FileTypespec,testflags,SLANG_REJECT,dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has width of 2; previously seen width was 1,,
 ForeachArray,default,CMP_EQUAL,,,differ
@@ -1299,8 +1299,8 @@ StructVar,default,SLANG_REJECT,dut.sv:62:12: error: cannot refer to element 2 of
 StructVar,testflags,SLANG_REJECT,dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVarImp,default,SLANG_REJECT,dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
 StructVarImp,testflags,SLANG_REJECT,dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
-SurelogMacro,default,CMP_NOTEQUAL,decompile:,,
-SurelogMacro,testflags,CMP_NOTEQUAL,decompile:,,
+SurelogMacro,default,CMP_EQUAL,,,match
+SurelogMacro,testflags,CMP_EQUAL,,,match
 SVSwitch,default,CMP_NOTEQUAL,decompile:,,
 SVSwitch,testflags,CMP_NOTEQUAL,decompile:,,
 SynthFilterDollarError,default,SLANG_REJECT,dut.sv:4:10: error: unknown package 'pack',,

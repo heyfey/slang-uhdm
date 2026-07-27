@@ -452,18 +452,45 @@ inline int32_t mapBinaryOp(BinaryOperator op) {
 }
 
 // Collects one representative instance per definition, recursively.
+// `uninstDefNames`, when given, additionally collects the DEFINITION NAMES
+// reached only through a NON-TAKEN generate branch: Surelog compiles every
+// parsed module, so such a module still carries a def view in
+// design->AllModules (HierPathEval: work@GOOD, referenced only from
+// gen_inner_if_true, which is false). slang marks those definitions referenced,
+// so getUnreferencedDefinitions() never reports them, and inside an
+// uninstantiated scope the instantiation is an UninstantiatedDefSymbol that
+// carries only the NAME -- hence names, resolved by the caller.
 inline void collectDefs(const InstanceBodySymbol& body,
-                        std::map<std::string, const InstanceSymbol*>& defs) {
+                        std::map<std::string, const InstanceSymbol*>& defs,
+                        std::set<std::string>* uninstDefNames = nullptr) {
     // An INSTANCE ARRAY (myif arr[N], producer p[N]) is an InstanceArraySymbol
     // whose elements are the per-index InstanceSymbols (or nested arrays) — its
     // definition must be collected too, else the interface/module def is
     // dropped from AllInterfaces/AllModules entirely.
+    // Definition harvest inside a non-taken generate branch: def views only,
+    // never instance bodies (the bodies are uninstantiated).
+    std::function<void(const Symbol&)> visitUninst = [&](const Symbol& m) {
+        if (m.kind == SymbolKind::Instance)
+            uninstDefNames->insert(std::string(m.as<InstanceSymbol>().getDefinition().name));
+        else if (m.kind == SymbolKind::UninstantiatedDef)
+            uninstDefNames->insert(
+                std::string(m.as<UninstantiatedDefSymbol>().definitionName));
+        else if (m.kind == SymbolKind::InstanceArray) {
+            for (auto* e : m.as<InstanceArraySymbol>().elements)
+                visitUninst(*e);
+        }
+        else if (m.kind == SymbolKind::GenerateBlock ||
+                 m.kind == SymbolKind::GenerateBlockArray) {
+            for (auto& gm : m.as<Scope>().members())
+                visitUninst(gm);
+        }
+    };
     std::function<void(const Symbol&)> visit = [&](const Symbol& member) {
         if (member.kind == SymbolKind::Instance) {
             auto& child = member.as<InstanceSymbol>();
             auto name = std::string(child.getDefinition().name);
             if (defs.emplace(name, &child).second)
-                collectDefs(child.body, defs);
+                collectDefs(child.body, defs, uninstDefNames);
         }
         else if (member.kind == SymbolKind::InstanceArray) {
             for (auto* e : member.as<InstanceArraySymbol>().elements)
@@ -472,9 +499,14 @@ inline void collectDefs(const InstanceBodySymbol& body,
         // Instances INSIDE generate blocks (begin:foo mod_a a(...); end) —
         // their defs must reach AllModules too. Non-taken branches don't.
         else if (member.kind == SymbolKind::GenerateBlock) {
-            if (!member.as<GenerateBlockSymbol>().isUninstantiated)
+            if (!member.as<GenerateBlockSymbol>().isUninstantiated) {
                 for (auto& gm : member.as<Scope>().members())
                     visit(gm);
+            }
+            else if (uninstDefNames) {
+                for (auto& gm : member.as<Scope>().members())
+                    visitUninst(gm);
+            }
         }
         else if (member.kind == SymbolKind::GenerateBlockArray) {
             for (auto& gm : member.as<Scope>().members())
