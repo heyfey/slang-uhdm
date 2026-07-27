@@ -2060,13 +2060,17 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             auto sit = subMap.find(&psym9);
             if (sit == subMap.end() || !sit->second.tf)
                 return;
+            auto* tf9 = sit->second.tf;
+            if (auto eit9 = pkgElabSubTf.find(&psym9);
+                eit9 != pkgElabSubTf.end() && eit9->second)
+                tf9 = eit9->second;
             auto* v = m->Task_funcs();
             if (!v) {
                 v = s.MakeTask_funcVec();
                 m->Task_funcs(v);
             }
-            if (std::find(v->begin(), v->end(), sit->second.tf) == v->end())
-                v->push_back(sit->second.tf);
+            if (std::find(v->begin(), v->end(), tf9) == v->end())
+                v->push_back(tf9);
         };
         for (auto& mem : body.members()) {
             if (mem.kind == SymbolKind::ExplicitImport) {
@@ -2085,13 +2089,14 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             // occupies (a call-site pass may have queued one ahead of us) or
             // at the end. Entries outside the group keep their relative order.
             //
-            // NOTE (decoded, blocked): Surelog names the package's ELABORATED
-            // twin here — its return/formal typespecs are the folded elab
-            // typedefs (rp32 dec32's dec_t is [2:0]; the def twin's stays
-            // 3-1). Listing the twin alone regresses
+            // Surelog names the package's ELABORATED twin here — its
+            // return/formal typespecs are the folded elab typedefs (rp32
+            // dec32's dec_t is [2:0]; the def twin's stays 3-1). Listing the
+            // twin alone regressed
             // ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,
-            // whose call sites bind the def object: the swap has to move the
-            // call binding with it.
+            // whose call sites bind the def object; the swap therefore moves
+            // the call binding with it (ExprEmit's siTf, keyed on the same
+            // pkgElabSubTf registry), and both sweeps stay at zero movers.
             std::vector<UHDM::task_func*> grp9;
             for (auto& pm : pkg->members()) {
                 if (pm.kind != SymbolKind::Subroutine)
@@ -2099,9 +2104,12 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 auto sit = subMap.find(&pm);
                 if (sit == subMap.end() || !sit->second.tf)
                     continue;
-                if (std::find(grp9.begin(), grp9.end(), sit->second.tf) ==
-                    grp9.end())
-                    grp9.push_back(sit->second.tf);
+                auto* tf9 = sit->second.tf;
+                if (auto eit9 = pkgElabSubTf.find(&pm);
+                    eit9 != pkgElabSubTf.end() && eit9->second)
+                    tf9 = eit9->second;
+                if (std::find(grp9.begin(), grp9.end(), tf9) == grp9.end())
+                    grp9.push_back(tf9);
             }
             if (grp9.empty())
                 continue;
@@ -11932,6 +11940,27 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             rt->VpiParent(lv);
             // A PKG-typedef return binds the SHARED pkg ts unmutated (its
             // package parent kept); other returns clone as before.
+            //
+            // NOTE (decoded, not landed — rp32 enc32/dec32, the remaining
+            // blocker on rp32_r5p_{alu,bru,mdu,wbu}): for an AGGREGATE
+            // (struct/union) package-typedef return, Surelog does NOT share.
+            // It deep-CLONES the whole return typespec tree per binding
+            // reference, and the clone is the ELABORATED (folded) form even
+            // when the reference sits in the DEF package's function body.
+            // tools/probe/w4tsdup.cpp counts the twins: golden carries 92
+            // `riscv_isa_i_pkg::fn3_t` objects for wbu (46 folded #TOP + 46
+            // unfolded #DEF), we carry 2 — one shared object per view. Every
+            // extra golden object is parented
+            //   ref_typespec < logic_typespec(fn3_t) < ref_typespec <
+            //   typespec_member(funct3) < struct_typespec(op32_r4_t) < ... <
+            //   union_typespec(op32_t) < ref_typespec < union_var(enc32) <
+            //   ref_obj(enc32) < assignment < case_item < ...
+            // i.e. one full tree per return-value ref_obj. uhdm-cmp's first
+            // failure on all four tests is that fold state (`decompile:`
+            // constant 2 vs operation 3-1 at riscv_isa_i_pkg.sv:57:16). The
+            // vector-typedef arm below already does the per-reference clone
+            // (with the topPf0 fold switch) — the aggregate arm needs the
+            // same treatment, recursing through members.
             UHDM::typespec* ts = nullptr;
             bool sharedPkg = false;
             if (sub.getReturnType().kind == SymbolKind::TypeAlias) {

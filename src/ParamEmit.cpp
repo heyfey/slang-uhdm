@@ -6397,6 +6397,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                     }
                                 }
                             pkgImportCloneTs[&pm] = scl;
+                            if (!topView)
+                                defPassOwnedTs.insert(scl);
                             pkgTdByName.emplace_back(std::string(ta2.name),
                                                      (UHDM::typespec*)scl);
                             continue;
@@ -6416,6 +6418,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                     ->Actual_typespec()
                                     ->Instance(hip2->second);
                         pkgImportCloneTs[&pm] = ecl;
+                        if (!topView)
+                            defPassOwnedTs.insert(ecl);
                         cl2 = ecl;
                     }
                     pkgTdByName.emplace_back(std::string(ta2.name),
@@ -7213,17 +7217,24 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 mts = cl9;
                             }
                         }
-                        // NOTE (decoded, blocked): Surelog leaves a member
-                        // actual the DEF pass already instanced at THIS
-                        // package on that def-view instance — one shared
-                        // object across both views (rp32 op32_op62_et/opc_t
-                        // and the imported enum clones are #DEF in every
-                        // listing). Guarding this stamp on that condition
-                        // measured net-worse alone (170 -> 322 cmp-relevant
-                        // typedef-forest lines): the fresh top-built members
-                        // that DO need the elab instance are indistinguishable
-                        // here without a per-object creation-pass marker.
-                        mts->Instance((UHDM::instance*)up);
+                        // Surelog leaves a member actual the DEF pass already
+                        // instanced at THIS package on that def-view instance
+                        // — one shared object across both views (rp32
+                        // op32_op62_et/opc_t and the imported enum clones are
+                        // #DEF in every listing). The condition is OWNERSHIP,
+                        // not the current Instance() value: guarding on the
+                        // value alone measured net-worse (170 -> 322 cmp-
+                        // relevant typedef-forest lines) because members the
+                        // TOP pass builds fresh DO need the elab instance and
+                        // are indistinguishable by value. defPassOwnedTs is
+                        // the creation-pass marker that separates them.
+                        if (!topView)
+                            defPassOwnedTs.insert(mts);
+                        if (topView && defPassOwnedTs.count(mts)) {
+                            // shared def-owned object: keep its def instance
+                        }
+                        else
+                            mts->Instance((UHDM::instance*)up);
                         if (topView && mts->UhdmType() == UHDM::uhdmlogic_typespec) {
                             std::function<void(UHDM::any*)> bindRefs2 =
                                 [&](UHDM::any* e) {
@@ -7341,9 +7352,30 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         taA->VpiParent(dm);
                     if (!da->VpiName().length())
                         da->VpiParent(tmM);
+                    // An ENUM member's BASE typespec travels with it: the
+                    // view a swapped enum lands in owns its base too, so the
+                    // base takes the same instance (rp32 op32_op62_et's
+                    // unnamed logic base under every op32_*_t listing).
+                    auto stampTs = [&](UHDM::typespec* t5,
+                                       UHDM::instance* i5) {
+                        if (!t5 || !i5)
+                            return;
+                        t5->Instance(i5);
+                        if (t5->UhdmType() == UHDM::uhdmenum_typespec)
+                            if (auto* br5 =
+                                    ((UHDM::enum_typespec*)t5)->Base_typespec())
+                                if (auto* ba5 = br5->Actual_typespec())
+                                    ba5->Instance(i5);
+                    };
                     if (dup2)
-                        taA->Instance(dup2);
-                    da->Instance((UHDM::instance*)up);
+                        stampTs(taA, dup2);
+                    // A NAMED member actual the DEF pass owns is Surelog's ONE
+                    // shared object: the swap re-points the containers, but the
+                    // object keeps its def-view instance (creation-pass marker
+                    // — a value-based guard cannot tell it from a fresh
+                    // top-built member).
+                    if (!(defPassOwnedTs.count(da) && !da->VpiName().empty()))
+                        stampTs(da, (UHDM::instance*)up);
                 }
                 attachFoldedBoundMeta(sts, (UHDM::instance*)up);
             }
@@ -7573,9 +7605,30 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         taA->VpiParent(dm);
                     if (!da->VpiName().length())
                         da->VpiParent(tmM);
+                    // An ENUM member's BASE typespec travels with it: the
+                    // view a swapped enum lands in owns its base too, so the
+                    // base takes the same instance (rp32 op32_op62_et's
+                    // unnamed logic base under every op32_*_t listing).
+                    auto stampTs = [&](UHDM::typespec* t5,
+                                       UHDM::instance* i5) {
+                        if (!t5 || !i5)
+                            return;
+                        t5->Instance(i5);
+                        if (t5->UhdmType() == UHDM::uhdmenum_typespec)
+                            if (auto* br5 =
+                                    ((UHDM::enum_typespec*)t5)->Base_typespec())
+                                if (auto* ba5 = br5->Actual_typespec())
+                                    ba5->Instance(i5);
+                    };
                     if (dup2)
-                        taA->Instance(dup2);
-                    da->Instance((UHDM::instance*)up);
+                        stampTs(taA, dup2);
+                    // A NAMED member actual the DEF pass owns is Surelog's ONE
+                    // shared object: the swap re-points the containers, but the
+                    // object keeps its def-view instance (creation-pass marker
+                    // — a value-based guard cannot tell it from a fresh
+                    // top-built member).
+                    if (!(defPassOwnedTs.count(da) && !da->VpiName().empty()))
+                        stampTs(da, (UHDM::instance*)up);
                 }
                 attachFoldedBoundMeta(uts, (UHDM::instance*)up);
             }

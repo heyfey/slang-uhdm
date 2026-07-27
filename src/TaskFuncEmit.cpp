@@ -851,7 +851,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         its2 && (!its2->dimensions.empty() || its2->signing))
                         setLoc((UHDM::BaseClass*)ts, its2->keyword.range());
                 }
-                if (pkgScope && !classScope) {
+                // The ELABORATED pass must not move a DEF-pass-owned shared
+                // typespec (an import CLONE) onto the top package view:
+                // Surelog keeps one object at its def-view instance. Fresh
+                // top-built formal typespecs are absent from the marker and
+                // still take the elaborated instance.
+                if (pkgScope && !classScope &&
+                    !(pkgTopEmit &&
+                      defPassOwnedTs.count((UHDM::typespec*)ts))) {
                     ((UHDM::typespec*)ts)->Instance(
                         importCopyTsInst ? importCopyTsInst
                                          : (UHDM::instance*)m);
@@ -1344,6 +1351,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Register before the body so recursive calls bind this function.
         if (sharedScope || reusedShell || !subMap.count(&sub))
             subMap[&sub] = si;
+        // The package's ELABORATED pass builds the twin whose typespecs are
+        // folded; remember it so importing modules can list and bind it.
+        if (pkgScope && !classScope && pkgTopEmit)
+            pkgElabSubTf[&sub] = tf;
         // An ELAB instance's call site sees its OWN per-instance
         // SubroutineSymbol, but the elab view lists (and Surelog binds) the
         // DEF function object: remember the def-emitted subroutine keyed by

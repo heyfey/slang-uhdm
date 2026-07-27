@@ -1397,6 +1397,20 @@ private:
     // the home package's def object; module import listings share it too
     // (last-writer scoping). Filled by drainPkgImportLists.
     std::map<const slang::ast::Symbol*, UHDM::typespec*> pkgImportCloneTs;
+    // Creation-pass marker. A package member typespec the DEF pass created
+    // (and instanced at the def-view package) keeps that instance forever:
+    // Surelog emits ONE shared object whose vpiInstance is the def view, and
+    // the TOP pass must not re-stamp it. A member the TOP pass built fresh is
+    // absent here and DOES take the elaborated instance. Ownership — not the
+    // current Instance() value — is the only thing that separates the cases
+    // (a value-based guard measured net-worse; see the NOTE in ParamEmit).
+    std::set<const UHDM::typespec*> defPassOwnedTs;
+    // A package subroutine is emitted TWICE (def view, then elaborated view).
+    // subMap keeps the DEF twin (first writer); this keeps the ELAB twin,
+    // whose return/formal typespecs are the FOLDED elab typedefs. A module
+    // that imports the package lists — and binds its calls to — the elab twin
+    // (Surelog: rp32 dec32's dec_t is [2:0], the def twin's stays 3-1).
+    std::map<const slang::ast::Symbol*, UHDM::task_func*> pkgElabSubTf;
     // Deferred def-view pkg import listings: the home def object may not
     // exist yet at emit time (AllPackages order is alphabetical). Drained
     // after the AllPackages loop.

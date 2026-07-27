@@ -3203,6 +3203,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 auto& si = it->second;
+                // A module that IMPORTS a package binds the package's
+                // ELABORATED twin, whose return/formal typespecs are the
+                // FOLDED elab typedefs (Surelog; rp32 dec32). Calls emitted
+                // INSIDE a package keep their own view's object.
+                UHDM::task_func* siTf = si.tf;
+                if (!curPkgEmitSym)
+                    if (auto eit9 = pkgElabSubTf.find(&sub);
+                        eit9 != pkgElabSubTf.end() && eit9->second)
+                        siTf = eit9->second;
                 bool isFunc = sub.subroutineKind == SubroutineKind::Function;
                 UHDM::tf_call* fc = isFunc ? (UHDM::tf_call*)s.MakeFunc_call()
                                            : (UHDM::tf_call*)s.MakeTask_call();
@@ -3244,7 +3253,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         fc->VpiName(wqual + "::" + std::string(sub.name));
                         setLoc(fc, nameSpan(expr.sourceRange.start(), wqual));
                     }
-                    else if (currentScope && si.tf) {
+                    else if (currentScope && siTf) {
                         // Import-resolved call: the module lists the shared
                         // package function in its own Task_funcs; a call from
                         // a GEN-SCOPE conn also registers at the enclosing
@@ -3252,17 +3261,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto& v2 = importedTfCalls[currentScope];
                         bool have9 = false;
                         for (auto& pr9 : v2)
-                            if (pr9.first == si.tf)
+                            if (pr9.first == siTf)
                                 have9 = true;
                         if (!have9)
-                            v2.push_back({si.tf, expr.sourceRange});
+                            v2.push_back({siTf, expr.sourceRange});
                     }
                 }
                 if (isFunc)
                     ((UHDM::func_call*)fc)->Function(
-                        boundClone ? boundClone : (UHDM::function*)si.tf);
+                        boundClone ? boundClone : (UHDM::function*)siTf);
                 else
-                    ((UHDM::task_call*)fc)->Task((UHDM::task*)si.tf);
+                    ((UHDM::task_call*)fc)->Task((UHDM::task*)siTf);
                 auto* args = s.MakeAnyVec();
                 size_t argIdx = 0;
                 callArgDepth++;
