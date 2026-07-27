@@ -84,7 +84,7 @@ BasicOh,testflags,CMP_NOTEQUAL,decompile:,,
 BeginKeywords,default,CMP_NOTEQUAL,decompile:,,
 BeginKeywords,testflags,CMP_NOTEQUAL,decompile:,,
 BiasValue,default,CMP_NOTEQUAL,decompile:,,
-BiasValue,testflags,CMP_NOTEQUAL,decompile:,,
+BiasValue,testflags,CMP_EQUAL,,,differ
 BinarySize,default,CMP_EQUAL,,,match
 BinarySize,testflags,CMP_EQUAL,,,differ
 BindHierPath,default,CMP_EQUAL,,,match
@@ -109,8 +109,8 @@ BitRanges,default,CMP_EQUAL,,,match
 BitRanges,testflags,CMP_EQUAL,,,differ
 BitsArray,default,CMP_NOTEQUAL,decompile:,,
 BitsArray,testflags,CMP_NOTEQUAL,decompile:,,
-BitSelect,default,CMP_NOTEQUAL,decompile:,,
-BitSelect,testflags,CMP_NOTEQUAL,decompile:,,
+BitSelect,default,CMP_EQUAL,,,differ
+BitSelect,testflags,CMP_EQUAL,,,differ
 BitSelectExpr,default,CMP_EQUAL,,,differ
 BitSelectExpr,testflags,CMP_EQUAL,,,differ
 BitSelectHier,default,SLANG_REJECT,dut.sv:16:31: error: implementation not found in parent scope for 'get_start_offset' [-Wmember-impl-not-found],,
@@ -1033,8 +1033,8 @@ ParamElab,default,SLANG_REJECT,dut.sv:15:9: error: use of undeclared identifier 
 ParamElab,testflags,SLANG_REJECT,dut.sv:15:9: error: use of undeclared identifier 'i',,
 ParamElabMulti,default,CMP_NOTEQUAL,decompile:,,
 ParamElabMulti,testflags,CMP_NOTEQUAL,decompile:,,
-ParamEquivOp,default,CMP_NOTEQUAL,decompile:,,
-ParamEquivOp,testflags,CMP_NOTEQUAL,decompile:,,
+ParamEquivOp,default,CMP_EQUAL,,,match
+ParamEquivOp,testflags,CMP_EQUAL,,,match
 ParamFile,default,CMP_EQUAL,,,match
 ParamFile,testflags,CMP_EQUAL,,,match
 ParamFileMacro,default,SURELOG_FAIL,[   NOTE] : 0,,
@@ -1053,8 +1053,8 @@ ParamLine,default,SLANG_REJECT,error: no input files,,
 ParamLine,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
 ParamList,default,CMP_EQUAL,,,match
 ParamList,testflags,CMP_EQUAL,,,match
-ParamMultiConcat,default,CMP_NOTEQUAL,decompile:,,
-ParamMultiConcat,testflags,CMP_NOTEQUAL,decompile:,,
+ParamMultiConcat,default,CMP_EQUAL,,,differ
+ParamMultiConcat,testflags,CMP_EQUAL,,,differ
 ParamNoDefault,default,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
 ParamNoDefault,testflags,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
 ParamNoImport,default,CMP_NOTEQUAL,decompile:,,

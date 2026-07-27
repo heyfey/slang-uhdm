@@ -404,7 +404,12 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         return c;
     }
     if (iv.isSigned() && iv.isNegative()) {
-        if (!typedConv)
+        // An UNTYPED PARAMETER still folds a negative result — Surelog reduces
+        // `parameter E1 = (1 << 8) - (1 << 11)` to INT:-1792 size 64 (and the
+        // `int`-typed twin to INT:-1792 size 32). Only non-parameter folds
+        // (cont-assign RHS reductions) keep the unfolded operation, which is
+        // what this bail was written for.
+        if (!typedConv && !paramCtx)
             return nullptr;
         // A SIGNED integral typed param keeps the negative value as a signed
         // INT constant at the type width (integer y = -1 -> INT:-1/32). An
@@ -412,8 +417,8 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         // (logic[17:0] X = ~(15) -> UINT:262128) through its conversion to
         // the unsigned type width. The TARGET (param) type governs — NOT the
         // init expression's self-determined type (~(15) is self-typed int).
-        if (!(typedConv->type && typedConv->type->isSigned() &&
-              typedConv->type->isIntegral())) {
+        if (typedConv && !(typedConv->type && typedConv->type->isSigned() &&
+                           typedConv->type->isIntegral())) {
             ConstantValue cv2 = ctx.tryEval(*typedConv);
             if (!cv2 || !cv2.isInteger())
                 return nullptr;
@@ -429,7 +434,18 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     // decompile-less param_assign constants in any golden are empty strings
     // (tools/probe/w4bindec.cpp). rp32_r5p_mdu: localparam M8 = {1'b1,
     // {XLEN-1{1'b0}}} -> 32'b1000...0.
-    if (stripImplicitConv(expr).kind == ExpressionKind::Concatenation) {
+    // A REPLICATION ({N{1'b1}}) folds the same way in a PARAMETER context, and
+    // — unlike a plain concat — Surelog keeps the replication's OWN width even
+    // when the param is explicitly typed (measured, one source per row, only
+    // the named declaration changed):
+    //     parameter int A1        = {3{1'b1}} -> BIN:111  size 3
+    //     parameter A2            = {3{1'b1}} -> BIN:111  size 3
+    //     parameter bit [2:0] A3  = {3{1'b1}} -> BIN:111  size 3
+    //     parameter int A4        = {4{1'b1}} -> BIN:1111 size 4
+    // (a plain CONCAT into an `int` instead re-signs at 32 — {2'b11,2'b01} ->
+    // INT:-3/32 — which is why only the replication form is widened here).
+    if (stripImplicitConv(expr).kind == ExpressionKind::Concatenation ||
+        (paramCtx && stripImplicitConv(expr).kind == ExpressionKind::Replication)) {
         auto* c = s.MakeConstant();
         int32_t w = (int32_t)expr.type->getBitWidth();
         c->VpiSize(w);

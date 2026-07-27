@@ -427,7 +427,7 @@ private:
     const slang::ast::Expression* unpackedParamPatternLeaf(
         const slang::ast::Expression& sel);
     bool isIntEncoded(const slang::ast::Expression& e);
-    void analyzeParamEnc(const slang::ast::InstanceBodySymbol& body);
+    void analyzeParamEnc(const slang::ast::Scope& body);
     // Design-global pre-pass: definitions instantiated with MULTIPLE DISTINCT
     // parameter-value tuples (Surelog uniquifies these; their untyped overrides
     // encode UINT/size32/ct9, and parameterized interface port-views keep a

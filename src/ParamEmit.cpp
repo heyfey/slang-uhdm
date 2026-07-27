@@ -2351,10 +2351,62 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // A param OVERRIDE whose bound expression is a BIT- or
+                // PART-SELECT encodes BINARY at the SELECT's own width with a
+                // based decompile — the same rule a select DEFAULT follows,
+                // and in every declaration form. Measured on one source:
+                //   sub #(.A(V8[0]), .B(V8[3:0]), .C(V8[2]))  (A=`bit`,
+                //   B=`bit [3:0]`, C untyped, V8 = 8'h25)
+                //   -> BIN:1 "1'b1" / BIN:0101 "4'b0101" / BIN:1 "1'b1",
+                // where the same instance overridden with plain literals keeps
+                // the literal's own base instead.
+                bool selOv8 = false;
+                if (!vecAliasOv8 && !strOv8 && !enumOv8 && !srcBaseOv8 &&
+                    boundInit) {
+                    // The origin is followed THROUGH parameter references the
+                    // way srcBaseOv8 follows a based literal: ElabCParam's
+                    // `.Depth(ReqDepth)` inherits the 4-bit BIN encoding of the
+                    // select that produced ReqDepth one instance up.
+                    const Expression* bo8 = &stripImplicitConv(*boundInit);
+                    for (int h8 = 0;
+                         h8 < 8 && bo8->kind == ExpressionKind::NamedValue;
+                         h8++) {
+                        auto& sy8 = bo8->as<NamedValueExpression>().symbol;
+                        if (sy8.kind != SymbolKind::Parameter)
+                            break;
+                        auto* in8 = sy8.as<ParameterSymbol>().getInitializer();
+                        if (!in8)
+                            break;
+                        bo8 = &stripImplicitConv(*in8);
+                    }
+                    auto& bs8 = *bo8;
+                    const Expression* bb8 =
+                        bs8.kind == ExpressionKind::ElementSelect
+                            ? &bs8.as<ElementSelectExpression>().value()
+                        : bs8.kind == ExpressionKind::RangeSelect
+                            ? &bs8.as<RangeSelectExpression>().value()
+                            : nullptr;
+                    if ((bs8.kind == ExpressionKind::ElementSelect ||
+                         bs8.kind == ExpressionKind::RangeSelect) &&
+                        bb8 && bb8->type && bb8->type->isIntegral() &&
+                        bs8.type && bs8.type->getBitWidth() > 0 &&
+                        bs8.type->getBitWidth() <= 64) {
+                        int32_t w8 = (int32_t)bs8.type->getBitWidth();
+                        slang::SVInt wv8 = iv.resize((slang::bitwidth_t)w8);
+                        std::string bits8;
+                        for (int32_t i8 = w8 - 1; i8 >= 0; i8--)
+                            bits8 += (wv8[i8] == slang::logic_t(1)) ? '1' : '0';
+                        c->VpiValue("BIN:" + bits8);
+                        c->VpiConstType(vpiBinaryConst);
+                        c->VpiSize(w8);
+                        c->VpiDecompile(std::to_string(w8) + "'b" + bits8);
+                        selOv8 = true;
+                    }
+                }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
                 if (vecAliasOv8 || strOv8 || enumOv8 || srcBaseOv8 ||
-                    strRefOv8) {
+                    selOv8 || strRefOv8) {
                 }
                 else if (typedParam && iv.getBitWidth() > 64) {
                     // WIDE values overflow the decimal fold — encode HEX at
@@ -2633,6 +2685,71 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ->VpiSize(
                                     (int32_t)ps.getType().getBitWidth());
                     }
+                    // A SIGNED-BINARY literal whose SIGN BIT is set re-encodes
+                    // as a decimal INT at the target width. Measured, one
+                    // source per row, only the named declaration changed:
+                    //   parameter [1:0] F1 = 1'sb1    -> INT:3   size 2
+                    //   parameter [1:0] F2 = 2'sb10   -> INT:2   size 2
+                    //   parameter       F3 = 2'sb10   -> INT:2   size 2
+                    //   parameter int   H3 = 4'sb1010 -> INT:-6  size 32
+                    //   parameter [3:0] G3 = 4'sb0101 -> BIN:0101 (positive)
+                    //   parameter [3:0] G1 = 4'shA    -> HEX:A    (hex base)
+                    // A SIGNED target sign-extends and prints signed; an
+                    // UNSIGNED one instead shows Surelog's widening quirk
+                    // `(pattern << k) | ((1 << k) - 1)` for k = targetWidth -
+                    // literalWidth — measured at [5:0]=2'sb10 -> 47,
+                    // [7:0]=1'sb1 -> 255, [4:0]=3'sb101 -> 23; k = 0 leaves the
+                    // pattern alone.
+                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                        !ps.getType().getCanonicalType().isFloating()) {
+                        std::string raw6(rawText(init->sourceRange));
+                        auto tk6 = raw6.find('\'');
+                        bool sgnBin6 = false;
+                        if (tk6 != std::string::npos && tk6 + 2 < raw6.size() &&
+                            (raw6[tk6 + 1] == 's' || raw6[tk6 + 1] == 'S'))
+                            sgnBin6 = tolower(raw6[tk6 + 2]) == 'b';
+                        auto lv6 = init->as<IntegerLiteral>().getValue();
+                        uint64_t lw6 = lv6.getBitWidth();
+                        if (sgnBin6 && lw6 > 0 && lw6 <= 64 &&
+                            !lv6.hasUnknown() &&
+                            lv6[(int32_t)lw6 - 1] == slang::logic_t(1)) {
+                            uint64_t pat6 =
+                                lv6.as<uint64_t>().value_or(0) &
+                                (lw6 == 64 ? ~0ull : ((1ull << lw6) - 1));
+                            uint64_t tw6 = ps.getType().getBitWidth();
+                            if (tw6 == 0 || tw6 > 64)
+                                tw6 = lw6;
+                            bool sgnTgt6 = typedParam && ps.getType().isSigned();
+                            std::string dg6;
+                            if (sgnTgt6) {
+                                int64_t sv6 =
+                                    (int64_t)(pat6 | (lw6 == 64
+                                                          ? 0
+                                                          : (~0ull << lw6)));
+                                if (tw6 < 64)
+                                    sv6 = (int64_t)((uint64_t)sv6 &
+                                                    ((1ull << tw6) - 1));
+                                if (tw6 < 64 &&
+                                    ((uint64_t)sv6 >> (tw6 - 1)) & 1)
+                                    sv6 = (int64_t)((uint64_t)sv6 |
+                                                    (~0ull << tw6));
+                                dg6 = std::to_string(sv6);
+                            }
+                            else {
+                                uint64_t k6 = tw6 > lw6 ? tw6 - lw6 : 0;
+                                uint64_t uv6 = (pat6 << k6) |
+                                               (k6 ? ((1ull << k6) - 1) : 0);
+                                if (tw6 < 64)
+                                    uv6 &= (1ull << tw6) - 1;
+                                dg6 = std::to_string(uv6);
+                            }
+                            auto* c6 = (UHDM::constant*)rhs;
+                            c6->VpiValue("INT:" + dg6);
+                            c6->VpiConstType(vpiIntConst);
+                            c6->VpiDecompile(dg6);
+                            c6->VpiSize((int32_t)tw6);
+                        }
+                    }
                 }
                 // Symbolic sys_func_call ($clog2(Info.x)) of a member-init
                 // param: re-emit the call with the argument substituted by the
@@ -2865,9 +2982,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // in a cont-assign/statement (bare, no decompile), the
                     // param_assign Rhs form carries a based-binary decompile
                     // (Surelog).
-                    bool concatFold = !typedParam && !defUntypedImport &&
-                                      !rangedFold && !sizeCastVal &&
-                                      scv.kind == ExpressionKind::Concatenation;
+                    // A REPLICATION default keeps its own width in EVERY
+                    // declaration form (typed, ranged or bare) — see the
+                    // measured table on tryFoldConst's concat branch — so it
+                    // takes the concat encoding unconditionally.
+                    bool concatFold = (!typedParam && !defUntypedImport &&
+                                       !rangedFold && !sizeCastVal &&
+                                       scv.kind == ExpressionKind::Concatenation) ||
+                                      scv.kind == ExpressionKind::Replication;
                     // An ELAB-view fold whose source is a PARAMETER REFERENCE
                     // — bare (width_b = width_a), qualified (Y = pkg1::X) or
                     // SELECTED (a = x[0]) — is sized at the param's own TYPE
@@ -2906,14 +3028,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                    r9->as<NamedValueExpression>().symbol.kind ==
                                        SymbolKind::Parameter;
                         }();
-                    if (!concatFold)
+                    // A COMPARISON/LOGICAL init keeps its self-determined
+                    // 1-bit width and takes a BASED decompile, never the
+                    // untyped 64-bit default. Measured, one source per row:
+                    //   parameter D1     = (3 == 3) -> BIN:1 size 1 "1'b1"
+                    //   parameter D2     = (3 >  4) -> BIN:0 size 1 "1'b0"
+                    //   parameter bit D3 = (3 == 3) -> BIN:1 size 1 "1'b1"
+                    // An `int` target instead re-signs the 1-bit result to
+                    // INT:-1 size 32, so predefined integers are excluded.
+                    bool boolInit9 =
+                        scv.kind == ExpressionKind::BinaryOp &&
+                        ps.getType().getCanonicalType().kind !=
+                            SymbolKind::PredefinedIntegerType &&
+                        [&] {
+                            auto bop9 = scv.as<BinaryExpression>().op;
+                            return OpInfo::isComparison(bop9) ||
+                                   bop9 == BinaryOperator::LogicalAnd ||
+                                   bop9 == BinaryOperator::LogicalOr ||
+                                   bop9 == BinaryOperator::LogicalImplication ||
+                                   bop9 == BinaryOperator::LogicalEquivalence;
+                        }();
+                    if (!concatFold && !boolInit9)
                         ((UHDM::constant*)rhs)
                             ->VpiSize(typedParam || defUntypedImport ||
                                               rangedFold || elabRefFold9
                                           ? (int32_t)ps.getType().getBitWidth()
                                       : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                     : 64);
-                    else {
+                    if (boolInit9) {
+                        auto* cb9 = (UHDM::constant*)rhs;
+                        std::string_view bv9 = cb9->VpiValue();
+                        if (bv9.rfind("BIN:", 0) == 0)
+                            cb9->VpiDecompile(std::to_string(cb9->VpiSize()) +
+                                              "'b" + std::string(bv9.substr(4)));
+                    }
+                    if (concatFold) {
                         auto* cc9 = (UHDM::constant*)rhs;
                         std::string_view cv9 = cc9->VpiValue();
                         if (cv9.rfind("BIN:", 0) == 0 && !cc9->VpiDecompile().size())
@@ -2970,9 +3119,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                         }
                     }
-                    // A SUBTRACT init (W - 19) folds signed (INT).
+                    // A SUBTRACT or MULTIPLY init (W - 19, DReqDepth * 2) folds
+                    // signed (INT). Measured per operator on one source, only
+                    // the operator changed: `*` `/` `-` reduce to INT, `+` and
+                    // `<<` to UINT — in every declaration form (untyped,
+                    // `int`, `bit [7:0]`).
                     if (scv.kind == ExpressionKind::BinaryOp &&
-                        scv.as<BinaryExpression>().op == BinaryOperator::Subtract) {
+                        (scv.as<BinaryExpression>().op == BinaryOperator::Subtract ||
+                         scv.as<BinaryExpression>().op == BinaryOperator::Multiply)) {
                         auto* rc1 = (UHDM::constant*)rhs;
                         std::string_view v1 = rc1->VpiValue();
                         if (v1.rfind("UINT:", 0) == 0) {
@@ -3033,47 +3187,142 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         if (topView && (bit.isUnknown() || bit.value == 0))
                             unbasedSharedPaConst[&ps] = c;
                     }
-                    // A typed-param PART-SELECT init (WidthRatio[5:0]) folds
-                    // to BINARY at the type width (Surelog quirk) and is
-                    // SHARED into a reading cont-assign (o = FullDepth).
-                    if (sinit.kind == ExpressionKind::RangeSelect && typedParam &&
-                        topView) {
+                    // A BIT- or PART-SELECT init folds to BINARY at the
+                    // SELECT's OWN width with a based decompile, in EVERY
+                    // declaration form. Measured, one source per row, only the
+                    // declaration changed (V8 = `bit [7:0] 8'h22`):
+                    //   bit [3:0] W1 = V8[3:0]  -> BIN:0010     size 4
+                    //   bit [7:0] W3 = V8[3:0]  -> BIN:0010     size 4
+                    //   bit [3:0] U3 = V8[7:0]  -> BIN:00100010 size 8
+                    //   bit       U4 = V8[1]    -> BIN:1        size 1
+                    //   parameter U7 = V8[3:0]  -> BIN:0010     size 4
+                    //   int       U8 = V8[3:0]  -> BIN:0010     size 4
+                    // so the target TYPE width never enters. The one exception
+                    // is the `int` re-signing quirk: an `int` param whose
+                    // selected value has its top bit set adjusts to a 32-bit
+                    // signed INT instead (`int P3 = V[0]` with V[0]==1 ->
+                    // INT:-1 size 32), the same adjust a plain concat gets.
+                    // ...but only over a PACKED base. Indexing an UNPACKED
+                    // array param (ArrayParam[IndexParam], int ArrayParam[2])
+                    // is an element READ, not a bit slice, and keeps the plain
+                    // UINT encoding (ModuleInstantiationAndIndirectParams).
+                    if ((sinit.kind == ExpressionKind::ElementSelect ||
+                         sinit.kind == ExpressionKind::RangeSelect) &&
+                        topView && [&] {
+                            const Expression* b9 =
+                                sinit.kind == ExpressionKind::ElementSelect
+                                    ? &sinit.as<ElementSelectExpression>().value()
+                                    : &sinit.as<RangeSelectExpression>().value();
+                            return b9->type && b9->type->isIntegral();
+                        }()) {
                         auto* c = (UHDM::constant*)rhs;
-                        int32_t w = (int32_t)ps.getType().getBitWidth();
+                        int32_t w = sinit.type ? (int32_t)sinit.type->getBitWidth()
+                                               : c->VpiSize();
                         std::string v(c->VpiValue());
                         std::string digits = v.find(':') != std::string::npos
                                                  ? v.substr(v.find(':') + 1)
                                                  : v;
-                        slang::SVInt sv2 =
-                            slang::SVInt::fromString(std::string_view(digits));
-                        slang::SVInt wv(
-                            (slang::bitwidth_t)(w > 0 ? w : 1), 0, false);
-                        wv = sv2.resize((slang::bitwidth_t)(w > 0 ? w : 1));
-                        std::string bits;
-                        for (int32_t bi = w - 1; bi >= 0; bi--)
-                            bits += (wv[bi] == slang::logic_t(1)) ? '1' : '0';
-                        c->VpiValue("BIN:" + bits);
-                        c->VpiConstType(vpiBinaryConst);
-                        c->VpiDecompile(std::to_string(w) + "'b" + bits);
-                        moduleParamFoldConst[&member] = c;
-                        // Its own FRESH unlocated logic_typespec (range =
-                        // the param's fixed range, BARE UINT bounds) — NOT
-                        // the param's bit_typespec — created in the write-
-                        // phase tail (deferred).
-                        auto* rt = s.MakeRef_typespec();
-                        rt->VpiFullName(prefix);
-                        rt->VpiParent(c);
-                        c->Typespec(rt);
-                        auto fr = ps.getType().getCanonicalType().getFixedRange();
-                        pendingPartSelFoldTs.push_back({rt, fr.left, fr.right});
-                        partSelectFold = true;
+                        bool signAdjust =
+                            ps.getType().getCanonicalType().kind ==
+                            SymbolKind::PredefinedIntegerType;
+                        if (w > 0 && !digits.empty() &&
+                            digits.find_first_not_of("0123456789") ==
+                                std::string::npos) {
+                            slang::SVInt sv2 =
+                                slang::SVInt::fromString(std::string_view(digits));
+                            slang::SVInt wv =
+                                sv2.resize((slang::bitwidth_t)w);
+                            std::string bits;
+                            for (int32_t bi = w - 1; bi >= 0; bi--)
+                                bits += (wv[bi] == slang::logic_t(1)) ? '1' : '0';
+                            if (!(signAdjust && bits[0] == '1')) {
+                                c->VpiSize(w);
+                                c->VpiValue("BIN:" + bits);
+                                c->VpiConstType(vpiBinaryConst);
+                                c->VpiDecompile(std::to_string(w) + "'b" + bits);
+                                moduleParamFoldConst[&member] = c;
+                                // The FRESH loc-less logic_typespec (folded
+                                // bare-UINT bounds) belongs to the CONT-ASSIGN
+                                // that SHARES this constant, not to the fold
+                                // itself: measured on one source carrying two
+                                // identical `bit [3:0] W = V8[3:0]` params of
+                                // which a cont_assign reads only one — the read
+                                // one's constant reparents to the cont_assign
+                                // and takes the bare typespec, the unread one
+                                // keeps the param's own bit_typespec.
+                                bool sharedByCa9 = false;
+                                for (auto& m9 : body.members()) {
+                                    if (m9.kind != SymbolKind::ContinuousAssign)
+                                        continue;
+                                    m9.as<ContinuousAssignSymbol>()
+                                        .getAssignment()
+                                        .visit(makeVisitor(
+                                            [&](auto& v9,
+                                                const NamedValueExpression& nv9) {
+                                                if (&nv9.symbol == &member)
+                                                    sharedByCa9 = true;
+                                                v9.visitDefault(nv9);
+                                            }));
+                                }
+                                if (sharedByCa9 && typedParam) {
+                                    auto* rt = s.MakeRef_typespec();
+                                    rt->VpiFullName(prefix);
+                                    rt->VpiParent(c);
+                                    c->Typespec(rt);
+                                    auto fr = ps.getType()
+                                                  .getCanonicalType()
+                                                  .getFixedRange();
+                                    pendingPartSelFoldTs.push_back(
+                                        {rt, fr.left, fr.right});
+                                    partSelectFold = true;
+                                }
+                            }
+                        }
+                    }
+                    // A REPLICATION fold never points at the parameter's own
+                    // declared typespec: Surelog gives the folded constant a
+                    // FRESH, LOC-LESS one built from the param's type — a
+                    // packed vector becomes a logic_typespec whose range holds
+                    // the FOLDED bounds as bare UINT constants (`bit [7:0]` ->
+                    // logic_typespec[7:0], ElabCParam; `logic [NumAlerts-1:0]`
+                    // -> logic_typespec[2:0], BitSelect), and an `int` becomes
+                    // an UNSIGNED int_typespec (ParamMultiConcat; the param's
+                    // own int_typespec carries vpiSigned, this one does not).
+                    bool replFoldTs = false;
+                    if (scv.kind == ExpressionKind::Replication &&
+                        (typedParam || rangedFold) && wantTs && !isPattern &&
+                        !partSelectFold && !importedFold) {
+                        auto& rct = ps.getType().getCanonicalType();
+                        UHDM::ref_typespec* rt = nullptr;
+                        auto mkRef = [&]() {
+                            rt = s.MakeRef_typespec();
+                            std::string tsPfx = prefix;
+                            if (tsPfx.size() >= 2 &&
+                                tsPfx.compare(tsPfx.size() - 2, 2, "::") == 0)
+                                tsPfx.resize(tsPfx.size() - 2);
+                            rt->VpiFullName(tsPfx);
+                            rt->VpiParent((UHDM::constant*)rhs);
+                            ((UHDM::constant*)rhs)->Typespec(rt);
+                        };
+                        if (rct.kind == SymbolKind::PackedArrayType &&
+                            rct.isIntegral()) {
+                            mkRef();
+                            auto fr = rct.getFixedRange();
+                            pendingPartSelFoldTs.push_back({rt, fr.left, fr.right});
+                            replFoldTs = true;
+                        }
+                        else if (rct.kind == SymbolKind::PredefinedIntegerType) {
+                            mkRef();
+                            rt->Actual_typespec(s.MakeInt_typespec());
+                            replFoldTs = true;
+                        }
                     }
                     // Typed-param (non-pattern) folds carry a ts ref to the
                     // param; a RANGED-UNTYPED elab fold carries the SAME ts ref
                     // shape (fullname = instance prefix, actual = range
                     // int_typespec) so its folded value is width-typed.
                     if ((typedParam || rangedFold) && wantTs && !isPattern &&
-                        !partSelectFold && !importedFold) {
+                        !partSelectFold && !replFoldTs && !importedFold) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
@@ -6155,7 +6404,7 @@ bool UhdmExporter::enumOriginHexRecode(UHDM::constant* c,
     return true;
 }
 
-void UhdmExporter::analyzeParamEnc(const InstanceBodySymbol& body) {
+void UhdmExporter::analyzeParamEnc(const Scope& body) {
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::Parameter)
             continue;
@@ -6301,6 +6550,11 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // vpiInstance = the package (Surelog); expose it during param emission.
     auto* savedPkgInst0 = pkgScopeInst;
     pkgScopeInst = (UHDM::instance*)up;
+    // Package params take part in the INT-encoding chain exactly as module
+    // ones do: kmac_pkg's BufferCycles is a `/` fold (INT), so the
+    // RegIntfWidth * BufferCycles that READS it reduces to INT too. Without
+    // this the package side of the chain silently reverted to UINT.
+    analyzeParamEnc(pkg);
     emitParameters(pkg, up, prefix, none, topView, nullptr, true);
     pkgScopeInst = savedPkgInst0;
     // Package typedefs: struct/enum/vector typespecs named pkg::T, parented and
