@@ -305,8 +305,8 @@ ConstPort,default,CMP_NOTEQUAL,decompile:,,
 ConstPort,testflags,CMP_NOTEQUAL,decompile:,,
 ContAssign,default,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'intf',,
 ContAssign,testflags,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'intf',,
-ContAssignConst,default,CMP_NOTEQUAL,decompile:,,
-ContAssignConst,testflags,CMP_NOTEQUAL,decompile:,,
+ContAssignConst,default,CMP_EQUAL,,,differ
+ContAssignConst,testflags,CMP_EQUAL,,,differ
 Context,default,CMP_EQUAL,,,match
 Context,testflags,CMP_EQUAL,,,match
 CoresSweRV,default,SURELOG_FAIL,[   NOTE] : 0,,
@@ -361,8 +361,8 @@ DollarBitsUnary,default,SLANG_REJECT,dut.sv:8:15: error: use of undeclared ident
 DollarBitsUnary,testflags,SLANG_REJECT,dut.sv:8:15: error: use of undeclared identifier 'dr_x'; did you mean 'dr_q'?,,
 DollarRoot,default,SLANG_REJECT,dut.sv:7:11: error: unknown package 'verbosity_pkg',,
 DollarRoot,testflags,SLANG_REJECT,dut.sv:7:11: error: unknown package 'verbosity_pkg',,
-DoubleLoop,default,CMP_NOTEQUAL,decompile:,,
-DoubleLoop,testflags,CMP_NOTEQUAL,decompile:,,
+DoubleLoop,default,CMP_EQUAL,,,differ
+DoubleLoop,testflags,CMP_EQUAL,,,differ
 DoublePres,default,SLANG_REJECT,dut.sv:34:21: error: invalid operands to binary expression ('real' and 'real'),,
 DoublePres,testflags,SLANG_REJECT,dut.sv:34:21: error: invalid operands to binary expression ('real' and 'real'),,
 DoWhile,default,SLANG_REJECT,dut.sv:4:15: error: use of undeclared identifier 'uvm_default_factory',,
@@ -419,8 +419,8 @@ EnumVarNoTypedef,default,SLANG_REJECT,dut.sv:4:20: error: expression width of 4 
 EnumVarNoTypedef,testflags,SLANG_REJECT,dut.sv:4:20: error: expression width of 4 does not exactly match declared enum type width of 3,,
 Escape,default,SLANG_REJECT,top.v:13:12: error: unknown class or package 'uvm_resource_db',,
 Escape,testflags,SLANG_REJECT,top.v:13:12: error: unknown class or package 'uvm_resource_db',,
-EvalFunc,default,CMP_NOTEQUAL,decompile:,,
-EvalFunc,testflags,CMP_NOTEQUAL,decompile:,,
+EvalFunc,default,CMP_EQUAL,,,differ
+EvalFunc,testflags,CMP_EQUAL,,,differ
 EvalFuncArray,default,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the current constant function,,
 EvalFuncArray,testflags,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the current constant function,,
 EvalFuncCont,default,CMP_NOTEQUAL,decompile:,,
@@ -1059,7 +1059,7 @@ ParamNoDefault,default,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is
 ParamNoDefault,testflags,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
 ParamNoImport,default,CMP_NOTEQUAL,decompile:,,
 ParamNoImport,testflags,CMP_NOTEQUAL,decompile:,,
-ParamNoSubst,default,CMP_NOTEQUAL,decompile:,,
+ParamNoSubst,default,CMP_EQUAL,,,differ
 ParamNoSubst,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=parametersubstitution,
 ParamOverload1,default,SLANG_REJECT,dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were provided,,
 ParamOverload1,testflags,SLANG_REJECT,dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were provided,,
@@ -1099,8 +1099,8 @@ PartSelectParent,default,CMP_EQUAL,,,differ
 PartSelectParent,testflags,CMP_EQUAL,,,differ
 PartSelectRange,default,SLANG_REJECT,dut.sv:11:14: error: unknown module 'foo',,
 PartSelectRange,testflags,SLANG_REJECT,dut.sv:11:14: error: unknown module 'foo',,
-PAssignType,default,CMP_NOTEQUAL,decompile:,,
-PAssignType,testflags,CMP_NOTEQUAL,decompile:,,
+PAssignType,default,CMP_EQUAL,,,differ
+PAssignType,testflags,CMP_EQUAL,,,differ
 PatAssignOp,default,SLANG_REJECT,dut.sv:14:6: error: unknown module 'GOOD',,
 PatAssignOp,testflags,SLANG_REJECT,dut.sv:14:6: error: unknown module 'GOOD',,
 PatternAssignInteger,default,CMP_EQUAL,,,match
@@ -1119,8 +1119,8 @@ PortByName,default,CMP_NOTEQUAL,decompile:,,
 PortByName,testflags,CMP_NOTEQUAL,decompile:,,
 PortComplex,default,CMP_NOTEQUAL,decompile:,,
 PortComplex,testflags,CMP_NOTEQUAL,decompile:,,
-PortDefaultValue,default,CMP_NOTEQUAL,decompile:,,
-PortDefaultValue,testflags,CMP_NOTEQUAL,decompile:,,
+PortDefaultValue,default,CMP_EQUAL,,,differ
+PortDefaultValue,testflags,CMP_EQUAL,,,differ
 PortExpr,default,CMP_NOTEQUAL,decompile:,,
 PortExpr,testflags,CMP_NOTEQUAL,decompile:,,
 PortInitVal,default,CMP_EQUAL,,,differ
@@ -1391,7 +1391,7 @@ TypeParamOverride,default,CMP_EQUAL,,,differ
 TypeParamOverride,testflags,CMP_EQUAL,,,differ
 TypespecBits,default,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
 TypespecBits,testflags,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
-TypespecExpr,default,CMP_NOTEQUAL,decompile:,,
+TypespecExpr,default,CMP_EQUAL,,,differ
 TypespecExpr,testflags,CMP_NOTEQUAL,decompile:,,
 TypespecMask,default,CMP_EQUAL,,,differ
 TypespecMask,testflags,CMP_NOTEQUAL,decompile:,,

@@ -458,6 +458,35 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
             c->VpiDecompile(std::to_string(w) + "'b" + bits);
         return c;
     }
+    // A folded REPLICATION over a SIZED element ({8{2'(1'b1)}}) is Surelog's
+    // bit-pattern reduce too: full-width BINARY, but decompiled as the BARE
+    // bit string (no `<w>'b` prefix) and carrying an anonymous
+    // int_typespec — the replication result type (ContAssignConst out6).
+    // A replication over an UNSIZED element keeps the plain decimal fold.
+    if (!paramCtx &&
+        stripImplicitConv(expr).kind == ExpressionKind::Replication) {
+        auto& rp9 = stripImplicitConv(expr).as<ReplicationExpression>();
+        auto& cc9 = stripImplicitConv(rp9.concat());
+        bool sizedElem9 =
+            cc9.type && cc9.type->isIntegral() &&
+            cc9.kind != ExpressionKind::UnbasedUnsizedIntegerLiteral;
+        if (sizedElem9) {
+            auto* c = s.MakeConstant();
+            int32_t w = (int32_t)expr.type->getBitWidth();
+            c->VpiSize(w);
+            std::string bits;
+            for (int32_t i = w - 1; i >= 0; i--)
+                bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';
+            c->VpiValue("BIN:" + bits);
+            c->VpiConstType(vpiBinaryConst);
+            c->VpiDecompile(bits);
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(c);
+            rt->Actual_typespec(s.MakeInt_typespec());
+            c->Typespec(rt);
+            return c;
+        }
+    }
     std::string digits = iv.toString(LiteralBase::Decimal, /*includeBase*/ false);
     auto* c = s.MakeConstant();
     c->VpiDecompile(digits);
@@ -5209,7 +5238,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         std::string d9 = wv9.integer().toString(
                             LiteralBase::Decimal, false);
                         c9->VpiDecompile(d9);
-                        c9->VpiSize((int32_t)rs.right().type->getBitWidth());
+                        // A BARE (unsized) decimal width literal keeps
+                        // Surelog's 64-bit unsized encoding; a width that
+                        // comes from a typed expression (a param ref, a
+                        // sized literal) is sized by its own type
+                        // (YosysRiscv `[8*(2*i+1-1) +: 8]` vs generate_test
+                        // `[i*W +: W]`).
+                        bool bareW9 = false;
+                        if (stripImplicitConv(rs.right()).kind ==
+                            ExpressionKind::IntegerLiteral) {
+                            std::string rw9(rawText(
+                                stripImplicitConv(rs.right()).sourceRange));
+                            bareW9 = rw9.find('\'') == std::string::npos;
+                        }
+                        c9->VpiSize(bareW9
+                                        ? 64
+                                        : (int32_t)rs.right()
+                                              .type->getBitWidth());
                         c9->VpiValue("UINT:" + d9);
                         c9->VpiConstType(vpiUIntConst);
                         setLoc(c9, rs.right().sourceRange);

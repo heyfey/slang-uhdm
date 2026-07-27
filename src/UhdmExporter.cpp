@@ -1151,6 +1151,40 @@ UHDM::design* UhdmExporter::exportDesign() {
         for (auto pkg : pkgs)
             topP->push_back(emitPackage(*pkg, true));
         d->TopPackages(topP);
+        // A call BETWEEN package functions (prim_util_pkg::vbits calling
+        // prim_util_pkg::_clog2) binds the callee in the ELABORATED (top)
+        // package view in BOTH copies — Surelog resolves package calls after
+        // it has built the top views, so the def copy's own function object is
+        // never the callee. Module-level calls already bind the top view (they
+        // are emitted after this point), so the sweep only reaches calls made
+        // inside a package. EvalFunc.
+        for (auto& pr : s.AllObjects()) {
+            if (!pr.first ||
+                pr.first->UhdmType() != UHDM::uhdmfunc_call)
+                continue;
+            auto* fc = (UHDM::func_call*)pr.first;
+            auto* callee = fc->Function();
+            if (!callee)
+                continue;
+            const UHDM::instance* home = callee->Instance();
+            if (!home)
+                continue;
+            size_t pi = allP->size();
+            for (size_t i = 0; i < allP->size(); i++)
+                if ((*allP)[i] == home)
+                    pi = i;
+            if (pi == allP->size())
+                continue;
+            auto* tf = (*topP)[pi]->Task_funcs();
+            if (!tf)
+                continue;
+            for (auto* t : *tf)
+                if (t->UhdmType() == UHDM::uhdmfunction &&
+                    t->VpiName() == callee->VpiName()) {
+                    fc->Function((UHDM::function*)t);
+                    break;
+                }
+        }
         // Import-clone typespecs point vpiInstance at the ELABORATED (top)
         // home package, which only exists now that the top views are built.
         for (auto& [cts, pn] : importCopyTsFixups)

@@ -4662,8 +4662,27 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             ASTContext dctx9(comp.getRoot(),
                                              LookupLocation::max);
                             ConstantValue dcv9 = dctx9.tryEval(*connE9);
-                            if (dcv9 && dcv9.isInteger() &&
-                                !dcv9.integer().hasUnknown()) {
+                            // A default written as a BASED/SIZED literal
+                            // (input [7:0] datain = 8'hFF) is NOT folded:
+                            // Surelog carries the literal's own source
+                            // encoding (HEX:FF, vpiHexConst, size 8)
+                            // (PortDefaultValue). Only a bare decimal —
+                            // or a computed default — folds to 64-bit UINT.
+                            auto& dl9 = stripImplicitConv(*connE9);
+                            bool basedLit9 =
+                                dl9.kind == ExpressionKind::IntegerLiteral &&
+                                rawText(dl9.sourceRange).find('\'') !=
+                                    std::string_view::npos;
+                            if (basedLit9) {
+                                bool sup9 = suppressConstParent;
+                                suppressConstParent = true;
+                                if (auto* hL9 = emitExpr(dl9, p, parentPrefix,
+                                                         *parentNets))
+                                    p->High_conn((UHDM::expr*)hL9);
+                                suppressConstParent = sup9;
+                            }
+                            else if (dcv9 && dcv9.isInteger() &&
+                                     !dcv9.integer().hasUnknown()) {
                                 auto* cH9 = s.MakeConstant();
                                 std::string dg9 = dcv9.integer().toString(
                                     LiteralBase::Decimal, false);
@@ -7241,6 +7260,53 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         c9->VpiValue("BIN:" + bits9);
                         c9->VpiConstType(vpiBinaryConst);
                         rhs = c9;
+                    }
+                }
+            }
+            // A gen-scope CA RHS that is an OPERATION over the unrolled
+            // loop's GENVARS ONLY (`assign ys = i + j` under nested for
+            // loops) reduces to a LOC-LESS UINT constant at the LHS width:
+            // Surelog unrolls first, so every operand is already a value.
+            // DoubleLoop.
+            if (!rhs) {
+                auto& gk9 = stripImplicitConv(ae.right());
+                if (gk9.kind == ExpressionKind::BinaryOp ||
+                    gk9.kind == ExpressionKind::UnaryOp) {
+                    bool allGen9 = true, sawGen9 = false;
+                    ae.right().visit(makeVisitor(
+                        [&](auto& v9, const NamedValueExpression& nv9) {
+                            if (nv9.symbol.kind != SymbolKind::Parameter) {
+                                allGen9 = false;
+                            }
+                            else {
+                                auto* sc9 = nv9.symbol.getParentScope();
+                                auto sk9 = sc9 ? sc9->asSymbol().kind
+                                               : SymbolKind::Unknown;
+                                if (sk9 == SymbolKind::GenerateBlock ||
+                                    sk9 == SymbolKind::GenerateBlockArray)
+                                    sawGen9 = true;
+                                else
+                                    allGen9 = false;
+                            }
+                            v9.visitDefault(nv9);
+                        }));
+                    if (allGen9 && sawGen9 && ae.left().type) {
+                        ASTContext gvx9(comp.getRoot(), LookupLocation::max);
+                        ConstantValue gv9 = gvx9.tryEval(ae.right());
+                        if (gv9 && gv9.isInteger() &&
+                            !gv9.integer().hasUnknown()) {
+                            auto iv9 = gv9.integer();
+                            iv9.setSigned(false);
+                            std::string dg9 =
+                                iv9.toString(LiteralBase::Decimal, false);
+                            auto* c9 = s.MakeConstant();
+                            c9->VpiDecompile(dg9);
+                            c9->VpiSize(
+                                (int32_t)ae.left().type->getBitWidth());
+                            c9->VpiValue("UINT:" + dg9);
+                            c9->VpiConstType(vpiUIntConst);
+                            rhs = c9;
+                        }
                     }
                 }
             }

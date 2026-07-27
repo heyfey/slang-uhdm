@@ -283,8 +283,9 @@ static bool subroutinePoisonsEvalFunc(const SubroutineSymbol& sub, Compilation& 
 // Surelog INLINES a foldable const function's body, so the folded constant is
 // encoded by the same rules a plain expression fold uses — driven by the RETURN
 // assignment's expression kind: a CONCAT body ({..}) folds full-width BIN, a
-// comparison/logical body folds BIN with DECIMAL digits, everything else UINT.
-enum class ConstCallEnc { Uint, BoolBin, ConcatBin };
+// comparison/logical body folds BIN with DECIMAL digits, a TERNARY body folds
+// signed INT, everything else UINT.
+enum class ConstCallEnc { Uint, BoolBin, ConcatBin, Int };
 
 static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
     ConstCallEnc enc = ConstCallEnc::Uint;
@@ -292,6 +293,12 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
         auto& se = stripImplicitConv(rhs);
         if (se.kind == ExpressionKind::Concatenation)
             enc = ConstCallEnc::ConcatBin;
+        // A TERNARY body reduces through ExprEval's vpiConditionOp arm, which
+        // unconditionally re-wraps the selected branch as `INT:<val>` at size
+        // 64 with vpiIntConst (UHDM ExprEval.cpp, reduceExpr vpiConditionOp)
+        // — EvalFunc's vbits vs its loop-bodied log2/log2_2 siblings.
+        else if (se.kind == ExpressionKind::ConditionalOp)
+            enc = ConstCallEnc::Int;
         else if (se.kind == ExpressionKind::BinaryOp) {
             auto bop = se.as<BinaryExpression>().op;
             enc = (OpInfo::isComparison(bop) || bop == BinaryOperator::LogicalAnd ||
@@ -311,6 +318,15 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
                 (const Symbol*)sub.returnValVar)
             classify(a.right());
         v.visitDefault(a);
+    }));
+    // A `return <expr>;` body carries no assignment to the return var, so the
+    // visitor above never sees it; classify the TERNARY case here (the only
+    // encoding ExprEval forces regardless of the branch expressions).
+    sub.getBody().visit(makeVisitor([&](auto& v, const ReturnStatement& r) {
+        if (r.expr && stripImplicitConv(*r.expr).kind ==
+                          ExpressionKind::ConditionalOp)
+            enc = ConstCallEnc::Int;
+        v.visitDefault(r);
     }));
     return enc;
 }
@@ -2105,6 +2121,88 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         prt->Actual_typespec(its);
                         if (typedParam || isRangedUntypedParam(ps))
                             its->VpiParent(up);
+                    }
+                }
+                continue;
+            }
+            // A LOGIC-VECTOR param OVERRIDDEN by an AGGREGATE actual — an
+            // assignment pattern, directly or through parameter refs
+            // (`#(.RESVAL(CTRL_RESET))` with `parameter ctrl_reg_t
+            // CTRL_RESET = '{...}` against `parameter logic [31:0] RESVAL`):
+            // Surelog's CompileHelper::expandPatternAssignment flattens the
+            // pattern into ONE constant sized by the TARGET typespec, spanned
+            // at the OVERRIDE SITE, decompiled `<width>'d<value>` and carrying
+            // NO vpiConstType, NO typespec and NO parent (CompileHelper.cpp
+            // ~5321, the uhdmlogic_typespec arm).
+            // PAssignType / ParamNoSubst / TypespecExpr.
+            const Expression* patOv9 = nullptr;
+            SourceRange patOv9Loc;
+            // The ACTUAL must itself be STRUCT-typed: a pattern written on a
+            // plain vector param (`parameter logic [1:0] X = '{1,1}`) has
+            // already collapsed to a scalar constant by the time Surelog
+            // reaches the override, so that case keeps the ordinary
+            // UINT-at-the-default-site fold (u2r
+            // PatternAsParameterOfInstance / NestedParamSubstitution).
+            if (boundInit && overridden &&
+                ps.getType().getCanonicalType().kind ==
+                    SymbolKind::PackedArrayType &&
+                ps.getType().getCanonicalType().isIntegral() &&
+                stripImplicitConv(*boundInit).type &&
+                stripImplicitConv(*boundInit)
+                        .type->getCanonicalType()
+                        .kind == SymbolKind::PackedStructType) {
+                auto& bi9 = stripImplicitConv(*boundInit);
+                const Expression* org9 = &bi9;
+                for (int h9 = 0;
+                     h9 < 8 && org9->kind == ExpressionKind::NamedValue; h9++) {
+                    auto& sy9 = org9->as<NamedValueExpression>().symbol;
+                    if (sy9.kind != SymbolKind::Parameter)
+                        break;
+                    // Only a param carrying its OWN declared pattern
+                    // substitutes. Re-passing an already-OVERRIDDEN parameter
+                    // one level down (`prim_subreg #(.RESVAL(RESVAL))` inside
+                    // prim_subreg_shadow) keeps the CHILD's declared default
+                    // instead — Surelog never re-expands through the hop.
+                    if (isOverriddenParam(sy9.as<ParameterSymbol>()))
+                        break;
+                    auto* in9 = sy9.as<ParameterSymbol>().getInitializer();
+                    if (!in9)
+                        break;
+                    org9 = &stripImplicitConv(*in9);
+                }
+                if (org9->kind ==
+                        ExpressionKind::StructuredAssignmentPattern ||
+                    org9->kind == ExpressionKind::SimpleAssignmentPattern) {
+                    patOv9 = org9;
+                    patOv9Loc = bi9.sourceRange;
+                }
+            }
+            if (patOv9 && cvo.isInteger() && !cvo.integer().hasUnknown()) {
+                slang::SVInt uv9 = cvo.integer();
+                uv9.setSigned(false);
+                std::string dg9 = uv9.toString(LiteralBase::Decimal, false);
+                int32_t w9 = (int32_t)ps.getType().getBitWidth();
+                auto* c9 = s.MakeConstant();
+                c9->VpiDecompile(std::to_string(w9) + "'d" + dg9);
+                c9->VpiSize(w9);
+                c9->VpiValue("UINT:" + dg9);
+                setLoc(c9, patOv9Loc);
+                pa->Rhs(c9);
+                if (topView)
+                    elabParamConst[&ps] = c9;
+                passigns->push_back(pa);
+                if (prt) {
+                    if (!inPackage) {
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, nullptr, typedParam});
+                    }
+                    else {
+                        auto* its9 = makeParamTs(ps, typedParam);
+                        if (typedParam)
+                            stampPkgTsInst(its9);
+                        prt->Actual_typespec(its9);
+                        if (typedParam || isRangedUntypedParam(ps))
+                            its9->VpiParent(up);
                     }
                 }
                 continue;
@@ -4073,6 +4171,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                                  digits9);
                                 c9->VpiValue("BIN:" + digits9);
                                 c9->VpiConstType(vpiBinaryConst);
+                            }
+                            else if (enc9 == ConstCallEnc::Int) {
+                                c9->VpiDecompile(digits9);
+                                c9->VpiValue("INT:" + digits9);
+                                c9->VpiConstType(vpiIntConst);
                             }
                             else {
                                 c9->VpiDecompile(digits9);
