@@ -5,8 +5,8 @@ name,mode,status,detail,blocked_by,dump
 3SigsSensList,testflags,SLANG_REJECT,dut.sv:28:11: error: use of undeclared identifier 'outputLine',,
 AaFirstTest,default,SLANG_REJECT,dut.sv:5:3: error: unknown module 'bottom',,
 AaFirstTest,testflags,SLANG_REJECT,dut.sv:5:3: error: unknown module 'bottom',,
-AllBinding,default,CMP_NOTEQUAL,decompile:,,
-AllBinding,testflags,CMP_NOTEQUAL,decompile:,,
+AllBinding,default,CMP_EQUAL,,,match
+AllBinding,testflags,CMP_EQUAL,,,match
 AllPackageSignal,default,CMP_NOTEQUAL,decompile:,,
 AllPackageSignal,testflags,CMP_NOTEQUAL,decompile:,,
 AlwaysNoElab,default,CMP_NOTEQUAL,decompile:,,
@@ -105,8 +105,8 @@ BitComplex,default,CMP_NOTEQUAL,decompile:,,
 BitComplex,testflags,CMP_NOTEQUAL,decompile:,,
 BitPartSelect,default,CMP_EQUAL,,,match
 BitPartSelect,testflags,CMP_EQUAL,,,match
-BitRanges,default,CMP_NOTEQUAL,decompile:,,
-BitRanges,testflags,CMP_NOTEQUAL,decompile:,,
+BitRanges,default,CMP_EQUAL,,,match
+BitRanges,testflags,CMP_EQUAL,,,differ
 BitsArray,default,CMP_NOTEQUAL,decompile:,,
 BitsArray,testflags,CMP_NOTEQUAL,decompile:,,
 BitSelect,default,CMP_NOTEQUAL,decompile:,,
@@ -201,8 +201,8 @@ CastUnsized,default,CMP_EQUAL,,,match
 CastUnsized,testflags,CMP_EQUAL,,,match
 Cell,default,SLANG_REJECT,cell.v:3:18: error: use of undeclared identifier 'inp',,
 Cell,testflags,SLANG_REJECT,cell.v:3:18: error: use of undeclared identifier 'inp',,
-Chandle,default,CMP_NOTEQUAL,decompile:,,
-Chandle,testflags,CMP_NOTEQUAL,decompile:,,
+Chandle,default,CMP_EQUAL,,,match
+Chandle,testflags,CMP_EQUAL,,,match
 Checker,default,SLANG_REJECT,dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
 Checker,testflags,SLANG_REJECT,dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
 CheckerInst,default,CMP_NOTEQUAL,decompile:,,
@@ -367,8 +367,8 @@ DoublePres,default,SLANG_REJECT,dut.sv:34:21: error: invalid operands to binary 
 DoublePres,testflags,SLANG_REJECT,dut.sv:34:21: error: invalid operands to binary expression ('real' and 'real'),,
 DoWhile,default,SLANG_REJECT,dut.sv:4:15: error: use of undeclared identifier 'uvm_default_factory',,
 DoWhile,testflags,SLANG_REJECT,dut.sv:4:15: error: use of undeclared identifier 'uvm_default_factory',,
-DpiChandle,default,CMP_NOTEQUAL,decompile:,,
-DpiChandle,testflags,CMP_NOTEQUAL,decompile:,,
+DpiChandle,default,CMP_EQUAL,,,match
+DpiChandle,testflags,CMP_EQUAL,,,match
 DpiFunc,default,CMP_EQUAL,,,match
 DpiFunc,testflags,CMP_EQUAL,,,match
 DpiTask,default,CMP_EQUAL,,,match
@@ -382,9 +382,9 @@ Earlgrey,testflags,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: e
 Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
 Earlgrey_0_1,testflags,SLANG_REJECT,reqfifo_rdata.error,,
 Earlgrey_nexysvideo,default,SLANG_REJECT,../src/lowrisc_prim_xilinx_clock_buf_0/rtl/prim_xilinx_clock_buf.sv:10:3: error: unknown module 'BUFG',,
-Earlgrey_nexysvideo,testflags,SURELOG_FAIL,[INF:PA0201] Parsing source file "/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_nexysvideo/src/lowrisc_constants_top_pkg_0/rtl/t,,
+Earlgrey_nexysvideo,testflags,SURELOG_FAIL,"[INF:PA0201] Parsing source file ""/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_nexysvideo/src/lowrisc_constants_top_pkg_0/rtl/t",,
 Earlgrey_Verilator_01_05_21,default,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
-Earlgrey_Verilator_01_05_21,testflags,SURELOG_FAIL,[INF:PA0201] Parsing source file "/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_Verilator_01_05_21/src/lowrisc_constants_top_pkg,,
+Earlgrey_Verilator_01_05_21,testflags,SURELOG_FAIL,"[INF:PA0201] Parsing source file ""/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_Verilator_01_05_21/src/lowrisc_constants_top_pkg",,
 Earlgrey_Verilator_0_1,default,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
 Earlgrey_Verilator_0_1,testflags,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
 EarlgreyPackParam,default,CMP_NOTEQUAL,decompile:,,
@@ -429,8 +429,8 @@ EvalFuncNamed,default,CMP_NOTEQUAL,decompile:,,
 EvalFuncNamed,testflags,CMP_NOTEQUAL,decompile:,,
 EvalFuncPack,default,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
 EvalFuncPack,testflags,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
-Event,default,CMP_NOTEQUAL,decompile:,,
-Event,testflags,CMP_NOTEQUAL,decompile:,,
+Event,default,CMP_EQUAL,,,match
+Event,testflags,CMP_EQUAL,,,match
 ExpectStmt,default,CMP_NOTEQUAL,decompile:,,
 ExpectStmt,testflags,CMP_NOTEQUAL,decompile:,,
 ExplicitPort,default,CMP_EQUAL,,,differ
@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t,,
+LowMemLib,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
 LowMemPkg,default,CMP_NOTEQUAL,decompile:,,
-LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/w3a_sls/t,,
+LowMemPkg,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
@@ -1267,8 +1267,8 @@ SplitFile,default,SLANG_REJECT,top.v:18:8: error: design element does not have a
 SplitFile,testflags,SLANG_REJECT,top.v:18:8: error: design element does not have a time scale defined but others in the design do,,
 StandardBlock,default,CMP_NOTEQUAL,decompile:,,
 StandardBlock,testflags,CMP_NOTEQUAL,decompile:,,
-StandardNetVar,default,CMP_NOTEQUAL,decompile:,,
-StandardNetVar,testflags,CMP_NOTEQUAL,decompile:,,
+StandardNetVar,default,CMP_EQUAL,,,match
+StandardNetVar,testflags,CMP_EQUAL,,,match
 StaticTask,default,CMP_EQUAL,,,match
 StaticTask,testflags,CMP_EQUAL,,,match
 StreamingOp,default,SLANG_REJECT,dut.sv:2:22: error: use of undeclared identifier 'x',,

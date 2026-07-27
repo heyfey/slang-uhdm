@@ -298,6 +298,16 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             setLoc(t, range);
             return t;
         }
+        if (ct.kind == SymbolKind::CHandleType) {
+            auto* t = s.MakeChandle_typespec();
+            setLoc(t, range);
+            return t;
+        }
+        if (ct.kind == SymbolKind::EventType) {
+            auto* t = s.MakeEvent_typespec();
+            setLoc(t, range);
+            return t;
+        }
         // Packed array whose leaf element is a shared struct/enum typedef ->
         // packed_array_typespec { dims + Elem_typespec ref -> the typedef }.
         if (declared->getType().isPackedArray() && !bypassTypedefShare) {
@@ -1993,15 +2003,19 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     // A `parameter type T`-typed port elaborates as a variable of its resolved
     // type (Surelog), even though the def view keeps it a net.
     bool typeParamPort = portTypeParam(internal) != nullptr;
-    // Enum variables — and PORTS typed by a PACKAGE enum typedef
-    // (input custom::enum1 e), or by a `type` parameter resolving to an enum —
-    // elaborate as enum_vars.
+    // Enum variables — and PORTS typed by an enum typedef declared OUTSIDE the
+    // module (a PACKAGE: `input custom::enum1 e`; or the COMPILATION UNIT:
+    // AllBinding's `$unit`-scope `typedef enum ... type_scr1_mem_resp_e` used
+    // by `input type_scr1_mem_resp_e p`), or by a `type` parameter resolving to
+    // an enum — elaborate as enum_vars. A MODULE-local enum typedef port stays
+    // a net.
     bool pkgEnumAlias = false;
     if (ct.kind == SymbolKind::EnumType) {
         auto& t0 = declared->getType();
         if (t0.kind == SymbolKind::TypeAlias)
             if (auto sc0 = t0.as<TypeAliasType>().getParentScope();
-                sc0 && sc0->asSymbol().kind == SymbolKind::Package)
+                sc0 && (sc0->asSymbol().kind == SymbolKind::Package ||
+                        sc0->asSymbol().kind == SymbolKind::CompilationUnit))
                 pkgEnumAlias = true;
     }
     if (ct.kind == SymbolKind::EnumType &&
@@ -2026,13 +2040,23 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         v->VpiVisibility(1);
         return v;
     }
-    // A 2-STATE scalar (bit) signal can never be a net — bit_var, even for
-    // ports (Surelog).
-    if (ct.kind == SymbolKind::ScalarType && ct.isIntegral() &&
-        !ct.isFourState()) {
-        auto* v = s.MakeBit_var();
-        v->VpiVisibility(1);
-        return v;
+    // A 2-STATE `bit` signal can never be a net — bit_var, even for ports
+    // (Surelog). A packed VECTOR of bit (`output bit [6:0] a`, BitRanges) is
+    // the same object: the packed dims live on the bit_typespec, so the leaf
+    // element decides. `byte`/`int`/... are 2-state too but take their own
+    // var classes below (PredefinedIntegerType), so only a ScalarType leaf
+    // qualifies here.
+    if (ct.kind == SymbolKind::ScalarType || ct.kind == SymbolKind::PackedArrayType) {
+        const Type* bl = &ct;
+        while (bl->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            bl = &bl->getCanonicalType().as<PackedArrayType>().elementType;
+        auto& blc = bl->getCanonicalType();
+        if (blc.kind == SymbolKind::ScalarType && blc.isIntegral() &&
+            !blc.isFourState()) {
+            auto* v = s.MakeBit_var();
+            v->VpiVisibility(1);
+            return v;
+        }
     }
     // Real/shortreal signals are variables, never nets.
     if (ct.kind == SymbolKind::FloatingType) {
@@ -2045,6 +2069,12 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     // String signals are variables.
     if (ct.kind == SymbolKind::StringType) {
         auto* v = s.MakeString_var();
+        v->VpiVisibility(1);
+        return v;
+    }
+    // chandle signals are variables (never nets).
+    if (ct.kind == SymbolKind::CHandleType) {
+        auto* v = s.MakeChandle_var();
         v->VpiVisibility(1);
         return v;
     }
@@ -2115,7 +2145,11 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
                     pkgAliasPort = false;
             }
     }
-    if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort || typeParamPort) &&
+    // An ANSI port spelling `var` explicitly (input var logic i1) elaborates
+    // as a logic_var; the same port without the keyword stays a net
+    // (StandardNetVar is the calibration point: i1/o1 are vars, i2/i3/o2 nets).
+    if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort || typeParamPort ||
+         ansiVarKeywordPort(internal)) &&
         !regDecl &&
         (internal.kind == SymbolKind::Variable || typeParamPort) &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {

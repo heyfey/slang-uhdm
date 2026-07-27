@@ -77,6 +77,24 @@ inline bool hasExplicitNetKeyword(const Symbol& sym) {
     return false;
 }
 
+// True when an ANSI port spells the `var` keyword explicitly
+// ("input var logic i1"). Surelog elaborates such a port as a VARIABLE even
+// though the def view keeps the generic logic_net (StandardNetVar).
+inline bool ansiVarKeywordPort(const Symbol& internal) {
+    for (auto p = internal.getSyntax(); p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+            auto& ap = p->as<syntax::ImplicitAnsiPortSyntax>();
+            if (ap.header->kind == syntax::SyntaxKind::VariablePortHeader)
+                return ap.header->as<syntax::VariablePortHeaderSyntax>()
+                    .varKeyword.valid();
+            return false;
+        }
+        if (p->kind == syntax::SyntaxKind::ModuleDeclaration)
+            break;
+    }
+    return false;
+}
+
 inline const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) {
     for (auto p = internal.getSyntax(); p; p = p->parent) {
         if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
@@ -1031,6 +1049,9 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
         return s.MakeEnum_var();
     if (ct.kind == SymbolKind::StringType)
         return s.MakeString_var();
+    // A chandle return/formal is a chandle_var (Surelog, DpiChandle).
+    if (ct.kind == SymbolKind::CHandleType)
+        return s.MakeChandle_var();
     // A class-handle return is a class_var (Surelog).
     if (ct.kind == SymbolKind::ClassType)
         return s.MakeClass_var();

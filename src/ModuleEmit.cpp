@@ -921,6 +921,23 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
         return nullptr;
     // MODULE instance arrays take the modElems flavour (elab view only);
     // interface arrays the ports+instances one.
+    //
+    // NOTE (decoded, not yet landed): Surelog DOES put a module_array in the
+    // DEF view (uhdmallModules) for some module arrays — ArrayInst's
+    // `qq q[1:0]()` and InstArray's `bus_conn u1[1:0](.datain(inp))` both carry
+    // one, shaped exactly like the ports flavour below (name / work@<def>
+    // fullname / parented range / module_typespec at the type token / broadcast
+    // port list). Enabling it here unconditionally REGRESSED uhdm2rtlil
+    // `arraycells` (`aoi12 p [31:0] (a, b, c, y);`), whose def view has NO
+    // module_array in either mode. The only property separating the three so
+    // far is the connection FORM: none/named -> emitted, POSITIONAL -> not.
+    // That gate is unverified (one negative sample), so the def view still
+    // emits nothing. Two further layers are needed before ArrayInst/InstArray
+    // can converge anyway: a MULTI-DIM array (`flop_instances2[2:0][1:0]`) is
+    // ONE module_array carrying one range per dim (slang nests
+    // InstanceArraySymbols, so `rep` is null today), and the elab per-element
+    // port HighConn for a whole-net broadcast stays a plain ref_obj to the net
+    // (we emit a per-element bit_select).
     if (!modElems && !useInterfacePath(*rep))
         return nullptr;
     auto& adef = rep->getDefinition();
@@ -2417,6 +2434,7 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
     auto* nets = s.MakeNetVec();
     auto* vars = s.MakeVariablesVec();
     auto* arrayNets = s.MakeArray_netVec();
+    UHDM::VectorOfnamed_event* namedEvents = nullptr;
     // Surelog models struct-typed PORTS as struct_VARs (not struct_nets) when
     // the module PROCEDURALLY writes a struct port (whole or member) — e.g.
     // rsp_gen_minimal's `tl_o.d_user.rsp_intg = ...` in an always_comb. With no
@@ -2585,6 +2603,39 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         // A real/shortreal var carries no typespec ref; its init is a vpiExpr.
         bool realVar = it.sym->getDeclaredType() &&
                        it.sym->getDeclaredType()->getType().isFloating();
+        // `chandle`/`event` signals: the DEF view keeps the generic logic_net
+        // (bound to a chandle_/event_typespec); the ELAB view replaces it with
+        // a bare chandle_var / named_event carrying NO typespec at all —
+        // Surelog mints exactly one typespec per declaration, the def-view
+        // one, and the elab object references nothing (Chandle/Event).
+        if (auto dtCE = it.sym->getDeclaredType()) {
+            auto& ctCE = dtCE->getType().getCanonicalType();
+            if (ctCE.kind == SymbolKind::CHandleType) {
+                auto* cv = s.MakeChandle_var();
+                cv->VpiName(name);
+                cv->VpiFullName(fullName);
+                cv->VpiParent(m);
+                setLoc(cv, nameSpan(it.sym->location, it.sym->name));
+                cv->VpiVisibility(1);
+                topNets[it.sym] = cv;
+                sigOrder.emplace_back(it.sym, cv);
+                vars->push_back(cv);
+                continue;
+            }
+            if (ctCE.kind == SymbolKind::EventType) {
+                auto* ne = s.MakeNamed_event();
+                ne->VpiName(name);
+                ne->VpiFullName(fullName);
+                ne->VpiParent(m);
+                setLoc(ne, nameSpan(it.sym->location, it.sym->name));
+                topNets[it.sym] = ne;
+                sigOrder.emplace_back(it.sym, ne);
+                if (!namedEvents)
+                    namedEvents = s.MakeNamed_eventVec();
+                namedEvents->push_back(ne);
+                continue;
+            }
+        }
         // Vector-typedef signals bind a fresh plain NAMED clone (built at
         // net-emission time, no alias link).
         // A signal typed by an alias-of-packed-array-of-alias FILE typedef
@@ -3657,6 +3708,8 @@ UHDM::module_inst* UhdmExporter::emitInstance(const InstanceSymbol& inst, const 
         m->Nets(nets);
     if (!vars->empty())
         m->Variables(vars);
+    if (namedEvents && !namedEvents->empty())
+        ((UHDM::scope*)m)->Named_events(namedEvents);
     if (!arrayNets->empty())
         ((UHDM::instance*)m)->Array_nets(arrayNets);
 
