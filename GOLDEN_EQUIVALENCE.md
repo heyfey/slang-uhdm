@@ -108,6 +108,18 @@ Practical consequence: the headline metric is `CMP_EQUAL / comparable`, not
 `CMP_EQUAL / total`. Reporting against total would understate progress and
 imply slang work we are not doing.
 
+### 2.5b Five memory-giant tests are DEFERRED to a late phase
+
+User decision 2026-07-27: `Earlgrey_nexysvideo`, `Earlgrey_Verilator_01_05_21`,
+`Rsd`, `Xgate`, `YosysSmallBoom` emit status `DEFERRED` and run neither tool.
+Their golden generation OOMs or times out on this machine; failures are
+uncacheable by design, so every sweep re-ran them to the timeout — ~25 min of
+a ~35 min both-modes sweep, the dominant cost after the golden cache landed —
+and their rows were being hand-pinned every refresh anyway. They are excluded
+from the comparable denominator like `SLANG_REJECT`. Revisit on capable
+hardware with `GOLDEN_DEFER=0` (the harness knob) in the late phase, together
+with the byte-identity (`DUMP_MATCH`) work.
+
 ### 2.6 Builtins match Surelog's default — RESOLVED (`db83fc3`)
 
 Surelog emits builtins **by default** and takes `-nobuiltin` to opt out. We were
