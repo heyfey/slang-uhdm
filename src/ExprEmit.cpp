@@ -1591,6 +1591,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     auto& psF = nv.symbol.as<ParameterSymbol>();
                     auto& cvF = psF.getValue();
+                    // A param with NO elaborated twin in elabParamConst (a
+                    // localparam computed during elaboration — `localparam int
+                    // unsigned XLOG = $clog2(XLEN)`) folds on the RHS exactly
+                    // as on the LHS: a use-site constant parented at the bound
+                    // operation, ts ref scoped by the SELECT BASE (boundPfx
+                    // already hands that in as `prefix` under
+                    // genCaLhsParamFold) and typed by the param's own declared
+                    // type — signedness included, unlike the LHS arm's always
+                    // -signed int (rp32_r5p_alu shf_mux_shared's
+                    // `mux_op2[XLOG-1:0]`).
+                    if (!inLhs && cvF.isInteger() &&
+                        !cvF.integer().hasUnknown()) {
+                        auto* c = s.MakeConstant();
+                        std::string dR =
+                            cvF.integer().toString(LiteralBase::Decimal, false);
+                        c->VpiDecompile(dR);
+                        c->VpiSize((int32_t)psF.getType().getBitWidth());
+                        c->VpiValue("UINT:" + dR);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(parent);
+                        setLoc(c, expr.sourceRange);
+                        auto* rtR = s.MakeRef_typespec();
+                        rtR->VpiFullName(prefix);
+                        rtR->VpiParent(c);
+                        auto* itsR = s.MakeInt_typespec();
+                        if (psF.getType().isSigned())
+                            itsR->VpiSigned(true);
+                        if (auto dtR = psF.getDeclaredType())
+                            if (auto tsnR = dtR->getTypeSyntax())
+                                setLoc(itsR, tsnR->sourceRange());
+                        rtR->Actual_typespec(itsR);
+                        c->Typespec(rtR);
+                        return c;
+                    }
                     if (inLhs && cvF.isInteger() &&
                         !cvF.integer().hasUnknown()) {
                         auto* c = s.MakeConstant();
@@ -5505,9 +5539,53 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     psyn = &pat->as<syntax::StructuredAssignmentPatternSyntax>();
             }
             for (auto& setter : ap.memberSetters) {
+                // An ENUM-CONSTANT member value folds to its VALUE in a
+                // MODULE's own struct-pattern localparam, in BOTH views:
+                // Surelog's reduce resolves the enum member to a BIN constant
+                // at the MEMBER width, spanning the reference, where an
+                // ordinary expression member value would keep its ref. rp32's
+                // wrappers: `localparam isa_t ISA = '{spec: RV32I, priv:
+                // MODES_NONE}` -> 23'b01000000000000000000000 / 4'b0000. The
+                // DEF view leaves the constant unparented and untyped inside
+                // its tagged_pattern; the tag-dropping elab re-emit parents it
+                // at the operation. Package params (paramInitPkg /
+                // importedParamClone) keep their paramInitElabFold behaviour.
+                UHDM::constant* enumFold6 = nullptr;
+                if (!paramInitPkg && !importedParamClone && setter.expr->type &&
+                    setter.expr->type->isIntegral()) {
+                    auto& ev6 = stripImplicitConv(*setter.expr);
+                    if (ev6.kind == ExpressionKind::NamedValue &&
+                        ev6.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::EnumValue) {
+                        ASTContext ectx6(comp.getRoot(), LookupLocation::max);
+                        if (auto ecv6 = ectx6.tryEval(*setter.expr);
+                            ecv6 && ecv6.isInteger() &&
+                            !ecv6.integer().hasUnknown()) {
+                            auto eiv6 = ecv6.integer();
+                            int32_t ew6 =
+                                (int32_t)setter.expr->type->getBitWidth();
+                            std::string eb6;
+                            for (int32_t b6 = ew6 - 1; b6 >= 0; b6--)
+                                eb6 += (eiv6[b6] == slang::logic_t(1)) ? '1'
+                                                                       : '0';
+                            enumFold6 = s.MakeConstant();
+                            setLoc(enumFold6, setter.expr->sourceRange);
+                            enumFold6->VpiSize(ew6);
+                            enumFold6->VpiValue("BIN:" + eb6);
+                            enumFold6->VpiConstType(vpiBinaryConst);
+                            enumFold6->VpiDecompile(std::to_string(ew6) + "'b" +
+                                                    eb6);
+                        }
+                    }
+                }
                 // Re-emitted (instance) patterns drop the tags: operands are
                 // the raw values, and the first one carries VpiSize.
                 if (reemitting) {
+                    if (enumFold6) {
+                        enumFold6->VpiParent(op);
+                        operands->push_back(enumFold6);
+                        continue;
+                    }
                     if (auto* e = emitExpr(*setter.expr, op, prefix, netMap)) {
                         if (operands->empty() && !nestedPat)
                             ((UHDM::expr*)e)->VpiSize(
@@ -5626,6 +5704,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         sv6.kind == ExpressionKind::SimpleAssignmentPattern ||
                         sv6.kind == ExpressionKind::ReplicatedAssignmentPattern;
                 }
+                if (!preE && enumFold6)
+                    preE = enumFold6;
                 if (!preE && paramInitElabFold && !nestedPatVal6 &&
                     setter.expr->type && !isLiteralExpr(*setter.expr) &&
                     setter.expr->type->isIntegral()) {

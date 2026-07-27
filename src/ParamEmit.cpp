@@ -4664,6 +4664,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // stay in plain location order in both views, so an imported param
     // declared earlier still leads (ParameterFromPkgInNestedModule) — Surelog
     // (ParameterFromPkgOnParameterPortList).
+    //
+    // NOTE (measured, NOT modelled — rp32_r5p_mdu, the only u2r test still
+    // CMP_NOTEQUAL after the r3aggclone block). Its TOP view inverts this
+    // rank: golden lists M8@37, M1@39 (BODY localparams) and only then
+    // XLEN@23 (the sole port-list param), while its Parameters vec keeps
+    // declaration order XLEN, M8, M1 and its DEF view keeps it too. Rank 2
+    // (last) would produce exactly the golden order, but every predicate
+    // tried for "which port param demotes" is contradicted by a passing
+    // test:
+    //   - "port params last in a TOP module"        -> rp32_r5p_mouse (also
+    //     a design top, port list of 3 localparams + 7 parameters, body
+    //     localparams from line 57) keeps strict declaration order.
+    //   - "non-local port param with no override"   -> same counterexample.
+    //   - "no-op / absent override"                 -> mdu's golden carries
+    //     no vpiOverriden at all, on either view.
+    // The only syntactic property separating mdu from mouse is that mdu's
+    // entry is KEYWORD-LESS (`#( int unsigned XLEN = 32 )`, an implicit
+    // parameter) where mouse spells `parameter`/`localparam` — a one-point
+    // hypothesis, so it is deliberately NOT implemented here. A corpus-wide
+    // scan for the shape (tools/probe/w4parms.cpp + a TOP Param_assigns-vs-
+    // Parameters order diff over every golden) finds only 12 u2r goldens
+    // that reorder at all: 4 SLANG_REJECT, 7 already CMP_EQUAL under the
+    // rank + materialized-name-sort rules here, and mdu. Get a second data
+    // point from the Surelog suite before ranking on the keyword.
     if (topView && !inPackage && !portPa9.empty() &&
         portPa9.size() < passigns->size()) {
         // Rank 0: port-list pa's (resolved at instantiation, first). Rank 1:

@@ -2154,17 +2154,30 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 v = s.MakeTask_funcVec();
                 m->Task_funcs(v);
             }
+            bool placed9 = false;
             size_t at9 = v->size();
             for (size_t i9 = 0; i9 < v->size(); i9++)
                 if (std::find(grp9.begin(), grp9.end(), (*v)[i9]) !=
                     grp9.end()) {
                     at9 = i9;
+                    placed9 = true;
                     break;
                 }
             std::vector<UHDM::task_func*> rest9;
             for (auto* e9 : *v)
                 if (std::find(grp9.begin(), grp9.end(), e9) == grp9.end())
                     rest9.push_back(e9);
+            // No group member is listed yet: the whole import group precedes
+            // the module's OWN subroutines but follows any earlier import
+            // group (Surelog lists work@r5p_alu as opsiz..enc32 then the
+            // module's bitrev, though bitrev's body emission queued it
+            // first). Package-parented entries are the earlier groups.
+            if (!placed9) {
+                at9 = 0;
+                while (at9 < rest9.size() && rest9[at9]->VpiParent() &&
+                       rest9[at9]->VpiParent()->UhdmType() == UHDM::uhdmpackage)
+                    at9++;
+            }
             if (at9 > rest9.size())
                 at9 = rest9.size();
             v->clear();
@@ -9186,8 +9199,19 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                            m->UhdmType() == UHDM::uhdmprogram))) {
             // Override-gated port ranges: the def ts defers to the write
             // phase (arena tail) and unfolds there (materializeDefNetTs).
+            // A NON-TOP def keeps EVERY non-literal bound symbolic, exactly
+            // like its nets (materializeDefNetTs' nonTopDef0): Surelog's
+            // generic module view resolves nothing there, so even a purely
+            // literal `[5-1:0]` port stays an operation, while a TOP def IS
+            // the elaborated view and folds (rp32_r5p_wbu's `logic [XLEN-1:0]
+            // alu` and `logic [5-1:0] adr` vs the standalone rp32_r5p_mdu).
+            bool nonTopDefP = m->UhdmType() == UHDM::uhdmmodule_inst;
+            if (nonTopDefP)
+                for (auto ti0 : comp.getRoot().topInstances)
+                    if (&ti0->getDefinition() == &body.getDefinition())
+                        nonTopDefP = false;
             if (!topView && m->UhdmType() == UHDM::uhdmmodule_inst &&
-                rangeRefsOverriddenParam(*internal)) {
+                rangeRefsOverriddenParam(*internal, nonTopDefP)) {
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(ps.name));
                 rt->VpiParent(p);
@@ -12173,27 +12197,6 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             rt->VpiParent(lv);
             // A PKG-typedef return binds the SHARED pkg ts unmutated (its
             // package parent kept); other returns clone as before.
-            //
-            // NOTE (decoded, not landed — rp32 enc32/dec32, the remaining
-            // blocker on rp32_r5p_{alu,bru,mdu,wbu}): for an AGGREGATE
-            // (struct/union) package-typedef return, Surelog does NOT share.
-            // It deep-CLONES the whole return typespec tree per binding
-            // reference, and the clone is the ELABORATED (folded) form even
-            // when the reference sits in the DEF package's function body.
-            // tools/probe/w4tsdup.cpp counts the twins: golden carries 92
-            // `riscv_isa_i_pkg::fn3_t` objects for wbu (46 folded #TOP + 46
-            // unfolded #DEF), we carry 2 — one shared object per view. Every
-            // extra golden object is parented
-            //   ref_typespec < logic_typespec(fn3_t) < ref_typespec <
-            //   typespec_member(funct3) < struct_typespec(op32_r4_t) < ... <
-            //   union_typespec(op32_t) < ref_typespec < union_var(enc32) <
-            //   ref_obj(enc32) < assignment < case_item < ...
-            // i.e. one full tree per return-value ref_obj. uhdm-cmp's first
-            // failure on all four tests is that fold state (`decompile:`
-            // constant 2 vs operation 3-1 at riscv_isa_i_pkg.sv:57:16). The
-            // vector-typedef arm below already does the per-reference clone
-            // (with the topPf0 fold switch) — the aggregate arm needs the
-            // same treatment, recursing through members.
             UHDM::typespec* ts = nullptr;
             bool sharedPkg = false;
             if (sub.getReturnType().kind == SymbolKind::TypeAlias) {
@@ -12208,6 +12211,31 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                         ts = tit0->second;
                         sharedPkg = true;
                     }
+            }
+            // An AGGREGATE (struct/union) package-typedef return is VIEW-
+            // SPLIT: typedefTs holds the DEF object, whose member bounds stay
+            // symbolic. The ELABORATED package's copy of the function must
+            // reach the FOLDED twin instead — pkgTopTypedefTs — exactly as
+            // makeTypespec's shared-typedef shortcut does for signal decls.
+            // Surelog materialises one deep clone of that tree per binding
+            // reference (rp32 wbu: 9 `enc32 = ...` assignments, 9 op32_t
+            // trees per view; tools/probe/w4aggdup.cpp counts them), but
+            // Compare walks content only, so one shared per-view object with
+            // the right fold state is indistinguishable from N identical
+            // clones. Sharing is what we emit; the count is not observable.
+            if (ts && sharedPkg && pf.inst &&
+                (ts->UhdmType() == UHDM::uhdmstruct_typespec ||
+                 ts->UhdmType() == UHDM::uhdmunion_typespec)) {
+                bool topPf1 = false;
+                for (auto& [pk1, po1] : pkgTopMap)
+                    if ((UHDM::instance*)po1 == pf.inst)
+                        topPf1 = true;
+                if (topPf1)
+                    if (auto t1 = pkgTopTypedefTs.find(
+                            (const void*)&sub.getReturnType());
+                        t1 != pkgTopTypedefTs.end() && t1->second &&
+                        t1->second->UhdmType() == ts->UhdmType())
+                        ts = t1->second;
             }
             // A VECTOR typedef return gets a per-REFERENCE named clone at the
             // typedef's target syntax, not the shared typedef ts: a $unit

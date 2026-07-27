@@ -4823,6 +4823,13 @@ static int32_t mapSyntaxBinOp(syntax::SyntaxKind k) {
             return vpiLShiftOp;
         case syntax::SyntaxKind::LogicalShiftRightExpression:
             return vpiRShiftOp;
+        // Arithmetic shifts (rp32_r5p_alu gen_shf `$signed(shf_ext) >>>
+        // shf_amm` in a def-view gen-block cont_assign): without these the
+        // whole RHS operand vanished from the def view.
+        case syntax::SyntaxKind::ArithmeticShiftLeftExpression:
+            return vpiArithLShiftOp;
+        case syntax::SyntaxKind::ArithmeticShiftRightExpression:
+            return vpiArithRShiftOp;
         case syntax::SyntaxKind::PowerExpression:
             return vpiPowerOp;
         case syntax::SyntaxKind::GreaterThanExpression:
@@ -5417,6 +5424,17 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             if (ce.left->kind == syntax::SyntaxKind::IntType) {
                 auto* t = s.MakeInt_typespec();
                 t->VpiSigned(true);
+                cts = t;
+            }
+            // An IDENTIFIER cast target (a parameter width XLEN'(x) or a
+            // typedef name) is UNRESOLVED in the def view — Surelog emits an
+            // unsupported_typespec NAMED by the written token, exactly as the
+            // def-view gen-block PROCEDURAL path does (see defGenProcessEmit
+            // in ExprEmit). rp32_r5p_alu's gen_shf `XLEN'($signed(shf_ext) >>>
+            // shf_amm)`; the elaborated view still folds to int_typespec(XLEN).
+            else if (ce.left->kind == syntax::SyntaxKind::IdentifierName) {
+                auto* t = s.MakeUnsupported_typespec();
+                t->VpiName(std::string(rawText(ce.left->sourceRange())));
                 cts = t;
             }
             else {
