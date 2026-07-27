@@ -27,8 +27,8 @@ ArianeElab2,default,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 
 ArianeElab2,testflags,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
 ArrayExprFuncArg,default,CMP_EQUAL,,,differ
 ArrayExprFuncArg,testflags,CMP_EQUAL,,,differ
-ArrayInst,default,CMP_NOTEQUAL,decompile:,,
-ArrayInst,testflags,CMP_NOTEQUAL,decompile:,,
+ArrayInst,default,CMP_EQUAL,,,differ
+ArrayInst,testflags,CMP_EQUAL,,,differ
 ArrayMethodIterator,default,CMP_NOTEQUAL,decompile:,,
 ArrayMethodIterator,testflags,CMP_NOTEQUAL,decompile:,,
 ArrayNet,default,CMP_EQUAL,,,match
@@ -321,8 +321,8 @@ CrossFunc,default,CMP_NOTEQUAL,decompile:,,
 CrossFunc,testflags,CMP_NOTEQUAL,decompile:,,
 CrossItem,default,SLANG_REJECT,dut.sv:3:33: error: use of undeclared identifier 'clk',,
 CrossItem,testflags,SLANG_REJECT,dut.sv:3:33: error: use of undeclared identifier 'clk',,
-DashYTest,default,CMP_NOTEQUAL,decompile:,,
-DashYTest,testflags,CMP_NOTEQUAL,decompile:,,
+DashYTest,default,CMP_EQUAL,,,match
+DashYTest,testflags,CMP_EQUAL,,,match
 DataAttrib,default,CMP_EQUAL,,,match
 DataAttrib,testflags,CMP_EQUAL,,,match
 DecimalSize,default,SLANG_REJECT,dut.sv:848:15: error: use of undeclared identifier 'm',,
@@ -689,8 +689,8 @@ IllegalZeroValue,default,SLANG_REJECT,dut.sv:3:13: error: value must be positive
 IllegalZeroValue,testflags,SLANG_REJECT,dut.sv:3:13: error: value must be positive,,
 ImplFuncArg,default,CMP_EQUAL,,,match
 ImplFuncArg,testflags,CMP_EQUAL,,,match
-Implicit,default,CMP_NOTEQUAL,decompile:,,
-Implicit,testflags,CMP_NOTEQUAL,decompile:,,
+Implicit,default,CMP_EQUAL,,,match
+Implicit,testflags,CMP_EQUAL,,,match
 ImplicitArg,default,CMP_EQUAL,,,differ
 ImplicitArg,testflags,CMP_EQUAL,,,differ
 ImplicitFunc,default,CMP_EQUAL,,,match
@@ -731,8 +731,8 @@ IndexPartSelectBind,default,SLANG_REJECT,dut.sv:5:3: error: use of undeclared id
 IndexPartSelectBind,testflags,SLANG_REJECT,dut.sv:5:3: error: use of undeclared identifier 'uvm_reg_data_t',,
 InsideOp,default,CMP_EQUAL,,,match
 InsideOp,testflags,CMP_EQUAL,,,differ
-InstArray,default,CMP_NOTEQUAL,decompile:,,
-InstArray,testflags,CMP_NOTEQUAL,decompile:,,
+InstArray,default,CMP_EQUAL,,,differ
+InstArray,testflags,CMP_EQUAL,,,differ
 IntegerConcat,default,CMP_NOTEQUAL,decompile:,,
 IntegerConcat,testflags,CMP_NOTEQUAL,decompile:,,
 Interconnect,default,SLANG_REJECT,dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
@@ -775,8 +775,8 @@ InterpElab1,default,CMP_NOTEQUAL,decompile:,,
 InterpElab1,testflags,CMP_NOTEQUAL,decompile:,,
 InvalidTypeParam,default,SLANG_REJECT,dut.sv:2:20: error: parameter declaration is missing an initializer,,
 InvalidTypeParam,testflags,SLANG_REJECT,dut.sv:2:20: error: parameter declaration is missing an initializer,,
-Inverter,default,CMP_NOTEQUAL,decompile:,,
-Inverter,testflags,CMP_NOTEQUAL,decompile:,,
+Inverter,default,CMP_EQUAL,,,match
+Inverter,testflags,CMP_EQUAL,,,match
 IOClassStruct,default,CMP_NOTEQUAL,decompile:,,
 IOClassStruct,testflags,CMP_NOTEQUAL,decompile:,,
 IODataTypes,default,SLANG_REJECT,dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
@@ -901,8 +901,8 @@ NonAnsiPort,default,CMP_EQUAL,,,differ
 NonAnsiPort,testflags,CMP_EQUAL,,,differ
 NonSynthError,default,CMP_NOTEQUAL,decompile:,,
 NonSynthError,testflags,CMP_NOTEQUAL,decompile:,,
-NonSynthUnusedMod,default,CMP_NOTEQUAL,decompile:,,
-NonSynthUnusedMod,testflags,CMP_NOTEQUAL,decompile:,,
+NonSynthUnusedMod,default,CMP_EQUAL,,,match
+NonSynthUnusedMod,testflags,CMP_EQUAL,,,match
 NoParamSubs,default,CMP_EQUAL,,,match
 NoParamSubs,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=parametersubstitution,
 NoReducTypespec,default,CMP_NOTEQUAL,decompile:,,

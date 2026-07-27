@@ -12,6 +12,7 @@
 #include "EmitHelpers.h"
 
 #include "slang/ast/EvalContext.h"
+#include "slang/syntax/SyntaxTree.h"
 
 namespace slang_uhdm {
 
@@ -227,6 +228,53 @@ static bool hasBareImplicitType(const Symbol& sym) {
     return !its.signing && its.dimensions.empty();
 }
 
+static bool udpFormInstantiation(const syntax::SyntaxNode* from);
+
+// Names an object in the DEF view actually BINDS. Surelog mints an implicit
+// net lazily, from `NetlistElaboration::bind_net_`, i.e. only when something
+// looks the name up; two def-view positions look nothing up:
+//   * a UDP-form instantiation's connections — the def view routes those to
+//     compileGateInstantiation, which builds no ref_module and no ports
+//     (Inverter: `inverter i1(a,tmp)` leaves `tmp` netless in work@top);
+//   * an UNNAMED gate instance's FIRST terminal, which Surelog's parser eats
+//     as the absent `name_of_instance` (Implicit: `not (X_BAR, X)` emits one
+//     prim_term, for X, and no X_BAR net).
+// Both DO bind in the elaborated view, which is why the nets appear there.
+static void collectDefBoundNames(const syntax::SyntaxNode* n, bool nonBinding,
+                                 std::set<std::string>& bound) {
+    if (!n)
+        return;
+    if (n->kind == syntax::SyntaxKind::IdentifierName) {
+        if (!nonBinding)
+            bound.insert(std::string(n->as<syntax::IdentifierNameSyntax>()
+                                         .identifier.valueText()));
+        return;
+    }
+    if (n->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+        bool udp = udpFormInstantiation(n);
+        for (auto* hinst :
+             n->as<syntax::HierarchyInstantiationSyntax>().instances)
+            for (auto* c : hinst->connections)
+                collectDefBoundNames(c, nonBinding || udp, bound);
+        return;
+    }
+    if (n->kind == syntax::SyntaxKind::PrimitiveInstantiation) {
+        for (auto* hinst :
+             n->as<syntax::PrimitiveInstantiationSyntax>().instances) {
+            bool unnamed = !hinst->decl || !hinst->decl->name;
+            size_t i = 0;
+            for (auto* c : hinst->connections) {
+                collectDefBoundNames(c, nonBinding || (unnamed && i == 0),
+                                     bound);
+                i++;
+            }
+        }
+        return;
+    }
+    for (size_t i = 0, n2 = n->getChildCount(); i < n2; i++)
+        collectDefBoundNames(n->childNode(i), nonBinding, bound);
+}
+
 // A "non-ANSI header": the declaration carries a `(...)` port list that is not
 // ANSI-declared — either a genuine non-ANSI list (module m(a, b);) or EMPTY
 // parens (module m();). A header with NO parens at all (module m;) is not one.
@@ -249,6 +297,10 @@ static bool isNonAnsiHeader(const InstanceBodySymbol& body) {
            hdr->ports->as<slang::syntax::AnsiPortListSyntax>().ports.empty();
 }
 
+bool UhdmExporter::isLibraryCell(const DefinitionSymbol& def) {
+    return def.syntaxTree && def.syntaxTree->isLibraryUnit;
+}
+
 UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
@@ -262,6 +314,8 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     m->VpiFullName(prefix);
     m->VpiParent(d);
     m->VpiFile(fullFilePath(def.location));
+    if (isLibraryCell(def))
+        m->VpiCellInstance(true);
     if (auto syntax = body.getSyntax()) {
         // The module span starts at the `module` keyword (attribute
         // instances excluded); module-level (* *) specs attach as
@@ -331,6 +385,8 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     collectTypeParamArgTypes(body, typeParamArgTypes);
     auto implicitLocs = defImplicitNetLocs(body);
     auto explicitPortSyms = explicitPortInternals(body);
+    std::set<std::string> defBoundNames;
+    collectDefBoundNames(body.getSyntax(), false, defBoundNames);
     for (auto& it : collectNetOrder(body)) {
         // The net an EXPLICIT port mints under its own name: bare (no net
         // type, no typespec), anchored at the port-list name, and NOT the
@@ -362,6 +418,12 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         if (it.sym->kind == SymbolKind::Net &&
             it.sym->as<NetSymbol>().isImplicit &&
             implicitNetFromPatternKey(it.sym, body))
+            continue;
+        // An implicit net no DEF-view object binds is not minted at all here
+        // (see collectDefBoundNames); the elaborated view still gets it.
+        if (it.sym->kind == SymbolKind::Net &&
+            it.sym->as<NetSymbol>().isImplicit && !it.port &&
+            !defBoundNames.count(name))
             continue;
         // A net typed by an ALIAS-OF-ALIAS typedef omits its net type
         // (Surelog); other nets print it.
@@ -893,6 +955,61 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     return m;
 }
 
+// True when Surelog's PARSER would resolve this instance array's statement as
+// a `udp_instantiation` rather than a `module_instantiation`. The two share a
+// prefix and udp comes first in `module_or_generate_item`, so ANTLR takes it
+// whenever every instance in the statement matches
+//   udp_instance : name_of_instance? ( net_lvalue , expression {, expression} )
+// i.e. two or more purely POSITIONAL connections, and the statement carries no
+// `parameter_value_assignment`. CompileModule then routes it to
+// compileGateInstantiation, which never builds a def-view module_array.
+static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
+    const syntax::HierarchyInstantiationSyntax* hi = nullptr;
+    for (auto p = from; p; p = p->parent)
+        if (p->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+            hi = &p->as<syntax::HierarchyInstantiationSyntax>();
+            break;
+        }
+    if (!hi || hi->parameters)
+        return false;
+    for (auto* hinst : hi->instances) {
+        if (hinst->connections.size() < 2)
+            return false;
+        for (auto* c : hinst->connections)
+            if (c->kind != syntax::SyntaxKind::OrderedPortConnection)
+                return false;
+    }
+    return true;
+}
+
+// NOTE (r5modvec, module-container family residues — decoded, NOT landed):
+//  * YosysMarlann is ONE object away: the ELAB module_array's range bound
+//    folds its parameter reference (`mul [NB*4-1:0]` -> operation(-) over
+//    operation(*) over a constant 2, VpiSize 32, VpiConstType UNSET, with a
+//    ts ref to the param's own integer_typespec), while the DEF view keeps
+//    the symbolic ref_obj we already emit. Everything else in that test is
+//    span-only. The elab param-fold machinery lives in TypeEmit's
+//    elabInstanceTs path; the module_array bound does not use it.
+//  * PortExpr / ExplictiPorts need EXPRESSION explicit ports (`.op({a,b})`,
+//    `module f({a, b})`): slang leaves PortSymbol::internalSymbol null and
+//    exposes the concat via getInternalExpr(), so explicitPortInternals()
+//    and collectNetOrder() drop the port entirely. Surelog emits a port +
+//    bare net under the PORT's own name plus one port per referenced signal.
+//  * GenerateUnnamed mis-nests an else-if generate chain: the top-level
+//    scan finds the INNER IfGenerate as a member's nearest enclosing one and
+//    lists it again in Gen_stmts (~815 changed dump lines, not one rule).
+//  * LowMemPkg wants a wildcard-imported package typedef copied into the
+//    importing module's Typespecs (def AND elab) and into design Typespecs —
+//    one shared logic_typespec(wddr_pkg::my_logic); its testflags row is
+//    SURELOG_FAIL, so only `default` is winnable.
+//  * UnitElabBlock wants an implicit NET minted for a named-block-local
+//    variable written procedurally (`begin : keep logic hold; hold = in;` ->
+//    work@mod.hold), i.e. bind_net_ firing where slang has a block-local.
+//  * CrossFunc wants functions declared inside a covergroup `cross` bins
+//    block listed in the MODULE's Task_funcs.
+//  * BasicOh (~3.3k changed lines) and Scr1SvTests (net-count gaps in ten
+//    modules) are not module-container problems any more; re-triage.
+//
 // An INSTANCE ARRAY (myif arr[N]) is a module_array (vpiModuleArray) — the
 // def module_typespec as element type, the array range, broadcast port
 // connections (HighConn ref_obj -> the parent net), and the per-index
@@ -903,34 +1020,46 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                                                   NetMap& nets,
                                                   bool withInstances,
                                                   UHDM::VectorOfmodule_inst* modElems) {
+    // A MULTI-dim array (`flop_instances2[2:0][1:0]`) nests one
+    // InstanceArraySymbol per dim in slang, but is ONE module_array carrying
+    // one range per dim in Surelog (compileInstantiation feeds compileRanges
+    // the WHOLE unpacked_dimension list). Walk down to the element def.
+    std::vector<const InstanceArraySymbol*> dimArrs{&arr};
     const InstanceSymbol* rep = nullptr;
-    for (auto* e : arr.elements)
-        if (e && e->kind == SymbolKind::Instance) {
-            rep = &e->as<InstanceSymbol>();
+    while (!rep) {
+        const Symbol* e0 = nullptr;
+        for (auto* e : dimArrs.back()->elements)
+            if (e) {
+                e0 = e;
+                break;
+            }
+        if (!e0)
+            break;
+        if (e0->kind == SymbolKind::Instance) {
+            rep = &e0->as<InstanceSymbol>();
             break;
         }
+        if (e0->kind != SymbolKind::InstanceArray)
+            break;
+        dimArrs.push_back(&e0->as<InstanceArraySymbol>());
+    }
     if (!rep)
         return nullptr;
     // MODULE instance arrays take the modElems flavour (elab view only);
     // interface arrays the ports+instances one.
     //
-    // NOTE (decoded, not yet landed): Surelog DOES put a module_array in the
-    // DEF view (uhdmallModules) for some module arrays — ArrayInst's
-    // `qq q[1:0]()` and InstArray's `bus_conn u1[1:0](.datain(inp))` both carry
-    // one, shaped exactly like the ports flavour below (name / work@<def>
-    // fullname / parented range / module_typespec at the type token / broadcast
-    // port list). Enabling it here unconditionally REGRESSED uhdm2rtlil
-    // `arraycells` (`aoi12 p [31:0] (a, b, c, y);`), whose def view has NO
-    // module_array in either mode. The only property separating the three so
-    // far is the connection FORM: none/named -> emitted, POSITIONAL -> not.
-    // That gate is unverified (one negative sample), so the def view still
-    // emits nothing. Two further layers are needed before ArrayInst/InstArray
-    // can converge anyway: a MULTI-DIM array (`flop_instances2[2:0][1:0]`) is
-    // ONE module_array carrying one range per dim (slang nests
-    // InstanceArraySymbols, so `rep` is null today), and the elab per-element
-    // port HighConn for a whole-net broadcast stays a plain ref_obj to the net
-    // (we emit a per-element bit_select).
-    if (!modElems && !useInterfacePath(*rep))
+    // Surelog's DEF view (uhdmallModules) carries a module_array too, but only
+    // when its PARSER routed the statement to `module_instantiation`. The
+    // grammar tries `udp_instantiation` FIRST, and its `udp_instance` is
+    // `name_of_instance? ( net_lvalue , expression {, expression} )` — so a
+    // statement whose instances all take TWO OR MORE purely POSITIONAL
+    // connections, with no parameter override, is compiled by
+    // compileGateInstantiation, which builds no module_array (uhdm2rtlil
+    // `arraycells`: `aoi12 p [31:0] (a, b, c, y);` — def view has none, elab
+    // view does). Everything else — no connections, one connection, any named
+    // connection, any `#(...)` — is a module_instantiation and DOES get one.
+    if (!modElems && !useInterfacePath(*rep) &&
+        udpFormInstantiation(arr.getSyntax()))
         return nullptr;
     auto& adef = rep->getDefinition();
     auto* ma = s.MakeModule_array();
@@ -940,11 +1069,8 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     setLoc(ma, SourceRange(arr.location, arr.location + arr.name.size()));
     // Range bounds keep their SOURCE op-form (arr[2-1:0] -> LeftRange = op 2-1)
     // via emitSyntaxExpr; fall back to the folded constant if no syntax.
-    const syntax::ExpressionSyntax* leftSyn = nullptr;
-    const syntax::ExpressionSyntax* rightSyn = nullptr;
-    const syntax::ExpressionSyntax* sizeSyn9 = nullptr;
-    const syntax::SyntaxNode* dimSyn9 = nullptr;
     const syntax::SyntaxNode* instTypeSyn9 = nullptr;
+    std::vector<const syntax::VariableDimensionSyntax*> dimSyns;
     if (auto* asyn = arr.getSyntax();
         asyn && asyn->kind == syntax::SyntaxKind::HierarchicalInstance) {
         for (auto p9 = asyn->parent; p9; p9 = p9->parent)
@@ -952,9 +1078,20 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                 instTypeSyn9 = p9;
                 break;
             }
-        if (auto* decl = asyn->as<syntax::HierarchicalInstanceSyntax>().decl;
-            decl && !decl->dimensions.empty()) {
-            auto* dim = *decl->dimensions.begin();
+        if (auto* decl = asyn->as<syntax::HierarchicalInstanceSyntax>().decl)
+            for (auto* dim : decl->dimensions)
+                dimSyns.push_back(dim);
+    }
+    auto* rvec = s.MakeRangeVec();
+    size_t ndim = dimSyns.empty() ? dimArrs.size()
+                                  : std::min(dimSyns.size(), dimArrs.size());
+    for (size_t di = 0; di < ndim; di++) {
+        const syntax::ExpressionSyntax* leftSyn = nullptr;
+        const syntax::ExpressionSyntax* rightSyn = nullptr;
+        const syntax::ExpressionSyntax* sizeSyn9 = nullptr;
+        const syntax::SyntaxNode* dimSyn9 = nullptr;
+        if (di < dimSyns.size()) {
+            auto* dim = dimSyns[di];
             dimSyn9 = dim;
             if (dim->specifier &&
                 dim->specifier->kind ==
@@ -972,76 +1109,73 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                         spec.selector->as<syntax::BitSelectSyntax>().expr;
             }
         }
-    }
-    auto* rng = s.MakeRange();
-    // The ELAB module-array dimension range is left bare (no vpiParent) by
-    // Surelog — only its bound constants back-point at it, exactly like the
-    // elab interface_array's range.
-    if (!modElems)
-        rng->VpiParent(ma);
-    // A SIZE-form dim (m[2]) ranges [0 : 2-1]: loc at the size token,
-    // loc-less 0 left, op N-1 right (Surelog).
-    if (sizeSyn9) {
-        setLoc(rng, sizeSyn9->sourceRange());
-        auto* lc9 = s.MakeConstant();
-        lc9->VpiDecompile("0");
-        lc9->VpiSize(64);
-        lc9->VpiValue("UINT:0");
-        lc9->VpiConstType(vpiUIntConst);
-        lc9->VpiParent(rng);
-        rng->Left_expr(lc9);
-        auto* op9 = s.MakeOperation();
-        op9->VpiParent(rng);
-        op9->VpiOpType(11);
-        setLoc(op9, sizeSyn9->sourceRange());
-        auto* ops9 = s.MakeAnyVec();
-        auto* sc9 = s.MakeConstant();
-        sc9->VpiDecompile(
-            std::to_string(arr.range.width()));
-        sc9->VpiSize(64);
-        sc9->VpiValue("UINT:" + std::to_string(arr.range.width()));
-        sc9->VpiConstType(vpiUIntConst);
-        sc9->VpiParent(op9);
-        setLoc(sc9, sizeSyn9->sourceRange());
-        ops9->push_back(sc9);
-        auto* one9 = s.MakeConstant();
-        one9->VpiSize(64);
-        one9->VpiValue("INT:1");
-        one9->VpiConstType(vpiIntConst);
-        ops9->push_back(one9);
-        op9->Operands(ops9);
-        rng->Right_expr(op9);
-        auto* rvec9 = s.MakeRangeVec();
-        rvec9->push_back(rng);
-        ma->Ranges(rvec9);
-    }
-    else {
-    auto mkBound = [&](const syntax::ExpressionSyntax* bs, int32_t v) -> UHDM::expr* {
-        if (bs) {
-            std::string sp = syntaxRefPrefix;
-            syntaxRefPrefix = prefix;
-            auto* e = emitSyntaxExpr(*bs, rng);
-            syntaxRefPrefix = sp;
-            if (e)
-                return (UHDM::expr*)e;
+        auto& darr = *dimArrs[di];
+        auto* rng = s.MakeRange();
+        // The ELAB module-array dimension range is left bare (no vpiParent) by
+        // Surelog — only its bound constants back-point at it, exactly like the
+        // elab interface_array's range.
+        if (!modElems)
+            rng->VpiParent(ma);
+        // A SIZE-form dim (m[2]) ranges [0 : 2-1]: loc at the size token,
+        // loc-less 0 left, op N-1 right (Surelog).
+        if (sizeSyn9) {
+            setLoc(rng, sizeSyn9->sourceRange());
+            auto* lc9 = s.MakeConstant();
+            lc9->VpiDecompile("0");
+            lc9->VpiSize(64);
+            lc9->VpiValue("UINT:0");
+            lc9->VpiConstType(vpiUIntConst);
+            lc9->VpiParent(rng);
+            rng->Left_expr(lc9);
+            auto* op9 = s.MakeOperation();
+            op9->VpiParent(rng);
+            op9->VpiOpType(11);
+            setLoc(op9, sizeSyn9->sourceRange());
+            auto* ops9 = s.MakeAnyVec();
+            auto* sc9 = s.MakeConstant();
+            sc9->VpiDecompile(std::to_string(darr.range.width()));
+            sc9->VpiSize(64);
+            sc9->VpiValue("UINT:" + std::to_string(darr.range.width()));
+            sc9->VpiConstType(vpiUIntConst);
+            sc9->VpiParent(op9);
+            setLoc(sc9, sizeSyn9->sourceRange());
+            ops9->push_back(sc9);
+            auto* one9 = s.MakeConstant();
+            one9->VpiSize(64);
+            one9->VpiValue("INT:1");
+            one9->VpiConstType(vpiIntConst);
+            ops9->push_back(one9);
+            op9->Operands(ops9);
+            rng->Right_expr(op9);
+            rvec->push_back(rng);
+            continue;
         }
-        auto* c = s.MakeConstant();
-        c->VpiDecompile(std::to_string(v));
-        c->VpiSize(64);
-        c->VpiValue("UINT:" + std::to_string(v));
-        c->VpiConstType(vpiUIntConst);
-        c->VpiParent(rng);
-        return c;
-    };
-    // The explicit-range dim locates the range at the [..] tokens.
-    if (dimSyn9)
-        setLoc(rng, dimSyn9->sourceRange());
-    rng->Left_expr(mkBound(leftSyn, arr.range.left));
-    rng->Right_expr(mkBound(rightSyn, arr.range.right));
-    auto* rvec = s.MakeRangeVec();
-    rvec->push_back(rng);
-    ma->Ranges(rvec);
+        auto mkBound = [&](const syntax::ExpressionSyntax* bs,
+                           int32_t v) -> UHDM::expr* {
+            if (bs) {
+                std::string sp = syntaxRefPrefix;
+                syntaxRefPrefix = prefix;
+                auto* e = emitSyntaxExpr(*bs, rng);
+                syntaxRefPrefix = sp;
+                if (e)
+                    return (UHDM::expr*)e;
+            }
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(std::to_string(v));
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + std::to_string(v));
+            c->VpiConstType(vpiUIntConst);
+            c->VpiParent(rng);
+            return c;
+        };
+        // The explicit-range dim locates the range at the [..] tokens.
+        if (dimSyn9)
+            setLoc(rng, dimSyn9->sourceRange());
+        rng->Left_expr(mkBound(leftSyn, darr.range.left));
+        rng->Right_expr(mkBound(rightSyn, darr.range.right));
+        rvec->push_back(rng);
     }
+    ma->Ranges(rvec);
     auto* mts = s.MakeModule_typespec();
     mts->VpiName(adef.name);
     // An INTERFACE array's element typespec is parented at the module_array it
@@ -1065,25 +1199,36 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
             ma->Modules(modElems);
         return ma;
     }
+    bool ifaceArr = useInterfacePath(*rep);
     auto* mports = s.MakePortVec();
     for (auto conn : rep->getPortConnections()) {
         auto* ax = connectionExpr(*conn);
-        if (!ax || ax->kind != ExpressionKind::NamedValue)
+        if (!ax)
             continue;
-        auto& nv = ax->as<NamedValueExpression>();
+        const Symbol* rsym = nullptr;
+        if (ax->kind == ExpressionKind::NamedValue)
+            rsym = &ax->as<NamedValueExpression>().symbol;
+        else if (!ifaceArr)
+            // A MODULE array's per-element connection is SLICED by slang
+            // (`.A(mulA)` on `mul[NB*4-1:0]` elaborates to `mulA[63:0]`),
+            // but the module_array's broadcast HighConn names the WHOLE
+            // actual: Surelog builds it from syntax, before elaboration.
+            rsym = ax->getSymbolReference();
+        if (!rsym)
+            continue;
         auto* p = s.MakePort();
         p->VpiName(conn->port.name);
         p->VpiParent(ma);
         if (auto npc = findConnSyntax(*rep, conn->port.name))
             setLoc(p, npc->sourceRange());
         auto* r = s.MakeRef_obj();
-        r->VpiName(nv.symbol.name);
+        r->VpiName(rsym->name);
         r->VpiFullName(prefix + "." + std::string(arr.name) + "." +
                        std::string(conn->port.name) + "." +
-                       std::string(nv.symbol.name));
+                       std::string(rsym->name));
         r->VpiParent(p);
         setLoc(r, ax->sourceRange);
-        if (auto nit = nets.find(&nv.symbol); nit != nets.end())
+        if (auto nit = nets.find(rsym); nit != nets.end())
             r->Actual_group(nit->second);
         p->High_conn(r);
         mports->push_back(p);
@@ -2386,6 +2531,12 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     UHDM::instance* m = progInst ? (UHDM::instance*)s.MakeProgram()
                                  : (UHDM::instance*)s.MakeModule_inst();
     m->VpiDefName(defPrefix);
+    // Surelog stamps vpiCellInstance on every module_inst -- def view and
+    // elaborated child alike -- whose definition was compiled out of a `-y`
+    // library directory / `-v` library file (UhdmWriter::isLibraryFile).
+    // It is NOT `celldefine`.
+    if (!progInst && isLibraryCell(def))
+        m->VpiCellInstance(true);
     m->VpiFullName(prefix);
     m->VpiFile(fullFilePath(def.location));
     if (isTop) {
@@ -4248,20 +4399,38 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // other child instantiation: the ELEMENT definition gets its port
             // phase in encounter order (arraycells: work@aoi12 keeps its four
             // vpiPorts) ahead of the per-index elements themselves.
+            // A MULTI-dim array nests one InstanceArraySymbol per dim, so the
+            // element def is found by descending (ArrayInst
+            // `flop_instances2[2:0][1:0]`).
             bool modArr = false;
-            for (auto* e0 : arr.elements) {
-                if (!e0 || e0->kind != SymbolKind::Instance)
-                    continue;
-                auto& ei0 = e0->as<InstanceSymbol>();
-                if (!useInterfacePath(ei0)) {
+            {
+                const InstanceArraySymbol* a0 = &arr;
+                const InstanceSymbol* leaf0 = nullptr;
+                while (a0) {
+                    const Symbol* e0 = nullptr;
+                    for (auto* e : a0->elements)
+                        if (e) {
+                            e0 = e;
+                            break;
+                        }
+                    if (!e0)
+                        break;
+                    if (e0->kind == SymbolKind::Instance) {
+                        leaf0 = &e0->as<InstanceSymbol>();
+                        break;
+                    }
+                    a0 = e0->kind == SymbolKind::InstanceArray
+                             ? &e0->as<InstanceArraySymbol>()
+                             : nullptr;
+                }
+                if (leaf0 && !useInterfacePath(*leaf0)) {
                     modArr = true;
-                    auto& edef0 = ei0.getDefinition();
+                    auto& edef0 = leaf0->getDefinition();
                     if (!defMap[&edef0].filled) {
                         defMap[&edef0].filled = true;
-                        emitModuleDefPorts(ei0);
+                        emitModuleDefPorts(*leaf0);
                     }
                 }
-                break;
             }
             // The INTERFACE array's module_array object lives in the DEF view
             // ONLY (emitModuleDef); its ELAB view carries just the per-index
@@ -4272,24 +4441,43 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // (not the def) carries the module_array wrapper listing them.
             if (modArr) {
                 auto* melems = s.MakeModule_instVec();
-                for (size_t i = 0; i < arr.elements.size(); i++) {
-                    auto* e = arr.elements[i];
-                    if (!e || e->kind != SymbolKind::Instance)
-                        continue;
-                    std::string iname = std::string(arr.name) + "[" +
-                                        std::to_string(alo + (int32_t)i) + "]";
-                    auto* mi0 = emitInstance(e->as<InstanceSymbol>(),
-                                             prefix + "." + iname, m, &topNets,
-                                             &instRefs, /*isTop=*/false);
-                    mi0->VpiName(iname);
-                    auto* mi = asModuleInst(mi0);
-                    if (!mi) { // program array element
-                        progChildren->push_back((UHDM::program*)mi0);
-                        continue;
-                    }
-                    children->push_back(mi);
-                    melems->push_back(mi);
-                }
+                // Every dim's indices concatenate into ONE element name
+                // (`flop_instances2[0][1]`), outer dim first; all leaves land
+                // in the single module_array's vpiModule list (Surelog).
+                std::function<void(const InstanceArraySymbol&,
+                                   const std::string&)>
+                    emitArrElems = [&](const InstanceArraySymbol& a9,
+                                       const std::string& base9) {
+                        int32_t lo9 = std::min(a9.range.left, a9.range.right);
+                        for (size_t i = 0; i < a9.elements.size(); i++) {
+                            auto* e = a9.elements[i];
+                            if (!e)
+                                continue;
+                            std::string iname =
+                                base9 + "[" +
+                                std::to_string(lo9 + (int32_t)i) + "]";
+                            if (e->kind == SymbolKind::InstanceArray) {
+                                emitArrElems(e->as<InstanceArraySymbol>(),
+                                             iname);
+                                continue;
+                            }
+                            if (e->kind != SymbolKind::Instance)
+                                continue;
+                            auto* mi0 = emitInstance(e->as<InstanceSymbol>(),
+                                                     prefix + "." + iname, m,
+                                                     &topNets, &instRefs,
+                                                     /*isTop=*/false);
+                            mi0->VpiName(iname);
+                            auto* mi = asModuleInst(mi0);
+                            if (!mi) { // program array element
+                                progChildren->push_back((UHDM::program*)mi0);
+                                continue;
+                            }
+                            children->push_back(mi);
+                            melems->push_back(mi);
+                        }
+                    };
+                emitArrElems(arr, std::string(arr.name));
                 if (auto* mm9 = asModuleInst(m)) {
                     if (auto* ma = emitModuleArray(arr, mm9, prefix, topNets,
                                                    /*withInstances=*/false, melems)) {
@@ -4648,6 +4836,44 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 c9->Typespec(rt9);
                                 h = c9;
                             }
+                        }
+                    }
+                    // A MODULE-form instance ARRAY's element HighConn keeps
+                    // the WHOLE actual: Surelog bit-blasts an array element's
+                    // connection ONLY on the udp/gate path
+                    // (NetlistElaboration's `bitBlast`, reached from the
+                    // paNet_lvalue branch); the module_instantiation branch
+                    // compiles the connection expression as written. slang
+                    // always slices the actual per element, so undo the slice
+                    // when the SOURCE connection is the bare identifier
+                    // (InstArray `.datain(inp)`, YosysMarlann `.A(mulA)`).
+                    if (!h && !inst.arrayPath.empty() &&
+                        !udpFormInstantiation(inst.getSyntax())) {
+                        auto& se9 = stripImplicitConv(*expr);
+                        const Expression* base9 = nullptr;
+                        if (se9.kind == ExpressionKind::ElementSelect)
+                            base9 = &se9.as<ElementSelectExpression>().value();
+                        else if (se9.kind == ExpressionKind::RangeSelect)
+                            base9 = &se9.as<RangeSelectExpression>().value();
+                        if (base9 &&
+                            stripImplicitConv(*base9).kind ==
+                                ExpressionKind::NamedValue) {
+                            // The source connection must be the BARE actual —
+                            // a written-out select (`.a(x[0])`) keeps its own
+                            // shape. slang wraps a port connection expression
+                            // in a property-expr syntax, so test the TEXT.
+                            auto* npc9 = findConnSyntax(inst, ps.name);
+                            std::string raw9;
+                            if (npc9 && npc9->expr)
+                                raw9 = std::string(
+                                    rawText(npc9->expr->sourceRange()));
+                            if (!raw9.empty() &&
+                                raw9.find_first_not_of(
+                                    "abcdefghijklmnopqrstuvwxyz"
+                                    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                    "0123456789_$") == std::string::npos &&
+                                !isdigit((unsigned char)raw9[0]))
+                                h = emitExpr(*base9, p, hcPrefix, *parentNets);
                         }
                     }
                     if (!h)
@@ -12074,13 +12300,23 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             caD->VpiParent(m);
             caD->VpiNetDeclAssign(true);
             setLoc(caD, nameSpan(psD.location, psD.name));
-            auto* cD = s.MakeConstant();
-            std::string dg =
-                dcv.integer().toString(LiteralBase::Decimal, false);
-            cD->VpiDecompile(dg);
+            // The RHS keeps the DEFAULT's own literal FORM — `1'b1` stays
+            // BIN/vpiBinaryConst (InstArray), `10` stays decimal UINT
+            // (uhdm2rtlil defvalue) — but is SIZED to the port, not to the
+            // literal.
+            UHDM::constant* cD = nullptr;
+            if (auto* eD = emitExpr(*initD, caD, prefix, netMap);
+                eD && eD->UhdmType() == UHDM::uhdmconstant)
+                cD = (UHDM::constant*)eD;
+            if (!cD) {
+                cD = s.MakeConstant();
+                std::string dg =
+                    dcv.integer().toString(LiteralBase::Decimal, false);
+                cD->VpiDecompile(dg);
+                cD->VpiValue("UINT:" + dg);
+                cD->VpiConstType(vpiUIntConst);
+            }
             cD->VpiSize((int32_t)psD.getType().getBitWidth());
-            cD->VpiValue("UINT:" + dg);
-            cD->VpiConstType(vpiUIntConst);
             cD->VpiParent(caD);
             setLoc(cD, stripImplicitConv(*initD).sourceRange);
             caD->Rhs(cD);

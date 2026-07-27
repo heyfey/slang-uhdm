@@ -451,6 +451,11 @@ private:
     // lazily by srcOrderLess().
     mutable std::map<slang::BufferID, size_t> bufRank;
     bool srcOrderLess(slang::SourceLocation a, slang::SourceLocation b) const;
+    // A module compiled out of a `-y` library directory or a `-v` library
+    // file. Surelog's UhdmWriter tests isLibraryFile() at both module_inst
+    // emission sites and stamps vpiCellInstance; it also drops UNUSED library
+    // cells from allModules (already handled in exportDesign).
+    static bool isLibraryCell(const slang::ast::DefinitionSymbol& def);
     // Surelog never keeps digit separators in a constant's value or in a
     // based-literal decompile (32'h8000_0000 -> HEX:80000000, decompile
     // 32'h80000000; source SPANS keep the underscore width). Applied wherever
