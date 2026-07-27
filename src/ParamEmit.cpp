@@ -6279,6 +6279,20 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     for (auto& member : pkg.members())
         if (member.kind == SymbolKind::TypeAlias)
             pkgAliases.push_back(&member);
+    // Typedefs that are the TARGET of a same-package ALIAS-of-typedef
+    // (typedef imm_i_t imm_l_t; typedef op32_op62_et opc_t;). Surelog
+    // materialises their ELABORATED listing object while re-elaborating the
+    // alias — i.e. still in def-package context — so that object keeps the
+    // DEF vpiInstance (jeras_union imm_i_t/op32_op62_et; the aliases
+    // themselves are single def objects to begin with).
+    std::set<const Symbol*> aliasTargetTd9;
+    for (auto& m9 : pkg.members())
+        if (m9.kind == SymbolKind::TypeAlias) {
+            auto& tt9 = m9.as<TypeAliasType>().targetType.getType();
+            if (tt9.kind == SymbolKind::TypeAlias &&
+                tt9.getParentScope() == (const Scope*)&pkg)
+                aliasTargetTd9.insert((const Symbol*)&tt9.as<TypeAliasType>());
+        }
     std::vector<std::pair<std::string, UHDM::typespec*>> pkgTdByName;
     // A package IMPORTING another package lists the imported ENUM typedefs
     // as ONE shared clone per typedef (created on first sight; module import
@@ -7223,18 +7237,19 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         // op32_op62_et/opc_t and the imported enum clones are
                         // #DEF in every listing). The condition is OWNERSHIP,
                         // not the current Instance() value: guarding on the
-                        // value alone measured net-worse (170 -> 322 cmp-
-                        // relevant typedef-forest lines) because members the
-                        // TOP pass builds fresh DO need the elab instance and
-                        // are indistinguishable by value. defPassOwnedTs is
-                        // the creation-pass marker that separates them.
-                        if (!topView)
-                            defPassOwnedTs.insert(mts);
-                        if (topView && defPassOwnedTs.count(mts)) {
-                            // shared def-owned object: keep its def instance
-                        }
-                        else
+                        // value alone measured net-worse (170 -> 322) because
+                        // members the TOP pass builds fresh DO need the elab
+                        // instance. defOwnedTs unifies the two independently
+                        // implemented creation-pass markers.
+                        if (topView && defOwnedTs(mts))
+                            ; // shared def-owned object: keep def instance
+                        else {
                             mts->Instance((UHDM::instance*)up);
+                            if (!topView) {
+                                defPassOwnedTs.insert(mts);
+                                pkgDefMemberActual.insert(mts);
+                            }
+                        }
                         if (topView && mts->UhdmType() == UHDM::uhdmlogic_typespec) {
                             std::function<void(UHDM::any*)> bindRefs2 =
                                 [&](UHDM::any* e) {
@@ -7334,17 +7349,23 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     // swap would give each container the wrong-view inner
                     // aggregate (rsp_gen_minimal tl_d2h_t.d_user). Only the
                     // scalar (folded-vs-unfolded) leaves swap.
+                    // An ENUM member is not cross-wired either: each view's
+                    // struct references its OWN view's enum object (Surelog
+                    // per-view identities; jeras_union ctl_alu_t.fn3 /
+                    // ctl_t.ill).
                     if (da->UhdmType() == UHDM::uhdmstruct_typespec ||
-                        da->UhdmType() == UHDM::uhdmunion_typespec)
+                        da->UhdmType() == UHDM::uhdmunion_typespec ||
+                        da->UhdmType() == UHDM::uhdmenum_typespec)
                         continue;
-                    // Under a SINGLE-prefix (dot-scoped) top clone a NAMED
-                    // vector-typedef member clone is not cross-wired either:
-                    // each view built its own (def -> symbolic, aliasing the
-                    // def listing; top -> folded, aliasing the elab listing).
-                    // Only the ANONYMOUS scalar leaves swap (rp32 dec_t.fn3
-                    // vs rsp_gen_minimal tl_d2h_t.d_size).
-                    if (topNested &&
-                        (!da->VpiName().empty() || !taA->VpiName().empty()))
+                    // A NAMED vector-typedef member clone is not cross-wired
+                    // either: each view built its own (def -> symbolic,
+                    // aliasing the def listing; top -> folded, aliasing the
+                    // elab listing). Only the ANONYMOUS scalar leaves swap
+                    // (rp32 dec_t.fn3 vs rsp_gen_minimal tl_d2h_t.d_size;
+                    // jeras_union ctl_alu_t.imm needed the un-gated form —
+                    // the earlier `topNested &&` guard let the def struct
+                    // take the folded top clone).
+                    if (!da->VpiName().empty() || !taA->VpiName().empty())
                         continue;
                     dm->Typespec()->Actual_typespec(taA);
                     tmM->Typespec()->Actual_typespec(da);
@@ -7374,7 +7395,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     // object keeps its def-view instance (creation-pass marker
                     // — a value-based guard cannot tell it from a fresh
                     // top-built member).
-                    if (!(defPassOwnedTs.count(da) && !da->VpiName().empty()))
+                    if (!(defOwnedTs(da) && !da->VpiName().empty()))
                         stampTs(da, (UHDM::instance*)up);
                 }
                 attachFoldedBoundMeta(sts, (UHDM::instance*)up);
@@ -7565,9 +7586,18 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             uts->VpiParent(up);
             if (uts->Members())
                 for (auto* tm : *uts->Members())
-                    if (tm->Typespec() && tm->Typespec()->Actual_typespec())
-                        tm->Typespec()->Actual_typespec()->Instance(
-                            (UHDM::instance*)up);
+                    if (tm->Typespec() && tm->Typespec()->Actual_typespec()) {
+                        auto* muA = tm->Typespec()->Actual_typespec();
+                        if (topView && defOwnedTs(muA))
+                            ; // shared with the def view — keeps its instance
+                        else {
+                            muA->Instance((UHDM::instance*)up);
+                            if (!topView) {
+                                defPassOwnedTs.insert(muA);
+                                pkgDefMemberActual.insert(muA);
+                            }
+                        }
+                    }
             // Mirror the struct arm: Surelog CROSS-WIRES the two views' member
             // typespecs. The DEF pass folds member bounds ([K:0] -> constant);
             // the TOP pass (tfContext) keeps them SYMBOLIC (ref_obj). Surelog
@@ -7627,7 +7657,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     // object keeps its def-view instance (creation-pass marker
                     // — a value-based guard cannot tell it from a fresh
                     // top-built member).
-                    if (!(defPassOwnedTs.count(da) && !da->VpiName().empty()))
+                    if (!(defOwnedTs(da) && !da->VpiName().empty()))
                         stampTs(da, (UHDM::instance*)up);
                 }
                 attachFoldedBoundMeta(uts, (UHDM::instance*)up);
@@ -7729,7 +7759,24 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         if (!ts)
             continue;
         ts->VpiName(prefix + std::string(ta.name));
-        ts->Instance((UHDM::instance*)up);
+        {
+            UHDM::instance* tsInst9 = (UHDM::instance*)up;
+            if (topView && aliasTargetTd9.count((const Symbol*)&ta))
+                if (auto dpi9 = pkgDefMap.find(&pkg); dpi9 != pkgDefMap.end()) {
+                    tsInst9 = (UHDM::instance*)dpi9->second;
+                    pkgDefInstPinned.insert(ts);
+                }
+            ts->Instance(tsInst9);
+            // An enum's base typespec rides the same pin (its owner's whole
+            // elaborated object was minted in def-package context).
+            if (tsInst9 != (UHDM::instance*)up &&
+                ts->UhdmType() == UHDM::uhdmenum_typespec)
+                if (auto* bt9 = ((UHDM::enum_typespec*)ts)->Base_typespec())
+                    if (auto* ba9 = bt9->Actual_typespec()) {
+                        ba9->Instance(tsInst9);
+                        pkgDefInstPinned.insert(ba9);
+                    }
+        }
         // A member typed by ANOTHER package's struct typedef keeps that
         // package's vpiInstance on the member's OWN sub-typespecs (Surelog);
         // only this typedef's own objects move to the importing package.

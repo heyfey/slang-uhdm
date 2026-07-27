@@ -340,7 +340,7 @@ issue326_packed_mem,testflags,CMP_EQUAL,,,match
 jeras_gpr,testflags,CMP_EQUAL,,,match
 jeras_reverse,testflags,CMP_EQUAL,,,match
 jeras_tcb_gpio,testflags,CMP_EQUAL,,,differ
-jeras_union,testflags,CMP_NOTEQUAL,decompile:,,
+jeras_union,testflags,CMP_EQUAL,,,differ
 LargeModuleParameter,testflags,SLANG_REJECT,dut.sv:19:1: error: unknown module 'PRIMITIVE',,
 latch_002,testflags,CMP_EQUAL,,,match
 latchn,testflags,CMP_EQUAL,,,match

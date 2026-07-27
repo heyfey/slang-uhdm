@@ -1407,8 +1407,8 @@ UndersVal,default,CMP_EQUAL,,,match
 UndersVal,testflags,CMP_EQUAL,,,match
 UnelabPack,default,CMP_EQUAL,,,match
 UnelabPack,testflags,CMP_EQUAL,,,match
-UnionCast,default,CMP_NOTEQUAL,decompile:,,
-UnionCast,testflags,CMP_NOTEQUAL,decompile:,,
+UnionCast,default,CMP_EQUAL,,,differ
+UnionCast,testflags,CMP_EQUAL,,,differ
 Unisim,default,SLANG_REJECT,error: no input files,,
 Unisim,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
 UnitAmiqEth,default,SLANG_REJECT,amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared identifier 'client_data',,

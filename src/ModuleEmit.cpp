@@ -2097,6 +2097,14 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             // whose call sites bind the def object; the swap therefore moves
             // the call binding with it (ExprEmit's siTf, keyed on the same
             // pkgElabSubTf registry), and both sweeps stay at zero movers.
+            // Independent re-measurement (jeras_union block) of the swap
+            // WITHOUT the call-binding move: module-side typedef-forest
+            // projection 780 -> 0 but exactly six u2r tests demote
+            // (ImportedFunctionCallAsInstantiatedModulePortValueInsideGenFor,
+            // ImportedFunctionCallInModuleAndSubmodule,
+            // ImportedFunctionUsesAnotherFunction, for_break,
+            // rsp_gen_minimal, simple_package) — confirming the coupling is
+            // load-bearing, not precautionary.
             std::vector<UHDM::task_func*> grp9;
             for (auto& pm : pkg->members()) {
                 if (pm.kind != SymbolKind::Subroutine)

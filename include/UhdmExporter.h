@@ -282,6 +282,24 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::struct_typespec*> pkgDefStructTs;
     // DEF-view package union typespecs, for the same cross-view swap.
     std::map<const slang::ast::Symbol*, UHDM::union_typespec*> pkgDefUnionTs;
+    // Aggregate member actuals the DEF package pass instanced at its own
+    // package object. A TOP-pass member landing on one of THESE is the very
+    // same object shared by both views, and Surelog leaves it on the def
+    // instance; a top-pass member that merely happens to carry a def
+    // instance (a freshly built member clone stamped with its typedef's home
+    // package) still takes the elab one. Identity is the only distinguisher.
+    std::set<const UHDM::typespec*> pkgDefMemberActual;
+    // Elaborated-listing objects PINNED to the def-package instance (the
+    // alias-target rule in emitPackage). Every later stamp — aggregate
+    // members included — must leave them alone.
+    std::set<const UHDM::typespec*> pkgDefInstPinned;
+    // Unified def-ownership test: two agents independently implemented
+    // creation-pass markers (defPassOwnedTs / pkgDefMemberActual+pinned);
+    // every keep-def-instance guard must honor all of them.
+    bool defOwnedTs(const UHDM::typespec* t) const {
+        return defPassOwnedTs.count(t) || pkgDefMemberActual.count(t) ||
+               pkgDefInstPinned.count(t);
+    }
     // Package enum-const module-fold constants (shared across views).
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgEnumFoldConst;
     // Named begin/fork blocks by symbol (disable targets resolve to these).

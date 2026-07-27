@@ -2512,7 +2512,16 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     bool fold9;
                     if (importCloneEmit && !sys9 && !refBound9)
                         fold9 = memberUsed9;
-                    else if (pkgListingEnumBuild && (sys9 || !refBound9))
+                    else if (pkgListingEnumBuild && sys9)
+                        // A SYS-CALL bound is not a member-compile fold at
+                        // all: it stays SYMBOLIC in the DEF listing whether or
+                        // not the enum is consumed as a struct member, and
+                        // folds only in the elaborated (top) listing
+                        // (jeras_union fn3_alu_et/fn3_ldu_et/fn3_stu_et/
+                        // fn3_bru_et [$bits(fn3_t)-1:0], all consumed as
+                        // ctl_*_t.fn3).
+                        fold9 = pkgTopEmit;
+                    else if (pkgListingEnumBuild && !refBound9)
                         // The ELABORATED package listing always folds; the DEF
                         // listing folds only when a struct/union member compile
                         // forced it AND no import clone took the fold instead.

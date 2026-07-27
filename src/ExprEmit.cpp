@@ -107,6 +107,37 @@ static slang::SourceRange rangeSelectorSpan(
     return r;
 }
 
+// Stamp vpiInstance on EVERY typespec of a freshly built aggregate CLONE
+// tree. Surelog re-elaborates a cast target in the ELABORATED package's
+// context, so the whole tree — the anonymous member vectors included — is
+// instanced there; our per-member builders stamp only some of them, and the
+// ones they do stamp inherit the def object's instance (jeras_union
+// op32_t'(ins)). Safe only on a fresh clone tree (castAggCloneCtx).
+static void stampCloneTreeInstance(UHDM::typespec* ts, UHDM::instance* inst,
+                                   int depth = 0) {
+    if (!ts || !inst || depth > 8)
+        return;
+    ts->Instance(inst);
+    if (ts->UhdmType() == UHDM::uhdmlogic_typespec) {
+        if (auto* al = ((UHDM::logic_typespec*)ts)->Typedef_alias())
+            stampCloneTreeInstance(al->Actual_typespec(), inst, depth + 1);
+        return;
+    }
+    UHDM::VectorOftypespec_member* mems = nullptr;
+    if (ts->UhdmType() == UHDM::uhdmstruct_typespec)
+        mems = ((UHDM::struct_typespec*)ts)->Members();
+    else if (ts->UhdmType() == UHDM::uhdmunion_typespec)
+        mems = ((UHDM::union_typespec*)ts)->Members();
+    if (!mems)
+        return;
+    for (auto* m : *mems) {
+        if (!m->Typespec())
+            continue;
+        stampCloneTreeInstance(m->Typespec()->Actual_typespec(), inst,
+                               depth + 1);
+    }
+}
+
 // A selector's source text used inside a hier_path/select NAME drops
 // whitespace (mem[i][ 7: 0] -> [7:0]): Surelog normalizes the range in the
 // object name even when the source spaced it.
@@ -2664,7 +2695,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ucl->VpiColumnNo(cts->VpiColumnNo());
                             ucl->VpiEndLineNo(cts->VpiEndLineNo());
                             ucl->VpiEndColumnNo(cts->VpiEndColumnNo());
-                            ucl->Instance(cts->Instance());
+                            // The re-elaborated cast target belongs to the
+                            // ELABORATED package family, not the def object
+                            // it was cloned from (jeras_union op32_t'(ins)).
+                            auto* hi9 = homePkgInstOf(ta2);
+                            if (!hi9)
+                                hi9 = (UHDM::instance*)cts->Instance();
+                            stampCloneTreeInstance(ucl, hi9);
                             castUnionClone[expr.type] = ucl;
                             cts = ucl;
                         }
