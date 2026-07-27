@@ -378,6 +378,11 @@ integration gate ~5 min, so stream instead:
   consistent while mainline advances.
 - Stragglers that outlive the frontier get their worktree harvested
   (git diff HEAD) rather than holding integration.
+- **Model/effort pins (decided):** the orchestrator runs Fable 5 at xhigh;
+  every subagent — implement and verify alike — is pinned `model: 'opus'`,
+  `effort: 'high'` explicitly in each `agent()` call. Never rely on session
+  inheritance for either (inherited model burned a session limit; inherited
+  effort was silently uniform for four waves).
 - **One cluster per agent context — no persistent workers.** An agent that
   finishes does NOT pick up the next cluster: context filled with one
   cluster's decode state invites mis-generalization on the next (the block
