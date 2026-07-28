@@ -98,6 +98,28 @@ static bool containsUserCall(const Expression& e) {
     return found;
 }
 
+// A query call the ELABORATED view keeps symbolic because UHDM's ExprEval
+// cannot reduce it either.  `$size` over a TYPE reaches ExprEval as the bare
+// `*_var` object Surelog's `compileTfCallArguments` built for the type
+// keyword, and `reduceExpr`'s `$size` handler sizes only `logic_net` /
+// `logic_var` / `array_net` / `array_var` argument objects — so it gives up
+// and the `sys_func_call` survives into the instance view.  `$size` over a
+// TYPEDEF NAME does reduce (its argument is a ref_obj the evaluator resolves),
+// so only the keyword form is excluded.  NonSynthError `parameter S =
+// $size(int)`; measured against a 12-type golden matrix.
+static bool srlgElabUnreducibleCall(const Expression& e) {
+    auto& s0 = stripImplicitConv(e);
+    if (s0.kind != ExpressionKind::Call)
+        return false;
+    auto& ce = s0.as<CallExpression>();
+    if (!ce.isSystemCall() || ce.getSubroutineName() != "$size" ||
+        ce.arguments().empty())
+        return false;
+    auto& a0 = stripImplicitConv(*ce.arguments()[0]);
+    return a0.kind == ExpressionKind::DataType && a0.type &&
+           a0.type->kind != SymbolKind::TypeAlias;
+}
+
 // ---------------------------------------------------------------------------
 // --disable-feature=parametersubstitution
 //
@@ -1250,12 +1272,30 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
             enc = ConstCallEnc::Int;
         else if (se.kind == ExpressionKind::BinaryOp) {
             auto bop = se.as<BinaryExpression>().op;
-            enc = (OpInfo::isComparison(bop) || bop == BinaryOperator::LogicalAnd ||
-                   bop == BinaryOperator::LogicalOr ||
-                   bop == BinaryOperator::LogicalImplication ||
-                   bop == BinaryOperator::LogicalEquivalence)
-                      ? ConstCallEnc::BoolBin
-                      : ConstCallEnc::Uint;
+            if (OpInfo::isComparison(bop) || bop == BinaryOperator::LogicalAnd ||
+                bop == BinaryOperator::LogicalOr ||
+                bop == BinaryOperator::LogicalImplication ||
+                bop == BinaryOperator::LogicalEquivalence)
+                enc = ConstCallEnc::BoolBin;
+            // ExprEval's `-` / `*` / `/` / `%` arms build their result with a
+            // hardcoded `INT:` + vpiIntConst at size 64 (UHDM ExprEval.cpp
+            // vpiSubOp/vpiMultOp/vpiDivOp/vpiModOp) — only `+` decides
+            // signedness from its operands, and it comes out unsigned unless
+            // one of them was already signed.  That constant survives only
+            // when the return variable has no width of its own to re-encode
+            // it at, i.e. for a PREDEFINED-integer return — the same seam the
+            // width rule below rides.  `function integer num_out` with
+            // `num_out = num_out * 2` folds INT:4 (EvalFuncCont); `function
+            // [31:0] pow2` with `pow2 = 2 * pow2` still folds UINT
+            // (RepeatStmt, measured as a regression and re-gated).
+            else if (sub.getReturnType().isPredefinedInteger() &&
+                     (bop == BinaryOperator::Subtract ||
+                      bop == BinaryOperator::Multiply ||
+                      bop == BinaryOperator::Divide ||
+                      bop == BinaryOperator::Mod))
+                enc = ConstCallEnc::Int;
+            else
+                enc = ConstCallEnc::Uint;
         }
         else
             enc = ConstCallEnc::Uint;
@@ -4694,6 +4734,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // string constant, decompiled without quotes). Pkg CONCAT
                 // inits keep the operation in both views.
                 else if (!ps.getType().getCanonicalType().isString() &&
+                         !srlgElabUnreducibleCall(*init) &&
                          !(inPackage && [&] {
                              // A pkg param whose init is a concatenation — or
                              // an explicit size/type cast wrapping one, e.g.

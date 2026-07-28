@@ -423,8 +423,8 @@ EvalFunc,default,CMP_EQUAL,,,differ
 EvalFunc,testflags,CMP_EQUAL,,,differ
 EvalFuncArray,default,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the current constant function,,
 EvalFuncArray,testflags,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the current constant function,,
-EvalFuncCont,default,CMP_NOTEQUAL,decompile:,,
-EvalFuncCont,testflags,CMP_NOTEQUAL,decompile:,,
+EvalFuncCont,default,CMP_EQUAL,,,match
+EvalFuncCont,testflags,CMP_EQUAL,,,match
 EvalFuncNamed,default,CMP_NOTEQUAL,decompile:,,
 EvalFuncNamed,testflags,CMP_NOTEQUAL,decompile:,,
 EvalFuncPack,default,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
@@ -771,8 +771,8 @@ InterfType,default,CMP_NOTEQUAL,decompile:,,
 InterfType,testflags,CMP_NOTEQUAL,decompile:,,
 InterfTypeBad,default,SLANG_REJECT,dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterfTypeBad,testflags,SLANG_REJECT,dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
-InterpElab1,default,CMP_NOTEQUAL,decompile:,,
-InterpElab1,testflags,CMP_NOTEQUAL,decompile:,,
+InterpElab1,default,CMP_EQUAL,,,differ
+InterpElab1,testflags,CMP_EQUAL,,,differ
 InvalidTypeParam,default,SLANG_REJECT,dut.sv:2:20: error: parameter declaration is missing an initializer,,
 InvalidTypeParam,testflags,SLANG_REJECT,dut.sv:2:20: error: parameter declaration is missing an initializer,,
 Inverter,default,CMP_EQUAL,,,match
@@ -795,8 +795,8 @@ LargeHexString,default,CMP_EQUAL,,,match
 LargeHexString,testflags,CMP_EQUAL,,,match
 LargeValue2Struct,default,CMP_NOTEQUAL,decompile:,,
 LargeValue2Struct,testflags,CMP_NOTEQUAL,decompile:,,
-LateBindingFuncArg,default,CMP_NOTEQUAL,decompile:,,
-LateBindingFuncArg,testflags,CMP_NOTEQUAL,decompile:,,
+LateBindingFuncArg,default,CMP_EQUAL,,,match
+LateBindingFuncArg,testflags,CMP_EQUAL,,,match
 LeftPadding,default,SLANG_REJECT,dut.sv:8:5: error: unknown module 'GOOD',,
 LeftPadding,testflags,SLANG_REJECT,dut.sv:8:5: error: unknown module 'GOOD',,
 LegalPastFunc,default,SLANG_REJECT,dut.sv:4:14: error: use of undeclared identifier 'clk',,
@@ -899,8 +899,8 @@ NetType,default,SLANG_REJECT,dut.sv:6:26: error: resolution function for nettype
 NetType,testflags,SLANG_REJECT,dut.sv:6:26: error: resolution function for nettype 'net_bit' should have a single input argument of type 'bit',,
 NonAnsiPort,default,CMP_EQUAL,,,differ
 NonAnsiPort,testflags,CMP_EQUAL,,,differ
-NonSynthError,default,CMP_NOTEQUAL,decompile:,,
-NonSynthError,testflags,CMP_NOTEQUAL,decompile:,,
+NonSynthError,default,CMP_EQUAL,,,differ
+NonSynthError,testflags,CMP_EQUAL,,,differ
 NonSynthUnusedMod,default,CMP_EQUAL,,,match
 NonSynthUnusedMod,testflags,CMP_EQUAL,,,match
 NoParamSubs,default,CMP_EQUAL,,,match

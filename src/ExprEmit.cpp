@@ -37,6 +37,176 @@ static void appendTokenText(const slang::syntax::SyntaxNode& n,
     }
 }
 
+// True when every name inside a declaration DIMENSION was already resolved
+// when the DEFINITION compile built the typespec — i.e. leaves no `ref_obj`
+// behind.  A PACKAGE parameter does: packages elaborate before the modules
+// that read them, so `logic [pack::W-1:0]` carries a literal bound.  A
+// parameter of the enclosing MODULE, or a genvar, does not.  A `$bits(t)` in
+// a bound folds at the same compile, so a TYPE name is resolved too.
+static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
+                               const slang::ast::Scope* scope) {
+    using SK = slang::syntax::SyntaxKind;
+    using namespace slang::ast;
+    if (n.kind == SK::ScopedName)
+        return true; // pkg::W — package-resolved by construction
+    if (n.kind == SK::IdentifierName || n.kind == SK::IdentifierSelectName) {
+        if (!scope)
+            return false;
+        std::string_view nm =
+            n.kind == SK::IdentifierName
+                ? n.as<slang::syntax::IdentifierNameSyntax>()
+                      .identifier.valueText()
+                : n.as<slang::syntax::IdentifierSelectNameSyntax>()
+                      .identifier.valueText();
+        auto* sym = scope->lookupName(nm);
+        if (!sym)
+            return false;
+        if (sym->kind == SymbolKind::Genvar)
+            return false;
+        if (sym->kind != SymbolKind::Parameter &&
+            sym->kind != SymbolKind::TypeParameter &&
+            sym->kind != SymbolKind::Specparam)
+            return true; // a type name, an enum value, a function
+        for (auto sc = sym->getParentScope(); sc;
+             sc = sc->asSymbol().getParentScope()) {
+            auto k = sc->asSymbol().kind;
+            if (k == SymbolKind::Package || k == SymbolKind::CompilationUnit)
+                return true;
+            if (k == SymbolKind::InstanceBody ||
+                k == SymbolKind::GenerateBlock ||
+                k == SymbolKind::GenerateBlockArray)
+                return false;
+        }
+        return false;
+    }
+    for (size_t i = 0; i < n.getChildCount(); i++)
+        if (auto* c = n.childNode(i))
+            if (!r9DimNamesResolved(*c, scope))
+                return false;
+    return true;
+}
+
+// True when EVERY declaration dimension in the subtree is fully specified.
+// This is the syntax-side reading of UHDM `ExprEval::isFullySpecified(tps)`,
+// which answers false as soon as the typespec holds a `ref_obj` anywhere —
+// and a `ref_obj` gets into a typespec exactly through a dimension bound the
+// definition compile could not resolve.
+static bool r9DimsLiteral(const slang::syntax::SyntaxNode& n,
+                          const slang::ast::Scope* scope) {
+    if (n.kind == slang::syntax::SyntaxKind::VariableDimension)
+        return r9DimNamesResolved(n, scope);
+    for (size_t i = 0; i < n.getChildCount(); i++)
+        if (auto* c = n.childNode(i))
+            if (!r9DimsLiteral(*c, scope))
+                return false;
+    return true;
+}
+
+// Second half of Surelog's def-compile `$bits` test: UHDM's
+// `ExprEval::isFullySpecified(tps)` walks the typespec and answers false the
+// moment it meets a `ref_obj` — which is how a parameter-dependent dimension
+// bound shows up.  Alias chains, struct members and array elements are all
+// part of the same typespec, so all three are walked here.
+bool UhdmExporter::srlgFullySpecType(const slang::ast::Type& type, int depth) {
+    using namespace slang::ast;
+    if (depth > 8)
+        return false;
+    const Type* cur = &type;
+    // Every typedef in the chain contributes its own declaration (and its own
+    // dimensions) to the typespec.
+    while (cur->kind == SymbolKind::TypeAlias) {
+        auto& ta = cur->as<TypeAliasType>();
+        if (auto* sy = ta.getSyntax())
+            if (!r9DimsLiteral(*sy, ta.getParentScope()))
+                return false;
+        cur = &ta.targetType.getType();
+    }
+    auto& c = cur->getCanonicalType();
+    if (c.kind == SymbolKind::PackedStructType) {
+        for (auto& f : c.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+            const DeclaredType* dt = f.getDeclaredType();
+            const Scope* fsc = f.getParentScope();
+            if (auto* ts = dt->getTypeSyntax())
+                if (!r9DimsLiteral(*ts, fsc))
+                    return false;
+            if (auto* ds = dt->getDimensionSyntax())
+                for (auto d : *ds)
+                    if (!r9DimsLiteral(*d, fsc))
+                        return false;
+            if (!srlgFullySpecType(f.getType(), depth + 1))
+                return false;
+        }
+        return true;
+    }
+    if (c.isUnpackedArray() || c.isPackedArray())
+        return srlgFullySpecType(*c.getArrayElementType(), depth + 1);
+    return true;
+}
+
+// Would Surelog's DEFINITION compile fold `$bits(<arg>)`?  `compileBits`
+// folds only when `getTypespec()` resolves the argument to a FULLY SPECIFIED
+// typespec, and `getTypespec` looks in exactly three places: the built-in
+// type keywords, the component's DATA TYPES (typedefs), and its PORTS and
+// SIGNALS.  A subroutine formal or local is in none of them, so its `$bits`
+// call survives — in the elaborated view too, because UHDM's ExprEval is the
+// only thing that re-reduces there and it needs the same typespec.
+// Measured on a 33-cell golden matrix across param inits, function bodies,
+// initial blocks and cont assigns (r9c3 m2/m3/m4):
+//     $bits(w8) [wire [7:0]]      folds   $bits(wp) [wire [OW-1:0]]     keeps
+//     $bits(st_t) / $bits(byte_t) folds   $bits(pd_t) [OW-wide member]  keeps
+//     $bits(sv.a) / $bits(u8[3:0]) folds  $bits(depth) [function formal] keeps
+bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0) {
+    using namespace slang::ast;
+    auto& arg = stripImplicitConv(arg0);
+    // A TYPE argument always resolves; only full specification is in doubt.
+    if (arg.kind == ExpressionKind::DataType)
+        return srlgFullySpecType(*arg.type, 0);
+    const Expression* root = &arg;
+    while (true) {
+        auto& r = stripImplicitConv(*root);
+        if (r.kind == ExpressionKind::MemberAccess)
+            root = &r.as<MemberAccessExpression>().value();
+        else if (r.kind == ExpressionKind::ElementSelect)
+            root = &r.as<ElementSelectExpression>().value();
+        else if (r.kind == ExpressionKind::RangeSelect)
+            root = &r.as<RangeSelectExpression>().value();
+        else {
+            root = &r;
+            break;
+        }
+    }
+    const Symbol* sym = nullptr;
+    if (root->kind == ExpressionKind::NamedValue)
+        sym = &root->as<NamedValueExpression>().symbol;
+    else if (root->kind == ExpressionKind::HierarchicalValue)
+        sym = &root->as<HierarchicalValueExpression>().symbol;
+    if (!sym)
+        return false;
+    // Ports and signals only. A formal is a FormalArgument, a class property a
+    // ClassProperty — neither is reachable from `getTypespec`.
+    if (sym->kind != SymbolKind::Net && sym->kind != SymbolKind::Variable)
+        return false;
+    for (auto sc = sym->getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+        auto k = sc->asSymbol().kind;
+        if (k == SymbolKind::Subroutine)
+            return false;
+        if (k == SymbolKind::InstanceBody || k == SymbolKind::Package ||
+            k == SymbolKind::CompilationUnit)
+            break;
+    }
+    if (auto* dt = sym->getDeclaredType()) {
+        const Scope* ssc = sym->getParentScope();
+        if (auto* ts = dt->getTypeSyntax())
+            if (!r9DimsLiteral(*ts, ssc))
+                return false;
+        if (auto* ds = dt->getDimensionSyntax())
+            for (auto d : *ds)
+                if (!r9DimsLiteral(*d, ssc))
+                    return false;
+    }
+    return srlgFullySpecType(sym->getDeclaredType()->getType(), 0);
+}
+
 // A function that just hands one of its formals back (`f = inp;` /
 // `return inp;`). Surelog substitutes such a call for typing purposes, so a
 // NESTED call to it carries no formal-ts stamp of its own — the enclosing
@@ -4436,6 +4606,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             !(reemitting && a0.as<NamedValueExpression>()
                                                 .symbol.as<ParameterSymbol>()
                                                 .isLocalParam()));
+                // ...and so does an argument whose typespec Surelog's def
+                // compile either cannot find or cannot fully specify. Only the
+                // shapes `getTypespec` handles are judged here; anything else
+                // (a concatenation, a cast, a call) keeps the old behaviour.
+                bool namedArg = a0.kind == ExpressionKind::NamedValue &&
+                                a0.as<NamedValueExpression>().symbol.kind !=
+                                    SymbolKind::Parameter;
+                if (!bitsKeep &&
+                    (namedArg || a0.kind == ExpressionKind::DataType ||
+                     a0.kind == ExpressionKind::MemberAccess ||
+                     a0.kind == ExpressionKind::ElementSelect ||
+                     a0.kind == ExpressionKind::RangeSelect ||
+                     a0.kind == ExpressionKind::HierarchicalValue))
+                    bitsKeep = !srlgBitsFoldArg(a0);
             }
             if (name == "$bits" && !bitsKeep) {
                 bool localParamArg =
@@ -4497,6 +4681,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // anchored, like every Surelog post-reduce constant, at the
                 // expression's FIRST CHILD node (the leftmost leaf).
                 auto& argS = stripImplicitConv(*argE);
+                // A TYPE argument of a query call Surelog did not fold.
+                // `compileTfCallArguments` runs the type through
+                // `compileExpression`, which turns an integer ATOM keyword
+                // into the matching `*_var` carrying nothing but the
+                // enclosing instance's fullname, and a TYPEDEF name into a
+                // plain ref_obj.  (`logic` / `bit` / an inline `logic [3:0]`
+                // come back as `unsupported_expr` holding the whole source
+                // line — not reproduced.)  Measured on a 12-type golden
+                // matrix; NonSynthError, InterpElab1.
+                if (argS.kind == ExpressionKind::DataType && argS.type) {
+                    UHDM::any* tv = nullptr;
+                    const Type& at = *argS.type;
+                    if (at.kind == SymbolKind::TypeAlias) {
+                        auto* r0 = s.MakeRef_obj();
+                        r0->VpiName(std::string(at.name));
+                        r0->VpiFullName(prefix + "." + std::string(at.name));
+                        tv = r0;
+                    }
+                    else if (at.kind == SymbolKind::PredefinedIntegerType) {
+                        UHDM::variables* v0 = nullptr;
+                        switch (at.as<PredefinedIntegerType>().integerKind) {
+                            case PredefinedIntegerType::Int:
+                                v0 = s.MakeInt_var(); break;
+                            case PredefinedIntegerType::Integer:
+                                v0 = s.MakeInteger_var(); break;
+                            case PredefinedIntegerType::Byte:
+                                v0 = s.MakeByte_var(); break;
+                            case PredefinedIntegerType::ShortInt:
+                                v0 = s.MakeShort_int_var(); break;
+                            case PredefinedIntegerType::LongInt:
+                                v0 = s.MakeLong_int_var(); break;
+                            case PredefinedIntegerType::Time:
+                                v0 = s.MakeTime_var(); break;
+                        }
+                        if (v0)
+                            v0->VpiFullName(prefix);
+                        tv = v0;
+                    }
+                    if (tv) {
+                        tv->VpiParent(sc);
+                        setLoc(tv, argS.sourceRange);
+                        args->push_back(tv);
+                    }
+                    continue;
+                }
                 if (inParamInit && !paramInitDef &&
                     (argS.kind == ExpressionKind::BinaryOp ||
                      argS.kind == ExpressionKind::UnaryOp)) {

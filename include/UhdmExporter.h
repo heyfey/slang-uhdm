@@ -859,6 +859,17 @@ private:
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
                                              UHDM::BaseClass* parent,
                                              const std::string& defDimRefPrefix = {});
+    // Would Surelog's DEFINITION compile fold `$bits(<arg>)` to a constant?
+    // `CompileHelper::compileBits` folds only when `getTypespec()` finds a
+    // typespec for the argument AND `ExprEval::isFullySpecified()` accepts it
+    // (CompileExpression.cpp:4729); otherwise the `sys_func_call` survives —
+    // in the elaborated views too, since those only re-reduce what UHDM's
+    // ExprEval can size.  `srlgFullySpecType` is the second half of that
+    // test: no declaration dimension anywhere in the type may name something
+    // the definition compile had not already resolved (a MODULE parameter or
+    // a genvar leaves a ref_obj; a PACKAGE parameter does not).
+    bool srlgBitsFoldArg(const slang::ast::Expression& arg);
+    bool srlgFullySpecType(const slang::ast::Type& type, int depth);
     // Surelog's value for a declaration-dimension bound that calls
     // $high/$low/$left/$right on an UNPACKED array: those four never resolve
     // there and come back as $bits(arg), so `$high(a)-$low(a)+1` is 1, not the
