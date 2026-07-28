@@ -74,9 +74,51 @@ SourceLocation UhdmExporter::structTypedefUseEnd(const InstanceBodySymbol& body,
     return out;
 }
 
+const syntax::SyntaxNode* UhdmExporter::classScopeTypeRef(
+    const syntax::SyntaxNode* typeSyn) {
+    if (!typeSyn)
+        return nullptr;
+    auto* nt = typeSyn->as_if<syntax::NamedTypeSyntax>();
+    if (!nt)
+        return nullptr;
+    auto* sn = nt->name->as_if<syntax::ScopedNameSyntax>();
+    // Only a PARAMETERIZED class prefix (`C#(...)::`) is recognized: a bare
+    // `X::T` is a package reference in every corpus test that reaches here,
+    // and slang cannot resolve `C::T` for a generic class at all.
+    if (!sn || !sn->left->as_if<syntax::ClassNameSyntax>())
+        return nullptr;
+    return sn;
+}
+
+const syntax::SyntaxNode* UhdmExporter::classScopeTypeRef(const Symbol& declSymbol) {
+    auto* dt = declSymbol.getDeclaredType();
+    return dt ? classScopeTypeRef(dt->getTypeSyntax()) : nullptr;
+}
+
+UHDM::typespec* UhdmExporter::makeClassScopeTs(const syntax::SyntaxNode& scopedName) {
+    auto& sn = scopedName.as<syntax::ScopedNameSyntax>();
+    auto* uts = s.MakeUnsupported_typespec();
+    // Named by the class IDENTIFIER (the `#(...)` actuals are dropped) and
+    // spanned from the class name through the `::` separator — Surelog's
+    // class_scope node, the same span rule makeTypespec's scoped class-handle
+    // arm uses.
+    uts->VpiName(
+        std::string(sn.left->as<syntax::ClassNameSyntax>().identifier.valueText()) +
+        "::" + std::string(rawText(sn.right->sourceRange())));
+    setLoc(uts, SourceRange(sn.left->sourceRange().start(),
+                            sn.separator.range().end()));
+    return uts;
+}
+
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
+    if (auto* csn = classScopeTypeRef(typeSynOverride ? typeSynOverride
+                                                      : (declSymbol.getDeclaredType()
+                                                             ? declSymbol.getDeclaredType()
+                                                                   ->getTypeSyntax()
+                                                             : nullptr)))
+        return makeClassScopeTs(*csn);
     // A local var of a function inside an elaborated GEN block: fold its
     // param-ref type bounds (concrete instance). declSymbol's parent chain
     // reaches the function+gen-block even in the deferred typespec drain.
@@ -3150,6 +3192,21 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             // With a TYPEDEF'd element it carries the dim range ([0 : N-1 op]
             // at the size token) and an Elem ref to the shared element ts;
             // otherwise it stays bare (Surelog).
+            // A CLASS-scope aggregate whose member is declared with ANOTHER
+            // class typedef (`t_array m1;`) points straight at that typedef's
+            // own array_typespec — Surelog resolves the name, it does not
+            // re-derive the array (VirtualClass t_struct.m1).
+            UHDM::typespec* sharedAlias9 = nullptr;
+            if (unfoldedTypedefDims &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias) {
+                if (auto ai9 = typedefTs.find(&fm.getDeclaredType()->getType());
+                    ai9 != typedefTs.end())
+                    sharedAlias9 = ai9->second;
+            }
+            if (sharedAlias9) {
+                fts = sharedAlias9;
+            }
+            else {
             auto* ats9 = s.MakeArray_typespec();
             bool main9 = aliasName.find('.') != std::string::npos ||
                          aliasName.find(':') != std::string::npos;
@@ -3172,19 +3229,31 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         dim9 = dd9.dimensions[0];
                 }
                 const syntax::ExpressionSyntax* sz9 = nullptr;
+                // [l:r] form — only a CLASS-scope member keeps it (the bounds
+                // stay symbolic there); elsewhere both bounds fold below.
+                const syntax::ExpressionSyntax* lo9 = nullptr;
+                const syntax::ExpressionSyntax* hi9 = nullptr;
                 if (dim9 && dim9->specifier &&
                     dim9->specifier->kind ==
-                        syntax::SyntaxKind::RangeDimensionSpecifier)
-                    if (auto* bs9 =
-                            dim9->specifier
-                                ->as<syntax::RangeDimensionSpecifierSyntax>()
-                                .selector->as_if<syntax::BitSelectSyntax>())
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& sel9 =
+                        *dim9->specifier
+                             ->as<syntax::RangeDimensionSpecifierSyntax>()
+                             .selector;
+                    if (auto* bs9 = sel9.as_if<syntax::BitSelectSyntax>())
                         sz9 = bs9->expr;
+                    else if (auto* rs9 = sel9.as_if<syntax::RangeSelectSyntax>()) {
+                        hi9 = rs9->left;
+                        lo9 = rs9->right;
+                    }
+                }
                 auto* r9 = s.MakeRange();
                 if (!main9)
                     r9->VpiParent(ats9);
                 if (sz9)
                     setLoc(r9, sz9->sourceRange());
+                else if (unfoldedTypedefDims && hi9 && lo9 && dim9)
+                    setLoc(r9, dim9->sourceRange());
                 auto mk9 = [&](int64_t v,
                                const syntax::SyntaxNode* bs) -> UHDM::expr* {
                     auto* c = s.MakeConstant();
@@ -3198,6 +3267,16 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         setLoc(c, bs->sourceRange());
                     return c;
                 };
+                if (unfoldedTypedefDims && hi9 && lo9) {
+                    // The dim's OWN refs stay bare (only the element clone's
+                    // bounds scope through the member) — Surelog.
+                    std::string savedPfxD = syntaxRefPrefix;
+                    syntaxRefPrefix.clear();
+                    r9->Left_expr((UHDM::expr*)emitSyntaxExpr(*hi9, r9));
+                    r9->Right_expr((UHDM::expr*)emitSyntaxExpr(*lo9, r9));
+                    syntaxRefPrefix = savedPfxD;
+                }
+                else {
                 r9->Left_expr(mk9(0, nullptr));
                 if (sz9) {
                     auto* op9 = s.MakeOperation();
@@ -3220,6 +3299,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 }
                 else
                     r9->Right_expr(mk9(ua9.range.right, nullptr));
+                }
                 auto* rv9 = s.MakeRangeVec();
                 rv9->push_back(r9);
                 ats9->Ranges(rv9);
@@ -3235,9 +3315,19 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         if (as9->kind == syntax::SyntaxKind::TypedefDeclaration)
                             tsn9 = as9->as<syntax::TypedefDeclarationSyntax>()
                                        .type;
+                    // The clone's own symbolic bounds scope through the member
+                    // AND the element type name, like the alias ref below.
+                    std::string savedPfx9 = syntaxRefPrefix;
+                    if (unfoldedTypedefDims)
+                        syntaxRefPrefix =
+                            (aliasName.empty() ? std::string()
+                                               : aliasName + memberSep) +
+                            std::string(fm.name) + memberSep +
+                            std::string(al9->name);
                     bypassTypedefShare = true;
                     auto* cl9e = makeTypespec(*al9, tsn9);
                     bypassTypedefShare = false;
+                    syntaxRefPrefix = savedPfx9;
                     cl9e->VpiName(al9->name);
                     auto* art9e = s.MakeRef_typespec();
                     // Alias-clone ref scopes through the member AND the
@@ -3288,6 +3378,7 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     tgt9->VpiParent(ert9);
             }
             fts = ats9;
+            }
         }
         else {
             // Typedef-context member bound refs scope through the member
@@ -3756,6 +3847,21 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             // With a TYPEDEF'd element it carries the dim range ([0 : N-1 op]
             // at the size token) and an Elem ref to the shared element ts;
             // otherwise it stays bare (Surelog).
+            // A CLASS-scope aggregate whose member is declared with ANOTHER
+            // class typedef (`t_array m1;`) points straight at that typedef's
+            // own array_typespec — Surelog resolves the name, it does not
+            // re-derive the array (VirtualClass t_struct.m1).
+            UHDM::typespec* sharedAlias9 = nullptr;
+            if (unfoldedTypedefDims &&
+                fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias) {
+                if (auto ai9 = typedefTs.find(&fm.getDeclaredType()->getType());
+                    ai9 != typedefTs.end())
+                    sharedAlias9 = ai9->second;
+            }
+            if (sharedAlias9) {
+                fts = sharedAlias9;
+            }
+            else {
             auto* ats9 = s.MakeArray_typespec();
             bool main9 = aliasName.find('.') != std::string::npos ||
                          aliasName.find(':') != std::string::npos;
@@ -3778,19 +3884,31 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         dim9 = dd9.dimensions[0];
                 }
                 const syntax::ExpressionSyntax* sz9 = nullptr;
+                // [l:r] form — only a CLASS-scope member keeps it (the bounds
+                // stay symbolic there); elsewhere both bounds fold below.
+                const syntax::ExpressionSyntax* lo9 = nullptr;
+                const syntax::ExpressionSyntax* hi9 = nullptr;
                 if (dim9 && dim9->specifier &&
                     dim9->specifier->kind ==
-                        syntax::SyntaxKind::RangeDimensionSpecifier)
-                    if (auto* bs9 =
-                            dim9->specifier
-                                ->as<syntax::RangeDimensionSpecifierSyntax>()
-                                .selector->as_if<syntax::BitSelectSyntax>())
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& sel9 =
+                        *dim9->specifier
+                             ->as<syntax::RangeDimensionSpecifierSyntax>()
+                             .selector;
+                    if (auto* bs9 = sel9.as_if<syntax::BitSelectSyntax>())
                         sz9 = bs9->expr;
+                    else if (auto* rs9 = sel9.as_if<syntax::RangeSelectSyntax>()) {
+                        hi9 = rs9->left;
+                        lo9 = rs9->right;
+                    }
+                }
                 auto* r9 = s.MakeRange();
                 if (!main9)
                     r9->VpiParent(ats9);
                 if (sz9)
                     setLoc(r9, sz9->sourceRange());
+                else if (unfoldedTypedefDims && hi9 && lo9 && dim9)
+                    setLoc(r9, dim9->sourceRange());
                 auto mk9 = [&](int64_t v,
                                const syntax::SyntaxNode* bs) -> UHDM::expr* {
                     auto* c = s.MakeConstant();
@@ -3804,6 +3922,16 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         setLoc(c, bs->sourceRange());
                     return c;
                 };
+                if (unfoldedTypedefDims && hi9 && lo9) {
+                    // The dim's OWN refs stay bare (only the element clone's
+                    // bounds scope through the member) — Surelog.
+                    std::string savedPfxD = syntaxRefPrefix;
+                    syntaxRefPrefix.clear();
+                    r9->Left_expr((UHDM::expr*)emitSyntaxExpr(*hi9, r9));
+                    r9->Right_expr((UHDM::expr*)emitSyntaxExpr(*lo9, r9));
+                    syntaxRefPrefix = savedPfxD;
+                }
+                else {
                 r9->Left_expr(mk9(0, nullptr));
                 if (sz9) {
                     auto* op9 = s.MakeOperation();
@@ -3826,6 +3954,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                 }
                 else
                     r9->Right_expr(mk9(ua9.range.right, nullptr));
+                }
                 auto* rv9 = s.MakeRangeVec();
                 rv9->push_back(r9);
                 ats9->Ranges(rv9);
@@ -3841,9 +3970,19 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         if (as9->kind == syntax::SyntaxKind::TypedefDeclaration)
                             tsn9 = as9->as<syntax::TypedefDeclarationSyntax>()
                                        .type;
+                    // The clone's own symbolic bounds scope through the member
+                    // AND the element type name, like the alias ref below.
+                    std::string savedPfx9 = syntaxRefPrefix;
+                    if (unfoldedTypedefDims)
+                        syntaxRefPrefix =
+                            (aliasName.empty() ? std::string()
+                                               : aliasName + memberSep) +
+                            std::string(fm.name) + memberSep +
+                            std::string(al9->name);
                     bypassTypedefShare = true;
                     auto* cl9e = makeTypespec(*al9, tsn9);
                     bypassTypedefShare = false;
+                    syntaxRefPrefix = savedPfx9;
                     cl9e->VpiName(al9->name);
                     auto* art9e = s.MakeRef_typespec();
                     // Alias-clone ref scopes through the member AND the
@@ -3894,6 +4033,7 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     tgt9->VpiParent(ert9);
             }
             fts = ats9;
+            }
         }
         else {
             // Typedef-context member bound refs scope through the member
@@ -4434,8 +4574,17 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
     else {
         if (dimSyn)
             setLoc(r, dimSyn->sourceRange());
-        r->Left_expr(mkB(fua.range.left, lSyn));
-        r->Right_expr(mkB(fua.range.right, rSyn));
+        // A CLASS-scope typedef keeps its bounds symbolic: the class body is
+        // compiled once, so `[SIZE-1:0]` stays an operation over a ref to the
+        // class's own formal (VirtualClass).
+        if (unfoldedTypedefDims && lSyn && rSyn) {
+            r->Left_expr((UHDM::expr*)emitSyntaxExpr(*lSyn, r));
+            r->Right_expr((UHDM::expr*)emitSyntaxExpr(*rSyn, r));
+        }
+        else {
+            r->Left_expr(mkB(fua.range.left, lSyn));
+            r->Right_expr(mkB(fua.range.right, rSyn));
+        }
     }
     rv->push_back(r);
     ats->Ranges(rv);

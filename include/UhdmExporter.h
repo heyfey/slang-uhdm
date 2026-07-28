@@ -612,6 +612,18 @@ private:
     UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol,
                                  const slang::syntax::SyntaxNode* typeSynOverride = nullptr,
                                  const slang::ast::PortSymbol* portCtx = nullptr);
+    /// A type reference SCOPED INSIDE A CLASS (`C#(t_t0,3)::t_vector`).
+    /// Surelog never resolves one — it records an unsupported_typespec named
+    /// `<class>::<member>` and leaves every signal so typed untyped in the
+    /// instance view (VirtualClass). Returns the ScopedNameSyntax (as a plain
+    /// node) when @a typeSyn has that shape, else null.
+    const slang::syntax::SyntaxNode* classScopeTypeRef(
+        const slang::syntax::SyntaxNode* typeSyn);
+    /// Same, off a declaration's own type syntax.
+    const slang::syntax::SyntaxNode* classScopeTypeRef(
+        const slang::ast::Symbol& declSymbol);
+    /// The unsupported_typespec for such a reference.
+    UHDM::typespec* makeClassScopeTs(const slang::syntax::SyntaxNode& scopedName);
     UHDM::typespec* sharedTypespec(const slang::ast::Symbol& declSymbol, TsCache& cache,
                                    const slang::ast::PortSymbol* portCtx = nullptr);
     /// A port typed by a vector typedef (file-level or module-local net) gets
@@ -1587,6 +1599,13 @@ private:
     // type-query bounds ($bits(t)) there, but keeps them as sys_func_call in a
     // variable's inline/anonymous type. Gates the $bits fold in emitSyntaxExpr.
     bool typedefTsContext = false;
+    // True while building a CLASS-scope typedef's typespec: its dimension
+    // bounds stay SYMBOLIC (`SIZE-1` as an operation over a bare ref_obj)
+    // because a class's formal parameters are never folded into its ONE
+    // class_defn — Surelog compiles the class body once, unspecialized
+    // (VirtualClass). buildUnpackedArrayTypedefTs consults it for the
+    // [l:r] dimension form, which otherwise folds both bounds.
+    bool unfoldedTypedefDims = false;
     // Set during a vector-typedef signal CLONE emission: a COMPUTED range
     // bound (cW-1) folds to a BARE constant (no loc, no parent).
     bool bareCloneComputedBounds = false;

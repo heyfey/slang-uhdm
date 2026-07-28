@@ -500,11 +500,14 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     classDefnMap[&cls] = cd;
     if (cls.genericClass)
         genericDefnMap.emplace(cls.genericClass, cd);
-    emitClassTypedefs(cls, cd);
     // `virtual class` / `pure virtual class`.
     if (cls.isAbstract)
         cd->VpiVirtual(true);
+    // Parameters BEFORE typedefs: Surelog compiles the class header first, so
+    // a formal's typespec is the older object (arena order — VirtualClass's
+    // type_parameter logic_typespec precedes the typedefs' own objects).
     emitClassParameters(cls, cd, fullName);
+    emitClassTypedefs(cls, cd);
     currentClassDefn = cd;
     emitTaskFuncs(cls, cd, fullName + "::", nullptr, false);
     currentClassDefn = nullptr;
@@ -975,11 +978,16 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
 //     fresh class_typespec named after the class (ClassParamAsParam,
 //     ClassTypeParam) — makeTypespec's typedefTs lookup does that for free.
 //
-// Aliases of ordinary data types (VirtualClass's `typedef logic [SIZE-1:0]`)
-// are NOT listed yet: golden keeps their param-dependent ranges UNFOLDED
-// (operation SIZE-1) while the default specialization folds SIZE to 1, so they
-// need the unfolded-range builder first.
+//   * ORDINARY data types (`typedef logic [SIZE-1:0] t_vector;`, an unpacked
+//     array, a struct) — built exactly like a module's own typedefs, EXCEPT
+//     that every dimension bound stays UNFOLDED. A class_defn is emitted once
+//     per generic (classDefnFor), so the formals of the specialization slang
+//     hands us (SIZE=1) must not leak in: golden holds `operation(SIZE-1)`
+//     over a bare ref_obj SIZE. The refs' fullnames chain off the CLASS with
+//     `::` (work@C::t_vector::SIZE), the separator Surelog uses inside a class.
+//     No vpiInstance on any of them (writeDataTypes skips it for class_defn).
 void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd) {
+    const std::string clsName(cd->VpiName());
     std::vector<std::pair<std::string, UHDM::typespec*>> ents;
     for (auto& member : cls.members()) {
         if (member.kind != SymbolKind::TypeAlias)
@@ -1014,6 +1022,46 @@ void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd)
                 setLoc(cts, r);
             }
             ts = cts;
+        }
+        else if (ct.kind == SymbolKind::UnpackedStructType ||
+                 ct.kind == SymbolKind::PackedStructType ||
+                 ct.kind == SymbolKind::FixedSizeUnpackedArrayType ||
+                 ct.kind == SymbolKind::PackedArrayType ||
+                 ct.kind == SymbolKind::ScalarType) {
+            const std::string aliasFull = clsName + "::" + std::string(ta.name);
+            bool savedTf = tfContext, savedTd = typedefTsContext;
+            bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
+            std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+            tfContext = true;
+            typedefTsContext = true;
+            bypassTypedefShare = true;
+            unfoldedTypedefDims = true;
+            syntaxRefPrefix = aliasFull;
+            syntaxRefSep = "::";
+            if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                ts = buildUnpackedArrayTypedefTs(ta, aliasFull);
+            }
+            else if (ct.kind == SymbolKind::UnpackedStructType ||
+                     ct.kind == SymbolKind::PackedStructType) {
+                auto* sts =
+                    ct.kind == SymbolKind::PackedStructType
+                        ? buildStructTs(ct.as<PackedStructType>(), true,
+                                        aliasFull, "::")
+                        : buildStructTs(ct.as<UnpackedStructType>(), false,
+                                        aliasFull, "::");
+                if (typeSyn)
+                    setLoc(sts, typeSyn->sourceRange());
+                ts = sts;
+            }
+            else {
+                ts = makeTypespec(ta, typeSyn);
+            }
+            syntaxRefSep = savedSep;
+            syntaxRefPrefix = savedPfx;
+            unfoldedTypedefDims = savedUf;
+            bypassTypedefShare = savedBy;
+            typedefTsContext = savedTd;
+            tfContext = savedTf;
         }
         if (!ts)
             continue;

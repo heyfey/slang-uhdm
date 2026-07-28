@@ -522,7 +522,11 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                       .as<TypeAliasType>()
                                       .targetType.getType()
                                       .kind == SymbolKind::PackedArrayType;
-        if (int32_t nt = aliasOfAlias0 ? 0 : netTypeFor(*it.sym, true))
+        // A CLASS-SCOPE-typed net carries no net type either: Surelog never
+        // resolved the alias, so none of the alias-driven tags apply.
+        if (int32_t nt = (aliasOfAlias0 || classScopeTypeRef(*it.sym))
+                             ? 0
+                             : netTypeFor(*it.sym, true))
             n->VpiNetType(nt);
         // A PACKAGE-typedef struct net (port, or a flat-member local) is a
         // wire; nested-struct-member locals stay untyped, and a struct with
@@ -3162,6 +3166,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 namedEvents->push_back(ne);
                 continue;
             }
+        }
+        // A CLASS-SCOPE type reference (C#(t_t0,3)::t_vector v0) follows the
+        // same two-view split as chandle/event, for the same reason: Surelog
+        // never resolves the type, so the DEF view keeps a logic_net bound to
+        // the unsupported_typespec and the ELAB view is a BARE logic_var — no
+        // typespec, and no array/struct shaping from the type slang resolved
+        // behind Surelog's back (VirtualClass v0/a0/s0).
+        if (classScopeTypeRef(*it.sym)) {
+            auto* cv9 = s.MakeLogic_var();
+            cv9->VpiName(name);
+            cv9->VpiFullName(fullName);
+            cv9->VpiParent(m);
+            setLoc(cv9, nameSpan(it.sym->location, it.sym->name));
+            cv9->VpiVisibility(1);
+            topNets[it.sym] = cv9;
+            sigOrder.emplace_back(it.sym, cv9);
+            vars->push_back(cv9);
+            continue;
         }
         // Vector-typedef signals bind a fresh plain NAMED clone (built at
         // net-emission time, no alias link).

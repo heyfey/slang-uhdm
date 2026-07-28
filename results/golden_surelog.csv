@@ -1505,8 +1505,8 @@ VarType,default,CMP_NOTEQUAL,decompile:,,
 VarType,testflags,CMP_NOTEQUAL,decompile:,,
 Verilator,default,SLANG_REJECT,error: no input files,,
 Verilator,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
-VirtualClass,default,CMP_NOTEQUAL,decompile:,,
-VirtualClass,testflags,CMP_NOTEQUAL,decompile:,,
+VirtualClass,default,CMP_EQUAL,,,match
+VirtualClass,testflags,CMP_EQUAL,,,differ
 VoidFuncReturn,default,SLANG_REJECT,dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
 VoidFuncReturn,testflags,SLANG_REJECT,dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
 Wand,default,CMP_EQUAL,,,match
