@@ -1075,8 +1075,8 @@ ParamOverloadProp,default,CMP_NOTEQUAL,decompile:,,
 ParamOverloadProp,testflags,CMP_NOTEQUAL,decompile:,,
 ParamRef,default,CMP_EQUAL,,,differ
 ParamRef,testflags,CMP_EQUAL,,,differ
-ParamScope,default,CMP_NOTEQUAL,decompile:,,
-ParamScope,testflags,CMP_NOTEQUAL,decompile:,,
+ParamScope,default,CMP_EQUAL,,,differ
+ParamScope,testflags,CMP_EQUAL,,,differ
 ParamSubstituteComplex,default,CMP_NOTEQUAL,decompile:,,
 ParamSubstituteComplex,testflags,CMP_NOTEQUAL,decompile:,,
 ParamTypespec,default,CMP_EQUAL,,,differ

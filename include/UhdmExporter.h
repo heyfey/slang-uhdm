@@ -1087,6 +1087,32 @@ private:
     // module: that parameter is a clone_tree copy of the package one, so its
     // concat literal operands carry vpiParent (the package original does not).
     bool importedParamClone = false;
+    // ELAB view: an operation SUBSTITUTED for a no-fold pattern parameter's
+    // reference carries a ts ref to that parameter's own ELAB typespec (the
+    // clone patchParamTypespecs mints).  The substitution happens while the
+    // READER's Rhs is emitted, before the referenced param's clone exists, so
+    // the ref is parked here and bound (and dropped) in patchParamTypespecs.
+    std::vector<std::pair<const slang::ast::ParameterSymbol*,
+                          UHDM::ref_typespec*>>
+        pendingSubstOpTs;
+    // The elab typespec clone patchParamTypespecs last minted per parameter —
+    // lets a LATER reader (a child instance's override) bind directly instead
+    // of parking, since that parameter's patch pass has already run.
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> elabParamOwnTs;
+    // Bind `rt` to `p`'s elab typespec, or park it until that clone exists.
+    void bindOrParkParamTs(const slang::ast::ParameterSymbol& p,
+                           UHDM::ref_typespec* rt);
+    // The constant Surelog substitutes for a reference to an ENUM MEMBER
+    // inside a PACKAGE struct-pattern parameter: the member's OWN literal
+    // form (an implicit member -> INT at the enum base width; `= 4'h6` ->
+    // HEX:6 / decompile "4'h6"). Null when `sym` is not an enum member or its
+    // value is not reconstructible. Located by the caller.
+    UHDM::constant* enumMemberSubstConst(const slang::ast::Symbol& sym);
+    // Set while the ELAB flatten of a PACKAGE-ORIGIN struct param re-emits a
+    // NESTED member pattern. That recursion runs before paramInitPkg /
+    // importedParamClone are set for this parameter, so it needs its own flag
+    // to reach the enum substitution above.
+    bool pkgEnumSubstPat = false;
     // Set while emitting a DEF-view ref_module port's HighConn expression.
     // A tagged_pattern's literal value there is built by compileConst and never
     // re-parented (Surelog parents pattern values only under a param_assign Rhs

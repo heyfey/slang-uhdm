@@ -452,6 +452,14 @@ bool UhdmExporter::exprElabParamUnreduced(const Expression& e) {
     return bad;
 }
 
+void UhdmExporter::bindOrParkParamTs(const ParameterSymbol& p,
+                                     UHDM::ref_typespec* rt) {
+    if (auto it = elabParamOwnTs.find(&p); it != elabParamOwnTs.end())
+        rt->Actual_typespec(it->second);
+    else
+        pendingSubstOpTs.push_back({&p, rt});
+}
+
 bool UhdmExporter::paramDefRhsIsOp(const ParameterSymbol& ps) {
     auto* init = ps.getInitializer();
     if (!init)
@@ -3477,6 +3485,65 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 continue;
             }
+            // An instance param OVERRIDE whose actual READS a parameter that
+            // did NOT reduce (its own elab Rhs is still an operation — the
+            // r9c7 no-fold pattern family) keeps that parameter's SUBSTITUTED
+            // expression tree as its Rhs, re-anchored at the override-site
+            // span, instead of folding to a value.  A REDUCIBLE actual still
+            // folds, at the DEFAULT's span.  Measured on a probe pairing both:
+            // `sink #(.SVAL(USE), .SVAL2(PLAIN))` with `int PAT =
+            // '{default:1}; int USE = PAT + 2; int PLAIN = 3` — .SVAL keeps
+            // the whole add-op tree (ts-ref'd to USE's typespec, at the parent
+            // instance's prefix), .SVAL2 folds to `3`.  This is the gap the
+            // ordinary fold gate in emitParameters never sees, because the
+            // override path emits its Rhs here.
+            const ParameterSymbol* ovUnreduced9 = nullptr;
+            if (topView && overridden && boundInit && !inPackage) {
+                auto& bi6 = stripImplicitConv(*boundInit);
+                const Symbol* rs6 = nullptr;
+                if (bi6.kind == ExpressionKind::NamedValue)
+                    rs6 = &bi6.as<NamedValueExpression>().symbol;
+                else if (bi6.kind == ExpressionKind::HierarchicalValue)
+                    rs6 = &bi6.as<HierarchicalValueExpression>().symbol;
+                if (rs6 && rs6->kind == SymbolKind::Parameter &&
+                    rs6->as<ParameterSymbol>().getInitializer() &&
+                    exprElabParamUnreduced(bi6))
+                    ovUnreduced9 = &rs6->as<ParameterSymbol>();
+            }
+            if (ovUnreduced9) {
+                // The substituted tree lives in the OVERRIDING (parent)
+                // instance's scope, so it is emitted with that prefix.
+                std::string ppfx6 = prefix;
+                if (auto d6 = ppfx6.rfind('.'); d6 != std::string::npos)
+                    ppfx6.resize(d6);
+                bool sPI6 = inParamInit, sPD6 = paramInitDef,
+                     sPS6 = patSubstElab;
+                inParamInit = true;
+                paramInitDef = false;
+                patSubstElab = true;
+                auto* he6 = (UHDM::expr*)emitExpr(
+                    *ovUnreduced9->getInitializer(), pa, ppfx6, netMap);
+                inParamInit = sPI6;
+                paramInitDef = sPD6;
+                patSubstElab = sPS6;
+                if (he6) {
+                    setLoc(he6, boundInit->sourceRange);
+                    if (he6->UhdmType() == UHDM::uhdmoperation &&
+                        !((UHDM::operation*)he6)->Typespec()) {
+                        auto* rt6 = s.MakeRef_typespec();
+                        rt6->VpiFullName(ppfx6);
+                        rt6->VpiParent(he6);
+                        ((UHDM::operation*)he6)->Typespec(rt6);
+                        bindOrParkParamTs(*ovUnreduced9, rt6);
+                    }
+                    pa->Rhs(he6);
+                    passigns->push_back(pa);
+                    if (prt)
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, nullptr, typedParam});
+                    continue;
+                }
+            }
             // A LOGIC-VECTOR param OVERRIDDEN by an AGGREGATE actual — an
             // assignment pattern, directly or through parameter refs
             // (`#(.RESVAL(CTRL_RESET))` with `parameter ctrl_reg_t
@@ -5429,7 +5496,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 // tagged_pattern — reemitting would strip it
                                 // down to the bare value.
                                 reemitting = !vecPat9;
+                                bool savedPES = pkgEnumSubstPat;
+                                pkgEnumSubstPat = inPackage || isImported;
                                 auto* ne = emitExpr(seN, op2, prefix, netMap);
+                                pkgEnumSubstPat = savedPES;
                                 reemitting = savedRe;
                                 if (ne) {
                                     ((UHDM::any*)ne)->VpiParent(op2);
@@ -5497,6 +5567,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 opnds->push_back(e2);
                             }
                             continue;
+                        }
+                        // An ENUM-MEMBER setter of a PACKAGE-ORIGIN struct
+                        // param keeps the enum member's OWN literal form in
+                        // the flattened elab view too (enumMemberSubstConst),
+                        // not the UINT-at-member-width fold below.  A
+                        // MODULE-LOCAL struct param is left alone here — its
+                        // enum members already follow the BIN rule
+                        // (enumFold6).
+                        if (inPackage || isImported) {
+                            auto& sev8 = stripImplicitConv(*se);
+                            if (sev8.kind == ExpressionKind::NamedValue) {
+                                if (auto* ec8 = enumMemberSubstConst(
+                                        sev8.as<NamedValueExpression>()
+                                            .symbol)) {
+                                    ec8->VpiParent(op2);
+                                    setLoc(ec8, se->sourceRange);
+                                    opnds->push_back(ec8);
+                                    continue;
+                                }
+                            }
                         }
                         ConstantValue cvm = ectx.tryEval(*se);
                         if (cvm && cvm.isInteger() && !cvm.integer().hasUnknown()) {
@@ -5639,6 +5729,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     rrtW->Actual_typespec(s.MakeInt_typespec());
                                     rcW->Typespec(rrtW);
                                     opndW->push_back(rcW);
+                                    continue;
+                                }
+                            }
+                            // An ENUM-MEMBER field value keeps the enum
+                            // member's OWN literal form here too — the
+                            // FLATTENED elab re-emit of a materialized package
+                            // struct param is the fourth view of the same
+                            // substitution (enumMemberSubstConst).
+                            if (auto& sev9 = stripImplicitConv(*se);
+                                sev9.kind == ExpressionKind::NamedValue) {
+                                if (auto* ec9 = enumMemberSubstConst(
+                                        sev9.as<NamedValueExpression>()
+                                            .symbol)) {
+                                    ec9->VpiParent(opW);
+                                    setLoc(ec9, se->sourceRange);
+                                    opndW->push_back(ec9);
                                     continue;
                                 }
                             }
@@ -6878,6 +6984,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 }
             }
+        }
+        // ELAB view: a param_assign Rhs that SURVIVES as an operation carries a
+        // ts ref to the parameter's own elab typespec.  Only the r9c7 no-fold
+        // family reaches this shape for a non-vector integral atom (an
+        // assignment pattern against int/byte/shortint/longint, and the
+        // arithmetic that reads one), and Surelog stamps every such reduced
+        // expression — the op75 pattern itself AND the op24 that consumes it.
+        // Aggregates and packed vectors bind their op ts through their own
+        // clone paths above (mintParamOpClones / the vector-typedef arm), so
+        // they are excluded here.  A MATERIALIZED IMPORT copy is excluded too:
+        // its elab pattern op carries NO ts ref (probe: p1::PKGP imported into
+        // m2 keeps a bare op75 in m2's elab view, while m1's own LOCP gets the
+        // ref) — the stamp belongs to the module that DECLARED the param.
+        // Probe: `int PAT = '{default:1}` / `int USE = PAT + 2` in a module
+        // and a package, all four views.
+        auto* paRhs9 = pa->Rhs();
+        if (topView && !inPackage && !isImported && !rhsRt && paRhs9 &&
+            paRhs9->UhdmType() == UHDM::uhdmoperation &&
+            !((UHDM::operation*)paRhs9)->Typespec() && [&] {
+                auto& ct9 = ps.getType().getCanonicalType();
+                return ct9.isIntegral() &&
+                       ct9.kind != SymbolKind::PackedArrayType &&
+                       ct9.kind != SymbolKind::PackedStructType &&
+                       ct9.kind != SymbolKind::PackedUnionType;
+            }()) {
+            auto* rtOp9 = s.MakeRef_typespec();
+            rtOp9->VpiFullName(prefix);
+            rtOp9->VpiParent(paRhs9);
+            ((UHDM::operation*)paRhs9)->Typespec(rtOp9);
+            rhsRt = rtOp9;
         }
         passigns->push_back(pa);
         // DEF-view aggregate-typedef params (typedef struct/union/enum T; then
@@ -8614,6 +8750,22 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 rhsRt->Actual_typespec(its);
         }
         prt->Actual_typespec(its);
+        elabParamOwnTs[ps] = its;
+        // Bind (and drop) any op ts refs parked by an elab pattern SUBSTITUTION
+        // of THIS parameter. Dropping matters: a second instance of the same
+        // module parks its own refs and must not be handed this instance's
+        // clone.
+        if (!pendingSubstOpTs.empty()) {
+            std::vector<std::pair<const ParameterSymbol*, UHDM::ref_typespec*>>
+                keep9;
+            for (auto& [sp9, rt9] : pendingSubstOpTs) {
+                if (sp9 == ps)
+                    rt9->Actual_typespec(its);
+                else
+                    keep9.push_back({sp9, rt9});
+            }
+            pendingSubstOpTs.swap(keep9);
+        }
         if (!sharedPkgTs)
             its->VpiParent(prt);
         // Record this ELAB struct/union param clone so a bare-package-typedef

@@ -1211,6 +1211,82 @@ UHDM::any* UhdmExporter::emitLetExprCall(const Expression& expr, UHDM::BaseClass
     return le;
 }
 
+// A PACKAGE struct-pattern parameter's ENUM-CONSTANT member value inlines the
+// enum member's OWN literal form — not the BIN-at-member-width a MODULE's own
+// pattern uses (the enumFold6 rule).  Surelog substitutes the enum_const
+// verbatim, so an implicit member (`PhaseSeed`) becomes INT:0 / decompile "0"
+// at the enum's base width and an explicitly based one (`MuBi4True = 4'h6`)
+// becomes HEX:6 / decompile "4'h6" at the literal's width — in EVERY view
+// (both package views, the importing module's materialized copy, and that
+// copy's flattened elab re-emit).  Same substitution the qualified pkg::VALUE
+// reference arm in emitExpr already performs; the pattern member paths just
+// never reached it.  (AssignmentPatternInAssignmentPattern.)
+UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
+    if (sym.kind != SymbolKind::EnumValue)
+        return nullptr;
+    auto& evs = sym.as<EnumValueSymbol>();
+    std::string val, dec;
+    int32_t sz = 0;
+    // The enum's own emitted const, when it already exists.  The FIRST (def)
+    // package view is emitted before that package's typedefs, so the map is
+    // still empty there — reconstruct the same form from the declaration.
+    if (auto eit = enumConstMap.find(&evs);
+        eit != enumConstMap.end() &&
+        eit->second->UhdmType() == UHDM::uhdmenum_const) {
+        auto* src = (UHDM::enum_const*)eit->second;
+        val = std::string(src->VpiValue());
+        dec = std::string(src->VpiDecompile());
+        sz = src->VpiSize();
+    }
+    else if (auto* ein = evs.getInitializer()) {
+        auto& lit = stripImplicitConv(*ein);
+        if (lit.kind != ExpressionKind::IntegerLiteral)
+            return nullptr;
+        std::string raw(rawText(lit.sourceRange));
+        auto tk = raw.find('\'');
+        if (tk == std::string::npos) {
+            val = "UINT:" + raw;
+            dec = raw;
+            sz = 64;
+        }
+        else {
+            size_t bp = tk + 1;
+            if (bp < raw.size() && (raw[bp] == 's' || raw[bp] == 'S'))
+                bp++;
+            char b = bp < raw.size() ? (char)tolower(raw[bp]) : 'd';
+            std::string dg = stripSep(raw.substr(bp + 1));
+            // A based-DECIMAL enum init (3'd0) encodes INT, like TypeEmit's
+            // enum_const builder.
+            val = (b == 'b'   ? "BIN:"
+                   : b == 'h' ? "HEX:"
+                   : b == 'o' ? "OCT:"
+                              : "INT:") +
+                  dg;
+            dec = stripSep(raw);
+            sz = (int32_t)lit.type->getBitWidth();
+        }
+    }
+    else if (auto& cvv = evs.getValue();
+             cvv.isInteger() && !cvv.integer().hasUnknown()) {
+        dec = cvv.integer().toString(LiteralBase::Decimal, false);
+        val = "INT:" + dec;
+        sz = (int32_t)evs.getType().getBitWidth();
+    }
+    if (sz <= 0 || val.empty())
+        return nullptr;
+    auto* c = s.MakeConstant();
+    c->VpiSize(sz);
+    c->VpiValue(val);
+    c->VpiDecompile(dec);
+    c->VpiConstType(val.rfind("BIN:", 0) == 0   ? vpiBinaryConst
+                    : val.rfind("HEX:", 0) == 0 ? vpiHexConst
+                    : val.rfind("OCT:", 0) == 0 ? vpiOctConst
+                    : val.rfind("DEC:", 0) == 0 ? vpiDecConst
+                    : val.rfind("INT:", 0) == 0 ? vpiIntConst
+                                                : vpiUIntConst);
+    return c;
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -1548,8 +1624,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             patSubstElab = false;
                             auto* sub9 = emitExpr(*pini, parent, prefix, netMap);
                             patSubstElab = saved9;
-                            if (sub9)
+                            if (sub9) {
+                                // The substituted pattern OPERATION carries a
+                                // ts ref to the SUBSTITUTED param's own elab
+                                // typespec (not the reader's) — Surelog
+                                // stamps the reduced expression's type.
+                                // Bound in patchParamTypespecs, which is where
+                                // that clone is minted.
+                                if (sub9->UhdmType() == UHDM::uhdmoperation &&
+                                    !((UHDM::operation*)sub9)->Typespec()) {
+                                    auto* rtS9 = s.MakeRef_typespec();
+                                    rtS9->VpiFullName(prefix);
+                                    rtS9->VpiParent(sub9);
+                                    ((UHDM::operation*)sub9)->Typespec(rtS9);
+                                    bindOrParkParamTs(psym, rtS9);
+                                }
                                 return sub9;
+                            }
                         }
                     }
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
@@ -6345,9 +6436,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                 }
+                UHDM::constant* pkgEnumFold6 = nullptr;
+                if (paramInitPkg || importedParamClone || pkgEnumSubstPat) {
+                    auto& ev7 = stripImplicitConv(*setter.expr);
+                    if (ev7.kind == ExpressionKind::NamedValue)
+                        pkgEnumFold6 = enumMemberSubstConst(
+                            ev7.as<NamedValueExpression>().symbol);
+                    if (pkgEnumFold6)
+                        setLoc(pkgEnumFold6, setter.expr->sourceRange);
+                }
                 // Re-emitted (instance) patterns drop the tags: operands are
                 // the raw values, and the first one carries VpiSize.
                 if (reemitting) {
+                    // ...and the package enum-literal substitution wins
+                    // over the module BIN form here too.
+                    if (pkgEnumFold6) {
+                        pkgEnumFold6->VpiParent(op);
+                        operands->push_back(pkgEnumFold6);
+                        continue;
+                    }
                     if (enumFold6) {
                         enumFold6->VpiParent(op);
                         operands->push_back(enumFold6);
@@ -6504,6 +6611,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         sv6.kind == ExpressionKind::SimpleAssignmentPattern ||
                         sv6.kind == ExpressionKind::ReplicatedAssignmentPattern;
                 }
+                // A PACKAGE struct-pattern param's ENUM-CONSTANT member value
+                // inlines the enum member's OWN literal form — not the
+                // BIN-at-member-width the module rule (enumFold6) uses.
+                // Surelog substitutes the enum_const verbatim, so an implicit
+                // member (`PhaseSeed`) becomes INT:0 / decompile "0" and an
+                // explicitly based one (`MuBi4True = 4'h6`) becomes HEX:6 /
+                // decompile "4'h6", both at the enum's base width, and in
+                // EVERY view (both package views, and an importing module's
+                // materialized copy).  Same substitution the qualified
+                // pkg::VALUE reference arm in emitExpr already performs — the
+                // pattern member path just never reached it.
+                // (AssignmentPatternInAssignmentPattern.)
+                if (!preE && pkgEnumFold6)
+                    preE = pkgEnumFold6;
                 if (!preE && enumFold6)
                     preE = enumFold6;
                 if (!preE && paramInitElabFold && !nestedPatVal6 &&
@@ -6681,6 +6802,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             prefix.compare(prefix.size() - 2, 2, "::") == 0 &&
                             ((UHDM::any*)e)->UhdmType() == UHDM::uhdmconstant)
                             ((UHDM::constant*)e)->VpiSize(32);
+                        // A `'{default: L}` against a non-vector INTEGRAL
+                        // target keeps its pattern op (patNoFoldTarget), and
+                        // in every RESOLVED view its inner constant is sized
+                        // at min(target width, literal width, 32).  The
+                        // resolved views are the ELAB view of any container
+                        // and the DEF view of a MATERIALIZED IMPORT copy; the
+                        // DEF view of a module-LOCAL pattern param keeps the
+                        // 64-bit unsized-literal default.  Measured on a
+                        // 6-point probe that varied target and literal
+                        // independently: int/1 -> 32, byte/1 -> 8,
+                        // shortint/1 -> 16, longint/1 -> 32,
+                        // longint/64'd1 -> 32 (so the cap is 32, not the
+                        // literal), int/8'd1 -> 8 (so a NARROWER literal
+                        // still wins).
+                        else if (inParamInit &&
+                                 (!paramInitDef || importedParamClone) &&
+                                 ((UHDM::any*)e)->UhdmType() ==
+                                     UHDM::uhdmconstant &&
+                                 expr.type && [&] {
+                                     auto& ct9 =
+                                         expr.type->getCanonicalType();
+                                     return ct9.isIntegral() &&
+                                            ct9.kind !=
+                                                SymbolKind::PackedArrayType &&
+                                            ct9.kind !=
+                                                SymbolKind::PackedStructType &&
+                                            ct9.kind !=
+                                                SymbolKind::PackedUnionType;
+                                 }()) {
+                            int32_t w9 = (int32_t)expr.type->getBitWidth();
+                            int32_t cur9 = ((UHDM::expr*)e)->VpiSize();
+                            if (w9 > 32)
+                                w9 = 32;
+                            if (cur9 > 0 && cur9 < w9)
+                                w9 = cur9;
+                            ((UHDM::constant*)e)->VpiSize(w9);
+                        }
                         tp->Pattern((UHDM::expr*)e);
                     }
                     suppressConstParent = sup0;
