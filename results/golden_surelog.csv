@@ -237,8 +237,8 @@ ClassTypeParam,default,CMP_EQUAL,,,differ
 ClassTypeParam,testflags,CMP_EQUAL,,,differ
 ClassTypeParamAlias,default,SLANG_REJECT,dut.sv:4:18: error: parameter declaration is missing an initializer,,
 ClassTypeParamAlias,testflags,SLANG_REJECT,dut.sv:4:18: error: parameter declaration is missing an initializer,,
-ClassVar,default,CMP_NOTEQUAL,decompile:,,
-ClassVar,testflags,CMP_NOTEQUAL,decompile:,,
+ClassVar,default,CMP_EQUAL,,,differ
+ClassVar,testflags,CMP_EQUAL,,,differ
 ClassVirtual,default,CMP_EQUAL,,,differ
 ClassVirtual,testflags,CMP_EQUAL,,,match
 ClockingBlock,default,SLANG_REJECT,dut.sv:13:14: error: use of undeclared identifier 'from_Dut',,
@@ -777,8 +777,8 @@ InvalidTypeParam,default,SLANG_REJECT,dut.sv:2:20: error: parameter declaration 
 InvalidTypeParam,testflags,SLANG_REJECT,dut.sv:2:20: error: parameter declaration is missing an initializer,,
 Inverter,default,CMP_EQUAL,,,match
 Inverter,testflags,CMP_EQUAL,,,match
-IOClassStruct,default,CMP_NOTEQUAL,decompile:,,
-IOClassStruct,testflags,CMP_NOTEQUAL,decompile:,,
+IOClassStruct,default,CMP_EQUAL,,,differ
+IOClassStruct,testflags,CMP_EQUAL,,,differ
 IODataTypes,default,SLANG_REJECT,dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 IODataTypes,testflags,SLANG_REJECT,dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 JKFlipflop,default,CMP_EQUAL,,,match
@@ -815,8 +815,8 @@ LocalParam,default,CMP_EQUAL,,,match
 LocalParam,testflags,CMP_EQUAL,,,match
 LocalScopeAssign,default,SLANG_REJECT,dut.sv:7:37: error: use of undeclared identifier 'v2',,
 LocalScopeAssign,testflags,SLANG_REJECT,dut.sv:7:37: error: use of undeclared identifier 'v2',,
-LocalScopeHierPath,default,CMP_NOTEQUAL,decompile:,,
-LocalScopeHierPath,testflags,CMP_NOTEQUAL,decompile:,,
+LocalScopeHierPath,default,CMP_EQUAL,,,differ
+LocalScopeHierPath,testflags,CMP_EQUAL,,,differ
 LocalVarTypespec,default,CMP_EQUAL,,,match
 LocalVarTypespec,testflags,CMP_EQUAL,,,match
 LogicArrayParam,default,CMP_EQUAL,,,differ

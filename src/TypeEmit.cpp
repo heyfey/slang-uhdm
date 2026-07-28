@@ -176,6 +176,33 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             return uts0;
         }
     }
+    // A CLASS-NESTED typedef referenced from a class that sorts EARLIER by
+    // name (`uvm_resource_base` -> `uvm_resource_types::access_t`) has not
+    // been compiled yet when this reference is emitted: Surelog compiles
+    // every class's TYPES before binding any body, so build the owning
+    // class's typedefs on demand and share them. Record that it happened —
+    // Surelog's variable-class fallback for such a forward reference is a
+    // class_var (probe-verified pair over one source: owner sorted BEFORE
+    // -> struct_var, owner sorted AFTER -> class_var, both bound to the SAME
+    // struct_typespec). IOClassStruct.
+    if (declared && !bypassTypedefShare &&
+        declared->getType().kind == SymbolKind::TypeAlias &&
+        !typedefTs.count(&declared->getType())) {
+        auto& ta9 = declared->getType().as<TypeAliasType>();
+        if (auto* osc9 = ta9.getParentScope();
+            osc9 && osc9->asSymbol().kind == SymbolKind::ClassType) {
+            auto& ocl9 = osc9->asSymbol().as<ClassType>();
+            auto* opsc9 = ocl9.getParentScope();
+            // Only PACKAGE/class-nested classes: a $unit-level class displays
+            // as `work@C`, a name this path cannot reconstruct.
+            if (opsc9 && (opsc9->asSymbol().kind == SymbolKind::Package ||
+                          opsc9->asSymbol().kind == SymbolKind::ClassType)) {
+                buildClassTypedefTs(ocl9, std::string(ocl9.name));
+                if (typedefTs.count(&declared->getType()))
+                    onDemandClassTypedefs.insert((const void*)&declared->getType());
+            }
+        }
+    }
     // Typedef'd declarations share the typedef's typespec object; anonymous
     // enums build an unnamed, unlocated enum_typespec per declaration.
     if (declared) {
@@ -212,8 +239,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             return uts;
         }
         // Class handles: a fresh class_typespec per declaration, named by the
-        // class and linked to its class_defn.
-        if (auto& ct0 = declared->getType().getCanonicalType();
+        // class and linked to its class_defn.  An ARRAY of class handles
+        // (`C q[$]`, `C d[]`, `C a[4]`) types on its ELEMENT here: the dims
+        // live on the array_typespec that wraps this one.
+        if (auto& ct0 = arrayElemLeaf(declared->getType()).getCanonicalType();
             ct0.kind == SymbolKind::ClassType) {
             auto* cts = s.MakeClass_typespec();
             // A var declared INSIDE A PROCESS whose class is declared in the
@@ -223,7 +252,33 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // and the same in a program -> unnamed, while the module-scope
             // `C e;` and a $unit-scope class both stay named). vpiClassDefn is
             // linked either way. SimpleConstraint `frame_t frame = new();`.
-            if (!(declSymbol.getParentScope() &&
+            // A CLASS-METHOD body local is unnamed the same way, wherever its
+            // class lives (measured: `package pk; class C; class D; function
+            // void f(); C m2; begin C m3; end` -> both unnamed, while the
+            // class PROPERTY `C m1` and a module function's `pk::C m5` keep
+            // their names). Surelog compiles a class body with no enclosing
+            // design scope to name the type from.
+            bool inClassMethod0 = false;
+            {
+                bool sawSub0 = false;
+                for (auto sc0 = declSymbol.getParentScope(); sc0;
+                     sc0 = sc0->asSymbol().getParentScope()) {
+                    auto k0 = sc0->asSymbol().kind;
+                    if (k0 == SymbolKind::Subroutine)
+                        sawSub0 = true;
+                    // The class PROPERTY `C m1` (no subroutine between it and
+                    // its class) keeps its name.
+                    if (k0 == SymbolKind::ClassType) {
+                        inClassMethod0 = sawSub0;
+                        break;
+                    }
+                    if (k0 == SymbolKind::InstanceBody || k0 == SymbolKind::Package ||
+                        k0 == SymbolKind::CompilationUnit)
+                        break;
+                }
+            }
+            if (!inClassMethod0 &&
+                !(declSymbol.getParentScope() &&
                   declSymbol.getParentScope()->asSymbol().kind ==
                       SymbolKind::StatementBlock &&
                   ct0.getParentScope() &&
@@ -378,11 +433,17 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         // unpacked array does; its single unsized dim becomes the declaring
         // object's [0:"unsized"] range (FileResolutionFunction's
         // `input real driver []` -> real_typespec + unsized io_decl range).
+        // A QUEUE resolves the same way (its `[$]` dim becomes the wrapping
+        // array_typespec's [0:$] range) — Surelog, probe-verified on
+        // `C q[$]` / `int q[$]` class-method locals (ClassVar).
         while (et->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType ||
-               et->getCanonicalType().kind == SymbolKind::DynamicArrayType) {
+               et->getCanonicalType().kind == SymbolKind::DynamicArrayType ||
+               et->getCanonicalType().kind == SymbolKind::QueueType) {
             auto& ect = et->getCanonicalType();
             et = ect.kind == SymbolKind::DynamicArrayType
                      ? &ect.as<DynamicArrayType>().elementType
+                 : ect.kind == SymbolKind::QueueType
+                     ? &ect.as<QueueType>().elementType
                      : &ect.as<FixedSizeUnpackedArrayType>().elementType;
         }
         auto& ct = et->getCanonicalType();
@@ -1245,6 +1306,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 t = &c.as<FixedSizeUnpackedArrayType>().elementType.getCanonicalType();
             else if (c.kind == SymbolKind::DynamicArrayType)
                 t = &c.as<DynamicArrayType>().elementType.getCanonicalType();
+            else if (c.kind == SymbolKind::QueueType)
+                t = &c.as<QueueType>().elementType.getCanonicalType();
             else
                 break;
         }

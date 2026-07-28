@@ -1015,12 +1015,47 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
 //     `::` (work@C::t_vector::SIZE), the separator Surelog uses inside a class.
 //     No vpiInstance on any of them (writeDataTypes skips it for class_defn).
 void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd) {
-    const std::string clsName(cd->VpiName());
+    buildClassTypedefTs(cls, std::string(cd->VpiName()));
     std::vector<std::pair<std::string, UHDM::typespec*>> ents;
     for (auto& member : cls.members()) {
         if (member.kind != SymbolKind::TypeAlias)
             continue;
         auto& ta = member.as<TypeAliasType>();
+        auto itT = typedefTs.find((const Symbol*)&ta);
+        if (itT == typedefTs.end())
+            continue;
+        itT->second->VpiParent(cd);
+        ents.emplace_back(std::string(ta.name), itT->second);
+    }
+    if (ents.empty())
+        return;
+    std::stable_sort(ents.begin(), ents.end(),
+                     [](const auto& a, const auto& b) { return a.first < b.first; });
+    auto* tds = s.MakeTypespecVec();
+    for (auto& e : ents)
+        tds->push_back(e.second);
+    cd->Typespecs(tds);
+}
+
+// The typespec half of emitClassTypedefs, split out so a reference from a
+// class that sorts EARLIER by name can force it (see makeTypespec). Builds
+// and REGISTERS each nested typedef's typespec once; the owning class's own
+// emitClassTypedefs then reuses the objects, parents them and lists them.
+void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
+                                       const std::string& clsName) {
+    if (!buildingClassTypedefs.insert(&cls).second)
+        return;
+    struct BctGuard {
+        std::set<const void*>& set;
+        const void* key;
+        ~BctGuard() { set.erase(key); }
+    } bctGuard{buildingClassTypedefs, (const void*)&cls};
+    for (auto& member : cls.members()) {
+        if (member.kind != SymbolKind::TypeAlias)
+            continue;
+        auto& ta = member.as<TypeAliasType>();
+        if (typedefTs.count((const Symbol*)&ta))
+            continue;
         auto& ct = ta.targetType.getType().getCanonicalType();
         const syntax::SyntaxNode* typeSyn = nullptr;
         if (auto syn = ta.getSyntax())
@@ -1094,19 +1129,9 @@ void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd)
         if (!ts)
             continue;
         ts->VpiName(ta.name);
-        ts->VpiParent(cd);
         // Registering it lets a method's return type / a property share it.
         typedefTs[&ta] = ts;
-        ents.emplace_back(std::string(ta.name), ts);
     }
-    if (ents.empty())
-        return;
-    std::stable_sort(ents.begin(), ents.end(),
-                     [](const auto& a, const auto& b) { return a.first < b.first; });
-    auto* tds = s.MakeTypespecVec();
-    for (auto& e : ents)
-        tds->push_back(e.second);
-    cd->Typespecs(tds);
 }
 
 // Builds a canonical string of an instance's parameterization (value +

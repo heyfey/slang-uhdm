@@ -547,51 +547,61 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
             }
             auto& body = bs.body;
+            // An initialized block-local var emits a blocking assignment
+            // (var = init) at its declaration site; the var re-parents to
+            // that assignment.
+            auto emitDeclStmt9 = [&](const Statement& st) {
+                auto& vs = st.as<VariableDeclStatement>().symbol;
+                auto* init =
+                    vs.getDeclaredType() ? vs.getDeclaredType()->getInitializer()
+                                         : nullptr;
+                auto vit = blockMap.find(&vs);
+                // A CLASS-HANDLE local initialized with `new()` emits
+                // NO assignment at all: golden keeps only the class_var
+                // (parented at the begin). Measured on `module m1;
+                // class C; ... initial begin C d = new(); end` and the
+                // program form — SimpleConstraint `frame_t frame =
+                // new();`.
+                if (init && init->kind == ExpressionKind::NewClass)
+                    return;
+                // RESIDUE (ranked, measured on `program p1; initial
+                // begin integer j = 0; j = 1; end`): when the block is
+                // a PROGRAM's, golden's decl assignment takes a
+                // ref_obj Lhs, not the integer_var — the var-as-Lhs
+                // form below matches the module case and
+                // SimpleConstraint (whose `j = 0` golden IS the var),
+                // so the program-only variant is unresolved and no
+                // corpus test reaches it.
+                if (init && vit != blockMap.end()) {
+                    auto* asn = s.MakeAssignment();
+                    asn->VpiOpType(kVpiAssignmentOp);
+                    asn->VpiBlocking(true);
+                    asn->VpiParent(b);
+                    if (auto dsyn = vs.getSyntax())
+                        setLoc(asn, dsyn->sourceRange());
+                    vit->second->VpiParent(asn);
+                    asn->Lhs((UHDM::expr*)vit->second);
+                    if (auto* rhs = emitExpr(*init, asn, innerPrefix, blockMap))
+                        asn->Rhs((UHDM::expr*)rhs);
+                    stmts->push_back(asn);
+                }
+            };
             if (body.kind == StatementKind::List) {
                 for (auto st : body.as<StatementList>().list) {
                     if (st->kind == StatementKind::VariableDeclaration) {
-                        // An initialized block-local var emits a blocking
-                        // assignment (var = init) at its declaration site; the
-                        // var re-parents to that assignment.
-                        auto& vs = st->as<VariableDeclStatement>().symbol;
-                        auto* init = vs.getDeclaredType()
-                                         ? vs.getDeclaredType()->getInitializer()
-                                         : nullptr;
-                        auto vit = blockMap.find(&vs);
-                        // A CLASS-HANDLE local initialized with `new()` emits
-                        // NO assignment at all: golden keeps only the class_var
-                        // (parented at the begin). Measured on `module m1;
-                        // class C; ... initial begin C d = new(); end` and the
-                        // program form — SimpleConstraint `frame_t frame =
-                        // new();`.
-                        if (init && init->kind == ExpressionKind::NewClass)
-                            continue;
-                        // RESIDUE (ranked, measured on `program p1; initial
-                        // begin integer j = 0; j = 1; end`): when the block is
-                        // a PROGRAM's, golden's decl assignment takes a
-                        // ref_obj Lhs, not the integer_var — the var-as-Lhs
-                        // form below matches the module case and
-                        // SimpleConstraint (whose `j = 0` golden IS the var),
-                        // so the program-only variant is unresolved and no
-                        // corpus test reaches it.
-                        if (init && vit != blockMap.end()) {
-                            auto* asn = s.MakeAssignment();
-                            asn->VpiOpType(kVpiAssignmentOp);
-                            asn->VpiBlocking(true);
-                            asn->VpiParent(b);
-                            if (auto dsyn = vs.getSyntax())
-                                setLoc(asn, dsyn->sourceRange());
-                            vit->second->VpiParent(asn);
-                            asn->Lhs((UHDM::expr*)vit->second);
-                            if (auto* rhs = emitExpr(*init, asn, innerPrefix, blockMap))
-                                asn->Rhs((UHDM::expr*)rhs);
-                            stmts->push_back(asn);
-                        }
+                        emitDeclStmt9(*st);
                         continue;
                     }
                     if (auto* u = emitStmt(*st, b, innerPrefix, blockMap))
                         stmts->push_back(u);
                 }
+            }
+            // A block whose ONLY statement is a declaration (`begin string
+            // p_ = e; end`) is not wrapped in a StatementList by slang — it
+            // takes the same declaration path, not the generic one, which
+            // has no VariableDeclaration arm (LocalScopeHierPath).
+            else if (body.kind == StatementKind::VariableDeclaration) {
+                emitDeclStmt9(body);
             }
             else if (auto* u = emitStmt(body, b, innerPrefix, blockMap)) {
                 stmts->push_back(u);
@@ -755,7 +765,25 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // vpiVariables: a ref_var naming the iterated array, its ref
             // typespec bound to the array's OWN array_typespec.
             const Symbol* arrSym = fe.arrayRef.getSymbolReference();
-            if (arrSym) {
+            // A foreach over a MEMBER of a local (`foreach (path.slices[j])`)
+            // lists the whole dotted reference as a hier_path, not a ref_var
+            // (Surelog resolves the loop list as an expression before it
+            // decides the iterated object). LocalScopeHierPath.
+            bool arrMember9 =
+                arrSym && fe.arrayRef.kind == ExpressionKind::MemberAccess;
+            if (arrMember9) {
+                if (auto* hp9 = emitExpr(fe.arrayRef, fs, prefix, netMap)) {
+                    hp9->VpiParent(fs);
+                    // The loop-list hier_path carries no name of its own
+                    // (an expression-context one would be `path.slices`).
+                    if (hp9->UhdmType() == UHDM::uhdmhier_path)
+                        ((UHDM::hier_path*)hp9)->VpiName(std::string());
+                    fs->Variable((UHDM::variables*)(UHDM::any*)hp9);
+                }
+                else
+                    arrMember9 = false;
+            }
+            if (arrSym && !arrMember9) {
                 auto* rv = s.MakeRef_var();
                 rv->VpiName(arrSym->name);
                 std::string afn = joinRef(prefix, std::string(arrSym->name));
@@ -766,7 +794,24 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 auto* art = s.MakeRef_typespec();
                 art->VpiFullName(afn);
                 art->VpiParent(rv);
-                pendingForeachArrayTs.push_back({art, arrSym, implicitNetModule});
+                // Inside a CLASS METHOD Surelog never resolves the iterated
+                // name: its class-body CompileType falls through to the
+                // catch-all and mints an unsupported_typespec NAMED as
+                // written, at the identifier span. Probe-verified for queue,
+                // dynamic AND fixed-size arrays alike — a module function's
+                // foreach still binds the real array_typespec (ClassVar,
+                // LocalScopeHierPath).
+                if (classMethodNoBind) {
+                    auto* uts = s.MakeUnsupported_typespec();
+                    uts->VpiName(arrSym->name);
+                    uts->VpiLineNo(rv->VpiLineNo());
+                    uts->VpiColumnNo(rv->VpiColumnNo());
+                    uts->VpiEndLineNo(rv->VpiEndLineNo());
+                    uts->VpiEndColumnNo(rv->VpiEndColumnNo());
+                    art->Actual_typespec(uts);
+                }
+                else
+                    pendingForeachArrayTs.push_back({art, arrSym, implicitNetModule});
                 rv->Typespec(art);
                 fs->Variable(rv);
             }
@@ -783,6 +828,29 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // OBJECT rather than declaring a second one.
                 if (auto oit = openForeachVars.find(lvn); oit != openForeachVars.end()) {
                     lvars->push_back(oit->second);
+                    return;
+                }
+                // Class-method foreach: the loop variable is unresolved the
+                // same way the array reference is — a ref_var over a
+                // freshly minted unsupported_typespec named for the index.
+                if (classMethodNoBind) {
+                    auto* lv0 = s.MakeRef_var();
+                    lv0->VpiName(name);
+                    lv0->VpiFullName(joinRef(prefix, lvn));
+                    lv0->VpiParent(fs);
+                    setLoc(lv0, span);
+                    auto* uts0 = s.MakeUnsupported_typespec();
+                    uts0->VpiName(name);
+                    uts0->VpiParent(lv0);
+                    setLoc(uts0, span);
+                    auto* lrt0 = s.MakeRef_typespec();
+                    lrt0->VpiFullName(joinRef(prefix, lvn));
+                    lrt0->VpiParent(lv0);
+                    lrt0->Actual_typespec(uts0);
+                    lv0->Typespec(lrt0);
+                    lvars->push_back(lv0);
+                    openForeachVars[lvn] = lv0;
+                    declaredHere.push_back(lvn);
                     return;
                 }
                 UHDM::typespec* lts = arrSym ? makeTypespec(*arrSym) : nullptr;

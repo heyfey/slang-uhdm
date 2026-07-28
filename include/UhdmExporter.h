@@ -1441,6 +1441,14 @@ private:
     // (UhdmWriter::writeDataTypes). Enum aliases stay behind --builtins (the
     // builtin `process::state` shape); CLASS-handle aliases are always listed.
     void emitClassTypedefs(const slang::ast::ClassType& cls, UHDM::class_defn* cd);
+    void buildClassTypedefTs(const slang::ast::ClassType& cls,
+                             const std::string& clsName);
+    // Reentrancy guard for buildClassTypedefTs.
+    std::set<const void*> buildingClassTypedefs;
+    // Class-nested typedefs whose typespec had to be built on demand by a
+    // reference from an EARLIER-sorted class: Surelog's variable-class
+    // fallback for such a forward reference is a class_var (IOClassStruct).
+    std::set<const void*> onDemandClassTypedefs;
     // PACKAGE-scope class definitions, listed under the ELABORATED (top-view)
     // package only — Surelog's un-elaborated Package carries an empty class map
     // (UhdmWriter.cpp writePackage/getUnElabPackage). Listed name-sorted, the

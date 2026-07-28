@@ -1176,6 +1176,114 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         isArg = true;
                 if (isArg)
                     continue;
+                // A QUEUE / DYNAMIC-array local (`C paths[$]`, `int d[]`) is
+                // the same array_var shape as the fixed-size one below, with
+                // vpiArrayType vpiQueueArray/vpiDynamicArray and an UNBOUNDED
+                // array_typespec range: [0 : $] (vpiUnboundedConst, size 1)
+                // for a queue, [0 : "unsized"] (vpiStringConst, size 0) for a
+                // dynamic array.  The element typespec is the declaration's
+                // own (makeTypespec looks through the array dims) and is
+                // SHARED by the reg and the array_typespec's Elem_typespec.
+                // Surelog, probe-verified for class-handle and int elements
+                // (ClassVar / LocalScopeHierPath / ArrayMethodIterator).
+                if (auto& qct0 = fmv.getDeclaredType()->getType().getCanonicalType();
+                    qct0.kind == SymbolKind::QueueType ||
+                    qct0.kind == SymbolKind::DynamicArrayType) {
+                    bool isQueue0 = qct0.kind == SymbolKind::QueueType;
+                    const Type* qelem0 =
+                        isQueue0 ? &qct0.as<QueueType>().elementType
+                                 : &qct0.as<DynamicArrayType>().elementType;
+                    std::string afull = fullName + sep + std::string(fmv.name);
+                    tfContext = true;
+                    UHDM::typespec* elemTs = makeTypespec(fmv);
+                    tfContext = false;
+                    // NOTE: no vpiInstance on the element ts — Surelog leaves
+                    // a class-method local's typespec unscoped (measured).
+                    auto* av = s.MakeArray_var();
+                    av->VpiName(fmv.name);
+                    av->VpiFullName(afull);
+                    av->VpiParent(tf);
+                    av->VpiArrayType(isQueue0 ? vpiQueueArray : vpiDynamicArray);
+                    setLoc(av, nameSpan(fmv.location, fmv.name));
+                    // The unsized dim: `[$]` for a queue, `[]` for a dynamic
+                    // array.  Surelog spans the array_typespec from the NAME
+                    // through the end of that dim's RANGE — the `$` token for
+                    // a queue, the whole `[]` for a dynamic array.
+                    const syntax::VariableDimensionSyntax* qdim0 = nullptr;
+                    if (auto dsyn0 = fmv.getSyntax();
+                        dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
+                        for (auto dim0 :
+                             dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
+                            qdim0 = dim0;
+                    SourceRange qrng0(fmv.location,
+                                      fmv.location + fmv.name.size());
+                    if (qdim0) {
+                        auto ds0 = qdim0->sourceRange();
+                        qrng0 = isQueue0
+                                    ? SourceRange(ds0.start() + 1, ds0.end() - 1)
+                                    : ds0;
+                    }
+                    auto* ats = s.MakeArray_typespec();
+                    setLoc(ats, SourceRange(fmv.location, qrng0.end()));
+                    auto* rng0 = s.MakeRange();
+                    rng0->VpiParent(ats);
+                    setLoc(rng0, qrng0);
+                    auto* lc0 = s.MakeConstant();
+                    lc0->VpiParent(rng0);
+                    lc0->VpiDecompile("0");
+                    lc0->VpiSize(64);
+                    lc0->VpiValue("UINT:0");
+                    lc0->VpiConstType(vpiUIntConst);
+                    if (!isQueue0)
+                        setLoc(lc0, SourceRange(qrng0.start(), qrng0.start() + 1));
+                    rng0->Left_expr(lc0);
+                    auto* rc0 = s.MakeConstant();
+                    rc0->VpiParent(rng0);
+                    if (isQueue0) {
+                        rc0->VpiDecompile("$");
+                        rc0->VpiSize(1);
+                        rc0->VpiValue("STRING:$");
+                        rc0->VpiConstType(vpiUnboundedConst);
+                        setLoc(rc0, qrng0);
+                    }
+                    else {
+                        rc0->VpiDecompile("unsized");
+                        rc0->VpiSize(0);
+                        rc0->VpiValue("STRING:unsized");
+                        rc0->VpiConstType(vpiStringConst);
+                        setLoc(rc0, SourceRange(qrng0.start(), qrng0.start() + 1));
+                    }
+                    rng0->Right_expr(rc0);
+                    auto* rvec0 = s.MakeRangeVec();
+                    rvec0->push_back(rng0);
+                    ats->Ranges(rvec0);
+                    auto* ert0 = s.MakeRef_typespec();
+                    ert0->VpiParent(ats);
+                    ert0->Actual_typespec(elemTs);
+                    ats->Elem_typespec(ert0);
+                    auto* art0 = s.MakeRef_typespec();
+                    art0->VpiFullName(afull);
+                    art0->VpiParent(av);
+                    art0->Actual_typespec(ats);
+                    av->Typespec(art0);
+                    auto* reg0 = makeReturnVar(s, *qelem0);
+                    reg0->VpiParent(av);
+                    reg0->VpiFullName(afull);
+                    setLoc(reg0, nameSpan(fmv.location, fmv.name));
+                    auto* rrt0 = s.MakeRef_typespec();
+                    rrt0->VpiFullName(afull);
+                    rrt0->VpiParent(reg0);
+                    rrt0->Actual_typespec(elemTs);
+                    reg0->Typespec(rrt0);
+                    if (qelem0->isSigned())
+                        reg0->VpiSigned(true);
+                    auto* rv0 = s.MakeVariablesVec();
+                    rv0->push_back(reg0);
+                    av->Variables(rv0);
+                    funcMap[&fmv] = av;
+                    fvars->push_back(av);
+                    continue;
+                }
                 // An UNPACKED-array local (int a [2]) is an array_var whose
                 // vpiReg is the element var (int_var); the array_typespec
                 // (not the array_var) carries the unpacked-dim range, and its
@@ -1423,7 +1531,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         }
                     }
                 }
-                if (pkgScope && !foreignSharedTs(fmv, vts)) {
+                // A CLASS-NESTED typedef object is shared with its owning
+                // class_defn's vpiTypedef listing and stays unscoped —
+                // stamping it here would scope the whole typedef to the
+                // referencing class (IOClassStruct).
+                bool sharedClassTypedef9 = false;
+                if (auto itS9 = typedefTs.find(&fmv.getDeclaredType()->getType());
+                    itS9 != typedefTs.end() && itS9->second == vts)
+                    if (auto* oscS9 = fmv.getDeclaredType()->getType().getParentScope())
+                        sharedClassTypedef9 =
+                            oscS9->asSymbol().kind == SymbolKind::ClassType;
+                if (pkgScope && !sharedClassTypedef9 && !foreignSharedTs(fmv, vts)) {
                     vts->Instance(importCopyTsInst ? importCopyTsInst
                                                    : (UHDM::instance*)m);
                     if (importCopyTsInst && importCopyTsCollect)
@@ -1433,6 +1551,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // enum_var element), anchored at its name and NOT automatic.
                 UHDM::variables* v = makeEnumArrayVar(vts, vfull, tf);
                 bool isEnumArr = v != nullptr;
+                // A FORWARD reference to a class-nested typedef (the owning
+                // class sorts after this one) has no compiled type yet when
+                // Surelog picks the variable class, so it falls back to a
+                // class_var while still binding the shared struct_typespec
+                // (IOClassStruct; see makeTypespec's on-demand build).
+                if (!v && onDemandClassTypedefs.count(
+                              (const void*)&fmv.getDeclaredType()->getType()))
+                    v = s.MakeClass_var();
                 if (!v)
                     v = makeReturnVar(s, fmv.getDeclaredType()->getType());
                 v->VpiName(fmv.name);

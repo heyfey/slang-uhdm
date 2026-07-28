@@ -295,34 +295,6 @@ static bool hasBareImplicitType(const Symbol& sym) {
     return !its.signing && its.dimensions.empty();
 }
 
-// A module-BODY data declaration of a PACKAGE-qualified struct type written
-// with no `var` (and no `wire`, which would make slang give us a Net in the
-// first place): `pkg::Struct [N-1:0] a;` elaborates as a NET in Surelog even
-// though the LRM calls it a variable.  The pkg qualification is load-bearing:
-// the same shape over a LOCAL typedef stays a packed_array_var (Selects,
-// BitSelectExpr, PackedArrayAssign — all local typedefs, all vars in golden).
-static bool bodyBarePackedStructDecl(const Symbol& sym) {
-    if (sym.kind != SymbolKind::Variable)
-        return false;
-    if (!isExplicitPkgQualified(sym) || !isPkgStructType(sym))
-        return false;
-    // ...and the packed dims must be written on the DECLARATION.  A typedef
-    // that already carries them (`typedef a[5:0] b; pkg::b c;`) leaves the
-    // declared type an alias, and Surelog keeps that a var (HierPathTypespec).
-    auto* dt9 = sym.getDeclaredType();
-    if (!dt9 || dt9->getType().kind != SymbolKind::PackedArrayType)
-        return false;
-    const syntax::SyntaxNode* n = sym.getSyntax();
-    while (n && n->kind != syntax::SyntaxKind::DataDeclaration)
-        n = n->parent;
-    if (!n)
-        return false;
-    for (auto tok : n->as<syntax::DataDeclarationSyntax>().modifiers)
-        if (tok.kind == parsing::TokenKind::VarKeyword)
-            return false;
-    return true;
-}
-
 static bool udpFormInstantiation(const syntax::SyntaxNode* from);
 
 // Names an object in the DEF view actually BINDS. Surelog mints an implicit
@@ -3902,17 +3874,29 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     continue;
                 }
             }
-            // A BODY declaration written with NO `var` keyword
-            // (`pkg::Struct [N-1:0] a;`) elaborates as a packed_array_NET,
-            // exactly like the `input`/`inout` port spelling; only an
-            // explicit `var` makes it a packed_array_var, and an explicit
-            // `wire` drops the dims to a plain struct_net (measured on one
-            // source carrying all three spellings side by side —
-            // StructArrayNet).
-            else if (auto* pan9 =
-                         bodyBarePackedStructDecl(*it.sym)
-                             ? emitPackedStructArrayNet(*it.sym, name,
-                                                        fullName, m)
+            // A BARE body declaration whose type is written SCOPED
+            // (`pkg::Struct [N-1:0] a;` — no `var`, no net keyword)
+            // elaborates as a packed_array_NET whose element struct_net
+            // REPEATS the signal name (work@dut.a.a), gated by the same
+            // struct-member net test the flat struct case uses.
+            // Probe-verified over single-source pairs: bare scoped all-logic
+            // struct -> net (read or not), `var` -> packed_array_var, `wire`
+            // -> dim-dropped struct_net, a `bit` member -> var, and the SAME
+            // package typedef reached bare through `import pkg::*` (or a
+            // $unit / module-local typedef) -> var (StructArrayNet vs
+            // OneStruct/StructPackedArray).
+            // The packed dims must be WRITTEN at the declaration: a typedef
+            // that already carries them (`typedef a[1:0] b; pkg::b c;`) keeps
+            // the packed_array_VAR + packed_array_typespec shape
+            // (TypedefPackedDimensions).
+            else if (UHDM::packed_array_net* pan9 =
+                         (scopedWrittenType(*it.sym) &&
+                          it.sym->getDeclaredType()->getType().kind !=
+                              SymbolKind::TypeAlias &&
+                          !hasVarKeywordDecl(*it.sym) &&
+                          !hasExplicitNetKeyword(*it.sym) &&
+                          structTsIsNetLike(packedStructArrayElemTs(*it.sym)))
+                             ? emitPackedStructArrayNet(*it.sym, name, fullName, m)
                              : nullptr) {
                 topNets[it.sym] = pan9;
                 sigOrder.emplace_back(it.sym, pan9);

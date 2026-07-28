@@ -161,6 +161,25 @@ inline bool slAdjustBinConst(std::string_view digits, int32_t origSize,
     return true;
 }
 
+// The ELEMENT type an UNPACKED array declaration types on: fixed, dynamic and
+// queue dims all live on the wrapping array_typespec, so `C q[$]` /`C d[]` /
+// `C a[4]` all key on `C` (Surelog's CompileType, probe-verified in a class
+// method: array_typespec { Elem_typespec -> class_typespec(C) }).
+inline const Type& arrayElemLeaf(const Type& t0) {
+    const Type* t = &t0;
+    while (true) {
+        auto& c = t->getCanonicalType();
+        if (c.kind == SymbolKind::FixedSizeUnpackedArrayType)
+            t = &c.as<FixedSizeUnpackedArrayType>().elementType;
+        else if (c.kind == SymbolKind::DynamicArrayType)
+            t = &c.as<DynamicArrayType>().elementType;
+        else if (c.kind == SymbolKind::QueueType)
+            t = &c.as<QueueType>().elementType;
+        else
+            return *t;
+    }
+}
+
 // Surelog's struct net-vs-var rule, verbatim (NetlistElaboration.cpp, the
 // `ttmp == uhdmstruct_typespec` arm of elab_signal_): a struct-typed signal is
 // a NET only while EVERY member's typespec is a logic_typespec or another
@@ -229,6 +248,36 @@ inline bool hasExplicitNetKeyword(const Symbol& sym) {
             return false;
     }
     return false;
+}
+
+// True when a BODY data declaration spells the `var` keyword
+// ("var pkg::S [3:0] c;"). Surelog's elaborated signal takes the VAR shape
+// then, while the same declaration written bare takes the net shape.
+inline bool hasVarKeywordDecl(const Symbol& sym) {
+    for (auto p = sym.getSyntax(); p; p = p->parent) {
+        if (p->kind != syntax::SyntaxKind::DataDeclaration)
+            continue;
+        for (auto mod : p->as<syntax::DataDeclarationSyntax>().modifiers)
+            if (mod.kind == parsing::TokenKind::VarKeyword)
+                return true;
+        return false;
+    }
+    return false;
+}
+
+// True when a declaration's type is written with a `::` SCOPE qualifier
+// (`pkg::Struct x;`). Surelog's elaborated signal shape keys on the written
+// spelling, not on where the typedef actually lives: probe-verified that
+// `pkg::P1 [1:0]` elaborates as a packed_array_NET while the same typedef
+// reached through `import pkg::*` (bare `P1 [1:0]`), a $unit typedef and a
+// module-local typedef all elaborate as packed_array_VARs.
+inline bool scopedWrittenType(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    auto* tsyn = dt ? dt->getTypeSyntax() : nullptr;
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return false;
+    return tsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+           syntax::SyntaxKind::ScopedName;
 }
 
 // True when an ANSI port spells the `var` keyword explicitly
@@ -1562,8 +1611,10 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
     // A `bit`-based return (bit f, bit [1:0] f) is a bit_var; four-state
     // logic/reg returns stay logic_vars.
     {
+        // MULTI-dim packed vectors (bit [N-1:0][15:0]) unwrap every level:
+        // the `bit`-ness lives on the innermost scalar (FuncInModule).
         const Type* base9 = &ct;
-        if (base9->kind == SymbolKind::PackedArrayType)
+        while (base9->kind == SymbolKind::PackedArrayType)
             base9 = &base9->as<PackedArrayType>()
                          .elementType.getCanonicalType();
         if (base9->kind == SymbolKind::ScalarType &&
