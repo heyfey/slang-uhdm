@@ -229,12 +229,12 @@ ClassMini,default,CMP_EQUAL,,,differ
 ClassMini,testflags,CMP_EQUAL,,,differ
 ClassParam,default,CMP_EQUAL,,,differ
 ClassParam,testflags,CMP_EQUAL,,,match
-ClassParamAsParam,default,CMP_NOTEQUAL,decompile:,,
-ClassParamAsParam,testflags,CMP_NOTEQUAL,decompile:,,
+ClassParamAsParam,default,CMP_EQUAL,,,differ
+ClassParamAsParam,testflags,CMP_EQUAL,,,differ
 ClassScope,default,SLANG_REJECT,dut.sv:64:5: error: packed dimensions require a full range specification,,
 ClassScope,testflags,SLANG_REJECT,dut.sv:64:5: error: packed dimensions require a full range specification,,
-ClassTypeParam,default,CMP_NOTEQUAL,decompile:,,
-ClassTypeParam,testflags,CMP_NOTEQUAL,decompile:,,
+ClassTypeParam,default,CMP_EQUAL,,,differ
+ClassTypeParam,testflags,CMP_EQUAL,,,differ
 ClassTypeParamAlias,default,SLANG_REJECT,dut.sv:4:18: error: parameter declaration is missing an initializer,,
 ClassTypeParamAlias,testflags,SLANG_REJECT,dut.sv:4:18: error: parameter declaration is missing an initializer,,
 ClassVar,default,CMP_NOTEQUAL,decompile:,,

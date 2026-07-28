@@ -1254,6 +1254,15 @@ private:
     std::map<const slang::ast::Symbol*, UHDM::property_decl*> propertyDeclMap;
     // Class definitions (design->AllClasses), keyed by the ClassType symbol.
     std::map<const slang::ast::Symbol*, UHDM::class_defn*> classDefnMap;
+    // A PARAMETERIZED class has one class_defn in Surelog (compiled from its
+    // DEFAULT specialization), but slang mints a distinct ClassType per
+    // specialization, so `resource#(T)` inside another class is a symbol
+    // classDefnMap never saw. Key the same class_defn by the generic
+    // declaration too, so any specialization resolves to it.
+    std::map<const slang::ast::Symbol*, UHDM::class_defn*> genericDefnMap;
+    // class_defn for a class type, following a specialization back to its
+    // generic declaration when the specialization itself was never emitted.
+    UHDM::class_defn* classDefnFor(const slang::ast::Type& ct);
     // --builtins: mirror Surelog's default (no -nobuiltin) content.
     bool builtins = false;
     std::string builtinFilePath;
@@ -1262,8 +1271,11 @@ private:
     void emitBuiltinPackage(UHDM::VectorOfpackage*& allP, UHDM::VectorOfpackage*& topP);
     // True for the injected <cwd>/builtin.sv compilation unit.
     bool isBuiltinUnit(const slang::ast::Scope& unit);
-    // Class-scope typedefs (vpiTypedef on a class_defn); only the builtin
-    // `process::state` enum needs these today, so it stays behind --builtins.
+    // Class-scope typedefs (vpiTypedef on a class_defn). Surelog writes the
+    // class's DataTypeMap (a name-keyed std::map, hence NAME order) and, unlike
+    // every other scope, gives a class_defn's typespecs no vpiInstance
+    // (UhdmWriter::writeDataTypes). Enum aliases stay behind --builtins (the
+    // builtin `process::state` shape); CLASS-handle aliases are always listed.
     void emitClassTypedefs(const slang::ast::ClassType& cls, UHDM::class_defn* cd);
     // PACKAGE-scope class definitions, listed under the ELABORATED (top-view)
     // package only — Surelog's un-elaborated Package carries an empty class map
@@ -1293,6 +1305,24 @@ private:
     // alongside the extends drain.
     std::vector<std::pair<UHDM::class_typespec*, const slang::ast::Type*>>
         pendingClassTsLink;
+    // A SPECIALIZED class handle (`config_db#(object#(longint)) misc2;`) carries
+    // the specialization on the class_typespec itself: one vpiParameter
+    // type_parameter per formal, holding the ACTUAL type, plus a vpiParamAssign
+    // whose Lhs is the class_defn's own formal and whose Rhs is that local
+    // type_parameter. A class-typed actual recurses, so the shape nests.
+    // Fullnames chain off the typespec name: `config_db.T`, then
+    // `config_db.T.object.T` for the actual's own formal.
+    void emitClassTsParams(UHDM::class_typespec* cts,
+                           const slang::ast::ClassType& cls,
+                           const std::string& prefix);
+    // param_assigns of a class_typespec specialization whose class_defn was not
+    // emitted yet: the Lhs (the class_defn's own formal) is bound at the drain.
+    struct PendingClassTsPa {
+        UHDM::param_assign* pa;
+        const slang::ast::Type* cls;
+        std::string paramName;
+    };
+    std::vector<PendingClassTsPa> pendingClassTsPa;
     // Class-scope `parameter` / `localparam` / `parameter type` declarations:
     // vpiParameter + vpiParamAssign on the class_defn.
     void emitClassParameters(const slang::ast::ClassType& cls, UHDM::class_defn* cd,

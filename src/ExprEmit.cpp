@@ -5522,6 +5522,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             return psel;
         }
         case ExpressionKind::MemberAccess: {
+            // NOTE (HierPathEval, design-root-class triage): when the BASE is a
+            // packed-struct CONSTANT, golden's VALUE cannot be reproduced here.
+            // UHDM's ExprEval::hierarchicalSelector (ExprEval.cpp, the
+            // `constant` + `struct_typespec` arm) accumulates the member offset
+            // `from` in DECLARATION order starting at bit 0 — the FIRST member
+            // at the LSB — which is the reverse of SV packed-struct layout. For
+            // `struct packed {logic a; pad_type_e dio_pad_type;} TargetCfg = 2`,
+            // golden reads `TargetCfg.dio_pad_type` as bit 1 = 1 where slang
+            // (correctly) gives bit 0 = 0. That wrong value then flips a
+            // generate condition INSIDE slang's own elaboration (the true arm
+            // instantiates a module we never see), so the divergence is not
+            // reachable from the exporter: it would take slang adopting
+            // Surelog's layout. HierPathEval is blocked on that, not on naming.
+            //
             // p.hi -> hier_path with unbound ref elements: base ref has
             // name only; member refs carry module-scoped fullnames.
             std::vector<const Expression*> chain;

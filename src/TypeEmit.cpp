@@ -141,10 +141,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             ct0.kind == SymbolKind::ClassType) {
             auto* cts = s.MakeClass_typespec();
             cts->VpiName(ct0.name);
-            if (auto cit = classDefnMap.find(&ct0); cit != classDefnMap.end())
-                cts->Class_defn(cit->second);
+            if (auto* bcd0 = classDefnFor(ct0))
+                cts->Class_defn(bcd0);
             else
                 pendingClassTsLink.push_back({cts, &ct0});
+            // `#(...)` on the declared type puts the specialization on the
+            // typespec (ClassParamAsParam / ClassTypeParam).
+            emitClassTsParams(cts, ct0.as<ClassType>(), std::string(ct0.name));
             if (auto tsyn0 = declared->getTypeSyntax()) {
                 setLoc(cts, tsyn0->sourceRange());
                 // A SCOPED class reference (pack::doorOpen) is named by the

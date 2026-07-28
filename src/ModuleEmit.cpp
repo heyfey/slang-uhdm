@@ -894,6 +894,52 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             nets->push_back(n);
         }
     }
+    // A class specialization argument written as a BARE IDENTIFIER
+    // (`uvm_config_db#(uvm_object, string) misc2;`) is a NAME LOOKUP in the
+    // module scope while Surelog compiles the class_typespec, and a lookup that
+    // finds nothing mints an implicit wire (the same lazy
+    // `NetlistElaboration::bind_net_` rule collectDefBoundNames documents).
+    // Only the DEF view keeps it. A keyword actual (`string`) is no name, and a
+    // parameterized actual (`object#(longint)`) resolves through the class
+    // path instead — neither mints anything (ClassTypeParam vs
+    // ClassParamAsParam).
+    {
+        std::set<std::string> have;
+        for (auto* n0 : *nets)
+            have.insert(std::string(n0->VpiName()));
+        for (auto& mem : body.members()) {
+            if (mem.kind != SymbolKind::Variable && mem.kind != SymbolKind::Net)
+                continue;
+            auto* dt0 = mem.getDeclaredType();
+            if (!dt0 || dt0->getType().getCanonicalType().kind != SymbolKind::ClassType)
+                continue;
+            auto* tsyn0 = dt0->getTypeSyntax();
+            auto* nt0 = tsyn0 ? tsyn0->as_if<syntax::NamedTypeSyntax>() : nullptr;
+            auto* cn0 = nt0 ? nt0->name->as_if<syntax::ClassNameSyntax>() : nullptr;
+            if (!cn0)
+                continue;
+            for (auto* pa0 : cn0->parameters->parameters) {
+                auto* op0 = pa0->as_if<syntax::OrderedParamAssignmentSyntax>();
+                if (!op0)
+                    continue;
+                // A KEYWORD actual (`string`) is not a name node, so only a
+                // bare identifier reaches the lookup.
+                auto* idn0 = op0->expr->as_if<syntax::IdentifierNameSyntax>();
+                if (!idn0)
+                    continue;
+                std::string inm(idn0->identifier.valueText());
+                if (inm.empty() || !have.insert(inm).second)
+                    continue;
+                auto* pn0 = s.MakeLogic_net();
+                pn0->VpiName(inm);
+                pn0->VpiFullName(prefix + "." + inm);
+                pn0->VpiParent(m);
+                pn0->VpiNetType(vpiWire);
+                setLoc(pn0, idn0->sourceRange());
+                nets->push_back(pn0);
+            }
+        }
+    }
     if (!nets->empty())
         m->Nets(nets);
 
@@ -3541,7 +3587,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     //   '1 -> UINT:<all-ones>, sized to width, decimal decompile
                     //   'x -> BIN:X, size -1, decompile 'X
                     //   'z -> BIN:Z, size -1, decompile 'Z
-                    if (ic.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                    // `config_db#(...) misc2 = new;` — the class-handle var
+                    // keeps a loc-less method_func_call named `new` as its
+                    // vpiExpr (ClassParamAsParam).
+                    if (ic.kind == ExpressionKind::NewClass) {
+                        auto* mfc = s.MakeMethod_func_call();
+                        mfc->VpiName("new");
+                        mfc->VpiParent(v);
+                        v->Expr(mfc);
+                    }
+                    else if (ic.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
                         logic_t bit =
                             ic.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
                         int32_t w = (int32_t)dt->getType().getBitWidth();

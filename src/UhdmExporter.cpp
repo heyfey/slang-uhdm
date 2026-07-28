@@ -498,8 +498,9 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     if (!vars->empty())
         cd->Variables(vars);
     classDefnMap[&cls] = cd;
-    if (builtins)
-        emitClassTypedefs(cls, cd);
+    if (cls.genericClass)
+        genericDefnMap.emplace(cls.genericClass, cd);
+    emitClassTypedefs(cls, cd);
     // `virtual class` / `pure virtual class`.
     if (cls.isAbstract)
         cd->VpiVirtual(true);
@@ -764,10 +765,21 @@ void UhdmExporter::drainPendingExtends() {
     for (auto& [cts, ty] : pendingClassTsLink) {
         if (cts->Class_defn())
             continue;
-        if (auto it = classDefnMap.find(ty); it != classDefnMap.end())
-            cts->Class_defn(it->second);
+        if (auto* cd9 = classDefnFor(*ty))
+            cts->Class_defn(cd9);
     }
     pendingClassTsLink.clear();
+    for (auto& pp : pendingClassTsPa) {
+        if (pp.pa->Lhs())
+            continue;
+        if (auto* cd9 = classDefnFor(*pp.cls); cd9 && cd9->Parameters())
+            for (auto* p9 : *cd9->Parameters())
+                if (p9->VpiName() == pp.paramName) {
+                    pp.pa->Lhs(p9);
+                    break;
+                }
+    }
+    pendingClassTsPa.clear();
     auto pend = pendingExtends;
     pendingExtends.clear();
     std::stable_sort(pend.begin(), pend.end(), [](const PendingExtends& a,
@@ -869,32 +881,156 @@ void UhdmExporter::drainPendingExtends() {
     }
 }
 
-// Class-scope typedefs (class_defn vpiTypedef). Only the builtin
-// `process::state` enum exercises this today, so it stays behind --builtins.
+// A specialization's class_defn: Surelog compiles a parameterized class ONCE
+// (from its default specialization), so every slang specialization symbol of
+// the same generic maps onto that one object.
+UHDM::class_defn* UhdmExporter::classDefnFor(const Type& ct) {
+    if (auto it = classDefnMap.find(&ct); it != classDefnMap.end())
+        return it->second;
+    if (ct.kind == SymbolKind::ClassType)
+        if (auto* gc = ct.as<ClassType>().genericClass)
+            if (auto git = genericDefnMap.find(gc); git != genericDefnMap.end())
+                return git->second;
+    return nullptr;
+}
+
+// The specialization carried by a class_typespec (see the header note).
+void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType& cls,
+                                     const std::string& prefix) {
+    auto* params = s.MakeAnyVec();
+    auto* pas = s.MakeParam_assignVec();
+    for (auto& mem : cls.members()) {
+        // Value parameters of a specialization have no observed Surelog form
+        // here yet; only `type` formals are reproduced.
+        if (mem.kind != SymbolKind::TypeParameter)
+            continue;
+        auto& tps = mem.as<TypeParameterSymbol>();
+        std::string fn = prefix + "." + std::string(tps.name);
+        auto* tp = s.MakeType_parameter();
+        tp->VpiName(tps.name);
+        tp->VpiFullName(fn);
+        tp->VpiParent(cts);
+        setLoc(tp, nameSpan(tps.location, tps.name));
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(tp);
+        rt->VpiFullName(fn);
+        auto& dct = tps.targetType.getType().getCanonicalType();
+        auto* dsyn = tps.targetType.getTypeSyntax();
+        UHDM::typespec* its = nullptr;
+        if (dct.kind == SymbolKind::ClassType) {
+            auto* nts = s.MakeClass_typespec();
+            nts->VpiName(dct.name);
+            nts->VpiParent(tp);
+            if (auto* bcd = classDefnFor(dct))
+                nts->Class_defn(bcd);
+            else
+                pendingClassTsLink.push_back({nts, &dct});
+            if (dsyn)
+                setLoc(nts, dsyn->sourceRange());
+            emitClassTsParams(nts, dct.as<ClassType>(),
+                              fn + "." + std::string(dct.name));
+            its = nts;
+        }
+        else {
+            its = makeTypespec(mem, dsyn);
+            if (its)
+                its->VpiParent(tp);
+        }
+        rt->Actual_typespec(its);
+        tp->Typespec(rt);
+        params->push_back(tp);
+        auto* pa = s.MakeParam_assign();
+        pa->VpiParent(cts);
+        setLoc(pa, nameSpan(tps.location, tps.name));
+        pa->Rhs(tp);
+        pas->push_back(pa);
+        // Lhs is the class_defn's own formal of the same name.
+        bool bound = false;
+        if (auto* bcd = classDefnFor(cls); bcd && bcd->Parameters())
+            for (auto* p9 : *bcd->Parameters())
+                if (p9->VpiName() == tps.name) {
+                    pa->Lhs(p9);
+                    bound = true;
+                    break;
+                }
+        if (!bound)
+            pendingClassTsPa.push_back({pa, &cls, std::string(tps.name)});
+    }
+    if (params->empty())
+        return;
+    cts->Parameters(params);
+    cts->Param_assigns(pas);
+}
+
+// Class-scope typedefs (class_defn vpiTypedef), NAME-ordered: Surelog writes
+// the class's DataTypeMap, a std::map keyed by the typedef name, and gives a
+// class_defn's typespecs no vpiInstance (UhdmWriter::writeDataTypes).
+//
+// Two alias shapes are reproduced:
+//   * ENUM aliases — the builtin `process::state` shape, behind --builtins.
+//   * CLASS-handle aliases (`typedef resource #(T) rsrc_t;`) — a class_typespec
+//     NAMED AFTER THE ALIAS but pointing at the TARGET class's class_defn, and
+//     located at the target's own name text. The property declared with the
+//     alias (`rsrc_t rsrc;`) shares this very object rather than minting a
+//     fresh class_typespec named after the class (ClassParamAsParam,
+//     ClassTypeParam) — makeTypespec's typedefTs lookup does that for free.
+//
+// Aliases of ordinary data types (VirtualClass's `typedef logic [SIZE-1:0]`)
+// are NOT listed yet: golden keeps their param-dependent ranges UNFOLDED
+// (operation SIZE-1) while the default specialization folds SIZE to 1, so they
+// need the unfolded-range builder first.
 void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd) {
-    auto* tds = s.MakeTypespecVec();
+    std::vector<std::pair<std::string, UHDM::typespec*>> ents;
     for (auto& member : cls.members()) {
         if (member.kind != SymbolKind::TypeAlias)
             continue;
         auto& ta = member.as<TypeAliasType>();
         auto& ct = ta.targetType.getType().getCanonicalType();
-        if (ct.kind != SymbolKind::EnumType)
-            continue;
         const syntax::SyntaxNode* typeSyn = nullptr;
         if (auto syn = ta.getSyntax())
             if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
                 typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
-        auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn, std::string(ta.name));
-        ets->VpiName(ta.name);
-        ets->VpiParent(cd);
-        if (auto syn = ta.getSyntax())
-            setLoc(ets, syn->sourceRange());
-        // Registering it lets a method's return type share this object.
-        typedefTs[&ta] = ets;
-        tds->push_back(ets);
+        UHDM::typespec* ts = nullptr;
+        if (ct.kind == SymbolKind::EnumType && builtins) {
+            auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn, std::string(ta.name));
+            if (auto syn = ta.getSyntax())
+                setLoc(ets, syn->sourceRange());
+            ts = ets;
+        }
+        else if (ct.kind == SymbolKind::ClassType) {
+            auto* cts = s.MakeClass_typespec();
+            if (auto* bcd = classDefnFor(ct))
+                cts->Class_defn(bcd);
+            else
+                pendingClassTsLink.push_back({cts, &ct});
+            // The span is the target class NAME as written — a parameterized
+            // target (`resource #(T)`) contributes only its identifier, the
+            // same rule drainPendingExtends applies to an extends clause.
+            if (typeSyn) {
+                auto r = typeSyn->sourceRange();
+                if (auto* nt = typeSyn->as_if<syntax::NamedTypeSyntax>())
+                    if (auto* cn = nt->name->as_if<syntax::ClassNameSyntax>())
+                        r = cn->identifier.range();
+                setLoc(cts, r);
+            }
+            ts = cts;
+        }
+        if (!ts)
+            continue;
+        ts->VpiName(ta.name);
+        ts->VpiParent(cd);
+        // Registering it lets a method's return type / a property share it.
+        typedefTs[&ta] = ts;
+        ents.emplace_back(std::string(ta.name), ts);
     }
-    if (!tds->empty())
-        cd->Typespecs(tds);
+    if (ents.empty())
+        return;
+    std::stable_sort(ents.begin(), ents.end(),
+                     [](const auto& a, const auto& b) { return a.first < b.first; });
+    auto* tds = s.MakeTypespecVec();
+    for (auto& e : ents)
+        tds->push_back(e.second);
+    cd->Typespecs(tds);
 }
 
 // Builds a canonical string of an instance's parameterization (value +
@@ -1886,6 +2022,27 @@ UHDM::design* UhdmExporter::exportDesign() {
                         }
                     }
                 }
+                // `typedef uvm_config_db#(uvm_object, string) alias;` — the
+                // same rule as a class-SCOPE class alias: one class_typespec
+                // named after the ALIAS, carrying the specialization, which
+                // every declaration of the alias then shares (ClassTypeParam).
+                else if (ct.kind == SymbolKind::ClassType) {
+                    auto* cts = s.MakeClass_typespec();
+                    if (auto* bcd = classDefnFor(ct))
+                        cts->Class_defn(bcd);
+                    else
+                        pendingClassTsLink.push_back({cts, &ct});
+                    emitClassTsParams(cts, ct.as<ClassType>(), std::string(ta.name));
+                    cts->VpiParent(d);
+                    if (typeSyn) {
+                        auto r = typeSyn->sourceRange();
+                        if (auto* nt = typeSyn->as_if<syntax::NamedTypeSyntax>())
+                            if (auto* cn = nt->name->as_if<syntax::ClassNameSyntax>())
+                                r = SourceRange(cn->identifier.range().start(), r.end());
+                        setLoc(cts, r);
+                    }
+                    ts = cts;
+                }
                 else {
                     noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
                     continue;
@@ -2017,6 +2174,21 @@ UHDM::design* UhdmExporter::exportDesign() {
         // (OneNetInterf/OneNetModPort/OneNetRange) sit in the blast radius, so
         // the rule is left unimplemented until the enum_var residue is fixed
         // and the two can be gated together.
+        //
+        // Re-triaged in the design-root-class block; the residue list past the
+        // AllPrograms/AllModules root is longer than the enum_var note implies
+        // and each item is its own rule:
+        //   * a `rand` class property carries vpiIsRandomized:1 + vpiRandType:2
+        //     (we emit vpiRandType:1 and no vpiIsRandomized);
+        //   * `frame_t frame = new();` declared INSIDE an initial-begin is
+        //     hoisted to a program-scope logic_net (plus `integer j`), while the
+        //     begin keeps the class_var/integer_var — we emit only the block var;
+        //   * `frame.multicast.constraint_mode(0)` models as a
+        //     method_func_call named after the CONSTRAINT (`multicast`), prefix
+        //     ref_obj = `frame`, argument dropped — we build a call named
+        //     `constraint_mode` with prefix `frame.multicast` and the argument;
+        //   * a func-local var's fullname uses `::` where we emit `.`
+        //     (`...::print::i` vs `...::print.i`).
         else if (isProgramDef(*inst) && !topDefs.count(&inst->getDefinition())) {
             auto* prog = s.MakeProgram();
             defMap[&inst->getDefinition()].mod = prog;
@@ -2162,19 +2334,23 @@ UHDM::design* UhdmExporter::exportDesign() {
                 // it once, from its DEFAULT specialization, exactly like the
                 // nested-class path above (ClassParamAsParam, ClassTypeParam,
                 // VirtualClass).
-                // NOTE: this closes the design ROOT for the three tests, and
-                // the parameters/param_assigns already match golden exactly.
-                // The residues are class-SCOPE typedefs (scope::Compare walks
-                // Typespecs): emitClassTypedefs is enum-only and gated behind
-                // --builtins, so (a) ClassParamAsParam wants a class_typespec
-                // `rsrc_t` in work@resource_db's Typespecs, with the property
-                // var pointing at THAT rather than at the resolved class, and
-                // (b) VirtualClass wants t_vector/t_array/t_struct with their
-                // SIZE-dependent ranges kept UNFOLDED (golden holds
-                // operation(SIZE-1); the default specialization folds SIZE=1
-                // to [0:0]). ClassTypeParam additionally needs the $unit
-                // typedef of a class specialization as a design-level
-                // class_typespec (`m_uvm_config_obj_misc`).
+                // ClassParamAsParam and ClassTypeParam are CMP_EQUAL as of the
+                // design-root-class block: this list, plus class-SCOPE class
+                // aliases (emitClassTypedefs), the specialization carried on a
+                // class_typespec (emitClassTsParams), a $unit class alias as a
+                // design typedef, and the `= new` var vpiExpr.
+                // VirtualClass still diverges, on THREE independent rules:
+                //   (a) class-scope aliases of ordinary data types
+                //       (t_vector/t_array/t_struct) must be listed with their
+                //       SIZE-dependent ranges kept UNFOLDED (golden holds
+                //       operation(SIZE-1); the default specialization folds
+                //       SIZE=1 to [0:0]), which emitClassTypedefs skips;
+                //   (b) a class-SCOPED type reference (`C#(t_t0,3)::t_vector`)
+                //       is an unsupported_typespec named `C::t_vector` in
+                //       golden — Surelog does not resolve it;
+                //   (c) the vars it types are bare logic_vars with NO typespec
+                //       in the top view, and def-view logic_nets pointing at
+                //       the unsupported_typespec.
                 else if (mem.kind == SymbolKind::GenericClassDef) {
                     auto& gc = mem.as<GenericClassDefSymbol>();
                     if (auto* dsp = gc.getDefaultSpecialization(*unit);
