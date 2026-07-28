@@ -305,6 +305,145 @@ static bool subroutinePoisonsEvalFunc(const SubroutineSymbol& sub, Compilation& 
     return stmtPoisonsEvalFunc(sub.getBody(), sub, comp);
 }
 
+// ---------------------------------------------------------------------------
+// srlgEvalFuncBails: the THREE measured ExprEval bail rules that decide whether
+// Surelog's top-view `int'(f())` cast folds to one constant (see the r4fold
+// NOTE in ExprEmit.cpp for the ablation that produced them).
+// ---------------------------------------------------------------------------
+
+// Peel packed/unpacked array wrappers down to the (possibly enum) element type.
+static const Type& peelToElem(const Type& t) {
+    const Type* c = &t.getCanonicalType();
+    for (int g = 0; g < 8 && c->isArray(); g++)
+        if (auto* e = c->getArrayElementType())
+            c = &e->getCanonicalType();
+        else
+            break;
+    return *c;
+}
+
+// Bail 1: an enum whose member literals are written in a NON-BINARY base.
+// Measured on one source with only the two member literals changed:
+// 3'b000/3'b111 -> fold, 3'h0/3'h7 -> no fold; 4'h5/4'hA -> no fold,
+// 4'b0101/4'b1010 -> fold. Auto-numbered members (no literal) never bail.
+static bool enumHasBasedNonBinaryMember(const Type& t) {
+    auto& el = peelToElem(t);
+    if (!el.isEnum())
+        return false;
+    for (auto& ev : el.as<EnumType>().values()) {
+        auto* dsyn = ev.getSyntax();
+        if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
+            continue;
+        auto* init = dsyn->as<syntax::DeclaratorSyntax>().initializer;
+        if (!init || init->expr->kind != syntax::SyntaxKind::IntegerVectorExpression)
+            continue;
+        auto b = init->expr->as<syntax::IntegerVectorExpressionSyntax>().base;
+        if (b && b.numericFlags().base() != LiteralBase::Binary)
+            return true;
+    }
+    return false;
+}
+
+// Bail 2 helper: the constant element indices a body assigns into `var`, or
+// "whole" when any assignment writes the variable outright.
+struct LocalCoverage {
+    bool whole = false;
+    std::set<int32_t> elems;
+};
+
+static void collectLocalWrites(const Statement& st,
+                               std::map<const Symbol*, LocalCoverage>& cov,
+                               Compilation& comp) {
+    st.visit(makeVisitor([&](auto& v, const AssignmentExpression& ax) {
+        auto& lhs = stripImplicitConv(ax.left());
+        if (lhs.kind == ExpressionKind::NamedValue) {
+            cov[&lhs.as<NamedValueExpression>().symbol].whole = true;
+        }
+        else if (lhs.kind == ExpressionKind::ElementSelect) {
+            auto& es = lhs.as<ElementSelectExpression>();
+            auto& base = stripImplicitConv(es.value());
+            if (base.kind == ExpressionKind::NamedValue) {
+                auto& e = cov[&base.as<NamedValueExpression>().symbol];
+                ASTContext actx(comp.getRoot(), LookupLocation::max);
+                ConstantValue iv = actx.tryEval(es.selector());
+                if (iv && iv.isInteger() && !iv.integer().hasUnknown()) {
+                    if (auto i32 = iv.integer().as<int32_t>())
+                        e.elems.insert(*i32);
+                    else
+                        e.whole = true;
+                }
+                else
+                    e.whole = true;
+            }
+            else if (auto* rs = selectRootSym(es.value()))
+                // A nested select (result[0][1:0]) leaves the outer element
+                // only partly written — record nothing, so the coverage check
+                // below sees it as unassigned.
+                (void)cov[rs];
+        }
+        else if (auto* rs = selectRootSym(lhs))
+            (void)cov[rs];
+        v.visitDefault(ax);
+    }));
+}
+
+// Bail 3: the RETURN expression is a bit/part-select off a function-scope
+// local (BitSelectPartSelectInFunction, even with a sized argument).
+static bool returnsSelectOfLocal(const Statement& st, const SubroutineSymbol& sub) {
+    bool bad = false;
+    st.visit(makeVisitor([&](auto& v, const ReturnStatement& rs) {
+        if (rs.expr) {
+            auto& re = stripImplicitConv(*rs.expr);
+            if (re.kind == ExpressionKind::ElementSelect ||
+                re.kind == ExpressionKind::RangeSelect)
+                if (auto* root = selectRootSym(re))
+                    if (isFuncScopeValue(*root, sub))
+                        bad = true;
+        }
+        v.visitDefault(rs);
+    }));
+    return bad;
+}
+
+// True when Surelog's ExprEval REDUCES this const function to one constant.
+bool UhdmExporter::srlgEvalFuncFolds(const SubroutineSymbol& sub) {
+    auto& body = sub.getBody();
+    if (subroutinePoisonsEvalFunc(sub, comp))
+        return false;
+    if (returnsSelectOfLocal(body, sub))
+        return false;
+    if (enumHasBasedNonBinaryMember(sub.getReturnType()))
+        return false;
+    // Bail 2: every function-scope local must be FULLY written. An unwritten
+    // local, or a packed/unpacked array with only some elements assigned
+    // (ReturnEnumArray writes out[0] but not out[1]), bails.
+    std::map<const Symbol*, LocalCoverage> cov;
+    collectLocalWrites(body, cov, comp);
+    for (auto& m : sub.members()) {
+        if (m.kind != SymbolKind::Variable)
+            continue;
+        auto& vs = m.as<VariableSymbol>();
+        if (vs.name == sub.name) // the implicit return variable
+            continue;
+        if (enumHasBasedNonBinaryMember(vs.getType()))
+            return false;
+        auto it = cov.find(&m);
+        if (it == cov.end())
+            return false;
+        if (it->second.whole)
+            continue;
+        auto& ct = vs.getType().getCanonicalType();
+        if (!ct.isArray())
+            return false;
+        auto fr = ct.getFixedRange();
+        for (int32_t i = std::min(fr.left, fr.right);
+             i <= std::max(fr.left, fr.right); i++)
+            if (!it->second.elems.count(i))
+                return false;
+    }
+    return true;
+}
+
 // Surelog INLINES a foldable const function's body, so the folded constant is
 // encoded by the same rules a plain expression fold uses — driven by the RETURN
 // assignment's expression kind: a CONCAT body ({..}) folds full-width BIN, a
@@ -3530,16 +3669,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                           .getLiteralValue();
                         auto* c = (UHDM::constant*)rhs;
                         int32_t w = (int32_t)ps.getType().getBitWidth();
+                        // A PACKAGE param's degenerate fill keeps the RAW
+                        // source decompile ('0), where a module param's is
+                        // re-decompiled at the type width (<w>'b0). Measured
+                        // on one source carrying the same struct- and
+                        // vector-typed '0/'1 pair in a package and in a
+                        // module: only the DEGENERATE fills differ; '1
+                        // decompiles as the all-ones decimal in both
+                        // (FuncStructValSimple cva6_cfg_empty).
                         if (bit.isUnknown()) {
                             std::string d = bit.value == logic_t::X_VALUE ? "X" : "Z";
                             c->VpiValue("BIN:" + d);
                             c->VpiConstType(vpiBinaryConst);
-                            c->VpiDecompile(std::to_string(w) + "'b" + d);
+                            c->VpiDecompile(inPackage
+                                                ? "'" + std::string(1, (char)std::tolower(d[0]))
+                                                : std::to_string(w) + "'b" + d);
                         }
                         else if (bit.value == 0) {
                             c->VpiValue("BIN:0");
                             c->VpiConstType(vpiBinaryConst);
-                            c->VpiDecompile(std::to_string(w) + "'b0");
+                            c->VpiDecompile(inPackage ? "'0"
+                                                      : std::to_string(w) + "'b0");
                         }
                         else {
                             slang::SVInt ones((slang::bitwidth_t)w, 0, false);
@@ -5871,6 +6021,77 @@ bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
     return false;
 }
 
+// Collect the names Surelog resolves through getObject in an INSTANCE context
+// (see paramNameIsRead): any name carrying a SELECT anywhere, plus a name
+// that is the WHOLE Rhs of a continuous assign.
+static void collectSrlgReadNames(const syntax::SyntaxNode& n,
+                                 std::map<std::string_view, int>& out) {
+    if (n.kind == syntax::SyntaxKind::ContinuousAssign) {
+        for (auto* a : n.as<syntax::ContinuousAssignSyntax>().assignments)
+            if (a && a->kind == syntax::SyntaxKind::AssignmentExpression) {
+                auto* r = a->as<syntax::BinaryExpressionSyntax>().right.get();
+                if (r && r->kind == syntax::SyntaxKind::IdentifierName)
+                    out[r->as<syntax::IdentifierNameSyntax>()
+                            .identifier.valueText()]++;
+            }
+    }
+    if (n.kind == syntax::SyntaxKind::IdentifierSelectName)
+        out[n.as<syntax::IdentifierSelectNameSyntax>().identifier.valueText()]++;
+    else if (n.kind == syntax::SyntaxKind::ElementSelectExpression) {
+        auto* l = n.as<syntax::ElementSelectExpressionSyntax>().left.get();
+        if (l && l->kind == syntax::SyntaxKind::IdentifierName)
+            out[l->as<syntax::IdentifierNameSyntax>().identifier.valueText()]++;
+    }
+    for (size_t i = 0, e = n.getChildCount(); i < e; i++)
+        if (auto* c = n.childNode(i))
+            collectSrlgReadNames(*c, out);
+}
+
+// Surelog's elaboration REWRITES a parameter's value typespec the first time
+// the parameter's NAME is resolved through getObject in an instance context:
+// CompileHelper::setRange (CompileHelper.cpp:5417) replaces the constant's
+// ref with a FRESH loc-less logic_typespec whose single range is the Value's
+// folded [lr:rr] as BARE UINT constants. A parameter that never reaches
+// getObject keeps the located declaration typespec (with the unreduced bound
+// expression) in the ELAB view too.
+//
+// Which reads reach it was measured on a 10-shape ablation (probes 13/14/16
+// plus the UnsizedElabComp / ConstantRange / wildcard_eq goldens):
+//   `assign z = P[0]`        -> bare    `assign w = P`           -> bare
+//   `if (P[0])` gen cond     -> bare    `if (P == '1)` gen cond  -> LOCATED
+//   `assign o = a == P`      -> LOCATED `assign o = a ==? P`     -> LOCATED
+//   `sub #(.SP(P))`          -> LOCATED never read               -> LOCATED
+//   localparam vs parameter, known vs x/z value: no effect.
+// So exactly two shapes reach getObject with a constant result: a SELECTED
+// reference (anywhere, including a generate condition), and a whole-name
+// reference that IS the entire Rhs of a continuous assign. A whole name
+// buried in a larger expression — gen-condition comparison or a CA operand
+// beside a net — does not.
+//
+// Modelled on the SYNTAX, not the AST: the reads that matter include
+// elaboration-time ones slang has already folded away (generate conditions
+// of both taken and untaken branches).
+bool UhdmExporter::paramNameIsRead(const ParameterSymbol& ps) {
+    auto* syn = ps.getSyntax();
+    if (!syn)
+        return false;
+    const syntax::SyntaxNode* decl = nullptr;
+    for (const syntax::SyntaxNode* q = syn->parent; q; q = q->parent)
+        if (q->kind == syntax::SyntaxKind::ModuleDeclaration ||
+            q->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+            q->kind == syntax::SyntaxKind::ProgramDeclaration)
+            decl = q;
+    if (!decl)
+        return false;
+    auto it = declIdentCounts.find(decl);
+    if (it == declIdentCounts.end()) {
+        std::map<std::string_view, int> reads;
+        collectSrlgReadNames(*decl, reads);
+        it = declIdentCounts.emplace(decl, std::move(reads)).first;
+    }
+    return it->second.count(ps.name) != 0;
+}
+
 // Peel selects / member-access / conversions of an initializer down to its
 // root value symbol (the named/hierarchical reference the value flows from).
 static const Symbol* paramInitRootSym(const Expression& e) {
@@ -6697,6 +6918,20 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                              ((UHDM::constant*)rc0)
                                      ->VpiValue()
                                      .rfind("REAL:", 0) == 0;
+            // srlgReadFoldsTs: a BASED (HEX/OCT/BIN) fold takes the bare vec
+            // ts too — but ONLY when the param is actually READ. Surelog
+            // rewrites the value typespec inside getObject/setRange
+            // (CompileHelper.cpp:5417), so a vector param nobody reads keeps
+            // its located declaration ts in the elab view as well. Measured
+            // on a 6-param ablation (based/unbased/decimal x read/unread):
+            // the READ, not the value encoding, is the distinguisher.
+            // Package params never go through this path (probe: both pkg
+            // views keep the located ts).
+            bool readFold9 = rc0 && rc0->UhdmType() == UHDM::uhdmconstant &&
+                             ps->getParentScope() &&
+                             ps->getParentScope()->asSymbol().kind !=
+                                 SymbolKind::Package &&
+                             paramNameIsRead(*ps);
             if (signedBinFoldParams.count(ps) && rc0 &&
                 rc0->UhdmType() == UHDM::uhdmconstant) {
                 auto* sb9 = s.MakeInt_typespec();
@@ -6728,7 +6963,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 }
                 rhsRt->Actual_typespec(lts9);
             }
-            else if ((uintFold || unbasedSharedActive) && typedParam &&
+            else if ((uintFold || unbasedSharedActive || readFold9) && typedParam &&
                 !isOverriddenParam(*ps) &&
                 ps->getType().getCanonicalType().isPackedArray()) {
                 // A DEGENERATE unbased fill ('0/'x/'z, BIN) binds the SAME

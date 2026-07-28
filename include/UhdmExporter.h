@@ -535,6 +535,15 @@ private:
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
                                 bool parentBounds = false);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
+    // True when Surelog's ExprEval reduces this const function to one
+    // constant (the three measured bail rules — see ParamEmit).
+    bool srlgEvalFuncFolds(const slang::ast::SubroutineSymbol& sub);
+    // True when the parameter's NAME appears anywhere in its enclosing
+    // module/interface declaration beyond its own declarator (srlgReadFoldsTs
+    // — see patchParamTypespecs). Cached per enclosing declaration syntax.
+    bool paramNameIsRead(const slang::ast::ParameterSymbol& ps);
+    std::map<const slang::syntax::SyntaxNode*,
+             std::map<std::string_view, int>> declIdentCounts;
     UHDM::typespec* predefIntTypespec(const slang::ast::Type& ct,
                                       const slang::ast::Symbol& sym);
 

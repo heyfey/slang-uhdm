@@ -280,17 +280,27 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     //   3. a part-select/bit-select return off a local bails
     //      (BitSelectPartSelectInFunction, even with a sized argument).
     // Folding on the call alone regressed exactly these three u2r tests
-    // (BitSelectPartSelectInFunction, FunctionReturnEnum, ReturnEnumArray),
-    // so the gate stays closed until the bail set is modelled — that belongs
-    // in SrlgFold (ParamEmit), which already replays Surelog's evaluator and
-    // returns nullopt for anything unmodelled.
+    // (BitSelectPartSelectInFunction, FunctionReturnEnum, ReturnEnumArray).
+    // The bail set is now modelled in UhdmExporter::srlgEvalFuncFolds
+    // (ParamEmit) and the gate below opens only when all three pass.
     if (!foldTypeCasts) {
         auto& c0 = stripImplicitConv(expr);
         if (c0.kind == ExpressionKind::Conversion && c0.syntax &&
             c0.syntax->kind == syntax::SyntaxKind::CastExpression &&
             isTypeSyntaxKind(
-                c0.syntax->as<syntax::CastExpressionSyntax>().left->kind))
-            return nullptr;
+                c0.syntax->as<syntax::CastExpressionSyntax>().left->kind)) {
+            bool evalFolds = false;
+            auto& op0 = stripImplicitConv(c0.as<ConversionExpression>().operand());
+            if (op0.kind == ExpressionKind::Call) {
+                auto& cx0 = op0.as<CallExpression>();
+                if (!cx0.isSystemCall() && cx0.arguments().empty())
+                    if (auto* sub0 =
+                            std::get_if<const SubroutineSymbol*>(&cx0.subroutine))
+                        evalFolds = *sub0 && srlgEvalFuncFolds(**sub0);
+            }
+            if (!evalFolds)
+                return nullptr;
+        }
     }
     // A TYPE cast of a VECTOR-TYPEDEF param (int'(P) where P is a typedef'd
     // packed array) keeps the cast op even in CHILD-instance CAs (Surelog).

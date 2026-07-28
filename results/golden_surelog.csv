@@ -291,8 +291,8 @@ ConstantBits,default,CMP_EQUAL,,,differ
 ConstantBits,testflags,CMP_EQUAL,,,differ
 ConstantNoElabUhdm,default,CMP_EQUAL,,,match
 ConstantNoElabUhdm,testflags,CMP_EQUAL,,,match
-ConstantRange,default,CMP_NOTEQUAL,decompile:,,
-ConstantRange,testflags,CMP_NOTEQUAL,decompile:,,
+ConstantRange,default,CMP_EQUAL,,,differ
+ConstantRange,testflags,CMP_EQUAL,,,differ
 ConstantWithElabUhdm,default,CMP_EQUAL,,,match
 ConstantWithElabUhdm,testflags,CMP_EQUAL,,,match
 ConstCapital,default,CMP_NOTEQUAL,decompile:,,
@@ -991,8 +991,8 @@ PackedEnum,default,CMP_EQUAL,,,match
 PackedEnum,testflags,CMP_EQUAL,,,match
 PackedEnumPort,default,CMP_EQUAL,,,differ
 PackedEnumPort,testflags,CMP_EQUAL,,,differ
-PackedEnumVar,default,CMP_NOTEQUAL,decompile:,,
-PackedEnumVar,testflags,CMP_NOTEQUAL,decompile:,,
+PackedEnumVar,default,CMP_EQUAL,,,match
+PackedEnumVar,testflags,CMP_EQUAL,,,match
 PackedUnpackedIo,default,CMP_EQUAL,,,match
 PackedUnpackedIo,testflags,CMP_EQUAL,,,match
 PackEnumVal,default,SLANG_REJECT,dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion exists; are you missing a cast?,,
@@ -1391,8 +1391,8 @@ TypeParamOverride,default,CMP_EQUAL,,,differ
 TypeParamOverride,testflags,CMP_EQUAL,,,differ
 TypespecBits,default,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
 TypespecBits,testflags,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
-TypespecExpr,default,CMP_EQUAL,,,differ
-TypespecExpr,testflags,CMP_NOTEQUAL,decompile:,,
+TypespecExpr,default,CMP_EQUAL,,,match
+TypespecExpr,testflags,CMP_EQUAL,,,differ
 TypespecMask,default,CMP_EQUAL,,,differ
 TypespecMask,testflags,CMP_NOTEQUAL,decompile:,,
 Udp,default,CMP_EQUAL,,,differ

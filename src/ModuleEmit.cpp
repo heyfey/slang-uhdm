@@ -56,6 +56,35 @@ static void addUntypedParamValueRange(UHDM::Serializer& s,
     its->Ranges(rs);
 }
 
+// srlgAggActualNoFold: true when `sym` is a parameter whose bound initializer
+// (for an overridden param, the OVERRIDE ACTUAL) is a plain reference to an
+// AGGREGATE-valued parameter. Surelog resolves such an actual through
+// getObject onto the parent's assignment-pattern OPERATION, so the child
+// instance records a COMPLEX value — and ModuleInstance::getValue
+// (ModuleInstance.cpp:132) returns nullptr whenever a complex value exists.
+// Every read of that parameter therefore stays a bare ref_obj in the elab
+// view, even though the param_assign Rhs itself still reduces to a constant
+// (TypespecExpr: `Mod1 #(.PARAM(STRUCT))` with `assign x = PARAM`).
+static bool aggActualParamRef(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Parameter)
+        return false;
+    auto* iv = sym.as<ParameterSymbol>().getInitializer();
+    if (!iv)
+        return false;
+    auto& si = stripImplicitConv(*iv);
+    if (si.kind != ExpressionKind::NamedValue ||
+        si.as<NamedValueExpression>().symbol.kind != SymbolKind::Parameter)
+        return false;
+    auto ak = si.as<NamedValueExpression>()
+                  .symbol.getType()
+                  .getCanonicalType()
+                  .kind;
+    return ak == SymbolKind::PackedStructType ||
+           ak == SymbolKind::PackedUnionType ||
+           ak == SymbolKind::UnpackedStructType ||
+           ak == SymbolKind::UnpackedUnionType;
+}
+
 // Surelog's variable / typespec CLASS for a GEN-BLOCK local declaration
 // (`int x`, `shortint x`, `bit [1:0] x`, ...). Returns false when the type is
 // not one of the stmt-ified scalar/integer forms. `ranged` reports a packed
@@ -11342,7 +11371,12 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             auto& rc = stripImplicitConv(ae.right());
             if (rc.kind == ExpressionKind::NamedValue) {
                 auto& sym = rc.as<NamedValueExpression>().symbol;
-                if (isOverriddenParam(sym))
+                // srlgAggActualNoFold (see aggActualParamRef): an aggregate
+                // override actual leaves the read unfolded in every arm.
+                if (aggActualParamRef(sym)) {
+                    // no fold: the def CA's ref_obj is shared through.
+                }
+                else if (isOverriddenParam(sym))
                     ovParamRhs = &sym;
                 // UNBASED-UNSIZED overrides lose the override syntax on
                 // cloned bodies (isOverriddenParam misses them) — detect
@@ -12460,6 +12494,11 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                .kind;
                 structWholeParamRef = ck9 == SymbolKind::PackedStructType ||
                                       ck9 == SymbolKind::PackedUnionType;
+                // srlgAggActualNoFold: an AGGREGATE override actual keeps the
+                // read unfolded here too (see aggActualParamRef).
+                if (!structWholeParamRef &&
+                    aggActualParamRef(rc9.as<NamedValueExpression>().symbol))
+                    structWholeParamRef = true;
             }
         }
         // A REAL-typed cont-assign RHS that references a param folds in REAL
