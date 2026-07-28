@@ -336,10 +336,25 @@ private:
     // instance-less int_typespec ref named by the member's ts fullname).
     void attachFoldedBoundMeta(UHDM::typespec* container,
                                UHDM::instance* pkgInst = nullptr);
+    // Surelog clones a NAMED vector-typedef typespec at every REFERENCE
+    // instead of sharing the module's object, and the copy DROPS vpiInstance
+    // (the shared object's instance is the def-view module). Copies the fields
+    // uhdm-cmp compares; DeepClone cannot be used here — it recurses forever
+    // through the self-referential Typedef_alias (r9tdclone).
+    UHDM::typespec* copyNamedVecTs(const UHDM::typespec* src,
+                                   UHDM::any* parent);
     // True while building an elab struct/union param ts CLONE: member leaf
     // typespecs parent at the member's ref_typespec (Surelog clone form)
     // instead of the typespec_member.
     bool structCloneMemberRefParent = false;
+    // True while building the ELAB *operation* ts clone of an aggregate param
+    // (the flat op75's own typespec, rhsRt), as opposed to the parameter's own
+    // clone. Surelog's op clone is INSTANCE-FREE all the way down: its
+    // vector-typedef member's alias target is a fresh instance-less copy of
+    // the module's shared typedef object, where the PARAMETER clone's alias
+    // target keeps the shared object's def-view instance
+    // (r9tdclone / ParamSubstituteComplex).
+    bool paramOpCloneCtx = false;
     // Building a module CAST's aggregate clone tree: struct-typedef members
     // get FRESH threaded clones and vector-typedef members fresh folded twins
     // (Surelog re-elaborates the cast target — jeras_union op32_t'(ins)).

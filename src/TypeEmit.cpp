@@ -3425,6 +3425,32 @@ UHDM::typespec* UhdmExporter::anonAggregateElemTs(
     return lts;
 }
 
+// Surelog does not SHARE a named vector typedef's typespec object across
+// references — it copies it, and the copy is instance-free (the shared object
+// carries the DEF-view module instance). uhdm-dump abbreviates an already
+// visited typespec, so the difference is invisible in a dump diff while
+// typespec::Compare, which recurses vpiInstance, fails hard on it: a def-view
+// module_inst never equals the elaborated one (r9tdclone).
+UHDM::typespec* UhdmExporter::copyNamedVecTs(const UHDM::typespec* src,
+                                             UHDM::any* parent) {
+    if (!src || src->UhdmType() != UHDM::uhdmlogic_typespec)
+        return nullptr;
+    auto* sl = (const UHDM::logic_typespec*)src;
+    auto* cl = s.MakeLogic_typespec();
+    cl->VpiName(std::string(sl->VpiName()));
+    cl->VpiParent(parent);
+    cl->VpiFile(sl->VpiFile());
+    cl->VpiLineNo(sl->VpiLineNo());
+    cl->VpiColumnNo(sl->VpiColumnNo());
+    cl->VpiEndLineNo(sl->VpiEndLineNo());
+    cl->VpiEndColumnNo(sl->VpiEndColumnNo());
+    cl->VpiVector(sl->VpiVector());
+    cl->VpiSigned(sl->VpiSigned());
+    cl->Ranges(((UHDM::logic_typespec*)sl)->Ranges());
+    cl->Elem_typespec(((UHDM::logic_typespec*)sl)->Elem_typespec());
+    return cl;
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -3918,7 +3944,26 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                         if (!twD)
                             twD = pkgVectorFoldTwin(amt, tita->second);
                     }
-                    artD->Actual_typespec(twD ? twD : tita->second);
+                    // An ELAB *operation* clone (the flat op75's own ts) is
+                    // INSTANCE-FREE all the way down: its vector-typedef
+                    // member's alias binds a fresh instance-less COPY of the
+                    // module's shared typedef object rather than the object
+                    // itself (which carries the DEF-view module instance).
+                    // The PARAMETER clone keeps pointing at the shared object
+                    // — there the golden's per-reference copy carries the same
+                    // instance, so the two compare equal.  typespec::Compare
+                    // recurses vpiInstance and a def-view module_inst never
+                    // equals the elaborated one (vpiTopModule differs, and gen
+                    // constructs land in Gen_stmts vs Gen_scope_arrays), so
+                    // this is a hard cmp failure that no dump shows
+                    // (r9tdclone, ParamSubstituteComplex).  Copy the compared
+                    // fields by hand: DeepClone recurses forever through the
+                    // self-referential Typedef_alias.
+                    UHDM::typespec* opCp0 = nullptr;
+                    if (paramOpCloneCtx && !twD && tita->second->Instance())
+                        opCp0 = copyNamedVecTs(tita->second, artD);
+                    artD->Actual_typespec(opCp0 ? opCp0
+                                                : (twD ? twD : tita->second));
                     if (twD)
                         foldVectorTsBounds(clD, amt.getCanonicalType());
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)
@@ -4587,7 +4632,26 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                         if (!twD)
                             twD = pkgVectorFoldTwin(amt, tita->second);
                     }
-                    artD->Actual_typespec(twD ? twD : tita->second);
+                    // An ELAB *operation* clone (the flat op75's own ts) is
+                    // INSTANCE-FREE all the way down: its vector-typedef
+                    // member's alias binds a fresh instance-less COPY of the
+                    // module's shared typedef object rather than the object
+                    // itself (which carries the DEF-view module instance).
+                    // The PARAMETER clone keeps pointing at the shared object
+                    // — there the golden's per-reference copy carries the same
+                    // instance, so the two compare equal.  typespec::Compare
+                    // recurses vpiInstance and a def-view module_inst never
+                    // equals the elaborated one (vpiTopModule differs, and gen
+                    // constructs land in Gen_stmts vs Gen_scope_arrays), so
+                    // this is a hard cmp failure that no dump shows
+                    // (r9tdclone, ParamSubstituteComplex).  Copy the compared
+                    // fields by hand: DeepClone recurses forever through the
+                    // self-referential Typedef_alias.
+                    UHDM::typespec* opCp0 = nullptr;
+                    if (paramOpCloneCtx && !twD && tita->second->Instance())
+                        opCp0 = copyNamedVecTs(tita->second, artD);
+                    artD->Actual_typespec(opCp0 ? opCp0
+                                                : (twD ? twD : tita->second));
                     if (twD)
                         foldVectorTsBounds(clD, amt.getCanonicalType());
                     if (clD->UhdmType() == UHDM::uhdmlogic_typespec)

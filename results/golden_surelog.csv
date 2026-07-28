@@ -1077,8 +1077,8 @@ ParamRef,default,CMP_EQUAL,,,differ
 ParamRef,testflags,CMP_EQUAL,,,differ
 ParamScope,default,CMP_EQUAL,,,differ
 ParamScope,testflags,CMP_EQUAL,,,differ
-ParamSubstituteComplex,default,CMP_NOTEQUAL,decompile:,,
-ParamSubstituteComplex,testflags,CMP_NOTEQUAL,decompile:,,
+ParamSubstituteComplex,default,CMP_EQUAL,,,differ
+ParamSubstituteComplex,testflags,CMP_EQUAL,,,differ
 ParamTypespec,default,CMP_EQUAL,,,differ
 ParamTypespec,testflags,CMP_EQUAL,,,differ
 ParamTypespec2,default,CMP_NOTEQUAL,decompile:,,

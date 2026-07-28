@@ -2984,8 +2984,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         auto* rt6 = s.MakeRef_typespec();
                         rt6->VpiFullName(st6->VpiFullName());
                         rt6->VpiParent(c6);
-                        rt6->Actual_typespec(
-                            (UHDM::typespec*)st6->Actual_typespec());
+                        auto* act6 = (UHDM::typespec*)st6->Actual_typespec();
+                        // RULE 6b (r9tdclone): when the READING param is
+                        // declared with the same NAMED vector typedef, the
+                        // slot's typespec only LOOKS like the right answer.
+                        // Surelog gives the constant the PARAM's own
+                        // alias-clone chain (`work@top.FpFmtMask.fmt_logic_t`),
+                        // whose alias target keeps the shared typedef object's
+                        // module instance — where the slot's copy is
+                        // instance-free (it was cloned for the flattened
+                        // pattern, which carries no instance anywhere). Both
+                        // print the same; only typespec::Compare's Instance()
+                        // recursion separates them.
+                        if (!act6->VpiName().empty() && ps.getDeclaredType() &&
+                            ps.getDeclaredType()->getType().kind ==
+                                SymbolKind::TypeAlias)
+                            if (auto t6 = typedefTs.find(
+                                    &ps.getDeclaredType()->getType());
+                                t6 != typedefTs.end() && t6->second &&
+                                t6->second->Instance() &&
+                                t6->second->VpiName() == act6->VpiName())
+                                if (auto* pc6 = copyNamedVecTs(t6->second, rt6)) {
+                                    auto* pa6 = s.MakeRef_typespec();
+                                    pa6->VpiFullName(
+                                        joinPath(prefix, ps.name) + "." +
+                                        std::string(t6->second->VpiName()));
+                                    pa6->VpiParent(pc6);
+                                    pa6->Actual_typespec(t6->second);
+                                    pc6->Typedef_alias(pa6);
+                                    act6 = pc6;
+                                }
+                        rt6->Actual_typespec(act6);
                         c6->Typespec(rt6);
                     }
                     pa->Rhs(c6);
@@ -6263,28 +6292,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     // ranges/alias) and drop the instance; a
                                     // DeepClone would recurse forever through
                                     // the self-referential Typedef_alias.
-                                    if (mtsp8 && mtsp8->Instance() &&
-                                        mtsp8->UhdmType() ==
-                                            UHDM::uhdmlogic_typespec) {
-                                        auto* sl8 =
-                                            (UHDM::logic_typespec*)mtsp8;
-                                        auto* cl8 = s.MakeLogic_typespec();
-                                        cl8->VpiName(
-                                            std::string(sl8->VpiName()));
-                                        cl8->VpiParent(rrt8);
-                                        cl8->VpiFile(sl8->VpiFile());
-                                        cl8->VpiLineNo(sl8->VpiLineNo());
-                                        cl8->VpiColumnNo(sl8->VpiColumnNo());
-                                        cl8->VpiEndLineNo(sl8->VpiEndLineNo());
-                                        cl8->VpiEndColumnNo(
-                                            sl8->VpiEndColumnNo());
-                                        cl8->VpiVector(sl8->VpiVector());
-                                        cl8->VpiSigned(sl8->VpiSigned());
-                                        cl8->Ranges(sl8->Ranges());
-                                        cl8->Elem_typespec(
-                                            sl8->Elem_typespec());
+                                    if (auto* cl8 = mtsp8 && mtsp8->Instance()
+                                                        ? copyNamedVecTs(mtsp8,
+                                                                         rrt8)
+                                                        : nullptr) {
                                         cl8->Typedef_alias(
-                                            sl8->Typedef_alias());
+                                            mtsp8->Typedef_alias());
+                                        // ...and the copy is one LINK of an
+                                        // alias CHAIN, not a detached twin.
+                                        // Surelog copies the member's alias
+                                        // clone AND its alias target, so the
+                                        // slot's typespec carries a
+                                        // Typedef_alias to a SECOND
+                                        // instance-free copy
+                                        // (`work@top.fmt_logic_t`), not to the
+                                        // shared object.  Missing it compares
+                                        // `failLhs=ref_typespec failRhs=null`
+                                        // through the reading param's Rhs
+                                        // constant (r9tdclone;
+                                        // ParamSubstituteComplex's
+                                        // `FpFmtMask: {RVF, RVD, ...}`).
+                                        if (!cl8->Typedef_alias() &&
+                                            !cl8->VpiName().empty()) {
+                                            auto* ar8 = s.MakeRef_typespec();
+                                            ar8->VpiFullName(
+                                                tsP8 + "." +
+                                                std::string(mtsp8->VpiName()));
+                                            ar8->VpiParent(cl8);
+                                            ar8->Actual_typespec(
+                                                copyNamedVecTs(mtsp8, ar8));
+                                            cl8->Typedef_alias(ar8);
+                                        }
                                         mtsp8 = cl8;
                                     }
                                     rrt8->Actual_typespec(mtsp8);
@@ -9274,7 +9312,9 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
         auto dot = full.rfind('.');
         syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
         structCloneMemberRefParent = true;
+        paramOpCloneCtx = true;
         auto* opClone = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+        paramOpCloneCtx = false;
         structCloneMemberRefParent = false;
         rhsRt->Actual_typespec(opClone);
         opClone->VpiParent(rhsRt);
@@ -9404,7 +9444,9 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             auto dot = full.rfind('.');
             syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
             structCloneMemberRefParent = true;
+            paramOpCloneCtx = true;
             opClone = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+            paramOpCloneCtx = false;
             structCloneMemberRefParent = false;
             rhsRt->Actual_typespec(opClone);
             opClone->VpiParent(rhsRt);
@@ -9500,9 +9542,35 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 }
                 if (unitTd9)
                     its->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
-                else if (!pkgTd9 || !its->Instance())
-                    if (auto* par = up->VpiParent())
+                else if (!pkgTd9 || !its->Instance()) {
+                    // A MODULE-LOCAL struct/union typedef clone INHERITS the
+                    // shared typedef object's instance — the DEF-view
+                    // module_inst — instead of taking the module instance this
+                    // clone is being written into. Surelog clones the def-view
+                    // typespec and the clone keeps the original's vpiInstance;
+                    // the two views are NOT interchangeable to uhdm-cmp
+                    // (module_inst::Compare tests vpiTopModule, and a module
+                    // with generate constructs has Gen_stmts in the def view
+                    // where the elaborated one has Gen_scope_arrays), so the
+                    // elab pointer is a hard failure the dump never shows
+                    // (r9tdclone, ParamSubstituteComplex). Same shape as the
+                    // pkgTd9 rule right above: a package typedef's clone keeps
+                    // the package instance rather than the instantiating one.
+                    UHDM::instance* shInst9 = nullptr;
+                    if (ps->getDeclaredType()) {
+                        auto& dtS9 = ps->getDeclaredType()->getType();
+                        if (dtS9.kind == SymbolKind::TypeAlias)
+                            if (auto tS9 = typedefTs.find(&dtS9);
+                                tS9 != typedefTs.end() && tS9->second &&
+                                tS9->second->Instance())
+                                shInst9 =
+                                    (UHDM::instance*)tS9->second->Instance();
+                    }
+                    if (shInst9)
+                        its->Instance(shInst9);
+                    else if (auto* par = up->VpiParent())
                         its->Instance((UHDM::instance*)par);
+                }
             }
             // A fresh ELAB enum clone of a MODULE-scoped named enum typedef
             // (localparam enum_e P) carries vpiInstance = this module instance,
