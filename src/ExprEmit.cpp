@@ -3897,6 +3897,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Built-in METHOD call (e.first(), s.putc(...)): hier_path
                 // [receiver ref (name-only), method_func_call named by the
                 // method] — Surelog's folded shape.
+                // Surelog's compileTfCall resolves `<name>.<method>(args)`
+                // by its FIRST identifier. Inside a function, the receiver
+                // `myFunc1` of `myFunc1.push_back('{i,i})` IS the function,
+                // so the whole thing compiles to a plain func_call to
+                // myFunc1 carrying the METHOD's arguments — the queue method
+                // is dropped (CrossFunc). Gated on the receiver being this
+                // function's own return variable, the only receiver that
+                // names a subroutine.
+                if (!call.arguments().empty() && funcRetSym) {
+                    auto& rcv0 = stripImplicitConv(*call.arguments()[0]);
+                    if (rcv0.kind == ExpressionKind::NamedValue &&
+                        &rcv0.as<NamedValueExpression>().symbol == funcRetSym) {
+                        auto* ps0 = funcRetSym->getParentScope();
+                        if (ps0 &&
+                            ps0->asSymbol().kind == SymbolKind::Subroutine) {
+                            auto& fsub0 =
+                                ps0->asSymbol().as<SubroutineSymbol>();
+                            auto* fc0 = s.MakeFunc_call();
+                            fc0->VpiName(fsub0.name);
+                            fc0->VpiParent(parent);
+                            setLoc(fc0, expr.sourceRange);
+                            if (auto sit0 = subMap.find(&fsub0);
+                                sit0 != subMap.end())
+                                fc0->Function(
+                                    (UHDM::function*)sit0->second.tf);
+                            auto* fargs = s.MakeAnyVec();
+                            for (size_t ai = 1; ai < call.arguments().size();
+                                 ai++)
+                                if (auto* a2 = emitExpr(*call.arguments()[ai],
+                                                        fc0, prefix, netMap))
+                                    fargs->push_back(a2);
+                            if (!fargs->empty())
+                                fc0->Tf_call_args(fargs);
+                            return fc0;
+                        }
+                    }
+                }
                 if (!call.arguments().empty()) {
                     auto* recv = call.arguments()[0];
                     std::string recvText = rawText(recv->sourceRange);

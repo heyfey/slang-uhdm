@@ -950,6 +950,31 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // Tasks/functions are module items; their typespecs (return, io_decls)
     // precede cont_assign and port typespecs.
     emitTaskFuncs(body, m, prefix, &info);
+    // A function declared inside a covergroup `cross`'s bins block is NOT a
+    // covergroup member for Surelog: UHDM has no covergroup object at all, so
+    // CompileModule's task/function collection sees the declaration at MODULE
+    // level and the function lands in the module's vpiTaskFunc with a
+    // module-scoped fullname (CrossFunc's myFunc1/myFunc2). slang keeps them
+    // where they were written — under the CoverCrossBody scope — so walk
+    // there and emit them into the same list (emitTaskFuncs appends on an
+    // instance).
+    // (slang nests CovergroupType -> CovergroupBody -> CoverCross ->
+    //  CoverCrossBody -> Subroutine.)
+    for (auto& cgm : body.members()) {
+        if (cgm.kind != SymbolKind::CovergroupType)
+            continue;
+        for (auto& gb : cgm.as<Scope>().members()) {
+            if (gb.kind != SymbolKind::CovergroupBody)
+                continue;
+            for (auto& xm : gb.as<Scope>().members()) {
+                if (xm.kind != SymbolKind::CoverCross)
+                    continue;
+                for (auto& bm : xm.as<Scope>().members())
+                    if (bm.kind == SymbolKind::CoverCrossBody)
+                        emitTaskFuncs(bm.as<Scope>(), m, prefix, &info);
+            }
+        }
+    }
 
     // Def-view cont_assigns come before ports (their typespecs precede the
     // port typespecs in Surelog's arena).
@@ -1206,24 +1231,62 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //    self-consistent (net `b` anchored in the header while `a` is anchored
 //    at its declaration; ports emitted b-then-a; port b's LowConn actual
 //    bound to module_inst work@a). Do not model (b) from first principles.
-//  * GenerateUnnamed mis-nests an else-if generate chain: the top-level
-//    scan finds the INNER IfGenerate as a member's nearest enclosing one and
-//    lists it again in Gen_stmts (~815 changed dump lines, not one rule).
-//    Re-measured (r9modcont): def-view Gen_stmts is [gen_if_else(p==1),
-//    gen_if(p==2)] where Surelog has ONE gen_if_else whose condition is
-//    `p == 1` and whose vpiElseStmt is the `else if (p == 2)` chain — i.e.
-//    the OUTER if is dropped and both of its arms are hoisted to siblings.
-//  * CrossFunc is a COVERGROUP test, not a container one. Two rules, both
-//    large: (1) functions declared inside a covergroup `cross` bins block are
+//  * GenerateUnnamed: the DEF views of both modules are now EQUAL
+//    (r9modres — the if-chain HEAD anchoring in the top-level scan below
+//    plus emitCaseItem's nested gen_case). What is left is the ELAB view,
+//    two rules, neither of them a container one:
+//      (a) an UNNAMED conditional-generate `begin` builds NO gen_scope of
+//          its own — its children hoist into the enclosing scope, and a
+//          case-generate contributes no scope level either. Measured on a
+//          named/unnamed pair differing ONLY by the label: named `outer`
+//          keeps outer.{u4,genblk2,n5}; unnamed hoists to {u4,genblk1,n5}
+//          at module level. Note genblk2-vs-genblk1: under a NAMED parent
+//          the case-generate consumes an implicit-name index, under the
+//          hoisting unnamed one it does not. Our side already matches every
+//          NAMED shape, so this is purely the unnamed/hoist arm.
+//      (b) PRIMITIVES declared inside a generate block are dropped outright:
+//          emitGates only runs over an InstanceBodySymbol into a
+//          module_inst, while gen_scope carries Primitives()/
+//          Primitive_arrays() that Surelog fills (test2's def view already
+//          matches; its elab pp2.u1 gen_scope is EMPTY where golden holds
+//          gate g3). Generalising emitGates to a Scope+BaseClass target is
+//          the prerequisite for (a) to be worth landing.
+//    Also decoded, NOT landed (zero corpus movers, so left alone): a BARE
+//    module-level case-generate takes NO gen_region wrapper — Surelog puts
+//    the gen_case straight under vpiGenStmt; the top-level arm below always
+//    wraps it in gen_region -> begin.
+//  * CrossFunc is CONVERTED (r9modres, both modes). It was a COVERGROUP
+//    test, not a container one, and took five rules: the cover-cross
+//    function hoist into module Task_funcs (emitTaskFuncs over
+//    CovergroupType -> CovergroupBody -> CoverCross -> CoverCrossBody),
+//    the CrossQueueType unsupported_typespec + ref_var return, the
+//    `myFunc.push_back(x)` -> func_call(myFunc) receiver resolution, the
+//    logic-vector for-loop variable, and the covergroup-handle taxonomy
+//    below. For the record, the residue as it stood was: (1) functions
+//    declared inside a covergroup `cross` bins block are
 //    hoisted into the MODULE's Task_funcs (full bodies — ~280 dump lines per
 //    function, queue push_back method calls and all); (2) in the ELAB view a
 //    covergroup-typed variable (`cg cg_inst = new(3);`) is a logic_var in
 //    Variables, where we emit a logic_net. Def views already agree.
-//  * BasicOh (~3.3k changed lines after the 'b0 constant fix, first fail now
-//    a port-ORDER mismatch in oh_fifo_async) and Scr1SvTests (~49k lines;
-//    covergroup `always` process missing plus five-net gaps in ten modules)
-//    are not module-container problems any more; re-triage as their own
-//    clusters.
+//  * BasicOh is MULTI-CAUSE, not a single fix — four independent failures
+//    counted (r9modres), ranked:
+//      1. module_array PORT ORDER. `oh_dsync wr_sync[AW:0] (.dout(..),
+//         .clk(..), .nreset(..), .din(..))` against a header declaring
+//         (clk, nreset, din, dout): golden's module_array Ports follow the
+//         INSTANTIATION's named-connection order (dout first, at 121:19),
+//         we follow the module's port DECLARATION order (clk first, at
+//         122:5). Both sides locate each port at its connection site, so
+//         only the order differs.
+//      2. elab module_array RANGE bounds: golden folds `[AW:0]` to a
+//         constant, we keep ref_obj(AW) — the emitModuleArray bound fold
+//         landed by r9modcont for YosysMarlann does not reach this shape.
+//      3. elab gen-scope param folding inside oh_dsync: golden's
+//         `sync_pipe[SYNCPIPE]` bit_select operand is a constant, ours a
+//         ref_obj(SYNCPIPE); same for wr_rsync's param_assign constant.
+//      4. a logic_typespec@48:3 present on golden's Ref_modules[4]
+//         (oh_memory_dp) and on that module's Gen_stmts, absent on ours.
+//    Scr1SvTests (~49k lines; covergroup `always` process missing plus
+//    five-net gaps in ten modules) is its own cluster.
 //
 // An INSTANCE ARRAY (myif arr[N]) is a module_array (vpiModuleArray) — the
 // def module_typespec as element type, the array range, broadcast port
@@ -3151,6 +3214,40 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 topNets[it.sym] = cv;
                 sigOrder.emplace_back(it.sym, cv);
                 vars->push_back(cv);
+                continue;
+            }
+            // A COVERGROUP handle: the def view keeps the logic_net bound to
+            // the unsupported_typespec (makeTypespec); the ELAB view is a
+            // bare logic_var carrying NO typespec at all, with the
+            // `new(...)` construction as its vpiExpr — an UNPARENTED
+            // method_func_call named `new` whose arguments are the folded
+            // actuals (CrossFunc).
+            if (ctCE.kind == SymbolKind::CovergroupType) {
+                auto* cv9 = s.MakeLogic_var();
+                cv9->VpiName(name);
+                cv9->VpiFullName(fullName);
+                cv9->VpiParent(m);
+                setLoc(cv9, nameSpan(it.sym->location, it.sym->name));
+                cv9->VpiVisibility(1);
+                if (auto* ini9 = dtCE->getInitializer()) {
+                    auto& ic9 = stripImplicitConv(*ini9);
+                    if (ic9.kind == ExpressionKind::NewCovergroup) {
+                        auto* mc9 = s.MakeMethod_func_call();
+                        mc9->VpiName("new");
+                        auto* args9 = s.MakeAnyVec();
+                        for (auto* ax9 :
+                             ic9.as<NewCovergroupExpression>().arguments)
+                            if (auto* ae9 =
+                                    emitExpr(*ax9, mc9, fullName, topNets))
+                                args9->push_back(ae9);
+                        if (!args9->empty())
+                            mc9->Tf_call_args(args9);
+                        cv9->Expr(mc9);
+                    }
+                }
+                topNets[it.sym] = cv9;
+                sigOrder.emplace_back(it.sym, cv9);
+                vars->push_back(cv9);
                 continue;
             }
             if (ctCE.kind == SymbolKind::EventType) {
@@ -15926,6 +16023,12 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
         std::function<UHDM::any*(const syntax::SyntaxNode&, UHDM::BaseClass*,
                                  const Scope*, const std::string&, bool)>
             emitBranch;
+        // One case_item of a case-generate (def view). Defined after
+        // emitBranch (mutually recursive: a case arm can hold more generates).
+        std::function<UHDM::case_item*(
+            const syntax::SyntaxNode&, const std::string&,
+            const std::function<const Scope*(const syntax::SyntaxNode*)>&)>
+            emitCaseItem;
         emitBranch = [&](const syntax::SyntaxNode& memSyn,
                          UHDM::BaseClass* parent, const Scope* astBlock,
                          const std::string& basePrefix,
@@ -16894,8 +16997,45 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             }
             // NESTED if-generates recurse: a gen_if (keyword span) whose
             // stmt is the nested branch begin, fullnames chaining through
-            // this branch's prefix.
+            // this branch's prefix. A nested CASE-generate rides the same
+            // pass so the branch's statement list keeps SOURCE order
+            // (GenerateUnnamed's `case` before its two sibling `if`s).
             for (auto* item : items) {
+                if (item->kind == syntax::SyntaxKind::CaseGenerate) {
+                    auto& nCase = item->as<syntax::CaseGenerateSyntax>();
+                    doneCases.insert(&nCase);
+                    auto* ngc = s.MakeGen_case();
+                    ngc->VpiParent(b);
+                    setLoc(ngc,
+                           SourceRange(nCase.keyword.range().start(),
+                                       nCase.endCase.range().end()));
+                    syntaxRefPrefix = branchPrefix;
+                    if (auto* cc = emitSyntaxExpr(*nCase.condition, ngc))
+                        ngc->VpiCondition((UHDM::expr*)cc);
+                    syntaxRefPrefix.clear();
+                    std::function<const Scope*(const syntax::SyntaxNode*)>
+                        findCaseScope =
+                            [&](const syntax::SyntaxNode* bs) -> const Scope* {
+                        if (astBlock)
+                            for (auto& m3 : astBlock->members())
+                                if (m3.kind == SymbolKind::GenerateBlock &&
+                                    m3.getSyntax() == bs)
+                                    return &m3.as<Scope>();
+                        for (auto& m3 : body.members())
+                            if (m3.kind == SymbolKind::GenerateBlock &&
+                                m3.getSyntax() == bs)
+                                return &m3.as<Scope>();
+                        return nullptr;
+                    };
+                    auto* nitems = s.MakeCase_itemVec();
+                    for (auto* ci : nCase.items)
+                        nitems->push_back(
+                            emitCaseItem(*ci, branchPrefix, findCaseScope));
+                    if (!nitems->empty())
+                        ngc->Case_items(nitems);
+                    stmts->push_back(ngc);
+                    continue;
+                }
                 if (item->kind != syntax::SyntaxKind::IfGenerate)
                     continue;
                 auto& nIf = item->as<syntax::IfGenerateSyntax>();
@@ -17009,6 +17149,55 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 ((UHDM::begin*)b)->Stmts(stmts);
             return b;
         };
+        // One case-generate item, def view. Surelog's CompileStmt reads the
+        // item's parse children POSITIONALLY: child 0 is the expression,
+        // child 1 is "the statement". For `0, 1, 2 : begin : ka ... end`
+        // child 1 is the SECOND EXPRESSION, not the block — so a multi-expr
+        // item emits ONLY its first expression and an EMPTY, UNNAMED begin,
+        // while a single-expr item (and `default`) emits its real block.
+        // Measured against the pinned Surelog with the selected arm both
+        // first (q==0) and last (q==4): it tracks the expression count, not
+        // which arm elaborates. The item's parent is left UNSET, which stops
+        // ComputeFullName so neither begin carries a fullname.
+        emitCaseItem =
+            [&](const syntax::SyntaxNode& ci, const std::string& basePrefix,
+                const std::function<const Scope*(const syntax::SyntaxNode*)>&
+                    findScope) -> UHDM::case_item* {
+            auto* item = s.MakeCase_item();
+            const syntax::SyntaxNode* clause = nullptr;
+            bool multiExpr = false;
+            if (ci.kind == syntax::SyntaxKind::StandardCaseItem) {
+                auto& sci = ci.as<syntax::StandardCaseItemSyntax>();
+                clause = sci.clause;
+                multiExpr = sci.expressions.size() > 1;
+                auto* exprs = s.MakeAnyVec();
+                syntaxRefPrefix = basePrefix;
+                for (auto* le : sci.expressions) {
+                    if (auto* e = emitSyntaxExpr(*le, item))
+                        exprs->push_back(e);
+                    if (multiExpr)
+                        break;
+                }
+                syntaxRefPrefix.clear();
+                if (!exprs->empty())
+                    item->VpiExprs(exprs);
+            }
+            else if (ci.kind == syntax::SyntaxKind::DefaultCaseItem) {
+                clause = ci.as<syntax::DefaultCaseItemSyntax>().clause;
+            }
+            if (multiExpr) {
+                auto* eb = s.MakeBegin();
+                eb->VpiParent(item);
+                item->Stmt(eb);
+                return item;
+            }
+            if (clause) {
+                if (auto* bb = emitBranch(*clause, item, findScope(clause),
+                                          basePrefix, /*noFull=*/true))
+                    item->Stmt(bb);
+            }
+            return item;
+        };
         // Surelog wraps a whole explicit `generate...endgenerate` region in ONE
         // gen_region placeholder; dedup the fallback by GenerateRegion syntax.
         std::set<const syntax::SyntaxNode*> doneFallbackRegions;
@@ -17061,6 +17250,36 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         break;
                     }
                 }
+            }
+            // ...then climb to the HEAD of the if-chain it belongs to. slang
+            // flattens an else-if chain — and a bare `if (a) if (b) begin
+            // ... end` — into SIBLING GenerateBlock members of the module
+            // body, so the nearest enclosing IfGenerate of the first member
+            // can be an INNER link. Surelog keeps the whole chain nested
+            // under its head: ONE loc-less gen_if_else whose vpiElseStmt
+            // carries the rest (measured against the pinned Surelog on a
+            // 3-deep chain). emitBranch's nested-if arm already re-emits the
+            // inner links (and marks them doneIfs), so anchoring on the head
+            // is what makes the chain come out once, nested, instead of one
+            // top-level gen_stmt per link. Climbing only while the current
+            // if IS an arm of the enclosing one keeps every other shape
+            // (an if under a case/loop/region arm) on its old path.
+            while (ifSyn) {
+                const syntax::SyntaxNode* n0 = ifSyn;
+                auto p0 = n0->parent;
+                if (p0 && p0->kind == syntax::SyntaxKind::ElseClause) {
+                    n0 = p0;
+                    p0 = p0->parent;
+                }
+                if (!p0 || p0->kind != syntax::SyntaxKind::IfGenerate)
+                    break;
+                auto& up0 = p0->as<syntax::IfGenerateSyntax>();
+                bool isArm = (const syntax::SyntaxNode*)up0.block == n0 ||
+                             (up0.elseClause &&
+                              (const syntax::SyntaxNode*)up0.elseClause == n0);
+                if (!isArm)
+                    break;
+                ifSyn = &up0;
             }
             if (ifSyn) {
                 if (!doneIfs.insert(ifSyn).second)
@@ -17220,37 +17439,14 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             return &m2.as<Scope>();
                     return nullptr;
                 };
+                // Surelog leaves the case_item's parent UNSET; that stops
+                // ComputeFullName so the item's begin (and its always) get
+                // NO computed fullname (bare, symbolic def-view shape).
+                std::function<const Scope*(const syntax::SyntaxNode*)> fis =
+                    findItemScope;
                 auto* citems = s.MakeCase_itemVec();
-                for (auto* ci : caseSyn->items) {
-                    auto* item = s.MakeCase_item();
-                    // Surelog leaves the case_item's parent UNSET; that stops
-                    // ComputeFullName so the item's begin (and its always) get
-                    // NO computed fullname (bare, symbolic def-view shape).
-                    const syntax::SyntaxNode* clause = nullptr;
-                    if (ci->kind == syntax::SyntaxKind::StandardCaseItem) {
-                        auto& sci = ci->as<syntax::StandardCaseItemSyntax>();
-                        clause = sci.clause;
-                        auto* exprs = s.MakeAnyVec();
-                        syntaxRefPrefix = prefix;
-                        for (auto* le : sci.expressions) {
-                            if (auto* e = emitSyntaxExpr(*le, item))
-                                exprs->push_back(e);
-                        }
-                        syntaxRefPrefix.clear();
-                        if (!exprs->empty())
-                            item->VpiExprs(exprs);
-                    }
-                    else if (ci->kind == syntax::SyntaxKind::DefaultCaseItem) {
-                        clause = ci->as<syntax::DefaultCaseItemSyntax>().clause;
-                    }
-                    if (clause) {
-                        const Scope* isc = findItemScope(clause);
-                        if (auto* bb = emitBranch(*clause, item, isc, prefix,
-                                                  /*noFull=*/true))
-                            item->Stmt(bb);
-                    }
-                    citems->push_back(item);
-                }
+                for (auto* ci : caseSyn->items)
+                    citems->push_back(emitCaseItem(*ci, prefix, fis));
                 if (!citems->empty())
                     gc->Case_items(citems);
                 auto* obs = s.MakeAnyVec();

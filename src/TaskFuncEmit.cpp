@@ -274,12 +274,25 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Function return: an anonymous variable carrying only the full name,
         // anchored at the return-type syntax like its typespec.
         if (isFunc && sub.returnValVar && !sub.getReturnType().isVoid()) {
-            auto* rv = makeReturnVar(s, sub.getReturnType(),
-                                     [&] {
-                                         auto* rs0 = returnTypeSyntax(sub);
-                                         return rs0 && rs0->kind ==
-                                             slang::syntax::SyntaxKind::ImplicitType;
-                                     }());
+            // A return type Surelog cannot resolve (the cover-cross implicit
+            // CrossQueueType) leaves CompileType with no variable class to
+            // pick: the return object is a bare ref_var pointing at the
+            // unsupported_typespec makeTypespec mints for it (CrossFunc).
+            bool crossImplicitRet = false;
+            if (sub.getReturnType().kind == SymbolKind::TypeAlias)
+                if (auto xsc =
+                        sub.getReturnType().as<TypeAliasType>().getParentScope();
+                    xsc && xsc->asSymbol().kind == SymbolKind::CoverCrossBody)
+                    crossImplicitRet = true;
+            auto* rv =
+                crossImplicitRet
+                    ? (UHDM::variables*)s.MakeRef_var()
+                    : makeReturnVar(s, sub.getReturnType(),
+                                    [&] {
+                                        auto* rs0 = returnTypeSyntax(sub);
+                                        return rs0 && rs0->kind ==
+                                            slang::syntax::SyntaxKind::ImplicitType;
+                                    }());
             rv->VpiFullName(fullName);
             rv->VpiParent(tf);
             // An IMPLICIT return type ("function f;") yields a bare return var:

@@ -158,6 +158,24 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         ~GbfGuard() { slot = prev; }
     } gbfGuard{genBlockFnScope, savedGbf};
     auto declared = declSymbol.getDeclaredType();
+    // `CrossQueueType`/`CrossValType` are LRM-implicit types a cover cross
+    // publishes inside its bins block; slang synthesizes them as TypeAliases
+    // in the CoverCrossBody scope, Surelog has no such scope and its
+    // CompileType falls through to the catch-all: an unsupported_typespec
+    // NAMED as written, at the type-reference span (CrossFunc).
+    if (declared && declared->getType().kind == SymbolKind::TypeAlias) {
+        auto& xa0 = declared->getType().as<TypeAliasType>();
+        if (auto xsc0 = xa0.getParentScope();
+            xsc0 && xsc0->asSymbol().kind == SymbolKind::CoverCrossBody) {
+            auto* uts0 = s.MakeUnsupported_typespec();
+            uts0->VpiName(xa0.name);
+            if (typeSynOverride)
+                setLoc(uts0, typeSynOverride->sourceRange());
+            else if (auto tsyn1 = declared->getTypeSyntax())
+                setLoc(uts0, tsyn1->sourceRange());
+            return uts0;
+        }
+    }
     // Typedef'd declarations share the typedef's typespec object; anonymous
     // enums build an unnamed, unlocated enum_typespec per declaration.
     if (declared) {
@@ -176,6 +194,22 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 t9->second->UhdmType() == it->second->UhdmType())
                 return t9->second;
             return it->second;
+        }
+        // A COVERGROUP handle (`cg cg_inst = new(3);`) has no UHDM type of
+        // its own: Surelog's CompileType falls through to the catch-all and
+        // mints an unsupported_typespec carrying the WRITTEN type name, at
+        // the whole declaration's span (CrossFunc). The def view's net
+        // references it; the elab view's logic_var references nothing.
+        if (auto& cg0 = declared->getType().getCanonicalType();
+            cg0.kind == SymbolKind::CovergroupType) {
+            auto* uts = s.MakeUnsupported_typespec();
+            uts->VpiName(cg0.name);
+            if (auto dsyn0 = declSymbol.getSyntax())
+                setLoc(uts, dsyn0->parent ? dsyn0->parent->sourceRange()
+                                          : dsyn0->sourceRange());
+            else if (auto tsyn0 = declared->getTypeSyntax())
+                setLoc(uts, tsyn0->sourceRange());
+            return uts;
         }
         // Class handles: a fresh class_typespec per declaration, named by the
         // class and linked to its class_defn.

@@ -317,8 +317,8 @@ Covergroup,default,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifie
 Covergroup,testflags,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifier 's0',,
 CovMacro,default,CMP_NOTEQUAL,decompile:,,
 CovMacro,testflags,CMP_NOTEQUAL,decompile:,,
-CrossFunc,default,CMP_NOTEQUAL,decompile:,,
-CrossFunc,testflags,CMP_NOTEQUAL,decompile:,,
+CrossFunc,default,CMP_EQUAL,,,differ
+CrossFunc,testflags,CMP_EQUAL,,,differ
 CrossItem,default,SLANG_REJECT,dut.sv:3:33: error: use of undeclared identifier 'clk',,
 CrossItem,testflags,SLANG_REJECT,dut.sv:3:33: error: use of undeclared identifier 'clk',,
 DashYTest,default,CMP_EQUAL,,,match

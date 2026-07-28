@@ -890,18 +890,38 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (fl.loopVars.size() == 1 && fl.initializers.empty()) {
                 auto* lv = fl.loopVars[0];
                 auto& ct = lv->getType().getCanonicalType();
-                if (ct.kind != SymbolKind::PredefinedIntegerType) {
+                // A 4-state `logic`/`reg` loop variable, scalar or packed
+                // vector (`for (logic [31:0] i = 0; ...)`), is a logic_var
+                // bound to the declaration's logic_typespec — Surelog
+                // (CrossFunc myFunc2).
+                bool logicLoopVar = false;
+                {
+                    const Type* lf0 = &ct;
+                    while (lf0->getCanonicalType().kind ==
+                           SymbolKind::PackedArrayType)
+                        lf0 = &lf0->getCanonicalType()
+                                   .as<PackedArrayType>()
+                                   .elementType;
+                    auto& lfc0 = lf0->getCanonicalType();
+                    logicLoopVar = lfc0.kind == SymbolKind::ScalarType &&
+                                   lfc0.isFourState();
+                }
+                if (ct.kind != SymbolKind::PredefinedIntegerType &&
+                    !logicLoopVar) {
                     noteUnsupported("for loop var type");
                     return nullptr;
                 }
                 // `for (integer x = ..)` declares an integer_var (Surelog);
                 // `for (int i = ..)` an int_var.
                 UHDM::variables* v =
-                    ct.as<PredefinedIntegerType>().integerKind ==
+                    logicLoopVar
+                        ? (UHDM::variables*)s.MakeLogic_var()
+                    : ct.as<PredefinedIntegerType>().integerKind ==
                             PredefinedIntegerType::Integer
                         ? (UHDM::variables*)s.MakeInteger_var()
                         : (UHDM::variables*)s.MakeInt_var();
-                v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
+                if (!logicLoopVar)
+                    v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
                 v->VpiName(lv->name);
                 v->VpiFullName(joinRef(prefix, lv->name));
                 setLoc(v, SourceRange(lv->location, lv->location + lv->name.size()));
