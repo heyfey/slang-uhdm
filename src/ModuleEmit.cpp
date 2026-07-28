@@ -3500,6 +3500,28 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 rawText(ic.sourceRange).find('\'') == std::string::npos)
                                 ((UHDM::constant*)e)->VpiSize(
                                     (int32_t)dt->getType().getBitWidth());
+                            // A SIGNED based literal var init re-encodes as its
+                            // signed decimal value (INT:<v>, vpiIntConst) and
+                            // — unlike the net/param forms — keeps the
+                            // LITERAL's own width: Surelog evaluates a var's
+                            // vpiExpr self-determined, with no target
+                            // conversion (SignedBinConst top2: `int p3 =
+                            // 2'sb10` -> INT:-2 size 2, not size 32).
+                            if (e->UhdmType() == UHDM::uhdmconstant &&
+                                ic.kind == ExpressionKind::IntegerLiteral &&
+                                rawText(ic.sourceRange).find("'s") !=
+                                    std::string::npos) {
+                                auto ivv = ic.as<IntegerLiteral>().getValue();
+                                if (!ivv.hasUnknown() && ivv.isSigned() &&
+                                    ivv.isNegative()) {
+                                    auto* rc9 = (UHDM::constant*)e;
+                                    std::string sd9 = ivv.toString(
+                                        LiteralBase::Decimal, false);
+                                    rc9->VpiDecompile(sd9);
+                                    rc9->VpiValue("INT:" + sd9);
+                                    rc9->VpiConstType(vpiIntConst);
+                                }
+                            }
                             // A pkg-scoped enum-const init on an enum_var
                             // parents at the var.
                             if (enumRef && e->UhdmType() == UHDM::uhdmconstant &&
@@ -6502,6 +6524,12 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                  .getCanonicalType()
                                  .isStruct();
             if (gm.kind != SymbolKind::Net && !caVar && !structVar)
+                continue;
+            // An IMPLICIT net (an undeclared cont-assign LHS inside the
+            // generate block) never materializes as a gen_scope vpiNet:
+            // Surelog leaves the assignment's Lhs a bare ref_obj in BOTH views
+            // (ElabCParam's `assign depth = 1'b0;` in gen_passthru).
+            if (gm.kind == SymbolKind::Net && gm.as<NetSymbol>().isImplicit)
                 continue;
             // A STRUCT-typed gen-block local signal (pkt_t r) nets as a
             // struct_net sharing the struct typespec — Surelog.
@@ -10515,8 +10543,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
-        if (!rhs)
+        if (!rhs) {
+            // A net-decl-assign IS a continuous assignment for the
+            // signed-literal typespec rule (ExprEmit's unsignedContAssign): the
+            // declared net type is the coercion target, so `reg [1:0] p1 =
+            // 1'sb1` gets the PLAIN parented int_typespec a written `assign`
+            // onto the same net gets (SignedBinConst).
+            int savedICT8 = implicitConvTargetSigned;
+            implicitConvTargetSigned = dt->getType().isSigned() ? 1 : 0;
             rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap);
+            implicitConvTargetSigned = savedICT8;
+        }
         // An ARRAY-of-struct net-decl-assign pattern RHS keeps its element
         // constants PARENTED at the assignment-pattern op (Surelog); the
         // generic pattern path unparents outermost elements.
@@ -10568,14 +10605,62 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
             // A SIGNED based-literal RHS ('sb..) re-encodes as its signed
             // value (INT:<v>, decompile <v>, vpiIntConst).
+            //
+            // A signed-BINARY one additionally re-sizes to the NET's width and
+            // takes the same widening quirk the param path measured (see the
+            // SIGNED-BINARY table in ParamEmit): the net's declared type
+            // governs, so an UNSIGNED net shows `(pattern << k) | ((1<<k)-1)`
+            // for k = netWidth - literalWidth. Measured (SignedBinConst top2):
+            //   reg [1:0] p1 = 1'sb1   -> INT:3 size 2   (k=1)
+            //   reg [1:0] p2 = 2'sb10  -> INT:2 size 2   (k=0)
+            // Other bases ('sh/'sd/'so) keep the plain signed re-encode.
             if (rhs->UhdmType() == UHDM::uhdmconstant) {
                 auto& lic = stripImplicitConv(*dt->getInitializer());
+                std::string lraw = lic.kind == ExpressionKind::IntegerLiteral
+                                       ? rawText(lic.sourceRange)
+                                       : std::string();
+                auto tk7 = lraw.find('\'');
+                bool sgnBin7 =
+                    tk7 != std::string::npos && tk7 + 2 < lraw.size() &&
+                    (lraw[tk7 + 1] == 's' || lraw[tk7 + 1] == 'S') &&
+                    tolower(lraw[tk7 + 2]) == 'b';
                 if (lic.kind == ExpressionKind::IntegerLiteral &&
-                    rawText(lic.sourceRange).find("'s") != std::string::npos) {
+                    lraw.find("'s") != std::string::npos) {
                     auto ivl = lic.as<IntegerLiteral>().getValue();
                     if (!ivl.hasUnknown() && ivl.isSigned() && ivl.isNegative()) {
                         auto* rc = (UHDM::constant*)rhs;
                         std::string sd = ivl.toString(LiteralBase::Decimal, false);
+                        uint64_t lw7 = ivl.getBitWidth();
+                        uint64_t tw7 = dt->getType().getBitWidth();
+                        if (sgnBin7 && lw7 > 0 && lw7 <= 64 && tw7 > 0 &&
+                            tw7 <= 64) {
+                            uint64_t pat7 =
+                                ivl.as<uint64_t>().value_or(0) &
+                                (lw7 == 64 ? ~0ull : ((1ull << lw7) - 1));
+                            if (dt->getType().isSigned()) {
+                                int64_t sv7 = (int64_t)(pat7 |
+                                                        (lw7 == 64
+                                                             ? 0
+                                                             : (~0ull << lw7)));
+                                if (tw7 < 64) {
+                                    sv7 = (int64_t)((uint64_t)sv7 &
+                                                    ((1ull << tw7) - 1));
+                                    if (((uint64_t)sv7 >> (tw7 - 1)) & 1)
+                                        sv7 = (int64_t)((uint64_t)sv7 |
+                                                        (~0ull << tw7));
+                                }
+                                sd = std::to_string(sv7);
+                            }
+                            else {
+                                uint64_t k7 = tw7 > lw7 ? tw7 - lw7 : 0;
+                                uint64_t uv7 =
+                                    (pat7 << k7) | (k7 ? ((1ull << k7) - 1) : 0);
+                                if (tw7 < 64)
+                                    uv7 &= (1ull << tw7) - 1;
+                                sd = std::to_string(uv7);
+                            }
+                            rc->VpiSize((int32_t)tw7);
+                        }
                         rc->VpiDecompile(sd);
                         rc->VpiValue("INT:" + sd);
                         rc->VpiConstType(vpiIntConst);

@@ -356,6 +356,42 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
     return enc;
 }
 
+// A bare typespec of a predefined integer type, located at the declaring
+// symbol's type keyword. Surelog's copy carries no vpiSigned (the io_decl /
+// local typespec it hands back is the unsigned-looking one) — PreprocFunc.
+UHDM::typespec* UhdmExporter::predefIntTypespec(const Type& ct,
+                                                const Symbol& sym) {
+    if (ct.kind != SymbolKind::PredefinedIntegerType)
+        return nullptr;
+    UHDM::typespec* ts = nullptr;
+    switch (ct.as<PredefinedIntegerType>().integerKind) {
+        case PredefinedIntegerType::Integer:
+            ts = s.MakeInteger_typespec();
+            break;
+        case PredefinedIntegerType::Int:
+            ts = s.MakeInt_typespec();
+            break;
+        case PredefinedIntegerType::ShortInt:
+            ts = s.MakeShort_int_typespec();
+            break;
+        case PredefinedIntegerType::LongInt:
+            ts = s.MakeLong_int_typespec();
+            break;
+        case PredefinedIntegerType::Byte:
+            ts = s.MakeByte_typespec();
+            break;
+        case PredefinedIntegerType::Time:
+            ts = s.MakeTime_typespec();
+            break;
+        default:
+            return nullptr;
+    }
+    if (auto* dt = sym.getDeclaredType())
+        if (auto* tsyn = dt->getTypeSyntax())
+            setLoc(ts, tsyn->sourceRange());
+    return ts;
+}
+
 // ---------------------------------------------------------------------------
 // Surelog's constant-function evaluator (UHDM ExprEval) does NOT model LRM
 // expression widths: every intermediate value is a 64-bit word, and `>>`/`>>>`
@@ -434,9 +470,17 @@ public:
         return invoke(sub, argv);
     }
 
+    // The expression whose value the OUTERMOST frame actually returned (the
+    // last executed `<retvar> = ...` / `return ...`). Surelog's EvalFunc hands
+    // the caller that expression's own constant object, so its encoding — not
+    // the function's return type — governs the inlined fold.
+    const Expression* resultSource() const { return topRetSrc; }
+
 private:
     std::map<const Symbol*, int64_t> env;
     const Symbol* retVar = nullptr;
+    const Expression* retSrc = nullptr;
+    const Expression* topRetSrc = nullptr;
     int depth = 0;
     bool bad = false;
 
@@ -459,7 +503,9 @@ private:
         }
         auto savedEnv = env;
         auto* savedRet = retVar;
+        auto* savedSrc = retSrc;
         env.clear();
+        retSrc = nullptr;
         retVar = (const Symbol*)sub.returnValVar;
         for (size_t i = 0; i < formals.size(); i++) {
             if (formals[i]->direction != ArgumentDirection::In) {
@@ -487,8 +533,11 @@ private:
             else
                 bad = true;
         }
+        if (depth == 1 && !bad)
+            topRetSrc = retSrc;
         env = savedEnv;
         retVar = savedRet;
+        retSrc = savedSrc;
         depth--;
         return bad ? std::nullopt : out;
     }
@@ -531,8 +580,12 @@ private:
                     bad = true;
                     return;
                 }
-                if (auto v = evalExpr(asn.right()))
-                    env[&lhs.as<NamedValueExpression>().symbol] = *v;
+                if (auto v = evalExpr(asn.right())) {
+                    auto& tsym = lhs.as<NamedValueExpression>().symbol;
+                    env[&tsym] = *v;
+                    if (&tsym == retVar)
+                        retSrc = &asn.right();
+                }
                 else
                     bad = true;
                 return;
@@ -545,6 +598,7 @@ private:
                 }
                 if (auto v = evalExpr(*re)) {
                     env[retVar] = *v;
+                    retSrc = re;
                     returned = true;
                 }
                 else
@@ -2871,6 +2925,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             c6->VpiConstType(vpiIntConst);
                             c6->VpiDecompile(dg6);
                             c6->VpiSize((int32_t)tw6);
+                            // The re-encoded constant's ts ref binds a FRESH
+                            // BARE int_typespec (signed per the param type),
+                            // not the param's own ranged declaration typespec
+                            // (SignedBinConst: `parameter [1:0] p1 = 1'sb1`
+                            // folds INT:3 whose actual is a bare int_typespec,
+                            // while the parameter object keeps its [1:0] one).
+                            signedBinFoldParams.insert(&ps);
                         }
                     }
                 }
@@ -4056,7 +4117,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // A MODULE localparam initialized by a DIRECT const-call
                 // (localparam A = func(0)) folds in the ELAB view; the def view
                 // keeps the func_call (Surelog).
-                if (!rhs && topView && !inPackage && isLocal) {
+                // A body-declared `parameter` folds the same way — the
+                // localparam keyword is not the distinguisher, the ELAB view is
+                // (FuncCase: `parameter p = num_operands(DIVSQRT)` in module
+                // top folds to UINT:2 in the top view, func_call in the def).
+                if (!rhs && topView && !inPackage) {
                     auto& icc9 = stripImplicitConv(*init);
                     const SubroutineSymbol* csub9 = nullptr;
                     if (icc9.kind == ExpressionKind::Call &&
@@ -4214,6 +4279,81 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 c9->VpiConstType(vpiUIntConst);
                             }
                             c9->VpiSize(w9);
+                            // ...unless the EXECUTED return assignment handed
+                            // back a FORMAL ARGUMENT. EvalFunc binds a formal
+                            // to a constant carrying the FORMAL's typespec, and
+                            // `<retvar> = <formal>` returns that very object —
+                            // so the fold takes the formal's encoding (signed
+                            // INT at its own width) plus a ts ref to its
+                            // typespec, not the function-return default.
+                            // Measured on the same `function integer log2;
+                            // input integer value; if (value<2) log2 = value;
+                            // else begin ... log2 = res; end` body in two
+                            // callers:
+                            //   log2(1) -> value  branch: INT:1 size 32 + an
+                            //              integer_typespec ref (PreprocFunc)
+                            //   log2(4) -> res    branch: UINT:2 size 64, no ts
+                            //              (asym_ram_sdp_*_wider)
+                            // so it is the EXECUTED path, not the source order,
+                            // and a computed LOCAL does not carry a typespec.
+                            // SrlgFold replays the execution; it bails (nullopt)
+                            // on the loop-bodied branch, which is exactly the
+                            // case that must keep the default encoding.
+                            const Symbol* irs9 = nullptr;
+                            if (rty9.isPredefinedInteger()) {
+                                SrlgFold rsf9;
+                                if (rsf9.call(*csub9,
+                                              icc9.as<CallExpression>()
+                                                  .arguments()))
+                                    if (auto* rsrc9 = rsf9.resultSource()) {
+                                        auto& rse9 = stripImplicitConv(*rsrc9);
+                                        if (rse9.kind ==
+                                            ExpressionKind::NamedValue) {
+                                            auto& rsy9 =
+                                                rse9.as<NamedValueExpression>()
+                                                    .symbol;
+                                            if (rsy9.kind ==
+                                                    SymbolKind::FormalArgument &&
+                                                rsy9.getDeclaredType() &&
+                                                rsy9.getDeclaredType()
+                                                    ->getType()
+                                                    .getCanonicalType()
+                                                    .isPredefinedInteger())
+                                                irs9 = &rsy9;
+                                        }
+                                    }
+                            }
+                            if (irs9) {
+                                auto& ity9 = irs9->getDeclaredType()
+                                                 ->getType()
+                                                 .getCanonicalType();
+                                c9->VpiSize((int32_t)ity9.getBitWidth());
+                                c9->VpiDecompile(digits9);
+                                if (ity9.isSigned()) {
+                                    c9->VpiValue("INT:" + digits9);
+                                    c9->VpiConstType(vpiIntConst);
+                                }
+                                else {
+                                    c9->VpiValue("UINT:" + digits9);
+                                    c9->VpiConstType(vpiUIntConst);
+                                }
+                                // The ts ref rides on the FOLD, not on the
+                                // param declaration: an untyped localparam
+                                // (wantTs false) still carries it.
+                                if (auto* lts9 =
+                                        predefIntTypespec(ity9, *irs9)) {
+                                    auto* rt9 = s.MakeRef_typespec();
+                                    std::string tsPfx9 = prefix;
+                                    if (tsPfx9.size() >= 2 &&
+                                        tsPfx9.compare(tsPfx9.size() - 2, 2,
+                                                       "::") == 0)
+                                        tsPfx9.resize(tsPfx9.size() - 2);
+                                    rt9->VpiFullName(tsPfx9);
+                                    rt9->VpiParent(c9);
+                                    rt9->Actual_typespec(lts9);
+                                    c9->Typespec(rt9);
+                                }
+                            }
                             c9->VpiParent(pa);
                             setLoc(c9, icc9.sourceRange);
                             rhs = c9;
@@ -6243,8 +6383,15 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                              ((UHDM::constant*)rc0)
                                      ->VpiValue()
                                      .rfind("REAL:", 0) == 0;
-            if (realFold9 && !typedParam &&
-                ps->getType().getCanonicalType().isIntegral()) {
+            if (signedBinFoldParams.count(ps) && rc0 &&
+                rc0->UhdmType() == UHDM::uhdmconstant) {
+                auto* sb9 = s.MakeInt_typespec();
+                if (ps->getType().isSigned())
+                    sb9->VpiSigned(true);
+                rhsRt->Actual_typespec(sb9);
+            }
+            else if (realFold9 && !typedParam &&
+                     ps->getType().getCanonicalType().isIntegral()) {
                 auto* lts9 = s.MakeLogic_typespec();
                 // Surelog's bare logic_typespec carries a LOC-LESS range
                 // mirroring the param's packed [7:0] — loc-less bounds that

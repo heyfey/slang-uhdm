@@ -389,8 +389,8 @@ Earlgrey_Verilator_0_1,default,SLANG_REJECT,error: command file 'FLAGS': No such
 Earlgrey_Verilator_0_1,testflags,SLANG_REJECT,error: command file 'FLAGS': No such file or directory,,
 EarlgreyPackParam,default,CMP_EQUAL,,,differ
 EarlgreyPackParam,testflags,CMP_EQUAL,,,differ
-ElabCParam,default,CMP_NOTEQUAL,decompile:,,
-ElabCParam,testflags,CMP_NOTEQUAL,decompile:,,
+ElabCParam,default,CMP_EQUAL,,,differ
+ElabCParam,testflags,CMP_EQUAL,,,differ
 ElabIf,default,SLANG_REJECT,dut.sv:8:18: error: use of undeclared identifier 'inp',,
 ElabIf,testflags,SLANG_REJECT,dut.sv:8:18: error: use of undeclared identifier 'inp',,
 ElabParam,default,CMP_EQUAL,,,differ
@@ -507,8 +507,8 @@ FuncBinding,default,SLANG_REJECT,dut.sv:17:61: error: value of type 'logic[1:0]'
 FuncBinding,testflags,SLANG_REJECT,dut.sv:17:61: error: value of type 'logic[1:0]' cannot be assigned to type 'state',,
 FuncBinding2,default,SLANG_REJECT,dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
 FuncBinding2,testflags,SLANG_REJECT,dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
-FuncCase,default,CMP_NOTEQUAL,decompile:,,
-FuncCase,testflags,CMP_NOTEQUAL,decompile:,,
+FuncCase,default,CMP_EQUAL,,,differ
+FuncCase,testflags,CMP_EQUAL,,,differ
 FuncDeclScope,default,CMP_EQUAL,,,differ
 FuncDeclScope,testflags,CMP_EQUAL,,,differ
 FuncDef,default,SLANG_REJECT,dut.sv:13:5: error: unknown module 'countLeadingZeros',,
@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
+LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
 LowMemPkg,default,CMP_NOTEQUAL,decompile:,,
-LowMemPkg,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
+LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
@@ -1153,8 +1153,8 @@ PragmaProtect,default,SURELOG_FAIL,[   NOTE] : 0,,
 PragmaProtect,testflags,SLANG_REJECT,top.sv:52:1: error: unknown macro or compiler directive '`protected',,
 PreProcDefine,default,CMP_EQUAL,,,match
 PreProcDefine,testflags,CMP_EQUAL,,,differ
-PreprocFunc,default,CMP_NOTEQUAL,decompile:,,
-PreprocFunc,testflags,CMP_NOTEQUAL,decompile:,,
+PreprocFunc,default,CMP_EQUAL,,,differ
+PreprocFunc,testflags,CMP_EQUAL,,,differ
 PreprocLine,default,SURELOG_FAIL,[   NOTE] : 0,,
 PreprocLine,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 PreProcMacro,default,SURELOG_FAIL,[   NOTE] : 0,,
@@ -1219,8 +1219,8 @@ ShiftX,default,CMP_EQUAL,,,match
 ShiftX,testflags,CMP_EQUAL,,,differ
 SignedBin,default,CMP_EQUAL,,,differ
 SignedBin,testflags,CMP_EQUAL,,,differ
-SignedBinConst,default,CMP_NOTEQUAL,decompile:,,
-SignedBinConst,testflags,CMP_NOTEQUAL,decompile:,,
+SignedBinConst,default,CMP_EQUAL,,,differ
+SignedBinConst,testflags,CMP_EQUAL,,,differ
 SignedParam,default,CMP_EQUAL,,,match
 SignedParam,testflags,CMP_EQUAL,,,match
 SignedPort,default,CMP_EQUAL,,,match

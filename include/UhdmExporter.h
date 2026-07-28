@@ -503,6 +503,8 @@ private:
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
                                 bool parentBounds = false);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
+    UHDM::typespec* predefIntTypespec(const slang::ast::Type& ct,
+                                      const slang::ast::Symbol& sym);
 
     slang::SourceLocation structTypedefUseEnd(
         const slang::ast::InstanceBodySymbol& body,
@@ -1396,6 +1398,11 @@ private:
     // this SAME constant object into the reading cont-assign (a bare stub) and
     // stamps its parent = that CA (last-writer claim).
     std::map<const slang::ast::Symbol*, UHDM::constant*> unbasedSharedPaConst;
+    // Params whose ELAB param_assign Rhs went through the SIGNED-BINARY
+    // decimal re-encode (see ParamEmit's measured table). Surelog gives that
+    // re-encoded constant a FRESH BARE int_typespec, never the param's own
+    // (ranged) one — SignedBinConst.
+    std::set<const slang::ast::Symbol*> signedBinFoldParams;
     // Elab gen-scope net objects (for nested-scope CA LHS binding only).
     std::map<const slang::ast::Symbol*, UHDM::any*> genScopeNets;
     // ELAB hier refs into gen scopes bind their last elem to the gen net
