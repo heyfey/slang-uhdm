@@ -94,6 +94,35 @@ int main(int argc, char** argv) {
                        "parametersubstitution (the default)",
                        "<feature>[,...]");
 
+    // Surelog's Verilog-config selection (LRM 33).  Both flags are repeatable
+    // exactly as Surelog's are, and slang's parser strips leading dashes before
+    // the registry lookup, so Surelog's own `-cfg` / `-cfgfile` spelling works.
+    //
+    // slang implements config blocks natively (ConfigBlockSymbol: design
+    // statement, default liblist, cell/instance overrides, `use lib.cfg:config`
+    // recursion), so this is plumbing, not a reimplementation:
+    //
+    //   -cfg <name>      -> a top-level entry `<name>:config` (see the push
+    //                       site below, after the sources are parsed).
+    //   -cfgfile <file>  -> an ordinary source file.  Surelog parses config
+    //                       files with a dedicated parser; slang parses
+    //                       `config...endconfig` as normal source, so the file
+    //                       only has to be handed to the compilation.  It lands
+    //                       in the default library ("work"), matching Surelog's
+    //                       `work@<cfg>` qualification of a -cfgfile config.
+    //
+    // Both are hard no-ops when absent: empty lists add nothing.
+    std::vector<std::string> cfgNames;
+    std::vector<std::string> cfgFiles;
+    driver.cmdLine.add("--cfg", cfgNames,
+                       "Select a Verilog configuration to elaborate, by config block name "
+                       "(Surelog -cfg, ex: -cfg cfgReal)",
+                       "<configName>");
+    driver.cmdLine.add("--cfgfile", cfgFiles,
+                       "Read a file of `config...endconfig` declarations (Surelog -cfgfile, "
+                       "ex: -cfgfile configs.cfg)",
+                       "<configFile>");
+
     std::optional<bool> synth;
     std::optional<bool> formal;
     driver.cmdLine.add("--synth", synth,
@@ -165,6 +194,12 @@ int main(int argc, char** argv) {
     // an explicit -DSURELOG=... on the command line still wins.
     driver.options.defines.insert(driver.options.defines.begin(), "SURELOG=1");
 
+    // -cfgfile sources go in before processOptions() so they take part in the
+    // normal source-existence check; the -cfg tops are pushed later, once the
+    // sources are parsed and the declared config names are known.
+    for (auto& file : cfgFiles)
+        driver.sourceLoader.addFiles(file);
+
     if (!driver.processOptions())
         return 2;
 
@@ -184,15 +219,17 @@ int main(int argc, char** argv) {
         driver.syntaxTrees.push_back(tree);
     }
 
-    // One syntax walk collecting two bind facts:
+    // One syntax walk collecting two bind facts plus the declared config names:
     //   * bindInstRanges -- the source range of every `bind` directive's
     //     INSTANTIATION (instance name, parameter overrides, port connections).
     //     Only the instantiation, never the bind TARGET name: an unresolvable
     //     target stays a hard error.  See the leniency below.
     //   * bindCarriers / instantiated -- which module lexically holds a bind,
     //     and which module names are instantiated anywhere.  See syntheticTops.
+    //   * declaredConfigs -- every `config <name>; ... endconfig`, used to drop
+    //     unmatched -cfg names below.
     std::vector<SourceRange> bindInstRanges;
-    std::set<std::string> bindCarriers, instantiated;
+    std::set<std::string> bindCarriers, instantiated, declaredConfigs;
     for (auto& tree : driver.syntaxTrees) {
         std::function<void(const syntax::SyntaxNode&, const std::string&)> walk =
             [&](const syntax::SyntaxNode& node, const std::string& mod) {
@@ -200,6 +237,9 @@ int main(int argc, char** argv) {
                 if (node.kind == syntax::SyntaxKind::ModuleDeclaration)
                     cur = std::string(node.as<syntax::ModuleDeclarationSyntax>()
                                           .header->name.valueText());
+                else if (node.kind == syntax::SyntaxKind::ConfigDeclaration)
+                    declaredConfigs.insert(std::string(
+                        node.as<syntax::ConfigDeclarationSyntax>().name.valueText()));
                 else if (node.kind == syntax::SyntaxKind::HierarchyInstantiation)
                     instantiated.insert(std::string(
                         node.as<syntax::HierarchyInstantiationSyntax>()
@@ -215,6 +255,30 @@ int main(int argc, char** argv) {
                         walk(*ch, cur);
             };
         walk(tree->root(), "");
+    }
+
+    // -cfg: each selected config becomes a top-level entry.  The `:config`
+    // suffix restricts slang's top lookup to config blocks, which is what
+    // Surelog's -cfg does (its ConfigSet is searched alone, never the module
+    // table) -- UnitLibrary passes `-cfg top` while also declaring a module
+    // named `top`.
+    //
+    // An UNMATCHED -cfg name is dropped with a warning rather than being handed
+    // to slang, because Surelog treats it as a non-fatal error (CM0028
+    // "Undefined configuration") and still writes its database, while slang's
+    // InvalidTopModule is fatal.  Names carrying a library qualifier are passed
+    // through untouched: this walk only sees the parsed trees, and a config in
+    // a non-default library may not be among them.
+    for (auto& name : cfgNames) {
+        constexpr std::string_view configSuffix = ":config";
+        std::string bare = name;
+        if (bare.ends_with(configSuffix))
+            bare.resize(bare.size() - configSuffix.size());
+        if (bare.find('.') == std::string::npos && !declaredConfigs.count(bare)) {
+            fprintf(stderr, "slang-uhdm: warning: undefined configuration '%s'\n", bare.c_str());
+            continue;
+        }
+        driver.options.topModules.push_back(bare + std::string(configSuffix));
     }
 
     // A `bind` directive inside a module that is never instantiated (an SVA

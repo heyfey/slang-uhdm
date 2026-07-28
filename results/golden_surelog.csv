@@ -809,8 +809,8 @@ LhsHierPath,default,CMP_EQUAL,,,match
 LhsHierPath,testflags,CMP_EQUAL,,,match
 LhsOp,default,CMP_EQUAL,,,match
 LhsOp,testflags,CMP_EQUAL,,,match
-LibraryIntercon,default,SLANG_REJECT,error: unknown command line argument '-map'; did you mean '--help'?,,
-LibraryIntercon,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-cfg,
+LibraryIntercon,default,SLANG_REJECT,cmp.sv:2:8: error: design element does not have a time scale defined but others in the design do,,
+LibraryIntercon,testflags,SLANG_REJECT,cmp.sv:2:8: error: design element does not have a time scale defined but others in the design do,,
 LocalParam,default,CMP_EQUAL,,,match
 LocalParam,testflags,CMP_EQUAL,,,match
 LocalScopeAssign,default,SLANG_REJECT,dut.sv:7:37: error: use of undeclared identifier 'v2',,
@@ -1431,8 +1431,8 @@ UnitForeach,default,SLANG_REJECT,top.v:56:18: error: no member named 'bad1' in '
 UnitForeach,testflags,SLANG_REJECT,top.v:56:18: error: no member named 'bad1' in 'uvm_reg_map',,
 UnitForLoop,default,SLANG_REJECT,top.v:10:1: error: use of undeclared identifier 'f3',,
 UnitForLoop,testflags,SLANG_REJECT,top.v:10:1: error: use of undeclared identifier 'f3',,
-UnitLibrary,default,SLANG_REJECT,error: unknown command line argument '-map'; did you mean '--help'?,,
-UnitLibrary,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-cfgfile -cfg -cfg,
+UnitLibrary,default,SLANG_REJECT,rtl/adder.v:7:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
+UnitLibrary,testflags,SLANG_REJECT,rtl/adder.v:7:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
 UnitPackage,default,SLANG_REJECT,simple_pkg.sv:15:5: error: use of undeclared identifier 'SIZE',,
 UnitPackage,testflags,SLANG_REJECT,simple_pkg.sv:15:5: error: use of undeclared identifier 'SIZE',,
 UnitPartSelect,default,SLANG_REJECT,top.sv:7:20: error: use of undeclared identifier 'clk',,

@@ -210,14 +210,15 @@ IRRELEVANT_TWOARG = {'-remap', '-cmd_ign', '-cmd_ren', '-cmd_mrg'}
 # (slang's option registry requires `--` for multi-character names).
 ONEARG_MAP = {'-y': '-y', '-v': '-v', '-map': '--libmap', '-L': '-L',
               '-top': '--top', '--top-module': '--top', '-f': '-f', '-F': '-F',
-              '-bb_mod': '--bb_mod', '-bb_inst': '--bb_inst'}
+              '-bb_mod': '--bb_mod', '-bb_inst': '--bb_inst',
+              '-cfg': '--cfg', '-cfgfile': '--cfgfile'}
 
 # UHDM-relevant but not implemented in slang-uhdm: these BLOCK a comparison.
-# -cfg/-cfgfile select Verilog config blocks.  (-bb_mod/-bb_inst were here
-# until slang-uhdm implemented them; they are now in ONEARG_MAP.)
+# (-bb_mod/-bb_inst and -cfg/-cfgfile were here until slang-uhdm implemented
+# them; they are now in ONEARG_MAP.)
 BLOCKING_NOARG = {'-diffcompunit', '-sepcomp', '-link',
                   '-pythonevalscript', '-pythonevalscriptperfile'}
-BLOCKING_ONEARG = {'-cfg', '-cfgfile'}
+BLOCKING_ONEARG = set()
 
 # `--disable-feature=<a,b>` / `--enable-feature=<a,b>` take a COMMA LIST in one
 # argv word, so they translate per FEATURE, not per flag: slang-uhdm implements
@@ -260,6 +261,13 @@ def split_sources(parts):
 # `default` mode deliberately excludes.
 LOCATION_ONEARG = {'-y', '-v', '-map', '-L', '-f', '-F', '-I', '--libext', '-Y'}
 LOCATION_PREFIX = ('-I', '-D', '+incdir+', '+define+', '+libext+', '-U')
+
+# Every LOCATION_ONEARG flag is spelled the same on both sides except `-map`,
+# which slang spells `--libmap` (ONEARG_MAP already says so for testflags mode).
+# Without this rename `default` mode handed slang a literal `-map`, which it
+# rejects outright -- so the two -map tests read SLANG_REJECT with a harness
+# error message rather than their real verdict.
+LOCATION_RENAME = {'-map': '--libmap'}
 
 
 def location_args(parts):
@@ -594,7 +602,7 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
         # default is one compilation unit, so slang needs --single-unit to match
         # that default, and Surelog's default also parses its builtin classes.
         loc, sl_only = location_args(parts)
-        su = loc + list(sources) + ['--single-unit']
+        su = [LOCATION_RENAME.get(a, a) for a in loc] + list(sources) + ['--single-unit']
         results.append(compare(name, 'default', dirpath,
                                ['-parse'] + loc + sl_only + sources, su,
                                workroot, timeout))

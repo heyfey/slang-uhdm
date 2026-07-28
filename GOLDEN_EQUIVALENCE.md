@@ -154,6 +154,7 @@ sweep the harness for the places that relied on the old one.
 | builtins (default on) | `5286421`, `db83fc3` | The `builtin` package (5 empty `class_defn`s) plus `work@mailbox`/`process`/`semaphore` from `share/builtin.sv`, Surelog's embedded string kept byte-for-byte because the UHDM spans depend on the exact text. slang parses it under the same reported path so spans match by construction. `db83fc3` flipped the default to ON with `--nobuiltin` to opt out, matching Surelog exactly; `--builtins` remains an accepted no-op. |
 | `-bb_mod` / `-bb_inst` | this block | Blackboxing, reimplemented from Surelog's own two early returns: `CompileModule.cpp` returns before **any** `collectModuleObjects_` pass when the def name is in `-bb_mod`, the def name is in `-bb_inst`, or the compiling instance's full path is in `-bb_inst`; `DesignElaboration::elaborateInstance_` creates no sub-instances under the same predicate. In the exporter that is one predicate (`blackboxedDef` / `blackboxedInst`, both no-ops when neither flag was given) and four early returns — `emitModuleDef` / `emitInterfaceDef` after the header, `emitInstance` after the header, and `emitGenScopes`' `emitBlock` after the `gen_scope_array`/`gen_scope` pair. The def-name arm of the `-bb_inst` test is why `-bb_inst work@top` and `-bb_mod work@top` produce byte-identical databases. Names are matched verbatim in Surelog's `work@<name>` / `work@top.u1[i]` spelling, so slang-uhdm's own `VpiFullName` is the key with no translation. |
 | `--disable-feature=parametersubstitution` | this block | Surelog gates ONE function on the feature: `CompileHelper::substituteAssignedValue` (`CompileExpression.cpp:83`) answers false when the candidate `param_assign` Rhs tree holds a `vpiAssignmentPatternOp` or `vpiConcatOp`, and its ~14 callers all read it as "may I replace this reference by the parameter's value?". Everything else the flag appears to do is downstream: an expression reading an un-inlinable parameter no longer folds, so the parameter IT initializes has no value either (`NoParamSubs`: `X='{0,1}` refused → `.P(~X)` stays an operation → `assign a = P` keeps its `ref_obj`). In the exporter that is three predicates (`paramSubstRefused` / `paramValueUnavailable` / `exprValueUnavailable`, all `false` when the flag is absent) plus one early branch in `emitParameters` that emits the un-reduced expression, one in `ExprEmit`'s package-param arm, and one that suppresses the cont-assign folds. The `expandPatternAssignment` boundary is what makes an AGGREGATE-typed pattern parameter unchanged by the flag (measured byte-identical on both `init_val` and `CTRL_RESET`) while a packed-VECTOR one stops collapsing to a constant. Spelled exactly as Surelog spells it, comma list included; `--enable-feature=` is accepted the same way, and an unimplemented feature name is a hard error, never a silent no-op. |
+| `-cfg` / `-cfgfile` | this block | Verilog `config` selection (LRM 33), and the one §3.2 entry that turned out to be **pure plumbing**: slang implements config blocks natively (`ConfigBlockSymbol` — design statement, default liblist, cell/instance overrides, `use lib.cfg:config` recursion), so nothing was reimplemented. `-cfgfile <file>` is `sourceLoader.addFiles` — Surelog parses config files with a dedicated parser, slang parses `config...endconfig` as ordinary source, and a `-cfgfile` config lands in the default library exactly as Surelog's `work@<cfg>`. `-cfg <name>` becomes a top-level entry `<name>:config`; the suffix is load-bearing, because slang searches the definition map **before** the config map (`Compilation.cpp:423`) while Surelog's `setupConfigurations_` searches `ConfigSet` alone — `UnitLibrary` passes `-cfg top` while also declaring a module named `top`. An **unmatched** `-cfg` name is dropped with a warning instead of being handed to slang: Surelog treats it as non-fatal (`CM0028`, and it still writes the database) where slang's `InvalidTopModule` is fatal. Verified on a purpose-built with/without-`-cfg` golden PAIR (two candidate tops, config naming one): the two goldens differ and slang-uhdm is cmp-equal to **both**. |
 | `--synth` / `--formal` | `f5aed69` | Both halves were reuse. Filtering is UHDM's `SynthSubset`, called as Surelog calls it (`reportErrors=true`, `allowFormal` from `--formal`, `listenDesigns`, `filterNonSynthesizable()`) in the same pass-order slot. The `// pragma translate_off/on` half is slang's `--translate-off-format`, which `--synth` injects into `driver.options.translateOffOptions` before `processOptions()` so one flag implies both. |
 
 The builtins work also closed real class-emission gaps: `ref` arg direction (was an
@@ -173,7 +174,6 @@ Surelog behaviour in our exporter (costly, approximate).
 
 | Surelog flag | Tests | Lives in | Route |
 |---|---|---|---|
-| `-cfg` / `-cfgfile` | 2 | **Surelog** — `DesignElaboration.cpp` + `Config/ConfigSet` (Verilog `config` semantics). slang has `--libmap`/config support that may already cover it. | Investigate slang first, then decide. |
 | `--disable-feature=letexprsubstitution` | 1 | **Surelog** — `CompileHelper.cpp:4257`, inlines `let` declarations. | Reimplement; small. |
 | `-diffcompunit` | 1 | **Surelog** — harness behaviour (compiles both ways to diff), not a model option. | **Out of scope**; reclassify alongside `NO_DATABASE`. |
 | `-pythonevalscript` / `...perfile` | 1 | **Surelog** — embedded Python that mutates the model (measured: 3755 dump lines). | **Out of scope.** |
@@ -184,9 +184,28 @@ reimplementation: 4 tests, all 4 `CMP_EQUAL`, 3 of them byte-identical
 (`dump=match`). `--disable-feature=parametersubstitution` is **done** (§3.1):
 4 tests unblocked, 3 to `CMP_EQUAL` and `BlackParrotMuteErrors` to
 `SLANG_REJECT` (its `default` row already reads the same — an unimported
-`lc_ctrl_pkg`, §2.5, so it was never reachable). Of the 5 that remain, one
-small reimplementation covers 1, one needs investigation (2), and two are out
-of scope (2).
+`lc_ctrl_pkg`, §2.5, so it was never reachable). `-cfg`/`-cfgfile` is **done**
+(§3.1) and was the investigate-first entry: slang already implements config
+blocks, so it is plumbing, and both tests reclassify `UNTRANSLATABLE` →
+`SLANG_REJECT` — `LibraryIntercon` on a nettype used as an ANSI port data type
+(`output realNet [0:1] out`, reproduced in 6 lines with no config or library
+involved) plus `interconnect` net strictness; `UnitLibrary` on a same-library
+module redefinition and on relative `instance` paths inside a nested config
+(`instance sub2 liblist libw2;` in `libwconfig/libw.cfg`, where slang requires
+the path to start at a cell named in the `design` statement). Both are §2.5
+source strictness, unreachable through flag work. Of the 3 that remain, one
+small reimplementation covers 1 and two are out of scope (2).
+
+**Ranked residue — library-qualified naming (0 tests today).** Surelog
+qualifies every design name with its source library (`rtlLib@m`,
+`logicLib@top.driverArray[0]`); slang-uhdm hardcodes `work@` at ~24 sites. The
+gap is measured — a 3-file `-map` reproducer is cmp-unequal on exactly
+`vpiDefName rtlLib@m` vs `work@m` and nothing else — and the fix is mechanical:
+slang's `DefinitionSymbol::sourceLibrary` names the library and its default is
+literally `"work"` (`Compilation.cpp:142`), so a `qualName(def)` helper would be
+a hard no-op wherever no library map is in play. It is **not** worth doing yet:
+the only two suite tests that pass `-map` are both `SLANG_REJECT`, so it buys
+zero tests while touching every name the emitter writes.
 
 **UHDM classes available to reuse.** `ElaboratorListener` and `UhdmAdjuster`
 (both already used by `--elabuhdm`), `SynthSubset`, `UhdmLint`, `ExprEval`.
@@ -208,7 +227,7 @@ exists.
 | Corpus | Mode | Total | Status breakdown | Comparable | Equal |
 |---|---|---|---|---|---|
 | Surelog suite | default | 794 | CMP_EQUAL=313 SLANG_REJECT=284 CMP_NOTEQUAL=167 SURELOG_FAIL=25 DEFERRED=5 | 480 | 313 (65.2%) |
-| Surelog suite | testflags | 794 | CMP_EQUAL=305 SLANG_REJECT=284 CMP_NOTEQUAL=167 SURELOG_FAIL=23 UNTRANSLATABLE=5 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 472 | 305 (64.6%) |
+| Surelog suite | testflags | 794 | CMP_EQUAL=305 SLANG_REJECT=286 CMP_NOTEQUAL=167 SURELOG_FAIL=23 UNTRANSLATABLE=3 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 472 | 305 (64.6%) |
 | uhdm2rtlil | default | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 | uhdm2rtlil | testflags | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 
@@ -419,7 +438,11 @@ integration gate ~5 min, so stream instead:
 1. ~~Flip the builtins default?~~ **RESOLVED** (`db83fc3`): builtins are on by
    default with `--nobuiltin` to opt out, matching Surelog. `default` mode now
    passes no flag on either side.
-2. **Is `-cfg` covered by slang's `--libmap` config handling?** Unverified.
+2. ~~Is `-cfg` covered by slang's `--libmap` config handling?~~ **RESOLVED
+   (yes, this block)**: slang's `ConfigBlockSymbol` implements the whole of
+   LRM 33 and `--top <name>:config` selects a config block, so `-cfg`/`-cfgfile`
+   is plumbing (§3.1). What slang does **not** carry is Surelog's
+   library-qualified naming (`rtlLib@m` vs our `work@m`) — ranked, 0 tests, §3.2.
 2b. ~~Errored-but-written Surelog database: golden or not?~~ **RESOLVED
    (match Surelog, `e8434be`)**: the golden is the artifact — Surelog's own
    regression records the errors in its golden logs and treats the output as
