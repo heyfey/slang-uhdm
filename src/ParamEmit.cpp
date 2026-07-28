@@ -1830,6 +1830,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          (ct0.kind == SymbolKind::PackedArrayType && ct0.isIntegral());
         }
         bool wantTs = false;
+        // Untyped `parameter P = $bits(...)`: folds like a literal in BOTH
+        // views and carries the declaration's implicit int_typespec (set with
+        // wantTs below; also drives the ELAB constant's width).
+        bool bitsFoldInit = false;
         if (isLocal)
             up->VpiLocalParam(true);
         // Function-scope, explicitly-TYPED, and ranged (localparam [7:0] X)
@@ -2072,10 +2076,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 .signing.valid() &&
                             ts9->as<syntax::ImplicitTypeSyntax>()
                                 .dimensions.empty();
+            // ...and so does an UNTYPED param initialized by `$bits(...)`.
+            // Surelog's DEFINITION compile evaluates $bits (the width of a
+            // type or of a fixed-width signal is known without elaboration)
+            // and stores the result like a literal, with the declaration's
+            // implicit int_typespec. Measured over a 10-system-call matrix
+            // ($clog2 $size $high $signed $unsigned ... on both literal and
+            // param arguments): $bits is the ONLY one that folds there — the
+            // rest stay `sys_func_call` in the def view and carry no
+            // typespec in either. BitsLogic / BitComplex.
+            if (defaultInit && !typedParam && ctw.isIntegral()) {
+                auto& sb9 = stripImplicitConv(*defaultInit);
+                if (sb9.kind == ExpressionKind::Call &&
+                    sb9.as<CallExpression>().isSystemCall() &&
+                    sb9.as<CallExpression>().getSubroutineName() == "$bits" &&
+                    ps.getValue().isInteger() &&
+                    !ps.getValue().integer().hasUnknown())
+                    bitsFoldInit = true;
+            }
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) ||
-                      signedImplicitTs || pkgElabComputed ||
+                      signedImplicitTs || pkgElabComputed || bitsFoldInit ||
                       ((literalInit || realLit) && !unknownDefault &&
                        !decBasedInit));
         }
@@ -4299,7 +4321,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (!concatFold && !boolInit9)
                         ((UHDM::constant*)rhs)
                             ->VpiSize(typedParam || defUntypedImport ||
-                                              rangedFold || elabRefFold9
+                                              rangedFold || elabRefFold9 ||
+                                              bitsFoldInit
                                           ? (int32_t)ps.getType().getBitWidth()
                                       : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                     : 64);
@@ -4580,8 +4603,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // param; a RANGED-UNTYPED elab fold carries the SAME ts ref
                     // shape (fullname = instance prefix, actual = range
                     // int_typespec) so its folded value is width-typed.
-                    if ((typedParam || rangedFold) && wantTs && !isPattern &&
-                        !partSelectFold && !replFoldTs && !importedFold) {
+                    if ((typedParam || rangedFold || bitsFoldInit) && wantTs &&
+                        !isPattern && !partSelectFold && !replFoldTs &&
+                        !importedFold) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
@@ -6085,7 +6109,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                       sik.as<NamedValueExpression>()
                               .symbol.getParentScope()
                               ->asSymbol()
-                              .kind == SymbolKind::Package))) {
+                              .kind == SymbolKind::Package) ||
+                     // A DEF-view SYSTEM-CALL initializer that constant-folds
+                     // ($bits over a fixed-width signal) carries the ts ref
+                     // too: Surelog's definition compile stores the folded
+                     // value against the parameter's OWN declared typespec,
+                     // the same object the parameter's ref points at. Only
+                     // the folding calls reach here — $clog2 of a literal
+                     // stays a sys_func_call in the def view and never
+                     // becomes a constant (BitsHierPath, PackDataType).
+                     (!topView && !inPackage && !isImported &&
+                      sik.kind == ExpressionKind::Call &&
+                      sik.as<CallExpression>().isSystemCall()))) {
                     auto* rt = s.MakeRef_typespec();
                     std::string tsPrefix = prefix;
                     if (tsPrefix.size() >= 2 &&

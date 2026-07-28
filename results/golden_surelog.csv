@@ -9,7 +9,7 @@ AllBinding,default,CMP_EQUAL,,,match
 AllBinding,testflags,CMP_EQUAL,,,match
 AllPackageSignal,default,CMP_NOTEQUAL,decompile:,,
 AllPackageSignal,testflags,CMP_NOTEQUAL,decompile:,,
-AlwaysNoElab,default,CMP_NOTEQUAL,decompile:,,
+AlwaysNoElab,default,CMP_EQUAL,,,match
 AlwaysNoElab,testflags,CMP_NOTEQUAL,decompile:,,
 AmiqEth,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
 AmiqEth,testflags,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
@@ -101,8 +101,8 @@ BindStmt2,default,SLANG_REJECT,dut.sv:8:10: error: unknown class or package 'lc_
 BindStmt2,testflags,SLANG_REJECT,dut.sv:8:10: error: unknown class or package 'lc_ctrl_pkg',,
 BindVarsAndEnum,default,CMP_EQUAL,,,match
 BindVarsAndEnum,testflags,CMP_EQUAL,,,match
-BitComplex,default,CMP_NOTEQUAL,decompile:,,
-BitComplex,testflags,CMP_NOTEQUAL,decompile:,,
+BitComplex,default,CMP_EQUAL,,,differ
+BitComplex,testflags,CMP_EQUAL,,,differ
 BitPartSelect,default,CMP_EQUAL,,,match
 BitPartSelect,testflags,CMP_EQUAL,,,match
 BitRanges,default,CMP_EQUAL,,,match
@@ -119,12 +119,12 @@ BitSelectPartSelectInFunction,default,CMP_EQUAL,,,match
 BitSelectPartSelectInFunction,testflags,CMP_EQUAL,,,differ
 BitSelectSelect,default,CMP_EQUAL,,,match
 BitSelectSelect,testflags,CMP_EQUAL,,,differ
-BitsHierPath,default,CMP_NOTEQUAL,decompile:,,
-BitsHierPath,testflags,CMP_NOTEQUAL,decompile:,,
+BitsHierPath,default,CMP_EQUAL,,,differ
+BitsHierPath,testflags,CMP_EQUAL,,,differ
 BitsInGenBlock,default,CMP_NOTEQUAL,decompile:,,
 BitsInGenBlock,testflags,CMP_NOTEQUAL,decompile:,,
-BitsLogic,default,CMP_NOTEQUAL,decompile:,,
-BitsLogic,testflags,CMP_NOTEQUAL,decompile:,,
+BitsLogic,default,CMP_EQUAL,,,differ
+BitsLogic,testflags,CMP_EQUAL,,,differ
 BitsOp,default,SLANG_REJECT,dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
 BitsOp,testflags,SLANG_REJECT,dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
 BitsStructMember,default,SLANG_REJECT,dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
@@ -281,8 +281,8 @@ ConditionalOp,default,CMP_EQUAL,,,differ
 ConditionalOp,testflags,CMP_EQUAL,,,differ
 CondOpLazyEval,default,CMP_EQUAL,,,match
 CondOpLazyEval,testflags,CMP_EQUAL,,,match
-CondOpPattern,default,CMP_NOTEQUAL,decompile:,,
-CondOpPattern,testflags,CMP_NOTEQUAL,decompile:,,
+CondOpPattern,default,CMP_EQUAL,,,match
+CondOpPattern,testflags,CMP_EQUAL,,,differ
 CondOpPred,default,CMP_EQUAL,,,match
 CondOpPred,testflags,CMP_EQUAL,,,match
 Connection,default,CMP_NOTEQUAL,decompile:,,
@@ -971,8 +971,8 @@ PackageValue,default,SLANG_REJECT,top.sv:21:20: error: use of undeclared identif
 PackageValue,testflags,SLANG_REJECT,top.sv:21:20: error: use of undeclared identifier 'state_q',,
 PackageVar,default,SLANG_REJECT,dut.sv:11:70: error: no member named 'init' in class 'ovm_options_container',,
 PackageVar,testflags,SLANG_REJECT,dut.sv:11:70: error: no member named 'init' in class 'ovm_options_container',,
-PackDataType,default,CMP_NOTEQUAL,decompile:,,
-PackDataType,testflags,CMP_NOTEQUAL,decompile:,,
+PackDataType,default,CMP_EQUAL,,,differ
+PackDataType,testflags,CMP_EQUAL,,,differ
 PackedArrayAssign,default,CMP_EQUAL,,,match
 PackedArrayAssign,testflags,CMP_EQUAL,,,match
 PackedArrayBind,default,CMP_EQUAL,,,match

@@ -3294,8 +3294,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // A BARE parameter width (P'(x)) mints a fresh NAMED
                     // int_typespec carrying the param's folded value, at a
                     // zero-width span on the param name token (per cast site).
+                    // ...but only when the width is a DEF-COMPILE constant.
+                    // The fresh typespec carries the folded value, so Surelog
+                    // can only build it when the parameter's own initializer
+                    // is a literal; a param-DEPENDENT width (`localparam W =
+                    // NrDevices > 1 ? $clog2(NrDevices) : 1`) has no value at
+                    // definition compile, and Surelog falls back to REUSING
+                    // the parameter's own typespec with a vpiExpr ref_obj —
+                    // the shape the parenthesized branch below builds.
+                    // Measured on one source per row (param port vs
+                    // localparam, plain always vs generate, literal vs
+                    // param-dependent init): only the initializer's literalness
+                    // moves it. AlwaysNoElab (dependent -> reuse) vs
+                    // size_cast_param / rp32_r5p_* (`= 16` -> fresh).
+                    // ...and only for a width declared in THIS module body: a
+                    // PACKAGE parameter keeps the fresh valued typespec even
+                    // with a computed init (Kmac sha3_pkg::KeccakCountW =
+                    // $clog2(KeccakEntries+1)), because package elaboration
+                    // has already resolved it.
                     auto& seCore = stripImplicitConv(sizeExpr);
-                    if (!cts && seCore.kind == ExpressionKind::NamedValue &&
+                    bool litWidthParam9 = true;
+                    if (seCore.kind == ExpressionKind::NamedValue &&
+                        seCore.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter) {
+                        auto& wp9 = seCore.as<NamedValueExpression>()
+                                        .symbol.as<ParameterSymbol>();
+                        auto* wsc9 = wp9.getParentScope();
+                        if (wsc9 &&
+                            wsc9->asSymbol().kind == SymbolKind::InstanceBody)
+                            litWidthParam9 =
+                                wp9.getInitializer() &&
+                                isLiteralExpr(
+                                    stripImplicitConv(*wp9.getInitializer()));
+                    }
+                    if (!cts && litWidthParam9 &&
+                        seCore.kind == ExpressionKind::NamedValue &&
                         seCore.as<NamedValueExpression>().symbol.kind ==
                             SymbolKind::Parameter &&
                         cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
@@ -6157,7 +6190,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bool nestedPat = parent && parent->UhdmType() == UHDM::uhdmoperation &&
                              ((UHDM::operation*)parent)->VpiOpType() ==
                                  vpiAssignmentPatternOp;
-            if (nestedPat && reemitting && expr.type) {
+            // The ARM of a CONDITIONAL operation gets the same bare ts ref.
+            // Surelog compiles a `? :` with an explicit expected type and
+            // stamps each arm's pattern with the target's typespec; a pattern
+            // written DIRECTLY as the cont-assign Rhs gets none (measured
+            // side by side: `assign out = flag ? '{..} : '{..}` tags both
+            // arms, `assign out2 = '{..}` tags nothing). CondOpPattern.
+            bool condArmPat = parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                              ((UHDM::operation*)parent)->VpiOpType() ==
+                                  vpiConditionOp;
+            if ((nestedPat || condArmPat) && reemitting && expr.type) {
                 UHDM::typespec* mts = nullptr;
                 if (auto tit = pkgTopTypedefTs.find(
                         (const Symbol*)&expr.type->getCanonicalType());
