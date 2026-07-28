@@ -500,7 +500,11 @@ def dump_verdict(a, b, timeout):
 
 
 def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
-    work = os.path.join(workroot, mode, name)
+    # The corpora share test names (CaseInside, VarSelect, ...), so the workdir
+    # must be disambiguated by the test's source dir or a stale slang.uhdm from
+    # the other corpus silently un-rejects a SLANG_REJECT row.
+    work = os.path.join(workroot, mode,
+                        name + '-' + hashlib.sha1(dirpath.encode()).hexdigest()[:8])
     os.makedirs(work, exist_ok=True)
 
     # Golden side: cache first (immutable per Surelog binary + dir + argv).
@@ -546,6 +550,12 @@ def compare(name, mode, dirpath, sl_args, su_args, workroot, timeout):
                 golden_dumphash = h2[2]
 
     slang_out = os.path.join(work, 'slang.uhdm')
+    # SLANG_REJECT classification keys on this file's ABSENCE — a leftover from
+    # a prior run in a reused workdir would fake a live comparison.
+    try:
+        os.unlink(slang_out)
+    except FileNotFoundError:
+        pass
     su_argv = [SLANG_UHDM] + su_args + ['-o', slang_out]
     with open(os.path.join(work, 'cmds.txt'), 'at') as f:
         f.write('slang:   ' + shlex.join(su_argv) + '\n')

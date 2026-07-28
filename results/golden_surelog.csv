@@ -10,7 +10,7 @@ AllBinding,testflags,CMP_EQUAL,,,match
 AllPackageSignal,default,CMP_NOTEQUAL,decompile:,,
 AllPackageSignal,testflags,CMP_NOTEQUAL,decompile:,,
 AlwaysNoElab,default,CMP_EQUAL,,,match
-AlwaysNoElab,testflags,CMP_NOTEQUAL,decompile:,,
+AlwaysNoElab,testflags,CMP_EQUAL,,,match
 AmiqEth,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
 AmiqEth,testflags,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
 AmiqSimpleTestSuite,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
@@ -252,7 +252,7 @@ ClogCast,testflags,CMP_NOTEQUAL,decompile:,,
 ClogParam,default,CMP_EQUAL,,,differ
 ClogParam,testflags,CMP_NOTEQUAL,decompile:,,
 CmdLineOverride,default,CMP_EQUAL,,,match
-CmdLineOverride,testflags,CMP_NOTEQUAL,decompile:,,
+CmdLineOverride,testflags,CMP_EQUAL,,,match
 Compl1001,default,CMP_EQUAL,,,match
 Compl1001,testflags,CMP_EQUAL,,,match
 ComplexBitSelect,default,SLANG_REJECT,dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
@@ -328,7 +328,7 @@ DataAttrib,testflags,CMP_EQUAL,,,match
 DecimalSize,default,SLANG_REJECT,dut.sv:848:15: error: use of undeclared identifier 'm',,
 DecimalSize,testflags,SLANG_REJECT,dut.sv:848:15: error: use of undeclared identifier 'm',,
 DecValue,default,CMP_EQUAL,,,match
-DecValue,testflags,CMP_NOTEQUAL,decompile:,,
+DecValue,testflags,CMP_EQUAL,,,match
 DefaultAssign,default,SLANG_REJECT,dut.sv:8:24: error: redefinition of 'data' [-Wredefinition],,
 DefaultAssign,testflags,SLANG_REJECT,dut.sv:8:24: error: redefinition of 'data' [-Wredefinition],,
 DefaultNetType,default,SLANG_REJECT,dut.sv:16:8: error: use of undeclared identifier 'b',,
@@ -1040,9 +1040,9 @@ ParamFile,testflags,CMP_EQUAL,,,match
 ParamFileMacro,default,SURELOG_FAIL,[   NOTE] : 0,,
 ParamFileMacro,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 ParamFileNoTop,default,CMP_EQUAL,,,match
-ParamFileNoTop,testflags,SLANG_REJECT,error: 'SRAMInitFile=/blah' is not a valid form of parameter override,,
+ParamFileNoTop,testflags,SLANG_REJECT,error: 'wrong_top' is not a valid top-level module,,
 ParamFileOverr,default,CMP_EQUAL,,,match
-ParamFileOverr,testflags,SLANG_REJECT,error: 'SRAMInitFile=/blah' is not a valid form of parameter override,,
+ParamFileOverr,testflags,CMP_EQUAL,,,match
 ParamFromPackage,default,CMP_EQUAL,,,differ
 ParamFromPackage,testflags,CMP_EQUAL,,,differ
 ParamIndex,default,SLANG_REJECT,dut.sv:16:27: error: use of undeclared identifier 'UNDEF',,

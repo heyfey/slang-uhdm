@@ -198,6 +198,74 @@ int main(int argc, char** argv) {
     // an explicit -DSURELOG=... on the command line still wins.
     driver.options.defines.insert(driver.options.defines.begin(), "SURELOG=1");
 
+    // Surelog `-P<name>=<value>` (which the harness spells `-G` because that is
+    // slang's option) stores the value as an unparsed STRING:
+    // `m_paramList.emplace(id, StringUtils::unquoted(value))`, and later turns
+    // it into a Value with `ExprBuilder::fromString`. slang instead parses the
+    // value as an EXPRESSION and hard-errors when it is not one, which is how
+    // `-PSRAMInitFile=/blah` (tests/ParamFile) becomes a rejection rather than a
+    // string-valued override, and how `-PA="'d7_200"` (tests/DecValue) becomes a
+    // 56-bit STRING instead of the number 7200 -- the quotes are argv characters
+    // that Surelog strips and slang does not.
+    //
+    // So: unquote exactly as Surelog does, keep the raw string for the exporter
+    // (which reproduces fromString's typing -- see UhdmExporter::cliOverrideConst),
+    // and hand slang a spelling it can parse so the DERIVED values (localparams
+    // computed from the override) still elaborate. A value that is not a number
+    // becomes a string literal, which is what Surelog's fromString falls back to.
+    std::map<std::string, std::string> cliParams;
+    for (auto& opt : driver.options.paramOverrides) {
+        auto eq = opt.find('=');
+        if (eq == std::string::npos)
+            continue;
+        std::string name = opt.substr(0, eq);
+        // A dotted left-hand side is slang's `defparam` form, which Surelog's
+        // -P does not have; leave those to slang untouched.
+        if (name.find('.') != std::string::npos)
+            continue;
+        std::string val = opt.substr(eq + 1);
+        if (val.size() >= 2 && ((val.front() == '"' && val.back() == '"') ||
+                                (val.front() == '\'' && val.back() == '\'')))
+            val = val.substr(1, val.size() - 2);
+        cliParams[name] = val;
+        // Numeric (plain integer, real, or based literal) passes through; slang
+        // parses all three, including the `_` separators.
+        bool numeric = !val.empty();
+        {
+            size_t i = (val[0] == '-' || val[0] == '+') ? 1 : 0;
+            bool sawDigit = false, sawTick = false;
+            for (; i < val.size() && numeric; i++) {
+                char c = val[i];
+                if (c == '\'') {
+                    if (sawTick)
+                        numeric = false;
+                    sawTick = true;
+                }
+                else if (isalnum((unsigned char)c) || c == '_' || c == '.') {
+                    if (isdigit((unsigned char)c))
+                        sawDigit = true;
+                    else if (!sawTick && c != '.')
+                        numeric = false;  // a bare identifier is not a number
+                }
+                else
+                    numeric = false;
+            }
+            numeric = numeric && sawDigit;
+        }
+        if (!numeric) {
+            std::string q = "\"";
+            for (char c : val) {
+                if (c == '"' || c == '\\')
+                    q += '\\';
+                q += c;
+            }
+            q += '"';
+            opt = name + "=" + q;
+        }
+        else
+            opt = name + "=" + val;
+    }
+
     // -cfgfile sources go in before processOptions() so they take part in the
     // normal source-existence check; the -cfg tops are pushed later, once the
     // sources are parsed and the declared config names are known.
@@ -360,6 +428,8 @@ int main(int argc, char** argv) {
         exporter.setNoParamSubst();
     if (!letExprSubstitution)
         exporter.setNoLetSubst();
+    if (!cliParams.empty())
+        exporter.setCmdLineParams(cliParams);
     if (!bbMods.empty() || !bbInsts.empty())
         exporter.setBlackBoxes(std::set<std::string>(bbMods.begin(), bbMods.end()),
                                std::set<std::string>(bbInsts.begin(), bbInsts.end()));

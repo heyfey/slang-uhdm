@@ -70,6 +70,171 @@ static bool containsPatternOrConcat(const Expression& e) {
     return found;
 }
 
+bool UhdmExporter::cliOverridden(const ParameterSymbol& ps) const {
+    if (cliParams.empty() || cliParams.find(std::string(ps.name)) == cliParams.end())
+        return false;
+    // Surelog's `module->getParameter(name)` looks the name up in the top
+    // instance's DEFINITION, so the parameter must be declared by that
+    // definition's body -- not inherited from a package import, and not
+    // declared in a nested generate scope.
+    for (auto* sc = ps.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+        auto& sym = sc->asSymbol();
+        if (sym.kind == SymbolKind::InstanceBody)
+            return cliTopDefs.count(&sym.as<InstanceBodySymbol>().getDefinition()) != 0;
+        if (sym.kind == SymbolKind::Package || sym.kind == SymbolKind::CompilationUnit)
+            return false;
+    }
+    return false;
+}
+
+// ExprBuilder::fromString + UhdmWriter, reproduced from a measured 12-value
+// pair matrix (Surelog alone, one `parameter A = 1;` top, -PA=<value>):
+//
+//   5        -> decompile "5"       size 64  UINT:5      vpiUIntConst
+//   0        -> decompile "0"       size 64  UINT:0      vpiUIntConst
+//   -3       -> decompile "-3"      size 64  INT:-3      vpiIntConst
+//   1.5      -> decompile "1.500000" size 64 REAL:1.500000  vpiRealConst
+//   4'b1010  -> decompile "4'b1010" size 4   BIN:1010    vpiBinaryConst
+//   1'b1     -> decompile "1'b1"    size 1   BIN:1       vpiBinaryConst
+//   'b101    -> decompile "'b101"   size 0   BIN:101     vpiBinaryConst
+//   8'hFF    -> decompile "8'hFF"   size 8   HEX:FF      vpiHexConst
+//   16'd300  -> decompile "300"     size 16  UINT:300    vpiUIntConst
+//   'd7_200  -> decompile "7200"    size 0   UINT:7200   vpiUIntConst
+//   /blah    -> decompile "/blah"   size 40  STRING:/blah  vpiStringConst
+//   hello    -> decompile "hello"   size 40  STRING:hello  vpiStringConst
+//
+// Two rules are worth naming because they are not guessable. The DECIMAL base
+// is not a "based literal" at all once parsed: `16'd300` and `'d7_200` come
+// back as plain unsigned numbers whose decompile is the NUMBER (separators
+// gone, size prefix gone), while b/o/h keep the source spelling verbatim. And
+// the size is whatever integer precedes the apostrophe -- ABSENT means 0, not
+// 32 and not 64; only a value with no apostrophe at all is 64 wide.
+//
+// RANKED RESIDUE (0 corpus tests, same matrix). Surelog builds the DEF view
+// before elaboration, so the def-view param_assign Rhs keeps the DECLARATION's
+// typespec whatever the -P value is; slang re-TYPES the parameter from the
+// override, so an UNTYPED `parameter A = 1;` given a value of another type
+// diverges there and only there:
+//   -PA=1.5 / -PA=hello  -> golden int_typespec, ours real_/string_typespec
+//   -PA=4'b1010 / 8'hFF / 16'd300 / 'd7_200 / 1'b1
+//                        -> golden bare int_typespec, ours int_typespec+range
+// Every value whose type agrees with the declaration default's (plain decimals
+// on an untyped or int param, a string on a string param) is cmp-equal, which
+// is why all four corpus tests convert. Closing it means deriving the def-view
+// typespec from the DECLARATION DEFAULT expression instead of ps.getType()
+// throughout makeParamTs -- deep, and worth nothing until a test needs it.
+UHDM::constant* UhdmExporter::cliOverrideConst(const std::string& raw) {
+    auto* c = s.MakeConstant();
+    auto tick = raw.find('\'');
+    auto sized = [&]() -> int32_t {
+        // StringUtils::rtrim_until(value, '\'') then parseInt32, 0 on failure.
+        int32_t sz = 0;
+        std::string pre = raw.substr(0, tick);
+        if (!pre.empty() && pre.find_first_not_of("0123456789") == std::string::npos &&
+            pre.size() < 10)
+            sz = (int32_t)std::stol(pre);
+        return sz;
+    };
+    if (tick != std::string::npos) {
+        // base char: the one after the apostrophe, skipping a signed marker.
+        // NOT case-folded, deliberately: Surelog's switch has lowercase labels
+        // only, so `8'HFF` falls through to the BINARY default exactly as an
+        // unrecognised base would.
+        char base = 'b';
+        if (tick + 1 < raw.size())
+            base = raw[tick + 1];
+        if ((base == 's' || base == 'S') && tick + 2 < raw.size())
+            base = raw[tick + 2];
+        // fromString drops the size+base prefix, then the `_` separators.
+        size_t dstart = raw.find_first_of("sS") != std::string::npos ? tick + 3 : tick + 2;
+        std::string digits = dstart <= raw.size() ? raw.substr(dstart) : std::string();
+        digits.erase(std::remove(digits.begin(), digits.end(), '_'), digits.end());
+        c->VpiSize(sized());
+        switch (base) {
+            case 'h':
+                c->VpiConstType(vpiHexConst);
+                c->VpiValue("HEX:" + digits);
+                c->VpiDecompile(raw);
+                break;
+            case 'o':
+                c->VpiConstType(vpiOctConst);
+                c->VpiValue("OCT:" + digits);
+                c->VpiDecompile(raw);
+                break;
+            case 'd': {
+                // Decimal is re-rendered as a NUMBER, losing the prefix.
+                if (digits.find('.') != std::string::npos) {
+                    char buf[64];
+                    snprintf(buf, sizeof(buf), "%f", strtod(digits.c_str(), nullptr));
+                    c->VpiConstType(vpiRealConst);
+                    c->VpiSize(64);
+                    c->VpiValue(std::string("REAL:") + buf);
+                    c->VpiDecompile(buf);
+                    break;
+                }
+                bool neg = !raw.empty() && raw[0] == '-';
+                if (digits.empty() ||
+                    digits.find_first_not_of("0123456789") != std::string::npos) {
+                    // parseUint64/parseInt64 refuse: fromString falls back to a
+                    // string Value holding the WHOLE original argument.
+                    c->VpiConstType(vpiStringConst);
+                    c->VpiSize((int32_t)(raw.size() * 8));
+                    c->VpiValue("STRING:" + raw);
+                    c->VpiDecompile(raw);
+                    break;
+                }
+                c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+                c->VpiValue((neg ? "INT:-" : "UINT:") + digits);
+                c->VpiDecompile((neg ? "-" : "") + digits);
+                break;
+            }
+            default:
+                c->VpiConstType(vpiBinaryConst);
+                c->VpiValue("BIN:" + digits);
+                c->VpiDecompile(raw);
+                break;
+        }
+        return c;
+    }
+    bool numeric = !raw.empty();
+    size_t i0 = (raw[0] == '-' || raw[0] == '+') ? 1 : 0;
+    bool dot = false, digit = false;
+    for (size_t i = i0; i < raw.size() && numeric; i++) {
+        if (raw[i] == '.') {
+            if (dot)
+                numeric = false;
+            dot = true;
+        }
+        else if (isdigit((unsigned char)raw[i]))
+            digit = true;
+        else
+            numeric = false;
+    }
+    numeric = numeric && digit;
+    if (numeric && dot) {
+        char buf[64];
+        snprintf(buf, sizeof(buf), "%f", strtod(raw.c_str(), nullptr));
+        c->VpiConstType(vpiRealConst);
+        c->VpiSize(64);
+        c->VpiValue(std::string("REAL:") + buf);
+        c->VpiDecompile(buf);
+        return c;
+    }
+    if (numeric) {
+        bool neg = raw[0] == '-';
+        c->VpiConstType(neg ? vpiIntConst : vpiUIntConst);
+        c->VpiSize(64);
+        c->VpiValue((neg ? "INT:" : "UINT:") + raw);
+        c->VpiDecompile(raw);
+        return c;
+    }
+    c->VpiConstType(vpiStringConst);
+    c->VpiSize((int32_t)(raw.size() * 8));
+    c->VpiValue("STRING:" + raw);
+    c->VpiDecompile(raw);
+    return c;
+}
+
 bool UhdmExporter::paramSubstRefused(const ParameterSymbol& ps) {
     if (!noParamSubst)
         return false;
@@ -1684,6 +1849,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         pkgRefSrc;
     // param_assigns of PARAMETER-PORT-LIST params (for the elab reorder).
     std::set<const UHDM::any*> portPa9;
+    // ELAB param_assigns of -P command-line overrides, restamped at the end.
+    std::vector<std::pair<UHDM::param_assign*, std::string>> cliRestamp;
     // Tag every param_assign pushed while emitting a PARAMETER-PORT-LIST
     // param (the pushes happen at several sites, so mark by loop iteration).
     size_t paMark9 = 0;
@@ -1742,6 +1909,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         const syntax::ExpressionSyntax* defaultSyn = paramDefaultSyn(ps);
         const Expression* boundInit = ps.getInitializer();
         bool overridden = isOverriddenParam(ps);
+        // A -P command-line override. slang binds it exactly like an
+        // instantiation override (the initializer's syntax comes from a
+        // `<command-line>` buffer), so isOverriddenParam says true -- but
+        // Surelog's cmdline path is a DIFFERENT one that neither stamps
+        // vpiOverriden nor keeps the parameter's typespec. See cliParams.
+        bool cliOv = cliOverridden(ps);
         // A required (override-only) param has NO declaration default; Surelog
         // leaves it valueless/typespec-less in the def view.
         bool hasDefault = defaultSyn != nullptr;
@@ -2144,7 +2317,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             prt = s.MakeRef_typespec();
             prt->VpiFullName(joinPath(prefix, ps.name));
             prt->VpiParent(up);
-            up->Typespec(prt);
+            // A -P override runs `p->setTypespec(nullptr)` +
+            // `param->Typespec(nullptr)` on the DEFINITION's Parameter, so no
+            // view of it carries a typespec. The ref is still built (the
+            // param_assign Rhs's own typespec, which the DEF view KEEPS, is
+            // derived alongside it) -- it is simply not attached.
+            if (!cliOv)
+                up->Typespec(prt);
         }
         // An UNPACKED-ARRAY param (int X [1:0]) is not isIntegral, so the
         // wantTs path skips it. Surelog gives it an array_typespec (unpacked
@@ -2457,9 +2636,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
             }
         }
-        if (topView &&
+        if (topView && !cliOv &&
             (overridden || derivedOv9 || (!hasDefault && boundInit)))
             pa->VpiOverriden(true);
+        // The ELAB Rhs of a -P'd parameter is fromString's constant, built from
+        // the raw command-line STRING with no reference to the declared type.
+        // The DEF view keeps the declaration default untouched. Applied after
+        // the loop (the Rhs is set on many different paths) by RE-STAMPING the
+        // constant the ordinary path produced, which keeps Surelog's span (the
+        // declaration default's) without having to re-derive it.
+        if (topView && cliOv)
+            cliRestamp.emplace_back(pa, std::string(ps.name));
         // A module-scope typed localparam whose init element-selects an
         // UNPACKED-ARRAY param (localparam int C = Arr[Idx]) CLAIMS the
         // selected operand of the array's ELAB pattern op: that operand
@@ -3172,9 +3359,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // An untyped param whose DECLARED default is a string literal
                 // is a string param to Surelog (makeParamTs' string_typespec).
                 // When such a param is overridden by a REFERENCE that itself
-                // resolves to a string literal, the elab Rhs is a BARE STRING
-                // constant — value only, no size, no decompile (ParamFile:
-                // .MemInitFile(SRAMInitFile), both defaulting to "").
+                // resolves to a string literal, the elab Rhs is a STRING
+                // constant carrying that text: STRING:<t> with decompile <t>
+                // and size 8*len, exactly like any other string constant. The
+                // rule reads as "value only, no size, no decompile" on
+                // ParamFile alone because BOTH sides there default to the
+                // EMPTY string, and uhdm-dump prints neither an empty
+                // decompile nor a zero size; ParamFileOverr's
+                // `-PSRAMInitFile=/blah` is the same path with a non-empty
+                // text and shows /blah + 40.
                 bool strRefOv8 = false;
                 std::string strRefTxt8;
                 if (!typedParam && boundInit &&
@@ -3199,6 +3392,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         strRefOv8 = true;
                         c->VpiValue("STRING:" + strRefTxt8);
                         c->VpiConstType(vpiStringConst);
+                        c->VpiSize((int32_t)(strRefTxt8.size() * 8));
+                        c->VpiDecompile(strRefTxt8);
                     }
                 }
                 if (!strRefOv8)
@@ -6653,6 +6848,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          [&](UHDM::param_assign* a9, UHDM::param_assign* b9) {
                              return rank9(a9) < rank9(b9);
                          });
+    }
+    // -P command-line overrides: re-stamp the ELAB Rhs with fromString's own
+    // constant (see cliOverrideConst) and drop its typespec -- Surelog's
+    // cmdline path stores a raw Value that never sees the declared type.
+    for (auto& [pa9, name9] : cliRestamp) {
+        auto* src9 = cliOverrideConst(cliParams.find(name9)->second);
+        auto* rhs9 = pa9->Rhs();
+        if (rhs9 && rhs9->UhdmType() == UHDM::uhdmconstant) {
+            auto* rc9 = (UHDM::constant*)rhs9;
+            rc9->VpiConstType(src9->VpiConstType());
+            rc9->VpiSize(src9->VpiSize());
+            rc9->VpiValue(std::string(src9->VpiValue()));
+            rc9->VpiDecompile(std::string(src9->VpiDecompile()));
+            rc9->Typespec(nullptr);
+        }
+        else {
+            src9->VpiParent(pa9);
+            if (rhs9) {
+                src9->VpiFile(std::string(rhs9->VpiFile()));
+                src9->VpiLineNo(rhs9->VpiLineNo());
+                src9->VpiColumnNo(rhs9->VpiColumnNo());
+                src9->VpiEndLineNo(rhs9->VpiEndLineNo());
+                src9->VpiEndColumnNo(rhs9->VpiEndColumnNo());
+            }
+            pa9->Rhs(src9);
+        }
     }
     if (!params->empty())
         m->Parameters(params);

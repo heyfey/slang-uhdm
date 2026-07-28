@@ -1253,6 +1253,14 @@ UHDM::design* UhdmExporter::exportDesign() {
     auto& root = comp.getRoot();
     computeParamMultiplicity();
 
+    // Surelog applies a -P override under `instance->getParent() == nullptr`,
+    // i.e. only to the DEFINITIONS of top-level instances -- and it mutates the
+    // definition's own Parameter object, so both the def view and every
+    // instance view of that definition see the effect.
+    if (!cliParams.empty())
+        for (auto* t : root.topInstances)
+            cliTopDefs.insert(&t->getDefinition());
+
     d = s.MakeDesign();
     // Multi-top designs: Surelog names the design after (and lists tops in)
     // SOURCE order; slang's topInstances may differ.

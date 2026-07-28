@@ -118,6 +118,15 @@ public:
     /// at the head of `emitExpr` is against an empty map.
     void setNoLetSubst() { noLetSubst = true; }
 
+    /// Surelog `-P<name>=<value>` / `-pvalue+<name>=<value>` (slang spells it
+    /// `-G`): a command-line parameter override applied to TOP-LEVEL instances
+    /// only. @a raw maps the parameter name to the value string EXACTLY as
+    /// Surelog stores it (`StringUtils::unquoted`, no expression parsing).
+    /// See `cliOverrideConst()` for the decoded semantics.
+    void setCmdLineParams(std::map<std::string, std::string> raw) {
+        cliParams = std::move(raw);
+    }
+
 private:
     // ---- --disable-feature=parametersubstitution -----------------------
     // Surelog gates ONE function on this flag
@@ -417,6 +426,32 @@ private:
     // See setBlackBoxes(): Surelog -bb_mod / -bb_inst arguments, verbatim.
     std::set<std::string> bbModules;
     std::set<std::string> bbInstances;
+    // ---- -P<name>=<value> command-line parameter overrides --------------
+    // See setCmdLineParams(). Surelog applies these in
+    // DesignElaboration::elaborateInstance_ under `instance->getParent() ==
+    // nullptr` (top level ONLY), and the effect is three-fold:
+    //   1. the value comes from ExprBuilder::fromString -- the raw STRING,
+    //      with no reference to the parameter's declared type (a bare decimal
+    //      is a 64-bit unsigned, `'d7_200` is a SIZELESS 7200, `/blah` is a
+    //      string), see cliOverrideConst();
+    //   2. the parameter's typespec is NULLED (`p->setTypespec(nullptr)` plus
+    //      `param->Typespec(nullptr)`) on the DEFINITION's Parameter object,
+    //      so BOTH the def view and every instance view lose it;
+    //   3. the override is recorded in a LOCAL `overridenParams` set, not via
+    //      `instance->setOverridenParam()`, so the param_assign carries NO
+    //      vpiOverriden -- unlike an instantiation override.
+    // Name -> raw value string (already `unquoted`).
+    std::map<std::string, std::string> cliParams;
+    // Definition symbols of the design's top-level instances (the only place
+    // a -P override applies).
+    std::set<const slang::ast::Symbol*> cliTopDefs;
+    /// True when @a ps is a `-P` target: named on the command line AND
+    /// declared by a TOP-LEVEL module's definition.
+    bool cliOverridden(const slang::ast::ParameterSymbol& ps) const;
+    /// The constant Surelog's ExprBuilder::fromString + UhdmWriter produce for
+    /// a `-P` value. Pair-measured (12-value matrix, tests/DecValue and
+    /// tests/CmdLineOverride among them), NOT inferred from the declared type.
+    UHDM::constant* cliOverrideConst(const std::string& raw);
     // See setNoParamSubst(). `false` makes every predicate above a no-op.
     bool noParamSubst = false;
     // See setNoLetSubst(). `false` makes emitLetExprCall() return immediately.
