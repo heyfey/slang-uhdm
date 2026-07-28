@@ -335,8 +335,8 @@ DefaultNetType,default,SLANG_REJECT,dut.sv:16:8: error: use of undeclared identi
 DefaultNetType,testflags,SLANG_REJECT,dut.sv:16:8: error: use of undeclared identifier 'b',,
 DefaultPatternAssign,default,CMP_NOTEQUAL,decompile:,,
 DefaultPatternAssign,testflags,CMP_NOTEQUAL,decompile:,,
-DefaultPatternInt,default,CMP_NOTEQUAL,decompile:,,
-DefaultPatternInt,testflags,CMP_NOTEQUAL,decompile:,,
+DefaultPatternInt,default,CMP_EQUAL,,,differ
+DefaultPatternInt,testflags,CMP_EQUAL,,,differ
 DefaultPatternModule,default,CMP_EQUAL,,,differ
 DefaultPatternModule,testflags,CMP_NOTEQUAL,decompile:,,
 DefaultTag,default,CMP_EQUAL,,,match
@@ -905,8 +905,8 @@ NonSynthUnusedMod,default,CMP_EQUAL,,,match
 NonSynthUnusedMod,testflags,CMP_EQUAL,,,match
 NoParamSubs,default,CMP_EQUAL,,,match
 NoParamSubs,testflags,CMP_EQUAL,,,differ
-NoReducTypespec,default,CMP_NOTEQUAL,decompile:,,
-NoReducTypespec,testflags,CMP_NOTEQUAL,decompile:,,
+NoReducTypespec,default,CMP_EQUAL,,,differ
+NoReducTypespec,testflags,CMP_EQUAL,,,differ
 NyuziProcessor,default,SLANG_REJECT,hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within a final block,,
 NyuziProcessor,testflags,SLANG_REJECT,hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within a final block,,
 OldLibrary,default,SLANG_REJECT,top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected 3),,

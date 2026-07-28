@@ -2062,6 +2062,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool procOpFold9 = inProcessEmit && !inParamInit && parent &&
                                        parent->UhdmType() ==
                                            UHDM::uhdmoperation;
+                    // A TASK/FUNCTION-BODY operand fold reading an IMPORTED
+                    // param carries the same ts ref, scoped at the SUBROUTINE
+                    // (`prefix` is already the tf fullname here — Surelog;
+                    // DefaultPatternInt's `for (int i = 0; i < CNT; i++)`
+                    // inside function ASSIGN_VADDR gives ref_typespec
+                    // work@top.ASSIGN_VADDR -> the package's int_typespec).
+                    // inProcessEmit is set only for always/initial blocks, so
+                    // a body statement needs its own gate. Deliberately does
+                    // NOT extend the untyped-materialized-import VpiSize rule
+                    // below: that one was measured on a process witness only.
+                    bool tfOpFold9 = currentTf && !inProcessEmit &&
+                                     !inParamInit && parent &&
+                                     parent->UhdmType() == UHDM::uhdmoperation;
                     // A PROCEDURAL operand fold reading an UNTYPED param that
                     // this module MATERIALIZED from an import reads the
                     // materialized copy, whose own param_assign already folded
@@ -2083,8 +2096,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (inParamInit && paramInitDef && !paramInitPkg &&
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
-                        procOpFold9 || sysFuncArgFold || procSelFold9 ||
-                        procPsFold9)
+                        procOpFold9 || tfOpFold9 || sysFuncArgFold ||
+                        procSelFold9 || procPsFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -5192,10 +5205,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bs->VpiName(nv.symbol.name);
             bs->VpiFullName(joinRef(prefix, nv.symbol.name));
             bs->VpiParent(parent);
-            // A select of a PACKAGE parameter (pkg::A[0]) names itself
-            // pkg::A (fullname==name, omitted by the dump) and parents at
-            // the package's def parameter object.
-            if (nv.symbol.kind == SymbolKind::Parameter) {
+            // A QUALIFIED select of a PACKAGE parameter (pkg::A[0]) names
+            // itself pkg::A (fullname==name, omitted by the dump) and parents
+            // at the package's def parameter object. An UNQUALIFIED read of
+            // the same param (wildcard/explicit import, `V[i]`) is a read of
+            // the copy MATERIALIZED into this scope: bare name, prefix-joined
+            // fullname, parented where it appears (Surelog;
+            // DefaultPatternInt `ASSIGN_VADDR[i] = V[i]` -> VpiName V,
+            // work@top.ASSIGN_VADDR.V at the assignment). Same qualified-vs-
+            // imported discriminator the fold rules above use — NOT a general
+            // pkg:: strip (see the naming-is-context-dependent dead end).
+            if (nv.symbol.kind == SymbolKind::Parameter &&
+                rawText(es.value().sourceRange).find("::") !=
+                    std::string::npos) {
                 if (auto psc2 = nv.symbol.getParentScope();
                     psc2 && psc2->asSymbol().kind == SymbolKind::Package) {
                     std::string pn2 = std::string(psc2->asSymbol().name) + "::" +

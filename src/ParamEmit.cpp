@@ -2562,6 +2562,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         std::function<UHDM::array_typespec*()> paramArrTs =
             [&paramArrayTs]() { return paramArrayTs; };
         bool hasParamArrTs = false;
+        // An ELAB MULTIDIM-vector param whose init is a LITERAL carries NO ts
+        // ref on the folded Rhs (Surelog); scalar/1-D ones keep it, and both
+        // keep the DEF-view one on the unsized literal. First measured on a
+        // MATERIALIZED IMPORT (`logic [7:0][3:0] X = 32'habcd` read through
+        // an import), but the import is not the discriminator — the DIMENSION
+        // COUNT is. Probe pair on a plain module parameter, one source each
+        // (/tmp/r9tsfin/r2 vs r3, Surelog -elabuhdm):
+        //   parameter bit [4:0]      C = '1 -> elab ts ref present
+        //   parameter bit [4:0][4:0] C = '1 -> elab NO ts
+        // and r1 — a 1-D range whose bound is a SYMBOLIC struct-param member
+        // — keeps the ts, so bound resolvability is not it either.
+        // The LITERAL restriction is load-bearing: `logic [7:0][3:0] P = X`,
+        // a multidim param defaulted from a PKG-PARAM REFERENCE, keeps its
+        // elab ts (u2r ParameterFromPkgOnParameterPortList / *InNestedModule)
+        // — only a literal fold drops it.
+        // NoReducTypespec's `bit [Cfg.A-1:0][Cfg.B-1:0] Connectivity = '1`
+        // reaches the fold through the ranged-untyped site and the literal
+        // site depending on the view, so both consult this one flag.
+        bool elabMultiDimNoTs9 = false;
+        if (topView && !inPackage && boundInit &&
+            ps.getType().getCanonicalType().kind ==
+                SymbolKind::PackedArrayType &&
+            ps.getType().getCanonicalType().isIntegral() &&
+            ps.getType()
+                    .getCanonicalType()
+                    .as<PackedArrayType>()
+                    .elementType.getCanonicalType()
+                    .kind == SymbolKind::PackedArrayType) {
+            auto k6 = stripImplicitConv(*boundInit).kind;
+            elabMultiDimNoTs9 =
+                k6 == ExpressionKind::IntegerLiteral ||
+                k6 == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
+                k6 == ExpressionKind::RealLiteral ||
+                k6 == ExpressionKind::StringLiteral;
+        }
         if (wantTs) {
             // The actual typespec object is created late (after the instance
             // ports) to match Surelog's arena order; the ref is patched then.
@@ -2791,6 +2826,95 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (auto syn = ps.getSyntax())
             setLoc(pa, syn->sourceRange());
         pa->Lhs(up);
+        // ELAB view: `parameter DEBUG = Cfg.NoSlvPorts` — an init that
+        // READS a struct param's MEMBER — reduces against that param's
+        // ELABORATED Rhs. Surelog's reduceExpr walks the hier_path into
+        // the base parameter's own elab value and hands back the member
+        // slot verbatim: the flattened op75's operand (already at the
+        // member width), or, when the base's elab Rhs is a whole-struct
+        // CONSTANT ('0), that constant unchanged. The result carries the
+        // READ's span and nothing else — no typespec.
+        // The DEF view keeps the symbolic hier_path (a parameter PORT has
+        // no value there), which is what the fold-chain guard below still
+        // covers. Probe matrix (base init form x view,
+        // /tmp/r9tsfin/q1..q4, Surelog -elabuhdm):
+        //   port param = '0        -> def hier_path, elab INT:0 size 96
+        //   port param overridden  -> def hier_path, elab UINT:5 size 32
+        //                             (NoReducTypespec)
+        //   body param = '{x:16}   -> BOTH views fold (own fold path)
+        //   body param = cast'(16) -> BOTH views keep the hier_path
+        //                             (u2r *OfInstanceInitializedBy-
+        //                             StructMember, unchanged)
+        // ...and only for the parameter's OWN declared init: an OVERRIDE
+        // ACTUAL that reads a struct member (#(.PadType(TargetCfg.dio_pad_type)))
+        // keeps the symbolic hier_path at the override site — Surelog folds
+        // the declaration, never the connection (u2r ParameterPassedTo*,
+        // ParameterFromPkg*, the ovMemberInitParam model below).
+        if (topView && !inPackage && !overridden && boundInit) {
+            auto& si6 = stripImplicitConv(*boundInit);
+            if (si6.kind == ExpressionKind::MemberAccess) {
+                auto& mae6 = si6.as<MemberAccessExpression>();
+                auto& base6 = stripImplicitConv(mae6.value());
+                const UHDM::constant* src6 = nullptr;
+                if (base6.kind == ExpressionKind::NamedValue &&
+                    base6.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter &&
+                    base6.as<NamedValueExpression>()
+                            .symbol.getType()
+                            .getCanonicalType()
+                            .kind == SymbolKind::PackedStructType) {
+                    auto& bsym6 = base6.as<NamedValueExpression>().symbol;
+                    if (auto bit6 = elabParamPa.find(&bsym6);
+                        bit6 != elabParamPa.end() && bit6->second) {
+                        auto* brhs6 = bit6->second->Rhs();
+                        if (brhs6 &&
+                            brhs6->UhdmType() == UHDM::uhdmconstant)
+                            src6 = (const UHDM::constant*)brhs6;
+                        else if (brhs6 &&
+                                 brhs6->UhdmType() ==
+                                     UHDM::uhdmoperation &&
+                                 ((UHDM::operation*)brhs6)->VpiOpType() ==
+                                     75) {
+                            int mi6 = 0, want6 = -1;
+                            for (auto& f6 :
+                                 bsym6.getType()
+                                     .getCanonicalType()
+                                     .as<PackedStructType>()
+                                     .membersOfType<FieldSymbol>()) {
+                                if (&f6 == &mae6.member) {
+                                    want6 = mi6;
+                                    break;
+                                }
+                                mi6++;
+                            }
+                            auto* ops6 =
+                                ((UHDM::operation*)brhs6)->Operands();
+                            if (want6 >= 0 && ops6 &&
+                                want6 < (int)ops6->size() &&
+                                (*ops6)[want6]->UhdmType() ==
+                                    UHDM::uhdmconstant)
+                                src6 =
+                                    (const UHDM::constant*)(*ops6)[want6];
+                        }
+                    }
+                }
+                if (src6) {
+                    auto* c6 = s.MakeConstant();
+                    c6->VpiValue(src6->VpiValue());
+                    c6->VpiDecompile(src6->VpiDecompile());
+                    c6->VpiSize(src6->VpiSize());
+                    c6->VpiConstType(src6->VpiConstType());
+                    c6->VpiParent(pa);
+                    setLoc(c6, si6.sourceRange);
+                    pa->Rhs(c6);
+                    passigns->push_back(pa);
+                    if (prt)
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, nullptr, typedParam});
+                    continue;
+                }
+            }
+        }
         // DEF-view materialized IMPORTED vector-typedef param: the param_assign
         // Lhs is a SEPARATE parameter clone with its own ts clone chain
         // (Surelog).
@@ -5289,9 +5413,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // param; a RANGED-UNTYPED elab fold carries the SAME ts ref
                     // shape (fullname = instance prefix, actual = range
                     // int_typespec) so its folded value is width-typed.
+                    // ...except a MULTIDIM range (elabMultiDimNoTs9).
                     if ((typedParam || rangedFold || bitsFoldInit) && wantTs &&
                         !isPattern && !partSelectFold && !replFoldTs &&
-                        !importedFold) {
+                        !importedFold && !elabMultiDimNoTs9) {
                         auto* rt = s.MakeRef_typespec();
                         std::string tsPrefix = prefix;
                         if (tsPrefix.size() >= 2 &&
@@ -5701,8 +5826,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // member VALUE expressions themselves, re-emitted as-is (a
                 // size cast stays an op67 over the source constant) and sized
                 // to the member width (ImportedDoubleCastedParameter
-                // kmac_pkg::A). Only member ops are re-sized; a plain
-                // constant member keeps its own literal size.
+                // kmac_pkg::A).
+                //
+                // ...but only UP TO the first member WIDER than 64 bits.
+                // Surelog's expandPatternAssignment walks the flattened
+                // operands in member order, calling adjustOpSize (which
+                // OVERWRITES the operand's size with the member width) and
+                // then a per-bit loop whose `shift = csize-1-i` makes it
+                // `return result` — the ORIGINAL, unflattened op — as soon as
+                // a member is >64b. So:
+                //   * bail (some member >64b): NO outer typespec, and every
+                //     operand PAST the bailing one keeps its own size;
+                //   * complete walk (all members <=64b): the FLATTENED op is
+                //     returned, carrying a BARE ref_typespec (no parent, no
+                //     fullname) -> the struct typespec, with every operand at
+                //     its member width.
+                // Probe matrix over member widths x member forms
+                // (/tmp/r9tsfin/p1..p4, one source each, Surelog -elabuhdm):
+                //   96          -> bail; cast op stays 96, no ts
+                //   32          -> flat; bare ts, member 32
+                //   32,32,32    -> flat; bare ts, members 32  (NoReducTypespec)
+                //   96,32       -> bail; op 96 + plain const still 64, no ts
+                // The last row is why the earlier "only member ops are
+                // re-sized" note read as a rule: it is the BAILED half of this
+                // one. kmac_pkg::A (96b member) and flash_req_t (171b member)
+                // both sit on the bail side, which is why they never showed it.
                 if (!rhs && structPat && topView && structWidePkg &&
                     isImported && !inPackage) {
                     auto& pctW = ps.getType().getCanonicalType();
@@ -5717,8 +5865,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         setLoc(opW, init->sourceRange);
                         auto* opndW = s.MakeAnyVec();
                         bool okW = true;
+                        // Index of the first >64b member (Surelog's bail
+                        // point), or -1 when the walk completes.
+                        int bailW = -1;
+                        {
+                            int fiW = 0;
+                            for (auto& fld0 : pctW.as<PackedStructType>()
+                                                  .membersOfType<FieldSymbol>()) {
+                                if (fld0.getType().getBitWidth() > 64) {
+                                    bailW = fiW;
+                                    break;
+                                }
+                                fiW++;
+                            }
+                        }
+                        int fiW = -1;
                         for (auto& fld : pctW.as<PackedStructType>()
                                              .membersOfType<FieldSymbol>()) {
+                            fiW++;
+                            // Operands past the bail point are never touched.
+                            bool sizeW = bailW < 0 || fiW <= bailW;
                             const Expression* se = nullptr;
                             for (auto& ms : apW.memberSetters)
                                 if (ms.member == &fld) {
@@ -5838,13 +6004,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 break;
                             }
                             me->VpiParent(opW);
-                            if (me->UhdmType() == UHDM::uhdmoperation)
-                                ((UHDM::operation*)me)->VpiSize(
-                                    (int32_t)fld.getType().getBitWidth());
+                            // adjustOpSize overwrites the operand size with the
+                            // member width whatever the operand is — an op or a
+                            // plain constant alike (the constant half only ever
+                            // shows on the non-bailed side, hence the p2/p3
+                            // probes).
+                            if (sizeW) {
+                                if (me->UhdmType() == UHDM::uhdmoperation)
+                                    ((UHDM::operation*)me)->VpiSize(
+                                        (int32_t)fld.getType().getBitWidth());
+                                else if (me->UhdmType() == UHDM::uhdmconstant)
+                                    ((UHDM::constant*)me)->VpiSize(
+                                        (int32_t)fld.getType().getBitWidth());
+                            }
                             opndW->push_back(me);
                         }
                         if (okW && !opndW->empty()) {
                             opW->Operands(opndW);
+                            // A COMPLETE walk returns the flattened op, which
+                            // carries the bare struct ts ref; a bailed one
+                            // returns the untagged original.
+                            if (bailW < 0) {
+                                auto* rtW = s.MakeRef_typespec();
+                                opW->Typespec(rtW);
+                                rhsRt = rtW;
+                            }
                             rhs = opW;
                         }
                     }
@@ -6893,17 +7077,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rc->VpiDecompile(d.substr(1, d.size() - 2));
                 }
                 if (auto& sik = stripImplicitConv(*init);
-                    // An ELAB MATERIALIZED MULTIDIM-vector import's literal
-                    // Rhs carries NO ts ref (Surelog); scalar/1-D imports
-                    // keep it.
-                    !(topView && isImported &&
-                      ps.getType().getCanonicalType().kind ==
-                          SymbolKind::PackedArrayType &&
-                      ps.getType()
-                              .getCanonicalType()
-                              .as<PackedArrayType>()
-                              .elementType.getCanonicalType()
-                              .kind == SymbolKind::PackedArrayType) &&
+                    // The ELAB MULTIDIM-vector literal Rhs carries no ts ref
+                    // (elabMultiDimNoTs9, measured above). This site used to
+                    // spell the same test with an extra `isImported`; the
+                    // import was never the discriminator.
+                    !elabMultiDimNoTs9 &&
                     wantTs && rhs->UhdmType() == UHDM::uhdmconstant &&
                     (sik.kind == ExpressionKind::IntegerLiteral ||
                      sik.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral ||
