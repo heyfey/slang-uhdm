@@ -764,6 +764,126 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 return (UHDM::expr*)op9;
                             }
                         }
+                        // A NET/PORT packed_array_typespec over a NAMED
+                        // (struct/enum typedef) element obeys the SAME view
+                        // rule the logic_typespec dims path already
+                        // implements for plain vectors: an `<ident>-<digits>`
+                        // bound stays the SYMBOLIC op tree in the DEF
+                        // (module-compile) view and FOLDS in the elaborated
+                        // one — and the folded form is an INT constant
+                        // anchored at the IDENTIFIER token alone, not a UINT
+                        // spanning the whole bound text (Surelog:
+                        // PortPackage, StructArrayNet, PortComplex). Struct /
+                        // union MEMBER bounds keep their own rules above.
+                        if (loc && !structMemberTsCtx) {
+                            std::string rawV(rawText(*loc));
+                            size_t b0 = rawV.find_first_not_of(" \t");
+                            size_t e0 = b0 == std::string::npos ? 0 : b0;
+                            while (b0 != std::string::npos && e0 < rawV.size() &&
+                                   (isalnum((unsigned char)rawV[e0]) ||
+                                    rawV[e0] == '_' ||
+                                    (rawV[e0] == ':' && e0 + 1 < rawV.size() &&
+                                     rawV[e0 + 1] == ':')))
+                                e0 += rawV[e0] == ':' ? 2 : 1;
+                            std::string idV =
+                                b0 == std::string::npos
+                                    ? std::string()
+                                    : rawV.substr(b0, e0 - b0);
+                            bool identV =
+                                !idV.empty() &&
+                                (isalpha((unsigned char)idV[0]) || idV[0] == '_');
+                            // The remainder must be exactly `- <digits>`.
+                            std::string subV;
+                            size_t subOff = 0;
+                            if (identV) {
+                                size_t p0 = rawV.find_first_not_of(" \t", e0);
+                                identV = false;
+                                if (p0 != std::string::npos && rawV[p0] == '-') {
+                                    size_t d0 =
+                                        rawV.find_first_not_of(" \t", p0 + 1);
+                                    size_t d1 = d0;
+                                    while (d1 != std::string::npos &&
+                                           d1 < rawV.size() &&
+                                           isdigit((unsigned char)rawV[d1]))
+                                        d1++;
+                                    if (d0 != std::string::npos && d1 > d0 &&
+                                        rawV.find_first_not_of(" \t", d1) ==
+                                            std::string::npos) {
+                                        subV = rawV.substr(d0, d1 - d0);
+                                        subOff = d0;
+                                        identV = true;
+                                    }
+                                }
+                            }
+                            if (identV && tfContext) {
+                                auto* opV = s.MakeOperation();
+                                opV->VpiOpType(vpiSubOp);
+                                opV->VpiParent(r);
+                                setLoc(opV, *loc);
+                                auto* opndsV = s.MakeAnyVec();
+                                auto* roV = s.MakeRef_obj();
+                                roV->VpiName(idV);
+                                roV->VpiParent(opV);
+                                setLoc(roV, *loc);
+                                roV->VpiColumnNo(opV->VpiColumnNo() +
+                                                 (int32_t)b0);
+                                roV->VpiEndColumnNo(opV->VpiColumnNo() +
+                                                    (int32_t)b0 +
+                                                    (int32_t)idV.size());
+                                roV->VpiEndLineNo(opV->VpiLineNo());
+                                // A PACKAGE-qualified bound binds the package
+                                // parameter object itself (Surelog resolves
+                                // the qualified read); an unqualified module
+                                // parameter stays a bare, unbound ref.
+                                if (idV.find("::") != std::string::npos)
+                                    for (auto& [ps5, po5] : pkgParamObj) {
+                                        std::string qn5;
+                                        if (auto sc5 = ps5->getParentScope();
+                                            sc5 &&
+                                            sc5->asSymbol().kind ==
+                                                SymbolKind::Package)
+                                            qn5 =
+                                                std::string(sc5->asSymbol().name) +
+                                                "::" + std::string(ps5->name);
+                                        if (!qn5.empty() && qn5 == idV) {
+                                            roV->Actual_group(po5);
+                                            break;
+                                        }
+                                    }
+                                opndsV->push_back(roV);
+                                auto* cV = s.MakeConstant();
+                                cV->VpiDecompile(subV);
+                                cV->VpiSize(64);
+                                cV->VpiValue("UINT:" + subV);
+                                cV->VpiConstType(vpiUIntConst);
+                                cV->VpiParent(opV);
+                                setLoc(cV, *loc);
+                                cV->VpiColumnNo(opV->VpiColumnNo() +
+                                                (int32_t)subOff);
+                                cV->VpiEndColumnNo(opV->VpiColumnNo() +
+                                                   (int32_t)subOff +
+                                                   (int32_t)subV.size());
+                                cV->VpiEndLineNo(opV->VpiLineNo());
+                                opndsV->push_back(cV);
+                                opV->Operands(opndsV);
+                                return (UHDM::expr*)opV;
+                            }
+                            if (identV) {
+                                auto* cF = s.MakeConstant();
+                                std::string dF = std::to_string(v);
+                                cF->VpiDecompile(dF);
+                                cF->VpiSize(64);
+                                cF->VpiValue("INT:" + dF);
+                                cF->VpiConstType(vpiIntConst);
+                                cF->VpiParent(r);
+                                setLoc(cF, *loc);
+                                cF->VpiColumnNo(cF->VpiColumnNo() + (int32_t)b0);
+                                cF->VpiEndColumnNo(cF->VpiColumnNo() +
+                                                   (int32_t)idV.size());
+                                cF->VpiEndLineNo(cF->VpiLineNo());
+                                return (UHDM::expr*)cF;
+                            }
+                        }
                         auto* c = s.MakeConstant();
                         std::string digits = std::to_string(v);
                         c->VpiDecompile(digits);
@@ -1883,9 +2003,9 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (auto* he = emitInitHier(r))
                                 return he;
                         }
-                        if (tfContext || bitsOfSignal || bareParamInParamTs ||
-                            defModuleParamDim || ifacePortBound ||
-                            structMemberSymBound) {
+                        if ((tfContext && !tfFormalTs) || bitsOfSignal ||
+                            bareParamInParamTs || defModuleParamDim ||
+                            ifacePortBound || structMemberSymBound) {
                             // Function/typedef context: unfolded expression.
                             bool savedBCN = boundCallNameSpan;
                             boundCallNameSpan = true;
@@ -6549,6 +6669,58 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     setLoc(ro, es->sourceRange());
                     return ro;
                 }
+                // The RANGE form of the same DEF-PACKAGE rule: a package
+                // parameter's own unpacked dim written [0:N-1] keeps the SUB
+                // op symbolic in the DEF package listing (the elaborated
+                // package copy and every import copy fold it, like the
+                // [N] size form above). The ref is scoped THROUGH the owning
+                // parameter (pkg::PARAM::N) and chained to the referenced
+                // param's def Rhs — Surelog resolves within the package
+                // (PackageEval).
+                if (es && es->kind == syntax::SyntaxKind::SubtractExpression &&
+                    defDimRefPrefix.size() >= 2 &&
+                    defDimRefPrefix.compare(defDimRefPrefix.size() - 2, 2,
+                                            "::") == 0 &&
+                    parent->UhdmType() == UHDM::uhdmparameter) {
+                    auto& be7 = es->as<syntax::BinaryExpressionSyntax>();
+                    if (be7.left->kind == syntax::SyntaxKind::IdentifierName &&
+                        be7.right->kind ==
+                            syntax::SyntaxKind::IntegerLiteralExpression) {
+                        std::string nm7(
+                            be7.left->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText());
+                        const Symbol* tgt7 = nullptr;
+                        if (auto sc7 = sym.getParentScope())
+                            tgt7 = sc7->find(nm7);
+                        if (tgt7 && tgt7->kind == SymbolKind::Parameter) {
+                            auto* op7 = s.MakeOperation();
+                            op7->VpiOpType(vpiSubOp);
+                            op7->VpiParent(r);
+                            setLoc(op7, es->sourceRange());
+                            auto* ops7 = s.MakeAnyVec();
+                            auto* ro7 = s.MakeRef_obj();
+                            ro7->VpiName(nm7);
+                            ro7->VpiFullName(joinPath(defDimRefPrefix, nm7));
+                            ro7->VpiParent(op7);
+                            setLoc(ro7, be7.left->sourceRange());
+                            if (auto ai7 = paramRhsObj.find(tgt7);
+                                ai7 != paramRhsObj.end() && ai7->second)
+                                ro7->Actual_group(ai7->second);
+                            ops7->push_back(ro7);
+                            auto* c7 = s.MakeConstant();
+                            std::string d7(rawText(be7.right->sourceRange()));
+                            c7->VpiDecompile(d7);
+                            c7->VpiSize(64);
+                            c7->VpiValue("UINT:" + d7);
+                            c7->VpiConstType(vpiUIntConst);
+                            c7->VpiParent(op7);
+                            setLoc(c7, be7.right->sourceRange());
+                            ops7->push_back(c7);
+                            op7->Operands(ops7);
+                            return op7;
+                        }
+                    }
+                }
                 // An ELAB array_net/array_var bound that is a bare PARAM
                 // identifier ([0:DLY]) folds to a UINT constant (like a literal
                 // bound), not the INT N-1 form — Surelog.
@@ -7378,19 +7550,10 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
             c->VpiParent(r);
             if (loc)
                 setLoc(c, *loc);
-            // A literal-arithmetic bound (1-1) folds with the FIRST digit
-            // token's span only (Surelog).
+            // An arithmetic bound (`1-1`, `NrHarts-1`, `pkg::N-1`) folds
+            // with the HEAD token's span only, encoded INT (Surelog).
             if (loc) {
-                std::string rawB2(rawText(*loc));
-                size_t d2 = rawB2.find('-');
-                bool litSub2 = d2 != std::string::npos && d2 > 0;
-                if (litSub2)
-                    for (size_t p2 = 0; p2 < rawB2.size(); p2++)
-                        if (p2 != d2 && !isdigit((unsigned char)rawB2[p2])) {
-                            litSub2 = false;
-                            break;
-                        }
-                if (litSub2) {
+                if (size_t d2 = arithBoundHeadLen(std::string(rawText(*loc)))) {
                     c->VpiEndColumnNo(c->VpiColumnNo() + (int32_t)d2);
                     // Arith folds encode INT (Surelog), size stays 64.
                     c->VpiValue("INT:" + std::string(c->VpiDecompile()));
@@ -7531,6 +7694,26 @@ UHDM::packed_array_var* UhdmExporter::makeEnumArrayVar(UHDM::typespec* ts,
 // net): packed_array_net (wire) + struct_net element whose fullname DOUBLES
 // the signal name (work@m.d.sig.sig); the packed_array_typespec is shared
 // unlocated.
+// The shared struct typespec of a packed-array-of-struct-typedef signal (the
+// element `emitPackedStructArrayNet` would wrap), or null when the signal has
+// another shape.
+UHDM::typespec* UhdmExporter::packedStructArrayElemTs(const Symbol& sym) {
+    auto declared = sym.getDeclaredType();
+    if (!declared || !declared->getType().isPackedArray())
+        return nullptr;
+    const Type* leaf = &declared->getType().getCanonicalType();
+    while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType)
+        leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+    auto& lc = leaf->getCanonicalType();
+    if (lc.kind != SymbolKind::PackedStructType)
+        return nullptr;
+    for (auto& [s2, tsp] : typedefTs)
+        if (s2->kind == SymbolKind::TypeAlias &&
+            &s2->as<TypeAliasType>().getCanonicalType() == &lc)
+            return tsp;
+    return nullptr;
+}
+
 UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym,
                                                                const std::string& name,
                                                                const std::string& fullName,
@@ -7617,19 +7800,10 @@ UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym
             c->VpiParent(r);
             if (loc)
                 setLoc(c, *loc);
-            // A literal-arithmetic bound (1-1) folds with the FIRST digit
-            // token's span only (Surelog).
+            // An arithmetic bound (`1-1`, `NrHarts-1`, `pkg::N-1`) folds
+            // with the HEAD token's span only, encoded INT (Surelog).
             if (loc) {
-                std::string rawB2(rawText(*loc));
-                size_t d2 = rawB2.find('-');
-                bool litSub2 = d2 != std::string::npos && d2 > 0;
-                if (litSub2)
-                    for (size_t p2 = 0; p2 < rawB2.size(); p2++)
-                        if (p2 != d2 && !isdigit((unsigned char)rawB2[p2])) {
-                            litSub2 = false;
-                            break;
-                        }
-                if (litSub2) {
+                if (size_t d2 = arithBoundHeadLen(std::string(rawText(*loc)))) {
                     c->VpiEndColumnNo(c->VpiColumnNo() + (int32_t)d2);
                     // Arith folds encode INT (Surelog), size stays 64.
                     c->VpiValue("INT:" + std::string(c->VpiDecompile()));

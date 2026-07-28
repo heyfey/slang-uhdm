@@ -1117,8 +1117,8 @@ PkgImportPkg,default,SLANG_REJECT,dut.sv:15:10: error: use of undeclared identif
 PkgImportPkg,testflags,SLANG_REJECT,dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_req_t'?,,
 PortByName,default,CMP_NOTEQUAL,decompile:,,
 PortByName,testflags,CMP_NOTEQUAL,decompile:,,
-PortComplex,default,CMP_NOTEQUAL,decompile:,,
-PortComplex,testflags,CMP_NOTEQUAL,decompile:,,
+PortComplex,default,CMP_EQUAL,,,differ
+PortComplex,testflags,CMP_EQUAL,,,differ
 PortDefaultValue,default,CMP_EQUAL,,,differ
 PortDefaultValue,testflags,CMP_EQUAL,,,differ
 PortExpr,default,CMP_EQUAL,,,differ
@@ -1131,8 +1131,8 @@ PortInterface,default,CMP_EQUAL,,,match
 PortInterface,testflags,CMP_EQUAL,,,differ
 PortMultiDim,default,CMP_EQUAL,,,match
 PortMultiDim,testflags,CMP_EQUAL,,,differ
-PortPackage,default,CMP_NOTEQUAL,decompile:,,
-PortPackage,testflags,CMP_NOTEQUAL,decompile:,,
+PortPackage,default,CMP_EQUAL,,,match
+PortPackage,testflags,CMP_EQUAL,,,match
 PortRanges,default,CMP_EQUAL,,,match
 PortRanges,testflags,CMP_EQUAL,,,match
 PortWildcard,default,SLANG_REJECT,dut.sv:16:1: error: can't use port declaration in module with ANSI style port list,,

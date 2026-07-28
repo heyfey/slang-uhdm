@@ -2219,6 +2219,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     hit7 && hit7->kind == SymbolKind::Parameter)
                                     pkgDimSym9 = true;
                             }
+                        // ...and the RANGE spelling of the same dim
+                        // ([0:NStraps-1]) — same DEF-package-only rule,
+                        // same '::'-scoped ref (PackageEval).
+                        if (!ovr9 && inPackage && !topView && dim9->specifier &&
+                            dim9->specifier->kind ==
+                                syntax::SyntaxKind::RangeDimensionSpecifier)
+                            if (auto* rs7 =
+                                    dim9->specifier
+                                        ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                        .selector->as_if<syntax::RangeSelectSyntax>())
+                            {
+                                const syntax::ExpressionSyntax* bd7[2] = {
+                                    rs7->left, rs7->right};
+                                for (int bi7 = 0; bi7 < 2; bi7++) {
+                                    if (!bd7[bi7] ||
+                                        bd7[bi7]->kind !=
+                                            syntax::SyntaxKind::SubtractExpression)
+                                        continue;
+                                    auto& sb7 =
+                                        bd7[bi7]->as<syntax::BinaryExpressionSyntax>();
+                                    if (sb7.left->kind !=
+                                            syntax::SyntaxKind::IdentifierName ||
+                                        sb7.right->kind !=
+                                            syntax::SyntaxKind::IntegerLiteralExpression)
+                                        continue;
+                                    auto nm6 =
+                                        sb7.left->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText();
+                                    if (auto* hit6 = body.find(std::string(nm6));
+                                        hit6 && hit6->kind == SymbolKind::Parameter)
+                                        pkgDimSym9 = true;
+                                }
+                            }
                         if (!ovr9 && !inPackage && dim9->specifier &&
                             dim9->specifier->kind ==
                                 syntax::SyntaxKind::RangeDimensionSpecifier)

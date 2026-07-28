@@ -760,6 +760,7 @@ private:
                                                      const std::string& name,
                                                      const std::string& fullName,
                                                      UHDM::instance* m);
+    UHDM::typespec* packedStructArrayElemTs(const slang::ast::Symbol& sym);
     // ELAB fix-ups for a flattened (struct) assignment-pattern cont_assign
     // RHS: the CA was deep-cloned, so every select constant carries a parent,
     // and each path operand's vpiExpr binds the elaborated base signal.
@@ -1671,6 +1672,10 @@ private:
     // Task/function typespecs keep unfolded range expressions; module-level
     // typespecs fold them to INT constants.
     bool tfContext = false;
+    // ...except a task/function FORMAL's own typespec, whose range bound
+    // Surelog folds like a module one (the return type and body locals do
+    // not). Set only inside the io_decl typespec build.
+    bool tfFormalTs = false;
     // True while emitting a NON-TOP module def's ports: a packed-dim bound
     // referencing an OVERRIDABLE module parameter (parameter, not localparam)
     // stays symbolic — the param is unresolved in the unelaborated child def

@@ -1468,8 +1468,22 @@ inline std::vector<DimSpan> scanDimSpans(const std::string& raw, SourceLocation 
         if (raw[i] != '[')
             continue;
         auto close = raw.find(']', i);
-        auto colon = raw.find(':', i);
-        if (close == std::string::npos || colon == std::string::npos || colon > close)
+        if (close == std::string::npos)
+            continue;
+        // The range separator is a LONE colon: a scoped bound (`[pkg::N-1:0]`)
+        // must not be split at the `::` of its qualifier.
+        size_t colon = std::string::npos;
+        for (size_t j = i + 1; j < close; j++) {
+            if (raw[j] != ':')
+                continue;
+            if (raw[j + 1] == ':') {
+                j++;  // skip the `::` pair whole
+                continue;
+            }
+            colon = j;
+            break;
+        }
+        if (colon == std::string::npos)
             continue;
         auto trim = [&](size_t a, size_t b) {
             while (a < b && isspace((unsigned char)raw[a]))
@@ -1483,6 +1497,31 @@ inline std::vector<DimSpan> scanDimSpans(const std::string& raw, SourceLocation 
         i = close;
     }
     return out;
+}
+
+// A packed-dim bound written `<head>-<digits>`, where <head> is either a digit
+// run (`1-1`) or an identifier, possibly package-qualified (`NrHarts-1`,
+// `pkg::N-1`). Surelog's fold of such a bound keeps the HEAD's span alone and
+// encodes INT; every other shape keeps the whole bound text and UINT. Returns
+// the head length, or 0 when the bound has another shape.
+inline size_t arithBoundHeadLen(const std::string& raw) {
+    size_t d = raw.find('-');
+    if (d == std::string::npos || d == 0 || d + 1 >= raw.size())
+        return 0;
+    for (size_t p = d + 1; p < raw.size(); p++)
+        if (!isdigit((unsigned char)raw[p]))
+            return 0;
+    bool allDigits = true, ident = isalpha((unsigned char)raw[0]) || raw[0] == '_';
+    for (size_t p = 0; p < d; p++) {
+        char c = raw[p];
+        if (!isdigit((unsigned char)c))
+            allDigits = false;
+        bool scopeColon = c == ':' && ((p + 1 < d && raw[p + 1] == ':') ||
+                                       (p > 0 && raw[p - 1] == ':'));
+        if (!(isalnum((unsigned char)c) || c == '_' || scopeColon))
+            ident = false;
+    }
+    return (allDigits || ident) ? d : 0;
 }
 
 // Strips slang's implicit conversion wrappers (Surelog has no equivalent).

@@ -951,9 +951,39 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             else {
                 tfContext = true;
+                // ONE tf-context range Surelog FOLDS: a BODY-style (non-ANSI)
+                // io declaration that names an explicit data type —
+                // `input reg [WIDTH_A-1:0] s;` lands as an INT constant at the
+                // bound's left-operand token, in every home (module fn, task,
+                // package fn, cross-package bound) and for literal-only,
+                // localparam and overridable-param bounds alike. Everything
+                // else in a subroutine keeps the symbolic op tree: the return
+                // type, every body local, an IMPLICIT-type body io
+                // (`input [SIZE-1:0] state;` — FSMFunction) and EVERY
+                // ANSI-header formal (`f(logic [16-1:0] op)` — UnionCast).
+                // Measured on an 11-way golden matrix over one source.
+                bool bodyIoTyped9 =
+                    argTsyn && argTsyn->kind != syntax::SyntaxKind::ImplicitType;
+                if (bodyIoTyped9) {
+                    bool bodyIo9 = false;
+                    for (auto q = arg->getSyntax(); q; q = q->parent) {
+                        if (q->kind == syntax::SyntaxKind::FunctionPort)
+                            break;
+                        if (q->kind == syntax::SyntaxKind::PortDeclaration) {
+                            bodyIo9 = true;
+                            break;
+                        }
+                        if (q->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                            q->kind == syntax::SyntaxKind::TaskDeclaration)
+                            break;
+                    }
+                    bodyIoTyped9 = bodyIo9;
+                }
+                tfFormalTs = bodyIoTyped9;
                 tfTypeScope = pkgScope ? sub.getParentScope() : nullptr;
                 ts = sharedTypespec(*arg, ioTs);
                 tfTypeScope = nullptr;
+                tfFormalTs = false;
                 tfContext = false;
                 // A formal typed by an IMPORTED package typedef binds THIS
                 // package's import CLONE, not the home object: the stamp

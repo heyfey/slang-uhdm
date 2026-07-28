@@ -3821,6 +3821,52 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         continue;
                     }
                 }
+                // An ANSI port written with NO direction keyword
+                // (`dm::hartinfo_t [N-1:0] p`) DROPS its packed array dims on
+                // the elaborated SIGNAL: Surelog emits a plain struct_net
+                // carrying the ELEMENT typespec, while the same port spelled
+                // `input`/`inout` keeps the packed_array_net. Measured on a
+                // with/without-keyword golden PAIR over one source
+                // (PortPackage vs PortComplex); both spellings are otherwise
+                // byte-identical, and the packed_array_typespec still records
+                // the dims either way.
+                bool bareAnsiPort9 = false;
+                {
+                    const syntax::SyntaxNode* pn9 = it.port->getSyntax();
+                    while (pn9 &&
+                           pn9->kind != syntax::SyntaxKind::ImplicitAnsiPort)
+                        pn9 = pn9->parent;
+                    if (pn9) {
+                        auto& hdr9 =
+                            *pn9->as<syntax::ImplicitAnsiPortSyntax>().header;
+                        if (hdr9.kind == syntax::SyntaxKind::VariablePortHeader)
+                            bareAnsiPort9 =
+                                !hdr9.as<syntax::VariablePortHeaderSyntax>()
+                                     .direction.valid();
+                        else if (hdr9.kind == syntax::SyntaxKind::NetPortHeader)
+                            bareAnsiPort9 =
+                                !hdr9.as<syntax::NetPortHeaderSyntax>()
+                                     .direction.valid();
+                    }
+                }
+                if (bareAnsiPort9)
+                    if (auto* est9 = packedStructArrayElemTs(*it.sym)) {
+                        auto* sn9 = s.MakeStruct_net();
+                        sn9->VpiName(name);
+                        sn9->VpiFullName(fullName);
+                        sn9->VpiParent(m);
+                        sn9->VpiNetType(vpiWire);
+                        setLocNamed(sn9, *it.port);
+                        auto* srt9 = s.MakeRef_typespec();
+                        srt9->VpiParent(sn9);
+                        srt9->VpiFullName(fullName);
+                        srt9->Actual_typespec(est9);
+                        sn9->Typespec(srt9);
+                        topNets[it.sym] = sn9;
+                        sigOrder.emplace_back(it.sym, sn9);
+                        nets->push_back(sn9);
+                        continue;
+                    }
                 if (auto* pan = emitPackedStructArrayNet(*it.sym, name, fullName, m)) {
                     topNets[it.sym] = pan;
                     sigOrder.emplace_back(it.sym, pan);
