@@ -979,6 +979,15 @@ private:
     // select indexes, case-ITEM expressions — stays unbound, enum consts
     // included (SimpleConstraint getType/print).
     bool classMethodNoBind = false;
+    // The subroutine BODY statement currently being emitted, and whether its
+    // declarations parsed as `{ tf_item_declaration }` rather than
+    // `{ block_item_declaration }` (see the decode at the top of
+    // emitTaskFuncs's local loop). TF-items are function-scoped locals at the
+    // declared-type span carrying vpiAutomatic, with NO wrapper begin; block
+    // items are name-span, non-automatic locals owned by a `begin` that wraps
+    // the body statement(s).
+    const void* tfBodyStmt9 = nullptr;
+    bool tfBodyTfItems9 = false;
     bool callStmtContext = false;
     // Set while emitting an ELABORATED (top-view) module/interface PARAMETER.
     // Surelog builds the [N] -> [0:N-1] "decr by 1" op with an UNPARENTED

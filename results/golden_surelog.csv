@@ -493,8 +493,8 @@ Func128Bits,default,CMP_NOTEQUAL,decompile:,,
 Func128Bits,testflags,CMP_NOTEQUAL,decompile:,,
 FuncAlias,default,CMP_NOTEQUAL,decompile:,,
 FuncAlias,testflags,CMP_NOTEQUAL,decompile:,,
-FuncArgDirection,default,CMP_NOTEQUAL,decompile:,,
-FuncArgDirection,testflags,CMP_NOTEQUAL,decompile:,,
+FuncArgDirection,default,CMP_EQUAL,,,match
+FuncArgDirection,testflags,CMP_EQUAL,,,differ
 FuncArgs,default,CMP_NOTEQUAL,decompile:,,
 FuncArgs,testflags,CMP_NOTEQUAL,decompile:,,
 FuncArgsByName,default,CMP_NOTEQUAL,decompile:,,
@@ -523,8 +523,8 @@ FuncIoTypespec,default,CMP_NOTEQUAL,decompile:,,
 FuncIoTypespec,testflags,CMP_NOTEQUAL,decompile:,,
 FuncNoArgs,default,CMP_EQUAL,,,match
 FuncNoArgs,testflags,CMP_EQUAL,,,match
-FuncParam,default,CMP_NOTEQUAL,decompile:,,
-FuncParam,testflags,CMP_NOTEQUAL,decompile:,,
+FuncParam,default,CMP_EQUAL,,,match
+FuncParam,testflags,CMP_EQUAL,,,differ
 FuncParam2,default,CMP_EQUAL,,,match
 FuncParam2,testflags,CMP_EQUAL,,,match
 FuncRetArray,default,CMP_EQUAL,,,differ

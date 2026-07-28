@@ -1402,7 +1402,17 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 real.push_back(st);
             }
-            if (initCount + real.size() <= 1) {
+            // A subroutine BODY whose declarations are BLOCK items (see
+            // tfBodyTfItems9) always models them inside a synthesized `begin`,
+            // even when a SINGLE statement follows — Surelog wraps
+            // `int t; return a;` exactly like `int t; x=1; x=2;`. A body with
+            // no statement at all takes no wrapper (`task t; int u; endtask`
+            // keeps a bare task), and a TF-ITEM body keeps the two-statement
+            // threshold it has always had.
+            bool bodyBlockDecls9 = tfBodyStmt9 == (const void*)&stmt &&
+                                   !tfBodyTfItems9 && !declVars.empty();
+            size_t eff9 = initCount + real.size();
+            if (eff9 == 0 || (eff9 <= 1 && !bodyBlockDecls9)) {
                 UHDM::any* result = nullptr;
                 for (auto st : real)
                     if (auto* u = emitStmt(*st, parent, prefix, netMap))
@@ -1425,6 +1435,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (dsyn9->parent && dsyn9->parent->kind ==
                                              syntax::SyntaxKind::DataDeclaration)
                         anch9 = dsyn9->parent;
+            // A BLOCK item's own statement range covers the body only; the
+            // wrapper anchors at the whole `begin..end` region (t_noio).
+            if (!anch9 && sl.list.size() >= 2 &&
+                sl.list[1]->kind == StatementKind::Block && sl.list[1]->syntax)
+                anch9 = sl.list[1]->syntax;
             if (anch9)
                 setLoc(ub, anch9->sourceRange());
             else if (sl.list.size() >= 2)
@@ -1435,8 +1450,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             bool pkgCtx = prefix.find("::") != std::string::npos;
             for (auto* vsym : declVars)
                 if (auto it = netMap.find(vsym); it != netMap.end()) {
-                    // Package-scope locals re-parent at the wrapper.
-                    if (pkgCtx)
+                    // Block-item locals (and package-scope locals, whose
+                    // shape has always been the block one) re-parent at the
+                    // wrapper: it is their declaring scope.
+                    if (pkgCtx || bodyBlockDecls9)
                         it->second->VpiParent(ub);
                     // An unpacked-array local ALSO lists its element reg
                     // (int_var) as a sibling BEFORE the array_var.

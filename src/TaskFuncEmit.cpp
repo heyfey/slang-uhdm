@@ -1122,85 +1122,43 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             implicitNetPrefix = prefix;
         }
 
-        // Function-local variables attach to the function's Variables
-        // (loc = the declared type span).
+        // Function-local variables attach to the function's Variables.
         std::vector<UHDM::variables*> fnBlockLocalPav;
-        // A STATIC (non-automatic) module function that owns an UNPACKED-ARRAY
-        // local models ALL its locals under a synthesized BEGIN wrapping the
-        // body: locals dual-listed (also under the function), located at the
-        // NAME token, NO vpiAutomatic; the begin spans the LAST local
-        // declaration statement (Surelog). Functions without an unpacked-array
-        // local keep the flat form (decl-span loc + vpiAutomatic, no wrapper).
-        bool autoFunc = (sub.defaultLifetime == VariableLifetime::Automatic);
-        bool hasUnpackedLocal = false;
-        for (auto& fmv : sub.members()) {
-            if (fmv.kind != SymbolKind::Variable || &fmv == sub.returnValVar ||
-                fmv.name == "this")
-                continue;
-            bool isArg = false;
-            for (auto arg : sub.getArguments())
-                if (arg == &fmv || arg->name == fmv.name) {
-                    isArg = true;
-                    break;
-                }
-            if (!isArg && fmv.getDeclaredType() &&
-                fmv.getDeclaredType()->getType().getCanonicalType().kind ==
-                    SymbolKind::FixedSizeUnpackedArrayType) {
-                hasUnpackedLocal = true;
-                break;
+        // Which LRM production the body parsed under decides the whole local
+        // model — `{ tf_item_declaration }` (the paren-less header) versus
+        // `{ block_item_declaration }` (the parenthesized one):
+        //   * TF-ITEM shape: locals stay FUNCTION-parented at the declared-
+        //     type span, carry vpiAutomatic, and get NO wrapper begin
+        //     (func_block, const_fold_func, PackFunc, FuncNoArgs,
+        //     LocalVarTypespec, TaskDecls).
+        //   * BLOCK-ITEM shape: name-span, NON-automatic locals owned by a
+        //     synthesized body `begin` and dual-listed under the subroutine
+        //     (func_upto, func_local_array, PackFuncParent, VarInFor,
+        //     FuncParam).
+        // Probe-verified against Surelog across module / package / class
+        // scope, static and automatic, task and function: a FUNCTION takes
+        // the block shape exactly when its header carries a port-list paren
+        // (`function int f();` blockifies, `function int f;` does not), while
+        // a TASK takes it whenever the body declares no io — a paren-less
+        // `task t; int x; ...` blockifies, and only a body-style
+        // `input`/`output`/`inout` declaration pushes it back to tf-items.
+        // This supersedes the implicit-vs-explicit-body and
+        // static-with-unpacked-local proxies: a body that IS one explicit
+        // `begin` blockifies its locals just the same, and the wrapper the
+        // static-unpacked arm used to synthesize is the plain body wrapper
+        // StmtEmit's statement-list arm now builds.
+        bool bodyIoDecl9 = false;
+        bool portParens9 = false;
+        if (auto fsyn9 = sub.getSyntax())
+            if (auto* fd9 = fsyn9->as_if<syntax::FunctionDeclarationSyntax>()) {
+                portParens9 = fd9->prototype->portList != nullptr;
+                for (auto* it9 : fd9->items)
+                    if (it9->kind == syntax::SyntaxKind::PortDeclaration)
+                        bodyIoDecl9 = true;
             }
-        }
-        bool staticFnModel = (m->UhdmType() == UHDM::uhdmmodule_inst) &&
-                             !autoFunc && !classScope && hasUnpackedLocal;
-        std::vector<UHDM::variables*> staticBeginVars;  // begin.Variables order
-        // AUTOMATIC module-fn locals reparent to the body begin
-        // (func_upto: parent=begin, name span, no per-var Automatic).
-        std::vector<UHDM::variables*> autoShareLocals9;
-        // Only fns whose body is an IMPLICIT statement list (no source
-        // `begin`) use the begin-share local shape (func_upto); an explicit
-        // begin keeps decl-span fn-parented Automatic locals
-        // (const_fold_func/func_block).
-        bool implicitFnBody9 = true;
-        if (auto fsyn9 = sub.getSyntax()) {
-            for (size_t i9 = 0; i9 < fsyn9->getChildCount(); i9++)
-                if (auto* cn9 = fsyn9->childNode(i9)) {
-                    if (cn9->kind ==
-                        syntax::SyntaxKind::SequentialBlockStatement)
-                        implicitFnBody9 = false;
-                    // items live in a list node one level down
-                    for (size_t j9 = 0; j9 < cn9->getChildCount(); j9++)
-                        if (auto* gn9 = cn9->childNode(j9);
-                            gn9 && gn9->kind ==
-                                       syntax::SyntaxKind::
-                                           SequentialBlockStatement)
-                            implicitFnBody9 = false;
-                }
-        }
-        // The same implicit-vs-explicit-body split governs a PACKAGE
-        // automatic function: a body that IS one explicit `begin` keeps
-        // decl-span, function-parented AUTOMATIC locals (PackFunc), while a
-        // bare statement list keeps name-span non-automatic ones
-        // (PackFuncParent, VarInFor). The blanket pkgScope exclusion below was
-        // calibrated on the latter. `implicitFnBody9` is deliberately NOT
-        // reused: its grandchild scan also fires on a `for (...) begin`
-        // nested inside the statement list (VarInFor), which is not a body
-        // block. Only a DIRECT item counts.
-        bool pkgBodyBlock9 = false;
-        if (auto fsyn8 = sub.getSyntax())
-            if (auto* fd8 = fsyn8->as_if<syntax::FunctionDeclarationSyntax>())
-                for (auto* it8 : fd8->items)
-                    if (it8->kind == syntax::SyntaxKind::SequentialBlockStatement)
-                        pkgBodyBlock9 = true;
-        bool pkgAutoBlockLocal9 = pkgScope && autoFunc && pkgBodyBlock9;
-        std::vector<UHDM::variables*> staticTopLocals;  // reparent to begin
-        const syntax::SyntaxNode* lastLocalDeclSyn = nullptr;
-        auto declStmtSpan = [&](const Symbol& v) -> const syntax::SyntaxNode* {
-            if (auto sy = v.getSyntax())
-                for (auto p = sy->parent; p; p = p->parent)
-                    if (p->kind == syntax::SyntaxKind::DataDeclaration)
-                        return p;
-            return nullptr;
-        };
+        bool blockItems9 =
+            !bodyIoDecl9 &&
+            (portParens9 || sub.subroutineKind == SubroutineKind::Task);
         {
             auto* fvars = s.MakeVariablesVec();
             for (auto& fmv : sub.members()) {
@@ -1331,15 +1289,6 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     av->Variables(rv);
                     funcMap[&fmv] = av;
                     fvars->push_back(av);
-                    if (staticFnModel) {
-                        // begin.Variables lists the element reg THEN the
-                        // array_var; only the array_var re-parents to begin.
-                        staticBeginVars.push_back(reg);
-                        staticBeginVars.push_back(av);
-                        staticTopLocals.push_back(av);
-                        if (auto* d = declStmtSpan(fmv))
-                            lastLocalDeclSyn = d;
-                    }
                     continue;
                 }
                 std::string vfull = fullName + sep + std::string(fmv.name);
@@ -1493,14 +1442,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the
                 // automatic flag).
-                bool autoFnLocal9 = autoFunc && !classScope && !pkgScope &&
-                                    implicitFnBody9 &&
-                                    m->UhdmType() == UHDM::uhdmmodule_inst;
-                if (blockLocal || hasInit ||
-                    (pkgScope && !pkgAutoBlockLocal9) || staticFnModel ||
-                    autoFnLocal9) {
-                    // Static-function locals anchor at the NAME token; the
-                    // automatic-function form keeps the declared-type span.
+                if (blockLocal || hasInit || blockItems9) {
+                    // BLOCK-item locals anchor at the NAME token; the tf_item
+                    // form keeps the declared-type span.
                     setLoc(v, nameSpan(fmv.location, fmv.name));
                 }
                 else if (auto dt = fmv.getDeclaredType()) {
@@ -1575,19 +1519,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 vrt->Actual_typespec(vts);
                 v->Typespec(vrt);
                 deferForeignTopTs(fmv, vrt, vts);
-                if (!hasInit && (!pkgScope || pkgAutoBlockLocal9) &&
-                    !blockLocal && !staticFnModel && !autoFnLocal9)
+                if (!hasInit && !blockLocal && !blockItems9)
                     v->VpiAutomatic(true);
-                if (autoFnLocal9 && !blockLocal && !hasInit)
-                    autoShareLocals9.push_back(v);
                 if (blockLocal)
                     fnBlockLocalPav.push_back(v);
-                if (staticFnModel && !blockLocal) {
-                    staticBeginVars.push_back(v);
-                    staticTopLocals.push_back(v);
-                    if (auto* d = declStmtSpan(fmv))
-                        lastLocalDeclSyn = d;
-                }
                 funcMap[&fmv] = v;
                 fvars->push_back(v);
             }
@@ -1676,36 +1611,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         bool selOwner = beginSelTrack();
         bool savedCMNB = classMethodNoBind;
         classMethodNoBind = classScope;
+        auto* savedBodyStmt9 = tfBodyStmt9;
+        bool savedBodyIo9 = tfBodyTfItems9;
+        tfBodyStmt9 = (const void*)&sub.getBody();
+        tfBodyTfItems9 = !blockItems9;
         auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
+        tfBodyStmt9 = savedBodyStmt9;
+        tfBodyTfItems9 = savedBodyIo9;
         classMethodNoBind = savedCMNB;
-        if (!autoShareLocals9.empty() && body &&
-            body->UhdmType() == UHDM::uhdmbegin)
-            for (auto* av9 : autoShareLocals9)
-                av9->VpiParent(body);
-        // A static module function with locals wraps its body in a synthesized
-        // begin (spanning the last local decl) that owns the locals; the
-        // source begin nests inside it (Surelog).
-        if (body && staticFnModel && !staticBeginVars.empty() &&
-            (body->UhdmType() == UHDM::uhdmbegin ||
-             body->UhdmType() == UHDM::uhdmnamed_begin)) {
-            auto* outer = s.MakeBegin();
-            outer->VpiParent(tf);
-            outer->VpiFullName(fullName);
-            if (lastLocalDeclSyn)
-                setLoc(outer, lastLocalDeclSyn->sourceRange());
-            for (auto* tl : staticTopLocals)
-                tl->VpiParent(outer);
-            auto* bvars = s.MakeVariablesVec();
-            for (auto* bv : staticBeginVars)
-                bvars->push_back(bv);
-            outer->Variables(bvars);
-            body->VpiParent(outer);
-            auto* ostmts = s.MakeAnyVec();
-            ostmts->push_back(body);
-            outer->Stmts(ostmts);
-            tf->Stmt(outer);
-        }
-        else if (body)
+        if (body)
             tf->Stmt(body);
         // A packed-array-of-enum local is a body-block member in Surelog's
         // model; re-parent the function-var-loop copy from the function to
