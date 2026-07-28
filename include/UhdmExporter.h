@@ -762,6 +762,12 @@ private:
     bool paramNameIsRead(const slang::ast::ParameterSymbol& ps);
     std::map<const slang::syntax::SyntaxNode*,
              std::map<std::string_view, int>> declIdentCounts;
+    // True when the parameter is read anywhere inside a continuous assign
+    // whose RHS constant-FOLDS (Surelog's reduction resolves each name it
+    // meets through getObject/setRange).  Cached per instance body.
+    bool paramCaFoldRead(const slang::ast::ParameterSymbol& ps);
+    std::map<const slang::ast::Scope*, std::set<std::string_view>>
+        caFoldReadNames;
     UHDM::typespec* predefIntTypespec(const slang::ast::Type& ct,
                                       const slang::ast::Symbol& sym);
 

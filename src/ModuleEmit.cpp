@@ -12018,26 +12018,15 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // a WHOLE-NET (plain name) LHS: writeCont sizes the fold against the
         // bound variable's typespec.
         //
-        // RANKED RESIDUE (HighLow, r9ndafold) — the third piece of that test
-        // is NOT here, it is the ELAB param_assign of an untyped RANGED
-        // parameter (`parameter [2:1] a = 10`).  Golden's def view keeps
-        // UINT:10/size 64/int_typespec (we match); its ELAB view holds
-        // UINT:2/size 2 with a fresh LOC-LESS logic_typespec whose range
-        // bounds are BARE UINT constants.  Decoded, unimplemented:
-        // DesignElaboration:2542 stores the parameter's `Value` with a
-        // typespec and `CompileHelper::valueRange` copies the declared range's
-        // bounds onto it; `CompileHelper::setRange` (CompileHelper.cpp:5417)
-        // then OVERWRITES the constant's typespec with that bare-bound
-        // logic_typespec — but only when `getLRange() || getRRange()`, so
-        // `[0:0]` keeps the range int_typespec (the shape the existing
-        // `rangedFold` arm in ParamEmit was measured on) and `[2:1]` does not.
-        // The value itself is `adjustSize`'s vpiUIntConst arm, `uval &=
-        // getMask(size)`.  Attempted and reverted: the ParamEmit `rangedFold`
-        // arm is not the site — a plain-literal init reaches `pa->Rhs` through
-        // an earlier branch of that else-if chain (instrumented: `a` never
-        // enters the fold arm at all), so the site has to be found first.
-        // The other two HighLow diffs (the def sys_func_call ts, the elab
-        // cont_assign fold) ARE implemented below and verified.
+        // (The third HighLow piece — the ELAB param_assign of an untyped
+        // RANGED parameter, `parameter [2:1] a = 10` folding to UINT:2/size 2
+        // with a bare LOC-LESS logic_typespec — is CLOSED, in ParamEmit: the
+        // literal-init site is the `if (!rhs && topView)` IntegerLiteral arm
+        // (which already sized the constant), and the bare typespec is the
+        // `readFold9` arm of patchParamTypespecs, whose read model the fix
+        // widened to cont-assign RHS reductions.  Both rules are measured
+        // there; the two decoded here — the def sys_func_call ts and the elab
+        // cont_assign fold — are implemented below.)
         std::optional<ConstantValue> sysFold;
         // The reduce result's ENCODING is ExprEval's, and `adjustSize` only
         // re-encodes a constant that already carries a UINT or a BINARY

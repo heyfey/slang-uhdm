@@ -659,8 +659,8 @@ HierPathVarArray,default,CMP_EQUAL,,,differ
 HierPathVarArray,testflags,CMP_EQUAL,,,differ
 HighConnPart,default,CMP_EQUAL,,,differ
 HighConnPart,testflags,CMP_EQUAL,,,differ
-HighLow,default,CMP_NOTEQUAL,decompile:,,
-HighLow,testflags,CMP_NOTEQUAL,decompile:,,
+HighLow,default,CMP_EQUAL,,,differ
+HighLow,testflags,CMP_EQUAL,,,differ
 Ibex,default,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
 Ibex,testflags,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
 IbexGoogle,default,SLANG_REJECT,test/riscv_instr_cov_test.sv:234:29: error: cannot mix strings and integers in a concatenation (use a cast if this is desired) [-Wstring-int,,
@@ -1393,7 +1393,7 @@ TypespecBits,default,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49
 TypespecBits,testflags,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
 TypespecExpr,default,CMP_EQUAL,,,match
 TypespecExpr,testflags,CMP_EQUAL,,,differ
-TypespecMask,default,CMP_EQUAL,,,differ
+TypespecMask,default,CMP_EQUAL,,,match
 TypespecMask,testflags,CMP_NOTEQUAL,decompile:,,
 Udp,default,CMP_EQUAL,,,differ
 Udp,testflags,CMP_EQUAL,,,differ

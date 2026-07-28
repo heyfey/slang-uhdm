@@ -4,6 +4,7 @@
 //
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
+#include <charconv>
 #include <functional>
 
 #include "UhdmExporter.h"
@@ -4661,6 +4662,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ->VpiSize(
                                     (int32_t)ps.getType().getBitWidth());
                     }
+                    // ...and the value is TRUNCATED to that width, because
+                    // Surelog re-sizes the elaborated literal through
+                    // `adjustSize`'s vpiUIntConst arm (`uval &=
+                    // getMask(size)`, CompileHelper.cpp:3991): `parameter
+                    // [3:0] e = 20` is UINT:4 in the elab view and `parameter
+                    // [2:1] a = 10` is UINT:2, while both keep the raw literal
+                    // at size 64 in the definition view. Only the UINT
+                    // encoding re-encodes; a based literal keeps its own form.
+                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                        !ps.getType().getCanonicalType().isFloating()) {
+                        auto* cm9 = (UHDM::constant*)rhs;
+                        std::string_view mv9 = cm9->VpiValue();
+                        int32_t msz9 = cm9->VpiSize();
+                        if (mv9.rfind("UINT:", 0) == 0 && msz9 > 0 &&
+                            msz9 < 64) {
+                            uint64_t uv9 = 0;
+                            auto [pe9, ec9] = std::from_chars(
+                                mv9.data() + 5, mv9.data() + mv9.size(), uv9);
+                            if (ec9 == std::errc() &&
+                                pe9 == mv9.data() + mv9.size()) {
+                                uint64_t mk9 = (1ull << msz9) - 1;
+                                if ((uv9 & mk9) != uv9) {
+                                    std::string dg9 =
+                                        std::to_string(uv9 & mk9);
+                                    cm9->VpiValue("UINT:" + dg9);
+                                    cm9->VpiDecompile(dg9);
+                                }
+                            }
+                        }
+                    }
                     // A SIGNED-BINARY literal whose SIGN BIT is set re-encodes
                     // as a decimal INT at the target width. Measured, one
                     // source per row, only the named declaration changed:
@@ -8082,6 +8113,54 @@ bool UhdmExporter::paramNameIsRead(const ParameterSymbol& ps) {
     return it->second.count(ps.name) != 0;
 }
 
+// The SAME getObject/setRange rewrite, reached the other way: Surelog REDUCES
+// a continuous assign's RHS, and the reduction resolves every name it meets
+// through getObject — so a parameter read ANYWHERE inside a cont-assign RHS
+// that folds to a constant takes the bare loc-less typespec, not only one that
+// IS the whole RHS (paramNameIsRead's syntax rule).  A RHS that cannot reduce
+// (any net/variable operand) never gets there, which is why the earlier
+// ablation read `assign o = a == P` as "LOCATED": the blocker was the NET
+// operand, not the operand position.  Measured on `parameter [3:0] X = 5`,
+// one cont-assign per row (probe r9hilo p2/p3):
+//   assign o = X;          bare     assign o = nn == X;      LOCATED
+//   assign o = $high(X);   bare     assign o = nn + X;       LOCATED
+//   assign o = $bits(X);   bare     always @* r = X;         LOCATED
+//   assign o = X + 1;      bare     parameter q = $high(X);  LOCATED
+//   assign o = {X, 1'b0};  bare
+bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
+    const Scope* body = nullptr;
+    for (auto* sc = ps.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::InstanceBody) {
+            body = sc;
+            break;
+        }
+    if (!body)
+        return false;
+    auto it = caFoldReadNames.find(body);
+    if (it == caFoldReadNames.end()) {
+        std::set<std::string_view> names;
+        for (auto& m : body->members()) {
+            if (m.kind != SymbolKind::ContinuousAssign)
+                continue;
+            auto& asn = m.as<ContinuousAssignSymbol>().getAssignment();
+            if (asn.kind != ExpressionKind::Assignment)
+                continue;
+            auto& rhs = asn.as<AssignmentExpression>().right();
+            ASTContext ctx(comp.getRoot(), LookupLocation::max);
+            if (!ctx.tryEval(rhs))
+                continue;
+            rhs.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+                if (nv.symbol.kind == SymbolKind::Parameter)
+                    names.insert(nv.symbol.name);
+                v.visitDefault(nv);
+            }));
+        }
+        it = caFoldReadNames.emplace(body, std::move(names)).first;
+    }
+    return it->second.count(ps.name) != 0;
+}
+
 // Peel selects / member-access / conversions of an initializer down to its
 // root value symbol (the named/hierarchical reference the value flows from).
 static const Symbol* paramInitRootSym(const Expression& e) {
@@ -8921,7 +9000,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                              ps->getParentScope() &&
                              ps->getParentScope()->asSymbol().kind !=
                                  SymbolKind::Package &&
-                             paramNameIsRead(*ps);
+                             (paramNameIsRead(*ps) || paramCaFoldRead(*ps));
             if (signedBinFoldParams.count(ps) && rc0 &&
                 rc0->UhdmType() == UHDM::uhdmconstant) {
                 auto* sb9 = s.MakeInt_typespec();
@@ -8953,7 +9032,28 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 }
                 rhsRt->Actual_typespec(lts9);
             }
-            else if ((uintFold || unbasedSharedActive || readFold9) && typedParam &&
+            // An UNTYPED RANGED param (`parameter [2:1] a`) takes the same
+            // rewrite — the setRange gate is the VALUE's range, not the
+            // declaration form — but only through the READ, never through the
+            // bare uintFold/unbased shapes (HighLow).
+            //
+            // ...and the READ is the ONLY trigger: `uintFold` (the '1 ->
+            // all-ones recompute) was an over-approximation measured on read
+            // params. Ablation (probe r9hilo p4, one `sub` instance, each
+            // param declared once and read by at most one cont-assign):
+            //   parameter bit   [4:0] B1 = '1     unread -> bit_typespec  LOC
+            //   parameter bit   [4:0] B2 = '1     read   -> logic_typespec BARE
+            //   parameter logic [4:0] L1 = '1     unread -> logic_typespec LOC
+            //   parameter logic [4:0] L2 = '1     read   -> logic_typespec BARE
+            //   parameter bit   [4:0] B3 = 5'd7   unread -> bit_typespec  LOC
+            //   parameter bit   [4:0] B4 = 5'd7   read   -> logic_typespec BARE
+            //   parameter       [4:0] R1 = '1     unread -> int_typespec  LOC
+            //   parameter       [4:0] R2 = '1     read   -> logic_typespec BARE
+            // An OVERRIDDEN param keeps its located ts even when read (probe
+            // p5, the same eight declarations with #(.B1(5'd9), ...)), which
+            // is what the isOverriddenParam guard already says.
+            else if ((unbasedSharedActive || readFold9) &&
+                (typedParam || (readFold9 && isRangedUntypedParam(*ps))) &&
                 !isOverriddenParam(*ps) &&
                 ps->getType().getCanonicalType().isPackedArray()) {
                 // A DEGENERATE unbased fill ('0/'x/'z, BIN) binds the SAME
