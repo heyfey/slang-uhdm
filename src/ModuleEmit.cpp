@@ -5870,6 +5870,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     }
                 }
             }
+            // An EXPLICITLY EMPTY named connection (`.rotate_by()`) is not the
+            // same as an omitted one: Surelog gives the port a HighConn
+            // `operation` of vpiNullOp spanning the CLOSE PAREN
+            // (AssertDelayError `.rotate_by()`). An omitted port, a `.name`
+            // shorthand and a default-value port keep the rules above.
+            if (!p->High_conn())
+                if (auto* npcE = findConnSyntax(connInst, ps.name);
+                    npcE && npcE->openParen && !npcE->expr && npcE->closeParen) {
+                    auto* nop = s.MakeOperation();
+                    nop->VpiOpType(vpiNullOp);
+                    nop->VpiParent(p);
+                    setLoc(nop, npcE->closeParen.range());
+                    p->High_conn(nop);
+                }
 
             UHDM::typespec* pts = nullptr;
             // A `parameter type T`-typed port's vpiTypedef shares the ONE
@@ -6904,19 +6918,20 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     realLp = true;
                     break;
                 }
-            // A MULTIPLICATIVE init (a*b, a/b) encodes the fold SIGNED — on
-            // the param_assign constant (below) AND on the parameter's own
+            // A MULTIPLICATIVE init (a*b, a/b, a**b) encodes the fold SIGNED —
+            // on the param_assign constant (below) AND on the parameter's own
             // value (gen_test5 PREV = step / CHUNK, DIM = WIDTH / step,
-            // LAST_START = i * CHUNK). Additive/plain refs keep UINT
-            // (genvar_loop_decl_2 w = x, LocalParamInNestedForLoops
-            // Offset = RhoOffset[1]).
+            // LAST_START = i * CHUNK; IfGen1/2/3 POWER = 2**level).
+            // Additive/plain refs keep UINT (genvar_loop_decl_2 w = x,
+            // LocalParamInNestedForLoops Offset = RhoOffset[1]).
             bool mulDivLp9 = false;
             if (realLp)
                 if (auto* ini9 = ps.getInitializer())
                     ini9->visit(makeVisitor(
                         [&](auto& v9x, const BinaryExpression& be9) {
                             if (be9.op == BinaryOperator::Multiply ||
-                                be9.op == BinaryOperator::Divide)
+                                be9.op == BinaryOperator::Divide ||
+                                be9.op == BinaryOperator::Power)
                                 mulDivLp9 = true;
                             v9x.visitDefault(be9);
                         }));
@@ -7081,16 +7096,18 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                 }
                             }
                         }
-                        // MULTIPLICATIVE inits (a*b, a/b) also encode INT
+                        // MULTIPLICATIVE inits (a*b, a/b, a**b) also encode INT
                         // with the pa parent (gen_test5 PREV = step / CHUNK,
-                        // LAST_START = i * CHUNK); additive/plain refs keep
-                        // UINT (genvar_loop_decl_2 w = x).
+                        // LAST_START = i * CHUNK; IfGen1/2/3 POWER = 2**level);
+                        // additive/plain refs keep UINT (genvar_loop_decl_2
+                        // w = x).
                         if (!negSib9 && ps.getInitializer()) {
                             bool mulDiv9 = false;
                             ps.getInitializer()->visit(makeVisitor(
                                 [&](auto& v9x, const BinaryExpression& be9) {
                                     if (be9.op == BinaryOperator::Multiply ||
-                                        be9.op == BinaryOperator::Divide)
+                                        be9.op == BinaryOperator::Divide ||
+                                        be9.op == BinaryOperator::Power)
                                         mulDiv9 = true;
                                     v9x.visitDefault(be9);
                                 }));

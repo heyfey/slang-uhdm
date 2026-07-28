@@ -39,12 +39,12 @@ ArrayVarName,default,CMP_EQUAL,,,match
 ArrayVarName,testflags,CMP_EQUAL,,,differ
 Assert,default,SLANG_REJECT,dut.sv:4:29: error: use of undeclared identifier 'Clock',,
 Assert,testflags,SLANG_REJECT,dut.sv:4:29: error: use of undeclared identifier 'Clock',,
-AssertDelayError,default,CMP_NOTEQUAL,decompile:,,
-AssertDelayError,testflags,CMP_NOTEQUAL,decompile:,,
+AssertDelayError,default,CMP_EQUAL,,,differ
+AssertDelayError,testflags,CMP_EQUAL,,,differ
 Assertions,default,SLANG_REJECT,dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
 Assertions,testflags,SLANG_REJECT,dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
-AssertTempError,default,CMP_NOTEQUAL,decompile:,,
-AssertTempError,testflags,CMP_NOTEQUAL,decompile:,,
+AssertTempError,default,CMP_EQUAL,,,differ
+AssertTempError,testflags,CMP_EQUAL,,,differ
 AssignmentPatternInAssignmentPattern,default,CMP_NOTEQUAL,decompile:,,
 AssignmentPatternInAssignmentPattern,testflags,CMP_NOTEQUAL,decompile:,,
 Assignments,default,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
@@ -677,12 +677,12 @@ IfElseIf3,default,CMP_EQUAL,,,match
 IfElseIf3,testflags,CMP_EQUAL,,,match
 Iff,default,CMP_NOTEQUAL,decompile:,,
 Iff,testflags,CMP_NOTEQUAL,decompile:,,
-IfGen1,default,CMP_NOTEQUAL,decompile:,,
-IfGen1,testflags,CMP_NOTEQUAL,decompile:,,
-IfGen2,default,CMP_NOTEQUAL,decompile:,,
-IfGen2,testflags,CMP_NOTEQUAL,decompile:,,
-IfGen3,default,CMP_NOTEQUAL,decompile:,,
-IfGen3,testflags,CMP_NOTEQUAL,decompile:,,
+IfGen1,default,CMP_EQUAL,,,differ
+IfGen1,testflags,CMP_EQUAL,,,differ
+IfGen2,default,CMP_EQUAL,,,differ
+IfGen2,testflags,CMP_EQUAL,,,differ
+IfGen3,default,CMP_EQUAL,,,differ
+IfGen3,testflags,CMP_EQUAL,,,differ
 IfGenTypeBinding,default,CMP_EQUAL,,,differ
 IfGenTypeBinding,testflags,CMP_EQUAL,,,differ
 IllegalZeroValue,default,SLANG_REJECT,dut.sv:3:13: error: value must be positive,,
@@ -1171,8 +1171,8 @@ PrimTermExpr,default,CMP_EQUAL,,,match
 PrimTermExpr,testflags,CMP_EQUAL,,,differ
 ProcForLoop,default,SLANG_REJECT,dut.sv:4:10: error: use of undeclared identifier 'f2',,
 ProcForLoop,testflags,SLANG_REJECT,dut.sv:4:10: error: use of undeclared identifier 'f2',,
-PropBinding,default,CMP_NOTEQUAL,decompile:,,
-PropBinding,testflags,CMP_NOTEQUAL,decompile:,,
+PropBinding,default,CMP_EQUAL,,,match
+PropBinding,testflags,CMP_EQUAL,,,match
 RangeInf,default,CMP_EQUAL,,,match
 RangeInf,testflags,CMP_EQUAL,,,match
 RangeSelect,default,CMP_EQUAL,,,differ

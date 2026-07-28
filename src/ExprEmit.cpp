@@ -7228,6 +7228,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 r->VpiName(dotted);
                 r->VpiParent(parent);
                 setLoc(r, expr.sourceRange);
+                // A SCOPE name handed to a system call ($dumpvars(0, tb_UART))
+                // is not a value, so Surelog's netlist elaboration cannot bind
+                // it and leaks an implicit module WIRE at the reference span,
+                // exactly as it does for an unbindable `disable` label
+                // (StmtEmit) or a property formal (emitPropFormalRef). The ref
+                // binds to that net. AssertTempError / AssertDelayError.
+                auto& sy9 = *expr.as<ArbitrarySymbolExpression>().symbol;
+                if (implicitNetModule && parent &&
+                    (parent->UhdmType() == UHDM::uhdmsys_func_call ||
+                     parent->UhdmType() == UHDM::uhdmsys_task_call)) {
+                    auto& inet = implicitNetMap[&sy9];
+                    if (!inet) {
+                        inet = s.MakeLogic_net();
+                        inet->VpiName(dotted);
+                        inet->VpiFullName(implicitNetPrefix + "." + dotted);
+                        inet->VpiParent(implicitNetModule);
+                        inet->VpiNetType(1);
+                        setLoc(inet, expr.sourceRange);
+                        auto* nets9 = implicitNetModule->Nets();
+                        if (!nets9) {
+                            nets9 = s.MakeNetVec();
+                            implicitNetModule->Nets(nets9);
+                        }
+                        nets9->push_back(inet);
+                    }
+                    r->Actual_group(inet);
+                }
                 return r;
             }
             // Interface-port member access (sub.sig): a hier_path with one
@@ -7245,14 +7272,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // A named-property instantiation (down_n(8'd3)): property_inst
             // with constant args parented at an artifact func_call.
             auto& aie = expr.as<AssertionInstanceExpression>();
-            auto* pi = s.MakeProperty_inst();
-            pi->VpiName(aie.symbol.name);
             // Spans the whole instantiation, shrunk by any whitespace Surelog
             // compacts out of spaced based literals (8'd 3 -> 8'd3).
             SourceRange pir =
                 expr.syntax ? expr.syntax->sourceRange() : expr.sourceRange;
             pir = SourceRange(pir.start(),
                               pir.end() - basedLiteralSpaceCount(rawText(pir)));
+            // A BARE named-property reference (`assert property (p_reset);` —
+            // the name with NO argument list at all) is not instantiated by
+            // Surelog: the property expression stays a plain ref_obj naming
+            // the property and bound (vpiActual) to the module's own
+            // property_decl (PropBinding). Only a PARENTHESISED instantiation
+            // -- `p(a,b)` or even the empty `p()` (mriscv_bind_sva
+            // p_S2QED_SAME_STATE()) -- becomes a property_inst.
+            if (auto pdit = propertyDeclMap.find(&aie.symbol);
+                pdit != propertyDeclMap.end() &&
+                rawText(pir).find('(') == std::string::npos) {
+                auto* pr = s.MakeRef_obj();
+                pr->VpiName(aie.symbol.name);
+                pr->VpiFullName(joinRef(prefix, std::string(aie.symbol.name)));
+                pr->VpiParent(parent);
+                pr->Actual_group(pdit->second);
+                setLoc(pr, pir);
+                return pr;
+            }
+            auto* pi = s.MakeProperty_inst();
+            pi->VpiName(aie.symbol.name);
             setLoc(pi, pir);
             auto* fcArt = s.MakeFunc_call();
             fcArt->VpiName(aie.symbol.name);
