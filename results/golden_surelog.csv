@@ -575,18 +575,18 @@ GenFor,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',
 GenFor,testflags,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,testflags,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
-GenForIfaceLocalparamBound,default,CMP_NOTEQUAL,decompile:,,
-GenForIfaceLocalparamBound,testflags,CMP_NOTEQUAL,decompile:,,
-GenForIfaceLocalparamNestedGen,default,CMP_NOTEQUAL,decompile:,,
-GenForIfaceLocalparamNestedGen,testflags,CMP_NOTEQUAL,decompile:,,
+GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ
+GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ
+GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ
+GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ
 GenForStructParamBound,default,CMP_NOTEQUAL,decompile:,,
 GenForStructParamBound,testflags,CMP_NOTEQUAL,decompile:,,
 GenIf,default,SLANG_REJECT,dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIf,testflags,SLANG_REJECT,dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIfElse,default,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'b',,
 GenIfElse,testflags,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'b',,
-GenIfIfaceParamStructField,default,CMP_NOTEQUAL,decompile:,,
-GenIfIfaceParamStructField,testflags,CMP_NOTEQUAL,decompile:,,
+GenIfIfaceParamStructField,default,CMP_EQUAL,,,differ
+GenIfIfaceParamStructField,testflags,CMP_EQUAL,,,differ
 GenIfNamed,default,SLANG_REJECT,dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenIfNamed,testflags,SLANG_REJECT,dut.sv:4:8: error: use of undeclared identifier 'i',,
 GenModHierPath,default,SLANG_REJECT,dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,
@@ -747,8 +747,8 @@ InterfaceModExp,default,CMP_NOTEQUAL,decompile:,,
 InterfaceModExp,testflags,CMP_NOTEQUAL,decompile:,,
 InterfaceModPort,default,CMP_NOTEQUAL,decompile:,,
 InterfaceModPort,testflags,CMP_NOTEQUAL,decompile:,,
-InterfaceParamOverrideProp,default,CMP_NOTEQUAL,decompile:,,
-InterfaceParamOverrideProp,testflags,CMP_NOTEQUAL,decompile:,,
+InterfaceParamOverrideProp,default,CMP_EQUAL,,,differ
+InterfaceParamOverrideProp,testflags,CMP_EQUAL,,,differ
 InterfaceProcess,default,CMP_EQUAL,,,match
 InterfaceProcess,testflags,CMP_EQUAL,,,match
 InterfaceStructMemberPort,default,CMP_EQUAL,,,differ

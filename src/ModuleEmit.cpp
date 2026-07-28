@@ -4816,6 +4816,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         hc->Actual_group(pvIt != ifacePortViewMap.end() ? pvIt->second
                                          : dit != ifaceTailDup.end()   ? dit->second
                                                                        : iit->second);
+                        // A PASSTHROUGH also NAMES the enclosing module's own
+                        // port, not the interface instance the port resolves
+                        // back to: `mid(tif.mp t)` passing `.t(t)` down is
+                        // work@top.u.t, never work@top.u.inst (Surelog,
+                        // InterfaceParamOverrideProp).
+                        if (pvIt != ifacePortViewMap.end()) {
+                            hc->VpiName(std::string(connSite->name));
+                            hc->VpiFullName(parentPrefix + "." +
+                                            std::string(connSite->name));
+                        }
                         if (iconn && connectionExpr(*iconn))
                             setLoc(hc, connectionExpr(*iconn)->sourceRange);
                         p->High_conn(hc);
@@ -15526,7 +15536,16 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             ifaceHasGen9 = true;
             break;
         }
-    if (portView && !multiParamIface && ifaceHasGen9) {
+    if (portView && !multiParamIface && connModport.empty()) {
+        // A PLAIN whole-interface port view (`module child (bus_if sub)`)
+        // carries NO param_assign vector at all — not even the aggregate
+        // (op75) ones a MODPORT-qualified view keeps, and not the derived
+        // localparam ones either. It lists the parameters TWICE instead (see
+        // below), which is where its values live.
+        // GenIfIfaceParamStructField / GenForIfaceLocalparamNestedGen.
+        iface->Param_assigns(nullptr);
+    }
+    else if (portView && !multiParamIface && ifaceHasGen9) {
         // keep-all: no filtering.
     }
     else if (portView && !multiParamIface) {

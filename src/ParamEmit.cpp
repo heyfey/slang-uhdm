@@ -2493,16 +2493,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // iface_wholestruct_param / iface_cfg_param_def_pass.
         const Expression* structOvPat = nullptr;
         SourceRange structOvLoc;
+        // ...and the SAME rule for an UNPACKED-struct param, but ONLY when the
+        // override actual is written UNQUALIFIED (a localparam of the
+        // instantiating module, or a wildcard-imported package param
+        // materialized there). A `pkg::NAME`-QUALIFIED actual resolves straight
+        // to the package's own already-built param_assign Rhs and Surelog
+        // SHARES that tree verbatim: no outer struct ts, no member-op size, and
+        // the package's own (bare) member ts refs — which is what the
+        // structRefOv arm further down emits (iface_struct_field_param_width
+        // `tif #(p::CFG_PER)`). Unqualified instead re-emits at the instance:
+        // outer op ts, member ops sized at the member width, instance-scoped ts
+        // fullnames — i.e. exactly the packed shape (InterfaceParamOverrideProp
+        // `tif #(CFG_OVR)`).
+        bool unpStructOvRef9 = false;
         if (topView && overridden && boundInit &&
-            ps.getType().getCanonicalType().kind ==
-                SymbolKind::PackedStructType) {
+            (ps.getType().getCanonicalType().kind ==
+                 SymbolKind::PackedStructType ||
+             ps.getType().getCanonicalType().kind ==
+                 SymbolKind::UnpackedStructType)) {
+            bool unpacked9 = ps.getType().getCanonicalType().kind ==
+                             SymbolKind::UnpackedStructType;
             auto& bi8 = stripImplicitConv(*boundInit);
             const Symbol* rs8 = nullptr;
             if (bi8.kind == ExpressionKind::NamedValue)
                 rs8 = &bi8.as<NamedValueExpression>().symbol;
             else if (bi8.kind == ExpressionKind::HierarchicalValue)
                 rs8 = &bi8.as<HierarchicalValueExpression>().symbol;
-            if (rs8 && rs8->kind == SymbolKind::Parameter)
+            bool qualified9 =
+                rawText(bi8.sourceRange).find("::") != std::string::npos;
+            if (rs8 && rs8->kind == SymbolKind::Parameter &&
+                !(unpacked9 && qualified9))
                 if (auto* rin8 = rs8->as<ParameterSymbol>().getInitializer()) {
                     auto& si8 = stripImplicitConv(*rin8);
                     if (si8.kind ==
@@ -2510,6 +2530,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         si8.kind == ExpressionKind::SimpleAssignmentPattern) {
                         structOvPat = &si8;
                         structOvLoc = bi8.sourceRange;
+                        unpStructOvRef9 = unpacked9;
                     }
                 }
         }
@@ -4613,7 +4634,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto& pctS = ps.getType().getCanonicalType();
                     auto k0 = structOvPat ? structOvPat->kind
                                           : stripImplicitConv(*init).kind;
-                    structPat = pctS.kind == SymbolKind::PackedStructType &&
+                    structPat = (pctS.kind == SymbolKind::PackedStructType ||
+                                 (unpStructOvRef9 &&
+                                  pctS.kind == SymbolKind::UnpackedStructType)) &&
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||
                                  k0 == ExpressionKind::SimpleAssignmentPattern);
                     // The rule follows the PACKAGE ORIGIN of the struct param:
@@ -4711,7 +4734,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // param is compiled in the module and keeps its typespec
                     // either way (ParamComplexVerilator init_val, measured
                     // byte-identical across the flag pair).
-                    if (!(noParamSubst && isImported && paramSubstRefused(ps))) {
+                    // A MATERIALIZED IMPORT copy whose pattern has a NESTED
+                    // struct member carries NO outer typespec either: Surelog's
+                    // flatten tags the member ops it mints (each with a BARE ts
+                    // ref) and leaves the copy's own head untagged. A FLAT
+                    // pattern (scalar members only) still gets the outer ts
+                    // (ParamNoSubst aes_pkg::CTRL_RESET vs
+                    // GenIfIfaceParamStructField / GenForIfaceLocalparamNestedGen
+                    // p::CFG_DEF, whose cfg_t nests hsk_t/bus_t).
+                    bool impNestedPat9 = false;
+                    if (isImported && !inPackage && topView && !structOvPat &&
+                        sinitK.kind ==
+                            ExpressionKind::StructuredAssignmentPattern)
+                        for (auto& ms9 :
+                             sinitK.as<StructuredAssignmentPatternExpression>()
+                                 .memberSetters) {
+                            auto& sk9 = stripImplicitConv(*ms9.expr);
+                            if (sk9.kind ==
+                                    ExpressionKind::StructuredAssignmentPattern ||
+                                sk9.kind ==
+                                    ExpressionKind::SimpleAssignmentPattern) {
+                                impNestedPat9 = true;
+                                break;
+                            }
+                        }
+                    if (!(noParamSubst && isImported && paramSubstRefused(ps)) &&
+                        !impNestedPat9) {
                         auto* rt = s.MakeRef_typespec();
                         if (!ifaceArrayDefFold)
                             rt->VpiParent(op2);
@@ -4720,8 +4768,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                     auto* opnds = s.MakeAnyVec();
                     ASTContext ectx(comp.getRoot(), LookupLocation::max);
-                    for (auto& fld :
-                         pctS.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+                    // The UNPACKED sibling (unpStructOvRef9) reaches the exact
+                    // same shape; only the field-list scope differs.
+                    const Scope& fsc9 =
+                        pctS.kind == SymbolKind::PackedStructType
+                            ? (const Scope&)pctS.as<PackedStructType>()
+                            : (const Scope&)pctS.as<UnpackedStructType>();
+                    for (auto& fld : fsc9.membersOfType<FieldSymbol>()) {
                         const Expression* se = nullptr;
                         if (sinitK.kind ==
                             ExpressionKind::StructuredAssignmentPattern) {
@@ -4766,6 +4819,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                  seN.kind ==
                                      ExpressionKind::SimpleAssignmentPattern) &&
                                 (fct.kind == SymbolKind::PackedStructType ||
+                                 (unpStructOvRef9 &&
+                                  fct.kind == SymbolKind::UnpackedStructType) ||
                                  vecPat9)) {
                                 bool savedRe = reemitting;
                                 // A VECTOR member's default pattern KEEPS its
@@ -4790,8 +4845,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     if (structOvPat && !vecPat9 &&
                                         ne->UhdmType() == UHDM::uhdmoperation) {
                                         auto* nop = (UHDM::operation*)ne;
-                                        nop->VpiSize((int32_t)fld.getType()
-                                                         .getBitWidth());
+                                        // An UNPACKED member type has no
+                                        // getBitWidth(); Surelog still sizes
+                                        // the member op at the struct's
+                                        // bit-stream width (32 for a lone
+                                        // `int unsigned`).
+                                        uint64_t mw9 =
+                                            fld.getType().getBitWidth();
+                                        if (mw9 == 0)
+                                            mw9 = fld.getType()
+                                                      .getBitstreamWidth();
+                                        nop->VpiSize((int32_t)mw9);
                                         if (auto* nrt = nop->Typespec()) {
                                             std::string tsP = prefix;
                                             if (tsP.size() >= 2 &&
@@ -5831,8 +5895,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // (overridden by p::CFG_PER -> no outer ts, op@pkg-init
                     // span) vs iface_nested_param_field (plain `tif s()`,
                     // default p::CFG_DEF -> outer ts at the default span).
+                    // ...and only for a QUALIFIED (`pkg::NAME`) actual — an
+                    // UNQUALIFIED one re-emits at the instance and took the
+                    // flat op75 branch above (unpStructOvRef9), which already
+                    // owns this op's span and typespec.
                     bool structRefOv = false;
-                    if (overridden) {
+                    if (overridden && !unpStructOvRef9) {
                         auto& ov0 = stripImplicitConv(*init);
                         structRefOv =
                             ov0.kind == ExpressionKind::NamedValue &&
@@ -5840,7 +5908,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 SymbolKind::Parameter;
                     }
                     bool structOp =
-                        !inPackage && !structRefOv &&
+                        !inPackage && !structRefOv && !unpStructOvRef9 &&
                         ps.getType().getCanonicalType().kind ==
                             SymbolKind::UnpackedStructType &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
