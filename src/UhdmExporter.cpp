@@ -2409,6 +2409,13 @@ UHDM::design* UhdmExporter::exportDesign() {
         p.rt->Actual_typespec(lts);
     }
     pendingPartSelFoldTs.clear();
+    // --disable-feature=parametersubstitution: a substituted ref_obj borrows
+    // the hopped parameter's typespec, which the deferred param-typespec pass
+    // may only have filled in after the ref was built.
+    for (auto& [dst, src] : noSubstRefTs)
+        if (!dst->Actual_typespec() && src->Actual_typespec())
+            dst->Actual_typespec(src->Actual_typespec());
+    noSubstRefTs.clear();
     // Base-class wiring last: every class_defn (package, module-local,
     // file-level, nested) now exists, so a base in any scope resolves.
     drainPendingExtends();

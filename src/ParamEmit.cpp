@@ -24,6 +24,130 @@ static bool containsUserCall(const Expression& e) {
     return found;
 }
 
+// ---------------------------------------------------------------------------
+// --disable-feature=parametersubstitution
+//
+// Surelog gates exactly one function on this flag:
+// CompileHelper::substituteAssignedValue (CompileExpression.cpp:83) walks a
+// candidate `param_assign` Rhs and answers false when the tree contains a
+// `vpiAssignmentPatternOp` or `vpiConcatOp` operation.  Every caller
+// (CompileExpression's four name-resolution arms, NetlistElaboration,
+// DesignElaboration, UhdmWriter) reads it as "may I replace this reference by
+// the parameter's value?", so with the flag off a pattern- or concat-valued
+// parameter is never inlined and stays a `ref_obj`.
+//
+// The rest of the observable delta is downstream of that one refusal: an
+// expression that reads an un-inlinable parameter no longer reduces to a
+// constant, so the parameter IT initializes has no value either, and so on.
+// `NoParamSubs` shows all three levels at once — `X = '{0,1}` is refused,
+// `.P(~X)` therefore stays an operation, and `assign a = P` therefore keeps
+// its `ref_obj` instead of collapsing to a constant.
+//
+// A reference that IS still substitutable resolves to whatever the referenced
+// Rhs holds, which under this flag is frequently another reference:
+// `prim_subreg #(.RESVAL(RESVAL))` inside `prim_subreg_shadow` emits a
+// `ref_obj` named CTRL_RESET (the parent's un-inlinable value) anchored at the
+// re-pass site.  That is `noSubstSourceExpr`'s hop loop.
+static bool containsPatternOrConcat(const Expression& e) {
+    bool found = false;
+    e.visit(makeVisitor(
+        [&](auto& v, const SimpleAssignmentPatternExpression& x) {
+            found = true;
+            v.visitDefault(x);
+        },
+        [&](auto& v, const StructuredAssignmentPatternExpression& x) {
+            found = true;
+            v.visitDefault(x);
+        },
+        [&](auto& v, const ReplicatedAssignmentPatternExpression& x) {
+            found = true;
+            v.visitDefault(x);
+        },
+        [&](auto& v, const ConcatenationExpression& x) {
+            found = true;
+            v.visitDefault(x);
+        }));
+    return found;
+}
+
+bool UhdmExporter::paramSubstRefused(const ParameterSymbol& ps) {
+    if (!noParamSubst)
+        return false;
+    if (auto it = substRefusedCache.find(&ps); it != substRefusedCache.end())
+        return it->second;
+    // Provisional entry: a self-referential default answers "substitutable"
+    // rather than recursing.
+    substRefusedCache[&ps] = false;
+    bool refused = false;
+    if (auto* init = ps.getInitializer())
+        refused = containsPatternOrConcat(*init);
+    substRefusedCache[&ps] = refused;
+    return refused;
+}
+
+bool UhdmExporter::paramValueUnavailable(const ParameterSymbol& ps) {
+    if (!noParamSubst)
+        return false;
+    if (auto it = valueUnavailCache.find(&ps); it != valueUnavailCache.end())
+        return it->second;
+    if (!valueUnavailInFlight.insert(&ps).second)
+        return false;
+    bool bad = paramSubstRefused(ps);
+    if (!bad)
+        if (auto* init = ps.getInitializer())
+            bad = exprValueUnavailable(*init);
+    valueUnavailInFlight.erase(&ps);
+    valueUnavailCache[&ps] = bad;
+    return bad;
+}
+
+bool UhdmExporter::exprValueUnavailable(const Expression& e) {
+    if (!noParamSubst)
+        return false;
+    bool bad = false;
+    e.visit(makeVisitor(
+        [&](auto& v, const NamedValueExpression& x) {
+            if (x.symbol.kind == SymbolKind::Parameter &&
+                paramValueUnavailable(x.symbol.as<ParameterSymbol>()))
+                bad = true;
+            v.visitDefault(x);
+        },
+        [&](auto& v, const HierarchicalValueExpression& x) {
+            if (x.symbol.kind == SymbolKind::Parameter &&
+                paramValueUnavailable(x.symbol.as<ParameterSymbol>()))
+                bad = true;
+            v.visitDefault(x);
+        }));
+    return bad;
+}
+
+const Expression& UhdmExporter::noSubstSourceExpr(const Expression& e,
+                                                  const ParameterSymbol** hopped) {
+    const Expression* cur = &stripImplicitConv(e);
+    if (hopped)
+        *hopped = nullptr;
+    for (int hop = 0; hop < 8; hop++) {
+        const Symbol* sym = nullptr;
+        if (cur->kind == ExpressionKind::NamedValue)
+            sym = &cur->as<NamedValueExpression>().symbol;
+        else if (cur->kind == ExpressionKind::HierarchicalValue)
+            sym = &cur->as<HierarchicalValueExpression>().symbol;
+        if (!sym || sym->kind != SymbolKind::Parameter)
+            break;
+        auto& p = sym->as<ParameterSymbol>();
+        // Surelog refuses to inline THIS one: the reference is the answer.
+        if (paramSubstRefused(p))
+            break;
+        auto* init = p.getInitializer();
+        if (!init)
+            break;
+        if (hopped)
+            *hopped = &p;
+        cur = &stripImplicitConv(*init);
+    }
+    return *cur;
+}
+
 // How many PACKED dimensions a parameter's type declares — the count Surelog's
 // CompileHelper::isMultidimensional reads off the emitted logic/bit/
 // packed_array typespec's `Ranges()`. `logic [19:0]` is 1, `logic [1:0][W-1:0]`
@@ -2066,6 +2190,126 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
         }
+        // --disable-feature=parametersubstitution (hard no-op without the
+        // flag): this parameter's value cannot be computed any more, so the
+        // ELAB param_assign keeps the SYMBOLIC expression Surelog failed to
+        // reduce instead of a folded constant.  Placed ahead of every fold
+        // rule below because the flag disables the substitution those rules
+        // are built on, not their result.
+        // ...except for a parameter whose own declared value is an AGGREGATE
+        // pattern (a packed struct/union or an unpacked array): Surelog's
+        // only pattern-related gate is `expandPatternAssignment`, and for an
+        // aggregate target that expansion is a no-op — the elab Rhs is the
+        // same flattened `op75` with or without the flag (ParamComplexVerilator
+        // `init_val`, ParamNoSubst `CTRL_RESET`, both byte-identical across
+        // the pair).  Only a PACKED-VECTOR target actually collapses to one
+        // constant when substitution is on (NoParamSubs `logic [1:0] X`), so
+        // only that one needs the un-collapsed form here.
+        bool ownAggPattern9 = false;
+        if (noParamSubst && paramSubstRefused(ps) && boundInit) {
+            auto& oi9 = stripImplicitConv(*boundInit);
+            auto ck9 = ps.getType().getCanonicalType().kind;
+            ownAggPattern9 =
+                (oi9.kind == ExpressionKind::SimpleAssignmentPattern ||
+                 oi9.kind == ExpressionKind::StructuredAssignmentPattern ||
+                 oi9.kind == ExpressionKind::ReplicatedAssignmentPattern) &&
+                (ck9 == SymbolKind::PackedStructType ||
+                 ck9 == SymbolKind::PackedUnionType ||
+                 ck9 == SymbolKind::FixedSizeUnpackedArrayType);
+        }
+        if (noParamSubst && topView && boundInit && !ownAggPattern9 &&
+            paramValueUnavailable(ps)) {
+            auto& raw9 = stripImplicitConv(*boundInit);
+            const ParameterSymbol* hop9 = nullptr;
+            auto& src9 = noSubstSourceExpr(raw9, &hop9);
+            bool savedPI9 = inParamInit, savedPD9 = paramInitDef;
+            inParamInit = true;
+            paramInitDef = false;
+            auto* rhs9 = (UHDM::expr*)emitExpr(src9, pa, prefix, netMap);
+            inParamInit = savedPI9;
+            paramInitDef = savedPD9;
+            if (rhs9) {
+                // A reference resolved through the hop loop is re-anchored at
+                // the reference site (Surelog stamps the compiled result with
+                // the current node's location).
+                if (&src9 != &raw9)
+                    setLoc(rhs9, raw9.sourceRange);
+                rhs9->VpiParent(pa);
+                // Surelog's substituted result is a CLONE of the hopped-through
+                // parameter's own Rhs: it keeps that parameter's param_assign
+                // as its parent, its scope in the fullname, and its declared
+                // typespec — only the location is re-stamped at the re-pass
+                // site (ParamNoSubst `prim_subreg #(.RESVAL(RESVAL))`).
+                if (hop9 && rhs9->UhdmType() == UHDM::uhdmref_obj) {
+                    auto* ro9 = (UHDM::ref_obj*)rhs9;
+                    if (auto hit9 = elabParamPa.find(hop9);
+                        hit9 != elabParamPa.end() && hit9->second->Lhs()) {
+                        auto* hlhs9 = hit9->second->Lhs();
+                        ro9->VpiParent(hit9->second);
+                        if (hlhs9->UhdmType() == UHDM::uhdmparameter) {
+                            auto* hp9 = (UHDM::parameter*)hlhs9;
+                            std::string hf9(hp9->VpiFullName());
+                            if (auto d9 = hf9.rfind('.');
+                                d9 != std::string::npos)
+                                ro9->VpiFullName(hf9.substr(0, d9 + 1) +
+                                                 std::string(ro9->VpiName()));
+                            if (!ro9->Typespec())
+                                if (auto* hrt9 = hp9->Typespec()) {
+                                    auto* nrt9 = s.MakeRef_typespec();
+                                    nrt9->VpiFullName(
+                                        std::string(ro9->VpiFullName()));
+                                    nrt9->VpiParent(ro9);
+                                    nrt9->Actual_typespec(
+                                        hrt9->Actual_typespec());
+                                    noSubstRefTs.emplace_back(nrt9, hrt9);
+                                    ro9->Typespec(nrt9);
+                                }
+                        }
+                    }
+                }
+                // An un-reduced PATTERN Rhs carries the parameter's own
+                // typespec (Surelog tags the operation it could not expand)
+                // and parents its operands, unlike the def-view form.
+                UHDM::ref_typespec* opRt9 = nullptr;
+                if (rhs9->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)rhs9)->VpiOpType() ==
+                        vpiAssignmentPatternOp) {
+                    auto* op9 = (UHDM::operation*)rhs9;
+                    op9->VpiSize(0);
+                    if (auto* ops9 = op9->Operands())
+                        for (auto* o9 : *ops9)
+                            if (!o9->VpiParent())
+                                o9->VpiParent(op9);
+                    if (prt && !op9->Typespec()) {
+                        opRt9 = s.MakeRef_typespec();
+                        std::string tsPfx9 = prefix;
+                        if (tsPfx9.size() >= 2 &&
+                            tsPfx9.compare(tsPfx9.size() - 2, 2, "::") == 0)
+                            tsPfx9.resize(tsPfx9.size() - 2);
+                        opRt9->VpiFullName(tsPfx9);
+                        opRt9->VpiParent(op9);
+                        op9->Typespec(opRt9);
+                    }
+                }
+                pa->Rhs(rhs9);
+                passigns->push_back(pa);
+                if (prt) {
+                    if (!inPackage) {
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, opRt9, typedParam});
+                    }
+                    else {
+                        auto* its9 = makeParamTs(ps, typedParam);
+                        if (typedParam)
+                            stampPkgTsInst(its9);
+                        prt->Actual_typespec(its9);
+                        if (typedParam || isRangedUntypedParam(ps))
+                            its9->VpiParent(up);
+                    }
+                }
+                continue;
+            }
+        }
         if (topView && (overridden || noDefExprOv || noDefLitMP) &&
             !structOvPat) {
             auto& cvo = ps.getValue();
@@ -3984,11 +4228,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     op2->VpiOpType(75);
                     op2->VpiParent(pa);
                     setLoc(op2, structOvPat ? structOvLoc : init->sourceRange);
-                    auto* rt = s.MakeRef_typespec();
-                    if (!ifaceArrayDefFold)
-                        rt->VpiParent(op2);
-                    op2->Typespec(rt);
-                    rhsRt = rt; // -> elab param clone (patchParamTypespecs)
+                    // --disable-feature=parametersubstitution: an IMPORTED
+                    // aggregate param's elab Rhs is Surelog's clone of the
+                    // PACKAGE assign, which carries no typespec; the
+                    // module-scoped one is minted by expandPatternAssignment,
+                    // and that is precisely the call the flag gates off
+                    // (ParamNoSubst CTRL_RESET).  A module-LOCAL aggregate
+                    // param is compiled in the module and keeps its typespec
+                    // either way (ParamComplexVerilator init_val, measured
+                    // byte-identical across the flag pair).
+                    if (!(noParamSubst && isImported && paramSubstRefused(ps))) {
+                        auto* rt = s.MakeRef_typespec();
+                        if (!ifaceArrayDefFold)
+                            rt->VpiParent(op2);
+                        op2->Typespec(rt);
+                        rhsRt = rt; // -> elab param clone (patchParamTypespecs)
+                    }
                     auto* opnds = s.MakeAnyVec();
                     ASTContext ectx(comp.getRoot(), LookupLocation::max);
                     for (auto& fld :

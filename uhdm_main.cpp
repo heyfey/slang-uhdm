@@ -75,6 +75,25 @@ int main(int argc, char** argv) {
                        "-bb_inst work@top.u1)",
                        "<instance>");
 
+    // Surelog's `--disable-feature=<a,b,...>` / `--enable-feature=<...>`.  Both
+    // are spelled with `=` and take a COMMA LIST, so they arrive as a single
+    // argv word; slang's registry has no `=`-glued form, so they are registered
+    // as ordinary repeatable string options and slang's parser splits on the
+    // `=` itself (`--disable-feature=parametersubstitution`).  Only
+    // `parametersubstitution` is implemented; any other feature name is a hard
+    // error rather than a silent no-op, because silently ignoring a
+    // model-shaping flag manufactures a happy path (GOLDEN_EQUIVALENCE 2.3).
+    std::vector<std::string> disableFeatures;
+    std::vector<std::string> enableFeatures;
+    driver.cmdLine.add("--disable-feature", disableFeatures,
+                       "Disable a Surelog compile feature (comma separated). Supported: "
+                       "parametersubstitution",
+                       "<feature>[,...]");
+    driver.cmdLine.add("--enable-feature", enableFeatures,
+                       "Enable a Surelog compile feature (comma separated). Supported: "
+                       "parametersubstitution (the default)",
+                       "<feature>[,...]");
+
     std::optional<bool> synth;
     std::optional<bool> formal;
     driver.cmdLine.add("--synth", synth,
@@ -96,6 +115,39 @@ int main(int argc, char** argv) {
     if (showVersion == true) {
         printf("slang-uhdm using slang version %s\n", VersionInfo::getVersionString().c_str());
         return 0;
+    }
+
+    // Feature toggles, comma-split like CommandLineParser.cpp, unknown names
+    // rejected. slang hands the two flags over as two separate lists, so argv
+    // order between them is lost and `--disable-feature` is applied last: a
+    // command line naming the same feature both ways ends up disabled whatever
+    // the order. No suite test does that, and the two flags are documented as
+    // opposites rather than as an ordered sequence.
+    bool paramSubstitution = true;
+    {
+        auto apply = [&](const std::vector<std::string>& list, bool on) -> bool {
+            for (auto& item : list) {
+                size_t pos = 0;
+                while (pos <= item.size()) {
+                    size_t comma = item.find(',', pos);
+                    std::string feat = item.substr(pos, comma == std::string::npos
+                                                            ? std::string::npos
+                                                            : comma - pos);
+                    if (feat == "parametersubstitution")
+                        paramSubstitution = on;
+                    else if (!feat.empty()) {
+                        fprintf(stderr, "error: unsupported feature '%s'\n", feat.c_str());
+                        return false;
+                    }
+                    if (comma == std::string::npos)
+                        break;
+                    pos = comma + 1;
+                }
+            }
+            return true;
+        };
+        if (!apply(enableFeatures, true) || !apply(disableFeatures, false))
+            return 1;
     }
 
     // Surelog's -synth/-formal honour `// pragma translate_off` / `translate_on`.
@@ -236,6 +288,8 @@ int main(int argc, char** argv) {
         exporter.enableBuiltins(builtinPath);
     if (!syntheticTops.empty())
         exporter.setSyntheticTops(syntheticTops);
+    if (!paramSubstitution)
+        exporter.setNoParamSubst();
     if (!bbMods.empty() || !bbInsts.empty())
         exporter.setBlackBoxes(std::set<std::string>(bbMods.begin(), bbMods.end()),
                                std::set<std::string>(bbInsts.begin(), bbInsts.end()));

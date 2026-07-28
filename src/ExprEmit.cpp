@@ -1335,6 +1335,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(ref, expr.sourceRange);
                     return ref;
                 }
+                // --disable-feature=parametersubstitution (hard no-op without
+                // the flag): the whole point of the flag is that THIS
+                // reference is not replaced by its value.  The surviving
+                // ref_obj is scoped to the referencing instance and bound to
+                // the IMPORTING module's materialized parameter, which is what
+                // an unqualified `CTRL_RESET` under `import aes_pkg::*`
+                // resolves to (ParamNoSubst).
+                if (noParamSubst && paramSubstRefused(psym)) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    if (auto pit9 = elabParamPa.find(&nv.symbol);
+                        pit9 != elabParamPa.end() && pit9->second->Lhs())
+                        ref->Actual_group((UHDM::any*)pit9->second->Lhs());
+                    return ref;
+                }
                 // An interface/module PARAMETER DEFAULT that references a
                 // struct/union-typed package localparam is FOLDED to that
                 // param's VALUE expression (re-emitted in this scope, outer

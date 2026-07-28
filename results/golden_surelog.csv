@@ -152,7 +152,7 @@ BlackParrotComplex,testflags,CMP_NOTEQUAL,decompile:,,
 BlackParrotConf,default,SLANG_REJECT,dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mean 'bp_lce_cmd_type_e'?,,
 BlackParrotConf,testflags,SLANG_REJECT,dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mean 'bp_lce_cmd_type_e'?,,
 BlackParrotMuteErrors,default,SLANG_REJECT,dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,
-BlackParrotMuteErrors,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=parametersubstitution,
+BlackParrotMuteErrors,testflags,SLANG_REJECT,dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,
 BlackParrotParam,default,SLANG_REJECT,dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
 BlackParrotParam,testflags,SLANG_REJECT,dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
 BlackParrotSkipParam,default,CMP_NOTEQUAL,decompile:,,
@@ -904,7 +904,7 @@ NonSynthError,testflags,CMP_NOTEQUAL,decompile:,,
 NonSynthUnusedMod,default,CMP_EQUAL,,,match
 NonSynthUnusedMod,testflags,CMP_EQUAL,,,match
 NoParamSubs,default,CMP_EQUAL,,,match
-NoParamSubs,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=parametersubstitution,
+NoParamSubs,testflags,CMP_EQUAL,,,differ
 NoReducTypespec,default,CMP_NOTEQUAL,decompile:,,
 NoReducTypespec,testflags,CMP_NOTEQUAL,decompile:,,
 NyuziProcessor,default,SLANG_REJECT,hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within a final block,,
@@ -1022,7 +1022,7 @@ ParamCast,testflags,CMP_EQUAL,,,differ
 ParamComplex,default,CMP_EQUAL,,,differ
 ParamComplex,testflags,CMP_EQUAL,,,differ
 ParamComplexVerilator,default,CMP_EQUAL,,,differ
-ParamComplexVerilator,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=parametersubstitution,
+ParamComplexVerilator,testflags,CMP_EQUAL,,,differ
 ParamConcat,default,CMP_EQUAL,,,match
 ParamConcat,testflags,CMP_EQUAL,,,match
 ParamConst,default,CMP_EQUAL,,,differ
@@ -1060,7 +1060,7 @@ ParamNoDefault,testflags,SLANG_REJECT,dut.sv:2:26: error: parameter declaration 
 ParamNoImport,default,CMP_NOTEQUAL,decompile:,,
 ParamNoImport,testflags,CMP_NOTEQUAL,decompile:,,
 ParamNoSubst,default,CMP_EQUAL,,,differ
-ParamNoSubst,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=parametersubstitution,
+ParamNoSubst,testflags,CMP_EQUAL,,,differ
 ParamOverload1,default,SLANG_REJECT,dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were provided,,
 ParamOverload1,testflags,SLANG_REJECT,dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were provided,,
 ParamOverload2,default,CMP_EQUAL,,,differ

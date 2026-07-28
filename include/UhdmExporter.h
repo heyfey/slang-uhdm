@@ -97,7 +97,54 @@ public:
         bbInstances = std::move(insts);
     }
 
+    /// Surelog `--disable-feature=parametersubstitution`. See
+    /// `paramSubstRefused()` for the decoded semantics; when this is never
+    /// called every predicate below short-circuits to "substitute", so the
+    /// whole feature is a hard no-op.
+    void setNoParamSubst() { noParamSubst = true; }
+
 private:
+    // ---- --disable-feature=parametersubstitution -----------------------
+    // Surelog gates ONE function on this flag
+    // (CompileHelper::substituteAssignedValue, CompileExpression.cpp:83):
+    // a parameter reference is replaced by that parameter's `param_assign`
+    // Rhs *unless* the Rhs expression tree contains a `vpiAssignmentPatternOp`
+    // or a `vpiConcatOp`, in which case the reference is left symbolic.
+    // Everything else the flag appears to do is downstream of that one
+    // refusal: an expression that reads an unsubstitutable parameter can no
+    // longer be constant-folded, so ITS value is unavailable too, and so on
+    // transitively.  Hence two predicates:
+    //
+    //   paramSubstRefused(ps)  -- Surelog's own test, on ps's own init;
+    //   paramValueUnavailable(ps) / exprValueUnavailable(e)
+    //                          -- the transitive closure: this expression
+    //                             cannot fold to a constant any more.
+    //
+    // All three answer `false` instantly when the flag is absent.
+
+    /// Surelog's `substituteAssignedValue` == false: @a ps's own initializer
+    /// tree contains an assignment pattern or a concatenation, so a reference
+    /// to @a ps is never replaced by its value.
+    bool paramSubstRefused(const slang::ast::ParameterSymbol& ps);
+    /// @a ps's value cannot be computed with substitution disabled: either
+    /// substitution of @a ps itself is refused, or its initializer reads a
+    /// parameter whose value is unavailable.
+    bool paramValueUnavailable(const slang::ast::ParameterSymbol& ps);
+    /// @a e reads (transitively) a parameter whose value is unavailable, so
+    /// the fold sites that would collapse @a e to a constant must not fire.
+    bool exprValueUnavailable(const slang::ast::Expression& e);
+    /// The expression a no-substitution Rhs is emitted FROM: follows bare
+    /// parameter references through parameters that Surelog would still
+    /// substitute (`.RESVAL(RESVAL)` re-passing a parameter whose own Rhs is
+    /// itself a plain reference resolves to that reference), and stops at the
+    /// first one whose substitution is refused. Returns @a e unchanged when
+    /// nothing substitutes.
+    /// @a hopped, when non-null, receives the LAST parameter the loop
+    /// substituted through (null when nothing substituted).
+    const slang::ast::Expression& noSubstSourceExpr(
+        const slang::ast::Expression& e,
+        const slang::ast::ParameterSymbol** hopped = nullptr);
+
     /// True when the module DEFINITION named @a defName (`work@<name>`) is
     /// blackboxed. Mirrors CompileModule.cpp: a `-bb_inst` argument that names
     /// a bare module also matches here (Surelog tests `modName` against BOTH
@@ -350,6 +397,18 @@ private:
     // See setBlackBoxes(): Surelog -bb_mod / -bb_inst arguments, verbatim.
     std::set<std::string> bbModules;
     std::set<std::string> bbInstances;
+    // See setNoParamSubst(). `false` makes every predicate above a no-op.
+    bool noParamSubst = false;
+    // Memoized paramSubstRefused / paramValueUnavailable; the second carries a
+    // recursion guard (an in-flight parameter answers "available" so a cyclic
+    // default cannot spin).
+    std::map<const slang::ast::ParameterSymbol*, bool> substRefusedCache;
+    std::map<const slang::ast::ParameterSymbol*, bool> valueUnavailCache;
+    std::set<const slang::ast::ParameterSymbol*> valueUnavailInFlight;
+    // Typespec refs minted on a substituted ref_obj, paired with the hopped
+    // parameter's own ref: the source's Actual_typespec is often still
+    // deferred when the ref is built, so it is copied again at write time.
+    std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>> noSubstRefTs;
     // Defs whose instances are BIND children: display path of the bound
     // instance ("work@top.S2QED_BIND"). Surelog compiles such a module's
     // property declarations from the BOUND instance, so the shared

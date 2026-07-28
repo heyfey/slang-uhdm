@@ -213,12 +213,19 @@ ONEARG_MAP = {'-y': '-y', '-v': '-v', '-map': '--libmap', '-L': '-L',
               '-bb_mod': '--bb_mod', '-bb_inst': '--bb_inst'}
 
 # UHDM-relevant but not implemented in slang-uhdm: these BLOCK a comparison.
-# -cfg/-cfgfile select Verilog config blocks; --disable-feature changes
-# parameter/let elaboration.  (-bb_mod/-bb_inst were here until slang-uhdm
-# implemented them; they are now in ONEARG_MAP.)
+# -cfg/-cfgfile select Verilog config blocks.  (-bb_mod/-bb_inst were here
+# until slang-uhdm implemented them; they are now in ONEARG_MAP.)
 BLOCKING_NOARG = {'-diffcompunit', '-sepcomp', '-link',
                   '-pythonevalscript', '-pythonevalscriptperfile'}
 BLOCKING_ONEARG = {'-cfg', '-cfgfile'}
+
+# `--disable-feature=<a,b>` / `--enable-feature=<a,b>` take a COMMA LIST in one
+# argv word, so they translate per FEATURE, not per flag: slang-uhdm implements
+# `parametersubstitution` with Surelog's own spelling and passes the word
+# through unchanged; `letexprsubstitution` is still unimplemented and blocks the
+# whole comparison.  A mixed list blocks too -- dropping the unimplemented half
+# would silently compare two different models (GOLDEN_EQUIVALENCE 2.3).
+IMPLEMENTED_FEATURES = {'parametersubstitution'}
 
 # Surelog emits no database at all: nothing to compare.
 NO_DATABASE = {'-noparse', '-nocomp', '-noelab', '-nouhdm', '-parseonly'}
@@ -326,7 +333,11 @@ def translate(parts):
         elif p.startswith('-timescale='):
             args += ['--timescale', p.split('=', 1)[1]]
         elif p.startswith('--disable-feature=') or p.startswith('--enable-feature='):
-            blocking.append(p)
+            feats = [f for f in p.split('=', 1)[1].split(',') if f]
+            if feats and all(f in IMPLEMENTED_FEATURES for f in feats):
+                args.append(p)          # same spelling on both sides
+            else:
+                blocking.append(p)
         elif p.startswith(('-D', '-I', '+incdir+', '+define+', '+libext+')):
             args.append(p)  # slang parses the plus-delimited Verilog forms itself
         elif p.startswith('-P') and '=' in p:

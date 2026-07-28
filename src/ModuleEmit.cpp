@@ -11470,6 +11470,20 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // --disable-feature=parametersubstitution (hard no-op without the
+        // flag): every fold above needs the referenced parameter's VALUE, and
+        // with substitution disabled there is none — Surelog's reduce fails
+        // and the elaborated cont_assign keeps the plain reference it started
+        // with (NoParamSubs `assign a = P`, where P's own value is `~X` and X
+        // is an un-inlinable pattern).
+        if (noParamSubst && topView && exprValueUnavailable(ae.right())) {
+            ovParamRhs = nullptr;
+            typedParamRhs = nullptr;
+            noDefOvRhs = nullptr;
+            constVarRhs = nullptr;
+            constVarInit = nullptr;
+            structParamSetter = nullptr;
+        }
         // Top modules share the def's cont_assign object unless netlist
         // elaboration re-compiles it: that happens only for whole-net LHS
         // (RHS resized against the net width) when the RHS contains
