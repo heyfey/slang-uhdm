@@ -18,6 +18,44 @@ namespace slang_uhdm {
 
 static bool subWritesNonLocal(const SubroutineSymbol& sub);
 
+// Surelog gives an UNTYPED parameter an int_typespec whose shape is decided by
+// the CONST TYPE of its folded value (CompileHelper.cpp:3791 switch): real ->
+// real_typespec; DEC -> no typespec at all; INT/UINT -> a bare int_typespec;
+// HEX/OCT/BIN -> an int_typespec carrying a [VpiSize-1:0] range. Only the based
+// arms build the range, which is why `localparam d = AsyncOn[k]` (BIN:1, size
+// 1) gets [0:0] while `localparam p = i-1` (UINT) gets none. The bounds are
+// BARE constants — VpiValue only, no size/decompile/constType — and the range
+// parents at the typespec while the bounds stay unparented, exactly as that
+// code writes them (the elab clone re-parents them; VpiParent is not compared).
+// `crt` is the fold constant's own ref_typespec, whose parent IS that constant.
+static void addUntypedParamValueRange(UHDM::Serializer& s,
+                                      UHDM::int_typespec* its,
+                                      const UHDM::ref_typespec* crt) {
+    if (!its || !crt)
+        return;
+    auto* par = crt->VpiParent();
+    if (!par || par->UhdmType() != UHDM::uhdmconstant)
+        return;
+    auto* c = (const UHDM::constant*)par;
+    int32_t ct = c->VpiConstType();
+    if (ct != vpiHexConst && ct != vpiOctConst && ct != vpiBinaryConst)
+        return;
+    int32_t sz = c->VpiSize();
+    if (sz <= 0)
+        return;
+    auto* r = s.MakeRange();
+    auto* l = s.MakeConstant();
+    l->VpiValue("INT:" + std::to_string(sz - 1));
+    r->Left_expr(l);
+    auto* rv = s.MakeConstant();
+    rv->VpiValue("INT:0");
+    r->Right_expr(rv);
+    r->VpiParent(its);
+    auto* rs = s.MakeRangeVec();
+    rs->push_back(r);
+    its->Ranges(rs);
+}
+
 // Surelog's variable / typespec CLASS for a GEN-BLOCK local declaration
 // (`int x`, `shortint x`, `bit [1:0] x`, ...). Returns false when the type is
 // not one of the stmt-ified scalar/integer forms. `ranged` reports a packed
@@ -6494,6 +6532,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                     setLoc(its0, q0->sourceRange());
                                     break;
                                 }
+                            // Same based-value range rule as the write-phase
+                            // copy (Surelog compiles the declaration twice, so
+                            // BOTH copies carry it).
+                            addUntypedParamValueRange(s, its0, crt);
                             crt->Actual_typespec(its0);
                         }
                         // A localparam whose init is a direct element-select of
@@ -9384,6 +9426,13 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                     setLoc(it9, q9->sourceRange());
                     break;
                 }
+            // An untyped param whose folded value carries a BASED encoding
+            // (hex/oct/binary constType) gets a [size-1:0] range on that
+            // int_typespec; DEC/INT/UINT folds get none — Surelog
+            // CompileHelper.cpp:3824 switches on the constant's VpiConstType
+            // and only the based arms build the range. The bounds are BARE
+            // constants: VpiValue only, no size/decompile/constType.
+            addUntypedParamValueRange(s, it9, gl.crt);
             its = it9;
         }
         else

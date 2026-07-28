@@ -1312,6 +1312,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (Surelog keeps the ref_obj).
                 auto& psym = nv.symbol.as<ParameterSymbol>();
                 auto ckP = psym.getType().getCanonicalType().kind;
+                // ...except inside the value of a MATERIALIZED IMPORT copy of
+                // a MULTIDIMENSIONAL package param: that value is cloned from
+                // the package's Reduce::No compile, so its operands stay
+                // symbolic in both module views. Surelog's clone leaves them
+                // ACTUAL-LESS — a bare ref_obj named after the package param,
+                // fullname scoped to the importing module (IntegerConcat
+                // work@dut.SeedInfoPageSel -> {OwnerInfoPage, CreatorInfoPage}).
+                if (pkgElabSymOperands && !paramInitPkg) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 // An interface/module PARAMETER DEFAULT that references a
                 // struct/union-typed package localparam is FOLDED to that
                 // param's VALUE expression (re-emitted in this scope, outer

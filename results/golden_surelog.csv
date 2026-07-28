@@ -733,8 +733,8 @@ InsideOp,default,CMP_EQUAL,,,match
 InsideOp,testflags,CMP_EQUAL,,,differ
 InstArray,default,CMP_EQUAL,,,differ
 InstArray,testflags,CMP_EQUAL,,,differ
-IntegerConcat,default,CMP_NOTEQUAL,decompile:,,
-IntegerConcat,testflags,CMP_NOTEQUAL,decompile:,,
+IntegerConcat,default,CMP_EQUAL,,,differ
+IntegerConcat,testflags,CMP_EQUAL,,,differ
 Interconnect,default,SLANG_REJECT,dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
 Interconnect,testflags,SLANG_REJECT,dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
 InterfaceBinding,default,CMP_EQUAL,,,match
@@ -819,8 +819,8 @@ LocalScopeHierPath,default,CMP_NOTEQUAL,decompile:,,
 LocalScopeHierPath,testflags,CMP_NOTEQUAL,decompile:,,
 LocalVarTypespec,default,CMP_EQUAL,,,match
 LocalVarTypespec,testflags,CMP_EQUAL,,,match
-LogicArrayParam,default,CMP_NOTEQUAL,decompile:,,
-LogicArrayParam,testflags,CMP_NOTEQUAL,decompile:,,
+LogicArrayParam,default,CMP_EQUAL,,,differ
+LogicArrayParam,testflags,CMP_EQUAL,,,differ
 LogicCast,default,SLANG_REJECT,dut.sv:3:3: error: use of undeclared identifier 'dmstatus',,
 LogicCast,testflags,SLANG_REJECT,dut.sv:3:3: error: use of undeclared identifier 'dmstatus',,
 LogicSize,default,CMP_EQUAL,,,match
@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
+LowMemLib,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
 LowMemPkg,default,CMP_EQUAL,,,match
-LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
+LowMemPkg,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match

@@ -1566,7 +1566,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             dimFoldOwner = savedDfo9;
             if (prng)
                 up->Ranges(prng);
-            up->VpiSize(1);
+            // An UNPACKED-ARRAY parameter's vpiSize is 1 only in the view that
+            // still holds the compile-time shape — the DEF package listing and
+            // a MODULE-LOCAL localparam. The ELABORATED package copy and every
+            // MATERIALIZED IMPORT copy instead carry the array's ELEMENT COUNT.
+            // Measured, one source: pkg `int unsigned A3[3] / logic[7:0] B2[2]
+            // / int unsigned C1[1]` -> defPkg 1/1/1, topPkg 3/2/1, module
+            // import copies 3/2/1; the same module's own `localparam int
+            // unsigned L4[4]` stays 1 in BOTH module views (Kmac KeccakRate).
+            int32_t arrSize9 = 1;
+            if ((inPackage && topView) || (!inPackage && isImported)) {
+                auto& uat9 = ps.getType().getCanonicalType();
+                if (uat9.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+                    auto w9 = uat9.as<FixedSizeUnpackedArrayType>().range.width();
+                    if (w9 > 0)
+                        arrSize9 = (int32_t)w9;
+                }
+            }
+            up->VpiSize(arrSize9);
             up->VpiSigned(leaf->isSigned());
             auto* art = s.MakeRef_typespec();
             art->VpiFullName(afull);
@@ -2580,10 +2597,90 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         selOv8 = true;
                     }
                 }
+                // A param OVERRIDE whose actual resolves (through param refs)
+                // to a MULTIDIMENSIONAL packed param encodes BINARY at the
+                // FORMAL's width — and the bits come from Surelog's UNREDUCED
+                // concat, where every operand contributes its OWN declared
+                // width, so an `int` element is 32 bits wide there and the
+                // formal's low W bits are NOT the SV-correct packed value.
+                // Measured, one source: `logic [1:0][1:0] MD = {A, B}` with
+                // `int A=1, B=2` driving `parameter logic [3:0] p` gives
+                // BIN:0010 size 4, decompile "0010" — BARE, no size prefix —
+                // where the same instance driven by a 1-D concat param
+                // (logic [3:0] CC = {2'b01, 2'b10}) keeps CC's own "4'b0110".
+                bool mdConcatOv8 = false;
+                if (!vecAliasOv8 && !strOv8 && !enumOv8 && !srcBaseOv8 &&
+                    !selOv8 && !strRefOv8 && typedParam && boundInit &&
+                    ps.getType().getCanonicalType().isPackedArray()) {
+                    const Expression* mo8 = &stripImplicitConv(*boundInit);
+                    const ParameterSymbol* orig8 = nullptr;
+                    for (int h8 = 0;
+                         h8 < 8 && mo8->kind == ExpressionKind::NamedValue;
+                         h8++) {
+                        auto& sy8 = mo8->as<NamedValueExpression>().symbol;
+                        if (sy8.kind != SymbolKind::Parameter)
+                            break;
+                        auto& mp8 = sy8.as<ParameterSymbol>();
+                        if (packedDimCount(mp8.getType()) > 1) {
+                            orig8 = &mp8;
+                            break;
+                        }
+                        auto* in8 = mp8.getInitializer();
+                        if (!in8)
+                            break;
+                        mo8 = &stripImplicitConv(*in8);
+                    }
+                    uint64_t fw8 = ps.getType().getBitWidth();
+                    const Expression* oi8 =
+                        orig8 ? orig8->getInitializer() : nullptr;
+                    if (oi8 && fw8 > 0 && fw8 <= 64) {
+                        auto& oc8 = stripImplicitConv(*oi8);
+                        std::span<const Expression* const> ops8;
+                        if (oc8.kind == ExpressionKind::Concatenation)
+                            ops8 = oc8.as<ConcatenationExpression>().operands();
+                        else if (oc8.kind ==
+                                 ExpressionKind::SimpleAssignmentPattern)
+                            ops8 = oc8.as<SimpleAssignmentPatternExpression>()
+                                       .elements();
+                        std::string wide8;
+                        bool ok8 = !ops8.empty();
+                        ASTContext mctx8(comp.getRoot(), LookupLocation::max);
+                        for (auto* oe8 : ops8) {
+                            if (!oe8 || !oe8->type || !oe8->type->isIntegral()) {
+                                ok8 = false;
+                                break;
+                            }
+                            ConstantValue ov8 = mctx8.tryEval(*oe8);
+                            uint64_t ow8 = oe8->type->getBitWidth();
+                            if (!ov8.isInteger() ||
+                                ov8.integer().hasUnknown() || ow8 == 0 ||
+                                ow8 > 256) {
+                                ok8 = false;
+                                break;
+                            }
+                            SVInt rv8 =
+                                ov8.integer().resize((slang::bitwidth_t)ow8);
+                            for (int64_t i8 = (int64_t)ow8 - 1; i8 >= 0; i8--)
+                                wide8 +=
+                                    (rv8[(int32_t)i8] == slang::logic_t(1))
+                                        ? '1'
+                                        : '0';
+                        }
+                        if (ok8 && wide8.size() >= fw8) {
+                            std::string bits8 =
+                                wide8.substr(wide8.size() - (size_t)fw8);
+                            c->VpiValue("BIN:" + bits8);
+                            c->VpiConstType(vpiBinaryConst);
+                            c->VpiSize((int32_t)fw8);
+                            c->VpiDecompile(bits8);
+                            mdConcatOv8 = true;
+                        }
+                    }
+                }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
                 if (vecAliasOv8 || strOv8 || enumOv8 || srcBaseOv8 ||
-                    selOv8 || strRefOv8) {
+                    selOv8 || strRefOv8 || mdConcatOv8) {
                 }
                 else if (typedParam && iv.getBitWidth() > 64) {
                     // WIDE values overflow the decimal fold — encode HEX at
@@ -3134,9 +3231,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // other_pkg::AsyncOn) is not such an operation: its elab
                     // module fold keeps the reference span and the ts ref,
                     // exactly like the def-view copy (LogicArrayParam).
-                    bool importedFold = isImported && topView && !inPackage &&
-                                        stripImplicitConv(*init).kind !=
-                                            ExpressionKind::NamedValue;
+                    // ...and neither is a SYSTEM function call ($clog2(N)):
+                    // the elab module copy of such an import keeps the CALL
+                    // SPAN and the ts ref, matching its def-view copy
+                    // (IntegerConcat pkg::InfoPageW).
+                    bool importedFold =
+                        isImported && topView && !inPackage &&
+                        stripImplicitConv(*init).kind !=
+                            ExpressionKind::NamedValue &&
+                        !(stripImplicitConv(*init).kind ==
+                              ExpressionKind::Call &&
+                          stripImplicitConv(*init)
+                              .as<CallExpression>()
+                              .isSystemCall());
                     // Typed params fold at the type width; a size-cast value
                     // (32'(ONE)) at the cast width; other untyped values at 64.
                     auto& scv = stripImplicitConv(*init);
@@ -4374,8 +4481,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // reduce on the typespec carrying more than one packed range),
                 // so its ELAB Rhs keeps the very same symbolic operand tree the
                 // def view has — no operand folds to a constant (IntegerConcat).
-                pkgElabSymOperands =
-                    inPackage && topView && packedDimCount(ps.getType()) > 1;
+                // ...and a MATERIALIZED IMPORT copy of such a param is cloned
+                // from that unreduced package Rhs, so BOTH module views carry
+                // the same symbolic (and reordered) operand tree — the module
+                // copy never re-folds the operands (IntegerConcat
+                // work@dut.SeedInfoPageSel).
+                pkgElabSymOperands = ((inPackage && topView) ||
+                                      (!inPackage && isImported)) &&
+                                     packedDimCount(ps.getType()) > 1;
                 importedParamClone = isImported && !inPackage;
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
@@ -4446,6 +4559,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     else
                         lazyTernary9 = false;
                 }
+                // A DEF-view MATERIALIZED IMPORT copy whose init is a SYSTEM
+                // function call ($clog2(N)) folds to the evaluated constant:
+                // the copy is already resolved, so Surelog reduces it in BOTH
+                // module views, keeping the call span, the param's type width
+                // and a ts ref to the copy's own typespec. A module-LOCAL
+                // localparam with the SAME init keeps its sys_func_call in the
+                // def view — measured on one source (pkg p2::W = $clog2(N)
+                // imported into top2, which also declares `localparam int LW =
+                // $clog2(N)`: defMod folds W, leaves LW a sys_func_call).
+                if (!rhs && !topView && !inPackage && isImported &&
+                    stripImplicitConv(*init).kind == ExpressionKind::Call &&
+                    stripImplicitConv(*init).as<CallExpression>().isSystemCall() &&
+                    ps.getValue().isInteger() &&
+                    !ps.getValue().integer().hasUnknown()) {
+                    auto& sv7 = ps.getValue().integer();
+                    std::string dg7 = sv7.toString(LiteralBase::Decimal, false);
+                    bool neg7 = sv7.isSigned() && sv7.isNegative();
+                    auto* c7 = s.MakeConstant();
+                    c7->VpiDecompile(dg7);
+                    c7->VpiSize((int32_t)ps.getType().getBitWidth());
+                    c7->VpiValue((neg7 ? "INT:" : "UINT:") + dg7);
+                    c7->VpiConstType(neg7 ? vpiIntConst : vpiUIntConst);
+                    c7->VpiParent(pa);
+                    setLoc(c7, init->sourceRange);
+                    auto* rt7 = s.MakeRef_typespec();
+                    std::string tsPfx7 = prefix;
+                    if (tsPfx7.size() >= 2 &&
+                        tsPfx7.compare(tsPfx7.size() - 2, 2, "::") == 0)
+                        tsPfx7.resize(tsPfx7.size() - 2);
+                    rt7->VpiFullName(tsPfx7);
+                    rt7->VpiParent(c7);
+                    c7->Typespec(rt7);
+                    rhsRt = rt7;
+                    rhs = c7;
+                }
                 if (!rhs)
                     rhs = emitExpr(*emitInit9, pa, prefix, netMap);
                 importedInitPkgInst = savedImpInst0;
@@ -4463,6 +4611,69 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
                 suppressConstParent = savedSuppP;
+                // An UNPACKED-ARRAY package parameter's assignment-pattern
+                // element REDUCES in EVERY view (Surelog compiles the element
+                // expressions Reduce::Yes even for the def listing): a computed
+                // element (1344/MsgWidth) becomes an unparented INT constant of
+                // size 64, anchored at the BinaryOp's LEFT-operand span — the
+                // same "* / - fold signed, at the left span" family the
+                // pkgElabComputed folds follow. Literal elements already emit
+                // that shape. Kmac sha3_pkg::KeccakRate.
+                if (rhs && rhs->UhdmType() == UHDM::uhdmoperation &&
+                    (inPackage || isImported) &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::FixedSizeUnpackedArrayType) {
+                    auto* pop9 = (UHDM::operation*)rhs;
+                    auto& pin9 = stripImplicitConv(*init);
+                    std::span<const Expression* const> pel9;
+                    if (pin9.kind == ExpressionKind::SimpleAssignmentPattern)
+                        pel9 = pin9.as<SimpleAssignmentPatternExpression>()
+                                   .elements();
+                    if (pop9->VpiOpType() == vpiAssignmentPatternOp &&
+                        pop9->Operands() &&
+                        pop9->Operands()->size() == pel9.size()) {
+                        ASTContext pctx9(comp.getRoot(), LookupLocation::max);
+                        for (size_t i9 = 0; i9 < pel9.size(); i9++) {
+                            if ((*pop9->Operands())[i9]->UhdmType() !=
+                                UHDM::uhdmoperation)
+                                continue;
+                            auto& pe9 = stripImplicitConv(*pel9[i9]);
+                            // A STRUCT/UNION element keeps its tagged-pattern
+                            // operation in every view (a packed struct is
+                            // integral in slang, so its value would otherwise
+                            // fold to a bare constant and lose the member
+                            // tree) — StructArrayParameterInitializedBy
+                            // PatternPassedAsPort.
+                            if (!pe9.type)
+                                continue;
+                            auto pk9 = pe9.type->getCanonicalType().kind;
+                            if (pk9 == SymbolKind::PackedStructType ||
+                                pk9 == SymbolKind::UnpackedStructType ||
+                                pk9 == SymbolKind::PackedUnionType ||
+                                pk9 == SymbolKind::UnpackedUnionType)
+                                continue;
+                            ConstantValue pv9 = pctx9.tryEval(pe9);
+                            if (!pv9.isInteger() ||
+                                pv9.integer().hasUnknown())
+                                continue;
+                            SVInt sv9 = pv9.integer();
+                            sv9.setSigned(true);
+                            std::string dg9 =
+                                sv9.toString(LiteralBase::Decimal, false);
+                            auto* pc9 = s.MakeConstant();
+                            pc9->VpiDecompile(dg9);
+                            pc9->VpiSize(64);
+                            pc9->VpiValue("INT:" + dg9);
+                            pc9->VpiConstType(vpiIntConst);
+                            setLoc(pc9, pe9.kind == ExpressionKind::BinaryOp
+                                            ? pe9.as<BinaryExpression>()
+                                                  .left()
+                                                  .sourceRange
+                                            : pe9.sourceRange);
+                            (*pop9->Operands())[i9] = pc9;
+                        }
+                    }
+                }
                 // Surelog reverses the operands of an elab package parameter's
                 // concat / assignment-pattern Rhs when the parameter's first
                 // packed range DECREASES ([1:0]) and the operands are still
@@ -4583,8 +4794,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // (int X[1:0]='{0,1}): a STRUCT/UNION-element array
                     // ('{'{phase:1'b1}}) keeps its nested tagged-pattern ops and
                     // Surelog attaches NO typespec to the outer op.
+                    // ...and only in an INSTANCE (top-module) view: the
+                    // ELABORATED PACKAGE copy of an unpacked-array param
+                    // carries NO typespec on its pattern op, exactly like the
+                    // def package listing and the def-module import copy.
+                    // Measured, one source: pkg `int unsigned PA[3]='{1,2,3}`
+                    // + `parameter int X[2]='{0,1}` on a submodule — ts appears
+                    // on topMod PA and topMod.u X only, on neither package view
+                    // nor either def-module copy (Kmac KeccakRate).
                     bool unpackedArrayOp = false;
-                    if (ps.getType().getCanonicalType().kind ==
+                    if (!inPackage &&
+                        ps.getType().getCanonicalType().kind ==
                             SymbolKind::FixedSizeUnpackedArrayType &&
                         opr->VpiOpType() == vpiAssignmentPatternOp) {
                         const Type* uleaf = &ps.getType().getCanonicalType();
@@ -5022,11 +5242,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     syntaxRefPrefix = joinPath(prefix, ps.name);
                     auto* itsL = makeParamTs(ps, typedParam);
                     syntaxRefPrefix = savedPfxL;
-                    if (!inPackage && isImported && typedParam && ps.getParentScope())
-                        if (auto pitL =
-                                pkgDefMap.find(&ps.getParentScope()->asSymbol());
-                            pitL != pkgDefMap.end())
+                    // ...at the ELABORATED home package, like the param's own
+                    // ts above: Compare follows vpiInstance, so a def-view
+                    // link pulls the unelaborated package in behind it.
+                    if (!inPackage && isImported && typedParam && ps.getParentScope()) {
+                        const void* homeL = &ps.getParentScope()->asSymbol();
+                        if (auto titL = pkgTopMap.find(homeL);
+                            titL != pkgTopMap.end())
+                            itsL->Instance((UHDM::instance*)titL->second);
+                        else if (auto pitL = pkgDefMap.find(homeL);
+                                 pitL != pkgDefMap.end()) {
                             itsL->Instance((UHDM::instance*)pitL->second);
+                            pkgImportTsTopFixups.emplace_back(itsL, homeL);
+                        }
+                    }
                     itsL->VpiParent(prtLhs9);
                     prtLhs9->Actual_typespec(itsL);
                 }
@@ -6355,11 +6584,23 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 ps->getDeclaredType()->getTypeSyntax() &&
                 ps->getDeclaredType()->getTypeSyntax()->kind ==
                     syntax::SyntaxKind::ImplicitType;
+            // ...and the package it reaches is the ELABORATED (top) one:
+            // typespec::Compare recurses vpiInstance, so a DEF-view instance
+            // drags the unelaborated package (symbolic typespec bounds) into
+            // every module comparison that follows this typespec
+            // (LogicArrayParam/IntegerConcat TopMod r=-32). Same rule as the
+            // def-view materialized-import site (~4834).
             if (!implicitImport9 && ps->getParentScope() &&
-                ps->getParentScope()->asSymbol().kind == SymbolKind::Package)
-                if (auto pit = pkgDefMap.find(&ps->getParentScope()->asSymbol());
-                    pit != pkgDefMap.end())
+                ps->getParentScope()->asSymbol().kind == SymbolKind::Package) {
+                const void* home9 = &ps->getParentScope()->asSymbol();
+                if (auto tit = pkgTopMap.find(home9); tit != pkgTopMap.end())
+                    its->Instance((UHDM::instance*)tit->second);
+                else if (auto pit = pkgDefMap.find(home9);
+                         pit != pkgDefMap.end()) {
                     its->Instance((UHDM::instance*)pit->second);
+                    pkgImportTsTopFixups.emplace_back(its, home9);
+                }
+            }
         }
         syntaxRefPrefix = savedPfx2;
         if (rhsRt && !opClone) {
