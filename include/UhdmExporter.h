@@ -86,7 +86,36 @@ public:
         syntheticTops = std::move(names);
     }
 
+    /// Surelog `-bb_mod <module>` / `-bb_inst <instance>`: blackbox the named
+    /// module DEFINITION (`work@core`) or elaborated instance path
+    /// (`work@top.u1`, gen scopes included). Surelog implements both by
+    /// returning early from CompileModule (no body is collected at all) and
+    /// from DesignElaboration::elaborateInstance_ (no sub-instances are
+    /// created), so a blackboxed object keeps only its shell.
+    void setBlackBoxes(std::set<std::string> mods, std::set<std::string> insts) {
+        bbModules = std::move(mods);
+        bbInstances = std::move(insts);
+    }
+
 private:
+    /// True when the module DEFINITION named @a defName (`work@<name>`) is
+    /// blackboxed. Mirrors CompileModule.cpp: a `-bb_inst` argument that names
+    /// a bare module also matches here (Surelog tests `modName` against BOTH
+    /// sets), which is why `-bb_inst work@top` and `-bb_mod work@top` produce
+    /// identical databases.
+    bool blackboxedDef(const std::string& defName) const {
+        if (bbModules.empty() && bbInstances.empty())
+            return false;
+        return bbModules.count(defName) != 0 || bbInstances.count(defName) != 0;
+    }
+    /// True when an ELABORATED object is blackboxed: either its definition is
+    /// (above) or its full hierarchical path is a `-bb_inst` argument.
+    bool blackboxedInst(const std::string& defName, const std::string& fullPath) const {
+        if (bbModules.empty() && bbInstances.empty())
+            return false;
+        return blackboxedDef(defName) || bbInstances.count(fullPath) != 0;
+    }
+
     /// Maps slang value symbols to the UHDM net/variable object of the
     /// current view (definition or top instance).
     using NetMap = std::map<const slang::ast::Symbol*, UHDM::any*>;
@@ -318,6 +347,9 @@ private:
     std::set<const slang::ast::Symbol*> droppedBindDefs;
     // See setSyntheticTops().
     std::set<std::string> syntheticTops;
+    // See setBlackBoxes(): Surelog -bb_mod / -bb_inst arguments, verbatim.
+    std::set<std::string> bbModules;
+    std::set<std::string> bbInstances;
     // Defs whose instances are BIND children: display path of the bound
     // instance ("work@top.S2QED_BIND"). Surelog compiles such a module's
     // property declarations from the BOUND instance, so the shared

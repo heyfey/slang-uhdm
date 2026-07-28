@@ -134,15 +134,15 @@ BlackBePipeInt,testflags,CMP_NOTEQUAL,decompile:,,
 BlackBox,default,CMP_EQUAL,,,match
 BlackBox,testflags,CMP_EQUAL,,,differ
 BlackBoxInst,default,CMP_EQUAL,,,match
-BlackBoxInst,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_inst,
+BlackBoxInst,testflags,CMP_EQUAL,,,differ
 BlackBoxInstTop,default,CMP_EQUAL,,,match
-BlackBoxInstTop,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_inst,
+BlackBoxInstTop,testflags,CMP_EQUAL,,,match
 BlackboxMissingDef,default,SLANG_REJECT,dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
 BlackboxMissingDef,testflags,SLANG_REJECT,dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
 BlackBoxMod,default,CMP_EQUAL,,,match
-BlackBoxMod,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_mod,
+BlackBoxMod,testflags,CMP_EQUAL,,,match
 BlackBoxSubMod,default,CMP_EQUAL,,,match
-BlackBoxSubMod,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-bb_mod,
+BlackBoxSubMod,testflags,CMP_EQUAL,,,match
 BlackConst,default,CMP_NOTEQUAL,decompile:,,
 BlackConst,testflags,CMP_NOTEQUAL,decompile:,,
 BlackParrot,default,SURELOG_FAIL,[   NOTE] : 0,,
@@ -840,9 +840,9 @@ LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used be
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
-LowMemLib,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
+LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
 LowMemPkg,default,CMP_EQUAL,,,match
-LowMemPkg,testflags,SURELOG_FAIL,"[INF:CM0023] Creating log file ""/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0",,
+LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 MacroArgDefaultSpaces,default,CMP_EQUAL,,,match

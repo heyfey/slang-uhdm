@@ -205,16 +205,20 @@ IRRELEVANT_ONEARG = {'-d', '-o', '-l', '-cache', '-odir', '--Mdir', '-mt', '-mp'
                      '-exe', '-wd', '-cd', '-CFLAGS'}
 IRRELEVANT_TWOARG = {'-remap', '-cmd_ign', '-cmd_ren', '-cmd_mrg'}
 
-# UHDM-relevant, translatable.
+# UHDM-relevant, translatable.  slang-uhdm implements -bb_mod/-bb_inst with the
+# same semantics and argument form as Surelog; only the dash count differs
+# (slang's option registry requires `--` for multi-character names).
 ONEARG_MAP = {'-y': '-y', '-v': '-v', '-map': '--libmap', '-L': '-L',
-              '-top': '--top', '--top-module': '--top', '-f': '-f', '-F': '-F'}
+              '-top': '--top', '--top-module': '--top', '-f': '-f', '-F': '-F',
+              '-bb_mod': '--bb_mod', '-bb_inst': '--bb_inst'}
 
 # UHDM-relevant but not implemented in slang-uhdm: these BLOCK a comparison.
-# -cfg/-cfgfile select Verilog config blocks; -bb_* blackbox parts of the
-# design; --disable-feature changes parameter/let elaboration.
+# -cfg/-cfgfile select Verilog config blocks; --disable-feature changes
+# parameter/let elaboration.  (-bb_mod/-bb_inst were here until slang-uhdm
+# implemented them; they are now in ONEARG_MAP.)
 BLOCKING_NOARG = {'-diffcompunit', '-sepcomp', '-link',
                   '-pythonevalscript', '-pythonevalscriptperfile'}
-BLOCKING_ONEARG = {'-bb_mod', '-bb_inst', '-cfg', '-cfgfile'}
+BLOCKING_ONEARG = {'-cfg', '-cfgfile'}
 
 # Surelog emits no database at all: nothing to compare.
 NO_DATABASE = {'-noparse', '-nocomp', '-noelab', '-nouhdm', '-parseonly'}

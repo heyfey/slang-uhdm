@@ -152,6 +152,7 @@ sweep the harness for the places that relied on the old one.
 |---|---|---|
 | `--elabuhdm` | `fc22485` | UHDM full elaboration: `ElaboratorContext` + `uniquifyTypespec(false)` + `listenDesigns`, then `UhdmAdjuster` — verbatim from Surelog's `UhdmWriter.cpp`. Both classes ship with UHDM, so this is reproduced, not reimplemented. |
 | builtins (default on) | `5286421`, `db83fc3` | The `builtin` package (5 empty `class_defn`s) plus `work@mailbox`/`process`/`semaphore` from `share/builtin.sv`, Surelog's embedded string kept byte-for-byte because the UHDM spans depend on the exact text. slang parses it under the same reported path so spans match by construction. `db83fc3` flipped the default to ON with `--nobuiltin` to opt out, matching Surelog exactly; `--builtins` remains an accepted no-op. |
+| `-bb_mod` / `-bb_inst` | this block | Blackboxing, reimplemented from Surelog's own two early returns: `CompileModule.cpp` returns before **any** `collectModuleObjects_` pass when the def name is in `-bb_mod`, the def name is in `-bb_inst`, or the compiling instance's full path is in `-bb_inst`; `DesignElaboration::elaborateInstance_` creates no sub-instances under the same predicate. In the exporter that is one predicate (`blackboxedDef` / `blackboxedInst`, both no-ops when neither flag was given) and four early returns — `emitModuleDef` / `emitInterfaceDef` after the header, `emitInstance` after the header, and `emitGenScopes`' `emitBlock` after the `gen_scope_array`/`gen_scope` pair. The def-name arm of the `-bb_inst` test is why `-bb_inst work@top` and `-bb_mod work@top` produce byte-identical databases. Names are matched verbatim in Surelog's `work@<name>` / `work@top.u1[i]` spelling, so slang-uhdm's own `VpiFullName` is the key with no translation. |
 | `--synth` / `--formal` | `f5aed69` | Both halves were reuse. Filtering is UHDM's `SynthSubset`, called as Surelog calls it (`reportErrors=true`, `allowFormal` from `--formal`, `listenDesigns`, `filterNonSynthesizable()`) in the same pass-order slot. The `// pragma translate_off/on` half is slang's `--translate-off-format`, which `--synth` injects into `driver.options.translateOffOptions` before `processOptions()` so one flag implies both. |
 
 The builtins work also closed real class-emission gaps: `ref` arg direction (was an
@@ -172,14 +173,15 @@ Surelog behaviour in our exporter (costly, approximate).
 | Surelog flag | Tests | Lives in | Route |
 |---|---|---|---|
 | `--disable-feature=parametersubstitution` | 4 | **Surelog** — `CompileExpression.cpp:96`, gates substituting assignment patterns into parameters. | Reimplement; small and localized. |
-| `-bb_mod` / `-bb_inst` | 4 | **Surelog** — `CompileModule.cpp` + `DesignElaboration.cpp`. | Reimplement; needs a blackboxing concept in the exporter. Medium. |
 | `-cfg` / `-cfgfile` | 2 | **Surelog** — `DesignElaboration.cpp` + `Config/ConfigSet` (Verilog `config` semantics). slang has `--libmap`/config support that may already cover it. | Investigate slang first, then decide. |
 | `--disable-feature=letexprsubstitution` | 1 | **Surelog** — `CompileHelper.cpp:4257`, inlines `let` declarations. | Reimplement; small. |
 | `-diffcompunit` | 1 | **Surelog** — harness behaviour (compiles both ways to diff), not a model option. | **Out of scope**; reclassify alongside `NO_DATABASE`. |
 | `-pythonevalscript` / `...perfile` | 1 | **Surelog** — embedded Python that mutates the model (measured: 3755 dump lines). | **Out of scope.** |
 
 `-synth`/`-formal` is **done** (§3.1) — it was 14 of the original 28 and the only
-pure-reuse case. Of the 13 that remain, three small reimplementations cover 9,
+pure-reuse case. `-bb_mod`/`-bb_inst` is **done** too (§3.1), the first
+reimplementation: 4 tests, all 4 `CMP_EQUAL`, 3 of them byte-identical
+(`dump=match`). Of the 9 that remain, two small reimplementations cover 5,
 one needs investigation (2), and two are out of scope (2).
 
 **UHDM classes available to reuse.** `ElaboratorListener` and `UhdmAdjuster`
@@ -202,7 +204,7 @@ exists.
 | Corpus | Mode | Total | Status breakdown | Comparable | Equal |
 |---|---|---|---|---|---|
 | Surelog suite | default | 794 | CMP_EQUAL=305 SLANG_REJECT=284 CMP_NOTEQUAL=175 SURELOG_FAIL=25 DEFERRED=5 | 480 | 305 (63.5%) |
-| Surelog suite | testflags | 794 | CMP_EQUAL=289 SLANG_REJECT=283 CMP_NOTEQUAL=176 SURELOG_FAIL=23 UNTRANSLATABLE=13 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 465 | 289 (62.2%) |
+| Surelog suite | testflags | 794 | CMP_EQUAL=293 SLANG_REJECT=283 CMP_NOTEQUAL=176 SURELOG_FAIL=23 UNTRANSLATABLE=9 DEFERRED=5 NO_DATABASE=3 TIMEOUT=1 NO_UHDM=1 | 469 | 293 (62.5%) |
 | uhdm2rtlil | default | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 | uhdm2rtlil | testflags | 731 | CMP_EQUAL=679 SLANG_REJECT=50 SURELOG_FAIL=2 | 679 | 679 (100.0%) |
 

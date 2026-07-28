@@ -381,6 +381,13 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         setLoc(m, mr0);
     }
 
+    // -bb_mod/-bb_inst: Surelog's CompileModule returns BEFORE any
+    // collectModuleObjects_ pass, so the blackboxed definition keeps exactly
+    // the header stamped above (name, def name, parent, file, span) and no
+    // content at all -- not even ports or parameters.
+    if (blackboxedDef(prefix))
+        return m;
+
     // (Def-view parameters were emitted in the exportDesign pre-pass.)
 
     // Typedefs first: their base typespecs precede everything else in the
@@ -2693,7 +2700,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // runs the first time the instance tree reaches the def.
     if (!defMap[&def].filled) {
         defMap[&def].filled = true;
-        emitModuleDefPorts(inst);
+        // A blackboxed def collects no ports either (Surelog CompileModule
+        // returns before the port pass); exportDesign already marked it
+        // filled, so this only guards a def reached by some other route.
+        if (!blackboxedDef("work@" + std::string(def.name)))
+            emitModuleDefPorts(inst);
     }
     elabInstanceTs = !isTop;
     std::string prefix = path;
@@ -2787,6 +2798,13 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             m->VpiFile(fullFilePath(stmtSyn->sourceRange().start()));
         }
     }
+
+    // -bb_mod/-bb_inst: the elaborated instance keeps its header (name, def
+    // name, parent, span) and nothing else. Surelog reaches the same shape by
+    // two independent early returns -- CompileModule collects no body for it,
+    // and DesignElaboration::elaborateInstance_ creates none of its children.
+    if (blackboxedInst(defPrefix, prefix))
+        return m;
 
     // Top view gets its own net objects, each carrying a typespec. The
     // typespec object is shared per declaration (Surelog's TypespecCache),
@@ -6217,6 +6235,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         auto* gv = s.MakeGen_scopeVec();
         gv->push_back(gs);
         gsa->Gen_scopes(gv);
+
+        // -bb_inst <gen scope path>: Surelog creates the ModuleInstance for a
+        // generate block and only then returns early from CompileModule, so
+        // the gen_scope_array/gen_scope pair survives with an EMPTY scope --
+        // the loop genvar parameter included (BlackBoxInst
+        // work@top.nyuzi.core_gen[0]).
+        if (blackboxedInst(std::string(), fullName))
+            return gsa;
 
         // An elab system task ($info/$warning/...) inside a TAKEN generate
         // block becomes a gen_scope Elab_task (vpiSysTaskCall) spanning the
@@ -14172,6 +14198,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             if (auto* bn = syn->as<syntax::ModuleDeclarationSyntax>().blockName)
                 iface->VpiEndLabel(bn->name.valueText());
     }
+
+    // -bb_mod/-bb_inst on an interface: same rule as a module def (Surelog's
+    // CompileModule handles both), header only.
+    if (blackboxedDef(prefix))
+        return iface;
 
     emitParameters(body, iface, prefix, info.nets, /*topView=*/false, &info, false);
 

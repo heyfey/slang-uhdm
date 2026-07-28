@@ -59,6 +59,22 @@ int main(int argc, char** argv) {
                        "Deprecated no-op: builtins are emitted by default; use --nobuiltin "
                        "to suppress them");
 
+    // Surelog's blackboxing flags, repeatable exactly as Surelog's are
+    // (`-bb_mod a -bb_mod b`). slang's registry requires a `--` prefix for a
+    // multi-character name, but its PARSER strips leading dashes before the
+    // lookup, so Surelog's own single-dash spelling (`-bb_mod work@top`) is
+    // accepted too.
+    std::vector<std::string> bbMods;
+    std::vector<std::string> bbInsts;
+    driver.cmdLine.add("--bb_mod", bbMods,
+                       "Blackbox the named module definition: its body is not compiled and it "
+                       "instantiates nothing (Surelog -bb_mod, ex: -bb_mod work@top)",
+                       "<module>");
+    driver.cmdLine.add("--bb_inst", bbInsts,
+                       "Blackbox the named elaborated instance path (Surelog -bb_inst, ex: "
+                       "-bb_inst work@top.u1)",
+                       "<instance>");
+
     std::optional<bool> synth;
     std::optional<bool> formal;
     driver.cmdLine.add("--synth", synth,
@@ -220,6 +236,9 @@ int main(int argc, char** argv) {
         exporter.enableBuiltins(builtinPath);
     if (!syntheticTops.empty())
         exporter.setSyntheticTops(syntheticTops);
+    if (!bbMods.empty() || !bbInsts.empty())
+        exporter.setBlackBoxes(std::set<std::string>(bbMods.begin(), bbMods.end()),
+                               std::set<std::string>(bbInsts.begin(), bbInsts.end()));
     UHDM::design* design = exporter.exportDesign();
 
     // Post-export UHDM passes, in the order Surelog's UhdmWriter runs them.

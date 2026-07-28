@@ -2042,6 +2042,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     for (auto& [name, inst] : defs) {
         if (useInterfacePath(*inst))
             continue; // simple-interface params handled in emitInterfaceDef
+        // -bb_mod/-bb_inst: Surelog returns from CompileModule BEFORE any
+        // collectModuleObjects_ pass, so a blackboxed definition never gets
+        // parameters either -- the AllModules entry is a bare shell.
+        if (blackboxedDef("work@" + name))
+            continue;
         DefInfo& info = defMap[&inst->getDefinition()];
         // A param TYPED BY one of the module's own typedefs forces that
         // typedef's compile first (Surelog compiles the typedef declaration
@@ -2061,6 +2066,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // processes, generate placeholders) compiles before any instance; only
     // the port/net-ts phase is encounter-ordered.
     for (auto& [name, inst] : defs) {
+        // A blackboxed def emits its HEADER only (the emitModuleDef /
+        // emitInterfaceDef early return); mark the port phase done so neither
+        // the instance walk nor the write-phase fallback fills it in later.
+        if (blackboxedDef("work@" + name))
+            defMap[&inst->getDefinition()].filled = true;
         if (useInterfacePath(*inst))
             emitInterfaceDef(*inst);
         else
