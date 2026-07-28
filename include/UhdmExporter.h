@@ -482,7 +482,10 @@ private:
     UHDM::struct_typespec* buildStructTs(const slang::ast::Scope& structScope, bool packed,
                                          const std::string& aliasName,
                                          const std::string& memberSep = ".");
-    void emitGates(const slang::ast::InstanceBodySymbol& body, UHDM::module_inst* m,
+    // Primitives (gates/switches/udps) declared in `body` into `m`, which is
+    // a module_inst (module body) or a gen_scope (generate block): Surelog
+    // fills vpiPrimitive/vpiPrimitiveArray on BOTH (GenerateUnnamed).
+    void emitGates(const slang::ast::Scope& body, UHDM::BaseClass* m,
                    const std::string& prefix, NetMap& netMap, bool topView);
     // `primitive ... endprimitive` -> design->AllUdps.  Surelog builds one
     // udp_defn per UDP declaration at module-compile time and hangs it off the

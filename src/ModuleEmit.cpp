@@ -1231,30 +1231,36 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //    self-consistent (net `b` anchored in the header while `a` is anchored
 //    at its declaration; ports emitted b-then-a; port b's LowConn actual
 //    bound to module_inst work@a). Do not model (b) from first principles.
-//  * GenerateUnnamed: the DEF views of both modules are now EQUAL
-//    (r9modres — the if-chain HEAD anchoring in the top-level scan below
-//    plus emitCaseItem's nested gen_case). What is left is the ELAB view,
-//    two rules, neither of them a container one:
-//      (a) an UNNAMED conditional-generate `begin` builds NO gen_scope of
-//          its own — its children hoist into the enclosing scope, and a
-//          case-generate contributes no scope level either. Measured on a
-//          named/unnamed pair differing ONLY by the label: named `outer`
-//          keeps outer.{u4,genblk2,n5}; unnamed hoists to {u4,genblk1,n5}
-//          at module level. Note genblk2-vs-genblk1: under a NAMED parent
-//          the case-generate consumes an implicit-name index, under the
-//          hoisting unnamed one it does not. Our side already matches every
-//          NAMED shape, so this is purely the unnamed/hoist arm.
-//      (b) PRIMITIVES declared inside a generate block are dropped outright:
-//          emitGates only runs over an InstanceBodySymbol into a
-//          module_inst, while gen_scope carries Primitives()/
-//          Primitive_arrays() that Surelog fills (test2's def view already
-//          matches; its elab pp2.u1 gen_scope is EMPTY where golden holds
-//          gate g3). Generalising emitGates to a Scope+BaseClass target is
-//          the prerequisite for (a) to be worth landing.
-//    Also decoded, NOT landed (zero corpus movers, so left alone): a BARE
-//    module-level case-generate takes NO gen_region wrapper — Surelog puts
-//    the gen_case straight under vpiGenStmt; the top-level arm below always
-//    wraps it in gen_region -> begin.
+//  * GenerateUnnamed is CONVERTED (r9genun, both modes), on top of
+//    r9modres's def-view work (if-chain HEAD anchoring in the top-level scan
+//    below + emitCaseItem's nested gen_case). The ELAB view took three
+//    rules, all of them GEN-SCOPE rules, none a container one; the full
+//    decode (Surelog DesignElaboration.cpp) and its 19 measured
+//    purpose-built goldens live at emitGenScopes:
+//      (b) PRIMITIVES inside a generate block: emitGates now takes a
+//          Scope& + a BaseClass* target and fills gen_scope's
+//          Primitives()/Primitive_arrays() the way it fills a module's.
+//          This was the blocker — without it (a) only moves empty scopes.
+//      (a) reduceUnnamedBlocks_: an UNNAMED gen block is SPLICED OUT of the
+//          instance tree, its gen children taking its place in the enclosing
+//          scope (test1 hoists u1/genblk1/n5 to module level). Guarded by
+//          overrideParentChild's netlist bail — any net/var/assign/process/
+//          param KEEPS the level — which is why the change is corpus-neutral.
+//      (c) the implicit genblk<N> counter is a LOCAL of elaborateInstance_,
+//          so it RESTARTS for every top-level generate item of a block that
+//          Surelog elaborates item-by-item (unnamed blocks, and named
+//          ELSE-IF arms): every unnamed child there is genblk1, duplicates
+//          included. A named plain-else arm and loop iterations keep the
+//          whole-block counter (= slang's LRM index, which we already had).
+//    Also decoded, NOT landed (zero corpus movers, so left alone):
+//      - a BARE module-level case-generate takes NO gen_region wrapper —
+//        Surelog puts the gen_case straight under vpiGenStmt; the top-level
+//        arm below always wraps it in gen_region -> begin.
+//      - `if (c) begin:a .. end else begin:b <if-generate first> .. end`
+//        (a NAMED plain-else arm whose FIRST item is an if-generate) drops
+//        both the `b` level and the unnamed child's level in Surelog,
+//        emitting only the grandchild at module scope. That is the
+//        "refresh instName" walk mis-descending, not a rule; do not model it.
 //  * CrossFunc is CONVERTED (r9modres, both modes). It was a COVERGROUP
 //    test, not a container one, and took five rules: the cover-cross
 //    function hoist into module Task_funcs (emitTaskFuncs over
@@ -6451,6 +6457,95 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             b = inner;
         }
     };
+    // ---- Surelog's implicit genblk<N> numbering, decoded (r9genun) ----------
+    // DesignElaboration::elaborateInstance_ keeps `genBlkIndex` as a LOCAL,
+    // starting at 1 and consumed once per conditional/loop generate construct
+    // it collects (taken or not, named or not) -- that is slang's LRM index,
+    // which we already follow.  What differs is the SCOPE of that counter: for
+    // some generate blocks Surelog does not elaborate the block as a whole but
+    // loops over its top-level generate ITEMS, calling elaborateInstance_ once
+    // per item, so the counter RESTARTS at 1 for every item and every unnamed
+    // child comes out `genblk1` (duplicates and all -- n18/m8 measured).  That
+    // happens exactly when the block is
+    //   * UNNAMED (blockId descends to Child(block), the first Generate_item), or
+    //   * NAMED and reached as an ELSE-IF arm (the `if-else-if` arm of the
+    //     "refresh instName" walk sets childId = Sibling(blockName)).
+    // A named PLAIN-else arm keeps the whole-block counter (n17), and a loop
+    // iteration always does (the loop path passes the block itself).
+    auto genResetScope9 = [](const GenerateBlockSymbol& blk) {
+        if (blk.getArrayIndex())
+            return false;
+        if (blk.isUnnamed)
+            return true;
+        auto* syn = blk.getSyntax();
+        return syn && syn->kind == syntax::SyntaxKind::GenerateBlock &&
+               syn->parent &&
+               syn->parent->kind == syntax::SyntaxKind::IfGenerate &&
+               syn->parent->parent &&
+               syn->parent->parent->kind == syntax::SyntaxKind::ElseClause;
+    };
+    auto genResetName9 = [&](const GenerateBlockSymbol& parent,
+                             std::string nm) {
+        if (nm.rfind("genblk", 0) != 0 || !genResetScope9(parent))
+            return nm;
+        size_t br = nm.find('[');
+        return "genblk1" +
+               (br == std::string::npos ? std::string() : nm.substr(br));
+    };
+    // DesignElaboration::reduceUnnamedBlocks_ + ModuleInstance::
+    // overrideParentChild: an UNNAMED generate block is SPLICED OUT of the
+    // instance tree -- its generate children take its place in the enclosing
+    // scope's vpiGenScopeArray (GenerateUnnamed test1 hoists u1/genblk1/n5 to
+    // module level).  Every guard below is measured:
+    //   * the override bails when the block's own netlist holds any
+    //     cont_assign / process / net / variable / array / param_assign /
+    //     interface, so a block with ANY non-generate content keeps its level
+    //     (n14 `wire w;`, n15 `assign a = b;`);
+    //   * a loop iteration (`genblk1[0]`) never hoists;
+    //   * an UNNAMED child only hoists when its name EQUALS the block's own
+    //     (n13: genblk2 holding a reset-numbered genblk1 stays nested).
+    // Anything else the block might hold (a module instance, a gate) would be
+    // DROPPED by Surelog's splice, so we keep the level instead of modelling
+    // the loss.
+    auto genHoists9 = [&](const GenerateBlockSymbol& blk,
+                          const std::string& name) {
+        if (!blk.isUnnamed || blk.getArrayIndex() ||
+            name.find('[') != std::string::npos)
+            return false;
+        bool any = false;
+        for (auto& gm : blk.members()) {
+            if (gm.kind == SymbolKind::TransparentMember ||
+                gm.kind == SymbolKind::EmptyMember ||
+                gm.kind == SymbolKind::Genvar)
+                continue;
+            std::string cn;
+            if (gm.kind == SymbolKind::GenerateBlockArray) {
+                auto& arr9 = gm.as<GenerateBlockArraySymbol>();
+                for (auto* e9 : arr9.entries)
+                    if (!e9->isUninstantiated)
+                        any = true;
+                cn = genResetName9(blk, std::string(arr9.getExternalName()));
+            }
+            else if (gm.kind == SymbolKind::GenerateBlock) {
+                auto& b9 = gm.as<GenerateBlockSymbol>();
+                if (b9.isUninstantiated)
+                    continue;
+                any = true;
+                cn = genResetName9(blk, std::string(b9.getExternalName()));
+            }
+            else
+                return false;
+            if (cn.rfind("genblk", 0) == 0 && cn != name)
+                return false;
+        }
+        return any;
+    };
+    // Emit one generate block into `out`, or -- when it is spliced out -- its
+    // children in its place (recursively).
+    std::function<void(const GenerateBlockSymbol&, const std::string&,
+                       const std::string&, UHDM::BaseClass*,
+                       UHDM::VectorOfgen_scope_array*)>
+        pushGenBlk9;
     std::function<UHDM::gen_scope_array*(const GenerateBlockSymbol&,
                                          const std::string&, const std::string&,
                                          UHDM::BaseClass*)>
@@ -8302,6 +8397,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         if (!procs->empty())
             gs->Process(procs);
 
+        // PRIMITIVES declared inside the block: Surelog fills the gen_scope's
+        // vpiPrimitive/vpiPrimitiveArray exactly as it fills a module's
+        // (GenerateUnnamed test2 pp2.u1 holds gate g3).
+        emitGates(blk, gs, fullName, netMap, /*topView=*/true);
+
         // NESTED generates (for/if inside this block): their gen_scope_arrays
         // attach to THIS gen_scope (not the module).
         auto* nestedGsas = s.MakeGen_scope_arrayVec();
@@ -8314,24 +8414,60 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     std::string idx2;
                     if (entry2->arrayIndex)
                         idx2 = entry2->arrayIndex->toString(LiteralBase::Decimal, false);
-                    std::string nm2 =
-                        std::string(arr2.getExternalName()) + "[" + idx2 + "]";
-                    if (auto* ng = emitBlock(*entry2, nm2, fullName, gs))
-                        nestedGsas->push_back(ng);
+                    std::string nm2 = genResetName9(
+                        blk, std::string(arr2.getExternalName()) + "[" + idx2 + "]");
+                    pushGenBlk9(*entry2, nm2, fullName, gs, nestedGsas);
                 }
             }
             else if (gm.kind == SymbolKind::GenerateBlock) {
                 auto& blk2 = gm.as<GenerateBlockSymbol>();
                 if (!blk2.isUninstantiated)
-                    if (auto* ng = emitBlock(
-                            blk2, std::string(blk2.getExternalName()), fullName, gs))
-                        nestedGsas->push_back(ng);
+                    pushGenBlk9(
+                        blk2,
+                        genResetName9(blk, std::string(blk2.getExternalName())),
+                        fullName, gs, nestedGsas);
             }
         }
         if (!nestedGsas->empty())
             gs->Gen_scope_arrays(nestedGsas);
 
         return gsa;
+    };
+    pushGenBlk9 = [&](const GenerateBlockSymbol& blk, const std::string& name,
+                      const std::string& parentFull, UHDM::BaseClass* parentObj,
+                      UHDM::VectorOfgen_scope_array* out) {
+        if (genHoists9(blk, name)) {
+            for (auto& gm : blk.members()) {
+                if (gm.kind == SymbolKind::GenerateBlockArray) {
+                    auto& arr9 = gm.as<GenerateBlockArraySymbol>();
+                    for (auto* e9 : arr9.entries) {
+                        if (e9->isUninstantiated)
+                            continue;
+                        std::string idx9;
+                        if (e9->arrayIndex)
+                            idx9 = e9->arrayIndex->toString(LiteralBase::Decimal,
+                                                            false);
+                        pushGenBlk9(*e9,
+                                    genResetName9(blk,
+                                                  std::string(arr9.getExternalName()) +
+                                                      "[" + idx9 + "]"),
+                                    parentFull, parentObj, out);
+                    }
+                }
+                else if (gm.kind == SymbolKind::GenerateBlock) {
+                    auto& b9 = gm.as<GenerateBlockSymbol>();
+                    if (b9.isUninstantiated)
+                        continue;
+                    pushGenBlk9(b9,
+                                genResetName9(blk,
+                                              std::string(b9.getExternalName())),
+                                parentFull, parentObj, out);
+                }
+            }
+            return;
+        }
+        if (auto* g9 = emitBlock(blk, name, parentFull, parentObj))
+            out->push_back(g9);
     };
     // Surelog's genblk<N> numbering at MODULE scope also counts UNNAMED
     // statement blocks (`initial begin..end`, `always @* begin..end`) as
@@ -8453,8 +8589,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     }
                     gsas->push_back(ogsa);
                 }
-                else if (auto* g = emitBlock(blk, gname, prefix, m))
-                    gsas->push_back(g);
+                else
+                    pushGenBlk9(blk, gname, prefix, m, gsas);
             }
         }
     }
@@ -10348,7 +10484,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
 // enum, and a prim_term per connection (output first, TermIndex from 1; buf/
 // not have the INPUT last instead). Term exprs are ref_objs scoped through
 // the GATE instance (prefix.<gate>.<actual>), actual -> the module net.
-void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* m,
+void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                              const std::string& prefix, NetMap& netMap,
                              bool topView) {
     static const std::map<std::string, int32_t> primMap = {
@@ -10750,10 +10886,20 @@ void UhdmExporter::emitGates(const InstanceBodySymbol& body, UHDM::module_inst* 
             primArrs->push_back(ga);
         }
     }
-    if (prims && !prims->empty())
-        m->Primitives(prims);
-    if (primArrs && !primArrs->empty())
-        m->Primitive_arrays(primArrs);
+    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        auto* mi9 = (UHDM::module_inst*)m;
+        if (prims && !prims->empty())
+            mi9->Primitives(prims);
+        if (primArrs && !primArrs->empty())
+            mi9->Primitive_arrays(primArrs);
+    }
+    else if (m->UhdmType() == UHDM::uhdmgen_scope) {
+        auto* gs9 = (UHDM::gen_scope*)m;
+        if (prims && !prims->empty())
+            gs9->Primitives(prims);
+        if (primArrs && !primArrs->empty())
+            gs9->Primitive_arrays(primArrs);
+    }
 }
 
 // ---------------------------------------------------------------------------

@@ -569,8 +569,8 @@ GenerateModule,default,SLANG_REJECT,top.v:9:9: error: unknown module 'M1',,
 GenerateModule,testflags,SLANG_REJECT,top.v:9:9: error: unknown module 'M1',,
 GenerateRegion,default,SLANG_REJECT,dut.sv:12:23: error: use of undeclared identifier 'clk',,
 GenerateRegion,testflags,SLANG_REJECT,dut.sv:12:23: error: use of undeclared identifier 'clk',,
-GenerateUnnamed,default,CMP_NOTEQUAL,decompile:,,
-GenerateUnnamed,testflags,CMP_NOTEQUAL,decompile:,,
+GenerateUnnamed,default,CMP_EQUAL,,,differ
+GenerateUnnamed,testflags,CMP_EQUAL,,,differ
 GenFor,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenFor,testflags,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForDec,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
