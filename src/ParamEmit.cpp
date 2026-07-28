@@ -3920,6 +3920,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // while the parameter object keeps its [1:0] one).
                             signedBinFoldParams.insert(&ps);
                         }
+                        // A NON-NEGATIVE signed-binary literal (MSB 0) needs
+                        // no re-encoding -- the sign extension is a no-op, so
+                        // the BIN value and the literal width both stand --
+                        // but it went through the SAME signed evaluation, and
+                        // Surelog's rebuilt constant loses the `s` from its
+                        // decompile and binds the bare int_typespec all the
+                        // same (probe: `parameter [3:0] G3 = 4'sb0101` ->
+                        // BIN:0101 "4'b0101" int_typespec; GenCase/GenCaseStmt
+                        // `parameter bit signed x_1sb0 = 1'sb0`).
+                        else if (sgnBin6 && lw6 > 0 && lw6 <= 64 &&
+                                 !lv6.hasUnknown()) {
+                            auto* c6 = (UHDM::constant*)rhs;
+                            std::string dc6(c6->VpiDecompile());
+                            auto tk7 = dc6.find('\'');
+                            if (tk7 != std::string::npos && tk7 + 1 < dc6.size() &&
+                                (dc6[tk7 + 1] == 's' || dc6[tk7 + 1] == 'S')) {
+                                dc6.erase(tk7 + 1, 1);
+                                c6->VpiDecompile(dc6);
+                            }
+                            signedBinFoldParams.insert(&ps);
+                        }
                     }
                 }
                 // Symbolic sys_func_call ($clog2(Info.x)) of a member-init

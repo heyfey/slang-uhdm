@@ -295,7 +295,23 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
                 break;
             }
         }
-        if (explicitDecl) {
+        // An ANSI net-PORT header whose net keyword is followed by an explicit
+        // integer-vector data type ("input wire logic [2:0] sw") is a *typed*
+        // port declaration: Surelog's port Signal keeps the DATA type in
+        // m_type and demotes the net keyword to m_subNetType, and UhdmWriter
+        // derives vpiNetType from m_type alone -- so `logic` wins and the net
+        // prints vpiLogicNet(36), not vpiWire(1).  Fall through to the
+        // declared-type arm below, which already maps LogicType -> vpiNet.
+        // A BODY net declaration ("wire logic w;", "wand logic x;") is built
+        // by a different Signal path and keeps its NET keyword (u2r net_types
+        // measures wire/wand/wor logic at 1/2/3).  WireLogicSize.
+        bool typedNetDecl = false;
+        if (ansiNetHeader(internal) != nullptr)
+            if (auto* dt1 = internal.getDeclaredType())
+                if (auto* ts1 = dt1->getTypeSyntax())
+                    typedNetDecl = ts1->kind == syntax::SyntaxKind::LogicType ||
+                                   ts1->kind == syntax::SyntaxKind::RegType;
+        if (explicitDecl && !typedNetDecl) {
             switch (nt.netKind) {
                 case NetType::Wire:
                     return vpiWire;

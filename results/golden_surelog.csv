@@ -65,8 +65,8 @@ AssumeProp,default,SLANG_REJECT,dut.sv:4:43: error: use of undeclared identifier
 AssumeProp,testflags,SLANG_REJECT,dut.sv:4:43: error: use of undeclared identifier 'clk_i',,
 Attributes,default,SLANG_REJECT,dut.sv:22:18: error: use of undeclared identifier 'pieces0',,
 Attributes,testflags,SLANG_REJECT,dut.sv:22:18: error: use of undeclared identifier 'pieces0',,
-Attributes2,default,CMP_NOTEQUAL,decompile:,,
-Attributes2,testflags,CMP_NOTEQUAL,decompile:,,
+Attributes2,default,CMP_EQUAL,,,match
+Attributes2,testflags,CMP_EQUAL,,,match
 AttributesNets,default,SLANG_REJECT,dut.sv:5:34: error: use of undeclared identifier 'LGFLEN',,
 AttributesNets,testflags,SLANG_REJECT,dut.sv:5:34: error: use of undeclared identifier 'LGFLEN',,
 AVLMM,default,SLANG_REJECT,tb.sv:11:4: error: unknown module 'avlm_avls_2x2',,
@@ -341,8 +341,8 @@ DefaultPatternModule,default,CMP_EQUAL,,,differ
 DefaultPatternModule,testflags,CMP_NOTEQUAL,decompile:,,
 DefaultTag,default,CMP_EQUAL,,,match
 DefaultTag,testflags,CMP_EQUAL,,,match
-DeferAssert,default,CMP_NOTEQUAL,decompile:,,
-DeferAssert,testflags,CMP_NOTEQUAL,decompile:,,
+DeferAssert,default,CMP_EQUAL,,,match
+DeferAssert,testflags,CMP_EQUAL,,,match
 DefParamFromParam,default,CMP_EQUAL,,,match
 DefParamFromParam,testflags,CMP_EQUAL,,,match
 DefParamIndex,default,CMP_EQUAL,,,differ
@@ -553,10 +553,10 @@ GenBlock,default,CMP_EQUAL,,,match
 GenBlock,testflags,CMP_EQUAL,,,match
 GenBlockVar,default,CMP_EQUAL,,,differ
 GenBlockVar,testflags,CMP_EQUAL,,,differ
-GenCase,default,CMP_NOTEQUAL,decompile:,,
-GenCase,testflags,CMP_NOTEQUAL,decompile:,,
-GenCaseStmt,default,CMP_NOTEQUAL,decompile:,,
-GenCaseStmt,testflags,CMP_NOTEQUAL,decompile:,,
+GenCase,default,CMP_EQUAL,,,differ
+GenCase,testflags,CMP_EQUAL,,,differ
+GenCaseStmt,default,CMP_EQUAL,,,differ
+GenCaseStmt,testflags,CMP_EQUAL,,,differ
 GenerateAssigns,default,SLANG_REJECT,top.v:25:21: error: expected ';',,
 GenerateAssigns,testflags,SLANG_REJECT,top.v:25:21: error: expected ';',,
 GenerateBlock,default,SLANG_REJECT,dut.sv:6:25: error: member not allowed in generate block,,
@@ -1265,8 +1265,8 @@ Sky130Udp,default,SLANG_REJECT,error: no input files,,
 Sky130Udp,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
 SplitFile,default,SLANG_REJECT,top.v:18:8: error: design element does not have a time scale defined but others in the design do,,
 SplitFile,testflags,SLANG_REJECT,top.v:18:8: error: design element does not have a time scale defined but others in the design do,,
-StandardBlock,default,CMP_NOTEQUAL,decompile:,,
-StandardBlock,testflags,CMP_NOTEQUAL,decompile:,,
+StandardBlock,default,CMP_EQUAL,,,match
+StandardBlock,testflags,CMP_EQUAL,,,differ
 StandardNetVar,default,CMP_EQUAL,,,match
 StandardNetVar,testflags,CMP_EQUAL,,,match
 StaticTask,default,CMP_EQUAL,,,match
@@ -1309,8 +1309,8 @@ SynthForeach,default,CMP_EQUAL,,,differ
 SynthForeach,testflags,CMP_EQUAL,,,differ
 SystemCall,default,SLANG_REJECT,dut.sv:3:23: error: use of undeclared identifier 'clock',,
 SystemCall,testflags,SLANG_REJECT,dut.sv:3:23: error: use of undeclared identifier 'clock',,
-SystemCallSize,default,CMP_NOTEQUAL,decompile:,,
-SystemCallSize,testflags,CMP_NOTEQUAL,decompile:,,
+SystemCallSize,default,CMP_EQUAL,,,match
+SystemCallSize,testflags,CMP_EQUAL,,,differ
 TaggedParam,default,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
 TaggedParam,testflags,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
 TaggedPattern,default,CMP_NOTEQUAL,decompile:,,
@@ -1373,8 +1373,8 @@ TypedefPack,default,CMP_EQUAL,,,differ
 TypedefPack,testflags,CMP_EQUAL,,,differ
 TypedefRange,default,CMP_EQUAL,,,differ
 TypedefRange,testflags,CMP_EQUAL,,,differ
-TypedefRangedFunctionReturn,default,CMP_NOTEQUAL,decompile:,,
-TypedefRangedFunctionReturn,testflags,CMP_NOTEQUAL,decompile:,,
+TypedefRangedFunctionReturn,default,CMP_EQUAL,,,match
+TypedefRangedFunctionReturn,testflags,CMP_EQUAL,,,differ
 TypeDefScope,default,SLANG_REJECT,dut.sv:1:13: error: port 'a' has no I/O member declaration,,
 TypeDefScope,testflags,SLANG_REJECT,dut.sv:1:13: error: port 'a' has no I/O member declaration,,
 TypedefUnpacked,default,CMP_EQUAL,,,differ
@@ -1513,8 +1513,8 @@ Wand,default,CMP_EQUAL,,,match
 Wand,testflags,CMP_EQUAL,,,match
 WildConn,default,CMP_EQUAL,,,differ
 WildConn,testflags,CMP_EQUAL,,,differ
-WireLogicSize,default,CMP_NOTEQUAL,decompile:,,
-WireLogicSize,testflags,CMP_NOTEQUAL,decompile:,,
+WireLogicSize,default,CMP_EQUAL,,,match
+WireLogicSize,testflags,CMP_EQUAL,,,match
 WireType,default,CMP_EQUAL,,,differ
 WireType,testflags,CMP_EQUAL,,,differ
 WireUnpacked,default,CMP_EQUAL,,,differ

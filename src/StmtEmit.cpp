@@ -1219,6 +1219,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     auto* a = s.MakeImmediate_assert();
                     a->VpiParent(parent);
                     setLoc(a, stmt.sourceRange);
+                    // `assert #0 (...)` / `assert final (...)`: Surelog stamps
+                    // the deferred/final qualifier on the immediate_assert.
+                    if (ia.isDeferred)
+                        a->VpiIsDeferred(1);
+                    if (ia.isFinal)
+                        a->VpiIsFinal(1);
                     if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
                         a->Expr((UHDM::expr*)c);
                     if (ia.ifTrue) {
@@ -1236,6 +1242,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     auto* a = s.MakeImmediate_assume();
                     a->VpiParent(parent);
                     setLoc(a, stmt.sourceRange);
+                    if (ia.isDeferred)
+                        a->VpiIsDeferred(1);
+                    if (ia.isFinal)
+                        a->VpiIsFinal(1);
                     if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
                         a->Expr((UHDM::expr*)c);
                     if (ia.ifTrue) {
@@ -1253,6 +1263,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     auto* a = s.MakeImmediate_cover();
                     a->VpiParent(parent);
                     setLoc(a, stmt.sourceRange);
+                    if (ia.isDeferred)
+                        a->VpiIsDeferred(1);
+                    if (ia.isFinal)
+                        a->VpiIsFinal(1);
                     if (auto* c = emitExpr(ia.cond, a, prefix, netMap))
                         a->Expr((UHDM::expr*)c);
                     if (ia.ifTrue) {

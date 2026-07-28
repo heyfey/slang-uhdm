@@ -51,6 +51,7 @@ class SourceLocation;
 namespace slang::syntax {
 class SyntaxNode;
 struct DataTypeSyntax;
+struct ExpressionSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -779,6 +780,13 @@ private:
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
                                              UHDM::BaseClass* parent,
                                              const std::string& defDimRefPrefix = {});
+    // Surelog's value for a declaration-dimension bound that calls
+    // $high/$low/$left/$right on an UNPACKED array: those four never resolve
+    // there and come back as $bits(arg), so `$high(a)-$low(a)+1` is 1, not the
+    // LRM's 2 (measured on three array shapes; SystemCallSize).  Returns false
+    // when no such call is present -- the caller then keeps slang's bound.
+    bool srlgBoundCallDim(const slang::syntax::ExpressionSyntax* es,
+                          int64_t& out);
     // array_typespec for an unpacked-array param: unpacked-dim Ranges +
     // The package instance a symbol declared in a package links its minted
     // typespecs to (the ELABORATED package once it exists), or null.

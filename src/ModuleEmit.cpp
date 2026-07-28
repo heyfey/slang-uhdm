@@ -5931,6 +5931,26 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 rt->Actual_typespec(pts);
             }
             p->Typespec(rt);
+            // A port CONNECTION attribute ((* this_is_clock *) .clk(clk)) is
+            // stamped on the receiving instance's ELAB port -- Surelog's
+            // compileInstantiation reads the attribute_instance list off the
+            // named_port_connection and hands it to the child's port.  It
+            // never reaches the def view (the def has no connection).
+            // Attributes2.
+            if (conn) {
+                if (auto cattrs = comp.getAttributes(*conn); !cattrs.empty()) {
+                    auto* av9 = s.MakeAttributeVec();
+                    for (auto* a9 : cattrs) {
+                        auto* ua9 = s.MakeAttribute();
+                        ua9->VpiName(a9->name);
+                        ua9->VpiParent(p);
+                        if (auto asyn9 = a9->getSyntax())
+                            setLoc(ua9, asyn9->sourceRange());
+                        av9->push_back(ua9);
+                    }
+                    p->Attributes(av9);
+                }
+            }
             ports->push_back(p);
         }
         if (!ports->empty())
@@ -10656,6 +10676,33 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             }
         }
 
+        // A PORT-DECLARATION attribute ((* this_is_clock *) input wire clk;)
+        // rides the DEF-view port too, sharing the object already built for
+        // the net -- it lands on the port Signal, so Surelog's writePorts
+        // re-lists it.  An attribute written on a plain NET declaration of the
+        // same signal ((* gentb_clock *) wire clk, preset, ...; alongside
+        // `input clk, preset, ...;`) never reaches the port.  The ELAB port
+        // carries neither (Attributes2 vs u2r dff_different_styles).
+        bool portDeclAttr = false;
+        for (auto* a9 : comp.getAttributes(*internal)) {
+            for (auto q9 = a9->getSyntax(); q9; q9 = q9->parent)
+                if (q9->kind == syntax::SyntaxKind::PortDeclaration ||
+                    q9->kind == syntax::SyntaxKind::ImplicitAnsiPort ||
+                    q9->kind == syntax::SyntaxKind::ExplicitAnsiPort) {
+                    portDeclAttr = true;
+                    break;
+                }
+            if (portDeclAttr)
+                break;
+        }
+        if (portDeclAttr)
+            if (auto* pattrs = findAttrs(internal); pattrs && !pattrs->empty()) {
+                auto* av9 = s.MakeAttributeVec();
+                for (auto* ua9 : *pattrs)
+                    av9->push_back(ua9);
+                p->Attributes(av9);
+            }
+
         ports->push_back(p);
     }
     // The symbol an EXPLICIT port names is a port in its own right: its
@@ -12858,9 +12905,39 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 c->VpiConstType(vpiBinaryConst);
             }
             // A CONCAT-LHS call fold encodes BINARY at the full width, no
-            // decompile (Surelog).
+            // decompile (Surelog) -- and so does a call whose BODY hands back
+            // a bare concat: EvalFunc substitutes the return expression and
+            // reduces THAT, so the concat's own bit-pattern encoding survives
+            // the call (TypedefRangedFunctionReturn `assign o = get_two()`
+            // with `return {32'hDEAD_BEEF, 32'hABCD_1234}`).
             else if (stripImplicitConv(ae.left()).kind ==
-                     ExpressionKind::Concatenation) {
+                         ExpressionKind::Concatenation ||
+                     [&] {
+                         if (rcCall.kind != ExpressionKind::Call || hasArgs ||
+                             rcCall.as<CallExpression>().isSystemCall())
+                             return false;
+                         auto sp8 = std::get_if<const SubroutineSymbol*>(
+                             &rcCall.as<CallExpression>().subroutine);
+                         if (!sp8 || !*sp8)
+                             return false;
+                         const Expression* ret8 = nullptr;
+                         std::function<void(const Statement&)> scan8 =
+                             [&](const Statement& st) {
+                                 if (ret8)
+                                     return;
+                                 if (st.kind == StatementKind::Return)
+                                     ret8 = st.as<ReturnStatement>().expr;
+                                 else if (st.kind == StatementKind::List) {
+                                     for (auto s2 : st.as<StatementList>().list)
+                                         scan8(*s2);
+                                 }
+                                 else if (st.kind == StatementKind::Block)
+                                     scan8(st.as<BlockStatement>().body);
+                             };
+                         scan8((*sp8)->getBody());
+                         return ret8 && stripImplicitConv(*ret8).kind ==
+                                            ExpressionKind::Concatenation;
+                     }()) {
                 int32_t w = (int32_t)iv.getBitWidth();
                 std::string bits;
                 for (int32_t i = w - 1; i >= 0; i--)
@@ -17830,15 +17907,34 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             if (caseSyn) {
                 if (!doneCases.insert(caseSyn).second)
                     continue;
-                auto* gr = s.MakeGen_region();
-                gr->VpiParent(m);
-                auto* ob = s.MakeBegin();
-                ob->VpiFullName(prefix);
-                ob->VpiParent(gr);
+                // A BARE module-level case-generate takes NO wrapper: Surelog
+                // puts the gen_case straight under vpiGenStmt, loc-less.  Only
+                // one written inside an explicit `generate...endgenerate`
+                // region gets the gen_region -> begin(module fullname) shell,
+                // the same split the if-generate arm above takes.
+                // GenCase/GenCaseStmt.
+                bool caseInRegion = false;
+                if (m->UhdmType() != UHDM::uhdminterface_inst)
+                    for (auto q = (const syntax::SyntaxNode*)caseSyn; q;
+                         q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::GenerateRegion) {
+                            caseInRegion = true;
+                            break;
+                        }
+                UHDM::gen_region* gr = nullptr;
+                UHDM::begin* ob = nullptr;
+                if (caseInRegion) {
+                    gr = s.MakeGen_region();
+                    gr->VpiParent(m);
+                    ob = s.MakeBegin();
+                    ob->VpiFullName(prefix);
+                    ob->VpiParent(gr);
+                }
                 auto* gc = s.MakeGen_case();
-                gc->VpiParent(ob);
-                setLoc(gc, SourceRange(caseSyn->keyword.range().start(),
-                                       caseSyn->endCase.range().end()));
+                gc->VpiParent(ob ? (UHDM::BaseClass*)ob : (UHDM::BaseClass*)m);
+                if (caseInRegion)
+                    setLoc(gc, SourceRange(caseSyn->keyword.range().start(),
+                                           caseSyn->endCase.range().end()));
                 syntaxRefPrefix = prefix;
                 if (auto* c = emitSyntaxExpr(*caseSyn->condition, gc))
                     gc->VpiCondition((UHDM::expr*)c);
@@ -17863,11 +17959,15 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     citems->push_back(emitCaseItem(*ci, prefix, fis));
                 if (!citems->empty())
                     gc->Case_items(citems);
-                auto* obs = s.MakeAnyVec();
-                obs->push_back(gc);
-                ob->Stmts(obs);
-                gr->VpiStmt(ob);
-                regions->push_back(gr);
+                if (gr) {
+                    auto* obs = s.MakeAnyVec();
+                    obs->push_back(gc);
+                    ob->Stmts(obs);
+                    gr->VpiStmt(ob);
+                    regions->push_back(gr);
+                }
+                else
+                    regions->push_back(gc);
                 if (memRegion)
                     doneFallbackRegions.insert(memRegion);
                 continue;
@@ -17882,11 +17982,11 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         loopSyn = &q->as<syntax::LoopGenerateSyntax>();
                         break;
                     }
-            // Only an INLINE-genvar loop (for (genvar c = ...)) becomes a
-            // gen_for; a separate `genvar i;` + loop keeps the gen_region
-            // placeholder (Surelog).
-            if (loopSyn && !loopSyn->genvar)
-                loopSyn = nullptr;
+            // A separate `genvar i;` + `for (i = ...)` is a gen_for just like
+            // an inline-genvar loop -- what decides the shape is the explicit
+            // generate REGION below, not where the genvar was declared
+            // (StandardBlock: a bare module-level loop over a file-scope
+            // genvar expands its gen_for in full).
             // A MODULE def view compiles an explicit `generate ... endgenerate`
             // region through CompileStmt, which has NO loop-generate case
             // (CompileStmt.cpp): the region's begin comes back EMPTY, so the
@@ -18046,7 +18146,36 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 // ++i, and its ref operand is LOCATED at the operand token and
                 // parented at the OPERATION (measured on a genvar probe with
                 // i++ / ++j side by side).
-                {
+                // An ASSIGNMENT iteration (`i = i + 1`) is not an operation at
+                // all: Surelog builds an `assignment` (vpiAssignmentOp) whose
+                // Lhs is the genvar ref at the LHS token and whose Rhs is the
+                // step expression, both located, both parented at the
+                // assignment.  StandardBlock.
+                if (loopSyn->iterationExpr->kind ==
+                    syntax::SyntaxKind::AssignmentExpression) {
+                    auto& ae9 = loopSyn->iterationExpr
+                                    ->as<syntax::BinaryExpressionSyntax>();
+                    auto* as9 = s.MakeAssignment();
+                    as9->VpiParent(gf);
+                    as9->VpiOpType(vpiAssignmentOp);
+                    setLoc(as9, loopSyn->iterationExpr->sourceRange());
+                    auto* lr9 = s.MakeRef_obj();
+                    lr9->VpiName(gname);
+                    lr9->VpiFullName(gfull);
+                    lr9->Actual_group(iv);
+                    lr9->VpiParent(as9);
+                    setLoc(lr9, ae9.left->sourceRange());
+                    as9->Lhs((UHDM::expr*)lr9);
+                    syntaxRefPrefix = prefix;
+                    if (auto* rx9 = emitSyntaxExpr(*ae9.right, as9)) {
+                        bindGenvar(rx9);
+                        foldPkgLoopRefs(rx9);
+                        as9->Rhs((UHDM::expr*)rx9);
+                    }
+                    syntaxRefPrefix.clear();
+                    gf->VpiForIncStmt(as9);
+                }
+                else {
                     auto* op = s.MakeOperation();
                     auto ir = loopSyn->iterationExpr->sourceRange();
                     auto ik9 = loopSyn->iterationExpr->kind;

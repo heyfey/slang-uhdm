@@ -6106,6 +6106,96 @@ UHDM::instance* UhdmExporter::homePkgInstOf(const Symbol& sym) {
     return nullptr;
 }
 
+// Surelog's compileBound never matches the `$`-prefixed name it is handed from
+// the system-task-name path, so $high/$low/$left/$right of an unpacked array
+// fall through to a sys_func_call that the declaration-dimension reduce then
+// evaluates as the operand's BIT COUNT.  Measured, three shapes, one source
+// per row (`logic e[$high(a):0]` etc.):
+//     logic [15:0] a[1:0] -> $high=$low=$left=$right = 32 = $bits(a)
+//     logic  [7:0] a[3:0] -> 32                      = $bits(a)
+//     logic  [2:0] a[1:0] ->  6                      = $bits(a)
+// so `$high(a)-$low(a)+1` reduces to 1 and `logic d[$high(a)-$low(a)+1:0]` is
+// a 2-element array, not the LRM's 3.  $size and $bits are unaffected (they go
+// through compileBits, which does resolve).  SystemCallSize.
+bool UhdmExporter::srlgBoundCallDim(const syntax::ExpressionSyntax* es,
+                                    int64_t& out) {
+    if (!es || !currentScope)
+        return false;
+    ASTContext bctx(*currentScope, LookupLocation::max);
+    auto& be = Expression::bind(*const_cast<syntax::ExpressionSyntax*>(es), bctx);
+    if (be.bad())
+        return false;
+    bool sawBoundCall = false;
+    std::function<bool(const Expression&, int64_t&)> ev =
+        [&](const Expression& e0, int64_t& v) -> bool {
+        auto& e = stripImplicitConv(e0);
+        if (e.kind == ExpressionKind::Call) {
+            auto& ce = e.as<CallExpression>();
+            if (ce.isSystemCall()) {
+                auto nm = ce.getSubroutineName();
+                if ((nm == "$high" || nm == "$low" || nm == "$left" ||
+                     nm == "$right") &&
+                    ce.arguments().size() == 1) {
+                    const Type& at = *ce.arguments()[0]->type;
+                    if (at.getCanonicalType().kind ==
+                        SymbolKind::FixedSizeUnpackedArrayType) {
+                        sawBoundCall = true;
+                        v = (int64_t)at.getBitstreamWidth();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        if (e.kind == ExpressionKind::BinaryOp) {
+            auto& bo = e.as<BinaryExpression>();
+            int64_t l = 0, r = 0;
+            if (!ev(bo.left(), l) || !ev(bo.right(), r))
+                return false;
+            switch (bo.op) {
+                case BinaryOperator::Add: v = l + r; return true;
+                case BinaryOperator::Subtract: v = l - r; return true;
+                case BinaryOperator::Multiply: v = l * r; return true;
+                case BinaryOperator::Divide:
+                    if (!r)
+                        return false;
+                    v = l / r;
+                    return true;
+                default: return false;
+            }
+        }
+        if (e.kind == ExpressionKind::UnaryOp) {
+            auto& uo = e.as<UnaryExpression>();
+            int64_t o = 0;
+            if (!ev(uo.operand(), o))
+                return false;
+            if (uo.op == UnaryOperator::Minus) {
+                v = -o;
+                return true;
+            }
+            if (uo.op == UnaryOperator::Plus) {
+                v = o;
+                return true;
+            }
+            return false;
+        }
+        ASTContext lctx(comp.getRoot(), LookupLocation::max);
+        auto cv = lctx.tryEval(e);
+        if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+            return false;
+        auto iv = cv.integer().as<int64_t>();
+        if (!iv)
+            return false;
+        v = *iv;
+        return true;
+    };
+    int64_t val = 0;
+    if (!ev(be, val) || !sawBoundCall)
+        return false;
+    out = val;
+    return true;
+}
+
 UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     const Symbol& sym, UHDM::BaseClass* parent,
     const std::string& defDimRefPrefix) {
@@ -6506,8 +6596,13 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     setLoc(c, es->sourceRange());
                 return c;
             };
-            r->Left_expr(mkBound(ua.range.left, leftSyn));
-            r->Right_expr(mkBound(ua.range.right, rightSyn));
+            int64_t sl9 = ua.range.left, sr9 = ua.range.right;
+            if (srlgBoundCallDim(leftSyn, sl9) ||
+                srlgBoundCallDim(rightSyn, sr9)) {
+                // Surelog's own bound values win over slang's LRM range.
+            }
+            r->Left_expr(mkBound((int32_t)sl9, leftSyn));
+            r->Right_expr(mkBound((int32_t)sr9, rightSyn));
             ranges->push_back(r);
             dt = &ua.elementType;
         }
@@ -6569,8 +6664,26 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
                     paramSized = bss0->expr->kind !=
                                  syntax::SyntaxKind::IntegerLiteralExpression;
             }
-            if (!paramSized)
-                total *= (int32_t)ua.range.width();
+            if (!paramSized) {
+                // A $high/$low/$left/$right bound reduces to Surelog's own
+                // value, so the element count follows it (SystemCallSize).
+                int32_t w0 = (int32_t)ua.range.width();
+                if (di0 < dimSyns.size() && dimSyns[di0]->specifier &&
+                    dimSyns[di0]->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& sel1 = *dimSyns[di0]
+                                      ->specifier
+                                      ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                      .selector;
+                    if (auto* rss1 = sel1.as_if<syntax::RangeSelectSyntax>()) {
+                        int64_t l1 = ua.range.left, r1 = ua.range.right;
+                        if (srlgBoundCallDim(rss1->left, l1) ||
+                            srlgBoundCallDim(rss1->right, r1))
+                            w0 = (int32_t)((l1 > r1 ? l1 - r1 : r1 - l1) + 1);
+                    }
+                }
+                total *= w0;
+            }
             t = &ua.elementType;
             di0++;
         }
@@ -6874,8 +6987,26 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
                     paramSized = bss0->expr->kind !=
                                  syntax::SyntaxKind::IntegerLiteralExpression;
             }
-            if (!paramSized)
-                total *= (int32_t)ua.range.width();
+            if (!paramSized) {
+                // A $high/$low/$left/$right bound reduces to Surelog's own
+                // value, so the element count follows it (SystemCallSize).
+                int32_t w0 = (int32_t)ua.range.width();
+                if (di0 < dimSyns.size() && dimSyns[di0]->specifier &&
+                    dimSyns[di0]->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& sel1 = *dimSyns[di0]
+                                      ->specifier
+                                      ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                      .selector;
+                    if (auto* rss1 = sel1.as_if<syntax::RangeSelectSyntax>()) {
+                        int64_t l1 = ua.range.left, r1 = ua.range.right;
+                        if (srlgBoundCallDim(rss1->left, l1) ||
+                            srlgBoundCallDim(rss1->right, r1))
+                            w0 = (int32_t)((l1 > r1 ? l1 - r1 : r1 - l1) + 1);
+                    }
+                }
+                total *= w0;
+            }
             t = &ua.elementType;
             di0++;
         }
