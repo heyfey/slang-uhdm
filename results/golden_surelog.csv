@@ -579,8 +579,8 @@ GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ
 GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ
 GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ
 GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ
-GenForStructParamBound,default,CMP_NOTEQUAL,decompile:,,
-GenForStructParamBound,testflags,CMP_NOTEQUAL,decompile:,,
+GenForStructParamBound,default,CMP_EQUAL,,,differ
+GenForStructParamBound,testflags,CMP_EQUAL,,,differ
 GenIf,default,SLANG_REJECT,dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIf,testflags,SLANG_REJECT,dut.sv:9:40: error: use of undeclared identifier 'a',,
 GenIfElse,default,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'b',,

@@ -16739,6 +16739,39 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 ro->VpiEndColumnNo(dro->VpiEndColumnNo());
                 ca->Lhs(ro);
             }
+            // An ELEMENT-select Lhs (assign dly[0] = 1'b1) re-lists the same
+            // way: a fresh bit_select with the elab-prefixed fullname and its
+            // OWN copy of the def index constant (Surelog parents the index at
+            // the per-view bit_select).
+            else if (auto* dlhsB = defCa->Lhs();
+                     dlhsB && dlhsB->UhdmType() == UHDM::uhdmbit_select) {
+                auto* dbs = (UHDM::bit_select*)dlhsB;
+                auto* bs = s.MakeBit_select();
+                bs->VpiName(dbs->VpiName());
+                bs->VpiFullName(prefix + "." + std::string(dbs->VpiName()));
+                bs->VpiParent(ca);
+                bs->VpiLineNo(dbs->VpiLineNo());
+                bs->VpiColumnNo(dbs->VpiColumnNo());
+                bs->VpiEndLineNo(dbs->VpiEndLineNo());
+                bs->VpiEndColumnNo(dbs->VpiEndColumnNo());
+                if (auto* dix = dbs->VpiIndex();
+                    dix && dix->UhdmType() == UHDM::uhdmconstant) {
+                    auto* dc = (UHDM::constant*)dix;
+                    auto* ic = s.MakeConstant();
+                    ic->VpiParent(bs);
+                    ic->VpiDecompile(dc->VpiDecompile());
+                    ic->VpiSize(dc->VpiSize());
+                    ic->VpiValue(std::string(dc->VpiValue()));
+                    ic->VpiConstType(dc->VpiConstType());
+                    ic->VpiLineNo(dc->VpiLineNo());
+                    ic->VpiColumnNo(dc->VpiColumnNo());
+                    ic->VpiEndLineNo(dc->VpiEndLineNo());
+                    ic->VpiEndColumnNo(dc->VpiEndColumnNo());
+                    ic->VpiFile(std::string(dc->VpiFile()));
+                    bs->VpiIndex(ic);
+                }
+                ca->Lhs(bs);
+            }
             elabCas->push_back(ca);
         }
         if (!elabCas->empty())

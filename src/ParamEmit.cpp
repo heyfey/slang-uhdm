@@ -5845,7 +5845,47 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         pctS.kind == SymbolKind::PackedStructType
                             ? (const Scope&)pctS.as<PackedStructType>()
                             : (const Scope&)pctS.as<UnpackedStructType>();
+                    // expandPatternAssignment's untagged arm walks the operands
+                    // in member order calling adjustOpSize, and RETURNS as soon
+                    // as one does not reduce to a value — a member whose value
+                    // is itself an assignment PATTERN is exactly that.  So the
+                    // members AFTER the first pattern-valued one are never
+                    // resized and keep their own source width (the nested
+                    // member itself still gets sized: adjustOpSize runs before
+                    // the invalidValue check).  -1 = the walk completes.
+                    int nestBailK = -1;
+                    if (sinitK.kind ==
+                        ExpressionKind::StructuredAssignmentPattern) {
+                        auto& apK =
+                            sinitK.as<StructuredAssignmentPatternExpression>();
+                        int fiK = 0;
+                        for (auto& fld0 : fsc9.membersOfType<FieldSymbol>()) {
+                            const Expression* se0 = nullptr;
+                            for (auto& ms0 : apK.memberSetters)
+                                if (ms0.member == &fld0) {
+                                    se0 = ms0.expr;
+                                    break;
+                                }
+                            if (!se0)
+                                se0 = apK.defaultSetter;
+                            if (se0) {
+                                auto& sv0 = stripImplicitConv(*se0);
+                                if (sv0.kind ==
+                                        ExpressionKind::
+                                            StructuredAssignmentPattern ||
+                                    sv0.kind ==
+                                        ExpressionKind::
+                                            SimpleAssignmentPattern) {
+                                    nestBailK = fiK;
+                                    break;
+                                }
+                            }
+                            fiK++;
+                        }
+                    }
+                    int fiK9 = -1;
                     for (auto& fld : fsc9.membersOfType<FieldSymbol>()) {
+                        fiK9++;
                         const Expression* se = nullptr;
                         if (sinitK.kind ==
                             ExpressionKind::StructuredAssignmentPattern) {
@@ -5900,7 +5940,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 reemitting = !vecPat9;
                                 bool savedPES = pkgEnumSubstPat;
                                 pkgEnumSubstPat = inPackage || isImported;
+                                // The member value sits INSIDE a pattern (op2
+                                // was built by hand, so emitExpr cannot see
+                                // it): a nested pattern keeps every element at
+                                // its source width instead of sizing its first
+                                // operand to the element type — Surelog never
+                                // recurses adjustOpSize into a member op.
+                                bool savedPatK = inAssignPattern;
+                                inAssignPattern = true;
                                 auto* ne = emitExpr(seN, op2, prefix, netMap);
+                                inAssignPattern = savedPatK;
                                 pkgEnumSubstPat = savedPES;
                                 reemitting = savedRe;
                                 if (ne) {
@@ -5962,7 +6011,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 // bit string while widening: `IntFmtMask: 4'b1111`
                                 // into a 5-bit member is BIN:1111 / "4'b1111" at
                                 // size 5 (ParamSubstituteComplex RV64D_Xsflt).
-                                if (e2->UhdmType() == UHDM::uhdmconstant)
+                                // ...unless the walk already bailed on an
+                                // earlier pattern-valued member — operands PAST
+                                // the bail index keep their own width, the
+                                // bailing operand itself IS resized because
+                                // adjustOpSize runs before the invalidValue
+                                // check (GenForStructParamBound).
+                                if (e2->UhdmType() == UHDM::uhdmconstant &&
+                                    (nestBailK < 0 || fiK9 <= nestBailK))
                                     ((UHDM::constant*)e2)
                                         ->VpiSize((int32_t)fld.getType()
                                                       .getBitWidth());
@@ -6332,8 +6388,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         setLoc(opW, init->sourceRange);
                         auto* opndW = s.MakeAnyVec();
                         bool okW = true;
-                        // Index of the first >64b member (Surelog's bail
-                        // point), or -1 when the walk completes.
+                        // Index of the first member Surelog's walk cannot get
+                        // past, or -1 when the walk completes.  TWO causes,
+                        // both from expandPatternAssignment's untagged arm
+                        // (CompileHelper.cpp ~5238): the per-bit loop's
+                        // `shift = csize-1-i` returns as soon as a member is
+                        // WIDER than 64 bits, and `get_uvalue` on an operand
+                        // that does not reduce to a value sets invalidValue,
+                        // which returns on the very next line.  A member whose
+                        // value is itself an assignment PATTERN (a nested
+                        // struct member, `'{HSK: '{1, 1'b0}, DAT: 32}`) is
+                        // exactly that second case.  Either way adjustOpSize
+                        // has ALREADY resized the bailing operand, so the bail
+                        // index is INCLUSIVE.
                         int bailW = -1;
                         {
                             int fiW = 0;
@@ -6342,6 +6409,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 if (fld0.getType().getBitWidth() > 64) {
                                     bailW = fiW;
                                     break;
+                                }
+                                const Expression* se0 = nullptr;
+                                for (auto& ms0 : apW.memberSetters)
+                                    if (ms0.member == &fld0) {
+                                        se0 = ms0.expr;
+                                        break;
+                                    }
+                                if (!se0)
+                                    se0 = apW.defaultSetter;
+                                if (se0) {
+                                    auto& sv0 = stripImplicitConv(*se0);
+                                    if (sv0.kind ==
+                                            ExpressionKind::
+                                                StructuredAssignmentPattern ||
+                                        sv0.kind ==
+                                            ExpressionKind::
+                                                SimpleAssignmentPattern ||
+                                        sv0.kind ==
+                                            ExpressionKind::
+                                                ReplicatedAssignmentPattern) {
+                                        bailW = fiW;
+                                        break;
+                                    }
                                 }
                                 fiW++;
                             }
@@ -6463,7 +6553,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     pitW != pkgDefMap.end())
                                     importedInitPkgInst =
                                         (UHDM::instance*)pitW->second;
+                            // The member value is being emitted INSIDE a
+                            // pattern (the flattened op75 was built by hand
+                            // here, so emitExpr cannot see it): a NESTED
+                            // pattern keeps every element at 64 instead of
+                            // sizing its first operand to the element type.
+                            bool savedPatW = inAssignPattern;
+                            inAssignPattern = true;
                             auto* me = emitExpr(*se, opW, prefix, netMap);
+                            inAssignPattern = savedPatW;
                             importedInitPkgInst = savedImpW;
                             reemitting = savedRe;
                             if (!me) {

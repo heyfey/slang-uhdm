@@ -6601,6 +6601,24 @@ bool UhdmExporter::srlgBoundCallDim(const syntax::ExpressionSyntax* es,
     return true;
 }
 
+// A purely DOTTED name bound (`CFG.HSK.DLY`): slang parses it as a chain of
+// ScopedNameSyntax with Dot separators. `pkg::P` is the same node kind with a
+// DoubleColon separator and is deliberately NOT matched.
+static bool dottedNameBound(const slang::syntax::ExpressionSyntax* es) {
+    namespace syntax = slang::syntax;
+    if (!es || es->kind != syntax::SyntaxKind::ScopedName)
+        return false;
+    const syntax::SyntaxNode* cur = es;
+    while (cur->kind == syntax::SyntaxKind::ScopedName) {
+        auto& sn = cur->as<syntax::ScopedNameSyntax>();
+        if (sn.separator.kind != slang::parsing::TokenKind::Dot ||
+            sn.right->kind != syntax::SyntaxKind::IdentifierName)
+            return false;
+        cur = sn.left;
+    }
+    return cur->kind == syntax::SyntaxKind::IdentifierName;
+}
+
 UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     const Symbol& sym, UHDM::BaseClass* parent,
     const std::string& defDimRefPrefix) {
@@ -6954,6 +6972,63 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     setLoc(ro, es->sourceRange());
                     return ro;
                 }
+                // The DOTTED complement of the rule just above: a DEF-view
+                // array_net bound that reads a STRUCT-parameter FIELD
+                // (`logic dly [0:CFG.HSK.DLY]`) also stays symbolic, but as a
+                // hier_path carrying one BARE ref_obj per component (no
+                // fullnames, no actuals) — Surelog's `hier_path(CFG.HSK.DLY)`.
+                if (dottedNameBound(es) && !defDimRefPrefix.empty() &&
+                    parent->UhdmType() == UHDM::uhdmarray_net) {
+                    std::vector<std::pair<std::string, slang::SourceRange>> comps;
+                    const syntax::SyntaxNode* cur9 = es;
+                    bool dotted9 = true;
+                    while (cur9->kind == syntax::SyntaxKind::ScopedName) {
+                        auto& sn9 = cur9->as<syntax::ScopedNameSyntax>();
+                        if (sn9.separator.kind != parsing::TokenKind::Dot ||
+                            sn9.right->kind !=
+                                syntax::SyntaxKind::IdentifierName) {
+                            dotted9 = false;
+                            break;
+                        }
+                        auto& rid9 =
+                            sn9.right->as<syntax::IdentifierNameSyntax>();
+                        comps.emplace_back(
+                            std::string(rid9.identifier.valueText()),
+                            rid9.identifier.range());
+                        cur9 = sn9.left;
+                    }
+                    if (dotted9 &&
+                        cur9->kind == syntax::SyntaxKind::IdentifierName) {
+                        auto& id9 = cur9->as<syntax::IdentifierNameSyntax>();
+                        comps.emplace_back(
+                            std::string(id9.identifier.valueText()),
+                            id9.identifier.range());
+                        std::reverse(comps.begin(), comps.end());
+                        auto* hp9 = s.MakeHier_path();
+                        std::string joined9;
+                        for (size_t i9 = 0; i9 < comps.size(); i9++)
+                            joined9 +=
+                                (i9 ? "." : "") + comps[i9].first;
+                        hp9->VpiName(joined9);
+                        hp9->VpiParent(r);
+                        setLoc(hp9, es->sourceRange());
+                        auto* els9 = s.MakeAnyVec();
+                        for (size_t i9 = 0; i9 < comps.size(); i9++) {
+                            auto* ro9 = s.MakeRef_obj();
+                            ro9->VpiName(comps[i9].first);
+                            ro9->VpiParent(hp9);
+                            // Surelog anchors the BASE component at the FIRST
+                            // dotted member's token, not at its own (golden has
+                            // CFG and HSK both at 13:20-13:23).
+                            setLoc(ro9,
+                                   comps[(i9 == 0 && comps.size() > 1) ? 1 : i9]
+                                       .second);
+                            els9->push_back(ro9);
+                        }
+                        hp9->Path_elems(els9);
+                        return hp9;
+                    }
+                }
                 // The RANGE form of the same DEF-PACKAGE rule: a package
                 // parameter's own unpacked dim written [0:N-1] keeps the SUB
                 // op symbolic in the DEF package listing (the elaborated
@@ -7010,7 +7085,11 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 // identifier ([0:DLY]) folds to a UINT constant (like a literal
                 // bound), not the INT N-1 form — Surelog.
                 bool arrParentIdBound =
-                    es && es->kind == syntax::SyntaxKind::IdentifierName &&
+                    es &&
+                    (es->kind == syntax::SyntaxKind::IdentifierName ||
+                     // A dotted STRUCT-PARAM field bound (CFG.HSK.DLY) folds
+                     // the same way its bare-identifier sibling does.
+                     dottedNameBound(es)) &&
                     (parent->UhdmType() == UHDM::uhdmarray_net ||
                      parent->UhdmType() == UHDM::uhdmarray_var) &&
                     // Only INTERFACE array bounds take the UINT form; module
