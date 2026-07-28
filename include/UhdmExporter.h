@@ -243,8 +243,12 @@ private:
         // may run it early so the typedef's member typespecs precede the
         // params that are typed by it — Surelog compiles them in source order).
         bool typedefsDone = false;
-        std::vector<UHDM::concurrent_assertions*> assertions;
+        // Ordered vpiAssertion contents: concurrent_assertions AND
+        // checker_insts, interleaved in member order (Surelog appends both to
+        // the same vector as it walks the module items).
+        std::vector<UHDM::any*> assertions;
         UHDM::clocking_block* defaultClocking = nullptr;
+        UHDM::clocking_block* globalClocking = nullptr;
     };
     // Concurrent assertion (folded pre-elab form: label, clocking event as
     // a property_spec, else action). Returns null if not an assertion block.
@@ -256,10 +260,19 @@ private:
     // A property/sequence expression tree -> UHDM operation/leaf.
     UHDM::any* emitAssertionExpr(const slang::ast::AssertionExpr& ae, UHDM::BaseClass* parent,
                                  const std::string& prefix, NetMap& netMap);
-    // The module's default clocking block (default clocking @(...);), or null.
-    UHDM::clocking_block* emitDefaultClocking(const slang::ast::InstanceBodySymbol& body,
-                                              UHDM::module_inst* m, const std::string& prefix,
-                                              NetMap& netMap);
+    // The module's `default clocking @(...);` (global=false) or
+    // `global clocking @(...);` (global=true) block, or null.  Each VIEW gets
+    // its own object.
+    UHDM::clocking_block* emitScopeClocking(const slang::ast::InstanceBodySymbol& body,
+                                            UHDM::module_inst* m, const std::string& prefix,
+                                            NetMap& netMap, bool global);
+    // `<checker> <name>(...)` -> checker_inst on the module's vpiAssertion
+    // vector.  Surelog emits the instance HEAD only (name + def name + span):
+    // neither the checker's body nor its port connections are elaborated
+    // into the database.  The object is SHARED with the elab view, like every
+    // other member of that vector.
+    UHDM::checker_inst* emitCheckerInst(const slang::ast::Symbol& sym, UHDM::BaseClass* m,
+                                        const std::string& prefix);
     // NAMED clocking blocks (clocking cb @(posedge clk); input a; ...) on
     // interfaces: clocking_block + event + clocking_io_decls. Def-view event
     // refs bind cross-view (the ELAB var) — collected in pendingCbRefs and

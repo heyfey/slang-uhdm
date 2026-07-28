@@ -12,6 +12,7 @@
 #include "EmitHelpers.h"
 
 #include "slang/ast/EvalContext.h"
+#include "slang/ast/symbols/CheckerSymbols.h"
 #include "slang/syntax/SyntaxTree.h"
 
 namespace slang_uhdm {
@@ -1159,6 +1160,16 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // only references block locals, which match).
     bool progDef = m->UhdmType() == UHDM::uhdmprogram && !uninstProgDefs.count(&def);
     for (auto& member : body.members()) {
+        // A checker instantiation joins the SAME vpiAssertion vector, in
+        // member order (CheckerInst golden lists it there); its body and its
+        // port connections are not elaborated into the database.
+        if (member.kind == SymbolKind::CheckerInstance) {
+            if (auto* ci = emitCheckerInst(member, m, prefix)) {
+                asserts->push_back(ci);
+                info.assertions.push_back(ci);
+            }
+            continue;
+        }
         if (member.kind != SymbolKind::ProceduralBlock)
             continue;
         auto& pb = member.as<ProceduralBlockSymbol>();
@@ -1211,10 +1222,14 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     if (!asserts->empty())
         m->Assertions(asserts);
 
-    // Default clocking block (default clocking @(posedge clk); endclocking).
+    // Default / global clocking block (`default|global clocking @(clk);`).
     if (auto* mm = asModuleInst(m)) {
-        if (auto* cb = emitDefaultClocking(body, mm, prefix, info.nets))
+        if (auto* cb = emitScopeClocking(body, mm, prefix, info.nets,
+                                         /*global=*/false))
             info.defaultClocking = cb;
+        if (auto* gc = emitScopeClocking(body, mm, prefix, info.nets,
+                                         /*global=*/true))
+            info.globalClocking = gc;
     }
 
     // Def view: for-generates keep a gen_region placeholder (unlocated begin
@@ -6487,7 +6502,18 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // Each view gets its own clocking_block object (not shared).
         if (it != defMap.end() && it->second.defaultClocking) {
             if (auto* mm9 = asModuleInst(m))
-                emitDefaultClocking(body, mm9, prefix, topNets);
+                emitScopeClocking(body, mm9, prefix, topNets, /*global=*/false);
+        }
+        // A GLOBAL clocking block's elab view is a CLONE of the def's: a
+        // distinct object whose event ref still points at the DEF net, no
+        // vpiInstance (CheckerInst default-mode golden).  Under -elabuhdm the
+        // UHDM elaborator re-clones it from the def and rebinds/instances it
+        // itself (ElaboratorListener: Global_clocking DeepClone), so this is
+        // the shape that has to be written here for BOTH modes.
+        if (it != defMap.end() && it->second.globalClocking) {
+            if (auto* mm9 = asModuleInst(m))
+                emitScopeClocking(body, mm9, prefix, it->second.nets,
+                                  /*global=*/true);
         }
         if (it != defMap.end() && !it->second.taskFuncs.empty()) {
             auto* tfs = s.MakeTask_funcVec();
@@ -14905,10 +14931,10 @@ static int32_t mapAssertUnaryOp(slang::ast::UnaryAssertionOperator op) {
     }
 }
 
-UHDM::clocking_block* UhdmExporter::emitDefaultClocking(const InstanceBodySymbol& body,
-                                                        UHDM::module_inst* m,
-                                                        const std::string& prefix,
-                                                        NetMap& netMap) {
+UHDM::clocking_block* UhdmExporter::emitScopeClocking(const InstanceBodySymbol& body,
+                                                      UHDM::module_inst* m,
+                                                      const std::string& prefix,
+                                                      NetMap& netMap, bool global) {
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::ClockingBlock)
             continue;
@@ -14917,7 +14943,7 @@ UHDM::clocking_block* UhdmExporter::emitDefaultClocking(const InstanceBodySymbol
         if (!csyn || csyn->kind != syntax::SyntaxKind::ClockingDeclaration)
             continue;
         auto& cdecl = csyn->as<syntax::ClockingDeclarationSyntax>();
-        if (cdecl.globalOrDefault.valueText() != "default")
+        if (cdecl.globalOrDefault.valueText() != (global ? "global" : "default"))
             continue;
         std::string cbName = cbs.name.empty() ? "unnamed_clocking_block"
                                               : std::string(cbs.name);
@@ -14933,10 +14959,32 @@ UHDM::clocking_block* UhdmExporter::emitDefaultClocking(const InstanceBodySymbol
         if (auto* cond = emitEventExpr(cbs.getEvent(), ec, cbFull, netMap))
             ec->VpiCondition(cond);
         cb->Clocking_event(ec);
-        m->Default_clocking(cb);
+        if (global)
+            m->Global_clocking(cb);
+        else
+            m->Default_clocking(cb);
         return cb;
     }
     return nullptr;
+}
+
+UHDM::checker_inst* UhdmExporter::emitCheckerInst(const Symbol& sym, UHDM::BaseClass* m,
+                                                  const std::string& prefix) {
+    auto* ci = s.MakeChecker_inst();
+    ci->VpiName(sym.name);
+    ci->VpiFullName(prefix + "." + std::string(sym.name));
+    ci->VpiParent(m);
+    if (sym.kind == SymbolKind::CheckerInstance)
+        ci->VpiDefName(sym.as<CheckerInstanceSymbol>().body.checker.name);
+    // Span the whole instantiation statement (`my_checker check(...);`).
+    if (auto* csyn = sym.getSyntax())
+        for (auto q = csyn; q; q = q->parent)
+            if (q->kind == syntax::SyntaxKind::CheckerInstantiation ||
+                q->kind == syntax::SyntaxKind::HierarchyInstantiation) {
+                setLoc(ci, q->sourceRange());
+                break;
+            }
+    return ci;
 }
 
 void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
@@ -14957,8 +15005,9 @@ void UhdmExporter::emitNamedClockingBlocks(const InstanceBodySymbol& body,
         if (!csyn || csyn->kind != syntax::SyntaxKind::ClockingDeclaration)
             continue;
         auto& cdecl = csyn->as<syntax::ClockingDeclarationSyntax>();
-        if (cdecl.globalOrDefault.valueText() == "default")
-            continue; // handled by emitDefaultClocking
+        if (cdecl.globalOrDefault.valueText() == "default" ||
+            cdecl.globalOrDefault.valueText() == "global")
+            continue; // handled by emitScopeClocking
         std::string cbName(cbs.name);
         std::string cbFull = prefix + "." + cbName;
         auto* cb = s.MakeClocking_block();
@@ -15175,6 +15224,26 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             auto* operands = s.MakeAnyVec();
             if (auto* e = emitAssertionExpr(uae.expr, op, prefix, netMap))
                 operands->push_back(e);
+            op->Operands(operands);
+            return op;
+        }
+        case AssertionExprKind::Abort: {
+            // accept_on / reject_on (and their sync_ variants): Surelog emits
+            // the operation with the ABORT CONDITION as its ONLY operand — the
+            // controlled property expression is dropped, measured on a
+            // purpose-built pair (`accept_on(i) req |=> ack` and
+            // `reject_on(i) p1(req, ack)` both come out one-operand).
+            auto& abe = ae.as<AbortAssertionExpr>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(abe.action == AbortAssertionExpr::Accept
+                              ? (abe.isSync ? vpiSyncAcceptOnOp : vpiAcceptOnOp)
+                              : (abe.isSync ? vpiSyncRejectOnOp : vpiRejectOnOp));
+            op->VpiParent(parent);
+            if (ae.syntax)
+                setLoc(op, ae.syntax->sourceRange());
+            auto* operands = s.MakeAnyVec();
+            if (auto* c = emitExpr(abe.condition, op, prefix, netMap))
+                operands->push_back(c);
             op->Operands(operands);
             return op;
         }

@@ -205,8 +205,8 @@ Chandle,default,CMP_EQUAL,,,match
 Chandle,testflags,CMP_EQUAL,,,match
 Checker,default,SLANG_REJECT,dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
 Checker,testflags,SLANG_REJECT,dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
-CheckerInst,default,CMP_NOTEQUAL,decompile:,,
-CheckerInst,testflags,CMP_NOTEQUAL,decompile:,,
+CheckerInst,default,CMP_EQUAL,,,match
+CheckerInst,testflags,CMP_EQUAL,,,match
 ClassCons,default,SLANG_REJECT,top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
 ClassCons,testflags,SLANG_REJECT,top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
 ClassExtendParam,default,SLANG_REJECT,dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wmember-impl-not-found],,
