@@ -57,6 +57,11 @@ struct DataTypeSyntax;
 
 namespace slang_uhdm {
 
+/// Encoding an EvalFunc member-assignment leftover constant carries: the
+/// ASSIGNMENT RHS's, not the struct member's type (see ParamEmit's
+/// srlgEvalFuncMemberLeftovers).
+enum class SrlgMemLeftEnc { Uint, Int, Bin };
+
 /// Exports a slang elaborated design as a UHDM database, mirroring the
 /// structure Surelog produces for its default (folded / pre-elab) output.
 class UhdmExporter {
@@ -611,6 +616,62 @@ private:
     // True when Surelog's ExprEval reduces this const function to one
     // constant (the three measured bail rules — see ParamEmit).
     bool srlgEvalFuncFolds(const slang::ast::SubroutineSymbol& sub);
+
+    // ---- EvalFunc member-assignment leftovers -------------------------------
+    // A const function that builds its packed-struct result MEMBER BY MEMBER
+    // (`cfg.FETCH_WIDTH = 32; ... return cfg;`) leaks the constants its
+    // evaluation produced onto the SHARED struct typespec: UHDM's
+    // `ExprEval::setValueInInstance` decodes a hier_path LHS to the
+    // `typespec_member` and calls `Actual_value(rhs)` on it (ExprEval.cpp
+    // ~5074/~5385, both the integer and the non-integer arm). The struct
+    // typespec is shared, so the leftovers are visible on every view that
+    // resolved the typedef AFTER elaboration — the TOP package copy and the
+    // instance parameter's copy — while the DEF package listing stays clean.
+    // Encoding is the assignment RHS's, not the member's type (measured on
+    // FuncStructValSimple: literal -> UINT/64, ternary -> INT/64, wide member
+    // copy from a formal -> BIN at the member width with a ts ref).
+    struct SrlgMemLeft {
+        std::string name;
+        SrlgMemLeftEnc enc = SrlgMemLeftEnc::Uint;
+    };
+    // Non-empty when `sub` is a member-by-member struct builder, one entry per
+    // WRITTEN member in declaration order. Cached per subroutine.
+    const std::vector<SrlgMemLeft>* srlgEvalFuncMemberLeftovers(
+        const slang::ast::SubroutineSymbol& sub);
+    std::map<const slang::ast::SubroutineSymbol*, std::vector<SrlgMemLeft>>
+        memLeftCache;
+    // The call whose result initializes a parameter, when that call reaches
+    // srlgEvalFuncMemberLeftovers. Returns the subroutine or null.
+    const slang::ast::SubroutineSymbol* memLeftInitCall(
+        const slang::ast::Expression& init);
+    // Recorded while emitting parameters: every struct-valued parameter whose
+    // initializer is such a call, with the per-member leftover constants the
+    // evaluation produced. Drained by stampEvalFuncLeftovers.
+    struct SrlgMemLeftStamp {
+        std::vector<std::string> names;      // struct field names, in order
+        std::vector<UHDM::constant*> values; // one per WRITTEN member (or null)
+    };
+    std::vector<SrlgMemLeftStamp> memLeftStamps;
+    // The elab param_assign Rhs struct_vars minted for such a parameter, with
+    // the parameter object whose typespec their own ts ref must copy (the
+    // param's typespec is patched later, in the deferred drain).
+    std::vector<std::pair<UHDM::struct_var*, UHDM::parameter*>> memLeftStructVars;
+    // Stamps the recorded leftovers onto the struct typespecs reachable from
+    // the ELABORATED views only (TopPackages/TopModules). The constants
+    // themselves are built by a file-static helper in ParamEmit.cpp, where
+    // FieldSymbol/SVInt are complete types.
+    void stampEvalFuncLeftovers(UHDM::design* d);
+    // When `init` reads `<param>.<member>` and that member carries an INT-
+    // encoded leftover, the override fold keeps vpiIntConst (work@top.u1
+    // INPUT_WIDTH: INT:2/ct 7, not UINT:2/ct 9).
+    bool memLeftIntRead(const slang::ast::Expression& init);
+    std::optional<SrlgMemLeftEnc> memLeftReadEnc(
+        const slang::ast::Expression& e);
+    // True when this instance's parameter overrides read a member-leftover
+    // struct parameter: Surelog's DESIGN elaboration runs BEFORE the leftovers
+    // exist, so the generate conditions never fold and the instance gets NO
+    // gen_scope_array at all (work@top.u1 has none in golden).
+    bool memLeftGenScopeBlocked(const slang::ast::InstanceBodySymbol& body);
     // True when the parameter's NAME appears anywhere in its enclosing
     // module/interface declaration beyond its own declarator (srlgReadFoldsTs
     // — see patchParamTypespecs). Cached per enclosing declaration syntax.

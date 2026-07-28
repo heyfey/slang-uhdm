@@ -539,8 +539,8 @@ FuncStruct,default,CMP_NOTEQUAL,decompile:,,
 FuncStruct,testflags,CMP_NOTEQUAL,decompile:,,
 FuncStructVal,default,CMP_NOTEQUAL,decompile:,,
 FuncStructVal,testflags,CMP_NOTEQUAL,decompile:,,
-FuncStructValSimple,default,CMP_NOTEQUAL,decompile:,,
-FuncStructValSimple,testflags,CMP_NOTEQUAL,decompile:,,
+FuncStructValSimple,default,CMP_EQUAL,,,differ
+FuncStructValSimple,testflags,CMP_EQUAL,,,differ
 FuncWidthScope,default,SLANG_REJECT,dut.sv:13:19: error: cannot call a function declared inside a generate block in a constant expression,,
 FuncWidthScope,testflags,SLANG_REJECT,dut.sv:13:19: error: cannot call a function declared inside a generate block in a constant expression,,
 FuncWidthScopeOverride,default,SLANG_REJECT,dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed in a constant expression,,

@@ -568,6 +568,291 @@ bool UhdmExporter::srlgEvalFuncFolds(const SubroutineSymbol& sub) {
     return true;
 }
 
+// ---------------------------------------------------------------------------
+// EvalFunc member-assignment leftovers
+//
+// `ExprEval::setValueInInstance` (UHDM ExprEval.cpp ~5074 and ~5385) has one
+// arm for a hier_path LHS: it decodes the path to the `typespec_member` object
+// and calls `Actual_value(rhs)` on it.  The member belongs to the SHARED
+// struct typespec, so evaluating a const function that writes its result
+// member by member leaves the produced constants ON THE TYPEDEF.
+//
+// FuncStructValSimple's `build_config_func` is the shape: a fn-scope local of
+// the return struct type, three `cfg.<member> = <expr>` writes, `return cfg`.
+// Golden (measured with tools/probe/r9fsvs.cpp, which prints object identity
+// the abbreviated uhdm-dump hides) stamps
+//   config_pkg::cva6_cfg_t in uhdmtopPackages   -> stamped
+//   work@top.CVA6Cfg's own struct ts copy       -> stamped
+//   config_pkg::cva6_cfg_t in uhdmallPackages   -> CLEAN
+// i.e. every view that resolved the typedef after elaboration, never the def
+// package listing.  Encoding follows the ASSIGNMENT RHS, not the member type:
+//   `= 32`                      -> UINT:32  size 64  (plain literal fold)
+//   `= <ternary>`               -> INT:2    size 64  (ExprEval's
+//                                  vpiConditionOp arm always re-wraps INT/64)
+//   `= CVA6Cfg.PMPCfgRstVal`    -> the CALLER's own 1024-bit BIN constant,
+//                                  size = member width, carrying a ts ref
+// The VALUES are the caller's, so they come from slicing the parameter value
+// slang already folded for the call — no second evaluator is needed.
+const std::vector<UhdmExporter::SrlgMemLeft>*
+UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
+    if (auto it = memLeftCache.find(&sub); it != memLeftCache.end())
+        return it->second.empty() ? nullptr : &it->second;
+    std::vector<SrlgMemLeft> out;
+    // An empty cache entry means "measured, does not qualify".
+    memLeftCache[&sub];
+    auto fail = [&]() -> const std::vector<SrlgMemLeft>* {
+        memLeftCache[&sub].clear();
+        return nullptr;
+    };
+    auto& rt = sub.getReturnType().getCanonicalType();
+    if (rt.kind != SymbolKind::PackedStructType)
+        return fail();
+    // The fn-scope local the body builds and returns.
+    const Symbol* local = nullptr;
+    {
+        const Expression* retExpr = nullptr;
+        sub.getBody().visit(makeVisitor([&](auto& v, const ReturnStatement& r) {
+            if (r.expr)
+                retExpr = r.expr;
+            v.visitDefault(r);
+        }));
+        if (!retExpr)
+            return fail();
+        auto& re = stripImplicitConv(*retExpr);
+        if (re.kind != ExpressionKind::NamedValue)
+            return fail();
+        local = &re.as<NamedValueExpression>().symbol;
+        if (local->kind != SymbolKind::Variable ||
+            &local->as<VariableSymbol>().getType().getCanonicalType() != &rt)
+            return fail();
+    }
+    // Every top-level statement must be a `<local>.<member> = <expr>` write
+    // (declaration of the local and the return are already accounted for).
+    // Anything else — a loop, a nested call, a whole-struct assignment — is
+    // outside the modelled subset.
+    bool bad = false;
+    std::map<std::string, SrlgMemLeftEnc> enc;
+    sub.getBody().visit(makeVisitor([&](auto& v, const AssignmentExpression& a) {
+        auto& lhs = stripImplicitConv(a.left());
+        if (lhs.kind != ExpressionKind::MemberAccess) {
+            // The implicit `<fnname> = <expr>` return write is allowed only
+            // through the ReturnStatement form handled above.
+            bad = true;
+            v.visitDefault(a);
+            return;
+        }
+        auto& ma = lhs.as<MemberAccessExpression>();
+        auto& base = stripImplicitConv(ma.value());
+        if (base.kind != ExpressionKind::NamedValue ||
+            &base.as<NamedValueExpression>().symbol != local) {
+            bad = true;
+            v.visitDefault(a);
+            return;
+        }
+        auto& rhs = stripImplicitConv(a.right());
+        SrlgMemLeftEnc e = SrlgMemLeftEnc::Uint;
+        if (rhs.kind == ExpressionKind::ConditionalOp)
+            e = SrlgMemLeftEnc::Int;
+        else if (rhs.kind == ExpressionKind::MemberAccess ||
+                 rhs.kind == ExpressionKind::Concatenation) {
+            // Only the WIDE (>64b) member-copy shape is measured: it reuses
+            // the caller's own BIN constant.  A narrow copy has no golden yet,
+            // so keep it on the plain UINT fold.
+            e = ma.type->getBitWidth() > 64 ? SrlgMemLeftEnc::Bin
+                                           : SrlgMemLeftEnc::Uint;
+        }
+        enc[std::string(ma.member.name)] = e;
+        v.visitDefault(a);
+    }));
+    if (bad || enc.empty())
+        return fail();
+    for (auto& f : rt.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+        auto it = enc.find(std::string(f.name));
+        if (it == enc.end())
+            return fail(); // a member the body never writes: unmodelled
+        out.push_back({std::string(f.name), it->second});
+    }
+    if (out.size() != enc.size())
+        return fail();
+    memLeftCache[&sub] = out;
+    return &memLeftCache[&sub];
+}
+
+const SubroutineSymbol* UhdmExporter::memLeftInitCall(const Expression& init) {
+    auto& si = stripImplicitConv(init);
+    if (si.kind != ExpressionKind::Call)
+        return nullptr;
+    auto& ce = si.as<CallExpression>();
+    if (ce.isSystemCall())
+        return nullptr;
+    auto* sub = std::get_if<const SubroutineSymbol*>(&ce.subroutine);
+    if (!sub || !*sub)
+        return nullptr;
+    return srlgEvalFuncMemberLeftovers(**sub) ? *sub : nullptr;
+}
+
+static UHDM::constant* makeMemLeftConst(UHDM::Serializer& s,
+                                        const FieldSymbol& fld,
+                                        const slang::SVInt& whole,
+                                        SrlgMemLeftEnc enc) {
+    uint64_t w = fld.getType().getBitWidth();
+    if (w == 0 || fld.bitOffset + w > whole.getBitWidth())
+        return nullptr;
+    slang::SVInt slice = whole.slice((int32_t)(fld.bitOffset + w - 1),
+                                     (int32_t)fld.bitOffset);
+    if (slice.hasUnknown())
+        return nullptr;
+    auto* c = s.MakeConstant();
+    if (enc == SrlgMemLeftEnc::Bin) {
+        std::string bits;
+        bits.reserve((size_t)w);
+        for (int64_t i = (int64_t)w - 1; i >= 0; i--)
+            bits += (slice[(int32_t)i] == slang::logic_t(1)) ? '1' : '0';
+        c->VpiValue("BIN:" + bits);
+        c->VpiDecompile(bits);
+        c->VpiSize((int32_t)w);
+        c->VpiConstType(vpiBinaryConst);
+        // The caller's wide constant carries a ts ref to a bare int_typespec
+        // (golden: `ref_typespec -> int_typespec` with no range).
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(c);
+        rt->Actual_typespec(s.MakeInt_typespec());
+        c->Typespec(rt);
+        return c;
+    }
+    std::string dg = slice.toString(LiteralBase::Decimal, false);
+    c->VpiDecompile(dg);
+    c->VpiSize(64);
+    if (enc == SrlgMemLeftEnc::Int) {
+        c->VpiValue("INT:" + dg);
+        c->VpiConstType(vpiIntConst);
+    }
+    else {
+        c->VpiValue("UINT:" + dg);
+        c->VpiConstType(vpiUIntConst);
+    }
+    return c;
+}
+
+// `<param>.<member>` where <param>'s value came from a member-by-member const
+// function: returns the leftover encoding recorded for that member.
+std::optional<SrlgMemLeftEnc> UhdmExporter::memLeftReadEnc(
+    const Expression& e) {
+    auto& se = stripImplicitConv(e);
+    if (se.kind != ExpressionKind::MemberAccess)
+        return std::nullopt;
+    auto& ma = se.as<MemberAccessExpression>();
+    auto& base = stripImplicitConv(ma.value());
+    if (base.kind != ExpressionKind::NamedValue)
+        return std::nullopt;
+    auto& bs = base.as<NamedValueExpression>().symbol;
+    if (bs.kind != SymbolKind::Parameter)
+        return std::nullopt;
+    auto* pin = bs.as<ParameterSymbol>().getInitializer();
+    if (!pin)
+        return std::nullopt;
+    auto* sub = memLeftInitCall(*pin);
+    if (!sub)
+        return std::nullopt;
+    auto* lo = srlgEvalFuncMemberLeftovers(*sub);
+    if (!lo)
+        return std::nullopt;
+    for (auto& m : *lo)
+        if (m.name == ma.member.name)
+            return m.enc;
+    return std::nullopt;
+}
+
+bool UhdmExporter::memLeftIntRead(const Expression& init) {
+    auto e = memLeftReadEnc(init);
+    return e && *e == SrlgMemLeftEnc::Int;
+}
+
+// Surelog's DESIGN elaboration runs long before the EvalFunc leftovers exist,
+// so a generate condition reading an override that resolves through one never
+// folds and the instance is emitted with NO gen_scope_array at all — golden's
+// `work@top.u1` (INPUT_WIDTH = CVA6Cfg.INSTR_PER_FETCH = 2) carries none, even
+// though `INPUT_WIDTH == 2` selects `leaf_node`.
+bool UhdmExporter::memLeftGenScopeBlocked(const InstanceBodySymbol& body) {
+    for (auto& mem : body.members()) {
+        if (mem.kind != SymbolKind::Parameter)
+            continue;
+        auto& ps = mem.as<ParameterSymbol>();
+        if (!isOverriddenParam(ps))
+            continue;
+        if (auto* pin = ps.getInitializer())
+            if (memLeftReadEnc(*pin))
+                return true;
+    }
+    return false;
+}
+
+// Stamps the recorded leftovers onto every struct typespec reachable from the
+// ELABORATED views (uhdmtopPackages / uhdmtopModules).  The def-package
+// listing is never walked, which is exactly the split golden shows.
+void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
+    for (auto& [sv, up] : memLeftStructVars) {
+        if (!sv->Typespec() || sv->Typespec()->Actual_typespec())
+            continue;
+        if (up->Typespec() && up->Typespec()->Actual_typespec())
+            sv->Typespec()->Actual_typespec(
+                up->Typespec()->Actual_typespec());
+    }
+    if (memLeftStamps.empty())
+        return;
+    std::set<const UHDM::struct_typespec*> done;
+    auto stamp = [&](UHDM::typespec* ts) {
+        if (!ts || ts->UhdmType() != UHDM::uhdmstruct_typespec)
+            return;
+        auto* sts = (UHDM::struct_typespec*)ts;
+        if (!sts->Members() || !done.insert(sts).second)
+            return;
+        for (auto& st : memLeftStamps) {
+            if (sts->Members()->size() != st.names.size())
+                continue;
+            bool match = true;
+            for (size_t i = 0; i < st.names.size(); i++)
+                if ((*sts->Members())[i]->VpiName() != st.names[i]) {
+                    match = false;
+                    break;
+                }
+            if (!match)
+                continue;
+            for (size_t i = 0; i < st.names.size(); i++) {
+                auto* tm = (*sts->Members())[i];
+                if (!tm->Actual_value())
+                    tm->Actual_value(st.values[i]);
+            }
+            return;
+        }
+    };
+    auto tsOf = [](UHDM::ref_typespec* rt) -> UHDM::typespec* {
+        return rt ? rt->Actual_typespec() : nullptr;
+    };
+    if (auto* tp = d->TopPackages())
+        for (auto* p : *tp) {
+            if (p->Typespecs())
+                for (auto* t : *p->Typespecs())
+                    stamp(t);
+            if (p->Parameters())
+                for (auto* pa : *p->Parameters())
+                    if (pa->UhdmType() == UHDM::uhdmparameter)
+                        stamp(tsOf(((UHDM::parameter*)pa)->Typespec()));
+        }
+    std::function<void(UHDM::module_inst*)> walk = [&](UHDM::module_inst* m) {
+        if (m->Parameters())
+            for (auto* pa : *m->Parameters())
+                if (pa->UhdmType() == UHDM::uhdmparameter)
+                    stamp(tsOf(((UHDM::parameter*)pa)->Typespec()));
+        if (m->Modules())
+            for (auto* sub : *m->Modules())
+                walk(sub);
+    };
+    if (auto* tm = d->TopModules())
+        for (auto* m : *tm)
+            walk(m);
+}
+
 // Surelog INLINES a foldable const function's body, so the folded constant is
 // encoded by the same rules a plain expression fold uses — driven by the RETURN
 // assignment's expression kind: a CONCAT body ({..}) folds full-width BIN, a
@@ -3094,6 +3379,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiDecompile(std::to_string(iv.getBitWidth()) + "'h" +
                                     hx8);
                 }
+                // An override actual that READS a member-leftover struct
+                // parameter resolves through the constant stamped on the
+                // typespec_member, so it inherits THAT constant's encoding: an
+                // INT-encoded (ternary-produced) leftover keeps vpiIntConst at
+                // the target width (FuncStructValSimple work@top.u1
+                // INPUT_WIDTH: INT:2/ct 7, where a plain typed override would
+                // give UINT:2/ct 9).
+                else if (boundInit && memLeftIntRead(*boundInit)) {
+                    c->VpiValue("INT:" + digits);
+                    c->VpiConstType(vpiIntConst);
+                    c->VpiSize((int32_t)iv.getBitWidth());
+                }
                 // A RANGED untyped param (parameter [0:0] REG_ALU) folds its
                 // override like a typed one: UINT at the declared width
                 // (mriscv ALU_beq #(.REG_ALU(REG_ALU))).
@@ -3229,6 +3526,63 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                    init->as<ConversionExpression>().isImplicit())
                 init = &init->as<ConversionExpression>().operand();
             UHDM::any* rhs = nullptr;
+            // A struct parameter initialized by a MEMBER-BY-MEMBER const
+            // function does NOT fold to a constant: Surelog's EvalFunc hands
+            // back the function's own struct_var, and the VALUE lives in the
+            // leftovers stamped on the struct typespec's members (see
+            // srlgEvalFuncMemberLeftovers).  So the elab param_assign Rhs is a
+            // bare struct_var carrying a ts ref to the param's struct
+            // typespec, and we record the per-member constants for the stamp
+            // pass (FuncStructValSimple work@top.CVA6Cfg).
+            if (topView && !inPackage) {
+                if (auto* mlSub = memLeftInitCall(*init)) {
+                    auto& mst = ps.getType().getCanonicalType();
+                    auto* leftovers = srlgEvalFuncMemberLeftovers(*mlSub);
+                    if (leftovers &&
+                        mst.kind == SymbolKind::PackedStructType &&
+                        ps.getValue().isInteger() &&
+                        !ps.getValue().integer().hasUnknown()) {
+                        auto& whole = ps.getValue().integer();
+                        SrlgMemLeftStamp st9;
+                        bool ok9 = true;
+                        size_t li9 = 0;
+                        for (auto& f9 :
+                             mst.as<PackedStructType>().membersOfType<FieldSymbol>()) {
+                            if (li9 >= leftovers->size()) {
+                                ok9 = false;
+                                break;
+                            }
+                            auto* c9 = makeMemLeftConst(s, f9, whole,
+                                                        (*leftovers)[li9].enc);
+                            if (!c9) {
+                                ok9 = false;
+                                break;
+                            }
+                            // SPAN residue (dump-match only, cmp ignores
+                            // locations): golden gives each leftover the span
+                            // of the object it reused — the fn body's own
+                            // literal (42:23) for `= 32`, the CALLER's read
+                            // site (79:22) for the ternary, the caller's own
+                            // pattern constant (28:21) for the wide member
+                            // copy.  We park all three at the call.
+                            setLoc(c9, init->sourceRange);
+                            st9.names.push_back(std::string(f9.name));
+                            st9.values.push_back(c9);
+                            li9++;
+                        }
+                        if (ok9 && !st9.names.empty()) {
+                            memLeftStamps.push_back(st9);
+                            auto* sv9 = s.MakeStruct_var();
+                            setLoc(sv9, init->sourceRange);
+                            auto* svrt9 = s.MakeRef_typespec();
+                            svrt9->VpiParent(sv9);
+                            sv9->Typespec(svrt9);
+                            memLeftStructVars.emplace_back(sv9, up);
+                            rhs = sv9;
+                        }
+                    }
+                }
+            }
             // A localparam whose init is a single-argument SYSTEM function call
             // ($clog2(Depth)) of an OVERRIDDEN param that resolves (through the
             // override chain) to a member-init localparam (N = Info.x) keeps a

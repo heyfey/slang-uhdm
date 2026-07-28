@@ -2643,6 +2643,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     // Base-class wiring last: every class_defn (package, module-local,
     // file-level, nested) now exists, so a base in any scope resolves.
     drainPendingExtends();
+    // EvalFunc member-assignment leftovers: stamp AFTER every typespec is
+    // materialized (the struct ts a parameter points at is filled by the
+    // deferred drain above) and only on the ELABORATED views.
+    stampEvalFuncLeftovers(d);
     return d;
 }
 

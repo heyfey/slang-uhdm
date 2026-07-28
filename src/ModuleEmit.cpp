@@ -6441,6 +6441,12 @@ UHDM::gen_scope_array* UhdmExporter::emitSurelogMisevalGenIf(
 
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
+    // An instance whose parameter override reads a member-leftover struct
+    // parameter gets NO gen scopes: Surelog's design elaboration precedes the
+    // EvalFunc member stamps, so the condition never folds (see
+    // memLeftGenScopeBlocked).
+    if (memLeftGenScopeBlocked(body))
+        return;
     std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
     // INTERFACE elab views collapse an if-branch whose ONLY instantiated
