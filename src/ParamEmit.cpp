@@ -10583,10 +10583,25 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         // members the TOP pass builds fresh DO need the elab
                         // instance. defOwnedTs unifies the two independently
                         // implemented creation-pass markers.
+                        // An UNPACKED-array member (`logic [31:0] pair [2]`) is
+                        // a WRAPPER array_typespec around the type Surelog
+                        // actually compiled in the package scope: the ELEMENT
+                        // typespec carries vpiInstance and the wrapper stays
+                        // bare.  Only a wrapper whose element is FRESH
+                        // (unnamed) redirects — one pointing at a shared
+                        // typedef keeps the historic behaviour.
+                        // (HierPathUnpacked keymgr_pkg::foo_t.pair.)
+                        UHDM::typespec* instOwn = mts;
+                        if (mts->UhdmType() == UHDM::uhdmarray_typespec)
+                            if (auto* er0 =
+                                    ((UHDM::array_typespec*)mts)->Elem_typespec())
+                                if (auto* ea0 = er0->Actual_typespec();
+                                    ea0 && ea0->VpiName().empty())
+                                    instOwn = ea0;
                         if (topView && defOwnedTs(mts))
                             ; // shared def-owned object: keep def instance
                         else {
-                            mts->Instance((UHDM::instance*)up);
+                            instOwn->Instance((UHDM::instance*)up);
                             if (!topView) {
                                 defPassOwnedTs.insert(mts);
                                 pkgDefMemberActual.insert(mts);
@@ -10629,7 +10644,18 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 for (auto* tmS : *sts->Members())
                     if (tmS->Typespec() && tmS->Typespec()->Actual_typespec()) {
                         auto* atS = tmS->Typespec()->Actual_typespec();
-                        if (!atS->Instance() && atS->VpiName().empty())
+                        // ...but an UNPACKED-array wrapper stays bare: its
+                        // ELEMENT is the typespec Surelog compiled in the
+                        // package scope and already carries the Instance (see
+                        // the member loop above).
+                        bool wrapS = false;
+                        if (atS->UhdmType() == UHDM::uhdmarray_typespec)
+                            if (auto* erS = ((UHDM::array_typespec*)atS)
+                                                ->Elem_typespec())
+                                if (auto* eaS = erS->Actual_typespec();
+                                    eaS && eaS->VpiName().empty())
+                                    wrapS = true;
+                        if (!wrapS && !atS->Instance() && atS->VpiName().empty())
                             atS->Instance((UHDM::instance*)up);
                     }
             // NESTED inner-struct member clones carry the pkg Instance on

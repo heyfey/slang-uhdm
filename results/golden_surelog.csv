@@ -121,8 +121,8 @@ BitSelectSelect,default,CMP_EQUAL,,,match
 BitSelectSelect,testflags,CMP_EQUAL,,,differ
 BitsHierPath,default,CMP_EQUAL,,,differ
 BitsHierPath,testflags,CMP_EQUAL,,,differ
-BitsInGenBlock,default,CMP_NOTEQUAL,decompile:,,
-BitsInGenBlock,testflags,CMP_NOTEQUAL,decompile:,,
+BitsInGenBlock,default,CMP_EQUAL,,,differ
+BitsInGenBlock,testflags,CMP_EQUAL,,,differ
 BitsLogic,default,CMP_EQUAL,,,differ
 BitsLogic,testflags,CMP_EQUAL,,,differ
 BitsOp,default,SLANG_REJECT,dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
@@ -403,8 +403,8 @@ EnumConcat,default,CMP_EQUAL,,,match
 EnumConcat,testflags,CMP_EQUAL,,,match
 EnumConst,default,CMP_EQUAL,,,match
 EnumConst,testflags,CMP_EQUAL,,,match
-EnumConstConcat,default,CMP_NOTEQUAL,decompile:,,
-EnumConstConcat,testflags,CMP_NOTEQUAL,decompile:,,
+EnumConstConcat,default,CMP_EQUAL,,,differ
+EnumConstConcat,testflags,CMP_EQUAL,,,differ
 EnumConstElab,default,CMP_NOTEQUAL,decompile:,,
 EnumConstElab,testflags,CMP_NOTEQUAL,decompile:,,
 EnumImplicitVal,default,CMP_EQUAL,,,match
@@ -651,8 +651,8 @@ HierPathTfArg,default,SLANG_REJECT,dut.sv:27:18: error: use of undeclared identi
 HierPathTfArg,testflags,SLANG_REJECT,dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTypespec,default,CMP_EQUAL,,,differ
 HierPathTypespec,testflags,CMP_EQUAL,,,differ
-HierPathUnpacked,default,CMP_NOTEQUAL,decompile:,,
-HierPathUnpacked,testflags,CMP_NOTEQUAL,decompile:,,
+HierPathUnpacked,default,CMP_EQUAL,,,differ
+HierPathUnpacked,testflags,CMP_EQUAL,,,differ
 HierPathUnpackedInPacked,default,SLANG_REJECT,dut.sv:10:17: error: packed members must be of integral type (not 'logic[31:0]$[2]'),,
 HierPathUnpackedInPacked,testflags,SLANG_REJECT,dut.sv:10:17: error: packed members must be of integral type (not 'logic[31:0]$[2]'),,
 HierPathVarArray,default,CMP_EQUAL,,,differ

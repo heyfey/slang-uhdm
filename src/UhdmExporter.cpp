@@ -1721,6 +1721,45 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (dp0->Typespecs())
                     for (auto* t0 : *dp0->Typespecs())
                         fixTs(t0, dp0, 0);
+            // An UNPACKED-array member's WRAPPER array_typespec carries no
+            // vpiInstance: Surelog instances the ELEMENT typespec it compiled
+            // in the package scope and synthesizes the wrapper around it.
+            // Several passes stamp member actuals with the package, so the
+            // wrapper is cleared once here, after all of them have run.
+            // Instance() is cmp-relevant (typespec::Compare recurses it), so
+            // leaving it set is a hard blocker (HierPathUnpacked
+            // keymgr_pkg::foo_t.pair).
+            auto bareWrapInst = [](UHDM::VectorOftypespec_member* mems) {
+                if (!mems)
+                    return;
+                for (auto* tm0 : *mems) {
+                    if (!tm0->Typespec())
+                        continue;
+                    auto* at0 = tm0->Typespec()->Actual_typespec();
+                    if (!at0 || at0->UhdmType() != UHDM::uhdmarray_typespec ||
+                        !at0->Instance())
+                        continue;
+                    auto* er0 = ((UHDM::array_typespec*)at0)->Elem_typespec();
+                    if (!er0 || !er0->Actual_typespec())
+                        continue;
+                    auto* ea0 = er0->Actual_typespec();
+                    if (ea0->VpiName().empty() && ea0->Instance())
+                        at0->Instance(nullptr);
+                }
+            };
+            for (auto* pv0 : {allP, topP})
+                if (pv0)
+                    for (auto* dp0 : *pv0)
+                        if (dp0->Typespecs())
+                            for (auto* t0 : *dp0->Typespecs()) {
+                                if (t0->UhdmType() == UHDM::uhdmstruct_typespec)
+                                    bareWrapInst(((UHDM::struct_typespec*)t0)
+                                                     ->Members());
+                                else if (t0->UhdmType() ==
+                                         UHDM::uhdmunion_typespec)
+                                    bareWrapInst(((UHDM::union_typespec*)t0)
+                                                     ->Members());
+                            }
         }
         // NOTE: a pkg consumed by ANOTHER package keeps its DEF listing bound
         // to its OWN typedef objects (rp32 riscv_priv_pkg csr_adr_t.perm ->

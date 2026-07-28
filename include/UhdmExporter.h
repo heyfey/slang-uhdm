@@ -797,6 +797,11 @@ private:
     /// carry an override), independent of any instance parameterization.
     UHDM::typespec* makeTypeParamDefaultTs(const slang::syntax::DataTypeSyntax& defSyn,
                                            const slang::ast::Scope& body);
+    /// The element typespec of an aggregate member with an ANONYMOUS element
+    /// type (`logic [31:0] pair [2]`); null for kinds not modelled.
+    UHDM::typespec* anonAggregateElemTs(
+        const slang::ast::Type& elemType,
+        const slang::syntax::SyntaxNode* memberTypeSyn);
     UHDM::constant* makeBoundConst(const slang::syntax::SyntaxNode* syn, int64_t value,
                                    UHDM::BaseClass* parent);
     /// Unfolded range-bound expression built from syntax (function/typedef

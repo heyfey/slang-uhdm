@@ -531,8 +531,15 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // A PACKAGE-typedef struct net (port, or a flat-member local) is a
         // wire; nested-struct-member locals stay untyped, and a struct with
         // an ATOM member (integer r;) carries no net type.
+        // ...but an UNPACKED struct is a variable by LRM and can never be a
+        // net, so Surelog's def pass tags it with no net type at all
+        // (HierPathUnpacked `keymgr_pkg::foo_t a;` vs the packed
+        // `keymgr_pkg::hw_key_req_t keymgr_key_i;` right beside it).
         else if (!aliasPackedArr0 && isPkgStructType(*it.sym) &&
                  isExplicitPkgQualified(*it.sym) &&
+                 !(it.sym->getDeclaredType() &&
+                   it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
+                       SymbolKind::UnpackedStructType) &&
                  !([&] {
                      auto d9 = it.sym->getDeclaredType();
                      if (!d9)
@@ -4384,9 +4391,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // Only the `parameter type T` route stays body-declarations-only:
             // a type-param-typed PORT has no typedef-table entry either way
             // and the hand-tuned port routes below cover it.
+            // An UNPACKED struct signal is additionally a variable by LRM —
+            // it cannot be a net at all — so the body declaration stays a
+            // struct_var in the instance view (HierPathUnpacked's
+            // `keymgr_pkg::foo_t a;`); measured on body decls only, so the
+            // unpacked arm keeps its !it.port guard.
+            bool isUnpackedStruct =
+                it.sym->getDeclaredType() &&
+                it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::UnpackedStructType;
             bool memberDemotesToVar =
-                isStruct && (!structTsIsNetLike(ts) ||
-                             (!it.port && typeParamTyped));
+                (isStruct && (!structTsIsNetLike(ts) ||
+                              (!it.port && typeParamTyped))) ||
+                (isUnpackedStruct && !it.port);
+            isStruct = isStruct || isUnpackedStruct;
             if (isStruct &&
                 ((arrOfStructMember && isPkgStructType(*it.sym)) ||
                  memberDemotesToVar) &&

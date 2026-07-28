@@ -3371,6 +3371,60 @@ bool UhdmExporter::hasScopedPkgRef(std::string_view pkgName,
 
 // Packed struct typespec: typespec_members with member-type Ref locations
 // and alias-scoped ref fullnames.
+// The element typespec of an aggregate member whose element type is ANONYMOUS
+// (`logic [31:0] pair [2]`).  There is no shared typedef typespec to point the
+// array_typespec's Elem ref at, but Surelog compiles the member's own type
+// syntax all the same, so the array still carries a dim range and an Elem ref
+// — only a member whose element names a typedef we never registered stays
+// bare.  Returns null for element kinds this does not model (enums, structs,
+// non-integral), which keeps the historic bare form for them.
+// HierPathUnpacked's `keymgr_pkg::foo_t.pair`.
+UHDM::typespec* UhdmExporter::anonAggregateElemTs(
+    const Type& elemType, const syntax::SyntaxNode* memberTypeSyn) {
+    if (!memberTypeSyn || elemType.kind == SymbolKind::TypeAlias)
+        return nullptr;
+    auto& elc = elemType.getCanonicalType();
+    if (!elc.isIntegral() || elc.isEnum() || elc.isStruct())
+        return nullptr;
+    auto* lts = s.MakeLogic_typespec();
+    setLoc(lts, memberTypeSyn->sourceRange());
+    if (elemType.isSigned())
+        lts->VpiSigned(true);
+    const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dims = nullptr;
+    if (syntax::IntegerTypeSyntax::isKind(memberTypeSyn->kind))
+        dims = &memberTypeSyn->as<syntax::IntegerTypeSyntax>().dimensions;
+    std::vector<ConstantRange> pd;
+    for (const Type* pt = &elc; pt->isPackedArray();
+         pt = &pt->as<PackedArrayType>().elementType.getCanonicalType())
+        pd.push_back(pt->as<PackedArrayType>().range);
+    if (dims && !pd.empty() && pd.size() == dims->size()) {
+        auto* rv = s.MakeRangeVec();
+        for (size_t di = 0; di < pd.size(); di++) {
+            auto* dsy = (*dims)[di];
+            auto* r = s.MakeRange();
+            r->VpiParent(lts);
+            setLoc(r, dsy->sourceRange());
+            const syntax::ExpressionSyntax* pl = nullptr;
+            const syntax::ExpressionSyntax* pr = nullptr;
+            if (dsy->specifier &&
+                dsy->specifier->kind ==
+                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                if (auto* rs =
+                        dsy->specifier
+                            ->as<syntax::RangeDimensionSpecifierSyntax>()
+                            .selector->as_if<syntax::RangeSelectSyntax>()) {
+                    pl = rs->left;
+                    pr = rs->right;
+                }
+            r->Left_expr(makeBoundConst(pl, pd[di].left, r));
+            r->Right_expr(makeBoundConst(pr, pd[di].right, r));
+            rv->push_back(r);
+        }
+        lts->Ranges(rv);
+    }
+    return lts;
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -3479,6 +3533,14 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             if (auto ei9 = typedefTs.find(&ua9.elementType);
                 ei9 != typedefTs.end())
                 ets9 = ei9->second;
+            bool freshElem9 = false;
+            if (!ets9) {
+                ets9 = anonAggregateElemTs(ua9.elementType, memberTypeSyn);
+                if (ets9) {
+                    ets9->Instance(sts->Instance());
+                    freshElem9 = true;
+                }
+            }
             if (ets9) {
                 const syntax::VariableDimensionSyntax* dim9 = nullptr;
                 if (auto ds9 = fm.getSyntax();
@@ -3633,6 +3695,12 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                     ert9->VpiParent(ats9);
                 ert9->Actual_typespec(tgt9);
                 ats9->Elem_typespec(ert9);
+                // A FRESHLY minted element ts is a member type like any
+                // other: it parents at the typespec_member in a MAIN
+                // (module-scoped) tree, at its own Elem ref in a clone.
+                if (freshElem9)
+                    ets9->VpiParent(main9 ? (UHDM::BaseClass*)tm
+                                          : (UHDM::BaseClass*)ert9);
                 if (!main9 && tgt9 != ets9)
                     tgt9->VpiParent(ert9);
             }
@@ -4134,6 +4202,14 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
             if (auto ei9 = typedefTs.find(&ua9.elementType);
                 ei9 != typedefTs.end())
                 ets9 = ei9->second;
+            bool freshElem9 = false;
+            if (!ets9) {
+                ets9 = anonAggregateElemTs(ua9.elementType, memberTypeSyn);
+                if (ets9) {
+                    ets9->Instance(uts->Instance());
+                    freshElem9 = true;
+                }
+            }
             if (ets9) {
                 const syntax::VariableDimensionSyntax* dim9 = nullptr;
                 if (auto ds9 = fm.getSyntax();
@@ -4288,6 +4364,12 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                     ert9->VpiParent(ats9);
                 ert9->Actual_typespec(tgt9);
                 ats9->Elem_typespec(ert9);
+                // A FRESHLY minted element ts is a member type like any
+                // other: it parents at the typespec_member in a MAIN
+                // (module-scoped) tree, at its own Elem ref in a clone.
+                if (freshElem9)
+                    ets9->VpiParent(main9 ? (UHDM::BaseClass*)tm
+                                          : (UHDM::BaseClass*)ert9);
                 if (!main9 && tgt9 != ets9)
                     tgt9->VpiParent(ert9);
             }
@@ -5739,6 +5821,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             setLoc(c, syn.sourceRange());
             return c;
         }
+        case syntax::SyntaxKind::ConcatenationExpression: {
+            // {a, b, c} at module-DEF compile: a plain vpiConcatOp spanning the
+            // braces, operands emitted from syntax like every other def-view
+            // expression.  Reached from a gen-block's own declarations, where
+            // the whole subtree is syntax-emitted (BitsInGenBlock).
+            auto& cce = syn.as<syntax::ConcatenationExpressionSyntax>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiConcatOp);
+            op->VpiParent(parent);
+            setLoc(op, syn.sourceRange());
+            auto* operands = s.MakeAnyVec();
+            for (auto* e0 : cce.expressions)
+                if (auto* o0 = emitSyntaxExpr(*e0, op))
+                    operands->push_back(o0);
+            op->Operands(operands);
+            return op;
+        }
         case syntax::SyntaxKind::StreamingConcatenationExpression: {
             // {<< [N] {a,b}}: stream op at the INNER braces span wrapping a
             // concat that takes the WHOLE streaming span (Surelog span swap);
@@ -5866,10 +5965,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // DOTTED args (blk1.w) re-emit as hier_paths (bare
                         // base, prefix-scoped leaf).
                         std::string argRaw = rawText(arg->sourceRange());
-                        if (argRaw.find('.') != std::string::npos &&
-                            arg->kind == syntax::SyntaxKind::OrderedArgument) {
-                            const syntax::SyntaxNode* ae =
-                                arg->as<syntax::OrderedArgumentSyntax>().expr;
+                        const syntax::SyntaxNode* ae = nullptr;
+                        if (arg->kind == syntax::SyntaxKind::OrderedArgument) {
+                            ae = arg->as<syntax::OrderedArgumentSyntax>().expr;
                             if (ae->kind ==
                                 syntax::SyntaxKind::SimplePropertyExpr)
                                 ae = ae->as<syntax::SimplePropertyExprSyntax>()
@@ -5878,6 +5976,16 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 syntax::SyntaxKind::SimpleSequenceExpr)
                                 ae = ae->as<syntax::SimpleSequenceExprSyntax>()
                                          .expr;
+                        }
+                        // A CONCATENATION argument ($bits({a, b, c})) is a real
+                        // expression, not a type name: Surelog compiles it
+                        // through compileExpression and the query call keeps a
+                        // vpiConcatOp operand whose operands are the member
+                        // refs.  The raw-text ref_obj fallback below is only
+                        // right for a NAME-shaped argument (BitsInGenBlock).
+                        if (ae && (argRaw.find('.') != std::string::npos ||
+                                   ae->kind == syntax::SyntaxKind::
+                                                   ConcatenationExpression)) {
                             if (auto* e2 = emitSyntaxExpr(*ae, sfc)) {
                                 args->push_back(e2);
                                 continue;
@@ -6088,6 +6196,48 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // keeps a ref_obj bound to the package parameter — Surelog leaves the
             // [pkg::WIDTH-1:0] bound UNFOLDED (fail_detect_width output port).
             if (parts.size() < 2 && raw.find("::") != std::string::npos) {
+                // ...but a package ENUM MEMBER (pkg::ReadingLow) is already a
+                // constant when the module def compiles (packages elaborate
+                // first), so Surelog's reduce substitutes its VALUE.  The
+                // enum_const's own value/width carry over verbatim; only the
+                // decompile is re-rendered from them, which is why a member
+                // whose initializer is an expression ({6'b001100, MuBi4False})
+                // reads 10'b0011000101 and not its source text.  The constant
+                // is anchored at the SCOPE qualifier (`pkg::`), not the whole
+                // reference (EnumConstConcat).
+                if (const Scope* esc =
+                        currentScope ? currentScope : (const Scope*)nullptr) {
+                    ASTContext ectx(*esc, LookupLocation::max);
+                    auto& ee =
+                        Expression::bind(syn.as<syntax::ExpressionSyntax>(), ectx);
+                    if (!ee.bad() && stripImplicitConv(ee).kind ==
+                                         ExpressionKind::NamedValue) {
+                        auto& esy =
+                            stripImplicitConv(ee).as<NamedValueExpression>().symbol;
+                        if (esy.kind == SymbolKind::EnumValue) {
+                            if (auto* ec = enumMemberSubstConst(esy)) {
+                                std::string ev(ec->VpiValue());
+                                auto cp = ev.find(':');
+                                std::string tag = ev.substr(0, cp);
+                                std::string dg = ev.substr(cp + 1);
+                                std::string base = tag == "BIN"   ? "'b"
+                                                   : tag == "HEX" ? "'h"
+                                                   : tag == "OCT" ? "'o"
+                                                                  : "";
+                                ec->VpiDecompile(
+                                    base.empty()
+                                        ? dg
+                                        : std::to_string(ec->VpiSize()) + base + dg);
+                                ec->VpiParent(parent);
+                                auto qEnd = syn.sourceRange().start() +
+                                            raw.find("::") + 2;
+                                setLoc(ec, SourceRange(syn.sourceRange().start(),
+                                                       qEnd));
+                                return ec;
+                            }
+                        }
+                    }
+                }
                 auto* ref = s.MakeRef_obj();
                 ref->VpiName(raw);
                 ref->VpiFullName(raw);
