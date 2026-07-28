@@ -944,6 +944,51 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             }
         }
     }
+    // A PROGRAM also lists every variable declared INSIDE its processes as a
+    // program-scope logic_net (measured on a purpose-built golden pair:
+    // `program p1; initial begin integer j = 0; begin integer k = 1; end end
+    //  initial begin real q; end` -> three vpiNet logic_nets work@p1.{j,k,q}
+    // carrying the DECLARATION's typespec, while each begin keeps its own
+    // integer_var/real_var; the same source in a MODULE hoists nothing).
+    if (m->UhdmType() == UHDM::uhdmprogram) {
+        std::set<std::string> haveN;
+        for (auto* n0 : *nets)
+            haveN.insert(std::string(n0->VpiName()));
+        std::function<void(const Scope&)> hoistBlk = [&](const Scope& sc) {
+            for (auto& bm : sc.members()) {
+                if (bm.kind == SymbolKind::StatementBlock) {
+                    hoistBlk(bm.as<StatementBlockSymbol>());
+                    continue;
+                }
+                if (bm.kind != SymbolKind::Variable || bm.name.empty())
+                    continue;
+                if (!haveN.insert(std::string(bm.name)).second)
+                    continue;
+                auto* hn = s.MakeLogic_net();
+                hn->VpiName(bm.name);
+                hn->VpiFullName(prefix + "." + std::string(bm.name));
+                hn->VpiParent(m);
+                setLoc(hn, nameSpan(bm.location, bm.name));
+                if (auto* hts = makeTypespec(bm)) {
+                    // The NET view DOES name an instance-local class
+                    // (unlike the block var's own ts — see makeTypespec).
+                    if (hts->UhdmType() == UHDM::uhdmclass_typespec &&
+                        hts->VpiName().empty())
+                        if (auto* cd9 = ((UHDM::class_typespec*)hts)->Class_defn())
+                            hts->VpiName(cd9->VpiName());
+                    auto* hrt = s.MakeRef_typespec();
+                    hrt->VpiParent(hn);
+                    hrt->VpiFullName(prefix + "." + std::string(bm.name));
+                    hrt->Actual_typespec(hts);
+                    hn->Typespec(hrt);
+                }
+                nets->push_back(hn);
+            }
+        };
+        for (auto& member : body.members())
+            if (member.kind == SymbolKind::StatementBlock)
+                hoistBlk(member.as<StatementBlockSymbol>());
+    }
     if (!nets->empty())
         m->Nets(nets);
 
@@ -1094,7 +1139,18 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // and whose block names / signal actuals are the elab instance's). So the
     // def pass emits nothing here; emitInstance emits and shares (the same
     // inversion emitInterfaceInstance already does for interfaces).
-    bool progDef = m->UhdmType() == UHDM::uhdmprogram;
+    // An UNINSTANTIATED program has no elab instance to compile in, so its def
+    // pass keeps its own processes (golden bare-`program` pair: the def's
+    // initial carries def-view block fullnames and an UNBOUND signal ref).
+    //
+    // RESIDUE (ranked, measured on `program p1; integer a; initial begin a = 1;
+    // end endprogram`): in that golden the process's `a` ref_obj carries NO
+    // vpiActual — an uninstantiated program is never elaborated, so nothing
+    // binds its program-scope signals — while we bind the logic_net. Needs the
+    // same treatment classMethodNoBind gives class methods, scoped to
+    // uninstProgDefs processes. No corpus test reaches it yet (SimpleConstraint
+    // only references block locals, which match).
+    bool progDef = m->UhdmType() == UHDM::uhdmprogram && !uninstProgDefs.count(&def);
     for (auto& member : body.members()) {
         if (member.kind != SymbolKind::ProceduralBlock)
             continue;

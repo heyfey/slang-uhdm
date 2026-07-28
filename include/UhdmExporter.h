@@ -408,6 +408,11 @@ private:
     std::set<const slang::ast::Symbol*> droppedBindDefs;
     // See setSyntheticTops().
     std::set<std::string> syntheticTops;
+    // File-scope `program`s pulled out of the top list (they are never design
+    // tops for Surelog). With no elaborated instance to compile the body in,
+    // the DEF pass emits their processes itself instead of waiting for the
+    // emitInstance fold-back (see the progDef gate in emitModuleDef).
+    std::set<const slang::ast::Symbol*> uninstProgDefs;
     // See setBlackBoxes(): Surelog -bb_mod / -bb_inst arguments, verbatim.
     std::set<std::string> bbModules;
     std::set<std::string> bbInstances;
@@ -957,6 +962,14 @@ private:
     // True while emitting DEF-view gen-block processes (all refs unbound,
     // including enum consts).
     bool defGenProcessEmit = false;
+    // True while emitting a CLASS METHOD body outside an if/case CONDITION.
+    // Measured (purpose-built goldens, package/module/program-scoped classes):
+    // Surelog binds a class-method body ref to its io_decl/local var ONLY in
+    // the condition of an if_stmt/if_else/case_stmt; every other position —
+    // assignment lhs/rhs, call arguments, loop conditions and increments,
+    // select indexes, case-ITEM expressions — stays unbound, enum consts
+    // included (SimpleConstraint getType/print).
+    bool classMethodNoBind = false;
     bool callStmtContext = false;
     // Set while emitting an ELABORATED (top-view) module/interface PARAMETER.
     // Surelog builds the [N] -> [0:N-1] "decr by 1" op with an UNPARENTED

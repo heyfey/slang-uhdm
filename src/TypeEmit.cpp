@@ -216,7 +216,19 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         if (auto& ct0 = declared->getType().getCanonicalType();
             ct0.kind == SymbolKind::ClassType) {
             auto* cts = s.MakeClass_typespec();
-            cts->VpiName(ct0.name);
+            // A var declared INSIDE A PROCESS whose class is declared in the
+            // SAME instance gets an UNNAMED class_typespec — Surelog's
+            // statement-scope CompileType cannot name an instance-local class
+            // (measured: `module m1; class C; ... initial begin C d = new();`
+            // and the same in a program -> unnamed, while the module-scope
+            // `C e;` and a $unit-scope class both stay named). vpiClassDefn is
+            // linked either way. SimpleConstraint `frame_t frame = new();`.
+            if (!(declSymbol.getParentScope() &&
+                  declSymbol.getParentScope()->asSymbol().kind ==
+                      SymbolKind::StatementBlock &&
+                  ct0.getParentScope() &&
+                  ct0.getParentScope()->asSymbol().kind == SymbolKind::InstanceBody))
+                cts->VpiName(ct0.name);
             if (auto* bcd0 = classDefnFor(ct0))
                 cts->Class_defn(bcd0);
             else
@@ -1103,13 +1115,24 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
     // An UNPACKED array's element ts keys on its packed LEAF (bit [0:0][0:0]
     // b [0:0] still gets a bit_typespec element).
+    // A DYNAMIC array's declaration keys on its element the same way (measured:
+    // `bit [7:0] q [];` -> bit_typespec[7:0], `logic [3:0] r [];` ->
+    // logic_typespec), matching the FileResolutionFunction rule above.
+    auto unpackedLeaf0 = [](const Type* t) {
+        while (t) {
+            auto& c = t->getCanonicalType();
+            if (c.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                t = &c.as<FixedSizeUnpackedArrayType>().elementType.getCanonicalType();
+            else if (c.kind == SymbolKind::DynamicArrayType)
+                t = &c.as<DynamicArrayType>().elementType.getCanonicalType();
+            else
+                break;
+        }
+        return t;
+    };
     UHDM::typespec* ts0;
-    const Type* fsLeaf0 = declared ? &declared->getType().getCanonicalType() : nullptr;
-    while (fsLeaf0 && fsLeaf0->getCanonicalType().kind ==
-                          SymbolKind::FixedSizeUnpackedArrayType)
-        fsLeaf0 = &fsLeaf0->getCanonicalType()
-                       .as<FixedSizeUnpackedArrayType>()
-                       .elementType.getCanonicalType();
+    const Type* fsLeaf0 =
+        unpackedLeaf0(declared ? &declared->getType().getCanonicalType() : nullptr);
     if (fsLeaf0 && fsLeaf0->isIntegral() && !fsLeaf0->isFourState())
         ts0 = s.MakeBit_typespec();
     else
@@ -1126,12 +1149,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     // ("input [7:0] a" / "wire [7:0] w").
     // The packed element sits under any unpacked array dims (an unpacked-array
     // net still carries its packed element ranges on the element typespec).
-    const Type* packedLeaf = declared ? &declared->getType().getCanonicalType() : nullptr;
-    while (packedLeaf &&
-           packedLeaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
-        packedLeaf = &packedLeaf->getCanonicalType()
-                          .as<FixedSizeUnpackedArrayType>()
-                          .elementType.getCanonicalType();
+    const Type* packedLeaf =
+        unpackedLeaf0(declared ? &declared->getType().getCanonicalType() : nullptr);
     if (packedLeaf && packedLeaf->isPackedArray()) {
         auto tsyn = typeSynFor();
         const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
@@ -1172,14 +1191,12 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         }
         if (dimSyns) {
             std::vector<ConstantRange> dims;
-            const Type* t = &declared->getType().getCanonicalType();
             // A net/var element typespec covers only the PACKED dims; descend
-            // past any unpacked array dims (e.g. logic [7:0] memory [0:15])
-            // to reach the packed element before collecting its ranges.
-            while (t->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
-                t = &t->getCanonicalType()
-                         .as<FixedSizeUnpackedArrayType>()
-                         .elementType.getCanonicalType();
+            // past any unpacked array dims (e.g. logic [7:0] memory [0:15],
+            // bit [7:0] q []) to reach the packed element before collecting
+            // its ranges.
+            const Type* t =
+                unpackedLeaf0(&declared->getType().getCanonicalType());
             while (t->isPackedArray()) {
                 auto& pat = t->as<PackedArrayType>();
                 dims.push_back(pat.range);

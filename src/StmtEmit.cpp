@@ -558,6 +558,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                          ? vs.getDeclaredType()->getInitializer()
                                          : nullptr;
                         auto vit = blockMap.find(&vs);
+                        // A CLASS-HANDLE local initialized with `new()` emits
+                        // NO assignment at all: golden keeps only the class_var
+                        // (parented at the begin). Measured on `module m1;
+                        // class C; ... initial begin C d = new(); end` and the
+                        // program form — SimpleConstraint `frame_t frame =
+                        // new();`.
+                        if (init && init->kind == ExpressionKind::NewClass)
+                            continue;
+                        // RESIDUE (ranked, measured on `program p1; initial
+                        // begin integer j = 0; j = 1; end`): when the block is
+                        // a PROGRAM's, golden's decl assignment takes a
+                        // ref_obj Lhs, not the integer_var — the var-as-Lhs
+                        // form below matches the module case and
+                        // SimpleConstraint (whose `j = 0` golden IS the var),
+                        // so the program-only variant is unresolved and no
+                        // corpus test reaches it.
                         if (init && vit != blockMap.end()) {
                             auto* asn = s.MakeAssignment();
                             asn->VpiOpType(kVpiAssignmentOp);
@@ -858,7 +874,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     ie->VpiQualifier(vpiUniqueQualifier);
                 else if (cs.check == UniquePriorityCheck::Priority)
                     ie->VpiQualifier(vpiPriorityQualifier);
-                if (auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap))
+                bool sCM9 = classMethodNoBind;
+                classMethodNoBind = false; // condition refs DO bind
+                auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+                classMethodNoBind = sCM9;
+                if (c)
                     ie->VpiCondition((UHDM::expr*)c);
                 if (auto* t = emitStmt(cs.ifTrue, ie, prefix, netMap))
                     ie->VpiStmt(t);
@@ -873,8 +893,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 is->VpiQualifier(vpiUniqueQualifier);
             else if (cs.check == UniquePriorityCheck::Priority)
                 is->VpiQualifier(vpiPriorityQualifier);
-            if (auto* c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap))
-                is->VpiCondition((UHDM::expr*)c);
+            bool sCM8 = classMethodNoBind;
+            classMethodNoBind = false; // condition refs DO bind
+            auto* c8 = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
+            classMethodNoBind = sCM8;
+            if (c8)
+                is->VpiCondition((UHDM::expr*)c8);
             if (auto* t = emitStmt(cs.ifTrue, is, prefix, netMap))
                 is->VpiStmt(t);
             return is;
@@ -1089,10 +1113,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Like if conditions, the case condition parents at the
             // enclosing scope — but FOLDED condition constants parent at
             // the case_stmt itself.
-            if (auto* c = emitExpr(cs.expr, parent, prefix, netMap)) {
-                if (c->UhdmType() == UHDM::uhdmconstant)
-                    ((UHDM::constant*)c)->VpiParent(uc);
-                uc->VpiCondition((UHDM::expr*)c);
+            bool sCM7 = classMethodNoBind;
+            classMethodNoBind = false; // condition refs DO bind
+            auto* c7 = emitExpr(cs.expr, parent, prefix, netMap);
+            classMethodNoBind = sCM7;
+            if (c7) {
+                if (c7->UhdmType() == UHDM::uhdmconstant)
+                    ((UHDM::constant*)c7)->VpiParent(uc);
+                uc->VpiCondition((UHDM::expr*)c7);
             }
 
             // Item location comes from the case-item syntax (covers the

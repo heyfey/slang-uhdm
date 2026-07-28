@@ -1239,8 +1239,8 @@ SimpleClass2,default,SLANG_REJECT,top.v:13:19: error: implementation not found i
 SimpleClass2,testflags,SLANG_REJECT,top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-found],,
 SimpleCmdLineTest,default,SLANG_REJECT,flist2.f:1:26: error: unknown command line argument '-bad'; did you mean '--std'?,,
 SimpleCmdLineTest,testflags,NO_UHDM,[   NOTE] : 1,,
-SimpleConstraint,default,CMP_NOTEQUAL,decompile:,,
-SimpleConstraint,testflags,CMP_NOTEQUAL,decompile:,,
+SimpleConstraint,default,CMP_EQUAL,,,differ
+SimpleConstraint,testflags,CMP_EQUAL,,,differ
 SimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleIncludeAndMacros,testflags,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleInterface,default,SLANG_REJECT,simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,

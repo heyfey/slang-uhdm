@@ -2259,7 +2259,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // outside defGenProcessEmit, keep their scoped fullname.)
                 if (!defGenProcessEmit)
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
-                if (suppressRefActual) {
+                if (classMethodNoBind) {
+                    // Class-method body outside an if/case condition: no
+                    // actual of any kind (see classMethodNoBind).
+                }
+                else if (suppressRefActual) {
                     // ELAB gen-scope process refs to gen-block / stmt-block
                     // LOCALS still bind (module-level signals stay unbound);
                     // the DEF view binds nothing, and CA-suppress contexts
@@ -4110,32 +4114,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!call.arguments().empty()) {
                     auto* recv = call.arguments()[0];
                     std::string recvText = rawText(recv->sourceRange);
+                    // The receiver text may itself be DOTTED
+                    // (`frame.multicast.constraint_mode(0)` -> receiver
+                    // `frame.multicast`); Surelog models the dotted path one
+                    // name per element.
+                    std::vector<std::string> dots;
+                    for (size_t p0 = 0;;) {
+                        auto d0 = recvText.find('.', p0);
+                        if (d0 == std::string::npos) {
+                            dots.push_back(recvText.substr(p0));
+                            break;
+                        }
+                        dots.push_back(recvText.substr(p0, d0 - p0));
+                        p0 = d0 + 1;
+                    }
                     // STATEMENT context (b.putc(2,"x");): a flat
                     // method_func_call with an unbound receiver Prefix.
+                    // Surelog's statement-call path reads only the FIRST TWO
+                    // names of the dotted call: the call is named after
+                    // name[1] with name[0] as the Prefix, and when more names
+                    // follow, the ARGUMENT LIST (which belongs to the last
+                    // name) is dropped entirely — measured on
+                    // `o.cn.constraint_mode(0);` -> method_func_call(cn)
+                    // prefix o, no args, and `t.sub.m(4);` ->
+                    // method_func_call(sub) prefix t, no args.
                     if (stmtCtx && !recvText.empty()) {
+                        bool deep0 = dots.size() > 1;
+                        const std::string& callNm0 = deep0 ? dots[1] : name;
+                        const std::string& recvNm0 = dots[0];
                         auto* mfc = s.MakeMethod_func_call();
-                        mfc->VpiName(name);
+                        mfc->VpiName(callNm0);
                         mfc->VpiParent(parent);
-                        auto mStart = recv->sourceRange.end() + 1;
-                        setLoc(mfc, SourceRange(mStart, mStart + name.size()));
+                        auto mStart = recv->sourceRange.start() +
+                                      (deep0 ? recvNm0.size() + 1
+                                             : recvText.size() + 1);
+                        setLoc(mfc, SourceRange(mStart, mStart + callNm0.size()));
                         auto* pr = s.MakeRef_obj();
-                        pr->VpiName(recvText);
-                        pr->VpiFullName(joinRef(prefix, recvText));
+                        pr->VpiName(recvNm0);
+                        pr->VpiFullName(joinRef(prefix, recvNm0));
                         pr->VpiParent(mfc);
-                        setLoc(pr, recv->sourceRange);
+                        setLoc(pr, SourceRange(recv->sourceRange.start(),
+                                               recv->sourceRange.start() +
+                                                   recvNm0.size()));
                         mfc->Prefix(pr);
-                        auto* margs = s.MakeAnyVec();
-                        for (size_t ai = 1; ai < call.arguments().size(); ai++) {
-                            bool fs2 = forceConstParent;
-                            if (isLiteralExpr(*call.arguments()[ai]))
-                                forceConstParent = true;
-                            if (auto* a2 = emitExpr(*call.arguments()[ai], mfc,
-                                                    prefix, netMap))
-                                margs->push_back(a2);
-                            forceConstParent = fs2;
+                        if (!deep0) {
+                            auto* margs = s.MakeAnyVec();
+                            for (size_t ai = 1; ai < call.arguments().size(); ai++) {
+                                bool fs2 = forceConstParent;
+                                if (isLiteralExpr(*call.arguments()[ai]))
+                                    forceConstParent = true;
+                                if (auto* a2 = emitExpr(*call.arguments()[ai], mfc,
+                                                        prefix, netMap))
+                                    margs->push_back(a2);
+                                forceConstParent = fs2;
+                            }
+                            if (!margs->empty())
+                                mfc->Tf_call_args(margs);
                         }
-                        if (!margs->empty())
-                            mfc->Tf_call_args(margs);
                         return mfc;
                     }
                     if (!recvText.empty()) {
@@ -4146,12 +4181,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hp->VpiParent(parent);
                         setLoc(hp, expr.sourceRange);
                         auto* elems = s.MakeAnyVec();
-                        auto* r0 = s.MakeRef_obj();
-                        r0->VpiName(recvText);
-                        r0->VpiFullName(recvText); // name-only (dump omits)
-                        r0->VpiParent(hp);
-                        setLoc(r0, recv->sourceRange);
-                        elems->push_back(r0);
+                        // ONE ref_obj per dotted name (o.cn.constraint_mode ->
+                        // ref_obj o, ref_obj cn, method_func_call
+                        // constraint_mode).
+                        auto nmStart0 = recv->sourceRange.start();
+                        for (auto& dn0 : dots) {
+                            auto* r0 = s.MakeRef_obj();
+                            r0->VpiName(dn0);
+                            r0->VpiFullName(dn0); // name-only (dump omits)
+                            r0->VpiParent(hp);
+                            setLoc(r0, SourceRange(nmStart0, nmStart0 + dn0.size()));
+                            elems->push_back(r0);
+                            nmStart0 = nmStart0 + dn0.size() + 1;
+                        }
                         auto* mfc = s.MakeMethod_func_call();
                         mfc->VpiName(name);
                         mfc->VpiParent(hp);

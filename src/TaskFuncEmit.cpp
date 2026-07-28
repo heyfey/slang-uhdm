@@ -1077,9 +1077,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
             }
             ios->push_back(io);
-            // Class-method body refs to formals stay UNBOUND.
-            if (!classScope)
-                funcMap[arg] = io;
+            // A class-method formal IS reachable from the body, but only an
+            // if/case CONDITION ref actually binds it (classMethodNoBind).
+            funcMap[arg] = io;
             si.argTs.push_back({ts, bareImplicit ? (const void*)argTsyn : nullptr});
         }
         if (!ios->empty())
@@ -1644,7 +1644,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         auto* savedSubSym = currentSubSym;
         currentSubSym = &sub;
         bool selOwner = beginSelTrack();
+        bool savedCMNB = classMethodNoBind;
+        classMethodNoBind = classScope;
         auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
+        classMethodNoBind = savedCMNB;
         if (!autoShareLocals9.empty() && body &&
             body->UhdmType() == UHDM::uhdmbegin)
             for (auto* av9 : autoShareLocals9)

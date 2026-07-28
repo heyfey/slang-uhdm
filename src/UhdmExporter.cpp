@@ -416,6 +416,12 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         auto& cp = pm.as<ClassPropertySymbol>();
         auto& ct = cp.getType().getCanonicalType();
         std::string pfn = fullName + "::" + std::string(cp.name);
+        // `rand`/`randc` qualifier -> vpiIsRandomized + vpiRandType
+        // (vpiNotRand 1 / vpiRand 2 / vpiRandC 3); an unqualified property
+        // keeps whatever the shape below sets (SimpleConstraint).
+        int32_t randTy = cp.randMode == RandMode::Rand    ? 2
+                         : cp.randMode == RandMode::RandC ? 3
+                                                          : 0;
         // A DYNAMIC-array / QUEUE / ASSOC property is an array_var carrying a
         // bare array_typespec, with the ELEMENT variable under vpiReg.
         if (ct.kind == SymbolKind::DynamicArrayType ||
@@ -445,7 +451,12 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             setLoc(av, nameSpan(cp.location, cp.name));
             av->VpiSize(1);
             av->VpiAutomatic(true);
-            av->VpiRandType(1);
+            if (randTy) {
+                av->VpiIsRandomized(true);
+                av->VpiRandType(randTy);
+            }
+            else
+                av->VpiRandType(1);
             av->VpiVisibility(1);
             av->VpiArrayType(akind);
             auto* ats = s.MakeArray_typespec();
@@ -456,6 +467,14 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             reg->VpiParent(av);
             reg->VpiFullName(pfn);
             setLoc(reg, nameSpan(cp.location, cp.name));
+            // An ELEMENT type with no shared alias (a bare `bit [7:0]`) still
+            // gets its own typespec, minted in the write phase like any other
+            // property's (SimpleConstraint `rand bit [7:0] payload []`: the
+            // vpiReg bit_var's ref_typespec -> a ranged bit_typespec).
+            if (auto* rrt = reg->Typespec();
+                rrt && !((UHDM::ref_typespec*)rrt)->Actual_typespec())
+                pendingClassPropTs.push_back(
+                    {(UHDM::ref_typespec*)rrt, &cp, reg});
             auto* rvars = s.MakeVariablesVec();
             rvars->push_back(reg);
             av->Variables(rvars);
@@ -466,7 +485,12 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // var (int_var + vpiSigned), not a bare bit_var; anonymous bit/logic
         // vectors keep bit/logic_var.
         UHDM::variables* v = nullptr;
-        if (ct.isIntegral()) {
+        // An ENUM-typed property is an enum_var, not the bit/logic_var its
+        // integral base would give (SimpleConstraint `rand pkt_type ptype`);
+        // the array-element path (classElemVar) already had this rule.
+        if (ct.kind == SymbolKind::EnumType)
+            v = s.MakeEnum_var();
+        else if (ct.isIntegral()) {
             if (ct.kind == SymbolKind::PredefinedIntegerType)
                 v = makeVar(cp, /*portBacked=*/false);
             if (!v)
@@ -485,6 +509,10 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         v->VpiParent(cd);
         setLoc(v, nameSpan(cp.location, cp.name));
         v->VpiAutomatic(true);
+        if (randTy) {
+            v->VpiIsRandomized(true);
+            v->VpiRandType(randTy);
+        }
         v->VpiVisibility(1);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName + "::" + std::string(cp.name));
@@ -1243,6 +1271,25 @@ UHDM::design* UhdmExporter::exportDesign() {
         synthTops.assign(mid, orderedTops.end());
         orderedTops.erase(mid, orderedTops.end());
     }
+    // A file-scope `program` is NOT a design top for Surelog. Measured on a
+    // purpose-built golden pair (bare `program p1;` vs `program p1;` +
+    // `module m1;`): in BOTH the program appears only in design->AllPrograms
+    // as a DEF view (VpiName empty, VpiDefName work@p1) and never in
+    // AllModules/TopModules; with no module top besides it the design is
+    // `unnamed` with AllModules/TopModules NULL, and with a module top the
+    // design is named after the MODULE. slang, by contrast, elaborates an
+    // uninstantiated program as a root top instance. So pull program tops out
+    // of orderedTops (they still get their AllPrograms def view below) —
+    // instantiated programs (OneNetInterf/OneNetModPort/OneNetRange) are not
+    // root tops in slang either, so they are untouched by this rule.
+    std::vector<const InstanceSymbol*> progTops;
+    {
+        auto mid = std::stable_partition(
+            orderedTops.begin(), orderedTops.end(),
+            [](const InstanceSymbol* t) { return !isProgramDef(*t); });
+        progTops.assign(mid, orderedTops.end());
+        orderedTops.erase(mid, orderedTops.end());
+    }
     std::stable_sort(orderedTops.begin(), orderedTops.end(),
                      [this](const InstanceSymbol* a, const InstanceSymbol* b) {
                          return srcOrderLess(a->getDefinition().location,
@@ -1360,6 +1407,14 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
         }
     }
+    // Uninstantiated file-scope `program`s: def views only (AllPrograms),
+    // filled like an unreferenced def in the write phase; never design tops.
+    for (auto* pt : progTops)
+        if (defs.emplace(std::string(pt->getDefinition().name), pt).second) {
+            unrefDefs.insert(&pt->getDefinition());
+            uninstProgDefs.insert(&pt->getDefinition());
+            collectDefs(pt->body, defs, &uninstGenDefNames);
+        }
     // Synthetic (bind-carrier) tops: def views only, filled like an
     // unreferenced def in the write phase; never emitted as tops.
     for (auto* st : synthTops)
@@ -2199,45 +2254,16 @@ UHDM::design* UhdmExporter::exportDesign() {
     // everything else module_inst shells in AllModules.
     auto* allIfaces = s.MakeInterface_instVec();
     auto* allProgs = s.MakeProgramVec();
-    std::set<const DefinitionSymbol*> topDefs;
-    for (auto* ti : orderedTops)
-        topDefs.insert(&ti->getDefinition());
     for (auto& [name, inst] : defs) {
         if (useInterfacePath(*inst)) {
             auto* iface = s.MakeInterface_inst();
             ifaceDefMap[&inst->getDefinition()] = iface;
             allIfaces->push_back(iface);
         }
-        // A program elaborated as a TOP has no observed Surelog form here
-        // (design->TopModules is a module_inst vector), so it keeps the
-        // module_inst shell until a corpus test pins the real shape.
-        //
-        // NOTE (design-root family, SimpleConstraint): Surelog does NOT make a
-        // file-scope `program` a design top at all — its golden design is
-        // `unnamed`, TopModules is null, AllModules is null, and the program
-        // sits alone in AllPrograms. Pulling program defs out of orderedTops
-        // reproduces that design root, but SimpleConstraint still diverges
-        // deeper (a `rand pkt_type` class property is an enum_var in golden and
-        // a bit_var here), and three currently-CMP_EQUAL program tests
-        // (OneNetInterf/OneNetModPort/OneNetRange) sit in the blast radius, so
-        // the rule is left unimplemented until the enum_var residue is fixed
-        // and the two can be gated together.
-        //
-        // Re-triaged in the design-root-class block; the residue list past the
-        // AllPrograms/AllModules root is longer than the enum_var note implies
-        // and each item is its own rule:
-        //   * a `rand` class property carries vpiIsRandomized:1 + vpiRandType:2
-        //     (we emit vpiRandType:1 and no vpiIsRandomized);
-        //   * `frame_t frame = new();` declared INSIDE an initial-begin is
-        //     hoisted to a program-scope logic_net (plus `integer j`), while the
-        //     begin keeps the class_var/integer_var — we emit only the block var;
-        //   * `frame.multicast.constraint_mode(0)` models as a
-        //     method_func_call named after the CONSTRAINT (`multicast`), prefix
-        //     ref_obj = `frame`, argument dropped — we build a call named
-        //     `constraint_mode` with prefix `frame.multicast` and the argument;
-        //   * a func-local var's fullname uses `::` where we emit `.`
-        //     (`...::print::i` vs `...::print.i`).
-        else if (isProgramDef(*inst) && !topDefs.count(&inst->getDefinition())) {
+        // EVERY `program` def gets the program shell — a file-scope program is
+        // never a design top (see the progTops partition in exportDesign), so
+        // there is no module_inst fallback left.
+        else if (isProgramDef(*inst)) {
             auto* prog = s.MakeProgram();
             defMap[&inst->getDefinition()].mod = prog;
             allProgs->push_back(prog);
@@ -2247,7 +2273,11 @@ UHDM::design* UhdmExporter::exportDesign() {
             allMods->push_back((UHDM::module_inst*)defMap[&inst->getDefinition()].mod);
         }
     }
-    d->AllModules(allMods);
+    // A design with no module definition at all (a lone `program` file, an
+    // interface-only file) leaves AllModules NULL in golden, not an empty
+    // vector — Surelog's writer only creates the vector when it has a member.
+    if (!allMods->empty())
+        d->AllModules(allMods);
     if (!allIfaces->empty())
         d->AllInterfaces(allIfaces);
     if (!allProgs->empty())
