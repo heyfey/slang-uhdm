@@ -5656,6 +5656,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 currentScope = savedCS;
                 syntaxRefPrefix = savedPfx2;
                 bool untypedImport = !inPackage && isImported && !typedParam;
+                // Expose a param DECLARED in this package by name: a later
+                // paren-param size cast in the same package REUSES this very
+                // object as its cast typespec (pkgScopeParamTs).
+                if (inPackage && !isImported && its &&
+                    its->UhdmType() == UHDM::uhdmint_typespec)
+                    pkgScopeParamTs[std::string(ps.name)] = {its, up};
                 if (inPackage && typedParam)
                     stampPkgTsInst(its);
                 else if (!inPackage && isImported && ps.getParentScope()) {
@@ -7744,7 +7750,12 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // RegIntfWidth * BufferCycles that READS it reduces to INT too. Without
     // this the package side of the chain silently reverted to UINT.
     analyzeParamEnc(pkg);
+    // Rebuilt per view: a paren-param size cast reuses THIS view's parameter
+    // typespec object (see pkgScopeParamTs).
+    auto savedPkgParamTs0 = pkgScopeParamTs;
+    pkgScopeParamTs.clear();
     emitParameters(pkg, up, prefix, none, topView, nullptr, true);
+    pkgScopeParamTs = savedPkgParamTs0;
     pkgScopeInst = savedPkgInst0;
     // Package typedefs: struct/enum/vector typespecs named pkg::T, parented and
     // instanced at the package, populating typedefTs so package-typedef'd
@@ -9430,16 +9441,30 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         tds->push_back(it9);
     if (!tds->empty())
         up->Typespecs(tds);
-    // PACKAGE-SCOPE DATA DECLARATIONS. Surelog models an integral package
-    // variable (`word v;` in my_package1) as a NET in the package's vpiNet
-    // vector — not a variable — with the ELABORATED view alone stamping
-    // vpiNetType = vpiWire; the def view leaves the net type unset
-    // (PackageNet, measured both views). Non-integral declarations (string,
-    // class handles, real) instead land in vpiVariables; that arm is NOT
-    // modelled yet — see the ApbSlave residue — so they stay dropped rather
-    // than being mis-emitted as nets.
+    // PACKAGE-SCOPE DATA DECLARATIONS split two ways in Surelog (r9bpapb,
+    // measured on a purpose-built golden covering every builtin data type):
+    //
+    //   * a declaration written with a USER TYPEDEF that resolves to a packed
+    //     vector or a packed struct (`word v;`, `st sv;`) is a NET —
+    //     logic_net in vpiNet, with vpiNetType = vpiNet(36) stamped in the
+    //     ELABORATED view only (the def view leaves it unset; PackageNet).
+    //   * EVERYTHING ELSE is a VARIABLE in vpiVariables, byte-identical in
+    //     both views: every keyword type (logic/reg/bit/byte/int/integer/
+    //     shortint/longint/time/real/string/chandle), an ENUM typedef
+    //     (enum_var — a typedef, but NOT a net), and class handles
+    //     (class_var). vpiVisibility=1 always; vpiAutomatic=1 for every kind
+    //     EXCEPT enum_var and class_var; vpiConstantVariable=1 for a `const`
+    //     declaration; the initializer rides as vpiExpr; the object spans the
+    //     whole DECLARATOR (name through initializer), while its typespec
+    //     spans the type syntax.
+    //
+    // So the discriminator is the WRITTEN type, not integrality: `logic ls;`
+    // and `int iv;` are package variables even though both are integral.
+    // UNPACKED-array declarations are an array_var carrying a vpiReg child
+    // and folded ranges — not modelled yet, still dropped.
     {
         auto* pnets = s.MakeNetVec();
+        auto* pvars = s.MakeVariablesVec();
         for (auto& mem : pkg.members()) {
             if (mem.kind != SymbolKind::Variable)
                 continue;
@@ -9448,8 +9473,18 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (!dt)
                 continue;
             auto& ct = dt->getType().getCanonicalType();
-            if (!ct.isIntegral() || ct.isEnum())
+            // Anonymous packed struct/union spellings are NETS like their
+            // typedef'd forms (Surelog-measured, r9bpapb probe2) — the
+            // written-type discriminator must not push them to the var arm.
+            bool anonPacked =
+                dt->getType().kind == SymbolKind::PackedStructType ||
+                dt->getType().kind == SymbolKind::PackedUnionType;
+            if (!anonPacked &&
+                (!ct.isIntegral() || ct.isEnum() ||
+                 dt->getType().kind != SymbolKind::TypeAlias)) {
+                emitPackageVar(vs, up, prefix, pvars);
                 continue;
+            }
             auto* n = s.MakeLogic_net();
             n->VpiName(vs.name);
             n->VpiFullName(prefix + std::string(vs.name));
@@ -9517,6 +9552,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         }
         if (!pnets->empty())
             up->Nets(pnets);
+        if (!pvars->empty())
+            up->Variables(pvars);
     }
     // A package STRUCT typedef named as a package SUBROUTINE ARGUMENT's type
     // has its shared typespec RE-LOCATED to that argument's type reference —
@@ -9663,6 +9700,105 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     curPkgEmitSym = savedCurPkg0;
     pkgEmitTopView = savedPkgTopView0;
     return up;
+}
+
+// One package-scope VARIABLE declaration (the non-net half of the split
+// documented at the call site). Shapes measured against Surelog on a
+// purpose-built golden: `string s = "hello"`, `const string cs`, `real r`,
+// `cls_a h`, `int iv`, `logic ls`, `logic [3:0] lv`, `bit bt`, `byte by`,
+// `integer ig`, `shortint si`, `longint li`, `time tm`, `ename ev`, `reg rg`.
+void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::package* up,
+                                  const std::string& prefix,
+                                  UHDM::VectorOfvariables* out) {
+    const DeclaredType* dt = vs.getDeclaredType();
+    if (!dt)
+        return;
+    auto& ct = dt->getType().getCanonicalType();
+    // Unpacked aggregates (array_var + vpiReg child + folded ranges) and
+    // dynamic containers are not modelled here yet — dropping is the honest
+    // arm, mis-shaping them is not.
+    switch (ct.kind) {
+        case SymbolKind::FixedSizeUnpackedArrayType:
+        case SymbolKind::DynamicArrayType:
+        case SymbolKind::AssociativeArrayType:
+        case SymbolKind::QueueType:
+        case SymbolKind::UnpackedStructType:
+        case SymbolKind::UnpackedUnionType:
+            return;
+        default:
+            break;
+    }
+    // Anonymous packed struct/union spellings are NETS at package scope
+    // (Surelog-measured, probe2); the caller's net branch handles them. This
+    // guard only defends future callers — mis-shaping as logic_var via the
+    // reg fallback below would be worse than dropping.
+    if (dt->getType().kind == SymbolKind::PackedStructType ||
+        dt->getType().kind == SymbolKind::PackedUnionType)
+        return;
+    auto* v = makeVar(vs, /*portBacked=*/false);
+    // A `reg` declaration is excluded from makeVar's logic_var arm because a
+    // MODULE `reg` stays a net; a PACKAGE one is a logic_var like every other
+    // keyword-typed package declaration.
+    if (!v && ct.isIntegral() && ct.isFourState() &&
+        ct.kind != SymbolKind::PredefinedIntegerType) {
+        auto* lv = s.MakeLogic_var();
+        lv->VpiVisibility(1);
+        v = lv;
+    }
+    if (!v)
+        return;
+    std::string full = prefix + std::string(vs.name);
+    v->VpiName(vs.name);
+    v->VpiFullName(full);
+    v->VpiParent(up);
+    // The object spans the whole DECLARATOR — name token through initializer
+    // — not just the name.
+    if (auto* dsyn = vs.getSyntax();
+        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+        setLoc(v, dsyn->sourceRange());
+    else
+        setLoc(v, nameSpan(vs.location, vs.name));
+    // vpiAutomatic rides every kind but enum_var and class_var (Surelog).
+    if (v->UhdmType() != UHDM::uhdmenum_var &&
+        v->UhdmType() != UHDM::uhdmclass_var)
+        v->VpiAutomatic(true);
+    if (vs.kind == SymbolKind::Variable &&
+        vs.as<VariableSymbol>().flags.has(VariableFlags::Const))
+        v->VpiConstantVariable(true);
+    if (auto* ts = makeTypespec(vs)) {
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(full);
+        rt->VpiParent(v);
+        rt->Actual_typespec(ts);
+        v->Typespec(rt);
+    }
+    if (auto* init = dt->getInitializer()) {
+        NetMap none9;
+        if (auto* e = emitExpr(stripImplicitConv(*init), v, full, none9)) {
+            // An INTEGRAL package variable's initializer constant is sized at
+            // the VARIABLE's declared width, not the literal's own — measured
+            // across int/byte/integer/shortint/bit and 4-state vectors, for
+            // bare decimals and sized based literals alike (`int a = 3` -> 32,
+            // `logic [3:0] e = 3` -> 4). Based literals keep their own
+            // decompile/base; only the size follows the declaration.
+            if (ct.isIntegral() && ct.getBitWidth()) {
+                int32_t w9 = (int32_t)ct.getBitWidth();
+                if (e->UhdmType() == UHDM::uhdmconstant) {
+                    ((UHDM::constant*)e)->VpiSize(w9);
+                    e->VpiParent(v);
+                }
+                // A negated literal (`int j = -4`) keeps the unary operation;
+                // the width lands on its operand.
+                else if (e->UhdmType() == UHDM::uhdmoperation)
+                    if (auto* ops9 = ((UHDM::operation*)e)->Operands();
+                        ops9 && ops9->size() == 1 &&
+                        (*ops9)[0]->UhdmType() == UHDM::uhdmconstant)
+                        ((UHDM::constant*)(*ops9)[0])->VpiSize(w9);
+            }
+            v->Expr((UHDM::expr*)e);
+        }
+    }
+    out->push_back(v);
 }
 
 // After ALL def-view packages exist: insert the home def objects into the

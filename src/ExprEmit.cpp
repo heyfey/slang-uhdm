@@ -2968,6 +2968,53 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                 }
+                // A PACKAGE-scope PARENTHESIZED parameter width
+                // ((dev_addr_width_gp)'('h0_0000)) mints NO cast typespec at
+                // all: Surelog reuses the referenced parameter's own
+                // declaration int_typespec as the cast target — the sibling of
+                // the module-scope paren-param rule below — and the
+                // pkg-scope cast-typespec rule then stamps vpiInstance = the
+                // package ON THAT SHARED OBJECT. The visible consequence is a
+                // parameter whose typespec is instanced while every untouched
+                // sibling's stays null (BlackBePipeInt bp_common_pkg
+                // dev_addr_width_gp; uhdm-dump never prints vpiInstance, so
+                // this is Compare-only). The shared ts also gains the module
+                // rule's loc-less vpiExpr ref_obj bound back to the parameter.
+                else if (pkgScopeInst && !pkgScopeParamTs.empty() &&
+                         cesyn.left->kind ==
+                             syntax::SyntaxKind::ParenthesizedExpression &&
+                         [&] {
+                             const syntax::ExpressionSyntax* in9 = cesyn.left;
+                             while (in9->kind == syntax::SyntaxKind::
+                                                     ParenthesizedExpression)
+                                 in9 = in9->as<syntax::
+                                                   ParenthesizedExpressionSyntax>()
+                                           .expression;
+                             if (in9->kind != syntax::SyntaxKind::IdentifierName)
+                                 return false;
+                             auto it9 = pkgScopeParamTs.find(std::string(
+                                 in9->as<syntax::IdentifierNameSyntax>()
+                                     .identifier.valueText()));
+                             if (it9 == pkgScopeParamTs.end())
+                                 return false;
+                             cts = it9->second.first;
+                             cts->Instance(pkgScopeInst);
+                             if (cts->UhdmType() == UHDM::uhdmint_typespec &&
+                                 !((UHDM::int_typespec*)cts)->Cast_to_expr()) {
+                                 auto* pobj9 = it9->second.second;
+                                 auto* r9 = s.MakeRef_obj();
+                                 r9->VpiName(pobj9->VpiName());
+                                 r9->VpiFullName(
+                                     std::string(pobj9->VpiFullName()) + "." +
+                                     std::string(pobj9->VpiName()));
+                                 r9->VpiParent(cts);
+                                 r9->Actual_group(pobj9);
+                                 ((UHDM::int_typespec*)cts)->Cast_to_expr(r9);
+                             }
+                             return true;
+                         }()) {
+                    // cts bound in the predicate above.
+                }
                 else if (currentScope) {
                     // Non-literal cast sizes: integer_typespec carrying the
                     // freshly-bound size expression as vpiExpr (parented at

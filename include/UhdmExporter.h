@@ -1271,6 +1271,13 @@ private:
     // order of Surelog's multimap<name, ClassDefinition*>.
     void emitPackageClasses(const slang::ast::PackageSymbol& pkg, UHDM::package* up,
                             const std::string& prefix);
+    // One PACKAGE-scope data declaration that is NOT a net (see the net/var
+    // split documented at the call site in emitPackage): appends the matching
+    // variables object to `out`, or appends nothing for a shape that is not
+    // modelled yet (unpacked arrays).
+    void emitPackageVar(const slang::ast::Symbol& vs, UHDM::package* up,
+                        const std::string& prefix,
+                        UHDM::VectorOfvariables* out);
     // A class's `extends` wiring is deferred: the base class_defn may not exist
     // yet (another package, a later file-level class). Drained once every
     // class_defn is built, derived-class-name-sorted so vpiDerivedClasses lands
@@ -1368,6 +1375,15 @@ private:
     // Package TypeAlias -> its TOP-view typespec (interfaces that import it
     // re-parent/list the SHARED object).
     std::map<const void*, UHDM::typespec*> pkgTopTypedefTs;
+    // Name -> the int_typespec of a parameter DECLARED in the package view
+    // currently being emitted. A package-scope PARENTHESIZED size cast
+    // (`(dev_addr_width_gp)'('h0_0000)`) does not mint its own cast typespec:
+    // Surelog reuses the referenced parameter's declaration typespec object
+    // and stamps vpiInstance = the package on it, so the parameter itself
+    // ends up instanced while its untouched siblings stay Instance-less
+    // (BlackBePipeInt bp_common_pkg). Rebuilt per package view.
+    std::map<std::string, std::pair<UHDM::typespec*, UHDM::parameter*>>
+        pkgScopeParamTs;
     // DEF-pass package-subroutine refs to a typedef homed in ANOTHER package:
     // the home package's ELABORATED listing did not exist yet, so they bound
     // the def object. Re-pointed once both views are built (see PackFunc).
