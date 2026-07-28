@@ -392,6 +392,57 @@ bool UhdmExporter::exprValueUnavailable(const Expression& e) {
 // reader can only read the whole (valueless) parameter.  A packed STRUCT
 // pattern param is deliberately excluded — a MEMBER read of one (V_STR.a + 1)
 // does fold in the golden.
+// The PARAMETER a bare reference names, or null when the expression is not a
+// plain (non-selected, non-nested) parameter read.
+static const ParameterSymbol* bareParamRef(const Expression& e) {
+    const Expression& se = stripImplicitConv(e);
+    const Symbol* sym = nullptr;
+    if (se.kind == ExpressionKind::NamedValue)
+        sym = &se.as<NamedValueExpression>().symbol;
+    else if (se.kind == ExpressionKind::HierarchicalValue)
+        sym = &se.as<HierarchicalValueExpression>().symbol;
+    if (!sym || sym->kind != SymbolKind::Parameter)
+        return nullptr;
+    return &sym->as<ParameterSymbol>();
+}
+
+// NOTE (r9psc, ParamSubstituteComplex): Surelog's substitute-then-reduce hands
+// back the referenced parameter's own value CONSTANT OBJECT, so any fold that
+// reads a parameter inherits that constant's LITERAL FORM (VpiConstType +
+// VpiDecompile) — only the SIZE is re-stamped by the reading context.  Walk
+// bare parameter references down to the literal that produced the value; a
+// CONDITIONAL operator is walked too because reduceExpr returns the SELECTED
+// branch's object verbatim (`IS_XLEN64 = (XLEN==32) ? 1'b0 : 1'b1` reduces to
+// the `1'b1` constant, BIN size 1 — not a UINT at 64).
+static const Expression* srlgLitFormSrc(Compilation& comp, const Expression& e,
+                                        int depth = 0) {
+    if (depth > 8)
+        return nullptr;
+    const Expression& se = stripImplicitConv(e);
+    if (se.kind == ExpressionKind::IntegerLiteral)
+        return &se;
+    if (auto* p = bareParamRef(se)) {
+        if (auto* init = p->getInitializer())
+            return srlgLitFormSrc(comp, *init, depth + 1);
+        return nullptr;
+    }
+    if (se.kind == ExpressionKind::ConditionalOp) {
+        auto& co = se.as<ConditionalExpression>();
+        if (co.conditions.size() != 1 || co.conditions[0].pattern)
+            return nullptr;
+        ASTContext cx(comp.getRoot(), LookupLocation::max);
+        ConstantValue pv = cx.tryEval(*co.conditions[0].expr);
+        if (!pv || !pv.isInteger() || pv.integer().hasUnknown())
+            return nullptr;
+        return srlgLitFormSrc(comp,
+                              pv.integer().as<uint64_t>().value_or(0) != 0
+                                  ? co.left()
+                                  : co.right(),
+                              depth + 1);
+    }
+    return nullptr;
+}
+
 static bool patNoFoldTarget(const Type& t) {
     const Type& ct = t.getCanonicalType();
     return ct.isIntegral() && ct.kind != SymbolKind::PackedArrayType &&
@@ -2914,6 +2965,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c6->VpiConstType(src6->VpiConstType());
                     c6->VpiParent(pa);
                     setLoc(c6, si6.sourceRange);
+                    // RULE 6 (r9psc): the member SLOT of a flattened pattern
+                    // is a bare value — no decompile — but a param_assign Rhs
+                    // constant always carries one, so the reduce re-renders it
+                    // from the binary value, and the slot's own typespec (the
+                    // member type, minted by the flatten) rides along.  A slot
+                    // that had neither (the plain UINT member fold behind
+                    // `parameter DEBUG = Cfg.NoSlvPorts`) still gets neither.
+                    if (c6->VpiDecompile().empty() &&
+                        c6->VpiConstType() == vpiBinaryConst) {
+                        std::string_view bv6 = c6->VpiValue();
+                        if (bv6.rfind("BIN:", 0) == 0)
+                            c6->VpiDecompile(std::to_string(c6->VpiSize()) +
+                                             "'b" + std::string(bv6.substr(4)));
+                    }
+                    if (auto* st6 = src6->Typespec();
+                        st6 && st6->Actual_typespec()) {
+                        auto* rt6 = s.MakeRef_typespec();
+                        rt6->VpiFullName(st6->VpiFullName());
+                        rt6->VpiParent(c6);
+                        rt6->Actual_typespec(
+                            (UHDM::typespec*)st6->Actual_typespec());
+                        c6->Typespec(rt6);
+                    }
                     pa->Rhs(c6);
                     passigns->push_back(pa);
                     if (prt)
@@ -5195,6 +5269,51 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             cc9->VpiDecompile(std::to_string(cc9->VpiSize()) + "'b" +
                                               std::string(cv9.substr(4)));
                     }
+                    // SUBSTITUTION FORM (r9psc, ParamSubstituteComplex):
+                    // Surelog's reduce hands back a constant OBJECT rather than
+                    // a fresh number, so a fold whose value came from
+                    // substitution inherits that object's LITERAL FORM
+                    // (VpiConstType + VpiValue + VpiDecompile).  Two sources:
+                    //  * a CONDITIONAL operator — reduceExpr returns the
+                    //    SELECTED branch verbatim, so `localparam IS_XLEN64 =
+                    //    (XLEN == 32) ? 1'b0 : 1'b1` is BIN:1 / "1'b1" size 1,
+                    //    NOT the untyped 64-bit UINT default (an untyped param
+                    //    gets no adjustSize, so the literal's width stands too);
+                    //  * a BARE parameter reference — substituteAssignedValue
+                    //    returns the referenced param's own param_assign Rhs,
+                    //    already emitted for this view (`localparam bit RVF =
+                    //    IS_XLEN64` -> BIN:1 / "1'b1").  Only the FORM is
+                    //    adopted; the width stays whatever this declaration's
+                    //    own rule computed (elabRefFold9 et al).
+                    if (topView && !concatFold && !boolInit9 && rhs &&
+                        rhs->UhdmType() == UHDM::uhdmconstant) {
+                        const UHDM::constant* sub9 = nullptr;
+                        if (scv.kind == ExpressionKind::ConditionalOp) {
+                            if (const Expression* lf9 =
+                                    srlgLitFormSrc(comp, scv))
+                                if (auto* le9 =
+                                        emitExpr(*lf9, pa, prefix, netMap);
+                                    le9 && le9->UhdmType() ==
+                                               UHDM::uhdmconstant)
+                                    sub9 = (const UHDM::constant*)le9;
+                        }
+                        else if (auto* bp9 = bareParamRef(scv)) {
+                            if (auto bit9 = elabParamPa.find(bp9);
+                                bit9 != elabParamPa.end() && bit9->second)
+                                if (auto* br9 = bit9->second->Rhs();
+                                    br9 &&
+                                    br9->UhdmType() == UHDM::uhdmconstant)
+                                    sub9 = (const UHDM::constant*)br9;
+                        }
+                        if (sub9 && !sub9->VpiDecompile().empty()) {
+                            auto* rc9 = (UHDM::constant*)rhs;
+                            if (!typedParam && rc9->VpiSize() == 64)
+                                rc9->VpiSize(sub9->VpiSize());
+                            rc9->VpiConstType(sub9->VpiConstType());
+                            rc9->VpiValue(std::string(sub9->VpiValue()));
+                            rc9->VpiDecompile(std::string(sub9->VpiDecompile()));
+                        }
+                    }
                     // ELAB-pkg computed BinaryOp init folds at the LEFT
                     // operand's span, sized 32, with a ts ref patched to the
                     // param's int ts (Surelog).
@@ -5501,6 +5620,67 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // plus a ts ref to a FRESH def clone (deferred to
                 // drainDefParamTs, scoped work@<mod>.<ty>.<member>).
                 bool structPat = false;
+                // NOTE (r9psc, ParamSubstituteComplex — RESIDUE, still
+                // CMP_NOTEQUAL both modes).  All six substitution rules
+                // r9papiap decoded are now landed (rules 1-4 at the flatten
+                // site below and in ExprEmit's tagged_pattern arm, rule 5 here,
+                // rule 6 on the MemberAccess fold near the top of this
+                // function), plus two the test needed on top of them: every
+                // flattened operand is re-sized to the member width, and a fold
+                // that came out of SUBSTITUTION keeps the substituted
+                // constant's literal form.  The REACHABLE design dump is now
+                // BYTE-IDENTICAL to the golden in BOTH modes (uhdm-dump, lines
+                // 2..weaklyReferenced, 0 diff).
+                //
+                // What still blocks it is NOT a value: it is typespec IDENTITY
+                // in the ELAB view, which uhdm-cmp reaches only through
+                // typespec::Compare's Instance() recursion (uhdm-dump
+                // abbreviates an already-visited object, which is exactly why
+                // the dumps agree).  Bisected with a per-vector comparer
+                // (compare each Parameters[i]/Param_assigns[i] pair under its
+                // OWN CompareContext — the shared m_visited memo is keyed on
+                // the LHS pointer, so a whole-design compare is direction-
+                // asymmetric and reports only the container):
+                //   TOP0.Param_assigns[0]/[9]/[10]  lhs=null rhs=module_inst
+                //   TOP0.Param_assigns[11]          lhs=ref_typespec rhs=null
+                // i.e. inside the op75's struct_typespec clone, our member
+                // logic_typespec's Typedef_alias resolves to the module's
+                // SHARED `fmt_logic_t` typedef (which carries vpiInstance),
+                // where Surelog's clone chain resolves to an instance-free
+                // per-reference copy that itself carries a further alias ref
+                // (`work@top.fmt_logic_t`).  Closing it means modelling
+                // Surelog's typedef alias-CLONE chain for a vector typedef used
+                // as a struct member — cross-cutting (buildStructTs's
+                // direct-vector-typedef member arm + patchParamTypespecs'
+                // opClone), not a ParamSubstituteComplex-local fix, and it is
+                // ranked as its own cluster rather than forced here.
+                // RULE 5 (r9psc, ParamSubstituteComplex): `parameter S2 = S1`
+                // where S1 is a struct-pattern parameter of the SAME struct
+                // type substitutes S1's whole pattern in the ELAB view — the
+                // flatten then runs over the SUBSTITUTED pattern, anchored at
+                // S1's own span, so S2's Rhs is a second flat op75 identical
+                // to S1's (`parameter fpu_features_t Features = FPU_FEATURES`).
+                // patSubstElab does the same job for patNoFoldTarget types,
+                // which deliberately EXCLUDE packed structs (1236970: a
+                // whole-struct read reduces even off a pattern Rhs), so the
+                // substitution has to happen here, on the flatten side.
+                const Expression* structRefPat9 = nullptr;
+                if (topView && !inPackage && !structOvPat &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedStructType)
+                    if (auto* rp9 = bareParamRef(*init))
+                        if (auto* ri9 = rp9->getInitializer()) {
+                            auto& rs9 = stripImplicitConv(*ri9);
+                            if ((rs9.kind ==
+                                     ExpressionKind::StructuredAssignmentPattern ||
+                                 rs9.kind ==
+                                     ExpressionKind::SimpleAssignmentPattern) &&
+                                rp9->getType().getCanonicalType().kind ==
+                                    SymbolKind::PackedStructType &&
+                                &rp9->getType().getCanonicalType() ==
+                                    &ps.getType().getCanonicalType())
+                                structRefPat9 = &rs9;
+                        }
                 // WIDTH RULE: a PACKAGE struct-pattern param whose struct bit
                 // width EXCEEDS 64 keeps the tagged_pattern tree in the ELAB
                 // view too (Surelog's package def and elab views are byte-
@@ -5518,8 +5698,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 bool structNoScopedRefPkg = false;
                 {
                     auto& pctS = ps.getType().getCanonicalType();
-                    auto k0 = structOvPat ? structOvPat->kind
-                                          : stripImplicitConv(*init).kind;
+                    auto k0 = structOvPat  ? structOvPat->kind
+                              : structRefPat9
+                                  ? structRefPat9->kind
+                                  : stripImplicitConv(*init).kind;
                     structPat = (pctS.kind == SymbolKind::PackedStructType ||
                                  (unpStructOvRef9 &&
                                   pctS.kind == SymbolKind::UnpackedStructType)) &&
@@ -5605,12 +5787,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto& pctS = ps.getType().getCanonicalType();
                     // An OVERRIDE by a param REFERENCE substitutes the
                     // REFERENCED param's pattern, anchored at the override site.
-                    auto& sinitK =
-                        structOvPat ? *structOvPat : stripImplicitConv(*init);
+                    auto& sinitK = structOvPat    ? *structOvPat
+                                   : structRefPat9 ? *structRefPat9
+                                                   : stripImplicitConv(*init);
                     auto* op2 = s.MakeOperation();
                     op2->VpiOpType(75);
                     op2->VpiParent(pa);
-                    setLoc(op2, structOvPat ? structOvLoc : init->sourceRange);
+                    setLoc(op2, structOvPat      ? structOvLoc
+                                : structRefPat9 ? structRefPat9->sourceRange
+                                                : init->sourceRange);
                     // --disable-feature=parametersubstitution: an IMPORTED
                     // aggregate param's elab Rhs is Surelog's clone of the
                     // PACKAGE assign, which carries no typespec; the
@@ -5767,17 +5952,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ExpressionKind::IntegerLiteral) {
                             if (auto* e2 = emitExpr(*se, op2, prefix, netMap)) {
                                 ((UHDM::expr*)e2)->VpiParent(op2);
-                                // An UNSIZED decimal setter ('{DAT: 24}) is
-                                // sized at the MEMBER width in the elab fold —
-                                // like the non-literal path below — not left at
-                                // slang's 64-bit int default. A SIZED/BASED
-                                // literal (4'h5, 1'b1) already carries its own
-                                // width and keeps it (its raw text has a base
-                                // tick).
-                                if (e2->UhdmType() == UHDM::uhdmconstant &&
-                                    ((UHDM::constant*)e2)->VpiSize() == 64 &&
-                                    rawText(stripImplicitConv(*se).sourceRange)
-                                            .find('\'') == std::string::npos)
+                                // EVERY flattened operand is re-sized to the
+                                // MEMBER width — Surelog's
+                                // expandPatternAssignment calls adjustOpSize on
+                                // each one, which OVERWRITES the size (the
+                                // model decoded in 1b0be9d for the >64b bail).
+                                // The literal's own ENCODING is untouched, so a
+                                // narrower based literal keeps its decompile and
+                                // bit string while widening: `IntFmtMask: 4'b1111`
+                                // into a 5-bit member is BIN:1111 / "4'b1111" at
+                                // size 5 (ParamSubstituteComplex RV64D_Xsflt).
+                                if (e2->UhdmType() == UHDM::uhdmconstant)
                                     ((UHDM::constant*)e2)
                                         ->VpiSize((int32_t)fld.getType()
                                                       .getBitWidth());
@@ -5805,43 +5990,116 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                             }
                         }
-                        // NOTE (r9papiap, ParamSubstituteComplex — NOT landed).
-                        // Six rules decoded on a purpose-built single-axis
-                        // Surelog probe (struct params whose members vary:
-                        // bare ref / bare ref to an UNSIZED literal / concat of
-                        // pure refs / concat containing an operation / concat
-                        // mixing refs and literals).  All six are needed to
-                        // convert the test; none is landed:
-                        //  1. DEF view — a member setter that is a BARE
-                        //     parameter reference is replaced by the referenced
-                        //     param's own Rhs constant OBJECT (shared, so it
-                        //     keeps that param's ts: `bit P0=1'b0` -> the
-                        //     BIN:0/bit_typespec constant at P0's span).  A ref
-                        //     NESTED in a concat/operation stays a ref_obj.
-                        //  2. ELAB view — the same bare-ref member folds to a
-                        //     constant carrying the referenced param's LITERAL
-                        //     FORM (VpiConstType + VpiDecompile) but sized at
-                        //     the MEMBER width: `bit P0=1'b0` -> BIN:0/"1'b0"
-                        //     sz=1; unsized `P1=0` -> UINT:0/"0" sz=1 (not 64).
-                        //     Today this arm folds every non-literal to UINT.
-                        //  3. ELAB — a concat of ALL-bare-refs folds to BIN at
-                        //     the member width with an empty decompile AND a ts
-                        //     ref to a logic_typespec; a concat MIXING refs and
-                        //     literals folds identically but gets NO ts.
-                        //  4. ELAB — a concat containing an OPERATION element
-                        //     does NOT fold: the op33 survives, each element
-                        //     folded on its own (an `&&` -> UINT at the UNSIZED
-                        //     64, refs -> their literal form at 1, literals
-                        //     kept).
-                        //  5. ELAB — `parameter S2 = S1` where S1 is a
-                        //     struct-pattern param substitutes S1's whole ELAB
-                        //     tree (patSubstElab does this only for
-                        //     patNoFoldTarget types, which EXCLUDE packed
-                        //     structs).
-                        //  6. ELAB — `parameter M = S1.member` folds the
-                        //     hier_path to a BIN constant at the member width
-                        //     with decompile "<w>'b<bits>" and a logic_typespec
-                        //     ts ref; the DEF view keeps the hier_path.
+                        // RULE 4 (r9psc, ParamSubstituteComplex): a CONCAT
+                        // setter that contains an OPERATION element does NOT
+                        // fold.  Surelog's reduce of the concat fails on the
+                        // operation, so the vpiConcatOp SURVIVES the flatten
+                        // (sized at the member width by adjustOpSize) with each
+                        // element reduced on its own: an operation element
+                        // becomes a UINT at the unsized 64, a bare parameter
+                        // reference its literal form (rule 2), a literal is
+                        // kept.  Measured on the single-axis probe and on
+                        // `IntFmtMask: {XFVEC && XF8, XFVEC && (XF16 ||
+                        // XF16ALT), 1'b1, 1'b1}`.
+                        {
+                            auto& cc9 = stripImplicitConv(*se);
+                            bool opElem9 = false;
+                            if (cc9.kind == ExpressionKind::Concatenation)
+                                for (auto* el9 :
+                                     cc9.as<ConcatenationExpression>()
+                                         .operands()) {
+                                    auto k9 = stripImplicitConv(*el9).kind;
+                                    if (k9 == ExpressionKind::BinaryOp ||
+                                        k9 == ExpressionKind::UnaryOp ||
+                                        k9 == ExpressionKind::ConditionalOp) {
+                                        opElem9 = true;
+                                        break;
+                                    }
+                                }
+                            if (opElem9) {
+                                auto* cop9 = s.MakeOperation();
+                                cop9->VpiOpType(33);
+                                cop9->VpiParent(op2);
+                                setLoc(cop9, se->sourceRange);
+                                cop9->VpiSize(
+                                    (int32_t)fld.getType().getBitWidth());
+                                auto* cel9 = s.MakeAnyVec();
+                                for (auto* el9 :
+                                     cc9.as<ConcatenationExpression>()
+                                         .operands()) {
+                                    auto& sel9 = stripImplicitConv(*el9);
+                                    if (sel9.kind ==
+                                        ExpressionKind::IntegerLiteral) {
+                                        if (auto* le9 = emitExpr(*el9, cop9,
+                                                                 prefix,
+                                                                 netMap)) {
+                                            ((UHDM::expr*)le9)->VpiParent(cop9);
+                                            cel9->push_back(le9);
+                                        }
+                                        continue;
+                                    }
+                                    ConstantValue ev9 = ectx.tryEval(*el9);
+                                    if (!ev9 || !ev9.isInteger() ||
+                                        ev9.integer().hasUnknown())
+                                        continue;
+                                    slang::SVInt uv9 = ev9.integer();
+                                    uv9.setSigned(false);
+                                    auto* ec9 = s.MakeConstant();
+                                    ec9->VpiParent(cop9);
+                                    // Surelog's reduce anchors an operation's
+                                    // folded value at its LEFTMOST leaf.
+                                    const Expression* lm9 = &sel9;
+                                    for (int g9 = 0; g9 < 8; g9++) {
+                                        if (lm9->kind == ExpressionKind::BinaryOp)
+                                            lm9 = &stripImplicitConv(
+                                                lm9->as<BinaryExpression>()
+                                                    .left());
+                                        else if (lm9->kind ==
+                                                 ExpressionKind::UnaryOp)
+                                            lm9 = &stripImplicitConv(
+                                                lm9->as<UnaryExpression>()
+                                                    .operand());
+                                        else
+                                            break;
+                                    }
+                                    setLoc(ec9, lm9->sourceRange);
+                                    // A bare parameter reference keeps the
+                                    // referenced param's literal form at ITS
+                                    // OWN width; anything else is the plain
+                                    // unsized-64 UINT reduce.
+                                    const Expression* lf9 =
+                                        bareParamRef(*el9)
+                                            ? srlgLitFormSrc(comp, *el9)
+                                            : nullptr;
+                                    if (lf9) {
+                                        if (auto* pe9 = emitExpr(*lf9, cop9,
+                                                                 prefix,
+                                                                 netMap);
+                                            pe9 && pe9->UhdmType() ==
+                                                       UHDM::uhdmconstant) {
+                                            auto* pc9 = (UHDM::constant*)pe9;
+                                            pc9->VpiParent(cop9);
+                                            setLoc(pc9, el9->sourceRange);
+                                            pc9->VpiSize(
+                                                (int32_t)el9->type
+                                                    ->getBitWidth());
+                                            cel9->push_back(pc9);
+                                            continue;
+                                        }
+                                    }
+                                    std::string dg9 = uv9.toString(
+                                        LiteralBase::Decimal, false);
+                                    ec9->VpiDecompile(dg9);
+                                    ec9->VpiSize(64);
+                                    ec9->VpiValue("UINT:" + dg9);
+                                    ec9->VpiConstType(vpiUIntConst);
+                                    cel9->push_back(ec9);
+                                }
+                                cop9->Operands(cel9);
+                                opnds->push_back(cop9);
+                                continue;
+                            }
+                        }
                         ConstantValue cvm = ectx.tryEval(*se);
                         if (cvm && cvm.isInteger() && !cvm.integer().hasUnknown()) {
                             auto* c2 = s.MakeConstant();
@@ -5889,6 +6147,127 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 c2->VpiSize(w8);
                                 c2->VpiValue("BIN:" + bits8);
                                 c2->VpiConstType(vpiBinaryConst);
+                                // RULE 3 (r9psc): a concat whose elements are
+                                // ALL bare parameter references carries a ts
+                                // ref to the MEMBER's own typespec — Surelog's
+                                // substitution replaces every element with a
+                                // typed constant, so the reduced concat keeps
+                                // the member type.  A concat MIXING references
+                                // and literals reduces to the same value with
+                                // NO typespec at all.
+                                bool allRefs8 = true;
+                                for (auto* el8 :
+                                     stripImplicitConv(*se)
+                                         .as<ConcatenationExpression>()
+                                         .operands())
+                                    if (!bareParamRef(*el8)) {
+                                        allRefs8 = false;
+                                        break;
+                                    }
+                                if (allRefs8) {
+                                    std::string tsP8 = prefix;
+                                    if (tsP8.size() >= 2 &&
+                                        tsP8.compare(tsP8.size() - 2, 2,
+                                                     "::") == 0)
+                                        tsP8.resize(tsP8.size() - 2);
+                                    // The member's OWN typespec, built the way
+                                    // buildStructTs builds it (from the
+                                    // StructUnionMember type syntax, which is
+                                    // what makes it a fresh alias clone rather
+                                    // than the module's shared typedef object —
+                                    // the shared one carries an Instance the
+                                    // golden's member clone does not).
+                                    const syntax::SyntaxNode* mts8 = nullptr;
+                                    for (auto p8 = fld.getSyntax(); p8;
+                                         p8 = p8->parent)
+                                        if (p8->kind == syntax::SyntaxKind::
+                                                            StructUnionMember) {
+                                            mts8 = p8->as<
+                                                       syntax::
+                                                           StructUnionMemberSyntax>()
+                                                       .type;
+                                            break;
+                                        }
+                                    auto* rrt8 = s.MakeRef_typespec();
+                                    rrt8->VpiParent(c2);
+                                    rrt8->VpiFullName(tsP8);
+                                    auto* mtsp8 = makeTypespec(fld, mts8);
+                                    // makeTypespec hands back the MODULE's
+                                    // shared typedef object for an aliased
+                                    // member type, and that one carries a
+                                    // vpiInstance the golden's per-reference
+                                    // copy does not — Surelog clones the
+                                    // typespec at every reference.  Copy the
+                                    // compared fields (name/vector/signed/
+                                    // ranges/alias) and drop the instance; a
+                                    // DeepClone would recurse forever through
+                                    // the self-referential Typedef_alias.
+                                    if (mtsp8 && mtsp8->Instance() &&
+                                        mtsp8->UhdmType() ==
+                                            UHDM::uhdmlogic_typespec) {
+                                        auto* sl8 =
+                                            (UHDM::logic_typespec*)mtsp8;
+                                        auto* cl8 = s.MakeLogic_typespec();
+                                        cl8->VpiName(
+                                            std::string(sl8->VpiName()));
+                                        cl8->VpiParent(rrt8);
+                                        cl8->VpiFile(sl8->VpiFile());
+                                        cl8->VpiLineNo(sl8->VpiLineNo());
+                                        cl8->VpiColumnNo(sl8->VpiColumnNo());
+                                        cl8->VpiEndLineNo(sl8->VpiEndLineNo());
+                                        cl8->VpiEndColumnNo(
+                                            sl8->VpiEndColumnNo());
+                                        cl8->VpiVector(sl8->VpiVector());
+                                        cl8->VpiSigned(sl8->VpiSigned());
+                                        cl8->Ranges(sl8->Ranges());
+                                        cl8->Elem_typespec(
+                                            sl8->Elem_typespec());
+                                        cl8->Typedef_alias(
+                                            sl8->Typedef_alias());
+                                        mtsp8 = cl8;
+                                    }
+                                    rrt8->Actual_typespec(mtsp8);
+                                    c2->Typespec(rrt8);
+                                }
+                            }
+                            // RULE 2 (r9psc): a BARE parameter-reference setter
+                            // folds to a constant carrying the REFERENCED
+                            // param's literal form (VpiConstType +
+                            // VpiDecompile), re-sized to the member width:
+                            // `bit XFVEC = 1'b0` read by `EnableVectors: XFVEC`
+                            // is BIN:0 / "1'b0" at size 1, not UINT:0.
+                            else if (const Expression* lf2 =
+                                         bareParamRef(*se)
+                                             ? srlgLitFormSrc(comp, *se)
+                                             : nullptr) {
+                                int32_t w2 =
+                                    (int32_t)fld.getType().getBitWidth();
+                                auto* pe2 = emitExpr(*lf2, op2, prefix, netMap);
+                                if (pe2 &&
+                                    pe2->UhdmType() == UHDM::uhdmconstant) {
+                                    auto* pc2 = (UHDM::constant*)pe2;
+                                    if (std::string_view(pc2->VpiValue())
+                                            .rfind("BIN:", 0) == 0) {
+                                        std::string bits2;
+                                        for (int32_t i2 = w2 - 1; i2 >= 0; i2--)
+                                            bits2 +=
+                                                (uvm[i2] == slang::logic_t(1))
+                                                    ? '1'
+                                                    : '0';
+                                        pc2->VpiValue("BIN:" + bits2);
+                                    }
+                                    pc2->VpiSize(w2);
+                                    pc2->VpiParent(op2);
+                                    setLoc(pc2, se->sourceRange);
+                                    opnds->push_back(pc2);
+                                    continue;
+                                }
+                                std::string dg2 =
+                                    uvm.toString(LiteralBase::Decimal, false);
+                                c2->VpiDecompile(dg2);
+                                c2->VpiSize(w2);
+                                c2->VpiValue("UINT:" + dg2);
+                                c2->VpiConstType(vpiUIntConst);
                             }
                             else {
                                 std::string dg = uvm.toString(
@@ -7481,6 +7860,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // param whose default is a bare ref to it can clone the fold.
         if (rhsConstForMap)
             pkgRefSrc[&member] = {pa, rhsConstForMap};
+        // ...and the DEF-view constant separately: a struct-pattern param
+        // declared LATER in the same module SHARES it as its member setter
+        // (r9psc rule 1).
+        if (!topView && !inPackage && rhsConstForMap)
+            defParamRhsConst[&member] = rhsConstForMap;
         // A DEGENERATE unbased fill ('x/'z) reaches its BIN Rhs constant via the
         // fallback emitExpr path (not the fold arm above), so it is recorded
         // here: Surelog shares this SAME object into the reading cont-assign.

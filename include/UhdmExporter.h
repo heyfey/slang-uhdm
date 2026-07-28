@@ -1876,6 +1876,11 @@ private:
     // ELAB (top-view) param_assign object per param symbol (gen-scope
     // bound folds claim it as the fold constant's parent).
     std::map<const slang::ast::Symbol*, UHDM::param_assign*> elabParamPa;
+    // DEF-view (module allModules) param_assign Rhs constants: a LATER
+    // struct-pattern param whose member setter is a BARE reference to one
+    // SHARES that very object (r9psc rule 1 — the constant keeps its own
+    // param_assign parent and typespec inside the pattern).
+    std::map<const slang::ast::Symbol*, UHDM::constant*> defParamRhsConst;
     // Unbased-unsized override pa Rhs constants (CA-claimed sharing).
     std::map<const slang::ast::Symbol*, UHDM::constant*> unbasedOvConst;
     // Ts ref of an unbased-unsized override pa Rhs constant: bound to the

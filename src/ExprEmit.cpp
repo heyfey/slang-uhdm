@@ -6913,6 +6913,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     preE = pkgEnumFold6;
                 if (!preE && enumFold6)
                     preE = enumFold6;
+                // RULE 1 (r9psc, ParamSubstituteComplex): in the module DEF
+                // view a member setter that is a BARE parameter reference is
+                // replaced by the referenced parameter's own Rhs constant
+                // OBJECT — shared, so it keeps that param's span, parent
+                // (its own param_assign) and typespec.  Surelog's
+                // substituteAssignedValue hands back the value object itself;
+                // a reference NESTED in a concat/operation is left alone
+                // because the enclosing reduce fails.
+                if (!preE && paramInitDef && paramRhsDefView) {
+                    auto& bv1 = stripImplicitConv(*setter.expr);
+                    const Symbol* bs1 = nullptr;
+                    if (bv1.kind == ExpressionKind::NamedValue)
+                        bs1 = &bv1.as<NamedValueExpression>().symbol;
+                    else if (bv1.kind == ExpressionKind::HierarchicalValue)
+                        bs1 = &bv1.as<HierarchicalValueExpression>().symbol;
+                    if (bs1 && bs1->kind == SymbolKind::Parameter)
+                        if (auto it1 = defParamRhsConst.find(bs1);
+                            it1 != defParamRhsConst.end() && it1->second) {
+                            // A COPY, not the object itself: Surelog's
+                            // substitution deep-copies the value expression
+                            // (the golden carries two constants and two
+                            // ref_typespecs at `1'b0`'s span), and sharing one
+                            // node under two parents is what uhdm-cmp's
+                            // visited memo reads as a mismatch.  Everything
+                            // else — span, parent (the SOURCE param_assign)
+                            // and the bound typespec — is carried over.
+                            auto* sc1 = it1->second;
+                            auto* cc1 = s.MakeConstant();
+                            cc1->VpiValue(std::string(sc1->VpiValue()));
+                            cc1->VpiDecompile(std::string(sc1->VpiDecompile()));
+                            cc1->VpiSize(sc1->VpiSize());
+                            cc1->VpiConstType(sc1->VpiConstType());
+                            cc1->VpiParent(sc1->VpiParent());
+                            cc1->VpiFile(sc1->VpiFile());
+                            cc1->VpiLineNo(sc1->VpiLineNo());
+                            cc1->VpiColumnNo(sc1->VpiColumnNo());
+                            cc1->VpiEndLineNo(sc1->VpiEndLineNo());
+                            cc1->VpiEndColumnNo(sc1->VpiEndColumnNo());
+                            if (auto* srt1 = sc1->Typespec()) {
+                                auto* nrt1 = s.MakeRef_typespec();
+                                nrt1->VpiFullName(
+                                    std::string(srt1->VpiFullName()));
+                                nrt1->VpiParent(cc1);
+                                nrt1->Actual_typespec(
+                                    (UHDM::typespec*)srt1->Actual_typespec());
+                                cc1->Typespec(nrt1);
+                            }
+                            preE = cc1;
+                        }
+                }
                 if (!preE && paramInitElabFold && !nestedPatVal6 &&
                     setter.expr->type && !isLiteralExpr(*setter.expr) &&
                     setter.expr->type->isIntegral()) {
