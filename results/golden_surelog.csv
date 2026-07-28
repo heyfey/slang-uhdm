@@ -633,8 +633,8 @@ HierPathLhs,default,SLANG_REJECT,dut.sv:3:12: error: use of undeclared identifie
 HierPathLhs,testflags,SLANG_REJECT,dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
 HierPathModule,default,SLANG_REJECT,dut.sv:3:14: error: expected expression,,
 HierPathModule,testflags,SLANG_REJECT,dut.sv:3:14: error: expected expression,,
-HierPathOverride,default,CMP_NOTEQUAL,decompile:,,
-HierPathOverride,testflags,CMP_NOTEQUAL,decompile:,,
+HierPathOverride,default,CMP_EQUAL,,,differ
+HierPathOverride,testflags,CMP_EQUAL,,,differ
 HierPathPackedArrayNet,default,SLANG_REJECT,dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
 HierPathPackedArrayNet,testflags,SLANG_REJECT,dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
 HierPathPackedStruct,default,CMP_NOTEQUAL,decompile:,,
@@ -955,8 +955,8 @@ PackageHierRef,default,SLANG_REJECT,top.sv:21:8: error: unknown package 'bug',,
 PackageHierRef,testflags,SLANG_REJECT,top.sv:21:8: error: unknown package 'bug',,
 PackageMemberTypespec,default,CMP_EQUAL,,,differ
 PackageMemberTypespec,testflags,CMP_EQUAL,,,differ
-PackageNet,default,CMP_NOTEQUAL,decompile:,,
-PackageNet,testflags,CMP_NOTEQUAL,decompile:,,
+PackageNet,default,CMP_EQUAL,,,differ
+PackageNet,testflags,CMP_EQUAL,,,differ
 PackageOrder,default,CMP_EQUAL,,,match
 PackageOrder,testflags,CMP_EQUAL,,,match
 PackageParam,default,SLANG_REJECT,dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
@@ -1017,8 +1017,8 @@ ParamBitSelect,default,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
 ParamBitSelect,testflags,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
 ParamByValue,default,CMP_EQUAL,,,differ
 ParamByValue,testflags,CMP_EQUAL,,,differ
-ParamCast,default,CMP_NOTEQUAL,decompile:,,
-ParamCast,testflags,CMP_NOTEQUAL,decompile:,,
+ParamCast,default,CMP_EQUAL,,,differ
+ParamCast,testflags,CMP_EQUAL,,,differ
 ParamComplex,default,CMP_EQUAL,,,differ
 ParamComplex,testflags,CMP_EQUAL,,,differ
 ParamComplexVerilator,default,CMP_EQUAL,,,differ
@@ -1031,8 +1031,8 @@ ParamConstPush,default,CMP_EQUAL,,,differ
 ParamConstPush,testflags,CMP_EQUAL,,,differ
 ParamElab,default,SLANG_REJECT,dut.sv:15:9: error: use of undeclared identifier 'i',,
 ParamElab,testflags,SLANG_REJECT,dut.sv:15:9: error: use of undeclared identifier 'i',,
-ParamElabMulti,default,CMP_NOTEQUAL,decompile:,,
-ParamElabMulti,testflags,CMP_NOTEQUAL,decompile:,,
+ParamElabMulti,default,CMP_EQUAL,,,differ
+ParamElabMulti,testflags,CMP_EQUAL,,,differ
 ParamEquivOp,default,CMP_EQUAL,,,match
 ParamEquivOp,testflags,CMP_EQUAL,,,match
 ParamFile,default,CMP_EQUAL,,,match

@@ -1264,6 +1264,61 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
     return sorted;
 }
 
+// PACKAGE-SCOPE DATA declarations this body READS or WRITES through a
+// wildcard/explicit import. Surelog MATERIALIZES them into the importing
+// module exactly as it materializes imported parameters (see
+// collectImportedParams): the def view lists a wire logic_net named
+// work@<mod>.<v>, the elab view a logic_var. Only INTEGRAL declarations
+// qualify — the string/class-handle arm of the package model is not
+// implemented (ApbSlave residue) and must not be mis-emitted as a net.
+// Source-location ordered, like the parameter list.
+inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
+    const InstanceBodySymbol& body) {
+    std::vector<const slang::ast::VariableSymbol*> out;
+    std::set<const Symbol*> wildcardPkgs, explicitSyms;
+    for (auto& m : body.members()) {
+        if (m.kind == SymbolKind::WildcardImport) {
+            if (auto* p = m.as<WildcardImportSymbol>().getPackage())
+                wildcardPkgs.insert(p);
+        }
+        else if (m.kind == SymbolKind::ExplicitImport) {
+            if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol())
+                explicitSyms.insert(imp);
+        }
+    }
+    if (wildcardPkgs.empty() && explicitSyms.empty())
+        return out;
+    std::set<const Symbol*> seen;
+    auto v = makeVisitor([&](auto& vis, const NamedValueExpression& nv) {
+        if (nv.symbol.kind == SymbolKind::Variable) {
+            auto sc = nv.symbol.getParentScope();
+            bool imported =
+                explicitSyms.count(&nv.symbol) ||
+                (sc && sc->asSymbol().kind == SymbolKind::Package &&
+                 wildcardPkgs.count(&sc->asSymbol()));
+            const slang::ast::DeclaredType* dt = nv.symbol.getDeclaredType();
+            if (imported && dt &&
+                dt->getType().getCanonicalType().isIntegral() &&
+                !dt->getType().getCanonicalType().isEnum() &&
+                seen.insert(&nv.symbol).second)
+                out.push_back(&nv.symbol.as<slang::ast::VariableSymbol>());
+        }
+        vis.visitDefault(nv);
+    });
+    for (auto& m : body.members()) {
+        if (m.kind == SymbolKind::ContinuousAssign)
+            m.as<ContinuousAssignSymbol>().getAssignment().visit(v);
+        else if (m.kind == SymbolKind::ProceduralBlock)
+            m.as<ProceduralBlockSymbol>().getBody().visit(v);
+    }
+    std::stable_sort(out.begin(), out.end(),
+                     [](const slang::ast::VariableSymbol* a,
+                        const slang::ast::VariableSymbol* b) {
+                         return a->location < b->location;
+                     });
+    return out;
+}
+
 // The declared return-type syntax of a function ("function [3:0] f;"), used
 // to anchor the return variable's typespec.
 inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {

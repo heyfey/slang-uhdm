@@ -1190,6 +1190,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // All parameters — including plain local untyped ones (localparam
         // IDLE = 2'b00) — carry a value/typespec (Surelog); the inner
         // literalInit/wantTs gates decide the exact encoding.
+        // A PACKAGE-ORIGIN parameter whose default is an explicit TYPE cast
+        // (`parameter int NumAgents = int'(NumAgentsIdx)`) folds to a plain
+        // constant in every view EXCEPT the unelaborated DEF package one:
+        // Surelog's package elaboration runs its evaluator over the cast,
+        // while the def view keeps the vpiCastOp tree (whose own cast
+        // typespec then carries vpiInstance = the package). Measured on
+        // ParamCast: def package keeps the op byte-for-byte; elab package
+        // and BOTH materialized module views carry UINT:3 / size 32.
+        bool pkgTypeCastFold9 =
+            (inPackage ? topView : isImported) && defaultInit && [&] {
+                const Expression* c9 = &stripImplicitConv(*defaultInit);
+                return c9->kind == ExpressionKind::Conversion &&
+                       !c9->as<ConversionExpression>().isImplicit() &&
+                       c9->syntax &&
+                       c9->syntax->kind == syntax::SyntaxKind::CastExpression &&
+                       isTypeSyntaxKind(
+                           c9->syntax->as<syntax::CastExpressionSyntax>()
+                               .left->kind);
+            }();
         // An ELAB-pkg param with a COMPUTED init (Y+1, g(4)) still carries
         // its evaluated value and an int ts (Surelog folds package elabs).
         bool pkgElabComputed = false;
@@ -1298,7 +1317,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     return sc8 && sc8->asSymbol().kind == SymbolKind::Package;
                 }();
             if (!unbasedInit && (literalInit || pkgElabComputed ||
-                                 modPkgRefFold9) &&
+                                 modPkgRefFold9 || pkgTypeCastFold9) &&
                 cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
                 bool neg = (iv.isSigned() && iv.isNegative()) ||
@@ -2941,6 +2960,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
             }
+            // A MATERIALIZED IMPORTED param whose home default is an explicit
+            // TYPE cast folds identically in BOTH module views: the folded
+            // constant keeps the cast's whole span and a ts ref to its own
+            // fresh copy of the param's declared typespec. The def view never
+            // reaches the topView fold chain below, and the elab view would
+            // reach it only as an `importedFold` BARE constant (the shape
+            // measured for size-cast/concat imports) — a type cast is neither.
+            // ParamCast: work@otp_ctrl.NumAgents is UINT:3/size 32 with the
+            // 10:12 `int` typespec in allModules and topModules alike.
+            if (!rhs && pkgTypeCastFold9 && !inPackage && isImported &&
+                ps.getValue().isInteger() &&
+                !ps.getValue().integer().hasUnknown()) {
+                auto& iv9 = ps.getValue().integer();
+                bool neg9 = iv9.isSigned() && iv9.isNegative();
+                std::string dg9 = iv9.toString(LiteralBase::Decimal, false);
+                auto* c9 = s.MakeConstant();
+                c9->VpiDecompile(dg9);
+                c9->VpiSize((int32_t)ps.getType().getBitWidth());
+                c9->VpiValue((neg9 ? "INT:" : "UINT:") + dg9);
+                c9->VpiConstType(neg9 ? vpiIntConst : vpiUIntConst);
+                c9->VpiParent(pa);
+                setLoc(c9, init->sourceRange);
+                if (wantTs) {
+                    auto* rt9 = s.MakeRef_typespec();
+                    std::string tsp9 = prefix;
+                    if (tsp9.size() >= 2 &&
+                        tsp9.compare(tsp9.size() - 2, 2, "::") == 0)
+                        tsp9.resize(tsp9.size() - 2);
+                    rt9->VpiFullName(tsp9);
+                    rt9->VpiParent(c9);
+                    c9->Typespec(rt9);
+                    rhsRt = rt9;
+                }
+                rhs = c9;
+            }
             if (!rhs && topView) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
@@ -3217,8 +3271,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             .kind == SymbolKind::PackedStructType;
                          }()) &&
                          !containsUserCall(*init) &&
-                         (rhs = tryFoldConst(*init, typedParam ? init0 : nullptr,
-                                             /*paramCtx*/ true))) {
+                         (rhs = [&]() -> UHDM::any* {
+                              // A PACKAGE-ORIGIN parameter whose init is an
+                              // explicit TYPE cast (parameter int NumAgents =
+                              // int'(NumAgentsIdx)) FOLDS in every view but
+                              // the DEF package one: Surelog re-elaborates
+                              // the package and its evaluator reduces the
+                              // cast, while the unelaborated def view keeps
+                              // the vpiCastOp tree. tryFoldConst refuses type
+                              // casts by default (foldTypeCasts) because a
+                              // top-module cont-assign re-emits them — that
+                              // rule is about CA reduction, not package
+                              // parameter elaboration.
+                              bool savedFTC9 = foldTypeCasts;
+                              if (pkgTypeCastFold9)
+                                  foldTypeCasts = true;
+                              auto* r9 = tryFoldConst(
+                                  *init, typedParam ? init0 : nullptr,
+                                  /*paramCtx*/ true);
+                              foldTypeCasts = savedFTC9;
+                              return r9;
+                          }())) {
                     bool partSelectFold = false;
                     ((UHDM::constant*)rhs)->VpiParent(pa);
                     // A materialized IMPORTED param whose default folds from a
@@ -8867,6 +8940,94 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         tds->push_back(it9);
     if (!tds->empty())
         up->Typespecs(tds);
+    // PACKAGE-SCOPE DATA DECLARATIONS. Surelog models an integral package
+    // variable (`word v;` in my_package1) as a NET in the package's vpiNet
+    // vector — not a variable — with the ELABORATED view alone stamping
+    // vpiNetType = vpiWire; the def view leaves the net type unset
+    // (PackageNet, measured both views). Non-integral declarations (string,
+    // class handles, real) instead land in vpiVariables; that arm is NOT
+    // modelled yet — see the ApbSlave residue — so they stay dropped rather
+    // than being mis-emitted as nets.
+    {
+        auto* pnets = s.MakeNetVec();
+        for (auto& mem : pkg.members()) {
+            if (mem.kind != SymbolKind::Variable)
+                continue;
+            auto& vs = mem.as<VariableSymbol>();
+            const DeclaredType* dt = vs.getDeclaredType();
+            if (!dt)
+                continue;
+            auto& ct = dt->getType().getCanonicalType();
+            if (!ct.isIntegral() || ct.isEnum())
+                continue;
+            auto* n = s.MakeLogic_net();
+            n->VpiName(vs.name);
+            n->VpiFullName(prefix + std::string(vs.name));
+            n->VpiParent(up);
+            setLoc(n, nameSpan(vs.location, vs.name));
+            // vpiNet (36), not vpiWire: a package data declaration is not a
+            // wire, and Surelog stamps the generic net kind — and only in the
+            // ELABORATED view.
+            if (topView)
+                n->VpiNetType(vpiNet);
+            // The net's typespec ref is named after the NET (my_package1::v)
+            // and resolves to this view's shared package typedef object.
+            UHDM::typespec* nts = nullptr;
+            if (dt->getType().kind == SymbolKind::TypeAlias) {
+                auto& ta0 = dt->getType().as<TypeAliasType>();
+                if (topView) {
+                    if (auto ti = pkgTopTypedefTs.find(&ta0);
+                        ti != pkgTopTypedefTs.end())
+                        nts = ti->second;
+                }
+                if (!nts)
+                    if (auto ti = typedefTs.find((const Symbol*)&ta0);
+                        ti != typedefTs.end())
+                        nts = ti->second;
+            }
+            if (nts) {
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(prefix + std::string(vs.name));
+                rt->VpiParent(n);
+                // The net does NOT bind the package's listed typedef object:
+                // Surelog gives every net use its own SELF-ALIAS clone (a
+                // fresh logic_typespec of the same name whose Typedef_alias
+                // points back at the listed one) — the same shape
+                // portVectorTypedefClone builds for ports. uhdm-dump does not
+                // print vpiTypedefAlias in this nesting, so the difference is
+                // visible only through Compare.
+                UHDM::typespec* bind = nts;
+                if (nts->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto& ta1 = dt->getType().as<TypeAliasType>();
+                    const syntax::SyntaxNode* tSyn1 = nullptr;
+                    if (auto asyn1 = ta1.getSyntax())
+                        if (asyn1->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tSyn1 =
+                                asyn1->as<syntax::TypedefDeclarationSyntax>().type;
+                    bool savedBTS1 = bypassTypedefShare;
+                    bypassTypedefShare = true;
+                    auto* cl1 = makeTypespec(ta1, tSyn1);
+                    bypassTypedefShare = savedBTS1;
+                    if (cl1 && cl1->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        cl1->VpiName(nts->VpiName());
+                        auto* art1 = s.MakeRef_typespec();
+                        art1->VpiFullName(std::string(nts->VpiName()));
+                        art1->VpiParent(cl1);
+                        art1->Actual_typespec(nts);
+                        ((UHDM::logic_typespec*)cl1)->Typedef_alias(art1);
+                        if (nts->Instance())
+                            cl1->Instance(nts->Instance());
+                        bind = cl1;
+                    }
+                }
+                rt->Actual_typespec(bind);
+                n->Typespec(rt);
+            }
+            pnets->push_back(n);
+        }
+        if (!pnets->empty())
+            up->Nets(pnets);
+    }
     // A package STRUCT typedef named as a package SUBROUTINE ARGUMENT's type
     // has its shared typespec RE-LOCATED to that argument's type reference —
     // Surelog's last-writer stamp. A RETURN type does NOT relocate

@@ -688,6 +688,57 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         info.nets[it.sym] = n;
         nets->push_back(n);
     }
+    // MATERIALIZED imported package DATA declarations: the def view lists each
+    // as a WIRE logic_net under this module's name, typed by the home
+    // package's DEF typedef object (PackageNet work@test.v). The elab view
+    // turns the same declaration into a logic_var (emitInstance).
+    for (auto* iv9 : collectImportedPkgVars(body)) {
+        auto* n9 = s.MakeLogic_net();
+        n9->VpiName(iv9->name);
+        n9->VpiFullName(prefix + "." + std::string(iv9->name));
+        n9->VpiParent(m);
+        setLoc(n9, nameSpan(iv9->location, iv9->name));
+        n9->VpiNetType(vpiNet);
+        const DeclaredType* dt9 = iv9->getDeclaredType();
+        if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias)
+            if (auto ti9 = typedefTs.find(&dt9->getType());
+                ti9 != typedefTs.end()) {
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
+                rt9->VpiParent(n9);
+                // Same SELF-ALIAS clone the package view's own net binds:
+                // a fresh same-named logic_typespec whose Typedef_alias
+                // points back at the package's listed typedef object.
+                UHDM::typespec* bind9 = ti9->second;
+                if (bind9->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto& ta8 = dt9->getType().as<TypeAliasType>();
+                    const syntax::SyntaxNode* tSyn8 = nullptr;
+                    if (auto asyn8 = ta8.getSyntax())
+                        if (asyn8->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tSyn8 =
+                                asyn8->as<syntax::TypedefDeclarationSyntax>().type;
+                    bool savedBTS8 = bypassTypedefShare;
+                    bypassTypedefShare = true;
+                    auto* cl8 = makeTypespec(ta8, tSyn8);
+                    bypassTypedefShare = savedBTS8;
+                    if (cl8 && cl8->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        cl8->VpiName(ti9->second->VpiName());
+                        auto* art8 = s.MakeRef_typespec();
+                        art8->VpiFullName(std::string(ti9->second->VpiName()));
+                        art8->VpiParent(cl8);
+                        art8->Actual_typespec(ti9->second);
+                        ((UHDM::logic_typespec*)cl8)->Typedef_alias(art8);
+                        if (ti9->second->Instance())
+                            cl8->Instance(ti9->second->Instance());
+                        bind9 = cl8;
+                    }
+                }
+                rt9->Actual_typespec(bind9);
+                n9->Typespec(rt9);
+            }
+        info.nets[iv9] = n9;
+        nets->push_back(n9);
+    }
     // Each interface port produces a bare logic_net (no typespec) at the port
     // name, so hierarchical references through it resolve.
     for (auto portBase : body.getPortList()) {
@@ -4169,6 +4220,48 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             sigOrder.emplace_back(it.sym, n);
             nets->push_back(n);
         }
+    }
+    // MATERIALIZED imported package DATA declarations, ELAB view: the same
+    // declaration the def view listed as a wire logic_net becomes a
+    // logic_var with vpiVisibility=1 here, and its typespec is a FRESH
+    // UNQUALIFIED clone of the package typedef (`word`, not
+    // `my_package1::word`) instanced at the home package — Surelog
+    // re-elaborates the type into the importing module (PackageNet).
+    for (auto* iv9 : collectImportedPkgVars(body)) {
+        auto* lv9 = s.MakeLogic_var();
+        lv9->VpiName(iv9->name);
+        lv9->VpiFullName(prefix + "." + std::string(iv9->name));
+        lv9->VpiParent(m);
+        setLoc(lv9, nameSpan(iv9->location, iv9->name));
+        lv9->VpiVisibility(1);
+        const DeclaredType* dt9 = iv9->getDeclaredType();
+        if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias) {
+            auto& ta9 = dt9->getType().as<TypeAliasType>();
+            const syntax::SyntaxNode* tSyn9 = nullptr;
+            if (auto asyn9 = ta9.getSyntax())
+                if (asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    tSyn9 = asyn9->as<syntax::TypedefDeclarationSyntax>().type;
+            bool savedBTS9 = bypassTypedefShare;
+            bypassTypedefShare = true;
+            auto* cl9 = makeTypespec(ta9, tSyn9);
+            bypassTypedefShare = savedBTS9;
+            if (cl9) {
+                cl9->VpiName(ta9.name);
+                if (auto hs9 = ta9.getParentScope();
+                    hs9 && hs9->asSymbol().kind == SymbolKind::Package)
+                    if (auto hp9 = pkgDefMap.find(&hs9->asSymbol());
+                        hp9 != pkgDefMap.end())
+                        cl9->Instance((UHDM::instance*)hp9->second);
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
+                rt9->VpiParent(lv9);
+                rt9->Actual_typespec(cl9);
+                lv9->Typespec(rt9);
+            }
+        }
+        topNets[iv9] = lv9;
+        sigOrder.emplace_back(iv9, lv9);
+        vars->push_back(lv9);
     }
     if (!nets->empty())
         m->Nets(nets);
@@ -7776,6 +7869,19 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
                 auto& rl9 = stripImplicitConv(ae.right());
                 auto& ll9 = stripImplicitConv(ae.left());
+                // ...but an IMPLICIT (undeclared) net LHS has no declared
+                // width for the assignment context to size against, so the
+                // literal keeps its unsized 64 in EVERY gen scope, child
+                // instance included (ParamElabMulti: `assign a = 1;` in
+                // prim_generic_pad_attr's gen_assign, where `a` is minted by
+                // the assignment itself, stays UINT:1/size 64).
+                bool implicitLhs9 =
+                    ll9.kind == ExpressionKind::NamedValue &&
+                    ll9.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Net &&
+                    ll9.as<NamedValueExpression>()
+                        .symbol.as<NetSymbol>()
+                        .isImplicit;
                 if (rl9.kind == ExpressionKind::IntegerLiteral &&
                     rawText(rl9.sourceRange).find('\'') == std::string::npos &&
                     ll9.type &&
@@ -7783,7 +7889,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                      // A 4-state LHS also sizes the fold when the gen scope
                      // belongs to a CHILD instance (nested elaboration) —
                      // Surelog. Top-module gen scopes keep 64.
-                     prefix.find('.') != std::string::npos) &&
+                     (prefix.find('.') != std::string::npos && !implicitLhs9)) &&
                     ll9.type->getCanonicalType().isIntegral())
                     ((UHDM::constant*)rhs)->VpiSize(
                         (int32_t)ll9.type->getBitWidth());

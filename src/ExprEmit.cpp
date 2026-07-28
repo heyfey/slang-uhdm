@@ -1569,6 +1569,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool procOpFold9 = inProcessEmit && !inParamInit && parent &&
                                        parent->UhdmType() ==
                                            UHDM::uhdmoperation;
+                    // A PROCEDURAL operand fold reading an UNTYPED param that
+                    // this module MATERIALIZED from an import reads the
+                    // materialized copy, whose own param_assign already folded
+                    // at the param's TYPE width (ParamEmit's defUntypedImport
+                    // rule: 32 for a plain `parameter p1 = 1;`). So the read
+                    // inherits 32, not the untyped 64 that a package-scope
+                    // fold would carry — PackageNet `v = p1 + p2;`.
+                    if (procOpFold9 && !typedPkgParam &&
+                        psym.getType().getCanonicalType().isIntegral() &&
+                        importedParamDefTs.count(&nv.symbol) &&
+                        rawText(expr.sourceRange).find("::") ==
+                            std::string::npos)
+                        c->VpiSize((int32_t)psym.getType().getBitWidth());
                     if ((parent &&
                          parent->UhdmType() == UHDM::uhdmcont_assign &&
                          contAssignView != 2) ||
@@ -3251,6 +3264,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression)
                     setLoc(cts, effCastSyn->as<syntax::CastExpressionSyntax>().left->sourceRange());
+                // A package-scope TYPE cast's target typespec carries
+                // vpiInstance = the package, exactly like the size-cast
+                // integer_typespec above (ParamCast def-view int'(...)):
+                // typespec::Compare chases Instance(), so a missing stamp
+                // reports as `failLhs=package failRhs=<null>`.
+                if (pkgScopeInst)
+                    cts->Instance(pkgScopeInst);
+                else if (importedInitPkgInst)
+                    cts->Instance(importedInitPkgInst);
             }
             auto* rt = s.MakeRef_typespec();
             // DEF-view gen procedural casts keep the ref_typespec BARE.
