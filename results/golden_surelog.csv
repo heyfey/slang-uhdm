@@ -1011,7 +1011,7 @@ ParamArray,default,SLANG_REJECT,dut.sv:11:47: error: assignment pattern for 'par
 ParamArray,testflags,SLANG_REJECT,dut.sv:11:47: error: assignment pattern for 'part_info_t$[7]' requires 7 elements but 2 were provided,,
 ParamArraySelect,default,SLANG_REJECT,dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
 ParamArraySelect,testflags,SLANG_REJECT,dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
-ParamArrayUnsizedPattern,default,CMP_NOTEQUAL,decompile:,,
+ParamArrayUnsizedPattern,default,CMP_EQUAL,,,differ
 ParamArrayUnsizedPattern,testflags,CMP_NOTEQUAL,decompile:,,
 ParamBitSelect,default,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
 ParamBitSelect,testflags,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
@@ -1561,8 +1561,8 @@ YosysOldOr,default,CMP_NOTEQUAL,decompile:,,
 YosysOldOr,testflags,CMP_NOTEQUAL,decompile:,,
 YosysOldSasc,default,SLANG_REJECT,cache/synth.v:1:8: error: design element does not have a time scale defined but others in the design do,,
 YosysOldSasc,testflags,SLANG_REJECT,cache/synth.v:1:8: error: design element does not have a time scale defined but others in the design do,,
-YosysOldSimpleSpi,default,CMP_NOTEQUAL,decompile:,,
-YosysOldSimpleSpi,testflags,CMP_NOTEQUAL,decompile:,,
+YosysOldSimpleSpi,default,CMP_EQUAL,,,differ
+YosysOldSimpleSpi,testflags,CMP_EQUAL,,,differ
 YosysOldSpi,default,CMP_NOTEQUAL,decompile:,,
 YosysOldSpi,testflags,CMP_NOTEQUAL,decompile:,,
 YosysOldSsPcm,default,CMP_EQUAL,,,match

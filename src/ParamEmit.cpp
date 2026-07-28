@@ -14,6 +14,80 @@
 
 namespace slang_uhdm {
 
+// adjustSize's `orig_size == -1` tail (EmitHelpers slAdjustBinConst) applied
+// to an UNPACKED-ARRAY parameter's ELABORATED assignment-pattern operands:
+// every unsized `'1` operand re-encodes as the ELEMENT width filled with ones
+// (`int unsigned A[N] = '{'1,'1}` -> UINT:4294967295 size 32).  It reaches
+// through a `'{N{'1}}` replication's inner concat as well.  The DEF view keeps
+// the bare `'1` — this runs on the elab object only (ParamArrayUnsizedPattern).
+static void elabUnsizedPatternFold(UHDM::operation* opr, int32_t elemWidth) {
+    if (!opr || elemWidth <= 0)
+        return;
+    std::function<void(UHDM::operation*)> walk = [&](UHDM::operation* o) {
+        if (!o->Operands())
+            return;
+        for (auto* x : *o->Operands()) {
+            if (x->UhdmType() == UHDM::uhdmoperation) {
+                walk((UHDM::operation*)x);
+                continue;
+            }
+            if (x->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* c = (UHDM::constant*)x;
+            if (c->VpiSize() != -1 || c->VpiConstType() != vpiBinaryConst)
+                continue;
+            std::string_view v = c->VpiValue();
+            if (v.rfind("BIN:", 0) != 0)
+                continue;
+            SLAdjustedConst adj;
+            if (!slAdjustBinConst(v.substr(4), -1, false, elemWidth, false,
+                                  adj))
+                continue;
+            c->VpiDecompile(adj.digits);
+            c->VpiSize(adj.size);
+            c->VpiValue(adj.prefix + adj.digits);
+            c->VpiConstType(adj.constType);
+        }
+    };
+    walk(opr);
+}
+
+// Surelog accumulates an unpacked-array parameter's vpiSize inside
+// compileRanges (CompileExpression.cpp:4053/4030): the dimension product is
+// multiplied in ONLY when the bound reduces — and the elaborated package copy
+// / import copy evaluates with a NULL instance, so a bound that NAMES anything
+// never reduces and the size stays at compileRanges' initial 1.  Pure literal
+// arithmetic still reduces.  Measured, one source, package + importing module:
+// `A3[3]` -> 3, `D[CNT]` -> 1, `E[CNT-1]` -> 1, `F[2+1]` -> 3 (the `[CNT]`
+// row is DefaultPatternInt's first-fail).
+static bool unpackedDimsAllLiteral(const Symbol& sym) {
+    auto* dsyn = sym.getSyntax();
+    if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
+        return false;
+    std::function<bool(const syntax::SyntaxNode*)> named =
+        [&](const syntax::SyntaxNode* n) -> bool {
+        if (!n)
+            return false;
+        switch (n->kind) {
+            case syntax::SyntaxKind::IdentifierName:
+            case syntax::SyntaxKind::IdentifierSelectName:
+            case syntax::SyntaxKind::ScopedName:
+            case syntax::SyntaxKind::ClassName:
+                return true;
+            default:
+                break;
+        }
+        for (size_t i = 0, c = n->getChildCount(); i < c; i++)
+            if (named(n->childNode(i)))
+                return true;
+        return false;
+    };
+    for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+        if (named(dim))
+            return false;
+    return true;
+}
+
 static bool containsUserCall(const Expression& e) {
     bool found = false;
     e.visit(makeVisitor([&](auto& v, const CallExpression& c) {
@@ -2604,7 +2678,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // import copies 3/2/1; the same module's own `localparam int
             // unsigned L4[4]` stays 1 in BOTH module views (Kmac KeccakRate).
             int32_t arrSize9 = 1;
-            if ((inPackage && topView) || (!inPackage && isImported)) {
+            // ...and only when every unpacked dim is a LITERAL expression:
+            // see unpackedDimsAllLiteral (a `[CNT]` bound never reduces for
+            // Surelog's instance-less evaluation, so the size stays 1).
+            if (((inPackage && topView) || (!inPackage && isImported)) &&
+                unpackedDimsAllLiteral(ps)) {
                 auto& uat9 = ps.getType().getCanonicalType();
                 if (uat9.kind == SymbolKind::FixedSizeUnpackedArrayType) {
                     auto w9 = uat9.as<FixedSizeUnpackedArrayType>().range.width();
@@ -4228,6 +4306,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         !dcv8.integer().hasUnknown()) {
                         std::string dd8 =
                             dcv8.integer().toString(LiteralBase::Decimal, false);
+                        // An UNSIZED `'1` default is adjustSize's orig_size==-1
+                        // tail (EmitHelpers slAdjustBinConst): the element's
+                        // width filled with ones, not the literal's bare 1
+                        // (ParamArrayUnsizedPattern: `int unsigned A[N] =
+                        // '{default: '1}` -> UINT:4294967295 size 32).
+                        if (auto& du8 = stripImplicitConv(*dexp8);
+                            du8.kind ==
+                            ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                            logic_t lb8 =
+                                du8.as<UnbasedUnsizedIntegerLiteral>()
+                                    .getLiteralValue();
+                            SLAdjustedConst adj8;
+                            if (!lb8.isUnknown() &&
+                                slAdjustBinConst(lb8.value ? "1" : "0", -1,
+                                                 false,
+                                                 (int32_t)uel8->getBitWidth(),
+                                                 false, adj8) &&
+                                adj8.prefix == "UINT:")
+                                dd8 = adj8.digits;
+                        }
                         auto* ae8 = s.MakeArray_expr();
                         ae8->VpiParent(pa);
                         auto* xv8 = s.MakeExprVec();
@@ -6364,11 +6462,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // + `parameter int X[2]='{0,1}` on a submodule — ts appears
                     // on topMod PA and topMod.u X only, on neither package view
                     // nor either def-module copy (Kmac KeccakRate).
+                    // A REPLICATED pattern (`'{N{'1}}`, op 76) is the same
+                    // elab object as the flat one: Surelog gives it the very
+                    // same array_typespec ref (ParamArrayUnsizedPattern).
                     bool unpackedArrayOp = false;
                     if (!inPackage &&
                         ps.getType().getCanonicalType().kind ==
                             SymbolKind::FixedSizeUnpackedArrayType &&
-                        opr->VpiOpType() == vpiAssignmentPatternOp) {
+                        (opr->VpiOpType() == vpiAssignmentPatternOp ||
+                         opr->VpiOpType() == vpiMultiAssignmentPatternOp)) {
                         const Type* uleaf = &ps.getType().getCanonicalType();
                         while (uleaf->getCanonicalType().kind ==
                                SymbolKind::FixedSizeUnpackedArrayType)
@@ -6381,6 +6483,77 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             lk != SymbolKind::UnpackedStructType &&
                             lk != SymbolKind::PackedUnionType &&
                             lk != SymbolKind::UnpackedUnionType;
+                        if (unpackedArrayOp && uleaf->isIntegral()) {
+                            elabUnsizedPatternFold(
+                                opr, (int32_t)uleaf->getBitWidth());
+                            // A replication COUNT that is a bare param
+                            // reference folds too — to that param's value at
+                            // its own width, carrying a ts ref to a FRESH bare
+                            // int_typespec (Surelog reduces the count before
+                            // it writes the op).
+                            if (opr->VpiOpType() ==
+                                    vpiMultiAssignmentPatternOp &&
+                                opr->Operands() && !opr->Operands()->empty()) {
+                                auto& rp9 = stripImplicitConv(*init);
+                                const Expression* cnt9 =
+                                    rp9.kind == ExpressionKind::
+                                                    ReplicatedAssignmentPattern
+                                        ? &stripImplicitConv(
+                                              rp9.as<
+                                                     ReplicatedAssignmentPatternExpression>()
+                                                  .count())
+                                        : nullptr;
+                                auto*& op09 = (*opr->Operands())[0];
+                                if (cnt9 &&
+                                    cnt9->kind == ExpressionKind::NamedValue &&
+                                    op09->UhdmType() == UHDM::uhdmref_obj) {
+                                    auto& cs9 = cnt9->as<NamedValueExpression>()
+                                                    .symbol;
+                                    ASTContext cx9(comp.getRoot(),
+                                                   LookupLocation::max);
+                                    ConstantValue cv9 = cx9.tryEval(*cnt9);
+                                    if (cs9.kind == SymbolKind::Parameter &&
+                                        cv9 && cv9.isInteger() &&
+                                        !cv9.integer().hasUnknown()) {
+                                        std::string cd9 =
+                                            cv9.integer().toString(
+                                                LiteralBase::Decimal, false);
+                                        auto* cc9 = s.MakeConstant();
+                                        cc9->VpiDecompile(cd9);
+                                        cc9->VpiSize(
+                                            (int32_t)cs9.as<ParameterSymbol>()
+                                                .getType()
+                                                .getBitWidth());
+                                        cc9->VpiValue("UINT:" + cd9);
+                                        cc9->VpiConstType(vpiUIntConst);
+                                        cc9->VpiParent(opr);
+                                        cc9->VpiLineNo(op09->VpiLineNo());
+                                        cc9->VpiColumnNo(op09->VpiColumnNo());
+                                        cc9->VpiEndLineNo(
+                                            op09->VpiEndLineNo());
+                                        cc9->VpiEndColumnNo(
+                                            op09->VpiEndColumnNo());
+                                        std::string cpx9 = prefix;
+                                        if (cpx9.size() >= 2 &&
+                                            cpx9.compare(cpx9.size() - 2, 2,
+                                                         "::") == 0)
+                                            cpx9.resize(cpx9.size() - 2);
+                                        auto* crt9 = s.MakeRef_typespec();
+                                        crt9->VpiFullName(cpx9);
+                                        crt9->VpiParent(cc9);
+                                        auto* cit9 = s.MakeInt_typespec();
+                                        if (cs9.as<ParameterSymbol>()
+                                                .getType()
+                                                .isSigned())
+                                            cit9->VpiSigned(true);
+                                        crt9->Actual_typespec(cit9);
+                                        cit9->VpiParent(crt9);
+                                        cc9->Typespec(crt9);
+                                        op09 = cc9;
+                                    }
+                                }
+                            }
+                        }
                     }
                     // A materialized IMPORTED vector-typedef param's elab
                     // CONCAT op also carries a ts ref (own clone pair).

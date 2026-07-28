@@ -2147,7 +2147,20 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         c->VpiSize(64);
                         std::string digits = std::to_string(value);
                         c->VpiDecompile(digits);
-                        if (syntax::BinaryExpressionSyntax::isKind(bsyn->kind)) {
+                        // A PARENTHESIZED arithmetic bound (`[(2*M-1):0]`, the
+                        // shape a width macro expands to) is the same
+                        // reduceExpr fold as a bare one — Surelog reduces the
+                        // inner operation and never records the parens. So the
+                        // INT/UINT pick and the left-operand anchor both key on
+                        // the UNWRAPPED expression (YosysBigSimEllip's
+                        // ``define WIDTH (2*`M-1)``: golden INT:193 at the `2`
+                        // token, not UINT at the `(`).
+                        const syntax::ExpressionSyntax* bop = bsyn;
+                        while (bop->kind ==
+                               syntax::SyntaxKind::ParenthesizedExpression)
+                            bop = bop->as<syntax::ParenthesizedExpressionSyntax>()
+                                      .expression;
+                        if (syntax::BinaryExpressionSyntax::isKind(bop->kind)) {
                             // ExprEval::reduceExpr's per-operator value type:
                             // sub/mult/div ALWAYS yield INT; add yields UINT
                             // only when BOTH reduced operands are unsigned
@@ -2183,7 +2196,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         return false;
                                 }
                             };
-                            if (redInt(bsyn)) {
+                            if (redInt(bop)) {
                                 c->VpiConstType(vpiIntConst);
                                 c->VpiValue("INT:" + digits);
                             }
@@ -2194,7 +2207,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (bareCloneComputedBounds)
                                 c->VpiParent(nullptr);
                             else
-                                setLoc(c, bsyn->as<syntax::BinaryExpressionSyntax>()
+                                setLoc(c, bop->as<syntax::BinaryExpressionSyntax>()
                                               .left->sourceRange());
                         }
                         else {
@@ -2254,6 +2267,18 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // the very body this declaration lives in? (see the
                             // elab-clone width fold below)
                             auto litBoundOwnPar9 = [&]() -> bool {
+                                // An OVERRIDDEN untyped param has no narrow
+                                // width to lend: Surelog's instance Value for
+                                // it is the plain 64-bit UINT the override
+                                // actual built (the same r9c9 rule that gives
+                                // the param_assign Rhs its 64-bit LValue), so
+                                // every range bound folding it stays at 64
+                                // (YosysOldSimpleSpi: `fifo4 #(8)` -> golden
+                                // `input [dw:1]` bound UINT:8 size 64, while
+                                // the un-overridden instance of the same
+                                // module keeps size 32).
+                                if (isOverriddenParam(*elabModPar))
+                                    return false;
                                 auto* in9 = elabModPar->getInitializer();
                                 if (!in9 ||
                                     stripImplicitConv(*in9).kind !=
