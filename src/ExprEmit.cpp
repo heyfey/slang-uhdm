@@ -1526,6 +1526,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         ref->Actual_group((UHDM::any*)pit9->second->Lhs());
                     return ref;
                 }
+                // An assignment-pattern package parameter whose target is not a
+                // packed vector never acquires a value (patParamNoFold), so a
+                // module-side read of it cannot fold to a constant either. The
+                // DEF view keeps the bare ref_obj scoped to the importing
+                // module (exactly the shape the flag arm above produces); the
+                // ELAB view substitutes the pattern's OWN operation tree, which
+                // keeps the pattern's source span rather than the reference's
+                // (ParamScope: `int VALUE_TEMP = '{default:1}` read from
+                // `parameter int VALUE = VALUE_TEMP + 2`).
+                // ...and the same DEF-view survival applies to ANY package
+                // parameter whose own def Rhs is an operation (concat,
+                // cast-of-concat, replication): the module-side read keeps the
+                // ref_obj to the materialized import rather than folding
+                // (ParamTypespec `parameter P = PartInvDefault`).
+                if (patParamNoFold(psym) ||
+                    (paramRhsDefView && paramDefRhsIsOp(psym))) {
+                    if (patSubstElab && patParamNoFold(psym)) {
+                        if (auto* pini = psym.getInitializer()) {
+                            bool saved9 = patSubstElab;
+                            patSubstElab = false;
+                            auto* sub9 = emitExpr(*pini, parent, prefix, netMap);
+                            patSubstElab = saved9;
+                            if (sub9)
+                                return sub9;
+                        }
+                    }
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 // An interface/module PARAMETER DEFAULT that references a
                 // struct/union-typed package localparam is FOLDED to that
                 // param's VALUE expression (re-emitted in this scope, outer

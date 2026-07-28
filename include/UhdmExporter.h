@@ -169,6 +169,37 @@ private:
         const slang::ast::Expression& e,
         const slang::ast::ParameterSymbol** hopped = nullptr);
 
+    // ---- assignment-pattern params that never acquire a value -----------
+    // ALWAYS ON (unlike the three predicates above, which are the
+    // `--disable-feature=parametersubstitution` ablation).  Surelog's
+    // pattern expansion collapses `'{...}` only against a packed-VECTOR
+    // target: `logic [3:0] V = '{default:1}` folds to a constant, but
+    // `int P = '{default:1}` keeps its `vpiAssignmentPatternOp` in every
+    // view, and a reader of P is given the pattern OP TREE, never a value.
+    // Measured on a purpose-built golden that varied ONLY the target type
+    // and then read each parameter from arithmetic, a cont-assign and an
+    // instance-parameter override.
+
+    /// @a ps's initializer is an assignment pattern whose target is not a
+    /// packed vector, so the pattern never reduces to a constant.
+    bool patParamNoFold(const slang::ast::ParameterSymbol& ps);
+    /// @a e reads (transitively) such a parameter, so the fold sites that
+    /// would collapse @a e to a constant must not fire.
+    bool exprPatNoFold(const slang::ast::Expression& e);
+    /// @a ps's DEF-view `param_assign` Rhs stays an OPERATION instead of
+    /// reducing to a constant (assignment pattern, concatenation — bare or
+    /// wrapped in an explicit cast — or replication).  Surelog's `getObject`
+    /// substitutes a parameter reference by the referenced param's Rhs and then
+    /// reduces; when that Rhs is one of these the reduce fails and the
+    /// REFERENCE survives, which is why `parameter P = PkgConcatParam` keeps a
+    /// ref_obj in the def view where `parameter D = PkgIntParam` folds.
+    bool paramDefRhsIsOp(const slang::ast::ParameterSymbol& ps);
+    /// @a e reads a parameter whose ALREADY-EMITTED elaborated `param_assign`
+    /// Rhs is not a constant, so Surelog's elab reduce of @a e has no value to
+    /// work with and the reference survives.  Only meaningful after the
+    /// enclosing instance's parameters have been emitted (`elabParamPa`).
+    bool exprElabParamUnreduced(const slang::ast::Expression& e);
+
     /// True when the module DEFINITION named @a defName (`work@<name>`) is
     /// blackboxed. Mirrors CompileModule.cpp: a `-bb_inst` argument that names
     /// a bare module also matches here (Surelog tests `modName` against BOTH
@@ -462,6 +493,18 @@ private:
     std::map<const slang::ast::ParameterSymbol*, bool> substRefusedCache;
     std::map<const slang::ast::ParameterSymbol*, bool> valueUnavailCache;
     std::set<const slang::ast::ParameterSymbol*> valueUnavailInFlight;
+    // Memoized patParamNoFold, with the same in-flight recursion guard.
+    std::map<const slang::ast::ParameterSymbol*, bool> patNoFoldCache;
+    std::set<const slang::ast::ParameterSymbol*> patNoFoldInFlight;
+    // Set while emitParameters re-emits an ELAB-view parameter Rhs it declined
+    // to fold: a reference to a patParamNoFold() parameter is replaced there by
+    // the pattern's own operation tree (Surelog substitutes the Rhs it cannot
+    // reduce), where the DEF view keeps the bare ref_obj.
+    bool patSubstElab = false;
+    // Set while emitParameters emits a DEF-view module parameter Rhs: a bare
+    // reference to a parameter whose own def Rhs is an OPERATION survives as a
+    // ref_obj instead of folding (see paramDefRhsIsOp).
+    bool paramRhsDefView = false;
     // Typespec refs minted on a substituted ref_obj, paired with the hopped
     // parameter's own ref: the source's Actual_typespec is often still
     // deferred when the ref is built, so it is copied again at write time.

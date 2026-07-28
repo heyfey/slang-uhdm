@@ -250,7 +250,7 @@ ClockingSntx,testflags,SLANG_REJECT,dut.sv:2:24: error: use of undeclared identi
 ClogCast,default,CMP_NOTEQUAL,decompile:,,
 ClogCast,testflags,CMP_NOTEQUAL,decompile:,,
 ClogParam,default,CMP_EQUAL,,,differ
-ClogParam,testflags,CMP_NOTEQUAL,decompile:,,
+ClogParam,testflags,CMP_EQUAL,,,differ
 CmdLineOverride,default,CMP_EQUAL,,,match
 CmdLineOverride,testflags,CMP_EQUAL,,,match
 Compl1001,default,CMP_EQUAL,,,match
@@ -1079,8 +1079,8 @@ ParamScope,default,CMP_NOTEQUAL,decompile:,,
 ParamScope,testflags,CMP_NOTEQUAL,decompile:,,
 ParamSubstituteComplex,default,CMP_NOTEQUAL,decompile:,,
 ParamSubstituteComplex,testflags,CMP_NOTEQUAL,decompile:,,
-ParamTypespec,default,CMP_NOTEQUAL,decompile:,,
-ParamTypespec,testflags,CMP_NOTEQUAL,decompile:,,
+ParamTypespec,default,CMP_EQUAL,,,differ
+ParamTypespec,testflags,CMP_EQUAL,,,differ
 ParamTypespec2,default,CMP_NOTEQUAL,decompile:,,
 ParamTypespec2,testflags,CMP_NOTEQUAL,decompile:,,
 PartSelect3,default,CMP_EQUAL,,,differ

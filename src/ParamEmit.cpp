@@ -286,6 +286,135 @@ bool UhdmExporter::exprValueUnavailable(const Expression& e) {
     return bad;
 }
 
+// An assignment pattern collapses to a constant ONLY against a packed-VECTOR
+// target (Surelog's expandPatternAssignment).  `logic [3:0] V = '{default:1}`
+// and a typedef of one fold; `int P = '{default:1}` does not — nor do the
+// packed-struct/union and unpacked-array targets, which the fold gate in
+// emitParameters already refuses by their own clauses.  This helper names the
+// targets whose non-folding PROPAGATES: an integer atom has no members, so a
+// reader can only read the whole (valueless) parameter.  A packed STRUCT
+// pattern param is deliberately excluded — a MEMBER read of one (V_STR.a + 1)
+// does fold in the golden.
+static bool patNoFoldTarget(const Type& t) {
+    const Type& ct = t.getCanonicalType();
+    return ct.isIntegral() && ct.kind != SymbolKind::PackedArrayType &&
+           ct.kind != SymbolKind::PackedStructType &&
+           ct.kind != SymbolKind::PackedUnionType;
+}
+
+bool UhdmExporter::patParamNoFold(const ParameterSymbol& ps) {
+    if (auto it = patNoFoldCache.find(&ps); it != patNoFoldCache.end())
+        return it->second;
+    if (!patNoFoldInFlight.insert(&ps).second)
+        return false;
+    bool bad = false;
+    if (auto* init = ps.getInitializer()) {
+        auto& si = stripImplicitConv(*init);
+        bool isPat = si.kind == ExpressionKind::SimpleAssignmentPattern ||
+                     si.kind == ExpressionKind::StructuredAssignmentPattern ||
+                     si.kind == ExpressionKind::ReplicatedAssignmentPattern;
+        bad = (isPat && patNoFoldTarget(ps.getType())) ||
+              (!isPat && patNoFoldTarget(ps.getType()) && exprPatNoFold(*init));
+    }
+    patNoFoldInFlight.erase(&ps);
+    patNoFoldCache[&ps] = bad;
+    return bad;
+}
+
+bool UhdmExporter::exprPatNoFold(const Expression& e) {
+    bool bad = false;
+    e.visit(makeVisitor(
+        [&](auto& v, const NamedValueExpression& x) {
+            if (x.symbol.kind == SymbolKind::Parameter &&
+                patParamNoFold(x.symbol.as<ParameterSymbol>()))
+                bad = true;
+            v.visitDefault(x);
+        },
+        [&](auto& v, const HierarchicalValueExpression& x) {
+            if (x.symbol.kind == SymbolKind::Parameter &&
+                patParamNoFold(x.symbol.as<ParameterSymbol>()))
+                bad = true;
+            v.visitDefault(x);
+        }));
+    return bad;
+}
+
+bool UhdmExporter::exprElabParamUnreduced(const Expression& e) {
+    auto chk = [&](const Symbol& sym) {
+        if (sym.kind != SymbolKind::Parameter)
+            return false;
+        // AGGREGATE params are the exception, exactly as in paramDefRhsIsOp:
+        // Surelog reduces a whole-struct read to its packed value even though
+        // the param's own elab Rhs stays an assignment-pattern operation
+        // (uhdm2rtlil StructLocalParam / StructParameter).
+        switch (sym.getDeclaredType()->getType().getCanonicalType().kind) {
+            case SymbolKind::PackedStructType:
+            case SymbolKind::UnpackedStructType:
+            case SymbolKind::PackedUnionType:
+            case SymbolKind::UnpackedUnionType:
+            case SymbolKind::FixedSizeUnpackedArrayType:
+                return false;
+            default:
+                break;
+        }
+        auto it = elabParamPa.find(&sym);
+        if (it == elabParamPa.end() || !it->second)
+            return false;
+        auto* r = it->second->Rhs();
+        return r && r->UhdmType() != UHDM::uhdmconstant;
+    };
+    bool bad = false;
+    e.visit(makeVisitor(
+        [&](auto& v, const NamedValueExpression& x) {
+            if (chk(x.symbol))
+                bad = true;
+            v.visitDefault(x);
+        },
+        [&](auto& v, const HierarchicalValueExpression& x) {
+            if (chk(x.symbol))
+                bad = true;
+            v.visitDefault(x);
+        }));
+    return bad;
+}
+
+bool UhdmExporter::paramDefRhsIsOp(const ParameterSymbol& ps) {
+    auto* init = ps.getInitializer();
+    if (!init)
+        return false;
+    // An AGGREGATE-typed parameter is the exception: Surelog INLINES a
+    // struct/union param default at the reference (see the `inParamInit` arm in
+    // emitExpr) instead of leaving the ref_obj, so `parameter p::cfg_t CFG =
+    // p::CFG_DEF` folds even though CFG_DEF's own Rhs is a pattern operation
+    // (uhdm2rtlil iface_scalar_localparam and its three siblings).
+    switch (ps.getType().getCanonicalType().kind) {
+        case SymbolKind::PackedStructType:
+        case SymbolKind::UnpackedStructType:
+        case SymbolKind::PackedUnionType:
+        case SymbolKind::UnpackedUnionType:
+            return false;
+        default:
+            break;
+    }
+    const Expression* e = &stripImplicitConv(*init);
+    // 3'({3'h1}) — an explicit size/type cast wrapping a concatenation keeps
+    // the whole vpiCastOp tree, so look through the cast.
+    for (int g = 0; g < 8 && e->kind == ExpressionKind::Conversion &&
+                    !e->as<ConversionExpression>().isImplicit();
+         ++g)
+        e = &stripImplicitConv(e->as<ConversionExpression>().operand());
+    switch (e->kind) {
+        case ExpressionKind::Concatenation:
+        case ExpressionKind::Replication:
+        case ExpressionKind::SimpleAssignmentPattern:
+        case ExpressionKind::StructuredAssignmentPattern:
+        case ExpressionKind::ReplicatedAssignmentPattern:
+            return true;
+        default:
+            return false;
+    }
+}
+
 const Expression& UhdmExporter::noSubstSourceExpr(const Expression& e,
                                                   const ParameterSymbol** hopped) {
     const Expression* cur = &stripImplicitConv(e);
@@ -4445,6 +4574,60 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                              return k == ExpressionKind::StructuredAssignmentPattern ||
                                     k == ExpressionKind::SimpleAssignmentPattern;
                          }()) &&
+                         // An assignment pattern reduces to a constant ONLY
+                         // against a packed-VECTOR target.  Surelog's
+                         // expandPatternAssignment collapses '{...} for
+                         // `logic [3:0] V = '{default:1}` (and for a typedef
+                         // of one), but `int P = '{default:1}` keeps its
+                         // vpiAssignmentPatternOp in EVERY view — the pattern
+                         // never becomes a value.  Measured on a purpose-built
+                         // 8-row golden that varied ONLY the target type
+                         // (int / logic[3:0] / typedef-of-vector / packed
+                         // struct / unpacked array): int and the aggregates
+                         // keep the op, the two vectors fold.  The struct/
+                         // union and nested-pattern clauses above already
+                         // cover their rows; this one adds the integer-atom
+                         // (and any other non-vector) target.
+                         !([&] {
+                             auto& si9 = stripImplicitConv(*init);
+                             if (si9.kind !=
+                                     ExpressionKind::SimpleAssignmentPattern &&
+                                 si9.kind !=
+                                     ExpressionKind::StructuredAssignmentPattern &&
+                                 si9.kind !=
+                                     ExpressionKind::ReplicatedAssignmentPattern)
+                                 return false;
+                             return ps.getType().getCanonicalType().kind !=
+                                    SymbolKind::PackedArrayType;
+                         }()) &&
+                         // ...and the non-value PROPAGATES: `int R = P + 1`
+                         // reading such a P keeps its vpiAddOp, with the
+                         // pattern op substituted in as the operand (same
+                         // golden).  Only the whole-parameter read propagates
+                         // (patNoFoldTarget), never a struct MEMBER read.
+                         !exprPatNoFold(*init) &&
+                         // DEF view: a BARE reference to a parameter whose own
+                         // def Rhs is an operation keeps the ref_obj. Surelog
+                         // substitutes the referenced Rhs and then reduces; an
+                         // operation Rhs makes the reduce fail, so the
+                         // reference survives. Measured on a golden that read
+                         // five package params (pattern / cast-of-concat /
+                         // concat / plain int / module-local cast-concat) from
+                         // module parameters: only the PLAIN-int read folded.
+                         // The ELAB view folds all of them, hence !topView.
+                         !(!topView && !inPackage && [&] {
+                             auto& si8 = stripImplicitConv(*init);
+                             const Symbol* sy8 = nullptr;
+                             if (si8.kind == ExpressionKind::NamedValue)
+                                 sy8 = &si8.as<NamedValueExpression>().symbol;
+                             else if (si8.kind ==
+                                      ExpressionKind::HierarchicalValue)
+                                 sy8 = &si8.as<HierarchicalValueExpression>()
+                                            .symbol;
+                             return sy8 &&
+                                    sy8->kind == SymbolKind::Parameter &&
+                                    paramDefRhsIsOp(sy8->as<ParameterSymbol>());
+                         }()) &&
                          // An init reading a struct-param MEMBER keeps the
                          // hier_path (Info.x) in BOTH views (Surelog).
                          !([&] {
@@ -5931,8 +6114,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     rhsRt = rt7;
                     rhs = c7;
                 }
-                if (!rhs)
+                if (!rhs) {
+                    bool savedPSE9 = patSubstElab;
+                    bool savedPRD9 = paramRhsDefView;
+                    patSubstElab = topView;
+                    paramRhsDefView = !topView && !inPackage;
                     rhs = emitExpr(*emitInit9, pa, prefix, netMap);
+                    patSubstElab = savedPSE9;
+                    paramRhsDefView = savedPRD9;
+                }
                 importedInitPkgInst = savedImpInst0;
                 reemitting = savedReemit0;
                 // A DEF-view materialized UNTYPED integral import's Rhs constant

@@ -12196,7 +12196,20 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // and the elaborated cont_assign keeps the plain reference it started
         // with (NoParamSubs `assign a = P`, where P's own value is `~X` and X
         // is an un-inlinable pattern).
-        if (noParamSubst && topView && exprValueUnavailable(ae.right())) {
+        // The same clearing applies with NO flag when the read parameter is an
+        // assignment pattern against a non-vector target: Surelog's pattern
+        // expansion never gives `int V = '{default:1}` a value either, so the
+        // elab cont_assign keeps the DEF object's plain reference where a
+        // vector-target pattern (`logic [3:0] W = '{default:1}`) re-emits a
+        // folded constant. Both rows measured on one purpose-built golden.
+        // ...and, generally, an ELAB read of a parameter whose own elaborated
+        // param_assign Rhs did NOT reduce to a constant has no value to fold
+        // with, so the cont_assign keeps the reference (ClogParam:
+        // `localparam int Aw = $clog2(Depth)` whose Depth override is an
+        // unreducible `Info.x`, read by `assign a = Aw`).
+        if (topView && ((noParamSubst && exprValueUnavailable(ae.right())) ||
+                        exprPatNoFold(ae.right()) ||
+                        exprElabParamUnreduced(ae.right()))) {
             ovParamRhs = nullptr;
             typedParamRhs = nullptr;
             noDefOvRhs = nullptr;
