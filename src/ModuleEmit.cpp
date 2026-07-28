@@ -295,6 +295,34 @@ static bool hasBareImplicitType(const Symbol& sym) {
     return !its.signing && its.dimensions.empty();
 }
 
+// A module-BODY data declaration of a PACKAGE-qualified struct type written
+// with no `var` (and no `wire`, which would make slang give us a Net in the
+// first place): `pkg::Struct [N-1:0] a;` elaborates as a NET in Surelog even
+// though the LRM calls it a variable.  The pkg qualification is load-bearing:
+// the same shape over a LOCAL typedef stays a packed_array_var (Selects,
+// BitSelectExpr, PackedArrayAssign — all local typedefs, all vars in golden).
+static bool bodyBarePackedStructDecl(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Variable)
+        return false;
+    if (!isExplicitPkgQualified(sym) || !isPkgStructType(sym))
+        return false;
+    // ...and the packed dims must be written on the DECLARATION.  A typedef
+    // that already carries them (`typedef a[5:0] b; pkg::b c;`) leaves the
+    // declared type an alias, and Surelog keeps that a var (HierPathTypespec).
+    auto* dt9 = sym.getDeclaredType();
+    if (!dt9 || dt9->getType().kind != SymbolKind::PackedArrayType)
+        return false;
+    const syntax::SyntaxNode* n = sym.getSyntax();
+    while (n && n->kind != syntax::SyntaxKind::DataDeclaration)
+        n = n->parent;
+    if (!n)
+        return false;
+    for (auto tok : n->as<syntax::DataDeclarationSyntax>().modifiers)
+        if (tok.kind == parsing::TokenKind::VarKeyword)
+            return false;
+    return true;
+}
+
 static bool udpFormInstantiation(const syntax::SyntaxNode* from);
 
 // Names an object in the DEF view actually BINDS. Surelog mints an implicit
@@ -3873,6 +3901,23 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     nets->push_back(pan);
                     continue;
                 }
+            }
+            // A BODY declaration written with NO `var` keyword
+            // (`pkg::Struct [N-1:0] a;`) elaborates as a packed_array_NET,
+            // exactly like the `input`/`inout` port spelling; only an
+            // explicit `var` makes it a packed_array_var, and an explicit
+            // `wire` drops the dims to a plain struct_net (measured on one
+            // source carrying all three spellings side by side —
+            // StructArrayNet).
+            else if (auto* pan9 =
+                         bodyBarePackedStructDecl(*it.sym)
+                             ? emitPackedStructArrayNet(*it.sym, name,
+                                                        fullName, m)
+                             : nullptr) {
+                topNets[it.sym] = pan9;
+                sigOrder.emplace_back(it.sym, pan9);
+                nets->push_back(pan9);
+                continue;
             }
             else if (auto* pav = emitPackedStructArrayVar(*it.sym, name, fullName, m)) {
                 topNets[it.sym] = pav;
@@ -13603,38 +13648,47 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         if (!rhs && topView && shareWithDef && literalRhs && defInfo &&
             myIdx < defInfo->contAssigns.size()) {
             auto raw = rawText(stripImplicitConv(ae.right()).sourceRange);
-            // A SIGNED based literal NARROWER than the LHS does not share:
-            // the elab view folds the sign-EXTENDED BIN at the net width
-            // (bit-string decompile, bare int ts ref) — Surelog.
+            // Surelog runs adjustSize(uniquify=true) on the reduced RHS
+            // (UhdmWriter.cpp:2156/2274), so the elab view only gets its OWN
+            // constant for the shapes that clone: a signed based literal whose
+            // sign bit is set, and an unsized literal worth 1.  Everything
+            // else keeps sharing the def constant (a sign-CLEAR `4'sb1` on a
+            // 31-bit net is shared verbatim, size 4).
             bool signExt9 = false;
-            if ((raw.find("'s") != std::string::npos ||
-                 raw.find("'S") != std::string::npos) &&
-                ae.left().type) {
-                auto& lit9 = stripImplicitConv(ae.right());
-                int32_t lw9 = (int32_t)ae.left().type->getBitWidth();
-                if (lit9.type &&
-                    (int32_t)lit9.type->getBitWidth() < lw9) {
-                    ASTContext ctx9(comp.getRoot(), LookupLocation::max);
-                    if (auto cv9 = ctx9.tryEval(ae.right());
-                        cv9 && cv9.isInteger()) {
-                        auto iv9 = cv9.integer();
-                        std::string bits9;
-                        for (int32_t i9 = lw9 - 1; i9 >= 0; i9--)
-                            bits9 += iv9[i9] == slang::logic_t(1) ? '1' : '0';
+            const UHDM::any* defRhs9 = defInfo->contAssigns[myIdx]->Rhs();
+            if (ae.left().type && defRhs9 &&
+                defRhs9->UhdmType() == UHDM::uhdmconstant) {
+                auto* defC9 = (const UHDM::constant*)defRhs9;
+                std::string dv9(defC9->VpiValue());
+                if (defC9->VpiConstType() == vpiBinaryConst &&
+                    dv9.compare(0, 4, "BIN:") == 0) {
+                    SLAdjustedConst adj9;
+                    bool cs9 = raw.find("'s") != std::string::npos ||
+                               raw.find("'S") != std::string::npos;
+                    if (slAdjustBinConst(std::string_view(dv9).substr(4),
+                                         defC9->VpiSize(), cs9,
+                                         (int32_t)ae.left().type->getBitWidth(),
+                                         ae.left().type->isSigned(), adj9)) {
+                        auto& lit9 = stripImplicitConv(ae.right());
                         auto* c9 = s.MakeConstant();
-                        c9->VpiDecompile(bits9);
-                        c9->VpiSize(lw9);
-                        c9->VpiValue("BIN:" + bits9);
-                        c9->VpiConstType(vpiBinaryConst);
+                        c9->VpiDecompile(adj9.digits);
+                        c9->VpiSize(adj9.size);
+                        c9->VpiValue(adj9.prefix + adj9.digits);
+                        c9->VpiConstType(adj9.constType);
                         c9->VpiParent(ca);
                         setLoc(c9, lit9.sourceRange);
-                        auto* rt9 = s.MakeRef_typespec();
-                        rt9->VpiFullName(prefix);
-                        rt9->VpiParent(c9);
-                        auto* its9x = s.MakeInt_typespec();
-                        its9x->VpiParent(rt9);
-                        rt9->Actual_typespec(its9x);
-                        c9->Typespec(rt9);
+                        // The clone carries the literal's own typespec — only
+                        // a SIGNED literal has one (adjustSize has already
+                        // cleared its vpiSigned for an unsigned target).
+                        if (cs9) {
+                            auto* rt9 = s.MakeRef_typespec();
+                            rt9->VpiFullName(prefix);
+                            rt9->VpiParent(c9);
+                            auto* its9x = s.MakeInt_typespec();
+                            its9x->VpiParent(rt9);
+                            rt9->Actual_typespec(its9x);
+                            c9->Typespec(rt9);
+                        }
                         rhs = c9;
                         signExt9 = true;
                     }

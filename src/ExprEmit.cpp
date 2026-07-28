@@ -7,6 +7,8 @@
 #include "UhdmExporter.h"
 
 #include <algorithm>
+#include <cerrno>
+#include <cstdlib>
 
 #include "EmitHelpers.h"
 
@@ -2703,10 +2705,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
 
             auto tick = raw.find('\'');
             if (tick == std::string::npos) {
-                // Bare decimal literals: Surelog encodes as 64-bit UINT.
-                c->VpiSize(64);
-                c->VpiValue("UINT:" + raw);
-                c->VpiConstType(vpiUIntConst);
+                // Bare decimal literals: Surelog encodes as 64-bit UINT —
+                // UNLESS the digits do not fit 64 bits.  compileConst's
+                // `largeInt` (more than 20 digits, or exactly 20 that
+                // overflow uint64) routes them through the BASED-literal
+                // arm with the default 'd base instead: vpiDecConst, size
+                // -1, source text verbatim, no folding
+                // (LargeConst 147573952589676412928 / 2^64).
+                std::string dg9 = raw;
+                dg9.erase(std::remove(dg9.begin(), dg9.end(), '_'), dg9.end());
+                bool large9 = dg9.size() > 20;
+                if (!large9 && dg9.size() == 20) {
+                    errno = 0;
+                    char* endp9 = nullptr;
+                    strtoull(dg9.c_str(), &endp9, 10);
+                    large9 = errno == ERANGE || (endp9 && *endp9 != '\0');
+                }
+                if (large9) {
+                    c->VpiSize(-1);
+                    c->VpiValue("DEC:" + dg9);
+                    c->VpiConstType(vpiDecConst);
+                }
+                else {
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + raw);
+                    c->VpiConstType(vpiUIntConst);
+                }
             }
             else {
                 // Unsized based literals: -1, EXCEPT the four forms Surelog's
@@ -2778,10 +2802,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // int_typespec parented to its ref_typespec (Surelog). In
                     // every other context (expression operands, signed targets)
                     // the typespec stays signed and parentless.
+                    // Only a BINARY-based literal loses it: clearing vpiSigned
+                    // is `adjustSize`'s vpiBinaryConst arm (CompileHelper.cpp
+                    // 4013, `if (!signedLhs) itps->VpiSigned(false)`), and a
+                    // 'sd / 'sh / 'so literal takes the plain size branch
+                    // instead, keeping its signed typespec (LargeConst's
+                    // `assign b = 'sd147573952589676412928`).
                     bool unsignedContAssign =
                         parent &&
                         parent->UhdmType() == UHDM::uhdmcont_assign &&
-                        implicitConvTargetSigned == 0;
+                        implicitConvTargetSigned == 0 && base == 'b';
                     if (unsignedContAssign)
                         its->VpiParent(rt);
                     else
@@ -4020,7 +4050,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             a->UhdmType() == UHDM::uhdmref_obj &&
                             std::string(((UHDM::ref_obj*)a)->VpiName()).find("::") !=
                                 std::string::npos;
+                        // A string-literal actual on a STRING formal carries
+                        // no formal-ts ref at all (FuncArgsByName).
+                        bool strFormalConst =
+                            a->UhdmType() == UHDM::uhdmconstant && arg->type &&
+                            arg->type->isString();
                         if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
+                            !strFormalConst &&
                             // A PROPERTY-DECL body's call args carry no
                             // formal-ts stamp (mriscv s2qed reg_map(inp1)).
                             !propDeclScope &&
@@ -4062,8 +4098,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // A constant arg carrying a formal-ts ref sizes at
                             // the formal's width (loop(2) -> UINT:2 size 4) —
                             // VECTOR formals only (int formals keep 64).
+                            // A STRING formal has no bit width at all: the
+                            // literal keeps compileConst's 8-bits-per-char
+                            // size (FuncArgsByName `.match_type_pair("a")`
+                            // -> size 8, not 0).  The literal's OWN type is
+                            // `bit[7:0]`, so only the FORMAL's type answers
+                            // this.
                             if (a->UhdmType() == UHDM::uhdmconstant && arg->type &&
-                                !intFormal &&
+                                !intFormal && !arg->type->isString() &&
                                 !stripImplicitConv(*arg).type->isString()) {
                                 auto* ac9 = (UHDM::constant*)a;
                                 ac9->VpiSize(

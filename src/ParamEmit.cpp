@@ -3556,11 +3556,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // sized decompile (Surelog; rp32_r5p_mouse_soc_simple_top
                 // cpu.IFU_RST <- soc IFU_RST = 32'h8000_0000).
                 bool srcBaseOv8 = false;
-                if (typedParam && !vecAliasOv8 && !strOv8 && !enumOv8 &&
-                    boundInit &&
-                    ps.getType().getCanonicalType().kind ==
-                        SymbolKind::PackedArrayType &&
-                    iv.getBitWidth() <= 64) {
+                // An UNTYPED param overridden by a based literal WIDER than
+                // 64 bits keeps that spelling too: the decimal fold below
+                // cannot represent it (LargeHexString's 36864-bit
+                // `.INIT_i(36864'h…)` folds to garbage without this).
+                bool wideBaseOv8 = !typedParam && iv.getBitWidth() > 64;
+                if (((typedParam &&
+                      ps.getType().getCanonicalType().kind ==
+                          SymbolKind::PackedArrayType &&
+                      iv.getBitWidth() <= 64) ||
+                     wideBaseOv8) &&
+                    !vecAliasOv8 && !strOv8 && !enumOv8 && boundInit) {
                     const Expression* org8 = &stripImplicitConv(*boundInit);
                     for (int h8 = 0;
                          h8 < 8 && org8->kind == ExpressionKind::NamedValue;
@@ -3791,9 +3797,66 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiSize((int32_t)iv.getBitWidth());
                 }
                 else {
-                    c->VpiValue("INT:" + digits);
-                    c->VpiConstType(vpiIntConst);
-                    c->VpiSize(-1);
+                    // Surelog's untyped-parameter override
+                    // (NetlistElaboration.cpp:405): the instance Value is
+                    // stamped verbatim — UINT for a non-negative integer,
+                    // size 64 — and `adjustSize` then runs with the
+                    // PARAMETER's own typespec.  That typespec is the
+                    // int_typespec Surelog derives from a PLAIN LITERAL
+                    // default, so the override folds at the DEFAULT
+                    // literal's width with the value MASKED to it
+                    // (`parameter a = 1'b1` overridden with 4 -> UINT:0
+                    // size 1; `parameter a = 1` -> UINT:4 size 32).  An
+                    // EXPRESSION default and a DECIMAL-based literal
+                    // default (decBasedInit) carry no typespec at all, so
+                    // adjustSize is a no-op there and the constant keeps
+                    // the Value's own encoding.
+                    // ...and only for a BARE-DECIMAL override actual, which
+                    // is what Surelog turns into the simple 64-bit unsigned
+                    // Value.  A BASED actual ('d7_200) builds an LValue
+                    // instead, whose uhdmValue is the unsized INT this falls
+                    // through to (ParameterWithUnderscoreValue).
+                    bool bareDecOv8 = false;
+                    if (overridden && boundInit) {
+                        auto& bo8 = stripImplicitConv(*boundInit);
+                        if (bo8.kind == ExpressionKind::IntegerLiteral)
+                            bareDecOv8 =
+                                rawText(bo8.sourceRange).find('\'') ==
+                                std::string_view::npos;
+                    }
+                    int32_t dw8 = -1;
+                    if (bareDecOv8 && !decBasedInit && defaultInit) {
+                        auto& dl8 = stripImplicitConv(*defaultInit);
+                        if (dl8.kind == ExpressionKind::IntegerLiteral &&
+                            dl8.type && dl8.type->isIntegral() &&
+                            dl8.type->getBitWidth() > 0 &&
+                            dl8.type->getBitWidth() <= 64)
+                            dw8 = (int32_t)dl8.type->getBitWidth();
+                    }
+                    if (dw8 > 0) {
+                        slang::SVInt mv8 = iv.resize((slang::bitwidth_t)dw8);
+                        mv8.setSigned(false);
+                        std::string md8 =
+                            mv8.toString(LiteralBase::Decimal, false);
+                        c->VpiValue("UINT:" + md8);
+                        c->VpiDecompile(md8);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiSize(dw8);
+                    }
+                    else if (bareDecOv8 && defaultInit) {
+                        // No parameter typespec at all: adjustSize returns
+                        // immediately and the Value's own 64-bit UINT stands
+                        // (BlackParrotSkipParam `.lg_max_val_lp(10)` over a
+                        // `($clog2(...))` default -> UINT:10 size 64).
+                        c->VpiValue("UINT:" + digits);
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiSize(64);
+                    }
+                    else {
+                        c->VpiValue("INT:" + digits);
+                        c->VpiConstType(vpiIntConst);
+                        c->VpiSize(-1);
+                    }
                 }
                 c->VpiParent(pa);
                 if (defaultInit)
@@ -4732,9 +4795,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         std::string digits = v.find(':') != std::string::npos
                                                  ? v.substr(v.find(':') + 1)
                                                  : v;
+                        // ...and only for a SIGNED one: `int unsigned` has no
+                        // sign bit to adjust, so its top-bit-set select keeps
+                        // the plain BIN fold (LargeHex
+                        // `parameter int unsigned ReqDepthOK = DReqDepth[0+:4]`
+                        // -> BIN:1111 "4'b1111" size 4, not UINT:15 size 32).
                         bool signAdjust =
                             ps.getType().getCanonicalType().kind ==
-                            SymbolKind::PredefinedIntegerType;
+                                SymbolKind::PredefinedIntegerType &&
+                            ps.getType().isSigned();
                         if (w > 0 && !digits.empty() &&
                             digits.find_first_not_of("0123456789") ==
                                 std::string::npos) {

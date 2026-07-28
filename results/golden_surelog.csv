@@ -155,8 +155,8 @@ BlackParrotMuteErrors,default,SLANG_REJECT,dut.sv:575:5: error: unknown class or
 BlackParrotMuteErrors,testflags,SLANG_REJECT,dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,
 BlackParrotParam,default,SLANG_REJECT,dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
 BlackParrotParam,testflags,SLANG_REJECT,dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
-BlackParrotSkipParam,default,CMP_NOTEQUAL,decompile:,,
-BlackParrotSkipParam,testflags,CMP_NOTEQUAL,decompile:,,
+BlackParrotSkipParam,default,CMP_EQUAL,,,differ
+BlackParrotSkipParam,testflags,CMP_EQUAL,,,differ
 BlackParrotStructParam,default,SLANG_REJECT,dut.sv:63:5: error: unknown module 'OK',,
 BlackParrotStructParam,testflags,SLANG_REJECT,dut.sv:63:5: error: unknown module 'OK',,
 BlackUcode,default,SURELOG_FAIL,[   NOTE] : 0,,
@@ -397,8 +397,8 @@ ElabParam,default,CMP_EQUAL,,,differ
 ElabParam,testflags,CMP_EQUAL,,,differ
 ElabSysCall,default,SLANG_REJECT,dut.sv:3:3: error: $fatal encountered,,
 ElabSysCall,testflags,SLANG_REJECT,dut.sv:3:3: error: $fatal encountered,,
-EmptyAssign,default,CMP_NOTEQUAL,decompile:,,
-EmptyAssign,testflags,CMP_NOTEQUAL,decompile:,,
+EmptyAssign,default,CMP_EQUAL,,,match
+EmptyAssign,testflags,CMP_EQUAL,,,differ
 EnumConcat,default,CMP_EQUAL,,,match
 EnumConcat,testflags,CMP_EQUAL,,,match
 EnumConst,default,CMP_EQUAL,,,match
@@ -497,8 +497,8 @@ FuncArgDirection,default,CMP_EQUAL,,,match
 FuncArgDirection,testflags,CMP_EQUAL,,,differ
 FuncArgs,default,CMP_NOTEQUAL,decompile:,,
 FuncArgs,testflags,CMP_NOTEQUAL,decompile:,,
-FuncArgsByName,default,CMP_NOTEQUAL,decompile:,,
-FuncArgsByName,testflags,CMP_NOTEQUAL,decompile:,,
+FuncArgsByName,default,CMP_EQUAL,,,match
+FuncArgsByName,testflags,CMP_EQUAL,,,match
 FuncAttrib,default,CMP_NOTEQUAL,decompile:,,
 FuncAttrib,testflags,CMP_EQUAL,,,match
 FuncBindGen,default,CMP_EQUAL,,,differ
@@ -529,8 +529,8 @@ FuncParam2,default,CMP_EQUAL,,,match
 FuncParam2,testflags,CMP_EQUAL,,,match
 FuncRetArray,default,CMP_EQUAL,,,differ
 FuncRetArray,testflags,CMP_EQUAL,,,differ
-FuncReturnRange,default,CMP_NOTEQUAL,decompile:,,
-FuncReturnRange,testflags,CMP_NOTEQUAL,decompile:,,
+FuncReturnRange,default,CMP_EQUAL,,,differ
+FuncReturnRange,testflags,CMP_EQUAL,,,differ
 FuncSideEffect,default,CMP_EQUAL,,,match
 FuncSideEffect,testflags,CMP_EQUAL,,,match
 FuncStatic,default,CMP_NOTEQUAL,decompile:,,
@@ -785,14 +785,14 @@ JKFlipflop,default,CMP_EQUAL,,,match
 JKFlipflop,testflags,CMP_EQUAL,,,differ
 Kmac,default,CMP_EQUAL,,,differ
 Kmac,testflags,CMP_EQUAL,,,differ
-LargeConst,default,CMP_NOTEQUAL,decompile:,,
-LargeConst,testflags,CMP_NOTEQUAL,decompile:,,
-LargeHex,default,CMP_NOTEQUAL,decompile:,,
-LargeHex,testflags,CMP_NOTEQUAL,decompile:,,
+LargeConst,default,CMP_EQUAL,,,differ
+LargeConst,testflags,CMP_EQUAL,,,differ
+LargeHex,default,CMP_EQUAL,,,differ
+LargeHex,testflags,CMP_EQUAL,,,differ
 LargeHexCast,default,CMP_EQUAL,,,differ
 LargeHexCast,testflags,CMP_EQUAL,,,differ
-LargeHexString,default,CMP_NOTEQUAL,decompile:,,
-LargeHexString,testflags,CMP_NOTEQUAL,decompile:,,
+LargeHexString,default,CMP_EQUAL,,,match
+LargeHexString,testflags,CMP_EQUAL,,,match
 LargeValue2Struct,default,CMP_NOTEQUAL,decompile:,,
 LargeValue2Struct,testflags,CMP_NOTEQUAL,decompile:,,
 LateBindingFuncArg,default,CMP_NOTEQUAL,decompile:,,
@@ -1285,8 +1285,8 @@ StringRange,default,CMP_EQUAL,,,differ
 StringRange,testflags,CMP_EQUAL,,,differ
 StructAccess,default,CMP_NOTEQUAL,decompile:,,
 StructAccess,testflags,CMP_NOTEQUAL,decompile:,,
-StructArrayNet,default,CMP_NOTEQUAL,decompile:,,
-StructArrayNet,testflags,CMP_NOTEQUAL,decompile:,,
+StructArrayNet,default,CMP_EQUAL,,,differ
+StructArrayNet,testflags,CMP_EQUAL,,,differ
 StructNetUnionTypespec,default,CMP_EQUAL,,,match
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,match
 StructStructHierPath,default,SLANG_REJECT,dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,

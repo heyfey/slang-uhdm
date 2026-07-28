@@ -40,6 +40,127 @@ using namespace slang::ast;
 
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
+// ---------------------------------------------------------------------------
+// Surelog's `CompileHelper::adjustSize` (CompileHelper.cpp:3949), the
+// vpiBinaryConst arm, ported verbatim.
+//
+// adjustSize is the ONE function that decides how a literal is re-encoded once
+// its target width is known (it runs on cont_assign RHSs from UhdmWriter, on
+// param_assign RHSs from NetlistElaboration, and on typespec bounds from
+// ElaborationStep).  For a BINARY constant it takes the constant's OWN
+// int_typespec as the governing type when the literal is signed, and then:
+//
+//   * sign bit set  -> re-encode at the target width: two's-complement INT
+//     when the target is SIGNED; otherwise pad with ones up to the target
+//     width and emit the decimal INT (or, above 63 bits where `strtoll`
+//     saturates, keep the padded BIN string);
+//   * unsized ('sb1 / 'b1 / '1) worth 1 -> the target-width all-ones mask,
+//     UINT up to 64 bits and BIN beyond;
+//   * anything else -> value untouched (only VpiSize is clamped, in place).
+//
+// Only the first two shapes CLONE the constant, so only they produce an
+// elab-view object distinct from the def view; everything else keeps sharing.
+// `slAdjustBinConst` reports exactly the cloning cases.
+// ---------------------------------------------------------------------------
+
+inline uint64_t slBinToU64(std::string_view b) {
+    uint64_t v = 0;
+    for (char c : b)
+        v = (v << 1) | (uint64_t)(c == '1');
+    return v;
+}
+
+inline std::string slTwosComplement(std::string_view bin) {
+    int32_t n = (int32_t)bin.length();
+    std::string ones;
+    for (int32_t i = 0; i < n; i++)
+        ones += bin[i] == '0' ? '1' : '0';
+    std::string twos = ones;
+    int32_t i = n - 1;
+    for (; i >= 0; i--) {
+        if (ones[i] == '1')
+            twos[i] = '0';
+        else {
+            twos[i] = '1';
+            break;
+        }
+    }
+    if (i == -1)
+        twos = '1' + twos;
+    return twos;
+}
+
+struct SLAdjustedConst {
+    std::string digits;  // decompile text == the value payload
+    std::string prefix;  // "INT:" / "UINT:" / "BIN:"
+    int32_t constType = 0;
+    int32_t size = 0;
+};
+
+// `digits` is the constant's BIN: payload (no prefix), `origSize` its VpiSize
+// (-1 for an unsized literal), `size` the target width, `signedLhs` the target
+// typespec's vpiSigned.  Returns true when Surelog would clone-and-rewrite.
+inline bool slAdjustBinConst(std::string_view digits, int32_t origSize,
+                             bool constantIsSigned, int32_t size,
+                             bool signedLhs, SLAdjustedConst& out) {
+    if (digits.empty() || digits.find_first_not_of("01") != std::string_view::npos)
+        return false;  // x/z: get_value fails, adjustSize does nothing
+    if (size <= 0)
+        return false;
+    uint64_t val = slBinToU64(digits);
+    if (origSize == -1) {
+        // '1 / 'sb1 / 'b1: the all-ones mask at the target width.
+        if (val != 1)
+            return false;
+        if (size <= 64) {
+            uint64_t mask = size == 64 ? ~(uint64_t)0
+                                       : (((uint64_t)1 << size) - 1);
+            out.digits = std::to_string(mask);
+            out.prefix = "UINT:";
+            out.constType = vpiUIntConst;
+        } else {
+            out.digits = std::string((size_t)size, '1');
+            out.prefix = "BIN:";
+            out.constType = vpiBinaryConst;
+        }
+        out.size = size;
+        return true;
+    }
+    if (!constantIsSigned || origSize <= 0)
+        return false;
+    // msb = val & (1 << (origSize - 1)) on the ORIGINAL width.
+    bool msb = origSize <= 64 &&
+               (val & ((uint64_t)1 << (uint32_t)(origSize - 1))) != 0;
+    if (!msb)
+        return false;
+    std::string v(digits);
+    int32_t orig = origSize;
+    if (signedLhs) {
+        const std::string res = slTwosComplement(v);
+        int64_t sval = (int64_t)strtoll(res.c_str(), nullptr, 2);
+        out.digits = std::to_string(-sval);
+        out.prefix = "INT:";
+        out.constType = vpiIntConst;
+    } else {
+        if (size > orig) {
+            v.append((size_t)(size - orig), '1');
+            orig = size;
+        }
+        if (size > 63) {
+            out.digits = v;
+            out.prefix = "BIN:";
+            out.constType = vpiBinaryConst;
+        } else {
+            int64_t sval = (int64_t)strtoll(v.c_str(), nullptr, 2);
+            out.digits = std::to_string(sval);
+            out.prefix = "INT:";
+            out.constType = vpiIntConst;
+        }
+    }
+    out.size = orig < size ? orig : size;
+    return true;
+}
+
 // Surelog's struct net-vs-var rule, verbatim (NetlistElaboration.cpp, the
 // `ttmp == uhdmstruct_typespec` arm of elab_signal_): a struct-typed signal is
 // a NET only while EVERY member's typespec is a logic_typespec or another
