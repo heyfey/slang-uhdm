@@ -1346,19 +1346,72 @@ static bool hasSignExtendedShift(const SubroutineSymbol& sub) {
 static void collectImportedParams(
     const Scope& body, std::vector<const ParameterSymbol*>& out,
     std::map<const ParameterSymbol*, std::string>& srcOut,
-    const std::function<bool(SourceLocation, SourceLocation)>& locLess) {
+    const std::function<bool(SourceLocation, SourceLocation)>& locLess,
+    std::map<const ParameterSymbol*, std::pair<size_t, size_t>>* rankOut =
+        nullptr) {
     std::set<const Symbol*> wildcardPkgs; // packages wildcard-imported
     std::set<const Symbol*> explicitSyms; // explicitly imported symbols
+    // Surelog materializes imports ONE IMPORT ITEM AT A TIME, in source order
+    // (CompileModule::collectModuleObjects_ walks paPackage_import_item during
+    // the FUNCTION pass and calls CompileHelper::importPackage per item). Each
+    // call appends to the module's Parameters / Param_assigns vectors, so the
+    // IMPORT-ITEM index is the PRIMARY order key of every materialized param —
+    // not the package's declaration order and not the name.
+    //   `import p::N;` (object_name set) contributes exactly N.
+    //   `import p::*;` contributes ALL of p's params: the Parameters vec walks
+    //   p's getParameterMap() (std::map -> NAME order) while the Param_assigns
+    //   vec walks p's getParamAssignVec() (a vector -> DECLARATION order).
+    // So the two vectors share the item key and differ only in the tie-break.
+    // Witnessed on a purpose-built matrix where import order, name order and
+    // package-declaration order are all distinct (w1: `import p::M; p::A;
+    // p::Z` over a package declaring Z,M,A -> golden lists M,A,Z in BOTH
+    // vectors), plus a wildcard control (w2: golden Parameters AQ,MQ,ZQ vs
+    // Param_assigns ZQ,MQ,AQ) and a mixed 2-package case (w3: `pb::MB;
+    // pa::*; pb::ZB` -> Parameters MB,MA,ZA,ZB / Param_assigns MB,ZA,MA,ZB).
+    // Kmac's `import sha3_pkg::KeccakCountW; import sha3_pkg::KeccakRate;`
+    // is the corpus instance; simple_package's lone `import my_pkg::*` is the
+    // wildcard one. The two goldens never disagreed — one is per-item, the
+    // other is within-item.
+    std::map<const ParameterSymbol*, std::pair<size_t, size_t>> rank;
+    size_t item9 = 0;
+    // Rank a package's transitively-exported params (declaration order),
+    // first import item wins (Surelog re-imports, we dedup).
+    std::function<void(const Symbol*, std::set<const Symbol*>&, size_t&)>
+        rankPkg = [&](const Symbol* pkgSym, std::set<const Symbol*>& vis,
+                      size_t& sub) {
+            if (!pkgSym || !vis.insert(pkgSym).second)
+                return;
+            for (auto& pm : pkgSym->as<PackageSymbol>().members()) {
+                if (pm.kind == SymbolKind::Parameter)
+                    rank.emplace(&pm.as<ParameterSymbol>(),
+                                 std::make_pair(item9, sub++));
+                else if (pm.kind == SymbolKind::WildcardImport)
+                    rankPkg(pm.as<WildcardImportSymbol>().getPackage(), vis,
+                            sub);
+            }
+        };
     for (auto& m : body.members()) {
         if (m.kind == SymbolKind::WildcardImport) {
-            if (auto* p = m.as<WildcardImportSymbol>().getPackage())
+            if (auto* p = m.as<WildcardImportSymbol>().getPackage()) {
                 wildcardPkgs.insert(p);
+                std::set<const Symbol*> vis;
+                size_t sub = 0;
+                rankPkg(p, vis, sub);
+                item9++;
+            }
         }
         else if (m.kind == SymbolKind::ExplicitImport) {
-            if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol())
+            if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol()) {
                 explicitSyms.insert(imp);
+                if (imp->kind == SymbolKind::Parameter)
+                    rank.emplace(&imp->as<ParameterSymbol>(),
+                                 std::make_pair(item9, (size_t)0));
+                item9++;
+            }
         }
     }
+    if (rankOut)
+        *rankOut = rank;
     if (wildcardPkgs.empty() && explicitSyms.empty())
         return;
     std::set<const Symbol*> seen;
@@ -1532,12 +1585,34 @@ static void collectImportedParams(
                     srcOut[pp] = std::string(pkgSym->name);
             }
     }
-    // Surelog orders materialized imported params by their DECLARATION order
-    // in the package, not by reference-discovery order.
-    std::stable_sort(found.begin(), found.end(),
-                     [&](const ParameterSymbol* a, const ParameterSymbol* b) {
-                         return locLess(a->location, b->location);
-                     });
+    // An EXPLICIT `import p::N;` materializes N on the same no-reference-
+    // required terms as the wildcard pass above: importPackage is driven by
+    // the IMPORT ITEM, and its param loops only filter by object_name — they
+    // never ask whether anything uses the name. Witnessed on a module whose
+    // `import pu::AU;` is never referenced: the golden still lists AU in both
+    // module vectors.
+    for (auto& m : body.members())
+        if (m.kind == SymbolKind::ExplicitImport)
+            if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol();
+                imp && imp->kind == SymbolKind::Parameter)
+                if (seen.insert(imp).second)
+                    found.push_back(&imp->as<ParameterSymbol>());
+    // Surelog orders materialized imported params by IMPORT ITEM (source
+    // order of the `import` statements), then — inside a wildcard item — by
+    // the package's DECLARATION order, never by reference-discovery order.
+    // The rank map above carries both keys; the locLess fallback only covers
+    // a param no import item claims (defensive: should not happen).
+    std::stable_sort(
+        found.begin(), found.end(),
+        [&](const ParameterSymbol* a, const ParameterSymbol* b) {
+            auto ra = rank.find(a), rb = rank.find(b);
+            bool ha = ra != rank.end(), hb = rb != rank.end();
+            if (ha != hb)
+                return ha;
+            if (ha)
+                return ra->second < rb->second;
+            return locLess(a->location, b->location);
+        });
     out.insert(out.end(), found.begin(), found.end());
 }
 
@@ -1564,16 +1639,40 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // srcImp maps a re-exported materialized param to the immediately-imported
     // package name (its vpiImported), overriding its home-scope name.
     std::map<const ParameterSymbol*, std::string> srcImp;
+    // Import-item rank of each materialized imported param (see
+    // collectImportedParams): {import item index, tie-break within the item}.
+    std::map<const ParameterSymbol*, std::pair<size_t, size_t>> impRank9;
     if (!funcScope) {
         collectImportedParams(body, paramSyms, srcImp,
                               [this](SourceLocation a, SourceLocation b) {
                                   return srcOrderLess(a, b);
-                              });
-        // The list is SOURCE-LOCATION ordered: materialized imported
-        // params (pkg locs, usually earlier) list before declared ones.
+                              },
+                              &impRank9);
+        // MATERIALIZED IMPORTS LEAD, in import-item order; body-declared
+        // params follow in source order. Not a location coincidence:
+        // CompileModule runs CollectType::FUNCTION (which calls importPackage
+        // per paPackage_import_item) strictly BEFORE CollectType::DEFINITION
+        // (which compiles paParameter_declaration / paParameter_port_list), so
+        // every materialized copy is pushed onto the module's vectors before
+        // the first local param exists. The old rule sorted BOTH groups by
+        // source location, which agrees whenever the package is declared ahead
+        // of the module but scrambles the imports among themselves the moment
+        // the import statements are not in package-declaration order (Kmac).
+        auto rank9 = [&](const ParameterSymbol* p)
+            -> std::pair<int, std::pair<size_t, size_t>> {
+            if (auto it = impRank9.find(p);
+                it != impRank9.end() && p->getParentScope() != &body)
+                return {0, it->second};
+            return {1, {0, 0}};
+        };
         std::stable_sort(paramSyms.begin(), paramSyms.end(),
-                         [this](const ParameterSymbol* a,
-                                const ParameterSymbol* b) {
+                         [&](const ParameterSymbol* a,
+                             const ParameterSymbol* b) {
+                             auto ra = rank9(a), rb = rank9(b);
+                             if (ra.first != rb.first)
+                                 return ra.first < rb.first;
+                             if (ra.first == 0)
+                                 return ra.second < rb.second;
                              return srcOrderLess(a->location, b->location);
                          });
     }
@@ -5446,11 +5545,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // An UNPACKED-ARRAY package parameter's assignment-pattern
                 // element REDUCES in EVERY view (Surelog compiles the element
                 // expressions Reduce::Yes even for the def listing): a computed
-                // element (1344/MsgWidth) becomes an unparented INT constant of
-                // size 64, anchored at the BinaryOp's LEFT-operand span — the
-                // same "* / - fold signed, at the left span" family the
-                // pkgElabComputed folds follow. Literal elements already emit
-                // that shape. Kmac sha3_pkg::KeccakRate.
+                // element (1344/MsgWidth) becomes an unparented INT constant
+                // anchored at the BinaryOp's LEFT-operand span — the same
+                // "* / - fold signed, at the left span" family the
+                // pkgElabComputed folds follow. Kmac sha3_pkg::KeccakRate.
+                //
+                // The element constant's vpiSize is view-dependent, and it is
+                // the SAME size for computed and literal elements — only the
+                // const type differs (a computed element is INT, a literal
+                // keeps its own UINT/BIN encoding):
+                //   def package / elab package / def-module import copy -> 64
+                //     (Surelog's 64-bit expression word, unwidened)
+                //   ELABORATED INSTANCE view -> the array ELEMENT type width
+                //     (the elaborator re-reduces the pattern against the
+                //     declared element type, which is also where the op gains
+                //     its array_typespec ref)
+                // Measured on a 5-param witness whose element types are
+                // int unsigned / longint unsigned / byte / logic[11:0] /
+                // shortint: the instance view reads 32/64/8/12/16 while every
+                // other view reads 64 across the board.
+                int32_t elemSz9 = 64;
+                if (topView && !inPackage &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::FixedSizeUnpackedArrayType) {
+                    auto& et9 = ps.getType()
+                                    .getCanonicalType()
+                                    .as<FixedSizeUnpackedArrayType>()
+                                    .elementType;
+                    if (et9.isIntegral() && et9.getBitWidth() > 0)
+                        elemSz9 = (int32_t)et9.getBitWidth();
+                }
                 if (rhs && rhs->UhdmType() == UHDM::uhdmoperation &&
                     (inPackage || isImported) &&
                     ps.getType().getCanonicalType().kind ==
@@ -5466,6 +5590,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         pop9->Operands()->size() == pel9.size()) {
                         ASTContext pctx9(comp.getRoot(), LookupLocation::max);
                         for (size_t i9 = 0; i9 < pel9.size(); i9++) {
+                            // A LITERAL element already folded on the ordinary
+                            // path; only its width needs the view's size (it
+                            // keeps its own const type — golden's UINT:5 at
+                            // size 8 for a `byte` array's literal element).
+                            if ((*pop9->Operands())[i9]->UhdmType() ==
+                                UHDM::uhdmconstant) {
+                                ((UHDM::constant*)(*pop9->Operands())[i9])
+                                    ->VpiSize(elemSz9);
+                                continue;
+                            }
                             if ((*pop9->Operands())[i9]->UhdmType() !=
                                 UHDM::uhdmoperation)
                                 continue;
@@ -5494,7 +5628,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 sv9.toString(LiteralBase::Decimal, false);
                             auto* pc9 = s.MakeConstant();
                             pc9->VpiDecompile(dg9);
-                            pc9->VpiSize(64);
+                            pc9->VpiSize(elemSz9);
                             pc9->VpiValue("INT:" + dg9);
                             pc9->VpiConstType(vpiIntConst);
                             setLoc(pc9, pe9.kind == ExpressionKind::BinaryOp
@@ -6253,28 +6387,47 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 std::string(tps.name)}] = its;
         params->push_back(tp);
     }
-    // Surelog lists MATERIALIZED imported params NAME-SORTED in the module
-    // Parameters vec (name-keyed registry); param_assigns keep location
-    // order (simple_package: ADDR_WIDTH before DATA_WIDTH).
+    // MATERIALIZED imported params: the Parameters vec and the Param_assigns
+    // vec share the IMPORT-ITEM key and differ only in the tie-break INSIDE
+    // one item — Surelog's importPackage walks the package's
+    // getParameterMap() (std::map, NAME order) for Parameters and its
+    // getParamAssignVec() (a vector, DECLARATION order) for Param_assigns.
+    // An EXPLICIT `import p::N` item contributes one param, so the tie-break
+    // is invisible there and only the item order shows (Kmac). A WILDCARD
+    // item contributes the whole package, so the two vectors genuinely
+    // disagree (simple_package: Parameters ADDR_WIDTH,DATA_WIDTH vs
+    // Param_assigns DATA_WIDTH,ADDR_WIDTH).
+    // paramSyms is already in (item, declaration) order, so the materialized
+    // slots below are grouped by item; re-sorting them by (item, name) keeps
+    // the groups and only reorders within each.
     {
-        std::set<std::string_view> matNames9;
+        std::map<std::string_view, size_t> matItem9;
         for (auto* ps9 : paramSyms)
-            if (ps9->getParentScope() != &body)
-                matNames9.insert(ps9->name);
-        if (!matNames9.empty()) {
+            if (ps9->getParentScope() != &body) {
+                size_t it9 = 0;
+                if (auto r9 = impRank9.find(ps9); r9 != impRank9.end())
+                    it9 = r9->second.first;
+                matItem9.emplace(ps9->name, it9);
+            }
+        if (!matItem9.empty()) {
             std::vector<size_t> idx9;
             std::vector<UHDM::any*> mats9;
             for (size_t i9 = 0; i9 < params->size(); i9++)
                 if ((*params)[i9]->UhdmType() == UHDM::uhdmparameter &&
-                    matNames9.count(
+                    matItem9.count(
                         ((UHDM::parameter*)(*params)[i9])->VpiName())) {
                     idx9.push_back(i9);
                     mats9.push_back((*params)[i9]);
                 }
             std::stable_sort(
-                mats9.begin(), mats9.end(), [](UHDM::any* a, UHDM::any* b) {
-                    return ((UHDM::parameter*)a)->VpiName() <
-                           ((UHDM::parameter*)b)->VpiName();
+                mats9.begin(), mats9.end(),
+                [&](UHDM::any* a, UHDM::any* b) {
+                    std::string_view na = ((UHDM::parameter*)a)->VpiName();
+                    std::string_view nb = ((UHDM::parameter*)b)->VpiName();
+                    size_t ia = matItem9[na], ib = matItem9[nb];
+                    if (ia != ib)
+                        return ia < ib;
+                    return na < nb;
                 });
             for (size_t k9 = 0; k9 < idx9.size(); k9++)
                 (*params)[idx9[k9]] = mats9[k9];
@@ -9791,8 +9944,21 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                      [](auto& a, auto& b) { return a.first < b.first; });
     for (auto& [nm0, ts0] : pkgTdByName)
         tds->push_back(ts0);
-    for (auto* it9 : importTss)
-        tds->push_back(it9);
+    // UhdmWriter::writeImportedSymbols appends an import_typespec only when no
+    // typespec of that name is in the vector yet ("Prevents multiple
+    // definition") — and for a PACKAGE it runs AFTER writeDataTypes, so the
+    // typedefs above are in scope of the check. First import item of a package
+    // wins; every later item of the same package is dropped.
+    for (auto* it9 : importTss) {
+        bool dup9 = false;
+        for (auto* t9 : *tds)
+            if (t9->VpiName() == it9->VpiName()) {
+                dup9 = true;
+                break;
+            }
+        if (!dup9)
+            tds->push_back(it9);
+    }
     if (!tds->empty())
         up->Typespecs(tds);
     // PACKAGE-SCOPE DATA DECLARATIONS split two ways in Surelog (r9bpapb,

@@ -534,6 +534,24 @@ inline const syntax::NamedPortConnectionSyntax* findConnSyntax(const InstanceSym
     return nullptr;
 }
 
+// The `.*` wildcard port connection of an instantiation, if it has one.
+// Surelog does NOT expand `.*`: CompileHelper::compileHighConn sees a
+// paDOTSTAR formal name and emits ONE nameless port whose High_conn is a
+// constant carrying VpiValue "STRING:.*" / VpiDecompile ".*" (no VpiSize, no
+// VpiConstType), spanning the Port_connection node — CompileHelper.cpp:2946.
+// slang, by contrast, materialises a PortConnection per implicitly-connected
+// port, so the wildcard has to be recognised from the syntax.
+inline const syntax::WildcardPortConnectionSyntax* findWildcardConn(
+    const InstanceSymbol& inst) {
+    auto syn = inst.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::HierarchicalInstance)
+        return nullptr;
+    for (auto conn : syn->as<syntax::HierarchicalInstanceSyntax>().connections)
+        if (conn->kind == syntax::SyntaxKind::WildcardPortConnection)
+            return &conn->as<syntax::WildcardPortConnectionSyntax>();
+    return nullptr;
+}
+
 // True when a parameter's bound initializer is an instance override (its
 // syntax differs from the declaration-default initializer syntax).
 inline const syntax::ExpressionSyntax* paramDefaultSyn(const ParameterSymbol& ps) {

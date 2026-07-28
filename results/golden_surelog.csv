@@ -783,8 +783,8 @@ IODataTypes,default,SLANG_REJECT,dut.sv:2:1: error: can't use port declaration i
 IODataTypes,testflags,SLANG_REJECT,dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 JKFlipflop,default,CMP_EQUAL,,,match
 JKFlipflop,testflags,CMP_EQUAL,,,differ
-Kmac,default,CMP_NOTEQUAL,decompile:,,
-Kmac,testflags,CMP_NOTEQUAL,decompile:,,
+Kmac,default,CMP_EQUAL,,,differ
+Kmac,testflags,CMP_EQUAL,,,differ
 LargeConst,default,CMP_NOTEQUAL,decompile:,,
 LargeConst,testflags,CMP_NOTEQUAL,decompile:,,
 LargeHex,default,CMP_NOTEQUAL,decompile:,,
@@ -1511,8 +1511,8 @@ VoidFuncReturn,default,SLANG_REJECT,dut.sv:5:1: error: value of type 'int' canno
 VoidFuncReturn,testflags,SLANG_REJECT,dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
 Wand,default,CMP_EQUAL,,,match
 Wand,testflags,CMP_EQUAL,,,match
-WildConn,default,CMP_NOTEQUAL,decompile:,,
-WildConn,testflags,CMP_NOTEQUAL,decompile:,,
+WildConn,default,CMP_EQUAL,,,differ
+WildConn,testflags,CMP_EQUAL,,,differ
 WireLogicSize,default,CMP_NOTEQUAL,decompile:,,
 WireLogicSize,testflags,CMP_NOTEQUAL,decompile:,,
 WireType,default,CMP_EQUAL,,,differ

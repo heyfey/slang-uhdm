@@ -1848,6 +1848,11 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
 
         auto* rports = s.MakePortVec();
         bool ordered = hasOrderedConns(child);
+        // A `.*` connection stays UNEXPANDED on the ref_module: one nameless
+        // port carrying a ".*" string constant, and NO port for any of the
+        // formals it implicitly connects (findWildcardConn). Mixed lists keep
+        // the written order, so the wildcard port lands at its own offset.
+        auto* wcS9 = findWildcardConn(child);
         // Surelog emits a NAMED connection list's ports in the order the
         // connections are WRITTEN at the instantiation, not the port
         // declaration order (mriscv Count/divM: .freq before .RESET while the
@@ -1876,6 +1881,9 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
         for (auto conn : ordConns) {
             // An UNCONNECTED port (dut d();) emits no ref_module port.
             if (!connectionExpr(*conn) && !findConnSyntax(child, conn->port.name))
+                continue;
+            // Wildcard-implied formal: covered by the single ".*" port below.
+            if (wcS9 && !findConnSyntax(child, conn->port.name))
                 continue;
             auto* p = s.MakePort();
             // Positional connections: nameless port anchored at the actual.
@@ -2049,6 +2057,28 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
             }
             defRefModConn = false;
             rports->push_back(p);
+        }
+        if (wcS9) {
+            auto* pw9 = s.MakePort();
+            pw9->VpiParent(rm);
+            setLoc(pw9, wcS9->sourceRange());
+            auto* cw9 = s.MakeConstant();
+            cw9->VpiValue("STRING:.*");
+            cw9->VpiDecompile(".*");
+            cw9->VpiParent(pw9);
+            setLoc(cw9, wcS9->sourceRange());
+            pw9->High_conn(cw9);
+            // Written position: behind every explicitly-named connection that
+            // starts earlier in the source (`.*` is usually alone or last).
+            size_t at9 = 0;
+            for (auto conn : ordConns)
+                if (auto* n9 = findConnSyntax(child, conn->port.name))
+                    if (n9->sourceRange().start().offset() <
+                        wcS9->sourceRange().start().offset())
+                        at9++;
+            if (at9 > rports->size())
+                at9 = rports->size();
+            rports->insert(rports->begin() + (ptrdiff_t)at9, pw9);
         }
         if (!rports->empty())
             rm->Ports(rports);
@@ -2236,6 +2266,8 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             }
         }
     }
+    // Typespecs that must land BEHIND the import_typespecs (see enumCtsTd9).
+    std::vector<UHDM::typespec*> enumCtsPushed9;
     // A module explicitly importing a package typedef (import pkg::T) lists
     // the SHARED top-view package typespec in its Typespecs (before the
     // import_typespec) and re-parents it to the module; fullnames keep their
@@ -2245,11 +2277,61 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         // WILDCARD import lists every package typedef (name-sorted, matching
         // the package's own list order).
         std::vector<std::pair<const Symbol*, const Symbol*>> importedTds;
+        // Typedefs reached only through an ENUM-CONSTANT import: these arrive
+        // LATER than the rest. A typedef named by a wildcard or by an explicit
+        // `import pkg::T` is copied into the module's DataTypeMap by
+        // importPackage, and writeModule runs writeDataTypes BEFORE
+        // writeImportedSymbols — hence typedefs, then import_typespec. An
+        // enum-CONSTANT import inserts no data type (the DataTypeMap has no
+        // entry named `L128`), so its enum_typespec is produced by
+        // writeImportedSymbols itself, AFTER the import_typespec it appended
+        // for the same item. So these go last, past the import_typespecs.
+        std::set<const Symbol*> enumCtsTd9;
         for (auto& mem : body.members()) {
             if (mem.kind == SymbolKind::ExplicitImport) {
                 auto* imported = mem.as<ExplicitImportSymbol>().importedSymbol();
                 if (imported && imported->kind == SymbolKind::TypeAlias)
                     importedTds.emplace_back(&mem, imported);
+                // An explicit import of a single ENUM CONSTANT
+                // (`import pkg::L128;`) lists the WHOLE enum's typespec.
+                // UhdmWriter::writeImportedSymbols looks the item name up in
+                // the package's Typespecs and, on a hit inside an
+                // enum_typespec's Enum_consts, clones that enum_typespec —
+                // its own comment says "Ideally we would want to import only
+                // the given symbol, But Synlig does not process that
+                // properly, so instead we import the whole enum"
+                // (UhdmWriter.cpp:1364). The name-dedup that guards the
+                // append means N constants of one enum list it ONCE, at the
+                // FIRST importing item. Kmac's `import sha3_pkg::L128;` ...
+                // `::L512;` is why kmac_core lists
+                // enum_typespec(sha3_pkg::keccak_strength_e).
+                else if (imported && imported->kind == SymbolKind::EnumValue) {
+                    auto* ep9 = imported->getParentScope();
+                    const Symbol* etd9 = nullptr;
+                    if (ep9)
+                        if (auto* pkg9 = comp.getPackage(
+                                mem.as<ExplicitImportSymbol>().packageName))
+                            for (auto& pm9 : pkg9->members())
+                                if (pm9.kind == SymbolKind::TypeAlias &&
+                                    &pm9.as<TypeAliasType>()
+                                            .getCanonicalType() ==
+                                        &ep9->asSymbol()) {
+                                    etd9 = &pm9;
+                                    break;
+                                }
+                    if (etd9) {
+                        bool dup9 = false;
+                        for (auto& [m0, t0] : importedTds)
+                            if (t0 == etd9) {
+                                dup9 = true;
+                                break;
+                            }
+                        if (!dup9) {
+                            importedTds.emplace_back(&mem, etd9);
+                            enumCtsTd9.insert(etd9);
+                        }
+                    }
+                }
             }
             else if (mem.kind == SymbolKind::WildcardImport) {
                 auto* pkg = comp.getPackage(
@@ -2579,6 +2661,8 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             }
             if (std::find(tds->begin(), tds->end(), (UHDM::typespec*)ts) == tds->end())
                 tds->push_back(ts);
+            if (enumCtsTd9.count(imported))
+                enumCtsPushed9.push_back((UHDM::typespec*)ts);
         }
         // The module's Typespecs list interleaves its own and imported
         // typedefs by BASE name (the portion after the last ::) — full-name
@@ -2604,19 +2688,29 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             pkgName = std::string(mem.as<ExplicitImportSymbol>().packageName);
         else
             continue;
-        // An EXPLICIT import whose package is ALSO wildcard-imported in this
-        // body carries no import_typespec of its own — the wildcard import's
-        // import_typespec already covers the package (Surelog de-dups). An
-        // explicit import of a package with no wildcard keeps its own.
-        if (mem.kind == SymbolKind::ExplicitImport) {
-            bool pkgWildcarded = false;
-            for (auto& w : body.members())
-                if (w.kind == SymbolKind::WildcardImport &&
-                    w.as<WildcardImportSymbol>().packageName == pkgName) {
-                    pkgWildcarded = true;
-                    break;
-                }
-            if (pkgWildcarded)
+        // ONE import_typespec PER PACKAGE, and it is the FIRST import item in
+        // source order that names it — whatever its form. Surelog builds one
+        // import_typespec per item (CompileHelper::compileImportDeclaration)
+        // but UhdmWriter::writeImportedSymbols appends only when no typespec
+        // already in the vector carries that VpiName ("Prevents multiple
+        // definition", UhdmWriter.cpp:1310). The package name IS the
+        // import_typespec's VpiName, so every later item of the same package
+        // is dropped, and the surviving object keeps the FIRST item's span and
+        // Item constant. Witnessed both ways on a pair that differs only in
+        // statement order: `import p::M; import p::*;` keeps the EXPLICIT
+        // item's span with Item="M" (w6), `import p::*; import p::M;` keeps
+        // the wildcard's with Item="*" (w7). This replaces a
+        // wildcard-always-wins rule that got w6 backwards; Kmac's seven
+        // `import sha3_pkg::<name>;` items collapse to the line-15 one.
+        {
+            bool dup9 = false;
+            if (tds)
+                for (auto* t9 : *tds)
+                    if (t9->VpiName() == pkgName) {
+                        dup9 = true;
+                        break;
+                    }
+            if (dup9)
                 continue;
         }
         auto* its = s.MakeImport_typespec();
@@ -2645,6 +2739,17 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
         }
         tds->push_back(its);
     }
+    // ...and the enum-constant-import typespecs come after every
+    // import_typespec (writeImportedSymbols appends the item's own
+    // import_typespec first, then the enum clone).
+    if (tds && !enumCtsPushed9.empty())
+        std::stable_partition(tds->begin(), tds->end(),
+                              [&](UHDM::typespec* t9) {
+                                  return std::find(enumCtsPushed9.begin(),
+                                                   enumCtsPushed9.end(),
+                                                   t9) ==
+                                         enumCtsPushed9.end();
+                              });
     // A module that WILDCARD-imports a package materializes ALL that
     // package's subroutines into its Task_funcs (the shared def object),
     // whether or not any is called here — Surelog lists them in both the
