@@ -37,6 +37,7 @@ class EnumType;
 class GenerateBlockSymbol;
 class TypeAliasType;
 class PrimitiveSymbol;
+class LetDeclSymbol;
 } // namespace slang::ast
 
 namespace slang {
@@ -102,6 +103,14 @@ public:
     /// called every predicate below short-circuits to "substitute", so the
     /// whole feature is a hard no-op.
     void setNoParamSubst() { noParamSubst = true; }
+
+    /// Surelog `--disable-feature=letexprsubstitution`. See `emitLetExprCall()`
+    /// for the decoded semantics. Not calling this is Surelog's default, and
+    /// leaves the emitter byte-identical to `--enable-feature=` (verified).
+    /// The `let` handling as a WHOLE is a hard no-op on any design that
+    /// declares no `let`: nothing indexes, nothing allocates, and the one test
+    /// at the head of `emitExpr` is against an empty map.
+    void setNoLetSubst() { noLetSubst = true; }
 
 private:
     // ---- --disable-feature=parametersubstitution -----------------------
@@ -399,6 +408,8 @@ private:
     std::set<std::string> bbInstances;
     // See setNoParamSubst(). `false` makes every predicate above a no-op.
     bool noParamSubst = false;
+    // See setNoLetSubst(). `false` makes emitLetExprCall() return immediately.
+    bool noLetSubst = false;
     // Memoized paramSubstRefused / paramValueUnavailable; the second carries a
     // recursion guard (an in-flight parameter answers "available" so a cyclic
     // default cannot spin).
@@ -1267,6 +1278,17 @@ private:
     std::map<const slang::ast::Symbol*, std::vector<UHDM::ref_typespec*>> noDefOvTsRef;
     // Named property declarations (shared def objects, listed in elab views).
     std::map<const slang::ast::Symbol*, UHDM::property_decl*> propertyDeclMap;
+    // `let` declarations (shared def objects, listed in elab views too), and
+    // the reverse index from a let's BODY syntax -- which is what a let
+    // expansion carries as its own `syntax` -- back to the declaration.
+    std::map<const slang::ast::Symbol*, UHDM::let_decl*> letDeclMap;
+    std::map<const slang::syntax::SyntaxNode*, const slang::ast::LetDeclSymbol*>
+        letBodySyntax;
+    // Set while emitting a let_decl body: formal refs (which bind Invalid,
+    // exactly like property formals) resolve through this scope -- but to a
+    // bare ref_obj, NOT to an implicit module wire (Surelog leaks property
+    // formals as module nets and let formals not at all).
+    const slang::ast::LetDeclSymbol* letDeclScope = nullptr;
     // Class definitions (design->AllClasses), keyed by the ClassType symbol.
     std::map<const slang::ast::Symbol*, UHDM::class_defn*> classDefnMap;
     // A PARAMETERIZED class has one class_defn in Surelog (compiled from its
@@ -1377,6 +1399,50 @@ private:
     const slang::ast::Scope* propDeclScope = nullptr;
     UHDM::ref_obj* emitPropFormalRef(std::string_view nm, slang::SourceRange nr,
                                      UHDM::BaseClass* parent, const std::string& prefix);
+
+    // ---- let declarations / --disable-feature=letexprsubstitution --------
+    // Surelog builds a `let_decl` (name + the body expression, formals left as
+    // unbound `ref_obj`s) for every `let` in a module/interface/gen scope and
+    // lists it on both the def and the elab view -- in BOTH feature modes.
+    // slang-uhdm wires this up for MODULE bodies only, the one shape the pair
+    // was measured on; a `let` in an interface or a gen scope emits no
+    // let_decl (and so no let_expr either -- emitLetExprCall needs the
+    // declaration), which is a gap, not a decision.
+    // What the feature gates is the USE site, in exactly one function
+    // (`CompileHelper::compileTfCall`, CompileHelper.cpp:4257): with
+    // substitution ON a `let` call is replaced by the declaration's body
+    // expression, with it OFF the call stays a `let_expr` carrying the actual
+    // arguments and a pointer to the `let_decl`.
+    //
+    // slang has no call site to gate: `AssertionInstanceExpression::fromLookup`
+    // answers a `let` call with the EXPANDED body expression
+    // ("Let declarations expand directly to an expression"), so by the time the
+    // emitter sees it the call is gone.  The full decode of what IS recoverable
+    // (the expansion's syntax is the let's body; the substituted actuals are
+    // re-anchored onto the FORMAL identifiers, which is what finds them) lives
+    // at the head of the `let` block in ExprEmit.cpp -- read that before
+    // touching any of this.
+
+    /// Emits the `let_decl` objects for every `let` declared in @a body and
+    /// hangs them off @a m. Runs in both feature modes.
+    void emitLetDecls(const slang::ast::Scope& body, UHDM::scope* m,
+                      const std::string& prefix);
+    /// The `let` whose expansion @a expr is, or null when @a expr is not one.
+    const slang::ast::LetDeclSymbol* letDeclFor(const slang::ast::Expression& expr);
+    /// `--disable-feature=letexprsubstitution`: @a expr is a `let` expansion,
+    /// so emit the un-substituted `let_expr` instead of the body. Null (and
+    /// instant, without touching @a expr) when the flag is absent.
+    UHDM::any* emitLetExprCall(const slang::ast::Expression& expr,
+                               UHDM::BaseClass* parent, const std::string& prefix,
+                               NetMap& netMap);
+    /// Substitution ON (the default): @a expr is a `let` expansion, so it IS
+    /// the declaration's shared body object -- Surelog inlines by pointer, not
+    /// by substituting the actuals. Null when @a expr is not an expansion or
+    /// the flag turned substitution off.
+    UHDM::any* emitLetInlined(const slang::ast::Expression& expr, UHDM::BaseClass* parent);
+    // Expansions currently being turned into a let_expr; `let id(x) = x;`
+    // expands to its own argument, so emitting it would otherwise re-enter.
+    std::set<const slang::ast::Expression*> letInFlight;
     std::map<const void*, UHDM::package*> pkgDefMap;
     // ELAB/top-view package objects (filled in emitPackage when topView).
     // Module- and package-side cross-view links whose Surelog equivalents reach

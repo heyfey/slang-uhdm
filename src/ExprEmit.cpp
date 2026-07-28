@@ -1045,9 +1045,182 @@ UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange 
     return ref;
 }
 
+// ---- let declarations / --disable-feature=letexprsubstitution -------------
+//
+// Surelog gates exactly ONE function on the feature:
+// `CompileHelper::compileTfCall` (CompileHelper.cpp:4257).  With substitution
+// ON a `let` call is replaced by the declaration's body -- and Surelog
+// "inlines" by handing back the SHARED `let_decl` body object itself, formals
+// unsubstituted (`ref_obj work@m.x`), so an inlined call and the declaration
+// are literally the same objects.  With it OFF the call becomes a `let_expr`
+// carrying `Arguments` (the actual argument expressions, `vpiActual` resolved)
+// and `Let_decl` (a pointer to the shared declaration).  The `let_decl`
+// objects themselves exist in BOTH modes -- measured on a with/without-flag
+// golden pair -- so `emitLetDecls()` is unconditional and only the CALL site
+// is gated.
+//
+// slang has no call node to gate: `AssertionInstanceExpression::fromLookup`
+// answers a `let` call with the EXPANDED body ("Let declarations expand
+// directly to an expression"), so the call is gone by the time the emitter
+// runs.  What identifies an expansion is that `Expression::create` REFUSES to
+// overwrite the syntax pointer for `InvocationExpression`
+// (Expression.cpp:872-881, "for cases like let decls that get expanded in
+// place"), so the expansion's `syntax` is the let's own BODY syntax -- the
+// same node for every call of that let.  `letBodySyntax` indexes that.
+//
+// The arguments come out of the expansion, not the call syntax: the call
+// syntax is NOT recoverable.  `create`'s ordinary NameSyntax path does the
+// overwrite it skips for invocations, so a substituted actual ends up with
+// `syntax` (and `sourceRange`, rewritten by `bindPort`) pointing at the
+// FORMAL's identifier inside the body, not at the call-site argument.  That
+// re-anchoring is what makes the actuals findable: walk the expansion for
+// expressions whose syntax is an identifier naming one of the let's formals,
+// and that expression IS the bound actual for that formal.
+//
+// Three shapes this model does not reach, all measured, none in the corpus:
+//   * a LITERAL actual (`sum2(a, 4'd3)`) is re-anchored too, and the constant
+//     arm reads its spelling out of the source text, so it renders as the
+//     formal's own text (`vpiDecompile:y`, size 64, value 0) instead of
+//     `4'd3`/size 4.  Only the call syntax carries the literal's spelling and
+//     the call syntax is gone;
+//   * a formal the body never references has no substituted actual anywhere in
+//     the expansion, so it is missing from `Arguments` (Surelog lists it, from
+//     the call's argument list);
+//   * a `let` nested in another `let`'s body collapses the whole formal chain
+//     onto the INNERMOST formal identifier, so the outer call's argument is
+//     only found when the two formals happen to share a name (they do in the
+//     measured reproducer, `let outer(x) = dbl(x) + 2`).
+// An ARGUMENT-LESS let (`let konst = 7;`) is not an expansion at all -- its
+// reference is a plain NameSyntax, so `create` does overwrite the syntax and
+// the body is inlined in both modes.  Surelog never reaches its own gate for
+// that shape either (it segfaults on `let konst = 7; assign o = konst;`,
+// verified on this Surelog build), so it stays inlined.
+
+const slang::ast::LetDeclSymbol* UhdmExporter::letDeclFor(const Expression& expr) {
+    if (letBodySyntax.empty() || !expr.syntax)
+        return nullptr;
+    auto it = letBodySyntax.find(expr.syntax);
+    return it == letBodySyntax.end() ? nullptr : it->second;
+}
+
+namespace {
+// Every bound actual in a let expansion, keyed by the formal it was
+// substituted for: an expression whose `syntax` is an identifier that names one
+// of @a ld's formals sits at a formal position, so it IS that formal's actual.
+// A formal read twice keeps the first (the actuals are equal by construction).
+struct LetActualFinder
+    : public slang::ast::ASTVisitor<LetActualFinder, slang::ast::VisitFlags::Expressions |
+                                                         slang::ast::VisitFlags::Bad> {
+    const slang::ast::LetDeclSymbol* ld = nullptr;
+    std::map<const slang::ast::Symbol*, const slang::ast::Expression*> byFormal;
+
+    template<typename T>
+    void handle(const T& t) {
+        if constexpr (std::is_base_of_v<slang::ast::Expression, T>) {
+            if (t.syntax && t.syntax->kind == slang::syntax::SyntaxKind::IdentifierName) {
+                auto nm = t.syntax->template as<slang::syntax::IdentifierNameSyntax>()
+                              .identifier.valueText();
+                if (!nm.empty()) {
+                    if (auto* f = ld->find(nm);
+                        f && f->kind == slang::ast::SymbolKind::AssertionPort)
+                        byFormal.try_emplace(f, static_cast<const slang::ast::Expression*>(&t));
+                }
+            }
+        }
+        if constexpr (std::is_same_v<T, slang::ast::InvalidExpression>) {
+            // The default visitor stops at an InvalidExpression, but a `let`
+            // whose body reads an UNBOUND formal (the default instance a
+            // let_decl is emitted from, and any let nested inside one) is bad
+            // all the way up, so its actuals live under the wrapper.
+            if (t.child)
+                t.child->visit(*this);
+            return;
+        }
+        visitDefault(t);
+    }
+};
+} // namespace
+
+UHDM::any* UhdmExporter::emitLetInlined(const Expression& expr, UHDM::BaseClass* parent) {
+    if (noLetSubst)
+        return nullptr;
+    auto* ld = letDeclFor(expr);
+    if (!ld)
+        return nullptr;
+    auto dit = letDeclMap.find(ld);
+    if (dit == letDeclMap.end())
+        return nullptr;
+    auto* body = dit->second->Expressions();
+    if (!body || body->size() != 1)
+        return nullptr;
+    // Surelog "inlines" by handing back the declaration's OWN body object --
+    // `cts->Rhs((expr*)stmt->Expr())` in the gated branch -- so every call of a
+    // let is literally the same object as the let_decl's body, formals left
+    // UNSUBSTITUTED (`ref_obj x`, not the actual). Measured on the pair: with
+    // the flag off, `assign o1 = sum2(a, b);` has `vpiRhs -> operation` whose
+    // operands are `ref_obj work@m.x` / `ref_obj work@m.y`.
+    //
+    // The one thing that DOES vary per call site is vpiParent, and Surelog lets
+    // the last writer win -- in the pair the shared body's parent is the last
+    // USE, not the let_decl -- so re-point it here too. Not cmp-relevant
+    // (uhdm-cmp never reads parents); this is byte identity.
+    body->at(0)->VpiParent(parent);
+    return body->at(0);
+}
+
+UHDM::any* UhdmExporter::emitLetExprCall(const Expression& expr, UHDM::BaseClass* parent,
+                                         const std::string& prefix, NetMap& netMap) {
+    if (!noLetSubst)
+        return nullptr;
+    auto* ld = letDeclFor(expr);
+    if (!ld)
+        return nullptr;
+    auto dit = letDeclMap.find(ld);
+    if (dit == letDeclMap.end())
+        return nullptr;
+    // A let whose body is a single formal (`let id(x) = x;`) expands to the
+    // actual itself, so the expansion and its own argument are the SAME
+    // expression; re-entering emitExpr on it would spin.
+    if (!letInFlight.insert(&expr).second)
+        return nullptr;
+
+    LetActualFinder f;
+    f.ld = ld;
+    expr.visit(f);
+
+    // Surelog's un-substituted form: a let_expr carrying the actual arguments
+    // and a pointer to the shared let_decl. The body is NOT expanded here --
+    // it lives once, on the declaration.
+    auto* le = s.MakeLet_expr();
+    le->VpiParent(parent);
+    setLoc(le, expr.sourceRange);
+    auto* args = s.MakeExprVec();
+    for (auto* formal : ld->ports) {
+        auto ait = f.byFormal.find(formal);
+        if (ait == f.byFormal.end())
+            continue;
+        if (auto* a = emitExpr(*ait->second, le, prefix, netMap))
+            args->push_back((UHDM::expr*)a);
+    }
+    if (!args->empty())
+        le->Arguments(args);
+    le->Let_decl(dit->second);
+    letInFlight.erase(&expr);
+    return le;
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
+    // A `let` call, which slang already expanded in place: with substitution ON
+    // it becomes the declaration's shared body object, with it OFF a let_expr.
+    // Costs one empty-map test on designs that declare no `let`.
+    if (!letBodySyntax.empty()) {
+        if (auto* le = emitLetExprCall(expr, parent, prefix, netMap))
+            return le;
+        if (auto* sh = emitLetInlined(expr, parent))
+            return sh;
+    }
     switch (expr.kind) {
         case ExpressionKind::Assignment: {
             auto& ae = expr.as<AssignmentExpression>();
@@ -7085,6 +7258,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // slang wraps some valid sub-expressions in Invalid nodes (e.g.
             // size-cast operand shells); unwrap when a child exists.
             auto& iv2 = expr.as<InvalidExpression>();
+            // A let-decl FORMAL binds Invalid the same way a property formal
+            // does, but Surelog leaks NO module net for it: the let_decl body
+            // is compiled with late binding off, so the formal stays a bare
+            // ref_obj (`work@m.sum2.x`, no vpiActual).
+            if (letDeclScope) {
+                std::string nm;
+                SourceRange nr = expr.sourceRange;
+                if (nr.start() != SourceLocation::NoLocation && nr.start().valid())
+                    nm = rawText(nr);
+                if (nm.empty() && expr.syntax &&
+                    expr.syntax->kind == syntax::SyntaxKind::IdentifierName) {
+                    nm = std::string(expr.syntax->as<syntax::IdentifierNameSyntax>()
+                                         .identifier.valueText());
+                    nr = expr.syntax->sourceRange();
+                }
+                if (!nm.empty()) {
+                    auto* fsym = letDeclScope->find(nm);
+                    if (fsym && fsym->kind == SymbolKind::AssertionPort) {
+                        auto* ref = s.MakeRef_obj();
+                        ref->VpiName(nm);
+                        ref->VpiFullName(joinRef(prefix, nm));
+                        ref->VpiParent(parent);
+                        setLoc(ref, nr);
+                        return ref;
+                    }
+                }
+            }
             // Property-decl FORMAL refs bind Invalid (untyped formals): a
             // property-scoped ref bound to an implicit module wire minted at
             // the first use.

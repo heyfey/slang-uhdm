@@ -80,18 +80,19 @@ int main(int argc, char** argv) {
     // argv word; slang's registry has no `=`-glued form, so they are registered
     // as ordinary repeatable string options and slang's parser splits on the
     // `=` itself (`--disable-feature=parametersubstitution`).  Only
-    // `parametersubstitution` is implemented; any other feature name is a hard
-    // error rather than a silent no-op, because silently ignoring a
-    // model-shaping flag manufactures a happy path (GOLDEN_EQUIVALENCE 2.3).
+    // `parametersubstitution` and `letexprsubstitution` are implemented; any
+    // other feature name is a hard error rather than a silent no-op, because
+    // silently ignoring a model-shaping flag manufactures a happy path
+    // (GOLDEN_EQUIVALENCE 2.3).
     std::vector<std::string> disableFeatures;
     std::vector<std::string> enableFeatures;
     driver.cmdLine.add("--disable-feature", disableFeatures,
                        "Disable a Surelog compile feature (comma separated). Supported: "
-                       "parametersubstitution",
+                       "parametersubstitution, letexprsubstitution",
                        "<feature>[,...]");
     driver.cmdLine.add("--enable-feature", enableFeatures,
                        "Enable a Surelog compile feature (comma separated). Supported: "
-                       "parametersubstitution (the default)",
+                       "parametersubstitution, letexprsubstitution (both the default)",
                        "<feature>[,...]");
 
     // Surelog's Verilog-config selection (LRM 33).  Both flags are repeatable
@@ -153,6 +154,7 @@ int main(int argc, char** argv) {
     // the order. No suite test does that, and the two flags are documented as
     // opposites rather than as an ordered sequence.
     bool paramSubstitution = true;
+    bool letExprSubstitution = true;
     {
         auto apply = [&](const std::vector<std::string>& list, bool on) -> bool {
             for (auto& item : list) {
@@ -164,6 +166,8 @@ int main(int argc, char** argv) {
                                                             : comma - pos);
                     if (feat == "parametersubstitution")
                         paramSubstitution = on;
+                    else if (feat == "letexprsubstitution")
+                        letExprSubstitution = on;
                     else if (!feat.empty()) {
                         fprintf(stderr, "error: unsupported feature '%s'\n", feat.c_str());
                         return false;
@@ -354,6 +358,8 @@ int main(int argc, char** argv) {
         exporter.setSyntheticTops(syntheticTops);
     if (!paramSubstitution)
         exporter.setNoParamSubst();
+    if (!letExprSubstitution)
+        exporter.setNoLetSubst();
     if (!bbMods.empty() || !bbInsts.empty())
         exporter.setBlackBoxes(std::set<std::string>(bbMods.begin(), bbMods.end()),
                                std::set<std::string>(bbInsts.begin(), bbInsts.end()));

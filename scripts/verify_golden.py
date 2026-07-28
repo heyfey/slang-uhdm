@@ -221,12 +221,14 @@ BLOCKING_NOARG = {'-diffcompunit', '-sepcomp', '-link',
 BLOCKING_ONEARG = set()
 
 # `--disable-feature=<a,b>` / `--enable-feature=<a,b>` take a COMMA LIST in one
-# argv word, so they translate per FEATURE, not per flag: slang-uhdm implements
-# `parametersubstitution` with Surelog's own spelling and passes the word
-# through unchanged; `letexprsubstitution` is still unimplemented and blocks the
-# whole comparison.  A mixed list blocks too -- dropping the unimplemented half
-# would silently compare two different models (GOLDEN_EQUIVALENCE 2.3).
-IMPLEMENTED_FEATURES = {'parametersubstitution'}
+# argv word, so they translate per FEATURE, not per flag: a feature slang-uhdm
+# implements is passed through with Surelog's own spelling, anything else blocks
+# the whole comparison.  A MIXED list blocks too -- dropping the unimplemented
+# half would silently compare two different models (GOLDEN_EQUIVALENCE 2.3).
+# Both of Surelog's features are implemented now, so nothing in this family
+# blocks any more; the per-feature check stays because the table is the contract
+# and a future Surelog feature must block on arrival, not be waved through.
+IMPLEMENTED_FEATURES = {'parametersubstitution', 'letexprsubstitution'}
 
 # Surelog emits no database at all: nothing to compare.
 NO_DATABASE = {'-noparse', '-nocomp', '-noelab', '-nouhdm', '-parseonly'}

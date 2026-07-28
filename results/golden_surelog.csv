@@ -802,7 +802,7 @@ LeftPadding,testflags,SLANG_REJECT,dut.sv:8:5: error: unknown module 'GOOD',,
 LegalPastFunc,default,SLANG_REJECT,dut.sv:4:14: error: use of undeclared identifier 'clk',,
 LegalPastFunc,testflags,SLANG_REJECT,dut.sv:4:14: error: use of undeclared identifier 'clk',,
 LetExpr,default,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
-LetExpr,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,--disable-feature=letexprsubstitution,
+LetExpr,testflags,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
 LetInlined,default,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
 LetInlined,testflags,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
 LhsHierPath,default,CMP_EQUAL,,,match

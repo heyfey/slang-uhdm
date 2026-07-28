@@ -947,6 +947,14 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     if (!nets->empty())
         m->Nets(nets);
 
+    // `let` declarations, shared with the elab view (Surelog's
+    // UhdmWriter::writeModule / writeElabModule both list the SAME let_decl).
+    // These come FIRST -- ahead of cont_assigns and processes -- because a `let`
+    // CALL resolves through letDeclMap (see emitLetExprCall), so a use emitted
+    // before its declaration would silently fall back to the inlined body.
+    // Surelog's writeModule also writes them first.
+    emitLetDecls(body, m, prefix);
+
     // Tasks/functions are module items; their typespecs (return, io_decls)
     // precede cont_assign and port typespecs.
     emitTaskFuncs(body, m, prefix, &info);
@@ -6004,6 +6012,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     }
             if (!pdecls->empty())
                 m->Property_decls(pdecls);
+        }
+        // Elab views list the SHARED let declarations (Surelog's
+        // writeElabModule pushes the def's let_decl objects unchanged) -- in
+        // the same NAME order as the def view, see emitLetDecls().
+        {
+            std::vector<std::pair<std::string_view, UHDM::let_decl*>> lsorted;
+            for (auto& member : body.members())
+                if (member.kind == SymbolKind::LetDecl)
+                    if (auto lit = letDeclMap.find(&member); lit != letDeclMap.end())
+                        lsorted.emplace_back(member.name, lit->second);
+            if (!lsorted.empty()) {
+                std::stable_sort(lsorted.begin(), lsorted.end(),
+                                 [](auto& a, auto& b) { return a.first < b.first; });
+                auto* ldecls = s.MakeLet_declVec();
+                for (auto& e : lsorted)
+                    ldecls->push_back(e.second);
+                m->Let_decls(ldecls);
+            }
         }
         // Each view gets its own clocking_block object (not shared).
         if (it != defMap.end() && it->second.defaultClocking) {
@@ -11095,6 +11121,64 @@ static bool substNdaParamRefs(
     }
     e = c;
     return true;
+}
+
+// `let` declarations. Surelog's compileLetDeclaration builds one let_decl per
+// `let` -- VpiName plus a single Expressions() entry holding the body compiled
+// with late binding OFF, so its formal references stay bare `ref_obj`s -- and
+// UhdmWriter lists the SAME objects on the def and on every elab view. This
+// runs in both feature modes: --disable-feature=letexprsubstitution changes
+// only what a let CALL emits (emitLetExprCall), never the declaration.
+//
+// The Let_decls VECTOR is NAME-sorted, not source-sorted: Surelog holds lets in
+// a `std::map<std::string, LetStmt*>` (DesignComponent.h:101) and UhdmWriter
+// walks that map (UhdmWriter.cpp:1415/1639), so a module declaring
+// `sum2 dbl outer` lists `dbl outer sum2`.  uhdm-cmp walks the vector
+// element-wise, so getting this wrong is a first-fail on the very first pair.
+// The let_decl OBJECTS are still minted in source order (Surelog compiles them
+// in source order), which is what arena order / byte identity wants.
+void UhdmExporter::emitLetDecls(const Scope& body, UHDM::scope* m,
+                                const std::string& prefix) {
+    std::vector<std::pair<std::string_view, UHDM::let_decl*>> sorted;
+    for (auto& member : body.members()) {
+        if (member.kind != SymbolKind::LetDecl)
+            continue;
+        auto& ld = member.as<LetDeclSymbol>();
+        auto lit = letDeclMap.find(&member);
+        if (lit == letDeclMap.end()) {
+            auto* d = s.MakeLet_decl();
+            d->VpiName(ld.name);
+            d->VpiParent(m);
+            if (auto* syn = ld.getSyntax())
+                setLoc(d, syn->sourceRange());
+            // The reverse index emitLetExprCall identifies expansions with:
+            // slang hands a let call back as the bound BODY, whose `syntax` is
+            // this node.
+            letBodySyntax[&*ld.exprSyntax] = &ld;
+            auto* savedLds = letDeclScope;
+            letDeclScope = &ld;
+            NetMap noNets;
+            auto& defInst = AssertionInstanceExpression::makeDefault(ld);
+            if (auto* be = emitExpr(defInst, d,
+                                    prefix + "." + std::string(ld.name), noNets)) {
+                auto* exprs = s.MakeExprVec();
+                exprs->push_back((UHDM::expr*)be);
+                d->Expressions(exprs);
+            }
+            letDeclScope = savedLds;
+            lit = letDeclMap.emplace(&member, d).first;
+        }
+        lit->second->VpiParent(m);
+        sorted.emplace_back(ld.name, lit->second);
+    }
+    if (sorted.empty())
+        return;
+    std::stable_sort(sorted.begin(), sorted.end(),
+                     [](auto& a, auto& b) { return a.first < b.first; });
+    auto* decls = s.MakeLet_declVec();
+    for (auto& e : sorted)
+        decls->push_back(e.second);
+    m->Let_decls(decls);
 }
 
 void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instance* m,
