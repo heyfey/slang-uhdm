@@ -1511,6 +1511,23 @@ private:
     // param typespec.
     std::map<const slang::ast::Symbol*, std::vector<UHDM::param_assign*>> noDefOvPa;
     std::map<const slang::ast::Symbol*, std::vector<UHDM::ref_typespec*>> noDefOvTsRef;
+    // ...and the FALLBACK for the ones no CA fold ever claims: Surelog gives
+    // EVERY overridden no-default param an elab Rhs, whether or not the body
+    // reads it.  Measured (purpose-built golden, one instantiation each):
+    // typed `int unsigned N` + `.N(8)` -> loc-less UINT 8 at the VALUE width
+    // (32) WITH a ts ref to the param's own elab typespec; untyped
+    // `parameter N` + `.N(8)` -> UINT 8 at width 64, NO typespec; a BASED
+    // literal (`68'h2...`, `4'hA`) keeps its own base/digits at its WRITTEN
+    // size in both cases.  Drained (Rhs-still-null only, so the CA-fold
+    // sharing above always wins) in emitTopPorts, before the param typespecs
+    // are patched.  PartSelect4.
+    struct NoDefOvFallback {
+        UHDM::param_assign* pa;
+        const slang::ast::ParameterSymbol* ps;
+        std::string prefix;
+    };
+    std::vector<NoDefOvFallback> noDefOvRhsFallback;
+    void drainNoDefOvRhs();
     // Named property declarations (shared def objects, listed in elab views).
     std::map<const slang::ast::Symbol*, UHDM::property_decl*> propertyDeclMap;
     // `let` declarations (shared def objects, listed in elab views too), and
@@ -1870,6 +1887,14 @@ private:
     bool genCaLhsReelab = false;
     // True inside part_select bound emission (fold scope for the above).
     bool inPsBound = false;
+    // True inside a RANGED part_select's Left/Right range emission.  Measured
+    // (purpose-built gen-for golden, `child m(A[i+1:i], A[i*W +: W], A[i+1],
+    // A[i], C[i+1:i])`): Surelog's per-iteration gen-scope conns fold a
+    // bit_select index and an indexed_part_select base/width to constants, but
+    // a RANGED part_select keeps its bound TREES — Left_range stays
+    // operation(ref_obj(i), 1) and Right_range stays ref_obj(i).  So the
+    // genvarConnFold leaf fold is suppressed in exactly this scope.
+    bool inPsRangeBound = false;
     // Elab (top-view) param_assign Rhs constants, shared into RHS select
     // bound folds.
     std::map<const slang::ast::Symbol*, UHDM::constant*> elabParamConst;

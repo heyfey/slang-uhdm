@@ -2408,7 +2408,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 // Gen-scope instance CONNS fold genvar/localparam refs that
                 // live in a GenerateBlock to their per-index UINT constants.
-                if (genvarConnFold && nv.symbol.kind == SymbolKind::Parameter) {
+                // ...except inside a RANGED part_select's bounds, which Surelog
+                // leaves as trees (see inPsRangeBound).
+                if (genvarConnFold && !inPsRangeBound &&
+                    nv.symbol.kind == SymbolKind::Parameter) {
                     bool genLocal = false;
                     for (auto sc9 = nv.symbol.getParentScope(); sc9;
                          sc9 = sc9->asSymbol().getParentScope()) {
@@ -6247,10 +6250,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (inParamInit)
                 forceConstParent = false;
             inPsBound = true;
+            bool savedPsR = inPsRangeBound;
+            inPsRangeBound = true;
             if (auto* l = emitExpr(rs.left(), psel, boundPfx(rs.left()), netMap))
                 psel->Left_range((UHDM::expr*)l);
             if (auto* r = emitExpr(rs.right(), psel, boundPfx(rs.right()), netMap))
                 psel->Right_range((UHDM::expr*)r);
+            inPsRangeBound = savedPsR;
             inPsBound = false;
             suppressConstParent = savedSup2;
             forceConstParent = savedF2;

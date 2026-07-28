@@ -6037,6 +6037,47 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     }
                             }
                         }
+                        // Surelog UDP-FORM conn quirk: in a fully positional
+                        // instantiation of >=2 conns with no parameter
+                        // override (the same `udpFormInstantiation` shape
+                        // that suppresses the def-view ref_module), a FIRST
+                        // actual written as a CONCATENATION swallows the
+                        // remaining positional actuals — port[0]'s HighConn
+                        // is a concat whose operand[0] is that concat and
+                        // whose remaining operands are the other actuals,
+                        // re-emitted as fresh objects.  The other ports still
+                        // carry their own HighConns unchanged.
+                        // Measured on a purpose-built golden PAIR: `ch a1
+                        // ({w13[0],w13[1]}, w135, w141)` quirks, `ch a2
+                        // (w135, {w13[0],w13[1]}, w141)` (concat not first)
+                        // does not, `.A({...})` named conns do not, and a
+                        // `#(.P(1))`-parameterized twin does not.
+                        // (YosysBigSimEllip f3m.v:725 `f3_add a142
+                        // ({w13[0], w13[1]}, w135, w141)`.)
+                        if (h->UhdmType() == UHDM::uhdmoperation &&
+                            ((UHDM::operation*)h)->VpiOpType() == vpiConcatOp &&
+                            udpFormInstantiation(connInst.getSyntax())) {
+                            std::vector<const Expression*> ordE9;
+                            for (auto* pc9 : connInst.getPortConnections())
+                                ordE9.push_back(connectionExpr(*pc9));
+                            if (ordE9.size() > 1 && ordE9[0] == expr) {
+                                auto* wrap9 = s.MakeOperation();
+                                wrap9->VpiOpType(vpiConcatOp);
+                                wrap9->VpiParent(p);
+                                setLoc(wrap9, expr->sourceRange);
+                                auto* wops9 = s.MakeAnyVec();
+                                h->VpiParent(wrap9);
+                                wops9->push_back(h);
+                                for (size_t k9 = 1; k9 < ordE9.size(); k9++)
+                                    if (ordE9[k9])
+                                        if (auto* e9 =
+                                                emitExpr(*ordE9[k9], wrap9,
+                                                         hcPrefix, *parentNets))
+                                            wops9->push_back(e9);
+                                wrap9->Operands(wops9);
+                                h = wrap9;
+                            }
+                        }
                         p->High_conn(h);
                     }
                     refCollector = nullptr;
@@ -9729,6 +9770,10 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
 // typespecs (Surelog write-phase arena order).
 void UhdmExporter::emitTopPorts(TopPending& tp) {
     auto& body = tp.inst->body;
+    // Every cont-assign fold that could SHARE its constant with an overridden
+    // no-default param_assign has run by now (netlist pass); the rest get a
+    // synthesized Rhs, before any param typespec is patched.
+    drainNoDefOvRhs();
     // Deferred DEF iface-port typespecs precede the top write-phase ts
     // (created after the whole netlist-elab pass; Surelog arena order).
     for (auto it9 = pendingIfacePortTs.rbegin(); it9 != pendingIfacePortTs.rend();

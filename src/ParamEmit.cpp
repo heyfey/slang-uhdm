@@ -4469,8 +4469,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // A NO-DEFAULT param carries no direct Rhs (the bound initializer is
         // the override expression); the ELAB param_assign later SHARES the
         // cont-assign fold constant (noDefOvPa backpatch).
-        if (!hasDefault && topView && boundInit)
+        if (!hasDefault && topView && boundInit) {
             noDefOvPa[&member].push_back(pa);
+            // ...and if no CA fold ever claims it, synthesize the Rhs from the
+            // override literal itself (drainNoDefOvRhs).
+            if (!pa->Rhs())
+                noDefOvRhsFallback.push_back({pa, &ps, prefix});
+        }
         if (auto init0 = (overridden      ? defaultInit
                           : (!hasDefault) ? nullptr
                                           : ps.getInitializer())) {
@@ -9277,6 +9282,93 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
             rhsRt->VpiFullName(syntaxRefPrefix);
         syntaxRefPrefix = savedPfx;
         paramOpClones[rhsRt] = opClone;
+    }
+}
+
+// Elab Rhs for an overridden NO-DEFAULT param that no cont-assign fold
+// claimed (see noDefOvRhsFallback for the measured shapes).  Runs before the
+// param typespecs are patched so a typed constant's ts ref joins the ordinary
+// noDefOvTsRef sharing.
+void UhdmExporter::drainNoDefOvRhs() {
+    if (noDefOvRhsFallback.empty())
+        return;
+    auto pending = std::move(noDefOvRhsFallback);
+    noDefOvRhsFallback.clear();
+    for (auto& f : pending) {
+        // A CA fold already shared its constant here — that object wins.
+        if (f.pa->Rhs())
+            continue;
+        auto* init0 = f.ps->getInitializer();
+        if (!init0)
+            continue;
+        auto& ovc = stripImplicitConv(*init0);
+        if (ovc.kind != ExpressionKind::IntegerLiteral)
+            continue;
+        bool typed = false;
+        if (auto dt = f.ps->getDeclaredType())
+            if (auto tsyn = dt->getTypeSyntax())
+                typed = tsyn->kind != syntax::SyntaxKind::ImplicitType;
+        std::string raw = stripSep(std::string(rawText(ovc.sourceRange)));
+        auto tick = raw.find('\'');
+        auto* c = s.MakeConstant();
+        if (tick != std::string::npos) {
+            // A BASED literal keeps its own base, digits and WRITTEN size.
+            size_t basePos = tick + 1;
+            if (basePos < raw.size() &&
+                (raw[basePos] == 's' || raw[basePos] == 'S'))
+                basePos++;
+            char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
+            std::string digits =
+                basePos + 1 < raw.size() ? raw.substr(basePos + 1) : std::string();
+            c->VpiDecompile(raw);
+            std::string szTxt = raw.substr(0, tick);
+            int32_t w = 0;
+            if (!szTxt.empty() &&
+                szTxt.find_first_not_of("0123456789") == std::string::npos)
+                w = (int32_t)strtol(szTxt.c_str(), nullptr, 10);
+            if (!w)
+                w = (int32_t)f.ps->getType().getBitWidth();
+            c->VpiSize(w);
+            switch (base) {
+                case 'b':
+                    c->VpiValue("BIN:" + digits);
+                    c->VpiConstType(vpiBinaryConst);
+                    break;
+                case 'h':
+                    c->VpiValue("HEX:" + digits);
+                    c->VpiConstType(vpiHexConst);
+                    break;
+                case 'o':
+                    c->VpiValue("OCT:" + digits);
+                    c->VpiConstType(vpiOctConst);
+                    break;
+                default:
+                    c->VpiValue("DEC:" + digits);
+                    c->VpiConstType(vpiDecConst);
+                    break;
+            }
+        }
+        else {
+            auto& cv = f.ps->getValue();
+            if (!cv.isInteger() || cv.integer().hasUnknown())
+                continue;
+            auto& iv = cv.integer();
+            std::string digits = iv.toString(LiteralBase::Decimal, false);
+            c->VpiDecompile(digits);
+            c->VpiValue("UINT:" + digits);
+            c->VpiConstType(vpiUIntConst);
+            // Typed: the folded value's own width; untyped: Surelog's 64.
+            c->VpiSize(typed ? (int32_t)iv.getBitWidth() : 64);
+        }
+        c->VpiParent(f.pa);
+        if (typed) {
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiFullName(f.prefix);
+            rt->VpiParent(c);
+            c->Typespec(rt);
+            noDefOvTsRef[f.ps].push_back(rt);
+        }
+        f.pa->Rhs(c);
     }
 }
 

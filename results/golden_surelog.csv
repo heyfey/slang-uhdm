@@ -1085,7 +1085,7 @@ ParamTypespec2,default,CMP_NOTEQUAL,decompile:,,
 ParamTypespec2,testflags,CMP_NOTEQUAL,decompile:,,
 PartSelect3,default,CMP_EQUAL,,,differ
 PartSelect3,testflags,CMP_EQUAL,,,differ
-PartSelect4,default,CMP_NOTEQUAL,decompile:,,
+PartSelect4,default,CMP_EQUAL,,,differ
 PartSelect4,testflags,CMP_NOTEQUAL,decompile:,,
 PartSelectElab,default,CMP_EQUAL,,,match
 PartSelectElab,testflags,CMP_EQUAL,,,match
@@ -1529,7 +1529,7 @@ YosysBigSimAes,default,CMP_EQUAL,,,differ
 YosysBigSimAes,testflags,CMP_EQUAL,,,differ
 YosysBigSimAmber23,default,SLANG_REJECT,rtl/a23_decode.v:175:24: error: expected a declaration name,,
 YosysBigSimAmber23,testflags,SLANG_REJECT,rtl/a23_decode.v:175:24: error: expected a declaration name,,
-YosysBigSimEllip,default,CMP_NOTEQUAL,decompile:,,
+YosysBigSimEllip,default,CMP_EQUAL,,,differ
 YosysBigSimEllip,testflags,NO_DATABASE,test suppresses UHDM output,-noelab,
 YosysBigSimLm32,default,SLANG_REJECT,rtl/lm32_adder.v:56:8: error: design element does not have a time scale defined but others in the design do,,
 YosysBigSimLm32,testflags,SLANG_REJECT,rtl/lm32_adder.v:56:8: error: design element does not have a time scale defined but others in the design do,,
