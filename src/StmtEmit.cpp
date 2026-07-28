@@ -430,6 +430,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Block-local variable declarations become scope Variables
             // (module-scoped fullnames, no visibility flag).
             NetMap blockMap = netMap;
+            std::vector<UHDM::any*> forkDeclStmts9;
             if (bs.blockSymbol) {
                 auto* vars = s.MakeVariablesVec();
                 for (auto& bm : bs.blockSymbol->members()) {
@@ -444,9 +445,32 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (pkgScopeInst)
                         ts->Instance(pkgScopeInst);
                     std::string bfull = innerPrefix + "." + std::string(bm.name);
-                    UHDM::variables* v = makeEnumArrayVar(ts, bfull, b);
-                    if (!v)
-                        v = makeReturnVar(s, bm.getDeclaredType()->getType());
+                    // Surelog's VERILOG-mode lexer (a `.v` root file — see
+                    // verilogLexMode) has no `logic` keyword, so a block-local
+                    // `logic x;` parses as "user type `logic`, variable x".
+                    // CompileType's unresolved-name fallback then emits a
+                    // ref_var (name + typespec ref, never bound to storage) —
+                    // the procedural twin of the module-level rule already in
+                    // materializeDefNetTs.  Every procedural reference to it
+                    // therefore fails to bind and leaks an implicit module
+                    // wire instead (emitExpr's NamedValue case).  UnitElabBlock.
+                    bool vlogHiddenTy = false;
+                    if (verilogLexMode(bm.location))
+                        if (auto* dt9 = bm.getDeclaredType())
+                            if (auto* tsy9 = dt9->getTypeSyntax())
+                                vlogHiddenTy =
+                                    rawText(tsy9->sourceRange()) == "logic";
+                    UHDM::variables* v = nullptr;
+                    if (vlogHiddenTy) {
+                        v = s.MakeRef_var();
+                        vlogHiddenBlockVars.insert(&bm);
+                    }
+                    else {
+                        v = makeEnumArrayVar(ts, bfull, b);
+                        if (!v)
+                            v = makeReturnVar(s,
+                                              bm.getDeclaredType()->getType());
+                    }
                     v->VpiName(bm.name);
                     v->VpiFullName(bfull);
                     v->VpiParent(b);
@@ -456,13 +480,35 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     rt->VpiParent(v);
                     rt->Actual_typespec(ts);
                     v->Typespec(rt);
-                    blockMap[&bm] = v;
+                    if (!vlogHiddenTy)
+                        blockMap[&bm] = v;
                     vars->push_back(v);
+                    // PAR_BLOCK (fork...join) quirk: CompileStmt's par_block
+                    // arm marks a declaration "handled" only while the scope's
+                    // Variables vector is still NULL, so a fork-local
+                    // declaration WITHOUT an initialiser lands in Variables
+                    // TWICE and its (Rhs-less) declaration `assignment` also
+                    // survives as a statement.  Measured on UnitElabBlock's
+                    // `fork : innerwave reg hold; join`; the multi-declaration
+                    // shape is unmeasured.
+                    if (isFork &&
+                        !bm.as<VariableSymbol>().getInitializer()) {
+                        vars->push_back(v);
+                        auto* da9 = s.MakeAssignment();
+                        da9->VpiParent(b);
+                        da9->VpiOpType(vpiAssignmentOp);
+                        da9->VpiBlocking(true);
+                        setLoc(da9, nameSpan(bm.location, bm.name));
+                        da9->Lhs(v);
+                        forkDeclStmts9.push_back(da9);
+                    }
                 }
                 if (!vars->empty())
                     b->Variables(vars);
             }
             auto* stmts = s.MakeAnyVec();
+            for (auto* ds9 : forkDeclStmts9)
+                stmts->push_back(ds9);
             // Block-scoped localparams appear as inline param_assign stmts
             // (bare parameter, folded unparented rhs, no typespecs).
             if (bs.blockSymbol) {

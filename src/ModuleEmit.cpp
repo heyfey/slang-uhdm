@@ -965,6 +965,36 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
 // i.e. two or more purely POSITIONAL connections, and the statement carries no
 // `parameter_value_assignment`. CompileModule then routes it to
 // compileGateInstantiation, which never builds a def-view module_array.
+// Surelog stamps EVERY instance of a multi-instance instantiation statement
+// (`mod amod(stim1), bmod(stim2);`) with the STATEMENT's node id -- their
+// module_insts all span 6:1..7:13 here, which we already match.  The netlist
+// elaboration that builds the ELABORATED ports then reads the connection list
+// off that node, i.e. off the FIRST hierarchical_instance, for all of them: in
+// the elab view bmod's port carries amod's HighConn (name, actual and span
+// alike) and its LowConn is anchored at amod's actual too.  The DEF view
+// (ref_module) keeps the honest per-instance connections.  Returns the
+// instance whose connections the ELAB port emission must read.  UnitElabBlock.
+static const InstanceSymbol& elabConnDonor(const InstanceSymbol& inst) {
+    auto* isyn = inst.getSyntax();
+    if (!isyn || isyn->kind != syntax::SyntaxKind::HierarchicalInstance)
+        return inst;
+    const syntax::SyntaxNode* hp = isyn->parent;
+    if (!hp || hp->kind != syntax::SyntaxKind::HierarchyInstantiation)
+        return inst;
+    auto& his = hp->as<syntax::HierarchyInstantiationSyntax>();
+    if (his.instances.size() < 2 ||
+        (const syntax::SyntaxNode*)his.instances[0] == isyn)
+        return inst;
+    auto* sc = inst.getParentScope();
+    if (!sc)
+        return inst;
+    for (auto& mem : sc->members())
+        if (mem.kind == SymbolKind::Instance &&
+            mem.getSyntax() == (const syntax::SyntaxNode*)his.instances[0])
+            return mem.as<InstanceSymbol>();
+    return inst;
+}
+
 static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
     const syntax::HierarchyInstantiationSyntax* hi = nullptr;
     for (auto p = from; p; p = p->parent)
@@ -984,14 +1014,10 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
     return true;
 }
 
-// NOTE (r5modvec, module-container family residues — decoded, NOT landed):
-//  * YosysMarlann is ONE object away: the ELAB module_array's range bound
-//    folds its parameter reference (`mul [NB*4-1:0]` -> operation(-) over
-//    operation(*) over a constant 2, VpiSize 32, VpiConstType UNSET, with a
-//    ts ref to the param's own integer_typespec), while the DEF view keeps
-//    the symbolic ref_obj we already emit. Everything else in that test is
-//    span-only. The elab param-fold machinery lives in TypeEmit's
-//    elabInstanceTs path; the module_array bound does not use it.
+// NOTE (r5modvec/r9modcont, module-container family residues):
+//  * YosysMarlann, LowMemPkg and UnitElabBlock are LANDED (r9modcont) — the
+//    elab module-array bound fold above, fileScopeImportTypedefs, and the
+//    Verilog-mode ref_var / implicit-net / elabConnDonor trio respectively.
 //  * PortExpr is DONE (r8gates): a NAMED concat port `.op({a,b})` is a
 //    MultiPortSymbol, and routing it through the existing explicit-port
 //    machinery (portExprSymbols) lands Surelog's split — a bare net + port
@@ -1008,17 +1034,21 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //  * GenerateUnnamed mis-nests an else-if generate chain: the top-level
 //    scan finds the INNER IfGenerate as a member's nearest enclosing one and
 //    lists it again in Gen_stmts (~815 changed dump lines, not one rule).
-//  * LowMemPkg wants a wildcard-imported package typedef copied into the
-//    importing module's Typespecs (def AND elab) and into design Typespecs —
-//    one shared logic_typespec(wddr_pkg::my_logic); its testflags row is
-//    SURELOG_FAIL, so only `default` is winnable.
-//  * UnitElabBlock wants an implicit NET minted for a named-block-local
-//    variable written procedurally (`begin : keep logic hold; hold = in;` ->
-//    work@mod.hold), i.e. bind_net_ firing where slang has a block-local.
-//  * CrossFunc wants functions declared inside a covergroup `cross` bins
-//    block listed in the MODULE's Task_funcs.
-//  * BasicOh (~3.3k changed lines) and Scr1SvTests (net-count gaps in ten
-//    modules) are not module-container problems any more; re-triage.
+//    Re-measured (r9modcont): def-view Gen_stmts is [gen_if_else(p==1),
+//    gen_if(p==2)] where Surelog has ONE gen_if_else whose condition is
+//    `p == 1` and whose vpiElseStmt is the `else if (p == 2)` chain — i.e.
+//    the OUTER if is dropped and both of its arms are hoisted to siblings.
+//  * CrossFunc is a COVERGROUP test, not a container one. Two rules, both
+//    large: (1) functions declared inside a covergroup `cross` bins block are
+//    hoisted into the MODULE's Task_funcs (full bodies — ~280 dump lines per
+//    function, queue push_back method calls and all); (2) in the ELAB view a
+//    covergroup-typed variable (`cg cg_inst = new(3);`) is a logic_var in
+//    Variables, where we emit a logic_net. Def views already agree.
+//  * BasicOh (~3.3k changed lines after the 'b0 constant fix, first fail now
+//    a port-ORDER mismatch in oh_fifo_async) and Scr1SvTests (~49k lines;
+//    covergroup `always` process missing plus five-net gaps in ten modules)
+//    are not module-container problems any more; re-triage as their own
+//    clusters.
 //
 // An INSTANCE ARRAY (myif arr[N]) is a module_array (vpiModuleArray) — the
 // def module_typespec as element type, the array range, broadcast port
@@ -1184,6 +1214,101 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
         rng->Left_expr(mkBound(leftSyn, darr.range.left));
         rng->Right_expr(mkBound(rightSyn, darr.range.right));
         rvec->push_back(rng);
+    }
+    // ELAB (instance-view) module-array range bounds substitute every
+    // parameter reference by that parameter's VALUE, keeping the surrounding
+    // operation tree intact: `mul [NB*4-1:0]` -> op(-) over op(*) over a
+    // constant. Surelog reaches these through compileRanges with reduce
+    // enabled, so the constant is sized by the parameter's DECLARED TYPE
+    // (`parameter integer NB` -> VpiSize 32, not the param_assign Rhs's 64)
+    // and its typespec ref is anonymous (no vpiFullName) while pointing at the
+    // very same typespec object the parameter uses. The DEF view keeps the
+    // symbolic ref_obj. (YosysMarlann.)
+    if (modElems) {
+        const InstanceBodySymbol* encBody = nullptr;
+        for (auto sc9 = arr.getParentScope(); sc9;
+             sc9 = sc9->asSymbol().getParentScope())
+            if (sc9->asSymbol().kind == SymbolKind::InstanceBody) {
+                encBody = &sc9->asSymbol().as<InstanceBodySymbol>();
+                break;
+            }
+        if (encBody) {
+            std::function<void(UHDM::operation*)> foldOps =
+                [&](UHDM::operation* op9) {
+                    auto* ops9 = op9->Operands();
+                    if (!ops9)
+                        return;
+                    for (auto& slot9 : *ops9) {
+                        if (!slot9)
+                            continue;
+                        if (slot9->UhdmType() == UHDM::uhdmoperation) {
+                            foldOps((UHDM::operation*)slot9);
+                            continue;
+                        }
+                        if (slot9->UhdmType() != UHDM::uhdmref_obj)
+                            continue;
+                        auto* r9 = (UHDM::ref_obj*)slot9;
+                        std::string rn9(r9->VpiName());
+                        if (rn9.empty())
+                            continue;
+                        const ParameterSymbol* ps9 = nullptr;
+                        for (auto& mem9 : encBody->members())
+                            if (mem9.kind == SymbolKind::Parameter &&
+                                mem9.name == rn9) {
+                                ps9 = &mem9.as<ParameterSymbol>();
+                                break;
+                            }
+                        if (!ps9)
+                            continue;
+                        auto& cv9 = ps9->getValue();
+                        if (!cv9.isInteger())
+                            continue;
+                        auto iv9 = cv9.integer().as<int64_t>();
+                        if (!iv9)
+                            continue;
+                        auto* c9 = s.MakeConstant();
+                        std::string dv9 = std::to_string(*iv9);
+                        c9->VpiDecompile(dv9);
+                        c9->VpiSize((int32_t)ps9->getType().getBitWidth());
+                        c9->VpiValue("UINT:" + dv9);
+                        c9->VpiConstType(vpiUIntConst);
+                        c9->VpiParent(op9);
+                        c9->VpiLineNo(r9->VpiLineNo());
+                        c9->VpiColumnNo(r9->VpiColumnNo());
+                        c9->VpiEndLineNo(r9->VpiEndLineNo());
+                        c9->VpiEndColumnNo(r9->VpiEndColumnNo());
+                        // Share the parameter's own typespec object; the ref
+                        // itself is anonymous (Surelog).
+                        if (m->Parameters())
+                            for (auto* pp0 : *m->Parameters()) {
+                                if (pp0->VpiName() != rn9 ||
+                                    pp0->UhdmType() != UHDM::uhdmparameter)
+                                    continue;
+                                auto* pp9 = (UHDM::parameter*)pp0;
+                                if (!pp9->Typespec())
+                                    break;
+                                auto* rt9 = s.MakeRef_typespec();
+                                rt9->VpiParent(c9);
+                                // The elab param typespec is minted in the
+                                // deferred write phase, so alias rather than
+                                // copy (same seam as substNdaParamRefs).
+                                if (pp9->Typespec()->Actual_typespec())
+                                    rt9->Actual_typespec(
+                                        pp9->Typespec()->Actual_typespec());
+                                else
+                                    netTsAlias.push_back(
+                                        {rt9, pp9->Typespec()});
+                                c9->Typespec(rt9);
+                                break;
+                            }
+                        slot9 = c9;
+                    }
+                };
+            for (auto* rg9 : *rvec)
+                for (UHDM::expr* be9 : {rg9->Left_expr(), rg9->Right_expr()})
+                    if (be9 && be9->UhdmType() == UHDM::uhdmoperation)
+                        foldOps((UHDM::operation*)be9);
+        }
     }
     ma->Ranges(rvec);
     auto* mts = s.MakeModule_typespec();
@@ -1853,6 +1978,22 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 for (auto* ta : tas)
                     importedTds.emplace_back(&mem, ta);
             }
+        }
+        // FILE-SCOPE imports (`import pkg::*;` outside any design element, in
+        // the module's own command-line file -- `include`s inlined) list the
+        // same way: CompileModule replays every paPackage_import_item
+        // registered on the module's FileContent through importPackage, which
+        // copies the package's DataTypeMap into the module.  Unlike a body
+        // import it does NOT run compileImportDeclaration, so no
+        // import_typespec appears (LowMemPkg).
+        {
+            std::set<const Symbol*> already;
+            for (auto& [mp0, td0] : importedTds)
+                already.insert(td0);
+            for (auto& [mp0, td0] :
+                 fileScopeImportTypedefs(body.getDefinition().location))
+                if (already.insert(td0).second)
+                    importedTds.emplace_back(mp0, td0);
         }
         for (auto& [memP, imported] : importedTds) {
             auto& mem = *memP;
@@ -4628,9 +4769,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     break;
             }
 
+            // Multi-instance statements share the first instance's connection
+            // list in the elab view (see elabConnDonor); the donor's ports are
+            // a DIFFERENT body's symbols, so match by name.
+            const InstanceSymbol& connInst = elabConnDonor(inst);
             const PortConnection* conn = nullptr;
-            for (auto c : inst.getPortConnections()) {
-                if (&c->port == portBase) {
+            for (auto c : connInst.getPortConnections()) {
+                if (&connInst == &inst ? (&c->port == portBase)
+                                       : (c->port.name == portBase->name)) {
                     conn = c;
                     break;
                 }
@@ -4655,11 +4801,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // child of a udp-shaped instantiation anchors at the formal too,
             // and UnitElabBlock's non-ANSI `mod (in)` under the ordinary
             // one-terminal `mod amod(stim1)` anchors at the ACTUAL.)
-            if (auto npc = findConnSyntax(inst, ps.name))
+            if (auto npc = findConnSyntax(connInst, ps.name))
                 setLoc(lc, SourceRange(npc->name.location(),
                                        npc->name.location() + ps.name.size()));
-            else if (hasOrderedConns(inst) && conn && connectionExpr(*conn) &&
-                     !udpShapedInstantiation(inst))
+            else if (hasOrderedConns(connInst) && conn &&
+                     connectionExpr(*conn) && !udpShapedInstantiation(inst))
                 setLoc(lc, connectionExpr(*conn)->sourceRange);
             else
                 setLocNamed(lc, ps);
@@ -4684,7 +4830,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // (Surelog) — its expr lives at the CHILD's port decl,
                 // outside the instantiation syntax.
                 if (connE9) {
-                    if (auto isyn9 = inst.getSyntax()) {
+                    // The in-range test must use the CONNECTION's own instance
+                    // (a multi-instance statement's donor, see elabConnDonor).
+                    if (auto isyn9 = connInst.getSyntax()) {
                         auto ir9 = isyn9->sourceRange();
                         auto es9 = connE9->sourceRange.start();
                         if (es9 != SourceLocation::NoLocation &&

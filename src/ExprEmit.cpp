@@ -1231,6 +1231,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 refCollector->insert(&nv.symbol);
             auto* ref = s.MakeRef_obj();
             ref->VpiName(nv.symbol.name);
+            // A block-local declaration whose type keyword the Verilog-mode
+            // lexer hides (`logic` in a `.v` file) compiled to an unbound
+            // ref_var, so this reference resolves to nothing and Surelog's
+            // netlist elaboration mints an implicit module WIRE for it,
+            // LAZILY, at the FIRST reference's span (bind_net_). The ref keeps
+            // its block-scoped fullname and binds to that net. UnitElabBlock.
+            if (implicitNetModule && vlogHiddenBlockVars.count(&nv.symbol)) {
+                ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                ref->VpiParent(parent);
+                setLoc(ref, expr.sourceRange);
+                UHDM::logic_net* inet9 = nullptr;
+                if (auto* nv9 = implicitNetModule->Nets())
+                    for (auto* n9 : *nv9)
+                        if (n9->VpiName() == nv.symbol.name &&
+                            n9->UhdmType() == UHDM::uhdmlogic_net) {
+                            inet9 = (UHDM::logic_net*)n9;
+                            break;
+                        }
+                if (!inet9) {
+                    inet9 = s.MakeLogic_net();
+                    inet9->VpiName(nv.symbol.name);
+                    inet9->VpiFullName(implicitNetPrefix + "." +
+                                       std::string(nv.symbol.name));
+                    inet9->VpiParent(implicitNetModule);
+                    inet9->VpiNetType(1);
+                    setLoc(inet9, expr.sourceRange);
+                    auto* nets9 = implicitNetModule->Nets();
+                    if (!nets9) {
+                        nets9 = s.MakeNetVec();
+                        implicitNetModule->Nets(nets9);
+                    }
+                    nets9->push_back(inet9);
+                }
+                ref->Actual_group(inet9);
+                return ref;
+            }
             auto scope = nv.symbol.getParentScope();
             if (scope && scope->asSymbol().kind == SymbolKind::Package &&
                 nv.symbol.kind == SymbolKind::Parameter) {
@@ -2444,14 +2480,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 c->VpiConstType(vpiUIntConst);
             }
             else {
-                // Unsized based literals ('b0, 'h1): -1 in most contexts
-                // (operands, procedural/net-decl assignment RHS), but no
-                // explicit size (0) as a BARE continuous-assignment RHS.
+                // Unsized based literals: -1, EXCEPT the four forms Surelog's
+                // grammar gives dedicated tokens to.  `CompileExpression.cpp`
+                // handles `slIntConst` generically (size = the digits before
+                // the tick, or -1 when there are none), but `'b0 'B0 'b1 'B1`
+                // never reach it: paNumber_Tickb0/Tickb1 (and their Scalar_
+                // twins) are separate parse nodes that hard-code VpiSize(0)
+                // and a normalised lowercase decompile.  `'0 '1 'x 'z` have
+                // their own tokens too and keep -1 (handled in the
+                // UnbasedUnsizedIntegerLiteral case).  This is a grammar rule,
+                // not a context rule -- it fires in every position, which is
+                // why the earlier bare-continuous-assign guess also worked:
+                // its literal happened to be `'b0`.  (BasicOh: `<= 'b0` is 0
+                // while the neighbouring `<= 'd0` is -1.)
                 if (tick == 0) {
-                    bool bareContAssign =
-                        parent && parent->UhdmType() == UHDM::uhdmcont_assign &&
-                        !((UHDM::cont_assign*)parent)->VpiNetDeclAssign();
-                    c->VpiSize(bareContAssign ? 0 : -1);
+                    bool tickBinDigit =
+                        raw.size() == 3 && (raw[1] == 'b' || raw[1] == 'B') &&
+                        (raw[2] == '0' || raw[2] == '1');
+                    if (tickBinDigit)
+                        c->VpiDecompile(std::string("'b") + raw[2]);
+                    c->VpiSize(tickBinDigit ? 0 : -1);
                 }
                 size_t basePos = tick + 1;
                 if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))

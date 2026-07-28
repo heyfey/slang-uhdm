@@ -841,7 +841,7 @@ LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
 LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
-LowMemPkg,default,CMP_NOTEQUAL,decompile:,,
+LowMemPkg,default,CMP_EQUAL,,,match
 LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/claude-1000/-home-heyfey-git-repos-slang-uhdm/c0e9d6be-dba9-45c9-a681-e7a0c848a435/scratchpad/undef_bb0,,
 Lpddr,default,SURELOG_FAIL,[   NOTE] : 0,,
 Lpddr,testflags,SURELOG_FAIL,[   NOTE] : 0,,
@@ -1421,8 +1421,8 @@ UnitDefParam,default,SLANG_REJECT,top.v:26:1: error: unknown module 'M1',,
 UnitDefParam,testflags,SLANG_REJECT,top.v:26:1: error: unknown module 'M1',,
 UnitElab,default,SLANG_REJECT,top.v:3:2: error: unknown module 'bottom3',,
 UnitElab,testflags,SLANG_REJECT,top.v:3:2: error: unknown module 'bottom3',,
-UnitElabBlock,default,CMP_NOTEQUAL,decompile:,,
-UnitElabBlock,testflags,CMP_NOTEQUAL,decompile:,,
+UnitElabBlock,default,CMP_EQUAL,,,differ
+UnitElabBlock,testflags,CMP_EQUAL,,,differ
 UnitElabExternNested,default,SLANG_REJECT,middle.v:2:15: error: missing implementation for extern module 'm',,
 UnitElabExternNested,testflags,SLANG_REJECT,middle.v:2:15: error: missing implementation for extern module 'm',,
 UnitEnum,default,SLANG_REJECT,top.v:21:1: error: use of undeclared identifier 'Environment',,
@@ -1549,8 +1549,8 @@ YosysEth,default,SLANG_REJECT,udp_complete_64_top.v:170:1: error: unknown module
 YosysEth,testflags,SLANG_REJECT,udp_complete_64_top.v:170:1: error: unknown module 'udp_complete_64',,
 YosysIce40,default,SLANG_REJECT,design01.v:26:8: error: design element does not have a time scale defined but others in the design do,,
 YosysIce40,testflags,SLANG_REJECT,design01.v:26:8: error: design element does not have a time scale defined but others in the design do,,
-YosysMarlann,default,CMP_NOTEQUAL,decompile:,,
-YosysMarlann,testflags,CMP_NOTEQUAL,decompile:,,
+YosysMarlann,default,CMP_EQUAL,,,differ
+YosysMarlann,testflags,CMP_EQUAL,,,differ
 YosysOldAes,default,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
 YosysOldAes,testflags,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
 YosysOldI2c,default,CMP_EQUAL,,,differ

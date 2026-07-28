@@ -631,6 +631,20 @@ private:
     slang::SourceRange trimTypeSigning(const slang::syntax::SyntaxNode* tsyn,
                                        slang::SourceRange r);
     std::string fullFilePath(slang::SourceLocation loc);
+    /// Path of the COMMAND-LINE file this location ultimately came from:
+    /// Surelog's `FileContent` is per command-line file with `include`s
+    /// textually inlined, so anything Surelog scopes "per file" (see
+    /// `fileScopeImportPkgs`) must key on the root of the include chain.
+    std::string rootFilePath(slang::SourceLocation loc);
+    /// Packages imported at FILE scope (`import pkg::*;` outside any design
+    /// element) in the same command-line file as `modLoc`.  Surelog's
+    /// `CompileModule` replays every `paPackage_import_item` registered on the
+    /// module's FileContent into the module itself (`importPackage`, WITHOUT
+    /// `compileImportDeclaration`) -- so the package's typedefs join the
+    /// module's Typespecs but NO import_typespec is emitted.  Each entry is
+    /// (import symbol, imported TypeAlias).
+    std::vector<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>>
+    fileScopeImportTypedefs(slang::SourceLocation modLoc);
     /// True when Surelog would lex this location's ROOT source file in
     /// Verilog (non-SystemVerilog) mode: `ParseFile.cpp` sets the lexer's
     /// `sverilog` flag from the file EXTENSION (`.sv`) alone -- `-sv <file>`
@@ -849,6 +863,10 @@ private:
     // Surelog can't resolve block-scoped localparams; refs to them bind an
     // implicit module-level wire created at the first reference.
     std::map<const slang::ast::Symbol*, UHDM::logic_net*> implicitNetMap;
+    /// Block-local variables whose TYPE KEYWORD the Verilog-mode lexer hides
+    /// (`logic` in a `.v` file): Surelog emits them as unbound `ref_var`s, so
+    /// every procedural reference leaks an implicit module wire instead.
+    std::set<const slang::ast::Symbol*> vlogHiddenBlockVars;
     UHDM::instance* implicitNetModule = nullptr;
     std::string implicitNetPrefix;
     // foreach_stmt: the iterated array's ref_typespec binds the array's OWN

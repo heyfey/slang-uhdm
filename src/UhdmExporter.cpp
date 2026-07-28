@@ -185,6 +185,59 @@ std::string UhdmExporter::fullFilePath(SourceLocation loc) {
     return sm->getFullPath(loc.buffer()).string();
 }
 
+std::string UhdmExporter::rootFilePath(SourceLocation loc) {
+    if (loc == SourceLocation::NoLocation)
+        return "";
+    if (sm->isMacroLoc(loc))
+        loc = sm->getFullyOriginalLoc(loc);
+    auto buf = loc.buffer();
+    for (int guard = 0; guard < 64; guard++) {
+        auto up = sm->getIncludedFrom(buf);
+        if (up == SourceLocation::NoLocation || !up.buffer().valid())
+            break;
+        buf = up.buffer();
+    }
+    return sm->getFullPath(buf).string();
+}
+
+std::vector<std::pair<const Symbol*, const Symbol*>>
+UhdmExporter::fileScopeImportTypedefs(SourceLocation modLoc) {
+    std::vector<std::pair<const Symbol*, const Symbol*>> out;
+    std::string modFile = rootFilePath(modLoc);
+    if (modFile.empty())
+        return out;
+    for (auto unit : comp.getCompilationUnits()) {
+        for (auto& mem : unit->members()) {
+            if (mem.kind != SymbolKind::WildcardImport &&
+                mem.kind != SymbolKind::ExplicitImport)
+                continue;
+            if (rootFilePath(mem.location) != modFile)
+                continue;
+            if (mem.kind == SymbolKind::ExplicitImport) {
+                auto* imported = mem.as<ExplicitImportSymbol>().importedSymbol();
+                if (imported && imported->kind == SymbolKind::TypeAlias)
+                    out.emplace_back(&mem, imported);
+                continue;
+            }
+            auto* pkg = comp.getPackage(
+                mem.as<WildcardImportSymbol>().packageName);
+            if (!pkg)
+                continue;
+            std::vector<const Symbol*> tas;
+            for (auto& pm : pkg->members())
+                if (pm.kind == SymbolKind::TypeAlias)
+                    tas.push_back(&pm);
+            std::stable_sort(tas.begin(), tas.end(),
+                             [](const Symbol* a, const Symbol* b) {
+                                 return a->name < b->name;
+                             });
+            for (auto* ta : tas)
+                out.emplace_back(&mem, ta);
+        }
+    }
+    return out;
+}
+
 bool UhdmExporter::verilogLexMode(SourceLocation loc) {
     if (loc == SourceLocation::NoLocation)
         return false;
@@ -1877,6 +1930,38 @@ UHDM::design* UhdmExporter::exportDesign() {
                 byName[std::string(nt.name)] = ts;
                 if (auto* rf = nt.getResolutionFunction())
                     nettypeResolvers.push_back({ts, std::string(rf->name)});
+            }
+        // A FILE-SCOPE `import pkg::*` puts the package's typedefs into that
+        // FileContent's DataTypeMap (CompileHelper::importPackage), and the
+        // design's Typespecs are the union of every FileContent's map
+        // (UhdmWriter, "Non-Elaborated Model") -- so the SHARED package
+        // typespec is listed at the design too, under its unqualified name.
+        for (auto unit : comp.getCompilationUnits())
+            for (auto& mem : unit->members()) {
+                const Symbol* only = nullptr;
+                const PackageSymbol* ipkg = nullptr;
+                if (mem.kind == SymbolKind::WildcardImport)
+                    ipkg = comp.getPackage(
+                        mem.as<WildcardImportSymbol>().packageName);
+                else if (mem.kind == SymbolKind::ExplicitImport) {
+                    only = mem.as<ExplicitImportSymbol>().importedSymbol();
+                    if (!only || only->kind != SymbolKind::TypeAlias)
+                        continue;
+                    ipkg = comp.getPackage(
+                        mem.as<ExplicitImportSymbol>().packageName);
+                }
+                if (!ipkg)
+                    continue;
+                for (auto& pm : ipkg->members()) {
+                    if (pm.kind != SymbolKind::TypeAlias)
+                        continue;
+                    if (only && &pm != only)
+                        continue;
+                    auto tit = pkgTopTypedefTs.find((const void*)&pm);
+                    if (tit == pkgTopTypedefTs.end() || !tit->second)
+                        continue;
+                    byName.emplace(std::string(pm.name), tit->second);
+                }
             }
         if (!byName.empty()) {
             auto* tds = s.MakeTypespecVec();
