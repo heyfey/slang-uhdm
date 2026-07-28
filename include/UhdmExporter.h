@@ -1090,6 +1090,18 @@ private:
     // A package DEF-view unpacked-dim ref binds the sized param's own constant
     // through it (DefaultPatternInt pack::V::CNT -> the CNT constant).
     std::map<const slang::ast::Symbol*, UHDM::any*> paramRhsObj;
+    // The MODULE DEF view's array_typespec for an unpacked-array parameter,
+    // keyed by its declarator syntax (the def body and every instance body get
+    // their own ParameterSymbol, but they share one declarator).  Surelog's
+    // ELAB `'{default:X}` array_expr points its ts ref at THIS object rather
+    // than at a fresh clone — which is what makes UHDM's ElaboratorListener
+    // reach the def-view unpacked dim's `N-1` ref_obj while an instance scope
+    // is on its stack and bind that ref's Actual (ParamArrayUnsizedPattern
+    // -elabuhdm: only the array_expr-valued param's def-view dim ref is bound;
+    // its two operation-valued siblings, whose elab ts IS a fresh clone, stay
+    // unbound in golden too).
+    std::map<const slang::syntax::SyntaxNode*, UHDM::array_typespec*>
+        defParamArrayTs;
     // Fullname of the parameter that owns the unpacked dim being built; set
     // while a PARAMETER's ranges are constructed so a folded param-sized dim
     // can name its typespec ref after the holder (DefaultPatternInt).

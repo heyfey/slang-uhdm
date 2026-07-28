@@ -5611,6 +5611,113 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             }
                         }
                     }
+                    // A named PACKED-STRUCT param connection (.DATA_REG(
+                    // HwDataAttr)) whose pattern never reduces
+                    // (patParamNoFold: a non-vector target keeps its op75)
+                    // substitutes, in the ELAB view, the SAME tag-dropped
+                    // pattern tree the param's own elab Rhs carries, plus a
+                    // conn-scoped ts ref to the struct typedef typespec —
+                    // Surelog's compileHighConn stamps the reduced expression
+                    // with the FORMAL's type (AssignmentPatternInAssignment-
+                    // Pattern; the DEF view keeps the bare ref_obj).
+                    if (!h) {
+                        auto& cs8 = stripImplicitConv(*expr);
+                        if (cs8.kind == ExpressionKind::NamedValue &&
+                            cs8.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter) {
+                            auto& pp8 = cs8.as<NamedValueExpression>()
+                                            .symbol.as<ParameterSymbol>();
+                            const Type& pt8 = pp8.getType();
+                            const Expression* pin8 = pp8.getInitializer();
+                            if (pt8.getCanonicalType().kind ==
+                                    SymbolKind::PackedStructType &&
+                                pin8 &&
+                                stripImplicitConv(*pin8).kind ==
+                                    ExpressionKind::StructuredAssignmentPattern &&
+                                pkgParamObj.count(&pp8)) {
+                                // The shared typedef struct typespec, looked up
+                                // the same way the nested-member re-emit does.
+                                UHDM::typespec* sts8 = nullptr;
+                                if (auto t8 = pkgTopTypedefTs.find(
+                                        (const Symbol*)&pt8.getCanonicalType());
+                                    t8 != pkgTopTypedefTs.end())
+                                    sts8 = t8->second;
+                                if (!sts8 && pt8.kind == SymbolKind::TypeAlias) {
+                                    if (auto t9 = pkgTopTypedefTs.find(
+                                            &pt8.as<TypeAliasType>());
+                                        t9 != pkgTopTypedefTs.end())
+                                        sts8 = t9->second;
+                                    if (!sts8)
+                                        if (auto ta = typedefTs.find(&pt8);
+                                            ta != typedefTs.end())
+                                            sts8 = ta->second;
+                                }
+                                if (sts8) {
+                                    bool sRe8 = reemitting;
+                                    bool sPe8 = pkgEnumSubstPat;
+                                    reemitting = true;
+                                    // The enum-member literal form applies
+                                    // whenever the param comes from a package
+                                    // (enumMemberSubstConst).
+                                    pkgEnumSubstPat =
+                                        homePkgInstOf(pp8) != nullptr;
+                                    auto* fo8 = emitExpr(*pin8, p, hcPrefix,
+                                                         *parentNets);
+                                    pkgEnumSubstPat = sPe8;
+                                    reemitting = sRe8;
+                                    if (fo8 && fo8->UhdmType() ==
+                                                   UHDM::uhdmoperation) {
+                                        auto* op8 = (UHDM::operation*)fo8;
+                                        // Re-anchored at the REFERENCE span
+                                        // (the operands keep the pattern's).
+                                        setLoc(op8, expr->sourceRange);
+                                        std::string cfn8 =
+                                            hcPrefix + "." +
+                                            std::string(inst.name) + "." +
+                                            std::string(ps.name);
+                                        auto* rt8 = s.MakeRef_typespec();
+                                        rt8->VpiFullName(cfn8);
+                                        rt8->VpiParent(op8);
+                                        rt8->Actual_typespec(sts8);
+                                        op8->Typespec(rt8);
+                                        // A nested member op is SIZED at the
+                                        // member width here (the param_assign
+                                        // fold leaves it bare) and its ts ref,
+                                        // bare there, carries the conn scope.
+                                        auto& ap8 =
+                                            stripImplicitConv(*pin8)
+                                                .as<StructuredAssignmentPatternExpression>();
+                                        auto* ov8 = op8->Operands();
+                                        if (ov8 &&
+                                            ov8->size() ==
+                                                ap8.memberSetters.size())
+                                            for (size_t i8 = 0;
+                                                 i8 < ov8->size(); i8++) {
+                                                auto* o8 = (*ov8)[i8];
+                                                if (o8->UhdmType() !=
+                                                    UHDM::uhdmoperation)
+                                                    continue;
+                                                auto* no8 =
+                                                    (UHDM::operation*)o8;
+                                                if (const Type* mt8 =
+                                                        ap8.memberSetters[i8]
+                                                            .expr->type)
+                                                    no8->VpiSize(
+                                                        (int32_t)
+                                                            mt8->getBitWidth());
+                                                if (auto* nrt8 = no8->Typespec();
+                                                    nrt8 &&
+                                                    nrt8->VpiFullName().empty()) {
+                                                    nrt8->VpiFullName(cfn8);
+                                                    nrt8->VpiParent(no8);
+                                                }
+                                            }
+                                        h = op8;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     // An ELAB conn REPLICATION actual folds to a full-width
                     // BIN constant (bare-bits decompile) with a conn-scoped
                     // ts ref to a loc-less int_typespec

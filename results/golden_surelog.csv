@@ -45,8 +45,8 @@ Assertions,default,SLANG_REJECT,dut.sv:16:8: error: duplicate definition of 'm' 
 Assertions,testflags,SLANG_REJECT,dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
 AssertTempError,default,CMP_EQUAL,,,differ
 AssertTempError,testflags,CMP_EQUAL,,,differ
-AssignmentPatternInAssignmentPattern,default,CMP_NOTEQUAL,decompile:,,
-AssignmentPatternInAssignmentPattern,testflags,CMP_NOTEQUAL,decompile:,,
+AssignmentPatternInAssignmentPattern,default,CMP_EQUAL,,,differ
+AssignmentPatternInAssignmentPattern,testflags,CMP_EQUAL,,,differ
 Assignments,default,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
 Assignments,testflags,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
 AssignPattern,default,SLANG_REJECT,dut.sv:2:16: error: invalid target type 'logic' for assignment pattern,,
@@ -338,7 +338,7 @@ DefaultPatternAssign,testflags,CMP_NOTEQUAL,decompile:,,
 DefaultPatternInt,default,CMP_EQUAL,,,differ
 DefaultPatternInt,testflags,CMP_EQUAL,,,differ
 DefaultPatternModule,default,CMP_EQUAL,,,differ
-DefaultPatternModule,testflags,CMP_NOTEQUAL,decompile:,,
+DefaultPatternModule,testflags,CMP_EQUAL,,,differ
 DefaultTag,default,CMP_EQUAL,,,match
 DefaultTag,testflags,CMP_EQUAL,,,match
 DeferAssert,default,CMP_EQUAL,,,match
@@ -1012,7 +1012,7 @@ ParamArray,testflags,SLANG_REJECT,dut.sv:11:47: error: assignment pattern for 'p
 ParamArraySelect,default,SLANG_REJECT,dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
 ParamArraySelect,testflags,SLANG_REJECT,dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
 ParamArrayUnsizedPattern,default,CMP_EQUAL,,,differ
-ParamArrayUnsizedPattern,testflags,CMP_NOTEQUAL,decompile:,,
+ParamArrayUnsizedPattern,testflags,CMP_EQUAL,,,differ
 ParamBitSelect,default,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
 ParamBitSelect,testflags,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
 ParamByValue,default,CMP_EQUAL,,,differ

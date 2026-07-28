@@ -2808,6 +2808,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             else {
                 paramArrayTs = makeUnpackedArrayParamTs(ps, afull, up, prng);
                 art->Actual_typespec(paramArrayTs);
+                // Record the MODULE DEF view's object so the elab view's
+                // folded `'{default:X}` array_expr can point at it (see
+                // defParamArrayTs).
+                if (!inPackage && !isImported &&
+                    m->UhdmType() == UHDM::uhdmmodule_inst)
+                    if (auto* dsyn0 = ps.getSyntax())
+                        defParamArrayTs.emplace(dsyn0, paramArrayTs);
             }
         }
         params->push_back(up);
@@ -4580,8 +4587,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 tsPfx8.resize(tsPfx8.size() - 2);
                             rt8->VpiFullName(tsPfx8);
                             rt8->VpiParent(ae8);
-                            rt8->Actual_typespec(makeUnpackedArrayParamTs(
-                                ps, tsPfx8, rt8, nullptr, true, tsPfx8));
+                            // Surelog points this ref at the MODULE DEF view's
+                            // array_typespec, not a fresh clone
+                            // (defParamArrayTs) — the sharing is what lets the
+                            // UHDM elaborator bind the def-view unpacked dim's
+                            // ref_obj under this instance's scope.
+                            UHDM::array_typespec* shared8 = nullptr;
+                            if (auto* dsyn8 = ps.getSyntax())
+                                if (auto it8 = defParamArrayTs.find(dsyn8);
+                                    it8 != defParamArrayTs.end())
+                                    shared8 = it8->second;
+                            rt8->Actual_typespec(
+                                shared8 ? shared8
+                                        : makeUnpackedArrayParamTs(
+                                              ps, tsPfx8, rt8, nullptr, true,
+                                              tsPfx8));
                             ae8->Typespec(rt8);
                         }
                         rhs = ae8;
@@ -5754,6 +5774,43 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                             }
                         }
+                        // NOTE (r9papiap, ParamSubstituteComplex — NOT landed).
+                        // Six rules decoded on a purpose-built single-axis
+                        // Surelog probe (struct params whose members vary:
+                        // bare ref / bare ref to an UNSIZED literal / concat of
+                        // pure refs / concat containing an operation / concat
+                        // mixing refs and literals).  All six are needed to
+                        // convert the test; none is landed:
+                        //  1. DEF view — a member setter that is a BARE
+                        //     parameter reference is replaced by the referenced
+                        //     param's own Rhs constant OBJECT (shared, so it
+                        //     keeps that param's ts: `bit P0=1'b0` -> the
+                        //     BIN:0/bit_typespec constant at P0's span).  A ref
+                        //     NESTED in a concat/operation stays a ref_obj.
+                        //  2. ELAB view — the same bare-ref member folds to a
+                        //     constant carrying the referenced param's LITERAL
+                        //     FORM (VpiConstType + VpiDecompile) but sized at
+                        //     the MEMBER width: `bit P0=1'b0` -> BIN:0/"1'b0"
+                        //     sz=1; unsized `P1=0` -> UINT:0/"0" sz=1 (not 64).
+                        //     Today this arm folds every non-literal to UINT.
+                        //  3. ELAB — a concat of ALL-bare-refs folds to BIN at
+                        //     the member width with an empty decompile AND a ts
+                        //     ref to a logic_typespec; a concat MIXING refs and
+                        //     literals folds identically but gets NO ts.
+                        //  4. ELAB — a concat containing an OPERATION element
+                        //     does NOT fold: the op33 survives, each element
+                        //     folded on its own (an `&&` -> UINT at the UNSIZED
+                        //     64, refs -> their literal form at 1, literals
+                        //     kept).
+                        //  5. ELAB — `parameter S2 = S1` where S1 is a
+                        //     struct-pattern param substitutes S1's whole ELAB
+                        //     tree (patSubstElab does this only for
+                        //     patNoFoldTarget types, which EXCLUDE packed
+                        //     structs).
+                        //  6. ELAB — `parameter M = S1.member` folds the
+                        //     hier_path to a BIN constant at the member width
+                        //     with decompile "<w>'b<bits>" and a logic_typespec
+                        //     ts ref; the DEF view keeps the hier_path.
                         ConstantValue cvm = ectx.tryEval(*se);
                         if (cvm && cvm.isInteger() && !cvm.integer().hasUnknown()) {
                             auto* c2 = s.MakeConstant();
