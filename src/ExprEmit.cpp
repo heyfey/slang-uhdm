@@ -4642,7 +4642,42 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             ->as<NamedValueExpression>()
                             .symbol.kind == SymbolKind::Parameter;
                 ASTContext qctx(comp.getRoot(), LookupLocation::max);
-                if (auto cv = qctx.tryEval(expr); cv && cv.isInteger()) {
+                auto cv = qctx.tryEval(expr);
+                // Root-context evaluation is slang's answer, not Surelog's:
+                // it refuses a select/member-access rooted at a PORT (there is
+                // no instance to read from), while `compileBits` only ever
+                // needed the argument's TYPESPEC — which `srlgBitsFoldArg`
+                // already certified fully specified. Fall back to the static
+                // width so the fold decision and the fold agree
+                // (HierPathPackedStruct's `$bits(a.pair[0])`).
+                std::optional<uint64_t> staticBits9;
+                if (!cv && !call.arguments().empty()) {
+                    auto& a9 = stripImplicitConv(*call.arguments()[0]);
+                    if ((a9.kind == ExpressionKind::MemberAccess ||
+                         a9.kind == ExpressionKind::ElementSelect ||
+                         a9.kind == ExpressionKind::RangeSelect) &&
+                        a9.type && a9.type->isIntegral() &&
+                        a9.type->getBitWidth() > 0)
+                        staticBits9 = a9.type->getBitWidth();
+                }
+                if (staticBits9) {
+                    auto* c = s.MakeConstant();
+                    std::string digits = std::to_string(*staticBits9);
+                    c->VpiDecompile(digits);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    if (!localParamArg)
+                        setLoc(c, expr.sourceRange);
+                    if (forceConstParent ||
+                        (!suppressConstParent && parent &&
+                         (parent->UhdmType() == UHDM::uhdmoperation ||
+                          parent->UhdmType() == UHDM::uhdmbit_select ||
+                          parent->UhdmType() == UHDM::uhdmcase_item)))
+                        c->VpiParent(parent);
+                    return c;
+                }
+                if (cv && cv.isInteger()) {
                     auto* c = s.MakeConstant();
                     std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
                     c->VpiDecompile(digits);

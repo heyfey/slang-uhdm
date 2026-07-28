@@ -1414,6 +1414,11 @@ private:
         UHDM::ref_typespec* rt;
         UHDM::instance* mod;
         const slang::ast::Symbol* sym;
+        // Surelog copies the bound variable's typespec verbatim, so an
+        // IMPLICIT net (which has none) leaves the ref UNRESOLVED rather than
+        // minting one (HighLow's `assign ccc = $high(a)`). The older
+        // $signed/$unsigned entries keep their synthesized fallback.
+        bool nullIfNoTs = false;
     };
     std::vector<PendingSysFuncTs> pendingSysFuncTs;
     std::map<const slang::ast::Symbol*, std::vector<UHDM::attribute*>> attrMap;

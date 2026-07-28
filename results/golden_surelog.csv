@@ -259,8 +259,8 @@ ComplexBitSelect,default,SLANG_REJECT,dut.sv:20:14: error: use of undeclared ide
 ComplexBitSelect,testflags,SLANG_REJECT,dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
 ComplexEscaped,default,SLANG_REJECT,dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
 ComplexEscaped,testflags,SLANG_REJECT,dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
-ComplexExprSize,default,CMP_NOTEQUAL,decompile:,,
-ComplexExprSize,testflags,CMP_NOTEQUAL,decompile:,,
+ComplexExprSize,default,CMP_EQUAL,,,differ
+ComplexExprSize,testflags,CMP_EQUAL,,,differ
 ComplexHierPath,default,CMP_EQUAL,,,differ
 ComplexHierPath,testflags,CMP_EQUAL,,,differ
 ComplexParamOverload,default,CMP_EQUAL,,,differ
@@ -637,8 +637,8 @@ HierPathOverride,default,CMP_EQUAL,,,differ
 HierPathOverride,testflags,CMP_EQUAL,,,differ
 HierPathPackedArrayNet,default,SLANG_REJECT,dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
 HierPathPackedArrayNet,testflags,SLANG_REJECT,dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
-HierPathPackedStruct,default,CMP_NOTEQUAL,decompile:,,
-HierPathPackedStruct,testflags,CMP_NOTEQUAL,decompile:,,
+HierPathPackedStruct,default,CMP_EQUAL,,,differ
+HierPathPackedStruct,testflags,CMP_EQUAL,,,differ
 HierPathPackedVar,default,SLANG_REJECT,dut.sv:4:5: error: unknown class or package 'ariane_axi',,
 HierPathPackedVar,testflags,SLANG_REJECT,dut.sv:4:5: error: unknown class or package 'ariane_axi',,
 HierPathSelect,default,CMP_EQUAL,,,match

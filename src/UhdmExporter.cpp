@@ -2625,6 +2625,8 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto* nt : *p.mod->Nets())
                 if (nt->VpiName() == p.sym->name && nt->Typespec())
                     act = nt->Typespec()->Actual_typespec();
+        if (!act && p.nullIfNoTs)
+            continue;
         p.rt->Actual_typespec(act ? act : makeTypespec(*p.sym));
     }
     pendingSysFuncTs.clear();

@@ -4377,9 +4377,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // overridden with a package struct: def view logic_net, elab view
             // struct_var).
             bool typeParamTyped = portTypeParam(*it.sym) != nullptr;
+            // The member scan is NOT port-conditional in Surelog —
+            // elab_signal_ runs the same `ttmp == uhdmstruct_typespec` arm on
+            // a port signal (HierPathPackedStruct's `input foo_t a`, whose one
+            // member is a packed ARRAY of struct, elaborates as a struct_var).
+            // Only the `parameter type T` route stays body-declarations-only:
+            // a type-param-typed PORT has no typedef-table entry either way
+            // and the hand-tuned port routes below cover it.
             bool memberDemotesToVar =
-                isStruct && !it.port &&
-                (typeParamTyped || !structTsIsNetLike(ts));
+                isStruct && (!structTsIsNetLike(ts) ||
+                             (!it.port && typeParamTyped));
             if (isStruct &&
                 ((arrOfStructMember && isPkgStructType(*it.sym)) ||
                  memberDemotesToVar) &&
@@ -11983,6 +11990,74 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             continue;
         }
         auto& ae = assign.as<AssignmentExpression>();
+        // SYSTEM-call RHS fold, top view only (UhdmWriter::writeCont's
+        // `simplified == false` tail): the elab pass runs ExprEval over the
+        // cont_assign's RHS and, when it reduces to a constant, CLONES the
+        // assign and swaps the constant in — so the elab view holds a
+        // SEPARATE cont_assign while the def view keeps the sys_func_call.
+        // Only the calls ExprEval actually implements reduce ($isunknown /
+        // $sqrt and friends come back unevaluated and keep sharing), and only
+        // a WHOLE-NET (plain name) LHS: writeCont sizes the fold against the
+        // bound variable's typespec.
+        //
+        // RANKED RESIDUE (HighLow, r9ndafold) — the third piece of that test
+        // is NOT here, it is the ELAB param_assign of an untyped RANGED
+        // parameter (`parameter [2:1] a = 10`).  Golden's def view keeps
+        // UINT:10/size 64/int_typespec (we match); its ELAB view holds
+        // UINT:2/size 2 with a fresh LOC-LESS logic_typespec whose range
+        // bounds are BARE UINT constants.  Decoded, unimplemented:
+        // DesignElaboration:2542 stores the parameter's `Value` with a
+        // typespec and `CompileHelper::valueRange` copies the declared range's
+        // bounds onto it; `CompileHelper::setRange` (CompileHelper.cpp:5417)
+        // then OVERWRITES the constant's typespec with that bare-bound
+        // logic_typespec — but only when `getLRange() || getRRange()`, so
+        // `[0:0]` keeps the range int_typespec (the shape the existing
+        // `rangedFold` arm in ParamEmit was measured on) and `[2:1]` does not.
+        // The value itself is `adjustSize`'s vpiUIntConst arm, `uval &=
+        // getMask(size)`.  Attempted and reverted: the ParamEmit `rangedFold`
+        // arm is not the site — a plain-literal init reaches `pa->Rhs` through
+        // an earlier branch of that else-if chain (instrumented: `a` never
+        // enters the fold arm at all), so the site has to be found first.
+        // The other two HighLow diffs (the def sys_func_call ts, the elab
+        // cont_assign fold) ARE implemented below and verified.
+        std::optional<ConstantValue> sysFold;
+        // The reduce result's ENCODING is ExprEval's, and `adjustSize` only
+        // re-encodes a constant that already carries a UINT or a BINARY
+        // constType: $signed/$unsigned hand back the reduced ARGUMENT (a
+        // concatenation's own BINARY pattern), while the RANGE queries hand
+        // back the typespec's range-bound object, which the elab pass built
+        // out of a Value and left bare — constType 0, so adjustSize is a
+        // no-op on it whatever the target width.
+        bool sysFoldBin9 = false;
+        // ...and this fires only when the DEF view actually kept the call: a
+        // $bits/$size/$clog2 that already folded at definition time is a plain
+        // constant by the time writeCont sees it, and the existing bitsRhs
+        // route already models its elab re-encode (u2r BitsCallOn*, ArraySize,
+        // EnumWidth, SizeOfUnsignedParameter, Clog2OfSum*).
+        if (topView && defInfo && myIdx < defInfo->contAssigns.size() &&
+            defInfo->contAssigns[myIdx]->Rhs() &&
+            defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                UHDM::uhdmsys_func_call &&
+            stripImplicitConv(ae.left()).kind == ExpressionKind::NamedValue) {
+            auto& rcS9 = stripImplicitConv(ae.right());
+            if (rcS9.kind == ExpressionKind::Call &&
+                rcS9.as<CallExpression>().isSystemCall()) {
+                std::string sn9(rcS9.as<CallExpression>().getSubroutineName());
+                if (!sn9.empty() && sn9[0] != '$')
+                    sn9.insert(sn9.begin(), '$');
+                bool sgn9 = sn9 == "$signed" || sn9 == "$unsigned";
+                bool qry9 = sn9 == "$high" || sn9 == "$low" ||
+                            sn9 == "$left" || sn9 == "$right";
+                if (sgn9 || qry9) {
+                    ASTContext sctx9(comp.getRoot(), LookupLocation::max);
+                    ConstantValue scv9 = sctx9.tryEval(ae.right());
+                    if (scv9 && scv9.isInteger() && !scv9.integer().hasUnknown()) {
+                        sysFold = std::move(scv9);
+                        sysFoldBin9 = sgn9;
+                    }
+                }
+            }
+        }
         // An implicit-net LHS cont_assign shares the DEF-view object into
         // the elab list bare (the net itself is dropped there — Surelog).
         // EXCEPT when the RHS itself folds in the elab view: an element
@@ -12011,6 +12086,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             .kind == SymbolKind::FixedSizeUnpackedArrayType)
                     elabFoldRhs9 = true;
             }
+            // A sys-call RHS that FOLDS re-emits fresh even onto a dropped
+            // implicit net (HighLow's `assign ccc = $high(a)`).
+            if (sysFold)
+                elabFoldRhs9 = true;
             if (!elabFoldRhs9 && lc0.kind == ExpressionKind::NamedValue &&
                 lc0.as<NamedValueExpression>().symbol.kind == SymbolKind::Net &&
                 lc0.as<NamedValueExpression>().symbol.as<NetSymbol>().isImplicit &&
@@ -12440,7 +12519,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                                       &rcS.as<NamedValueExpression>().symbol) != 0;
         }
         if (shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
-            !unbasedShareRhs &&
+            !unbasedShareRhs && !sysFold &&
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
               !callFold) ||
              (plainLhs &&
@@ -13034,6 +13113,50 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     ((UHDM::constant*)rhs)->Typespec(rt0);
                 }
             }
+        }
+        // The folded sys-call constant (see `sysFold` above). writeCont runs
+        // `adjustSize(tps, ...)` on the reduce result, where `tps` is the
+        // typespec of the variable the ELAB view bound the LHS name to:
+        //   * a $signed/$unsigned fold onto a net WITH a typespec re-encodes
+        //     BINARY at the net's width (ComplexExprSize: `assign out =
+        //     $unsigned({...})` onto `output wire [31:0]` -> BIN 32 zeros,
+        //     vpiSize 32);
+        //   * a RANGE-query fold, or any fold onto a net with no typespec at
+        //     all (an IMPLICIT net, dropped from the elab view, so `tps` is
+        //     null and adjustSize returns immediately), keeps ExprEval's bare
+        //     shape: a value and nothing else, no decompile / size /
+        //     constType (HighLow's `assign ccc = $high(a)`).
+        if (!rhs && topView && sysFold) {
+            auto& lS9 = stripImplicitConv(ae.left());
+            const Symbol* lsym9 = &lS9.as<NamedValueExpression>().symbol;
+            UHDM::typespec* lts9 = nullptr;
+            if (auto nit9 = netMap.find(lsym9); nit9 != netMap.end())
+                if (auto* ne9 = any_cast<UHDM::expr*>(nit9->second))
+                    if (auto* rt9 = ne9->Typespec())
+                        lts9 = rt9->Actual_typespec();
+            auto& iv9s = sysFold->integer();
+            auto* c9s = s.MakeConstant();
+            if (sysFoldBin9 && lts9 && lS9.type && lS9.type->isIntegral() &&
+                lS9.type->getBitWidth() > 0) {
+                int32_t w9 = (int32_t)lS9.type->getBitWidth();
+                auto vv9 = iv9s;
+                vv9 = vv9.resize((slang::bitwidth_t)w9);
+                std::string bits9;
+                for (int32_t i = w9 - 1; i >= 0; i--)
+                    bits9 += (vv9[i] == slang::logic_t(1)) ? '1' : '0';
+                c9s->VpiDecompile(bits9);
+                c9s->VpiSize(w9);
+                c9s->VpiValue("BIN:" + bits9);
+                c9s->VpiConstType(vpiBinaryConst);
+            }
+            else {
+                auto uv9 = iv9s;
+                uv9.setSigned(false);
+                c9s->VpiValue("UINT:" +
+                              uv9.toString(LiteralBase::Decimal, false));
+            }
+            c9s->VpiParent(ca);
+            rhs = c9s;
         }
         // A call whose FORMAL is SIGNED never straight-line-reduces (the
         // body conversion changes the value); it falls to the eval fold
@@ -13983,9 +14106,15 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             auto& rcs = stripImplicitConv(ae.right());
             if (rcs.kind == ExpressionKind::Call && rcs.as<CallExpression>().isSystemCall()) {
                 auto nm = rcs.as<CallExpression>().getSubroutineName();
+                // The RANGE-QUERY calls take the same stamp (writeCont's
+                // `simplified == false` arm is name-blind), but they reach it
+                // over signals that may carry NO typespec at all, and Surelog
+                // then leaves the ref unresolved instead of synthesizing one.
+                bool qry9 = nm == "$high" || nm == "$low" || nm == "$left" ||
+                            nm == "$right" || nm == "$size";
                 if (nm == "$signed" || nm == "$unsigned" || nm == "$bits" ||
                     nm == "$clog2" || nm == "$fell" || nm == "$rose" ||
-                    nm == "$stable" || nm == "$past") {
+                    nm == "$stable" || nm == "$past" || qry9) {
                     auto& le = stripImplicitConv(ae.left());
                     if (le.kind == ExpressionKind::NamedValue) {
                         auto* rt = s.MakeRef_typespec();
@@ -13993,7 +14122,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         rt->VpiParent(rhs);
                         ((UHDM::expr*)rhs)->Typespec(rt);
                         pendingSysFuncTs.push_back(
-                            {rt, defInfo->mod, &le.as<NamedValueExpression>().symbol});
+                            {rt, defInfo->mod, &le.as<NamedValueExpression>().symbol,
+                             qry9});
                     }
                 }
             }
@@ -14047,7 +14177,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
                            typedParamRhs || constVarRhs || noDefOvRhs || enumRhs ||
-                           unpackedParamSel) &&
+                           unpackedParamSel || sysFold) &&
                           defInfo)
                              ? defInfo->nets
                              : netMap;

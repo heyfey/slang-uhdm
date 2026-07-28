@@ -5792,6 +5792,53 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 !typeWidthUsesParam(*sy2))
                                 foldQuery = true;
                 }
+                // A MEMBER/SELECT argument (`$bits(a.pair[0])`) can never
+                // resolve through `currentScope->find`, which takes a bare
+                // name — but Surelog's `compileBits` only ever needed the
+                // argument's TYPESPEC, and that is exactly what
+                // `srlgBitsFoldArg` certifies. Bind the call and ask it; the
+                // width then comes from the type, because slang's own
+                // evaluation refuses a select rooted at a PORT (there is no
+                // instance to read). HierPathPackedStruct.
+                const slang::ast::Expression* selBitsArg9 = nullptr;
+                if (!foldQuery && currentScope && inv.arguments &&
+                    sysName == "$bits") {
+                    for (auto a2 : inv.arguments->parameters) {
+                        std::string raw2(rawText(a2->sourceRange()));
+                        if (raw2.find('.') == std::string::npos &&
+                            raw2.find('[') == std::string::npos)
+                            break;
+                        ASTContext bc9(*currentScope, LookupLocation::max);
+                        auto& bd9 =
+                            Expression::bind(syn.as<syntax::ExpressionSyntax>(), bc9);
+                        if (bd9.kind == ExpressionKind::Call &&
+                            bd9.as<CallExpression>().isSystemCall() &&
+                            !bd9.as<CallExpression>().arguments().empty()) {
+                            auto& ba9 = stripImplicitConv(
+                                *bd9.as<CallExpression>().arguments()[0]);
+                            if ((ba9.kind == ExpressionKind::MemberAccess ||
+                                 ba9.kind == ExpressionKind::ElementSelect ||
+                                 ba9.kind == ExpressionKind::RangeSelect) &&
+                                ba9.type && ba9.type->isIntegral() &&
+                                ba9.type->getBitWidth() > 0 &&
+                                srlgBitsFoldArg(ba9))
+                                selBitsArg9 = &ba9;
+                        }
+                        break;
+                    }
+                }
+                if (selBitsArg9) {
+                    auto* c = s.MakeConstant();
+                    std::string digits =
+                        std::to_string(selBitsArg9->type->getBitWidth());
+                    c->VpiDecompile(digits);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + digits);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(parent);
+                    setLoc(c, syn.sourceRange());
+                    return c;
+                }
                 if (foldQuery && currentScope &&
                     (sysName == "$bits" || sysName == "$size" || sysName == "$clog2")) {
                     ASTContext bctx(*currentScope, LookupLocation::max);
