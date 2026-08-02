@@ -349,6 +349,29 @@ static std::string spaceIdxOps(const std::string& in) {
     return o;
 }
 
+// True when the enclosing instance's parameter object for `name` carries NO
+// typespec — an UNTYPED parameter whose initializer is COMPUTED rather than
+// literal (`parameter AW = $clog2(DEPTH)`), for which Surelog stores neither a
+// value nor a type.  A gen-scope reduce of such a parameter cannot go through
+// a declared type, so it yields the plain unsized 64-bit UINT instead of the
+// width-sized, typespec-carrying constant a literal-initialised parameter
+// gets (BasicOh: `wr_din[N-1:0]` folds typed, `rd_addr[AW-1:0]` folds bare).
+static bool typelessParamObj(const UHDM::BaseClass* from,
+                             std::string_view name) {
+    const UHDM::BaseClass* w = from;
+    while (w && w->UhdmType() != UHDM::uhdmmodule_inst)
+        w = w->VpiParent();
+    if (!w)
+        return false;
+    auto* mi = (const UHDM::module_inst*)w;
+    if (!mi->Parameters())
+        return false;
+    for (auto* pp : *mi->Parameters())
+        if (pp->UhdmType() == UHDM::uhdmparameter && pp->VpiName() == name)
+            return ((const UHDM::parameter*)pp)->Typespec() == nullptr;
+    return false;
+}
+
 static std::string selName(std::string s) {
     // Surelog strips whitespace ADJACENT to select punctuation ([ ] : and
     // the +:/-: tokens) but keeps single spaces inside arithmetic
@@ -2215,10 +2238,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // at its decl type span — Surelog).
                 if (genCaLhsParamFold && inPsBound &&
                     nv.symbol.kind == SymbolKind::Parameter) {
+                    // A TYPELESS parameter object reduces to the plain
+                    // unsized UINT — no width, no typespec (see
+                    // typelessParamObj; BasicOh `ram[rd_addr[AW-1:0]]`).
+                    if (typelessParamObj(parent, nv.symbol.name)) {
+                        auto& psT = nv.symbol.as<ParameterSymbol>();
+                        auto& cvT = psT.getValue();
+                        if (cvT.isInteger() && !cvT.integer().hasUnknown()) {
+                            auto* cT = s.MakeConstant();
+                            std::string dT = cvT.integer().toString(
+                                LiteralBase::Decimal, false);
+                            cT->VpiDecompile(dT);
+                            cT->VpiSize(64);
+                            cT->VpiValue("UINT:" + dT);
+                            cT->VpiConstType(vpiUIntConst);
+                            cT->VpiParent(parent);
+                            setLoc(cT, expr.sourceRange);
+                            return cT;
+                        }
+                    }
                     // RHS select bounds fold to a USE-SITE constant whose
                     // parent is the param's own param_assign; ts ref scopes
                     // at the enclosing INSTANCE (Surelog).
-                    if (!inLhs) {
+                    // Only for a TYPED parameter (genscope_cells' `parameter
+                    // int CounterWidth`), whose declared type is what the
+                    // reduce goes through; an UNTYPED one takes the ordinary
+                    // use-site shape below — operation parent, select-base
+                    // scope (BasicOh oh_memory_dp `rd_reg[N-1:0]`).
+                    bool typedPar9 = false;
+                    if (auto dt9 =
+                            nv.symbol.as<ParameterSymbol>().getDeclaredType())
+                        if (auto tsn9 = dt9->getTypeSyntax())
+                            typedPar9 =
+                                tsn9->kind != syntax::SyntaxKind::ImplicitType;
+                    if (!inLhs && typedPar9) {
                         for (auto& [esym, econ] : elabParamConst)
                             if (esym->location == nv.symbol.location &&
                                 esym->name == nv.symbol.name) {
@@ -2276,11 +2329,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rtR->VpiFullName(prefix);
                         rtR->VpiParent(c);
                         auto* itsR = s.MakeInt_typespec();
-                        if (psF.getType().isSigned())
-                            itsR->VpiSigned(true);
+                        // A TYPED param's ts spans its type syntax and keeps
+                        // the signedness flag; an UNTYPED one spans the whole
+                        // parameter declaration and carries none — the same
+                        // rule the parameter's own typespec follows (BasicOh
+                        // oh_memory_dp `rdata[N-1:0]`).
+                        bool typedR = false;
                         if (auto dtR = psF.getDeclaredType())
-                            if (auto tsnR = dtR->getTypeSyntax())
+                            if (auto tsnR = dtR->getTypeSyntax();
+                                tsnR && tsnR->kind !=
+                                            syntax::SyntaxKind::ImplicitType) {
+                                typedR = true;
                                 setLoc(itsR, tsnR->sourceRange());
+                                if (psF.getType().isSigned())
+                                    itsR->VpiSigned(true);
+                            }
+                        if (!typedR)
+                            for (auto qR = nv.symbol.getSyntax(); qR;
+                                 qR = qR->parent)
+                                if (qR->kind ==
+                                    syntax::SyntaxKind::ParameterDeclaration) {
+                                    setLoc(itsR, qR->sourceRange());
+                                    break;
+                                }
                         rtR->Actual_typespec(itsR);
                         c->Typespec(rtR);
                         return c;
@@ -2300,13 +2371,99 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rtF->VpiFullName(prefix);
                         rtF->VpiParent(c);
                         auto* itsF = s.MakeInt_typespec();
-                        itsF->VpiSigned(true);
+                        // Same typed/untyped shape as the RHS arm above.
+                        bool typedF = false;
                         if (auto dtF = psF.getDeclaredType())
-                            if (auto tsnF = dtF->getTypeSyntax())
+                            if (auto tsnF = dtF->getTypeSyntax();
+                                tsnF && tsnF->kind !=
+                                            syntax::SyntaxKind::ImplicitType) {
+                                typedF = true;
                                 setLoc(itsF, tsnF->sourceRange());
+                                itsF->VpiSigned(true);
+                            }
+                        if (!typedF)
+                            for (auto qF = nv.symbol.getSyntax(); qF;
+                                 qF = qF->parent)
+                                if (qF->kind ==
+                                    syntax::SyntaxKind::ParameterDeclaration) {
+                                    setLoc(itsF, qF->sourceRange());
+                                    break;
+                                }
                         rtF->Actual_typespec(itsF);
                         c->Typespec(rtF);
                         return c;
+                    }
+                }
+                // ...and OUTSIDE a select bound the same fold runs on every
+                // PLAIN module-param read of an ELAB gen-scope cont_assign
+                // (BasicOh oh_dsync `assign dout = (DELAY & sync_pipe[SYNCPIPE])
+                // | (~DELAY & sync_pipe[SYNCPIPE-1])` folds all four reads).
+                // The constant is UINT at the parameter's own width and carries
+                // a ref_typespec onto an int_typespec shaped like the
+                // parameter's: TYPED spans its type syntax and keeps the
+                // signedness flag, UNTYPED spans the whole parameter
+                // declaration and carries none.  Scope is the gen scope for a
+                // plain operand, the SELECT BASE inside a bit_select index.
+                if (genCaLhsParamFold && !inPsBound && callArgDepth == 0 &&
+                    nv.symbol.kind == SymbolKind::Parameter) {
+                    bool outerParam8 = false;
+                    for (auto sc8 = nv.symbol.getParentScope(); sc8;
+                         sc8 = sc8->asSymbol().getParentScope()) {
+                        auto sk8 = sc8->asSymbol().kind;
+                        if (sk8 == SymbolKind::GenerateBlock ||
+                            sk8 == SymbolKind::GenerateBlockArray)
+                            break;
+                        if (sk8 == SymbolKind::InstanceBody) {
+                            outerParam8 = true;
+                            break;
+                        }
+                    }
+                    auto& ps8 = nv.symbol.as<ParameterSymbol>();
+                    auto& cv8 = ps8.getValue();
+                    if (outerParam8 && cv8.isInteger() &&
+                        !cv8.integer().hasUnknown()) {
+                        bool bare8 = typelessParamObj(parent, nv.symbol.name);
+                        auto* c8 = s.MakeConstant();
+                        std::string d8 =
+                            cv8.integer().toString(LiteralBase::Decimal, false);
+                        c8->VpiDecompile(d8);
+                        c8->VpiSize(bare8
+                                        ? 64
+                                        : (int32_t)ps8.getType().getBitWidth());
+                        c8->VpiValue("UINT:" + d8);
+                        c8->VpiConstType(vpiUIntConst);
+                        c8->VpiParent(parent);
+                        setLoc(c8, expr.sourceRange);
+                        if (bare8)
+                            return c8;
+                        auto* rt8 = s.MakeRef_typespec();
+                        rt8->VpiFullName(genCaSelBasePfx.empty()
+                                             ? prefix
+                                             : genCaSelBasePfx);
+                        rt8->VpiParent(c8);
+                        auto* its8 = s.MakeInt_typespec();
+                        bool typed8 = false;
+                        if (auto dt8 = ps8.getDeclaredType())
+                            if (auto tsn8 = dt8->getTypeSyntax();
+                                tsn8 && tsn8->kind !=
+                                            syntax::SyntaxKind::ImplicitType) {
+                                typed8 = true;
+                                setLoc(its8, tsn8->sourceRange());
+                                its8->VpiSigned(
+                                    ps8.getType().getCanonicalType().isSigned());
+                            }
+                        if (!typed8)
+                            for (auto q8 = nv.symbol.getSyntax(); q8;
+                                 q8 = q8->parent)
+                                if (q8->kind ==
+                                    syntax::SyntaxKind::ParameterDeclaration) {
+                                    setLoc(its8, q8->sourceRange());
+                                    break;
+                                }
+                        its8->VpiParent(rt8);
+                        rt8->Actual_typespec(its8);
+                        c8->Typespec(rt8);
+                        return c8;
                     }
                 }
                 // A FOR-generate gen-scope CA RHS folds MODULE-param refs in
@@ -2463,7 +2620,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // (i*DATA_WIDTH +: DATA_WIDTH, simple_always_ifelse) —
                     // plain statement expressions keep the scoped ref
                     // (hier_path for-init PMPNumRegions-1).
-                    if (inGenScopeProc && !currentSubSym && !inPsBound)
+                    // ...and NOT under an unpacked-array var_select's INDEX,
+                    // whose sub-select bounds Surelog's reduce never reaches:
+                    // BasicOh oh_memory_dp's `ram[wr_addr[AW-1:0]][i]` holds
+                    // its ref_obj(AW) where the same module's own
+                    // `sync_pipe[SYNCPIPE-1:0]` (and simple_always_ifelse's
+                    // `data[i*DATA_WIDTH +: DATA_WIDTH]`) fold.
+                    if (inGenScopeProc && !currentSubSym &&
+                        (!inPsBound || varSelIdxDepth > 0))
                         inGenFn = false;
                     if (inGenScopeProc && !currentSubSym) {
                         bool moduleParam = false;
@@ -5091,11 +5255,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(vs, expr.sourceRange);
                     auto* idxs = s.MakeExprVec();
                     bool savedFCP = forceConstParent;
+                    varSelIdxDepth++;
                     for (auto it2 = sels.rbegin(); it2 != sels.rend(); ++it2) {
                         forceConstParent = isLiteralExpr(**it2);
                         if (auto* ix = emitExpr(**it2, vs, baseFull, netMap))
                             idxs->push_back((UHDM::expr*)ix);
                     }
+                    varSelIdxDepth--;
                     forceConstParent = savedFCP;
                     vs->Exprs(idxs);
                     return vs;
@@ -5407,7 +5573,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             }
             if (idxRescoped)
                 selIdxScopeDepth++;
+            // An ELAB gen-scope CA fold inside this index scopes its typespec
+            // ref at the SELECT BASE (see genCaSelBasePfx) — for a DIRECT
+            // index ref too, which idxPrefix leaves module-scoped.
+            std::string savedSelB9 = genCaSelBasePfx;
+            if (genCaLhsParamFold)
+                genCaSelBasePfx = joinRef(prefix, nv.symbol.name);
             auto* ix = emitExpr(es.selector(), bs, idxPrefix, netMap);
+            genCaSelBasePfx = savedSelB9;
             if (idxRescoped)
                 selIdxScopeDepth--;
             if (ix)

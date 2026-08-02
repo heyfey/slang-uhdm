@@ -1432,8 +1432,9 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //    covergroup-typed variable (`cg cg_inst = new(3);`) is a logic_var in
 //    Variables, where we emit a logic_net. Def views already agree.
 //  * BasicOh is MULTI-CAUSE, not a single fix — four independent failures
-//    counted at r9modres, of which THREE are LANDED (r10basic) and the fourth
-//    split into three on re-measure. Landed:
+//    counted at r9modres, of which THREE landed at r10basic and the fourth
+//    split into three on re-measure; the whole test is CONVERTED at
+//    r10basic2 (nine rules total). Landed:
 //      1. module_array DEF PORT ORDER. `oh_dsync wr_sync[AW:0] (.dout(..),
 //         .clk(..), .nreset(..), .din(..))` against a header declaring
 //         (clk, nreset, din, dout): golden's module_array Ports follow the
@@ -1456,25 +1457,53 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //         Surelog copies the referenced param's already-evaluated Value.
 //         A bare-decimal override (YosysOldSimpleSpi `fifo4 #(8)`) still
 //         builds a fresh 64-bit LValue and keeps the old rule.
-//    Ranked residue (measured at r10basic, all four instances-of-oh_dsync
-//    wide, so each is worth ~12 objects but ONE test):
-//      R1. ELAB gen-scope expression param fold. `assign dout = (DELAY &
-//          sync_pipe[SYNCPIPE]) | (~DELAY & sync_pipe[SYNCPIPE-1]);` inside
-//          oh_dsync's if-generate: golden folds EVERY module-param read to a
-//          constant — a plain operand to UINT at the param width with a ts
-//          ref scoped at the GEN SCOPE and actual the param's own
-//          int_typespec, a select INDEX to the same but scoped at the select
-//          BASE, and a whole `SYNCPIPE-1` sub-expression to a bare INT:1
-//          size 64. ExprEmit's genCaLhsParamFold branch already builds
-//          exactly the index shape but is gated on `inPsBound`; the plain
-//          operand needs the same treatment with `prefix` as the ts scope.
-//          Broadest-reach item here — sweep before trusting it.
-//      R2. a logic_typespec@48:3 present on golden's Ref_modules[4]
-//          (oh_memory_dp) and on that module's Gen_stmts, absent on ours.
+//    BasicOh is CONVERTED (r10basic2, both modes). The residue took five
+//    more rules, and the last three are ONE decoded fact — see (c):
+//      5. ELAB gen-scope expression param fold (was R1, 32 of 34 hits).
+//         `assign dout = (DELAY & sync_pipe[SYNCPIPE]) | (~DELAY &
+//         sync_pipe[SYNCPIPE-1]);` in oh_dsync's if-generate: golden folds
+//         EVERY module-param read of an elab gen-scope CA, not only the ones
+//         in select bounds. ExprEmit's genCaLhsParamFold arm was gated on
+//         `inPsBound`; the un-gated twin beside it mints the same UINT-at-
+//         param-width constant with a ref_typespec onto a fresh int_typespec
+//         shaped like the parameter's own. Scope: `prefix` (the gen scope)
+//         for a plain operand, the SELECT BASE inside a bit_select index —
+//         which the index path had to start publishing (genCaSelBasePfx),
+//         since a DIRECT index ref is otherwise module-scoped. There is NO
+//         whole-sub-expression collapse: `SYNCPIPE-1` keeps its operation.
+//      6. `reg [N-1:0] ram [0:DEPTH-1]` in a DEF-view gen block lost its
+//         ELEMENT packed range (was R2, the missing logic_typespec@48:3
+//         Ranges): the def gen-stmt array_var emitter read packed dims only
+//         from a `LogicType`, and `reg` is a RegType (same
+//         IntegerTypeSyntax).
+//      7. An elab child's part-select HighConn bound that is an OPERATION
+//         (`.wr_addr(wr_addr[AW-1:0])`) reduces its parameter leaves too, not
+//         just a bare bound (foldBareParamBoundIn).
+//      8. ...and (c) below decides that fold's SHAPE, as it decides two more:
+//         a gen-scope CA bound fold no longer clones the param's own elab
+//         constant unless the parameter is TYPED, and both use-site arms now
+//         shape their int_typespec by the declaration instead of always
+//         signed-at-the-type-syntax.
+//      9. `ram[wr_addr[AW-1:0]][i]` inside a gen-scope PROCESS keeps its
+//         ref_obj where the same block's `sync_pipe[SYNCPIPE-1:0]` folds:
+//         Surelog's reduce does not reach a sub-select nested in an
+//         unpacked-array var_select's INDEX (varSelIdxDepth).
+//    (c) THE SHAPE RULE, measured three times over in this one test: a
+//        parameter reduces THROUGH its declared type only when its parameter
+//        OBJECT carries a typespec. `parameter N = 32` does (untyped +
+//        literal init), so `wr_din[N-1:0]` folds to UINT sized at N's width
+//        with a ref_typespec; `parameter AW = $clog2(DEPTH)` does NOT
+//        (untyped + computed init — Surelog stores neither value nor type),
+//        so `wr_addr[AW-1:0]` and `ram[rd_addr[AW-1:0]]` fold to the plain
+//        unsized 64-bit UINT with no typespec at all. That is the same
+//        untyped-literal gate ParamEmit's `wantTs` already implements, read
+//        back off the emitted parameter (ExprEmit typelessParamObj) — and it
+//        is why foldBareParamBound's bare form and the in-operation typed
+//        form are two faces of one rule, not two rules.
 //    (`#(.N(AW+1))` folding INT:6/size -1 against golden's UINT:6/size 32 was
-//    the third; it LANDED as ParamEmit's bareDecOv8 widening to arithmetic
-//    actuals, and the same `foldBareParamBound` now runs on EVERY elab child's
-//    part-select HighConn, not only an array element's.)
+//    the third r10basic item; it LANDED as ParamEmit's bareDecOv8 widening to
+//    arithmetic actuals, and `foldBareParamBound` now runs on EVERY elab
+//    child's part-select HighConn, not only an array element's.)
 //    Scr1SvTests (~49k lines; covergroup `always` process missing plus
 //    five-net gaps in ten modules) is its own cluster.
 //
@@ -1527,6 +1556,86 @@ static UHDM::constant* foldBareParamBound(UHDM::Serializer& s,
     c->VpiEndLineNo(be->VpiEndLineNo());
     c->VpiEndColumnNo(be->VpiEndColumnNo());
     return c;
+}
+
+// ...and the same substitution reaches INSIDE a bound that is an arithmetic
+// OPERATION: Surelog reduces the whole bound expression, so every parameter
+// leaf of `wr_addr[AW-1:0]` becomes its Value while the operation itself
+// survives (BasicOh oh_fifo_async line 169; the DEF view keeps the ref).
+// The constant's SHAPE follows the parameter object the reduce reads: one
+// that carries a typespec (an untyped param with a LITERAL initializer —
+// `parameter N = 32`) reduces THROUGH it, so the constant is sized at the
+// parameter's width and shares that very typespec; one that carries none
+// (`parameter AW = $clog2(DEPTH)`, whose value Surelog never stores) yields
+// the plain unsized 64-bit UINT.  `parentM` is the instantiating instance
+// (where those parameter objects live) and `tsName` the select's fullname,
+// which scopes the typed form's ref.  Returns true when anything folded.
+bool UhdmExporter::foldBareParamBoundIn(const InstanceBodySymbol* body,
+                                        const UHDM::instance* parentM,
+                                        UHDM::any* be,
+                                        const std::string& tsName) {
+    if (!be || be->UhdmType() != UHDM::uhdmoperation)
+        return false;
+    auto* op = (UHDM::operation*)be;
+    auto* ops = op->Operands();
+    if (!ops)
+        return false;
+    bool any = false;
+    for (auto& slot : *ops) {
+        if (auto* c = foldBareParamBound(s, body, slot)) {
+            // The parameter OBJECT's typespec decides the shape (its Actual
+            // is still unattached here — the write phase fills it — so the
+            // element type is rebuilt from the declaration, exactly as the
+            // parameter's own is).
+            bool typedObj = false;
+            const ParameterSymbol* psym = nullptr;
+            std::string rn(((const UHDM::ref_obj*)slot)->VpiName());
+            if (parentM && parentM->Parameters())
+                for (auto* pp : *parentM->Parameters())
+                    if (pp->UhdmType() == UHDM::uhdmparameter &&
+                        pp->VpiName() == rn) {
+                        typedObj = ((UHDM::parameter*)pp)->Typespec() != nullptr;
+                        break;
+                    }
+            if (typedObj && body)
+                for (auto& mem : body->members())
+                    if (mem.kind == SymbolKind::Parameter && mem.name == rn) {
+                        psym = &mem.as<ParameterSymbol>();
+                        break;
+                    }
+            if (psym) {
+                c->VpiSize((int32_t)psym->getType().getBitWidth());
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiFullName(tsName);
+                rt->VpiParent(c);
+                auto* its = s.MakeInt_typespec();
+                bool typedDecl = false;
+                if (auto dt = psym->getDeclaredType())
+                    if (auto tsn = dt->getTypeSyntax();
+                        tsn && tsn->kind != syntax::SyntaxKind::ImplicitType) {
+                        typedDecl = true;
+                        setLoc(its, tsn->sourceRange());
+                        its->VpiSigned(
+                            psym->getType().getCanonicalType().isSigned());
+                    }
+                if (!typedDecl)
+                    for (auto q = psym->getSyntax(); q; q = q->parent)
+                        if (q->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                            setLoc(its, q->sourceRange());
+                            break;
+                        }
+                its->VpiParent(rt);
+                rt->Actual_typespec(its);
+                c->Typespec(rt);
+            }
+            c->VpiParent(op);
+            slot = c;
+            any = true;
+        }
+        else if (foldBareParamBoundIn(body, parentM, slot, tsName))
+            any = true;
+    }
+    return any;
 }
 
 // An INSTANCE ARRAY (myif arr[N]) is a module_array (vpiModuleArray) — the
@@ -6346,11 +6455,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             lcA9->VpiParent(pselA9);
                             pselA9->Left_range(lcA9);
                         }
+                        else
+                            foldBareParamBoundIn(
+                                encA9, parentM, pselA9->Left_range(),
+                                std::string(pselA9->VpiFullName()));
                         if (auto* rcA9 =
                                 foldBareParamBound(s, encA9, pselA9->Right_range())) {
                             rcA9->VpiParent(pselA9);
                             pselA9->Right_range(rcA9);
                         }
+                        else
+                            foldBareParamBoundIn(
+                                encA9, parentM, pselA9->Right_range(),
+                                std::string(pselA9->VpiFullName()));
                     }
                     // Gen-scope child HighConn refs bind their GEN-LOCAL
                     // nets (hierdefparam mod_b(.A(a))).
@@ -17956,7 +18073,13 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         // weakly-referenced tail keeps arena order.
                         auto* lts3 = s.MakeLogic_typespec();
                         setLoc(lts3, dd.type->sourceRange());
-                        if (dd.type->kind == syntax::SyntaxKind::LogicType) {
+                        // `reg` is a RegType, not a LogicType — same
+                        // IntegerTypeSyntax, same logic_typespec, and its
+                        // packed dims are just as much part of the element
+                        // type (BasicOh oh_memory_dp `reg [N-1:0] ram
+                        // [0:DEPTH-1]`, whose element ts came out rangeless).
+                        if (dd.type->kind == syntax::SyntaxKind::LogicType ||
+                            dd.type->kind == syntax::SyntaxKind::RegType) {
                             auto& its4 = dd.type->as<syntax::IntegerTypeSyntax>();
                             auto* prv3 = s.MakeRangeVec();
                             for (auto* dim : its4.dimensions) {

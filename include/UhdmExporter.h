@@ -725,6 +725,11 @@ private:
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
                                 bool parentBounds = false);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
+    // Substitutes parameter leaves inside an elab child's part-select bound
+    // OPERATION (see ModuleEmit).
+    bool foldBareParamBoundIn(const slang::ast::InstanceBodySymbol* body,
+                              const UHDM::instance* parentM, UHDM::any* be,
+                              const std::string& tsName);
     // True when Surelog's ExprEval reduces this const function to one
     // constant (the three measured bail rules — see ParamEmit).
     bool srlgEvalFuncFolds(const slang::ast::SubroutineSymbol& sub);
@@ -1972,6 +1977,13 @@ private:
     bool genCaLhsReelab = false;
     // True inside part_select bound emission (fold scope for the above).
     bool inPsBound = false;
+    // While emitting a bit_select INDEX under genCaLhsParamFold: the SELECT
+    // BASE's fullname.  A module-param read folded there scopes its
+    // ref_typespec at the base, not at the gen scope (BasicOh
+    // `sync_pipe[SYNCPIPE]` vs the plain `DELAY` operand beside it).
+    std::string genCaSelBasePfx;
+    // Depth of unpacked-array var_select INDEX emission (`ram[x[P-1:0]][i]`).
+    int varSelIdxDepth = 0;
     // True inside a RANGED part_select's Left/Right range emission.  Measured
     // (purpose-built gen-for golden, `child m(A[i+1:i], A[i*W +: W], A[i+1],
     // A[i], C[i+1:i])`): Surelog's per-iteration gen-scope conns fold a

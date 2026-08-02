@@ -79,8 +79,8 @@ BadLabel,default,SLANG_REJECT,dut.sv:2:14: error: 'bad_pack' doesn't match previ
 BadLabel,testflags,SLANG_REJECT,dut.sv:2:14: error: 'bad_pack' doesn't match previous name 'pack',,
 BadScope,default,SLANG_REJECT,dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
 BadScope,testflags,SLANG_REJECT,dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
-BasicOh,default,CMP_NOTEQUAL,decompile:,,
-BasicOh,testflags,CMP_NOTEQUAL,decompile:,,
+BasicOh,default,CMP_EQUAL,,,differ
+BasicOh,testflags,CMP_EQUAL,,,differ
 BeginKeywords,default,CMP_NOTEQUAL,decompile:,,
 BeginKeywords,testflags,CMP_NOTEQUAL,decompile:,,
 BiasValue,default,CMP_EQUAL,,,differ
