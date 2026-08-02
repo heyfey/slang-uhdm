@@ -1374,6 +1374,27 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
             return sts;
         }
+        // An ANONYMOUS UNPACKED struct (`struct { .. } s;`) is the missing
+        // sibling of the packed arm above and of the union arm before it:
+        // the WRITTEN type decides the typespec class, so it too builds an
+        // unnamed struct_typespec — not the integral fallback.  Surelog
+        // anchors it at the bare `struct` keyword (PatternOrder's module-scope
+        // `struct { .. } ABC = '{..}`, AssignRhsFlat's nested member struct
+        // `struct { logic B; int C; } BC1, BC2;`); an initialized declaration
+        // then stretches the def-view end through its init exactly as for a
+        // vector (materializeDefNetTs).
+        if (st->kind == SymbolKind::UnpackedStructType) {
+            auto* sts = buildStructTs(st->as<UnpackedStructType>(), false, "");
+            const syntax::SyntaxNode* ssyn =
+                arrayElem ? st->getSyntax() : declared->getTypeSyntax();
+            if (ssyn) {
+                if (auto* su = ssyn->as_if<syntax::StructUnionTypeSyntax>())
+                    setLoc(sts, su->keyword.range());
+                else
+                    setLoc(sts, ssyn->sourceRange());
+            }
+            return sts;
+        }
     }
     // 2-state (bit) vectors take a bit_typespec; 4-state stay logic.
     // An UNPACKED array's element ts keys on its packed LEAF (bit [0:0][0:0]
@@ -6365,7 +6386,17 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 auto* sfc = s.MakeSys_func_call();
                 sfc->VpiName(sysName);
                 sfc->VpiParent(parent);
-                setLoc(sfc, syn.sourceRange());
+                // Inside a CAST SIZE the call keeps the NAME-token span
+                // ($clog2, not $clog2(RomSize)) — the same rule the bound
+                // emitter applies through inCastSize, measured on the two
+                // $clog2 calls of ClogCast (line 55 plain gen-if condition ->
+                // full span; line 63 the same call as a cast size -> name).
+                if (inCastSize)
+                    setLoc(sfc, SourceRange(syn.sourceRange().start(),
+                                            syn.sourceRange().start() +
+                                                sysName.size()));
+                else
+                    setLoc(sfc, syn.sourceRange());
                 if (inv.arguments) {
                     auto* args = s.MakeAnyVec();
                     for (auto arg : inv.arguments->parameters) {
@@ -6463,26 +6494,117 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             op->VpiParent(parent);
             setLoc(op, syn.sourceRange());
             UHDM::typespec* cts = nullptr;
-            if (ce.left->kind == syntax::SyntaxKind::IntType) {
-                auto* t = s.MakeInt_typespec();
-                t->VpiSigned(true);
-                cts = t;
+            // The cast target's typespec CLASS follows the WRITTEN target, in
+            // the def (syntax) view exactly as in the bound one: a type
+            // keyword takes that keyword's typespec class, and anything else
+            // is a SIZE expression, which Surelog compiles into an
+            // integer_typespec (`Cast_to_size` -> `compileExpression` on the
+            // size, hung on the typespec as vpiExpr, or a direct INT value
+            // for a literal).  Measured def-view matrix (gen-if conditions,
+            // purpose-built golden r10c5 t5.sv): `5'(N)` -> integer_typespec
+            // at the literal with `INT:5`; `$clog2(N)'(N)` -> integer_typespec
+            // spanning `$clog2(N)` with vpiExpr = the sys_func_call;
+            // `(N+1)'(N)` -> integer_typespec spanning `N+1` (parens dropped)
+            // with vpiExpr = the operation; `int'`/`byte'`/`shortint'`/
+            // `integer'` -> int_/byte_/short_int_/integer_typespec.
+            SourceRange ctsRange = ce.left->sourceRange();
+            switch (ce.left->kind) {
+                case syntax::SyntaxKind::IntType: {
+                    auto* t = s.MakeInt_typespec();
+                    t->VpiSigned(true);
+                    cts = t;
+                    break;
+                }
+                case syntax::SyntaxKind::IntegerType: {
+                    auto* t = s.MakeInteger_typespec();
+                    t->VpiSigned(true);
+                    cts = t;
+                    break;
+                }
+                case syntax::SyntaxKind::ByteType: {
+                    auto* t = s.MakeByte_typespec();
+                    t->VpiSigned(true);
+                    cts = t;
+                    break;
+                }
+                case syntax::SyntaxKind::ShortIntType: {
+                    auto* t = s.MakeShort_int_typespec();
+                    t->VpiSigned(true);
+                    cts = t;
+                    break;
+                }
+                case syntax::SyntaxKind::LongIntType: {
+                    auto* t = s.MakeLong_int_typespec();
+                    t->VpiSigned(true);
+                    cts = t;
+                    break;
+                }
+                case syntax::SyntaxKind::TimeType:
+                    cts = s.MakeTime_typespec();
+                    break;
+                case syntax::SyntaxKind::BitType:
+                    cts = s.MakeBit_typespec();
+                    break;
+                case syntax::SyntaxKind::LogicType:
+                case syntax::SyntaxKind::RegType:
+                    cts = s.MakeLogic_typespec();
+                    break;
+                // An IDENTIFIER cast target (a parameter width XLEN'(x) or a
+                // typedef name) is UNRESOLVED in the def view — Surelog emits
+                // an unsupported_typespec NAMED by the written token, exactly
+                // as the def-view gen-block PROCEDURAL path does (see
+                // defGenProcessEmit in ExprEmit). rp32_r5p_alu's gen_shf
+                // `XLEN'($signed(shf_ext) >>> shf_amm)`; the elaborated view
+                // still folds to int_typespec(XLEN).
+                case syntax::SyntaxKind::IdentifierName: {
+                    auto* t = s.MakeUnsupported_typespec();
+                    t->VpiName(std::string(rawText(ce.left->sourceRange())));
+                    cts = t;
+                    break;
+                }
+                // A PACKAGE-SCOPED target (p::Q'(x), p::nib_t'(x)) is a TYPE
+                // name to Surelog, not a size: it resolves through the
+                // package (a param width -> that param's bare int_typespec
+                // with the folded value; a typedef -> the shared named
+                // typespec object).  Neither is reconstructible from syntax
+                // alone here, so keep the historical unnamed logic_typespec
+                // — RANKED residue, measured against golden in r10c5's t6.sv.
+                case syntax::SyntaxKind::ScopedName:
+                    cts = s.MakeLogic_typespec();
+                    break;
+                default:
+                    break;
             }
-            // An IDENTIFIER cast target (a parameter width XLEN'(x) or a
-            // typedef name) is UNRESOLVED in the def view — Surelog emits an
-            // unsupported_typespec NAMED by the written token, exactly as the
-            // def-view gen-block PROCEDURAL path does (see defGenProcessEmit
-            // in ExprEmit). rp32_r5p_alu's gen_shf `XLEN'($signed(shf_ext) >>>
-            // shf_amm)`; the elaborated view still folds to int_typespec(XLEN).
-            else if (ce.left->kind == syntax::SyntaxKind::IdentifierName) {
-                auto* t = s.MakeUnsupported_typespec();
-                t->VpiName(std::string(rawText(ce.left->sourceRange())));
-                cts = t;
+            if (!cts) {
+                // Size cast. Parens around the size expression are not part
+                // of the typespec span.
+                const syntax::SyntaxNode* sz = ce.left;
+                while (sz->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    sz = sz->as<syntax::ParenthesizedExpressionSyntax>()
+                             .expression;
+                ctsRange = sz->sourceRange();
+                auto* its = s.MakeInteger_typespec();
+                if (sz->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                    its->VpiValue("INT:" + rawText(ctsRange));
+                else {
+                    // A SYSTEM CALL in a cast size is a TYPE-context bound
+                    // like a typedef's: its sys_func_call keeps the NAME span
+                    // ($clog2, not $clog2(RomSize)) — measured against the
+                    // SAME call written as a plain gen-if condition in the
+                    // same file, which keeps the full span (ClogCast lines
+                    // 55 vs 63).
+                    bool savedBCN9 = boundCallNameSpan, savedCS9 = inCastSize;
+                    boundCallNameSpan = true;
+                    inCastSize = true;
+                    auto* se = emitSyntaxExpr(*sz, op);
+                    boundCallNameSpan = savedBCN9;
+                    inCastSize = savedCS9;
+                    if (se)
+                        its->Expr((UHDM::expr*)se);
+                }
+                cts = its;
             }
-            else {
-                cts = s.MakeLogic_typespec();
-            }
-            setLoc((UHDM::BaseClass*)cts, ce.left->sourceRange());
+            setLoc((UHDM::BaseClass*)cts, ctsRange);
             auto* rt = s.MakeRef_typespec();
             if (!syntaxRefPrefix.empty())
                 rt->VpiFullName(syntaxRefPrefix);

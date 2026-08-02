@@ -247,8 +247,8 @@ ClockingDrive,default,SLANG_REJECT,dut.sv:6:31: error: use of undeclared identif
 ClockingDrive,testflags,SLANG_REJECT,dut.sv:6:31: error: use of undeclared identifier 'clk',,
 ClockingSntx,default,SLANG_REJECT,dut.sv:2:24: error: use of undeclared identifier 'clock',,
 ClockingSntx,testflags,SLANG_REJECT,dut.sv:2:24: error: use of undeclared identifier 'clock',,
-ClogCast,default,CMP_NOTEQUAL,decompile:,,
-ClogCast,testflags,CMP_NOTEQUAL,decompile:,,
+ClogCast,default,CMP_EQUAL,,,match
+ClogCast,testflags,CMP_EQUAL,,,match
 ClogParam,default,CMP_EQUAL,,,differ
 ClogParam,testflags,CMP_EQUAL,,,differ
 CmdLineOverride,default,CMP_EQUAL,,,match
@@ -1115,8 +1115,8 @@ PkgImportFunc,default,CMP_EQUAL,,,differ
 PkgImportFunc,testflags,CMP_EQUAL,,,differ
 PkgImportPkg,default,SLANG_REJECT,dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_req_t'?,,
 PkgImportPkg,testflags,SLANG_REJECT,dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_req_t'?,,
-PortByName,default,CMP_NOTEQUAL,decompile:,,
-PortByName,testflags,CMP_NOTEQUAL,decompile:,,
+PortByName,default,CMP_EQUAL,,,differ
+PortByName,testflags,CMP_EQUAL,,,differ
 PortComplex,default,CMP_EQUAL,,,differ
 PortComplex,testflags,CMP_EQUAL,,,differ
 PortDefaultValue,default,CMP_EQUAL,,,differ

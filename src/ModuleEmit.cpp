@@ -11832,38 +11832,22 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                         }
                     }
                 }
-                // A DEF-view UNPACKED-array port of a 2-STATE (bit) element
-                // wraps its element ts in an array_typespec (vpiArrayType,
-                // one range per unpacked dim, spanning type..last-dim) —
-                // Surelog. 4-state elements keep the bare element ts.
-                bool twoStateArr9 = false;
-                if (internal->getDeclaredType() &&
+                // EVERY DEF-view UNPACKED-array port wraps its element ts in
+                // an array_typespec (vpiArrayType, one range per unpacked dim,
+                // spanning type..last-dim) — the element class is irrelevant.
+                // Measured matrix (r10c5 ta.sv/tb.sv, purpose-built goldens):
+                // `logic [33:0] p[2]`, `logic p[2]`, `bit [33:0] p[2]`,
+                // `int p[2]`, ANSI and non-ANSI headers, non-top defs and a
+                // TOP module's own def listing — all wrap; only the ELAB
+                // (instance) port keeps the bare element ts, which is the
+                // topView arm below.  (The earlier 2-state-only rule was a
+                // narrower reading of the same measurement.)  PortByName.
+                bool twoStateArr9 =
+                    internal->getDeclaredType() &&
                     internal->getDeclaredType()
                             ->getType()
                             .getCanonicalType()
-                            .kind == SymbolKind::FixedSizeUnpackedArrayType) {
-                    const Type* lf9 = &internal->getDeclaredType()
-                                           ->getType()
-                                           .getCanonicalType();
-                    while (lf9->getCanonicalType().kind ==
-                           SymbolKind::FixedSizeUnpackedArrayType)
-                        lf9 = &lf9->getCanonicalType()
-                                   .as<FixedSizeUnpackedArrayType>()
-                                   .elementType;
-                    auto& lc9 = lf9->getCanonicalType();
-                    // BIT-kind leaves (scalar/vector) and packed-STRUCT
-                    // leaves wrap; predefined int/byte and plain logic
-                    // vectors keep the bare element ts (Surelog).
-                    twoStateArr9 = ((lc9.kind == SymbolKind::ScalarType ||
-                                     lc9.kind == SymbolKind::PackedArrayType) &&
-                                    lc9.isIntegral() && !lc9.isFourState()) ||
-                                   lc9.kind == SymbolKind::PackedStructType;
-                    // A BOUND-ONLY def (compiled late from the bound
-                    // instance) wraps 4-state elements too (mriscv s2qed
-                    // cpu0_reg[31:0]).
-                    if (bindDefDisplay.count(&body.getDefinition()))
-                        twoStateArr9 = true;
-                }
+                            .kind == SymbolKind::FixedSizeUnpackedArrayType;
                 // An unpacked-array-of-packed-STRUCT port's ELEMENT ts is the
                 // element typedef's SHARED struct typespec (Surelog), not a
                 // synthesized element logic typespec.
