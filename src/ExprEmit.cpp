@@ -3619,7 +3619,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             bool deferredCast = false;
             if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
                 auto& cesyn = effCastSyn->as<syntax::CastExpressionSyntax>();
-                if (cesyn.left->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
+                // A DEF-view gen-block PROCEDURAL cast whose target is written
+                // as a bare IDENTIFIER is UNRESOLVED: Surelog compiles the
+                // generate body without instance context, so an imported
+                // typedef name (`rggen_access'(0)` inside an `always_ff` in a
+                // `generate if`) becomes an unsupported_typespec NAMED as
+                // written, exactly like the def-view gen CONT-ASSIGN path
+                // already emits (emitSyntaxExpr's CastExpression arm) and like
+                // the sibling parameter-WIDTH rule below.  The elaborated view
+                // still resolves to the real typespec.
+                if (defGenProcessEmit &&
+                    cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
+                    auto lrU = cesyn.left->sourceRange();
+                    auto* utsU = s.MakeUnsupported_typespec();
+                    utsU->VpiName(std::string(rawText(lrU)));
+                    setLoc(utsU, lrU);
+                    cts = utsU;
+                }
+                if (cts) {
+                    // Bound above; the shared ref_typespec wrap emits it.
+                }
+                else if (cesyn.left->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
                     if (reemitting) {
                         // Created at the end of the write phase.
                         auto* rt0 = s.MakeRef_typespec();

@@ -5724,8 +5724,41 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                      conn.first->kind == SymbolKind::InstanceArray) {
                 auto& parr = conn.first->as<InstanceArraySymbol>();
                 int32_t plo = std::min(parr.range.left, parr.range.right);
+                // Locate the port declarator (and its [dim]) FIRST: for a
+                // SIZE-specified dimension the element count comes from
+                // Surelog's `ExprBuilder::evalExpr`, which does not resolve
+                // the instance's parameters in this slot — `m[N]` therefore
+                // fans out to exactly ONE member view (`m[0]`) however wide
+                // the array really is, while `m[2*2]` fans out to four and
+                // the `[msb:lsb]` form always fans out fully.
+                const syntax::DeclaratorSyntax* decl = nullptr;
+                const syntax::VariableDimensionSyntax* dim = nullptr;
+                for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
+                    if (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
+                        decl = sy->as<syntax::ImplicitAnsiPortSyntax>()
+                                   .declarator;
+                        break;
+                    }
+                    if (sy->kind == syntax::SyntaxKind::Declarator && !decl)
+                        decl = &sy->as<syntax::DeclaratorSyntax>();
+                }
+                if (decl && !decl->dimensions.empty())
+                    dim = *decl->dimensions.begin();
+                size_t nElem = parr.elements.size();
+                if (dim && dim->specifier &&
+                    dim->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier) {
+                    auto& sel0 =
+                        *dim->specifier
+                             ->as<syntax::RangeDimensionSpecifierSyntax>()
+                             .selector;
+                    if (auto* bs0 = sel0.as_if<syntax::BitSelectSyntax>())
+                        if (bs0->expr &&
+                            !sizeDimFoldsWithoutParams(*bs0->expr))
+                            nElem = 1;
+                }
                 auto* insts = s.MakeInstanceVec();
-                for (size_t i = 0; i < parr.elements.size(); i++) {
+                for (size_t i = 0; i < parr.elements.size() && i < nElem; i++) {
                     auto* e = parr.elements[i];
                     if (!e || e->kind != SymbolKind::Instance)
                         continue;
@@ -5752,22 +5785,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 iarr->VpiParent(m);
                 iarr->VpiSize((int32_t)insts->size());
                 // Locate at the port-declarator name; range at the [dim].
-                const syntax::DeclaratorSyntax* decl = nullptr;
-                const syntax::VariableDimensionSyntax* dim = nullptr;
-                for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
-                    if (sy->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
-                        decl = sy->as<syntax::ImplicitAnsiPortSyntax>()
-                                   .declarator;
-                        break;
-                    }
-                    if (sy->kind == syntax::SyntaxKind::Declarator && !decl)
-                        decl = &sy->as<syntax::DeclaratorSyntax>();
-                }
-                if (decl) {
+                if (decl)
                     setLoc(iarr, decl->name.range());
-                    if (!decl->dimensions.empty())
-                        dim = *decl->dimensions.begin();
-                }
                 if (dim) {
                     auto* rng = s.MakeRange();
                     // The ELAB interface_array's dimension range is left bare
@@ -5775,6 +5794,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // back-point at the range. (The DEF-view interface_array,
                     // built by makeIfaceArrayPortTs, DOES parent its range.)
                     setLoc(rng, dim->sourceRange());
+                    // A SIZE-specified dimension keeps its `0 : E-1` subOp
+                    // unfolded here too — only the `[msb:lsb]` branch reduces.
+                    bool sizeForm =
+                        fillSizeDimRange(rng, *dim, &inst.body,
+                                         (int64_t)parr.elements.size(), m);
                     const syntax::ExpressionSyntax* leftSyn = nullptr;
                     const syntax::ExpressionSyntax* rightSyn = nullptr;
                     if (dim->specifier &&
@@ -5813,8 +5837,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             setLoc(c, bs->getFirstToken().range());
                         return c;
                     };
-                    rng->Left_expr(mkFold(leftSyn, parr.range.left));
-                    rng->Right_expr(mkFold(rightSyn, parr.range.right));
+                    if (!sizeForm) {
+                        rng->Left_expr(mkFold(leftSyn, parr.range.left));
+                        rng->Right_expr(mkFold(rightSyn, parr.range.right));
+                    }
                     auto* rvec = s.MakeRangeVec();
                     rvec->push_back(rng);
                     iarr->Ranges(rvec);
@@ -7153,13 +7179,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // that its module writer does (OneNetModPort work@TOP.tb carries only
         // vpiPort/vpiProcess, while the sibling module middle1 also carries
         // vpiInterface intf).
-        if (m->UhdmType() != UHDM::uhdmprogram)
+        // An instance that DECLARES an interface of its own lists ONLY those:
+        // `UhdmWriter::writeInstance` assigns the netlist's (port-derived)
+        // interface vector through a variable SHADOWED inside the `if
+        // (VectorOfinterface_inst* subInterfaces = netlist->interfaces())`
+        // block (`UhdmWriter.cpp:4443`), so the outer `subInterfaces` is still
+        // null when the child walk hits the first `paInterface_instantiation`
+        // and builds a FRESH vector that overwrites `Interfaces()`
+        // (`UhdmWriter.cpp:4560-4585`).  Measured: a module with a `my_if.slave`
+        // port and a local `my_if loc()` lists `loc` alone, while the same
+        // module without the local instance lists the port view `s_if`.
+        if (m->UhdmType() != UHDM::uhdmprogram && allIf->empty()) {
             for (auto* pv : *portIfaces)
                 allIf->push_back(pv);
-        // The unnamed-concat interface reading lists ONE object twice.
-        if (ucIf9) {
-            allIf->push_back(ucIf9);
-            allIf->push_back(ucIf9);
+            // The unnamed-concat interface reading lists ONE object twice.
+            if (ucIf9) {
+                allIf->push_back(ucIf9);
+                allIf->push_back(ucIf9);
+            }
         }
         if (!allIf->empty())
             instSetInterfaces(m, allIf);
@@ -16343,6 +16380,144 @@ UHDM::interface_typespec* UhdmExporter::makeIfacePortTs(const InterfacePortSymbo
     return its;
 }
 
+bool UhdmExporter::sizeDimFoldsWithoutParams(
+    const syntax::ExpressionSyntax& e) {
+    switch (e.kind) {
+        case syntax::SyntaxKind::IntegerLiteralExpression:
+        case syntax::SyntaxKind::IntegerVectorExpression:
+        case syntax::SyntaxKind::RealLiteralExpression:
+            return true;
+        case syntax::SyntaxKind::ParenthesizedExpression:
+            return sizeDimFoldsWithoutParams(
+                *e.as<syntax::ParenthesizedExpressionSyntax>().expression);
+        default:
+            break;
+    }
+    if (auto* pre = e.as_if<syntax::PrefixUnaryExpressionSyntax>())
+        return sizeDimFoldsWithoutParams(*pre->operand);
+    if (auto* bin = e.as_if<syntax::BinaryExpressionSyntax>())
+        return sizeDimFoldsWithoutParams(*bin->left) &&
+               sizeDimFoldsWithoutParams(*bin->right);
+    return false;
+}
+
+bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
+                                    const syntax::VariableDimensionSyntax& dim,
+                                    const Scope* foldScope, int64_t foldVal,
+                                    const UHDM::instance* mInst) {
+    if (!dim.specifier ||
+        dim.specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+        return false;
+    auto& sel =
+        *dim.specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+    auto* bs = sel.as_if<syntax::BitSelectSyntax>();
+    if (!bs || !bs->expr)
+        return false;
+    // `0` — a UINT constant that DOES carry a decompile string.
+    auto* lo = s.MakeConstant();
+    lo->VpiConstType(vpiUIntConst);
+    lo->VpiSize(64);
+    lo->VpiValue("UINT:0");
+    lo->VpiDecompile("0");
+    lo->VpiParent(r);
+    r->Left_expr(lo);
+    // `E - 1` — an explicit vpiSubOp whose `1` carries NO decompile string
+    // (Surelog sets only Value/ConstType/Size on it).
+    auto* op = s.MakeOperation();
+    op->VpiOpType(vpiSubOp);
+    op->VpiParent(r);
+    setLoc(op, bs->expr->sourceRange());
+    auto* ops = s.MakeAnyVec();
+    UHDM::any* sizeOperand = nullptr;
+    if (foldScope && foldVal >= 0) {
+        // A bare parameter reference reduces to that parameter's own elab
+        // value object — value string, size and const type included (`int P`
+        // defaulted reads UINT size 32, the same P overridden by an unsized
+        // literal reads UINT size 64, and a `bit [7:0] Q` default reads INT
+        // size 8: all three are the param_assign Rhs verbatim).
+        if (auto* id = bs->expr->as_if<syntax::IdentifierNameSyntax>()) {
+            const Symbol* sym = foldScope->find(id->identifier.valueText());
+            // An OVERRIDDEN parameter reduces through the OVERRIDE expression,
+            // not through the param_assign value that the declared type has
+            // already narrowed: `#(4)` on an `int P` reads size 64 at the use
+            // site while `P`'s own param_assign Rhs reads size 32.
+            if (sym && sym->kind == SymbolKind::Parameter &&
+                sym->as<ParameterSymbol>().isOverridden())
+                if (auto dt = sym->as<ParameterSymbol>().getDeclaredType())
+                    if (auto* isyn = dt->getInitializerSyntax())
+                        if (auto* ov = emitSyntaxExpr(*isyn, op))
+                            if (ov->UhdmType() == UHDM::uhdmconstant) {
+                                setLoc((UHDM::constant*)ov,
+                                       bs->expr->sourceRange());
+                                sizeOperand = ov;
+                            }
+            // Otherwise it reduces to this view's own param_assign value.
+            if (!sizeOperand && sym && mInst && mInst->Param_assigns())
+                for (auto* pa : *mInst->Param_assigns()) {
+                    if (!pa->Lhs() || pa->Lhs()->VpiName() != sym->name)
+                        continue;
+                    if (!pa->Rhs() ||
+                        pa->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                        break;
+                    auto* src = (const UHDM::constant*)pa->Rhs();
+                    auto* c = s.MakeConstant();
+                    c->VpiValue(std::string(src->VpiValue()));
+                    c->VpiDecompile(std::string(src->VpiDecompile()));
+                    c->VpiSize(src->VpiSize());
+                    c->VpiConstType(src->VpiConstType());
+                    c->VpiParent(op);
+                    setLoc(c, bs->expr->sourceRange());
+                    // The reduced value keeps the parameter's own type link.
+                    // The reduced value carries the parameter's type link only
+                    // for a PREDEFINED-integer parameter: `int P` reduces to a
+                    // constant with an int_typespec ref, while `bit [7:0] Q`
+                    // reduces to a bare constant (measured pair).
+                    if (auto* srt = src->Typespec();
+                        srt && sym->as<ParameterSymbol>()
+                                   .getType()
+                                   .isPredefinedInteger()) {
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiFullName(std::string(srt->VpiFullName()));
+                        rt->VpiParent(c);
+                        c->Typespec(rt);
+                        // The param's own elab typespec clone may not exist
+                        // yet (patchParamTypespecs mints it later).
+                        bindOrParkParamTs(sym->as<ParameterSymbol>(), rt);
+                    }
+                    sizeOperand = c;
+                    break;
+                }
+        }
+        // A literal ARITHMETIC bound (`[2*2]`) reduces to a signed INT; a bare
+        // literal is already the right object and keeps its written spelling.
+        if (!sizeOperand &&
+            bs->expr->kind != syntax::SyntaxKind::IntegerLiteralExpression &&
+            sizeDimFoldsWithoutParams(*bs->expr)) {
+            auto* c = s.MakeConstant();
+            c->VpiValue("INT:" + std::to_string(foldVal));
+            c->VpiDecompile(std::to_string(foldVal));
+            c->VpiSize(64);
+            c->VpiConstType(vpiIntConst);
+            c->VpiParent(op);
+            setLoc(c, bs->expr->sourceRange());
+            sizeOperand = c;
+        }
+    }
+    if (!sizeOperand)
+        sizeOperand = emitSyntaxExpr(*bs->expr, op);
+    if (sizeOperand)
+        ops->push_back(sizeOperand);
+    auto* one = s.MakeConstant();
+    one->VpiConstType(vpiIntConst);
+    one->VpiSize(64);
+    one->VpiValue("INT:1");
+    one->VpiParent(op);
+    ops->push_back(one);
+    op->Operands(ops);
+    r->Right_expr(op);
+    return true;
+}
+
 UHDM::array_typespec* UhdmExporter::makeIfaceArrayPortTs(
     const InterfacePortSymbol& ip, UHDM::instance* mod,
     const std::string& prefix) {
@@ -16373,6 +16548,9 @@ UHDM::array_typespec* UhdmExporter::makeIfaceArrayPortTs(
         auto* r = s.MakeRange();
         r->VpiParent(rparent);
         setLoc(r, dim->sourceRange());
+        // `[E]` (size form) is `0 : E-1` with an unfolded vpiSubOp.
+        if (fillSizeDimRange(r, *dim))
+            return r;
         const syntax::ExpressionSyntax* leftSyn = nullptr;
         const syntax::ExpressionSyntax* rightSyn = nullptr;
         if (dim->specifier &&

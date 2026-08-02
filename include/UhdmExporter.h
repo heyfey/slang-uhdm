@@ -52,6 +52,7 @@ namespace slang::syntax {
 class SyntaxNode;
 struct DataTypeSyntax;
 struct ExpressionSyntax;
+struct VariableDimensionSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -422,6 +423,33 @@ private:
     UHDM::array_typespec* makeIfaceArrayPortTs(
         const slang::ast::InterfacePortSymbol& ip, UHDM::instance* mod,
         const std::string& prefix);
+    // A SIZE-specified unpacked dimension (`[E]`, not `[msb:lsb]`) is built by
+    // Surelog's CompileHelper::compileRanges as `0 : E-1` with the decrement
+    // left as an EXPLICIT vpiSubOp operation, never folded — in BOTH the def
+    // and the elab view (`CompileExpression.cpp:4046-4151`).  The `[msb:lsb]`
+    // form is the other branch and DOES reduce its bounds, which is why an
+    // elab `m[2-1:0]` carries two constants while an elab `m[N]` carries
+    // `0 : (N-1)`.  Fills `r` with that pair; returns false when `dim` is not
+    // the size form (caller keeps its own msb:lsb handling).
+    // `foldScope`/`foldVal` are the ELAB view's extra step: `compileExpression`
+    // runs there with `Reduce::Yes`, so `E` itself collapses to the instance's
+    // value (a parameter reference takes its own elab param_assign constant
+    // verbatim — same value string, size and const type — and a literal
+    // ARITHMETIC bound becomes a signed INT).  Left null/-1 for the def view,
+    // where `E` stays the written tree.
+    bool fillSizeDimRange(UHDM::range* r,
+                          const slang::syntax::VariableDimensionSyntax& dim,
+                          const slang::ast::Scope* foldScope = nullptr,
+                          int64_t foldVal = -1,
+                          const UHDM::instance* mInst = nullptr);
+    // Surelog's `ExprBuilder::evalExpr` is what sizes a size-specified
+    // dimension, and in the port-elaboration slot it does NOT see the
+    // instance's parameter values, so `m[N]` sizes to 1 while `m[2*2]` sizes
+    // to 4 (measured on a 5-way golden: literal / literal-arithmetic /
+    // defaulted param / overridden param / `[P-1:0]`).  True when every leaf
+    // of the size expression is a literal, i.e. when Surelog would fold it.
+    static bool sizeDimFoldsWithoutParams(
+        const slang::syntax::ExpressionSyntax& e);
     // Dotted interface-member path (s.req.adr) -> hier_path with per-token
     // ref_obj elements; the LAST element carries a module-scoped fullname.
     UHDM::hier_path* buildDottedHierPath(const slang::ast::Expression& expr,
