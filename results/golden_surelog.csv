@@ -295,8 +295,8 @@ ConstantRange,default,CMP_EQUAL,,,differ
 ConstantRange,testflags,CMP_EQUAL,,,differ
 ConstantWithElabUhdm,default,CMP_EQUAL,,,match
 ConstantWithElabUhdm,testflags,CMP_EQUAL,,,match
-ConstCapital,default,CMP_NOTEQUAL,decompile:,,
-ConstCapital,testflags,CMP_NOTEQUAL,decompile:,,
+ConstCapital,default,CMP_EQUAL,,,differ
+ConstCapital,testflags,CMP_EQUAL,,,match
 ConstExpand,default,CMP_EQUAL,,,match
 ConstExpand,testflags,CMP_EQUAL,,,match
 ConstHighConn,default,SLANG_REJECT,dut.sv:7:13: error: expression is not assignable,,

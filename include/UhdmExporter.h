@@ -1159,6 +1159,20 @@ private:
     // True while emitting an elaborated generate-scope process: refs to outer
     // (module) signals are left unbound (no Actual_group), as Surelog does.
     bool suppressRefActual = false;
+    // Root source file of the $unit PARAMETER whose own typespec range bound is
+    // being emitted, while that bound was classified CROSS-FILE (see
+    // makeTypespec's `unitParamTs`). A $unit param ref inside it that resolves
+    // to a parameter declared in a DIFFERENT root file stays UNBOUND: Surelog
+    // never saw that declaration while compiling this file, so its ref_obj
+    // carries no vpiActual. Empty = inactive.
+    std::string unitXFileRoot;
+    // True while emitting a construct whose $unit parameter reads are left
+    // UNBOUND (no vpiActual): if-generate CONDITIONS and DEF-view gen-block
+    // continuous assigns. Surelog resolves those against the compilation-unit
+    // VALUE, never its object, so the ref_obj it records dangles — the same
+    // reason def-view gen CA refs to module signals carry no actual.
+    // Module/package param and enum-const refs still bind.
+    bool noUnitParamActual = false;
     // True while emitting DEF-view gen-block processes (all refs unbound,
     // including enum consts).
     bool defGenProcessEmit = false;

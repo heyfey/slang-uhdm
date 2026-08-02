@@ -38,6 +38,62 @@ static bool typeWidthUsesParam(const Symbol& sym) {
     return found;
 }
 
+// The packed dimensions written after a NAMED type (`my_vec_t [1:`N-1] x`)
+// are parsed by slang onto the type's NAME — an `IdentifierSelectName` whose
+// selectors carry them — not onto the `DataTypeSyntax`, which is a bare
+// `NamedTypeSyntax`.  Returns the (left, right) bound expressions per dim.
+static std::vector<
+    std::pair<const syntax::ExpressionSyntax*, const syntax::ExpressionSyntax*>>
+namedTypeDimBounds(const syntax::SyntaxNode* tsyn) {
+    std::vector<std::pair<const syntax::ExpressionSyntax*,
+                          const syntax::ExpressionSyntax*>>
+        out;
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return out;
+    const syntax::NameSyntax* nm = tsyn->as<syntax::NamedTypeSyntax>().name;
+    if (!nm || nm->kind != syntax::SyntaxKind::IdentifierSelectName)
+        return out;
+    for (const syntax::ElementSelectSyntax* sel :
+         nm->as<syntax::IdentifierSelectNameSyntax>().selectors) {
+        const syntax::SelectorSyntax* sl = sel ? sel->selector : nullptr;
+        if (sl && sl->kind == syntax::SyntaxKind::SimpleRangeSelect) {
+            auto& rs = sl->as<syntax::RangeSelectSyntax>();
+            out.push_back(std::make_pair(
+                (const syntax::ExpressionSyntax*)rs.left,
+                (const syntax::ExpressionSyntax*)rs.right));
+        }
+        else
+            out.push_back(std::make_pair(
+                (const syntax::ExpressionSyntax*)nullptr,
+                (const syntax::ExpressionSyntax*)nullptr));
+    }
+    return out;
+}
+
+// `ExprEval::reduceExpr`'s value type for a folded arithmetic bound:
+// sub/mult/div always yield a signed vpiIntConst; add yields one only when a
+// sub-operand already reduced to one.  (Mirrors the `redInt` lambda in
+// `makeTypespec`'s bound emitter — same rule, reusable shape.)
+static bool srlgRedIntSyn(const syntax::SyntaxNode* n) {
+    if (!n)
+        return false;
+    switch (n->kind) {
+        case syntax::SyntaxKind::SubtractExpression:
+        case syntax::SyntaxKind::MultiplyExpression:
+        case syntax::SyntaxKind::DivideExpression:
+            return true;
+        case syntax::SyntaxKind::AddExpression: {
+            auto& be = n->as<syntax::BinaryExpressionSyntax>();
+            return srlgRedIntSyn(be.left) || srlgRedIntSyn(be.right);
+        }
+        case syntax::SyntaxKind::ParenthesizedExpression:
+            return srlgRedIntSyn(
+                n->as<syntax::ParenthesizedExpressionSyntax>().expression);
+        default:
+            return false;
+    }
+}
+
 
 
 // A module/interface-local STRUCT typedef whose signal is an INITIALIZED
@@ -1138,8 +1194,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     const DimSpan* ds9 = spans9.empty() ? nullptr : &spans9[0];
                     if (ds9)
                         setLoc(rng9, ds9->range);
-                    auto mk9 = [&](int64_t v,
-                                   const SourceRange* loc) -> UHDM::expr* {
+                    // The ARRAY dim of a vector-typedef packed array keeps an
+                    // ARITHMETIC bound UNFOLDED in this (def) view — Surelog
+                    // reduces `logic [W-1:0] x` but not the array dim of
+                    // `my_vec_t [1:`SIZE-1] x`, which stays a vpiSubOp tree
+                    // (purpose-built golden; scr1_pipe_mprf's `type_scr1_mprf_v
+                    // [1:`SCR1_MPRF_SIZE-1] mprf_int`).  The dims of a named
+                    // type live on the NAME (`IdentifierSelectName` selectors),
+                    // not on the type syntax, so they are read from there.
+                    auto dsyn9 = namedTypeDimBounds(declared->getTypeSyntax());
+                    const syntax::ExpressionSyntax* dl9 =
+                        dsyn9.empty() ? nullptr : dsyn9[0].first;
+                    const syntax::ExpressionSyntax* dr9 =
+                        dsyn9.empty() ? nullptr : dsyn9[0].second;
+                    auto mk9 = [&](int64_t v, const SourceRange* loc,
+                                   const syntax::ExpressionSyntax* bs9)
+                        -> UHDM::expr* {
+                        if (bs9 &&
+                            syntax::BinaryExpressionSyntax::isKind(bs9->kind))
+                            if (auto* e9 = emitSyntaxExpr(*bs9, rng9))
+                                return (UHDM::expr*)e9;
                         auto* c = s.MakeConstant();
                         std::string digits = std::to_string(v);
                         c->VpiDecompile(digits);
@@ -1151,9 +1225,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             setLoc(c, *loc);
                         return c;
                     };
-                    rng9->Left_expr(mk9(pr9.left, ds9 ? &ds9->left : nullptr));
+                    rng9->Left_expr(
+                        mk9(pr9.left, ds9 ? &ds9->left : nullptr, dl9));
                     rng9->Right_expr(
-                        mk9(pr9.right, ds9 ? &ds9->right : nullptr));
+                        mk9(pr9.right, ds9 ? &ds9->right : nullptr, dr9));
                     auto* rvec9 = s.MakeRangeVec();
                     rvec9->push_back(rng9);
                     lts->Ranges(rvec9);
@@ -1456,8 +1531,100 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         // parameter IFU_RST) or is literal-only ([3-1:0] on
                         // localparam ADD) — rp32_r5p_mouse. A VAR/NET typespec
                         // folds all of these.
+                        // ...and NOT for a COMPILATION-UNIT ($unit) parameter:
+                        // Surelog reduces those bounds like a var/net's.
+                        // `parameter bit [`XLEN-1:0] P` at file scope folds to
+                        // INT:31 while the same declaration inside a module
+                        // keeps the vpiSubOp tree (purpose-built golden: five
+                        // $unit shapes — macro-arith, literal-only op, param
+                        // op, bare param ref, logic vector — all fold; the
+                        // module twin of the first does not).
+                        // ...UNLESS the bound reads a $unit parameter declared
+                        // in a DIFFERENT command-line source file.  Surelog
+                        // compiles one file at a time and a guarded header's
+                        // declarations land in whichever file included it
+                        // first, so a bound reaching across that boundary
+                        // never resolves: golden keeps the vpiSubOp with a
+                        // DANGLING ref_obj (Scr1SvTests
+                        // `parameter bit [SCR1_CSR_ADDR_WIDTH-1:0]
+                        // SCR1_CSR_ADDR_TDU_TSELECT` — scr1_tdu.svh reaching
+                        // scr1_arch_types.svh, which scr1_pipe_hdu.sv already
+                        // claimed; the same file's SCR1_CSR_ADDR_TDU_OFFS_W
+                        // bound one line up DOES fold).
+                        bool unitParamTs =
+                            declSymbol.kind == SymbolKind::Parameter &&
+                            declSymbol.getParentScope() &&
+                            declSymbol.getParentScope()->asSymbol().kind ==
+                                SymbolKind::CompilationUnit;
+                        std::string unitOwnRoot;
+                        if (unitParamTs && bsyn) {
+                            std::string ownRoot = rootFilePath(declSymbol.location);
+                            std::function<void(const syntax::SyntaxNode&)> xf =
+                                [&](const syntax::SyntaxNode& sn) {
+                                    if (!unitParamTs)
+                                        return;
+                                    if (sn.kind ==
+                                        syntax::SyntaxKind::IdentifierName) {
+                                        auto* sy = declSymbol.getParentScope()
+                                                       ->find(std::string(rawText(
+                                                           sn.sourceRange())));
+                                        if (sy &&
+                                            sy->kind == SymbolKind::Parameter &&
+                                            rootFilePath(sy->location) != ownRoot)
+                                            unitParamTs = false;
+                                    }
+                                    for (size_t ci = 0; ci < sn.getChildCount();
+                                         ci++)
+                                        if (auto* cn = sn.childNode(ci))
+                                            xf(*cn);
+                                };
+                            xf(*bsyn);
+                            if (!unitParamTs)
+                                unitOwnRoot = ownRoot;
+                        }
+                        // The SAME cross-file boundary keeps a VAR/NET typespec
+                        // bound symbolic.  `logic [CHW-1:0] x` folds in the
+                        // command-line file that FIRST included the guarded
+                        // header declaring CHW and stays a vpiSubOp (with a
+                        // BOUND ref_obj, unlike the parameter case above) in
+                        // every later file — the two-file purpose-built golden
+                        // is byte-for-byte the same declaration in both.  This
+                        // is the long-standing "operation-vs-constant in a
+                        // var/net typespec range" cluster (Scr1SvTests
+                        // `logic [SCR1_DBG_DMI_CH_ID_WIDTH-1:0] tapc_dmi_ch_id`,
+                        // `logic [SCR1_IRQ_LINES_NUM-1:0] irq_lines`): the
+                        // same-file repro that "should" have reproduced it
+                        // passes precisely because it is same-file.
+                        bool unitXFileVarBound = false;
+                        if (bsyn && !unitParamTs &&
+                            (declSymbol.kind == SymbolKind::Variable ||
+                             declSymbol.kind == SymbolKind::Net) &&
+                            !unitParamMap.empty()) {
+                            const Scope* xsc =
+                                currentScope ? currentScope
+                                             : declSymbol.getParentScope();
+                            if (xsc) {
+                                std::string ownRoot2 =
+                                    rootFilePath(declSymbol.location);
+                                ASTContext xctx(*xsc, LookupLocation::max);
+                                auto& xbe = Expression::bind(*bsyn, xctx);
+                                if (!xbe.bad())
+                                    xbe.visit(makeVisitor(
+                                        [&](auto& v,
+                                            const NamedValueExpression& nv) {
+                                            if (nv.symbol.kind ==
+                                                    SymbolKind::Parameter &&
+                                                unitParamMap.count(&nv.symbol) &&
+                                                rootFilePath(nv.symbol.location) !=
+                                                    ownRoot2)
+                                                unitXFileVarBound = true;
+                                            v.visitDefault(nv);
+                                        }));
+                            }
+                        }
                         bool bareParamInParamTs = false;
-                        if (declSymbol.kind == SymbolKind::Parameter && bsyn) {
+                        if (declSymbol.kind == SymbolKind::Parameter && bsyn &&
+                            !unitParamTs) {
                             if (syntax::BinaryExpressionSyntax::isKind(
                                     bsyn->kind))
                                 bareParamInParamTs = true;
@@ -2075,7 +2242,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         }
                         if ((tfContext && !tfFormalTs) || bitsOfSignal ||
                             bareParamInParamTs || defModuleParamDim ||
-                            ifacePortBound || structMemberSymBound) {
+                            ifacePortBound || structMemberSymBound ||
+                            unitXFileVarBound) {
                             // Function/typedef context: unfolded expression.
                             bool savedBCN = boundCallNameSpan;
                             boundCallNameSpan = true;
@@ -2091,7 +2259,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 tfTypeScope = declSymbol.getParentScope();
                                 setTf7 = true;
                             }
+                            std::string savedUXF7 = unitXFileRoot;
+                            if (!unitOwnRoot.empty())
+                                unitXFileRoot = unitOwnRoot;
                             auto* e0bcn = emitSyntaxExpr(*bsyn, r);
+                            unitXFileRoot = savedUXF7;
                             if (setTf7)
                                 tfTypeScope = savedTfS7;
                             boundCallNameSpan = savedBCN;
@@ -2229,6 +2401,35 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // resolves to, captured regardless of typed-ness for
                             // the elab-clone width fold below.
                             const ParameterSymbol* elabModPar = nullptr;
+                            // A $unit param's typespec bound that is a BARE ref
+                            // to another $unit param folds at THAT param's
+                            // width (32 for `int unsigned`, not the bare 64)
+                            // and carries a ref_typespec named after the
+                            // DECLARING param whose actual is a located clone
+                            // of the referenced param's own typespec — the
+                            // $unit twin of the module rule below.  Bound in
+                            // the parameter's OWN scope: the $unit typespecs
+                            // are minted at the very end of the export, with
+                            // no currentScope left.
+                            const ParameterSymbol* unitBoundParam = nullptr;
+                            if (unitParamTs &&
+                                bsyn->kind ==
+                                    syntax::SyntaxKind::IdentifierName) {
+                                ASTContext uctx(*declSymbol.getParentScope(),
+                                                LookupLocation::max);
+                                auto& ube = Expression::bind(*bsyn, uctx);
+                                if (!ube.bad()) {
+                                    auto& ubee = stripImplicitConv(ube);
+                                    if (ubee.kind ==
+                                            ExpressionKind::NamedValue &&
+                                        ubee.as<NamedValueExpression>()
+                                                .symbol.kind ==
+                                            SymbolKind::Parameter)
+                                        unitBoundParam =
+                                            &ubee.as<NamedValueExpression>()
+                                                 .symbol.as<ParameterSymbol>();
+                                }
+                            }
                             if (currentScope) {
                                 ASTContext bctx(*currentScope, LookupLocation::max);
                                 auto& be = Expression::bind(*bsyn, bctx);
@@ -2336,7 +2537,26 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 };
                                 return body9(*elabModPar) == body9(declSymbol);
                             };
-                            if (boundParam && !boundOwnerFullName.empty() &&
+                            if (unitBoundParam) {
+                                c->VpiSize((int32_t)unitBoundParam->getType()
+                                               .getBitWidth());
+                                c->VpiConstType(vpiUIntConst);
+                                c->VpiValue("UINT:" + digits);
+                                auto* rtu = s.MakeRef_typespec();
+                                rtu->VpiFullName(std::string(declSymbol.name));
+                                rtu->VpiParent(c);
+                                auto* itsu = s.MakeInt_typespec();
+                                if (auto ud = unitBoundParam->getDeclaredType())
+                                    if (auto ut = ud->getTypeSyntax())
+                                        setLoc(itsu,
+                                               trimTypeSigning(
+                                                   ut, ut->sourceRange()));
+                                if (unitBoundParam->getType().isSigned())
+                                    itsu->VpiSigned(true);
+                                rtu->Actual_typespec(itsu);
+                                c->Typespec(rtu);
+                            }
+                            else if (boundParam && !boundOwnerFullName.empty() &&
                                 !intEnc) {
                                 c->VpiSize(
                                     (int32_t)boundParam->getType().getBitWidth());
@@ -5723,7 +5943,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // through a real scope so a same-named module-local declaration
             // shadows correctly.
             if (!ref->Actual_group() && !unitParamMap.empty() &&
-                !suppressRefActual) {
+                !suppressRefActual && !noUnitParamActual) {
                 const Scope* bindScope = tfTypeScope ? tfTypeScope
                                          : defNetTsScope ? defNetTsScope
                                                          : currentScope;
@@ -5737,7 +5957,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                         .as<NamedValueExpression>()
                                         .symbol;
                         if (auto uit = unitParamMap.find(&usy);
-                            uit != unitParamMap.end())
+                            uit != unitParamMap.end() &&
+                            (unitXFileRoot.empty() ||
+                             rootFilePath(usy.location) == unitXFileRoot))
                             ref->Actual_group(uit->second);
                     }
                 }
@@ -7916,26 +8138,44 @@ UHDM::packed_array_var* UhdmExporter::emitVectorTypedefArrayVar(
                 std::string(rawText(SourceRange(tStart, sym.location))), tStart);
     }
     auto* rvec = s.MakeRangeVec();
+    // The ELAB view folds the array dim (unlike the def-view typespec, which
+    // keeps the op) but takes `reduceExpr`'s value type and anchor: a
+    // sub/mult/div bound is a signed vpiIntConst spanning only its LEFTMOST
+    // leaf (`[1:`SIZE-1]` -> INT:31 at the `32` token, not UINT:31 over the
+    // whole `32-1`).
+    auto dsynB = namedTypeDimBounds(declared->getTypeSyntax());
     for (size_t i = 0; i < arrRanges.size(); i++) {
         auto* r = s.MakeRange();
         r->VpiParent(pav);
         const DimSpan* ds = i < spans.size() ? &spans[i] : nullptr;
         if (ds)
             setLoc(r, ds->range);
-        auto mkB = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+        auto mkB = [&](int64_t v, const SourceRange* loc,
+                       const syntax::ExpressionSyntax* bs) -> UHDM::expr* {
             auto* c = s.MakeConstant();
             std::string digits = std::to_string(v);
             c->VpiDecompile(digits);
             c->VpiSize(64);
-            c->VpiValue("UINT:" + digits);
-            c->VpiConstType(vpiUIntConst);
+            bool intEnc = srlgRedIntSyn(bs);
+            c->VpiValue((intEnc ? "INT:" : "UINT:") + digits);
+            c->VpiConstType(intEnc ? vpiIntConst : vpiUIntConst);
             c->VpiParent(r);
             if (loc)
                 setLoc(c, *loc);
+            if (bs && syntax::BinaryExpressionSyntax::isKind(bs->kind)) {
+                const syntax::ExpressionSyntax* lf = bs;
+                while (syntax::BinaryExpressionSyntax::isKind(lf->kind))
+                    lf = lf->as<syntax::BinaryExpressionSyntax>().left;
+                setLoc(c, lf->getFirstToken().range());
+            }
             return c;
         };
-        r->Left_expr(mkB(arrRanges[i].left, ds ? &ds->left : nullptr));
-        r->Right_expr(mkB(arrRanges[i].right, ds ? &ds->right : nullptr));
+        const syntax::ExpressionSyntax* bl =
+            i < dsynB.size() ? dsynB[i].first : nullptr;
+        const syntax::ExpressionSyntax* br =
+            i < dsynB.size() ? dsynB[i].second : nullptr;
+        r->Left_expr(mkB(arrRanges[i].left, ds ? &ds->left : nullptr, bl));
+        r->Right_expr(mkB(arrRanges[i].right, ds ? &ds->right : nullptr, br));
         rvec->push_back(r);
     }
     pav->Ranges(rvec);

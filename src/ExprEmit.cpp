@@ -3743,12 +3743,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     tSyn2 = asyn2->as<
                                                     syntax::TypedefDeclarationSyntax>()
                                                 .type;
+                            // A $UNIT (file-level) typedef's cast clone FOLDS
+                            // its bounds in every view — Surelog compiles the
+                            // compilation unit before any module, so
+                            // `typedef logic [`XLEN-2:0] t; ... t'(x)` reaches
+                            // the cast site already reduced (Scr1SvTests
+                            // type_scr1_csr_mcause_ec_v; purpose-built golden).
+                            // A module-local or imported-package typedef keeps
+                            // the symbolic tree.
+                            bool homeUnit0 = false;
+                            if (auto hs0 = expr.type->getParentScope())
+                                homeUnit0 = hs0->asSymbol().kind ==
+                                            SymbolKind::CompilationUnit;
                             bypassTypedefShare = true;
                             bool savedTf2 = tfContext;
                             // The home-package clone's bounds follow the VIEW:
                             // the def package's stay symbolic, the top
                             // package's fold (rp32 imm_t 32-1 vs 31).
-                            tfContext = homePkgSub0 ? !pkgTopEmit : true;
+                            tfContext =
+                                homePkgSub0 ? !pkgTopEmit : !homeUnit0;
                             auto* cl2 = makeTypespec(ta2, tSyn2);
                             tfContext = savedTf2;
                             bypassTypedefShare = false;
@@ -3921,6 +3934,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         uts->VpiName(std::string(rawText(lr)));
                         setLoc(uts, lr);
                         cts = uts;
+                    }
+                    // A cast sized by a $UNIT (compilation-unit) parameter is
+                    // the same shape in EVERY view: Surelog's type compiler
+                    // cannot resolve a file-scope parameter as a type, so it
+                    // falls through to the catch-all and mints an
+                    // unsupported_typespec NAMED after the parameter at the
+                    // cast-site token — never the param's own int_typespec.
+                    // The parameter keeps its ordinary declaration-site
+                    // typespec (purpose-built golden: literal-init `ZB'(0)`
+                    // and computed-init `CB'(a)` both take this shape;
+                    // Scr1SvTests SCR1_CSR_MTVEC_BASE_ZERO_BITS'(0)).
+                    if (!cts) {
+                        auto& seU9 = stripImplicitConv(sizeExpr);
+                        if (seU9.kind == ExpressionKind::NamedValue &&
+                            seU9.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter)
+                            if (auto* usc9 = seU9.as<NamedValueExpression>()
+                                                 .symbol.getParentScope();
+                                usc9 && usc9->asSymbol().kind ==
+                                            SymbolKind::CompilationUnit) {
+                                auto* uts9 = s.MakeUnsupported_typespec();
+                                uts9->VpiName(std::string(rawText(lr)));
+                                setLoc(uts9, lr);
+                                cts = uts9;
+                            }
                     }
                     // A BARE parameter width (XLEN'(x)) mints the named
                     // int_typespec in RE-EMITTED (elab) contexts too — same

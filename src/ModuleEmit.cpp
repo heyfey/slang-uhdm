@@ -19137,6 +19137,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                                ->selector->sourceRange());
                             }
                         };
+                        bool savedNUA2 = noUnitParamActual;
+                        noUnitParamActual = true;
                         if (auto* l = emitSyntaxExpr(*be.left, ca)) {
                             // LHS selects keep the whole span (Surelog).
                             if (be.left->kind ==
@@ -19147,6 +19149,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         selBaseScopeIdx = true;
                         auto* r = emitSyntaxExpr(*be.right, ca);
                         selBaseScopeIdx = false;
+                        noUnitParamActual = savedNUA2;
                         if (r) {
                             selSpan(r, *be.right);
                             ca->Rhs((UHDM::expr*)r);
@@ -19218,7 +19221,11 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 }
                 ng0->VpiParent(b);
                 syntaxRefPrefix = branchPrefix;
-                if (auto* c = emitSyntaxExpr(*nIf.condition, ng0)) {
+                bool savedGC1 = noUnitParamActual;
+                noUnitParamActual = nIf.elseClause != nullptr;
+                auto* c1gc = emitSyntaxExpr(*nIf.condition, ng0);
+                noUnitParamActual = savedGC1;
+                if (auto* c = c1gc) {
                     if (ngie)
                         ngie->VpiCondition((UHDM::expr*)c);
                     else
@@ -19461,7 +19468,16 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 }
                 g0->VpiParent(m);
                 syntaxRefPrefix = prefix;
-                if (auto* c = emitSyntaxExpr(*ifSyn->condition, g0)) {
+                // Only an if-generate WITH an else clause (the loc-less
+                // gen_if_else) drops the $unit param actual; a bare gen_if
+                // keeps it (ConstCapital's `if (foo == 32'h7fFF)` binds,
+                // Scr1SvTests' `if (SCR1_MTVEC_BASE_WR_BITS > 0) ... else`
+                // does not — one purpose-built file carries both shapes).
+                bool savedGC0 = noUnitParamActual;
+                noUnitParamActual = ifSyn->elseClause != nullptr;
+                auto* c0gc = emitSyntaxExpr(*ifSyn->condition, g0);
+                noUnitParamActual = savedGC0;
+                if (auto* c = c0gc) {
                     // Enum-VALUE refs in the condition bind their enum_const
                     // (Surelog).
                     std::function<void(UHDM::any*)> bindEC =

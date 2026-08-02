@@ -2031,20 +2031,27 @@ UHDM::design* UhdmExporter::exportDesign() {
                             enc.size = litSize;
                             enc.constType = baseConstType(base);
                             // A DECIMAL-based literal, and any literal whose
-                            // width Surelog could not determine, leave the
-                            // parameter with NO typespec at all.
-                            // RANKED RESIDUE (Scr1SvTests, 47 first-fail
-                            // hits): a TYPED declaration does keep it --
-                            // `parameter bit [`SCR1_XLEN-1:0]
-                            // SCR1_ARCH_RST_VECTOR = 'h200` carries a
-                            // bit_typespec, and SCR1_RST_VECTOR inherits the
-                            // same enc. Relaxing the gate to
-                            // `(litSize >= 0 || typedDecl9)` emits it, but
-                            // then the bit_typespec's RANGE bound diverges
-                            // (golden folds `\`SCR1_XLEN-1` to 31, we keep the
-                            // op) -- a NET-ZERO trade at 165 failing vectors,
-                            // so it stays gated until the bound folds too.
-                            enc.wantTs = base != 'd' && litSize >= 0;
+                            // width Surelog could not determine, leave an
+                            // UNTYPED parameter with NO typespec at all.  An
+                            // explicitly TYPED declaration ALWAYS keeps one,
+                            // whatever the literal looks like -- `parameter
+                            // bit [`SCR1_XLEN-1:0] SCR1_ARCH_RST_VECTOR =
+                            // 'h200` and `parameter bit
+                            // [SCR1_EXC_CODE_WIDTH_E-1:0] X = 4'd11` both
+                            // carry one (and SCR1_RST_VECTOR, whose init is a
+                            // bare ref to the first, inherits its enc).
+                            // The typed constant then takes the DECLARED
+                            // width, not the literal's: `4'd11` under `bit
+                            // [7:0]` is VpiSize 8, and an unsized `'h200`
+                            // under `bit [31:0]` is 32 (purpose-built golden
+                            // battery: same-width/wider/unsized/plain-decimal
+                            // /int/logic typed shapes plus the untyped twin,
+                            // which alone keeps the literal's own width and no
+                            // typespec).
+                            enc.wantTs =
+                                typedDecl9 || (base != 'd' && litSize >= 0);
+                            if (typedDecl9)
+                                enc.size = (int32_t)ps.getType().getBitWidth();
                         }
                         else {
                             enc.value = "UINT:" + digits;
