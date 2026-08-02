@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <functional>
 #include <map>
+#include <optional>
 #include <set>
 #include <string>
 #include <vector>
@@ -882,6 +883,13 @@ private:
     UHDM::array_var* emitArrayVar(const slang::ast::Symbol& sym, const std::string& name,
                                   const std::string& fullName, UHDM::BaseClass* m,
                                   UHDM::typespec* elemTs);
+    // Instance-view array_var for a MODULE/INTERFACE-scope declaration with
+    // any DYNAMIC / ASSOCIATIVE / QUEUE dimension (null otherwise).
+    UHDM::array_var* emitDynArrayVar(const slang::ast::Symbol& sym,
+                                     const std::string& name,
+                                     const std::string& fullName,
+                                     UHDM::BaseClass* m,
+                                     UHDM::typespec* elemTs);
     // Instance-view array_net for an unpacked array of a NET-type leaf
     // (reg/logic memory): array_net { vpiRange x N + vpiNet = logic_net }.
     UHDM::array_net* emitArrayNet(const slang::ast::Symbol& sym, const std::string& name,
@@ -1123,8 +1131,17 @@ private:
         const std::string& prefix, NetMap& nets, bool withInstances,
         UHDM::VectorOfmodule_inst* modElems = nullptr);
     void noteUnsupported(const std::string& what);
+    /// Whether `sub` is invoked from a CONTINUOUS / ELABORATION expression
+    /// anywhere in the design (continuous assign, net-decl assign, parameter
+    /// or localparam value, instance parameter override) — as opposed to only
+    /// from procedural statements, or not at all.  Surelog compiles such a
+    /// subroutine's formal types eagerly, which is what puts the unlocated
+    /// logic_typespec on a BARE-IMPLICIT formal's io_decl (§ elabInvoked).
+    bool elabInvoked(const slang::ast::SubroutineSymbol& sub);
 
     slang::ast::Compilation& comp;
+    // Lazily built by elabInvoked(); empty optional = not yet scanned.
+    std::optional<std::set<const slang::ast::SubroutineSymbol*>> elabCalledSubs;
     UHDM::Serializer& s;
     const slang::SourceManager* sm;
     UHDM::design* d = nullptr;

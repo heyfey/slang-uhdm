@@ -498,15 +498,22 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
         // `input real driver []` -> real_typespec + unsized io_decl range).
         // A QUEUE resolves the same way (its `[$]` dim becomes the wrapping
         // array_typespec's [0:$] range) — Surelog, probe-verified on
-        // `C q[$]` / `int q[$]` class-method locals (ClassVar).
+        // `C q[$]` / `int q[$]` class-method locals (ClassVar).  An
+        // ASSOCIATIVE dim resolves the same way — its index type rides the
+        // wrapping array_typespec's vpiIndexTypespec, so the declaration
+        // still types on its ELEMENT (`int a [int]` -> int_typespec, not the
+        // logic_typespec the integral fallback below would give; DynArrayKind).
         while (et->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType ||
                et->getCanonicalType().kind == SymbolKind::DynamicArrayType ||
+               et->getCanonicalType().kind == SymbolKind::AssociativeArrayType ||
                et->getCanonicalType().kind == SymbolKind::QueueType) {
             auto& ect = et->getCanonicalType();
             et = ect.kind == SymbolKind::DynamicArrayType
                      ? &ect.as<DynamicArrayType>().elementType
                  : ect.kind == SymbolKind::QueueType
                      ? &ect.as<QueueType>().elementType
+                 : ect.kind == SymbolKind::AssociativeArrayType
+                     ? &ect.as<AssociativeArrayType>().elementType
                      : &ect.as<FixedSizeUnpackedArrayType>().elementType;
         }
         auto& ct = et->getCanonicalType();
@@ -1411,6 +1418,10 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 t = &c.as<DynamicArrayType>().elementType.getCanonicalType();
             else if (c.kind == SymbolKind::QueueType)
                 t = &c.as<QueueType>().elementType.getCanonicalType();
+            // ...and an ASSOCIATIVE dim likewise (`bit a [int]` ->
+            // bit_typespec).
+            else if (c.kind == SymbolKind::AssociativeArrayType)
+                t = &c.as<AssociativeArrayType>().elementType.getCanonicalType();
             else
                 break;
         }
@@ -7938,6 +7949,289 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     art->VpiParent(av);
     art->Actual_typespec(ats);
     av->Typespec(art);
+    arrayVarArrayTs[&sym] = ats;
+    return av;
+}
+
+// The element typespec Surelog leaves on an UNELABORATED array_typespec: the
+// element's own class, carrying NO span and NO signed flag (it is minted by
+// CompileType from the type node alone, not from a declaration).
+static UHDM::typespec* bareElemTypespec(UHDM::Serializer& s, const Type& leaf) {
+    auto& c = leaf.getCanonicalType();
+    if (c.kind == SymbolKind::PredefinedIntegerType) {
+        switch (c.as<PredefinedIntegerType>().integerKind) {
+            case PredefinedIntegerType::Int:
+                return s.MakeInt_typespec();
+            case PredefinedIntegerType::Integer:
+                return s.MakeInteger_typespec();
+            case PredefinedIntegerType::ShortInt:
+                return s.MakeShort_int_typespec();
+            case PredefinedIntegerType::LongInt:
+                return s.MakeLong_int_typespec();
+            case PredefinedIntegerType::Byte:
+                return s.MakeByte_typespec();
+            case PredefinedIntegerType::Time:
+                return s.MakeTime_typespec();
+            default:
+                return nullptr;
+        }
+    }
+    if (c.kind == SymbolKind::FloatingType)
+        return c.as<FloatingType>().floatKind == FloatingType::ShortReal
+                   ? (UHDM::typespec*)s.MakeShort_real_typespec()
+                   : (UHDM::typespec*)s.MakeReal_typespec();
+    if (c.kind == SymbolKind::StringType)
+        return s.MakeString_typespec();
+    if (c.isIntegral() && !c.isFourState())
+        return s.MakeBit_typespec();
+    if (c.isIntegral())
+        return s.MakeLogic_typespec();
+    return nullptr;
+}
+
+// A MODULE/INTERFACE-scope declaration carrying ANY unsized dimension
+// (dynamic `[]`, associative `[idx]`, queue `[$]`) elaborates to an array_var
+// — never a net or an array_net — while the DEF view keeps the plain
+// logic_net (materializeDefNetTs).  Measured on a purpose-built 16-case
+// golden (bit/int/logic/`logic [7:0]`/byte/integer/real/string elements x
+// dyn/assoc/queue at module scope) plus DynArrayKind's four mixed-dim
+// declarations:
+//
+//   int d [];        -> array_var{size 1, arrayType 2, reg int_var}
+//   int d [][1:0];   -> ...+ one vpiRange [1:0], size 2   (outer dim erased)
+//   int d [1:0][];   -> array_var{size 2, arrayType 2}    -- NO range, NO reg
+//   int d [1:0][][2:0]; -> array_var{size 6, arrayType 2} -- ditto
+//   int a [int];     -> arrayType 3 + array_typespec vpiIndexTypespec
+//   int q [$];       -> arrayType 4
+//
+// So: the array KIND is the outermost UNSIZED dim's; when that dim is also
+// the OUTERMOST dim of the declaration Surelog's ElaborationStep erases it
+// and hands the array_var the remaining FIXED dims as vpiRange plus the
+// element reg; when a FIXED dim comes first there is nothing to erase and the
+// var keeps neither ranges nor reg (its dims stay on the array_typespec).
+// vpiSize is the product of the fixed dims the var kept, or of ALL fixed dims
+// in the leading-fixed shape.  vpiSigned rides the ARRAY (not the reg),
+// vpiRandType 1 / vpiVisibility 1 always.
+UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
+                                               const std::string& name,
+                                               const std::string& fullName,
+                                               UHDM::BaseClass* m,
+                                               UHDM::typespec* elemTs) {
+    auto declared = sym.getDeclaredType();
+    if (!declared)
+        return nullptr;
+    auto isUnsized = [](SymbolKind k) {
+        return k == SymbolKind::DynamicArrayType ||
+               k == SymbolKind::AssociativeArrayType ||
+               k == SymbolKind::QueueType;
+    };
+    // Walk the unpacked dims outermost-first, recording each dim's kind and
+    // (for fixed dims) its width.
+    struct Dim {
+        SymbolKind kind;
+        int32_t width = 1;
+        int64_t left = 0, right = 0;
+        const Type* indexType = nullptr;
+    };
+    std::vector<Dim> dims;
+    const Type* leaf = &declared->getType().getCanonicalType();
+    for (;;) {
+        auto& c = leaf->getCanonicalType();
+        if (c.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            auto& ua = c.as<FixedSizeUnpackedArrayType>();
+            dims.push_back({c.kind, (int32_t)ua.range.width(), ua.range.left,
+                            ua.range.right, nullptr});
+            leaf = &ua.elementType;
+        }
+        else if (c.kind == SymbolKind::DynamicArrayType) {
+            dims.push_back({c.kind, 1, 0, 0, nullptr});
+            leaf = &c.as<DynamicArrayType>().elementType;
+        }
+        else if (c.kind == SymbolKind::QueueType) {
+            dims.push_back({c.kind, 1, 0, 0, nullptr});
+            leaf = &c.as<QueueType>().elementType;
+        }
+        else if (c.kind == SymbolKind::AssociativeArrayType) {
+            auto& aa = c.as<AssociativeArrayType>();
+            dims.push_back({c.kind, 1, 0, 0, aa.indexType});
+            leaf = &aa.elementType;
+        }
+        else
+            break;
+    }
+    size_t firstUnsized = dims.size();
+    for (size_t i = 0; i < dims.size(); i++)
+        if (isUnsized(dims[i].kind)) {
+            firstUnsized = i;
+            break;
+        }
+    if (firstUnsized == dims.size())
+        return nullptr;  // no unsized dim: emitArrayVar's territory
+    int32_t aKind = dims[firstUnsized].kind == SymbolKind::QueueType ? 4
+                    : dims[firstUnsized].kind ==
+                            SymbolKind::AssociativeArrayType
+                        ? 3
+                        : 2;
+    bool leadingUnsized = firstUnsized == 0;
+
+    auto* av = s.MakeArray_var();
+    av->VpiName(name);
+    av->VpiFullName(fullName);
+    av->VpiParent(m);
+    setLoc(av, nameSpan(sym.location, sym.name));
+    if (leaf->isSigned())
+        av->VpiSigned(true);
+    av->VpiRandType(1);
+    av->VpiVisibility(1);
+    av->VpiArrayType(aKind);
+
+    // The declarator's written dimensions, for the range spans.
+    std::vector<const syntax::VariableDimensionSyntax*> dimSyns;
+    if (auto dsyn = sym.getSyntax();
+        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+        for (auto d : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+            dimSyns.push_back(d);
+
+    int32_t total = 1;
+    UHDM::VectorOfrange* fixRanges = nullptr;
+    for (size_t i = 0; i < dims.size(); i++) {
+        if (dims[i].kind != SymbolKind::FixedSizeUnpackedArrayType)
+            continue;
+        total *= dims[i].width;
+        auto* r = s.MakeRange();
+        r->VpiParent(av);
+        const syntax::ExpressionSyntax* lsyn = nullptr;
+        const syntax::ExpressionSyntax* rsyn = nullptr;
+        if (i < dimSyns.size()) {
+            setLoc(r, dimSyns[i]->sourceRange());
+            if (auto* spec = dimSyns[i]->specifier;
+                spec && spec->kind == syntax::SyntaxKind::RangeDimensionSpecifier)
+                if (auto* rss = spec->as<syntax::RangeDimensionSpecifierSyntax>()
+                                    .selector->as_if<syntax::RangeSelectSyntax>()) {
+                    lsyn = rss->left;
+                    rsyn = rss->right;
+                }
+        }
+        // Bounds as folded 64-bit UINT constants, spanning their own tokens.
+        auto mk = [&](int64_t v, const syntax::ExpressionSyntax* bs) {
+            auto* c = s.MakeConstant();
+            c->VpiParent(r);
+            std::string digits = std::to_string(v);
+            c->VpiDecompile(digits);
+            c->VpiSize(64);
+            c->VpiValue("UINT:" + digits);
+            c->VpiConstType(vpiUIntConst);
+            if (bs)
+                setLoc(c, bs->sourceRange());
+            return c;
+        };
+        r->Left_expr(mk(dims[i].left, lsyn));
+        r->Right_expr(mk(dims[i].right, rsyn));
+        if (!fixRanges)
+            fixRanges = s.MakeRangeVec();
+        fixRanges->push_back(r);
+    }
+    // The erased-first-dim shape hands the surviving fixed dims to the VAR;
+    // the leading-fixed shape leaves them on the array_typespec (below).
+    if (fixRanges && leadingUnsized)
+        av->Ranges(fixRanges);
+    av->VpiSize(total);
+
+    // The element reg — only in the leading-unsized shape.
+    if (leadingUnsized) {
+        if (auto* reg = makeReturnVar(s, *leaf)) {
+            reg->VpiParent(av);
+            reg->VpiFullName(fullName);
+            setLoc(reg, nameSpan(sym.location, sym.name));
+            // Signedness rides the ARRAY here, not the element (measured).
+            reg->VpiSigned(false);
+            if (elemTs) {
+                auto* rrt = s.MakeRef_typespec();
+                rrt->VpiFullName(fullName);
+                rrt->VpiParent(reg);
+                rrt->Actual_typespec(elemTs);
+                reg->Typespec(rrt);
+                elemTs->VpiParent(reg);
+            }
+            auto* rvars = s.MakeVariablesVec();
+            rvars->push_back(reg);
+            av->Variables(rvars);
+        }
+    }
+
+    auto* ats = s.MakeArray_typespec();
+    // Leading-fixed shape: the erasure pass never ran, so the declaration's
+    // typespec keeps its written nesting — an OUTER array_typespec carrying
+    // only the unsized dim's vpiArrayType, wrapping an inner one that holds
+    // ALL the fixed ranges and the (unlocated, unsigned) element typespec.
+    // uhdm-cmp walks Elem_typespec, so this is a compared difference, not
+    // decoration (DynArrayKind dynamic3/dynamic4).
+    if (!leadingUnsized) {
+        auto* inner = s.MakeArray_typespec();
+        if (fixRanges)
+            inner->Ranges(fixRanges);
+        if (auto* bare = bareElemTypespec(s, *leaf)) {
+            auto* brt = s.MakeRef_typespec();
+            brt->VpiParent(inner);
+            brt->Actual_typespec(bare);
+            inner->Elem_typespec(brt);
+        }
+        ats->VpiArrayType(aKind);
+        auto* irt = s.MakeRef_typespec();
+        irt->VpiParent(ats);
+        irt->Actual_typespec(inner);
+        ats->Elem_typespec(irt);
+    }
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(fullName);
+    art->VpiParent(av);
+    art->Actual_typespec(ats);
+    av->Typespec(art);
+    // An ASSOCIATIVE array's index type lands on the array_typespec, spanning
+    // the token INSIDE the brackets of its own dimension.
+    if (leadingUnsized && dims[0].indexType) {
+        UHDM::typespec* its = nullptr;
+        auto& ick = dims[0].indexType->getCanonicalType();
+        if (ick.kind == SymbolKind::StringType)
+            its = s.MakeString_typespec();
+        else if (ick.kind == SymbolKind::PredefinedIntegerType) {
+            its = predefIntTypespec(ick, sym);
+            // predefIntTypespec leaves the signed flag to its callers; an
+            // `[int]` index carries it (typespec::Compare reads it).
+            if (its && ick.isSigned())
+                switch (its->UhdmType()) {
+                    case UHDM::uhdmint_typespec:
+                        ((UHDM::int_typespec*)its)->VpiSigned(true);
+                        break;
+                    case UHDM::uhdminteger_typespec:
+                        ((UHDM::integer_typespec*)its)->VpiSigned(true);
+                        break;
+                    case UHDM::uhdmshort_int_typespec:
+                        ((UHDM::short_int_typespec*)its)->VpiSigned(true);
+                        break;
+                    case UHDM::uhdmlong_int_typespec:
+                        ((UHDM::long_int_typespec*)its)->VpiSigned(true);
+                        break;
+                    case UHDM::uhdmbyte_typespec:
+                        ((UHDM::byte_typespec*)its)->VpiSigned(true);
+                        break;
+                    default:
+                        break;
+                }
+        }
+        else if (ick.isIntegral())
+            its = s.MakeLogic_typespec();
+        if (its) {
+            if (!dimSyns.empty()) {
+                auto dr = dimSyns[0]->sourceRange();
+                setLoc(its, SourceRange(dr.start() + 1, dr.end() - 1));
+            }
+            auto* irt = s.MakeRef_typespec();
+            irt->VpiParent(ats);
+            irt->Actual_typespec(its);
+            ats->Index_typespec(irt);
+        }
+    }
     arrayVarArrayTs[&sym] = ats;
     return av;
 }

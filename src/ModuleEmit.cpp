@@ -4385,6 +4385,19 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 }
             }
         }
+        // A DYNAMIC / ASSOCIATIVE / QUEUE dimension anywhere in the
+        // declaration makes the instance view an array_var, whatever the
+        // element type would say about net-vs-var (emitDynArrayVar); the def
+        // view keeps its plain logic_net.  This runs BEFORE the array_net and
+        // array_var arms below, both of which read only the FIXED dims.
+        if (!implicitNet && !realVar) {
+            if (auto* av = emitDynArrayVar(*it.sym, name, fullName, m, ts)) {
+                topNets[it.sym] = av;
+                sigOrder.emplace_back(it.sym, av);
+                vars->push_back(av);
+                continue;
+            }
+        }
         // Unpacked array of a NET-type leaf (reg memory): the instance view
         // is an array_net (vpiNet = logic_net), not an array_var.
         if (!implicitNet && !realVar &&
@@ -10679,10 +10692,16 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         }
     }
     // Unpacked-array def-view nets: the typespec span reaches the end of the
-    // FIRST unpacked dimension (Surelog's element-span-plus-first-dim).
+    // FIRST unpacked dimension (Surelog's element-span-plus-first-dim).  The
+    // rule reads the WRITTEN dims, so it covers the unsized spellings too
+    // (`int d [];` -> 2:4..2:19, `int a [int];` -> 6:4..6:19, `int q [$];` ->
+    // 8:4..8:17 — DynArrayKind, plus a 16-case module-scope golden).
     if (auto dt3 = pn.sym->getDeclaredType()) {
-        if (dt3->getType().getCanonicalType().kind ==
-                SymbolKind::FixedSizeUnpackedArrayType &&
+        auto dck3 = dt3->getType().getCanonicalType().kind;
+        if ((dck3 == SymbolKind::FixedSizeUnpackedArrayType ||
+             dck3 == SymbolKind::DynamicArrayType ||
+             dck3 == SymbolKind::AssociativeArrayType ||
+             dck3 == SymbolKind::QueueType) &&
             ts->VpiName().empty()) {
             if (auto dsyn = pn.sym->getSyntax();
                 dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
@@ -10720,9 +10739,13 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // Initialized decls extend the def-view typespec through the init
     // (but unpacked arrays keep their first-dim span, handled above).
     bool isUnpacked = false;
-    if (auto dt4 = pn.sym->getDeclaredType())
-        isUnpacked = dt4->getType().getCanonicalType().kind ==
-                     SymbolKind::FixedSizeUnpackedArrayType;
+    if (auto dt4 = pn.sym->getDeclaredType()) {
+        auto dck4 = dt4->getType().getCanonicalType().kind;
+        isUnpacked = dck4 == SymbolKind::FixedSizeUnpackedArrayType ||
+                     dck4 == SymbolKind::DynamicArrayType ||
+                     dck4 == SymbolKind::AssociativeArrayType ||
+                     dck4 == SymbolKind::QueueType;
+    }
     if (auto dtl = pn.sym->getDeclaredType();
         dtl && dtl->getInitializer() && ts->VpiName().empty() && !isUnpacked &&
         !hasExplicitNetKeyword(*pn.sym)) {
@@ -15432,6 +15455,25 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             lv->VpiName(sub.name);
             lv->VpiFullName(localFull);
             lv->VpiParent(r);
+            // A BARE-IMPLICIT return type ("function f;") has no type node to
+            // compile, so the body-local return var is bare too: no typespec,
+            // no span — the same rule emitTaskFuncs already applies to the
+            // function's own vpiReturn var (ImplicitFuncArgAndReturn).
+            {
+                bool implicitRet9 = true;
+                if (auto* rsyn9 = returnTypeSyntax(sub)) {
+                    implicitRet9 = false;
+                    if (rsyn9->kind == syntax::SyntaxKind::ImplicitType) {
+                        auto& its9 = rsyn9->as<syntax::ImplicitTypeSyntax>();
+                        implicitRet9 =
+                            its9.dimensions.empty() && !its9.signing.valid();
+                    }
+                }
+                if (implicitRet9) {
+                    r->Actual_group(lv);
+                    continue;
+                }
+            }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(localFull);
             rt->VpiParent(lv);

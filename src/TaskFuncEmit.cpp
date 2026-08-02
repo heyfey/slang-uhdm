@@ -15,6 +15,45 @@
 
 namespace slang_uhdm {
 
+// § elabInvoked — every subroutine CALLED from a continuous / elaboration
+// expression in the design.  The scan is a symbol+EXPRESSION walk of the root
+// with STATEMENTS switched off, which is exactly the distinction Surelog
+// draws (purpose-built golden, five call sites over one source):
+//
+//   assign a = fa(1'b1);        -> fa's io_decl gets a typespec
+//   wire   f = fd(1'b1);        -> fd    "
+//   parameter P2 = fc(1'b1);    -> fc    "
+//   sub #(.M(w_1(X))) m1();     -> w_1   "   (ImplicitFuncArgAndReturn)
+//   always @(*) r = fb(1'b1);   -> fb    NO typespec
+//   function fe; fe = fa(val);  -> fe    NO typespec (a body statement)
+//   initial t2(1'b0);           -> t2    NO typespec
+//
+// so "called somewhere" is too weak: a call reached only through a procedural
+// statement leaves the formals uncompiled, exactly like never calling it.
+namespace {
+struct ElabCallScan
+    : slang::ast::ASTVisitor<ElabCallScan, slang::ast::VisitFlags::Symbols |
+                                               slang::ast::VisitFlags::Expressions> {
+    std::set<const SubroutineSymbol*>& out;
+    explicit ElabCallScan(std::set<const SubroutineSymbol*>& o) : out(o) {}
+    void handle(const slang::ast::CallExpression& ce) {
+        if (auto* sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine))
+            if (*sp)
+                out.insert(*sp);
+        visitDefault(ce);
+    }
+};
+}  // namespace
+
+bool UhdmExporter::elabInvoked(const SubroutineSymbol& sub) {
+    if (!elabCalledSubs) {
+        elabCalledSubs.emplace();
+        ElabCallScan scan(*elabCalledSubs);
+        comp.getRoot().visit(scan);
+    }
+    return elabCalledSubs->count(&sub) != 0;
+}
+
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiLineNo(src->VpiLineNo());
     dst->VpiColumnNo(src->VpiColumnNo());
@@ -1033,7 +1072,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         q->kind == syntax::SyntaxKind::TaskDeclaration)
                         break;
                 }
-                if (noTypeNode) {
+                // ...unless the subroutine is INVOKED from a continuous /
+                // elaboration expression, which makes Surelog compile its
+                // formals after all — then even the bare-name formal takes
+                // the unlocated logic_typespec (§ elabInvoked;
+                // ImplicitFuncArgAndReturn's `sub #(.M_SECURE({w_1(...)}))`).
+                // The UVM `task put(message)` counterexamples this branch was
+                // written for are all uncalled, so they keep dropping it.
+                if (noTypeNode && !elabInvoked(sub)) {
                     ios->push_back(io);
                     if (!classScope)
                         funcMap[arg] = io;

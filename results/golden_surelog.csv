@@ -107,8 +107,8 @@ BitPartSelect,default,CMP_EQUAL,,,match
 BitPartSelect,testflags,CMP_EQUAL,,,match
 BitRanges,default,CMP_EQUAL,,,match
 BitRanges,testflags,CMP_EQUAL,,,differ
-BitsArray,default,CMP_NOTEQUAL,decompile:,,
-BitsArray,testflags,CMP_NOTEQUAL,decompile:,,
+BitsArray,default,CMP_EQUAL,,,differ
+BitsArray,testflags,CMP_EQUAL,,,differ
 BitSelect,default,CMP_EQUAL,,,differ
 BitSelect,testflags,CMP_EQUAL,,,differ
 BitSelectExpr,default,CMP_EQUAL,,,differ
@@ -375,8 +375,8 @@ DpiTask,default,CMP_EQUAL,,,match
 DpiTask,testflags,CMP_EQUAL,,,match
 Driver,default,SLANG_REJECT,testbench.sv:23:3: error: too many arguments for 'new'; expected 0 but 1 were provided,,
 Driver,testflags,SLANG_REJECT,testbench.sv:23:3: error: too many arguments for 'new'; expected 0 but 1 were provided,,
-DynArrayKind,default,CMP_NOTEQUAL,decompile:,,
-DynArrayKind,testflags,CMP_NOTEQUAL,decompile:,,
+DynArrayKind,default,CMP_EQUAL,,,match
+DynArrayKind,testflags,CMP_EQUAL,,,match
 Earlgrey,default,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Earlgrey,testflags,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
