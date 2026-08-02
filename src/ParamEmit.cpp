@@ -2242,6 +2242,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // MEMORY_INTERFACE states; fsm's 3'b001 and param_test's 8'hAA keep
         // their int_typespec).
         bool decBasedInit = false;
+        // A NON-decimal based literal with an explicit WIDTH (3'bxxx): the
+        // declaration's width is known even when the VALUE has x/z bits, so
+        // Surelog still mints the implicit int_typespec. Only a
+        // width-INDETERMINATE unknown init ('x / 'z) goes bare.
+        bool sizedBasedInit = false;
         if (defaultInit) {
             auto& dl0 = stripImplicitConv(*defaultInit);
             if (dl0.kind == ExpressionKind::IntegerLiteral) {
@@ -2254,6 +2259,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         bp0++;
                     decBasedInit = bp0 < rawL0.size() &&
                                    (rawL0[bp0] == 'd' || rawL0[bp0] == 'D');
+                    sizedBasedInit =
+                        tk0 > 0 && !decBasedInit && bp0 < rawL0.size() &&
+                        std::string("bBoOhH").find(rawL0[bp0]) !=
+                            std::string::npos;
                 }
             }
         }
@@ -2363,10 +2372,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 std::string raw = rawText(stripImplicitConv(*defaultInit).sourceRange);
                 auto tick = raw.find('\'');
                 if (tick != std::string::npos) {
-                    std::string digits = stripSep(raw.substr(tick + 1));
-                    for (auto& ch : digits)
-                        ch = (char)toupper(ch);
-                    up->VpiValue("BIN:" + digits);
+                    std::string rest = stripSep(raw.substr(tick + 1));
+                    size_t bp = 0;
+                    if (bp < rest.size() && (rest[bp] == 's' || rest[bp] == 'S'))
+                        bp++;
+                    bool based =
+                        bp < rest.size() &&
+                        std::string("bBoOdDhH").find(rest[bp]) != std::string::npos;
+                    if (based)
+                        // A BASED literal keeps the digits AS WRITTEN — the
+                        // parameter copies the compiled constant's own BIN
+                        // string (3'bxxx -> BIN:xxx). Uppercasing the whole
+                        // remainder used to emit the BASE CHAR as a digit
+                        // ("BXXX"); only the unbased form below is uppercased.
+                        up->VpiValue("BIN:" + rest.substr(bp + 1));
+                    else {
+                        std::string digits = rest;
+                        for (auto& ch : digits)
+                            ch = (char)toupper(ch);
+                        up->VpiValue("BIN:" + digits);
+                    }
                 }
             }
             // An unbased-unsized default ('0/'1/'x/'z) carries a BIN:<bit>
@@ -2579,8 +2604,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                       (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) ||
                       signedImplicitTs || pkgElabComputed || bitsFoldInit ||
-                      ((literalInit || realLit) && !unknownDefault &&
-                       !decBasedInit));
+                      ((literalInit || realLit) &&
+                       (!unknownDefault || sizedBasedInit) && !decBasedInit));
             // A COMPUTED-init module parameter still ends up with an
             // int_typespec when its name is used as a CAST SIZE somewhere in
             // the module: Surelog's type lookup for `P'(x)` mints one at the

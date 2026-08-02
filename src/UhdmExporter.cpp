@@ -3605,7 +3605,41 @@ UHDM::design* UhdmExporter::exportDesign() {
     // Elab param_assign Rhs ts refs -> the def parameter's FINAL typespec.
     // Dead last: every deferred def-view typespec rebind is done by now.
     drainShareDefParamTs();
+    // In-body func_call operation-arg stamps: reachability needs the whole
+    // design's call set, so it is resolved here.
+    drainBodyOpArgTs();
     return d;
+}
+
+// A function body's nested-call OPERATION argument carries the formal's
+// typespec only when the body is reached from a func_call that survived
+// constant reduction (see the bodyOpArg9 note in ExprEmit). Close the live
+// entry points over the body-to-body call graph, then attach.
+void UhdmExporter::drainBodyOpArgTs() {
+    if (pendingBodyOpArgTs.empty()) {
+        liveCalledSubs.clear();
+        subCallEdges.clear();
+        return;
+    }
+    std::set<const slang::ast::SubroutineSymbol*> reached = liveCalledSubs;
+    std::vector<const slang::ast::SubroutineSymbol*> work(reached.begin(),
+                                                          reached.end());
+    while (!work.empty()) {
+        auto* cur = work.back();
+        work.pop_back();
+        auto it = subCallEdges.find(cur);
+        if (it == subCallEdges.end())
+            continue;
+        for (auto* nx : it->second)
+            if (reached.insert(nx).second)
+                work.push_back(nx);
+    }
+    for (auto& p : pendingBodyOpArgTs)
+        if (reached.count(p.encl))
+            p.owner->Typespec(p.rt);
+    pendingBodyOpArgTs.clear();
+    liveCalledSubs.clear();
+    subCallEdges.clear();
 }
 
 // Surelog reports source positions in the FULLY MACRO-EXPANDED text: every

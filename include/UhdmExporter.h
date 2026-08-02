@@ -2212,6 +2212,21 @@ private:
     // Set while emitting a task/function body: case-item expr refs parent
     // at the tf object.
     UHDM::task_func* currentTf = nullptr;
+    // ---- in-body func_call operation-arg formal-ts stamps (drainBodyOpArgTs)
+    // Subroutines called from a func_call emitted OUTSIDE any task/func body
+    // (a live entry point), and the call graph between bodies. A call that
+    // constant-folded away is never emitted, so it contributes no edge.
+    std::set<const slang::ast::SubroutineSymbol*> liveCalledSubs;
+    std::map<const slang::ast::SubroutineSymbol*,
+             std::set<const slang::ast::SubroutineSymbol*>>
+        subCallEdges;
+    struct PendingBodyOpArgTs {
+        UHDM::ref_typespec* rt;
+        UHDM::expr* owner;
+        const slang::ast::SubroutineSymbol* encl;
+    };
+    std::vector<PendingBodyOpArgTs> pendingBodyOpArgTs;
+    void drainBodyOpArgTs();
     // When set, emitSyntaxExpr refs carry this scope prefix in VpiFullName.
     std::string syntaxRefPrefix;
     std::string syntaxRefSep = ".";

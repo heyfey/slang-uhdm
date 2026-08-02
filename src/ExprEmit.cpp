@@ -4550,6 +4550,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool isFunc = sub.subroutineKind == SubroutineKind::Function;
                 UHDM::tf_call* fc = isFunc ? (UHDM::tf_call*)s.MakeFunc_call()
                                            : (UHDM::tf_call*)s.MakeTask_call();
+                // Reachability bookkeeping for the in-body operation-arg
+                // stamp (drainBodyOpArgTs): a call emitted OUTSIDE any
+                // task/func body is a live entry point into `sub`; a call
+                // emitted inside one is an edge of the call graph. A call
+                // that constant-folded away never reaches here at all, which
+                // is exactly the distinction Surelog draws.
+                // The DEF-view cont-assign (contAssignView == 1) keeps the
+                // call Surelog's ELAB view folds away, so it is not evidence
+                // of reachability — only the elab/top view counts.
+                if (currentSubSym)
+                    subCallEdges[currentSubSym].insert(&sub);
+                else if (contAssignView != 1)
+                    liveCalledSubs.insert(&sub);
                 fc->VpiName(sub.name);
                 fc->VpiParent(parent);
                 // Param-init calls and LHS bit-select INDEX calls
@@ -4847,6 +4860,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool strFormalConst =
                             a->UhdmType() == UHDM::uhdmconstant && arg->type &&
                             arg->type->isString();
+                        // A MODULE function body's nested call also stamps an
+                        // OPERATION actual with the formal's typespec — but
+                        // only when the body is REACHED: Surelog's post-elab
+                        // pass descends into a function through a func_call
+                        // that survived constant reduction, so a function
+                        // whose every call folded away keeps its body bare.
+                        // FuncArgs is the discriminator pair, one shape twice:
+                        //   assign out1 = pow_a(inp, 3) -> call kept -> the
+                        //     body's `pow_a(base, exp - 1)` stamps `exp - 1`
+                        //   assign out2 = pow_b(2, 2)   -> folds to a constant
+                        //     -> the identical `pow_b(base, exp - 1)` is bare
+                        // Reachability is only known once the whole design is
+                        // emitted, so the stamp is parked (drainBodyOpArgTs).
+                        // ...and only when no SIBLING actual of the same call
+                        // is itself a user call. Surelog reduces the actuals
+                        // left to right and a nested call it cannot evaluate
+                        // aborts the attempt before the operation actual is
+                        // stamped: const_fold_func's `pow_flip_a(flip(base),
+                        // exp - 1)` is bare even though pow_flip_a IS reached
+                        // (assign out4 = pow_flip_a(flip(inp), 3) survives),
+                        // while FuncArgs' `pow_a(base, exp - 1)` — same shape
+                        // minus the nested flip() — is stamped.
+                        bool siblingCallArg9 = false;
+                        for (auto sa9 : call.arguments()) {
+                            auto& sl9 = stripImplicitConv(*sa9);
+                            if (sl9.kind == ExpressionKind::Call &&
+                                !sl9.as<CallExpression>().isSystemCall())
+                                siblingCallArg9 = true;
+                        }
+                        bool bodyOpArg9 =
+                            isFunc && !inProcessEmit && currentTf &&
+                            currentSubSym && !pkgTopEmit && !pkgScopeInst &&
+                            !propDeclScope && !inLhs && !portInitCtx &&
+                            !argCtxOk && callArgDepth == 1 && !intFormal &&
+                            !siblingCallArg9 &&
+                            a->UhdmType() == UHDM::uhdmoperation &&
+                            ((UHDM::operation*)a)->VpiOpType() != vpiConcatOp &&
+                            argIdx < si.argTs.size() && si.argTs[argIdx].first;
+                        if (bodyOpArg9) {
+                            auto* rtb = s.MakeRef_typespec();
+                            rtb->VpiFullName(prefix);
+                            rtb->VpiParent((UHDM::expr*)a);
+                            rtb->Actual_typespec(si.argTs[argIdx].first);
+                            pendingBodyOpArgTs.push_back(
+                                {rtb, (UHDM::expr*)a, currentSubSym});
+                        }
                         if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
                             !strFormalConst &&
                             // A PROPERTY-DECL body's call args carry no

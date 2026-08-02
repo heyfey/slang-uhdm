@@ -495,8 +495,8 @@ FuncAlias,default,CMP_NOTEQUAL,decompile:,,
 FuncAlias,testflags,CMP_NOTEQUAL,decompile:,,
 FuncArgDirection,default,CMP_EQUAL,,,match
 FuncArgDirection,testflags,CMP_EQUAL,,,differ
-FuncArgs,default,CMP_NOTEQUAL,decompile:,,
-FuncArgs,testflags,CMP_NOTEQUAL,decompile:,,
+FuncArgs,default,CMP_EQUAL,,,match
+FuncArgs,testflags,CMP_EQUAL,,,differ
 FuncArgsByName,default,CMP_EQUAL,,,match
 FuncArgsByName,testflags,CMP_EQUAL,,,match
 FuncAttrib,default,CMP_NOTEQUAL,decompile:,,
@@ -1501,8 +1501,8 @@ VarSelect,default,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 
 VarSelect,testflags,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'a',,
 VarSelectGenStmt,default,CMP_EQUAL,,,match
 VarSelectGenStmt,testflags,CMP_EQUAL,,,differ
-VarType,default,CMP_NOTEQUAL,decompile:,,
-VarType,testflags,CMP_NOTEQUAL,decompile:,,
+VarType,default,CMP_EQUAL,,,differ
+VarType,testflags,CMP_EQUAL,,,differ
 Verilator,default,SLANG_REJECT,error: no input files,,
 Verilator,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
 VirtualClass,default,CMP_EQUAL,,,match

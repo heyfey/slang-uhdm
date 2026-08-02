@@ -4595,6 +4595,32 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             rt->VpiFullName(fullName);
             rt->Actual_typespec(ts);
         }
+        // A `real` var DOES carry a typespec ref in the ELAB view; a
+        // `shortreal` one does not. Surelog's ElaborationStep signal dispatch
+        // has a `uhdmreal_typespec` branch (which mints the ref and links the
+        // signal's typespec) but NO `uhdmshort_real_typespec` branch, so a
+        // shortreal signal falls through to the bare subnettype path
+        // (paNonIntType_ShortReal -> short_real_var, no Typespec()). Ditto
+        // `realtime`, which lands on paNonIntType_RealTime -> time_var.
+        // Distinguisher pair: VarType (`real a = 4.76;` -> ts) vs Shortreal
+        // (`shortreal a = 0.5;` -> none).
+        // The elab ts is a FRESH real_typespec spanning the DATA-TYPE syntax
+        // only (`real`, or `type(a+b)` for a type-operator decl) — the def
+        // view's net keeps its own ts spanning the whole declaration.
+        UHDM::real_typespec* realElabTs = nullptr;
+        if (rt == nullptr && realVar && !implicitNet && !bareImplicit) {
+            auto* dtR = it.sym->getDeclaredType();
+            auto& ctR = dtR->getType().getCanonicalType();
+            if (ctR.kind == SymbolKind::FloatingType &&
+                ctR.as<FloatingType>().floatKind == FloatingType::Real) {
+                realElabTs = s.MakeReal_typespec();
+                if (auto* tsynR = dtR->getTypeSyntax())
+                    setLoc(realElabTs, tsynR->sourceRange());
+                rt = s.MakeRef_typespec();
+                rt->VpiFullName(fullName);
+                rt->Actual_typespec(realElabTs);
+            }
+        }
         if (auto* v = makeVar(*it.sym, /*portBacked=*/it.port != nullptr)) {
             v->VpiName(name);
             v->VpiFullName(fullName);
@@ -4615,6 +4641,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 rt->VpiParent(v);
                 v->Typespec(rt);
             }
+            // Surelog reparents the freshly-minted elab typespec at the var
+            // (`tps->VpiParent(obj)` right after linking the ref).
+            if (realElabTs)
+                realElabTs->VpiParent(v);
             if (ts && ts->UhdmType() == UHDM::uhdmenum_typespec &&
                 ((UHDM::enum_typespec*)ts)->VpiName().empty()) {
                 ts->VpiParent(v);
@@ -13588,6 +13618,19 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
               !pkgParamSel && !unpackedParamSel && !noDefOvRhs &&
               !paramPartSelRhs && !structParamSetter))) {
+            // The elab view SHARES the def cont_assign, so the def-view
+            // func_call survives into the elaborated design: that makes the
+            // callee a live entry point for drainBodyOpArgTs (the def-view
+            // emission itself is not evidence — a folded elab RHS discards it).
+            if (topView)
+                ae.right().visit(makeVisitor([&](auto& v9, const CallExpression& ce9) {
+                    if (!ce9.isSystemCall())
+                        if (auto sp9 =
+                                std::get_if<const SubroutineSymbol*>(&ce9.subroutine))
+                            if (*sp9)
+                                liveCalledSubs.insert(*sp9);
+                    v9.visitDefault(ce9);
+                }));
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -15706,6 +15749,29 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
         }
         return resolveConstExpr(l);
     };
+    // Straight-line replay only models the statement kinds below. A statement
+    // it does NOT model still runs in Surelog's EvalFunc, and if it can write
+    // the return variable the accumulated value is simply wrong: FuncArgs'
+    // `pow_b = 1; if (exp > 0) pow_b = base * pow_b(base, exp-1);` kept the
+    // literal `1` (golden folds the recursion to 4). Poison the whole fold in
+    // that case and let the caller's slang tryEval path handle it.
+    bool poisoned = false;
+    auto writesRetVar = [&](const Statement& st) {
+        bool w = false;
+        st.visit(makeVisitor([&](auto& vis, const AssignmentExpression& ax) {
+            std::set<const Symbol*> ls;
+            collectLhsSyms(ax.left(), ls);
+            if (ls.count((const Symbol*)(*subp)->returnValVar))
+                w = true;
+            vis.visitDefault(ax);
+        }));
+        if (!w)
+            st.visit(makeVisitor([&](auto& vis, const ReturnStatement& rs) {
+                w = true;
+                vis.visitDefault(rs);
+            }));
+        return w;
+    };
     std::function<CallFold(const Statement&)> findFold =
         [&](const Statement& st) -> CallFold {
         if (st.kind == StatementKind::Return) {
@@ -15781,9 +15847,13 @@ UhdmExporter::CallFold UhdmExporter::constCallFold(const Expression& expr) {
             }
             return CallFold{};
         }
+        if (writesRetVar(st))
+            poisoned = true;
         return CallFold{};
     };
     CallFold r = findFold((*subp)->getBody());
+    if (poisoned)
+        return none;
     if (r)
         r.directSub = *subp;
     return r;
