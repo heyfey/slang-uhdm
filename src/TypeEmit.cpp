@@ -277,6 +277,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         break;
                 }
             }
+            // A class-method FORMAL is not a body local: Surelog compiles the
+            // argument list from the prototype's own scope and keeps the name
+            // (`extern function void add_testsuite(svunit_testsuite ts)` ->
+            // class_typespec named svunit_testsuite on BOTH the prototype's
+            // and the definition's io_decl).
+            if (declSymbol.kind == SymbolKind::FormalArgument)
+                inClassMethod0 = false;
             if (!inClassMethod0 &&
                 !(declSymbol.getParentScope() &&
                   declSymbol.getParentScope()->asSymbol().kind ==

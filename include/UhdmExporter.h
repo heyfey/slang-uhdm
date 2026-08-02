@@ -1608,6 +1608,15 @@ private:
     // order of Surelog's multimap<name, ClassDefinition*>.
     void emitPackageClasses(const slang::ast::PackageSymbol& pkg, UHDM::package* up,
                             const std::string& prefix);
+    // The DEF-view package's Task_funcs listing for classes whose methods are
+    // declared `extern`: ONE SEPARATE CLONE per out-of-body definition, named
+    // "class::method" (qualified) and parented at the un-elaborated package.
+    // Order is every class's NON-constructor definitions in class-declaration
+    // order, THEN every class's constructor definitions in the same order —
+    // Surelog binds constructors in a second pass. The ELABORATED package
+    // carries no Task_funcs at all; it lists the class_defns instead.
+    void emitPackageClassMethodClones(const slang::ast::PackageSymbol& pkg,
+                                      const std::string& prefix);
     // One PACKAGE-scope data declaration that is NOT a net (see the net/var
     // split documented at the call site in emitPackage): appends the matching
     // variables object to `out`, or appends nothing for a shape that is not
@@ -1731,6 +1740,13 @@ private:
     // Expansions currently being turned into a let_expr; `let id(x) = x;`
     // expands to its own argument, so emitting it would otherwise re-enter.
     std::set<const slang::ast::Expression*> letInFlight;
+    // Non-null while emitPackageClassMethodClones runs: emitTaskFuncs over a
+    // class scope then emits ONLY the out-of-body definition group, as fresh
+    // objects renamed "class::method" and parented at (and appended to) this
+    // package instead of the class_defn.
+    UHDM::package* pkgClassTfClone = nullptr;
+    // Second clone pass: constructors only (the first pass skips them).
+    bool pkgClassTfCloneCtors = false;
     std::map<const void*, UHDM::package*> pkgDefMap;
     // ELAB/top-view package objects (filled in emitPackage when topView).
     // Module- and package-side cross-view links whose Surelog equivalents reach

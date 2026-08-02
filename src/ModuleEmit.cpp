@@ -3949,6 +3949,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             v->VpiName(name);
             v->VpiFullName(fullName);
             v->VpiParent(m);
+            // A `const` declaration carries vpiConstantVariable in the
+            // ELABORATED view (the def view keeps it a net, which has no such
+            // field) — variables::Compare reads it, so ApbSlave's
+            // `const logic [1:0] SETUP = 0;` was a first-fail on its own.
+            // Same rule emitPackageVar already applies at package scope.
+            if (it.sym->kind == SymbolKind::Variable &&
+                it.sym->as<VariableSymbol>().flags.has(VariableFlags::Const))
+                v->VpiConstantVariable(true);
             if (it.port && !it.bodyDecl)
                 setLocNamed(v, *it.port);
             else

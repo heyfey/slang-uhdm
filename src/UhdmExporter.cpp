@@ -422,6 +422,15 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         int32_t randTy = cp.randMode == RandMode::Rand    ? 2
                          : cp.randMode == RandMode::RandC ? 3
                                                           : 0;
+        // A class PROPERTY carries the declared access qualifier, exactly as
+        // emitTaskFuncs already stamps it on a method: vpiPublic 1 (the
+        // default), vpiProtected 2, vpiLocal 3. variables::Compare reads
+        // vpiVisibility, so a `protected`/`local` property emitted as public
+        // is a cmp difference on its own (ApbSlave: svunit_base::name/success
+        // are protected, svunit_testcase's counters local).
+        int32_t vis = cp.visibility == Visibility::Protected ? 2
+                      : cp.visibility == Visibility::Local   ? 3
+                                                             : 1;
         // A DYNAMIC-array / QUEUE / ASSOC property is an array_var carrying a
         // bare array_typespec, with the ELEMENT variable under vpiReg.
         if (ct.kind == SymbolKind::DynamicArrayType ||
@@ -457,7 +466,7 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             }
             else
                 av->VpiRandType(1);
-            av->VpiVisibility(1);
+            av->VpiVisibility(vis);
             av->VpiArrayType(akind);
             auto* ats = s.MakeArray_typespec();
             auto* art = s.MakeRef_typespec();
@@ -513,7 +522,47 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             v->VpiIsRandomized(true);
             v->VpiRandType(randTy);
         }
-        v->VpiVisibility(1);
+        v->VpiVisibility(vis);
+        // A property DECLARATION INITIALIZER rides the var as vpiExpr, and
+        // variables::Compare recurses into it — a missing one is a cmp
+        // difference on its own. Two measured shapes (ApbSlave's svunit
+        // classes); anything else is left off rather than mis-shaped:
+        //   `= <enum const>` -> an UNFOLDED ref_obj named after the constant,
+        //      fullname <prop-fullname>::<const>, spanned at the reference;
+        //   `= <integer literal>` -> a UINT constant sized at the PROPERTY's
+        //      width (not the literal's), spanned at the literal.
+        if (auto* pinit = cp.getInitializer()) {
+            auto& ic0 = stripImplicitConv(*pinit);
+            std::string pfn0 = fullName + "::" + std::string(cp.name);
+            if (ic0.kind == ExpressionKind::NamedValue &&
+                ic0.as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::EnumValue) {
+                auto* ro = s.MakeRef_obj();
+                ro->VpiName(ic0.as<NamedValueExpression>().symbol.name);
+                ro->VpiFullName(pfn0 + "::" +
+                                std::string(
+                                    ic0.as<NamedValueExpression>().symbol.name));
+                ro->VpiParent(v);
+                setLoc(ro, ic0.sourceRange);
+                v->Expr(ro);
+            }
+            else if (ic0.kind == ExpressionKind::IntegerLiteral) {
+                auto iv0 = ic0.as<IntegerLiteral>().getValue();
+                if (!iv0.hasUnknown()) {
+                    slang::SVInt u0 = iv0;
+                    u0.setSigned(false);
+                    std::string d0 = u0.toString(LiteralBase::Decimal, false);
+                    auto* c0 = s.MakeConstant();
+                    c0->VpiDecompile(d0);
+                    c0->VpiSize((int32_t)cp.getType().getBitWidth());
+                    c0->VpiValue("UINT:" + d0);
+                    c0->VpiConstType(vpiUIntConst);
+                    c0->VpiParent(v);
+                    setLoc(c0, ic0.sourceRange);
+                    v->Expr(c0);
+                }
+            }
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName + "::" + std::string(cp.name));
         rt->VpiParent(v);

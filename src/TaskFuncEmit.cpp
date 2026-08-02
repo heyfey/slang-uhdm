@@ -10,6 +10,9 @@
 
 #include "slang/ast/symbols/SubroutineSymbols.h"
 
+#include <algorithm>
+#include <vector>
+
 namespace slang_uhdm {
 
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
@@ -80,10 +83,102 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt0, &declSym.getDeclaredType()->getType());
     };
     auto* tfs = s.MakeTask_funcVec();
-    for (auto& member : body.members()) {
+    // ---------------------------------------------------------------- items
+    // Ordinarily a scope emits its own members. A CLASS whose methods are
+    // declared `extern` emits TWO groups: every prototype (in declaration
+    // order) and then every OUT-OF-BODY DEFINITION. slang keeps those
+    // definition SubroutineSymbols out of every scope's member list
+    // (Compilation::addOutOfBlockDecl), so members() alone finds NOTHING for
+    // such a class — they are reachable only through
+    // MethodPrototypeSymbol::getSubroutine(). Surelog lists the definitions
+    // in DEFINITION-FILE order with the CONSTRUCTOR moved LAST (it binds
+    // constructors in a second pass), which is why svunit_base reads
+    // get_name(68), report(77), get_results(87), new(59).
+    std::vector<const Symbol*> memberList;
+    for (auto& member : body.members())
+        memberList.push_back(&member);
+    // The def-view package CLONE pass emits the second group ALONE.
+    bool cloneMode = pkgClassTfClone != nullptr && classScope;
+    std::vector<const Symbol*> items;
+    if (!cloneMode)
+        items = memberList;
+    std::vector<const Symbol*> oobDefs;
+    if (classScope) {
+        for (auto& member : body.members()) {
+            if (member.kind != SymbolKind::MethodPrototype)
+                continue;
+            auto& mp0 = member.as<MethodPrototypeSymbol>();
+            if (mp0.flags.has(MethodFlags::Pure))
+                continue;
+            auto* impl0 = mp0.getSubroutine();
+            // The definition's parentScope IS the class (slang re-parents it
+            // there), so scope identity does not separate the two groups —
+            // MEMBERSHIP does: an out-of-body definition is exactly the
+            // subroutine members() never yields.
+            if (!impl0 || !impl0->getSyntax())
+                continue;
+            if (std::find(memberList.begin(), memberList.end(),
+                          (const Symbol*)impl0) != memberList.end())
+                continue;
+            oobDefs.push_back(impl0);
+        }
+        std::stable_sort(oobDefs.begin(), oobDefs.end(),
+                         [](const Symbol* a, const Symbol* b) {
+                             bool ca = a->name == "new", cb = b->name == "new";
+                             if (ca != cb)
+                                 return cb;
+                             if (ca && cb)
+                                 return false;
+                             return a->location < b->location;
+                         });
+        for (auto* d0 : oobDefs) {
+            if (cloneMode && (d0->name == "new") != pkgClassTfCloneCtors)
+                continue;
+            items.push_back(d0);
+        }
+    }
+    // True for the second group: the definition's own listing fields differ
+    // from an in-class method's (measured on ApbSlave's svunit classes).
+    auto isOutOfBody = [&](const Symbol* sy) {
+        return std::find(oobDefs.begin(), oobDefs.end(), sy) != oobDefs.end();
+    };
+    // An out-of-body definition is compiled in the HOME PACKAGE's scope, not
+    // the class header's: its own object, and every typespec its return type,
+    // formals and body locals mint, carry vpiInstance = that package. An
+    // in-class method (and every prototype) carries none.
+    UHDM::instance* oobHomePkg = nullptr;
+    if (classScope && !oobDefs.empty()) {
+        UHDM::BaseClass* hp0 = cloneMode ? (UHDM::BaseClass*)pkgClassTfClone
+                                         : ((UHDM::class_defn*)m)->VpiParent();
+        if (hp0 && hp0->UhdmType() == UHDM::uhdmpackage)
+            oobHomePkg = (UHDM::instance*)hp0;
+    }
+    auto* baseScopeInst = pkgScopeInst;
+    for (auto* memberPtr : items) {
+        auto& member = *memberPtr;
         // `pure virtual` class methods have no body: slang keeps them as
         // prototypes, Surelog still emits the task/function shell (vpiDPIPure).
+        // An `extern` prototype whose definition sits OUT OF BODY is emitted
+        // as its own method listing (the class's first group): vpiMethod 1,
+        // vpiAccessType 2 (vpiExternAcc), the DECLARED visibility (`new`
+        // included, unlike an in-class constructor), vpiVirtual as written,
+        // and NO Stmt. It runs the ordinary subroutine path over the
+        // definition's SubroutineSymbol — the formals and return type are the
+        // same objects the prototype declares — then stops before the body.
+        const MethodPrototypeSymbol* protoOf = nullptr;
+        const SubroutineSymbol* subPtr = nullptr;
         if (classScope && !onlySub && member.kind == SymbolKind::MethodPrototype) {
+            auto& mp = member.as<MethodPrototypeSymbol>();
+            if (!mp.flags.has(MethodFlags::Pure)) {
+                auto* impl9 = mp.getSubroutine();
+                if (!impl9 || !impl9->getSyntax() || !isOutOfBody(impl9))
+                    continue;
+                protoOf = &mp;
+                subPtr = impl9;
+            }
+        }
+        if (classScope && !onlySub && !protoOf &&
+            member.kind == SymbolKind::MethodPrototype) {
             auto& mp = member.as<MethodPrototypeSymbol>();
             if (!mp.flags.has(MethodFlags::Pure))
                 continue;
@@ -108,14 +203,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             tfs->push_back(pt);
             continue;
         }
-        if (member.kind != SymbolKind::Subroutine)
-            continue;
-        if (onlySub && &member != onlySub)
-            continue;
-        auto& sub = member.as<SubroutineSymbol>();
+        if (!protoOf) {
+            if (member.kind != SymbolKind::Subroutine)
+                continue;
+            if (onlySub && &member != onlySub)
+                continue;
+            subPtr = &member.as<SubroutineSymbol>();
+        }
+        auto& sub = *subPtr;
         // Class scopes skip slang's implicit built-ins (randomize etc.).
         if (classScope && !sub.getSyntax())
             continue;
+        // An out-of-body DEFINITION is not a method listing: vpiMethod is 0
+        // (1 only for `new`, which Surelog still marks a method), the
+        // vpiVisibility is the flat default 1 (unset for `new`), there is no
+        // vpiAccessType, and vpiVirtual never rides it even when the
+        // PROTOTYPE is virtual — the definition carries the body instead.
+        bool oob = isOutOfBody(&member);
+        bool oobCtor = oob && sub.name == "new";
+        // The instance every typespec minted for THIS subroutine takes.
+        UHDM::instance* tsInst = (pkgScope && !classScope)
+                                     ? (UHDM::instance*)m
+                                     : (oob ? oobHomePkg : nullptr);
+        pkgScopeInst = (pkgScope && !classScope) ? baseScopeInst : tsInst;
         bool isFunc = sub.subroutineKind == SubroutineKind::Function;
         // A DPI-EXPORTED subroutine is emitted as a function (even a task)
         // carrying DPI export attributes.
@@ -137,7 +247,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // recognizable by its still-empty fullname.
         UHDM::task_func* tf = nullptr;
         bool reusedShell = false;
-        if (auto sit = subMap.find(&sub); sit != subMap.end() && sit->second.tf &&
+        if (auto sit = subMap.find(&sub);
+            !protoOf && sit != subMap.end() && sit->second.tf &&
             (sharedScope || tfShells.count(sit->second.tf))) {
             tf = sit->second.tf;
             reusedShell = !sharedScope;
@@ -149,14 +260,43 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tf->VpiName(sub.name);
         tf->VpiFullName(fullName);
         tf->VpiParent(m);
-        // A class CONSTRUCTOR carries no vpiVisibility (Surelog).
-        if (!(classScope && sub.name == "new"))
+        // The def-view package listing names its clone "class::method" and
+        // parents it at the package; the fullname is unchanged.
+        if (cloneMode) {
+            tf->VpiName(std::string(((UHDM::class_defn*)m)->VpiName()) +
+                        "::" + std::string(sub.name));
+            tf->VpiParent(pkgClassTfClone);
+        }
+        // An out-of-body DEFINITION carries vpiInstance = the HOME PACKAGE in
+        // BOTH listings (Surelog compiles the definition in the package's
+        // scope, not the class header's — the PROTOTYPE, compiled with the
+        // class header, carries none).
+        if (oob && oobHomePkg)
+            tf->Instance(oobHomePkg);
+        // A class CONSTRUCTOR carries no vpiVisibility (Surelog) — but an
+        // `extern` PROTOTYPE of one does (vpiVisibility 1).
+        if (protoOf) {
+            tf->VpiVisibility(protoOf->visibility == Visibility::Protected ? 2
+                              : protoOf->visibility == Visibility::Local   ? 3
+                                                                          : 1);
+            tf->VpiAccessType(2); // vpiExternAcc
+            // The WRITTEN `virtual` keyword only: slang's isVirtual() is also
+            // true for a method that merely OVERRIDES a virtual one
+            // (svunit_testcase::report), where Surelog stamps nothing.
+            if (protoOf->flags.has(MethodFlags::Virtual))
+                tf->VpiVirtual(true);
+        }
+        else if (!(classScope && sub.name == "new"))
             tf->VpiVisibility(
-                classScope ? (sub.visibility == Visibility::Protected
-                                  ? 2
-                                  : (sub.visibility == Visibility::Local ? 3 : 1))
-                           : 1);
-        if (classScope && (sub.flags & MethodFlags::Virtual) != MethodFlags::None)
+                oob ? 1
+                    : (classScope ? (sub.visibility == Visibility::Protected
+                                         ? 2
+                                         : (sub.visibility == Visibility::Local
+                                                ? 3
+                                                : 1))
+                                  : 1));
+        if (!protoOf && !oob && classScope &&
+            (sub.flags & MethodFlags::Virtual) != MethodFlags::None)
             tf->VpiVirtual(true);
         bool dpiImport = (sub.flags & MethodFlags::DPIImport) != MethodFlags::None;
         if (dpiImport) {
@@ -172,9 +312,34 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         else if (sub.defaultLifetime == VariableLifetime::Automatic && !classScope) {
             tf->VpiAutomatic(true);
         }
+        // An `extern` PROTOTYPE spans its own declaration, and the same
+        // qualifier-collapse artifact applies as for `static`: a FUNCTION
+        // prototype collapses onto the `extern` token alone, a TASK
+        // prototype keeps the whole declaration up to (but not including)
+        // its semicolon. Measured on every svunit prototype.
+        if (protoOf) {
+            if (auto psyn9 = protoOf->getSyntax()) {
+                const auto* holder9 =
+                    psyn9->kind == syntax::SyntaxKind::ClassMethodPrototype
+                        ? &psyn9->as<syntax::ClassMethodPrototypeSyntax>()
+                    : psyn9->parent && psyn9->parent->kind ==
+                                           syntax::SyntaxKind::ClassMethodPrototype
+                        ? &psyn9->parent->as<syntax::ClassMethodPrototypeSyntax>()
+                        : nullptr;
+                SourceRange r9 = psyn9->sourceRange();
+                if (holder9 && !holder9->qualifiers.empty()) {
+                    auto q9 = holder9->qualifiers[0].range();
+                    r9 = protoOf->subroutineKind == SubroutineKind::Function
+                             ? q9
+                             : SourceRange(q9.start(),
+                                           holder9->prototype->sourceRange().end());
+                }
+                setLoc(tf, r9);
+            }
+        }
         // An exported FUNCTION locates at the export DIRECTIVE's span
         // (an exported TASK keeps its definition span).
-        if (dpiExportSyn && sub.subroutineKind == SubroutineKind::Function)
+        else if (dpiExportSyn && sub.subroutineKind == SubroutineKind::Function)
             setLoc(tf, dpiExportSyn->sourceRange());
         else if (auto syn = sub.getSyntax()) {
             // A STATIC class method spans only its `static` qualifier token
@@ -207,7 +372,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 setLoc(tf, virtualQual ? qualHolder->sourceRange()
                                        : syn->sourceRange());
         }
-        if (designScope || classScope)
+        if (protoOf || ((designScope || classScope) && (!oob || oobCtor)))
             tf->VpiMethod(true);
         if (!genScope && !designScope && !classScope)
             tf->Instance((UHDM::instance*)m);
@@ -231,6 +396,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (auto* cp9 = currentClassDefn->VpiParent();
                 cp9 && cp9->UhdmType() == UHDM::uhdmclass_defn)
                 cts->VpiName(currentClassDefn->VpiName());
+            // An `extern` ctor PROTOTYPE is different: Surelog compiles the
+            // class HEADER, where the definition is already registered, so the
+            // typespec takes the class's FULL name (`svunit_pkg::svunit_base`)
+            // while the out-of-body DEFINITION's stays anonymous.
+            if (protoOf)
+                cts->VpiName(currentClassDefn->VpiFullName().empty()
+                                 ? currentClassDefn->VpiName()
+                                 : currentClassDefn->VpiFullName());
             auto* crt = s.MakeRef_typespec();
             crt->VpiFullName(fullName);
             crt->VpiParent(rv);
@@ -492,10 +665,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt->Actual_typespec(ts);
             // A CLASS scope is not a vpiInstance (Surelog leaves method
             // typespecs uninstanced, as the io_decl path already does).
-            if (pkgScope && !classScope &&
+            if (tsInst &&
                 !(sub.returnValVar && foreignSharedTs(*sub.returnValVar, ts))) {
-                ts->Instance(importCopyTsInst ? importCopyTsInst
-                                              : (UHDM::instance*)m);
+                ts->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
                 stampElemTsInstance(ts, (UHDM::instance*)ts->Instance());
                 if (importCopyTsInst && importCopyTsCollect)
                     importCopyTsCollect->push_back(ts);
@@ -1039,13 +1211,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // Surelog keeps one object at its def-view instance. Fresh
                 // top-built formal typespecs are absent from the marker and
                 // still take the elaborated instance.
-                if (pkgScope && !classScope &&
+                if (tsInst &&
                     !foreignSharedTs(*arg, (const UHDM::typespec*)ts) &&
                     !(pkgTopEmit &&
                       defPassOwnedTs.count((UHDM::typespec*)ts))) {
                     ((UHDM::typespec*)ts)->Instance(
-                        importCopyTsInst ? importCopyTsInst
-                                         : (UHDM::instance*)m);
+                        importCopyTsInst ? importCopyTsInst : tsInst);
                     stampElemTsInstance(
                         (UHDM::typespec*)ts,
                         (UHDM::instance*)((UHDM::typespec*)ts)->Instance());
@@ -1114,6 +1285,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         }
         if (!ios->empty())
             tf->Io_decls(ios);
+
+        // The prototype listing ends here: no body, no locals, no params, and
+        // no subMap registration (calls bind the DEFINITION object, which the
+        // second group emits from the same SubroutineSymbol).
+        if (protoOf) {
+            tfs->push_back(tf);
+            continue;
+        }
 
         emitParameters(sub, tf, fullName, funcMap, /*topView=*/false, nullptr,
                        /*inPackage=*/false, /*topShareTs=*/false, /*funcScope=*/true);
@@ -1766,7 +1945,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfs->push_back(tf);
     }
     if (!tfs->empty()) {
-        if (genScope)
+        if (cloneMode) {
+            if (auto* ex0 = pkgClassTfClone->Task_funcs())
+                for (auto* t0 : *tfs)
+                    ex0->push_back(t0);
+            else
+                pkgClassTfClone->Task_funcs(tfs);
+        }
+        else if (genScope)
             ((UHDM::gen_scope*)m)->Task_funcs(tfs);
         else if (designScope)
             ((UHDM::design*)m)->Task_funcs(tfs);

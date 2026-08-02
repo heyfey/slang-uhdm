@@ -12221,11 +12221,57 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // Package classes ride the ELABORATED package view only
     // (§emitPackageClasses), emitted while the package context vars are
     // still in force, then the outer context is restored.
-    if (topView)
+    if (topView) {
         emitPackageClasses(pkg, up, prefix);
+        // ...and the DEF view gains one clone per out-of-body class-method
+        // definition. It runs here, not in the def pass, because the clones
+        // are built from the class_defns emitPackageClasses just created.
+        emitPackageClassMethodClones(pkg, prefix);
+    }
     curPkgEmitSym = savedCurPkg0;
     pkgEmitTopView = savedPkgTopView0;
     return up;
+}
+
+// See the header: the un-elaborated package's Task_funcs listing for
+// `extern`-declared class methods. Two passes over the package's classes in
+// DECLARATION order — non-constructors first, constructors second — because
+// Surelog binds constructors after every other method, at both the class and
+// the package level.
+void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
+                                                const std::string& prefix) {
+    auto dit = pkgDefMap.find(&pkg);
+    if (dit == pkgDefMap.end() || !dit->second)
+        return;
+    std::vector<const ClassType*> pcls;
+    for (auto& mem : pkg.members()) {
+        if (mem.kind == SymbolKind::ClassType)
+            pcls.push_back(&mem.as<ClassType>());
+        else if (mem.kind == SymbolKind::GenericClassDef) {
+            if (auto* dsp = mem.as<GenericClassDefSymbol>().getDefaultSpecialization(pkg);
+                dsp && dsp->kind == SymbolKind::ClassType)
+                pcls.push_back(&dsp->as<ClassType>());
+        }
+    }
+    if (pcls.empty())
+        return;
+    pkgClassTfClone = dit->second;
+    auto* savedCd0 = currentClassDefn;
+    for (int pass = 0; pass < 2; pass++) {
+        pkgClassTfCloneCtors = pass == 1;
+        for (auto* c : pcls) {
+            auto cit = classDefnMap.find(c);
+            if (cit == classDefnMap.end())
+                continue;
+            currentClassDefn = cit->second;
+            emitTaskFuncs(*c, cit->second,
+                          prefix + std::string(c->name) + "::", nullptr,
+                          /*sharedScope=*/false);
+        }
+    }
+    currentClassDefn = savedCd0;
+    pkgClassTfClone = nullptr;
+    pkgClassTfCloneCtors = false;
 }
 
 // One package-scope VARIABLE declaration (the non-net half of the split
@@ -12297,6 +12343,14 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::package* up,
         rt->VpiParent(v);
         rt->Actual_typespec(ts);
         v->Typespec(rt);
+        // A package-scope declaration's typespec is resolved in the package's
+        // own scope, so it carries vpiInstance = the package — the same stamp
+        // emitTaskFuncs already puts on a package subroutine's typespecs.
+        // typespec::Compare recurses Instance(), so a missing one is a cmp
+        // difference (ApbSlave `const string svunit_version` / the
+        // `svunit_testcase current_tc` class handle).
+        if (!ts->Instance())
+            ts->Instance(up);
     }
     if (auto* init = dt->getInitializer()) {
         NetMap none9;
