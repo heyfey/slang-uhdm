@@ -144,6 +144,62 @@ nothing to us; without adding `--nobuiltin` there, every corpus test would have
 regressed the moment the default flipped. Anything that changes a default must
 sweep the harness for the places that relied on the old one.
 
+### 2.7 The golden side gets `-noprecompiledcache` when a source is named `uvm_pkg.sv`/`ovm_pkg.sv` — RESOLVED (this block)
+
+Surelog **substitutes its own bundled UVM/OVM** for any source file whose LEAF
+NAME is `uvm_pkg.sv` or `ovm_pkg.sv`. `Package/Precompiled.cpp` registers
+exactly those two names in its constructor and `isFilePrecompiled` keys on the
+leaf alone — no path, no content hash. A file that matches is served from
+`<surelog-install>/pkg/work/<leaf>.slpp`, which was built from the UVM that
+ships in the Surelog **build tree** (`build/bin/1800.2-2017-1.0/src`).
+
+So the golden for every UVM test described a **different source text** than the
+one the test named on its command line. Measured on `Scoreboard`, which
+compiles `third_party/UVM/uvm-1.2`:
+
+| | golden (precompiled) | uvm-1.2 sources | slang-uhdm |
+|---|---|---|---|
+| `uvm_pkg` parameters | 41 | 45 | 45 |
+| first parameter | `UVM_HDL_MAX_WIDTH` @ `dpi/uvm_hdl.svh:54` | @ `dpi/uvm_hdl.svh:47` | @ `:47` |
+| version parameter | `UVM_VERSION_STRING` | `uvm_mgc_copyright` … `uvm_revision` | same |
+
+Re-run Surelog with `-noprecompiledcache` and its 45 `uvm_pkg` parameters match
+slang-uhdm's 45 **name-for-name and line-for-line**, in order. The 4-parameter
+gap and every name difference above it were the version substitution, not the
+emitter.
+
+This is not a model difference we could ever emit, and it is not even stable:
+it makes the golden depend on the Surelog build tree rather than on the test —
+the same class of environment leak as `-mt`/`-mp`, which the harness already
+pins to 0 on the golden side (§2.2's "verbatim" has always had a
+determinism carve-out). So `verify_golden.py` now prepends
+`-noprecompiledcache` to the **Surelog** argv in all three modes, and **only**
+when an argument's leaf name is one of the two precompiled names
+(`precompiled_guard`). The guard is deliberately narrow: the golden-cache key
+is the Surelog argv, so a blanket flag would invalidate every cached golden in
+both corpora, while this touches exactly the 21 Surelog tests that name one of
+those files (0 in uhdm2rtlil, and 0 tests reach the names through an `-f` file).
+
+Reach: 21 tests, of which 4 are **comparable** and all 4 were `CMP_NOTEQUAL` —
+`BuildUVMPkg`, `SeqDriver`, `SimpleUVM` (both modes) and `Scoreboard`
+(`default`; its `testflags` row is `SLANG_REJECT`, §2.5). The change converts
+nothing on its own; it makes those 7 rows measure the emitter instead of a
+version mismatch. Note `-noprecompiledcache` also appears in
+`IRRELEVANT_NOARG`: dropping it from the **slang** side is right (slang has no
+such cache) and that entry is unrelated to this guard.
+
+Gate (this block, vs the committed baselines): **zero status changes**, all 14
+`mode/status` tallies identical, `SLANG_REJECT` membership unchanged, u2r
+testflags byte-identical to `results/gate_uhdm2rtlil.csv`. The only two rows
+that move at all are `CoresSweRV`/`CoresSweRVMP` `default`, whose
+`SURELOG_FAIL` detail goes `[   NOTE] : 0` -> `[   NOTE] : 1`: both name
+`third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv`, i.e. the SAME version the
+precompiled cache held, so the guard changes no model for them — it only makes
+Surelog actually compile those sources, which costs one extra NOTE and about a
+minute of golden-generation time each. Cost of the guard overall is a one-time
+regeneration of 21 goldens (~15 min of a sweep, dominated by the `uhdm-dump`
+that computes each golden's `DUMP_MATCH` hash on an 11 MB database).
+
 ## 3. Status
 
 ### 3.1 Landed

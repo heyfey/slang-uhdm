@@ -309,9 +309,9 @@ ContAssignConst,default,CMP_EQUAL,,,differ
 ContAssignConst,testflags,CMP_EQUAL,,,differ
 Context,default,CMP_EQUAL,,,match
 Context,testflags,CMP_EQUAL,,,match
-CoresSweRV,default,SURELOG_FAIL,[   NOTE] : 0,,
+CoresSweRV,default,SURELOG_FAIL,[   NOTE] : 1,,
 CoresSweRV,testflags,SLANG_REJECT,error: '/design/swerv_wrapper.sv': No such file or directory,,
-CoresSweRVMP,default,SURELOG_FAIL,[   NOTE] : 0,,
+CoresSweRVMP,default,SURELOG_FAIL,[   NOTE] : 1,,
 CoresSweRVMP,testflags,SLANG_REJECT,error: '/design/swerv_wrapper.sv': No such file or directory,,
 Covergroup,default,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifier 's0',,
 Covergroup,testflags,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifier 's0',,

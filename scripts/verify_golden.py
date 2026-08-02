@@ -183,9 +183,47 @@ FLAG_ARITY = {
     '-remap': 2, '-cmd_ign': 2, '-cmd_ren': 2, '-cmd_mrg': 2,
 }
 
+# Surelog SUBSTITUTES its own bundled UVM/OVM for any source file whose LEAF
+# NAME is `uvm_pkg.sv` or `ovm_pkg.sv` (`Package/Precompiled.cpp`: the ctor
+# registers exactly those two names, and `isFilePrecompiled` keys on the leaf
+# alone).  A precompiled file is read from `<surelog-install>/pkg/work/*.slpp`
+# with NO hash check, so the model Surelog emits describes the UVM that ships
+# in the Surelog BUILD TREE (`bin/1800.2-2017-1.0/src`), not the UVM the test
+# actually named on its command line.
+#
+# Measured on `Scoreboard` (which compiles `third_party/UVM/uvm-1.2`): the
+# golden's `uvm_pkg` holds 41 parameters led by `UVM_VERSION_STRING` and
+# `UVM_HDL_MAX_WIDTH` at `dpi/uvm_hdl.svh:54` -- both 1800.2-2017-1.0.  The
+# uvm-1.2 sources on the command line have 45 parameters led by the
+# `uvm_*_copyright` strings with `UVM_HDL_MAX_WIDTH` at `dpi/uvm_hdl.svh:47`.
+# Re-run Surelog with `-noprecompiledcache` and its 45 parameters match
+# slang-uhdm's 45 name-for-name and line-for-line.
+#
+# So the substitution is not a model difference we could ever emit -- it is the
+# golden describing a different source text.  It also makes the golden depend
+# on the Surelog build tree rather than on the test, which is the same class of
+# environment leak as `-mt`/`-mp` (already pinned to 0 on the golden side).
+# The guard is applied ONLY when a precompiled leaf name is actually present,
+# so the golden-cache key -- and therefore every cached golden -- is unchanged
+# for every other test in both corpora.
+PRECOMPILED_LEAVES = ('uvm_pkg.sv', 'ovm_pkg.sv')
+
+
+def precompiled_guard(parts):
+    """['-noprecompiledcache'] when any argument names a file Surelog would
+    serve from its bundled precompiled package cache, else []."""
+    for p in parts:
+        if os.path.basename(p) in PRECOMPILED_LEAVES:
+            return ['-noprecompiledcache']
+    return []
+
+
 # No effect on the database: caching, threading, logging, preprocessor output,
 # output location, Python hooks, GC, EDA-compat shims.  `-nopython` and
 # `-gc`/`-nogc` were each measured at 0 dump-line change.
+# NOTE `-noprecompiledcache` is listed here because dropping it from the SLANG
+# side is right (slang has no such cache); it is emphatically NOT a no-op on the
+# Surelog side -- see `precompiled_guard` above.
 IRRELEVANT_NOARG = {
     '-parse', '-nocache', '-noprecompiledcache', '-nowritecache', '-nohash',
     '-createcache', '-writepp', '-lineoffsetascomments', '-outputlineinfo',
@@ -616,7 +654,8 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
         loc, sl_only = location_args(parts)
         su = [LOCATION_RENAME.get(a, a) for a in loc] + list(sources) + ['--single-unit']
         results.append(compare(name, 'default', dirpath,
-                               ['-parse'] + loc + sl_only + sources, su,
+                               ['-parse'] + precompiled_guard(sources) +
+                               loc + sl_only + sources, su,
                                workroot, timeout))
 
     if 'folded' in modes and '-elabuhdm' in parts:
@@ -624,7 +663,8 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
         if not blocking and not nodb:
             if nobuiltin:
                 su_args.append('--nobuiltin')
-            sl_folded = [p for p in parts if p != '-elabuhdm']
+            sl_folded = (precompiled_guard(parts) +
+                         [p for p in parts if p != '-elabuhdm'])
             su_folded = [a for a in su_args if a != '--elabuhdm']
             results.append(compare(name, 'folded', dirpath, sl_folded,
                                    su_folded, workroot, timeout))
@@ -641,7 +681,8 @@ def run_one(name, dirpath, parts, modes, workroot, timeout):
         else:
             if nobuiltin:
                 su_args.append('--nobuiltin')
-            results.append(compare(name, 'testflags', dirpath, parts, su_args,
+            results.append(compare(name, 'testflags', dirpath,
+                                   precompiled_guard(parts) + parts, su_args,
                                    workroot, timeout))
     return results
 
