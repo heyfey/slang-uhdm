@@ -1832,6 +1832,105 @@ UHDM::design* UhdmExporter::exportDesign() {
     {
         auto* uparams = s.MakeAnyVec();
         auto* upassigns = s.MakeParam_assignVec();
+        // A $unit parameter's folded value carries Surelog's ExprEval
+        // ENCODING, not slang's: `5'd7` stays `DEC:7` at size 5 with
+        // vpiDecompile `5'd7`, `7'h4` stays `HEX:4`, and a computed bound
+        // takes the sign UHDM's `ExprEval::reduceExpr` would give it —
+        // vpiSubOp/vpiMultOp always produce `INT:`/vpiIntConst while
+        // vpiAddOp is unsigned only when NEITHER operand reduced to an
+        // int/dec/string/real constant (ExprEval.cpp vpiAddOp's
+        // `unsignedOperation`).  A bare reference to another $unit parameter
+        // inherits that parameter's whole encoding (Surelog reuses the
+        // reduced constant).  constant::Compare reads VpiConstType /
+        // VpiDecompile / VpiSize, so all three are load-bearing.
+        struct UnitEnc {
+            std::string value;      // "DEC:7"
+            std::string decompile;  // "5'd7"
+            int32_t size = 0;
+            int32_t constType = vpiUIntConst;
+            bool wantTs = true;
+            bool ok = false;
+        };
+        std::map<const Symbol*, UnitEnc> unitEnc;
+        // Decompose an integer literal's source text into (base, digits,
+        // declared size).  base is 0 when the literal is unbased.
+        auto litParts = [&](const Expression& e, char& base,
+                            std::string& digits, int32_t& size) -> bool {
+            if (e.kind != ExpressionKind::IntegerLiteral)
+                return false;
+            std::string raw = std::string(rawText(e.sourceRange));
+            if (raw.empty())
+                return false;
+            auto tick = raw.find('\'');
+            if (tick == std::string::npos) {
+                base = 0;
+                digits = stripSep(raw);
+                size = -1;
+                return true;
+            }
+            size_t bp = tick + 1;
+            if (bp < raw.size() && (raw[bp] == 's' || raw[bp] == 'S'))
+                bp++;
+            base = bp < raw.size() ? (char)tolower(raw[bp]) : 'd';
+            digits = stripSep(raw.substr(bp + 1));
+            std::string szTxt = stripSep(raw.substr(0, tick));
+            size = szTxt.empty() ? -1 : (int32_t)strtol(szTxt.c_str(), nullptr, 10);
+            return true;
+        };
+        auto baseConstType = [](char base) -> int32_t {
+            switch (base) {
+                case 'b': return vpiBinaryConst;
+                case 'o': return vpiOctConst;
+                case 'h': return vpiHexConst;
+                default: return vpiDecConst;
+            }
+        };
+        auto baseTag = [](char base) -> const char* {
+            switch (base) {
+                case 'b': return "BIN:";
+                case 'o': return "OCT:";
+                case 'h': return "HEX:";
+                default: return "DEC:";
+            }
+        };
+        // The vpiConstType `reduceExpr` would hand back for a sub-expression —
+        // only its INT/DEC-ness matters to vpiAddOp's unsigned test.
+        std::function<int32_t(const Expression&)> reducedType =
+            [&](const Expression& e0) -> int32_t {
+            const Expression& e = stripImplicitConv(e0);
+            char b = 0;
+            std::string dg;
+            int32_t sz = 0;
+            if (litParts(e, b, dg, sz))
+                return b ? baseConstType(b) : vpiUIntConst;
+            if (e.kind == ExpressionKind::NamedValue) {
+                auto& sym = e.as<NamedValueExpression>().symbol;
+                if (auto it = unitEnc.find(&sym); it != unitEnc.end())
+                    return it->second.constType;
+                if (sym.kind == SymbolKind::Parameter)
+                    if (auto* i2 = sym.as<ParameterSymbol>().getInitializer())
+                        return reducedType(*i2);
+                return vpiUIntConst;
+            }
+            if (e.kind == ExpressionKind::Call)
+                return vpiUIntConst;
+            if (e.kind == ExpressionKind::UnaryOp)
+                return vpiIntConst;
+            if (e.kind == ExpressionKind::BinaryOp) {
+                auto& be = e.as<BinaryExpression>();
+                if (be.op == BinaryOperator::Add) {
+                    auto sgn = [&](const Expression& o) {
+                        int32_t t = reducedType(o);
+                        return t == vpiIntConst || t == vpiDecConst ||
+                               t == vpiStringConst || t == vpiRealConst;
+                    };
+                    return (sgn(be.left()) || sgn(be.right())) ? vpiIntConst
+                                                               : vpiUIntConst;
+                }
+                return vpiIntConst;
+            }
+            return vpiIntConst;
+        };
         for (auto unit : comp.getCompilationUnits()) {
             for (auto& mem : unit->members()) {
                 if (mem.kind != SymbolKind::Parameter)
@@ -1842,45 +1941,162 @@ UHDM::design* UhdmExporter::exportDesign() {
                 up->VpiParent(d);
                 setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
                 auto& cv = ps.getValue();
-                if (cv.isInteger() && !cv.integer().hasUnknown()) {
-                    auto& iv = cv.integer();
-                    bool neg = iv.isSigned() && iv.isNegative();
-                    std::string digits = iv.toString(LiteralBase::Decimal, false);
-                    up->VpiValue((neg ? "INT:" : "UINT:") + digits);
-                }
-                if (ps.getType().getCanonicalType().isSigned())
+                // Only an EXPLICITLY typed $unit parameter carries
+                // signedness (`parameter int X` yes, `parameter X = 16` no) —
+                // parameter::Compare reads VpiSigned, and slang types an
+                // untyped param `int`, i.e. signed.
+                bool typedDecl9 = false;
+                if (auto declared9 = ps.getDeclaredType())
+                    if (auto tsyn9 = declared9->getTypeSyntax())
+                        typedDecl9 =
+                            tsyn9->kind != syntax::SyntaxKind::ImplicitType;
+                if (typedDecl9 && ps.getType().getCanonicalType().isSigned())
                     up->VpiSigned(true);
-                auto* prt = s.MakeRef_typespec();
-                prt->VpiFullName(ps.name);
-                prt->VpiParent(up);
-                up->Typespec(prt);
+                // parameter::Compare reads VpiLocalParam — a $unit
+                // `localparam` carries it exactly like a module one.
+                for (auto q9 = ps.getSyntax(); q9; q9 = q9->parent)
+                    if (q9->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                        if (q9->as<syntax::ParameterDeclarationSyntax>()
+                                .keyword.valueText() == "localparam")
+                            up->VpiLocalParam(true);
+                        break;
+                    }
+                UnitEnc enc;
+                const Expression* initE = ps.getInitializer();
+                // Surelog's `reduceExpr` folds arithmetic but NOT a
+                // concatenation/replication: `{2'b01, 2'b10}` stays an
+                // operation and its parameter carries neither a value nor a
+                // typespec.  Emitting a folded constant there would be worse
+                // than emitting nothing.
+                bool unfoldableInit9 = false;
+                if (initE) {
+                    auto k9 = stripImplicitConv(*initE).kind;
+                    unfoldableInit9 = k9 == ExpressionKind::Concatenation ||
+                                      k9 == ExpressionKind::Replication;
+                }
+                if (initE && !unfoldableInit9 &&
+                    stripImplicitConv(*initE).kind ==
+                        ExpressionKind::StringLiteral) {
+                    auto& sl9 = stripImplicitConv(*initE);
+                    std::string txt(sl9.as<StringLiteral>().getValue());
+                    enc.value = "STRING:" + txt;
+                    enc.decompile = std::string(rawText(sl9.sourceRange));
+                    enc.size = (int32_t)(txt.size() * 8);
+                    enc.constType = vpiStringConst;
+                    enc.ok = true;
+                    up->VpiValue(enc.value);
+                }
+                else if (initE && !unfoldableInit9 &&
+                         stripImplicitConv(*initE).kind ==
+                             ExpressionKind::RealLiteral) {
+                    auto& rl9 = stripImplicitConv(*initE);
+                    char rb9[64];
+                    snprintf(rb9, sizeof(rb9), "%f",
+                             rl9.as<RealLiteral>().getValue());
+                    enc.value = std::string("REAL:") + rb9;
+                    enc.decompile = std::string(rawText(rl9.sourceRange));
+                    enc.size = 32;
+                    enc.constType = vpiRealConst;
+                    enc.ok = true;
+                    up->VpiValue(enc.value);
+                }
+                else if (initE && !unfoldableInit9 && cv.isInteger() &&
+                         !cv.integer().hasUnknown()) {
+                    const Expression& ic = stripImplicitConv(*initE);
+                    char base = 0;
+                    std::string digits;
+                    int32_t litSize = 0;
+                    const UnitEnc* inherit = nullptr;
+                    if (ic.kind == ExpressionKind::NamedValue)
+                        if (auto it = unitEnc.find(
+                                &ic.as<NamedValueExpression>().symbol);
+                            it != unitEnc.end() && it->second.ok)
+                            inherit = &it->second;
+                    if (inherit) {
+                        enc = *inherit;
+                    }
+                    else if (litParts(ic, base, digits, litSize)) {
+                        if (base) {
+                            enc.value = std::string(baseTag(base)) + digits;
+                            enc.decompile =
+                                stripSep(std::string(rawText(ic.sourceRange)));
+                            enc.size = litSize;
+                            enc.constType = baseConstType(base);
+                            // A DECIMAL-based literal, and any literal whose
+                            // width Surelog could not determine, leave the
+                            // parameter with NO typespec at all.
+                            enc.wantTs = base != 'd' && litSize >= 0;
+                        }
+                        else {
+                            enc.value = "UINT:" + digits;
+                            enc.decompile = digits;
+                            enc.size = (int32_t)ps.getType().getBitWidth();
+                            enc.constType = vpiUIntConst;
+                        }
+                        enc.ok = true;
+                    }
+                    else {
+                        int32_t ct = reducedType(ic);
+                        bool sgn = ct == vpiIntConst;
+                        std::string dg = cv.integer().toString(
+                            LiteralBase::Decimal, /*includeBase=*/false);
+                        enc.value = (sgn ? "INT:" : "UINT:") + dg;
+                        enc.decompile = dg;
+                        // Surelog reduces with 64-bit arithmetic and then
+                        // clamps to the parameter's own width — `int` for an
+                        // untyped $unit parameter, whatever was written for a
+                        // typed one.  It is NOT the initializer's width (a
+                        // `7'h4 + 7'h5` bound still lands at 32).
+                        enc.size = typedDecl9
+                                       ? (int32_t)ps.getType().getBitWidth()
+                                       : 32;
+                        enc.constType = sgn ? vpiIntConst : vpiUIntConst;
+                        enc.ok = true;
+                    }
+                    enc.ok = true;
+                    up->VpiValue(enc.value);
+                }
+                else if (unfoldableInit9)
+                    enc.wantTs = false;
+                unitEnc[&mem] = enc;
+                UHDM::ref_typespec* prt = nullptr;
+                if (enc.wantTs) {
+                    prt = s.MakeRef_typespec();
+                    prt->VpiFullName(ps.name);
+                    prt->VpiParent(up);
+                    up->Typespec(prt);
+                }
                 auto* pa = s.MakeParam_assign();
                 pa->VpiParent(d);
                 if (auto syn = ps.getSyntax())
                     setLoc(pa, syn->sourceRange());
                 pa->Lhs(up);
                 UHDM::ref_typespec* rhsRt = nullptr;
-                if (auto* init = ps.getInitializer()) {
-                    auto& ic = stripImplicitConv(*init);
-                    if (ic.kind == ExpressionKind::IntegerLiteral &&
-                        cv.isInteger() && !cv.integer().hasUnknown()) {
-                        auto* c = s.MakeConstant();
-                        std::string digits =
-                            cv.integer().toString(LiteralBase::Decimal, false);
-                        c->VpiDecompile(digits);
-                        c->VpiSize((int32_t)ps.getType().getBitWidth());
-                        c->VpiValue("UINT:" + digits);
-                        c->VpiConstType(vpiUIntConst);
-                        c->VpiParent(pa);
-                        setLoc(c, ic.sourceRange);
-                        rhsRt = s.MakeRef_typespec();
-                        rhsRt->VpiParent(c);
-                        c->Typespec(rhsRt);
-                        pa->Rhs(c);
-                    }
+                if (initE && enc.ok) {
+                    auto& ic = stripImplicitConv(*initE);
+                    auto* c = s.MakeConstant();
+                    c->VpiDecompile(enc.decompile);
+                    c->VpiSize(enc.size);
+                    c->VpiValue(enc.value);
+                    c->VpiConstType(enc.constType);
+                    c->VpiParent(pa);
+                    // A reduced BINARY bound keeps the span of its LEFTMOST
+                    // leaf — `reduceExpr` builds the result constant off the
+                    // left operand it folded first, so `32 - 6` lands on the
+                    // `32`, not on the whole expression.
+                    const Expression* spanE = &ic;
+                    while (spanE->kind == ExpressionKind::BinaryOp)
+                        spanE = &stripImplicitConv(
+                            spanE->as<BinaryExpression>().left());
+                    setLoc(c, spanE->sourceRange);
+                    rhsRt = s.MakeRef_typespec();
+                    rhsRt->VpiParent(c);
+                    c->Typespec(rhsRt);
+                    pa->Rhs(c);
                 }
                 unitParamMap[&mem] = up;
-                pendingUnitParamTs.push_back({up, prt, rhsRt, &ps});
+                if (prt)
+                    pendingUnitParamTs.push_back({up, prt, rhsRt, &ps});
                 uparams->push_back(up);
                 upassigns->push_back(pa);
             }
@@ -2058,10 +2274,14 @@ UHDM::design* UhdmExporter::exportDesign() {
                          ct.kind == SymbolKind::ScalarType) {
                     // Vector/scalar typedef: a NAMED logic_typespec with its
                     // ranges at the target type syntax (like module-scope
-                    // vector typedefs).
+                    // vector typedefs).  Unlike a module-scope one its bounds
+                    // FOLD: the compilation unit is compiled before any
+                    // module, so `typedef logic [G_DW-1:0] g_v;` lands as a
+                    // constant range (same rule as the file-level struct
+                    // members, buildStructTs).
                     bypassTypedefShare = true;
                     bool savedTf = tfContext;
-                    tfContext = true;
+                    tfContext = false;
                     typedefTsContext = true;
                     ts = makeTypespec(ta, typeSyn);
                     typedefTsContext = false;
@@ -2727,11 +2947,34 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     // $unit param typespecs are the very last arena objects.
     for (auto& pu : pendingUnitParamTs) {
-        auto* its = makeParamTs(*pu.ps, /*typedParam=*/true);
+        // A compilation-unit parameter is typed by exactly the same rules as
+        // a module one: `typedParam` is "the declaration names a type".
+        // Forcing it true made every UNTYPED $unit param (`parameter
+        // SCR1_N = 16;`) carry vpiSigned on its int_typespec, which
+        // int_typespec::Compare reads — Surelog leaves it unsigned and only
+        // an explicitly-typed one (`parameter int`) is signed.  The declared
+        // span is the whole declaration either way, so nothing else moves.
+        bool typedUnitParam = false;
+        if (auto declared = pu.ps->getDeclaredType())
+            if (auto tsyn = declared->getTypeSyntax())
+                typedUnitParam = tsyn->kind != syntax::SyntaxKind::ImplicitType;
+        auto* its = makeParamTs(*pu.ps, typedUnitParam);
         pu.prt->Actual_typespec(its);
         if (pu.rhsRt)
             pu.rhsRt->Actual_typespec(its);
-        its->VpiParent(pu.up);
+        // A PLAIN untyped $unit param's int_typespec is left UNPARENTED by
+        // Surelog (a ranged/signed untyped one, and every typed one, is
+        // parented).
+        bool plainUntyped9 = false;
+        if (!typedUnitParam)
+            if (auto d9 = pu.ps->getDeclaredType())
+                if (auto t9 = d9->getTypeSyntax();
+                    t9 && t9->kind == syntax::SyntaxKind::ImplicitType)
+                    plainUntyped9 =
+                        t9->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                        !t9->as<syntax::ImplicitTypeSyntax>().signing.valid();
+        if (!plainUntyped9)
+            its->VpiParent(pu.up);
     }
     pendingUnitParamTs.clear();
 

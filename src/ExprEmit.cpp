@@ -44,7 +44,8 @@ static void appendTokenText(const slang::syntax::SyntaxNode& n,
 // parameter of the enclosing MODULE, or a genvar, does not.  A `$bits(t)` in
 // a bound folds at the same compile, so a TYPE name is resolved too.
 static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
-                               const slang::ast::Scope* scope) {
+                               const slang::ast::Scope* scope,
+                               bool unitResolves) {
     using SK = slang::syntax::SyntaxKind;
     using namespace slang::ast;
     if (n.kind == SK::ScopedName)
@@ -70,8 +71,18 @@ static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
         for (auto sc = sym->getParentScope(); sc;
              sc = sc->asSymbol().getParentScope()) {
             auto k = sc->asSymbol().kind;
-            if (k == SymbolKind::Package || k == SymbolKind::CompilationUnit)
+            if (k == SymbolKind::Package)
                 return true;
+            // A `$unit`-scope parameter does NOT resolve: Surelog compiles
+            // packages before modules (so a package constant IS available to
+            // a definition compile) but never substitutes a compilation-unit
+            // parameter, so a dimension bound reading one leaves a `ref_obj`
+            // in the typespec and `$bits` of that signal stays a
+            // sys_func_call.  Measured on `localparam int unsigned W1 = 3;
+            // logic [W1-1:0] w;` — `$bits(w)` keeps the call while `$bits(s)`
+            // on a plain `logic` folds (Scr1SvTests, 52 first-fails).
+            if (k == SymbolKind::CompilationUnit)
+                return unitResolves;
             if (k == SymbolKind::InstanceBody ||
                 k == SymbolKind::GenerateBlock ||
                 k == SymbolKind::GenerateBlockArray)
@@ -81,7 +92,7 @@ static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
     }
     for (size_t i = 0; i < n.getChildCount(); i++)
         if (auto* c = n.childNode(i))
-            if (!r9DimNamesResolved(*c, scope))
+            if (!r9DimNamesResolved(*c, scope, unitResolves))
                 return false;
     return true;
 }
@@ -92,12 +103,13 @@ static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
 // and a `ref_obj` gets into a typespec exactly through a dimension bound the
 // definition compile could not resolve.
 static bool r9DimsLiteral(const slang::syntax::SyntaxNode& n,
-                          const slang::ast::Scope* scope) {
+                          const slang::ast::Scope* scope,
+                          bool unitResolves = true) {
     if (n.kind == slang::syntax::SyntaxKind::VariableDimension)
-        return r9DimNamesResolved(n, scope);
+        return r9DimNamesResolved(n, scope, unitResolves);
     for (size_t i = 0; i < n.getChildCount(); i++)
         if (auto* c = n.childNode(i))
-            if (!r9DimsLiteral(*c, scope))
+            if (!r9DimsLiteral(*c, scope, unitResolves))
                 return false;
     return true;
 }
@@ -141,6 +153,29 @@ bool UhdmExporter::srlgFullySpecType(const slang::ast::Type& type, int depth) {
     if (c.isUnpackedArray() || c.isPackedArray())
         return srlgFullySpecType(*c.getArrayElementType(), depth + 1);
     return true;
+}
+
+// True when a declaration bound reads a `$unit`-scope parameter.  Surelog
+// never substitutes a compilation-unit parameter, so such a bound stays an
+// unfolded operation with a `ref_obj` in EVERY view — the same fact that
+// makes `$bits` of such a signal survive (see r9DimNamesResolved).
+bool UhdmExporter::syntaxReadsUnitParam(const slang::syntax::SyntaxNode& n,
+                                        const slang::ast::Scope* scope) {
+    using SK = slang::syntax::SyntaxKind;
+    if (unitParamMap.empty() || !scope)
+        return false;
+    if (n.kind == SK::IdentifierName) {
+        auto nm = n.as<slang::syntax::IdentifierNameSyntax>()
+                      .identifier.valueText();
+        if (auto* sym = scope->lookupName(nm))
+            return unitParamMap.count(sym) > 0;
+        return false;
+    }
+    for (size_t i = 0; i < n.getChildCount(); i++)
+        if (auto* c = n.childNode(i))
+            if (syntaxReadsUnitParam(*c, scope))
+                return true;
+    return false;
 }
 
 // Would Surelog's DEFINITION compile fold `$bits(<arg>)`?  `compileBits`
@@ -196,12 +231,19 @@ bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0) {
     }
     if (auto* dt = sym->getDeclaredType()) {
         const Scope* ssc = sym->getParentScope();
+        // The SIGNAL's OWN dimensions are the one place a `$unit` parameter
+        // does not resolve: Surelog never substitutes a compilation-unit
+        // parameter into a signal declaration, so `logic [W1-1:0] w` keeps a
+        // `ref_obj` in its typespec and `$bits(w)` stays a sys_func_call.
+        // A TYPEDEF's dimensions are the opposite (they fold at file scope,
+        // see buildStructTs) and are walked by srlgFullySpecType with
+        // unitResolves left true.
         if (auto* ts = dt->getTypeSyntax())
-            if (!r9DimsLiteral(*ts, ssc))
+            if (!r9DimsLiteral(*ts, ssc, /*unitResolves=*/false))
                 return false;
         if (auto* ds = dt->getDimensionSyntax())
             for (auto d : *ds)
-                if (!r9DimsLiteral(*d, ssc))
+                if (!r9DimsLiteral(*d, ssc, /*unitResolves=*/false))
                     return false;
     }
     return srlgFullySpecType(sym->getDeclaredType()->getType(), 0);

@@ -913,6 +913,11 @@ private:
     // the definition compile had not already resolved (a MODULE parameter or
     // a genvar leaves a ref_obj; a PACKAGE parameter does not).
     bool srlgBitsFoldArg(const slang::ast::Expression& arg);
+    // True when a declaration-bound SYNTAX tree reads a `$unit`-scope
+    // parameter. Surelog never substitutes one, so such a bound stays an
+    // unfolded operation in every view.
+    bool syntaxReadsUnitParam(const slang::syntax::SyntaxNode& n,
+                              const slang::ast::Scope* scope);
     bool srlgFullySpecType(const slang::ast::Type& type, int depth);
     // Surelog's value for a declaration-dimension bound that calls
     // $high/$low/$left/$right on an UNPACKED array: those four never resolve

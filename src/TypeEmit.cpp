@@ -2836,6 +2836,15 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             bool pkgEnum9 =
                 refFullName.find("::") != std::string::npos &&
                 !(inPkgTypedefEmit && !pkgTopEmit);
+            // A `$unit`-scope enum typedef folds its base bound like a
+            // package one: the compilation unit is compiled before any module,
+            // so `typedef enum logic [SCR1_IALU_OP_WIDTH_E-1:0]` lands as a
+            // constant (Scr1SvTests scr1_riscv_isa_decoding.svh).
+            if (!pkgEnum9)
+                if (auto* esc0 = et.getParentScope();
+                    esc0 &&
+                    esc0->asSymbol().kind == SymbolKind::CompilationUnit)
+                    pkgEnum9 = true;
             // A $bits(...)-based bound INVERTS the fold assignment: the DEF
             // package listing folds (INT anchored at the $bits span) while
             // the elaborated view keeps the sys call symbolic (jeras_union
@@ -3158,6 +3167,23 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             // implicit/computed values decompile to the folded digits.
             std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
             auto* evInit = ev.getInitializer();
+            // An UNBASED-UNSIZED init (`'0`) keeps Surelog's unsized encoding:
+            // ONE binary digit and size -1, not the base width (Scr1SvTests
+            // SCR1_IALU_CMD_NONE).
+            if (evInit && stripImplicitConv(*evInit).kind ==
+                              ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                std::string raw0 =
+                    stripSep(std::string(
+                        rawText(stripImplicitConv(*evInit).sourceRange)));
+                ec->VpiDecompile(raw0);
+                ec->VpiSize(-1);
+                ec->VpiValue(std::string("BIN:") +
+                             (cv.integer().reductionOr().value ? '1' : '0'));
+                consts->push_back(ec);
+                if (!enumConstMap.count(&ev))
+                    enumConstMap[&ev] = ec;
+                continue;
+            }
             bool nonLitInit = evInit && stripImplicitConv(*evInit).kind !=
                                             ExpressionKind::IntegerLiteral;
             // A COMPUTED init (concat/operation, not a plain ref) encodes BIN
@@ -3518,16 +3544,34 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                 break;
             }
         bool inPkg = false;
+        // A `$unit`-scope struct typedef folds its member bounds like a
+        // package one: Surelog compiles the compilation unit before any
+        // module, so `logic [G_DW-1:0] data` in a file-level typedef lands as
+        // a constant (Scr1SvTests type_scr1_scu_sysctrl_dr_s).
+        bool inUnit = false;
         for (auto sc = structScope.asSymbol().getParentScope(); sc;
-             sc = sc->asSymbol().getParentScope())
+             sc = sc->asSymbol().getParentScope()) {
             if (sc->asSymbol().kind == SymbolKind::Package) {
                 inPkg = true;
                 structPkgScope = sc;
                 break;
             }
+            if (sc->asSymbol().kind == SymbolKind::CompilationUnit) {
+                inUnit = true;
+                break;
+            }
+            // Stop at the first real design scope: a MODULE-scope typedef
+            // reaches the compilation unit too (every InstanceBody is nested
+            // in one) and must NOT be read as file-level.
+            if (sc->asSymbol().kind == SymbolKind::InstanceBody ||
+                sc->asSymbol().kind == SymbolKind::GenerateBlock ||
+                sc->asSymbol().kind == SymbolKind::GenerateBlockArray ||
+                sc->asSymbol().kind == SymbolKind::Subroutine)
+                break;
+        }
         if (!inPkg)
             structPkgScope = nullptr;
-        structMemberSymBound = namedTypedef && !inPkg;
+        structMemberSymBound = namedTypedef && !inPkg && !inUnit;
     }
     auto* members = s.MakeTypespec_memberVec();
     for (auto& fm : structScope.members()) {
@@ -5665,6 +5709,36 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         else if (auto pit2 = pkgParamDefRhs.find(&psy);
                                  pit2 != pkgParamDefRhs.end())
                             ref->Actual_group(pit2->second);
+                    }
+                }
+            }
+            // A `$unit`-scope parameter read from a SYNTAX-emitted expression
+            // (a net/port/typedef typespec range bound, `logic
+            // [SCR1_N-1:0]`) binds the DESIGN-level parameter object, exactly
+            // like the AST path (ExprEmit's unitParamMap arm).  Surelog never
+            // substitutes a compilation-unit parameter into a range, so the
+            // bound stays an unfolded op tree whose ref_obj MUST carry the
+            // actual; without it Compare reports `failLhs=parameter
+            // failRhs=<null>` (Scr1SvTests, 88 first-fails).  Resolution goes
+            // through a real scope so a same-named module-local declaration
+            // shadows correctly.
+            if (!ref->Actual_group() && !unitParamMap.empty() &&
+                !suppressRefActual) {
+                const Scope* bindScope = tfTypeScope ? tfTypeScope
+                                         : defNetTsScope ? defNetTsScope
+                                                         : currentScope;
+                if (bindScope) {
+                    ASTContext uctx(*bindScope, LookupLocation::max);
+                    auto& ube = Expression::bind(
+                        syn.as<syntax::ExpressionSyntax>(), uctx);
+                    if (!ube.bad() && stripImplicitConv(ube).kind ==
+                                          ExpressionKind::NamedValue) {
+                        auto& usy = stripImplicitConv(ube)
+                                        .as<NamedValueExpression>()
+                                        .symbol;
+                        if (auto uit = unitParamMap.find(&usy);
+                            uit != unitParamMap.end())
+                            ref->Actual_group(uit->second);
                     }
                 }
             }

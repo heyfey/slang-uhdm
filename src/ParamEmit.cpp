@@ -9212,6 +9212,16 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                 setLoc(r0, es->sourceRange());
                                 return (UHDM::expr*)r0;
                             }
+                            // A bound reading a `$unit` parameter
+                            // (`localparam [SCR1_GPR_FIELD_WIDTH-1:0] X`)
+                            // stays the unfolded op tree: Surelog cannot
+                            // substitute a compilation-unit parameter, so it
+                            // never reduces the range (Scr1SvTests
+                            // SCR1_MPRF_ZERO_ADDR).
+                            if (es &&
+                                syntaxReadsUnitParam(*es, ps.getParentScope()))
+                                if (auto* e9 = emitSyntaxExpr(*es, r))
+                                    return (UHDM::expr*)e9;
                             auto* c = s.MakeConstant();
                             c->VpiDecompile(std::to_string(v));
                             c->VpiSize(64);

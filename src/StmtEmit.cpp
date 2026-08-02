@@ -61,6 +61,12 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
             proc = a;
             break;
         }
+        case ProceduralBlockKind::AlwaysLatch: {
+            auto* a = s.MakeAlways();
+            a->VpiAlwaysType(vpiAlwaysLatch);
+            proc = a;
+            break;
+        }
         case ProceduralBlockKind::Initial:
             proc = s.MakeInitial();
             break;
