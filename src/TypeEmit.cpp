@@ -2975,6 +2975,74 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
     if (enumSyn && enumSyn->kind == syntax::SyntaxKind::EnumType)
         baseSyn = enumSyn->as<syntax::EnumTypeSyntax>().baseType;
     if (baseSyn) {
+        // An enum whose base is written as a TYPEDEF NAME
+        // (`typedef enum uvm_field_flag_t {...} uvm_radix_enum;`) takes that
+        // typedef's OWN shared typespec as its vpiBaseTypespec — Surelog
+        // compiles the base through the datatype map, so the object is the
+        // very one the typedef listed, name and all.  Minting a fresh
+        // vector typespec from the base's canonical shape instead is a cmp
+        // difference on the enum (BuildUVMPkg: `bit_typespec(uvm_field_flag_t)`
+        // vs a bare `logic_typespec`).
+        // ...but it is a SEPARATE object from the one the package lists: the
+        // package listing renames its copy `<pkg>::<alias>` (UhdmWriter's
+        // writeDataTypes) while the base keeps the BARE alias name, and both
+        // are spanned at the typedef.  So this is a shallow clone of the
+        // shared typespec — same kind, same ranges, bare name.
+        if (baseSyn->kind == syntax::SyntaxKind::NamedType &&
+            et.baseType.kind == SymbolKind::TypeAlias)
+            if (auto* shb = sharedAliasTs(et.baseType)) {
+                UHDM::typespec* cl0 = nullptr;
+                if (shb->UhdmType() == UHDM::uhdmbit_typespec) {
+                    auto* o0 = (UHDM::bit_typespec*)shb;
+                    auto* n0 = s.MakeBit_typespec();
+                    n0->VpiSigned(o0->VpiSigned());
+                    n0->VpiVector(o0->VpiVector());
+                    if (o0->Ranges())
+                        n0->Ranges(o0->Ranges());
+                    if (o0->Bit_typespec())
+                        n0->Bit_typespec(o0->Bit_typespec());
+                    if (o0->Typespec())
+                        n0->Typespec(o0->Typespec());
+                    if (o0->Left_expr())
+                        n0->Left_expr(o0->Left_expr());
+                    if (o0->Right_expr())
+                        n0->Right_expr(o0->Right_expr());
+                    cl0 = n0;
+                }
+                else if (shb->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto* o0 = (UHDM::logic_typespec*)shb;
+                    auto* n0 = s.MakeLogic_typespec();
+                    n0->VpiSigned(o0->VpiSigned());
+                    n0->VpiVector(o0->VpiVector());
+                    if (o0->Ranges())
+                        n0->Ranges(o0->Ranges());
+                    if (o0->Elem_typespec())
+                        n0->Elem_typespec(o0->Elem_typespec());
+                    if (o0->Index_typespec())
+                        n0->Index_typespec(o0->Index_typespec());
+                    if (o0->Left_expr())
+                        n0->Left_expr(o0->Left_expr());
+                    if (o0->Right_expr())
+                        n0->Right_expr(o0->Right_expr());
+                    cl0 = n0;
+                }
+                if (cl0) {
+                    cl0->VpiName(et.baseType.name);
+                    cl0->VpiFile(shb->VpiFile());
+                    cl0->VpiLineNo(shb->VpiLineNo());
+                    cl0->VpiColumnNo(shb->VpiColumnNo());
+                    cl0->VpiEndLineNo(shb->VpiEndLineNo());
+                    cl0->VpiEndColumnNo(shb->VpiEndColumnNo());
+                    auto* brt0 = s.MakeRef_typespec();
+                    brt0->VpiFullName(refFullName);
+                    brt0->VpiParent(ets);
+                    brt0->Actual_typespec(cl0);
+                    ets->Base_typespec(brt0);
+                    baseSyn = nullptr;
+                }
+            }
+    }
+    if (baseSyn) {
         // An integer base (enum int/integer/... {..}) uses the matching integer
         // typespec; a logic/bit vector base uses logic_typespec (with a range).
         UHDM::typespec* bts = nullptr;

@@ -1797,6 +1797,27 @@ private:
     // assoc property, typed by the shared element typespec. Null when the
     // element type has no variable form here.
     UHDM::variables* classElemVar(const slang::ast::Type& elemType);
+    // The vpiReg element of an ASSOCIATIVE class property, which is
+    // classElemVar except when the element type is a typedef Surelog cannot
+    // see from the declaring class (a BASE class's nested typedef, reached
+    // bare or through `base::`) — those degrade to a bare logic_var.
+    UHDM::variables* classAssocElemVar(const slang::ast::Symbol& cp,
+                                       const slang::ast::Type& elemType,
+                                       const slang::ast::ClassType& owner);
+    // The associative dimensions of a class property: vpiIndexTypespec for
+    // the outermost, a `STRING:associative` marker vpiRange per inner one.
+    void emitAssocDims(const slang::ast::Symbol& cp,
+                       const std::vector<const slang::ast::Type*>& idx,
+                       UHDM::array_var* av, UHDM::array_typespec* ats);
+    // One associative INDEX type as a typespec (string / class / enum
+    // typedef / integral); null when the index type has no form here.
+    UHDM::typespec* assocIndexTs(const slang::ast::Type& idx,
+                                 const slang::ast::Symbol& sym);
+    // A class-scope typedef of a queue / dynamic / associative array: a bare
+    // array_typespec carrying one raw marker range per written dimension.
+    UHDM::typespec* buildDynContainerTypedefTs(
+        const slang::ast::TypeAliasType& ta,
+        const slang::syntax::SyntaxNode* typeSyn);
     // The already-emitted typespec object for a package/module/class TYPEDEF
     // (the elaborated copy wins, as in makeTypespec); null when unregistered.
     UHDM::typespec* sharedAliasTs(const slang::ast::Type& t);

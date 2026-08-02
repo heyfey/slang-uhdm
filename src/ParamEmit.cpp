@@ -12792,6 +12792,15 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
         vs.as<VariableSymbol>().flags.has(VariableFlags::Const))
         v->VpiConstantVariable(true);
     if (auto* ts = makeTypespec(vs)) {
+        // A class-method body local is UNNAMED where it sits inside the
+        // method (makeTypespec's inClassMethod0 rule), but the copy hoisted
+        // into the PACKAGE's variable listing is compiled in the package's
+        // scope and keeps the class name (BuildUVMPkg: uvm_phase::new's
+        // `clp` -> class_typespec(uvm_cmdline_processor), 845 of the design's
+        // compare failures).
+        if (ct.kind == SymbolKind::ClassType &&
+            ts->UhdmType() == UHDM::uhdmclass_typespec && ts->VpiName().empty())
+            ts->VpiName(ct.name);
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(full);
         rt->VpiParent(v);

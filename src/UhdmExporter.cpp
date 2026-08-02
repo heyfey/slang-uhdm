@@ -410,12 +410,27 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         setLoc(cd, r);
     }
     auto* vars = s.MakeVariablesVec();
+    auto* nevs = s.MakeNamed_eventVec();
     for (auto& pm : cls.members()) {
         if (pm.kind != SymbolKind::ClassProperty)
             continue;
         auto& cp = pm.as<ClassPropertySymbol>();
         auto& ct = cp.getType().getCanonicalType();
         std::string pfn = fullName + "::" + std::string(cp.name);
+        // An `event` property is NOT a variable: it is a named_event in the
+        // class's own vpiNamedEvent listing (scope::Compare reads that vector
+        // BEFORE vpiVariables, so a missing one first-fails the class).  It
+        // carries name/fullname/span only — no vpiAutomatic even on a
+        // non-static property, and no visibility field exists on the object.
+        if (ct.kind == SymbolKind::EventType) {
+            auto* ne = s.MakeNamed_event();
+            ne->VpiName(cp.name);
+            ne->VpiFullName(pfn);
+            ne->VpiParent(cd);
+            setLoc(ne, nameSpan(cp.location, cp.name));
+            nevs->push_back(ne);
+            continue;
+        }
         // `rand`/`randc` qualifier -> vpiIsRandomized + vpiRandType
         // (vpiNotRand 1 / vpiRand 2 / vpiRandC 3); an unqualified property
         // keeps whatever the shape below sets (SimpleConstraint).
@@ -438,6 +453,19 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             ct.kind == SymbolKind::AssociativeArrayType) {
             const Type* et = nullptr;
             int32_t akind = 2;
+            // Every ASSOCIATIVE dimension of the declaration, outermost
+            // first.  Surelog compiles ALL unpacked dims into `range`
+            // objects whose Right_expr is a `STRING:associative` marker
+            // constant carrying the index typespec
+            // (CompileExpression.cpp:4103/4185), then ElaborationStep's
+            // array_var pass (:2113) erases the FIRST such marker into the
+            // array_typespec's vpiIndexTypespec and — because that marker
+            // was dim 0 — hands the REMAINING markers to the array_var as
+            // vpiRange.  So a multi-dimension assoc property
+            // (`m_streams[string][string]`) is one array_var with one
+            // Index_typespec and (ndims-1) marker ranges, and the vpiReg
+            // element is the INNERMOST element type.
+            std::vector<const Type*> assocIdx;
             if (ct.kind == SymbolKind::DynamicArrayType)
                 et = &ct.as<DynamicArrayType>().elementType;
             else if (ct.kind == SymbolKind::QueueType) {
@@ -445,10 +473,17 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 akind = 4;
             }
             else {
-                et = &ct.as<AssociativeArrayType>().elementType;
                 akind = 3;
+                const Type* cur = &ct;
+                while (cur->getCanonicalType().kind ==
+                       SymbolKind::AssociativeArrayType) {
+                    auto& ac = cur->getCanonicalType().as<AssociativeArrayType>();
+                    assocIdx.push_back(ac.indexType);
+                    et = &ac.elementType;
+                    cur = et;
+                }
             }
-            auto* reg = classElemVar(*et);
+            auto* reg = classAssocElemVar(cp, *et, cls);
             if (!reg) {
                 noteUnsupported("class array property element");
                 continue;
@@ -475,9 +510,21 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             art->VpiParent(av);
             art->Actual_typespec(ats);
             av->Typespec(art);
+            emitAssocDims(cp, assocIdx, av, ats);
             reg->VpiParent(av);
             reg->VpiFullName(pfn);
             setLoc(reg, nameSpan(cp.location, cp.name));
+            // A PREDEFINED-INTEGER element takes the matching integer
+            // typespec here rather than the write-phase mint, which would
+            // read the property's own declared type and produce the vector
+            // form (int_typespec, not logic_typespec — BuildUVMPkg
+            // uvm_seed_map `int unsigned seed_table[string]`).
+            if (auto* rrt = reg->Typespec();
+                rrt && !((UHDM::ref_typespec*)rrt)->Actual_typespec() &&
+                et->getCanonicalType().kind == SymbolKind::PredefinedIntegerType) {
+                if (auto* pts = predefIntTypespec(et->getCanonicalType(), cp))
+                    ((UHDM::ref_typespec*)rrt)->Actual_typespec(pts);
+            }
             // An ELEMENT type with no shared alias (a bare `bit [7:0]`) still
             // gets its own typespec, minted in the write phase like any other
             // property's (SimpleConstraint `rand bit [7:0] payload []`: the
@@ -510,6 +557,15 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         }
         else
             v = makeVar(cp, /*portBacked=*/false);
+        // An UNPACKED struct/union property is a struct_var / union_var
+        // carrying the shared typedef typespec: makeVar's struct arms are
+        // written for the module net-vs-var decode and only reach PACKED
+        // ones, but a class property is never a net (BuildUVMPkg:
+        // uvm_factory_override's `m_uvm_factory_type_pair_t orig/ovrd`).
+        if (!v && ct.kind == SymbolKind::UnpackedStructType)
+            v = s.MakeStruct_var();
+        if (!v && ct.kind == SymbolKind::UnpackedUnionType)
+            v = s.MakeUnion_var();
         if (!v) {
             noteUnsupported("class property type: " +
                             std::string(toString(ct.kind)));
@@ -542,9 +598,11 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         if (auto* pinit = cp.getInitializer()) {
             auto& ic0 = stripImplicitConv(*pinit);
             std::string pfn0 = fullName + "::" + std::string(cp.name);
-            if (ic0.kind == ExpressionKind::NamedValue &&
-                ic0.as<NamedValueExpression>().symbol.kind ==
-                    SymbolKind::EnumValue) {
+            // ...and the same UNFOLDED ref_obj for a PARAMETER/localparam or
+            // another property: Surelog compiles a class body with Reduce::No,
+            // so no named initializer ever collapses to its value
+            // (BuildUVMPkg: `int mcd = UVM_STDOUT;`).
+            if (ic0.kind == ExpressionKind::NamedValue) {
                 auto* ro = s.MakeRef_obj();
                 ro->VpiName(ic0.as<NamedValueExpression>().symbol.name);
                 ro->VpiFullName(pfn0 + "::" +
@@ -570,6 +628,77 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                     v->Expr(c0);
                 }
             }
+            //   `= -<integer literal>` -> a bare vpiMinusOp operation (no
+            //      decompile, no size, no typespec) over that same constant,
+            //      spanned across the `-`.  BuildUVMPkg reaches this from
+            //      almost every class (`int depth = -1` in uvm_printer_knobs
+            //      alone is 1808 of the design's compare failures), because a
+            //      missing vpiExpr first-fails variables::Compare.
+            else if (ic0.kind == ExpressionKind::UnaryOp &&
+                     ic0.as<UnaryExpression>().op == UnaryOperator::Minus) {
+                auto& ub0 = stripImplicitConv(ic0.as<UnaryExpression>().operand());
+                if (ub0.kind == ExpressionKind::IntegerLiteral) {
+                    auto iv1 = ub0.as<IntegerLiteral>().getValue();
+                    if (!iv1.hasUnknown()) {
+                        slang::SVInt u1 = iv1;
+                        u1.setSigned(false);
+                        std::string d1 = u1.toString(LiteralBase::Decimal, false);
+                        auto* c1 = s.MakeConstant();
+                        c1->VpiDecompile(d1);
+                        c1->VpiSize((int32_t)cp.getType().getBitWidth());
+                        c1->VpiValue("UINT:" + d1);
+                        c1->VpiConstType(vpiUIntConst);
+                        setLoc(c1, ub0.sourceRange);
+                        auto* op1 = s.MakeOperation();
+                        op1->VpiOpType(vpiMinusOp);
+                        op1->VpiParent(v);
+                        setLoc(op1, ic0.sourceRange);
+                        c1->VpiParent(op1);
+                        auto* ops1 = s.MakeAnyVec();
+                        ops1->push_back(c1);
+                        op1->Operands(ops1);
+                        v->Expr(op1);
+                    }
+                }
+            }
+            //   `= "<text>"` -> a vpiStringConst holding the RAW source
+            //      characters (escapes unexpanded), sized 8 bits per raw
+            //      character — the same rule ExprEmit's StringLiteral arm
+            //      follows.  `= <real literal>` -> a vpiRealConst decompiling
+            //      the source text at size 64.
+            else if (ic0.kind == ExpressionKind::StringLiteral) {
+                std::string raw2 = rawText(ic0.sourceRange);
+                std::string in2 = raw2;
+                if (in2.size() >= 2 && in2.front() == '"' && in2.back() == '"')
+                    in2 = in2.substr(1, in2.size() - 2);
+                else {
+                    in2 = std::string(ic0.as<StringLiteral>().getRawValue());
+                    if (in2.size() >= 2 && in2.front() == '"' && in2.back() == '"')
+                        in2 = in2.substr(1, in2.size() - 2);
+                    raw2 = "\"" + in2 + "\"";
+                }
+                auto* c2 = s.MakeConstant();
+                c2->VpiDecompile(raw2);
+                c2->VpiSize((int32_t)(in2.size() * 8));
+                c2->VpiValue("STRING:" + in2);
+                c2->VpiConstType(vpiStringConst);
+                c2->VpiParent(v);
+                setLoc(c2, ic0.sourceRange);
+                v->Expr(c2);
+            }
+            else if (ic0.kind == ExpressionKind::RealLiteral) {
+                auto* c3 = s.MakeConstant();
+                c3->VpiDecompile(rawText(ic0.sourceRange));
+                c3->VpiSize(64);
+                char rbuf3[64];
+                snprintf(rbuf3, sizeof(rbuf3), "%f",
+                         ic0.as<RealLiteral>().getValue());
+                c3->VpiValue(std::string("REAL:") + rbuf3);
+                c3->VpiConstType(vpiRealConst);
+                c3->VpiParent(v);
+                setLoc(c3, ic0.sourceRange);
+                v->Expr(c3);
+            }
         }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(fullName + "::" + std::string(cp.name));
@@ -582,6 +711,8 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
     }
     if (!vars->empty())
         cd->Variables(vars);
+    if (!nevs->empty())
+        cd->Named_events(nevs);
     classDefnMap[&cls] = cd;
     if (cls.genericClass)
         genericDefnMap.emplace(cls.genericClass, cd);
@@ -660,8 +791,14 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
     }
     else if (ec.kind == SymbolKind::StringType)
         v = s.MakeString_var();
-    else if (ec.kind == SymbolKind::PredefinedIntegerType ||
-             ec.kind == SymbolKind::ScalarType || ec.kind == SymbolKind::PackedArrayType)
+    // A PREDEFINED-INTEGER element takes its own var class, exactly as
+    // makeReturnVar does for a subroutine-local container — an `int unsigned
+    // seed_table[string]` element is an int_var, not the bit_var its 2-state
+    // integral base would give (BuildUVMPkg uvm_seed_map).
+    else if (ec.kind == SymbolKind::PredefinedIntegerType)
+        v = makeReturnVar(s, elemType);
+    else if (ec.kind == SymbolKind::ScalarType ||
+             ec.kind == SymbolKind::PackedArrayType)
         v = ec.isFourState() ? (UHDM::variables*)s.MakeLogic_var()
                              : (UHDM::variables*)s.MakeBit_var();
     if (!v)
@@ -672,6 +809,152 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType) {
         rt->Actual_typespec(ts);
     v->Typespec(rt);
     return v;
+}
+
+// Surelog resolves a class-scope type NAME against the declaring class's own
+// datatype map only: it never walks the base chain and never resolves a
+// `base_class::T` qualification.  So a property typed by a typedef that lives
+// in a BASE class compiles as if the name were unknown, and the element of an
+// associative array declared that way lands as a bare `logic_var` with NO
+// typespec (BuildUVMPkg: uvm_copier's `recursion_state_e m_recur_states[...]`
+// and uvm_printer's `uvm_policy::recursion_state_e m_recur_states[...]`, both
+// inherited from uvm_policy — while uvm_comparer's `state_info_t`, declared in
+// uvm_comparer itself, resolves and stays a struct_var).  slang resolves all
+// three, so the un-seeable ones are degraded here on purpose.
+UHDM::variables* UhdmExporter::classAssocElemVar(const Symbol& cp,
+                                                 const Type& elemType,
+                                                 const ClassType& owner) {
+    const Type* named = &elemType;
+    if (named->kind == SymbolKind::TypeAlias || named->kind == SymbolKind::EnumType) {
+        auto sc = named->getParentScope();
+        if (sc && sc->asSymbol().kind == SymbolKind::ClassType &&
+            &sc->asSymbol() != (const Symbol*)&owner) {
+            (void)cp;
+            return s.MakeLogic_var();
+        }
+    }
+    return classElemVar(elemType);
+}
+
+UHDM::typespec* UhdmExporter::assocIndexTs(const Type& idx, const Symbol& sym) {
+    auto& ic = idx.getCanonicalType();
+    if (ic.kind == SymbolKind::StringType)
+        return s.MakeString_typespec();
+    if (ic.kind == SymbolKind::ClassType) {
+        auto* cts = s.MakeClass_typespec();
+        cts->VpiName(ic.name);
+        pendingClassTsLink.push_back({cts, &ic});
+        return cts;
+    }
+    if (auto* sh = sharedAliasTs(idx))
+        return sh;
+    if (ic.kind == SymbolKind::PredefinedIntegerType)
+        return predefIntTypespec(ic, sym);
+    if (ic.isIntegral())
+        return s.MakeLogic_typespec();
+    return nullptr;
+}
+
+// The associative dimensions of one class property.  The OUTERMOST index type
+// becomes the array_typespec's vpiIndexTypespec; every INNER one stays in the
+// raw marker form Surelog's range compiler produced — a range whose Left_expr
+// is a `UINT:0` constant and whose Right_expr is a `STRING:associative`
+// constant carrying that dimension's index typespec — listed on the array_var
+// itself.  The marker constants are spanned only when the index type was
+// written as a NAME (Surelog's ref_obj arm populates core members; its
+// keyword-type arm does not), so `[uvm_object]` carries a span and `[string]`
+// does not; the enclosing range is spanned either way.
+void UhdmExporter::emitAssocDims(const Symbol& cp,
+                                 const std::vector<const Type*>& idx,
+                                 UHDM::array_var* av, UHDM::array_typespec* ats) {
+    if (idx.empty())
+        return;
+    // The declarator's written dimensions, so each index typespec/range can be
+    // spanned at the `[...]` it came from.
+    std::vector<const syntax::VariableDimensionSyntax*> dims;
+    if (auto dsyn = cp.getSyntax();
+        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+        for (auto d : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+            dims.push_back(d);
+    auto dimAt = [&](size_t i) -> const syntax::VariableDimensionSyntax* {
+        return i < dims.size() ? dims[i] : nullptr;
+    };
+    // Whether dimension i was written as a type NAME rather than a keyword.
+    auto namedIdx = [&](size_t i) {
+        auto* d = dimAt(i);
+        if (!d || !d->specifier ||
+            d->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+            return false;
+        auto& sel = *d->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+        if (sel.kind != syntax::SyntaxKind::BitSelect)
+            return false;
+        auto* e = sel.as<syntax::BitSelectSyntax>().expr.get();
+        return e && (e->kind == syntax::SyntaxKind::IdentifierName ||
+                     e->kind == syntax::SyntaxKind::ScopedName);
+    };
+    if (idx[0]) {
+        if (auto* its = assocIndexTs(*idx[0], cp)) {
+            if (auto* d = dimAt(0)) {
+                auto dr = d->sourceRange();
+                if (auto* rd = d->specifier
+                                   ? d->specifier
+                                         ->as_if<syntax::RangeDimensionSpecifierSyntax>()
+                                   : nullptr)
+                    setLoc(its, rd->selector->sourceRange());
+                else
+                    setLoc(its, SourceRange(dr.start() + 1, dr.end() - 1));
+            }
+            auto* irt = s.MakeRef_typespec();
+            irt->VpiParent(ats);
+            irt->Actual_typespec(its);
+            ats->Index_typespec(irt);
+        }
+    }
+    if (idx.size() < 2)
+        return;
+    auto* rs = s.MakeRangeVec();
+    for (size_t i = 1; i < idx.size(); i++) {
+        auto* r = s.MakeRange();
+        r->VpiParent(av);
+        auto* lc = s.MakeConstant();
+        lc->VpiConstType(vpiUIntConst);
+        lc->VpiSize(64);
+        lc->VpiValue("UINT:0");
+        lc->VpiDecompile("0");
+        lc->VpiParent(r);
+        r->Left_expr(lc);
+        auto* rc = s.MakeConstant();
+        rc->VpiConstType(vpiStringConst);
+        rc->VpiSize(0);
+        rc->VpiValue("STRING:associative");
+        rc->VpiDecompile("associative");
+        rc->VpiParent(r);
+        r->Right_expr(rc);
+        if (idx[i]) {
+            if (auto* its = assocIndexTs(*idx[i], cp)) {
+                if (auto* d = dimAt(i))
+                    if (auto* rd = d->specifier
+                                       ? d->specifier->as_if<
+                                             syntax::RangeDimensionSpecifierSyntax>()
+                                       : nullptr)
+                        setLoc(its, rd->selector->sourceRange());
+                auto* rrt = s.MakeRef_typespec();
+                rrt->VpiParent(rc);
+                rrt->Actual_typespec(its);
+                rc->Typespec(rrt);
+            }
+        }
+        if (auto* d = dimAt(i)) {
+            setLoc(r, d->sourceRange());
+            if (namedIdx(i)) {
+                auto st = d->sourceRange().start();
+                setLoc(lc, SourceRange(st, st + 1));
+                setLoc(rc, SourceRange(st, st + 1));
+            }
+        }
+        rs->push_back(r);
+    }
+    av->Ranges(rs);
 }
 
 // Class-scope parameters. Surelog compiles them with Reduce::No, so only a
@@ -915,8 +1198,14 @@ void UhdmExporter::drainPendingExtends() {
         ext->Class_typespec(rt);
         cts->VpiName(written.empty() ? std::string(base->name) : written);
         auto& bct = base->getCanonicalType();
-        if (auto bit = classDefnMap.find(&bct); bit != classDefnMap.end())
-            cts->Class_defn(bit->second);
+        // A SPECIALIZED base (`extends uvm_port_base #(IF)`) resolves to a
+        // slang specialization symbol, but Surelog compiles a parameterized
+        // class ONCE and every derived class registers on that single generic
+        // class_defn — so route through classDefnFor, which falls back to the
+        // generic, rather than the exact-symbol map (BuildUVMPkg:
+        // uvm_port_base collects 86 derived classes, all through `#(...)`).
+        if (auto* bcd = classDefnFor(bct))
+            cts->Class_defn(bcd);
         if (nameSyn)
             setLoc(ext, nameRange);
         if (!tpSym) {
@@ -1183,12 +1472,117 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
             typedefTsContext = savedTd;
             tfContext = savedTf;
         }
+        else if (ct.kind == SymbolKind::QueueType ||
+                 ct.kind == SymbolKind::DynamicArrayType ||
+                 ct.kind == SymbolKind::AssociativeArrayType)
+            ts = buildDynContainerTypedefTs(ta, typeSyn);
         if (!ts)
             continue;
         ts->VpiName(ta.name);
         // Registering it lets a method's return type / a property share it.
         typedefTs[&ta] = ts;
     }
+}
+
+// A typedef of a DYNAMIC CONTAINER (`typedef T tab_t[string];`,
+// `typedef elem q_t[$];`).  Surelog's typedef path stops at compileTypespec,
+// so the array_typespec keeps the RAW form compileRanges produced and never
+// reaches the ElaborationStep pass that turns a marker range into
+// vpiIndexTypespec: no vpiArrayType, no vpiElemTypespec, no vpiIndexTypespec,
+// and one marker vpiRange per written dimension — `UINT:0 .. STRING:associative`
+// (the index typespec riding the right constant), `UINT:0 .. STRING:$` for a
+// queue, `UINT:0 .. STRING:unsized` for an unsized dynamic array.  The
+// typespec spans from the TYPE token through the last dimension's `]`.
+UHDM::typespec* UhdmExporter::buildDynContainerTypedefTs(
+    const TypeAliasType& ta, const syntax::SyntaxNode* typeSyn) {
+    std::vector<const syntax::VariableDimensionSyntax*> dims;
+    if (auto syn = ta.getSyntax())
+        if (auto* td = syn->as_if<syntax::TypedefDeclarationSyntax>())
+            for (auto d : td->dimensions)
+                dims.push_back(d);
+    struct DynDim {
+        int kind = 0;  // 0 assoc, 1 queue, 2 dynamic
+        const Type* idx = nullptr;
+    };
+    std::vector<DynDim> ds;
+    for (const Type* cur = &ta.targetType.getType();;) {
+        auto& cc = cur->getCanonicalType();
+        if (cc.kind == SymbolKind::AssociativeArrayType) {
+            ds.push_back({0, cc.as<AssociativeArrayType>().indexType});
+            cur = &cc.as<AssociativeArrayType>().elementType;
+        }
+        else if (cc.kind == SymbolKind::QueueType) {
+            ds.push_back({1, nullptr});
+            cur = &cc.as<QueueType>().elementType;
+        }
+        else if (cc.kind == SymbolKind::DynamicArrayType) {
+            ds.push_back({2, nullptr});
+            cur = &cc.as<DynamicArrayType>().elementType;
+        }
+        else
+            break;
+    }
+    if (ds.empty())
+        return nullptr;
+    auto* ats = s.MakeArray_typespec();
+    auto* rs = s.MakeRangeVec();
+    for (size_t i = 0; i < ds.size(); i++) {
+        auto* r = s.MakeRange();
+        r->VpiParent(ats);
+        auto* lc = s.MakeConstant();
+        lc->VpiParent(r);
+        lc->VpiConstType(vpiUIntConst);
+        lc->VpiSize(64);
+        lc->VpiValue("UINT:0");
+        lc->VpiDecompile("0");
+        r->Left_expr(lc);
+        auto* rc = s.MakeConstant();
+        rc->VpiParent(r);
+        if (ds[i].kind == 1) {
+            rc->VpiConstType(vpiUnboundedConst);
+            rc->VpiSize(1);
+            rc->VpiValue("STRING:$");
+            rc->VpiDecompile("$");
+        }
+        else if (ds[i].kind == 2) {
+            rc->VpiConstType(vpiStringConst);
+            rc->VpiSize(0);
+            rc->VpiValue("STRING:unsized");
+            rc->VpiDecompile("unsized");
+        }
+        else {
+            rc->VpiConstType(vpiStringConst);
+            rc->VpiSize(0);
+            rc->VpiValue("STRING:associative");
+            rc->VpiDecompile("associative");
+            if (ds[i].idx)
+                if (auto* its = assocIndexTs(*ds[i].idx, ta)) {
+                    auto* irt = s.MakeRef_typespec();
+                    irt->VpiParent(rc);
+                    irt->Actual_typespec(its);
+                    rc->Typespec(irt);
+                }
+        }
+        r->Right_expr(rc);
+        if (i < dims.size()) {
+            auto dr = dims[i]->sourceRange();
+            if (ds[i].kind == 1) {
+                // The queue marker is the `$` token, not the brackets.
+                setLoc(r, SourceRange(dr.start() + 1, dr.end() - 1));
+                setLoc(rc, SourceRange(dr.start() + 1, dr.end() - 1));
+            }
+            else
+                setLoc(r, dr);
+        }
+        rs->push_back(r);
+    }
+    ats->Ranges(rs);
+    if (typeSyn && !dims.empty())
+        setLoc(ats, SourceRange(typeSyn->sourceRange().start(),
+                                dims.back()->sourceRange().end()));
+    else if (typeSyn)
+        setLoc(ats, typeSyn->sourceRange());
+    return ats;
 }
 
 // Builds a canonical string of an instance's parameterization (value +
