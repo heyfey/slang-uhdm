@@ -1032,6 +1032,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     bindHoistedClassPropRefs(body, m, prefix, nets);
     if (!nets->empty() && !m->Nets())
         m->Nets(nets);
+    // ...and the `$unit` enum constants declared in ANOTHER file, which
+    // Surelog cannot resolve either (mintUnitEnumNets).
+    mintUnitEnumNets(body, m, prefix, info.nets, /*defView=*/true);
 
     // `let` declarations, shared with the elab view (Surelog's
     // UhdmWriter::writeModule / writeElabModule both list the SAME let_decl).
@@ -3410,6 +3413,136 @@ void UhdmExporter::bindHoistedClassPropRefs(const InstanceBodySymbol& body,
     }
 }
 
+// A `$unit`-scope ENUM CONSTANT resolves, in Surelog, only from the SOURCE
+// FILE whose text actually declared the enum. Everywhere else in the same
+// compilation unit the name is UNKNOWN, and Surelog falls back to its
+// implicit-net rule: a bare `logic_net` (vpiNetType 1, no typespec) minted in
+// the referencing module at the FIRST reference's span, which every later
+// reference to that name then binds.
+//
+// Measured on a two-file probe sharing one guarded header (`typedef enum
+// {G_A,G_B} g_t;` in gt.svh, `\`include`d by both): the module in the file
+// where the guard let the text through binds `enum_const`, the module in the
+// other file gets `logic_net(work@b_second.G_B)@4:18`. $unit PARAMETERS from
+// the same header resolve normally in BOTH files, so this is specific to enum
+// constants — Surelog registers those in the declaring file's scope only.
+//
+// The nets land after every declared net, one per NAME, in source order of
+// first reference — hence a syntax pre-pass over the module body rather than
+// lazy minting at the reference site (our cont_assigns and processes are not
+// emitted in source order relative to each other).
+void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
+                                    UHDM::instance* m,
+                                    const std::string& prefix, NetMap& netMap,
+                                    bool defView) {
+    if (!m || m->UhdmType() != UHDM::uhdmmodule_inst)
+        return;
+    auto* bsy = body.asSymbol().getSyntax();
+    if (!bsy)
+        return;
+    std::string modFile = rootFilePath(body.asSymbol().location);
+    if (modFile.empty())
+        return;
+    const void* defKey = &body.getDefinition();
+    // The ELAB view mints nothing: Surelog's elaborated instance carries no
+    // vpiNet for these names and its refs bind the DEFINITION's wires (the
+    // objects are shared, exactly as the def-view refs see them).
+    if (!defView) {
+        auto dit = unitEnumNetsByDef.find(defKey);
+        if (dit != unitEnumNetsByDef.end())
+            for (auto& [sym9, net9] : dit->second)
+                netMap[sym9] = net9;
+        return;
+    }
+    // ...unless the module declares a DATA OBJECT of that enum type. Surelog's
+    // name lookup reaches an enum's members through the SIGNALS it has already
+    // typed in this component, so one `type_scr1_lsu_cmd_sel_e lsu_cmd_ff;`
+    // makes every SCR1_LSU_CMD_* resolve — while a type used ONLY on a PORT
+    // does not (scr1_pipe_lsu: LSU_CMD binds enum_consts, but EXC_CODE /
+    // MEM_CMD / MEM_WIDTH / MEM_RESP, all port-only there, get wires; the same
+    // EXC_CODE binds in scr1_pipe_exu, which has a local `exc_code`). Probe
+    // pair, one source: `i_t` on a port only -> logic_net; `j_t` on a port AND
+    // a module-level `j_t jloc;` -> enum_const.
+    std::set<const Symbol*> portInternals;
+    for (auto& mem : body.members())
+        if (mem.kind == SymbolKind::Port)
+            if (auto* is9 = mem.as<PortSymbol>().internalSymbol)
+                portInternals.insert(is9);
+    std::set<const Symbol*> localEnums;
+    for (auto& mem : body.members()) {
+        if (mem.kind != SymbolKind::Net && mem.kind != SymbolKind::Variable)
+            continue;
+        if (portInternals.count(&mem))
+            continue;
+        const Type* t9 = &mem.as<ValueSymbol>().getType();
+        for (int g9 = 0; g9 < 8 && t9; g9++) {
+            auto& ct9 = t9->getCanonicalType();
+            if (ct9.kind == SymbolKind::EnumType) {
+                localEnums.insert(&ct9);
+                break;
+            }
+            if (ct9.isUnpackedArray() || ct9.isPackedArray()) {
+                t9 = ct9.getArrayElementType();
+                continue;
+            }
+            break;
+        }
+    }
+    auto& slot = unitEnumNetsByDef[defKey];
+    std::function<void(const syntax::SyntaxNode&)> walk =
+        [&](const syntax::SyntaxNode& n) {
+            if (n.kind == syntax::SyntaxKind::IdentifierName) {
+                auto nm = n.as<syntax::IdentifierNameSyntax>()
+                              .identifier.valueText();
+                const Symbol* sym = nm.empty() ? nullptr : body.lookupName(nm);
+                // An enum member's own scope is the ENUM TYPE; the home that
+                // decides resolvability is the enclosing declaration scope.
+                bool unitHome = false;
+                if (sym && sym->kind == SymbolKind::EnumValue)
+                    for (auto* sc9 = sym->getParentScope(); sc9;
+                         sc9 = sc9->asSymbol().getParentScope()) {
+                        auto k9 = sc9->asSymbol().kind;
+                        if (k9 == SymbolKind::CompilationUnit) {
+                            unitHome = true;
+                            break;
+                        }
+                        if (k9 == SymbolKind::Package ||
+                            k9 == SymbolKind::InstanceBody ||
+                            k9 == SymbolKind::GenerateBlock ||
+                            k9 == SymbolKind::GenerateBlockArray)
+                            break;
+                    }
+                if (unitHome && localEnums.count(&sym->getParentScope()->asSymbol()))
+                    unitHome = false;
+                if (unitHome && !slot.count(sym) &&
+                    rootFilePath(sym->location) != modFile) {
+                    auto* inet = s.MakeLogic_net();
+                    inet->VpiName(nm);
+                    inet->VpiFullName(prefix + "." + std::string(nm));
+                    inet->VpiParent(m);
+                    inet->VpiNetType(1);
+                    setLoc(inet, n.sourceRange());
+                    auto* nets = m->Nets();
+                    if (!nets) {
+                        nets = s.MakeNetVec();
+                        m->Nets(nets);
+                    }
+                    nets->push_back(inet);
+                    slot[sym] = inet;
+                    // Registering the wire in the view's NetMap is what binds
+                    // every reference to it — including inside a named block,
+                    // whose emitter works on a COPY of the map.
+                    netMap[sym] = inet;
+                }
+                return;
+            }
+            for (size_t i = 0; i < n.getChildCount(); i++)
+                if (auto* c = n.childNode(i))
+                    walk(*c);
+        };
+    walk(*bsy);
+}
+
 // Surelog's vpiDirection for a modport interface port (X_if.mp Y): vpiInput
 // iff the connection explicitly names the modport (.Y(x.mp), a dotted actual)
 // AND the modport declares >=1 OUTPUT member. Otherwise vpiInout — a plain
@@ -5308,6 +5441,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     }
     if (!nets->empty())
         m->Nets(nets);
+    mintUnitEnumNets(body, m, prefix, topNets, /*defView=*/false);
     if (!vars->empty())
         m->Variables(vars);
     if (namedEvents && !namedEvents->empty())

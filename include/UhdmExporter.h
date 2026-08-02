@@ -924,6 +924,19 @@ private:
     // unfolded operation in every view.
     bool syntaxReadsUnitParam(const slang::syntax::SyntaxNode& n,
                               const slang::ast::Scope* scope);
+    // The first `<name>'(...)` size cast under `n`, as the cast's type-name
+    // node (where Surelog anchors the typespec it mints for the name).
+    const slang::syntax::SyntaxNode* findParamSizeCast(
+        const slang::syntax::SyntaxNode& n, std::string_view name);
+    // Parameters whose ONLY typespec is the one Surelog mints for a `P'(x)`
+    // size cast on their name -> that cast's type-name node.
+    std::map<const slang::ast::Symbol*, const slang::syntax::SyntaxNode*>
+        castSizeParamTs;
+    // Reshape such a parameter's typespec into Surelog's form: named after
+    // the parameter, located at the cast, carrying a vpiExpr ref_obj back to
+    // it. ExprEmit's cast path then reuses this very object.
+    void stampCastSizeParamTs(const slang::ast::ParameterSymbol& ps,
+                              UHDM::parameter* up, UHDM::typespec* its);
     bool srlgFullySpecType(const slang::ast::Type& type, int depth);
     // Surelog's value for a declaration-dimension bound that calls
     // $high/$low/$left/$right on an UNPACKED array: those four never resolve
@@ -1002,6 +1015,9 @@ private:
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
     bool isPkgQualifiedVarRef(const slang::ast::Expression& e);
+    /// The literal's source spelling, rebuilt from its tokens when the span
+    /// crosses a macro boundary (a macro-sized based literal).
+    std::string rawTextLit(const slang::ast::Expression& expr);
     /// One `include_file_info` per ACTIVE `include directive, hung off the
     /// design (Surelog's "Compile Include file info" pass).
     void emitIncludeFileInfos();
@@ -1527,6 +1543,15 @@ private:
     void bindHoistedClassPropRefs(const slang::ast::InstanceBodySymbol& body,
                                   UHDM::instance* m, const std::string& prefix,
                                   UHDM::VectorOfnet* nets);
+    /// A `$unit` enum CONSTANT referenced from a file other than the one that
+    /// declared the enum is unresolvable to Surelog: mint the implicit module
+    /// wire it falls back to, one per name, in source order of first use.
+    void mintUnitEnumNets(const slang::ast::InstanceBodySymbol& body,
+                          UHDM::instance* m, const std::string& prefix,
+                          NetMap& netMap, bool defView);
+    /// Those wires, per module DEFINITION — the elab views share them.
+    std::map<const void*, std::map<const slang::ast::Symbol*, UHDM::logic_net*>>
+        unitEnumNetsByDef;
     // Straight-line constant reduction of user calls / simple exprs.
     struct CallFold {
         const slang::ast::Expression* lit = nullptr;

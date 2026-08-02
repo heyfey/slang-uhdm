@@ -201,6 +201,34 @@ bool UhdmExporter::syntaxReadsUnitParam(const slang::syntax::SyntaxNode& n,
     return false;
 }
 
+// The FIRST `<name>'(...)` size cast under `n`, returned as the cast's own
+// type-name node (its span is where Surelog anchors the minted typespec).
+// Surelog resolves a cast's type name through the component's type cache: for
+// a parameter that carries NO declaration typespec of its own (a COMPUTED
+// init — `$clog2(...)`, `A*2`) the lookup MINTS one int_typespec at the first
+// cast site, names it after the parameter, hangs a `vpiExpr` ref_obj back on
+// it — and that ONE object then serves as the parameter's typespec and as
+// every later cast's target.  A LITERAL-init parameter already owns a
+// declaration typespec, and its casts mint a SECOND, separate typespec at the
+// parameter's name span instead (measured pair: `localparam W = 2` -> ts at
+// the decl AND ts at 3:12; `localparam W = $clog2(SZ)` -> ONE ts at the cast).
+const slang::syntax::SyntaxNode* UhdmExporter::findParamSizeCast(
+    const slang::syntax::SyntaxNode& n, std::string_view name) {
+    using SK = slang::syntax::SyntaxKind;
+    if (n.kind == SK::CastExpression) {
+        auto& ce = n.as<slang::syntax::CastExpressionSyntax>();
+        if (ce.left && ce.left->kind == SK::IdentifierName &&
+            ce.left->as<slang::syntax::IdentifierNameSyntax>()
+                    .identifier.valueText() == name)
+            return ce.left;
+    }
+    for (size_t i = 0; i < n.getChildCount(); i++)
+        if (auto* c = n.childNode(i))
+            if (auto* r = findParamSizeCast(*c, name))
+                return r;
+    return nullptr;
+}
+
 // Would Surelog's DEFINITION compile fold `$bits(<arg>)`?  `compileBits`
 // folds only when `getTypespec()` resolves the argument to a FULLY SPECIFIED
 // typespec, and `getTypespec` looks in exactly three places: the built-in
@@ -3240,7 +3268,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         case ExpressionKind::IntegerLiteral: {
             auto& il = expr.as<IntegerLiteral>();
             auto* c = s.MakeConstant();
-            std::string raw = rawText(expr.sourceRange);
+            std::string raw = rawTextLit(expr);
             // Spaced based literals (8'd 3) re-lex compactly; the span
             // shrinks by the removed whitespace.
             size_t spc = basedLiteralSpaceCount(raw);

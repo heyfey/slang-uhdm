@@ -2245,7 +2245,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (defaultInit) {
             auto& dl0 = stripImplicitConv(*defaultInit);
             if (dl0.kind == ExpressionKind::IntegerLiteral) {
-                std::string rawL0 = std::string(rawText(dl0.sourceRange));
+                std::string rawL0 = rawTextLit(dl0);
                 auto tk0 = rawL0.find('\'');
                 if (tk0 != std::string::npos) {
                     auto bp0 = tk0 + 1;
@@ -2310,6 +2310,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // views and carries the declaration's implicit int_typespec (set with
         // wantTs below; also drives the ELAB constant's width).
         bool bitsFoldInit = false;
+        // Set when this parameter's only typespec comes from a `P'(x)` size
+        // cast (see the wantTs block below). Once it HAS a typespec its ELAB
+        // fold is width-typed by it exactly like a $bits fold: size 32, with a
+        // ts ref on the folded constant.
+        bool castSizeFold = false;
         if (isLocal)
             up->VpiLocalParam(true);
         // Function-scope, explicitly-TYPED, and ranged (localparam [7:0] X)
@@ -2468,7 +2473,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (auto init0 = encSrc9) {
                     auto& lit = stripImplicitConv(*init0);
                     if (lit.kind == ExpressionKind::IntegerLiteral) {
-                        std::string raw = rawText(lit.sourceRange);
+                        std::string raw = rawTextLit(lit);
                         auto tick = raw.find('\'');
                         if (tick != std::string::npos) {
                             size_t basePos = tick + 1;
@@ -2576,6 +2581,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                       signedImplicitTs || pkgElabComputed || bitsFoldInit ||
                       ((literalInit || realLit) && !unknownDefault &&
                        !decBasedInit));
+            // A COMPUTED-init module parameter still ends up with an
+            // int_typespec when its name is used as a CAST SIZE somewhere in
+            // the module: Surelog's type lookup for `P'(x)` mints one at the
+            // FIRST cast site and caches it under P, so the parameter and
+            // every cast share that single object (scr1_pipe_ifu
+            // SCR1_IFU_QUEUE_ADR_W: declared 81:12, typespec anchored 428:24 —
+            // the first `SCR1_IFU_QUEUE_ADR_W'(`). Only for the no-typespec
+            // case: a LITERAL-init parameter keeps its declaration typespec
+            // and the cast mints a separate one (ExprEmit's litWidthParam9).
+            if (!wantTs && !inPackage && !isImported && !typedParam &&
+                defaultInit && ctw.isIntegral() && !unknownDefault) {
+                if (auto* bsy = body.asSymbol().getSyntax())
+                    if (auto* cl = findParamSizeCast(*bsy, ps.name)) {
+                        wantTs = true;
+                        castSizeFold = true;
+                        castSizeParamTs[&ps] = cl;
+                    }
+            }
         }
         if (auto declared0 = ps.getDeclaredType()) {
             if (auto tsyn0 = declared0->getTypeSyntax()) {
@@ -5295,7 +5318,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ((UHDM::constant*)rhs)
                             ->VpiSize(typedParam || defUntypedImport ||
                                               rangedFold || elabRefFold9 ||
-                                              bitsFoldInit
+                                              bitsFoldInit || castSizeFold
                                           ? (int32_t)ps.getType().getBitWidth()
                                       : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                     : 64);
@@ -5628,7 +5651,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // shape (fullname = instance prefix, actual = range
                     // int_typespec) so its folded value is width-typed.
                     // ...except a MULTIDIM range (elabMultiDimNoTs9).
-                    if ((typedParam || rangedFold || bitsFoldInit) && wantTs &&
+                    if ((typedParam || rangedFold || bitsFoldInit ||
+                         castSizeFold) &&
+                        wantTs &&
                         !isPattern && !partSelectFold && !replFoldTs &&
                         !importedFold && !elabMultiDimNoTs9) {
                         auto* rt = s.MakeRef_typespec();
@@ -7898,6 +7923,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (!currentScope)
                     currentScope = ps.getParentScope();
                 auto* its = makeParamTs(ps, typedParam);
+                stampCastSizeParamTs(ps, up, its);
                 currentScope = savedCS;
                 syntaxRefPrefix = savedPfx2;
                 bool untypedImport = !inPackage && isImported && !typedParam;
@@ -8761,6 +8787,33 @@ static const Symbol* enumParamValueOriginPkg(const ParameterSymbol& ps,
     return nullptr;
 }
 
+// A parameter that owes its typespec to a `P'(x)` size cast: Surelog's minted
+// object is NAMED after the parameter, anchored at the cast's type-name span,
+// and carries a vpiExpr ref_obj (name doubled into the fullname: `W.W`) bound
+// back to the parameter. Both views build their own object, so both are
+// stamped; ExprEmit's cast path reaches this one through defMap.paramTs and
+// reuses it rather than minting an integer_typespec of its own.
+void UhdmExporter::stampCastSizeParamTs(const ParameterSymbol& ps,
+                                        UHDM::parameter* up,
+                                        UHDM::typespec* its) {
+    auto cit = castSizeParamTs.find(&ps);
+    if (cit == castSizeParamTs.end() || !its ||
+        its->UhdmType() != UHDM::uhdmint_typespec)
+        return;
+    auto* ic9 = (UHDM::int_typespec*)its;
+    setLoc(ic9, cit->second->sourceRange());
+    ic9->VpiName(ps.name);
+    if (!ic9->Cast_to_expr()) {
+        auto* r9 = s.MakeRef_obj();
+        r9->VpiName(ps.name);
+        r9->VpiFullName(std::string(ps.name) + "." + std::string(ps.name));
+        r9->VpiParent(ic9);
+        if (up)
+            r9->Actual_group(up);
+        ic9->Cast_to_expr(r9);
+    }
+}
+
 UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam,
                                           bool parentBounds) {
     SourceRange tr(ps.location, ps.location + ps.name.size());
@@ -9249,7 +9302,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
         if (auto init = ps.getInitializer()) {
             auto& lit = stripImplicitConv(*init);
             if (lit.kind == ExpressionKind::IntegerLiteral &&
-                rawText(lit.sourceRange).find('\'') != std::string::npos) {
+                rawTextLit(lit).find('\'') != std::string::npos) {
                 auto* r = s.MakeRange();
                 r->VpiParent(its);
                 auto mkBound = [&](int64_t v) {
@@ -9530,6 +9583,7 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 structCloneMemberRefParent = true;
             its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
             structCloneMemberRefParent = false;
+            stampCastSizeParamTs(*ps, up, its);
             if (aggParam)
                 attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
             if (its->UhdmType() == UHDM::uhdmstruct_typespec ||

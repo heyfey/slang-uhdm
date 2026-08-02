@@ -2025,6 +2025,17 @@ UHDM::design* UhdmExporter::exportDesign() {
                             // A DECIMAL-based literal, and any literal whose
                             // width Surelog could not determine, leave the
                             // parameter with NO typespec at all.
+                            // RANKED RESIDUE (Scr1SvTests, 47 first-fail
+                            // hits): a TYPED declaration does keep it --
+                            // `parameter bit [`SCR1_XLEN-1:0]
+                            // SCR1_ARCH_RST_VECTOR = 'h200` carries a
+                            // bit_typespec, and SCR1_RST_VECTOR inherits the
+                            // same enc. Relaxing the gate to
+                            // `(litSize >= 0 || typedDecl9)` emits it, but
+                            // then the bit_typespec's RANGE bound diverges
+                            // (golden folds `\`SCR1_XLEN-1` to 31, we keep the
+                            // op) -- a NET-ZERO trade at 165 failing vectors,
+                            // so it stays gated until the bound folds too.
                             enc.wantTs = base != 'd' && litSize >= 0;
                         }
                         else {
@@ -3446,6 +3457,39 @@ std::string UhdmExporter::rawText(SourceRange range) {
     if (end > text.size() || start > end)
         return "";
     return std::string(text.substr(start, end - start));
+}
+
+// A based literal whose SIZE comes from a macro (`\`SCR1_XLEN'hFFFF_FFFE`)
+// spans two buffers: the size token lives in the macro's expansion buffer, the
+// base and digits in the source file. No single buffer holds the text, so
+// `rawText` reads garbage from the expansion buffer and every base/size test
+// downstream falls through to a plain 64-bit decimal. Surelog works on the
+// EXPANDED token stream, so rebuild the literal from its three tokens —
+// `32'hFFFF_FFFE`, exactly what golden decompiles.
+// Only for that case: the token rebuild drops interior whitespace, and a
+// SPACED literal (`8'd 3`) needs its true source text — `basedLiteralSpaceCount`
+// reads it to shrink the emitted span (u2r sva_counter).
+std::string UhdmExporter::rawTextLit(const Expression& expr) {
+    auto r9 = expr.sourceRange;
+    bool crossBuf9 = r9.start() != SourceLocation::NoLocation &&
+                     r9.end() != SourceLocation::NoLocation &&
+                     (r9.start().buffer() != r9.end().buffer() ||
+                      sm->isMacroLoc(r9.start()) != sm->isMacroLoc(r9.end()));
+    if (auto* sy = expr.syntax; crossBuf9 && sy &&
+                                sy->kind ==
+                                    syntax::SyntaxKind::IntegerVectorExpression) {
+        auto& iv = sy->as<syntax::IntegerVectorExpressionSyntax>();
+        std::string out;
+        if (iv.size)
+            out += std::string(iv.size.rawText());
+        if (iv.base)
+            out += std::string(iv.base.rawText());
+        if (iv.value)
+            out += std::string(iv.value.rawText());
+        if (out.find('\'') != std::string::npos)
+            return out;
+    }
+    return rawText(expr.sourceRange);
 }
 
 // ---------------------------------------------------------------- UDP defns
