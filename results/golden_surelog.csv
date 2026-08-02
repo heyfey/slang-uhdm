@@ -435,8 +435,8 @@ ExpectStmt,default,CMP_NOTEQUAL,decompile:,,
 ExpectStmt,testflags,CMP_NOTEQUAL,decompile:,,
 ExplicitPort,default,CMP_EQUAL,,,differ
 ExplicitPort,testflags,CMP_EQUAL,,,differ
-ExplictiPorts,default,CMP_NOTEQUAL,decompile:,,
-ExplictiPorts,testflags,CMP_NOTEQUAL,decompile:,,
+ExplictiPorts,default,CMP_EQUAL,,,differ
+ExplictiPorts,testflags,CMP_EQUAL,,,differ
 ExponTimeIfElseGen,default,SLANG_REJECT,dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean 'ADDR_OFFSET_PART_1'?,,
 ExponTimeIfElseGen,testflags,SLANG_REJECT,dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean 'ADDR_OFFSET_PART_1'?,,
 ExprEvalBits,default,CMP_EQUAL,,,match

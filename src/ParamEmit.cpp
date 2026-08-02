@@ -4365,10 +4365,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // Value.  A BASED actual ('d7_200) builds an LValue
                     // instead, whose uhdmValue is the unsized INT this falls
                     // through to (ParameterWithUnderscoreValue).
+                    // ...and an ARITHMETIC actual over bare-decimal / parameter
+                    // leaves reduces to the same simple unsigned Value, so it
+                    // takes the same adjustSize path (BasicOh
+                    // `oh_bin2gray #(.N(AW+1))` -> golden UINT:6 size 32, not
+                    // the unsized INT a based actual leaves behind).
                     bool bareDecOv8 = false;
                     if (overridden && boundInit) {
                         auto& bo8 = stripImplicitConv(*boundInit);
                         if (bo8.kind == ExpressionKind::IntegerLiteral)
+                            bareDecOv8 =
+                                rawText(bo8.sourceRange).find('\'') ==
+                                std::string_view::npos;
+                        else if (bo8.kind == ExpressionKind::BinaryOp ||
+                                 bo8.kind == ExpressionKind::UnaryOp)
                             bareDecOv8 =
                                 rawText(bo8.sourceRange).find('\'') ==
                                 std::string_view::npos;

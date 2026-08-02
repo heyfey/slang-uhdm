@@ -1332,14 +1332,36 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //    machinery (portExprSymbols) lands Surelog's split — a bare net + port
 //    under the PORT's own name, LowConn a vpiConcatOp of port-scoped
 //    ref_objs, plus one ordinary port per operand.
-//    ExplictiPorts still needs two more pieces: (a) the INSTANTIATION side,
-//    where a child's concat port must appear on the parent's ref_module as
-//    ONE port whose HighConn is the concat (we emit one port per operand);
-//    (b) `module f({a, b})` — an UNNAMED concat port, which Surelog compiles
-//    through its signal-list path to a net/port set that is not
-//    self-consistent (net `b` anchored in the header while `a` is anchored
-//    at its declaration; ports emitted b-then-a; port b's LowConn actual
-//    bound to module_inst work@a). Do not model (b) from first principles.
+//    ExplictiPorts is CONVERTED (r10basic, both modes) on top of that, in
+//    four pieces, all of them consequences of ONE fact: slang has no
+//    PortConnection for a concatenation header port — it SPLITS the actual
+//    across the operand sub-ports, so the written actual is gone from the AST
+//    and every site that wants Surelog's shape has to re-bind the connection's
+//    own SYNTAX in the instantiating scope (Expression::bind; helpers
+//    connActualSyntax / multiPortOwners).
+//      (a) ELAB child instances lost the whole explicit-port family: the
+//          per-instance loop skipped MultiPorts outright, named an explicit
+//          port's LowConn after the PORT instead of its EXPRESSION, and ran
+//          no explicitPortOwnPorts pass. All three now mirror emitPorts.
+//      (b) The INSTANTIATION side: slang's split connections are collapsed
+//          back to ONE ref_module port per header port (named form keeps the
+//          formal's name and written slot; positional form is nameless and
+//          anchored at the actual).
+//      (c) `module f({a, b})` — the UNNAMED concat port — is NOT a
+//          concatenation to Surelog at all. Its non-ANSI port parser reads
+//          `a b` as an INTERFACE PORT declaration: signal `b` of interface
+//          type `a`. Every "self-inconsistency" the r8gates note recorded is
+//          that one reading and nothing else: net `b` anchored in the HEADER
+//          at the second identifier, ports emitted b-then-a (header signal
+//          first, declaration-only signals after), the def-view port `b`
+//          binding module_inst work@a as its LowConn actual, the ELAB port
+//          `b` carrying a NAMELESS LowConn onto an `interface_inst work@a`
+//          named `b`, and that one interface object listed TWICE under
+//          vpiInterface. Gated at exactly two plain-identifier operands with
+//          no port name (unnamedConcatIfacePort), so it cannot reach a real
+//          concat port.
+//      (d) The nets stop carrying their own typespecs for free, because (c)
+//          makes them port nets (explicitPortInternals).
 //  * GenerateUnnamed is CONVERTED (r9genun, both modes), on top of
 //    r9modres's def-view work (if-chain HEAD anchoring in the top-level scan
 //    below + emitCaseItem's nested gen_case). The ELAB view took three
@@ -1384,25 +1406,103 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from) {
 //    covergroup-typed variable (`cg cg_inst = new(3);`) is a logic_var in
 //    Variables, where we emit a logic_net. Def views already agree.
 //  * BasicOh is MULTI-CAUSE, not a single fix — four independent failures
-//    counted (r9modres), ranked:
-//      1. module_array PORT ORDER. `oh_dsync wr_sync[AW:0] (.dout(..),
+//    counted at r9modres, of which THREE are LANDED (r10basic) and the fourth
+//    split into three on re-measure. Landed:
+//      1. module_array DEF PORT ORDER. `oh_dsync wr_sync[AW:0] (.dout(..),
 //         .clk(..), .nreset(..), .din(..))` against a header declaring
 //         (clk, nreset, din, dout): golden's module_array Ports follow the
-//         INSTANTIATION's named-connection order (dout first, at 121:19),
-//         we follow the module's port DECLARATION order (clk first, at
-//         122:5). Both sides locate each port at its connection site, so
-//         only the order differs.
-//      2. elab module_array RANGE bounds: golden folds `[AW:0]` to a
-//         constant, we keep ref_obj(AW) — the emitModuleArray bound fold
-//         landed by r9modcont for YosysMarlann does not reach this shape.
-//      3. elab gen-scope param folding inside oh_dsync: golden's
-//         `sync_pipe[SYNCPIPE]` bit_select operand is a constant, ours a
-//         ref_obj(SYNCPIPE); same for wr_rsync's param_assign constant.
-//      4. a logic_typespec@48:3 present on golden's Ref_modules[4]
-//         (oh_memory_dp) and on that module's Gen_stmts, absent on ours.
+//         INSTANTIATION's named-connection order, we followed the module's
+//         port DECLARATION order. Same offset-key + stable_sort the
+//         ref_module list already used (emitModuleArray, ordConnsA).
+//      2. elab module_array RANGE bounds and elab array-element SELECT
+//         bounds: a BARE parameter reference substitutes the parameter's
+//         Value (foldBareParamBound — plain 64-bit UINT, NO typespec, unlike
+//         the in-operation fold that reduces through the declared type).
+//      3. elab array-element port HighConns for a WRITTEN-OUT select actual
+//         (`.din(wr_addr_gray[AW:0])`): Surelog keeps the select WHOLE on
+//         every element; slang re-slices it per element into a shape that
+//         emits nothing at all, so the source syntax is re-bound (same seam
+//         as the concat-port work above).
+//      4. `reg [SYNCPIPE:0]` inside a gen block folded at 64 where golden
+//         has 32: an OVERRIDDEN untyped param DOES lend its narrow width
+//         when the override ACTUAL is itself a bare reference to a
+//         literal-initialised untyped param (TypeEmit litBoundOwnPar9) —
+//         Surelog copies the referenced param's already-evaluated Value.
+//         A bare-decimal override (YosysOldSimpleSpi `fifo4 #(8)`) still
+//         builds a fresh 64-bit LValue and keeps the old rule.
+//    Ranked residue (measured at r10basic, all four instances-of-oh_dsync
+//    wide, so each is worth ~12 objects but ONE test):
+//      R1. ELAB gen-scope expression param fold. `assign dout = (DELAY &
+//          sync_pipe[SYNCPIPE]) | (~DELAY & sync_pipe[SYNCPIPE-1]);` inside
+//          oh_dsync's if-generate: golden folds EVERY module-param read to a
+//          constant — a plain operand to UINT at the param width with a ts
+//          ref scoped at the GEN SCOPE and actual the param's own
+//          int_typespec, a select INDEX to the same but scoped at the select
+//          BASE, and a whole `SYNCPIPE-1` sub-expression to a bare INT:1
+//          size 64. ExprEmit's genCaLhsParamFold branch already builds
+//          exactly the index shape but is gated on `inPsBound`; the plain
+//          operand needs the same treatment with `prefix` as the ts scope.
+//          Broadest-reach item here — sweep before trusting it.
+//      R2. a logic_typespec@48:3 present on golden's Ref_modules[4]
+//          (oh_memory_dp) and on that module's Gen_stmts, absent on ours.
+//    (`#(.N(AW+1))` folding INT:6/size -1 against golden's UINT:6/size 32 was
+//    the third; it LANDED as ParamEmit's bareDecOv8 widening to arithmetic
+//    actuals, and the same `foldBareParamBound` now runs on EVERY elab child's
+//    part-select HighConn, not only an array element's.)
 //    Scr1SvTests (~49k lines; covergroup `always` process missing plus
 //    five-net gaps in ten modules) is its own cluster.
 //
+// The InstanceBody a symbol lives in, or null at file scope.
+static const InstanceBodySymbol* enclosingInstBody(const Symbol& sym) {
+    for (auto sc = sym.getParentScope(); sc; sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::InstanceBody)
+            return &sc->asSymbol().as<InstanceBodySymbol>();
+    return nullptr;
+}
+
+// A module-array RANGE bound, or a connection SELECT bound, written as a BARE
+// parameter reference substitutes that parameter's VALUE in the ELAB view.
+// Surelog's reduce hands back the instance Value itself here, so the constant
+// is the plain 64-bit UINT the parameter carries and takes NO typespec —
+// unlike the in-OPERATION fold in emitModuleArray below, which reduces through
+// the parameter's declared type and shares its typespec object. Returns null
+// when the bound is not such a reference. (BasicOh `wr_sync[AW:0]`,
+// `.din(wr_addr_gray[AW:0])`.)
+static UHDM::constant* foldBareParamBound(UHDM::Serializer& s,
+                                          const InstanceBodySymbol* body,
+                                          const UHDM::any* be) {
+    if (!body || !be || be->UhdmType() != UHDM::uhdmref_obj)
+        return nullptr;
+    std::string rn(((const UHDM::ref_obj*)be)->VpiName());
+    if (rn.empty())
+        return nullptr;
+    const ParameterSymbol* ps = nullptr;
+    for (auto& mem : body->members())
+        if (mem.kind == SymbolKind::Parameter && mem.name == rn) {
+            ps = &mem.as<ParameterSymbol>();
+            break;
+        }
+    if (!ps)
+        return nullptr;
+    auto& cv = ps->getValue();
+    if (!cv.isInteger() || cv.integer().hasUnknown())
+        return nullptr;
+    auto iv = cv.integer().as<int64_t>();
+    if (!iv)
+        return nullptr;
+    auto* c = s.MakeConstant();
+    std::string dv = std::to_string(*iv);
+    c->VpiDecompile(dv);
+    c->VpiSize(64);
+    c->VpiValue("UINT:" + dv);
+    c->VpiConstType(vpiUIntConst);
+    c->VpiLineNo(be->VpiLineNo());
+    c->VpiColumnNo(be->VpiColumnNo());
+    c->VpiEndLineNo(be->VpiEndLineNo());
+    c->VpiEndColumnNo(be->VpiEndColumnNo());
+    return c;
+}
+
 // An INSTANCE ARRAY (myif arr[N]) is a module_array (vpiModuleArray) — the
 // def module_typespec as element type, the array range, broadcast port
 // connections (HighConn ref_obj -> the parent net), and the per-index
@@ -1657,10 +1757,19 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                         slot9 = c9;
                     }
                 };
-            for (auto* rg9 : *rvec)
+            for (auto* rg9 : *rvec) {
+                if (auto* lc0 = foldBareParamBound(s, encBody, rg9->Left_expr())) {
+                    lc0->VpiParent(rg9);
+                    rg9->Left_expr(lc0);
+                }
+                if (auto* rc0 = foldBareParamBound(s, encBody, rg9->Right_expr())) {
+                    rc0->VpiParent(rg9);
+                    rg9->Right_expr(rc0);
+                }
                 for (UHDM::expr* be9 : {rg9->Left_expr(), rg9->Right_expr()})
                     if (be9 && be9->UhdmType() == UHDM::uhdmoperation)
                         foldOps((UHDM::operation*)be9);
+            }
         }
     }
     ma->Ranges(rvec);
@@ -1689,7 +1798,32 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     }
     bool ifaceArr = useInterfacePath(*rep);
     auto* mports = s.MakePortVec();
-    for (auto conn : rep->getPortConnections()) {
+    // The DEF module_array's broadcast port list follows the order the
+    // connections are WRITTEN at the instantiation, not the def's port
+    // declaration order — the same rule the def ref_module below obeys
+    // (BasicOh: `oh_dsync wr_sync[AW:0] (.dout(..), .clk(..), .nreset(..),
+    // .din(..))` against a header declaring clk first).  Positional lists
+    // already coincide, so only the named form is re-keyed.
+    auto connSpanA = rep->getPortConnections();
+    std::vector<const PortConnection*> ordConnsA(connSpanA.begin(),
+                                                 connSpanA.end());
+    if (!hasOrderedConns(*rep)) {
+        std::vector<std::pair<uint64_t, const PortConnection*>> keyedA;
+        keyedA.reserve(ordConnsA.size());
+        for (auto conn : ordConnsA) {
+            uint64_t key = UINT64_MAX;
+            if (auto* npc = findConnSyntax(*rep, conn->port.name))
+                key = npc->sourceRange().start().offset();
+            keyedA.emplace_back(key, conn);
+        }
+        std::stable_sort(keyedA.begin(), keyedA.end(),
+                         [](const auto& a, const auto& b) {
+                             return a.first < b.first;
+                         });
+        for (size_t i = 0; i < keyedA.size(); i++)
+            ordConnsA[i] = keyedA[i].second;
+    }
+    for (auto conn : ordConnsA) {
         auto* ax = connectionExpr(*conn);
         if (!ax)
             continue;
@@ -1704,21 +1838,48 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
             rsym = ax->getSymbolReference();
         if (!rsym)
             continue;
+        auto* npcA = findConnSyntax(*rep, conn->port.name);
         auto* p = s.MakePort();
         p->VpiName(conn->port.name);
         p->VpiParent(ma);
-        if (auto npc = findConnSyntax(*rep, conn->port.name))
-            setLoc(p, npc->sourceRange());
-        auto* r = s.MakeRef_obj();
-        r->VpiName(rsym->name);
-        r->VpiFullName(prefix + "." + std::string(arr.name) + "." +
-                       std::string(conn->port.name) + "." +
-                       std::string(rsym->name));
-        r->VpiParent(p);
-        setLoc(r, ax->sourceRange);
-        if (auto nit = nets.find(rsym); nit != nets.end())
-            r->Actual_group(nit->second);
-        p->High_conn(r);
+        if (npcA)
+            setLoc(p, npcA->sourceRange());
+        // A SELECTED actual keeps its WRITTEN select shape on the broadcast
+        // HighConn: because Surelog compiles the connection from syntax (see
+        // above), `.dout(wr_addr_gray_sync[AW:0])` stays a part_select whose
+        // bounds are the source ones and whose refs scope through the
+        // array/port/base chain, instead of collapsing to the base net.
+        // The connection actual's SYNTAX, unwrapped from the property/
+        // sequence shells the port-connection grammar wraps it in.
+        const syntax::SyntaxNode* csA = npcA ? (const syntax::SyntaxNode*)npcA->expr
+                                             : nullptr;
+        if (csA && csA->kind == syntax::SyntaxKind::SimplePropertyExpr)
+            csA = csA->as<syntax::SimplePropertyExprSyntax>().expr;
+        if (csA && csA->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+            csA = csA->as<syntax::SimpleSequenceExprSyntax>().expr;
+        UHDM::any* hcA = nullptr;
+        if (!ifaceArr && csA && ax->kind != ExpressionKind::NamedValue &&
+            (csA->kind == syntax::SyntaxKind::ElementSelectExpression ||
+             csA->kind == syntax::SyntaxKind::IdentifierSelectName)) {
+            std::string spA = syntaxRefPrefix;
+            syntaxRefPrefix = prefix + "." + std::string(arr.name) + "." +
+                              std::string(conn->port.name);
+            hcA = emitSyntaxExpr(*csA, p);
+            syntaxRefPrefix = spA;
+        }
+        if (!hcA) {
+            auto* r = s.MakeRef_obj();
+            r->VpiName(rsym->name);
+            r->VpiFullName(prefix + "." + std::string(arr.name) + "." +
+                           std::string(conn->port.name) + "." +
+                           std::string(rsym->name));
+            r->VpiParent(p);
+            setLoc(r, ax->sourceRange);
+            if (auto nit = nets.find(rsym); nit != nets.end())
+                r->Actual_group(nit->second);
+            hcA = r;
+        }
+        p->High_conn((UHDM::expr*)hcA);
         mports->push_back(p);
     }
     if (!mports->empty())
@@ -1907,12 +2068,19 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
         auto connSpan = child.getPortConnections();
         std::vector<const PortConnection*> ordConns(connSpan.begin(),
                                                     connSpan.end());
+        auto mpOwnK9 = multiPortOwners(child);
         if (!ordered) {
             std::vector<std::pair<uint64_t, const PortConnection*>> keyed;
             keyed.reserve(ordConns.size());
             for (auto conn : ordConns) {
                 uint64_t key = UINT64_MAX;
-                if (auto* npc = findConnSyntax(child, conn->port.name))
+                // A split concat-port connection keys on the HEADER port's
+                // written slot, not the (unwritten) sub-port's.
+                auto mk9 = mpOwnK9.find(&conn->port);
+                std::string_view formal9 = mk9 != mpOwnK9.end()
+                                               ? mk9->second->name
+                                               : conn->port.name;
+                if (auto* npc = findConnSyntax(child, formal9))
                     key = npc->sourceRange().start().offset();
                 keyed.emplace_back(key, conn);
             }
@@ -1923,7 +2091,75 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
             for (size_t i = 0; i < keyed.size(); i++)
                 ordConns[i] = keyed[i].second;
         }
+        // A child whose header port is a CONCATENATION (`module c(.a({b,c}))`)
+        // gets ONE ref_module port, named after the header port and carrying
+        // the actual AS WRITTEN — slang's per-operand split connections are
+        // collapsed back onto it. Emitted at the FIRST of them, in whatever
+        // slot the sort above put it.
+        auto& mpOwn9 = mpOwnK9;
+        std::set<const Symbol*> mpDone9;
         for (auto conn : ordConns) {
+            if (auto mo9 = mpOwn9.find(&conn->port); mo9 != mpOwn9.end()) {
+                const Symbol* mps9 = mo9->second;
+                if (!mpDone9.insert(mps9).second)
+                    continue;
+                const syntax::ExpressionSyntax* csM9 = nullptr;
+                SourceRange mLoc9;
+                if (auto* npcM9 = findConnSyntax(child, mps9->name)) {
+                    csM9 = connActualSyntax(npcM9->expr);
+                    mLoc9 = npcM9->sourceRange();
+                }
+                // A POSITIONAL list (and an UNNAMED concat header port, which
+                // has no formal to name) takes the connection at the header
+                // port's own index; the ref_module port is then nameless and
+                // anchored at the actual, like any positional one.
+                else if (auto isynM9 = child.getSyntax();
+                         isynM9 && isynM9->kind ==
+                                       syntax::SyntaxKind::HierarchicalInstance) {
+                    auto& hiM9 =
+                        isynM9->as<syntax::HierarchicalInstanceSyntax>();
+                    size_t idx9 = 0;
+                    bool found9 = false;
+                    for (auto pbM9 : child.body.getPortList()) {
+                        if (pbM9 == mps9) {
+                            found9 = true;
+                            break;
+                        }
+                        idx9++;
+                    }
+                    if (found9 && idx9 < hiM9.connections.size() &&
+                        hiM9.connections[idx9]->kind ==
+                            syntax::SyntaxKind::OrderedPortConnection) {
+                        csM9 = connActualSyntax(
+                            hiM9.connections[idx9]
+                                ->as<syntax::OrderedPortConnectionSyntax>()
+                                .expr);
+                        if (csM9)
+                            mLoc9 = csM9->sourceRange();
+                    }
+                }
+                if (!csM9)
+                    continue;
+                auto* pm9 = s.MakePort();
+                if (!ordered && !mps9->name.empty())
+                    pm9->VpiName(mps9->name);
+                pm9->VpiParent(rm);
+                setLoc(pm9, mLoc9);
+                std::string mScope9 =
+                    prefix + "." + std::string(child.name) +
+                    ((!ordered && !mps9->name.empty())
+                         ? "." + std::string(mps9->name)
+                         : std::string{});
+                if (auto* pscope9 = child.getParentScope()) {
+                    ASTContext mctx9(*pscope9, LookupLocation::max);
+                    auto& mbe9 = Expression::bind(*csM9, mctx9);
+                    if (!mbe9.bad())
+                        if (auto* mh9 = emitExpr(mbe9, pm9, mScope9, info.nets))
+                            pm9->High_conn((UHDM::expr*)mh9);
+                }
+                rports->push_back(pm9);
+                continue;
+            }
             // An UNCONNECTED port (dut d();) emits no ref_module port.
             if (!connectionExpr(*conn) && !findConnSyntax(child, conn->port.name))
                 continue;
@@ -5440,6 +5676,53 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     ports->push_back(it9->second);
                 continue;
             }
+            // A NAMED concatenation header port (`module c(.a({b, c}))`) is a
+            // MultiPortSymbol; it survives elaboration exactly as it stands in
+            // the def view (emitPortExprPort: LowConn a concat of port-scoped
+            // operand refs), and additionally carries the connection actual as
+            // its HighConn. Its operands earn their own ports below.
+            if (portBase->kind == SymbolKind::MultiPort) {
+                auto* pe = emitPortExprPort(*portBase, m, prefix, topNets);
+                if (!pe)
+                    continue;
+                // slang has no PortConnection for the MultiPort itself — it
+                // SPLITS the actual across the operand sub-ports (`.a({a,b})`
+                // becomes one sliced connection per sub-port, in reverse
+                // order). Surelog keeps the actual AS WRITTEN, so the HighConn
+                // is rebuilt by binding the connection's own syntax in the
+                // instantiating scope.
+                const InstanceSymbol& connInstM = elabConnDonor(inst);
+                const syntax::ExpressionSyntax* csM = nullptr;
+                if (auto* npcM = findConnSyntax(connInstM, portBase->name))
+                    csM = connActualSyntax(npcM->expr);
+                if (csM && parentNets) {
+                    if (auto* pscopeM = connInstM.getParentScope()) {
+                        ASTContext ctxM(*pscopeM, LookupLocation::max);
+                        auto& beM = Expression::bind(*csM, ctxM);
+                        UHDM::any* hM =
+                            beM.bad() ? nullptr
+                                      : emitExpr(beM, pe, parentPrefix, *parentNets);
+                        // Concat-actual operands scope through the child
+                        // instance and the formal, as for a plain port.
+                        if (hM && hM->UhdmType() == UHDM::uhdmoperation &&
+                            ((UHDM::operation*)hM)->VpiOpType() == vpiConcatOp) {
+                            std::string opPfxM = parentPrefix + "." +
+                                                 std::string(inst.name) + "." +
+                                                 std::string(portBase->name) + ".";
+                            if (auto* opsM = ((UHDM::operation*)hM)->Operands())
+                                for (auto* oM : *opsM)
+                                    if (oM->UhdmType() == UHDM::uhdmref_obj)
+                                        ((UHDM::ref_obj*)oM)
+                                            ->VpiFullName(opPfxM +
+                                                          std::string(oM->VpiName()));
+                        }
+                        if (hM)
+                            pe->High_conn((UHDM::expr*)hM);
+                    }
+                }
+                ports->push_back(pe);
+                continue;
+            }
             if (portBase->kind != SymbolKind::Port)
                 continue;
             auto& ps = portBase->as<PortSymbol>();
@@ -5480,11 +5763,17 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             }
 
             auto* lc = s.MakeRef_obj();
-            lc->VpiName(ps.name);
+            // An EXPLICIT non-ANSI port (`module b(.a(b)); input b;`) names
+            // its EXPRESSION on the LowConn, not the port — in the elab view
+            // as in the def view (emitPorts). The span still comes from the
+            // connection below.
+            bool explicitPortE = isExplicitNonAnsiPort(ps);
+            std::string_view lcName = explicitPortE ? internal->name : ps.name;
+            lc->VpiName(lcName);
             // Bound instances: display-scoped low conns bound to DEF nets;
             // high conns resolve in the bind-directive (top) scope.
             lc->VpiFullName((bindPath.empty() ? prefix : bindPath) + "." +
-                            std::string(ps.name));
+                            std::string(lcName));
             lc->VpiParent(p);
             // Child low conns anchor at the formal name in the connection.
             // A POSITIONAL connection has no formal token, so the actual
@@ -5879,8 +6168,50 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 h = emitExpr(*base9, p, hcPrefix, *parentNets);
                         }
                     }
+                    // ...and a WRITTEN-OUT select actual (`.din(wr_addr_gray
+                    // [AW:0])`) keeps the select WHOLE for the same reason:
+                    // Surelog compiles the connection from syntax, so every
+                    // element carries the same module-scoped part_select with
+                    // the SOURCE bounds. slang re-slices it per element into
+                    // a shape that does not emit at all, so the actual is
+                    // rebuilt by binding the connection's own syntax in the
+                    // instantiating scope (BasicOh oh_fifo_async wr_sync).
+                    if (!h && !inst.arrayPath.empty() &&
+                        !udpFormInstantiation(inst.getSyntax())) {
+                        if (auto* npcA9 = findConnSyntax(inst, ps.name))
+                            if (auto* csA9 = connActualSyntax(npcA9->expr))
+                                if ((csA9->kind ==
+                                         syntax::SyntaxKind::ElementSelectExpression ||
+                                     csA9->kind ==
+                                         syntax::SyntaxKind::IdentifierSelectName) &&
+                                    inst.getParentScope()) {
+                                    ASTContext actx9(*inst.getParentScope(),
+                                                     LookupLocation::max);
+                                    auto& abe9 = Expression::bind(*csA9, actx9);
+                                    if (!abe9.bad())
+                                        h = emitExpr(abe9, p, hcPrefix,
+                                                     *parentNets);
+                                }
+                    }
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
+                    // A part-select HighConn's bounds reduce like the
+                    // module_array's own range: a bare parameter reference
+                    // becomes the parameter's Value (foldBareParamBound).
+                    if (h && h->UhdmType() == UHDM::uhdmpart_select) {
+                        auto* pselA9 = (UHDM::part_select*)h;
+                        const InstanceBodySymbol* encA9 = enclosingInstBody(inst);
+                        if (auto* lcA9 =
+                                foldBareParamBound(s, encA9, pselA9->Left_range())) {
+                            lcA9->VpiParent(pselA9);
+                            pselA9->Left_range(lcA9);
+                        }
+                        if (auto* rcA9 =
+                                foldBareParamBound(s, encA9, pselA9->Right_range())) {
+                            rcA9->VpiParent(pselA9);
+                            pselA9->Right_range(rcA9);
+                        }
+                    }
                     // Gen-scope child HighConn refs bind their GEN-LOCAL
                     // nets (hierdefparam mod_b(.A(a))).
                     if (h && h->UhdmType() == UHDM::uhdmref_obj &&
@@ -6271,6 +6602,133 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             }
             ports->push_back(p);
         }
+        // The symbol an EXPLICIT port names is a port declaration in its own
+        // right, so it earns an ordinary port of its own after the header
+        // ports — in the elab view too (Surelog writes the same port set on
+        // every instance). The elab LowConn fullname is single, not doubled.
+        // ...and when the header port is the UNNAMED two-identifier
+        // concatenation Surelog reads as an interface-port declaration
+        // (unnamedConcatIfacePort), the port it names is an INTERFACE port:
+        // its LowConn is NAMELESS and binds an interface_inst of the type
+        // identifier's definition, named after the port and carrying that
+        // definition's ports re-bound to THIS instance's same-named nets. The
+        // instance lists that one object TWICE (Surelog appends both the
+        // declared-child and port-view passes over the same signal).
+        auto ucp9 = unnamedConcatIfacePort(body);
+        UHDM::interface_inst* ucIf9 = nullptr;
+        if (ucp9.first) {
+            const DefinitionSymbol* idef9 = nullptr;
+            for (auto& [d9, di9] : defMap)
+                if (d9->name == ucp9.first->name) {
+                    idef9 = d9;
+                    break;
+                }
+            if (idef9) {
+                ucIf9 = s.MakeInterface_inst();
+                ucIf9->VpiName(ucp9.second->name);
+                ucIf9->VpiFullName(prefix + "." +
+                                   std::string(ucp9.second->name));
+                ucIf9->VpiDefName("work@" + std::string(idef9->name));
+                ucIf9->VpiParent(m);
+                auto* ifps9 = s.MakePortVec();
+                if (auto* dm9 = defMap[idef9].mod)
+                    if (auto* dps9 = instGetPorts(dm9))
+                        for (auto* dp9 : *dps9) {
+                            auto* np9 = s.MakePort();
+                            np9->VpiName(dp9->VpiName());
+                            np9->VpiDirection(dp9->VpiDirection());
+                            np9->VpiParent(ucIf9);
+                            np9->VpiLineNo(dp9->VpiLineNo());
+                            np9->VpiColumnNo(dp9->VpiColumnNo());
+                            np9->VpiEndLineNo(dp9->VpiEndLineNo());
+                            np9->VpiEndColumnNo(dp9->VpiEndColumnNo());
+                            std::string pn9(dp9->VpiName());
+                            auto* nlc9 = s.MakeRef_obj();
+                            nlc9->VpiName(pn9);
+                            nlc9->VpiFullName(prefix + "." +
+                                              std::string(ucp9.second->name) +
+                                              "." + pn9);
+                            nlc9->VpiParent(np9);
+                            nlc9->VpiLineNo(dp9->VpiLineNo());
+                            nlc9->VpiColumnNo(dp9->VpiColumnNo());
+                            nlc9->VpiEndLineNo(dp9->VpiEndLineNo());
+                            nlc9->VpiEndColumnNo(dp9->VpiEndColumnNo());
+                            for (auto& [ns9, nv9] : topNets)
+                                if (ns9->name == pn9) {
+                                    nlc9->Actual_group(nv9);
+                                    break;
+                                }
+                            np9->Low_conn(nlc9);
+                            if (auto* drt9 = dp9->Typespec()) {
+                                auto* nrt9 = s.MakeRef_typespec();
+                                nrt9->VpiFullName(
+                                    prefix + "." +
+                                    std::string(ucp9.second->name) + "." + pn9);
+                                nrt9->VpiParent(np9);
+                                nrt9->Actual_typespec(drt9->Actual_typespec());
+                                np9->Typespec(nrt9);
+                            }
+                            ifps9->push_back(np9);
+                        }
+                if (!ifps9->empty())
+                    ucIf9->Ports(ifps9);
+            }
+        }
+        for (auto* isym : explicitPortOwnPorts(body)) {
+            bool ucPort9 = ucp9.second && isym == ucp9.second;
+            auto* pd = s.MakePort();
+            pd->VpiName(isym->name);
+            pd->VpiParent(m);
+            setLoc(pd, nameSpan(isym->location, isym->name));
+            pd->VpiDirection(explicitPortDirection(body, *isym));
+            auto* lcd = s.MakeRef_obj();
+            if (!ucPort9)
+                lcd->VpiName(isym->name);
+            lcd->VpiFullName(prefix + "." + std::string(isym->name));
+            lcd->VpiParent(pd);
+            setLoc(lcd, nameSpan(isym->location, isym->name));
+            if (ucPort9 && ucIf9)
+                lcd->Actual_group(ucIf9);
+            else if (auto itn = topNets.find(isym); itn != topNets.end())
+                lcd->Actual_group(itn->second);
+            pd->Low_conn(lcd);
+            // The interface-read port carries the instantiation's own actual
+            // as its HighConn, bound in the instantiating scope.
+            if (ucPort9 && parentNets) {
+                if (auto isyn9 = inst.getSyntax())
+                    if (isyn9->kind == syntax::SyntaxKind::HierarchicalInstance) {
+                        auto& hi9 = isyn9->as<syntax::HierarchicalInstanceSyntax>();
+                        if (!hi9.connections.empty() &&
+                            hi9.connections[0]->kind ==
+                                syntax::SyntaxKind::OrderedPortConnection)
+                            if (auto* cs9 = connActualSyntax(
+                                    hi9.connections[0]
+                                        ->as<syntax::OrderedPortConnectionSyntax>()
+                                        .expr);
+                                cs9 && inst.getParentScope()) {
+                                ASTContext uctx9(*inst.getParentScope(),
+                                                 LookupLocation::max);
+                                auto& ube9 = Expression::bind(*cs9, uctx9);
+                                if (!ube9.bad())
+                                    if (auto* uh9 = emitExpr(ube9, pd,
+                                                             parentPrefix,
+                                                             *parentNets))
+                                        pd->High_conn((UHDM::expr*)uh9);
+                            }
+                    }
+            }
+            tfContext = true;
+            auto* ptsd = makeTypespec(*isym, nullptr, nullptr);
+            tfContext = false;
+            if (ptsd) {
+                auto* rtd = s.MakeRef_typespec();
+                rtd->VpiFullName(prefix + "." + std::string(isym->name));
+                rtd->VpiParent(pd);
+                rtd->Actual_typespec(ptsd);
+                pd->Typespec(rtd);
+            }
+            ports->push_back(pd);
+        }
         if (!ports->empty())
             instSetPorts(m, ports);
         // Interfaces: declared iface children first, then the port views
@@ -6287,6 +6745,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         if (m->UhdmType() != UHDM::uhdmprogram)
             for (auto* pv : *portIfaces)
                 allIf->push_back(pv);
+        // The unnamed-concat interface reading lists ONE object twice.
+        if (ucIf9) {
+            allIf->push_back(ucIf9);
+            allIf->push_back(ucIf9);
+        }
         if (!allIf->empty())
             instSetInterfaces(m, allIf);
     }
@@ -11053,6 +11516,10 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
     // The symbol an EXPLICIT port names is a port in its own right: its
     // `inout internal;` declaration is a port declaration, so Surelog gives
     // it the ordinary doubled-fullname port too, after the header ports.
+    // ...and the unnamed-concat interface reading (unnamedConcatIfacePort)
+    // binds the TYPE identifier's def-view module_inst as the LowConn actual
+    // of the port it names, in place of that port's own net.
+    auto ucpD9 = unnamedConcatIfacePort(body);
     for (auto* isym : explicitPortOwnPorts(body)) {
         auto* pd = s.MakePort();
         pd->VpiName(isym->name);
@@ -11065,7 +11532,16 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                         std::string(isym->name));
         lc->VpiParent(pd);
         setLoc(lc, nameSpan(isym->location, isym->name));
-        if (auto it = netMap.find(isym); it != netMap.end())
+        const UHDM::any* ucAct9 = nullptr;
+        if (ucpD9.second && isym == ucpD9.second)
+            for (auto& [d9, di9] : defMap)
+                if (d9->name == ucpD9.first->name) {
+                    ucAct9 = di9.mod;
+                    break;
+                }
+        if (ucAct9)
+            lc->Actual_group((UHDM::any*)ucAct9);
+        else if (auto it = netMap.find(isym); it != netMap.end())
             lc->Actual_group(it->second);
         pd->Low_conn(lc);
         if (auto* ts = makeTypespec(*isym, nullptr, nullptr)) {

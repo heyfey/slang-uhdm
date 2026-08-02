@@ -2284,8 +2284,43 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 // `input [dw:1]` bound UINT:8 size 64, while
                                 // the un-overridden instance of the same
                                 // module keeps size 32).
-                                if (isOverriddenParam(*elabModPar))
-                                    return false;
+                                // ...unless the override ACTUAL is itself a
+                                // bare reference to a literal-initialized
+                                // untyped parameter. Surelog then COPIES that
+                                // parameter's already-evaluated Value (the
+                                // same rule that gives such an override its
+                                // UINT-at-the-referenced-width param_assign
+                                // Rhs, see ParamEmit), so the narrow width
+                                // survives the override and every bound
+                                // folding it stays at 32 (BasicOh: `oh_dsync
+                                // #(.SYNCPIPE(SYNCPIPE))` over `parameter
+                                // SYNCPIPE = 2` -> `reg [SYNCPIPE:0]` bound
+                                // UINT:2 size 32).
+                                if (isOverriddenParam(*elabModPar)) {
+                                    auto* ov9 = elabModPar->getInitializer();
+                                    if (!ov9)
+                                        return false;
+                                    auto& so9 = stripImplicitConv(*ov9);
+                                    if (so9.kind != ExpressionKind::NamedValue)
+                                        return false;
+                                    auto& asym9 =
+                                        so9.as<NamedValueExpression>().symbol;
+                                    if (asym9.kind != SymbolKind::Parameter)
+                                        return false;
+                                    auto& ap9 = asym9.as<ParameterSymbol>();
+                                    bool untypedA9 = true;
+                                    if (auto ad9 = ap9.getDeclaredType())
+                                        if (auto at9 = ad9->getTypeSyntax())
+                                            untypedA9 =
+                                                at9->kind ==
+                                                syntax::SyntaxKind::ImplicitType;
+                                    auto* ai9 = ap9.getInitializer();
+                                    if (!untypedA9 || !ai9 ||
+                                        stripImplicitConv(*ai9).kind !=
+                                            ExpressionKind::IntegerLiteral)
+                                        return false;
+                                    return true;
+                                }
                                 auto* in9 = elabModPar->getInitializer();
                                 if (!in9 ||
                                     stripImplicitConv(*in9).kind !=

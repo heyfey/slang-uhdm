@@ -1220,12 +1220,88 @@ inline std::vector<const Symbol*> portExprSymbols(const Symbol& pb) {
     return out;
 }
 
+// `module f({a, b}); input a, b;` — an UNNAMED concatenation header port of
+// exactly TWO simple identifiers. Surelog's non-ANSI port parser does not read
+// this as a concatenation at all: it reads `a b` as an INTERFACE PORT
+// declaration, signal `b` of interface type `a`. Everything odd about the
+// golden follows from that one reading and nothing else does — the header
+// contributes only signal `b` (anchored at the SECOND identifier, 46:14, not
+// at its `input a, b;` declaration), the def-view port `b` binds `module a` as
+// its LowConn actual, the elab view carries an `interface_inst work@a` named
+// `b`, and `a` earns its port from the declaration alone, AFTER `b`. Returns
+// {typeName-symbol, port-symbol} = {a, b}, or {nullptr, nullptr}.
+// Deliberately narrow: two operands, both plain identifiers, and the first
+// must name a design unit (that is what makes Surelog bind an instance).
+inline std::pair<const Symbol*, const Symbol*> unnamedConcatIfacePort(
+    const Symbol& pb) {
+    if (pb.kind != SymbolKind::MultiPort || !pb.name.empty())
+        return {nullptr, nullptr};
+    auto& mp = pb.as<MultiPortSymbol>();
+    if (mp.isNullPort || mp.ports.size() != 2)
+        return {nullptr, nullptr};
+    if (!mp.ports[0] || !mp.ports[1] || !mp.ports[0]->internalSymbol ||
+        !mp.ports[1]->internalSymbol)
+        return {nullptr, nullptr};
+    return {mp.ports[0]->internalSymbol, mp.ports[1]->internalSymbol};
+}
+
+// slang has no PortConnection for a concatenation header port: it SPLITS the
+// actual across the operand sub-ports, so `.a({x,y})` becomes one sliced
+// connection per sub-port and the written actual is gone from the AST. This
+// maps each of those sub-ports back to the MultiPortSymbol they belong to, so
+// a connection list can be collapsed to the header ports Surelog writes.
+inline std::map<const Symbol*, const Symbol*> multiPortOwners(
+    const InstanceSymbol& inst) {
+    std::map<const Symbol*, const Symbol*> out;
+    for (auto pb : inst.body.getPortList()) {
+        if (pb->kind != SymbolKind::MultiPort ||
+            (portExprSymbols(*pb).empty() && !unnamedConcatIfacePort(*pb).first))
+            continue;
+        for (auto* sp : pb->as<MultiPortSymbol>().ports)
+            if (sp)
+                out[sp] = pb;
+    }
+    return out;
+}
+
+// The connection actual AS WRITTEN, unwrapped from the property/sequence
+// shells the port-connection grammar puts around it.
+inline const syntax::ExpressionSyntax* connActualSyntax(
+    const syntax::PropertyExprSyntax* pe) {
+    const syntax::SyntaxNode* sn = pe;
+    if (sn && sn->kind == syntax::SyntaxKind::SimplePropertyExpr)
+        sn = sn->as<syntax::SimplePropertyExprSyntax>().expr;
+    if (sn && sn->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+        sn = sn->as<syntax::SimpleSequenceExprSyntax>().expr;
+    if (sn && syntax::ExpressionSyntax::isKind(sn->kind))
+        return &sn->as<syntax::ExpressionSyntax>();
+    return nullptr;
+}
+
+// ...the same, over a whole body: the header's single unnamed concat port.
+inline std::pair<const Symbol*, const Symbol*> unnamedConcatIfacePort(
+    const InstanceBodySymbol& body) {
+    for (auto pb : body.getPortList())
+        if (auto pr = unnamedConcatIfacePort(*pb); pr.first)
+            return pr;
+    return {nullptr, nullptr};
+}
+
 // The distinct symbols named by a body's EXPLICIT ports, in port order.
 inline std::vector<const Symbol*> explicitPortInternals(
     const InstanceBodySymbol& body) {
     std::vector<const Symbol*> out;
     for (auto pb : body.getPortList()) {
         if (pb->kind == SymbolKind::MultiPort) {
+            // The unnamed-concat reading above puts the SECOND identifier
+            // (the port) first and the first (the interface type) after it,
+            // matching Surelog's header-then-declaration signal order.
+            if (auto pr = unnamedConcatIfacePort(*pb); pr.first) {
+                for (auto* esym : {pr.second, pr.first})
+                    if (std::find(out.begin(), out.end(), esym) == out.end())
+                        out.push_back(esym);
+                continue;
+            }
             for (auto* esym : portExprSymbols(*pb))
                 if (std::find(out.begin(), out.end(), esym) == out.end())
                     out.push_back(esym);
@@ -1267,6 +1343,8 @@ inline int32_t explicitPortDirection(const InstanceBodySymbol& body,
         // (`module c(.a({b, c})); input b; input c;` -> three vpiInput ports).
         if (pb->kind == SymbolKind::MultiPort) {
             auto pes = portExprSymbols(*pb);
+            if (auto pr = unnamedConcatIfacePort(*pb); pr.first)
+                pes = {pr.second, pr.first};
             if (std::find(pes.begin(), pes.end(), &isym) == pes.end())
                 continue;
             switch (pb->as<MultiPortSymbol>().direction) {
