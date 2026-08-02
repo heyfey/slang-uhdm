@@ -10244,6 +10244,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 up->VpiEndLabel(bn->name.valueText());
     }
     NetMap none;
+    auto savedPkgViewVars0 = pkgViewVarObjs9;
     auto* savedCurPkg0 = curPkgEmitSym;
     bool savedPkgTopView0 = pkgEmitTopView;
     curPkgEmitSym = &pkg;
@@ -12095,11 +12096,23 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 n->Typespec(rt);
             }
             pnets->push_back(n);
+            pkgViewVarObjs9[&vs] = n;
+            pkgVarObjsAll9[&vs] = n;
         }
         if (!pnets->empty())
             up->Nets(pnets);
         if (!pvars->empty())
             up->Variables(pvars);
+        // Refs from this package's own subroutines and class methods bind
+        // these objects (svunit_pkg::svunit_version read by
+        // svunit_testrunner::report); see pkgViewVarObjs9.
+        for (auto* pv9 : *pvars)
+            for (auto& mem9 : pkg.members())
+                if (mem9.kind == SymbolKind::Variable &&
+                    mem9.name == pv9->VpiName()) {
+                    pkgViewVarObjs9[&mem9] = pv9;
+                    pkgVarObjsAll9[&mem9] = pv9;
+                }
     }
     // A package STRUCT typedef named as a package SUBROUTINE ARGUMENT's type
     // has its shared typespec RE-LOCATED to that argument's type reference —
@@ -12250,6 +12263,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     }
     curPkgEmitSym = savedCurPkg0;
     pkgEmitTopView = savedPkgTopView0;
+    pkgViewVarObjs9 = savedPkgViewVars0;
     return up;
 }
 

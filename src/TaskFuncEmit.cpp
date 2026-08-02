@@ -38,6 +38,114 @@ static void stampElemTsInstance(UHDM::typespec* t0, UHDM::instance* inst) {
         at->Instance(inst);
 }
 
+// A QUEUE / DYNAMIC-array declaration (`C paths[$]`, `int d[]`) is the same
+// array_var shape a fixed-size unpacked array takes, with vpiArrayType
+// vpiQueueArray/vpiDynamicArray and an UNBOUNDED array_typespec range:
+// [0 : $] (vpiUnboundedConst, size 1) for a queue, [0 : "unsized"]
+// (vpiStringConst, size 0) for a dynamic array.  The element typespec is the
+// declaration's own (makeTypespec looks through the array dims) and is SHARED
+// by the reg and the array_typespec's Elem_typespec.  Surelog, probe-verified
+// for class-handle and int elements (ClassVar / LocalScopeHierPath /
+// ArrayMethodIterator), for subroutine locals and `begin` block locals alike
+// (ApbSlave `svunit_testcase match[$]`).  Returns null when `vs` is not a
+// queue or dynamic array.
+UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
+                                                    const std::string& afull,
+                                                    UHDM::any* parent) {
+    auto* dt0 = vs.getDeclaredType();
+    if (!dt0)
+        return nullptr;
+    auto& qct0 = dt0->getType().getCanonicalType();
+    if (qct0.kind != SymbolKind::QueueType &&
+        qct0.kind != SymbolKind::DynamicArrayType)
+        return nullptr;
+    bool isQueue0 = qct0.kind == SymbolKind::QueueType;
+    const Type* qelem0 = isQueue0 ? &qct0.as<QueueType>().elementType
+                                  : &qct0.as<DynamicArrayType>().elementType;
+    bool savedTfCtx0 = tfContext;
+    tfContext = true;
+    UHDM::typespec* elemTs = makeTypespec(vs);
+    tfContext = savedTfCtx0;
+    // NOTE: no vpiInstance on the element ts — Surelog leaves a class-method
+    // local's typespec unscoped (measured).
+    auto* av = s.MakeArray_var();
+    av->VpiName(vs.name);
+    av->VpiFullName(afull);
+    av->VpiParent(parent);
+    av->VpiArrayType(isQueue0 ? vpiQueueArray : vpiDynamicArray);
+    setLoc(av, nameSpan(vs.location, vs.name));
+    // The unsized dim: `[$]` for a queue, `[]` for a dynamic array.  Surelog
+    // spans the array_typespec from the NAME through the end of that dim's
+    // RANGE — the `$` token for a queue, the whole `[]` for a dynamic array.
+    const syntax::VariableDimensionSyntax* qdim0 = nullptr;
+    if (auto dsyn0 = vs.getSyntax();
+        dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
+        for (auto dim0 : dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
+            qdim0 = dim0;
+    SourceRange qrng0(vs.location, vs.location + vs.name.size());
+    if (qdim0) {
+        auto ds0 = qdim0->sourceRange();
+        qrng0 = isQueue0 ? SourceRange(ds0.start() + 1, ds0.end() - 1) : ds0;
+    }
+    auto* ats = s.MakeArray_typespec();
+    setLoc(ats, SourceRange(vs.location, qrng0.end()));
+    auto* rng0 = s.MakeRange();
+    rng0->VpiParent(ats);
+    setLoc(rng0, qrng0);
+    auto* lc0 = s.MakeConstant();
+    lc0->VpiParent(rng0);
+    lc0->VpiDecompile("0");
+    lc0->VpiSize(64);
+    lc0->VpiValue("UINT:0");
+    lc0->VpiConstType(vpiUIntConst);
+    if (!isQueue0)
+        setLoc(lc0, SourceRange(qrng0.start(), qrng0.start() + 1));
+    rng0->Left_expr(lc0);
+    auto* rc0 = s.MakeConstant();
+    rc0->VpiParent(rng0);
+    if (isQueue0) {
+        rc0->VpiDecompile("$");
+        rc0->VpiSize(1);
+        rc0->VpiValue("STRING:$");
+        rc0->VpiConstType(vpiUnboundedConst);
+        setLoc(rc0, qrng0);
+    }
+    else {
+        rc0->VpiDecompile("unsized");
+        rc0->VpiSize(0);
+        rc0->VpiValue("STRING:unsized");
+        rc0->VpiConstType(vpiStringConst);
+        setLoc(rc0, SourceRange(qrng0.start(), qrng0.start() + 1));
+    }
+    rng0->Right_expr(rc0);
+    auto* rvec0 = s.MakeRangeVec();
+    rvec0->push_back(rng0);
+    ats->Ranges(rvec0);
+    auto* ert0 = s.MakeRef_typespec();
+    ert0->VpiParent(ats);
+    ert0->Actual_typespec(elemTs);
+    ats->Elem_typespec(ert0);
+    auto* art0 = s.MakeRef_typespec();
+    art0->VpiFullName(afull);
+    art0->VpiParent(av);
+    art0->Actual_typespec(ats);
+    av->Typespec(art0);
+    auto* reg0 = makeReturnVar(s, *qelem0);
+    reg0->VpiParent(av);
+    reg0->VpiFullName(afull);
+    setLoc(reg0, nameSpan(vs.location, vs.name));
+    auto* rrt0 = s.MakeRef_typespec();
+    rrt0->VpiFullName(afull);
+    rrt0->VpiParent(reg0);
+    rrt0->Actual_typespec(elemTs);
+    reg0->Typespec(rrt0);
+    if (qelem0->isSigned())
+        reg0->VpiSigned(true);
+    auto* rv0 = s.MakeVariablesVec();
+    rv0->push_back(reg0);
+    av->Variables(rv0);
+    return av;
+}
 
 void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                  const std::string& prefix, DefInfo* info,
@@ -394,7 +502,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (!args0.empty())
                 setLoc(rv, nameSpan(args0[0]->location, args0[0]->name));
             auto* cts = s.MakeClass_typespec();
-            cts->Class_defn(currentClassDefn);
+            // ...but only in the CLASS's own listing. The def-view package
+            // CLONE of an out-of-body constructor leaves the link null:
+            // Surelog compiles that listing before the class_defn exists.
+            // (uhdm-dump prints a bare `class_typespec` either way — probe
+            // tools/probe/r10dsg.cpp reads the link.)
+            if (!cloneMode)
+                cts->Class_defn(currentClassDefn);
             // Surelog names this typespec after the class's vpiName, which at
             // compile time is only set for a NESTED class (a top-level class
             // gets its name in the write phase, so its ctor typespec stays
@@ -1371,100 +1485,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // SHARED by the reg and the array_typespec's Elem_typespec.
                 // Surelog, probe-verified for class-handle and int elements
                 // (ClassVar / LocalScopeHierPath / ArrayMethodIterator).
-                if (auto& qct0 = fmv.getDeclaredType()->getType().getCanonicalType();
-                    qct0.kind == SymbolKind::QueueType ||
-                    qct0.kind == SymbolKind::DynamicArrayType) {
-                    bool isQueue0 = qct0.kind == SymbolKind::QueueType;
-                    const Type* qelem0 =
-                        isQueue0 ? &qct0.as<QueueType>().elementType
-                                 : &qct0.as<DynamicArrayType>().elementType;
-                    std::string afull = fullName + sep + std::string(fmv.name);
-                    tfContext = true;
-                    UHDM::typespec* elemTs = makeTypespec(fmv);
-                    tfContext = false;
-                    // NOTE: no vpiInstance on the element ts — Surelog leaves
-                    // a class-method local's typespec unscoped (measured).
-                    auto* av = s.MakeArray_var();
-                    av->VpiName(fmv.name);
-                    av->VpiFullName(afull);
-                    av->VpiParent(tf);
-                    av->VpiArrayType(isQueue0 ? vpiQueueArray : vpiDynamicArray);
-                    setLoc(av, nameSpan(fmv.location, fmv.name));
-                    // The unsized dim: `[$]` for a queue, `[]` for a dynamic
-                    // array.  Surelog spans the array_typespec from the NAME
-                    // through the end of that dim's RANGE — the `$` token for
-                    // a queue, the whole `[]` for a dynamic array.
-                    const syntax::VariableDimensionSyntax* qdim0 = nullptr;
-                    if (auto dsyn0 = fmv.getSyntax();
-                        dsyn0 && dsyn0->kind == syntax::SyntaxKind::Declarator)
-                        for (auto dim0 :
-                             dsyn0->as<syntax::DeclaratorSyntax>().dimensions)
-                            qdim0 = dim0;
-                    SourceRange qrng0(fmv.location,
-                                      fmv.location + fmv.name.size());
-                    if (qdim0) {
-                        auto ds0 = qdim0->sourceRange();
-                        qrng0 = isQueue0
-                                    ? SourceRange(ds0.start() + 1, ds0.end() - 1)
-                                    : ds0;
-                    }
-                    auto* ats = s.MakeArray_typespec();
-                    setLoc(ats, SourceRange(fmv.location, qrng0.end()));
-                    auto* rng0 = s.MakeRange();
-                    rng0->VpiParent(ats);
-                    setLoc(rng0, qrng0);
-                    auto* lc0 = s.MakeConstant();
-                    lc0->VpiParent(rng0);
-                    lc0->VpiDecompile("0");
-                    lc0->VpiSize(64);
-                    lc0->VpiValue("UINT:0");
-                    lc0->VpiConstType(vpiUIntConst);
-                    if (!isQueue0)
-                        setLoc(lc0, SourceRange(qrng0.start(), qrng0.start() + 1));
-                    rng0->Left_expr(lc0);
-                    auto* rc0 = s.MakeConstant();
-                    rc0->VpiParent(rng0);
-                    if (isQueue0) {
-                        rc0->VpiDecompile("$");
-                        rc0->VpiSize(1);
-                        rc0->VpiValue("STRING:$");
-                        rc0->VpiConstType(vpiUnboundedConst);
-                        setLoc(rc0, qrng0);
-                    }
-                    else {
-                        rc0->VpiDecompile("unsized");
-                        rc0->VpiSize(0);
-                        rc0->VpiValue("STRING:unsized");
-                        rc0->VpiConstType(vpiStringConst);
-                        setLoc(rc0, SourceRange(qrng0.start(), qrng0.start() + 1));
-                    }
-                    rng0->Right_expr(rc0);
-                    auto* rvec0 = s.MakeRangeVec();
-                    rvec0->push_back(rng0);
-                    ats->Ranges(rvec0);
-                    auto* ert0 = s.MakeRef_typespec();
-                    ert0->VpiParent(ats);
-                    ert0->Actual_typespec(elemTs);
-                    ats->Elem_typespec(ert0);
-                    auto* art0 = s.MakeRef_typespec();
-                    art0->VpiFullName(afull);
-                    art0->VpiParent(av);
-                    art0->Actual_typespec(ats);
-                    av->Typespec(art0);
-                    auto* reg0 = makeReturnVar(s, *qelem0);
-                    reg0->VpiParent(av);
-                    reg0->VpiFullName(afull);
-                    setLoc(reg0, nameSpan(fmv.location, fmv.name));
-                    auto* rrt0 = s.MakeRef_typespec();
-                    rrt0->VpiFullName(afull);
-                    rrt0->VpiParent(reg0);
-                    rrt0->Actual_typespec(elemTs);
-                    reg0->Typespec(rrt0);
-                    if (qelem0->isSigned())
-                        reg0->VpiSigned(true);
-                    auto* rv0 = s.MakeVariablesVec();
-                    rv0->push_back(reg0);
-                    av->Variables(rv0);
+                if (auto* av = makeQueueDynArrayVar(
+                        fmv, fullName + sep + std::string(fmv.name), tf)) {
                     funcMap[&fmv] = av;
                     fvars->push_back(av);
                     continue;
@@ -1726,9 +1748,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (auto* oscS9 = fmv.getDeclaredType()->getType().getParentScope())
                         sharedClassTypedef9 =
                             oscS9->asSymbol().kind == SymbolKind::ClassType;
-                if (pkgScope && !sharedClassTypedef9 && !foreignSharedTs(fmv, vts)) {
-                    vts->Instance(importCopyTsInst ? importCopyTsInst
-                                                   : (UHDM::instance*)m);
+                // `m` is the CLASS_DEFN for a method, and a class scope is not
+                // a vpiInstance: an out-of-body method's body locals are
+                // resolved in the home PACKAGE and carry it, an in-class
+                // method's carry nothing. tsInst already encodes exactly that
+                // (ApbSlave svunit_testsuite::report's pass_cnt/success_str).
+                if (tsInst && !sharedClassTypedef9 && !foreignSharedTs(fmv, vts)) {
+                    vts->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
                     if (importCopyTsInst && importCopyTsCollect)
                         importCopyTsCollect->push_back(vts);
                 }
@@ -1929,6 +1955,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // (r10apb2 repro 5) — the in-class twin's identical body binds
         // nothing outside the if condition.
         classMethodNoBind = classScope && !oob;
+        bool savedPDV9 = pkgDefViewBody9;
+        // The un-elaborated package view: its own functions during the def
+        // pass, and the class-method clones emitPackageClassMethodClones
+        // appends to it (see pkgDefViewBody9).
+        pkgDefViewBody9 =
+            cloneMode || (pkgScope && !classScope && !pkgTopEmit);
         auto* savedBodyStmt9 = tfBodyStmt9;
         bool savedBodyIo9 = tfBodyTfItems9;
         tfBodyStmt9 = (const void*)&sub.getBody();
@@ -1937,6 +1969,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfBodyStmt9 = savedBodyStmt9;
         tfBodyTfItems9 = savedBodyIo9;
         classMethodNoBind = savedCMNB;
+        pkgDefViewBody9 = savedPDV9;
         if (body)
             tf->Stmt(body);
         // A packed-array-of-enum local is a body-block member in Surelog's

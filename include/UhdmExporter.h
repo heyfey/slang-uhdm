@@ -896,6 +896,12 @@ private:
     UHDM::packed_array_var* makeEnumArrayVar(UHDM::typespec* ts,
                                              const std::string& fullName,
                                              UHDM::BaseClass* parent);
+    // The array_var (+ element `vpiReg` + unbounded array_typespec) Surelog
+    // gives a QUEUE / DYNAMIC-array declaration; null for any other type.
+    // See the decode at the definition (TaskFuncEmit.cpp).
+    UHDM::array_var* makeQueueDynArrayVar(const slang::ast::Symbol& vs,
+                                          const std::string& afull,
+                                          UHDM::any* parent);
     // One uhdm range per unpacked dimension (bounds from ConstantRange, loc
     // from the declarator dimension syntax), each parented at `parent`.
     // `defDimRefPrefix` (def-view port array_typespec only): a PARAM-sized
@@ -993,6 +999,9 @@ private:
     /// net-declaration rule in materializeDefNetTs).
     bool verilogLexMode(slang::SourceLocation loc);
     std::string rawText(slang::SourceRange range);
+    // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
+    // reference to a package variable, which Surelog resolves only whole.
+    bool isPkgQualifiedVarRef(const slang::ast::Expression& e);
     /// One `include_file_info` per ACTIVE `include directive, hung off the
     /// design (Surelog's "Compile Include file info" pass).
     void emitIncludeFileInfos();
@@ -1117,6 +1126,25 @@ private:
     // select indexes, case-ITEM expressions — stays unbound, enum consts
     // included (SimpleConstraint getType/print).
     bool classMethodNoBind = false;
+    // True while emitting a subroutine body that belongs to the package's
+    // UN-ELABORATED (def) view: a package function in the def pass, or an
+    // out-of-body class-method CLONE in the def package's Task_funcs. Surelog
+    // compiles that view before it has a symbol table, so every `foreach`
+    // loop list there is unresolved — the iterated array AND every loop
+    // variable become ref_vars over freshly minted unsupported_typespecs
+    // named as written (measured on a package holding a plain function, an
+    // out-of-body class method and an in-class one: the def listing is
+    // uniformly unresolved, the elaborated listing resolves what it can).
+    bool pkgDefViewBody9 = false;
+    // The package variables/nets of the package view currently being
+    // emitted, by declaring symbol. A reference from one of that package's
+    // own subroutines or class methods binds them (Surelog compiles those
+    // bodies in the package's scope); OUTSIDE the package emit the map is
+    // empty, so a module-body reference still mints its implicit wire.
+    std::map<const slang::ast::Symbol*, UHDM::any*> pkgViewVarObjs9;
+    // The same objects, kept for the whole run: a package-QUALIFIED read
+    // (`p::iv`) from anywhere binds them.
+    std::map<const slang::ast::Symbol*, UHDM::any*> pkgVarObjsAll9;
     // The subroutine BODY statement currently being emitted, and whether its
     // declarations parsed as `{ tf_item_declaration }` rather than
     // `{ block_item_declaration }` (see the decode at the top of

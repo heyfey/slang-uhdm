@@ -477,8 +477,15 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         n9->VpiFullName(prefix + "." + std::string(iv9->name));
         n9->VpiParent(m);
         setLoc(n9, nameSpan(iv9->location, iv9->name));
-        n9->VpiNetType(vpiNet);
         const DeclaredType* dt9 = iv9->getDeclaredType();
+        // ...and only a FOUR-STATE integral declaration is stamped a net
+        // kind: `logic lv` and a `typedef logic [3:0]`-typed one carry
+        // vpiNetType 36, while `int`, `string` and class-handle declarations
+        // are listed as bare logic_nets with none (r10apb3 repro 11; ApbSlave
+        // svunit_version/current_tc).
+        if (dt9 && dt9->getType().getCanonicalType().isIntegral() &&
+            dt9->getType().getCanonicalType().isFourState())
+            n9->VpiNetType(vpiNet);
         bool typed9 = false;
         if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias)
             if (auto ti9 = typedefTs.find(&dt9->getType());
@@ -3347,6 +3354,19 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 v9->push_back(e9);
             for (auto* e9 : rest9)
                 v9->push_back(e9);
+            // The DESIGN lists the same hoisted objects (and only those — not
+            // the importing module's own subroutines) in the same order.
+            // Present only when something actually imports: a package
+            // compiled alone leaves the design's Task_funcs null (r10apb3
+            // repro 5 vs 5b). ApbSlave: 23 at the design, 23+7 at the module.
+            auto* dv9 = d->Task_funcs();
+            if (!dv9) {
+                dv9 = s.MakeTask_funcVec();
+                d->Task_funcs(dv9);
+            }
+            for (auto* e9 : hoist9)
+                if (std::find(dv9->begin(), dv9->end(), e9) == dv9->end())
+                    dv9->push_back(e9);
         }
     }
 }

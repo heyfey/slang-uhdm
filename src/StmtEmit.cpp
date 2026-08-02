@@ -493,6 +493,24 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 for (auto& bm : bs.blockSymbol->members()) {
                     if (bm.kind != SymbolKind::Variable)
                         continue;
+                    // Package/class scopes keep `::` all the way down: a body
+                    // local of svunit_testsuite::report is
+                    // svunit_pkg::svunit_testsuite::report::match, matching
+                    // every sibling declaration (VpiName/VpiFullName are
+                    // cmp-compared).
+                    std::string bfull = joinRef(innerPrefix, bm.name);
+                    // A QUEUE / DYNAMIC-array block local is a PAIR: the
+                    // element var (listed FIRST, parented at the array) and
+                    // the array_var itself. ApbSlave's
+                    // `svunit_testcase match[$]`.
+                    if (auto* qav = makeQueueDynArrayVar(bm, bfull, b)) {
+                        if (auto* qregs = qav->Variables())
+                            for (auto* qr : *qregs)
+                                vars->push_back(qr);
+                        vars->push_back(qav);
+                        blockMap[&bm] = qav;
+                        continue;
+                    }
                     // Block-local var typespecs keep their range bounds
                     // UNFOLDED (Surelog's procedural-decl form).
                     bool savedTf = tfContext;
@@ -501,7 +519,6 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     tfContext = savedTf;
                     if (pkgScopeInst)
                         ts->Instance(pkgScopeInst);
-                    std::string bfull = innerPrefix + "." + std::string(bm.name);
                     // Surelog's VERILOG-mode lexer (a `.v` root file — see
                     // verilogLexMode) has no `logic` keyword, so a block-local
                     // `logic x;` parses as "user type `logic`, variable x".
@@ -840,6 +857,23 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 else
                     arrMember9 = false;
             }
+            // A foreach over a CLASS PROPERTY stays unresolved in the
+            // ELABORATED listing too: that listing is the copy Surelog
+            // recompiles in the scope that HOISTS the out-of-body definition
+            // (the importing module), where the bare property name is no
+            // array at all. The array reference takes an unsupported_typespec
+            // and the loop variable falls back to the default int_var —
+            // measured against `class C; int q[$]; extern function void
+            // rep(); endclass function void C::rep(); foreach (q[k]) ...`
+            // with and without a `import p::*` module: the array's own
+            // array_typespec survives only when nothing hoists the method.
+            bool classPropArr9 = false;
+            if (arrSym && !classMethodNoBind && !pkgDefViewBody9)
+                if (auto* apc9 = arrSym->getParentScope())
+                    classPropArr9 =
+                        apc9->asSymbol().kind == SymbolKind::ClassType;
+            bool foreachUnres9 =
+                classMethodNoBind || pkgDefViewBody9 || classPropArr9;
             if (arrSym && !arrMember9) {
                 auto* rv = s.MakeRef_var();
                 rv->VpiName(arrSym->name);
@@ -858,13 +892,17 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // dynamic AND fixed-size arrays alike — a module function's
                 // foreach still binds the real array_typespec (ClassVar,
                 // LocalScopeHierPath).
-                if (classMethodNoBind) {
+                if (foreachUnres9) {
                     auto* uts = s.MakeUnsupported_typespec();
                     uts->VpiName(arrSym->name);
                     uts->VpiLineNo(rv->VpiLineNo());
                     uts->VpiColumnNo(rv->VpiColumnNo());
                     uts->VpiEndLineNo(rv->VpiEndLineNo());
                     uts->VpiEndColumnNo(rv->VpiEndColumnNo());
+                    // Out-of-body and package-level bodies mint it inside the
+                    // home package; an IN-CLASS body's carries no instance.
+                    if (pkgScopeInst)
+                        uts->Instance(pkgScopeInst);
                     art->Actual_typespec(uts);
                 }
                 else
@@ -890,7 +928,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // Class-method foreach: the loop variable is unresolved the
                 // same way the array reference is — a ref_var over a
                 // freshly minted unsupported_typespec named for the index.
-                if (classMethodNoBind) {
+                if (classMethodNoBind || pkgDefViewBody9) {
                     auto* lv0 = s.MakeRef_var();
                     lv0->VpiName(name);
                     lv0->VpiFullName(joinRef(prefix, lvn));
@@ -910,7 +948,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     declaredHere.push_back(lvn);
                     return;
                 }
-                UHDM::typespec* lts = arrSym ? makeTypespec(*arrSym) : nullptr;
+                // The array reference itself did not resolve (classPropArr9),
+                // so Surelog's getSimpleVarFromTypespec has nothing to read
+                // and the loop variable takes the bare int default.
+                UHDM::typespec* lts =
+                    (arrSym && !foreachUnres9) ? makeTypespec(*arrSym) : nullptr;
                 // The loop variable takes the array's ELEMENT type, so an
                 // array typespec is drilled through (Surelog's
                 // getSimpleVarFromTypespec recurses the same way).

@@ -15,8 +15,8 @@ AmiqEth,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: desig
 AmiqEth,testflags,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
 AmiqSimpleTestSuite,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
 AmiqSimpleTestSuite,testflags,SLANG_REJECT,apb_top.sv:35:11: error: unknown package 'amiq_svaunit_ex_apb_test_pkg',,
-ApbSlave,default,CMP_NOTEQUAL,decompile:,,
-ApbSlave,testflags,CMP_NOTEQUAL,decompile:,,
+ApbSlave,default,CMP_EQUAL,,,differ
+ApbSlave,testflags,CMP_EQUAL,,,differ
 Ariane,default,SURELOG_FAIL,[   NOTE] : 0,,
 Ariane,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 Ariane2024,default,SLANG_REJECT,sc_collected_files/cva6_896bbc9de65d3fccda60b666ce12c66c1281ea4e.sv:1430:3: error: unknown module 'instr_tracer_if',,

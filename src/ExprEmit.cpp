@@ -16,6 +16,29 @@
 
 namespace slang_uhdm {
 
+// True when `e` names a PACKAGE-level variable and the source spells it
+// package-QUALIFIED (`p::ch`). Surelog resolves such a reference only as a
+// whole: any selector hung off it — `.member`, `.method(...)`, even a
+// statement-position call — is DROPPED and the ref_obj alone survives
+// (r10apb3 repro 10: `if (p::ch.f(1))`, `p::ch.t();`, `r = p::ch.f(2)` and
+// `r = p::ch.x` all collapse to `ref_obj p::ch`, while the identical calls
+// through a MODULE-local handle keep their full hier_path shape).
+bool UhdmExporter::isPkgQualifiedVarRef(const Expression& e) {
+    if (e.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& nv0 = e.as<NamedValueExpression>();
+    if (nv0.symbol.kind != SymbolKind::Variable)
+        return false;
+    auto* psc0 = nv0.symbol.getParentScope();
+    if (!psc0 || psc0->asSymbol().kind != SymbolKind::Package)
+        return false;
+    // Inside the declaring package the name is written bare and resolves.
+    if (pkgViewVarObjs9.count(&nv0.symbol))
+        return false;
+    std::string pn0(psc0->asSymbol().name);
+    return rawText(e.sourceRange).rfind(pn0 + "::", 0) == 0;
+}
+
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiLineNo(src->VpiLineNo());
     dst->VpiColumnNo(src->VpiColumnNo());
@@ -1726,6 +1749,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = expr.as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // A PACKAGE-QUALIFIED reference to a package VARIABLE written
+            // from outside that package (`svunit_pkg::current_tc`) keeps its
+            // qualified spelling. READ, it resolves and binds the package's
+            // own variable object. As an assignment TARGET, Surelog's
+            // resolution fails outright and it emits the literal placeholder
+            // `<pkg>::@@BAD_SYMBOL@@`, unbound — measured on class-handle,
+            // int, string and logic package vars alike (r10apb3 repro 8), and
+            // on ApbSlave's four `svunit_pkg::current_tc = svunit_ut;`.
+            if (isPkgQualifiedVarRef(expr)) {
+                std::string pn9(nv.symbol.getParentScope()->asSymbol().name);
+                std::string nm9 = pn9 + "::" +
+                                  (inLhs ? std::string("@@BAD_SYMBOL@@")
+                                         : std::string(nv.symbol.name));
+                auto* qr9 = s.MakeRef_obj();
+                qr9->VpiName(nm9);
+                qr9->VpiFullName(joinPath(prefix, nm9));
+                qr9->VpiParent(parent);
+                setLoc(qr9, expr.sourceRange);
+                if (!inLhs)
+                    if (auto pa9 = pkgVarObjsAll9.find(&nv.symbol);
+                        pa9 != pkgVarObjsAll9.end())
+                        qr9->Actual_group(pa9->second);
+                return qr9;
+            }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(nv.symbol.name);
             // A block-local declaration whose type keyword the Verilog-mode
@@ -3027,6 +3074,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ref->Actual_group(inet);
                 }
             }
+            // ...and a PACKAGE-level variable of the package being emitted is
+            // visible to every body inside it (svunit_pkg::svunit_version
+            // read from svunit_testrunner::report).
+            if (!ref->Actual_group() && nv.symbol.kind == SymbolKind::Variable)
+                if (auto pv9 = pkgViewVarObjs9.find(&nv.symbol);
+                    pv9 != pkgViewVarObjs9.end())
+                    ref->Actual_group(pv9->second);
             // An OUT-OF-BODY class method is compiled in the home PACKAGE's
             // scope, where the class's own properties are invisible: Surelog
             // leaves the reference unbound and a module that HOISTS the
@@ -3384,16 +3438,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             (void)sl;
             auto* c = s.MakeConstant();
             std::string raw = rawText(expr.sourceRange);
-            c->VpiDecompile(raw);
             // Surelog stores the RAW source characters (escapes like \n stay
             // as backslash+n), not the interpreted value; size follows suit.
             std::string inner = raw;
-            if (inner.size() >= 2 && inner.front() == '"' && inner.back() == '"')
+            // A MACRO-QUOTED literal (`"_NAME_`" in svunit's SVTEST) has no
+            // quoted source text of its own: the range maps back into the
+            // macro BODY, so rawText yields the unexpanded definition line.
+            // slang has already done the substitution — take its raw value
+            // and re-quote. Surelog spans the EXPANDED text from the same
+            // start column.
+            bool macroQuoted9 =
+                inner.size() < 2 || inner.front() != '"' || inner.back() != '"';
+            if (macroQuoted9) {
+                inner = std::string(sl.getRawValue());
+                if (inner.size() >= 2 && inner.front() == '"' &&
+                    inner.back() == '"')
+                    inner = inner.substr(1, inner.size() - 2);
+                raw = "\"" + inner + "\"";
+            }
+            else
                 inner = inner.substr(1, inner.size() - 2);
+            c->VpiDecompile(raw);
             c->VpiSize((int32_t)(inner.size() * 8));
             c->VpiValue("STRING:" + inner);
             c->VpiConstType(vpiStringConst);
             setLoc(c, expr.sourceRange);
+            if (macroQuoted9)
+                setLoc(c, SourceRange(expr.sourceRange.start(),
+                                      expr.sourceRange.start() +
+                                          (inner.size() + 2)));
             // Surelog's end column counts each backslash DOUBLED-ESCAPED
             // (+2 per source backslash) — ASSIGNMENT Rhs only
             // (StringWithBackslash); sys-call args keep the source span
@@ -4191,6 +4264,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // module signal — takes the hier_path form in an argument
                     // list (r10apb2 repro 6).
                     auto& recv0 = stripImplicitConv(*call.thisClass());
+                    // A method reached through a PACKAGE-QUALIFIED handle
+                    // collapses to the handle reference alone, arguments and
+                    // all (isPkgQualifiedVarRef).
+                    if (isPkgQualifiedVarRef(recv0))
+                        return emitExpr(recv0, parent, prefix, netMap);
                     if (!callStmtCtx0 &&
                         recv0.kind == ExpressionKind::NamedValue) {
                         std::string rn0(
@@ -4234,14 +4312,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     mfc->VpiParent(parent);
                     auto& recv = *call.thisClass();
                     setLoc(mfc, nameSpan(recv.sourceRange.end() + 1, sub.name));
-                    auto& rb = stripImplicitConv(recv);
-                    if (rb.kind == ExpressionKind::NamedValue) {
+                    auto* rb = &stripImplicitConv(recv);
+                    // A call through an ELEMENT SELECT (`q[i].report();`)
+                    // still carries a prefix — Surelog drops the index and
+                    // names the prefix after the selected object alone, at
+                    // the bare identifier span (ApbSlave
+                    // `list_of_testcases[i].report()`).
+                    while (rb->kind == ExpressionKind::ElementSelect)
+                        rb = &stripImplicitConv(
+                            rb->as<ElementSelectExpression>().value());
+                    if (rb->kind == ExpressionKind::NamedValue) {
                         auto* pr = s.MakeRef_obj();
-                        pr->VpiName(rb.as<NamedValueExpression>().symbol.name);
+                        pr->VpiName(rb->as<NamedValueExpression>().symbol.name);
                         pr->VpiFullName(joinRef(
-                            prefix, rb.as<NamedValueExpression>().symbol.name));
+                            prefix, rb->as<NamedValueExpression>().symbol.name));
                         pr->VpiParent(mfc);
-                        setLoc(pr, recv.sourceRange);
+                        setLoc(pr, rb->sourceRange);
                         mfc->Prefix(pr);
                     }
                     auto* margs = s.MakeAnyVec();
@@ -4418,8 +4504,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ((UHDM::task_call*)fc)->Task((UHDM::task*)siTf);
                 auto* args = s.MakeAnyVec();
                 size_t argIdx = 0;
+                // slang materialises a DEFAULTED formal as a full argument
+                // expression (located at the declaration's default). Surelog
+                // lists only the arguments actually WRITTEN — probe-verified
+                // for tasks and functions at every arity (r10apb3 repro 9),
+                // and the reason ApbSlave's `write(addr, data)` carries two
+                // arguments, not five.
+                size_t nWritten9 = call.arguments().size();
+                if (auto* isy9 =
+                        expr.syntax
+                            ? expr.syntax->as_if<syntax::InvocationExpressionSyntax>()
+                            : nullptr)
+                    nWritten9 =
+                        isy9->arguments ? isy9->arguments->parameters.size() : 0;
                 callArgDepth++;
                 for (auto arg : call.arguments()) {
+                    if (argIdx >= nWritten9)
+                        break;
                     // Output args come wrapped as Assignment(lval, Empty).
                     if (arg->kind == ExpressionKind::Assignment) {
                         auto& ae = arg->as<AssignmentExpression>();
@@ -4835,12 +4936,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return mfc;
                     }
                     if (!recvText.empty()) {
+                        // An ARRAY-MANIPULATION method carrying a `with`
+                        // clause (`q.find() with (item > 1)`) reads
+                        // differently from a plain built-in: the iteration
+                        // expression rides the method_func_call as vpiWith
+                        // (parented, like every operand, at the STATEMENT),
+                        // the hier_path is named after the ARRAY ALONE
+                        // instead of `<array>.<method>`, and the receiver
+                        // ref_obj gains its scoped fullname. The `with` is
+                        // the whole discriminator: `q.sum() with (item)` is
+                        // named `q`, the identical `q.sum()` is named
+                        // `q.sum`, and so are size/min (r10apb3 repro 7).
+                        const Expression* withExpr9 = nullptr;
+                        if (call.isSystemCall())
+                            withExpr9 =
+                                std::get<CallExpression::SystemCallInfo>(
+                                    call.subroutine)
+                                    .getIteratorInfo()
+                                    .first;
                         auto* hp = s.MakeHier_path();
-                        std::string dotted = recvText + "." + name;
+                        std::string dotted =
+                            withExpr9 ? recvText : recvText + "." + name;
                         hp->VpiName(dotted);
                         hp->VpiFullName(dotted);
                         hp->VpiParent(parent);
-                        setLoc(hp, expr.sourceRange);
+                        // slang's call range stops at the `)` of the method;
+                        // Surelog's runs through the with-clause's own `)`.
+                        setLoc(hp, withExpr9
+                                       ? SourceRange(expr.sourceRange.start(),
+                                                     withExpr9->sourceRange.end() + 1)
+                                       : expr.sourceRange);
                         auto* elems = s.MakeAnyVec();
                         // ONE ref_obj per dotted name (o.cn.constraint_mode ->
                         // ref_obj o, ref_obj cn, method_func_call
@@ -4849,7 +4974,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         for (auto& dn0 : dots) {
                             auto* r0 = s.MakeRef_obj();
                             r0->VpiName(dn0);
-                            r0->VpiFullName(dn0); // name-only (dump omits)
+                            // name-only (dump omits) unless the with-clause
+                            // form, which scopes it.
+                            r0->VpiFullName(withExpr9 ? joinRef(prefix, dn0)
+                                                      : dn0);
                             r0->VpiParent(hp);
                             setLoc(r0, SourceRange(nmStart0, nmStart0 + dn0.size()));
                             elems->push_back(r0);
@@ -4860,6 +4988,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc->VpiParent(hp);
                         auto mStart = recv->sourceRange.end() + 1;
                         setLoc(mfc, SourceRange(mStart, mStart + name.size()));
+                        if (withExpr9)
+                            if (auto* w9 =
+                                    emitExpr(*withExpr9, parent, prefix, netMap))
+                                mfc->With(w9);
                         // Extra method args (past the receiver); literal args
                         // parent at the method call.
                         auto* margs = s.MakeAnyVec();
@@ -6572,6 +6704,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 chain.push_back(base);
                 base = &base->as<MemberAccessExpression>().value();
             }
+            // A member reached through a PACKAGE-QUALIFIED variable collapses
+            // to the base reference alone (isPkgQualifiedVarRef).
+            if (isPkgQualifiedVarRef(stripImplicitConv(*base)))
+                return emitExpr(stripImplicitConv(*base), parent, prefix,
+                                netMap);
             // A member whose base chain threads through element selects
             // (b.a[0].x, a[0][0].min_v) -> hier_path with bit_select elements
             // for each selected member.
@@ -8164,10 +8301,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             return buildDottedHierPath(expr, dotted, parent, prefix);
         }
         case ExpressionKind::NewClass: {
-            // bar = new(): a loc-less method_func_call named "new".
+            // bar = new(): a loc-less method_func_call named "new" — or
+            // "super.new" for a base-constructor chain-up. Constructor
+            // ARGUMENTS ride it as vpiArgument and bind normally (ApbSlave
+            // `super.new(name)` -> io_decl, `new(name)` -> the module net).
+            auto& nce = expr.as<NewClassExpression>();
             auto* mfc = s.MakeMethod_func_call();
-            mfc->VpiName("new");
+            mfc->VpiName(nce.isSuperClass ? "super.new" : "new");
             mfc->VpiParent(parent);
+            if (auto* cc9 = nce.constructorCall();
+                cc9 && cc9->kind == ExpressionKind::Call) {
+                auto* nargs9 = s.MakeAnyVec();
+                for (auto arg9 : cc9->as<CallExpression>().arguments()) {
+                    bool fs9 = forceConstParent;
+                    if (isLiteralExpr(*arg9))
+                        forceConstParent = true;
+                    if (auto* a9 = emitExpr(*arg9, mfc, prefix, netMap))
+                        nargs9->push_back(a9);
+                    forceConstParent = fs9;
+                }
+                if (!nargs9->empty())
+                    mfc->Tf_call_args(nargs9);
+            }
             return mfc;
         }
         case ExpressionKind::AssertionInstance: {
