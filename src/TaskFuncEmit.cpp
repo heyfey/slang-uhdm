@@ -751,6 +751,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     auto* cts9 = s.MakeClass_typespec();
                     if (auto cit9 = classDefnMap.find(&rct9); cit9 != classDefnMap.end())
                         cts9->Class_defn(cit9->second);
+                    // ...and when the returned class is declared LATER in the
+                    // package than the method (uvm_object::get_type @10873
+                    // returns uvm_object_wrapper @12313), its class_defn does
+                    // not exist yet: defer the link like every other forward
+                    // class reference instead of leaving it null.
+                    else
+                        pendingClassTsLink.push_back({cts9, &rct9});
                     if (auto* rsyn9 = returnTypeSyntax(sub))
                         setLoc(cts9, rsyn9->sourceRange());
                     ts = cts9;
@@ -983,9 +990,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             setLoc(io, nameSpan(arg->location, arg->name));
             // A DEFAULT VALUE becomes the io_decl's vpiExpr (unparented, at the
             // default expression's own span).
+            // ...except `= null`, which Surelog leaves off entirely: the
+            // io_decl of `function void uvm_object::print(uvm_printer
+            // printer=null)` carries no vpiExpr, while the `= ""` one right
+            // beside it does.  A `null` in a RETURN does get its
+            // vpiNullConst, so this is an io_decl rule, not an expression one.
             if (auto* dv = arg->getDefaultValue()) {
                 NetMap emptyMap;
-                if (auto* de = emitExpr(*dv, nullptr, fullName, emptyMap))
+                auto* de = emitExpr(*dv, nullptr, fullName, emptyMap);
+                // (the literal arrives wrapped in slang's implicit conversion
+                // to the handle type, so the emitted object is what to test)
+                if (de && de->UhdmType() == UHDM::uhdmconstant &&
+                    ((UHDM::constant*)de)->VpiConstType() == vpiNullConst)
+                    de = nullptr;
+                if (de)
                     io->Expr((UHDM::expr*)de);
             }
             // Bare implicit arg types ("input x;") get an unlocated typespec
@@ -1993,6 +2011,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // here, in listing order (see emitImportArtifacts).
         if (oob && classScope && !cloneMode)
             classOobTfs[scopeSym9].push_back(tf);
+        // Package listing order key (see pkgTfOrder9): the clone pass and the
+        // package's own free-subroutine pass feed the SAME vector, so both
+        // record here.
+        if (cloneMode || (pkgScope && !classScope))
+            pkgTfOrder9[tf] = {sub.name == "new" ? 1 : 0, member.location};
         tfs->push_back(tf);
     }
     inClassBodyEmit = false;

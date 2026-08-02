@@ -175,6 +175,13 @@ inline const Type& arrayElemLeaf(const Type& t0) {
             t = &c.as<DynamicArrayType>().elementType;
         else if (c.kind == SymbolKind::QueueType)
             t = &c.as<QueueType>().elementType;
+        // An ASSOCIATIVE dim is the same shape: the index type rides the
+        // wrapping array_typespec's Index_typespec and the ELEMENT is what
+        // the declaration types on (BuildUVMPkg `uvm_seed_map
+        // uvm_random_seed_table_lookup [string]` -> class_typespec
+        // uvm_seed_map, not the logic_typespec the integral fallback gave).
+        else if (c.kind == SymbolKind::AssociativeArrayType)
+            t = &c.as<AssociativeArrayType>().elementType;
         else
             return *t;
     }

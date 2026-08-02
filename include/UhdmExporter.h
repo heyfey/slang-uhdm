@@ -1726,6 +1726,22 @@ private:
                         const std::string& prefix,
                         UHDM::VectorOfvariables* out,
                         bool stampTsInstance = true);
+    // One PACKAGE-scope DYNAMIC-container declaration (`C q[$];`,
+    // `C t[string];`, `int d[];`): an array_var carrying vpiSize 1,
+    // vpiArrayType, a BARE array_typespec (no name, no span, no ranges, no
+    // element ref -- unlike the subroutine-local shape makeQueueDynArrayVar
+    // builds) and ONE vpiReg element variable whose own typespec is the
+    // declaration's element type.  Returns false when `vs` is not one of the
+    // three container kinds.
+    bool emitPkgArrayVar(const slang::ast::Symbol& vs, UHDM::instance* up,
+                         const std::string& prefix,
+                         UHDM::VectorOfvariables* out);
+    // The body locals of the package's OUT-OF-BODY CONSTRUCTOR definitions,
+    // in source order, nested `begin` blocks included: Surelog lists a
+    // DUPLICATE of each as a package variable (see the call site).
+    void collectOobCtorLocals(
+        const slang::ast::PackageSymbol& pkg,
+        std::vector<const slang::ast::Symbol*>& out);
     // A class's `extends` wiring is deferred: the base class_defn may not exist
     // yet (another package, a later file-level class). Drained once every
     // class_defn is built, derived-class-name-sorted so vpiDerivedClasses lands
@@ -1856,6 +1872,14 @@ private:
     UHDM::package* pkgClassTfClone = nullptr;
     // Second clone pass: constructors only (the first pass skips them).
     bool pkgClassTfCloneCtors = false;
+    // Every task_func that lands in a PACKAGE's own Task_funcs vector — its
+    // free subroutines and the out-of-body class-method clones alike — keyed
+    // to (is-constructor, declaration location).  The vector is re-ordered by
+    // that key once both clone passes are done: Surelog's package listing is
+    // ONE SOURCE-ORDERED pass over everything that is not a constructor,
+    // then one over the constructors (see emitPackageClassMethodClones).
+    std::map<const UHDM::BaseClass*, std::pair<int, slang::SourceLocation>>
+        pkgTfOrder9;
     // Per CLASS, the out-of-body method DEFINITION objects of its own
     // (class_defn-parented, bare-named) listing, in emission order —
     // non-constructors by definition-file order, the constructor last. A

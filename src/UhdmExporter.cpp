@@ -459,7 +459,9 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             av->VpiParent(cd);
             setLoc(av, nameSpan(cp.location, cp.name));
             av->VpiSize(1);
-            av->VpiAutomatic(true);
+            // ...and the same static rule as the scalar arm below.
+            if (cp.lifetime != VariableLifetime::Static)
+                av->VpiAutomatic(true);
             if (randTy) {
                 av->VpiIsRandomized(true);
                 av->VpiRandType(randTy);
@@ -517,7 +519,13 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         v->VpiFullName(fullName + "::" + std::string(cp.name));
         v->VpiParent(cd);
         setLoc(v, nameSpan(cp.location, cp.name));
-        v->VpiAutomatic(true);
+        // ...but a STATIC property is not automatic: it has one lifetime for
+        // the whole class, and Surelog leaves vpiAutomatic unset on it
+        // (`static protected int m_inst_count` vs the `local int m_inst_id`
+        // one line above it, uvm_object).  variables::Compare reads the
+        // field, so the two spellings are not interchangeable.
+        if (cp.lifetime != VariableLifetime::Static)
+            v->VpiAutomatic(true);
         if (randTy) {
             v->VpiIsRandomized(true);
             v->VpiRandType(randTy);

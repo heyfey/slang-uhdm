@@ -10346,6 +10346,14 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 aliasTargetTd9.insert((const Symbol*)&tt9.as<TypeAliasType>());
         }
     std::vector<std::pair<std::string, UHDM::typespec*>> pkgTdByName;
+    // Class-handle typedefs of the ELABORATED view: (name, its class_typespec,
+    // the GENERIC CLASS SYMBOL they share).  Resolved into base + aliased
+    // clones after the loop, once every name is known.  The key is the slang
+    // symbol, not the UHDM class_defn, because the package's class_defns do
+    // not exist yet while this loop runs (emitPackageClasses is called after
+    // it, so every Class_defn here is still a pendingClassTsLink).
+    std::vector<std::tuple<std::string, UHDM::class_typespec*, const void*>>
+        pkgClassTd9;
     // A package IMPORTING another package lists the imported ENUM typedefs
     // as ONE shared clone per typedef (created on first sight; module import
     // listings share it) plus an import_typespec per import item (after the
@@ -11941,6 +11949,70 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             ts = ats;
         }
+        // A KEYWORD-INTEGER typedef (`typedef int UVM_FILE;`,
+        // `typedef int uvm_action;`) is listed like every other package
+        // typedef: one bare typespec of the keyword's own kind, named
+        // pkg::T, spanning the TYPE tokens (`int` alone, not the declarator)
+        // and Instanced at the package.  It was the one scalar spelling with
+        // no arm at all — `int`/`integer`/`byte`/... canonicalise to
+        // PredefinedIntegerType, which neither the ScalarType nor the
+        // PackedArrayType arm above accepts, so the typedef emitted NOTHING
+        // (BuildUVMPkg: golden 48 package Typespecs, ours 46).
+        else if (ct.kind == SymbolKind::PredefinedIntegerType) {
+            bool savedBTS7 = bypassTypedefShare;
+            bypassTypedefShare = true;
+            auto* its7 = makeTypespec(ta, typeSyn);
+            bypassTypedefShare = savedBTS7;
+            if (its7) {
+                its7->VpiParent(up);
+                typedefClone[&ta] = nullptr;
+                ts = its7;
+            }
+        }
+        // A CLASS-HANDLE typedef (`typedef uvm_callbacks#(A,B) uvm_reg_cb;`,
+        // `typedef uvm_tlm_generic_payload uvm_tlm_gp;`, and the ASSOCIATIVE
+        // spelling `typedef uvm_port_component_base uvm_port_list[string];`,
+        // whose dim Surelog drops here) is listed in the ELABORATED package
+        // view ONLY — the def view has none of them (BuildUVMPkg: def 48/48,
+        // top 89 vs our 50).  Its vpiClassDefn is the GENERIC class_defn, not
+        // the specialization, so every `uvm_callbacks#(...)` typedef points
+        // at the same object; the specialization arguments are NOT carried
+        // (vpiParameters empty).  Surelog mints ONE object per generic class
+        // and CLONES it for the rest: the first typedef in the (name-sorted)
+        // listing is the base, and every later one repeats the base's span
+        // and adds a vpiTypedefAlias ref -> the base.
+        else if (topView) {
+            const Type* leaf9 = &arrayElemLeaf(ta.targetType.getType())
+                                     .getCanonicalType();
+            if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType &&
+                leaf9->kind == SymbolKind::ClassType) {
+                auto* cts9 = s.MakeClass_typespec();
+                cts9->VpiParent(up);
+                auto* gc9 = leaf9->as<ClassType>().genericClass;
+                const void* key9 = gc9 ? (const void*)gc9 : (const void*)leaf9;
+                UHDM::class_defn* gcd9 = nullptr;
+                if (gc9) {
+                    if (auto git9 = genericDefnMap.find(gc9);
+                        git9 != genericDefnMap.end())
+                        gcd9 = git9->second;
+                }
+                if (!gcd9)
+                    gcd9 = classDefnFor(*leaf9);
+                if (gcd9)
+                    cts9->Class_defn(gcd9);
+                else
+                    pendingClassTsLink.push_back({cts9, leaf9});
+                // The span is the class NAME token alone — a `#(...)`
+                // specialization suffix is outside it.
+                if (typeSyn) {
+                    auto tr9 = typeSyn->sourceRange();
+                    setLoc(cts9, SourceRange(tr9.start(),
+                                             tr9.start() + leaf9->name.size()));
+                }
+                pkgClassTd9.push_back({std::string(ta.name), cts9, key9});
+                ts = cts9;
+            }
+        }
         if (!ts)
             continue;
         ts->VpiName(prefix + std::string(ta.name));
@@ -12020,6 +12092,43 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 listTs = dIt->second;
         pkgTdByName.emplace_back(std::string(ta.name), listTs);
     }
+    // One class_typespec per GENERIC class is the base (the name-first of the
+    // typedefs that share it); the rest are clones of it — same span, plus a
+    // vpiTypedefAlias ref (doubled pkg::pkg:: fullname, like every other
+    // self-alias this emitter builds) back to the base.
+    {
+        std::map<const void*, size_t> base9;
+        for (size_t i = 0; i < pkgClassTd9.size(); i++) {
+            auto* cd9 = std::get<2>(pkgClassTd9[i]);
+            if (!cd9)
+                continue;
+            auto it9 = base9.find(cd9);
+            if (it9 == base9.end() ||
+                std::get<0>(pkgClassTd9[i]) <
+                    std::get<0>(pkgClassTd9[it9->second]))
+                base9[cd9] = i;
+        }
+        for (size_t i = 0; i < pkgClassTd9.size(); i++) {
+            auto* cd9 = std::get<2>(pkgClassTd9[i]);
+            if (!cd9)
+                continue;
+            size_t b9 = base9[cd9];
+            if (b9 == i)
+                continue;
+            auto* bts9 = std::get<1>(pkgClassTd9[b9]);
+            auto* cts9 = std::get<1>(pkgClassTd9[i]);
+            cts9->VpiLineNo(bts9->VpiLineNo());
+            cts9->VpiColumnNo(bts9->VpiColumnNo());
+            cts9->VpiEndLineNo(bts9->VpiEndLineNo());
+            cts9->VpiEndColumnNo(bts9->VpiEndColumnNo());
+            cts9->VpiFile(bts9->VpiFile());
+            auto* art9 = s.MakeRef_typespec();
+            art9->VpiParent(cts9);
+            art9->VpiFullName(prefix + prefix + std::get<0>(pkgClassTd9[i]));
+            art9->Actual_typespec(bts9);
+            cts9->Typedef_alias(art9);
+        }
+    }
     // The Typespecs LIST is name-sorted (creation stayed source-ordered).
     std::stable_sort(pkgTdByName.begin(), pkgTdByName.end(),
                      [](auto& a, auto& b) { return a.first < b.first; });
@@ -12066,6 +12175,29 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     {
         auto* pnets = s.MakeNetVec();
         auto* pvars = s.MakeVariablesVec();
+        // The out-of-body CONSTRUCTOR body locals Surelog duplicates into
+        // this listing (collectOobCtorLocals).  They are NOT package
+        // members, so they carry no place in the members() walk: flush each
+        // one as soon as the walk passes its source location, which is what
+        // puts the whole listing back in source order (golden's Variables
+        // vector is strictly ascending by declaration position).
+        std::vector<const Symbol*> hoist9;
+        collectOobCtorLocals(pkg, hoist9);
+        size_t hIdx9 = 0;
+        auto flushHoist9 = [&](SourceLocation upto, bool all) {
+            while (hIdx9 < hoist9.size() &&
+                   (all || hoist9[hIdx9]->location < upto)) {
+                size_t before9 = pvars->size();
+                emitPackageVar(*hoist9[hIdx9++], up, prefix, pvars);
+                // A hoisted SUBROUTINE local keeps its AUTOMATIC lifetime
+                // even in kinds that carry none at package scope: golden's
+                // hoisted class_vars (clp/top/cs/bld/common/rh) are all
+                // vpiAutomatic:1 while the package's own class_vars
+                // (build_ph, uvm_cmdline_proc) are not.
+                for (size_t i9 = before9; i9 < pvars->size(); i9++)
+                    (*pvars)[i9]->VpiAutomatic(true);
+            }
+        };
         for (auto& mem : pkg.members()) {
             if (mem.kind != SymbolKind::Variable)
                 continue;
@@ -12073,6 +12205,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             const DeclaredType* dt = vs.getDeclaredType();
             if (!dt)
                 continue;
+            flushHoist9(vs.location, false);
             auto& ct = dt->getType().getCanonicalType();
             // Anonymous packed struct/union spellings are NETS like their
             // typedef'd forms (Surelog-measured, r9bpapb probe2) — the
@@ -12153,6 +12286,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             pkgViewVarObjs9[&vs] = n;
             pkgVarObjsAll9[&vs] = n;
         }
+        flushHoist9(SourceLocation(), true);
         if (!pnets->empty())
             up->Nets(pnets);
         if (!pvars->empty())
@@ -12358,6 +12492,35 @@ void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
         }
     }
     currentClassDefn = savedCd0;
+    // Surelog's package Task_funcs listing is not "free functions, then the
+    // clones class by class" — it is ONE pass in DECLARATION-SOURCE order
+    // over everything that is not a constructor (a free function sits
+    // between two class methods whenever the source puts it there:
+    // BuildUVMPkg's `uvm_hdl_concat2string` @61044 lands between
+    // uvm_sequence_library::do_print @57012 and uvm_reg_backdoor::* @63227),
+    // followed by one pass in the same order over the constructors.  The
+    // two-pass emission above is kept — creation order is load-bearing for
+    // binding — and only the LISTING is re-ordered, here, once both passes
+    // have contributed.  Anything without a recorded key (never expected)
+    // suppresses the sort rather than sorting against a fabricated one.
+    if (auto* tfv = dit->second->Task_funcs()) {
+        bool haveAll = true;
+        for (auto* t : *tfv)
+            if (!pkgTfOrder9.count(t)) {
+                haveAll = false;
+                break;
+            }
+        if (haveAll)
+            std::stable_sort(tfv->begin(), tfv->end(),
+                             [&](const UHDM::BaseClass* a,
+                                 const UHDM::BaseClass* b) {
+                                 auto& ka = pkgTfOrder9[a];
+                                 auto& kb = pkgTfOrder9[b];
+                                 if (ka.first != kb.first)
+                                     return ka.first < kb.first;
+                                 return ka.second < kb.second;
+                             });
+    }
     pkgClassTfClone = nullptr;
     pkgClassTfCloneCtors = false;
 }
@@ -12375,14 +12538,19 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
     if (!dt)
         return;
     auto& ct = dt->getType().getCanonicalType();
-    // Unpacked aggregates (array_var + vpiReg child + folded ranges) and
-    // dynamic containers are not modelled here yet — dropping is the honest
-    // arm, mis-shaping them is not.
+    // Unpacked aggregates (array_var + vpiReg child + folded ranges) are not
+    // modelled here yet — dropping is the honest arm, mis-shaping them is
+    // not.  DYNAMIC containers are (emitPkgArrayVar).
     switch (ct.kind) {
-        case SymbolKind::FixedSizeUnpackedArrayType:
         case SymbolKind::DynamicArrayType:
         case SymbolKind::AssociativeArrayType:
         case SymbolKind::QueueType:
+            // ...in the PACKAGE's own listing only; the copy an importing
+            // MODULE materialises is unmeasured, so it keeps dropping.
+            if (stampTsInstance)
+                emitPkgArrayVar(vs, up, prefix, out);
+            return;
+        case SymbolKind::FixedSizeUnpackedArrayType:
         case SymbolKind::UnpackedStructType:
         case SymbolKind::UnpackedUnionType:
             return;
@@ -12468,6 +12636,197 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
         }
     }
     out->push_back(v);
+}
+
+// A PACKAGE-scope dynamic container.  Measured on BuildUVMPkg's two, which
+// are the whole shape:
+//
+//   uvm_object_wrapper uvm_deferred_init[$];          -> vpiArrayType 4
+//   uvm_seed_map uvm_random_seed_table_lookup [string];  -> vpiArrayType 3
+//
+// Both are an array_var spanning the NAME ALONE (not the declarator, unlike
+// a scalar package variable), vpiSize 1 / vpiRandType 1 / vpiVisibility 1,
+// whose typespec ref resolves to an EMPTY array_typespec — no name, no
+// span, no vpiInstance, no ranges and no element ref.  That is the point of
+// difference from makeQueueDynArrayVar, which builds the SUBROUTINE-local
+// shape (an [0:$] / [0:"unsized"] range and a shared element ref); Surelog's
+// package data-declaration path and its statement path do not agree, so this
+// must not be folded into that helper.  The element type rides ONLY on the
+// single vpiReg child, a variable of the element's own kind with an EMPTY
+// vpiName and the ARRAY's fullname.  An ASSOCIATIVE array adds the index
+// type as the array_typespec's Index_typespec, spanning the index-type
+// token inside the brackets.
+bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
+                                   const std::string& prefix,
+                                   UHDM::VectorOfvariables* out) {
+    auto* dt = vs.getDeclaredType();
+    if (!dt)
+        return false;
+    auto& ct = dt->getType().getCanonicalType();
+    const Type* elem = nullptr;
+    const Type* idx = nullptr;
+    int aType = 0;
+    switch (ct.kind) {
+        case SymbolKind::QueueType:
+            elem = &ct.as<QueueType>().elementType;
+            aType = vpiQueueArray;
+            break;
+        case SymbolKind::DynamicArrayType:
+            elem = &ct.as<DynamicArrayType>().elementType;
+            aType = vpiDynamicArray;
+            break;
+        case SymbolKind::AssociativeArrayType:
+            elem = &ct.as<AssociativeArrayType>().elementType;
+            idx = ct.as<AssociativeArrayType>().indexType;
+            aType = vpiAssocArray;
+            break;
+        default:
+            return false;
+    }
+    std::string full = prefix + std::string(vs.name);
+    auto* av = s.MakeArray_var();
+    av->VpiName(vs.name);
+    av->VpiFullName(full);
+    av->VpiParent(up);
+    av->VpiSize(1);
+    av->VpiArrayType(aType);
+    av->VpiVisibility(1);
+    // vpiNotRand on both — Surelog stamps the default rand type on every
+    // package array_var while the scalar package variables carry none, and
+    // uhdm-cmp DOES compare vpiRandType (vpiRand=2 first-failed here).
+    av->VpiRandType(vpiNotRand);
+    // ...and vpiAutomatic only on the ASSOCIATIVE one (measured: the queue
+    // has none).  Neither field is compared by uhdm-cmp; both are recorded
+    // for byte identity.
+    if (aType == vpiAssocArray)
+        av->VpiAutomatic(true);
+    setLoc(av, nameSpan(vs.location, vs.name));
+    auto* ats = s.MakeArray_typespec();
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(full);
+    art->VpiParent(av);
+    art->Actual_typespec(ats);
+    av->Typespec(art);
+    // makeTypespec looks through the array dims, so it yields the ELEMENT's
+    // typespec (a class_typespec for both of BuildUVMPkg's), spanning the
+    // written type tokens and resolved in the package's scope.
+    UHDM::typespec* elemTs = makeTypespec(vs);
+    if (elemTs && !elemTs->Instance())
+        elemTs->Instance(up);
+    auto* reg = makeReturnVar(s, *elem);
+    if (reg) {
+        reg->VpiParent(av);
+        reg->VpiFullName(full);
+        setLoc(reg, nameSpan(vs.location, vs.name));
+        if (elemTs) {
+            auto* rrt = s.MakeRef_typespec();
+            rrt->VpiFullName(full);
+            rrt->VpiParent(reg);
+            rrt->Actual_typespec(elemTs);
+            reg->Typespec(rrt);
+        }
+        auto* rv = s.MakeVariablesVec();
+        rv->push_back(reg);
+        av->Variables(rv);
+    }
+    if (idx) {
+        // The index typespec spans the token INSIDE the brackets
+        // (`[string]` -> `string`); take it off the declarator's last
+        // dimension rather than re-deriving it from the type.
+        UHDM::typespec* its = nullptr;
+        {
+            auto& ick = idx->getCanonicalType();
+            if (ick.kind == SymbolKind::StringType)
+                its = s.MakeString_typespec();
+            else if (ick.kind == SymbolKind::PredefinedIntegerType)
+                its = predefIntTypespec(ick, vs);
+            else if (ick.isIntegral())
+                its = s.MakeLogic_typespec();
+        }
+        if (its) {
+            const syntax::VariableDimensionSyntax* adim = nullptr;
+            if (auto dsyn = vs.getSyntax();
+                dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+                for (auto d : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                    adim = d;
+            if (adim) {
+                auto dr = adim->sourceRange();
+                setLoc(its, SourceRange(dr.start() + 1, dr.end() - 1));
+            }
+            its->Instance(up);
+            auto* irt = s.MakeRef_typespec();
+            irt->VpiParent(ats);
+            irt->Actual_typespec(its);
+            ats->Index_typespec(irt);
+        }
+    }
+    out->push_back(av);
+    return true;
+}
+
+// Surelog compiles an OUT-OF-BODY CONSTRUCTOR in its home PACKAGE's scope
+// and leaves the body's own locals behind in the package's variable listing
+// as well as inside the function — one DUPLICATE object per local, named
+// pkg::<local> (BuildUVMPkg: uvm_phase::new clp/val, uvm_root::new rh,
+// uvm_component::new error_str/top/cs plus bld/common from a nested
+// `begin`).  The distinguisher is the CONSTRUCTOR: a non-`new` out-of-body
+// body hoists nothing (uvm_phase::execute_phase's four locals are absent
+// from the package listing).  Locals of every nesting depth are collected,
+// in source order; the caller interleaves them with the package's own
+// declarations by location.
+void UhdmExporter::collectOobCtorLocals(const PackageSymbol& pkg,
+                                        std::vector<const Symbol*>& out) {
+    std::function<void(const Scope&)> walk = [&](const Scope& sc) {
+        for (auto& m : sc.members()) {
+            if (m.kind == SymbolKind::Variable) {
+                // slang materialises an implicit `this` handle in every class
+                // method scope; it is not a written local and Surelog has no
+                // object for it.
+                if (m.as<VariableSymbol>().flags.has(
+                        VariableFlags::CompilerGenerated))
+                    continue;
+                out.push_back(&m);
+            }
+            else if (m.kind == SymbolKind::StatementBlock)
+                walk(m.as<StatementBlockSymbol>());
+        }
+    };
+    auto scanClass = [&](const ClassType& c) {
+        std::vector<const Symbol*> memberList;
+        for (auto& m : c.members())
+            memberList.push_back(&m);
+        for (auto& m : c.members()) {
+            if (m.kind != SymbolKind::MethodPrototype)
+                continue;
+            auto& mp = m.as<MethodPrototypeSymbol>();
+            if (mp.flags.has(MethodFlags::Pure) || mp.name != "new")
+                continue;
+            auto* impl = mp.getSubroutine();
+            if (!impl || !impl->getSyntax())
+                continue;
+            // Out-of-body == the subroutine members() never yields (the same
+            // membership test emitTaskFuncs uses).
+            if (std::find(memberList.begin(), memberList.end(),
+                          (const Symbol*)impl) != memberList.end())
+                continue;
+            impl->getBody();
+            walk(*impl);
+        }
+    };
+    for (auto& mem : pkg.members()) {
+        if (mem.kind == SymbolKind::ClassType)
+            scanClass(mem.as<ClassType>());
+        else if (mem.kind == SymbolKind::GenericClassDef) {
+            if (auto* dsp =
+                    mem.as<GenericClassDefSymbol>().getDefaultSpecialization(pkg);
+                dsp && dsp->kind == SymbolKind::ClassType)
+                scanClass(dsp->as<ClassType>());
+        }
+    }
+    std::stable_sort(out.begin(), out.end(),
+                     [](const Symbol* a, const Symbol* b) {
+                         return a->location < b->location;
+                     });
 }
 
 // After ALL def-view packages exist: insert the home def objects into the

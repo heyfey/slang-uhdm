@@ -3461,6 +3461,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 c->VpiParent(parent);
             return c;
         }
+        // `null` (a class/chandle handle literal): Surelog's vpiNullConst,
+        // carrying the same UINT:0 / vpiSize 64 / vpiDecompile "0" payload
+        // every unsized integral constant of its does — the CONST TYPE is the
+        // only thing that says "null" (uvm_object::create's `return null;`,
+        // which emitted no vpiCondition at all before this).
+        case ExpressionKind::NullLiteral: {
+            auto* c = s.MakeConstant();
+            c->VpiDecompile("0");
+            c->VpiSize(64);
+            c->VpiValue("UINT:0");
+            c->VpiConstType(vpiNullConst);
+            setLoc(c, expr.sourceRange);
+            if (forceConstParent ||
+                (!suppressConstParent && parent &&
+                 (parent->UhdmType() == UHDM::uhdmoperation ||
+                  parent->UhdmType() == UHDM::uhdmbit_select)))
+                c->VpiParent(parent);
+            return c;
+        }
         case ExpressionKind::StringLiteral: {
             auto& sl = expr.as<StringLiteral>();
             (void)sl;
