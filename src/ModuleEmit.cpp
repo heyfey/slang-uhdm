@@ -7772,6 +7772,24 @@ static std::optional<int64_t> surelogEval64(const Expression& e) {
     }
 }
 
+// NOTE (DECODED, NOT IMPLEMENTED — r10scr4): a generate-if CONDITION that
+// reads a `$unit` parameter declared in a guarded header owned by a DIFFERENT
+// command-line file evaluates to FALSE for Surelog, whatever the operator.
+// Purpose-built golden /tmp/r10scr4_e (a_first.sv includes w.svh first,
+// b_second.sv then declares the generates) measured, with P_WR = 26 in w.svh:
+//   if (P_WR == 26) ... else      -> golden takes the ELSE branch
+//   if (P_WR != 26) ... else      -> golden takes the ELSE branch too
+//                                    (so it is the CONDITION that is false,
+//                                     not the identifier that reads 0)
+//   if (P_WR == 26) with NO else  -> golden emits NO gen_scope_array at all
+//   if (1) / if (<module localparam>) -> both tools agree, normal evaluation
+// Move the generate file FIRST on the command line (/tmp/r10scr4_d) and the
+// same source folds normally — the ownership model of commit 1d2f52c. This is
+// the Scr1SvTests i_pipe_csr divergence: golden elaborates the FINAL else
+// (mtvec_base_ro_rw), we elaborate the LRM-correct mtvec_base_rw. Emitting it
+// needs the NON-elaborated branch's body built from syntax, which slang never
+// elaborated, so it is left ranked rather than half-done.
+//
 // An UNINSTANTIATED else-less generate-if whose body is only elab system
 // tasks ($error — the STATIC_ASSERT macro shape), where Surelog's 64-bit
 // evaluator DISAGREES with slang and takes the branch: Surelog emits the gen

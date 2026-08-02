@@ -9275,11 +9275,34 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                 syntaxReadsUnitParam(*es, ps.getParentScope()))
                                 if (auto* e9 = emitSyntaxExpr(*es, r))
                                     return (UHDM::expr*)e9;
+                            // A bound Surelog had to REDUCE takes reduceExpr's
+                            // sign, exactly like a $unit parameter's folded
+                            // init: vpiSubOp/vpiMultOp hand back INT while a
+                            // plain literal stays UINT.  `localparam
+                            // [`SCR1_XLEN-1:0] X` therefore has an INT:31 left
+                            // bound and a UINT:0 right one (Scr1SvTests
+                            // SCR1_SIM_*_ADDR; the bit_typespec path already
+                            // agrees).
+                            const syntax::ExpressionSyntax* be9 = es;
+                            while (be9 &&
+                                   be9->kind == syntax::SyntaxKind::
+                                                    ParenthesizedExpression)
+                                be9 = be9->as<syntax::ParenthesizedExpressionSyntax>()
+                                          .expression;
+                            bool sgnB9 =
+                                be9 &&
+                                (be9->kind ==
+                                     syntax::SyntaxKind::SubtractExpression ||
+                                 be9->kind ==
+                                     syntax::SyntaxKind::MultiplyExpression ||
+                                 be9->kind ==
+                                     syntax::SyntaxKind::UnaryMinusExpression);
                             auto* c = s.MakeConstant();
                             c->VpiDecompile(std::to_string(v));
                             c->VpiSize(64);
-                            c->VpiValue("UINT:" + std::to_string(v));
-                            c->VpiConstType(vpiUIntConst);
+                            c->VpiValue((sgnB9 ? "INT:" : "UINT:") +
+                                        std::to_string(v));
+                            c->VpiConstType(sgnB9 ? vpiIntConst : vpiUIntConst);
                             c->VpiParent(r);
                             if (es)
                                 setLoc(c, es->sourceRange());
@@ -9299,27 +9322,52 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     // Untyped params with based-literal inits gain a bare [w-1:0] range
     // (loc-less, value-only INT constants).
     if (!typedParam && !explicitRange) {
+        int64_t litW9 = -1;
         if (auto init = ps.getInitializer()) {
             auto& lit = stripImplicitConv(*init);
             if (lit.kind == ExpressionKind::IntegerLiteral &&
-                rawTextLit(lit).find('\'') != std::string::npos) {
-                auto* r = s.MakeRange();
-                r->VpiParent(its);
-                auto mkBound = [&](int64_t v) {
-                    auto* c = s.MakeConstant();
-                    c->VpiValue("INT:" + std::to_string(v));
-                    // Write-phase (instance) param ts bounds are parented.
-                    if (parentBounds)
-                        c->VpiParent(r);
-                    return c;
-                };
-                r->Left_expr(mkBound((int64_t)lit.type->getBitWidth() - 1));
-                r->Right_expr(mkBound(0));
-                auto* rv = s.MakeRangeVec();
-                rv->push_back(r);
-                if (intTs)
-                    intTs->Ranges(rv);
-            }
+                rawTextLit(lit).find('\'') != std::string::npos)
+                litW9 = (int64_t)lit.type->getBitWidth();
+        }
+        // An OVERRIDDEN param's semantic initializer is the OVERRIDE actual,
+        // so a based-literal DEFAULT stops being visible there — but the
+        // typespec is the declaration's, and Surelog derives its implied
+        // `[w-1:0]` range from the DECLARATION (Scr1SvTests scr1_dp_memory
+        // SCR1_SIZE / scr1_dmem_router SCR1_PORT*_ADDR_*, all overridden at
+        // their instantiation with a ref to another parameter).  Read the
+        // width off the size token, which the preprocessor has already
+        // expanded (`\`SCR1_IMEM_AWIDTH'h00010000` -> "32").
+        if (litW9 < 0)
+            if (auto dsyn9 = ps.getSyntax();
+                dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator)
+                if (auto* ini9 = dsyn9->as<syntax::DeclaratorSyntax>().initializer)
+                    if (auto* ive9 =
+                            ini9->expr->as_if<syntax::IntegerVectorExpressionSyntax>())
+                        if (ive9->size) {
+                            std::string sz9;
+                            for (char ch9 : ive9->size.rawText())
+                                if (ch9 >= '0' && ch9 <= '9')
+                                    sz9 += ch9;
+                            if (!sz9.empty())
+                                litW9 = strtoll(sz9.c_str(), nullptr, 10);
+                        }
+        if (litW9 > 0) {
+            auto* r = s.MakeRange();
+            r->VpiParent(its);
+            auto mkBound = [&](int64_t v) {
+                auto* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(v));
+                // Write-phase (instance) param ts bounds are parented.
+                if (parentBounds)
+                    c->VpiParent(r);
+                return c;
+            };
+            r->Left_expr(mkBound(litW9 - 1));
+            r->Right_expr(mkBound(0));
+            auto* rv = s.MakeRangeVec();
+            rv->push_back(r);
+            if (intTs)
+                intTs->Ranges(rv);
         }
     }
     return its;

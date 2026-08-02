@@ -1866,7 +1866,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                             std::string& digits, int32_t& size) -> bool {
             if (e.kind != ExpressionKind::IntegerLiteral)
                 return false;
-            std::string raw = std::string(rawText(e.sourceRange));
+            // A MACRO-SIZED based literal (`\`SCR1_XLEN'd8`) spans two
+            // buffers, so plain `rawText` reads the expansion buffer and the
+            // base/size decode falls through to a bare 64-bit decimal.
+            // `rawTextLit` rebuilds it from the token stream, which is what
+            // Surelog reduces (golden keeps DEC:8 / `32'd8`).
+            std::string raw = rawTextLit(e);
             if (raw.empty())
                 return false;
             auto tick = raw.find('\'');
@@ -1922,10 +1927,36 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
             if (e.kind == ExpressionKind::Call)
                 return vpiUIntConst;
+            // An EXPLICIT size cast (`W'(x)`) reduces UNSIGNED: reduceExpr
+            // masks the operand to the cast width and hands back a UINT,
+            // whatever the operand reduced to (Scr1SvTests
+            // SCR1_IRQ_VOID_VECT_NUM `SCR1_IRQ_VECT_WIDTH'(...)`,
+            // SCR1_HDU_DBGCSR_OFFS_* `WIDTH'('d0)`).  The knock-on matters as
+            // much as the cast itself: vpiAddOp's `unsignedOperation` test
+            // reads this, so a cast feeding an add (SCR1_HDU_DBGCSR_ADDR_*)
+            // keeps the SUM unsigned too.
+            if (e.kind == ExpressionKind::Conversion)
+                return vpiUIntConst;
             if (e.kind == ExpressionKind::UnaryOp)
                 return vpiIntConst;
             if (e.kind == ExpressionKind::BinaryOp) {
                 auto& be = e.as<BinaryExpression>();
+                // Bitwise and shift reductions are unsigned in ExprEval, the
+                // same as a cast (Scr1SvTests SCR1_CSR_MISA
+                // `(MXL << (`SCR1_XLEN-2)) | `SCR1_RVI_ENC | ...`).
+                switch (be.op) {
+                    case BinaryOperator::BinaryAnd:
+                    case BinaryOperator::BinaryOr:
+                    case BinaryOperator::BinaryXor:
+                    case BinaryOperator::BinaryXnor:
+                    case BinaryOperator::LogicalShiftLeft:
+                    case BinaryOperator::LogicalShiftRight:
+                    case BinaryOperator::ArithmeticShiftLeft:
+                    case BinaryOperator::ArithmeticShiftRight:
+                        return vpiUIntConst;
+                    default:
+                        break;
+                }
                 if (be.op == BinaryOperator::Add) {
                     auto sgn = [&](const Expression& o) {
                         int32_t t = reducedType(o);
@@ -1971,6 +2002,48 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
                 UnitEnc enc;
                 const Expression* initE = ps.getInitializer();
+                // Surelog compiles each command-line file's FileContent on its
+                // own, and a guarded header is textually included by exactly
+                // ONE of them — so a $unit parameter declared in a header owned
+                // by file A is NOT in scope for the reducer when it folds a
+                // $unit parameter declared in a header owned by file B.  The
+                // init then stays an UNFOLDED expression: the parameter carries
+                // no value (its typespec survives) and the param_assign keeps
+                // a bare ref_obj / operation whose refs are DANGLING.
+                // The property is transitive — an init reading a $unit
+                // parameter that itself never folded cannot fold either
+                // (`SCR1_TDU_ALLTRIG_NUM = SCR1_TDU_MTRIG_NUM + 1'b1`, both in
+                // scr1_tdu.svh, unfolded because MTRIG_NUM reads
+                // scr1_arch_description.svh's SCR1_TDU_TRIG_NUM).
+                const syntax::ExpressionSyntax* initSyn9 = nullptr;
+                if (auto dsyn9 = ps.getSyntax();
+                    dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator)
+                    if (auto* iv9 = dsyn9->as<syntax::DeclaratorSyntax>().initializer)
+                        initSyn9 = iv9->expr;
+                std::string psRoot9 = rootFilePath(ps.location);
+                std::function<bool(const syntax::SyntaxNode&)> readsUnres9 =
+                    [&](const syntax::SyntaxNode& n9) -> bool {
+                    if (n9.kind == syntax::SyntaxKind::IdentifierName) {
+                        auto nm9 = n9.as<syntax::IdentifierNameSyntax>()
+                                       .identifier.valueText();
+                        auto* scope9 = ps.getParentScope();
+                        if (!scope9)
+                            return false;
+                        auto* sym9 = scope9->lookupName(nm9);
+                        if (!sym9 || !unitParamMap.count(sym9))
+                            return false;
+                        if (rootFilePath(sym9->location) != psRoot9)
+                            return true;
+                        auto it9 = unitEnc.find(sym9);
+                        return it9 != unitEnc.end() && !it9->second.ok;
+                    }
+                    for (size_t i9 = 0; i9 < n9.getChildCount(); i9++)
+                        if (auto* c9 = n9.childNode(i9))
+                            if (readsUnres9(*c9))
+                                return true;
+                    return false;
+                };
+                bool unresolvedInit9 = initSyn9 && readsUnres9(*initSyn9);
                 // Surelog's `reduceExpr` folds arithmetic but NOT a
                 // concatenation/replication: `{2'b01, 2'b10}` stays an
                 // operation and its parameter carries neither a value nor a
@@ -1982,6 +2055,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                     unfoldableInit9 = k9 == ExpressionKind::Concatenation ||
                                       k9 == ExpressionKind::Replication;
                 }
+                if (unresolvedInit9)
+                    unfoldableInit9 = true;
                 if (initE && !unfoldableInit9 &&
                     stripImplicitConv(*initE).kind ==
                         ExpressionKind::StringLiteral) {
@@ -2022,12 +2097,20 @@ UHDM::design* UhdmExporter::exportDesign() {
                             inherit = &it->second;
                     if (inherit) {
                         enc = *inherit;
+                        // A bare ref inherits the referenced parameter's
+                        // encoding, but a TYPED declaration still re-widths it
+                        // to its OWN declared width — `localparam int unsigned
+                        // SPAN = SCR1_CSR_ADDR_HDU_MSPAN` keeps HEX:004 and
+                        // takes VpiSize 32, not the 12 the source literal had.
+                        if (typedDecl9)
+                            enc.size = (int32_t)ps.getType().getBitWidth();
                     }
                     else if (litParts(ic, base, digits, litSize)) {
                         if (base) {
                             enc.value = std::string(baseTag(base)) + digits;
-                            enc.decompile =
-                                stripSep(std::string(rawText(ic.sourceRange)));
+                            // rawTextLit, not rawText: a macro-sized literal's
+                            // decompile is the EXPANDED text (`32'd8`).
+                            enc.decompile = stripSep(rawTextLit(ic));
                             enc.size = litSize;
                             enc.constType = baseConstType(base);
                             // A DECIMAL-based literal, and any literal whose
@@ -2082,7 +2165,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     enc.ok = true;
                     up->VpiValue(enc.value);
                 }
-                else if (unfoldableInit9)
+                else if (unfoldableInit9 && !unresolvedInit9)
                     enc.wantTs = false;
                 unitEnc[&mem] = enc;
                 UHDM::ref_typespec* prt = nullptr;
@@ -2119,6 +2202,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                     rhsRt->VpiParent(c);
                     c->Typespec(rhsRt);
                     pa->Rhs(c);
+                }
+                else if (unresolvedInit9 && initSyn9) {
+                    // The unfolded form, emitted from SYNTAX: the refs are
+                    // deliberately left unbound (Surelog never resolved them).
+                    if (auto* e9 = emitSyntaxExpr(*initSyn9, pa))
+                        pa->Rhs((UHDM::expr*)e9);
                 }
                 unitParamMap[&mem] = up;
                 if (prt)
@@ -2226,6 +2315,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                              return srcOrderLess(a->location, b->location);
                          });
         std::map<std::string, UHDM::typespec*> byName;
+        // Where each $unit typespec was DECLARED — the design's Typespecs
+        // vector is grouped by the command-line file that first included the
+        // declaring header (§ the sort below), so the map's own alphabetical
+        // order is only the WITHIN-group order.
+        std::map<std::string, SourceLocation> declLoc9;
         {
             for (auto* memberPtr : srcAliases) {
                 auto& member = *memberPtr;
@@ -2526,6 +2620,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     ts->VpiParent((UHDM::BaseClass*)d);
                 typedefTs[&ta] = ts;
                 byName[std::string(ta.name)] = ts;
+                declLoc9[std::string(ta.name)] = ta.location;
             }
         }
         // A user-defined NETTYPE (`nettype real my_real with my_function2`) is
@@ -2555,6 +2650,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (dtSyn)
                     setLoc(ts, dtSyn->sourceRange());
                 byName[std::string(nt.name)] = ts;
+                declLoc9[std::string(nt.name)] = nt.location;
                 if (auto* rf = nt.getResolutionFunction())
                     nettypeResolvers.push_back({ts, std::string(rf->name)});
             }
@@ -2587,12 +2683,55 @@ UHDM::design* UhdmExporter::exportDesign() {
                     auto tit = pkgTopTypedefTs.find((const void*)&pm);
                     if (tit == pkgTopTypedefTs.end() || !tit->second)
                         continue;
-                    byName.emplace(std::string(pm.name), tit->second);
+                    if (byName.emplace(std::string(pm.name), tit->second).second)
+                        declLoc9[std::string(pm.name)] = mem.location;
                 }
             }
         if (!byName.empty()) {
+            // Surelog builds the design's Typespecs by walking the
+            // FileContents in COMMAND-LINE order and appending each one's
+            // (name-sorted) DataTypeMap, so the vector is a sequence of
+            // per-root-file GROUPS, alphabetical inside each group — NOT one
+            // global alphabetical list.  A guarded header is textually
+            // included exactly once, so its typedefs belong to the FIRST
+            // command-line file that pulled it in (Scr1SvTests: 28 types from
+            // scr1_pipe_hdu.sv, then tdu.svh's 2 from scr1_pipe_tdu.sv,
+            // memif's 3 from scr1_pipe_exu.sv, search_ms1's 2 from
+            // scr1_pipe_ialu.sv, tapc's 2 from scr1_tapc.sv, scu's 7 from
+            // scr1_scu.sv — purpose-built 3-file golden r10scr4_f agrees).
+            // constant-time note: byName is already alphabetical, so a STABLE
+            // sort on the group rank alone yields (group, name).
+            auto rootLoc9 = [&](SourceLocation loc) {
+                if (loc == SourceLocation::NoLocation)
+                    return loc;
+                if (sm->isMacroLoc(loc))
+                    loc = sm->getFullyOriginalLoc(loc);
+                for (int g9 = 0; g9 < 64; g9++) {
+                    auto up = sm->getIncludedFrom(loc.buffer());
+                    if (up == SourceLocation::NoLocation || !up.buffer().valid())
+                        break;
+                    loc = up;
+                }
+                return loc;
+            };
+            std::vector<std::pair<std::string, UHDM::typespec*>> ordered9(
+                byName.begin(), byName.end());
+            std::stable_sort(ordered9.begin(), ordered9.end(),
+                             [&](auto& a, auto& b) {
+                                 auto la = declLoc9.count(a.first)
+                                               ? rootLoc9(declLoc9[a.first])
+                                               : SourceLocation::NoLocation;
+                                 auto lb = declLoc9.count(b.first)
+                                               ? rootLoc9(declLoc9[b.first])
+                                               : SourceLocation::NoLocation;
+                                 if (la == SourceLocation::NoLocation ||
+                                     lb == SourceLocation::NoLocation ||
+                                     la.buffer() == lb.buffer())
+                                     return false;
+                                 return srcOrderLess(la, lb);
+                             });
             auto* tds = s.MakeTypespecVec();
-            for (auto& [nm, ts] : byName)
+            for (auto& [nm, ts] : ordered9)
                 tds->push_back(ts);
             d->Typespecs(tds);
         }
