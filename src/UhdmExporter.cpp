@@ -3069,6 +3069,9 @@ UHDM::design* UhdmExporter::exportDesign() {
     // materialized (the struct ts a parameter points at is filled by the
     // deferred drain above) and only on the ELABORATED views.
     stampEvalFuncLeftovers(d);
+    // Elab param_assign Rhs ts refs -> the def parameter's FINAL typespec.
+    // Dead last: every deferred def-view typespec rebind is done by now.
+    drainShareDefParamTs();
     return d;
 }
 

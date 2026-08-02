@@ -2294,6 +2294,18 @@ private:
     // through the param's ts ref; the last such call in source order wins).
     // Procedural calls and the elab-view param never rebind.
     std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> defParamTsRef;
+    // An elab param_assign Rhs ts ref waiting to be pointed at the module DEF
+    // parameter's FINAL typespec object (see patchParamTypespecs' defParamTs
+    // note). Resolved last: several deferred passes re-bind a def parameter's
+    // typespec after the elab params are written, and binding early would pin
+    // a clone the def view has since discarded.
+    struct ShareDefParamTs {
+        UHDM::ref_typespec* rt;
+        const slang::ast::DefinitionSymbol* def;
+        std::string name;
+    };
+    std::vector<ShareDefParamTs> pendingShareDefParamTs;
+    void drainShareDefParamTs();
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
 };
 

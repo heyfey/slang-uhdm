@@ -9682,6 +9682,104 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             }
         }
         syntaxRefPrefix = savedPfx2;
+        // Surelog's ELAB param_assign RHS constant refers to the MODULE DEF's
+        // parameter typespec OBJECT -- literally the same object the def-view
+        // parameter binds -- not to a per-instance clone (measured over the
+        // whole golden cache: 538k shared vs 50k distinct). Sharing is
+        // invisible to uhdm-cmp in the folded model, which is why the clone
+        // survived this long, but under -elabuhdm it is load-bearing: the
+        // param_assign is the ONLY edge by which ElaboratorListener reaches a
+        // def-view typespec from inside an instance, so sharing is what binds
+        // the ref_objs in that typespec's ranges to THIS instance's parameters
+        // (leaveRef_obj -> bindAny), and UhdmAdjuster::leaveOperation then
+        // folds them. Unshared, the def range stays unbound and unfolded:
+        // PartSelect4 `bit [N*4-1:0]` keeps N*4 where Surelog has 32, and
+        // UnsizedParam's `my_type_t` keeps an unbound X-1.
+        // Read the object the DEF-view parameter actually BINDS, never the
+        // defMap.paramTs entry: paramTs can hold a clone the def view then
+        // discarded in favour of a shared package typespec, and pointing an
+        // elab ref at that discarded clone resurrects a whole orphan subtree
+        // into the dump (ParameterInitializedInTopOf5LevelHierarchy TargetCfg).
+        const DefinitionSymbol* defSym9 = nullptr;
+        if (auto* psc9 = ps->getParentScope();
+            psc9 && psc9->asSymbol().kind == SymbolKind::InstanceBody)
+            defSym9 = &psc9->asSymbol()
+                           .as<InstanceBodySymbol>()
+                           .getDefinition();
+        auto defParamTs = [&]() -> UHDM::typespec* {
+            if (!defSym9)
+                return nullptr;
+            auto dit9 = defMap.find(defSym9);
+            if (dit9 == defMap.end() || !dit9->second.mod ||
+                dit9->second.mod->UhdmType() != UHDM::uhdmmodule_inst)
+                return nullptr;
+            auto* dm9 = (UHDM::module_inst*)dit9->second.mod;
+            if (!dm9->Parameters())
+                return nullptr;
+            // A uniquified instance body owns its OWN ParameterSymbols, so the
+            // def object is found by name, not by symbol pointer.
+            for (auto* dp9 : *dm9->Parameters())
+                if (dp9->UhdmType() == UHDM::uhdmparameter &&
+                    dp9->VpiName() == ps->name)
+                    if (auto* rt9 = ((UHDM::parameter*)dp9)->Typespec())
+                        return rt9->Actual_typespec();
+            return nullptr;
+        };
+        // defParamTs() is only consulted for the def object's NAME below; the
+        // IDENTITY is resolved in drainShareDefParamTs, because the def
+        // parameter's own typespec is still re-bound by later deferred passes.
+        // Park the share rather than binding it here.
+        auto shareDefParamTs = [&](UHDM::ref_typespec* rt9) {
+            if (defSym9)
+                pendingShareDefParamTs.push_back(
+                    {rt9, defSym9, std::string(ps->name)});
+        };
+        // A cont-assign whose LHS is an IMPLICIT (never declared) net does NOT
+        // drive Surelog's read rewrite. Measured on a four-way ablation of the
+        // UnsizedParam body (Surelog -elabuhdm, `parameter my_type_t Y = '1`
+        // in a twice-instantiated submodule, /tmp/r10ab):
+        //   assign a = int'(Y);  `a` undeclared        -> SHARED def ts
+        //   assign a = int'(Y);  `a` = output int port -> fresh bare ts
+        //   assign a = int'(Y);  `a` = logic [31:0]    -> fresh bare ts
+        //   no cont-assign at all                      -> SHARED def ts
+        // Only the LHS declaration changes across the pair, so the implicit
+        // net -- not the port list, not the cast -- is the distinguisher.
+        auto caReadThroughRealLhs = [&]() {
+            const Scope* body9 = nullptr;
+            for (auto* sc9 = ps->getParentScope(); sc9;
+                 sc9 = sc9->asSymbol().getParentScope())
+                if (sc9->asSymbol().kind == SymbolKind::InstanceBody) {
+                    body9 = sc9;
+                    break;
+                }
+            if (!body9)
+                return true;
+            for (auto& mb9 : body9->members()) {
+                if (mb9.kind != SymbolKind::ContinuousAssign)
+                    continue;
+                auto& asn9 = mb9.as<ContinuousAssignSymbol>().getAssignment();
+                if (asn9.kind != ExpressionKind::Assignment)
+                    continue;
+                auto& ae9 = asn9.as<AssignmentExpression>();
+                auto& lhs9 = stripImplicitConv(ae9.left());
+                if (lhs9.kind == ExpressionKind::NamedValue) {
+                    auto& lsym9 = lhs9.as<NamedValueExpression>().symbol;
+                    if (lsym9.kind == SymbolKind::Net &&
+                        lsym9.as<NetSymbol>().isImplicit)
+                        continue; // implicit LHS: no rewrite
+                }
+                bool reads9 = false;
+                ae9.right().visit(makeVisitor(
+                    [&](auto& v9, const NamedValueExpression& nv9) {
+                        if (nv9.symbol.name == ps->name)
+                            reads9 = true;
+                        v9.visitDefault(nv9);
+                    }));
+                if (reads9)
+                    return true;
+            }
+            return false;
+        };
         if (rhsRt && !opClone) {
             // The ELAB UINT-recomputed fold ('1 -> all-ones) of a VECTOR
             // param binds a fresh LOC-LESS bare clone (unparented bounds,
@@ -9768,9 +9866,18 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             // An OVERRIDDEN param keeps its located ts even when read (probe
             // p5, the same eight declarations with #(.B1(5'd9), ...)), which
             // is what the isOverriddenParam guard already says.
+            // ...and a param typed by a NAMED vector typedef whose only reads
+            // go through implicit-net cont-assigns is never rewritten at all:
+            // it keeps the SHARED def object (UnsizedParam Y). See
+            // caReadThroughRealLhs for the ablation that isolates this.
             else if ((unbasedSharedActive || readFold9) &&
                 (typedParam || (readFold9 && isRangedUntypedParam(*ps))) &&
                 !isOverriddenParam(*ps) &&
+                [&] {
+                    auto* d9 = defParamTs();
+                    return !d9 || d9->VpiName().empty() ||
+                           caReadThroughRealLhs();
+                }() &&
                 ps->getType().getCanonicalType().isPackedArray()) {
                 // A DEGENERATE unbased fill ('0/'x/'z, BIN) binds the SAME
                 // loc-less bare vec ts as the '1 (UINT) recompute (Surelog).
@@ -9838,8 +9945,13 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                     bi9->VpiSigned(true);
                 rhsRt->Actual_typespec(bi9);
             }
-            else
+            // Default: SHARE the module def's parameter typespec object (see
+            // the defParamTs note above). `its` is bound as the fallback the
+            // final drain keeps if the def view has no matching object.
+            else {
                 rhsRt->Actual_typespec(its);
+                shareDefParamTs(rhsRt);
+            }
         }
         prt->Actual_typespec(its);
         elabParamOwnTs[ps] = its;
@@ -9885,10 +9997,15 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             }
             unbasedOvCloneTsRef.erase(cit);
         }
-        // No-default override fold-constant ts refs share this elab ts.
+        // No-default override fold-constant ts refs take the same SHARED def
+        // object as an ordinary Rhs constant (defParamTs above): a no-default
+        // param is exactly the overridden case, and PartSelect4's
+        // `bit [N*4-1:0] DReqDepth` reaches its def typespec only here.
         if (auto nit = noDefOvTsRef.find(ps); nit != noDefOvTsRef.end()) {
-            for (auto* r0 : nit->second)
+            for (auto* r0 : nit->second) {
                 r0->Actual_typespec(its);
+                shareDefParamTs(r0);
+            }
             noDefOvTsRef.erase(nit);
         }
         // A param used as a cast width hangs a vpiExpr ref on its def-view
@@ -9909,6 +10026,38 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
         }
         (void)up;
     }
+}
+
+// Point every parked elab param_assign Rhs ts ref at the module DEF
+// parameter's FINAL typespec object -- Surelog's elab override constants refer
+// to the def object rather than to a per-instance clone, which is what lets
+// UHDM's ElaboratorListener reach a def-view typespec from inside an instance
+// and bind (then fold) the parameter refs in its ranges. Runs last because the
+// def parameter's own typespec is still re-bound by several deferred passes;
+// a ref parked here keeps the elab clone it already has whenever the def view
+// ends up with no object, or with one of a different kind (a shape change
+// means the elab value was retyped and owns its typespec).
+void UhdmExporter::drainShareDefParamTs() {
+    for (auto& e : pendingShareDefParamTs) {
+        auto dit = defMap.find(e.def);
+        if (dit == defMap.end() || !dit->second.mod ||
+            dit->second.mod->UhdmType() != UHDM::uhdmmodule_inst)
+            continue;
+        auto* dm = (UHDM::module_inst*)dit->second.mod;
+        if (!dm->Parameters())
+            continue;
+        for (auto* dp : *dm->Parameters()) {
+            if (dp->UhdmType() != UHDM::uhdmparameter || dp->VpiName() != e.name)
+                continue;
+            auto* drt = ((UHDM::parameter*)dp)->Typespec();
+            UHDM::typespec* dts = drt ? drt->Actual_typespec() : nullptr;
+            auto* cur = e.rt->Actual_typespec();
+            if (dts && cur && dts != cur && dts->UhdmType() == cur->UhdmType())
+                e.rt->Actual_typespec(dts);
+            break;
+        }
+    }
+    pendingShareDefParamTs.clear();
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef

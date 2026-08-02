@@ -1086,7 +1086,7 @@ ParamTypespec2,testflags,CMP_NOTEQUAL,decompile:,,
 PartSelect3,default,CMP_EQUAL,,,differ
 PartSelect3,testflags,CMP_EQUAL,,,differ
 PartSelect4,default,CMP_EQUAL,,,differ
-PartSelect4,testflags,CMP_NOTEQUAL,decompile:,,
+PartSelect4,testflags,CMP_EQUAL,,,differ
 PartSelectElab,default,CMP_EQUAL,,,match
 PartSelectElab,testflags,CMP_EQUAL,,,match
 PartSelectHier,default,CMP_EQUAL,,,match
@@ -1394,7 +1394,7 @@ TypespecBits,testflags,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [
 TypespecExpr,default,CMP_EQUAL,,,match
 TypespecExpr,testflags,CMP_EQUAL,,,differ
 TypespecMask,default,CMP_EQUAL,,,match
-TypespecMask,testflags,CMP_NOTEQUAL,decompile:,,
+TypespecMask,testflags,CMP_EQUAL,,,match
 Udp,default,CMP_EQUAL,,,differ
 Udp,testflags,CMP_EQUAL,,,differ
 UhdmCoverage,default,SLANG_REJECT,dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
@@ -1474,7 +1474,7 @@ UnsizedLiteral2,testflags,CMP_EQUAL,,,differ
 UnsizedPacked,default,SLANG_REJECT,dut.sv:5:5: error: dimension requires a constant range,,
 UnsizedPacked,testflags,SLANG_REJECT,dut.sv:5:5: error: dimension requires a constant range,,
 UnsizedParam,default,CMP_EQUAL,,,differ
-UnsizedParam,testflags,CMP_NOTEQUAL,decompile:,,
+UnsizedParam,testflags,CMP_EQUAL,,,differ
 UnsupportedTypespecRange,default,CMP_EQUAL,,,differ
 UnsupportedTypespecRange,testflags,CMP_EQUAL,,,differ
 UtdSV,default,SLANG_REJECT,error: no input files,,
