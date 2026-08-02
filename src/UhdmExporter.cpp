@@ -3479,6 +3479,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     }
     pendingForeachArrayTs.clear();
 
+    // A shadowing foreach loop variable mirrors the declaration's typespec.
+    for (auto& [dst9, src9] : pendingLoopVarTs9)
+        if (!dst9->Actual_typespec() && src9->Actual_typespec())
+            dst9->Actual_typespec(src9->Actual_typespec());
+    pendingLoopVarTs9.clear();
+
     // $signed/$unsigned result typespecs: share the LHS port's actual typespec
     // (no tail duplicate); fall back to a fresh one for non-port LHSs.
     for (auto& p : pendingSysFuncTs) {

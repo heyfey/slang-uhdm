@@ -54,6 +54,17 @@ bool UhdmExporter::elabInvoked(const SubroutineSymbol& sub) {
     return elabCalledSubs->count(&sub) != 0;
 }
 
+bool UhdmExporter::isTaskScopeParam9(const Symbol& sym) {
+    if (sym.kind != SymbolKind::Parameter)
+        return false;
+    auto* ps = sym.getParentScope();
+    if (!ps)
+        return false;
+    auto& owner = ps->asSymbol();
+    return owner.kind == SymbolKind::Subroutine &&
+           owner.as<SubroutineSymbol>().subroutineKind == SubroutineKind::Task;
+}
+
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiLineNo(src->VpiLineNo());
     dst->VpiColumnNo(src->VpiColumnNo());
@@ -183,6 +194,9 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
     av->Variables(rv0);
+    // A foreach over this queue / dynamic array binds THIS array_typespec
+    // (its loop variables still take the ELEMENT type — probe r10c4_p6).
+    arrayVarArrayTs[&vs] = ats;
     return av;
 }
 
@@ -462,8 +476,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             tf->VpiAccessType(3);
             tf->VpiDPICStr(2);
         }
-        else if (sub.defaultLifetime == VariableLifetime::Automatic && !classScope) {
-            tf->VpiAutomatic(true);
+        else if (sub.defaultLifetime == VariableLifetime::Automatic &&
+                 !classScope) {
+            // ...but only when the subroutine SAYS `automatic` itself. slang
+            // reports the effective lifetime, which a `module automatic`
+            // header hands down to every subroutine in it; Surelog reads the
+            // declaration's own qualifier and leaves the inherited case
+            // unmarked (FuncStatic: `module automatic test(); function
+            // integer accumulate2(...)` carries no vpiAutomatic).
+            bool ownAuto9 = true;
+            if (auto lsyn9 = sub.getSyntax())
+                if (auto* fd9 = lsyn9->as_if<syntax::FunctionDeclarationSyntax>())
+                    ownAuto9 = fd9->prototype->lifetime.valueText() == "automatic";
+            if (ownAuto9)
+                tf->VpiAutomatic(true);
         }
         // An `extern` PROTOTYPE spans its own declaration, and the same
         // qualifier-collapse artifact applies as for `static`: a FUNCTION
@@ -1480,6 +1506,64 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
 
         emitParameters(sub, tf, fullName, funcMap, /*topView=*/false, nullptr,
                        /*inPackage=*/false, /*topShareTs=*/false, /*funcScope=*/true);
+        // A TASK-scope parameter is a body STATEMENT, not a task property:
+        // Surelog drops the vpiParameter listing entirely and keeps the
+        // parameter only as its param_assign's Lhs -- whole-declarator span
+        // (the assign's own), vpiLocalParam, no typespec and no value -- with
+        // the value expression left unparented and untyped. The param_assign
+        // itself moves into the body begin (StmtEmit's statement-list arm
+        // prepends it and re-parents it there). A FUNCTION keeps the ordinary
+        // function-level model: probe r10c4_p1's `function int F; parameter
+        // flen = 11; ...` dumps vpiParameter + a function-parented
+        // param_assign byte-identically today.
+        std::vector<UHDM::param_assign*> taskBodyPa9;
+        std::vector<SourceRange> taskBodyPaAnchor9;
+        if (sub.subroutineKind == SubroutineKind::Task && tf->Param_assigns()) {
+            for (auto* pa9 : *tf->Param_assigns()) {
+                taskBodyPa9.push_back(pa9);
+                if (auto* lhs9 = pa9->Lhs();
+                    lhs9 && lhs9->UhdmType() == UHDM::uhdmparameter) {
+                    auto* pv9 = (UHDM::parameter*)lhs9;
+                    pv9->VpiLineNo(pa9->VpiLineNo());
+                    pv9->VpiColumnNo(pa9->VpiColumnNo());
+                    pv9->VpiEndLineNo(pa9->VpiEndLineNo());
+                    pv9->VpiEndColumnNo(pa9->VpiEndColumnNo());
+                    pv9->VpiLocalParam(true);
+                    pv9->Typespec(nullptr);
+                    pv9->VpiValue(std::string());
+                }
+                if (auto* rhs9 = pa9->Rhs();
+                    rhs9 && rhs9->UhdmType() == UHDM::uhdmconstant) {
+                    ((UHDM::constant*)rhs9)->Typespec(nullptr);
+                    rhs9->VpiParent(nullptr);
+                }
+            }
+            tf->Parameters(nullptr);
+            // ...and it is not in the body's scope either: a body reference to
+            // the name resolves to NOTHING and mints an implicit wire in the
+            // enclosing module, exactly like any other unresolved bare name
+            // (probe r10c4_p1 C/D: `$display(clen)` binds work@m.clen, a
+            // module-level logic_net, not the parameter).
+            for (auto& pm9 : sub.members())
+                if (pm9.kind == SymbolKind::Parameter)
+                    funcMap.erase(&pm9);
+            // The declaration's WHOLE statement span (`parameter x = 1;`,
+            // keyword through semicolon) is what the wrapper anchors at when
+            // a parameter happens to be the body's second item.
+            for (auto& pm9 : sub.members()) {
+                if (pm9.kind != SymbolKind::Parameter)
+                    continue;
+                auto* psyn9 = pm9.getSyntax();
+                while (psyn9 && psyn9->parent &&
+                       psyn9->kind !=
+                           syntax::SyntaxKind::ParameterDeclarationStatement)
+                    psyn9 = psyn9->parent;
+                if (psyn9)
+                    taskBodyPaAnchor9.push_back(psyn9->sourceRange());
+            }
+            taskBodyPaAnchor9.resize(taskBodyPa9.size(),
+                                     SourceRange::NoLocation);
+        }
         if (m->UhdmType() == UHDM::uhdmmodule_inst) {
             implicitNetModule = (UHDM::module_inst*)m;
             implicitNetPrefix = prefix;
@@ -1549,8 +1633,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // SHARED by the reg and the array_typespec's Elem_typespec.
                 // Surelog, probe-verified for class-handle and int elements
                 // (ClassVar / LocalScopeHierPath / ArrayMethodIterator).
-                if (auto* av = makeQueueDynArrayVar(
-                        fmv, fullName + sep + std::string(fmv.name), tf)) {
+                // ...but ONLY under the BLOCK-ITEM production. A TF-ITEM body
+                // (paren-less function header) models every array local as a
+                // plain ELEMENT variable at the declared-type span instead —
+                // no array_var, no element reg, no unpacked range — for
+                // queues, dynamic arrays and fixed-size arrays alike (probes
+                // r10c4_p9/p10: `function int f; int lq[$];` dumps an
+                // automatic int_var, its `function int f();` twin an
+                // array_var).
+                if (auto* av = !blockItems9
+                                   ? nullptr
+                                   : makeQueueDynArrayVar(
+                                         fmv,
+                                         fullName + sep + std::string(fmv.name),
+                                         tf)) {
                     funcMap[&fmv] = av;
                     fvars->push_back(av);
                     continue;
@@ -1559,7 +1655,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // vpiReg is the element var (int_var); the array_typespec
                 // (not the array_var) carries the unpacked-dim range, and its
                 // Elem_typespec is SHARED with the reg. Not a flat var.
-                if (fmv.getDeclaredType()->getType().getCanonicalType().kind ==
+                if (blockItems9 &&
+                    fmv.getDeclaredType()->getType().getCanonicalType().kind ==
                     SymbolKind::FixedSizeUnpackedArrayType) {
                     std::string afull = fullName + sep + std::string(fmv.name);
                     const Type* leaf = &fmv.getDeclaredType()->getType().getCanonicalType();
@@ -1667,6 +1764,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     rv->push_back(reg);
                     av->Variables(rv);
                     funcMap[&fmv] = av;
+                    // A foreach over this array binds THIS array_typespec —
+                    // both for the iterated-array ref (which used to mint a
+                    // fresh unlocated one) and for the loop variables.
+                    arrayVarArrayTs[&fmv] = ats;
+                    tfLocalArrayTs9[&fmv] = ats;
                     fvars->push_back(av);
                     continue;
                 }
@@ -1834,8 +1936,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (!v && onDemandClassTypedefs.count(
                               (const void*)&fmv.getDeclaredType()->getType()))
                     v = s.MakeClass_var();
-                if (!v)
-                    v = makeReturnVar(s, fmv.getDeclaredType()->getType());
+                if (!v) {
+                    const Type* lt9 = &fmv.getDeclaredType()->getType();
+                    // A TF-ITEM body models an array local by its ELEMENT
+                    // variable — the array_var arms above are BLOCK-item only
+                    // (probes r10c4_p9/p10) — matching the element typespec
+                    // makeTypespec already looks through the dims for.
+                    while (!blockItems9) {
+                        auto& ct9 = lt9->getCanonicalType();
+                        if (ct9.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                            lt9 = &ct9.as<FixedSizeUnpackedArrayType>()
+                                       .elementType;
+                        else if (ct9.kind == SymbolKind::QueueType)
+                            lt9 = &ct9.as<QueueType>().elementType;
+                        else if (ct9.kind == SymbolKind::DynamicArrayType)
+                            lt9 = &ct9.as<DynamicArrayType>().elementType;
+                        else
+                            break;
+                    }
+                    v = makeReturnVar(s, *lt9);
+                }
                 v->VpiName(fmv.name);
                 v->VpiFullName(vfull);
                 v->VpiParent(tf);
@@ -2027,11 +2147,51 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             cloneMode || (pkgScope && !classScope && !pkgTopEmit);
         auto* savedBodyStmt9 = tfBodyStmt9;
         bool savedBodyIo9 = tfBodyTfItems9;
+        auto savedBodyPa9 = std::move(tfBodyPa9);
+        auto savedBodyPaAnch9 = std::move(tfBodyPaAnchor9);
         tfBodyStmt9 = (const void*)&sub.getBody();
         tfBodyTfItems9 = !blockItems9;
+        tfBodyPa9 = taskBodyPa9;
+        tfBodyPaAnchor9 = taskBodyPaAnchor9;
+        bool savedPaUsed9 = tfBodyPaUsed9;
+        tfBodyPaUsed9 = false;
         auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
+        bool paUsed9 = tfBodyPaUsed9;
+        tfBodyPaUsed9 = savedPaUsed9;
         tfBodyStmt9 = savedBodyStmt9;
         tfBodyTfItems9 = savedBodyIo9;
+        tfBodyPa9 = std::move(savedBodyPa9);
+        tfBodyPaAnchor9 = std::move(savedBodyPaAnch9);
+        // A body that is a SINGLE statement (an explicit `begin..end`, or one
+        // bare statement) never reaches the statement-list arm, so the
+        // param-carrying wrapper is built here instead — same shape, same
+        // second-item anchor (probe r10c4_p1 C/D).
+        if (body && !taskBodyPa9.empty() && !paUsed9) {
+            auto* ub9 = s.MakeBegin();
+            ub9->VpiFullName(fullName);
+            ub9->VpiParent(tf);
+            std::vector<SourceRange> items9;
+            for (auto& pr9 : taskBodyPaAnchor9)
+                if (pr9.start())
+                    items9.push_back(pr9);
+            const Statement& bstmt9 = sub.getBody();
+            items9.push_back(bstmt9.syntax ? bstmt9.syntax->sourceRange()
+                                           : bstmt9.sourceRange);
+            std::stable_sort(items9.begin(), items9.end(),
+                             [](const SourceRange& a, const SourceRange& b) {
+                                 return a.start() < b.start();
+                             });
+            setLoc(ub9, items9.size() >= 2 ? items9[1] : items9[0]);
+            auto* bstmts9 = s.MakeAnyVec();
+            for (auto* pa9 : taskBodyPa9) {
+                pa9->VpiParent(ub9);
+                bstmts9->push_back(pa9);
+            }
+            body->VpiParent(ub9);
+            bstmts9->push_back(body);
+            ub9->Stmts(bstmts9);
+            body = ub9;
+        }
         classMethodNoBind = savedCMNB;
         pkgDefViewBody9 = savedPDV9;
         if (body)

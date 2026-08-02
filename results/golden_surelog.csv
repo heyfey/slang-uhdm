@@ -213,7 +213,7 @@ ClassExtendParam,default,SLANG_REJECT,dut.sv:16:32: error: implementation not fo
 ClassExtendParam,testflags,SLANG_REJECT,dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wmember-impl-not-found],,
 ClassExtends,default,CMP_EQUAL,,,differ
 ClassExtends,testflags,CMP_EQUAL,,,differ
-ClassFsm,default,CMP_NOTEQUAL,decompile:,,
+ClassFsm,default,CMP_EQUAL,,,differ
 ClassFsm,testflags,CMP_EQUAL,,,differ
 ClassFuncProto,default,SLANG_REJECT,top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
 ClassFuncProto,testflags,SLANG_REJECT,top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
@@ -471,8 +471,8 @@ ForeachClassParent,default,SLANG_REJECT,dut.sv:4:13: error: identifier 'uvm_phas
 ForeachClassParent,testflags,SLANG_REJECT,dut.sv:4:13: error: identifier 'uvm_phase' used before its declaration,,
 ForeachForeach,default,SLANG_REJECT,dut.sv:8:17: error: out-of-block definition of 'get_adjacent_predecessor_nodes' does not match any declaration in 'uvm_phase',,
 ForeachForeach,testflags,SLANG_REJECT,dut.sv:8:17: error: out-of-block definition of 'get_adjacent_predecessor_nodes' does not match any declaration in 'uvm_phase',,
-ForeachFunction,default,CMP_NOTEQUAL,decompile:,,
-ForeachFunction,testflags,CMP_NOTEQUAL,decompile:,,
+ForeachFunction,default,CMP_EQUAL,,,match
+ForeachFunction,testflags,CMP_EQUAL,,,differ
 ForeachSquare,default,CMP_EQUAL,,,differ
 ForeachSquare,testflags,CMP_EQUAL,,,differ
 ForElab,default,SLANG_REJECT,top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
@@ -533,8 +533,8 @@ FuncReturnRange,default,CMP_EQUAL,,,differ
 FuncReturnRange,testflags,CMP_EQUAL,,,differ
 FuncSideEffect,default,CMP_EQUAL,,,match
 FuncSideEffect,testflags,CMP_EQUAL,,,match
-FuncStatic,default,CMP_NOTEQUAL,decompile:,,
-FuncStatic,testflags,CMP_NOTEQUAL,decompile:,,
+FuncStatic,default,CMP_EQUAL,,,match
+FuncStatic,testflags,CMP_EQUAL,,,match
 FuncStruct,default,CMP_NOTEQUAL,decompile:,,
 FuncStruct,testflags,CMP_NOTEQUAL,decompile:,,
 FuncStructVal,default,CMP_NOTEQUAL,decompile:,,
@@ -1321,8 +1321,8 @@ TaskBind,default,CMP_EQUAL,,,match
 TaskBind,testflags,CMP_EQUAL,,,match
 TaskDeclNoOrder,default,SLANG_REJECT,dut.sv:17:9: error: use of undeclared identifier 'set_ibias_en',,
 TaskDeclNoOrder,testflags,SLANG_REJECT,dut.sv:17:9: error: use of undeclared identifier 'set_ibias_en',,
-TaskDecls,default,CMP_NOTEQUAL,decompile:,,
-TaskDecls,testflags,CMP_NOTEQUAL,decompile:,,
+TaskDecls,default,CMP_EQUAL,,,match
+TaskDecls,testflags,CMP_EQUAL,,,differ
 TaskDeclTypes,default,CMP_EQUAL,,,differ
 TaskDeclTypes,testflags,CMP_EQUAL,,,differ
 TaskProto,default,CMP_EQUAL,,,match

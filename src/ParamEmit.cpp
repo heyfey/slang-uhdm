@@ -1807,6 +1807,25 @@ static bool hasSignExtendedShift(const SubroutineSymbol& sub) {
     return found;
 }
 
+// A body local declared `static` WITH an initializer. slang follows the LRM
+// here — a static initializer runs once at time 0, so a constant-function call
+// sees the variable at its default (0) — while Surelog's EvalFunc replays the
+// declaration like any other and starts from the written value. Our own
+// replay (SrlgFold) agrees with Surelog, so route these calls through it
+// (FuncStatic: `function static integer accumulate1(input integer value);
+// static int acc = 1; acc = acc + value; return acc;` folds 3, not 2).
+static bool hasStaticLocalInit(const SubroutineSymbol& sub) {
+    bool found = false;
+    sub.getBody().visit(
+        makeVisitor([&](auto& v, const VariableDeclStatement& d) {
+            if (d.symbol.lifetime == VariableLifetime::Static &&
+                d.symbol.getInitializer())
+                found = true;
+            v.visitDefault(d);
+        }));
+    return found;
+}
+
 // A module that IMPORTS (via wildcard or explicit import) and REFERENCES a
 // package parameter materializes it as a module-local parameter (Surelog sets
 // vpiImported = the package name). A QUALIFIED reference (pkg::P) with no
@@ -6887,7 +6906,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             auto iv9 = pv9.integer();
                             // Surelog's 64-bit fold model (srlgFold) beats the
                             // LRM value where a sign-extended `>>` is in play.
-                            if (hasSignExtendedShift(*csub9)) {
+                            if (hasSignExtendedShift(*csub9) ||
+                                hasStaticLocalInit(*csub9)) {
                                 SrlgFold sf9;
                                 if (auto wv9 = sf9.call(
                                         *csub9,

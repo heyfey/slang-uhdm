@@ -917,8 +917,62 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // vpiNullOp operation stands in for each SKIPPED dimension.
             std::vector<std::string> declaredHere;
             auto* lvars = s.MakeAnyVec();
+            // The scope the loop-variable names are resolved AGAINST: the one
+            // enclosing the foreach, skipping the implicit blocks slang wraps
+            // the loop (and any enclosing foreach) in, so only real
+            // declarations are found.
+            const Scope* lvScope9 = nullptr;
+            for (auto& ld0 : fe.loopDims)
+                if (ld0.loopVar) {
+                    lvScope9 = ld0.loopVar->getParentScope();
+                    break;
+                }
+            while (lvScope9 &&
+                   lvScope9->asSymbol().kind == SymbolKind::StatementBlock)
+                lvScope9 = lvScope9->asSymbol().getParentScope();
+            // The emitted object's own typespec, for the ref_var arm below.
+            auto lvActualTs9 = [](UHDM::any* o) -> UHDM::ref_typespec* {
+                if (!o)
+                    return nullptr;
+                if (auto* v0 = any_cast<UHDM::variables*>(o))
+                    return v0->Typespec();
+                if (o->UhdmType() == UHDM::uhdmio_decl)
+                    return ((UHDM::io_decl*)o)->Typespec();
+                if (auto* n0 = any_cast<UHDM::net*>(o))
+                    return n0->Typespec();
+                return nullptr;
+            };
             auto declLoopVar = [&](std::string_view name, SourceRange span) {
                 std::string lvn(name);
+                // A loop-variable name that ALREADY RESOLVES in the enclosing
+                // scope declares nothing: Surelog emits a ref_var over the
+                // existing object's OWN typespec — a formal, a subroutine
+                // local or a module variable alike — and builds a fresh one
+                // per foreach, so a nested loop naming the same formal gets a
+                // second object (probe r10c4_p7 g3).
+                if (lvScope9 && !classMethodNoBind && !pkgDefViewBody9)
+                    if (auto* sh9 = Lookup::unqualified(*lvScope9, lvn))
+                        if (auto sit9 = netMap.find(sh9); sit9 != netMap.end())
+                            if (auto* srcRt9 = lvActualTs9(sit9->second)) {
+                                auto* rv9 = s.MakeRef_var();
+                                rv9->VpiName(name);
+                                rv9->VpiFullName(joinRef(prefix, lvn));
+                                rv9->VpiParent(fs);
+                                setLoc(rv9, span);
+                                auto* srt9 = s.MakeRef_typespec();
+                                srt9->VpiFullName(joinRef(prefix, lvn));
+                                srt9->VpiParent(rv9);
+                                // A module net's own typespec is bound in a
+                                // later pass, so mirror it there too.
+                                if (srcRt9->Actual_typespec())
+                                    srt9->Actual_typespec(
+                                        srcRt9->Actual_typespec());
+                                else
+                                    pendingLoopVarTs9.push_back({srt9, srcRt9});
+                                rv9->Typespec(srt9);
+                                lvars->push_back(rv9);
+                                return;
+                            }
                 // A NESTED foreach re-lists the enclosing loop's variable
                 // OBJECT rather than declaring a second one.
                 if (auto oit = openForeachVars.find(lvn); oit != openForeachVars.end()) {
@@ -951,18 +1005,34 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // The array reference itself did not resolve (classPropArr9),
                 // so Surelog's getSimpleVarFromTypespec has nothing to read
                 // and the loop variable takes the bare int default.
-                UHDM::typespec* lts =
-                    (arrSym && !foreachUnres9) ? makeTypespec(*arrSym) : nullptr;
+                UHDM::typespec* lts = nullptr;
+                UHDM::variables* lv = nullptr;
+                // A SUBROUTINE-LOCAL fixed-size unpacked array hands its whole
+                // array_typespec to the loop variable — shared, not drilled —
+                // which makes the variable an array_var. Module-scope arrays,
+                // queues and dynamic arrays all keep the element form below
+                // (probes r10c4_p4/p5/p6: `task t; int tq[5]; foreach(tq[i])`
+                // yields array_var, `int lq[$]` yields int_var).
+                if (arrSym && !foreachUnres9)
+                    if (auto lat9 = tfLocalArrayTs9.find(arrSym);
+                        lat9 != tfLocalArrayTs9.end()) {
+                        lts = lat9->second;
+                        lv = s.MakeArray_var();
+                    }
+                if (!lv)
+                    lts = (arrSym && !foreachUnres9) ? makeTypespec(*arrSym)
+                                                     : nullptr;
                 // The loop variable takes the array's ELEMENT type, so an
                 // array typespec is drilled through (Surelog's
                 // getSimpleVarFromTypespec recurses the same way).
-                while (lts && lts->UhdmType() == UHDM::uhdmarray_typespec) {
+                while (!lv && lts && lts->UhdmType() == UHDM::uhdmarray_typespec) {
                     auto* ert = ((UHDM::array_typespec*)lts)->Elem_typespec();
                     if (!ert || !ert->Actual_typespec())
                         break;
                     lts = ert->Actual_typespec();
                 }
-                UHDM::variables* lv = lts ? varForTypespec(s, lts) : nullptr;
+                if (!lv)
+                    lv = lts ? varForTypespec(s, lts) : nullptr;
                 if (!lv) {
                     lv = s.MakeInt_var();
                     lts = s.MakeInt_typespec();
@@ -1578,8 +1648,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // threshold it has always had.
             bool bodyBlockDecls9 = tfBodyStmt9 == (const void*)&stmt &&
                                    !tfBodyTfItems9 && !declVars.empty();
+            // Task-scope parameters are body statements (see tfBodyPa9), so
+            // they force the wrapper too: `task t; parameter p = 1; x = 1;
+            // endtask` dumps begin[param_assign, assignment] where the
+            // parameter-free twin dumps the bare assignment. A body with no
+            // statement at all still takes none — the param_assign then stays
+            // parented at the task (probe r10c4_p2 B).
+            bool bodyParams9 =
+                tfBodyStmt9 == (const void*)&stmt && !tfBodyPa9.empty();
+            // A TF-ITEM subroutine body: its locals belong to the subroutine,
+            // so a wrapper begin here neither lists nor owns them.
+            bool bodyTfItems9 =
+                tfBodyStmt9 == (const void*)&stmt && tfBodyTfItems9;
             size_t eff9 = initCount + real.size();
-            if (eff9 == 0 || (eff9 <= 1 && !bodyBlockDecls9)) {
+            if (eff9 == 0 || (eff9 <= 1 && !bodyBlockDecls9 && !bodyParams9)) {
                 UHDM::any* result = nullptr;
                 for (auto st : real)
                     if (auto* u = emitStmt(*st, parent, prefix, netMap))
@@ -1607,7 +1689,45 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (!anch9 && sl.list.size() >= 2 &&
                 sl.list[1]->kind == StatementKind::Block && sl.list[1]->syntax)
                 anch9 = sl.list[1]->syntax;
-            if (anch9)
+            // The item list the "second item" is counted over is the LRM
+            // one, so it excludes a TF-ITEM body's local declarations (they
+            // are tf_item_declarations, not block items) and includes
+            // task-scope parameter declarations, which Surelog turns into
+            // body statements. Probe r10c4_p3: `task A; input B; integer B;
+            // integer internal; internal = 1; B = internal; endtask` anchors
+            // its begin at the SECOND ASSIGNMENT, stepping over the local —
+            // while the block-item twin (no body io) still anchors at its
+            // second item counting the local. TaskDecls and r10c4_p2 C are
+            // the parameter-bearing halves of the same rule.
+            if (bodyParams9 || bodyTfItems9) {
+                std::vector<SourceRange> items9;
+                if (bodyParams9)
+                    for (auto& pr9 : tfBodyPaAnchor9)
+                        if (pr9.start())
+                            items9.push_back(pr9);
+                for (auto st9 : sl.list) {
+                    if (st9->kind == StatementKind::VariableDeclaration) {
+                        if (bodyTfItems9)
+                            continue;
+                        if (auto* dsyn0 = st9->as<VariableDeclStatement>()
+                                              .symbol.getSyntax())
+                            if (dsyn0->parent &&
+                                dsyn0->parent->kind ==
+                                    syntax::SyntaxKind::DataDeclaration) {
+                                items9.push_back(dsyn0->parent->sourceRange());
+                                continue;
+                            }
+                    }
+                    items9.push_back(st9->syntax ? st9->syntax->sourceRange()
+                                                 : st9->sourceRange);
+                }
+                std::stable_sort(items9.begin(), items9.end(),
+                                 [](const SourceRange& a, const SourceRange& b) {
+                                     return a.start() < b.start();
+                                 });
+                setLoc(ub, items9.size() >= 2 ? items9[1] : items9[0]);
+            }
+            else if (anch9)
                 setLoc(ub, anch9->sourceRange());
             else if (sl.list.size() >= 2)
                 setLoc(ub, sl.list[1]->sourceRange);
@@ -1616,10 +1736,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto* bvars = s.MakeVariablesVec();
             bool pkgCtx = prefix.find("::") != std::string::npos;
             for (auto* vsym : declVars)
-                if (auto it = netMap.find(vsym); it != netMap.end()) {
+                if (auto it = netMap.find(vsym);
+                    it != netMap.end() && !bodyTfItems9) {
                     // Block-item locals (and package-scope locals, whose
                     // shape has always been the block one) re-parent at the
-                    // wrapper: it is their declaring scope.
+                    // wrapper: it is their declaring scope. A TF-ITEM body's
+                    // locals stay with the subroutine and are not listed here
+                    // at all (probe r10c4_p3).
                     if (pkgCtx || bodyBlockDecls9)
                         it->second->VpiParent(ub);
                     // An unpacked-array local ALSO lists its element reg
@@ -1634,6 +1757,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (!bvars->empty())
                 ub->Variables(bvars);
             auto* stmts = s.MakeAnyVec();
+            // Task-scope param_assigns LEAD the block and re-parent to it
+            // (they stay listed under the task as vpiParamAssign too).
+            if (bodyParams9) {
+                for (auto* pa9 : tfBodyPa9) {
+                    pa9->VpiParent(ub);
+                    stmts->push_back(pa9);
+                }
+                tfBodyPaUsed9 = true;
+            }
             for (auto* vsym : declVars) {
                 auto* init = vsym->getDeclaredType()->getInitializer();
                 if (!init)

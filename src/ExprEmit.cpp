@@ -3077,12 +3077,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          (nv.symbol.kind == SymbolKind::Iterator ||
                           (nv.symbol.kind == SymbolKind::Parameter &&
                            nv.symbol.getParentScope() &&
-                           nv.symbol.getParentScope()->asSymbol().kind ==
-                               SymbolKind::StatementBlock))) {
+                           (nv.symbol.getParentScope()->asSymbol().kind ==
+                                SymbolKind::StatementBlock ||
+                            isTaskScopeParam9(nv.symbol))))) {
                     // Surelog can't resolve block-scoped localparams, nor a
-                    // foreach loop variable (its declaration is implicit):
-                    // refs bind an implicit module wire minted at the first
-                    // reference.
+                    // foreach loop variable (its declaration is implicit),
+                    // nor a TASK-scope parameter (it is a body statement, not
+                    // a scope member -- see tfBodyPa9): refs bind an implicit
+                    // module wire minted at the first reference.
                     auto& inet = implicitNetMap[&nv.symbol];
                     if (!inet) {
                         inet = s.MakeLogic_net();
@@ -4548,6 +4550,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         eit9 != pkgElabSubTf.end() && eit9->second)
                         siTf = eit9->second;
                 bool isFunc = sub.subroutineKind == SubroutineKind::Function;
+                // An IN-CLASS body calling a method it INHERITED from a base
+                // class: Surelog compiles the class body knowing only that
+                // class's OWN methods, so the name falls through to the
+                // generic call form — a func_call with no binding, even when
+                // the callee is a task. A call to a method of the SAME class
+                // still binds its task/function (ClassFsm: `from_state_00`
+                // calls `next_state_transition` from baseFsm as an unbound
+                // func_call, while `main_comb` calls its sibling
+                // `from_state_00` as a bound task_call).
+                bool inheritedNoBind9 = false;
+                if (classMethodNoBind && currentSubSym)
+                    if (auto* callee9 = sub.getParentScope())
+                        if (auto* caller9 = currentSubSym->getParentScope())
+                            inheritedNoBind9 =
+                                callee9->asSymbol().kind ==
+                                    SymbolKind::ClassType &&
+                                caller9->asSymbol().kind ==
+                                    SymbolKind::ClassType &&
+                                &callee9->asSymbol() != &caller9->asSymbol();
+                if (inheritedNoBind9)
+                    isFunc = true;
                 UHDM::tf_call* fc = isFunc ? (UHDM::tf_call*)s.MakeFunc_call()
                                            : (UHDM::tf_call*)s.MakeTask_call();
                 // Reachability bookkeeping for the in-body operation-arg
@@ -4615,7 +4638,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             v2.push_back({siTf, expr.sourceRange});
                     }
                 }
-                if (isFunc)
+                if (inheritedNoBind9) {
+                    // name only — no vpiFunction / vpiTask
+                }
+                else if (isFunc)
                     ((UHDM::func_call*)fc)->Function(
                         boundClone ? boundClone : (UHDM::function*)siTf);
                 else

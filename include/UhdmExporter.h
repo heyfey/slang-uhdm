@@ -1229,6 +1229,21 @@ private:
     // the body statement(s).
     const void* tfBodyStmt9 = nullptr;
     bool tfBodyTfItems9 = false;
+    // A TASK-scope `parameter`/`localparam` is a body STATEMENT in Surelog:
+    // its param_assign moves into the body `begin` (synthesized for the
+    // purpose when the body has none) and is parented there, while the
+    // parameter object survives only as the assign's Lhs. Carried from
+    // emitTaskFuncs into StmtEmit's statement-list arm, which owns the
+    // wrapper. `tfBodyPaAnchor9` holds each declaration's WHOLE-statement
+    // span: parameter declarations count as body items when the wrapper picks
+    // its anchor (the SECOND item). Functions keep the ordinary
+    // function-level parameter model.
+    std::vector<UHDM::param_assign*> tfBodyPa9;
+    std::vector<slang::SourceRange> tfBodyPaAnchor9;
+    // Set when the statement-list arm took ownership of them; a body that is
+    // a SINGLE statement (`task t; parameter p = 1; x = 1; endtask`) never
+    // reaches that arm, so emitTaskFuncs builds the wrapper itself.
+    bool tfBodyPaUsed9 = false;
     bool callStmtContext = false;
     // Set while emitting an ELABORATED (top-view) module/interface PARAMETER.
     // Surelog builds the [N] -> [0:N-1] "decr by 1" op with an UNPARENTED
@@ -1376,6 +1391,18 @@ private:
     };
     std::vector<PendingForeachTs> pendingForeachArrayTs;
     std::map<const slang::ast::Symbol*, UHDM::typespec*> arrayVarArrayTs;
+    // Subroutine-LOCAL fixed-size unpacked arrays, mapped to the very
+    // array_typespec their array_var carries. A `foreach` over one of these
+    // hands that whole typespec to its implicitly declared loop variables, so
+    // they come out array_var — Surelog's getSimpleVarFromTypespec never sees
+    // an element type here, unlike the module-scope, queue and dynamic-array
+    // cases, which all drill to the element (probes r10c4_p4/p5/p6).
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> tfLocalArrayTs9;
+    // foreach loop variables that shadow an existing declaration share that
+    // declaration's typespec; when the shared ref_typespec is itself bound in
+    // a later pass (module nets), mirror it afterwards.
+    std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>
+        pendingLoopVarTs9;
     // Loop variables of the foreach statements currently open, by name: a
     // NESTED foreach re-lists the enclosing loop's variable OBJECT (Surelog's
     // late-binding swap), it does not declare a second one.
@@ -1586,6 +1613,9 @@ private:
         pendingPkgTsStretch;
     bool implicitNetKeptInElab(const slang::ast::Symbol* sym,
                                const slang::ast::InstanceBodySymbol& body);
+    // A parameter declared in a TASK body: Surelog models it as a body
+    // statement, so it is invisible to the body's own name resolution.
+    static bool isTaskScopeParam9(const slang::ast::Symbol& sym);
     bool implicitNetFromPatternKey(const slang::ast::Symbol* sym,
                                    const slang::ast::InstanceBodySymbol& body);
     std::vector<PendingFuncRet> pendingFuncRet;
