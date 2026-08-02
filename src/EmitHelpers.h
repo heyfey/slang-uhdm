@@ -1659,58 +1659,86 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
     return sorted;
 }
 
-// PACKAGE-SCOPE DATA declarations this body READS or WRITES through a
-// wildcard/explicit import. Surelog MATERIALIZES them into the importing
-// module exactly as it materializes imported parameters (see
+// The packages a module body MATERIALIZES, each with the MULTIPLICITY
+// Surelog copies its contents at, in first-seen order.
+//
+// Measured on a purpose-built Surelog golden triple (r10apb2): a MODULE-scope
+// `import p::*` copies the package's whole variable list into the module
+// ONCE, a COMPILATION-UNIT-scope (file-level) one copies it TWICE, and the
+// two spellings ADD (both together -> three copies). A file-level import only
+// reaches modules written in the SAME FILE — a module in a third file gets
+// nothing — so the buffer must match even when `--single-unit` merges every
+// file into one compilation unit (Surelog's default IS one unit, so the
+// scope alone cannot separate them).
+inline std::vector<std::pair<const PackageSymbol*, int>> collectMaterializedPkgs(
+    const InstanceBodySymbol& body) {
+    std::vector<std::pair<const PackageSymbol*, int>> out;
+    auto add = [&](const PackageSymbol* p, int copies) {
+        if (!p)
+            return;
+        for (auto& e : out)
+            if (e.first == p) {
+                e.second += copies;
+                return;
+            }
+        out.push_back({p, copies});
+    };
+    SourceLocation modLoc = body.getDefinition().location;
+    if (auto* ps = body.getDefinition().getParentScope();
+        ps && ps->asSymbol().kind == SymbolKind::CompilationUnit)
+        for (auto& m : ps->members())
+            if (m.kind == SymbolKind::WildcardImport &&
+                m.location.buffer() == modLoc.buffer())
+                add(m.as<WildcardImportSymbol>().getPackage(), 2);
+    for (auto& m : body.members())
+        if (m.kind == SymbolKind::WildcardImport)
+            add(m.as<WildcardImportSymbol>().getPackage(), 1);
+    return out;
+}
+
+// PACKAGE-SCOPE DATA declarations an import MATERIALIZES into this module.
+// Surelog copies them exactly as it copies imported parameters (see
 // collectImportedParams): the def view lists a wire logic_net named
-// work@<mod>.<v>, the elab view a logic_var. Only INTEGRAL declarations
-// qualify — the string/class-handle arm of the package model is not
-// implemented (ApbSlave residue) and must not be mis-emitted as a net.
-// Source-location ordered, like the parameter list.
+// work@<mod>.<v>, the elab view the package variable's own kind
+// (string_var/class_var/logic_var...).
+//
+// The whole package list rides, in PACKAGE DECLARATION order and whether or
+// not the module reads any of them (Surelog-measured, r10apb2 repro 1: an
+// unread `const string`/`int` pair both materialize) — repeated once per
+// copy (see collectMaterializedPkgs). An EXPLICIT import names one symbol and
+// materializes only that one. The shapes emitPackageVar declines to model
+// (unpacked aggregates, dynamic containers) are dropped here too.
 inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
     const InstanceBodySymbol& body) {
     std::vector<const slang::ast::VariableSymbol*> out;
-    std::set<const Symbol*> wildcardPkgs, explicitSyms;
+    auto modelled = [](const Symbol& v) {
+        const slang::ast::DeclaredType* dt = v.getDeclaredType();
+        if (!dt)
+            return false;
+        switch (dt->getType().getCanonicalType().kind) {
+            case SymbolKind::FixedSizeUnpackedArrayType:
+            case SymbolKind::DynamicArrayType:
+            case SymbolKind::AssociativeArrayType:
+            case SymbolKind::QueueType:
+            case SymbolKind::UnpackedStructType:
+            case SymbolKind::UnpackedUnionType:
+                return false;
+            default:
+                return true;
+        }
+    };
+    for (auto& [pkg, copies] : collectMaterializedPkgs(body))
+        for (int i = 0; i < copies; i++)
+            for (auto& pm : pkg->members())
+                if (pm.kind == SymbolKind::Variable && modelled(pm))
+                    out.push_back(&pm.as<slang::ast::VariableSymbol>());
     for (auto& m : body.members()) {
-        if (m.kind == SymbolKind::WildcardImport) {
-            if (auto* p = m.as<WildcardImportSymbol>().getPackage())
-                wildcardPkgs.insert(p);
-        }
-        else if (m.kind == SymbolKind::ExplicitImport) {
-            if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol())
-                explicitSyms.insert(imp);
-        }
+        if (m.kind != SymbolKind::ExplicitImport)
+            continue;
+        auto* imp = m.as<ExplicitImportSymbol>().importedSymbol();
+        if (imp && imp->kind == SymbolKind::Variable && modelled(*imp))
+            out.push_back(&imp->as<slang::ast::VariableSymbol>());
     }
-    if (wildcardPkgs.empty() && explicitSyms.empty())
-        return out;
-    std::set<const Symbol*> seen;
-    auto v = makeVisitor([&](auto& vis, const NamedValueExpression& nv) {
-        if (nv.symbol.kind == SymbolKind::Variable) {
-            auto sc = nv.symbol.getParentScope();
-            bool imported =
-                explicitSyms.count(&nv.symbol) ||
-                (sc && sc->asSymbol().kind == SymbolKind::Package &&
-                 wildcardPkgs.count(&sc->asSymbol()));
-            const slang::ast::DeclaredType* dt = nv.symbol.getDeclaredType();
-            if (imported && dt &&
-                dt->getType().getCanonicalType().isIntegral() &&
-                !dt->getType().getCanonicalType().isEnum() &&
-                seen.insert(&nv.symbol).second)
-                out.push_back(&nv.symbol.as<slang::ast::VariableSymbol>());
-        }
-        vis.visitDefault(nv);
-    });
-    for (auto& m : body.members()) {
-        if (m.kind == SymbolKind::ContinuousAssign)
-            m.as<ContinuousAssignSymbol>().getAssignment().visit(v);
-        else if (m.kind == SymbolKind::ProceduralBlock)
-            m.as<ProceduralBlockSymbol>().getBody().visit(v);
-    }
-    std::stable_sort(out.begin(), out.end(),
-                     [](const slang::ast::VariableSymbol* a,
-                        const slang::ast::VariableSymbol* b) {
-                         return a->location < b->location;
-                     });
     return out;
 }
 

@@ -1483,6 +1483,12 @@ private:
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>
         pendingAliasChainTgt;
     void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m);
+    /// The DEF view's tail of nets: every bare name a HOISTED class method
+    /// body (see classPropRefs) failed to resolve binds a net of that name
+    /// here, and one is minted into @a nets when the module declares none.
+    void bindHoistedClassPropRefs(const slang::ast::InstanceBodySymbol& body,
+                                  UHDM::instance* m, const std::string& prefix,
+                                  UHDM::VectorOfnet* nets);
     // Straight-line constant reduction of user calls / simple exprs.
     struct CallFold {
         const slang::ast::Expression* lit = nullptr;
@@ -1621,9 +1627,14 @@ private:
     // split documented at the call site in emitPackage): appends the matching
     // variables object to `out`, or appends nothing for a shape that is not
     // modelled yet (unpacked arrays).
-    void emitPackageVar(const slang::ast::Symbol& vs, UHDM::package* up,
+    // Also builds the ELAB-view copy an importing MODULE materializes (same
+    // shape, module parent/prefix) — there @a stampTsInstance is false: the
+    // copy's typespec is re-created at the module and carries no vpiInstance
+    // (Surelog resolves it outside the package's scope).
+    void emitPackageVar(const slang::ast::Symbol& vs, UHDM::instance* up,
                         const std::string& prefix,
-                        UHDM::VectorOfvariables* out);
+                        UHDM::VectorOfvariables* out,
+                        bool stampTsInstance = true);
     // A class's `extends` wiring is deferred: the base class_defn may not exist
     // yet (another package, a later file-level class). Drained once every
     // class_defn is built, derived-class-name-sorted so vpiDerivedClasses lands
@@ -1754,6 +1765,29 @@ private:
     UHDM::package* pkgClassTfClone = nullptr;
     // Second clone pass: constructors only (the first pass skips them).
     bool pkgClassTfCloneCtors = false;
+    // Per CLASS, the out-of-body method DEFINITION objects of its own
+    // (class_defn-parented, bare-named) listing, in emission order —
+    // non-constructors by definition-file order, the constructor last. A
+    // module that IMPORTS the class's home package HOISTS exactly these
+    // objects into its own Task_funcs (see emitImportArtifacts).
+    std::map<const slang::ast::Symbol*, std::vector<UHDM::task_func*>> classOobTfs;
+    // Bare identifier references inside a class method BODY that resolved to
+    // nothing at class scope (a class PROPERTY: Surelog compiles an
+    // out-of-body definition in the package's scope, where the class's own
+    // members are invisible). Recorded in emission order; a module that
+    // hoists the class then binds each to a module net of that name, minting
+    // an implicit wire at the FIRST reference when the module declares none
+    // (ApbSlave success/error_count/running/test_count).
+    struct ClassPropRef {
+        UHDM::ref_obj* ref;
+        std::string name;
+        slang::SourceRange range;
+        const slang::ast::Symbol* homePkg; // the class's package, or null
+    };
+    std::vector<ClassPropRef> classPropRefs;
+    // Set while a CLASS-OWNED method body is emitted (not the package clone
+    // pass, whose refs Surelog leaves unbound).
+    bool inClassBodyEmit = false;
     std::map<const void*, UHDM::package*> pkgDefMap;
     // ELAB/top-view package objects (filled in emitPackage when topView).
     // Module- and package-side cross-view links whose Surelog equivalents reach

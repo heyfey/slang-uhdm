@@ -83,6 +83,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt0, &declSym.getDeclaredType()->getType());
     };
     auto* tfs = s.MakeTask_funcVec();
+    // Captured here: the body-statement local below shadows `body`.
+    const Symbol* scopeSym9 = &body.asSymbol();
     // ---------------------------------------------------------------- items
     // Ordinarily a scope emits its own members. A CLASS whose methods are
     // declared `extern` emits TWO groups: every prototype (in declaration
@@ -221,6 +223,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // PROTOTYPE is virtual — the definition carries the body instead.
         bool oob = isOutOfBody(&member);
         bool oobCtor = oob && sub.name == "new";
+        // The CLASS's own copy of an out-of-body body is where Surelog's
+        // module hoist re-binds unresolvable property names (the package
+        // clone's stay unbound) — see classPropRefs.
+        inClassBodyEmit = oob && classScope && !cloneMode;
         // The instance every typespec minted for THIS subroutine takes.
         UHDM::instance* tsInst = (pkgScope && !classScope)
                                      ? (UHDM::instance*)m
@@ -1915,7 +1921,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         currentSubSym = &sub;
         bool selOwner = beginSelTrack();
         bool savedCMNB = classMethodNoBind;
-        classMethodNoBind = classScope;
+        // ...but only for a method written INSIDE the class. An OUT-OF-BODY
+        // definition is compiled in the home PACKAGE's scope, where Surelog
+        // has a full symbol table: its refs bind their io_decl / body local /
+        // enum const everywhere, exactly like a package function's. Measured
+        // on a purpose-built golden holding both spellings of one method
+        // (r10apb2 repro 5) — the in-class twin's identical body binds
+        // nothing outside the if condition.
+        classMethodNoBind = classScope && !oob;
         auto* savedBodyStmt9 = tfBodyStmt9;
         bool savedBodyIo9 = tfBodyTfItems9;
         tfBodyStmt9 = (const void*)&sub.getBody();
@@ -1942,8 +1955,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
 
         if (info)
             info->taskFuncs.push_back(tf);
+        // A module that imports this class's home package HOISTS the class's
+        // own out-of-body DEFINITION objects into its Task_funcs; record them
+        // here, in listing order (see emitImportArtifacts).
+        if (oob && classScope && !cloneMode)
+            classOobTfs[scopeSym9].push_back(tf);
         tfs->push_back(tf);
     }
+    inClassBodyEmit = false;
     if (!tfs->empty()) {
         if (cloneMode) {
             if (auto* ex0 = pkgClassTfClone->Task_funcs())

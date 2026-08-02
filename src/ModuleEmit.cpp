@@ -464,6 +464,75 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     auto explicitPortSyms = explicitPortInternals(body);
     std::set<std::string> defBoundNames;
     collectDefBoundNames(body.getSyntax(), false, defBoundNames);
+    // MATERIALIZED imported package DATA declarations: the def view lists each
+    // as a WIRE logic_net under this module's name, typed by the home
+    // package's DEF typedef object (PackageNet work@test.v). The elab view
+    // turns the same declaration into the package variable's own kind
+    // (emitInstance). The whole group comes FIRST — ahead of the module's own
+    // declarations — and repeats once per import copy (ApbSlave's file-level
+    // `import svunit_pkg::*` lists svunit_version/current_tc twice each).
+    for (auto* iv9 : collectImportedPkgVars(body)) {
+        auto* n9 = s.MakeLogic_net();
+        n9->VpiName(iv9->name);
+        n9->VpiFullName(prefix + "." + std::string(iv9->name));
+        n9->VpiParent(m);
+        setLoc(n9, nameSpan(iv9->location, iv9->name));
+        n9->VpiNetType(vpiNet);
+        const DeclaredType* dt9 = iv9->getDeclaredType();
+        bool typed9 = false;
+        if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias)
+            if (auto ti9 = typedefTs.find(&dt9->getType());
+                ti9 != typedefTs.end()) {
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
+                rt9->VpiParent(n9);
+                // Same SELF-ALIAS clone the package view's own net binds:
+                // a fresh same-named logic_typespec whose Typedef_alias
+                // points back at the package's listed typedef object.
+                UHDM::typespec* bind9 = ti9->second;
+                if (bind9->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto& ta8 = dt9->getType().as<TypeAliasType>();
+                    const syntax::SyntaxNode* tSyn8 = nullptr;
+                    if (auto asyn8 = ta8.getSyntax())
+                        if (asyn8->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tSyn8 =
+                                asyn8->as<syntax::TypedefDeclarationSyntax>().type;
+                    bool savedBTS8 = bypassTypedefShare;
+                    bypassTypedefShare = true;
+                    auto* cl8 = makeTypespec(ta8, tSyn8);
+                    bypassTypedefShare = savedBTS8;
+                    if (cl8 && cl8->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        cl8->VpiName(ti9->second->VpiName());
+                        auto* art8 = s.MakeRef_typespec();
+                        art8->VpiFullName(std::string(ti9->second->VpiName()));
+                        art8->VpiParent(cl8);
+                        art8->Actual_typespec(ti9->second);
+                        ((UHDM::logic_typespec*)cl8)->Typedef_alias(art8);
+                        if (ti9->second->Instance())
+                            cl8->Instance(ti9->second->Instance());
+                        bind9 = cl8;
+                    }
+                }
+                rt9->Actual_typespec(bind9);
+                n9->Typespec(rt9);
+                typed9 = true;
+            }
+        // A non-typedef'd package declaration (`const string`, a class
+        // handle) re-creates its typespec at the module, UNINSTANCED — the
+        // copy is not resolved in the package's scope (ApbSlave).
+        if (!typed9)
+            if (auto* ts9 = makeTypespec(*iv9)) {
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
+                rt9->VpiParent(n9);
+                rt9->Actual_typespec(ts9);
+                n9->Typespec(rt9);
+            }
+        // Only the FIRST copy is the name's binding target.
+        if (!info.nets.count(iv9))
+            info.nets[iv9] = n9;
+        nets->push_back(n9);
+    }
     for (auto& it : collectNetOrder(body)) {
         // The net an EXPLICIT port mints under its own name: bare (no net
         // type, no typespec), anchored at the port-list name, and NOT the
@@ -729,57 +798,6 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         info.nets[it.sym] = n;
         nets->push_back(n);
     }
-    // MATERIALIZED imported package DATA declarations: the def view lists each
-    // as a WIRE logic_net under this module's name, typed by the home
-    // package's DEF typedef object (PackageNet work@test.v). The elab view
-    // turns the same declaration into a logic_var (emitInstance).
-    for (auto* iv9 : collectImportedPkgVars(body)) {
-        auto* n9 = s.MakeLogic_net();
-        n9->VpiName(iv9->name);
-        n9->VpiFullName(prefix + "." + std::string(iv9->name));
-        n9->VpiParent(m);
-        setLoc(n9, nameSpan(iv9->location, iv9->name));
-        n9->VpiNetType(vpiNet);
-        const DeclaredType* dt9 = iv9->getDeclaredType();
-        if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias)
-            if (auto ti9 = typedefTs.find(&dt9->getType());
-                ti9 != typedefTs.end()) {
-                auto* rt9 = s.MakeRef_typespec();
-                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
-                rt9->VpiParent(n9);
-                // Same SELF-ALIAS clone the package view's own net binds:
-                // a fresh same-named logic_typespec whose Typedef_alias
-                // points back at the package's listed typedef object.
-                UHDM::typespec* bind9 = ti9->second;
-                if (bind9->UhdmType() == UHDM::uhdmlogic_typespec) {
-                    auto& ta8 = dt9->getType().as<TypeAliasType>();
-                    const syntax::SyntaxNode* tSyn8 = nullptr;
-                    if (auto asyn8 = ta8.getSyntax())
-                        if (asyn8->kind == syntax::SyntaxKind::TypedefDeclaration)
-                            tSyn8 =
-                                asyn8->as<syntax::TypedefDeclarationSyntax>().type;
-                    bool savedBTS8 = bypassTypedefShare;
-                    bypassTypedefShare = true;
-                    auto* cl8 = makeTypespec(ta8, tSyn8);
-                    bypassTypedefShare = savedBTS8;
-                    if (cl8 && cl8->UhdmType() == UHDM::uhdmlogic_typespec) {
-                        cl8->VpiName(ti9->second->VpiName());
-                        auto* art8 = s.MakeRef_typespec();
-                        art8->VpiFullName(std::string(ti9->second->VpiName()));
-                        art8->VpiParent(cl8);
-                        art8->Actual_typespec(ti9->second);
-                        ((UHDM::logic_typespec*)cl8)->Typedef_alias(art8);
-                        if (ti9->second->Instance())
-                            cl8->Instance(ti9->second->Instance());
-                        bind9 = cl8;
-                    }
-                }
-                rt9->Actual_typespec(bind9);
-                n9->Typespec(rt9);
-            }
-        info.nets[iv9] = n9;
-        nets->push_back(n9);
-    }
     // Each interface port produces a bare logic_net (no typespec) at the port
     // name, so hierarchical references through it resolve.
     for (auto portBase : body.getPortList()) {
@@ -998,6 +1016,14 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 hoistBlk(member.as<StatementBlockSymbol>());
     }
     if (!nets->empty())
+        m->Nets(nets);
+    // ...then the names the HOISTED class method bodies could not resolve
+    // (see classPropRefs): each binds a def-view net of that name, and one is
+    // MINTED at the first reference when the module declares none. They land
+    // after every declaration and before the module's own unbindable names
+    // (a $dumpvars scope argument), which are minted during process emission.
+    bindHoistedClassPropRefs(body, m, prefix, nets);
+    if (!nets->empty() && !m->Nets())
         m->Nets(nets);
 
     // `let` declarations, shared with the elab view (Surelog's
@@ -3162,6 +3188,97 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             if (std::find(v->begin(), v->end(), tf) == v->end())
                 v->push_back(tf);
     }
+    // A module that IMPORTS a package also HOISTS that package's CLASS
+    // machinery: every class's out-of-body method DEFINITION object -- the
+    // class_defn-parented, BARE-named one, not the "class::method" package
+    // clone -- is listed in the module's own Task_funcs, in the package
+    // listing's order (every class's non-constructors in class-declaration
+    // order, THEN every class's constructor, exactly as
+    // emitPackageClassMethodClones orders the package listing), AHEAD of the
+    // module's own subroutines. Both views. Measured on a purpose-built
+    // Surelog golden (r10apb2 repro 1) and on ApbSlave (23 hoisted + 7 own).
+    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+        std::vector<UHDM::task_func*> hoist9;
+        for (int pass9 = 0; pass9 < 2; pass9++)
+            for (auto& [pkg9, cnt9] : collectMaterializedPkgs(body)) {
+                (void)cnt9;
+                for (auto& mem9 : pkg9->members()) {
+                    const ClassType* ct9 = nullptr;
+                    if (mem9.kind == SymbolKind::ClassType)
+                        ct9 = &mem9.as<ClassType>();
+                    else if (mem9.kind == SymbolKind::GenericClassDef) {
+                        if (auto* dsp9 =
+                                mem9.as<GenericClassDefSymbol>()
+                                    .getDefaultSpecialization(*pkg9);
+                            dsp9 && dsp9->kind == SymbolKind::ClassType)
+                            ct9 = &dsp9->as<ClassType>();
+                    }
+                    if (!ct9)
+                        continue;
+                    auto oit9 = classOobTfs.find(ct9);
+                    if (oit9 == classOobTfs.end())
+                        continue;
+                    for (auto* tf9 : oit9->second)
+                        if ((tf9->VpiName() == "new") == (pass9 == 1))
+                            hoist9.push_back(tf9);
+                }
+            }
+        if (!hoist9.empty()) {
+            auto* v9 = m->Task_funcs();
+            if (!v9) {
+                v9 = s.MakeTask_funcVec();
+                m->Task_funcs(v9);
+            }
+            std::vector<UHDM::task_func*> rest9;
+            for (auto* e9 : *v9)
+                if (std::find(hoist9.begin(), hoist9.end(), e9) == hoist9.end())
+                    rest9.push_back(e9);
+            v9->clear();
+            for (auto* e9 : hoist9)
+                v9->push_back(e9);
+            for (auto* e9 : rest9)
+                v9->push_back(e9);
+        }
+    }
+}
+
+// See the header: bind (and where needed MINT) the def-view nets an imported
+// package's hoisted class method bodies reference by a bare name Surelog
+// could not resolve at class scope.
+void UhdmExporter::bindHoistedClassPropRefs(const InstanceBodySymbol& body,
+                                            UHDM::instance* m,
+                                            const std::string& prefix,
+                                            UHDM::VectorOfnet* nets) {
+    if (classPropRefs.empty() || m->UhdmType() != UHDM::uhdmmodule_inst)
+        return;
+    std::set<const Symbol*> pkgs9;
+    for (auto& [pkg9, cnt9] : collectMaterializedPkgs(body)) {
+        (void)cnt9;
+        pkgs9.insert(pkg9);
+    }
+    if (pkgs9.empty())
+        return;
+    for (auto& cpr : classPropRefs) {
+        if (!cpr.homePkg || !pkgs9.count(cpr.homePkg))
+            continue;
+        UHDM::net* bind9 = nullptr;
+        for (auto* n9 : *nets)
+            if (n9->VpiName() == cpr.name) {
+                bind9 = n9;
+                break;
+            }
+        if (!bind9) {
+            auto* inet9 = s.MakeLogic_net();
+            inet9->VpiName(cpr.name);
+            inet9->VpiFullName(prefix + "." + cpr.name);
+            inet9->VpiParent(m);
+            inet9->VpiNetType(1);
+            setLoc(inet9, cpr.range);
+            nets->push_back(inet9);
+            bind9 = inet9;
+        }
+        cpr.ref->Actual_group(bind9);
+    }
 }
 
 // Surelog's vpiDirection for a modport interface port (X_if.mp Y): vpiInput
@@ -4996,20 +5113,39 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         }
     }
     // MATERIALIZED imported package DATA declarations, ELAB view: the same
-    // declaration the def view listed as a wire logic_net becomes a
-    // logic_var with vpiVisibility=1 here, and its typespec is a FRESH
-    // UNQUALIFIED clone of the package typedef (`word`, not
-    // `my_package1::word`) instanced at the home package — Surelog
-    // re-elaborates the type into the importing module (PackageNet).
-    for (auto* iv9 : collectImportedPkgVars(body)) {
-        auto* lv9 = s.MakeLogic_var();
-        lv9->VpiName(iv9->name);
-        lv9->VpiFullName(prefix + "." + std::string(iv9->name));
-        lv9->VpiParent(m);
-        setLoc(lv9, nameSpan(iv9->location, iv9->name));
-        lv9->VpiVisibility(1);
-        const DeclaredType* dt9 = iv9->getDeclaredType();
-        if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias) {
+    // declaration the def view listed as a wire logic_net becomes a variable
+    // here. An INTEGRAL TYPEDEF spelling is a logic_var with vpiVisibility=1
+    // whose typespec is a FRESH UNQUALIFIED clone of the package typedef
+    // (`word`, not `my_package1::word`) instanced at the home package —
+    // Surelog re-elaborates the type into the importing module (PackageNet).
+    // Every other spelling keeps the PACKAGE variable's own kind and fields
+    // (string_var + its const initializer, class_var, int_var — ApbSlave),
+    // which is exactly emitPackageVar's shape, minus the package
+    // vpiInstance. The whole group leads the module's own variables.
+    {
+        auto* mvars9 = s.MakeVariablesVec();
+        for (auto* iv9 : collectImportedPkgVars(body)) {
+            const DeclaredType* dt9 = iv9->getDeclaredType();
+            bool intTypedef9 = dt9 &&
+                               dt9->getType().kind == SymbolKind::TypeAlias &&
+                               dt9->getType().getCanonicalType().isIntegral() &&
+                               !dt9->getType().getCanonicalType().isEnum();
+            if (!intTypedef9) {
+                size_t at9 = mvars9->size();
+                emitPackageVar(*iv9, m, prefix + ".", mvars9,
+                               /*stampTsInstance=*/false);
+                if (mvars9->size() > at9 && !topNets.count(iv9)) {
+                    topNets[iv9] = (*mvars9)[at9];
+                    sigOrder.emplace_back(iv9, (*mvars9)[at9]);
+                }
+                continue;
+            }
+            auto* lv9 = s.MakeLogic_var();
+            lv9->VpiName(iv9->name);
+            lv9->VpiFullName(prefix + "." + std::string(iv9->name));
+            lv9->VpiParent(m);
+            setLoc(lv9, nameSpan(iv9->location, iv9->name));
+            lv9->VpiVisibility(1);
             auto& ta9 = dt9->getType().as<TypeAliasType>();
             const syntax::SyntaxNode* tSyn9 = nullptr;
             if (auto asyn9 = ta9.getSyntax())
@@ -5032,10 +5168,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 rt9->Actual_typespec(cl9);
                 lv9->Typespec(rt9);
             }
+            if (!topNets.count(iv9)) {
+                topNets[iv9] = lv9;
+                sigOrder.emplace_back(iv9, lv9);
+            }
+            mvars9->push_back(lv9);
         }
-        topNets[iv9] = lv9;
-        sigOrder.emplace_back(iv9, lv9);
-        vars->push_back(lv9);
+        if (!mvars9->empty())
+            vars->insert(vars->begin(), mvars9->begin(), mvars9->end());
     }
     if (!nets->empty())
         m->Nets(nets);

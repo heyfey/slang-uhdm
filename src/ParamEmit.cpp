@@ -12289,9 +12289,10 @@ void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
 // purpose-built golden: `string s = "hello"`, `const string cs`, `real r`,
 // `cls_a h`, `int iv`, `logic ls`, `logic [3:0] lv`, `bit bt`, `byte by`,
 // `integer ig`, `shortint si`, `longint li`, `time tm`, `ename ev`, `reg rg`.
-void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::package* up,
+void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
                                   const std::string& prefix,
-                                  UHDM::VectorOfvariables* out) {
+                                  UHDM::VectorOfvariables* out,
+                                  bool stampTsInstance) {
     const DeclaredType* dt = vs.getDeclaredType();
     if (!dt)
         return;
@@ -12359,7 +12360,7 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::package* up,
         // typespec::Compare recurses Instance(), so a missing one is a cmp
         // difference (ApbSlave `const string svunit_version` / the
         // `svunit_testcase current_tc` class handle).
-        if (!ts->Instance())
+        if (stampTsInstance && !ts->Instance())
             ts->Instance(up);
     }
     if (auto* init = dt->getInitializer()) {

@@ -2821,6 +2821,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     ref->Actual_group(inet);
                 }
             }
+            // An OUT-OF-BODY class method is compiled in the home PACKAGE's
+            // scope, where the class's own properties are invisible: Surelog
+            // leaves the reference unbound and a module that HOISTS the
+            // method (see emitImportArtifacts) binds it to a module net of
+            // the same name -- minting an implicit wire at this FIRST
+            // reference when the module declares none. Record in emission
+            // order; that IS the mint order (ApbSlave success@78:17
+            // error_count@91:5 running@150:3 test_count@151:3).
+            if (inClassBodyEmit && !ref->Actual_group()) {
+                auto* csc9 = nv.symbol.getParentScope();
+                if (csc9 && csc9->asSymbol().kind == SymbolKind::ClassType) {
+                    const Symbol* hp9 = nullptr;
+                    if (auto* ps9 = csc9->asSymbol().getParentScope();
+                        ps9 && ps9->asSymbol().kind == SymbolKind::Package)
+                        hp9 = &ps9->asSymbol();
+                    classPropRefs.push_back({ref, std::string(nv.symbol.name),
+                                             expr.sourceRange, hp9});
+                }
+            }
             ref->VpiParent(parent);
             if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==
                 "\\")
@@ -3945,6 +3964,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         case ExpressionKind::Call: {
             auto& call = expr.as<CallExpression>();
             if (!call.isSystemCall()) {
+                bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
                 // Class METHOD calls (bar.set(4)): a method_func_call at the
@@ -3952,6 +3972,57 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (auto psc0 = sub.getParentScope();
                     psc0 && psc0->asSymbol().kind == SymbolKind::ClassType &&
                     call.thisClass()) {
+                    // ...but only as a STATEMENT. In EXPRESSION position the
+                    // same call is a hier_path named "<recv>.<method>" whose
+                    // elements are the receiver ref_obj and the
+                    // method_func_call — the identical statement/expression
+                    // split Surelog's built-in method path already takes (see
+                    // the `stmtCtx` arm below). Measured on ApbSlave
+                    // (`svunit_ut.start();` -> method_func_call,
+                    // `svunit_ut.get_error_count()` in an initializer ->
+                    // hier_path) and on a purpose-built golden where every
+                    // receiver kind — formal, body local, class property,
+                    // module signal — takes the hier_path form in an argument
+                    // list (r10apb2 repro 6).
+                    auto& recv0 = stripImplicitConv(*call.thisClass());
+                    if (!callStmtCtx0 &&
+                        recv0.kind == ExpressionKind::NamedValue) {
+                        std::string rn0(
+                            recv0.as<NamedValueExpression>().symbol.name);
+                        std::string dotted0 = rn0 + "." + std::string(sub.name);
+                        auto* hp0 = s.MakeHier_path();
+                        hp0->VpiName(dotted0);
+                        hp0->VpiFullName(dotted0);
+                        hp0->VpiParent(parent);
+                        setLoc(hp0, expr.sourceRange);
+                        auto* elems0 = s.MakeAnyVec();
+                        auto* r0 = s.MakeRef_obj();
+                        r0->VpiName(rn0);
+                        r0->VpiFullName(rn0); // name-only (dump omits)
+                        r0->VpiParent(hp0);
+                        setLoc(r0, call.thisClass()->sourceRange);
+                        elems0->push_back(r0);
+                        auto* mfc0 = s.MakeMethod_func_call();
+                        mfc0->VpiName(sub.name);
+                        mfc0->VpiParent(hp0);
+                        setLoc(mfc0, nameSpan(
+                                         call.thisClass()->sourceRange.end() + 1,
+                                         sub.name));
+                        auto* margs0 = s.MakeAnyVec();
+                        for (auto arg : call.arguments()) {
+                            bool fs0 = forceConstParent;
+                            if (isLiteralExpr(*arg))
+                                forceConstParent = true;
+                            if (auto* a0 = emitExpr(*arg, mfc0, prefix, netMap))
+                                margs0->push_back(a0);
+                            forceConstParent = fs0;
+                        }
+                        if (!margs0->empty())
+                            mfc0->Tf_call_args(margs0);
+                        elems0->push_back(mfc0);
+                        hp0->Path_elems(elems0);
+                        return hp0;
+                    }
                     auto* mfc = s.MakeMethod_func_call();
                     mfc->VpiName(sub.name);
                     mfc->VpiParent(parent);
