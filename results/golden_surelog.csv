@@ -1211,8 +1211,8 @@ SelectSelect,default,CMP_EQUAL,,,match
 SelectSelect,testflags,CMP_EQUAL,,,match
 SeqDriver,default,CMP_NOTEQUAL,decompile:,,
 SeqDriver,testflags,CMP_NOTEQUAL,decompile:,,
-SequenceInst,default,CMP_NOTEQUAL,decompile:,,
-SequenceInst,testflags,CMP_NOTEQUAL,decompile:,,
+SequenceInst,default,CMP_EQUAL,,,differ
+SequenceInst,testflags,CMP_EQUAL,,,differ
 SeqUseNonTemp,default,SLANG_REJECT,dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
 SeqUseNonTemp,testflags,SLANG_REJECT,dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
 ShiftX,default,CMP_EQUAL,,,match

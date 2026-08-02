@@ -1077,7 +1077,28 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             }
             if (!fdecls->empty())
                 pd->Prop_formal_decls(fdecls);
+            // Surelog compiles the DECLARATION body with the formals left
+            // alone: a formal that HAS a default (`clk = $inferred_clock`,
+            // `rst = $inferred_disable`) still shows up as a formal ref_obj
+            // bound to the leaked module wire, never as the default's
+            // expression.  slang's makeDefault substitutes it (it binds the
+            // default syntax into argumentMap), so the defaults are hidden for
+            // the duration of the call — a formal with no default already
+            // takes the ref path we want (bindAssertionArg answers a null
+            // actual with an Invalid expression, which emitPropFormalRef
+            // turns into the formal ref).
+            std::vector<std::pair<AssertionPortSymbol*, const syntax::PropertyExprSyntax*>>
+                savedDefaults;
+            for (auto& fp0 : prop.membersOfType<AssertionPortSymbol>()) {
+                if (!fp0.defaultValueSyntax)
+                    continue;
+                auto* mut0 = const_cast<AssertionPortSymbol*>(&fp0);
+                savedDefaults.push_back({mut0, mut0->defaultValueSyntax});
+                mut0->defaultValueSyntax = nullptr;
+            }
             auto& defInst = AssertionInstanceExpression::makeDefault(prop);
+            for (auto& [sym0, syn0] : savedDefaults)
+                sym0->defaultValueSyntax = syn0;
             if (defInst.kind == ExpressionKind::AssertionInstance) {
                 auto& aie = defInst.as<AssertionInstanceExpression>();
                 auto* psSpec = s.MakeProperty_spec();
@@ -1095,11 +1116,13 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 const AssertionExpr* pbody = &aie.body;
                 if (pbody->kind == AssertionExprKind::Clocking) {
                     auto& cae = pbody->as<ClockingAssertionExpr>();
+                    propSpecClockEvent = true;
                     if (auto* clk = emitEventExpr(
                             cae.clocking, psSpec,
                             propPrefix + "." + std::string(prop.name),
                             info.nets))
                         psSpec->VpiClockingEvent((UHDM::expr*)clk);
+                    propSpecClockEvent = false;
                     pbody = &cae.expr;
                 }
                 if (auto* bodyE =
@@ -3939,6 +3962,18 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 continue;
             }
         }
+        // A directionless TYPED ANSI port (`module m(logic [3:0] a, b)`)
+        // elaborates as a variable whose typespec Surelog re-creates BARE at
+        // the port NAME — the packed dimensions are dropped, and the def
+        // view's port net carries no typespec to share.
+        bool dirlessPortTs9 = false;
+        if (it.port && ts && ts->UhdmType() == UHDM::uhdmlogic_typespec &&
+            ansiDirectionlessVarPort(*it.sym)) {
+            auto* bts9 = s.MakeLogic_typespec();
+            setLoc(bts9, nameSpan(it.sym->location, it.sym->name));
+            ts = bts9;
+            dirlessPortTs9 = true;
+        }
         UHDM::ref_typespec* rt = nullptr;
         if (!implicitNet && !realVar && !bareImplicit) {
             rt = s.MakeRef_typespec();
@@ -4331,8 +4366,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // a shared decl-group ts ends at the group's last var. ANONYMOUS
             // (empty-named) struct clones parent too
             // (struct_3d_packed_array).
+            // ...but the bare typespec a directionless TYPED ANSI port's
+            // variable gets is created detached (Surelog): no vpiParent.
             if (ts && ts->UhdmType() != UHDM::uhdmenum_typespec &&
-                ts->VpiName().empty())
+                ts->VpiName().empty() && !dirlessPortTs9)
                 ts->VpiParent(v);
             // Initialized plain-typed vars span declarator..init; a var of a
             // pkg typedef-ALIAS type (lc_ctrl_pkg::lc_tx_t x = ...) does too.
@@ -9866,6 +9903,12 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             ports->push_back(p);
             continue;
         }
+        // A directionless TYPED ANSI port (`module m(logic a, b)`) carries no
+        // vpiTypedef in either view (EmitHelpers ansiDirectionlessVarPort).
+        if (ansiDirectionlessVarPort(*internal)) {
+            ports->push_back(p);
+            continue;
+        }
 
         // A top-module port with an INITIALIZER carries a FOLDED-value
         // HighConn (64-bit; a call-fold encodes signed INT, a literal UINT).
@@ -10799,6 +10842,12 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
         // types only the first of them (the later ports carry no vpiTypedef,
         // and their nets go untyped with them).
         if (explicitPort && !explicitPortTs.insert(internal).second) {
+            ports->push_back(p);
+            continue;
+        }
+        // A directionless TYPED ANSI port (`module m(logic a, b)`) carries no
+        // vpiTypedef in either view (EmitHelpers ansiDirectionlessVarPort).
+        if (ansiDirectionlessVarPort(*internal)) {
             ports->push_back(p);
             continue;
         }
@@ -15146,9 +15195,34 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             op->Operands(operands);
             return op;
         }
-        case AssertionExprKind::Clocking:
-            return emitAssertionExpr(ae.as<ClockingAssertionExpr>().expr, parent, prefix,
-                                     netMap);
+        case AssertionExprKind::Clocking: {
+            // A clocking event NESTED inside a sequence (`@clkw w ##1 @clkx x`
+            // — the mid-sequence clock change of SequenceInst's p_multiclock)
+            // becomes a clocked_seq: vpiClockingEvent + vpiSequenceExpr,
+            // spanning the EVENT alone (`@clkx` -> 13:17-13:22), its own refs
+            // bare-named.  The property_spec's OWN clocking is unwrapped by
+            // both callers before they get here, so only nested ones qualify.
+            auto& cae = ae.as<ClockingAssertionExpr>();
+            const TimingControl* tc9 = &cae.clocking;
+            if (tc9->kind == TimingControlKind::Invalid)
+                if (auto* ch9 = tc9->as<InvalidTimingControl>().child)
+                    tc9 = ch9;
+            if (!propDeclScope || tc9->kind != TimingControlKind::SignalEvent)
+                return emitAssertionExpr(cae.expr, parent, prefix, netMap);
+            auto* cs = s.MakeClocked_seq();
+            if (tc9->sourceRange.start() != SourceLocation::NoLocation)
+                setLoc(cs, tc9->sourceRange);
+            // Every formal ref under a clocked_seq is BARE-named (Surelog
+            // scopes them out of the property path: `(clkx)`, `(x)`, `(y)`).
+            bool savedBare9 = bareFormalRefNames;
+            bareFormalRefNames = true;
+            if (auto* clk9 = emitEventExpr(*tc9, cs, prefix, netMap))
+                cs->VpiClockingEvent((UHDM::expr*)clk9);
+            if (auto* se9 = emitAssertionExpr(cae.expr, cs, prefix, netMap))
+                cs->VpiSequenceExpr(se9);
+            bareFormalRefNames = savedBare9;
+            return cs;
+        }
         case AssertionExprKind::Binary: {
             auto& bae = ae.as<BinaryAssertionExpr>();
             // Surelog binds |=> TIGHTER than until: lhs |=> c until d comes
@@ -15234,6 +15308,16 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
                 operands->push_back(e);
             op->Operands(operands);
             return op;
+        }
+        case AssertionExprKind::DisableIff: {
+            // `disable iff (rst) <body>`: Surelog keeps ONLY the disable
+            // CONDITION as the property expression — the controlled property
+            // is dropped.  Same truncation class as the accept_on/reject_on
+            // rule below (SequenceInst's p_triggers: the whole
+            // `(start_event ##0 end_event[->1]) |=> form` body vanishes and
+            // the spec's vpiPropertyExpr is the `rst` ref alone).
+            auto& die = ae.as<DisableIffAssertionExpr>();
+            return emitExpr(die.condition, parent, prefix, netMap);
         }
         case AssertionExprKind::Abort: {
             // accept_on / reject_on (and their sync_ variants): Surelog emits

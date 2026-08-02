@@ -298,6 +298,114 @@ inline bool ansiVarKeywordPort(const Symbol& internal) {
     return false;
 }
 
+// ---- directionless TYPED ANSI ports --------------------------------------
+//
+// `module m(logic a, b, c);` — an ANSI port header that gives a VARIABLE data
+// type but spells NO direction keyword.  The LRM defaults the direction to
+// `inout` (and an inout port must be a net), but Surelog models the signal as
+// a VARIABLE, and three things follow, all measured on single-source pairs
+// against `input logic a, b, c` / `wire a, b` / `input a, b`:
+//
+//   * the ELABORATED view lists it under vpiVariables as a logic_var (with
+//     `input logic a` it stays a logic_net);
+//   * the PORT carries no vpiTypedef at all (a port with an explicit
+//     direction carries one even when it has no data type: `input a`);
+//   * the port that syntactically CARRIES the data type is appended to the
+//     definition's net list AFTER the body declarations —
+//     `module m(logic a, b, logic c, d); logic rst;` gives b, d, rst, a, c.
+//     Continuation ports (b, d), which inherit the header, keep their place.
+//
+// slang resolves the inheritance internally (AnsiPortListBuilder::addInherited
+// hands a continuation port a copy of the previous header's type), so the
+// syntax walk has to redo it: a header with no direction, no `var` and an
+// EMPTY implicit type is a continuation of the nearest preceding port.
+inline bool ansiHeaderIsInherited(const syntax::VariablePortHeaderSyntax& h) {
+    if (h.direction.valid() || h.varKeyword.valid())
+        return false;
+    if (!h.dataType || h.dataType->kind != syntax::SyntaxKind::ImplicitType)
+        return false;
+    auto& it = h.dataType->as<syntax::ImplicitTypeSyntax>();
+    return !it.signing.valid() && it.dimensions.empty();
+}
+
+// The header itself (already known not to be a continuation) is a
+// directionless VARIABLE header.
+//
+// A NAMED type (`dm::hartinfo_t [N-1:0] hartinfo_i`, PortPackage) is EXCLUDED:
+// Surelog keeps such a port a net (struct_net in the elab view) and keeps its
+// vpiTypedef, exactly like a directed port.  Only a BUILTIN data-type keyword
+// flips the port to a variable.  `var` is left to ansiVarKeywordPort, which
+// already covers it and does not carry the ordering/typedef consequences.
+inline bool ansiHeaderIsDirectionlessVar(const syntax::VariablePortHeaderSyntax& h) {
+    if (h.direction.valid() || h.varKeyword.valid())
+        return false;
+    if (!h.dataType || h.dataType->kind == syntax::SyntaxKind::ImplicitType)
+        return false;
+    return h.dataType->kind != syntax::SyntaxKind::NamedType &&
+           h.dataType->kind != syntax::SyntaxKind::TypeReference;
+}
+
+// The ImplicitAnsiPort this port's internal symbol was declared in, or null.
+inline const syntax::ImplicitAnsiPortSyntax* ansiPortSyntaxOf(const Symbol& internal) {
+    for (auto p = internal.getSyntax(); p; p = p->parent) {
+        if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort)
+            return &p->as<syntax::ImplicitAnsiPortSyntax>();
+        if (p->kind == syntax::SyntaxKind::ModuleDeclaration)
+            break;
+    }
+    return nullptr;
+}
+
+// This port syntactically CARRIES a directionless variable data type (the
+// deferral key for the def-view net order).
+inline bool ansiTypedVarPortHead(const Symbol& internal) {
+    auto* ap = ansiPortSyntaxOf(internal);
+    if (!ap || ap->header->kind != syntax::SyntaxKind::VariablePortHeader)
+        return false;
+    auto& h = ap->header->as<syntax::VariablePortHeaderSyntax>();
+    return !ansiHeaderIsInherited(h) && ansiHeaderIsDirectionlessVar(h);
+}
+
+// This port's EFFECTIVE header (its own, or the one it continues) is a
+// directionless variable header.
+inline bool ansiDirectionlessVarPort(const Symbol& internal) {
+    auto* ap = ansiPortSyntaxOf(internal);
+    if (!ap)
+        return false;
+    if (ap->header->kind != syntax::SyntaxKind::VariablePortHeader)
+        return false;
+    auto& h = ap->header->as<syntax::VariablePortHeaderSyntax>();
+    if (!ansiHeaderIsInherited(h))
+        return ansiHeaderIsDirectionlessVar(h);
+    // Continuation: walk back to the nearest preceding port that owns a
+    // header and answer for that one.
+    const syntax::SyntaxNode* list = ap->parent;
+    if (!list)
+        return false;
+    const syntax::ImplicitAnsiPortSyntax* owner = nullptr;
+    for (size_t ci = 0; ci < list->getChildCount(); ci++) {
+        const syntax::SyntaxNode* cn = list->childNode(ci);
+        if (!cn)
+            continue;
+        if (cn == (const syntax::SyntaxNode*)ap)
+            break;
+        if (cn->kind != syntax::SyntaxKind::ImplicitAnsiPort)
+            continue;
+        auto& cp = cn->as<syntax::ImplicitAnsiPortSyntax>();
+        if (cp.header->kind != syntax::SyntaxKind::VariablePortHeader) {
+            owner = nullptr; // a net/interface header owns the run
+            continue;
+        }
+        if (!ansiHeaderIsInherited(
+                cp.header->as<syntax::VariablePortHeaderSyntax>()))
+            owner = &cp;
+    }
+    if (!owner)
+        return false;
+    return ansiHeaderIsDirectionlessVar(
+        owner->header->as<syntax::VariablePortHeaderSyntax>());
+}
+
 inline const syntax::NetPortHeaderSyntax* ansiNetHeader(const Symbol& internal) {
     for (auto p = internal.getSyntax(); p; p = p->parent) {
         if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort) {
@@ -1412,7 +1520,7 @@ inline std::map<const Symbol*, SourceRange> defImplicitNetLocs(
 }
 
 inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body) {
-    std::vector<NetOrderItem> sorted, implicitPorts, mintedNets;
+    std::vector<NetOrderItem> sorted, implicitPorts, mintedNets, typedVarPorts;
     std::set<const Symbol*> portInternals;
     for (auto pb : body.getPortList()) {
         // A CONCAT port mints its net the same way; the first operand's
@@ -1439,7 +1547,11 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
         }
         portInternals.insert(ps.internalSymbol);
         NetOrderItem it{ps.internalSymbol, &ps, hasBodyDecl(*ps.internalSymbol)};
-        if (it.bodyDecl || hasExplicitDeclLoc(*ps.internalSymbol))
+        // The port that CARRIES a directionless variable data type is
+        // appended after every body declaration (see ansiTypedVarPortHead).
+        if (!it.bodyDecl && ansiTypedVarPortHead(*ps.internalSymbol))
+            typedVarPorts.push_back(it);
+        else if (it.bodyDecl || hasExplicitDeclLoc(*ps.internalSymbol))
             sorted.push_back(it);
         else
             implicitPorts.push_back(it);
@@ -1465,6 +1577,7 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body)
     std::stable_sort(mintedNets.begin(), mintedNets.end(), locLess);
     sorted.insert(sorted.end(), implicitPorts.begin(), implicitPorts.end());
     sorted.insert(sorted.end(), mintedNets.begin(), mintedNets.end());
+    sorted.insert(sorted.end(), typedVarPorts.begin(), typedVarPorts.end());
     return sorted;
 }
 

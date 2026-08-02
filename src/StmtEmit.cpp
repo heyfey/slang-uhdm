@@ -176,6 +176,20 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
                                        const std::string& prefix,
                                        NetMap& netMap) {
     switch (tc.kind) {
+        case TimingControlKind::Invalid: {
+            // A clocking event over a property/sequence FORMAL (`@clk` in
+            // `property p(..., clk = $inferred_clock);`) cannot bind — the
+            // formal reference is an Invalid expression, so slang wraps the
+            // whole SignalEventControl in an InvalidTimingControl.  Surelog
+            // keeps the formal reference (bound to the module wire the formal
+            // leaks), so unwrap and re-emit.
+            auto* ch = propDeclScope ? tc.as<InvalidTimingControl>().child : nullptr;
+            if (!ch) {
+                noteUnsupported("timing control: " + std::string(toString(tc.kind)));
+                return nullptr;
+            }
+            return emitEventExpr(*ch, parent, prefix, netMap);
+        }
         case TimingControlKind::SignalEvent: {
             auto& sec = tc.as<SignalEventControl>();
             if (sec.iffCondition) {
@@ -190,8 +204,38 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
                 case EdgeKind::NegEdge:
                     opType = vpiNegedgeOp;
                     break;
-                case EdgeKind::None:
+                case EdgeKind::None: {
+                    // A bare `@formal` clocking event inside a property
+                    // declaration: the formal ref, spanning the `@` too when
+                    // this is the property_spec's own clocking event.
+                    if (propDeclScope &&
+                        sec.expr.kind == ExpressionKind::Invalid) {
+                        SourceRange nr = sec.expr.sourceRange;
+                        std::string nm;
+                        if (nr.start() != SourceLocation::NoLocation &&
+                            nr.start().valid())
+                            nm = rawText(nr);
+                        if (nm.empty() && sec.expr.syntax &&
+                            sec.expr.syntax->kind ==
+                                syntax::SyntaxKind::IdentifierName) {
+                            nm = std::string(
+                                sec.expr.syntax
+                                    ->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                            nr = sec.expr.syntax->sourceRange();
+                        }
+                        if (!nm.empty()) {
+                            if (propSpecClockEvent &&
+                                tc.sourceRange.start() !=
+                                    SourceLocation::NoLocation)
+                                nr = tc.sourceRange;
+                            if (auto* fr =
+                                    emitPropFormalRef(nm, nr, parent, prefix))
+                                return fr;
+                        }
+                    }
                     return emitExpr(sec.expr, parent, prefix, netMap);
+                }
                 default:
                     noteUnsupported("edge kind");
                     return nullptr;
@@ -360,7 +404,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     if (lst.size() == 1)
                         inner = lst[0];
                 }
-                if (inner->kind == StatementKind::ImmediateAssertion) {
+                // A labelled CONCURRENT assertion inside a statement block
+                // (`else begin a3: assert property(...); end`) is not wrapped
+                // either: the block statement IS the assert_stmt, named and
+                // fullnamed by the label (SequenceInst a3).
+                if (inner->kind == StatementKind::ImmediateAssertion ||
+                    inner->kind == StatementKind::ConcurrentAssertion) {
                     std::string innerPfx = joinRef(prefix, bs.blockSymbol->name);
                     auto* ua = emitStmt(*inner, parent, innerPfx, netMap);
                     if (ua) {
@@ -370,6 +419,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             ((UHDM::immediate_assume*)ua)->VpiName(bs.blockSymbol->name);
                         else if (ua->UhdmType() == UHDM::uhdmimmediate_cover)
                             ((UHDM::immediate_cover*)ua)->VpiName(bs.blockSymbol->name);
+                        else if (auto* cc = any_cast<UHDM::concurrent_assertions*>(ua))
+                            cc->VpiName(bs.blockSymbol->name);
                     }
                     return ua;
                 }

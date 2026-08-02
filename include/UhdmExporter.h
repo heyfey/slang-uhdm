@@ -1694,6 +1694,13 @@ private:
     // Set while emitting a property-decl body: formal refs (which bind as
     // Invalid) resolve through this scope to implicit module wires.
     const slang::ast::Scope* propDeclScope = nullptr;
+    // Set only while emitting a property_spec's OWN vpiClockingEvent: the
+    // formal ref there spans the `@` too (`@clk` -> 9:5-9:9), and so does the
+    // module wire it leaks.  A clocking event nested inside the sequence (the
+    // clocked_seq case) spans the NAME alone (`clkx` -> 13:18-13:22).
+    bool propSpecClockEvent = false;
+    // Set inside a clocked_seq: its formal refs carry no vpiFullName.
+    bool bareFormalRefNames = false;
     UHDM::ref_obj* emitPropFormalRef(std::string_view nm, slang::SourceRange nr,
                                      UHDM::BaseClass* parent, const std::string& prefix);
 

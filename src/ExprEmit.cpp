@@ -1185,7 +1185,8 @@ UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange 
         return nullptr;
     auto* ref = s.MakeRef_obj();
     ref->VpiName(nm);
-    ref->VpiFullName(joinRef(prefix, std::string(nm)));
+    if (!bareFormalRefNames)
+        ref->VpiFullName(joinRef(prefix, std::string(nm)));
     ref->VpiParent(parent);
     setLoc(ref, nr);
     auto& inet = implicitNetMap[fsym];
@@ -7911,6 +7912,188 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 setLoc(pr, pir);
                 return pr;
             }
+            // ---- the ACTUAL list, read from the call SYNTAX --------------
+            //
+            // Surelog lists only the actuals the call SUPPLIES: a formal left
+            // to its default (`clk = $inferred_clock`) contributes no
+            // vpiArgument at all, where slang's argument map holds an entry
+            // for every formal.  The syntax also carries the two things the
+            // bound form loses -- which positions were left EMPTY, and which
+            // actual is an EVENT expression.
+            const syntax::ArgumentListSyntax* argList9 = nullptr;
+            if (expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::InvocationExpression)
+                argList9 =
+                    expr.syntax->as<syntax::InvocationExpressionSyntax>().arguments;
+            struct Act9 {
+                const syntax::PropertyExprSyntax* syn;
+                SourceRange range;
+            };
+            std::vector<Act9> acts9;
+            bool namedArgs9 = false;
+            if (argList9)
+                for (auto* a9 : argList9->parameters) {
+                    if (a9->kind == syntax::SyntaxKind::EmptyArgument)
+                        acts9.push_back({nullptr, a9->sourceRange()});
+                    else if (a9->kind == syntax::SyntaxKind::OrderedArgument) {
+                        const syntax::PropertyExprSyntax* oe9 =
+                            &*a9->as<syntax::OrderedArgumentSyntax>().expr;
+                        acts9.push_back({oe9, oe9->sourceRange()});
+                    }
+                    else
+                        namedArgs9 = true;
+                }
+            std::span<const AssertionPortSymbol* const> formals9;
+            if (aie.symbol.kind == SymbolKind::Property)
+                formals9 = aie.symbol.as<PropertySymbol>().ports;
+            else if (aie.symbol.kind == SymbolKind::Sequence)
+                formals9 = aie.symbol.as<SequenceSymbol>().ports;
+            auto actualFor9 =
+                [&](size_t i) -> const AssertionInstanceExpression::ActualArg* {
+                if (i >= formals9.size())
+                    return nullptr;
+                for (auto& t9 : aie.arguments)
+                    if (std::get<0>(t9) == formals9[i])
+                        return &std::get<1>(t9);
+                return nullptr;
+            };
+            auto emitActual9 = [&](size_t i,
+                                   UHDM::BaseClass* par) -> UHDM::any* {
+                auto* av9 = actualFor9(i);
+                if (!av9)
+                    return nullptr;
+                bool ss9 = suppressConstParent, fs9 = forceConstParent;
+                suppressConstParent = true;
+                forceConstParent = false;
+                UHDM::any* out9 = nullptr;
+                if (auto* pe9 = std::get_if<const Expression*>(av9))
+                    out9 = emitExpr(**pe9, par, prefix, netMap);
+                else if (auto* tc9 = std::get_if<const TimingControl*>(av9))
+                    out9 = emitEventExpr(**tc9, par, prefix, netMap);
+                else if (auto* ax9 = std::get_if<const AssertionExpr*>(av9)) {
+                    // An EVENT-expression actual (`posedge clk1`) binds as a
+                    // ClockingAssertionExpr whose controlled expression is
+                    // deliberately invalid (slang:
+                    // ClockingAssertionExpr::fromSyntax(SignalEventExpression)):
+                    // it IS just the clocking event, so emit that.
+                    if ((*ax9)->kind == AssertionExprKind::Clocking &&
+                        (*ax9)->as<ClockingAssertionExpr>().expr.bad())
+                        out9 = emitEventExpr(
+                            (*ax9)->as<ClockingAssertionExpr>().clocking, par,
+                            prefix, netMap);
+                    else
+                        out9 = emitAssertionExpr(**ax9, par, prefix, netMap);
+                }
+                suppressConstParent = ss9;
+                forceConstParent = fs9;
+                return out9;
+            };
+            // An actual that is an EVENT expression (`posedge clk1`) cannot be
+            // parsed by `property_list_of_arguments`, so Surelog's parser falls
+            // through to the SEQUENCE rule: the instantiation becomes a
+            // sequence_inst, and -- because `event_expression` itself admits
+            // `a , b` -- each run of consecutive actuals is swallowed by ONE
+            // greedy event_expression and comes out as a LEFT-NESTED chain of
+            // vpiListOp binary operations.  An empty positional actual is not
+            // an event_expression, so it breaks the run and contributes a
+            // 64-bit integer constant 0 of its own.
+            auto edgeArg9 =
+                [](const syntax::PropertyExprSyntax* p9) -> bool {
+                if (!p9)
+                    return false;
+                const syntax::SyntaxNode* n9 = p9;
+                if (n9->kind == syntax::SyntaxKind::SimplePropertyExpr)
+                    n9 = n9->as<syntax::SimplePropertyExprSyntax>().expr;
+                return n9 &&
+                       n9->kind == syntax::SyntaxKind::SignalEventExpression &&
+                       n9->as<syntax::SignalEventExpressionSyntax>()
+                           .edge.valid();
+            };
+            bool seqRoute9 = false;
+            if (argList9 && !namedArgs9)
+                for (auto& a9 : acts9)
+                    if (edgeArg9(a9.syn))
+                        seqRoute9 = true;
+
+            if (seqRoute9) {
+                auto* si = s.MakeSequence_inst();
+                si->VpiName(aie.symbol.name);
+                si->VpiParent(parent);
+                setLoc(si, pir);
+                // Every ref under a sequence_inst is scoped through the
+                // ASSERT LABEL (work@m.a2.p_triggers.a), not the bare
+                // property name the property_inst arm uses.
+                std::string sprefix9 =
+                    joinRef(prefix, std::string(aie.symbol.name));
+                std::function<void(UHDM::any*)> rename9 = [&](UHDM::any* o9) {
+                    if (!o9)
+                        return;
+                    if (o9->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r9 = (UHDM::ref_obj*)o9;
+                        r9->VpiFullName(sprefix9 + "." +
+                                        std::string(r9->VpiName()));
+                        return;
+                    }
+                    if (o9->UhdmType() == UHDM::uhdmoperation)
+                        if (auto* ops9 = ((UHDM::operation*)o9)->Operands())
+                            for (auto* c9 : *ops9)
+                                rename9(c9);
+                };
+                auto* args9 = s.MakeAnyVec();
+                size_t i9 = 0;
+                while (i9 < acts9.size()) {
+                    if (!acts9[i9].syn) {
+                        auto* c9 = s.MakeConstant();
+                        c9->VpiDecompile("0");
+                        c9->VpiSize(64);
+                        c9->VpiValue("INT:0");
+                        c9->VpiConstType(vpiIntConst);
+                        setLoc(c9, acts9[i9].range);
+                        args9->push_back(c9);
+                        i9++;
+                        continue;
+                    }
+                    size_t lo9 = i9;
+                    while (i9 < acts9.size() && acts9[i9].syn)
+                        i9++;
+                    // A literal actual stays UNPARENTED inside the fold, like
+                    // every other Surelog constant operand.
+                    auto reparent9 = [](UHDM::any* o9, UHDM::BaseClass* p9) {
+                        if (o9 && o9->UhdmType() != UHDM::uhdmconstant)
+                            o9->VpiParent(p9);
+                    };
+                    UHDM::any* acc9 = emitActual9(lo9, si);
+                    rename9(acc9);
+                    for (size_t j9 = lo9 + 1; j9 < i9; j9++) {
+                        auto* op9 = s.MakeOperation();
+                        op9->VpiOpType(vpiListOp);
+                        op9->VpiParent(si);
+                        setLoc(op9, SourceRange(acts9[lo9].range.start(),
+                                                acts9[j9].range.end()));
+                        auto* ops9 = s.MakeAnyVec();
+                        if (acc9) {
+                            reparent9(acc9, op9);
+                            ops9->push_back(acc9);
+                        }
+                        if (auto* e9 = emitActual9(j9, op9)) {
+                            reparent9(e9, op9);
+                            rename9(e9);
+                            ops9->push_back(e9);
+                        }
+                        op9->Operands(ops9);
+                        acc9 = op9;
+                    }
+                    if (acc9) {
+                        reparent9(acc9, si);
+                        args9->push_back(acc9);
+                    }
+                }
+                // vpiArgument on a sequence_inst IS this group vector.
+                if (!args9->empty())
+                    si->Named_event_sequence_expr_groups(args9);
+                return si;
+            }
+
             auto* pi = s.MakeProperty_inst();
             pi->VpiName(aie.symbol.name);
             setLoc(pi, pir);
@@ -7919,29 +8102,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             fcArt->VpiParent(parent);
             setLoc(fcArt, pir);
             auto* args = s.MakeAnyVec();
-            for (auto& [port, actual] : aie.arguments) {
-                (void)port;
-                if (auto* pe = std::get_if<const Expression*>(&actual)) {
-                    bool ss = suppressConstParent;
-                    bool fs = forceConstParent;
-                    suppressConstParent = true;
-                    forceConstParent = false;
-                    if (auto* a = emitExpr(**pe, fcArt, prefix, netMap)) {
-                        a->VpiParent(fcArt);
-                        // A REF actual parents at the property_inst and is
-                        // scoped by the PROPERTY NAME (p_X.cpu0_rs1i), not
-                        // the assertion prefix (Surelog — mriscv assume
-                        // property(p_S2QED_MAPPED_VAL(cpu0_rs1i,...))).
-                        if (a->UhdmType() == UHDM::uhdmref_obj) {
-                            auto* ra = (UHDM::ref_obj*)a;
-                            ra->VpiParent(pi);
-                            ra->VpiFullName(std::string(aie.symbol.name) +
-                                            "." + std::string(ra->VpiName()));
-                        }
-                        args->push_back(a);
+            auto pushActual9 = [&](UHDM::any* a) {
+                if (!a)
+                    return;
+                a->VpiParent(fcArt);
+                // A REF actual parents at the property_inst and is
+                // scoped by the PROPERTY NAME (p_X.cpu0_rs1i), not
+                // the assertion prefix (Surelog — mriscv assume
+                // property(p_S2QED_MAPPED_VAL(cpu0_rs1i,...))).
+                if (a->UhdmType() == UHDM::uhdmref_obj) {
+                    auto* ra = (UHDM::ref_obj*)a;
+                    ra->VpiParent(pi);
+                    ra->VpiFullName(std::string(aie.symbol.name) + "." +
+                                    std::string(ra->VpiName()));
+                }
+                args->push_back(a);
+            };
+            if (argList9 && !namedArgs9) {
+                for (size_t i9 = 0; i9 < acts9.size(); i9++)
+                    if (acts9[i9].syn)
+                        pushActual9(emitActual9(i9, fcArt));
+            }
+            else {
+                for (auto& [port, actual] : aie.arguments) {
+                    (void)port;
+                    if (auto* pe = std::get_if<const Expression*>(&actual)) {
+                        bool ss = suppressConstParent;
+                        bool fs = forceConstParent;
+                        suppressConstParent = true;
+                        forceConstParent = false;
+                        pushActual9(emitExpr(**pe, fcArt, prefix, netMap));
+                        suppressConstParent = ss;
+                        forceConstParent = fs;
                     }
-                    suppressConstParent = ss;
-                    forceConstParent = fs;
                 }
             }
             if (!args->empty()) {

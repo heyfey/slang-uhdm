@@ -2528,10 +2528,15 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     // An ANSI port spelling `var` explicitly (input var logic i1) elaborates
     // as a logic_var; the same port without the keyword stays a net
     // (StandardNetVar is the calibration point: i1/o1 are vars, i2/i3/o2 nets).
+    // A directionless TYPED ANSI port (`module m(logic a, b)`) is a variable
+    // to Surelog even though slang models it as an inout NET (EmitHelpers
+    // ansiDirectionlessVarPort).
+    bool dirlessVarPort = portBacked && ansiDirectionlessVarPort(internal);
     if ((!portBacked || hasBodyDecl(internal) || pkgAliasPort || typeParamPort ||
-         ansiVarKeywordPort(internal)) &&
+         ansiVarKeywordPort(internal) || dirlessVarPort) &&
         !regDecl &&
-        (internal.kind == SymbolKind::Variable || typeParamPort) &&
+        (internal.kind == SymbolKind::Variable || typeParamPort ||
+         dirlessVarPort) &&
         ct.kind != SymbolKind::PredefinedIntegerType && ct.isIntegral() && ct.isFourState()) {
         auto* v = s.MakeLogic_var();
         v->VpiVisibility(1);
