@@ -2574,6 +2574,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 mem9.kind == SymbolKind::TypeParameter)
                 declRank9[&mem9] = r9++;
     }
+    // § modDefImportShape — the DEF-view scope of the import-copy law.  A
+    // module whose definition has a PARAMETER PORT LIST lists its
+    // materialized import copies in the ELABORATED shape in its DEF view too
+    // (BlackBePipeInt: bp_be_pipe_int's AllModules entry carries folded
+    // constants for all 380 imported rows).  A module WITHOUT one keeps the
+    // def shape there (u2r DivisionOfSize `top` keeps the unfolded op67 cast,
+    // cs_registers `dut` keeps the DEC-based 2'd1 literal), so the flip below
+    // must not reach it.
+    bool defImpElabShape9 = false;
+    if (!inPackage && !funcScope)
+        for (auto& mp9 : body.members()) {
+            if (mp9.kind == SymbolKind::Parameter &&
+                mp9.as<ParameterSymbol>().isPortParam()) {
+                defImpElabShape9 = true;
+                break;
+            }
+            if (mp9.kind == SymbolKind::TypeParameter &&
+                mp9.as<TypeParameterSymbol>().isPortParam()) {
+                defImpElabShape9 = true;
+                break;
+            }
+        }
     std::map<const UHDM::any*, size_t> paramRank9;
     std::vector<const ParameterSymbol*> paramSyms;
     for (auto& member0 : body.members())
@@ -2695,28 +2717,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             bool v;
             ~TvRestore9() { f = v; }
         } tvRestore9{topView, topView};
-        // § modDefImportShape — RANKED RESIDUE (r10bbp7, honest negative).
-        // The law visibly extends to MODULES: golden's AllModules (DEF)
-        // listing of bp_be_pipe_int carries the ELABORATED shape for all 380
-        // materialized rows — `localparam host_base_addr_gp =
-        // (dev_id_width_gp+dev_addr_width_gp)'('h0010_0000)` is a folded
+        // § modDefImportShape — IMPLEMENTED (r10bbp8; r10bbp7 recorded it as
+        // an honest negative).  The law extends to MODULES: golden's
+        // AllModules (DEF) listing of bp_be_pipe_int carries the ELABORATED
+        // shape for all 380 materialized rows — `localparam host_base_addr_gp
+        // = (dev_id_width_gp+dev_addr_width_gp)'('h0010_0000)` is a folded
         // UINT:1048576 size 32 with the declaration's implicit int_typespec
         // in BOTH module views, exactly as in TopPackages, while
         // bp_common_pkg's own def listing keeps the unfolded cast operation.
-        // But simply dropping the `inPackage` guard below REGRESSES the test
-        // (measured twice with tools/probe/r10bbp7d, the CMP-field projection
-        // of every param_assign in every view):
-        //   before the module elab shape landed  828 -> 1158 rows
-        //   after  it landed (this commit)       604 ->  934 rows
-        // — because the module DEF view's Rhs ref_typespec is then left
-        // UNBOUND (ts=ref()->NULL on the 165 rows that already matched; the
-        // deferred pendingParamTs / patchParamTypespecs binding does not fire
-        // for a def-view row that claims to be topView).  Locating that
-        // binding — the still-open RD site — is the prerequisite, and it is
-        // worth 215 of the 604 remaining rows.
+        // r10bbp7 measured the naive flip twice and it REGRESSED (828->1158,
+        // 604->934) because the def view's Rhs ref_typespec was left UNBOUND.
+        // Two things make it work:
+        //   RD — the `if (prt)` ts dispatch (below, ~ParamEmit:9720) must read
+        //        the PHYSICAL view (defViewOrig9), never the flipped topView:
+        //        the deferred pendingParamTs/patchParamTypespecs pair only
+        //        runs for the elaborated instance.
+        //   SCOPE — the flip reaches only a module WITH a parameter port list
+        //        (defImpElabShape9) and only non-unpacked-array params
+        //        (impFlipAgg9); every genuinely elab-only rule reached by the
+        //        flip is re-keyed on defViewOrig9 (elabMultiDimNoTs9,
+        //        importedConcatOp, unpackedArrayTs9, elabUnsizedPatternFold).
+        // Measured: BlackBePipeInt param_assign census 604 -> 216 rows, with
+        // u2r testflags and Surelog both-modes byte-identical to baseline.
         bool defViewOrig9 = !topView;
         (void)defViewOrig9;
-        if (inPackage && !topView && isImported)
+        // ...but an UNPACKED-ARRAY param's def-module copy keeps the
+        // DECLARING PACKAGE's form verbatim: golden's Kmac ALLMOD kmac_core
+        // row for `int unsigned KeccakRate[5]` carries the package's 64-bit
+        // unsized literals (both package views agree), while the elab shape
+        // would reduce them to the 32-bit element width.  Measured with
+        // tools/probe/r10bbp8o (the op-summary projections cannot see
+        // operand widths).
+        bool impFlipAgg9 = ps.getType().getCanonicalType().kind ==
+                           SymbolKind::FixedSizeUnpackedArrayType;
+        if (!topView && isImported &&
+            (inPackage || (defImpElabShape9 && !impFlipAgg9)))
             topView = true;
         flushPaTag9();
         paMarkPort9 = !isImported && ps.isPortParam();
@@ -3389,8 +3424,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // NoReducTypespec's `bit [Cfg.A-1:0][Cfg.B-1:0] Connectivity = '1`
         // reaches the fold through the ranged-untyped site and the literal
         // site depending on the view, so both consult this one flag.
+        // ...and it is a TRUE-elab-view rule: a module DEF-view import copy
+        // (which § modDefImportShape force-flips to topView) keeps the ts ref
+        // (u2r ParameterFromPkgInNestedModule ALLMOD `X`).
         bool elabMultiDimNoTs9 = false;
-        if (topView && !inPackage && boundInit &&
+        if (topView && !defViewOrig9 && !inPackage && boundInit &&
             ps.getType().getCanonicalType().kind ==
                 SymbolKind::PackedArrayType &&
             ps.getType().getCanonicalType().isIntegral() &&
@@ -9342,7 +9380,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             lk != SymbolKind::UnpackedStructType &&
                             lk != SymbolKind::PackedUnionType &&
                             lk != SymbolKind::UnpackedUnionType;
-                        if (unpackedArrayOp && uleaf->isIntegral()) {
+                        // ...and the operand WIDTH reduction is elab-only as
+                        // well: a def-module import copy keeps the package
+                        // form's 64-bit unsized literals (Kmac KeccakRate,
+                        // ALLMOD kmac_core).  defViewOrig9, not topView —
+                        // § modDefImportShape flipped the latter.
+                        if (unpackedArrayOp && !defViewOrig9 &&
+                            uleaf->isIntegral()) {
                             elabUnsizedPatternFold(
                                 opr, (int32_t)uleaf->getBitWidth());
                             // A replication COUNT that is a bare param
@@ -9415,9 +9459,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                     // A materialized IMPORTED vector-typedef param's elab
-                    // CONCAT op also carries a ts ref (own clone pair).
+                    // CONCAT op also carries a ts ref (own clone pair) — in the
+                    // importing MODULE's elab view only.  A materialized import
+                    // copy inside another PACKAGE keeps the bare concat with no
+                    // ts ref in BOTH package views, exactly as the home package
+                    // does (BlackBePipeInt `all_cfgs_gp`, a
+                    // `bp_proc_param_s [max_cfgs-1:0]` re-exported from
+                    // bp_common_pkg into bp_be_pkg: golden carries the ts only
+                    // on the two module-elab rows).  The package view reaches
+                    // here at all because the import-copy law force-flips
+                    // topView (§ modDefImportShape); inPackage is the honest
+                    // discriminator.
+                    // ...and only in the module's ELABORATED view: golden's
+                    // module DEF listing carries the bare concat in BOTH
+                    // import blocks (ALLMOD rows 105/288) while both TOPMOD
+                    // rows carry the ref.  defViewOrig9, not topView — the
+                    // import-copy law flipped the latter.
                     bool importedConcatOp =
-                        isImported && typedParam &&
+                        isImported && !inPackage && !defViewOrig9 &&
+                        typedParam &&
                         ps.getType().getCanonicalType().isPackedArray() &&
                         opr->VpiOpType() == vpiConcatOp;
                     // An UNPACKED-struct typed param's elab assignment-pattern
@@ -9467,7 +9527,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             .getInitializer())
                             setLoc(opr, rin->sourceRange);
                     }
-                    if ((anyUnknown || packedArrayOp || unpackedArrayOp ||
+                    // The unpacked-array ts ref belongs to the INSTANCE view
+                    // only ("on neither package view nor either def-module
+                    // copy", above) — but the operand WIDENING it triggers
+                    // (elabUnsizedPatternFold, run where unpackedArrayOp is
+                    // computed) happens in the def-module copy too, so the two
+                    // must be split.  defViewOrig9, not topView:
+                    // § modDefImportShape flips topView on that very row
+                    // (Kmac KeccakRate: def-view operands are sz 64 with no
+                    // op ts).
+                    bool unpackedArrayTs9 = unpackedArrayOp && !defViewOrig9;
+                    if ((anyUnknown || packedArrayOp || unpackedArrayTs9 ||
                          importedConcatOp || structOp || lazyTernary9) &&
                         !(opr->Typespec() &&
                           opr->Typespec()->Actual_typespec())) {
@@ -9479,7 +9549,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rt->VpiFullName(tsPrefix);
                         rt->VpiParent(opr);
                         opr->Typespec(rt);
-                        if (unpackedArrayOp)
+                        if (unpackedArrayTs9)
                             // The OP's clone names its element ref by the
                             // holding ref_typespec's own fullname (the
                             // instance prefix), not the parameter's.
@@ -9848,7 +9918,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         if (prt) {
-            if (topView && !inPackage) {
+            // § modDefImportShape — RD SITE.  This dispatch reads the view the
+            // row is PHYSICALLY in, never the import-copy law's flipped
+            // topView: the deferred pendingParamTs / patchParamTypespecs pair
+            // only ever runs for the elaborated instance, so a def-view row
+            // routed there leaves prt (and the Rhs ref) UNBOUND — the 604->934
+            // honest negative of r10bbp7.  The direct arm below is where a
+            // module DEF-view import copy binds both its own ts and its Rhs
+            // constant's own per-ref clone (the `!inPackage && isImported` arm
+            // near ParamEmit:9826), located by a backtrace hook in
+            // makeParamTs keyed on mem_fwd_payload_mask_gp.
+            if (!defViewOrig9 && !inPackage) {
                 // A pkg-ref clone already bound its Rhs ts to the pkg-located
                 // typespec; keep the deferred patch off that ref.
                 pendingParamTs.push_back(
