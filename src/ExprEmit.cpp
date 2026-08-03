@@ -4489,13 +4489,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 seCore0.as<NamedValueExpression>().symbol;
                             auto* its0 = s.MakeInt_typespec();
                             its0->VpiName(psym0.name);
-                            setLoc(its0,
-                                   SourceRange(psym0.location, psym0.location));
-                            auto& pv0 = psym0.as<ParameterSymbol>().getValue();
-                            if (pv0.isInteger() && !pv0.integer().hasUnknown())
-                                its0->VpiValue(
-                                    "UINT:" + pv0.integer().toString(
-                                                  LiteralBase::Decimal, false));
+                            // ...unless the parameter is one whose ONLY
+                            // typespec IS the cast's (castSizeParamTs: a
+                            // COMPUTED-init module parameter, so Surelog has
+                            // no value to fold at definition compile).  Then
+                            // the elaborated cast copies the shape the
+                            // parameter itself took — anchored at the cast,
+                            // value-less, carrying the vpiExpr ref_obj — the
+                            // same "elab follows the def decision" rule
+                            // patchParamTypespecs applies to the parameter.
+                            // scr1_pipe_ifu SCR1_IFU_Q_FREE_H_W /
+                            // SCR1_IFU_Q_FREE_W_W (`= $clog2(...)`, cast at
+                            // 449:27): golden's 3 elaborated cont-assign
+                            // copies carry Cast_to_expr, and int_typespec::
+                            // Compare chases it, so the folded-value form
+                            // below reports as `<null> vs ref_obj`.
+                            auto cs9 = castSizeStampedTs.find(&psym0);
+                            if (cs9 != castSizeStampedTs.end() &&
+                                cs9->second->Cast_to_expr()) {
+                                auto* dts9 = cs9->second;
+                                its0->VpiFile(dts9->VpiFile());
+                                its0->VpiLineNo(dts9->VpiLineNo());
+                                its0->VpiColumnNo(dts9->VpiColumnNo());
+                                its0->VpiEndLineNo(dts9->VpiEndLineNo());
+                                its0->VpiEndColumnNo(dts9->VpiEndColumnNo());
+                                auto* dr9 =
+                                    (UHDM::ref_obj*)dts9->Cast_to_expr();
+                                auto* r9 = s.MakeRef_obj();
+                                r9->VpiName(dr9->VpiName());
+                                r9->VpiFullName(dr9->VpiFullName());
+                                r9->Actual_group(dr9->Actual_group());
+                                r9->VpiParent(its0);
+                                its0->Cast_to_expr(r9);
+                            }
+                            else {
+                                setLoc(its0, SourceRange(psym0.location,
+                                                         psym0.location));
+                                auto& pv0 =
+                                    psym0.as<ParameterSymbol>().getValue();
+                                if (pv0.isInteger() &&
+                                    !pv0.integer().hasUnknown())
+                                    its0->VpiValue(
+                                        "UINT:" +
+                                        pv0.integer().toString(
+                                            LiteralBase::Decimal, false));
+                            }
                             // A PACKAGE-scope cast target carries vpiInstance
                             // = the package, like every other arm here
                             // (BlackBePipeInt dev_addr_width_gp, 12 golden

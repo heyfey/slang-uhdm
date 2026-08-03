@@ -1036,6 +1036,11 @@ private:
     // size cast on their name -> that cast's type-name node.
     std::map<const slang::ast::Symbol*, const slang::syntax::SyntaxNode*>
         castSizeParamTs;
+    // The object stampCastSizeParamTs actually built for such a parameter, per
+    // VIEW (the map is keyed by the view's own ParameterSymbol, so a def entry
+    // and an elab entry coexist).  The elaborated RE-EMIT of a `P'(x)` cast
+    // reads it to copy that shape instead of minting the folded-value form.
+    std::map<const slang::ast::Symbol*, UHDM::int_typespec*> castSizeStampedTs;
     // Reshape such a parameter's typespec into Surelog's form: named after
     // the parameter, located at the cast, carrying a vpiExpr ref_obj back to
     // it. ExprEmit's cast path then reuses this very object.

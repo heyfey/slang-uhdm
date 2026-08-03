@@ -5639,6 +5639,73 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rhs = ec0;
                     }
             }
+            // NOTE (r10scr9, DECODED — NOT IMPLEMENTED).  Two whole classes of
+            // ELAB param_assign Rhs live in the block below and are wrong.
+            // Both were measured with the MODULE/PACKAGE param_assign census
+            // tools/probe/r10scr9c.cpp (271 rows on Scr1SvTests, 58 differing
+            // lines; run it FIRST on any elab-fold suspicion — it is reached
+            // through the instance tree, so unlike the whole-design constant
+            // census it carries no arena noise).
+            //
+            // § elabRangedRerender — the ELAB Rhs of a RANGED UNTYPED
+            // localparam is NOT the def view's literal: Surelog re-renders it
+            // from the parameter's Value at the range's TARGET WIDTH, i.e. the
+            // srlgLitEnc/srlgAdjustSize round trip this file already models for
+            // OVERRIDE actuals (and that § elabCallFormal re-runs at a formal's
+            // width), with SrlgTsK::Logic / unsigned / W.  Purpose-built golden
+            // pair, one localparam per literal form (/tmp/r10scr9_pb3 = the
+            // cross-root case, /tmp/r10scr9_pb = the same-root control):
+            //   `localparam [UW-1:0] P = <init>`   golden elab      ours
+            //     5'd0    (sized decimal)          INT:0   dc "0"   DEC:0 "5'd0"
+            //     8'h1f   (hex)                    HEX:1f  dc W'h1f  same
+            //     1'b1    (binary)                 BIN:1 SIZE 1      size W
+            //     7       (unsized int)            UINT masked to W  same
+            //     5'd2+5'd3                        INT:5             UINT:5
+            //   — sized-`d` does not survive the Value round trip (it lands as
+            //   vpiIntConst with bare digits, the producer rule decoded at
+            //   796e24e); BIN keeps min(written,W) instead of widening; and a
+            //   `+` whose operand is a DEC-based literal takes ExprEval's
+            //   SIGNED vpiAddOp arm (any vpiDecConst/vpiIntConst/vpiStringConst/
+            //   vpiRealConst operand flips it — the foldSigned9 helper below
+            //   models only the operator, not the operand ENCODING).
+            //   W = the range width, except that W is 1 when the range reads a
+            //   $unit parameter declared in ANOTHER ROOT FILE — the same
+            //   cross-root dangling § unitRefSubst already models (rootFilePath).
+            //   Proven by the pb3/pb2 pair: identical sources except that pb3's
+            //   header carries an include guard, so the $unit `localparam UW`
+            //   materialises only in the OTHER root file; pb2 (no guard, decl in
+            //   both) resolves and gives W=5, pb3 gives W=1.  Both views emit
+            //   the SAME unreduced range op tree, so the emitted range is NOT
+            //   the discriminator (probe tools/probe/r10scr9d.cpp).
+            //   Scr1SvTests scr1_pipe_idu `localparam [SCR1_GPR_FIELD_WIDTH-1:0]
+            //   SCR1_MPRF_ZERO_ADDR = 5'd0` is exactly this cell (golden INT:0
+            //   size 1 decompile "0"), and it is the ECHO HEAD: all 22 failing
+            //   AllMod/TopMod vectors report this one constant.
+            //
+            // § elabUnitMisevalNoFold — an elab param_assign Rhs is NOT folded
+            // at all when its value depends on a $unit parameter Surelog never
+            // valued (unitParamNoValue), transitively through module params —
+            // the same valuelessness § genLoopUnitMiseval already models for
+            // loop bounds.  Golden keeps the DEF view's tree; we fold.  18 of
+            // the 26 differing census rows:
+            //   i_pipe_tdu   ALLTRIG_NUM/MTRIG_NUM  ref_obj(SCR1_TDU_*)
+            //                ALLTRIG_W              sys_func_call($clog2) (transitive)
+            //   i_dmem_router/i_imem_router SCR1_*_ADDR_MASK/PATTERN  ref_obj
+            //   i_dmi        DMI_*_HI/LO            operation{11,24}
+            //   i_tcm SCR1_TCM_SIZE / i_dp_memory SCR1_SIZE  operation{67}
+            //                RAM_SIZE_WORDS         operation{12}
+            // It needs BOTH halves: the plain-localparam one belongs here, the
+            // OVERRIDDEN one (`init` is the default, the actual comes down the
+            // srcBaseOv8 path) belongs with the override render.
+            //
+            // § elabOvRefCopiesParam — an override actual that is a BARE
+            // reference to another parameter takes THAT parameter's own reduced
+            // elab constant verbatim, rather than being re-derived at the
+            // formal's width.  scr1_top_tb_axi `.SIZE(SCR1_MEM_SIZE)` with
+            // `localparam SCR1_MEM_SIZE = 1024*1024`: the referenced param
+            // reduces through ExprEval's vpiMultOp arm to INT:1048576 / size 64
+            // and golden's i_memory_tb SIZE IS that constant; ours re-derives
+            // UINT:1048576 / size 32.  1 census row.
             if (!rhs && topView) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
@@ -6448,6 +6515,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         if (v1.rfind("UINT:", 0) == 0) {
                             rc1->VpiValue("INT:" + std::string(v1.substr(5)));
                             rc1->VpiConstType(vpiIntConst);
+                        }
+                    }
+                    // The `<<` half of that law also holds in the INT ->
+                    // UINT direction, and unconditionally: ExprEval's
+                    // vpiLShiftOp arm (UHDM templates/ExprEval.cpp:3137) mints
+                    // vpiUIntConst / VpiSize 64 / "UINT:<digits>" whatever its
+                    // operands were -- it never consults their signedness, the
+                    // way vpiAddOp does.  So a shift-left init that arrived
+                    // here as INT got its sign from OUR inference, not from
+                    // Surelog's reduce.  scr1_pipe_ialu
+                    // `SCR1_DIV_CNT_INIT = 32'b1 << (`SCR1_XLEN/SCR1_DIV_WIDTH
+                    // - 2)`: golden's elab fold is UINT:1073741824 size 64
+                    // (the subtraction inside the shift count is invisible),
+                    // ours was INT:1073741824.
+                    if (scv.kind == ExpressionKind::BinaryOp &&
+                        (scv.as<BinaryExpression>().op ==
+                             BinaryOperator::LogicalShiftLeft ||
+                         scv.as<BinaryExpression>().op ==
+                             BinaryOperator::ArithmeticShiftLeft) &&
+                        rhs->UhdmType() == UHDM::uhdmconstant) {
+                        auto* rc2 = (UHDM::constant*)rhs;
+                        std::string v2(rc2->VpiValue());
+                        if (v2.rfind("INT:", 0) == 0 && v2.find('-') ==
+                                                            std::string::npos) {
+                            rc2->VpiValue("UINT:" + v2.substr(4));
+                            rc2->VpiConstType(vpiUIntConst);
                         }
                     }
                     // An assignment-pattern default ('{0,1}) folds to a
@@ -10346,6 +10439,7 @@ void UhdmExporter::stampCastSizeParamTs(const ParameterSymbol& ps,
             r9->Actual_group(up);
         ic9->Cast_to_expr(r9);
     }
+    castSizeStampedTs[&ps] = ic9;
 }
 
 // See the header note: the paren-cast marks follow the PARAMETER, so every
