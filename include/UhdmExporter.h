@@ -359,6 +359,9 @@ private:
     // through the self-referential Typedef_alias (r9tdclone).
     UHDM::typespec* copyNamedVecTs(const UHDM::typespec* src,
                                    UHDM::any* parent);
+    // Replace `dst`'s still-symbolic single-dim packed-vector bounds with the
+    // folded literal range (no-op when they already are constants).
+    void foldVecBounds(UHDM::typespec* dst, int64_t left, int64_t right);
     // True while building an elab struct/union param ts CLONE: member leaf
     // typespecs parent at the member's ref_typespec (Surelog clone form)
     // instead of the typespec_member.
@@ -2331,6 +2334,15 @@ private:
     // Pkg param OBJECTS (def view) — bound by qualified member-access base
     // refs (pkg::P.member).
     std::map<const slang::ast::Symbol*, UHDM::parameter*> pkgParamObj;
+    // MATERIALIZED IMPORT copies of package params in the module DEF view,
+    // keyed by the package's own ParameterSymbol (which is what a wildcard
+    // import resolves to). A generate CONDITION reading one folds to its
+    // value with a ts ref to THIS copy's typespec, so the fold needs the
+    // copy object. Rebuilt per def-view emitParameters call.
+    std::map<const slang::ast::Symbol*, UHDM::parameter*> defModImportParam;
+    // Set only while a generate if/case CONDITION is being emitted from
+    // syntax in the module DEF view (see defModImportParam).
+    bool genCondImportFold9 = false;
     // Emitting a struct-pattern member VALUE (tagged_pattern Pattern).
     bool inPatternValue = false;
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg

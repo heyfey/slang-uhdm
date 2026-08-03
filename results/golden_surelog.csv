@@ -7,8 +7,8 @@ AaFirstTest,default,SLANG_REJECT,dut.sv:5:3: error: unknown module 'bottom',,
 AaFirstTest,testflags,SLANG_REJECT,dut.sv:5:3: error: unknown module 'bottom',,
 AllBinding,default,CMP_EQUAL,,,match
 AllBinding,testflags,CMP_EQUAL,,,match
-AllPackageSignal,default,CMP_NOTEQUAL,decompile:,,
-AllPackageSignal,testflags,CMP_NOTEQUAL,decompile:,,
+AllPackageSignal,default,CMP_EQUAL,,,differ
+AllPackageSignal,testflags,CMP_EQUAL,,,differ
 AlwaysNoElab,default,CMP_EQUAL,,,match
 AlwaysNoElab,testflags,CMP_EQUAL,,,match
 AmiqEth,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
@@ -645,8 +645,8 @@ HierPathSelect,default,CMP_EQUAL,,,match
 HierPathSelect,testflags,CMP_EQUAL,,,differ
 HierPathStruct,default,CMP_EQUAL,,,differ
 HierPathStruct,testflags,CMP_EQUAL,,,differ
-HierPathStructTypespec,default,CMP_NOTEQUAL,decompile:,,
-HierPathStructTypespec,testflags,CMP_NOTEQUAL,decompile:,,
+HierPathStructTypespec,default,CMP_EQUAL,,,differ
+HierPathStructTypespec,testflags,CMP_EQUAL,,,differ
 HierPathTfArg,default,SLANG_REJECT,dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTfArg,testflags,SLANG_REJECT,dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTypespec,default,CMP_EQUAL,,,differ

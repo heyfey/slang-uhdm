@@ -2396,6 +2396,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         bool v;
         ~EpdRestore() { f = v; }
     } epdRestore{elabParamDim, savedEpd};
+    // Fresh per DEF-view module pass: a generate condition folds an imported
+    // param through THIS module's copy (see defModImportParam).
+    if (!topView && !inPackage && !funcScope)
+        defModImportParam.clear();
     auto* params = s.MakeAnyVec();
     auto* passigns = s.MakeParam_assignVec();
     std::vector<const ParameterSymbol*> paramSyms;
@@ -2578,6 +2582,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             up->VpiImported(siIt != srcImp.end()
                                 ? siIt->second
                                 : std::string(ps.getParentScope()->asSymbol().name));
+            if (!topView && !inPackage && !funcScope)
+                defModImportParam[&member] = up;
         }
 
         // Surelog reports vpiLocalParam by the WRITTEN keyword, not slang's
@@ -5695,10 +5701,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // the elab module copy of such an import keeps the CALL
                     // SPAN and the ts ref, matching its def-view copy
                     // (IntegerConcat pkg::InfoPageW).
+                    // ...nor is plain ARITHMETIC ((Sha3Latency + RegLatency -
+                    // 1)/RegLatency): that import copy also keeps the
+                    // whole-init span and the ts ref to its own typespec, in
+                    // BOTH module views. Only the cast/concat family the rule
+                    // was decoded on goes bare (HierPathStructTypespec
+                    // work@top.BufferCycles / BufferSizeBits / MsgFifoDepth).
                     bool importedFold =
                         isImported && topView && !inPackage &&
                         stripImplicitConv(*init).kind !=
                             ExpressionKind::NamedValue &&
+                        stripImplicitConv(*init).kind !=
+                            ExpressionKind::BinaryOp &&
                         !(stripImplicitConv(*init).kind ==
                               ExpressionKind::Call &&
                           stripImplicitConv(*init)
@@ -7652,21 +7666,52 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // def view — measured on one source (pkg p2::W = $clog2(N)
                 // imported into top2, which also declares `localparam int LW =
                 // $clog2(N)`: defMod folds W, leaves LW a sys_func_call).
-                if (!rhs && !topView && !inPackage && isImported &&
+                // ...and so does an ARITHMETIC init. `parameter int
+                // BufferCycles = (Sha3Latency + RegLatency - 1)/RegLatency`
+                // imported into a module is an INT constant (vpiIntConst —
+                // the same "* / - fold signed" family the package listings
+                // use, NOT the sys-call arm's UINT) in the DEF module view as
+                // well as the elab one (which reaches it through the generic
+                // fold — see importedFold), anchored at the top operator's
+                // LEFT operand INCLUDING any parentheses. Only the module's
+                // OWN localparam keeps the operation there.
+                // HierPathStructTypespec kmac_pkg BufferCycles /
+                // BufferSizeBits / MsgFifoDepth.
+                bool sysFold7 =
                     stripImplicitConv(*init).kind == ExpressionKind::Call &&
-                    stripImplicitConv(*init).as<CallExpression>().isSystemCall() &&
-                    ps.getValue().isInteger() &&
+                    stripImplicitConv(*init).as<CallExpression>().isSystemCall();
+                bool arithFold7 =
+                    stripImplicitConv(*init).kind == ExpressionKind::BinaryOp;
+                if (!rhs && !topView && !inPackage && isImported &&
+                    (sysFold7 || arithFold7) && ps.getValue().isInteger() &&
                     !ps.getValue().integer().hasUnknown()) {
                     auto& sv7 = ps.getValue().integer();
                     std::string dg7 = sv7.toString(LiteralBase::Decimal, false);
                     bool neg7 = sv7.isSigned() && sv7.isNegative();
+                    bool intForm7 = neg7 || arithFold7;
                     auto* c7 = s.MakeConstant();
                     c7->VpiDecompile(dg7);
                     c7->VpiSize((int32_t)ps.getType().getBitWidth());
-                    c7->VpiValue((neg7 ? "INT:" : "UINT:") + dg7);
-                    c7->VpiConstType(neg7 ? vpiIntConst : vpiUIntConst);
+                    c7->VpiValue((intForm7 ? "INT:" : "UINT:") + dg7);
+                    c7->VpiConstType(intForm7 ? vpiIntConst : vpiUIntConst);
                     c7->VpiParent(pa);
-                    setLoc(c7, init->sourceRange);
+                    // The DEF copy stops at the top operator's LEFT operand
+                    // (Surelog's post-reduce anchor); the ELAB copy — emitted
+                    // by the generic fold above — spans the whole init.
+                    SourceRange anchor7 = init->sourceRange;
+                    if (arithFold7) {
+                        auto* bs7 = stripImplicitConv(*init).syntax;
+                        if (bs7 && syntax::BinaryExpressionSyntax::isKind(
+                                       bs7->kind))
+                            anchor7 = bs7->as<syntax::BinaryExpressionSyntax>()
+                                          .left->sourceRange();
+                        else
+                            anchor7 = stripImplicitConv(*init)
+                                          .as<BinaryExpression>()
+                                          .left()
+                                          .sourceRange;
+                    }
+                    setLoc(c7, anchor7);
                     auto* rt7 = s.MakeRef_typespec();
                     std::string tsPfx7 = prefix;
                     if (tsPfx7.size() >= 2 &&
@@ -10810,16 +10855,31 @@ bool UhdmExporter::enumOriginHexRecode(UHDM::constant* c,
         lit.pop_back();
     while (!lit.empty() && (unsigned char)lit.front() <= ' ')
         lit.erase(lit.begin());
-    auto hp = lit.find("'h");
-    if (hp == std::string::npos)
-        hp = lit.find("'H");
-    if (hp == std::string::npos)
+    // ...in whatever base it was WRITTEN: an `Off = 4'b0101` enum value gives
+    // BIN:0101 / vpiBinaryConst just as `8'hCC` gives HEX:CC (ImportBinding
+    // lc_ctrl_pkg::LC_TX_DEFAULT; the HEX rows are rp32/ibex).
+    auto tick = lit.find('\'');
+    if (tick == std::string::npos || tick + 1 >= lit.size())
         return false;
-    std::string digits = lit.substr(hp + 2);
-    for (auto& ch : digits)
-        ch = (char)toupper((unsigned char)ch);
-    c->VpiValue("HEX:" + digits);
-    c->VpiConstType(vpiHexConst);
+    size_t bp = tick + 1;
+    if (lit[bp] == 's' || lit[bp] == 'S')
+        bp++;
+    if (bp >= lit.size())
+        return false;
+    const char* pfx = nullptr;
+    int32_t cty = 0;
+    switch (lit[bp]) {
+        case 'h': case 'H': pfx = "HEX:"; cty = vpiHexConst; break;
+        case 'b': case 'B': pfx = "BIN:"; cty = vpiBinaryConst; break;
+        case 'o': case 'O': pfx = "OCT:"; cty = vpiOctConst; break;
+        default: return false;
+    }
+    std::string digits = lit.substr(bp + 1);
+    if (cty == vpiHexConst)
+        for (auto& ch : digits)
+            ch = (char)toupper((unsigned char)ch);
+    c->VpiValue(std::string(pfx) + digits);
+    c->VpiConstType(cty);
     c->VpiDecompile(lit);
     return true;
 }
@@ -12438,6 +12498,19 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     auto* bts = ets->Base_typespec()->Actual_typespec();
                     bts->Instance((UHDM::instance*)up);
                     bts->VpiParent(ets->Base_typespec());
+                    // The clone's OWN base vector is re-emitted from the
+                    // target's type syntax, which leaves a param-dependent
+                    // bound (`logic [TxWidth-1:0]`) as an unfolded op tree.
+                    // Golden's clone carries the SAME FOLDED bounds the
+                    // TARGET's base already got — one enum, two typespecs,
+                    // identical [3:0]. Copy the target's constants across
+                    // rather than re-deriving the fold (ImportBinding
+                    // lc_ctrl_pkg::lc_tx_t).
+                    auto& ebt9 = ct.as<EnumType>().baseType.getCanonicalType();
+                    if (ebt9.hasFixedRange()) {
+                        auto fr9 = ebt9.getFixedRange();
+                        foldVecBounds(bts, fr9.left, fr9.right);
+                    }
                 }
                 auto* art = s.MakeRef_typespec();
                 art->VpiFullName(refName);

@@ -3870,6 +3870,54 @@ UHDM::typespec* UhdmExporter::copyNamedVecTs(const UHDM::typespec* src,
     return cl;
 }
 
+// Fold a packed-vector typespec's still-symbolic bounds to the given literal
+// range. Used where a SECOND copy of a typedef's base vector is re-emitted
+// from syntax (so a param-dependent bound such as `[TxWidth-1:0]` comes back
+// as an unfolded op tree) while golden gives BOTH copies the same folded
+// [3:0]. The folded bound takes the "- / * / / fold signed" family's form —
+// INT, size 64 — anchored at the operation's LEFT operand, the same anchor
+// every other package-view fold uses. ImportBinding `typedef lc_tx_e lc_tx_t`.
+void UhdmExporter::foldVecBounds(UHDM::typespec* dst, int64_t left,
+                                 int64_t right) {
+    if (!dst)
+        return;
+    UHDM::VectorOfrange* dr = nullptr;
+    if (dst->UhdmType() == UHDM::uhdmlogic_typespec)
+        dr = ((UHDM::logic_typespec*)dst)->Ranges();
+    else if (dst->UhdmType() == UHDM::uhdmbit_typespec)
+        dr = ((UHDM::bit_typespec*)dst)->Ranges();
+    if (!dr || dr->size() != 1)
+        return;
+    auto* rng = (*dr)[0];
+    if (!rng)
+        return;
+    auto mk = [&](UHDM::expr* old, int64_t v) -> UHDM::expr* {
+        if (!old || old->UhdmType() != UHDM::uhdmoperation)
+            return nullptr;
+        const UHDM::any* anchor = old;
+        if (auto* ops = ((UHDM::operation*)old)->Operands())
+            if (!ops->empty() && (*ops)[0])
+                anchor = (*ops)[0];
+        auto* c = s.MakeConstant();
+        std::string dg = std::to_string(v);
+        c->VpiDecompile(dg);
+        c->VpiValue("INT:" + dg);
+        c->VpiSize(64);
+        c->VpiConstType(vpiIntConst);
+        c->VpiFile(anchor->VpiFile());
+        c->VpiLineNo(anchor->VpiLineNo());
+        c->VpiColumnNo(anchor->VpiColumnNo());
+        c->VpiEndLineNo(anchor->VpiEndLineNo());
+        c->VpiEndColumnNo(anchor->VpiEndColumnNo());
+        c->VpiParent(rng);
+        return c;
+    };
+    if (auto* nl = mk(rng->Left_expr(), left))
+        rng->Left_expr(nl);
+    if (auto* nr = mk(rng->Right_expr(), right))
+        rng->Right_expr(nr);
+}
+
 UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, bool packed,
                                                    const std::string& aliasName,
                                                    const std::string& memberSep) {
@@ -6030,6 +6078,50 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     }
                 }
             }
+            // A GENERATE CONDITION in the module DEF view reading a
+            // MATERIALIZED IMPORT copy of a package parameter folds to that
+            // copy's value: the module def compile already resolved the
+            // import, so the reference never survives. The constant is sized
+            // at the parameter's own type width and carries a ts ref
+            // (fullname = the module) to the COPY's typespec, exactly like
+            // the def-view net/var range bound above.
+            // HierPathStructTypespec `!= MsgFifoDepthW+1`.
+            if (genCondImportFold9 && currentScope && !defModImportParam.empty()) {
+                ASTContext gctx(*currentScope, LookupLocation::max);
+                auto& ge = Expression::bind(syn.as<syntax::ExpressionSyntax>(),
+                                            gctx);
+                if (!ge.bad() && stripImplicitConv(ge).kind ==
+                                     ExpressionKind::NamedValue) {
+                    auto& gsy = stripImplicitConv(ge)
+                                    .as<NamedValueExpression>()
+                                    .symbol;
+                    auto git = defModImportParam.find(&gsy);
+                    if (git != defModImportParam.end() &&
+                        gsy.kind == SymbolKind::Parameter) {
+                        auto& gp = gsy.as<ParameterSymbol>();
+                        auto& gcv = gp.getValue();
+                        if (gcv.isInteger() && !gcv.integer().hasUnknown()) {
+                            auto* c = s.MakeConstant();
+                            std::string digits = gcv.integer().toString(
+                                LiteralBase::Decimal, false);
+                            c->VpiDecompile(digits);
+                            c->VpiSize((int32_t)gp.getType().getBitWidth());
+                            c->VpiValue("UINT:" + digits);
+                            c->VpiConstType(vpiUIntConst);
+                            c->VpiParent(parent);
+                            setLoc(c, syn.sourceRange());
+                            auto* rt = s.MakeRef_typespec();
+                            rt->VpiFullName(syntaxRefPrefix);
+                            rt->VpiParent(c);
+                            if (git->second->Typespec())
+                                rt->Actual_typespec(
+                                    git->second->Typespec()->Actual_typespec());
+                            c->Typespec(rt);
+                            return c;
+                        }
+                    }
+                }
+            }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(name);
             if (!syntaxRefPrefix.empty())
@@ -6532,6 +6624,89 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             if (auto* e2 = emitSyntaxExpr(*ae, sfc)) {
                                 args->push_back(e2);
                                 continue;
+                            }
+                        }
+                        // A PACKAGE DEF listing keeps the query call itself
+                        // (THE LAW: that view reduces nothing), but Surelog
+                        // still RESOLVES the argument, and the two package
+                        // origins resolve differently:
+                        //   * SAME package  -> ref_obj chained to that
+                        //     parameter's own def Rhs constant, exactly like
+                        //     a bare read of it elsewhere in the body;
+                        //   * OTHER package -> the read is SUBSTITUTED by the
+                        //     referenced parameter's VALUE, as a constant
+                        //     sized by that parameter's own type (32 for
+                        //     `int`) rather than the 64 bits every other
+                        //     def-view fold carries.
+                        // Measured on a 4-row package golden (probe p7:
+                        // `(W==4)?..`, `(pb::Q==4)?..`, `$bits(pb::Q)`,
+                        // `$bits(W)`): the two BARE reads bind the usual way
+                        // and only the two $bits arguments split like this.
+                        // AllPackageSignal's three static assertions are the
+                        // same shape through a macro.
+                        // The dim/bound emitter runs with no currentScope, so
+                        // resolve in the package being listed (which is where
+                        // Surelog resolves it too — both a same-package name
+                        // and a `other::NAME` qualifier bind from there).
+                        const Scope* argScope9 =
+                            currentScope ? currentScope
+                            : tfTypeScope ? tfTypeScope
+                            : (curPkgEmitSym && curPkgEmitSym->kind ==
+                                                    SymbolKind::Package)
+                                ? &curPkgEmitSym->as<PackageSymbol>()
+                                : nullptr;
+                        if (ae && curPkgEmitSym && !pkgEmitTopView &&
+                            argScope9 &&
+                            syntax::ExpressionSyntax::isKind(ae->kind)) {
+                            ASTContext pctx(*argScope9, LookupLocation::max);
+                            auto& pb9 = Expression::bind(
+                                ae->as<syntax::ExpressionSyntax>(), pctx);
+                            const Symbol* psy9 = nullptr;
+                            if (!pb9.bad() && stripImplicitConv(pb9).kind ==
+                                                  ExpressionKind::NamedValue)
+                                psy9 = &stripImplicitConv(pb9)
+                                            .as<NamedValueExpression>()
+                                            .symbol;
+                            const Scope* home9 =
+                                psy9 ? psy9->getParentScope() : nullptr;
+                            if (psy9 && psy9->kind == SymbolKind::Parameter &&
+                                home9 && home9->asSymbol().kind ==
+                                             SymbolKind::Package) {
+                                if (&home9->asSymbol() != curPkgEmitSym) {
+                                    auto& dp9 = psy9->as<ParameterSymbol>();
+                                    auto& dv9 = dp9.getValue();
+                                    if (dv9.isInteger() &&
+                                        !dv9.integer().hasUnknown()) {
+                                        auto* c9 = s.MakeConstant();
+                                        std::string dg9 =
+                                            dv9.integer().toString(
+                                                LiteralBase::Decimal, false);
+                                        c9->VpiDecompile(dg9);
+                                        c9->VpiSize((int32_t)dp9.getType()
+                                                        .getBitWidth());
+                                        c9->VpiValue("UINT:" + dg9);
+                                        c9->VpiConstType(vpiUIntConst);
+                                        c9->VpiParent(sfc);
+                                        setLoc(c9, arg->sourceRange());
+                                        args->push_back(c9);
+                                        continue;
+                                    }
+                                }
+                                else {
+                                    auto* r9 = s.MakeRef_obj();
+                                    r9->VpiName(argRaw);
+                                    r9->VpiParent(sfc);
+                                    setLoc(r9, arg->sourceRange());
+                                    if (auto ci9 = pkgParamConst.find(psy9);
+                                        ci9 != pkgParamConst.end())
+                                        r9->Actual_group(ci9->second);
+                                    else if (auto ri9 =
+                                                 pkgParamDefRhs.find(psy9);
+                                             ri9 != pkgParamDefRhs.end())
+                                        r9->Actual_group(ri9->second);
+                                    args->push_back(r9);
+                                    continue;
+                                }
                             }
                         }
                         auto* r = s.MakeRef_obj();

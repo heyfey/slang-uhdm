@@ -19470,7 +19470,10 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 syntaxRefPrefix = branchPrefix;
                 bool savedGC1 = noUnitParamActual;
                 noUnitParamActual = nIf.elseClause != nullptr;
+                bool savedGF1 = genCondImportFold9;
+                genCondImportFold9 = true;
                 auto* c1gc = emitSyntaxExpr(*nIf.condition, ng0);
+                genCondImportFold9 = savedGF1;
                 noUnitParamActual = savedGC1;
                 if (auto* c = c1gc) {
                     if (ngie)
@@ -19722,7 +19725,10 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 // does not — one purpose-built file carries both shapes).
                 bool savedGC0 = noUnitParamActual;
                 noUnitParamActual = ifSyn->elseClause != nullptr;
+                bool savedGF0 = genCondImportFold9;
+                genCondImportFold9 = true;
                 auto* c0gc = emitSyntaxExpr(*ifSyn->condition, g0);
+                genCondImportFold9 = savedGF0;
                 noUnitParamActual = savedGC0;
                 if (auto* c = c0gc) {
                     // Enum-VALUE refs in the condition bind their enum_const

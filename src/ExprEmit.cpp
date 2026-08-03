@@ -350,13 +350,69 @@ bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0) {
     // ClassProperty — neither is reachable from `getTypespec`.
     if (sym->kind != SymbolKind::Net && sym->kind != SymbolKind::Variable)
         return false;
+    const Scope* homeBody = nullptr;
     for (auto sc = sym->getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
         auto k = sc->asSymbol().kind;
         if (k == SymbolKind::Subroutine)
             return false;
-        if (k == SymbolKind::InstanceBody || k == SymbolKind::Package ||
-            k == SymbolKind::CompilationUnit)
+        if (k == SymbolKind::InstanceBody) {
+            homeBody = sc;
             break;
+        }
+        if (k == SymbolKind::Package || k == SymbolKind::CompilationUnit)
+            break;
+    }
+    // A PORTLESS module definition does not resolve an UNQUALIFIED typedef
+    // name: Surelog's def compile emits the signal as a bare `logic_net` with
+    // NO typespec at all, so `ExprEval::isFullySpecified` answers false and
+    // `$bits` of that signal — bare or through any member/select chain —
+    // stays a `sys_func_call`. Writing the SAME type package-qualified, or
+    // giving the module a port list, resolves it and the call folds.
+    // Measured as a clean 2x2x2 on one source (probe p21, one struct type
+    // reachable three ways x port/no-port):
+    //   module wa();            import zz::*; s_t v;  -> KEEPS
+    //   module wb(output int o);import zz::*; s_t v;  -> folds
+    //   module wc();            u_s_t v ($unit)       -> KEEPS
+    //   module wd(output int o);u_s_t v ($unit)       -> folds
+    //   module we();            zz::s_t v (qualified) -> folds
+    // and cross-checked on p8/p13/p17/p18/p19 (portless + wildcard/`$unit`
+    // keep) against p11/p12/p14/p16 (qualified, or ported, fold).
+    // HierPathStructTypespec `$bits(hw2reg.status.fifo_depth.d)` in a
+    // `module top();` under `import kmac_reg_pkg::*` is the keep side;
+    // uhdm2rtlil BitsCallOnStructMember / BitsCallOnSubArray (both
+    // `module top(output int o)` with a `pkg::T` declaration) are the fold
+    // side.
+    if (homeBody) {
+        bool hasPort9 = false;
+        for (auto& mem9 : homeBody->members())
+            if (mem9.kind == SymbolKind::Port ||
+                mem9.kind == SymbolKind::MultiPort ||
+                mem9.kind == SymbolKind::InterfacePort) {
+                hasPort9 = true;
+                break;
+            }
+        if (!hasPort9)
+            if (auto* dt9 = sym->getDeclaredType()) {
+                auto* tsy9 = dt9->getTypeSyntax();
+                bool namedUnqual9 =
+                    tsy9 && tsy9->kind == syntax::SyntaxKind::NamedType &&
+                    tsy9->as<syntax::NamedTypeSyntax>().name &&
+                    tsy9->as<syntax::NamedTypeSyntax>().name->kind !=
+                        syntax::SyntaxKind::ScopedName;
+                if (namedUnqual9) {
+                    // ...only for a typedef the module did NOT declare itself
+                    // (a wildcard-imported package one or a `$unit` one);
+                    // a module-local typedef resolves in its own scope.
+                    auto& at9 = dt9->getType();
+                    const Scope* home9 =
+                        at9.kind == SymbolKind::TypeAlias ? at9.getParentScope()
+                                                          : nullptr;
+                    if (home9 && home9 != homeBody &&
+                        (home9->asSymbol().kind == SymbolKind::Package ||
+                         home9->asSymbol().kind == SymbolKind::CompilationUnit))
+                        return false;
+                }
+            }
     }
     if (auto* dt = sym->getDeclaredType()) {
         const Scope* ssc = sym->getParentScope();
