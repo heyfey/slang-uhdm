@@ -9027,6 +9027,34 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
             auto* rvars = s.MakeVariablesVec();
             rvars->push_back(reg);
             av->Variables(rvars);
+            // A CONCATENATION initializer (`byte b[] = {1, 1, 1}`) rides BOTH
+            // the array_var and its element reg as vpiExpr — the SAME
+            // operation object, parented at the REG (Surelog; UnsizedArray).
+            if (auto* dtI9 = sym.getDeclaredType())
+                if (auto* inI9 = dtI9->getInitializer()) {
+                    auto& icI9 = stripImplicitConv(*inI9);
+                    if (icI9.kind == ExpressionKind::Concatenation) {
+                        NetMap none9;
+                        bool savedSCP9 = suppressConstParent;
+                        suppressConstParent = true;
+                        if (auto* e9 = emitExpr(icI9, reg, fullName, none9)) {
+                            // Bare-decimal elements size to the ELEMENT type
+                            // (`byte` -> 8), not the default 64.
+                            int32_t ew9 = (int32_t)leaf->getBitWidth();
+                            if (ew9 > 0 && e9->UhdmType() == UHDM::uhdmoperation)
+                                if (auto* os9 =
+                                        ((UHDM::operation*)e9)->Operands())
+                                    for (auto* o9 : *os9)
+                                        if (o9->UhdmType() ==
+                                                UHDM::uhdmconstant &&
+                                            ((UHDM::expr*)o9)->VpiSize() == 64)
+                                            ((UHDM::expr*)o9)->VpiSize(ew9);
+                            av->Expr((UHDM::expr*)e9);
+                            reg->Expr((UHDM::expr*)e9);
+                        }
+                        suppressConstParent = savedSCP9;
+                    }
+                }
         }
     }
 

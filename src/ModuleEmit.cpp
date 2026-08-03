@@ -2458,6 +2458,16 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                     setLoc(r, expr->sourceRange);
                     if (auto nit = info.nets.find(&nv.symbol); nit != info.nets.end())
                         r->Actual_group(nit->second);
+                    // An ENUM-CONSTANT actual (.op_i(CIPH_INV)) links to the
+                    // enum_const in the DEF view — the elaborated view folds
+                    // the same connection to a constant instead.  A PARAMETER
+                    // actual links to nothing here (probe: `.o_i(B)` gets the
+                    // enum_const, `.v_i(LP)` gets no actual, `.w_i(w)` gets the
+                    // net) — ConstPort.
+                    else if (nv.symbol.kind == SymbolKind::EnumValue)
+                        if (auto eit9 = enumConstMap.find(&nv.symbol);
+                            eit9 != enumConstMap.end())
+                            r->Actual_group(eit9->second);
                     p->High_conn(r);
                 }
                 else if (auto* h = emitExpr(*expr, p, connScope9, info.nets)) {
@@ -5262,6 +5272,37 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (auto* e = emitExpr(ic, v, fullName, topNets))
                             v->Expr((UHDM::expr*)e);
                     }
+                    // A pure SELECT init with no member access (`logic t =
+                    // enum_test[0]`) is the select itself, scoped through the
+                    // initialized var (`work@top.t.enum_test`) exactly as the
+                    // member form above scopes its path (StructAccess).
+                    else if ([&] {
+                                 const Expression* b1 = &ic;
+                                 bool sawSel = false;
+                                 for (;;) {
+                                     if (b1->kind ==
+                                         ExpressionKind::ElementSelect) {
+                                         sawSel = true;
+                                         b1 = &stripImplicitConv(
+                                             b1->as<ElementSelectExpression>()
+                                                 .value());
+                                     }
+                                     else if (b1->kind ==
+                                              ExpressionKind::RangeSelect) {
+                                         sawSel = true;
+                                         b1 = &stripImplicitConv(
+                                             b1->as<RangeSelectExpression>()
+                                                 .value());
+                                     }
+                                     else
+                                         break;
+                                 }
+                                 return sawSel &&
+                                        b1->kind == ExpressionKind::NamedValue;
+                             }()) {
+                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                            v->Expr((UHDM::expr*)e);
+                    }
                 }
                 // A port-backed var whose PORT carries an initializer (and the
                 // var itself none) holds the FOLDED substituted value as
@@ -7004,6 +7045,67 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     if (!abe9.bad())
                                         h = emitExpr(abe9, p, hcPrefix,
                                                      *parentNets);
+                                }
+                    }
+                    // An ENUM-CONSTANT port actual (`.op_i(CIPH_INV)`) FOLDS
+                    // in the ELABORATED view to a constant carrying the
+                    // enum_const's OWN value and size (the DEF view keeps the
+                    // ref_obj and links its vpiActual instead).  The decompile
+                    // is REFORMATTED from the value, not copied: a `4'd7`
+                    // enum_const stores INT:7 and folds to a bare `7`, while
+                    // `4'h5`/`1'b1` (HEX/BIN payloads) reprint with their
+                    // size'base prefix.  Measured on a 3-enum probe (untyped
+                    // `{X,Y,Z}` -> INT/size 64, `4'h5` -> HEX/size 4, `4'd7`
+                    // -> INT/size 4) plus ConstPort's 1-bit BIN case.
+                    if (!h) {
+                        auto& hcE9 = stripImplicitConv(*expr);
+                        if (hcE9.kind == ExpressionKind::NamedValue &&
+                            hcE9.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::EnumValue)
+                            if (auto eit9 = enumConstMap.find(
+                                    &hcE9.as<NamedValueExpression>().symbol);
+                                eit9 != enumConstMap.end())
+                                if (auto* ec9 =
+                                        any_cast<UHDM::enum_const*>(eit9->second)) {
+                                    std::string val9(ec9->VpiValue());
+                                    auto col9 = val9.find(':');
+                                    std::string base9 =
+                                        col9 == std::string::npos
+                                            ? std::string()
+                                            : val9.substr(0, col9);
+                                    std::string dig9 =
+                                        col9 == std::string::npos
+                                            ? val9
+                                            : val9.substr(col9 + 1);
+                                    int32_t ct9 = 0;
+                                    std::string dec9 = dig9;
+                                    int32_t sz9 = ec9->VpiSize();
+                                    if (base9 == "INT")
+                                        ct9 = vpiIntConst;
+                                    else if (base9 == "UINT")
+                                        ct9 = vpiUIntConst;
+                                    else if (base9 == "HEX") {
+                                        ct9 = vpiHexConst;
+                                        dec9 = std::to_string(sz9) + "'h" + dig9;
+                                    }
+                                    else if (base9 == "BIN") {
+                                        ct9 = vpiBinaryConst;
+                                        dec9 = std::to_string(sz9) + "'b" + dig9;
+                                    }
+                                    else if (base9 == "OCT") {
+                                        ct9 = vpiOctConst;
+                                        dec9 = std::to_string(sz9) + "'o" + dig9;
+                                    }
+                                    if (ct9) {
+                                        auto* c9 = s.MakeConstant();
+                                        c9->VpiParent(p);
+                                        c9->VpiValue(val9);
+                                        c9->VpiSize(sz9);
+                                        c9->VpiDecompile(dec9);
+                                        c9->VpiConstType(ct9);
+                                        setLoc(c9, hcE9.sourceRange);
+                                        h = c9;
+                                    }
                                 }
                     }
                     if (!h)
@@ -13751,6 +13853,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // (ReorderPatt). The general share decision below already knows this
         // case as unpackedParamSel; the implicit-net shortcut must not
         // pre-empt it.
+        // Set when the elab view re-elaborates a COMPUTED (operation /
+        // system-call) RHS onto a dropped IMPLICIT net: the fold then keeps
+        // its own 64-bit result instead of truncating to the net's one bit.
+        bool implNetComputedFold9 = false;
         if (topView) {
             auto& lc0 = stripImplicitConv(ae.left());
             bool elabFoldRhs9 = false;
@@ -13774,6 +13880,94 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // implicit net (HighLow's `assign ccc = $high(a)`).
             if (sysFold)
                 elabFoldRhs9 = true;
+            // A COMPUTED RHS that folds — an operation or a system call, never
+            // a bare literal or reference — re-elaborates onto a dropped
+            // implicit net too, collapsing to its whole-RHS constant.  Probe
+            // (`assign a = 42+(123)` -> UINT:165 size 64, `c = $clog2(123)` ->
+            // UINT:7, `e = P+1` -> UINT:6, each a FRESH elab cont_assign with
+            // a ref_obj Lhs bound to the DEF net; the same three assignments
+            // onto DECLARED nets already take that path and size to the net).
+            // A bare-reference RHS (`assign b = w`) and an UNFOLDABLE
+            // operation (`assign d = w & 1'b1`) keep the share, and so does a
+            // plain literal (`assign a = 5`), which this rule leaves alone —
+            // PPMacro.
+            {
+                auto& rf9 = stripImplicitConv(ae.right());
+                bool computed9 =
+                    rf9.kind == ExpressionKind::BinaryOp ||
+                    rf9.kind == ExpressionKind::UnaryOp ||
+                    rf9.kind == ExpressionKind::ConditionalOp ||
+                    (rf9.kind == ExpressionKind::Call &&
+                     rf9.as<CallExpression>().isSystemCall());
+                if (computed9 && lc0.kind == ExpressionKind::NamedValue &&
+                    lc0.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Net &&
+                    lc0.as<NamedValueExpression>()
+                        .symbol.as<NetSymbol>()
+                        .isImplicit) {
+                    ASTContext fctx9(comp.getRoot(), LookupLocation::max);
+                    ConstantValue fcv9 =
+                        fctx9.tryEval(stripImplicitConv(ae.right()));
+                    // An operand Surelog could not SIZE is one it did not
+                    // reduce either: `assign e = -18446744073709551616` keeps
+                    // its operation over an UNSIZED (vpiSize -1) DEC constant
+                    // and shares the def object.  Neither the evaluated width
+                    // nor the literal's own says so — the 1-bit net is a
+                    // context-determined operand, so slang has already
+                    // narrowed the whole subtree to one bit — so read the
+                    // verdict off the DEF-view RHS we already built
+                    // (LargeConst).
+                    bool unsizedDefRhs9 = false;
+                    if (defInfo && myIdx < defInfo->contAssigns.size()) {
+                        std::function<void(UHDM::any*)> scan9 =
+                            [&](UHDM::any* n9) {
+                                if (!n9 || unsizedDefRhs9)
+                                    return;
+                                if (n9->UhdmType() == UHDM::uhdmconstant) {
+                                    if (((UHDM::expr*)n9)->VpiSize() < 0)
+                                        unsizedDefRhs9 = true;
+                                    return;
+                                }
+                                if (n9->UhdmType() == UHDM::uhdmoperation) {
+                                    if (auto* os9 =
+                                            ((UHDM::operation*)n9)->Operands())
+                                        for (auto* o9 : *os9)
+                                            scan9(o9);
+                                }
+                                else if (n9->UhdmType() ==
+                                         UHDM::uhdmsys_func_call) {
+                                    if (auto* as9 =
+                                            ((UHDM::sys_func_call*)n9)
+                                                ->Tf_call_args())
+                                        for (auto* o9 : *as9)
+                                            scan9(o9);
+                                }
+                            };
+                        scan9(defInfo->contAssigns[myIdx]->Rhs());
+                    }
+                    if (fcv9 && fcv9.isInteger() &&
+                        !fcv9.integer().hasUnknown() && !unsizedDefRhs9) {
+                        elabFoldRhs9 = true;
+                        implNetComputedFold9 = true;
+                    }
+                }
+            }
+            // ...and so does a CHILD-instance PART-SELECT of a parameter
+            // (`assign x = RndCnstMaskingLfsrSeed[31:0]` on an implicit `x`):
+            // the net is still dropped, but the assignment re-elaborates with
+            // the loc-less BIN fold the general path already builds
+            // (paramPartSelRhs) — LongHex.
+            if (prefix.find('.') != std::string::npos) {
+                auto& rp9 = stripImplicitConv(ae.right());
+                if (rp9.kind == ExpressionKind::RangeSelect) {
+                    auto& bp9 = stripImplicitConv(
+                        rp9.as<RangeSelectExpression>().value());
+                    if (bp9.kind == ExpressionKind::NamedValue &&
+                        bp9.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter)
+                        elabFoldRhs9 = true;
+                }
+            }
             if (!elabFoldRhs9 && lc0.kind == ExpressionKind::NamedValue &&
                 lc0.as<NamedValueExpression>().symbol.kind == SymbolKind::Net &&
                 lc0.as<NamedValueExpression>().symbol.as<NetSymbol>().isImplicit &&
@@ -15434,6 +15628,29 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     rhs->VpiParent(ca);
                 }
             }
+            // Same truncation trap for the implicit-net computed fold: an
+            // implicit net has no declared width, so Surelog's reduce keeps
+            // its own 64-bit result (`assign a = 42+(123)` -> UINT:165 size
+            // 64) where tryFoldConst, evaluating the ASSIGNMENT, would give
+            // UINT:1 size 1.  Declared nets do size to the net — PPMacro.
+            if (rhs && implNetComputedFold9 &&
+                rhs->UhdmType() == UHDM::uhdmconstant) {
+                ASTContext ictx9(comp.getRoot(), LookupLocation::max);
+                // The IMPLICIT CONVERSION to the 1-bit net is what truncates,
+                // so evaluate the written RHS underneath it.
+                ConstantValue icv9 =
+                    ictx9.tryEval(stripImplicitConv(ae.right()));
+                if (icv9 && icv9.isInteger() && !icv9.integer().hasUnknown()) {
+                    std::string dg9 =
+                        icv9.integer().toString(LiteralBase::Decimal, false);
+                    auto* rc9 = (UHDM::constant*)rhs;
+                    rc9->VpiDecompile(dg9);
+                    rc9->VpiValue("UINT:" + dg9);
+                    rc9->VpiConstType(vpiUIntConst);
+                    rc9->VpiSize(64);
+                    rc9->VpiParent(ca);
+                }
+            }
         }
         // A NESTED cast RHS, or a cast whose operand is a PARAMETER ref
         // (int'(X)), that evals fully folds loc-less: UINT by magnitude at
@@ -15842,13 +16059,21 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     nm == "$stable" || nm == "$past" || qry9) {
                     auto& le = stripImplicitConv(ae.left());
                     if (le.kind == ExpressionKind::NamedValue) {
+                        // An IMPLICIT-net LHS carries no typespec of its own,
+                        // and Surelog leaves the ref UNRESOLVED rather than
+                        // synthesizing one — the same way the range queries
+                        // behave over untyped signals (PPMacro
+                        // `assign a = `FOO1(123)`).
+                        auto& lsym9 = le.as<NamedValueExpression>().symbol;
+                        bool implNet9 =
+                            lsym9.kind == SymbolKind::Net &&
+                            lsym9.as<NetSymbol>().isImplicit;
                         auto* rt = s.MakeRef_typespec();
                         rt->VpiFullName(prefix);
                         rt->VpiParent(rhs);
                         ((UHDM::expr*)rhs)->Typespec(rt);
                         pendingSysFuncTs.push_back(
-                            {rt, defInfo->mod, &le.as<NamedValueExpression>().symbol,
-                             qry9});
+                            {rt, defInfo->mod, &lsym9, qry9 || implNet9});
                     }
                 }
             }
@@ -15902,7 +16127,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         NetMap& lhsMap = (topView && shareWithDef &&
                           (literalRhs || bitsRhs || cfr || callFold || ovParamRhs ||
                            typedParamRhs || constVarRhs || noDefOvRhs || enumRhs ||
-                           unpackedParamSel || sysFold) &&
+                           unpackedParamSel || sysFold || paramPartSelRhs ||
+                           implNetComputedFold9) &&
                           defInfo)
                              ? defInfo->nets
                              : netMap;

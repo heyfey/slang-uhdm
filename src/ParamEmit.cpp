@@ -3668,6 +3668,69 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
             }
         }
+        // ...and so does a parameter whose OWN declared PACKED RANGE reads a
+        // parameter overridden at this instantiation (`parameter logic
+        // [Width-1:0] ResetValue = Width` under `#(.Width(22))`), whatever the
+        // instance count.  Measured on a 6-row probe against `#(.W(22))`:
+        //   W                          explicit override  -> marked
+        //   int R7 = W                 VALUE reads W      -> NOT marked
+        //   logic [W-1:0] R6 = 3       RANGE reads W      -> marked
+        //   logic [Q-1:0] R5 = 3       RANGE reads a non-overridden param
+        //                                                 -> NOT marked
+        //   logic [R7-1:0] R8 = 3      RANGE reads a DERIVED param — the rule
+        //                              is NOT transitive  -> NOT marked
+        //   int Q = 5                  reads nothing      -> NOT marked
+        // An un-overridden sibling instance carries no mark at all
+        // (ParamOverloadProp).
+        if (topView && !overridden && !derivedOv9 && hasDefault && !inPackage) {
+            if (auto od8 = ps.getDeclaredType())
+                if (auto tsyn8 = od8->getTypeSyntax()) {
+                    // Only an EXPLICITLY typed range counts: `parameter
+                    // [W:0] R10` / `localparam [W:0] R11` (implicit type) stay
+                    // UNMARKED where `logic [W:0] R12` is marked, and that is
+                    // the whole difference between ParamOverloadProp's
+                    // `logic [Width-1:0] ResetValue` (marked) and u2r
+                    // func_upto's `localparam [HI:LO] A_CONST` (not).
+                    // `parameter` vs `localparam` does NOT matter.
+                    std::string rng8;
+                    if (syntax::IntegerTypeSyntax::isKind(tsyn8->kind)) {
+                        auto& itc8 = tsyn8->as<syntax::IntegerTypeSyntax>();
+                        if (!itc8.dimensions.empty())
+                            rng8 = std::string(rawText(SourceRange(
+                                itc8.dimensions[0]->sourceRange().start(),
+                                itc8.dimensions.back()->sourceRange().end())));
+                    }
+                    if (!rng8.empty())
+                        for (auto& om8 : body.members()) {
+                            if (om8.kind != SymbolKind::Parameter ||
+                                !isOverriddenParam(om8))
+                                continue;
+                            auto p8 = rng8.find(om8.name);
+                            while (p8 != std::string::npos) {
+                                bool lb8 =
+                                    p8 == 0 ||
+                                    (!isalnum((unsigned char)rng8[p8 - 1]) &&
+                                     rng8[p8 - 1] != '_');
+                                size_t e8 = p8 + om8.name.size();
+                                // A MEMBER read of an overridden struct param
+                                // (`bit [Cfg.NoSlvPorts-1:0] Connectivity`)
+                                // does NOT mark — only a whole-parameter read
+                                // does (NoReducTypespec).
+                                bool rb8 =
+                                    e8 >= rng8.size() ||
+                                    (!isalnum((unsigned char)rng8[e8]) &&
+                                     rng8[e8] != '_' && rng8[e8] != '.');
+                                if (lb8 && rb8) {
+                                    derivedOv9 = true;
+                                    break;
+                                }
+                                p8 = rng8.find(om8.name, p8 + 1);
+                            }
+                            if (derivedOv9)
+                                break;
+                        }
+                }
+        }
         if (topView && !cliOv &&
             (overridden || derivedOv9 || (!hasDefault && boundInit)))
             pa->VpiOverriden(true);
@@ -5254,6 +5317,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                    init->as<ConversionExpression>().isImplicit())
                 init = &init->as<ConversionExpression>().operand();
             UHDM::any* rhs = nullptr;
+            // `parameter value = (1:2:3)`: slang binds only the typical arm,
+            // Surelog keeps the whole min:typ:max as an unfolded
+            // operation(38) in BOTH views.  emitExpr rebuilds it from the
+            // syntax the bound arm still points at (MinTypMax); the param
+            // path never reaches emitExpr for a foldable initializer, so
+            // dispatch explicitly.
+            if (init->kind == ExpressionKind::MinTypMax)
+                rhs = emitExpr(*init, pa, prefix, netMap);
             // A struct parameter initialized by a MEMBER-BY-MEMBER const
             // function does NOT fold to a constant: Surelog's EvalFunc hands
             // back the function's own struct_var, and the VALUE lives in the
@@ -10127,15 +10198,23 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
         // A ranged untyped param (parameter [0:0] X) locates its int_typespec
         // at the packed-range span, not the whole declaration; a SIGNED
         // implicit param (localparam unsigned P) at the signing keyword.
+        //
+        // The SIGNING KEYWORD WINS over the packed range when both are
+        // written.  Measured on a 6-row probe (`localparam signed [7:0] a`,
+        // `unsigned [7:0] b`, `parameter signed [3:0] c`, `[7:0] d`,
+        // `signed e`, `signed [1:0][3:0] f`): every signed/unsigned row
+        // anchors at the signing token alone, the bare-range row at the
+        // dims, and the multi-dim signed row still at the token — the ranges
+        // ride the typespec regardless (ImplicitParam).
         if (auto declared = ps.getDeclaredType()) {
             if (auto tsyn = declared->getTypeSyntax()) {
                 if (tsyn->kind == syntax::SyntaxKind::ImplicitType) {
                     auto& imp = tsyn->as<syntax::ImplicitTypeSyntax>();
-                    if (!imp.dimensions.empty())
+                    if (imp.signing.valid())
+                        tr = imp.signing.range();
+                    else if (!imp.dimensions.empty())
                         tr = SourceRange(imp.dimensions[0]->sourceRange().start(),
                                          imp.dimensions.back()->sourceRange().end());
-                    else if (imp.signing.valid())
-                        tr = imp.signing.range();
                 }
             }
         }
@@ -10607,14 +10686,15 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
         // Untyped parameters carry no signedness flag — EXCEPT one written
         // with an explicit signing keyword (localparam signed Y), whose
         // int_typespec spans that keyword and does carry it (const_func).
+        // A packed range alongside the keyword does NOT suppress it
+        // (`localparam signed [63:0] n` -> vpiSigned:1 + the range;
+        // ImplicitParam, same 6-row probe as the location rule above).
         bool signKw9 = false;
         if (auto d9 = ps.getDeclaredType())
             if (auto t9 = d9->getTypeSyntax())
                 if (t9->kind == syntax::SyntaxKind::ImplicitType)
                     signKw9 = t9->as<syntax::ImplicitTypeSyntax>()
-                                  .signing.valid() &&
-                              t9->as<syntax::ImplicitTypeSyntax>()
-                                  .dimensions.empty();
+                                  .signing.valid();
         if (typedParam || signKw9)
             intTs->VpiSigned(sgn);
         its = intTs;

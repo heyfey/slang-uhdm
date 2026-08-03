@@ -483,7 +483,7 @@ ParameterPassedTo3TimesNestedSubmodule,testflags,CMP_EQUAL,,,differ
 ParameterPassedToSubmoduleInGenscopeOfSubmodule,testflags,CMP_EQUAL,,,differ
 ParameterPassedToSubmoduleOfSubmodule,testflags,CMP_EQUAL,,,differ
 ParameterRangeUsingDot,testflags,SLANG_REJECT,dut.sv:41:47: error: assignment pattern for 'part_info_t$[2]' requires 2 elements but 8 were provided,,
-ParameterSizeOfInstance,testflags,CMP_EQUAL,,,differ
+ParameterSizeOfInstance,testflags,CMP_EQUAL,,,match
 ParameterUnpackedArray,testflags,CMP_EQUAL,,,match
 ParameterUnpackedLogicArray,testflags,CMP_EQUAL,,,match
 ParameterUnsignedInt,testflags,CMP_EQUAL,,,match

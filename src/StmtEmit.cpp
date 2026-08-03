@@ -220,9 +220,52 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
         }
         case TimingControlKind::SignalEvent: {
             auto& sec = tc.as<SignalEventControl>();
-            if (sec.iffCondition) {
-                noteUnsupported("iff event condition");
-                return nullptr;
+            // `@(posedge clk iff en)`: an operation(vpiIffOp=68) with
+            // [signal, condition] operands, located at the SIGNAL's span, sits
+            // between the edge operation and the signal reference.  Measured
+            // (4-row probe: `posedge clk iff en`, `negedge clk iff en == 1`,
+            // `a iff b`, and an event list mixing the two):
+            //
+            //   * with an edge  -> op(edge)[whole span]( op(iff)[signal span](
+            //                      signal, cond) );
+            //   * with NO edge  -> op(iff)[whole span]( op(iff)[signal span](
+            //                      signal, cond), cond ) — Surelog applies the
+            //                      iff wrapper twice, once from the expression
+            //                      compile and once from the event-expression
+            //                      handler, and the inner condition object is
+            //                      SHARED with the outer one.
+            //
+            // The condition operands parent at the INNER iff op in both shapes.
+            auto iffWrap9 = [&](UHDM::BaseClass* op9,
+                                UHDM::BaseClass* p9) -> UHDM::any* {
+                auto* io9 = s.MakeOperation();
+                io9->VpiOpType(vpiIffOp);
+                io9->VpiParent(p9);
+                setLoc(io9, sec.expr.sourceRange);
+                auto* iv9 = s.MakeAnyVec();
+                if (auto* e9 = emitExpr(sec.expr, io9, prefix, netMap))
+                    iv9->push_back(e9);
+                if (auto* c9 = emitExpr(*sec.iffCondition, io9, prefix, netMap))
+                    iv9->push_back(c9);
+                io9->Operands(iv9);
+                (void)op9;
+                return io9;
+            };
+            if (sec.iffCondition && sec.edge == EdgeKind::None) {
+                auto* outer9 = s.MakeOperation();
+                outer9->VpiOpType(vpiIffOp);
+                outer9->VpiParent(parent);
+                setLoc(outer9, tc.sourceRange);
+                auto* ov9 = s.MakeAnyVec();
+                auto* inner9 = (UHDM::operation*)iffWrap9(nullptr, outer9);
+                ov9->push_back(inner9);
+                // The outer operand is the SAME condition object the inner one
+                // holds (Surelog shares it), so re-use rather than re-emit.
+                if (auto* iops9 = inner9->Operands())
+                    if (iops9->size() > 1)
+                        ov9->push_back((*iops9)[1]);
+                outer9->Operands(ov9);
+                return outer9;
             }
             int32_t opType = 0;
             switch (sec.edge) {
@@ -273,7 +316,11 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
             op->VpiParent(parent);
             setLoc(op, tc.sourceRange);
             auto* operands = s.MakeAnyVec();
-            if (auto* e = emitExpr(sec.expr, op, prefix, netMap))
+            if (sec.iffCondition) {
+                if (auto* iw = iffWrap9(nullptr, op))
+                    operands->push_back(iw);
+            }
+            else if (auto* e = emitExpr(sec.expr, op, prefix, netMap))
                 operands->push_back(e);
             op->Operands(operands);
             return op;
@@ -1924,6 +1971,41 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Procedural `assert property (...)`: an assert_stmt statement
             // whose property_spec wraps the property expression.
             auto& ca = stmt.as<ConcurrentAssertionStatement>();
+            // `expect (@(posedge clk) a ##1 b);` is NOT a concurrent_assertion
+            // in UHDM: it is an atomic_stmt (`expect_stmt`) carrying the same
+            // property_spec, and — unlike assert/assume/cover — it takes NO
+            // vpiFullName (ExpectStmt).
+            if (ca.assertionKind == AssertionKind::Expect) {
+                auto* ex9 = s.MakeExpect_stmt();
+                ex9->VpiParent(parent);
+                setLoc(ex9, SourceRange(stmt.sourceRange.start(),
+                                        stmt.sourceRange.end() -
+                                            basedLiteralSpaceCount(
+                                                rawText(stmt.sourceRange))));
+                if (ca.ifFalse)
+                    if (auto* st9 = emitStmt(*ca.ifFalse, ex9, prefix, netMap))
+                        ex9->Stmt(st9);
+                auto* ps9 = s.MakeProperty_spec();
+                ps9->VpiParent(ex9);
+                if (ca.propertySpec.syntax) {
+                    auto pr9 = ca.propertySpec.syntax->sourceRange();
+                    setLoc(ps9,
+                           SourceRange(pr9.start(),
+                                       pr9.end() - basedLiteralSpaceCount(
+                                                       rawText(pr9))));
+                }
+                const AssertionExpr* pe9 = &ca.propertySpec;
+                if (pe9->kind == AssertionExprKind::Clocking) {
+                    auto& clk9 = pe9->as<ClockingAssertionExpr>().clocking;
+                    pe9 = &pe9->as<ClockingAssertionExpr>().expr;
+                    if (auto* ce9 = emitEventExpr(clk9, ps9, prefix, netMap))
+                        ps9->VpiClockingEvent((UHDM::expr*)ce9);
+                }
+                if (auto* pb9 = emitAssertionExpr(*pe9, ps9, prefix, netMap))
+                    ps9->VpiPropertyExpr(pb9);
+                ex9->Property_spec(ps9);
+                return ex9;
+            }
             UHDM::concurrent_assertions* as = nullptr;
             switch (ca.assertionKind) {
                 case AssertionKind::Assert:

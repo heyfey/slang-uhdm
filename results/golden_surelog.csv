@@ -267,8 +267,8 @@ ComplexParamOverload,default,CMP_EQUAL,,,differ
 ComplexParamOverload,testflags,CMP_EQUAL,,,differ
 ComplexParamOverload2,default,CMP_EQUAL,,,match
 ComplexParamOverload2,testflags,CMP_EQUAL,,,differ
-ComplexVarSelect,default,CMP_NOTEQUAL,decompile:,,
-ComplexVarSelect,testflags,CMP_NOTEQUAL,decompile:,,
+ComplexVarSelect,default,CMP_EQUAL,,,match
+ComplexVarSelect,testflags,CMP_EQUAL,,,match
 ConcatOrder,default,SLANG_REJECT,dut.sv:16:6: error: identifier 'bp_default_cfg_p' used before its declaration,,
 ConcatOrder,testflags,SLANG_REJECT,dut.sv:16:6: error: identifier 'bp_default_cfg_p' used before its declaration,,
 ConcatRadix,default,SLANG_REJECT,dut.sv:6:5: error: unknown module 'bar',,
@@ -301,8 +301,8 @@ ConstExpand,default,CMP_EQUAL,,,match
 ConstExpand,testflags,CMP_EQUAL,,,match
 ConstHighConn,default,SLANG_REJECT,dut.sv:7:13: error: expression is not assignable,,
 ConstHighConn,testflags,SLANG_REJECT,dut.sv:7:13: error: expression is not assignable,,
-ConstPort,default,CMP_NOTEQUAL,decompile:,,
-ConstPort,testflags,CMP_NOTEQUAL,decompile:,,
+ConstPort,default,CMP_EQUAL,,,match
+ConstPort,testflags,CMP_EQUAL,,,match
 ContAssign,default,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'intf',,
 ContAssign,testflags,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'intf',,
 ContAssignConst,default,CMP_EQUAL,,,differ
@@ -431,8 +431,8 @@ EvalFuncPack,default,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identif
 EvalFuncPack,testflags,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
 Event,default,CMP_EQUAL,,,match
 Event,testflags,CMP_EQUAL,,,match
-ExpectStmt,default,CMP_NOTEQUAL,decompile:,,
-ExpectStmt,testflags,CMP_NOTEQUAL,decompile:,,
+ExpectStmt,default,CMP_EQUAL,,,match
+ExpectStmt,testflags,CMP_EQUAL,,,match
 ExplicitPort,default,CMP_EQUAL,,,differ
 ExplicitPort,testflags,CMP_EQUAL,,,differ
 ExplictiPorts,default,CMP_EQUAL,,,differ
@@ -675,8 +675,8 @@ IfElseIf2,default,CMP_EQUAL,,,match
 IfElseIf2,testflags,CMP_EQUAL,,,match
 IfElseIf3,default,CMP_EQUAL,,,match
 IfElseIf3,testflags,CMP_EQUAL,,,match
-Iff,default,CMP_NOTEQUAL,decompile:,,
-Iff,testflags,CMP_NOTEQUAL,decompile:,,
+Iff,default,CMP_EQUAL,,,match
+Iff,testflags,CMP_EQUAL,,,differ
 IfGen1,default,CMP_EQUAL,,,differ
 IfGen1,testflags,CMP_EQUAL,,,differ
 IfGen2,default,CMP_EQUAL,,,differ
@@ -701,8 +701,8 @@ ImplicitGenBlock,default,SLANG_REJECT,dut.sv:66:16: error: cannot reference unna
 ImplicitGenBlock,testflags,SLANG_REJECT,dut.sv:66:16: error: cannot reference unnamed generate block via external name 'genblk1' (use --allow-genblk-reference to allow this),,
 ImplicitPackedStructNet,default,CMP_EQUAL,,,match
 ImplicitPackedStructNet,testflags,CMP_EQUAL,,,differ
-ImplicitParam,default,CMP_NOTEQUAL,decompile:,,
-ImplicitParam,testflags,CMP_NOTEQUAL,decompile:,,
+ImplicitParam,default,CMP_EQUAL,,,match
+ImplicitParam,testflags,CMP_EQUAL,,,match
 ImplicitPort,default,CMP_EQUAL,,,match
 ImplicitPort,testflags,CMP_EQUAL,,,match
 ImplicitPorts2,default,CMP_EQUAL,,,differ
@@ -829,8 +829,8 @@ LogicTypedef,default,CMP_EQUAL,,,differ
 LogicTypedef,testflags,CMP_EQUAL,,,differ
 LogicTypespec,default,CMP_EQUAL,,,differ
 LogicTypespec,testflags,CMP_EQUAL,,,differ
-LongHex,default,CMP_NOTEQUAL,decompile:,,
-LongHex,testflags,CMP_NOTEQUAL,decompile:,,
+LongHex,default,CMP_EQUAL,,,match
+LongHex,testflags,CMP_EQUAL,,,differ
 Loop,default,SLANG_REJECT,dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
 Loop,testflags,SLANG_REJECT,dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
 LoopParam,default,SLANG_REJECT,dut.sv:4:17: error: identifier 'P2' used before its declaration,,
@@ -855,8 +855,8 @@ MBadder,default,CMP_EQUAL,,,match
 MBadder,testflags,CMP_EQUAL,,,match
 MiniAmiq,default,SLANG_REJECT,warning: no top-level modules found in design [-Wmissing-top],,
 MiniAmiq,testflags,SLANG_REJECT,warning: no top-level modules found in design [-Wmissing-top],,
-MinTypMax,default,CMP_NOTEQUAL,decompile:,,
-MinTypMax,testflags,CMP_NOTEQUAL,decompile:,,
+MinTypMax,default,CMP_EQUAL,,,match
+MinTypMax,testflags,CMP_EQUAL,,,match
 ModPortArrayBind,default,SLANG_REJECT,dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
 ModPortArrayBind,testflags,SLANG_REJECT,dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
 ModPortHighConn,default,SLANG_REJECT,dut.sv:9:32: error: expression is not assignable,,
@@ -1071,8 +1071,8 @@ ParamOverload4,default,CMP_EQUAL,,,match
 ParamOverload4,testflags,CMP_EQUAL,,,match
 ParamOverloading,default,CMP_NOTEQUAL,decompile:,,
 ParamOverloading,testflags,CMP_NOTEQUAL,decompile:,,
-ParamOverloadProp,default,CMP_NOTEQUAL,decompile:,,
-ParamOverloadProp,testflags,CMP_NOTEQUAL,decompile:,,
+ParamOverloadProp,default,CMP_EQUAL,,,match
+ParamOverloadProp,testflags,CMP_EQUAL,,,match
 ParamRef,default,CMP_EQUAL,,,differ
 ParamRef,testflags,CMP_EQUAL,,,differ
 ParamScope,default,CMP_EQUAL,,,differ
@@ -1147,8 +1147,8 @@ PPComment,default,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 
 PPComment,testflags,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'b',,
 PpLppdr,default,SLANG_REJECT,dut.sv:20:9: error: use of undeclared identifier 'wdata',,
 PpLppdr,testflags,SLANG_REJECT,dut.sv:20:9: error: use of undeclared identifier 'csr_read',,
-PPMacro,default,CMP_NOTEQUAL,decompile:,,
-PPMacro,testflags,CMP_NOTEQUAL,decompile:,,
+PPMacro,default,CMP_EQUAL,,,match
+PPMacro,testflags,CMP_EQUAL,,,match
 PragmaProtect,default,SURELOG_FAIL,[   NOTE] : 0,,
 PragmaProtect,testflags,SLANG_REJECT,top.sv:52:1: error: unknown macro or compiler directive '`protected',,
 PreProcDefine,default,CMP_EQUAL,,,match
@@ -1283,8 +1283,8 @@ StringPort,default,CMP_EQUAL,,,match
 StringPort,testflags,CMP_EQUAL,,,match
 StringRange,default,CMP_EQUAL,,,differ
 StringRange,testflags,CMP_EQUAL,,,differ
-StructAccess,default,CMP_NOTEQUAL,decompile:,,
-StructAccess,testflags,CMP_NOTEQUAL,decompile:,,
+StructAccess,default,CMP_EQUAL,,,differ
+StructAccess,testflags,CMP_EQUAL,,,differ
 StructArrayNet,default,CMP_EQUAL,,,differ
 StructArrayNet,testflags,CMP_EQUAL,,,differ
 StructNetUnionTypespec,default,CMP_EQUAL,,,match
@@ -1313,8 +1313,8 @@ SystemCallSize,default,CMP_EQUAL,,,match
 SystemCallSize,testflags,CMP_EQUAL,,,differ
 TaggedParam,default,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
 TaggedParam,testflags,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
-TaggedPattern,default,CMP_NOTEQUAL,decompile:,,
-TaggedPattern,testflags,CMP_NOTEQUAL,decompile:,,
+TaggedPattern,default,CMP_EQUAL,,,differ
+TaggedPattern,testflags,CMP_EQUAL,,,differ
 TaggedPatternLogic,default,CMP_EQUAL,,,differ
 TaggedPatternLogic,testflags,CMP_EQUAL,,,differ
 TaskBind,default,CMP_EQUAL,,,match
@@ -1459,8 +1459,8 @@ UnsizeConstExpr,default,CMP_EQUAL,,,differ
 UnsizeConstExpr,testflags,CMP_EQUAL,,,differ
 Unsized,default,CMP_EQUAL,,,match
 Unsized,testflags,CMP_EQUAL,,,match
-UnsizedArray,default,CMP_NOTEQUAL,decompile:,,
-UnsizedArray,testflags,CMP_NOTEQUAL,decompile:,,
+UnsizedArray,default,CMP_EQUAL,,,match
+UnsizedArray,testflags,CMP_EQUAL,,,match
 UnsizedConstInst,default,SLANG_REJECT,dut.sv:5:36: error: invalid operands to binary expression ('logic$[5:0]' and 'bit[0:0]'),,
 UnsizedConstInst,testflags,SLANG_REJECT,dut.sv:5:36: error: invalid operands to binary expression ('logic$[5:0]' and 'bit[0:0]'),,
 UnsizedElabComp,default,CMP_EQUAL,,,match

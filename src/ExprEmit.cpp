@@ -1831,6 +1831,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         if (auto* sh = emitLetInlined(expr, parent))
             return sh;
     }
+    // `parameter value = (1:2:3)`: Surelog keeps the whole min:typ:max as an
+    // operation(vpiMinTypMaxOp=38) over its three arms, UNFOLDED, in the def
+    // AND elaborated views alike — it never picks an arm.  The operation spans
+    // the ENCLOSING PARENTHESES and its operands stay UNPARENTED (Surelog's
+    // constant compile never back-links) — MinTypMax.
+    if (expr.kind == ExpressionKind::MinTypMax) {
+        auto& mtm9 = expr.as<MinTypMaxExpression>();
+        auto* op9 = s.MakeOperation();
+        op9->VpiOpType(vpiMinTypMaxOp);
+        op9->VpiParent(parent);
+        SourceRange sr9 = expr.sourceRange;
+        // slang REPLACES a parenthesized expression's syntax pointer with the
+        // ParenthesizedExpressionSyntax while leaving sourceRange on the inner
+        // node, so check both shapes.
+        if (expr.syntax) {
+            if (expr.syntax->kind ==
+                syntax::SyntaxKind::ParenthesizedExpression)
+                sr9 = expr.syntax->sourceRange();
+            else if (expr.syntax->parent &&
+                     expr.syntax->parent->kind ==
+                         syntax::SyntaxKind::ParenthesizedExpression)
+                sr9 = expr.syntax->parent->sourceRange();
+        }
+        setLoc(op9, sr9);
+        auto* ov9 = s.MakeAnyVec();
+        const Expression* arms9[3] = {&mtm9.min(), &mtm9.typ(), &mtm9.max()};
+        bool fcp9 = forceConstParent;
+        bool scp9 = suppressConstParent;
+        forceConstParent = false;
+        suppressConstParent = true;
+        for (auto* sub9 : arms9)
+            if (auto* e9 = emitExpr(*sub9, op9, prefix, netMap)) {
+                e9->VpiParent(nullptr);
+                ov9->push_back(e9);
+            }
+        suppressConstParent = scp9;
+        forceConstParent = fcp9;
+        op9->Operands(ov9);
+        return op9;
+    }
     switch (expr.kind) {
         case ExpressionKind::Assignment: {
             auto& ae = expr.as<AssignmentExpression>();
@@ -9334,6 +9374,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             forceConstParent = fcp2;
             ol->Operands(bounds);
             return ol;
+        }
+        case ExpressionKind::TaggedUnion: {
+            // `un = tagged v1 (85)`: a tagged_pattern named after the union
+            // MEMBER, located at the `tagged` KEYWORD alone (not the whole
+            // expression), carrying the value expression as vpiPattern.  The
+            // pattern's literal stays UNPARENTED — Surelog compiles it through
+            // its constant path, which never back-links (TaggedPattern).
+            auto& tu = expr.as<TaggedUnionExpression>();
+            auto* tp = s.MakeTagged_pattern();
+            tp->VpiName(std::string(tu.member.name));
+            tp->VpiParent(parent);
+            SourceRange tr9 = expr.sourceRange;
+            if (expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::TaggedUnionExpression)
+                tr9 = expr.syntax->as<syntax::TaggedUnionExpressionSyntax>()
+                          .tagged.range();
+            setLoc(tp, tr9);
+            if (tu.valueExpr) {
+                bool fcp9 = forceConstParent;
+                forceConstParent = false;
+                bool scp9 = suppressConstParent;
+                suppressConstParent = true;
+                if (auto* pv = emitExpr(*tu.valueExpr, tp, prefix, netMap))
+                    tp->Pattern(pv);
+                suppressConstParent = scp9;
+                forceConstParent = fcp9;
+            }
+            return tp;
         }
         case ExpressionKind::EmptyArgument:
             // An omitted optional call argument ($readmemh(file, mem, ,)):
