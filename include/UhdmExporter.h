@@ -37,6 +37,7 @@ class SubroutineSymbol;
 class FormalArgumentSymbol;
 class EnumType;
 class GenerateBlockSymbol;
+class GenerateBlockArraySymbol;
 class TypeAliasType;
 class PrimitiveSymbol;
 class LetDeclSymbol;
@@ -2119,6 +2120,33 @@ private:
         const slang::ast::ParameterSymbol* ps;
     };
     std::vector<PendingUnitParamTs> pendingUnitParamTs;
+    // § unitRefSubst — the emitted param_assign Rhs of every $unit parameter,
+    // keyed by its symbol.  An UNFOLDED $unit init SPLICES these in place of
+    // the references it could resolve (see emitSyntaxExpr's IdentifierName
+    // arm), so the tree has to be reachable after the fact.
+    std::map<const slang::ast::Symbol*, UHDM::expr*> unitParamRhs;
+    // Set only while an unfolded $unit parameter init is being emitted from
+    // syntax: the compilation-unit scope its references resolve through, and
+    // the root file that owns the declaration (a reference reaching ANOTHER
+    // root file is one Surelog's reducer never saw, so it stays dangling).
+    const slang::ast::Scope* unitSubstScope = nullptr;
+    std::string unitSubstRoot;
+    // ref_typespecs minted on spliced values, resolved to the SUBSTITUTED
+    // parameter's own typespec in the pendingUnitParamTs drain (that typespec
+    // does not exist yet when the splice happens).
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>
+        pendingUnitSubstTs;
+    // Deep-copy a $unit parameter's value tree for a splice (constant /
+    // ref_obj / operation; null for any other shape, which leaves the
+    // reference alone).
+    UHDM::expr* cloneUnitParamRhs(const UHDM::expr* src,
+                                  UHDM::BaseClass* parent);
+    // § genLoopUnitMiseval — $unit parameters Surelog's reducer could NOT
+    // give a value (unfolded init).  Anything whose evaluation depends on one
+    // is evaluated by Surelog as "no result", and a GENERATE LOOP with no
+    // result produces NO gen_scope_array at all.
+    std::set<const slang::ast::Symbol*> unitParamNoValue;
+    bool genLoopUnitMiseval(const slang::ast::GenerateBlockArraySymbol& arr);
     // Class property ts refs patched in the write phase (arena order).
     struct PendingClassPropTs {
         UHDM::ref_typespec* rt;

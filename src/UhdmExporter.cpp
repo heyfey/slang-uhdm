@@ -200,6 +200,67 @@ std::string UhdmExporter::rootFilePath(SourceLocation loc) {
     return sm->getFullPath(buf).string();
 }
 
+// § unitRefSubst — deep-copy a $unit parameter's value tree so it can be
+// SPLICED into another $unit parameter's unfolded init.  Only the three
+// shapes an unfolded $unit init can hold are copied; anything else returns
+// null, which leaves the reference in place (under-substituting is safe,
+// inventing a shape is not).
+UHDM::expr* UhdmExporter::cloneUnitParamRhs(const UHDM::expr* src,
+                                            UHDM::BaseClass* parent) {
+    if (!src)
+        return nullptr;
+    auto cloc = [](UHDM::BaseClass* dst, const UHDM::BaseClass* s0) {
+        dst->VpiFile(s0->VpiFile());
+        dst->VpiLineNo(s0->VpiLineNo());
+        dst->VpiColumnNo(s0->VpiColumnNo());
+        dst->VpiEndLineNo(s0->VpiEndLineNo());
+        dst->VpiEndColumnNo(s0->VpiEndColumnNo());
+    };
+    switch (src->UhdmType()) {
+        case UHDM::uhdmconstant: {
+            auto* o = (const UHDM::constant*)src;
+            auto* c = s.MakeConstant();
+            c->VpiValue(o->VpiValue());
+            c->VpiDecompile(o->VpiDecompile());
+            c->VpiSize(o->VpiSize());
+            c->VpiConstType(o->VpiConstType());
+            c->VpiParent(parent);
+            cloc(c, o);
+            return c;
+        }
+        case UHDM::uhdmref_obj: {
+            auto* o = (const UHDM::ref_obj*)src;
+            auto* r = s.MakeRef_obj();
+            r->VpiName(o->VpiName());
+            if (!o->VpiFullName().empty())
+                r->VpiFullName(o->VpiFullName());
+            r->VpiParent(parent);
+            cloc(r, o);
+            return r;
+        }
+        case UHDM::uhdmoperation: {
+            auto* o = (const UHDM::operation*)src;
+            auto* op = s.MakeOperation();
+            op->VpiOpType(o->VpiOpType());
+            op->VpiParent(parent);
+            cloc(op, o);
+            if (auto* ops = o->Operands()) {
+                auto* nv = s.MakeAnyVec();
+                for (auto* e : *ops) {
+                    auto* cl = cloneUnitParamRhs((const UHDM::expr*)e, op);
+                    if (!cl)
+                        return nullptr;
+                    nv->push_back(cl);
+                }
+                op->Operands(nv);
+            }
+            return op;
+        }
+        default:
+            return nullptr;
+    }
+}
+
 std::vector<std::pair<const Symbol*, const Symbol*>>
 UhdmExporter::fileScopeImportTypedefs(SourceLocation modLoc) {
     std::vector<std::pair<const Symbol*, const Symbol*>> out;
@@ -2577,6 +2638,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                 else if (unfoldableInit9 && !unresolvedInit9)
                     enc.wantTs = false;
                 unitEnc[&mem] = enc;
+                if (!enc.ok)
+                    unitParamNoValue.insert(&mem);
                 UHDM::ref_typespec* prt = nullptr;
                 if (enc.wantTs) {
                     prt = s.MakeRef_typespec();
@@ -2615,9 +2678,19 @@ UHDM::design* UhdmExporter::exportDesign() {
                 else if (unresolvedInit9 && initSyn9) {
                     // The unfolded form, emitted from SYNTAX: the refs are
                     // deliberately left unbound (Surelog never resolved them).
+                    // § unitRefSubst — but the ones Surelog COULD resolve are
+                    // not left as references at all: they are SPLICED with
+                    // the referenced parameter's own value tree.  See the
+                    // emitSyntaxExpr IdentifierName arm.
+                    unitSubstScope = ps.getParentScope();
+                    unitSubstRoot = psRoot9;
                     if (auto* e9 = emitSyntaxExpr(*initSyn9, pa))
                         pa->Rhs((UHDM::expr*)e9);
+                    unitSubstScope = nullptr;
+                    unitSubstRoot.clear();
                 }
+                if (pa->Rhs())
+                    unitParamRhs[&mem] = (UHDM::expr*)pa->Rhs();
                 unitParamMap[&mem] = up;
                 if (prt)
                     pendingUnitParamTs.push_back({up, prt, rhsRt, &ps});
@@ -3529,6 +3602,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     drainFuncRet(/*pkgOnly=*/true);
 
     // $unit param typespecs are the very last arena objects.
+    std::map<const Symbol*, UHDM::typespec*> unitSubstTsObj;
     for (auto& pu : pendingUnitParamTs) {
         // A compilation-unit parameter is typed by exactly the same rules as
         // a module one: `typedParam` is "the declaration names a type".
@@ -3558,7 +3632,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                         !t9->as<syntax::ImplicitTypeSyntax>().signing.valid();
         if (!plainUntyped9)
             its->VpiParent(pu.up);
+        unitSubstTsObj[(const Symbol*)pu.ps] = its;
     }
+    // § unitRefSubst — a spliced value carries the SUBSTITUTED parameter's
+    // typespec, not the one the splice landed under: `SCR1_TDU_ALLTRIG_NUM =
+    // SCR1_TDU_MTRIG_NUM + 1'b1` splices MTRIG_NUM's `ref_obj(TRIG_NUM)` and
+    // types it with MTRIG_NUM's own `int unsigned` (Scr1SvTests scr1_tdu.svh).
+    for (auto& [rt9, sym9] : pendingUnitSubstTs)
+        if (auto it9 = unitSubstTsObj.find(sym9); it9 != unitSubstTsObj.end())
+            rt9->Actual_typespec(it9->second);
+    pendingUnitSubstTs.clear();
     pendingUnitParamTs.clear();
 
     d->TopModules(topMods);

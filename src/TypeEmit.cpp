@@ -6593,6 +6593,46 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
     switch (syn.kind) {
         case syntax::SyntaxKind::IdentifierName: {
             auto name = syn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            // § unitRefSubst — inside an UNFOLDED $unit parameter init, a
+            // reference to another $unit parameter of the SAME ROOT FILE is
+            // not a reference in the golden at all: Surelog's reducer had
+            // that parameter's value in hand and SPLICED it, keeping the
+            // USE SITE's span and typing the spliced node with the
+            // SUBSTITUTED parameter's typespec.  Measured on Scr1SvTests
+            // scr1_tdu.svh (probe r10scr8pa, 5 of 957 design param_assign
+            // tree rows):
+            //   SCR1_TDU_ALLTRIG_NUM = SCR1_TDU_MTRIG_NUM + 1'b1
+            //     -> ref_obj(SCR1_TDU_TRIG_NUM)@20:58, ts int_typespec@18:11
+            //        (MTRIG_NUM is itself unfolded — its whole tree is
+            //         spliced VERBATIM, with no second reduction pass, which
+            //         is why TRIG_NUM survives as a name)
+            //   SCR1_CSR_ADDR_TDU_TSELECT = ..._MBASE + ..._OFFS_TSELECT
+            //     -> constant{HEX:0,sz=3,'h0}@36:101, ts bit_typespec@30:11
+            // A reference reaching ANOTHER root file (`..._MBASE`, in
+            // scr1_csr.svh) is one the reducer never resolved, so it stays a
+            // dangling ref_obj — the same root-file test that decided the
+            // init was unfoldable in the first place.
+            if (unitSubstScope) {
+                if (auto* usym9 = unitSubstScope->lookupName(name)) {
+                    auto rit9 = unitParamRhs.find(usym9);
+                    if (rit9 != unitParamRhs.end() && rit9->second &&
+                        rootFilePath(usym9->location) == unitSubstRoot) {
+                        if (auto* cl9 =
+                                cloneUnitParamRhs(rit9->second, parent)) {
+                            setLoc(cl9, syn.sourceRange());
+                            auto pit9 = unitParamMap.find(usym9);
+                            if (pit9 != unitParamMap.end() &&
+                                pit9->second->Typespec()) {
+                                auto* rt9 = s.MakeRef_typespec();
+                                rt9->VpiParent(cl9);
+                                cl9->Typespec(rt9);
+                                pendingUnitSubstTs.push_back({rt9, usym9});
+                            }
+                            return cl9;
+                        }
+                    }
+                }
+            }
             // Inside a property DECLARATION, an identifier naming one of the
             // formals takes the formal-ref path — the ref binds the implicit
             // module wire Surelog leaks the formal into.  The assertion
@@ -8337,6 +8377,53 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     if (!be0.bad() && be0.type) {
                         w0 = (int32_t)be0.type->getBitWidth();
                         sgn0 = be0.type->isSigned();
+                    }
+                    // § dimFoldReducedParam — but a size naming a parameter
+                    // Surelog had to REDUCE (its own initializer is not a
+                    // plain literal) takes the REDUCER's own output shape
+                    // instead: vpiIntConst at 64 bits and NO typespec ref, the
+                    // same shape that parameter's param_assign Rhs constant
+                    // carries.  Scr1SvTests scr1_pipe_ifu `logic [..] q_data
+                    // [SCR1_IFU_Q_SIZE_HALF]` with `localparam
+                    // SCR1_IFU_Q_SIZE_HALF = SCR1_IFU_Q_SIZE_WORD * 2`:
+                    // golden's dim bound is INT:4/64 bare, and the parameter's
+                    // own Rhs is INT:4/64 too, while the literal-initialised
+                    // `SCR1_IFU_Q_SIZE_WORD = 2` stays UINT:2 at its declared
+                    // width.  A literal-initialised param keeps the width+ts
+                    // shape (DefaultPatternModule `localparam int unsigned CNT
+                    // = 2`).
+                    bool reducedP0 = false;
+                    if (!be0.bad()) {
+                        auto& nv0 = stripImplicitConv(be0);
+                        if (nv0.kind == ExpressionKind::NamedValue &&
+                            nv0.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter) {
+                            auto& pp0 = nv0.as<NamedValueExpression>()
+                                            .symbol.as<ParameterSymbol>();
+                            if (auto* ie0 = pp0.getInitializer())
+                                reducedP0 =
+                                    stripImplicitConv(*ie0).kind !=
+                                    ExpressionKind::IntegerLiteral;
+                        }
+                    }
+                    if (reducedP0) {
+                        sc->VpiSize(64);
+                        sc->VpiValue("INT:" + digits);
+                        sc->VpiConstType(vpiIntConst);
+                        ops->push_back(sc);
+                        auto* one0 = s.MakeConstant();
+                        one0->VpiSize(64);
+                        one0->VpiValue("INT:1");
+                        one0->VpiConstType(vpiIntConst);
+                        if (elabParamDim)
+                            one0->VpiParent(op);
+                        ops->push_back(one0);
+                        op->Operands(ops);
+                        r->Right_expr(op);
+                        setLoc(sc, sizeSyn->sourceRange());
+                        ranges->push_back(r);
+                        dt = &ua.elementType;
+                        continue;
                     }
                     sc->VpiSize(w0);
                     sc->VpiValue("UINT:" + digits);

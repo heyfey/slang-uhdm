@@ -12063,6 +12063,29 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
         }
         // A param used as a cast width hangs a vpiExpr ref on its def-view
         // ts; the elab ts SHARES that ref_obj.
+        //
+        // NOTE (r10scr8, DECODED — NOT IMPLEMENTED; this is the Scr1SvTests
+        // echo head at the end of that pass).  This propagation MISSES a
+        // MODULE param used as a BARE (unparenthesised) cast width whose own
+        // initializer is not a literal.  Measured on scr1_pipe_ifu
+        // `localparam SCR1_IFU_Q_FREE_H_W = $clog2(SCR1_IFU_Q_SIZE_HALF + 1)`
+        // + `assign q_free_h_next = SCR1_IFU_Q_FREE_H_W'(...)` at 449:27
+        // (probe: list every int_typespec of that name with its
+        // Cast_to_expr):
+        //   golden 5 copies, ALL at the CAST SITE 449:27, ALL carrying
+        //     Cast_to_expr = ref_obj(SCR1_IFU_Q_FREE_H_W)
+        //     fn='SCR1_IFU_Q_FREE_H_W.SCR1_IFU_Q_FREE_H_W', Actual_group BOUND
+        //     — i.e. Surelog mints ONE object at the cast and the parameter's
+        //     DECLARATION typespec is that same object, in every view;
+        //   ours    3 copies at the DECLARATION 84:12 with Cast_to_expr null,
+        //     plus 2 at 449:27 that do carry it.
+        // Only the missing Cast_to_expr is CMP-visible (loc is not compared),
+        // so the fix is to reach the three declaration copies.  The lookup
+        // below cannot: `dit->second.paramTs` is keyed by the DEF body's
+        // ParameterSymbol while `ps` here is the ELAB instance's, and the
+        // literal-width branch in ExprEmit (`litWidthParam9`) that would have
+        // minted the shared object is gated on a LITERAL initializer, which a
+        // `$clog2(...)` localparam is not.
         if (its->UhdmType() == UHDM::uhdmint_typespec) {
             if (auto psc = ps->getParentScope();
                 psc && psc->asSymbol().kind == SymbolKind::InstanceBody) {

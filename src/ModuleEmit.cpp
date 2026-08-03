@@ -3762,6 +3762,74 @@ void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
         if (dit != unitEnumNetsByDef.end())
             for (auto& [sym9, net9] : dit->second)
                 netMap[sym9] = net9;
+        // § elabPortConnUnitEnumNet — with ONE exception: a CHILD INSTANCE
+        // PORT CONNECTION whose actual is a bare $unit enum constant.  There
+        // Surelog's netlist elaboration mints the implicit wire even when the
+        // def compile resolved the name (scr1_top_axi declares
+        // `type_scr1_mem_width_e` signals, so its DEF view binds
+        // `enum_const(SCR1_MEM_WIDTH_WORD)` at the `.core_width
+        // (SCR1_MEM_WIDTH_WORD)` connection — yet the elaborated i_top holds a
+        // 108th net of that name, LAST in the vector, and the elaborated
+        // port's ref binds it).  A $unit PARAMETER actual does NOT do this:
+        // `.din_parallel (SCR1_TAP_BLD_ID_VALUE)` in scr1_tapc mints nothing,
+        // the same parameter-vs-enum-constant split the def-view rule rests
+        // on.
+        std::set<const Symbol*> seen9;
+        for (auto& mb : body.members()) {
+            if (mb.kind != SymbolKind::Instance)
+                continue;
+            for (auto pc : mb.as<InstanceSymbol>().getPortConnections()) {
+                auto* pe = pc->getExpression();
+                if (!pe)
+                    continue;
+                const Expression* cand[2] = {pe, nullptr};
+                if (pe->kind == ExpressionKind::Assignment) {
+                    cand[0] = &pe->as<AssignmentExpression>().left();
+                    cand[1] = &pe->as<AssignmentExpression>().right();
+                }
+                for (auto* ce : cand) {
+                    if (!ce)
+                        continue;
+                    auto& be = stripImplicitConv(*ce);
+                    if (be.kind != ExpressionKind::NamedValue)
+                        continue;
+                    auto& sy = be.as<NamedValueExpression>().symbol;
+                    if (sy.kind != SymbolKind::EnumValue || seen9.count(&sy) ||
+                        netMap.count(&sy))
+                        continue;
+                    bool unitHome9 = false;
+                    for (auto* sc9 = sy.getParentScope(); sc9;
+                         sc9 = sc9->asSymbol().getParentScope()) {
+                        auto k9 = sc9->asSymbol().kind;
+                        if (k9 == SymbolKind::CompilationUnit) {
+                            unitHome9 = true;
+                            break;
+                        }
+                        if (k9 == SymbolKind::Package ||
+                            k9 == SymbolKind::InstanceBody ||
+                            k9 == SymbolKind::GenerateBlock ||
+                            k9 == SymbolKind::GenerateBlockArray)
+                            break;
+                    }
+                    if (!unitHome9 || rootFilePath(sy.location) == modFile)
+                        continue;
+                    auto* inet = s.MakeLogic_net();
+                    inet->VpiName(sy.name);
+                    inet->VpiFullName(prefix + "." + std::string(sy.name));
+                    inet->VpiParent(m);
+                    inet->VpiNetType(1);
+                    setLoc(inet, be.sourceRange);
+                    auto* nets9 = m->Nets();
+                    if (!nets9) {
+                        nets9 = s.MakeNetVec();
+                        m->Nets(nets9);
+                    }
+                    nets9->push_back(inet);
+                    netMap[&sy] = inet;
+                    seen9.insert(&sy);
+                }
+            }
+        }
         return;
     }
     // ...unless the module declares a DATA OBJECT of that enum type. Surelog's
@@ -8642,6 +8710,83 @@ UHDM::gen_scope_array* UhdmExporter::emitSurelogMisevalGenIf(
     return gsa;
 }
 
+// § genLoopUnitMiseval — a LOOP GENERATE whose bounds read a $unit parameter
+// Surelog never gave a value produces NOTHING in the elaborated view: not a
+// truncated array, not an errored scope — golden's Gen_scope_arrays vector is
+// absent entirely.  Measured on Scr1SvTests scr1_pipe_tdu, whose three
+// `for (trig = 0; $unsigned(trig) < MTRIG_NUM; ++trig)` loops (2 iterations
+// each by slang's reckoning) are 6 gen_scope_arrays for us and 0 in golden:
+// `SCR1_TDU_MTRIG_NUM` is one of the unfolded $unit parameters (it reads
+// `SCR1_TDU_TRIG_NUM` across root files, § unitRefSubst), so Surelog's
+// generate elaboration cannot compute a trip count.  The DEF view is
+// unaffected — it keeps its 3 unelaborated Gen_stmts in both.
+//
+// NOTE (r10scr8, DECODED — NOT IMPLEMENTED): the SAME valuelessness also
+// stops a RANGE BOUND from folding, and there golden keeps the whole
+// unreduced tree rather than dropping anything.  Scr1SvTests
+// i_top.i_tcm.i_dp_memory `logic [SCR1_WIDTH-1:0] ram_block [RAM_SIZE_WORDS-1:0]`
+// with `localparam RAM_SIZE_WORDS = SCR1_SIZE/SCR1_NBYTES` and SCR1_SIZE
+// overridden by scr1_tcm's SCR1_TCM_SIZE (itself overridden at
+// scr1_top_axi.sv:367 with the CAST ``SCR1_DMEM_AWIDTH'(~SCR1_TCM_ADDR_MASK +
+// 1'b1)``, and SCR1_TCM_ADDR_MASK is one of the value-less $unit params):
+//   golden  op11( op12( op67( op24( op4(ref_obj(SCR1_TCM_ADDR_MASK)) BIN:1 ) )
+//                       INT:4 ) UINT:1 )   ... UINT:0
+//   ours    INT:16383 ... UINT:0
+// i.e. the instantiation's cast-override expression is SPLICED into the
+// module-local parameter chain and the whole bound stays symbolic with the
+// $unit reference dangling.  1 row of the whole-design array-range census
+// (tools/probe/r10scr8ac.cpp), and it needs override-actual substitution into
+// a module param chain, so it is ranked below the cast-width ts residue.
+//
+// The valuelessness is TRANSITIVE THROUGH MODULE PARAMETERS: the loop does
+// not read the $unit parameter directly but `localparam int unsigned
+// MTRIG_NUM = SCR1_TDU_MTRIG_NUM`, a module localparam that inherits the
+// missing value.  Scanning only the loop's own identifiers found nothing —
+// the walk has to follow each named parameter's own initializer.
+bool UhdmExporter::genLoopUnitMiseval(const GenerateBlockArraySymbol& arr) {
+    if (unitParamNoValue.empty())
+        return false;
+    auto* syn = arr.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::LoopGenerate)
+        return false;
+    auto* sc = arr.getParentScope();
+    if (!sc)
+        return false;
+    auto& lg = syn->as<syntax::LoopGenerateSyntax>();
+    bool hit = false;
+    std::function<void(const syntax::SyntaxNode*, const Scope*, int)> scan =
+        [&](const syntax::SyntaxNode* n, const Scope* look, int depth) {
+            if (!n || hit || !look || depth > 8)
+                return;
+            if (n->kind == syntax::SyntaxKind::IdentifierName) {
+                auto nm = n->as<syntax::IdentifierNameSyntax>()
+                              .identifier.valueText();
+                auto* sym = look->lookupName(nm);
+                if (!sym)
+                    return;
+                if (unitParamNoValue.count(sym)) {
+                    hit = true;
+                    return;
+                }
+                if (sym->kind != SymbolKind::Parameter)
+                    return;
+                // Follow the parameter's own initializer, resolved in ITS
+                // scope (a module localparam's `= SCR1_TDU_MTRIG_NUM`).
+                if (auto dsyn = sym->getSyntax();
+                    dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+                    if (auto* iv = dsyn->as<syntax::DeclaratorSyntax>().initializer)
+                        scan(iv->expr, sym->getParentScope(), depth + 1);
+                return;
+            }
+            for (size_t i = 0; i < n->getChildCount(); i++)
+                scan(n->childNode(i), look, depth);
+        };
+    scan(lg.initialExpr, sc, 0);
+    scan(lg.stopExpr, sc, 0);
+    scan(lg.iterationExpr, sc, 0);
+    return hit;
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -10873,6 +11018,9 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         else if (member.kind == SymbolKind::GenerateBlockArray) {
             auto& arr = member.as<GenerateBlockArraySymbol>();
+            // § genLoopUnitMiseval
+            if (genLoopUnitMiseval(arr))
+                continue;
             for (auto entry : arr.entries) {
                 if (entry->isUninstantiated)
                     continue;
