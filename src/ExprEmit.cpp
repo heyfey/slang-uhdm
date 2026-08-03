@@ -751,6 +751,64 @@ static std::string selName(std::string s) {
     return o;
 }
 
+// § macroExpandedText tail — the SELECT BASE's spelling cut out of the whole
+// select's expanded spelling.  A HierarchicalValue produced inside a macro body
+// (`RIF.read_data[__i]`, RIF substituted) carries no syntax node of its own, so
+// neither `rawText` nor `rawTextExp` can name it; but the enclosing select DOES
+// have syntax, and its expanded text minus the final top-level `[...]` group is
+// exactly the base. Returns "" when the text has no top-level bracket group.
+static std::string selBaseText(const std::string& whole) {
+    int depth = 0;
+    size_t cut = std::string::npos;
+    for (size_t i = 0; i < whole.size(); i++) {
+        if (whole[i] == '[') {
+            if (depth == 0)
+                cut = i;
+            depth++;
+        }
+        else if (whole[i] == ']')
+            depth--;
+    }
+    return cut == std::string::npos ? std::string() : whole.substr(0, cut);
+}
+
+// § castTgtDefaultIsLiteral — is the parameter's DECLARED default a literal?
+//
+// `P'(x)` is resolved by Surelog's DEFINITION compile, which knows only what
+// the declaration says: a literal default (`parameter int W = 8`) folds there
+// and the cast mints a FRESH valued int_typespec named after W, while a default
+// that names another parameter (`parameter int VALUE_WIDTH = BUS_WIDTH`) cannot
+// reduce and the cast instead REUSES W's own declaration typespec, stamping the
+// vpiExpr ref_obj back onto it.  slang's bound initializer is the ELABORATED
+// one — for an instantiated module that is the caller's override expression, so
+// reading it flips the verdict on exactly the modules that get instantiated.
+// Read the declarator's initializer SYNTAX instead, which is the declaration.
+bool UhdmExporter::castTgtDefaultIsLiteral(const ParameterSymbol& ps) {
+    auto* syn = ps.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::Declarator)
+        return ps.getInitializer() &&
+               isLiteralExpr(stripImplicitConv(*ps.getInitializer()));
+    auto* init = syn->as<syntax::DeclaratorSyntax>().initializer;
+    if (!init || !init->expr)
+        return false;
+    const syntax::ExpressionSyntax* e = init->expr;
+    while (e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    switch (e->kind) {
+        case syntax::SyntaxKind::IntegerLiteralExpression:
+        case syntax::SyntaxKind::IntegerVectorExpression:
+        case syntax::SyntaxKind::RealLiteralExpression:
+        case syntax::SyntaxKind::TimeLiteralExpression:
+        case syntax::SyntaxKind::StringLiteralExpression:
+        case syntax::SyntaxKind::UnbasedUnsizedLiteralExpression:
+        case syntax::SyntaxKind::NullLiteralExpression:
+        case syntax::SyntaxKind::WildcardLiteralExpression:
+            return true;
+        default:
+            return false;
+    }
+}
+
 const Expression* UhdmExporter::unpackedParamPatternLeaf(const Expression& sel) {
     // Walk the select chain down to the base symbol, recording each
     // selector together with the ARRAY type it indexes.
@@ -4621,6 +4679,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // param-dependent init): only the initializer's literalness
                     // moves it. AlwaysNoElab (dependent -> reuse) vs
                     // size_cast_param / rp32_r5p_* (`= 16` -> fresh).
+                    // § castTgtDefaultIsLiteral — "the initializer" is the cast
+                    // target's OWN DECLARED DEFAULT, not the value it ends up
+                    // with: Surelog decides this at DEFINITION compile, where
+                    // no instance override exists yet.  Reading slang's bound
+                    // initializer instead reads the OVERRIDE and inverts the
+                    // verdict for every instantiated module — Rggen's five
+                    // `P'(x)` sites split exactly on the declared default
+                    // (matrix in the paren-cast note below).
                     // ...and only for a width declared in THIS module body: a
                     // PACKAGE parameter keeps the fresh valued typespec even
                     // with a computed init (Kmac sha3_pkg::KeccakCountW =
@@ -4636,10 +4702,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* wsc9 = wp9.getParentScope();
                         if (wsc9 &&
                             wsc9->asSymbol().kind == SymbolKind::InstanceBody)
-                            litWidthParam9 =
-                                wp9.getInitializer() &&
-                                isLiteralExpr(
-                                    stripImplicitConv(*wp9.getInitializer()));
+                            litWidthParam9 = castTgtDefaultIsLiteral(wp9);
                     }
                     if (!cts && litWidthParam9 &&
                         seCore.kind == ExpressionKind::NamedValue &&
@@ -4691,30 +4754,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // gains a loc-less vpiExpr ref_obj with a param-doubled
                     // fullname (work@top.P.P) bound to the def parameter.
                     //
-                    // OPEN RESIDUE (r10rgg4, 3 vectors on Rggen; probe
-                    // tools/probe/r10rgg4pex.cpp censuses Cast_to_expr per
-                    // def-view parameter).  The predicate below is NOT the
-                    // paren test its name claims — it fires for any
-                    // module-param cast that reaches here — and the golden
-                    // matrix over Rggen's four `P'(x)` sites says the stamp
-                    // tracks the CAST TARGET's own default, not the cast form:
+                    // The predicate below is NOT the paren test its name
+                    // claims — it fires for any module-param cast that reaches
+                    // here, i.e. for every target the literal-default arm above
+                    // did NOT already serve.  What sorts the two is the CAST
+                    // TARGET's own DECLARED default (§ castTgtDefaultIsLiteral),
+                    // not the cast form; the golden matrix over Rggen's five
+                    // `P'(x)` sites (r10rggen5, all five now agreeing):
                     //   rggen_register_common  VALUE_WIDTH  = BUS_WIDTH  (ref)
-                    //       cast @106 (cont_assign)  golden STAMPS, we stamp
+                    //       cast @106 (cont_assign)  STAMP  (this arm)
                     //   rggen_external_register VALUE_WIDTH = BUS_WIDTH  (ref)
-                    //       cast @73  (cont_assign)  golden STAMPS, we DON'T
+                    //       cast @73  (cont_assign)  STAMP  (this arm)
                     //   rggen_apb_bridge     ADDRESS_WIDTH = 16      (literal)
-                    //       cast @22  (cont_assign)  golden leaves it null
+                    //       cast @22  (cont_assign)  fresh valued ts, no stamp
                     //   rggen_adapter_common ADDRESS_WIDTH = 8       (literal)
-                    //       cast @50  (function body) golden null, we STAMP
+                    //       cast @50  (function body) fresh valued ts, no stamp
                     //   rggen_address_decoder WIDTH        = 8       (literal)
-                    //       cast @25  (function body) golden null, we STAMP
+                    //       cast @25  (function body) fresh valued ts, no stamp
                     // i.e. a LITERAL-default target folds its width at def
                     // compile and keeps no reference, while a target whose
                     // default is another PARAMETER cannot reduce there and
-                    // keeps the ref_obj — in every module that writes the
-                    // cast.  Not implemented: this arm is shared with the
-                    // BlackBePipeInt/Scr1 package-cast laws above and needs
-                    // its own gate.
+                    // keeps the ref_obj — in every module that writes the cast.
+                    // The consequence is visible on BOTH sides of the object:
+                    // the shared declaration typespec gains the ref_obj, and
+                    // the cast site itself shows the param's UNNAMED
+                    // declaration ts instead of a fresh one named after it.
                     // Only for a function DIRECTLY in the module: a function
                     // inside an elaborated GENERATE block builds a FRESH
                     // integer_typespec at the cast site instead (its params
@@ -6649,9 +6713,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     (bb->kind == ExpressionKind::NamedValue &&
                      stripImplicitConv(es.value()).kind !=
                          ExpressionKind::NamedValue)) {
-                    std::string baseDotted = rawText(es.value().sourceRange);
+                    std::string wholeExp9 = rawTextExpr(expr);
+                    std::string baseDotted = rawTextExpr(es.value());
+                    if (baseDotted.empty())
+                        baseDotted = selBaseText(wholeExp9);
                     if (baseDotted.find('.') != std::string::npos) {
-                        std::string selText = spaceIdxOps(selName(rawText(expr.sourceRange)));
+                        std::string selText =
+                            spaceIdxOps(selName(wholeExp9));
                         if (auto red9 = reducedImportedIdx(
                                 es.selector(),
                                 rawText(es.selector().sourceRange), comp,
@@ -7404,7 +7472,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     (bb->kind == ExpressionKind::NamedValue &&
                      stripImplicitConv(rs.value()).kind !=
                          ExpressionKind::NamedValue)) {
-                    std::string baseDotted = rawText(rs.value().sourceRange);
+                    std::string baseDotted = rawTextExpr(rs.value());
+                    if (baseDotted.empty())
+                        baseDotted = selBaseText(rawTextExpr(expr));
                     if (baseDotted.find('.') != std::string::npos) {
                         // Surelog's decompiler renders the part-select NAME from
                         // the bound exprs: binary operators get surrounding

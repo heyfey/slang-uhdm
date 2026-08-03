@@ -4232,6 +4232,21 @@ std::string UhdmExporter::rawTextExp(const syntax::SyntaxNode& syn) {
     return out.empty() ? rawText(r9) : out;
 }
 
+// § rawTextExpr — the expression-level face of § macroExpandedText.  The
+// dotted-hier_path arms of emitExpr decide whether an expression IS a dotted
+// path by looking for a '.' in its raw text; inside a macro body that text is
+// often EMPTY (the span maps back to a multi-line `define whose start/end land
+// in different buffers), so the arm silently returns null and the whole
+// cont_assign side comes out unset.  Rebuilding from the node's tokens both
+// restores the '.' test and gives the SUBSTITUTED spelling Surelog names the
+// path with (`bit_field_if.read_data[__i]`, not `RIF.read_data[__i]`).
+std::string UhdmExporter::rawTextExpr(const Expression& e) {
+    std::string t = rawText(e.sourceRange);
+    if (!t.empty() || !e.syntax)
+        return t;
+    return rawTextExp(*e.syntax);
+}
+
 // A based literal whose SIZE comes from a macro (`\`SCR1_XLEN'hFFFF_FFFE`)
 // spans two buffers: the size token lives in the macro's expansion buffer, the
 // base and digits in the source file. No single buffer holds the text, so

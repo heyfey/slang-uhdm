@@ -1187,6 +1187,11 @@ private:
     /// node's own tokens concatenated (which already carry the substituted
     /// macro ARGUMENTS).  See the definition (UhdmExporter.cpp).
     std::string rawTextExp(const slang::syntax::SyntaxNode& syn);
+    /// `rawTextExp` for a bound EXPRESSION: the expanded spelling when the
+    /// expression carries syntax, else plain `rawText` of its span.  Used by
+    /// the dotted-hier_path arms, which key on finding a `.` in the text and
+    /// so go silently null when a macro body's span reads back empty.
+    std::string rawTextExpr(const slang::ast::Expression& e);
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
     bool isPkgQualifiedVarRef(const slang::ast::Expression& e);
@@ -1224,6 +1229,10 @@ private:
     /// PARAMETER, not of the cast site: it is present in every view, including
     /// the elaborated listing where the cast itself has folded away.
     bool isParenCastWidthParam(std::string_view name);
+    /// True when the parameter's DECLARED default (its declarator's initializer
+    /// syntax, not the elaborated/overridden value) is a literal.  Decides a
+    /// `P'(x)` cast target's shape — see the definition in ExprEmit.cpp.
+    bool castTgtDefaultIsLiteral(const slang::ast::ParameterSymbol& ps);
     std::set<std::string> parenCastWidthNames;
     bool parenCastWidthBuilt = false;
     /// `arr[3]` -> the span of the bare index token (`3`).  Surelog anchors the

@@ -9027,22 +9027,55 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
     // memLeftGenScopeBlocked).
     if (memLeftGenScopeBlocked(body))
         return;
-    // OPEN RESIDUE (r10rgg4, 18 of Rggen's 62 remaining vectors — the largest
-    // single class left).  An INTERFACE INSTANTIATED INSIDE A GENERATE BLOCK
+    // CLOSED (r10rggen5, was 18 of Rggen's 62 vectors — the head of pass 4's
+    // ranking).  An INTERFACE INSTANTIATED INSIDE A GENERATE BLOCK
     // (`rggen_bit_field_if #(32) bit_field_if();` in block_0's g_register_N)
-    // is missing from the elaborated gen_scope: golden lists
-    // interface_inst(bit_field_if)@166:5 under gen_scope::Interfaces, we list
-    // none (probe tools/probe/r10rgg4gs.cpp --elab, `.Interfaces: SIZE lhs=1
-    // rhs=0`).  Two consequences ride on it, both measured:
-    //   * every cont_assign in that block whose Lhs/Rhs names the interface
-    //     (the `rggen_tie_off_unused_signals` / `rggen_connect_bit_field_if`
-    //     macro bodies) emits with a NULL Lhs — emitExpr cannot bind
-    //     `bit_field_if.read_data[__i]` with no instance to bind to (the DEF
-    //     view builds these from syntax and is now byte-equal);
-    //   * module_inst(u_register)'s port-connection singular field then
-    //     differs (`failLhs <null> failRhs interface_inst(register_if)`).
-    // Fixing the missing instance is the head of this cluster; the def-view
-    // half of the same sources is already converged.
+    // was missing from the elaborated gen_scope entirely; it is emitted by the
+    // child-instance loop below (§ genScopeIface).  The two consequences pass 4
+    // measured turned out to be INDEPENDENT bugs, not consequences:
+    //   * the NULL cont_assign Lhs was § macroExpandedText reaching the ELAB
+    //     view — the dotted-hier_path arms key on finding a '.' in the
+    //     expression's raw text and a macro body's span reads back EMPTY
+    //     (§ rawTextExpr / selBaseText in ExprEmit.cpp); it stayed null with
+    //     the interface present and cleared with the text fix alone;
+    //   * module_inst(u_register)'s `failLhs <null> failRhs
+    //     interface_inst(register_if)` was the ARRAY-ELEMENT port view's
+    //     param_assign vector (§ ifaceArrayElemPortViewNoPa in
+    //     emitInterfaceInstance), which has nothing to do with gen scopes.
+    //
+    // RGGEN RESIDUE after r10rggen5 (62 -> 54 vectors, probe
+    // tools/probe/r10rgshape.cpp; the classes below are ranked by vector count
+    // and every one is a fresh measurement, not a carry-over):
+    //   12x logic_typespec vs bit_typespec on a gen-scope declaration's own
+    //       typespec (golden logic_typespec at the DECLARATION, ours a
+    //       bit_typespec at the module param's `int` keyword) — now the head.
+    //    7x UNBASED-UNSIZED sizing: golden folds `return '1;` (1-bit function)
+    //       to {sz=1 dec=1} and `assign read_data = '0;` to {sz=W dec='0},
+    //       i.e. the ASSIGNMENT TARGET's width; we keep sz=-1 everywhere.
+    //       Only 4 sites design-wide (census tools/probe/r10rggen5uu.cpp:
+    //       574 golden rows vs 571 ours, 11 differing lines) — note the two
+    //       forms disagree on whether the quote survives in the decompile.
+    //   11x PORT-VIEW declaration WIDTH: golden gives each port view of the
+    //       SAME interface its own `logic [ADDRESS_WIDTH-1:0]` bounds — two
+    //       `interface_inst(apb_if)` views, one with left=15 and one with
+    //       left=6 — so the width follows the RECEIVING module's parameter,
+    //       not the connected instance's (probe tools/probe/r10rggen5cf.cpp
+    //       7 10 lists both sides' constants with their parent chain).
+    //    4x enum-typed param_assign Rhs const type (golden BIN `2'b00` sz=2,
+    //       ours UINT `0` sz=2 — same value, different ConstType/Decompile).
+    //    2x ELAB func_call FOLD: golden replaces a cont_assign's
+    //       `pre_decode(bus_if.address)` Rhs with the constant its body
+    //       returns once PRE_DECODE folds to 0; we keep the func_call.
+    //    2x logic_var(indirect_index) missing from a gen scope.
+    //    Singletons: genvar-fold decompiles that should be numeric (`10+i`,
+    //       `6+7*i+3*j+k`), get_local_address function placement (def vs
+    //       gen_scope), enum_const RGGEN_{READ,WRITE}_NONE, interface_array
+    //       range constant (golden sz=64 no ts, ours sz=32 + int_typespec),
+    //       the BIN-400 replication value, rggen_or_reducer param 0 vs 1, and
+    //       g_register_15's `bus_if` port view (the ONE remaining row of the
+    //       r10rggen5mp census: par=4 pa=0 golden vs pa=4 ours — its
+    //       connection is the PARENT MODULE'S interface PORT, not an array
+    //       element, so § ifaceArrayElemPortViewNoPa does not reach it).
     std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
     // INTERFACE elab views collapse an if-branch whose ONLY instantiated
@@ -10181,12 +10214,37 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         // enclosing module supplies the conn prefix (HighConns bind to the
         // MODULE's nets, not the gen path).
         auto* gmods = s.MakeModule_instVec();
+        // § genScopeIface — an INTERFACE instantiated inside a generate block
+        // (`rggen_bit_field_if #(32) bit_field_if();` in block_0's
+        // g_register_N) is a full elab child of the gen_scope, listed under
+        // vpiInterface exactly the way a module child lists under vpiModule
+        // (golden: gen_scope::Interfaces = [interface_inst(bit_field_if)]).
+        // Emitting it also feeds ifaceInstMap, which every later consumer in
+        // this block needs: the sibling module's `.bit_field_if(bit_field_if)`
+        // port HighConn, and the block's cont_assigns whose Lhs is a
+        // `bit_field_if.read_data[__i]` hier_path (both come after this loop,
+        // so a single pass in declaration order suffices).
+        auto* gifaces = s.MakeInterface_instVec();
         for (auto& gm : blk.members()) {
             if (gm.kind != SymbolKind::Instance)
                 continue;
             auto& ci = gm.as<InstanceSymbol>();
-            if (useInterfacePath(ci))
+            if (useInterfacePath(ci)) {
+                genvarConnFold = true;
+                genConnPrefix = fullName;
+                auto* ii = emitInterfaceInstance(
+                    ci, fullName + "." + std::string(ci.name), m, &netMap,
+                    nullptr);
+                genConnPrefix.clear();
+                genvarConnFold = false;
+                // Same re-parenting law as a gen-scope module child: only the
+                // gen_scope parent, no vpiInstance back-ref.
+                ii->VpiParent(gs);
+                ii->Instance(nullptr);
+                ifaceInstMap[&ci] = ii;
+                gifaces->push_back(ii);
                 continue;
+            }
             genvarConnFold = true;
             genConnPrefix = fullName;
             auto* mi = emitInstance(ci, fullName + "." + std::string(ci.name), m,
@@ -10212,6 +10270,8 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         if (!gmods->empty())
             gs->Modules(gmods);
+        if (!gifaces->empty())
+            gs->Interfaces(gifaces);
         // Implicit wires from gen-conn CALLS (queued during the child conn
         // emission above).
         if (!pendingGenCallNets.empty()) {
@@ -19168,7 +19228,21 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             ifaceHasGen9 = true;
             break;
         }
-    if (portView && !multiParamIface && connModport.empty()) {
+    // § ifaceArrayElemPortViewNoPa — an interface-ARRAY ELEMENT port view
+    // (`.register_if(register_if[0])`) carries NO param_assigns AT ALL, and
+    // that outranks the multi-parameterization exception (a) below.  The
+    // filtering arms already encoded the rule for a singly-parameterized def
+    // (their `inst.arrayPath.empty()` guards, iface_array_elem_cfg_param), but
+    // a def instantiated with SEVERAL distinct parameter tuples skipped every
+    // one of them and kept the whole vector: Rggen's rggen_register_if is
+    // `#(8,32,64)` in block_0 and another tuple in block_1, so all 89 of its
+    // element port views listed 5 param_assigns against golden's 0 (census
+    // tools/probe/r10rggen5mp.cpp — `par=5 pa=0` on every golden row).  The
+    // element's values live inline on its parameters either way.
+    if (portView && !inst.arrayPath.empty()) {
+        iface->Param_assigns(nullptr);
+    }
+    else if (portView && !multiParamIface && connModport.empty()) {
         // A PLAIN whole-interface port view (`module child (bus_if sub)`)
         // carries NO param_assign vector at all — not even the aggregate
         // (op75) ones a MODPORT-qualified view keeps, and not the derived
