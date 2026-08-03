@@ -13,6 +13,9 @@ namespace slang_uhdm {
 
 UhdmExporter::UhdmExporter(Compilation& compilation, UHDM::Serializer& serializer) :
     comp(compilation), s(serializer), sm(compilation.getSourceManager()) {
+    // § macroLocOrder — publish the SourceManager for the free helpers that
+    // must normalise macro locations before comparing them (EmitHelpers.h).
+    helperSM = sm;
 }
 
 void UhdmExporter::noteUnsupported(const std::string& what) {

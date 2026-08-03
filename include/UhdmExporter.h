@@ -812,6 +812,16 @@ private:
     void rebindAggMemberTs(const slang::ast::PackageSymbol& pkg,
                            UHDM::typespec* from, UHDM::typespec* to);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
+    // § elabRangedRerender — the width the ELAB view re-renders a ranged
+    // untyped parameter's literal at (see ParamEmit).
+    int32_t srlgRangedElabWidth(const slang::ast::ParameterSymbol& ps);
+    // § elabUnitMisevalNoFold — parameters whose ELAB Rhs Surelog leaves
+    // UNFOLDED because their value depends on a $unit parameter it could not
+    // value; readers of these inherit the property (see ParamEmit).
+    std::set<const slang::ast::Symbol*> elabMisevalParams;
+    bool srlgElabMiseval(const slang::ast::ParameterSymbol& ps);
+    int unitParamRoots9 = -1;
+    bool unitParamsMultiRoot();
     // Substitutes parameter leaves inside an elab child's part-select bound
     // OPERATION (see ModuleEmit).
     bool foldBareParamBoundIn(const slang::ast::InstanceBodySymbol* body,

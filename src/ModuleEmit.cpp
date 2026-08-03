@@ -8773,6 +8773,23 @@ UHDM::gen_scope_array* UhdmExporter::emitSurelogMisevalGenIf(
 // MTRIG_NUM = SCR1_TDU_MTRIG_NUM`, a module localparam that inherits the
 // missing value.  Scanning only the loop's own identifiers found nothing —
 // the walk has to follow each named parameter's own initializer.
+//
+// NOTE (r10scr10, DECODED — NOT IMPLEMENTED) § genIfUnitMisevalFalse — the
+// CONDITIONAL generate does something different with the same valuelessness:
+// it does not vanish, it takes the ELSE arm, because an unresolvable operand
+// makes the condition evaluate FALSE rather than zero.  Scr1SvTests
+// scr1_pipe_csr.sv:683 `generate if (SCR1_MTVEC_BASE_WR_BITS == 0) : ...
+// else if (SCR1_MTVEC_BASE_WR_BITS == SCR1_CSR_MTVEC_BASE_VAL_BITS) :
+// mtvec_base_rw else : mtvec_base_ro_rw` — WR_BITS (26) resolves from
+// scr1_arch_description.svh, SCR1_CSR_MTVEC_BASE_VAL_BITS lives in
+// scr1_arch_types.svh and is cross-root from scr1_pipe_csr.sv, so golden
+// elaborates `mtvec_base_ro_rw` where slang's true evaluation picks
+// `mtvec_base_rw`.  Note the FIRST arm is not forced true, which is what says
+// "false", not "operand = 0".  Exactly ONE row of the 24-row gen_scope_array
+// census (tools/probe/r10scr10g.cpp) and now the whole design's first
+// uhdm-cmp failure.  The predicate is srlgElabMiseval (ParamEmit); the
+// unknown is whether slang keeps the untaken arms' GenerateBlockSymbols
+// reachable enough to emit the other one.
 bool UhdmExporter::genLoopUnitMiseval(const GenerateBlockArraySymbol& arr) {
     if (unitParamNoValue.empty())
         return false;

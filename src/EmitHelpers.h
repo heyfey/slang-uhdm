@@ -900,6 +900,29 @@ inline const syntax::WildcardPortConnectionSyntax* findWildcardConn(
     return nullptr;
 }
 
+// § macroLocOrder — the compilation's SourceManager, published for the free
+// helpers below.  Set once by the UhdmExporter constructor.
+//
+// Why a helper needs it: comparing two SourceLocations with `<`/`>=` orders
+// them by BUFFER ID first, and slang assigns buffer ids as buffers are
+// created — including MACRO EXPANSION buffers, created when expansion is
+// reached during a PARALLEL parse.  So the ordering between two locations
+// from different buffers is not reproducible across runs of the same binary
+// on the same sources.  Any helper that must reason about "is this location
+// inside that range" therefore has to map macro locations back to their
+// fully-original file location first, and only then compare.
+inline const slang::SourceManager* helperSM = nullptr;
+
+// The originating FILE location of `loc`: a macro-expansion location maps back
+// to the macro USE site's original file location, which is stable across runs.
+inline slang::SourceLocation origLoc(slang::SourceLocation loc) {
+    if (!helperSM || loc == slang::SourceLocation::NoLocation)
+        return loc;
+    if (helperSM->isMacroLoc(loc))
+        return helperSM->getFullyOriginalLoc(loc);
+    return loc;
+}
+
 // True when a parameter's bound initializer is an instance override (its
 // syntax differs from the declaration-default initializer syntax).
 inline const syntax::ExpressionSyntax* paramDefaultSyn(const ParameterSymbol& ps) {
@@ -946,10 +969,29 @@ inline bool isOverriddenParam(const Symbol& sym) {
     if (br.start() == SourceLocation::NoLocation ||
         dr.start() == SourceLocation::NoLocation)
         return bi->syntax && bi->syntax != defaultSyn;
+    // § macroLocOrder — compare ORIGINAL file locations.  Both spans here can
+    // begin inside a MACRO EXPANSION buffer, and expansion-buffer ids are
+    // assigned during a parallel parse, so the raw `>=`/`<=` ordering between
+    // two such locations is not reproducible run to run.  Scr1SvTests
+    // `parameter SCR1_TCM_SIZE = `SCR1_IMEM_AWIDTH'h00010000`, overridden at
+    // scr1_top_axi.sv:367 with ``SCR1_DMEM_AWIDTH'(~SCR1_TCM_ADDR_MASK +
+    // 1'b1)``, has a macro location at BOTH ends: roughly one run in six
+    // called that override a DEFAULT, which put the override expression in
+    // scr1_tcm's DEF view and dropped the parameter's value AND typespec —
+    // the whole design's first uhdm-cmp failure, appearing and disappearing
+    // between identical runs of the same binary.  Mapping each endpoint back
+    // to its macro USE site makes the comparison stable AND correct: the use
+    // sites are in the two real files, which the parse orders deterministically.
+    SourceLocation bs = origLoc(br.start()), be = origLoc(br.end());
+    SourceLocation ds = origLoc(dr.start()), de = origLoc(dr.end());
+    // Different buffers cannot nest, and asking `>=` across them would just
+    // reintroduce an id comparison — a span from another file is an override.
+    if (bs.buffer() != ds.buffer() || be.buffer() != de.buffer())
+        return true;
     // A default (even parenthesized) has its tokens WITHIN the declaration
     // default's range; a real override binds syntax from the instantiation,
     // OUTSIDE that range.
-    if (br.start() >= dr.start() && br.end() <= dr.end())
+    if (bs >= ds && be <= de)
         return false;
     return true;
 }

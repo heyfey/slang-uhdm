@@ -2666,6 +2666,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // A required (override-only) param has NO declaration default; Surelog
         // leaves it valueless/typespec-less in the def view.
         bool hasDefault = defaultSyn != nullptr;
+        // § elabUnitMisevalNoFold — this parameter's ELAB Rhs stays unfolded.
+        // Recorded so that later parameters reading it inherit the property
+        // (the walk in srlgElabMiseval consults elabMisevalParams).
+        bool elabMiseval9 = topView && !inPackage && !funcScope && !overridden &&
+                            hasDefault && srlgElabMiseval(ps);
+        if (elabMiseval9)
+            elabMisevalParams.insert(&member);
         // The default, bound in this scope (used for values in both views).
         const Expression* defaultInit = hasDefault ? boundInit : nullptr;
         if (overridden) {
@@ -5697,74 +5704,55 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rhs = ec0;
                     }
             }
-            // NOTE (r10scr9, DECODED — NOT IMPLEMENTED).  Two whole classes of
-            // ELAB param_assign Rhs live in the block below and are wrong.
-            // Both were measured with the MODULE/PACKAGE param_assign census
-            // tools/probe/r10scr9c.cpp (271 rows on Scr1SvTests, 58 differing
-            // lines; run it FIRST on any elab-fold suspicion — it is reached
-            // through the instance tree, so unlike the whole-design constant
-            // census it carries no arena noise).
+            // § elabUnitMisevalNoFold — the ELAB fold chain below is SKIPPED
+            // when the value depends on a $unit parameter Surelog could not
+            // value: golden keeps the DEF view's tree, which is exactly what
+            // the generic emit at the end of this function produces.  See the
+            // model on srlgElabMiseval.  Only the NON-overridden half lives
+            // here; an overridden param's actual comes down the override
+            // render path instead.
             //
-            // § elabRangedRerender — the ELAB Rhs of a RANGED UNTYPED
-            // localparam is NOT the def view's literal: Surelog re-renders it
-            // from the parameter's Value at the range's TARGET WIDTH, i.e. the
-            // srlgLitEnc/srlgAdjustSize round trip this file already models for
-            // OVERRIDE actuals (and that § elabCallFormal re-runs at a formal's
-            // width), with SrlgTsK::Logic / unsigned / W.  Purpose-built golden
-            // pair, one localparam per literal form (/tmp/r10scr9_pb3 = the
-            // cross-root case, /tmp/r10scr9_pb = the same-root control):
-            //   `localparam [UW-1:0] P = <init>`   golden elab      ours
-            //     5'd0    (sized decimal)          INT:0   dc "0"   DEC:0 "5'd0"
-            //     8'h1f   (hex)                    HEX:1f  dc W'h1f  same
-            //     1'b1    (binary)                 BIN:1 SIZE 1      size W
-            //     7       (unsized int)            UINT masked to W  same
-            //     5'd2+5'd3                        INT:5             UINT:5
-            //   — sized-`d` does not survive the Value round trip (it lands as
-            //   vpiIntConst with bare digits, the producer rule decoded at
-            //   796e24e); BIN keeps min(written,W) instead of widening; and a
-            //   `+` whose operand is a DEC-based literal takes ExprEval's
-            //   SIGNED vpiAddOp arm (any vpiDecConst/vpiIntConst/vpiStringConst/
-            //   vpiRealConst operand flips it — the foldSigned9 helper below
-            //   models only the operator, not the operand ENCODING).
-            //   W = the range width, except that W is 1 when the range reads a
-            //   $unit parameter declared in ANOTHER ROOT FILE — the same
-            //   cross-root dangling § unitRefSubst already models (rootFilePath).
-            //   Proven by the pb3/pb2 pair: identical sources except that pb3's
-            //   header carries an include guard, so the $unit `localparam UW`
-            //   materialises only in the OTHER root file; pb2 (no guard, decl in
-            //   both) resolves and gives W=5, pb3 gives W=1.  Both views emit
-            //   the SAME unreduced range op tree, so the emitted range is NOT
-            //   the discriminator (probe tools/probe/r10scr9d.cpp).
-            //   Scr1SvTests scr1_pipe_idu `localparam [SCR1_GPR_FIELD_WIDTH-1:0]
-            //   SCR1_MPRF_ZERO_ADDR = 5'd0` is exactly this cell (golden INT:0
-            //   size 1 decompile "0"), and it is the ECHO HEAD: all 22 failing
-            //   AllMod/TopMod vectors report this one constant.
+            // NOTE (r10scr10, DECODED — NOT IMPLEMENTED) — the OVERRIDE half
+            // of the same rule, plus the bare-ref copy that rides with it.
+            // Both were measured with the param_assign census
+            // tools/probe/r10scr9c.cpp (271 rows on Scr1SvTests; run it FIRST
+            // on any elab-fold suspicion — it is reached through the instance
+            // tree, so unlike the whole-design constant census it carries no
+            // arena noise), plus the parameter-object census
+            // tools/probe/r10scr10b.cpp and the tree dump r10scr10a.cpp.
             //
-            // § elabUnitMisevalNoFold — an elab param_assign Rhs is NOT folded
-            // at all when its value depends on a $unit parameter Surelog never
-            // valued (unitParamNoValue), transitively through module params —
-            // the same valuelessness § genLoopUnitMiseval already models for
-            // loop bounds.  Golden keeps the DEF view's tree; we fold.  18 of
-            // the 26 differing census rows:
-            //   i_pipe_tdu   ALLTRIG_NUM/MTRIG_NUM  ref_obj(SCR1_TDU_*)
-            //                ALLTRIG_W              sys_func_call($clog2) (transitive)
-            //   i_dmem_router/i_imem_router SCR1_*_ADDR_MASK/PATTERN  ref_obj
-            //   i_dmi        DMI_*_HI/LO            operation{11,24}
-            //   i_tcm SCR1_TCM_SIZE / i_dp_memory SCR1_SIZE  operation{67}
-            //                RAM_SIZE_WORDS         operation{12}
-            // It needs BOTH halves: the plain-localparam one belongs here, the
-            // OVERRIDDEN one (`init` is the default, the actual comes down the
-            // srcBaseOv8 path) belongs with the override render.
+            // § elabOvMisevalNoFold — when the OVERRIDE ACTUAL is misevaluated
+            // (srlgElabMiseval on the actual, bound in the PARENT's scope), the
+            // elab param_assign Rhs is the actual's UNREDUCED tree, refs left
+            // dangling — not the default and not a fold.  10 census rows:
+            //   i_dmem_router SCR1_PORT{1,2}_ADDR_{MASK,PATTERN}
+            //   i_imem_router SCR1_ADDR_{MASK,PATTERN}
+            //        golden ref_obj(SCR1_TCM_ADDR_MASK) etc — a BARE $unit ref
+            //        stays a ref_obj (the $unit param has no value to copy)
+            //   i_tcm SCR1_TCM_SIZE
+            //        golden op67(op24(op4(ref_obj(SCR1_TCM_ADDR_MASK)) BIN:1))
+            //        — scr1_top_axi.sv:367's cast actual, whole tree kept
+            //   i_dp_memory SCR1_SIZE / RAM_SIZE_WORDS (the latter already
+            //        handled here once SCR1_SIZE joins elabMisevalParams)
+            // The blocker is that `init` on this path is the DEFAULT (init0 =
+            // overridden ? defaultInit : ...), so the actual has to be emitted
+            // from `boundInit`/the connection syntax instead — a new emission
+            // site, not a gate.
             //
             // § elabOvRefCopiesParam — an override actual that is a BARE
-            // reference to another parameter takes THAT parameter's own reduced
-            // elab constant verbatim, rather than being re-derived at the
-            // formal's width.  scr1_top_tb_axi `.SIZE(SCR1_MEM_SIZE)` with
-            // `localparam SCR1_MEM_SIZE = 1024*1024`: the referenced param
-            // reduces through ExprEval's vpiMultOp arm to INT:1048576 / size 64
-            // and golden's i_memory_tb SIZE IS that constant; ours re-derives
-            // UINT:1048576 / size 32.  1 census row.
-            if (!rhs && topView) {
+            // reference to a MODULE parameter takes THAT parameter's own
+            // emitted elab Rhs verbatim (paramRhsObj), rather than being
+            // re-derived at the formal's width.  Two rows, and they show it is
+            // a COPY of whatever shape the source took, folded or not:
+            //   i_memory_tb SIZE  .SIZE(SCR1_MEM_SIZE), `localparam
+            //     SCR1_MEM_SIZE = 1024*1024` -> golden INT:1048576 size 64,
+            //     which IS scr1_top_tb_axi's own elab constant; ours re-derives
+            //     UINT:1048576 size 32
+            //   i_dp_memory SCR1_SIZE  .SCR1_SIZE(SCR1_TCM_SIZE) -> golden is
+            //     i_tcm's op67 tree, byte-for-byte
+            // A bare $unit ref does NOT copy (there is nothing to copy) — it
+            // stays the ref_obj, which is what the router rows show.
+            if (!rhs && topView && !elabMiseval9) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
                     rhs = emitExpr(*init, pa, prefix, netMap);
@@ -5937,6 +5925,50 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             cr9->VpiDecompile(std::to_string(cr9->VpiSize()) +
                                               bc9 +
                                               std::string(vv9.substr(cl9 + 1)));
+                    }
+                    // § elabRangedRerender — a RANGED UNTYPED param's ELAB Rhs
+                    // is not the def view's literal at all: Surelog re-renders
+                    // it from the parameter's Value at the range's TARGET
+                    // WIDTH, i.e. the very srlgLitEnc/srlgAdjustSize round trip
+                    // this file models for OVERRIDE actuals (and that
+                    // § elabCallFormal re-runs at a formal's width), with
+                    // SrlgTsK::Logic / unsigned / W.  Measured on the
+                    // purpose-built pair tools/probe/r10scr9_ranged/, one
+                    // localparam per literal form (W = 1 there, the cross-root
+                    // cell; the un-guarded twin gives the same rows at W = 5):
+                    //   `localparam [UW-1:0] P = <init>`  golden       ours was
+                    //     5'd0   sized decimal            INT:0  "0"   DEC:0 "5'd0"
+                    //     1'b1   binary                   BIN:1 size 1 size W
+                    //     8'h1f  hex                      HEX:1f "W'h1f"  same
+                    //     7      unsized int              UINT masked to W  same
+                    // The round trip explains all four: a sized-`d` literal
+                    // does not survive a Value (it lands as vpiIntConst with
+                    // bare digits, the producer rule decoded at 796e24e), a BIN
+                    // keeps min(written, W) because adjustSize's logic arm only
+                    // ever truncates, and HEX/decimal were already right.
+                    // A SIGNED based literal is a different, already-modelled
+                    // encoding (signedBinFoldParams) and is left alone; an
+                    // UNSIZED based literal ('h7) never enters the producer, so
+                    // srlgLitEnc declines it and the round-trip block above
+                    // stands.
+                    // Scr1SvTests scr1_pipe_idu's three
+                    // `localparam [SCR1_GPR_FIELD_WIDTH-1:0] SCR1_MPRF_*_ADDR
+                    // = 5'd{0,1,2}` are exactly this cell, and they were the
+                    // whole design's first uhdm-cmp failure.
+                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                        isRangedUntypedParam(ps) &&
+                        !signedBinFoldParams.count(&ps)) {
+                        SrlgOvEnc re9;
+                        if (srlgLitEnc(rawTextLit(*init), re9)) {
+                            srlgAdjustSize(re9, SrlgTsK::Logic, false,
+                                           srlgRangedElabWidth(ps));
+                            srlgOvRender(re9);
+                            auto* cc9 = (UHDM::constant*)rhs;
+                            cc9->VpiConstType(re9.ct);
+                            cc9->VpiValue(srlgOvValue(re9));
+                            cc9->VpiSize(re9.size);
+                            cc9->VpiDecompile(re9.dec);
+                        }
                     }
                 }
                 // Symbolic sys_func_call ($clog2(Info.x)) of a member-init
@@ -10231,6 +10263,162 @@ bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
                 return !tsyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
                        ps.getType().getCanonicalType().isPackedArray();
     return false;
+}
+
+// § elabUnitMisevalNoFold — true when an ELAB param_assign Rhs must NOT be
+// folded because its value depends on a $unit parameter Surelog could not
+// value: either one it never valued at all (unitParamNoValue) or one declared
+// in ANOTHER ROOT FILE, which from this file's compilation is a dangling name.
+// The golden then keeps the DEF view's tree — the same valuelessness
+// § genLoopUnitMiseval already models for loop bounds, where it instead
+// suppresses the whole generate array.
+//
+// The property is TRANSITIVE through module parameters, so the walk follows
+// each named parameter's own initializer; and once a parameter has been
+// decided misevaluated its readers inherit that through `elabMisevalParams`,
+// which is what carries the decision DOWN the instance tree (a child's
+// override actual is a parent-scope expression, and parents are emitted
+// first).  Scr1SvTests: scr1_dmi's five `DMI_*_HI/LO` (reading
+// SCR1_DBG_DMI_*_WIDTH across root files), scr1_pipe_tdu's ALLTRIG_NUM /
+// MTRIG_NUM / ALLTRIG_W (the last only through ALLTRIG_NUM), scr1_dp_memory's
+// RAM_SIZE_WORDS.
+bool UhdmExporter::srlgElabMiseval(const ParameterSymbol& ps) {
+    // COST GUARD.  The walk resolves every identifier it meets, and slang's
+    // lookupName forces lazy elaboration, so running it for every parameter of
+    // every instance is not free: on BlackBePipeInt (one root file, ~200
+    // config parameters over 2304-bit structs) an unguarded version ran the
+    // process out of 10 GB.  Two guards keep it cheap and both are exact:
+    //   - nothing can be misevaluated unless some $unit parameter is valueless
+    //     or the $unit parameters span MORE THAN ONE root file (the cross-file
+    //     boundary is what makes a resolvable name dangle);
+    //   - a parameter is walked at most once per query, which is what turns
+    //     the initializer-following recursion from exponential into linear.
+    if (unitParamNoValue.empty() && elabMisevalParams.empty() &&
+        !unitParamsMultiRoot())
+        return false;
+    bool hit = false;
+    std::set<const Symbol*> seen9;
+    std::function<void(const syntax::SyntaxNode*, const Scope*,
+                       const std::string&, int)>
+        scan = [&](const syntax::SyntaxNode* n9, const Scope* look9,
+                   const std::string& root9, int depth9) {
+            if (!n9 || hit || !look9 || depth9 > 8)
+                return;
+            if (n9->kind == syntax::SyntaxKind::IdentifierName) {
+                auto nm9 =
+                    n9->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                if (nm9.empty())
+                    return;
+                auto* sy9 = look9->lookupName(nm9);
+                if (!sy9)
+                    return;
+                if (unitParamNoValue.count(sy9) || elabMisevalParams.count(sy9)) {
+                    hit = true;
+                    return;
+                }
+                if (unitParamMap.count(sy9)) {
+                    // A $unit parameter Surelog DID value still dangles when it
+                    // was materialised in a different command-line file.
+                    if (!root9.empty() && rootFilePath(sy9->location) != root9)
+                        hit = true;
+                    return;
+                }
+                if (sy9->kind != SymbolKind::Parameter)
+                    return;
+                if (!seen9.insert(sy9).second)
+                    return;
+                if (auto ds9 = sy9->getSyntax();
+                    ds9 && ds9->kind == syntax::SyntaxKind::Declarator)
+                    if (auto* iv9 =
+                            ds9->as<syntax::DeclaratorSyntax>().initializer)
+                        scan(iv9->expr, sy9->getParentScope(),
+                             rootFilePath(sy9->location), depth9 + 1);
+                return;
+            }
+            for (size_t i9 = 0; i9 < n9->getChildCount(); i9++)
+                scan(n9->childNode(i9), look9, root9, depth9);
+        };
+    auto dsyn9 = ps.getSyntax();
+    if (!dsyn9 || dsyn9->kind != syntax::SyntaxKind::Declarator)
+        return false;
+    auto* iv0 = dsyn9->as<syntax::DeclaratorSyntax>().initializer;
+    if (!iv0)
+        return false;
+    scan(iv0->expr, ps.getParentScope(), rootFilePath(ps.location), 0);
+    return hit;
+}
+
+// True when the design's $unit parameters were materialised in MORE THAN ONE
+// command-line root file — the precondition for a $unit name to dangle at a
+// reader in another file (§ elabUnitMisevalNoFold, § elabRangedRerender).
+// Cached: the answer cannot change once the $unit pass has run.
+bool UhdmExporter::unitParamsMultiRoot() {
+    if (unitParamRoots9 < 0) {
+        std::set<std::string> roots9;
+        for (auto& [sy9, up9] : unitParamMap) {
+            roots9.insert(rootFilePath(sy9->location));
+            if (roots9.size() > 1)
+                break;
+        }
+        unitParamRoots9 = (int)roots9.size();
+    }
+    return unitParamRoots9 > 1;
+}
+
+// § elabRangedRerender — the TARGET WIDTH Surelog re-renders a ranged untyped
+// parameter's elaborated literal at.  Normally the declared range's width, but
+// ONE when the range reads a $unit parameter that lives in ANOTHER ROOT FILE:
+// Surelog compiles one command-line file at a time and a guarded header's
+// declarations belong to whichever file included it first, so such a bound
+// never resolves and the re-render falls back to a single bit.  The same
+// cross-root boundary § unitRefSubst and the var/net typespec rule already
+// model (rootFilePath).
+//
+// Proven by the purpose-built pair tools/probe/r10scr9_ranged/ (a.sv, b.sv,
+// inc.svh): identical sources except for inc.svh's INCLUDE GUARD, so with the
+// guard `localparam UW` materialises only in a.sv and every one of b.sv's
+// `localparam [UW-1:0]` constants comes out at width 1, and without it the
+// declaration lands in both root files and they come out at width 5.  Both
+// spellings emit the SAME unreduced range operation, so the emitted range is
+// not the discriminator (probe tools/probe/r10scr9d.cpp).
+int32_t UhdmExporter::srlgRangedElabWidth(const ParameterSymbol& ps) {
+    int32_t w = (int32_t)ps.getType().getBitWidth();
+    if (unitParamMap.empty())
+        return w;
+    auto declared = ps.getDeclaredType();
+    if (!declared)
+        return w;
+    auto tsyn = declared->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::ImplicitType)
+        return w;
+    auto* scope = ps.getParentScope();
+    if (!scope)
+        return w;
+    const std::string own = rootFilePath(ps.location);
+    if (own.empty())
+        return w;
+    bool cross = false;
+    std::function<void(const syntax::SyntaxNode&)> walk9 =
+        [&](const syntax::SyntaxNode& n9) {
+            if (cross)
+                return;
+            if (n9.kind == syntax::SyntaxKind::IdentifierName) {
+                auto nm9 =
+                    n9.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                if (!nm9.empty())
+                    if (auto* sy9 = scope->lookupName(nm9))
+                        if (unitParamMap.count(sy9) &&
+                            rootFilePath(sy9->location) != own)
+                            cross = true;
+                return;
+            }
+            for (size_t i9 = 0; i9 < n9.getChildCount(); i9++)
+                if (auto* c9 = n9.childNode(i9))
+                    walk9(*c9);
+        };
+    for (auto* dim9 : tsyn->as<syntax::ImplicitTypeSyntax>().dimensions)
+        walk9(*dim9);
+    return cross ? 1 : w;
 }
 
 // Collect the names Surelog resolves through getObject in an INSTANCE context
