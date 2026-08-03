@@ -593,6 +593,28 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             info.nets[iv9] = n9;
         nets->push_back(n9);
     }
+    // A GENERIC interface port (`module m (interface intf);`) is an ORDINARY
+    // port to Surelog -- it never recognises the form as an interface port --
+    // so its net is minted during PORT compilation, ahead of every body
+    // declaration.  A TYPED interface port (`ConnectTB conn`, `ConnectTB.dut
+    // mpc`) is bound later and its net lands AFTER the body's own nets (the
+    // loop below the declaration loop).  Measured on a three-module repro:
+    // GEN's nets read [intf, w1] while TYP's read [w2, conn] and MP's
+    // [w3, mpc].
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::InterfacePort)
+            continue;
+        auto& ip0 = portBase->as<InterfacePortSymbol>();
+        if (!isGenericIfacePort(ip0) || m->UhdmType() == UHDM::uhdmprogram)
+            continue;
+        auto* n0 = s.MakeLogic_net();
+        n0->VpiName(ip0.name);
+        n0->VpiFullName(prefix + "." + std::string(ip0.name));
+        n0->VpiParent(m);
+        setLocNamed(n0, ip0);
+        info.nets[portBase] = n0;
+        nets->push_back(n0);
+    }
     for (auto& it : collectNetOrder(body)) {
         // The net an EXPLICIT port mints under its own name: bare (no net
         // type, no typespec), anchored at the port-list name, and NOT the
@@ -874,6 +896,10 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // work@middle -- same ConnectTB.<mp> port -- does). A GENERIC port
         // does get one: Surelog never saw it as an interface port at all.
         if (m->UhdmType() == UHDM::uhdmprogram && !isGenericIfacePort(ip))
+            continue;
+        // A module's GENERIC port already took its net in the port-first
+        // pre-pass above.
+        if (m->UhdmType() != UHDM::uhdmprogram && isGenericIfacePort(ip))
             continue;
         auto* n = s.MakeLogic_net();
         n->VpiName(ip.name);
@@ -4004,6 +4030,36 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     }
     std::vector<std::pair<const Symbol*, UHDM::any*>> sigOrder;
     auto* nets = s.MakeNetVec();
+    // The ELAB counterpart of the def-view generic-interface-port net: same
+    // port-first position, but here the net CARRIES its typespec -- a
+    // ref_typespec whose actual is a fresh unsupported_typespec named by the
+    // port (measured on GEN's elab instance, whose nets read [intf, w1], and
+    // on OneNetModPortGeneric's `program TESTBENCH (interface intf)` elab
+    // view work@TOP.tb).
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::InterfacePort)
+            continue;
+        auto& ipg = portBase->as<InterfacePortSymbol>();
+        if (!isGenericIfacePort(ipg))
+            continue;
+        std::string gfull = prefix + "." + std::string(ipg.name);
+        auto* ng = s.MakeLogic_net();
+        ng->VpiName(ipg.name);
+        ng->VpiFullName(gfull);
+        ng->VpiParent(m);
+        setLocNamed(ng, ipg);
+        auto* rtg = s.MakeRef_typespec();
+        rtg->VpiFullName(gfull);
+        rtg->VpiParent(ng);
+        auto* utsg = s.MakeUnsupported_typespec();
+        utsg->VpiName(ipg.name);
+        setLocNamed(utsg, ipg);
+        rtg->Actual_typespec(utsg);
+        ng->Typespec(rtg);
+        topNets[portBase] = ng;
+        sigOrder.emplace_back(portBase, ng);
+        nets->push_back(ng);
+    }
     auto* vars = s.MakeVariablesVec();
     auto* arrayNets = s.MakeArray_netVec();
     UHDM::VectorOfnamed_event* namedEvents = nullptr;
@@ -5937,7 +5993,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 auto* rt = s.MakeRef_typespec();
                 rt->VpiFullName(prefix + "." + std::string(ip.name));
                 rt->VpiParent(p);
-                if (ip.modport.empty() ||
+                // A GENERIC port's typespec is an unsupported_typespec named
+                // by the PORT in the elab view too (Surelog never recognised
+                // the form, so no interface_typespec is ever minted for it).
+                if (isGenericIfacePort(ip)) {
+                    auto* utsg = s.MakeUnsupported_typespec();
+                    utsg->VpiName(ip.name);
+                    setLocNamed(utsg, ip);
+                    rt->Actual_typespec(utsg);
+                }
+                else if (ip.modport.empty() ||
                     connRaw.find('[') != std::string::npos)
                     rt->Actual_typespec(makeIfacePortTs(ip));
                 else
@@ -5953,18 +6018,49 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             auto& ip = portBase->as<InterfacePortSymbol>();
             auto conn = ip.getConnection();
             if (conn.first && conn.first->kind == SymbolKind::Instance) {
+                // A GENERIC port declares no modport, so the RESTRICTION rides
+                // the connection instead: `.intf(conntb.dut)` gives its port
+                // view exactly the `dut` modport (OneNetModPortGeneric
+                // work@TOP.dut1.middle1.intf lists `dut` alone, never `tb`).
+                std::string connMp9 = std::string(ip.modport);
+                if (connMp9.empty() && conn.second && isGenericIfacePort(ip))
+                    connMp9 = std::string(conn.second->name);
                 auto* ii = emitInterfaceInstance(
                     conn.first->as<InstanceSymbol>(),
                     prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
-                    /*portView=*/&inst, /*connModport=*/std::string(ip.modport));
+                    /*portView=*/&inst, /*connModport=*/connMp9);
                 // A port view is named by the PORT, not the connected instance.
                 ii->VpiName(std::string(portBase->name));
                 portIfaces->push_back(ii);
                 ifacePortViewMap[portBase] = ii;
+                // A GENERIC port lists its view ONCE and keeps the LowConn
+                // ref's port parent (measured: work@TOP.obs / work@TOP.g2
+                // each carry a single vpiInterface).  Which object the
+                // LowConn binds follows the CONNECTION, not the port: a plain
+                // `.intf(conntb)` binds the port view, a modport-qualified
+                // `.intf(conntb.dut)` binds that modport -- the port itself
+                // declares no modport, so ip.modport cannot decide it.
+                bool genericPort9 = isGenericIfacePort(ip);
+                if (genericPort9) {
+                    if (!conn.second)
+                        for (auto* pp : ifPortList)
+                            if (pp->VpiName() == ip.name && pp->Low_conn() &&
+                                pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
+                                ((UHDM::ref_obj*)pp->Low_conn())
+                                    ->Actual_group(ii);
+                    if (conn.second && ii->Modports())
+                        for (auto* pp : ifPortList)
+                            if (pp->VpiName() == ip.name && pp->Low_conn() &&
+                                pp->Low_conn()->UhdmType() == UHDM::uhdmref_obj)
+                                for (auto* umod : *ii->Modports())
+                                    if (umod->VpiName() == conn.second->name)
+                                        ((UHDM::ref_obj*)pp->Low_conn())
+                                            ->Actual_group(umod);
+                }
                 // A plain (no-modport) interface port lists the view TWICE
                 // under vpiInterface and re-points the LowConn ref at it,
                 // dropping the ref's port parent (Surelog quirks).
-                if (ip.modport.empty()) {
+                else if (ip.modport.empty()) {
                     portIfaces->push_back(ii);
                     for (auto* pp : ifPortList)
                         if (pp->VpiName() == ip.name && pp->Low_conn() &&
@@ -7123,11 +7219,44 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     if (auto* ps9 = inst.getParentScope()) {
                                         const Symbol* bs9 =
                                             ps9->find(hn9.substr(0, dot9));
-                                        if (bs9 &&
-                                            bs9->kind ==
-                                                SymbolKind::InterfacePort &&
-                                            bs9->as<InterfacePortSymbol>()
-                                                .modport.empty())
+                                        const InterfacePortSymbol* bip9 =
+                                            bs9 && bs9->kind ==
+                                                       SymbolKind::InterfacePort
+                                                ? &bs9->as<InterfacePortSymbol>()
+                                                : nullptr;
+                                        // A GENERIC base is an ordinary NET to
+                                        // Surelog, so the path roots at that
+                                        // net (not at the iface-port LowConn
+                                        // ref) and CARRIES the port's own
+                                        // unsupported_typespec — measured on
+                                        // OneNetModPortGeneric's
+                                        // `SUB sub1(.inp(intf.drive))` inside
+                                        // `module middle (interface intf)`.
+                                        // The DEF view of the same connection
+                                        // has neither.
+                                        if (bip9 && isGenericIfacePort(*bip9)) {
+                                            if (parentNets)
+                                                if (auto nig9 =
+                                                        parentNets->find(bs9);
+                                                    nig9 != parentNets->end())
+                                                    hp->Root_value(nig9->second);
+                                            if (!hp->Typespec()) {
+                                                auto* rtg9 =
+                                                    s.MakeRef_typespec();
+                                                rtg9->VpiFullName(
+                                                    prefix + "." +
+                                                    std::string(ps.name) + "." +
+                                                    hn9);
+                                                rtg9->VpiParent(hp);
+                                                auto* utg9 =
+                                                    s.MakeUnsupported_typespec();
+                                                utg9->VpiName(bip9->name);
+                                                setLocNamed(utg9, *bip9);
+                                                rtg9->Actual_typespec(utg9);
+                                                hp->Typespec(rtg9);
+                                            }
+                                        }
+                                        else if (bip9 && bip9->modport.empty())
                                             if (auto lit9 =
                                                     ifacePortLowConnBySym.find(
                                                         bs9);
@@ -11988,6 +12117,28 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                         lc->Actual_group(nit->second);
                 }
                 p->Low_conn(lc);
+                ports->push_back(p);
+                continue;
+            }
+            // A GENERIC interface port is an ORDINARY net-backed port to
+            // Surelog: the LowConn binds the port's own logic_net (never a
+            // modport or an interface_inst) and the vpiTypedef actual is an
+            // unsupported_typespec NAMED BY THE PORT and spanned at the port
+            // NAME -- not an interface_typespec named by the `interface`
+            // keyword.  Holds in both views; only the LowConn fullname
+            // differs (doubled in the def view, plain in the elab one).
+            if (isGenericIfacePort(ip)) {
+                if (auto nit = netMap.find(portBase); nit != netMap.end())
+                    lc->Actual_group(nit->second);
+                p->Low_conn(lc);
+                auto* rtg = s.MakeRef_typespec();
+                rtg->VpiParent(p);
+                rtg->VpiFullName(prefix + "." + std::string(ip.name));
+                auto* utsg = s.MakeUnsupported_typespec();
+                utsg->VpiName(ip.name);
+                setLocNamed(utsg, ip);
+                rtg->Actual_typespec(utsg);
+                p->Typespec(rtg);
                 ports->push_back(p);
                 continue;
             }
@@ -17435,6 +17586,13 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
             }
             vars->push_back((UHDM::variables*)nit->second);
         }
+    // The tail dup carries the same doubled listing the home view does when
+    // the instance is handed to a plain generic port.
+    if (!vars->empty() && boundToPlainGenericIfacePort(inst)) {
+        size_t half9 = vars->size();
+        for (size_t i9 = 0; i9 < half9; i9++)
+            vars->push_back((*vars)[i9]);
+    }
     if (!vars->empty())
         dup->Variables(vars);
     // The dup lists the iface's HEADER PORTS as BARE ports (name + decl
@@ -17591,8 +17749,28 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         }
     }
     else {
+        // A MODPORT-QUALIFIED generic port's view anchors at the receiving
+        // module's PORT DECLARATION line instead (`module middle (interface
+        // intf);` line 22, not middle1's instantiation line 6): the modport
+        // restriction is resolved off the port declaration.  A PLAIN generic
+        // connection keeps the instantiation-line anchor (work@TOP.obs.intf
+        // reads tb.v:19, OBSERVER's instantiation).  Column 0 either way.
+        const InterfacePortSymbol* genPort9 = nullptr;
+        for (auto pb9 : portView->body.getPortList()) {
+            if (pb9->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip9 = pb9->as<InterfacePortSymbol>();
+            auto c8 = ip9.getConnection();
+            if (c8.first == &inst && c8.second && isGenericIfacePort(ip9))
+                genPort9 = &ip9;
+        }
+        if (genPort9 && genPort9->location != SourceLocation::NoLocation) {
+            iface->VpiFile(fullFilePath(genPort9->location));
+            iface->VpiLineNo((int32_t)sm->getLineNumber(genPort9->location));
+            iface->VpiColumnNo(0);
+        }
         // Located at the receiving instance's instantiation line, column 0.
-        if (auto syn = portView->getSyntax()) {
+        else if (auto syn = portView->getSyntax()) {
             const syntax::SyntaxNode* stmtSyn = syn;
             while (stmtSyn->parent &&
                    stmtSyn->kind != syntax::SyntaxKind::HierarchyInstantiation)
@@ -18142,6 +18320,30 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         vars->push_back(v);
     }
     ifaceDefaultScope = nullptr;
+    // An interface handed to a PLAIN generic interface port lists its
+    // variables TWICE (see boundToPlainGenericIfacePort) on its HOME view and
+    // on THAT port's own view.  A sibling TYPED port's view of the same
+    // instance keeps the single listing (repro c: work@TOP.g1.intf reads four,
+    // work@TOP.t1.conn / work@TOP.m1.mpc read two), so the port view arm asks
+    // about the receiving port, not about the instance.
+    bool dblVars9 = false;
+    if (portView) {
+        for (auto pb9 : portView->body.getPortList()) {
+            if (pb9->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip9 = pb9->as<InterfacePortSymbol>();
+            auto c9 = ip9.getConnection();
+            if (c9.first == &inst && !c9.second && isGenericIfacePort(ip9))
+                dblVars9 = true;
+        }
+    }
+    else
+        dblVars9 = boundToPlainGenericIfacePort(inst);
+    if (!vars->empty() && dblVars9) {
+        size_t half9 = vars->size();
+        for (size_t i9 = 0; i9 < half9; i9++)
+            vars->push_back((*vars)[i9]);
+    }
     if (!vars->empty())
         iface->Variables(vars);
     if (!elabNets->empty())

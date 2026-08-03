@@ -1588,6 +1588,38 @@ inline bool isGenericIfacePort(const InterfacePortSymbol& ip) {
     return false;
 }
 
+// True when some instantiation in this interface instance's OWN scope hands
+// it to a PLAIN (non-modport-qualified) GENERIC interface port.  Surelog
+// lists such an interface's Variables TWICE -- on the home view and on the
+// port view alike -- and only for the plain form: measured on a two-instance
+// repro where `ca`, passed to `GEN1(interface intf)` as `.intf(ca)`, reads
+// four vpiVariables while the sibling `cb` behind a typed port reads two, and
+// on OneNetModPortGeneric itself, where work@TOP.conntb (plain `.intf(conntb)`
+// into OBSERVER) doubles while work@TOP.dut1.conntb (modport-qualified
+// `.intf(conntb.dut)` into middle) does not.  Two generic ports on one
+// instance still double only once.
+inline bool boundToPlainGenericIfacePort(const InstanceSymbol& ifaceInst) {
+    const Scope* home = ifaceInst.getParentScope();
+    if (!home)
+        return false;
+    for (auto& mem : home->members()) {
+        if (mem.kind != SymbolKind::Instance)
+            continue;
+        auto& child = mem.as<InstanceSymbol>();
+        for (auto pb : child.body.getPortList()) {
+            if (pb->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip = pb->as<InterfacePortSymbol>();
+            if (!isGenericIfacePort(ip))
+                continue;
+            auto conn = ip.getConnection();
+            if (conn.first == &ifaceInst && !conn.second)
+                return true;
+        }
+    }
+    return false;
+}
+
 inline const Expression& stripImplicitConv(const Expression& e);
 
 // The def-view source span of an implicit net that slang minted at the FIRST
