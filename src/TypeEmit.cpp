@@ -5589,6 +5589,63 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
             setLoc(its0, typeSyn->sourceRange());
             ets0 = its0;
         }
+        // A PACKED element written INLINE (`typedef logic [1:0] T [7:0]`,
+        // `typedef unit_t [0:4] U [7:8]`) has no typedef object to share
+        // either, but Surelog compiles the written element type all the same:
+        // a packed_array_typespec over the NAMED element typedef's shared
+        // object when the packed dims sit on a typedef name, otherwise the
+        // plain vector typespec of the built-in type. Both land parentless,
+        // reachable only through the array's Elem ref (UnpackedTypespec).
+        if (!ets0 && typeSyn) {
+            auto& elc0 = el0->getCanonicalType();
+            const Type* inner0 = elc0.kind == SymbolKind::PackedArrayType
+                                     ? &elc0.as<PackedArrayType>().elementType
+                                     : nullptr;
+            UHDM::typespec* leaf0 = nullptr;
+            if (inner0 && inner0->kind == SymbolKind::TypeAlias)
+                if (auto li0 = typedefTs.find(
+                        (const Symbol*)&inner0->as<TypeAliasType>());
+                    li0 != typedefTs.end())
+                    leaf0 = li0->second;
+            if (leaf0) {
+                auto* pts0 = s.MakePacked_array_typespec();
+                setLoc(pts0, typeSyn->sourceRange());
+                auto spans0 =
+                    scanDimSpans(std::string(rawText(typeSyn->sourceRange())),
+                                 typeSyn->sourceRange().start());
+                auto* pr0 = s.MakeRange();
+                pr0->VpiParent(pts0);
+                if (!spans0.empty())
+                    setLoc(pr0, spans0[0].range);
+                auto mkP = [&](int64_t v, const SourceRange* loc) -> UHDM::expr* {
+                    auto* c = s.MakeConstant();
+                    std::string dg = std::to_string(v);
+                    c->VpiDecompile(dg);
+                    c->VpiSize(64);
+                    c->VpiValue("UINT:" + dg);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(pr0);
+                    if (loc)
+                        setLoc(c, *loc);
+                    return c;
+                };
+                auto& pa0 = elc0.as<PackedArrayType>();
+                pr0->Left_expr(
+                    mkP(pa0.range.left, spans0.empty() ? nullptr : &spans0[0].left));
+                pr0->Right_expr(
+                    mkP(pa0.range.right, spans0.empty() ? nullptr : &spans0[0].right));
+                auto* prv0 = s.MakeRangeVec();
+                prv0->push_back(pr0);
+                pts0->Ranges(prv0);
+                auto* irt0 = s.MakeRef_typespec();
+                irt0->VpiParent(pts0);
+                irt0->Actual_typespec(leaf0);
+                pts0->Elem_typespec(irt0);
+                ets0 = pts0;
+            }
+            else
+                ets0 = anonAggregateElemTs(*el0, typeSyn);
+        }
         if (ets0) {
             // A STRUCT element points at a fresh NAMED clone with a
             // BARE-scoped member tree and a Typedef_alias ref to the
@@ -5628,6 +5685,152 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
         }
     }
     return ats;
+}
+
+// Copy a range vector object-for-object (bounds that are not plain constants
+// are shared — only their VALUES are compared).
+static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
+                                         const UHDM::VectorOfrange* src,
+                                         UHDM::any* parent) {
+    if (!src)
+        return nullptr;
+    auto* rv = s.MakeRangeVec();
+    for (auto* r0 : *src) {
+        auto* r = s.MakeRange();
+        r->VpiParent(parent);
+        r->VpiFile(r0->VpiFile());
+        r->VpiLineNo(r0->VpiLineNo());
+        r->VpiColumnNo(r0->VpiColumnNo());
+        r->VpiEndLineNo(r0->VpiEndLineNo());
+        r->VpiEndColumnNo(r0->VpiEndColumnNo());
+        auto cpB = [&](const UHDM::expr* b) -> UHDM::expr* {
+            if (!b || b->UhdmType() != UHDM::uhdmconstant)
+                return (UHDM::expr*)b;
+            auto* c0 = (const UHDM::constant*)b;
+            auto* c = s.MakeConstant();
+            c->VpiDecompile(c0->VpiDecompile());
+            c->VpiSize(c0->VpiSize());
+            c->VpiValue(c0->VpiValue());
+            c->VpiConstType(c0->VpiConstType());
+            c->VpiParent(r);
+            c->VpiFile(c0->VpiFile());
+            c->VpiLineNo(c0->VpiLineNo());
+            c->VpiColumnNo(c0->VpiColumnNo());
+            c->VpiEndLineNo(c0->VpiEndLineNo());
+            c->VpiEndColumnNo(c0->VpiEndColumnNo());
+            return c;
+        };
+        r->Left_expr(cpB(r0->Left_expr()));
+        r->Right_expr(cpB(r0->Right_expr()));
+        rv->push_back(r);
+    }
+    return rv;
+}
+
+// A leaf typespec Surelog re-mints inside a per-reference typedef copy: same
+// class, span and signedness, no children beyond a vector's ranges.
+// Aggregates (enum/struct/union) have no cheap copy — the caller shares those,
+// which compares equal because uhdm-cmp never tests object identity.
+static UHDM::typespec* freshLeafTsCopy(UHDM::Serializer& s,
+                                       const UHDM::typespec* src) {
+    if (!src || !src->VpiName().empty())
+        return nullptr;
+    UHDM::typespec* out = nullptr;
+    switch (src->UhdmType()) {
+        case UHDM::uhdmint_typespec:
+            out = s.MakeInt_typespec();
+            break;
+        case UHDM::uhdminteger_typespec:
+            out = s.MakeInteger_typespec();
+            break;
+        case UHDM::uhdmshort_int_typespec:
+            out = s.MakeShort_int_typespec();
+            break;
+        case UHDM::uhdmlong_int_typespec:
+            out = s.MakeLong_int_typespec();
+            break;
+        case UHDM::uhdmbyte_typespec:
+            out = s.MakeByte_typespec();
+            break;
+        case UHDM::uhdmtime_typespec:
+            out = s.MakeTime_typespec();
+            break;
+        case UHDM::uhdmreal_typespec:
+            out = s.MakeReal_typespec();
+            break;
+        case UHDM::uhdmshort_real_typespec:
+            out = s.MakeShort_real_typespec();
+            break;
+        case UHDM::uhdmstring_typespec:
+            out = s.MakeString_typespec();
+            break;
+        case UHDM::uhdmlogic_typespec:
+            out = s.MakeLogic_typespec();
+            break;
+        case UHDM::uhdmbit_typespec:
+            out = s.MakeBit_typespec();
+            break;
+        default:
+            return nullptr;
+    }
+    out->VpiFile(src->VpiFile());
+    out->VpiLineNo(src->VpiLineNo());
+    out->VpiColumnNo(src->VpiColumnNo());
+    out->VpiEndLineNo(src->VpiEndLineNo());
+    out->VpiEndColumnNo(src->VpiEndColumnNo());
+    if (src->UhdmType() == UHDM::uhdmint_typespec)
+        ((UHDM::int_typespec*)out)
+            ->VpiSigned(((const UHDM::int_typespec*)src)->VpiSigned());
+    if (auto* lt = out->Cast<UHDM::logic_typespec*>()) {
+        auto* l0 = (const UHDM::logic_typespec*)src;
+        lt->VpiSigned(l0->VpiSigned());
+        lt->Ranges(copyRangeVec(
+            s, ((UHDM::logic_typespec*)l0)->Ranges(), lt));
+    }
+    else if (auto* bt = out->Cast<UHDM::bit_typespec*>()) {
+        auto* b0 = (const UHDM::bit_typespec*)src;
+        bt->VpiSigned(b0->VpiSigned());
+        bt->Ranges(copyRangeVec(s, ((UHDM::bit_typespec*)b0)->Ranges(), bt));
+    }
+    return out;
+}
+
+UHDM::array_typespec* UhdmExporter::copyArrayTypedefTs(
+    const UHDM::array_typespec* src, const std::string& bareName,
+    bool keepInstance, bool withAlias) {
+    auto* cp = s.MakeArray_typespec();
+    cp->VpiName(bareName);
+    cp->VpiFile(src->VpiFile());
+    cp->VpiLineNo(src->VpiLineNo());
+    cp->VpiColumnNo(src->VpiColumnNo());
+    cp->VpiEndLineNo(src->VpiEndLineNo());
+    cp->VpiEndColumnNo(src->VpiEndColumnNo());
+    cp->VpiArrayType(src->VpiArrayType());
+    if (keepInstance)
+        cp->Instance(((UHDM::array_typespec*)src)->Instance());
+    if (withAlias) {
+        auto* art = s.MakeRef_typespec();
+        art->VpiFullName(bareName);
+        art->VpiParent(cp);
+        art->Actual_typespec((UHDM::typespec*)src);
+        cp->Typedef_alias(art);
+    }
+    if (auto* rv = copyRangeVec(s, ((UHDM::array_typespec*)src)->Ranges(), cp))
+        cp->Ranges(rv);
+    if (auto* er = ((UHDM::array_typespec*)src)->Elem_typespec()) {
+        auto* ert = s.MakeRef_typespec();
+        ert->VpiFullName(bareName);
+        ert->VpiParent(cp);
+        auto* act = er->Actual_typespec();
+        if (auto* fresh = freshLeafTsCopy(s, act)) {
+            fresh->VpiParent(ert);
+            ert->Actual_typespec(fresh);
+        }
+        else
+            ert->Actual_typespec(act);
+        cp->Elem_typespec(ert);
+    }
+    return cp;
 }
 
 // Typedefs (enums, packed structs): module Typespecs entries compiled at
@@ -5768,9 +5971,21 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             while (leaf->getCanonicalType().kind == SymbolKind::PackedArrayType) {
                 arrDims++;
                 leaf = &leaf->getCanonicalType().as<PackedArrayType>().elementType;
+                // A NAMED typedef element ENDS the dim walk: Surelog keeps the
+                // written nesting rather than flattening through the alias, so
+                // `typedef fmt_t [0:1] opgrp_t` is ONE range over the fmt_t
+                // object, not two ranges over fmt_t's own enum leaf
+                // (UnpackedTypespec).
+                if (leaf->kind == SymbolKind::TypeAlias &&
+                    typedefTs.count((const Symbol*)&leaf->as<TypeAliasType>()))
+                    break;
             }
             bool enumLeaf =
                 leaf->getCanonicalType().kind == SymbolKind::EnumType;
+            // A shared PACKED-ARRAY leaf (alias-of-alias) names the array like
+            // an enum leaf does.
+            bool arrLeaf =
+                leaf->getCanonicalType().kind == SymbolKind::PackedArrayType;
             std::string ename =
                 leaf->kind == SymbolKind::TypeAlias ? std::string(leaf->name) : "";
             const syntax::SyntaxNode* esyn = leaf->getCanonicalType().getSyntax();
@@ -5811,7 +6026,7 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                 setLoc(sts, typeSyn->getFirstToken().range());
             auto* pat = s.MakePacked_array_typespec();
             pat->VpiParent(m);
-            if (enumLeaf)
+            if (enumLeaf || arrLeaf)
                 pat->VpiName(ta.name);
             if (typeSyn)
                 setLoc(pat, typeSyn->sourceRange());

@@ -4198,10 +4198,45 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         av9->VpiParent(m);
                         setLoc(av9, nameSpan(it.sym->location, it.sym->name));
                         av9->VpiVisibility(1);
+                        // An assignment-pattern initializer rides the elab
+                        // array_var as vpiExpr (the def view keeps the
+                        // net-decl-assign); leaf constants stay unparented
+                        // like every other array pattern.
+                        if (auto init9 = dtu9->getInitializer()) {
+                            auto& ic9 = stripImplicitConv(*init9);
+                            if (ic9.kind ==
+                                    ExpressionKind::SimpleAssignmentPattern ||
+                                ic9.kind ==
+                                    ExpressionKind::ReplicatedAssignmentPattern ||
+                                ic9.kind ==
+                                    ExpressionKind::StructuredAssignmentPattern) {
+                                NetMap none9;
+                                bool savedSCP9 = suppressConstParent;
+                                suppressConstParent = true;
+                                if (auto* e9 =
+                                        emitExpr(ic9, av9, fullName, none9))
+                                    av9->Expr((UHDM::expr*)e9);
+                                suppressConstParent = savedSCP9;
+                            }
+                        }
+                        // A BUILT-IN/anonymous element makes this reference a
+                        // per-reference COPY of the typedef object: a
+                        // MODULE-homed one drops vpiInstance, a PACKAGE-homed
+                        // one keeps the package. A named-typedef element binds
+                        // the shared object (unpackedArrayTypedefCopies).
+                        bool pkgHome9 = false;
+                        if (auto sh9 = tu9.as<TypeAliasType>().getParentScope())
+                            pkgHome9 =
+                                sh9->asSymbol().kind == SymbolKind::Package;
                         auto* rt9 = s.MakeRef_typespec();
                         rt9->VpiFullName(fullName);
                         rt9->VpiParent(av9);
-                        rt9->Actual_typespec(aliasTs9);
+                        rt9->Actual_typespec(
+                            unpackedArrayTypedefCopies(tu9.as<TypeAliasType>())
+                                ? copyArrayTypedefTs(
+                                      (UHDM::array_typespec*)aliasTs9,
+                                      std::string(tu9.name), pkgHome9, false)
+                                : aliasTs9);
                         av9->Typespec(rt9);
                         topNets[it.sym] = av9;
                         sigOrder.emplace_back(it.sym, av9);
@@ -10598,6 +10633,28 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                         pn.rt->Actual_typespec(ts);
                         return;
                     }
+                }
+            }
+        }
+    }
+    // A MODULE-LOCAL UNPACKED-ARRAY typedef net (triple b = '{...}) binds a
+    // per-use COPY of the module's array_typespec: same name/span/ranges, the
+    // def-module Instance and a Typedef_alias ref back to the shared object.
+    // A PACKAGE-scoped one still binds the shared package object directly.
+    if (!ts) {
+        if (auto dt7 = pn.sym->getDeclaredType()) {
+            auto& t7 = dt7->getType();
+            if (t7.kind == SymbolKind::TypeAlias) {
+                auto sc7 = t7.as<TypeAliasType>().getParentScope();
+                auto i7 = typedefTs.find(&t7);
+                if (sc7 && sc7->asSymbol().kind == SymbolKind::InstanceBody &&
+                    i7 != typedefTs.end() &&
+                    i7->second->UhdmType() == UHDM::uhdmarray_typespec &&
+                    unpackedArrayTypedefCopies(t7.as<TypeAliasType>())) {
+                    pn.rt->Actual_typespec(copyArrayTypedefTs(
+                        (UHDM::array_typespec*)i7->second,
+                        std::string(t7.name), true, true));
+                    return;
                 }
             }
         }

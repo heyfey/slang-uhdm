@@ -985,8 +985,8 @@ PackedArrayHighConn,default,CMP_NOTEQUAL,decompile:,,
 PackedArrayHighConn,testflags,CMP_NOTEQUAL,decompile:,,
 PackedArrayStruct,default,CMP_EQUAL,,,match
 PackedArrayStruct,testflags,CMP_EQUAL,,,match
-PackedArrayTypespec,default,CMP_NOTEQUAL,decompile:,,
-PackedArrayTypespec,testflags,CMP_NOTEQUAL,decompile:,,
+PackedArrayTypespec,default,CMP_EQUAL,,,differ
+PackedArrayTypespec,testflags,CMP_EQUAL,,,differ
 PackedEnum,default,CMP_EQUAL,,,match
 PackedEnum,testflags,CMP_EQUAL,,,match
 PackedEnumPort,default,CMP_EQUAL,,,differ
@@ -1449,8 +1449,8 @@ UnitTest,default,SLANG_REJECT,top.v:11:5: error: cannot assign to a net within a
 UnitTest,testflags,SLANG_REJECT,top.v:11:5: error: cannot assign to a net within a procedural context,,
 UnitThisNew,default,SLANG_REJECT,dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
 UnitThisNew,testflags,SLANG_REJECT,dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
-UnpackedTypespec,default,CMP_NOTEQUAL,decompile:,,
-UnpackedTypespec,testflags,CMP_NOTEQUAL,decompile:,,
+UnpackedTypespec,default,CMP_EQUAL,,,differ
+UnpackedTypespec,testflags,CMP_EQUAL,,,differ
 UnpackPort,default,CMP_NOTEQUAL,decompile:,,
 UnpackPort,testflags,CMP_NOTEQUAL,decompile:,,
 UnsignedParam,default,CMP_NOTEQUAL,decompile:,,

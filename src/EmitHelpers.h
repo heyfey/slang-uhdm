@@ -1807,6 +1807,23 @@ inline const syntax::SyntaxNode* returnTypeSyntax(const SubroutineSymbol& sub) {
     return nullptr;
 }
 
+// Does a declaration naming this unpacked-array typedef get a per-reference
+// COPY of the typedef's array_typespec, or does it bind the shared object?
+// Measured over a 6-shape golden pair (int / size-form int / anonymous
+// `logic [1:0]` / named-vector / enum-typedef / struct-typedef elements, in
+// both module and package scope): the ELEMENT decides. A NAMED-typedef element
+// resolves to an object already in the scope's typespec map and the array is
+// shared; a built-in or anonymous element is re-compiled from the type node,
+// which mints a fresh array_typespec + a fresh element typespec per reference
+// (r10unpk).
+inline bool unpackedArrayTypedefCopies(const TypeAliasType& ta) {
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    if (ct.kind != SymbolKind::FixedSizeUnpackedArrayType)
+        return false;
+    return ct.as<FixedSizeUnpackedArrayType>().elementType.kind !=
+           SymbolKind::TypeAlias;
+}
+
 // Return-value variables take the class of the function's return type.
 inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
                                       bool signedImplicitRet = false) {

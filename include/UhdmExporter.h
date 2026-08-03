@@ -633,6 +633,17 @@ private:
     UHDM::array_typespec* buildUnpackedArrayTypedefTs(
         const slang::ast::TypeAliasType& ta, const std::string& qname,
         bool cloneForm = false);
+    // Surelog never SHARES a named unpacked-array typedef's array_typespec
+    // with the declarations that name it — every reference gets a copy
+    // carrying the typedef's BARE name, its span/ranges and a bare-named Elem
+    // ref. A MODULE-homed elab copy drops vpiInstance; a PACKAGE-homed one
+    // keeps the package; a DEF-view net copy keeps the instance and links
+    // Typedef_alias back to the shared object. Both fields are compared by
+    // typespec::Compare, so the sharing is a hard cmp failure even though a
+    // dump cannot see it (UnpackedTypespec).
+    UHDM::array_typespec* copyArrayTypedefTs(const UHDM::array_typespec* src,
+                                             const std::string& bareName,
+                                             bool keepInstance, bool withAlias);
     UHDM::enum_typespec* buildEnumTs(const slang::ast::EnumType& et,
                                      const slang::syntax::SyntaxNode* enumSyn,
                                      const std::string& refFullName,
