@@ -830,8 +830,21 @@ private:
     // value; readers of these inherit the property (see ParamEmit).
     std::set<const slang::ast::Symbol*> elabMisevalParams;
     bool srlgElabMiseval(const slang::ast::ParameterSymbol& ps);
+    bool srlgMisevalSyntax(const slang::syntax::SyntaxNode* n0,
+                           const slang::ast::Scope* look0,
+                           const std::string& root0);
     int unitParamRoots9 = -1;
     bool unitParamsMultiRoot();
+    // § genIfUnitMisevalFalse — which arm of a generate-if chain Surelog
+    // elaborates when a condition reads a $unit parameter it could not value
+    // (see ModuleEmit).  `NotApplicable` = no condition in the chain is
+    // misevaluated, so slang's own selection stands.
+    enum class GenIfPick { NotApplicable, Skip, Emit };
+    GenIfPick genIfUnitMisevalFalse(const slang::ast::GenerateBlockSymbol& blk);
+    // § elabVarRangeMisevalSubst — when set, emitSyntaxExpr resolves
+    // identifiers in this scope and SPLICES the init of any parameter in
+    // elabMisevalParams at the use site (see TypeEmit).
+    const slang::ast::Scope* misevalSubstScope = nullptr;
     // Substitutes parameter leaves inside an elab child's part-select bound
     // OPERATION (see ModuleEmit).
     bool foldBareParamBoundIn(const slang::ast::InstanceBodySymbol* body,

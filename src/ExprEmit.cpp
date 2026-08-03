@@ -3477,6 +3477,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ref->Actual_group(nit9->second);
                         }
                     }
+                    // § genIfMisevalUnitParamBind — an ELAB gen-scope PROCESS
+                    // ref to a `$unit` PARAMETER binds the design-level
+                    // parameter, where the SAME name read from a gen-scope
+                    // CONT-ASSIGN stays unbound (the CA path sets
+                    // noUnitParamActual).  Scr1SvTests' mtvec_base_ro_rw is
+                    // the whole design's only gen-scope $unit-param reader
+                    // and it measures both halves: the two always_ff refs to
+                    // SCR1_MTVEC_BASE_WR_BITS carry vpiActual, the CA's
+                    // SCR1_CSR_MTVEC_BASE_ZERO_BITS / _RO_BITS do not.
+                    if (!defGenProcessEmit && inGenScopeProc &&
+                        !noUnitParamActual && !ref->Actual_group())
+                        if (auto uit9 = unitParamMap.find(&nv.symbol);
+                            uit9 != unitParamMap.end())
+                            ref->Actual_group(uit9->second);
                 }
                 else if (auto it = [&] {
                              auto i = netMap.find(&nv.symbol);

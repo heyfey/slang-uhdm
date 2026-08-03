@@ -8834,6 +8834,93 @@ bool UhdmExporter::genLoopUnitMiseval(const GenerateBlockArraySymbol& arr) {
     return hit;
 }
 
+// § genIfUnitMisevalFalse — a CONDITIONAL generate whose condition reads a
+// $unit parameter Surelog could not value HERE (never valued, or materialised
+// in another command-line root file) does not vanish the way a loop generate
+// does: the condition simply evaluates FALSE, so the chain walks on to the
+// next arm and, in the end, to the `else`.  Measured on a purpose-built
+// golden (/tmp/r10scr4_e, r10scr4):
+//     if (P_WR == 26) A else B   -> golden takes B
+//     if (P_WR != 26) A else B   -> golden takes B TOO
+//         (so it is the CONDITION that is false, not the identifier reading 0)
+//     if (P_WR == 26) A          -> golden emits NO gen_scope_array at all
+//     if (1) / if (<module localparam>) -> normal evaluation, both agree
+// Move the generate's file FIRST on the command line and the same source folds
+// normally (the file-ownership model of 1d2f52c).
+//
+// Scr1SvTests scr1_pipe_csr.sv:683 is exactly this: SCR1_MTVEC_BASE_WR_BITS is
+// 26 and SCR1_CSR_MTVEC_BASE_VAL_BITS is `SCR1_XLEN-6 = 26, so slang takes the
+// LRM-correct second arm `mtvec_base_rw` while the golden falls through to
+// `mtvec_base_ro_rw`.  Emitting the fall-through arm works because slang keeps
+// every arm of the chain as a GenerateBlockSymbol in the parent scope, only
+// flagged `isUninstantiated` — its members and their bound expressions are
+// there to be walked like any other block's.
+//
+// Only chains that contain at least one misevaluated condition are re-decided
+// (`NotApplicable` otherwise), and a chain in which slang instantiated NO arm
+// is left alone as well: this rule FLIPS an evaluation, it does not invent one
+// where slang had no constant to begin with.
+UhdmExporter::GenIfPick
+UhdmExporter::genIfUnitMisevalFalse(const GenerateBlockSymbol& blk) {
+    if (unitParamNoValue.empty() && elabMisevalParams.empty() &&
+        !unitParamsMultiRoot())
+        return GenIfPick::NotApplicable;
+    auto* bsyn = blk.getSyntax();
+    if (!bsyn || !bsyn->parent)
+        return GenIfPick::NotApplicable;
+    const syntax::IfGenerateSyntax* head = nullptr;
+    if (bsyn->parent->kind == syntax::SyntaxKind::IfGenerate)
+        head = &bsyn->parent->as<syntax::IfGenerateSyntax>();
+    else if (bsyn->parent->kind == syntax::SyntaxKind::ElseClause &&
+             bsyn->parent->parent &&
+             bsyn->parent->parent->kind == syntax::SyntaxKind::IfGenerate)
+        head = &bsyn->parent->parent->as<syntax::IfGenerateSyntax>();
+    if (!head)
+        return GenIfPick::NotApplicable;
+    // Climb to the head of the `else if` chain.
+    while (head->parent && head->parent->kind == syntax::SyntaxKind::ElseClause &&
+           head->parent->parent &&
+           head->parent->parent->kind == syntax::SyntaxKind::IfGenerate)
+        head = &head->parent->parent->as<syntax::IfGenerateSyntax>();
+    const Scope* psc = blk.getParentScope();
+    if (!psc)
+        return GenIfPick::NotApplicable;
+    // slang's own verdict per arm, by arm syntax node.
+    std::map<const syntax::SyntaxNode*, bool> armInst9;
+    for (auto& sm9 : psc->members())
+        if (sm9.kind == SymbolKind::GenerateBlock)
+            if (auto* sy9 = sm9.getSyntax())
+                armInst9[sy9] = !sm9.as<GenerateBlockSymbol>().isUninstantiated;
+    std::string root9 = rootFilePath(head->getFirstToken().location());
+    bool anyMiseval9 = false, anyInst9 = false;
+    const syntax::SyntaxNode* sel9 = nullptr;
+    for (const syntax::IfGenerateSyntax* cur = head; cur;) {
+        auto it9 = armInst9.find(cur->block);
+        bool inst9 = it9 != armInst9.end() && it9->second;
+        anyInst9 |= inst9;
+        if (srlgMisevalSyntax(cur->condition, psc, root9))
+            anyMiseval9 = true;  // Surelog reads this condition as FALSE
+        else if (inst9 && !sel9) {
+            sel9 = cur->block;
+            break;
+        }
+        if (!cur->elseClause)
+            break;
+        const syntax::SyntaxNode* cl9 = cur->elseClause->clause;
+        if (cl9->kind == syntax::SyntaxKind::IfGenerate) {
+            cur = &cl9->as<syntax::IfGenerateSyntax>();
+            continue;
+        }
+        auto ie9 = armInst9.find(cl9);
+        anyInst9 |= ie9 != armInst9.end() && ie9->second;
+        sel9 = cl9;
+        break;
+    }
+    if (!anyMiseval9 || !anyInst9)
+        return GenIfPick::NotApplicable;
+    return sel9 == bsyn ? GenIfPick::Emit : GenIfPick::Skip;
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -10139,8 +10226,59 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 continue;
             auto& casym = gm.as<ContinuousAssignSymbol>();
             auto& assign = casym.getAssignment();
-            if (assign.kind != ExpressionKind::Assignment)
+            if (assign.kind != ExpressionKind::Assignment) {
+                // § genIfMisevalCaFromSyntax — a gen block Surelog elaborates
+                // but slang does NOT (§ genIfUnitMisevalFalse) can hold an
+                // assignment slang cannot bind at all: Scr1SvTests'
+                // mtvec_base_ro_rw closes with
+                //   assign csr_mtvec_base = {csr_mtvec_base_reg,
+                //       SCR1_CSR_MTVEC_BASE_RST_VAL[ZERO_BITS +: RO_BITS]};
+                // and RO_BITS is `SCR1_XLEN-(6+26) = 0, so the part select is
+                // zero-width and the bind fails (which is precisely why the
+                // arm is dead in a correct elaboration).  The DEF view already
+                // emits this shape from SYNTAX and matches golden byte for
+                // byte, so the elab view reuses that path.  Only the LHS binds
+                // — golden points it at the instance's own logic_var, and
+                // leaves every RHS ref (gen-local var and $unit params alike)
+                // dangling.
+                auto* asyn9 = casym.getSyntax();
+                if (!asyn9 ||
+                    asyn9->kind != syntax::SyntaxKind::AssignmentExpression)
+                    continue;
+                auto& be9 = asyn9->as<syntax::BinaryExpressionSyntax>();
+                auto* ca9 = s.MakeCont_assign();
+                ca9->VpiParent(gs);
+                setLoc(ca9, asyn9->sourceRange());
+                std::string savedPfx9 = syntaxRefPrefix;
+                bool savedNUA9 = noUnitParamActual,
+                     savedDGC9 = inDefGenCaExpr;
+                syntaxRefPrefix = fullName;
+                noUnitParamActual = true;
+                inDefGenCaExpr = true;
+                auto* l9 = emitSyntaxExpr(*be9.left, ca9);
+                selBaseScopeIdx = true;
+                auto* r9 = emitSyntaxExpr(*be9.right, ca9);
+                selBaseScopeIdx = false;
+                inDefGenCaExpr = savedDGC9;
+                noUnitParamActual = savedNUA9;
+                syntaxRefPrefix = savedPfx9;
+                if (l9) {
+                    if (l9->UhdmType() == UHDM::uhdmref_obj &&
+                        !((UHDM::ref_obj*)l9)->Actual_group())
+                        if (auto* lsym9 = blk.lookupName(
+                                ((UHDM::ref_obj*)l9)->VpiName()))
+                            if (auto lit9 = netMap.find(lsym9);
+                                lit9 != netMap.end()) {
+                                ((UHDM::ref_obj*)l9)->Actual_group(lit9->second);
+                                genLhsSyms.insert(lsym9);
+                            }
+                    ca9->Lhs((UHDM::expr*)l9);
+                }
+                if (r9)
+                    ca9->Rhs((UHDM::expr*)r9);
+                cas->push_back(ca9);
                 continue;
+            }
             auto& ae = assign.as<AssignmentExpression>();
             auto* ca = s.MakeCont_assign();
             ca->VpiParent(gs);
@@ -11082,6 +11220,14 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         }
         else if (member.kind == SymbolKind::GenerateBlock) {
             auto& blk0 = member.as<GenerateBlockSymbol>();
+            // § genIfUnitMisevalFalse — a chain whose condition reads an
+            // unvaluable $unit parameter is re-decided: that condition is
+            // FALSE for Surelog, so a different arm (or none) elaborates.
+            auto pick9 = genIfUnitMisevalFalse(blk0);
+            if (pick9 == GenIfPick::Skip)
+                continue;
+            bool misevalTake9 =
+                pick9 == GenIfPick::Emit && blk0.isUninstantiated;
             const GenerateBlockSymbol* blkP = &blk0;
             if (m->UhdmType() == UHDM::uhdminterface_inst &&
                 !blk0.isUninstantiated) {
@@ -11090,7 +11236,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     collapsedGenLeaf9.insert(blkP);
             }
             auto& blk = *blkP;
-            if (blk.isUninstantiated) {
+            if (blk.isUninstantiated && !misevalTake9) {
                 // Surelog's evaluator may TAKE a branch slang rejected
                 // (typedef_param): emit its errored gen scope.
                 if (auto* mg = emitSurelogMisevalGenIf(
@@ -11098,7 +11244,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         prefix, m))
                     gsas->push_back(mg);
             }
-            if (!blk.isUninstantiated) {
+            if (!blk.isUninstantiated || misevalTake9) {
                 std::string gname = shiftGenName9(
                     std::string(blk.getExternalName()));
                 // A taken BARE-STATEMENT else-if branch (unnamed genblkN whose

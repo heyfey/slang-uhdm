@@ -1607,6 +1607,41 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         }));
                             }
                         }
+                        // § elabVarRangeMisevalSubst — the SAME symbolic bound
+                        // one level indirect: the bound reads a MODULE
+                        // parameter whose own elab Rhs Surelog left unfolded
+                        // (elabMisevalParams, § elabUnitMisevalNoFold), e.g.
+                        // scr1_pipe_tdu's `logic [MTRIG_NUM-1:0]` where
+                        // `localparam MTRIG_NUM = SCR1_TDU_MTRIG_NUM` reaches
+                        // across root files.  ELAB view only — the def view
+                        // already keeps such a bound symbolic (with the bare,
+                        // unsubstituted name), and it is the elab reducer that
+                        // does the splice.
+                        bool misevalVarBound = false;
+                        if (bsyn && !unitParamTs && elabInstanceTs &&
+                            !elabMisevalParams.empty() &&
+                            (declSymbol.kind == SymbolKind::Variable ||
+                             declSymbol.kind == SymbolKind::Net)) {
+                            const Scope* msc =
+                                currentScope ? currentScope
+                                             : declSymbol.getParentScope();
+                            if (msc) {
+                                ASTContext mctx(*msc, LookupLocation::max);
+                                auto& mbe = Expression::bind(*bsyn, mctx);
+                                if (!mbe.bad())
+                                    mbe.visit(makeVisitor(
+                                        [&](auto& v,
+                                            const NamedValueExpression& nv) {
+                                            if (nv.symbol.kind ==
+                                                    SymbolKind::Parameter &&
+                                                !unitParamMap.count(&nv.symbol) &&
+                                                elabMisevalParams.count(
+                                                    &nv.symbol))
+                                                misevalVarBound = true;
+                                            v.visitDefault(nv);
+                                        }));
+                            }
+                        }
                         bool bareParamInParamTs = false;
                         if (declSymbol.kind == SymbolKind::Parameter && bsyn &&
                             !unitParamTs) {
@@ -2331,7 +2366,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         if ((tfContext && !tfFormalTs) || bitsOfSignal ||
                             bareParamInParamTs || defModuleParamDim ||
                             ifacePortBound || structMemberSymBound ||
-                            unitXFileVarBound) {
+                            unitXFileVarBound || misevalVarBound) {
                             // Function/typedef context: unfolded expression.
                             bool savedBCN = boundCallNameSpan;
                             boundCallNameSpan = true;
@@ -2350,7 +2385,13 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             std::string savedUXF7 = unitXFileRoot;
                             if (!unitOwnRoot.empty())
                                 unitXFileRoot = unitOwnRoot;
+                            auto* savedMSS7 = misevalSubstScope;
+                            if (misevalVarBound)
+                                misevalSubstScope =
+                                    currentScope ? currentScope
+                                                 : declSymbol.getParentScope();
                             auto* e0bcn = emitSyntaxExpr(*bsyn, r);
+                            misevalSubstScope = savedMSS7;
                             unitXFileRoot = savedUXF7;
                             if (setTf7)
                                 tfTypeScope = savedTfS7;
@@ -6676,6 +6717,68 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     }
                 }
             }
+            // § elabVarRangeMisevalSubst — the same SPLICE law § unitRefSubst
+            // models for `$unit` parameter inits, one level up: inside an
+            // ELAB var/net range bound Surelog left unfolded, a reference to a
+            // MODULE parameter whose own elab Rhs it kept UNFOLDED
+            // (elabMisevalParams) is not a reference at all — the reducer had
+            // that parameter's (symbolic) value in hand and spliced it,
+            // keeping the USE SITE's span and typing the spliced node with the
+            // SUBSTITUTED parameter's own typespec.  Scr1SvTests scr1_pipe_tdu
+            // `logic [MTRIG_NUM-1:0] csr_addr_mcontrol` comes out
+            // `ref_obj(SCR1_TDU_MTRIG_NUM)@92:8-17` typed by MTRIG_NUM's
+            // int_typespec@75:12-24, where the DEF view keeps a bare, unbound
+            // `MTRIG_NUM` (~30 declarations in that module alone).
+            if (misevalSubstScope && !elabMisevalParams.empty()) {
+                if (auto* msym9 = misevalSubstScope->lookupName(name);
+                    msym9 && msym9->kind == SymbolKind::Parameter &&
+                    elabMisevalParams.count(msym9))
+                    if (auto ds9 = msym9->getSyntax();
+                        ds9 && ds9->kind == syntax::SyntaxKind::Declarator)
+                        if (auto* iv9 =
+                                ds9->as<syntax::DeclaratorSyntax>().initializer) {
+                            auto* saveSc9 = misevalSubstScope;
+                            bool saveNUA9 = noUnitParamActual;
+                            // A SPLICED node is a value tree, not a resolved
+                            // reference: golden leaves its $unit ref dangling
+                            // where a directly-written one binds.
+                            noUnitParamActual = true;
+                            misevalSubstScope = msym9->getParentScope();
+                            auto* sub9 = emitSyntaxExpr(*iv9->expr, parent);
+                            misevalSubstScope = saveSc9;
+                            noUnitParamActual = saveNUA9;
+                            if (sub9) {
+                                setLoc((UHDM::expr*)sub9, syn.sourceRange());
+                                auto& mps9 = msym9->as<ParameterSymbol>();
+                                auto& mct9 = mps9.getType().getCanonicalType();
+                                // The spliced node carries the SUBSTITUTED
+                                // parameter's own typespec, whatever shape the
+                                // init took: a bare ref (MTRIG_NUM) and a
+                                // whole `$clog2(...)` call (ALLTRIG_W) both
+                                // get one.
+                                if (mct9.kind ==
+                                    SymbolKind::PredefinedIntegerType) {
+                                    auto* se9 = (UHDM::expr*)sub9;
+                                    auto* its9 = s.MakeInt_typespec();
+                                    if (auto dt9 = mps9.getDeclaredType())
+                                        if (auto tsy9 = dt9->getTypeSyntax())
+                                            setLoc(its9, tsy9->sourceRange());
+                                    auto* rt9 = s.MakeRef_typespec();
+                                    rt9->VpiParent(se9);
+                                    rt9->VpiFullName(
+                                        se9->UhdmType() == UHDM::uhdmref_obj
+                                            ? std::string(
+                                                  ((UHDM::ref_obj*)se9)
+                                                      ->VpiFullName())
+                                            : syntaxRefPrefix);
+                                    its9->VpiParent(rt9);
+                                    rt9->Actual_typespec(its9);
+                                    se9->Typespec(rt9);
+                                }
+                                return sub9;
+                            }
+                        }
+            }
             // Inside a property DECLARATION, an identifier naming one of the
             // formals takes the formal-ref path — the ref binds the implicit
             // module wire Surelog leaks the formal into.  The assertion
@@ -7438,9 +7541,17 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // vpiConcatOp operand whose operands are the member
                         // refs.  The raw-text ref_obj fallback below is only
                         // right for a NAME-shaped argument (BitsInGenBlock).
+                        // § elabVarRangeMisevalSubst — inside a SPLICED
+                        // parameter init the argument is likewise a real
+                        // expression (`$clog2(ALLTRIG_NUM+1)`), so it must be
+                        // emitted as one; the raw-text fallback would name the
+                        // whole `ALLTRIG_NUM+1` as a single ref_obj.
                         if (ae && (argRaw.find('.') != std::string::npos ||
                                    ae->kind == syntax::SyntaxKind::
-                                                   ConcatenationExpression)) {
+                                                   ConcatenationExpression ||
+                                   (misevalSubstScope &&
+                                    ae->kind !=
+                                        syntax::SyntaxKind::IdentifierName))) {
                             if (auto* e2 = emitSyntaxExpr(*ae, sfc)) {
                                 args->push_back(e2);
                                 continue;

@@ -5815,6 +5815,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             //     i_tcm's op67 tree, byte-for-byte
             // A bare $unit ref does NOT copy (there is nothing to copy) — it
             // stays the ref_obj, which is what the router rows show.
+            //
+            // NOTE (r10scr11, MEASURED — NOT IMPLEMENTED)
+            // § elabMisevalArgNoFold — this path leaves the TOP of the tree
+            // unfolded but still FOLDS a system call's ARGUMENT.  Scr1SvTests
+            // scr1_pipe_tdu:77 `localparam ALLTRIG_W = $clog2(ALLTRIG_NUM+1)`
+            // is now the design's first uhdm-cmp failure: golden's elab Rhs is
+            // sys_func_call($clog2)@77:39-60 whose argument is
+            // op24(ref_obj(SCR1_TDU_ALLTRIG_NUM)@77:46-57, UINT:1)@77:46-59 —
+            // i.e. the argument keeps its op tree AND applies the same splice
+            // § elabVarRangeMisevalSubst does (ALLTRIG_NUM, itself
+            // misevaluated, is replaced by its own init and typed with
+            // ALLTRIG_NUM's int_typespec@76:12-24).  Ours emits the call with
+            // a folded INT:4 argument.  The fix is likely to route this emit
+            // through emitSyntaxExpr with misevalSubstScope set (the TypeEmit
+            // splice arm), not to patch the AST fold.
             if (!rhs && topView && !elabMiseval9) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
@@ -10454,7 +10469,13 @@ bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
 // SCR1_DBG_DMI_*_WIDTH across root files), scr1_pipe_tdu's ALLTRIG_NUM /
 // MTRIG_NUM / ALLTRIG_W (the last only through ALLTRIG_NUM), scr1_dp_memory's
 // RAM_SIZE_WORDS.
-bool UhdmExporter::srlgElabMiseval(const ParameterSymbol& ps) {
+// The walk itself, shared by the parameter form (§ elabUnitMisevalNoFold) and
+// the generate-condition form (§ genIfUnitMisevalFalse): does the expression
+// `n0`, resolved in scope `look0` on behalf of a reader materialised in root
+// file `root0`, read a $unit parameter Surelog could not value here?
+bool UhdmExporter::srlgMisevalSyntax(const syntax::SyntaxNode* n0,
+                                     const Scope* look0,
+                                     const std::string& root0) {
     // COST GUARD.  The walk resolves every identifier it meets, and slang's
     // lookupName forces lazy elaboration, so running it for every parameter of
     // every instance is not free: on BlackBePipeInt (one root file, ~200
@@ -10510,14 +10531,19 @@ bool UhdmExporter::srlgElabMiseval(const ParameterSymbol& ps) {
             for (size_t i9 = 0; i9 < n9->getChildCount(); i9++)
                 scan(n9->childNode(i9), look9, root9, depth9);
         };
+    scan(n0, look0, root0, 0);
+    return hit;
+}
+
+bool UhdmExporter::srlgElabMiseval(const ParameterSymbol& ps) {
     auto dsyn9 = ps.getSyntax();
     if (!dsyn9 || dsyn9->kind != syntax::SyntaxKind::Declarator)
         return false;
     auto* iv0 = dsyn9->as<syntax::DeclaratorSyntax>().initializer;
     if (!iv0)
         return false;
-    scan(iv0->expr, ps.getParentScope(), rootFilePath(ps.location), 0);
-    return hit;
+    return srlgMisevalSyntax(iv0->expr, ps.getParentScope(),
+                             rootFilePath(ps.location));
 }
 
 // True when the design's $unit parameters were materialised in MORE THAN ONE
