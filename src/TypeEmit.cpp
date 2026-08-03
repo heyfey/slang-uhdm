@@ -3286,6 +3286,23 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                         fold9 = pkgTopEmit || (memberUsed9 && !homeImported9);
                     else if (sys9)
                         fold9 = !pkgTopEmit;
+                    else if (!pkgNamed9 && hasSysCall9(bsyn))
+                        // A MODULE-scope enum whose bound calls a system
+                        // function (`enum logic [$clog2(N)-1:0]`) folds in
+                        // the ELABORATED view only: the def listing keeps the
+                        // written operation, while elaboration reduces the
+                        // call and the reduction consumes the whole binary
+                        // expression, leaving one INT constant anchored at
+                        // the CALL's span (InterfArrayBind).
+                        // NOTE (r10c12): the def/elab split is only half
+                        // realised — we mint ONE base logic_typespec and
+                        // share it between the def and elab enum_typespecs,
+                        // so the def listing shows the folded bound too.
+                        // Surelog mints one per view (golden: enum ts #1,
+                        // parented at the enum_var, folded; enum ts #2, the
+                        // bare def listing, written). Splitting that share is
+                        // InterfArrayBind's next blocker.
+                        fold9 = !moduleDefEmit;
                     else if (refBound9)
                         fold9 = pkgEnum9;
                     else

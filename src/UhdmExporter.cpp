@@ -3575,6 +3575,23 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
     }
     pendingBitsBoundRefs.clear();
+    // Enum-constant array-index refs: the enum_const only exists once the
+    // referencing scope's enum typespec has been minted (InterfArrayBind).
+    for (auto& [r9, sym9] : pendingEnumIdxRefs) {
+        if (auto eit9 = enumConstMap.find(sym9); eit9 != enumConstMap.end()) {
+            r9->Actual_group(eit9->second);
+            continue;
+        }
+        // The referencing scope (def body) and the scope whose enum typespec
+        // was minted (elab body) hold DISTINCT symbols for the same
+        // declaration; match on the shared declaration site.
+        for (auto& [ks9, ec9] : enumConstMap)
+            if (ks9->name == sym9->name && ks9->location == sym9->location) {
+                r9->Actual_group(ec9);
+                break;
+            }
+    }
+    pendingEnumIdxRefs.clear();
     // Part-select fold constants' own logic_typespecs (bare-bound range),
     // materialized last (weak tail).
     for (auto& p : pendingPartSelFoldTs) {

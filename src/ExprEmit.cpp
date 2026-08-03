@@ -4528,6 +4528,85 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc->Tf_call_args(margs);
                     return mfc;
                 }
+                // A HIERARCHICALLY-QUALIFIED user call in EXPRESSION position
+                // (`$display(blk.f())`, `i.f()`, `top.i.blk.f()`,
+                // `foo_1.bar(3)`) is NOT a resolved func_call in Surelog's
+                // model: it is a hier_path named after the whole dotted text,
+                // over ONE name-only ref_obj per prefix name plus a
+                // method_func_call at the final name, carrying the arguments
+                // and NO function link — the same expression/statement split
+                // the class-method and built-in-method paths take above.
+                // Measured on HierPathInterfBlock (all six dotted forms —
+                // gen-block, interface, and `top.`-rooted — take it, while
+                // the undotted `f()` stays a linked func_call) and on
+                // InterfaceFuncCall. STATEMENT position keeps the flat forms
+                // below.
+                if (!callStmtCtx0) {
+                    std::string rawH = rawText(expr.sourceRange);
+                    std::string calleeH = rawH.substr(0, rawH.find('('));
+                    while (!calleeH.empty() &&
+                           (calleeH.back() == ' ' || calleeH.back() == '\t' ||
+                            calleeH.back() == '\n' || calleeH.back() == '\r'))
+                        calleeH.pop_back();
+                    // Plain dotted identifiers only: a select or a
+                    // package/class scope in the path is a different shape.
+                    bool plainH =
+                        !calleeH.empty() &&
+                        calleeH.find('.') != std::string::npos &&
+                        calleeH.find(':') == std::string::npos &&
+                        calleeH.find_first_of("[] \t\n\r") == std::string::npos;
+                    std::vector<std::string> namesH;
+                    if (plainH)
+                        for (size_t p0 = 0;;) {
+                            auto d0 = calleeH.find('.', p0);
+                            if (d0 == std::string::npos) {
+                                namesH.push_back(calleeH.substr(p0));
+                                break;
+                            }
+                            namesH.push_back(calleeH.substr(p0, d0 - p0));
+                            p0 = d0 + 1;
+                        }
+                    // The last name must be the called subroutine itself.
+                    if (plainH && namesH.size() > 1 &&
+                        namesH.back() == std::string(sub.name)) {
+                        auto* hpH = s.MakeHier_path();
+                        hpH->VpiName(calleeH);
+                        hpH->VpiFullName(calleeH);
+                        hpH->VpiParent(parent);
+                        setLoc(hpH, expr.sourceRange);
+                        auto* elemsH = s.MakeAnyVec();
+                        auto posH = expr.sourceRange.start();
+                        for (size_t i0 = 0; i0 + 1 < namesH.size(); i0++) {
+                            auto* r0 = s.MakeRef_obj();
+                            r0->VpiName(namesH[i0]);
+                            r0->VpiFullName(namesH[i0]); // name-only
+                            r0->VpiParent(hpH);
+                            setLoc(r0,
+                                   SourceRange(posH, posH + namesH[i0].size()));
+                            elemsH->push_back(r0);
+                            posH = posH + namesH[i0].size() + 1;
+                        }
+                        auto* mfcH = s.MakeMethod_func_call();
+                        mfcH->VpiName(sub.name);
+                        mfcH->VpiParent(hpH);
+                        setLoc(mfcH,
+                               SourceRange(posH, posH + namesH.back().size()));
+                        auto* argsH = s.MakeAnyVec();
+                        for (auto arg : call.arguments()) {
+                            bool fsH = forceConstParent;
+                            if (isLiteralExpr(*arg))
+                                forceConstParent = true;
+                            if (auto* aH = emitExpr(*arg, mfcH, prefix, netMap))
+                                argsH->push_back(aH);
+                            forceConstParent = fsH;
+                        }
+                        if (!argsH->empty())
+                            mfcH->Tf_call_args(argsH);
+                        elemsH->push_back(mfcH);
+                        hpH->Path_elems(elemsH);
+                        return hpH;
+                    }
+                }
                 // INTERFACE method calls through a port (ha_intf.summ2(a,b)):
                 // a method_func_call at the method token whose vpiPrefix is a
                 // bare (unbound) receiver ref; args bind normally; NO function
@@ -8556,6 +8635,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         ir->VpiName(idx);
                         ir->VpiFullName(prefix + "." + idx);
                         ir->VpiParent(hp);
+                        // An ENUM-CONSTANT selector
+                        // (peripheral_io_bus[IO_ONES].write_en) binds its
+                        // enum_const as vpiActual — Surelog resolves the
+                        // selector like any other name reference, and
+                        // uhdm-cmp reads the link. Deferred: the enum's
+                        // typespec (and so its enum_const) is minted after
+                        // the def view that first references it
+                        // (InterfArrayBind).
+                        if (currentScope)
+                            if (auto* isym9 = currentScope->find(idx))
+                                if (isym9->kind == SymbolKind::EnumValue)
+                                    pendingEnumIdxRefs.emplace_back(ir, isym9);
                         size_t idOff = lb + 1;
                         setLoc(ir, SourceRange(cStart + idOff,
                                                cStart + idOff + idx.size()));

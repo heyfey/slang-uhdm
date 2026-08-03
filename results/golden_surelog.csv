@@ -627,8 +627,8 @@ HierPathCont,default,CMP_EQUAL,,,match
 HierPathCont,testflags,CMP_EQUAL,,,differ
 HierPathEval,default,CMP_NOTEQUAL,decompile:,,
 HierPathEval,testflags,CMP_NOTEQUAL,decompile:,,
-HierPathInterfBlock,default,CMP_NOTEQUAL,decompile:,,
-HierPathInterfBlock,testflags,CMP_NOTEQUAL,decompile:,,
+HierPathInterfBlock,default,CMP_EQUAL,,,match
+HierPathInterfBlock,testflags,CMP_EQUAL,,,differ
 HierPathLhs,default,SLANG_REJECT,dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
 HierPathLhs,testflags,SLANG_REJECT,dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
 HierPathModule,default,SLANG_REJECT,dut.sv:3:14: error: expected expression,,
@@ -741,8 +741,8 @@ InterfaceBinding,default,CMP_EQUAL,,,match
 InterfaceBinding,testflags,CMP_EQUAL,,,match
 InterfaceElab,default,CMP_NOTEQUAL,decompile:,,
 InterfaceElab,testflags,CMP_NOTEQUAL,decompile:,,
-InterfaceFuncCall,default,CMP_NOTEQUAL,decompile:,,
-InterfaceFuncCall,testflags,CMP_NOTEQUAL,decompile:,,
+InterfaceFuncCall,default,CMP_EQUAL,,,match
+InterfaceFuncCall,testflags,CMP_EQUAL,,,match
 InterfaceModExp,default,CMP_NOTEQUAL,decompile:,,
 InterfaceModExp,testflags,CMP_NOTEQUAL,decompile:,,
 InterfaceModPort,default,CMP_NOTEQUAL,decompile:,,
@@ -1275,8 +1275,8 @@ StreamingOp,default,SLANG_REJECT,dut.sv:2:22: error: use of undeclared identifie
 StreamingOp,testflags,SLANG_REJECT,dut.sv:2:22: error: use of undeclared identifier 'x',,
 StringConcat,default,CMP_EQUAL,,,match
 StringConcat,testflags,CMP_EQUAL,,,match
-StringMethod,default,CMP_NOTEQUAL,decompile:,,
-StringMethod,testflags,CMP_NOTEQUAL,decompile:,,
+StringMethod,default,CMP_EQUAL,,,differ
+StringMethod,testflags,CMP_EQUAL,,,differ
 StringParameter,default,CMP_EQUAL,,,match
 StringParameter,testflags,CMP_EQUAL,,,match
 StringPort,default,CMP_EQUAL,,,match

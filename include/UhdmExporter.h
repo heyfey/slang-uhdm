@@ -1199,6 +1199,10 @@ private:
     // adjustOpSize on the flattened operands, which stamps the member width
     // onto them.  A declaration initializer flattens WITHOUT that pass.
     bool patFlatAdjust = false;
+    // True while emitModuleDef builds a module's DEF (allModules) view — the
+    // elaborated view of the same declaration folds bounds the def listing
+    // keeps written (InterfArrayBind).
+    bool moduleDefEmit = false;
     // True while emitting elements of an enclosing assignment pattern (so
     // nested-pattern element constants keep the bare-decimal default size).
     bool inAssignPattern = false;
@@ -2317,6 +2321,12 @@ private:
     // nets exist (drained at the end of exportDesign).
     std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
         pendingBitsBoundRefs;
+    // ENUM-CONSTANT array-index refs (peripheral_io_bus[IO_ONES]) bind their
+    // enum_const as vpiActual; the enum's typespec is minted after the def
+    // view that first references it, so the link is drained at the end of
+    // exportDesign (InterfArrayBind).
+    std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>
+        pendingEnumIdxRefs;
     std::map<const slang::ast::Symbol*, UHDM::constant*> pkgParamConst;
     // Pkg param OBJECTS (def view) — bound by qualified member-access base
     // refs (pkg::P.member).

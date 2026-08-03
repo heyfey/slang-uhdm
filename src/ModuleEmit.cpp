@@ -420,6 +420,13 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
 
     DefInfo& info = defMap[&def];
     currentScope = &body;
+    // Def-view marker: some typespec bounds fold only in the elaborated view.
+    struct DefEmitGuard {
+        bool& f;
+        bool saved;
+        explicit DefEmitGuard(bool& fl) : f(fl), saved(fl) { f = true; }
+        ~DefEmitGuard() { f = saved; }
+    } defEmitGuard9(moduleDefEmit);
     auto* m = info.mod;
     m->VpiDefName(prefix);
     m->VpiFullName(prefix);
@@ -4792,6 +4799,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (auto* e = emitExpr(ic, v, fullName, topNets))
                             v->Expr((UHDM::expr*)e);
                         portInitCtx = savePic;
+                    }
+                    else if (ic.kind == ExpressionKind::Call &&
+                             ic.as<CallExpression>().isSystemCall() &&
+                             !ic.as<CallExpression>().getSubroutineName().empty() &&
+                             ic.as<CallExpression>()
+                                     .getSubroutineName()[0] != '$') {
+                        // A BUILT-IN METHOD init (`string t = s.substr(1,2)`,
+                        // `byte a = s.getc(1)`) keeps the expression-position
+                        // hier_path [receiver ref, method_func_call] as the
+                        // var's vpiExpr — the same shape emitExpr already
+                        // builds for a built-in method in expression position
+                        // (StringMethod).
+                        if (auto* e = emitExpr(ic, v, fullName, topNets))
+                            v->Expr((UHDM::expr*)e);
                     }
                     else if (ic.kind == ExpressionKind::StructuredAssignmentPattern &&
                              v->UhdmType() == UHDM::uhdmstruct_var) {
