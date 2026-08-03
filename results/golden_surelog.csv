@@ -315,8 +315,8 @@ CoresSweRVMP,default,SURELOG_FAIL,[   NOTE] : 1,,
 CoresSweRVMP,testflags,SLANG_REJECT,error: '/design/swerv_wrapper.sv': No such file or directory,,
 Covergroup,default,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifier 's0',,
 Covergroup,testflags,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifier 's0',,
-CovMacro,default,CMP_NOTEQUAL,decompile:,,
-CovMacro,testflags,CMP_NOTEQUAL,decompile:,,
+CovMacro,default,CMP_EQUAL,,,differ
+CovMacro,testflags,CMP_EQUAL,,,differ
 CrossFunc,default,CMP_EQUAL,,,differ
 CrossFunc,testflags,CMP_EQUAL,,,differ
 CrossItem,default,SLANG_REJECT,dut.sv:3:33: error: use of undeclared identifier 'clk',,
@@ -457,8 +457,8 @@ FilePackageImport,default,SLANG_REJECT,dut.sv:11:12: error: use of undeclared id
 FilePackageImport,testflags,SLANG_REJECT,dut.sv:11:12: error: use of undeclared identifier 'we',,
 FilePackUnion,default,SLANG_REJECT,dut.sv:31:3: error: cannot reference compilation unit item from within a package,,
 FilePackUnion,testflags,SLANG_REJECT,dut.sv:31:3: error: cannot reference compilation unit item from within a package,,
-FileParam,default,CMP_NOTEQUAL,decompile:,,
-FileParam,testflags,CMP_NOTEQUAL,decompile:,,
+FileParam,default,CMP_EQUAL,,,differ
+FileParam,testflags,CMP_EQUAL,,,differ
 FileResolutionFunction,default,CMP_EQUAL,,,match
 FileResolutionFunction,testflags,CMP_EQUAL,,,match
 FileTypespec,default,SLANG_REJECT,dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has width of 2; previously seen width was 1,,
@@ -489,8 +489,8 @@ FSMFunction,default,CMP_EQUAL,,,match
 FSMFunction,testflags,CMP_EQUAL,,,match
 FSMSingleAlways,default,CMP_EQUAL,,,match
 FSMSingleAlways,testflags,CMP_EQUAL,,,match
-Func128Bits,default,CMP_NOTEQUAL,decompile:,,
-Func128Bits,testflags,CMP_NOTEQUAL,decompile:,,
+Func128Bits,default,CMP_EQUAL,,,match
+Func128Bits,testflags,CMP_EQUAL,,,match
 FuncAlias,default,CMP_NOTEQUAL,decompile:,,
 FuncAlias,testflags,CMP_NOTEQUAL,decompile:,,
 FuncArgDirection,default,CMP_EQUAL,,,match
@@ -1145,7 +1145,7 @@ PoundParam,default,SLANG_REJECT,dut.v:39:8: error: missing '(' in parameter list
 PoundParam,testflags,SLANG_REJECT,dut.v:39:8: error: missing '(' in parameter list,,
 PPComment,default,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'b',,
 PPComment,testflags,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'b',,
-PpLppdr,default,SLANG_REJECT,dut.sv:20:9: error: use of undeclared identifier 'csr_read',,
+PpLppdr,default,SLANG_REJECT,dut.sv:20:9: error: use of undeclared identifier 'wdata',,
 PpLppdr,testflags,SLANG_REJECT,dut.sv:20:9: error: use of undeclared identifier 'csr_read',,
 PPMacro,default,CMP_NOTEQUAL,decompile:,,
 PPMacro,testflags,CMP_NOTEQUAL,decompile:,,

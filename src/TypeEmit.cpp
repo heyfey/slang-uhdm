@@ -3459,6 +3459,19 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
         ets->Base_typespec(brt);
     }
     auto* consts = s.MakeEnum_constVec();
+    // § unitArith — a `$unit`-scope enum is elaborated like a TOP package
+    // (the compilation unit is compiled before any module and has only ONE
+    // view), so an enum const whose init is plain ARITHMETIC folds to digits
+    // with the base's own signedness encoding at the 64-bit unsized-operand
+    // width, instead of the def-view "BIN at base width + source text"
+    // computed form.  Measured probe r10c9/c, one $unit enum, one const per
+    // row: `P2+4` -> UINT:7 / "7" / 64, `3+40` -> UINT:43 / "43" / 64, while
+    // `{2'b10,2'b01}` keeps BIN:1001 at the CONCAT's own width 4 and `P2`
+    // keeps UINT:3 / "3" / 32 — so it is arithmetic only.
+    // FileParam SCR1_SCU_DR_SYSCTRL_OP_BIT_L is the corpus distinguisher.
+    bool unitEnum9 = false;
+    if (auto* usc9 = et.getParentScope())
+        unitEnum9 = usc9->asSymbol().kind == SymbolKind::CompilationUnit;
     for (auto& ev : et.values()) {
         auto* ec = s.MakeEnum_const();
         ec->VpiName(ev.name);
@@ -3499,6 +3512,16 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     // 5'b00000) with NO end-loc shrink (jeras_union).
                     ec->VpiDecompile(stripSep(raw));
                     ec->VpiSize((int32_t)lit.type->getBitWidth());
+                    // An UNSIZED based literal ('h0, 'b1011, 'd90 — nothing
+                    // written before the tick) is width-INDETERMINATE, so
+                    // Surelog records vpiSize -1, the same marker the
+                    // unbased-unsized `'0` form takes, NOT the 32-bit
+                    // self-determined width slang assigns. A WRITTEN size
+                    // prefix (3'h0) keeps its own width. Measured probe
+                    // r10c9/c ($unit) and r10c9/d (package) alike; FileParam
+                    // SCR1_SCU_DR_SYSCTRL_OP_BIT_R = 'h0.
+                    if (tick == 0)
+                        ec->VpiSize(-1);
                     size_t basePos = tick + 1;
                     if (basePos < raw.size() && (raw[basePos] == 's' || raw[basePos] == 'S'))
                         basePos++;
@@ -3623,7 +3646,14 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             // view = <w>'b<bits>.
             bool refInit = evInit && stripImplicitConv(*evInit).kind ==
                                          ExpressionKind::NamedValue;
-            if (nonLitInit && !refInit && baseSyn) {
+            // § unitArith (see the note above the loop): a $unit enum's
+            // ARITHMETIC init leaves the computed BIN form to the digits
+            // branch below.
+            bool unitArith9 =
+                unitEnum9 && evInit &&
+                (stripImplicitConv(*evInit).kind == ExpressionKind::BinaryOp ||
+                 stripImplicitConv(*evInit).kind == ExpressionKind::UnaryOp);
+            if (nonLitInit && !refInit && baseSyn && !unitArith9) {
                 int w = (int)et.baseType.getBitWidth();
                 // Surelog's enum-const VALUE evaluation drops the RHS of a
                 // bitwise-or: {RV_32E, RV_M | RV_C} encodes as
@@ -3774,11 +3804,13 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             value = (unsignedIntBase ? "UINT:" : "INT:") + digits;
             // Non-literal init keeps the SOURCE reference as the decompile in
             // the def view; the top/elab view folds to digits.
-            if (nonLitInit && !pkgTopEmit)
+            if (nonLitInit && !pkgTopEmit && !unitArith9)
                 ec->VpiDecompile(rawText(stripImplicitConv(*evInit).sourceRange));
             else
                 ec->VpiDecompile(digits);
-            ec->VpiSize(baseSyn ? (int32_t)et.baseType.getBitWidth() : 64);
+            ec->VpiSize(!unitArith9 && baseSyn
+                            ? (int32_t)et.baseType.getBitWidth()
+                            : 64);
         }
         if (!value.empty())
             ec->VpiValue(value);

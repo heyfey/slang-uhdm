@@ -4112,6 +4112,22 @@ std::string UhdmExporter::rawTextLit(const Expression& expr) {
         if (out.find('\'') != std::string::npos)
             return out;
     }
+    // A PLAIN (unbased) literal that came out of a MACRO EXPANSION
+    // (`\`SV_COV_CHECK` -> 3) has no readable text at its own range: the
+    // expansion buffer stores none and getFullyOriginalRange lands in the
+    // `define body, whose offsets do not describe this token. rawText then
+    // returns "" and every digit test downstream reads the literal as 0 —
+    // CovMacro's $coverage_control arguments came out UINT:0 with no
+    // decompile against golden's UINT:3 / UINT:23 / UINT:11. Surelog works on
+    // the EXPANDED token stream, so read the token itself.
+    if (auto* sy = expr.syntax;
+        sy && sy->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
+        expr.sourceRange.start() != SourceLocation::NoLocation &&
+        sm->isMacroLoc(expr.sourceRange.start())) {
+        auto tok = sy->as<syntax::LiteralExpressionSyntax>().literal;
+        if (!tok.rawText().empty())
+            return std::string(tok.rawText());
+    }
     return rawText(expr.sourceRange);
 }
 

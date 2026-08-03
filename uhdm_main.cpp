@@ -198,6 +198,28 @@ int main(int argc, char** argv) {
     // an explicit -DSURELOG=... on the command line still wins.
     driver.options.defines.insert(driver.options.defines.begin(), "SURELOG=1");
 
+    // ...and the LRM coverage-control macros, from the very same builtin block
+    // (Surelog src/DesignCompile/Builtin.cpp addBuiltinMacros, which defines
+    // `SURELOG 1` alongside them). They are UHDM-relevant: a design that spells
+    // `$coverage_control(`SV_COV_CHECK, ...)` gets those numbers as sys-call
+    // ARGUMENT CONSTANTS in the database (CovMacro: UINT:3 / UINT:23 / UINT:11
+    // against our UINT:0 for every undefined macro). Unlike `SURELOG`, this
+    // block is gated the way Surelog gates it — `-nobuiltin` turns
+    // parseBuiltIn() off and takes the macros with it. Prepended in reverse so
+    // the list keeps source order and an explicit -D still wins.
+    if (noBuiltin != true) {
+        static const char* const kCovMacros[] = {
+            "SV_COV_START=0",     "SV_COV_STOP=1",      "SV_COV_RESET=2",
+            "SV_COV_CHECK=3",     "SV_COV_MODULE=10",   "SV_COV_HIER=11",
+            "SV_COV_ASSERTION=20", "SV_COV_FSM_STATE=21",
+            "SV_COV_STATEMENT=22", "SV_COV_TOGGLE=23",  "SV_COV_OVERFLOW=-2",
+            "SV_COV_ERROR=-1",    "SV_COV_NOCOV=0",     "SV_COV_OK=1",
+            "SV_COV_PARTIAL=2"};
+        for (size_t i = sizeof(kCovMacros) / sizeof(kCovMacros[0]); i-- > 0;)
+            driver.options.defines.insert(driver.options.defines.begin(),
+                                          kCovMacros[i]);
+    }
+
     // Surelog `-P<name>=<value>` (which the harness spells `-G` because that is
     // slang's option) stores the value as an unparsed STRING:
     // `m_paramList.emplace(id, StringUtils::unquoted(value))`, and later turns

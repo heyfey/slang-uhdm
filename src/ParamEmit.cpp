@@ -1325,7 +1325,14 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
     ConstCallEnc enc = ConstCallEnc::Uint;
     auto classify = [&](const Expression& rhs) {
         auto& se = stripImplicitConv(rhs);
-        if (se.kind == ExpressionKind::Concatenation)
+        // A REPLICATION is a concat in ExprEval's eyes (vpiConcatOp /
+        // vpiMultiConcatOp share the `{`-shaped BIN-at-own-width arm), so a
+        // body whose return assignment is `{N{x}}` folds BIN at the RETURN
+        // width just like `{a,b}` does — the distinguisher is Func128Bits,
+        // whose 128-bit `calcBaseAddrs = {128{1'b0}}` fold otherwise lands
+        // UINT and TRUNCATES to 0 (UHDM stores a UINT value in 64 bits).
+        if (se.kind == ExpressionKind::Concatenation ||
+            se.kind == ExpressionKind::Replication)
             enc = ConstCallEnc::ConcatBin;
         // A TERNARY body reduces through ExprEval's vpiConditionOp arm, which
         // unconditionally re-wraps the selected branch as `INT:<val>` at size
@@ -3268,6 +3275,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             netMap[&member] = up;
 
         UHDM::ref_typespec* rhsRt = nullptr;
+        // § replFoldTs — set when the Rhs ts ref below was minted by the
+        // folded-REPLICATION rule; it owns the constant's typespec outright
+        // and must not be re-bound to the parameter's own ts.
+        bool replFoldTs9 = false;
         // The Rhs constant captured for pkgRefSrc, and a flag suppressing the
         // deferred ts patch when a pkg-ref clone binds its own (pkg-located) ts.
         UHDM::constant* rhsConstForMap = nullptr;
@@ -6215,6 +6226,49 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             replFoldTs = true;
                         }
                     }
+                    // § replFoldTs9 — the UNTYPED half of the same rule. An
+                    // ELAB-view replication fold on a param with NO declared
+                    // type carries a ts ref to a BARE (unlocated, nameless)
+                    // int_typespec whose VALUE is the width of the REPLICATED
+                    // OPERAND — the concat inside the braces, not the fold's
+                    // own width and not the replication count. Measured (probe
+                    // r10c9/a, one module, one param per row, elab view):
+                    //   {4{32'd24}}      -> BIN size 128, ts UINT:32
+                    //   {2{{3{4'd1}}}}   -> BIN size  24, ts UINT:12 (the inner
+                    //                       replication's own width, not 4)
+                    //   {4{8'd3}}        -> BIN size  32, ts UINT:8
+                    //   {4{1'b0}}        -> BIN size   4, ts UINT:1
+                    //   {32'd24,32'd25}  -> BIN size  64, NO ts — a plain
+                    //                       CONCAT gets none, so this is
+                    //                       replication-only.
+                    // DEF views keep the unfolded operation and a PACKAGE
+                    // never folds a replication in either view (probe r10c9/b,
+                    // pk::Q1), so the rule is topView + module only.
+                    // Func128Bits M_ADDR_WIDTH is the corpus distinguisher.
+                    if (!typedParam && !rangedFold && !replFoldTs &&
+                        !partSelectFold && !isPattern && !importedFold &&
+                        topView && !inPackage &&
+                        scv.kind == ExpressionKind::Replication && rhs &&
+                        rhs->UhdmType() == UHDM::uhdmconstant) {
+                        auto& rx9 = scv.as<ReplicationExpression>();
+                        int32_t iw9 =
+                            rx9.concat().type
+                                ? (int32_t)rx9.concat().type->getBitWidth()
+                                : 0;
+                        auto* its9 = s.MakeInt_typespec();
+                        its9->VpiValue("UINT:" + std::to_string(iw9));
+                        auto* rtR9 = s.MakeRef_typespec();
+                        std::string tsPfxR9 = prefix;
+                        if (tsPfxR9.size() >= 2 &&
+                            tsPfxR9.compare(tsPfxR9.size() - 2, 2, "::") == 0)
+                            tsPfxR9.resize(tsPfxR9.size() - 2);
+                        rtR9->VpiFullName(tsPfxR9);
+                        rtR9->VpiParent((UHDM::constant*)rhs);
+                        rtR9->Actual_typespec(its9);
+                        ((UHDM::constant*)rhs)->Typespec(rtR9);
+                        rhsRt = rtR9;
+                        replFoldTs9 = true;
+                    }
                     // Typed-param (non-pattern) folds carry a ts ref to the
                     // param; a RANGED-UNTYPED elab fold carries the SAME ts ref
                     // shape (fullname = instance prefix, actual = range
@@ -8589,7 +8643,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // typespec; keep the deferred patch off that ref.
                 pendingParamTs.push_back(
                     {&ps, up, prt,
-                     (pkgRefFold || elabFormalTs9) ? nullptr : rhsRt,
+                     (pkgRefFold || elabFormalTs9 || replFoldTs9) ? nullptr
+                                                                  : rhsRt,
                      typedParam});
             }
             else if (deferAggTs) {
@@ -8657,7 +8712,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // formal's typespec (Surelog).
                 if (di && !inPackage)
                     defParamTsRef[&member] = prt;
-                if (rhsRt) {
+                if (rhsRt && !replFoldTs9) {
                     // An untyped import's Rhs constant ref binds its OWN fresh
                     // int_typespec (Surelog builds a distinct typespec per ref,
                     // not the shared param ts).
