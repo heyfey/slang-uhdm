@@ -1680,11 +1680,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         // A packed-vector leaf (reg [3:0]) gets a LOCATED
                         // logic_typespec spanning the element-type syntax with
                         // its packed range (Surelog) — not a bare loc-less ts.
-                        auto* lts = s.MakeLogic_typespec();
+                        // A TWO-STATE leaf (`bit ub [2]`) gets a bit_typespec
+                        // instead, exactly like makeTypespec's own unpacked-
+                        // leaf rule (AllPackageSignal's `bit unused_bit [..]`).
                         auto& lct = leaf->getCanonicalType();
+                        UHDM::logic_typespec* lts = nullptr;
+                        UHDM::bit_typespec* bts = nullptr;
+                        if (lct.isIntegral() && !lct.isFourState())
+                            bts = s.MakeBit_typespec();
+                        else
+                            lts = s.MakeLogic_typespec();
+                        UHDM::typespec* ets =
+                            lts ? (UHDM::typespec*)lts : (UHDM::typespec*)bts;
                         if (auto tsyn3 = fmv.getDeclaredType()->getTypeSyntax()) {
                             auto sr3 = tsyn3->sourceRange();
-                            setLoc(lts, sr3);
+                            setLoc(ets, sr3);
                             if (lct.kind == SymbolKind::PackedArrayType) {
                                 auto pr3 = lct.as<PackedArrayType>().range;
                                 std::vector<DimSpan> spans3;
@@ -1694,7 +1704,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 const DimSpan* ds3 =
                                     spans3.empty() ? nullptr : &spans3.back();
                                 auto* rng3 = s.MakeRange();
-                                rng3->VpiParent(lts);
+                                rng3->VpiParent(ets);
                                 if (ds3)
                                     setLoc(rng3, ds3->range);
                                 auto mkR3 = [&](int64_t bv,
@@ -1717,11 +1727,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                     mkR3(pr3.right, ds3 ? &ds3->right : nullptr));
                                 auto* rvec3 = s.MakeRangeVec();
                                 rvec3->push_back(rng3);
-                                lts->Ranges(rvec3);
+                                if (lts)
+                                    lts->Ranges(rvec3);
+                                else
+                                    bts->Ranges(rvec3);
                             }
                         }
-                        elemTs = lts;
+                        elemTs = ets;
                     }
+                    // A PACKAGE-scope function's locals resolve in the
+                    // package, so their element typespecs carry it as
+                    // vpiInstance — same rule (and same tsInst) the flat-local
+                    // arm below already applies (AllPackageSignal).
+                    if (elemTs && tsInst && !elemTs->Instance())
+                        elemTs->Instance(importCopyTsInst ? importCopyTsInst
+                                                          : tsInst);
 
                     auto* av = s.MakeArray_var();
                     av->VpiName(fmv.name);

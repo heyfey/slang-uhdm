@@ -5237,6 +5237,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                      a0.kind == ExpressionKind::HierarchicalValue))
                     bitsKeep = !srlgBitsFoldArg(a0);
             }
+            // ...and the DEF listing of a PACKAGE never folds it at all.
+            // Surelog compiles that view without elaborating the package, so
+            // NOTHING reduces there: `2+3` keeps its vpiAddOp, a read of
+            // another package param substitutes that param's Rhs unreduced,
+            // and every system call — $clog2 included — stays a
+            // sys_func_call. Measured on a 8-row package golden (/tmp probe
+            // p3: literal / 2+3 / P*2 / $bits(t) / $clog2(9) / P+$bits(t) /
+            // ternary-over-$bits / ternary-over-param): the def listing folds
+            // NONE of them, the topPackages copy folds ALL of them. $bits was
+            // the only one we still folded there (PackageEval, AllPackageSignal).
+            if (curPkgEmitSym && !pkgEmitTopView)
+                bitsKeep = true;
             if (name == "$bits" && !bitsKeep) {
                 bool localParamArg =
                     !call.arguments().empty() &&
@@ -5347,7 +5359,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (at.kind == SymbolKind::TypeAlias) {
                         auto* r0 = s.MakeRef_obj();
                         r0->VpiName(std::string(at.name));
-                        r0->VpiFullName(prefix + "." + std::string(at.name));
+                        // joinPath, not a bare '.': in a PACKAGE the prefix is
+                        // already '::'-terminated (`test_pkg::t_test`, not
+                        // `test_pkg::.t_test` -- PackageEval's $bits argument).
+                        r0->VpiFullName(joinPath(prefix, at.name));
                         tv = r0;
                     }
                     else if (at.kind == SymbolKind::PredefinedIntegerType) {

@@ -61,6 +61,11 @@ static void elabUnsizedPatternFold(UHDM::operation* opr, int32_t elemWidth) {
 // arithmetic still reduces.  Measured, one source, package + importing module:
 // `A3[3]` -> 3, `D[CNT]` -> 1, `E[CNT-1]` -> 1, `F[2+1]` -> 3 (the `[CNT]`
 // row is DefaultPatternInt's first-fail).
+// ...but only a SIZE-form dim behaves that way.  A RANGE-form dim reduces its
+// bounds even when they NAME a package parameter, so its product IS
+// multiplied in: re-measured on the same shape (probe p4, package + importing
+// module) `A[N]` -> 1 while `B[0:N-1]` -> 3, with the literal rows `C[2]` and
+// `D[0:1]` both 2 (PackageEval MioStrapPos).
 static bool unpackedDimsAllLiteral(const Symbol& sym) {
     auto* dsyn = sym.getSyntax();
     if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
@@ -83,9 +88,15 @@ static bool unpackedDimsAllLiteral(const Symbol& sym) {
                 return true;
         return false;
     };
-    for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+    for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions) {
+        if (dim->specifier &&
+            dim->specifier->kind == syntax::SyntaxKind::RangeDimensionSpecifier &&
+            dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                    .selector->as_if<syntax::RangeSelectSyntax>() != nullptr)
+            continue;
         if (named(dim))
             return false;
+    }
     return true;
 }
 
@@ -2610,7 +2621,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // param arguments): $bits is the ONLY one that folds there — the
             // rest stay `sys_func_call` in the def view and carry no
             // typespec in either. BitsLogic / BitComplex.
-            if (defaultInit && !typedParam && ctw.isIntegral()) {
+            // ...in a MODULE definition. A PACKAGE's def listing reduces
+            // nothing at all (see the $bits note in emitSysCall), so the
+            // untyped param keeps the call AND stays typespec-less there
+            // (PackageEval pk::TEST_SIZE, AllPackageSignal).
+            if (defaultInit && !typedParam && ctw.isIntegral() &&
+                !(inPackage && !topView)) {
                 auto& sb9 = stripImplicitConv(*defaultInit);
                 if (sb9.kind == ExpressionKind::Call &&
                     sb9.as<CallExpression>().isSystemCall() &&

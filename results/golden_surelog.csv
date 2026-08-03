@@ -947,8 +947,8 @@ PackageConst,default,CMP_EQUAL,,,differ
 PackageConst,testflags,CMP_EQUAL,,,differ
 PackageDpi,default,SLANG_REJECT,dut.sv:17:1: error: use of undeclared identifier 'uvm_object_wrapper',,
 PackageDpi,testflags,SLANG_REJECT,dut.sv:17:1: error: use of undeclared identifier 'uvm_object_wrapper',,
-PackageEval,default,CMP_NOTEQUAL,decompile:,,
-PackageEval,testflags,CMP_NOTEQUAL,decompile:,,
+PackageEval,default,CMP_EQUAL,,,differ
+PackageEval,testflags,CMP_EQUAL,,,differ
 PackageFuncCall,default,SLANG_REJECT,dut.sv:28:55: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_sbox'?,,
 PackageFuncCall,testflags,SLANG_REJECT,dut.sv:28:55: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_sbox'?,,
 PackageHierRef,default,SLANG_REJECT,top.sv:21:8: error: unknown package 'bug',,

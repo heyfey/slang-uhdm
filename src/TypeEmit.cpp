@@ -7276,6 +7276,67 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 op->VpiOpType(11);
                 setLoc(op, sizeSyn->sourceRange());
                 auto* ops = s.MakeAnyVec();
+                // A PACKAGE FUNCTION's local unpacked array has ITS OWN
+                // fold split, and it runs the OTHER WAY round from the
+                // package parameters': the listing our emitPackage builds
+                // with pkgEmitTopView keeps the size expression as a full
+                // syntax tree -- one bare ref_obj per parameter read, no
+                // fullname, BOUND to that parameter's own Rhs constant --
+                // while the other listing folds it.  Measured on
+                // `bit vb [(W==4)?1:-1]` + `bit vw [W]` in a package function
+                // (probe p6, 75 changed lines -> 0 on this assignment,
+                // inverted on the opposite one): the folding listing gives 1
+                // (at the SELECTED branch's own token) and 4 (at the param's
+                // type WIDTH, with a ts ref to a fresh copy of the param's
+                // int_typespec).  AllPackageSignal.
+                if (curPkgEmitSym && !pkgEmitTopView && defDimRefPrefix.empty() &&
+                    dimFoldOwner.empty() &&
+                    parent->UhdmType() == UHDM::uhdmarray_typespec &&
+                    sizeSyn->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
+                    if (auto* e9 = emitSyntaxExpr(*sizeSyn, op)) {
+                        // emitSyntaxExpr leaves the reads unbound; Surelog
+                        // resolves them in the package and points each at the
+                        // parameter's Rhs constant.
+                        std::function<void(UHDM::any*)> bind9 =
+                            [&](UHDM::any* n9) {
+                                if (!n9)
+                                    return;
+                                if (n9->UhdmType() == UHDM::uhdmref_obj) {
+                                    auto* ro9 = (UHDM::ref_obj*)n9;
+                                    if (ro9->Actual_group())
+                                        return;
+                                    auto sc9 = sym.getParentScope();
+                                    if (!sc9)
+                                        return;
+                                    auto* tg9 = sc9->lookupName(
+                                        std::string(ro9->VpiName()));
+                                    if (!tg9)
+                                        return;
+                                    if (auto ai9 = paramRhsObj.find(tg9);
+                                        ai9 != paramRhsObj.end() && ai9->second)
+                                        ro9->Actual_group(ai9->second);
+                                    return;
+                                }
+                                if (n9->UhdmType() == UHDM::uhdmoperation)
+                                    if (auto* o9s =
+                                            ((UHDM::operation*)n9)->Operands())
+                                        for (auto* o9 : *o9s)
+                                            bind9(o9);
+                            };
+                        bind9(e9);
+                        ops->push_back(e9);
+                        auto* one9 = s.MakeConstant();
+                        one9->VpiSize(64);
+                        one9->VpiValue("INT:1");
+                        one9->VpiConstType(vpiIntConst);
+                        ops->push_back(one9);
+                        op->Operands(ops);
+                        r->Right_expr(op);
+                        ranges->push_back(r);
+                        dt = &ua.elementType;
+                        continue;
+                    }
+                }
                 // DEF-view port array_typespec: a PARAM-sized dim ([N]) keeps
                 // the size symbolic — a bare ref_obj <prefix>.N (no actual).
                 if (!defDimRefPrefix.empty() &&
@@ -7450,7 +7511,14 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 // the sized param's own width, with a ts ref named after the
                 // holder param and bound to a fresh copy of the sized param's
                 // int typespec (Surelog; DefaultPatternInt).
-                else if (!dimFoldOwner.empty() &&
+                // ...and a PACKAGE FUNCTION's local takes the identical form
+                // in the topPackages clone, only with an ANONYMOUS ts ref
+                // (there is no holder parameter to name it after) -- probe p6
+                // `bit vw [W]`.
+                else if ((!dimFoldOwner.empty() ||
+                          (curPkgEmitSym && pkgEmitTopView &&
+                           defDimRefPrefix.empty() &&
+                           parent->UhdmType() == UHDM::uhdmarray_typespec)) &&
                          sizeSyn->kind == syntax::SyntaxKind::IdentifierName) {
                     const ParameterSymbol* tp7 = nullptr;
                     if (auto sc7 = sym.getParentScope()) {
@@ -7501,6 +7569,50 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 }
                 sc->VpiConstType(vpiUIntConst);
                 setLoc(sc, sizeSyn->sourceRange());
+                // The elaborated (topPackages / import-clone) counterpart of
+                // the def-listing tree above: Surelog's reduceExpr hands back
+                // the SURVIVING literal, so a `?:` size collapses onto the
+                // selected branch's own token -- span and decompile included
+                // -- not onto the whole expression's text (probe p6,
+                // AllPackageSignal's `((__prop) ? 1 : -1)`).
+                if (curPkgEmitSym && pkgEmitTopView && defDimRefPrefix.empty() &&
+                    dimFoldOwner.empty() &&
+                    parent->UhdmType() == UHDM::uhdmarray_typespec) {
+                    std::string want9 = std::to_string(ua.range.width());
+                    std::function<const syntax::ExpressionSyntax*(
+                        const syntax::ExpressionSyntax*)>
+                        pick9 = [&](const syntax::ExpressionSyntax* e9)
+                        -> const syntax::ExpressionSyntax* {
+                        if (!e9)
+                            return nullptr;
+                        if (e9->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                            return pick9(
+                                e9->as<syntax::ParenthesizedExpressionSyntax>()
+                                    .expression);
+                        if (e9->kind ==
+                            syntax::SyntaxKind::ConditionalExpression) {
+                            auto& ce9 =
+                                e9->as<syntax::ConditionalExpressionSyntax>();
+                            if (auto* l9 = pick9(ce9.left))
+                                return l9;
+                            return pick9(ce9.right);
+                        }
+                        if (e9->kind ==
+                                syntax::SyntaxKind::IntegerLiteralExpression &&
+                            std::string(rawText(e9->sourceRange())) == want9)
+                            return e9;
+                        return nullptr;
+                    };
+                    if (sizeSyn->kind == syntax::SyntaxKind::ConditionalExpression ||
+                        sizeSyn->kind ==
+                            syntax::SyntaxKind::ParenthesizedExpression)
+                        if (auto* w9 = pick9(sizeSyn)) {
+                            sc->VpiDecompile(rawText(w9->sourceRange()));
+                            sc->VpiSize(64);
+                            sc->VpiValue("UINT:" + want9);
+                            setLoc(sc, w9->sourceRange());
+                        }
+                }
                 ops->push_back(sc);
                 auto* one = s.MakeConstant();
                 one->VpiSize(64);
@@ -7520,7 +7632,15 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 // param: the bound stays a SYMBOLIC op11 with a bare ref
                 // <param>.<bound> — in the def view's parameter ranges and in
                 // the elab array_typespec clone alike (param_array_wildcard).
+                // A '::'-suffixed prefix is the DEF-PACKAGE spelling instead
+                // (pkg::PARAM::N, ref BOUND to the sized param's Rhs) and is
+                // built by the dedicated branch further down — this one would
+                // otherwise swallow it and emit `pkg::PARAM::.N` unbound
+                // (PackageEval).
                 if (es && !defDimRefPrefix.empty() &&
+                    !(defDimRefPrefix.size() >= 2 &&
+                      defDimRefPrefix.compare(defDimRefPrefix.size() - 2, 2,
+                                              "::") == 0) &&
                     (parent->UhdmType() == UHDM::uhdmparameter ||
                      parent->UhdmType() == UHDM::uhdmarray_typespec)) {
                     auto mkDimRef9 = [&](const syntax::ExpressionSyntax& is,
