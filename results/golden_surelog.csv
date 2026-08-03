@@ -499,7 +499,7 @@ FuncArgs,default,CMP_EQUAL,,,match
 FuncArgs,testflags,CMP_EQUAL,,,differ
 FuncArgsByName,default,CMP_EQUAL,,,match
 FuncArgsByName,testflags,CMP_EQUAL,,,match
-FuncAttrib,default,CMP_NOTEQUAL,decompile:,,
+FuncAttrib,default,CMP_EQUAL,,,match
 FuncAttrib,testflags,CMP_EQUAL,,,match
 FuncBindGen,default,CMP_EQUAL,,,differ
 FuncBindGen,testflags,CMP_EQUAL,,,differ

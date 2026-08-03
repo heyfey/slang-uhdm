@@ -20764,6 +20764,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         };
                         bool savedNUA2 = noUnitParamActual;
                         noUnitParamActual = true;
+                        bool savedDGC9 = inDefGenCaExpr;
+                        inDefGenCaExpr = true;
                         if (auto* l = emitSyntaxExpr(*be.left, ca)) {
                             // LHS selects keep the whole span (Surelog).
                             if (be.left->kind ==
@@ -20774,6 +20776,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         selBaseScopeIdx = true;
                         auto* r = emitSyntaxExpr(*be.right, ca);
                         selBaseScopeIdx = false;
+                        inDefGenCaExpr = savedDGC9;
                         noUnitParamActual = savedNUA2;
                         if (r) {
                             selSpan(r, *be.right);

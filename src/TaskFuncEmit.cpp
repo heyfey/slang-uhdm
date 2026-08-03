@@ -2455,6 +2455,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // (r10apb2 repro 5) — the in-class twin's identical body binds
         // nothing outside the if condition.
         classMethodNoBind = classScope && !oob;
+        // A `$unit`-scope subroutine's body binds NOTHING — not its formals'
+        // io_decls, not its block locals, not its for-loop iterators.  The
+        // compilation unit is compiled before any instance exists and
+        // Surelog never revisits it with a symbol table, the same shape
+        // classMethodNoBind describes for an in-class method.  Scr1SvTests
+        // measures it exactly: of the 73 references inside the design-level
+        // `scr1_lead_zeros_cnt_2` / `scr1_lead_zeros_cnt_32` bodies (from
+        // `scr1_search_ms1.svh`, included at $unit scope), golden binds ZERO
+        // and we bound 35 — while the byte-identical `scr1_search_one_2`
+        // body compiled inside module scr1_ipic binds its `din` io_decl.
+        bool savedUSNB9 = unitSubNoBind9;
+        if (auto* usc9 = sub.getParentScope())
+            unitSubNoBind9 =
+                usc9->asSymbol().kind == SymbolKind::CompilationUnit;
         bool savedPDV9 = pkgDefViewBody9;
         // The un-elaborated package view: its own functions during the def
         // pass, and the class-method clones emitPackageClassMethodClones
@@ -2509,6 +2523,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             body = ub9;
         }
         classMethodNoBind = savedCMNB;
+        unitSubNoBind9 = savedUSNB9;
         pkgDefViewBody9 = savedPDV9;
         if (body)
             tf->Stmt(body);

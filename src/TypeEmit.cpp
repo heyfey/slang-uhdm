@@ -3665,6 +3665,41 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 unitEnum9 && evInit &&
                 (stripImplicitConv(*evInit).kind == ExpressionKind::BinaryOp ||
                  stripImplicitConv(*evInit).kind == ExpressionKind::UnaryOp);
+            // § unitArithShape — the folded constant's WIDTH and SIGNEDNESS
+            // come from the reduction, not from the enum base:
+            //   * an operand that is a bare INTEGER LITERAL has no width in
+            //     Surelog's evaluator, so the result lands at the unsized 64
+            //     (`P2+4` -> 64, `3+40` -> 64); an expression whose every
+            //     leaf is a WIDTH-CARRYING object keeps that width
+            //     (`OP_WIDTH + ADDR_WIDTH` -> UINT:4 at 32).
+            //   * a SUBTRACTION reduces signed, so the const encodes INT
+            //     even under an `int unsigned` base (`OP_WIDTH-1` -> INT:1,
+            //     `OP_WIDTH + ADDR_WIDTH - 1` -> INT:3), while a pure sum of
+            //     unsigned operands stays UINT.
+            // Measured on Scr1SvTests type_scr1_scu_sysctrl_dr_bits_e, whose
+            // six consts span all four combinations, and consistent with the
+            // r10c9/c probe rows quoted above.
+            bool unitArithLit9 = false;
+            bool unitArithSub9 = false;
+            if (unitArith9)
+                stripImplicitConv(*evInit).visit(makeVisitor(
+                    [&](auto& v9, const IntegerLiteral& il9) {
+                        unitArithLit9 = true;
+                        v9.visitDefault(il9);
+                    },
+                    [&](auto& v9, const BinaryExpression& be9) {
+                        if (be9.op == BinaryOperator::Subtract)
+                            unitArithSub9 = true;
+                        v9.visitDefault(be9);
+                    }));
+            // A $unit enum's PLAIN REFERENCE init decompiles to the folded
+            // digits too — the compilation unit has only one view, so there
+            // is no def-view "keep the source reference" form (r10c9/c: `P2`
+            // -> UINT:3 / "3" / 32; Scr1SvTests
+            // SCR1_SCU_DR_SYSCTRL_ADDR_BIT_R = SCR1_SCU_DR_SYSCTRL_OP_WIDTH
+            // -> "2", not the parameter's name).  Width and signedness still
+            // come from the base, unlike the arithmetic case.
+            bool unitRefInit9 = unitEnum9 && refInit;
             if (nonLitInit && !refInit && baseSyn && !unitArith9) {
                 int w = (int)et.baseType.getBitWidth();
                 // Surelog's enum-const VALUE evaluation drops the RHS of a
@@ -3821,14 +3856,14 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 baseSyn &&
                 et.baseType.getCanonicalType().kind == SymbolKind::PredefinedIntegerType &&
                 !et.baseType.isSigned();
-            value = (unsignedIntBase ? "UINT:" : "INT:") + digits;
+            value = (unsignedIntBase && !unitArithSub9 ? "UINT:" : "INT:") + digits;
             // Non-literal init keeps the SOURCE reference as the decompile in
             // the def view; the top/elab view folds to digits.
-            if (nonLitInit && !pkgTopEmit && !unitArith9)
+            if (nonLitInit && !pkgTopEmit && !unitArith9 && !unitRefInit9)
                 ec->VpiDecompile(rawText(stripImplicitConv(*evInit).sourceRange));
             else
                 ec->VpiDecompile(digits);
-            ec->VpiSize(!unitArith9 && baseSyn
+            ec->VpiSize((!unitArith9 || !unitArithLit9) && baseSyn
                             ? (int32_t)et.baseType.getBitWidth()
                             : 64);
         }
@@ -6702,8 +6737,14 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // vector-size one (probe r10scr5tb: golden bound=2 dangling=0,
             // ours dangling=2).  Scoped to compilation-unit enums, and off in
             // a def-view gen-block declaration exactly like the param arm.
+            // ...and off in a def-view gen-block CONT-ASSIGN as well: a
+            // generate scope binds no enum constant in either view
+            // (Scr1SvTests scr1_mem_axi `assign core_resp = axi_reinit ?
+            // SCR1_MEM_RESP_NOTRDY : rcvd_resp` inside `if
+            // (SCR1_AXI_RESP_BP == 1) begin : axi_resp_bp`; golden has 0 of
+            // its 621 enum-const bindings inside a generate scope).
             if (!ref->Actual_group() && !suppressRefActual &&
-                !inDefGenDeclTs && !enumConstMap.empty()) {
+                !inDefGenDeclTs && !inDefGenCaExpr && !enumConstMap.empty()) {
                 const Scope* bindScope9 = tfTypeScope ? tfTypeScope
                                           : defNetTsScope ? defNetTsScope
                                                           : currentScope;

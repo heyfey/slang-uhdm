@@ -1338,6 +1338,11 @@ private:
     // True while emitting DEF-view gen-block processes (all refs unbound,
     // including enum consts).
     bool defGenProcessEmit = false;
+    // True while emitDefGenStmts stmt-ifies a generate block's CONT-ASSIGN in
+    // the DEF view.  An enum-constant reference there stays UNBOUND, exactly
+    // as in a gen-block process — a generate scope binds no enum const in
+    // either view (see the unit-enum binder in TypeEmit).
+    bool inDefGenCaExpr = false;
     // True while emitting a CLASS METHOD body outside an if/case CONDITION.
     // Measured (purpose-built goldens, package/module/program-scoped classes):
     // Surelog binds a class-method body ref to its io_decl/local var ONLY in
@@ -1346,6 +1351,11 @@ private:
     // select indexes, case-ITEM expressions — stays unbound, enum consts
     // included (SimpleConstraint getType/print).
     bool classMethodNoBind = false;
+    // True while emitting a `$unit`-scope subroutine's BODY: the compilation
+    // unit is compiled before any instance and Surelog never revisits it with
+    // a symbol table, so no reference in the body takes an actual (formals,
+    // block locals and loop iterators alike).
+    bool unitSubNoBind9 = false;
     // True while emitting a subroutine body that belongs to the package's
     // UN-ELABORATED (def) view: a package function in the def pass, or an
     // out-of-body class-method CLONE in the def package's Task_funcs. Surelog
@@ -1507,6 +1517,10 @@ private:
     // netlist pass, not the cont-assign one).  A func call NESTED UNDER AN
     // OPERATION in such an RHS stamps no formal typespec on its argument refs.
     bool ndaRhsEmit = false;
+    // Inside the BRANCHES of a cont-assign-RHS ternary whose condition did not
+    // fold to a constant: Surelog's reduction abandons the expression at that
+    // first unfoldable operand, so nothing below binds actuals to formals.
+    bool caCondReduceStop = false;
     // The nearest enclosing assignment/op-82 object — an embedded assignment
     // expression's LHS ref parents here (not at its own op).
     UHDM::BaseClass* enclosingAssign = nullptr;

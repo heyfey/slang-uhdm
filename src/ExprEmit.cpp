@@ -2097,12 +2097,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             op->VpiParent(parent);
             setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
-            if (auto* c = emitExpr(*cond.conditions[0].expr, op, prefix, netMap))
-                operands->push_back(c);
+            auto* c9 = emitExpr(*cond.conditions[0].expr, op, prefix, netMap);
+            if (c9) operands->push_back(c9);
+            // Surelog reduces a cont-assign RHS operand by operand and
+            // ABANDONS the attempt at the first operand it cannot fold.  A
+            // ternary's CONDITION is that first operand, so when it is not
+            // constant the branches are never descended into and a func_call
+            // in either branch never has its actuals bound to the callee's
+            // formals — no formal-typespec ref on the argument refs, in the
+            // def view and the elab view alike.  Measured pair:
+            //   scr1_mem_axi `assign awsize = force_write ?
+            //     width2axsize(core_width) : width2axsize(req_fifo[..])`
+            //     -> every actual bare in golden (both views, both instances)
+            //   openmsp430 `assign q = one_hot16(rw) & {16{s}}` — the call is
+            //     operand 0, reached before anything can abort -> STAMPED
+            // This is the same certainly-reached-PREFIX law that governs the
+            // in-body stamp (drainBodyOpArgTs): over-stamping invents objects,
+            // under-stamping only drops them, so only the ternary — where the
+            // abort is unconditional — is modelled here.
+            bool savedStop9 = caCondReduceStop;
+            if ((contAssignView != 0 || ndaRhsEmit) &&
+                (!c9 || c9->UhdmType() != UHDM::uhdmconstant))
+                caCondReduceStop = true;
             if (auto* t = emitExpr(cond.left(), op, prefix, netMap))
                 operands->push_back(t);
             if (auto* f = emitExpr(cond.right(), op, prefix, netMap))
                 operands->push_back(f);
+            caCondReduceStop = savedStop9;
             op->Operands(operands);
             return op;
         }
@@ -3222,9 +3243,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // outside defGenProcessEmit, keep their scoped fullname.)
                 if (!defGenProcessEmit)
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
-                if (classMethodNoBind) {
-                    // Class-method body outside an if/case condition: no
-                    // actual of any kind (see classMethodNoBind).
+                if (classMethodNoBind || unitSubNoBind9) {
+                    // Class-method body outside an if/case condition, or a
+                    // `$unit`-scope subroutine body: no actual of any kind
+                    // (see classMethodNoBind / unitSubNoBind9).
                 }
                 else if (suppressRefActual) {
                     // ELAB gen-scope process refs to gen-block / stmt-block
@@ -3304,9 +3326,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // ref) carrying the value, since the shared package const
                     // can't be reused across elaborated gen-block instances.
                     // DEF-view gen-block processes leave even enum refs
-                    // fully unbound.
+                    // fully unbound — and so does a gen-scope CONT-ASSIGN
+                    // RHS, but ONLY for a `$unit`-scope enum.  The
+                    // compilation unit is compiled before any instance and
+                    // its enum consts are not reachable from the generate
+                    // block's scope map, while a MODULE-local or PACKAGE
+                    // enum still binds its fresh clone there — u2r
+                    // MultirangesStartNotFromZero (module enum `Dirs` read
+                    // in `for` gen-scope CAs) and hier_path (package
+                    // `ibex_pkg::PMP_MODE_TOR` read in a gen-scope CA) are
+                    // the two REGRESSION-DERIVED discriminators; Scr1SvTests'
+                    // `assign core_resp = axi_reinit ? SCR1_MEM_RESP_NOTRDY :
+                    // rcvd_resp` inside `if (SCR1_AXI_RESP_BP == 1)` reads a
+                    // $unit enum and is bare in both elab instances (golden
+                    // binds no $unit enum const inside any generate scope).
+                    bool unitEnumSym9 = false;
+                    if (nv.symbol.kind == SymbolKind::EnumValue)
+                        for (auto sc9 = nv.symbol.getParentScope(); sc9;
+                             sc9 = sc9->asSymbol().getParentScope()) {
+                            auto k9 = sc9->asSymbol().kind;
+                            if (k9 == SymbolKind::CompilationUnit) {
+                                unitEnumSym9 = true;
+                                break;
+                            }
+                            if (k9 == SymbolKind::Package ||
+                                k9 == SymbolKind::InstanceBody ||
+                                k9 == SymbolKind::GenerateBlock ||
+                                k9 == SymbolKind::Subroutine)
+                                break;
+                        }
                     if (nv.symbol.kind == SymbolKind::EnumValue &&
-                        !defGenProcessEmit) {
+                        !defGenProcessEmit &&
+                        !(inGenScopeCaRhs && unitEnumSym9)) {
                         if (auto eit = enumConstMap.find(&nv.symbol);
                             eit != enumConstMap.end() &&
                             eit->second->UhdmType() == UHDM::uhdmenum_const) {
@@ -3432,6 +3483,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (inLhs)
                             selWholeWrittenVars.insert(&nv.symbol);
                     }
+                }
+                // A GEN-SCOPE cont-assign RHS reference to a `$unit`-scope
+                // ENUM CONSTANT stays UNBOUND.  The compilation unit is
+                // compiled before any instance, so a generate block's scope
+                // map cannot reach its enum consts — where the SAME
+                // reference written in a module-level cont-assign binds the
+                // shared enum_const, and a MODULE/PACKAGE enum binds even
+                // inside the gen scope (u2r MultirangesStartNotFromZero /
+                // hier_path).  Scr1SvTests is the measurement: of golden's
+                // 621 enum-const bindings, ZERO sit inside a generate scope,
+                // and scr1_mem_axi's `assign core_resp = axi_reinit ?
+                // SCR1_MEM_RESP_NOTRDY : rcvd_resp;` (inside `if
+                // (SCR1_AXI_RESP_BP == 1) begin : axi_resp_bp`) is bare in
+                // the def view and in both elab instances, while
+                // scr1_pipe_hdu's module-level `... ? SCR1_CSR_RESP_ER :
+                // SCR1_CSR_RESP_OK` binds both.  The ternary is NOT the
+                // discriminator — those hdu/exu/core_top ternary branches
+                // bind — the generate scope plus the $unit home is.
+                else if (inGenScopeCaRhs &&
+                         nv.symbol.kind == SymbolKind::EnumValue && [&] {
+                             for (auto sc9 = nv.symbol.getParentScope(); sc9;
+                                  sc9 = sc9->asSymbol().getParentScope()) {
+                                 auto k9 = sc9->asSymbol().kind;
+                                 if (k9 == SymbolKind::CompilationUnit)
+                                     return true;
+                                 if (k9 == SymbolKind::Package ||
+                                     k9 == SymbolKind::InstanceBody ||
+                                     k9 == SymbolKind::GenerateBlock ||
+                                     k9 == SymbolKind::Subroutine)
+                                     return false;
+                             }
+                             return false;
+                         }()) {
+                    // no actual of any kind
                 }
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
@@ -5544,7 +5629,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             inParamInit && !currentTf && !elabParamArgFold &&
                             paramInitDef &&
                             a->UhdmType() == UHDM::uhdmconstant;
-                        if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
+                        // A call inside a GEN-SCOPE process is a procedural
+                        // call exactly like a module-level one and binds no
+                        // formal typespec onto its actuals.  Surelog draws no
+                        // distinction; ours did, because inProcessEmit is set
+                        // only around emitModuleDef's process loop and the
+                        // gen_scope loop (ModuleEmit emitGenScope) sets
+                        // inGenScopeProc instead — so every always block
+                        // written inside a `generate` escaped the procedural
+                        // bar.  Scr1SvTests' scr1_memory_tb_axi is the
+                        // measurement: its `mem_read(araddr[gi], ...)` and
+                        // `mem_write(awready[gi] ? ... , wdata[gi], ...)` sit
+                        // in generate-scope always blocks and golden leaves
+                        // every actual bare, while the SAME design's
+                        // module-level `is_compliance(test_file)` in a plain
+                        // always block is bare on both sides already.
+                        if (isFunc && !inProcessEmit && !inGenScopeProc &&
+                            !caCondReduceStop && argCtxOk && !pkgScopedRef &&
                             !strFormalConst && !paramInitLit9 && !namedArgs9 &&
                             // A PROPERTY-DECL body's call args carry no
                             // formal-ts stamp (mriscv s2qed reg_map(inp1)).
