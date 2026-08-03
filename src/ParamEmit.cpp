@@ -9139,9 +9139,68 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // where a cast is emitted left the elab copy null and
                     // typespec::Compare reported it as `LHS=package
                     // RHS=<null>` (isParenCastWidthParam).
-                    if (isParenCastWidthParam(ps.name))
+                    // ...and so is the vpiExpr ref_obj the cast site binds
+                    // back to the parameter: golden carries it on all 16
+                    // copies of dev_addr_width_gp's declaration typespec,
+                    // while we only had it on the one copy ExprEmit's
+                    // pkg-cast path happened to touch (uhdm-cmp:
+                    // `ref_obj(dev_addr_width_gp) < int_typespec@1793:1
+                    // rhsNULL`, the whole-design first fail).
+                    // ...and the package it names is the DEF one in BOTH
+                    // views.  Surelog mints the cast typespec once, while
+                    // elaborating the package DEFINITION, and the elaborated
+                    // listing's copy is a clone that keeps the original's
+                    // vpiInstance pointer -- so golden's TopPackages
+                    // bp_common_pkg copy of dev_addr_width_gp's typespec
+                    // points at the DEF package, not at the copy listing it.
+                    // (Invisible to a name-only census: the two package
+                    // objects share VpiName and VpiLineNo; the DEF/TOP
+                    // discriminator in tools/probe/r10bbp5p.cpp is what
+                    // separates them.)
+                    UHDM::instance* pcInst9 = pkgScopeInst ? pkgScopeInst
+                                                           : (UHDM::instance*)m;
+                    if (auto* hs0 = ps.getParentScope();
+                        hs0 && hs0->asSymbol().kind == SymbolKind::Package)
+                        if (auto dit0 = pkgDefMap.find(&hs0->asSymbol());
+                            dit0 != pkgDefMap.end())
+                            pcInst9 = (UHDM::instance*)dit0->second;
+                    stampParenCastWidthTs(ps, up, its, pcInst9);
+                    // A RANGED untyped package param (`localparam [W-1:0] X`)
+                    // instances its int_typespec at THIS view's package --
+                    // unlike a plain untyped param, whose typespec golden
+                    // leaves instance-less (bp_be_pkg's 5 ranged localparams
+                    // vs bp_common_pkg's 62 plain ones, 0 instanced).  The
+                    // stamp is view-matched here (DEF listing -> DEF package,
+                    // elab listing -> elab package), and the import/module
+                    // copies below take the ELABORATED home instead.
+                    if (!typedParam && isRangedUntypedParam(ps))
                         its->Instance(pkgScopeInst ? pkgScopeInst
                                                    : (UHDM::instance*)m);
+                }
+                // An IMPORT COPY of a paren-cast width param carries the same
+                // pair, instanced at the parameter's HOME package -- the
+                // re-listing package never owns those marks.
+                if (inPackage && isImported && ps.getParentScope() &&
+                    ps.getParentScope()->asSymbol().kind ==
+                        SymbolKind::Package) {
+                    const void* homeC9 = &ps.getParentScope()->asSymbol();
+                    bool wantInst9 =
+                        its && its->UhdmType() == UHDM::uhdmint_typespec &&
+                        (isParenCastWidthParam(ps.name) ||
+                         (!typedParam && isRangedUntypedParam(ps)));
+                    UHDM::instance* hi9 = nullptr;
+                    if (auto tit9 = pkgTopMap.find(homeC9);
+                        tit9 != pkgTopMap.end())
+                        hi9 = (UHDM::instance*)tit9->second;
+                    else if (auto pit9 = pkgDefMap.find(homeC9);
+                             pit9 != pkgDefMap.end()) {
+                        hi9 = (UHDM::instance*)pit9->second;
+                        if (wantInst9)
+                            pkgImportTsTopFixups.emplace_back(its, homeC9);
+                    }
+                    stampParenCastWidthTs(ps, up, its, hi9);
+                    if (wantInst9 && !isParenCastWidthParam(ps.name) && hi9)
+                        its->Instance(hi9);
                 }
                 if (inPackage && typedParam)
                     stampPkgTsInst(its);
@@ -9160,7 +9219,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // a paren-cast width parameter (isParenCastWidthParam) —
                     // carries the stamp into the importing view too, because
                     // the module copy is a clone of that same object.
-                    if (typedParam || isParenCastWidthParam(ps.name)) {
+                    // ...and so does a RANGED untyped import, whose home copy
+                    // is instanced for the same reason (see the package arm).
+                    if (typedParam || isParenCastWidthParam(ps.name) ||
+                        isRangedUntypedParam(ps)) {
                         const void* home3 = &ps.getParentScope()->asSymbol();
                         if (auto tit = pkgTopMap.find(home3);
                             tit != pkgTopMap.end())
@@ -9171,6 +9233,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             pkgImportTsTopFixups.emplace_back(its, home3);
                         }
                     }
+                    // ...and the vpiExpr ref_obj travels with it (same law as
+                    // the package import copy above -- the mark belongs to the
+                    // parameter, not to the scope listing it).
+                    stampParenCastWidthTs(ps, up, its, nullptr);
                     // Remember it so a def-view fold that READS this imported
                     // param can carry a ref_typespec to it.
                     importedParamDefTs[&ps] = its;
@@ -9192,6 +9258,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         auto* itsR = makeParamTs(ps, typedParam);
                         syntaxRefPrefix = savedPfxR;
                         itsR->Instance(its->Instance());
+                        // The per-ref clone is still a copy of the SAME
+                        // declaration typespec, so it carries the paren-cast
+                        // marks too (golden: bp_be_pkg's Rhs-constant copy of
+                        // dev_addr_width_gp's ts, #7899425).
+                        stampParenCastWidthTs(ps, up, itsR, nullptr);
                         itsR->VpiParent(rhsRt);
                         rhsRt->Actual_typespec(itsR);
                     }
@@ -9224,6 +9295,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             itsL->Instance((UHDM::instance*)pitL->second);
                             pkgImportTsTopFixups.emplace_back(itsL, homeL);
                         }
+                    }
+                    // The Lhs clone is a copy of the same declaration
+                    // typespec: same paren-cast marks, same home instance.
+                    {
+                        UHDM::instance* liL9 = nullptr;
+                        if (isImported && ps.getParentScope() &&
+                            ps.getParentScope()->asSymbol().kind ==
+                                SymbolKind::Package) {
+                            const void* hL9 = &ps.getParentScope()->asSymbol();
+                            if (auto tL9 = pkgTopMap.find(hL9);
+                                tL9 != pkgTopMap.end())
+                                liL9 = (UHDM::instance*)tL9->second;
+                        }
+                        else if (inPackage)
+                            liL9 = pkgScopeInst ? pkgScopeInst
+                                                : (UHDM::instance*)m;
+                        stampParenCastWidthTs(ps, upLhs9 ? upLhs9 : up, itsL,
+                                              liL9);
                     }
                     itsL->VpiParent(prtLhs9);
                     prtLhs9->Actual_typespec(itsL);
@@ -10166,6 +10255,29 @@ void UhdmExporter::stampCastSizeParamTs(const ParameterSymbol& ps,
             r9->Actual_group(up);
         ic9->Cast_to_expr(r9);
     }
+}
+
+// See the header note: the paren-cast marks follow the PARAMETER, so every
+// copy of its declaration int_typespec gets them.  `inst` is the package the
+// copy's typespec instances at (null leaves whatever is already there).
+void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
+                                         UHDM::parameter* up,
+                                         UHDM::typespec* its,
+                                         UHDM::instance* inst) {
+    if (!its || its->UhdmType() != UHDM::uhdmint_typespec) return;
+    if (!isParenCastWidthParam(ps.name)) return;
+    auto* ic9 = (UHDM::int_typespec*)its;
+    if (inst) ic9->Instance(inst);
+    if (ic9->Cast_to_expr()) return;
+    auto* r9 = s.MakeRef_obj();
+    r9->VpiName(ps.name);
+    if (up) {
+        r9->VpiFullName(std::string(up->VpiFullName()) + "." +
+                        std::string(up->VpiName()));
+        r9->Actual_group(up);
+    }
+    r9->VpiParent(ic9);
+    ic9->Cast_to_expr(r9);
 }
 
 UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam,
@@ -11917,6 +12029,21 @@ void UhdmExporter::drainDefParamTs() {
         // the ELAB one.
         bool importAliasEnum0 =
             !pd.inPackage && importAliasEnumParam(*pd.ps);
+        // Is this listing a MATERIALIZED IMPORT COPY -- i.e. does the
+        // parameter live in a package other than the scope listing it?  (A
+        // module listing an imported package param always is.)
+        bool importCopy0 = false;
+        if (auto* hsC0 = pd.ps->getParentScope();
+            hsC0 && hsC0->asSymbol().kind == SymbolKind::Package && pd.m) {
+            const void* home0 = &hsC0->asSymbol();
+            auto dI0 = pkgDefMap.find(home0);
+            auto tI0 = pkgTopMap.find(home0);
+            importCopy0 =
+                !((dI0 != pkgDefMap.end() &&
+                   (UHDM::scope*)dI0->second == pd.m) ||
+                  (tI0 != pkgTopMap.end() &&
+                   (UHDM::scope*)tI0->second == pd.m));
+        }
         if (auto d0 = pd.ps->getDeclaredType()) {
             auto& dt0 = d0->getType();
             // A VECTOR typedef (typedef logic[X-1:0] my_type_t) is CLONED with a
@@ -11961,13 +12088,36 @@ void UhdmExporter::drainDefParamTs() {
             bool topPkgView = pd.inPackage && pd.m &&
                               pd.m->UhdmType() == UHDM::uhdmpackage &&
                               ((UHDM::package*)pd.m)->VpiTop();
-            if (topPkgView && !vectorAlias)
+            // ...but a package's RE-LISTED IMPORT COPY of another package's
+            // aggregate param shares NEITHER listing object: golden gives it
+            // its own struct_typespec instanced at the typedef's ELABORATED
+            // home package, in BOTH views, while the two shared objects carry
+            // the LISTING package's instance (bp_common_pkg[DEF] in the def
+            // listing, and -- last importer wins -- bp_be_pkg[DEF] in the elab
+            // one).  One object cannot hold two instances, so the copy has to
+            // be its own; that is exactly the 63 bp_proc_param_s-typed params
+            // bp_be_pkg re-exports from bp_common_pkg (126 rows, the last
+            // package-level residue).
+            bool importAggCopy0 = false;
+            if (pd.inPackage && importCopy0) {
+                auto ckI0 = dt0.getCanonicalType().kind;
+                importAggCopy0 =
+                    dt0.kind == SymbolKind::TypeAlias &&
+                    (ckI0 == SymbolKind::PackedStructType ||
+                     ckI0 == SymbolKind::PackedUnionType ||
+                     ckI0 == SymbolKind::UnpackedStructType);
+            }
+            if (importAggCopy0) {
+                // fall through to the fresh-clone path below; the
+                // import-copy instance law then stamps the home package.
+            }
+            else if (topPkgView && !vectorAlias)
                 if (auto tit0 = pkgTopTypedefTs.find((const void*)&dt0);
                     tit0 != pkgTopTypedefTs.end()) {
                     its = tit0->second;
                     sharedTs = true;
                 }
-            if (!its && !importAliasEnum0)
+            if (!its && !importAliasEnum0 && !importAggCopy0)
                 if (auto tit = typedefTs.find(&dt0);
                     tit != typedefTs.end() && !vectorAlias && !bareAggPkgTd) {
                     its = tit->second;
@@ -11993,9 +12143,18 @@ void UhdmExporter::drainDefParamTs() {
             defViewParamTs = true;
             // Which package LISTING this clone belongs to decides whether its
             // packed-array dim bounds fold (see paramTsElabPkgView).
-            paramTsElabPkgView = pd.inPackage && pd.m &&
-                                 pd.m->UhdmType() == UHDM::uhdmpackage &&
-                                 ((UHDM::package*)pd.m)->VpiTop();
+            // ...and a MATERIALIZED IMPORT COPY folds in EVERY listing: THE
+            // IMPORT-COPY LAW says the copy is cloned out of the importing
+            // scope's ELABORATED symbol table, so it carries the source
+            // package's elaborated shape even in a def listing.  Measured on
+            // all_cfgs_gp (`bp_proc_param_s [max_cfgs-1:0]`): golden folds the
+            // left bound to a constant in all six copies OUTSIDE
+            // bp_common_pkg's own def listing, which alone keeps the
+            // `max_cfgs-1` operation.
+            paramTsElabPkgView = importCopy0 ||
+                                 (pd.inPackage && pd.m &&
+                                  pd.m->UhdmType() == UHDM::uhdmpackage &&
+                                  ((UHDM::package*)pd.m)->VpiTop());
             if (!currentScope)
                 currentScope = pd.ps->getParentScope();
             // A DEF-view aggregate CLONE is shaped like the elab one: member
@@ -12016,8 +12175,40 @@ void UhdmExporter::drainDefParamTs() {
             currentScope = savedCS;
             syntaxRefPrefix = savedPfx2;
         }
-        if (pd.inPackage && !sharedTs && pd.typedParam)
-            its->Instance((UHDM::instance*)pd.m);
+        if (pd.inPackage && !sharedTs && pd.typedParam) {
+            // THE IMPORT-COPY INSTANCE LAW, deferred-clone arm.  A package
+            // that wildcard-imports another RE-LISTS the imported parameter,
+            // and the re-listed copy's typespec instances at the parameter's
+            // HOME package -- never at the re-exporting one.  The direct
+            // (non-deferred) arm already does this through stampPkgTsInst;
+            // the deferred arm stamped the LISTING package unconditionally,
+            // which put bp_be_pkg on bp_common_pkg's all_cfgs_gp
+            // packed_array_typespec in BOTH listings (BlackBePipeInt: golden
+            // has bp_common_pkg on all four copies).  And the home package it
+            // reaches is the ELABORATED (top) one, exactly as
+            // stampPkgTsInst/pkgImportTsTopFixups resolve it -- drainDefParamTs
+            // runs after every package is emitted, so pkgTopMap is complete
+            // here and no fixup pass is needed.
+            UHDM::instance* inst9 = (UHDM::instance*)pd.m;
+            if (auto* hs9 = pd.ps->getParentScope();
+                hs9 && hs9->asSymbol().kind == SymbolKind::Package) {
+                const void* home9 = &hs9->asSymbol();
+                auto dit9 = pkgDefMap.find(home9);
+                auto tit9 = pkgTopMap.find(home9);
+                bool isHomeListing9 =
+                    (dit9 != pkgDefMap.end() &&
+                     (UHDM::scope*)dit9->second == pd.m) ||
+                    (tit9 != pkgTopMap.end() &&
+                     (UHDM::scope*)tit9->second == pd.m);
+                if (!isHomeListing9) {
+                    if (tit9 != pkgTopMap.end())
+                        inst9 = (UHDM::instance*)tit9->second;
+                    else if (dit9 != pkgDefMap.end())
+                        inst9 = (UHDM::instance*)dit9->second;
+                }
+            }
+            its->Instance(inst9);
+        }
         if (pd.di)
             pd.di->paramTs[pd.member] = its;
         if (pd.rhsRt)

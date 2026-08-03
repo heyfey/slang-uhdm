@@ -3647,6 +3647,17 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             // view = <w>'b<bits>.
             bool refInit = evInit && stripImplicitConv(*evInit).kind ==
                                          ExpressionKind::NamedValue;
+            // ...except in an IMPORT-LISTING CLONE, where a plain ref init
+            // folds exactly like a computed one: golden's clone of
+            // bp_common_pkg::bp_bedrock_fill_type_e (the object the module
+            // listing shows) carries `4'b0100` / BIN:0100 for
+            // `e_bedrock_fill_data = e_bedrock_cmd_data`, while the home
+            // package's own DEF listing keeps `e_bedrock_cmd_data` / INT:4.
+            // Same family as the concat clone rules importCloneEmit already
+            // gates -- a clone re-elaborates the member through the datatype
+            // map, which holds the resolved value, not the source reference.
+            if (refInit && importCloneEmit)
+                refInit = false;
             // § unitArith (see the note above the loop): a $unit enum's
             // ARITHMETIC init leaves the computed BIN form to the digits
             // branch below.
@@ -3743,7 +3754,15 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 // {RV_32E,RV_M | RV_C} -> {4'b1100,263168}.
                 if (importCloneEmit) {
                     auto& init8 = stripImplicitConv(*evInit);
-                    if (init8.kind == ExpressionKind::Concatenation) {
+                    // A BARE ref init folds to the same `<w>'b<bits>` form the
+                    // concat rule gives each ref operand, at the enum's own
+                    // base width (BlackBePipeInt
+                    // `e_bedrock_fill_data = e_bedrock_cmd_data` ->
+                    // `4'b0100`, while the home package's def listing keeps
+                    // the source reference).
+                    if (init8.kind == ExpressionKind::NamedValue)
+                        ec->VpiDecompile(std::to_string(w) + "'b" + bits);
+                    else if (init8.kind == ExpressionKind::Concatenation) {
                         bool anyOp8 = false;
                         for (auto* op8 :
                              init8.as<ConcatenationExpression>().operands())

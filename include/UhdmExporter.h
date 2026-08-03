@@ -1024,6 +1024,19 @@ private:
     // it. ExprEmit's cast path then reuses this very object.
     void stampCastSizeParamTs(const slang::ast::ParameterSymbol& ps,
                               UHDM::parameter* up, UHDM::typespec* its);
+    // A `(P)'(x)` PAREN-cast width parameter (isParenCastWidthParam): Surelog
+    // reuses P's own declaration int_typespec as the cast target, and the
+    // marks that leaves -- vpiInstance = the package the cast is written in,
+    // plus a vpiExpr ref_obj bound back to the parameter -- are properties of
+    // the PARAMETER, so EVERY copy of its declaration typespec carries them,
+    // in every view and every importing scope (the elaborated listings fold
+    // the cast away entirely and golden's copies are marked all the same).
+    // ExprEmit's cast path reaches the def-package copy through
+    // pkgScopeParamTs and stamps it there; this is the same stamp for the
+    // copies no cast site ever visits.
+    void stampParenCastWidthTs(const slang::ast::ParameterSymbol& ps,
+                               UHDM::parameter* up, UHDM::typespec* its,
+                               UHDM::instance* inst);
     bool srlgFullySpecType(const slang::ast::Type& type, int depth);
     // Surelog's value for a declaration-dimension bound that calls
     // $high/$low/$left/$right on an UNPACKED array: those four never resolve
