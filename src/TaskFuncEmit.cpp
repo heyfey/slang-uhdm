@@ -1794,6 +1794,50 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 rng3->VpiParent(ets);
                                 if (ds3)
                                     setLoc(rng3, ds3->range);
+                                // A SYMBOLIC element bound (`logic [WIDTH-1:0]
+                                // set_clear[2]` in a function) stays UNFOLDED,
+                                // exactly like the same declaration without the
+                                // unpacked dim — Surelog keeps the WIDTH-1
+                                // operation in the element typespec of both
+                                // views (rggen_bit_field get_sw_next_value).
+                                const syntax::ExpressionSyntax* sl3 = nullptr;
+                                const syntax::ExpressionSyntax* sr4 = nullptr;
+                                if (tsyn3->kind == syntax::SyntaxKind::LogicType ||
+                                    tsyn3->kind == syntax::SyntaxKind::RegType ||
+                                    tsyn3->kind == syntax::SyntaxKind::BitType) {
+                                    auto& ity3 =
+                                        tsyn3->as<syntax::IntegerTypeSyntax>();
+                                    if (!ity3.dimensions.empty()) {
+                                        auto* dim3 = ity3.dimensions.back();
+                                        if (dim3->specifier &&
+                                            dim3->specifier->kind ==
+                                                syntax::SyntaxKind::
+                                                    RangeDimensionSpecifier) {
+                                            auto& sel3 =
+                                                *dim3->specifier
+                                                     ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                                     .selector;
+                                            if (sel3.kind ==
+                                                syntax::SyntaxKind::
+                                                    SimpleRangeSelect) {
+                                                auto& rss3 =
+                                                    sel3.as<syntax::RangeSelectSyntax>();
+                                                sl3 = rss3.left;
+                                                sr4 = rss3.right;
+                                            }
+                                        }
+                                    }
+                                }
+                                auto symB3 =
+                                    [&](const syntax::ExpressionSyntax* e3)
+                                    -> UHDM::expr* {
+                                    if (!e3 ||
+                                        e3->kind ==
+                                            syntax::SyntaxKind::IntegerLiteralExpression)
+                                        return nullptr;
+                                    return (UHDM::expr*)emitSyntaxExpr(*e3,
+                                                                       rng3);
+                                };
                                 auto mkR3 = [&](int64_t bv,
                                                 const SourceRange* bl)
                                     -> UHDM::expr* {
@@ -1808,10 +1852,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                         setLoc(c3, *bl);
                                     return c3;
                                 };
+                                auto* le3 = symB3(sl3);
+                                auto* re3 = symB3(sr4);
                                 rng3->Left_expr(
-                                    mkR3(pr3.left, ds3 ? &ds3->left : nullptr));
+                                    le3 ? le3
+                                        : mkR3(pr3.left,
+                                               ds3 ? &ds3->left : nullptr));
                                 rng3->Right_expr(
-                                    mkR3(pr3.right, ds3 ? &ds3->right : nullptr));
+                                    re3 ? re3
+                                        : mkR3(pr3.right,
+                                               ds3 ? &ds3->right : nullptr));
                                 auto* rvec3 = s.MakeRangeVec();
                                 rvec3->push_back(rng3);
                                 if (lts)

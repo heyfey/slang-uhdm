@@ -4724,6 +4724,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto& x8 = stripImplicitConv(e8);
                     if (x8.kind == ExpressionKind::IntegerLiteral)
                         return srlgLitEnc(rawTextLit(x8), o8);
+                    // A DEGENERATE unbased-unsized fill ('0) enters the
+                    // pipeline as an UNSIZED BINARY 0 — adjustSize's
+                    // orig_size == -1 tail then pads it to each hop's target
+                    // width, exactly as it does for an unsized based literal.
+                    // So `#(.BASE_ADDRESS(BA))` with `bit [AW-1:0] BA = '0`
+                    // lands BIN:0 size <w> decompile <w>'b0, not the decimal
+                    // UINT fold (rggen_apb_adapter). '1 and 'x/'z keep their
+                    // existing (measured) paths.
+                    if (x8.kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral) {
+                        logic_t lb8 = x8.as<UnbasedUnsizedIntegerLiteral>()
+                                          .getLiteralValue();
+                        if (lb8.isUnknown() || lb8.value != 0)
+                            return false;
+                        o8.ct = vpiBinaryConst;
+                        o8.dg = "0";
+                        // The fill takes the DECLARED width of the parameter
+                        // it initialises (the context type slang gives the
+                        // literal); adjustSize has no arm for a `bit` target,
+                        // so the size has to come from here.
+                        const Type* ut8 = e8.type ? e8.type : x8.type;
+                        o8.size = (ut8 && ut8->isIntegral() &&
+                                   ut8->getBitWidth() > 0 &&
+                                   ut8->getBitWidth() <= 64)
+                                      ? (int32_t)ut8->getBitWidth()
+                                      : -1;
+                        return true;
+                    }
                     if (x8.kind == ExpressionKind::NamedValue) {
                         auto& sy8 = x8.as<NamedValueExpression>().symbol;
                         if (sy8.kind != SymbolKind::Parameter)

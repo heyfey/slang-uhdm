@@ -576,6 +576,29 @@ static std::string spaceIdxOps(const std::string& in) {
     return o;
 }
 
+// A hier_path index that REDUCES renders the reduced value in the path NAME
+// (Surelog names the path from the elaborated select):
+// bus_if.access[RGGEN_ACCESS_DATA_BIT] -> bus_if.access[0].  Only a
+// WILDCARD-IMPORTED package parameter reduces here — a module-local localparam
+// index stays an unfolded ref_obj, name and all, and a QUALIFIED pkg::P read
+// keeps its text too (measured against Surelog: `access[L]` keeps `L`).
+// Returns the empty string when the index does not reduce.
+static std::string reducedImportedIdx(
+    const Expression& sel, const std::string& rawIdx,
+    slang::ast::Compilation& comp,
+    const std::map<const slang::ast::Symbol*, UHDM::typespec*>& importedTs) {
+    auto& s9 = stripImplicitConv(sel);
+    if (s9.kind != ExpressionKind::NamedValue ||
+        rawIdx.find("::") != std::string::npos ||
+        !importedTs.count(&s9.as<NamedValueExpression>().symbol))
+        return {};
+    ASTContext ctx9(comp.getRoot(), LookupLocation::max);
+    ConstantValue cv9 = ctx9.tryEval(s9);
+    if (!cv9 || !cv9.isInteger() || cv9.integer().hasUnknown())
+        return {};
+    return cv9.integer().toString(slang::LiteralBase::Decimal, false);
+}
+
 // True when the enclosing instance's parameter object for `name` carries NO
 // typespec — an UNTYPED parameter whose initializer is COMPUTED rather than
 // literal (`parameter AW = $clog2(DEPTH)`), for which Surelog stores neither a
@@ -2348,8 +2371,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool procPsFold9 = inProcessEmit && !inParamInit && parent &&
                                        parent->UhdmType() ==
                                            UHDM::uhdmpart_select;
+                    // The SAME bit-select index rule outside a process — a
+                    // cont-assign RHS select (`assign o = access[W];`) and a
+                    // task/function BODY select (rggen_register_common
+                    // get_mask's `access[RGGEN_ACCESS_DATA_BIT]`) both parent
+                    // the fold at the select and name the ts ref after it.
+                    // The non-process fold binds its OWN clone of the imported
+                    // param's typespec (one per reference — Surelog), unlike
+                    // the process fold, which shares the def object.
+                    bool selFold9 = !inProcessEmit && !inParamInit && parent &&
+                                    parent->UhdmType() == UHDM::uhdmbit_select;
                     if ((parent && parent->UhdmType() == UHDM::uhdmoperation) ||
-                        procSelFold9)
+                        procSelFold9 || selFold9)
                         c->VpiParent(parent);
                     // A DEF param-init SYS-FUNC-CALL argument fold reading an
                     // imported param ($clog2(DATA_WIDTH) with DATA_WIDTH an
@@ -2406,7 +2439,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || tfOpFold9 || sysFuncArgFold ||
-                        procSelFold9 || procPsFold9)
+                        procSelFold9 || procPsFold9 || selFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -2417,7 +2450,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rawText(expr.sourceRange).find("::") ==
                                 std::string::npos) {
                             auto* rt = s.MakeRef_typespec();
-                            if (procSelFold9)
+                            if (procSelFold9 || selFold9)
                                 rt->VpiFullName(
                                     ((UHDM::bit_select*)parent)->VpiFullName());
                             else
@@ -2427,9 +2460,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // imported param's typespec (Surelog mints one per
                             // reference); other folds share the def object.
                             bool caFold9 =
-                                parent &&
-                                parent->UhdmType() == UHDM::uhdmcont_assign &&
-                                contAssignView != 2 &&
+                                ((parent &&
+                                  parent->UhdmType() == UHDM::uhdmcont_assign &&
+                                  contAssignView != 2) ||
+                                 selFold9) &&
                                 nv.symbol.kind == SymbolKind::Parameter;
                             if (caFold9) {
                                 std::string savedPfx9 = syntaxRefPrefix;
@@ -2447,7 +2481,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // The imported-param sys-func fold re-parents the
                             // folded constant at the pkg param's param_assign;
                             // so does a cont-assign fold.
-                            if (sysFuncArgFold || caFold9 || procPsFold9)
+                            // ...but a bit-select fold keeps the SELECT as
+                            // its parent (set above), not the pkg param_assign.
+                            if ((sysFuncArgFold || caFold9 || procPsFold9) &&
+                                !selFold9)
                                 if (auto cIt = pkgParamConst.find(&nv.symbol);
                                     cIt != pkgParamConst.end() &&
                                     cIt->second->VpiParent())
@@ -5853,7 +5890,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 for (auto it2 = chain.rbegin(); it2 != chain.rend(); ++it2)
                     dotted +=
                         "." + std::string((*it2)->as<MemberAccessExpression>().member.name);
-                dotted += "[" + rawText(es.selector().sourceRange) + "]";
+                std::string idxTxt9 = rawText(es.selector().sourceRange);
+                if (auto red9 = reducedImportedIdx(es.selector(), idxTxt9, comp,
+                                                   importedParamDefTs);
+                    !red9.empty())
+                    idxTxt9 = red9;
+                dotted += "[" + idxTxt9 + "]";
                 hp->VpiName(dotted);
                 hp->VpiFullName(dotted);
                 hp->VpiParent(parent);
@@ -6042,6 +6084,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     std::string baseDotted = rawText(es.value().sourceRange);
                     if (baseDotted.find('.') != std::string::npos) {
                         std::string selText = spaceIdxOps(selName(rawText(expr.sourceRange)));
+                        if (auto red9 = reducedImportedIdx(
+                                es.selector(),
+                                rawText(es.selector().sourceRange), comp,
+                                importedParamDefTs);
+                            !red9.empty() && !selText.empty() &&
+                            selText.back() == ']') {
+                            auto ob9 = selText.rfind('[');
+                            if (ob9 != std::string::npos)
+                                selText = selText.substr(0, ob9 + 1) + red9 + "]";
+                        }
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);
                         hp->VpiFullName(selText);

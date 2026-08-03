@@ -151,12 +151,15 @@ static bool genLocalVarClass(UHDM::Serializer& s, const Type& ct,
                 return false;
         }
     }
+    // MULTI-DIM packed vectors ([N-1:0][W-1:0] masked_data) unwrap every
+    // packed level: a gen-scope local declared that way is still a plain
+    // logic/bit var whose typespec carries one range per dim (rggen_mux's
+    // `logic [ENTRIES-1:0][WIDTH-1:0] masked_data`; a single-level unwrap
+    // dropped the declaration from both the def-view named_begin and the
+    // elab gen_scope Variables).
     const Type* base = &ct;
-    if (ct.kind == SymbolKind::PackedArrayType) {
-        auto& el = ct.as<PackedArrayType>().elementType.getCanonicalType();
-        if (el.kind != SymbolKind::ScalarType)
-            return false;
-        base = &el;
+    while (base->kind == SymbolKind::PackedArrayType) {
+        base = &base->as<PackedArrayType>().elementType.getCanonicalType();
         ranged = true;
     }
     if (base->kind != SymbolKind::ScalarType)
@@ -17478,16 +17481,28 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
             // (a signed `parameter int DLY`) — Surelog keeps it on the dup too.
             if (hp->VpiSigned())
                 p2->VpiSigned(true);
-            if (psym && hp->Typespec()) {
+            // A WILDCARD-IMPORTED package parameter reaches the interface
+            // through `import pkg::*`, so it has no ParameterSymbol in the
+            // iface body — but the col-0 dup still carries its vpiImported tag
+            // and its typespec, both copied from the home view (Surelog).
+            if (!hp->VpiImported().empty())
+                p2->VpiImported(std::string(hp->VpiImported()));
+            if (hp->Typespec()) {
                 auto* prt2 = s.MakeRef_typespec();
                 prt2->VpiFullName(std::string(hp->Typespec()->VpiFullName()));
                 prt2->VpiParent(p2);
                 p2->Typespec(prt2);
-                bool typedP = false;
-                if (auto d0 = psym->getDeclaredType())
-                    if (auto t0 = d0->getTypeSyntax())
-                        typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
-                pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
+                if (psym) {
+                    bool typedP = false;
+                    if (auto d0 = psym->getDeclaredType())
+                        if (auto t0 = d0->getTypeSyntax())
+                            typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
+                    pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
+                } else {
+                    // No symbol to re-resolve from: SHARE the home view's
+                    // resolved typespec once the deferred passes have filled it.
+                    netTsAlias.push_back({prt2, hp->Typespec()});
+                }
             }
             dparams->push_back(p2);
         }
@@ -17732,16 +17747,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // col-0 tail dup does (iface_ff_genvar_partsel).
             if (p0->VpiSigned())
                 p2->VpiSigned(true);
-            if (psym && p0->Typespec()) {
+            // A WILDCARD-IMPORTED package parameter has no ParameterSymbol in
+            // the iface body; the port-view duplicate still carries its
+            // vpiImported tag and shares the home view's typespec (Surelog).
+            if (!p0->VpiImported().empty())
+                p2->VpiImported(std::string(p0->VpiImported()));
+            if (p0->Typespec()) {
                 auto* prt2 = s.MakeRef_typespec();
                 prt2->VpiFullName(std::string(p0->Typespec()->VpiFullName()));
                 prt2->VpiParent(p2);
                 p2->Typespec(prt2);
-                bool typedP = false;
-                if (auto d0 = psym->getDeclaredType())
-                    if (auto t0 = d0->getTypeSyntax())
-                        typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
-                pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
+                if (psym) {
+                    bool typedP = false;
+                    if (auto d0 = psym->getDeclaredType())
+                        if (auto t0 = d0->getTypeSyntax())
+                            typedP = t0->kind != syntax::SyntaxKind::ImplicitType;
+                    pendingParamTs.push_back({psym, p2, prt2, nullptr, typedP});
+                } else {
+                    netTsAlias.push_back({prt2, p0->Typespec()});
+                }
             }
             plist->push_back(p2);
         }
