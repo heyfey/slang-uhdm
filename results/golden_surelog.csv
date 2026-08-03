@@ -81,8 +81,8 @@ BadScope,default,SLANG_REJECT,dut.sv:17:5: error: use of undeclared identifier '
 BadScope,testflags,SLANG_REJECT,dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
 BasicOh,default,CMP_EQUAL,,,differ
 BasicOh,testflags,CMP_EQUAL,,,differ
-BeginKeywords,default,CMP_NOTEQUAL,decompile:,,
-BeginKeywords,testflags,CMP_NOTEQUAL,decompile:,,
+BeginKeywords,default,CMP_EQUAL,,,match
+BeginKeywords,testflags,CMP_EQUAL,,,match
 BiasValue,default,CMP_EQUAL,,,differ
 BiasValue,testflags,CMP_EQUAL,,,differ
 BinarySize,default,CMP_EQUAL,,,match
@@ -825,8 +825,8 @@ LogicCast,default,SLANG_REJECT,dut.sv:3:3: error: use of undeclared identifier '
 LogicCast,testflags,SLANG_REJECT,dut.sv:3:3: error: use of undeclared identifier 'dmstatus',,
 LogicSize,default,CMP_EQUAL,,,match
 LogicSize,testflags,CMP_EQUAL,,,differ
-LogicTypedef,default,CMP_NOTEQUAL,decompile:,,
-LogicTypedef,testflags,CMP_NOTEQUAL,decompile:,,
+LogicTypedef,default,CMP_EQUAL,,,differ
+LogicTypedef,testflags,CMP_EQUAL,,,differ
 LogicTypespec,default,CMP_EQUAL,,,differ
 LogicTypespec,testflags,CMP_EQUAL,,,differ
 LongHex,default,CMP_NOTEQUAL,decompile:,,
@@ -929,8 +929,8 @@ OneNetModPort,default,CMP_EQUAL,,,differ
 OneNetModPort,testflags,CMP_EQUAL,,,differ
 OneNetModPortGeneric,default,CMP_NOTEQUAL,decompile:,,
 OneNetModPortGeneric,testflags,CMP_NOTEQUAL,decompile:,,
-OneNetNonAnsi,default,CMP_NOTEQUAL,decompile:,,
-OneNetNonAnsi,testflags,CMP_NOTEQUAL,decompile:,,
+OneNetNonAnsi,default,CMP_EQUAL,,,match
+OneNetNonAnsi,testflags,CMP_EQUAL,,,match
 OneNetRange,default,CMP_EQUAL,,,differ
 OneNetRange,testflags,CMP_EQUAL,,,differ
 Opentitan,default,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,

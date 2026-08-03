@@ -533,6 +533,30 @@ inline void collectTypeParamArgTypes(const InstanceBodySymbol& body,
     }
 }
 
+// The integer-vector KEYWORD a (possibly chained) typedef was written with --
+// `reg`/`logic`/`bit`, or Unknown for anything else.  Surelog carries the
+// written keyword through the alias chain: `typedef reg [1:0] R; R y;` is a
+// vpiReg(48) net exactly like `reg [1:0] y;`, while the same typedef spelled
+// `logic` gives vpiNet(36) and a logic_var (LogicTypedef, plus a 4-case
+// typedef/typedef-of-typedef probe).
+inline syntax::SyntaxKind aliasVectorKeyword(const Type& t) {
+    const Type* cur = &t;
+    for (int guard = 0; guard < 32; guard++) {
+        while (cur->kind == SymbolKind::PackedArrayType)
+            cur = &cur->as<PackedArrayType>().elementType;
+        if (cur->kind != SymbolKind::TypeAlias)
+            return syntax::SyntaxKind::Unknown;
+        auto& ta = cur->as<TypeAliasType>();
+        if (auto* tsyn = ta.targetType.getTypeSyntax())
+            if (tsyn->kind == syntax::SyntaxKind::RegType ||
+                tsyn->kind == syntax::SyntaxKind::LogicType ||
+                tsyn->kind == syntax::SyntaxKind::BitType)
+                return tsyn->kind;
+        cur = &ta.targetType.getType();
+    }
+    return syntax::SyntaxKind::Unknown;
+}
+
 inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
     // A `parameter type T`-typed port carries no net type (Surelog).
     if (portTypeParam(internal))
@@ -648,6 +672,9 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
                         if (auto sc = la->as<TypeAliasType>().getParentScope();
                             sc && sc->asSymbol().kind == SymbolKind::Package)
                             return 0;
+                    // A `reg`-written typedef nets as vpiReg, not vpiNet.
+                    if (aliasVectorKeyword(t) == syntax::SyntaxKind::RegType)
+                        return vpiReg;
                     return vpiNet;
                 }
             }

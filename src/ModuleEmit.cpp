@@ -365,6 +365,49 @@ static bool isNonAnsiHeader(const InstanceBodySymbol& body) {
            hdr->ports->as<slang::syntax::AnsiPortListSyntax>().ports.empty();
 }
 
+// Surelog's VERILOG-mode lexer (a `.v` root file -- verilogLexMode) has no
+// `logic` keyword, so `logic x;` parses as "user type `logic`, signal x".  In
+// a NON-ANSI-header module that unresolved bare NAME hits the same definition-
+// writer gap `namedTypeNet` models for a real typedef, and elaboration never
+// finds a data type either -- so the declaration stays a NET in BOTH views.
+// Measured on a purpose-built matrix (Verilog mode unless noted):
+//
+//   module m();  logic q;        -> def net BARE (no ts, no netType)
+//                                   top NET, ts = the `logic` keyword span
+//   module m();  logic z = 1;    -> ordinary: def ts + netType 36, top logic_var
+//   module m(input a); logic q;  -> ordinary (ANSI header resolves it)
+//   module m();  reg r; / wire w;-> unchanged (Verilog-1995 keywords: 48 / 1)
+//   module m();  logic [1:0] v;  -> def ts but NO netType, top logic_var
+//   interface If; logic d;       -> ordinary (interfaces are unaffected)
+//   .sv file, any of the above   -> ordinary
+//
+// BeginKeywords, OneNetNonAnsi.  (The `logic [1:0]` def-view netType residue
+// is left ranked, not fixed: no suite test carries that written form in a .v.
+// Ranked alongside it, also 0 movers: a DIRECTIONLESS bare-`wire` ANSI port
+// (`module m(wire a, b);`) carries no vpiNetType, no net typespec and no port
+// vpiTypedef in golden — we stamp netType 1 and a logic_typespec.  Measured,
+// but neither corpus contains the form, so it is not worth the port-routing
+// risk.)
+bool UhdmExporter::vlogUnresolvedLogicNet(const Symbol& sym) {
+    auto* dt = sym.getDeclaredType();
+    if (!dt || dt->getInitializer())
+        return false;
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != slang::syntax::SyntaxKind::LogicType)
+        return false;
+    auto& its = tsyn->as<slang::syntax::IntegerTypeSyntax>();
+    if (!its.dimensions.empty() || its.signing.valid())
+        return false;
+    auto* ps = sym.getParentScope();
+    if (!ps || ps->asSymbol().kind != SymbolKind::InstanceBody)
+        return false;
+    auto& ib = ps->asSymbol().as<InstanceBodySymbol>();
+    if (ib.getDefinition().definitionKind != DefinitionKind::Module ||
+        !isNonAnsiHeader(ib))
+        return false;
+    return verilogLexMode(tsyn->sourceRange().start());
+}
+
 bool UhdmExporter::isLibraryCell(const DefinitionSymbol& def) {
     return def.syntaxTree && def.syntaxTree->isLibraryUnit;
 }
@@ -601,7 +644,8 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                       .kind == SymbolKind::PackedArrayType;
         // A CLASS-SCOPE-typed net carries no net type either: Surelog never
         // resolved the alias, so none of the alias-driven tags apply.
-        if (int32_t nt = (aliasOfAlias0 || classScopeTypeRef(*it.sym))
+        if (int32_t nt = (aliasOfAlias0 || classScopeTypeRef(*it.sym) ||
+                          vlogUnresolvedLogicNet(*it.sym))
                              ? 0
                              : netTypeFor(*it.sym, true))
             n->VpiNetType(nt);
@@ -698,6 +742,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     namedTypeNet = true;
             }
         }
+        // ...and in Verilog lex mode a bare `logic` IS such a name.
+        if (vlogUnresolvedLogicNet(*it.sym))
+            namedTypeNet = true;
         // A local net typed by a typedef used as a child instance's `type`
         // parameter argument stays a bare logic_net in the def view.
         bool typeParamArgNet =
@@ -4266,8 +4313,18 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // MODULE-LOCAL vector-typedef NET clones in the elab view
                 // carry a Typedef_alias ref to the shared module ts and the
                 // module Instance (Surelog, net_types). Var-backed signals
-                // keep the bare-clone form.
-                else if (it.sym->kind == SymbolKind::Net &&
+                // keep the bare-clone form — and what counts is whether the
+                // ELAB object is a net, so a `reg`-written typedef (a slang
+                // Variable that stays a logic_net, LogicTypedef) joins the
+                // net arm.
+                // RANKED RESIDUE (LogicTypedef, cmp-equal / bytes differ): the
+                // reg clone lands in the DEF-drain slot of the weaklyReferenced
+                // tail and keeps a vpiParent, where Surelog puts it in the
+                // alias group (after the bit def clone) with none.  Nothing
+                // references it in either tool.
+                else if ((it.sym->kind == SymbolKind::Net ||
+                          aliasVectorKeyword(tv) ==
+                              syntax::SyntaxKind::RegType) &&
                          ts->UhdmType() == UHDM::uhdmlogic_typespec &&
                          !((UHDM::logic_typespec*)ts)->Typedef_alias()) {
                     if (auto tit9 = typedefTs.find(&tv);
@@ -5322,7 +5379,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             else
                 setLoc(n, regNetSpan(*it.sym));
             if (!isStruct) {
-                if (int32_t nt = netTypeFor(*it.sym))
+                if (int32_t nt = vlogUnresolvedLogicNet(*it.sym)
+                                     ? 0
+                                     : netTypeFor(*it.sym))
                     ((UHDM::logic_net*)n)->VpiNetType(nt);
                 // An explicit PREDEFINED-INTEGER net decl (wire integer x)
                 // prints NO vpiSigned in the module listing (Surelog).

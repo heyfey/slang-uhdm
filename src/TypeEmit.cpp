@@ -2662,11 +2662,20 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
     if (!declared)
         return nullptr;
     auto& ct = declared->getType().getCanonicalType();
+    // A Verilog-mode module-scope `logic x;` Surelog never resolved stays a
+    // NET through elaboration (vlogUnresolvedLogicNet).
+    if (vlogUnresolvedLogicNet(internal))
+        return nullptr;
     // Non-port `logic` variables become logic_vars in the elaborated view;
-    // `reg` declarations stay logic_nets.
+    // `reg` declarations stay logic_nets — and the `reg` keyword travels
+    // through a typedef chain (`typedef reg [1:0] R; R y;` is a net with
+    // vpiNetType 48, LogicTypedef), so read the WRITTEN keyword behind the
+    // alias, not the resolved type.
     bool regDecl = false;
     if (auto tsyn = declared->getTypeSyntax())
-        regDecl = tsyn->kind == syntax::SyntaxKind::RegType;
+        regDecl = tsyn->kind == syntax::SyntaxKind::RegType ||
+                  aliasVectorKeyword(declared->getType()) ==
+                      syntax::SyntaxKind::RegType;
     // A `parameter type T`-typed port elaborates as a variable of its resolved
     // type (Surelog), even though the def view keeps it a net.
     bool typeParamPort = portTypeParam(internal) != nullptr;

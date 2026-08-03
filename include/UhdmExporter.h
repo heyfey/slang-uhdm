@@ -1048,6 +1048,16 @@ private:
     /// with it the emitted spans, so it is a model input (see the `logic`
     /// net-declaration rule in materializeDefNetTs).
     bool verilogLexMode(slang::SourceLocation loc);
+    /// A MODULE-scope `logic x;` (bare keyword, no dims/signing, no
+    /// initializer) that Surelog never resolves: its Verilog-mode lexer has
+    /// no `logic` keyword, so the declaration parses as "user type `logic`,
+    /// signal x", and a NON-ANSI-header component cannot resolve a bare type
+    /// NAME while writing its definition (the same gap `namedTypeNet`
+    /// already models for a real typedef).  Such a declaration stays a NET in
+    /// BOTH views -- def net with no typespec and no vpiNetType, and
+    /// elaboration never promotes it to a logic_var.  See the definition
+    /// (ModuleEmit.cpp) for the measured matrix.
+    bool vlogUnresolvedLogicNet(const slang::ast::Symbol& sym);
     std::string rawText(slang::SourceRange range);
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
