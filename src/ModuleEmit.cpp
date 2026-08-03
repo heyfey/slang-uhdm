@@ -3397,7 +3397,16 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // the same no-call-required terms (FileList probe pair: import with no
     // call still lists it; a QUALIFIED call with no import does not) — the
     // IMPORT is the trigger, handled by the importedTfCalls pass below.
-    if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+    //
+    // An INTERFACE materializes on exactly the same terms. Purpose-built
+    // golden (r10rggen3 repro ifimp: `interface itf; import p::*; ...`) puts
+    // `function (p::f)` in the interface_inst's vpiTaskFunc in BOTH the def
+    // view and every elaborated copy, with no call anywhere in the interface.
+    // Rggen's rggen_register_if (`import rggen_rtl_pkg::*;`) is the corpus
+    // instance: golden lists rggen_clip_width in all 45 register_if elements,
+    // we listed none.
+    if (m->UhdmType() == UHDM::uhdmmodule_inst ||
+        m->UhdmType() == UHDM::uhdminterface_inst) {
         auto listTf9 = [&](const Symbol& psym9) {
             if (psym9.kind != SymbolKind::Subroutine)
                 return;
@@ -14571,8 +14580,33 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             }
             hp->Path_elems(elems);
             ca->Lhs(hp);
-            auto* bc = s.MakeConstant();
-            setLoc(bc, stripImplicitConv(ae.right()).sourceRange);
+            // The fresh elab CA SHARES the DEF view's Rhs constant OBJECT —
+            // it is not a value-less stub. The older "bare loc-only Rhs
+            // constant" reading was a uhdm-dump ARTIFACT: uhdm-dump prints a
+            // REPEATED object as its header line alone, which is
+            // indistinguishable from a brand-new field-less one. uhdm-cmp
+            // reads the fields and sees the difference.
+            // Golden r10rggen3 repro iflit (`module drv (bif.master m)` with
+            // six literal forms onto interface members) — every elab Rhs
+            // carries its DEF encoding verbatim:
+            //   1'b0 -> BIN:0 sz=1 ct=3      '0    -> BIN:0 sz=-1 ct=3
+            //   4'h5 -> HEX:5 sz=4 ct=5      5     -> UINT:5 sz=64 ct=9
+            //   '1   -> BIN:1 sz=-1 ct=3     4'b0101 -> BIN:0101 sz=4 ct=3
+            // Note `'0` stays UNSIZED and `5` stays 64 wide: nothing is
+            // re-sized against the interface member, so the fresh CA is a
+            // fresh CONT_ASSIGN around the SAME Rhs, nothing more.
+            UHDM::expr* bc = nullptr;
+            if (defInfo && myIdx < defInfo->contAssigns.size() &&
+                defInfo->contAssigns[myIdx] &&
+                defInfo->contAssigns[myIdx]->Rhs() &&
+                defInfo->contAssigns[myIdx]->Rhs()->UhdmType() ==
+                    UHDM::uhdmconstant)
+                bc = (UHDM::expr*)defInfo->contAssigns[myIdx]->Rhs();
+            if (!bc) {
+                auto* c9 = s.MakeConstant();
+                setLoc(c9, stripImplicitConv(ae.right()).sourceRange);
+                bc = c9;
+            }
             ca->Rhs(bc);
             cas->push_back(ca);
             continue;
@@ -18230,6 +18264,86 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         emitParameters(body, iface, prefix, netMap, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false);
     }
+    // ── An interface instance's param_assign Rhs is the ENCLOSING scope's
+    //    SAME-NAMED parameter value, when one exists ────────────────────────
+    // Purpose-built golden (r10rggen3 repro ifnm/t3):
+    //     interface itf #(parameter int W = 99, parameter int Z = 97); ...
+    //     module mid #(parameter int W = 8);
+    //       localparam int Z = 33;
+    //       itf #(8, 5)  u_pos();     itf #(.W(8)) u_named();
+    //       itf          u_none();    if (1) begin : g itf #(8,5) u_gen(); end
+    //     module top; mid #(.W(16)) u_mid();
+    // Surelog reports Rhs UINT:16 for W and UINT:33 for Z in ALL FOUR
+    // interface instances — mid's values, never the 8/5 written at the
+    // instantiation. The capture is unconditional: it fires on a positional
+    // override, on a named one, on NO override at all (vpiOverriden then 0),
+    // and through a generate block. It is confined to the param_assign Rhs —
+    // the `parameter` OBJECT keeps the interface's own default (99/97) and
+    // every range inside the interface body still folds with the TRUE value
+    // (`logic [W-1:0] a` is [7:0] for the #(8) instances, [98:0] for u_none).
+    // A MODULE instance in the same position is NOT affected (`leaf #(8)
+    // u_leaf()` under the same `mid` keeps UINT:8), so the rule is
+    // interface-only.
+    // Corpus instance: Rggen's block_0 declares `parameter int ADDRESS_WIDTH
+    // = 8` and is instantiated `block_0 #(.ADDRESS_WIDTH(16))`; its body says
+    // `rggen_register_if #(8, 32, 64) register_if[25]()`, and golden reports
+    // ADDRESS_WIDTH 16 in every one of the 25 elements. block_1's own
+    // ADDRESS_WIDTH is 7 and its override is 7, so it is indistinguishable —
+    // which is why the residue only ever showed up on one of the two blocks.
+    if (auto* pas9 = iface->Param_assigns()) {
+        for (auto* pa9 : *pas9) {
+            auto* lhs9 = pa9->Lhs();
+            auto* rhs9 = pa9->Rhs();
+            if (!lhs9 || !rhs9 || rhs9->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            std::string pn9(lhs9->VpiName());
+            if (pn9.empty())
+                continue;
+            // Plain lexical lookup from the INSTANTIATION site upward; a
+            // generate block on the way is transparent (u_gen), and the walk
+            // ends at the compilation unit because a module body's parent
+            // scope is not another module's body.
+            const Symbol* found9 = nullptr;
+            for (const Scope* sc9 = inst.getParentScope(); sc9 && !found9;
+                 sc9 = sc9->asSymbol().getParentScope())
+                found9 = sc9->find(std::string_view(pn9));
+            if (!found9 || found9->kind != SymbolKind::Parameter)
+                continue;
+            const UHDM::constant* src9 = nullptr;
+            if (auto eit9 = elabParamConst.find(found9);
+                eit9 != elabParamConst.end() && eit9->second)
+                src9 = eit9->second;
+            // A LOCALPARAM never reaches elabParamConst, so fall back to the
+            // enclosing UHDM scope's own param_assign — walking gen_scopes
+            // outward exactly as the symbol lookup above did (t3's Z = 33 is
+            // a localparam and lives only there).
+            for (const UHDM::any* up9 = parentM; up9 && !src9;
+                 up9 = up9->VpiParent()) {
+                const UHDM::VectorOfparam_assign* pv9 = nullptr;
+                if (up9->UhdmType() == UHDM::uhdmmodule_inst)
+                    pv9 = ((const UHDM::module_inst*)up9)->Param_assigns();
+                else if (up9->UhdmType() == UHDM::uhdminterface_inst)
+                    pv9 = ((const UHDM::interface_inst*)up9)->Param_assigns();
+                else if (up9->UhdmType() == UHDM::uhdmgen_scope)
+                    pv9 = ((const UHDM::gen_scope*)up9)->Param_assigns();
+                if (!pv9)
+                    continue;
+                for (auto* c9 : *pv9)
+                    if (c9->Lhs() && c9->Lhs()->VpiName() == pn9 && c9->Rhs() &&
+                        c9->Rhs()->UhdmType() == UHDM::uhdmconstant) {
+                        src9 = (const UHDM::constant*)c9->Rhs();
+                        break;
+                    }
+            }
+            if (!src9)
+                continue;
+            auto* dst9 = (UHDM::constant*)rhs9;
+            dst9->VpiValue(src9->VpiValue());
+            dst9->VpiDecompile(src9->VpiDecompile());
+            dst9->VpiSize(src9->VpiSize());
+            dst9->VpiConstType(src9->VpiConstType());
+        }
+    }
     // A port view carries NO param_assigns (Surelog quirk) — EXCEPTIONS:
     //  (a) a parameterized (multi-distinct-value) interface def keeps the
     //      override param_assign; and
@@ -18438,6 +18552,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 aggOvPortView = true;
         }
     }
+    // OPEN RESIDUE (r10rggen3, measured then REVERTED — the distinguisher is
+    // not found yet). Extending aggOvPortView to ANY overridden scalar param
+    // on a non-array port view makes two purpose-built goldens converge
+    // EXACTLY — /tmp/r10rggen3_rep/ifimp (`itf #(8) u_if(); sub u_sub(.i(u_if))`,
+    // port-view member [7:0] not the default [15:0]) and
+    // /tmp/r10rggen3_rep/ifpp (`bif #(3) u_b(); drv u_d(.m(u_b))`, [2:0] not
+    // [3:0]) — but it demotes exactly three u2r tests that need the DEFAULT:
+    // iface_param_width_per_inst, iface_param_port_width,
+    // iface_ff_genvar_partsel. Two candidate distinguishers were tested on
+    // purpose-built Surelog goldens and BOTH are ELIMINATED:
+    //   * named `#(.W(3))` vs positional `#(3)` override — /tmp/r10rggen3_rep/
+    //     ifnamed: both port views fold at the OVERRIDE [2:0];
+    //   * typed `parameter int W` vs untyped `parameter W` — /tmp/r10rggen3_rep/
+    //     ifuntyped: both fold at the OVERRIDE [2:0].
+    // Still untried: the port-list SHAPE (both counter-tests have a second,
+    // non-interface port; iface_param_port_width's even reads
+    // `bus.DATA_WIDTH` in its own port range), the plain-vs-modport port form,
+    // and whether the counter-tests' divergence is really on the interface
+    // MEMBER typespec or on the module PORT typespec.
     // PORT-VIEW iface var bounds fold at the DEFAULT param values (Surelog
     // reads widths from the AllModules form, ignoring per-instance
     // overrides); the HOME view keeps the instance values. EXCEPTION: a
@@ -18797,8 +18930,26 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // and the def function bodies' signal refs bind THIS view's variables
     // (Surelog elaborates the shared def function — iface_method_call).
     if (!portView) {
-        if (auto dIt9 = defMap.find(&def);
-            dIt9 != defMap.end() && !dIt9->second.taskFuncs.empty()) {
+        // The DEF interface_inst's own listing is authoritative: it already
+        // carries the wildcard-import materialized group ahead of the
+        // interface's own subroutines (§ emitImportArtifacts), so an
+        // interface that imports a package but declares nothing of its own
+        // still lists the package group here. Golden r10rggen3 repro ifimp:
+        // `work@top.u_if` (home view) has vpiTaskFunc function(p::f); the
+        // PORT view `work@top.u_sub.i` has none, which the !portView guard
+        // already encodes.
+        UHDM::VectorOftask_func* defTfs9 = nullptr;
+        if (auto dI9 = ifaceDefMap.find(&def);
+            dI9 != ifaceDefMap.end() && dI9->second)
+            defTfs9 = dI9->second->Task_funcs();
+        if (defTfs9 && !defTfs9->empty()) {
+            auto* tfs9 = s.MakeTask_funcVec();
+            for (auto* tf9 : *defTfs9)
+                tfs9->push_back(tf9);
+            iface->Task_funcs(tfs9);
+        }
+        else if (auto dIt9 = defMap.find(&def);
+                 dIt9 != defMap.end() && !dIt9->second.taskFuncs.empty()) {
             auto* tfs9 = s.MakeTask_funcVec();
             for (auto* tf9 : dIt9->second.taskFuncs)
                 tfs9->push_back(tf9);
