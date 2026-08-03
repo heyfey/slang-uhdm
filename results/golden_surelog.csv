@@ -55,8 +55,8 @@ AssignPatternArray,default,SLANG_REJECT,dut.sv:48:17: error: value of type 'data
 AssignPatternArray,testflags,SLANG_REJECT,dut.sv:48:17: error: value of type 'data_region_attr_t$[2]' cannot be assigned to type 'data_region_attr_t',,
 AssignPlus,default,SLANG_REJECT,dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
 AssignPlus,testflags,SLANG_REJECT,dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
-AssignRhsFlat,default,CMP_NOTEQUAL,decompile:,,
-AssignRhsFlat,testflags,CMP_NOTEQUAL,decompile:,,
+AssignRhsFlat,default,CMP_EQUAL,,,differ
+AssignRhsFlat,testflags,CMP_EQUAL,,,differ
 AssignSubs,default,CMP_EQUAL,,,differ
 AssignSubs,testflags,CMP_EQUAL,,,match
 AssociativeArray,default,SLANG_REJECT,dut.sv:3:11: error: cannot refer to an element or member of a dynamic type outside of a procedural context [-Wdynamic-non-procedural],,
@@ -1109,8 +1109,8 @@ PatternAssignLogic,default,CMP_EQUAL,,,differ
 PatternAssignLogic,testflags,CMP_EQUAL,,,differ
 PatternAssignment,default,CMP_EQUAL,,,match
 PatternAssignment,testflags,CMP_EQUAL,,,match
-PatternOrder,default,CMP_NOTEQUAL,decompile:,,
-PatternOrder,testflags,CMP_NOTEQUAL,decompile:,,
+PatternOrder,default,CMP_EQUAL,,,differ
+PatternOrder,testflags,CMP_EQUAL,,,differ
 PkgImportFunc,default,CMP_EQUAL,,,differ
 PkgImportFunc,testflags,CMP_EQUAL,,,differ
 PkgImportPkg,default,SLANG_REJECT,dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_req_t'?,,

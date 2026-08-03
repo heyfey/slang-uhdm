@@ -5257,7 +5257,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // init stays a struct_VAR: Expr = op75 of bare per-member
             // constants in member order, var span through the init
             // (assignment-pattern l). Local-typedef structured inits and
-            // positional patterns keep the struct_net recompile.
+            // positional patterns keep the struct_net recompile — EXCEPT an
+            // UNPACKED struct, which takes the same var route for a different
+            // reason (see below), so this flag reads "struct_var carrying the
+            // re-emitted pattern as its Expr", not "package typedef".
             bool structuredPkgPat = false;
             if (patternInit &&
                 stripImplicitConv(*it.sym->getDeclaredType()->getInitializer())
@@ -5268,6 +5271,15 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     structuredPkgPat =
                         scT && scT->asSymbol().kind == SymbolKind::Package;
                 }
+                // An UNPACKED struct cannot be a net at all (LRM), so its
+                // pattern init never becomes a net-decl cont_assign: the
+                // declaration is a struct_VAR carrying the FLATTENED pattern
+                // as its vpiExpr, whatever the typedef's scope (and
+                // anonymous, declared inline on the signal).  Same
+                // written-type discriminator emitPackageVar applies at
+                // package scope.  PatternOrder.
+                if (!structuredPkgPat && isUnpackedStruct && !it.port)
+                    structuredPkgPat = true;
             }
             if (isStruct && it.sym->getDeclaredType()->getInitializer() &&
                 (!patternInit || structuredPkgPat)) {
@@ -5290,8 +5302,21 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 bool savedRe8 = reemitting;
                 if (structuredPkgPat)
                     reemitting = true;
-                if (auto* e = emitExpr(*it.sym->getDeclaredType()->getInitializer(),
-                                       sv, fullName, topNets)) {
+                // The declaration initializer flattens against the signal's
+                // own struct typespec — but WITHOUT expandPatternAssignment's
+                // adjustOpSize pass, so an unsized member value keeps its
+                // 64-bit literal size (measured: the same pattern written as
+                // a cont_assign sizes its first operand at the member width,
+                // written as a declaration init it does not).
+                if (structuredPkgPat && rt && rt->Actual_typespec() &&
+                    rt->Actual_typespec()->UhdmType() ==
+                        UHDM::uhdmstruct_typespec)
+                    patFlatTs = rt->Actual_typespec();
+                auto* initE8 =
+                    emitExpr(*it.sym->getDeclaredType()->getInitializer(), sv,
+                             fullName, topNets);
+                patFlatTs = nullptr;
+                if (auto* e = initE8) {
                     sv->Expr((UHDM::expr*)e);
                     e->VpiParent(sv);
                     // Structured-pkg-pattern var Expr: unsized-decimal
@@ -15139,6 +15164,32 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // A literal RHS constant is parented at the cont_assign (both
             // views); re-emitted top-view RHS refs bind the def-view nets.
             NetMap& rhsMap = (topView && shareWithDef && defInfo) ? defInfo->nets : netMap;
+            // A STRUCT-typed assignment-pattern RHS is re-materialized by
+            // UhdmWriter::writeCont through flattenPatternAssignments +
+            // expandPatternAssignment against the LHS signal's typespec — one
+            // operand per member, member widths stamped on the leading ones.
+            // Hand the emitter that typespec; it is what makes the flatten
+            // reachable (AssignRhsFlat).
+            if (topView &&
+                stripImplicitConv(ae.right()).kind ==
+                    ExpressionKind::StructuredAssignmentPattern) {
+                // The ELABORATED signal object carries the struct typespec
+                // (the def-view net for the same name has none), so the
+                // lookup goes through this instance's map, not the def map
+                // the RHS refs bind through.
+                auto& lc7 = stripImplicitConv(ae.left());
+                if (lc7.kind == ExpressionKind::NamedValue)
+                    if (auto lit7 = netMap.find(
+                            &lc7.as<NamedValueExpression>().symbol);
+                        lit7 != netMap.end())
+                        if (auto* lrt7 = ((UHDM::expr*)lit7->second)->Typespec();
+                            lrt7 && lrt7->Actual_typespec() &&
+                            lrt7->Actual_typespec()->UhdmType() ==
+                                UHDM::uhdmstruct_typespec) {
+                            patFlatTs = lrt7->Actual_typespec();
+                            patFlatAdjust = true;
+                        }
+            }
             bool forceSaved = forceConstParent;
             if (literalRhs || bitsRhs)
                 forceConstParent = true;
@@ -15168,6 +15219,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 ae.left().type)
                 implicitConvTargetSigned = ae.left().type->isSigned() ? 1 : 0;
             rhs = emitExpr(ae.right(), ca, prefix, rhsMap);
+            patFlatTs = nullptr;
+            patFlatAdjust = false;
             implicitConvTargetSigned = savedICT7;
             contAssignView = 0;
             paramInitDef = false;

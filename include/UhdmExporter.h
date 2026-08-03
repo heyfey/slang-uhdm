@@ -1187,6 +1187,18 @@ private:
     std::set<std::string> unsupportedKinds;
     bool suppressConstParent = false;
     bool reemitting = false;
+    // The UHDM struct_typespec the assignment pattern currently being
+    // re-emitted is assigned TO — the `tps` argument of Surelog's
+    // ExprEval::flattenPatternAssignments.  Non-null only at the two call
+    // sites that reproduce a flatten (a struct-typed cont_assign RHS and an
+    // unpacked-struct declaration initializer); everywhere else the older
+    // tag-dropping re-emit is kept verbatim.
+    const UHDM::typespec* patFlatTs = nullptr;
+    // True when the flatten runs in a context that ALSO runs Surelog's
+    // expandPatternAssignment (the cont_assign RHS): its untagged arm calls
+    // adjustOpSize on the flattened operands, which stamps the member width
+    // onto them.  A declaration initializer flattens WITHOUT that pass.
+    bool patFlatAdjust = false;
     // True while emitting elements of an enclosing assignment pattern (so
     // nested-pattern element constants keep the bare-decimal default size).
     bool inAssignPattern = false;

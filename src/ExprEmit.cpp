@@ -16,6 +16,84 @@
 
 namespace slang_uhdm {
 
+// The UHDM typespec CLASS Surelog would build for `t` — the key
+// ExprEval::flattenPatternAssignments matches a pattern TYPE key (`int: 0`)
+// against (`ttp->UhdmType() == fieldTypes[i]->UhdmType()`).  Only the shapes
+// a type key can name are classified; anything else answers
+// `uhdmunsupported_typespec`, which makes the caller decline the flatten
+// rather than guess.
+static UHDM::UHDM_OBJECT_TYPE uhdmTsKindOfType(const Type& t) {
+    auto& ct = t.getCanonicalType();
+    switch (ct.kind) {
+        case SymbolKind::PredefinedIntegerType:
+            switch (ct.as<PredefinedIntegerType>().integerKind) {
+                case PredefinedIntegerType::Int:
+                    return UHDM::uhdmint_typespec;
+                case PredefinedIntegerType::Integer:
+                    return UHDM::uhdminteger_typespec;
+                case PredefinedIntegerType::Byte:
+                    return UHDM::uhdmbyte_typespec;
+                case PredefinedIntegerType::ShortInt:
+                    return UHDM::uhdmshort_int_typespec;
+                case PredefinedIntegerType::LongInt:
+                    return UHDM::uhdmlong_int_typespec;
+                case PredefinedIntegerType::Time:
+                    return UHDM::uhdmtime_typespec;
+            }
+            return UHDM::uhdmunsupported_typespec;
+        case SymbolKind::ScalarType:
+            return ct.as<ScalarType>().scalarKind == ScalarType::Bit
+                       ? UHDM::uhdmbit_typespec
+                       : UHDM::uhdmlogic_typespec;
+        case SymbolKind::FloatingType:
+            return ct.as<FloatingType>().floatKind == FloatingType::ShortReal
+                       ? UHDM::uhdmshort_real_typespec
+                       : UHDM::uhdmreal_typespec;
+        case SymbolKind::EnumType:
+            return UHDM::uhdmenum_typespec;
+        case SymbolKind::PackedStructType:
+        case SymbolKind::UnpackedStructType:
+            return UHDM::uhdmstruct_typespec;
+        case SymbolKind::StringType:
+            return UHDM::uhdmstring_typespec;
+        default:
+            return UHDM::uhdmunsupported_typespec;
+    }
+}
+
+// UHDM's ExprEval::size for the typespec Surelog would build for `t` — the
+// width adjustOpSize stamps onto a flattened pattern operand.  It is NOT
+// slang's bit width: an UNPACKED struct has one (the sum of its members'),
+// and a `real` counts 32 bits, not 64 (ExprEval.cpp uhdmreal_typespec).
+// Answers -1 for a shape whose width Surelog would call invalid.
+static int64_t surelogTsBits(const Type& t) {
+    auto& ct = t.getCanonicalType();
+    if (ct.isFloating())
+        return 32;
+    if (ct.isIntegral())
+        return (int64_t)ct.getBitWidth();
+    if (ct.kind == SymbolKind::UnpackedStructType) {
+        int64_t sum = 0;
+        for (auto& fm : ct.as<Scope>().members()) {
+            if (fm.kind != SymbolKind::Field)
+                continue;
+            int64_t b = surelogTsBits(fm.getDeclaredType()->getType());
+            if (b < 0)
+                return -1;
+            sum += b;
+        }
+        return sum;
+    }
+    if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
+        auto& at = ct.as<FixedSizeUnpackedArrayType>();
+        int64_t e = surelogTsBits(at.elementType);
+        if (e < 0)
+            return -1;
+        return e * (int64_t)at.range.width();
+    }
+    return -1;
+}
+
 // True when `e` names a PACKAGE-level variable and the source spells it
 // package-QUALIFIED (`p::ch`). Surelog resolves such a reference only as a
 // whole: any selector hung off it — `.member`, `.method(...)`, even a
@@ -7265,6 +7343,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::StructuredAssignmentPattern: {
             auto& ap = expr.as<StructuredAssignmentPatternExpression>();
+            // The flatten target is consumed by THIS pattern only — nested
+            // emits get it back explicitly, per member, below.
+            const UHDM::typespec* patFlatTs = this->patFlatTs;
+            const bool patFlatAdjust = this->patFlatAdjust;
+            this->patFlatTs = nullptr;
+            this->patFlatAdjust = false;
             auto* op = s.MakeOperation();
             op->VpiOpType(vpiAssignmentPatternOp);
             op->VpiParent(parent);
@@ -7304,6 +7388,124 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* rt = s.MakeRef_typespec();
                     rt->Actual_typespec(mts);
                     op->Typespec(rt);
+                }
+            }
+            // ---- Surelog's ExprEval::flattenPatternAssignments ----
+            // A STRUCT-typed pattern that carries a TYPE key (`int: 0`) or a
+            // `default:` key is not merely untagged when it is re-emitted: it
+            // is REBUILT, one operand per struct MEMBER, in member-declaration
+            // order.  A member with no setter takes a fresh copy of the
+            // default value, a type key claims the FIRST member whose typespec
+            // has the same UHDM kind, and a member value that is itself a
+            // tagged pattern is flattened recursively against that member's
+            // typespec (which it then carries as a nameless ts ref).
+            // Runs only where `patFlatTs` names the target struct typespec —
+            // the cont_assign RHS and the unpacked-struct declaration
+            // initializer, the two sites that call the flatten in Surelog.
+            // PatternOrder / AssignRhsFlat.
+            if (reemitting && patFlatTs &&
+                patFlatTs->UhdmType() == UHDM::uhdmstruct_typespec &&
+                (!ap.typeSetters.empty() || ap.defaultSetter) &&
+                ap.indexSetters.empty() && expr.type &&
+                expr.type->getCanonicalType().isStruct()) {
+                auto* sts9 = (const UHDM::struct_typespec*)patFlatTs;
+                std::vector<const Symbol*> fields9;
+                for (auto& fm9 : expr.type->getCanonicalType()
+                                     .as<Scope>()
+                                     .members())
+                    if (fm9.kind == SymbolKind::Field)
+                        fields9.push_back(&fm9);
+                const UHDM::VectorOftypespec_member* mems9 = sts9->Members();
+                if (mems9 && mems9->size() == fields9.size() &&
+                    !fields9.empty()) {
+                    std::vector<const Expression*> slots9(fields9.size(),
+                                                          nullptr);
+                    bool ok9 = true;
+                    for (auto& st9 : ap.memberSetters) {
+                        auto it9 = std::find(fields9.begin(), fields9.end(),
+                                             st9.member.get());
+                        if (it9 == fields9.end()) {
+                            ok9 = false;
+                            break;
+                        }
+                        slots9[(size_t)(it9 - fields9.begin())] =
+                            st9.expr.get();
+                    }
+                    // A type key matches on the UHDM typespec KIND of the
+                    // member, first match wins (Surelog compares
+                    // `ttp->UhdmType() == fieldTypes[i]->UhdmType()`).
+                    for (auto& st9 : ap.typeSetters) {
+                        auto kk9 = uhdmTsKindOfType(*st9.type.get());
+                        if (kk9 == UHDM::uhdmunsupported_typespec) {
+                            ok9 = false;
+                            break;
+                        }
+                        bool hit9 = false;
+                        for (size_t i9 = 0; i9 < mems9->size(); i9++) {
+                            auto* mrt9 = (*mems9)[i9]->Typespec();
+                            auto* mts9 =
+                                mrt9 ? mrt9->Actual_typespec() : nullptr;
+                            if (mts9 && mts9->UhdmType() == kk9) {
+                                slots9[i9] = st9.expr.get();
+                                hit9 = true;
+                                break;
+                            }
+                        }
+                        if (!hit9) {
+                            ok9 = false;
+                            break;
+                        }
+                    }
+                    for (auto& sl9 : slots9)
+                        if (!sl9) {
+                            if (!ap.defaultSetter) {
+                                ok9 = false;
+                                break;
+                            }
+                            sl9 = ap.defaultSetter;
+                        }
+                    if (ok9) {
+                        // A NESTED flattened pattern carries the member
+                        // typespec it was flattened against; the OUTERMOST one
+                        // does not (UhdmWriter copies only the flattened
+                        // operand vector back onto the original op).
+                        if (nestedPat && !op->Typespec()) {
+                            auto* frt9 = s.MakeRef_typespec();
+                            frt9->Actual_typespec(
+                                (UHDM::typespec*)patFlatTs);
+                            op->Typespec(frt9);
+                        }
+                        auto* fops9 = s.MakeAnyVec();
+                        for (size_t i9 = 0; i9 < slots9.size(); i9++) {
+                            auto* mrt9 = (*mems9)[i9]->Typespec();
+                            this->patFlatTs =
+                                mrt9 ? mrt9->Actual_typespec() : nullptr;
+                            if (auto* e9 =
+                                    emitExpr(*slots9[i9], op, prefix, netMap))
+                                fops9->push_back(e9);
+                            this->patFlatTs = nullptr;
+                        }
+                        // expandPatternAssignment's untagged arm walks the
+                        // flattened operands calling adjustOpSize, and STOPS
+                        // at the first one its reduce cannot value — so the
+                        // member width lands on every leading constant plus
+                        // the one operand that stopped the walk.
+                        if (patFlatAdjust)
+                            for (size_t i9 = 0; i9 < fops9->size() &&
+                                                i9 < fields9.size();
+                                 i9++) {
+                                int64_t bw9 = surelogTsBits(
+                                    fields9[i9]->getDeclaredType()->getType());
+                                if (bw9 >= 0)
+                                    ((UHDM::expr*)(*fops9)[i9])
+                                        ->VpiSize((int32_t)bw9);
+                                if ((*fops9)[i9]->UhdmType() !=
+                                    UHDM::uhdmconstant)
+                                    break;
+                            }
+                        op->Operands(fops9);
+                        return op;
+                    }
                 }
             }
             auto* operands = s.MakeAnyVec();
@@ -7700,6 +7902,107 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 rt->VpiParent(tp);
                 rt->Actual_typespec(sts);
                 tp->Typespec(rt);
+                operands->push_back(tp);
+            }
+            // TYPE keys ('{int: 0}): a tagged_pattern spanning the VALUE whose
+            // tag is a typespec of the KEYED TYPE'S OWN class (int_typespec
+            // for `int`, not the string_typespec a member key gets), located
+            // at the type keyword.  Surelog matches such a key to a member by
+            // typespec class when it flattens; in the un-flattened def view
+            // the tag survives verbatim (AssignRhsFlat).  A key whose class we
+            // cannot name is dropped rather than guessed.
+            for (auto& setter : ap.typeSetters) {
+                if (reemitting)
+                    break;
+                UHDM::typespec* kts9 = nullptr;
+                bool ksgn9 = setter.type->isSigned();
+                switch (uhdmTsKindOfType(*setter.type.get())) {
+                    case UHDM::uhdmint_typespec: {
+                        auto* t9 = s.MakeInt_typespec();
+                        if (ksgn9)
+                            t9->VpiSigned(true);
+                        kts9 = t9;
+                        break;
+                    }
+                    case UHDM::uhdminteger_typespec: {
+                        auto* t9 = s.MakeInteger_typespec();
+                        if (ksgn9)
+                            t9->VpiSigned(true);
+                        kts9 = t9;
+                        break;
+                    }
+                    case UHDM::uhdmbyte_typespec: {
+                        auto* t9 = s.MakeByte_typespec();
+                        if (ksgn9)
+                            t9->VpiSigned(true);
+                        kts9 = t9;
+                        break;
+                    }
+                    case UHDM::uhdmshort_int_typespec: {
+                        auto* t9 = s.MakeShort_int_typespec();
+                        if (ksgn9)
+                            t9->VpiSigned(true);
+                        kts9 = t9;
+                        break;
+                    }
+                    case UHDM::uhdmlong_int_typespec: {
+                        auto* t9 = s.MakeLong_int_typespec();
+                        if (ksgn9)
+                            t9->VpiSigned(true);
+                        kts9 = t9;
+                        break;
+                    }
+                    case UHDM::uhdmlogic_typespec:
+                        kts9 = s.MakeLogic_typespec();
+                        break;
+                    case UHDM::uhdmbit_typespec:
+                        kts9 = s.MakeBit_typespec();
+                        break;
+                    case UHDM::uhdmreal_typespec:
+                        kts9 = s.MakeReal_typespec();
+                        break;
+                    case UHDM::uhdmshort_real_typespec:
+                        kts9 = s.MakeShort_real_typespec();
+                        break;
+                    default:
+                        break;
+                }
+                if (!kts9)
+                    continue;
+                auto* tp = s.MakeTagged_pattern();
+                tp->VpiParent(op);
+                setLoc(tp, setter.expr->sourceRange);
+                bool sup9 = suppressConstParent, fcp9 = forceConstParent;
+                suppressConstParent = true;
+                forceConstParent = false;
+                if (auto* e9 = emitExpr(*setter.expr.get(), op, prefix, netMap))
+                    tp->Pattern((UHDM::expr*)e9);
+                suppressConstParent = sup9;
+                forceConstParent = fcp9;
+                if (psyn)
+                    for (auto item : psyn->items) {
+                        if (item->kind !=
+                            syntax::SyntaxKind::AssignmentPatternItem)
+                            continue;
+                        auto& it9 =
+                            item->as<syntax::AssignmentPatternItemSyntax>();
+                        if (it9.expr && it9.expr->sourceRange() ==
+                                            setter.expr->sourceRange) {
+                            setLoc(kts9, it9.key->sourceRange());
+                            break;
+                        }
+                    }
+                auto* rt9 = s.MakeRef_typespec();
+                {
+                    std::string tsPfx9 = prefix;
+                    if (tsPfx9.size() >= 2 &&
+                        tsPfx9.compare(tsPfx9.size() - 2, 2, "::") == 0)
+                        tsPfx9.resize(tsPfx9.size() - 2);
+                    rt9->VpiFullName(tsPfx9);
+                }
+                rt9->VpiParent(tp);
+                rt9->Actual_typespec(kts9);
+                tp->Typespec(rt9);
                 operands->push_back(tp);
             }
             // Index setters ('{0:1, 3:1}): tagged_pattern with a string_typespec
