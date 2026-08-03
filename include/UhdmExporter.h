@@ -34,6 +34,7 @@ class PackageSymbol;
 class Scope;
 class TimingControl;
 class SubroutineSymbol;
+class FormalArgumentSymbol;
 class EnumType;
 class GenerateBlockSymbol;
 class TypeAliasType;
@@ -1138,10 +1139,23 @@ private:
     /// subroutine's formal types eagerly, which is what puts the unlocated
     /// logic_typespec on a BARE-IMPLICIT formal's io_decl (§ elabInvoked).
     bool elabInvoked(const slang::ast::SubroutineSymbol& sub);
+    /// The FORMAL a parameter is bound to when it is passed, by bare name, as
+    /// an argument of a constant-function call in one of those same
+    /// elaboration expressions.  Surelog binds actual to formal and runs
+    /// `adjustSize` on the SHARED constant, so the parameter's own elab
+    /// param_assign Rhs ends up carrying the FORMAL's typespec and width
+    /// (§ elabInvoked, argument side).  Null when the parameter is not so
+    /// used.
+    const slang::ast::FormalArgumentSymbol* elabCallFormal(
+        const slang::ast::ParameterSymbol& ps);
 
     slang::ast::Compilation& comp;
     // Lazily built by elabInvoked(); empty optional = not yet scanned.
     std::optional<std::set<const slang::ast::SubroutineSymbol*>> elabCalledSubs;
+    // Lazily built by elabCallFormal() alongside elabCalledSubs.
+    std::map<const slang::ast::ParameterSymbol*,
+             const slang::ast::FormalArgumentSymbol*>
+        elabCallArgs;
     UHDM::Serializer& s;
     const slang::SourceManager* sm;
     UHDM::design* d = nullptr;

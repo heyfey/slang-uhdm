@@ -2114,6 +2114,276 @@ static void collectImportedParams(
     out.insert(out.end(), found.begin(), found.end());
 }
 
+// ---------------------------------------------------------------------------
+// Surelog's parameter-override constant encoding, modelled from its source.
+//
+// A param_assign Rhs constant is built in TWO stages:
+//
+//  1. PRODUCER.  A literal keeps its written spelling verbatim
+//     (CompileExpression.cpp ~470): VpiSize is the WRITTEN size prefix, the
+//     value is <BASE>:<digits as typed> and the const type follows the base
+//     (h->HEX, b->BIN, o->OCT, d->DEC, bare decimal -> UINT size 64).  When
+//     the value then travels through a Value round-trip (a parameter
+//     reference, a constant-function call, a concat) `ExprBuilder::fromVpiValue`
+//     re-types it: BIN/HEX survive as string Values, but OCT and DEC collapse
+//     to a plain unsigned/integer LValue -- which is why an OCTAL literal
+//     override lands as UINT and a SIZED-DECIMAL one as INT.  The round-trip
+//     also re-renders the decompile as `<size>'<base><digits>`
+//     (Value::decompiledValue), dropping the `s` of a signed literal and
+//     picking up the size the value carried at that moment (an `int P = 8'hab`
+//     hop decompiles `32'hab`, an untyped one `8'hab`).  A CONCAT produces a
+//     BIN value at the concat's own width.
+//
+//  2. CONSUMER.  CompileHelper::adjustSize (CompileHelper.cpp ~3949) re-sizes
+//     that constant against the TARGET parameter's typespec.  UINT is masked
+//     to the target width; HEX/OCT/INT keep their digits and take the target
+//     width; BIN branches on the target typespec's KIND -- logic truncates
+//     from the left when it is wider than the target, `int` (and only `int`:
+//     byte/shortint/longint/integer/bit typespecs have no arm) sign-extends a
+//     set MSB into a negative vpiIntConst when the target is SIGNED and
+//     otherwise clamps the size to min(literal, target).  adjustSize runs more
+//     than once on the override path, so a BIN that turned INT is re-sized to
+//     the full target width on the next pass.
+//
+// Measured against Surelog over a 238-cell matrix (14 target types x 12
+// literal forms x direct/through-param-ref); see the model comment on
+// `srcBaseOv8` at the override site.
+// ---------------------------------------------------------------------------
+namespace {
+
+// Which typespec kind Surelog mints for a parameter -- the only distinction
+// adjustSize's BIN arm makes.
+enum class SrlgTsK { Int, Logic, Bit, Other };
+
+struct SrlgOvEnc {
+    int32_t ct = 0;      // vpiConstType
+    std::string dg;      // BIN/HEX digits, or the decimal text of UINT/INT
+    int32_t size = 0;    // VpiSize
+    std::string dec;     // VpiDecompile
+};
+
+std::string srlgOvValue(const SrlgOvEnc& e) {
+    switch (e.ct) {
+        case vpiBinaryConst:
+            return "BIN:" + e.dg;
+        case vpiHexConst:
+            return "HEX:" + e.dg;
+        case vpiOctConst:
+            return "OCT:" + e.dg;
+        case vpiIntConst:
+            return "INT:" + e.dg;
+        default:
+            return "UINT:" + e.dg;
+    }
+}
+
+// Value::decompiledValue(): a based Value re-renders `<size>'<base><digits>`
+// every time it round-trips through a Value (a parameter hop), which is where
+// the decompile picks up the size that hop's adjustSize left behind.
+void srlgOvRender(SrlgOvEnc& e) {
+    if (e.ct != vpiBinaryConst && e.ct != vpiHexConst && e.ct != vpiOctConst) {
+        e.dec = e.dg;
+        return;
+    }
+    const char b = e.ct == vpiBinaryConst ? 'b' : e.ct == vpiHexConst ? 'h' : 'o';
+    e.dec = (e.size > 0 ? std::to_string(e.size) : std::string()) + "'" + b +
+            e.dg;
+}
+
+// Binary digit string -> value (low 64 bits).
+uint64_t srlgBinVal(const std::string& d) {
+    uint64_t v = 0;
+    for (char ch : d)
+        v = (v << 1) | (uint64_t)(ch == '1' ? 1 : 0);
+    return v;
+}
+
+// Surelog's twosComplement(): invert every digit, then add one.
+std::string srlgTwosComp(const std::string& b) {
+    std::string r = b;
+    for (auto& ch : r)
+        ch = (ch == '0') ? '1' : (ch == '1' ? '0' : ch);
+    for (int32_t i = (int32_t)r.size() - 1; i >= 0; i--) {
+        if (r[i] == '0') {
+            r[i] = '1';
+            break;
+        }
+        r[i] = '0';
+    }
+    return r;
+}
+
+// The PRODUCER stage for a written integer literal.
+bool srlgLitEnc(const std::string& raw0, SrlgOvEnc& out) {
+    std::string raw;
+    for (char ch : raw0)
+        if (ch != '_')
+            raw += ch;
+    if (raw.empty())
+        return false;
+    auto tk = raw.find('\'');
+    if (tk == std::string::npos) {
+        if (raw.find_first_not_of("0123456789") != std::string::npos)
+            return false;
+        out.ct = vpiUIntConst;
+        out.dg = raw;
+        out.size = 64;
+        srlgOvRender(out);
+        return true;
+    }
+    size_t bp = tk + 1;
+    if (bp < raw.size() && (raw[bp] == 's' || raw[bp] == 'S'))
+        bp++;
+    if (bp >= raw.size())
+        return false;
+    const char b = (char)tolower((unsigned char)raw[bp]);
+    std::string dg = raw.substr(bp + 1);
+    if (dg.empty())
+        return false;
+    // An UNSIZED based literal ('h1f) enters adjustSize with VpiSize -1 and
+    // takes a different arm entirely -- not modelled here.
+    std::string szs = raw.substr(0, tk);
+    if (szs.empty() || szs.find_first_not_of("0123456789") != std::string::npos)
+        return false;
+    int32_t sz = 0;
+    for (char ch : szs) {
+        sz = sz * 10 + (ch - '0');
+        if (sz > 100000)
+            return false;
+    }
+    if (sz <= 0 || sz > 64)
+        return false;
+    switch (b) {
+        case 'h':
+            if (dg.find_first_not_of("0123456789abcdefABCDEF") !=
+                std::string::npos)
+                return false;
+            out.ct = vpiHexConst;
+            out.dg = dg;
+            out.size = sz;
+            srlgOvRender(out);
+            return true;
+        case 'b':
+            if (dg.find_first_not_of("01") != std::string::npos)
+                return false;
+            out.ct = vpiBinaryConst;
+            out.dg = dg;
+            out.size = sz;
+            srlgOvRender(out);
+            return true;
+        case 'o': {
+            if (dg.find_first_not_of("01234567") != std::string::npos)
+                return false;
+            uint64_t v = 0;
+            for (char ch : dg) {
+                if (v > (~0ull >> 3))
+                    return false;
+                v = (v << 3) | (uint64_t)(ch - '0');
+            }
+            out.ct = vpiUIntConst;
+            out.dg = std::to_string(v);
+            out.size = sz;
+            srlgOvRender(out);
+            return true;
+        }
+        case 'd': {
+            if (dg.find_first_not_of("0123456789") != std::string::npos)
+                return false;
+            uint64_t v = 0;
+            for (char ch : dg) {
+                if (v > (~0ull / 10))
+                    return false;
+                v = v * 10 + (uint64_t)(ch - '0');
+            }
+            out.ct = vpiIntConst;
+            out.dg = std::to_string(v);
+            out.size = sz;
+            srlgOvRender(out);
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+// The CONSUMER stage: CompileHelper::adjustSize against a target of kind `k`,
+// signedness `sg` and width `w`.  `w == 0` means the target carries no
+// typespec at all, which makes adjustSize a no-op.
+void srlgAdjustSize(SrlgOvEnc& e, SrlgTsK k, bool sg, int32_t w) {
+    if (w <= 0 || e.size == 0)
+        return;
+    const int32_t orig = e.size;
+    if (e.ct == vpiUIntConst) {
+        uint64_t v = 0;
+        for (char ch : e.dg) {
+            if (ch < '0' || ch > '9')
+                return;
+            v = v * 10 + (uint64_t)(ch - '0');
+        }
+        if (w < 64)
+            v &= ((uint64_t)1 << w) - 1;
+        e.dg = std::to_string(v);
+        e.size = w;
+        e.dec = e.dg;
+        return;
+    }
+    if (e.ct != vpiBinaryConst) {
+        e.size = w;
+        return;
+    }
+    if (k == SrlgTsK::Logic) {
+        if (orig > w) {
+            if ((int32_t)e.dg.size() > orig - w)
+                e.dg = e.dg.substr((size_t)(orig - w));
+            e.size = w;
+            e.dec = e.dg;
+        }
+        return;
+    }
+    if (k != SrlgTsK::Int)
+        return;  // bit/byte/shortint/longint/integer: adjustSize has no arm
+    const uint64_t val = srlgBinVal(e.dg);
+    const bool msb = orig >= 1 && orig <= 64 && ((val >> (orig - 1)) & 1ull);
+    if (sg && msb) {
+        const uint64_t tv = srlgBinVal(srlgTwosComp(e.dg));
+        e.ct = vpiIntConst;
+        e.dg = "-" + std::to_string(tv);
+        e.dec = e.dg;
+        e.size = w;  // the follow-up adjustSize pass re-sizes the vpiIntConst
+        return;
+    }
+    e.size = std::min(orig, w);
+}
+
+// Read an already-emitted constant back into the model so it can be re-run
+// through adjustSize (Surelog does exactly this: the same object is adjusted
+// again by each consumer that binds it).
+bool srlgEncFromConst(const UHDM::constant* c0, SrlgOvEnc& e) {
+    std::string v(c0->VpiValue());
+    auto cl = v.find(':');
+    if (cl == std::string::npos)
+        return false;
+    const std::string pfx = v.substr(0, cl);
+    e.dg = v.substr(cl + 1);
+    e.size = c0->VpiSize();
+    e.dec = std::string(c0->VpiDecompile());
+    if (pfx == "BIN")
+        e.ct = vpiBinaryConst;
+    else if (pfx == "HEX")
+        e.ct = vpiHexConst;
+    else if (pfx == "OCT")
+        e.ct = vpiOctConst;
+    else if (pfx == "INT")
+        e.ct = vpiIntConst;
+    else if (pfx == "UINT")
+        e.ct = vpiUIntConst;
+    else
+        return false;
+    return e.size > 0;
+}
+
+}  // namespace
+
 void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::string& prefix,
                                   NetMap& netMap, bool topView, DefInfo* di, bool inPackage,
                                   bool topShareTs, bool funcScope) {
@@ -4181,24 +4451,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiDecompile(std::to_string(w6) + "'b" + bits6);
                     enumOv8 = true;
                 }
-                // A typed VECTOR param override whose value ORIGINATES in a
-                // BASED hex/bin/oct literal — directly (#(.Q(8'hcd))) or
-                // through parameter refs (#(.P(PP)) with PP = 8'hab) — keeps
-                // that base encoding at the param width with the origin's
-                // sized decompile (Surelog; rp32_r5p_mouse_soc_simple_top
-                // cpu.IFU_RST <- soc IFU_RST = 32'h8000_0000).
+                // A param override whose value ORIGINATES in a BASED literal —
+                // directly (#(.Q(8'hcd))) or through parameter refs
+                // (#(.P(PP)) with PP = 8'hab) — keeps that base encoding, and
+                // takes a SIZE that Surelog's CompileHelper::adjustSize
+                // derives from the TARGET parameter's typespec kind.  See the
+                // two-stage model at the top of this file: `srlgLitEnc` is the
+                // producer, `srlgAdjustSize` the consumer, and every hop
+                // through a parameter reference re-runs the consumer with THAT
+                // parameter's own typespec (which is what makes `int P = 8'hab`
+                // decompile `32'hab` one instance down while an untyped
+                // `P = 8'hab` stays `8'hab`).
+                //
+                // Measured over a 238-cell golden matrix; the cells that pin
+                // each arm:
+                //   int A     <- 1'b0    BIN:0    size 1   (BIN, unset MSB)
+                //   int A     <- 3'b101  INT:-3   size 32  (BIN, signed int)
+                //   int uns A <- 3'b101  BIN:101  size 3   (BIN, unsigned int)
+                //   logic A   <- 3'b101  BIN:1    size 1   (BIN, logic clamp)
+                //   bit A     <- 3'b101  BIN:101  size 3   (BIN, no arm)
+                //   byte A    <- 8'hab   HEX:ab   size 8   (HEX -> target)
+                //   int A     <- 3'o7    UINT:7   size 32  (OCT round-trip)
+                //   int A     <- 8'd5    INT:5    size 32  (DEC round-trip)
                 bool srcBaseOv8 = false;
                 // An UNTYPED param overridden by a based literal WIDER than
                 // 64 bits keeps that spelling too: the decimal fold below
                 // cannot represent it (LargeHexString's 36864-bit
                 // `.INIT_i(36864'h…)` folds to garbage without this).
                 bool wideBaseOv8 = !typedParam && iv.getBitWidth() > 64;
-                if (((typedParam &&
-                      ps.getType().getCanonicalType().kind ==
-                          SymbolKind::PackedArrayType &&
-                      iv.getBitWidth() <= 64) ||
-                     wideBaseOv8) &&
-                    !vecAliasOv8 && !strOv8 && !enumOv8 && boundInit) {
+                if (wideBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    boundInit) {
                     const Expression* org8 = &stripImplicitConv(*boundInit);
                     for (int h8 = 0;
                          h8 < 8 && org8->kind == ExpressionKind::NamedValue;
@@ -4238,6 +4520,155 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 srcBaseOv8 = true;
                             }
                         }
+                    }
+                }
+                // The typespec kind/signedness/width Surelog gives a parameter
+                // (makeParamTs' shape, read back for adjustSize).  An UNTYPED
+                // param's implicit int_typespec takes the width of its DECLARED
+                // literal default and is never signed; a decimal-BASED default
+                // mints no typespec at all, which makes adjustSize a no-op.
+                auto clsParam8 = [&](const ParameterSymbol& p8,
+                                     const Expression* dflt8, SrlgTsK& k8,
+                                     bool& sg8, int32_t& w8) {
+                    k8 = SrlgTsK::Other;
+                    sg8 = false;
+                    w8 = 0;
+                    bool tp8 = false;
+                    if (auto d8 = p8.getDeclaredType())
+                        if (auto ty8 = d8->getTypeSyntax())
+                            tp8 = ty8->kind != syntax::SyntaxKind::ImplicitType;
+                    if (!tp8) {
+                        if (isRangedUntypedParam(p8)) {
+                            k8 = SrlgTsK::Logic;
+                            w8 = (int32_t)p8.getType().getBitWidth();
+                            return;
+                        }
+                        const Expression* di8 = dflt8;
+                        if (!di8)
+                            return;
+                        auto& dl8 = stripImplicitConv(*di8);
+                        if (dl8.kind != ExpressionKind::IntegerLiteral ||
+                            !dl8.type || !dl8.type->isIntegral())
+                            return;
+                        std::string rl8 = rawTextLit(dl8);
+                        auto tk8 = rl8.find('\'');
+                        if (tk8 != std::string::npos) {
+                            auto bp8 = tk8 + 1;
+                            if (bp8 < rl8.size() &&
+                                (rl8[bp8] == 's' || rl8[bp8] == 'S'))
+                                bp8++;
+                            if (bp8 < rl8.size() &&
+                                (rl8[bp8] == 'd' || rl8[bp8] == 'D'))
+                                return;  // decimal-based default: no typespec
+                        }
+                        k8 = SrlgTsK::Int;
+                        w8 = (int32_t)dl8.type->getBitWidth();
+                        return;
+                    }
+                    auto& ct8 = p8.getType().getCanonicalType();
+                    if (!ct8.isIntegral() || ct8.isEnum())
+                        return;
+                    w8 = (int32_t)p8.getType().getBitWidth();
+                    sg8 = ct8.isSigned();
+                    if (ct8.kind == SymbolKind::PredefinedIntegerType)
+                        k8 = ct8.as<PredefinedIntegerType>().integerKind ==
+                                     PredefinedIntegerType::Int
+                                 ? SrlgTsK::Int
+                                 : SrlgTsK::Other;
+                    else if (ct8.kind == SymbolKind::ScalarType)
+                        k8 = ct8.as<ScalarType>().scalarKind ==
+                                     ScalarType::Bit
+                                 ? SrlgTsK::Bit
+                                 : SrlgTsK::Logic;
+                    else if (ct8.kind == SymbolKind::PackedArrayType) {
+                        const Type* el8 = &ct8.as<PackedArrayType>()
+                                               .elementType.getCanonicalType();
+                        while (el8->kind == SymbolKind::PackedArrayType)
+                            el8 = &el8->as<PackedArrayType>()
+                                       .elementType.getCanonicalType();
+                        k8 = (el8->kind == SymbolKind::ScalarType &&
+                              el8->as<ScalarType>().scalarKind ==
+                                  ScalarType::Bit)
+                                 ? SrlgTsK::Bit
+                                 : SrlgTsK::Logic;
+                    }
+                    else
+                        w8 = 0;  // struct/union/typedef vector: other arms own it
+                };
+                std::function<bool(const Expression&, int, SrlgOvEnc&)> ovEnc8 =
+                    [&](const Expression& e8, int d8,
+                        SrlgOvEnc& o8) -> bool {
+                    if (d8 > 8)
+                        return false;
+                    auto& x8 = stripImplicitConv(e8);
+                    if (x8.kind == ExpressionKind::IntegerLiteral)
+                        return srlgLitEnc(rawTextLit(x8), o8);
+                    if (x8.kind == ExpressionKind::NamedValue) {
+                        auto& sy8 = x8.as<NamedValueExpression>().symbol;
+                        if (sy8.kind != SymbolKind::Parameter)
+                            return false;
+                        auto& pp8 = sy8.as<ParameterSymbol>();
+                        auto* in8 = pp8.getInitializer();
+                        if (!in8 || !ovEnc8(*in8, d8 + 1, o8))
+                            return false;
+                        SrlgTsK sk8;
+                        bool ss8;
+                        int32_t sw8;
+                        clsParam8(pp8, in8, sk8, ss8, sw8);
+                        srlgAdjustSize(o8, sk8, ss8, sw8);
+                        // The hop is a Value round-trip: the decompile is
+                        // re-rendered at the size this parameter's own
+                        // adjustSize left behind.
+                        srlgOvRender(o8);
+                        return true;
+                    }
+                    // A CONCAT / REPLICATION actual reduces to a BINARY Value
+                    // at the concat's OWN width — a bit pattern, never a
+                    // number — and adjustSize then takes it from there:
+                    // `{A1}` with `A1 = 8'hab` into `parameter int M` lands
+                    // INT:-85 size 32 (BIN:10101011 size 8, MSB set, signed
+                    // int target), into an UNTYPED one BIN:10101011 size 8.
+                    if (x8.kind == ExpressionKind::Concatenation ||
+                        x8.kind == ExpressionKind::Replication) {
+                        if (!x8.type || !x8.type->isIntegral())
+                            return false;
+                        uint64_t cw8 = x8.type->getBitWidth();
+                        if (cw8 == 0 || cw8 > 64)
+                            return false;
+                        ASTContext cctx8(comp.getRoot(), LookupLocation::max);
+                        ConstantValue cv8 = cctx8.tryEval(x8);
+                        if (!cv8.isInteger() || cv8.integer().hasUnknown())
+                            return false;
+                        slang::SVInt rv8 =
+                            cv8.integer().resize((slang::bitwidth_t)cw8);
+                        std::string bits8;
+                        for (int64_t i8 = (int64_t)cw8 - 1; i8 >= 0; i8--)
+                            bits8 += (rv8[(int32_t)i8] == slang::logic_t(1))
+                                         ? '1'
+                                         : '0';
+                        o8.ct = vpiBinaryConst;
+                        o8.dg = bits8;
+                        o8.size = (int32_t)cw8;
+                        srlgOvRender(o8);
+                        return true;
+                    }
+                    return false;
+                };
+                SrlgTsK tk8;
+                bool tsg8;
+                int32_t tw8;
+                clsParam8(ps, defaultInit, tk8, tsg8, tw8);
+                if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    !strRefOv8 && overridden && boundInit && tw8 > 0 &&
+                    tw8 <= 64 && iv.getBitWidth() <= 64) {
+                    SrlgOvEnc e8;
+                    if (ovEnc8(*boundInit, 0, e8)) {
+                        srlgAdjustSize(e8, tk8, tsg8, tw8);
+                        c->VpiValue(srlgOvValue(e8));
+                        c->VpiConstType(e8.ct);
+                        c->VpiSize(e8.size);
+                        c->VpiDecompile(e8.dec);
+                        srcBaseOv8 = true;
                     }
                 }
                 // A param OVERRIDE whose bound expression is a BIT- or
@@ -7957,12 +8388,59 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                           (ckAgg == SymbolKind::PackedArrayType &&
                            dtAgg.getCanonicalType().isIntegral()));
         }
+        // § elabCallFormal — a parameter passed by bare name to a constant
+        // FUNCTION CALL that sits in an elaboration expression has its ELAB
+        // Rhs constant re-bound to the FORMAL: Surelog binds actual to formal
+        // on the SHARED constant object and re-runs adjustSize there, so the
+        // parameter's own elab param_assign ends up carrying the formal's
+        // typespec and the formal's width.  Measured (m2 probe, TOP view):
+        //   parameter A0 = 1'b0;  ... w_1(A0)         -> bare logic_typespec,
+        //                                                BIN:0 size 1 kept
+        //   parameter A2 = 3;     ... w_1(A2)         -> bare logic_typespec,
+        //                                                UINT:3/64 -> UINT:1/1
+        //   parameter A3 = 3'b101;   (never called)   -> own int_typespec
+        // A formal with a WRITTEN range (`input [7:0] val`) rebinds to that
+        // ranged logic_typespec instead; only the BARE-IMPLICIT formal (whose
+        // typespec is the unlocated 1-bit logic_typespec its io_decl already
+        // carries, § elabInvoked) is modelled here.
+        bool elabFormalTs9 = false;
+        if (topView && !inPackage && !isImported && rhsRt && pa->Rhs() &&
+            pa->Rhs()->UhdmType() == UHDM::uhdmconstant) {
+            if (auto* fa9 = elabCallFormal(ps)) {
+                const slang::ast::DeclaredType* fd9 =
+                    fa9->getDeclaredType().get();
+                const syntax::SyntaxNode* fs9 =
+                    fd9 ? (const syntax::SyntaxNode*)fd9->getTypeSyntax()
+                        : nullptr;
+                if (fs9 && fs9->kind == syntax::SyntaxKind::ImplicitType &&
+                    fs9->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                    !fs9->as<syntax::ImplicitTypeSyntax>().signing.valid()) {
+                    // The very typespec object the formal's io_decl gets:
+                    // pendingIoTs' bareCache shares ONE unlocated
+                    // logic_typespec per bare-implicit type node, and Surelog
+                    // hands the constant that same object.
+                    pendingIoTs.push_back({rhsRt, (const void*)fs9});
+                    elabFormalTs9 = true;
+                    auto* rc9 = (UHDM::constant*)pa->Rhs();
+                    SrlgOvEnc e9;
+                    if (srlgEncFromConst(rc9, e9)) {
+                        srlgAdjustSize(e9, SrlgTsK::Logic, false, 1);
+                        rc9->VpiValue(srlgOvValue(e9));
+                        rc9->VpiConstType(e9.ct);
+                        rc9->VpiSize(e9.size);
+                        rc9->VpiDecompile(e9.dec);
+                    }
+                }
+            }
+        }
         if (prt) {
             if (topView && !inPackage) {
                 // A pkg-ref clone already bound its Rhs ts to the pkg-located
                 // typespec; keep the deferred patch off that ref.
                 pendingParamTs.push_back(
-                    {&ps, up, prt, pkgRefFold ? nullptr : rhsRt, typedParam});
+                    {&ps, up, prt,
+                     (pkgRefFold || elabFormalTs9) ? nullptr : rhsRt,
+                     typedParam});
             }
             else if (deferAggTs) {
                 pendingDefParamTs.push_back({&ps, up, prt, rhsRt, typedParam, m,

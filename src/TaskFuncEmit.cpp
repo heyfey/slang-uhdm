@@ -35,11 +35,36 @@ struct ElabCallScan
     : slang::ast::ASTVisitor<ElabCallScan, slang::ast::VisitFlags::Symbols |
                                                slang::ast::VisitFlags::Expressions> {
     std::set<const SubroutineSymbol*>& out;
-    explicit ElabCallScan(std::set<const SubroutineSymbol*>& o) : out(o) {}
+    std::map<const slang::ast::ParameterSymbol*,
+             const slang::ast::FormalArgumentSymbol*>& args;
+    ElabCallScan(std::set<const SubroutineSymbol*>& o,
+                 std::map<const slang::ast::ParameterSymbol*,
+                          const slang::ast::FormalArgumentSymbol*>& a)
+        : out(o), args(a) {}
     void handle(const slang::ast::CallExpression& ce) {
         if (auto* sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine))
-            if (*sp)
+            if (*sp) {
                 out.insert(*sp);
+                // Record which parameter each bare-name actual binds to, so
+                // the parameter's elab constant can take the formal's
+                // typespec (§ elabCallFormal).
+                auto fs = (*sp)->getArguments();
+                auto as = ce.arguments();
+                for (size_t i = 0; i < as.size() && i < fs.size(); i++) {
+                    if (!as[i] || !fs[i])
+                        continue;
+                    const slang::ast::Expression* a0 = as[i];
+                    while (a0->kind == slang::ast::ExpressionKind::Conversion)
+                        a0 = &a0->as<slang::ast::ConversionExpression>()
+                                  .operand();
+                    if (a0->kind != slang::ast::ExpressionKind::NamedValue)
+                        continue;
+                    auto& sy = a0->as<slang::ast::NamedValueExpression>().symbol;
+                    if (sy.kind == SymbolKind::Parameter)
+                        args.emplace(&sy.as<slang::ast::ParameterSymbol>(),
+                                     fs[i]);
+                }
+            }
         visitDefault(ce);
     }
 };
@@ -48,7 +73,7 @@ struct ElabCallScan
 bool UhdmExporter::elabInvoked(const SubroutineSymbol& sub) {
     if (!elabCalledSubs) {
         elabCalledSubs.emplace();
-        ElabCallScan scan(*elabCalledSubs);
+        ElabCallScan scan(*elabCalledSubs, elabCallArgs);
         comp.getRoot().visit(scan);
     }
     return elabCalledSubs->count(&sub) != 0;
@@ -63,6 +88,17 @@ bool UhdmExporter::isTaskScopeParam9(const Symbol& sym) {
     auto& owner = ps->asSymbol();
     return owner.kind == SymbolKind::Subroutine &&
            owner.as<SubroutineSymbol>().subroutineKind == SubroutineKind::Task;
+}
+
+const slang::ast::FormalArgumentSymbol* UhdmExporter::elabCallFormal(
+    const slang::ast::ParameterSymbol& ps) {
+    if (!elabCalledSubs) {
+        elabCalledSubs.emplace();
+        ElabCallScan scan(*elabCalledSubs, elabCallArgs);
+        comp.getRoot().visit(scan);
+    }
+    auto it = elabCallArgs.find(&ps);
+    return it == elabCallArgs.end() ? nullptr : it->second;
 }
 
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {

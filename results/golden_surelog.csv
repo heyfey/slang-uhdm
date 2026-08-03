@@ -695,8 +695,8 @@ ImplicitArg,default,CMP_EQUAL,,,differ
 ImplicitArg,testflags,CMP_EQUAL,,,differ
 ImplicitFunc,default,CMP_EQUAL,,,match
 ImplicitFunc,testflags,CMP_EQUAL,,,match
-ImplicitFuncArgAndReturn,default,CMP_NOTEQUAL,decompile:,,
-ImplicitFuncArgAndReturn,testflags,CMP_NOTEQUAL,decompile:,,
+ImplicitFuncArgAndReturn,default,CMP_EQUAL,,,differ
+ImplicitFuncArgAndReturn,testflags,CMP_EQUAL,,,differ
 ImplicitGenBlock,default,SLANG_REJECT,dut.sv:66:16: error: cannot reference unnamed generate block via external name 'genblk1' (use --allow-genblk-reference to allow this),,
 ImplicitGenBlock,testflags,SLANG_REJECT,dut.sv:66:16: error: cannot reference unnamed generate block via external name 'genblk1' (use --allow-genblk-reference to allow this),,
 ImplicitPackedStructNet,default,CMP_EQUAL,,,match
