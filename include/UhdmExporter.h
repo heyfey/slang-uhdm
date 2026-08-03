@@ -1182,6 +1182,11 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// The node's text as the PREPROCESSED token stream reads it: outside a
+    /// macro this is `rawText(syn.sourceRange())`, inside one it is the
+    /// node's own tokens concatenated (which already carry the substituted
+    /// macro ARGUMENTS).  See the definition (UhdmExporter.cpp).
+    std::string rawTextExp(const slang::syntax::SyntaxNode& syn);
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
     bool isPkgQualifiedVarRef(const slang::ast::Expression& e);

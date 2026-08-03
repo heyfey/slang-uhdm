@@ -9027,6 +9027,22 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
     // memLeftGenScopeBlocked).
     if (memLeftGenScopeBlocked(body))
         return;
+    // OPEN RESIDUE (r10rgg4, 18 of Rggen's 62 remaining vectors — the largest
+    // single class left).  An INTERFACE INSTANTIATED INSIDE A GENERATE BLOCK
+    // (`rggen_bit_field_if #(32) bit_field_if();` in block_0's g_register_N)
+    // is missing from the elaborated gen_scope: golden lists
+    // interface_inst(bit_field_if)@166:5 under gen_scope::Interfaces, we list
+    // none (probe tools/probe/r10rgg4gs.cpp --elab, `.Interfaces: SIZE lhs=1
+    // rhs=0`).  Two consequences ride on it, both measured:
+    //   * every cont_assign in that block whose Lhs/Rhs names the interface
+    //     (the `rggen_tie_off_unused_signals` / `rggen_connect_bit_field_if`
+    //     macro bodies) emits with a NULL Lhs — emitExpr cannot bind
+    //     `bit_field_if.read_data[__i]` with no instance to bind to (the DEF
+    //     view builds these from syntax and is now byte-equal);
+    //   * module_inst(u_register)'s port-connection singular field then
+    //     differs (`failLhs <null> failRhs interface_inst(register_if)`).
+    // Fixing the missing instance is the head of this cluster; the def-view
+    // half of the same sources is already converged.
     std::set<const Symbol*> genLhsSyms;
     auto* gsas = s.MakeGen_scope_arrayVec();
     // INTERFACE elab views collapse an if-branch whose ONLY instantiated
@@ -20306,11 +20322,38 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             }
             b->VpiParent(parent);
             auto* stmts = s.MakeAnyVec();
+            // SOURCE-ORDER KEY for the branch's statement list.  The list is
+            // built in CATEGORY passes (params, decls, instances, CAs, nested
+            // generates, processes) and then restored to source order; the
+            // key for that restore is the position of the syntax ITEM the
+            // statement came from, NOT the emitted object's own line/column.
+            // A MACRO-expanded item carries the macro BODY's location — the
+            // `rggen_tie_off_unused_signals(...)` invocation on block_0's
+            // line 167 emits a gen_if at the macro's own line 12, and
+            // `rggen_connect_bit_field_if` on line 185 emits six cont_assigns
+            // at lines 3..8 — so a location sort hoists every macro-expanded
+            // statement to the FRONT of the block.  Surelog keeps the
+            // (flattened) source-text order, which is exactly `items` order.
+            std::map<const syntax::SyntaxNode*, size_t> itemIdx9;
+            for (size_t i9 = 0; i9 < items.size(); i9++)
+                itemIdx9[items[i9]] = i9;
+            std::vector<size_t> keys9;
+            size_t curKey9 = 0;
+            // Assigns the CURRENT key to every statement pushed since the
+            // last call, then switches to `it9`'s key.  Called at the top of
+            // each per-item loop body, so `continue`s cost nothing.
+            auto mark9 = [&](const syntax::SyntaxNode* it9) {
+                while (keys9.size() < stmts->size())
+                    keys9.push_back(curKey9);
+                auto f9 = itemIdx9.find(it9);
+                curKey9 = f9 == itemIdx9.end() ? 0 : f9->second;
+            };
             // Gen-block localparams (def view): a param_assign stmt whose
             // parameter carries the typed ts (via the AST symbol) and whose
             // Rhs keeps the source literal encoding, unparented (Surelog).
             std::map<std::string, UHDM::parameter*> branchParams;
             for (auto* item : items) {
+                mark9(item);
                 if (item->kind != syntax::SyntaxKind::ParameterDeclarationStatement ||
                     !astBlock)
                     continue;
@@ -20430,6 +20473,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             bool savedIDG9 = inDefGenDeclTs;
             inDefGenDeclTs = true;
             for (auto* item : items) {
+                mark9(item);
                 if (item->kind != syntax::SyntaxKind::DataDeclaration ||
                     !astBlock)
                     continue;
@@ -20774,6 +20818,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             // HighConn ref_obj scoped branchPrefix.<inst>.<formal>.<actual>
             // (Surelog's doubled form). No LowConn/direction/actual link.
             for (auto* item : items) {
+                mark9(item);
                 if (item->kind != syntax::SyntaxKind::HierarchyInstantiation)
                     continue;
                 auto& hi = item->as<syntax::HierarchyInstantiationSyntax>();
@@ -20883,7 +20928,44 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             }
                         }
                         auto lb2 = act.find('[');
-                        if (idxGroups.size() >= 2 && !act.empty() &&
+                        // A DOTTED SELECTED actual
+                        // (.i_hw_write_enable(register_if[3].value[16+:1]))
+                        // is a HIER_PATH, not a select on the base: the two
+                        // bracket groups belong to DIFFERENT components, so
+                        // the multidim var_select arm below reads them as one
+                        // base's index chain and names the whole thing
+                        // `register_if`.  Surelog builds the same hier_path
+                        // the ELABORATED view already gets (probe r10rgg4hp:
+                        // def and elab shapes are element-for-element equal —
+                        // bit_select(register_if) full `register_if[3]`,
+                        // indexed_part_select(value) full = the whole path),
+                        // so route it through the ScopedName emitter, whose
+                        // fullnames stay BARE here (syntaxRefPrefix is empty
+                        // in this loop).  Only for a SELECTED dotted actual:
+                        // an unselected `a.b` keeps the doubled-fullname
+                        // ref_obj form of the final else.
+                        const syntax::SyntaxNode* dotSyn9 = npc.expr;
+                        if (dotSyn9->kind ==
+                            syntax::SyntaxKind::SimplePropertyExpr)
+                            dotSyn9 =
+                                dotSyn9->as<syntax::SimplePropertyExprSyntax>()
+                                    .expr;
+                        if (dotSyn9->kind ==
+                            syntax::SyntaxKind::SimpleSequenceExpr)
+                            dotSyn9 =
+                                dotSyn9->as<syntax::SimpleSequenceExprSyntax>()
+                                    .expr;
+                        UHDM::any* dotHp9 = nullptr;
+                        if (dotSyn9->kind == syntax::SyntaxKind::ScopedName &&
+                            !idxGroups.empty() && !act.empty() &&
+                            act.back() == ']' &&
+                            act.find('.') != std::string::npos)
+                            dotHp9 = emitSyntaxExpr(*dotSyn9, p);
+                        if (dotHp9 &&
+                            dotHp9->UhdmType() == UHDM::uhdmhier_path) {
+                            p->High_conn((UHDM::expr*)dotHp9);
+                        }
+                        else if (idxGroups.size() >= 2 && !act.empty() &&
                             act.back() == ']') {
                             // MULTIDIM select (data_i[0][j]): a var_select
                             // named by the base, fullname DOUBLED through the
@@ -21242,6 +21324,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
             for (auto* item : items) {
+                mark9(item);
                 if (item->kind != syntax::SyntaxKind::ContinuousAssign)
                     continue;
                 auto& cas2 = item->as<syntax::ContinuousAssignSyntax>();
@@ -21324,6 +21407,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             // pass so the branch's statement list keeps SOURCE order
             // (GenerateUnnamed's `case` before its two sibling `if`s).
             for (auto* item : items) {
+                mark9(item);
                 if (item->kind == syntax::SyntaxKind::CaseGenerate) {
                     auto& nCase = item->as<syntax::CaseGenerateSyntax>();
                     doneCases.insert(&nCase);
@@ -21436,6 +21520,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             // under the branch begin with branch-prefix-scoped UNBOUND refs.
             if (astBlock) {
                 for (auto* item : items) {
+                    mark9(item);
                     if (item->kind != syntax::SyntaxKind::AlwaysBlock &&
                         item->kind != syntax::SyntaxKind::AlwaysCombBlock &&
                         item->kind != syntax::SyntaxKind::AlwaysFFBlock &&
@@ -21464,15 +21549,24 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
             // The def-view stmt list follows SOURCE order (decls, CAs and
-            // processes interleave as written).
-            std::stable_sort(stmts->begin(), stmts->end(),
-                             [](const UHDM::any* a1, const UHDM::any* a2) {
-                                 auto* e1 = (const UHDM::expr*)a1;
-                                 auto* e2 = (const UHDM::expr*)a2;
-                                 if (e1->VpiLineNo() != e2->VpiLineNo())
-                                     return e1->VpiLineNo() < e2->VpiLineNo();
-                                 return e1->VpiColumnNo() < e2->VpiColumnNo();
-                             });
+            // processes interleave as written) — by ITEM position, so
+            // macro-expanded statements stay at their expansion site (see the
+            // key comment above).  Statements from the same item keep their
+            // push order, which is already source order.
+            mark9(nullptr);
+            {
+                std::vector<std::pair<size_t, UHDM::any*>> ord9;
+                ord9.reserve(stmts->size());
+                for (size_t i9 = 0; i9 < stmts->size(); i9++)
+                    ord9.push_back({keys9[i9], (*stmts)[i9]});
+                std::stable_sort(ord9.begin(), ord9.end(),
+                                 [](const std::pair<size_t, UHDM::any*>& x9,
+                                    const std::pair<size_t, UHDM::any*>& y9) {
+                                     return x9.first < y9.first;
+                                 });
+                for (size_t i9 = 0; i9 < ord9.size(); i9++)
+                    (*stmts)[i9] = ord9[i9].second;
+            }
             if (b->UhdmType() == UHDM::uhdmnamed_begin)
                 ((UHDM::named_begin*)b)->Stmts(stmts);
             else

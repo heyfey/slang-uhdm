@@ -4690,6 +4690,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // param's own int_typespec as the cast target; that ts
                     // gains a loc-less vpiExpr ref_obj with a param-doubled
                     // fullname (work@top.P.P) bound to the def parameter.
+                    //
+                    // OPEN RESIDUE (r10rgg4, 3 vectors on Rggen; probe
+                    // tools/probe/r10rgg4pex.cpp censuses Cast_to_expr per
+                    // def-view parameter).  The predicate below is NOT the
+                    // paren test its name claims — it fires for any
+                    // module-param cast that reaches here — and the golden
+                    // matrix over Rggen's four `P'(x)` sites says the stamp
+                    // tracks the CAST TARGET's own default, not the cast form:
+                    //   rggen_register_common  VALUE_WIDTH  = BUS_WIDTH  (ref)
+                    //       cast @106 (cont_assign)  golden STAMPS, we stamp
+                    //   rggen_external_register VALUE_WIDTH = BUS_WIDTH  (ref)
+                    //       cast @73  (cont_assign)  golden STAMPS, we DON'T
+                    //   rggen_apb_bridge     ADDRESS_WIDTH = 16      (literal)
+                    //       cast @22  (cont_assign)  golden leaves it null
+                    //   rggen_adapter_common ADDRESS_WIDTH = 8       (literal)
+                    //       cast @50  (function body) golden null, we STAMP
+                    //   rggen_address_decoder WIDTH        = 8       (literal)
+                    //       cast @25  (function body) golden null, we STAMP
+                    // i.e. a LITERAL-default target folds its width at def
+                    // compile and keeps no reference, while a target whose
+                    // default is another PARAMETER cannot reduce there and
+                    // keeps the ref_obj — in every module that writes the
+                    // cast.  Not implemented: this arm is shared with the
+                    // BlackBePipeInt/Scr1 package-cast laws above and needs
+                    // its own gate.
                     // Only for a function DIRECTLY in the module: a function
                     // inside an elaborated GENERATE block builds a FRESH
                     // integer_typespec at the cast site instead (its params

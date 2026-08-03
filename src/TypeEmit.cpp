@@ -7881,7 +7881,14 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // prefix.<leaf> (Surelog flattens intermediate blocks: A.y not
             // A.B.y). Other (non-gen) callers have an empty/param prefix, so
             // the leaf simply gets no fullname.
-            std::string raw = rawText(syn.sourceRange());
+            // § macroExpandedText: a name written with a macro FORMAL
+            // (`assign FIF.valid = RIF.valid;`) must read its EXPANDED
+            // spelling — `rawText` would hand back the macro body's `FIF`,
+            // which has no '.' bearing on the real path and (for the
+            // one-buffer case) can come back empty, dropping the whole
+            // hier_path.  rggen's `rggen_connect_bit_field_if` block is 6
+            // cont_assigns per bit field, ~800 in block_0 alone.
+            std::string raw = rawTextExp(syn);
             // A SYMBOLIC base index (STAGE[i-1].C) re-lexes with spaces
             // around binary operators (Surelog) and needs the selector
             // SYNTAX for the bit_select index emission.
@@ -7906,7 +7913,14 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 std::string o;
                 for (size_t i2 = 0; i2 < t.size(); i2++) {
                     char ch = t[i2];
-                    if ((ch == '+' || ch == '-' || ch == '*' || ch == '/') &&
+                    // `+:` / `-:` is ONE token (the indexed part-select
+                    // operator), not a binary operator: Surelog's re-lex
+                    // prints `read_mask[0+:4]` with no interior spaces while
+                    // a real binary op spaces out (`STAGE[i - 1].C`).
+                    bool partSel9 = (ch == '+' || ch == '-') &&
+                                    i2 + 1 < t.size() && t[i2 + 1] == ':';
+                    if (!partSel9 &&
+                        (ch == '+' || ch == '-' || ch == '*' || ch == '/') &&
                         i2 > 0 && t[i2 - 1] != ' ' && t[i2 - 1] != '[') {
                         o += ' ';
                         o += ch;
@@ -8072,6 +8086,50 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         ps9->Left_range(mkB9(lb + 1, cl9));
                         ps9->Right_range(mkB9(cl9 + 1, rb));
                         elems->push_back(ps9);
+                        continue;
+                    }
+                }
+                // An INDEXED part-select on an element
+                // (RIF.read_mask[LSB+:WIDTH] once the macro args are in):
+                // indexed_part_select named by the member, fullname = the
+                // dotted path INCLUDING the select, ConstantSelect,
+                // vpiPosIndexed/vpiNegIndexed by the operator, and UINT64
+                // base/width constants that stay UNPARENTED — the same
+                // terms as the [L:R] part_select above (probe r10rgg4ips
+                // over the golden: 40 distinct shapes, all identical in
+                // form).  The span stops AT the closing bracket
+                // (`read_mask[0+:4]` minus the `]`), like part_select.
+                {
+                    auto pl9 = pname.find_first_of("+-", lb + 1);
+                    if (lb != std::string::npos && rb != std::string::npos &&
+                        pl9 != std::string::npos && pl9 > lb + 1 &&
+                        pl9 + 1 < rb && pname[pl9 + 1] == ':' &&
+                        pname.find_first_not_of("0123456789", lb + 1) == pl9 &&
+                        pname.find_first_not_of("0123456789", pl9 + 2) == rb) {
+                        std::string base8 = pname.substr(0, lb);
+                        auto* ip8 = s.MakeIndexed_part_select();
+                        ip8->VpiName(base8);
+                        ip8->VpiFullName(dottedSoFar);
+                        ip8->VpiParent(hp);
+                        ip8->VpiConstantSelect(true);
+                        ip8->VpiIndexedPartSelectType(
+                            pname[pl9] == '+' ? vpiPosIndexed : vpiNegIndexed);
+                        setLoc(ip8, SourceRange(exprStart + off,
+                                                exprStart + off + rb));
+                        auto mkC8 = [&](size_t from, size_t to) {
+                            auto* c8 = s.MakeConstant();
+                            std::string dg8 = pname.substr(from, to - from);
+                            c8->VpiDecompile(dg8);
+                            c8->VpiSize(64);
+                            c8->VpiValue("UINT:" + dg8);
+                            c8->VpiConstType(vpiUIntConst);
+                            setLoc(c8, SourceRange(exprStart + off + from,
+                                                   exprStart + off + to));
+                            return c8;
+                        };
+                        ip8->Base_expr(mkC8(lb + 1, pl9));
+                        ip8->Width_expr(mkC8(pl9 + 2, rb));
+                        elems->push_back(ip8);
                         continue;
                     }
                 }

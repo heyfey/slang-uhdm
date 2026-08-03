@@ -10204,9 +10204,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             return false;
         };
+        // Rank 3: MATERIALIZED IMPORTED params.  They LEAD the DEF listing
+        // (CompileModule's import pass runs before the definition pass — the
+        // law above), but the ELABORATED instance lists them LAST, after the
+        // body-declared params.  Measured on Rggen (probe r10rgg4pa,
+        // rggen_adapter_common, both elaborated instances):
+        //   DEF  [0..1] RGGEN_ACCESS_*_BIT (imported) [2..11] port params
+        //        [12..14] body localparams
+        //   ELAB [0..9] port params [10..12] body localparams
+        //        [13..14] RGGEN_ACCESS_*_BIT
+        // — the elab writer rebuilds the instance's own listing and appends
+        // the import copies at the end.
+        auto importedPa9 = [&](UHDM::param_assign* pa9) -> bool {
+            auto* l9 = pa9->Lhs();
+            return l9 && l9->UhdmType() == UHDM::uhdmparameter &&
+                   !((UHDM::parameter*)l9)->VpiImported().empty();
+        };
         auto rank9 = [&](UHDM::param_assign* pa9) -> int {
             if (!portPa9.count(pa9))
-                return 1;
+                return importedPa9(pa9) ? 3 : 1;
             if (implicitPort9(pa9))
                 return 2;
             return 0;

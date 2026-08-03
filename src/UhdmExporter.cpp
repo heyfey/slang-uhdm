@@ -4196,6 +4196,42 @@ std::string UhdmExporter::rawText(SourceRange range) {
     return std::string(text.substr(start, end - start));
 }
 
+// § macroExpandedText — the node's text as the PREPROCESSED stream reads it.
+//
+// `rawText` on a macro-expanded range reads the macro BODY (getFullyOriginalRange
+// walks back to the definition site), so a name written with a macro FORMAL
+// comes back unsubstituted: rggen's
+//   `define rggen_connect_bit_field_if(RIF, FIF, LSB, WIDTH) \
+//      assign FIF.valid = RIF.valid; ...
+// invoked as `rggen_connect_bit_field_if(bit_field_if, bit_field_sub_if, 0, 4)`
+// yields `FIF.valid` / `RIF.read_mask[LSB+:WIDTH]`, while Surelog — which
+// compiles the expanded token stream — names the hier_path
+// `bit_field_sub_if.valid` / `bit_field_if.read_mask[0+:4]`.
+//
+// The node's own TOKENS are the expanded ones (macro-argument substitution
+// replaces the formal's token with the argument's), so concatenating their raw
+// text reproduces the expanded spelling exactly.  Trivia is dropped, which is
+// what the substituted form looks like anyway (`[0+:4]`, no interior spaces).
+// Outside a macro this is plain `rawText` so every existing caller's spelling —
+// including interior comments and spacing — is unchanged.
+std::string UhdmExporter::rawTextExp(const syntax::SyntaxNode& syn) {
+    auto r9 = syn.sourceRange();
+    if (r9.start() == SourceLocation::NoLocation || !sm->isMacroLoc(r9.start()))
+        return rawText(r9);
+    std::string out;
+    std::function<void(const syntax::SyntaxNode&)> walk =
+        [&](const syntax::SyntaxNode& n) {
+            for (size_t i = 0; i < n.getChildCount(); i++) {
+                if (auto* c = n.childNode(i))
+                    walk(*c);
+                else if (auto t = n.childToken(i))
+                    out += t.rawText();
+            }
+        };
+    walk(syn);
+    return out.empty() ? rawText(r9) : out;
+}
+
 // A based literal whose SIZE comes from a macro (`\`SCR1_XLEN'hFFFF_FFFE`)
 // spans two buffers: the size token lives in the macro's expansion buffer, the
 // base and digits in the source file. No single buffer holds the text, so
