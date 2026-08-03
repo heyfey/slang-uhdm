@@ -5302,6 +5302,35 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 rhs = c9;
             }
+            // A MATERIALIZED IMPORTED param whose home default is a bare
+            // ENUM-VALUE reference (`parameter lc_tx_t P = Off;`) folds in the
+            // DEF module view too, to the enum const's OWN literal form at the
+            // reference's span — the same constant the elab fold chain below
+            // produces.  Measured (probe r10impb, `import p::*`): every
+            // materialized copy carries the constant in allModules as well as
+            // topModules, while the module's OWN enum-typed localparam keeps
+            // its ref_obj in the def view.  Only the copy is folded here.
+            if (!rhs && !topView && !inPackage && isImported) {
+                auto& ev0 = stripImplicitConv(*init);
+                if (ev0.kind == ExpressionKind::NamedValue)
+                    if (auto* ec0 = enumMemberSubstConst(
+                            ev0.as<NamedValueExpression>().symbol)) {
+                        ec0->VpiParent(pa);
+                        setLoc(ec0, init->sourceRange);
+                        if (wantTs) {
+                            auto* rt0 = s.MakeRef_typespec();
+                            std::string tsp0 = prefix;
+                            if (tsp0.size() >= 2 &&
+                                tsp0.compare(tsp0.size() - 2, 2, "::") == 0)
+                                tsp0.resize(tsp0.size() - 2);
+                            rt0->VpiFullName(tsp0);
+                            rt0->VpiParent(ec0);
+                            ec0->Typespec(rt0);
+                            rhsRt = rt0;
+                        }
+                        rhs = ec0;
+                    }
+            }
             if (!rhs && topView) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
@@ -10025,6 +10054,112 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     return its;
 }
 
+// True for a PACKAGE parameter whose declared type is an ENUM-TYPEDEF ALIAS
+// (`typedef enum ... e_t; typedef e_t f_t; parameter f_t P = ...;`).  Only
+// meaningful at a site that materializes the param INTO A MODULE — the home
+// package's own listing shares the typedef object instead.
+bool UhdmExporter::importAliasEnumParam(const ParameterSymbol& ps) {
+    auto* sc = ps.getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::Package)
+        return false;
+    auto d0 = ps.getDeclaredType();
+    if (!d0)
+        return false;
+    auto& dt = d0->getType();
+    return dt.kind == SymbolKind::TypeAlias &&
+           dt.getCanonicalType().kind == SymbolKind::EnumType &&
+           dt.as<TypeAliasType>().targetType.getType().kind ==
+               SymbolKind::TypeAlias;
+}
+
+// The typespec a module's MATERIALIZED IMPORT COPY of an enum-alias-typed
+// package parameter carries, in BOTH module views (Surelog; probe r10impb on
+// `typedef enum logic[W-1:0]{..} e_t; typedef e_t f_t; parameter f_t P = B;`):
+//
+//   * a PER-COPY enum_typespec named by the alias's BARE name — `f_t`, not
+//     the package listing's `p::f_t`, and bare even when the package wrote
+//     the declaration QUALIFIED (`parameter p::f_t P4`);
+//   * spanned at the TARGET typedef's declaration (the ENUM's own span), not
+//     at the alias line;
+//   * base vector FOLDED to the enum's concrete range (the package-param
+//     bound `[W-1:0]` is already resolved in the importing module);
+//   * a vpiTypedefAlias ref to a SECOND per-copy clone, this one named by the
+//     target's QUALIFIED name (`p::e_t`);
+//   * both clones (and their bases) instanced at the ELABORATED home package.
+//
+// The module's OWN parameter of the same type keeps the qualified listing
+// object, which is why this is gated on the import copy.
+UHDM::enum_typespec* UhdmExporter::buildImportAliasEnumTs(
+    const TypeAliasType& ta, const EnumType& et, const std::string& refPrefix) {
+    auto& tgt = ta.targetType.getType().as<TypeAliasType>();
+    const syntax::SyntaxNode* tgtSyn = nullptr;
+    SourceRange tgtRange;
+    if (auto asyn = tgt.getSyntax();
+        asyn && asyn->kind == syntax::SyntaxKind::TypedefDeclaration) {
+        tgtSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
+        tgtRange = asyn->sourceRange();
+    }
+    std::string bare(ta.name);
+    std::string pfx = refPrefix.empty() ? bare : refPrefix + "." + bare;
+    const Symbol* homePkg = nullptr;
+    std::string tgtName(tgt.name);
+    if (auto* sc = tgt.getParentScope();
+        sc && sc->asSymbol().kind == SymbolKind::Package) {
+        homePkg = &sc->asSymbol();
+        tgtName = std::string(homePkg->name) + "::" + tgtName;
+    }
+    auto* outer = buildEnumTs(et, tgtSyn, pfx);
+    outer->VpiName(bare);
+    auto* inner = buildEnumTs(et, tgtSyn, pfx + "." + tgtName);
+    inner->VpiName(tgtName);
+    auto* art = s.MakeRef_typespec();
+    art->VpiFullName(pfx);
+    art->VpiParent(outer);
+    art->Actual_typespec(inner);
+    inner->VpiParent(art);
+    outer->Typedef_alias(art);
+    // ...at the ELABORATED home package: typespec::Compare recurses
+    // vpiInstance, so a def-view link drags the unelaborated package in
+    // behind it (same rule as the materialized-import sites above).
+    UHDM::instance* pkgInst = nullptr;
+    bool defPkgInst = false;
+    if (homePkg) {
+        if (auto tit = pkgTopMap.find((const void*)homePkg);
+            tit != pkgTopMap.end())
+            pkgInst = (UHDM::instance*)tit->second;
+        else if (auto pit = pkgDefMap.find((const void*)homePkg);
+                 pit != pkgDefMap.end()) {
+            pkgInst = (UHDM::instance*)pit->second;
+            defPkgInst = true;
+        }
+    }
+    auto& ebt = et.baseType.getCanonicalType();
+    for (auto* e0 : {(UHDM::enum_typespec*)outer, (UHDM::enum_typespec*)inner}) {
+        if (tgtRange.start() != SourceLocation::NoLocation)
+            setLoc(e0, tgtRange);
+        if (pkgInst) {
+            e0->Instance(pkgInst);
+            if (defPkgInst)
+                pkgImportTsTopFixups.emplace_back((UHDM::typespec*)e0,
+                                                  (const void*)homePkg);
+        }
+        if (!e0->Base_typespec() || !e0->Base_typespec()->Actual_typespec())
+            continue;
+        auto* bts = e0->Base_typespec()->Actual_typespec();
+        bts->VpiParent(e0->Base_typespec());
+        if (pkgInst) {
+            bts->Instance(pkgInst);
+            if (defPkgInst)
+                pkgImportTsTopFixups.emplace_back(bts, (const void*)homePkg);
+        }
+        if (ebt.hasFixedRange()) {
+            auto fr = ebt.getFixedRange();
+            foldVecBounds(bts, fr.left, fr.right);
+        }
+    }
+    return outer;
+}
+
 // A LOC-LESS bare logic_typespec clone of a vector param's packed range;
 // bound constants carry ONLY the UINT value (parented at the range when
 // parentBounds).
@@ -10276,6 +10411,18 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                     }
                 }
             }
+        }
+        // A MATERIALIZED IMPORT copy typed by an ENUM-TYPEDEF ALIAS carries
+        // the bare-named per-copy clone pair in the elab view too (the
+        // pendingParamTs queue only holds module/interface params, so a
+        // package-scoped ps here IS an import copy).
+        if (!its && importAliasEnumParam(*ps)) {
+            syntaxRefPrefix = std::string(prt->VpiFullName());
+            auto& dtA = ps->getDeclaredType()->getType();
+            its = buildImportAliasEnumTs(dtA.as<TypeAliasType>(),
+                                         dtA.getCanonicalType().as<EnumType>(),
+                                         std::string(prt->VpiFullName()));
+            syntaxRefPrefix = savedPfx2;
         }
         if (!its) {
             syntaxRefPrefix = std::string(prt->VpiFullName());
@@ -10769,6 +10916,12 @@ void UhdmExporter::drainDefParamTs() {
         UHDM::typespec* its = nullptr;
         bool sharedTs = false;
         bool bareAggPkgTd = false;
+        // A MATERIALIZED IMPORT copy typed by an ENUM-TYPEDEF ALIAS never
+        // shares the package listing object: it gets the bare-named per-copy
+        // clone pair (buildImportAliasEnumTs), in this DEF view exactly as in
+        // the ELAB one.
+        bool importAliasEnum0 =
+            !pd.inPackage && importAliasEnumParam(*pd.ps);
         if (auto d0 = pd.ps->getDeclaredType()) {
             auto& dt0 = d0->getType();
             // A VECTOR typedef (typedef logic[X-1:0] my_type_t) is CLONED with a
@@ -10819,12 +10972,24 @@ void UhdmExporter::drainDefParamTs() {
                     its = tit0->second;
                     sharedTs = true;
                 }
-            if (!its)
+            if (!its && !importAliasEnum0)
                 if (auto tit = typedefTs.find(&dt0);
                     tit != typedefTs.end() && !vectorAlias && !bareAggPkgTd) {
                     its = tit->second;
                     sharedTs = true;
                 }
+        }
+        if (!its && importAliasEnum0) {
+            std::string savedPfxA = syntaxRefPrefix;
+            syntaxRefPrefix = pd.refFullName;
+            auto& dtA = pd.ps->getDeclaredType()->getType();
+            its = buildImportAliasEnumTs(dtA.as<TypeAliasType>(),
+                                         dtA.getCanonicalType().as<EnumType>(),
+                                         pd.refFullName);
+            syntaxRefPrefix = savedPfxA;
+            // Surelog parents a materialized import's typespec at its
+            // ref_typespec, not at the parameter.
+            its->VpiParent(pd.prt);
         }
         if (!its) {
             std::string savedPfx2 = syntaxRefPrefix;
@@ -10857,7 +11022,7 @@ void UhdmExporter::drainDefParamTs() {
         if (pd.rhsRt)
             pd.rhsRt->Actual_typespec(its);
         pd.prt->Actual_typespec(its);
-        if (!sharedTs && pd.typedParam)
+        if (!sharedTs && pd.typedParam && !importAliasEnum0)
             its->VpiParent(pd.up);
         // A bare-package-typedef aggregate param defers to SHARE its ELAB
         // clone: Surelog emits ONE struct/union clone per param (parented at

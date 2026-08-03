@@ -757,6 +757,13 @@ private:
                                        bool parentBounds);
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
                                 bool parentBounds = false);
+    // A package parameter typed by an ENUM-TYPEDEF ALIAS (typedef e_t f_t):
+    // its MATERIALIZED IMPORT copy in a module carries a per-copy clone pair
+    // instead of the package's listing object — see buildImportAliasEnumTs.
+    bool importAliasEnumParam(const slang::ast::ParameterSymbol& ps);
+    UHDM::enum_typespec* buildImportAliasEnumTs(
+        const slang::ast::TypeAliasType& ta, const slang::ast::EnumType& et,
+        const std::string& refPrefix);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
     // Substitutes parameter leaves inside an elab child's part-select bound
     // OPERATION (see ModuleEmit).

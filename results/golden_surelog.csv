@@ -709,8 +709,8 @@ ImplicitPorts2,default,CMP_EQUAL,,,differ
 ImplicitPorts2,testflags,CMP_EQUAL,,,differ
 ImplicitVarType,default,CMP_EQUAL,,,match
 ImplicitVarType,testflags,CMP_EQUAL,,,match
-ImportBinding,default,CMP_NOTEQUAL,decompile:,,
-ImportBinding,testflags,CMP_NOTEQUAL,decompile:,,
+ImportBinding,default,CMP_EQUAL,,,differ
+ImportBinding,testflags,CMP_EQUAL,,,differ
 ImportedTypespec,default,CMP_EQUAL,,,match
 ImportedTypespec,testflags,CMP_EQUAL,,,differ
 ImportPackage,default,CMP_EQUAL,,,match
