@@ -3467,7 +3467,17 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                         // gain, real risk.
                         fold9 = !moduleDefEmit;
                     else if (refBound9)
-                        fold9 = pkgEnum9;
+                        // An import-listing CLONE of a package enum FOLDS a
+                        // PARAM-referencing base bound: the clone is compiled
+                        // out of the importing scope's ELABORATED table, where
+                        // the parameter already has a value, while the home
+                        // DEF listing keeps the written op (BlackBePipeInt
+                        // bp_common_pkg::bp_params_e `bit [lg_max_cfgs-1:0]`
+                        // — golden's bp_be_pkg-instanced clone carries a
+                        // constant, its bp_common_pkg[DEF] listing an
+                        // operation).  Same polarity as the homeImported9 arm
+                        // above, which only covers literal-only bounds.
+                        fold9 = pkgEnum9 || importCloneEmit;
                     else
                         // An import-listing CLONE keeps a literal-only op
                         // bound SYMBOLIC (Surelog's elab never revisits a
@@ -4353,7 +4363,8 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         }
         if (!inPkg)
             structPkgScope = nullptr;
-        structMemberSymBound = namedTypedef && !inPkg && !inUnit;
+        structMemberSymBound = (namedTypedef && !inPkg && !inUnit) ||
+                               (namedTypedef && inPkg && pkgDefListingSymBound);
     }
     auto* members = s.MakeTypespec_memberVec();
     for (auto& fm : structScope.members()) {

@@ -2871,9 +2871,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     : (bit.value ? "1" : "0");
                 up->VpiValue("BIN:" + d);
             }
-            pkgElabComputed = inPackage && topView && !literalInit &&
-                              !unbasedInit && defaultInit && cv.isInteger() &&
-                              !cv.integer().hasUnknown() && [&] {
+            // The SHAPE half of the elab-fold test (which inits reduce during
+            // package elaboration), factored out so the MODULE-materialized
+            // import copy can reuse it — see impElabTs9 below.
+            auto elabFoldShape9 = [&] {
                                   // Only inits that FOLD in the elab view:
                                   // binary ops and const-function calls.
                                   // Concats/patterns keep their operation
@@ -2938,7 +2939,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                               .left->kind))
                                       return true;
                                   return false;
-                              }();
+                              };
+            pkgElabComputed = inPackage && topView && !literalInit &&
+                              !unbasedInit && defaultInit && cv.isInteger() &&
+                              !cv.integer().hasUnknown() && elabFoldShape9();
             // ...and the `?`-bearing sibling of that same size-cast family:
             // slang refuses to evaluate it (X/Z bits), so cv is unknown and
             // pkgElabComputed above cannot fire — but Surelog's strtoull
@@ -2952,6 +2956,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 unknownBasedCastFold(*defaultInit, unkCastVal0);
             if (unkCastFold9)
                 up->VpiValue("UINT:" + std::to_string(unkCastVal0));
+            // ...and the MODULE-MATERIALIZED import copy of that same
+            // size-cast family carries the declaration's implicit
+            // int_typespec too.  THE IMPORT-COPY LAW again: the module's copy
+            // is cloned out of the importing scope's ELABORATED table, so it
+            // looks like the elab PACKAGE listing (typespec present), never
+            // like the declaring package's def listing (typespec absent).
+            // Measured on BlackBePipeInt: golden binds a bare instance-less
+            // int_typespec spanned at the declaration for every
+            // `localparam X = (dev_addr_width_gp)'(...)` in BOTH module views
+            // (112 rows over 56 params); we bound nothing.  Defined-digit and
+            // `?`-digit casts behave identically here — the DEF-vs-ELAB split
+            // is the whole rule, the digits only decide whether slang can
+            // evaluate the value.
+            // The rule is not special to the cast shape: EVERY init the
+            // package ELABORATION reduces (binary op, const-function call,
+            // $clog2, qualified pkg-param ref, size cast) leaves the module
+            // copy with the declaration's implicit int_typespec, because the
+            // module copy IS a clone of that reduced symbol.  The `?`-digit
+            // casts join through unknownBasedCastFold, which slang cannot
+            // evaluate (so the cv-based half of the test never fires for
+            // them).
+            uint64_t impCastVal9 = 0;
+            bool impCastFold9 =
+                !inPackage && isImported && !typedParam && defaultInit &&
+                (unknownBasedCastFold(*defaultInit, impCastVal9) ||
+                 (!literalInit && !unbasedInit && cv.isInteger() &&
+                  !cv.integer().hasUnknown() && elabFoldShape9()));
             // A MATERIALIZED IMPORT copy of a param whose init is a USER
             // const-call carries the folded value and its own int typespec in
             // EVERY view of every importer — the copy is reduced once, where
@@ -3157,7 +3188,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                       (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) ||
                       signedImplicitTs || pkgElabComputed || unkCastFold9 ||
-                      importedComputed9 || bitsFoldInit ||
+                      impCastFold9 || importedComputed9 || bitsFoldInit ||
                       modPkgRefIntTs9 ||
                       ((literalInit || realLit) && !unbasedInit &&
                        (!unknownDefault || sizedBasedInit) && !decBasedInit));
@@ -11834,8 +11865,19 @@ void UhdmExporter::bindImportCloneMembers(UHDM::typespec* cl, const Type& ct) {
         if (!tm->Typespec())
             continue;
         auto& fty = fm.getDeclaredType()->getType();
-        if (fty.kind != SymbolKind::TypeAlias)
+        if (fty.kind != SymbolKind::TypeAlias) {
+            // An ANONYMOUS aggregate member (`union packed { ... } t;`) is not
+            // a typedef of its own, so it has no clone of its own — but the
+            // clone's copy of it still has to resolve ITS members against the
+            // importing package's datatype map.  Recurse (BlackBePipeInt
+            // rv64_instr_s.t.stype -> the rv64_instr_stype_s import clone; the
+            // home listing keeps the home object, and only the home listing's
+            // member bounds stay symbolic, so a mis-bound nested member shows
+            // up as a fold mismatch).
+            if (auto& fct = fty.getCanonicalType(); aggScopeOf(fct))
+                bindImportCloneMembers(tm->Typespec()->Actual_typespec(), fct);
             continue;
+        }
         if (auto ic = pkgImportCloneTs.find(
                 (const Symbol*)&fty.as<TypeAliasType>());
             ic != pkgImportCloneTs.end() && ic->second &&
@@ -13429,26 +13471,46 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             // riscv_priv_pkg csr_adr_t.perm -> the isa_i-
                             // instanced csr_perm_t clone). Source order
                             // guarantees the member's clone exists already.
-                            if (auto* ms4 = scl->Members())
-                                for (auto* tm4 : *ms4) {
-                                    if (!tm4->Typespec())
-                                        continue;
-                                    auto* at4 =
-                                        tm4->Typespec()->Actual_typespec();
-                                    if (!at4 || at4->VpiName().empty())
-                                        continue;
-                                    for (auto& [aSym4, cl4] :
-                                         pkgImportCloneTs) {
-                                        auto hIt4 = typedefTs.find(aSym4);
-                                        if (hIt4 != typedefTs.end() &&
-                                            hIt4->second == at4 &&
-                                            cl4 != at4) {
-                                            tm4->Typespec()->Actual_typespec(
-                                                cl4);
-                                            break;
+                            // An ANONYMOUS nested aggregate member (`union
+                            // packed { ... } t;`) has no typedef and so no
+                            // clone of its own — but the clone's copy of it
+                            // still resolves ITS members against the importing
+                            // package's datatype map, so recurse through it
+                            // (BlackBePipeInt rv64_instr_s.t.stype ->
+                            // rv64_instr_stype_s's clone; left on the home
+                            // object it takes the home listing's SYMBOLIC
+                            // member bounds into the clone).
+                            std::set<UHDM::typespec*> seen4;
+                            std::function<void(UHDM::typespec*)> rebind4 =
+                                [&](UHDM::typespec* agg4) {
+                                    auto* ms4 = aggMembersOf(agg4);
+                                    if (!ms4 || !seen4.insert(agg4).second)
+                                        return;
+                                    for (auto* tm4 : *ms4) {
+                                        if (!tm4->Typespec())
+                                            continue;
+                                        auto* at4 =
+                                            tm4->Typespec()->Actual_typespec();
+                                        if (!at4)
+                                            continue;
+                                        if (at4->VpiName().empty()) {
+                                            rebind4(at4);
+                                            continue;
+                                        }
+                                        for (auto& [aSym4, cl4] :
+                                             pkgImportCloneTs) {
+                                            auto hIt4 = typedefTs.find(aSym4);
+                                            if (hIt4 != typedefTs.end() &&
+                                                hIt4->second == at4 &&
+                                                cl4 != at4) {
+                                                tm4->Typespec()
+                                                    ->Actual_typespec(cl4);
+                                                break;
+                                            }
                                         }
                                     }
-                                }
+                                };
+                            rebind4(scl);
                             pkgImportCloneTs[&pm] = scl;
                             if (!topView)
                                 defPassOwnedTs.insert(scl);
@@ -14482,8 +14544,22 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             if (topView)
                 tfContext = true;
             inPkgTopStructBuild = topView;
+            // When this package is itself IMPORTED by another package, the top
+            // view never builds a struct at all — it SHARES the importer's
+            // clone (the `topView && pkgImportedByPkg` arm above) — so the
+            // def/top member cross-wire below never runs and the DEF listing
+            // is left holding its own FOLDED bounds.  Surelog's law is the
+            // enum one (homeImported9): the home DEF listing keeps the WRITTEN
+            // op and the import clone carries the fold.  Build the def members
+            // symbolic directly in that case (BlackBePipeInt
+            // bp_common_pkg::rv64_instr_btype_s.rs2
+            // `logic [rv64_reg_addr_width_gp-1:0]`).
+            bool savedPdlsb = pkgDefListingSymBound;
+            if (!topView && pkgImportedByPkg.count(&pkg))
+                pkgDefListingSymBound = true;
             auto* sts = buildStructTs(structScope, pkStr, alias,
                                       topNested ? "." : "::");
+            pkgDefListingSymBound = savedPdlsb;
             inPkgTopStructBuild = false;
             tfContext = savedTf;
             if (!topNested)

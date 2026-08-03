@@ -1541,6 +1541,12 @@ private:
     // Surelog keeps such members' packed-dim OPERATION bounds symbolic in the
     // elab view too (anonymous structs and PACKAGE typedefs fold them).
     bool structMemberSymBound = false;
+    // True while emitPackage builds the DEF-view listing of a package struct
+    // typedef for a package that ANOTHER package imports: the top view shares
+    // the importer's clone instead of building, so the def/top member
+    // cross-wire never runs and the def listing must be built symbolic
+    // directly (BlackBePipeInt bp_common_pkg::rv64_instr_btype_s).
+    bool pkgDefListingSymBound = false;
     // The PACKAGE scope declaring the struct currently being built (null for a
     // module/$unit struct) — a member dim bound that resolves to a param of a
     // DIFFERENT package folds instead of staying symbolic.
