@@ -1729,6 +1729,17 @@ private:
     std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>
         pendingAliasChainTgt;
     void emitImportArtifacts(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m);
+    /// The subroutine group a wildcard `import <pkg>::*` MATERIALIZES at the
+    /// importing scope: the package's own subroutines (the ELABORATED twin)
+    /// and its classes' out-of-body method DEFINITION objects, merged into
+    /// the package's ONE source-ordered listing pass (§ pkgTfOrder9) — i.e.
+    /// the same order and length as the package's DEF-view listing, but with
+    /// each `C::m` clone replaced by the class_defn-parented definition.
+    std::vector<UHDM::task_func*> materializedPkgTfGroup(
+        const slang::ast::PackageSymbol& pkg);
+    /// The COMPILATION-UNIT-scope wildcard imports of the whole design, in
+    /// source order.  These — and only these — feed `design->vpiTaskFunc`.
+    std::vector<const slang::ast::PackageSymbol*> unitScopeWildcardImports();
     /// The DEF view's tail of nets: every bare name a HOISTED class method
     /// body (see classPropRefs) failed to resolve binds a net of that name
     /// here, and one is minted into @a nets when the module declares none.

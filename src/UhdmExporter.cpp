@@ -3563,6 +3563,31 @@ UHDM::design* UhdmExporter::exportDesign() {
 
     d->TopModules(topMods);
 
+    // The DESIGN's own subroutine listing is fed by COMPILATION-UNIT-scope
+    // wildcard imports ALONE — the materialized group of each, concatenated
+    // in import order (§ unitScopeWildcardImports / materializedPkgTfGroup).
+    // A module-scope import contributes NOTHING here.  Runs after every
+    // module so the groups are the same objects the modules list.
+    if (auto uw9 = unitScopeWildcardImports(); !uw9.empty()) {
+        std::vector<UHDM::task_func*> dtf9;
+        for (auto* p9 : uw9)
+            for (auto* tf9 : materializedPkgTfGroup(*p9))
+                if (std::find(dtf9.begin(), dtf9.end(), tf9) == dtf9.end())
+                    dtf9.push_back(tf9);
+        if (!dtf9.empty()) {
+            // `$unit`-scope subroutines of the sources themselves already own
+            // this vector; the import group is appended, never substituted.
+            auto* dv9 = d->Task_funcs();
+            if (!dv9) {
+                dv9 = s.MakeTask_funcVec();
+                d->Task_funcs(dv9);
+            }
+            for (auto* tf9 : dtf9)
+                if (std::find(dv9->begin(), dv9->end(), tf9) == dv9->end())
+                    dv9->push_back(tf9);
+        }
+    }
+
     s.MakeUhdmHandle(UHDM::uhdmdesign, d);
     // $bits(SIGNAL) typespec-bound arg refs bind their DEF nets (deferred:
     // the def param pre-pass ran before the nets existed).

@@ -2084,6 +2084,49 @@ inline void collectLhsSyms(const Expression& e, std::set<const Symbol*>& out) {
     }
 }
 
+// Surelog's "source order" is the order of the FLATTENED text — an `include`d
+// file's contents sit at the include DIRECTIVE's offset in the including
+// file, not after everything that file contains. `SourceLocation`'s own `<`
+// orders by (BufferID, offset), which groups a whole included buffer either
+// before or after its includer wholesale and so cannot express that.
+//
+// The include-expanded key of a location is therefore the chain of
+// (buffer, offset) pairs from the ROOT buffer down: comparing two keys
+// lexicographically reproduces the flattened order, and a location that IS an
+// include directive sorts ahead of everything the include brought in.
+//
+// Measured on uvm-1.2 (r10uvm3): `base/uvm_component.svh` declares class
+// uvm_component, `\`include "base/uvm_root.svh"` at line 1712, and only THEN
+// its own out-of-body method definitions (line 1822+). Surelog's uvm_pkg
+// listing puts uvm_root's 23 methods between uvm_phase's and uvm_component's,
+// exactly where the flattened text puts them; a (buffer, offset) sort puts
+// them 113 entries later.
+inline std::vector<std::pair<uint32_t, uint64_t>> includeExpandedKey(
+    const slang::SourceManager& sm, slang::SourceLocation loc) {
+    std::vector<std::pair<uint32_t, uint64_t>> path;
+    slang::SourceLocation l = loc;
+    for (int guard = 0; l && guard < 64; guard++) {
+        path.push_back({l.buffer().getId(), (uint64_t)l.offset()});
+        slang::SourceLocation inc = sm.getIncludedFrom(l.buffer());
+        if (!inc)
+            break;
+        l = inc;
+    }
+    std::reverse(path.begin(), path.end());
+    return path;
+}
+
+inline bool includeExpandedLess(const std::vector<std::pair<uint32_t, uint64_t>>& a,
+                                const std::vector<std::pair<uint32_t, uint64_t>>& b) {
+    for (size_t i = 0; i < a.size() && i < b.size(); i++) {
+        if (a[i].first != b[i].first)
+            return a[i].first < b[i].first;
+        if (a[i].second != b[i].second)
+            return a[i].second < b[i].second;
+    }
+    return a.size() < b.size();
+}
+
 // One entry of a PACKAGE's `vpiTaskFunc` listing: the subroutine SYMBOL and
 // whether this package OWNS it or merely materializes a CLONE of it.
 struct PkgTfEntry {

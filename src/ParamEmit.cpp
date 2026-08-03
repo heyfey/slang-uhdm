@@ -13760,9 +13760,18 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         std::vector<const Symbol*> hoist9;
         collectOobCtorLocals(pkg, hoist9);
         size_t hIdx9 = 0;
+        // The comparison is FLATTENED-text order, not (buffer, offset): the
+        // hoisted local may come from an `include`d file whose contents sit
+        // at the include directive's slot in the includer
+        // (§ includeExpandedKey). uvm_pkg's `uvm_top` is declared in
+        // base/uvm_root.svh, which base/uvm_component.svh includes at line
+        // 1712 — golden lists it at slot 21, a raw (buffer, offset) sort at
+        // slot 26.
         auto flushHoist9 = [&](SourceLocation upto, bool all) {
             while (hIdx9 < hoist9.size() &&
-                   (all || hoist9[hIdx9]->location < upto)) {
+                   (all || includeExpandedLess(
+                               includeExpandedKey(*sm, hoist9[hIdx9]->location),
+                               includeExpandedKey(*sm, upto)))) {
                 size_t before9 = pvars->size();
                 emitPackageVar(*hoist9[hIdx9++], up, prefix, pvars);
                 // A hoisted SUBROUTINE local keeps its AUTOMATIC lifetime
@@ -13774,14 +13783,21 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     (*pvars)[i9]->VpiAutomatic(true);
             }
         };
-        for (auto& mem : pkg.members()) {
-            if (mem.kind != SymbolKind::Variable)
-                continue;
-            auto& vs = mem.as<VariableSymbol>();
+        // A package that WILDCARD-imports another materializes a CLONE of
+        // every package VARIABLE that import makes visible — named by the
+        // IMPORTING package (`p2::v1`, initializer and all), listed whether
+        // or not anything reads it, at the IMPORT STATEMENT's slot in this
+        // package's one source-ordered pass.  It is the package-side sibling
+        // of the module hoist (§ collectImportedPkgVars) and was measured on
+        // a purpose-built Surelog golden (r10uvm3 repro 1: `package p2;
+        // import p1::*;` lists p1's `int v1 = 7` as `p2::v1`) and on
+        // SeqDriver (adpcm_pkg carries uvm_pkg's 33).  `emitOne9` is the
+        // former loop body, unchanged; only own variables register in the
+        // per-view binding maps, so a clone never displaces its home.
+        auto emitOne9 = [&](const VariableSymbol& vs, bool own9) {
             const DeclaredType* dt = vs.getDeclaredType();
             if (!dt)
-                continue;
-            flushHoist9(vs.location, false);
+                return;
             auto& ct = dt->getType().getCanonicalType();
             // Anonymous packed struct/union spellings are NETS like their
             // typedef'd forms (Surelog-measured, r9bpapb probe2) — the
@@ -13793,7 +13809,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 (!ct.isIntegral() || ct.isEnum() ||
                  dt->getType().kind != SymbolKind::TypeAlias)) {
                 emitPackageVar(vs, up, prefix, pvars);
-                continue;
+                return;
             }
             auto* n = s.MakeLogic_net();
             n->VpiName(vs.name);
@@ -13859,8 +13875,69 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 n->Typespec(rt);
             }
             pnets->push_back(n);
-            pkgViewVarObjs9[&vs] = n;
-            pkgVarObjsAll9[&vs] = n;
+            if (own9) {
+                pkgViewVarObjs9[&vs] = n;
+                pkgVarObjsAll9[&vs] = n;
+            }
+        };
+        std::function<void(const PackageSymbol&, std::set<const PackageSymbol*>&)>
+            impVars9 = [&](const PackageSymbol& q9,
+                           std::set<const PackageSymbol*>& seen9) {
+                if (!seen9.insert(&q9).second)
+                    return;
+                // The clone reproduces the home package's WHOLE listing, so
+                // it carries the home's hoisted out-of-body constructor
+                // locals too, at their own source slots (uvm_pkg lists 26
+                // members + 7 hoisted = 33; SeqDriver's adpcm_pkg lists the
+                // same 33).
+                std::vector<const Symbol*> qh9;
+                collectOobCtorLocals(q9, qh9);
+                size_t qi9 = 0;
+                auto qflush9 = [&](SourceLocation upto9, bool all9) {
+                    while (qi9 < qh9.size() &&
+                           (all9 || includeExpandedLess(
+                                        includeExpandedKey(*sm,
+                                                           qh9[qi9]->location),
+                                        includeExpandedKey(*sm, upto9)))) {
+                        size_t b9 = pvars->size();
+                        emitPackageVar(*qh9[qi9++], up, prefix, pvars);
+                        for (size_t k9 = b9; k9 < pvars->size(); k9++)
+                            (*pvars)[k9]->VpiAutomatic(true);
+                    }
+                };
+                for (auto& qm9 : q9.members()) {
+                    if (qm9.kind == SymbolKind::Variable) {
+                        qflush9(qm9.location, false);
+                        emitOne9(qm9.as<VariableSymbol>(), false);
+                    }
+                    else if (qm9.kind == SymbolKind::WildcardImport) {
+                        if (auto* r9 =
+                                qm9.as<WildcardImportSymbol>().getPackage())
+                            impVars9(*r9, seen9);
+                    }
+                }
+                qflush9(SourceLocation(), true);
+            };
+        for (auto& mem : pkg.members()) {
+            if (mem.kind == SymbolKind::WildcardImport) {
+                auto* q9 = mem.as<WildcardImportSymbol>().getPackage();
+                if (!q9)
+                    continue;
+                SourceLocation impAt8 = mem.location;
+                if (auto* isyn8 = mem.getSyntax())
+                    impAt8 = isyn8->sourceRange().start();
+                flushHoist9(impAt8, false);
+                std::set<const PackageSymbol*> seen9{&pkg};
+                impVars9(*q9, seen9);
+                continue;
+            }
+            if (mem.kind != SymbolKind::Variable)
+                continue;
+            auto& vs = mem.as<VariableSymbol>();
+            if (!vs.getDeclaredType())
+                continue;
+            flushHoist9(vs.location, false);
+            emitOne9(vs, true);
         }
         flushHoist9(SourceLocation(), true);
         if (!pnets->empty())
@@ -14043,7 +14120,9 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                      auto& kb9 = pkgTfOrder9[b9];
                                      if (ka9.first != kb9.first)
                                          return ka9.first < kb9.first;
-                                     return ka9.second < kb9.second;
+                                     return includeExpandedLess(
+                                         includeExpandedKey(*sm, ka9.second),
+                                         includeExpandedKey(*sm, kb9.second));
                                  });
         }
         // A param initializer emitted BEFORE the clones existed bound the home
@@ -14160,7 +14239,9 @@ void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
                                  auto& kb = pkgTfOrder9[b];
                                  if (ka.first != kb.first)
                                      return ka.first < kb.first;
-                                 return ka.second < kb.second;
+                                 return includeExpandedLess(
+                                     includeExpandedKey(*sm, ka.second),
+                                     includeExpandedKey(*sm, kb.second));
                              });
     }
     pkgClassTfClone = nullptr;

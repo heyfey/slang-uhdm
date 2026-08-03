@@ -2331,8 +2331,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // A module that imports this class's home package HOISTS the class's
         // own out-of-body DEFINITION objects into its Task_funcs; record them
         // here, in listing order (see emitImportArtifacts).
-        if (oob && classScope && !cloneMode)
+        if (oob && classScope && !cloneMode) {
             classOobTfs[scopeSym9].push_back(tf);
+            // ...and it carries the SAME listing key its package clone will
+            // get (both come from this `member`), so a materialized group can
+            // be re-sorted into the package's one source-ordered pass
+            // (§ materializedPkgTfGroup).
+            pkgTfOrder9[tf] = {sub.name == "new" ? 1 : 0, member.location};
+        }
         // Package listing order key (see pkgTfOrder9): the clone pass and the
         // package's own free-subroutine pass feed the SAME vector, so both
         // record here.

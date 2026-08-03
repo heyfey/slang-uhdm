@@ -2695,6 +2695,108 @@ void UhdmExporter::foldVectorTsBounds(UHDM::typespec* t,
                        r0->Right_expr()));
 }
 
+// See the header. A wildcard import materializes the package's WHOLE
+// subroutine listing at the importing scope — and that listing is the
+// package's own DEF-view listing with each out-of-body class-method clone
+// (`C::m`, package-parented) swapped for the class_defn-parented DEFINITION
+// object.  Measured on Surelog goldens r10uvm3 repro 3 (`p1` with one oob
+// method + one free function: the module and the design both list
+// [C::f@7, h@8] — source order, NOT "all class methods first") and on
+// SimpleUVM, whose module listing is uvm_pkg's 894-entry def listing with 58
+// package-parented entries interleaved at their source slots.
+std::vector<UHDM::task_func*> UhdmExporter::materializedPkgTfGroup(
+    const PackageSymbol& pkg) {
+    std::vector<UHDM::task_func*> grp;
+    for (auto& pm : pkg.members()) {
+        if (pm.kind != SymbolKind::Subroutine)
+            continue;
+        auto sit = subMap.find(&pm);
+        if (sit == subMap.end() || !sit->second.tf)
+            continue;
+        auto* tf9 = sit->second.tf;
+        if (auto eit9 = pkgElabSubTf.find(&pm);
+            eit9 != pkgElabSubTf.end() && eit9->second)
+            tf9 = eit9->second;
+        if (std::find(grp.begin(), grp.end(), tf9) == grp.end())
+            grp.push_back(tf9);
+    }
+    for (auto& mem9 : pkg.members()) {
+        const ClassType* ct9 = nullptr;
+        if (mem9.kind == SymbolKind::ClassType)
+            ct9 = &mem9.as<ClassType>();
+        else if (mem9.kind == SymbolKind::GenericClassDef) {
+            if (auto* dsp9 = mem9.as<GenericClassDefSymbol>()
+                                 .getDefaultSpecialization(pkg);
+                dsp9 && dsp9->kind == SymbolKind::ClassType)
+                ct9 = &dsp9->as<ClassType>();
+        }
+        if (!ct9)
+            continue;
+        auto oit9 = classOobTfs.find(ct9);
+        if (oit9 == classOobTfs.end())
+            continue;
+        for (auto* tf9 : oit9->second)
+            if (std::find(grp.begin(), grp.end(), tf9) == grp.end())
+                grp.push_back(tf9);
+    }
+    // One source-ordered pass over the non-constructors, then one over the
+    // constructors — the package listing's own key (§ pkgTfOrder9). An entry
+    // with no key (never expected) suppresses the sort rather than sorting
+    // against a fabricated one.
+    bool haveAll9 = true;
+    for (auto* t9 : grp)
+        if (!pkgTfOrder9.count(t9))
+            haveAll9 = false;
+    if (haveAll9)
+        std::stable_sort(grp.begin(), grp.end(),
+                         [&](const UHDM::BaseClass* a9,
+                             const UHDM::BaseClass* b9) {
+                             auto& ka9 = pkgTfOrder9[a9];
+                             auto& kb9 = pkgTfOrder9[b9];
+                             if (ka9.first != kb9.first)
+                                 return ka9.first < kb9.first;
+                             return includeExpandedLess(
+                                 includeExpandedKey(*sm, ka9.second),
+                                 includeExpandedKey(*sm, kb9.second));
+                         });
+    return grp;
+}
+
+// See the header: `design->vpiTaskFunc` is fed by COMPILATION-UNIT-scope
+// wildcard imports ALONE.  Measured (r10uvm3): a module-scope `import p::*`
+// leaves the design listing NULL (repro 2, and SeqDriver, whose two imports
+// sit inside `module top_tb`), a file-level one fills it with the imported
+// package's whole materialized group (repro 3; SimpleUVM 894 = uvm_pkg;
+// Scoreboard 917 = uvm_pkg's 894 from design.sv + svunit_pkg's 23 from
+// testbench.sv; ApbSlave 23 = svunit_pkg).  Unlike the MODULE-side buffer
+// rule (§ collectMaterializedPkgs) there is no same-file restriction here:
+// Scoreboard's design lists uvm_pkg although its only module is in the other
+// file.
+std::vector<const PackageSymbol*> UhdmExporter::unitScopeWildcardImports() {
+    std::vector<const PackageSymbol*> out;
+    std::vector<std::pair<slang::SourceLocation, const PackageSymbol*>> hits;
+    for (auto* cu : comp.getCompilationUnits())
+        for (auto& mem : cu->members()) {
+            if (mem.kind != SymbolKind::WildcardImport)
+                continue;
+            auto* p = mem.as<WildcardImportSymbol>().getPackage();
+            if (!p)
+                continue;
+            slang::SourceLocation at = mem.location;
+            if (auto* isyn = mem.getSyntax())
+                at = isyn->sourceRange().start();
+            hits.push_back({at, p});
+        }
+    std::stable_sort(hits.begin(), hits.end(),
+                     [](const auto& a, const auto& b) { return a.first < b.first; });
+    for (auto& [at, p] : hits) {
+        (void)at;
+        if (std::find(out.begin(), out.end(), p) == out.end())
+            out.push_back(p);
+    }
+    return out;
+}
+
 void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::instance* m) {
     auto* tds = m->Typespecs();
     // An interface (def view) lists each imported package typedef in its own
@@ -3292,20 +3394,10 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             // ImportedFunctionUsesAnotherFunction, for_break,
             // rsp_gen_minimal, simple_package) — confirming the coupling is
             // load-bearing, not precautionary.
-            std::vector<UHDM::task_func*> grp9;
-            for (auto& pm : pkg->members()) {
-                if (pm.kind != SymbolKind::Subroutine)
-                    continue;
-                auto sit = subMap.find(&pm);
-                if (sit == subMap.end() || !sit->second.tf)
-                    continue;
-                auto* tf9 = sit->second.tf;
-                if (auto eit9 = pkgElabSubTf.find(&pm);
-                    eit9 != pkgElabSubTf.end() && eit9->second)
-                    tf9 = eit9->second;
-                if (std::find(grp9.begin(), grp9.end(), tf9) == grp9.end())
-                    grp9.push_back(tf9);
-            }
+            // The group carries the package's CLASS machinery too — its
+            // out-of-body method definitions, at their source slots
+            // (§ materializedPkgTfGroup).
+            std::vector<UHDM::task_func*> grp9 = materializedPkgTfGroup(*pkg);
             // A package that itself WILDCARD-imports another materializes
             // CLONES of that package's subroutines into its own listing
             // (§ collectPkgTfListing); the module lists the package's listing
@@ -3385,41 +3477,24 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             if (std::find(v->begin(), v->end(), tf) == v->end())
                 v->push_back(tf);
     }
-    // A module that IMPORTS a package also HOISTS that package's CLASS
-    // machinery: every class's out-of-body method DEFINITION object -- the
-    // class_defn-parented, BARE-named one, not the "class::method" package
-    // clone -- is listed in the module's own Task_funcs, in the package
-    // listing's order (every class's non-constructors in class-declaration
-    // order, THEN every class's constructor, exactly as
-    // emitPackageClassMethodClones orders the package listing), AHEAD of the
-    // module's own subroutines. Both views. Measured on a purpose-built
-    // Surelog golden (r10apb2 repro 1) and on ApbSlave (23 hoisted + 7 own).
+    // A module reached by a COMPILATION-UNIT-scope (file-level) import
+    // materializes the same group the members() pass above materializes for a
+    // module-scope one — its CLASS machinery included: every class's
+    // out-of-body method DEFINITION object (the class_defn-parented,
+    // BARE-named one, not the "class::method" package clone) at its source
+    // slot in the package's listing (§ materializedPkgTfGroup), AHEAD of the
+    // module's own subroutines. Both views. Measured on purpose-built Surelog
+    // goldens (r10apb2 repro 1, r10uvm3 repro 3) and on ApbSlave (23 hoisted
+    // + 7 own) and SimpleUVM (894 = 58 package-parented interleaved with 836
+    // class-parented).
     if (m->UhdmType() == UHDM::uhdmmodule_inst) {
         std::vector<UHDM::task_func*> hoist9;
-        for (int pass9 = 0; pass9 < 2; pass9++)
-            for (auto& [pkg9, cnt9] : collectMaterializedPkgs(body)) {
-                (void)cnt9;
-                for (auto& mem9 : pkg9->members()) {
-                    const ClassType* ct9 = nullptr;
-                    if (mem9.kind == SymbolKind::ClassType)
-                        ct9 = &mem9.as<ClassType>();
-                    else if (mem9.kind == SymbolKind::GenericClassDef) {
-                        if (auto* dsp9 =
-                                mem9.as<GenericClassDefSymbol>()
-                                    .getDefaultSpecialization(*pkg9);
-                            dsp9 && dsp9->kind == SymbolKind::ClassType)
-                            ct9 = &dsp9->as<ClassType>();
-                    }
-                    if (!ct9)
-                        continue;
-                    auto oit9 = classOobTfs.find(ct9);
-                    if (oit9 == classOobTfs.end())
-                        continue;
-                    for (auto* tf9 : oit9->second)
-                        if ((tf9->VpiName() == "new") == (pass9 == 1))
-                            hoist9.push_back(tf9);
-                }
-            }
+        for (auto& [pkg9, cnt9] : collectMaterializedPkgs(body)) {
+            (void)cnt9;
+            for (auto* tf9 : materializedPkgTfGroup(*pkg9))
+                if (std::find(hoist9.begin(), hoist9.end(), tf9) == hoist9.end())
+                    hoist9.push_back(tf9);
+        }
         if (!hoist9.empty()) {
             auto* v9 = m->Task_funcs();
             if (!v9) {
@@ -3435,19 +3510,6 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 v9->push_back(e9);
             for (auto* e9 : rest9)
                 v9->push_back(e9);
-            // The DESIGN lists the same hoisted objects (and only those — not
-            // the importing module's own subroutines) in the same order.
-            // Present only when something actually imports: a package
-            // compiled alone leaves the design's Task_funcs null (r10apb3
-            // repro 5 vs 5b). ApbSlave: 23 at the design, 23+7 at the module.
-            auto* dv9 = d->Task_funcs();
-            if (!dv9) {
-                dv9 = s.MakeTask_funcVec();
-                d->Task_funcs(dv9);
-            }
-            for (auto* e9 : hoist9)
-                if (std::find(dv9->begin(), dv9->end(), e9) == dv9->end())
-                    dv9->push_back(e9);
         }
     }
 }
