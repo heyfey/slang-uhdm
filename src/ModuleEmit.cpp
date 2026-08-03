@@ -10770,6 +10770,20 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         const Scope* prev;
         ~DntsGuard() { slot = prev; }
     } dntsGuard{defNetTsScope, savedDnts};
+    // A DEFERRED def-net typespec is still the module's DEF view — it is only
+    // materialized after emitModuleDef returned (the arena tail), so
+    // emitModuleDef's own moduleDefEmit guard has already been popped.  Any
+    // view-dependent typespec rule (buildEnumTs' sys-call bound fold) must
+    // therefore see the def marker HERE too, or the def listing takes the
+    // elaborated form (InterfArrayBind: `enum logic [$clog2(N)-1:0]` folded
+    // its bound in BOTH views instead of keeping the written operation in the
+    // def one).
+    struct DefNetViewGuard {
+        bool& f;
+        bool saved;
+        explicit DefNetViewGuard(bool& fl) : f(fl), saved(fl) { f = true; }
+        ~DefNetViewGuard() { f = saved; }
+    } defNetViewGuard9(moduleDefEmit);
     // Is the declaring def an INTERFACE? (Its def-view typedef binding rules
     // differ from a module's — Surelog, resolve_types.)
     bool ifaceHome = false;

@@ -757,8 +757,8 @@ InterfaceUnpackedStructArrayDim,default,CMP_EQUAL,,,differ
 InterfaceUnpackedStructArrayDim,testflags,CMP_EQUAL,,,differ
 InterfAlways,default,CMP_EQUAL,,,match
 InterfAlways,testflags,CMP_EQUAL,,,match
-InterfArrayBind,default,CMP_NOTEQUAL,decompile:,,
-InterfArrayBind,testflags,CMP_NOTEQUAL,decompile:,,
+InterfArrayBind,default,CMP_EQUAL,,,differ
+InterfArrayBind,testflags,CMP_EQUAL,,,differ
 InterfBinding,default,SLANG_REJECT,dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctrl',,
 InterfBinding,testflags,SLANG_REJECT,dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctrl',,
 InterfHierPath,default,CMP_EQUAL,,,match

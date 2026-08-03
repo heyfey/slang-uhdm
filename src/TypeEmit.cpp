@@ -3327,14 +3327,41 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                         // call and the reduction consumes the whole binary
                         // expression, leaving one INT constant anchored at
                         // the CALL's span (InterfArrayBind).
-                        // NOTE (r10c12): the def/elab split is only half
-                        // realised — we mint ONE base logic_typespec and
-                        // share it between the def and elab enum_typespecs,
-                        // so the def listing shows the folded bound too.
-                        // Surelog mints one per view (golden: enum ts #1,
-                        // parented at the enum_var, folded; enum ts #2, the
-                        // bare def listing, written). Splitting that share is
-                        // InterfArrayBind's next blocker.
+                        // NOTE (r10iab): the r10c12 note that used to sit here
+                        // — "we mint ONE base logic_typespec and share it
+                        // between the def and elab enum_typespecs" — was
+                        // WRONG.  We already mint one per view, exactly like
+                        // Surelog (enum ts #1 parented at the enum_var,
+                        // elaborated/folded; enum ts #2 bare, the def
+                        // listing, written).  What was missing is that the
+                        // DEF-view NET typespec is materialized LAZILY, after
+                        // emitModuleDef has already popped its moduleDefEmit
+                        // guard, so the def mint saw moduleDefEmit == false
+                        // and folded too; materializeDefNetTs re-asserts the
+                        // marker.  That one line converted InterfArrayBind in
+                        // both modes.
+                        //
+                        // RANKED RESIDUE (measured, 0 corpus reach — do NOT
+                        // land it blind).  The same view split is Surelog's
+                        // rule for EVERY anonymous module-scope enum bound,
+                        // not just a sys-call one: purpose-built golden
+                        // r10iab/p3 shows `[NW-1:0]` (param) and `[4-1:0]`
+                        // (literal arith) each minting TWO base typespecs,
+                        // def written / elab folded, while a module-scope
+                        // TYPEDEF enum (`typedef enum logic [NW-1:0] {..}
+                        // q_t;`) mints ONE shared base and keeps it WRITTEN in
+                        // both.  We fold NEITHER view for those (they fall to
+                        // the refBound9 arm below), so the elab view is a
+                        // known divergence.  Generalizing this arm to
+                        // `hasSysCall9(bsyn) || refFullName.empty()` was built
+                        // and swept: Surelog both-modes and u2r testflags came
+                        // back with ZERO status changes and ZERO dump changes
+                        // — it converts nothing — and golden r10iab/p5 proved
+                        // it WRONG for a class-scope enum (`class C; enum
+                        // logic [FW-1:0] {..} cvar; endclass` keeps the
+                        // written op in both views), so it needs an
+                        // InstanceBody-parent-scope guard.  Reverted: zero
+                        // gain, real risk.
                         fold9 = !moduleDefEmit;
                     else if (refBound9)
                         fold9 = pkgEnum9;

@@ -1256,9 +1256,11 @@ private:
     // adjustOpSize on the flattened operands, which stamps the member width
     // onto them.  A declaration initializer flattens WITHOUT that pass.
     bool patFlatAdjust = false;
-    // True while emitModuleDef builds a module's DEF (allModules) view — the
+    // True while a module's DEF (allModules) view is being built — the
     // elaborated view of the same declaration folds bounds the def listing
-    // keeps written (InterfArrayBind).
+    // keeps written (InterfArrayBind).  Set by emitModuleDef for the inline
+    // body AND by materializeDefNetTs for the def-net typespecs it fills in
+    // afterwards; any new deferred def-view builder must set it too.
     bool moduleDefEmit = false;
     // True while emitting elements of an enclosing assignment pattern (so
     // nested-pattern element constants keep the bare-decimal default size).
