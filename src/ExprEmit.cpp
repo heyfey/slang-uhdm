@@ -2129,6 +2129,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                 }
+                // ...but a param init IN THE PARAM'S OWN PACKAGE keeps the
+                // BARE-named ref (fullname pkg::P) chained to that param's
+                // Rhs node IN THIS VIEW — Surelog chains value refs inside a
+                // package for aggregates exactly as it does for scalars, in
+                // the elaborated listing as well as the def one (PackageType's
+                // `parameter bp_proc_param_s [N-1:0] all_cfgs_gp =
+                // {bp_inv_cfg_p}`).  Only a MODULE-side read takes the
+                // qualified `pkg::P` shape below.
+                if (paramInitPkg &&
+                    (ckP == SymbolKind::PackedStructType ||
+                     ckP == SymbolKind::PackedUnionType)) {
+                    std::string curPkg8 = prefix;
+                    if (auto p8 = curPkg8.find("::"); p8 != std::string::npos)
+                        curPkg8.resize(p8);
+                    if (curPkg8 == std::string(scope->asSymbol().name)) {
+                        ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                        if (auto rit8 = pkgParamDefRhs.find(&nv.symbol);
+                            rit8 != pkgParamDefRhs.end())
+                            ref->Actual_group(rit8->second);
+                        ref->VpiParent(parent);
+                        setLoc(ref, expr.sourceRange);
+                        return ref;
+                    }
+                }
                 if (ckP == SymbolKind::PackedStructType ||
                     ckP == SymbolKind::PackedUnionType) {
                     std::string pn = std::string(scope->asSymbol().name) + "::" +
@@ -8052,6 +8076,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                             preE = cc1;
                         }
+                }
+                // A PACKAGE struct-pattern member VALUE written as an
+                // ARITHMETIC EXPRESSION or a SYSTEM CALL reduces to a DECIMAL
+                // constant in BOTH package listings — Surelog evaluates each
+                // member setter while the pattern structure itself survives.
+                // Three measured details (purpose-built 6-member package
+                // golden; BlackBePipeInt `dcache_features` is the corpus
+                // case): the size is always 64, NOT the member's own width;
+                // the encoding is `reduceExpr`'s per-operator answer
+                // (sub/mult/div -> signed vpiIntConst, everything else UINT);
+                // and the span is the TOP-LEVEL operator's LEFT operand alone
+                // (`N*2-1` -> INT:9 at `N * 2`, `(1<<E0)|(1<<E1)|(1<<E2)` ->
+                // UINT:7 at the first two terms), or the whole expression for
+                // a call.  Concats, replications, casts, bare param refs and
+                // enum members have their own arms above/below.
+                if (!preE && paramInitPkg && !nestedPatVal6 &&
+                    setter.expr->type && setter.expr->type->isIntegral() &&
+                    !isLiteralExpr(*setter.expr)) {
+                    auto& pv5 = stripImplicitConv(*setter.expr);
+                    bool sysCall5 = pv5.kind == ExpressionKind::Call &&
+                                    pv5.as<CallExpression>().isSystemCall();
+                    if (pv5.kind == ExpressionKind::BinaryOp || sysCall5) {
+                        ASTContext pc5(comp.getRoot(), LookupLocation::max);
+                        if (auto pcv5 = pc5.tryEval(*setter.expr);
+                            pcv5 && pcv5.isInteger() &&
+                            !pcv5.integer().hasUnknown()) {
+                            std::string dg5 = pcv5.integer().toString(
+                                LiteralBase::Decimal, false);
+                            bool int5 = srlgRedIntSyn(pv5.syntax);
+                            auto* pc5c = s.MakeConstant();
+                            setLoc(pc5c,
+                                   pv5.kind == ExpressionKind::BinaryOp
+                                       ? pv5.as<BinaryExpression>()
+                                             .left()
+                                             .sourceRange
+                                       : pv5.sourceRange);
+                            pc5c->VpiDecompile(dg5);
+                            pc5c->VpiSize(64);
+                            pc5c->VpiValue((int5 ? "INT:" : "UINT:") + dg5);
+                            pc5c->VpiConstType(int5 ? vpiIntConst
+                                                    : vpiUIntConst);
+                            preE = pc5c;
+                        }
+                    }
                 }
                 if (!preE && paramInitElabFold && !nestedPatVal6 &&
                     setter.expr->type && !isLiteralExpr(*setter.expr) &&

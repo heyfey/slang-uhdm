@@ -15,6 +15,46 @@
 
 namespace slang_uhdm {
 
+// A parameter declared with packed dimensions WRITTEN ON A TYPEDEF NAME
+// (`parameter bp_proc_param_s [max_cfgs-1:0] all_cfgs_gp`).  Surelog compiles
+// that declaration into a packed_array_typespec over the element typedef's
+// own object; slang parses the dims onto the type NAME (an
+// `IdentifierSelectName`), leaving the declared type a PackedArrayType whose
+// element is the alias.  Returns the element TypeAliasType, plus the dim
+// count, or null for every other shape (`logic [7:0] P` is an
+// IntegerTypeSyntax; `my_vec_t P` has no written dims).
+static const TypeAliasType* namedPackedDimParamAlias(const ParameterSymbol& ps,
+                                                     int* nDims = nullptr) {
+    auto d0 = ps.getDeclaredType();
+    if (!d0)
+        return nullptr;
+    auto* tsyn = d0->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return nullptr;
+    auto dims = namedTypeDimBounds(tsyn);
+    if (dims.empty())
+        return nullptr;
+    const Type* el = &d0->getType();
+    int nd = 0;
+    while (el->kind == SymbolKind::PackedArrayType) {
+        nd++;
+        el = &el->as<PackedArrayType>().elementType;
+    }
+    if (nd == 0 || nd != (int)dims.size() || el->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    // Only an AGGREGATE element keeps the array wrapper: a VECTOR typedef
+    // (`parameter v_t [3:0] X`) collapses to a plain logic_typespec carrying
+    // the WRITTEN dims alone — Surelog gives the declaration the leaf type's
+    // own class (measured, purpose-built pkg golden).
+    auto ek = el->getCanonicalType().kind;
+    if (ek != SymbolKind::PackedStructType && ek != SymbolKind::PackedUnionType &&
+        ek != SymbolKind::EnumType)
+        return nullptr;
+    if (nDims)
+        *nDims = nd;
+    return &el->as<TypeAliasType>();
+}
+
 // adjustSize's `orig_size == -1` tail (EmitHelpers slAdjustBinConst) applied
 // to an UNPACKED-ARRAY parameter's ELABORATED assignment-pattern operands:
 // every unsized `'1` operand re-encodes as the ELEMENT width filled with ones
@@ -98,6 +138,28 @@ static bool unpackedDimsAllLiteral(const Symbol& sym) {
             return false;
     }
     return true;
+}
+
+// A SYSTEM call anywhere in a parameter's initializer.  An ELABORATED PACKAGE
+// listing runs Surelog's evaluator over the whole init, so such a param folds
+// there (value + the declaration's implicit int_typespec + a size-32 Rhs
+// constant) while the DEF listing still reduces nothing — THE LAW.  Measured
+// on a 10-call golden matrix ($clog2 $bits $size $high $low $left $signed
+// $unsigned $increment, plus a nested $clog2($bits(x))): every one folds
+// except `$increment`, which UHDM's `ExprEval::reduceExpr` has no handler for
+// and which therefore survives into the elaborated view unchanged.
+static bool containsElabFoldingSysCall(const Expression& e) {
+    bool found = false, blocked = false;
+    e.visit(makeVisitor([&](auto& v, const CallExpression& c) {
+        if (c.isSystemCall()) {
+            if (c.getSubroutineName() == "$increment")
+                blocked = true;
+            else
+                found = true;
+        }
+        v.visitDefault(c);
+    }));
+    return found && !blocked;
 }
 
 static bool containsUserCall(const Expression& e) {
@@ -2754,6 +2816,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                                 .operand();
                                   if (d9->kind == ExpressionKind::BinaryOp ||
                                       containsUserCall(*defaultInit))
+                                      return true;
+                                  // ...and a SYSTEM-call init
+                                  // (`localparam LG = $clog2(N)`), which the
+                                  // package elaboration evaluates just the
+                                  // same (containsElabFoldingSysCall).
+                                  if (containsElabFoldingSysCall(*defaultInit) &&
+                                      !srlgElabUnreducibleCall(*defaultInit))
                                       return true;
                                   // A QUALIFIED pkg-param ref init
                                   // (ctrl_pkg::Banks) also folds (value
@@ -5998,6 +6067,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             if (!typedParam)
                                 ((UHDM::constant*)rhs)->VpiSize(32);
                         }
+                        // A SYSTEM-call init keeps the CALL's own span and
+                        // folds sized 32 like every other elaborated package
+                        // computation (`localparam LG = $clog2(N)`).
+                        else if (pkgElabComputed &&
+                                 se9->kind == ExpressionKind::Call &&
+                                 se9->as<CallExpression>().isSystemCall()) {
+                            if (!typedParam)
+                                ((UHDM::constant*)rhs)->VpiSize(32);
+                        }
                         // A QUALIFIED pkg-param ref init folds at the
                         // QUALIFIER span (pkg:: incl. colons) — Surelog.
                         else if (pkgElabComputed &&
@@ -8591,6 +8669,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                           // fallback; the ELAB view keeps its aliased clone.
                           (ckAgg == SymbolKind::PackedArrayType &&
                            dtAgg.getCanonicalType().isIntegral()));
+            // ...and so does a PACKAGE param whose packed dims are written on
+            // a typedef NAME (`parameter cfg_t [N-1:0] P`): its
+            // packed_array_typespec elem ref has to reach THIS view's typedef
+            // object, and the package listing emits its parameters BEFORE its
+            // typedefs (PackageType / BlackBePipeInt).  Module-scope params of
+            // that shape are left on the direct path — unmeasured, 0 corpus
+            // reach today.
+            if (!deferAggTs && inPackage)
+                deferAggTs = namedPackedDimParamAlias(ps) != nullptr;
         }
         // § elabCallFormal — a parameter passed by bare name to a constant
         // FUNCTION CALL that sits in an elaboration expression has its ELAB
@@ -9719,8 +9806,134 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
         // it stays on the int_typespec default.
         else if (ct.kind == SymbolKind::PackedArrayType && ct.isIntegral()) {
             auto* tsyn = ps.getDeclaredType() ? ps.getDeclaredType()->getTypeSyntax() : nullptr;
+            int nDim9 = 0;
+            const TypeAliasType* elAlias9 =
+                namedPackedDimParamAlias(ps, &nDim9);
             if (tsyn && syntax::IntegerTypeSyntax::isKind(tsyn->kind))
                 its = makeTypespec(ps);
+            // Packed dims WRITTEN ON A TYPEDEF NAME (`parameter cfg_t [N-1:0]
+            // P`) make the parameter a packed_array_typespec over the element
+            // typedef's SHARED object — one range per written dim, spanning
+            // the whole `cfg_t [N-1:0]` text — not a bare int_typespec
+            // (PackageType, BlackBePipeInt).  The element is THIS view's
+            // typedef object: the def listing's for the def listing, the
+            // elaborated one's (folded member bounds) for the top listing.
+            else if (elAlias9) {
+                UHDM::typespec* elemTs9 = nullptr;
+                if (paramTsElabPkgView)
+                    if (auto t9 = pkgTopTypedefTs.find((const void*)elAlias9);
+                        t9 != pkgTopTypedefTs.end())
+                        elemTs9 = t9->second;
+                if (!elemTs9)
+                    if (auto t9 = typedefTs.find((const Symbol*)elAlias9);
+                        t9 != typedefTs.end())
+                        elemTs9 = t9->second;
+                if (elemTs9) {
+                    auto* pts9 = s.MakePacked_array_typespec();
+                    auto dimsB9 = namedTypeDimBounds(tsyn);
+                    auto spans9 =
+                        scanDimSpans(std::string(rawText(tsyn->sourceRange())),
+                                     tsyn->sourceRange().start());
+                    const Type* dt9 = &ps.getDeclaredType()->getType();
+                    auto* rv9 = s.MakeRangeVec();
+                    for (int i = 0; i < nDim9; i++) {
+                        auto& pa9 = dt9->as<PackedArrayType>();
+                        auto* r9 = s.MakeRange();
+                        r9->VpiParent(pts9);
+                        if (i < (int)spans9.size())
+                            setLoc(r9, spans9[i].range);
+                        const syntax::ExpressionSyntax* lS9 =
+                            i < (int)dimsB9.size() ? dimsB9[i].first : nullptr;
+                        const syntax::ExpressionSyntax* rS9 =
+                            i < (int)dimsB9.size() ? dimsB9[i].second : nullptr;
+                        // The ELABORATED listing folds a bound to
+                        // `reduceExpr`'s value type and anchor: sub/mult/div
+                        // is a signed vpiIntConst spanning its LEFTMOST leaf
+                        // alone (`[max_cfgs-1:0]` -> INT:127 at `max_cfgs`).
+                        auto mkB9 = [&](int64_t v,
+                                        const syntax::ExpressionSyntax* bs)
+                            -> UHDM::expr* {
+                            auto* c = s.MakeConstant();
+                            std::string dg = std::to_string(v);
+                            c->VpiDecompile(dg);
+                            c->VpiSize(64);
+                            bool intEnc9 = srlgRedIntSyn(bs);
+                            c->VpiValue((intEnc9 ? "INT:" : "UINT:") + dg);
+                            c->VpiConstType(intEnc9 ? vpiIntConst
+                                                    : vpiUIntConst);
+                            c->VpiParent(r9);
+                            if (bs) {
+                                const syntax::ExpressionSyntax* lf9 = bs;
+                                while (syntax::BinaryExpressionSyntax::isKind(
+                                    lf9->kind))
+                                    lf9 = lf9->as<syntax::BinaryExpressionSyntax>()
+                                              .left;
+                                setLoc(c, lf9->sourceRange());
+                            }
+                            return c;
+                        };
+                        if (!paramTsElabPkgView && lS9 && rS9) {
+                            // Package scoping for the bound refs
+                            // (pkg::P::bound), and each ref chains to the
+                            // referenced package parameter's OWN def-view Rhs
+                            // constant — Surelog's value-ref chaining. Left
+                            // dangling, Compare reports
+                            // `failLhs=constant failRhs=<null>`.
+                            std::string savedSep9 = syntaxRefSep;
+                            bool pkgScope9 =
+                                ps.getParentScope() &&
+                                ps.getParentScope()->asSymbol().kind ==
+                                    SymbolKind::Package;
+                            if (pkgScope9)
+                                syntaxRefSep = "::";
+                            auto* le9 = (UHDM::expr*)emitSyntaxExpr(*lS9, r9);
+                            auto* re9 = (UHDM::expr*)emitSyntaxExpr(*rS9, r9);
+                            syntaxRefSep = savedSep9;
+                            std::function<void(UHDM::any*)> bindRef9 =
+                                [&](UHDM::any* e9) {
+                                    if (!e9)
+                                        return;
+                                    if (e9->UhdmType() == UHDM::uhdmoperation) {
+                                        if (auto* os9 =
+                                                ((UHDM::operation*)e9)->Operands())
+                                            for (auto* o9 : *os9)
+                                                bindRef9(o9);
+                                        return;
+                                    }
+                                    if (e9->UhdmType() != UHDM::uhdmref_obj)
+                                        return;
+                                    auto* ro9 = (UHDM::ref_obj*)e9;
+                                    if (ro9->Actual_group())
+                                        return;
+                                    for (auto& [sy9, c9] : pkgParamConst)
+                                        if (sy9->name == ro9->VpiName() &&
+                                            sy9->getParentScope() ==
+                                                ps.getParentScope()) {
+                                            ro9->Actual_group(c9);
+                                            return;
+                                        }
+                                };
+                            bindRef9(le9);
+                            bindRef9(re9);
+                            r9->Left_expr(le9);
+                            r9->Right_expr(re9);
+                        }
+                        else {
+                            r9->Left_expr(mkB9(pa9.range.left, lS9));
+                            r9->Right_expr(mkB9(pa9.range.right, rS9));
+                        }
+                        rv9->push_back(r9);
+                        dt9 = &pa9.elementType;
+                    }
+                    pts9->Ranges(rv9);
+                    auto* ert9 = s.MakeRef_typespec();
+                    ert9->VpiParent(pts9);
+                    ert9->VpiFullName(syntaxRefPrefix);
+                    ert9->Actual_typespec(elemTs9);
+                    pts9->Elem_typespec(ert9);
+                    its = pts9;
+                }
+            }
             // A param typed by a VECTOR TYPEDEF (parameter my_type_t Y) uses a
             // NAMED clone of the typedef's logic_typespec with a Typedef_alias
             // ref to the shared typedef ts (Surelog), not a bare int_typespec.
@@ -11107,6 +11320,11 @@ void UhdmExporter::drainDefParamTs() {
             const Scope* savedCS = currentScope;
             syntaxRefPrefix = pd.refFullName;
             defViewParamTs = true;
+            // Which package LISTING this clone belongs to decides whether its
+            // packed-array dim bounds fold (see paramTsElabPkgView).
+            paramTsElabPkgView = pd.inPackage && pd.m &&
+                                 pd.m->UhdmType() == UHDM::uhdmpackage &&
+                                 ((UHDM::package*)pd.m)->VpiTop();
             if (!currentScope)
                 currentScope = pd.ps->getParentScope();
             // A DEF-view aggregate CLONE is shaped like the elab one: member
@@ -11123,6 +11341,7 @@ void UhdmExporter::drainDefParamTs() {
             if (aggClone0)
                 attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
             defViewParamTs = false;
+            paramTsElabPkgView = false;
             currentScope = savedCS;
             syntaxRefPrefix = savedPfx2;
         }
@@ -11168,6 +11387,105 @@ void UhdmExporter::shareDefAggParamTs() {
             e.di->paramTs[e.member] = elab;
     }
     pendingDefAggShare.clear();
+}
+
+// The integer value of a UHDM constant bound, or false when it is not a plain
+// constant (`ExprEval::get_value`'s invalidValue answer for an operation).
+static bool srlgBoundValue(const UHDM::any* e, int64_t& out) {
+    if (!e || e->UhdmType() != UHDM::uhdmconstant)
+        return false;
+    std::string v(((const UHDM::constant*)e)->VpiValue());
+    auto c = v.find(':');
+    if (c == std::string::npos)
+        return false;
+    try {
+        out = std::stoll(v.substr(c + 1));
+    }
+    catch (...) {
+        return false;
+    }
+    return true;
+}
+
+// Surelog's `CompileHelper::compileParameterDeclaration` REVERSES the operands
+// of a parameter's concat / assignment-pattern initializer — and marks the
+// operation `vpiReordered` — when the parameter's FIRST packed range
+// DECREASES and the first operand is still a `ref_obj`
+// (CompileHelper.cpp:3773, gated by `isDecreasingRange`, which reads the
+// range bounds off the parameter's own TYPESPEC through `ExprEval::get_value`
+// and answers false for anything that is not already a constant).
+//
+// That makes the answer VIEW-DEPENDENT, which is the whole point here: a
+// literal `[1:0]` decides in both listings, while a symbolic `[N-1:0]` decides
+// only in the ELABORATED listing, where the bounds have folded (PackageType's
+// `parameter bp_proc_param_s [max_cfgs-1:0] all_cfgs_gp = {bp_inv_cfg_p}` —
+// the def listing keeps source order, the top listing reorders).  A CONSTANT
+// or pattern first operand never reorders (purpose-built pkg golden:
+// `v_t [3:0] arr_v = {8'd1,...}` and `cfg_t [3:0] arr_lit = {'{default:1}}`
+// both stay in source order while `e_t [1:0] arr_e = {E0,E1}` reverses).
+//
+// Runs late because a package parameter's typespec is bound by
+// drainDefParamTs.  Packages only — the module-scope shape is unmeasured.
+void UhdmExporter::applyPkgParamPatternReorder() {
+    auto doPkgs = [&](UHDM::VectorOfpackage* v) {
+        if (!v)
+            return;
+        for (auto* pk : *v) {
+            if (!pk->Param_assigns())
+                continue;
+            for (auto* pa : *pk->Param_assigns()) {
+                auto* rhs = pa->Rhs();
+                if (!rhs || rhs->UhdmType() != UHDM::uhdmoperation)
+                    continue;
+                auto* op = (UHDM::operation*)rhs;
+                if (op->VpiReordered())
+                    continue;
+                int ot = op->VpiOpType();
+                if (ot != vpiConcatOp && ot != vpiAssignmentPatternOp)
+                    continue;
+                auto* ops = op->Operands();
+                if (!ops || ops->empty() ||
+                    (*ops)[0]->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                auto* lhs = pa->Lhs();
+                if (!lhs || lhs->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                auto* rt = ((UHDM::parameter*)lhs)->Typespec();
+                UHDM::typespec* ts = rt ? rt->Actual_typespec() : nullptr;
+                if (!ts)
+                    continue;
+                UHDM::VectorOfrange* rs = nullptr;
+                switch (ts->UhdmType()) {
+                    case UHDM::uhdmlogic_typespec:
+                        rs = ((UHDM::logic_typespec*)ts)->Ranges();
+                        break;
+                    case UHDM::uhdmbit_typespec:
+                        rs = ((UHDM::bit_typespec*)ts)->Ranges();
+                        break;
+                    case UHDM::uhdmarray_typespec:
+                        rs = ((UHDM::array_typespec*)ts)->Ranges();
+                        break;
+                    case UHDM::uhdmpacked_array_typespec:
+                        rs = ((UHDM::packed_array_typespec*)ts)->Ranges();
+                        break;
+                    default:
+                        break;
+                }
+                if (!rs || rs->empty())
+                    continue;
+                int64_t lv = 0, rv = 0;
+                if (!srlgBoundValue((*rs)[0]->Left_expr(), lv) ||
+                    !srlgBoundValue((*rs)[0]->Right_expr(), rv))
+                    continue;
+                if (lv <= rv)
+                    continue;
+                op->VpiReordered(true);
+                std::reverse(ops->begin(), ops->end());
+            }
+        }
+    };
+    doPkgs(d->AllPackages());
+    doPkgs(d->TopPackages());
 }
 
 // A fold whose init chain (through param refs) lands on an ENUM VALUE takes

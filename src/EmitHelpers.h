@@ -1986,6 +1986,62 @@ inline size_t arithBoundHeadLen(const std::string& raw) {
     return (allDigits || ident) ? d : 0;
 }
 
+// The packed dimensions written after a NAMED type (`my_vec_t [1:`N-1] x`)
+// are parsed by slang onto the type's NAME — an `IdentifierSelectName` whose
+// selectors carry them — not onto the `DataTypeSyntax`, which is a bare
+// `NamedTypeSyntax`.  Returns the (left, right) bound expressions per dim.
+inline std::vector<
+    std::pair<const syntax::ExpressionSyntax*, const syntax::ExpressionSyntax*>>
+namedTypeDimBounds(const syntax::SyntaxNode* tsyn) {
+    std::vector<std::pair<const syntax::ExpressionSyntax*,
+                          const syntax::ExpressionSyntax*>>
+        out;
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return out;
+    const syntax::NameSyntax* nm = tsyn->as<syntax::NamedTypeSyntax>().name;
+    if (!nm || nm->kind != syntax::SyntaxKind::IdentifierSelectName)
+        return out;
+    for (const syntax::ElementSelectSyntax* sel :
+         nm->as<syntax::IdentifierSelectNameSyntax>().selectors) {
+        const syntax::SelectorSyntax* sl = sel ? sel->selector : nullptr;
+        if (sl && sl->kind == syntax::SyntaxKind::SimpleRangeSelect) {
+            auto& rs = sl->as<syntax::RangeSelectSyntax>();
+            out.push_back(std::make_pair(
+                (const syntax::ExpressionSyntax*)rs.left,
+                (const syntax::ExpressionSyntax*)rs.right));
+        }
+        else
+            out.push_back(std::make_pair(
+                (const syntax::ExpressionSyntax*)nullptr,
+                (const syntax::ExpressionSyntax*)nullptr));
+    }
+    return out;
+}
+
+// `ExprEval::reduceExpr`'s value type for a folded arithmetic bound:
+// sub/mult/div always yield a signed vpiIntConst; add yields one only when a
+// sub-operand already reduced to one.  (Mirrors the `redInt` lambda in
+// `makeTypespec`'s bound emitter — same rule, reusable shape.)
+inline bool srlgRedIntSyn(const syntax::SyntaxNode* n) {
+    if (!n)
+        return false;
+    switch (n->kind) {
+        case syntax::SyntaxKind::SubtractExpression:
+        case syntax::SyntaxKind::MultiplyExpression:
+        case syntax::SyntaxKind::DivideExpression:
+            return true;
+        case syntax::SyntaxKind::AddExpression: {
+            auto& be = n->as<syntax::BinaryExpressionSyntax>();
+            return srlgRedIntSyn(be.left) || srlgRedIntSyn(be.right);
+        }
+        case syntax::SyntaxKind::ParenthesizedExpression:
+            return srlgRedIntSyn(
+                n->as<syntax::ParenthesizedExpressionSyntax>().expression);
+        default:
+            return false;
+    }
+}
+
 // Strips slang's implicit conversion wrappers (Surelog has no equivalent).
 inline const Expression& stripImplicitConv(const Expression& e) {
     const Expression* p = &e;

@@ -353,6 +353,9 @@ private:
     // Re-point every deferred def-view bare-package-typedef aggregate param
     // ref at the matching ELAB clone (run after all top instances emit).
     void shareDefAggParamTs();
+    // Surelog's `isDecreasingRange` reorder, applied to package parameters
+    // once their typespecs are bound (see the definition in ParamEmit.cpp).
+    void applyPkgParamPatternReorder();
     // Give every FOLDED struct/union member packed-array bound that came from
     // a package-param identifier Surelog's metadata (vpiSize:32 + a fresh
     // instance-less int_typespec ref named by the member's ts fullname).
@@ -391,6 +394,11 @@ private:
     // True while drainDefParamTs builds DEF-view param typespec clones —
     // those omit the module Instance link the ELAB clones carry.
     bool defViewParamTs = false;
+    // True while building the param typespec of an ELABORATED (top) package
+    // listing: a packed-array param typespec FOLDS its dim bounds there and
+    // keeps them symbolic in the def listing (THE LAW — the def listing
+    // reduces nothing, top+import copies reduce everything).
+    bool paramTsElabPkgView = false;
     // True while emitting a NON-TOP elaborated child-instance body: a packed
     // range bound that reaches an interface param through a modport/interface
     // port FOLDS to its concrete per-instance width here (Surelog), whereas the

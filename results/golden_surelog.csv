@@ -963,8 +963,8 @@ PackageParam,default,SLANG_REJECT,dut.sv:10:23: error: use of undeclared identif
 PackageParam,testflags,SLANG_REJECT,dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
 PackageParamConst,default,CMP_EQUAL,,,match
 PackageParamConst,testflags,CMP_EQUAL,,,differ
-PackageType,default,CMP_NOTEQUAL,decompile:,,
-PackageType,testflags,CMP_NOTEQUAL,decompile:,,
+PackageType,default,CMP_EQUAL,,,differ
+PackageType,testflags,CMP_EQUAL,,,differ
 PackageTypeParam,default,CMP_EQUAL,,,differ
 PackageTypeParam,testflags,CMP_EQUAL,,,differ
 PackageValue,default,SLANG_REJECT,top.sv:21:20: error: use of undeclared identifier 'state_q',,
