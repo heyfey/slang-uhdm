@@ -55,6 +55,7 @@ class SyntaxNode;
 struct DataTypeSyntax;
 struct ExpressionSyntax;
 struct VariableDimensionSyntax;
+struct TimingControlSyntax;
 } // namespace slang::syntax
 
 #include <uhdm/uhdm.h>
@@ -695,9 +696,12 @@ private:
     // Pound_delay TOKEN text (SV3_1aLexer.g4:65, '#' plus [0-9][0-9_.]*, so a
     // trailing time_unit is NOT part of it) while the object's SPAN covers the
     // whole pound_delay_value including that unit. A non-numeric delay value
-    // instead gets a ref_obj under Delay().
+    // gets a ref_obj under Delay() only in STATEMENT position -- pass the
+    // enclosing scope prefix as `stmtRefPrefix` there; an INTRA-ASSIGNMENT
+    // delay (`a <= #Tp b;`) records no value at all.
     UHDM::delay_control* emitDelayControl(const slang::ast::TimingControl& tc,
-                                         UHDM::BaseClass* parent);
+                                          UHDM::BaseClass* parent,
+                                          const std::string* stmtRefPrefix = nullptr);
     UHDM::any* emitExpr(const slang::ast::Expression& expr, UHDM::BaseClass* parent,
                         const std::string& prefix, NetMap& netMap);
     // b.a[0].x / a[0].min_v -> hier_path threading bit_select elements through
@@ -1128,6 +1132,11 @@ private:
     /// elaboration never promotes it to a logic_var.  See the definition
     /// (ModuleEmit.cpp) for the measured matrix.
     bool vlogUnresolvedLogicNet(const slang::ast::Symbol& sym);
+    /// The vpiDelay expression of a continuous assign / net-decl-assign
+    /// (`assign #0.1 a = b;`, `wire #3 w = a;`), or null when the statement
+    /// carries no delay.  See the definition (ModuleEmit.cpp) for the model.
+    UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
+                                UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
     // See the decode at the definition (ExprEmit.cpp): a package-QUALIFIED
     // reference to a package variable, which Surelog resolves only whole.
@@ -2093,6 +2102,9 @@ private:
     // Set while emitting a property-decl body: formal refs (which bind as
     // Invalid) resolve through this scope to implicit module wires.
     const slang::ast::Scope* propDeclScope = nullptr;
+    // The property-scoped ref prefix (work@m.<prop>) that goes with
+    // `propDeclScope`, for formal refs reached from a raw-syntax path.
+    std::string propDeclRefPrefix;
     // Set only while emitting a property_spec's OWN vpiClockingEvent: the
     // formal ref there spans the `@` too (`@clk` -> 9:5-9:9), and so does the
     // module wire it leaks.  A clocking event nested inside the sequence (the

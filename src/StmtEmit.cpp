@@ -157,7 +157,8 @@ void UhdmExporter::noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selO
 }
 
 UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
-                                                    UHDM::BaseClass* parent) {
+                                                    UHDM::BaseClass* parent,
+                                                    const std::string* stmtRefPrefix) {
     auto* dc = s.MakeDelay_control();
     dc->VpiParent(parent);
 
@@ -183,19 +184,36 @@ UHDM::delay_control* UhdmExporter::emitDelayControl(const TimingControl& tc,
         dc->VpiDelay(raw.substr(0, i));
     }
     else if (!raw.empty()) {
-        // "#dly" / "#(expr)": the value is not a Pound_delay token, so Surelog
-        // takes it as a reference under Delay(). Its name is the value node's
-        // SymName — the identifier for `#dly`, EMPTY for a parenthesized
-        // expression (a Mintypmax_expression node carries no name).
-        std::string name = raw.substr(numStart);
-        if (!name.empty() && !(isalpha((unsigned char)name[0]) || name[0] == '_' ||
-                               name[0] == '\\'))
-            name.clear();
-        auto* ref = s.MakeRef_obj();
-        ref->VpiName(name);
-        ref->VpiParent(parent);
-        setLoc(ref, SourceRange(dr.start() + numStart, dr.end()));
-        dc->Delay(ref);
+        // The value is not a Pound_delay token ("#Tp", "#dly", "#(expr)",
+        // "#Tp.unit"). What Surelog records then depends on POSITION,
+        // measured on a golden covering every spelling in both positions:
+        //   STATEMENT delay (`#Tp e <= d;`, `forever #pclk clk=~clk;`) keeps
+        //     a Delay() ref_obj named for the identifier, scope-qualified
+        //     (work@m.Tp) and spanning the WHOLE `#Tp`, parented where the
+        //     delay_control itself is parented;
+        //   INTRA-ASSIGNMENT delay (`a <= #Tp d;`) records NOTHING — no
+        //     vpiDelay string, no Delay() ref (YosysOldSpi's 51 `<= #Tp`).
+        // A PARENTHESISED value also shrinks the delay_control span to the
+        // expression inside the parens (`#(Tp+1)` -> 6:12-6:16).
+        if (raw[numStart] == '(') {
+            size_t close = raw.find_last_of(')');
+            if (close != std::string::npos && close > numStart + 1)
+                setLoc(dc, SourceRange(dr.start() + numStart + 1,
+                                       dr.start() + close));
+        }
+        else if (stmtRefPrefix) {
+            std::string name = raw.substr(numStart);
+            if (!name.empty() && !(isalpha((unsigned char)name[0]) ||
+                                   name[0] == '_' || name[0] == '\\'))
+                name.clear();
+            auto* ref = s.MakeRef_obj();
+            ref->VpiName(name);
+            if (!name.empty())
+                ref->VpiFullName(joinRef(*stmtRefPrefix, name));
+            ref->VpiParent(parent);
+            setLoc(ref, dr);
+            dc->Delay(ref);
+        }
     }
     return dc;
 }
@@ -460,7 +478,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 case TimingControlKind::Delay: {
                     // "#1 t;" / "always #5 clk = !clk;": a delay_control whose
                     // Stmt is the delayed statement.
-                    auto* dc = emitDelayControl(timing, parent);
+                    auto* dc = emitDelayControl(timing, parent, &prefix);
                     if (auto* inner = emitStmt(timed.stmt, dc, prefix, netMap))
                         dc->Stmt(inner);
                     return dc;
@@ -1324,74 +1342,92 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Surelog anchors the for_stmt at the "for" keyword alone.
             setLoc(fs, SourceRange(stmt.sourceRange.start(), stmt.sourceRange.start() + 3));
 
-            if (fl.loopVars.size() == 1 && fl.initializers.empty()) {
-                auto* lv = fl.loopVars[0];
-                auto& ct = lv->getType().getCanonicalType();
-                // A 4-state `logic`/`reg` loop variable, scalar or packed
-                // vector (`for (logic [31:0] i = 0; ...)`), is a logic_var
-                // bound to the declaration's logic_typespec — Surelog
-                // (CrossFunc myFunc2).
-                bool logicLoopVar = false;
-                {
-                    const Type* lf0 = &ct;
-                    while (lf0->getCanonicalType().kind ==
-                           SymbolKind::PackedArrayType)
-                        lf0 = &lf0->getCanonicalType()
-                                   .as<PackedArrayType>()
-                                   .elementType;
-                    auto& lfc0 = lf0->getCanonicalType();
-                    logicLoopVar = lfc0.kind == SymbolKind::ScalarType &&
-                                   lfc0.isFourState();
-                }
-                if (ct.kind != SymbolKind::PredefinedIntegerType &&
-                    !logicLoopVar) {
-                    noteUnsupported("for loop var type");
-                    return nullptr;
-                }
-                // `for (integer x = ..)` declares an integer_var (Surelog);
-                // `for (int i = ..)` an int_var.
-                UHDM::variables* v =
-                    logicLoopVar
-                        ? (UHDM::variables*)s.MakeLogic_var()
-                    : ct.as<PredefinedIntegerType>().integerKind ==
-                            PredefinedIntegerType::Integer
-                        ? (UHDM::variables*)s.MakeInteger_var()
-                        : (UHDM::variables*)s.MakeInt_var();
-                if (!logicLoopVar)
-                    v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
-                v->VpiName(lv->name);
-                v->VpiFullName(joinRef(prefix, lv->name));
-                setLoc(v, SourceRange(lv->location, lv->location + lv->name.size()));
-                auto* ts = makeTypespec(*lv);
-                if (pkgScopeInst)
-                    ts->Instance(pkgScopeInst);
-                auto* rt = s.MakeRef_typespec();
-                rt->VpiFullName(joinRef(prefix, lv->name));
-                rt->VpiParent(v);
-                rt->Actual_typespec(ts);
-                v->Typespec(rt);
-                netMap[lv] = v;
-
-                auto* init = s.MakeAssignment();
-                init->VpiParent(fs);
-                v->VpiParent(init);
-                // Init spans the type through the initializer expression.
-                if (auto declared = lv->getDeclaredType()) {
-                    if (auto tsyn = declared->getTypeSyntax()) {
-                        auto end = lv->getSyntax() ? lv->getSyntax()->sourceRange().end()
-                                                   : stmt.sourceRange.end();
-                        setLoc(init, SourceRange(tsyn->sourceRange().start(), end));
-                    }
-                }
-                init->Lhs((UHDM::expr*)(UHDM::any*)v);
-                if (auto ie = lv->getInitializer()) {
-                    forceConstParent = true;
-                    if (auto* r = emitExpr(*ie, init, prefix, netMap))
-                        init->Rhs(r);
-                    forceConstParent = false;
-                }
+            if (!fl.loopVars.empty() && fl.initializers.empty()) {
+                // `for (integer a=0, integer b=0; ...)` declares SEVERAL typed
+                // loop vars; each gets its own vpiForInitStmt assignment, in
+                // declaration order (ForLoop).  The single-var case is just
+                // this loop with one iteration.
                 auto* inits = s.MakeAnyVec();
-                inits->push_back(init);
+                for (auto* lv : fl.loopVars) {
+                    auto& ct = lv->getType().getCanonicalType();
+                    // A 4-state `logic`/`reg` loop variable, scalar or packed
+                    // vector (`for (logic [31:0] i = 0; ...)`), is a logic_var
+                    // bound to the declaration's logic_typespec — Surelog
+                    // (CrossFunc myFunc2).
+                    bool logicLoopVar = false;
+                    {
+                        const Type* lf0 = &ct;
+                        while (lf0->getCanonicalType().kind ==
+                               SymbolKind::PackedArrayType)
+                            lf0 = &lf0->getCanonicalType()
+                                       .as<PackedArrayType>()
+                                       .elementType;
+                        auto& lfc0 = lf0->getCanonicalType();
+                        logicLoopVar = lfc0.kind == SymbolKind::ScalarType &&
+                                       lfc0.isFourState();
+                    }
+                    if (ct.kind != SymbolKind::PredefinedIntegerType &&
+                        !logicLoopVar) {
+                        noteUnsupported("for loop var type");
+                        return nullptr;
+                    }
+                    // `for (integer x = ..)` declares an integer_var (Surelog);
+                    // `for (int i = ..)` an int_var.
+                    UHDM::variables* v =
+                        logicLoopVar
+                            ? (UHDM::variables*)s.MakeLogic_var()
+                        : ct.as<PredefinedIntegerType>().integerKind ==
+                                PredefinedIntegerType::Integer
+                            ? (UHDM::variables*)s.MakeInteger_var()
+                            : (UHDM::variables*)s.MakeInt_var();
+                    if (!logicLoopVar)
+                        v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
+                    v->VpiName(lv->name);
+                    v->VpiFullName(joinRef(prefix, lv->name));
+                    setLoc(v, SourceRange(lv->location, lv->location + lv->name.size()));
+                    auto* ts = makeTypespec(*lv);
+                    if (pkgScopeInst)
+                        ts->Instance(pkgScopeInst);
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiFullName(joinRef(prefix, lv->name));
+                    rt->VpiParent(v);
+                    rt->Actual_typespec(ts);
+                    v->Typespec(rt);
+                    netMap[lv] = v;
+
+                    auto* init = s.MakeAssignment();
+                    init->VpiParent(fs);
+                    v->VpiParent(init);
+                    // Init spans the type through the initializer expression --
+                    // and from the `var` keyword when the declaration has one
+                    // (`for (var integer a=0; ...)`), which slang keeps on the
+                    // enclosing ForVariableDeclarationSyntax, not the type.
+                    if (auto declared = lv->getDeclaredType()) {
+                        if (auto tsyn = declared->getTypeSyntax()) {
+                            auto end = lv->getSyntax() ? lv->getSyntax()->sourceRange().end()
+                                                       : stmt.sourceRange.end();
+                            auto start = tsyn->sourceRange().start();
+                            if (auto* lsyn = lv->getSyntax()) {
+                                if (syntax::SyntaxNode* par = lsyn->parent.get()) {
+                                    if (par->kind ==
+                                            syntax::SyntaxKind::ForVariableDeclaration &&
+                                        par->as<syntax::ForVariableDeclarationSyntax>()
+                                            .varKeyword)
+                                        start = par->sourceRange().start();
+                                }
+                            }
+                            setLoc(init, SourceRange(start, end));
+                        }
+                    }
+                    init->Lhs((UHDM::expr*)(UHDM::any*)v);
+                    if (auto ie = lv->getInitializer()) {
+                        forceConstParent = true;
+                        if (auto* r = emitExpr(*ie, init, prefix, netMap))
+                            init->Rhs(r);
+                        forceConstParent = false;
+                    }
+                    inits->push_back(init);
+                }
                 fs->VpiForInitStmts(inits);
             }
             else if (!fl.initializers.empty() && fl.loopVars.empty()) {
@@ -1552,7 +1588,29 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             };
 
             auto* items = s.MakeCase_itemVec();
+            // The DEFAULT arm keeps its SOURCE position in the item list
+            // (Surelog walks the case items as written); slang hands it back
+            // separately from `items`, so splice it back in by location.
+            // A `default:` written FIRST leads the list (YosysBigSimReed's
+            // BM_lamda `case (Step) default: ... Step2: ...`).
+            bool defDone9 = false;
+            auto emitDefault9 = [&]() {
+                if (defDone9 || !cs.defaultCase)
+                    return;
+                defDone9 = true;
+                auto* it = s.MakeCase_item();
+                it->VpiParent(uc);
+                itemLoc(*cs.defaultCase, it);
+                if (auto* st = emitStmt(*cs.defaultCase, it, prefix, netMap))
+                    it->Stmt(st);
+                items->push_back(it);
+            };
             for (auto& g : cs.items) {
+                if (cs.defaultCase && !defDone9 && g.stmt->syntax &&
+                    cs.defaultCase->syntax &&
+                    cs.defaultCase->syntax->sourceRange().start() <
+                        g.stmt->syntax->sourceRange().start())
+                    emitDefault9();
                 auto* it = s.MakeCase_item();
                 it->VpiParent(uc);
                 itemLoc(*g.stmt, it);
@@ -1612,14 +1670,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     it->Stmt(st);
                 items->push_back(it);
             }
-            if (cs.defaultCase) {
-                auto* it = s.MakeCase_item();
-                it->VpiParent(uc);
-                itemLoc(*cs.defaultCase, it);
-                if (auto* st = emitStmt(*cs.defaultCase, it, prefix, netMap))
-                    it->Stmt(st);
-                items->push_back(it);
-            }
+            emitDefault9();
             uc->Case_items(items);
             return uc;
         }

@@ -391,6 +391,101 @@ static bool isNonAnsiHeader(const InstanceBodySymbol& body) {
 // vpiTypedef in golden — we stamp netType 1 and a logic_typespec.  Measured,
 // but neither corpus contains the form, so it is not worth the port-routing
 // risk.)
+// A continuous-assign / net-decl-assign DELAY (`assign #0.1 a = b;`,
+// `wire [1:0] #0.5 w = ...;`) rides the cont_assign as vpiDelay, in BOTH
+// views.  Measured on a purpose-built golden covering all four spellings
+// (DelayAssign):
+//   #3        -> constant, decompile "#3",   size 64, UINT:3, constType 9
+//   #0.5      -> constant, decompile "#0.5", size 64, UINT:0  (Surelog reads
+//                the delay as an integer, so a REAL delay carries value 0 but
+//                keeps its source spelling in the decompile)
+//   #(1,2)    -> vpiListOp over one vpiMinTypMaxOp per delay
+//   #(1:2:3)  -> the bare vpiMinTypMaxOp, spanning the whole `#(...)`
+// The bare-constant span runs from the `#` through the value; a parenthesised
+// list spans through the closing paren.  Operand constants inside the parens
+// decompile WITHOUT the `#`.
+UHDM::expr* UhdmExporter::emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
+                                          UHDM::BaseClass* parent) {
+    if (!dsyn)
+        return nullptr;
+    // Surelog's delay reader is integral: a real literal reads 0.
+    auto delayVal = [](const syntax::ExpressionSyntax& es) -> uint64_t {
+        if (es.kind != syntax::SyntaxKind::IntegerLiteralExpression)
+            return 0;
+        auto v = es.as<syntax::LiteralExpressionSyntax>().literal.intValue();
+        if (v.hasUnknown() || v.getBitWidth() > 64)
+            return 0;
+        auto u = v.as<uint64_t>();
+        return u ? *u : 0;
+    };
+    auto mkConst = [&](uint64_t v, SourceRange r,
+                       const std::string& dec) -> UHDM::constant* {
+        auto* c = s.MakeConstant();
+        c->VpiDecompile(dec);
+        c->VpiSize(64);
+        c->VpiValue("UINT:" + std::to_string(v));
+        c->VpiConstType(vpiUIntConst);
+        setLoc(c, r);
+        return c;
+    };
+    if (dsyn->kind == syntax::SyntaxKind::DelayControl) {
+        auto& d1 = dsyn->as<syntax::DelaySyntax>();
+        SourceRange span(d1.hash.location(), d1.delayValue->sourceRange().end());
+        auto* c = mkConst(delayVal(*d1.delayValue), span, rawText(span));
+        c->VpiParent(parent);
+        return c;
+    }
+    if (dsyn->kind != syntax::SyntaxKind::Delay3)
+        return nullptr;
+    auto& d3 = dsyn->as<syntax::Delay3Syntax>();
+    std::vector<const syntax::ExpressionSyntax*> ds{d3.delay1};
+    if (d3.delay2)
+        ds.push_back(d3.delay2);
+    if (d3.delay3)
+        ds.push_back(d3.delay3);
+    SourceRange whole(d3.hash.location(),
+                      d3.closeParen ? d3.closeParen.range().end()
+                                    : ds.back()->sourceRange().end());
+    if (!d3.closeParen) {
+        auto* c = mkConst(delayVal(*ds[0]), whole, rawText(whole));
+        c->VpiParent(parent);
+        return c;
+    }
+    auto mkMinTypMax = [&](const syntax::ExpressionSyntax& es, SourceRange span,
+                           UHDM::BaseClass* p) -> UHDM::operation* {
+        auto* ops = s.MakeAnyVec();
+        auto add = [&](const syntax::ExpressionSyntax& e) {
+            ops->push_back(mkConst(delayVal(e), e.sourceRange(),
+                                   rawText(e.sourceRange())));
+        };
+        if (es.kind == syntax::SyntaxKind::MinTypMaxExpression) {
+            auto& mtm = es.as<syntax::MinTypMaxExpressionSyntax>();
+            add(*mtm.min);
+            add(*mtm.typ);
+            add(*mtm.max);
+        }
+        else
+            add(es);
+        auto* op = s.MakeOperation();
+        op->VpiOpType(vpiMinTypMaxOp);
+        op->VpiParent(p);
+        setLoc(op, span);
+        op->Operands(ops);
+        return op;
+    };
+    if (ds.size() == 1)
+        return mkMinTypMax(*ds[0], whole, parent);
+    auto* lop = s.MakeOperation();
+    lop->VpiOpType(vpiListOp);
+    lop->VpiParent(parent);
+    setLoc(lop, whole);
+    auto* ops = s.MakeAnyVec();
+    for (auto* de : ds)
+        ops->push_back(mkMinTypMax(*de, de->sourceRange(), lop));
+    lop->Operands(ops);
+    return lop;
+}
+
 bool UhdmExporter::vlogUnresolvedLogicNet(const Symbol& sym) {
     auto* dt = sym.getDeclaredType();
     if (!dt || dt->getInitializer())
@@ -1191,6 +1286,15 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 auto* fd = s.MakeProp_formal_decl();
                 fd->VpiName(fp.name);
                 auto* frt = s.MakeRef_typespec();
+                // A formal declared with a data type (`property p(bit a, int
+                // n)`) binds that type: the ref carries no name, only the
+                // typespec at the TYPE-keyword span (OneDivider).  An
+                // untyped/implicit formal keeps the bare ref.
+                if (auto* fdt = fp.getDeclaredType())
+                    if (auto* fsyn = fdt->getTypeSyntax();
+                        fsyn && fsyn->kind != syntax::SyntaxKind::ImplicitType)
+                        if (auto* fts = makeTypespec(fp, fsyn))
+                            frt->Actual_typespec(fts);
                 fd->Typespec(frt);
                 fdecls->push_back(fd);
             }
@@ -1229,6 +1333,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 implicitNetModule = m;
                 implicitNetPrefix = prefix;
                 propDeclScope = &prop;
+                propDeclRefPrefix = propPrefix + "." + std::string(prop.name);
                 // A clocked property body (@(posedge clk) expr): the clocking
                 // becomes the spec's VpiClockingEvent, the rest the
                 // VpiPropertyExpr (mriscv s2qed p_S2QED_MAPPED_VAL).
@@ -1250,6 +1355,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                           info.nets))
                     psSpec->VpiPropertyExpr(bodyE);
                 propDeclScope = nullptr;
+                propDeclRefPrefix.clear();
                 implicitNetModule = savedINM;
                 implicitNetPrefix = savedINP;
                 pd->Property_spec(psSpec);
@@ -5532,20 +5638,23 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // Only the `parameter type T` route stays body-declarations-only:
             // a type-param-typed PORT has no typedef-table entry either way
             // and the hand-tuned port routes below cover it.
-            // An UNPACKED struct signal is additionally a variable by LRM —
-            // it cannot be a net at all — so the body declaration stays a
-            // struct_var in the instance view (HierPathUnpacked's
-            // `keymgr_pkg::foo_t a;`); measured on body decls only, so the
-            // unpacked arm keeps its !it.port guard.
+            // An UNPACKED struct signal takes the SAME member scan — Surelog
+            // never applies the LRM's "unpacked structs are variables" rule
+            // here, it just runs elab_signal_'s struct arm.  Measured on a
+            // four-way golden (all-logic unpacked port / mixed unpacked port
+            // / packed port / all-logic unpacked BODY decl): only the struct
+            // with a non-logic member is a var, port or not
+            // (HierPathUnpacked's `keymgr_pkg::foo_t a;` is a var because of
+            // its members, not because it is unpacked; MultiPort's
+            // `input variable_type a, b` has an `int` member).
             bool isUnpackedStruct =
                 it.sym->getDeclaredType() &&
                 it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
                     SymbolKind::UnpackedStructType;
-            bool memberDemotesToVar =
-                (isStruct && (!structTsIsNetLike(ts) ||
-                              (!it.port && typeParamTyped))) ||
-                (isUnpackedStruct && !it.port);
             isStruct = isStruct || isUnpackedStruct;
+            bool memberDemotesToVar =
+                isStruct && (!structTsIsNetLike(ts) ||
+                             (!it.port && typeParamTyped));
             if (isStruct &&
                 ((arrOfStructMember && isPkgStructType(*it.sym)) ||
                  memberDemotesToVar) &&
@@ -9250,7 +9359,72 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     return tsn0->kind == syntax::SyntaxKind::RegType;
             return false;
         };
+        // ------------------------------------------------ gen-block typedefs
+        // A generate block is a DesignComponent of its own, so UhdmWriter
+        // runs writeDataTypes over ITS DataTypeMap and hangs the result off
+        // the gen_scope (dumped as vpiTypedef).  The map is a
+        // std::map<name,...>, so the list is NAME-ordered, not declaration-
+        // ordered; entries resolve REF/TYPEDEF categories to the definition
+        // and dedup by object id.  Measured on three purpose-built goldens:
+        // a plain `typedef <other> alias;` contributes NOTHING in this
+        // position (Surelog never compiles it a typespec of its own) whether
+        // or not a signal uses it, so only the real definitions are listed
+        // (TypeDefGenScope, gts1/gts3).
+        //
+        // The definitions are BUILT in declaration order (a struct member
+        // typed by an earlier typedef must find it) and LISTED by name.
+        {
+            std::vector<std::pair<std::string, UHDM::typespec*>> gtds;
+            for (auto& gm : blk.members()) {
+                if (gm.kind != SymbolKind::TypeAlias)
+                    continue;
+                auto& ta = gm.as<TypeAliasType>();
+                // An ALIAS of another typedef: register it so members and
+                // signals typed through it resolve to the TARGET's object,
+                // but do NOT list it.
+                if (ta.targetType.getType().kind == SymbolKind::TypeAlias) {
+                    if (auto tgt =
+                            typedefTs.find(&ta.targetType.getType());
+                        tgt != typedefTs.end())
+                        typedefTs[&ta] = tgt->second;
+                    continue;
+                }
+                auto& ct = ta.targetType.getType().getCanonicalType();
+                if (ct.kind != SymbolKind::PackedStructType)
+                    continue;
+                const syntax::SyntaxNode* tsyn = nullptr;
+                if (auto syn = ta.getSyntax();
+                    syn && syn->kind == syntax::SyntaxKind::TypedefDeclaration)
+                    tsyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+                std::string tfull = fullName + "." + std::string(ta.name);
+                auto* sts = buildStructTs(ct.as<PackedStructType>(), true,
+                                          tfull);
+                sts->VpiName(ta.name);
+                sts->VpiParent(gs);
+                // Surelog's writeDataTypes casts the scope straight to
+                // instance* for vpiInstance; a gen_scope lands there too.
+                sts->Instance((UHDM::instance*)(UHDM::BaseClass*)gs);
+                if (tsyn)
+                    setLoc(sts, tsyn->sourceRange());
+                typedefTs[&ta] = sts;
+                gtds.emplace_back(std::string(ta.name), sts);
+            }
+            if (!gtds.empty()) {
+                std::stable_sort(gtds.begin(), gtds.end(),
+                                 [](const auto& a, const auto& b) {
+                                     return a.first < b.first;
+                                 });
+                auto* tv = s.MakeTypespecVec();
+                for (auto& [nm, ts] : gtds)
+                    tv->push_back(ts);
+                gs->Typespecs(tv);
+            }
+        }
         auto* genArrayNets = s.MakeArray_netVec();
+        // Struct locals that the net-vs-var test resolves to VARIABLES are
+        // decided in the net loop below; they join the gen_scope's Variables
+        // ahead of the integer/scalar locals the later loop collects.
+        auto* gvarsEarly = s.MakeVariablesVec();
         for (auto& gm : blk.members()) {
             bool caVar = gm.kind == SymbolKind::Variable && caDrivenVar(gm);
             bool structVar = gm.kind == SymbolKind::Variable &&
@@ -9281,6 +9455,51 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         sts = tt2->second;
                 if (!sts)
                     sts = makeTypespec(gm);
+                // ...unless the block's own net-vs-var test rejects it. In a
+                // GEN scope (unlike module scope, where every spelling stays
+                // a net — gts4) a re-typedef ANYWHERE in the declaration
+                // makes the signal a struct_VAR: the signal's own type being
+                // an alias-of-typedef, or a member typed that way.  Surelog's
+                // gen-scope elab_signal_ sees the unresolved alias where the
+                // module pass sees the definition, so its "every member is a
+                // logic/struct typespec" test fails.  The ordinary member
+                // scan (a bit/enum/packed-array member) applies as well.
+                // Measured on purpose-built goldens gts1-gts4
+                // (TypeDefGenScope).
+                bool aliasTyped9 = false;
+                {
+                    auto& dtG = gm.getDeclaredType()->getType();
+                    auto isReTypedef = [](const Type& t) {
+                        return t.kind == SymbolKind::TypeAlias &&
+                               t.as<TypeAliasType>()
+                                       .targetType.getType()
+                                       .kind == SymbolKind::TypeAlias;
+                    };
+                    aliasTyped9 = isReTypedef(dtG);
+                    if (!aliasTyped9)
+                        for (auto& fmG :
+                             dtG.getCanonicalType().as<Scope>().members())
+                            if (fmG.kind == SymbolKind::Field &&
+                                fmG.getDeclaredType() &&
+                                isReTypedef(fmG.getDeclaredType()->getType()))
+                                aliasTyped9 = true;
+                }
+                if (aliasTyped9 || !structTsIsNetLike(sts)) {
+                    auto* sv9 = s.MakeStruct_var();
+                    sv9->VpiName(gm.name);
+                    sv9->VpiFullName(sfull);
+                    sv9->VpiParent(gs);
+                    sv9->VpiVisibility(1);
+                    setLoc(sv9, nameSpan(gm.location, gm.name));
+                    auto* vrt9 = s.MakeRef_typespec();
+                    vrt9->VpiFullName(sfull);
+                    vrt9->VpiParent(sv9);
+                    vrt9->Actual_typespec(sts);
+                    sv9->Typespec(vrt9);
+                    netMap[&gm] = sv9;
+                    gvarsEarly->push_back(sv9);
+                    continue;
+                }
                 auto* sn = s.MakeStruct_net();
                 sn->VpiName(gm.name);
                 sn->VpiFullName(sfull);
@@ -9459,12 +9678,29 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         // integer_typespec at the type-keyword span (mirrors the def-view
         // decl-assignment Lhs form).
         auto* gvars = s.MakeVariablesVec();
+        for (auto* ev9 : *gvarsEarly)
+            gvars->push_back(ev9);
         for (auto& gm : blk.members()) {
             if (gm.kind != SymbolKind::Variable)
                 continue;
             if (caDrivenVar(gm))
                 continue; // emitted as a logic_net above
             auto& vct = gm.as<VariableSymbol>().getType().getCanonicalType();
+            // A PACKED array over a struct/enum typedef (`td1 [3:0] pipe;`)
+            // elaborates exactly as at module level: packed_array_var with
+            // one range per packed dim and a struct/enum_var element bound to
+            // the shared typedef typespec (FuncAlias).
+            if (vct.kind == SymbolKind::PackedArrayType) {
+                std::string vfullP = fullName + "." + std::string(gm.name);
+                if (auto* pavP = emitPackedStructArrayVar(
+                        gm, std::string(gm.name), vfullP,
+                        (UHDM::instance*)(UHDM::BaseClass*)gs)) {
+                    // NOT registered in netMap: Surelog leaves references to
+                    // it (hier_path elements) unbound, with no vpiExpr.
+                    gvars->push_back(pavP);
+                    continue;
+                }
+            }
             // Unpacked-array locals: the standard elab array_var (folded
             // ranges, bare array_typespec ref), parented at the gen_scope.
             if (vct.kind == SymbolKind::FixedSizeUnpackedArrayType) {
@@ -13583,6 +13819,17 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         ca->VpiParent(m);
         ca->VpiNetDeclAssign(true);
         setLoc(ca, nameSpan(it.sym->location, it.sym->name));
+        // `wire #0.1 w = a;` — the net declaration's delay rides the
+        // net-decl-assign (DelayAssign).
+        {
+            const syntax::SyntaxNode* nd9 = it.sym->getSyntax();
+            while (nd9 && nd9->kind != syntax::SyntaxKind::NetDeclaration)
+                nd9 = nd9->parent;
+            if (nd9)
+                if (auto* dl9 = emitAssignDelay(
+                        nd9->as<syntax::NetDeclarationSyntax>().delay, ca))
+                    ca->Delay(dl9);
+        }
         bool fcp = forceConstParent;
         forceConstParent = true;
         UHDM::any* rhs = nullptr;
@@ -13767,6 +14014,14 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             ca->Rhs((UHDM::expr*)rhs);
         }
         forceConstParent = fcp;
+        // A net-decl-assign delay constant is UNPARENTED when the RHS is a
+        // plain reference and PARENTED for every compiled RHS (operation,
+        // concat, literal) — Surelog's netlist re-elaboration re-parents the
+        // delay only on the paths that rebuild the expression.  Measured on a
+        // four-way golden (`= a` / `= a & b` / `= {a,b}` / `= 2'b0`).
+        if (auto* dly8 = ca->Delay())
+            if (ca->Rhs() && ca->Rhs()->UhdmType() == UHDM::uhdmref_obj)
+                dly8->VpiParent(nullptr);
         // A LITERAL RHS is netlist-re-elaborated: the Lhs becomes a FRESH net
         // object (own typespec materialized last) and the module-list net
         // loses its typespec parent. A non-literal RHS reuses the module net
@@ -14538,15 +14793,22 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // cont_assign the whole list's span (Surelog quirk), not each
         // sub-assign's.
         SourceRange caLoc = assign.sourceRange;
+        const syntax::ContinuousAssignSyntax* caSyn9 = nullptr;
         if (auto* asyn = casym.getSyntax())
             for (auto p = asyn->parent; p; p = p->parent)
                 if (p->kind == syntax::SyntaxKind::ContinuousAssign) {
                     auto& cas = p->as<syntax::ContinuousAssignSyntax>();
+                    caSyn9 = &cas;
                     if (cas.assignments.size() > 1)
                         caLoc = cas.assignments.sourceRange();
                     break;
                 }
         setLoc(ca, caLoc);
+        // `assign #0.1 a = b;` — the statement's delay rides the cont_assign
+        // (DelayAssign).
+        if (caSyn9)
+            if (auto* dl9 = emitAssignDelay(caSyn9->delay, ca))
+                ca->Delay(dl9);
         if (ifaceDotFresh) {
             // hier_path Lhs: name-only ref elements, ALL anchored at the
             // LAST member token; bare loc-only Rhs constant.
@@ -16933,9 +17195,14 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
                            inner->sourceRange.end() -
                                basedLiteralSpaceCount(rawText(inner->sourceRange))));
 
-    // Else action -> vpiStmt.
-    if (ca.ifFalse)
-        if (auto* st = emitStmt(*ca.ifFalse, as, aprefix, netMap))
+    // Action block -> vpiStmt: the PASS action when the assertion writes one,
+    // otherwise the `else` action.  Only ever ONE of the two lands — Surelog
+    // keeps whichever it compiled first and never writes a second statement.
+    // Measured on a four-way golden (pass only / else only / both / neither):
+    // `assert p $display("P"); else $display("F");` carries $display("P")
+    // alone (OneDivider).
+    if (const Statement* act9 = ca.ifTrue ? ca.ifTrue : ca.ifFalse)
+        if (auto* st = emitStmt(*act9, as, aprefix, netMap))
             as->Stmt(st);
 
     // Property spec. An `assert` WITH an explicit clocking event keeps ONLY
@@ -19657,6 +19924,69 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         vct.as<PackedArrayType>()
                                 .elementType.getCanonicalType()
                                 .kind == SymbolKind::ScalarType;
+                    // A PACKED array over a NAMED type (`td1 [3:0] pipe;`)
+                    // stmt-ifies as a Rhs-less assignment whose Lhs is a bare
+                    // ref_var: Surelog's def-view type compile does not
+                    // resolve the named element here, so the typespec is an
+                    // UNSUPPORTED_TYPESPEC carrying the TYPE NAME and
+                    // spanning `<type> <dims>` (FuncAlias).  The elaborated
+                    // gen_scope still gets the real packed_array_var.
+                    if (vct.kind == SymbolKind::PackedArrayType &&
+                        dd.type->kind == syntax::SyntaxKind::NamedType) {
+                        const Type* pel9 = &vct;
+                        while (pel9->getCanonicalType().kind ==
+                               SymbolKind::PackedArrayType)
+                            pel9 = &pel9->getCanonicalType()
+                                        .as<PackedArrayType>()
+                                        .elementType;
+                        auto pk9 = pel9->getCanonicalType().kind;
+                        if (pk9 != SymbolKind::PackedStructType &&
+                            pk9 != SymbolKind::EnumType)
+                            continue;
+                        auto* asP = s.MakeAssignment();
+                        asP->VpiParent(b);
+                        asP->VpiOpType(82);
+                        asP->VpiBlocking(true);
+                        setLoc(asP, nameSpan(dcl->name.location(), vname));
+                        auto* rvP = s.MakeRef_var();
+                        rvP->VpiName(vname);
+                        rvP->VpiFullName(branchPrefix + "." + vname);
+                        rvP->VpiParent(asP);
+                        setLoc(rvP, nameSpan(dcl->name.location(), vname));
+                        auto* utP = s.MakeUnsupported_typespec();
+                        // `td1 [3:0]` parses as an IdentifierSelectName, so
+                        // the type syntax spans the dims too — the NAME is
+                        // the text before the first bracket.
+                        {
+                            std::string tn9(rawText(dd.type->sourceRange()));
+                            tn9 = tn9.substr(0, tn9.find('['));
+                            size_t e9 = tn9.find_last_not_of(" \t\r\n");
+                            utP->VpiName(e9 == std::string::npos
+                                             ? tn9
+                                             : tn9.substr(0, e9 + 1));
+                        }
+                        // The span runs from the type name through the last
+                        // packed dimension — the text between the type and
+                        // the declarator, trailing blanks trimmed.
+                        {
+                            SourceLocation tb = dd.type->sourceRange().start();
+                            SourceLocation te = dcl->name.location();
+                            std::string gap(rawText(SourceRange(tb, te)));
+                            size_t n9 = gap.find_last_not_of(" \t\r\n");
+                            setLoc(utP,
+                                   SourceRange(tb, tb + (n9 == std::string::npos
+                                                             ? gap.size()
+                                                             : n9 + 1)));
+                        }
+                        auto* rtP = s.MakeRef_typespec();
+                        rtP->VpiFullName(branchPrefix + "." + vname);
+                        rtP->VpiParent(rvP);
+                        rtP->Actual_typespec(utP);
+                        rvP->Typespec(rtP);
+                        asP->Lhs(rvP);
+                        stmts->push_back(asP);
+                        continue;
+                    }
                     // Unpacked-ARRAY decls (logic [..] mem [0:N-1]) stmt-ify
                     // as a Rhs-less assignment whose Lhs is a bare array_var
                     // (ts -> array_typespec with SYMBOLIC dim bounds; inner

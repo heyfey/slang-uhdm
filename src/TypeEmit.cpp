@@ -6029,22 +6029,34 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             // module-prefixed refs + module parent (alert_rx_t / dmi_t /
             // EnumWidth's bar_t), regardless of nested typedef members.
             bool wholeAssigned = false;
-            for (auto& mb2 : body.members()) {
-                if (mb2.kind != SymbolKind::ContinuousAssign)
-                    continue;
-                auto& as2 = mb2.as<ContinuousAssignSymbol>().getAssignment();
-                if (as2.kind != ExpressionKind::Assignment)
-                    continue;
-                auto& ae2 = as2.as<AssignmentExpression>();
-                for (auto* side : {&ae2.left(), &ae2.right()}) {
-                    auto& sc2 = stripImplicitConv(*side);
-                    if (sc2.kind == ExpressionKind::NamedValue &&
-                        &sc2.as<NamedValueExpression>()
-                                .symbol.getType()
-                                .getCanonicalType() == &ct)
-                        wholeAssigned = true;
+            // The netlist recompile is scope-blind: a cont-assign inside a
+            // GENERATE block counts exactly as a module-level one (FuncAlias
+            // assigns `inst1` whole from `GEN1`), so walk the generate tree
+            // as well as the body's own members.
+            std::function<void(const Scope&)> scanCa2 = [&](const Scope& sc0) {
+                for (auto& mb2 : sc0.members()) {
+                    if (mb2.kind == SymbolKind::GenerateBlock ||
+                        mb2.kind == SymbolKind::GenerateBlockArray) {
+                        scanCa2(mb2.as<Scope>());
+                        continue;
+                    }
+                    if (mb2.kind != SymbolKind::ContinuousAssign)
+                        continue;
+                    auto& as2 = mb2.as<ContinuousAssignSymbol>().getAssignment();
+                    if (as2.kind != ExpressionKind::Assignment)
+                        continue;
+                    auto& ae2 = as2.as<AssignmentExpression>();
+                    for (auto* side : {&ae2.left(), &ae2.right()}) {
+                        auto& sc2 = stripImplicitConv(*side);
+                        if (sc2.kind == ExpressionKind::NamedValue &&
+                            &sc2.as<NamedValueExpression>()
+                                    .symbol.getType()
+                                    .getCanonicalType() == &ct)
+                            wholeAssigned = true;
+                    }
                 }
-            }
+            };
+            scanCa2(body);
             bool bareRefs = wholeAssigned;
             // The def-net typespec drop applies only to structs with NO
             // nested UNION member (UnionInsideStruct's bar_t keeps its ts).
@@ -6443,6 +6455,18 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
     switch (syn.kind) {
         case syntax::SyntaxKind::IdentifierName: {
             auto name = syn.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            // Inside a property DECLARATION, an identifier naming one of the
+            // formals takes the formal-ref path — the ref binds the implicit
+            // module wire Surelog leaks the formal into.  The assertion
+            // walker only calls emitPropFormalRef for a BARE identifier, so a
+            // formal reached through a compound syntax expression (a
+            // repetition count `[*n-1]`) arrived here unbound (OneDivider).
+            if (propDeclScope)
+                if (auto* pfr = emitPropFormalRef(
+                        name, syn.sourceRange(), parent,
+                        syntaxRefPrefix.empty() ? propDeclRefPrefix
+                                                : syntaxRefPrefix))
+                    return pfr;
             // A module param identifier inside an elaborated GEN-BLOCK
             // function's type bound folds to its value (matching the ExprEmit
             // fold) — the gen block is a concrete instance. genBlockFnScope is
@@ -9240,8 +9264,12 @@ bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked,
     // so `tl_h2d_t a[1:0] = '{...}` (IndexedPartSelectOfArrayElement) stays a
     // net.
     if (lct.kind == SymbolKind::PackedStructType) {
-        if (!lct.isFourState())
-            return false;
+        // NOTE: no 2-state gate here. Surelog decides on the ONE-LEVEL member
+        // typespec scan alone, so a struct whose members are all STRUCTS is a
+        // net even when every leaf inside them is 2-state
+        // (SelectHierPath's `IntegerRegisterWriteStageRegPath pipeReg [2]`,
+        // one `BranchResult brResult` member holding one `int`). A struct
+        // with a DIRECT bit/int member is already rejected by the scan below.
         // ...and only while EVERY member is logic/struct. Surelog runs the
         // struct member scan (structTsIsNetLike) BEFORE the unpacked-dimension
         // wrap, so one enum / packed-array / bit member makes the whole

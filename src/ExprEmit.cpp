@@ -5055,6 +5055,40 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(fc0, expr.sourceRange);
                         return fc0;
                     }
+                    // A DPI import declared at COMPILATION-UNIT scope is not
+                    // in the model at all (see emitTaskFuncs), so its calls
+                    // carry their ARGUMENTS but NO vpiFunction link
+                    // (DelayAssign; the same import inside a module binds
+                    // normally).
+                    else if (pscope &&
+                             pscope->asSymbol().kind ==
+                                 SymbolKind::CompilationUnit &&
+                             (sub.flags & MethodFlags::DPIImport) !=
+                                 MethodFlags::None) {
+                        auto* fc0 = sub.subroutineKind == SubroutineKind::Function
+                                        ? (UHDM::tf_call*)s.MakeFunc_call()
+                                        : (UHDM::tf_call*)s.MakeTask_call();
+                        fc0->VpiName(sub.name);
+                        fc0->VpiParent(parent);
+                        setLoc(fc0, expr.sourceRange);
+                        auto* uargs = s.MakeAnyVec();
+                        for (auto arg : call.arguments()) {
+                            // Output args come wrapped as
+                            // Assignment(lval, Empty) — unwrap as the bound
+                            // path does.
+                            if (arg->kind == ExpressionKind::Assignment) {
+                                auto& ae0 = arg->as<AssignmentExpression>();
+                                if (ae0.right().kind ==
+                                    ExpressionKind::EmptyArgument)
+                                    arg = &ae0.left();
+                            }
+                            if (auto* a0 = emitExpr(*arg, fc0, prefix, netMap))
+                                uargs->push_back(a0);
+                        }
+                        if (!uargs->empty())
+                            fc0->Tf_call_args(uargs);
+                        return fc0;
+                    }
                     else {
                         noteUnsupported("user function call");
                         return nullptr;

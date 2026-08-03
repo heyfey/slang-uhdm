@@ -349,8 +349,8 @@ DefParamIndex,default,CMP_EQUAL,,,differ
 DefParamIndex,testflags,CMP_EQUAL,,,differ
 Delay2Param,default,SLANG_REJECT,dut.sv:1:44: error: port 'signedIn' has no I/O member declaration,,
 Delay2Param,testflags,SLANG_REJECT,dut.sv:1:44: error: port 'signedIn' has no I/O member declaration,,
-DelayAssign,default,CMP_NOTEQUAL,decompile:,,
-DelayAssign,testflags,CMP_NOTEQUAL,decompile:,,
+DelayAssign,default,CMP_EQUAL,,,differ
+DelayAssign,testflags,CMP_EQUAL,,,differ
 DiffSimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 DiffSimpleIncludeAndMacros,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-diffcompunit,
 Disable,default,CMP_EQUAL,,,match
@@ -477,8 +477,8 @@ ForeachSquare,default,CMP_EQUAL,,,differ
 ForeachSquare,testflags,CMP_EQUAL,,,differ
 ForElab,default,SLANG_REJECT,top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
 ForElab,testflags,SLANG_REJECT,top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
-ForLoop,default,CMP_NOTEQUAL,decompile:,,
-ForLoop,testflags,CMP_NOTEQUAL,decompile:,,
+ForLoop,default,CMP_EQUAL,,,match
+ForLoop,testflags,CMP_EQUAL,,,match
 ForLoopBind,default,SLANG_REJECT,dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 were provided,,
 ForLoopBind,testflags,SLANG_REJECT,dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 were provided,,
 FSM2Always,default,CMP_EQUAL,,,match
@@ -491,8 +491,8 @@ FSMSingleAlways,default,CMP_EQUAL,,,match
 FSMSingleAlways,testflags,CMP_EQUAL,,,match
 Func128Bits,default,CMP_EQUAL,,,match
 Func128Bits,testflags,CMP_EQUAL,,,match
-FuncAlias,default,CMP_NOTEQUAL,decompile:,,
-FuncAlias,testflags,CMP_NOTEQUAL,decompile:,,
+FuncAlias,default,CMP_EQUAL,,,match
+FuncAlias,testflags,CMP_EQUAL,,,differ
 FuncArgDirection,default,CMP_EQUAL,,,match
 FuncArgDirection,testflags,CMP_EQUAL,,,differ
 FuncArgs,default,CMP_EQUAL,,,match
@@ -881,8 +881,8 @@ MultiIndexBind,default,SLANG_REJECT,dut.sv:28:21: error: use of undeclared ident
 MultiIndexBind,testflags,SLANG_REJECT,dut.sv:28:21: error: use of undeclared identifier 'i',,
 MultiPartSelect,default,CMP_EQUAL,,,match
 MultiPartSelect,testflags,CMP_EQUAL,,,differ
-MultiPort,default,CMP_NOTEQUAL,decompile:,,
-MultiPort,testflags,CMP_NOTEQUAL,decompile:,,
+MultiPort,default,CMP_EQUAL,,,differ
+MultiPort,testflags,CMP_EQUAL,,,differ
 MultiSelect,default,CMP_EQUAL,,,match
 MultiSelect,testflags,CMP_EQUAL,,,differ
 NameCollisionBind,default,SLANG_REJECT,dut.sv:21:30: error: top-level module 'CSR_Unit' has unconnected interface port 'perfCounter',,
@@ -915,8 +915,8 @@ OneAnd,default,CMP_EQUAL,,,match
 OneAnd,testflags,CMP_EQUAL,,,match
 OneClock,default,CMP_EQUAL,,,match
 OneClock,testflags,CMP_EQUAL,,,match
-OneDivider,default,CMP_NOTEQUAL,decompile:,,
-OneDivider,testflags,CMP_NOTEQUAL,decompile:,,
+OneDivider,default,CMP_EQUAL,,,differ
+OneDivider,testflags,CMP_EQUAL,,,differ
 OneFF,default,CMP_EQUAL,,,match
 OneFF,testflags,CMP_EQUAL,,,match
 OneImport,default,CMP_EQUAL,,,differ
@@ -1203,8 +1203,8 @@ Scr1,default,SLANG_REJECT,src/tb/scr1_top_tb_axi.sv:399:40: error: could not res
 Scr1,testflags,SLANG_REJECT,src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_tracelog',,
 Scr1SvTests,default,CMP_NOTEQUAL,decompile:,,
 Scr1SvTests,testflags,CMP_NOTEQUAL,decompile:,,
-SelectHierPath,default,CMP_NOTEQUAL,decompile:,,
-SelectHierPath,testflags,CMP_NOTEQUAL,decompile:,,
+SelectHierPath,default,CMP_EQUAL,,,differ
+SelectHierPath,testflags,CMP_EQUAL,,,differ
 Selects,default,CMP_EQUAL,,,match
 Selects,testflags,CMP_EQUAL,,,match
 SelectSelect,default,CMP_EQUAL,,,match
@@ -1367,8 +1367,8 @@ TranslateOff,default,SURELOG_FAIL,[   NOTE] : 0,,
 TranslateOff,testflags,SLANG_REJECT,dut.sv:12:12: error: use of undeclared identifier 'b',,
 TypedefAlias,default,CMP_EQUAL,,,differ
 TypedefAlias,testflags,CMP_EQUAL,,,differ
-TypeDefGenScope,default,CMP_NOTEQUAL,decompile:,,
-TypeDefGenScope,testflags,CMP_NOTEQUAL,decompile:,,
+TypeDefGenScope,default,CMP_EQUAL,,,match
+TypeDefGenScope,testflags,CMP_EQUAL,,,differ
 TypedefPack,default,CMP_EQUAL,,,differ
 TypedefPack,testflags,CMP_EQUAL,,,differ
 TypedefRange,default,CMP_EQUAL,,,differ
@@ -1537,8 +1537,8 @@ YosysBigSimOpenMsp,default,SLANG_REJECT,rtl/openMSP430.v:48:9: error: design ele
 YosysBigSimOpenMsp,testflags,SLANG_REJECT,rtl/openMSP430.v:48:9: error: design element does not have a time scale defined but others in the design do,,
 YosysBigSimPong,default,SLANG_REJECT,rtl/data.v:1:8: error: design element does not have a time scale defined but others in the design do,,
 YosysBigSimPong,testflags,SLANG_REJECT,rtl/data.v:1:8: error: design element does not have a time scale defined but others in the design do,,
-YosysBigSimReed,default,CMP_NOTEQUAL,decompile:,,
-YosysBigSimReed,testflags,CMP_NOTEQUAL,decompile:,,
+YosysBigSimReed,default,CMP_EQUAL,,,differ
+YosysBigSimReed,testflags,CMP_EQUAL,,,differ
 YosysBigSimSoft,default,CMP_NOTEQUAL,decompile:,,
 YosysBigSimSoft,testflags,CMP_NOTEQUAL,decompile:,,
 YosysCam,default,SLANG_REJECT,priority_encoder.vh:32:8: error: duplicate definition of 'priority_encoder' [-Wduplicate-definition],,
@@ -1563,8 +1563,8 @@ YosysOldSasc,default,SLANG_REJECT,cache/synth.v:1:8: error: design element does 
 YosysOldSasc,testflags,SLANG_REJECT,cache/synth.v:1:8: error: design element does not have a time scale defined but others in the design do,,
 YosysOldSimpleSpi,default,CMP_EQUAL,,,differ
 YosysOldSimpleSpi,testflags,CMP_EQUAL,,,differ
-YosysOldSpi,default,CMP_NOTEQUAL,decompile:,,
-YosysOldSpi,testflags,CMP_NOTEQUAL,decompile:,,
+YosysOldSpi,default,CMP_EQUAL,,,differ
+YosysOldSpi,testflags,CMP_EQUAL,,,differ
 YosysOldSsPcm,default,CMP_EQUAL,,,match
 YosysOldSsPcm,testflags,CMP_EQUAL,,,match
 YosysOldSystem,default,CMP_EQUAL,,,differ

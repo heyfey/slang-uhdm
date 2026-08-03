@@ -604,6 +604,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Class scopes skip slang's implicit built-ins (randomize etc.).
         if (classScope && !sub.getSyntax())
             continue;
+        // A DPI import declared at COMPILATION-UNIT scope is not in the
+        // model at all: Surelog binds the prototype for name resolution but
+        // never writes it, so the design carries no vpiTaskFunc for it and
+        // calls to it get NO vpiFunction link. Measured on a golden pair --
+        // the same import inside a module IS emitted (work@m.dtick), and a
+        // plain $unit-scope function IS emitted with its call link, so the
+        // rule is DPI-import x unit-scope, not "unit scope" (DelayAssign).
+        if (scopeSym9->kind == SymbolKind::CompilationUnit &&
+            (sub.flags & MethodFlags::DPIImport) != MethodFlags::None)
+            continue;
         // An out-of-body DEFINITION is not a method listing: vpiMethod is 0
         // (1 only for `new`, which Surelog still marks a method), the
         // vpiVisibility is the flat default 1 (unset for `new`), there is no
