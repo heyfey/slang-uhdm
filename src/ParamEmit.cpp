@@ -1140,6 +1140,72 @@ bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
 //                                  size = member width, carrying a ts ref
 // The VALUES are the caller's, so they come from slicing the parameter value
 // slang already folded for the call — no second evaluator is needed.
+//
+// § r10fsv DECODE (FuncStructVal, measured — NOT yet implemented).  The
+// three-way `SrlgMemLeftEnc` above is too coarse: it is a *value* slicer where
+// Surelog hands back *objects*.  Oracle: tools/probe/r10fsv_memleft.sv (a
+// 12-member source pattern x a 15-member built struct covering every RHS
+// shape), golden by `surelog -parse -mt 0 -mp 0 -d uhdm dut.sv`; census with
+// tools/probe/r10fsvl.cpp (leftovers per struct-typespec copy) and
+// tools/probe/r10fsvp.cpp (assignment-pattern elements per VIEW).  Four laws,
+// each confirmed on both the oracle and FuncStructVal:
+//
+//  L1 PATTERN-READ REUSE.  `d.M = S.<N>` where S is the struct FORMAL bound to
+//     a pattern actual leaves the ELABORATED pattern's OWN element object for
+//     N — not a re-encoded slice of the whole folded value.  So the leftover
+//     inherits that element's ConstType/Size/Decompile verbatim: a BIN element
+//     leaves BIN size 1 with an EMPTY decompile, a HEX element leaves
+//     `64'h5`/HEX/64, a DEC element leaves `16'd7`/DEC/16, an enum element
+//     leaves UINT at the ENUM's width.  We currently emit UINT/64 for all four.
+//     (Object identity, not just equality: golden's member Actual_value has
+//     vpiParent = the tagged_pattern it came from, and two members reading the
+//     SAME source member share one object — FuncStructVal AxiUserWidth and
+//     DCACHE_USER_WIDTH both carry span 76:31-76:54.)
+//
+//  L2 ELAB PATTERN-ELEMENT RESIZE.  In the ELABORATED view (uhdmtopPackages)
+//     every UINT pattern element is re-sized to its member's bit width and the
+//     value masked; DEC / HEX / BIN elements are left alone.  The def view
+//     (uhdmallPackages) keeps size 64 — the two views hold DIFFERENT constant
+//     objects.  This is what makes L1's `M_read` land at size 32 and `M_enum`
+//     at size 2.  Residue: FuncStructVal's four `unsigned'(<literal>)` elements
+//     (NrNonIdempotentRules / NrExecuteRegionRules / NrCachedRegionRules /
+//     MaxOutstandingStores) keep 64 while the oracle's `unsigned'(5)` resizes —
+//     distinguisher NOT found (it is not "carries a vpiTypespec": the oracle's
+//     resized `unsigned'(5)` element has none).
+//
+//  L3 COMPUTED-MEMBER ENCODINGS (rhs is not a plain formal member read):
+//       ternary                    -> INT  size 64        (already modelled)
+//       arithmetic (`a - b`)       -> INT  size 64        (we emit UINT)
+//       bitwise or of two UINTs    -> UINT size 64
+//       `$clog2(x)`                -> UINT size 64
+//       `bit'(x)`                  -> BIN  size 1, decompile EMPTY (we emit
+//                                     UINT 64)
+//       `unsigned'(x)`             -> x's own constant handed back (signCastReduce9)
+//       plain literal              -> UINT size 64
+//
+//  L4 DEF-VIEW SIZED-CAST CONCAT FOLD.  `128'({64'h3})` — a size cast over a
+//     SINGLE-element concat — folds in BOTH views to a UINT constant at the
+//     CAST width with an EMPTY decompile (the value is not representable, and
+//     golden stores UINT:0); a MULTI-element concat under the same cast stays
+//     an operation.  We keep the operation in both cases.
+//
+// Two structural residues measured with the same oracle, ranked below the
+// four laws because they are separate machinery:
+//   R-a  the TOP MODULE's parameter needs its OWN stamped struct copy (golden
+//        mints a second stamped struct_typespec for work@top.CFG; the
+//        topPackages typedef listing SHARES the function-return copy).  We
+//        emit only the function-return copy, so every top-module member read
+//        compares against a null.
+//   R-b  `memLeftGenScopeBlocked` is WRONG here: golden DOES elaborate
+//        work@top.u1's generate scope (FuncStructVal: 2 gen_scope_array + 3
+//        gen_scope; the oracle: 4 gen_scope mentions) while we emit none.
+//        That single suppression also accounts for FuncStructVal's
+//        cont_assign 24-vs-18, part_select 8-vs-2 and sys_func_call 87-vs-66
+//        gaps.  FuncStructValSimple (where the law was decoded) still wants
+//        the suppression, so the distinguisher is real but unfound.
+//   R-c  an UNTYPED enum (`typedef enum {A,B}`) pattern element does not fold
+//        at all — it stays a ref_obj — and its member is then NOT stamped
+//        (FuncStructVal golden has 96 leftovers, we stamp all 97).
 const std::vector<UhdmExporter::SrlgMemLeft>*
 UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
     if (auto it = memLeftCache.find(&sub); it != memLeftCache.end())
@@ -8881,6 +8947,105 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
                 suppressConstParent = savedSuppP;
+                // § patElabUintResize (r10fsv, L2).  The WIDTH RULE above
+                // keeps a wide package struct-pattern param's tagged_pattern
+                // tree in the ELAB view, but the two views are NOT byte-
+                // identical after all: in the ELABORATED listing every UINT
+                // element constant is re-sized to ITS MEMBER's bit width and
+                // the value masked, while DEC / HEX / BIN elements are left
+                // exactly as the def view has them.  Measured on
+                // tools/probe/r10fsv_memleft.sv (a 12-member pattern covering
+                // unsigned'(ref) / unsigned'(lit) / bit'(x) / 16'd7 / 64'h5 /
+                // plain ref / plain literal / enum member / replication /
+                // sized-cast concat) — golden's def view is size 64 for every
+                // UINT element and its top view is 32 / 1 / 2 (the member
+                // widths), one object per view.  This is also what makes the
+                // EvalFunc member leftovers land at the member width, because
+                // a leftover for `d.M = S.<N>` IS this element object (see the
+                // r10fsv DECODE note on srlgEvalFuncMemberLeftovers).
+                //   GATE, measured against the corpus: only an element whose
+                // written value is a REFERENCE (a parameter or enum member,
+                // through any number of casts) is re-sized.  A LITERAL element
+                // keeps its 64 — `NrNonIdempotentRules: unsigned'(2)` and its
+                // three siblings in FuncStructVal, `NoSlvPorts: 5` in
+                // NoReducTypespec, `DAT: 32` in GenForStructParamBound (the
+                // last two are CMP_EQUAL and regress the moment literals are
+                // re-sized too).  The purpose-built oracle disagrees on that
+                // one point — its `unsigned'(5)` and bare `9` elements DO
+                // re-size — so the literal arm has a second, unfound condition;
+                // the corpus is the spec, so the gate stays on references.
+                if (topView && structPat && structWidePkg && inPackage && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)rhs)->VpiOpType() ==
+                        vpiAssignmentPatternOp &&
+                    stripImplicitConv(*init).kind ==
+                        ExpressionKind::StructuredAssignmentPattern &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedStructType) {
+                    // member name -> (width, value-is-a-reference)
+                    std::map<std::string, uint64_t> mw9;
+                    for (auto& f9 : ps.getType()
+                                        .getCanonicalType()
+                                        .as<PackedStructType>()
+                                        .membersOfType<FieldSymbol>())
+                        mw9[std::string(f9.name)] = f9.getType().getBitWidth();
+                    std::set<std::string> refMem9;
+                    for (auto& ms9 : stripImplicitConv(*init)
+                                         .as<StructuredAssignmentPatternExpression>()
+                                         .memberSetters) {
+                        if (!ms9.member || !ms9.expr)
+                            continue;
+                        const Expression* e9 = ms9.expr;
+                        for (int g9 = 0; g9 < 8; g9++) {
+                            if (e9->kind != ExpressionKind::Conversion)
+                                break;
+                            e9 = &e9->as<ConversionExpression>().operand();
+                        }
+                        if (e9->kind != ExpressionKind::NamedValue)
+                            continue;
+                        auto& sy9 = e9->as<NamedValueExpression>().symbol;
+                        if (sy9.kind == SymbolKind::Parameter ||
+                            sy9.kind == SymbolKind::EnumValue)
+                            refMem9.insert(std::string(ms9.member->name));
+                    }
+                    if (auto* ops9 = ((UHDM::operation*)rhs)->Operands())
+                        for (auto* o9 : *ops9) {
+                            if (o9->UhdmType() != UHDM::uhdmtagged_pattern)
+                                continue;
+                            auto* tp9 = (UHDM::tagged_pattern*)o9;
+                            auto* pv9 = tp9->Pattern();
+                            if (!pv9 || pv9->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            auto* c9 = (UHDM::constant*)pv9;
+                            if (c9->VpiConstType() != vpiUIntConst)
+                                continue;
+                            auto* trt9 = tp9->Typespec();
+                            auto* tat9 = trt9 ? trt9->Actual_typespec() : nullptr;
+                            if (!tat9)
+                                continue;
+                            std::string mn9(tat9->VpiName());
+                            auto it9 = mw9.find(mn9);
+                            if (it9 == mw9.end() || it9->second == 0 ||
+                                it9->second >= 64 || !refMem9.count(mn9))
+                                continue;
+                            std::string v9(c9->VpiValue());
+                            if (v9.compare(0, 5, "UINT:") != 0)
+                                continue;
+                            uint64_t uv9 = 0;
+                            try {
+                                uv9 = std::stoull(v9.substr(5));
+                            }
+                            catch (...) {
+                                continue;
+                            }
+                            uv9 &= (it9->second >= 64)
+                                       ? ~(uint64_t)0
+                                       : (((uint64_t)1 << it9->second) - 1);
+                            c9->VpiValue("UINT:" + std::to_string(uv9));
+                            c9->VpiDecompile(std::to_string(uv9));
+                            c9->VpiSize((int32_t)it9->second);
+                        }
+                }
                 // § unbasedModFold9 — an UNBASED-UNSIZED default on a TYPED
                 // parameter reaches the module views already folded, in two
                 // shapes the package arms above do not cover.  Measured on one
