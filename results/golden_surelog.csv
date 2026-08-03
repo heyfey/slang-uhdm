@@ -425,8 +425,8 @@ EvalFuncArray,default,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' i
 EvalFuncArray,testflags,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the current constant function,,
 EvalFuncCont,default,CMP_EQUAL,,,match
 EvalFuncCont,testflags,CMP_EQUAL,,,match
-EvalFuncNamed,default,CMP_NOTEQUAL,decompile:,,
-EvalFuncNamed,testflags,CMP_NOTEQUAL,decompile:,,
+EvalFuncNamed,default,CMP_EQUAL,,,differ
+EvalFuncNamed,testflags,CMP_EQUAL,,,differ
 EvalFuncPack,default,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
 EvalFuncPack,testflags,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
 Event,default,CMP_EQUAL,,,match

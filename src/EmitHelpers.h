@@ -2028,4 +2028,70 @@ inline void collectLhsSyms(const Expression& e, std::set<const Symbol*>& out) {
     }
 }
 
+// One entry of a PACKAGE's `vpiTaskFunc` listing: the subroutine SYMBOL and
+// whether this package OWNS it or merely materializes a CLONE of it.
+struct PkgTfEntry {
+    const SubroutineSymbol* sub;
+    SourceLocation at;  // the slot the entry occupies in THIS package's source
+    bool imported;      // true: a clone an `import q::*` materializes here
+};
+
+// A PACKAGE that wildcard-imports another package materializes a CLONE of
+// every subroutine that import makes visible — named by the IMPORTING package
+// (`p2::f`), listed in its `vpiTaskFunc` whether or not anything calls it, and
+// TRANSITIVELY: a package importing an importer inherits the whole chain.
+//
+// The listing is ONE source-ordered pass over the importing package: its own
+// subroutines sit at their declaration locations and each import's whole group
+// sits at the IMPORT STATEMENT's location, the group itself keeping the
+// imported package's own listing order.  Measured on a purpose-built Surelog
+// golden (r10evfn probe 2): `package p2` declaring g0@15, `import p1::*`@20
+// (p1 declares f@2, f2@7) and g@21 lists g0, f, f2, g — and `package p3`,
+// which only does `import p2::*`, lists p2's four in exactly that order.
+inline std::vector<PkgTfEntry> collectPkgTfListing(
+    const PackageSymbol& pkg, std::set<const PackageSymbol*>& seen) {
+    std::vector<PkgTfEntry> out;
+    if (!seen.insert(&pkg).second)
+        return out;
+    std::vector<std::pair<SourceLocation, std::vector<PkgTfEntry>>> groups;
+    for (auto& m : pkg.members()) {
+        if (m.kind == SymbolKind::Subroutine) {
+            if (!m.getSyntax())
+                continue;
+            groups.push_back(
+                {m.location, {{&m.as<SubroutineSymbol>(), m.location, false}}});
+        }
+        else if (m.kind == SymbolKind::WildcardImport) {
+            auto* q = m.as<WildcardImportSymbol>().getPackage();
+            if (!q)
+                continue;
+            // The import STATEMENT's slot. A WildcardImportSymbol's own
+            // `location` is not the written one, so read the syntax.
+            SourceLocation at = m.location;
+            if (auto* isyn = m.getSyntax())
+                at = isyn->sourceRange().start();
+            std::vector<PkgTfEntry> g;
+            for (auto& e : collectPkgTfListing(*q, seen))
+                g.push_back({e.sub, at, true});
+            if (!g.empty())
+                groups.push_back({at, std::move(g)});
+        }
+    }
+    seen.erase(&pkg);
+    std::stable_sort(groups.begin(), groups.end(),
+                     [](const auto& a, const auto& b) {
+                         return a.first < b.first;
+                     });
+    for (auto& g : groups)
+        for (auto& e : g.second) {
+            bool dup = false;
+            for (auto& o : out)
+                if (o.sub == e.sub)
+                    dup = true;
+            if (!dup)
+                out.push_back(e);
+        }
+    return out;
+}
+
 } // namespace slang_uhdm

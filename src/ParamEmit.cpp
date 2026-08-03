@@ -2770,6 +2770,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                       return true;
                                   return false;
                               }();
+            // A MATERIALIZED IMPORT copy of a param whose init is a USER
+            // const-call carries the folded value and its own int typespec in
+            // EVERY view of every importer — the copy is reduced once, where
+            // it is imported (§ userFold7), while the DECLARING package's own
+            // def listing reduces nothing.  Measured: EvalFuncNamed
+            // work@t.MY_PARAM2 (INT:12, int_typespec 20:4-20:64 in both module
+            // views) and probe r10evfn 1's p2::Z / p2::W (INT:-1 in p2's def
+            // listing, where p1's own Z/W carry neither).
+            bool importedComputed9 =
+                isImported && !literalInit && !unbasedInit && defaultInit &&
+                cv.isInteger() && !cv.integer().hasUnknown() &&
+                containsUserCall(*defaultInit);
             // A MODULE param whose default is a bare/qualified reference to a
             // PACKAGE param carries the folded value too (Surelog) — but an
             // AGGREGATE value never inlines on the parameter object (it lives
@@ -2797,11 +2809,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     return sc8 && sc8->asSymbol().kind == SymbolKind::Package;
                 }();
             if (!unbasedInit && (literalInit || pkgElabComputed ||
-                                 modPkgRefFold9 || pkgTypeCastFold9) &&
+                                 importedComputed9 || modPkgRefFold9 ||
+                                 pkgTypeCastFold9) &&
                 cv.isInteger() && !cv.integer().hasUnknown()) {
                 auto& iv = cv.integer();
                 bool neg = (iv.isSigned() && iv.isNegative()) ||
-                           (pkgElabComputed && iv.isSigned() && defaultInit &&
+                           ((pkgElabComputed || importedComputed9) &&
+                            iv.isSigned() && defaultInit &&
                             containsUserCall(*defaultInit));
                 std::string digits = iv.toString(LiteralBase::Decimal, false);
                 std::string value = (neg ? "INT:" : "UINT:") + digits;
@@ -2931,7 +2945,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) ||
-                      signedImplicitTs || pkgElabComputed || bitsFoldInit ||
+                      signedImplicitTs || pkgElabComputed ||
+                      importedComputed9 || bitsFoldInit ||
                       ((literalInit || realLit) &&
                        (!unknownDefault || sizedBasedInit) && !decBasedInit));
             // A COMPUTED-init module parameter still ends up with an
@@ -7731,13 +7746,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     stripImplicitConv(*init).as<CallExpression>().isSystemCall();
                 bool arithFold7 =
                     stripImplicitConv(*init).kind == ExpressionKind::BinaryOp;
-                if (!rhs && !topView && !inPackage && isImported &&
-                    (sysFold7 || arithFold7) && ps.getValue().isInteger() &&
+                // ...and so does a USER const-call init. The materialized copy
+                // is reduced ONCE, where it is imported, so BOTH views of BOTH
+                // kinds of importer quote the same INT constant at the param's
+                // width, spanning the WHOLE call: a PACKAGE importing a
+                // package (probe r10evfn 1: p1's `Z = f(3,4)` reads INT:-1
+                // size 32 in p2's def listing where p1's own stays a
+                // func_call) and a MODULE importing a package
+                // (EvalFuncNamed work@t.MY_PARAM2, INT:12 size 32 in both
+                // module views while my_module_types' own def copy keeps the
+                // call).
+                bool userFold7 =
+                    stripImplicitConv(*init).kind == ExpressionKind::Call &&
+                    !stripImplicitConv(*init).as<CallExpression>().isSystemCall();
+                if (!rhs && !topView && isImported &&
+                    ((!inPackage && (sysFold7 || arithFold7)) || userFold7) &&
+                    ps.getValue().isInteger() &&
                     !ps.getValue().integer().hasUnknown()) {
                     auto& sv7 = ps.getValue().integer();
                     std::string dg7 = sv7.toString(LiteralBase::Decimal, false);
                     bool neg7 = sv7.isSigned() && sv7.isNegative();
-                    bool intForm7 = neg7 || arithFold7;
+                    bool intForm7 = neg7 || arithFold7 || userFold7;
                     auto* c7 = s.MakeConstant();
                     c7->VpiDecompile(dg7);
                     c7->VpiSize((int32_t)ps.getType().getBitWidth());
@@ -7795,6 +7824,33 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         syntax::SyntaxKind::ImplicitType)
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
+                // The ELAB copy of an imported USER-CALL param quotes the very
+                // same reduction the def copy does (§ userFold7), not the
+                // generic const-call fold's function-return-width UINT.
+                if (topView && !inPackage && isImported && userFold7 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ps.getValue().isInteger() &&
+                    !ps.getValue().integer().hasUnknown()) {
+                    auto& sv8 = ps.getValue().integer();
+                    std::string dg8 = sv8.toString(LiteralBase::Decimal, false);
+                    auto* c8 = (UHDM::constant*)rhs;
+                    c8->VpiDecompile(dg8);
+                    c8->VpiSize((int32_t)ps.getType().getBitWidth());
+                    c8->VpiValue("INT:" + dg8);
+                    c8->VpiConstType(vpiIntConst);
+                    setLoc(c8, init->sourceRange);
+                    if (!rhsRt) {
+                        auto* rt6 = s.MakeRef_typespec();
+                        std::string tsPfx6 = prefix;
+                        if (tsPfx6.size() >= 2 &&
+                            tsPfx6.compare(tsPfx6.size() - 2, 2, "::") == 0)
+                            tsPfx6.resize(tsPfx6.size() - 2);
+                        rt6->VpiFullName(tsPfx6);
+                        rt6->VpiParent(c8);
+                        c8->Typespec(rt6);
+                        rhsRt = rt6;
+                    }
+                }
                 suppressConstParent = savedSuppP;
                 // An UNPACKED-ARRAY package parameter's assignment-pattern
                 // element REDUCES in EVERY view (Surelog compiles the element
@@ -11388,6 +11444,10 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // listings share it) plus an import_typespec per import item (after the
     // sorted typedefs).
     std::vector<UHDM::typespec*> importTss;
+    // Wildcard-import subroutine clones take over subMap for the rest of this
+    // package's emission; the home entries are put back when the view ends.
+    std::vector<std::tuple<const Symbol*, SubInfo, bool>> pkgWildcardHomeSi9;
+    std::vector<std::pair<const Symbol*, SubInfo>> pkgWildcardCloneSi9;
     if (true) {
         for (auto& mem : pkg.members()) {
             std::string_view pn;
@@ -11691,7 +11751,108 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     if (hadHome)
                         subMap[is9] = homeSi; // calls bind the home object
                 }
+            // A WILDCARD import materializes a CLONE of every subroutine it
+            // makes visible — the whole transitive listing, whether or not
+            // anything calls it (§ collectPkgTfListing). The clone is named by
+            // the IMPORTING package (`my_module_types::simple_minus`), keeps
+            // the HOME function's Return variable and the home package's
+            // vpiInstance on its typespecs, and TAKES OVER the subMap slot so
+            // every call written in this package binds it (restored below).
+            const PackageSymbol* wpkg9 =
+                mem.kind == SymbolKind::WildcardImport ? comp.getPackage(pn)
+                                                       : nullptr;
+            if (wpkg9) {
+                std::set<const PackageSymbol*> seen9;
+                // The group's listing slot is THIS import statement's, not
+                // the home declaration's (§ collectPkgTfListing) — the
+                // entries come back keyed inside the imported package.
+                SourceLocation impAt9 = mem.location;
+                if (auto* isyn9 = mem.getSyntax())
+                    impAt9 = isyn9->sourceRange().start();
+                for (auto& e9 : collectPkgTfListing(*wpkg9, seen9)) {
+                    const Symbol* hs9 = e9.sub;
+                    if (pkgWildcardCloneTf.count({&pkg, hs9}))
+                        continue;
+                    auto* home9 = hs9->getParentScope();
+                    if (!home9 ||
+                        home9->asSymbol().kind != SymbolKind::Package)
+                        continue;
+                    UHDM::task_func* homeTf9 = nullptr;
+                    SubInfo homeSi9;
+                    bool hadHome9 = false;
+                    if (auto sit8 = subMap.find(hs9); sit8 != subMap.end()) {
+                        homeSi9 = sit8->second;
+                        homeTf9 = homeSi9.tf;
+                        hadHome9 = true;
+                    }
+                    UHDM::instance* homeInst9 = nullptr;
+                    if (homeTf9 && homeTf9->Instance())
+                        homeInst9 = (UHDM::instance*)homeTf9->Instance();
+                    else if (auto hip8 = pkgDefMap.find(&home9->asSymbol());
+                             hip8 != pkgDefMap.end())
+                        homeInst9 = (UHDM::instance*)hip8->second;
+                    size_t before9 =
+                        up->Task_funcs() ? up->Task_funcs()->size() : 0;
+                    importCopyTsInst = homeInst9;
+                    std::vector<UHDM::typespec*> copyTss9;
+                    importCopyTsCollect = &copyTss9;
+                    pkgImportCloneEmit = true;
+                    pkgImportCloneRetVar =
+                        homeTf9 && homeTf9->UhdmType() == UHDM::uhdmfunction
+                            ? ((UHDM::function*)homeTf9)->Return()
+                            : nullptr;
+                    pkgImportCloneHomePkg = &home9->asSymbol();
+                    emitTaskFuncs(home9->asSymbol().as<PackageSymbol>(), up,
+                                  prefix, nullptr, /*sharedScope=*/false, hs9);
+                    pkgImportCloneRetVar = nullptr;
+                    pkgImportCloneHomePkg = nullptr;
+                    pkgImportCloneEmit = false;
+                    importCopyTsCollect = nullptr;
+                    importCopyTsInst = nullptr;
+                    // A clone's own body calls the HOME object, not a sibling
+                    // clone (golden: my_module_types::simple_func's body calls
+                    // my_funcs::simple_minus) — put the home entry back at
+                    // once and install the clones only when every one exists.
+                    SubInfo cloneSi9;
+                    if (auto cit7 = subMap.find(hs9); cit7 != subMap.end())
+                        cloneSi9 = cit7->second;
+                    if (hadHome9)
+                        subMap[hs9] = homeSi9;
+                    else
+                        subMap.erase(hs9);
+                    for (auto* cts9 : copyTss9)
+                        importCopyTsFixups.emplace_back(
+                            cts9, std::string(home9->asSymbol().name));
+                    UHDM::task_func* cp8 = nullptr;
+                    if (up->Task_funcs() &&
+                        up->Task_funcs()->size() > before9)
+                        cp8 = (*up->Task_funcs())[before9];
+                    if (!cp8)
+                        continue;
+                    if (homeTf9 && cp8->UhdmType() == UHDM::uhdmfunction &&
+                        homeTf9->UhdmType() == UHDM::uhdmfunction) {
+                        ((UHDM::function*)cp8)
+                            ->Return(((UHDM::function*)homeTf9)->Return());
+                        pkgCloneRetFixups9.push_back(
+                            {(UHDM::function*)cp8, &home9->asSymbol()});
+                    }
+                    pkgWildcardCloneTf[{&pkg, hs9}] = cp8;
+                    // The listing slot is the IMPORT statement's, not the
+                    // home declaration's (§ collectPkgTfListing).
+                    pkgTfOrder9[cp8] = {0, impAt9};
+                    if (topView && cp8->UhdmType() == UHDM::uhdmfunction)
+                        importCopyFunc[{&pkg, hs9}] = (UHDM::function*)cp8;
+                    pkgWildcardHomeSi9.push_back({hs9, homeSi9, hadHome9});
+                    pkgWildcardCloneSi9.push_back({hs9, cloneSi9});
+                }
+            }
         }
+        // Every clone exists now: the importing package's OWN bodies (and the
+        // param-init rebind below) see them (probe r10evfn 2: p2::g calls
+        // p2::f), while each clone's own body kept the home binding.
+        for (auto& [hs8, si8] : pkgWildcardCloneSi9)
+            if (si8.tf)
+                subMap[hs8] = si8;
     }
     // `typedef pkg1::type_t type_alias;` — the base struct typespec this
     // alias re-names, if it is already built (a NAMED struct_typespec).
@@ -13490,6 +13651,72 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         // definition. It runs here, not in the def pass, because the clones
         // are built from the class_defns emitPackageClasses just created.
         emitPackageClassMethodClones(pkg, prefix);
+    }
+    // ------------------------------------------------- wildcard-import clones
+    if (!pkgWildcardHomeSi9.empty()) {
+        // The clones were emitted at the import loop, ahead of this package's
+        // OWN subroutines; Surelog's listing is ONE source-ordered pass, so
+        // re-order by the recorded slot (probe r10evfn 2: g0, f, f2, g).
+        if (auto* tfv9 = up->Task_funcs()) {
+            bool haveAll9 = true;
+            for (auto* t9 : *tfv9)
+                if (!pkgTfOrder9.count(t9))
+                    haveAll9 = false;
+            if (haveAll9)
+                std::stable_sort(tfv9->begin(), tfv9->end(),
+                                 [&](const UHDM::BaseClass* a9,
+                                     const UHDM::BaseClass* b9) {
+                                     auto& ka9 = pkgTfOrder9[a9];
+                                     auto& kb9 = pkgTfOrder9[b9];
+                                     if (ka9.first != kb9.first)
+                                         return ka9.first < kb9.first;
+                                     return ka9.second < kb9.second;
+                                 });
+        }
+        // A param initializer emitted BEFORE the clones existed bound the home
+        // object; Surelog binds the importer's copy (probe r10evfn 2 p2::X,
+        // EvalFuncNamed my_module_types::MY_PARAM2).
+        std::map<const UHDM::any*, UHDM::function*> homeToClone9;
+        for (auto& [hs9, si9, had9] : pkgWildcardHomeSi9) {
+            auto cit9 = pkgWildcardCloneTf.find({&pkg, hs9});
+            if (had9 && si9.tf && cit9 != pkgWildcardCloneTf.end() &&
+                cit9->second->UhdmType() == UHDM::uhdmfunction)
+                homeToClone9[si9.tf] = (UHDM::function*)cit9->second;
+        }
+        if (auto* pas9 = up->Param_assigns(); pas9 && !homeToClone9.empty()) {
+            std::function<void(UHDM::any*)> rebind9 = [&](UHDM::any* n9) {
+                if (!n9)
+                    return;
+                if (n9->UhdmType() == UHDM::uhdmfunc_call) {
+                    auto* fc9 = (UHDM::func_call*)n9;
+                    if (auto hit9 = homeToClone9.find(fc9->Function());
+                        hit9 != homeToClone9.end())
+                        fc9->Function(hit9->second);
+                    if (auto* as9 = fc9->Tf_call_args())
+                        for (auto* a9 : *as9)
+                            rebind9(a9);
+                    return;
+                }
+                if (n9->UhdmType() == UHDM::uhdmoperation) {
+                    if (auto* os9 = ((UHDM::operation*)n9)->Operands())
+                        for (auto* o9 : *os9)
+                            rebind9(o9);
+                }
+            };
+            for (auto* pa9 : *pas9)
+                rebind9(pa9->Rhs());
+        }
+        for (auto& [hs9, si9, had9] : pkgWildcardHomeSi9) {
+            if (had9)
+                subMap[hs9] = si9;
+            else
+                subMap.erase(hs9);
+        }
+        for (auto it9 = pkgWildcardCloneTf.begin();
+             it9 != pkgWildcardCloneTf.end();)
+            it9 = it9->first.first == (const Symbol*)&pkg
+                      ? pkgWildcardCloneTf.erase(it9)
+                      : std::next(it9);
     }
     curPkgEmitSym = savedCurPkg0;
     pkgEmitTopView = savedPkgTopView0;

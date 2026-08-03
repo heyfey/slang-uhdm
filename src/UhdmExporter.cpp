@@ -2029,6 +2029,21 @@ UHDM::design* UhdmExporter::exportDesign() {
                     break;
                 }
         }
+        // ...and a wildcard-import clone's vpiReturn is the ELABORATED home
+        // function's return variable (§ pkgCloneRetFixups9).
+        for (auto& [cl9, hp9] : pkgCloneRetFixups9) {
+            auto tit9 = pkgTopMap.find(hp9);
+            if (tit9 == pkgTopMap.end() || !tit9->second->Task_funcs())
+                continue;
+            std::string want9 = std::string(hp9->name) +
+                                "::" + std::string(cl9->VpiName());
+            for (auto* t9 : *tit9->second->Task_funcs())
+                if (t9->UhdmType() == UHDM::uhdmfunction &&
+                    t9->VpiFullName() == want9) {
+                    cl9->Return(((UHDM::function*)t9)->Return());
+                    break;
+                }
+        }
         // Import-clone typespecs point vpiInstance at the ELABORATED (top)
         // home package, which only exists now that the top views are built.
         for (auto& [cts, pn] : importCopyTsFixups)

@@ -300,6 +300,12 @@ private:
         std::string fullName;
         std::vector<UHDM::ref_obj*> refs;
         UHDM::instance* inst = nullptr; // package owner (ts vpiInstance)
+        // A wildcard-import CLONE's body binds the HOME function's own return
+        // variable instead of minting a per-reference local (Surelog) — and
+        // the home object is the ELABORATED package's, which does not exist
+        // while the def clone emits, so the lookup is deferred to the drain.
+        UHDM::variables* bindVar = nullptr;
+        const slang::ast::Symbol* bindHomePkg = nullptr;
     };
 
     struct PendingParamTs {
@@ -1496,6 +1502,27 @@ private:
     std::map<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>,
              UHDM::function*>
         importCopyFunc;
+    // The WILDCARD-import subroutine CLONE a package materializes, keyed by
+    // (importing package symbol, home subroutine symbol) — one entry per
+    // package VIEW pass, cleared as each view finishes (§ collectPkgTfListing).
+    std::map<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>,
+             UHDM::task_func*>
+        pkgWildcardCloneTf;
+    // True while a wildcard-import clone re-emits: the clone must not claim
+    // the home subroutine's elab-twin / def-name registrations.
+    bool pkgImportCloneEmit = false;
+    // ...and its body's return-value references bind THIS variable (the home
+    // function's own vpiReturn object) rather than a fresh per-ref local.
+    UHDM::variables* pkgImportCloneRetVar = nullptr;
+    const slang::ast::Symbol* pkgImportCloneHomePkg = nullptr;
+    // (clone function, home package symbol): once the ELABORATED package
+    // views exist, every clone's vpiReturn is re-pointed at the TOP home
+    // function's return variable — Surelog's clone shares that object, not
+    // the def listing's (golden EvalFuncNamed prints my_module_types'
+    // def-view clone Return in full and abbreviates it inside my_funcs' TOP
+    // listing, so the two are one object).
+    std::vector<std::pair<UHDM::function*, const slang::ast::Symbol*>>
+        pkgCloneRetFixups9;
     // Unqualified calls to package functions, per module def body.
     std::map<const void*,
              std::vector<std::pair<UHDM::task_func*, slang::SourceRange>>>

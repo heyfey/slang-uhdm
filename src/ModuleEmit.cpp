@@ -3306,6 +3306,30 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 if (std::find(grp9.begin(), grp9.end(), tf9) == grp9.end())
                     grp9.push_back(tf9);
             }
+            // A package that itself WILDCARD-imports another materializes
+            // CLONES of that package's subroutines into its own listing
+            // (§ collectPkgTfListing); the module lists the package's listing
+            // verbatim — the clone objects, not the home ones, and in the
+            // package's order (probe r10evfn 2: module t importing p2 lists
+            // p2::g0, p2::f, p2::f2, p2::g).  Only packages that HAVE clones
+            // take this arm, so the members() walk above stays authoritative
+            // everywhere else.
+            {
+                std::set<const PackageSymbol*> seen8;
+                bool hasClones8 = false;
+                for (auto& e8 : collectPkgTfListing(*pkg, seen8))
+                    if (e8.imported)
+                        hasClones8 = true;
+                if (hasClones8) {
+                    auto pit8 = pkgTopMap.find(pkg);
+                    if (pit8 != pkgTopMap.end() && pit8->second &&
+                        pit8->second->Task_funcs()) {
+                        grp9.clear();
+                        for (auto* t8 : *pit8->second->Task_funcs())
+                            grp9.push_back(t8);
+                    }
+                }
+            }
             if (grp9.empty())
                 continue;
             auto* v = m->Task_funcs();
@@ -11131,7 +11155,16 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             }
         }
         tfContext = true;
+        // ...and it resolves a bound that names an IMPORTED PACKAGE parameter
+        // exactly as the def-view NET path does (§ defNetTsScope): the module
+        // def compile has already materialized the import, so only the
+        // OPERATOR stays symbolic — `input [MY_PARAM-1:0]` keeps its vpiSubOp
+        // but its left operand is the constant 3 with a ts ref to the package
+        // parameter's own int_typespec (golden EvalFuncNamed).
+        auto* savedDnts9 = defNetTsScope;
+        defNetTsScope = internal->getParentScope();
         auto* pts = makeTypespec(*internal, nullptr, &ps);
+        defNetTsScope = savedDnts9;
         tfContext = false;
         // An UNPACKED-array port's DEF-side re-bound typespec is an
         // array_typespec wrapping the fresh element ts (vpiArrayType + one
@@ -15676,6 +15709,27 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             if (auto ps0 = sub.getParentScope();
                 ps0 && ps0->asSymbol().kind == SymbolKind::CompilationUnit)
                 continue;
+        }
+        // A wildcard-import CLONE's body re-uses the HOME function's own
+        // return variable — Surelog re-compiles the body in the importing
+        // package's scope but the return object is the home one it already
+        // shares through vpiReturn (probe r10evfn 1: p2::f's `f = a - b`
+        // binds int_var p1::f).
+        if (pf.bindVar) {
+            UHDM::variables* rv9 = nullptr;
+            if (pf.bindHomePkg) {
+                auto tit9 = pkgTopMap.find(pf.bindHomePkg);
+                std::string want9 = std::string(pf.bindHomePkg->name) +
+                                    "::" + std::string(sub.name);
+                if (tit9 != pkgTopMap.end() && tit9->second->Task_funcs())
+                    for (auto* t9 : *tit9->second->Task_funcs())
+                        if (t9->UhdmType() == UHDM::uhdmfunction &&
+                            t9->VpiFullName() == want9)
+                            rv9 = ((UHDM::function*)t9)->Return();
+            }
+            for (auto* r : pf.refs)
+                r->Actual_group(rv9 ? rv9 : pf.bindVar);
+            continue;
         }
         for (auto* r : pf.refs) {
             // The local's fullname mirrors the binding ref's scope (named

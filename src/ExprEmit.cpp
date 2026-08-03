@@ -4895,12 +4895,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // and the reason ApbSlave's `write(addr, data)` carries two
                 // arguments, not five.
                 size_t nWritten9 = call.arguments().size();
+                // A NAMED-ARGUMENT call (`f(.b(x), .a(y))`) stamps NO
+                // formal-typespec ref on any actual: Surelog binds a named
+                // actual through the connection's own name lookup and never
+                // writes the formal's typespec back onto it, where the
+                // positional form does.  EvalFuncNamed is the discriminator
+                // pair in one design — `simple_minus(.value2(value2),
+                // .value1(value1))` leaves both ref actuals bare in every
+                // listing, while u2r NestedCallsOfTheSameFunction's
+                // positional `aes_mul2(aes_mul2(x))` stamps both the nested
+                // call and the `x` ref with the same `int` formal.
+                bool namedArgs9 = false;
                 if (auto* isy9 =
                         expr.syntax
                             ? expr.syntax->as_if<syntax::InvocationExpressionSyntax>()
-                            : nullptr)
+                            : nullptr) {
                     nWritten9 =
                         isy9->arguments ? isy9->arguments->parameters.size() : 0;
+                    if (isy9->arguments)
+                        for (auto* pa9 : isy9->arguments->parameters)
+                            if (pa9->kind == syntax::SyntaxKind::NamedArgument)
+                                namedArgs9 = true;
+                }
                 callArgDepth++;
                 for (auto arg : call.arguments()) {
                     if (argIdx >= nWritten9)
@@ -5172,8 +5188,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             pendingBodyOpArgTs.push_back(
                                 {rtb, (UHDM::expr*)a, currentSubSym});
                         }
+                        // A LITERAL constant actual of a DEF-view
+                        // PARAM-INITIALIZER call carries no formal-ts ref: the
+                        // definition compile never runs evalFunc, so nothing
+                        // binds an actual to a formal there.  Measured on one
+                        // purpose-built golden (r10evfn probe 1/2) across all
+                        // the spellings the emitter can reach — a call to the
+                        // package's OWN function (p1::Z = f(3,4)), to a
+                        // wildcard-IMPORTED one (p2::X = f(1,2)), named-
+                        // argument forms of both (f(.b(4),.a(3))), and a
+                        // module localparam calling an imported function
+                        // (`localparam int L = f(9,4)`): every def-view actual
+                        // bare.  The ELAB view is the opposite and keeps the
+                        // stamp on a call that survives reduction
+                        // (const_func_block_var `localparam res =
+                        // operation(4)`, whose body localparams defeat the
+                        // fold): the elaborator DID bind the argument.  Ours
+                        // stamped in both views whenever the callee happened
+                        // to be emitted already, which is emission order, not
+                        // a Surelog rule.
+                        bool paramInitLit9 =
+                            inParamInit && !currentTf && !elabParamArgFold &&
+                            paramInitDef &&
+                            a->UhdmType() == UHDM::uhdmconstant;
                         if (isFunc && !inProcessEmit && argCtxOk && !pkgScopedRef &&
-                            !strFormalConst &&
+                            !strFormalConst && !paramInitLit9 && !namedArgs9 &&
                             // A PROPERTY-DECL body's call args carry no
                             // formal-ts stamp (mriscv s2qed reg_map(inp1)).
                             !propDeclScope &&

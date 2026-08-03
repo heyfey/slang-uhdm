@@ -2159,11 +2159,18 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         }
 
         // Register before the body so recursive calls bind this function.
-        if (sharedScope || reusedShell || !subMap.count(&sub))
+        // A wildcard-import CLONE takes the registration over for the rest of
+        // the importing package's emission: every call written THERE binds the
+        // importer's own copy (probe r10evfn 2 — p2::g's body calls p2::f, not
+        // p1::f). emitPackage restores the home entry when the view finishes.
+        if (sharedScope || reusedShell || !subMap.count(&sub) ||
+            pkgImportCloneEmit)
             subMap[&sub] = si;
         // The package's ELABORATED pass builds the twin whose typespecs are
         // folded; remember it so importing modules can list and bind it.
-        if (pkgScope && !classScope && pkgTopEmit)
+        // A wildcard-import CLONE is not that twin — the home package's own
+        // object is, and the clone must not displace it.
+        if (pkgScope && !classScope && pkgTopEmit && !pkgImportCloneEmit)
             pkgElabSubTf[&sub] = tf;
         // An ELAB instance's call site sees its OWN per-instance
         // SubroutineSymbol, but the elab view lists (and Surelog binds) the
@@ -2226,7 +2233,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Body: refs to the return value bind a local var that Surelog only
         // creates in the write phase; record them for late patching.
         pendingFuncRet.push_back(
-            {&sub, fullName, {}, pkgScope ? (UHDM::instance*)m : nullptr});
+            {&sub, fullName, {}, pkgScope ? (UHDM::instance*)m : nullptr,
+             pkgImportCloneEmit ? pkgImportCloneRetVar : nullptr,
+             pkgImportCloneEmit ? pkgImportCloneHomePkg : nullptr});
         size_t pfIdx = pendingFuncRet.size() - 1;
         auto* savedSym = funcRetSym;
         auto* savedRefs = funcRetRefs;
