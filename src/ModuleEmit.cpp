@@ -2864,6 +2864,29 @@ void UhdmExporter::foldVectorTsBounds(UHDM::typespec* t,
 std::vector<UHDM::task_func*> UhdmExporter::materializedPkgTfGroup(
     const PackageSymbol& pkg) {
     std::vector<UHDM::task_func*> grp;
+    // A package that itself WILDCARD-imports another carries CLONES of that
+    // package's whole listing; the materialized group is then that package's
+    // ELABORATED listing VERBATIM — the clone objects, in the clone-bearing
+    // package's own order — not a members() walk, which would find only the
+    // package's own subroutines and drop the group's order on the floor
+    // (probe r10evfn 2; r10uvm3 repro 1, where module `top` importing `p2`
+    // lists p2's [C::f, h, k] and a members() walk yields [k] alone).
+    {
+        std::set<const PackageSymbol*> seen8;
+        bool hasClones8 = false;
+        for (auto& e8 : collectPkgTfListing(*sm, pkg, seen8))
+            if (e8.imported)
+                hasClones8 = true;
+        if (hasClones8) {
+            auto pit8 = pkgTopMap.find(&pkg);
+            if (pit8 != pkgTopMap.end() && pit8->second &&
+                pit8->second->Task_funcs()) {
+                for (auto* t8 : *pit8->second->Task_funcs())
+                    grp.push_back(t8);
+                return grp;
+            }
+        }
+    }
     for (auto& pm : pkg.members()) {
         if (pm.kind != SymbolKind::Subroutine)
             continue;
@@ -2908,13 +2931,7 @@ std::vector<UHDM::task_func*> UhdmExporter::materializedPkgTfGroup(
         std::stable_sort(grp.begin(), grp.end(),
                          [&](const UHDM::BaseClass* a9,
                              const UHDM::BaseClass* b9) {
-                             auto& ka9 = pkgTfOrder9[a9];
-                             auto& kb9 = pkgTfOrder9[b9];
-                             if (ka9.first != kb9.first)
-                                 return ka9.first < kb9.first;
-                             return includeExpandedLess(
-                                 includeExpandedKey(*sm, ka9.second),
-                                 includeExpandedKey(*sm, kb9.second));
+                             return pkgTfListingLess(a9, b9);
                          });
     return grp;
 }
@@ -3567,31 +3584,10 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             // The group carries the package's CLASS machinery too — its
             // out-of-body method definitions, at their source slots
             // (§ materializedPkgTfGroup).
+            // (A clone-bearing package's group is its ELABORATED listing
+            // verbatim — materializedPkgTfGroup owns that rule now, so the
+            // later compilation-unit hoist agrees with this one.)
             std::vector<UHDM::task_func*> grp9 = materializedPkgTfGroup(*pkg);
-            // A package that itself WILDCARD-imports another materializes
-            // CLONES of that package's subroutines into its own listing
-            // (§ collectPkgTfListing); the module lists the package's listing
-            // verbatim — the clone objects, not the home ones, and in the
-            // package's order (probe r10evfn 2: module t importing p2 lists
-            // p2::g0, p2::f, p2::f2, p2::g).  Only packages that HAVE clones
-            // take this arm, so the members() walk above stays authoritative
-            // everywhere else.
-            {
-                std::set<const PackageSymbol*> seen8;
-                bool hasClones8 = false;
-                for (auto& e8 : collectPkgTfListing(*pkg, seen8))
-                    if (e8.imported)
-                        hasClones8 = true;
-                if (hasClones8) {
-                    auto pit8 = pkgTopMap.find(pkg);
-                    if (pit8 != pkgTopMap.end() && pit8->second &&
-                        pit8->second->Task_funcs()) {
-                        grp9.clear();
-                        for (auto* t8 : *pit8->second->Task_funcs())
-                            grp9.push_back(t8);
-                    }
-                }
-            }
             if (grp9.empty())
                 continue;
             auto* v = m->Task_funcs();

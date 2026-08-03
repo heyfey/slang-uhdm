@@ -13184,8 +13184,19 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 SourceLocation impAt9 = mem.location;
                 if (auto* isyn9 = mem.getSyntax())
                     impAt9 = isyn9->sourceRange().start();
-                for (auto& e9 : collectPkgTfListing(*wpkg9, seen9)) {
+                uint64_t grpIdx9 = 0;
+                for (auto& e9 : collectPkgTfListing(*sm, *wpkg9, seen9)) {
                     const Symbol* hs9 = e9.sub;
+                    // The entry's slot WITHIN the group (§ pkgTfSeq9): every
+                    // clone of one import shares the import statement's
+                    // listing key, so this index is what orders them.
+                    uint64_t myIdx9 = grpIdx9++;
+                    // The CLASS half of the group is materialized later, once
+                    // both package views (and so every class_defn and every
+                    // home-package `C::m` clone) exist — see
+                    // emitImportedPkgClassMethodClones.
+                    if (e9.cls)
+                        continue;
                     if (pkgWildcardCloneTf.count({&pkg, hs9}))
                         continue;
                     auto* home9 = hs9->getParentScope();
@@ -13255,6 +13266,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     // The listing slot is the IMPORT statement's, not the
                     // home declaration's (§ collectPkgTfListing).
                     pkgTfOrder9[cp8] = {0, impAt9};
+                    pkgTfSeq9[cp8] = myIdx9;
                     if (topView && cp8->UhdmType() == UHDM::uhdmfunction)
                         importCopyFunc[{&pkg, hs9}] = (UHDM::function*)cp8;
                     pkgWildcardHomeSi9.push_back({hs9, homeSi9, hadHome9});
@@ -15143,6 +15155,14 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
         // definition. It runs here, not in the def pass, because the clones
         // are built from the class_defns emitPackageClasses just created.
         emitPackageClassMethodClones(pkg, prefix);
+        // R-J1: and one more clone per out-of-body class method of every
+        // package this one WILDCARD-IMPORTS, in BOTH views. Same reason for
+        // the placement, one step further out: the home package's class_defns
+        // (which these clones are re-emitted against) only exist once ITS top
+        // pass has run, and all DEF views are built before any TOP view.
+        if (auto dit9 = pkgDefMap.find(&pkg); dit9 != pkgDefMap.end())
+            emitImportedPkgClassMethodClones(pkg, prefix, dit9->second);
+        emitImportedPkgClassMethodClones(pkg, prefix, up);
     }
     // ------------------------------------------------- wildcard-import clones
     if (!pkgWildcardHomeSi9.empty()) {
@@ -15158,13 +15178,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 std::stable_sort(tfv9->begin(), tfv9->end(),
                                  [&](const UHDM::BaseClass* a9,
                                      const UHDM::BaseClass* b9) {
-                                     auto& ka9 = pkgTfOrder9[a9];
-                                     auto& kb9 = pkgTfOrder9[b9];
-                                     if (ka9.first != kb9.first)
-                                         return ka9.first < kb9.first;
-                                     return includeExpandedLess(
-                                         includeExpandedKey(*sm, ka9.second),
-                                         includeExpandedKey(*sm, kb9.second));
+                                     return pkgTfListingLess(a9, b9);
                                  });
         }
         // A param initializer emitted BEFORE the clones existed bound the home
@@ -15277,17 +15291,149 @@ void UhdmExporter::emitPackageClassMethodClones(const PackageSymbol& pkg,
             std::stable_sort(tfv->begin(), tfv->end(),
                              [&](const UHDM::BaseClass* a,
                                  const UHDM::BaseClass* b) {
-                                 auto& ka = pkgTfOrder9[a];
-                                 auto& kb = pkgTfOrder9[b];
-                                 if (ka.first != kb.first)
-                                     return ka.first < kb.first;
-                                 return includeExpandedLess(
-                                     includeExpandedKey(*sm, ka.second),
-                                     includeExpandedKey(*sm, kb.second));
+                                 return pkgTfListingLess(a, b);
                              });
     }
     pkgClassTfClone = nullptr;
     pkgClassTfCloneCtors = false;
+}
+
+// See the header (§ pkgTfSeq9): the package Task_funcs listing key.
+bool UhdmExporter::pkgTfListingLess(const UHDM::BaseClass* a,
+                                    const UHDM::BaseClass* b) {
+    auto& ka = pkgTfOrder9[a];
+    auto& kb = pkgTfOrder9[b];
+    if (ka.first != kb.first)
+        return ka.first < kb.first;
+    auto ea = includeExpandedKey(*sm, ka.second);
+    auto eb = includeExpandedKey(*sm, kb.second);
+    if (includeExpandedLess(ea, eb))
+        return true;
+    if (includeExpandedLess(eb, ea))
+        return false;
+    uint64_t sa = 0, sb = 0;
+    if (auto it = pkgTfSeq9.find(a); it != pkgTfSeq9.end())
+        sa = it->second;
+    if (auto it = pkgTfSeq9.find(b); it != pkgTfSeq9.end())
+        sb = it->second;
+    return sa < sb;
+}
+
+// See the header. R-J1's CLASS half: one `C::m` clone per out-of-body class
+// method the wildcard-imported package's DEF-view listing carries, appended to
+// `target` (this package's DEF or TOP object) and then re-sorted into the one
+// source-ordered listing.  Golden r10uvm3 repro 1: `p2`, which only does
+// `import p1::*` and declares `k`, lists [C::f, h, k] in BOTH views with
+// sharedPtrs=0 against p1's — and SeqDriver's adpcm_pkg lists uvm_pkg's whole
+// 894-entry def listing that way.
+void UhdmExporter::emitImportedPkgClassMethodClones(const PackageSymbol& pkg,
+                                                    const std::string& prefix,
+                                                    UHDM::package* target) {
+    if (!target)
+        return;
+    std::set<const Symbol*> done9;
+    bool any9 = false;
+    for (auto& mem : pkg.members()) {
+        if (mem.kind != SymbolKind::WildcardImport)
+            continue;
+        auto* wpkg = mem.as<WildcardImportSymbol>().getPackage();
+        if (!wpkg)
+            continue;
+        // The import STATEMENT's slot (§ collectPkgTfListing).
+        SourceLocation impAt = mem.location;
+        if (auto* isyn = mem.getSyntax())
+            impAt = isyn->sourceRange().start();
+        std::set<const PackageSymbol*> seen;
+        uint64_t idx = 0;
+        for (auto& e : collectPkgTfListing(*sm, *wpkg, seen)) {
+            uint64_t myIdx = idx++;
+            if (!e.cls || !done9.insert(e.sub).second)
+                continue;
+            auto* homeScope = e.cls->getParentScope();
+            if (!homeScope ||
+                homeScope->asSymbol().kind != SymbolKind::Package)
+                continue;
+            auto cdit = classDefnMap.find(e.cls);
+            // Without the home's class_defn there is nothing to re-emit
+            // against; drop the entry rather than fake it.
+            if (cdit == classDefnMap.end())
+                continue;
+            auto hip = pkgDefMap.find(&homeScope->asSymbol());
+            if (hip == pkgDefMap.end())
+                continue;
+            size_t before = target->Task_funcs() ? target->Task_funcs()->size()
+                                                 : 0;
+            // Clone identity (§a9bd8c9): the body calls the HOME objects and
+            // the typespecs keep vpiInstance = the home package, re-pointed at
+            // its ELABORATED view once every top view exists.  UNLIKE the
+            // free-subroutine half, the clone does NOT share a Return
+            // variable: there is no elaborated pkg-level twin of an
+            // out-of-body method to share one with, and Surelog mints a fresh
+            // one — measured on r10uvm3 repro 1, where p1's OWN def clone
+            // reports its return typespec at vpiInstance = p1#DEF while p2's
+            // copy of the same method reports p1#TOP, i.e. two objects.
+            importCopyTsInst = (UHDM::instance*)hip->second;
+            std::vector<UHDM::typespec*> copyTss;
+            importCopyTsCollect = &copyTss;
+            pkgImportCloneEmit = true;
+            pkgImportCloneRetVar = nullptr;
+            pkgImportCloneHomePkg = nullptr;
+            auto* savedPct = pkgClassTfClone;
+            bool savedPcc = pkgClassTfCloneCtors;
+            auto* savedCd = currentClassDefn;
+            pkgClassTfClone = target;
+            pkgClassTfCloneCtors = e.sub->name == "new";
+            currentClassDefn = cdit->second;
+            // A class-method clone never takes the subMap slot over: an
+            // `obj.m()` written in the importing package still binds the
+            // class_defn's method, and `importer::m()` is not spellable for
+            // one — so the home entry is restored right after.
+            SubInfo homeSi;
+            bool hadHome = false;
+            if (auto sit = subMap.find(e.sub); sit != subMap.end()) {
+                homeSi = sit->second;
+                hadHome = true;
+            }
+            emitTaskFuncs(*e.cls, cdit->second,
+                          prefix + std::string(e.cls->name) + "::", nullptr,
+                          /*sharedScope=*/false, e.sub);
+            if (hadHome)
+                subMap[e.sub] = homeSi;
+            else
+                subMap.erase(e.sub);
+            currentClassDefn = savedCd;
+            pkgClassTfCloneCtors = savedPcc;
+            pkgClassTfClone = savedPct;
+            pkgImportCloneRetVar = nullptr;
+            pkgImportCloneEmit = false;
+            importCopyTsCollect = nullptr;
+            importCopyTsInst = nullptr;
+            for (auto* cts : copyTss)
+                importCopyTsFixups.emplace_back(
+                    cts, std::string(homeScope->asSymbol().name));
+            if (!target->Task_funcs() ||
+                target->Task_funcs()->size() <= before)
+                continue;
+            auto* cp = (*target->Task_funcs())[before];
+            pkgTfOrder9[cp] = {0, impAt};
+            pkgTfSeq9[cp] = myIdx;
+            any9 = true;
+        }
+    }
+    if (!any9)
+        return;
+    if (auto* tfv = target->Task_funcs()) {
+        bool haveAll = true;
+        for (auto* t : *tfv)
+            if (!pkgTfOrder9.count(t))
+                haveAll = false;
+        if (haveAll)
+            std::stable_sort(tfv->begin(), tfv->end(),
+                             [&](const UHDM::BaseClass* a,
+                                 const UHDM::BaseClass* b) {
+                                 return pkgTfListingLess(a, b);
+                             });
+    }
 }
 
 // One package-scope VARIABLE declaration (the non-net half of the split

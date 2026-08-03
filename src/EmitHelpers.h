@@ -2163,9 +2163,42 @@ inline bool includeExpandedLess(const std::vector<std::pair<uint32_t, uint64_t>>
 // whether this package OWNS it or merely materializes a CLONE of it.
 struct PkgTfEntry {
     const SubroutineSymbol* sub;
+    // Non-null for an OUT-OF-BODY CLASS-METHOD definition: the class whose
+    // `C::m` clone the package's DEF-view listing carries
+    // (§ emitPackageClassMethodClones).  Null for a package-level subroutine.
+    const ClassType* cls;
     SourceLocation at;  // the slot the entry occupies in THIS package's source
     bool imported;      // true: a clone an `import q::*` materializes here
+    int ctorKey;        // 1 for a constructor: Surelog binds those LAST
 };
+
+// The out-of-body method DEFINITIONS of one class, i.e. exactly the
+// subroutines `members()` never yields (slang keeps them out of every scope's
+// member list; they are reachable only through the prototype).  Mirrors the
+// `oobDefs` walk in emitTaskFuncs — the two must agree, because this listing
+// decides WHICH clones an importing package materializes and emitTaskFuncs
+// decides which ones it will emit.
+inline std::vector<const SubroutineSymbol*> classOobDefs(const ClassType& c) {
+    std::vector<const Symbol*> memberList;
+    for (auto& m : c.members())
+        memberList.push_back(&m);
+    std::vector<const SubroutineSymbol*> out;
+    for (auto& m : c.members()) {
+        if (m.kind != SymbolKind::MethodPrototype)
+            continue;
+        auto& mp = m.as<MethodPrototypeSymbol>();
+        if (mp.flags.has(MethodFlags::Pure))
+            continue;
+        auto* impl = mp.getSubroutine();
+        if (!impl || !impl->getSyntax())
+            continue;
+        if (std::find(memberList.begin(), memberList.end(),
+                      (const Symbol*)impl) != memberList.end())
+            continue;
+        out.push_back(impl);
+    }
+    return out;
+}
 
 // A PACKAGE that wildcard-imports another package materializes a CLONE of
 // every subroutine that import makes visible — named by the IMPORTING package
@@ -2179,18 +2212,48 @@ struct PkgTfEntry {
 // golden (r10evfn probe 2): `package p2` declaring g0@15, `import p1::*`@20
 // (p1 declares f@2, f2@7) and g@21 lists g0, f, f2, g — and `package p3`,
 // which only does `import p2::*`, lists p2's four in exactly that order.
+//
+// The group is the home package's DEF-VIEW listing, so it carries that
+// listing's CLASS machinery too: one entry per out-of-body class-method
+// definition (`C::f`), interleaved with the package's own subroutines at its
+// source slot, constructors last (§ emitPackageClassMethodClones).  Measured
+// on r10uvm3 repro 1 (`p1` with an oob method @9 and a free function @10,
+// `p2` importing it and declaring `k`@15): golden p2 lists [C::f, h, k] in
+// BOTH views, sharedPtrs=0 against p1's — and on SeqDriver, whose adpcm_pkg
+// lists uvm_pkg's whole 894-entry def listing.
+//
+// The ordering key is the one the package listing itself uses (§ pkgTfOrder9):
+// (constructor-last, include-expanded source order).  An IMPORT group's whole
+// contents take the import statement's slot with key 0, so the group keeps the
+// home listing's order verbatim — constructors included.
 inline std::vector<PkgTfEntry> collectPkgTfListing(
-    const PackageSymbol& pkg, std::set<const PackageSymbol*>& seen) {
+    const slang::SourceManager& sm, const PackageSymbol& pkg,
+    std::set<const PackageSymbol*>& seen) {
     std::vector<PkgTfEntry> out;
     if (!seen.insert(&pkg).second)
         return out;
-    std::vector<std::pair<SourceLocation, std::vector<PkgTfEntry>>> groups;
+    std::vector<PkgTfEntry> ents;
     for (auto& m : pkg.members()) {
         if (m.kind == SymbolKind::Subroutine) {
             if (!m.getSyntax())
                 continue;
-            groups.push_back(
-                {m.location, {{&m.as<SubroutineSymbol>(), m.location, false}}});
+            ents.push_back({&m.as<SubroutineSymbol>(), nullptr, m.location,
+                            false, m.name == "new" ? 1 : 0});
+        }
+        else if (m.kind == SymbolKind::ClassType ||
+                 m.kind == SymbolKind::GenericClassDef) {
+            const ClassType* ct = nullptr;
+            if (m.kind == SymbolKind::ClassType)
+                ct = &m.as<ClassType>();
+            else if (auto* dsp = m.as<GenericClassDefSymbol>()
+                                     .getDefaultSpecialization(pkg);
+                     dsp && dsp->kind == SymbolKind::ClassType)
+                ct = &dsp->as<ClassType>();
+            if (!ct)
+                continue;
+            for (auto* d : classOobDefs(*ct))
+                ents.push_back(
+                    {d, ct, d->location, false, d->name == "new" ? 1 : 0});
         }
         else if (m.kind == SymbolKind::WildcardImport) {
             auto* q = m.as<WildcardImportSymbol>().getPackage();
@@ -2201,27 +2264,26 @@ inline std::vector<PkgTfEntry> collectPkgTfListing(
             SourceLocation at = m.location;
             if (auto* isyn = m.getSyntax())
                 at = isyn->sourceRange().start();
-            std::vector<PkgTfEntry> g;
-            for (auto& e : collectPkgTfListing(*q, seen))
-                g.push_back({e.sub, at, true});
-            if (!g.empty())
-                groups.push_back({at, std::move(g)});
+            for (auto& e : collectPkgTfListing(sm, *q, seen))
+                ents.push_back({e.sub, e.cls, at, true, 0});
         }
     }
     seen.erase(&pkg);
-    std::stable_sort(groups.begin(), groups.end(),
-                     [](const auto& a, const auto& b) {
-                         return a.first < b.first;
+    std::stable_sort(ents.begin(), ents.end(),
+                     [&](const PkgTfEntry& a, const PkgTfEntry& b) {
+                         if (a.ctorKey != b.ctorKey)
+                             return a.ctorKey < b.ctorKey;
+                         return includeExpandedLess(includeExpandedKey(sm, a.at),
+                                                    includeExpandedKey(sm, b.at));
                      });
-    for (auto& g : groups)
-        for (auto& e : g.second) {
-            bool dup = false;
-            for (auto& o : out)
-                if (o.sub == e.sub)
-                    dup = true;
-            if (!dup)
-                out.push_back(e);
-        }
+    for (auto& e : ents) {
+        bool dup = false;
+        for (auto& o : out)
+            if (o.sub == e.sub)
+                dup = true;
+        if (!dup)
+            out.push_back(e);
+    }
     return out;
 }
 

@@ -2014,6 +2014,18 @@ private:
     // carries no Task_funcs at all; it lists the class_defns instead.
     void emitPackageClassMethodClones(const slang::ast::PackageSymbol& pkg,
                                       const std::string& prefix);
+    // R-J1: a package that wildcard-imports another materializes the home's
+    // WHOLE DEF-view listing, out-of-body class methods included, as DISTINCT
+    // objects in BOTH of its own views.  The free-subroutine half rides the
+    // import loop in emitPackage; this is the CLASS half, which has to wait
+    // until the home package's class_defns exist — those are built in its TOP
+    // pass, and the DEF views of ALL packages are emitted before any TOP view,
+    // so the def-view copies cannot be made in the def pass.  Called once per
+    // view (target = this package's DEF object, then its TOP object) from the
+    // TOP pass.
+    void emitImportedPkgClassMethodClones(const slang::ast::PackageSymbol& pkg,
+                                          const std::string& prefix,
+                                          UHDM::package* target);
     // One PACKAGE-scope data declaration that is NOT a net (see the net/var
     // split documented at the call site in emitPackage): appends the matching
     // variables object to `out`, or appends nothing for a shape that is not
@@ -2231,6 +2243,17 @@ private:
     // then one over the constructors (see emitPackageClassMethodClones).
     std::map<const UHDM::BaseClass*, std::pair<int, slang::SourceLocation>>
         pkgTfOrder9;
+    // Tie-break for pkgTfOrder9: every clone a single `import q::*`
+    // materializes carries the IMPORT STATEMENT's location, so the key alone
+    // cannot order the group.  This is the entry's slot within that group,
+    // i.e. its index in the home package's DEF-view listing
+    // (§ collectPkgTfListing).  Only import clones are keyed; everything else
+    // reads 0 and is separated by its own distinct location.
+    std::map<const UHDM::BaseClass*, uint64_t> pkgTfSeq9;
+    // The package Task_funcs listing order: one source-ordered pass over
+    // everything that is not a constructor, then one over the constructors,
+    // with an import group held together in the home listing's order.
+    bool pkgTfListingLess(const UHDM::BaseClass* a, const UHDM::BaseClass* b);
     // Per CLASS, the out-of-body method DEFINITION objects of its own
     // (class_defn-parented, bare-named) listing, in emission order —
     // non-constructors by definition-file order, the constructor last. A
