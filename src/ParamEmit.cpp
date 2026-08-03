@@ -3115,8 +3115,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                      (typedParam || isRangedUntypedParam(ps) ||
                       signedImplicitTs || pkgElabComputed || unkCastFold9 ||
                       importedComputed9 || bitsFoldInit ||
-                      ((literalInit || realLit) &&
+                      ((literalInit || realLit) && !unbasedInit &&
                        (!unknownDefault || sizedBasedInit) && !decBasedInit));
+            // ...and an UNBASED-UNSIZED default ('0/'1/'x/'z) on an UNTYPED
+            // parameter mints NO typespec at all: Surelog derives the implicit
+            // `int` typespec from the default's own reduced type, and an
+            // unbased-unsized literal has none. `parameter A = 1` keeps its
+            // int_typespec, `parameter B = '0` next to it carries none
+            // (probe r10sing3 g6, one source, both params in one header).
+            // A TYPED param or a RANGED untyped one ([3:0] P = '0) still
+            // gets its declared type — those arms above are untouched.
             // A COMPUTED-init module parameter still ends up with an
             // int_typespec when its name is used as a CAST SIZE somewhere in
             // the module: Surelog's type lookup for `P'(x)` mints one at the
@@ -3475,6 +3483,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // keeps the symbolic hier_path at the override site — Surelog folds
         // the declaration, never the connection (u2r ParameterPassedTo*,
         // ParameterFromPkg*, the ovMemberInitParam model below).
+        // NOTE (r10sing3, decoded — NOT implemented, no reachable mover yet).
+        // Surelog's OWN packed-struct member extraction from a CONSTANT base
+        // assigns member offsets in DECLARATION order FROM THE LSB, i.e. the
+        // REVERSE of the LRM (where the first-declared member is the MSB).
+        // Probe r10sing3 g3 (`struct packed {logic[3:0] a; logic[7:0] b;
+        // logic[1:0] c;}`, P = 14'hABCD, read through `sub #(.PA(P.a),
+        // .PB(P.b), .PC(P.c))`): Surelog gives 13 / 188 / 2, which is
+        // value[3:0] / value[11:4] / value[13:12] — LSB-first. The LRM answer
+        // (10 / 243 / 1) is what slang computes.
+        // Two more facts from the same probe pair:
+        //  * the OVERRIDE path reduces the select (constant at the FORMAL's
+        //    default span, vpiSize = the formal's width, ConstType 9);
+        //  * a member select in a plain same-scope param_assign does NOT
+        //    reduce at all (probe g2): Surelog hands back the BASE struct
+        //    constant verbatim (HEX:ABCD, decompile 14'hABCD, ConstType 5,
+        //    ts ref -> the struct typespec) with only vpiSize replaced by the
+        //    LHS parameter's width.
+        // HierPathEval needs the first law, but it is NOT reachable from the
+        // emitter: the value it changes also decides which generate branch
+        // slang elaborates (`PadTypeInGeneric == 1`), and that decision is
+        // made inside slang's compilation, not here. Ranked as slang-blocked.
         if (topView && !inPackage && !overridden && boundInit) {
             auto& si6 = stripImplicitConv(*boundInit);
             if (si6.kind == ExpressionKind::MemberAccess) {
@@ -7137,6 +7166,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             fiK++;
                         }
                     }
+                    // Same bail scan over the POSITIONAL form.
+                    else if (sinitK.kind ==
+                             ExpressionKind::SimpleAssignmentPattern) {
+                        auto& sapK =
+                            sinitK.as<SimpleAssignmentPatternExpression>();
+                        int fiK = 0;
+                        for (auto* se0 : sapK.elements()) {
+                            auto& sv0 = stripImplicitConv(*se0);
+                            if (sv0.kind ==
+                                    ExpressionKind::StructuredAssignmentPattern ||
+                                sv0.kind ==
+                                    ExpressionKind::SimpleAssignmentPattern) {
+                                nestBailK = fiK;
+                                break;
+                            }
+                            fiK++;
+                        }
+                    }
                     int fiK9 = -1;
                     for (auto& fld : fsc9.membersOfType<FieldSymbol>()) {
                         fiK9++;
@@ -7152,6 +7199,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                             if (!se)
                                 se = ap.defaultSetter;
+                        }
+                        // A POSITIONAL pattern ('{v1, v2}) binds its elements
+                        // to the struct's fields in DECLARATION order — slang
+                        // models it as a SimpleAssignmentPattern, which has no
+                        // memberSetters at all, so the walk above found nothing
+                        // and the flattened op75 came out with ZERO operands
+                        // (uhdm-cmp: `failLhs=operation failRhs=<null>`, the
+                        // dump showing an operand-less op). Surelog flattens it
+                        // exactly like the named form: one operand per field,
+                        // in field order, each reduced and re-sized to the
+                        // MEMBER width (probe r10sing3 g4, `'{v1, 3'b101,
+                        // v1+1, v2}` over 2/3/4/5-bit members -> UINT:1@2,
+                        // BIN:101@3, UINT:2@4, BIN:10@5). ParamOverloading.
+                        else if (sinitK.kind ==
+                                 ExpressionKind::SimpleAssignmentPattern) {
+                            auto& sap =
+                                sinitK.as<SimpleAssignmentPatternExpression>();
+                            if (fiK9 < (int)sap.elements().size())
+                                se = sap.elements()[fiK9];
                         }
                         if (!se)
                             continue;

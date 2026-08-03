@@ -1069,8 +1069,8 @@ ParamOverload3,default,SLANG_REJECT,dut.sv:29:14: error: use of undeclared ident
 ParamOverload3,testflags,SLANG_REJECT,dut.sv:29:14: error: use of undeclared identifier 'fpu_features_t',,
 ParamOverload4,default,CMP_EQUAL,,,match
 ParamOverload4,testflags,CMP_EQUAL,,,match
-ParamOverloading,default,CMP_NOTEQUAL,decompile:,,
-ParamOverloading,testflags,CMP_NOTEQUAL,decompile:,,
+ParamOverloading,default,CMP_EQUAL,,,differ
+ParamOverloading,testflags,CMP_EQUAL,,,differ
 ParamOverloadProp,default,CMP_EQUAL,,,match
 ParamOverloadProp,testflags,CMP_EQUAL,,,match
 ParamRef,default,CMP_EQUAL,,,differ
