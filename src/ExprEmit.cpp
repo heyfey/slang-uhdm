@@ -1753,6 +1753,14 @@ UHDM::any* UhdmExporter::emitLetExprCall(const Expression& expr, UHDM::BaseClass
 // copy's flattened elab re-emit).  Same substitution the qualified pkg::VALUE
 // reference arm in emitExpr already performs; the pattern member paths just
 // never reached it.  (AssignmentPatternInAssignmentPattern.)
+bool UhdmExporter::enumMemberLiteralForm(const Symbol& sym) {
+    if (sym.kind != SymbolKind::EnumValue)
+        return false;
+    if (auto* ein = sym.as<EnumValueSymbol>().getInitializer())
+        return stripImplicitConv(*ein).kind == ExpressionKind::IntegerLiteral;
+    return true;
+}
+
 UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
     if (sym.kind != SymbolKind::EnumValue)
         return nullptr;
@@ -8137,10 +8145,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                 }
+                // ...and the substitution is NOT package-only.  Measured on a
+                // 4-member probe over {module-local enum, imported package
+                // enum} x {member wider / narrower / equal to the enum, an
+                // IMPLICIT enum member} (r10ece probes b and c, byte-identical
+                // results for both enum origins): the enum member's own
+                // literal form is what lands, always.  `E0 = 3'b101` into a
+                // 4-bit member is BIN:101 / "3'b101" at size 3, `E2 = 3'h7`
+                // into a 2-bit member is HEX:7 / "3'h7" at size 3, and an
+                // implicit `E1` is INT:6 / "6" at the enum's base width — the
+                // BIN-at-member-width enumFold6 form below is right only when
+                // the two widths coincide, which is why rp32 (whose enum
+                // members are $bits(isa_spec_t)-wide concats read into
+                // same-width members) never showed it.
+                //   The substitution needs a LITERAL form to substitute, and
+                // at a MODULE site that is the whole gate: rp32's `RV32I =
+                // {RV_32I, RV_NONE}` has none, enumConstMap holds its SOURCE
+                // TEXT as the decompile, and handing that back regressed
+                // rp32_r5p_alu/_wbu to `{RV_32I,RV_NONE}` where the golden
+                // wants the 23'b0100... bit string.  So an
+                // expression-initialized member keeps the BIN-at-member-width
+                // enumFold6 fold below.  A PACKAGE site is unguarded — its
+                // shapes were measured with the map form and are landed.
+                // EnumConstElab / rp32_r5p_alu.
                 UHDM::constant* pkgEnumFold6 = nullptr;
-                if (paramInitPkg || importedParamClone || pkgEnumSubstPat) {
+                {
+                    bool pkgSite7 =
+                        paramInitPkg || importedParamClone || pkgEnumSubstPat;
                     auto& ev7 = stripImplicitConv(*setter.expr);
-                    if (ev7.kind == ExpressionKind::NamedValue)
+                    if (ev7.kind == ExpressionKind::NamedValue &&
+                        (pkgSite7 ||
+                         enumMemberLiteralForm(
+                             ev7.as<NamedValueExpression>().symbol)))
                         pkgEnumFold6 = enumMemberSubstConst(
                             ev7.as<NamedValueExpression>().symbol);
                     if (pkgEnumFold6)

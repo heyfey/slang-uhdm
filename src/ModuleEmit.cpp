@@ -5128,6 +5128,105 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         nop->Operands(nops);
                         v->Expr(nop);
                     }
+                    // An explicit TYPE-CAST init over a PARAM reference
+                    // (`int a = int'(RESVAL)`) keeps the CAST as the var's
+                    // vpiExpr — Surelog re-compiles the initializer in the
+                    // instance and its reduce stops at the cast: an op67 at
+                    // the whole cast's span carrying a var-scoped ts ref to a
+                    // fresh int_typespec spanning the CAST TYPE alone, over
+                    // one folded operand at the reference's span.  The operand
+                    // takes the ELABORATED param constant's own encoding
+                    // (value + decompile + constType) re-sized to the var
+                    // width, so a value that reached the param through an
+                    // aggregate override decompiles `5'd24`, not `24`, and
+                    // carries a var-scoped ts ref to the param's typespec.
+                    // Without the arm the var had NO vpiExpr at all.
+                    // EnumConstElab (prim_subreg `int a = int'(RESVAL)`).
+                    else if (ic.kind == ExpressionKind::Conversion &&
+                             ic.syntax &&
+                             ic.syntax->kind ==
+                                 syntax::SyntaxKind::CastExpression &&
+                             isTypeSyntaxKind(
+                                 ic.syntax->as<syntax::CastExpressionSyntax>()
+                                     .left->kind) &&
+                             [&] {
+                                 auto& o9 = stripImplicitConv(
+                                     ic.as<ConversionExpression>().operand());
+                                 return o9.kind ==
+                                            ExpressionKind::NamedValue &&
+                                        o9.as<NamedValueExpression>()
+                                                .symbol.kind ==
+                                            SymbolKind::Parameter;
+                             }()) {
+                        auto& o9 = stripImplicitConv(
+                            ic.as<ConversionExpression>().operand());
+                        auto& psym9 =
+                            o9.as<NamedValueExpression>().symbol.as<ParameterSymbol>();
+                        auto& pcv9 = psym9.getValue();
+                        if (pcv9.isInteger() && !pcv9.integer().hasUnknown()) {
+                            int32_t vw9 =
+                                (int32_t)dt->getType().getBitWidth();
+                            auto* cop9 = s.MakeOperation();
+                            cop9->VpiOpType(vpiCastOp);
+                            cop9->VpiParent(v);
+                            setLoc(cop9, ic.sourceRange);
+                            auto* cts9 = s.MakeInt_typespec();
+                            cts9->VpiSigned(true);
+                            setLoc(cts9,
+                                   ic.syntax
+                                       ->as<syntax::CastExpressionSyntax>()
+                                       .left->sourceRange());
+                            auto* crt9 = s.MakeRef_typespec();
+                            crt9->VpiFullName(fullName);
+                            crt9->VpiParent(cop9);
+                            crt9->Actual_typespec(cts9);
+                            cop9->Typespec(crt9);
+                            auto* oc9 = s.MakeConstant();
+                            oc9->VpiParent(cop9);
+                            setLoc(oc9, o9.sourceRange);
+                            // The elaborated param constant is the source of
+                            // truth for the encoding; only its SIZE is the
+                            // cast's.
+                            auto eit9 = elabParamConst.find(&psym9);
+                            if (eit9 != elabParamConst.end() && eit9->second) {
+                                oc9->VpiValue(
+                                    std::string(eit9->second->VpiValue()));
+                                oc9->VpiDecompile(
+                                    std::string(eit9->second->VpiDecompile()));
+                                oc9->VpiConstType(
+                                    eit9->second->VpiConstType());
+                            }
+                            else {
+                                auto piv9 = pcv9.integer();
+                                bool neg9 =
+                                    piv9.isSigned() && piv9.isNegative();
+                                std::string dg9 = piv9.toString(
+                                    LiteralBase::Decimal, false);
+                                oc9->VpiDecompile(dg9);
+                                oc9->VpiValue((neg9 ? "INT:" : "UINT:") + dg9);
+                                oc9->VpiConstType(neg9 ? vpiIntConst
+                                                       : vpiUIntConst);
+                            }
+                            oc9->VpiSize(vw9);
+                            bool tP9 = false;
+                            if (auto d9 = psym9.getDeclaredType())
+                                if (auto t9 = d9->getTypeSyntax())
+                                    tP9 = t9->kind !=
+                                          syntax::SyntaxKind::ImplicitType;
+                            if (auto* its9 = makeParamTs(psym9, tP9)) {
+                                auto* ort9 = s.MakeRef_typespec();
+                                ort9->VpiFullName(fullName);
+                                ort9->VpiParent(oc9);
+                                ort9->Actual_typespec(its9);
+                                oc9->Typespec(ort9);
+                                its9->VpiParent(ort9);
+                            }
+                            auto* cops9 = s.MakeAnyVec();
+                            cops9->push_back(oc9);
+                            cop9->Operands(cops9);
+                            v->Expr(cop9);
+                        }
+                    }
                     else if (ic.kind == ExpressionKind::NamedValue && !enumRef &&
                              ic.as<NamedValueExpression>().symbol.kind ==
                                  SymbolKind::Parameter) {

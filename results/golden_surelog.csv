@@ -405,8 +405,8 @@ EnumConst,default,CMP_EQUAL,,,match
 EnumConst,testflags,CMP_EQUAL,,,match
 EnumConstConcat,default,CMP_EQUAL,,,differ
 EnumConstConcat,testflags,CMP_EQUAL,,,differ
-EnumConstElab,default,CMP_NOTEQUAL,decompile:,,
-EnumConstElab,testflags,CMP_NOTEQUAL,decompile:,,
+EnumConstElab,default,CMP_EQUAL,,,differ
+EnumConstElab,testflags,CMP_EQUAL,,,differ
 EnumImplicitVal,default,CMP_EQUAL,,,match
 EnumImplicitVal,testflags,CMP_EQUAL,,,match
 EnumParenType,default,SLANG_REJECT,dut.sv:9:3: error: expected member,,

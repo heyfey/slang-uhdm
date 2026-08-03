@@ -778,6 +778,13 @@ private:
     // ref, so each gets its own clone.
     void mintParamOpClones(size_t lo, size_t hi);
     std::map<UHDM::ref_typespec*, UHDM::typespec*> paramOpClones;
+    // A struct-pattern OVERRIDE substituted from a param of a DIFFERENT struct
+    // type (a shadowed `struct_t` in the instantiating module): the flattened
+    // op75 carries the ACTUAL's struct typespec, not the formal's, so the op
+    // clone has to be built off that param instead of the pending entry's.
+    // EnumConstElab.
+    std::map<UHDM::ref_typespec*, const slang::ast::ParameterSymbol*>
+        paramOpTsSrcParam;
     UHDM::typespec* makeBareVecParamTs(const slang::ast::ParameterSymbol& ps,
                                        bool parentBounds);
     UHDM::typespec* makeParamTs(const slang::ast::ParameterSymbol& ps, bool typedParam,
@@ -1427,6 +1434,13 @@ private:
     // HEX:6 / decompile "4'h6"). Null when `sym` is not an enum member or its
     // value is not reconstructible. Located by the caller.
     UHDM::constant* enumMemberSubstConst(const slang::ast::Symbol& sym);
+    // True when the enum member has a LITERAL form to substitute: an integer
+    // literal initializer, or none at all (an implicit member, which carries
+    // its computed decimal).  A member initialized by an EXPRESSION (rp32's
+    // `RV32I = {RV_32I, RV_NONE}`) has no literal form — enumConstMap holds
+    // its SOURCE TEXT as the decompile, which is not what a struct-pattern
+    // member substitution wants.  EnumConstElab / rp32_r5p_alu.
+    bool enumMemberLiteralForm(const slang::ast::Symbol& sym);
     // Set while the ELAB flatten of a PACKAGE-ORIGIN struct param re-emits a
     // NESTED member pattern. That recursion runs before paramInitPkg /
     // importedParamClone are set for this parameter, so it needs its own flag

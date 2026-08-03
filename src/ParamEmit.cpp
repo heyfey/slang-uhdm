@@ -3830,6 +3830,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // iface_wholestruct_param / iface_cfg_param_def_pass.
         const Expression* structOvPat = nullptr;
         SourceRange structOvLoc;
+        // ...and when the actual's struct type is NOT the formal's — the
+        // instantiating module declares its own `struct_t` that SHADOWS the
+        // instantiated module's — the substituted pattern is still the
+        // ACTUAL's, so both the member walk and the op75's struct typespec
+        // follow the ACTUAL's type.  Surelog re-emits the referenced param's
+        // already-flattened value verbatim (same member spans, same member
+        // widths) and tags it with a clone of the ACTUAL's struct typespec,
+        // instance-scoped to the override site.  Left null when the two
+        // canonical types agree, which is every non-shadowing case and keeps
+        // the existing clone identity untouched.  EnumConstElab.
+        const ParameterSymbol* structOvRefParam = nullptr;
         // ...and the SAME rule for an UNPACKED-struct param, but ONLY when the
         // override actual is written UNQUALIFIED (a localparam of the
         // instantiating module, or a wildcard-imported package param
@@ -3868,6 +3879,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         structOvPat = &si8;
                         structOvLoc = bi8.sourceRange;
                         unpStructOvRef9 = unpacked9;
+                        if (&rs8->as<ParameterSymbol>()
+                                 .getType()
+                                 .getCanonicalType() !=
+                            &ps.getType().getCanonicalType())
+                            structOvRefParam = &rs8->as<ParameterSymbol>();
                     }
                 }
         }
@@ -4457,13 +4473,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto& sy9 = org9->as<NamedValueExpression>().symbol;
                     if (sy9.kind != SymbolKind::Parameter)
                         break;
-                    // Only a param carrying its OWN declared pattern
-                    // substitutes. Re-passing an already-OVERRIDDEN parameter
-                    // one level down (`prim_subreg #(.RESVAL(RESVAL))` inside
-                    // prim_subreg_shadow) keeps the CHILD's declared default
-                    // instead — Surelog never re-expands through the hop.
-                    if (isOverriddenParam(sy9.as<ParameterSymbol>()))
-                        break;
+                    // The walk crosses an ALREADY-OVERRIDDEN param too: slang
+                    // hands back the OVERRIDE expression as that param's
+                    // initializer, so re-passing one level down
+                    // (`prim_subreg #(.RESVAL(RESVAL))` inside
+                    // prim_subreg_shadow, whose own RESVAL top overrode with
+                    // CTRL_RESET) chains straight to top's pattern and the
+                    // expansion lands at the override site with the connected
+                    // value.  aa0fe59 stopped the walk here on a u2r
+                    // regression; that regression is gone (the sweep is clean
+                    // both with and without the stop) and stopping it left
+                    // EnumConstElab's leaf param_assign folding at the
+                    // DECLARED-DEFAULT span with a plain `24` decompile
+                    // instead of `5'd24` at the override.
                     auto* in9 = sy9.as<ParameterSymbol>().getInitializer();
                     if (!in9)
                         break;
@@ -6940,15 +6962,26 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             rt->VpiParent(op2);
                         op2->Typespec(rt);
                         rhsRt = rt; // -> elab param clone (patchParamTypespecs)
+                        if (structOvRefParam)
+                            paramOpTsSrcParam[rt] = structOvRefParam;
                     }
                     auto* opnds = s.MakeAnyVec();
                     ASTContext ectx(comp.getRoot(), LookupLocation::max);
                     // The UNPACKED sibling (unpStructOvRef9) reaches the exact
                     // same shape; only the field-list scope differs.
+                    // A SHADOWED override (structOvRefParam) walks the ACTUAL
+                    // param's own struct fields — the substituted pattern's
+                    // memberSetters point at THOSE FieldSymbols, so matching
+                    // them against the formal's shadowing struct finds nothing
+                    // and the op75 came out with zero operands.
+                    const Type& fctS = structOvRefParam
+                                           ? structOvRefParam->getType()
+                                                 .getCanonicalType()
+                                           : pctS;
                     const Scope& fsc9 =
-                        pctS.kind == SymbolKind::PackedStructType
-                            ? (const Scope&)pctS.as<PackedStructType>()
-                            : (const Scope&)pctS.as<UnpackedStructType>();
+                        fctS.kind == SymbolKind::PackedStructType
+                            ? (const Scope&)fctS.as<PackedStructType>()
+                            : (const Scope&)fctS.as<UnpackedStructType>();
                     // expandPatternAssignment's untagged arm walks the operands
                     // in member order calling adjustOpSize, and RETURNS as soon
                     // as one does not reduce to a value — a member whose value
@@ -7154,16 +7187,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                             continue;
                         }
-                        // An ENUM-MEMBER setter of a PACKAGE-ORIGIN struct
-                        // param keeps the enum member's OWN literal form in
-                        // the flattened elab view too (enumMemberSubstConst),
-                        // not the UINT-at-member-width fold below.  A
-                        // MODULE-LOCAL struct param is left alone here — its
-                        // enum members already follow the BIN rule
-                        // (enumFold6).
-                        if (inPackage || isImported) {
+                        // An ENUM-MEMBER setter of a struct param keeps the
+                        // enum member's OWN literal form in the flattened elab
+                        // view too (enumMemberSubstConst), not the
+                        // UINT-at-member-width fold below.  The origin of the
+                        // enum does NOT matter: the r10ece probe pair (module-
+                        // local enum vs imported package enum, four members
+                        // covering member-wider / member-narrower / equal /
+                        // implicit) gives byte-identical goldens, so a
+                        // MODULE-LOCAL struct param substitutes exactly the
+                        // same way.  EnumConstElab.
+                        {
                             auto& sev8 = stripImplicitConv(*se);
-                            if (sev8.kind == ExpressionKind::NamedValue) {
+                            if (sev8.kind == ExpressionKind::NamedValue &&
+                                (inPackage || isImported ||
+                                 enumMemberLiteralForm(
+                                     sev8.as<NamedValueExpression>().symbol))) {
                                 if (auto* ec8 = enumMemberSubstConst(
                                         sev8.as<NamedValueExpression>()
                                             .symbol)) {
@@ -11313,7 +11352,15 @@ static const InstanceBodySymbol* paramOwnerBody(const Symbol& sym) {
 void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
     for (size_t i = lo; i < hi && i < pendingParamTs.size(); i++) {
         auto& [ps, up, prt, rhsRt, typedParam] = pendingParamTs[i];
-        auto& pct = ps->getType().getCanonicalType();
+        // A SHADOWED struct override tags its op75 with the ACTUAL param's
+        // struct typespec (paramOpTsSrcParam), so the clone is built off that
+        // param's declared type — instance-scoped exactly the same way.
+        const ParameterSymbol* tsPs = ps;
+        if (rhsRt)
+            if (auto sit = paramOpTsSrcParam.find(rhsRt);
+                sit != paramOpTsSrcParam.end())
+                tsPs = sit->second;
+        auto& pct = tsPs->getType().getCanonicalType();
         if (pct.kind != SymbolKind::PackedStructType &&
             pct.kind != SymbolKind::PackedUnionType)
             continue;
@@ -11328,7 +11375,7 @@ void UhdmExporter::mintParamOpClones(size_t lo, size_t hi) {
         syntaxRefPrefix = dot == std::string::npos ? full : full.substr(0, dot);
         structCloneMemberRefParent = true;
         paramOpCloneCtx = true;
-        auto* opClone = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
+        auto* opClone = makeParamTs(*tsPs, typedParam, /*parentBounds=*/true);
         paramOpCloneCtx = false;
         structCloneMemberRefParent = false;
         rhsRt->Actual_typespec(opClone);
