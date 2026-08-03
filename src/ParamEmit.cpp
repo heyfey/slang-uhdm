@@ -2680,6 +2680,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // is keyed by object identity, never by name (a re-exported param appears
     // under two items with the same name).
     std::vector<std::pair<UHDM::any*, size_t>> matObj9;
+    // § elabStructMemberFold — struct params whose Rhs THIS view reduced to
+    // the flat op75 (per-member constant list).  A LATER param in the same
+    // listing that reads one of their MEMBERS folds to that member's constant
+    // instead of keeping the hier_path (see the member-access clause in the
+    // elab fold chain): Surelog answers the select off the substituted
+    // pattern, so a base whose own Rhs never reduced (a cast op, a
+    // bit_select) leaves the read symbolic while a reduced one resolves it.
+    std::set<const Symbol*> flatStructPat9;
     for (size_t occIx9 = 0; occIx9 < paramSyms.size(); occIx9++) {
         auto* psPtr = paramSyms[occIx9];
         const ImpOcc9* occ9 = paramImp9[occIx9];
@@ -6358,6 +6366,142 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                     rhs = c;
                 }
+                // § elabTernaryBranchFold — Surelog's ExprEval answers a
+                // CONDITIONAL with the TAKEN BRANCH's own reduced value, and
+                // the SUBSTITUTION is what carries the encoding: an elab param
+                // whose init is a (nest of) constant-condition ternaries takes
+                // the branch's reduced constant verbatim, never the unsized-64
+                // reduce of the whole expression.  Two leaf shapes bear a
+                // value: a bare PARAMETER reference (which contributes THAT
+                // parameter's already-emitted constant — size, const-type and
+                // decompile alike) and a MEMBER read of a struct param this
+                // listing already substituted (§ elabStructMemberFold, UINT at
+                // the member width).  A literal or computed leaf substitutes
+                // nothing and keeps the whole-expression reduce, which is why
+                // `core_id_width_p = ((cc_x_dim_p*cc_y_dim_p)==1) ? 1 :
+                // $clog2(...)` stays UINT size 64.
+                // The two corpora pin the copy semantics from opposite sides:
+                // BlackBePipeInt `lce_assoc_p = (dcache_assoc_p > ...) ?
+                // dcache_assoc_p : ...` inherits dcache_assoc_p's UINT size 32
+                // where the whole-expression reduce gave 64, and func_upto
+                // `localparam D_LEFT = !(SWAPS[0]) ? HI : LO` inherits LO's own
+                // UINT size 64 where the leaf's slang TYPE would have said
+                // signed int size 32.
+                // The branch fold is also what gets four of those rows folded
+                // AT ALL: `num_cacc_p ? acache_assoc_p : '0` carries an
+                // unbased-unsized literal and tryFoldConst refuses any
+                // operation containing one — Surelog never looks at the untaken
+                // arm.  (BlackBePipeInt lce_assoc_p / lce_sets_p /
+                // cce_block_width_p / uce_fill_width_p / cce_way_groups_p /
+                // l2_banks_p / l2_sets_p / l2_assoc_p.)
+                else if (const Expression* tbLeaf9 = [&]() -> const Expression* {
+                             if (!topView || inPackage || typedParam ||
+                                 overridden || isImported)
+                                 return nullptr;
+                             const Expression* cur9 = &stripImplicitConv(*init);
+                             int hops9 = 0;
+                             while (cur9->kind == ExpressionKind::ConditionalOp) {
+                                 if (++hops9 > 32)
+                                     return nullptr;
+                                 auto& co9 = cur9->as<ConditionalExpression>();
+                                 if (co9.conditions.size() != 1 ||
+                                     co9.conditions[0].pattern)
+                                     return nullptr;
+                                 ASTContext pc9(comp.getRoot(),
+                                                LookupLocation::max);
+                                 ConstantValue pv9 =
+                                     pc9.tryEval(*co9.conditions[0].expr);
+                                 if (!pv9 || !pv9.isInteger() ||
+                                     pv9.integer().hasUnknown())
+                                     return nullptr;
+                                 cur9 = &stripImplicitConv(
+                                     pv9.isTrue() ? co9.left() : co9.right());
+                             }
+                             if (!hops9)
+                                 return nullptr;
+                             // Only a width-BEARING leaf redirects the fold.
+                             if (cur9->kind == ExpressionKind::NamedValue) {
+                                 if (cur9->as<NamedValueExpression>()
+                                         .symbol.kind != SymbolKind::Parameter)
+                                     return nullptr;
+                             }
+                             else if (cur9->kind ==
+                                      ExpressionKind::MemberAccess) {
+                                 auto& mb9 = stripImplicitConv(
+                                     cur9->as<MemberAccessExpression>().value());
+                                 if (mb9.kind != ExpressionKind::NamedValue ||
+                                     !flatStructPat9.count(
+                                         &mb9.as<NamedValueExpression>().symbol))
+                                     return nullptr;
+                             }
+                             else
+                                 return nullptr;
+                             return (cur9->type && cur9->type->isIntegral() &&
+                                     cur9->type->getBitWidth() > 0)
+                                        ? cur9
+                                        : nullptr;
+                         }()) {
+                    // The substituted width follows the CHAIN of what the
+                    // leaf itself reduces to, not the leaf's slang type: a
+                    // parameter reference re-asks the question of THAT
+                    // parameter's own initializer, a member read of a
+                    // substituted struct pattern answers with the member
+                    // width, and anything else (a literal, an operation, a
+                    // call) has no width to contribute and lands on the
+                    // unsized 64.  BlackBePipeInt's icache_assoc_p chain ends
+                    // in `proc_param_lp.icache_assoc` -> 32; func_upto's LO
+                    // chain ends in the literal `0` -> 64.
+                    std::function<int32_t(const Expression&, int)> redW9 =
+                        [&](const Expression& e0, int d0) -> int32_t {
+                        if (d0 > 16)
+                            return 64;
+                        auto& e9 = stripImplicitConv(e0);
+                        if (e9.kind == ExpressionKind::ConditionalOp) {
+                            auto& co9 = e9.as<ConditionalExpression>();
+                            if (co9.conditions.size() == 1 &&
+                                !co9.conditions[0].pattern) {
+                                ASTContext pc9(comp.getRoot(),
+                                               LookupLocation::max);
+                                ConstantValue pv9 =
+                                    pc9.tryEval(*co9.conditions[0].expr);
+                                if (pv9 && pv9.isInteger() &&
+                                    !pv9.integer().hasUnknown())
+                                    return redW9(pv9.isTrue() ? co9.left()
+                                                              : co9.right(),
+                                                 d0 + 1);
+                            }
+                            return 64;
+                        }
+                        if (e9.kind == ExpressionKind::NamedValue) {
+                            auto& sy9 = e9.as<NamedValueExpression>().symbol;
+                            if (sy9.kind == SymbolKind::Parameter)
+                                if (auto* in9 =
+                                        sy9.as<ParameterSymbol>().getInitializer())
+                                    return redW9(*in9, d0 + 1);
+                            return 64;
+                        }
+                        if (e9.kind == ExpressionKind::MemberAccess && e9.type &&
+                            e9.type->isIntegral() && e9.type->getBitWidth() > 0)
+                            return (int32_t)e9.type->getBitWidth();
+                        return 64;
+                    };
+                    ASTContext tc9(comp.getRoot(), LookupLocation::max);
+                    ConstantValue tv9 = tc9.tryEval(*tbLeaf9);
+                    if (tv9 && tv9.isInteger() && !tv9.integer().hasUnknown()) {
+                        auto liv9 = tv9.integer();
+                        liv9.setSigned(false);
+                        std::string dg9 =
+                            liv9.toString(LiteralBase::Decimal, false);
+                        auto* c9 = s.MakeConstant();
+                        c9->VpiDecompile(dg9);
+                        c9->VpiSize(redW9(*tbLeaf9, 0));
+                        c9->VpiValue("UINT:" + dg9);
+                        c9->VpiConstType(vpiUIntConst);
+                        c9->VpiParent(pa);
+                        setLoc(c9, init->sourceRange);
+                        rhs = c9;
+                    }
+                }
                 // A TYPED string param never folds (the elab Rhs re-emits the
                 // string constant, decompiled without quotes). Pkg CONCAT
                 // inits keep the operation in both views.
@@ -6487,19 +6631,35 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          }()) &&
                          // An init reading a struct-param MEMBER keeps the
                          // hier_path (Info.x) in BOTH views (Surelog).
+                         // ...UNLESS this listing already reduced that base
+                         // param's own Rhs to the flat op75 (§
+                         // elabStructMemberFold): Surelog answers the member
+                         // select off the SUBSTITUTED pattern, so a resolved
+                         // base folds the read to the member's constant while
+                         // an unresolved one (Info = part_info_t'(15), whose
+                         // Rhs stays a cast op — ClogOfParamOfInstance-
+                         // InitializedByStructMember) leaves it symbolic.
+                         // BlackBePipeInt's 84 `proc_param_lp.<field>` module
+                         // localparams are the resolved half: the TOPMOD rows
+                         // are UINT constants at the field width, the ALLMOD
+                         // ones (where proc_param_lp is still a bit_select)
+                         // stay hier_paths.
                          !([&] {
                              auto& si = stripImplicitConv(*init);
                              if (si.kind != ExpressionKind::MemberAccess)
                                  return false;
                              auto& base = stripImplicitConv(
                                  si.as<MemberAccessExpression>().value());
-                             return base.kind == ExpressionKind::NamedValue &&
-                                    base.as<NamedValueExpression>().symbol.kind ==
-                                        SymbolKind::Parameter &&
-                                    base.as<NamedValueExpression>()
-                                            .symbol.getType()
-                                            .getCanonicalType()
-                                            .kind == SymbolKind::PackedStructType;
+                             if (base.kind != ExpressionKind::NamedValue ||
+                                 base.as<NamedValueExpression>().symbol.kind !=
+                                     SymbolKind::Parameter ||
+                                 base.as<NamedValueExpression>()
+                                         .symbol.getType()
+                                         .getCanonicalType()
+                                         .kind != SymbolKind::PackedStructType)
+                                 return false;
+                             return !flatStructPat9.count(
+                                 &base.as<NamedValueExpression>().symbol);
                          }()) &&
                          !containsUserCall(*init) &&
                          (rhs = [&]() -> UHDM::any* {
@@ -6985,6 +7145,140 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // selected value has its top bit set adjusts to a 32-bit
                     // signed INT instead (`int P3 = V[0]` with V[0]==1 ->
                     // INT:-1 size 32), the same adjust a plain concat gets.
+                    // § elabUnpSelUntypedW — an UNPACKED element read is
+                    // answered against the array parameter's UNREDUCED element
+                    // list, so an UNTYPED param inherits the SELECTED ELEMENT
+                    // EXPRESSION's own reduced width rather than the element
+                    // type's.  Measured on BlackBePipeInt's three structurally
+                    // identical `localparam X_cord_width_p =
+                    // X_cord_markers_pos_p[X_dims_p]` rows, whose golden sizes
+                    // disagree purely by what the selected element is written
+                    // as: coh selects `y+x` (an operation -> the unsized 64),
+                    // mem selects `mem_noc_y_cord_width_p` (a reference whose
+                    // own chain ends in a ternary's literal arm -> 64), io
+                    // selects `io_noc_x_cord_width_p` (a reference whose chain
+                    // ends in a struct-member read -> 32).
+                    // A LITERAL element contributes no substitution at all and
+                    // keeps the element-typed fold already computed —
+                    // ReorderPatt `parameter int x[1:0] = '{10, 11};
+                    // parameter a = x[0]` is UINT:11 size 32 — and a TYPED
+                    // param still adjusts to its declared width, which is why
+                    // ModuleInstantiationAndIndirectParams' `localparam int
+                    // IAmConst = ArrayParam[IndexParam]` stays size 32.
+                    if (topView && !typedParam && !isRangedUntypedParam(ps) &&
+                        rhs->UhdmType() == UHDM::uhdmconstant &&
+                        stripImplicitConv(*init).kind ==
+                            ExpressionKind::ElementSelect) {
+                        auto& es9 = stripImplicitConv(*init)
+                                        .as<ElementSelectExpression>();
+                        auto& ab9 = stripImplicitConv(es9.value());
+                        const ParameterSymbol* ap9 = nullptr;
+                        if (ab9.kind == ExpressionKind::NamedValue &&
+                            ab9.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter)
+                            ap9 = &ab9.as<NamedValueExpression>()
+                                       .symbol.as<ParameterSymbol>();
+                        if (ap9 && ap9->getType().getCanonicalType().kind ==
+                                       SymbolKind::FixedSizeUnpackedArrayType) {
+                            // The reduced width of one expression, by the same
+                            // substitution model the rest of this listing uses.
+                            std::function<int32_t(const Expression&, int)> redW9 =
+                                [&](const Expression& e0, int d0) -> int32_t {
+                                if (d0 > 16)
+                                    return 64;
+                                auto& e9 = stripImplicitConv(e0);
+                                if (e9.kind == ExpressionKind::ConditionalOp) {
+                                    auto& co9 = e9.as<ConditionalExpression>();
+                                    if (co9.conditions.size() == 1 &&
+                                        !co9.conditions[0].pattern) {
+                                        ASTContext pc9(comp.getRoot(),
+                                                       LookupLocation::max);
+                                        ConstantValue pv9 = pc9.tryEval(
+                                            *co9.conditions[0].expr);
+                                        if (pv9 && pv9.isInteger() &&
+                                            !pv9.integer().hasUnknown())
+                                            return redW9(pv9.isTrue()
+                                                             ? co9.left()
+                                                             : co9.right(),
+                                                         d0 + 1);
+                                    }
+                                    return 64;
+                                }
+                                if (e9.kind == ExpressionKind::NamedValue) {
+                                    auto& sy9 =
+                                        e9.as<NamedValueExpression>().symbol;
+                                    if (sy9.kind == SymbolKind::Parameter)
+                                        if (auto* in9 =
+                                                sy9.as<ParameterSymbol>()
+                                                    .getInitializer())
+                                            return redW9(*in9, d0 + 1);
+                                    return 64;
+                                }
+                                if (e9.kind == ExpressionKind::MemberAccess &&
+                                    e9.type && e9.type->isIntegral() &&
+                                    e9.type->getBitWidth() > 0)
+                                    return (int32_t)e9.type->getBitWidth();
+                                return 64;
+                            };
+                            // -1 = leave the element-typed fold alone.
+                            int32_t selW9 = -1;
+                            const Expression* aInit9 = ap9->getInitializer();
+                            const Expression* aPat9 =
+                                aInit9 ? &stripImplicitConv(*aInit9) : nullptr;
+                            for (int g9 = 0;
+                                 g9 < 16 && aPat9 &&
+                                 aPat9->kind == ExpressionKind::ConditionalOp;
+                                 g9++) {
+                                auto& co9 = aPat9->as<ConditionalExpression>();
+                                if (co9.conditions.size() != 1 ||
+                                    co9.conditions[0].pattern)
+                                    break;
+                                ASTContext pc9(comp.getRoot(),
+                                               LookupLocation::max);
+                                ConstantValue pv9 =
+                                    pc9.tryEval(*co9.conditions[0].expr);
+                                if (!pv9 || !pv9.isInteger() ||
+                                    pv9.integer().hasUnknown())
+                                    break;
+                                aPat9 = &stripImplicitConv(
+                                    pv9.isTrue() ? co9.left() : co9.right());
+                            }
+                            ASTContext sc9(comp.getRoot(), LookupLocation::max);
+                            ConstantValue sv9 = sc9.tryEval(es9.selector());
+                            auto rg9 = ap9->getType()
+                                           .getCanonicalType()
+                                           .as<FixedSizeUnpackedArrayType>()
+                                           .range;
+                            if (aPat9 &&
+                                aPat9->kind ==
+                                    ExpressionKind::SimpleAssignmentPattern &&
+                                sv9 && sv9.isInteger() &&
+                                !sv9.integer().hasUnknown()) {
+                                auto els9 =
+                                    aPat9->as<SimpleAssignmentPatternExpression>()
+                                        .elements();
+                                if (auto ix9 = sv9.integer().as<int32_t>()) {
+                                    int64_t pos9 =
+                                        rg9.left >= rg9.right
+                                            ? (int64_t)rg9.left - *ix9
+                                            : (int64_t)*ix9 - rg9.left;
+                                    if (pos9 >= 0 &&
+                                        pos9 < (int64_t)els9.size()) {
+                                        auto& se9 =
+                                            stripImplicitConv(*els9[(size_t)pos9]);
+                                        if (se9.kind !=
+                                                ExpressionKind::IntegerLiteral &&
+                                            se9.kind !=
+                                                ExpressionKind::
+                                                    UnbasedUnsizedIntegerLiteral)
+                                            selW9 = redW9(se9, 0);
+                                    }
+                                }
+                            }
+                            if (selW9 > 0)
+                                ((UHDM::constant*)rhs)->VpiSize(selW9);
+                        }
+                    }
                     // ...but only over a PACKED base. Indexing an UNPACKED
                     // array param (ArrayParam[IndexParam], int ArrayParam[2])
                     // is an element READ, not a bit slice, and keeps the plain
@@ -7262,6 +7556,105 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     &ps.getType().getCanonicalType())
                                 structRefPat9 = &rs9;
                         }
+                // § elabArraySelPatSubst — RULE 5 also follows an ELEMENT
+                // SELECT of a PACKED-ARRAY-OF-STRUCT parameter.  Surelog's
+                // substituteAssignedValue answers the select against the array
+                // parameter's ALREADY-SUBSTITUTED value — which is the concat
+                // its own initializer names — and hands back the selected
+                // element's own struct pattern, so the reading param's ELAB
+                // Rhs is a second flat op75 identical to that element's (72
+                // UINT constants at the member widths under a bare struct ts
+                // ref).  The DEF view keeps the bit_select, hence topView.
+                // Measured on BlackBePipeInt bp_be_pipe_int:15369
+                // `localparam bp_proc_param_s proc_param_lp =
+                // all_cfgs_gp[bp_params_p]`, where all_cfgs_gp is
+                // bp_common_pkg's 33-element `bp_proc_param_s [max_cfgs-1:0]`
+                // concat of the config parameters and bp_params_p is an enum
+                // parameter (e_bp_default_cfg = 0): golden's TOPMOD row is
+                // bp_default_cfg_p's flat op75 verbatim while its ALLMOD row
+                // is the bit_select.
+                // The concat is written MSB-ELEMENT FIRST, so element `idx` of
+                // a `[L:R]` array is operand `L - idx` (and `idx - L` for an
+                // ascending declaration).
+                if (!structRefPat9 && topView && !structOvPat &&
+                    ps.getType().getCanonicalType().kind ==
+                        SymbolKind::PackedStructType) {
+                    auto& sl9 = stripImplicitConv(*init);
+                    if (sl9.kind == ExpressionKind::ElementSelect) {
+                        auto& ab9 = stripImplicitConv(
+                            sl9.as<ElementSelectExpression>().value());
+                        const ParameterSymbol* ap9 = nullptr;
+                        if (ab9.kind == ExpressionKind::NamedValue &&
+                            ab9.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter)
+                            ap9 = &ab9.as<NamedValueExpression>()
+                                       .symbol.as<ParameterSymbol>();
+                        const Expression* ai9 =
+                            ap9 ? ap9->getInitializer() : nullptr;
+                        if (ap9 && ai9 &&
+                            ap9->getType().getCanonicalType().kind ==
+                                SymbolKind::PackedArrayType) {
+                            auto& at9 = ap9->getType().getCanonicalType();
+                            auto rg9 = at9.as<PackedArrayType>().range;
+                            auto& ae9 = stripImplicitConv(*ai9);
+                            std::span<const Expression* const> els9;
+                            if (ae9.kind == ExpressionKind::Concatenation)
+                                els9 = ae9.as<ConcatenationExpression>()
+                                           .operands();
+                            else if (ae9.kind ==
+                                     ExpressionKind::SimpleAssignmentPattern)
+                                els9 = ae9.as<SimpleAssignmentPatternExpression>()
+                                           .elements();
+                            ASTContext xc9(comp.getRoot(),
+                                           LookupLocation::max);
+                            ConstantValue xv9 = xc9.tryEval(
+                                sl9.as<ElementSelectExpression>().selector());
+                            std::optional<int32_t> ix9;
+                            if (xv9 && xv9.isInteger() &&
+                                !xv9.integer().hasUnknown())
+                                ix9 = xv9.integer().as<int32_t>();
+                            // The element list is RIGHT-ALIGNED in the array
+                            // value: BlackBePipeInt declares
+                            // `[max_cfgs-1:0]` with max_cfgs = 128 and then
+                            // names only 33 configs, so the position cannot
+                            // come from the declared range.  Count elements
+                            // from the range's LSB end (`right` for the usual
+                            // descending declaration) and index the concat
+                            // from ITS last operand, which is the one that
+                            // lands in the value's low bits.
+                            uint64_t ew9 =
+                                at9.as<PackedArrayType>().elementType.getBitWidth();
+                            bool same9 = ew9 > 0;
+                            for (auto* e9 : els9)
+                                if (!e9->type || !e9->type->isIntegral() ||
+                                    e9->type->getBitWidth() != ew9)
+                                    same9 = false;
+                            if (ix9 && same9 && !els9.empty()) {
+                                int64_t off9 = (int64_t)*ix9 - rg9.right;
+                                if (off9 < 0)
+                                    off9 = -off9;
+                                int64_t pos9 = (int64_t)els9.size() - 1 - off9;
+                                if (pos9 >= 0 && pos9 < (int64_t)els9.size())
+                                    if (auto* ep9 =
+                                            bareParamRef(*els9[(size_t)pos9]))
+                                        if (auto* ei9 = ep9->getInitializer()) {
+                                            auto& es9 = stripImplicitConv(*ei9);
+                                            if ((es9.kind ==
+                                                     ExpressionKind::
+                                                         StructuredAssignmentPattern ||
+                                                 es9.kind ==
+                                                     ExpressionKind::
+                                                         SimpleAssignmentPattern) &&
+                                                &ep9->getType()
+                                                        .getCanonicalType() ==
+                                                    &ps.getType()
+                                                         .getCanonicalType())
+                                                structRefPat9 = &es9;
+                                        }
+                            }
+                        }
+                    }
+                }
                 // WIDTH RULE: a PACKAGE struct-pattern param whose struct bit
                 // width EXCEEDS 64 keeps the tagged_pattern tree in the ELAB
                 // view too (Surelog's package def and elab views are byte-
@@ -8045,6 +8438,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                     op2->Operands(opnds);
                     rhs = op2;
+                    // § elabStructMemberFold — this listing's later member
+                    // reads of THIS param now resolve (see flatStructPat9).
+                    if (topView)
+                        flatStructPat9.insert(&member);
                 }
                 // A >64b struct param MATERIALIZED into an importing MODULE
                 // keeps the TAGGED tree in the module DEF view (and in both
@@ -9537,8 +9934,50 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // (Kmac KeccakRate: def-view operands are sz 64 with no
                     // op ts).
                     bool unpackedArrayTs9 = unpackedArrayOp && !defViewOrig9;
+                    // § elabLazyTernaryArrayNoTs — ...but an unpacked-array
+                    // param whose elab op came out of a LAZY TERNARY branch
+                    // (`localparam int P[N:0] = c ? '{...} : '{...}`) carries
+                    // NO typespec at all: Surelog hands back the taken
+                    // branch's own pattern, which was never tagged.
+                    // BlackBePipeInt {coh,mem,io}_noc_cord_markers_pos_p.
+                    if (unpackedArrayOp && lazyTernary9) {
+                        unpackedArrayTs9 = false;
+                        lazyTernary9 = false;
+                    }
+                    // § modImpStructRefTs — a MATERIALIZED IMPORT copy whose
+                    // init is a BARE REFERENCE to another struct parameter
+                    // (`localparam bp_proc_param_s bp_unicore_cfg_p =
+                    // bp_default_cfg_p`) re-emits as the referenced param's
+                    // flat op75 (RULE 5's substitution, run in ExprEmit), and
+                    // Surelog tags THAT op with the bare struct ts ref in
+                    // every module view — the same tag the wide flatten puts
+                    // on a pattern init.  Measured on BlackBePipeInt: golden
+                    // carries the ref on both ALLMOD rows (both import
+                    // blocks) and both TOPMOD rows, while bp_custom_cfg_p and
+                    // the bp_multicore_* family (pattern inits) carry it only
+                    // where their own flatten already puts it.
+                    bool structRefSubstOp9 =
+                        !inPackage && isImported && !structOvPat &&
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::PackedStructType &&
+                        opr->VpiOpType() == vpiAssignmentPatternOp && [&] {
+                            auto* rp9 = bareParamRef(*init);
+                            if (!rp9)
+                                return false;
+                            auto* ri9 = rp9->getInitializer();
+                            if (!ri9)
+                                return false;
+                            auto k9 = stripImplicitConv(*ri9).kind;
+                            return (k9 == ExpressionKind::
+                                              StructuredAssignmentPattern ||
+                                    k9 == ExpressionKind::
+                                              SimpleAssignmentPattern) &&
+                                   &rp9->getType().getCanonicalType() ==
+                                       &ps.getType().getCanonicalType();
+                        }();
                     if ((anyUnknown || packedArrayOp || unpackedArrayTs9 ||
-                         importedConcatOp || structOp || lazyTernary9) &&
+                         importedConcatOp || structOp || lazyTernary9 ||
+                         structRefSubstOp9) &&
                         !(opr->Typespec() &&
                           opr->Typespec()->Actual_typespec())) {
                         auto* rt = s.MakeRef_typespec();
@@ -9565,6 +10004,42 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
             }
             if (rhs) {
+                // § modDefReExportTs — a module's DEF-view import copy that
+                // arrives through a RE-EXPORTING item (`import bp_be_pkg::*`
+                // carrying bp_common_pkg's parameters; ImpOcc9::src holds the
+                // immediately-imported package) reproduces the RE-EXPORTER's
+                // own DEF listing row for row, including whether its Rhs
+                // operation carries a typespec ref.  Measured on
+                // BlackBePipeInt: golden's ALLMOD second import block agrees
+                // with bp_be_pkg[DEF] on all 197 rows, while the FIRST block
+                // (the params' home package) tags every operation but
+                // all_cfgs_gp.  The decision is not re-derivable here — inside
+                // the package it comes out of the member-select / scoped-
+                // reference rules keyed on THAT package's scope — so it is
+                // recorded as the package listings emit (always before the
+                // module ones) and replayed.
+                if (rhs->UhdmType() == UHDM::uhdmoperation) {
+                    auto* opR9 = (UHDM::operation*)rhs;
+                    if (inPackage && defViewOrig9)
+                        pkgDefOpTs9[{std::string(body.asSymbol().name),
+                                     &member}] = opR9->Typespec() != nullptr;
+                    else if (defViewOrig9 && !inPackage && occ9 &&
+                             !occ9->src.empty()) {
+                        if (auto kt9 = pkgDefOpTs9.find({occ9->src, &member});
+                            kt9 != pkgDefOpTs9.end()) {
+                            if (!kt9->second && opR9->Typespec()) {
+                                opR9->Typespec(nullptr);
+                                rhsRt = nullptr;
+                            }
+                            else if (kt9->second && !opR9->Typespec()) {
+                                auto* rt9 = s.MakeRef_typespec();
+                                rt9->VpiParent(opR9);
+                                opR9->Typespec(rt9);
+                                rhsRt = rt9;
+                            }
+                        }
+                    }
+                }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;
                 // A DEF-view param_assign is a DEEP-CLONED object at

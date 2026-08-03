@@ -2455,6 +2455,16 @@ private:
     // matching operand constant (Surelog shares it).
     std::map<const slang::ast::ParameterSymbol*, UHDM::operation*>
         elabArrayPatternOp;
+    // § modDefReExportTs — did package P's OWN DEF listing put a typespec ref
+    // on this parameter's Rhs operation?  A module's DEF-view import copy that
+    // comes from a RE-EXPORTING item (`import bp_be_pkg::*` carrying
+    // bp_common_pkg's parameters) reproduces the re-exporter's DEF listing
+    // row for row, so its op-typespec decision has to be read back from there
+    // rather than re-derived.  Keyed by (immediately-imported package name,
+    // parameter symbol); filled while the package DEF listings emit, which
+    // always precede the module ones.
+    std::map<std::pair<std::string, const slang::ast::Symbol*>, bool>
+        pkgDefOpTs9;
     // DEF-view gen-block localparam typespecs, SHARED into the elab param ref
     // (which parents them); a dangling unparented copy closes the tail.
     std::map<const slang::ast::ParameterSymbol*, UHDM::typespec*> defGenLpTs;
