@@ -789,6 +789,16 @@ private:
     UHDM::enum_typespec* buildImportAliasEnumTs(
         const slang::ast::TypeAliasType& ta, const slang::ast::EnumType& et,
         const std::string& refPrefix);
+    // An aggregate import clone's members bind their own typedefs' import
+    // clones; an enum-ALIAS import clone is the design's ONLY object for that
+    // typedef, so the home package's aggregates re-bind to it.
+    void bindImportCloneMembers(UHDM::typespec* cl, const slang::ast::Type& ct);
+    // Surelog's strtoull reduce of a size cast over a `?`-bearing based
+    // literal (see ParamEmit).
+    bool unknownBasedCastFold(const slang::ast::Expression& init,
+                              uint64_t& out);
+    void rebindAggMemberTs(const slang::ast::PackageSymbol& pkg,
+                           UHDM::typespec* from, UHDM::typespec* to);
     bool isRangedUntypedParam(const slang::ast::ParameterSymbol& ps);
     // Substitutes parameter leaves inside an elab child's part-select bound
     // OPERATION (see ModuleEmit).

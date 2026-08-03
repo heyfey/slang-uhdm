@@ -3157,6 +3157,10 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                         auto* ets = (UHDM::enum_typespec*)ts;
                         if (ets->Base_typespec())
                             ets->Base_typespec()->VpiFullName(scopedName);
+                        // An enum-ALIAS import copy's vpiTypedefAlias ref
+                        // takes the same module scoping as its base ref.
+                        if (ets->Typedef_alias())
+                            ets->Typedef_alias()->VpiFullName(scopedName);
                     }
                     // A struct/UNION typedef's elab (module vpiTypedef) view
                     // scopes its members work@<mod>.<pkg>::<name>.<m>; the def/

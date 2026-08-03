@@ -2875,8 +2875,45 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                                       SymbolKind::Package;
                                        }()))
                                       return true;
+                                  // A SIZE-CAST init ((W)'(v)) folds in the
+                                  // ELABORATED package listing too: the
+                                  // package elaboration reduces the cast to a
+                                  // plain integer, so the elab copy (and the
+                                  // import copies made from it) carry a value
+                                  // and the declaration's implicit
+                                  // int_typespec, while the DEF listing keeps
+                                  // NEITHER — measured on BlackBePipeInt's 48
+                                  // `localparam X = (dev_addr_width_gp)'(...)`
+                                  // localparams, where golden's def view has
+                                  // 56 typespec-less params and its elab view
+                                  // has 0.  A TYPE cast (`int'(x)`) is
+                                  // excluded: that shape already folds through
+                                  // its own path.
+                                  if (auto* isyn9 =
+                                          stripImplicitConv(*defaultInit)
+                                              .syntax;
+                                      isyn9 &&
+                                      isyn9->kind ==
+                                          syntax::SyntaxKind::CastExpression &&
+                                      !isTypeSyntaxKind(
+                                          isyn9->as<syntax::CastExpressionSyntax>()
+                                              .left->kind))
+                                      return true;
                                   return false;
                               }();
+            // ...and the `?`-bearing sibling of that same size-cast family:
+            // slang refuses to evaluate it (X/Z bits), so cv is unknown and
+            // pkgElabComputed above cannot fire — but Surelog's strtoull
+            // reduce DOES fold it, so the elaborated copy carries the folded
+            // UINT value and the declaration's implicit int_typespec exactly
+            // like its defined-digit siblings (BlackBePipeInt's 16
+            // `*_match_addr_gp`).
+            uint64_t unkCastVal0 = 0;
+            bool unkCastFold9 =
+                inPackage && topView && !typedParam && defaultInit &&
+                unknownBasedCastFold(*defaultInit, unkCastVal0);
+            if (unkCastFold9)
+                up->VpiValue("UINT:" + std::to_string(unkCastVal0));
             // A MATERIALIZED IMPORT copy of a param whose init is a USER
             // const-call carries the folded value and its own int typespec in
             // EVERY view of every importer — the copy is reduced once, where
@@ -3052,7 +3089,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) ||
-                      signedImplicitTs || pkgElabComputed ||
+                      signedImplicitTs || pkgElabComputed || unkCastFold9 ||
                       importedComputed9 || bitsFoldInit ||
                       ((literalInit || realLit) &&
                        (!unknownDefault || sizedBasedInit) && !decBasedInit));
@@ -5791,62 +5828,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // whole family stayed an unfolded vpiCastOp tree.
                 // (BlackBePipeInt bp_common_pkg *_match_addr_gp x16.)
                 else if (uint64_t unkCastVal9 = 0;
-                         inPackage && topView && !typedParam && init && [&] {
-                             auto& sc9 = stripImplicitConv(*init);
-                             if (sc9.kind != ExpressionKind::Conversion ||
-                                 sc9.as<ConversionExpression>().isImplicit() ||
-                                 !sc9.type || !sc9.syntax ||
-                                 sc9.syntax->kind !=
-                                     syntax::SyntaxKind::CastExpression ||
-                                 isTypeSyntaxKind(
-                                     sc9.syntax
-                                         ->as<syntax::CastExpressionSyntax>()
-                                         .left->kind))
-                                 return false;
-                             const Expression* in9 = &stripImplicitConv(
-                                 sc9.as<ConversionExpression>().operand());
-                             while (in9->kind == ExpressionKind::Conversion)
-                                 in9 = &stripImplicitConv(
-                                     in9->as<ConversionExpression>().operand());
-                             if (in9->kind != ExpressionKind::IntegerLiteral)
-                                 return false;
-                             ASTContext uc9(comp.getRoot(), LookupLocation::max);
-                             auto ucv9 = uc9.tryEval(*in9);
-                             if (!ucv9 || !ucv9.isInteger() ||
-                                 !ucv9.integer().hasUnknown())
-                                 return false;
-                             std::string raw9(rawText(in9->sourceRange));
-                             auto tk9 = raw9.find('\'');
-                             if (tk9 == std::string::npos)
-                                 return false;
-                             size_t bp9 = tk9 + 1;
-                             if (bp9 < raw9.size() &&
-                                 (raw9[bp9] == 's' || raw9[bp9] == 'S'))
-                                 bp9++;
-                             if (bp9 >= raw9.size())
-                                 return false;
-                             int base9 = 0;
-                             switch (raw9[bp9]) {
-                                 case 'b': case 'B': base9 = 2; break;
-                                 case 'o': case 'O': base9 = 8; break;
-                                 case 'd': case 'D': base9 = 10; break;
-                                 case 'h': case 'H': base9 = 16; break;
-                                 default: return false;
-                             }
-                             std::string dig9;
-                             for (size_t i9 = bp9 + 1; i9 < raw9.size(); i9++)
-                                 if (raw9[i9] != '_')
-                                     dig9 += raw9[i9];
-                             if (dig9.empty())
-                                 return false;
-                             uint64_t v9 =
-                                 strtoull(dig9.c_str(), nullptr, base9);
-                             uint64_t w9 = sc9.type->getBitWidth();
-                             if (w9 > 0 && w9 < 64)
-                                 v9 &= ((uint64_t)1 << w9) - 1;
-                             unkCastVal9 = v9;
-                             return true;
-                         }()) {
+                         inPackage && topView && !typedParam && init &&
+                             unknownBasedCastFold(*init, unkCastVal9)) {
                     auto* c = s.MakeConstant();
                     std::string dg9 = std::to_string(unkCastVal9);
                     c->VpiDecompile(dg9);
@@ -10947,6 +10930,151 @@ UHDM::enum_typespec* UhdmExporter::buildImportAliasEnumTs(
     return outer;
 }
 
+// A size cast over a based literal carrying UNKNOWN digits
+// ((dev_addr_width_gp)'('h0_c???)) still FOLDS in the elaborated package
+// listing: Surelog's ExprEval converts the literal with strtoull, which stops
+// at the first character that is not a digit of the base, so `'h0_c???`
+// reduces to 0x0c = 12 and `'h001?_????` to 0x001 = 1.  The result is then
+// truncated to the cast width.  slang carries the X/Z bits and refuses to
+// evaluate, so this whole family would otherwise stay an unfolded vpiCastOp
+// tree with no value and no typespec.
+// (BlackBePipeInt bp_common_pkg *_match_addr_gp x16.)
+bool UhdmExporter::unknownBasedCastFold(const Expression& init, uint64_t& out) {
+    auto& sc9 = stripImplicitConv(init);
+    if (sc9.kind != ExpressionKind::Conversion ||
+        sc9.as<ConversionExpression>().isImplicit() || !sc9.type || !sc9.syntax ||
+        sc9.syntax->kind != syntax::SyntaxKind::CastExpression ||
+        isTypeSyntaxKind(
+            sc9.syntax->as<syntax::CastExpressionSyntax>().left->kind))
+        return false;
+    const Expression* in9 =
+        &stripImplicitConv(sc9.as<ConversionExpression>().operand());
+    while (in9->kind == ExpressionKind::Conversion)
+        in9 = &stripImplicitConv(in9->as<ConversionExpression>().operand());
+    if (in9->kind != ExpressionKind::IntegerLiteral)
+        return false;
+    ASTContext uc9(comp.getRoot(), LookupLocation::max);
+    auto ucv9 = uc9.tryEval(*in9);
+    if (!ucv9 || !ucv9.isInteger() || !ucv9.integer().hasUnknown())
+        return false;
+    std::string raw9(rawText(in9->sourceRange));
+    auto tk9 = raw9.find('\'');
+    if (tk9 == std::string::npos)
+        return false;
+    size_t bp9 = tk9 + 1;
+    if (bp9 < raw9.size() && (raw9[bp9] == 's' || raw9[bp9] == 'S'))
+        bp9++;
+    if (bp9 >= raw9.size())
+        return false;
+    int base9 = 0;
+    switch (raw9[bp9]) {
+        case 'b': case 'B': base9 = 2; break;
+        case 'o': case 'O': base9 = 8; break;
+        case 'd': case 'D': base9 = 10; break;
+        case 'h': case 'H': base9 = 16; break;
+        default: return false;
+    }
+    std::string dig9;
+    for (size_t i9 = bp9 + 1; i9 < raw9.size(); i9++)
+        if (raw9[i9] != '_')
+            dig9 += raw9[i9];
+    if (dig9.empty())
+        return false;
+    uint64_t v9 = strtoull(dig9.c_str(), nullptr, base9);
+    uint64_t w9 = sc9.type->getBitWidth();
+    if (w9 > 0 && w9 < 64)
+        v9 &= ((uint64_t)1 << w9) - 1;
+    out = v9;
+    return true;
+}
+
+// The typespec_member vector of a struct/union typespec (nullptr otherwise).
+static UHDM::VectorOftypespec_member* aggMembersOf(UHDM::typespec* ts) {
+    if (!ts)
+        return nullptr;
+    if (ts->UhdmType() == UHDM::uhdmstruct_typespec)
+        return ((UHDM::struct_typespec*)ts)->Members();
+    if (ts->UhdmType() == UHDM::uhdmunion_typespec)
+        return ((UHDM::union_typespec*)ts)->Members();
+    return nullptr;
+}
+
+// The aggregate SCOPE behind a canonical type (nullptr when not aggregate).
+static const Scope* aggScopeOf(const Type& ct) {
+    switch (ct.kind) {
+        case SymbolKind::PackedStructType:
+            return &ct.as<PackedStructType>();
+        case SymbolKind::UnpackedStructType:
+            return &ct.as<UnpackedStructType>();
+        case SymbolKind::PackedUnionType:
+            return &ct.as<PackedUnionType>();
+        case SymbolKind::UnpackedUnionType:
+            return &ct.as<UnpackedUnionType>();
+        default:
+            return nullptr;
+    }
+}
+
+// An aggregate IMPORT CLONE binds each member typed by another typedef to
+// THAT typedef's import clone, not to a fresh typespec or to the home
+// package's object: Surelog copies the importing package's whole datatype map
+// and resolves members against it, so every member of an import copy is
+// itself an import copy (BlackBePipeInt bp_bedrock_msg_u).
+void UhdmExporter::bindImportCloneMembers(UHDM::typespec* cl, const Type& ct) {
+    auto* mems = aggMembersOf(cl);
+    const Scope* sc = aggScopeOf(ct);
+    if (!mems || !sc)
+        return;
+    size_t mi = 0;
+    for (auto& fm : sc->membersOfType<FieldSymbol>()) {
+        if (mi >= mems->size())
+            break;
+        auto* tm = (*mems)[mi++];
+        if (!tm->Typespec())
+            continue;
+        auto& fty = fm.getDeclaredType()->getType();
+        if (fty.kind != SymbolKind::TypeAlias)
+            continue;
+        if (auto ic = pkgImportCloneTs.find(
+                (const Symbol*)&fty.as<TypeAliasType>());
+            ic != pkgImportCloneTs.end() && ic->second &&
+            ic->second != tm->Typespec()->Actual_typespec())
+            tm->Typespec()->Actual_typespec(ic->second);
+    }
+}
+
+// Repoint every aggregate MEMBER reference inside a package's already-emitted
+// typespec listings from one typespec object to another (used when an import
+// copy turns out to be the design's single object for a typedef the home
+// package never lists).
+void UhdmExporter::rebindAggMemberTs(const PackageSymbol& pkg,
+                                     UHDM::typespec* from,
+                                     UHDM::typespec* to) {
+    if (!from || !to || from == to)
+        return;
+    std::set<UHDM::typespec*> seen;
+    std::function<void(UHDM::typespec*)> walk = [&](UHDM::typespec* ts) {
+        if (!ts || !seen.insert(ts).second)
+            return;
+        auto* mems = aggMembersOf(ts);
+        if (!mems)
+            return;
+        for (auto* tm : *mems) {
+            if (!tm->Typespec())
+                continue;
+            if (tm->Typespec()->Actual_typespec() == from)
+                tm->Typespec()->Actual_typespec(to);
+            else
+                walk(tm->Typespec()->Actual_typespec());
+        }
+    };
+    for (auto* mp : {&pkgDefMap, &pkgTopMap})
+        if (auto it = mp->find((const void*)&pkg); it != mp->end())
+            if (it->second && it->second->Typespecs())
+                for (auto* ts : *it->second->Typespecs())
+                    walk(ts);
+}
+
 // A LOC-LESS bare logic_typespec clone of a vector param's packed range;
 // bound constants carry ONLY the UINT value (parented at the range when
 // parentBounds).
@@ -12402,12 +12530,41 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                                      (UHDM::typespec*)scl);
                             continue;
                         }
+                        // An enum-ALIAS typedef (`typedef fwd_e rev_e;`) has
+                        // no enum syntax of its own, so its import copy is
+                        // built from the BASE typedef's declaration: spanned
+                        // at the BASE typedef (not the alias line), carrying
+                        // that declaration's own base logic_typespec, and
+                        // linked vpiTypedefAlias -> the import copy of the
+                        // BASE typedef (Surelog re-elaborates the alias
+                        // through the datatype map, which holds the resolved
+                        // enum — BlackBePipeInt bp_bedrock_rev_type_e).
+                        const TypeAliasType* aliasTgt2 = nullptr;
+                        const syntax::SyntaxNode* eSyn2 = tSyn2;
+                        const syntax::SyntaxNode* eDecl2 = dSyn2;
+                        if (ct2.kind == SymbolKind::EnumType &&
+                            ta2.targetType.getType().kind ==
+                                SymbolKind::TypeAlias) {
+                            aliasTgt2 =
+                                &ta2.targetType.getType().as<TypeAliasType>();
+                            if (auto aSyn2 = aliasTgt2->getSyntax();
+                                aSyn2 &&
+                                aSyn2->kind ==
+                                    syntax::SyntaxKind::TypedefDeclaration) {
+                                eSyn2 = aSyn2->as<
+                                                syntax::TypedefDeclarationSyntax>()
+                                            .type;
+                                eDecl2 = aSyn2;
+                            }
+                            else
+                                aliasTgt2 = nullptr;
+                        }
                         importCloneEmit = true;
-                        auto* ecl = buildEnumTs(ct2.as<EnumType>(), tSyn2, nm2);
+                        auto* ecl = buildEnumTs(ct2.as<EnumType>(), eSyn2, nm2);
                         importCloneEmit = false;
                         ecl->VpiName(nm2);
-                        if (dSyn2)
-                            setLoc(ecl, dSyn2->sourceRange());
+                        if (eDecl2)
+                            setLoc(ecl, eDecl2->sourceRange());
                         ecl->Instance((UHDM::instance*)up);
                         if (ecl->Base_typespec() &&
                             ecl->Base_typespec()->Actual_typespec())
@@ -12416,6 +12573,27 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 ecl->Base_typespec()
                                     ->Actual_typespec()
                                     ->Instance(hip2->second);
+                        if (aliasTgt2) {
+                            if (auto bit2 = pkgImportCloneTs.find(
+                                    (const Symbol*)aliasTgt2);
+                                bit2 != pkgImportCloneTs.end()) {
+                                auto* ar2 = s.MakeRef_typespec();
+                                ar2->VpiFullName(nm2);
+                                ar2->VpiParent(ecl);
+                                ar2->Actual_typespec(bit2->second);
+                                ecl->Typedef_alias(ar2);
+                            }
+                            // An enum-ALIAS typedef gets exactly ONE typespec
+                            // object in the design: the home package never
+                            // LISTS it (writeDataTypes skips a datatype whose
+                            // definition is another typedef), so the import
+                            // copy is also what the home package's own
+                            // aggregates bind — Surelog resolves the member
+                            // late and the import copy is the last writer.
+                            if (auto hIt2 = typedefTs.find(&pm);
+                                hIt2 != typedefTs.end() && hIt2->second != ecl)
+                                rebindAggMemberTs(*spkg, hIt2->second, ecl);
+                        }
                         pkgImportCloneTs[&pm] = ecl;
                         if (!topView)
                             defPassOwnedTs.insert(ecl);
@@ -12494,6 +12672,14 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                      "::" + std::string(ta8.name));
                         if (tSyn8)
                             setLoc(cl8, tSyn8->sourceRange());
+                        // An AGGREGATE clone (packed union) built here comes
+                        // out with FRESH scalar member typespecs; a member
+                        // typed by another typedef of the same home package
+                        // binds THAT typedef's import copy instead — the same
+                        // law the enum/struct branch above applies to struct
+                        // members (BlackBePipeInt bp_bedrock_msg_u, whose six
+                        // members are all bp_common_pkg enums).
+                        bindImportCloneMembers(cl8, ta8.getCanonicalType());
                         pkgImportCloneTs[tdSym] = cl8;
                         if (!topView)
                             defPassOwnedTs.insert(cl8);
