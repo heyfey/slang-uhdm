@@ -395,6 +395,20 @@ const slang::syntax::SyntaxNode* UhdmExporter::findParamSizeCast(
     return nullptr;
 }
 
+// How many PACKED dimensions a type declares — Surelog's
+// CompileHelper::isMultidimensional reads the same count off the emitted
+// typespec's Ranges() (the ParamEmit.cpp copy of this helper carries the
+// full note).
+static int packedDimCountE(const Type& t) {
+    int n = 0;
+    const Type* ct = &t.getCanonicalType();
+    while (ct->kind == SymbolKind::PackedArrayType) {
+        n++;
+        ct = &ct->as<PackedArrayType>().elementType.getCanonicalType();
+    }
+    return n;
+}
+
 // Would Surelog's DEFINITION compile fold `$bits(<arg>)`?  `compileBits`
 // folds only when `getTypespec()` resolves the argument to a FULLY SPECIFIED
 // typespec, and `getTypespec` looks in exactly three places: the built-in
@@ -2032,10 +2046,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // func_forloop_onehot (sized) to the same module with the call
                 // under a `^` (unsized); Scr1SvTests width2axsize (ternary
                 // operand) and mem_read (`<=` RHS) are both unsized in golden.
+                // ...and the same sizing reaches the body from a PARAMETER
+                // reduction that executes the function (§
+                // subEvaluatedFromParamInit).  There the LHS must be the WHOLE
+                // variable: `b[0] = '1;` in an executed body keeps `'1`/-1
+                // (probe t7), because ExprEval's select arm writes one bit
+                // rather than re-sizing the literal.
+                bool paramEvalSize9 =
+                    currentSubSym && !pkgSub9 &&
+                    stripImplicitConv(ae.left()).kind ==
+                        ExpressionKind::NamedValue &&
+                    subEvaluatedFromParamInit(*currentSubSym);
                 if (currentSubSym && !pkgSub9 &&
                     rhs->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::expr*)rhs)->VpiSize() == -1 &&
-                    subCalledAsContAssignRhs(*currentSubSym) &&
+                    (subCalledAsContAssignRhs(*currentSubSym) ||
+                     paramEvalSize9) &&
                     stripImplicitConv(*rhsExpr).kind ==
                         ExpressionKind::UnbasedUnsizedIntegerLiteral) {
                     int32_t w = (int32_t)ae.left().type->getBitWidth();
@@ -5360,24 +5386,71 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // in-tree constant): func_upto's kept F(A_CONST, B_CONST)
                     // carries two UINT constants, not A_CONST/B_CONST refs.
                     bool elabParamArgFold = false;
-                    if (inParamInit && !paramInitDef && !paramInitPkg && isFunc &&
-                        !currentTf && callArgDepth == 1 && a &&
+                    if (inParamInit && !paramInitDef && !paramInitPkg &&
+                        isFunc && !currentTf && callArgDepth == 1 && a &&
                         a->UhdmType() == UHDM::uhdmref_obj) {
                         auto& ba9 = stripImplicitConv(*arg);
                         if (ba9.kind == ExpressionKind::NamedValue &&
                             ba9.as<NamedValueExpression>().symbol.kind ==
                                 SymbolKind::Parameter) {
-                            auto& pv9 = ba9.as<NamedValueExpression>()
-                                            .symbol.as<ParameterSymbol>()
-                                            .getValue();
-                            if (pv9.isInteger() && !pv9.integer().hasUnknown()) {
-                                std::string dg9 = pv9.integer().toString(
-                                    LiteralBase::Decimal, false);
+                            auto& psy9 = ba9.as<NamedValueExpression>()
+                                             .symbol.as<ParameterSymbol>();
+                            auto& pv9 = psy9.getValue();
+                            // Reduce::No on the ENCLOSING multidimensional
+                            // parameter does not stop instance parameter
+                            // binding: a reference whose parameter already
+                            // HOLDS an elaborated constant is still replaced by
+                            // it (probe t8: `bit [3:0][15:0] Q2 = g2(N, W)`
+                            // substitutes the port param N AND the plain
+                            // localparam W).  What it cannot do is REDUCE — so
+                            // a reference to a parameter whose own Rhs stayed a
+                            // func_call is left as the ref_obj (FuncInModule
+                            // `get_offset_list(SUB_N_LIST_P)`).
+                            bool refSymCall9 = false;
+                            if (elabMdimParamInit) {
+                                auto rit9 = paramRhsObj.find(&psy9);
+                                refSymCall9 =
+                                    rit9 != paramRhsObj.end() && rit9->second &&
+                                    rit9->second->UhdmType() ==
+                                        UHDM::uhdmfunc_call;
+                            }
+                            if (!refSymCall9 && pv9.isInteger() &&
+                                !pv9.integer().hasUnknown()) {
                                 auto* c9 = s.MakeConstant();
-                                c9->VpiDecompile(dg9);
-                                c9->VpiSize((int32_t)pv9.integer().getBitWidth());
-                                c9->VpiValue("UINT:" + dg9);
-                                c9->VpiConstType(vpiUIntConst);
+                                // A MULTIDIMENSIONAL parameter has no folded
+                                // constant of its own to hand over (its own
+                                // param_assign Rhs stayed symbolic, Reduce::No),
+                                // so evalFunc materialises the value it computed
+                                // for the binding as a plain BIN vector at the
+                                // parameter's width — measured on
+                                // `int R5 = hbad(R3)` with
+                                // `bit [3:0][15:0] R3` (r10fim probe t5): a
+                                // 64-digit BIN, against `bit [63:0] R4`'s
+                                // INT/UINT hand-over one line below.
+                                if (packedDimCountE(psy9.getType()) > 1) {
+                                    int32_t w9 =
+                                        (int32_t)psy9.getType().getBitWidth();
+                                    if (w9 <= 0)
+                                        w9 = (int32_t)pv9.integer().getBitWidth();
+                                    auto wv9 =
+                                        pv9.integer().resize((bitwidth_t)w9);
+                                    std::string bits9;
+                                    for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
+                                        bits9 += wv9[i9] == logic_t(1) ? '1' : '0';
+                                    c9->VpiDecompile(bits9);
+                                    c9->VpiSize(w9);
+                                    c9->VpiValue("BIN:" + bits9);
+                                    c9->VpiConstType(vpiBinaryConst);
+                                }
+                                else {
+                                    std::string dg9 = pv9.integer().toString(
+                                        LiteralBase::Decimal, false);
+                                    c9->VpiDecompile(dg9);
+                                    c9->VpiSize(
+                                        (int32_t)pv9.integer().getBitWidth());
+                                    c9->VpiValue("UINT:" + dg9);
+                                    c9->VpiConstType(vpiUIntConst);
+                                }
                                 c9->VpiParent(fc);
                                 setLoc(c9, arg->sourceRange);
                                 a = c9;
@@ -5459,6 +5532,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     if (dpit != defParamTsRef.end() && dpit->second)
                                         dpit->second->Actual_typespec(
                                             si.argTs[argIdx].first);
+                                }
+                                // ...and in the ELAB view of a parameter
+                                // initializer the same binding writes through
+                                // to whatever the reference RESOLVES to.  When
+                                // the referenced parameter's own Rhs stayed a
+                                // symbolic func_call (no value to hand over),
+                                // that call IS the resolved object, so it —
+                                // not the bare ref actual — ends up carrying
+                                // the formal's typespec: FuncInModule's
+                                // `get_sub_n_list(N)` Rhs picks up the
+                                // `bit [N-1:0][15:0] sub_n_list` typespec of
+                                // get_offset_list, the formal SUB_N_LIST_P is
+                                // passed to one line below.
+                                // Only when the actual STAYED a reference: an
+                                // argument the elaborator replaced by the
+                                // parameter's value carries the stamp on that
+                                // constant instead (NEXT_N's OFFSET_LIST arg),
+                                // and get_offset_list's own Rhs call is left
+                                // bare in the golden.
+                                if (inParamInit && !paramInitDef && isFunc &&
+                                    !currentTf && !elabParamArgFold &&
+                                    a->UhdmType() == UHDM::uhdmref_obj &&
+                                    sk == SymbolKind::Parameter &&
+                                    argIdx < si.argTs.size() &&
+                                    si.argTs[argIdx].first) {
+                                    auto rit = paramRhsObj.find(
+                                        &baseArg.as<NamedValueExpression>().symbol);
+                                    if (rit != paramRhsObj.end() && rit->second &&
+                                        rit->second->UhdmType() ==
+                                            UHDM::uhdmfunc_call) {
+                                        auto* fcp = (UHDM::func_call*)rit->second;
+                                        if (!fcp->Typespec()) {
+                                            std::string tsPfx = prefix;
+                                            if (tsPfx.size() >= 2 &&
+                                                tsPfx.compare(tsPfx.size() - 2, 2,
+                                                              "::") == 0)
+                                                tsPfx.resize(tsPfx.size() - 2);
+                                            auto* rtp = s.MakeRef_typespec();
+                                            rtp->VpiFullName(tsPfx);
+                                            rtp->VpiParent(fcp);
+                                            rtp->Actual_typespec(
+                                                si.argTs[argIdx].first);
+                                            fcp->Typespec(rtp);
+                                        }
+                                    }
                                 }
                             }
                         }

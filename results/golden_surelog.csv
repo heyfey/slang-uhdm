@@ -517,8 +517,8 @@ FuncDef2,default,SLANG_REJECT,dut.sv:411:3: error: use of undeclared identifier 
 FuncDef2,testflags,SLANG_REJECT,dut.sv:411:3: error: use of undeclared identifier 'tnoc_types',,
 FuncDefaultVal,default,SLANG_REJECT,dut.sv:6:13: error: use of undeclared identifier 'opcode',,
 FuncDefaultVal,testflags,SLANG_REJECT,dut.sv:6:13: error: use of undeclared identifier 'opcode',,
-FuncInModule,default,CMP_NOTEQUAL,decompile:,,
-FuncInModule,testflags,CMP_NOTEQUAL,decompile:,,
+FuncInModule,default,CMP_EQUAL,,,differ
+FuncInModule,testflags,CMP_EQUAL,,,differ
 FuncIoTypespec,default,CMP_NOTEQUAL,decompile:,,
 FuncIoTypespec,testflags,CMP_NOTEQUAL,decompile:,,
 FuncNoArgs,default,CMP_EQUAL,,,match

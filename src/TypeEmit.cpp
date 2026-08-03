@@ -2225,6 +2225,109 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (auto* he = emitInitHier(r))
                                 return he;
                         }
+                        // A packed-range bound that READS a parameter whose own
+                        // elab Rhs stayed a symbolic const call has no value to
+                        // fold: Surelog substitutes the CALL for the reference
+                        // (arguments already reduced) and leaves the enclosing
+                        // arithmetic as an operation.  FuncInModule's
+                        // `logic [NEXT_N-1:0][WIDTH-1:0] next_data` keeps
+                        // `get_next_n(<64'b..>) - 1` while the second dim's
+                        // `WIDTH-1` — a plain valued parameter — folds to 1 in
+                        // the same typespec.
+                        const ParameterSymbol* symCallParam = nullptr;
+                        if (bsyn && currentScope && !memberInitParam &&
+                            !ovHierParam && !tfContext && !bitsOfSignal &&
+                            !bareParamInParamTs && !defModuleParamDim &&
+                            !ifacePortBound && !defPortDim) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            if (!be.bad())
+                                be.visit(makeVisitor(
+                                    [&](auto& v, const NamedValueExpression& nv) {
+                                        if (!symCallParam &&
+                                            nv.symbol.kind ==
+                                                SymbolKind::Parameter &&
+                                            elabParamCallSymbolic(
+                                                nv.symbol.as<ParameterSymbol>()))
+                                            symCallParam =
+                                                &nv.symbol.as<ParameterSymbol>();
+                                        v.visitDefault(nv);
+                                    }));
+                        }
+                        if (symCallParam) {
+                            ASTContext bctx(*currentScope, LookupLocation::max);
+                            auto& be = Expression::bind(*bsyn, bctx);
+                            NetMap none;
+                            std::string bpfx = boundOwnerFullName;
+                            // Re-emit the parameter's own call at the reference
+                            // token's span, carrying a ts ref scoped under the
+                            // declaring signal whose actual is the parameter's
+                            // typespec (the same shape the ovHierParam and
+                            // memberInitParam substitutions take).
+                            auto emitSymCall =
+                                [&](UHDM::BaseClass* par,
+                                    const syntax::ExpressionSyntax* anchor)
+                                -> UHDM::expr* {
+                                bool sIP = inParamInit, sPD = paramInitDef;
+                                bool sPP = paramInitPkg, sMD = elabMdimParamInit;
+                                inParamInit = true;
+                                paramInitDef = false;
+                                paramInitPkg = false;
+                                elabMdimParamInit = false;
+                                auto* ce = (UHDM::expr*)emitExpr(
+                                    *symCallParam->getInitializer(), par, bpfx,
+                                    none);
+                                inParamInit = sIP;
+                                paramInitDef = sPD;
+                                paramInitPkg = sPP;
+                                elabMdimParamInit = sMD;
+                                if (ce) {
+                                    if (anchor)
+                                        setLoc(ce, anchor->sourceRange());
+                                    auto* rt = s.MakeRef_typespec();
+                                    rt->VpiFullName(bpfx);
+                                    rt->VpiParent(ce);
+                                    auto* its = s.MakeInt_typespec();
+                                    if (auto dt = symCallParam->getDeclaredType())
+                                        if (auto* tsyn = dt->getTypeSyntax())
+                                            setLoc(its, tsyn->sourceRange());
+                                    if (symCallParam->getType().isSigned())
+                                        its->VpiSigned(true);
+                                    rt->Actual_typespec(its);
+                                    if (ce->UhdmType() == UHDM::uhdmfunc_call)
+                                        ((UHDM::func_call*)ce)->Typespec(rt);
+                                }
+                                return ce;
+                            };
+                            if (!be.bad() &&
+                                stripImplicitConv(be).kind ==
+                                    ExpressionKind::BinaryOp &&
+                                syntax::BinaryExpressionSyntax::isKind(
+                                    bsyn->kind)) {
+                                auto& bin =
+                                    stripImplicitConv(be).as<BinaryExpression>();
+                                auto& bsx =
+                                    bsyn->as<syntax::BinaryExpressionSyntax>();
+                                auto* op = s.MakeOperation();
+                                op->VpiOpType(mapBinaryOp(bin.op));
+                                op->VpiParent(r);
+                                setLoc(op, bsyn->sourceRange());
+                                auto* operands = s.MakeAnyVec();
+                                if (auto* l = emitSymCall(op, bsx.left))
+                                    operands->push_back(l);
+                                int64_t rval = 1;
+                                if (auto rcv = bctx.tryEval(bin.right());
+                                    rcv && rcv.isInteger())
+                                    rval = *rcv.integer().as<int64_t>();
+                                operands->push_back(
+                                    makeBoundConst(bsx.right, rval, op));
+                                op->Operands(operands);
+                                return op;
+                            }
+                            if (bsyn->kind == syntax::SyntaxKind::IdentifierName)
+                                if (auto* he = emitSymCall(r, bsyn))
+                                    return he;
+                        }
                         if ((tfContext && !tfFormalTs) || bitsOfSignal ||
                             bareParamInParamTs || defModuleParamDim ||
                             ifacePortBound || structMemberSymBound ||

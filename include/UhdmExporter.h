@@ -819,6 +819,11 @@ private:
     // True when Surelog's ExprEval reduces this const function to one
     // constant (the three measured bail rules — see ParamEmit).
     bool srlgEvalFuncFolds(const slang::ast::SubroutineSymbol& sub);
+    // True when this MODULE parameter's ELAB Rhs stays the symbolic func_call
+    // the def view holds — the parameter then has no value to substitute at a
+    // reference, and Surelog inlines the call itself instead (see the
+    // symCallParam arm in TypeEmit's packed-range bounds).
+    bool elabParamCallSymbolic(const slang::ast::ParameterSymbol& ps);
 
     // ---- EvalFunc member-assignment leftovers -------------------------------
     // A const function that builds its packed-struct result MEMBER BY MEMBER
@@ -1485,6 +1490,12 @@ private:
     // gates the reduce), so same-package param references inside the init stay
     // ref_objs in the elab view instead of folding to constants.
     bool pkgElabSymOperands = false;
+    // ELAB (top) view of a MODULE-scope MULTIDIMENSIONAL param (>1 packed
+    // range) — the same CompileHelper::isMultidimensional / Reduce::No gate
+    // pkgElabSymOperands names for packages.  Its func_call Rhs keeps the DEF
+    // argument tree: a localparam ref argument stays a ref_obj instead of
+    // folding to the parameter's elaborated value (FuncInModule OFFSET_LIST).
+    bool elabMdimParamInit = false;
     // ELAB package view of a struct param whose tagged_pattern tree SURVIVES
     // (no `pkg::NAME` reference drives the flatten pass): Surelog still reduces
     // each member VALUE that is an expression to a constant in place, leaving
@@ -1897,6 +1908,11 @@ private:
     // unbased-unsized RHS rule in ExprEmit). Memoized per subroutine.
     bool subCalledAsContAssignRhs(const slang::ast::SubroutineSymbol& sub);
     std::map<const slang::ast::SubroutineSymbol*, bool> subContAssignRhsCache;
+    // True when Surelog's ExprEval actually EXECUTES this subroutine while
+    // reducing a parameter of its own instance body — see TaskFuncEmit.cpp.
+    bool subEvaluatedFromParamInit(const slang::ast::SubroutineSymbol& sub);
+    std::map<const slang::ast::Scope*, std::set<const slang::ast::SubroutineSymbol*>>
+        paramEvalSubsCache;
     // § memberActualLeak — the blocking assignments whose LHS member of a
     // local struct variable Surelog's constant evaluator stamps onto the
     // struct typespec_member as vpiActual_value.  See TaskFuncEmit.cpp.

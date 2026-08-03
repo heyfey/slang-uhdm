@@ -130,6 +130,113 @@ bool UhdmExporter::subCalledAsContAssignRhs(const SubroutineSymbol& sub) {
     return found;
 }
 
+// § subEvaluatedFromParamInit — the subroutines Surelog's ExprEval really
+// RUNS while elaborating an instance's parameters.
+//
+// Reducing a parameter's Rhs executes every function it calls, and resolving a
+// parameter REFERENCE inside such an Rhs demands that parameter's value, which
+// executes the functions ITS Rhs calls, and so on.  Execution mutates the
+// shared body: an unbased-unsized literal assigned to a whole variable is
+// rewritten to that variable's width (the § subCalledAsContAssignRhs rule
+// again, reached from the parameter side instead of the cont-assign side).
+//
+// The ENTRY points are the parameters Surelog reduces at all — a
+// MULTIDIMENSIONAL one is compiled with Reduce::No, so its Rhs alone never
+// runs anything.  Measured (r10fim probes t3/t5/t7), one function body holding
+// `l = '0;` and only the parameter declarations varied:
+//
+//   localparam int             R1 = h2(N);   -> h2's `l = '0;` becomes 64 zeros
+//   localparam bit [3:0][15:0] P1 = f1(N);   -> f1's `l = '0;` stays `'0`/-1
+//   initial z = f9(1);                       -> f9's `l = '0;` stays `'0`/-1
+//
+// and the chain is transitive through the multidimensional parameters
+// themselves: FuncInModule's only reduced parameter is `int NEXT_N =
+// get_next_n(OFFSET_LIST)`, whose argument pulls OFFSET_LIST's value, which
+// pulls SUB_N_LIST_P's, which finally runs get_sub_n_list — the function that
+// owns the expanded literal.
+bool UhdmExporter::subEvaluatedFromParamInit(const SubroutineSymbol& sub) {
+    const Scope* home = nullptr;
+    for (auto sc = sub.getParentScope(); sc; sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::InstanceBody) {
+            home = sc;
+            break;
+        }
+    if (!home)
+        return false;
+    auto it = paramEvalSubsCache.find(home);
+    if (it == paramEvalSubsCache.end()) {
+        std::set<const SubroutineSymbol*> reached;
+        std::set<const slang::ast::ParameterSymbol*> seenParams;
+        std::function<void(const Expression&)> walkExpr;
+        std::function<void(const SubroutineSymbol&)> walkSub =
+            [&](const SubroutineSymbol& s0) {
+                if (!reached.insert(&s0).second)
+                    return;
+                s0.getBody().visit(makeVisitor(
+                    [&](auto& v, std::derived_from<Expression> auto& e) {
+                        walkExpr(e);
+                        v.visitDefault(e);
+                    }));
+            };
+        std::function<void(const slang::ast::ParameterSymbol&)> walkParam =
+            [&](const slang::ast::ParameterSymbol& p0) {
+                if (!seenParams.insert(&p0).second)
+                    return;
+                if (auto* pi = p0.getInitializer())
+                    pi->visit(makeVisitor(
+                        [&](auto& v, std::derived_from<Expression> auto& e) {
+                            walkExpr(e);
+                            v.visitDefault(e);
+                        }));
+            };
+        walkExpr = [&](const Expression& e) {
+            if (e.kind == ExpressionKind::Call) {
+                auto& ce = e.as<CallExpression>();
+                if (!ce.isSystemCall())
+                    if (auto* sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine))
+                        walkSub(**sp);
+            }
+            else if (e.kind == ExpressionKind::NamedValue) {
+                auto& sy = e.as<NamedValueExpression>().symbol;
+                if (sy.kind == SymbolKind::Parameter)
+                    walkParam(sy.as<slang::ast::ParameterSymbol>());
+            }
+            else if (e.kind == ExpressionKind::HierarchicalValue) {
+                auto& sy = e.as<HierarchicalValueExpression>().symbol;
+                if (sy.kind == SymbolKind::Parameter)
+                    walkParam(sy.as<slang::ast::ParameterSymbol>());
+            }
+        };
+        std::function<void(const Scope&)> seed = [&](const Scope& sc) {
+            for (auto& mem : sc.members()) {
+                if (mem.kind == SymbolKind::Parameter) {
+                    auto& p0 = mem.as<slang::ast::ParameterSymbol>();
+                    // Reduce::No for a multidimensional parameter: it is not
+                    // an entry point, though it can still be REACHED as a
+                    // value dependency of one that is.
+                    int nd = 0;
+                    const Type* ct = &p0.getType().getCanonicalType();
+                    while (ct->kind == SymbolKind::PackedArrayType) {
+                        nd++;
+                        ct = &ct->as<slang::ast::PackedArrayType>()
+                                  .elementType.getCanonicalType();
+                    }
+                    if (nd < 2)
+                        walkParam(p0);
+                }
+                else if (mem.kind == SymbolKind::GenerateBlock)
+                    seed(mem.as<GenerateBlockSymbol>());
+                else if (mem.kind == SymbolKind::GenerateBlockArray)
+                    for (auto* ge : mem.as<GenerateBlockArraySymbol>().entries)
+                        seed(*ge);
+            }
+        };
+        seed(*home);
+        it = paramEvalSubsCache.emplace(home, std::move(reached)).first;
+    }
+    return it->second.count(&sub) != 0;
+}
+
 // § memberActualLeak — Surelog's constant evaluator LEAKS a function body's
 // assignment into the struct TYPESPEC.
 //

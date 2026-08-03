@@ -1091,6 +1091,30 @@ bool UhdmExporter::srlgEvalFuncFolds(const SubroutineSymbol& sub) {
     return true;
 }
 
+// True when a MODULE parameter whose default is a DIRECT const call keeps that
+// call in the ELAB view — the same conditions the fold gate in emitParameters
+// applies, read from the reference side.  A parameter like this has no
+// elaborated VALUE for Surelog to substitute at a reference, so a range bound
+// reading it inlines the call expression instead of folding
+// (FuncInModule `logic [NEXT_N-1:0] next_data`, NEXT_N = get_next_n(...) with
+// get_next_n poisoned by its `(a[i] != 0) ? 1 : 0` select).
+bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
+    auto* init = ps.getInitializer();
+    if (!init)
+        return false;
+    auto& ic = stripImplicitConv(*init);
+    if (ic.kind != ExpressionKind::Call || ic.as<CallExpression>().isSystemCall())
+        return false;
+    auto sp = std::get_if<const SubroutineSymbol*>(&ic.as<CallExpression>().subroutine);
+    if (!sp || !*sp)
+        return false;
+    if (subroutineDeclaresParam(**sp))
+        return true;
+    if (subroutinePoisonsEvalFunc(**sp, comp))
+        return true;
+    return false;
+}
+
 // ---------------------------------------------------------------------------
 // EvalFunc member-assignment leftovers
 //
@@ -7929,7 +7953,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // localparam keyword is not the distinguisher, the ELAB view is
                 // (FuncCase: `parameter p = num_operands(DIVSQRT)` in module
                 // top folds to UINT:2 in the top view, func_call in the def).
-                if (!rhs && topView && !inPackage) {
+                //
+                // ...unless the parameter's own declared type is
+                // MULTIDIMENSIONAL packed (`bit [N-1:0][15:0] P = f(N)`):
+                // ExprEval never rewrites such a param_assign's Rhs, so the
+                // func_call survives into the elab view exactly as the def
+                // wrote it (only the module PARAMETER-PORT refs in its
+                // arguments are substituted, never a localparam ref).
+                // Measured (r10fim probe t4/t5) with one function per type,
+                // the localparam type varied and the body held constant:
+                //   `bit [63:0]      Q1 = g1(N)` (1 packed dim) -> folds
+                //   `logic [7:0]     Q3 = g3(N)` (1 packed dim) -> folds
+                //   `int             Q4 = g4(Q1)`(0 packed dims) -> folds
+                //   `bit [3:0][15:0] Q2 = g2(N)` (2 packed dims) -> func_call
+                // and it is the PARAMETER's type, not the function's return
+                // type, that decides: `int R1 = h2(N)` with h2 returning
+                // `bit [3:0][15:0]` still folds, while
+                // `bit [3:0][15:0] R2 = h1(N)` with h1 returning `bit [63:0]`
+                // still does not.  This is Surelog's
+                // CompileHelper::isMultidimensional gate (packedDimCount).
+                if (!rhs && topView && !inPackage &&
+                    packedDimCount(ps.getType()) < 2) {
                     auto& icc9 = stripImplicitConv(*init);
                     const SubroutineSymbol* csub9 = nullptr;
                     if (icc9.kind == ExpressionKind::Call &&
@@ -8191,6 +8235,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 pkgElabSymOperands = ((inPackage && topView) ||
                                       (!inPackage && isImported)) &&
                                      packedDimCount(ps.getType()) > 1;
+                // Same Reduce::No gate, MODULE scope: a multidimensional
+                // localparam's elab Rhs is copied from the def form, so the
+                // call arguments inside it are not reduced either (the
+                // module PARAMETER-PORT refs are still substituted — that is
+                // instance parameter binding, not expression reduction).
+                elabMdimParamInit = !inPackage && topView &&
+                                    packedDimCount(ps.getType()) > 1;
                 importedParamClone = isImported && !inPackage;
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
@@ -8512,6 +8563,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
                 pkgElabSymOperands = false;
+                elabMdimParamInit = false;
                 paramInitPkg = false;
                 paramInitDef = false;
                 paramInitElabFold = false;
