@@ -2002,6 +2002,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 asn->Rhs(rhs);
+                // § memberActualLeak (TaskFuncEmit.cpp): Surelog's evaluator,
+                // folding a continuous assignment's rhs call, stores the
+                // reduced rhs of `v.m = ...` on the STRUCT TYPESPEC's member.
+                if (currentSubSym && memberActualLeak(expr)) {
+                    const Expression* l0 = &stripImplicitConv(ae.left());
+                    if (l0->kind == ExpressionKind::MemberAccess) {
+                        auto& ma0 = l0->as<MemberAccessExpression>();
+                        const Expression* b0 = &stripImplicitConv(ma0.value());
+                        if (b0->kind == ExpressionKind::NamedValue) {
+                            auto& bs0 = b0->as<NamedValueExpression>().symbol;
+                            auto it0 = netMap.find(&bs0);
+                            UHDM::typespec* at0 = nullptr;
+                            if (it0 != netMap.end() && it0->second &&
+                                it0->second->UhdmType() != UHDM::uhdmref_obj) {
+                                auto* v0 = (UHDM::variables*)it0->second;
+                                if (auto* rt0 = v0->Typespec())
+                                    at0 = rt0->Actual_typespec();
+                            }
+                            if (at0 &&
+                                at0->UhdmType() == UHDM::uhdmstruct_typespec) {
+                                auto* mv0 =
+                                    ((UHDM::struct_typespec*)at0)->Members();
+                                if (mv0)
+                                    for (auto* m0 : *mv0)
+                                        if (m0->VpiName() == ma0.member.name)
+                                            m0->Actual_value((UHDM::expr*)rhs);
+                            }
+                        }
+                    }
+                }
             }
             // Intra-assignment delay ("state <= #1 next;").
             if (ae.timingControl && ae.timingControl->kind == TimingControlKind::Delay)
@@ -6567,8 +6597,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(ips, selRange);
                         ips->VpiIndexedPartSelectType(
                             rs.getSelectionKind() == RangeSelectionKind::IndexedUp ? 1 : 2);
-                        if (constSel)
-                            ips->VpiConstantSelect(true);
+                        // An INDEXED part-select is "constant" on its WIDTH
+                        // alone — the base is allowed to vary — exactly like
+                        // the whole-variable form below; only the SIMPLE
+                        // part_select above needs both bounds.  Scr1SvTests
+                        // scr1_dp_memory `ram_block[addrb][i*8 +: 8]`: golden
+                        // stamps vpiConstantSelect:1 with `i*8` as the base,
+                        // and that single missing flag was the design-echo
+                        // head (49 of 93 vectors) — the ONE vpiConstantSelect
+                        // of 343 that differed across the whole database.
+                        {
+                            ASTContext wctx9(comp.getRoot(), LookupLocation::max);
+                            if (rs.right().kind == ExpressionKind::IntegerLiteral ||
+                                wctx9.tryEval(rs.right()))
+                                ips->VpiConstantSelect(true);
+                        }
                         bool savedSup = suppressConstParent;
                         suppressConstParent = isLiteralExpr(rs.left());
                         if (auto* b = emitExpr(rs.left(), ips, baseFull, netMap))

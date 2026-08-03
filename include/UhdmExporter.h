@@ -1847,6 +1847,12 @@ private:
     // unbased-unsized RHS rule in ExprEmit). Memoized per subroutine.
     bool subCalledAsContAssignRhs(const slang::ast::SubroutineSymbol& sub);
     std::map<const slang::ast::SubroutineSymbol*, bool> subContAssignRhsCache;
+    // § memberActualLeak — the blocking assignments whose LHS member of a
+    // local struct variable Surelog's constant evaluator stamps onto the
+    // struct typespec_member as vpiActual_value.  See TaskFuncEmit.cpp.
+    bool memberActualLeak(const slang::ast::Expression& asnExpr);
+    void buildMemberActualLeak();
+    std::optional<std::set<const slang::ast::Expression*>> memberLeakAsgs;
     // Scope for resolving identifiers inside a pkg-function's return/arg TYPE
     // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's
     // def-init constant (pkgParamConst). Set only around those typespec builds.

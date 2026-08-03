@@ -2395,8 +2395,20 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
             if (wcS9 && !findConnSyntax(child, conn->port.name))
                 continue;
             auto* p = s.MakePort();
+            // An EXPLICITLY EMPTY named connection (`.dout_parallel ( )`)
+            // leaves the ref_module port NAMELESS, exactly like a positional
+            // one — Surelog builds that port from the (absent) actual, not
+            // from the formal.  The `.name` SHORTHAND (no parens at all) is
+            // the other way round and keeps its name.  Golden
+            // /tmp/r10scr6_v{8,9}.sv (14 lines, byte-identical but for this);
+            // an empty INPUT connection behaves identically to an output one.
+            // Scr1SvTests scr1_tapc i_bypass_reg/.dout_parallel and
+            // i_tap_dr_bld_id_reg/.din_parallel.
+            bool emptyConn9 = false;
+            if (auto npcE9 = findConnSyntax(child, conn->port.name))
+                emptyConn9 = npcE9->openParen.valid() && !npcE9->expr;
             // Positional connections: nameless port anchored at the actual.
-            if (!ordered)
+            if (!ordered && !emptyConn9)
                 p->VpiName(conn->port.name);
             p->VpiParent(rm);
             if (auto npc = findConnSyntax(child, conn->port.name))

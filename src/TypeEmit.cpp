@@ -3454,6 +3454,33 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             setLoc(ec, syn->sourceRange());
         auto& cv = ev.getValue();
         std::string value;
+        // § enumCastInitNotEvaluated — an enum constant whose initializer is
+        // written as a CAST is not evaluated by Surelog at all: the const
+        // lands as INT:0 at the 64-bit unsized width with NO decompile,
+        // whatever the cast actually computes.  Size casts and type casts
+        // alike, and every size spelling — golden /tmp/r10scr6_v10.sv
+        // ((W+1)'('d0), 3'('d0), W'('d0), (W+1)'(0)) and
+        // /tmp/r10scr6_v11.sv (logic'(1'b1), int'(3)) put all eight at
+        // INT:0/64, while the plain based literal `3'd1` beside them still
+        // reads 1.  Scr1SvTests type_scr1_abs_err_e / type_scr1_dhi_fsm_e:
+        // the ABS_ERR_* pair was the design-echo head (47 of 96 vectors)
+        // once the $unit enum-const refs bound.
+        if (auto initC9 = ev.getInitializer()) {
+            auto& c9 = stripImplicitConv(*initC9);
+            bool castInit9 = false;
+            if (auto* csyn9 = c9.syntax)
+                castInit9 =
+                    csyn9->kind == syntax::SyntaxKind::CastExpression ||
+                    csyn9->kind == syntax::SyntaxKind::SignedCastExpression;
+            if (castInit9) {
+                ec->VpiValue("INT:0");
+                ec->VpiSize(64);
+                consts->push_back(ec);
+                if (!enumConstMap.count(&ev))
+                    enumConstMap[&ev] = ec;
+                continue;
+            }
+        }
         if (auto init = ev.getInitializer()) {
             auto& lit = stripImplicitConv(*init);
             if (lit.kind == ExpressionKind::IntegerLiteral) {
@@ -6617,6 +6644,55 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             (unitXFileRoot.empty() ||
                              rootFilePath(usy.location) == unitXFileRoot))
                             ref->Actual_group(uit->second);
+                    }
+                }
+            }
+            // § unitEnumConstActual — the same law for a `$unit`-scope ENUM
+            // CONSTANT.  `logic [SCR1_HDU_DCSR_CAUSE_BIT_L-
+            // SCR1_HDU_DCSR_CAUSE_BIT_R:0] csr_dcsr_cause;` keeps its bound as
+            // an unfolded operation, and golden's two ref_objs BIND the
+            // enum_const objects of the file-level enum; ours left them
+            // dangling, and that ONE pair was the whole Scr1SvTests design
+            // echo after the memberActualLeak / block-array-pair fixes —
+            // 47 of 98 vectors reported `failLhs=enum_const(...)
+            // failRhs=<null>`, which is a ref_obj Actual mismatch, not a
+            // vector-size one (probe r10scr5tb: golden bound=2 dangling=0,
+            // ours dangling=2).  Scoped to compilation-unit enums, and off in
+            // a def-view gen-block declaration exactly like the param arm.
+            if (!ref->Actual_group() && !suppressRefActual &&
+                !inDefGenDeclTs && !enumConstMap.empty()) {
+                const Scope* bindScope9 = tfTypeScope ? tfTypeScope
+                                          : defNetTsScope ? defNetTsScope
+                                                          : currentScope;
+                if (bindScope9) {
+                    ASTContext ectx9(*bindScope9, LookupLocation::max);
+                    auto& ebe9 = Expression::bind(
+                        syn.as<syntax::ExpressionSyntax>(), ectx9);
+                    if (!ebe9.bad() && stripImplicitConv(ebe9).kind ==
+                                           ExpressionKind::NamedValue) {
+                        auto& esy9 = stripImplicitConv(ebe9)
+                                         .as<NamedValueExpression>()
+                                         .symbol;
+                        bool unitEnum9 = false;
+                        if (esy9.kind == SymbolKind::EnumValue)
+                            for (auto sc9 = esy9.getParentScope(); sc9;
+                                 sc9 = sc9->asSymbol().getParentScope()) {
+                                auto k9 = sc9->asSymbol().kind;
+                                if (k9 == SymbolKind::CompilationUnit) {
+                                    unitEnum9 = true;
+                                    break;
+                                }
+                                if (k9 == SymbolKind::Package ||
+                                    k9 == SymbolKind::InstanceBody ||
+                                    k9 == SymbolKind::GenerateBlock ||
+                                    k9 == SymbolKind::Subroutine)
+                                    break;
+                            }
+                        if (unitEnum9)
+                            if (auto eit9 = enumConstMap.find(&esy9);
+                                eit9 != enumConstMap.end() && eit9->second &&
+                                eit9->second->UhdmType() == UHDM::uhdmenum_const)
+                                ref->Actual_group(eit9->second);
                     }
                 }
             }

@@ -593,7 +593,77 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             if (auto* tsy9 = dt9->getTypeSyntax())
                                 vlogHiddenTy =
                                     rawText(tsy9->sourceRange()) == "logic";
+                    // A FIXED-SIZE unpacked-array block local is the same
+                    // PAIR the tf BLOCK-ITEM local already emits (element var
+                    // listed FIRST, parented at the array_var; the
+                    // array_typespec — not the array_var — carries the
+                    // unpacked dims, and shares the declaration's element
+                    // typespec with the reg).  The block arm only had the
+                    // queue/dynamic-array form, so `logic idx [7:0]` inside a
+                    // function's `begin` lost its element reg entirely
+                    // (golden /tmp/r10scr6_v7.sv; Scr1SvTests
+                    // scr1_search_one_16's stage1_idx/stage2_idx/stage3_idx —
+                    // 3 missing vars in one begin, the def-compile Compare
+                    // head after the memberActualLeak fix).
                     UHDM::variables* v = nullptr;
+                    if (!vlogHiddenTy &&
+                        bm.getDeclaredType()->getType().getCanonicalType().kind ==
+                            SymbolKind::FixedSizeUnpackedArrayType) {
+                        const Type* leaf0 =
+                            &bm.getDeclaredType()->getType().getCanonicalType();
+                        while (leaf0->getCanonicalType().kind ==
+                               SymbolKind::FixedSizeUnpackedArrayType)
+                            leaf0 = &leaf0->getCanonicalType()
+                                         .as<FixedSizeUnpackedArrayType>()
+                                         .elementType;
+                        auto* av0 = s.MakeArray_var();
+                        av0->VpiName(bm.name);
+                        av0->VpiFullName(bfull);
+                        av0->VpiParent(b);
+                        av0->VpiArrayType(vpiStaticArray);
+                        setLoc(av0, nameSpan(bm.location, bm.name));
+                        auto* ats0 = s.MakeArray_typespec();
+                        {
+                            SourceLocation aEnd0 = bm.location + bm.name.size();
+                            if (auto dsyn0 = bm.getSyntax();
+                                dsyn0 &&
+                                dsyn0->kind == syntax::SyntaxKind::Declarator)
+                                for (auto dim0 : dsyn0->as<syntax::DeclaratorSyntax>()
+                                                     .dimensions)
+                                    // Through the CLOSING bracket (the tf
+                                    // BLOCK-ITEM twin stops one short).
+                                    aEnd0 = dim0->sourceRange().end();
+                            setLoc(ats0, SourceRange(bm.location, aEnd0));
+                        }
+                        if (auto* arng0 = buildUnpackedRanges(bm, ats0))
+                            ats0->Ranges(arng0);
+                        auto* ert0 = s.MakeRef_typespec();
+                        ert0->VpiParent(ats0);
+                        ert0->Actual_typespec(ts);
+                        ats0->Elem_typespec(ert0);
+                        auto* art0 = s.MakeRef_typespec();
+                        art0->VpiFullName(bfull);
+                        art0->VpiParent(av0);
+                        art0->Actual_typespec(ats0);
+                        av0->Typespec(art0);
+                        auto* reg0 = makeReturnVar(s, *leaf0);
+                        reg0->VpiParent(av0);
+                        setLoc(reg0, nameSpan(bm.location, bm.name));
+                        auto* rrt0 = s.MakeRef_typespec();
+                        rrt0->VpiFullName(bfull);
+                        rrt0->VpiParent(reg0);
+                        rrt0->Actual_typespec(ts);
+                        reg0->Typespec(rrt0);
+                        if (leaf0->isSigned())
+                            reg0->VpiSigned(true);
+                        auto* rv0 = s.MakeVariablesVec();
+                        rv0->push_back(reg0);
+                        av0->Variables(rv0);
+                        vars->push_back(reg0);
+                        vars->push_back(av0);
+                        blockMap[&bm] = av0;
+                        continue;
+                    }
                     if (vlogHiddenTy) {
                         v = s.MakeRef_var();
                         vlogHiddenBlockVars.insert(&bm);

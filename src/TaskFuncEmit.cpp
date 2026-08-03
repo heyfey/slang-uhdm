@@ -130,6 +130,146 @@ bool UhdmExporter::subCalledAsContAssignRhs(const SubroutineSymbol& sub) {
     return found;
 }
 
+// § memberActualLeak — Surelog's constant evaluator LEAKS a function body's
+// assignment into the struct TYPESPEC.
+//
+// `ExprEval::setValueInInstance` (UHDM ExprEval.cpp, the two
+// `tmp->Actual_value(rhsexp)` sites) resolves an assignment whose Lhs is a
+// hier_path through `decodeHierPath(..., ReturnType::MEMBER)`; when that
+// lands on a `typespec_member` it stores reduceExpr(rhs) on the MEMBER
+// itself — a per-declaration object shared by every user of the struct.  The
+// evaluator only ever runs over a function body reached from a CONTINUOUS
+// assignment's rhs call (an always-block call never folds), so the leak is a
+// def-compile artifact of `assign x = f(...)`, not of the function.
+//
+// Measured, one mutation at a time, from scr1_ipic.sv (repros
+// /tmp/r10scr6_v{1..6}.sv; Scr1SvTests is the corpus instance — its
+// type_scr1_search_one_2_s members carry the `|din` / `~din[0]` operations of
+// scr1_search_one_2's body, and that ONE object echoed through
+// typespec->Instance() recursion into 49 of the test's 106 failing Compare
+// vectors):
+//   assign r = f(x);      f's body assignments stamp        (v1)
+//   always_comb r = f(x); nothing stamps                    (v2)
+//   f called from g's body, g the cont-assign rhs: f stamps  (v4/v6)
+//   the stamped value is reduceExpr(rhs): a foldable rhs lands as a
+//   CONSTANT, an unfoldable one as the rhs expression object itself (v5)
+//
+// evalStmt() aborts the whole walk the moment `invalidValue` goes true, so
+// only a PREFIX of the body is ever reached; scr1_search_one_16's own
+// `result.vd = |stage3_vd` is NOT stamped in golden because the for-loop
+// ahead of it invalidates first (v4 vs v6 isolate exactly that).  Modelling
+// Surelog's invalidation lattice would be an interpreter; we take the
+// conservative prefix that is certainly reached — the leading run of
+// member-assignments, stopping at the first statement of any other shape.
+// Under-stamping loses nothing that was ever emitted; over-stamping would
+// invent objects golden does not have.
+void UhdmExporter::buildMemberActualLeak() {
+    memberLeakAsgs.emplace();
+    // Seed: every subroutine called as the DIRECT rhs of a continuous
+    // assignment, anywhere in the design.
+    std::set<const SubroutineSymbol*> reached;
+    struct CaSeedScan
+        : slang::ast::ASTVisitor<CaSeedScan, slang::ast::VisitFlags::Symbols> {
+        std::set<const SubroutineSymbol*>& out;
+        explicit CaSeedScan(std::set<const SubroutineSymbol*>& o) : out(o) {}
+        void handle(const slang::ast::ContinuousAssignSymbol& ca) {
+            auto& asn = ca.getAssignment();
+            if (asn.kind == ExpressionKind::Assignment) {
+                const Expression* r =
+                    &stripImplicitConv(asn.as<AssignmentExpression>().right());
+                if (r->kind == ExpressionKind::Call)
+                    if (auto* sp = std::get_if<const SubroutineSymbol*>(
+                            &r->as<CallExpression>().subroutine))
+                        if (*sp)
+                            out.insert(*sp);
+            }
+            visitDefault(ca);
+        }
+    };
+    CaSeedScan seed(reached);
+    comp.getRoot().visit(seed);
+    // Closure: a call anywhere in a reached body may itself be evaluated.
+    struct BodyCallScan
+        : slang::ast::ASTVisitor<BodyCallScan, slang::ast::VisitFlags::Statements |
+                                                  slang::ast::VisitFlags::Expressions> {
+        std::vector<const SubroutineSymbol*>& out;
+        explicit BodyCallScan(std::vector<const SubroutineSymbol*>& o) : out(o) {}
+        void handle(const slang::ast::CallExpression& ce) {
+            if (auto* sp = std::get_if<const SubroutineSymbol*>(&ce.subroutine))
+                if (*sp)
+                    out.push_back(*sp);
+            visitDefault(ce);
+        }
+    };
+    std::vector<const SubroutineSymbol*> work(reached.begin(), reached.end());
+    while (!work.empty()) {
+        const SubroutineSymbol* sub = work.back();
+        work.pop_back();
+        std::vector<const SubroutineSymbol*> callees;
+        BodyCallScan bs(callees);
+        sub->getBody().visit(bs);
+        for (auto* c : callees)
+            if (reached.insert(c).second)
+                work.push_back(c);
+    }
+    // Prefix run of member-assignments in each reached body.
+    for (auto* sub : reached) {
+        // Unwrap to the statement list Surelog's evalBlock_ walks: the
+        // function's `begin ... end`, whose declarations are vpiVariables.
+        const slang::ast::Statement* cur = &sub->getBody();
+        std::vector<const slang::ast::Statement*> stmts;
+        for (int guard = 0; guard < 8; guard++) {
+            if (cur->kind == StatementKind::Block) {
+                cur = &cur->as<slang::ast::BlockStatement>().body;
+                continue;
+            }
+            stmts.clear();
+            if (cur->kind == StatementKind::List) {
+                for (auto* st : cur->as<slang::ast::StatementList>().list)
+                    if (st->kind != StatementKind::VariableDeclaration)
+                        stmts.push_back(st);
+                if (stmts.size() == 1 &&
+                    stmts[0]->kind == StatementKind::Block) {
+                    cur = stmts[0];
+                    continue;
+                }
+            }
+            else {
+                stmts.push_back(cur);
+            }
+            break;
+        }
+        for (auto* st : stmts) {
+            // Declarations are the block's vpiVariables, not statements the
+            // evaluator walks; they neither stamp nor stop the run.
+            if (st->kind == StatementKind::VariableDeclaration)
+                continue;
+            if (st->kind != StatementKind::ExpressionStatement)
+                break;
+            auto& e = st->as<slang::ast::ExpressionStatement>().expr;
+            if (e.kind != ExpressionKind::Assignment)
+                break;
+            auto& ae = e.as<AssignmentExpression>();
+            if (ae.isCompound() || ae.isNonBlocking())
+                break;
+            const Expression* l = &stripImplicitConv(ae.left());
+            if (l->kind != ExpressionKind::MemberAccess)
+                break;
+            const Expression* base =
+                &stripImplicitConv(l->as<MemberAccessExpression>().value());
+            if (base->kind != ExpressionKind::NamedValue)
+                break;
+            memberLeakAsgs->insert(&e);
+        }
+    }
+}
+
+bool UhdmExporter::memberActualLeak(const Expression& asnExpr) {
+    if (!memberLeakAsgs)
+        buildMemberActualLeak();
+    return memberLeakAsgs->count(&asnExpr) != 0;
+}
+
 bool UhdmExporter::isTaskScopeParam9(const Symbol& sym) {
     if (sym.kind != SymbolKind::Parameter)
         return false;

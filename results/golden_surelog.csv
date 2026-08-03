@@ -285,8 +285,8 @@ CondOpPattern,default,CMP_EQUAL,,,match
 CondOpPattern,testflags,CMP_EQUAL,,,differ
 CondOpPred,default,CMP_EQUAL,,,match
 CondOpPred,testflags,CMP_EQUAL,,,match
-Connection,default,CMP_NOTEQUAL,decompile:,,
-Connection,testflags,CMP_NOTEQUAL,decompile:,,
+Connection,default,CMP_EQUAL,,,differ
+Connection,testflags,CMP_EQUAL,,,differ
 ConstantBits,default,CMP_EQUAL,,,differ
 ConstantBits,testflags,CMP_EQUAL,,,differ
 ConstantNoElabUhdm,default,CMP_EQUAL,,,match
