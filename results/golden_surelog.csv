@@ -793,8 +793,8 @@ LargeHexCast,default,CMP_EQUAL,,,differ
 LargeHexCast,testflags,CMP_EQUAL,,,differ
 LargeHexString,default,CMP_EQUAL,,,match
 LargeHexString,testflags,CMP_EQUAL,,,match
-LargeValue2Struct,default,CMP_NOTEQUAL,decompile:,,
-LargeValue2Struct,testflags,CMP_NOTEQUAL,decompile:,,
+LargeValue2Struct,default,CMP_EQUAL,,,differ
+LargeValue2Struct,testflags,CMP_EQUAL,,,differ
 LateBindingFuncArg,default,CMP_EQUAL,,,match
 LateBindingFuncArg,testflags,CMP_EQUAL,,,match
 LeftPadding,default,SLANG_REJECT,dut.sv:8:5: error: unknown module 'GOOD',,
@@ -1293,8 +1293,8 @@ StructStructHierPath,default,SLANG_REJECT,dut.sv:28:24: error: use of undeclared
 StructStructHierPath,testflags,SLANG_REJECT,dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructTypedef,default,CMP_EQUAL,,,differ
 StructTypedef,testflags,CMP_EQUAL,,,differ
-StructUnsizedVal,default,CMP_NOTEQUAL,decompile:,,
-StructUnsizedVal,testflags,CMP_NOTEQUAL,decompile:,,
+StructUnsizedVal,default,CMP_EQUAL,,,differ
+StructUnsizedVal,testflags,CMP_EQUAL,,,differ
 StructVar,default,SLANG_REJECT,dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVar,testflags,SLANG_REJECT,dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
 StructVarImp,default,SLANG_REJECT,dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,

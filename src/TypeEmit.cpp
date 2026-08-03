@@ -4816,15 +4816,17 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                                 twD = tt0->second;
                         if (!twD)
                             twD = pkgVectorFoldTwin(amt, tita->second);
-                        // A PARAMETER struct-clone's vector-typedef member
-                        // binds its OWN UNQUALIFIED copy of that twin,
-                        // parented at this alias ref — the pkg-NAMED twin
-                        // belongs to the module typedef listing only
-                        // (Surelog; StructUnsizedVal
-                        // work@dut.InitDefault.pkg::init_t.key.key -> `key`
-                        // while work@dut.pkg::init_t.key.key -> `pkg::key`).
+                        // A MATERIALIZED-IMPORT parameter struct-clone's
+                        // vector-typedef member binds its OWN UNQUALIFIED copy
+                        // of that twin, parented at this alias ref — the
+                        // pkg-NAMED twin belongs to the module typedef listing
+                        // AND to a module's own parameter's clone (Surelog;
+                        // StructUnsizedVal work@dut.InitDefault.pkg::init_t.
+                        // key.key -> `key` while work@dut.pkg::init_t.key.key
+                        // and work@top.d.Init.pkg::init_t.key.key -> `pkg::key`
+                        // — § paramCloneImportedCopy).
                         if (twD && structCloneMemberRefParent &&
-                            !paramOpCloneCtx)
+                            paramCloneImportedCopy && !paramOpCloneCtx)
                             if (auto* pcp0 = copyNamedVecTs(twD, artD)) {
                                 pcp0->VpiName(std::string(dta->name));
                                 pcp0->Instance(twD->Instance());
@@ -5518,15 +5520,17 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                                 twD = tt0->second;
                         if (!twD)
                             twD = pkgVectorFoldTwin(amt, tita->second);
-                        // A PARAMETER struct-clone's vector-typedef member
-                        // binds its OWN UNQUALIFIED copy of that twin,
-                        // parented at this alias ref — the pkg-NAMED twin
-                        // belongs to the module typedef listing only
-                        // (Surelog; StructUnsizedVal
-                        // work@dut.InitDefault.pkg::init_t.key.key -> `key`
-                        // while work@dut.pkg::init_t.key.key -> `pkg::key`).
+                        // A MATERIALIZED-IMPORT parameter struct-clone's
+                        // vector-typedef member binds its OWN UNQUALIFIED copy
+                        // of that twin, parented at this alias ref — the
+                        // pkg-NAMED twin belongs to the module typedef listing
+                        // AND to a module's own parameter's clone (Surelog;
+                        // StructUnsizedVal work@dut.InitDefault.pkg::init_t.
+                        // key.key -> `key` while work@dut.pkg::init_t.key.key
+                        // and work@top.d.Init.pkg::init_t.key.key -> `pkg::key`
+                        // — § paramCloneImportedCopy).
                         if (twD && structCloneMemberRefParent &&
-                            !paramOpCloneCtx)
+                            paramCloneImportedCopy && !paramOpCloneCtx)
                             if (auto* pcp0 = copyNamedVecTs(twD, artD)) {
                                 pcp0->VpiName(std::string(dta->name));
                                 pcp0->Instance(twD->Instance());

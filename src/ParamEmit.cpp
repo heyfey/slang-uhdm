@@ -2769,6 +2769,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          (ct0.kind == SymbolKind::PackedArrayType && ct0.isIntegral());
         }
         bool wantTs = false;
+        // § modPkgRefIntTs9 hoisted out of the value block: the Rhs CONSTANT of
+        // such a param SHARES the parameter's implicit int_typespec through its
+        // own ref_typespec (measured: `parameter W1 = pk::PI` / `= PL` / `= PC`
+        // all carry ts(work@top)->int_typespec on the Rhs constant in both
+        // module views, while an operation Rhs carries none — probe r10suv m4;
+        // LargeValue2Struct work@top.Width).
+        bool modPkgRefIntTsRhs9 = false;
         // Untyped `parameter P = $bits(...)`: folds like a literal in BOTH
         // views and carries the declaration's implicit int_typespec (set with
         // wantTs below; also drives the ELAB constant's width).
@@ -3145,6 +3152,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     !ps.getValue().integer().hasUnknown())
                     bitsFoldInit = true;
             }
+            modPkgRefIntTsRhs9 = modPkgRefIntTs9 && !typedParam;
             wantTs = (ctw.isIntegral() || ctw.isFloating() || ctw.isStruct() ||
                       (ctw.isString() && (typedParam || literalInit))) &&
                      (typedParam || isRangedUntypedParam(ps) ||
@@ -5096,12 +5104,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             ? &bs8.as<ElementSelectExpression>().value()
                         : bs8.kind == ExpressionKind::RangeSelect
                             ? &bs8.as<RangeSelectExpression>().value()
+                        : bs8.kind == ExpressionKind::MemberAccess
+                            ? &bs8.as<MemberAccessExpression>().value()
                             : nullptr;
+                    // A MEMBER-ACCESS actual joins the BIN render only when
+                    // its BASE constant is WIDER THAN 64 BITS: Surelog keeps
+                    // such values as binary strings, so the member slice comes
+                    // back binary at the member's width, while a base that
+                    // fits in a uint64 takes the numeric path and folds to the
+                    // decimal UINT below.  Measured on one source per width
+                    // (probe r10suv m6/m7/m8: 256- and 128-bit struct bases
+                    // give `W'b...` ct3 for BOTH members, a 64-bit base gives
+                    // ct9 decimal; a WHOLE-param or literal wide actual keeps
+                    // its HEX encoding, so this is the select, not the width).
+                    // LargeValue2Struct work@top.u_key_out_anchor.ResetValue.
+                    // ...unless the member read resolves through an EvalFunc
+                    // MEMBER LEFTOVER stamped on the typespec_member: there
+                    // Surelog hands back that recorded constant verbatim and
+                    // never slices the packed value at all, so the leftover's
+                    // own encoding wins (FuncStructValSimple work@top.u1
+                    // INPUT_WIDTH = CVA6Cfg.INSTR_PER_FETCH -> INT:2, from a
+                    // 300-bit-wide struct base).
+                    bool memBig8 = bs8.kind == ExpressionKind::MemberAccess &&
+                                   bb8 && bb8->type &&
+                                   bb8->type->getBitWidth() > 64 &&
+                                   !memLeftReadEnc(bs8);
                     if ((bs8.kind == ExpressionKind::ElementSelect ||
-                         bs8.kind == ExpressionKind::RangeSelect) &&
+                         bs8.kind == ExpressionKind::RangeSelect || memBig8) &&
                         bb8 && bb8->type && bb8->type->isIntegral() &&
                         bs8.type && bs8.type->getBitWidth() > 0 &&
-                        bs8.type->getBitWidth() <= 64) {
+                        (memBig8 || bs8.type->getBitWidth() <= 64)) {
                         int32_t w8 = (int32_t)bs8.type->getBitWidth();
                         slang::SVInt wv8 = iv.resize((slang::bitwidth_t)w8);
                         std::string bits8;
@@ -8139,6 +8171,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // keeps an UNBOUND ref_obj Rhs (Surelog), not a fold. A param
                 // typed by a DIRECT vector (logic [7:0][3:0] P = X) still
                 // folds (ParameterFromPkg* distinguisher).
+                // ...and the ref survives ONLY when the referent's own
+                // ELABORATED package Rhs is not a constant.  Measured matrix
+                // (referent init x module-DEF Rhs, purpose-built goldens):
+                // literal / arith / const-call / param-ref (elab Rhs constant)
+                // -> the module DEF Rhs is a COPY of that elaborated constant
+                // carrying the reference's span; concat / replication / cast /
+                // assignment-pattern (elab Rhs still an operation) -> ref_obj.
+                // The correlation is exact for BOTH vector- and struct-typed
+                // aliases, so the predicate is "does the referent reduce",
+                // not "is the target an aggregate" (StructUnsizedVal
+                // work@dut.Init, LargeValue2Struct
+                // work@top.RndCnstScrmblKeyInit).
                 if (!rhs && !topView && !inPackage && ps.getDeclaredType() &&
                     ps.getDeclaredType()->getType().kind ==
                         SymbolKind::TypeAlias) {
@@ -8150,19 +8194,56 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         sref9.syntax->kind ==
                             syntax::SyntaxKind::IdentifierName) {
                         auto& rsym9 = sref9.as<NamedValueExpression>().symbol;
+                        auto eit9 = elabParamPa.find(&rsym9);
+                        bool elabFolds9 =
+                            eit9 != elabParamPa.end() && eit9->second &&
+                            eit9->second->Rhs() &&
+                            eit9->second->Rhs()->UhdmType() ==
+                                UHDM::uhdmconstant;
                         if (auto rsc9 = rsym9.getParentScope();
-                            rsc9 && rsc9->asSymbol().kind ==
+                            rsc9 &&
+                            rsc9->asSymbol().kind ==
                                         SymbolKind::Package &&
                             std::find(paramSyms.begin(), paramSyms.end(),
                                       (const ParameterSymbol*)&rsym9) !=
                                 paramSyms.end()) {
-                            auto* ro9 = s.MakeRef_obj();
-                            ro9->VpiName(rsym9.name);
-                            ro9->VpiFullName(
-                                joinPath(prefix, std::string(rsym9.name)));
-                            ro9->VpiParent(pa);
-                            setLoc(ro9, init->sourceRange);
-                            rhs = ro9;
+                            if (!elabFolds9) {
+                                auto* ro9 = s.MakeRef_obj();
+                                ro9->VpiName(rsym9.name);
+                                ro9->VpiFullName(
+                                    joinPath(prefix, std::string(rsym9.name)));
+                                ro9->VpiParent(pa);
+                                setLoc(ro9, init->sourceRange);
+                                rhs = ro9;
+                            }
+                            else {
+                                // The fold is a VERBATIM COPY of the referent's
+                                // elaborated package constant (encoding, width
+                                // and decompile alike — `= I_LIT` on an `int`
+                                // alias carries the elab 32-bit form, not the
+                                // package DEF listing's 64-bit one), re-anchored
+                                // at the reference's own span.
+                                auto* ec9 = (UHDM::constant*)eit9->second->Rhs();
+                                auto* cc9 = s.MakeConstant();
+                                cc9->VpiValue(std::string(ec9->VpiValue()));
+                                cc9->VpiSize(ec9->VpiSize());
+                                cc9->VpiConstType(ec9->VpiConstType());
+                                cc9->VpiDecompile(
+                                    std::string(ec9->VpiDecompile()));
+                                cc9->VpiParent(pa);
+                                setLoc(cc9, init->sourceRange);
+                                auto* rt5 = s.MakeRef_typespec();
+                                std::string tsPfx5 = prefix;
+                                if (tsPfx5.size() >= 2 &&
+                                    tsPfx5.compare(tsPfx5.size() - 2, 2,
+                                                   "::") == 0)
+                                    tsPfx5.resize(tsPfx5.size() - 2);
+                                rt5->VpiFullName(tsPfx5);
+                                rt5->VpiParent(cc9);
+                                cc9->Typespec(rt5);
+                                rhsRt = rt5;
+                                rhs = cc9;
+                            }
                         }
                     }
                 }
@@ -8663,6 +8744,54 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }
                 }
                 suppressConstParent = savedSuppP;
+                // § unbasedModFold9 — an UNBASED-UNSIZED default on a TYPED
+                // parameter reaches the module views already folded, in two
+                // shapes the package arms above do not cover.  Measured on one
+                // source carrying struct / vector-typedef / plain-vector / int
+                // / untyped params with '1 and '0, in a package and imported
+                // into a module (probe r10suv m1, all four listings):
+                //   * a MATERIALIZED IMPORT copy carries the ELABORATED
+                //     package value in the module's DEF listing too — '1 folds
+                //     to the all-ones decimal UINT at the type width for every
+                //     typed kind ('0 only takes the width, which the size
+                //     fix-ups above already give it);
+                //   * a STRUCT/UNION-typed param (import copy or the module's
+                //     own) folds in the module's ELAB listing exactly like the
+                //     vector-typed ones already do: '1 -> decimal UINT, '0 ->
+                //     BIN:0 re-decompiled at the width.
+                // An UNTYPED param never folds in any view, and the package
+                // DEF listing keeps the raw literal — both left alone.
+                if (rhs && rhs->UhdmType() == UHDM::uhdmconstant && !inPackage &&
+                    typedParam && init) {
+                    auto& ub9 = stripImplicitConv(*init);
+                    auto ckU9 = ps.getType().getCanonicalType().kind;
+                    bool aggU9 = ckU9 == SymbolKind::PackedStructType ||
+                                 ckU9 == SymbolKind::PackedUnionType;
+                    int32_t wU9 = (int32_t)ps.getType().getBitWidth();
+                    if (ub9.kind ==
+                            ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                        wU9 > 0 && (topView ? aggU9 : isImported)) {
+                        logic_t bU9 = ub9.as<UnbasedUnsizedIntegerLiteral>()
+                                          .getLiteralValue();
+                        auto* cU9 = (UHDM::constant*)rhs;
+                        if (!bU9.isUnknown() && bU9.value) {
+                            slang::SVInt on9((slang::bitwidth_t)wU9, 0, false);
+                            on9 = ~on9;
+                            std::string dg9 =
+                                on9.toString(LiteralBase::Decimal, false);
+                            cU9->VpiValue("UINT:" + dg9);
+                            cU9->VpiConstType(vpiUIntConst);
+                            cU9->VpiSize(wU9);
+                            cU9->VpiDecompile(dg9);
+                        }
+                        else if (!bU9.isUnknown() && topView) {
+                            cU9->VpiValue("BIN:0");
+                            cU9->VpiConstType(vpiBinaryConst);
+                            cU9->VpiSize(wU9);
+                            cU9->VpiDecompile(std::to_string(wU9) + "'b0");
+                        }
+                    }
+                }
                 // An UNPACKED-ARRAY package parameter's assignment-pattern
                 // element REDUCES in EVERY view (Surelog compiles the element
                 // expressions Reduce::Yes even for the def listing): a computed
@@ -9330,6 +9459,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             rtOp9->VpiParent(paRhs9);
             ((UHDM::operation*)paRhs9)->Typespec(rtOp9);
             rhsRt = rtOp9;
+        }
+        // § modPkgRefIntTsRhs9 — the FOLDED Rhs constant of an untyped module
+        // param defaulted from a package param shares the parameter's own
+        // implicit int_typespec (both module views).
+        if (!rhsRt && modPkgRefIntTsRhs9 && !inPackage && !isImported &&
+            paRhs9 && paRhs9->UhdmType() == UHDM::uhdmconstant &&
+            !((UHDM::constant*)paRhs9)->Typespec()) {
+            auto* rtC9 = s.MakeRef_typespec();
+            rtC9->VpiFullName(prefix);
+            rtC9->VpiParent(paRhs9);
+            ((UHDM::constant*)paRhs9)->Typespec(rtC9);
+            rhsRt = rtC9;
         }
         passigns->push_back(pa);
         // DEF-view aggregate-typedef params (typedef struct/union/enum T; then
@@ -12009,10 +12150,18 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
         }
         if (!its) {
             syntaxRefPrefix = std::string(prt->VpiFullName());
-            if (aggParam)
+            if (aggParam) {
                 structCloneMemberRefParent = true;
+                // § paramCloneImportedCopy — this queue only holds
+                // module/interface params, so a PACKAGE-scoped symbol here is
+                // a materialized import copy.
+                if (auto psc9 = ps->getParentScope();
+                    psc9 && psc9->asSymbol().kind == SymbolKind::Package)
+                    paramCloneImportedCopy = true;
+            }
             its = makeParamTs(*ps, typedParam, /*parentBounds=*/true);
             structCloneMemberRefParent = false;
+            paramCloneImportedCopy = false;
             stampCastSizeParamTs(*ps, up, its);
             if (aggParam)
                 attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
@@ -12663,10 +12812,17 @@ void UhdmExporter::drainDefParamTs() {
             bool aggClone0 = pck0 == SymbolKind::PackedStructType ||
                              pck0 == SymbolKind::PackedUnionType ||
                              pck0 == SymbolKind::UnpackedStructType;
-            if (aggClone0)
+            if (aggClone0) {
                 structCloneMemberRefParent = true;
+                // § paramCloneImportedCopy (same law in the DEF drain).
+                if (auto psc0 = pd.ps->getParentScope();
+                    !pd.inPackage && psc0 &&
+                    psc0->asSymbol().kind == SymbolKind::Package)
+                    paramCloneImportedCopy = true;
+            }
             its = makeParamTs(*pd.ps, pd.typedParam);
             structCloneMemberRefParent = false;
+            paramCloneImportedCopy = false;
             if (aggClone0)
                 attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
             defViewParamTs = false;

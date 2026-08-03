@@ -377,6 +377,16 @@ private:
     // typespecs parent at the member's ref_typespec (Surelog clone form)
     // instead of the typespec_member.
     bool structCloneMemberRefParent = false;
+    // True while that clone belongs to a MATERIALIZED IMPORT COPY of a package
+    // parameter (the parameter symbol's home scope is a package). Only THOSE
+    // clones re-bind their vector-typedef member alias to an UNQUALIFIED copy
+    // of the pkg fold twin; a module's OWN parameter typed by the same package
+    // struct typedef keeps the pkg-NAMED twin (measured, one golden each:
+    // StructUnsizedVal work@dut.InitDefault.pkg::init_t.key.key -> `key` vs
+    // work@top.d.Init.pkg::init_t.key.key -> `pkg::key`; LargeValue2Struct
+    // RndCnstScrmblKeyInitDefault -> `sram_key_t` vs RndCnstScrmblKeyInit ->
+    // `pack::sram_key_t`).
+    bool paramCloneImportedCopy = false;
     // True while building the ELAB *operation* ts clone of an aggregate param
     // (the flat op75's own typespec, rhsRt), as opposed to the parameter's own
     // clone. Surelog's op clone is INSTANCE-FREE all the way down: its
