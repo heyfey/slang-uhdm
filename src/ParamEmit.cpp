@@ -1930,16 +1930,37 @@ static bool hasStaticLocalInit(const SubroutineSymbol& sub) {
     return found;
 }
 
+// § impOcc — ONE MATERIALIZED OCCURRENCE of an imported package parameter.
+//
+// Surelog's importPackage runs ONCE PER IMPORT ITEM and appends the imported
+// package's whole Parameters / Param_assigns vectors to the importer's each
+// time.  A package's own vectors already contain the copies IT materialized,
+// so a parameter re-exported through two import items is materialized TWICE
+// in the importer — the copies are NOT deduplicated by home symbol.
+// BlackBePipeInt is the corpus instance: `module bp_be_pipe_int import
+// bp_common_pkg::*; import bp_be_pkg::*;` while bp_be_pkg itself does
+// `import bp_common_pkg::*`, so golden's module lists bp_common's 183 params
+// under item 0 (vpiImported=bp_common_pkg) AND all 197 of bp_be_pkg's
+// (183 re-exported + 14 own) under item 1 (vpiImported=bp_be_pkg) — 380
+// materialized rows ahead of the 130 body params, in BOTH vectors.
+//
+// POLARITY CONTRAST (cdd6778): imported SUBROUTINES are once-per-SUBROUTINE
+// (deduplicated by home symbol) while imported PARAMS are once-per-IMPORT
+// (duplicated).  Opposite polarities — the code keeps both.
+struct ImpOcc9 {
+    const ParameterSymbol* sym;
+    size_t item;      // import-item index (primary order key)
+    size_t sub;       // declaration rank inside the item (Param_assigns key)
+    std::string src;  // vpiImported override (empty -> home scope name)
+};
+
 // A module that IMPORTS (via wildcard or explicit import) and REFERENCES a
 // package parameter materializes it as a module-local parameter (Surelog sets
 // vpiImported = the package name). A QUALIFIED reference (pkg::P) with no
 // import does NOT materialize it (ParameterColonReference, PkgParamAsFunctionArg).
 static void collectImportedParams(
-    const Scope& body, std::vector<const ParameterSymbol*>& out,
-    std::map<const ParameterSymbol*, std::string>& srcOut,
-    const std::function<bool(SourceLocation, SourceLocation)>& locLess,
-    std::map<const ParameterSymbol*, std::pair<size_t, size_t>>* rankOut =
-        nullptr) {
+    const Scope& body, std::vector<ImpOcc9>& occOut,
+    const std::function<bool(SourceLocation, SourceLocation)>& locLess) {
     std::set<const Symbol*> wildcardPkgs; // packages wildcard-imported
     std::set<const Symbol*> explicitSyms; // explicitly imported symbols
     // Surelog materializes imports ONE IMPORT ITEM AT A TIME, in source order
@@ -1963,31 +1984,55 @@ static void collectImportedParams(
     // is the corpus instance; simple_package's lone `import my_pkg::*` is the
     // wildcard one. The two goldens never disagreed — one is per-item, the
     // other is within-item.
-    std::map<const ParameterSymbol*, std::pair<size_t, size_t>> rank;
-    size_t item9 = 0;
-    // Rank a package's transitively-exported params (declaration order),
-    // first import item wins (Surelog re-imports, we dedup).
-    std::function<void(const Symbol*, std::set<const Symbol*>&, size_t&)>
-        rankPkg = [&](const Symbol* pkgSym, std::set<const Symbol*>& vis,
-                      size_t& sub) {
+    // STRUCTURAL materialization, ONE IMPORT ITEM AT A TIME (see § impOcc).
+    // A wildcard item `import P::*` contributes ALL of P's transitively-
+    // EXPORTED parameters — P's own declared params PLUS the params P itself
+    // wildcard-imported (re-export) — regardless of whether any is referenced
+    // here, in P's OWN vector order.  That order is P's member order, which
+    // puts P's materialized copies (its `import` member) ahead of its own
+    // declarations exactly as Surelog's per-package vectors do.
+    // Surelog tags each row with vpiImported = the IMMEDIATELY-imported
+    // package P (BitSelectOfParameterPassedToSubmodule re-exports NDioPads
+    // through pinmux_pkg into work@top with vpiImported=pinmux_pkg), which is
+    // what ImpOcc9::src carries when the home scope is deeper than P.
+    // An EXPLICIT `import p::N;` materializes N on the same
+    // no-reference-required terms: importPackage is driven by the IMPORT ITEM
+    // and its param loops only filter by object_name — they never ask whether
+    // anything uses the name.  Witnessed on a module whose `import pu::AU;` is
+    // never referenced: the golden still lists AU in both module vectors.
+    std::function<void(const Symbol*, std::set<const Symbol*>&,
+                       std::vector<const ParameterSymbol*>&)>
+        collectPkgParams = [&](const Symbol* pkgSym,
+                               std::set<const Symbol*>& vis,
+                               std::vector<const ParameterSymbol*>& acc) {
             if (!pkgSym || !vis.insert(pkgSym).second)
                 return;
-            for (auto& pm : pkgSym->as<PackageSymbol>().members()) {
+            auto& psc = pkgSym->as<PackageSymbol>();
+            for (auto& pm : psc.members()) {
                 if (pm.kind == SymbolKind::Parameter)
-                    rank.emplace(&pm.as<ParameterSymbol>(),
-                                 std::make_pair(item9, sub++));
+                    acc.push_back(&pm.as<ParameterSymbol>());
                 else if (pm.kind == SymbolKind::WildcardImport)
-                    rankPkg(pm.as<WildcardImportSymbol>().getPackage(), vis,
-                            sub);
+                    collectPkgParams(pm.as<WildcardImportSymbol>().getPackage(),
+                                     vis, acc);
             }
         };
+    std::vector<ImpOcc9> occ;
+    size_t item9 = 0;
     for (auto& m : body.members()) {
         if (m.kind == SymbolKind::WildcardImport) {
             if (auto* p = m.as<WildcardImportSymbol>().getPackage()) {
                 wildcardPkgs.insert(p);
-                std::set<const Symbol*> vis;
+                std::set<const Symbol*> vis; // PER-ITEM: a diamond re-export
+                std::vector<const ParameterSymbol*> acc; // lists once per item
+                collectPkgParams(p, vis, acc);
                 size_t sub = 0;
-                rankPkg(p, vis, sub);
+                for (auto* pp : acc) {
+                    ImpOcc9 o{pp, item9, sub++, {}};
+                    if (pp->getParentScope() &&
+                        &pp->getParentScope()->asSymbol() != p)
+                        o.src = std::string(p->name);
+                    occ.push_back(o);
+                }
                 item9++;
             }
         }
@@ -1995,17 +2040,23 @@ static void collectImportedParams(
             if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol()) {
                 explicitSyms.insert(imp);
                 if (imp->kind == SymbolKind::Parameter)
-                    rank.emplace(&imp->as<ParameterSymbol>(),
-                                 std::make_pair(item9, (size_t)0));
+                    occ.push_back({&imp->as<ParameterSymbol>(), item9,
+                                   (size_t)0, {}});
                 item9++;
             }
         }
     }
-    if (rankOut)
-        *rankOut = rank;
     if (wildcardPkgs.empty() && explicitSyms.empty())
         return;
+    // The REFERENCE-driven passes below are a FALLBACK: every param they can
+    // reach (a direct member of a directly-imported package, or an explicitly
+    // imported one) is already covered by the structural walk above, so `seen`
+    // is pre-seeded with the structural occurrences and `found` normally stays
+    // empty.  Kept because a reference-only residue would otherwise vanish
+    // silently; anything it does add sorts behind every import item.
     std::set<const Symbol*> seen;
+    for (auto& o : occ)
+        seen.insert(o.sym);
     std::vector<const ParameterSymbol*> found;
     auto v = makeVisitor([&](auto& vis, const NamedValueExpression& nv) {
         if (nv.symbol.kind == SymbolKind::Parameter) {
@@ -2138,73 +2189,19 @@ static void collectImportedParams(
                     tsyn && tsyn->kind == syntax::SyntaxKind::TypedefDeclaration)
                     scanTd(*tsyn->as<syntax::TypedefDeclarationSyntax>().type, psc);
     }
-    // STRUCTURAL materialization: a wildcard import `import P::*` materializes
-    // ALL of P's transitively-EXPORTED parameters — P's own declared params
-    // PLUS the params P itself wildcard-imported (re-export) — regardless of
-    // whether any is referenced here. Surelog tags each with vpiImported = P
-    // (the immediately-imported package). BitSelectOfParameterPassedToSubmodule
-    // re-exports NDioPads through pinmux_pkg into work@top with
-    // vpiImported=pinmux_pkg. The srcOut map carries P's name so the emitter
-    // can override the param's home-scope name for the re-export case.
-    std::function<void(const Symbol*, std::set<const Symbol*>&,
-                       std::vector<const ParameterSymbol*>&)>
-        collectPkgParams = [&](const Symbol* pkgSym,
-                               std::set<const Symbol*>& vis,
-                               std::vector<const ParameterSymbol*>& acc) {
-            if (!vis.insert(pkgSym).second)
-                return;
-            auto& psc = pkgSym->as<PackageSymbol>();
-            for (auto& pm : psc.members()) {
-                if (pm.kind == SymbolKind::Parameter)
-                    acc.push_back(&pm.as<ParameterSymbol>());
-                else if (pm.kind == SymbolKind::WildcardImport)
-                    if (auto* q = pm.as<WildcardImportSymbol>().getPackage())
-                        collectPkgParams(q, vis, acc);
-            }
-        };
-    for (auto* pkgSym : wildcardPkgs) {
-        std::set<const Symbol*> vis;
-        std::vector<const ParameterSymbol*> acc;
-        collectPkgParams(pkgSym, vis, acc);
-        for (auto* pp : acc)
-            if (seen.insert(pp).second) {
-                found.push_back(pp);
-                // vpiImported = the immediately-imported package P (the home
-                // scope may be a deeper package for re-exported params).
-                if (pp->getParentScope() &&
-                    &pp->getParentScope()->asSymbol() != pkgSym)
-                    srcOut[pp] = std::string(pkgSym->name);
-            }
-    }
-    // An EXPLICIT `import p::N;` materializes N on the same no-reference-
-    // required terms as the wildcard pass above: importPackage is driven by
-    // the IMPORT ITEM, and its param loops only filter by object_name — they
-    // never ask whether anything uses the name. Witnessed on a module whose
-    // `import pu::AU;` is never referenced: the golden still lists AU in both
-    // module vectors.
-    for (auto& m : body.members())
-        if (m.kind == SymbolKind::ExplicitImport)
-            if (auto* imp = m.as<ExplicitImportSymbol>().importedSymbol();
-                imp && imp->kind == SymbolKind::Parameter)
-                if (seen.insert(imp).second)
-                    found.push_back(&imp->as<ParameterSymbol>());
     // Surelog orders materialized imported params by IMPORT ITEM (source
     // order of the `import` statements), then — inside a wildcard item — by
-    // the package's DECLARATION order, never by reference-discovery order.
-    // The rank map above carries both keys; the locLess fallback only covers
-    // a param no import item claims (defensive: should not happen).
-    std::stable_sort(
-        found.begin(), found.end(),
-        [&](const ParameterSymbol* a, const ParameterSymbol* b) {
-            auto ra = rank.find(a), rb = rank.find(b);
-            bool ha = ra != rank.end(), hb = rb != rank.end();
-            if (ha != hb)
-                return ha;
-            if (ha)
-                return ra->second < rb->second;
-            return locLess(a->location, b->location);
-        });
-    out.insert(out.end(), found.begin(), found.end());
+    // the package's own vector order; `occ` is already built that way. The
+    // reference-only residue (`found`, normally empty) sorts behind every
+    // import item, in source-location order.
+    std::stable_sort(found.begin(), found.end(),
+                     [&](const ParameterSymbol* a, const ParameterSymbol* b) {
+                         return locLess(a->location, b->location);
+                     });
+    size_t tail9 = 0;
+    for (auto* fp : found)
+        occ.push_back({fp, item9, tail9++, {}});
+    occOut.insert(occOut.end(), occ.begin(), occ.end());
 }
 
 // ---------------------------------------------------------------------------
@@ -2518,18 +2515,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             paramSyms.push_back(&member0.as<ParameterSymbol>());
     // PACKAGES materialize imported params too (pinmux_pkg lists NDioPads
     // with vpiImported — BitSelectOfParameterPassedToSubmodule).
-    // srcImp maps a re-exported materialized param to the immediately-imported
-    // package name (its vpiImported), overriding its home-scope name.
-    std::map<const ParameterSymbol*, std::string> srcImp;
-    // Import-item rank of each materialized imported param (see
-    // collectImportedParams): {import item index, tie-break within the item}.
-    std::map<const ParameterSymbol*, std::pair<size_t, size_t>> impRank9;
+    // paramSyms is a PER-OCCURRENCE list (see § impOcc): the same
+    // ParameterSymbol appears once per import item that exports it, so the
+    // emit loop runs once per materialized copy. impOcc9 owns the occurrence
+    // records; paramImp9 is index-parallel to paramSyms (nullptr = a
+    // body-declared param).
+    std::vector<ImpOcc9> impOcc9;
+    std::vector<const ImpOcc9*> paramImp9(paramSyms.size(), nullptr);
     if (!funcScope) {
-        collectImportedParams(body, paramSyms, srcImp,
+        collectImportedParams(body, impOcc9,
                               [this](SourceLocation a, SourceLocation b) {
                                   return srcOrderLess(a, b);
-                              },
-                              &impRank9);
+                              });
+        for (auto& o9 : impOcc9) {
+            paramSyms.push_back(o9.sym);
+            paramImp9.push_back(&o9);
+        }
         // MATERIALIZED IMPORTS LEAD, in import-item order; body-declared
         // params follow in source order. Not a location coincidence:
         // CompileModule runs CollectType::FUNCTION (which calls importPackage
@@ -2540,23 +2541,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // source location, which agrees whenever the package is declared ahead
         // of the module but scrambles the imports among themselves the moment
         // the import statements are not in package-declaration order (Kmac).
-        auto rank9 = [&](const ParameterSymbol* p)
-            -> std::pair<int, std::pair<size_t, size_t>> {
-            if (auto it = impRank9.find(p);
-                it != impRank9.end() && p->getParentScope() != &body)
-                return {0, it->second};
-            return {1, {0, 0}};
-        };
-        std::stable_sort(paramSyms.begin(), paramSyms.end(),
-                         [&](const ParameterSymbol* a,
-                             const ParameterSymbol* b) {
-                             auto ra = rank9(a), rb = rank9(b);
-                             if (ra.first != rb.first)
-                                 return ra.first < rb.first;
-                             if (ra.first == 0)
-                                 return ra.second < rb.second;
-                             return srcOrderLess(a->location, b->location);
-                         });
+        std::vector<size_t> perm9(paramSyms.size());
+        for (size_t i9 = 0; i9 < perm9.size(); i9++)
+            perm9[i9] = i9;
+        std::stable_sort(
+            perm9.begin(), perm9.end(), [&](size_t a, size_t b) {
+                const ImpOcc9* oa = paramImp9[a];
+                const ImpOcc9* ob = paramImp9[b];
+                if ((oa != nullptr) != (ob != nullptr))
+                    return oa != nullptr;
+                if (oa)
+                    return std::make_pair(oa->item, oa->sub) <
+                           std::make_pair(ob->item, ob->sub);
+                return srcOrderLess(paramSyms[a]->location,
+                                    paramSyms[b]->location);
+            });
+        std::vector<const ParameterSymbol*> ps29;
+        std::vector<const ImpOcc9*> pi29;
+        ps29.reserve(perm9.size());
+        pi29.reserve(perm9.size());
+        for (size_t i9 : perm9) {
+            ps29.push_back(paramSyms[i9]);
+            pi29.push_back(paramImp9[i9]);
+        }
+        paramSyms.swap(ps29);
+        paramImp9.swap(pi29);
     }
     // A materialized package parameter's emitted {param_assign, Rhs constant},
     // keyed by its symbol: a LATER module param whose default is a bare ref to
@@ -2578,7 +2587,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 portPa9.insert((const UHDM::any*)(*passigns)[i9]);
         paMark9 = passigns->size();
     };
-    for (auto* psPtr : paramSyms) {
+    // (parameter object, import item) of every MATERIALIZED occurrence, in
+    // emit order — the Parameters name-reorder below is per-OCCURRENCE, so it
+    // is keyed by object identity, never by name (a re-exported param appears
+    // under two items with the same name).
+    std::vector<std::pair<UHDM::any*, size_t>> matObj9;
+    for (size_t occIx9 = 0; occIx9 < paramSyms.size(); occIx9++) {
+        auto* psPtr = paramSyms[occIx9];
+        const ImpOcc9* occ9 = paramImp9[occIx9];
         const Symbol& member = *psPtr;
         auto& ps = *psPtr;
         // Imported = the param belongs to ANOTHER scope (a package), not the
@@ -2613,6 +2629,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             bool v;
             ~TvRestore9() { f = v; }
         } tvRestore9{topView, topView};
+        // § modDefImportShape — RANKED RESIDUE (r10bbp7, honest negative).
+        // The law visibly extends to MODULES: golden's AllModules (DEF)
+        // listing of bp_be_pipe_int carries the ELABORATED shape for all 380
+        // materialized rows — `localparam host_base_addr_gp =
+        // (dev_id_width_gp+dev_addr_width_gp)'('h0010_0000)` is a folded
+        // UINT:1048576 size 32 with the declaration's implicit int_typespec
+        // in BOTH module views, exactly as in TopPackages, while
+        // bp_common_pkg's own def listing keeps the unfolded cast operation.
+        // But simply dropping the `inPackage` guard below REGRESSES the test
+        // (measured twice with tools/probe/r10bbp7d, the CMP-field projection
+        // of every param_assign in every view):
+        //   before the module elab shape landed  828 -> 1158 rows
+        //   after  it landed (this commit)       604 ->  934 rows
+        // — because the module DEF view's Rhs ref_typespec is then left
+        // UNBOUND (ts=ref()->NULL on the 165 rows that already matched; the
+        // deferred pendingParamTs / patchParamTypespecs binding does not fire
+        // for a def-view row that claims to be topView).  Locating that
+        // binding — the still-open RD site — is the prerequisite, and it is
+        // worth 215 of the 604 remaining rows.
+        bool defViewOrig9 = !topView;
+        (void)defViewOrig9;
         if (inPackage && !topView && isImported)
             topView = true;
         flushPaTag9();
@@ -2725,12 +2762,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         setLoc(up, SourceRange(ps.location, ps.location + ps.name.size()));
         if (isImported) {
             // Re-exported materialized params carry the IMMEDIATELY-imported
-            // package name (srcImp), not their deeper home scope.
-            auto siIt = srcImp.find(&ps);
-            up->VpiImported(siIt != srcImp.end()
-                                ? siIt->second
+            // package name (ImpOcc9::src), not their deeper home scope.
+            up->VpiImported(occ9 && !occ9->src.empty()
+                                ? occ9->src
                                 : std::string(ps.getParentScope()->asSymbol().name));
-            if (!topView && !inPackage && !funcScope)
+            // defViewOrig9, not topView: the import-copy law forces topView
+            // for a package iteration, but this map is the DEF-VIEW registry.
+            if (defViewOrig9 && !inPackage && !funcScope)
                 defModImportParam[&member] = up;
         }
 
@@ -2940,9 +2978,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                       return true;
                                   return false;
                               };
-            pkgElabComputed = inPackage && topView && !literalInit &&
-                              !unbasedInit && defaultInit && cv.isInteger() &&
-                              !cv.integer().hasUnknown() && elabFoldShape9();
+            // ...and a MODULE-materialized import copy takes the SAME elab
+            // shape in the module's elaborated listing, for the same reason
+            // (THE IMPORT-COPY LAW): the copy is cloned from the declaring
+            // package's reduced symbol, so it folds exactly as the elab
+            // PACKAGE row does — same value, same size, same implicit
+            // int_typespec — not as the module's own re-evaluation of the
+            // written expression (which takes the CAST's width: sz=24 for
+            // BlackBePipeInt's host_base_addr_gp where golden has sz=32).
+            pkgElabComputed = (inPackage || isImported) && topView &&
+                              !literalInit && !unbasedInit && defaultInit &&
+                              cv.isInteger() && !cv.integer().hasUnknown() &&
+                              elabFoldShape9();
             // ...and the `?`-bearing sibling of that same size-cast family:
             // slang refuses to evaluate it (X/Z bits), so cv is unknown and
             // pkgElabComputed above cannot fire — but Surelog's strtoull
@@ -2950,10 +2997,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // UINT value and the declaration's implicit int_typespec exactly
             // like its defined-digit siblings (BlackBePipeInt's 16
             // `*_match_addr_gp`).
+            // ...in the elaborated MODULE listing too, for the same
+            // import-copy reason as pkgElabComputed above.
             uint64_t unkCastVal0 = 0;
             bool unkCastFold9 =
-                inPackage && topView && !typedParam && defaultInit &&
-                unknownBasedCastFold(*defaultInit, unkCastVal0);
+                (inPackage || isImported) && topView && !typedParam &&
+                defaultInit && unknownBasedCastFold(*defaultInit, unkCastVal0);
             if (unkCastFold9)
                 up->VpiValue("UINT:" + std::to_string(unkCastVal0));
             // ...and the MODULE-MATERIALIZED import copy of that same
@@ -3512,6 +3561,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         params->push_back(up);
+        if (occ9)
+            matObj9.push_back({(UHDM::any*)up, occ9->item});
         if (!isImported)
             if (auto dr9 = declRank9.find(&member); dr9 != declRank9.end())
                 paramRank9[up] = dr9->second;
@@ -6180,8 +6231,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // whole family stayed an unfolded vpiCastOp tree.
                 // (BlackBePipeInt bp_common_pkg *_match_addr_gp x16.)
                 else if (uint64_t unkCastVal9 = 0;
-                         inPackage && topView && !typedParam && init &&
-                             unknownBasedCastFold(*init, unkCastVal9)) {
+                         (inPackage || isImported) && topView && !typedParam &&
+                             init && unknownBasedCastFold(*init, unkCastVal9)) {
                     auto* c = s.MakeConstant();
                     std::string dg9 = std::to_string(unkCastVal9);
                     c->VpiDecompile(dg9);
@@ -6508,12 +6559,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // back at size 32, so a size cast's own width never
                     // survives there ((dev_addr_width_gp)'('h0_0000) is size
                     // 32, not 20).  The DEF listing keeps the unfolded cast
-                    // tree, and a module-view copy keeps the cast width — so
-                    // this is the package elab listing only.
+                    // tree.
                     // (BlackBePipeInt bp_common_pkg *_addr_gp x32; purpose-
                     // built repro r10c16c_r1 lit/sym/expression widths.)
-                    bool pkgElabSizeCast9 =
-                        sizeCastVal && inPackage && topView && !typedParam;
+                    // ...and a MODULE-MATERIALIZED import copy inherits that
+                    // size-32 rewrite with everything else it clones (THE
+                    // IMPORT-COPY LAW): golden's elaborated bp_be_pipe_int
+                    // lists host_base_addr_gp at size 32, not at the cast's
+                    // own 24.  (An earlier note here claimed the module copy
+                    // keeps the cast width; direct measurement on golden's
+                    // TopModules says otherwise — r10bbp7.)
+                    bool pkgElabSizeCast9 = sizeCastVal &&
+                                            (inPackage || isImported) &&
+                                            topView && !typedParam;
                     if (!concatFold && !boolInit9)
                         ((UHDM::constant*)rhs)
                             ->VpiSize(typedParam || defUntypedImport ||
@@ -10036,39 +10094,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // Param_assigns DATA_WIDTH,ADDR_WIDTH).
     // paramSyms is already in (item, declaration) order, so the materialized
     // slots below are grouped by item; re-sorting them by (item, name) keeps
-    // the groups and only reorders within each.
-    {
-        std::map<std::string_view, size_t> matItem9;
-        for (auto* ps9 : paramSyms)
-            if (ps9->getParentScope() != &body) {
-                size_t it9 = 0;
-                if (auto r9 = impRank9.find(ps9); r9 != impRank9.end())
-                    it9 = r9->second.first;
-                matItem9.emplace(ps9->name, it9);
+    // the groups and only reorders within each. Keyed by OBJECT IDENTITY, not
+    // by name: a re-exported param is materialized once per import item, so
+    // two entries share a name and only their items tell them apart
+    // (BlackBePipeInt — § impOcc).
+    if (!matObj9.empty()) {
+        std::map<const UHDM::any*, size_t> matItem9;
+        for (auto& [o9, it9] : matObj9)
+            matItem9[o9] = it9;
+        std::vector<size_t> idx9;
+        std::vector<UHDM::any*> mats9;
+        for (size_t i9 = 0; i9 < params->size(); i9++)
+            if (matItem9.count((*params)[i9])) {
+                idx9.push_back(i9);
+                mats9.push_back((*params)[i9]);
             }
-        if (!matItem9.empty()) {
-            std::vector<size_t> idx9;
-            std::vector<UHDM::any*> mats9;
-            for (size_t i9 = 0; i9 < params->size(); i9++)
-                if ((*params)[i9]->UhdmType() == UHDM::uhdmparameter &&
-                    matItem9.count(
-                        ((UHDM::parameter*)(*params)[i9])->VpiName())) {
-                    idx9.push_back(i9);
-                    mats9.push_back((*params)[i9]);
-                }
-            std::stable_sort(
-                mats9.begin(), mats9.end(),
-                [&](UHDM::any* a, UHDM::any* b) {
-                    std::string_view na = ((UHDM::parameter*)a)->VpiName();
-                    std::string_view nb = ((UHDM::parameter*)b)->VpiName();
-                    size_t ia = matItem9[na], ib = matItem9[nb];
-                    if (ia != ib)
-                        return ia < ib;
-                    return na < nb;
-                });
-            for (size_t k9 = 0; k9 < idx9.size(); k9++)
-                (*params)[idx9[k9]] = mats9[k9];
-        }
+        std::stable_sort(mats9.begin(), mats9.end(),
+                         [&](UHDM::any* a, UHDM::any* b) {
+                             size_t ia = matItem9[a], ib = matItem9[b];
+                             if (ia != ib)
+                                 return ia < ib;
+                             return a->VpiName() < b->VpiName();
+                         });
+        for (size_t k9 = 0; k9 < idx9.size(); k9++)
+            (*params)[idx9[k9]] = mats9[k9];
     }
     // The ELABORATED instance assigns its PARAMETER-PORT-LIST params first
     // (they are resolved from the instantiation) and the rest — materialized
