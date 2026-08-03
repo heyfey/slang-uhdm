@@ -771,6 +771,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tf->VpiName(sub.name);
         tf->VpiFullName(fullName);
         tf->VpiParent(m);
+        tfHomeSub9[tf] = &sub;
         // The def-view package listing names its clone "class::method" and
         // parents it at the package; the fullname is unchanged.
         if (cloneMode) {
@@ -968,6 +969,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 rt->VpiFullName(fullName);
                 rt->VpiParent(rv);
                 rt->Actual_typespec(ts);
+                // A DPI import is a package subroutine like any other: its
+                // return typespec takes the package vpiInstance, view-matched
+                // (repro r3 `import "DPI-C" function int dpi_chk` — golden
+                // p1#DEF in the def listing, p1#TOP in every elaborated one;
+                // SeqDriver's 13 uvm_hdl_*/uvm_dpi_* returns x 4 listings).
+                if (tsInst) {
+                    ts->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
+                    stampElemTsInstance(ts, (UHDM::instance*)ts->Instance());
+                    if (importCopyTsInst && importCopyTsCollect)
+                        importCopyTsCollect->push_back(ts);
+                }
                 rv->Typespec(rt);
                 copyLoc(rv, ts);
             }
@@ -1033,6 +1045,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // at the return-type token.
             bool typedefRetClone = false;
             bool pkgUnitRet9 = false;
+            // A bare typedef return CLONE is instanced at the typedef's home
+            // package even inside a CLASS listing, where a method's own
+            // typespecs are otherwise uninstanced: the clone belongs to the
+            // package compile, not to the class.  Carries the view-matched
+            // listing object's own instance.
+            UHDM::instance* retCloneInst9 = nullptr;
             if (!ts) {
                 auto& rdt = sub.getReturnType();
                 // The return alias may be a DISTINCT TypeAlias instance
@@ -1058,17 +1076,48 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // EXCEPT a function declared INSIDE the typedef's own package,
                 // whose return gets a BARE-named clone with a Typedef_alias
                 // ref to the shared ts (jeras_union imm_i_f -> imm_i_t).
+                //
+                // "INSIDE the package" reaches through CLASSES: a method of a
+                // package class (in-body or out-of-body) is compiled in the
+                // package too, and Surelog gives its return the same bare
+                // clone — SeqDriver's uvm_pkg class methods returning
+                // `uvm_reg_data_t`/`uvm_action` are 300+ of them, all bare and
+                // all with a per-function object.  Walk the scope chain up
+                // through class scopes to the enclosing package.
                 bool sameScopePkgFn9 = false;
+                const Scope* scrPkgOf9 = nullptr;
                 if (retAlias)
                     if (auto scr9 = retAlias->getParentScope()) {
                         pkgUnitRet9 =
                             scr9->asSymbol().kind == SymbolKind::Package;
-                        if (pkgUnitRet9 && pkgScope &&
-                            sub.getParentScope() == scr9)
+                        scrPkgOf9 = scr9;
+                        const Scope* fsc9 = sub.getParentScope();
+                        while (fsc9 && fsc9 != scr9 &&
+                               (fsc9->asSymbol().kind == SymbolKind::ClassType ||
+                                fsc9->asSymbol().kind ==
+                                    SymbolKind::GenericClassDef))
+                            fsc9 = fsc9->asSymbol().getParentScope();
+                        if (pkgUnitRet9 && pkgScope && fsc9 == scr9)
                             sameScopePkgFn9 = true;
                     }
-                if (retBase && sameScopePkgFn9 &&
-                    retBase->UhdmType() == UHDM::uhdmlogic_typespec) {
+                // The clone is not a logic-typedef privilege: every SCALAR
+                // typedef takes it (`typedef bit [63:0] uvm_reg_data_t`,
+                // `typedef int uvm_action` — golden names both BARE, with a
+                // Typedef_alias back to the qualified listing object).  Only
+                // the aggregate kinds (struct/enum/array/class) keep sharing
+                // the typedef object.
+                bool scalarRetBase9 =
+                    retBase && (retBase->UhdmType() == UHDM::uhdmlogic_typespec ||
+                                retBase->UhdmType() == UHDM::uhdmbit_typespec ||
+                                retBase->UhdmType() == UHDM::uhdmint_typespec ||
+                                retBase->UhdmType() ==
+                                    UHDM::uhdminteger_typespec ||
+                                retBase->UhdmType() == UHDM::uhdmbyte_typespec ||
+                                retBase->UhdmType() ==
+                                    UHDM::uhdmshort_int_typespec ||
+                                retBase->UhdmType() ==
+                                    UHDM::uhdmlong_int_typespec);
+                if (retBase && sameScopePkgFn9 && scalarRetBase9) {
                     const syntax::SyntaxNode* targetSyn9 = nullptr;
                     if (auto asyn9 = retAlias->getSyntax())
                         if (asyn9->kind ==
@@ -1102,7 +1151,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     art9->VpiFullName(std::string(rdt.name));
                     art9->VpiParent(ts);
                     art9->Actual_typespec(rtw9);
-                    ((UHDM::logic_typespec*)ts)->Typedef_alias(art9);
+                    ts->Typedef_alias(art9);
+                    // View-matched at the typedef's HOME package: the def
+                    // listing's clone names the def copy, everything the
+                    // ELABORATED pass mints (including the class's own method
+                    // listing, where `tsInst` is deliberately null) names the
+                    // top copy.  `pkgEmitTopView` — not `pkgTopEmit`, which is
+                    // already cleared by the time the classes are emitted.
+                    if (scrPkgOf9) {
+                        const Symbol* hpk9 = &scrPkgOf9->asSymbol();
+                        auto& hmap9 = pkgEmitTopView ? pkgTopMap : pkgDefMap;
+                        if (auto hit9 = hmap9.find((const void*)hpk9);
+                            hit9 != hmap9.end())
+                            retCloneInst9 = (UHDM::instance*)hit9->second;
+                    }
                     typedefRetClone = true;
                 }
                 else if (retBase && pkgUnitRet9) {
@@ -1200,10 +1262,19 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             rt->VpiParent(rv);
             rt->Actual_typespec(ts);
             // A CLASS scope is not a vpiInstance (Surelog leaves method
-            // typespecs uninstanced, as the io_decl path already does).
-            if (tsInst &&
+            // typespecs uninstanced, as the io_decl path already does) — the
+            // bare typedef clone is the exception (§ retCloneInst9).
+            UHDM::instance* useInst9 = tsInst ? tsInst : retCloneInst9;
+            // An ANONYMOUS class_typespec — the class-HANDLE return minted at
+            // the return-type token — never carries a vpiInstance, in any
+            // listing and either view (SeqDriver golden: 1986 of them, all
+            // uninstanced; repro r2 `function D C::h()`).  Only a NAMED class
+            // typespec (`p::C`, a typedef'd class type) takes one.
+            if (ts->UhdmType() == UHDM::uhdmclass_typespec && ts->VpiName().empty())
+                useInst9 = nullptr;
+            if (useInst9 &&
                 !(sub.returnValVar && foreignSharedTs(*sub.returnValVar, ts))) {
-                ts->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
+                ts->Instance(importCopyTsInst ? importCopyTsInst : useInst9);
                 stampElemTsInstance(ts, (UHDM::instance*)ts->Instance());
                 if (importCopyTsInst && importCopyTsCollect)
                     importCopyTsCollect->push_back(ts);

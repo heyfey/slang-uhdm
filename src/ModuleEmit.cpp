@@ -3595,6 +3595,31 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 v = s.MakeTask_funcVec();
                 m->Task_funcs(v);
             }
+            // A module importing BOTH a package and a package that imports it
+            // lists each subroutine ONCE — the earlier import's materialization
+            // wins and the later group's CLONES of the same subroutines drop
+            // out.  The objects differ, so the pointer dedup below cannot see
+            // it; the home SubroutineSymbol is the identity (§ tfHomeSub9).
+            // Repro r5 (`module top` importing p1 and p2=import p1::*): golden
+            // lists [C::f, h] once, we listed four.  SeqDriver's top_tb imports
+            // uvm_pkg and adpcm_pkg: 1788 -> 894, golden's count exactly.
+            {
+                std::set<const Symbol*> have9;
+                for (auto* e9 : *v)
+                    if (auto hs9 = tfHomeSub9.find(e9); hs9 != tfHomeSub9.end())
+                        have9.insert(hs9->second);
+                std::vector<UHDM::task_func*> keep9;
+                for (auto* e9 : grp9) {
+                    auto hs9 = tfHomeSub9.find(e9);
+                    if (hs9 != tfHomeSub9.end() && have9.count(hs9->second) &&
+                        std::find(v->begin(), v->end(), e9) == v->end())
+                        continue;
+                    keep9.push_back(e9);
+                }
+                grp9.swap(keep9);
+                if (grp9.empty())
+                    continue;
+            }
             bool placed9 = false;
             size_t at9 = v->size();
             for (size_t i9 = 0; i9 < v->size(); i9++)
@@ -3655,11 +3680,20 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // class-parented).
     if (m->UhdmType() == UHDM::uhdmmodule_inst) {
         std::vector<UHDM::task_func*> hoist9;
+        std::set<const Symbol*> haveSub9;
         for (auto& [pkg9, cnt9] : collectMaterializedPkgs(body)) {
             (void)cnt9;
-            for (auto* tf9 : materializedPkgTfGroup(*pkg9))
-                if (std::find(hoist9.begin(), hoist9.end(), tf9) == hoist9.end())
-                    hoist9.push_back(tf9);
+            for (auto* tf9 : materializedPkgTfGroup(*pkg9)) {
+                if (std::find(hoist9.begin(), hoist9.end(), tf9) != hoist9.end())
+                    continue;
+                // ...and once per SUBROUTINE, not once per object
+                // (§ tfHomeSub9): the later import's clones name the same
+                // symbols the earlier one already listed.
+                auto hs9 = tfHomeSub9.find(tf9);
+                if (hs9 != tfHomeSub9.end() && !haveSub9.insert(hs9->second).second)
+                    continue;
+                hoist9.push_back(tf9);
+            }
         }
         if (!hoist9.empty()) {
             auto* v9 = m->Task_funcs();

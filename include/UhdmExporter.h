@@ -2265,6 +2265,12 @@ private:
     // module that IMPORTS the class's home package HOISTS exactly these
     // objects into its own Task_funcs (see emitImportArtifacts).
     std::map<const slang::ast::Symbol*, std::vector<UHDM::task_func*>> classOobTfs;
+    // Every emitted task/function object -> the SubroutineSymbol it was built
+    // from.  A wildcard-import CLONE and the home object it clones share that
+    // symbol, which is what makes a MODULE importing both a package and one of
+    // its importers list each subroutine ONCE (§ emitImportArtifacts): the
+    // group objects differ, the symbol does not.
+    std::map<const UHDM::task_func*, const slang::ast::Symbol*> tfHomeSub9;
     // Bare identifier references inside a class method BODY that resolved to
     // nothing at class scope (a class PROPERTY: Surelog compiles an
     // out-of-body definition in the package's scope, where the class's own
