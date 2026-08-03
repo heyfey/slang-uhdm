@@ -18621,6 +18621,50 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // Scalar params fold their value inline (UINT on the parameter) and drop
     // the param_assign.
     bool multiParamIface = isMultiParamDef(body);
+    // ── A MODPORT-qualified port view reached by a NAMED port connection is a
+    //    FULLY PARAMETERIZED view (r10ie) ──────────────────────────────────
+    // Measured on Surelog -parse over a purpose-built matrix: 2 port forms
+    // (`bus_if.master bus` / `bus_if bus`) x 2 connection forms
+    // (`.bus(bus)` / `bus`) x 3 override forms (value-changing / no-op /
+    // absent), all 12 cells + a 3-parameter variant:
+    //
+    //   port form            connection   param_assigns    member ranges
+    //   bus_if.master bus    .bus(bus)    ALL (home view)  CONNECTED instance
+    //   bus_if.master bus    bus          none             DECLARED defaults
+    //   bus_if bus           .bus(bus)    none             DECLARED defaults
+    //   bus_if bus           bus          none             DECLARED defaults
+    //
+    // Inside the first cell the keep is UNCONDITIONAL: with
+    // `#(parameter DW=16, parameter AW=4)` + `localparam int BYT = DW/8`
+    // instantiated `#(.DW(32))`, the named modport port view lists all three
+    // param_assigns (DW Overriden, AW and BYT plain) and folds `[DW-1:0]`
+    // to [31:0] and `[BYT-1:0]` to [3:0] — the home view's numbers. The
+    // positional form of the SAME source lists none and folds [15:0]/[0:0].
+    // So the connection form, not the override's value, is the switch: the
+    // earlier "override is a NO-OP" reading fitted iface_unpacked_struct_array
+    // (`.s(bus)`, DLY 1->1) and iface_param_port_width (`m0(bus, din)`,
+    // DATA_WIDTH 16->8) only because named/positional happened to co-vary
+    // with it. InterfaceElab breaks the tie: `.reg_o( reg_bus)` is named with
+    // a value-CHANGING override (-1 -> 32) and golden keeps the param_assign
+    // AND folds `logic [ADDR_WIDTH-1:0] addr` to [31:0].
+    // Interface-ARRAY element views are excluded (they drop even the
+    // aggregate op75 assigns — iface_array_elem_cfg_param), and a GENERIC
+    // port carries no modport of its own, so neither reaches this flag.
+    bool namedModportPortView9 = false;
+    bool posModportPortView9 = false;
+    if (portView && inst.arrayPath.empty())
+        for (auto pb8 : portView->body.getPortList()) {
+            if (pb8->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip8 = pb8->as<InterfacePortSymbol>();
+            if (ip8.modport.empty() ||
+                ip8.getConnection().first != (const Symbol*)&inst)
+                continue;
+            if (findConnSyntax(*portView, ip8.name))
+                namedModportPortView9 = true;
+            else
+                posModportPortView9 = true;
+        }
     // A GENERATE-bearing interface's modport port view keeps EVERY
     // param_assign, Overriden stamps included, exactly as the home view
     // emits them (jeras_tcb_gpio: AW/DW stamped, BW/DLY plain).
@@ -18640,8 +18684,16 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         // GenIfIfaceParamStructField / GenForIfaceLocalparamNestedGen.
         iface->Param_assigns(nullptr);
     }
-    else if (portView && !multiParamIface && ifaceHasGen9) {
+    else if (portView && !multiParamIface &&
+             (ifaceHasGen9 || namedModportPortView9)) {
         // keep-all: no filtering.
+    }
+    else if (portView && !multiParamIface && !ifaceHasGen9 &&
+             posModportPortView9) {
+        // drop-all: the POSITIONAL half of the r10ie matrix keeps nothing —
+        // not the derived localparams (`localparam int BYT = DW/8`), not the
+        // aggregate op75 assigns. Same source with `.bus(bus)` keeps all three.
+        iface->Param_assigns(nullptr);
     }
     else if (portView && !multiParamIface) {
         if (auto* pas0 = iface->Param_assigns()) {
@@ -18851,9 +18903,11 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // its own (OneNetRange ConnectTB: `#(width)` in tb vs `#(.width(width))`
     // in dut, both 16 -> con_i is [15:0] on the port view, not the default
     // [0:0]).
+    // ...and so does a MODPORT-qualified view reached by a NAMED port
+    // connection (r10ie — same switch that keeps its param_assigns above).
     bool textMultiIface9 = textMultiParamDefs.count(&def) > 0;
     if (portView && !multiParamIface && !textMultiIface9 && !aggOvPortView &&
-        !ifaceHasGen9) {
+        !ifaceHasGen9 && !namedModportPortView9) {
         auto dit0 = ifaceDefaultInst.find(&def);
         if (dit0 == ifaceDefaultInst.end())
             dit0 = ifaceDefaultInst

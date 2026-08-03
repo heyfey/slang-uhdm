@@ -739,8 +739,8 @@ Interconnect,default,SLANG_REJECT,dut.sv:4:20: error: interconnect nets cannot h
 Interconnect,testflags,SLANG_REJECT,dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
 InterfaceBinding,default,CMP_EQUAL,,,match
 InterfaceBinding,testflags,CMP_EQUAL,,,match
-InterfaceElab,default,CMP_NOTEQUAL,decompile:,,
-InterfaceElab,testflags,CMP_NOTEQUAL,decompile:,,
+InterfaceElab,default,CMP_EQUAL,,,differ
+InterfaceElab,testflags,CMP_EQUAL,,,differ
 InterfaceFuncCall,default,CMP_EQUAL,,,match
 InterfaceFuncCall,testflags,CMP_EQUAL,,,match
 InterfaceModExp,default,CMP_NOTEQUAL,decompile:,,
