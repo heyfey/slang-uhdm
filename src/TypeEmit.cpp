@@ -3853,6 +3853,53 @@ bool UhdmExporter::hasScopedPkgRef(std::string_view pkgName,
                                std::string(name)) > 0;
 }
 
+// `(P)'(x)` — a PARENTHESIZED parameter size cast — reuses P's own
+// declaration int_typespec as the cast target rather than minting one, and
+// Surelog stamps vpiInstance = the package onto that shared object.  Doing the
+// stamp at the CAST SITE only reaches the views that still emit a cast: the
+// elaborated package listing folds `(dev_addr_width_gp)'('h0_0000)` to a plain
+// constant, yet golden's elaborated copy of dev_addr_width_gp's own typespec
+// carries the instance all the same.  So the stamp follows the PARAMETER.
+// Measured on the r10c16c_r1 repro (w20 is a paren cast width: 16/16 golden
+// copies instanced; w4, used only inside `w4+w20`, has 0/16) and on
+// BlackBePipeInt bp_common_pkg dev_addr_width_gp.
+// The cast has to be written INSIDE A PACKAGE: BlackBePipeInt's
+// `dword_width_gp` is paren-cast only from a module's procedural code and
+// golden leaves all 6 copies of its typespec Instance-less (r10c16c_r2 pins
+// both halves), so the scan tracks package nesting.
+bool UhdmExporter::isParenCastWidthParam(std::string_view name) {
+    if (!parenCastWidthBuilt) {
+        parenCastWidthBuilt = true;
+        auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
+                        bool inPkg) -> void {
+            if (node.kind == syntax::SyntaxKind::PackageDeclaration)
+                inPkg = true;
+            if (inPkg && node.kind == syntax::SyntaxKind::CastExpression) {
+                const syntax::ExpressionSyntax* l9 =
+                    node.as<syntax::CastExpressionSyntax>().left;
+                bool paren9 = false;
+                while (l9 &&
+                       l9->kind == syntax::SyntaxKind::ParenthesizedExpression) {
+                    paren9 = true;
+                    l9 = l9->as<syntax::ParenthesizedExpressionSyntax>()
+                             .expression;
+                }
+                if (paren9 && l9 &&
+                    l9->kind == syntax::SyntaxKind::IdentifierName)
+                    parenCastWidthNames.insert(std::string(
+                        l9->as<syntax::IdentifierNameSyntax>()
+                            .identifier.valueText()));
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch, inPkg);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root(), false);
+    }
+    return parenCastWidthNames.count(std::string(name)) > 0;
+}
+
 // The companion trigger to hasScopedPkgRef, and the one that decides a WIDE
 // struct-pattern package parameter's ELABORATED shape: Surelog's
 // substituteAssignedValue, called for every `P.member` select, reduces P's own

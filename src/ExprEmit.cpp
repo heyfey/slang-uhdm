@@ -4224,17 +4224,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          }()) {
                     // cts bound in the predicate above.
                 }
-                else if (currentScope) {
+                else if (currentScope || castBindScope) {
                     // Non-literal cast sizes: integer_typespec carrying the
                     // freshly-bound size expression as vpiExpr (parented at
                     // the cast operation, name-only call spans). Parens
                     // anchor at the inner expression. Re-emitted contexts
                     // create the ts at the end of the write phase.
+                    // A PACKAGE parameter's init has no currentScope of its
+                    // own (emitParameters only sets one for typespec work), so
+                    // castBindScope stands in — without it a package-scope
+                    // `(A+B)'(x)` fell through to the catch-all logic_typespec
+                    // (BlackBePipeInt bp_common_pkg host_base_addr_gp, the
+                    // whole-design Compare's first unequal pair).
+                    const Scope& bindSc9 =
+                        currentScope ? *currentScope : *castBindScope;
                     const syntax::ExpressionSyntax* leftSyn = cesyn.left;
                     while (leftSyn->kind == syntax::SyntaxKind::ParenthesizedExpression)
                         leftSyn = leftSyn->as<syntax::ParenthesizedExpressionSyntax>()
                                       .expression;
-                    ASTContext bctx(*currentScope, LookupLocation::max);
+                    ASTContext bctx(bindSc9, LookupLocation::max);
                     auto& sizeExpr = Expression::bind(*cesyn.left, bctx);
                     auto lr = leftSyn->sourceRange();
                     // DEF-view gen-block PROCEDURAL casts keep the size
@@ -4299,6 +4307,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 its0->VpiValue(
                                     "UINT:" + pv0.integer().toString(
                                                   LiteralBase::Decimal, false));
+                            // A PACKAGE-scope cast target carries vpiInstance
+                            // = the package, like every other arm here
+                            // (BlackBePipeInt dev_addr_width_gp, 12 golden
+                            // copies of the named cast typespec, all stamped).
+                            if (pkgScopeInst)
+                                its0->Instance(pkgScopeInst);
+                            else if (importedInitPkgInst)
+                                its0->Instance(importedInitPkgInst);
                             cts = its0;
                         }
                     }
@@ -4398,6 +4414,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             its->VpiValue(
                                 "UINT:" +
                                 pv.integer().toString(LiteralBase::Decimal, false));
+                        // A PACKAGE-scope cast target carries vpiInstance =
+                        // the package (BlackBePipeInt bp_common_pkg
+                        // `dev_addr_width_gp'('h0_bff?)`: all 12 golden copies
+                        // of this named typespec are stamped, and a null one
+                        // is what typespec::Compare reported as `LHS=package
+                        // RHS=<null>`).
+                        if (pkgScopeInst)
+                            its->Instance(pkgScopeInst);
+                        else if (importedInitPkgInst)
+                            its->Instance(importedInitPkgInst);
                         cts = its;
                     }
                     // A PACKAGE-scoped parameter width (pkg::P'(x)) mints a
@@ -4504,6 +4530,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (auto* e = emitExpr(sizeExpr, op, prefix, netMap))
                             its->Expr((UHDM::expr*)e);
                         inCastSize = savedCS;
+                        // A package-scope size cast's integer_typespec carries
+                        // vpiInstance = the package, exactly like the
+                        // literal-width arm above; typespec::Compare chases
+                        // Instance(), so a missing stamp reports as
+                        // `LHS=package RHS=<null>`.
+                        if (pkgScopeInst)
+                            its->Instance(pkgScopeInst);
+                        else if (importedInitPkgInst)
+                            its->Instance(importedInitPkgInst);
                         cts = its;
                     }
                 }

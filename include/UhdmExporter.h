@@ -1129,6 +1129,15 @@ private:
     bool hasMemberSelectOf(std::string_view name);
     std::set<std::string> memberSelectBases;
     bool memberSelectBasesBuilt = false;
+    /// True when `(<name>)'(x)` appears anywhere: a PARENTHESIZED parameter
+    /// size cast reuses the referenced parameter's own declaration
+    /// int_typespec as the cast target, and Surelog stamps vpiInstance = the
+    /// package on that shared object.  The stamp is a property of the
+    /// PARAMETER, not of the cast site: it is present in every view, including
+    /// the elaborated listing where the cast itself has folded away.
+    bool isParenCastWidthParam(std::string_view name);
+    std::set<std::string> parenCastWidthNames;
+    bool parenCastWidthBuilt = false;
     /// `arr[3]` -> the span of the bare index token (`3`).  Surelog anchors the
     /// synthesized interface-array-element bit_select (and its index constant)
     /// there, not over the whole select expression.  Returns `range` unchanged
@@ -1582,6 +1591,13 @@ private:
     NetMap* currentTopNets = nullptr;
     // Scope for late syntax binding (cast size exprs).
     const slang::ast::Scope* currentScope = nullptr;
+    // Fallback for the same binding while emitting a PACKAGE parameter's
+    // init: emitParameters never sets currentScope for a package body, so a
+    // size cast written there (`(dev_id_width_gp+dev_addr_width_gp)'('h...)`)
+    // could not re-bind its width syntax and fell through to the catch-all
+    // logic_typespec instead of minting the integer_typespec + vpiExpr shape
+    // Surelog builds (BlackBePipeInt bp_common_pkg host_base_addr_gp).
+    const slang::ast::Scope* castBindScope = nullptr;
     std::map<const slang::ast::Symbol*, bool> paramIntEnc;
     std::vector<PendingParamTs> pendingParamTs;
     // An ELAB unpacked-array param's own array_typespec clone is built after

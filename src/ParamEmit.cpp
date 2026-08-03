@@ -2560,6 +2560,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Imported = the param belongs to ANOTHER scope (a package), not the
         // body being emitted (a package emitting its own params is NOT that).
         bool isImported = ps.getParentScope() != &body;
+        // A PACKAGE parameter's init is emitted with no currentScope, so a
+        // size cast written in it could not re-bind its width syntax (see
+        // castBindScope). Expose the DECLARING scope for the whole iteration.
+        struct CbsRestore9 {
+            const Scope*& f;
+            const Scope* v;
+            ~CbsRestore9() { f = v; }
+        } cbsRestore9{castBindScope, castBindScope};
+        if (inPackage && ps.getParentScope())
+            castBindScope = ps.getParentScope();
+        // THE IMPORT-COPY LAW.  A package that WILDCARD-IMPORTS another
+        // re-lists the imported parameters, and that copy carries the source
+        // package's ELABORATED value in BOTH listings — not the def one.
+        // Surelog materializes the copy by cloning the already-reduced
+        // parameter out of the importing package's elaborated symbol table, so
+        // the def listing of the importer is indistinguishable from its own
+        // top listing for those rows.
+        // Measured on BlackBePipeInt: golden's AllPackages bp_be_pkg entry is
+        // row-for-row identical (modulo ids) to golden's TopPackages
+        // bp_common_pkg entry for all 183 imported params, while bp_be_pkg's
+        // OWN 14 params keep the def shape; and on the purpose-built repro
+        // r10c16c_r1, where package pb's AllPackages listing carries pa's
+        // reduced sz32 constants, its `?`-literal folds and its flattened
+        // default: patterns.
+        struct TvRestore9 {
+            bool& f;
+            bool v;
+            ~TvRestore9() { f = v; }
+        } tvRestore9{topView, topView};
+        if (inPackage && !topView && isImported)
+            topView = true;
         flushPaTag9();
         paMarkPort9 = !isImported && ps.isPortParam();
         // The package instance a materialized param's typespec is INSTANCED at.
@@ -5748,6 +5779,95 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             rc->VpiDecompile(std::string(v0.substr(7)));
                     }
                 }
+                // A size cast over a based literal carrying UNKNOWN digits
+                // ((dev_addr_width_gp)'('h0_c???)) still FOLDS in the
+                // elaborated package listing: Surelog's ExprEval converts the
+                // literal with strtoull, which stops at the first character
+                // that is not a digit of the base, so `'h0_c???` reduces to
+                // 0x0c = 12 and `'h001?_????` to 0x001 = 1.  The result is
+                // then truncated to the cast width and written back as an int
+                // (size 32) like every other elaborated package constant.
+                // slang carries the X/Z bits and refuses to evaluate, so this
+                // whole family stayed an unfolded vpiCastOp tree.
+                // (BlackBePipeInt bp_common_pkg *_match_addr_gp x16.)
+                else if (uint64_t unkCastVal9 = 0;
+                         inPackage && topView && !typedParam && init && [&] {
+                             auto& sc9 = stripImplicitConv(*init);
+                             if (sc9.kind != ExpressionKind::Conversion ||
+                                 sc9.as<ConversionExpression>().isImplicit() ||
+                                 !sc9.type || !sc9.syntax ||
+                                 sc9.syntax->kind !=
+                                     syntax::SyntaxKind::CastExpression ||
+                                 isTypeSyntaxKind(
+                                     sc9.syntax
+                                         ->as<syntax::CastExpressionSyntax>()
+                                         .left->kind))
+                                 return false;
+                             const Expression* in9 = &stripImplicitConv(
+                                 sc9.as<ConversionExpression>().operand());
+                             while (in9->kind == ExpressionKind::Conversion)
+                                 in9 = &stripImplicitConv(
+                                     in9->as<ConversionExpression>().operand());
+                             if (in9->kind != ExpressionKind::IntegerLiteral)
+                                 return false;
+                             ASTContext uc9(comp.getRoot(), LookupLocation::max);
+                             auto ucv9 = uc9.tryEval(*in9);
+                             if (!ucv9 || !ucv9.isInteger() ||
+                                 !ucv9.integer().hasUnknown())
+                                 return false;
+                             std::string raw9(rawText(in9->sourceRange));
+                             auto tk9 = raw9.find('\'');
+                             if (tk9 == std::string::npos)
+                                 return false;
+                             size_t bp9 = tk9 + 1;
+                             if (bp9 < raw9.size() &&
+                                 (raw9[bp9] == 's' || raw9[bp9] == 'S'))
+                                 bp9++;
+                             if (bp9 >= raw9.size())
+                                 return false;
+                             int base9 = 0;
+                             switch (raw9[bp9]) {
+                                 case 'b': case 'B': base9 = 2; break;
+                                 case 'o': case 'O': base9 = 8; break;
+                                 case 'd': case 'D': base9 = 10; break;
+                                 case 'h': case 'H': base9 = 16; break;
+                                 default: return false;
+                             }
+                             std::string dig9;
+                             for (size_t i9 = bp9 + 1; i9 < raw9.size(); i9++)
+                                 if (raw9[i9] != '_')
+                                     dig9 += raw9[i9];
+                             if (dig9.empty())
+                                 return false;
+                             uint64_t v9 =
+                                 strtoull(dig9.c_str(), nullptr, base9);
+                             uint64_t w9 = sc9.type->getBitWidth();
+                             if (w9 > 0 && w9 < 64)
+                                 v9 &= ((uint64_t)1 << w9) - 1;
+                             unkCastVal9 = v9;
+                             return true;
+                         }()) {
+                    auto* c = s.MakeConstant();
+                    std::string dg9 = std::to_string(unkCastVal9);
+                    c->VpiDecompile(dg9);
+                    c->VpiSize(32);
+                    c->VpiValue("UINT:" + dg9);
+                    c->VpiConstType(vpiUIntConst);
+                    c->VpiParent(pa);
+                    setLoc(c, init->sourceRange);
+                    if (wantTs) {
+                        auto* rt = s.MakeRef_typespec();
+                        std::string tsPrefix = prefix;
+                        if (tsPrefix.size() >= 2 &&
+                            tsPrefix.compare(tsPrefix.size() - 2, 2, "::") == 0)
+                            tsPrefix.resize(tsPrefix.size() - 2);
+                        rt->VpiFullName(tsPrefix);
+                        rt->VpiParent(c);
+                        c->Typespec(rt);
+                        rhsRt = rt;
+                    }
+                    rhs = c;
+                }
                 // A TYPED string param never folds (the elab Rhs re-emits the
                 // string constant, decompiled without quotes). Pkg CONCAT
                 // inits keep the operation in both views.
@@ -5795,8 +5915,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                              if (!inPackage)
                                  return true;
                              auto k = stripImplicitConv(*init).kind;
-                             return k == ExpressionKind::StructuredAssignmentPattern ||
-                                    k == ExpressionKind::SimpleAssignmentPattern;
+                             if (k == ExpressionKind::StructuredAssignmentPattern ||
+                                 k == ExpressionKind::SimpleAssignmentPattern)
+                                 return true;
+                             // ...and a BARE reference to another struct
+                             // param of the SAME type does not reduce either
+                             // in the ELAB listing: Surelog substitutes that
+                             // param's own pattern (RULE 5, package flavour;
+                             // structRefPat9 below then re-emits it).  Folding
+                             // it minted a bogus >64b decimal constant, which
+                             // also broke every later ternary that selects
+                             // members off this parameter.
+                             if (topView)
+                                 if (auto* rp9 = bareParamRef(*init))
+                                     if (auto* ri9 = rp9->getInitializer()) {
+                                         auto rk9 =
+                                             stripImplicitConv(*ri9).kind;
+                                         if ((rk9 == ExpressionKind::
+                                                         StructuredAssignmentPattern ||
+                                              rk9 == ExpressionKind::
+                                                         SimpleAssignmentPattern) &&
+                                             &rp9->getType().getCanonicalType() ==
+                                                 &ps.getType().getCanonicalType())
+                                             return true;
+                                     }
+                             return false;
                          }()) &&
                          // An assignment pattern reduces to a constant ONLY
                          // against a packed-VECTOR target.  Surelog's
@@ -6024,12 +6167,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                    bop9 == BinaryOperator::LogicalImplication ||
                                    bop9 == BinaryOperator::LogicalEquivalence;
                         }();
+                    // An ELABORATED PACKAGE listing re-types every reduced
+                    // parameter constant as an int: Surelog's package
+                    // elaboration runs its evaluator and writes the result
+                    // back at size 32, so a size cast's own width never
+                    // survives there ((dev_addr_width_gp)'('h0_0000) is size
+                    // 32, not 20).  The DEF listing keeps the unfolded cast
+                    // tree, and a module-view copy keeps the cast width — so
+                    // this is the package elab listing only.
+                    // (BlackBePipeInt bp_common_pkg *_addr_gp x32; purpose-
+                    // built repro r10c16c_r1 lit/sym/expression widths.)
+                    bool pkgElabSizeCast9 =
+                        sizeCastVal && inPackage && topView && !typedParam;
                     if (!concatFold && !boolInit9)
                         ((UHDM::constant*)rhs)
                             ->VpiSize(typedParam || defUntypedImport ||
                                               rangedFold || elabRefFold9 ||
                                               bitsFoldInit || castSizeFold
                                           ? (int32_t)ps.getType().getBitWidth()
+                                      : pkgElabSizeCast9 ? 32
                                       : sizeCastVal ? (int32_t)scv.type->getBitWidth()
                                                     : 64);
                     if (boolInit9) {
@@ -6524,8 +6680,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // which deliberately EXCLUDE packed structs (1236970: a
                 // whole-struct read reduces even off a pattern Rhs), so the
                 // substitution has to happen here, on the flatten side.
+                // ...and the same substitution runs in a PACKAGE's ELAB
+                // listing (`localparam bp_proc_param_s bp_unicore_cfg_p =
+                // bp_default_cfg_p` re-emits bp_default_cfg_p's own flat
+                // op75, anchored at the REFERENCE span rather than at the
+                // referenced pattern's).  The DEF listing keeps the bare
+                // ref_obj chained to that param's Rhs, so this is topView
+                // only.  Without it the read folded to a bogus >64b decimal
+                // constant, which in turn broke every ternary that selects
+                // members off it (BlackBePipeInt bp_unicore_*parrot_cfg_p).
                 const Expression* structRefPat9 = nullptr;
-                if (topView && !inPackage && !structOvPat &&
+                if (topView && !structOvPat &&
                     ps.getType().getCanonicalType().kind ==
                         SymbolKind::PackedStructType)
                     if (auto* rp9 = bareParamRef(*init))
@@ -6677,9 +6842,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto* op2 = s.MakeOperation();
                     op2->VpiOpType(75);
                     op2->VpiParent(pa);
-                    setLoc(op2, structOvPat      ? structOvLoc
-                                : structRefPat9 ? structRefPat9->sourceRange
-                                                : init->sourceRange);
+                    setLoc(op2, structOvPat ? structOvLoc
+                                : (structRefPat9 && !inPackage)
+                                    ? structRefPat9->sourceRange
+                                    : init->sourceRange);
                     // --disable-feature=parametersubstitution: an IMPORTED
                     // aggregate param's elab Rhs is Surelog's clone of the
                     // PACKAGE assign, which carries no typespec; the
@@ -6910,6 +7076,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                             continue;
                         }
+                        // A STRING-literal setter keeps its STRING constant
+                        // through the flatten: Surelog's reduce hands the
+                        // literal object back verbatim, so `'{..., default:
+                        // "inv"}` fills its unset slots with vpiStringConst
+                        // "inv" — re-sized to the member width by the same
+                        // adjustOpSize walk, never folded to the numeric value
+                        // of its characters (slang coerces the literal to the
+                        // integral member type, which is what produced the
+                        // 6909558 residue).  BlackBePipeInt bp_common_pkg
+                        // bp_*_override_p, 30 rows per elaborated listing.
+                        if (stripImplicitConv(*se).kind ==
+                            ExpressionKind::StringLiteral) {
+                            auto& sl8 = stripImplicitConv(*se);
+                            if (auto* e2 = emitExpr(sl8, op2, prefix, netMap)) {
+                                ((UHDM::expr*)e2)->VpiParent(op2);
+                                if (e2->UhdmType() == UHDM::uhdmconstant &&
+                                    (nestBailK < 0 || fiK9 <= nestBailK))
+                                    ((UHDM::constant*)e2)
+                                        ->VpiSize((int32_t)fld.getType()
+                                                      .getBitWidth());
+                                opnds->push_back(e2);
+                            }
+                            continue;
+                        }
                         // An ENUM-MEMBER setter of a PACKAGE-ORIGIN struct
                         // param keeps the enum member's OWN literal form in
                         // the flattened elab view too (enumMemberSubstConst),
@@ -6925,6 +7115,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             .symbol)) {
                                     ec8->VpiParent(op2);
                                     setLoc(ec8, se->sourceRange);
+                                    // The flatten re-sizes EVERY operand to
+                                    // the member width (adjustOpSize) — the
+                                    // enum substitution is no exception, only
+                                    // its ENCODING is preserved.  Without this
+                                    // an implicit enum member kept the
+                                    // reconstruction's unsized 64
+                                    // (BlackBePipeInt cacc_type / sacc_type /
+                                    // cce_type, 31 rows per elab listing).
+                                    if (nestBailK < 0 || fiK9 <= nestBailK)
+                                        ec8->VpiSize(
+                                            (int32_t)fld.getType().getBitWidth());
                                     opnds->push_back(ec8);
                                     continue;
                                 }
@@ -8876,8 +9077,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // paren-param size cast in the same package REUSES this very
                 // object as its cast typespec (pkgScopeParamTs).
                 if (inPackage && !isImported && its &&
-                    its->UhdmType() == UHDM::uhdmint_typespec)
+                    its->UhdmType() == UHDM::uhdmint_typespec) {
                     pkgScopeParamTs[std::string(ps.name)] = {its, up};
+                    // ...and the vpiInstance stamp that sharing carries is a
+                    // property of the PARAMETER, present in every view — the
+                    // elaborated listing folds the cast away, so stamping only
+                    // where a cast is emitted left the elab copy null and
+                    // typespec::Compare reported it as `LHS=package
+                    // RHS=<null>` (isParenCastWidthParam).
+                    if (isParenCastWidthParam(ps.name))
+                        its->Instance(pkgScopeInst ? pkgScopeInst
+                                                   : (UHDM::instance*)m);
+                }
                 if (inPackage && typedParam)
                     stampPkgTsInst(its);
                 else if (!inPackage && isImported && ps.getParentScope()) {
@@ -8891,7 +9102,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // typespec->vpiInstance, so binding the DEF view drags the
                     // UNELABORATED param constants into the comparison
                     // (cs_registers: 64-bit def vs 32-bit elab pkg params).
-                    if (typedParam) {
+                    // ...and an UNTYPED import whose HOME copy IS instanced —
+                    // a paren-cast width parameter (isParenCastWidthParam) —
+                    // carries the stamp into the importing view too, because
+                    // the module copy is a clone of that same object.
+                    if (typedParam || isParenCastWidthParam(ps.name)) {
                         const void* home3 = &ps.getParentScope()->asSymbol();
                         if (auto tit = pkgTopMap.find(home3);
                             tit != pkgTopMap.end())
