@@ -860,6 +860,11 @@ private:
     bool paramNameIsRead(const slang::ast::ParameterSymbol& ps);
     std::map<const slang::syntax::SyntaxNode*,
              std::map<std::string_view, int>> declIdentCounts;
+    // The same walk restricted to the CONSTANT-EVALUATED select positions — a
+    // RANGED-UNTYPED parameter reaches getObject only from those (see the
+    // ablation table at collectSrlgReadNames).
+    std::map<const slang::syntax::SyntaxNode*,
+             std::map<std::string_view, int>> declIdentCountsNarrow;
     // True when the parameter is read anywhere inside a continuous assign
     // whose RHS constant-FOLDS (Surelog's reduction resolves each name it
     // meets through getObject/setRange).  Cached per instance body.
@@ -1440,6 +1445,11 @@ private:
     // RHS, 1 = def (allModules), 2 = elab (topModules). Unbased-unsized
     // func-call args key their formal-ts/fold behavior on this.
     int contAssignView = 0;
+    // Emitting a NET-DECL-ASSIGN's RHS (`wire x = ...;`, elab view only —
+    // contAssignView stays 0 there because Surelog compiles these in the
+    // netlist pass, not the cont-assign one).  A func call NESTED UNDER AN
+    // OPERATION in such an RHS stamps no formal typespec on its argument refs.
+    bool ndaRhsEmit = false;
     // The nearest enclosing assignment/op-82 object — an embedded assignment
     // expression's LHS ref parents here (not at its own op).
     UHDM::BaseClass* enclosingAssign = nullptr;
@@ -2270,6 +2280,10 @@ private:
     // Vars ALSO written whole (dout = ...) never repoint their whole refs
     // (multiple_blocking_gate).
     std::set<const slang::ast::Symbol*> selWholeWrittenVars;
+    // The function-RETURN-name refs endSelTrack already re-pointed at a select
+    // object.  drainFuncRet mints a per-ref return variable for everything in
+    // `pendingFuncRet`, which would clobber that binding, so it skips these.
+    std::set<const UHDM::ref_obj*> funcRetSelBound;
     bool beginSelTrack();  // returns true if it newly activated tracking
     void endSelTrack();    // back-patches whole-refs and clears state
     void noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj);

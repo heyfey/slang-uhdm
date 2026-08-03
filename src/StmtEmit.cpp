@@ -129,6 +129,10 @@ void UhdmExporter::endSelTrack() {
             sel->UhdmType() == UHDM::uhdmpart_select)
             continue;
         wr.ref->Actual_group(sel);
+        // A function-return-name ref is ALSO queued in pendingFuncRet, whose
+        // drain would overwrite this with a freshly minted return variable.
+        if (funcRetSym && wr.sym == funcRetSym)
+            funcRetSelBound.insert(wr.ref);
     }
     selTrackActive = false;
     selFirstSelect.clear();

@@ -5595,6 +5595,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             signedBinFoldParams.insert(&ps);
                         }
                     }
+                    // A RANGED-UNTYPED param's elab literal ROUND-TRIPS
+                    // through a Value, so a BASED literal re-renders as
+                    // `<size>'<base><digits>` at the size adjustSize just left
+                    // (Value::decompiledValue — the producer stage srlgOvRender
+                    // models for the override path).  The DEF view keeps the
+                    // written text.  Measured, one declaration per row, `sub`
+                    // instantiated (probes /tmp/r10yoo_p9, _pd):
+                    //   parameter [4:0] R = 'h7    def ''h7'   sz -1
+                    //                              elab '5'h7'  sz 5
+                    //   parameter [4:0] T = 8'hFF  def '8'hFF' sz 8
+                    //                              elab '5'hFF' sz 5
+                    //   parameter [4:0] D = 7      def '7'  elab '7' (a decimal
+                    //                              never picks up a size prefix)
+                    // openmsp430 writes `parameter [DEC_WD-1:0] BCSCTL1 = 'h7`
+                    // and its siblings fourteen times over (YosysOldOpen: 14 of
+                    // 24 diverging vectors).
+                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                        isRangedUntypedParam(ps) && !signedBinFoldParams.count(&ps)) {
+                        auto* cr9 = (UHDM::constant*)rhs;
+                        int32_t ct9 = cr9->VpiConstType();
+                        const char* bc9 = ct9 == vpiHexConst   ? "'h"
+                                          : ct9 == vpiOctConst ? "'o"
+                                          : ct9 == vpiBinaryConst
+                                              ? "'b"
+                                              : nullptr;
+                        std::string_view vv9 = cr9->VpiValue();
+                        auto cl9 = vv9.find(':');
+                        if (bc9 && cl9 != std::string_view::npos &&
+                            cr9->VpiSize() > 0)
+                            cr9->VpiDecompile(std::to_string(cr9->VpiSize()) +
+                                              bc9 +
+                                              std::string(vv9.substr(cl9 + 1)));
+                    }
                 }
                 // Symbolic sys_func_call ($clog2(Info.x)) of a member-init
                 // param: re-emit the call with the argument substituted by the
@@ -6122,9 +6155,38 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // the operator changed: `*` `/` `-` reduce to INT, `+` and
                     // `<<` to UINT — in every declaration form (untyped,
                     // `int`, `bit [7:0]`).
+                    // ...and the signedness PROPAGATES UP THROUGH `+`: Surelog
+                    // reduces bottom-up over Values, so a signed operand keeps
+                    // the sum signed, while every non-arithmetic operator
+                    // resets it.  Measured on two purpose-built goldens
+                    // (/tmp/r10yoo_pr, _ps — one instantiated `sub`, one
+                    // parameter per shape):
+                    //   (16'hFFFF-8192+1) INT   1+(3-2)   INT   (3-2)+1 INT
+                    //   1+(2*3)           INT   4-(1+1)   INT   100/5   INT
+                    //   3+4               UINT  8192+1    UINT  8>>1    UINT
+                    //   (3-2)>>1          UINT  (7-3)|1   UINT  (7-3)&6 UINT
+                    // openmsp430 `parameter PMEM_OFFSET = (16'hFFFF-`PMEM_SIZE
+                    // +1)` is the first cell (YosysOldOpen: 8 of 14 vectors,
+                    // the substituted copies in its readers included).
+                    std::function<bool(const Expression&)> foldSigned9 =
+                        [&](const Expression& e9) -> bool {
+                        auto& s9 = stripImplicitConv(e9);
+                        if (s9.kind == ExpressionKind::UnaryOp)
+                            return s9.as<UnaryExpression>().op ==
+                                   UnaryOperator::Minus;
+                        if (s9.kind != ExpressionKind::BinaryOp)
+                            return false;
+                        auto& b9 = s9.as<BinaryExpression>();
+                        if (b9.op == BinaryOperator::Subtract ||
+                            b9.op == BinaryOperator::Multiply)
+                            return true;
+                        if (b9.op == BinaryOperator::Add)
+                            return foldSigned9(b9.left()) ||
+                                   foldSigned9(b9.right());
+                        return false;
+                    };
                     if (scv.kind == ExpressionKind::BinaryOp &&
-                        (scv.as<BinaryExpression>().op == BinaryOperator::Subtract ||
-                         scv.as<BinaryExpression>().op == BinaryOperator::Multiply)) {
+                        foldSigned9(scv)) {
                         auto* rc1 = (UHDM::constant*)rhs;
                         std::string_view v1 = rc1->VpiValue();
                         if (v1.rfind("UINT:", 0) == 0) {
@@ -9535,29 +9597,109 @@ bool UhdmExporter::isRangedUntypedParam(const ParameterSymbol& ps) {
 }
 
 // Collect the names Surelog resolves through getObject in an INSTANCE context
-// (see paramNameIsRead): any name carrying a SELECT anywhere, plus a name
-// that is the WHOLE Rhs of a continuous assign.
+// (see paramNameIsRead): a name carrying a SELECT in a position Surelog
+// CONSTANT-EVALUATES, plus a name that is the WHOLE Rhs of a continuous
+// assign.
+//
+// The select rule used to fire on a select ANYWHERE.  Purpose-built ablations
+// (/tmp/r10yoo_pf, _pg, _ph: one instantiated `sub`, one `parameter [4:0] Pn
+// = 7` per read shape) falsify that — only two positions reach getObject, and
+// the FOLDABLE cont-assign is paramCaFoldRead's job:
+//   select in a FOLDABLE cont-assign RHS   assign w = {31'b0,P[0]}     -> bare
+//   select in a GENERATE CONDITION         if (P[0])                   -> bare
+//   select in the CONDITION of a ternary
+//     that IS a cont-assign RHS            assign w = P[0] ? n1 : n2   -> bare
+//   select in a NON-foldable cont-assign   assign w = a & {..P[0]}     -> LOCATED
+//   select in a PROCEDURAL assignment      always @* r = {..P[0]}      -> LOCATED
+//   select in a procedural ternary cond    always @* r = P[0]?n1:n2    -> LOCATED
+//   select in a procedural `if` condition  if (P[0]) r = n1;           -> LOCATED
+//   select in a NESTED ternary condition   assign w = n[0]?(P[0]?..)   -> LOCATED
+//   select in a LOCALPARAM initializer     localparam Q = P[0]         -> LOCATED
+//   select in a param-init ternary cond    parameter Q = P[0] ? 3 : 4  -> LOCATED
+//   whole name in a ternary condition      assign w = P ? n1 : n2      -> LOCATED
+//   whole name in a non-foldable CA        assign o = a & P            -> LOCATED
+//   never read                                                        -> LOCATED
+// So Surelog's cont-assign reduce descends only as far as it stays constant:
+// a top-level ternary gets its CONDITION evaluated (getObject) even when the
+// branches are nets, and nothing deeper does.  Generate conditions are the
+// other constant-evaluated position, and slang has already folded those away
+// by the time the AST exists — which is why this rule is modelled on syntax.
+// Both distinctions are live in openmsp430: `parameter [14:0] BASE_ADDR`
+// (read as `BASE_ADDR[14:DEC_WD]` beside a net) keeps its LOCATED declaration
+// typespec, while `parameter [DEC_WD-1:0] BCSCTL1` (read as `BCSCTL1[0] ?
+// reg_hi_wr[BCSCTL1] : reg_lo_wr[BCSCTL1]`) takes the bare one.
 static void collectSrlgReadNames(const syntax::SyntaxNode& n,
-                                 std::map<std::string_view, int>& out) {
+                                 std::map<std::string_view, int>& out,
+                                 std::map<std::string_view, int>& narrow,
+                                 bool inGenCond = false) {
     if (n.kind == syntax::SyntaxKind::ContinuousAssign) {
         for (auto* a : n.as<syntax::ContinuousAssignSyntax>().assignments)
             if (a && a->kind == syntax::SyntaxKind::AssignmentExpression) {
                 auto* r = a->as<syntax::BinaryExpressionSyntax>().right.get();
-                if (r && r->kind == syntax::SyntaxKind::IdentifierName)
-                    out[r->as<syntax::IdentifierNameSyntax>()
-                            .identifier.valueText()]++;
+                if (r && r->kind == syntax::SyntaxKind::IdentifierName) {
+                    auto nm0 = r->as<syntax::IdentifierNameSyntax>()
+                                   .identifier.valueText();
+                    out[nm0]++;
+                    narrow[nm0]++;
+                }
+                if (r && r->kind == syntax::SyntaxKind::ConditionalExpression)
+                    collectSrlgReadNames(
+                        *r->as<syntax::ConditionalExpressionSyntax>().predicate,
+                        out, narrow, /*inGenCond=*/true);
             }
     }
-    if (n.kind == syntax::SyntaxKind::IdentifierSelectName)
-        out[n.as<syntax::IdentifierSelectNameSyntax>().identifier.valueText()]++;
-    else if (n.kind == syntax::SyntaxKind::ElementSelectExpression) {
-        auto* l = n.as<syntax::ElementSelectExpressionSyntax>().left.get();
-        if (l && l->kind == syntax::SyntaxKind::IdentifierName)
-            out[l->as<syntax::IdentifierNameSyntax>().identifier.valueText()]++;
+    // A NET-declaration assignment carries the same reduce (`wire x = P[0] ?
+    // .. : ..`, openmsp430 bcsctl1_wr), and its syntax node is a NetDeclaration
+    // holding Declarators, not a ContinuousAssign.  Variable and parameter
+    // declarators are deliberately excluded: a param init's ternary condition
+    // measured LOCATED (probe _ph S4).
+    if (n.kind == syntax::SyntaxKind::NetDeclaration)
+        for (auto* dcl : n.as<syntax::NetDeclarationSyntax>().declarators)
+            if (dcl)
+                if (auto* ini = dcl->initializer)
+                    if (ini->expr && ini->expr->kind ==
+                                         syntax::SyntaxKind::ConditionalExpression)
+                        collectSrlgReadNames(
+                            *ini->expr->as<syntax::ConditionalExpressionSyntax>()
+                                 .predicate,
+                            out, narrow, /*inGenCond=*/true);
+    {
+        std::string_view selName;
+        if (n.kind == syntax::SyntaxKind::IdentifierSelectName)
+            selName = n.as<syntax::IdentifierSelectNameSyntax>()
+                          .identifier.valueText();
+        else if (n.kind == syntax::SyntaxKind::ElementSelectExpression) {
+            auto* l = n.as<syntax::ElementSelectExpressionSyntax>().left.get();
+            if (l && l->kind == syntax::SyntaxKind::IdentifierName)
+                selName =
+                    l->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        }
+        if (!selName.empty()) {
+            out[selName]++;
+            if (inGenCond)
+                narrow[selName]++;
+        }
+    }
+    // The generate-condition subtrees: an if-generate's / case-generate's
+    // condition and a loop-generate's three control expressions.
+    const syntax::SyntaxNode* condA = nullptr;
+    const syntax::SyntaxNode* condB = nullptr;
+    const syntax::SyntaxNode* condC = nullptr;
+    if (n.kind == syntax::SyntaxKind::IfGenerate)
+        condA = n.as<syntax::IfGenerateSyntax>().condition;
+    else if (n.kind == syntax::SyntaxKind::CaseGenerate)
+        condA = n.as<syntax::CaseGenerateSyntax>().condition;
+    else if (n.kind == syntax::SyntaxKind::LoopGenerate) {
+        auto& lg = n.as<syntax::LoopGenerateSyntax>();
+        condA = lg.initialExpr;
+        condB = lg.stopExpr;
+        condC = lg.iterationExpr;
     }
     for (size_t i = 0, e = n.getChildCount(); i < e; i++)
         if (auto* c = n.childNode(i))
-            collectSrlgReadNames(*c, out);
+            collectSrlgReadNames(*c, out, narrow,
+                                 inGenCond || c == condA || c == condB ||
+                                     c == condC);
 }
 
 // Surelog's elaboration REWRITES a parameter's value typespec the first time
@@ -9598,9 +9740,21 @@ bool UhdmExporter::paramNameIsRead(const ParameterSymbol& ps) {
         return false;
     auto it = declIdentCounts.find(decl);
     if (it == declIdentCounts.end()) {
-        std::map<std::string_view, int> reads;
-        collectSrlgReadNames(*decl, reads);
+        std::map<std::string_view, int> reads, narrow;
+        collectSrlgReadNames(*decl, reads, narrow);
+        declIdentCountsNarrow.emplace(decl, std::move(narrow));
         it = declIdentCounts.emplace(decl, std::move(reads)).first;
+    }
+    // A RANGED-UNTYPED parameter takes the NARROW rule (see the ablation table
+    // at collectSrlgReadNames): only the constant-evaluated select positions
+    // reach getObject for it, while a select anywhere at all is enough for a
+    // TYPED one — LargeHex `parameter bit [75:0] DReqDepth`, read as
+    // `DReqDepth[8*4+:4]` inside another parameter's initializer, still takes
+    // the bare rewrite where the untyped `localparam Q = P[0]` twin does not.
+    if (isRangedUntypedParam(ps)) {
+        auto nit = declIdentCountsNarrow.find(decl);
+        return nit != declIdentCountsNarrow.end() &&
+               nit->second.count(ps.name) != 0;
     }
     return it->second.count(ps.name) != 0;
 }
@@ -10332,6 +10486,48 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                 syntaxReadsUnitParam(*es, ps.getParentScope()))
                                 if (auto* e9 = emitSyntaxExpr(*es, r))
                                     return (UHDM::expr*)e9;
+                            // ...and only a COMPILATION-UNIT parameter's bound
+                            // is reduced AT ALL.  A MODULE or PACKAGE untyped
+                            // ranged parameter keeps the WHOLE bound expression
+                            // symbolic in BOTH views, whether it reads a
+                            // parameter (`parameter [DEC_WD-1:0] BCSCTL1`) or
+                            // is literal-only after preprocessing
+                            // (`parameter [`W-1:0] B`, `parameter [4-1:0] B`) —
+                            // exactly the law makeTypespec already applies to a
+                            // TYPED param's typespec (`unitParamTs`: "comp-unit
+                            // param ts range bounds FOLD, module/pkg stay
+                            // symbolic").  Purpose-built goldens r10yoo_p5/p6
+                            // (.v and .sv twins, ten bound shapes each) and p7
+                            // (the same shapes at $unit, package and module
+                            // scope in one file) say the scope is the ONLY
+                            // distinguisher: every module and package bound
+                            // stays an op tree with UINT leaves, every $unit
+                            // bound folds — which is why the reduceExpr-sign
+                            // encoding below was measured on Scr1SvTests'
+                            // FILE-SCOPE `localparam [`SCR1_XLEN-1:0]`.
+                            // A bare LITERAL bound ([7:0]) folds everywhere;
+                            // only compound bounds are kept.
+                            if (es &&
+                                es->kind !=
+                                    syntax::SyntaxKind::IntegerLiteralExpression &&
+                                es->kind !=
+                                    syntax::SyntaxKind::IntegerVectorExpression) {
+                                auto* psc9 = ps.getParentScope();
+                                if (!psc9 ||
+                                    psc9->asSymbol().kind !=
+                                        SymbolKind::CompilationUnit) {
+                                    // A package param's bound refs scope with
+                                    // `::` (pkg::K3::PP), a module's with `.`.
+                                    std::string savedSep8 = syntaxRefSep;
+                                    if (psc9 && psc9->asSymbol().kind ==
+                                                    SymbolKind::Package)
+                                        syntaxRefSep = "::";
+                                    auto* e9 = emitSyntaxExpr(*es, r);
+                                    syntaxRefSep = savedSep8;
+                                    if (e9)
+                                        return (UHDM::expr*)e9;
+                                }
+                            }
                             // A bound Surelog had to REDUCE takes reduceExpr's
                             // sign, exactly like a $unit parameter's folded
                             // init: vpiSubOp/vpiMultOp hand back INT while a

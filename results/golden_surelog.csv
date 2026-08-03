@@ -1555,8 +1555,8 @@ YosysOldAes,default,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such fil
 YosysOldAes,testflags,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
 YosysOldI2c,default,CMP_EQUAL,,,differ
 YosysOldI2c,testflags,CMP_EQUAL,,,differ
-YosysOldOpen,default,CMP_NOTEQUAL,decompile:,,
-YosysOldOpen,testflags,CMP_NOTEQUAL,decompile:,,
+YosysOldOpen,default,CMP_EQUAL,,,differ
+YosysOldOpen,testflags,CMP_EQUAL,,,differ
 YosysOldOr,default,CMP_NOTEQUAL,decompile:,,
 YosysOldOr,testflags,CMP_NOTEQUAL,decompile:,,
 YosysOldSasc,default,SLANG_REJECT,cache/synth.v:1:8: error: design element does not have a time scale defined but others in the design do,,

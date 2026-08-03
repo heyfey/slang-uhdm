@@ -3365,8 +3365,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else if (nv.symbol.kind == SymbolKind::EnumValue)
                     // Anonymous-enum const built later in the deferred pass.
                     pendingEnumRefs.push_back({ref, &nv.symbol});
-                else if (funcRetRefs && &nv.symbol == funcRetSym)
+                else if (funcRetRefs && &nv.symbol == funcRetSym) {
                     funcRetRefs->push_back(ref);
+                    // The function's RETURN NAME obeys the same "a whole ref
+                    // re-points at the block's first select of the same
+                    // variable" law every other variable does — Surelog's
+                    // scope map holds one object per name and the bare refs
+                    // bind whatever it holds at the end of the body.
+                    // Purpose-built goldens /tmp/r10yoo_p{k,l,m}, functions
+                    // f1/f2/f3/g1/g2: with `one_hot16[binary] = 1'b1` in the
+                    // body EVERY bare `one_hot16` ref (before it, after it,
+                    // LHS or RHS) binds that bit_select; with no select at all
+                    // they bind the return logic_var; two selects bind the
+                    // FIRST; and a select on a LOCAL variable leaves the
+                    // return name alone (openmsp430 one_hot16/one_hot8).
+                    if (selTrackActive) {
+                        selWholeRefs.push_back(
+                            {ref, &nv.symbol, selScopeChain()});
+                        if (inLhs)
+                            selWholeWrittenVars.insert(&nv.symbol);
+                    }
+                }
                 else if (implicitNetModule &&
                          (nv.symbol.kind == SymbolKind::Iterator ||
                           (nv.symbol.kind == SymbolKind::Parameter &&
@@ -5266,8 +5285,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  UHDM::uhdmstruct_typespec ||
                              si.argTs[argIdx].first->UhdmType() ==
                                  UHDM::uhdmunion_typespec);
+                        // A call NESTED UNDER AN OPERATION inside a
+                        // NET-DECL-ASSIGN RHS stamps nothing on its arg refs.
+                        // Measured, three calls to the same function in one
+                        // module (/tmp/r10yoo_pq):
+                        //   wire x = oh(rw);            nda, call IS the RHS
+                        //                               -> STAMPED
+                        //   wire y = oh(rw) & {16{s}};  nda, call under an op
+                        //                               -> bare
+                        //   assign q = oh(rw) & {16{s}};explicit CA, same shape
+                        //                               -> STAMPED (elab view;
+                        //                               the def view is bare)
+                        // openmsp430's `wire [15:0] irq_acc_all =
+                        // one_hot16(irq_num) & {16{...}}` is the second row —
+                        // 6 of YosysOldOpen's 14 remaining vectors.
+                        bool ndaOpCallArg9 =
+                            ndaRhsEmit && parent &&
+                            parent->UhdmType() == UHDM::uhdmoperation;
                         bool argCtxOk =
-                            currentTf ? ((pkgTopEmit && !structFormal9 &&
+                            !ndaOpCallArg9 &&
+                            (currentTf ? ((pkgTopEmit && !structFormal9 &&
                                           !(intFormal &&
                                             a->UhdmType() ==
                                                 UHDM::uhdmoperation)) ||
@@ -5280,7 +5317,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          !(intFormal &&
                                            a->UhdmType() ==
                                                UHDM::uhdmoperation) &&
-                                         (refArg || callArgDepth == 1));
+                                         (refArg || callArgDepth == 1)));
                         // Pkg-scoped param refs (pkg::P) carry no formal ts.
                         bool pkgScopedRef =
                             a->UhdmType() == UHDM::uhdmref_obj &&
@@ -6346,6 +6383,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (doNote)
                     noteSelectObj(&nv.symbol, bs);
             }
+            // The FUNCTION RETURN NAME is not in netMap (its object is minted
+            // by drainFuncRet), but a bit-select write on it re-points the
+            // body's bare refs exactly the same way — see the law at the
+            // funcRetRefs push site (openmsp430 one_hot16/one_hot8).
+            else if (funcRetSym && &nv.symbol == funcRetSym && inLhs)
+                noteSelectObj(&nv.symbol, bs);
             // Surelog anchors rvalue bit_selects at the index expression,
             // but lvalue ones span the whole select.
             // PARAM-INIT selects span the WHOLE select (func_upto's

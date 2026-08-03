@@ -7676,6 +7676,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     init9 = dts9->getInitializer();
             if (!init9)
                 continue;
+            // ...but a NET-declaration initializer on the port (`output w;`
+            // + `wire w = 1'b0;`) is a NET-DECL ASSIGN, not a port initializer:
+            // it already emitted its cont_assign above, and Surelog synthesizes
+            // no initial for it.  Purpose-built golden /tmp/r10yoo_pt (one
+            // module, an output wire and an output reg both initialized):
+            // golden holds ONE process (the written always) and TWO
+            // cont_assigns.  openmsp430's `wire nmi_wkup = 1'b0;` /
+            // `wire wdtifg = 1'b0;` under an `ifdef else` are this shape —
+            // the spurious initial made sfr_0/watchdog_0's Process vectors
+            // one element long (YosysOldOpen, 6 of 12 remaining vectors once
+            // the module_inst echoes are counted).
+            if (ps9.internalSymbol &&
+                ps9.internalSymbol->kind == SymbolKind::Net)
+                continue;
             auto& ic9 = stripImplicitConv(*init9);
             // A LITERAL init (output reg a_old = 0) synthesizes the same
             // loc-less initial with a bare 64-bit fold (Surelog) — but NOT
@@ -13009,7 +13023,8 @@ static bool substNdaParamRefs(
     const std::map<std::string, UHDM::constant*>& pmap, const std::string& prefix,
     UHDM::any* parent,
     std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>& tsAlias,
-    const std::string& selFull = std::string(), bool paAnchor = false) {
+    const std::string& selFull = std::string(), bool paAnchor = false,
+    const std::map<std::string, UHDM::ref_typespec*>* declTs = nullptr) {
     if (!e || pmap.empty())
         return false;
     // Descend one select slot; `direct` marks the ref-IS-the-slot shape, which
@@ -13020,7 +13035,8 @@ static bool substNdaParamRefs(
             return nullptr;
         UHDM::any* slot9 = cur9;
         if (substNdaParamRefs(s, slot9, pmap, prefix, newParent, tsAlias, sf9,
-                              paA9 && cur9->UhdmType() == UHDM::uhdmref_obj))
+                              paA9 && cur9->UhdmType() == UHDM::uhdmref_obj,
+                              declTs))
             return (UHDM::expr*)slot9;
         return nullptr;
     };
@@ -13031,7 +13047,8 @@ static bool substNdaParamRefs(
             if (auto* ops = op->Operands())
                 for (auto& slot : *ops) {
                     UHDM::any* cur = slot;
-                    if (substNdaParamRefs(s, cur, pmap, prefix, op, tsAlias, selFull)) {
+                    if (substNdaParamRefs(s, cur, pmap, prefix, op, tsAlias,
+                                          selFull, /*paAnchor=*/false, declTs)) {
                         slot = cur;
                         any9 = true;
                     }
@@ -13118,7 +13135,25 @@ static bool substNdaParamRefs(
     c->VpiEndColumnNo(r->VpiEndColumnNo());
     // The indexed-part-select base keeps the source constant's own parent.
     c->VpiParent(paAnchor && src->VpiParent() ? src->VpiParent() : parent);
+    // The substituted COPY binds the PARAMETER OBJECT's own typespec, which is
+    // not always the source constant's: a param whose elab param_assign value
+    // took the bare loc-less rewrite (paramNameIsRead/paramCaFoldRead) still
+    // hands the cont-assign reduce its LOCATED declaration typespec, because
+    // Surelog reduces the assign before setRange rewrites the value's ref and
+    // the copy is a distinct object.  openmsp430 `parameter [DEC_WD-1:0]
+    // BCSCTL1 = 'h7` is read BOTH ways: bare on its param_assign, located
+    // (int_typespec@145:11) on the reg_dec net-decl-assign's substituted copy
+    // (purpose-built golden /tmp/r10yoo_pj reproduces both in one module).
     if (auto* srt = src->Typespec()) {
+        // Only the ACTUAL is taken from the declaration; the ref's own name
+        // still comes from the value's ref (the select-scoped `selFull` form
+        // included).
+        UHDM::ref_typespec* act9 = srt;
+        if (declTs) {
+            auto dit = declTs->find(nm);
+            if (dit != declTs->end() && dit->second)
+                act9 = dit->second;
+        }
         auto* rt = s.MakeRef_typespec();
         rt->VpiFullName(!selFull.empty() && !paAnchor ? selFull
                                                       : std::string(srt->VpiFullName()));
@@ -13126,10 +13161,10 @@ static bool substNdaParamRefs(
         // The source param_assign's ts ref is itself bound LATE (the elab
         // param typespec is minted in the write phase), so alias rather than
         // copy: the shared deferred pass points both at the same typespec.
-        if (srt->Actual_typespec())
-            rt->Actual_typespec(srt->Actual_typespec());
+        if (act9->Actual_typespec())
+            rt->Actual_typespec(act9->Actual_typespec());
         else
-            tsAlias.push_back({rt, srt});
+            tsAlias.push_back({rt, act9});
         c->Typespec(rt);
     }
     e = c;
@@ -13212,6 +13247,10 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
     // substNdaParamRefs).  Only params whose param_assign folded to a constant
     // participate.
     std::map<std::string, UHDM::constant*> elabPmap9;
+    // ...and the DECLARATION typespec each of those parameters carries, which
+    // the substituted copy binds instead of the value's own ref (see the model
+    // at the bind site in substNdaParamRefs).
+    std::map<std::string, UHDM::ref_typespec*> elabPTs9;
     if (topView && m->Param_assigns())
         for (auto* pa9 : *m->Param_assigns()) {
             if (!pa9->Lhs() || !pa9->Rhs())
@@ -13219,9 +13258,46 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (pa9->Rhs()->UhdmType() != UHDM::uhdmconstant)
                 continue;
             std::string pn9(pa9->Lhs()->VpiName());
-            if (!pn9.empty())
-                elabPmap9.emplace(pn9, (UHDM::constant*)pa9->Rhs());
+            if (pn9.empty())
+                continue;
+            elabPmap9.emplace(pn9, (UHDM::constant*)pa9->Rhs());
+            if (pa9->Lhs()->UhdmType() == UHDM::uhdmparameter)
+                if (auto* prt9 = ((UHDM::parameter*)pa9->Lhs())->Typespec())
+                    elabPTs9.emplace(pn9, prt9);
         }
+    // A net-decl-assign's RHS is netlist-compiled in the ELAB view (the def
+    // view has no such cont_assign at all), but its name references still bind
+    // the DEFINITION module's net objects, not the instance's.  Surelog's
+    // elaborator resolves the declaration initializer against the design's
+    // uninstantiated module and only the LHS is re-pointed at the elab net.
+    // Measured on a purpose-built golden (/tmp/r10yoo_p3 — six net-decl
+    // assigns over ports, body wires, selects and a reg): every `wire`
+    // (SymbolKind::Net, ports included) operand resolves to the DEF net.  A
+    // written `assign` already gets this for free by sharing/cloning the def
+    // cont_assign; the net-decl-assign is built fresh here and so has to be
+    // pointed by hand.  It is CMP-visible because a non-ANSI PORT net carries
+    // no typespec in the def view and does carry one in the elab view
+    // (YosysOldOpen/openmsp430: 15 of 43 diverging vectors — every
+    // `wire x = <port> ...` in a .v design).
+    //
+    // NOT YET MODELLED (live residue, 2 objects in openmsp430 —
+    // omsp_frontend `e_state`, omsp_watchdog `wdtifg`): a `reg` operand is a
+    // VARIABLE that both tools emit as a logic_net, and its binding is NOT
+    // uniform.  p3's undriven body `reg r1` binds the ELAB object, while
+    // /tmp/r10yoo_pn's `reg r` (driven by an always block) and openmsp430's
+    // port-backed `reg [3:0] e_state` bind the DEF one.  Extending the rule to
+    // Variables without the distinguisher would flip p3 the wrong way, so this
+    // arm stays Net-only until a purpose-built driver/port ablation names it.
+    NetMap ndaRhsNets;
+    NetMap* ndaNets = &netMap;
+    if (topView && defInfo && !defInfo->nets.empty() && &netMap != &defInfo->nets) {
+        ndaRhsNets = netMap;
+        for (auto& dn9 : defInfo->nets)
+            if (dn9.first && dn9.first->kind == SymbolKind::Net &&
+                ndaRhsNets.count(dn9.first))
+                ndaRhsNets[dn9.first] = dn9.second;
+        ndaNets = &ndaRhsNets;
+    }
     // Net-declaration assignments (wire x = expr;) become cont_assigns with
     // vpiNetDeclAssign, before the explicit continuous assigns (top view only).
     for (auto& it : collectNetOrder(body)) {
@@ -13297,7 +13373,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // with the same RHS is cloned and does parent them).
                 bool savedSc9 = suppressConstParent;
                 suppressConstParent = true;
-                rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap);
+                ndaRhsEmit = true;
+                rhs = emitExpr(*dt->getInitializer(), ca, prefix, *ndaNets);
+                ndaRhsEmit = false;
                 suppressConstParent = savedSc9;
                 forceConstParent = true;
                 reemitting = savedRe9;
@@ -13326,7 +13404,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // onto the same net gets (SignedBinConst).
             int savedICT8 = implicitConvTargetSigned;
             implicitConvTargetSigned = dt->getType().isSigned() ? 1 : 0;
-            rhs = emitExpr(*dt->getInitializer(), ca, prefix, netMap);
+            ndaRhsEmit = true;
+            rhs = emitExpr(*dt->getInitializer(), ca, prefix, *ndaNets);
+            ndaRhsEmit = false;
             implicitConvTargetSigned = savedICT8;
         }
         // An ARRAY-of-struct net-decl-assign pattern RHS keeps its element
@@ -13341,7 +13421,9 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // bare-RHS width fit below, so a substituted whole-RHS constant is
         // sized to the net like any other literal RHS (Surelog).
         bool ndaSubst9 =
-            substNdaParamRefs(s, rhs, elabPmap9, prefix, ca, netTsAlias);
+            substNdaParamRefs(s, rhs, elabPmap9, prefix, ca, netTsAlias,
+                              /*selFull=*/std::string(), /*paAnchor=*/false,
+                              &elabPTs9);
         if (rhs) {
             // Surelog sizes a bare-decimal RHS (default 64) to the net width.
             if (rhs->UhdmType() == UHDM::uhdmconstant &&
@@ -15944,10 +16026,15 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                             rv9 = ((UHDM::function*)t9)->Return();
             }
             for (auto* r : pf.refs)
-                r->Actual_group(rv9 ? rv9 : pf.bindVar);
+                if (!funcRetSelBound.count(r))
+                    r->Actual_group(rv9 ? rv9 : pf.bindVar);
             continue;
         }
         for (auto* r : pf.refs) {
+            // endSelTrack already bound this ref to the body's first select of
+            // the return name (see the law at the funcRetRefs push site).
+            if (funcRetSelBound.count(r))
+                continue;
             // The local's fullname mirrors the binding ref's scope (named
             // blocks included).
             std::string localFull(r->VpiFullName());
