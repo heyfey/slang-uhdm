@@ -2976,6 +2976,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto sc8 = sy8.getParentScope();
                     return sc8 && sc8->asSymbol().kind == SymbolKind::Package;
                 }();
+            // The same fold ALSO gives the module copy the declaration's
+            // implicit int_typespec (`parameter Width = pack::SramKeyWidth`
+            // -> int_typespec spanning the whole declaration) — whatever the
+            // referenced package param's own declared type is: int, integer,
+            // byte, shortint, logic[2:0] and bit[3:0] referents all produce
+            // one (probe r10tscn rep4, seven referent types, one source).
+            // EXCEPT when that referent's own initializer is a SIZE CAST
+            // (`3'({3'h1})`): Surelog types the copy from the REDUCED
+            // expression and a cast leaves it untyped, so the copy carries
+            // neither (ParamTypespec otp_ctrl_part_pkg::PartInvDefault; probe
+            // r10tscn rep5 K vs its A/C/U1/U2 siblings in one source).
+            bool modPkgRefIntTs9 = modPkgRefFold9 && [&] {
+                const Expression* d7 = &stripImplicitConv(*defaultInit);
+                while (d7->kind == ExpressionKind::Conversion)
+                    d7 = &d7->as<ConversionExpression>().operand();
+                if (d7->kind != ExpressionKind::NamedValue)
+                    return false;
+                auto& sy7 = d7->as<NamedValueExpression>().symbol;
+                if (sy7.kind != SymbolKind::Parameter)
+                    return false;
+                auto* ri7 = sy7.as<ParameterSymbol>().getInitializer();
+                if (!ri7)
+                    return false;
+                if (auto* isyn7 = stripImplicitConv(*ri7).syntax;
+                    isyn7 && isyn7->kind == syntax::SyntaxKind::CastExpression)
+                    return false;
+                return true;
+            }();
             if (!unbasedInit && (literalInit || pkgElabComputed ||
                                  importedComputed9 || modPkgRefFold9 ||
                                  pkgTypeCastFold9) &&
@@ -3115,6 +3143,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                      (typedParam || isRangedUntypedParam(ps) ||
                       signedImplicitTs || pkgElabComputed || unkCastFold9 ||
                       importedComputed9 || bitsFoldInit ||
+                      modPkgRefIntTs9 ||
                       ((literalInit || realLit) && !unbasedInit &&
                        (!unknownDefault || sizedBasedInit) && !decBasedInit));
             // ...and an UNBASED-UNSIZED default ('0/'1/'x/'z) on an UNTYPED

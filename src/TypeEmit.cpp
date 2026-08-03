@@ -4816,6 +4816,20 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                                 twD = tt0->second;
                         if (!twD)
                             twD = pkgVectorFoldTwin(amt, tita->second);
+                        // A PARAMETER struct-clone's vector-typedef member
+                        // binds its OWN UNQUALIFIED copy of that twin,
+                        // parented at this alias ref — the pkg-NAMED twin
+                        // belongs to the module typedef listing only
+                        // (Surelog; StructUnsizedVal
+                        // work@dut.InitDefault.pkg::init_t.key.key -> `key`
+                        // while work@dut.pkg::init_t.key.key -> `pkg::key`).
+                        if (twD && structCloneMemberRefParent &&
+                            !paramOpCloneCtx)
+                            if (auto* pcp0 = copyNamedVecTs(twD, artD)) {
+                                pcp0->VpiName(std::string(dta->name));
+                                pcp0->Instance(twD->Instance());
+                                twD = pcp0;
+                            }
                     }
                     // An ELAB *operation* clone (the flat op75's own ts) is
                     // INSTANCE-FREE all the way down: its vector-typedef
@@ -5504,6 +5518,20 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
                                 twD = tt0->second;
                         if (!twD)
                             twD = pkgVectorFoldTwin(amt, tita->second);
+                        // A PARAMETER struct-clone's vector-typedef member
+                        // binds its OWN UNQUALIFIED copy of that twin,
+                        // parented at this alias ref — the pkg-NAMED twin
+                        // belongs to the module typedef listing only
+                        // (Surelog; StructUnsizedVal
+                        // work@dut.InitDefault.pkg::init_t.key.key -> `key`
+                        // while work@dut.pkg::init_t.key.key -> `pkg::key`).
+                        if (twD && structCloneMemberRefParent &&
+                            !paramOpCloneCtx)
+                            if (auto* pcp0 = copyNamedVecTs(twD, artD)) {
+                                pcp0->VpiName(std::string(dta->name));
+                                pcp0->Instance(twD->Instance());
+                                twD = pcp0;
+                            }
                     }
                     // An ELAB *operation* clone (the flat op75's own ts) is
                     // INSTANCE-FREE all the way down: its vector-typedef
