@@ -10381,8 +10381,46 @@ bool UhdmExporter::rangeRefsOverriddenParam(const Symbol& sym, bool anyParam) {
         dims0 = its0->dimensions;
     else if (auto* imt0 = tsyn0->as_if<syntax::ImplicitTypeSyntax>())
         dims0 = imt0->dimensions;
-    else
+    else {
+        // Packed dims written after a NAMED type (`st_t [P-1:0] a`) live in
+        // NEITHER syntax node (see scanDimSpans), so slang exposes no
+        // VariableDimensionSyntax to walk — scan the declaration text between
+        // the type name and the declarator instead.  Without this the
+        // packed_array_typespec folded a bound that its plain-vector sibling
+        // (`logic [P-1:0] v`) correctly left symbolic in the def view
+        // (Scr1SvTests scr1_mem_axi req_fifo/req_status/req_status_new;
+        // purpose-built golden r10scr5_g).
+        if (!dt0->getType().isPackedArray())
+            return false;
+        SourceLocation ts0 = tsyn0->sourceRange().start();
+        SourceLocation te0 = sym.location;
+        if (!(ts0 < te0))
+            return false;
+        auto spans0 = scanDimSpans(std::string(rawText(SourceRange(ts0, te0))), ts0);
+        auto* psc0 = sym.getParentScope();
+        if (!psc0)
+            return false;
+        for (auto& ds0 : spans0)
+            for (const SourceRange* b0 : {&ds0.left, &ds0.right}) {
+                std::string raw0(rawText(*b0));
+                std::string id0;
+                for (char ch : raw0) {
+                    if (isalnum((unsigned char)ch) || ch == '_')
+                        id0 += ch;
+                    else if (!id0.empty())
+                        break;
+                }
+                if (id0.empty() || isdigit((unsigned char)id0[0]))
+                    continue;
+                if (anyParam)
+                    return true;
+                if (auto* sy0 = Lookup::unqualified(*psc0, id0);
+                    sy0 && sy0->kind == SymbolKind::Parameter &&
+                    (isOverriddenParam(*sy0) || paramInitIsComputed(*sy0)))
+                    return true;
+            }
         return false;
+    }
     bool found = false;
     for (auto* dim : dims0) {
         if (!dim->specifier ||
@@ -11391,6 +11429,15 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                     its2->VpiSigned(ct.isSigned());
                     tts = its2;
                 }
+            }
+            // `bit'(x)` keeps its 2-state kind in the ELAB view too (the
+            // def-view sibling arm lives in ExprEmit's cast fallback).
+            else if (ct.kind == SymbolKind::ScalarType &&
+                     ct.as<ScalarType>().scalarKind == ScalarType::Bit) {
+                auto* bts2 = s.MakeBit_typespec();
+                if (ct.isSigned())
+                    bts2->VpiSigned(true);
+                tts = bts2;
             }
             else {
                 tts = s.MakeLogic_typespec();
@@ -18641,6 +18688,14 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             // stmt-ifies each declarator as a Rhs-less blocking assignment
             // (opType 82) whose Lhs is the integer_var (typespec ref -> an
             // integer_typespec at the type-keyword span).
+            // These DECLARATION typespecs (and only these) compile detached
+            // from the instance, so a range bound naming a `$unit` param stays
+            // an unbound ref — see inDefGenDeclTs.  Scoped to this loop, NOT
+            // the whole def-gen emission: a gen-if CONDITION in the same
+            // region does bind its $unit refs (ConstCapital regressed when
+            // this covered the function).
+            bool savedIDG9 = inDefGenDeclTs;
+            inDefGenDeclTs = true;
             for (auto* item : items) {
                 if (item->kind != syntax::SyntaxKind::DataDeclaration ||
                     !astBlock)
@@ -18917,6 +18972,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     stmts->push_back(as2);
                 }
             }
+            inDefGenDeclTs = savedIDG9;
             // Gen-block module instances (def view): a ref_module stmt named by
             // the instance, DefName work@<def>, with a port per NAMED conn —
             // HighConn ref_obj scoped branchPrefix.<inst>.<formal>.<actual>

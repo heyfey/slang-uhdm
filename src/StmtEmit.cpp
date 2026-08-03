@@ -101,35 +101,53 @@ bool UhdmExporter::beginSelTrack() {
     selLhsSelVars.clear();
     selWholeRefs.clear();
     selWholeWrittenVars.clear();
+    selScopeStack.clear();
     return true;
 }
 
 void UhdmExporter::endSelTrack() {
-    for (auto& [ref, sym] : selWholeRefs) {
-        if (!selLhsSelVars.count(sym))
+    for (auto& wr : selWholeRefs) {
+        if (!selLhsSelVars.count(wr.sym))
             continue;
-        auto it = selFirstSelect.find(sym);
-        if (it == selFirstSelect.end())
+        // Innermost enclosing block first, then its ancestors: a whole ref in
+        // a nested block DOES see an outer block's select, but never the
+        // reverse (purpose-built golden /tmp/r10scr5_e a1/a3).
+        UHDM::expr* sel = nullptr;
+        for (int sc : wr.chain) {
+            auto it = selFirstSelect.find({sc, wr.sym});
+            if (it != selFirstSelect.end()) {
+                sel = it->second;
+                break;
+            }
+        }
+        if (!sel)
             continue;
         // A var ALSO written whole keeps the net for PLAIN part-select
         // targets (multiple_blocking_gate) but still repoints to an
         // INDEXED part-select (multiple_blocking/sign_part_assign).
-        if (selWholeWrittenVars.count(sym) &&
-            it->second->UhdmType() == UHDM::uhdmpart_select)
+        if (selWholeWrittenVars.count(wr.sym) &&
+            sel->UhdmType() == UHDM::uhdmpart_select)
             continue;
-        ref->Actual_group(it->second);
+        wr.ref->Actual_group(sel);
     }
     selTrackActive = false;
     selFirstSelect.clear();
     selLhsSelVars.clear();
     selWholeRefs.clear();
     selWholeWrittenVars.clear();
+    selScopeStack.clear();
 }
 
 void UhdmExporter::noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj) {
     if (!selTrackActive || !base)
         return;
-    selFirstSelect.emplace(base, (UHDM::expr*)selObj);
+    // Register in the block the select is a DIRECT statement of; a select
+    // under a bare `if`/`case` arm has a non-block innermost scope and
+    // registers nowhere.
+    if (selScopeStack.empty() || !selScopeStack.back().isBlock)
+        return;
+    selFirstSelect.emplace(std::make_pair(selScopeStack.back().id, base),
+                           (UHDM::expr*)selObj);
     if (inLhs)
         selLhsSelVars.insert(base);
 }
@@ -310,6 +328,43 @@ UHDM::any* UhdmExporter::emitEventExpr(const TimingControl& tc, UHDM::BaseClass*
 UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
+    // Select-alias block scoping (see selScopeStack): every COMPOUND statement
+    // opens a scope; only begin/end blocks (and the statement lists inside
+    // them) are select-registering scopes.
+    struct SelScopeGuard {
+        UhdmExporter* self = nullptr;
+        ~SelScopeGuard() {
+            if (self)
+                self->selScopeStack.pop_back();
+        }
+    } selGuard;
+    if (selTrackActive) {
+        bool isBlock = false, compound = false;
+        switch (stmt.kind) {
+            case StatementKind::Block:
+            case StatementKind::List:
+                isBlock = compound = true;
+                break;
+            case StatementKind::Conditional:
+            case StatementKind::Case:
+            case StatementKind::PatternCase:
+            case StatementKind::ForLoop:
+            case StatementKind::RepeatLoop:
+            case StatementKind::ForeachLoop:
+            case StatementKind::WhileLoop:
+            case StatementKind::DoWhileLoop:
+            case StatementKind::ForeverLoop:
+            case StatementKind::Timed:
+                compound = true;
+                break;
+            default:
+                break;
+        }
+        if (compound) {
+            selScopeStack.push_back({selScopeNextId++, isBlock});
+            selGuard.self = this;
+        }
+    }
     switch (stmt.kind) {
         case StatementKind::Timed: {
             auto& timed = stmt.as<TimedStatement>();

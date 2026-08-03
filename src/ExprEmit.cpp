@@ -1864,9 +1864,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             pkgSub9 = true;
                             break;
                         }
+                // ...and only when the function is CALLED as the direct RHS of
+                // a CONTINUOUS assignment: the sizing is Surelog's assignment
+                // context reaching through the call into the body, so a call
+                // that sits under an operation (`a = f(x) ^ g(y)`) or is the
+                // RHS of a PROCEDURAL assignment leaves every literal in the
+                // body unsized.  Measured one mutation at a time from
+                // func_forloop_onehot (sized) to the same module with the call
+                // under a `^` (unsized); Scr1SvTests width2axsize (ternary
+                // operand) and mem_read (`<=` RHS) are both unsized in golden.
                 if (currentSubSym && !pkgSub9 &&
                     rhs->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::expr*)rhs)->VpiSize() == -1 &&
+                    subCalledAsContAssignRhs(*currentSubSym) &&
                     stripImplicitConv(*rhsExpr).kind ==
                         ExpressionKind::UnbasedUnsizedIntegerLiteral) {
                     int32_t w = (int32_t)ae.left().type->getBitWidth();
@@ -3190,7 +3200,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Whole ref: may be re-pointed to a select object if this
                     // variable is written via a select elsewhere in the body.
                     if (selTrackActive) {
-                        selWholeRefs.push_back({ref, &nv.symbol});
+                        selWholeRefs.push_back(
+                            {ref, &nv.symbol, selScopeChain()});
                         if (inLhs)
                             selWholeWrittenVars.insert(&nv.symbol);
                     }
@@ -4418,6 +4429,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* its = s.MakeInt_typespec();
                     its->VpiSigned(ct.isSigned());
                     cts = its;
+                }
+                // A cast to the two-state scalar keyword (`bit'(x)`) mints a
+                // BIT typespec, not the catch-all logic one: Surelog's type
+                // compiler keeps the written 2-state kind (Scr1SvTests
+                // scr1_mem_axi `bit'(SCR1_AXI_REQ_BP)`; purpose-built golden
+                // r10scr5_a is byte-identical with this arm).
+                else if (effCastSyn &&
+                         effCastSyn->kind ==
+                             syntax::SyntaxKind::CastExpression &&
+                         effCastSyn->as<syntax::CastExpressionSyntax>()
+                                 .left->kind ==
+                             syntax::SyntaxKind::BitType) {
+                    auto* bts = s.MakeBit_typespec();
+                    if (ct.isSigned())
+                        bts->VpiSigned(true);
+                    cts = bts;
                 }
                 else {
                     auto* lts = s.MakeLogic_typespec();
@@ -6747,11 +6774,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 break;
                             st = dot + 1;
                         }
+                        // AST selectors aligned with the dotted TEXT components
+                        // (base..outer). A component written `name[expr]` with
+                        // a NON-constant index is still a bit_select carrying
+                        // the BOUND index reference — the same shape the
+                        // select-less sibling path builds — not a flat ref_obj
+                        // named after the raw text (Scr1SvTests scr1_mem_axi
+                        // `req_fifo[req_proc_ptr].axi_addr[1:0]`; purpose-built
+                        // golden r10scr5_f).
+                        std::vector<const Expression*> compSel;
+                        {
+                            std::vector<const Expression*> revs;
+                            const Expression* pend = nullptr;
+                            const Expression* c9 = &stripImplicitConv(rs.value());
+                            while (true) {
+                                if (c9->kind == ExpressionKind::MemberAccess) {
+                                    revs.push_back(pend);
+                                    pend = nullptr;
+                                    c9 = &stripImplicitConv(
+                                        c9->as<MemberAccessExpression>().value());
+                                }
+                                else if (c9->kind == ExpressionKind::ElementSelect) {
+                                    pend = &c9->as<ElementSelectExpression>()
+                                                .selector();
+                                    c9 = &stripImplicitConv(
+                                        c9->as<ElementSelectExpression>().value());
+                                }
+                                else {
+                                    revs.push_back(pend);
+                                    break;
+                                }
+                            }
+                            compSel.assign(revs.rbegin(), revs.rend());
+                        }
                         for (size_t ci = 0; ci + 1 < comps.size(); ci++) {
                             auto& [cn, co] = comps[ci];
                             // An indexed component (a[0]) is a bit_select.
                             auto lb2 = cn.find('[');
                             auto rb2 = cn.find(']');
+                            if (lb2 != std::string::npos &&
+                                rb2 == cn.size() - 1 && rb2 > lb2 + 1 &&
+                                cn.find_first_not_of("0123456789", lb2 + 1) != rb2 &&
+                                ci < compSel.size() && compSel[ci] &&
+                                compSel[ci]->kind == ExpressionKind::NamedValue) {
+                                std::string bn = cn.substr(0, lb2);
+                                auto* bsv = s.MakeBit_select();
+                                bsv->VpiName(bn);
+                                bsv->VpiFullName(cn);
+                                bsv->VpiParent(hp);
+                                setLoc(bsv, SourceRange(exprStart + co,
+                                                        exprStart + co + bn.size()));
+                                // The index ref parents at the HIER_PATH.
+                                if (auto* ix =
+                                        emitExpr(*compSel[ci], hp, prefix, netMap))
+                                    bsv->VpiIndex((UHDM::expr*)ix);
+                                elems->push_back(bsv);
+                                continue;
+                            }
                             if (lb2 != std::string::npos && rb2 != std::string::npos &&
                                 rb2 > lb2 + 1 &&
                                 cn.find_first_not_of("0123456789", lb2 + 1) == rb2) {

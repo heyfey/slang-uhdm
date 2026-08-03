@@ -1251,6 +1251,13 @@ private:
     // reason def-view gen CA refs to module signals carry no actual.
     // Module/package param and enum-const refs still bind.
     bool noUnitParamActual = false;
+    // True while emitDefGenStmts stmt-ifies the DECLARATIONS of a generate
+    // block in the DEF view.  Those typespecs are compiled detached from the
+    // instance, so a range bound that names a `$unit` parameter stays an
+    // UNBOUND ref_obj (see the unit-param binder in TypeEmit).  Deliberately
+    // NOT set for the rest of the def-gen emission -- a gen-if condition in
+    // the same region DOES bind its $unit refs.
+    bool inDefGenDeclTs = false;
     // True while emitting DEF-view gen-block processes (all refs unbound,
     // including enum consts).
     bool defGenProcessEmit = false;
@@ -1742,6 +1749,12 @@ private:
     // Child-instance CA re-emission folds type casts (top modules keep them).
     bool foldTypeCasts = false;
     const slang::ast::SubroutineSymbol* currentSubSym = nullptr;
+    // True when some CONTINUOUS assignment in the subroutine's own instance
+    // body calls it as its DIRECT rhs (the only context that pushes an
+    // assignment size through the call into the body — see the
+    // unbased-unsized RHS rule in ExprEmit). Memoized per subroutine.
+    bool subCalledAsContAssignRhs(const slang::ast::SubroutineSymbol& sub);
+    std::map<const slang::ast::SubroutineSymbol*, bool> subContAssignRhsCache;
     // Scope for resolving identifiers inside a pkg-function's return/arg TYPE
     // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's
     // def-init constant (pkgParamConst). Set only around those typespec builds.
@@ -2179,15 +2192,41 @@ private:
     // Actual to that variable's first select object (not its net/var/io_decl).
     // Tracked per body and back-patched at the end.
     bool selTrackActive = false;
-    std::map<const slang::ast::Symbol*, UHDM::expr*> selFirstSelect;
+    // ...and the alias is BLOCK-SCOPED, not body-wide: a select registers in
+    // the begin/end block it is a DIRECT statement of, and a whole ref only
+    // sees selects registered in its own block or an ANCESTOR block.  A select
+    // one level deeper (`if (e) begin a[i] = 1; end`) is invisible to a whole
+    // ref in the enclosing block, and a select under a bare `if`/`case` arm
+    // (no begin) registers nowhere at all — Surelog pre-scans each block's
+    // DIRECT statement list.  Purpose-built goldens /tmp/r10scr5_{d,e}.
+    struct SelScope {
+        int id;
+        bool isBlock;
+    };
+    std::vector<SelScope> selScopeStack;
+    int selScopeNextId = 0;
+    std::map<std::pair<int, const slang::ast::Symbol*>, UHDM::expr*> selFirstSelect;
     std::set<const slang::ast::Symbol*> selLhsSelVars;
-    std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>> selWholeRefs;
+    struct SelWholeRef {
+        UHDM::ref_obj* ref;
+        const slang::ast::Symbol* sym;
+        std::vector<int> chain;  // enclosing block scope ids, innermost first
+    };
+    std::vector<SelWholeRef> selWholeRefs;
     // Vars ALSO written whole (dout = ...) never repoint their whole refs
     // (multiple_blocking_gate).
     std::set<const slang::ast::Symbol*> selWholeWrittenVars;
     bool beginSelTrack();  // returns true if it newly activated tracking
     void endSelTrack();    // back-patches whole-refs and clears state
     void noteSelectObj(const slang::ast::Symbol* base, UHDM::any* selObj);
+    // The enclosing block scope ids, innermost first (empty outside a body).
+    std::vector<int> selScopeChain() const {
+        std::vector<int> c;
+        for (auto it = selScopeStack.rbegin(); it != selScopeStack.rend(); ++it)
+            if (it->isBlock)
+                c.push_back(it->id);
+        return c;
+    }
     int callArgDepth = 0;
     // Task/function typespecs keep unfolded range expressions; module-level
     // typespecs fold them to INT constants.

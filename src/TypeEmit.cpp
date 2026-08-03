@@ -6466,6 +6466,25 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 const Scope* bindScope = tfTypeScope ? tfTypeScope
                                          : defNetTsScope ? defNetTsScope
                                                          : currentScope;
+                // ...but NOT for a DECLARATION inside the def view of a
+                // generate region.  There the declaration is compiled detached
+                // from any instance (the typespec is emitted PARENTLESS,
+                // unlike a module-level net's, which hangs off its var), and
+                // in that detached compile the `$unit` scope is not on the
+                // lookup path -- the range ref stays dangling while its
+                // module-level sibling binds.  A gen-if CONDITION in the same
+                // region is NOT covered (it binds; see ConstCapital).
+                // Purpose-built golden /tmp/r10scr5_h2/ua.sv holds both in ONE
+                // file: `vmod` binds, `vgen` (identical range text, inside
+                // `if (1) begin : gblk`) does not.  The ELAB view folds the
+                // gen-block range to constants, so no ref survives there to
+                // bind either way.
+                // Worth one branch: this single ref_obj was the whole
+                // Scr1SvTests design echo -- reachable from everything via
+                // typespec->Instance(), it made all 44 design.Typespecs and 47
+                // module vectors report `failLhs=<null> failRhs=parameter()`.
+                if (inDefGenDeclTs)
+                    bindScope = nullptr;
                 if (bindScope) {
                     ASTContext uctx(*bindScope, LookupLocation::max);
                     auto& ube = Expression::bind(
@@ -6699,6 +6718,42 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 }
                 syntaxRefPrefix = savedPfx2;
                 return pssel;
+            }
+            // An INDEXED range select (x[B +: W] / x[B -: W]) is an
+            // indexed_part_select, and without this arm it fell through to the
+            // bit_select default below.  Same head fields as the part_select
+            // above, plus IndexedPartSelectType (1 = `+:`, 2 = `-:`), but the
+            // bound expressions do NOT scope through the base: Surelog names
+            // them prefix.LO / prefix.WD, not prefix.src.LO (purpose-built
+            // golden /tmp/r10scr5_h3/ub.sv, byte-identical with this arm).
+            // Constants stay unparented, as in the range arm.
+            if (sel && (sel->kind == syntax::SyntaxKind::AscendingRangeSelect ||
+                        sel->kind == syntax::SyntaxKind::DescendingRangeSelect)) {
+                auto& rsI = sel->as<syntax::RangeSelectSyntax>();
+                auto* ips = s.MakeIndexed_part_select();
+                ips->VpiName(bname);
+                if (!syntaxRefPrefix.empty())
+                    ips->VpiFullName(syntaxRefPrefix + syntaxRefSep +
+                                     std::string(bname));
+                ips->VpiDefName(bname);
+                ips->VpiConstantSelect(true);
+                ips->VpiIndexedPartSelectType(
+                    sel->kind == syntax::SyntaxKind::AscendingRangeSelect ? 1 : 2);
+                ips->VpiParent(parent);
+                setLoc(ips, sel->sourceRange());
+                auto unparentConstI = [](UHDM::any* e) {
+                    if (e && e->UhdmType() == UHDM::uhdmconstant)
+                        ((UHDM::expr*)e)->VpiParent(nullptr);
+                };
+                if (auto* be = emitSyntaxExpr(*rsI.left, ips)) {
+                    unparentConstI(be);
+                    ips->Base_expr((UHDM::expr*)be);
+                }
+                if (auto* we = emitSyntaxExpr(*rsI.right, ips)) {
+                    unparentConstI(we);
+                    ips->Width_expr((UHDM::expr*)we);
+                }
+                return ips;
             }
             auto* bs = s.MakeBit_select();
             bs->VpiName(bname);

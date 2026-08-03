@@ -79,6 +79,57 @@ bool UhdmExporter::elabInvoked(const SubroutineSymbol& sub) {
     return elabCalledSubs->count(&sub) != 0;
 }
 
+// § subCalledAsContAssignRhs — Surelog pushes the assignment's size through a
+// call ONLY from a continuous assignment whose rhs IS the call: `assign a =
+// f(x);` sizes every unbased-unsized literal in f's body to its return width,
+// while `assign a = f(x) ^ g(y);`, a ternary operand and a procedural `<=`
+// rhs all leave them unsized (measured mutation-by-mutation from
+// func_forloop_onehot; Scr1SvTests width2axsize / mem_read are the unsized
+// side).
+bool UhdmExporter::subCalledAsContAssignRhs(const SubroutineSymbol& sub) {
+    if (auto it = subContAssignRhsCache.find(&sub);
+        it != subContAssignRhsCache.end())
+        return it->second;
+    bool found = false;
+    // Only the subroutine's OWN instance body (and its generate scopes) can
+    // hold such a call — a cross-module call would be hierarchical.
+    const Scope* home = nullptr;
+    for (auto sc = sub.getParentScope(); sc; sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::InstanceBody) {
+            home = sc;
+            break;
+        }
+    if (home) {
+        std::function<void(const Scope&)> scan = [&](const Scope& sc) {
+            for (auto& mem : sc.members()) {
+                if (found)
+                    return;
+                if (mem.kind == SymbolKind::ContinuousAssign) {
+                    auto& asn = mem.as<ContinuousAssignSymbol>().getAssignment();
+                    if (asn.kind != ExpressionKind::Assignment)
+                        continue;
+                    const Expression* r =
+                        &stripImplicitConv(asn.as<AssignmentExpression>().right());
+                    if (r->kind != ExpressionKind::Call)
+                        continue;
+                    if (auto* sp = std::get_if<const SubroutineSymbol*>(
+                            &r->as<CallExpression>().subroutine))
+                        if (*sp == &sub)
+                            found = true;
+                }
+                else if (mem.kind == SymbolKind::GenerateBlock)
+                    scan(mem.as<GenerateBlockSymbol>());
+                else if (mem.kind == SymbolKind::GenerateBlockArray)
+                    for (auto* ge : mem.as<GenerateBlockArraySymbol>().entries)
+                        scan(*ge);
+            }
+        };
+        scan(*home);
+    }
+    subContAssignRhsCache[&sub] = found;
+    return found;
+}
+
 bool UhdmExporter::isTaskScopeParam9(const Symbol& sym) {
     if (sym.kind != SymbolKind::Parameter)
         return false;
