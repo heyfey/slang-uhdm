@@ -6795,6 +6795,38 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                           .getLiteralValue();
                         auto* c = (UHDM::constant*)rhs;
                         int32_t w = (int32_t)ps.getType().getBitWidth();
+                        // § multiDimUnbasedRaw9 — a MULTI-DIMENSIONAL packed
+                        // param keeps the RAW '0 spelling even in a module
+                        // (only its vpiSize takes the type width).  Measured
+                        // on a 7-param golden: `logic [1:0][2:0]`,
+                        // `logic [0:0][0:0][1:0]`, `logic [3:0][0:0]`,
+                        // `bit [1:0][1:0]` and `s_t [1:0]` (packed-struct
+                        // element) all keep `'0`, while `logic [5:0]`,
+                        // `logic signed [5:0]`, a vector typedef, a packed
+                        // struct and `int` re-decompile as <w>'b0.  The one
+                        // multi-dim shape that DOES re-decompile is an array
+                        // over a VECTOR TYPEDEF (`vec_t [1:0]` -> `8'b0`),
+                        // where Surelog collapses the typespec to the element.
+                        bool rawUnbased9 = false;
+                        {
+                            const Type* dt9 = &ps.getType();
+                            while (dt9->kind == SymbolKind::TypeAlias)
+                                dt9 = &dt9->as<TypeAliasType>()
+                                           .targetType.getType();
+                            if (dt9->kind == SymbolKind::PackedArrayType) {
+                                auto& el9 =
+                                    dt9->as<PackedArrayType>().elementType;
+                                const Type* e9 = &el9;
+                                while (e9->kind == SymbolKind::TypeAlias)
+                                    e9 = &e9->as<TypeAliasType>()
+                                              .targetType.getType();
+                                if (e9->kind == SymbolKind::PackedArrayType)
+                                    rawUnbased9 =
+                                        el9.kind != SymbolKind::TypeAlias;
+                                else if (e9->kind != SymbolKind::ScalarType)
+                                    rawUnbased9 = true;
+                            }
+                        }
                         // A PACKAGE param's degenerate fill keeps the RAW
                         // source decompile ('0), where a module param's is
                         // re-decompiled at the type width (<w>'b0). Measured
@@ -6814,8 +6846,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         else if (bit.value == 0) {
                             c->VpiValue("BIN:0");
                             c->VpiConstType(vpiBinaryConst);
-                            c->VpiDecompile(inPackage ? "'0"
-                                                      : std::to_string(w) + "'b0");
+                            c->VpiDecompile((inPackage || rawUnbased9)
+                                                ? "'0"
+                                                : std::to_string(w) + "'b0");
                         }
                         else {
                             slang::SVInt ones((slang::bitwidth_t)w, 0, false);

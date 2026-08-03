@@ -981,8 +981,8 @@ PackedArrayEnum,default,CMP_EQUAL,,,differ
 PackedArrayEnum,testflags,CMP_EQUAL,,,differ
 PackedArrayHierPath,default,SLANG_REJECT,dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements but 5 were provided,,
 PackedArrayHierPath,testflags,SLANG_REJECT,dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements but 5 were provided,,
-PackedArrayHighConn,default,CMP_NOTEQUAL,decompile:,,
-PackedArrayHighConn,testflags,CMP_NOTEQUAL,decompile:,,
+PackedArrayHighConn,default,CMP_EQUAL,,,differ
+PackedArrayHighConn,testflags,CMP_EQUAL,,,differ
 PackedArrayStruct,default,CMP_EQUAL,,,match
 PackedArrayStruct,testflags,CMP_EQUAL,,,match
 PackedArrayTypespec,default,CMP_EQUAL,,,differ

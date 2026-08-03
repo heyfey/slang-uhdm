@@ -8833,6 +8833,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (auto* e = preE ? preE
                                    : emitExpr(*setter.expr, op, prefix,
                                               netMap)) {
+                    // § signCastReduce9 — a SIGNEDNESS cast (`unsigned'(X)`,
+                    // `signed'(X)`) reaches UHDM as a $unsigned/$signed
+                    // sys_func_call, and Surelog's reduce over a PACKAGE
+                    // param's pattern hands back the ARGUMENT whenever that
+                    // argument is already a constant: the call node is dropped
+                    // and the argument survives verbatim — its own span, its
+                    // 64-bit UINT encoding and its typespec ref — still
+                    // parented at the now unreferenced (and, in the golden,
+                    // unlocated) call.  A function BODY compiles with
+                    // Reduce::No, so the same cast keeps its call there:
+                    // golden FuncStructVal collapses all ~20 `unsigned'()`
+                    // members of `cva6_config_pkg::cva6_cfg` (including
+                    // literal args, `NrNonIdempotentRules: unsigned'(2)`)
+                    // while `cfg.NrRgprPorts = unsigned'(2)` inside
+                    // build_config keeps its sys_func_call.
+                    if ((paramInitPkg || importedParamClone) &&
+                        ((UHDM::any*)e)->UhdmType() ==
+                            UHDM::uhdmsys_func_call) {
+                        auto* sfc9 = (UHDM::sys_func_call*)e;
+                        std::string sn9(sfc9->VpiName());
+                        if ((sn9 == "$unsigned" || sn9 == "$signed") &&
+                            sfc9->Tf_call_args() &&
+                            sfc9->Tf_call_args()->size() == 1 &&
+                            (*sfc9->Tf_call_args())[0]->UhdmType() ==
+                                UHDM::uhdmconstant) {
+                            sfc9->VpiFile("");
+                            sfc9->VpiLineNo(0);
+                            sfc9->VpiColumnNo(0);
+                            sfc9->VpiEndLineNo(0);
+                            sfc9->VpiEndColumnNo(0);
+                            e = (*sfc9->Tf_call_args())[0];
+                        }
+                    }
                     // A CONCAT pattern value that folded re-encodes BINARY at
                     // the member width with a BARE ts ref (Surelog).
                     if (paramInitDef &&

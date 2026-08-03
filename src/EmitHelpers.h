@@ -683,12 +683,25 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
                     // print none; an IMPORTED unqualified name (import
                     // pkg::T; output T o) behaves like a local typedef and
                     // keeps vpiNet. Descend packed dims to the leaf alias.
+                    //
+                    // § unqualDimNet9 — an unqualified name CARRYING PACKED
+                    // DIMS (`pad_pok_t [3:0] pad_pok`) parses as an
+                    // IdentifierSelectName, not an IdentifierName: slang hangs
+                    // a named type's packed dims off the NAME, not off the
+                    // type syntax (see the same note in TypeEmit's array
+                    // branch).  Reading only IdentifierName made every such
+                    // declaration look SCOPED and dropped its vpiNetType.
+                    // Purpose-built golden (PackedArrayHighConn v4 repro):
+                    // `import pkg::*; pad_pok_t [3:0] pad_pok;` -> 36, while
+                    // `pkg::pad_pok_t [3:0] pad_pok;` -> none.
                     const Type* la = &t;
                     while (la->kind == SymbolKind::PackedArrayType)
                         la = &la->as<PackedArrayType>().elementType;
                     if (la->kind == SymbolKind::TypeAlias &&
                         tsyn->as<syntax::NamedTypeSyntax>().name->kind !=
-                            syntax::SyntaxKind::IdentifierName)
+                            syntax::SyntaxKind::IdentifierName &&
+                        tsyn->as<syntax::NamedTypeSyntax>().name->kind !=
+                            syntax::SyntaxKind::IdentifierSelectName)
                         if (auto sc = la->as<TypeAliasType>().getParentScope();
                             sc && sc->asSymbol().kind == SymbolKind::Package)
                             return 0;

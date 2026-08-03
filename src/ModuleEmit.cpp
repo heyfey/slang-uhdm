@@ -7473,6 +7473,90 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 : hcPrefix;
                         bsx->VpiFullName(dblPfx + "." + instNm + "." +
                                          std::string(bsx->VpiName()));
+                        // § paramIndexElabFold9 — an elab HighConn index that
+                        // is itself a SELECT OF A PACKED PARAMETER folds to
+                        // the selected BIT: Surelog's ExprEval holds the
+                        // parameter's value as one flat vector, so
+                        // `DioPadBank[0]` on a `logic [0:0][1:0]` param
+                        // reduces to a 1-bit BIN constant (not the 2-bit
+                        // sub-vector slang's type system gives it), anchored
+                        // at the parameter INITIALIZER's first character —
+                        // the same shape the cont-assign pkgParamSel fold
+                        // produces.  The def view keeps the written
+                        // bit_select tree.  PackedArrayHighConn
+                        // `.pok_i(pad_pok[DioPadBank[0]])` -> `1'b0` at the
+                        // `'0` default's first char.
+                        if (auto* ixP9 = bsx->VpiIndex();
+                            ixP9 &&
+                            ixP9->UhdmType() != UHDM::uhdmconstant) {
+                            auto& se9 = stripImplicitConv(*expr);
+                            if (se9.kind == ExpressionKind::ElementSelect) {
+                                auto& sel9 = stripImplicitConv(
+                                    se9.as<ElementSelectExpression>()
+                                        .selector());
+                                if (sel9.kind ==
+                                    ExpressionKind::ElementSelect) {
+                                    auto& is9 =
+                                        sel9.as<ElementSelectExpression>();
+                                    auto& base9 =
+                                        stripImplicitConv(is9.value());
+                                    const ParameterSymbol* bp9 = nullptr;
+                                    if (base9.kind ==
+                                            ExpressionKind::NamedValue &&
+                                        base9.as<NamedValueExpression>()
+                                                .symbol.kind ==
+                                            SymbolKind::Parameter)
+                                        bp9 = &base9
+                                                   .as<NamedValueExpression>()
+                                                   .symbol
+                                                   .as<ParameterSymbol>();
+                                    if (bp9 &&
+                                        bp9->getType()
+                                            .getCanonicalType()
+                                            .isIntegral()) {
+                                        ASTContext pc9(comp.getRoot(),
+                                                       LookupLocation::max);
+                                        ConstantValue bv9 =
+                                            pc9.tryEval(base9);
+                                        ConstantValue ix9 =
+                                            pc9.tryEval(is9.selector());
+                                        if (bv9 && bv9.isInteger() &&
+                                            ix9 && ix9.isInteger()) {
+                                            auto i64 =
+                                                ix9.integer().as<int64_t>();
+                                            auto& fv9 = bv9.integer();
+                                            if (i64 && *i64 >= 0 &&
+                                                *i64 <
+                                                    (int64_t)fv9
+                                                        .getBitWidth() &&
+                                                !fv9.hasUnknown()) {
+                                                std::string dg9 =
+                                                    fv9[(int32_t)*i64] ==
+                                                            slang::logic_t(1)
+                                                        ? "1"
+                                                        : "0";
+                                                auto* c9 = s.MakeConstant();
+                                                c9->VpiDecompile("1'b" + dg9);
+                                                c9->VpiSize(1);
+                                                c9->VpiValue("BIN:" + dg9);
+                                                c9->VpiConstType(
+                                                    vpiBinaryConst);
+                                                c9->VpiParent(bsx);
+                                                if (auto* pin9 =
+                                                        bp9->getInitializer()) {
+                                                    auto st9 = pin9->sourceRange
+                                                                   .start();
+                                                    setLoc(c9,
+                                                           SourceRange(
+                                                               st9, st9 + 1));
+                                                }
+                                                bsx->VpiIndex(c9);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         // An INSTANCE-ARRAY element's connection is SLICED by
                         // slang into an element select whose index literal has
                         // no source text. Surelog's elaborator builds that
@@ -7833,6 +7917,20 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                              tt9b != typedefTs.end())
                         pts = tt9b->second;
                 }
+            }
+            // § importedPkgVecPortClone (elab half) — a CHILD instance's port
+            // typed by a wildcard-IMPORTED package vector typedef binds its
+            // own bare-named self-alias clone, not the shared package object
+            // (the def half is minted by the def-port path).  Only PACKAGE
+            // typedefs are routed here; module-local / file-level ones keep
+            // the shared-object binding this site has always used.
+            if (!pts && internal->getDeclaredType()) {
+                auto& pt9 = internal->getDeclaredType()->getType();
+                if (pt9.kind == SymbolKind::TypeAlias)
+                    if (auto sc9 = pt9.as<TypeAliasType>().getParentScope();
+                        sc9 && sc9->asSymbol().kind == SymbolKind::Package)
+                        pts = portVectorTypedefClone(*internal,
+                                                     /*withInstance=*/true);
             }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
@@ -11929,9 +12027,20 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 bypassTypedefShare = true;
                 auto* cl = makeTypespec(*vtaElem, tgtSyn);
                 bypassTypedefShare = false;
-                cl->VpiName(vtaElem->name);
+                // § defElemCloneSharedName — the DEF-view element clone takes
+                // the SHARED base object's name, not the bare typedef
+                // identifier.  Identical for a module-local typedef; for a
+                // wildcard-IMPORTED package one the shared object is
+                // `pkg::T`, and Surelog's def clone carries that qualified
+                // name (the ELAB clone is the one that goes bare — see
+                // portVectorTypedefClone's § importedPkgVecPortClone).
+                // PackedArrayHighConn (v4 repro isolates it to the import).
+                std::string cname9(vtaBase->VpiName());
+                if (cname9.empty())
+                    cname9 = std::string(vtaElem->name);
+                cl->VpiName(cname9);
                 auto* art = s.MakeRef_typespec();
-                art->VpiFullName(std::string(vtaElem->name));
+                art->VpiFullName(cname9);
                 art->VpiParent(cl);
                 art->Actual_typespec(vtaBase);
                 ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
@@ -12804,11 +12913,31 @@ UHDM::logic_typespec* UhdmExporter::portVectorTypedefClone(const Symbol& interna
     if (!parentScope)
         return nullptr;
     auto parentKind = parentScope->asSymbol().kind;
-    // Package-typedef ports (qualified `pkg::T` OR imported-unqualified) bind
-    // the SHARED pkg base ts here; the emitTopPorts pkg branch builds the elab
-    // clone for the imported-unqualified case. Never clone them in this helper.
-    if (parentKind == SymbolKind::Package)
-        return nullptr;
+    // § importedPkgVecPortClone — a port typed by a WILDCARD-IMPORTED package
+    // VECTOR typedef, written unqualified (`import pkg::*; input pad_pok_t
+    // pok_i`), gets its own per-view self-alias clone in BOTH views, exactly
+    // like a module-local one; a package-QUALIFIED port (`input pkg::T x`)
+    // still binds the shared object in both.  The two clones differ only in
+    // NAME: the DEF-view clone takes the shared object's (qualified) name and
+    // the ELAB one the bare typedef identifier, and both keep the package
+    // Instance link.  Measured on three purpose-built goldens that move the
+    // `import` between the two modules of PackedArrayHighConn (v2 = no
+    // import: shared in both views and no clone anywhere; v3 = import only in
+    // the port's module: exactly this pair; v4 = import only in the parent:
+    // the pair disappears again).
+    bool importedPkgVec9 = false;
+    if (parentKind == SymbolKind::Package) {
+        auto* tsyn9 = dtv->getTypeSyntax();
+        if (tsyn9 && tsyn9->kind == syntax::SyntaxKind::NamedType &&
+            tsyn9->as<syntax::NamedTypeSyntax>().name->kind ==
+                syntax::SyntaxKind::IdentifierName)
+            if (auto tit9 = typedefTs.find(&tv);
+                tit9 != typedefTs.end() &&
+                tit9->second->UhdmType() == UHDM::uhdmlogic_typespec)
+                importedPkgVec9 = true;
+        if (!importedPkgVec9)
+            return nullptr;
+    }
     // Applies to file-level (compilation unit) vector typedefs and module-local
     // vector typedefs the def registered as clone sources (typedefClone). Both
     // resolve to a bare logic_typespec base.
@@ -12828,7 +12957,7 @@ UHDM::logic_typespec* UhdmExporter::portVectorTypedefClone(const Symbol& interna
             tgt1.kind != SymbolKind::TypeAlias && !namedElemArray)
             fileLevelVec = true;
     }
-    if (!(typedefClone.count(&tv) || fileLevelVec))
+    if (!(typedefClone.count(&tv) || fileLevelVec || importedPkgVec9))
         return nullptr;
     auto tit0 = typedefTs.find(&tv);
     if (tit0 == typedefTs.end() ||
@@ -12843,16 +12972,23 @@ UHDM::logic_typespec* UhdmExporter::portVectorTypedefClone(const Symbol& interna
     bypassTypedefShare = false;
     if (!cl || cl->UhdmType() != UHDM::uhdmlogic_typespec)
         return nullptr;
-    cl->VpiName(tv.name);
+    // The IMPORTED-package pair names its DEF clone after the shared (
+    // qualified) object and its ELAB clone after the bare identifier; every
+    // other clone family uses the bare identifier in both views.
+    std::string cnm9(tv.name);
+    if (importedPkgVec9 && !withInstance && !tit0->second->VpiName().empty())
+        cnm9 = std::string(tit0->second->VpiName());
+    cl->VpiName(cnm9);
     auto* art = s.MakeRef_typespec();
-    art->VpiFullName(std::string(tv.name));
+    art->VpiFullName(cnm9);
     art->VpiParent(cl);
     art->Actual_typespec(tit0->second);
     ((UHDM::logic_typespec*)cl)->Typedef_alias(art);
     // The elab (top) port clone carries the shared base's Instance link; the
     // def-view port clone omits it (Surelog: top-port clones instanced, def-
-    // port clones bare).
-    if (withInstance && tit0->second->Instance())
+    // port clones bare) — except the imported-package pair, where BOTH clones
+    // keep the package link (§ importedPkgVecPortClone).
+    if ((withInstance || importedPkgVec9) && tit0->second->Instance())
         cl->Instance(tit0->second->Instance());
     return (UHDM::logic_typespec*)cl;
 }
