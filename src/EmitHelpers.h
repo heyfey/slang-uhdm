@@ -500,6 +500,26 @@ inline const TypeParameterSymbol* portTypeParam(const Symbol& internal) {
     return nullptr;
 }
 
+// The `parameter type T` a TypeAliasType IS, or null for a real typedef.
+// slang models every type parameter as a same-named TypeAliasType in the
+// parameter's own scope (TypeParameterSymbol's ctor), whose syntax node is the
+// declarator (`TypeAssignment`), never a `TypedefDeclaration` — so a type
+// parameter overridden with ANOTHER type parameter arrives at the emitter
+// looking exactly like a typedef override. r10c15.
+inline const TypeParameterSymbol* typeParamOfAlias(const TypeAliasType& ta) {
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypeAssignment)
+        return nullptr;
+    auto* sc = ta.getParentScope();
+    if (!sc)
+        return nullptr;
+    for (auto& mem : sc->members())
+        if (mem.kind == SymbolKind::TypeParameter &&
+            &mem.as<TypeParameterSymbol>().getTypeAlias() == (const Type*)&ta)
+            return &mem.as<TypeParameterSymbol>();
+    return nullptr;
+}
+
 // A declaration whose type is named through an explicit `other_pkg::T`
 // qualification: the shared typespec belongs to THAT package and every
 // vpiInstance / span stamp made while emitting the USING package must leave it

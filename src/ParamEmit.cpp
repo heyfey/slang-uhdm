@@ -2402,6 +2402,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         defModImportParam.clear();
     auto* params = s.MakeAnyVec();
     auto* passigns = s.MakeParam_assignVec();
+    // Surelog lists Parameters in SOURCE DECLARATION ORDER with TYPE
+    // parameters INTERLEAVED among the value ones — its DesignComponent holds
+    // one vector for both kinds. We emit the two kinds in two passes (value
+    // params first, type params after), so record each declared member's
+    // declaration rank and splice each type_parameter back into place.
+    // Measured on a 6-param purpose-built matrix (`#(type T1, P1, type T2)`
+    // plus body `P2, type T3, P3`): golden is T1,P1,T2,P2,T3,P3 in the def
+    // view AND in every elaborated instance (r10c15).
+    std::map<const Symbol*, size_t> declRank9;
+    {
+        size_t r9 = 0;
+        for (auto& mem9 : body.members())
+            if (mem9.kind == SymbolKind::Parameter ||
+                mem9.kind == SymbolKind::TypeParameter)
+                declRank9[&mem9] = r9++;
+    }
+    std::map<const UHDM::any*, size_t> paramRank9;
     std::vector<const ParameterSymbol*> paramSyms;
     for (auto& member0 : body.members())
         if (member0.kind == SymbolKind::Parameter)
@@ -3229,6 +3246,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         params->push_back(up);
+        if (!isImported)
+            if (auto dr9 = declRank9.find(&member); dr9 != declRank9.end())
+                paramRank9[up] = dr9->second;
         if (funcScope)
             netMap[&member] = up;
 
@@ -8650,6 +8670,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // at its name token and leaves the ELAB-view one unlocated (instance type
     // params fold to id-only). The typespec Actual is the resolved default
     // (def) or override (elab) type, built from the param's own targetType.
+    //
+    // Splices the finished type_parameter back into DECLARATION order among
+    // the value params already in `params` (see declRank9).
+    auto spliceTypeParam9 = [&](UHDM::any* tp9, const Symbol& sym9) {
+        size_t myRank9 = 0;
+        bool haveRank9 = false;
+        if (auto dr9 = declRank9.find(&sym9); dr9 != declRank9.end()) {
+            myRank9 = dr9->second;
+            haveRank9 = true;
+        }
+        auto pos9 = params->end();
+        if (haveRank9) {
+            for (auto it9 = params->begin(); it9 != params->end(); ++it9) {
+                auto rit9 = paramRank9.find(*it9);
+                if (rit9 != paramRank9.end() && rit9->second > myRank9) {
+                    pos9 = it9;
+                    break;
+                }
+            }
+            paramRank9[tp9] = myRank9;
+        }
+        params->insert(pos9, tp9);
+    };
     for (auto& member0 : body.members()) {
         if (member0.kind != SymbolKind::TypeParameter)
             continue;
@@ -8703,6 +8746,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // bare-named CLONE of the typedef ts (parented at the type
             // param), not the shared module typedef object (Surelog).
             auto& ta9 = tps.targetType.getType().as<TypeAliasType>();
+            // ...unless the override names ANOTHER TYPE PARAMETER
+            // (`mid #(.TP0(TPTOP))`, and the same one re-passed a level down).
+            // slang models a `parameter type T` as a TypeAliasType of the same
+            // name in the same scope, so such an override arrives here looking
+            // like a typedef — but Surelog resolves the chain to the CONCRETE
+            // type and every level of it points at the ONE typespec the
+            // outermost type parameter built: TypeParam's work@top.u0.TP0 and
+            // work@top.u0.u1.TP1 both carry TPTOP's `int` at 2:24, and
+            // TypeParamElab's i_arb.DATA_T carries i_arb_inp.DATA_T's
+            // axi_meta_t struct. Cloning here instead names the typespec after
+            // the FORMAL (`int_typespec (TPTOP)`) and re-locates it at the
+            // parameter's name token, which is neither the right object nor
+            // the right class once the chain ends in a struct.
+            if (auto* srcTp9 = typeParamOfAlias(ta9)) {
+                if (auto e9 = typeParamElabTs.find(srcTp9);
+                    e9 != typeParamElabTs.end() && e9->second) {
+                    rt->Actual_typespec(e9->second);
+                    tp->Typespec(rt);
+                    typeParamElabTs[&tps] = e9->second;
+                    currentScope = savedCS;
+                    syntaxRefPrefix = savedPfx;
+                    spliceTypeParam9(tp, member0);
+                    continue;
+                }
+            }
             const syntax::SyntaxNode* tgt9 = nullptr;
             if (auto asyn9 = ta9.getSyntax();
                 asyn9 && asyn9->kind == syntax::SyntaxKind::TypedefDeclaration)
@@ -8757,7 +8825,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     .as<InstanceBodySymbol>()
                                     .getDefinition(),
                                 std::string(tps.name)}] = its;
-        params->push_back(tp);
+        spliceTypeParam9(tp, member0);
     }
     // MATERIALIZED imported params: the Parameters vec and the Param_assigns
     // vec share the IMPORT-ITEM key and differ only in the tie-break INSIDE

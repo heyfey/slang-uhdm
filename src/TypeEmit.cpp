@@ -11,6 +11,12 @@
 
 namespace slang_uhdm {
 
+// Defined below (near the array_var builders): the bare typespec CLASS a
+// type maps to (int -> int_typespec, bit -> bit_typespec, ...), with no span
+// and no flags. Forward-declared because makeTypeParamDefaultTs needs it.
+static UHDM::typespec* bareElemTypespec(UHDM::Serializer& s,
+                                        const slang::ast::Type& leaf);
+
 // True when a signal's declared-type packed dimensions reference a PARAMETER
 // (its width can be overridden per instance) — such widths keep $bits(sig)
 // unfolded; a fixed width (int, logic [7:0]) folds.
@@ -2763,6 +2769,19 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
             v->VpiVisibility(1);
             return v;
         }
+        // An ANSI port typed by a `parameter type` the INSTANCE OVERRIDES is a
+        // struct_var, not a struct_net (TypeParamElab: `output DATA_T
+        // oup_data_o` is a logic_net in the def view where DATA_T is still
+        // `logic`, and a struct_var in `i_arb`, whose DATA_T was overridden to
+        // a packed struct). The override is what matters, not the resolved
+        // type: PackageTypeParam's `input TYPE_PARAMETER input_struct` uses the
+        // parameter's own `new_package::zzz` DEFAULT and stays a struct_net in
+        // every view.
+        if (auto* tpp9 = portTypeParam(internal); tpp9 && tpp9->isOverridden()) {
+            auto* v = s.MakeStruct_var();
+            v->VpiVisibility(1);
+            return v;
+        }
         // A 4-state struct whose TOP-LEVEL fields include an ATOM
         // (byte/int/integer), an ENUM, or any 2-state member is a struct_var
         // too (net_types decode) — but only for plain non-port, no-init,
@@ -2847,34 +2866,42 @@ UHDM::variables* UhdmExporter::makeVar(const Symbol& internal, bool portBacked) 
         (internal.kind != SymbolKind::Net || portBacked ||
          !hasExplicitNetKeyword(internal))) {
         auto& pit = ct.as<PredefinedIntegerType>();
+        // A var declared through a NAME (a typedef or a `parameter type`)
+        // carries its signedness on the shared typespec only — the same rule
+        // the logic_var arm above already applies. Surelog reads vpiSigned off
+        // the DECLARATION's own signing syntax, and a name has none: measured
+        // on `typedef int myint_t; myint_t td_i;` -> int_var with NO vpiSigned
+        // while `int plain_i;` in the same module keeps it, and identically
+        // for `parameter type T = int; T tv;` (r10c15 matrix c/d).
+        bool namedTy9 = declared->getType().kind == SymbolKind::TypeAlias;
         switch (pit.integerKind) {
             case PredefinedIntegerType::Int: {
                 auto* v = s.MakeInt_var();
-                v->VpiSigned(pit.isSigned);
+                v->VpiSigned(pit.isSigned && !namedTy9);
                 v->VpiVisibility(1);
                 return v;
             }
             case PredefinedIntegerType::Integer: {
                 auto* v = s.MakeInteger_var();
-                v->VpiSigned(pit.isSigned);
+                v->VpiSigned(pit.isSigned && !namedTy9);
                 v->VpiVisibility(1);
                 return v;
             }
             case PredefinedIntegerType::ShortInt: {
                 auto* v = s.MakeShort_int_var();
-                v->VpiSigned(pit.isSigned);
+                v->VpiSigned(pit.isSigned && !namedTy9);
                 v->VpiVisibility(1);
                 return v;
             }
             case PredefinedIntegerType::LongInt: {
                 auto* v = s.MakeLong_int_var();
-                v->VpiSigned(pit.isSigned);
+                v->VpiSigned(pit.isSigned && !namedTy9);
                 v->VpiVisibility(1);
                 return v;
             }
             case PredefinedIntegerType::Byte: {
                 auto* v = s.MakeByte_var();
-                v->VpiSigned(pit.isSigned);
+                v->VpiSigned(pit.isSigned && !namedTy9);
                 v->VpiVisibility(1);
                 return v;
             }
@@ -2916,15 +2943,71 @@ UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
     ASTContext actx(body, LookupLocation::max);
     const Type& dt = comp.getType(defSyn, actx);
     const Type& ct = dt.getCanonicalType();
-    // A named typedef/enum default shares its already-emitted typespec.
-    for (auto& [sym, tsp] : typedefTs)
-        if (sym->kind == SymbolKind::TypeAlias &&
-            &sym->as<TypeAliasType>().getCanonicalType() == &ct)
-            return tsp;
-    auto* ts = s.MakeLogic_typespec();
+    // A default that NAMES a typedef/enum shares that typedef's own typespec
+    // object.  Keyed on the ALIAS SYMBOL, not on the canonical type: an
+    // anonymous default that happens to be structurally equal to some typedef
+    // (`parameter type F = logic [7:0]` where a `typedef logic [7:0] vec_t`
+    // also exists) builds its OWN typespec in Surelog and must not borrow the
+    // typedef's named object (r10c15 matrix, m2.F).
+    if (dt.kind == SymbolKind::TypeAlias) {
+        if (auto it = typedefTs.find(&dt); it != typedefTs.end())
+            return it->second;
+        // Not yet emitted (or emitted under another alias in the chain):
+        // fall back to the canonical match, which is what this did before.
+        for (auto& [sym, tsp] : typedefTs)
+            if (sym->kind == SymbolKind::TypeAlias &&
+                &sym->as<TypeAliasType>().getCanonicalType() == &ct)
+                return tsp;
+    }
+    // Surelog's CompileType mints the DEFAULT type's own typespec CLASS —
+    // `int`/`byte`/`integer`/`shortint`/`longint`/`bit`/`real`/`string` each
+    // get theirs, only `logic`/`reg` (and packed vectors of them) land on
+    // logic_typespec (r10c15 15-case matrix).  vpiSigned follows the type.
+    // Restricted to the SCALAR leaf kinds the matrix measured; an anonymous
+    // aggregate default (a bare `enum`/`struct` written in the parameter) is
+    // left on the logic_typespec fallback it has always had.
+    const Type* leaf9 = &ct;
+    while (leaf9->isPackedArray())
+        leaf9 = &leaf9->as<PackedArrayType>().elementType.getCanonicalType();
+    UHDM::typespec* ts = nullptr;
+    if (leaf9->kind == SymbolKind::PredefinedIntegerType ||
+        leaf9->kind == SymbolKind::ScalarType ||
+        leaf9->kind == SymbolKind::FloatingType ||
+        leaf9->kind == SymbolKind::StringType)
+        ts = bareElemTypespec(s, ct);
+    if (!ts)
+        ts = s.MakeLogic_typespec();
     setLoc(ts, defSyn.sourceRange());
-    if (dt.isSigned())
-        ts->VpiSigned(true);
+    if (dt.isSigned()) {
+        switch (ts->UhdmType()) {
+            case UHDM::uhdmlogic_typespec:
+                ((UHDM::logic_typespec*)ts)->VpiSigned(true);
+                break;
+            case UHDM::uhdmbit_typespec:
+                ((UHDM::bit_typespec*)ts)->VpiSigned(true);
+                break;
+            case UHDM::uhdmint_typespec:
+                ((UHDM::int_typespec*)ts)->VpiSigned(true);
+                break;
+            case UHDM::uhdminteger_typespec:
+                ((UHDM::integer_typespec*)ts)->VpiSigned(true);
+                break;
+            case UHDM::uhdmshort_int_typespec:
+                ((UHDM::short_int_typespec*)ts)->VpiSigned(true);
+                break;
+            case UHDM::uhdmlong_int_typespec:
+                ((UHDM::long_int_typespec*)ts)->VpiSigned(true);
+                break;
+            case UHDM::uhdmbyte_typespec:
+                ((UHDM::byte_typespec*)ts)->VpiSigned(true);
+                break;
+            case UHDM::uhdmtime_typespec:
+                ((UHDM::time_typespec*)ts)->VpiSigned(true);
+                break;
+            default:
+                break;
+        }
+    }
     // Packed vector dims -> ranges (bounds as UINT constants, source spans from
     // the default type-syntax dimensions).
     const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
@@ -2961,7 +3044,10 @@ UHDM::typespec* UhdmExporter::makeTypeParamDefaultTs(
                 r->Right_expr(makeBoundConst(rsyn, dims[i].right, r));
                 ranges->push_back(r);
             }
-            ts->Ranges(ranges);
+            if (ts->UhdmType() == UHDM::uhdmbit_typespec)
+                ((UHDM::bit_typespec*)ts)->Ranges(ranges);
+            else
+                ((UHDM::logic_typespec*)ts)->Ranges(ranges);
         }
     }
     return ts;

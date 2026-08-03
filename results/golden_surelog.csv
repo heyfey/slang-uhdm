@@ -1381,12 +1381,12 @@ TypedefUnpacked,default,CMP_EQUAL,,,differ
 TypedefUnpacked,testflags,CMP_EQUAL,,,differ
 Typename,default,SLANG_REJECT,dut.sv:6:58: error: use of undeclared identifier 'a',,
 Typename,testflags,SLANG_REJECT,dut.sv:6:58: error: use of undeclared identifier 'a',,
-TypeParam,default,CMP_NOTEQUAL,decompile:,,
-TypeParam,testflags,CMP_NOTEQUAL,decompile:,,
+TypeParam,default,CMP_EQUAL,,,differ
+TypeParam,testflags,CMP_EQUAL,,,differ
 TypeParam2,default,SLANG_REJECT,dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
 TypeParam2,testflags,SLANG_REJECT,dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
-TypeParamElab,default,CMP_NOTEQUAL,decompile:,,
-TypeParamElab,testflags,CMP_NOTEQUAL,decompile:,,
+TypeParamElab,default,CMP_EQUAL,,,differ
+TypeParamElab,testflags,CMP_EQUAL,,,differ
 TypeParamOverride,default,CMP_EQUAL,,,differ
 TypeParamOverride,testflags,CMP_EQUAL,,,differ
 TypespecBits,default,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
