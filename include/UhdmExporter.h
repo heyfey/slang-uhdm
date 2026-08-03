@@ -1116,6 +1116,14 @@ private:
     bool hasScopedPkgRef(std::string_view pkgName, std::string_view name);
     std::set<std::string> scopedPkgRefs;
     bool scopedPkgRefsBuilt = false;
+    /// True when `<name>.<member>` appears as a MEMBER SELECT anywhere in the
+    /// sources.  Surelog's substituteAssignedValue reduces the selected
+    /// parameter's own elaborated value in place, and that reduce is what
+    /// FLATTENS a wide struct-pattern package parameter's elab listing; a
+    /// parameter nothing member-selects keeps its tagged_pattern tree.
+    bool hasMemberSelectOf(std::string_view name);
+    std::set<std::string> memberSelectBases;
+    bool memberSelectBasesBuilt = false;
     /// `arr[3]` -> the span of the bare index token (`3`).  Surelog anchors the
     /// synthesized interface-array-element bit_select (and its index constant)
     /// there, not over the whole select expression.  Returns `range` unchanged
@@ -2451,6 +2459,11 @@ private:
     // DEF-view Rhs node of each package param (any kind) — a later same-pkg
     // param ref chains its vpiActual to this node (Surelog).
     std::map<const slang::ast::Symbol*, UHDM::any*> pkgParamDefRhs;
+    // Substitution of a package struct-pattern member VALUE written as a
+    // MEMBER SELECT of another struct-pattern parameter (see the call site in
+    // ExprEmit's tagged_pattern arm). Answers the value OBJECT the referenced
+    // parameter's own pattern holds for that member, IN THE CURRENT VIEW.
+    UHDM::any* pkgPatSubstValue(const slang::ast::Expression& e, int depth);
     // A DEF-pass FOLDED struct/union member packed_array_typespec bound
     // constant ([K:0]->2) records the pkg PARAM it folded, so the post-swap
     // TOP member pass can attach Surelog's vpiSize:32 + vpiTypespec

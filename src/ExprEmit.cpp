@@ -94,6 +94,94 @@ static int64_t surelogTsBits(const Type& t) {
     return -1;
 }
 
+// The value OBJECT a struct-pattern op-75 `rhs` holds for member `mem`
+// (declaration index `idx`), or null.  Both shapes a package param's Rhs can
+// take are read: the TAGGED listing (match the tagged_pattern whose typespec
+// carries the member's name, falling back to the `default:` setter's value —
+// which is exactly how Surelog fills an unset member) and the FLATTENED
+// positional listing (index by declaration order).
+static UHDM::any* patMemberSlot(UHDM::any* rhs, const std::string& mem,
+                                int idx) {
+    // A param whose whole value is another param (`localparam cfg_s A = B;`)
+    // registers a ref_obj chained to B's Rhs — walk the chain to the pattern
+    // (BlackParrot `bp_unicore_cfg_p = bp_default_cfg_p`, then
+    // `bp_unicore_megaparrot_cfg_p` selecting members off IT).
+    for (int g = 0; g < 8 && rhs && rhs->UhdmType() == UHDM::uhdmref_obj; ++g)
+        rhs = (UHDM::any*)((UHDM::ref_obj*)rhs)->Actual_group();
+    if (!rhs || rhs->UhdmType() != UHDM::uhdmoperation)
+        return nullptr;
+    auto* op = (UHDM::operation*)rhs;
+    if (op->VpiOpType() != 75 || !op->Operands())
+        return nullptr;
+    auto& ops = *op->Operands();
+    UHDM::any* dflt = nullptr;
+    bool anyTagged = false;
+    for (auto* o : ops) {
+        if (o->UhdmType() != UHDM::uhdmtagged_pattern)
+            continue;
+        anyTagged = true;
+        auto* tp = (UHDM::tagged_pattern*)o;
+        std::string nm;
+        if (tp->Typespec() && tp->Typespec()->Actual_typespec())
+            nm = std::string(tp->Typespec()->Actual_typespec()->VpiName());
+        if (nm == mem)
+            return tp->Pattern();
+        if (nm == "default")
+            dflt = tp->Pattern();
+    }
+    if (anyTagged)
+        return dflt;
+    if (idx >= 0 && idx < (int)ops.size())
+        return ops[(size_t)idx];
+    return nullptr;
+}
+
+// Surelog's substituteAssignedValue reaching THROUGH a struct parameter: a
+// package struct-pattern member value written as `OTHER.member` is replaced by
+// the value object OTHER's own pattern holds for that member, and a ternary
+// over such selects is resolved to the taken branch's object (the
+// `(over_p.m == "inv") ? base_p.m : over_p.m` idiom BlackParrot writes ~90
+// times per config).  Chains: the answer may itself have come from a previous
+// substitution, so `copy_p.m3` lands on `base_p`'s literal.  The lookup runs
+// off pkgParamDefRhs, which is registered PER VIEW, so a def-view member value
+// resolves against the def listing and an elab one against the elab listing —
+// THE LAW, for free.
+UHDM::any* UhdmExporter::pkgPatSubstValue(const Expression& expr, int depth) {
+    if (depth > 8)
+        return nullptr;
+    auto& e = stripImplicitConv(expr);
+    if (e.kind == ExpressionKind::MemberAccess) {
+        auto& ma = e.as<MemberAccessExpression>();
+        auto& base = stripImplicitConv(ma.value());
+        const Symbol* bs = nullptr;
+        if (base.kind == ExpressionKind::NamedValue)
+            bs = &base.as<NamedValueExpression>().symbol;
+        else if (base.kind == ExpressionKind::HierarchicalValue)
+            bs = &base.as<HierarchicalValueExpression>().symbol;
+        if (!bs || bs->kind != SymbolKind::Parameter)
+            return nullptr;
+        auto it = pkgParamDefRhs.find(bs);
+        if (it == pkgParamDefRhs.end())
+            return nullptr;
+        int idx = -1;
+        if (ma.member.kind == SymbolKind::Field)
+            idx = (int)ma.member.as<FieldSymbol>().fieldIndex;
+        return patMemberSlot(it->second, std::string(ma.member.name), idx);
+    }
+    if (e.kind == ExpressionKind::ConditionalOp) {
+        auto& co = e.as<ConditionalExpression>();
+        if (co.conditions.size() != 1 || co.conditions[0].pattern)
+            return nullptr;
+        ASTContext cx(comp.getRoot(), LookupLocation::max);
+        ConstantValue pv = cx.tryEval(*co.conditions[0].expr);
+        if (!pv || !pv.isInteger() || pv.integer().hasUnknown())
+            return nullptr;
+        return pkgPatSubstValue(pv.isTrue() ? co.left() : co.right(),
+                                depth + 1);
+    }
+    return nullptr;
+}
+
 // True when `e` names a PACKAGE-level variable and the source spells it
 // package-QUALIFIED (`p::ch`). Surelog resolves such a reference only as a
 // whole: any selector hung off it — `.member`, `.method(...)`, even a
@@ -8127,6 +8215,53 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 cc1->Typespec(nrt1);
                             }
                             preE = cc1;
+                        }
+                }
+                // A PACKAGE struct-pattern member VALUE written as a MEMBER
+                // SELECT of ANOTHER struct-pattern parameter substitutes that
+                // parameter's OWN value object for the member — verbatim, so
+                // the constant keeps the SOURCE literal's span, size and
+                // encoding rather than anything derived from the reference
+                // site.  Measured on a purpose-built two-package golden and on
+                // BlackBePipeInt: `copy_p.m0: base_p.m0` -> base_p's `1`
+                // (UINT:1 sz64 at the literal), and the BlackParrot
+                // `(over_p.m == "inv") ? base_p.m : over_p.m` idiom resolves
+                // the ternary and substitutes the TAKEN branch's object,
+                // chaining through an already-substituted parameter
+                // (`merged_p.m3` -> `copy_p.m3` -> `base_p`'s `4`).  Both
+                // package listings do it, each off its own view's objects
+                // (pkgPatSubstValue).
+                //
+                // RESIDUE (byte-identity only, not cmp): Surelog SHARES the
+                // one object across every user; we copy it, exactly as RULE 1
+                // above does and for the same reason — one node under two
+                // parents is what uhdm-cmp's visited memo reads as a mismatch.
+                if (!preE && (paramInitPkg || importedParamClone) &&
+                    !nestedPatVal6 && !isLiteralExpr(*setter.expr)) {
+                    if (auto* sv4 = pkgPatSubstValue(*setter.expr, 0))
+                        if (sv4->UhdmType() == UHDM::uhdmconstant) {
+                            auto* sc4 = (UHDM::constant*)sv4;
+                            auto* cc4 = s.MakeConstant();
+                            cc4->VpiValue(std::string(sc4->VpiValue()));
+                            cc4->VpiDecompile(std::string(sc4->VpiDecompile()));
+                            cc4->VpiSize(sc4->VpiSize());
+                            cc4->VpiConstType(sc4->VpiConstType());
+                            cc4->VpiParent(sc4->VpiParent());
+                            cc4->VpiFile(sc4->VpiFile());
+                            cc4->VpiLineNo(sc4->VpiLineNo());
+                            cc4->VpiColumnNo(sc4->VpiColumnNo());
+                            cc4->VpiEndLineNo(sc4->VpiEndLineNo());
+                            cc4->VpiEndColumnNo(sc4->VpiEndColumnNo());
+                            if (auto* srt4 = sc4->Typespec()) {
+                                auto* nrt4 = s.MakeRef_typespec();
+                                nrt4->VpiFullName(
+                                    std::string(srt4->VpiFullName()));
+                                nrt4->VpiParent(cc4);
+                                nrt4->Actual_typespec(
+                                    (UHDM::typespec*)srt4->Actual_typespec());
+                                cc4->Typespec(nrt4);
+                            }
+                            preE = cc4;
                         }
                 }
                 // A PACKAGE struct-pattern member VALUE written as an

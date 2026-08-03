@@ -6543,6 +6543,30 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         structWidePkg = true;
                         structNoScopedRefPkg = true;
                     }
+                    // MEMBER-SELECT RULE: `P.member` written ANYWHERE is a
+                    // second, independent trigger for the same reduce — and it
+                    // OUTRANKS both the WIDTH and the SCOPED-REFERENCE rules,
+                    // because Surelog's substituteAssignedValue reduces P's own
+                    // elaborated value in place before answering the select.
+                    // So a wide, never-`pkg::`-qualified parameter still
+                    // flattens in its elab listing as soon as one member select
+                    // names it.  Measured on BlackBePipeInt, whose 14 config
+                    // parameters sort EXACTLY by member-select count at 2304
+                    // bits each and 0 scoped references (`bp_custom_cfg_p` 0
+                    // selects -> tagged tree; `bp_default_cfg_p` 72,
+                    // `bp_unicore_cfg_p` 216, `bp_multicore_1_cfg_p` 936 ->
+                    // flat positional list), and on a purpose-built 72-member
+                    // two-parameter golden that flips only which one is
+                    // selected.  kmac_pkg::A / pinmux_pkg::DefaultTargetCfg
+                    // (the WIDTH rule's tests) are never member-selected.
+                    // The SYMBOLIC-DIM rule still wins: Surelog leaves that
+                    // pattern op untyped, so its flatten pass cannot run at all.
+                    if (structPat && inPackage && structWidePkg &&
+                        !structHasSymbolicMemberDim(pctS) &&
+                        hasMemberSelectOf(ps.name)) {
+                        structWidePkg = false;
+                        structNoScopedRefPkg = false;
+                    }
                 }
                 // The DEF view of an INTERFACE struct param keeps the TAGGED
                 // form (emitExpr tagged_pattern op: constant size 64 + a ts ref

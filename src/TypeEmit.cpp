@@ -3853,6 +3853,71 @@ bool UhdmExporter::hasScopedPkgRef(std::string_view pkgName,
                                std::string(name)) > 0;
 }
 
+// The companion trigger to hasScopedPkgRef, and the one that decides a WIDE
+// struct-pattern package parameter's ELABORATED shape: Surelog's
+// substituteAssignedValue, called for every `P.member` select, reduces P's own
+// elaborated value in place, and that reduce is what turns the tagged_pattern
+// tree into the flat positional operand list.  A parameter nothing
+// member-selects never gets reduced and keeps its tags.
+// Measured on BlackBePipeInt's 14 config parameters, where the two shapes sort
+// EXACTLY by the member-select count (`bp_custom_cfg_p` 0 selects -> tagged;
+// `bp_default_cfg_p` / `bp_unicore_cfg_p` / `bp_multicore_*_override_p` /
+// `bp_multicore_*_cfg_p` 72..936 selects -> flat), and on two purpose-built
+// goldens that flip only which parameter is selected.
+// Polarity is the MIRROR of hasScopedPkgRef: only a select written inside a
+// PARAMETER DECLARATION counts.  A select in a cont-assign does NOT reduce the
+// parameter (purpose-built 72-member golden: the module reads both `base_p.m0`
+// and `copy_p.m0`, only `base_p` — the one a parameter also selects — goes
+// flat), because a module-side read resolves the value without re-reducing the
+// package's own param_assign.
+// `a.b` is a ScopedName with a DOT separator in slang, not just a
+// MemberAccessExpression — reading only the latter finds none of these.
+bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
+    if (!memberSelectBasesBuilt) {
+        memberSelectBasesBuilt = true;
+        // `a.b` is a ScopedName whose SEPARATOR is a dot (slang parses `::`
+        // and `.` into the same node); a postfix select off a non-name
+        // expression is a MemberAccessExpression.  Both spell a member select,
+        // and the base is the trailing identifier of the left side, so
+        // `pa::base_p.m0` keys on `base_p`.
+        auto baseName = [](const syntax::SyntaxNode* b) -> std::string {
+            for (int g = 0; g < 8 && b && b->kind == syntax::SyntaxKind::ScopedName;
+                 ++g)
+                b = b->as<syntax::ScopedNameSyntax>().right;
+            if (b && b->kind == syntax::SyntaxKind::IdentifierName)
+                return std::string(b->as<syntax::IdentifierNameSyntax>()
+                                       .identifier.valueText());
+            return {};
+        };
+        auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
+                        bool inParamDecl) -> void {
+            if (node.kind == syntax::SyntaxKind::ParameterDeclaration)
+                inParamDecl = true;
+            if (inParamDecl) {
+                if (node.kind == syntax::SyntaxKind::MemberAccessExpression) {
+                    if (auto n = baseName(
+                            node.as<syntax::MemberAccessExpressionSyntax>()
+                                .left);
+                        !n.empty())
+                        memberSelectBases.insert(n);
+                }
+                else if (node.kind == syntax::SyntaxKind::ScopedName) {
+                    auto& sn = node.as<syntax::ScopedNameSyntax>();
+                    if (sn.separator.kind == parsing::TokenKind::Dot)
+                        if (auto n = baseName(sn.left); !n.empty())
+                            memberSelectBases.insert(n);
+                }
+            }
+            for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+                if (auto* ch = node.childNode(i))
+                    self(self, *ch, inParamDecl);
+        };
+        for (auto& tree : comp.getSyntaxTrees())
+            scan(scan, tree->root(), false);
+    }
+    return memberSelectBases.count(std::string(name)) > 0;
+}
+
 // Packed struct typespec: typespec_members with member-type Ref locations
 // and alias-scoped ref fullnames.
 // The element typespec of an aggregate member whose element type is ANONYMOUS
