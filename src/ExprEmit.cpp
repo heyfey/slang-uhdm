@@ -12425,6 +12425,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // slang wraps some valid sub-expressions in Invalid nodes (e.g.
             // size-cast operand shells); unwrap when a child exists.
             auto& iv2 = expr.as<InvalidExpression>();
+            bool stmtCtx14 = callStmtContext;
+            callStmtContext = false;
             // A let-decl FORMAL binds Invalid the same way a property formal
             // does, but Surelog leaks NO module net for it: the let_decl body
             // is compiled with late binding off, so the formal stays a bare
@@ -12586,9 +12588,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // § droppedCall14 (expression half) — a call on a handle whose
+            // type is an unspecialized type PARAMETER leaves the RECEIVER as
+            // the Invalid node's child, so the plain unwrap below would emit a
+            // bare ref where the reference tool emits the whole dotted call
+            // (`first.convert2string()` inside a `$sformat` argument).  Only a
+            // BARE reference child is such a receiver: a COMPOUND child (the
+            // `&&` one of whose operands was dropped, an assignment) starts at
+            // the same column and must keep the plain unwrap, or the whole
+            // operation collapses into the call.
+            if (iv2.child && stmtSyntax14 &&
+                (iv2.child->kind == ExpressionKind::NamedValue ||
+                 iv2.child->kind == ExpressionKind::MemberAccess ||
+                 iv2.child->kind == ExpressionKind::HierarchicalValue) &&
+                iv2.child->sourceRange.start().valid())
+                if (auto* cs14 = findDroppedCallAt14(
+                        *stmtSyntax14, iv2.child->sourceRange.start()))
+                    if (auto* r14 = emitDroppedCall14(*cs14, parent, prefix,
+                                                      netMap, stmtCtx14))
+                        return r14;
             if (iv2.child)
                 return emitExpr(*iv2.child, parent, prefix, netMap);
-            noteUnsupported("expression kind: Invalid");
+            noteUnsupportedAt("expression kind: Invalid",
+                              expr.syntax ? expr.syntax->sourceRange().start()
+                                          : expr.sourceRange.start());
             return nullptr;
         }
         default:

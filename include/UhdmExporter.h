@@ -805,6 +805,35 @@ private:
                                     NetMap& netMap);
     UHDM::any* emitStmt(const slang::ast::Statement& stmt, UHDM::BaseClass* parent,
                         const std::string& prefix, NetMap& netMap);
+    /// § droppedCall14 — a statement slang REJECTED (`StatementKind::Invalid`),
+    /// re-emitted from its SYNTAX.  See the model at the definition
+    /// (StmtEmit.cpp): the reference tool has no type checking at this level,
+    /// so a call on a handle whose type is an unspecialized type PARAMETER
+    /// still produces the ordinary dotted-call shapes.  Null when the dropped
+    /// statement is not one of the modelled shapes (the caller then notes it).
+    UHDM::any* emitInvalidStmt14(const slang::ast::Statement& stmt,
+                                 UHDM::BaseClass* parent,
+                                 const std::string& prefix, NetMap& netMap);
+    /// The dotted-call half of § droppedCall14, in STATEMENT position
+    /// (`stmtCtx`, a bare method_func_call with a vpiPrefix) or EXPRESSION
+    /// position (a hier_path over [ref_obj, method_func_call]).
+    UHDM::any* emitDroppedCall14(const slang::syntax::ExpressionSyntax& e,
+                                 UHDM::BaseClass* parent,
+                                 const std::string& prefix, NetMap& netMap,
+                                 bool stmtCtx);
+    /// The syntax of the statement currently being emitted.  slang does NOT
+    /// set `syntax` on the expression it builds for an invocation
+    /// (`Expression::create` deliberately skips the overwrite there), so a
+    /// dropped call can only be found again by searching the enclosing
+    /// statement's syntax for the invocation that starts where the surviving
+    /// receiver does — see § droppedCall14.
+    const slang::syntax::SyntaxNode* stmtSyntax14 = nullptr;
+    const slang::syntax::ExpressionSyntax* findDroppedCallAt14(
+        const slang::syntax::SyntaxNode& root, slang::SourceLocation loc);
+    UHDM::any* emitDroppedArg14(const slang::syntax::ExpressionSyntax& ae,
+                                UHDM::BaseClass* parent,
+                                const std::string& argPfx, NetMap& netMap,
+                                bool bind);
     UHDM::any* emitEventExpr(const slang::ast::TimingControl& tc, UHDM::BaseClass* parent,
                              const std::string& prefix, NetMap& netMap);
     // "#5", "#10ns", "#dly": Surelog's delay_control. Sets VpiDelay to the

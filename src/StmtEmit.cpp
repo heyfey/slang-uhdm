@@ -417,6 +417,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 self->selScopeStack.pop_back();
         }
     } selGuard;
+    // § droppedCall14 — remember the statement syntax for the Invalid-
+    // expression re-entry (see UhdmExporter::stmtSyntax14).
+    struct StmtSyn14 {
+        const syntax::SyntaxNode** p;
+        const syntax::SyntaxNode* saved;
+        ~StmtSyn14() { *p = saved; }
+    } ssGuard14{&stmtSyntax14, stmtSyntax14};
+    if (stmt.syntax)
+        stmtSyntax14 = stmt.syntax;
     if (selTrackActive) {
         bool isBlock = false, compound = false;
         switch (stmt.kind) {
@@ -502,7 +511,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             auto& es = stmt.as<ExpressionStatement>();
             // Statement-context sys calls ($display...) span the whole call
             // and parent their literal arguments.
-            if (es.expr.kind == ExpressionKind::Call)
+            // A REJECTED call reaches here as an Invalid expression (see
+            // § droppedCall14) and needs the same statement-position flag.
+            if (es.expr.kind == ExpressionKind::Call ||
+                es.expr.kind == ExpressionKind::Invalid)
                 callStmtContext = true;
             auto* r = emitExpr(es.expr, parent, prefix, netMap);
             callStmtContext = false;
@@ -2294,12 +2306,274 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         }
         case StatementKind::Empty:
             return nullptr;
+        // § droppedCall14 — slang REJECTED this statement and handed back an
+        // InvalidStatement; the reference tool accepted it.  Re-emit from the
+        // SYNTAX (see emitInvalidStmt14).
+        case StatementKind::Invalid: {
+            if (auto* r14 = emitInvalidStmt14(stmt, parent, prefix, netMap))
+                return r14;
+            // § invalidChild14 — a compound statement is bad when ANY of its
+            // parts is, and slang hands the PARTIALLY BUILT statement back as
+            // the InvalidStatement's `child` (`badStmt(comp, result)`), fully
+            // populated apart from the one bad part.  So `if (req_imp == null)
+            // $cast(req_imp, imp);` — where the comparison is against an
+            // unspecialized type parameter — still carries its condition
+            // operands and its whole true branch, and the reference tool emits
+            // exactly the shape that partial tree describes.  Re-entering
+            // emitStmt on the child recovers it; emitExpr already does the
+            // same for `InvalidExpression::child`, so the bad LEAF is the only
+            // thing that can still go missing.  29 conditional sites on
+            // SeqDriver (`UVM_MS_IMP_COMMON`, uvm_misc, uvm_pool,
+            // uvm_registry, uvm_tlm2_sockets); repro
+            // `tools/probe/r10uvm14repro/t18`.
+            if (auto* ch14 = stmt.as<InvalidStatement>().child;
+                ch14 && ch14->kind != StatementKind::Invalid)
+                return emitStmt(*ch14, parent, prefix, netMap);
+            noteUnsupportedAt(
+                "statement kind: Invalid/" +
+                    std::string(stmt.syntax ? toString(stmt.syntax->kind)
+                                            : "<nosyntax>"),
+                stmt.syntax ? stmt.syntax->sourceRange().start()
+                            : stmt.sourceRange.start());
+            return nullptr;
+        }
         default:
             noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
                               stmt.syntax ? stmt.syntax->sourceRange().start()
                                           : stmt.sourceRange.start());
             return nullptr;
     }
+}
+
+// § droppedCall14 — a call on a handle whose declared type is an UNSPECIALIZED
+// type PARAMETER.  `class impc #(type IMP = int); IMP m_imp; ... m_imp.put(a);`
+// binds `m_imp` as the default `int` in slang, which has no member `put`, so
+// the expression is bad and the WHOLE statement comes back as
+// `StatementKind::Invalid` and was dropped.  The reference tool does no such
+// check at this level: it emits the very same dotted-call shapes `emitExpr`
+// already produces for a VALID dotted call, so the missing piece is a
+// SYNTAX-driven re-entry, not a new model.  133 sites on SeqDriver (82 of them
+// the `UVM_*_IMP` macro bodies in `tlm1/uvm_imps.svh`, whose whole body is one
+// `imp.method(arg);` or `return imp.method(arg);`).
+//
+// Deliberately narrow: the receiver must be a plain identifier and every
+// argument a plain identifier or a plain dotted pair.  Anything else falls
+// through to the caller's note so the residue stays visible and measurable
+// instead of being emitted in a guessed shape (repros
+// `tools/probe/r10uvm13repro/t17`, `tools/probe/r10uvm14repro/t19`).
+//
+// `a.b` in EXPRESSION position parses as a ScopedName with a DOT separator
+// (slang keeps `::` and `.` in one node), so the receiver is the scoped name's
+// LEFT and the method its RIGHT -- not a MemberAccessExpression.
+static const slang::syntax::ScopedNameSyntax* droppedCallShape14(
+    const slang::syntax::ExpressionSyntax& e) {
+    if (e.kind != syntax::SyntaxKind::InvocationExpression)
+        return nullptr;
+    auto& inv = e.as<syntax::InvocationExpressionSyntax>();
+    if (inv.left->kind != syntax::SyntaxKind::ScopedName)
+        return nullptr;
+    auto& sn = inv.left->as<syntax::ScopedNameSyntax>();
+    if (sn.separator.kind != slang::parsing::TokenKind::Dot)
+        return nullptr;
+    if (sn.left->kind != syntax::SyntaxKind::IdentifierName ||
+        sn.right->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    if (sn.left->as<syntax::IdentifierNameSyntax>().identifier.valueText().empty() ||
+        sn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText().empty())
+        return nullptr;
+    // Every actual must be a plain identifier or a plain DOTTED pair (see
+    // above); anything with a literal, a select or an operator in it is left
+    // to the caller's note.
+    if (inv.arguments)
+        for (auto* a : inv.arguments->parameters) {
+            if (a->kind != syntax::SyntaxKind::OrderedArgument)
+                return nullptr;
+            auto* ae = connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr);
+            if (!ae)
+                return nullptr;
+            if (ae->kind == syntax::SyntaxKind::IdentifierName)
+                continue;
+            if (ae->kind != syntax::SyntaxKind::ScopedName)
+                return nullptr;
+            auto& asn = ae->as<syntax::ScopedNameSyntax>();
+            if (asn.separator.kind != slang::parsing::TokenKind::Dot ||
+                asn.left->kind != syntax::SyntaxKind::IdentifierName ||
+                asn.right->kind != syntax::SyntaxKind::IdentifierName)
+                return nullptr;
+        }
+    return &sn;
+}
+
+// The dropped call's ACTUAL, in the one name scope § droppedCall14 established
+// (`argPfx`): a plain identifier is a ref_obj named after it, a dotted pair is
+// a hier_path over two ref_objs whose LEAF alone carries the scoped fullname
+// (the base stays name-only) -- measured on `first.copy(rhs_.first)` in BOTH
+// positions (repro `tools/probe/r10uvm14repro/t19`).
+UHDM::any* UhdmExporter::emitDroppedArg14(const syntax::ExpressionSyntax& ae,
+                                          UHDM::BaseClass* parent,
+                                          const std::string& argPfx,
+                                          NetMap& netMap, bool bind) {
+    if (ae.kind == syntax::SyntaxKind::IdentifierName) {
+        std::string an(ae.as<syntax::IdentifierNameSyntax>().identifier.valueText());
+        auto* ar = s.MakeRef_obj();
+        ar->VpiName(an);
+        ar->VpiFullName(joinRef(argPfx, an));
+        ar->VpiParent(parent);
+        setLoc(ar, ae.sourceRange());
+        if (bind && currentSubSym)
+            if (auto* sym = currentSubSym->find(an))
+                if (auto it = netMap.find(sym); it != netMap.end())
+                    ar->Actual_group(it->second);
+        return ar;
+    }
+    auto& asn = ae.as<syntax::ScopedNameSyntax>();
+    std::string ab(asn.left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    std::string al(asn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    auto* ahp = s.MakeHier_path();
+    ahp->VpiName(ab + "." + al);
+    ahp->VpiFullName(ab + "." + al);
+    ahp->VpiParent(parent);
+    setLoc(ahp, ae.sourceRange());
+    auto* aels = s.MakeAnyVec();
+    auto* a0 = s.MakeRef_obj();
+    a0->VpiName(ab);
+    a0->VpiFullName(ab); // name-only
+    a0->VpiParent(ahp);
+    setLoc(a0, asn.left->sourceRange());
+    aels->push_back(a0);
+    auto* a1 = s.MakeRef_obj();
+    a1->VpiName(al);
+    a1->VpiFullName(joinRef(argPfx, al));
+    a1->VpiParent(ahp);
+    setLoc(a1, asn.right->sourceRange());
+    aels->push_back(a1);
+    ahp->Path_elems(aels);
+    return ahp;
+}
+
+UHDM::any* UhdmExporter::emitDroppedCall14(const syntax::ExpressionSyntax& e,
+                                           UHDM::BaseClass* parent,
+                                           const std::string& prefix,
+                                           NetMap& netMap, bool stmtCtx) {
+    const auto* sn = droppedCallShape14(e);
+    if (!sn)
+        return nullptr;
+    auto& inv = e.as<syntax::InvocationExpressionSyntax>();
+    auto methTok = sn->right->as<syntax::IdentifierNameSyntax>().identifier;
+    std::string base(
+        sn->left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    std::string meth(methTok.valueText());
+    SourceRange baseRng = sn->left->sourceRange();
+    SourceRange methRng = nameSpan(methTok.location(), meth);
+
+    // STATEMENT position: a bare method_func_call named after the METHOD,
+    // spanned at the method identifier, whose vpiPrefix is an UNBOUND ref to
+    // the receiver; the arguments are ordinary refs and DO bind their io_decl
+    // (the same ClassArgBind12 window a valid class-method call opens).
+    if (stmtCtx) {
+        auto* mfc = s.MakeMethod_func_call();
+        mfc->VpiName(meth);
+        mfc->VpiParent(parent);
+        setLoc(mfc, methRng);
+        auto* pr = s.MakeRef_obj();
+        pr->VpiName(base);
+        pr->VpiFullName(joinRef(prefix, base));
+        pr->VpiParent(mfc);
+        setLoc(pr, baseRng);
+        mfc->Prefix(pr);
+        auto* args = s.MakeAnyVec();
+        if (inv.arguments)
+            for (auto* a : inv.arguments->parameters)
+                args->push_back(emitDroppedArg14(
+                    *connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr),
+                    mfc, prefix, netMap, /*bind=*/true));
+        if (!args->empty())
+            mfc->Tf_call_args(args);
+        return mfc;
+    }
+
+    // EXPRESSION position: a hier_path named `<recv>.<method>` spanning the
+    // WHOLE call, over a name-only ref_obj for the receiver plus a
+    // method_func_call carrying the arguments.  The hier_path opens a NAME
+    // SCOPE: each argument ref is UNBOUND and its fullname nests under the
+    // path's own name (`p1::impc::try_put::m_imp.try_put::arg`).
+    std::string dotted = base + "." + meth;
+    auto* hp = s.MakeHier_path();
+    hp->VpiName(dotted);
+    hp->VpiFullName(dotted);
+    hp->VpiParent(parent);
+    setLoc(hp, e.sourceRange());
+    auto* elems = s.MakeAnyVec();
+    auto* r0 = s.MakeRef_obj();
+    r0->VpiName(base);
+    r0->VpiFullName(base); // name-only (the dump omits an equal fullname)
+    r0->VpiParent(hp);
+    setLoc(r0, baseRng);
+    elems->push_back(r0);
+    auto* mfc = s.MakeMethod_func_call();
+    mfc->VpiName(meth);
+    mfc->VpiParent(hp);
+    setLoc(mfc, methRng);
+    auto* args = s.MakeAnyVec();
+    if (inv.arguments)
+        for (auto* a : inv.arguments->parameters)
+            args->push_back(emitDroppedArg14(
+                *connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr),
+                mfc, joinRef(prefix, dotted), netMap, /*bind=*/false));
+    if (!args->empty())
+        mfc->Tf_call_args(args);
+    elems->push_back(mfc);
+    hp->Path_elems(elems);
+    return hp;
+}
+
+// slang leaves an invocation's Expression with a NULL `syntax` pointer
+// (`Expression::create` refuses to overwrite it there, for let-decl expansion),
+// and the RECEIVER it hands back as the Invalid node's child has none either.
+// So the only way back to the call text is the enclosing STATEMENT's syntax:
+// find the invocation whose callee starts exactly where that receiver does.
+const syntax::ExpressionSyntax* UhdmExporter::findDroppedCallAt14(
+    const syntax::SyntaxNode& root, slang::SourceLocation loc) {
+    if (root.kind == syntax::SyntaxKind::InvocationExpression) {
+        auto& inv = root.as<syntax::InvocationExpressionSyntax>();
+        if (inv.left->getFirstToken().location() == loc &&
+            droppedCallShape14(root.as<syntax::ExpressionSyntax>()))
+            return &root.as<syntax::ExpressionSyntax>();
+    }
+    for (size_t i = 0; i < root.getChildCount(); i++)
+        if (auto* c = root.childNode(i))
+            if (auto* r = findDroppedCallAt14(*c, loc))
+                return r;
+    return nullptr;
+}
+
+UHDM::any* UhdmExporter::emitInvalidStmt14(const Statement& stmt,
+                                           UHDM::BaseClass* parent,
+                                           const std::string& prefix,
+                                           NetMap& netMap) {
+    const auto* syn = stmt.syntax;
+    if (!syn)
+        return nullptr;
+    if (syn->kind == syntax::SyntaxKind::ExpressionStatement)
+        return emitDroppedCall14(*syn->as<syntax::ExpressionStatementSyntax>().expr,
+                                 parent, prefix, netMap, /*stmtCtx=*/true);
+    if (syn->kind == syntax::SyntaxKind::ReturnStatement) {
+        auto& rs = syn->as<syntax::ReturnStatementSyntax>();
+        // Shape-check BEFORE minting anything: serializer GC is off, so an
+        // abandoned object would still reach the database.
+        if (!rs.returnValue || !droppedCallShape14(*rs.returnValue))
+            return nullptr;
+        auto* r = s.MakeReturn_stmt();
+        r->VpiParent(parent);
+        // Keyword-only span, expr as vpiCondition (as the valid arm above).
+        auto kw = rs.returnKeyword.location();
+        setLoc(r, SourceRange(kw, kw + 6));
+        if (auto* v = emitDroppedCall14(*rs.returnValue, r, prefix, netMap,
+                                        /*stmtCtx=*/false))
+            r->VpiCondition((UHDM::expr*)v);
+        return r;
+    }
+    return nullptr;
 }
 
 } // namespace slang_uhdm
