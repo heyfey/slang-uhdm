@@ -239,6 +239,120 @@ bool UhdmExporter::isPkgQualifiedVarRef(const Expression& e) {
     return rawText(e.sourceRange).rfind(pn0 + "::", 0) == 0;
 }
 
+// § staticScopedCall12 — the identifier token of a simple / parameterized /
+// selected name node, used to read the segments of a `::`-scoped name.
+static slang::parsing::Token scopedSegId12(const slang::syntax::NameSyntax& n) {
+    using SK = slang::syntax::SyntaxKind;
+    switch (n.kind) {
+        case SK::IdentifierName:
+            return n.as<slang::syntax::IdentifierNameSyntax>().identifier;
+        case SK::ClassName:
+            return n.as<slang::syntax::ClassNameSyntax>().identifier;
+        case SK::IdentifierSelectName:
+            return n.as<slang::syntax::IdentifierSelectNameSyntax>().identifier;
+        default:
+            return {};
+    }
+}
+
+// § staticScopedCall12 — decompose a `::`-scoped name into the FIRST written
+// segment and the FINAL identifier, which is all Surelog keeps of it (see the
+// law at the call arm).  Returns false when `n` is not a `::` scope.
+// `outFirst`/`outLast` are the two identifier texts, `outEnd` the location of
+// the final identifier (Surelog's span stops just before it).
+static bool splitScopedName12(const slang::syntax::NameSyntax& n,
+                              std::string& outFirst, std::string& outLast,
+                              slang::SourceLocation& outEnd) {
+    if (n.kind != slang::syntax::SyntaxKind::ScopedName)
+        return false;
+    auto& sn = n.as<slang::syntax::ScopedNameSyntax>();
+    if (sn.separator.kind != slang::parsing::TokenKind::DoubleColon)
+        return false;
+    auto lastTok = scopedSegId12(*sn.right);
+    if (!lastTok)
+        return false;
+    // Left-associative: `a::b::c` is ScopedName(ScopedName(a,b),c).  Walk to
+    // the LEFT-most segment; every intermediate one is dropped.
+    const slang::syntax::NameSyntax* cur = sn.left;
+    for (int g = 0; g < 16; g++) {
+        if (cur->kind != slang::syntax::SyntaxKind::ScopedName)
+            break;
+        auto& s2 = cur->as<slang::syntax::ScopedNameSyntax>();
+        if (s2.separator.kind != slang::parsing::TokenKind::DoubleColon)
+            return false;
+        cur = s2.left;
+    }
+    auto firstTok = scopedSegId12(*cur);
+    if (!firstTok)
+        return false;
+    outFirst = std::string(firstTok.valueText());
+    outLast = std::string(lastTok.valueText());
+    outEnd = lastTok.location();
+    return true;
+}
+
+// § staticScopedRef12 — the `::`-scoped NAME behind an expression's syntax
+// node, or null when there is none.  A cast operand carries the PARENTHESES
+// (`int'(base::E1)` -> ParenthesizedExpression), so unwrap those first.
+static const slang::syntax::NameSyntax* scopedNameSyntax12(
+    const slang::syntax::SyntaxNode* n) {
+    for (int g = 0; g < 8 && n; g++) {
+        if (n->kind == slang::syntax::SyntaxKind::ParenthesizedExpression) {
+            n = n->as<slang::syntax::ParenthesizedExpressionSyntax>().expression;
+            continue;
+        }
+        break;
+    }
+    if (n && n->kind == slang::syntax::SyntaxKind::ScopedName)
+        return &n->as<slang::syntax::NameSyntax>();
+    return nullptr;
+}
+
+// § staticScopedRef12 — whether `sym` is declared INSIDE a class (directly or
+// through a nested enum/struct scope), which is what makes a `::` reference to
+// it a class_scope in Surelog rather than a package_scope.
+static bool inClassScope12(const slang::ast::Symbol& sym) {
+    const slang::ast::Scope* sc = sym.getParentScope();
+    for (int g = 0; g < 8 && sc; g++) {
+        auto k = sc->asSymbol().kind;
+        if (k == slang::ast::SymbolKind::ClassType)
+            return true;
+        if (k == slang::ast::SymbolKind::Package ||
+            k == slang::ast::SymbolKind::CompilationUnit ||
+            k == slang::ast::SymbolKind::InstanceBody ||
+            k == slang::ast::SymbolKind::Root)
+            return false;
+        sc = sc->asSymbol().getParentScope();
+    }
+    return false;
+}
+
+// § classArgBind12 — while a USER subroutine call's ARGUMENTS are emitted,
+// a class-method body's refs DO bind their actual.  § classMethodNoBind was
+// decoded as "only an if/case CONDITION binds"; t10/t11 show call arguments
+// bind too — `sink(f)` / `sink(loc)` / `o.om(f)` / `sink(f + loc)` all carry
+// vpiActual to the enclosing method's io_decl or body local, while the same
+// names in an assignment stay bare and a CLASS PROPERTY (`sink(prop)`) never
+// binds in any position.  SYSTEM calls are the boundary: `$display("%0d", f)`
+// binds nothing, so this guard is deliberately NOT applied there.
+// A CONCATENATION operand is the one exception measured (t11 `sink({f, loc})`
+// leaves both operands bare while `sink(f + loc)` and `sink(-f)` bind both),
+// so the depth is a COUNTER the concat arm zeroes rather than a flag — and it
+// is kept separate from `classMethodNoBind` itself so the other readers of
+// that flag (inheritedNoBind9, the StmtEmit lvalue arms) are untouched.
+struct ClassArgBind12 {
+    int* p;
+    int saved;
+    explicit ClassArgBind12(int& d) : p(&d), saved(d) { d = d + 1; }
+    ~ClassArgBind12() { *p = saved; }
+};
+struct ClassArgBindOff12 {
+    int* p;
+    int saved;
+    explicit ClassArgBindOff12(int& d) : p(&d), saved(d) { d = 0; }
+    ~ClassArgBindOff12() { *p = saved; }
+};
+
 static void copyLoc(UHDM::BaseClass* dst, const UHDM::BaseClass* src) {
     dst->VpiLineNo(src->VpiLineNo());
     dst->VpiColumnNo(src->VpiColumnNo());
@@ -2563,6 +2677,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         qr9->Actual_group(pa9->second);
                 return qr9;
             }
+            // § staticScopedRef12 — the read half of § staticScopedCall12: a
+            // CLASS-scoped `::` reference keeps its written scope in the name.
+            // Surelog's class_scope arm never resolves through the scope, so
+            // the object is an unbound ref_obj named FIRST-SEGMENT `::`
+            // FINAL-IDENTIFIER and spanned only up to (not including) that
+            // final identifier.  Measured on t4 (both views) over every symbol
+            // kind a class can hold — `base::sv` (static var), `base::LP`
+            // (localparam), `base::PP` (parameter), `base::CI` (static const),
+            // `base::E1` (enum member: NOT folded to its enum_const),
+            // `gen#(int)::gsv` (specialization: parameters dropped) and
+            // `p::base::sv` -> `p::sv` (middle segment dropped).  We already
+            // emitted a bare ref_obj for all of them; only the name and the
+            // span were the written spelling's.  A PACKAGE-scoped reference
+            // takes the arm above / the ordinary path (naming there is
+            // context-dependent — see the memory note), so this keys strictly
+            // on the referenced symbol living inside a CLASS.
+            if (auto* ns12 = scopedNameSyntax12(expr.syntax);
+                ns12 && inClassScope12(nv.symbol)) {
+                std::string f12, l12;
+                slang::SourceLocation e12;
+                if (splitScopedName12(*ns12, f12, l12, e12)) {
+                    std::string nm12 = f12 + "::" + l12;
+                    auto* r12 = s.MakeRef_obj();
+                    r12->VpiName(nm12);
+                    r12->VpiFullName(joinRef(prefix, nm12));
+                    r12->VpiParent(parent);
+                    setLoc(r12, SourceRange(ns12->sourceRange().start(), e12));
+                    return r12;
+                }
+            }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(nv.symbol.name);
             // A block-local declaration whose type keyword the Verilog-mode
@@ -4067,7 +4211,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // outside defGenProcessEmit, keep their scoped fullname.)
                 if (!defGenProcessEmit)
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
-                if (classMethodNoBind || unitSubNoBind9) {
+                if ((classMethodNoBind && classArgBindDepth12 == 0) ||
+                    unitSubNoBind9) {
                     // Class-method body outside an if/case condition, or a
                     // `$unit`-scope subroutine body: no actual of any kind
                     // (see classMethodNoBind / unitSubNoBind9).
@@ -5951,6 +6096,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
+                // § staticScopedCall12 — a STATIC CLASS METHOD reached through
+                // `::` (`uvm_config_db#(T)::get(...)`, `process::self()`,
+                // `uvm_coreservice_t::get()`) is not a call in the golden at
+                // all: Surelog's class_scope arm yields a bare `ref_obj` whose
+                // name is the FIRST written segment plus the FINAL identifier
+                // joined by `::`, with the ARGUMENTS DROPPED and no vpiFunction
+                // / vpiTask link.  Measured on purpose-built pairs (t1-t3,
+                // both views): `base::sf(3)` -> ref_obj `base::sf`,
+                // `p::base::sf(2)` -> `p::sf` (the middle segment is dropped),
+                // `gen#(int)::gf(3)` -> `gen::gf` (the parameter list is
+                // dropped), `alias_t::sf(5)` -> `alias_t::sf` (the written
+                // spelling, never the aliased class), and a nested
+                // `base::sf(base::sf(6))` collapses to ONE ref_obj.  The span
+                // runs from the start of the scoped name to just BEFORE the
+                // final identifier — i.e. it covers `base::` / `p::base::` /
+                // `gen#(int)::`.  A PACKAGE-qualified call (`p::pf(2)`) is a
+                // different arm entirely and keeps its func_call and its
+                // arguments (t3), so this keys on the subroutine's parent
+                // scope being a CLASS.
+                //
+                // Until now every one of these was DROPPED outright by the
+                // `noteUnsupported("user function call")` fallback when the
+                // class was a specialization or compiled late (1604 hits on
+                // SeqDriver alone) and mis-shaped as a func_call otherwise.
+                if (auto pscS = sub.getParentScope();
+                    pscS && pscS->asSymbol().kind == SymbolKind::ClassType &&
+                    !call.thisClass() && expr.syntax) {
+                    const slang::syntax::SyntaxNode* cs = expr.syntax;
+                    if (cs->kind == syntax::SyntaxKind::InvocationExpression)
+                        cs = cs->as<syntax::InvocationExpressionSyntax>().left;
+                    if (auto* ns12 = scopedNameSyntax12(cs)) {
+                        std::string f12, l12;
+                        slang::SourceLocation e12;
+                        if (splitScopedName12(*ns12, f12, l12, e12)) {
+                            std::string nm12 = f12 + "::" + l12;
+                            auto* r12 = s.MakeRef_obj();
+                            r12->VpiName(nm12);
+                            r12->VpiFullName(joinRef(prefix, nm12));
+                            r12->VpiParent(parent);
+                            setLoc(r12,
+                                   SourceRange(ns12->sourceRange().start(), e12));
+                            return r12;
+                        }
+                    }
+                }
                 // Class METHOD calls (bar.set(4)): a method_func_call at the
                 // method token, with an UNBOUND receiver ref as vpiPrefix.
                 if (auto psc0 = sub.getParentScope();
@@ -6344,13 +6534,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc->Prefix(pr);
                     }
                     auto* margs = s.MakeAnyVec();
-                    for (auto arg : call.arguments()) {
-                        bool fs2 = forceConstParent;
-                        if (isLiteralExpr(*arg))
-                            forceConstParent = true;
-                        if (auto* a2 = emitExpr(*arg, mfc, prefix, netMap))
-                            margs->push_back(a2);
-                        forceConstParent = fs2;
+                    {
+                        ClassArgBind12 cab12(classArgBindDepth12);
+                        for (auto arg : call.arguments()) {
+                            bool fs2 = forceConstParent;
+                            if (isLiteralExpr(*arg))
+                                forceConstParent = true;
+                            if (auto* a2 = emitExpr(*arg, mfc, prefix, netMap))
+                                margs->push_back(a2);
+                            forceConstParent = fs2;
+                        }
                     }
                     if (!margs->empty())
                         mfc->Tf_call_args(margs);
@@ -6532,6 +6725,58 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(fc0, expr.sourceRange);
                         return fc0;
                     }
+                    // § classCallNoLink12 — an IMPLICIT-`this` call to a class
+                    // method that this view has not emitted yet.  Every other
+                    // scope kind above had a fallback; a CLASS had none, so
+                    // the whole call — arguments and all — was DROPPED (the
+                    // `unsupported constructs` summary's "user function call":
+                    // 931 hits on SeqDriver after § staticScopedCall12, in 777
+                    // distinct source lines, `uvm_report_info` / `m_trigger`
+                    // / `exec_func` and friends).  Surelog never links a class
+                    // method call anyway — t6's `bm(1)` / `xm(2)` (inherited
+                    // and out-of-body) are both plain `func_call`s carrying
+                    // their arguments and NO vpiFunction — so the unresolved
+                    // case emits exactly what the resolved one does.
+                    else if (pscope &&
+                             pscope->asSymbol().kind == SymbolKind::ClassType) {
+                        // ALWAYS a func_call, even when the callee is a TASK:
+                        // Surelog is single-pass, so a name it has not seen yet
+                        // has no kind to go on and it defaults to func_call.
+                        // t8 pins the whole three-way split in ONE class —
+                        // `early(a)` (task, already declared) -> task_call +
+                        // vpiTask, `efun(a)` (function) -> func_call +
+                        // vpiFunction, `lateT(a)` (task declared BELOW the
+                        // caller) -> func_call with NO link.
+                        auto* fc0 = (UHDM::tf_call*)s.MakeFunc_call();
+                        fc0->VpiName(sub.name);
+                        fc0->VpiParent(parent);
+                        // § callParenSpan11 — a no-arg call's slang range stops
+                        // at the callee name; the written invocation runs
+                        // through the closing paren.
+                        SourceRange cr12 = expr.sourceRange;
+                        if (expr.syntax) {
+                            auto sr12 = expr.syntax->sourceRange();
+                            if (sr12.start() == cr12.start() &&
+                                sr12.end() > cr12.end())
+                                cr12 = sr12;
+                        }
+                        setLoc(fc0, cr12);
+                        auto* cargs = s.MakeAnyVec();
+                        ClassArgBind12 cab12(classArgBindDepth12);
+                        for (auto arg : call.arguments()) {
+                            if (arg->kind == ExpressionKind::Assignment) {
+                                auto& ae0 = arg->as<AssignmentExpression>();
+                                if (ae0.right().kind ==
+                                    ExpressionKind::EmptyArgument)
+                                    arg = &ae0.left();
+                            }
+                            if (auto* a0 = emitExpr(*arg, fc0, prefix, netMap))
+                                cargs->push_back(a0);
+                        }
+                        if (!cargs->empty())
+                            fc0->Tf_call_args(cargs);
+                        return fc0;
+                    }
                     // A DPI import declared at COMPILATION-UNIT scope is not
                     // in the model at all (see emitTaskFuncs), so its calls
                     // carry their ARGUMENTS but NO vpiFunction link
@@ -6567,7 +6812,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return fc0;
                     }
                     else {
-                        noteUnsupported("user function call");
+                        noteUnsupportedAt("user function call",
+                                          expr.sourceRange.start());
                         return nullptr;
                     }
                 }
@@ -6801,6 +7047,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 namedArgs9 = true;
                 }
                 callArgDepth++;
+                ClassArgBind12 cab12(classArgBindDepth12);
                 for (auto arg : call.arguments()) {
                     if (argIdx >= nWritten9)
                         break;
@@ -7580,7 +7827,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return hp;
                     }
                 }
-                noteUnsupported("system method call: " + name);
+                noteUnsupportedAt("system method call: " + name, expr.sourceRange.start());
                 return nullptr;
             }
             // $bits folds to a constant for a type/var/member argument, but
@@ -7844,6 +8091,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             else
                 setLoc(op, expr.sourceRange);
             auto* operands = s.MakeAnyVec();
+            // § classArgBind12 — a concat operand does NOT pick up the
+            // call-argument binding: inside a class method `sink({f, loc})`
+            // leaves both operands bare where `sink(f + loc)` binds both (t11).
+            ClassArgBindOff12 cabOff12(classArgBindDepth12);
             // Direct literal operands of a concat are unparented in
             // module-compile context, parented in re-elaborated (instance)
             // context. Nested expressions keep the normal rules.
@@ -12274,7 +12525,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             return nullptr;
         }
         default:
-            noteUnsupported("expression kind: " + std::string(toString(expr.kind)));
+            noteUnsupportedAt("expression kind: " + std::string(toString(expr.kind)),
+                              expr.sourceRange.start());
             return nullptr;
     }
 }

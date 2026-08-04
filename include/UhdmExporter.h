@@ -1497,6 +1497,7 @@ private:
         const std::string& prefix, NetMap& nets, bool withInstances,
         UHDM::VectorOfmodule_inst* modElems = nullptr);
     void noteUnsupported(const std::string& what);
+    void noteUnsupportedAt(const std::string& what, slang::SourceLocation loc);
     /// Whether `sub` is invoked from a CONTINUOUS / ELABORATION expression
     /// anywhere in the design (continuous assign, net-decl assign, parameter
     /// or localparam value, instance parameter override) — as opposed to only
@@ -1617,10 +1618,19 @@ private:
     // Measured (purpose-built goldens, package/module/program-scoped classes):
     // Surelog binds a class-method body ref to its io_decl/local var ONLY in
     // the condition of an if_stmt/if_else/case_stmt; every other position —
-    // assignment lhs/rhs, call arguments, loop conditions and increments,
-    // select indexes, case-ITEM expressions — stays unbound, enum consts
-    // included (SimpleConstraint getType/print).
+    // assignment lhs/rhs, loop conditions and increments, select indexes,
+    // case-ITEM expressions — stays unbound, enum consts included
+    // (SimpleConstraint getType/print).  CORRECTED by § classArgBind12: USER
+    // call ARGUMENTS bind too (this comment used to list them as unbound);
+    // see classArgBindDepth12 just below for the boundaries.
     bool classMethodNoBind = false;
+    // § classArgBind12 — depth of USER-subroutine call ARGUMENT nesting.
+    // Non-zero suspends classMethodNoBind for reference ACTUALS only: a class
+    // method's `sink(f)` / `o.om(loc)` DO bind their io_decl / local var
+    // (t10/t11) while the same names in an assignment stay bare.  System-call
+    // arguments never enter (`$display("%0d", f)` binds nothing) and a
+    // CONCATENATION operand leaves it (`sink({f, loc})` binds neither).
+    int classArgBindDepth12 = 0;
     // LAW C (call binding), decoded on purpose-built goldens r10uvm7/c1+c2:
     // Surelog resolves a BARE subroutine call against the enclosing package/
     // module's subroutines and — only for a method written INSIDE its class

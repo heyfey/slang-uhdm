@@ -22,6 +22,19 @@ void UhdmExporter::noteUnsupported(const std::string& what) {
     unsupportedKinds.insert(what);
 }
 
+// Diagnostic only (env SLANG_UHDM_UNSUP_LOC=1): report WHERE an unsupported
+// construct was hit.  The set-based summary names the kind; finding the site
+// in a 25k-line UVM source otherwise means bisecting by hand.
+void UhdmExporter::noteUnsupportedAt(const std::string& what,
+                                     slang::SourceLocation loc) {
+    unsupportedKinds.insert(what);
+    static const bool on = getenv("SLANG_UHDM_UNSUP_LOC") != nullptr;
+    if (on && sm)
+        fprintf(stderr, "UNSUP %s @ %s:%u\n", what.c_str(),
+                std::string(sm->getFileName(loc)).c_str(),
+                (unsigned)sm->getLineNumber(loc));
+}
+
 bool UhdmExporter::isBuiltinUnit(const Scope& unit) {
     if (!builtins)
         return false;
@@ -646,8 +659,8 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         if (!v && ct.kind == SymbolKind::UnpackedUnionType)
             v = s.MakeUnion_var();
         if (!v) {
-            noteUnsupported("class property type: " +
-                            std::string(toString(ct.kind)));
+            noteUnsupportedAt("class property type: " +
+                              std::string(toString(ct.kind)), cp.location);
             continue;
         }
         v->VpiName(cp.name);

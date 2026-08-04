@@ -2295,7 +2295,9 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         case StatementKind::Empty:
             return nullptr;
         default:
-            noteUnsupported("statement kind: " + std::string(toString(stmt.kind)));
+            noteUnsupportedAt("statement kind: " + std::string(toString(stmt.kind)),
+                              stmt.syntax ? stmt.syntax->sourceRange().start()
+                                          : stmt.sourceRange.start());
             return nullptr;
     }
 }
