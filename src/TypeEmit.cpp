@@ -4392,6 +4392,317 @@ UHDM::typespec* UhdmExporter::copyNamedVecTs(const UHDM::typespec* src,
     return cl;
 }
 
+// LAW S — a package SCALAR typedef is BARE at every variable-like binding.
+//
+// Surelog's UhdmWriter names a package typedef's typespec `p::t` when it emits
+// the type TABLE (writeDataTypes -> the package/module vpiTypedef listing) and
+// on NET declarations, which reuse that table entry.  A VARIABLE does not:
+// its type is recompiled in the signal's own scope and comes back BARE, one
+// object per declaration, carrying a Typedef_alias ref to the qualified table
+// entry.  Measured on three purpose-built goldens:
+//
+//   r6  same-package function locals / io_decls / return  -> bare
+//   r7  the AGGREGATE kinds are the exception: enum, struct, union, unpacked
+//       array and class typedefs keep the qualified SHARED object in every
+//       position, variable or net
+//   r8  the bare form does not depend on the binder's distance from the
+//       typedef's home package -- a function in the home package, one in an
+//       importing package, a method of a class in an importing package and a
+//       module-scope function ALL take it; so does the elaborated module
+//       view's variable for a module signal (whose def-view NET stays
+//       qualified)
+//
+// This is cmp-load-bearing and invisible in a dump diff's shape: uhdm-cmp
+// compares VpiName, and on the smallest repro (r6) the qualified name IS the
+// first unequal pair.  Applied as a design-final rebind because the binding
+// sites are spread over ~40 net/variable emitters in four views; uhdm-cmp does
+// not compare object identity, so ONE bare copy per listing object suffices
+// where Surelog mints one per declaration.
+UHDM::typespec* UhdmExporter::bareScalarTdCopyOf(const UHDM::typespec* src,
+                                                 bool withAlias) {
+    auto& slot = withAlias ? bareScalarTdCopy : bareScalarTdCopyNoAlias;
+    if (auto it = slot.find(src); it != slot.end())
+        return it->second;
+    UHDM::typespec* cp = nullptr;
+    switch (src->UhdmType()) {
+        case UHDM::uhdmlogic_typespec: {
+            auto* sl = (const UHDM::logic_typespec*)src;
+            auto* cl = s.MakeLogic_typespec();
+            cl->VpiVector(sl->VpiVector());
+            cl->VpiSigned(sl->VpiSigned());
+            cl->Ranges(((UHDM::logic_typespec*)sl)->Ranges());
+            cl->Elem_typespec(((UHDM::logic_typespec*)sl)->Elem_typespec());
+            cp = cl;
+            break;
+        }
+        case UHDM::uhdmbit_typespec: {
+            auto* sb = (const UHDM::bit_typespec*)src;
+            auto* cb = s.MakeBit_typespec();
+            cb->VpiVector(sb->VpiVector());
+            cb->VpiSigned(sb->VpiSigned());
+            cb->Ranges(((UHDM::bit_typespec*)sb)->Ranges());
+            cp = cb;
+            break;
+        }
+        case UHDM::uhdmint_typespec: {
+            auto* si = (const UHDM::int_typespec*)src;
+            auto* ci = s.MakeInt_typespec();
+            ci->VpiSigned(si->VpiSigned());
+            ci->Ranges(((UHDM::int_typespec*)si)->Ranges());
+            cp = ci;
+            break;
+        }
+        case UHDM::uhdminteger_typespec: {
+            auto* ci = s.MakeInteger_typespec();
+            ci->VpiSigned(((const UHDM::integer_typespec*)src)->VpiSigned());
+            cp = ci;
+            break;
+        }
+        case UHDM::uhdmbyte_typespec: {
+            auto* cb = s.MakeByte_typespec();
+            cb->VpiSigned(((const UHDM::byte_typespec*)src)->VpiSigned());
+            cp = cb;
+            break;
+        }
+        case UHDM::uhdmshort_int_typespec: {
+            auto* cs = s.MakeShort_int_typespec();
+            cs->VpiSigned(((const UHDM::short_int_typespec*)src)->VpiSigned());
+            cp = cs;
+            break;
+        }
+        case UHDM::uhdmlong_int_typespec: {
+            auto* cl = s.MakeLong_int_typespec();
+            cl->VpiSigned(((const UHDM::long_int_typespec*)src)->VpiSigned());
+            cp = cl;
+            break;
+        }
+        default:
+            break;
+    }
+    if (!cp) {
+        slot[src] = nullptr;
+        return nullptr;
+    }
+    std::string qn(src->VpiName());
+    cp->VpiName(qn.substr(qn.rfind("::") + 2));
+    cp->VpiFile(src->VpiFile());
+    cp->VpiLineNo(src->VpiLineNo());
+    cp->VpiColumnNo(src->VpiColumnNo());
+    cp->VpiEndLineNo(src->VpiEndLineNo());
+    cp->VpiEndColumnNo(src->VpiEndColumnNo());
+    // The copy stays in the SAME view as the object it replaces: a def-view
+    // binding names the def listing's package, an elaborated one the top
+    // package (r7: the bare copies' vpiInstance tracks their view's listing
+    // object exactly).
+    cp->Instance(((UHDM::typespec*)src)->Instance());
+    // The copy keeps a Typedef_alias ref back to the listing object — EXCEPT
+    // the one an ELABORATED INSTANCE-SCOPE variable binds, which carries none
+    // (r7/r8: `ELABMOD.Variables/sig -> bt alias=-` while the same package
+    // typedef's function-local copy in the same view is aliased; a
+    // MODULE-LOCAL typedef's elab variable copy takes the same unaliased
+    // form).  Two memoized copies per listing object, one of each shape.
+    if (withAlias) {
+        auto* al = s.MakeRef_typespec();
+        al->VpiFullName(std::string(cp->VpiName()));
+        al->VpiParent(cp);
+        al->Actual_typespec((UHDM::typespec*)src);
+        cp->Typedef_alias(al);
+    }
+    slot[src] = cp;
+    return cp;
+}
+
+// An ANONYMOUS class_typespec NEVER carries vpiInstance.  Surelog's
+// CompileType mints one for every class-HANDLE declaration (a variable, a
+// formal, a property, a return) and leaves it uninstanced; only a NAMED class
+// typespec — a typedef'd class type — is written into a scope's type table and
+// picks the scope up.  Census over 116 cached goldens: 0 anonymous
+// class_typespec objects carry an instance, in any of them.  The return path
+// already had this guard (§ TaskFuncEmit useInst9); it is a property of the
+// OBJECT, not of that one mint site, so it belongs here — SeqDriver still
+// stamped 2166 of them from the other sites, which is the whole of the
+// post-LAW-S cmp head (`failLhs <null> / failRhs package uvm_pkg`: typespec::
+// Compare chases vpiInstance, so ONE extra stamp drags the walk into a package
+// golden never enters).
+void UhdmExporter::clearAnonClassTsInstance() {
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmclass_typespec)
+            continue;
+        auto* ct = (UHDM::class_typespec*)o;
+        if (ct->VpiName().empty() && ct->Instance())
+            ct->Instance(nullptr);
+    }
+}
+
+void UhdmExporter::bareScalarTypedefVarTs() {
+    // The rebind targets ONLY registered package-typedef listing objects: a
+    // class-nested typedef also prints a `C::t` name, and no golden says it
+    // takes this form.
+    std::set<const UHDM::typespec*> pkgScalarTd;
+    // An ALIAS OF AN ALIAS (`typedef bit [7:0] bt; typedef bt at;`) is the
+    // exception to LAW S and takes NO copy of any kind: golden binds ONE
+    // shared `p::at` object at every position — io_decl, function local,
+    // struct member, net and elaborated module variable alike (r10, and the
+    // jeras_union regression that found it: `riscv_isa_pkg::imm_l_t`, a
+    // `typedef imm_i_t imm_l_t`, stays qualified on the two struct members
+    // that carry it).  Collected first so a shared object is excluded no
+    // matter which of the two symbols reached it.
+    std::set<const UHDM::typespec*> aliasOfAlias;
+    auto noteAoA = [&](const slang::ast::Symbol* sym, UHDM::typespec* ts) {
+        if (!sym || !ts || sym->kind != SymbolKind::TypeAlias)
+            return;
+        if (sym->as<TypeAliasType>().targetType.getType().kind ==
+            SymbolKind::TypeAlias)
+            aliasOfAlias.insert(ts);
+    };
+    for (auto& [sym, ts] : typedefTs)
+        noteAoA(sym, ts);
+    for (auto& [key, ts] : pkgTopTypedefTs)
+        noteAoA((const slang::ast::Symbol*)key, ts);
+    auto note = [&](const slang::ast::Symbol* sym, UHDM::typespec* ts) {
+        if (!sym || !ts || ts->VpiName().find("::") == std::string_view::npos)
+            return;
+        if (sym->kind != SymbolKind::TypeAlias || aliasOfAlias.count(ts))
+            return;
+        if (sym->as<TypeAliasType>().targetType.getType().kind ==
+            SymbolKind::TypeAlias)
+            return;
+        auto* sc = sym->as<TypeAliasType>().getParentScope();
+        if (!sc || sc->asSymbol().kind != SymbolKind::Package)
+            return;
+        switch (ts->UhdmType()) {
+            case UHDM::uhdmlogic_typespec:
+            case UHDM::uhdmbit_typespec:
+            case UHDM::uhdmint_typespec:
+            case UHDM::uhdminteger_typespec:
+            case UHDM::uhdmbyte_typespec:
+            case UHDM::uhdmshort_int_typespec:
+            case UHDM::uhdmlong_int_typespec:
+                pkgScalarTd.insert(ts);
+                break;
+            default:
+                break;
+        }
+    };
+    for (auto& [sym, ts] : typedefTs)
+        note(sym, ts);
+    for (auto& [key, ts] : pkgTopTypedefTs)
+        note((const slang::ast::Symbol*)key, ts);
+    if (pkgScalarTd.empty())
+        return;
+    auto rebind = [&](UHDM::ref_typespec* rt, bool withAlias) {
+        if (!rt)
+            return;
+        auto* at = rt->Actual_typespec();
+        if (!at || !pkgScalarTd.count(at))
+            return;
+        if (auto* cp = bareScalarTdCopyOf(at, withAlias))
+            rt->Actual_typespec(cp);
+    };
+    // An ELABORATED instance-scope signal's variable is the one unaliased
+    // shape; everything nested (a subroutine's locals/formals/return, a class
+    // property) keeps the alias.
+    auto instScopeVar = [](const UHDM::variables* v) {
+        auto* p = v->VpiParent();
+        if (!p)
+            return false;
+        switch (p->UhdmType()) {
+            case UHDM::uhdmmodule_inst:
+            case UHDM::uhdminterface_inst:
+            case UHDM::uhdmprogram:
+                return true;
+            default:
+                return false;
+        }
+    };
+    // An instance-scope variable takes the bare copy ONLY when the typedef
+    // carries a packed range: `typedef logic [7:0] t; t v;` mints the copy,
+    // but an UNRANGED scalar typedef (`typedef logic my_logic`, `typedef int
+    // it` — LowMemPkg golden, plus bit/int variants) keeps the QUALIFIED
+    // listing object at every module variable, while subroutine locals /
+    // formals / returns still take the aliased copy even unranged.
+    auto rangedTd = [](const UHDM::ref_typespec* rt) {
+        auto* at = rt ? rt->Actual_typespec() : nullptr;
+        if (!at)
+            return false;
+        switch (at->UhdmType()) {
+            case UHDM::uhdmlogic_typespec: {
+                auto* r = ((const UHDM::logic_typespec*)at)->Ranges();
+                return r && !r->empty();
+            }
+            case UHDM::uhdmbit_typespec: {
+                auto* r = ((const UHDM::bit_typespec*)at)->Ranges();
+                return r && !r->empty();
+            }
+            default:
+                return false;  // int/integer/byte/short/long cannot be ranged
+        }
+    };
+    std::vector<UHDM::nets*> netObjs;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o)
+            continue;
+        if (auto* v = dynamic_cast<UHDM::variables*>(o)) {
+            bool inst = instScopeVar(v);
+            if (!inst || rangedTd(v->Typespec()))
+                rebind(v->Typespec(), !inst);
+        }
+        else if (auto* io = dynamic_cast<UHDM::io_decl*>(o))
+            rebind(io->Typespec(), true);
+        // A struct/union MEMBER takes the same aliased bare copy as a
+        // variable, in every view (r9: `p1::st.a -> bt alias='p1::bt'`, two
+        // copies for two members of one struct) — a typespec_member is not a
+        // `variables`, so it needs its own arm.
+        else if (auto* tm = dynamic_cast<UHDM::typespec_member*>(o))
+            rebind(tm->Typespec(), true);
+        else if (auto* n = dynamic_cast<UHDM::nets*>(o))
+            netObjs.push_back(n);
+    }
+    // The mirror half: a NET keeps the QUALIFIED name.  Our def-view module
+    // net binds a per-declaration clone that already carries the right shape
+    // (Typedef_alias -> the qualified listing object) but the BARE name — the
+    // exact inverse of golden (r6/r7/r8 `DEFMOD.Nets/mv -> p1::bt alias=#9`).
+    // Rebind to a re-qualified copy rather than renaming in place: the clone
+    // may be reachable from a port or an expression ref that no golden covers.
+    for (auto* n : netObjs) {
+        auto* rt = n->Typespec();
+        auto* at = rt ? rt->Actual_typespec() : nullptr;
+        if (!at || pkgScalarTd.count(at) || at->VpiName().empty() ||
+            at->VpiName().find("::") != std::string_view::npos)
+            continue;
+        auto* al = at->Typedef_alias();
+        auto* tgt = al ? al->Actual_typespec() : nullptr;
+        if (!tgt || !pkgScalarTd.count(tgt) ||
+            tgt->UhdmType() != at->UhdmType())
+            continue;
+        std::string qn(tgt->VpiName());
+        if (qn.substr(qn.rfind("::") + 2) != at->VpiName())
+            continue;
+        auto qit = qualScalarTdCopy.find(at);
+        if (qit == qualScalarTdCopy.end()) {
+            auto* cp = bareScalarTdCopyOf(at, true);
+            if (!cp)
+                continue;
+            // bareScalarTdCopyOf keyed on the CLONE, so its own alias already
+            // points at the clone; re-point it at the listing object and take
+            // the qualified name.
+            cp->VpiName(qn);
+            if (auto* cal = cp->Typedef_alias()) {
+                cal->VpiFullName(qn);
+                cal->Actual_typespec(tgt);
+            }
+            // Drop it from the BARE memo — it is no longer bare.
+            bareScalarTdCopy.erase(at);
+            qualScalarTdCopy[at] = cp;
+            qit = qualScalarTdCopy.find(at);
+        }
+        if (qit->second)
+            rt->Actual_typespec(qit->second);
+    }
+}
+
 // Fold a packed-vector typespec's still-symbolic bounds to the given literal
 // range. Used where a SECOND copy of a typedef's base vector is re-emitted
 // from syntax (so a param-dependent bound such as `[TxWidth-1:0]` comes back

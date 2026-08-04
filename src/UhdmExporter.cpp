@@ -3845,6 +3845,12 @@ UHDM::design* UhdmExporter::exportDesign() {
     // In-body func_call operation-arg stamps: reachability needs the whole
     // design's call set, so it is resolved here.
     drainBodyOpArgTs();
+    // LAW S: a package SCALAR typedef is BARE at every variable-like binding.
+    // Dead last — after every deferred typespec rebind above, so no later pass
+    // can put a qualified object back.
+    bareScalarTypedefVarTs();
+    // ...and an anonymous class_typespec never carries vpiInstance.
+    clearAnonClassTsInstance();
     return d;
 }
 

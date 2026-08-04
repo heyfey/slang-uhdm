@@ -535,8 +535,8 @@ FuncSideEffect,default,CMP_EQUAL,,,match
 FuncSideEffect,testflags,CMP_EQUAL,,,match
 FuncStatic,default,CMP_EQUAL,,,match
 FuncStatic,testflags,CMP_EQUAL,,,match
-FuncStruct,default,CMP_NOTEQUAL,decompile:,,
-FuncStruct,testflags,CMP_NOTEQUAL,decompile:,,
+FuncStruct,default,CMP_EQUAL,,,differ
+FuncStruct,testflags,CMP_EQUAL,,,differ
 FuncStructVal,default,CMP_EQUAL,,,differ
 FuncStructVal,testflags,CMP_EQUAL,,,differ
 FuncStructValSimple,default,CMP_EQUAL,,,differ

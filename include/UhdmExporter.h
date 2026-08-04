@@ -385,6 +385,34 @@ private:
     // through the self-referential Typedef_alias (r9tdclone).
     UHDM::typespec* copyNamedVecTs(const UHDM::typespec* src,
                                    UHDM::any* parent);
+    // LAW S (scalar package typedef, bare-at-every-variable).  A package-level
+    // typedef of a SCALAR integral type carries its QUALIFIED name (`p::t`)
+    // only where Surelog's UhdmWriter emits the type TABLE — a package/module
+    // vpiTypedef listing — and on NET declarations.  Every VARIABLE-like
+    // binding (function locals, io_decls, the return var, class properties,
+    // elaborated module variables) names a BARE per-declaration copy carrying
+    // a Typedef_alias ref back to the qualified listing object.  Measured on
+    // purpose-built goldens r6/r7/r8: the rule does NOT depend on where the
+    // binder sits relative to the typedef's home package (home package, an
+    // importing package, a class in an importing package and a module all
+    // take the bare form), and the AGGREGATE kinds (enum/struct/union/array/
+    // class) are the exception — they share the qualified object everywhere.
+    void bareScalarTypedefVarTs();
+    // An ANONYMOUS class_typespec never carries vpiInstance (measured: 0 of
+    // them in 116 goldens).  A property of the object, so it runs design-final
+    // over every mint site rather than being repeated at each.
+    void clearAnonClassTsInstance();
+    // The bare copy of one qualified listing object (memoized).
+    UHDM::typespec* bareScalarTdCopyOf(const UHDM::typespec* src,
+                                       bool withAlias);
+    // One bare copy per qualified listing object (uhdm-cmp compares names, not
+    // object identity, so Surelog's per-declaration copies need not be
+    // reproduced one-for-one).
+    std::map<const UHDM::typespec*, UHDM::typespec*> bareScalarTdCopy;
+    // Same, for the ELABORATED INSTANCE-SCOPE variable's UNALIASED shape.
+    std::map<const UHDM::typespec*, UHDM::typespec*> bareScalarTdCopyNoAlias;
+    // ...and the mirror half: the re-QUALIFIED copy a def-view net binds.
+    std::map<const UHDM::typespec*, UHDM::typespec*> qualScalarTdCopy;
     // Replace `dst`'s still-symbolic single-dim packed-vector bounds with the
     // folded literal range (no-op when they already are constants).
     void foldVecBounds(UHDM::typespec* dst, int64_t left, int64_t right);
