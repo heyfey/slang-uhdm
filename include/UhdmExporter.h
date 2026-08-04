@@ -71,7 +71,10 @@ namespace slang_uhdm {
 // constant with an EMPTY decompile, `Pat` means the leftover is not a value we
 // encode at all — it is the ELABORATED assignment pattern's OWN element object
 // (§ r10fsv2 L1), resolved late by stampEvalFuncLeftovers.
-enum class SrlgMemLeftEnc { Uint, Int, Bin, Bin1, Pat };
+// `Body` (§ r10fsv3 S2): the member's RHS reads a formal member whose caller
+// pattern element never reduced, so ExprEval gives up and leaves the FUNCTION
+// BODY's own assignment-RHS OBJECT behind, shared.
+enum class SrlgMemLeftEnc { Uint, Int, Bin, Bin1, Pat, Body };
 
 /// Exports a slang elaborated design as a UHDM database, mirroring the
 /// structure Surelog produces for its default (folded / pre-elab) output.
@@ -892,6 +895,14 @@ private:
         // for `srcMember` (argIndex names the formal).
         std::string srcMember;
         int argIndex = -1;
+        // § r10fsv3 S2.  For a COMPUTED member: the slang expression that IS
+        // the body's assignment RHS (the key into bodyAsgRhsObj), and every
+        // `<formal>.<member>` it reads, as (argIndex, member).  When any of
+        // those reads resolves to a caller pattern element that is not a
+        // constant, UHDM's ExprEval cannot reduce the RHS and the leftover
+        // becomes the emitted RHS object itself.
+        const slang::ast::Expression* rhsExpr = nullptr;
+        std::vector<std::pair<int, std::string>> reads;
     };
     // The encoding a COMPUTED (non-formal-member-read) leftover takes, from
     // the shape of the assignment's RHS (§ r10fsv2 L3).
@@ -924,6 +935,12 @@ private:
         // because the package elab view may be emitted after this site.
         std::vector<const slang::ast::ParameterSymbol*> srcParam;
         std::vector<std::string> srcMember;
+        // § r10fsv3 S2, parallel: the body RHS expression of a COMPUTED member
+        // and the caller parameters/members it reads.
+        std::vector<const slang::ast::Expression*> rhsExpr;
+        std::vector<std::vector<std::pair<const slang::ast::ParameterSymbol*,
+                                          std::string>>>
+            reads;
         // The parameter this stamp belongs to, and the struct typespec copy
         // that actually received it (filled by the drain).
         const slang::ast::ParameterSymbol* owner = nullptr;
@@ -947,6 +964,10 @@ private:
     std::map<const slang::ast::ParameterSymbol*,
              std::map<std::string, UHDM::any*>>
         patElabElems;
+    // § r10fsv3 S2.  A PACKAGE function body's statement-level assignment RHS
+    // objects, keyed by the slang expression, recorded while the ELABORATED
+    // package view is emitted (that is the copy golden's leftover points at).
+    std::map<const slang::ast::Expression*, UHDM::any*> bodyAsgRhsObj;
     // The elab param_assign Rhs struct_vars minted for such a parameter, with
     // the parameter object whose typespec their own ts ref must copy (the
     // param's typespec is patched later, in the deferred drain).
@@ -2052,6 +2073,14 @@ private:
     // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's
     // def-init constant (pkgParamConst). Set only around those typespec builds.
     const slang::ast::Scope* tfTypeScope = nullptr;
+    // § r10fsv3 S3.  Set with tfTypeScope for a package subroutine's BODY-LOCAL
+    // variable type range (`logic [NrMaxRules-1:0] pass;`), where the bound ref
+    // chains to THIS VIEW's folded param constant — the def view's ref reaches
+    // the def param_assign's constant, the elab view's the elab one (golden
+    // FuncStructVal config_pkg::is_inside_*_regions).  A return/arg range keeps
+    // the def-view constant in both views, which is why the preference is
+    // opt-in rather than global.
+    bool tfTypeScopeViewLocal = false;
     std::map<const void*, UHDM::constant*> foldedRet;
     std::map<const void*, UHDM::typespec*> foldCloneTs;
     struct PendingParamCloneTs {
@@ -2765,8 +2794,17 @@ private:
     // Struct-pattern member folds whose referenced parameter had no typespec
     // yet (its own is built by the deferred drain, or lives only in the elab
     // listing).  Bound at the end.
-    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>
-        pkgPatValTsFix;
+    // § r10fsv3 S6: the third field is the CONSTANT the ref hangs off and the
+    // fourth says whether the ELAB view minted it.  A DEF-view element whose
+    // parameter has no def typespec carries NO vpiTypespec at all in golden —
+    // the elab fallback below is elab-only, and the empty ref is dropped.
+    struct PkgPatValTsFix {
+        UHDM::ref_typespec* rt;
+        const slang::ast::Symbol* sym;
+        UHDM::constant* owner;
+        bool topView;
+    };
+    std::vector<PkgPatValTsFix> pkgPatValTsFix;
     // MATERIALIZED IMPORT copies of package params in the module DEF view,
     // keyed by the package's own ParameterSymbol (which is what a wildcard
     // import resolves to). A generate CONDITION reading one folds to its

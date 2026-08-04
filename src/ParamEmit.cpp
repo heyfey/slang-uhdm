@@ -1269,6 +1269,57 @@ bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
 //      that parameter has one ONLY in the elab listing (a localparam whose
 //      init is a param REFERENCE gets no def-view typespec at all, in golden
 //      as in ours).  FIXED by pkgPatValTsFix / pkgParamObjTop.
+//
+// § r10fsv3 — FuncStructVal CONVERTED (CMP_EQUAL both modes).  S1 and S2 were
+// real and are implemented; localizing them uncovered seven more, each a
+// separate Surelog law.  THE TOOL is tools/probe/r10fsv3d.cpp: package::Compare
+// and design::Compare both open with `if (!m_visited.insert(this).second)
+// return 0;` and CompareContext::m_visited is PUBLIC, so pre-seeding every
+// package/design object makes typespec::Compare's Instance() recursion a no-op
+// and every per-entry Compare becomes LOCAL.  Without it one wrong package
+// pointer makes every typespec in the design report the same far-away failure
+// and hides the nine real diffs behind it (r10fsv2 saw one and called it the
+// blocker).  Corollary for future passes: a whole-design failLhs is a
+// STARTING POINT, not a location — cut the instance edges first.
+//   S1 foreign-typedef param sharing (UhdmExporter, after the deferred ts
+//      drain): a DEF-view package parameter typed with ANOTHER package's
+//      typedef binds that package's ELABORATED listing object, in both views.
+//   S2 unreducible computed member (SrlgMemLeftEnc::Body + bodyAsgRhsObj): the
+//      leftover IS the elaborated package function body's own assignment RHS
+//      object, shared.  Fires when the RHS reads a formal member whose caller
+//      pattern element never reduced (L4's >64-bit sized cast).
+//   S3 a package subroutine's BODY-LOCAL type range binds the param constant of
+//      THIS VIEW (tfTypeScopeViewLocal); so does a body expression's param ref.
+//      A body local written with the `automatic` KEYWORD keeps vpiAutomatic
+//      even in the block-item form.
+//   S4 a package param initialised from ANOTHER package's ENUM CONSTANT written
+//      `pkg::NAME` stays an UNFOLDED ref_obj carrying the written name, in both
+//      views (the elab fold chain is undone at the param_assign).
+//   S5 slPackedWidth (EmitHelpers): Surelog cannot size a BASE-LESS enum, so
+//      such a member contributes ZERO bits to its struct's packed width —
+//      cva6_cfg_t is 10099 bits to Surelog and 10131 to slang.
+//   S6 a DEF-view pattern element whose parameter has no def typespec carries
+//      NO vpiTypespec at all (the elab-listing fallback is elab-only).
+//   S7 an enum-constant read written `pkg::NAME` inside a package subroutine
+//      BODY is SUBSTITUTED as UINT:<value> size 64; an unqualified one stays
+//      symbolic (rp32 dec32's `ILL` is the regression that pinned the gate).
+//   S8 formal-ts stamping stops at the first actual Surelog cannot reduce — a
+//      member/element select rooted at the enclosing subroutine's own FORMAL
+//      leaves every LATER actual of that call bare (the same left-to-right
+//      abort siblingCallArg9 already modelled for nested calls).
+//   S9 the "whole ref re-points at the block's first select" law also fires for
+//      a PLAIN part-select when that select's bounds are still UNFOLDED; the
+//      multiple_blocking_gate carve-out is constant-bounds only.
+//   R-b RESOLVED: the gen-scope suppression is not about member leftovers at
+//      all — Surelog emits no gen_scope_array when every INSTANTIATED generate
+//      block is EMPTY (allGenScopesEmpty).  FuncStructValSimple's `leaf_node`
+//      arm is `begin : leaf_node end`; FuncStructVal's carries two continuous
+//      assignments and IS elaborated.  Two more consequences fell out: a member
+//      of an EvalFunc-BUILT struct is not kept symbolic in a child's dims
+//      (TypeEmit resolveMemberInit), and the def-view generate-branch port
+//      connection builder had no SIMPLE-RANGE arm at all (ModuleEmit) — it
+//      turned `padded_input[PaddedWidth-1:PaddedWidth/2]` into one bit_select
+//      whose index was a ref_obj NAMED `PaddedWidth-1:PaddedWidth/2`.
 // § r10fsv2 L3.  The leftover of a COMPUTED member write (an RHS that is not
 // a plain read of the struct FORMAL's member) is encoded by the shape of the
 // RHS, exactly as UHDM's ExprEval builds its result:
@@ -1413,6 +1464,29 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
             if (rhs.kind == ExpressionKind::Concatenation &&
                 ma.type->getBitWidth() > 64)
                 ml.enc = SrlgMemLeftEnc::Bin;
+            // § r10fsv3 S2.  Record the RHS object key and every
+            // `<formal>.<member>` this RHS reads: if one of those members'
+            // caller pattern elements never reduced, ExprEval cannot reduce
+            // THIS expression either and the leftover becomes the emitted RHS
+            // object (resolved in the drain, where the caller is known).
+            ml.rhsExpr = &a.right();
+            a.right().visit(makeVisitor([&](auto& v2,
+                                            const MemberAccessExpression& m2) {
+                auto& b2 = stripImplicitConv(m2.value());
+                if (b2.kind == ExpressionKind::NamedValue) {
+                    auto& s2 = b2.as<NamedValueExpression>().symbol;
+                    int ai2 = 0;
+                    for (auto* fa2 : sub.getArguments()) {
+                        if (fa2 == &s2) {
+                            ml.reads.emplace_back(ai2,
+                                                  std::string(m2.member.name));
+                            break;
+                        }
+                        ai2++;
+                    }
+                }
+                v2.visitDefault(m2);
+            }));
         }
         enc[std::string(ma.member.name)] = ml;
         v.visitDefault(a);
@@ -1557,7 +1631,63 @@ bool UhdmExporter::memLeftIntRead(const Expression& init) {
 // folds and the instance is emitted with NO gen_scope_array at all — golden's
 // `work@top.u1` (INPUT_WIDTH = CVA6Cfg.INSTR_PER_FETCH = 2) carries none, even
 // though `INPUT_WIDTH == 2` selects `leaf_node`.
+// § r10fsv3 R-b.  True when every INSTANTIATED generate block of `body` is
+// EMPTY.  Surelog emits no gen_scope_array for a selected arm that declares
+// nothing — which is the real reason FuncStructValSimple's `work@top.u1` has
+// none (its `leaf_node` arm is `begin : leaf_node end`) while FuncStructVal's
+// identically-overridden `u1` DOES get one (its `leaf_node` carries two
+// continuous assignments).  The member-leftover override the two tests share
+// is NOT the distinguisher; it only ever looked like one because Simple is the
+// test the suppression was decoded on.
+static bool genBlockHasContent(const Scope& sc) {
+    for (auto& m : sc.members()) {
+        switch (m.kind) {
+            case SymbolKind::GenerateBlock:
+                if (!m.as<GenerateBlockSymbol>().isUninstantiated &&
+                    genBlockHasContent(m.as<GenerateBlockSymbol>()))
+                    return true;
+                break;
+            case SymbolKind::GenerateBlockArray:
+                for (auto* e : m.as<GenerateBlockArraySymbol>().entries)
+                    if (genBlockHasContent(*e))
+                        return true;
+                break;
+            // Bookkeeping members every block carries.
+            case SymbolKind::Parameter:
+            case SymbolKind::TypeParameter:
+            case SymbolKind::TransparentMember:
+            case SymbolKind::Genvar:
+            case SymbolKind::TypeAlias:
+            case SymbolKind::WildcardImport:
+            case SymbolKind::ExplicitImport:
+            case SymbolKind::EmptyMember:
+                break;
+            default:
+                return true;
+        }
+    }
+    return false;
+}
+
+static bool allGenScopesEmpty(const InstanceBodySymbol& body) {
+    for (auto& mem : body.members()) {
+        if (mem.kind == SymbolKind::GenerateBlock) {
+            if (!mem.as<GenerateBlockSymbol>().isUninstantiated &&
+                genBlockHasContent(mem.as<GenerateBlockSymbol>()))
+                return false;
+        }
+        else if (mem.kind == SymbolKind::GenerateBlockArray) {
+            for (auto* e : mem.as<GenerateBlockArraySymbol>().entries)
+                if (genBlockHasContent(*e))
+                    return false;
+        }
+    }
+    return true;
+}
+
 bool UhdmExporter::memLeftGenScopeBlocked(const InstanceBodySymbol& body) {
+    if (!allGenScopesEmpty(body))
+        return false;
     for (auto& mem : body.members()) {
         if (mem.kind != SymbolKind::Parameter)
             continue;
@@ -1605,6 +1735,36 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                             eit->second->UhdmType() == UHDM::uhdmref_obj)
                                ? nullptr
                                : (UHDM::expr*)eit->second;
+        }
+        // § r10fsv3 S2 UNREDUCIBLE COMPUTED MEMBER.  A computed member's
+        // leftover is a re-encoded slice of the folded value ONLY while
+        // ExprEval could actually reduce the body's RHS.  It cannot when the
+        // RHS reads a formal member whose caller pattern element is itself
+        // unreduced (§ r10fsv2 L4 keeps a >64-bit sized cast as an OPERATION),
+        // and Surelog then leaves the FUNCTION BODY's own assignment RHS
+        // OBJECT behind — the very operation, with its two unresolved
+        // hier_path operands, that the elaborated package's function carries
+        // (FuncStructVal `cfg.NonIdemPotenceEn = CVA6Cfg.NrNonIdempotentRules
+        // && CVA6Cfg.NonIdempotentLength`, 1 of 97 members).  Shared, not
+        // re-emitted: golden's member Actual_value IS that object.
+        for (size_t i = 0; i < st.rhsExpr.size() && i < st.values.size(); i++) {
+            if (st.srcParam[i] || !st.rhsExpr[i] || st.reads[i].empty())
+                continue;
+            bool unreduced = false;
+            for (auto& [rp, mn] : st.reads[i]) {
+                auto pit = patElabElems.find(rp);
+                if (pit == patElabElems.end())
+                    continue;
+                auto eit = pit->second.find(mn);
+                if (eit != pit->second.end() && eit->second &&
+                    eit->second->UhdmType() != UHDM::uhdmconstant)
+                    unreduced = true;
+            }
+            if (!unreduced)
+                continue;
+            auto bit = bodyAsgRhsObj.find(st.rhsExpr[i]);
+            if (bit != bodyAsgRhsObj.end() && bit->second)
+                st.values[i] = (UHDM::expr*)bit->second;
         }
     }
     std::set<const UHDM::struct_typespec*> done;
@@ -5967,6 +6127,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             st9.srcMember.push_back(
                                 sp9 ? (*leftovers)[li9].srcMember
                                     : std::string());
+                            // § r10fsv3 S2: the computed member's body RHS and
+                            // the caller parameters its formal-member reads
+                            // resolve to (the drain decides whether the reduce
+                            // could have succeeded).
+                            st9.rhsExpr.push_back((*leftovers)[li9].rhsExpr);
+                            std::vector<
+                                std::pair<const ParameterSymbol*, std::string>>
+                                rd9;
+                            for (auto& [ai9, mn9] : (*leftovers)[li9].reads)
+                                if (auto* rp9 = memLeftCallPatArg(*init, ai9))
+                                    rd9.emplace_back(rp9, mn9);
+                            st9.reads.push_back(std::move(rd9));
                             li9++;
                         }
                         if (ok9 && !st9.names.empty()) {
@@ -7322,7 +7494,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         logic_t bit = sinit.as<UnbasedUnsizedIntegerLiteral>()
                                           .getLiteralValue();
                         auto* c = (UHDM::constant*)rhs;
-                        int32_t w = (int32_t)ps.getType().getBitWidth();
+                        // § r10fsv3 S5: Surelog's own packed width, which
+                        // drops every base-less enum member (slPackedWidth).
+                        int32_t w = (int32_t)slPackedWidth(ps.getType());
                         // § multiDimUnbasedRaw9 — a MULTI-DIMENSIONAL packed
                         // param keeps the RAW '0 spelling even in a module
                         // (only its vpiSize takes the type width).  Measured
@@ -10317,6 +10491,56 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             }
                         }
                     }
+                }
+                // § r10fsv3 S4b.  The ELABORATED package listing does NOT fold
+                // a parameter whose init is ANOTHER package's ENUM CONSTANT
+                // written scope-qualified: golden keeps the same unfolded
+                // `pkg::NAME` ref_obj the def view carries
+                // (cva6_config_pkg::CVA6ConfigDcacheType = config_pkg::WT).
+                // The def view already takes that shape through emitExpr's
+                // § r10fsv3 S4 arm; the elab fold chain reaches this param by
+                // a different road, so the shape is restored here.
+                if (inPackage && topView && init && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto& ie9 = stripImplicitConv(*init);
+                    if (ie9.kind == ExpressionKind::NamedValue &&
+                        ie9.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::EnumValue &&
+                        ie9.syntax &&
+                        ie9.syntax->kind == syntax::SyntaxKind::ScopedName) {
+                        auto& esym9 = ie9.as<NamedValueExpression>().symbol;
+                        const Scope* home9 = esym9.getParentScope();
+                        while (home9 &&
+                               home9->asSymbol().kind != SymbolKind::Package)
+                            home9 = home9->asSymbol().getParentScope();
+                        if (home9 && curPkgEmitSym &&
+                            &home9->asSymbol() !=
+                                (const Symbol*)curPkgEmitSym) {
+                            std::string pn9 =
+                                std::string(home9->asSymbol().name) +
+                                "::" + std::string(esym9.name);
+                            auto* er9 = s.MakeRef_obj();
+                            er9->VpiName(pn9);
+                            er9->VpiFullName(std::string(curPkgEmitSym->name) +
+                                             "::" + pn9);
+                            er9->VpiParent(pa);
+                            setLoc(er9, ie9.sourceRange);
+                            rhs = er9;
+                            rhsRt = nullptr;
+                        }
+                    }
+                }
+                // § r10fsv3 S5.  Whatever arm sized this constant used slang's
+                // packed width; Surelog's own width drops every BASE-LESS enum
+                // member (slPackedWidth).  Re-size only when the value really
+                // is the whole-type fill, so a member-width or literal-width
+                // constant is untouched.
+                if (rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto* wc9 = (UHDM::constant*)rhs;
+                    int32_t sw9 = (int32_t)ps.getType().getBitWidth();
+                    int32_t cw9 = (int32_t)slPackedWidth(ps.getType());
+                    if (sw9 != cw9 && wc9->VpiSize() == sw9)
+                        wc9->VpiSize(cw9);
                 }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;

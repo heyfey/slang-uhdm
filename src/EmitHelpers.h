@@ -534,6 +534,42 @@ inline bool foreignPkgTypedef(const Symbol& declSym, const Symbol* home) {
            &sc->asSymbol() != home;
 }
 
+// § r10fsv3 S5.  Surelog cannot size an enum declared with NO base type
+// (`typedef enum { A, B } e;`) — the same blind spot § r10fsv2 R-c measured on
+// pattern substitution — so such a member contributes ZERO bits to the packed
+// width of a struct that contains it.  This returns the width Surelog computes
+// for `t`: slang's, minus every base-less enum member, recursively.
+// FuncStructVal's `cva6_cfg_t` is the measurement: slang says 10131 bits and
+// golden's elaborated `cva6_cfg_empty = '0` is BIN:0 at 10099 — exactly the
+// 32-bit `noc_type_e NOCType` member removed.
+inline uint64_t slPackedWidth(const Type& t0) {
+    const Type* t = &t0.getCanonicalType();
+    if (t->kind == SymbolKind::EnumType) {
+        auto* syn = t->getSyntax();
+        if (syn && syn->kind == syntax::SyntaxKind::EnumType &&
+            syn->as<syntax::EnumTypeSyntax>().baseType == nullptr)
+            return 0;
+        return t->getBitWidth();
+    }
+    if (t->kind == SymbolKind::PackedStructType) {
+        uint64_t w = 0;
+        for (auto& f : t->as<PackedStructType>().membersOfType<FieldSymbol>())
+            w += slPackedWidth(f.getType());
+        return w;
+    }
+    if (t->kind == SymbolKind::PackedUnionType) {
+        uint64_t w = 0;
+        for (auto& f : t->as<PackedUnionType>().membersOfType<FieldSymbol>())
+            w = std::max(w, slPackedWidth(f.getType()));
+        return w;
+    }
+    if (t->kind == SymbolKind::PackedArrayType) {
+        auto& pa = t->as<PackedArrayType>();
+        return slPackedWidth(pa.elementType) * pa.range.width();
+    }
+    return t->getBitWidth();
+}
+
 // The set of local types passed as `type` parameter arguments to child
 // instances of `body` — a module-local net of such a type omits its def-view
 // typespec (Surelog leaves it a bare logic_net; the elab view re-types it).

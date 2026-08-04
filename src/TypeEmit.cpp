@@ -1980,8 +1980,25 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     mb.as<NamedValueExpression>()
                                             .symbol.getType()
                                             .getCanonicalType()
-                                            .kind == SymbolKind::PackedStructType)
+                                            .kind == SymbolKind::PackedStructType) {
+                                    // § r10fsv3 R-b.  A member of an EvalFunc
+                                    // BUILT struct (`CVA6Cfg.INSTR_PER_FETCH`
+                                    // where CVA6Cfg = build_config(...)) is
+                                    // NOT kept symbolic: the leftover stamp
+                                    // gives Surelog the member's value, so the
+                                    // child's own dims fold (FuncStructVal
+                                    // work@top.u1 `[INPUT_WIDTH-1:0]` ->
+                                    // INT:1).  The symbolic substitution this
+                                    // helper implements was decoded on a plain
+                                    // struct-PATTERN param (`Info.x`).
+                                    auto& bp9 = mb.as<NamedValueExpression>()
+                                                    .symbol
+                                                    .as<ParameterSymbol>();
+                                    if (auto* bi9 = bp9.getInitializer())
+                                        if (memLeftInitCall(*bi9))
+                                            return nullptr;
                                     return p;
+                                }
                                 return nullptr;
                             }
                             const Symbol* rs = nullptr;
@@ -2055,7 +2072,22 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                         ExpressionKind::HierarchicalValue &&
                                                     b0->as<HierarchicalValueExpression>()
                                                             .symbol.kind ==
-                                                        SymbolKind::Parameter)
+                                                        SymbolKind::Parameter &&
+                                                    // § r10fsv3 R-b.  A read of
+                                                    // an EvalFunc MEMBER
+                                                    // LEFTOVER is not the
+                                                    // interface-member hop this
+                                                    // rule was decoded on
+                                                    // (iface_param_2level):
+                                                    // Surelog HAS the member's
+                                                    // value by the time it
+                                                    // elaborates the child, so
+                                                    // the bound folds
+                                                    // (FuncStructVal
+                                                    // work@top.u1 `data_i`
+                                                    // [INPUT_WIDTH-1:0] ->
+                                                    // INT:1).
+                                                    !memLeftReadEnc(*pin))
                                                     ovHierParam =
                                                         &nv.symbol
                                                              .as<ParameterSymbol>();
@@ -7057,11 +7089,18 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     auto& psy =
                         stripImplicitConv(be).as<NamedValueExpression>().symbol;
                     if (psy.kind == SymbolKind::Parameter) {
-                        if (auto pit = pkgParamConst.find(&psy);
-                            pit != pkgParamConst.end())
+                        // § r10fsv3 S3: a BODY-LOCAL's range chains to the
+                        // constant of the view being emitted (pkgParamDefRhs is
+                        // rewritten per view); a return/arg range keeps the
+                        // def-view constant in both views.
+                        auto pit2 = pkgParamDefRhs.find(&psy);
+                        if (tfTypeScopeViewLocal && pkgTopEmit &&
+                            pit2 != pkgParamDefRhs.end())
+                            ref->Actual_group(pit2->second);
+                        else if (auto pit = pkgParamConst.find(&psy);
+                                 pit != pkgParamConst.end())
                             ref->Actual_group(pit->second);
-                        else if (auto pit2 = pkgParamDefRhs.find(&psy);
-                                 pit2 != pkgParamDefRhs.end())
+                        else if (pit2 != pkgParamDefRhs.end())
                             ref->Actual_group(pit2->second);
                     }
                 }

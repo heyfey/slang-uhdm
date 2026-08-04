@@ -2303,7 +2303,22 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
                 if (!vts) {
                     tfContext = true;
+                    // § r10fsv3 S3.  A body-local's own type range is bound the
+                    // same way a return/arg range is: `logic [NrMaxRules-1:0]
+                    // pass;` inside a package function keeps the unfolded op
+                    // tree, and its ref_obj carries vpiActual = the package
+                    // param's folded constant.  The subroutine (not the
+                    // package) is the lookup scope so a same-named body local
+                    // shadows, and the constant is THIS VIEW's.
+                    auto* savedTfS3 = tfTypeScope;
+                    bool savedTfV3 = tfTypeScopeViewLocal;
+                    if (pkgScope && !classScope && !tfTypeScope) {
+                        tfTypeScope = &sub;
+                        tfTypeScopeViewLocal = true;
+                    }
                     vts = makeTypespec(fmv);
+                    tfTypeScope = savedTfS3;
+                    tfTypeScopeViewLocal = savedTfV3;
                     tfContext = false;
                 }
                 // A RANGED-typedef local (logic4 [1:0] out): the outer ts
@@ -2527,6 +2542,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 deferForeignTopTs(fmv, vrt, vts);
                 if (!hasInit && !blockLocal && !blockItems9)
                     v->VpiAutomatic(true);
+                // § r10fsv3.  A body local written with the `automatic`
+                // KEYWORD carries vpiAutomatic even in the block-item form
+                // that otherwise drops it — the flag follows the written
+                // lifetime, not the position (golden FuncStructVal:
+                // is_inside_cacheable_regions' `automatic logic [..] pass` has
+                // it, its two initializer-less siblings at 437/447 do not).
+                else if (auto* dsyn9 = fmv.getSyntax()) {
+                    const syntax::SyntaxNode* par9 = dsyn9->parent;
+                    if (par9 &&
+                        par9->kind == syntax::SyntaxKind::DataDeclaration)
+                        for (auto md9 : par9->as<syntax::DataDeclarationSyntax>()
+                                            .modifiers)
+                            if (md9.kind == parsing::TokenKind::AutomaticKeyword)
+                                v->VpiAutomatic(true);
+                }
                 if (blockLocal)
                     fnBlockLocalPav.push_back(v);
                 funcMap[&fmv] = v;

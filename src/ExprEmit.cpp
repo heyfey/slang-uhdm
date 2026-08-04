@@ -2096,6 +2096,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             enclosingAssign = asn;
             auto* rhs = emitExpr(*rhsExpr, asn, prefix, netMap);
             enclosingAssign = savedEncl0;
+            // § r10fsv3 S2.  Inside a package subroutine, remember the object
+            // this assignment's RHS became: an EvalFunc member leftover whose
+            // reduce fails IS this object, shared (never re-emitted).  Only the
+            // ELABORATED view's copy is ever the leftover, and it is emitted
+            // second, so the plain overwrite lands on the right one.
+            if (rhs && pkgScopeInst && currentTf)
+                bodyAsgRhsObj[rhsExpr] = rhs;
             // A backslash-padded STRING Rhs stretches the assignment's end
             // column to match (StringWithBackslash).
             if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
@@ -2300,17 +2307,88 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return ref;
             }
             auto scope = nv.symbol.getParentScope();
+            // § r10fsv3 S7.  Inside a PACKAGE SUBROUTINE BODY an enum-constant
+            // reference is SUBSTITUTED: Surelog's ExprEval answers it with the
+            // value, as an unsized UINT at size 64 — not the enum's own width
+            // and not a symbolic ref (golden FuncStructVal build_config's
+            // `(CVA6Cfg.XLEN == 32) ? config_pkg::ModeSv32 : config_pkg::
+            // ModeSv39` -> UINT:1 / UINT:8, and the `cfg.MODE_SV ==
+            // config_pkg::ModeSv32` compare next to it).  This is the body
+            // counterpart of the pkg-param arm below, which chains a param
+            // reference to that param's folded constant.
+            // Gated on the WRITTEN qualification: an UNQUALIFIED enum-constant
+            // read in a package body stays symbolic (rp32 riscv_isa_i_pkg
+            // dec32's `ILL`, enc32's `SR`), so only a `pkg::NAME` reference —
+            // which Surelog resolves through the package scope — substitutes.
+            if (currentTf && pkgScopeInst &&
+                nv.symbol.kind == SymbolKind::EnumValue && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::ScopedName) {
+                auto& ev9 = nv.symbol.as<EnumValueSymbol>().getValue();
+                if (ev9.isInteger() && !ev9.integer().hasUnknown()) {
+                    slang::SVInt uv9 = ev9.integer();
+                    uv9.setSigned(false);
+                    std::string dg9 = uv9.toString(LiteralBase::Decimal, false);
+                    auto* ec9 = s.MakeConstant();
+                    ec9->VpiDecompile(dg9);
+                    ec9->VpiSize(64);
+                    ec9->VpiValue("UINT:" + dg9);
+                    ec9->VpiConstType(vpiUIntConst);
+                    setLoc(ec9, expr.sourceRange);
+                    if (parent && parent->UhdmType() == UHDM::uhdmoperation)
+                        ec9->VpiParent(parent);
+                    return ec9;
+                }
+            }
+            // § r10fsv3 S4.  A package parameter initialised from ANOTHER
+            // package's ENUM CONSTANT written scope-qualified
+            // (`= config_pkg::WT`, `NOCType: config_pkg::NOC_TYPE_AXI4_ATOP`)
+            // keeps an UNFOLDED ref_obj carrying the WRITTEN name in BOTH
+            // views — Surelog resolves the constant for the value but leaves
+            // the expression symbolic, exactly as it does for a cross-package
+            // PARAM ref a few lines below (pkgCrossRefTopFixups).  We used to
+            // drop the qualifier and, in the elab view, fold the whole thing
+            // to a constant.  Gated on the WRITTEN qualification so a plain
+            // imported-name read is untouched.
+            if (paramInitPkg && nv.symbol.kind == SymbolKind::EnumValue &&
+                expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::ScopedName) {
+                const Scope* home9 = scope;
+                while (home9 && home9->asSymbol().kind != SymbolKind::Package)
+                    home9 = home9->asSymbol().getParentScope();
+                std::string curPkg9 = prefix;
+                if (auto p9 = curPkg9.find("::"); p9 != std::string::npos)
+                    curPkg9.resize(p9);
+                if (home9 && std::string(home9->asSymbol().name) != curPkg9) {
+                    std::string pn9 = std::string(home9->asSymbol().name) +
+                                      "::" + std::string(nv.symbol.name);
+                    ref->VpiName(pn9);
+                    std::string full9 = prefix;
+                    if (full9.size() < 2 ||
+                        full9.compare(full9.size() - 2, 2, "::") != 0)
+                        full9 += "::";
+                    ref->VpiFullName(full9 + pn9);
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
+            }
             if (scope && scope->asSymbol().kind == SymbolKind::Package &&
                 nv.symbol.kind == SymbolKind::Parameter) {
                 // Package-function bodies keep a ref bound to the param's
                 // def-view constant.
                 if (currentTf && pkgScopeInst) {
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
-                    if (auto pit = pkgParamConst.find(&nv.symbol);
-                        pit != pkgParamConst.end())
+                    // § r10fsv3 S3b: the chain is VIEW-LOCAL — the elaborated
+                    // listing's body reaches the elaborated param_assign's own
+                    // constant (`NrMaxRules` in config_pkg::check_cfg is UINT:16
+                    // at size 32 there and size 64 in the def listing).
+                    auto pit2 = pkgParamDefRhs.find(&nv.symbol);
+                    if (pkgEmitTopView && pit2 != pkgParamDefRhs.end())
+                        ref->Actual_group(pit2->second);
+                    else if (auto pit = pkgParamConst.find(&nv.symbol);
+                             pit != pkgParamConst.end())
                         ref->Actual_group(pit->second);
-                    else if (auto pit2 = pkgParamDefRhs.find(&nv.symbol);
-                             pit2 != pkgParamDefRhs.end())
+                    else if (pit2 != pkgParamDefRhs.end())
                         // Non-constant def Rhs (an operation) chains the same
                         // way (Surelog value-ref chaining).
                         ref->Actual_group(pit2->second);
@@ -2560,8 +2638,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // SAME parameter object so each view keeps
                                 // its own typespec.
                                 if (!rt9->Actual_typespec())
-                                    pkgPatValTsFix.emplace_back(rt9,
-                                                                &nv.symbol);
+                                    // pkgEmitTopView, not pkgTopEmit: the
+                                    // latter is set only for the TYPEDEF pass,
+                                    // after emitParameters has run.
+                                    pkgPatValTsFix.push_back(
+                                        {rt9, &nv.symbol, c9, pkgEmitTopView});
                             }
                             c9->Typespec(rt9);
                             return c9;
@@ -5862,8 +5943,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool ndaOpCallArg9 =
                             ndaRhsEmit && parent &&
                             parent->UhdmType() == UHDM::uhdmoperation;
+                        // § r10fsv3 S8.  Same left-to-right abort the
+                        // siblingCallArg9 rule below models, one step earlier:
+                        // an actual that Surelog cannot reduce stops the
+                        // formal-ts stamping for every actual AFTER it, not
+                        // just for nested calls.  A member/element SELECT
+                        // rooted at the enclosing subroutine's own FORMAL
+                        // (`range_check(Cfg.NonIdempotentAddrBase[k],
+                        // Cfg.NonIdempotentLength[k], address)` in
+                        // FuncStructVal's is_inside_*_regions) is exactly such
+                        // an actual, and golden leaves the trailing `address`
+                        // bare because of it — while
+                        // NestedCallsOfTheSameFunction's `aes_mul2(x)`, whose
+                        // formal re-pass is the FIRST actual, is stamped.
+                        bool precUnreduced9 = false;
+                        {
+                            int pi9 = 0;
+                            for (auto pa9 : call.arguments()) {
+                                if (pi9++ >= (int)argIdx)
+                                    break;
+                                const Expression* c9 = &stripImplicitConv(*pa9);
+                                bool sawSel9 = false;
+                                while (true) {
+                                    if (c9->kind == ExpressionKind::MemberAccess)
+                                        c9 = &stripImplicitConv(
+                                            c9->as<MemberAccessExpression>()
+                                                .value());
+                                    else if (c9->kind ==
+                                             ExpressionKind::ElementSelect)
+                                        c9 = &stripImplicitConv(
+                                            c9->as<ElementSelectExpression>()
+                                                .value());
+                                    else
+                                        break;
+                                    sawSel9 = true;
+                                }
+                                if (sawSel9 &&
+                                    c9->kind == ExpressionKind::NamedValue &&
+                                    c9->as<NamedValueExpression>().symbol.kind ==
+                                        SymbolKind::FormalArgument)
+                                    precUnreduced9 = true;
+                            }
+                        }
                         bool argCtxOk =
-                            !ndaOpCallArg9 &&
+                            !ndaOpCallArg9 && !precUnreduced9 &&
                             (currentTf ? ((pkgTopEmit && !structFormal9 &&
                                           !(intFormal &&
                                             a->UhdmType() ==

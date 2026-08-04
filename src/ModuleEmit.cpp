@@ -21344,6 +21344,109 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             }
                             p->High_conn(ips);
                         }
+                        // § r10fsv3.  A SIMPLE-RANGE actual
+                        // (padded_input[PaddedWidth-1:PaddedWidth/2]) is a
+                        // part_select — same head fields as the indexed form
+                        // (name/defname = base, fullname DOUBLED through the
+                        // formal, ConstantSelect, span = the whole actual) with
+                        // Left/Right ranges text-parsed from the selector and
+                        // their refs scoped through the select
+                        // (…left_child.data_i.padded_input.PaddedWidth).
+                        // Without this arm the range fell through to the
+                        // bit_select default below and became one ref_obj NAMED
+                        // `PaddedWidth-1:PaddedWidth/2` (FuncStructVal
+                        // popcount's non_leaf_node children).
+                        else if (lb2 != std::string::npos && !act.empty() &&
+                                 act.back() == ']' &&
+                                 act.find(':', lb2) != std::string::npos) {
+                            std::string base2 = act.substr(0, lb2);
+                            std::string psFull9 = branchPrefix + "." + iname +
+                                                  "." + formal + "." + base2;
+                            auto* pss9 = s.MakePart_select();
+                            pss9->VpiParent(p);
+                            pss9->VpiName(base2);
+                            pss9->VpiDefName(base2);
+                            pss9->VpiFullName(psFull9);
+                            pss9->VpiConstantSelect(true);
+                            setLoc(pss9, npc.expr->sourceRange());
+                            std::string inner9 =
+                                act.substr(lb2 + 1, act.size() - lb2 - 2);
+                            size_t colon9 = inner9.find(':');
+                            auto exprSt9 = npc.expr->sourceRange().start();
+                            auto trimR9 = [](std::string t, size_t base)
+                                -> std::pair<std::string, size_t> {
+                                size_t b = t.find_first_not_of(' ');
+                                size_t e = t.find_last_not_of(' ');
+                                if (b == std::string::npos)
+                                    return {std::string(), base};
+                                return {t.substr(b, e - b + 1), base + b};
+                            };
+                            std::function<UHDM::expr*(const std::string&, size_t,
+                                                      UHDM::any*)>
+                                mkB9 = [&](const std::string& tx, size_t off,
+                                           UHDM::any* par) -> UHDM::expr* {
+                                // A binary operator at the TOP level of the
+                                // bound (the only shape Surelog's own text
+                                // parse produces here).
+                                static const struct {
+                                    char c;
+                                    int32_t op;
+                                } kOps9[] = {{'-', vpiSubOp},
+                                             {'+', vpiAddOp},
+                                             {'*', vpiMultOp},
+                                             {'/', vpiDivOp}};
+                                for (auto& k9 : kOps9) {
+                                    auto pos9 = tx.find(k9.c, 1);
+                                    if (pos9 == std::string::npos)
+                                        continue;
+                                    auto* op9 = s.MakeOperation();
+                                    op9->VpiOpType(k9.op);
+                                    op9->VpiParent(par);
+                                    auto st9 = exprSt9 + off;
+                                    setLoc(op9,
+                                           SourceRange(st9, st9 + tx.size()));
+                                    auto [l9, lo9] =
+                                        trimR9(tx.substr(0, pos9), off);
+                                    auto [r9, ro9] =
+                                        trimR9(tx.substr(pos9 + 1),
+                                               off + pos9 + 1);
+                                    auto* ov9 = s.MakeAnyVec();
+                                    ov9->push_back(mkB9(l9, lo9, op9));
+                                    ov9->push_back(mkB9(r9, ro9, op9));
+                                    op9->Operands(ov9);
+                                    return op9;
+                                }
+                                auto st9 = exprSt9 + off;
+                                if (!tx.empty() &&
+                                    tx.find_first_not_of("0123456789") ==
+                                        std::string::npos) {
+                                    auto* c9 = s.MakeConstant();
+                                    c9->VpiDecompile(tx);
+                                    c9->VpiSize(64);
+                                    c9->VpiValue("UINT:" + tx);
+                                    c9->VpiConstType(vpiUIntConst);
+                                    c9->VpiParent(par);
+                                    setLoc(c9,
+                                           SourceRange(st9, st9 + tx.size()));
+                                    return c9;
+                                }
+                                auto* r9 = s.MakeRef_obj();
+                                r9->VpiName(tx);
+                                r9->VpiFullName(psFull9 + "." + tx);
+                                r9->VpiParent(par);
+                                setLoc(r9, SourceRange(st9, st9 + tx.size()));
+                                return r9;
+                            };
+                            size_t innerBase9 = lb2 + 1;
+                            auto [lt9, lof9] =
+                                trimR9(inner9.substr(0, colon9), innerBase9);
+                            auto [rt9, rof9] =
+                                trimR9(inner9.substr(colon9 + 1),
+                                       innerBase9 + colon9 + 1);
+                            pss9->Left_range(mkB9(lt9, lof9, pss9));
+                            pss9->Right_range(mkB9(rt9, rof9, pss9));
+                            p->High_conn(pss9);
+                        }
                         else if (lb2 != std::string::npos && !act.empty() &&
                             act.back() == ']') {
                             // A SELECT actual (sig[i]): bit_select named by

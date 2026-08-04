@@ -125,8 +125,18 @@ void UhdmExporter::endSelTrack() {
         // A var ALSO written whole keeps the net for PLAIN part-select
         // targets (multiple_blocking_gate) but still repoints to an
         // INDEXED part-select (multiple_blocking/sign_part_assign).
+        // § r10fsv3 S9: ...but only while that part-select's bounds are
+        // FOLDED.  A select whose left bound is still an expression
+        // (`padded_input[INPUT_WIDTH-1:0] = data_i;` next to `padded_input =
+        // '0;` in FuncStructVal's popcount) re-points like an indexed one —
+        // Surelog's scope map holds the last object compiled for the name
+        // either way, and the constant-bounds carve-out is what
+        // multiple_blocking_gate pinned.
         if (selWholeWrittenVars.count(wr.sym) &&
-            sel->UhdmType() == UHDM::uhdmpart_select)
+            sel->UhdmType() == UHDM::uhdmpart_select &&
+            ((UHDM::part_select*)sel)->Left_range() &&
+            ((UHDM::part_select*)sel)->Left_range()->UhdmType() ==
+                UHDM::uhdmconstant)
             continue;
         wr.ref->Actual_group(sel);
         // A function-return-name ref is ALSO queued in pendingFuncRet, whose

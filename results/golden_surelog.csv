@@ -537,8 +537,8 @@ FuncStatic,default,CMP_EQUAL,,,match
 FuncStatic,testflags,CMP_EQUAL,,,match
 FuncStruct,default,CMP_NOTEQUAL,decompile:,,
 FuncStruct,testflags,CMP_NOTEQUAL,decompile:,,
-FuncStructVal,default,CMP_NOTEQUAL,decompile:,,
-FuncStructVal,testflags,CMP_NOTEQUAL,decompile:,,
+FuncStructVal,default,CMP_EQUAL,,,differ
+FuncStructVal,testflags,CMP_EQUAL,,,differ
 FuncStructValSimple,default,CMP_EQUAL,,,differ
 FuncStructValSimple,testflags,CMP_EQUAL,,,differ
 FuncWidthScope,default,SLANG_REJECT,dut.sv:13:19: error: cannot call a function declared inside a generate block in a constant expression,,

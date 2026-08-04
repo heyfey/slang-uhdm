@@ -3750,13 +3750,24 @@ UHDM::design* UhdmExporter::exportDesign() {
     noSubstRefTs.clear();
     // § r10fsv2 — a struct-pattern member fold that read a same-package param
     // whose OWN typespec is built by the deferred pass above.
-    for (auto& [rt, sym] : pkgPatValTsFix) {
+    for (auto& [rt, sym, owner, topView] : pkgPatValTsFix) {
         if (rt->Actual_typespec())
             continue;
         if (auto dit = pkgParamObj.find(sym);
             dit != pkgParamObj.end() && dit->second->Typespec() &&
             dit->second->Typespec()->Actual_typespec()) {
             rt->Actual_typespec(dit->second->Typespec()->Actual_typespec());
+            continue;
+        }
+        // § r10fsv3 S6.  The ELAB-listing fallback is ELAB-ONLY.  A parameter
+        // whose init is itself a param REFERENCE has a typespec in the elab
+        // listing and none in the def one, and golden's DEF-view pattern
+        // element then carries NO vpiTypespec AT ALL — not an empty ref
+        // (FuncStructVal AxiUserWidth/FetchUserWidth vs the literal-init
+        // XLEN sibling, which does have a def typespec and does keep the ref).
+        if (!topView) {
+            if (owner && owner->Typespec() == rt)
+                owner->Typespec(nullptr);
             continue;
         }
         if (auto tit = pkgParamObjTop.find(sym);
@@ -3767,6 +3778,63 @@ UHDM::design* UhdmExporter::exportDesign() {
     // Base-class wiring last: every class_defn (package, module-local,
     // file-level, nested) now exists, so a base in any scope resolves.
     drainPendingExtends();
+    // § r10fsv3 S1 FOREIGN-TYPEDEF PARAM SHARING.  The rule
+    // pkgForeignTsTopFixups applies to package SUBROUTINES holds for package
+    // PARAMETERS too: a parameter declared with ANOTHER package's typedef
+    // (`localparam config_pkg::cva6_user_cfg_t cva6_cfg = ...`) binds the
+    // declaring package's ELABORATED listing object in BOTH views — Surelog
+    // creates that typespec once and shares it, so the def view never holds a
+    // def-instanced copy of a foreign type.  A SAME-package type is untouched:
+    // config_pkg's own `cva6_cfg_empty` keeps the def object in the def view
+    // and the elab object in the elab view.
+    //   This is cmp-load-bearing, not cosmetic: typespec::Compare chases
+    // Instance(), so the def param's typespec decides WHICH package view the
+    // whole-design walk descends into next.  Pointing at the def listing takes
+    // the walk through the CLEAN typedef copy (no EvalFunc leftovers stamped,
+    // ranges unfolded) where golden's walk goes through the elaborated,
+    // stamped one — reported as `failRhs = <null>` on the struct's first
+    // member (FuncStructVal, § r10fsv2 S1).
+    //   Keyed structurally on the typespec's OWN vpiInstance: the def→elab
+    // swap fires only for an object instanced at a DIFFERENT def package,
+    // which is exactly "this named type was declared elsewhere".  It runs
+    // HERE, not where the two views are built, because a package parameter's
+    // ref_typespec is still empty then — the actual is filled by the deferred
+    // typespec drain a few lines above.
+    if (d->AllPackages() && d->TopPackages()) {
+        std::map<const UHDM::BaseClass*, UHDM::package*> defToTop;
+        for (auto* dp0 : *d->AllPackages())
+            for (auto* tp0 : *d->TopPackages())
+                if (tp0->VpiName() == dp0->VpiName()) {
+                    defToTop[dp0] = tp0;
+                    break;
+                }
+        for (auto* dp0 : *d->AllPackages()) {
+            if (!dp0->Parameters())
+                continue;
+            for (auto* p0 : *dp0->Parameters()) {
+                if (p0->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                auto* rt0 = ((UHDM::parameter*)p0)->Typespec();
+                auto* at0 = rt0 ? rt0->Actual_typespec() : nullptr;
+                if (!at0 || at0->VpiName().empty() || !at0->Instance())
+                    continue;
+                auto hit = defToTop.find(at0->Instance());
+                // Instanced at its own def package, or at something that is
+                // not a def package at all — nothing to share.
+                if (hit == defToTop.end() ||
+                    (const UHDM::BaseClass*)at0->Instance() ==
+                        (const UHDM::BaseClass*)dp0 ||
+                    !hit->second->Typespecs())
+                    continue;
+                for (auto* t0 : *hit->second->Typespecs())
+                    if (t0->VpiName() == at0->VpiName() &&
+                        t0->UhdmType() == at0->UhdmType()) {
+                        rt0->Actual_typespec(t0);
+                        break;
+                    }
+            }
+        }
+    }
     // EvalFunc member-assignment leftovers: stamp AFTER every typespec is
     // materialized (the struct ts a parameter points at is filled by the
     // deferred drain above) and only on the ELABORATED views.
