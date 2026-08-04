@@ -5701,17 +5701,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // typespec: Surelog's argument binding writes
                                 // through the parameter's ts ref, so the LAST
                                 // cont-assign call taking the param as a direct
-                                // actual wins (the elab param keeps its
-                                // declared ts). Procedural calls never rebind.
+                                // actual wins.  Procedural calls never rebind.
+                                // § elabParamTsRebind: the rebound typespec is
+                                // remembered per DECLARATION so every elab
+                                // instance but the first can inherit it (see
+                                // the note on defParamTsRebound).
                                 if (contAssignView == 1 && isFunc && !currentTf &&
                                     sk == SymbolKind::Parameter &&
                                     argIdx < si.argTs.size() &&
                                     si.argTs[argIdx].first) {
-                                    auto dpit = defParamTsRef.find(
-                                        &baseArg.as<NamedValueExpression>().symbol);
-                                    if (dpit != defParamTsRef.end() && dpit->second)
+                                    auto& psym9 =
+                                        baseArg.as<NamedValueExpression>().symbol;
+                                    auto dpit = defParamTsRef.find(&psym9);
+                                    if (dpit != defParamTsRef.end() && dpit->second) {
                                         dpit->second->Actual_typespec(
                                             si.argTs[argIdx].first);
+                                        if (auto* dsy9 = psym9.getSyntax())
+                                            defParamTsRebound[dsy9] =
+                                                si.argTs[argIdx].first;
+                                    }
                                 }
                                 // ...and in the ELAB view of a parameter
                                 // initializer the same binding writes through

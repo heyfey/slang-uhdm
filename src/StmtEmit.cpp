@@ -1830,8 +1830,39 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         }
                     }
                 }
-                if (auto* e = emitExpr(*rs.expr, r, prefix, netMap))
+                if (auto* e = emitExpr(*rs.expr, r, prefix, netMap)) {
                     r->VpiCondition((UHDM::expr*)e);
+                    // § retUnbasedSizing — an UNBASED-UNSIZED return literal is
+                    // sized to the FUNCTION RETURN TYPE and loses its QUOTE:
+                    // the decompile becomes the digit repeated to the width, a
+                    // BIN constant.  A WRITTEN unbased-unsized elsewhere keeps
+                    // the quote (`assign o = '0` stays decompile "'0" even
+                    // where its size is set) — the return context is what drops
+                    // it.  Purpose-built golden (repro t9.sv, one module):
+                    //   function logic [3:0] f(); return '1;  -> BIN:1111 sz 4
+                    //   function logic       g(); return '1;  -> BIN:1    sz 1
+                    //   assign o = '0; (o 4-bit)              -> "'0"    sz 4
+                    //   assign p = '1; (p 1-bit)              -> "'1"    sz -1
+                    // Rggen: rggen_adapter_common's `pre_decode` else-arm
+                    // `return '1`, 9 vectors.
+                    auto& rl9 = stripImplicitConv(*rs.expr);
+                    if (rl9.kind ==
+                            ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                        e->UhdmType() == UHDM::uhdmconstant && rs.expr->type &&
+                        rs.expr->type->isIntegral()) {
+                        logic_t b9 = rl9.as<UnbasedUnsizedIntegerLiteral>()
+                                         .getLiteralValue();
+                        int32_t w9 = (int32_t)rs.expr->type->getBitWidth();
+                        if (!b9.isUnknown() && w9 > 0) {
+                            std::string dg9((size_t)w9, b9.value ? '1' : '0');
+                            auto* c9 = (UHDM::constant*)e;
+                            c9->VpiDecompile(dg9);
+                            c9->VpiSize(w9);
+                            c9->VpiValue("BIN:" + dg9);
+                            c9->VpiConstType(vpiBinaryConst);
+                        }
+                    }
+                }
             }
             return r;
         }

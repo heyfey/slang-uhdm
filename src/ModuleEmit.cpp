@@ -4260,9 +4260,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     if (!progInst) {
         auto pit = defMap.find(&def);
         size_t opLo = pendingParamTs.size();
+        // § elabParamTsRebind — every instance of this definition PAST THE
+        // FIRST inherits the def's rebound parameter typespec (the first one
+        // was cloned before the def body compiled).  Applied over the whole
+        // queue range this call appended, because a dozen different arms of
+        // emitParameters push the deferred ts entry.
+        bool notFirstInst9 = !elabParamRebindSeenDef.insert(&def).second;
         emitParameters(body, m, prefix, topNets, /*topView=*/true,
                        pit != defMap.end() ? &pit->second : nullptr, false,
                        /*topShareTs=*/isTop);
+        if (notFirstInst9 && !defParamTsRebound.empty())
+            for (size_t k9 = opLo; k9 < pendingParamTs.size(); k9++) {
+                const auto* ps9 = pendingParamTs[k9].ps;
+                if (!ps9 || !ps9->getSyntax())
+                    continue;
+                if (auto rb9 = defParamTsRebound.find(ps9->getSyntax());
+                    rb9 != defParamTsRebound.end() && rb9->second)
+                    pendingParamTsRebind[k9] = rb9->second;
+            }
         // The elab pattern-op typespec clones belong to the param-assign
         // elaboration, ahead of this instance's net/port typespecs.
         mintParamOpClones(opLo, pendingParamTs.size());
@@ -9378,10 +9393,26 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // LAST_START = i * CHUNK; IfGen1/2/3 POWER = 2**level).
             // Additive/plain refs keep UINT (genvar_loop_decl_2 w = x,
             // LocalParamInNestedForLoops Offset = RhoOffset[1]).
+            // ...but an EXPLICIT SIZE CAST SEALS its operand: a multiply
+            // written inside W'(...) leaves the fold unsigned.  Purpose-built
+            // golden (repro t5.sv, one gen block, nine localparams):
+            //   bit [W-1:0] A = W'(B*g)      -> UINT   (cast seals)
+            //   bit [W-1:0] K = W'(B*g) + 1  -> UINT   (cast seals, add outside)
+            //   bit [W-1:0] E = B*g          -> INT
+            //   int C = B*g / int D = 1+B*g  -> INT
+            //   untyped F = B*g / H = 1+B*g  -> INT
+            //   int I = 1+g / bit J = 1+g    -> UINT
+            // and Rggen's `localparam bit [ADDRESS_WIDTH-1:0] START_ADDRESS =
+            // OFFSET_ADDRESS + ADDRESS_WIDTH'(BUS_BYTE_WIDTH * g)`, 10 gen
+            // scopes, golden UINT throughout.
             bool mulDivLp9 = false;
             if (realLp)
                 if (auto* ini9 = ps.getInitializer())
                     ini9->visit(makeVisitor(
+                        [&](auto& v9x, const ConversionExpression& ce9) {
+                            if (ce9.isImplicit())
+                                v9x.visitDefault(ce9);
+                        },
                         [&](auto& v9x, const BinaryExpression& be9) {
                             if (be9.op == BinaryOperator::Multiply ||
                                 be9.op == BinaryOperator::Divide ||
@@ -9554,10 +9585,16 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         // with the pa parent (gen_test5 PREV = step / CHUNK,
                         // LAST_START = i * CHUNK; IfGen1/2/3 POWER = 2**level);
                         // additive/plain refs keep UINT (genvar_loop_decl_2
-                        // w = x).
+                        // w = x).  An EXPLICIT SIZE CAST seals its operand —
+                        // see the § cast-seal note on the value encoding above
+                        // (repro t5.sv A/K vs E).
                         if (!negSib9 && ps.getInitializer()) {
                             bool mulDiv9 = false;
                             ps.getInitializer()->visit(makeVisitor(
+                                [&](auto& v9x, const ConversionExpression& ce9) {
+                                    if (ce9.isImplicit())
+                                        v9x.visitDefault(ce9);
+                                },
                                 [&](auto& v9x, const BinaryExpression& be9) {
                                     if (be9.op == BinaryOperator::Multiply ||
                                         be9.op == BinaryOperator::Divide ||
@@ -12886,9 +12923,53 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         // Only a UINT fold binds the bare clone; an INT-encoded fold
         // (negative value) SHARES the param's own typespec (int_types
         // `localparam reg [1:0] y = -1`).
-        if (gl.crt && gl.typedLp && !gl.intFold)
-            if (auto* bare = makeBareVecParamTs(*gl.ps, false))
+        // § genLpCaSharedBareTs — and only when some CONT_ASSIGN in the gen
+        // scope READS the localparam.  The value-only logic clone is what that
+        // read's fold installs; a localparam no cont_assign reads keeps its own
+        // declaration typespec (bounds, keyword and all).  Purpose-built
+        // golden (repro t8.sv, two sibling gen localparams of identical type):
+        //   `localparam bit [3:0] IV = 4'h0;  bf #(.IVP(IV)) u_bf(o);`
+        //        -> bit_typespec[UINT:3@6:21 : UINT:0@6:23]  (the param's own)
+        //   `localparam bit [3:0] IW = 4'h2;  assign p = IW;`
+        //        -> logic_typespec[UINT:3 bare : UINT:0 bare]
+        // matching u2r ParameterInGenScopeInitializedWithLongConstant (CA-read,
+        // bare) and Rggen's 99+ `localparam bit [3:0] INITIAL_VALUE = 4'h0`
+        // instantiation actuals (param ts).
+        UHDM::typespec* bare9 = nullptr;
+        bool caRead9 = false;
+        if (gl.crt && gl.typedLp && !gl.intFold) {
+            std::function<void(const Scope&)> scanCa9 = [&](const Scope& sc9) {
+                for (auto& mb9 : sc9.members()) {
+                    if (caRead9)
+                        return;
+                    if (mb9.kind == SymbolKind::ContinuousAssign) {
+                        mb9.as<ContinuousAssignSymbol>().getAssignment().visit(
+                            makeVisitor([&](auto& v9, const NamedValueExpression&
+                                                          nv9) {
+                                if (&nv9.symbol == (const Symbol*)gl.ps)
+                                    caRead9 = true;
+                                v9.visitDefault(nv9);
+                            }));
+                    }
+                    else if (mb9.kind == SymbolKind::GenerateBlock) {
+                        if (!mb9.as<GenerateBlockSymbol>().isUninstantiated)
+                            scanCa9(mb9.as<GenerateBlockSymbol>());
+                    }
+                    else if (mb9.kind == SymbolKind::GenerateBlockArray) {
+                        for (auto* e9 :
+                             mb9.as<GenerateBlockArraySymbol>().entries)
+                            scanCa9(*e9);
+                    }
+                }
+            };
+            if (auto* psc9 = gl.ps->getParentScope())
+                scanCa9(*psc9);
+        }
+        if (gl.crt && gl.typedLp && !gl.intFold && caRead9)
+            if (auto* bare = makeBareVecParamTs(*gl.ps, false)) {
                 gl.crt->Actual_typespec(bare);
+                bare9 = bare;
+            }
         // A FRESH elab ts, parented at the elab ref (Surelog). An UNTYPED
         // gen localparam resolves to an int_typespec spanning the FULL
         // parameter declaration (3rd sighting of the untyped->int rule).
@@ -12911,6 +12992,63 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         }
         else
             its = makeParamTs(*gl.ps, gl.typedLp);
+        // § genLpTsFoldBounds — a localparam declared INSIDE a generate scope
+        // carries FOLDED packed-range bounds: Surelog compiles the generate
+        // body after the loop is unrolled, so every enclosing-instance
+        // parameter in a bound is already substituted.  A MODULE-level
+        // parameter keeps its symbolic bound in the same views — the
+        // discriminator is the gen scope, not the view.  Purpose-built golden
+        // (repro t4.sv): `parameter bit [ADDRESS_WIDTH-1:0] OFFSET_ADDRESS`
+        // keeps `[operation:0]` in work@top.u, while the loop body's
+        // `localparam bit [ADDRESS_WIDTH-1:0] START_ADDRESS` reads
+        // `[INT:7 sz64 : UINT:0]` in gd[0] and gd[1] alike; 55 copies in
+        // Rggen (rggen_register_common's g_decoder).  The folded bound takes
+        // the INT encoding every operation fold takes (§ elabOvRefIntConst),
+        // at the operation's own span; a bound that was already a literal is
+        // left alone (that is where golden's UINT right bound comes from).
+        if (its) {
+            UHDM::VectorOfrange* rg9 = nullptr;
+            if (its->UhdmType() == UHDM::uhdmbit_typespec)
+                rg9 = ((UHDM::bit_typespec*)its)->Ranges();
+            else if (its->UhdmType() == UHDM::uhdmlogic_typespec)
+                rg9 = ((UHDM::logic_typespec*)its)->Ranges();
+            if (rg9 && !rg9->empty()) {
+                std::vector<slang::ConstantRange> dims9;
+                const Type* t9 = &gl.ps->getType().getCanonicalType();
+                while (t9->kind == SymbolKind::PackedArrayType) {
+                    auto& pa9 = t9->as<PackedArrayType>();
+                    dims9.push_back(pa9.range);
+                    t9 = &pa9.elementType.getCanonicalType();
+                }
+                if (dims9.size() == rg9->size()) {
+                    auto fold9 = [&](UHDM::any* old9, int32_t v9) -> UHDM::expr* {
+                        if (!old9 || old9->UhdmType() != UHDM::uhdmoperation)
+                            return nullptr;
+                        auto* c9 = s.MakeConstant();
+                        std::string d9 = std::to_string(v9);
+                        c9->VpiValue("INT:" + d9);
+                        c9->VpiDecompile(d9);
+                        c9->VpiSize(64);
+                        c9->VpiConstType(vpiIntConst);
+                        c9->VpiParent(old9->VpiParent());
+                        c9->VpiFile(old9->VpiFile());
+                        c9->VpiLineNo(old9->VpiLineNo());
+                        c9->VpiColumnNo(old9->VpiColumnNo());
+                        c9->VpiEndLineNo(old9->VpiEndLineNo());
+                        c9->VpiEndColumnNo(old9->VpiEndColumnNo());
+                        return c9;
+                    };
+                    for (size_t k9 = 0; k9 < rg9->size(); k9++) {
+                        auto* r9 = (*rg9)[k9];
+                        if (auto* nl9 = fold9(r9->Left_expr(), dims9[k9].left))
+                            r9->Left_expr(nl9);
+                        if (auto* nr9 = fold9(r9->Right_expr(), dims9[k9].right))
+                            r9->Right_expr(nr9);
+                    }
+                }
+            }
+        }
+        (void)bare9;
         if (its) {
             gl.rt->Actual_typespec(its);
             its->VpiParent(gl.rt);

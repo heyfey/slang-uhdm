@@ -5659,6 +5659,40 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiConstType(vpiIntConst);
                     c->VpiSize((int32_t)iv.getBitWidth());
                 }
+                // § elabOvRefIntConst — the SAME inheritance law one step out:
+                // an override actual that is a BARE REFERENCE to a parameter of
+                // the enclosing instance resolves through THAT parameter's
+                // elaborated Rhs constant and copies its encoding.  A localparam
+                // whose own initializer folded from an OPERATION carries
+                // vpiIntConst (we already emit that), so an override reading it
+                // is INT too; a literal-valued or plain port parameter stays
+                // UINT.  Purpose-built golden (repro t3.sv, all four forms in
+                // one module):
+                //   localparam int WORDS = DATA_WIDTH / BUS_WIDTH;
+                //   mux #(.ENTRIES(WORDS))     -> INT:2  ct 7   <- operation
+                //   mux #(.ENTRIES(REGISTERS)) -> UINT:1 ct 9   <- port param
+                //   mux #(.ENTRIES(2))         -> UINT:2 ct 9   <- literal
+                //   mux #(.ENTRIES(PLAIN))     -> UINT:3 ct 9   <- literal lp
+                // and 44 copies of Rggen's `.ENTRIES(WORDS)` on rggen_mux.
+                else if (boundInit && [&] {
+                             auto& bo9 = stripImplicitConv(*boundInit);
+                             if (bo9.kind != ExpressionKind::NamedValue)
+                                 return false;
+                             auto& sy9 = bo9.as<NamedValueExpression>().symbol;
+                             if (sy9.kind != SymbolKind::Parameter)
+                                 return false;
+                             auto it9 = elabParamPa.find(&sy9);
+                             if (it9 == elabParamPa.end() || !it9->second)
+                                 return false;
+                             auto* r9 = it9->second->Rhs();
+                             return r9 && r9->UhdmType() == UHDM::uhdmconstant &&
+                                    ((UHDM::constant*)r9)->VpiConstType() ==
+                                        vpiIntConst;
+                         }()) {
+                    c->VpiValue("INT:" + digits);
+                    c->VpiConstType(vpiIntConst);
+                    c->VpiSize((int32_t)iv.getBitWidth());
+                }
                 // A RANGED untyped param (parameter [0:0] REG_ALU) folds its
                 // override like a typed one: UINT at the declared width
                 // (mriscv ALU_beq #(.REG_ALU(REG_ALU))).
@@ -10791,8 +10825,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // param can carry a ref_typespec to it.
                     importedParamDefTs[&ps] = its;
                 }
-                if (di)
+                if (di) {
                     di->paramTs[&member] = its;
+                    // § paramCastTsBySyntax — the syntax-keyed twin, so an
+                    // elab instance with its OWN InstanceBodySymbol can still
+                    // find its declaration's def-view typespec.
+                    if (!topView && ps.getSyntax())
+                        di->paramTsSyn[ps.getSyntax()] = its;
+                }
                 // Remember the DEF param's own ts ref: a cont-assign function
                 // call taking this param as a direct actual REBINDS it to the
                 // formal's typespec (Surelog).
@@ -13012,6 +13052,10 @@ UHDM::typespec* UhdmExporter::makeBareVecParamTs(const ParameterSymbol& ps,
     if (!ct.isPackedArray())
         return nullptr;
     auto& pat = ct.as<PackedArrayType>();
+    // The clone is a LOGIC vector whatever the declared keyword — a `bit
+    // [3:0]` gen localparam shared into a cont_assign binds a logic_typespec
+    // with value-only bounds (golden, repro t7.sv).  Which constants get this
+    // clone at all is § genLpCaSharedBareTs (ModuleEmit's drain).
     auto* lts = s.MakeLogic_typespec();
     auto* r = s.MakeRange();
     r->VpiParent(lts);
@@ -13733,26 +13777,44 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
         //   ours    3 copies at the DECLARATION 84:12 with Cast_to_expr null,
         //     plus 2 at 449:27 that do carry it.
         // Only the missing Cast_to_expr is CMP-visible (loc is not compared),
-        // so the fix is to reach the three declaration copies.  The lookup
-        // below cannot: `dit->second.paramTs` is keyed by the DEF body's
-        // ParameterSymbol while `ps` here is the ELAB instance's, and the
-        // literal-width branch in ExprEmit (`litWidthParam9`) that would have
-        // minted the shared object is gated on a LITERAL initializer, which a
-        // `$clog2(...)` localparam is not.
+        // so the fix is to reach the three declaration copies.
+        // § paramCastTsBySyntax — the symbol-keyed lookup could not: it is
+        // keyed by the DEF body's ParameterSymbol while `ps` here is the ELAB
+        // instance's, and the two coincide only for the one instance whose
+        // InstanceBodySymbol slang shares with the def (the def view is
+        // emitted from the FIRST instance's body).  Measured in Rggen:
+        // rggen_register_common's `parameter int VALUE_WIDTH` is used as a
+        // cast width (`VALUE_WIDTH'(bit_field_if.value)`) and golden carries
+        // the Cast_to_expr ref_obj on ALL 44 elaborated copies, where we had
+        // it on exactly one — g_register_0's, the shared-body instance.
+        // Re-key on the DECLARATOR SYNTAX and every copy finds it.
         if (its->UhdmType() == UHDM::uhdmint_typespec) {
             if (auto psc = ps->getParentScope();
                 psc && psc->asSymbol().kind == SymbolKind::InstanceBody) {
                 auto dit = defMap.find(
                     &psc->asSymbol().as<InstanceBodySymbol>().getDefinition());
-                if (dit != defMap.end())
+                if (dit != defMap.end()) {
+                    UHDM::typespec* defTs9 = nullptr;
                     if (auto pit = dit->second.paramTs.find(ps);
-                        pit != dit->second.paramTs.end() &&
-                        pit->second->UhdmType() == UHDM::uhdmint_typespec)
-                        if (auto* ce =
-                                ((UHDM::int_typespec*)pit->second)->Cast_to_expr())
+                        pit != dit->second.paramTs.end())
+                        defTs9 = pit->second;
+                    else if (ps->getSyntax())
+                        if (auto sit = dit->second.paramTsSyn.find(ps->getSyntax());
+                            sit != dit->second.paramTsSyn.end())
+                            defTs9 = sit->second;
+                    if (defTs9 && defTs9->UhdmType() == UHDM::uhdmint_typespec)
+                        if (auto* ce = ((UHDM::int_typespec*)defTs9)->Cast_to_expr())
                             ((UHDM::int_typespec*)its)->Cast_to_expr(ce);
+                }
             }
         }
+        // § elabParamTsRebind — last word: a non-first instance of a definition
+        // whose def-view param ts was rebound to a cont-assign call's formal
+        // typespec points at THAT object (the clone above is discarded, exactly
+        // as Surelog's per-instance clone_tree copies the already-rebound def).
+        if (auto rb9 = pendingParamTsRebind.find(i);
+            rb9 != pendingParamTsRebind.end() && rb9->second)
+            prt->Actual_typespec(rb9->second);
         (void)up;
     }
 }

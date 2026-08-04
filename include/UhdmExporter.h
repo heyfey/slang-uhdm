@@ -246,6 +246,13 @@ private:
         std::vector<UHDM::cont_assign*> contAssigns;
         std::set<const slang::ast::Symbol*> processRefs;
         std::map<const slang::ast::Symbol*, UHDM::typespec*> paramTs;
+        // Same map keyed by the parameter's DECLARATOR SYNTAX.  An elaborated
+        // instance with its own parameterization gets its own
+        // InstanceBodySymbol, so its ParameterSymbol is a DIFFERENT object
+        // from the def-view one and the symbol-keyed map above only ever
+        // resolves for the instance slang happens to share with the def
+        // (§ paramCastTsBySyntax).
+        std::map<const slang::syntax::SyntaxNode*, UHDM::typespec*> paramTsSyn;
         TsCache defTs;
         std::vector<UHDM::task_func*> taskFuncs;
         std::vector<UHDM::typespec*> typedefs;
@@ -2847,8 +2854,29 @@ private:
     // direct actual argument of a function call in a CONTINUOUS assign has
     // this ref REBOUND to the formal's typespec (Surelog's arg-binding writes
     // through the param's ts ref; the last such call in source order wins).
-    // Procedural calls and the elab-view param never rebind.
+    // Procedural calls never rebind.
     std::map<const slang::ast::Symbol*, UHDM::ref_typespec*> defParamTsRef;
+    // § elabParamTsRebind — the same rebind lands on the ELABORATED instances
+    // too, but NOT on the FIRST instance of the definition.  Surelog compiles
+    // a module body once, at its first instantiation: instance #1's parameter
+    // objects are cloned from the still-pristine definition, the def-view
+    // cont_assign binding then writes the formal's typespec through the def's
+    // ts ref, and every later instance clones the ALREADY-REBOUND def.
+    // Measured on a purpose-built golden (tools/probe repro `t1.sv`:
+    // `parameter bit READABLE` + `assign o = f(1'b0, READABLE, WRITABLE)` with
+    // three instances -> u0 keeps bit_typespec, u1/u2 and the def carry the
+    // `logic accessible` formal typespec) and in Rggen, where exactly one of
+    // 44 rggen_register_common instances (g_register_0's, the first in
+    // depth-first instance order) keeps its declared `bit`.
+    // Keyed by the parameter's DECLARATOR SYNTAX, not by its symbol: slang
+    // gives each distinct parameterization its own InstanceBodySymbol, so the
+    // def-view symbol and an elab instance's symbol are different objects.
+    std::map<const slang::syntax::SyntaxNode*, UHDM::typespec*> defParamTsRebound;
+    // Definitions whose first ELAB instance has already emitted parameters.
+    std::set<const slang::ast::DefinitionSymbol*> elabParamRebindSeenDef;
+    // pendingParamTs index -> the rebound typespec its ref must end up on
+    // (applied at the tail of patchParamTypespecs, after the normal clone).
+    std::map<size_t, UHDM::typespec*> pendingParamTsRebind;
     // An elab param_assign Rhs ts ref waiting to be pointed at the module DEF
     // parameter's FINAL typespec object (see patchParamTypespecs' defParamTs
     // note). Resolved last: several deferred passes re-bind a def parameter's

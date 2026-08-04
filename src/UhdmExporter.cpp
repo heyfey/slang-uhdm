@@ -3538,6 +3538,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     pendingElabPortTs.clear();
     topPendings.clear();
     pendingParamTs.clear();
+    pendingParamTsRebind.clear(); // indices into the queue just cleared
     pendingNetTs.clear();
     for (auto& [dst, src] : netTsAlias)
         if (dst && src && !dst->Actual_typespec())

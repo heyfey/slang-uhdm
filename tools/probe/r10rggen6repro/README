@@ -1,0 +1,31 @@
+r10rggen6 purpose-built goldens (Rggen pass 6).  Each file isolates ONE law
+decoded this pass; run with
+
+  bash tools/probe/r10rggen6golden.sh <dir> <file.sv>     # Surelog golden
+  bash /tmp/r10rggen6_g/mine.sh <file.sv> pa|tr|uu        # ours + census
+
+t1  § elabParamTsRebind      def-view param ts rebind reaches every ELAB
+                             instance BUT THE FIRST (u0 bit, u1/u2 logic).
+t2  § elabParamTsRebind      "first" is DEPTH-FIRST instance order
+                             (top.m0.s0 keeps `bit`, top.u0 / gb[*] do not).
+t3  § elabOvRefIntConst      an override actual that is a bare ref to a
+                             parameter copies THAT parameter's fold encoding
+                             (WORDS=DATA_WIDTH/BUS_WIDTH -> INT; literal and
+                             port-param actuals -> UINT).
+t4  § genLpTsFoldBounds      a GEN-SCOPE localparam's packed-range bounds are
+                             folded; a module-level parameter's are not.
+t5  § cast-seal              a mul/div/pow inside an explicit SIZE CAST does
+                             not make a gen-lp fold signed (A/K vs C/D/E/F/H)
+                             + § genLpCaSharedBareTs first sighting (J).
+t6  = u2r ParameterInGenScopeInitializedWithLongConstant (CA-read localparam,
+                             value-only logic clone).
+t7  § genLpCaSharedBareTs    a `bit [3:0]` localparam READ by a cont_assign
+                             still binds a LOGIC value-only clone.
+t8  § genLpCaSharedBareTs    the discriminator, two sibling localparams of
+                             identical type: the one passed as an
+                             instantiation override keeps its own declaration
+                             typespec, the one read by an assign gets the
+                             bare logic clone.
+t9  § retUnbasedSizing       `return '1` sizes to the RETURN TYPE and loses
+                             the quote (BIN:1111 sz 4 / BIN:1 sz 1), while a
+                             written `assign o = '0` keeps it.
