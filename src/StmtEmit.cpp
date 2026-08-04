@@ -1464,21 +1464,44 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         logicLoopVar = lfc0.kind == SymbolKind::ScalarType &&
                                        lfc0.isFourState();
                     }
-                    if (ct.kind != SymbolKind::PredefinedIntegerType &&
-                        !logicLoopVar) {
-                        noteUnsupported("for loop var type");
-                        return nullptr;
-                    }
-                    // `for (integer x = ..)` declares an integer_var (Surelog);
-                    // `for (int i = ..)` an int_var.
+                    bool intLoopVar =
+                        ct.kind == SymbolKind::PredefinedIntegerType;
+                    // § classLoopVar11 — a for-header loop variable of ANY
+                    // other type used to abort the WHOLE for statement
+                    // (`noteUnsupported` + return nullptr), so the header, the
+                    // condition, the increment and the entire body vanished
+                    // from our model.  The UVM callback-iteration idiom
+                    //     for (uvm_reg_cbs cb = cbs.first(); cb != null;
+                    //          cb = cbs.next())
+                    // (uvm_reg_field.svh:1135 and ~60 more sites, plus every
+                    // `uvm_vreg`/`uvm_reg_cbs` twin) is exactly that shape,
+                    // which is why golden emitted 244 `hier_path[ref_obj cbs,
+                    // method_func_call first]` where we emitted 4: the calls
+                    // were never reached, not mis-shaped.  Surelog compiles
+                    // the declaration with the ordinary statement-scope
+                    // variable factory, so the loop variable takes the same
+                    // object kind a subroutine local would (class_var for a
+                    // directly-named class, ref_var through a typedef alias
+                    // per aliasClassRefVar10, string_var, enum_var, ...) and
+                    // the init assignment keeps the existing shape.  Verified
+                    // on repro t1: class-typed and string-typed headers, with
+                    // a call initialiser and with a `null` initialiser.
+                    // Deliberately ADDITIVE — the integral/logic arms below
+                    // are byte-for-byte what they were, so no loop that
+                    // already emitted can change kind.
                     UHDM::variables* v =
-                        logicLoopVar
-                            ? (UHDM::variables*)s.MakeLogic_var()
+                        logicLoopVar ? (UHDM::variables*)s.MakeLogic_var()
+                        : !intLoopVar
+                            ? makeReturnVar(s, lv->getType())
                         : ct.as<PredefinedIntegerType>().integerKind ==
                                 PredefinedIntegerType::Integer
                             ? (UHDM::variables*)s.MakeInteger_var()
                             : (UHDM::variables*)s.MakeInt_var();
-                    if (!logicLoopVar)
+                    if (!v) {
+                        noteUnsupported("for loop var type");
+                        return nullptr;
+                    }
+                    if (intLoopVar && !logicLoopVar)
                         v->VpiSigned(ct.as<PredefinedIntegerType>().isSigned);
                     v->VpiName(lv->name);
                     v->VpiFullName(joinRef(prefix, lv->name));
@@ -2242,6 +2265,32 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             }
             as->VpiProperty(ps);
             return as;
+        }
+        // § waitStmt11 — `wait (cond) [stmt];` is a `wait_stmt` carrying the
+        // condition and, when the wait guards one, the guarded statement.
+        // There was no arm at all, so the wait AND everything it guarded
+        // vanished (uvm_objection / uvm_sequence_base / uvm_resource:
+        // 22 source sites, and a task whose whole body is a `wait` lost its
+        // body outright — repro t3 w_plain/w_block, byte-identical after).
+        case StatementKind::Wait: {
+            auto& ws = stmt.as<WaitStatement>();
+            auto* w = s.MakeWait_stmt();
+            w->VpiParent(parent);
+            setLoc(w, stmt.sourceRange);
+            if (auto* c = emitExpr(ws.cond, w, prefix, netMap))
+                w->VpiCondition(c);
+            if (auto* inner = emitStmt(ws.stmt, w, prefix, netMap))
+                w->VpiStmt(inner);
+            return w;
+        }
+        // § waitFork11 — `wait fork;` is a bare `wait_fork` object with no
+        // fields at all (repro t3 w_fork: golden's fork/join_none begin held
+        // TWO statements, ours only the fork).
+        case StatementKind::WaitFork: {
+            auto* w = s.MakeWait_fork();
+            w->VpiParent(parent);
+            setLoc(w, stmt.sourceRange);
+            return w;
         }
         case StatementKind::Empty:
             return nullptr;

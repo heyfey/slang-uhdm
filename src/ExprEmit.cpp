@@ -16,6 +16,40 @@
 
 namespace slang_uhdm {
 
+// § newArray11 — every reference under a `new[...]` array-allocation call is
+// NAME-ONLY in golden (`ref_obj (dyn)`, not `ref_obj (p::C::f::dyn)`), size
+// expression and copy source alike: Surelog compiles those arguments outside
+// any scope, so nothing scopes their names.  The refs are minted by the
+// ordinary emitExpr paths, which always scope, so strip afterwards over the
+// shapes an allocation size/source can take (repro t3 n_array_ref).
+static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
+    if (!o || depth > 8)
+        return;
+    switch (o->UhdmType()) {
+        case UHDM::uhdmref_obj:
+            ((UHDM::ref_obj*)o)->VpiFullName(std::string());
+            return;
+        case UHDM::uhdmref_var:
+            ((UHDM::ref_var*)o)->VpiFullName(std::string());
+            return;
+        case UHDM::uhdmoperation:
+            if (auto* ops = ((UHDM::operation*)o)->Operands())
+                for (auto* op : *ops)
+                    stripRefFullNames11(op, depth + 1);
+            return;
+        case UHDM::uhdmbit_select:
+            ((UHDM::bit_select*)o)->VpiFullName(std::string());
+            return;
+        case UHDM::uhdmmethod_func_call:
+            if (auto* as = ((UHDM::method_func_call*)o)->Tf_call_args())
+                for (auto* a : *as)
+                    stripRefFullNames11(a, depth + 1);
+            return;
+        default:
+            return;
+    }
+}
+
 // The UHDM typespec CLASS Surelog would build for `t` — the key
 // ExprEval::flattenPatternAssignments matches a pattern TYPE key (`int: 0`)
 // against (`ttp->UhdmType() == fieldTypes[i]->UhdmType()`).  Only the shapes
@@ -5940,6 +5974,314 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // all (isPkgQualifiedVarRef).
                     if (isPkgQualifiedVarRef(recv0))
                         return emitExpr(recv0, parent, prefix, netMap);
+                    // § callParenSpan11 — slang's CallExpression range stops
+                    // at the callee name when the call takes no arguments
+                    // (`h.first` for `h.first()`); Surelog's hier_path runs
+                    // through the closing paren.  Take the invocation SYNTAX
+                    // range when it starts at the same place and reaches
+                    // further, which is exactly the `()` case.
+                    SourceRange callRng11 = expr.sourceRange;
+                    if (expr.syntax) {
+                        auto sr11 = expr.syntax->sourceRange();
+                        if (sr11.start() == callRng11.start() &&
+                            sr11.end() > callRng11.end())
+                            callRng11 = sr11;
+                    }
+                    // § deepRecvCall11 — the two arms below only ever knew a
+                    // receiver that is ONE bare name; a DOTTED or INDEXED
+                    // receiver (`m.l.doit()`, `m.la[2].get()`, `q[0].get()`)
+                    // fell through to the flat method_func_call in both
+                    // positions, which is wrong in both.  Flatten the receiver
+                    // into its written segments so the two shapes golden
+                    // actually builds can be produced (repro t2, both views):
+                    //   EXPRESSION  hier_path `<recv>.<method>` whose elements
+                    //     are one NAME-ONLY ref_obj per plain segment, a
+                    //     bit_select (bare name, fullname = the written path
+                    //     through the index, vpiIndex the index) per indexed
+                    //     segment, and the method_func_call last;
+                    //   STATEMENT   Surelog's compileTfCall reads only the
+                    //     FIRST TWO names — the call is named after segment 1
+                    //     with segment 0 as the (scoped) vpiPrefix, and the
+                    //     method's own arguments are dropped; an INDEX on
+                    //     segment 1 becomes the call's single vpiArgument.
+                    // The single-segment forms keep their existing arms
+                    // untouched: `q[0].doit();` (one indexed segment, in
+                    // statement position) already matched golden.
+                    struct RSeg11 {
+                        std::string name;
+                        const Expression* idx;   // ElementSelect selector
+                        const Expression* node;  // written span of the segment
+                        SourceRange nameRng;
+                    };
+                    std::vector<RSeg11> segs11;
+                    {
+                        const Expression* cur11 = &recv0;
+                        bool ok11 = true;
+                        while (ok11) {
+                            if (cur11->kind == ExpressionKind::ElementSelect) {
+                                auto& es11 =
+                                    cur11->as<ElementSelectExpression>();
+                                auto* base11 = &stripImplicitConv(es11.value());
+                                std::string nm11;
+                                if (base11->kind == ExpressionKind::NamedValue)
+                                    nm11 = std::string(
+                                        base11->as<NamedValueExpression>()
+                                            .symbol.name);
+                                else if (base11->kind ==
+                                         ExpressionKind::MemberAccess)
+                                    nm11 = std::string(
+                                        base11->as<MemberAccessExpression>()
+                                            .member.name);
+                                else {
+                                    ok11 = false;
+                                    break;
+                                }
+                                auto ne11 = base11->sourceRange.end();
+                                segs11.push_back(
+                                    {nm11, &es11.selector(), cur11,
+                                     SourceRange(ne11 - nm11.size(), ne11)});
+                                if (base11->kind ==
+                                    ExpressionKind::MemberAccess) {
+                                    cur11 = &stripImplicitConv(
+                                        base11->as<MemberAccessExpression>()
+                                            .value());
+                                    continue;
+                                }
+                                break;
+                            }
+                            if (cur11->kind == ExpressionKind::MemberAccess) {
+                                auto& ma11 =
+                                    cur11->as<MemberAccessExpression>();
+                                std::string nm11(ma11.member.name);
+                                auto ne11 = cur11->sourceRange.end();
+                                segs11.push_back(
+                                    {nm11, nullptr, cur11,
+                                     SourceRange(ne11 - nm11.size(), ne11)});
+                                cur11 = &stripImplicitConv(ma11.value());
+                                continue;
+                            }
+                            if (cur11->kind == ExpressionKind::NamedValue) {
+                                segs11.push_back(
+                                    {std::string(
+                                         cur11->as<NamedValueExpression>()
+                                             .symbol.name),
+                                     nullptr, cur11, cur11->sourceRange});
+                                break;
+                            }
+                            ok11 = false;
+                        }
+                        if (!ok11)
+                            segs11.clear();
+                        else
+                            std::reverse(segs11.begin(), segs11.end());
+                    }
+                    // § thisRecvCall11 — a `this.`-rooted receiver is NOT a
+                    // path segment for Surelog.  `compileTfCall` hands the
+                    // whole `paImplicit_class_handle` form to
+                    // `compileComplexFuncCall` (CompileExpression.cpp :5154),
+                    // which sets rootName="this" and then splits FOUR ways on
+                    // what follows the first name — read off the source and
+                    // pinned by repro t4:
+                    //   `this.m(args)`            -> method_func_call named
+                    //     after the METHOD, vpiPrefix a STRING constant
+                    //     "this" (the `List_of_arguments` arm compiles the
+                    //     handle itself as the prefix expression);
+                    //   `this.a.m()` / `this.a[i].m()` in STATEMENT position
+                    //     -> the `paConstant_bit_select` arm:
+                    //     `fcall->VpiName(rootName)` — the call is literally
+                    //     NAMED "this", located at the FIRST name after it,
+                    //     prefix the same string constant, and the method's
+                    //     own arguments ride it;
+                    //   `this.a.m()` in EXPRESSION position -> the
+                    //     `slStringConst` arm, which is a one-line MOCKUP:
+                    //     a bare constant carrying only VpiDecompile("this")
+                    //     — no value, no size, no const type;
+                    //   `this.a[i].m()` in EXPRESSION position -> the
+                    //     select arm's fallback hier_path: ref_obj "this"
+                    //     located at the first name, then one ref_obj per
+                    //     remaining name INCLUDING the method (never a
+                    //     method_func_call), indices dropped from the name.
+                    // This matters at scale because UVM's TLM ports and
+                    // exports are generated by `UVM_GET_IMP(this.m_if, ...)`
+                    // and friends: the first cut of deepRecvCall11 built a
+                    // 3-element hier_path for every one of their forwarding
+                    // methods, +2011 elements on SeqDriver where golden's
+                    // whole delta was +838.
+                    bool thisRoot11 =
+                        !segs11.empty() && segs11[0].name == "this";
+                    // `super.`-rooted is the same Surelog arm with
+                    // rootName="super" but is NOT measured here, so it keeps
+                    // the pre-existing flat form rather than guessing.
+                    bool superRoot11 =
+                        !segs11.empty() && segs11[0].name == "super";
+                    // Both `this` constants are UNPARENTED in golden.
+                    auto thisConst11 = [&]() {
+                        auto* c11 = s.MakeConstant();
+                        c11->VpiValue("STRING:this");
+                        c11->VpiDecompile("this");
+                        c11->VpiSize(4);
+                        c11->VpiConstType(vpiStringConst);
+                        setLoc(c11, segs11[0].nameRng);
+                        return c11;
+                    };
+                    if (thisRoot11) {
+                        bool idxed11 = false;
+                        for (size_t i11 = 1; i11 < segs11.size(); i11++)
+                            idxed11 |= segs11[i11].idx != nullptr;
+                        auto mSpan11 =
+                            nameSpan(call.thisClass()->sourceRange.end() + 1,
+                                     sub.name);
+                        if (!callStmtCtx0 && segs11.size() > 1 && !idxed11) {
+                            auto* c11 = s.MakeConstant();
+                            c11->VpiDecompile("this");
+                            setLoc(c11, callRng11);
+                            return c11;
+                        }
+                        if (!callStmtCtx0 && segs11.size() > 1) {
+                            auto* hp11 = s.MakeHier_path();
+                            std::string nm11 = "this";
+                            for (size_t i11 = 1; i11 < segs11.size(); i11++)
+                                nm11 += "." + segs11[i11].name;
+                            nm11 += "." + std::string(sub.name);
+                            hp11->VpiName(nm11);
+                            hp11->VpiFullName(nm11);
+                            hp11->VpiParent(parent);
+                            setLoc(hp11, callRng11);
+                            auto* el11 = s.MakeAnyVec();
+                            auto mkRef11 = [&](const std::string& n11,
+                                               SourceRange r11) {
+                                auto* r = s.MakeRef_obj();
+                                r->VpiName(n11);
+                                r->VpiFullName(n11);  // name-only
+                                r->VpiParent(hp11);
+                                setLoc(r, r11);
+                                el11->push_back(r);
+                            };
+                            mkRef11("this", segs11[1].nameRng);
+                            for (size_t i11 = 1; i11 < segs11.size(); i11++)
+                                mkRef11(segs11[i11].name, segs11[i11].nameRng);
+                            mkRef11(std::string(sub.name), mSpan11);
+                            hp11->Path_elems(el11);
+                            return hp11;
+                        }
+                        auto* mfc11 = s.MakeMethod_func_call();
+                        if (segs11.size() > 1) {
+                            mfc11->VpiName("this");
+                            setLoc(mfc11, segs11[1].nameRng);
+                        }
+                        else {
+                            mfc11->VpiName(sub.name);
+                            setLoc(mfc11, mSpan11);
+                        }
+                        mfc11->VpiParent(parent);
+                        mfc11->Prefix(thisConst11());
+                        auto* ma11 = s.MakeAnyVec();
+                        for (auto arg : call.arguments()) {
+                            bool fs11 = forceConstParent;
+                            if (isLiteralExpr(*arg))
+                                forceConstParent = true;
+                            if (auto* a11 =
+                                    emitExpr(*arg, mfc11, prefix, netMap))
+                                ma11->push_back(a11);
+                            forceConstParent = fs11;
+                        }
+                        if (!ma11->empty())
+                            mfc11->Tf_call_args(ma11);
+                        return mfc11;
+                    }
+                    bool deepRecv11 =
+                        !superRoot11 &&
+                        (segs11.size() > 1 ||
+                         (segs11.size() == 1 && segs11[0].idx != nullptr));
+                    if (!callStmtCtx0 && deepRecv11) {
+                        auto& recvE11 = *call.thisClass();
+                        std::string recvTx11 = rawText(recvE11.sourceRange);
+                        std::string dotted11 =
+                            recvTx11 + "." + std::string(sub.name);
+                        auto* hp11 = s.MakeHier_path();
+                        hp11->VpiName(dotted11);
+                        hp11->VpiFullName(dotted11);
+                        hp11->VpiParent(parent);
+                        setLoc(hp11, callRng11);
+                        auto* elems11 = s.MakeAnyVec();
+                        for (auto& sg11 : segs11) {
+                            if (!sg11.idx) {
+                                auto* r11 = s.MakeRef_obj();
+                                r11->VpiName(sg11.name);
+                                r11->VpiFullName(sg11.name);  // name-only
+                                r11->VpiParent(hp11);
+                                setLoc(r11, sg11.nameRng);
+                                elems11->push_back(r11);
+                                continue;
+                            }
+                            auto* bs11 = s.MakeBit_select();
+                            bs11->VpiName(sg11.name);
+                            bs11->VpiFullName(
+                                rawText(sg11.node->sourceRange));
+                            bs11->VpiParent(hp11);
+                            setLoc(bs11, sg11.nameRng);
+                            // The index of a hier_path element is UNPARENTED
+                            // in golden (unlike the statement form's argument,
+                            // which parents at the call).
+                            bool fsx11 = forceConstParent;
+                            bool ssx11 = suppressConstParent;
+                            forceConstParent = false;
+                            suppressConstParent = true;
+                            if (auto* ix11 =
+                                    emitExpr(*sg11.idx, bs11, prefix, netMap))
+                                bs11->VpiIndex((UHDM::expr*)ix11);
+                            forceConstParent = fsx11;
+                            suppressConstParent = ssx11;
+                            elems11->push_back(bs11);
+                        }
+                        auto* mfc11 = s.MakeMethod_func_call();
+                        mfc11->VpiName(sub.name);
+                        mfc11->VpiParent(hp11);
+                        setLoc(mfc11, nameSpan(recvE11.sourceRange.end() + 1,
+                                               sub.name));
+                        auto* margs11 = s.MakeAnyVec();
+                        for (auto arg : call.arguments()) {
+                            bool fs11 = forceConstParent;
+                            if (isLiteralExpr(*arg))
+                                forceConstParent = true;
+                            if (auto* a11 =
+                                    emitExpr(*arg, mfc11, prefix, netMap))
+                                margs11->push_back(a11);
+                            forceConstParent = fs11;
+                        }
+                        if (!margs11->empty())
+                            mfc11->Tf_call_args(margs11);
+                        elems11->push_back(mfc11);
+                        hp11->Path_elems(elems11);
+                        return hp11;
+                    }
+                    if (callStmtCtx0 && deepRecv11 && segs11.size() > 1) {
+                        auto& sg0 = segs11[0];
+                        auto& sg1 = segs11[1];
+                        auto* mfc11 = s.MakeMethod_func_call();
+                        mfc11->VpiName(sg1.name);
+                        mfc11->VpiParent(parent);
+                        setLoc(mfc11, sg1.nameRng);
+                        auto* pr11 = s.MakeRef_obj();
+                        pr11->VpiName(sg0.name);
+                        pr11->VpiFullName(joinRef(prefix, sg0.name));
+                        pr11->VpiParent(mfc11);
+                        setLoc(pr11, sg0.nameRng);
+                        mfc11->Prefix(pr11);
+                        if (sg1.idx) {
+                            auto* margs11 = s.MakeAnyVec();
+                            bool fs11 = forceConstParent;
+                            if (isLiteralExpr(*sg1.idx))
+                                forceConstParent = true;
+                            if (auto* a11 =
+                                    emitExpr(*sg1.idx, mfc11, prefix, netMap))
+                                margs11->push_back(a11);
+                            forceConstParent = fs11;
+                            if (!margs11->empty())
+                                mfc11->Tf_call_args(margs11);
+                        }
+                        return mfc11;
+                    }
                     if (!callStmtCtx0 &&
                         recv0.kind == ExpressionKind::NamedValue) {
                         std::string rn0(
@@ -5949,7 +6291,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         hp0->VpiName(dotted0);
                         hp0->VpiFullName(dotted0);
                         hp0->VpiParent(parent);
-                        setLoc(hp0, expr.sourceRange);
+                        setLoc(hp0, callRng11);
                         auto* elems0 = s.MakeAnyVec();
                         auto* r0 = s.MakeRef_obj();
                         r0->VpiName(rn0);
@@ -11440,6 +11782,36 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // Interface-port member access (sub.sig): a hier_path with one
             // ref_obj element per dotted component.
             return buildDottedHierPath(expr, dotted, parent, prefix);
+        }
+        // § newArray11 — `d = new[n];` / `d = new[n](src);` is the SAME
+        // method_func_call named "new" the class form uses, but LOCATED (over
+        // the whole `new[...]` text) and UNPARENTED, with the size expression
+        // as the first vpiArgument and the copy source, when written, as the
+        // second (a name-only ref_obj).  There was no arm, so the assignment
+        // came out with no Rhs at all — 22 UVM source sites, including the
+        // `uvm_field_array_*` macro bodies that expand once per field.
+        // Repro t3 n_array / n_array_copy.
+        case ExpressionKind::NewArray: {
+            auto& nae = expr.as<NewArrayExpression>();
+            auto* mfc = s.MakeMethod_func_call();
+            mfc->VpiName("new");
+            setLoc(mfc, expr.sourceRange);
+            auto* nargs = s.MakeAnyVec();
+            {
+                bool fs9 = forceConstParent;
+                if (isLiteralExpr(nae.sizeExpr()))
+                    forceConstParent = true;
+                if (auto* a9 = emitExpr(nae.sizeExpr(), mfc, prefix, netMap))
+                    nargs->push_back(a9);
+                forceConstParent = fs9;
+            }
+            if (auto* ie9 = nae.initExpr())
+                if (auto* a9 = emitExpr(*ie9, mfc, prefix, netMap))
+                    nargs->push_back(a9);
+            if (!nargs->empty())
+                mfc->Tf_call_args(nargs);
+            stripRefFullNames11(mfc);
+            return mfc;
         }
         case ExpressionKind::NewClass: {
             // bar = new(): a loc-less method_func_call named "new" — or
