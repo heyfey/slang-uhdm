@@ -977,6 +977,11 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             attrMap[it.sym] = stored;
         }
         info.nets[it.sym] = n;
+        // § connExprBindsNet — remember the DEF-view net twin of every module
+        // signal.  A module-scope `logic x;` produces BOTH a net (here) and a
+        // variable (the elab view), and an elaborated child-instance
+        // connection EXPRESSION binds its operands to the NET copy.
+        defSigNet[it.sym] = n;
         nets->push_back(n);
     }
     // Each interface port produces a bare logic_net (no typespec) at the port
@@ -4060,6 +4065,111 @@ bool UhdmExporter::implicitNetFromPatternKey(const Symbol* sym,
         }
     }
     return false;
+}
+
+// § connExprBindsNet — an ELABORATED child-instance connection written as an
+// EXPRESSION binds its operand names to the module's NET copy, not to the
+// variable the same declaration also produced.
+//
+// A module-scope `logic x;` lands in BOTH the netlist's nets and its variables
+// (Surelog's elabSignal makes the variable, the def-view writer the net), so a
+// connection ref has two candidates.  Surelog picks between them by ACCIDENT of
+// its two binding paths: `NetlistElaboration::elab_ports_nets_` pulls the
+// connection's LEADING primary out of the syntax as `sigId`/`sigName` and binds
+// THAT through `bind_net_` — the netlist symbol table, whose entry is the
+// variable — while every other name inside the expression keeps whatever
+// `compileExpression` resolved, which is the net.  A BARE-ref connection is all
+// leading identifier, so it binds the variable, as it already did here.
+//
+// Purpose-built golden tools/probe/r10scr13repro/t2.sv puts eight shapes side
+// by side, every name used exactly once so order cannot confound the reading:
+//   `a1 & a2`      -> a1 VAR, a2 NET      `b1 ? b2 : b3` -> b1 VAR, b2/b3 NET
+//   `d1 + d2`      -> d1 VAR, d2 NET      `{c1, c2}`     -> both NET
+//   `~e1`          -> NET                 `{(g1 & g2)}`  -> both NET
+//   bare `f1`      -> VAR
+// The discriminator is positional, not operator-shaped: the concat and the
+// unary op START AT `{`/`~`, so no operand sits at the expression's own start
+// and none is the leading identifier.  The DEF view's ref_module binds the net
+// in EVERY position, leading one included (measured on the same golden), and
+// already matched — this rule is elab-only.
+//
+// Scr1SvTests' scr1_top_tb_axi is the corpus measurement: 58 golden
+// in-expression connection operands, ALL nets, across 28
+// `{io_axi_imem_*, io_axi_dmem_*}` concats feeding i_memory_tb.
+void UhdmExporter::bindConnExprNets(UHDM::any* h, const Expression& conn) {
+    if (!h || h->UhdmType() == UHDM::uhdmref_obj)
+        return;
+    // Names of the connection expression, so a ref_obj can be mapped back to
+    // the slang symbol whose def-view net twin we want.
+    std::map<std::string, const Symbol*> byName;
+    conn.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+        byName.emplace(std::string(nv.symbol.name), &nv.symbol);
+        v.visitDefault(nv);
+    }));
+    if (byName.empty())
+        return;
+    int32_t leadLine = h->VpiLineNo();
+    uint16_t leadCol = h->VpiColumnNo();
+    std::function<void(UHDM::any*)> walk = [&](UHDM::any* e) {
+        if (!e)
+            return;
+        if (e->UhdmType() == UHDM::uhdmoperation) {
+            if (auto* ops = ((UHDM::operation*)e)->Operands())
+                for (auto* o : *ops)
+                    walk(o);
+            return;
+        }
+        if (e->UhdmType() != UHDM::uhdmref_obj)
+            return;
+        auto* r = (UHDM::ref_obj*)e;
+        // The LEADING identifier keeps the variable (Surelog's bind_net_).
+        if (r->VpiLineNo() == leadLine && r->VpiColumnNo() == leadCol)
+            return;
+        auto* act = r->Actual_group();
+        if (!act || !any_cast<UHDM::variables*>(act))
+            return;
+        auto sit = byName.find(std::string(r->VpiName()));
+        if (sit == byName.end())
+            return;
+        auto nit = defSigNet.find(sit->second);
+        if (nit != defSigNet.end() && nit->second)
+            r->Actual_group(nit->second);
+    };
+    walk(h);
+}
+
+// True when `sym` is a `$unit`-scope ENUM member that Surelog could not
+// resolve from the module instantiating `child`: the guarded header declaring
+// it was expanded in a DIFFERENT root file, and Surelog registers $unit enum
+// constants in the declaring file's scope only.  This is the same predicate
+// § elabPortConnUnitEnumNet mints its implicit wire on — a reference that hits
+// it has no value to fold.
+bool UhdmExporter::unitEnumUnresolvedHere(const Symbol& sym,
+                                          const InstanceSymbol& child) {
+    if (sym.kind != SymbolKind::EnumValue)
+        return false;
+    bool unitHome = false;
+    for (auto* sc = sym.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope()) {
+        auto k = sc->asSymbol().kind;
+        if (k == SymbolKind::CompilationUnit) {
+            unitHome = true;
+            break;
+        }
+        if (k == SymbolKind::Package || k == SymbolKind::InstanceBody ||
+            k == SymbolKind::GenerateBlock ||
+            k == SymbolKind::GenerateBlockArray)
+            break;
+    }
+    if (!unitHome)
+        return false;
+    const InstanceBodySymbol* enc = enclosingInstBody(child);
+    if (!enc)
+        return false;
+    std::string modFile = rootFilePath(enc->asSymbol().location);
+    if (modFile.empty())
+        return false;
+    return rootFilePath(sym.location) != modFile;
 }
 
 bool UhdmExporter::implicitNetKeptInElab(const Symbol* sym,
@@ -7523,11 +7633,26 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // size'base prefix.  Measured on a 3-enum probe (untyped
                     // `{X,Y,Z}` -> INT/size 64, `4'h5` -> HEX/size 4, `4'd7`
                     // -> INT/size 4) plus ConstPort's 1-bit BIN case.
+                    // ...EXCEPT when the enum constant is one Surelog could
+                    // not resolve at all: a `$unit`-scope member whose
+                    // declaration was expanded in ANOTHER root file (the
+                    // `ifndef`-guarded header wins in the FIRST file that
+                    // includes it, so every later file sees nothing).  There
+                    // the elaborated connection keeps a ref_obj bound to the
+                    // implicit wire § elabPortConnUnitEnumNet already mints —
+                    // there is no value to fold.  Scr1SvTests measures both
+                    // halves in one design: `scr1_memif.svh` first expands in
+                    // scr1_pipe_exu.sv (file 5), so scr1_top_axi.sv (file 28)
+                    // `.core_width (SCR1_MEM_WIDTH_WORD)` gets the wire, while
+                    // purpose-built golden r10scr13repro/t3.sv -- enum and
+                    // instantiation in ONE file -- folds to BIN:10 / 2'b10.
                     if (!h) {
                         auto& hcE9 = stripImplicitConv(*expr);
                         if (hcE9.kind == ExpressionKind::NamedValue &&
                             hcE9.as<NamedValueExpression>().symbol.kind ==
-                                SymbolKind::EnumValue)
+                                SymbolKind::EnumValue &&
+                            !unitEnumUnresolvedHere(
+                                hcE9.as<NamedValueExpression>().symbol, inst))
                             if (auto eit9 = enumConstMap.find(
                                     &hcE9.as<NamedValueExpression>().symbol);
                                 eit9 != enumConstMap.end())
@@ -7574,6 +7699,87 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     }
                                 }
                     }
+                    // § connActualParamFold — a bare PARAMETER actual folds in
+                    // the ELABORATED view exactly the way an enum-constant one
+                    // does just above: to a COPY of that parameter's own
+                    // param_assign Rhs constant, encoding and size and all, at
+                    // the USE-SITE span.  The DEF view keeps the ref_obj and
+                    // links vpiActual to the parameter (measured, and already
+                    // matching).  Purpose-built golden r10scr13repro/t3.sv is
+                    // the matrix: a $unit localparam `bit [31:0] UP = 32'h...`
+                    // -> HEX:21051400 / 32'h21051400 / size 32, a $unit `int`
+                    // localparam -> UINT:7 / size 32, a $unit `parameter bit
+                    // [3:0] = 4'ha` -> HEX:a / 4'ha / size 4, and a MODULE
+                    // localparam `bit [3:0] = 4'h5` -> HEX:5 / 4'h5 / size 4 —
+                    // four homes, one rule.  Scr1SvTests scr1_tapc.sv:423
+                    // `.din_parallel (SCR1_TAP_BLD_ID_VALUE)` is the corpus
+                    // instance.
+                    // The $unit half carries § elabUnitMisevalNoFold's guard:
+                    // a parameter Surelog never valued, or one whose header
+                    // expanded in another root file, has no constant to copy
+                    // (its own param_assign Rhs is the unfolded tree).
+                    if (!h) {
+                        auto& hcP9 = stripImplicitConv(*expr);
+                        if (hcP9.kind == ExpressionKind::NamedValue &&
+                            hcP9.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter) {
+                            auto& psym9 =
+                                hcP9.as<NamedValueExpression>().symbol;
+                            const UHDM::constant* src9 = nullptr;
+                            if (auto uit9 = unitParamMap.find(&psym9);
+                                uit9 != unitParamMap.end()) {
+                                const InstanceBodySymbol* encU9 =
+                                    enclosingInstBody(inst);
+                                std::string encF9 =
+                                    encU9 ? rootFilePath(
+                                                encU9->asSymbol().location)
+                                          : std::string();
+                                if (!unitParamNoValue.count(&psym9) &&
+                                    !encF9.empty() &&
+                                    rootFilePath(psym9.location) == encF9)
+                                    if (auto rit9 = unitParamRhs.find(&psym9);
+                                        rit9 != unitParamRhs.end())
+                                        src9 = any_cast<const UHDM::constant*>(
+                                            rit9->second);
+                            }
+                            else if (auto eit9 = elabParamPa.find(&psym9);
+                                     eit9 != elabParamPa.end() && eit9->second)
+                                src9 = any_cast<const UHDM::constant*>(
+                                    eit9->second->Rhs());
+                            if (src9) {
+                                auto* c9 = s.MakeConstant();
+                                c9->VpiParent(p);
+                                c9->VpiValue(std::string(src9->VpiValue()));
+                                c9->VpiSize(src9->VpiSize());
+                                c9->VpiDecompile(
+                                    std::string(src9->VpiDecompile()));
+                                c9->VpiConstType(src9->VpiConstType());
+                                setLoc(c9, hcP9.sourceRange);
+                                h = c9;
+                            }
+                        }
+                    }
+                    // NOTE (r10scr13, MEASURED — NOT IMPLEMENTED), two
+                    // neighbours of the two rules above, both pinned on
+                    // purpose-built goldens and both with ZERO Scr1 reach:
+                    //  (a) a WHOLE-EXPRESSION connection actual over
+                    //      parameters folds too: r10scr13repro/t3.sv `.g(UP +
+                    //      UI)` is one constant UINT:553980935 size 32 in
+                    //      golden, spanning only the LEADING primary (`UP`,
+                    //      43:9-43:11 — Surelog's reduce builds the result off
+                    //      the leftmost leaf, the same span law the $unit
+                    //      param_assign Rhs follows), where we keep op24 with
+                    //      two bound ref_objs.
+                    //  (b) a CROSS-ROOT-FILE $unit PARAMETER actual gets the
+                    //      implicit wire, exactly like the enum member:
+                    //      two-file golden r10scr13repro/t4{a,b}.sv `.a(XP)`
+                    //      is ref_obj -> logic_net AT THE USE SITE (11:9-11:11)
+                    //      in golden, while we bind the design-level
+                    //      parameter.  So § elabPortConnUnitEnumNet's "a $unit
+                    //      PARAMETER actual does NOT mint" is the SAME-FILE
+                    //      reading only (scr1_tapc's SCR1_TAP_BLD_ID_VALUE);
+                    //      minting extends the module's Nets vector, so this
+                    //      wants its own gated pass.
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
                     // A part-select HighConn's bounds reduce like the
@@ -7975,6 +8181,8 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 h = wrap9;
                             }
                         }
+                        // § connExprBindsNet (see bindConnExprNets).
+                        bindConnExprNets(h, *expr);
                         p->High_conn(h);
                     }
                     refCollector = nullptr;

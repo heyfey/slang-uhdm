@@ -6599,6 +6599,22 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // A bare $unit ref does NOT copy (there is nothing to copy) — it
             // stays the ref_obj, which is what the router rows show.
             //
+            // r10scr13 RE-MEASURE — after the port-connection cluster closed
+            // this IS the whole remaining Scr1SvTests param_assign residue:
+            // 10 of 10 differing census rows, and the FIRST whole-design
+            // uhdm-cmp failure.  Root cause now named: every one of these
+            // actuals reads `SCR1_TCM_ADDR_MASK`, a $unit parameter declared
+            // in `scr1_arch_description.svh`, which the `ifndef` guard expands
+            // in scr1_pipe_hdu.sv (root file 1) while the readers live in
+            // scr1_top_axi.sv (root file 28) — the CROSS-ROOT-FILE case
+            // § elabUnitMisevalNoFold already keys on for var/net bounds.  So
+            // the miseval predicate needed here is one we already have; what
+            // is missing is only the override-syntax emission site.  The
+            // splices confirm the § elabMisevalRefSubst COMPOSITE law:
+            // i_dp_memory's SCR1_SIZE holds i_tcm's whole op67 tree AT
+            // i_tcm's own span (scr1_tcm.sv:101:19), and RAM_SIZE_WORDS wraps
+            // that same object in its own op12 at 72:42.
+            //
             // § elabMisevalArgNoFold / § elabMisevalRefSubst are IMPLEMENTED
             // (r10scr12) — the refusal to reduce is the WHOLE tree, top to
             // leaf, and the substitution of sibling-parameter reads survives

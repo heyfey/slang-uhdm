@@ -3048,6 +3048,15 @@ private:
     std::vector<ShareDefParamTs> pendingShareDefParamTs;
     void drainShareDefParamTs();
     std::set<const slang::ast::Symbol*>* refCollector = nullptr;
+    // § connExprBindsNet — DEF-view logic_net per module signal symbol.  A
+    // module-scope `logic x;` lands in BOTH the netlist's nets and its
+    // variables (Surelog), and an ELABORATED child-instance connection
+    // EXPRESSION binds its operand names to the NET copy where the plain-ref
+    // connection binds the variable.  See bindConnExprNets.
+    std::map<const slang::ast::Symbol*, UHDM::any*> defSigNet;
+    void bindConnExprNets(UHDM::any* h, const slang::ast::Expression& conn);
+    bool unitEnumUnresolvedHere(const slang::ast::Symbol& sym,
+                                const slang::ast::InstanceSymbol& child);
 };
 
 } // namespace slang_uhdm
