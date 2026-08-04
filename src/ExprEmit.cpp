@@ -2469,6 +2469,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return ref;
                     }
                 }
+                // § pkgImportParamBareRef — the same struct-typed operand ref
+                // inside a PACKAGE's copy of a parameter it IMPORTED from
+                // another package is NOT qualified and carries NO actual.
+                // bp_be_pkg imports bp_common_pkg's `all_cfgs_gp` (a
+                // bp_proc_param_s array whose 33 operands name that package's
+                // config params): the declaring package's own row keeps bare
+                // names bound through pkgParamDefRhs (the arm above), and the
+                // importing package's row REPLAYS that row's TEXT — same bare
+                // names, same spans — but binds nothing, because the copy was
+                // materialized in a scope that holds none of those parameter
+                // objects.  Golden: 33 bare dangling refs in both bp_be_pkg
+                // views; ours qualified every one of them and bound it to the
+                // declaring package's parameter object, which was the whole
+                // design's first Compare failure after the range-actual fix.
+                if (pkgImportedParamClone &&
+                    (ckP == SymbolKind::PackedStructType ||
+                     ckP == SymbolKind::PackedUnionType)) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 if (ckP == SymbolKind::PackedStructType ||
                     ckP == SymbolKind::PackedUnionType) {
                     std::string pn = std::string(scope->asSymbol().name) + "::" +

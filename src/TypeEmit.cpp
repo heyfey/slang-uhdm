@@ -4449,6 +4449,17 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         // Set when a struct PARAM clone's NAMED-enum member gets its own fresh
         // scoped enum clone (parented at the member ref, below).
         bool memberEnumClone = false;
+        // § pkgTypeRangeParamActual — a member declared with a NAMED TYPEDEF
+        // re-emits that typedef's type for itself; the copy's range param refs
+        // stay dangling (only the typedef's OWN typespec binds them).
+        struct MemAlias9 {
+            bool& f;
+            bool sv;
+            ~MemAlias9() { f = sv; }
+        } memAlias9{structMemberAliasTs, structMemberAliasTs};
+        structMemberAliasTs =
+            fm.getDeclaredType() &&
+            fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -5153,6 +5164,17 @@ UHDM::union_typespec* UhdmExporter::buildUnionTs(const Scope& unionScope, bool p
         // Set when a struct PARAM clone's NAMED-enum member gets its own fresh
         // scoped enum clone (parented at the member ref, below).
         bool memberEnumClone = false;
+        // § pkgTypeRangeParamActual — a member declared with a NAMED TYPEDEF
+        // re-emits that typedef's type for itself; the copy's range param refs
+        // stay dangling (only the typedef's OWN typespec binds them).
+        struct MemAlias9 {
+            bool& f;
+            bool sv;
+            ~MemAlias9() { f = sv; }
+        } memAlias9{structMemberAliasTs, structMemberAliasTs};
+        structMemberAliasTs =
+            fm.getDeclaredType() &&
+            fm.getDeclaredType()->getType().kind == SymbolKind::TypeAlias;
         if (fm.getDeclaredType() &&
             fm.getDeclaredType()->getType().getCanonicalType().kind ==
                 SymbolKind::FixedSizeUnpackedArrayType) {
@@ -6935,12 +6957,93 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     }
                 }
             }
+            // § pkgTypeRangeParamActual — resolve a PACKAGE-homed TYPE range
+            // bound (`logic [P-1:0] m;` in a packed-struct typedef,
+            // `localparam [P-1:0] q = ...;`) against the package being
+            // emitted, and split on WHERE the referenced parameter lives:
+            //   * SAME package  -> the reference SURVIVES, bound to that
+            //     parameter's DEF-view constant (Surelog value-ref chaining,
+            //     exactly like the package-function type range below);
+            //   * ANOTHER package (reached by import) -> the reference is
+            //     SUBSTITUTED by its folded value, a UINT constant sized at
+            //     the parameter's own type width — the same substitution
+            //     TypeEmit already performs for a `$bits` argument that names
+            //     a foreign package's parameter (§ the curPkgEmitSym split at
+            //     the sys-func-call arm).  bp_be_pkg's `logic
+            //     [rv64_csr_addr_width_gp-1:0] csr_addr` folds the operand to
+            //     UINT:12/size 32 while its `[dp_float_width_gp-1:0]` keeps
+            //     the bound ref.
+            // A packed-struct MEMBER range reaches the emitter with NO scope
+            // at all (tfTypeScope / defNetTsScope / currentScope all null —
+            // the reason 37 of these refs stayed dangling); the package itself
+            // is the scope to bind against, and binding through it resolves
+            // the package's own imports.  Module-homed ranges are excluded:
+            // golden leaves bp_be_pipe_int's `logic [vaddr_width_p-1:0]`
+            // members dangling in every view.
+            const Symbol* pkgTsParam9 = nullptr;
+            bool pkgTsForeign9 = false;
+            if (curPkgEmitSym && !tfTypeScope && !structMemberAliasTs) {
+                const Scope* bs9 = defNetTsScope ? defNetTsScope : currentScope;
+                if (!bs9 && curPkgEmitSym->kind == SymbolKind::Package)
+                    bs9 = &curPkgEmitSym->as<PackageSymbol>();
+                if (bs9) {
+                    ASTContext pctx9(*bs9, LookupLocation::max);
+                    auto& pbe9 = Expression::bind(
+                        syn.as<syntax::ExpressionSyntax>(), pctx9);
+                    if (!pbe9.bad() && stripImplicitConv(pbe9).kind ==
+                                           ExpressionKind::NamedValue) {
+                        auto& psy9 = stripImplicitConv(pbe9)
+                                         .as<NamedValueExpression>()
+                                         .symbol;
+                        const Scope* home9 = psy9.getParentScope();
+                        if (psy9.kind == SymbolKind::Parameter && home9 &&
+                            home9->asSymbol().kind == SymbolKind::Package) {
+                            pkgTsParam9 = &psy9;
+                            pkgTsForeign9 = &home9->asSymbol() != curPkgEmitSym;
+                        }
+                    }
+                }
+            }
+            if (pkgTsParam9 && pkgTsForeign9) {
+                auto& fp9 = pkgTsParam9->as<ParameterSymbol>();
+                auto& fv9 = fp9.getValue();
+                if (fv9.isInteger() && !fv9.integer().hasUnknown()) {
+                    auto* c9 = s.MakeConstant();
+                    std::string dg9 =
+                        fv9.integer().toString(LiteralBase::Decimal, false);
+                    c9->VpiDecompile(dg9);
+                    c9->VpiSize((int32_t)fp9.getType().getBitWidth());
+                    c9->VpiValue("UINT:" + dg9);
+                    c9->VpiConstType(vpiUIntConst);
+                    c9->VpiParent(parent);
+                    setLoc(c9, syn.sourceRange());
+                    // ...and the substituted value carries the SOURCE
+                    // parameter's own type: golden's constant references an
+                    // int_typespec located at that parameter's declaration,
+                    // not a fresh anonymous one.  The declaring package's
+                    // def-view constant already holds exactly that typespec.
+                    if (auto ci9 = pkgParamConst.find(pkgTsParam9);
+                        ci9 != pkgParamConst.end())
+                        if (auto* srt9 = ci9->second->Typespec())
+                            if (auto* sa9 = srt9->Actual_typespec()) {
+                                auto* rt9 = s.MakeRef_typespec();
+                                rt9->VpiParent(c9);
+                                rt9->Actual_typespec(sa9);
+                                c9->Typespec(rt9);
+                            }
+                    return c9;
+                }
+            }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(name);
             if (!syntaxRefPrefix.empty())
                 ref->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(name));
             ref->VpiParent(parent);
             setLoc(ref, syn.sourceRange());
+            if (pkgTsParam9 && !pkgTsForeign9 && !suppressRefActual)
+                if (auto ci9 = pkgParamConst.find(pkgTsParam9);
+                    ci9 != pkgParamConst.end())
+                    ref->Actual_group(ci9->second);
             // Inside a package function's return/arg TYPE range (logic
             // [PARAM-1:0]), a reference to a package parameter binds to that
             // param's def-init constant (Surelog value-ref chaining), not left

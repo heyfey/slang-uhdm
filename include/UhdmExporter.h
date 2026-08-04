@@ -1543,6 +1543,23 @@ private:
     // module: that parameter is a clone_tree copy of the package one, so its
     // concat literal operands carry vpiParent (the package original does not).
     bool importedParamClone = false;
+    // § pkgImportParamBareRef — set while a PACKAGE emits its listing row for
+    // a parameter it IMPORTED from another package (bp_be_pkg's copy of
+    // bp_common_pkg's `all_cfgs_gp`).  The row is a REPLAY of the declaring
+    // package's own row, so its operand refs keep the SOURCE text — bare,
+    // unqualified names — and, unlike the declaring package's row, they carry
+    // NO actual: the copy was materialized in a scope where the referenced
+    // package parameters are not the objects this listing holds.
+    bool pkgImportedParamClone = false;
+    // § pkgTypeRangeParamActual — set while a packed struct/union MEMBER whose
+    // type is a NAMED TYPEDEF (`sram_key_t key;`) has that typedef's type
+    // re-emitted for it.  The member's typespec is a COPY of the typedef's,
+    // and only the ORIGINAL binds its range param refs: golden's
+    // LargeValue2Struct / StructUnsizedVal keep `logic [SramKeyWidth-1:0]`
+    // bound at `typedef` scope and dangling in the struct member, while a
+    // member that writes its range INLINE (BlackBePipeInt's `logic
+    // [rv64_reg_addr_width_gp-1:0] funct7;`) binds.
+    bool structMemberAliasTs = false;
     // ELAB view: an operation SUBSTITUTED for a no-fold pattern parameter's
     // reference carries a ts ref to that parameter's own ELAB typespec (the
     // clone patchParamTypespecs mints).  The substitution happens while the

@@ -9446,6 +9446,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 elabMdimParamInit = !inPackage && topView &&
                                     packedDimCount(ps.getType()) > 1;
                 importedParamClone = isImported && !inPackage;
+                // § pkgImportParamBareRef — the same materialized copy, one
+                // scope up: a PACKAGE listing a parameter IMPORTED from
+                // another package.
+                pkgImportedParamClone = isImported && inPackage;
                 bool savedSuppP = suppressConstParent;
                 if (!topView && nestedPat)
                     suppressConstParent = true;
@@ -9927,6 +9931,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 paramInitDef = false;
                 paramInitElabFold = false;
                 importedParamClone = false;
+                pkgImportedParamClone = false;
                 inParamInit = false;
                 forceConstParent = false;
                 // The substituted branch is REDUCED in place: its param refs
