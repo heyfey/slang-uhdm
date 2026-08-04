@@ -3234,6 +3234,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             const Scope* v;
             ~CbsRestore9() { f = v; }
         } cbsRestore9{castBindScope, castBindScope};
+        // § crossPkgRangeBoundFold — the ts ref a cross-package bound fold
+        // mints inside THIS parameter's own typespec is named after the
+        // parameter (`work@sram2.TlBaseAddr`), so publish the name for the
+        // whole iteration (the typespec itself is built late, after the
+        // instance ports).
+        struct PtoRestore9 {
+            std::string& f;
+            std::string v;
+            ~PtoRestore9() { f = v; }
+        } ptoRestore9{paramTsOwnerFull9, paramTsOwnerFull9};
+        paramTsOwnerFull9 = joinPath(prefix, ps.name);
         if (inPackage && ps.getParentScope())
             castBindScope = ps.getParentScope();
         // THE IMPORT-COPY LAW.  A package that WILDCARD-IMPORTS another
@@ -7236,8 +7247,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     forceConstParent = true;
                     rhs = emitExpr(*init, pa, prefix, netMap);
                     forceConstParent = false;
+                    // !defViewOrig9 for the same reason the general strip
+                    // below carries it: a module's MATERIALIZED IMPORT copy is
+                    // force-flipped to topView but is still a DEFINITION
+                    // listing, and Surelog quotes it (witness r.sv row 1, the
+                    // UNTYPED `parameter ArbiterImpl = "PPC"` — this branch,
+                    // not the general one, owns the untyped shape).
                     if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
-                        !inPackage) {
+                        !inPackage && !defViewOrig9) {
                         auto* rc = (UHDM::constant*)rhs;
                         std::string_view v0 = rc->VpiValue();
                         if (v0.rfind("STRING:", 0) == 0)
@@ -11496,6 +11513,87 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rc9->VpiDecompile(dg9);
                     }
                 }
+                // § unsizedBasedTypedParamElab — the SAME elaboration re-render
+                // for the other bases.  Surelog's module elaborator rebuilds a
+                // typed parameter's Rhs from the elaborated VALUE plus the
+                // declared width, so an UNSIZED based default is respelled AT
+                // THAT WIDTH; the DEF view and both package views keep the raw
+                // literal and are already right (h.sv/n.sv/o.sv/p.sv):
+                //     logic [7:0]  = 'h0     -> 8'h0    HEX    size 8
+                //     logic [15:0] = 'hab    -> 16'hab  HEX    size 16
+                //     int          = 'h9     -> 32'h9   HEX    size 32
+                //     logic [7:0]  = 'sh1f   -> 8'h1f   HEX    (the `s` drops)
+                //     logic [7:0]  = 'b101   -> 8'b101  BIN    size 8
+                //     logic [7:0]  = 'o10    -> 8       UINT   size 8
+                //     logic [7:0]  = 'd300   -> 300     INT    size 8 (above)
+                // OCTAL JOINS DECIMAL: an octal literal loses its base
+                // entirely and reads back as a bare decimal UINT, so its digits
+                // are re-rendered base 10.  A single-BINARY-DIGIT literal is a
+                // separate GRAMMAR rule (Surelog's paNumber_Tickb1): `'b0`/`'b1`
+                // carry SIZE 1 and respell as `1'b<d>` whatever the declared
+                // width is — byte/shortint/longint/integer/bit/logic/vector and
+                // `int unsigned` alike.  Plain signed `int` = `'b1` is the ONE
+                // measured exception (INT:-1 at size 32); `int` = `'b0` is not.
+                if (topView && !inPackage && typedParam &&
+                    rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto* rc8 = (UHDM::constant*)rhs;
+                    std::string dc8(rc8->VpiDecompile());
+                    std::string v8(rc8->VpiValue());
+                    auto cp8 = v8.find(':');
+                    // Base letter as WRITTEN, past an optional signed marker.
+                    // An UNBASED-unsized literal (`'1`/`'0`) has none and is
+                    // re-rendered by its own rule, already correct.
+                    size_t bi8 = 1;
+                    if (dc8.size() > bi8 && (dc8[bi8] == 's' || dc8[bi8] == 'S'))
+                        bi8++;
+                    char base8 = dc8.size() > bi8 ? (char)std::tolower(dc8[bi8]) : 0;
+                    if (!dc8.empty() && dc8[0] == '\'' &&
+                        cp8 != std::string::npos &&
+                        (base8 == 'b' || base8 == 'o' || base8 == 'h')) {
+                        std::string dg8 = v8.substr(cp8 + 1);
+                        int32_t w8 = (int32_t)ps.getType().getBitWidth();
+                        auto& ct8 = ps.getType().getCanonicalType();
+                        bool plainInt8 =
+                            ct8.kind == SymbolKind::PredefinedIntegerType &&
+                            ct8.as<PredefinedIntegerType>().integerKind ==
+                                PredefinedIntegerType::Int &&
+                            ct8.isSigned();
+                        if (base8 == 'o') {
+                            // Re-render the octal digits base 10 (x/z digits
+                            // have no decimal spelling — leave those alone).
+                            uint64_t ov8 = 0;
+                            bool ok8 = !dg8.empty();
+                            for (char c8 : dg8) {
+                                if (c8 < '0' || c8 > '7') { ok8 = false; break; }
+                                ov8 = ov8 * 8 + (uint64_t)(c8 - '0');
+                            }
+                            if (ok8) {
+                                std::string d10 = std::to_string(ov8);
+                                rc8->VpiDecompile(d10);
+                                rc8->VpiValue("UINT:" + d10);
+                                rc8->VpiConstType(vpiUIntConst);
+                                rc8->VpiSize(w8);
+                            }
+                        }
+                        else if (base8 == 'b' && dg8.size() == 1) {
+                            if (plainInt8 && dg8 == "1") {
+                                rc8->VpiDecompile("-1");
+                                rc8->VpiValue("INT:-1");
+                                rc8->VpiConstType(vpiIntConst);
+                                rc8->VpiSize(w8);
+                            }
+                            else {
+                                rc8->VpiDecompile("1'b" + dg8);
+                                rc8->VpiSize(1);
+                            }
+                        }
+                        else {
+                            rc8->VpiDecompile(std::to_string(w8) + "'" + base8 +
+                                              dg8);
+                            rc8->VpiSize(w8);
+                        }
+                    }
+                }
                 if (inPackage && !topView && rhs->UhdmType() == UHDM::uhdmconstant)
                     pkgParamConst[&member] = (UHDM::constant*)rhs;
                 if (inPackage && !topView)
@@ -11588,7 +11686,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // view is quoted for all three.  Corpus witness: tlul_pkg's
                 // `parameter ArbiterImpl = "PPC"` (Earlgrey_0_1, three
                 // separate TOPMOD heads plus the ALLPKG one).
-                if (topView && !inPackage &&
+                // ...and it is keyed on the PHYSICAL view, not the flipped
+                // one: § modDefImportShape force-sets topView for a module's
+                // MATERIALIZED IMPORT copies, but the strip is an elaboration
+                // effect and the AllModules copy is a definition listing, so
+                // it stays QUOTED there.  4-view witness r.sv (`module sm
+                // import sp::*;` over `parameter ArbiterImpl = "PPC"` and a
+                // `string`-typed twin): golden reads quoted / quoted / quoted
+                // / bare across pkg-def, pkg-top, module-DEF, module-TOP and
+                // we stripped the third.  Corpus: 22 Earlgrey AllModules
+                // entries reach tlul_pkg's ArbiterImpl this way — the single
+                // largest AllModules head class after § basedLiteralWsCompact.
+                if (topView && !defViewOrig9 && !inPackage &&
                     rhs->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::constant*)rhs)->VpiConstType() == vpiStringConst) {
                     auto* rc = (UHDM::constant*)rhs;

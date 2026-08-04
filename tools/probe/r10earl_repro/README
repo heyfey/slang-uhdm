@@ -1,64 +1,197 @@
 r10earl — Earlgrey_0_1 (Surelog suite, DEFAULT mode) decode witnesses.
 
-run.sh <file.sv>   runs Surelog (-parse -nocache -mt 0 -mp 0 -d uhdm) and
-                   slang-uhdm on the same source and pipes both databases
-                   through uhdm-cmp.  Edit W= at the top for your worktree.
-dmp.sh <basename>  uhdm-dump both sides of an earlier run.sh into
-                   /tmp/r10earl_rep/out_<b>/{g,o}.dump
+run.sh / run2.sh <file.sv>
+                   run Surelog (-parse -nocache -mt 0 -mp 0 -d uhdm) and
+                   slang-uhdm on the same source and pipe both databases
+                   through uhdm-cmp.  run2.sh is the pass-2 copy (edit W= at
+                   the top for your worktree).
+dmp.sh / dmp2.sh <basename>
+                   uhdm-dump both sides of an earlier run into
+                   /tmp/r10earl{,2}_rep/out_<b>/{g,o}.dump
 tab2.py g.dump o.dump
                    projects each dump onto "(param_assign) -> <decompile>/
-                   <size> ..." per view, which is the only shape these
-                   parameter laws move.  Every view of a param_assign appears
-                   on one line, so def-vs-top divergence is visible directly.
+                   <size> ..." per view.
+pa3.py <dump...>   the same projection with VALUE and CONSTTYPE:
+                   "<decompile>/<size>/<value>/<constType>", one field group
+                   per view.  This is the one to reach for on a parameter law.
+site.py <dump> <lineRegex>
+                   every LEAF object at a matching source line, with its
+                   cmp-relevant scalars, deduplicated with an xN count — the
+                   way to diff two dumps at one declaration.
+cmpcsv.py <base.csv> <new.csv> [--dump]
+                   status (and dump-column) diff of two verify_golden runs.
+sweep.sh <corpus> <mode> <filter> <tag> [jobs]
+                   verify_golden wrapper that pins SLANG_UHDM and the workdir.
+unsup.sh           replays the Earlgrey slang command line with
+                   SLANG_UHDM_UNSUP_LOC=1.
+mark.py --on|--off <files...>
+                   MARKER-INSTRUMENT every `->VpiDecompile(x)` setter so the
+                   emitted text carries an @<FI><LINE> tag naming the site that
+                   wrote it.  One build, run the repro, read the tag off the
+                   object that is wrong.  This located both pass-2 decompile
+                   laws in one build each; do not reason about ~300 sites.
+../r10earl2h.cpp   DESIGN-WIDE HEAD CENSUS.  uhdm-cmp names only the FIRST
+                   failing pair for the whole design and parameter::Compare
+                   recurses Instance(), so one package head masks everything.
+                   This Compares each AllModules/TopModules/AllPackages/
+                   TopPackages entry against its same-named twin with a FRESH
+                   context and prints every head plus its parent chain, so the
+                   cluster can be ranked.  AllModules entries have an EMPTY
+                   VpiName — they are keyed on vpiDefName.
+../r10earl2build.sh <probe-name>   builds a probe against libuhdm.
 
-LANDED (this block, both gated at goldens 23/23 + u2r testflags 0 change +
+LANDED — PASS 1 (both gated at goldens 23/23 + u2r testflags 0 change +
 Surelog both modes 0 change):
 
-  a.sv  package `parameter logic [3:0] X [3] = '{4'b 0001, ...}` — the based
-        literal keeps its OWN width in a package unpacked-array pattern; we
-        used to stamp 64 over it.  ParamEmit § the elemSz9 re-stamp.
-  d.sv  the 6-row witness that decoded it (logic[3:0] / byte / int /
-        logic[11:0] / shortint / unsized bases, each with a based element
-        beside a plain-decimal one).  Byte-identical after the fix.
-  b.sv, c.sv
-        `parameter ArbiterImpl = "PPC"` in a package vs a module.  The elab
-        quote-strip is a MODULE-elaboration effect; a package top view keeps
-        the quotes.  ParamEmit § pkgStringDecompileQuoted.  Both byte-equal.
+  a.sv/d.sv  the adjustSize exemption for BASED literals in a package
+        unpacked-array pattern (ParamEmit § the elemSz9 re-stamp).
+  b.sv/c.sv  § pkgStringDecompileQuoted — the elab quote-strip on a string
+        constant's decompile is a MODULE-elaboration effect.
 
-RANKED RESIDUE (measured, NOT fixed — next agent starts here):
+LANDED — PASS 2 (same gates: goldens 23/23, u2r testflags 0 change incl. the
+dump column, Surelog both modes 0 change incl. the dump column):
 
-  f.sv / g.sv  § crossPkgRangeBoundFold.  `parameter logic [tp::TL_AW-1:0] P`
-        — Surelog FOLDS a QUALIFIED cross-package parameter reference used as
-        a parameter's range bound into a constant (UINT:32 size 32) carrying a
-        ref_typespec `work@<mod>.<param>` whose Actual is an int_typespec
-        located at the PACKAGE PARAM's declaration type and vpiInstance'd at
-        the package.  g.sv is the distinguisher matrix: a MODULE-LOCAL param
-        bound (`logic [W-1:0]`) and a localparam bound in a var decl are NOT
-        folded (we are already right there) — only the qualified package ref
-        is.  Corpus heads: Earlgrey_0_1 TOPMOD work@sram2tlul and work@padring
-        (r=-601 each).
-  e.sv  the same shape reached through a WILDCARD import
-        (`module padring import padctrl_reg_pkg::*; #(parameter logic
-        [NMioPads-1:0] ...)`).  Carries an extra, separable deficit: golden
-        materializes the imported package params (`work@padr.NMioPads`, with
-        vpiImported) into the module and we do not.  Fix f.sv first.
-  h.sv  § unsizedBasedTypedParamElab.  A TYPED param's UNSIZED BASED default
-        is re-rendered by the MODULE elaborator at the declared width:
-            logic [7:0]  MH = 'h0  -> 8'h0   HEX:0  size 8
-            logic [15:0] MW = 'hab -> 16'hab HEX:ab size 16
-            int          MI = 'h9  -> 32'h9  HEX:9  size 32
-            logic [7:0]  MO = 'o7  -> 7      UINT:7 size 8   (octal joins
-                                                              decimal: bare
-                                                              decimal UINT)
-            logic [7:0]  MB = 'b1  -> 1'b1   BIN:1  size 1   (NOT the type
-                                                              width — the
-                                                              paNumber_Tickb1
-                                                              grammar rule)
-        Both package views and the module DEF view keep the raw `'h0` at the
-        same width and are already correct.  ATTEMPTED and REVERTED here: a
-        rule placed beside the UnbasedUnsized re-decompile in emitParameters
-        never fired, so the module TOP-view param_assign Rhs for this shape is
-        produced by a DIFFERENT path than the one that owns the '0/'1 rewrite
-        — find that path first (marker-instrument VpiDecompile, do not guess).
-        h.sv also shows an untyped package param `'h3` at golden size -1 where
-        we write 32.
+  f.sv/g.sv/i.sv/j.sv/l.sv  § crossPkgRangeBoundFold (TypeEmit — three helpers
+        above makeTypespec + the two hooks in the packed-dim `emitBound`).
+        A MODULE parameter's declared-type range bound that names a package
+        parameter WITH ITS QUALIFIER is substituted by Surelog's getValue: it
+        tokenizes the `::`, finds the package, and hands the read that
+        package's own value constant, which then rides reduceExpr like a
+        literal.  Decompile / value / constType come across VERBATIM (`8'd6`
+        stays `8'd6` with DEC:6), the SIZE is re-stamped to the package
+        parameter's DECLARED width unconditionally — based literals included
+        (j.sv: 4'd6 at logic[7:0] -> 8, 8'd5 at int -> 32, 4'b1010 at bit[3:0]
+        -> 4) — and an UNTYPED package parameter keeps the literal's own width
+        and gets an EMPTY ref_typespec rather than none.  The ts ref is named
+        after the parameter being declared (`work@m2.PQual`) and its Actual is
+        the ELABORATED package's typespec, not the definition package's: the
+        two differ only in vpiInstance and typespec::Compare recurses
+        Instance(), so pointing at the def package makes the whole package
+        unequal from inside an unrelated module (this was Earlgrey
+        work@sram2tlul's next head after the fold landed).
+        Distinguishers, all measured: a module-LOCAL bound (`logic [W-1:0]`)
+        is NOT substituted (g.sv) — an overridable parameter has no value at
+        definition-compile time; a VAR/NET declaration bound is not either
+        (i.sv row 18); a PACKAGE's own bound is reduced WHOLE by its
+        elaboration (`[pa::W-1:0]` -> INT:15, k.sv) and is already right.
+        f.sv, g.sv and l.sv (the sram2tlul shape, three files) are BYTE-
+        IDENTICAL after this plus the next law.
+
+  h.sv/n.sv/o.sv/p.sv  § unsizedBasedTypedParamElab (ParamEmit, beside the
+        DEC-based rewrite it generalises).  The module ELABORATOR rebuilds a
+        typed parameter's Rhs from the elaborated VALUE plus the declared
+        width, so an UNSIZED BASED default is respelled AT THAT WIDTH; the DEF
+        view and both package views keep the raw literal and were already
+        right.  Full matrix:
+            logic [7:0]  = 'h0   -> 8'h0    HEX  size 8
+            logic [15:0] = 'hab  -> 16'hab  HEX  size 16
+            int          = 'h9   -> 32'h9   HEX  size 32
+            logic [7:0]  = 'sh1f -> 8'h1f   HEX  (the signing `s` drops)
+            logic [7:0]  = 'b101 -> 8'b101  BIN  size 8
+            logic [7:0]  = 'o10  -> 8       UINT size 8   (OCTAL JOINS
+                                                           DECIMAL: the base
+                                                           is lost entirely)
+            logic [7:0]  = 'd300 -> 300     INT  size 8    (already handled)
+        A single-BINARY-DIGIT literal is a SEPARATE GRAMMAR rule (Surelog's
+        paNumber_Tickb1): `'b0`/`'b1` carry SIZE 1 and respell as `1'b<d>`
+        whatever the declared width is — byte / shortint / longint / integer /
+        bit / logic / vector / `int unsigned` all measured (p.sv).  Plain
+        signed `int` = `'b1` is the ONE exception (INT:-1 at size 32); `int` =
+        `'b0` is not, and `int unsigned` = `'b1` is not.  An UNTYPED parameter
+        is untouched (`'h3` stays `'h3` at size -1).
+
+  q.sv  § basedLiteralWsCompact (stripSep, UhdmExporter.h).  The LRM lets
+        whitespace sit between the base and the digits (`7'h 0`, `4'd 3` — the
+        spelling EVERY OpenTitan reg_pkg offset uses) and Surelog's lexer joins
+        the token back together, so no view carries the space.  We stripped
+        digit separators there but not whitespace; all 23 callers feed the
+        helper based-literal source text, so the two classes strip together.
+        Killed ~21 Earlgrey AllModules heads.
+
+  r.sv  § pkgStringDecompileQuoted, keyed on the PHYSICAL view.  §
+        modDefImportShape force-sets topView for a module's MATERIALIZED
+        IMPORT copies, and that flip leaked into the elab quote-strip.  A
+        4-view witness (`module sm import sp::*;` over an UNTYPED
+        `parameter ArbiterImpl = "PPC"` and a `string`-typed twin) reads
+        quoted / quoted / quoted / bare across pkg-def, pkg-top, module-DEF,
+        module-TOP; we stripped the third.  BOTH strip sites need the gate —
+        the untyped shape takes the `else if (StringLiteral && !isString())`
+        branch, the typed one the general strip.  Killed 14 Earlgrey
+        AllModules heads (22 entries reach tlul_pkg's ArbiterImpl).
+
+EARLGREY_0_1 HEAD CENSUS after pass 2 (r10earl2h; 125 + 8 + 6 + 6):
+
+  AllModules  SIZE 190 vs 177, 125 heads
+  TopModules  SIZE  10 vs  10,   8 heads
+  AllPackages SIZE  40 vs  40,   6 heads
+  TopPackages SIZE  40 vs  40,   6 heads
+
+RANKED RESIDUE (measured; next agent starts here).  Head counts are AllModules
+unless stated; most classes are ONE shared object reached from many entries, so
+tests-per-fix is the head count.
+
+  (1) ALLMODULES POPULATION — 13 MISSING-RHS entries, SIZE 190 vs 177.
+      TRIAGED THIS PASS and it is NOT a dropped construct: `SLANG_UHDM_UNSUP_LOC=1`
+      on the whole design reports exactly one kind ("expression kind: Invalid")
+      and no module.  The 13 are
+        aes_sbox_canright, aes_sbox_canright_masked,
+        aes_sbox_canright_masked_noreuse,        (SBoxImpl generate arm)
+        ibex_dummy_instr, ibex_icache, ibex_multdiv_slow,   (ibex config params)
+        prim_secded_28_22_dec/enc, prim_secded_72_64_dec/enc,  (ECC params)
+        prim_xilinx_clock_gating, prim_xilinx_clock_mux2,
+        prim_xilinx_pad_wrapper                   (Impl == ImplXilinx arm)
+      — every one is IN the .scr file list and is instantiated only inside a
+      generate branch that is not taken.  THE LAW: Surelog's uhdmallModules is
+      a listing of every module DEFINITION in the compilation, instantiated or
+      not; we list only what slang elaborates.  Fix direction: walk
+      comp.getDefinitions() (or the syntax trees' ModuleDeclarations) and emit
+      a DEF-view entry for the unreferenced ones too.  Biggest single chunk and
+      it is a population fix, not a per-object one.
+
+  (2) `'0` NOT EXPANDED IN A PACKAGE — 12 heads (+1 TopPackages).
+      aes_pkg.sv:152:15.  golden: ct=3 size=128, decompile = 128 literal '0'
+      characters (the fill EXPANDED to the context width); ours: `'0` at size
+      -1.  One package object reached from 12 module def entries.
+
+  (3) BASED-DECIMAL FOLD DIRECTION — 12 heads.
+      golden keeps `2'd1` (DEC, ct 1); we rewrite to INT `1` (ct 7), in a
+      module-def param_assign.  NOTE the opposite is ALSO true elsewhere: q.sv
+      row 3 (`hitd = (a[3:0] == rp::DEC3)` reading `parameter logic [3:0] DEC3
+      = 4'd 3`) has golden folding to INT `3` where we keep `4'd3`.  So the
+      DEC-based rewrite is CONTEXT-dependent and the two sites (ParamEmit's
+      elab param rewrite and ExprEmit's ~3251 pkg-param body fold) currently
+      disagree with golden in OPPOSITE directions — decode them together.
+
+  (4) 15 `package vs package` heads with the chain `<design>` — a design-shared
+      package head masking behind Instance() recursion; one of them is the
+      k.sv law:  A PACKAGE PARAMETER READ FROM ANOTHER PACKAGE has its own
+      DEF-view value constant RE-SIZED to its declared width (top_pkg's
+      `localparam int TL_AW=32` reads back at 32, not 64, once tlul_pkg's
+      `logic [top_pkg::TL_AW-1:0]` struct member reads it; a MODULE read does
+      not do this — i.sv).  Surelog's getValue returns the package's own
+      object (not a clone) for that path and adjustSize mutates it in place.
+      k.sv is the ready repro (its ONLY head).
+
+  (5) 13 `operation vs operation` and 6 `constant vs ref_obj <operation/range>`
+      — more range-bound folding, now inside net/var and port dims.
+
+  (6) 8 + 3 `ref_typespec vs <null>` (we emit nothing where golden has a ts
+      ref), 5 `array_typespec vs logic_typespec <port/module_inst>`,
+      5 `ref_module vs ref_module <named_begin/gen_if_else>`,
+      4 `ref_obj vs <null> <int_typespec/parameter>`.
+
+  (7) TopModules singletons: prim_keccak operation, prim_present /
+      prim_prince `logic_var vs <null>` in a gen_scope_array, jtag_mux,
+      work@padring — § WILDCARD-IMPORT MATERIALIZATION (e.sv): golden
+      materializes the imported package params (`work@padr.NMioPads`, with
+      vpiImported) into the importing module and folds an UNQUALIFIED read of
+      one in a parameter's range bound; we keep a ref_obj.  This is the
+      unqualified sibling of § crossPkgRangeBoundFold and should reuse
+      crossPkgBoundFoldConst9 once the materialized copies exist.
+
+  n.sv leaves one unrelated head: `parameter logic [7:0] NSH = 'sh1f` gets an
+  int_typespec (signed) in golden where we build a logic_typespec — a SIGNED
+  based literal retypes the parameter.  h.sv leaves one: an UNTYPED package
+  param with an unsized based default (`parameter PU = 'h3`) carries NO
+  typespec in golden and size -1 in the module top view; we give it an
+  int_typespec and size 32.

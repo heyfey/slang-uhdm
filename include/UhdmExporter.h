@@ -873,8 +873,18 @@ private:
     // 32'h80000000; source SPANS keep the underscore width). Applied wherever
     // RAW source digits flow into VpiValue/VpiDecompile; folded paths print
     // digits and cannot carry separators.
+    // ...and § basedLiteralWsCompact: the LRM lets whitespace sit between the
+    // size/base and the digits (`7'h 0`, `4'd 3`, the spelling every OpenTitan
+    // reg_pkg offset uses), and Surelog's lexer joins the token back together,
+    // so no view of such a literal ever carries the space.  Every caller of
+    // this helper feeds it BASED-LITERAL source text, so the two separator
+    // classes are stripped together.
     static std::string stripSep(std::string t) {
-        t.erase(std::remove(t.begin(), t.end(), '_'), t.end());
+        t.erase(std::remove_if(t.begin(), t.end(),
+                               [](unsigned char c) {
+                                   return c == '_' || std::isspace(c);
+                               }),
+                t.end());
         return t;
     }
     // Surelog's writer finishes an instance (params, ports, nets, cont
@@ -3020,6 +3030,22 @@ private:
     // Pkg param OBJECTS (def view) — bound by qualified member-access base
     // refs (pkg::P.member).
     std::map<const slang::ast::Symbol*, UHDM::parameter*> pkgParamObj;
+    // § crossPkgRangeBoundFold — full name of the parameter whose own
+    // typespec is being built (`work@sram2.TlBaseAddr`).  A cross-package
+    // bound fold names its ts ref after the parameter it types, not after the
+    // module; set for the whole per-parameter iteration of emitParameters.
+    std::string paramTsOwnerFull9;
+    // The package parameter a `pkg::NAME` range-bound leaf names, or null.
+    const slang::ast::ParameterSymbol* crossPkgBoundParam9(
+        std::string_view qualName) const;
+    // Surelog's getValue substitution for such a leaf: the package's own
+    // value constant re-sized to the package parameter's DECLARED width,
+    // carrying a ts ref to that parameter's own typespec.
+    UHDM::constant* crossPkgBoundFoldConst9(
+        const slang::ast::ParameterSymbol& psym, UHDM::BaseClass* parent);
+    // Replace every such leaf inside an already-emitted (unfolded) bound
+    // operation tree.
+    void crossPkgFoldBoundLeaves9(UHDM::any* node);
     // ...and the same map for the ELAB package view.  A localparam whose init
     // is a param REFERENCE (`CVA6ConfigDataUserWidth = CVA6ConfigXlen`) gets
     // no typespec at all in the def listing — only the elab one has it — so a

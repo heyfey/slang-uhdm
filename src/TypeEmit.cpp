@@ -119,6 +119,124 @@ UHDM::typespec* UhdmExporter::makeClassScopeTs(const syntax::SyntaxNode& scopedN
     return uts;
 }
 
+// § crossPkgRangeBoundFold.  A MODULE parameter's declared-type range bound
+// that names a package parameter WITH ITS QUALIFIER (`parameter logic
+// [tp::TL_AW-1:0] P`) is not symbolic in golden: Surelog's CompileHelper::
+// getValue tokenizes the `::`, finds the package, and hands the read that
+// package's own param_assign Rhs — a constant — which then rides the bound's
+// reduceExpr like any literal.  A MODULE-LOCAL bound (`logic [W-1:0]`, or a
+// localparam bound in a var decl) is NOT substituted: an overridable module
+// parameter has no value at definition-compile time, and we are already right
+// there (witness g.sv).  The distinguisher is the WRITTEN qualification, which
+// is exactly what getValue keys on.
+//
+// Reachable both ways: `[tp::TL_AW-1:0]` builds an operation whose leaf is
+// swapped (crossPkgFoldBoundLeaves9), while a bare `[tp::TL_AW:0]` never
+// becomes an operation at all and is built straight from the substituted
+// constant.
+const ParameterSymbol* UhdmExporter::crossPkgBoundParam9(
+    std::string_view qualName) const {
+    auto sep = qualName.find("::");
+    if (sep == std::string_view::npos)
+        return nullptr;
+    std::string pkgNm(qualName.substr(0, sep));
+    std::string varNm(qualName.substr(sep + 2));
+    if (varNm.find("::") != std::string::npos)
+        return nullptr;
+    auto* pkg = comp.getPackage(pkgNm);
+    if (!pkg)
+        return nullptr;
+    auto* sym = pkg->find(varNm);
+    if (!sym || sym->kind != SymbolKind::Parameter)
+        return nullptr;
+    return &sym->as<ParameterSymbol>();
+}
+
+UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psym,
+                                                      UHDM::BaseClass* parent) {
+    // The substituted object is the package's OWN value constant: decompile,
+    // value string and const type come across VERBATIM (`8'd6` stays `8'd6`
+    // with DEC:6/vpiDecConst, `'h3` stays `'h3` with HEX:3) — witness j.sv.
+    auto cIt = pkgParamConst.find(&psym);
+    if (cIt == pkgParamConst.end() || !cIt->second)
+        return nullptr;
+    UHDM::constant* src = cIt->second;
+    auto* c = s.MakeConstant();
+    c->VpiDecompile(src->VpiDecompile());
+    c->VpiValue(src->VpiValue());
+    c->VpiConstType(src->VpiConstType());
+    c->VpiParent(parent);
+    // ...but the SIZE is re-stamped to the package parameter's DECLARED width
+    // — unconditionally, based literals included (j.sv: `logic [7:0] A = 4'd6`
+    // reads back at 8, `int B = 8'd5` at 32, `bit [3:0] E = 4'b1010` at 4,
+    // `logic [7:0] C = 'h3` at 8).  An UNTYPED package parameter has no
+    // typespec to re-size against and keeps the literal's own width (`D =
+    // 16'd9` -> 16), and its ts ref is then EMPTY rather than absent.
+    // ...and the typespec it points at is the ELABORATED package's, not the
+    // definition package's.  The two are structurally identical EXCEPT for
+    // vpiInstance, and typespec::Compare recurses Instance(): a package's own
+    // value constants are re-sized by its elaboration (`localparam int
+    // TL_AW=32` reads back at 64 in AllPackages and 32 in TopPackages), so
+    // pointing at the def package makes the whole package compare unequal
+    // from inside an unrelated module (Earlgrey work@sram2tlul, top_pkg).
+    UHDM::typespec* act = nullptr;
+    for (auto* m9 : {&pkgParamObjTop, &pkgParamObj}) {
+        auto pIt = m9->find(&psym);
+        if (pIt == m9->end() || !pIt->second)
+            continue;
+        if (auto* prt = pIt->second->Typespec())
+            if (auto* a9 = prt->Actual_typespec()) {
+                act = (UHDM::typespec*)a9;
+                break;
+            }
+    }
+    c->VpiSize(act ? (int32_t)psym.getType().getBitWidth() : src->VpiSize());
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiParent(c);
+    rt->VpiFullName(paramTsOwnerFull9);
+    if (act)
+        rt->Actual_typespec(act);
+    c->Typespec(rt);
+    return c;
+}
+
+void UhdmExporter::crossPkgFoldBoundLeaves9(UHDM::any* node) {
+    if (!node || node->UhdmType() != UHDM::uhdmoperation)
+        return;
+    auto* ops = ((UHDM::operation*)node)->Operands();
+    if (!ops)
+        return;
+    for (size_t i = 0; i < ops->size(); i++) {
+        auto* o = (*ops)[i];
+        if (!o)
+            continue;
+        if (o->UhdmType() == UHDM::uhdmoperation) {
+            crossPkgFoldBoundLeaves9(o);
+            continue;
+        }
+        if (o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        auto* ro = (UHDM::ref_obj*)o;
+        const ParameterSymbol* psym = crossPkgBoundParam9(ro->VpiName());
+        if (!psym)
+            continue;
+        auto* c = crossPkgBoundFoldConst9(*psym, node);
+        if (!c)
+            continue;
+        // The substituted constant spans the PACKAGE QUALIFIER alone
+        // (`tp::` of `tp::TL_AW`) — Surelog anchors a substituted read at the
+        // scope token, the same span rule the pkg-qualified member-access base
+        // ref uses.
+        c->VpiFile(ro->VpiFile());
+        c->VpiLineNo(ro->VpiLineNo());
+        c->VpiColumnNo(ro->VpiColumnNo());
+        c->VpiEndLineNo(ro->VpiLineNo());
+        c->VpiEndColumnNo(ro->VpiColumnNo() +
+                          (uint16_t)(std::string(ro->VpiName()).find("::") + 2));
+        (*ops)[i] = c;
+    }
+}
+
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
@@ -1497,6 +1615,35 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                          int64_t value) -> UHDM::expr* {
                         if (!bsyn || bsyn->kind == syntax::SyntaxKind::IntegerLiteralExpression)
                             return makeBoundConst(bsyn, value, r);
+                        // § crossPkgRangeBoundFold (see the helpers above).
+                        // Only a MODULE-side parameter's own typespec takes
+                        // the substitution: a package's own bound is reduced
+                        // whole by its elaboration (`[pa::W-1:0]` -> INT:15,
+                        // witness k.sv) and a $unit parameter's by
+                        // unitParamTs below.
+                        bool crossPkgFoldOk9 =
+                            declSymbol.kind == SymbolKind::Parameter &&
+                            declSymbol.getParentScope() &&
+                            declSymbol.getParentScope()->asSymbol().kind !=
+                                SymbolKind::Package &&
+                            declSymbol.getParentScope()->asSymbol().kind !=
+                                SymbolKind::CompilationUnit;
+                        if (crossPkgFoldOk9 &&
+                            bsyn->kind == syntax::SyntaxKind::ScopedName)
+                            if (auto* qp9 = crossPkgBoundParam9(
+                                    rawText(bsyn->sourceRange())))
+                                if (auto* qc9 =
+                                        crossPkgBoundFoldConst9(*qp9, r)) {
+                                    auto st9 = bsyn->sourceRange().start();
+                                    setLoc(qc9,
+                                           SourceRange(
+                                               st9,
+                                               st9 + (qp9->getParentScope()
+                                                          ->asSymbol()
+                                                          .name.size() +
+                                                      2)));
+                                    return qc9;
+                                }
                         // A $bits(SIGNAL) bound stays UNFOLDED in module and
                         // param contexts alike ($bits(type) still folds): the
                         // sys call's arg ref scopes through the declaring
@@ -2524,6 +2671,11 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (setTf7)
                                 tfTypeScope = savedTfS7;
                             boundCallNameSpan = savedBCN;
+                            // § crossPkgRangeBoundFold — swap the QUALIFIED
+                            // package-parameter leaves of the unfolded bound
+                            // tree for their substituted constants.
+                            if (crossPkgFoldOk9 && bareParamInParamTs)
+                                crossPkgFoldBoundLeaves9(e0bcn);
                             if (auto* e = e0bcn) {
                                 // The sys-call arg refs bind their DEF
                                 // nets — deferred until the nets exist.
