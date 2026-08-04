@@ -5301,7 +5301,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool savedCS = inCastSize;
                         inCastSize = true;
                         if (auto* e = emitExpr(sizeExpr, op, prefix, netMap))
-                            its->Expr((UHDM::expr*)e);
+                            setCastSizeTsExpr(its, e);
                         inCastSize = savedCS;
                         // A package-scope size cast's integer_typespec carries
                         // vpiInstance = the package, exactly like the

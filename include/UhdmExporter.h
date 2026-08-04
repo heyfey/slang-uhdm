@@ -1858,6 +1858,25 @@ private:
         pendingConnTfList;
     // Cast-size exprs also keep name-token-only call spans.
     bool inCastSize = false;
+    // § castSizeConstToValue — a cast-size integer_typespec never holds a
+    // CONSTANT in its vpiExpr slot.  All three Surelog arms that fill it
+    // (CompileType.cpp compileTypespec: paSystem_task, paConstant_expression
+    // and the slStringConst/getValue arm that serves a bare identifier width)
+    // are written `if (exp is constant) var->VpiValue(c->VpiValue()); else
+    // var->Expr(exp);` — so a width that reduces lands in vpiValue, which
+    // uhdm-cmp does not read, and a width that does NOT reduce (`(A+B)'(x)`)
+    // keeps its operation in vpiExpr.  Measured on BlackBePipeInt: golden's
+    // six `(dword_width_gp)'(...)` casts in the ALU always-block carry
+    // vpiValue=UINT:64 with an EMPTY vpiExpr where ours held the folded
+    // constant; the same design's three `(dev_id_width_gp+dev_addr_width_gp)'`
+    // param casts keep the operation on both sides.
+    static void setCastSizeTsExpr(UHDM::integer_typespec* its, UHDM::any* e) {
+        if (!e) return;
+        if (e->UhdmType() == UHDM::uhdmconstant)
+            its->VpiValue(((UHDM::constant*)e)->VpiValue());
+        else
+            its->Expr((UHDM::expr*)e);
+    }
     // Refs inside indexed-part-select base/width exprs are scoped by the
     // select base name.
     std::string selectBasePrefix;

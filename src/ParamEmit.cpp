@@ -3060,6 +3060,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // pattern, so a base whose own Rhs never reduced (a cast op, a
     // bit_select) leaves the read symbolic while a reduced one resolves it.
     std::set<const Symbol*> flatStructPat9;
+    // § elabReExportPaLhsShare — the ELABORATED module listing materializes a
+    // re-exported parameter TWICE (once per import item, each Parameters entry
+    // carrying its own vpiImported: the home package for the first item, the
+    // re-exporter for the second) but binds BOTH param_assigns' vpiLhs to the
+    // FIRST occurrence's object.  Surelog's netlist keeps one name->parameter
+    // map per instance and the param_assign is built off that lookup, so the
+    // second import item's assign re-uses the entry the first item installed;
+    // the Parameters vector is appended per occurrence and keeps both.
+    // Measured on BlackBePipeInt (golden TopMod work@bp_be_pipe_int:
+    // Parameters #8206609 imported='bp_common_pkg' + #8221098
+    // imported='bp_be_pkg', and BOTH Param_assigns' Lhs = #8206609) — 183 of
+    // the view's 190 unequal param_assign rows, every one of them a
+    // same-name/same-span pair differing ONLY in vpiImported, which
+    // parameter::Compare reads.  DEF-view listings keep the two objects
+    // distinct on both sides (golden AllMod #8029962 vs #8077804), so this is
+    // an elaboration-only sharing rule.
+    std::map<std::string, UHDM::parameter*> elabImpPaLhs9;
     for (size_t occIx9 = 0; occIx9 < paramSyms.size(); occIx9++) {
         auto* psPtr = paramSyms[occIx9];
         const ImpOcc9* occ9 = paramImp9[occIx9];
@@ -4105,6 +4122,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         if (auto syn = ps.getSyntax())
             setLoc(pa, syn->sourceRange());
         pa->Lhs(up);
+        // § elabReExportPaLhsShare (see the map's declaration).  Keyed on
+        // defViewOrig9, not topView: the import-copy law above FLIPS topView
+        // true for every materialized import row, including the DEF module
+        // listing — where golden keeps the two objects distinct (measured:
+        // gating on topView moved all 183 rows from TopMod to AllMod).
+        if (!defViewOrig9 && !inPackage && !funcScope && isImported) {
+            auto ei9 = elabImpPaLhs9.emplace(std::string(ps.name), up);
+            if (!ei9.second)
+                pa->Lhs(ei9.first->second);
+        }
         // ELAB view: `parameter DEBUG = Cfg.NoSlvPorts` — an init that
         // READS a struct param's MEMBER — reduces against that param's
         // ELABORATED Rhs. Surelog's reduceExpr walks the hier_path into
@@ -14026,6 +14053,24 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                 ps->getDeclaredType()->getTypeSyntax() &&
                 ps->getDeclaredType()->getTypeSyntax()->kind ==
                     syntax::SyntaxKind::ImplicitType;
+            // § elabImportTsInstUntypedExceptions — ...but the two UNTYPED
+            // shapes whose HOME copy IS instanced carry the stamp here too,
+            // exactly as the DEF-view module import arm already does
+            // (~ParamEmit:11384): a paren-cast width parameter, whose
+            // declaration typespec doubles as a `(P)'(x)` cast target, and a
+            // RANGED untyped localparam (`localparam [W-1:0] X = ...`), whose
+            // home package instances it.  The elab module copy is a clone of
+            // that same object, so it keeps the pointer.  Measured on
+            // BlackBePipeInt TopMod work@bp_be_pipe_int: golden stamps
+            // dev_addr_width_gp (both import copies) at bp_common_pkg and
+            // bp_be_pkg's five ranged localparams (dp_canonical_nan,
+            // dp_canonical_rec, dp_rec_0_0, dp_rec_1_0, sp_canonical_nan) at
+            // bp_be_pkg, where the deferred arm left all seven null -- 7 of
+            // the view's remaining unequal rows, reported by uhdm-cmp as
+            // `failLhs package(<pkg>) failRhs <null>`.
+            if (implicitImport9 &&
+                (isParenCastWidthParam(ps->name) || isRangedUntypedParam(*ps)))
+                implicitImport9 = false;
             // ...and the package it reaches is the ELABORATED (top) one:
             // typespec::Compare recurses vpiInstance, so a DEF-view instance
             // drags the unelaborated package (symbolic typespec bounds) into
@@ -14043,6 +14088,11 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                     pkgImportTsTopFixups.emplace_back(its, home9);
                 }
             }
+            // ...and the vpiExpr ref_obj the paren-cast site binds back to the
+            // parameter travels with the stamp, same law as the DEF module
+            // import arm (~ParamEmit:11399): the mark belongs to the
+            // PARAMETER, so every copy of its declaration typespec carries it.
+            stampParenCastWidthTs(*ps, up, its, nullptr);
         }
         syntaxRefPrefix = savedPfx2;
         // Surelog's ELAB param_assign RHS constant refers to the MODULE DEF's

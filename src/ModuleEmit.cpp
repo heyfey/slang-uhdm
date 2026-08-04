@@ -7969,6 +7969,21 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
             rt->VpiParent(p);
+            // NOTE (r10bbp13, OPEN — next BlackBePipeInt pass starts here).
+            // The ELAB port typespec built below is SHARED with the DEF port's
+            // (measured: our top port id130669 and def port id118147 reach the
+            // same logic_typespec -> range -> operation object), so a bound
+            // written as a parameter expression stays SYMBOLIC in the top view.
+            // Golden mints a separate elaborated object with the bound FOLDED:
+            // BlackBePipeInt `input [dispatch_pkt_width_lp-1:0] reservation_i`
+            // @15549 is `constant INT:348 vpiSize 64 vpiConstType 7` in golden's
+            // TopModules[0] and an unfolded operation in ours (the same for
+            // data_o @15553 -> 67).  This is the whole-design uhdm-cmp HEAD as
+            // of r10bbp13 and the first two rows of a 12-row TOPMOD-only family
+            // that the r10bbp10b scope/instance drill CANNOT see -- Ports /
+            // Cont_assigns are module_inst slots; tools/probe/r10bbp13f.cpp is
+            // the instrument, tools/probe/r10bbp13g.cpp answers "is the elab
+            // body a fresh copy" before any fold rule is theorised.
             // An INSTANCE-ARRAY element's port typespecs share one object per
             // DECLARATION (`input a, b, c;` -> one logic_typespec), like its
             // nets — Surelog's per-instance TypespecCache (arraycells).
@@ -12804,7 +12819,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             bool savedCS = inCastSize;
             inCastSize = true;
             if (auto* e = emitExpr(*pc.sizeExpr, its, pc.prefix, none))
-                its->Expr((UHDM::expr*)e);
+                setCastSizeTsExpr(its, e);
             inCastSize = savedCS;
         }
         else {
