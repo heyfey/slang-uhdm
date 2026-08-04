@@ -378,6 +378,17 @@ private:
     // instance-less int_typespec ref named by the member's ts fullname).
     void attachFoldedBoundMeta(UHDM::typespec* container,
                                UHDM::instance* pkgInst = nullptr);
+    // § elabHierSelWidthFold — stamp a folded PACKAGE-parameter read with the
+    // parameter's own declaration typespec, the shape § defNetBoundUntypedPkgTs
+    // measured for a range bound: a TYPED package parameter shares the object
+    // its own parameter carries, an UNTYPED one gets a synthesized unsigned
+    // int_typespec spanning the whole parameter DECLARATION.  A MODULE-scope
+    // parameter has no such object and is left bare (golden: BlackBePipeInt's
+    // `[0+:vaddr_width_p]` fold carries no vpiTypespec while the sibling
+    // `[0+:dword_width_gp]` does).
+    void stampFoldedPkgParamTs(UHDM::constant* c,
+                               const slang::ast::Symbol& sym,
+                               const std::string& fullName);
     // Surelog clones a NAMED vector-typedef typespec at every REFERENCE
     // instead of sharing the module's object, and the copy DROPS vpiInstance
     // (the shared object's instance is the def-view module). Copies the fields
@@ -1174,7 +1185,8 @@ private:
     // test: no declaration dimension anywhere in the type may name something
     // the definition compile had not already resolved (a MODULE parameter or
     // a genvar leaves a ref_obj; a PACKAGE parameter does not).
-    bool srlgBitsFoldArg(const slang::ast::Expression& arg);
+    bool srlgBitsFoldArg(const slang::ast::Expression& arg,
+                         bool elabView = false);
     // True when a declaration-bound SYNTAX tree reads a `$unit`-scope
     // parameter. Surelog never substitutes one, so such a bound stays an
     // unfolded operation in every view.
@@ -1211,6 +1223,23 @@ private:
     void stampParenCastWidthTs(const slang::ast::ParameterSymbol& ps,
                                UHDM::parameter* up, UHDM::typespec* its,
                                UHDM::instance* inst);
+    // § parenCastWidthRefModuleCopy — every stamp of one parameter's cast-width
+    // ref_obj binds the SAME object, and that object is the MODULE-SCOPE ELAB
+    // IMPORT COPY, not the package parameter each copy was written from.
+    // Surelog stamps the mark once per declaration typespec and the LAST
+    // elaboration pass to touch it is the importing module's, so the package
+    // listings' own copies end up pointing INTO the module.  Measured on
+    // BlackBePipeInt -elabuhdm: golden binds
+    // `work@bp_be_pipe_int.dev_addr_width_gp` (vpiImported=bp_common_pkg,
+    // vpiParent=the module_inst) from the package's typespec, where we bound
+    // the package-scope object -- 592 of 664 drill rows and the whole-design
+    // uhdm-cmp head.  parameter::Compare reads vpiImported directly, so the
+    // two are NOT interchangeable.
+    std::map<const slang::ast::Symbol*, std::vector<UHDM::ref_obj*>>
+        parenCastWidthRefs;
+    std::map<const slang::ast::Symbol*, UHDM::parameter*> parenCastWidthOwner;
+    void claimParenCastWidthOwner(const slang::ast::Symbol& sym,
+                                  UHDM::parameter* up);
     bool srlgFullySpecType(const slang::ast::Type& type, int depth);
     // Surelog's value for a declaration-dimension bound that calls
     // $high/$low/$left/$right on an UNPACKED array: those four never resolve

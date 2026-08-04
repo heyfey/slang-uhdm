@@ -12808,16 +12808,48 @@ void UhdmExporter::stampParenCastWidthTs(const ParameterSymbol& ps,
     if (!isParenCastWidthParam(ps.name)) return;
     auto* ic9 = (UHDM::int_typespec*)its;
     if (inst) ic9->Instance(inst);
-    if (ic9->Cast_to_expr()) return;
+    // § parenCastWidthRefModuleCopy (declaration comment in UhdmExporter.h):
+    // an already-stamped typespec still joins the re-point set, and a stamp
+    // made after the module copy has claimed ownership binds THAT object.
+    auto& refs9 = parenCastWidthRefs[&ps];
+    if (auto* ex9 = ic9->Cast_to_expr()) {
+        if (ex9->UhdmType() == UHDM::uhdmref_obj) {
+            auto* er9 = (UHDM::ref_obj*)ex9;
+            if (std::find(refs9.begin(), refs9.end(), er9) == refs9.end())
+                refs9.push_back(er9);
+        }
+        return;
+    }
     auto* r9 = s.MakeRef_obj();
     r9->VpiName(ps.name);
-    if (up) {
+    auto oIt9 = parenCastWidthOwner.find(&ps);
+    UHDM::parameter* bind9 =
+        oIt9 != parenCastWidthOwner.end() ? oIt9->second : up;
+    if (bind9) {
+        r9->VpiFullName(std::string(bind9->VpiFullName()) + "." +
+                        std::string(bind9->VpiName()));
+        r9->Actual_group(bind9);
+    }
+    r9->VpiParent(ic9);
+    ic9->Cast_to_expr(r9);
+    refs9.push_back(r9);
+}
+
+// § parenCastWidthRefModuleCopy — the importing module's elaborated copy takes
+// ownership of the mark: every ref already stamped for this parameter is
+// re-pointed at it, and later stamps bind it too.  First claimant wins (the
+// elab listing materializes a re-exported import twice and golden's refs all
+// name the FIRST occurrence, the same identity rule § elabReExportPaLhsShare
+// measured for the param_assign Lhs).
+void UhdmExporter::claimParenCastWidthOwner(const Symbol& sym,
+                                            UHDM::parameter* up) {
+    if (!up || !parenCastWidthOwner.emplace(&sym, up).second)
+        return;
+    for (auto* r9 : parenCastWidthRefs[&sym]) {
         r9->VpiFullName(std::string(up->VpiFullName()) + "." +
                         std::string(up->VpiName()));
         r9->Actual_group(up);
     }
-    r9->VpiParent(ic9);
-    ic9->Cast_to_expr(r9);
 }
 
 UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedParam,
@@ -14264,6 +14296,14 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             // parameter travels with the stamp, same law as the DEF module
             // import arm (~ParamEmit:11399): the mark belongs to the
             // PARAMETER, so every copy of its declaration typespec carries it.
+            // § parenCastWidthRefModuleCopy: this ELAB MODULE import copy is
+            // the object every one of those refs binds — claim it first, so
+            // the stamp below (and the package listings' earlier ones) name it.
+            if (isParenCastWidthParam(ps->name) && ps->getParentScope() &&
+                ps->getParentScope()->asSymbol().kind == SymbolKind::Package &&
+                up->VpiParent() &&
+                up->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst)
+                claimParenCastWidthOwner(*ps, up);
             stampParenCastWidthTs(*ps, up, its, nullptr);
         }
         syntaxRefPrefix = savedPfx2;

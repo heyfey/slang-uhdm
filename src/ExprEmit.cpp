@@ -234,7 +234,7 @@ static void appendTokenText(const slang::syntax::SyntaxNode& n,
 // a bound folds at the same compile, so a TYPE name is resolved too.
 static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
                                const slang::ast::Scope* scope,
-                               bool unitResolves) {
+                               bool unitResolves, bool bodyResolves = false) {
     using SK = slang::syntax::SyntaxKind;
     using namespace slang::ast;
     if (n.kind == SK::ScopedName)
@@ -272,16 +272,23 @@ static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
             // on a plain `logic` folds (Scr1SvTests, 52 first-fails).
             if (k == SymbolKind::CompilationUnit)
                 return unitResolves;
+            // § elabBitsBodyParamResolves — ...but the ELABORATED listing IS
+            // the resolved view: its net/var typespec bounds are folded
+            // constants, so `ExprEval::isFullySpecified` answers TRUE there and
+            // the same `$bits(<signal>)` that the definition compile left a
+            // sys_func_call reduces.  Only a module-BODY parameter flips;
+            // `$unit` keeps its own answer (Surelog never substitutes a
+            // compilation-unit parameter, in either view).
             if (k == SymbolKind::InstanceBody ||
                 k == SymbolKind::GenerateBlock ||
                 k == SymbolKind::GenerateBlockArray)
-                return false;
+                return bodyResolves;
         }
         return false;
     }
     for (size_t i = 0; i < n.getChildCount(); i++)
         if (auto* c = n.childNode(i))
-            if (!r9DimNamesResolved(*c, scope, unitResolves))
+            if (!r9DimNamesResolved(*c, scope, unitResolves, bodyResolves))
                 return false;
     return true;
 }
@@ -293,12 +300,12 @@ static bool r9DimNamesResolved(const slang::syntax::SyntaxNode& n,
 // definition compile could not resolve.
 static bool r9DimsLiteral(const slang::syntax::SyntaxNode& n,
                           const slang::ast::Scope* scope,
-                          bool unitResolves = true) {
+                          bool unitResolves = true, bool bodyResolves = false) {
     if (n.kind == slang::syntax::SyntaxKind::VariableDimension)
-        return r9DimNamesResolved(n, scope, unitResolves);
+        return r9DimNamesResolved(n, scope, unitResolves, bodyResolves);
     for (size_t i = 0; i < n.getChildCount(); i++)
         if (auto* c = n.childNode(i))
-            if (!r9DimsLiteral(*c, scope, unitResolves))
+            if (!r9DimsLiteral(*c, scope, unitResolves, bodyResolves))
                 return false;
     return true;
 }
@@ -421,7 +428,8 @@ static int packedDimCountE(const Type& t) {
 //     $bits(w8) [wire [7:0]]      folds   $bits(wp) [wire [OW-1:0]]     keeps
 //     $bits(st_t) / $bits(byte_t) folds   $bits(pd_t) [OW-wide member]  keeps
 //     $bits(sv.a) / $bits(u8[3:0]) folds  $bits(depth) [function formal] keeps
-bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0) {
+bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0,
+                                   bool elabView) {
     using namespace slang::ast;
     auto& arg = stripImplicitConv(arg0);
     // A TYPE argument always resolves; only full specification is in doubt.
@@ -525,12 +533,15 @@ bool UhdmExporter::srlgBitsFoldArg(const slang::ast::Expression& arg0) {
         // A TYPEDEF's dimensions are the opposite (they fold at file scope,
         // see buildStructTs) and are walked by srlgFullySpecType with
         // unitResolves left true.
+        // § elabBitsBodyParamResolves (r9DimNamesResolved): in the ELABORATED
+        // listing a module-body parameter in the signal's own dimensions is
+        // already a folded constant, so the call reduces there.
         if (auto* ts = dt->getTypeSyntax())
-            if (!r9DimsLiteral(*ts, ssc, /*unitResolves=*/false))
+            if (!r9DimsLiteral(*ts, ssc, /*unitResolves=*/false, elabView))
                 return false;
         if (auto* ds = dt->getDimensionSyntax())
             for (auto d : *ds)
-                if (!r9DimsLiteral(*d, ssc, /*unitResolves=*/false))
+                if (!r9DimsLiteral(*d, ssc, /*unitResolves=*/false, elabView))
                     return false;
     }
     return srlgFullySpecType(sym->getDeclaredType()->getType(), 0);
@@ -1921,6 +1932,50 @@ UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
     return c;
 }
 
+// § elabHierSelWidthFold (declaration comment in UhdmExporter.h).
+void UhdmExporter::stampFoldedPkgParamTs(UHDM::constant* c, const Symbol& sym,
+                                         const std::string& fullName) {
+    if (!c || sym.kind != SymbolKind::Parameter)
+        return;
+    auto* psc = sym.getParentScope();
+    if (!psc || psc->asSymbol().kind != SymbolKind::Package)
+        return;
+    auto& dp = sym.as<ParameterSymbol>();
+    bool implicit9 = true;
+    if (auto dt9 = dp.getDeclaredType())
+        if (auto* ts9 = dt9->getTypeSyntax())
+            implicit9 = ts9->kind == syntax::SyntaxKind::ImplicitType;
+    UHDM::typespec* its = nullptr;
+    if (!implicit9)
+        if (auto poit = pkgParamObj.find(&sym);
+            poit != pkgParamObj.end() && poit->second->Typespec())
+            its = poit->second->Typespec()->Actual_typespec();
+    if (!its) {
+        auto* its0 = s.MakeInt_typespec();
+        if (auto dt = dp.getDeclaredType())
+            if (auto tsy = dt->getTypeSyntax()) {
+                if (implicit9) {
+                    for (auto q9 = dp.getSyntax(); q9; q9 = q9->parent)
+                        if (q9->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                            setLoc(its0, q9->sourceRange());
+                            break;
+                        }
+                }
+                else {
+                    if (dp.getType().isSigned())
+                        its0->VpiSigned(true);
+                    setLoc(its0, tsy->sourceRange());
+                }
+            }
+        its = its0;
+    }
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiFullName(fullName);
+    rt->VpiParent(c);
+    rt->Actual_typespec(its);
+    c->Typespec(rt);
+}
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -2779,15 +2834,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* c = s.MakeConstant();
                     std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
                     c->VpiDecompile(digits);
-                    // TYPED pkg params fold at the type width; untyped at 64.
                     bool typedPkgParam = false;
                     if (auto d0 = psym.getDeclaredType())
                         if (auto t0 = d0->getTypeSyntax())
                             typedPkgParam =
                                 t0->kind != syntax::SyntaxKind::ImplicitType;
-                    c->VpiSize(typedPkgParam
-                                   ? (int32_t)psym.getType().getBitWidth()
-                                   : 64);
+                    // § pkgParamFoldWidthAlways — a module-side pkg-param fold
+                    // is sized by the PARAMETER'S OWN type, typed or not.
+                    // Surelog's substituteAssignedValue hands the read the
+                    // parameter's value object and adjustSize re-renders it at
+                    // that parameter's typespec width; an UNTYPED localparam is
+                    // `int`, so it lands at 32, not the 64 this site used to
+                    // assume (BlackBePipeInt `localparam dword_width_gp = 64`
+                    // read from `reservation.rs1[0+:dword_width_gp]` and
+                    // `src1 << word_width_gp` -> golden UINT sz32 both).  The
+                    // old typed/untyped split was a narrower reading of the
+                    // same law: measured over both corpora x both modes the
+                    // unconditional form is byte-identical (dump column
+                    // included), so nothing in the corpus ever wanted 64.
+                    c->VpiSize((int32_t)psym.getType().getBitWidth());
                     // A pkg param whose init is a CONST-FUNCTION CALL with a
                     // signed return folds INT (Surelog); others fold UINT.
                     bool callSigned9 = false;
@@ -2936,6 +3001,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool defParamInitOpFold9 =
                         inParamInit && paramInitDef && !paramInitPkg && parent &&
                         parent->UhdmType() == UHDM::uhdmoperation;
+                    // § ndaOpFoldTs — a NET-DECL-ASSIGN RHS operand fold reads
+                    // the same materialized import copy and carries the same ts
+                    // ref, module-scoped.  The procedural / param-init / direct
+                    // cont-assign witnesses above all measured one shape of the
+                    // one law (Surelog stamps the resolved copy's typespec on
+                    // every fold of a materialized import); a `wire [W-1:0] x =
+                    // ... dword_width_gp ...;` operand had no gate at all.
+                    // BlackBePipeInt pc_sext_li @15779:8 / shamt / final_src1 /
+                    // final_src2: golden constant UINT sz32 + ref_typespec
+                    // (fullname work@bp_be_pipe_int) -> the package's
+                    // int_typespec, ours bare.
+                    bool ndaOpFold9 = ndaRhsEmit && !inParamInit &&
+                                      !inProcessEmit && !currentTf && parent &&
+                                      parent->UhdmType() == UHDM::uhdmoperation;
+                    // ...and so does an INDEXED PART-SELECT WIDTH fold, the
+                    // ips sibling of selFold9's bit_select rule but scoped by
+                    // the MODULE (`work@bp_be_pipe_int`), not the select:
+                    // BlackBePipeInt `src2[0+:rv64_shamtw_width_gp]` @15786:64.
+                    bool ipsWidFold9 = !inParamInit && parent &&
+                                       parent->UhdmType() ==
+                                           UHDM::uhdmindexed_part_select;
                     if ((procOpFold9 || defParamInitOpFold9) && !typedPkgParam &&
                         psym.getType().getCanonicalType().isIntegral() &&
                         importedParamDefTs.count(&nv.symbol) &&
@@ -2951,7 +3037,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || tfOpFold9 || sysFuncArgFold ||
-                        procSelFold9 || procPsFold9 || selFold9)
+                        procSelFold9 || procPsFold9 || selFold9 || ndaOpFold9 ||
+                        ipsWidFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -6910,7 +6997,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                      a0.kind == ExpressionKind::ElementSelect ||
                      a0.kind == ExpressionKind::RangeSelect ||
                      a0.kind == ExpressionKind::HierarchicalValue))
-                    bitsKeep = !srlgBitsFoldArg(a0);
+                    // § elabBitsBodyParamResolves — the ELAB listing's own
+                    // net/var typespec bounds are folded, so a $bits of a
+                    // signal whose declaration dims name a module-body
+                    // parameter reduces THERE while the def listing keeps the
+                    // call.  Gated to the elaborated cont-assign / net-decl-
+                    // assign emission, the only elab-only expression views this
+                    // site sees (BlackBePipeInt pc_sext_li's three $bits(pc)
+                    // over `wire [vaddr_width_p-1:0] pc` -> golden UINT:39).
+                    bitsKeep = !srlgBitsFoldArg(
+                        a0, /*elabView=*/ndaRhsEmit || contAssignView == 2);
             }
             // ...and the DEF listing of a PACKAGE never folds it at all.
             // Surelog compiles that view without elaborating the package, so
@@ -8057,8 +8153,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         dotted += "." +
                                   std::string(
                                       (*it2)->as<MemberAccessExpression>().member.name);
-                    std::string selText = spaceIdxOps(selName(rawText(SourceRange(
-                        rs.left().sourceRange.start(), rs.right().sourceRange.end()))));
+                    // § elabHierSelWidthFold (EmitHelpers selWidthParamFold):
+                    // an indexed width that names a parameter is substituted by
+                    // its value BEFORE the select is decompiled.
+                    auto wf9 = rs.getSelectionKind() == RangeSelectionKind::Simple
+                                   ? SelWidthFold{}
+                                   : selWidthParamFold(rs.right());
+                    std::string selText =
+                        wf9.ok
+                            ? spaceIdxOps(selName(rawText(SourceRange(
+                                  rs.left().sourceRange.start(),
+                                  rs.left().sourceRange.end())))) +
+                                  (rs.getSelectionKind() ==
+                                           RangeSelectionKind::IndexedUp
+                                       ? "+:"
+                                       : "-:") +
+                                  wf9.text
+                            : spaceIdxOps(selName(rawText(SourceRange(
+                                  rs.left().sourceRange.start(),
+                                  rs.right().sourceRange.end()))));
                     dotted += "[" + selText + "]";
                     hp->VpiName(dotted);
                     hp->VpiFullName(dotted);
@@ -8154,7 +8267,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (auto* b = emitExpr(rs.left(), ips, prefix, netMap))
                                 ips->Base_expr((UHDM::expr*)b);
                             suppressConstParent = isLiteralExpr(rs.right());
-                            if (auto* w = emitExpr(rs.right(), ips, prefix, netMap))
+                            // § elabHierSelWidthFold: the substituted width is
+                            // the parameter's VALUE, sized by that parameter's
+                            // own type, carried UNPARENTED at the reference's
+                            // span (golden).  A MODULE localparam never reached
+                            // a fold arm here at all and survived as a ref_obj.
+                            if (wf9.ok) {
+                                auto* wc9 = s.MakeConstant();
+                                wc9->VpiDecompile(wf9.text);
+                                wc9->VpiSize(wf9.size);
+                                wc9->VpiValue("UINT:" + wf9.text);
+                                wc9->VpiConstType(vpiUIntConst);
+                                setLoc(wc9, rs.right().sourceRange);
+                                stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
+                                ips->Width_expr(wc9);
+                            }
+                            else if (auto* w = emitExpr(rs.right(), ips, prefix,
+                                                        netMap))
                                 ips->Width_expr((UHDM::expr*)w);
                             suppressConstParent = sup;
                             elems->push_back(ips);
@@ -8214,6 +8343,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 return std::string();
                             return spaceOps9(raw);
                         };
+                        // § elabHierSelWidthFold (EmitHelpers
+                        // selWidthParamFold) — same law on the dotted-BASE
+                        // shape.
+                        auto wf9 =
+                            rs.getSelectionKind() == RangeSelectionKind::Simple
+                                ? SelWidthFold{}
+                                : selWidthParamFold(rs.right());
                         std::string selText;
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple)
                             selText = selName(baseDotted) + "[" +
@@ -8222,6 +8358,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         else if (stripImplicitConv(rs.left()).kind ==
                                  ExpressionKind::NamedValue)
                             selText = selName(rawText(expr.sourceRange));
+                        else if (wf9.ok)
+                            selText =
+                                selName(baseDotted) + "[" +
+                                spaceOps9(selName(std::string(
+                                    rawText(rs.left().sourceRange)))) +
+                                (rs.getSelectionKind() ==
+                                         RangeSelectionKind::IndexedUp
+                                     ? "+:"
+                                     : "-:") +
+                                wf9.text + "]";
                         else
                             // An ARITHMETIC indexed base decompiles with
                             // operator spacing (sub.src[i*8+:8] ->
@@ -8438,7 +8584,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                     netMap))
                                 ips2->Base_expr((UHDM::expr*)b2);
                             suppressConstParent = isLiteralExpr(rs.right());
-                            if (auto* w2 = emitExpr(rs.right(), ips2, prefix, netMap))
+                            // § elabHierSelWidthFold (see the name render
+                            // above): the substituted width is the parameter's
+                            // VALUE, sized by that parameter's own type — a
+                            // MODULE localparam (`vaddr_width_p`) never reached
+                            // a fold arm at all and stayed a ref_obj, and a
+                            // PACKAGE one folded at the wrong width before
+                            // § pkgParamFoldWidthAlways.  Golden carries the
+                            // constant UNPARENTED at the reference's span.
+                            if (wf9.ok) {
+                                auto* wc9 = s.MakeConstant();
+                                wc9->VpiDecompile(wf9.text);
+                                wc9->VpiSize(wf9.size);
+                                wc9->VpiValue("UINT:" + wf9.text);
+                                wc9->VpiConstType(vpiUIntConst);
+                                setLoc(wc9, rs.right().sourceRange);
+                                stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
+                                ips2->Width_expr(wc9);
+                            }
+                            else if (auto* w2 = emitExpr(rs.right(), ips2, prefix,
+                                                         netMap))
                                 ips2->Width_expr((UHDM::expr*)w2);
                             elems->push_back(ips2);
                         }

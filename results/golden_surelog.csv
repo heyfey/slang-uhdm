@@ -129,8 +129,8 @@ BitsOp,default,SLANG_REJECT,dut.sv:119:9: error: use of undeclared identifier 's
 BitsOp,testflags,SLANG_REJECT,dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
 BitsStructMember,default,SLANG_REJECT,dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
 BitsStructMember,testflags,SLANG_REJECT,dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
-BlackBePipeInt,default,CMP_NOTEQUAL,decompile:,,
-BlackBePipeInt,testflags,CMP_NOTEQUAL,decompile:,,
+BlackBePipeInt,default,CMP_EQUAL,,,differ
+BlackBePipeInt,testflags,CMP_EQUAL,,,differ
 BlackBox,default,CMP_EQUAL,,,match
 BlackBox,testflags,CMP_EQUAL,,,differ
 BlackBoxInst,default,CMP_EQUAL,,,match

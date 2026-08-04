@@ -2174,6 +2174,43 @@ inline const Expression& stripImplicitConv(const Expression& e) {
     return *p;
 }
 
+// § elabHierSelWidthFold — an indexed part-select whose WIDTH expression is a
+// bare PARAMETER read is substituted by that parameter's VALUE before the
+// select is decompiled, so the rendered select text carries the DIGITS rather
+// than the identifier, and the vpiWidthExpr is a constant sized by THAT
+// parameter's own type (an untyped localparam is `int` -> 32).  Measured on
+// BlackBePipeInt: golden's four net-decl-assign hier_paths read
+// `reservation.pc[0+:39]` / `reservation.rs1[0+:64]` where the source writes
+// `[0+:vaddr_width_p]` / `[0+:dword_width_gp]`, and the symbolic spelling
+// occurs ZERO times in the whole dump.  A literal keeps its written spelling
+// (a based one must not be re-rendered in decimal) and a computed width keeps
+// its text — only the bare-parameter read substitutes.
+struct SelWidthFold {
+    bool ok = false;
+    std::string text;
+    int32_t size = 64;
+    const Symbol* sym = nullptr;
+};
+
+inline SelWidthFold selWidthParamFold(const Expression& w) {
+    SelWidthFold r;
+    auto& sw = stripImplicitConv(w);
+    if (sw.kind != ExpressionKind::NamedValue)
+        return r;
+    auto& sym = sw.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Parameter)
+        return r;
+    auto& ps = sym.as<ParameterSymbol>();
+    auto& cv = ps.getValue();
+    if (!cv.isInteger() || cv.integer().hasUnknown())
+        return r;
+    r.ok = true;
+    r.text = cv.integer().toString(LiteralBase::Decimal, false);
+    r.size = (int32_t)ps.getType().getBitWidth();
+    r.sym = &sym;
+    return r;
+}
+
 inline bool isLiteralExpr(const Expression& e) {
     auto& c = stripImplicitConv(e);
     return c.kind == ExpressionKind::IntegerLiteral ||

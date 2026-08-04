@@ -8294,21 +8294,13 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(prefix + "." + std::string(ps.name));
             rt->VpiParent(p);
-            // NOTE (r10bbp13, OPEN — next BlackBePipeInt pass starts here).
-            // The ELAB port typespec built below is SHARED with the DEF port's
-            // (measured: our top port id130669 and def port id118147 reach the
-            // same logic_typespec -> range -> operation object), so a bound
-            // written as a parameter expression stays SYMBOLIC in the top view.
-            // Golden mints a separate elaborated object with the bound FOLDED:
-            // BlackBePipeInt `input [dispatch_pkt_width_lp-1:0] reservation_i`
-            // @15549 is `constant INT:348 vpiSize 64 vpiConstType 7` in golden's
-            // TopModules[0] and an unfolded operation in ours (the same for
-            // data_o @15553 -> 67).  This is the whole-design uhdm-cmp HEAD as
-            // of r10bbp13 and the first two rows of a 12-row TOPMOD-only family
-            // that the r10bbp10b scope/instance drill CANNOT see -- Ports /
-            // Cont_assigns are module_inst slots; tools/probe/r10bbp13f.cpp is
-            // the instrument, tools/probe/r10bbp13g.cpp answers "is the elab
-            // body a fresh copy" before any fold rule is theorised.
+            // NOTE (r10bbp13, CLOSED by r10bbp14).  The "ELAB port typespec is
+            // shared with the DEF port's" symptom belonged to the TOP module's
+            // write-phase swap, not to this child-instance site: when the def
+            // port's typespec is DEFERRED (rangeRefsOverriddenParam) the swap
+            // in emitTopPorts found `defActual == nullptr` and handed the top
+            // port the one unfolded object it was about to build for the def.
+            // Fixed there — see § elabDeferredPortTsMint (~ModuleEmit:12481).
             // An INSTANCE-ARRAY element's port typespecs share one object per
             // DECLARATION (`input a, b, c;` -> one logic_typespec), like its
             // nets — Surelog's per-instance TypespecCache (arraycells).
@@ -12863,6 +12855,27 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                 }
             }
         }
+        // § elabDeferredPortTsMint — when the DEF port's typespec was DEFERRED
+        // (rangeRefsOverriddenParam: a bound naming an overridden / computed
+        // parameter, which the def view must keep symbolic), the swap below
+        // has nothing to hand the TOP port: `defActual` is still null, so both
+        // views ended up sharing the ONE unfolded object the write phase is
+        // about to build for the def.  Surelog mints the ELABORATED port
+        // typespec separately, with the bound FOLDED, exactly like the elab
+        // NET of the same signal — measured on BlackBePipeInt `input
+        // [dispatch_pkt_width_lp-1:0] reservation_i` @15549 (golden top-port
+        // range left = constant INT:348 vpiSize 64 vpiConstType 7, def-port
+        // range left = an operation) and `output logic [dpath_width_gp-1:0]
+        // data_o` @15553 -> 67.  Built BEFORE the def's recompile because
+        // golden's elaborated port typespecs precede the def listing's in the
+        // arena (top-port ts ids 8108111..8108139 vs def-port 8192001..8192028).
+        UHDM::typespec* elabPts = nullptr;
+        if (defRt && !defActual) {
+            auto* savedScope9 = currentScope;
+            currentScope = &body;
+            elabPts = makeTypespec(*internal, nullptr, &ps);
+            currentScope = savedScope9;
+        }
         tfContext = true;
         // ...and it resolves a bound that names an IMPORTED PACKAGE parameter
         // exactly as the def-view NET path does (§ defNetTsScope): the module
@@ -12917,7 +12930,9 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         // An IMPORTED-unqualified pkg-typedef port's TOP typespec is a fresh
         // NAMED clone (unqualified name, Typedef_alias ref to the shared pkg
         // ts, anchored range bounds); def port and net keep the shared ts.
-        UHDM::typespec* topActual = defActual ? defActual : pts;
+        UHDM::typespec* topActual = defActual  ? defActual
+                                    : elabPts ? elabPts
+                                              : pts;
         // An UNPACKED-array port's TOP typespec is the BARE element ts: the
         // array wrapper belongs to the def port alone. A 4-state leaf gets
         // that for free (its def actual IS the element ts, and the wrapper is
