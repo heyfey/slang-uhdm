@@ -7226,14 +7226,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 // A STRING-literal init on an (implicitly) INTEGRAL param
                 // re-emits the string constant in the elab view, decompiled
-                // WITHOUT quotes (const_func e1) — not the UINT fold.
+                // WITHOUT quotes (const_func e1) — not the UINT fold.  The
+                // strip is gated on § pkgStringDecompileQuoted (see the
+                // general elab-view strip below): a package top view keeps
+                // the source spelling.
                 else if (stripImplicitConv(*init).kind ==
                              ExpressionKind::StringLiteral &&
                          !ps.getType().getCanonicalType().isString()) {
                     forceConstParent = true;
                     rhs = emitExpr(*init, pa, prefix, netMap);
                     forceConstParent = false;
-                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
+                    if (rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
+                        !inPackage) {
                         auto* rc = (UHDM::constant*)rhs;
                         std::string_view v0 = rc->VpiValue();
                         if (v0.rfind("STRING:", 0) == 0)
@@ -10725,10 +10729,36 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // path; only its width needs the view's size (it
                             // keeps its own const type — golden's UINT:5 at
                             // size 8 for a `byte` array's literal element).
+                            //
+                            // ...unless the element is a BASED literal
+                            // (`4'b0001`, `8'h12`, `'h3`).  § adjustSize: the
+                            // consumer only re-sizes a constant whose width
+                            // was implied by its reading context; a literal
+                            // that SPELLS its own base carries an explicit
+                            // width and every Surelog view leaves it alone.
+                            // Measured on a 6-param package witness
+                            // (logic[3:0]/byte/int/logic[11:0]/shortint,
+                            // sized and unsized bases): golden reads
+                            // 4/8/32/12/16 for the based elements and 64 for
+                            // the plain decimals beside them, in BOTH package
+                            // views — and an UNSIZED base keeps the producer's
+                            // 0 (`'b1`) / -1 (`'h3`).  The module elab view
+                            // already behaved this way (its decimals take the
+                            // element width, its based literals do not), so
+                            // the rule is uniform once the package re-stamp
+                            // stops overwriting them.  Earlgrey_0_1's 20+
+                            // *_reg_pkg `parameter logic [3:0] X [N] = '{4'b
+                            // 0001, ...}` tables are the corpus witness.
                             if ((*pop9->Operands())[i9]->UhdmType() ==
                                 UHDM::uhdmconstant) {
-                                ((UHDM::constant*)(*pop9->Operands())[i9])
-                                    ->VpiSize(elemSz9);
+                                auto& pl9 = stripImplicitConv(*pel9[i9]);
+                                bool basedLit9 =
+                                    pl9.kind == ExpressionKind::IntegerLiteral &&
+                                    rawTextLit(pl9).find('\'') !=
+                                        std::string::npos;
+                                if (!basedLit9)
+                                    ((UHDM::constant*)(*pop9->Operands())[i9])
+                                        ->VpiSize(elemSz9);
                                 continue;
                             }
                             if ((*pop9->Operands())[i9]->UhdmType() !=
@@ -11545,7 +11575,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 // Elab-view string constants decompile WITHOUT quotes (the
                 // def view keeps them).
-                if (topView && rhs->UhdmType() == UHDM::uhdmconstant &&
+                //
+                // § pkgStringDecompileQuoted — the strip is a MODULE-
+                // ELABORATION effect, not a property of string constants.
+                // Surelog's elaborator rebuilds an instance's param_assign Rhs
+                // from the elaborated VALUE (which holds the bare text); a
+                // PACKAGE's top view re-uses the definition expression and
+                // keeps the source spelling.  Measured on a 3-param witness
+                // (untyped / `string`-typed / untyped localparam) emitted once
+                // in a package and once in a module: every DEF view is quoted,
+                // the module top view is bare for all three, the package top
+                // view is quoted for all three.  Corpus witness: tlul_pkg's
+                // `parameter ArbiterImpl = "PPC"` (Earlgrey_0_1, three
+                // separate TOPMOD heads plus the ALLPKG one).
+                if (topView && !inPackage &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::constant*)rhs)->VpiConstType() == vpiStringConst) {
                     auto* rc = (UHDM::constant*)rhs;
                     std::string d(rc->VpiDecompile());

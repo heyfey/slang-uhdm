@@ -1,0 +1,64 @@
+r10earl — Earlgrey_0_1 (Surelog suite, DEFAULT mode) decode witnesses.
+
+run.sh <file.sv>   runs Surelog (-parse -nocache -mt 0 -mp 0 -d uhdm) and
+                   slang-uhdm on the same source and pipes both databases
+                   through uhdm-cmp.  Edit W= at the top for your worktree.
+dmp.sh <basename>  uhdm-dump both sides of an earlier run.sh into
+                   /tmp/r10earl_rep/out_<b>/{g,o}.dump
+tab2.py g.dump o.dump
+                   projects each dump onto "(param_assign) -> <decompile>/
+                   <size> ..." per view, which is the only shape these
+                   parameter laws move.  Every view of a param_assign appears
+                   on one line, so def-vs-top divergence is visible directly.
+
+LANDED (this block, both gated at goldens 23/23 + u2r testflags 0 change +
+Surelog both modes 0 change):
+
+  a.sv  package `parameter logic [3:0] X [3] = '{4'b 0001, ...}` — the based
+        literal keeps its OWN width in a package unpacked-array pattern; we
+        used to stamp 64 over it.  ParamEmit § the elemSz9 re-stamp.
+  d.sv  the 6-row witness that decoded it (logic[3:0] / byte / int /
+        logic[11:0] / shortint / unsized bases, each with a based element
+        beside a plain-decimal one).  Byte-identical after the fix.
+  b.sv, c.sv
+        `parameter ArbiterImpl = "PPC"` in a package vs a module.  The elab
+        quote-strip is a MODULE-elaboration effect; a package top view keeps
+        the quotes.  ParamEmit § pkgStringDecompileQuoted.  Both byte-equal.
+
+RANKED RESIDUE (measured, NOT fixed — next agent starts here):
+
+  f.sv / g.sv  § crossPkgRangeBoundFold.  `parameter logic [tp::TL_AW-1:0] P`
+        — Surelog FOLDS a QUALIFIED cross-package parameter reference used as
+        a parameter's range bound into a constant (UINT:32 size 32) carrying a
+        ref_typespec `work@<mod>.<param>` whose Actual is an int_typespec
+        located at the PACKAGE PARAM's declaration type and vpiInstance'd at
+        the package.  g.sv is the distinguisher matrix: a MODULE-LOCAL param
+        bound (`logic [W-1:0]`) and a localparam bound in a var decl are NOT
+        folded (we are already right there) — only the qualified package ref
+        is.  Corpus heads: Earlgrey_0_1 TOPMOD work@sram2tlul and work@padring
+        (r=-601 each).
+  e.sv  the same shape reached through a WILDCARD import
+        (`module padring import padctrl_reg_pkg::*; #(parameter logic
+        [NMioPads-1:0] ...)`).  Carries an extra, separable deficit: golden
+        materializes the imported package params (`work@padr.NMioPads`, with
+        vpiImported) into the module and we do not.  Fix f.sv first.
+  h.sv  § unsizedBasedTypedParamElab.  A TYPED param's UNSIZED BASED default
+        is re-rendered by the MODULE elaborator at the declared width:
+            logic [7:0]  MH = 'h0  -> 8'h0   HEX:0  size 8
+            logic [15:0] MW = 'hab -> 16'hab HEX:ab size 16
+            int          MI = 'h9  -> 32'h9  HEX:9  size 32
+            logic [7:0]  MO = 'o7  -> 7      UINT:7 size 8   (octal joins
+                                                              decimal: bare
+                                                              decimal UINT)
+            logic [7:0]  MB = 'b1  -> 1'b1   BIN:1  size 1   (NOT the type
+                                                              width — the
+                                                              paNumber_Tickb1
+                                                              grammar rule)
+        Both package views and the module DEF view keep the raw `'h0` at the
+        same width and are already correct.  ATTEMPTED and REVERTED here: a
+        rule placed beside the UnbasedUnsized re-decompile in emitParameters
+        never fired, so the module TOP-view param_assign Rhs for this shape is
+        produced by a DIFFERENT path than the one that owns the '0/'1 rewrite
+        — find that path first (marker-instrument VpiDecompile, do not guess).
+        h.sv also shows an untyped package param `'h3` at golden size -1 where
+        we write 32.
