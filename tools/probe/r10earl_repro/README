@@ -266,7 +266,207 @@ NEW TOOLS (pass 3):
                      dumps both databases and says nothing else, so the RC is
                      the only verdict it gives.
 
-RANKED RESIDUE (measured after pass 3; next agent starts here).  Head counts are
+LANDED — PASS 4 (r10earl4; every law gated separately at goldens 23/23 + u2r
+testflags 0 change + Surelog both modes 0 change INCLUDING the dump column —
+four full gate rounds, one per law).  Earlgrey_0_1 stays CMP_NOTEQUAL (this is
+groundwork), but its AllModules head census fell 106 -> 73 (-31%).
+
+  aa.sv  § pkgTypespecInstanceIsTop (ParamEmit drainDefParamTs, beside the
+        existing topPkgView arm).  A MODULE parameter typed by a PACKAGE ENUM
+        typedef (`parameter prim_pkg::impl_e Impl = prim_pkg::ImplGeneric;`)
+        binds the ELABORATED (uhdmtopPackages) typespec object, not the
+        def-listing one — exactly the rule makeTypespec already applies to
+        every real SIGNAL use (TypeEmit's pkgTopTypedefTs preference at ~346);
+        parameters were the outlier.  THE OBJECTS ARE TEXT-IDENTICAL IN A DUMP:
+        they differ only in which package copy their vpiInstance names, and
+        instance::Compare reads VpiTop, so the head reads "r=1 failLhs=package
+        {top=1} failRhs=package {top=0}" with NOTHING visible in a diff.  The
+        pointer-identity probe (r10earl4t) is how it was seen at all.  14
+        Earlgrey heads on prim_pkg (which holds NOTHING but `typedef enum
+        integer {ImplGeneric, ImplXilinx} impl_e`) + 3 on prim_cipher_pkg.
+
+  aa.sv  § pkgEnumParamDefRhs (ParamEmit ~11887, beside modPkgRefIntTsRhs9).
+        The SAME parameter's DEF-view param_assign Rhs constant carries (a) the
+        enum member's OWN constType — golden reads ct 7 / INT:0 / "0" where we
+        minted ct 9, because ExprEmit's qualified-enum fold (~3556) maps every
+        `INT:` enum value to vpiUIntConst — and (b) a ref_typespec at the SCOPE
+        PREFIX (`work@am`, not `work@am.Impl`) bound to the enum typespec.  The
+        ELAB view was already right: it takes § enumConstOvEnc, which is
+        topView-only.  13 heads (prim_ram_1p, prim_ram_2p, prim_rom,
+        prim_clock_gating, prim_clock_mux2, prim_flash, prim_pad_wrapper,
+        padctrl — every `PRIM_DEFAULT_IMPL` module).  The free-standing fold is
+        NOT touched: golden keeps ct 9 for the same shape inside a cont-assign
+        operation (alert_handler_ping_timer:140).
+
+  bb.sv/ee.sv  § genRefModuleImplicitPort (ModuleEmit ~22122, the SYNTAX-driven
+        gen-block instantiation loop).  The `.name` SHORTHAND (`.clk_i,` — no
+        parentheses, no actual; LRM 23.3.2.3) is a REAL connection: golden
+        lists it as a NAMED port with no high_conn at the connection's own
+        span.  We dropped it together with the `.douta ()` EMPTY form, which is
+        the anonymous one.  Every Earlgrey gen-scope child read "golden
+        ports=N, ours=N-2" and the two missing rows were always `.clk_i` /
+        `.rst_ni` — ref_module::Compare reports that as "r=1 failLhs=the
+        ref_module itself" (the vector-size arm).  14 heads (tlul_socket_1n
+        gen_dfifo/fifo_d 7, prim_diff_decode gen_async/i_sync_p 5, gpio
+        gen_filter/filter, nmi_gen gen_esc_sev).  ee.sv is BYTE-IDENTICAL.
+
+  ff.sv  § genRefModuleWildcardConn (same loop).  A `.*` connection is ONE
+        NAMELESS port whose High_conn is a constant carrying VpiValue
+        "STRING:.*" / VpiDecompile ".*" and NO size and NO constType, spanning
+        the connection node (Surelog CompileHelper:2946).  The AST
+        instantiation path already built it (findWildcardConn / wcS9); this
+        syntax path skipped every non-NamedPortConnection, so a gen-scope child
+        instantiated with a bare `.*` came out with an EMPTY port vector.
+        13 heads — again every `PRIM_DEFAULT_IMPL` module, whose implementation
+        child is always `prim_generic_x u_impl_generic (.*);` inside `if (1)
+        begin : gen_generic` or an `Impl == ImplXilinx` if/else pair.
+
+  gg.sv/hh.sv  § impCopyBasedDecKeep (ParamEmit ~11525: `topView` ->
+        `topView && !defViewOrig9` on the DEC-based re-render).  "The DEF view
+        keeps DEC" means the PHYSICAL def view.  § modDefImportShape
+        force-flips topView for a module DEF-view MATERIALIZED IMPORT copy and
+        the flip leaked into this rule, so ibex_alu — a module WITH a parameter
+        port list, hence flipped — listed ibex_pkg's `parameter logic [1:0]
+        CSR_MISA_MXL = 2'd1` as INT `1` in its AllModules entry, while
+        ibex_compressed_decoder (no port list, no flip) was already right.
+        Four-base x four-view matrix (hh.sv, one package read by a
+        port-list child and a port-list-less one):
+            base     pkg DEF   pkg TOP   mod DEF   ELAB INSTANCE
+            2'd1     DEC       DEC       DEC       INT 1        <- respells
+            4'o7     OCT       OCT       OCT       UINT 7       <- respells
+            4'h2     HEX       HEX       HEX       HEX 4'h2
+            4'b1010  BIN       BIN       BIN       BIN 4'b1010
+        i.e. DEC->INT and OCT->UINT happen in the ELABORATED INSTANCE ONLY.
+        12 heads (ibex_alu, ibex_controller, ibex_core, ibex_cs_registers,
+        ibex_decoder, ibex_ex_block, ibex_id_stage, ibex_if_stage,
+        ibex_multdiv_fast, ibex_pmp, ibex_wb_stage, ...).  NOTE the OCT row is
+        a residue, not a law we implemented — see (5) below.
+
+EARLGREY_0_1 HEAD CENSUS after pass 4 (r10earl4h; 73 + 8 + 6 + 5, from
+106 + 8 + 6 + 5 at entry):
+
+  AllModules  SIZE 190 vs 190,  73 heads   (was 106)
+  TopModules  SIZE  10 vs  10,   8 heads
+  AllPackages SIZE  40 vs  40,   6 heads
+  TopPackages SIZE  40 vs  40,   5 heads
+
+PASS-4 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  cc.sv dd.sv ee.sv  BYTE-IDENTICAL
+  aa.sv  cmp-EQUAL, 8 dump lines left (the enum param's own `INT:0` VALUE,
+        which golden puts on the parameter object in both views and we omit,
+        and the Rhs constant's END COLUMN — golden stops at the package
+        qualifier, we span the whole `pkg::NAME`)
+  bb.sv ff.sv  cmp-NOT-equal — ONE residue, named below
+  gg.sv hh.sv  cmp-NOT-equal — the ref_typespec residue (1) and the OCT
+        residue (5) below; all four package views and both module DEF views of
+        the based-literal matrix agree
+
+NEW TOOLS (pass 4):
+  ../r10earl4h.cpp   r10earl3h + the fields instance::Compare and
+                     ref_module::Compare actually read, printed on every head:
+                     "{top= def= uid= par= pa= ts= va= tf= net= cls=}" for an
+                     instance and "{def= actual= ports=}" for a ref_module.  An
+                     "r=1 failLhs=<the object itself>" head then NAMES ITS OWN
+                     CAUSE (a scalar, or which child vector's size differs) —
+                     that is how three of the four pass-4 laws were found.
+  ../r10earl4t.cpp   POINTER IDENTITY.  Prints uid/VpiTop for every package
+                     copy and, for every module parameter, which typespec
+                     object and which package its vpiInstance names.  Two
+                     package copies are TEXT-IDENTICAL in a dump, so no diff of
+                     any kind can see § pkgTypespecInstanceIsTop.
+  ../r10earl4pa.cpp  every param_assign for ONE named parameter (or `*` for
+                     all), in EVERY listing, labelled with the instance path +
+                     vpiTop + uid.  This is what turns "12 heads at
+                     ibex_pkg.sv:476" into the four-view matrix above; pa3.py
+                     projects a DUMP and cannot tell two listings apart.
+  ../r10earl4pc.cpp  per-row FRESH-CONTEXT compare inside ONE named package
+                     listing, printing failLhs/failRhs plus each side's Rhs
+                     scalars, links and 5-deep parent chain.  Use it when the
+                     design census says "package X" and you need the ROW.
+  run4.sh dmp4.sh cmprc4.sh sweep4.sh slsweep4.sh gate4.sh wit4.sh
+                     pass-4 copies (worktree path + /tmp/r10earl4_rep).
+                     gate4.sh = goldens + u2r testflags vs the committed
+                     baseline in one call; slsweep4.sh = the full Surelog
+                     both-modes sweep; wit4.sh <names...> prints
+                     "cmp_rc / dump_diff_lines" per witness so the two claims
+                     never get conflated again.
+
+RANKED RESIDUE (measured after PASS 4 — next agent starts HERE).  AllModules
+unless stated.  Most classes are ONE shared object reached from many entries,
+so tests-per-fix is the head count.
+
+  (1) 13 ref_typespec vs <null> — golden carries a ts ref we do not.  NOT one
+      family; hh.sv is the ready witness for the biggest slice (a MODULE's
+      materialized import copy whose Rhs constant carries a ref_typespec).  The
+      other members, each with its own chain: alert_handler_ping_timer:140
+      (constant in a cont-assign part-select), dm_csrs:91 / dm_mem:65
+      (constants under param_assign operations), flash_phy_core, pinmux:54,
+      prim_gate_gen:86 (a constant in a logic_typespec RANGE).  SEVEN of the 13
+      are a PARENTLESS ref_typespec (0:0, no file, no parent) and they all
+      belong to the pwrmgr_pkg / rstmgr_pkg family below — one fix.
+  (2) The pwrmgr/rstmgr/alert/flash PACKAGE family — 6 AllPackages heads and
+      the 7 parentless-ref_typespec module heads above, one root.  r10earl4pc
+      localises it: pwrmgr_pkg TOP rows 5..12 (`PWR_AST_RSP_DEFAULT` and
+      friends, `localparam pwr_ast_rsp_t X = '{...}`) fail with
+      "failLhs ref_typespec 0:0 / failRhs <null>" INSIDE the assignment-pattern
+      operation, and every rstmgr_pkg row then reports the same head because
+      package::Compare recurses Instance().  Start at pwrmgr_pkg.sv:39.
+  (3) 5 <null> vs ref_typespec — the MIRROR (we emit a ts ref golden has none):
+      the aes_sbox_canright func-call-argument class the pass-3 README ranked
+      (1); v.sv/w.sv are still the witnesses.
+  (4) 4 logic_typespec 'sha_word_t' hmac_pkg.sv:17:11 vs an ANONYMOUS one at
+      26:14 (+1 AllPackages, +1 TopPackages) — a package typedef listing
+      pointer, unchanged from pass 3.
+  (5) OCT-BASED ELAB RESPELL — hh.sv row HOCT, MEASURED AND NOT IMPLEMENTED.
+      A materialized import copy's `4'o7` becomes UINT 7 / decompile "7" in the
+      ELABORATED INSTANCE (the base is lost entirely, exactly as pass 2's
+      § unsizedBasedTypedParamElab recorded for `'o10`); we keep `4'o7` in all
+      four views.  The DEC arm right beside it (ParamEmit ~11525) is the shape
+      to copy.  Not visible in the Earlgrey census yet (masked), so gate it on
+      hh.sv first.
+  (6) 4 array_typespec ibex_alu.sv:406:18 vs <null>, and 5 more
+      "array_typespec vs logic_typespec" singletons (prim_arbiter_ppc:40,
+      prim_arbiter_tree:38, prim_sram_arbiter:24, rv_plic:41,
+      rv_plic_target:31) — a packed-dim var whose declared type golden gives an
+      array_typespec and we a logic_typespec.  Likely ONE law for all 9.
+  (7) 3 UNKNOWN-MODULE ref_module vs <null> — `BUFGCE u_bufgce`,
+      `BUFGMUX bufgmux_i`, `IOBUF i_iobuf`: Xilinx library primitives with no
+      definition anywhere in the sources.  Golden's module DEF view still lists
+      a ref_module stub (name + `work@<TYPE>` defname + its ports); slang
+      resolves nothing, so we emit nothing.  Independent of the two gen-block
+      laws above — these are at plain module scope.
+  (8) 3 ref_obj 'PTRV_W' vs <null>, 3 operation prim_clock_inverter:18:16 vs
+      ref_obj '~clk_i', 2 named_begin 'gen_host_fifo', 2 int_typespec 'LfsrDw'
+      prim_lfsr:33, 2 constant flash_ctrl_pkg:18:36, 2 constant
+      flash_phy_pkg:43:53, 3 package prim_cipher_pkg (a def/elab-shared object
+      like prim_pkg was, but NOT the same cause — VpiTop already agrees).
+  (9) ~20 singletons, each named in the census by file:line.  The recurring
+      SHAPE is "golden folded a bound to a constant, we kept a ref_obj":
+      alert_handler:33 NAlerts, flash_erase_ctrl:41 AddrW, padring:15
+      NMioPads, rv_timer:27 N_HARTS, usbdev:140 NEndpoints,
+      tlul_adapter_sram:56 top_pkg::TL_SZW, dm_sba:63 BusWidth/8,
+      prim_packer:42 InW+1 — the crossPkgRangeBoundFold / wildcard-import
+      family's remainder (e.sv, r.sv).
+  (10) TopModules 8 — unchanged all pass (sram2tlul, prim_keccak,
+      prim_present/prim_prince, jtag_mux, work@padring).
+
+RESIDUES SEEN BUT NOT CHASED (pass 4, each on a pass-4 witness):
+  * bb.sv/ff.sv — a module instantiated BOTH inside a gen block AND at plain
+    module scope loses the vpiActual on EVERY port lowConn ref_obj of its OWN
+    DEF listing (`work@bchild.clk_i.clk_i` -> logic_net).  cc.sv (flat only)
+    and ee.sv (gen only) are byte-identical, so the trigger is the COMBINATION.
+    It masks everything else in a repro that mixes the two — build gen-only
+    witnesses until it is fixed.
+  * ff.sv — a `.*`-derived ref_obj's END COLUMN: golden stops one character
+    short of ours (28:7..28:8 for `.*` where we write 28:7..28:9), while the
+    anonymous port and its STRING constant use the full 7..9 span on both
+    sides.  Span-only, cmp-irrelevant.
+  * aa.sv — golden puts the enum parameter's own resolved VALUE (`INT:0`) on
+    the `parameter` object in BOTH module views; we leave it unset.
+    cmp-irrelevant (parameter::Compare does not read it), byte-identity only.
+
+RANKED RESIDUE (measured after pass 3; SUPERSEDED by the list above — kept for
+the distinguishers it records).  Head counts are
 AllModules unless stated; most classes are ONE shared object reached from many
 entries, so tests-per-fix is the head count.
 

@@ -22116,6 +22116,37 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     }
                     auto* rports = s.MakePortVec();
                     for (auto* conn : hinst->connections) {
+                        // § genRefModuleWildcardConn (r10earl4).  A `.*`
+                        // connection is ONE nameless port whose High_conn is a
+                        // constant carrying VpiValue "STRING:.*" /
+                        // VpiDecompile ".*" and NO size / constType, spanning
+                        // the connection node (Surelog CompileHelper:2946).
+                        // The AST instantiation path already builds it
+                        // (findWildcardConn / wcS9); this SYNTAX-driven
+                        // gen-block path skipped every non-named connection,
+                        // so a gen-scope child instantiated with a bare `.*`
+                        // came out with an EMPTY port vector — golden's
+                        // ref_module has 1, ours had none, which
+                        // ref_module::Compare reports as "failLhs the
+                        // ref_module itself, failRhs <null>".  Every OpenTitan
+                        // `PRIM_DEFAULT_IMPL` module takes this shape
+                        // (prim_ram_1p 3 Earlgrey heads, prim_ram_2p 3,
+                        // prim_rom 2, prim_clock_gating 2, prim_clock_mux2 1,
+                        // prim_flash 1, prim_pad_wrapper 1).
+                        if (conn->kind ==
+                            syntax::SyntaxKind::WildcardPortConnection) {
+                            auto* pw0 = s.MakePort();
+                            pw0->VpiParent(iobj);
+                            setLoc(pw0, conn->sourceRange());
+                            auto* cw0 = s.MakeConstant();
+                            cw0->VpiValue("STRING:.*");
+                            cw0->VpiDecompile(".*");
+                            cw0->VpiParent(pw0);
+                            setLoc(cw0, conn->sourceRange());
+                            pw0->High_conn(cw0);
+                            rports->push_back(pw0);
+                            continue;
+                        }
                         if (conn->kind != syntax::SyntaxKind::NamedPortConnection)
                             continue;
                         auto& npc = conn->as<syntax::NamedPortConnectionSyntax>();
@@ -22126,6 +22157,26 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             if (npc.openParen) {
                                 auto* p0 = s.MakePort();
                                 p0->VpiParent(iobj);
+                                setLoc(p0, conn->sourceRange());
+                                rports->push_back(p0);
+                            }
+                            // § genRefModuleImplicitPort (r10earl4).  The
+                            // `.name` SHORTHAND (`.clk_i,` — no parentheses,
+                            // no actual; LRM 23.3.2.3) is a REAL connection:
+                            // golden lists it as a NAMED port with no
+                            // high_conn, at the connection's own span.  We
+                            // dropped it with the empty `.douta ()` form,
+                            // which is the ANONYMOUS one.  Every Earlgrey
+                            // gen-scope child read "golden ports=N, ours=N-2"
+                            // — the two OpenTitan modules all take by
+                            // shorthand are `.clk_i` and `.rst_ni`
+                            // (tlul_socket_1n gen_dfifo/fifo_d 7 heads,
+                            // prim_diff_decode gen_async/i_sync_p 5,
+                            // gpio gen_filter/filter, nmi_gen gen_esc_sev).
+                            else if (!npc.name.valueText().empty()) {
+                                auto* p0 = s.MakePort();
+                                p0->VpiParent(iobj);
+                                p0->VpiName(npc.name.valueText());
                                 setLoc(p0, conn->sourceRange());
                                 rports->push_back(p0);
                             }

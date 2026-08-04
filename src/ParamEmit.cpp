@@ -11511,7 +11511,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // encoding; the DEF view AND the package views keep DEC
                 // (Surelog; cs_registers CSR_MISA_MXL / ibex_pkg,
                 // rp32_r5p_mouse ST0-ST3).
-                if (topView && (typedParam || (decBasedInit && !wantTs)) &&
+                // § impCopyBasedDecKeep (r10earl4) — ...and "DEF view" means
+                // the PHYSICAL one.  § modDefImportShape force-flips topView
+                // for a module DEF-view MATERIALIZED IMPORT copy, and that
+                // flip leaked into this re-render: ibex_alu (a module WITH a
+                // parameter port list, so it takes the flip) listed
+                // ibex_pkg's `parameter logic [1:0] CSR_MISA_MXL = 2'd1` as
+                // INT `1` in its AllModules entry where golden keeps `2'd1`
+                // DEC — while ibex_compressed_decoder (no port list, no flip)
+                // was already right.  Four-base x four-view matrix on hh.sv:
+                // DEC respells to INT and OCT to UINT in the ELABORATED
+                // INSTANCE ONLY; HEX and BIN never respell; both package
+                // views and BOTH module DEF listings keep the source
+                // encoding.  12 Earlgrey AllModules heads.
+                if (topView && !defViewOrig9 &&
+                    (typedParam || (decBasedInit && !wantTs)) &&
                     !inPackage && rhs->UhdmType() == UHDM::uhdmconstant) {
                     auto* rc9 = (UHDM::constant*)rhs;
                     std::string_view v9 = rc9->VpiValue();
@@ -11883,6 +11897,58 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             rtC9->VpiParent(paRhs9);
             ((UHDM::constant*)paRhs9)->Typespec(rtC9);
             rhsRt = rtC9;
+        }
+        // § pkgEnumParamDefRhs (r10earl4).  A MODULE parameter typed by a
+        // PACKAGE ENUM typedef and defaulted to a QUALIFIED enum constant
+        // (`parameter prim_pkg::impl_e Impl = prim_pkg::ImplGeneric;` — every
+        // OpenTitan `PRIM_DEFAULT_IMPL` module) carries in its DEF view what
+        // the ELAB view already gets from § enumConstOvEnc: the enum member's
+        // OWN encoding, plus a ref_typespec at the scope prefix bound to the
+        // parameter's enum typespec (drainDefParamTs/patchParamTypespecs bind
+        // the Actual through rhsRt).  ExprEmit's qualified-enum fold maps
+        // every `INT:` value to vpiUIntConst, which is right for a free
+        // standing fold (alert_handler_ping_timer:140 keeps ct 9 in golden)
+        // but not for a param_assign Rhs — golden reads ct 7 / INT:0 / "0"
+        // there, and only the ENCODING travels (the SIZE is already the
+        // parameter's own width).  13 Earlgrey AllModules heads.
+        if (!topView && !inPackage && !isImported && paRhs9 &&
+            paRhs9->UhdmType() == UHDM::uhdmconstant &&
+            ps.getType().getCanonicalType().kind == SymbolKind::EnumType &&
+            ps.getDeclaredType() &&
+            ps.getDeclaredType()->getType().kind == SymbolKind::TypeAlias) {
+            auto& taE9 = ps.getDeclaredType()->getType().as<TypeAliasType>();
+            auto* hsE9 = taE9.getParentScope();
+            const Expression* iE9 = boundInit ? boundInit : ps.getInitializer();
+            const Expression* sE9 =
+                iE9 ? &stripImplicitConv(*iE9) : (const Expression*)nullptr;
+            if (hsE9 && hsE9->asSymbol().kind == SymbolKind::Package && sE9 &&
+                sE9->kind == ExpressionKind::NamedValue &&
+                sE9->as<NamedValueExpression>().symbol.kind ==
+                    SymbolKind::EnumValue) {
+                auto* cE9 = (UHDM::constant*)paRhs9;
+                if (auto eE9 = enumConstMap.find(
+                        &sE9->as<NamedValueExpression>().symbol);
+                    eE9 != enumConstMap.end() && eE9->second &&
+                    eE9->second->UhdmType() == UHDM::uhdmenum_const) {
+                    std::string_view vE9 =
+                        ((UHDM::enum_const*)eE9->second)->VpiValue();
+                    int32_t ctE9 = vE9.rfind("INT:", 0) == 0    ? vpiIntConst
+                                   : vE9.rfind("UINT:", 0) == 0 ? vpiUIntConst
+                                   : vE9.rfind("BIN:", 0) == 0  ? vpiBinaryConst
+                                   : vE9.rfind("HEX:", 0) == 0  ? vpiHexConst
+                                   : vE9.rfind("OCT:", 0) == 0  ? vpiOctConst
+                                                                : 0;
+                    if (ctE9)
+                        cE9->VpiConstType(ctE9);
+                }
+                if (!rhsRt && !cE9->Typespec()) {
+                    auto* rtE9 = s.MakeRef_typespec();
+                    rtE9->VpiFullName(prefix);
+                    rtE9->VpiParent(cE9);
+                    cE9->Typespec(rtE9);
+                    rhsRt = rtE9;
+                }
+            }
         }
         // § castDefaultIntAddSigned — UHDM's ExprEval marks an arithmetic
         // reduce SIGNED as soon as ONE operand constant is vpiIntConst /
@@ -15453,6 +15519,33 @@ void UhdmExporter::drainDefParamTs() {
                     tit != typedefTs.end() && !vectorAlias && !bareAggPkgTd) {
                     its = tit->second;
                     sharedTs = true;
+                    // § pkgEnumParamTsIsTop (r10earl4).  A MODULE parameter
+                    // typed by a PACKAGE ENUM typedef (`parameter
+                    // prim_pkg::impl_e Impl = ...`) binds the ELABORATED
+                    // (uhdmtopPackages) typespec object, not the def-listing
+                    // one -- exactly the rule makeTypespec already applies to
+                    // every real SIGNAL use (TypeEmit's pkgTopTypedefTs
+                    // preference).  The two objects are TEXT-IDENTICAL in a
+                    // dump and differ only in which package their vpiInstance
+                    // names; instance::Compare reads VpiTop, so pointing at
+                    // the def copy makes the whole module entry unequal with
+                    // "failLhs package {top=1} / failRhs package {top=0}".
+                    // Earlgrey: prim_pkg (14 AllModules heads) +
+                    // prim_cipher_pkg (3).  ENUM only -- aggregate (struct /
+                    // union) params have their own def/elab listing rules
+                    // above and below this block.
+                    if (!pd.inPackage &&
+                        dt0.kind == SymbolKind::TypeAlias &&
+                        dt0.getCanonicalType().kind == SymbolKind::EnumType)
+                        if (auto* hsE0 = dt0.as<TypeAliasType>().getParentScope();
+                            hsE0 &&
+                            hsE0->asSymbol().kind == SymbolKind::Package)
+                            if (auto tE0 =
+                                    pkgTopTypedefTs.find((const void*)&dt0);
+                                tE0 != pkgTopTypedefTs.end() && tE0->second &&
+                                tE0->second->UhdmType() ==
+                                    its->UhdmType())
+                                its = tE0->second;
                 }
         }
         if (!its && importAliasEnum0) {
