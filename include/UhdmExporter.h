@@ -1528,6 +1528,19 @@ private:
     // select indexes, case-ITEM expressions — stays unbound, enum consts
     // included (SimpleConstraint getType/print).
     bool classMethodNoBind = false;
+    // LAW C (call binding), decoded on purpose-built goldens r10uvm7/c1+c2:
+    // Surelog resolves a BARE subroutine call against the enclosing package/
+    // module's subroutines and — only for a method written INSIDE its class
+    // body — that class's OWN declarations (an `extern` prototype counts).
+    // It never reaches a BASE class, and an OUT-OF-BODY definition is
+    // compiled in the home package's scope, where the class's methods are not
+    // visible at all.  Unresolved, the node is a `func_call` carrying only a
+    // name — even when the callee is a task.  These two flags are the state
+    // the call emitter needs: whether the body being emitted is a class
+    // method, and whether it was written out of body.  Kept separate from
+    // classMethodNoBind, which if/case CONDITIONS toggle off mid-body.
+    bool curSubClassScope9 = false;
+    bool curSubOob9 = false;
     // True while emitting a `$unit`-scope subroutine's BODY: the compilation
     // unit is compiled before any instance and Surelog never revisits it with
     // a symbol table, so no reference in the body takes an actual (formals,

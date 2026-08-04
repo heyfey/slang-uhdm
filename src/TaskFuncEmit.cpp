@@ -1470,17 +1470,32 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             setLoc(io, nameSpan(arg->location, arg->name));
             // A DEFAULT VALUE becomes the io_decl's vpiExpr (unparented, at the
             // default expression's own span).
-            // ...except `= null`, which Surelog leaves off entirely: the
-            // io_decl of `function void uvm_object::print(uvm_printer
-            // printer=null)` carries no vpiExpr, while the `= ""` one right
-            // beside it does.  A `null` in a RETURN does get its
-            // vpiNullConst, so this is an io_decl rule, not an expression one.
+            // ...except `= null` on a formal written with NO DIRECTION
+            // KEYWORD, which Surelog leaves off entirely: the io_decl of
+            // `function void uvm_object::print(uvm_printer printer=null)`
+            // carries no vpiExpr, while the `= ""` one right beside it does.
+            // Writing the direction puts it back — `extern function int pack
+            // (ref bit bitstream[], input uvm_packer packer=null)` DOES carry
+            // the vpiNullConst.  Both spellings measured side by side in one
+            // golden (r10uvm7/c5: `f1(input K k=null)` has the expr, `f2(K
+            // k=null)` does not, `f3(K k=null, string s="")` drops only the
+            // null one) — so the drop is keyed on the KEYWORD, not on the
+            // null-ness alone, and 222 UVM io_decls were missing it.  A
+            // `null` in a RETURN always keeps its vpiNullConst.
             if (auto* dv = arg->getDefaultValue()) {
                 NetMap emptyMap;
                 auto* de = emitExpr(*dv, nullptr, fullName, emptyMap);
+                bool wroteDir9 = true;
+                for (auto q9 = arg->getSyntax(); q9; q9 = q9->parent)
+                    if (q9->kind == syntax::SyntaxKind::FunctionPort) {
+                        wroteDir9 =
+                            q9->as<syntax::FunctionPortSyntax>()
+                                .direction.valid();
+                        break;
+                    }
                 // (the literal arrives wrapped in slang's implicit conversion
                 // to the handle type, so the emitted object is what to test)
-                if (de && de->UhdmType() == UHDM::uhdmconstant &&
+                if (de && !wroteDir9 && de->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::constant*)de)->VpiConstType() == vpiNullConst)
                     de = nullptr;
                 if (de)
@@ -2663,6 +2678,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // (r10apb2 repro 5) — the in-class twin's identical body binds
         // nothing outside the if condition.
         classMethodNoBind = classScope && !oob;
+        // LAW C's stable half (see UhdmExporter.h): unlike classMethodNoBind
+        // these are NOT toggled inside conditions — a call's binding does not
+        // depend on where in the body it sits.
+        bool savedSCS9 = curSubClassScope9;
+        bool savedSOB9 = curSubOob9;
+        curSubClassScope9 = classScope;
+        curSubOob9 = oob;
         // A `$unit`-scope subroutine's body binds NOTHING — not its formals'
         // io_decls, not its block locals, not its for-loop iterators.  The
         // compilation unit is compiled before any instance exists and
@@ -2731,6 +2753,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             body = ub9;
         }
         classMethodNoBind = savedCMNB;
+        curSubClassScope9 = savedSCS9;
+        curSubOob9 = savedSOB9;
         unitSubNoBind9 = savedUSNB9;
         pkgDefViewBody9 = savedPDV9;
         if (body)

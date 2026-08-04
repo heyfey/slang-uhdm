@@ -3951,6 +3951,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          }()) {
                     // no actual of any kind
                 }
+                // LAW C on the reference side: an OUT-OF-BODY method body is
+                // compiled in the home PACKAGE's scope, so a CLASS-scope enum
+                // constant is not visible from it.  Golden never binds one
+                // there — the package-listing copy of the body leaves the ref
+                // bare, and the class-view copy binds an implicit `logic_net`
+                // Surelog mints for the unresolved name (r10uvm7/c6: `E0`
+                // inside `function int C::oobIf` is null in pkg:p1's listing
+                // and logic_net in class:C, while the in-class twin `inlIf` is
+                // bare in both).  We stamped the real enum_const in every view
+                // — 368 rows of SeqDriver's DEFPKG residue, SEQ_TYPE_REQ /
+                // SEQ_TYPE_LOCK in uvm_sequencer_base's extern methods.  The
+                // implicit-net half is NOT implemented (ranked residue).
+                else if (curSubOob9 && nv.symbol.kind == SymbolKind::EnumValue &&
+                         [&] {
+                             for (auto sc8 = nv.symbol.getParentScope(); sc8;
+                                  sc8 = sc8->asSymbol().getParentScope()) {
+                                 auto k8 = sc8->asSymbol().kind;
+                                 if (k8 == SymbolKind::ClassType)
+                                     return true;
+                                 if (k8 == SymbolKind::Package ||
+                                     k8 == SymbolKind::InstanceBody ||
+                                     k8 == SymbolKind::CompilationUnit)
+                                     return false;
+                             }
+                             return false;
+                         }()) {
+                    // no actual of any kind
+                }
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
                     ref->Actual_group(eit->second);
                 else if (auto uit = unitParamMap.find(&nv.symbol);
@@ -5781,8 +5809,34 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // calls `next_state_transition` from baseFsm as an unbound
                 // func_call, while `main_comb` calls its sibling
                 // `from_state_00` as a bound task_call).
+                //
+                // The same fall-through catches an OUT-OF-BODY definition
+                // calling a method of ITS OWN class: Surelog compiles that
+                // body in the home PACKAGE's scope, so no class method is in
+                // scope at all (LAW C, golden r10uvm7/c2 — `function int
+                // C::oobCallsInl(); return inl(); endfunction` leaves `inl`
+                // unbound and renders a task call `inlt()` as a func_call,
+                // while the byte-identical in-class twin in c1 binds both).
+                // This is the SeqDriver head: UVM's big classes
+                // (uvm_component, uvm_reg, uvm_mem, uvm_reg_map) are
+                // extern-declared throughout, so golden leaves 3595 of its
+                // 8560 func_calls unbound where we bound all but 193.
+                //
+                // An EXPLICITLY QUALIFIED static call (`uvm_root::get()`)
+                // is the exception in both shapes: the qualifier is its own
+                // lookup and always resolves (golden binds all 23 of them,
+                // from package, module and class-method sites alike).
+                bool qualCall9 = false;
+                if (auto* csyn9 = expr.syntax) {
+                    if (auto* iv9 =
+                            csyn9->as_if<syntax::InvocationExpressionSyntax>())
+                        csyn9 = iv9->left;
+                    qualCall9 =
+                        csyn9 &&
+                        csyn9->kind == syntax::SyntaxKind::ScopedName;
+                }
                 bool inheritedNoBind9 = false;
-                if (classMethodNoBind && currentSubSym)
+                if (currentSubSym && curSubClassScope9 && !qualCall9)
                     if (auto* callee9 = sub.getParentScope())
                         if (auto* caller9 = currentSubSym->getParentScope())
                             inheritedNoBind9 =
@@ -5790,7 +5844,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     SymbolKind::ClassType &&
                                 caller9->asSymbol().kind ==
                                     SymbolKind::ClassType &&
-                                &callee9->asSymbol() != &caller9->asSymbol();
+                                (curSubOob9
+                                     ? true
+                                     : (classMethodNoBind &&
+                                        &callee9->asSymbol() !=
+                                            &caller9->asSymbol()));
+                // LAW C's fall-back arm: a class lookup that fails does not
+                // stop there — Surelog keeps walking OUT to the enclosing
+                // package/module and binds a free subroutine of the same
+                // name if one exists.  UVM leans on this everywhere:
+                // `uvm_report_warning(...)` inside a uvm_root method resolves
+                // in slang to the INHERITED uvm_report_object method, but
+                // golden binds `uvm_pkg::uvm_report_warning`, the package
+                // function (640 objects in SeqDriver, all
+                // callee=pkg:uvm_pkg).  The fall-back keeps the call's own
+                // kind, so a package TASK found this way stays a task_call.
+                if (inheritedNoBind9) {
+                    const Scope* osc9 = currentSubSym->getParentScope();
+                    while (osc9 && osc9->asSymbol().kind ==
+                                       SymbolKind::ClassType)
+                        osc9 = osc9->asSymbol().getParentScope();
+                    const Symbol* fb9 = nullptr;
+                    if (osc9 &&
+                        (osc9->asSymbol().kind == SymbolKind::Package ||
+                         osc9->asSymbol().kind == SymbolKind::InstanceBody))
+                        if (auto* f9 = osc9->find(sub.name);
+                            f9 && f9->kind == SymbolKind::Subroutine)
+                            fb9 = f9;
+                    if (fb9)
+                        if (auto fit9 = subMap.find(fb9);
+                            fit9 != subMap.end() && fit9->second.tf) {
+                            siTf = fit9->second.tf;
+                            if (!curPkgEmitSym)
+                                if (auto e8 = pkgElabSubTf.find(fb9);
+                                    e8 != pkgElabSubTf.end() && e8->second)
+                                    siTf = e8->second;
+                            isFunc = fb9->as<SubroutineSymbol>()
+                                         .subroutineKind ==
+                                     SubroutineKind::Function;
+                            inheritedNoBind9 = false;
+                        }
+                }
                 // § defGenCallNoBind — a call inside a DEF-view generate-block
                 // PROCESS takes the same generic form. Surelog stmt-ifies a
                 // def-view generate body from SYNTAX, with no symbol table to
@@ -5872,6 +5966,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             v2.push_back({siTf, expr.sourceRange});
                     }
                 }
+                // NOT DONE, measured and rejected: naming a static class call
+                // with its written qualifier (`fc->VpiName("uvm_root::get")`).
+                // Golden carries exactly 5 such names (uvm_root::get,
+                // uvm_{reg,reg_field,mem}::get_max_size,
+                // uvm_pkg::m_uvm_string_queue_join = 23 objects in SeqDriver)
+                // and every one of them sits in a PACKAGE-scope variable
+                // initializer or a package body — inside a class method
+                // Surelog renders the same spelling as something other than a
+                // named func_call (its method_func_call count runs 428 above
+                // ours).  Qualifying unconditionally MINTED 290 wrong names
+                // (uvm_coreservice_t::get alone 143, golden 0), so the rule is
+                // NOT "qualified spelling keeps the qualifier"; decode where
+                // the other spelling goes before trying again.
                 if (inheritedNoBind9 || defGenProcessEmit) {
                     // name only — no vpiFunction / vpiTask (§ defGenCallNoBind)
                 }
