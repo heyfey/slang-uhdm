@@ -1687,6 +1687,94 @@ UHDM::ref_obj* UhdmExporter::emitPropFormalRef(std::string_view nm, SourceRange 
     return ref;
 }
 
+// § fnLocalParamRangeNet — what a SUBROUTINE-LOCAL parameter named inside one
+// of that subroutine's OWN declaration type ranges binds to.
+//
+//     function [width_z-1:0] fshl_u_1;
+//        parameter len = ...;
+//        reg [len-1:0] result;          // <- this `len`
+//
+// Surelog compiles a tf declaration's typespec with only the enclosing MODULE
+// on the lookup path, so the ref_obj it builds carries no actual and lands in
+// the component's late-binding list.  UhdmWriter::lateBinding (UhdmWriter.cpp
+// :3294) resolves such a ref by walking its PARENT chain — and a typespec is
+// UNPARENTED, so that walk ends immediately and the module-level search decides
+// everything (UhdmWriter.cpp:3735-3990, in this order):
+//     module NET / ARRAY_NET / VARIABLE of that name -> bound to it
+//     module PARAMETER of that name                  -> left DANGLING
+//                                                       (`isParam` -> continue)
+//     nothing                                        -> an implicit WIRE is
+//                                                       MINTED in the module
+//                                                       (UhdmWriter.cpp:3985)
+// and because the net search runs first, every later reference of that name —
+// from any subroutine of the module — binds the SAME net.
+//
+// Purpose-built goldens, 19 one-shape modules (arms a1/a2):
+//   fn-local param in a body-local reg range   -> implicit wire (m1, m10)
+//   ...in an io_decl range / the RETURN range  -> implicit wire (m4, m5)
+//   ...in TWO ranges / in two FUNCTIONS        -> ONE wire, shared (m6, n7)
+//   ...in a TASK                               -> identical (m8)
+//   `localparam` spelling                      -> identical (n8)
+//   the same name in the fn BODY               -> binds the PARAMETER (n5)
+//   fn-local VARIABLE in a range               -> binds the variable (m7)
+//   MODULE parameter in a fn range             -> DANGLING (m3, n6)
+//   name also declared as a module net         -> binds that net (m9, n4)
+UHDM::any* UhdmExporter::fnLocalParamRangeActual(std::string_view nm,
+                                                 SourceRange nr) {
+    if (nm.empty() || !fnDeclTsSub || !implicitNetModule ||
+        implicitNetModule->UhdmType() != UHDM::uhdmmodule_inst)
+        return nullptr;
+    // Only a name the SUBROUTINE ITSELF declares as a parameter reaches the
+    // module-level search this way; anything else either bound already or is
+    // a genuine dangler.
+    auto* lsym = fnDeclTsSub->find(nm);
+    if (!lsym || lsym->kind != SymbolKind::Parameter)
+        return nullptr;
+    const Scope* modScope = nullptr;
+    for (auto sc = fnDeclTsSub->getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::InstanceBody) {
+            modScope = sc;
+            break;
+        }
+    if (!modScope)
+        return nullptr;
+    if (auto* msym = modScope->find(nm))
+        switch (msym->kind) {
+            // A module PARAMETER (or anything else the search treats as one)
+            // stops it dead and the reference stays dangling.
+            case SymbolKind::Parameter:
+            case SymbolKind::TypeParameter:
+            case SymbolKind::Specparam:
+            case SymbolKind::EnumValue:
+            case SymbolKind::TypeAlias:
+                return nullptr;
+            default:
+                break;
+        }
+    if (auto* nets9 = implicitNetModule->Nets())
+        for (auto* n9 : *nets9)
+            if (n9->VpiName() == nm)
+                return n9;
+    if (auto* vars9 = implicitNetModule->Variables())
+        for (auto* v9 : *vars9)
+            if (v9->VpiName() == nm)
+                return v9;
+    auto* inet = s.MakeLogic_net();
+    inet->VpiName(nm);
+    inet->VpiFullName(implicitNetPrefix + "." + std::string(nm));
+    inet->VpiParent(implicitNetModule);
+    inet->VpiNetType(1);
+    setLoc(inet, nr);
+    auto* nets9 = implicitNetModule->Nets();
+    if (!nets9) {
+        nets9 = s.MakeNetVec();
+        implicitNetModule->Nets(nets9);
+    }
+    nets9->push_back(inet);
+    return inet;
+}
+
 // ---- let declarations / --disable-feature=letexprsubstitution -------------
 //
 // Surelog gates exactly ONE function on the feature:
@@ -4209,7 +4297,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          // select base (work@m.genblk1[0].man_rdt.rsp_off),
                          // a hier path that resolves to nothing, so it never
                          // attaches an actual (read_remux).
-                         !(inGenScopeCaRhs && selIdxScopeDepth > 0)) {
+                         !(inGenScopeCaRhs && selIdxScopeDepth > 0) &&
+                         // § fnLocalParamInitBare — a SUBROUTINE-LOCAL
+                         // parameter is only in scope inside that
+                         // subroutine's BODY.  Its own (and its siblings')
+                         // INITIALIZER is compiled as part of the enclosing
+                         // module, where the name resolves to nothing and the
+                         // ref is not even registered for late binding — so
+                         // it stays DANGLING, whether it names a sibling
+                         // fn-local param or a module parameter (arms a2/n1,
+                         // a2/n2; FuncIoTypespec's `parameter len = (ilen >=
+                         // olen) ? ilen : olen`).  The body reference to the
+                         // same name binds normally, which is exactly the
+                         // currentSubSym split.
+                         !(nv.symbol.kind == SymbolKind::Parameter &&
+                           nv.symbol.getParentScope() &&
+                           nv.symbol.getParentScope()->asSymbol().kind ==
+                               SymbolKind::Subroutine &&
+                           currentSubSym !=
+                               &nv.symbol.getParentScope()
+                                    ->asSymbol()
+                                    .as<SubroutineSymbol>())) {
                     ref->Actual_group(it->second);
                     // Whole ref: may be re-pointed to a select object if this
                     // variable is written via a select elsewhere in the body.
@@ -6235,16 +6343,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                            : (UHDM::tf_call*)s.MakeTask_call();
                 // Reachability bookkeeping for the in-body operation-arg
                 // stamp (drainBodyOpArgTs): a call emitted OUTSIDE any
-                // task/func body is a live entry point into `sub`; a call
-                // emitted inside one is an edge of the call graph. A call
+                // task/func body is a live ENTRY POINT into `sub`. A call
                 // that constant-folded away never reaches here at all, which
                 // is exactly the distinction Surelog draws.
                 // The DEF-view cont-assign (contAssignView == 1) keeps the
                 // call Surelog's ELAB view folds away, so it is not evidence
                 // of reachability — only the elab/top view counts.
-                if (currentSubSym)
-                    subCallEdges[currentSubSym].insert(&sub);
-                else if (contAssignView != 1)
+                // (What the entry point reaches from there is NOT every call
+                // the bodies contain but what the evaluator runs — the drain
+                // closes over § evalReachedCallees instead.)
+                if (!currentSubSym && contAssignView != 1)
                     liveCalledSubs.insert(&sub);
                 fc->VpiName(sub.name);
                 fc->VpiParent(parent);
@@ -6779,7 +6887,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rtb->VpiParent((UHDM::expr*)a);
                             rtb->Actual_typespec(si.argTs[argIdx].first);
                             pendingBodyOpArgTs.push_back(
-                                {rtb, (UHDM::expr*)a, currentSubSym});
+                                {rtb, (UHDM::expr*)a, currentSubSym, &sub});
                         }
                         // A LITERAL constant actual of a DEF-view
                         // PARAM-INITIALIZER call carries no formal-ts ref: the

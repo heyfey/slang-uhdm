@@ -1480,6 +1480,17 @@ private:
     slang::ast::Compilation& comp;
     // Lazily built by elabInvoked(); empty optional = not yet scanned.
     std::optional<std::set<const slang::ast::SubroutineSymbol*>> elabCalledSubs;
+    // § bareFormalTsReached — the subroutines whose BARE formals (a formal
+    // written with NO data type at all) Surelog compiles a typespec for: the
+    // elabInvoked roots plus everything its constant evaluator actually
+    // REACHES while running those bodies.  See TaskFuncEmit.cpp.
+    bool bareFormalTsReached(const slang::ast::SubroutineSymbol& sub);
+    std::optional<std::set<const slang::ast::SubroutineSymbol*>> bareFormalReachSubs;
+    // § evalReachedCallees — the subroutines Surelog's constant evaluator
+    // really CALLS while running `sub`'s body: a prefix walk that stops where
+    // the evaluator's own run stops (a control expression it cannot fold).
+    void evalReachedCallees(const slang::ast::SubroutineSymbol& sub,
+                            std::vector<const slang::ast::SubroutineSymbol*>& out);
     // Lazily built by elabCallFormal() alongside elabCalledSubs.
     std::map<const slang::ast::ParameterSymbol*,
              const slang::ast::FormalArgumentSymbol*>
@@ -1828,6 +1839,15 @@ private:
     std::set<const slang::ast::Symbol*> vlogHiddenBlockVars;
     UHDM::instance* implicitNetModule = nullptr;
     std::string implicitNetPrefix;
+    // § fnLocalParamRangeNet — the SUBROUTINE whose own declaration TYPE is
+    // being emitted (return type, formal type, body-local type).  Surelog
+    // compiles those type ranges with the subroutine's parameters out of
+    // scope, so a bound that names one falls all the way through to the
+    // module-level late binding — see fnLocalParamRangeActual().  Set only
+    // around those typespec builds.
+    const slang::ast::SubroutineSymbol* fnDeclTsSub = nullptr;
+    UHDM::any* fnLocalParamRangeActual(std::string_view nm,
+                                       slang::SourceRange nr);
     // foreach_stmt: the iterated array's ref_typespec binds the array's OWN
     // array_typespec, which the instance view only mints later — so the ref is
     // recorded here and filled in the deferred drain.
@@ -2922,17 +2942,17 @@ private:
     // at the tf object.
     UHDM::task_func* currentTf = nullptr;
     // ---- in-body func_call operation-arg formal-ts stamps (drainBodyOpArgTs)
-    // Subroutines called from a func_call emitted OUTSIDE any task/func body
-    // (a live entry point), and the call graph between bodies. A call that
-    // constant-folded away is never emitted, so it contributes no edge.
+    // Subroutines called from a func_call emitted OUTSIDE any task/func body:
+    // the live entry points of the evaluator. A call that constant-folded away
+    // is never emitted, so it is no entry point (FuncArgs' `pow_b(2, 2)`).
     std::set<const slang::ast::SubroutineSymbol*> liveCalledSubs;
-    std::map<const slang::ast::SubroutineSymbol*,
-             std::set<const slang::ast::SubroutineSymbol*>>
-        subCallEdges;
     struct PendingBodyOpArgTs {
         UHDM::ref_typespec* rt;
         UHDM::expr* owner;
         const slang::ast::SubroutineSymbol* encl;
+        // The subroutine BEING CALLED: the stamp exists only when Surelog's
+        // evaluator actually runs that call (§ evalReachedCallees).
+        const slang::ast::SubroutineSymbol* callee;
     };
     std::vector<PendingBodyOpArgTs> pendingBodyOpArgTs;
     void drainBodyOpArgTs();

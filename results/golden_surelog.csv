@@ -519,8 +519,8 @@ FuncDefaultVal,default,SLANG_REJECT,dut.sv:6:13: error: use of undeclared identi
 FuncDefaultVal,testflags,SLANG_REJECT,dut.sv:6:13: error: use of undeclared identifier 'opcode',,
 FuncInModule,default,CMP_EQUAL,,,differ
 FuncInModule,testflags,CMP_EQUAL,,,differ
-FuncIoTypespec,default,CMP_NOTEQUAL,decompile:,,
-FuncIoTypespec,testflags,CMP_NOTEQUAL,decompile:,,
+FuncIoTypespec,default,CMP_EQUAL,,,differ
+FuncIoTypespec,testflags,CMP_EQUAL,,,differ
 FuncNoArgs,default,CMP_EQUAL,,,match
 FuncNoArgs,testflags,CMP_EQUAL,,,match
 FuncParam,default,CMP_EQUAL,,,match

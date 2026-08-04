@@ -8,6 +8,9 @@
 
 #include "EmitHelpers.h"
 
+#include "slang/ast/EvalContext.h"
+#include "slang/ast/statements/ConditionalStatements.h"
+#include "slang/ast/statements/LoopStatements.h"
 #include "slang/ast/symbols/SubroutineSymbols.h"
 
 #include <algorithm>
@@ -114,6 +117,266 @@ bool UhdmExporter::elabInvoked(const SubroutineSymbol& sub) {
         comp.getRoot().visit(scan);
     }
     return elabCalledSubs->count(&sub) != 0;
+}
+
+// § bareFormalTsReached — which subroutines get a typespec on a BARE formal.
+//
+// A formal written with no data type at all (`input a;` in the body, or
+// `f(input a)` / `f(a)` in the header) leaves Surelog's def compile with NO
+// typespec: CompileStmt's tf_item_declaration arm only builds one from a
+// `paData_type` or a `paPacked_dimension` child (CompileStmt.cpp:1607-1622),
+// and both are absent.  The typespec appears LATER — when the constant
+// evaluator, reducing an elaboration/continuous expression, actually EXECUTES
+// the subroutine and recompiles its formals.  So the question is exactly
+// "does Surelog's evaluator reach this body", and the answer is a PREFIX
+// walk: evalStmt aborts the moment a value it needs is not constant, and
+// everything after that point in the body is never reached.
+//
+// Purpose-built goldens, one shape per module (arms a3/a4/a5/a6):
+//   assign z = f(w);           / wire z = f(w)  -> f REACHED   (k2, k5)
+//   parameter P = f(1);        (elab expression) -> f REACHED   (k3, k6)
+//   always @(*) z = f(w);      (procedural)      -> NOT reached (k1 vs q2, s5)
+//   never called                                 -> NOT reached (k1, k4, k8)
+//   inner called from a reached body's plain stmt-> REACHED     (s1, s2, s6)
+//   ...three deep, or twice in one statement     -> REACHED     (s4, u6)
+//   ...inside an `if` the evaluator cannot fold  -> NOT reached (s3, u4)
+//   ...inside `if (1'b1)` / a constant for loop  -> REACHED     (u1, u3)
+//   ...anywhere AFTER such an `if`               -> NOT reached (u2)
+//   ...BEFORE it                                 -> REACHED     (u5)
+// FuncIoTypespec is the corpus instance: `assign z = fshl_s(a,s,...)` reaches
+// fshl_s (whose `sbit` HAS the typespec) and its `if (arg2[width_s-1] ==
+// 1'b0)` stops the walk, so fshl_u / fshl_u_1 / fshr_u — all called from
+// inside that if — keep their bare `sbit` typespec-less.
+//
+// A formal WITH a written type is unaffected: its typespec comes from the def
+// compile and exists whether or not anything calls the subroutine.
+bool UhdmExporter::bareFormalTsReached(const SubroutineSymbol& sub) {
+    if (!bareFormalReachSubs) {
+        bareFormalReachSubs.emplace();
+        // Roots: every subroutine an elaboration/continuous expression calls.
+        (void)elabInvoked(sub);
+        std::vector<const SubroutineSymbol*> work(elabCalledSubs->begin(),
+                                                  elabCalledSubs->end());
+        for (auto* r : work)
+            bareFormalReachSubs->insert(r);
+        while (!work.empty()) {
+            const SubroutineSymbol* s0 = work.back();
+            work.pop_back();
+            std::vector<const SubroutineSymbol*> callees;
+            evalReachedCallees(*s0, callees);
+            for (auto* c : callees)
+                if (bareFormalReachSubs->insert(c).second)
+                    work.push_back(c);
+        }
+    }
+    return bareFormalReachSubs->count(&sub) != 0;
+}
+
+// § evalReachedCallees — the calls Surelog's constant evaluator really makes
+// while running one subroutine body.  evalStmt walks the body in order and
+// gives up the moment it needs a value it does not have, so what it reaches is
+// a PREFIX: statements before the give-up point, plus the branch/loop bodies
+// whose controlling expression it could fold.  Modelled by TAINT rather than by
+// interpretation — a value it cannot know is a FORMAL, a signal declared
+// outside the subroutine, or a body local assigned from one of those.
+//
+// Purpose-built goldens (arms a5/a6/a7, one shape per module, plus a8/a9 for
+// the call-argument side):
+//   plain statement, however deeply nested in begin blocks -> REACHED (s1,s2,s6)
+//   inside `if (formal)` / `case (formal)`                 -> not reached (s3,u4)
+//   ANY statement after such an if                         -> not reached (u2)
+//   before it                                              -> REACHED (u5)
+//   inside `if (1'b1)`                                     -> REACHED (u1)
+//   inside a for/while/repeat over body-local state        -> REACHED (u3,v2,v4,v5)
+//   inside a loop whose bound reads a formal               -> not reached (v1)
+//   after such a loop                                      -> not reached (v3)
+void UhdmExporter::evalReachedCallees(
+    const SubroutineSymbol& sub, std::vector<const SubroutineSymbol*>& outCallees) {
+    {
+        std::function<void(const Expression&, std::vector<const SubroutineSymbol*>&)>
+            calls = [&](const Expression& e,
+                        std::vector<const SubroutineSymbol*>& out) {
+                e.visit(makeVisitor([&](auto& v, const CallExpression& ce) {
+                    if (!ce.isSystemCall())
+                        if (auto* sp = std::get_if<const SubroutineSymbol*>(
+                                &ce.subroutine))
+                            if (*sp)
+                                out.push_back(*sp);
+                    v.visitDefault(ce);
+                }));
+            };
+        // The evaluator's own abort condition, modelled by TAINT rather than
+        // by interpretation: a value it cannot know is a FORMAL, anything
+        // outside the subroutine that is not a constant, or a body local that
+        // was assigned from such a thing.  A controlling expression that reads
+        // one aborts the run; everything else it can fold.  (Arm a7 is the
+        // measurement that forced this over plain constant folding: `for (k =
+        // 0; k < 2; ...)` over a body-local integer DOES run — the call after
+        // it is reached — while the same loop written `k < a` does not, and a
+        // `while (k < 2)` / `repeat (2)` runs exactly like the for.)
+        std::set<const Symbol*> tainted;
+        std::function<bool(const Expression&)> unknown =
+            [&](const Expression& e) -> bool {
+            bool bad = false;
+            e.visit(makeVisitor(
+                [&](auto& v, const NamedValueExpression& nv) {
+                    auto k0 = nv.symbol.kind;
+                    if (k0 == SymbolKind::FormalArgument || tainted.count(&nv.symbol))
+                        bad = true;
+                    else if (k0 == SymbolKind::Variable || k0 == SymbolKind::Net) {
+                        // A signal declared outside the subroutine has no
+                        // value at elaboration time.
+                        bool local = false;
+                        for (auto sc = nv.symbol.getParentScope(); sc;
+                             sc = sc->asSymbol().getParentScope()) {
+                            auto ks = sc->asSymbol().kind;
+                            if (ks == SymbolKind::Subroutine ||
+                                ks == SymbolKind::StatementBlock) {
+                                local = true;
+                                break;
+                            }
+                            if (ks == SymbolKind::InstanceBody ||
+                                ks == SymbolKind::Package ||
+                                ks == SymbolKind::CompilationUnit)
+                                break;
+                        }
+                        if (!local)
+                            bad = true;
+                    }
+                    v.visitDefault(nv);
+                },
+                [&](auto& v, const HierarchicalValueExpression& hv) {
+                    if (hv.symbol.kind != SymbolKind::Parameter)
+                        bad = true;
+                    v.visitDefault(hv);
+                }));
+            return bad;
+        };
+        // Returns false when the evaluator would abort here — nothing after
+        // this statement in the enclosing list is reached either.
+        std::function<bool(const slang::ast::Statement&,
+                           std::vector<const SubroutineSymbol*>&)>
+            walk = [&](const slang::ast::Statement& st,
+                       std::vector<const SubroutineSymbol*>& out) -> bool {
+            switch (st.kind) {
+                case StatementKind::List:
+                    for (auto* s0 : st.as<slang::ast::StatementList>().list)
+                        if (!walk(*s0, out))
+                            return false;
+                    return true;
+                case StatementKind::Block:
+                    return walk(st.as<slang::ast::BlockStatement>().body, out);
+                case StatementKind::Empty:
+                    return true;
+                case StatementKind::VariableDeclaration: {
+                    auto& vs = st.as<slang::ast::VariableDeclStatement>().symbol;
+                    if (auto* iv = vs.getInitializer()) {
+                        calls(*iv, out);
+                        if (unknown(*iv))
+                            tainted.insert(&vs);
+                    }
+                    return true;
+                }
+                case StatementKind::ExpressionStatement: {
+                    auto& e0 = st.as<slang::ast::ExpressionStatement>().expr;
+                    calls(e0, out);
+                    if (e0.kind == ExpressionKind::Assignment) {
+                        auto& ae = e0.as<AssignmentExpression>();
+                        const Expression* l0 = &stripImplicitConv(ae.left());
+                        while (l0->kind == ExpressionKind::ElementSelect ||
+                               l0->kind == ExpressionKind::RangeSelect ||
+                               l0->kind == ExpressionKind::MemberAccess) {
+                            if (l0->kind == ExpressionKind::ElementSelect)
+                                l0 = &stripImplicitConv(
+                                    l0->as<ElementSelectExpression>().value());
+                            else if (l0->kind == ExpressionKind::RangeSelect)
+                                l0 = &stripImplicitConv(
+                                    l0->as<RangeSelectExpression>().value());
+                            else
+                                l0 = &stripImplicitConv(
+                                    l0->as<MemberAccessExpression>().value());
+                        }
+                        if (l0->kind == ExpressionKind::NamedValue) {
+                            auto& ls = l0->as<NamedValueExpression>().symbol;
+                            if (unknown(ae.right()))
+                                tainted.insert(&ls);
+                            else
+                                tainted.erase(&ls);
+                        }
+                    }
+                    return true;
+                }
+                case StatementKind::Return:
+                    if (auto* re = st.as<slang::ast::ReturnStatement>().expr)
+                        calls(*re, out);
+                    return true;
+                case StatementKind::Conditional: {
+                    auto& cs = st.as<slang::ast::ConditionalStatement>();
+                    for (auto& c0 : cs.conditions)
+                        if (c0.pattern || unknown(*c0.expr))
+                            return false;
+                    // The condition is foldable; take the arm it selects, and
+                    // both when the fold needs state this model does not keep.
+                    ASTContext actx(comp.getRoot(), LookupLocation::max);
+                    EvalContext ec(actx, EvalFlags::IsScript);
+                    ec.pushEmptyFrame();
+                    ConstantValue cv = cs.conditions.size() == 1
+                                           ? cs.conditions[0].expr->eval(ec)
+                                           : ConstantValue();
+                    if (cv)
+                        return cv.isTrue() ? walk(cs.ifTrue, out)
+                                           : (cs.ifFalse ? walk(*cs.ifFalse, out)
+                                                         : true);
+                    if (!walk(cs.ifTrue, out))
+                        return false;
+                    return cs.ifFalse ? walk(*cs.ifFalse, out) : true;
+                }
+                case StatementKind::Case: {
+                    auto& cs = st.as<slang::ast::CaseStatement>();
+                    if (unknown(cs.expr))
+                        return false;
+                    for (auto& ig : cs.items)
+                        if (!walk(*ig.stmt, out))
+                            return false;
+                    if (cs.defaultCase && !walk(*cs.defaultCase, out))
+                        return false;
+                    return true;
+                }
+                case StatementKind::ForLoop: {
+                    auto& fl = st.as<slang::ast::ForLoopStatement>();
+                    for (auto* i0 : fl.initializers)
+                        if (unknown(*i0))
+                            return false;
+                    if (!fl.stopExpr || unknown(*fl.stopExpr))
+                        return false;
+                    return walk(fl.body, out);
+                }
+                case StatementKind::WhileLoop: {
+                    auto& wl = st.as<slang::ast::WhileLoopStatement>();
+                    if (unknown(wl.cond))
+                        return false;
+                    return walk(wl.body, out);
+                }
+                case StatementKind::DoWhileLoop: {
+                    auto& wl = st.as<slang::ast::DoWhileLoopStatement>();
+                    if (unknown(wl.cond))
+                        return false;
+                    return walk(wl.body, out);
+                }
+                case StatementKind::RepeatLoop: {
+                    auto& rl = st.as<slang::ast::RepeatLoopStatement>();
+                    if (unknown(rl.count))
+                        return false;
+                    return walk(rl.body, out);
+                }
+                default:
+                    // Anything else (timing controls, waits, disables, ...)
+                    // stops the evaluator.
+                    return false;
+            }
+        };
+        walk(sub.getBody(), outCallees);
+    }
 }
 
 // § subCalledAsContAssignRhs — Surelog pushes the assignment's size through a
@@ -831,6 +1094,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                      : (oob ? oobHomePkg : nullptr);
         pkgScopeInst = (pkgScope && !classScope) ? baseScopeInst : tsInst;
         bool isFunc = sub.subroutineKind == SubroutineKind::Function;
+        // § fnLocalParamRangeNet — the subroutine's OWN declaration types
+        // (return, formals, body locals) are compiled with its parameters out
+        // of scope; a range bound naming one falls through to the module-level
+        // late binding, which mints an implicit wire.  Both the scope and the
+        // module to mint into must be live before the FIRST of those typespecs
+        // is built (the return type, well ahead of the body).
+        fnDeclTsSub = &sub;
+        if (m->UhdmType() == UHDM::uhdmmodule_inst) {
+            implicitNetModule = (UHDM::module_inst*)m;
+            implicitNetPrefix = prefix;
+        }
         // A DPI-EXPORTED subroutine is emitted as a function (even a task)
         // carrying DPI export attributes.
         bool dpiExport = false;
@@ -1605,36 +1879,39 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (its.dimensions.empty() && !its.signing.valid())
                     bareImplicit = true;
             }
-            // An ANSI formal written as a BARE NAME (task put(message); /
-            // task get(ref message);) has no data-type node at all, so Surelog
-            // gives its io_decl NO typespec. A body-style "input x;" does keep
-            // one (there the direction keyword is the type declaration).
-            if (bareImplicit) {
-                bool noTypeNode = false;
-                for (auto q = arg->getSyntax(); q; q = q->parent) {
-                    if (q->kind == syntax::SyntaxKind::FunctionPort) {
-                        noTypeNode = q->as<syntax::FunctionPortSyntax>().dataType == nullptr;
+            // A formal written with NO DATA TYPE — an ANSI bare name (task
+            // put(message);), an ANSI direction-only port (f(input a)) or a
+            // body-style `input a;` alike — gets NO typespec out of Surelog's
+            // definition compile: CompileStmt builds one only from a
+            // `paData_type` or a `paPacked_dimension`, and a bare formal has
+            // neither.  It acquires one only when the constant evaluator
+            // REACHES the subroutine and recompiles the formals
+            // (§ bareFormalTsReached).  `signed`/`unsigned` alone is still no
+            // data type (arm a4/k9: `input signed a;` in an unreached
+            // function has no typespec either), so the reach test — not the
+            // written spelling — is the whole rule.
+            // ...unless the body REDECLARES the formal with a type (`input B;
+            // integer B;`): that declaration is compiled whatever the
+            // evaluator does, and the io_decl takes its typespec (TaskDecls'
+            // uncalled task A — the branch that owns this is `redeclSym`
+            // below, so only the decision to drop needs the test here).
+            bool noDataType9 =
+                argTsyn && argTsyn->kind == syntax::SyntaxKind::ImplicitType &&
+                argTsyn->as<syntax::ImplicitTypeSyntax>().dimensions.empty();
+            if (noDataType9)
+                for (auto& mv9 : sub.members())
+                    if (mv9.kind == SymbolKind::Variable &&
+                        &mv9 != sub.returnValVar && !mv9.name.empty() &&
+                        mv9.name == arg->name) {
+                        noDataType9 = false;
                         break;
                     }
-                    if (q->kind == syntax::SyntaxKind::PortDeclaration ||
-                        q->kind == syntax::SyntaxKind::FunctionDeclaration ||
-                        q->kind == syntax::SyntaxKind::TaskDeclaration)
-                        break;
-                }
-                // ...unless the subroutine is INVOKED from a continuous /
-                // elaboration expression, which makes Surelog compile its
-                // formals after all — then even the bare-name formal takes
-                // the unlocated logic_typespec (§ elabInvoked;
-                // ImplicitFuncArgAndReturn's `sub #(.M_SECURE({w_1(...)}))`).
-                // The UVM `task put(message)` counterexamples this branch was
-                // written for are all uncalled, so they keep dropping it.
-                if (noTypeNode && !elabInvoked(sub)) {
-                    ios->push_back(io);
-                    if (!classScope)
-                        funcMap[arg] = io;
-                    si.argTs.push_back({nullptr, nullptr});
-                    continue;
-                }
+            if (noDataType9 && !bareFormalTsReached(sub)) {
+                ios->push_back(io);
+                if (!classScope)
+                    funcMap[arg] = io;
+                si.argTs.push_back({nullptr, nullptr});
+                continue;
             }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName + sep + std::string(arg->name));
@@ -2935,6 +3212,11 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         currentTf = tf;
         auto* savedSubSym = currentSubSym;
         currentSubSym = &sub;
+        // The BODY is compiled with the subroutine's own scope on the lookup
+        // path, so a reference there resolves the parameter normally — the
+        // declaration-type rule ends here (arm a2/n5: the same `p5` binds the
+        // net in the reg range and the PARAMETER one line down).
+        fnDeclTsSub = nullptr;
         bool selOwner = beginSelTrack();
         bool savedCMNB = classMethodNoBind;
         // ...but only for a method written INSIDE the class. An OUT-OF-BODY

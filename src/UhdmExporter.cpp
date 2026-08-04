@@ -4059,13 +4059,24 @@ UHDM::design* UhdmExporter::exportDesign() {
 }
 
 // A function body's nested-call OPERATION argument carries the formal's
-// typespec only when the body is reached from a func_call that survived
-// constant reduction (see the bodyOpArg9 note in ExprEmit). Close the live
-// entry points over the body-to-body call graph, then attach.
+// typespec only when Surelog's constant evaluator RUNS that call: the stamp is
+// what binding an actual to a formal leaves behind (see the bodyOpArg9 note in
+// ExprEmit).  So the test is on the CALLEE, and the closure over the live entry
+// points follows the evaluator's own prefix walk (§ evalReachedCallees), not
+// every call edge the body happens to contain:
+//   FuncArgs      `assign out1 = pow_a(inp, 3)` survives reduction -> pow_a is
+//                 live, so its own recursive `pow_a(base, exp - 1)` — inside
+//                 `if (exp > 0)`, which the evaluator cannot fold — IS stamped
+//                 (the CALLEE is reached, through the top-level call);
+//                 `assign out2 = pow_b(2, 2)` folds away, so pow_b is not live
+//                 and the identical body statement is bare.
+//   FuncIoTypespec/arm a9 x6  the only call to the callee sits inside an
+//                 unfoldable `if`, so the evaluator never runs it and the
+//                 operation actual stays bare — while the same call written as
+//                 a plain body statement (x2..x5) is stamped.
 void UhdmExporter::drainBodyOpArgTs() {
     if (pendingBodyOpArgTs.empty()) {
         liveCalledSubs.clear();
-        subCallEdges.clear();
         return;
     }
     std::set<const slang::ast::SubroutineSymbol*> reached = liveCalledSubs;
@@ -4074,19 +4085,17 @@ void UhdmExporter::drainBodyOpArgTs() {
     while (!work.empty()) {
         auto* cur = work.back();
         work.pop_back();
-        auto it = subCallEdges.find(cur);
-        if (it == subCallEdges.end())
-            continue;
-        for (auto* nx : it->second)
+        std::vector<const slang::ast::SubroutineSymbol*> callees;
+        evalReachedCallees(*cur, callees);
+        for (auto* nx : callees)
             if (reached.insert(nx).second)
                 work.push_back(nx);
     }
     for (auto& p : pendingBodyOpArgTs)
-        if (reached.count(p.encl))
+        if (p.callee && reached.count(p.callee))
             p.owner->Typespec(p.rt);
     pendingBodyOpArgTs.clear();
     liveCalledSubs.clear();
-    subCallEdges.clear();
 }
 
 // Surelog reports source positions in the FULLY MACRO-EXPANDED text: every

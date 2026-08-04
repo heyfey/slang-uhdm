@@ -7876,6 +7876,13 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     }
                 }
             }
+            // § fnLocalParamRangeNet — a bound naming the enclosing
+            // SUBROUTINE's own parameter is resolved at MODULE level, where it
+            // binds a declared net/variable of that name or mints an implicit
+            // wire (see ExprEmit's fnLocalParamRangeActual).
+            if (!ref->Actual_group())
+                if (auto* fna9 = fnLocalParamRangeActual(name, syn.sourceRange()))
+                    ref->Actual_group(fna9);
             return ref;
         }
         case syntax::SyntaxKind::IntegerLiteralExpression: {
