@@ -1070,11 +1070,36 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     //     parameter int A4        = {4{1'b1}} -> BIN:1111 size 4
     // (a plain CONCAT into an `int` instead re-signs at 32 — {2'b11,2'b01} ->
     // INT:-3/32 — which is why only the replication form is widened here).
+    // § replFoldParamInt32 — and the replication's SIZE is not that width.
+    // Surelog reduces `{N{elem}}` through its integer Value, then runs the
+    // adjustSize consumer (§ adjustSize, ParamEmit srlgAdjustSize) against the
+    // replication's OWN result type, which is plain `int`: the BIN arm of the
+    // int branch clamps to `min(literal, target)` = min(w, 32).  Above 64 bits
+    // the value no longer fits Surelog's 64-bit SValue, the arm bails, and the
+    // true width survives.  The vpiDecompile is written by the PRODUCER before
+    // that clamp, so it keeps the `<w>'b` prefix at the full replication width
+    // — golden really does carry `40'b1111...` at vpiSize 32.  A plain CONCAT
+    // takes no such arm and keeps its full width at every size.  Measured on a
+    // purpose-built 20-row golden (tools/probe/r10bpfamtab.py over
+    // concat/replication pairs at w=33/36/40/48/64/65, typed and untyped
+    // targets, MSB set and clear):
+    //     {33{1'b1}} -> size 32      {32'hFFFFFFFF,1'b0}   -> size 33
+    //     {40{1'b1}} -> size 32      {39'h..,1'b0}         -> size 40
+    //     {64{1'b1}} -> size 32      {63'h..,1'b0}         -> size 64
+    //     {65{1'b1}} -> size 65      {64'h..,1'b0}         -> size 65
+    //     {12{3'b101}} -> size 32    {{20{1'b1}},{20{1'b0}}} -> size 40
+    //     {40{1'b0}} -> size 32      (all-zero: not an MSB rule)
+    // and it is independent of the parameter's declared type — `logic [39:0]`,
+    // `bit [39:0]`, `longint`, `integer` and untyped all land 32.  BlackConst's
+    // `parameter easy = `BSG_EASY(pc, dword_width_gp)` is the 35-bit witness.
     if (stripImplicitConv(expr).kind == ExpressionKind::Concatenation ||
         (paramCtx && stripImplicitConv(expr).kind == ExpressionKind::Replication)) {
         auto* c = s.MakeConstant();
         int32_t w = (int32_t)expr.type->getBitWidth();
-        c->VpiSize(w);
+        c->VpiSize(stripImplicitConv(expr).kind == ExpressionKind::Replication &&
+                           w > 32 && w <= 64
+                       ? 32
+                       : w);
         std::string bits;
         for (int32_t i = w - 1; i >= 0; i--)
             bits += (iv[i] == slang::logic_t(1)) ? '1' : '0';

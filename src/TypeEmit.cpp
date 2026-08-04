@@ -8277,6 +8277,38 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 ae = ae->as<syntax::SimpleSequenceExprSyntax>()
                                          .expr;
                         }
+                        // § sysCallArgParenNameExp — the raw-text ref_obj
+                        // fallback below spells the argument the way the
+                        // PREPROCESSED stream reads it, with parentheses
+                        // dropped.  Surelog compiles the macro-EXPANDED token
+                        // stream and compileExpression discards a
+                        // ParenthesizedExpression outright, so
+                        //   `define BSG_SAFE_CLOG2(x) (((x)==1)?1:$clog2((x)))
+                        // invoked with x=sets_p names the call's argument
+                        // ref_obj `sets_p` over the IDENTIFIER's own span --
+                        // not the macro BODY's `(x)` over the parenthesised
+                        // span, which is what plain rawText on the argument
+                        // yields (getFullyOriginalRange walks back to the
+                        // definition site; § macroExpandedText).  The
+                        // distinguisher is BlackConst, where the SIBLING read
+                        // in the same macro body -- `((x)==1)`, an ordinary
+                        // operand -- already comes out `sets_p` through the
+                        // bound emitter, and only the 7 query-call arguments
+                        // (`BSG_SAFE_CLOG2` in six struct-member ranges plus
+                        // `hit_or_repl_way`) carried the unsubstituted
+                        // spelling.  Outside a macro rawTextExp IS rawText and
+                        // an unparenthesised argument is its own unwrapping,
+                        // so this changes nothing else.
+                        const syntax::SyntaxNode* an9 = ae;
+                        while (an9 &&
+                               an9->kind == syntax::SyntaxKind::
+                                                ParenthesizedExpression)
+                            an9 = an9->as<syntax::ParenthesizedExpressionSyntax>()
+                                      .expression;
+                        std::string argName =
+                            an9 ? rawTextExp(*an9) : argRaw;
+                        SourceRange argSpan =
+                            an9 ? an9->sourceRange() : arg->sourceRange();
                         // A CONCATENATION argument ($bits({a, b, c})) is a real
                         // expression, not a type name: Surelog compiles it
                         // through compileExpression and the query call keeps a
@@ -8367,9 +8399,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 }
                                 else {
                                     auto* r9 = s.MakeRef_obj();
-                                    r9->VpiName(argRaw);
+                                    r9->VpiName(argName);
                                     r9->VpiParent(sfc);
-                                    setLoc(r9, arg->sourceRange());
+                                    setLoc(r9, argSpan);
                                     if (auto ci9 = pkgParamConst.find(psy9);
                                         ci9 != pkgParamConst.end())
                                         r9->Actual_group(ci9->second);
@@ -8383,9 +8415,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             }
                         }
                         auto* r = s.MakeRef_obj();
-                        r->VpiName(argRaw);
+                        r->VpiName(argName);
                         r->VpiParent(sfc);
-                        setLoc(r, arg->sourceRange());
+                        setLoc(r, argSpan);
                         args->push_back(r);
                     }
                     if (!args->empty())

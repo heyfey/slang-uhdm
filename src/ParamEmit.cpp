@@ -685,6 +685,64 @@ static int packedDimCount(const Type& t) {
     return n;
 }
 
+// How many packed dimensions the parameter's own DECLARATION WRITES — which is
+// what Surelog's typespec `Ranges()` list holds, and is NOT the same as
+// `packedDimCount`: that one canonicalizes, so a typedef element
+// (`tri_t [1:0]`, tri_t = bit[2:0]) counts 2 there and 1 here.  An
+// implicit-type declaration (`[1:0][2:0] P`) gets no packed typespec from
+// Surelog at all and counts 0.  See § multiDimPackedParamNoFold.
+static int writtenPackedDimCount(const ParameterSymbol& ps) {
+    const DeclaredType* dt = ps.getDeclaredType();
+    if (!dt || !dt->getTypeSyntax() ||
+        dt->getTypeSyntax()->kind == syntax::SyntaxKind::ImplicitType)
+        return 0;
+    int n = 0;
+    const Type* t = &ps.getType();
+    while (t->kind == SymbolKind::PackedArrayType) {
+        n++;
+        t = &t->as<PackedArrayType>().elementType;
+    }
+    return n;
+}
+
+// § multiDimPatternReorderRec — Surelog's `reorderAssignmentPattern`
+// (CompileExpression.cpp:5888) read verbatim.  It is RECURSIVE, which is
+// exactly what a multi-dimensional parameter needs: level N compares the Nth
+// packed range of the parameter's typespec and reverses THAT level's operand
+// list, then re-enters every operand that is itself an operation at level N+1.
+// The three real guards are (a) the operation is not already vpiReordered,
+// (b) no operand is a tagged_pattern, (c) the parameter HAS a range at this
+// level and it decreases — there is no "first operand must be a ref_obj"
+// condition in Surelog's source; the older module arm below uses that as a
+// proxy and is left alone because it is measured against a different shape.
+// Note the recursion runs even when this level did not reverse (an ascending
+// outer dimension over descending inner ones still reverses the inner ones).
+// Witness: BlackParrotComplex's `bit [1:0][4:0][4:0] StrictXY`, where golden
+// reverses the outer 2-group concat AND each inner 5-element group.
+static void mdimPatternReorderRec(
+    UHDM::operation* op, const std::vector<std::pair<int64_t, int64_t>>& rs,
+    size_t level) {
+    if (!op || op->VpiReordered())
+        return;
+    int ot = op->VpiOpType();
+    if (ot != vpiConcatOp && ot != vpiAssignmentPatternOp)
+        return;
+    auto* ops = op->Operands();
+    if (!ops || ops->empty())
+        return;
+    bool ordered = true;
+    for (auto* o : *ops)
+        if (o->UhdmType() == UHDM::uhdmtagged_pattern)
+            ordered = false;
+    if (ordered && level < rs.size() && rs[level].first > rs[level].second) {
+        op->VpiReordered(true);
+        std::reverse(ops->begin(), ops->end());
+    }
+    for (auto* o : *ops)
+        if (o->UhdmType() == UHDM::uhdmoperation)
+            mdimPatternReorderRec((UHDM::operation*)o, rs, level + 1);
+}
+
 // Whether the OUTERMOST packed range of a parameter's type runs downwards
 // ([1:0]) — Surelog's CompileHelper::isDecreasingRange, which decides whether
 // an elab pattern/concat Rhs gets its operands reversed.
@@ -7228,6 +7286,63 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                          // the operation in the elab view too (Surelog).
                          !(isImported && stripImplicitConv(*init).kind ==
                                              ExpressionKind::Concatenation) &&
+                         // § multiDimPackedParamNoFold — a parameter whose own
+                         // declaration writes TWO OR MORE packed dimensions
+                         // keeps a CONCAT / assignment-PATTERN initializer as
+                         // an operation in the elaborated listing: Surelog
+                         // stores it as the instance's COMPLEX VALUE
+                         // (reorderAssignmentPattern -> setComplexValue,
+                         // CompileExpression.cpp:5947) instead of reducing it
+                         // to a number, and every later read re-reads that
+                         // operation.  The dimension COUNT is the whole rule —
+                         // measured on a purpose-built golden that varied only
+                         // the declared type (r10bpfam repro 4/5, elab view):
+                         //     bit [5:0]            = {3'b011,3'b101}   -> constant
+                         //     bit [1:0]            = {1'b1,1'b0}       -> constant
+                         //     bit [1:0][2:0]       = {{011},{101}}     -> OPERATION
+                         //     bit [1:0][2:0][2:0]  = {{{..}},{{..}}}   -> OPERATION
+                         //     logic [1:0][2:0]     = {{011},{101}}     -> OPERATION
+                         //     bit [0:1][2:0]       = {{011},{101}}     -> OPERATION
+                         //     bit [1:0][2:0]       = {6'b011101}       -> OPERATION
+                         // Two shapes look like they should qualify and do NOT,
+                         // and both fall out of Surelog reading the count off
+                         // its own TYPESPEC's range list rather than off the
+                         // canonical type:
+                         //   * a TYPEDEF element (`tri_t [1:0]`, tri_t =
+                         //     bit[2:0]) is ONE range on a packed_array_typespec
+                         //     -> folds, even though the canonical type is the
+                         //     identical bit[1:0][2:0];
+                         //   * an IMPLICIT-type declaration (`[1:0][2:0] P =`)
+                         //     gets no packed typespec at all (its elab constant
+                         //     carries a bare int_typespec) -> folds.
+                         // A REPLICATION is not a pattern and folds at every
+                         // dimension count (`bit [1:0][2:0] = {2{3'b011}}` ->
+                         // constant), as does any non-aggregate init
+                         // (`= 6'b011101`).  BlackParrotComplex's
+                         // `bit [1:0][4:0][4:0] StrictXY` is the witness.
+                         //
+                         // CONCATENATION ONLY — the `'{...}` sibling splits on
+                         // the element's STATE and is deliberately left alone.
+                         // FuncNoArgs is the distinguisher (it regressed when
+                         // this clause covered patterns too, and that
+                         // regression bought the row): measured on a
+                         // purpose-built 10-row golden that varied only the
+                         // brace and the base type,
+                         //     logic [1:0][2:0] = '{0,0}   -> constant 6'd0
+                         //     logic [1:0][2:0] = '{3'b011,3'b101} -> constant
+                         //     bit   [1:0][2:0] = '{0,0}   -> OPERATION
+                         //     bit   [1:0][2:0] = '{3'b011,3'b101} -> OPERATION
+                         //     logic [1:0][2:0] = { ... }  -> OPERATION (any)
+                         // i.e. a FLAT pattern into a 4-state multi-dim target
+                         // still collapses through expandPatternAssignment
+                         // while its 2-state twin does not.  The 2-state
+                         // pattern rows stay a MEASURED RESIDUE here rather
+                         // than a guess: nothing in either corpus needed them,
+                         // and the nested-pattern clause just below already
+                         // owns `'{'{..},'{..}}` in both states.
+                         !(stripImplicitConv(*init).kind ==
+                               ExpressionKind::Concatenation &&
+                           writtenPackedDimCount(ps) >= 2) &&
                          // A NESTED assignment pattern ('{'{1,0,0,0}}) keeps
                          // its operation in the elab view (not folded).
                          !([&] {
@@ -10492,6 +10607,32 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                      opd9->Operands()->end());
                     }
                 }
+                // § multiDimPackedParamNoFold, other half — the operation that
+                // law keeps alive IS the instance's complex value, and
+                // UhdmWriter.cpp:2214 runs reorderAssignmentPattern over a
+                // module's param_assigns on the way out, so the TOP listing
+                // carries the reversed form while the DEF listing (written from
+                // the unreduced expression) keeps source order.
+                // Entered on a CONCAT head only — the same scope
+                // § multiDimPackedParamNoFold keeps alive.  Pattern-headed ops
+                // reach this point through other rules that already own their
+                // ordering, and re-entering them here double-reversed them
+                // (12 vpiReordered marks against golden's 8 on the repro-6
+                // golden).  The recursion itself stays type-generic because a
+                // concat's nested levels may be either.
+                if (topView && !inPackage && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)rhs)->VpiOpType() == vpiConcatOp &&
+                    writtenPackedDimCount(ps) >= 2) {
+                    std::vector<std::pair<int64_t, int64_t>> rs9;
+                    for (const Type* t9 = &ps.getType();
+                         t9->kind == SymbolKind::PackedArrayType;
+                         t9 = &t9->as<PackedArrayType>().elementType) {
+                        auto r9 = t9->as<PackedArrayType>().range;
+                        rs9.emplace_back((int64_t)r9.left, (int64_t)r9.right);
+                    }
+                    mdimPatternReorderRec((UHDM::operation*)rhs, rs9, 0);
+                }
                 pkgElabSymOperands = false;
                 elabMdimParamInit = false;
                 misevalParamRhsScope = nullptr;
@@ -10647,6 +10788,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     bool packedArrayOp =
                         ps.getType().getCanonicalType().isPackedArray() &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
+                    // § multiDimPackedParamNoFold, third half — ...but the
+                    // CONCAT form DOES carry the ref once the parameter writes
+                    // two or more packed dimensions, because only then does
+                    // the operation survive into the elaborated listing at all
+                    // (it is the instance's complex value).  The
+                    // PkgParamAsFunctionArg counter-example above is the
+                    // one-dimensional shape, whose concat reduces to a
+                    // constant and never reaches this tag.  BlackParrotComplex
+                    // StrictXY/StrictX: `ref_typespec -> bit_typespec` at the
+                    // declaration's own span, elab listing only.
+                    bool mdimConcatOp9 =
+                        !inPackage && topView && !defViewOrig9 &&
+                        opr->VpiOpType() == vpiConcatOp &&
+                        writtenPackedDimCount(ps) >= 2;
                     // An UNPACKED-array param's elab-view pattern op also gets a
                     // ts ref, but its actual is a FRESH array_typespec (not the
                     // deferred/patched param typespec) — built inline here.
@@ -10760,6 +10915,38 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 }
                             }
                         }
+                    }
+                    // § unpArrConcatTs — a BRACE-concat init of an unpacked
+                    // array (`parameter int A3[0:2] = {1,2,3}`) is the same
+                    // un-expanded operation as its `'{1,2,3}` twin and takes
+                    // the same fresh array_typespec ref in the instance view.
+                    // It does NOT take the twin's operand-WIDTH reduction,
+                    // though: BlackParrotComplex's `middle` and `bottom` are
+                    // that pair one module apart, differing only in the
+                    // leading apostrophe, and golden gives both the ts while
+                    // sizing `'{1,2,3}`'s operands 32 (the array's `int`
+                    // element) and `{1,2,3}`'s 64 (plain unsized literals) —
+                    // expandPatternAssignment is what re-types the elements,
+                    // and a concat never enters it.  The size leaks onward:
+                    // `parameter A = A3[2]` reads 64 in `bottom`, 32 in
+                    // `middle`.
+                    bool unpArrConcatTs9 = false;
+                    if (!inPackage && !defViewOrig9 &&
+                        opr->VpiOpType() == vpiConcatOp &&
+                        ps.getType().getCanonicalType().kind ==
+                            SymbolKind::FixedSizeUnpackedArrayType) {
+                        const Type* ul9 = &ps.getType().getCanonicalType();
+                        while (ul9->getCanonicalType().kind ==
+                               SymbolKind::FixedSizeUnpackedArrayType)
+                            ul9 = &ul9->getCanonicalType()
+                                       .as<FixedSizeUnpackedArrayType>()
+                                       .elementType;
+                        auto lk9 = ul9->getCanonicalType().kind;
+                        unpArrConcatTs9 =
+                            lk9 != SymbolKind::PackedStructType &&
+                            lk9 != SymbolKind::UnpackedStructType &&
+                            lk9 != SymbolKind::PackedUnionType &&
+                            lk9 != SymbolKind::UnpackedUnionType;
                     }
                     // A materialized IMPORTED vector-typedef param's elab
                     // CONCAT op also carries a ts ref (own clone pair) — in the
@@ -10883,7 +11070,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }();
                     if ((anyUnknown || packedArrayOp || unpackedArrayTs9 ||
                          importedConcatOp || structOp || lazyTernary9 ||
-                         structRefSubstOp9) &&
+                         structRefSubstOp9 || mdimConcatOp9 ||
+                         unpArrConcatTs9) &&
                         !(opr->Typespec() &&
                           opr->Typespec()->Actual_typespec())) {
                         auto* rt = s.MakeRef_typespec();
@@ -10894,7 +11082,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rt->VpiFullName(tsPrefix);
                         rt->VpiParent(opr);
                         opr->Typespec(rt);
-                        if (unpackedArrayTs9)
+                        if (unpackedArrayTs9 || unpArrConcatTs9)
                             // The OP's clone names its element ref by the
                             // holding ref_typespec's own fullname (the
                             // instance prefix), not the parameter's.
