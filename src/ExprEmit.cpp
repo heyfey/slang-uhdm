@@ -2493,11 +2493,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     stripImplicitConv(ae.left()).kind ==
                         ExpressionKind::NamedValue &&
                     subEvaluatedFromParamInit(*currentSubSym);
-                if (currentSubSym && !pkgSub9 &&
+                // § pkgFuncFillSizedInElab — the package arm of the same rule.
+                // The `!pkgSub9` exclusion above was measured on rp32's
+                // riscv_isa_i_pkg::enc32, whose only caller multiplies the
+                // call into an operation (`(enc32(...) & 32'hff..) | ...`) —
+                // i.e. NOT a direct cont-assign rhs — so it never separated
+                // "package" from "not called that way".  u.sv/v.sv separate
+                // them: a package function that IS a continuous assignment's
+                // direct rhs takes the sizing too, but ONLY in the ELABORATED
+                // (uhdmtopPackages) copy; the def copy keeps the raw literal.
+                // `'x`/`'z` are NOT respelled there (w.sv row E: golden's
+                // elaborated wp keeps `'X`/-1 beside an `'1` that became
+                // 11111111/8) — Surelog's evaluator sizes a value it can
+                // represent, and an unknown fill has none.  The whole-variable
+                // LHS gate is the same one the module arm uses.
+                bool fillKnown9 = false;
+                {
+                    auto& ub0 = stripImplicitConv(*rhsExpr);
+                    if (ub0.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                        fillKnown9 = !ub0.as<UnbasedUnsizedIntegerLiteral>()
+                                          .getLiteralValue()
+                                          .isUnknown();
+                }
+                bool pkgElabSize9 = pkgSub9 && pkgTopEmit && currentSubSym &&
+                                    fillKnown9 &&
+                                    stripImplicitConv(ae.left()).kind ==
+                                        ExpressionKind::NamedValue &&
+                                    pkgSubCalledAsContAssignRhs(*currentSubSym);
+                if (currentSubSym &&
                     rhs->UhdmType() == UHDM::uhdmconstant &&
                     ((UHDM::expr*)rhs)->VpiSize() == -1 &&
-                    (subCalledAsContAssignRhs(*currentSubSym) ||
-                     paramEvalSize9) &&
+                    ((!pkgSub9 && (subCalledAsContAssignRhs(*currentSubSym) ||
+                                   paramEvalSize9)) ||
+                     pkgElabSize9) &&
                     stripImplicitConv(*rhsExpr).kind ==
                         ExpressionKind::UnbasedUnsizedIntegerLiteral) {
                     int32_t w = (int32_t)ae.left().type->getBitWidth();

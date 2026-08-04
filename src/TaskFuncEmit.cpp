@@ -430,6 +430,57 @@ bool UhdmExporter::subCalledAsContAssignRhs(const SubroutineSymbol& sub) {
     return found;
 }
 
+// § pkgFuncFillSizedInElab — the same size-through-the-call rule, reached from
+// a PACKAGE function.  subCalledAsContAssignRhs looks in the subroutine's own
+// InstanceBody, which a package function does not have, so the callers have to
+// be found design-wide.  Measured (u.sv / v.sv): in the ELABORATED
+// (uhdmtopPackages) copy of a package, a function CALLED as the DIRECT rhs of
+// a continuous assignment has its whole-variable `'0` assignment RHS respelled
+// at the variable's width, exactly like the module case; the DEF
+// (uhdmallPackages) copy and a never-called function keep the raw `'0`.
+// Corpus: aes_pkg::aes_transpose (`transpose = '0;` at
+// logic [3:0][3:0][7:0]) reads 128 zeros / size 128 in golden's elaborated
+// aes_pkg, and 13 Earlgrey AllModules def entries reach it through
+// parameter::Compare's Instance() recursion.
+bool UhdmExporter::pkgSubCalledAsContAssignRhs(const SubroutineSymbol& sub) {
+    if (!contAssignRhsCalleesBuilt9) {
+        contAssignRhsCalleesBuilt9 = true;
+        std::function<void(const Scope&)> scan = [&](const Scope& sc) {
+            for (auto& mem : sc.members()) {
+                if (mem.kind == SymbolKind::ContinuousAssign) {
+                    auto& asn = mem.as<ContinuousAssignSymbol>().getAssignment();
+                    if (asn.kind != ExpressionKind::Assignment)
+                        continue;
+                    const Expression* r = &stripImplicitConv(
+                        asn.as<AssignmentExpression>().right());
+                    if (r->kind != ExpressionKind::Call)
+                        continue;
+                    if (auto* sp = std::get_if<const SubroutineSymbol*>(
+                            &r->as<CallExpression>().subroutine))
+                        contAssignRhsCallees9.insert(*sp);
+                }
+                else if (mem.kind == SymbolKind::Instance)
+                    scan(mem.as<InstanceSymbol>().body);
+                else if (mem.kind == SymbolKind::InstanceArray) {
+                    for (auto* e : mem.as<InstanceArraySymbol>().elements)
+                        if (e->kind == SymbolKind::Instance)
+                            scan(e->as<InstanceSymbol>().body);
+                }
+                else if (mem.kind == SymbolKind::GenerateBlock) {
+                    if (!mem.as<GenerateBlockSymbol>().isUninstantiated)
+                        scan(mem.as<GenerateBlockSymbol>());
+                }
+                else if (mem.kind == SymbolKind::GenerateBlockArray)
+                    for (auto* ge : mem.as<GenerateBlockArraySymbol>().entries)
+                        scan(*ge);
+            }
+        };
+        for (auto* ti : comp.getRoot().topInstances)
+            scan(ti->body);
+    }
+    return contAssignRhsCallees9.count(&sub) != 0;
+}
+
 // § subEvaluatedFromParamInit — the subroutines Surelog's ExprEval really
 // RUNS while elaborating an instance's parameters.
 //

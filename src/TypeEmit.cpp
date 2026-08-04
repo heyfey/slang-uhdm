@@ -8160,8 +8160,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // Based literal (64'h123..): raw decompile, size from the prefix,
             // value in the written base.
             auto* c = s.MakeConstant();
-            std::string raw = rawText(syn.sourceRange());
-            c->VpiDecompile(stripSep(raw));
+            std::string raw = stripSep(rawText(syn.sourceRange()));
+            c->VpiDecompile(raw);
             auto tick = raw.find('\'');
             int32_t sz = 0;
             if (tick != std::string::npos && tick > 0)
@@ -8190,7 +8190,28 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     c->VpiConstType(vpiDecConst);
                     break;
             }
-            c->VpiSize(sz ? sz : 64);
+            // § syntaxUnsizedBasedSize — an UNSIZED based literal is SIZE -1,
+            // not 64: this arm gave every one of them the bare-decimal width.
+            // The one exception is Surelog's paNumber_Tickb0/Tickb1 grammar
+            // rule — `'b0`/`'b1` (and the `'B` spellings) are separate parse
+            // nodes that hard-code SIZE 0 and a normalised lowercase
+            // decompile — which is the SAME rule the AST arm already decodes
+            // (ExprEmit's tickBinDigit).  Measured on y.sv, whose golden def
+            // and elab views agree row for row: 'b0/'b1 -> 0, 'b101/'h3/'o7/
+            // 'd9/'bx -> -1, 8'hab -> 8.  Corpus: prim_fifo_sync.sv:145
+            // `assign rdata = empty ? 'b0 : rdata_int;`, 13 Earlgrey
+            // AllModules def entries.
+            if (tick == 0) {
+                bool tickBinDigit9 =
+                    raw.size() == 3 && (raw[1] == 'b' || raw[1] == 'B') &&
+                    (raw[2] == '0' || raw[2] == '1');
+                if (tickBinDigit9)
+                    c->VpiDecompile(std::string("'b") + raw[2]);
+                c->VpiSize(tickBinDigit9 ? 0 : -1);
+            }
+            else {
+                c->VpiSize(sz ? sz : 64);
+            }
             c->VpiParent(parent);
             setLoc(c, syn.sourceRange());
             return c;
@@ -8434,6 +8455,30 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             for (auto* e0 : cce.expressions)
                 if (auto* o0 = emitSyntaxExpr(*e0, op))
                     operands->push_back(o0);
+            op->Operands(operands);
+            return op;
+        }
+        case syntax::SyntaxKind::MultipleConcatenationExpression: {
+            // § syntaxMultiConcat — `{N{x}}` in a syntax-emitted (module-DEF
+            // gen-block) expression.  Without this arm emitSyntaxExpr returned
+            // null and the replication VANISHED from its enclosing concat, so
+            // `{1'b1,{(PW-1){1'b0}}}` came out as a one-operand concat.
+            // Surelog's shape: a vpiMultiConcatOp spanning the OUTER braces
+            // whose operands are the repeat count and the INNER concat (itself
+            // a plain vpiConcatOp spanning its own braces).  Corpus:
+            // prim_fifo_sync.sv:110 — 13 Earlgrey AllModules def entries; the
+            // same replication inside a PROCEDURAL statement of the same gen
+            // block was already right (that path is AST-emitted).
+            auto& mce = syn.as<syntax::MultipleConcatenationExpressionSyntax>();
+            auto* op = s.MakeOperation();
+            op->VpiOpType(vpiMultiConcatOp);
+            op->VpiParent(parent);
+            setLoc(op, syn.sourceRange());
+            auto* operands = s.MakeAnyVec();
+            if (auto* c0 = emitSyntaxExpr(*mce.expression, op))
+                operands->push_back(c0);
+            if (auto* i0 = emitSyntaxExpr(*mce.concatenation, op))
+                operands->push_back(i0);
             op->Operands(operands);
             return op;
         }

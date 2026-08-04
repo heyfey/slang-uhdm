@@ -1978,9 +1978,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     //   assign p = '1; (p 1-bit)              -> "'1"    sz -1
                     // Rggen: rggen_adapter_common's `pre_decode` else-arm
                     // `return '1`, 9 vectors.
+                    // ...and it is a MODULE-function rule only: a PACKAGE
+                    // function's `return '1;` keeps the raw literal at size -1
+                    // in BOTH package views, however the function is called
+                    // (w.sv rows H/I — one function reached as a continuous
+                    // assignment's DIRECT rhs, its twin only under an
+                    // operation; golden reads `'1`/-1 for both, in
+                    // uhdmallPackages and uhdmtopPackages alike).  pkgScopeInst
+                    // is set exactly for a package's own (non-class)
+                    // subroutines, in both views.
                     auto& rl9 = stripImplicitConv(*rs.expr);
                     if (rl9.kind ==
                             ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                        !pkgScopeInst &&
                         e->UhdmType() == UHDM::uhdmconstant && rs.expr->type &&
                         rs.expr->type->isIntegral()) {
                         logic_t b9 = rl9.as<UnbasedUnsizedIntegerLiteral>()

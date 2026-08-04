@@ -126,7 +126,179 @@ EARLGREY_0_1 HEAD CENSUS after pass 2 (r10earl2h; 125 + 8 + 6 + 6):
   AllPackages SIZE  40 vs  40,   6 heads
   TopPackages SIZE  40 vs  40,   6 heads
 
-RANKED RESIDUE (measured; next agent starts here).  Head counts are AllModules
+LANDED — PASS 3 (r10earl3; every law gated at goldens 23/23 + u2r testflags
+0 change + Surelog both modes 0 change, incl. the dump column — four full gate
+rounds, one after each law):
+
+  s.sv  § uninstDefPortedAdmit (UhdmExporter exportDesign + ParamEmit
+        collectImportedParams).  Surelog's uhdmallModules lists every module
+        DEFINITION in the compilation, instantiated or not.  addDefOnlyModule
+        already harvested defs reached only through a NON-TAKEN GENERATE
+        BRANCH, but admitted them only when PORTLESS; the 13 missing Earlgrey
+        entries all have ports.  Dropping the requireNoPorts gate needs ONE
+        other fix: InstanceSymbol::createDefault deliberately leaves the
+        instance OUT of every scope, so getParentScope() is null and slang's
+        resolvePortConnections() — whose SLANG_ASSERT(scope) is compiled out in
+        Release — DEREFERENCES THE NULL.  collectImportedParams asks such an
+        instance's parentInstance for its port connections; guarded (a def-only
+        instance has no instantiator by construction, so there is nothing to
+        scan).  Closes AllModules SIZE 190 vs 177 -> 190 vs 190, which was
+        masking every per-entry comparison past it; 5 of the 13 new entries are
+        cmp-EQUAL immediately.  s.sv is BYTE-IDENTICAL (a ported module and a
+        portless one, both instantiated only in the untaken arm).
+
+  u.sv/v.sv/w.sv  § pkgFuncFillSizedInElab (ExprEmit ~2496 + TaskFuncEmit
+        pkgSubCalledAsContAssignRhs).  § subCalledAsContAssignRhs — "Surelog
+        pushes the assignment size through a call ONLY from a continuous
+        assignment whose rhs IS the call" — was implemented with a `!pkgSub9`
+        exclusion, measured on rp32's riscv_isa_i_pkg::enc32 whose only caller
+        multiplies the call into an operation.  That case never separated
+        "package" from "not called that way".  The rule DOES apply to a package
+        function, with two extra conditions: only the ELABORATED
+        (uhdmtopPackages) copy takes it (the def copy keeps the raw literal),
+        and the callers must be found DESIGN-WIDE (a package function has no
+        InstanceBody, so the existing helper's home-scope scan can never see
+        them).  Full matrix (w.sv, one function per row, all in one package,
+        `logic [7:0]` unless stated):
+            A no-arg,      `a = '0;`   -> 00000000 / 8
+            B one arg,     `b = '0;`   -> 00000000 / 8
+            C onto a NET,  `c = '0;`   -> 00000000 / 8
+            D              `d = '1;`   -> 11111111 / 8
+            E              `e = 'x;`   -> `'X` / -1  (UNKNOWN FILLS NOT SIZED)
+            F              `f[0] = '1;`-> `'1` / -1  (bit-select LHS)
+            G 128-bit multi-dim, no args -> 128 zeros / 128
+            H `return '1;`, DIRECT cont-assign rhs -> `'1` / -1
+            I `return '1;`, under an operation     -> `'1` / -1
+        and u.sv adds the never-called control: a function with the identical
+        body that nothing calls keeps `'0`/-1 in BOTH views.  Corpus:
+        aes_pkg::aes_transpose (`transpose = '0;` at logic [3:0][3:0][7:0]),
+        reached from 13 Earlgrey AllModules def entries through
+        parameter::Compare's Instance() recursion.  u.sv is BYTE-IDENTICAL.
+
+  t.sv  NEGATIVE witness for the law above, kept deliberately: the same `'0`
+        shapes in package functions that NOTHING CALLS, plus a package
+        parameter, a declaration initialiser, an always_comb body and a
+        module-local function.  Golden leaves every one of them `'0`/-1 and so
+        do we — t.sv was already cmp-EQUAL before pass 3 and stays so.  It is
+        what proved the trigger is the CALL, not the package or the width.
+
+  w.sv rows H/I  § retUnbasedSizing is a MODULE-FUNCTION rule (StmtEmit ~1968).
+        A PACKAGE function's `return '1;` keeps the raw literal at -1 in BOTH
+        package views however the function is called; we sized it to the return
+        width in both.  Gated on pkgScopeInst (set exactly for a package's own
+        non-class subroutines, in both views).
+
+  x.sv  § syntaxMultiConcat (TypeEmit emitSyntaxExpr).  The syntax-driven
+        expression emitter — which builds a module-DEF gen block's whole
+        subtree — had a ConcatenationExpression arm but NO
+        MultipleConcatenationExpression arm, so `{N{x}}` returned null and the
+        replication VANISHED from its enclosing concat: `{1'b1,{(PW-1){1'b0}}}`
+        came out as a ONE-operand concat.  The same replication in a PROCEDURAL
+        statement of the same gen block was already right (that path is
+        AST-emitted) — which is why this survived so long.  Surelog's shape is a
+        vpiMultiConcatOp spanning the OUTER braces over [count, inner concat],
+        the inner concat a plain vpiConcatOp at its own braces.  Corpus:
+        prim_fifo_sync.sv:110 `assign full = (fifo_wptr == (fifo_rptr ^
+        {1'b1,{(PTR_WIDTH-1){1'b0}}}));` — 13 AllModules def entries, which then
+        ADVANCED to the y.sv head in the same file.
+
+  y.sv  § syntaxUnsizedBasedSize (TypeEmit emitSyntaxExpr, same arm).  The
+        syntax emitter gave EVERY unsized based literal SIZE 64 (the
+        bare-decimal width).  Golden's def and elab views agree row for row:
+            'b0 -> 0    'b1 -> 0   (paNumber_Tickb0/Tickb1, the separate grammar
+                                    nodes the AST arm already decodes as
+                                    tickBinDigit — normalised lowercase
+                                    decompile, hard-coded SIZE 0)
+            'b101 -> -1   'h3 -> -1   'o7 -> -1   'd9 -> -1   'bx -> -1
+            8'hab -> 8   (SIZED control)
+        Also moved stripSep AHEAD of the size parse in that arm so a
+        whitespace-separated literal measures the same as a compact one.
+        Corpus: prim_fifo_sync.sv:145 `assign rdata = empty ? 'b0 : rdata_int;`
+        — the same 13 entries.  y.sv is BYTE-IDENTICAL.
+
+EARLGREY_0_1 HEAD CENSUS after pass 3 (r10earl3h — same probe with VpiFile in
+the labels; 106 + 8 + 6 + 5, from 125 + 8 + 6 + 6 at entry):
+
+  AllModules  SIZE 190 vs 190, 106 heads   (SIZE MISMATCH CLOSED)
+  TopModules  SIZE  10 vs  10,   8 heads
+  AllPackages SIZE  40 vs  40,   6 heads
+  TopPackages SIZE  40 vs  40,   5 heads
+
+PASS-3 WITNESS STATUS (be precise — the verifier distinguishes these):
+  s.sv  BYTE-IDENTICAL      t.sv  cmp-EQUAL (negative control, unchanged)
+  u.sv  BYTE-IDENTICAL      y.sv  BYTE-IDENTICAL
+  v.sv  cmp-NOT-equal — package views 0 heads, one MODULE head left (an extra
+        ref_typespec on a func-call argument, ranked residue (1))
+  w.sv  cmp-NOT-equal — all 9 fill rows match; the two no-arg rows carry the
+        no-arg-fold residue below, plus the same extra ref_typespec
+  x.sv  cmp-NOT-equal — AllModules 0 heads (the law landed); one TopModules
+        head left, the elab bare-replication fold below
+
+RESIDUES SEEN BUT NOT CHASED (measured, each on a pass-3 witness):
+  * w.sv — a NO-ARGUMENT constant-foldable package function called as a
+    cont-assign rhs: golden replaces the call with the FUNCTION BODY's own
+    constant object (it keeps that literal's location and BIN form); we mint a
+    fresh UINT:0 with no location.
+  * v.sv/w.sv — we emit an EXTRA ref_typespec on a func-call ARGUMENT's ref_obj
+    that golden does not carry.  Same class as ranked residue (1).
+  * x.sv — a continuous assignment whose rhs is a constant-foldable BARE
+    replication (`assign r2 = {(PW){1'b0}};`) FOLDS to a BIN constant carrying a
+    ref_typespec in golden's ELAB view; we keep the operation.  Def view right.
+  * y.sv — a based literal followed by ALIGNMENT WHITESPACE (`'h3    : a`)
+    shortens the enclosing operation's END COLUMN in golden by exactly the run
+    of spaces; the compact spelling agrees.  Span-only, cmp-irrelevant.
+  * s.sv/u.sv/w.sv — direct-literal CONSTANT PARENTING inside a def-view concat
+    is inverted vs golden in both views (we parent where golden does not and
+    vice versa).  cmp-irrelevant, byte-identity only.
+
+NEW TOOLS (pass 3):
+  ../r10earl3h.cpp   r10earl2h with VpiFile in every label — the census is
+                     unreadable without it once the heads spread over 190
+                     entries in 40 packages.
+  cst.py <dump> [lo hi]
+                     indentation-aware projection of every `constant` onto
+                     "<view> L<line>:<col> dec=/sz=/ct=".  tab2.py/pa3.py only
+                     reach param_assigns; this one reaches STATEMENT bodies,
+                     which is where every pass-3 law lived.
+  run3.sh/dmp3.sh/sweep3.sh/cmprc.sh/../r10earl3build.sh
+                     pass-3 copies (worktree path + /tmp/r10earl3_rep).
+                     cmprc.sh <basename> prints uhdm-cmp's exit code — the tool
+                     dumps both databases and says nothing else, so the RC is
+                     the only verdict it gives.
+
+RANKED RESIDUE (measured after pass 3; next agent starts here).  Head counts are
+AllModules unless stated; most classes are ONE shared object reached from many
+entries, so tests-per-fix is the head count.
+
+  (1) 16 ref_typespec — failLhs <null> vs failRhs ref_typespec, chain
+      `operation 61:32 -> func_call aes_mul_gf2p2 -> assignment -> function
+      aes_mul_gf2p4` (aes_sbox_canright*).  WE EMIT A ts REF WHERE GOLDEN HAS
+      NONE, on a func-call argument operation — the v.sv/w.sv residue above is
+      the ready witness.
+  (2) 14 `package prim_pkg` (prim_pkg.sv:9:1) — a design-shared package head
+      masking behind Instance() recursion.  prim_pkg contains NOTHING but
+      `typedef enum integer {ImplGeneric, ImplXilinx} impl_e`, so the difference
+      is in that enum.  +3 for prim_cipher_pkg.
+  (3) 12 constant ibex_pkg.sv:476:38 — the BASED-DECIMAL FOLD DIRECTION carried
+      over from pass 2: `parameter logic [1:0] CSR_MISA_MXL = 2'd1;` keeps
+      `2'd1` DEC/ct1/sz2 in golden's module-def param_assign; we rewrite to INT
+      `1` ct7.  q.sv row 3 is the OPPOSITE case (golden folds, we keep), so the
+      two sites must be decoded together.
+  (4) 7 ref_module 'fifo_d' tlul_socket_1n.sv:188:7 under `named_begin
+      gen_dfifo / gen_for`, + 5 ref_module 'i_sync_p' prim_diff_decode.sv:57:7 —
+      def-view gen-scope child stubs.
+  (5) 6 logic_typespec 'sha_word_t' hmac_pkg.sv:17:11 vs an ANONYMOUS
+      logic_typespec at 26:14 on our side — a package typedef listing pointer.
+  (6) singletons: 3 operation prim_clock_inverter.sv:18:16, 3 ref_obj PTRV_W,
+      2 int_typespec LfsrDw, and 2+2+2+2 constants (dm_pkg 29:43, padring
+      15:20, flash_phy_pkg 43:53, flash_ctrl_pkg 18:36 — the
+      crossPkgRangeBoundFold family's remainder), 1 struct_typespec
+      tlul_pkg::tl_h2d_t; plus the unchanged TopModules 8 (sram2tlul,
+      prim_keccak, prim_present/prim_prince, jtag_mux, work@padring —
+      wildcard-import materialization, e.sv/r.sv).
+
+RANKED RESIDUE AFTER PASS 2 (SUPERSEDED by the list above — kept for the
+distinguishers it records).  Head counts are AllModules
 unless stated; most classes are ONE shared object reached from many entries, so
 tests-per-fix is the head count.
 

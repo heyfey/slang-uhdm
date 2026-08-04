@@ -2311,6 +2311,13 @@ private:
     // unbased-unsized RHS rule in ExprEmit). Memoized per subroutine.
     bool subCalledAsContAssignRhs(const slang::ast::SubroutineSymbol& sub);
     std::map<const slang::ast::SubroutineSymbol*, bool> subContAssignRhsCache;
+    // § pkgFuncFillSizedInElab — the same rule reached from a PACKAGE
+    // function, whose callers live in other scopes entirely.  Design-wide set
+    // of the subroutines some continuous assignment calls as its DIRECT rhs,
+    // built once on first use (TaskFuncEmit.cpp).
+    bool pkgSubCalledAsContAssignRhs(const slang::ast::SubroutineSymbol& sub);
+    std::set<const slang::ast::SubroutineSymbol*> contAssignRhsCallees9;
+    bool contAssignRhsCalleesBuilt9 = false;
     // True when Surelog's ExprEval actually EXECUTES this subroutine while
     // reducing a parameter of its own instance body — see TaskFuncEmit.cpp.
     bool subEvaluatedFromParamInit(const slang::ast::SubroutineSymbol& sub);

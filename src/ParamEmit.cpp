@@ -2692,14 +2692,23 @@ static void collectImportedParams(
     // into the child's elaborated instance). Scan this body's parent-instance
     // port connections for imported params (the visitor gates on this body's
     // own wildcard/explicit imports, so only params the child imports match).
+    // § detachedInstNoConns — a DEF-ONLY instance (InstanceSymbol::createDefault
+    // / createInvalid, used for a definition that is never elaborated: an
+    // unreferenced module, or one instantiated only inside a non-taken generate
+    // branch) is deliberately NOT added to any scope, so getParentScope() is
+    // null.  slang's resolvePortConnections() asserts on that scope and, with
+    // asserts compiled out in Release, dereferences the null — so asking such
+    // an instance for its port connections SEGFAULTS.  It also has no
+    // instantiator by construction, so there is nothing to scan: skip it.
     if (body.asSymbol().kind == SymbolKind::InstanceBody)
         if (auto* pi = body.asSymbol()
                            .as<InstanceBodySymbol>()
                            .parentInstance)
-            for (auto* pc : pi->getPortConnections())
-                if (pc)
-                    if (auto* pe = pc->getExpression())
-                        pe->visit(v);
+            if (pi->getParentScope())
+                for (auto* pc : pi->getPortConnections())
+                    if (pc)
+                        if (auto* pe = pc->getExpression())
+                            pe->visit(v);
     // A NET/VARIABLE declaration whose TYPE RANGE references an imported param
     // (logic [$bits(P)-1:0] x, or logic [P-1:0] y) materializes it too — the
     // range keeps a symbolic ref even when the width folds to a constant.

@@ -1902,7 +1902,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // safely-instantiable ones: modules with all params defaulted and no
     // interface ports.
     std::set<const DefinitionSymbol*> unrefDefs;
-    auto addDefOnlyModule = [&](const DefinitionSymbol& udef, bool requireNoPorts = false) {
+    auto addDefOnlyModule = [&](const DefinitionSymbol& udef) {
         if (udef.definitionKind != DefinitionKind::Module)
             return;
         if (defs.count(std::string(udef.name)))
@@ -1920,15 +1920,19 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
         if (!allDefaulted)
             return;
+        // § uninstDefPortedAdmit — a def harvested from a NON-TAKEN GENERATE
+        // BRANCH used to be admitted only when PORTLESS, because resolving the
+        // port connections of a createDefault instance segfaults: slang leaves
+        // such an instance out of every scope, so getParentScope() is null and
+        // resolvePortConnections()'s SLANG_ASSERT(scope) is compiled out in
+        // Release.  The crash is fixed at the one asker (ParamEmit's
+        // collectImportedParams, § detachedInstNoConns), so PORTED defs are
+        // admitted too — Surelog lists every parsed module DEFINITION in
+        // uhdmallModules, and Earlgrey_0_1 has 13 of them (aes_sbox_canright*,
+        // ibex_dummy_instr/icache/multdiv_slow, prim_secded_*, prim_xilinx_*).
+        // INTERFACE-ported defs stay out (below): their connection resolution
+        // is a different path that is still unmeasured.
         auto& uinst = InstanceSymbol::createDefault(comp, udef);
-        // A def harvested from a NON-TAKEN generate branch is admitted only
-        // when it is PORTLESS. slang's createDefault instance has no
-        // connection syntax, and resolving the port connections of such an
-        // instance crashes inside slang for the Earlgrey_0_1 shapes; a
-        // portless def (HierPathEval's `module GOOD();`) never reaches that
-        // path. Widen only with a corpus test that proves the shape is safe.
-        if (requireNoPorts && !uinst.body.getPortList().empty())
-            return;
         bool ifacePorted = false;
         for (auto pb : uinst.body.getPortList())
             if (pb->kind == SymbolKind::InterfacePort) {
@@ -1977,8 +1981,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             changed = true;
             for (auto* sym : comp.getDefinitions())
                 if (sym->kind == SymbolKind::Definition && sym->name == gname) {
-                    addDefOnlyModule(sym->as<DefinitionSymbol>(),
-                                     /*requireNoPorts=*/true);
+                    addDefOnlyModule(sym->as<DefinitionSymbol>());
                     break;
                 }
         }
