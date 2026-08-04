@@ -2759,7 +2759,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // read in a package body stays symbolic (rp32 riscv_isa_i_pkg
             // dec32's `ILL`, enc32's `SR`), so only a `pkg::NAME` reference —
             // which Surelog resolves through the package scope — substitutes.
-            if (currentTf && pkgScopeInst &&
+            // § pkgClassEnumFold13 — the substitution reaches an IN-CLASS
+            // METHOD of a package class too, where `pkgScopeInst` is null by
+            // construction (emitTaskFuncs clears it for a class scope).  The
+            // enum-constant NAME does not resolve inside such a body at all
+            // (§ enumNoBind13 leaves the bare read unbound), but a WRITTEN
+            // `pkg::NAME` still goes through Surelog's package-scope
+            // resolution and comes back as the value — measured on
+            // r10uvm13repro/t15, whose `p2::ck::inl` folds `p1::PE1`,
+            // `p1::PE2` and `p1::PE0` in an assignment, an if condition and a
+            // $display argument alike, byte-identical in both views, while
+            // the same package's out-of-body `ck::oob` and free `pf` (which
+            // already folded) are untouched.  Gated on the class living in a
+            // PACKAGE so a module- or $unit-scope class keeps its old path.
+            bool pkgClassMethod13 = false;
+            if (curSubClassScope9 && !curSubOob9 && currentSubSym)
+                for (auto sc13 = currentSubSym->getParentScope(); sc13;
+                     sc13 = sc13->asSymbol().getParentScope()) {
+                    auto k13 = sc13->asSymbol().kind;
+                    if (k13 == SymbolKind::Package) {
+                        pkgClassMethod13 = true;
+                        break;
+                    }
+                    if (k13 == SymbolKind::InstanceBody ||
+                        k13 == SymbolKind::CompilationUnit)
+                        break;
+                }
+            if (currentTf && (pkgScopeInst || pkgClassMethod13) &&
                 nv.symbol.kind == SymbolKind::EnumValue && expr.syntax &&
                 expr.syntax->kind == syntax::SyntaxKind::ScopedName) {
                 auto& ev9 = nv.symbol.as<EnumValueSymbol>().getValue();
@@ -4567,6 +4593,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                              }
                              return false;
                          }()) {
+                    // no actual of any kind
+                }
+                // § enumNoBind13 — two further contexts in which Surelog
+                // resolves an enum-constant NAME to nothing at all.  Both are
+                // byte-identical on purpose-built pairs in BOTH views
+                // (r10uvm12repro/t13, r10uvm13repro/t14).
+                //
+                // (a) IN-CLASS METHOD BODY, at EVERY position.  The arm at
+                //     the head of this chain already covers the plain ones,
+                //     but neither carve-out that suspends classMethodNoBind
+                //     extends to enum constants: not StmtEmit's if/case
+                //     CONDITION toggle and not § classArgBind12's USER-call
+                //     ARGUMENT depth.  t14 measures all four in one method —
+                //     `if (m == PE1)`, `sink(PE1)`, `if (r == KE1)` and
+                //     `sink(KE1)` are bare in golden while the io_decl and
+                //     local-var refs beside them bind.  Package enum and the
+                //     class's OWN enum behave alike, so the gate is the
+                //     stable curSubClassScope9/curSubOob9 pair (LAW C's half,
+                //     which a condition cannot toggle off) rather than
+                //     classMethodNoBind.  An OUT-OF-BODY method is excluded:
+                //     it is compiled in the home package's scope and binds a
+                //     PACKAGE enum there (t13 `k::oob`'s `r = PE1`), with the
+                //     class-scope half already handled by the arm above.
+                //
+                // (b) IMPORT-CLONE BODY.  A package that wildcard-imports
+                //     another carries a CLONE of that package's whole listing
+                //     (§ collectPkgTfListing).  Surelog compiles the clone
+                //     bodies without the home package's symbol table, so no
+                //     enum name in one resolves: t13's `p2::pkgf` (`pv = PE1`)
+                //     and `p2::k::oob` (`r = PE1`) are bare, while `p2::q` —
+                //     p2's OWN function reading the SAME imported PE1 — binds
+                //     the enum_const, which is why the discriminator is the
+                //     clone and not the enum's home package.  SeqDriver
+                //     measures 1005 of its 1327 over-binds in adpcm_pkg's
+                //     clone of uvm_pkg, split evenly over the def and elab
+                //     package views.  A WRITTEN qualification is unaffected:
+                //     `p1::PE1` folds to a constant inside the clone exactly
+                //     as it does at home (that arm returns long before here).
+                else if (nv.symbol.kind == SymbolKind::EnumValue &&
+                         ((curSubClassScope9 && !curSubOob9) ||
+                          pkgImportCloneEmit)) {
                     // no actual of any kind
                 }
                 else if (auto eit = enumConstMap.find(&nv.symbol); eit != enumConstMap.end())
