@@ -3961,6 +3961,42 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     hit8 && hit8->kind == SymbolKind::Parameter)
                                     ovr9 = true;
                             }
+                        // § modUnpackedDimBareRef — the RANGE spelling of the
+                        // rule right above ([coh_noc_dims_p:0], the shape
+                        // `localparam int P[N:0]` takes).  A MODULE unpacked
+                        // dim whose bound is a BARE reference to another
+                        // parameter keeps that bound SYMBOLIC in every view —
+                        // ref_obj <module>.<holder>.<bound>, unbound —
+                        // exactly like the size spelling, and exactly like the
+                        // package rule two blocks up.  Only a BARE identifier:
+                        // an ARITHMETIC bound ([N-1:0]) still folds unless the
+                        // param is overridable (BlackBePipeInt
+                        // coh_noc_cord_markers_pos_p / mem_noc_* / io_noc_*,
+                        // where golden holds the ref in all eight copies).
+                        if (!ovr9 && !inPackage && dim9->specifier &&
+                            dim9->specifier->kind ==
+                                syntax::SyntaxKind::RangeDimensionSpecifier)
+                            if (auto* rs8 =
+                                    dim9->specifier
+                                        ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                        .selector->as_if<syntax::RangeSelectSyntax>()) {
+                                const syntax::ExpressionSyntax* bd8[2] = {
+                                    rs8->left, rs8->right};
+                                for (int bi8 = 0; bi8 < 2; bi8++) {
+                                    if (!bd8[bi8] ||
+                                        bd8[bi8]->kind !=
+                                            syntax::SyntaxKind::IdentifierName)
+                                        continue;
+                                    auto nm5 =
+                                        bd8[bi8]
+                                            ->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText();
+                                    if (auto* hit5 = body.find(std::string(nm5));
+                                        hit5 &&
+                                        hit5->kind == SymbolKind::Parameter)
+                                        ovr9 = true;
+                                }
+                            }
                     }
                 }
                 if (ovr9)
@@ -12130,6 +12166,33 @@ bool UhdmExporter::paramNameIsRead(const ParameterSymbol& ps) {
 //   assign o = $bits(X);   bare     always @* r = X;         LOCATED
 //   assign o = X + 1;      bare     parameter q = $high(X);  LOCATED
 //   assign o = {X, 1'b0};  bare
+// § pkgParamOwnDefRange.  A PACKAGE parameter's OWN DECLARED RANGE is
+// VIEW-DEPENDENT: Surelog re-evaluates the bound while elaborating the
+// package, so the symbolic operation survives ONLY in the package's own DEF
+// listing and every other copy of the same parameter — the elaborated (top)
+// package listing, a re-exporting package's listing, and each module's
+// materialized wildcard-import copy — carries the reduced constant.  Measured
+// on BlackBePipeInt: `localparam [dp_float_width_gp-1:0] dp_canonical_nan`
+// (bp_be_pkg) has six copies in golden, five folded to INT:63 and only the
+// bp_be_pkg DEF one keeping the vpiSubOp; `parameter bp_proc_param_s
+// [max_cfgs-1:0] all_cfgs_gp` (bp_common_pkg) has thirteen, twelve folded.
+// This is the same law makeTypespec already applies to a TYPED parameter's
+// typespec range (§ pkgParamTsRef / ownPkgDefView, TypeEmit) — the two other
+// builders of a parameter's declared range needed it too.
+//
+// Two signals, because the two builders run in different phases: the DIRECT
+// package emission has curPkgEmitSym/pkgEmitTopView set (emitPackage), while
+// the DEFERRED aggregate-typedef clone drain (drainDefParamTs) runs after all
+// packages are emitted and carries paramTsOwnPkgDefView instead.
+bool UhdmExporter::pkgParamOwnDefView(const ParameterSymbol& ps) const {
+    auto* hsc = ps.getParentScope();
+    if (!hsc || hsc->asSymbol().kind != SymbolKind::Package)
+        return true;  // not package-homed: the view law does not apply
+    if (paramTsOwnPkgDefView)
+        return true;
+    return !pkgEmitTopView && curPkgEmitSym == &hsc->asSymbol();
+}
+
 bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
     const Scope* body = nullptr;
     for (auto* sc = ps.getParentScope(); sc;
@@ -12430,6 +12493,13 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                         scanDimSpans(std::string(rawText(tsyn->sourceRange())),
                                      tsyn->sourceRange().start());
                     const Type* dt9 = &ps.getDeclaredType()->getType();
+                    // § pkgParamOwnDefRange: outside the parameter's own
+                    // home-package DEF listing a PACKAGE parameter's dim bound
+                    // is reduced too, exactly like the elaborated listing's
+                    // (all_cfgs_gp's module copies and the re-exporting
+                    // bp_be_pkg's).
+                    bool foldDim9 =
+                        paramTsElabPkgView || !pkgParamOwnDefView(ps);
                     auto* rv9 = s.MakeRangeVec();
                     for (int i = 0; i < nDim9; i++) {
                         auto& pa9 = dt9->as<PackedArrayType>();
@@ -12467,7 +12537,7 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             }
                             return c;
                         };
-                        if (!paramTsElabPkgView && lS9 && rS9) {
+                        if (!foldDim9 && lS9 && rS9) {
                             // Package scoping for the bound refs
                             // (pkg::P::bound), and each ref chains to the
                             // referenced package parameter's OWN def-view Rhs
@@ -12903,9 +12973,22 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                 es->kind !=
                                     syntax::SyntaxKind::IntegerVectorExpression) {
                                 auto* psc9 = ps.getParentScope();
-                                if (!psc9 ||
-                                    psc9->asSymbol().kind !=
-                                        SymbolKind::CompilationUnit) {
+                                // § pkgParamOwnDefRange — the ONE exception to
+                                // "package bounds stay symbolic": a PACKAGE
+                                // parameter's bound survives only in that
+                                // package's own DEF listing.  Its elaborated
+                                // (top) listing and every module's materialized
+                                // wildcard-import copy carry the REDUCED
+                                // constant, exactly as makeTypespec already
+                                // does for a typed param's range (TypeEmit
+                                // § pkgParamTsRef).  The r10yoo_p7 goldens
+                                // could not see this: a package emitted with no
+                                // elaborated listing and no importer has only
+                                // the DEF view.
+                                if ((!psc9 ||
+                                     psc9->asSymbol().kind !=
+                                         SymbolKind::CompilationUnit) &&
+                                    pkgParamOwnDefView(ps)) {
                                     // A package param's bound refs scope with
                                     // `::` (pkg::K3::PP), a module's with `.`.
                                     std::string savedSep8 = syntaxRefSep;
@@ -12947,8 +13030,25 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                                         std::to_string(v));
                             c->VpiConstType(sgnB9 ? vpiIntConst : vpiUIntConst);
                             c->VpiParent(r);
-                            if (es)
-                                setLoc(c, es->sourceRange());
+                            // § pkgParamOwnDefRange: a bound reduced by the
+                            // PACKAGE-view law spans its LEFTMOST LEAF alone
+                            // (`dp_float_width_gp-1` -> the constant sits on
+                            // `dp_float_width_gp`), like every other bound
+                            // Surelog's reduceExpr rewrote.
+                            if (es) {
+                                const syntax::ExpressionSyntax* le8 = es;
+                                if (auto* psc8 = ps.getParentScope();
+                                    psc8 &&
+                                    psc8->asSymbol().kind ==
+                                        SymbolKind::Package &&
+                                    !pkgParamOwnDefView(ps))
+                                    while (syntax::BinaryExpressionSyntax::
+                                               isKind(le8->kind))
+                                        le8 = le8->as<syntax::
+                                                          BinaryExpressionSyntax>()
+                                                  .left;
+                                setLoc(c, le8->sourceRange());
+                            }
                             return (UHDM::expr*)c;
                         };
                         r->Left_expr(mkB(crange.left, lsyn));
@@ -14227,6 +14327,12 @@ void UhdmExporter::drainDefParamTs() {
                                  (pd.inPackage && pd.m &&
                                   pd.m->UhdmType() == UHDM::uhdmpackage &&
                                   ((UHDM::package*)pd.m)->VpiTop());
+            // § pkgParamOwnDefRange.  The drain runs after emitPackage has
+            // restored curPkgEmitSym, so the "which listing am I" signal the
+            // range-fold law reads has to be handed over explicitly: a
+            // NON-elab package listing that is not an import copy IS the
+            // parameter's own home-package DEF listing.
+            paramTsOwnPkgDefView = pd.inPackage && !paramTsElabPkgView;
             if (!currentScope)
                 currentScope = pd.ps->getParentScope();
             // A DEF-view aggregate CLONE is shaped like the elab one: member
@@ -14251,6 +14357,7 @@ void UhdmExporter::drainDefParamTs() {
                 attachFoldedBoundMeta(its, (UHDM::instance*)its->Instance());
             defViewParamTs = false;
             paramTsElabPkgView = false;
+            paramTsOwnPkgDefView = false;
             currentScope = savedCS;
             syntaxRefPrefix = savedPfx2;
         }
@@ -14595,13 +14702,23 @@ void UhdmExporter::attachFoldedBoundMeta(UHDM::typespec* container,
         if (!tmM->Typespec())
             continue;
         auto* mAct = tmM->Typespec()->Actual_typespec();
-        if (!mAct || mAct->UhdmType() != UHDM::uhdmpacked_array_typespec)
+        if (!mAct)
             continue;
-        auto* pats = (UHDM::packed_array_typespec*)mAct;
-        if (!pats->Ranges())
+        // § foldedMemberBoundMetaLogic.  A SINGLE-dim member (`logic
+        // [dp_exp_width_gp:0] exp`) is a logic_typespec, not a
+        // packed_array_typespec, and Surelog stamps the same meta on its
+        // folded bound — measured on BlackBePipeInt's
+        // bp_hardfloat_rec_dp_s.exp, whose left bound is vpiSize:32 with a
+        // vpiTypespec in every golden copy while ours had the plain 64.
+        UHDM::VectorOfrange* mrs = nullptr;
+        if (mAct->UhdmType() == UHDM::uhdmpacked_array_typespec)
+            mrs = ((UHDM::packed_array_typespec*)mAct)->Ranges();
+        else if (mAct->UhdmType() == UHDM::uhdmlogic_typespec)
+            mrs = ((UHDM::logic_typespec*)mAct)->Ranges();
+        if (!mrs)
             continue;
         std::string memFN(tmM->Typespec()->VpiFullName());
-        for (auto* rg : *pats->Ranges())
+        for (auto* rg : *mrs)
             for (UHDM::expr* be : {rg->Left_expr(), rg->Right_expr()}) {
                 if (!be || be->UhdmType() != UHDM::uhdmconstant)
                     continue;

@@ -426,6 +426,13 @@ private:
     // keeps them symbolic in the def listing (THE LAW — the def listing
     // reduces nothing, top+import copies reduce everything).
     bool paramTsElabPkgView = false;
+    // § pkgParamOwnDefRange.  True while drainDefParamTs builds the clone that
+    // belongs to the parameter's OWN home-package DEF listing — the one view
+    // that keeps a package parameter's DECLARED RANGE bound symbolic.  The
+    // deferred drain runs outside emitPackage, so `curPkgEmitSym` is null
+    // there and this flag is the only signal; the direct package-emission path
+    // uses curPkgEmitSym/pkgEmitTopView instead (see pkgParamOwnDefView).
+    bool paramTsOwnPkgDefView = false;
     // True while emitting a NON-TOP elaborated child-instance body: a packed
     // range bound that reaches an interface param through a modport/interface
     // port FOLDS to its concrete per-instance width here (Surelog), whereas the
@@ -1010,6 +1017,9 @@ private:
     // whose RHS constant-FOLDS (Surelog's reduction resolves each name it
     // meets through getObject/setRange).  Cached per instance body.
     bool paramCaFoldRead(const slang::ast::ParameterSymbol& ps);
+    // § pkgParamOwnDefRange.  True when the parameter is declared in a PACKAGE
+    // and the listing being emitted right now is that package's own DEF view.
+    bool pkgParamOwnDefView(const slang::ast::ParameterSymbol& ps) const;
     std::map<const slang::ast::Scope*, std::set<std::string_view>>
         caFoldReadNames;
     UHDM::typespec* predefIntTypespec(const slang::ast::Type& ct,

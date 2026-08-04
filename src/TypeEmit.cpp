@@ -2612,6 +2612,36 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                  .symbol.as<ParameterSymbol>();
                                 }
                             }
+                            // § foldedMemberBoundMetaLogic.  A STRUCT/UNION
+                            // MEMBER bound that is a BARE reference to a
+                            // PACKAGE parameter (`logic [dp_exp_width_gp:0]
+                            // exp`) records that param, so the member pass can
+                            // stamp Surelog's vpiSize:32 + vpiTypespec ref on
+                            // the folded constant (attachFoldedBoundMeta) —
+                            // the same meta the packed-array member bounds
+                            // already carry.  An ARITHMETIC member bound
+                            // (`[dp_sig_width_gp-2:0]`) is NOT covered: golden
+                            // leaves that one the plain 64-bit signed INT with
+                            // no typespec (BlackBePipeInt bp_hardfloat_rec_*_s
+                            // — `exp` gets the meta, `fract` does not).
+                            // Resolved through structPkgScope, not
+                            // currentScope: a PACKAGE typedef's members are
+                            // built with no current scope at all (measured —
+                            // the bind block below never runs for them).
+                            if (structMemberTsCtx && structPkgScope &&
+                                bsyn->kind ==
+                                    syntax::SyntaxKind::IdentifierName) {
+                                std::string idm7(rawText(bsyn->sourceRange()));
+                                if (!idm7.empty())
+                                    if (auto* sy7 = Lookup::unqualified(
+                                            *structPkgScope, idm7);
+                                        sy7 &&
+                                        sy7->kind == SymbolKind::Parameter &&
+                                        sy7->getParentScope() &&
+                                        sy7->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::Package)
+                                        foldedMemberBoundParam[c] = sy7;
+                            }
                             if (currentScope) {
                                 ASTContext bctx(*currentScope, LookupLocation::max);
                                 auto& be = Expression::bind(*bsyn, bctx);
