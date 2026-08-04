@@ -28,6 +28,7 @@ class AssertionExpr;
 class ProceduralBlockSymbol;
 class PortSymbol;
 class InterfacePortSymbol;
+class ModportPortSymbol;
 class InstanceArraySymbol;
 class ParameterSymbol;
 class PackageSymbol;
@@ -512,6 +513,42 @@ private:
     // The interface_typespec for an InterfacePort: a modport typespec
     // (vpiIsModPort) whose parent is the base interface typespec.
     UHDM::interface_typespec* makeIfacePortTs(const slang::ast::InterfacePortSymbol& ip);
+    // § genericIfacePortNameMatch — a GENERIC interface port
+    // (`module m (interface P);`) names no interface type, so Surelog resolves
+    // it BY THE PORT'S OWN NAME against the design's interface definitions.
+    // A HIT makes the port an ordinary PLAIN (modport-less) interface port
+    // (interface_typespec named by the port, LowConn -> the interface, nested
+    // port view, no logic_net); a MISS keeps the unsupported_typespec /
+    // net-backed form (OneNetModPortGeneric's `intf`).  Returns the matched
+    // interface definition, or null when the port is not generic or no
+    // interface carries its name.  Purpose-built goldens r10imex_repro/t2,t4,t5.
+    const slang::ast::DefinitionSymbol* matchedGenericIfaceDef(
+        const slang::ast::InterfacePortSymbol& ip);
+    // A generic interface port Surelog could NOT resolve (the net-backed form).
+    bool isUnboundGenericIfacePort(const slang::ast::InterfacePortSymbol& ip);
+    // Interface definition names, by name — built once from the compilation so
+    // the lookup is independent of emission order.
+    std::map<std::string, const slang::ast::DefinitionSymbol*> ifaceDefsByName;
+    bool ifaceDefsByNameBuilt = false;
+    // § modportExprPort — modport EXPRESSION ports (`.P(r[3:0])`) carry a
+    // vpiExpr on their io_decl.  In the DEF view the ref form binds the FIRST
+    // elaborated instance's variable, which does not exist yet; these are
+    // resolved when that instance's home view is emitted.
+    struct PendingModportExprRef {
+        UHDM::ref_obj* ref;
+        const slang::ast::DefinitionSymbol* def;
+        std::string member;
+    };
+    std::vector<PendingModportExprRef> pendingModportExprRefs;
+    // Emits the vpiExpr of an EXPRESSION modport port onto its io_decl.
+    // `exprPrefix` is <interface path>.<modport>.<io_decl name>; `netMap` is
+    // the emitting view's symbol->object map (null in the DEF view, whose ref
+    // form defers to the first elaborated instance).  No-op for an ordinary
+    // (internal-symbol) modport member.
+    void emitModportIoExpr(const slang::ast::ModportPortSymbol& mpp,
+                           UHDM::io_decl* io, const std::string& exprPrefix,
+                           NetMap* netMap,
+                           const slang::ast::DefinitionSymbol* def);
     // An ARRAY interface port (myif.man m [2-1:0]): the port's actual typespec
     // is an array_typespec wrapping the modport interface_typespec; the owning
     // module_inst ALSO carries a def-view interface_array (name=port, fullname=

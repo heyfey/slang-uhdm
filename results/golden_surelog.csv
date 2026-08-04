@@ -743,8 +743,8 @@ InterfaceElab,default,CMP_EQUAL,,,differ
 InterfaceElab,testflags,CMP_EQUAL,,,differ
 InterfaceFuncCall,default,CMP_EQUAL,,,match
 InterfaceFuncCall,testflags,CMP_EQUAL,,,match
-InterfaceModExp,default,CMP_NOTEQUAL,decompile:,,
-InterfaceModExp,testflags,CMP_NOTEQUAL,decompile:,,
+InterfaceModExp,default,CMP_EQUAL,,,match
+InterfaceModExp,testflags,CMP_EQUAL,,,match
 InterfaceModPort,default,CMP_NOTEQUAL,decompile:,,
 InterfaceModPort,testflags,CMP_NOTEQUAL,decompile:,,
 InterfaceParamOverrideProp,default,CMP_EQUAL,,,differ

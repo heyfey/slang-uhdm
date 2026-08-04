@@ -1,0 +1,89 @@
+r10imex — InterfaceModExp: modport EXPRESSION ports, GENERIC interface ports,
+          const interface members
+
+Build/compare one golden with
+
+  SLANG_UHDM=<...>/build/slang-uhdm ./run.sh t1            # folded (default)
+  SLANG_UHDM=<...>/build/slang-uhdm ./run.sh t1 -elabuhdm  # testflags
+  ./all.sh                                                 # every t, both modes
+
+run.sh uses the PINNED golden binary ~/git-repos/Surelog/build/bin/surelog —
+the sv-tests copy writes a database uhdm-dump cannot restore.
+
+STATUS (this block): t1 t3 t5 t6 BYTE-IDENTICAL both modes; t2/t4 down to the
+tail-order + LowConn-loc residues of the UNMATCHED generic family; t7 is the
+open residue file for that family (82 lines, all non-cmp — see below).
+
+── t1  modport EXPRESSION ports (§ modportExprPort) ─────────────────────────
+`modport A (output .P(r[3:0]), input .Q(x), R);` — each EXPRESSION port hangs
+its connection expression on the io_decl as vpiExpr, in the DEF view AND in
+the elaborated HOME view, never in a reference-style PORT view (which keeps
+only the plain members' var Expr):
+  .P(r[3:0]) -> a NAKED part_select: vpiName/vpiDefName = the base signal,
+                vpiFullName <view>.<modport>.<io_decl>.<base>,
+                vpiConstantSelect:1, 64-bit UINT Left/Right_range, NO actual;
+  .Q(x)      -> a ref_obj on the same fullname rule whose vpiActual is the
+                interface VARIABLE;
+  .Q(2)      -> a bare 64-bit UINT constant (vpiConstType 9).
+Plain members (R) get NO expr in these two views.
+
+── t6  which instance the DEF view's ref binds ──────────────────────────────
+Two instances of the same interface: work@I.A.Q.x binds work@top.i1.x — the
+FIRST elaborated instance.  Each HOME view binds its own (i1 -> i1.x,
+i2 -> i2.x).  Implemented as pendingModportExprRefs, drained by the first
+non-port view of that definition.
+
+── t3  `const` interface members ────────────────────────────────────────────
+`const int x = 1` in an interface elaborates with vpiConstantVariable:1 (the
+module-scope path already did this) and its init constant sizes at the
+VARIABLE's width (int -> 32), not self-determined 64.  A `const` member ALSO
+folds in one more place: an expression modport port `.Q(x)` naming it takes
+the var's OWN init constant object as the io_decl Expr in the elaborated view
+(InterfaceModExp), while the DEF view keeps the ref_obj.
+
+── t2/t4/t5  § genericIfacePortNameMatch ────────────────────────────────────
+THE KEY DISTINGUISHER of this cluster.  `module m (interface P);` names no
+interface type, so Surelog resolves the port BY ITS OWN NAME against the
+design's interface definitions.  t2 pairs both halves in one file — a single
+interface `I`, `module sub (interface I)` and `module other (interface gen)`:
+
+  MATCH (sub.I)      the port is an ordinary PLAIN (modport-less) interface
+                     port.  DEF view: the bare logic_net is still minted, but
+                     the port LowConn binds the DEF interface_inst and the
+                     vpiTypedef is an interface_typespec NAMED BY THE PORT,
+                     spanned at the port NAME (not the `interface` keyword).
+                     ELAB view: NO logic_net at all; a nested interface_inst
+                     at the INSTANCE line col 0, listed TWICE, LowConn ->
+                     that view with the ref's port parent dropped; EVERY
+                     modport is kept even when the connection names one
+                     (`np u_np (inst.A)` — t4); the interface's variables are
+                     NOT doubled (t5 — the doubling law is the unmatched form's).
+  MISS  (other.gen)  the pre-existing unsupported_typespec / net-backed form.
+
+t4 crosses matched/unmatched with named/positional; t5 adds the plain
+(non-modport) connection to the matched half.
+
+── t7  UNMATCHED generic ports: the OPEN residue file ───────────────────────
+Four modules crossing plain/modport actuals with positional/named connections,
+all named `gen` with no interface of that name.  Two laws landed from it:
+  § genericIfacePortPositionalNoView — an unbound generic port materialises a
+    nested port view only for a NAMED connection; positionally connected it
+    keeps the bare net, and its LowConn is NAMED by the port and binds that
+    net (the named forms bind the view/modport and carry no vpiName).
+  the ELAB net's own unsupported_typespec back-points at the net.
+RESIDUE, 82 dump lines, NONE cmp-relevant (uhdm-cmp reads neither locations
+nor the weaklyReferenced tail order), ranked:
+ 1. (56 lines) a PLAIN-NAMED unbound generic port view SHARES the home view's
+    variable objects; we mint fresh ones under the port path.  This is the
+    other half of the boundToPlainGenericIfacePort doubling law: golden's home
+    view lists the SAME objects twice and the port view lists those same
+    objects.  Fixing it means teaching emitInterfaceInstance to reuse the home
+    netMap for this one port form.
+ 2. (16 lines) the ELAB port's unsupported_typespec is created LATE by Surelog
+    (after the sibling port views' member typespecs); we create it with the
+    port.  Arena order only.
+ 3. (4 lines)  the LowConn ref loc of a NAMED unbound generic connection:
+    golden anchors a MODPORT-qualified one at the PORT DECL name and a PLAIN
+    one at the WHOLE `.gen(inst)` span; we use the formal-name token.  NOT
+    changed here — OneNetModPortGeneric is the corpus witness for this form
+    and a loc change there risks a byte-identity demotion for no cmp gain.

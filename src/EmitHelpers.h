@@ -8,6 +8,8 @@
 
 #include <uhdm/uhdm.h>
 
+#include <functional>
+
 #include "slang/ast/ASTVisitor.h"
 #include "slang/ast/Compilation.h"
 #include "slang/ast/TimingControl.h"
@@ -1689,7 +1691,13 @@ inline bool isGenericIfacePort(const InterfacePortSymbol& ip) {
 // into OBSERVER) doubles while work@TOP.dut1.conntb (modport-qualified
 // `.intf(conntb.dut)` into middle) does not.  Two generic ports on one
 // instance still double only once.
-inline bool boundToPlainGenericIfacePort(const InstanceSymbol& ifaceInst) {
+// § genericIfacePortNameMatch narrows this: only a generic port Surelog could
+// NOT resolve (its name matches no interface definition) doubles — a matched
+// one is an ordinary plain interface port and lists its variables once
+// (r10imex_repro/t5).  `unbound` answers "is this port the unresolved form?".
+inline bool boundToPlainGenericIfacePort(
+    const InstanceSymbol& ifaceInst,
+    const std::function<bool(const InterfacePortSymbol&)>& unbound) {
     const Scope* home = ifaceInst.getParentScope();
     if (!home)
         return false;
@@ -1701,7 +1709,7 @@ inline bool boundToPlainGenericIfacePort(const InstanceSymbol& ifaceInst) {
             if (pb->kind != SymbolKind::InterfacePort)
                 continue;
             auto& ip = pb->as<InterfacePortSymbol>();
-            if (!isGenericIfacePort(ip))
+            if (!unbound(ip))
                 continue;
             auto conn = ip.getConnection();
             if (conn.first == &ifaceInst && !conn.second)

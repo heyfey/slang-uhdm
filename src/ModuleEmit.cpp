@@ -4423,7 +4423,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         if (portBase->kind != SymbolKind::InterfacePort)
             continue;
         auto& ipg = portBase->as<InterfacePortSymbol>();
-        if (!isGenericIfacePort(ipg))
+        // § genericIfacePortNameMatch — a name-MATCHED generic port is a real
+        // interface port in the elab view: no net at all (r10imex_repro/t4
+        // work@top.u_np lists none, while the unmatched work@top.u_gp does).
+        if (!isUnboundGenericIfacePort(ipg))
             continue;
         std::string gfull = prefix + "." + std::string(ipg.name);
         auto* ng = s.MakeLogic_net();
@@ -4436,6 +4439,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         rtg->VpiParent(ng);
         auto* utsg = s.MakeUnsupported_typespec();
         utsg->VpiName(ipg.name);
+        // The ELAB net's own typespec back-points at the net (the port's
+        // vpiTypedef copy does not) — Surelog.
+        utsg->VpiParent(ng);
         setLocNamed(utsg, ipg);
         rtg->Actual_typespec(utsg);
         ng->Typespec(rtg);
@@ -6379,6 +6385,18 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         if (auto mit = dit->second.find(std::string(ip.modport));
                             mit != dit->second.end())
                             lc->Actual_group(mit->second);
+                // § genericIfacePortPositionalNoView — a POSITIONALLY
+                // connected UNBOUND generic port keeps the bare-net form:
+                // its LowConn is NAMED by the port and binds the module's own
+                // logic_net (r10imex_repro/t7 u_pp/u_mp; the named twins bind
+                // the port view / the modport and carry no name).
+                if (isUnboundGenericIfacePort(ip) &&
+                    !findConnSyntax(inst, ip.name)) {
+                    lc->VpiName(ip.name);
+                    if (auto nit9 = topNets.find(portBase);
+                        nit9 != topNets.end())
+                        lc->Actual_group(nit9->second);
+                }
                 p->Low_conn(lc);
                 ifacePortLowConnByPath[std::string(lc->VpiFullName())] = lc;
                 ifacePortLowConnBySym[portBase] = lc;
@@ -6534,7 +6552,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // A GENERIC port's typespec is an unsupported_typespec named
                 // by the PORT in the elab view too (Surelog never recognised
                 // the form, so no interface_typespec is ever minted for it).
-                if (isGenericIfacePort(ip)) {
+                // § genericIfacePortNameMatch — unless the port NAME matches
+                // an interface definition, in which case it mints the ordinary
+                // interface_typespec (named by the port).
+                if (isUnboundGenericIfacePort(ip)) {
                     auto* utsg = s.MakeUnsupported_typespec();
                     utsg->VpiName(ip.name);
                     setLocNamed(utsg, ip);
@@ -6555,13 +6576,27 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 continue;
             auto& ip = portBase->as<InterfacePortSymbol>();
             auto conn = ip.getConnection();
+            // § genericIfacePortPositionalNoView — an UNBOUND generic port
+            // materialises its nested port view only for a NAMED connection.
+            // Surelog resolves such a port off the connection's FORMAL name,
+            // which a positional connection does not carry, so the port stays
+            // the bare net it compiled to.  Measured on r10imex_repro/t7, which
+            // pairs plain/modport actuals against positional/named connections
+            // in one file: `.gen(inst)` and `.gen(inst.A)` each get a view,
+            // `(inst)` and `(inst.A)` get none and keep the net LowConn.
+            if (isUnboundGenericIfacePort(ip) && !findConnSyntax(inst, ip.name))
+                continue;
             if (conn.first && conn.first->kind == SymbolKind::Instance) {
                 // A GENERIC port declares no modport, so the RESTRICTION rides
                 // the connection instead: `.intf(conntb.dut)` gives its port
                 // view exactly the `dut` modport (OneNetModPortGeneric
                 // work@TOP.dut1.middle1.intf lists `dut` alone, never `tb`).
+                // A name-MATCHED generic port is a PLAIN interface port and
+                // keeps every modport (r10imex_repro/t4 work@top.u_np.I lists
+                // all of them though `u_np (inst.A)` names one).
                 std::string connMp9 = std::string(ip.modport);
-                if (connMp9.empty() && conn.second && isGenericIfacePort(ip))
+                if (connMp9.empty() && conn.second &&
+                    isUnboundGenericIfacePort(ip))
                     connMp9 = std::string(conn.second->name);
                 auto* ii = emitInterfaceInstance(
                     conn.first->as<InstanceSymbol>(),
@@ -6578,7 +6613,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // `.intf(conntb)` binds the port view, a modport-qualified
                 // `.intf(conntb.dut)` binds that modport -- the port itself
                 // declares no modport, so ip.modport cannot decide it.
-                bool genericPort9 = isGenericIfacePort(ip);
+                // A name-MATCHED generic port takes the PLAIN-port arm below
+                // instead (double listing, LowConn -> the view, parent
+                // dropped) — r10imex_repro/t4+t5.
+                bool genericPort9 = isUnboundGenericIfacePort(ip);
                 if (genericPort9) {
                     if (!conn.second)
                         for (auto* pp : ifPortList)
@@ -8210,7 +8248,10 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                         // `module middle (interface intf)`.
                                         // The DEF view of the same connection
                                         // has neither.
-                                        if (bip9 && isGenericIfacePort(*bip9)) {
+                                        // Only the UNBOUND form is a net to
+                                        // Surelog (§ genericIfacePortNameMatch).
+                                        if (bip9 &&
+                                            isUnboundGenericIfacePort(*bip9)) {
                                             if (parentNets)
                                                 if (auto nig9 =
                                                         parentNets->find(bs9);
@@ -13887,7 +13928,12 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             // NAME -- not an interface_typespec named by the `interface`
             // keyword.  Holds in both views; only the LowConn fullname
             // differs (doubled in the def view, plain in the elab one).
-            if (isGenericIfacePort(ip)) {
+            // § genericIfacePortNameMatch — ...unless the port NAME matches an
+            // interface definition, which makes it an ordinary PLAIN interface
+            // port (LowConn -> the def interface_inst, interface_typespec) —
+            // r10imex_repro/t2's `module sub (interface I)` against its
+            // `module other (interface gen)` twin.
+            if (isUnboundGenericIfacePort(ip)) {
                 if (auto nit = netMap.find(portBase); nit != netMap.end())
                     lc->Actual_group(nit->second);
                 p->Low_conn(lc);
@@ -13902,8 +13948,10 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 ports->push_back(p);
                 continue;
             }
-            if (ip.interfaceDef && !ip.modport.empty()) {
-                if (auto dit = modportsByDef.find(ip.interfaceDef);
+            const DefinitionSymbol* ifDef9 =
+                ip.interfaceDef ? ip.interfaceDef : matchedGenericIfaceDef(ip);
+            if (ifDef9 && !ip.modport.empty()) {
+                if (auto dit = modportsByDef.find(ifDef9);
                     dit != modportsByDef.end()) {
                     if (auto mit = dit->second.find(std::string(ip.modport));
                         mit != dit->second.end())
@@ -13912,7 +13960,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             }
             // A plain (no-modport) interface port binds the DEF-view
             // interface instance as the LowConn actual.
-            else if (ip.interfaceDef && !topView) {
+            else if (ifDef9 && !topView) {
                 // § ifaceIfaceTypedPortOrder — Surelog's writer walks the
                 // design's definitions in ONE alphabetically-ordered map per
                 // kind, interfaces before modules, and a port-type binding
@@ -13929,13 +13977,13 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 bool reachable9 = true;
                 if (m->UhdmType() == UHDM::uhdminterface_inst &&
                     prefix.rfind("work@", 0) == 0)
-                    reachable9 = std::string(ip.interfaceDef->name) <
+                    reachable9 = std::string(ifDef9->name) <
                                  prefix.substr(5);
                 if (!reachable9) {
                     if (auto nit9 = netMap.find(portBase); nit9 != netMap.end())
                         lc->Actual_group(nit9->second);
                 }
-                else if (auto iit = ifaceDefMap.find(ip.interfaceDef);
+                else if (auto iit = ifaceDefMap.find(ifDef9);
                          iit != ifaceDefMap.end())
                     lc->Actual_group(iit->second);
             }
@@ -19014,9 +19062,138 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
 // references the def via a ref_module (Actual->interface_inst) and the elab
 // instance via Interfaces() (vpiInterface).
 
+// § genericIfacePortNameMatch — see the header.  Surelog resolves a generic
+// interface port by the PORT's own name; measured on r10imex_repro/t2 (one
+// file pairing `module sub (interface I)` against `module other (interface
+// gen)` with a single interface `I`: the first binds work@I and mints an
+// interface_typespec, the second keeps the unsupported_typespec/net form).
+bool UhdmExporter::isUnboundGenericIfacePort(const InterfacePortSymbol& ip) {
+    return isGenericIfacePort(ip) && !matchedGenericIfaceDef(ip);
+}
+
+const DefinitionSymbol* UhdmExporter::matchedGenericIfaceDef(
+    const InterfacePortSymbol& ip) {
+    if (!isGenericIfacePort(ip))
+        return nullptr;
+    if (!ifaceDefsByNameBuilt) {
+        ifaceDefsByNameBuilt = true;
+        for (auto sym : comp.getDefinitions()) {
+            if (sym->kind != SymbolKind::Definition)
+                continue;
+            auto& d9 = sym->as<DefinitionSymbol>();
+            if (d9.definitionKind == DefinitionKind::Interface)
+                ifaceDefsByName.emplace(std::string(d9.name), &d9);
+        }
+    }
+    auto it = ifaceDefsByName.find(std::string(ip.name));
+    return it == ifaceDefsByName.end() ? nullptr : it->second;
+}
+
+// § modportExprPort — an EXPRESSION modport port carries its connection
+// expression as the io_decl's vpiExpr.  Three measured forms (r10imex_repro/
+// t1, t6 + the InterfaceModExp corpus test):
+//   `.P(r[3:0])` -> a NAKED part_select: name/defname = the base signal,
+//                   fullname <view>.<modport>.<io_decl>.<base>,
+//                   vpiConstantSelect + 64-bit UINT bounds, NO actual link;
+//   `.Q(x)`      -> a ref_obj (same fullname rule) whose vpiActual is the
+//                   variable of the FIRST elaborated instance in the DEF view
+//                   and of the emitting instance in an elaborated view — but
+//                   a `const` member folds to the var's OWN init constant
+//                   object in the elaborated view (InterfaceModExp);
+//   `.Q(2)`      -> a bare 64-bit UINT constant.
+// The reference-style PORT view carries none of them (only plain members get
+// their io_decl Expr there); this runs for the DEF and HOME views.
+void UhdmExporter::emitModportIoExpr(const ModportPortSymbol& mpp,
+                                     UHDM::io_decl* io,
+                                     const std::string& exprPrefix,
+                                     NetMap* netMap,
+                                     const DefinitionSymbol* def) {
+    if (mpp.internalSymbol || !mpp.explicitConnection)
+        return;
+    const Expression& ce = stripImplicitConv(*mpp.explicitConnection);
+    // `.P(r[3:0])` — a constant part select of a whole signal.
+    if (ce.kind == ExpressionKind::RangeSelect) {
+        auto& rs = ce.as<RangeSelectExpression>();
+        auto& base = stripImplicitConv(rs.value());
+        if (base.kind != ExpressionKind::NamedValue)
+            return;
+        auto& bsym = base.as<NamedValueExpression>().symbol;
+        auto* ps = s.MakePart_select();
+        ps->VpiName(bsym.name);
+        ps->VpiDefName(bsym.name);
+        ps->VpiFullName(exprPrefix + "." + std::string(bsym.name));
+        ps->VpiParent(io);
+        setLoc(ps, ce.sourceRange);
+        ASTContext cctx(comp.getRoot(), LookupLocation::max);
+        ConstantValue lv = cctx.tryEval(rs.left());
+        ConstantValue rv = cctx.tryEval(rs.right());
+        if (!lv || !rv || !lv.isInteger() || !rv.isInteger())
+            return;
+        ps->VpiConstantSelect(true);
+        ps->Left_range(makeBoundConst(rs.left().syntax, *lv.integer().as<int64_t>(),
+                                      nullptr));
+        ps->Right_range(makeBoundConst(rs.right().syntax,
+                                       *rv.integer().as<int64_t>(), nullptr));
+        io->Expr(ps);
+        return;
+    }
+    // `.Q(x)` — a whole-signal reference.
+    if (ce.kind == ExpressionKind::NamedValue) {
+        auto& rsym = ce.as<NamedValueExpression>().symbol;
+        // A `const` member folds to the variable's own initializer constant
+        // in an ELABORATED view (the object is shared, not copied).
+        if (netMap && rsym.kind == SymbolKind::Variable &&
+            rsym.as<VariableSymbol>().flags.has(VariableFlags::Const)) {
+            for (auto& [ns9, no9] : *netMap)
+                if (ns9->name == rsym.name) {
+                    if (no9->UhdmType() != UHDM::uhdmlogic_net &&
+                        ((UHDM::variables*)no9)->Expr()) {
+                        io->Expr(((UHDM::variables*)no9)->Expr());
+                        return;
+                    }
+                    break;
+                }
+        }
+        auto* r0 = s.MakeRef_obj();
+        r0->VpiName(rsym.name);
+        r0->VpiFullName(exprPrefix + "." + std::string(rsym.name));
+        r0->VpiParent(io);
+        setLoc(r0, ce.sourceRange);
+        bool bound = false;
+        if (netMap)
+            for (auto& [ns9, no9] : *netMap)
+                if (ns9->name == rsym.name) {
+                    r0->Actual_group((UHDM::any*)no9);
+                    bound = true;
+                    break;
+                }
+        if (!bound && def)
+            pendingModportExprRefs.push_back({r0, def, std::string(rsym.name)});
+        io->Expr(r0);
+        return;
+    }
+    // `.Q(2)` — a literal.
+    if (ce.kind == ExpressionKind::IntegerLiteral) {
+        ASTContext cctx(comp.getRoot(), LookupLocation::max);
+        ConstantValue cv = cctx.tryEval(ce);
+        if (!cv || !cv.isInteger())
+            return;
+        if (auto v64 = cv.integer().as<int64_t>())
+            io->Expr(makeBoundConst(ce.syntax, *v64, nullptr));
+    }
+}
+
 UHDM::interface_typespec* UhdmExporter::makeIfacePortTs(const InterfacePortSymbol& ip) {
     auto* its = s.MakeInterface_typespec();
     its->VpiName(ip.modport.empty() ? ip.name : ip.modport);
+    // § genericIfacePortNameMatch — a name-matched GENERIC port's typespec is
+    // named by the PORT and spanned at the port NAME (the `interface` keyword
+    // is not a type name).
+    if (matchedGenericIfaceDef(ip)) {
+        its->VpiName(ip.name);
+        setLocNamed(its, ip);
+        return its;
+    }
     const syntax::InterfacePortHeaderSyntax* iph = nullptr;
     const syntax::DataTypeSyntax* vdt = nullptr;
     for (auto sy = ip.getSyntax(); sy; sy = sy->parent) {
@@ -19588,6 +19765,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                           : mpp.direction == ArgumentDirection::Out ? vpiOutput
                                                                     : vpiInout;
             io->VpiDirection(dir);
+            // § modportExprPort — an EXPRESSION port's connection expression
+            // rides the io_decl in the DEF view too (its ref form binds the
+            // first elaborated instance's variable, resolved later).
+            emitModportIoExpr(mpp, io,
+                              prefix + "." + std::string(mp.name) + "." +
+                                  std::string(mpp.name),
+                              /*netMap=*/nullptr, &def);
             iodecls->push_back(io);
         }
         if (!iodecls->empty())
@@ -19667,7 +19851,10 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
         }
     // The tail dup carries the same doubled listing the home view does when
     // the instance is handed to a plain generic port.
-    if (!vars->empty() && boundToPlainGenericIfacePort(inst)) {
+    if (!vars->empty() && boundToPlainGenericIfacePort(
+            inst, [this](const InterfacePortSymbol& ip9) {
+                return isUnboundGenericIfacePort(ip9);
+            })) {
         size_t half9 = vars->size();
         for (size_t i9 = 0; i9 < half9; i9++)
             vars->push_back((*vars)[i9]);
@@ -19845,7 +20032,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 continue;
             auto& ip9 = pb9->as<InterfacePortSymbol>();
             auto c8 = ip9.getConnection();
-            if (c8.first == &inst && c8.second && isGenericIfacePort(ip9))
+            // § genericIfacePortNameMatch — only an UNBOUND generic port
+            // anchors at the port declaration; a name-matched one is an
+            // ordinary interface port and keeps the instantiation-line anchor
+            // (r10imex_repro/t4: work@top.u_np.I reads the `np u_np (inst.A)`
+            // line 27, work@top.u_gn.gen reads `module gn` line 21).
+            if (c8.first == &inst && c8.second &&
+                isUnboundGenericIfacePort(ip9))
                 genPort9 = &ip9;
         }
         // § ifaceIfaceTypedPort — a view materialised INSIDE an interface (an
@@ -20584,12 +20777,29 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 }
                 else {
                     forceConstParent = true;
-                    if (auto* e = emitExpr(*init, v, fullName, netMap))
+                    if (auto* e = emitExpr(*init, v, fullName, netMap)) {
+                        // A BARE-DECIMAL init sizes at the VARIABLE's type
+                        // width, not self-determined (`int x = 1` -> size 32,
+                        // not 64) — the same rule the module-scope var path
+                        // applies; sized/based literals keep their own width.
+                        if (e->UhdmType() == UHDM::uhdmconstant &&
+                            ic.kind != ExpressionKind::StringLiteral &&
+                            rawText(ic.sourceRange).find('\'') ==
+                                std::string::npos)
+                            ((UHDM::constant*)e)
+                                ->VpiSize((int32_t)dt->getType().getBitWidth());
                         v->Expr((UHDM::expr*)e);
+                    }
                     forceConstParent = false;
                 }
             }
         }
+        // A `const` interface member carries vpiConstantVariable in the
+        // ELABORATED view, exactly as a module-scope one does (the def view
+        // keeps it a net, which has no such field).
+        if (it.sym->kind == SymbolKind::Variable &&
+            it.sym->as<VariableSymbol>().flags.has(VariableFlags::Const))
+            v->VpiConstantVariable(true);
         netMap[it.sym] = v;
         vars->push_back(v);
     }
@@ -20607,12 +20817,19 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 continue;
             auto& ip9 = pb9->as<InterfacePortSymbol>();
             auto c9 = ip9.getConnection();
-            if (c9.first == &inst && !c9.second && isGenericIfacePort(ip9))
+            // Only the UNBOUND generic form doubles (r10imex_repro/t5: a
+            // name-matched `interface I` port with a plain `.I(inst)`
+            // connection lists its variables ONCE on both views).
+            if (c9.first == &inst && !c9.second &&
+                isUnboundGenericIfacePort(ip9))
                 dblVars9 = true;
         }
     }
     else
-        dblVars9 = boundToPlainGenericIfacePort(inst);
+        dblVars9 = boundToPlainGenericIfacePort(
+            inst, [this](const InterfacePortSymbol& ip9) {
+                return isUnboundGenericIfacePort(ip9);
+            });
     if (!vars->empty() && dblVars9) {
         size_t half9 = vars->size();
         for (size_t i9 = 0; i9 < half9; i9++)
@@ -20620,6 +20837,19 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
     if (!vars->empty())
         iface->Variables(vars);
+    // § modportExprPort — the DEF view's expression-port refs bind the FIRST
+    // elaborated instance's variables (measured on r10imex_repro/t6, which
+    // instantiates the same interface twice: work@I.A.Q.x -> work@top.i1.x).
+    if (!portView && !pendingModportExprRefs.empty())
+        for (auto& pr9 : pendingModportExprRefs) {
+            if (pr9.def != &def || pr9.ref->Actual_group())
+                continue;
+            for (auto& [ns9, no9] : netMap)
+                if (ns9->name == pr9.member) {
+                    pr9.ref->Actual_group((UHDM::any*)no9);
+                    break;
+                }
+        }
     if (!elabNets->empty())
         iface->Nets(elabNets);
     if (elabArrayNets)
@@ -20718,6 +20948,14 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                               : mpp.direction == ArgumentDirection::Out ? vpiOutput
                                                                        : vpiInout;
                 io->VpiDirection(dir);
+                // § modportExprPort — the HOME view carries the expression
+                // ports' vpiExpr (bound to ITS OWN variables); a
+                // reference-style PORT view carries none.
+                if (!portView)
+                    emitModportIoExpr(mpp, io,
+                                      prefix + "." + std::string(mp.name) +
+                                          "." + std::string(mpp.name),
+                                      &netMap, &def);
                 if (portView) {
                     // Iface HEADER-PORT-backed members always take the
                     // doubled fresh-net form (never the home net) — Surelog.
