@@ -4233,6 +4233,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     ref->Actual_group(inet);
                 }
+                // ...but a PACKAGE-scope subroutine has no module to hang that
+                // implicit wire on, and there Surelog binds the foreach LOOP
+                // VARIABLE OBJECT itself.  Narrow on purpose (repro q3, one
+                // `foreach (a[i]) s = s + a[i] + i` compiled four ways): the
+                // ELABORATED package listing binds its int_var, while the
+                // un-elaborated listing — where the loop variable is an
+                // unresolved ref_var — binds nothing, a class method binds
+                // nothing (classMethodNoBind already preempts this arm), and
+                // a module body keeps the implicit-wire arm above.  Only the
+                // resolved loop-variable arm registers an object, so the
+                // un-elaborated views find nothing here.
+                else if (nv.symbol.kind == SymbolKind::Iterator) {
+                    if (auto lvi9 = foreachLoopVarObjs9.find(&nv.symbol);
+                        lvi9 != foreachLoopVarObjs9.end())
+                        ref->Actual_group(lvi9->second);
+                }
             }
             // ...and a PACKAGE-level variable of the package being emitted is
             // visible to every body inside it (svunit_pkg::svunit_version

@@ -1168,7 +1168,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     return n0->Typespec();
                 return nullptr;
             };
-            auto declLoopVar = [&](std::string_view name, SourceRange span) {
+            auto declLoopVar = [&](std::string_view name,
+                                   SourceRange span) -> UHDM::variables* {
                 std::string lvn(name);
                 // A loop-variable name that ALREADY RESOLVES in the enclosing
                 // scope declares nothing: Surelog emits a ref_var over the
@@ -1197,13 +1198,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     pendingLoopVarTs9.push_back({srt9, srcRt9});
                                 rv9->Typespec(srt9);
                                 lvars->push_back(rv9);
-                                return;
+                                return nullptr;
                             }
                 // A NESTED foreach re-lists the enclosing loop's variable
                 // OBJECT rather than declaring a second one.
                 if (auto oit = openForeachVars.find(lvn); oit != openForeachVars.end()) {
                     lvars->push_back(oit->second);
-                    return;
+                    return nullptr;
                 }
                 // Class-method foreach: the loop variable is unresolved the
                 // same way the array reference is — a ref_var over a
@@ -1226,7 +1227,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     lvars->push_back(lv0);
                     openForeachVars[lvn] = lv0;
                     declaredHere.push_back(lvn);
-                    return;
+                    return nullptr;
                 }
                 // The array reference itself did not resolve (classPropArr9),
                 // so Surelog's getSimpleVarFromTypespec has nothing to read
@@ -1275,7 +1276,26 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 lvars->push_back(lv);
                 openForeachVars[lvn] = lv;
                 declaredHere.push_back(lvn);
+                // Only the INT_VAR shape is registered as bindable.  Widening
+                // it to every resolved kind is measurably wrong: on SeqDriver
+                // that bound 161 string_var, 99 bit_var and 56 logic_var refs
+                // golden leaves alone (its own loop-variable object there is
+                // an unresolved ref_var — 2112 of them, residue R-lv), while
+                // the int_var population went from 72 short to exact.
+                return lv->UhdmType() == UHDM::uhdmint_var ? lv : nullptr;
             };
+            // § foreachLoopVarObjs9 — a body reference to a foreach LOOP
+            // VARIABLE binds the object the loop lists in vpiLoopVars, but
+            // ONLY where that object is the RESOLVED one: measured on repro
+            // q3 (one `foreach (a[i]) s = s + a[i] + i` compiled four ways),
+            // the ELABORATED package listing binds its int_var while the
+            // un-elaborated listing and a class method — the two that list an
+            // unresolved ref_var — bind nothing, and a module body binds the
+            // implicit wire Surelog mints instead (ExprEmit's Iterator arm,
+            // which already matched).  So only the resolved arm registers;
+            // the unresolved and nested-relist arms deliberately return null.
+            std::vector<std::pair<const slang::ast::Symbol*, UHDM::any*>>
+                lvSaved9;
             for (auto* sel : foldedIdx) {
                 auto& esy = sel->as<syntax::ElementSelectSyntax>();
                 const syntax::ExpressionSyntax* ie =
@@ -1309,8 +1329,16 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     dimIdx++;
                     continue;
                 }
-                declLoopVar(ld.loopVar->name,
-                            nameSpan(ld.loopVar->location, ld.loopVar->name));
+                if (auto* lvo9 = declLoopVar(
+                        ld.loopVar->name,
+                        nameSpan(ld.loopVar->location, ld.loopVar->name))) {
+                    auto pit9 = foreachLoopVarObjs9.find(ld.loopVar);
+                    lvSaved9.push_back(
+                        {ld.loopVar, pit9 == foreachLoopVarObjs9.end()
+                                         ? nullptr
+                                         : pit9->second});
+                    foreachLoopVarObjs9[ld.loopVar] = lvo9;
+                }
                 dimIdx++;
             }
             fs->VpiLoopVars(lvars);
@@ -1319,6 +1347,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 fs->VpiStmt(b);
             for (auto& n : declaredHere)
                 openForeachVars.erase(n);
+            for (auto& [sy9, prev9] : lvSaved9) {
+                if (prev9)
+                    foreachLoopVarObjs9[sy9] = prev9;
+                else
+                    foreachLoopVarObjs9.erase(sy9);
+            }
             return fs;
         }
         case StatementKind::Conditional: {

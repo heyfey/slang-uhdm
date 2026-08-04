@@ -68,6 +68,43 @@ struct ElabCallScan
         visitDefault(ce);
     }
 };
+
+// § unpackedTdElem9 — the ELEMENT type of an unpacked-array formal when that
+// element is a vector TYPEDEF whose typespec we already minted, and nullptr
+// otherwise.  Surelog gives such a formal a fresh per-formal element typespec
+// NAMED for the typedef (with a Typedef_alias back to the shared one); the
+// shared-typespec fallback would leave it anonymous, and VpiName is a compared
+// field.  Every unpacked shape counts — fixed-size, dynamic, queue and
+// associative alike — and the typedef may be `logic`- or `bit`-based.
+const Type* unpackedTdElem9(
+    const Type& formalType,
+    const std::map<const slang::ast::Symbol*, UHDM::typespec*>& typedefTs) {
+    const Type* e0 = &formalType.getCanonicalType();
+    bool arr = false;
+    for (;;) {
+        const Type& c0 = e0->getCanonicalType();
+        if (c0.kind == SymbolKind::FixedSizeUnpackedArrayType)
+            e0 = &c0.as<slang::ast::FixedSizeUnpackedArrayType>().elementType;
+        else if (c0.kind == SymbolKind::DynamicArrayType)
+            e0 = &c0.as<slang::ast::DynamicArrayType>().elementType;
+        else if (c0.kind == SymbolKind::QueueType)
+            e0 = &c0.as<slang::ast::QueueType>().elementType;
+        else if (c0.kind == SymbolKind::AssociativeArrayType)
+            e0 = &c0.as<slang::ast::AssociativeArrayType>().elementType;
+        else
+            break;
+        arr = true;
+    }
+    if (!arr || e0->kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto it = typedefTs.find(e0);
+    if (it == typedefTs.end())
+        return nullptr;
+    return (it->second->UhdmType() == UHDM::uhdmlogic_typespec ||
+            it->second->UhdmType() == UHDM::uhdmbit_typespec)
+               ? e0
+               : nullptr;
+}
 }  // namespace
 
 bool UhdmExporter::elabInvoked(const SubroutineSymbol& sub) {
@@ -1716,31 +1753,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // gets the same NAMED per-formal clone: the io_decl's typespec is
             // the ELEMENT type (its unpacked dims live on the io_decl's own
             // Ranges), so the shared-typespec fallback below would leave it
-            // anonymous (PackedUnpackedIo).
-            else if (arg->getDeclaredType()->getType().getCanonicalType().kind ==
-                         SymbolKind::FixedSizeUnpackedArrayType &&
-                     [&]() -> const Type* {
-                         const Type* e0 =
-                             &arg->getDeclaredType()->getType().getCanonicalType();
-                         while (e0->getCanonicalType().kind ==
-                                SymbolKind::FixedSizeUnpackedArrayType)
-                             e0 = &e0->getCanonicalType()
-                                       .as<FixedSizeUnpackedArrayType>()
-                                       .elementType;
-                         return e0->kind == SymbolKind::TypeAlias &&
-                                        typedefTs.count(e0) &&
-                                        typedefTs[e0]->UhdmType() ==
-                                            UHDM::uhdmlogic_typespec
-                                    ? e0
-                                    : nullptr;
-                     }() != nullptr) {
+            // anonymous (PackedUnpackedIo).  EVERY unpacked array shape does
+            // it, not just the fixed-size one — a dynamic (`ref bt a[]`),
+            // queue or associative formal names its element typespec too, and
+            // a `bit`-based typedef mints a bit_typespec where a `logic`-based
+            // one mints a logic_typespec (both carry Typedef_alias, which
+            // lives on the typespec base class).  Measured on the UVM corpus:
+            // 225 io_decl element typespecs golden names and we left bare.
+            else if (unpackedTdElem9(arg->getDeclaredType()->getType(),
+                                     typedefTs) != nullptr) {
                 const Type* e0 =
-                    &arg->getDeclaredType()->getType().getCanonicalType();
-                while (e0->getCanonicalType().kind ==
-                       SymbolKind::FixedSizeUnpackedArrayType)
-                    e0 = &e0->getCanonicalType()
-                              .as<FixedSizeUnpackedArrayType>()
-                              .elementType;
+                    unpackedTdElem9(arg->getDeclaredType()->getType(), typedefTs);
                 auto& elAl0 = e0->as<TypeAliasType>();
                 const syntax::SyntaxNode* targetSyn0 = nullptr;
                 if (auto asyn0 = elAl0.getSyntax())
@@ -1757,7 +1780,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 art0->VpiFullName(std::string(elAl0.name));
                 art0->VpiParent(ts);
                 art0->Actual_typespec(typedefTs[e0]);
-                ((UHDM::logic_typespec*)ts)->Typedef_alias(art0);
+                ((UHDM::typespec*)ts)->Typedef_alias(art0);
                 stampPkgFormalTs(ts);
                 rt->Actual_typespec(ts);
             }
@@ -1916,6 +1939,59 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     rv->push_back(r);
                     io->Ranges(rv);
                 }
+            }
+            // A QUEUE formal (`ref string i[$]`) carries the range Surelog
+            // mints for a `$` dimension: [0 : $].  Surelog has no queue arm —
+            // it compiles the dimension as an ORDINARY expression, where `$`
+            // becomes a vpiUnboundedConst (CompileExpression.cpp:3516), and
+            // then SKIPS the `-1` decrement it applies to a sized dimension
+            // because that const type marks the dimension associative
+            // (:4094), so the bound is the `$` constant itself.  The left
+            // bound is the same UINT:0 as the other unpacked arms and (unlike
+            // the unsized arm) carries no location of its own; the range and
+            // the right bound sit at the `$` token.  Measured on the UVM
+            // corpus: 225 io_decls, every one of them a queue formal.
+            if (arg->getDeclaredType() &&
+                arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::QueueType) {
+                std::vector<const syntax::QueueDimensionSpecifierSyntax*>
+                    qspecs;
+                if (auto* dsyn = arg->getSyntax())
+                    if (dsyn->kind == syntax::SyntaxKind::Declarator)
+                        for (auto dim :
+                             dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                            if (dim->specifier &&
+                                dim->specifier->kind ==
+                                    syntax::SyntaxKind::QueueDimensionSpecifier)
+                                qspecs.push_back(&dim->specifier->as<
+                                    syntax::QueueDimensionSpecifierSyntax>());
+                UHDM::VectorOfrange* qrv = nullptr;
+                // One range per `$` dimension: `ref int f[$][$]` carries two.
+                for (auto* qspec : qspecs) {
+                    auto* r = s.MakeRange();
+                    r->VpiParent(io);
+                    setLoc(r, qspec->dollar.range());
+                    auto* lc = s.MakeConstant();
+                    lc->VpiParent(r);
+                    lc->VpiDecompile("0");
+                    lc->VpiSize(64);
+                    lc->VpiValue("UINT:0");
+                    lc->VpiConstType(vpiUIntConst);
+                    r->Left_expr(lc);
+                    auto* rc = s.MakeConstant();
+                    rc->VpiParent(r);
+                    rc->VpiDecompile("$");
+                    rc->VpiSize(1);
+                    rc->VpiValue("STRING:$");
+                    rc->VpiConstType(vpiUnboundedConst);
+                    setLoc(rc, qspec->dollar.range());
+                    r->Right_expr(rc);
+                    if (!qrv)
+                        qrv = s.MakeRangeVec();
+                    qrv->push_back(r);
+                }
+                if (qrv)
+                    io->Ranges(qrv);
             }
             ios->push_back(io);
             // A class-method formal IS reachable from the body, but only an

@@ -1832,6 +1832,12 @@ private:
     // NESTED foreach re-lists the enclosing loop's variable OBJECT (Surelog's
     // late-binding swap), it does not declare a second one.
     std::map<std::string, UHDM::variables*> openForeachVars;
+    // The foreach LOOP VARIABLES currently in scope, by declaring symbol, and
+    // the object each one is listed as in vpiLoopVars.  A body reference to a
+    // loop variable binds THAT object — the only binding a class-method body
+    // makes at all (see classMethodNoBind), and it holds in the def views too
+    // where the object is an unresolved ref_var.  See § foreachLoopVarObjs9.
+    std::map<const slang::ast::Symbol*, UHDM::any*> foreachLoopVarObjs9;
     // Package scope currently emitting task_funcs (ts vpiInstance owner).
     UHDM::instance* pkgScopeInst = nullptr;
     // During an explicit-import subroutine COPY re-emission, the typespecs of
