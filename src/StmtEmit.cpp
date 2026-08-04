@@ -1131,8 +1131,33 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         uts->Instance(pkgScopeInst);
                     art->Actual_typespec(uts);
                 }
-                else
-                    pendingForeachArrayTs.push_back({art, arrSym, implicitNetModule});
+                else {
+                    // § foreachFormalArrayTs9 — a foreach over a subroutine
+                    // FORMAL has no array_typespec to bind: an unpacked
+                    // formal's dimensions live on the io_decl's own Ranges
+                    // and its typespec IS the element type (TaskFuncEmit
+                    // ~1616), so Surelog hands the array reference that very
+                    // typespec object.  Measured on repro q1/q3: golden's
+                    // `foreach (i[k])` over `ref string i[$]` binds the
+                    // io_decl's string_typespec and over `input int a[4]`
+                    // its int_typespec, where we minted a bare, nameless
+                    // array_typespec.  A module VARIABLE array keeps the real
+                    // array_typespec (q3's `int arr[4]` in a module function
+                    // — golden binds array_typespec there), so this is the
+                    // io_decl arm only.
+                    UHDM::ref_typespec* ioRt9 = nullptr;
+                    if (auto fit9 = netMap.find(arrSym); fit9 != netMap.end())
+                        if (fit9->second &&
+                            fit9->second->UhdmType() == UHDM::uhdmio_decl)
+                            ioRt9 = ((UHDM::io_decl*)fit9->second)->Typespec();
+                    if (ioRt9 && ioRt9->Actual_typespec())
+                        art->Actual_typespec(ioRt9->Actual_typespec());
+                    else if (ioRt9)
+                        pendingLoopVarTs9.push_back({art, ioRt9});
+                    else
+                        pendingForeachArrayTs.push_back(
+                            {art, arrSym, implicitNetModule});
+                }
                 rv->Typespec(art);
                 fs->Variable(rv);
             }

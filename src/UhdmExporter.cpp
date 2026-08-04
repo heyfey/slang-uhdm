@@ -3851,6 +3851,92 @@ UHDM::design* UhdmExporter::exportDesign() {
     bareScalarTypedefVarTs();
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
+    // § pkgCloneHierBind9 — bind the BASE of every dotted reference inside a
+    // wildcard-import package CLONE body (see TaskFuncEmit): the first
+    // Path_elems entry of a hier_path and a method_func_call's Prefix, when
+    // the name is one of that body's own formals/locals.  Only the clone
+    // view: the home package's copy of the same body leaves them null in
+    // golden too, and so do we.  Runs over the arena so all ~15 hier_path
+    // shapes ExprEmit builds are covered from one place.
+    if (!pkgCloneBodyLocals9.empty()) {
+        auto ownerTf9 = [](const UHDM::BaseClass* o) -> const UHDM::task_func* {
+            for (int g9 = 0; o && g9 < 40; g9++, o = o->VpiParent())
+                if (o->UhdmType() == UHDM::uhdmfunction ||
+                    o->UhdmType() == UHDM::uhdmtask)
+                    return (const UHDM::task_func*)o;
+            return nullptr;
+        };
+        // A body's BLOCK-local declarations (`foreach (...) begin string acc
+        // = ...; end`) never reach funcMap — emitStmt registers them in the
+        // nested copy it hands the block — so the lookup climbs the emitted
+        // parent chain first and consults each enclosing block's own
+        // Variables.  That is also the correct SHADOWING order: uvm_reg::
+        // do_check declares `acc` twice, once per foreach block, and each
+        // reference must reach its own.
+        auto blockVar9 = [](const UHDM::BaseClass* b9,
+                            std::string_view nm9) -> UHDM::any* {
+            const UHDM::VectorOfvariables* vs9 = nullptr;
+            if (b9->UhdmType() == UHDM::uhdmbegin)
+                vs9 = ((const UHDM::begin*)b9)->Variables();
+            else if (b9->UhdmType() == UHDM::uhdmnamed_begin)
+                vs9 = ((const UHDM::named_begin*)b9)->Variables();
+            else if (b9->UhdmType() == UHDM::uhdmfork_stmt)
+                vs9 = ((const UHDM::fork_stmt*)b9)->Variables();
+            else if (b9->UhdmType() == UHDM::uhdmnamed_fork)
+                vs9 = ((const UHDM::named_fork*)b9)->Variables();
+            if (!vs9)
+                return nullptr;
+            for (auto* v9 : *vs9)
+                if (v9 && v9->VpiName() == nm9)
+                    return (UHDM::any*)v9;
+            return nullptr;
+        };
+        auto bind9 = [&](UHDM::any* e9, const UHDM::BaseClass* anchor9) {
+            if (!e9 || e9->UhdmType() != UHDM::uhdmref_obj)
+                return;
+            auto* r9 = (UHDM::ref_obj*)e9;
+            if (r9->Actual_group() || r9->VpiName().empty())
+                return;
+            auto* tf9 = ownerTf9(anchor9);
+            if (!tf9)
+                return;
+            auto bit9 = pkgCloneBodyLocals9.find(tf9);
+            if (bit9 == pkgCloneBodyLocals9.end())
+                return;
+            std::string nm9(r9->VpiName());
+            for (const UHDM::BaseClass* a9 = anchor9;
+                 a9 && (const UHDM::BaseClass*)a9 != (const UHDM::BaseClass*)tf9;
+                 a9 = a9->VpiParent())
+                if (auto* bv9 = blockVar9(a9, nm9)) {
+                    r9->Actual_group(bv9);
+                    return;
+                }
+            auto nit9 = bit9->second.find(nm9);
+            if (nit9 != bit9->second.end())
+                r9->Actual_group(nit9->second);
+        };
+        for (auto& kv9 : s.AllObjects()) {
+            auto* o9 = (UHDM::BaseClass*)kv9.first;
+            if (!o9)
+                continue;
+            if (o9->UhdmType() == UHDM::uhdmhier_path) {
+                // EVERY element, not just the base: Surelog's clone lookup is
+                // purely by NAME against the local scope, so
+                // `__m_uvm_status_container.printer = printer` binds its
+                // SECOND element to the formal `printer` even though that
+                // element is the container's member (uvm_object::sprint:896).
+                // Names that match no local stay null — that is where
+                // golden's 184 typespec_member binds live, and they are all
+                // in the clone view too.
+                if (auto* es9 = ((UHDM::hier_path*)o9)->Path_elems())
+                    for (auto* e0 : *es9)
+                        bind9(e0, o9);
+            }
+            else if (o9->UhdmType() == UHDM::uhdmmethod_func_call)
+                bind9((UHDM::any*)((UHDM::method_func_call*)o9)->Prefix(), o9);
+        }
+    }
+    pkgCloneBodyLocals9.clear();
     return d;
 }
 

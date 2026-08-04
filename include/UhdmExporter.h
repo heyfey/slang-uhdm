@@ -1868,6 +1868,13 @@ private:
     // True while a wildcard-import clone re-emits: the clone must not claim
     // the home subroutine's elab-twin / def-name registrations.
     bool pkgImportCloneEmit = false;
+    // § pkgCloneHierBind9 — the subroutine-LOCAL objects (formals' io_decls,
+    // body variables) of each wildcard-import CLONE body, by name.  A clone
+    // is compiled against the importing package's symbol table, so the base
+    // of a dotted reference resolves there and Surelog binds it; the home
+    // package's identical body leaves it null.  Drained in exportDesign.
+    std::map<const UHDM::task_func*, std::map<std::string, UHDM::any*>>
+        pkgCloneBodyLocals9;
     // ...and its body's return-value references bind THIS variable (the home
     // function's own vpiReturn object) rather than a fresh per-ref local.
     UHDM::variables* pkgImportCloneRetVar = nullptr;

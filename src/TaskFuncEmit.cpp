@@ -1993,6 +1993,141 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (qrv)
                     io->Ranges(qrv);
             }
+            // § assocIoRange9 — an ASSOCIATIVE formal (`ref int c[string]`,
+            // `ref int e[p1idx]`) carries one io_decl range per written
+            // dimension, and Surelog's range compiler takes a DIFFERENT arm
+            // per spelling because its GRAMMAR does:
+            //   `[<type keyword>]`, `[*]` parse as paAssociative_dimension
+            //      (CompileExpression.cpp:4187) -> [UINT:0 : STRING:
+            //      "associative"], the index typespec riding the right
+            //      constant as a ref_typespec; only the RANGE is spanned
+            //      (at the brackets), neither constant is;
+            //   `[<identifier>]` parses as a paConstant_expression -- a SIZE
+            //      (:4037) -- so the right bound is the ordinary
+            //      `<expr> - 1` decrement (:4137): an operation vpiSubOp
+            //      over a ref_obj naming the index type and an INT:1
+            //      constant, range/operation/ref_obj all at the identifier
+            //      span, the left UINT:0 and the `1` unspanned (and the `1`
+            //      unparented -- Surelog never sets its parent).
+            // slang draws the same line: parsePrimaryExpression sends a type
+            // KEYWORD to parseDataType and an identifier to parseName, so the
+            // dimension's selector expression kind is the discriminator
+            // (the same test emitAssocDims already makes for class props).
+            if (arg->getDeclaredType() &&
+                arg->getDeclaredType()->getType().getCanonicalType().kind ==
+                    SymbolKind::AssociativeArrayType) {
+                std::string ioFull = fullName + sep + std::string(arg->name);
+                std::vector<const Type*> aidx;
+                for (const Type* cur9 =
+                         &arg->getDeclaredType()->getType();;) {
+                    auto& cc9 = cur9->getCanonicalType();
+                    if (cc9.kind != SymbolKind::AssociativeArrayType)
+                        break;
+                    aidx.push_back(cc9.as<AssociativeArrayType>().indexType);
+                    cur9 = &cc9.as<AssociativeArrayType>().elementType;
+                }
+                std::vector<const syntax::VariableDimensionSyntax*> adims;
+                if (auto* dsyn = arg->getSyntax())
+                    if (dsyn->kind == syntax::SyntaxKind::Declarator)
+                        for (auto dim :
+                             dsyn->as<syntax::DeclaratorSyntax>().dimensions)
+                            adims.push_back(dim);
+                UHDM::VectorOfrange* arv = nullptr;
+                for (size_t i9 = 0; i9 < aidx.size() && i9 < adims.size();
+                     i9++) {
+                    auto* d9 = adims[i9];
+                    // The selector expression, when the dimension was written
+                    // as one (`[*]` has no selector at all).
+                    const syntax::ExpressionSyntax* sx9 = nullptr;
+                    if (d9->specifier)
+                        if (auto* rd9 = d9->specifier->as_if<
+                                syntax::RangeDimensionSpecifierSyntax>())
+                            if (rd9->selector->kind ==
+                                syntax::SyntaxKind::BitSelect)
+                                sx9 = rd9->selector
+                                          ->as<syntax::BitSelectSyntax>()
+                                          .expr.get();
+                    bool named9 =
+                        sx9 && (sx9->kind == syntax::SyntaxKind::IdentifierName ||
+                                sx9->kind == syntax::SyntaxKind::ScopedName);
+                    auto* r9 = s.MakeRange();
+                    r9->VpiParent(io);
+                    auto* lc9 = s.MakeConstant();
+                    lc9->VpiParent(r9);
+                    lc9->VpiDecompile("0");
+                    lc9->VpiSize(64);
+                    lc9->VpiValue("UINT:0");
+                    lc9->VpiConstType(vpiUIntConst);
+                    r9->Left_expr(lc9);
+                    if (named9) {
+                        setLoc(r9, sx9->sourceRange());
+                        auto* op9 = s.MakeOperation();
+                        op9->VpiParent(r9);
+                        op9->VpiOpType(vpiSubOp);
+                        setLoc(op9, sx9->sourceRange());
+                        auto* ops9 = s.MakeAnyVec();
+                        auto* ro9 = s.MakeRef_obj();
+                        ro9->VpiParent(op9);
+                        std::string in9;
+                        if (sx9->kind == syntax::SyntaxKind::IdentifierName)
+                            in9 = std::string(
+                                sx9->as<syntax::IdentifierNameSyntax>()
+                                    .identifier.valueText());
+                        else {
+                            in9 = sx9->toString();
+                            while (!in9.empty() &&
+                                   std::isspace((unsigned char)in9.front()))
+                                in9.erase(in9.begin());
+                            while (!in9.empty() &&
+                                   std::isspace((unsigned char)in9.back()))
+                                in9.pop_back();
+                        }
+                        ro9->VpiName(in9);
+                        ro9->VpiFullName(ioFull + "::" + in9);
+                        setLoc(ro9, sx9->sourceRange());
+                        ops9->push_back(ro9);
+                        auto* one9 = s.MakeConstant();
+                        one9->VpiValue("INT:1");
+                        one9->VpiConstType(vpiIntConst);
+                        one9->VpiSize(64);
+                        ops9->push_back(one9);
+                        op9->Operands(ops9);
+                        r9->Right_expr(op9);
+                    }
+                    else {
+                        setLoc(r9, d9->sourceRange());
+                        auto* rc9 = s.MakeConstant();
+                        rc9->VpiParent(r9);
+                        rc9->VpiDecompile("associative");
+                        rc9->VpiSize(0);
+                        rc9->VpiValue("STRING:associative");
+                        rc9->VpiConstType(vpiStringConst);
+                        if (aidx[i9])
+                            if (auto* its9 = assocIndexTs(*aidx[i9], *arg)) {
+                                if (sx9)
+                                    setLoc(its9, sx9->sourceRange());
+                                // The index typespec is a package-scope
+                                // object like the formal's own (uhdm-cmp
+                                // recurses a typespec's Instance).
+                                if (tsInst && !its9->Instance())
+                                    its9->Instance(importCopyTsInst
+                                                       ? importCopyTsInst
+                                                       : tsInst);
+                                auto* irt9 = s.MakeRef_typespec();
+                                irt9->VpiParent(rc9);
+                                irt9->VpiFullName(ioFull);
+                                irt9->Actual_typespec(its9);
+                                rc9->Typespec(irt9);
+                            }
+                        r9->Right_expr(rc9);
+                    }
+                    if (!arv)
+                        arv = s.MakeRangeVec();
+                    arv->push_back(r9);
+                }
+                if (arv)
+                    io->Ranges(arv);
+            }
             ios->push_back(io);
             // A class-method formal IS reachable from the body, but only an
             // if/case CONDITION ref actually binds it (classMethodNoBind).
@@ -2792,6 +2927,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         bool savedPaUsed9 = tfBodyPaUsed9;
         tfBodyPaUsed9 = false;
         auto* body = emitStmt(sub.getBody(), tf, fullName, funcMap);
+        // § pkgCloneHierBind9 — record this body's own locals+formals by NAME
+        // when it is a WILDCARD-IMPORT package CLONE.  Surelog re-resolves a
+        // clone's dotted references against the importing package's symbol
+        // table, so the BASE of every hier_path and the PREFIX of every
+        // method_func_call binds there while the home package's identical
+        // body leaves them null (census r10uvm9e on SeqDriver: of golden's
+        // i0 hier_path element refs, adpcm_pkg -- the `package adpcm_pkg;
+        // import uvm_pkg::*;` clone -- has 3544 SET and uvm_pkg 0, and the
+        // same split holds for method_func_call prefixes, 1016 vs 0; our
+        // clone matched the HOME view everywhere).  The bind targets are
+        // subroutine-LOCAL objects only: `this` and class PROPERTIES stay
+        // null in golden's clone too (1254 of the 1256 remaining nulls).
+        // Applied in the deferred pass so the hier_paths built by all ~15
+        // ExprEmit shapes are covered from one place.
+        if (pkgImportCloneEmit && tf) {
+            std::map<std::string, UHDM::any*> lm9;
+            for (auto& [sy9, ob9] : funcMap) {
+                if (!sy9 || !ob9 || sy9->name.empty())
+                    continue;
+                bool local9 = false;
+                for (auto* sc9 = sy9->getParentScope(); sc9;
+                     sc9 = sc9->asSymbol().getParentScope())
+                    if (&sc9->asSymbol() == (const Symbol*)&sub) {
+                        local9 = true;
+                        break;
+                    }
+                if (local9)
+                    lm9.emplace(std::string(sy9->name), ob9);
+            }
+            if (!lm9.empty())
+                pkgCloneBodyLocals9[tf] = std::move(lm9);
+        }
         bool paUsed9 = tfBodyPaUsed9;
         tfBodyPaUsed9 = savedPaUsed9;
         tfBodyStmt9 = savedBodyStmt9;
