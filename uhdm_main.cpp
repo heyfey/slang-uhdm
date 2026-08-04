@@ -32,6 +32,19 @@ using namespace slang::driver;
 
 int main(int argc, char** argv) {
     Driver driver;
+    // § fileMacroAbs15 — `__FILE__` must expand to the file's ABSOLUTE path.
+    // slang's SourceManager::cacheBuffer stores each buffer's display name as
+    // `fs::proximate(path)` (relative to the CWD) and `expandIntrinsic` builds
+    // the `__FILE__` string literal from exactly that name, so a UVM compiled
+    // from a test directory yielded "../../UVM/uvm-1.2/src/base/uvm_object.svh"
+    // where the reference tool yields the absolute path.  The string is a
+    // constant's vpiDecompile/vpiSize, both of which uhdm-cmp compares, so this
+    // is a VALUE difference, not the location difference it looks like in a
+    // dump diff (measured: 1596 of SeqDriver's 1626 differing constants, and
+    // 3179 of the UVM-4's 3451).  Everything the emitter itself writes already
+    // goes through SourceManager::getFullPath, so disabling proximate paths
+    // moves only `__FILE__` and slang's own diagnostic text.
+    driver.sourceManager.setDisableProximatePaths(true);
     driver.addStandardArgs();
 
     std::optional<bool> showHelp;

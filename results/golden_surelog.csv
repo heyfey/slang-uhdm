@@ -1,30 +1,30 @@
 name,mode,status,detail,blocked_by,dump
 1364_2005,default,CMP_EQUAL,,,match
 1364_2005,testflags,CMP_EQUAL,,,match
-3SigsSensList,default,SLANG_REJECT,dut.sv:28:11: error: use of undeclared identifier 'outputLine',,
-3SigsSensList,testflags,SLANG_REJECT,dut.sv:28:11: error: use of undeclared identifier 'outputLine',,
-AaFirstTest,default,SLANG_REJECT,dut.sv:5:3: error: unknown module 'bottom',,
-AaFirstTest,testflags,SLANG_REJECT,dut.sv:5:3: error: unknown module 'bottom',,
+3SigsSensList,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/3SigsSensList/dut.sv:28:11: error: use of undeclared identifier 'outputLine',,
+3SigsSensList,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/3SigsSensList/dut.sv:28:11: error: use of undeclared identifier 'outputLine',,
+AaFirstTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AaFirstTest/dut.sv:5:3: error: unknown module 'bottom',,
+AaFirstTest,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AaFirstTest/dut.sv:5:3: error: unknown module 'bottom',,
 AllBinding,default,CMP_EQUAL,,,match
 AllBinding,testflags,CMP_EQUAL,,,match
 AllPackageSignal,default,CMP_EQUAL,,,differ
 AllPackageSignal,testflags,CMP_EQUAL,,,differ
 AlwaysNoElab,default,CMP_EQUAL,,,match
 AlwaysNoElab,testflags,CMP_EQUAL,,,match
-AmiqEth,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
-AmiqEth,testflags,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
-AmiqSimpleTestSuite,default,SLANG_REJECT,../../UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but others in the design do,,
-AmiqSimpleTestSuite,testflags,SLANG_REJECT,apb_top.sv:35:11: error: unknown package 'amiq_svaunit_ex_apb_test_pkg',,
+AmiqEth,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but oth,,
+AmiqEth,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but oth,,
+AmiqSimpleTestSuite,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defined but oth,,
+AmiqSimpleTestSuite,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AmiqSimpleTestSuite/apb_top.sv:35:11: error: unknown package 'amiq_svaunit_ex_apb_test_pkg',,
 ApbSlave,default,CMP_EQUAL,,,differ
 ApbSlave,testflags,CMP_EQUAL,,,differ
 Ariane,default,SURELOG_FAIL,[   NOTE] : 0,,
 Ariane,testflags,SURELOG_FAIL,[   NOTE] : 0,,
-Ariane2024,default,SLANG_REJECT,sc_collected_files/cva6_896bbc9de65d3fccda60b666ce12c66c1281ea4e.sv:1430:3: error: unknown module 'instr_tracer_if',,
+Ariane2024,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Ariane2024/sc_collected_files/cva6_896bbc9de65d3fccda60b666ce12c66c1281ea4e.sv:1430:3: erro,,
 Ariane2024,testflags,NO_DATABASE,test suppresses UHDM output,-nouhdm,
-ArianeElab,default,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
-ArianeElab,testflags,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
-ArianeElab2,default,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
-ArianeElab2,testflags,SLANG_REJECT,dut.sv:874:16: error: unknown class or package 'dm',,
+ArianeElab,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ArianeElab/dut.sv:874:16: error: unknown class or package 'dm',,
+ArianeElab,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ArianeElab/dut.sv:874:16: error: unknown class or package 'dm',,
+ArianeElab2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ArianeElab2/dut.sv:874:16: error: unknown class or package 'dm',,
+ArianeElab2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ArianeElab2/dut.sv:874:16: error: unknown class or package 'dm',,
 ArrayExprFuncArg,default,CMP_EQUAL,,,differ
 ArrayExprFuncArg,testflags,CMP_EQUAL,,,differ
 ArrayInst,default,CMP_EQUAL,,,differ
@@ -37,48 +37,48 @@ ArrayTypespec,default,CMP_EQUAL,,,match
 ArrayTypespec,testflags,CMP_EQUAL,,,match
 ArrayVarName,default,CMP_EQUAL,,,match
 ArrayVarName,testflags,CMP_EQUAL,,,differ
-Assert,default,SLANG_REJECT,dut.sv:4:29: error: use of undeclared identifier 'Clock',,
-Assert,testflags,SLANG_REJECT,dut.sv:4:29: error: use of undeclared identifier 'Clock',,
+Assert,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assert/dut.sv:4:29: error: use of undeclared identifier 'Clock',,
+Assert,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assert/dut.sv:4:29: error: use of undeclared identifier 'Clock',,
 AssertDelayError,default,CMP_EQUAL,,,differ
 AssertDelayError,testflags,CMP_EQUAL,,,differ
-Assertions,default,SLANG_REJECT,dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
-Assertions,testflags,SLANG_REJECT,dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
+Assertions,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assertions/dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
+Assertions,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assertions/dut.sv:16:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
 AssertTempError,default,CMP_EQUAL,,,differ
 AssertTempError,testflags,CMP_EQUAL,,,differ
 AssignmentPatternInAssignmentPattern,default,CMP_EQUAL,,,differ
 AssignmentPatternInAssignmentPattern,testflags,CMP_EQUAL,,,differ
-Assignments,default,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
-Assignments,testflags,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
-AssignPattern,default,SLANG_REJECT,dut.sv:2:16: error: invalid target type 'logic' for assignment pattern,,
-AssignPattern,testflags,SLANG_REJECT,dut.sv:2:16: error: invalid target type 'logic' for assignment pattern,,
-AssignPatternArray,default,SLANG_REJECT,dut.sv:48:17: error: value of type 'data_region_attr_t$[2]' cannot be assigned to type 'data_region_attr_t',,
-AssignPatternArray,testflags,SLANG_REJECT,dut.sv:48:17: error: value of type 'data_region_attr_t$[2]' cannot be assigned to type 'data_region_attr_t',,
-AssignPlus,default,SLANG_REJECT,dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
-AssignPlus,testflags,SLANG_REJECT,dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
+Assignments,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assignments/dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
+Assignments,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Assignments/dut.sv:5:17: error: use of undeclared identifier 'uvm_packer',,
+AssignPattern,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPattern/dut.sv:2:16: error: invalid target type 'logic' for assignment pattern,,
+AssignPattern,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPattern/dut.sv:2:16: error: invalid target type 'logic' for assignment pattern,,
+AssignPatternArray,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPatternArray/dut.sv:48:17: error: value of type 'data_region_attr_t$[2]' cannot be assigned to ty,,
+AssignPatternArray,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPatternArray/dut.sv:48:17: error: value of type 'data_region_attr_t$[2]' cannot be assigned to ty,,
+AssignPlus,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPlus/dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
+AssignPlus,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssignPlus/dut.sv:7:14: error: use of undeclared identifier 'w_data_li',,
 AssignRhsFlat,default,CMP_EQUAL,,,differ
 AssignRhsFlat,testflags,CMP_EQUAL,,,differ
 AssignSubs,default,CMP_EQUAL,,,differ
 AssignSubs,testflags,CMP_EQUAL,,,match
-AssociativeArray,default,SLANG_REJECT,dut.sv:3:11: error: cannot refer to an element or member of a dynamic type outside of a procedural context [-Wdynamic-non-procedural],,
-AssociativeArray,testflags,SLANG_REJECT,dut.sv:3:11: error: cannot refer to an element or member of a dynamic type outside of a procedural context [-Wdynamic-non-procedural],,
-AssumeProp,default,SLANG_REJECT,dut.sv:4:43: error: use of undeclared identifier 'clk_i',,
-AssumeProp,testflags,SLANG_REJECT,dut.sv:4:43: error: use of undeclared identifier 'clk_i',,
-Attributes,default,SLANG_REJECT,dut.sv:22:18: error: use of undeclared identifier 'pieces0',,
-Attributes,testflags,SLANG_REJECT,dut.sv:22:18: error: use of undeclared identifier 'pieces0',,
+AssociativeArray,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssociativeArray/dut.sv:3:11: error: cannot refer to an element or member of a dynamic type outside of ,,
+AssociativeArray,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssociativeArray/dut.sv:3:11: error: cannot refer to an element or member of a dynamic type outside of ,,
+AssumeProp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssumeProp/dut.sv:4:43: error: use of undeclared identifier 'clk_i',,
+AssumeProp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AssumeProp/dut.sv:4:43: error: use of undeclared identifier 'clk_i',,
+Attributes,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Attributes/dut.sv:22:18: error: use of undeclared identifier 'pieces0',,
+Attributes,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Attributes/dut.sv:22:18: error: use of undeclared identifier 'pieces0',,
 Attributes2,default,CMP_EQUAL,,,match
 Attributes2,testflags,CMP_EQUAL,,,match
-AttributesNets,default,SLANG_REJECT,dut.sv:5:34: error: use of undeclared identifier 'LGFLEN',,
-AttributesNets,testflags,SLANG_REJECT,dut.sv:5:34: error: use of undeclared identifier 'LGFLEN',,
-AVLMM,default,SLANG_REJECT,tb.sv:11:4: error: unknown module 'avlm_avls_2x2',,
-AVLMM,testflags,SLANG_REJECT,tb.sv:11:4: error: unknown module 'avlm_avls_2x2',,
-AxiInterconnect,default,SLANG_REJECT,axi_interconnect.v:226:9: error: expected member,,
-AxiInterconnect,testflags,SLANG_REJECT,axi_interconnect.v:226:9: error: expected member,,
-AzadiRTL,default,SLANG_REJECT,tlul_pkg.sv:1:9: error: design element does not have a time scale defined but others in the design do,,
-AzadiRTL,testflags,SLANG_REJECT,prim_clock_gating.sv:10:1: error: unknown module 'sky130_fd_sc_hd__dlclkp_1',,
-BadLabel,default,SLANG_REJECT,dut.sv:2:14: error: 'bad_pack' doesn't match previous name 'pack',,
-BadLabel,testflags,SLANG_REJECT,dut.sv:2:14: error: 'bad_pack' doesn't match previous name 'pack',,
-BadScope,default,SLANG_REJECT,dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
-BadScope,testflags,SLANG_REJECT,dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
+AttributesNets,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AttributesNets/dut.sv:5:34: error: use of undeclared identifier 'LGFLEN',,
+AttributesNets,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/AttributesNets/dut.sv:5:34: error: use of undeclared identifier 'LGFLEN',,
+AVLMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AVLMM/tb.sv:11:4: error: unknown module 'avlm_avls_2x2',,
+AVLMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AVLMM/tb.sv:11:4: error: unknown module 'avlm_avls_2x2',,
+AxiInterconnect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AxiInterconnect/axi_interconnect.v:226:9: error: expected member,,
+AxiInterconnect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AxiInterconnect/axi_interconnect.v:226:9: error: expected member,,
+AzadiRTL,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AzadiRTL/tlul_pkg.sv:1:9: error: design element does not have a time scale defined but othe,,
+AzadiRTL,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/AzadiRTL/prim_clock_gating.sv:10:1: error: unknown module 'sky130_fd_sc_hd__dlclkp_1',,
+BadLabel,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadLabel/dut.sv:2:14: error: 'bad_pack' doesn't match previous name 'pack',,
+BadLabel,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadLabel/dut.sv:2:14: error: 'bad_pack' doesn't match previous name 'pack',,
+BadScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadScope/dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
+BadScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BadScope/dut.sv:17:5: error: use of undeclared identifier 'priv_lvl_e',,
 BasicOh,default,CMP_EQUAL,,,differ
 BasicOh,testflags,CMP_EQUAL,,,differ
 BeginKeywords,default,CMP_EQUAL,,,match
@@ -89,16 +89,16 @@ BinarySize,default,CMP_EQUAL,,,match
 BinarySize,testflags,CMP_EQUAL,,,differ
 BindHierPath,default,CMP_EQUAL,,,match
 BindHierPath,testflags,CMP_EQUAL,,,match
-BindingPort,default,SLANG_REJECT,dut.sv:22:38: error: port 'state' does not exist in 'UART_assertions',,
-BindingPort,testflags,SLANG_REJECT,dut.sv:22:38: error: port 'state' does not exist in 'UART_assertions',,
-Bindings,default,SLANG_REJECT,dut.sv:60:36: error: use of undeclared identifier 'entropy_i',,
-Bindings,testflags,SLANG_REJECT,dut.sv:60:36: error: use of undeclared identifier 'entropy_i',,
-BindMethod,default,SLANG_REJECT,dut.sv:5:29: error: implementation not found in parent scope for 'first' [-Wmember-impl-not-found],,
-BindMethod,testflags,SLANG_REJECT,dut.sv:5:29: error: implementation not found in parent scope for 'first' [-Wmember-impl-not-found],,
-BindStmt,default,SLANG_REJECT,dut.sv:2:11: error: use of undeclared identifier 'd',,
-BindStmt,testflags,SLANG_REJECT,dut.sv:2:11: error: use of undeclared identifier 'd',,
-BindStmt2,default,SLANG_REJECT,dut.sv:8:10: error: unknown class or package 'lc_ctrl_pkg',,
-BindStmt2,testflags,SLANG_REJECT,dut.sv:8:10: error: unknown class or package 'lc_ctrl_pkg',,
+BindingPort,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindingPort/dut.sv:22:38: error: port 'state' does not exist in 'UART_assertions',,
+BindingPort,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindingPort/dut.sv:22:38: error: port 'state' does not exist in 'UART_assertions',,
+Bindings,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Bindings/dut.sv:60:36: error: use of undeclared identifier 'entropy_i',,
+Bindings,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Bindings/dut.sv:60:36: error: use of undeclared identifier 'entropy_i',,
+BindMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindMethod/dut.sv:5:29: error: implementation not found in parent scope for 'first' [-Wmember-impl-not-,,
+BindMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindMethod/dut.sv:5:29: error: implementation not found in parent scope for 'first' [-Wmember-impl-not-,,
+BindStmt,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindStmt/dut.sv:2:11: error: use of undeclared identifier 'd',,
+BindStmt,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindStmt/dut.sv:2:11: error: use of undeclared identifier 'd',,
+BindStmt2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindStmt2/dut.sv:8:10: error: unknown class or package 'lc_ctrl_pkg',,
+BindStmt2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BindStmt2/dut.sv:8:10: error: unknown class or package 'lc_ctrl_pkg',,
 BindVarsAndEnum,default,CMP_EQUAL,,,match
 BindVarsAndEnum,testflags,CMP_EQUAL,,,match
 BitComplex,default,CMP_EQUAL,,,differ
@@ -113,8 +113,8 @@ BitSelect,default,CMP_EQUAL,,,differ
 BitSelect,testflags,CMP_EQUAL,,,differ
 BitSelectExpr,default,CMP_EQUAL,,,differ
 BitSelectExpr,testflags,CMP_EQUAL,,,differ
-BitSelectHier,default,SLANG_REJECT,dut.sv:16:31: error: implementation not found in parent scope for 'get_start_offset' [-Wmember-impl-not-found],,
-BitSelectHier,testflags,SLANG_REJECT,dut.sv:16:31: error: implementation not found in parent scope for 'get_start_offset' [-Wmember-impl-not-found],,
+BitSelectHier,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitSelectHier/dut.sv:16:31: error: implementation not found in parent scope for 'get_start_offset' [-Wm,,
+BitSelectHier,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitSelectHier/dut.sv:16:31: error: implementation not found in parent scope for 'get_start_offset' [-Wm,,
 BitSelectPartSelectInFunction,default,CMP_EQUAL,,,match
 BitSelectPartSelectInFunction,testflags,CMP_EQUAL,,,differ
 BitSelectSelect,default,CMP_EQUAL,,,match
@@ -125,10 +125,10 @@ BitsInGenBlock,default,CMP_EQUAL,,,differ
 BitsInGenBlock,testflags,CMP_EQUAL,,,differ
 BitsLogic,default,CMP_EQUAL,,,differ
 BitsLogic,testflags,CMP_EQUAL,,,differ
-BitsOp,default,SLANG_REJECT,dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
-BitsOp,testflags,SLANG_REJECT,dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
-BitsStructMember,default,SLANG_REJECT,dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
-BitsStructMember,testflags,SLANG_REJECT,dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
+BitsOp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsOp/dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
+BitsOp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsOp/dut.sv:119:9: error: use of undeclared identifier 'shift_dr',,
+BitsStructMember,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsStructMember/dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
+BitsStructMember,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BitsStructMember/dut.sv:17:16: error: use of undeclared identifier 'MsgWidth',,
 BlackBePipeInt,default,CMP_EQUAL,,,differ
 BlackBePipeInt,testflags,CMP_EQUAL,,,differ
 BlackBox,default,CMP_EQUAL,,,match
@@ -137,8 +137,8 @@ BlackBoxInst,default,CMP_EQUAL,,,match
 BlackBoxInst,testflags,CMP_EQUAL,,,differ
 BlackBoxInstTop,default,CMP_EQUAL,,,match
 BlackBoxInstTop,testflags,CMP_EQUAL,,,match
-BlackboxMissingDef,default,SLANG_REJECT,dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
-BlackboxMissingDef,testflags,SLANG_REJECT,dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
+BlackboxMissingDef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackboxMissingDef/dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
+BlackboxMissingDef,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackboxMissingDef/dut.sv:2:4: error: unknown module 'PLLE2_ADV',,
 BlackBoxMod,default,CMP_EQUAL,,,match
 BlackBoxMod,testflags,CMP_EQUAL,,,match
 BlackBoxSubMod,default,CMP_EQUAL,,,match
@@ -149,28 +149,28 @@ BlackParrot,default,SURELOG_FAIL,[   NOTE] : 0,,
 BlackParrot,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 BlackParrotComplex,default,CMP_NOTEQUAL,decompile:,,
 BlackParrotComplex,testflags,CMP_NOTEQUAL,decompile:,,
-BlackParrotConf,default,SLANG_REJECT,dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mean 'bp_lce_cmd_type_e'?,,
-BlackParrotConf,testflags,SLANG_REJECT,dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mean 'bp_lce_cmd_type_e'?,,
-BlackParrotMuteErrors,default,SLANG_REJECT,dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,
-BlackParrotMuteErrors,testflags,SLANG_REJECT,dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,
-BlackParrotParam,default,SLANG_REJECT,dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
-BlackParrotParam,testflags,SLANG_REJECT,dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
+BlackParrotConf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotConf/dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mea,,
+BlackParrotConf,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotConf/dut.sv:5500:5: error: use of undeclared identifier 'bp_bedrock_cmd_type_e'; did you mea,,
+BlackParrotMuteErrors,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotMuteErrors/dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,
+BlackParrotMuteErrors,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotMuteErrors/dut.sv:575:5: error: unknown class or package 'lc_ctrl_pkg',,
+BlackParrotParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotParam/dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
+BlackParrotParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotParam/dut.sv:4625:10: error: use of undeclared identifier 'tlb_w_entry',,
 BlackParrotSkipParam,default,CMP_EQUAL,,,differ
 BlackParrotSkipParam,testflags,CMP_EQUAL,,,differ
-BlackParrotStructParam,default,SLANG_REJECT,dut.sv:63:5: error: unknown module 'OK',,
-BlackParrotStructParam,testflags,SLANG_REJECT,dut.sv:63:5: error: unknown module 'OK',,
+BlackParrotStructParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotStructParam/dut.sv:63:5: error: unknown module 'OK',,
+BlackParrotStructParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BlackParrotStructParam/dut.sv:63:5: error: unknown module 'OK',,
 BlackUcode,default,SURELOG_FAIL,[   NOTE] : 0,,
 BlackUcode,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 BlackUnicore,default,SURELOG_FAIL,[   NOTE] : 0,,
 BlackUnicore,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 BlockingAssignRewrite,default,CMP_EQUAL,,,match
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,match
-BuildOVMPkg,default,SLANG_REJECT,../../UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used before its declaration,,
-BuildOVMPkg,testflags,SLANG_REJECT,../../UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used before its declaration,,
+BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
+BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildUVMPkg,default,CMP_NOTEQUAL,decompile:,,
 BuildUVMPkg,testflags,CMP_NOTEQUAL,decompile:,,
-BuiltInMethod,default,SLANG_REJECT,dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
-BuiltInMethod,testflags,SLANG_REJECT,dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
+BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
+BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,differ
 CarryAdd,testflags,CMP_EQUAL,,,differ
 CarryTrans,default,CMP_EQUAL,,,differ
@@ -181,72 +181,72 @@ CaseExpression,default,CMP_EQUAL,,,differ
 CaseExpression,testflags,CMP_EQUAL,,,differ
 CaseFullElab,default,CMP_EQUAL,,,match
 CaseFullElab,testflags,CMP_EQUAL,,,match
-CaseInside,default,SLANG_REJECT,top.sv:15:27: error: use of undeclared identifier 'dmi_req_i',,
-CaseInside,testflags,SLANG_REJECT,top.sv:15:27: error: use of undeclared identifier 'dmi_req_i',,
-CastEnum,default,SLANG_REJECT,dut.sv:15:33: error: use of undeclared identifier 'dmi_req_i',,
-CastEnum,testflags,SLANG_REJECT,dut.sv:15:33: error: use of undeclared identifier 'dmi_req_i',,
-CastPartSelect,default,SLANG_REJECT,dut.sv:5:39: error: use of undeclared identifier 'CSR_MSTATUS',,
-CastPartSelect,testflags,SLANG_REJECT,dut.sv:5:39: error: use of undeclared identifier 'CSR_MSTATUS',,
-CastShift,default,SLANG_REJECT,dut.sv:20:3: error: unknown module 'OK',,
-CastShift,testflags,SLANG_REJECT,dut.sv:20:3: error: unknown module 'OK',,
-CastStructMember,default,SLANG_REJECT,dut.sv:9:20: error: expression type 'width_t' is not integral,,
-CastStructMember,testflags,SLANG_REJECT,dut.sv:9:20: error: expression type 'width_t' is not integral,,
+CaseInside,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CaseInside/top.sv:15:27: error: use of undeclared identifier 'dmi_req_i',,
+CaseInside,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CaseInside/top.sv:15:27: error: use of undeclared identifier 'dmi_req_i',,
+CastEnum,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastEnum/dut.sv:15:33: error: use of undeclared identifier 'dmi_req_i',,
+CastEnum,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastEnum/dut.sv:15:33: error: use of undeclared identifier 'dmi_req_i',,
+CastPartSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastPartSelect/dut.sv:5:39: error: use of undeclared identifier 'CSR_MSTATUS',,
+CastPartSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastPartSelect/dut.sv:5:39: error: use of undeclared identifier 'CSR_MSTATUS',,
+CastShift,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastShift/dut.sv:20:3: error: unknown module 'OK',,
+CastShift,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastShift/dut.sv:20:3: error: unknown module 'OK',,
+CastStructMember,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastStructMember/dut.sv:9:20: error: expression type 'width_t' is not integral,,
+CastStructMember,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastStructMember/dut.sv:9:20: error: expression type 'width_t' is not integral,,
 CastToParam,default,CMP_EQUAL,,,match
 CastToParam,testflags,CMP_EQUAL,,,match
-CastTypespec,default,SLANG_REJECT,dut.sv:16:19: error: invalid target type 'logic' for assignment pattern,,
-CastTypespec,testflags,SLANG_REJECT,dut.sv:16:19: error: invalid target type 'logic' for assignment pattern,,
-CastUnsigned,default,SLANG_REJECT,dut.sv:3:19: error: unknown interface 'blah_if',,
-CastUnsigned,testflags,SLANG_REJECT,dut.sv:3:19: error: unknown interface 'blah_if',,
+CastTypespec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastTypespec/dut.sv:16:19: error: invalid target type 'logic' for assignment pattern,,
+CastTypespec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastTypespec/dut.sv:16:19: error: invalid target type 'logic' for assignment pattern,,
+CastUnsigned,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastUnsigned/dut.sv:3:19: error: unknown interface 'blah_if',,
+CastUnsigned,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CastUnsigned/dut.sv:3:19: error: unknown interface 'blah_if',,
 CastUnsized,default,CMP_EQUAL,,,match
 CastUnsized,testflags,CMP_EQUAL,,,match
-Cell,default,SLANG_REJECT,cell.v:3:18: error: use of undeclared identifier 'inp',,
-Cell,testflags,SLANG_REJECT,cell.v:3:18: error: use of undeclared identifier 'inp',,
+Cell,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Cell/cell.v:3:18: error: use of undeclared identifier 'inp',,
+Cell,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Cell/cell.v:3:18: error: use of undeclared identifier 'inp',,
 Chandle,default,CMP_EQUAL,,,match
 Chandle,testflags,CMP_EQUAL,,,match
-Checker,default,SLANG_REJECT,dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
-Checker,testflags,SLANG_REJECT,dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
+Checker,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Checker/dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
+Checker,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Checker/dut.sv:10:3: error: use of undeclared identifier 'coverage_level',,
 CheckerInst,default,CMP_EQUAL,,,match
 CheckerInst,testflags,CMP_EQUAL,,,match
-ClassCons,default,SLANG_REJECT,top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
-ClassCons,testflags,SLANG_REJECT,top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
-ClassExtendParam,default,SLANG_REJECT,dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wmember-impl-not-found],,
-ClassExtendParam,testflags,SLANG_REJECT,dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wmember-impl-not-found],,
+ClassCons,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassCons/top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
+ClassCons,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassCons/top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
+ClassExtendParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassExtendParam/dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wm,,
+ClassExtendParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassExtendParam/dut.sv:16:32: error: implementation not found in parent scope for 'get_full_name' [-Wm,,
 ClassExtends,default,CMP_EQUAL,,,differ
 ClassExtends,testflags,CMP_EQUAL,,,differ
 ClassFsm,default,CMP_EQUAL,,,differ
 ClassFsm,testflags,CMP_EQUAL,,,differ
-ClassFuncProto,default,SLANG_REJECT,top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
-ClassFuncProto,testflags,SLANG_REJECT,top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
-ClassFuncTask,default,SLANG_REJECT,dut.sv:16:4: error: class 'C' does not have a super class,,
-ClassFuncTask,testflags,SLANG_REJECT,dut.sv:16:4: error: class 'C' does not have a super class,,
-ClassMemberFunc,default,SLANG_REJECT,dut.sv:8:11: error: 'uvm_queue' is not a generic class type,,
-ClassMemberFunc,testflags,SLANG_REJECT,dut.sv:8:11: error: 'uvm_queue' is not a generic class type,,
-ClassMemberRef,default,SLANG_REJECT,dut.sv:27:27: error: use of undeclared identifier 'en',,
-ClassMemberRef,testflags,SLANG_REJECT,dut.sv:27:27: error: use of undeclared identifier 'en',,
-ClassMethodCall,default,SLANG_REJECT,dut.sv:15:5: error: use of undeclared identifier 'f2',,
-ClassMethodCall,testflags,SLANG_REJECT,dut.sv:15:5: error: use of undeclared identifier 'f2',,
+ClassFuncProto,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassFuncProto/top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
+ClassFuncProto,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassFuncProto/top.v:25:15: error: enum value 32'd1953461359 is out of range for base type 'bit[1:0]',,
+ClassFuncTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassFuncTask/dut.sv:16:4: error: class 'C' does not have a super class,,
+ClassFuncTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassFuncTask/dut.sv:16:4: error: class 'C' does not have a super class,,
+ClassMemberFunc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassMemberFunc/dut.sv:8:11: error: 'uvm_queue' is not a generic class type,,
+ClassMemberFunc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassMemberFunc/dut.sv:8:11: error: 'uvm_queue' is not a generic class type,,
+ClassMemberRef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassMemberRef/dut.sv:27:27: error: use of undeclared identifier 'en',,
+ClassMemberRef,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassMemberRef/dut.sv:27:27: error: use of undeclared identifier 'en',,
+ClassMethodCall,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassMethodCall/dut.sv:15:5: error: use of undeclared identifier 'f2',,
+ClassMethodCall,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassMethodCall/dut.sv:15:5: error: use of undeclared identifier 'f2',,
 ClassMini,default,CMP_EQUAL,,,differ
 ClassMini,testflags,CMP_EQUAL,,,differ
 ClassParam,default,CMP_EQUAL,,,differ
 ClassParam,testflags,CMP_EQUAL,,,match
 ClassParamAsParam,default,CMP_EQUAL,,,differ
 ClassParamAsParam,testflags,CMP_EQUAL,,,differ
-ClassScope,default,SLANG_REJECT,dut.sv:64:5: error: packed dimensions require a full range specification,,
-ClassScope,testflags,SLANG_REJECT,dut.sv:64:5: error: packed dimensions require a full range specification,,
+ClassScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassScope/dut.sv:64:5: error: packed dimensions require a full range specification,,
+ClassScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassScope/dut.sv:64:5: error: packed dimensions require a full range specification,,
 ClassTypeParam,default,CMP_EQUAL,,,differ
 ClassTypeParam,testflags,CMP_EQUAL,,,differ
-ClassTypeParamAlias,default,SLANG_REJECT,dut.sv:4:18: error: parameter declaration is missing an initializer,,
-ClassTypeParamAlias,testflags,SLANG_REJECT,dut.sv:4:18: error: parameter declaration is missing an initializer,,
+ClassTypeParamAlias,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassTypeParamAlias/dut.sv:4:18: error: parameter declaration is missing an initializer,,
+ClassTypeParamAlias,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClassTypeParamAlias/dut.sv:4:18: error: parameter declaration is missing an initializer,,
 ClassVar,default,CMP_EQUAL,,,differ
 ClassVar,testflags,CMP_EQUAL,,,differ
 ClassVirtual,default,CMP_EQUAL,,,differ
 ClassVirtual,testflags,CMP_EQUAL,,,match
-ClockingBlock,default,SLANG_REJECT,dut.sv:13:14: error: use of undeclared identifier 'from_Dut',,
-ClockingBlock,testflags,SLANG_REJECT,dut.sv:13:14: error: use of undeclared identifier 'from_Dut',,
-ClockingDrive,default,SLANG_REJECT,dut.sv:6:31: error: use of undeclared identifier 'clk',,
-ClockingDrive,testflags,SLANG_REJECT,dut.sv:6:31: error: use of undeclared identifier 'clk',,
-ClockingSntx,default,SLANG_REJECT,dut.sv:2:24: error: use of undeclared identifier 'clock',,
-ClockingSntx,testflags,SLANG_REJECT,dut.sv:2:24: error: use of undeclared identifier 'clock',,
+ClockingBlock,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClockingBlock/dut.sv:13:14: error: use of undeclared identifier 'from_Dut',,
+ClockingBlock,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClockingBlock/dut.sv:13:14: error: use of undeclared identifier 'from_Dut',,
+ClockingDrive,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClockingDrive/dut.sv:6:31: error: use of undeclared identifier 'clk',,
+ClockingDrive,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClockingDrive/dut.sv:6:31: error: use of undeclared identifier 'clk',,
+ClockingSntx,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClockingSntx/dut.sv:2:24: error: use of undeclared identifier 'clock',,
+ClockingSntx,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ClockingSntx/dut.sv:2:24: error: use of undeclared identifier 'clock',,
 ClogCast,default,CMP_EQUAL,,,match
 ClogCast,testflags,CMP_EQUAL,,,match
 ClogParam,default,CMP_EQUAL,,,differ
@@ -255,10 +255,10 @@ CmdLineOverride,default,CMP_EQUAL,,,match
 CmdLineOverride,testflags,CMP_EQUAL,,,match
 Compl1001,default,CMP_EQUAL,,,match
 Compl1001,testflags,CMP_EQUAL,,,match
-ComplexBitSelect,default,SLANG_REJECT,dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
-ComplexBitSelect,testflags,SLANG_REJECT,dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
-ComplexEscaped,default,SLANG_REJECT,dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
-ComplexEscaped,testflags,SLANG_REJECT,dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
+ComplexBitSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ComplexBitSelect/dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
+ComplexBitSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ComplexBitSelect/dut.sv:20:14: error: use of undeclared identifier 'cfgs_o',,
+ComplexEscaped,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ComplexEscaped/dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
+ComplexEscaped,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ComplexEscaped/dut.sv:6:8: error: duplicate definition of 'top' [-Wduplicate-definition],,
 ComplexExprSize,default,CMP_EQUAL,,,differ
 ComplexExprSize,testflags,CMP_EQUAL,,,differ
 ComplexHierPath,default,CMP_EQUAL,,,differ
@@ -269,12 +269,12 @@ ComplexParamOverload2,default,CMP_EQUAL,,,match
 ComplexParamOverload2,testflags,CMP_EQUAL,,,differ
 ComplexVarSelect,default,CMP_EQUAL,,,match
 ComplexVarSelect,testflags,CMP_EQUAL,,,match
-ConcatOrder,default,SLANG_REJECT,dut.sv:16:6: error: identifier 'bp_default_cfg_p' used before its declaration,,
-ConcatOrder,testflags,SLANG_REJECT,dut.sv:16:6: error: identifier 'bp_default_cfg_p' used before its declaration,,
-ConcatRadix,default,SLANG_REJECT,dut.sv:6:5: error: unknown module 'bar',,
-ConcatRadix,testflags,SLANG_REJECT,dut.sv:6:5: error: unknown module 'bar',,
-ConcatVal,default,SLANG_REJECT,dut.sv:14:40: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_sbox'?,,
-ConcatVal,testflags,SLANG_REJECT,dut.sv:14:40: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_sbox'?,,
+ConcatOrder,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConcatOrder/dut.sv:16:6: error: identifier 'bp_default_cfg_p' used before its declaration,,
+ConcatOrder,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConcatOrder/dut.sv:16:6: error: identifier 'bp_default_cfg_p' used before its declaration,,
+ConcatRadix,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConcatRadix/dut.sv:6:5: error: unknown module 'bar',,
+ConcatRadix,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConcatRadix/dut.sv:6:5: error: unknown module 'bar',,
+ConcatVal,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConcatVal/dut.sv:14:40: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_,,
+ConcatVal,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConcatVal/dut.sv:14:40: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_,,
 ConcatWidth,default,CMP_EQUAL,,,match
 ConcatWidth,testflags,CMP_EQUAL,,,match
 ConditionalOp,default,CMP_EQUAL,,,differ
@@ -299,12 +299,12 @@ ConstCapital,default,CMP_EQUAL,,,differ
 ConstCapital,testflags,CMP_EQUAL,,,match
 ConstExpand,default,CMP_EQUAL,,,match
 ConstExpand,testflags,CMP_EQUAL,,,match
-ConstHighConn,default,SLANG_REJECT,dut.sv:7:13: error: expression is not assignable,,
-ConstHighConn,testflags,SLANG_REJECT,dut.sv:7:13: error: expression is not assignable,,
+ConstHighConn,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConstHighConn/dut.sv:7:13: error: expression is not assignable,,
+ConstHighConn,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ConstHighConn/dut.sv:7:13: error: expression is not assignable,,
 ConstPort,default,CMP_EQUAL,,,match
 ConstPort,testflags,CMP_EQUAL,,,match
-ContAssign,default,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'intf',,
-ContAssign,testflags,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'intf',,
+ContAssign,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ContAssign/dut.sv:3:8: error: use of undeclared identifier 'intf',,
+ContAssign,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ContAssign/dut.sv:3:8: error: use of undeclared identifier 'intf',,
 ContAssignConst,default,CMP_EQUAL,,,differ
 ContAssignConst,testflags,CMP_EQUAL,,,differ
 Context,default,CMP_EQUAL,,,match
@@ -313,26 +313,26 @@ CoresSweRV,default,SURELOG_FAIL,[   NOTE] : 1,,
 CoresSweRV,testflags,SLANG_REJECT,error: '/design/swerv_wrapper.sv': No such file or directory,,
 CoresSweRVMP,default,SURELOG_FAIL,[   NOTE] : 1,,
 CoresSweRVMP,testflags,SLANG_REJECT,error: '/design/swerv_wrapper.sv': No such file or directory,,
-Covergroup,default,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifier 's0',,
-Covergroup,testflags,SLANG_REJECT,dut.sv:19:14: error: use of undeclared identifier 's0',,
+Covergroup,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Covergroup/dut.sv:19:14: error: use of undeclared identifier 's0',,
+Covergroup,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Covergroup/dut.sv:19:14: error: use of undeclared identifier 's0',,
 CovMacro,default,CMP_EQUAL,,,differ
 CovMacro,testflags,CMP_EQUAL,,,differ
 CrossFunc,default,CMP_EQUAL,,,differ
 CrossFunc,testflags,CMP_EQUAL,,,differ
-CrossItem,default,SLANG_REJECT,dut.sv:3:33: error: use of undeclared identifier 'clk',,
-CrossItem,testflags,SLANG_REJECT,dut.sv:3:33: error: use of undeclared identifier 'clk',,
+CrossItem,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CrossItem/dut.sv:3:33: error: use of undeclared identifier 'clk',,
+CrossItem,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/CrossItem/dut.sv:3:33: error: use of undeclared identifier 'clk',,
 DashYTest,default,CMP_EQUAL,,,match
 DashYTest,testflags,CMP_EQUAL,,,match
 DataAttrib,default,CMP_EQUAL,,,match
 DataAttrib,testflags,CMP_EQUAL,,,match
-DecimalSize,default,SLANG_REJECT,dut.sv:848:15: error: use of undeclared identifier 'm',,
-DecimalSize,testflags,SLANG_REJECT,dut.sv:848:15: error: use of undeclared identifier 'm',,
+DecimalSize,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DecimalSize/dut.sv:848:15: error: use of undeclared identifier 'm',,
+DecimalSize,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DecimalSize/dut.sv:848:15: error: use of undeclared identifier 'm',,
 DecValue,default,CMP_EQUAL,,,match
 DecValue,testflags,CMP_EQUAL,,,match
-DefaultAssign,default,SLANG_REJECT,dut.sv:8:24: error: redefinition of 'data' [-Wredefinition],,
-DefaultAssign,testflags,SLANG_REJECT,dut.sv:8:24: error: redefinition of 'data' [-Wredefinition],,
-DefaultNetType,default,SLANG_REJECT,dut.sv:16:8: error: use of undeclared identifier 'b',,
-DefaultNetType,testflags,SLANG_REJECT,dut.sv:16:8: error: use of undeclared identifier 'b',,
+DefaultAssign,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DefaultAssign/dut.sv:8:24: error: redefinition of 'data' [-Wredefinition],,
+DefaultAssign,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DefaultAssign/dut.sv:8:24: error: redefinition of 'data' [-Wredefinition],,
+DefaultNetType,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DefaultNetType/dut.sv:16:8: error: use of undeclared identifier 'b',,
+DefaultNetType,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DefaultNetType/dut.sv:16:8: error: use of undeclared identifier 'b',,
 DefaultPatternAssign,default,CMP_EQUAL,,,differ
 DefaultPatternAssign,testflags,CMP_EQUAL,,,differ
 DefaultPatternInt,default,CMP_EQUAL,,,differ
@@ -347,8 +347,8 @@ DefParamFromParam,default,CMP_EQUAL,,,match
 DefParamFromParam,testflags,CMP_EQUAL,,,match
 DefParamIndex,default,CMP_EQUAL,,,differ
 DefParamIndex,testflags,CMP_EQUAL,,,differ
-Delay2Param,default,SLANG_REJECT,dut.sv:1:44: error: port 'signedIn' has no I/O member declaration,,
-Delay2Param,testflags,SLANG_REJECT,dut.sv:1:44: error: port 'signedIn' has no I/O member declaration,,
+Delay2Param,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Delay2Param/dut.sv:1:44: error: port 'signedIn' has no I/O member declaration,,
+Delay2Param,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Delay2Param/dut.sv:1:44: error: port 'signedIn' has no I/O member declaration,,
 DelayAssign,default,CMP_EQUAL,,,differ
 DelayAssign,testflags,CMP_EQUAL,,,differ
 DiffSimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
@@ -357,28 +357,28 @@ Disable,default,CMP_EQUAL,,,match
 Disable,testflags,CMP_EQUAL,,,match
 DollarBits,default,CMP_EQUAL,,,differ
 DollarBits,testflags,CMP_EQUAL,,,differ
-DollarBitsUnary,default,SLANG_REJECT,dut.sv:8:15: error: use of undeclared identifier 'dr_x'; did you mean 'dr_q'?,,
-DollarBitsUnary,testflags,SLANG_REJECT,dut.sv:8:15: error: use of undeclared identifier 'dr_x'; did you mean 'dr_q'?,,
-DollarRoot,default,SLANG_REJECT,dut.sv:7:11: error: unknown package 'verbosity_pkg',,
-DollarRoot,testflags,SLANG_REJECT,dut.sv:7:11: error: unknown package 'verbosity_pkg',,
+DollarBitsUnary,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DollarBitsUnary/dut.sv:8:15: error: use of undeclared identifier 'dr_x'; did you mean 'dr_q'?,,
+DollarBitsUnary,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DollarBitsUnary/dut.sv:8:15: error: use of undeclared identifier 'dr_x'; did you mean 'dr_q'?,,
+DollarRoot,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DollarRoot/dut.sv:7:11: error: unknown package 'verbosity_pkg',,
+DollarRoot,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DollarRoot/dut.sv:7:11: error: unknown package 'verbosity_pkg',,
 DoubleLoop,default,CMP_EQUAL,,,differ
 DoubleLoop,testflags,CMP_EQUAL,,,differ
-DoublePres,default,SLANG_REJECT,dut.sv:34:21: error: invalid operands to binary expression ('real' and 'real'),,
-DoublePres,testflags,SLANG_REJECT,dut.sv:34:21: error: invalid operands to binary expression ('real' and 'real'),,
-DoWhile,default,SLANG_REJECT,dut.sv:4:15: error: use of undeclared identifier 'uvm_default_factory',,
-DoWhile,testflags,SLANG_REJECT,dut.sv:4:15: error: use of undeclared identifier 'uvm_default_factory',,
+DoublePres,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DoublePres/dut.sv:34:21: error: invalid operands to binary expression ('real' and 'real'),,
+DoublePres,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DoublePres/dut.sv:34:21: error: invalid operands to binary expression ('real' and 'real'),,
+DoWhile,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DoWhile/dut.sv:4:15: error: use of undeclared identifier 'uvm_default_factory',,
+DoWhile,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/DoWhile/dut.sv:4:15: error: use of undeclared identifier 'uvm_default_factory',,
 DpiChandle,default,CMP_EQUAL,,,match
 DpiChandle,testflags,CMP_EQUAL,,,match
 DpiFunc,default,CMP_EQUAL,,,match
 DpiFunc,testflags,CMP_EQUAL,,,match
 DpiTask,default,CMP_EQUAL,,,match
 DpiTask,testflags,CMP_EQUAL,,,match
-Driver,default,SLANG_REJECT,testbench.sv:23:3: error: too many arguments for 'new'; expected 0 but 1 were provided,,
-Driver,testflags,SLANG_REJECT,testbench.sv:23:3: error: too many arguments for 'new'; expected 0 but 1 were provided,,
+Driver,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Driver/testbench.sv:23:3: error: too many arguments for 'new'; expected 0 but 1 were provid,,
+Driver,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Driver/testbench.sv:23:3: error: too many arguments for 'new'; expected 0 but 1 were provid,,
 DynArrayKind,default,CMP_EQUAL,,,match
 DynArrayKind,testflags,CMP_EQUAL,,,match
-Earlgrey,default,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
-Earlgrey,testflags,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
+Earlgrey,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
+Earlgrey,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
 Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
 Earlgrey_0_1,testflags,SLANG_REJECT,reqfifo_rdata.error,,
 Earlgrey_nexysvideo,default,DEFERRED,late-phase: golden uncacheable on this machine,,
@@ -391,12 +391,12 @@ EarlgreyPackParam,default,CMP_EQUAL,,,differ
 EarlgreyPackParam,testflags,CMP_EQUAL,,,differ
 ElabCParam,default,CMP_EQUAL,,,differ
 ElabCParam,testflags,CMP_EQUAL,,,differ
-ElabIf,default,SLANG_REJECT,dut.sv:8:18: error: use of undeclared identifier 'inp',,
-ElabIf,testflags,SLANG_REJECT,dut.sv:8:18: error: use of undeclared identifier 'inp',,
+ElabIf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ElabIf/dut.sv:8:18: error: use of undeclared identifier 'inp',,
+ElabIf,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ElabIf/dut.sv:8:18: error: use of undeclared identifier 'inp',,
 ElabParam,default,CMP_EQUAL,,,differ
 ElabParam,testflags,CMP_EQUAL,,,differ
-ElabSysCall,default,SLANG_REJECT,dut.sv:3:3: error: $fatal encountered,,
-ElabSysCall,testflags,SLANG_REJECT,dut.sv:3:3: error: $fatal encountered,,
+ElabSysCall,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ElabSysCall/dut.sv:3:3: error: $fatal encountered,,
+ElabSysCall,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ElabSysCall/dut.sv:3:3: error: $fatal encountered,,
 EmptyAssign,default,CMP_EQUAL,,,match
 EmptyAssign,testflags,CMP_EQUAL,,,differ
 EnumConcat,default,CMP_EQUAL,,,match
@@ -409,26 +409,26 @@ EnumConstElab,default,CMP_EQUAL,,,differ
 EnumConstElab,testflags,CMP_EQUAL,,,differ
 EnumImplicitVal,default,CMP_EQUAL,,,match
 EnumImplicitVal,testflags,CMP_EQUAL,,,match
-EnumParenType,default,SLANG_REJECT,dut.sv:9:3: error: expected member,,
-EnumParenType,testflags,SLANG_REJECT,dut.sv:9:3: error: expected member,,
+EnumParenType,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumParenType/dut.sv:9:3: error: expected member,,
+EnumParenType,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumParenType/dut.sv:9:3: error: expected member,,
 EnumVal,default,CMP_EQUAL,,,match
 EnumVal,testflags,CMP_EQUAL,,,match
 EnumVar,default,CMP_EQUAL,,,differ
 EnumVar,testflags,CMP_EQUAL,,,differ
-EnumVarNoTypedef,default,SLANG_REJECT,dut.sv:4:20: error: expression width of 4 does not exactly match declared enum type width of 3,,
-EnumVarNoTypedef,testflags,SLANG_REJECT,dut.sv:4:20: error: expression width of 4 does not exactly match declared enum type width of 3,,
-Escape,default,SLANG_REJECT,top.v:13:12: error: unknown class or package 'uvm_resource_db',,
-Escape,testflags,SLANG_REJECT,top.v:13:12: error: unknown class or package 'uvm_resource_db',,
+EnumVarNoTypedef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumVarNoTypedef/dut.sv:4:20: error: expression width of 4 does not exactly match declared enum type wi,,
+EnumVarNoTypedef,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EnumVarNoTypedef/dut.sv:4:20: error: expression width of 4 does not exactly match declared enum type wi,,
+Escape,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Escape/top.v:13:12: error: unknown class or package 'uvm_resource_db',,
+Escape,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Escape/top.v:13:12: error: unknown class or package 'uvm_resource_db',,
 EvalFunc,default,CMP_EQUAL,,,differ
 EvalFunc,testflags,CMP_EQUAL,,,differ
-EvalFuncArray,default,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the current constant function,,
-EvalFuncArray,testflags,SLANG_REJECT,dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the current constant function,,
+EvalFuncArray,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EvalFuncArray/dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the curre,,
+EvalFuncArray,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EvalFuncArray/dut.sv:15:25: error: identifier 'InfoTypes' is declared after the invocation of the curre,,
 EvalFuncCont,default,CMP_EQUAL,,,match
 EvalFuncCont,testflags,CMP_EQUAL,,,match
 EvalFuncNamed,default,CMP_EQUAL,,,differ
 EvalFuncNamed,testflags,CMP_EQUAL,,,differ
-EvalFuncPack,default,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
-EvalFuncPack,testflags,SLANG_REJECT,dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
+EvalFuncPack,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EvalFuncPack/dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
+EvalFuncPack,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/EvalFuncPack/dut.sv:54:38: error: use of undeclared identifier 'InfosPerBank',,
 Event,default,CMP_EQUAL,,,match
 Event,testflags,CMP_EQUAL,,,match
 ExpectStmt,default,CMP_EQUAL,,,match
@@ -437,54 +437,54 @@ ExplicitPort,default,CMP_EQUAL,,,differ
 ExplicitPort,testflags,CMP_EQUAL,,,differ
 ExplictiPorts,default,CMP_EQUAL,,,differ
 ExplictiPorts,testflags,CMP_EQUAL,,,differ
-ExponTimeIfElseGen,default,SLANG_REJECT,dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean 'ADDR_OFFSET_PART_1'?,,
-ExponTimeIfElseGen,testflags,SLANG_REJECT,dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean 'ADDR_OFFSET_PART_1'?,,
+ExponTimeIfElseGen,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ExponTimeIfElseGen/dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean ,,
+ExponTimeIfElseGen,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ExponTimeIfElseGen/dut.sv:6:22: error: use of undeclared identifier 'ADDR_OFFSET_PART_0'; did you mean ,,
 ExprEvalBits,default,CMP_EQUAL,,,match
 ExprEvalBits,testflags,CMP_EQUAL,,,match
 ExprEvalPartial,default,SURELOG_FAIL,[   NOTE] : 0,,
 ExprEvalPartial,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 ExprReductionBits,default,CMP_EQUAL,,,match
 ExprReductionBits,testflags,CMP_EQUAL,,,match
-ExtendClassMember,default,SLANG_REJECT,dut.sv:9:75: error: 'uvm_tlm_fifo' is not a generic class type,,
-ExtendClassMember,testflags,SLANG_REJECT,dut.sv:9:75: error: 'uvm_tlm_fifo' is not a generic class type,,
+ExtendClassMember,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ExtendClassMember/dut.sv:9:75: error: 'uvm_tlm_fifo' is not a generic class type,,
+ExtendClassMember,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ExtendClassMember/dut.sv:9:75: error: 'uvm_tlm_fifo' is not a generic class type,,
 FileList,default,CMP_EQUAL,,,match
 FileList,testflags,CMP_EQUAL,,,differ
 FileListWithCompressed,default,SURELOG_FAIL,[   NOTE] : 1,,
 FileListWithCompressed,testflags,SURELOG_FAIL,[   NOTE] : 1,,
 FileLocalParam,default,CMP_NOTEQUAL,decompile:,,
 FileLocalParam,testflags,CMP_NOTEQUAL,decompile:,,
-FilePackageImport,default,SLANG_REJECT,dut.sv:11:12: error: use of undeclared identifier 'we',,
-FilePackageImport,testflags,SLANG_REJECT,dut.sv:11:12: error: use of undeclared identifier 'we',,
-FilePackUnion,default,SLANG_REJECT,dut.sv:31:3: error: cannot reference compilation unit item from within a package,,
-FilePackUnion,testflags,SLANG_REJECT,dut.sv:31:3: error: cannot reference compilation unit item from within a package,,
+FilePackageImport,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FilePackageImport/dut.sv:11:12: error: use of undeclared identifier 'we',,
+FilePackageImport,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FilePackageImport/dut.sv:11:12: error: use of undeclared identifier 'we',,
+FilePackUnion,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FilePackUnion/dut.sv:31:3: error: cannot reference compilation unit item from within a package,,
+FilePackUnion,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FilePackUnion/dut.sv:31:3: error: cannot reference compilation unit item from within a package,,
 FileParam,default,CMP_EQUAL,,,differ
 FileParam,testflags,CMP_EQUAL,,,differ
 FileResolutionFunction,default,CMP_EQUAL,,,match
 FileResolutionFunction,testflags,CMP_EQUAL,,,match
-FileTypespec,default,SLANG_REJECT,dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has width of 2; previously seen width was 1,,
-FileTypespec,testflags,SLANG_REJECT,dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has width of 2; previously seen width was 1,,
+FileTypespec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FileTypespec/dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has,,
+FileTypespec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FileTypespec/dut.sv:22:23: error: all members of a packed union must have the same width; 'btype_t' has,,
 ForeachArray,default,CMP_EQUAL,,,differ
 ForeachArray,testflags,CMP_EQUAL,,,differ
-ForeachClass,default,SLANG_REJECT,dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_reg_map',,
-ForeachClass,testflags,SLANG_REJECT,dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_reg_map',,
-ForeachClassParent,default,SLANG_REJECT,dut.sv:4:13: error: identifier 'uvm_phase' used before its declaration,,
-ForeachClassParent,testflags,SLANG_REJECT,dut.sv:4:13: error: identifier 'uvm_phase' used before its declaration,,
-ForeachForeach,default,SLANG_REJECT,dut.sv:8:17: error: out-of-block definition of 'get_adjacent_predecessor_nodes' does not match any declaration in 'uvm_phase',,
-ForeachForeach,testflags,SLANG_REJECT,dut.sv:8:17: error: out-of-block definition of 'get_adjacent_predecessor_nodes' does not match any declaration in 'uvm_phase',,
+ForeachClass,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForeachClass/dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_reg_map',,
+ForeachClass,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForeachClass/dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_reg_map',,
+ForeachClassParent,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForeachClassParent/dut.sv:4:13: error: identifier 'uvm_phase' used before its declaration,,
+ForeachClassParent,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForeachClassParent/dut.sv:4:13: error: identifier 'uvm_phase' used before its declaration,,
+ForeachForeach,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForeachForeach/dut.sv:8:17: error: out-of-block definition of 'get_adjacent_predecessor_nodes' does not,,
+ForeachForeach,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForeachForeach/dut.sv:8:17: error: out-of-block definition of 'get_adjacent_predecessor_nodes' does not,,
 ForeachFunction,default,CMP_EQUAL,,,match
 ForeachFunction,testflags,CMP_EQUAL,,,differ
 ForeachSquare,default,CMP_EQUAL,,,differ
 ForeachSquare,testflags,CMP_EQUAL,,,differ
-ForElab,default,SLANG_REJECT,top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
-ForElab,testflags,SLANG_REJECT,top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
+ForElab,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForElab/top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
+ForElab,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForElab/top.v:57:30: error: no member named 'tl_h2d_t' in package 'tlul_pkg',,
 ForLoop,default,CMP_EQUAL,,,match
 ForLoop,testflags,CMP_EQUAL,,,match
-ForLoopBind,default,SLANG_REJECT,dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 were provided,,
-ForLoopBind,testflags,SLANG_REJECT,dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 were provided,,
+ForLoopBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForLoopBind/dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 were provided,,
+ForLoopBind,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ForLoopBind/dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 were provided,,
 FSM2Always,default,CMP_EQUAL,,,match
 FSM2Always,testflags,CMP_EQUAL,,,match
-FSMBsp13,default,SLANG_REJECT,top.v:121:3: error: unknown system name '$vtDumpvars' [-Wunknown-sys-name],,
-FSMBsp13,testflags,SLANG_REJECT,top.v:121:3: error: unknown system name '$vtDumpvars' [-Wunknown-sys-name],,
+FSMBsp13,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FSMBsp13/top.v:121:3: error: unknown system name '$vtDumpvars' [-Wunknown-sys-name],,
+FSMBsp13,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FSMBsp13/top.v:121:3: error: unknown system name '$vtDumpvars' [-Wunknown-sys-name],,
 FSMFunction,default,CMP_EQUAL,,,match
 FSMFunction,testflags,CMP_EQUAL,,,match
 FSMSingleAlways,default,CMP_EQUAL,,,match
@@ -503,20 +503,20 @@ FuncAttrib,default,CMP_EQUAL,,,match
 FuncAttrib,testflags,CMP_EQUAL,,,match
 FuncBindGen,default,CMP_EQUAL,,,differ
 FuncBindGen,testflags,CMP_EQUAL,,,differ
-FuncBinding,default,SLANG_REJECT,dut.sv:17:61: error: value of type 'logic[1:0]' cannot be assigned to type 'state',,
-FuncBinding,testflags,SLANG_REJECT,dut.sv:17:61: error: value of type 'logic[1:0]' cannot be assigned to type 'state',,
-FuncBinding2,default,SLANG_REJECT,dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
-FuncBinding2,testflags,SLANG_REJECT,dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
+FuncBinding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBinding/dut.sv:17:61: error: value of type 'logic[1:0]' cannot be assigned to type 'state',,
+FuncBinding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBinding/dut.sv:17:61: error: value of type 'logic[1:0]' cannot be assigned to type 'state',,
+FuncBinding2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBinding2/dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
+FuncBinding2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncBinding2/dut.sv:18:13: error: use of undeclared identifier 'fsm_coin',,
 FuncCase,default,CMP_EQUAL,,,differ
 FuncCase,testflags,CMP_EQUAL,,,differ
 FuncDeclScope,default,CMP_EQUAL,,,differ
 FuncDeclScope,testflags,CMP_EQUAL,,,differ
-FuncDef,default,SLANG_REJECT,dut.sv:13:5: error: unknown module 'countLeadingZeros',,
-FuncDef,testflags,SLANG_REJECT,dut.sv:13:5: error: unknown module 'countLeadingZeros',,
-FuncDef2,default,SLANG_REJECT,dut.sv:411:3: error: use of undeclared identifier 'tnoc_types',,
-FuncDef2,testflags,SLANG_REJECT,dut.sv:411:3: error: use of undeclared identifier 'tnoc_types',,
-FuncDefaultVal,default,SLANG_REJECT,dut.sv:6:13: error: use of undeclared identifier 'opcode',,
-FuncDefaultVal,testflags,SLANG_REJECT,dut.sv:6:13: error: use of undeclared identifier 'opcode',,
+FuncDef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDef/dut.sv:13:5: error: unknown module 'countLeadingZeros',,
+FuncDef,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDef/dut.sv:13:5: error: unknown module 'countLeadingZeros',,
+FuncDef2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDef2/dut.sv:411:3: error: use of undeclared identifier 'tnoc_types',,
+FuncDef2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDef2/dut.sv:411:3: error: use of undeclared identifier 'tnoc_types',,
+FuncDefaultVal,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDefaultVal/dut.sv:6:13: error: use of undeclared identifier 'opcode',,
+FuncDefaultVal,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncDefaultVal/dut.sv:6:13: error: use of undeclared identifier 'opcode',,
 FuncInModule,default,CMP_EQUAL,,,differ
 FuncInModule,testflags,CMP_EQUAL,,,differ
 FuncIoTypespec,default,CMP_EQUAL,,,differ
@@ -541,12 +541,12 @@ FuncStructVal,default,CMP_EQUAL,,,differ
 FuncStructVal,testflags,CMP_EQUAL,,,differ
 FuncStructValSimple,default,CMP_EQUAL,,,differ
 FuncStructValSimple,testflags,CMP_EQUAL,,,differ
-FuncWidthScope,default,SLANG_REJECT,dut.sv:13:19: error: cannot call a function declared inside a generate block in a constant expression,,
-FuncWidthScope,testflags,SLANG_REJECT,dut.sv:13:19: error: cannot call a function declared inside a generate block in a constant expression,,
-FuncWidthScopeOverride,default,SLANG_REJECT,dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed in a constant expression,,
-FuncWidthScopeOverride,testflags,SLANG_REJECT,dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed in a constant expression,,
-GateLevel,default,SLANG_REJECT,dut.sv:1:53: error: port 'y10' has no I/O member declaration,,
-GateLevel,testflags,SLANG_REJECT,dut.sv:1:53: error: port 'y10' has no I/O member declaration,,
+FuncWidthScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
+FuncWidthScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScope/dut.sv:13:19: error: cannot call a function declared inside a generate block in a consta,,
+FuncWidthScopeOverride,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScopeOverride/dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed i,,
+FuncWidthScopeOverride,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/FuncWidthScopeOverride/dut.sv:8:34: error: reference to 'WIDTH_A' by hierarchical name is not allowed i,,
+GateLevel,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GateLevel/dut.sv:1:53: error: port 'y10' has no I/O member declaration,,
+GateLevel,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GateLevel/dut.sv:1:53: error: port 'y10' has no I/O member declaration,,
 Gates,default,CMP_EQUAL,,,match
 Gates,testflags,CMP_EQUAL,,,differ
 GenBlock,default,CMP_EQUAL,,,match
@@ -557,68 +557,68 @@ GenCase,default,CMP_EQUAL,,,differ
 GenCase,testflags,CMP_EQUAL,,,differ
 GenCaseStmt,default,CMP_EQUAL,,,differ
 GenCaseStmt,testflags,CMP_EQUAL,,,differ
-GenerateAssigns,default,SLANG_REJECT,top.v:25:21: error: expected ';',,
-GenerateAssigns,testflags,SLANG_REJECT,top.v:25:21: error: expected ';',,
-GenerateBlock,default,SLANG_REJECT,dut.sv:6:25: error: member not allowed in generate block,,
-GenerateBlock,testflags,SLANG_REJECT,dut.sv:6:25: error: member not allowed in generate block,,
+GenerateAssigns,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateAssigns/top.v:25:21: error: expected ';',,
+GenerateAssigns,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateAssigns/top.v:25:21: error: expected ';',,
+GenerateBlock,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateBlock/dut.sv:6:25: error: member not allowed in generate block,,
+GenerateBlock,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateBlock/dut.sv:6:25: error: member not allowed in generate block,,
 GenerateBlock2,default,CMP_EQUAL,,,match
 GenerateBlock2,testflags,CMP_EQUAL,,,differ
-GenerateInterface,default,SLANG_REJECT,top.sv:29:24: error: use of undeclared identifier 'pins_oe'; did you mean 'pins_o'?,,
-GenerateInterface,testflags,SLANG_REJECT,top.sv:29:24: error: use of undeclared identifier 'pins_oe'; did you mean 'pins_o'?,,
-GenerateModule,default,SLANG_REJECT,top.v:9:9: error: unknown module 'M1',,
-GenerateModule,testflags,SLANG_REJECT,top.v:9:9: error: unknown module 'M1',,
-GenerateRegion,default,SLANG_REJECT,dut.sv:12:23: error: use of undeclared identifier 'clk',,
-GenerateRegion,testflags,SLANG_REJECT,dut.sv:12:23: error: use of undeclared identifier 'clk',,
+GenerateInterface,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateInterface/top.sv:29:24: error: use of undeclared identifier 'pins_oe'; did you mean 'pins_o'?,,
+GenerateInterface,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateInterface/top.sv:29:24: error: use of undeclared identifier 'pins_oe'; did you mean 'pins_o'?,,
+GenerateModule,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateModule/top.v:9:9: error: unknown module 'M1',,
+GenerateModule,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateModule/top.v:9:9: error: unknown module 'M1',,
+GenerateRegion,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateRegion/dut.sv:12:23: error: use of undeclared identifier 'clk',,
+GenerateRegion,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenerateRegion/dut.sv:12:23: error: use of undeclared identifier 'clk',,
 GenerateUnnamed,default,CMP_EQUAL,,,differ
 GenerateUnnamed,testflags,CMP_EQUAL,,,differ
-GenFor,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
-GenFor,testflags,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
-GenForDec,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
-GenForDec,testflags,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'i',,
+GenFor,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4:9: error: use of undeclared identifier 'i',,
+GenFor,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenFor/dut.sv:4:9: error: use of undeclared identifier 'i',,
+GenForDec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
+GenForDec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenForDec/dut.sv:4:9: error: use of undeclared identifier 'i',,
 GenForIfaceLocalparamBound,default,CMP_EQUAL,,,differ
 GenForIfaceLocalparamBound,testflags,CMP_EQUAL,,,differ
 GenForIfaceLocalparamNestedGen,default,CMP_EQUAL,,,differ
 GenForIfaceLocalparamNestedGen,testflags,CMP_EQUAL,,,differ
 GenForStructParamBound,default,CMP_EQUAL,,,differ
 GenForStructParamBound,testflags,CMP_EQUAL,,,differ
-GenIf,default,SLANG_REJECT,dut.sv:9:40: error: use of undeclared identifier 'a',,
-GenIf,testflags,SLANG_REJECT,dut.sv:9:40: error: use of undeclared identifier 'a',,
-GenIfElse,default,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'b',,
-GenIfElse,testflags,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'b',,
+GenIf,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
+GenIf,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIf/dut.sv:9:40: error: use of undeclared identifier 'a',,
+GenIfElse,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
+GenIfElse,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfElse/dut.sv:4:16: error: use of undeclared identifier 'b',,
 GenIfIfaceParamStructField,default,CMP_EQUAL,,,differ
 GenIfIfaceParamStructField,testflags,CMP_EQUAL,,,differ
-GenIfNamed,default,SLANG_REJECT,dut.sv:4:8: error: use of undeclared identifier 'i',,
-GenIfNamed,testflags,SLANG_REJECT,dut.sv:4:8: error: use of undeclared identifier 'i',,
-GenModHierPath,default,SLANG_REJECT,dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,
-GenModHierPath,testflags,SLANG_REJECT,dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,
+GenIfNamed,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
+GenIfNamed,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenIfNamed/dut.sv:4:8: error: use of undeclared identifier 'i',,
+GenModHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenModHierPath/dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,
+GenModHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenModHierPath/dut.sv:17:5: error: too few arguments for '$readmemh'; expected 2 but 1 were provided,,
 GenNet,default,CMP_EQUAL,,,differ
 GenNet,testflags,CMP_EQUAL,,,differ
 GenScopeFullName,default,CMP_EQUAL,,,match
 GenScopeFullName,testflags,CMP_EQUAL,,,differ
-GenScopeFunc,default,SLANG_REJECT,dut.sv:11:38: error: use of undeclared identifier 'counter',,
-GenScopeFunc,testflags,SLANG_REJECT,dut.sv:11:38: error: use of undeclared identifier 'counter',,
+GenScopeFunc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenScopeFunc/dut.sv:11:38: error: use of undeclared identifier 'counter',,
+GenScopeFunc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenScopeFunc/dut.sv:11:38: error: use of undeclared identifier 'counter',,
 GenScopeHierPath,default,CMP_EQUAL,,,differ
 GenScopeHierPath,testflags,CMP_EQUAL,,,differ
 GenScopeHierPath2,default,CMP_EQUAL,,,match
 GenScopeHierPath2,testflags,CMP_EQUAL,,,differ
 GenScopeHierPath3,default,CMP_EQUAL,,,match
 GenScopeHierPath3,testflags,CMP_EQUAL,,,differ
-GenScopeShadow,default,SLANG_REJECT,dut.sv:3:13: error: port 'out' has no I/O member declaration,,
-GenScopeShadow,testflags,SLANG_REJECT,dut.sv:3:13: error: port 'out' has no I/O member declaration,,
+GenScopeShadow,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenScopeShadow/dut.sv:3:13: error: port 'out' has no I/O member declaration,,
+GenScopeShadow,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenScopeShadow/dut.sv:3:13: error: port 'out' has no I/O member declaration,,
 GenStructAccess,default,CMP_EQUAL,,,match
 GenStructAccess,testflags,CMP_EQUAL,,,differ
-GenVarRef,default,SLANG_REJECT,dut.sv:8:27: error: cannot reference unnamed generate block via external name 'genblk1' (use --allow-genblk-reference to allow this),,
-GenVarRef,testflags,SLANG_REJECT,dut.sv:8:27: error: cannot reference unnamed generate block via external name 'genblk1' (use --allow-genblk-reference to allow this),,
+GenVarRef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenVarRef/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'genblk1' (use ,,
+GenVarRef,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/GenVarRef/dut.sv:8:27: error: cannot reference unnamed generate block via external name 'genblk1' (use ,,
 Google,default,SLANG_REJECT,error: no input files,,
 Google,testflags,TIMEOUT,surelog timeout,,
 Guards,default,CMP_EQUAL,,,match
 Guards,testflags,CMP_EQUAL,,,match
-HierBitSelect,default,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'mido_bytes_in',,
-HierBitSelect,testflags,SLANG_REJECT,dut.sv:3:8: error: use of undeclared identifier 'mido_bytes_in',,
-HierBitSlice,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'FLOAT32_EXP_WIDTH',,
-HierBitSlice,testflags,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'FLOAT32_EXP_WIDTH',,
-HierMultiSelect,default,SLANG_REJECT,dut.sv:2:10: error: use of undeclared identifier 'dmi_req_i',,
-HierMultiSelect,testflags,SLANG_REJECT,dut.sv:2:10: error: use of undeclared identifier 'dmi_req_i',,
+HierBitSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierBitSelect/dut.sv:3:8: error: use of undeclared identifier 'mido_bytes_in',,
+HierBitSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierBitSelect/dut.sv:3:8: error: use of undeclared identifier 'mido_bytes_in',,
+HierBitSlice,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierBitSlice/dut.sv:4:9: error: use of undeclared identifier 'FLOAT32_EXP_WIDTH',,
+HierBitSlice,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierBitSlice/dut.sv:4:9: error: use of undeclared identifier 'FLOAT32_EXP_WIDTH',,
+HierMultiSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierMultiSelect/dut.sv:2:10: error: use of undeclared identifier 'dmi_req_i',,
+HierMultiSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierMultiSelect/dut.sv:2:10: error: use of undeclared identifier 'dmi_req_i',,
 HierPathBeginBlock,default,CMP_EQUAL,,,differ
 HierPathBeginBlock,testflags,CMP_EQUAL,,,differ
 HierPathBind,default,CMP_EQUAL,,,match
@@ -629,32 +629,32 @@ HierPathEval,default,CMP_NOTEQUAL,decompile:,,
 HierPathEval,testflags,CMP_NOTEQUAL,decompile:,,
 HierPathInterfBlock,default,CMP_EQUAL,,,match
 HierPathInterfBlock,testflags,CMP_EQUAL,,,differ
-HierPathLhs,default,SLANG_REJECT,dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
-HierPathLhs,testflags,SLANG_REJECT,dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
-HierPathModule,default,SLANG_REJECT,dut.sv:3:14: error: expected expression,,
-HierPathModule,testflags,SLANG_REJECT,dut.sv:3:14: error: expected expression,,
+HierPathLhs,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathLhs/dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
+HierPathLhs,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathLhs/dut.sv:3:12: error: use of undeclared identifier 'hw2reg',,
+HierPathModule,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathModule/dut.sv:3:14: error: expected expression,,
+HierPathModule,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathModule/dut.sv:3:14: error: expected expression,,
 HierPathOverride,default,CMP_EQUAL,,,differ
 HierPathOverride,testflags,CMP_EQUAL,,,differ
-HierPathPackedArrayNet,default,SLANG_REJECT,dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
-HierPathPackedArrayNet,testflags,SLANG_REJECT,dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
+HierPathPackedArrayNet,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathPackedArrayNet/dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
+HierPathPackedArrayNet,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathPackedArrayNet/dut.sv:16:21: error: use of undeclared identifier 'clk_i',,
 HierPathPackedStruct,default,CMP_EQUAL,,,differ
 HierPathPackedStruct,testflags,CMP_EQUAL,,,differ
-HierPathPackedVar,default,SLANG_REJECT,dut.sv:4:5: error: unknown class or package 'ariane_axi',,
-HierPathPackedVar,testflags,SLANG_REJECT,dut.sv:4:5: error: unknown class or package 'ariane_axi',,
+HierPathPackedVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathPackedVar/dut.sv:4:5: error: unknown class or package 'ariane_axi',,
+HierPathPackedVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathPackedVar/dut.sv:4:5: error: unknown class or package 'ariane_axi',,
 HierPathSelect,default,CMP_EQUAL,,,match
 HierPathSelect,testflags,CMP_EQUAL,,,differ
 HierPathStruct,default,CMP_EQUAL,,,differ
 HierPathStruct,testflags,CMP_EQUAL,,,differ
 HierPathStructTypespec,default,CMP_EQUAL,,,differ
 HierPathStructTypespec,testflags,CMP_EQUAL,,,differ
-HierPathTfArg,default,SLANG_REJECT,dut.sv:27:18: error: use of undeclared identifier 'f',,
-HierPathTfArg,testflags,SLANG_REJECT,dut.sv:27:18: error: use of undeclared identifier 'f',,
+HierPathTfArg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
+HierPathTfArg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathTfArg/dut.sv:27:18: error: use of undeclared identifier 'f',,
 HierPathTypespec,default,CMP_EQUAL,,,differ
 HierPathTypespec,testflags,CMP_EQUAL,,,differ
 HierPathUnpacked,default,CMP_EQUAL,,,differ
 HierPathUnpacked,testflags,CMP_EQUAL,,,differ
-HierPathUnpackedInPacked,default,SLANG_REJECT,dut.sv:10:17: error: packed members must be of integral type (not 'logic[31:0]$[2]'),,
-HierPathUnpackedInPacked,testflags,SLANG_REJECT,dut.sv:10:17: error: packed members must be of integral type (not 'logic[31:0]$[2]'),,
+HierPathUnpackedInPacked,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathUnpackedInPacked/dut.sv:10:17: error: packed members must be of integral type (not 'logic[31:0],,
+HierPathUnpackedInPacked,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/HierPathUnpackedInPacked/dut.sv:10:17: error: packed members must be of integral type (not 'logic[31:0],,
 HierPathVarArray,default,CMP_EQUAL,,,differ
 HierPathVarArray,testflags,CMP_EQUAL,,,differ
 HighConnPart,default,CMP_EQUAL,,,differ
@@ -663,10 +663,10 @@ HighLow,default,CMP_EQUAL,,,differ
 HighLow,testflags,CMP_EQUAL,,,differ
 Ibex,default,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
 Ibex,testflags,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
-IbexGoogle,default,SLANG_REJECT,test/riscv_instr_cov_test.sv:234:29: error: cannot mix strings and integers in a concatenation (use a cast if this is desired) [-Wstring-int,,
-IbexGoogle,testflags,SLANG_REJECT,test/riscv_instr_cov_test.sv:234:29: error: cannot mix strings and integers in a concatenation (use a cast if this is desired) [-Wstring-int,,
+IbexGoogle,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/IbexGoogle/test/riscv_instr_cov_test.sv:234:29: error: cannot mix strings and integers in a,,
+IbexGoogle,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/IbexGoogle/test/riscv_instr_cov_test.sv:234:29: error: cannot mix strings and integers in a,,
 Icarus,default,SLANG_REJECT,error: no input files,,
-Icarus,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+Icarus,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Icarus/batch.txt:1:1: error: expected member,,
 IfElseGen,default,CMP_EQUAL,,,match
 IfElseGen,testflags,CMP_EQUAL,,,match
 IfElseIf1,default,CMP_EQUAL,,,match
@@ -685,8 +685,8 @@ IfGen3,default,CMP_EQUAL,,,differ
 IfGen3,testflags,CMP_EQUAL,,,differ
 IfGenTypeBinding,default,CMP_EQUAL,,,differ
 IfGenTypeBinding,testflags,CMP_EQUAL,,,differ
-IllegalZeroValue,default,SLANG_REJECT,dut.sv:3:13: error: value must be positive,,
-IllegalZeroValue,testflags,SLANG_REJECT,dut.sv:3:13: error: value must be positive,,
+IllegalZeroValue,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IllegalZeroValue/dut.sv:3:13: error: value must be positive,,
+IllegalZeroValue,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IllegalZeroValue/dut.sv:3:13: error: value must be positive,,
 ImplFuncArg,default,CMP_EQUAL,,,match
 ImplFuncArg,testflags,CMP_EQUAL,,,match
 Implicit,default,CMP_EQUAL,,,match
@@ -697,8 +697,8 @@ ImplicitFunc,default,CMP_EQUAL,,,match
 ImplicitFunc,testflags,CMP_EQUAL,,,match
 ImplicitFuncArgAndReturn,default,CMP_EQUAL,,,differ
 ImplicitFuncArgAndReturn,testflags,CMP_EQUAL,,,differ
-ImplicitGenBlock,default,SLANG_REJECT,dut.sv:66:16: error: cannot reference unnamed generate block via external name 'genblk1' (use --allow-genblk-reference to allow this),,
-ImplicitGenBlock,testflags,SLANG_REJECT,dut.sv:66:16: error: cannot reference unnamed generate block via external name 'genblk1' (use --allow-genblk-reference to allow this),,
+ImplicitGenBlock,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ImplicitGenBlock/dut.sv:66:16: error: cannot reference unnamed generate block via external name 'genblk,,
+ImplicitGenBlock,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ImplicitGenBlock/dut.sv:66:16: error: cannot reference unnamed generate block via external name 'genblk,,
 ImplicitPackedStructNet,default,CMP_EQUAL,,,match
 ImplicitPackedStructNet,testflags,CMP_EQUAL,,,differ
 ImplicitParam,default,CMP_EQUAL,,,match
@@ -717,26 +717,26 @@ ImportPackage,default,CMP_EQUAL,,,match
 ImportPackage,testflags,CMP_EQUAL,,,differ
 IncompFunc,default,CMP_EQUAL,,,match
 IncompFunc,testflags,CMP_EQUAL,,,match
-IncompTitan,default,SLANG_REJECT,src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv:20:13: error: unknown class or package 'otp_ctrl_pkg',,
-IncompTitan,testflags,SLANG_REJECT,src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv:20:13: error: unknown class or package 'otp_ctrl_pkg',,
+IncompTitan,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/IncompTitan/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv:2,,
+IncompTitan,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/IncompTitan/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv:2,,
 IndexAssign,default,CMP_EQUAL,,,differ
 IndexAssign,testflags,CMP_EQUAL,,,differ
-IndexedSelect,default,SLANG_REJECT,dut.sv:12:9: error: expected member,,
-IndexedSelect,testflags,SLANG_REJECT,dut.sv:12:9: error: expected member,,
+IndexedSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IndexedSelect/dut.sv:12:9: error: expected member,,
+IndexedSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IndexedSelect/dut.sv:12:9: error: expected member,,
 IndexedSelectHex,default,CMP_EQUAL,,,differ
 IndexedSelectHex,testflags,CMP_EQUAL,,,differ
 IndexPartSel,default,CMP_EQUAL,,,match
 IndexPartSel,testflags,CMP_EQUAL,,,match
-IndexPartSelectBind,default,SLANG_REJECT,dut.sv:5:3: error: use of undeclared identifier 'uvm_reg_data_t',,
-IndexPartSelectBind,testflags,SLANG_REJECT,dut.sv:5:3: error: use of undeclared identifier 'uvm_reg_data_t',,
+IndexPartSelectBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IndexPartSelectBind/dut.sv:5:3: error: use of undeclared identifier 'uvm_reg_data_t',,
+IndexPartSelectBind,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IndexPartSelectBind/dut.sv:5:3: error: use of undeclared identifier 'uvm_reg_data_t',,
 InsideOp,default,CMP_EQUAL,,,match
 InsideOp,testflags,CMP_EQUAL,,,differ
 InstArray,default,CMP_EQUAL,,,differ
 InstArray,testflags,CMP_EQUAL,,,differ
 IntegerConcat,default,CMP_EQUAL,,,differ
 IntegerConcat,testflags,CMP_EQUAL,,,differ
-Interconnect,default,SLANG_REJECT,dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
-Interconnect,testflags,SLANG_REJECT,dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
+Interconnect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Interconnect/dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
+Interconnect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Interconnect/dut.sv:4:20: error: interconnect nets cannot have an explicit type,,
 InterfaceBinding,default,CMP_EQUAL,,,match
 InterfaceBinding,testflags,CMP_EQUAL,,,match
 InterfaceElab,default,CMP_EQUAL,,,differ
@@ -759,28 +759,28 @@ InterfAlways,default,CMP_EQUAL,,,match
 InterfAlways,testflags,CMP_EQUAL,,,match
 InterfArrayBind,default,CMP_EQUAL,,,differ
 InterfArrayBind,testflags,CMP_EQUAL,,,differ
-InterfBinding,default,SLANG_REJECT,dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctrl',,
-InterfBinding,testflags,SLANG_REJECT,dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctrl',,
+InterfBinding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
+InterfBinding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfBinding/dut.sv:30:32: error: top-level module 'BypassNetwork' has unconnected interface port 'ctr,,
 InterfHierPath,default,CMP_EQUAL,,,match
 InterfHierPath,testflags,CMP_EQUAL,,,match
-InterfImport,default,SLANG_REJECT,dut.sv:9:13: error: use of undeclared identifier 'tnoc_packet_config',,
-InterfImport,testflags,SLANG_REJECT,dut.sv:9:13: error: use of undeclared identifier 'tnoc_packet_config',,
+InterfImport,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfImport/dut.sv:9:13: error: use of undeclared identifier 'tnoc_packet_config',,
+InterfImport,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfImport/dut.sv:9:13: error: use of undeclared identifier 'tnoc_packet_config',,
 InterfInst,default,CMP_EQUAL,,,differ
 InterfInst,testflags,CMP_EQUAL,,,differ
 InterfType,default,CMP_EQUAL,,,differ
 InterfType,testflags,CMP_EQUAL,,,differ
-InterfTypeBad,default,SLANG_REJECT,dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
-InterfTypeBad,testflags,SLANG_REJECT,dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
+InterfTypeBad,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfTypeBad/dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
+InterfTypeBad,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InterfTypeBad/dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterpElab1,default,CMP_EQUAL,,,differ
 InterpElab1,testflags,CMP_EQUAL,,,differ
-InvalidTypeParam,default,SLANG_REJECT,dut.sv:2:20: error: parameter declaration is missing an initializer,,
-InvalidTypeParam,testflags,SLANG_REJECT,dut.sv:2:20: error: parameter declaration is missing an initializer,,
+InvalidTypeParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InvalidTypeParam/dut.sv:2:20: error: parameter declaration is missing an initializer,,
+InvalidTypeParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/InvalidTypeParam/dut.sv:2:20: error: parameter declaration is missing an initializer,,
 Inverter,default,CMP_EQUAL,,,match
 Inverter,testflags,CMP_EQUAL,,,match
 IOClassStruct,default,CMP_EQUAL,,,differ
 IOClassStruct,testflags,CMP_EQUAL,,,differ
-IODataTypes,default,SLANG_REJECT,dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
-IODataTypes,testflags,SLANG_REJECT,dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
+IODataTypes,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IODataTypes/dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
+IODataTypes,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/IODataTypes/dut.sv:2:1: error: can't use port declaration in module with ANSI style port list,,
 JKFlipflop,default,CMP_EQUAL,,,match
 JKFlipflop,testflags,CMP_EQUAL,,,differ
 Kmac,default,CMP_EQUAL,,,differ
@@ -797,32 +797,32 @@ LargeValue2Struct,default,CMP_EQUAL,,,differ
 LargeValue2Struct,testflags,CMP_EQUAL,,,differ
 LateBindingFuncArg,default,CMP_EQUAL,,,match
 LateBindingFuncArg,testflags,CMP_EQUAL,,,match
-LeftPadding,default,SLANG_REJECT,dut.sv:8:5: error: unknown module 'GOOD',,
-LeftPadding,testflags,SLANG_REJECT,dut.sv:8:5: error: unknown module 'GOOD',,
-LegalPastFunc,default,SLANG_REJECT,dut.sv:4:14: error: use of undeclared identifier 'clk',,
-LegalPastFunc,testflags,SLANG_REJECT,dut.sv:4:14: error: use of undeclared identifier 'clk',,
-LetExpr,default,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
-LetExpr,testflags,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
-LetInlined,default,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
-LetInlined,testflags,SLANG_REJECT,dut.sv:6:33: error: use of undeclared identifier 'clock',,
+LeftPadding,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LeftPadding/dut.sv:8:5: error: unknown module 'GOOD',,
+LeftPadding,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LeftPadding/dut.sv:8:5: error: unknown module 'GOOD',,
+LegalPastFunc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LegalPastFunc/dut.sv:4:14: error: use of undeclared identifier 'clk',,
+LegalPastFunc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LegalPastFunc/dut.sv:4:14: error: use of undeclared identifier 'clk',,
+LetExpr,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LetExpr/dut.sv:6:33: error: use of undeclared identifier 'clock',,
+LetExpr,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LetExpr/dut.sv:6:33: error: use of undeclared identifier 'clock',,
+LetInlined,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LetInlined/dut.sv:6:33: error: use of undeclared identifier 'clock',,
+LetInlined,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LetInlined/dut.sv:6:33: error: use of undeclared identifier 'clock',,
 LhsHierPath,default,CMP_EQUAL,,,match
 LhsHierPath,testflags,CMP_EQUAL,,,match
 LhsOp,default,CMP_EQUAL,,,match
 LhsOp,testflags,CMP_EQUAL,,,match
-LibraryIntercon,default,SLANG_REJECT,cmp.sv:2:8: error: design element does not have a time scale defined but others in the design do,,
-LibraryIntercon,testflags,SLANG_REJECT,cmp.sv:2:8: error: design element does not have a time scale defined but others in the design do,,
+LibraryIntercon,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LibraryIntercon/cmp.sv:2:8: error: design element does not have a time scale defined but others in the ,,
+LibraryIntercon,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LibraryIntercon/cmp.sv:2:8: error: design element does not have a time scale defined but others in the ,,
 LocalParam,default,CMP_EQUAL,,,match
 LocalParam,testflags,CMP_EQUAL,,,match
-LocalScopeAssign,default,SLANG_REJECT,dut.sv:7:37: error: use of undeclared identifier 'v2',,
-LocalScopeAssign,testflags,SLANG_REJECT,dut.sv:7:37: error: use of undeclared identifier 'v2',,
+LocalScopeAssign,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LocalScopeAssign/dut.sv:7:37: error: use of undeclared identifier 'v2',,
+LocalScopeAssign,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LocalScopeAssign/dut.sv:7:37: error: use of undeclared identifier 'v2',,
 LocalScopeHierPath,default,CMP_EQUAL,,,differ
 LocalScopeHierPath,testflags,CMP_EQUAL,,,differ
 LocalVarTypespec,default,CMP_EQUAL,,,match
 LocalVarTypespec,testflags,CMP_EQUAL,,,match
 LogicArrayParam,default,CMP_EQUAL,,,differ
 LogicArrayParam,testflags,CMP_EQUAL,,,differ
-LogicCast,default,SLANG_REJECT,dut.sv:3:3: error: use of undeclared identifier 'dmstatus',,
-LogicCast,testflags,SLANG_REJECT,dut.sv:3:3: error: use of undeclared identifier 'dmstatus',,
+LogicCast,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LogicCast/dut.sv:3:3: error: use of undeclared identifier 'dmstatus',,
+LogicCast,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LogicCast/dut.sv:3:3: error: use of undeclared identifier 'dmstatus',,
 LogicSize,default,CMP_EQUAL,,,match
 LogicSize,testflags,CMP_EQUAL,,,differ
 LogicTypedef,default,CMP_EQUAL,,,differ
@@ -831,12 +831,12 @@ LogicTypespec,default,CMP_EQUAL,,,differ
 LogicTypespec,testflags,CMP_EQUAL,,,differ
 LongHex,default,CMP_EQUAL,,,match
 LongHex,testflags,CMP_EQUAL,,,differ
-Loop,default,SLANG_REJECT,dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
-Loop,testflags,SLANG_REJECT,dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
-LoopParam,default,SLANG_REJECT,dut.sv:4:17: error: identifier 'P2' used before its declaration,,
-LoopParam,testflags,SLANG_REJECT,dut.sv:4:17: error: identifier 'P2' used before its declaration,,
-LoopParamOver,default,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used before its declaration,,
-LoopParamOver,testflags,SLANG_REJECT,dut.sv:3:22: error: identifier 'P2' used before its declaration,,
+Loop,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Loop/dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
+Loop,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Loop/dut.sv:7:9: fatal error: infinitely recursive instantiation of 'u1',,
+LoopParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LoopParam/dut.sv:4:17: error: identifier 'P2' used before its declaration,,
+LoopParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LoopParam/dut.sv:4:17: error: identifier 'P2' used before its declaration,,
+LoopParamOver,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LoopParamOver/dut.sv:3:22: error: identifier 'P2' used before its declaration,,
+LoopParamOver,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/LoopParamOver/dut.sv:3:22: error: identifier 'P2' used before its declaration,,
 LoopVar,default,CMP_EQUAL,,,differ
 LoopVar,testflags,CMP_EQUAL,,,differ
 LowMemLib,default,CMP_EQUAL,,,match
@@ -849,54 +849,54 @@ MacroArgDefaultSpaces,default,CMP_EQUAL,,,match
 MacroArgDefaultSpaces,testflags,CMP_EQUAL,,,match
 MacroArgMismatch,default,CMP_EQUAL,,,differ
 MacroArgMismatch,testflags,CMP_EQUAL,,,differ
-MaskNeg,default,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
-MaskNeg,testflags,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
+MaskNeg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
+MaskNeg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MaskNeg/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 MBadder,default,CMP_EQUAL,,,match
 MBadder,testflags,CMP_EQUAL,,,match
 MiniAmiq,default,SLANG_REJECT,warning: no top-level modules found in design [-Wmissing-top],,
 MiniAmiq,testflags,SLANG_REJECT,warning: no top-level modules found in design [-Wmissing-top],,
 MinTypMax,default,CMP_EQUAL,,,match
 MinTypMax,testflags,CMP_EQUAL,,,match
-ModPortArrayBind,default,SLANG_REJECT,dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
-ModPortArrayBind,testflags,SLANG_REJECT,dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
-ModPortHighConn,default,SLANG_REJECT,dut.sv:9:32: error: expression is not assignable,,
-ModPortHighConn,testflags,SLANG_REJECT,dut.sv:9:32: error: expression is not assignable,,
-ModPortParam,default,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'perfCounter',,
-ModPortParam,testflags,SLANG_REJECT,dut.sv:4:9: error: use of undeclared identifier 'perfCounter',,
-ModPortRange,default,SLANG_REJECT,dut.sv:10:27: error: top-level module 'range_itf_port' has unconnected interface port 'my_port1',,
-ModPortRange,testflags,SLANG_REJECT,dut.sv:10:27: error: top-level module 'range_itf_port' has unconnected interface port 'my_port1',,
-ModPortTest,default,SLANG_REJECT,top.v:14:3: error: use of undeclared identifier 'id_t1'; did you mean 'id_t'?,,
-ModPortTest,testflags,SLANG_REJECT,top.v:14:3: error: use of undeclared identifier 'id_t1'; did you mean 'id_t'?,,
-Monitor,default,SLANG_REJECT,../../UVM/svaunit/sv/svaunit_vpi_interface.sv:104:10: error: use of undeclared identifier 'uvm_top',,
-Monitor,testflags,SLANG_REJECT,../../UVM/svaunit/sv/svaunit_vpi_interface.sv:104:10: error: use of undeclared identifier 'uvm_top',,
+ModPortArrayBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
+ModPortArrayBind,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortArrayBind/dut.sv:15:18: error: top-level module 'r5p_bus_dec' has unconnected interface port 'm',,
+ModPortHighConn,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortHighConn/dut.sv:9:32: error: expression is not assignable,,
+ModPortHighConn,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortHighConn/dut.sv:9:32: error: expression is not assignable,,
+ModPortParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortParam/dut.sv:4:9: error: use of undeclared identifier 'perfCounter',,
+ModPortParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortParam/dut.sv:4:9: error: use of undeclared identifier 'perfCounter',,
+ModPortRange,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortRange/dut.sv:10:27: error: top-level module 'range_itf_port' has unconnected interface port 'my_,,
+ModPortRange,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortRange/dut.sv:10:27: error: top-level module 'range_itf_port' has unconnected interface port 'my_,,
+ModPortTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortTest/top.v:14:3: error: use of undeclared identifier 'id_t1'; did you mean 'id_t'?,,
+ModPortTest,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ModPortTest/top.v:14:3: error: use of undeclared identifier 'id_t1'; did you mean 'id_t'?,,
+Monitor,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv:104:10: error: use of undeclared identifier 'uvm_top',,
+Monitor,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv:104:10: error: use of undeclared identifier 'uvm_top',,
 Moves,default,CMP_EQUAL,,,differ
 Moves,testflags,CMP_EQUAL,,,differ
-MultContAssign,default,SLANG_REJECT,dut.sv:6:41: error: use of undeclared identifier 'pu',,
-MultContAssign,testflags,SLANG_REJECT,dut.sv:6:41: error: use of undeclared identifier 'pu',,
-MultiConcat,default,SLANG_REJECT,dut.sv:132:26: error: use of undeclared identifier 'NumLcStates',,
-MultiConcat,testflags,SLANG_REJECT,dut.sv:132:26: error: use of undeclared identifier 'NumLcStates',,
+MultContAssign,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultContAssign/dut.sv:6:41: error: use of undeclared identifier 'pu',,
+MultContAssign,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultContAssign/dut.sv:6:41: error: use of undeclared identifier 'pu',,
+MultiConcat,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultiConcat/dut.sv:132:26: error: use of undeclared identifier 'NumLcStates',,
+MultiConcat,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultiConcat/dut.sv:132:26: error: use of undeclared identifier 'NumLcStates',,
 MultiConcatValueSize,default,CMP_EQUAL,,,differ
 MultiConcatValueSize,testflags,CMP_EQUAL,,,differ
-MultiIndexBind,default,SLANG_REJECT,dut.sv:28:21: error: use of undeclared identifier 'i',,
-MultiIndexBind,testflags,SLANG_REJECT,dut.sv:28:21: error: use of undeclared identifier 'i',,
+MultiIndexBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultiIndexBind/dut.sv:28:21: error: use of undeclared identifier 'i',,
+MultiIndexBind,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/MultiIndexBind/dut.sv:28:21: error: use of undeclared identifier 'i',,
 MultiPartSelect,default,CMP_EQUAL,,,match
 MultiPartSelect,testflags,CMP_EQUAL,,,differ
 MultiPort,default,CMP_EQUAL,,,differ
 MultiPort,testflags,CMP_EQUAL,,,differ
 MultiSelect,default,CMP_EQUAL,,,match
 MultiSelect,testflags,CMP_EQUAL,,,differ
-NameCollisionBind,default,SLANG_REJECT,dut.sv:21:30: error: top-level module 'CSR_Unit' has unconnected interface port 'perfCounter',,
-NameCollisionBind,testflags,SLANG_REJECT,dut.sv:21:30: error: top-level module 'CSR_Unit' has unconnected interface port 'perfCounter',,
-NamedEventHierPath,default,SLANG_REJECT,dut.sv:6:32: error: use of undeclared identifier 'uvm_object',,
-NamedEventHierPath,testflags,SLANG_REJECT,dut.sv:6:32: error: use of undeclared identifier 'uvm_object',,
+NameCollisionBind,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NameCollisionBind/dut.sv:21:30: error: top-level module 'CSR_Unit' has unconnected interface port 'perf,,
+NameCollisionBind,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NameCollisionBind/dut.sv:21:30: error: top-level module 'CSR_Unit' has unconnected interface port 'perf,,
+NamedEventHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NamedEventHierPath/dut.sv:6:32: error: use of undeclared identifier 'uvm_object',,
+NamedEventHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NamedEventHierPath/dut.sv:6:32: error: use of undeclared identifier 'uvm_object',,
 NegInt,default,CMP_EQUAL,,,match
 NegInt,testflags,CMP_EQUAL,,,match
-NegParam,default,SLANG_REJECT,dut.sv:4:13: error: use of undeclared identifier 'bp_proc_param_s',,
-NegParam,testflags,SLANG_REJECT,dut.sv:4:13: error: use of undeclared identifier 'bp_proc_param_s',,
-NetLValue,default,SLANG_REJECT,dut.sv:3:5: error: packed array elements must be of integral type (not 'S'),,
-NetLValue,testflags,SLANG_REJECT,dut.sv:3:5: error: packed array elements must be of integral type (not 'S'),,
-NetType,default,SLANG_REJECT,dut.sv:6:26: error: resolution function for nettype 'net_bit' should have a single input argument of type 'bit',,
-NetType,testflags,SLANG_REJECT,dut.sv:6:26: error: resolution function for nettype 'net_bit' should have a single input argument of type 'bit',,
+NegParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NegParam/dut.sv:4:13: error: use of undeclared identifier 'bp_proc_param_s',,
+NegParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NegParam/dut.sv:4:13: error: use of undeclared identifier 'bp_proc_param_s',,
+NetLValue,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NetLValue/dut.sv:3:5: error: packed array elements must be of integral type (not 'S'),,
+NetLValue,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NetLValue/dut.sv:3:5: error: packed array elements must be of integral type (not 'S'),,
+NetType,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NetType/dut.sv:6:26: error: resolution function for nettype 'net_bit' should have a single input argume,,
+NetType,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/NetType/dut.sv:6:26: error: resolution function for nettype 'net_bit' should have a single input argume,,
 NonAnsiPort,default,CMP_EQUAL,,,differ
 NonAnsiPort,testflags,CMP_EQUAL,,,differ
 NonSynthError,default,CMP_EQUAL,,,differ
@@ -907,10 +907,10 @@ NoParamSubs,default,CMP_EQUAL,,,match
 NoParamSubs,testflags,CMP_EQUAL,,,differ
 NoReducTypespec,default,CMP_EQUAL,,,differ
 NoReducTypespec,testflags,CMP_EQUAL,,,differ
-NyuziProcessor,default,SLANG_REJECT,hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within a final block,,
-NyuziProcessor,testflags,SLANG_REJECT,hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within a final block,,
-OldLibrary,default,SLANG_REJECT,top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected 3),,
-OldLibrary,testflags,SLANG_REJECT,top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected 3),,
+NyuziProcessor,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within,,
+NyuziProcessor,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/NyuziProcessor/hardware/testbench/soc_tb.sv:470:17: error: cannot invoke a task from within,,
+OldLibrary,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OldLibrary/top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected ,,
+OldLibrary,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OldLibrary/top.v:5:15: error: wrong number of port connections for 'CELL2' instance (0 given; expected ,,
 OneAnd,default,CMP_EQUAL,,,match
 OneAnd,testflags,CMP_EQUAL,,,match
 OneClock,default,CMP_EQUAL,,,match
@@ -933,44 +933,44 @@ OneNetNonAnsi,default,CMP_EQUAL,,,match
 OneNetNonAnsi,testflags,CMP_EQUAL,,,match
 OneNetRange,default,CMP_EQUAL,,,differ
 OneNetRange,testflags,CMP_EQUAL,,,differ
-Opentitan,default,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
-Opentitan,testflags,SLANG_REJECT,hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
-OpTypespec,default,SLANG_REJECT,dut.sv:2:16: error: use of undeclared identifier 'Width',,
-OpTypespec,testflags,SLANG_REJECT,dut.sv:2:16: error: use of undeclared identifier 'Width',,
-OrderedPortUnkownModule,default,SLANG_REJECT,dut.sv:2:3: error: unknown module 'unkown_module',,
-OrderedPortUnkownModule,testflags,SLANG_REJECT,dut.sv:2:3: error: unknown module 'unkown_module',,
-OVMSwitch,default,SLANG_REJECT,top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold_time=3)$[4]' cannot be assigned to type 'virtual interface,,
-OVMSwitch,testflags,SLANG_REJECT,top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold_time=3)$[4]' cannot be assigned to type 'virtual interface,,
+Opentitan,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
+Opentitan,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unknown module 'IBUF',,
+OpTypespec,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OpTypespec/dut.sv:2:16: error: use of undeclared identifier 'Width',,
+OpTypespec,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OpTypespec/dut.sv:2:16: error: use of undeclared identifier 'Width',,
+OrderedPortUnkownModule,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OrderedPortUnkownModule/dut.sv:2:3: error: unknown module 'unkown_module',,
+OrderedPortUnkownModule,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/OrderedPortUnkownModule/dut.sv:2:3: error: unknown module 'unkown_module',,
+OVMSwitch,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/OVMSwitch/top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold,,
+OVMSwitch,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/OVMSwitch/top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold,,
 PackageBind,default,CMP_EQUAL,,,match
 PackageBind,testflags,CMP_EQUAL,,,differ
 PackageConst,default,CMP_EQUAL,,,differ
 PackageConst,testflags,CMP_EQUAL,,,differ
-PackageDpi,default,SLANG_REJECT,dut.sv:17:1: error: use of undeclared identifier 'uvm_object_wrapper',,
-PackageDpi,testflags,SLANG_REJECT,dut.sv:17:1: error: use of undeclared identifier 'uvm_object_wrapper',,
+PackageDpi,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageDpi/dut.sv:17:1: error: use of undeclared identifier 'uvm_object_wrapper',,
+PackageDpi,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageDpi/dut.sv:17:1: error: use of undeclared identifier 'uvm_object_wrapper',,
 PackageEval,default,CMP_EQUAL,,,differ
 PackageEval,testflags,CMP_EQUAL,,,differ
-PackageFuncCall,default,SLANG_REJECT,dut.sv:28:55: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_sbox'?,,
-PackageFuncCall,testflags,SLANG_REJECT,dut.sv:28:55: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_state_sbox'?,,
-PackageHierRef,default,SLANG_REJECT,top.sv:21:8: error: unknown package 'bug',,
-PackageHierRef,testflags,SLANG_REJECT,top.sv:21:8: error: unknown package 'bug',,
+PackageFuncCall,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageFuncCall/dut.sv:28:55: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_,,
+PackageFuncCall,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageFuncCall/dut.sv:28:55: error: use of undeclared identifier 'data_state_xor'; did you mean 'data_,,
+PackageHierRef,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageHierRef/top.sv:21:8: error: unknown package 'bug',,
+PackageHierRef,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageHierRef/top.sv:21:8: error: unknown package 'bug',,
 PackageMemberTypespec,default,CMP_EQUAL,,,differ
 PackageMemberTypespec,testflags,CMP_EQUAL,,,differ
 PackageNet,default,CMP_EQUAL,,,differ
 PackageNet,testflags,CMP_EQUAL,,,differ
 PackageOrder,default,CMP_EQUAL,,,match
 PackageOrder,testflags,CMP_EQUAL,,,match
-PackageParam,default,SLANG_REJECT,dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
-PackageParam,testflags,SLANG_REJECT,dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
+PackageParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageParam/dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
+PackageParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageParam/dut.sv:10:23: error: use of undeclared identifier 'LcStateWidth',,
 PackageParamConst,default,CMP_EQUAL,,,match
 PackageParamConst,testflags,CMP_EQUAL,,,differ
 PackageType,default,CMP_EQUAL,,,differ
 PackageType,testflags,CMP_EQUAL,,,differ
 PackageTypeParam,default,CMP_EQUAL,,,differ
 PackageTypeParam,testflags,CMP_EQUAL,,,differ
-PackageValue,default,SLANG_REJECT,top.sv:21:20: error: use of undeclared identifier 'state_q',,
-PackageValue,testflags,SLANG_REJECT,top.sv:21:20: error: use of undeclared identifier 'state_q',,
-PackageVar,default,SLANG_REJECT,dut.sv:11:70: error: no member named 'init' in class 'ovm_options_container',,
-PackageVar,testflags,SLANG_REJECT,dut.sv:11:70: error: no member named 'init' in class 'ovm_options_container',,
+PackageValue,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageValue/top.sv:21:20: error: use of undeclared identifier 'state_q',,
+PackageValue,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageValue/top.sv:21:20: error: use of undeclared identifier 'state_q',,
+PackageVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageVar/dut.sv:11:70: error: no member named 'init' in class 'ovm_options_container',,
+PackageVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackageVar/dut.sv:11:70: error: no member named 'init' in class 'ovm_options_container',,
 PackDataType,default,CMP_EQUAL,,,differ
 PackDataType,testflags,CMP_EQUAL,,,differ
 PackedArrayAssign,default,CMP_EQUAL,,,match
@@ -979,8 +979,8 @@ PackedArrayBind,default,CMP_EQUAL,,,match
 PackedArrayBind,testflags,CMP_EQUAL,,,match
 PackedArrayEnum,default,CMP_EQUAL,,,differ
 PackedArrayEnum,testflags,CMP_EQUAL,,,differ
-PackedArrayHierPath,default,SLANG_REJECT,dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements but 5 were provided,,
-PackedArrayHierPath,testflags,SLANG_REJECT,dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements but 5 were provided,,
+PackedArrayHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackedArrayHierPath/dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements,,
+PackedArrayHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackedArrayHierPath/dut.sv:8:63: error: assignment pattern for 'fp_encoding_t[0:3]' requires 4 elements,,
 PackedArrayHighConn,default,CMP_EQUAL,,,differ
 PackedArrayHighConn,testflags,CMP_EQUAL,,,differ
 PackedArrayStruct,default,CMP_EQUAL,,,match
@@ -995,8 +995,8 @@ PackedEnumVar,default,CMP_EQUAL,,,match
 PackedEnumVar,testflags,CMP_EQUAL,,,match
 PackedUnpackedIo,default,CMP_EQUAL,,,match
 PackedUnpackedIo,testflags,CMP_EQUAL,,,match
-PackEnumVal,default,SLANG_REJECT,dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion exists; are you missing a cast?,,
-PackEnumVal,testflags,SLANG_REJECT,dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion exists; are you missing a cast?,,
+PackEnumVal,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackEnumVal/dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion ,,
+PackEnumVal,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PackEnumVal/dut.sv:17:38: error: no implicit conversion from 'logic' to 'lc_tx_t'; explicit conversion ,,
 PackFunc,default,CMP_EQUAL,,,differ
 PackFunc,testflags,CMP_EQUAL,,,differ
 PackFuncParent,default,CMP_EQUAL,,,match
@@ -1007,14 +1007,14 @@ PackStructField,default,CMP_EQUAL,,,differ
 PackStructField,testflags,CMP_EQUAL,,,differ
 PackStructVar,default,CMP_EQUAL,,,differ
 PackStructVar,testflags,CMP_EQUAL,,,differ
-ParamArray,default,SLANG_REJECT,dut.sv:11:47: error: assignment pattern for 'part_info_t$[7]' requires 7 elements but 2 were provided,,
-ParamArray,testflags,SLANG_REJECT,dut.sv:11:47: error: assignment pattern for 'part_info_t$[7]' requires 7 elements but 2 were provided,,
-ParamArraySelect,default,SLANG_REJECT,dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
-ParamArraySelect,testflags,SLANG_REJECT,dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
+ParamArray,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamArray/dut.sv:11:47: error: assignment pattern for 'part_info_t$[7]' requires 7 elements but 2 were,,
+ParamArray,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamArray/dut.sv:11:47: error: assignment pattern for 'part_info_t$[7]' requires 7 elements but 2 were,,
+ParamArraySelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamArraySelect/dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
+ParamArraySelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamArraySelect/dut.sv:61:25: error: use of undeclared identifier 'NumPart',,
 ParamArrayUnsizedPattern,default,CMP_EQUAL,,,differ
 ParamArrayUnsizedPattern,testflags,CMP_EQUAL,,,differ
-ParamBitSelect,default,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
-ParamBitSelect,testflags,SLANG_REJECT,dut.sv:11:5: error: unknown module 'MOD',,
+ParamBitSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamBitSelect/dut.sv:11:5: error: unknown module 'MOD',,
+ParamBitSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamBitSelect/dut.sv:11:5: error: unknown module 'MOD',,
 ParamByValue,default,CMP_EQUAL,,,differ
 ParamByValue,testflags,CMP_EQUAL,,,differ
 ParamCast,default,CMP_EQUAL,,,differ
@@ -1029,8 +1029,8 @@ ParamConst,default,CMP_EQUAL,,,differ
 ParamConst,testflags,CMP_EQUAL,,,differ
 ParamConstPush,default,CMP_EQUAL,,,differ
 ParamConstPush,testflags,CMP_EQUAL,,,differ
-ParamElab,default,SLANG_REJECT,dut.sv:15:9: error: use of undeclared identifier 'i',,
-ParamElab,testflags,SLANG_REJECT,dut.sv:15:9: error: use of undeclared identifier 'i',,
+ParamElab,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamElab/dut.sv:15:9: error: use of undeclared identifier 'i',,
+ParamElab,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamElab/dut.sv:15:9: error: use of undeclared identifier 'i',,
 ParamElabMulti,default,CMP_EQUAL,,,differ
 ParamElabMulti,testflags,CMP_EQUAL,,,differ
 ParamEquivOp,default,CMP_EQUAL,,,match
@@ -1045,28 +1045,28 @@ ParamFileOverr,default,CMP_EQUAL,,,match
 ParamFileOverr,testflags,CMP_EQUAL,,,match
 ParamFromPackage,default,CMP_EQUAL,,,differ
 ParamFromPackage,testflags,CMP_EQUAL,,,differ
-ParamIndex,default,SLANG_REJECT,dut.sv:16:27: error: use of undeclared identifier 'UNDEF',,
-ParamIndex,testflags,SLANG_REJECT,dut.sv:16:27: error: use of undeclared identifier 'UNDEF',,
-ParamInFunc,default,SLANG_REJECT,dut.sv:3:23: error: port 'inp' has no I/O member declaration,,
-ParamInFunc,testflags,SLANG_REJECT,dut.sv:3:23: error: port 'inp' has no I/O member declaration,,
+ParamIndex,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamIndex/dut.sv:16:27: error: use of undeclared identifier 'UNDEF',,
+ParamIndex,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamIndex/dut.sv:16:27: error: use of undeclared identifier 'UNDEF',,
+ParamInFunc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamInFunc/dut.sv:3:23: error: port 'inp' has no I/O member declaration,,
+ParamInFunc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamInFunc/dut.sv:3:23: error: port 'inp' has no I/O member declaration,,
 ParamLine,default,SLANG_REJECT,error: no input files,,
-ParamLine,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+ParamLine,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamLine/batch.txt:1:1: error: expected member,,
 ParamList,default,CMP_EQUAL,,,match
 ParamList,testflags,CMP_EQUAL,,,match
 ParamMultiConcat,default,CMP_EQUAL,,,differ
 ParamMultiConcat,testflags,CMP_EQUAL,,,differ
-ParamNoDefault,default,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
-ParamNoDefault,testflags,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
+ParamNoDefault,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamNoDefault/dut.sv:2:26: error: parameter declaration is missing an initializer,,
+ParamNoDefault,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamNoDefault/dut.sv:2:26: error: parameter declaration is missing an initializer,,
 ParamNoImport,default,CMP_EQUAL,,,differ
 ParamNoImport,testflags,CMP_EQUAL,,,differ
 ParamNoSubst,default,CMP_EQUAL,,,differ
 ParamNoSubst,testflags,CMP_EQUAL,,,differ
-ParamOverload1,default,SLANG_REJECT,dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were provided,,
-ParamOverload1,testflags,SLANG_REJECT,dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were provided,,
+ParamOverload1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamOverload1/dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were prov,,
+ParamOverload1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamOverload1/dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were prov,,
 ParamOverload2,default,CMP_EQUAL,,,differ
 ParamOverload2,testflags,CMP_EQUAL,,,differ
-ParamOverload3,default,SLANG_REJECT,dut.sv:29:14: error: use of undeclared identifier 'fpu_features_t',,
-ParamOverload3,testflags,SLANG_REJECT,dut.sv:29:14: error: use of undeclared identifier 'fpu_features_t',,
+ParamOverload3,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamOverload3/dut.sv:29:14: error: use of undeclared identifier 'fpu_features_t',,
+ParamOverload3,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ParamOverload3/dut.sv:29:14: error: use of undeclared identifier 'fpu_features_t',,
 ParamOverload4,default,CMP_EQUAL,,,match
 ParamOverload4,testflags,CMP_EQUAL,,,match
 ParamOverloading,default,CMP_EQUAL,,,differ
@@ -1091,18 +1091,18 @@ PartSelectElab,default,CMP_EQUAL,,,match
 PartSelectElab,testflags,CMP_EQUAL,,,match
 PartSelectHier,default,CMP_EQUAL,,,match
 PartSelectHier,testflags,CMP_EQUAL,,,match
-PartSelectHierPath,default,SLANG_REJECT,dut.sv:13:10: error: use of undeclared identifier 'trace_rv_i_insn_ip',,
-PartSelectHierPath,testflags,SLANG_REJECT,dut.sv:13:10: error: use of undeclared identifier 'trace_rv_i_insn_ip',,
+PartSelectHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PartSelectHierPath/dut.sv:13:10: error: use of undeclared identifier 'trace_rv_i_insn_ip',,
+PartSelectHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PartSelectHierPath/dut.sv:13:10: error: use of undeclared identifier 'trace_rv_i_insn_ip',,
 PartSelectNoParent,default,CMP_EQUAL,,,differ
 PartSelectNoParent,testflags,CMP_EQUAL,,,differ
 PartSelectParent,default,CMP_EQUAL,,,differ
 PartSelectParent,testflags,CMP_EQUAL,,,differ
-PartSelectRange,default,SLANG_REJECT,dut.sv:11:14: error: unknown module 'foo',,
-PartSelectRange,testflags,SLANG_REJECT,dut.sv:11:14: error: unknown module 'foo',,
+PartSelectRange,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PartSelectRange/dut.sv:11:14: error: unknown module 'foo',,
+PartSelectRange,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PartSelectRange/dut.sv:11:14: error: unknown module 'foo',,
 PAssignType,default,CMP_EQUAL,,,differ
 PAssignType,testflags,CMP_EQUAL,,,differ
-PatAssignOp,default,SLANG_REJECT,dut.sv:14:6: error: unknown module 'GOOD',,
-PatAssignOp,testflags,SLANG_REJECT,dut.sv:14:6: error: unknown module 'GOOD',,
+PatAssignOp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PatAssignOp/dut.sv:14:6: error: unknown module 'GOOD',,
+PatAssignOp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PatAssignOp/dut.sv:14:6: error: unknown module 'GOOD',,
 PatternAssignInteger,default,CMP_EQUAL,,,match
 PatternAssignInteger,testflags,CMP_EQUAL,,,match
 PatternAssignLogic,default,CMP_EQUAL,,,differ
@@ -1113,8 +1113,8 @@ PatternOrder,default,CMP_EQUAL,,,differ
 PatternOrder,testflags,CMP_EQUAL,,,differ
 PkgImportFunc,default,CMP_EQUAL,,,differ
 PkgImportFunc,testflags,CMP_EQUAL,,,differ
-PkgImportPkg,default,SLANG_REJECT,dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_req_t'?,,
-PkgImportPkg,testflags,SLANG_REJECT,dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_req_t'?,,
+PkgImportPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PkgImportPkg/dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_r,,
+PkgImportPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PkgImportPkg/dut.sv:15:10: error: use of undeclared identifier 'otp_ast_rsp_t'; did you mean 'otp_ast_r,,
 PortByName,default,CMP_EQUAL,,,differ
 PortByName,testflags,CMP_EQUAL,,,differ
 PortComplex,default,CMP_EQUAL,,,differ
@@ -1135,22 +1135,22 @@ PortPackage,default,CMP_EQUAL,,,match
 PortPackage,testflags,CMP_EQUAL,,,match
 PortRanges,default,CMP_EQUAL,,,match
 PortRanges,testflags,CMP_EQUAL,,,match
-PortWildcard,default,SLANG_REJECT,dut.sv:16:1: error: can't use port declaration in module with ANSI style port list,,
-PortWildcard,testflags,SLANG_REJECT,dut.sv:16:1: error: can't use port declaration in module with ANSI style port list,,
-PoundDelay,default,SLANG_REJECT,dut.sv:3:11: error: use of undeclared identifier 'clk',,
-PoundDelay,testflags,SLANG_REJECT,dut.sv:3:11: error: use of undeclared identifier 'clk',,
+PortWildcard,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PortWildcard/dut.sv:16:1: error: can't use port declaration in module with ANSI style port list,,
+PortWildcard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PortWildcard/dut.sv:16:1: error: can't use port declaration in module with ANSI style port list,,
+PoundDelay,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PoundDelay/dut.sv:3:11: error: use of undeclared identifier 'clk',,
+PoundDelay,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PoundDelay/dut.sv:3:11: error: use of undeclared identifier 'clk',,
 PoundDelayTask,default,CMP_EQUAL,,,match
 PoundDelayTask,testflags,CMP_EQUAL,,,match
-PoundParam,default,SLANG_REJECT,dut.v:39:8: error: missing '(' in parameter list,,
-PoundParam,testflags,SLANG_REJECT,dut.v:39:8: error: missing '(' in parameter list,,
-PPComment,default,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'b',,
-PPComment,testflags,SLANG_REJECT,dut.sv:5:17: error: use of undeclared identifier 'b',,
-PpLppdr,default,SLANG_REJECT,dut.sv:20:9: error: use of undeclared identifier 'wdata',,
-PpLppdr,testflags,SLANG_REJECT,dut.sv:20:9: error: use of undeclared identifier 'csr_read',,
+PoundParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PoundParam/dut.v:39:8: error: missing '(' in parameter list,,
+PoundParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PoundParam/dut.v:39:8: error: missing '(' in parameter list,,
+PPComment,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PPComment/dut.sv:5:17: error: use of undeclared identifier 'b',,
+PPComment,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PPComment/dut.sv:5:17: error: use of undeclared identifier 'b',,
+PpLppdr,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PpLppdr/dut.sv:20:9: error: use of undeclared identifier 'wdata',,
+PpLppdr,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PpLppdr/dut.sv:20:9: error: use of undeclared identifier 'csr_read',,
 PPMacro,default,CMP_EQUAL,,,match
 PPMacro,testflags,CMP_EQUAL,,,match
 PragmaProtect,default,SURELOG_FAIL,[   NOTE] : 0,,
-PragmaProtect,testflags,SLANG_REJECT,top.sv:52:1: error: unknown macro or compiler directive '`protected',,
+PragmaProtect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PragmaProtect/top.sv:52:1: error: unknown macro or compiler directive '`protected',,
 PreProcDefine,default,CMP_EQUAL,,,match
 PreProcDefine,testflags,CMP_EQUAL,,,differ
 PreprocFunc,default,CMP_EQUAL,,,differ
@@ -1159,18 +1159,18 @@ PreprocLine,default,SURELOG_FAIL,[   NOTE] : 0,,
 PreprocLine,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 PreProcMacro,default,SURELOG_FAIL,[   NOTE] : 0,,
 PreProcMacro,testflags,SURELOG_FAIL,[   NOTE] : 0,,
-PreProcMacroFunc,default,SLANG_REJECT,dut.sv:7:1: error: unexpected conditional directive,,
-PreProcMacroFunc,testflags,SLANG_REJECT,dut.sv:7:1: error: unexpected conditional directive,,
-PreprocString,default,SLANG_REJECT,dut.sv:7:14: error: expected macro arguments for function-like macro,,
-PreprocString,testflags,SLANG_REJECT,dut.sv:7:14: error: expected macro arguments for function-like macro,,
+PreProcMacroFunc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PreProcMacroFunc/dut.sv:7:1: error: unexpected conditional directive,,
+PreProcMacroFunc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PreProcMacroFunc/dut.sv:7:1: error: unexpected conditional directive,,
+PreprocString,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PreprocString/dut.sv:7:14: error: expected macro arguments for function-like macro,,
+PreprocString,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PreprocString/dut.sv:7:14: error: expected macro arguments for function-like macro,,
 PreprocTest,default,CMP_EQUAL,,,differ
 PreprocTest,testflags,CMP_EQUAL,,,differ
-PreprocUhdmCov,default,SLANG_REJECT,dut.sv:30:2: error: unknown module 'prim_subreg',,
-PreprocUhdmCov,testflags,SLANG_REJECT,dut.sv:30:2: error: unknown module 'prim_subreg',,
+PreprocUhdmCov,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PreprocUhdmCov/dut.sv:30:2: error: unknown module 'prim_subreg',,
+PreprocUhdmCov,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/PreprocUhdmCov/dut.sv:30:2: error: unknown module 'prim_subreg',,
 PrimTermExpr,default,CMP_EQUAL,,,match
 PrimTermExpr,testflags,CMP_EQUAL,,,differ
-ProcForLoop,default,SLANG_REJECT,dut.sv:4:10: error: use of undeclared identifier 'f2',,
-ProcForLoop,testflags,SLANG_REJECT,dut.sv:4:10: error: use of undeclared identifier 'f2',,
+ProcForLoop,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ProcForLoop/dut.sv:4:10: error: use of undeclared identifier 'f2',,
+ProcForLoop,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ProcForLoop/dut.sv:4:10: error: use of undeclared identifier 'f2',,
 PropBinding,default,CMP_EQUAL,,,match
 PropBinding,testflags,CMP_EQUAL,,,match
 RangeInf,default,CMP_EQUAL,,,match
@@ -1183,24 +1183,24 @@ RepeatStmt,default,CMP_EQUAL,,,match
 RepeatStmt,testflags,CMP_EQUAL,,,match
 ReturnVal,default,CMP_EQUAL,,,match
 ReturnVal,testflags,CMP_EQUAL,,,differ
-RewriteNonConstForLoopCond,default,SLANG_REJECT,dut.sv:11:16: error: use of undeclared identifier 'cond',,
-RewriteNonConstForLoopCond,testflags,SLANG_REJECT,dut.sv:11:16: error: use of undeclared identifier 'cond',,
+RewriteNonConstForLoopCond,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/RewriteNonConstForLoopCond/dut.sv:11:16: error: use of undeclared identifier 'cond',,
+RewriteNonConstForLoopCond,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/RewriteNonConstForLoopCond/dut.sv:11:16: error: use of undeclared identifier 'cond',,
 Rggen,default,CMP_NOTEQUAL,decompile:,,
 Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
-RiscV,default,SLANG_REJECT,src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wunknown-sys-name],,
-RiscV,testflags,SLANG_REJECT,src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wunknown-sys-name],,
-Rom,default,SLANG_REJECT,dut.sv:3:14: error: use of undeclared identifier 'RomSize',,
-Rom,testflags,SLANG_REJECT,dut.sv:3:14: error: use of undeclared identifier 'RomSize',,
-rp32,default,SLANG_REJECT,hdl/rtl/soc/r5p_soc_top.sv:263:3: error: unknown module 'rom32x4096',,
-rp32,testflags,SLANG_REJECT,hdl/rtl/soc/r5p_soc_top.sv:263:3: error: unknown module 'rom32x4096',,
+RiscV,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/RiscV/src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wu,,
+RiscV,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/RiscV/src/test/verilog/vscale_hex_tb.v:58:7: error: unknown system name '$vcdplusfile' [-Wu,,
+Rom,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Rom/dut.sv:3:14: error: use of undeclared identifier 'RomSize',,
+Rom,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Rom/dut.sv:3:14: error: use of undeclared identifier 'RomSize',,
+rp32,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Rp32/hdl/rtl/soc/r5p_soc_top.sv:263:3: error: unknown module 'rom32x4096',,
+rp32,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Rp32/hdl/rtl/soc/r5p_soc_top.sv:263:3: error: unknown module 'rom32x4096',,
 Rsd,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 Rsd,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 ScalarParam,default,CMP_EQUAL,,,match
 ScalarParam,testflags,CMP_EQUAL,,,match
 Scoreboard,default,CMP_NOTEQUAL,decompile:,,
-Scoreboard,testflags,SLANG_REJECT,testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
-Scr1,default,SLANG_REJECT,src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_tracelog',,
-Scr1,testflags,SLANG_REJECT,src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_tracelog',,
+Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
+Scr1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
+Scr1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Scr1/src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_t,,
 Scr1SvTests,default,CMP_EQUAL,,,differ
 Scr1SvTests,testflags,CMP_EQUAL,,,differ
 SelectHierPath,default,CMP_EQUAL,,,differ
@@ -1213,8 +1213,8 @@ SeqDriver,default,CMP_NOTEQUAL,decompile:,,
 SeqDriver,testflags,CMP_NOTEQUAL,decompile:,,
 SequenceInst,default,CMP_EQUAL,,,differ
 SequenceInst,testflags,CMP_EQUAL,,,differ
-SeqUseNonTemp,default,SLANG_REJECT,dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
-SeqUseNonTemp,testflags,SLANG_REJECT,dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
+SeqUseNonTemp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
+SeqUseNonTemp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SeqUseNonTemp/dut.sv:15:10: error: redefinition of 'p1_count_increment' [-Wredefinition],,
 ShiftX,default,CMP_EQUAL,,,match
 ShiftX,testflags,CMP_EQUAL,,,differ
 SignedBin,default,CMP_EQUAL,,,differ
@@ -1231,48 +1231,48 @@ SignedVsUnsignedPort,default,CMP_EQUAL,,,match
 SignedVsUnsignedPort,testflags,CMP_EQUAL,,,match
 SignedWire,default,CMP_EQUAL,,,differ
 SignedWire,testflags,CMP_EQUAL,,,differ
-SimpleClass,default,SLANG_REJECT,top.sv:10:9: error: use of undeclared identifier 'len',,
-SimpleClass,testflags,SLANG_REJECT,top.sv:10:9: error: use of undeclared identifier 'len',,
-SimpleClass1,default,SLANG_REJECT,top.v:13:9: error: duplicate definition of 'uvm_pkg' [-Wduplicate-definition],,
-SimpleClass1,testflags,SLANG_REJECT,top.v:13:9: error: duplicate definition of 'uvm_pkg' [-Wduplicate-definition],,
-SimpleClass2,default,SLANG_REJECT,top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-found],,
-SimpleClass2,testflags,SLANG_REJECT,top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-found],,
-SimpleCmdLineTest,default,SLANG_REJECT,flist2.f:1:26: error: unknown command line argument '-bad'; did you mean '--std'?,,
+SimpleClass,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass/top.sv:10:9: error: use of undeclared identifier 'len',,
+SimpleClass,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass/top.sv:10:9: error: use of undeclared identifier 'len',,
+SimpleClass1,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass1/top.v:13:9: error: duplicate definition of 'uvm_pkg' [-Wduplicate-definition],,
+SimpleClass1,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass1/top.v:13:9: error: duplicate definition of 'uvm_pkg' [-Wduplicate-definition],,
+SimpleClass2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass2/top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-,,
+SimpleClass2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleClass2/top.v:13:19: error: implementation not found in parent scope for 'new' [-Wmember-impl-not-,,
+SimpleCmdLineTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleCmdLineTest/flist2.f:1:26: error: unknown command line argument '-bad'; did you mean '--std'?,,
 SimpleCmdLineTest,testflags,NO_UHDM,[   NOTE] : 1,,
 SimpleConstraint,default,CMP_EQUAL,,,differ
 SimpleConstraint,testflags,CMP_EQUAL,,,differ
 SimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 SimpleIncludeAndMacros,testflags,SURELOG_FAIL,[   NOTE] : 16,,
-SimpleInterface,default,SLANG_REJECT,simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,
-SimpleInterface,testflags,SLANG_REJECT,simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,
-SimpleOVM,default,SLANG_REJECT,../../UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used before its declaration,,
-SimpleOVM,testflags,SLANG_REJECT,../../UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used before its declaration,,
-SimpleParserTest,default,SLANG_REJECT,m_input_mult.v:8:11: error: cannot assign to a net within a procedural context,,
-SimpleParserTest,testflags,SLANG_REJECT,m_input_mult.v:8:11: error: cannot assign to a net within a procedural context,,
+SimpleInterface,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleInterface/simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,
+SimpleInterface,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleInterface/simple_if.sv:5:26: error: redefinition of 'clk' [-Wredefinition],,
+SimpleOVM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
+SimpleOVM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
+SimpleParserTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/SimpleParserTest/m_input_mult.v:8:11: error: cannot assign to a net within a procedural con,,
+SimpleParserTest,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/SimpleParserTest/m_input_mult.v:8:11: error: cannot assign to a net within a procedural con,,
 SimpleParserTestCache,default,SURELOG_FAIL,[   NOTE] : 0,,
 SimpleParserTestCache,testflags,SURELOG_FAIL,[   NOTE] : 0,,
-SimpleTask,default,SLANG_REJECT,top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
-SimpleTask,testflags,SLANG_REJECT,top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
+SimpleTask,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
+SimpleTask,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SimpleTask/top_2.v:2:8: error: duplicate definition of 'bus_wr_rd_task' [-Wduplicate-definition],,
 SimpleUVM,default,CMP_NOTEQUAL,decompile:,,
 SimpleUVM,testflags,CMP_NOTEQUAL,decompile:,,
-SimpleVMM,default,SLANG_REJECT,../../UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but declared 'protected' in superclass method,,
-SimpleVMM,testflags,SLANG_REJECT,../../UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but declared 'protected' in superclass method,,
+SimpleVMM,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
+SimpleVMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/vmm-1.1.1a/sv/std_lib/xvc_xactor.sv:161:18: error: virtual method 'main' is 'public' but decl,,
 SimplifyHierPath,default,CMP_EQUAL,,,match
 SimplifyHierPath,testflags,CMP_EQUAL,,,match
 Sky130Cell,default,SLANG_REJECT,error: no input files,,
-Sky130Cell,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+Sky130Cell,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Sky130Cell/batch.txt:1:1: error: expected member,,
 Sky130Udp,default,SLANG_REJECT,error: no input files,,
-Sky130Udp,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
-SplitFile,default,SLANG_REJECT,top.v:18:8: error: design element does not have a time scale defined but others in the design do,,
-SplitFile,testflags,SLANG_REJECT,top.v:18:8: error: design element does not have a time scale defined but others in the design do,,
+Sky130Udp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Sky130Udp/batch.txt:1:1: error: expected member,,
+SplitFile,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SplitFile/top.v:18:8: error: design element does not have a time scale defined but others in the design,,
+SplitFile,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SplitFile/top.v:18:8: error: design element does not have a time scale defined but others in the design,,
 StandardBlock,default,CMP_EQUAL,,,match
 StandardBlock,testflags,CMP_EQUAL,,,differ
 StandardNetVar,default,CMP_EQUAL,,,match
 StandardNetVar,testflags,CMP_EQUAL,,,match
 StaticTask,default,CMP_EQUAL,,,match
 StaticTask,testflags,CMP_EQUAL,,,match
-StreamingOp,default,SLANG_REJECT,dut.sv:2:22: error: use of undeclared identifier 'x',,
-StreamingOp,testflags,SLANG_REJECT,dut.sv:2:22: error: use of undeclared identifier 'x',,
+StreamingOp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StreamingOp/dut.sv:2:22: error: use of undeclared identifier 'x',,
+StreamingOp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StreamingOp/dut.sv:2:22: error: use of undeclared identifier 'x',,
 StringConcat,default,CMP_EQUAL,,,match
 StringConcat,testflags,CMP_EQUAL,,,match
 StringMethod,default,CMP_EQUAL,,,differ
@@ -1289,38 +1289,38 @@ StructArrayNet,default,CMP_EQUAL,,,differ
 StructArrayNet,testflags,CMP_EQUAL,,,differ
 StructNetUnionTypespec,default,CMP_EQUAL,,,match
 StructNetUnionTypespec,testflags,CMP_EQUAL,,,match
-StructStructHierPath,default,SLANG_REJECT,dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
-StructStructHierPath,testflags,SLANG_REJECT,dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
+StructStructHierPath,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
+StructStructHierPath,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructStructHierPath/dut.sv:28:24: error: use of undeclared identifier 'ctl_t',,
 StructTypedef,default,CMP_EQUAL,,,differ
 StructTypedef,testflags,CMP_EQUAL,,,differ
 StructUnsizedVal,default,CMP_EQUAL,,,differ
 StructUnsizedVal,testflags,CMP_EQUAL,,,differ
-StructVar,default,SLANG_REJECT,dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
-StructVar,testflags,SLANG_REJECT,dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
-StructVarImp,default,SLANG_REJECT,dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
-StructVarImp,testflags,SLANG_REJECT,dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
+StructVar,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
+StructVar,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVar/dut.sv:62:12: error: cannot refer to element 2 of 'pmp_cfg_t$[2]' [-Windex-oob],,
+StructVarImp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
+StructVarImp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/StructVarImp/dut.sv:36:43: error: use of undeclared identifier 'MpRegions'; did you mean 'NumRegions'?,,
 SurelogMacro,default,CMP_EQUAL,,,match
 SurelogMacro,testflags,CMP_EQUAL,,,match
 SVSwitch,default,CMP_NOTEQUAL,decompile:,,
 SVSwitch,testflags,CMP_NOTEQUAL,decompile:,,
-SynthFilterDollarError,default,SLANG_REJECT,dut.sv:4:10: error: unknown package 'pack',,
-SynthFilterDollarError,testflags,SLANG_REJECT,dut.sv:4:10: error: unknown package 'pack',,
+SynthFilterDollarError,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
+SynthFilterDollarError,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SynthFilterDollarError/dut.sv:4:10: error: unknown package 'pack',,
 SynthForeach,default,CMP_EQUAL,,,differ
 SynthForeach,testflags,CMP_EQUAL,,,differ
-SystemCall,default,SLANG_REJECT,dut.sv:3:23: error: use of undeclared identifier 'clock',,
-SystemCall,testflags,SLANG_REJECT,dut.sv:3:23: error: use of undeclared identifier 'clock',,
+SystemCall,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SystemCall/dut.sv:3:23: error: use of undeclared identifier 'clock',,
+SystemCall,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/SystemCall/dut.sv:3:23: error: use of undeclared identifier 'clock',,
 SystemCallSize,default,CMP_EQUAL,,,match
 SystemCallSize,testflags,CMP_EQUAL,,,differ
-TaggedParam,default,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
-TaggedParam,testflags,SLANG_REJECT,dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
+TaggedParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TaggedParam/dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
+TaggedParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TaggedParam/dut.sv:12:71: error: no member named 'RV64D_Xsflt' in package 'fpnew_pkg',,
 TaggedPattern,default,CMP_EQUAL,,,differ
 TaggedPattern,testflags,CMP_EQUAL,,,differ
 TaggedPatternLogic,default,CMP_EQUAL,,,differ
 TaggedPatternLogic,testflags,CMP_EQUAL,,,differ
 TaskBind,default,CMP_EQUAL,,,match
 TaskBind,testflags,CMP_EQUAL,,,match
-TaskDeclNoOrder,default,SLANG_REJECT,dut.sv:17:9: error: use of undeclared identifier 'set_ibias_en',,
-TaskDeclNoOrder,testflags,SLANG_REJECT,dut.sv:17:9: error: use of undeclared identifier 'set_ibias_en',,
+TaskDeclNoOrder,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TaskDeclNoOrder/dut.sv:17:9: error: use of undeclared identifier 'set_ibias_en',,
+TaskDeclNoOrder,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TaskDeclNoOrder/dut.sv:17:9: error: use of undeclared identifier 'set_ibias_en',,
 TaskDecls,default,CMP_EQUAL,,,match
 TaskDecls,testflags,CMP_EQUAL,,,differ
 TaskDeclTypes,default,CMP_EQUAL,,,differ
@@ -1337,7 +1337,7 @@ TestBasic,default,SURELOG_FAIL,[   NOTE] : 0,,
 TestBasic,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 TestBatchMode,default,SLANG_REJECT,error: no input files,,
 TestBatchMode,testflags,SURELOG_FAIL,[   NOTE] : 13,,
-TestFileSplit,default,SLANG_REJECT,middle.v:17:7: error: redefinition of 'middle_17' [-Wredefinition],,
+TestFileSplit,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TestFileSplit/middle.v:17:7: error: redefinition of 'middle_17' [-Wredefinition],,
 TestFileSplit,testflags,SLANG_REJECT,error: '30': No such file or directory,,
 TestMacros,default,SURELOG_FAIL,[   NOTE] : 0,,
 TestMacros,testflags,SURELOG_FAIL,[   NOTE] : 0,,
@@ -1351,20 +1351,20 @@ TestSepCompNoHash,default,SURELOG_FAIL,[   NOTE] : 0,,
 TestSepCompNoHash,testflags,SURELOG_FAIL,[   NOTE] : 0,,
 TfCalls,default,CMP_EQUAL,,,match
 TfCalls,testflags,CMP_EQUAL,,,match
-ThisHier,default,SLANG_REJECT,dut.sv:4:29: error: use of undeclared identifier 'uvm_phase',,
-ThisHier,testflags,SLANG_REJECT,dut.sv:4:29: error: use of undeclared identifier 'uvm_phase',,
-TimeUnit,default,SLANG_REJECT,top.v:13:8: error: design element does not have a time scale defined but others in the design do,,
+ThisHier,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ThisHier/dut.sv:4:29: error: use of undeclared identifier 'uvm_phase',,
+ThisHier,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/ThisHier/dut.sv:4:29: error: use of undeclared identifier 'uvm_phase',,
+TimeUnit,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TimeUnit/top.v:13:8: error: design element does not have a time scale defined but others in the design ,,
 TimeUnit,testflags,SLANG_REJECT,error: '50': No such file or directory,,
 Tnoc,default,SLANG_REJECT,rc=-11,,
 Tnoc,testflags,SLANG_REJECT,rc=-11,,
-TNocBadType,default,SLANG_REJECT,dut.sv:8:21: error: interface instantiation is missing port list parentheses,,
-TNocBadType,testflags,SLANG_REJECT,dut.sv:8:21: error: interface instantiation is missing port list parentheses,,
+TNocBadType,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TNocBadType/dut.sv:8:21: error: interface instantiation is missing port list parentheses,,
+TNocBadType,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TNocBadType/dut.sv:8:21: error: interface instantiation is missing port list parentheses,,
 TopFunc,default,CMP_EQUAL,,,match
 TopFunc,testflags,CMP_EQUAL,,,differ
 TopParam,default,CMP_NOTEQUAL,decompile:,,
 TopParam,testflags,CMP_NOTEQUAL,decompile:,,
 TranslateOff,default,SURELOG_FAIL,[   NOTE] : 0,,
-TranslateOff,testflags,SLANG_REJECT,dut.sv:12:12: error: use of undeclared identifier 'b',,
+TranslateOff,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TranslateOff/dut.sv:12:12: error: use of undeclared identifier 'b',,
 TypedefAlias,default,CMP_EQUAL,,,differ
 TypedefAlias,testflags,CMP_EQUAL,,,differ
 TypeDefGenScope,default,CMP_EQUAL,,,match
@@ -1375,30 +1375,30 @@ TypedefRange,default,CMP_EQUAL,,,differ
 TypedefRange,testflags,CMP_EQUAL,,,differ
 TypedefRangedFunctionReturn,default,CMP_EQUAL,,,match
 TypedefRangedFunctionReturn,testflags,CMP_EQUAL,,,differ
-TypeDefScope,default,SLANG_REJECT,dut.sv:1:13: error: port 'a' has no I/O member declaration,,
-TypeDefScope,testflags,SLANG_REJECT,dut.sv:1:13: error: port 'a' has no I/O member declaration,,
+TypeDefScope,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypeDefScope/dut.sv:1:13: error: port 'a' has no I/O member declaration,,
+TypeDefScope,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypeDefScope/dut.sv:1:13: error: port 'a' has no I/O member declaration,,
 TypedefUnpacked,default,CMP_EQUAL,,,differ
 TypedefUnpacked,testflags,CMP_EQUAL,,,differ
-Typename,default,SLANG_REJECT,dut.sv:6:58: error: use of undeclared identifier 'a',,
-Typename,testflags,SLANG_REJECT,dut.sv:6:58: error: use of undeclared identifier 'a',,
+Typename,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Typename/dut.sv:6:58: error: use of undeclared identifier 'a',,
+Typename,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/Typename/dut.sv:6:58: error: use of undeclared identifier 'a',,
 TypeParam,default,CMP_EQUAL,,,differ
 TypeParam,testflags,CMP_EQUAL,,,differ
-TypeParam2,default,SLANG_REJECT,dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
-TypeParam2,testflags,SLANG_REJECT,dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
+TypeParam2,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypeParam2/dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
+TypeParam2,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypeParam2/dut.sv:2:46: error: use of undeclared identifier 'DataWidth',,
 TypeParamElab,default,CMP_EQUAL,,,differ
 TypeParamElab,testflags,CMP_EQUAL,,,differ
 TypeParamOverride,default,CMP_EQUAL,,,differ
 TypeParamOverride,testflags,CMP_EQUAL,,,differ
-TypespecBits,default,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
-TypespecBits,testflags,SLANG_REJECT,dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
+TypespecBits,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypespecBits/dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
+TypespecBits,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/TypespecBits/dut.sv:7:20: error: cannot select range of [49:25] from 'logic[31:0]' [-Wrange-oob],,
 TypespecExpr,default,CMP_EQUAL,,,match
 TypespecExpr,testflags,CMP_EQUAL,,,differ
 TypespecMask,default,CMP_EQUAL,,,match
 TypespecMask,testflags,CMP_EQUAL,,,match
 Udp,default,CMP_EQUAL,,,differ
 Udp,testflags,CMP_EQUAL,,,differ
-UhdmCoverage,default,SLANG_REJECT,dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
-UhdmCoverage,testflags,SLANG_REJECT,dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
+UhdmCoverage,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UhdmCoverage/dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
+UhdmCoverage,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UhdmCoverage/dut.sv:4:28: error: use of undeclared identifier 'dims_p',,
 UnaryPlus,default,CMP_EQUAL,,,match
 UnaryPlus,testflags,CMP_EQUAL,,,match
 UnboundForLoop,default,CMP_EQUAL,,,match
@@ -1410,45 +1410,45 @@ UnelabPack,testflags,CMP_EQUAL,,,match
 UnionCast,default,CMP_EQUAL,,,differ
 UnionCast,testflags,CMP_EQUAL,,,differ
 Unisim,default,SLANG_REJECT,error: no input files,,
-Unisim,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
-UnitAmiqEth,default,SLANG_REJECT,amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared identifier 'client_data',,
-UnitAmiqEth,testflags,SLANG_REJECT,amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared identifier 'client_data',,
-UnitClass,default,SLANG_REJECT,top.v:8:26: error: redefinition of 'F001' [-Wredefinition],,
-UnitClass,testflags,SLANG_REJECT,top.v:8:26: error: redefinition of 'F001' [-Wredefinition],,
-UnitConcat,default,SLANG_REJECT,top.sv:6:20: error: use of undeclared identifier 'irq',,
-UnitConcat,testflags,SLANG_REJECT,top.sv:6:20: error: use of undeclared identifier 'irq',,
-UnitDefParam,default,SLANG_REJECT,top.v:26:1: error: unknown module 'M1',,
-UnitDefParam,testflags,SLANG_REJECT,top.v:26:1: error: unknown module 'M1',,
-UnitElab,default,SLANG_REJECT,top.v:3:2: error: unknown module 'bottom3',,
-UnitElab,testflags,SLANG_REJECT,top.v:3:2: error: unknown module 'bottom3',,
+Unisim,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/XilinxUnisimLibrary/batch.txt:1:1: error: expected member,,
+UnitAmiqEth,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UnitAmiqEth/amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared identifier 'client_data',,
+UnitAmiqEth,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UnitAmiqEth/amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared identifier 'client_data',,
+UnitClass,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitClass/top.v:8:26: error: redefinition of 'F001' [-Wredefinition],,
+UnitClass,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitClass/top.v:8:26: error: redefinition of 'F001' [-Wredefinition],,
+UnitConcat,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitConcat/top.sv:6:20: error: use of undeclared identifier 'irq',,
+UnitConcat,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitConcat/top.sv:6:20: error: use of undeclared identifier 'irq',,
+UnitDefParam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitDefParam/top.v:26:1: error: unknown module 'M1',,
+UnitDefParam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitDefParam/top.v:26:1: error: unknown module 'M1',,
+UnitElab,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitElab/top.v:3:2: error: unknown module 'bottom3',,
+UnitElab,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitElab/top.v:3:2: error: unknown module 'bottom3',,
 UnitElabBlock,default,CMP_EQUAL,,,differ
 UnitElabBlock,testflags,CMP_EQUAL,,,differ
-UnitElabExternNested,default,SLANG_REJECT,middle.v:2:15: error: missing implementation for extern module 'm',,
-UnitElabExternNested,testflags,SLANG_REJECT,middle.v:2:15: error: missing implementation for extern module 'm',,
-UnitEnum,default,SLANG_REJECT,top.v:21:1: error: use of undeclared identifier 'Environment',,
-UnitEnum,testflags,SLANG_REJECT,top.v:21:1: error: use of undeclared identifier 'Environment',,
-UnitForeach,default,SLANG_REJECT,top.v:56:18: error: no member named 'bad1' in 'uvm_reg_map',,
-UnitForeach,testflags,SLANG_REJECT,top.v:56:18: error: no member named 'bad1' in 'uvm_reg_map',,
-UnitForLoop,default,SLANG_REJECT,top.v:10:1: error: use of undeclared identifier 'f3',,
-UnitForLoop,testflags,SLANG_REJECT,top.v:10:1: error: use of undeclared identifier 'f3',,
-UnitLibrary,default,SLANG_REJECT,rtl/adder.v:7:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
-UnitLibrary,testflags,SLANG_REJECT,rtl/adder.v:7:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
-UnitPackage,default,SLANG_REJECT,simple_pkg.sv:15:5: error: use of undeclared identifier 'SIZE',,
-UnitPackage,testflags,SLANG_REJECT,simple_pkg.sv:15:5: error: use of undeclared identifier 'SIZE',,
-UnitPartSelect,default,SLANG_REJECT,top.sv:7:20: error: use of undeclared identifier 'clk',,
-UnitPartSelect,testflags,SLANG_REJECT,top.sv:7:20: error: use of undeclared identifier 'clk',,
+UnitElabExternNested,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitElabExternNested/middle.v:2:15: error: missing implementation for extern module 'm',,
+UnitElabExternNested,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitElabExternNested/middle.v:2:15: error: missing implementation for extern module 'm',,
+UnitEnum,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitEnum/top.v:21:1: error: use of undeclared identifier 'Environment',,
+UnitEnum,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitEnum/top.v:21:1: error: use of undeclared identifier 'Environment',,
+UnitForeach,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitForeach/top.v:56:18: error: no member named 'bad1' in 'uvm_reg_map',,
+UnitForeach,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitForeach/top.v:56:18: error: no member named 'bad1' in 'uvm_reg_map',,
+UnitForLoop,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitForLoop/top.v:10:1: error: use of undeclared identifier 'f3',,
+UnitForLoop,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitForLoop/top.v:10:1: error: use of undeclared identifier 'f3',,
+UnitLibrary,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitLibrary/rtl/adder.v:7:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
+UnitLibrary,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitLibrary/rtl/adder.v:7:8: error: duplicate definition of 'm' [-Wduplicate-definition],,
+UnitPackage,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitPackage/simple_pkg.sv:15:5: error: use of undeclared identifier 'SIZE',,
+UnitPackage,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitPackage/simple_pkg.sv:15:5: error: use of undeclared identifier 'SIZE',,
+UnitPartSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitPartSelect/top.sv:7:20: error: use of undeclared identifier 'clk',,
+UnitPartSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitPartSelect/top.sv:7:20: error: use of undeclared identifier 'clk',,
 UnitPython,default,SURELOG_FAIL,[   NOTE] : 0,,
 UnitPython,testflags,UNTRANSLATABLE,UHDM-relevant flag not implemented in slang-uhdm,-pythonevalscriptperfile -pythonevalscript,
-UnitQueue,default,SLANG_REJECT,top.v:12:3: error: too many arguments for 'atoi'; expected 0 but 1 were provided,,
-UnitQueue,testflags,SLANG_REJECT,top.v:12:3: error: too many arguments for 'atoi'; expected 0 but 1 were provided,,
+UnitQueue,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitQueue/top.v:12:3: error: too many arguments for 'atoi'; expected 0 but 1 were provided,,
+UnitQueue,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitQueue/top.v:12:3: error: too many arguments for 'atoi'; expected 0 but 1 were provided,,
 UnitSimpleIncludeAndMacros,default,SURELOG_FAIL,[   NOTE] : 16,,
 UnitSimpleIncludeAndMacros,testflags,SURELOG_FAIL,[   NOTE] : 6,,
-UnitSVA,default,SLANG_REJECT,dut.sv:3:18: error: use of undeclared identifier 'up',,
-UnitSVA,testflags,SLANG_REJECT,dut.sv:3:18: error: use of undeclared identifier 'up',,
-UnitTest,default,SLANG_REJECT,top.v:11:5: error: cannot assign to a net within a procedural context,,
-UnitTest,testflags,SLANG_REJECT,top.v:11:5: error: cannot assign to a net within a procedural context,,
-UnitThisNew,default,SLANG_REJECT,dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
-UnitThisNew,testflags,SLANG_REJECT,dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
+UnitSVA,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitSVA/dut.sv:3:18: error: use of undeclared identifier 'up',,
+UnitSVA,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitSVA/dut.sv:3:18: error: use of undeclared identifier 'up',,
+UnitTest,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitTest/top.v:11:5: error: cannot assign to a net within a procedural context,,
+UnitTest,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitTest/top.v:11:5: error: cannot assign to a net within a procedural context,,
+UnitThisNew,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitThisNew/dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
+UnitThisNew,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnitThisNew/dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
 UnpackedTypespec,default,CMP_EQUAL,,,differ
 UnpackedTypespec,testflags,CMP_EQUAL,,,differ
 UnpackPort,default,CMP_EQUAL,,,differ
@@ -1461,8 +1461,8 @@ Unsized,default,CMP_EQUAL,,,match
 Unsized,testflags,CMP_EQUAL,,,match
 UnsizedArray,default,CMP_EQUAL,,,match
 UnsizedArray,testflags,CMP_EQUAL,,,match
-UnsizedConstInst,default,SLANG_REJECT,dut.sv:5:36: error: invalid operands to binary expression ('logic$[5:0]' and 'bit[0:0]'),,
-UnsizedConstInst,testflags,SLANG_REJECT,dut.sv:5:36: error: invalid operands to binary expression ('logic$[5:0]' and 'bit[0:0]'),,
+UnsizedConstInst,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedConstInst/dut.sv:5:36: error: invalid operands to binary expression ('logic$[5:0]' and 'bit[0:0],,
+UnsizedConstInst,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedConstInst/dut.sv:5:36: error: invalid operands to binary expression ('logic$[5:0]' and 'bit[0:0],,
 UnsizedElabComp,default,CMP_EQUAL,,,match
 UnsizedElabComp,testflags,CMP_EQUAL,,,match
 UnsizedFunc,default,CMP_EQUAL,,,match
@@ -1471,18 +1471,18 @@ UnsizedLiteral1,default,CMP_EQUAL,,,match
 UnsizedLiteral1,testflags,CMP_EQUAL,,,differ
 UnsizedLiteral2,default,CMP_EQUAL,,,match
 UnsizedLiteral2,testflags,CMP_EQUAL,,,differ
-UnsizedPacked,default,SLANG_REJECT,dut.sv:5:5: error: dimension requires a constant range,,
-UnsizedPacked,testflags,SLANG_REJECT,dut.sv:5:5: error: dimension requires a constant range,,
+UnsizedPacked,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedPacked/dut.sv:5:5: error: dimension requires a constant range,,
+UnsizedPacked,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/UnsizedPacked/dut.sv:5:5: error: dimension requires a constant range,,
 UnsizedParam,default,CMP_EQUAL,,,differ
 UnsizedParam,testflags,CMP_EQUAL,,,differ
 UnsupportedTypespecRange,default,CMP_EQUAL,,,differ
 UnsupportedTypespecRange,testflags,CMP_EQUAL,,,differ
 UtdSV,default,SLANG_REJECT,error: no input files,,
-UtdSV,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
-UVMNestedSeq,default,SLANG_REJECT,testbench2.sv:26:9: error: duplicate definition of 'my_pkg' [-Wduplicate-definition],,
-UVMNestedSeq,testflags,SLANG_REJECT,testbench2.sv:26:9: error: duplicate definition of 'my_pkg' [-Wduplicate-definition],,
-UVMSwitch,default,SLANG_REJECT,top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold_time=3)$[4]' cannot be assigned to type 'virtual interface,,
-UVMSwitch,testflags,SLANG_REJECT,top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold_time=3)$[4]' cannot be assigned to type 'virtual interface,,
+UtdSV,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UtdSV/batch.txt:1:1: error: expected member,,
+UVMNestedSeq,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UVMNestedSeq/testbench2.sv:26:9: error: duplicate definition of 'my_pkg' [-Wduplicate-defin,,
+UVMNestedSeq,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UVMNestedSeq/testbench2.sv:26:9: error: duplicate definition of 'my_pkg' [-Wduplicate-defin,,
+UVMSwitch,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UVMSwitch/top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold,,
+UVMSwitch,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/UVMSwitch/top.sv:70:21: error: value of type 'interface output_interface#(setup_time=5;hold,,
 Value4States,default,CMP_EQUAL,,,match
 Value4States,testflags,CMP_EQUAL,,,match
 Values,default,CMP_EQUAL,,,match
@@ -1493,22 +1493,22 @@ VarDecl,default,CMP_EQUAL,,,match
 VarDecl,testflags,CMP_EQUAL,,,match
 VarDecl2,default,CMP_EQUAL,,,match
 VarDecl2,testflags,CMP_EQUAL,,,match
-VarInFunc,default,SLANG_REJECT,dut.sv:4:26: error: cannot refer to automatic variable 'function_variable' from non-procedural context,,
-VarInFunc,testflags,SLANG_REJECT,dut.sv:4:26: error: cannot refer to automatic variable 'function_variable' from non-procedural context,,
+VarInFunc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VarInFunc/dut.sv:4:26: error: cannot refer to automatic variable 'function_variable' from non-procedura,,
+VarInFunc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VarInFunc/dut.sv:4:26: error: cannot refer to automatic variable 'function_variable' from non-procedura,,
 VarRangeTypedef,default,CMP_EQUAL,,,differ
 VarRangeTypedef,testflags,CMP_EQUAL,,,differ
-VarSelect,default,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'a',,
-VarSelect,testflags,SLANG_REJECT,dut.sv:4:16: error: use of undeclared identifier 'a',,
+VarSelect,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VarSelect/dut.sv:4:16: error: use of undeclared identifier 'a',,
+VarSelect,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VarSelect/dut.sv:4:16: error: use of undeclared identifier 'a',,
 VarSelectGenStmt,default,CMP_EQUAL,,,match
 VarSelectGenStmt,testflags,CMP_EQUAL,,,differ
 VarType,default,CMP_EQUAL,,,differ
 VarType,testflags,CMP_EQUAL,,,differ
 Verilator,default,SLANG_REJECT,error: no input files,,
-Verilator,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+Verilator,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Verilator/batch.txt:1:1: error: expected member,,
 VirtualClass,default,CMP_EQUAL,,,match
 VirtualClass,testflags,CMP_EQUAL,,,differ
-VoidFuncReturn,default,SLANG_REJECT,dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
-VoidFuncReturn,testflags,SLANG_REJECT,dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
+VoidFuncReturn,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VoidFuncReturn/dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
+VoidFuncReturn,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/VoidFuncReturn/dut.sv:5:1: error: value of type 'int' cannot be assigned to type 'void',,
 Wand,default,CMP_EQUAL,,,match
 Wand,testflags,CMP_EQUAL,,,match
 WildConn,default,CMP_EQUAL,,,differ
@@ -1524,31 +1524,31 @@ Xgate,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 XValue,default,CMP_EQUAL,,,match
 XValue,testflags,CMP_EQUAL,,,differ
 Yosys,default,SLANG_REJECT,error: no input files,,
-Yosys,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+Yosys,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Yosys/batch.txt:1:1: error: expected member,,
 YosysBigSimAes,default,CMP_EQUAL,,,differ
 YosysBigSimAes,testflags,CMP_EQUAL,,,differ
-YosysBigSimAmber23,default,SLANG_REJECT,rtl/a23_decode.v:175:24: error: expected a declaration name,,
-YosysBigSimAmber23,testflags,SLANG_REJECT,rtl/a23_decode.v:175:24: error: expected a declaration name,,
+YosysBigSimAmber23,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
+YosysBigSimAmber23,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/amber23/rtl/a23_decode.v:175:24: error: expected a declaration name,,
 YosysBigSimEllip,default,CMP_EQUAL,,,differ
 YosysBigSimEllip,testflags,NO_DATABASE,test suppresses UHDM output,-noelab,
-YosysBigSimLm32,default,SLANG_REJECT,rtl/lm32_adder.v:56:8: error: design element does not have a time scale defined but others in the design do,,
-YosysBigSimLm32,testflags,SLANG_REJECT,rtl/lm32_adder.v:56:8: error: design element does not have a time scale defined but others in the design do,,
-YosysBigSimOpenMsp,default,SLANG_REJECT,rtl/openMSP430.v:48:9: error: design element does not have a time scale defined but others in the design do,,
-YosysBigSimOpenMsp,testflags,SLANG_REJECT,rtl/openMSP430.v:48:9: error: design element does not have a time scale defined but others in the design do,,
-YosysBigSimPong,default,SLANG_REJECT,rtl/data.v:1:8: error: design element does not have a time scale defined but others in the design do,,
-YosysBigSimPong,testflags,SLANG_REJECT,rtl/data.v:1:8: error: design element does not have a time scale defined but others in the design do,,
+YosysBigSimLm32,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,
+YosysBigSimLm32,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/lm32/rtl/lm32_adder.v:56:8: error: design element does not have a time scale de,,
+YosysBigSimOpenMsp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/openmsp430/rtl/openMSP430.v:48:9: error: design element does not have a time sc,,
+YosysBigSimOpenMsp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/openmsp430/rtl/openMSP430.v:48:9: error: design element does not have a time sc,,
+YosysBigSimPong,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/verilog-pong/rtl/data.v:1:8: error: design element does not have a time scale d,,
+YosysBigSimPong,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysBigSim/verilog-pong/rtl/data.v:1:8: error: design element does not have a time scale d,,
 YosysBigSimReed,default,CMP_EQUAL,,,differ
 YosysBigSimReed,testflags,CMP_EQUAL,,,differ
 YosysBigSimSoft,default,CMP_EQUAL,,,differ
 YosysBigSimSoft,testflags,CMP_EQUAL,,,differ
-YosysCam,default,SLANG_REJECT,priority_encoder.vh:32:8: error: duplicate definition of 'priority_encoder' [-Wduplicate-definition],,
-YosysCam,testflags,SLANG_REJECT,priority_encoder.vh:32:8: error: duplicate definition of 'priority_encoder' [-Wduplicate-definition],,
-YosysDsp,default,SLANG_REJECT,fastfir.v:75:47: error: cannot assign to a net within a procedural context,,
-YosysDsp,testflags,SLANG_REJECT,fastfir.v:75:47: error: cannot assign to a net within a procedural context,,
-YosysEth,default,SLANG_REJECT,udp_complete_64_top.v:170:1: error: unknown module 'udp_complete_64',,
-YosysEth,testflags,SLANG_REJECT,udp_complete_64_top.v:170:1: error: unknown module 'udp_complete_64',,
-YosysIce40,default,SLANG_REJECT,design01.v:26:8: error: design element does not have a time scale defined but others in the design do,,
-YosysIce40,testflags,SLANG_REJECT,design01.v:26:8: error: design element does not have a time scale defined but others in the design do,,
+YosysCam,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysCam/priority_encoder.vh:32:8: error: duplicate definition of 'priority_encoder' [-Wdup,,
+YosysCam,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysCam/priority_encoder.vh:32:8: error: duplicate definition of 'priority_encoder' [-Wdup,,
+YosysDsp,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysDsp/fastfir.v:75:47: error: cannot assign to a net within a procedural context,,
+YosysDsp,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysDsp/fastfir.v:75:47: error: cannot assign to a net within a procedural context,,
+YosysEth,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysEth/udp_complete_64_top.v:170:1: error: unknown module 'udp_complete_64',,
+YosysEth,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysEth/udp_complete_64_top.v:170:1: error: unknown module 'udp_complete_64',,
+YosysIce40,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysIce40/design01.v:26:8: error: design element does not have a time scale defined but ot,,
+YosysIce40,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysIce40/design01.v:26:8: error: design element does not have a time scale defined but ot,,
 YosysMarlann,default,CMP_EQUAL,,,differ
 YosysMarlann,testflags,CMP_EQUAL,,,differ
 YosysOldAes,default,SLANG_REJECT,error: '	rtl/aes_key_expand_128.v': No such file or directory,,
@@ -1559,8 +1559,8 @@ YosysOldOpen,default,CMP_EQUAL,,,differ
 YosysOldOpen,testflags,CMP_EQUAL,,,differ
 YosysOldOr,default,CMP_NOTEQUAL,decompile:,,
 YosysOldOr,testflags,CMP_NOTEQUAL,decompile:,,
-YosysOldSasc,default,SLANG_REJECT,cache/synth.v:1:8: error: design element does not have a time scale defined but others in the design do,,
-YosysOldSasc,testflags,SLANG_REJECT,cache/synth.v:1:8: error: design element does not have a time scale defined but others in the design do,,
+YosysOldSasc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOldTests/sasc/cache/synth.v:1:8: error: design element does not have a time scale defi,,
+YosysOldSasc,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOldTests/sasc/cache/synth.v:1:8: error: design element does not have a time scale defi,,
 YosysOldSimpleSpi,default,CMP_EQUAL,,,differ
 YosysOldSimpleSpi,testflags,CMP_EQUAL,,,differ
 YosysOldSpi,default,CMP_EQUAL,,,differ
@@ -1571,19 +1571,19 @@ YosysOldSystem,default,CMP_EQUAL,,,differ
 YosysOldSystem,testflags,CMP_EQUAL,,,differ
 YosysOldUsb,default,CMP_EQUAL,,,differ
 YosysOldUsb,testflags,CMP_EQUAL,,,differ
-YosysOpenSparc,default,SLANG_REJECT,t2.v:269093:6: error: expected a declaration name,,
+YosysOpenSparc,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysOpenSparc/t2.v:269093:6: error: expected a declaration name,,
 YosysOpenSparc,testflags,NO_DATABASE,test suppresses UHDM output,-nocomp,
 YosysRiscv,default,CMP_EQUAL,,,differ
 YosysRiscv,testflags,CMP_EQUAL,,,differ
-YosysSmall,default,SLANG_REJECT,dspmac_16_40_tb.v:4:10: error: 'constants.vams': No such file or directory,,
-YosysSmall,testflags,SLANG_REJECT,dspmac_16_40_tb.v:4:10: error: 'constants.vams': No such file or directory,,
+YosysSmall,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysSmall/dspmac_16_40_tb.v:4:10: error: 'constants.vams': No such file or directory,,
+YosysSmall,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysSmall/dspmac_16_40_tb.v:4:10: error: 'constants.vams': No such file or directory,,
 YosysSmallBoom,default,DEFERRED,late-phase: golden uncacheable on this machine,,
 YosysSmallBoom,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
 YosysTests,default,SLANG_REJECT,error: no input files,,
-YosysTests,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+YosysTests,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysTests/batch.txt:1:1: error: expected member,,
 YosysTestSuite,default,SLANG_REJECT,error: no input files,,
-YosysTestSuite,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+YosysTestSuite,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/YosysTestSuite/batch.txt:1:1: error: expected member,,
 YosysVerx,default,CMP_NOTEQUAL,decompile:,,
 YosysVerx,testflags,CMP_NOTEQUAL,decompile:,,
 Zachjs,default,SLANG_REJECT,error: no input files,,
-Zachjs,testflags,SLANG_REJECT,batch.txt:1:1: error: expected member,,
+Zachjs,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/tests/Zachjs/batch.txt:1:1: error: expected member,,

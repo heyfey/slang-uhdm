@@ -349,6 +349,45 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 return t9->second;
             return it->second;
         }
+        // § arrayElemTypedefTs15 — an UNPACKED array of a typedef types on its
+        // ELEMENT (the dims ride the wrapping array_typespec), and that element
+        // is the TYPEDEF'S OWN typespec object, not a fresh one at the
+        // declaration.  The lookup above misses it because the declared type is
+        // the array, so `addr_t dyn[];` / `[$]` / `[4]` minted an unnamed
+        // bit_typespec at the declarator while the plain `addr_t c;` next to it
+        // shared the named, typedef-anchored object.  Measured on one pair
+        // (t25) and in UVM (`uvm_reg::get_address`, `uvm_reg_addr_t addr[];`
+        // -> golden `bit_typespec (uvm_reg_addr_t)` at the typedef, ours
+        // unnamed at the declaration): 417 of SeqDriver's mismatching pairs.
+        if (!bypassTypedefShare &&
+            declared->getType().kind != SymbolKind::TypeAlias) {
+            const Type* el9 = &declared->getType();
+            bool sawUnpacked9 = false;
+            while (el9->kind != SymbolKind::TypeAlias) {
+                auto& c9 = el9->getCanonicalType();
+                if (c9.kind == SymbolKind::DynamicArrayType)
+                    el9 = &c9.as<DynamicArrayType>().elementType;
+                else if (c9.kind == SymbolKind::QueueType)
+                    el9 = &c9.as<QueueType>().elementType;
+                else if (c9.kind == SymbolKind::AssociativeArrayType)
+                    el9 = &c9.as<AssociativeArrayType>().elementType;
+                else if (c9.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                    el9 = &c9.as<FixedSizeUnpackedArrayType>().elementType;
+                else
+                    break;
+                sawUnpacked9 = true;
+            }
+            if (sawUnpacked9 && el9->kind == SymbolKind::TypeAlias) {
+                // The DEF-view object, not the elaborated `pkg::name` one the
+                // scalar path prefers: golden's element is `uvm_reg_addr_t`
+                // at the typedef (73:10), not `uvm_pkg::uvm_reg_addr_t` at the
+                // importer (98:49) — measured by taking the elaborated one
+                // first and watching the same pairs stay unequal with the
+                // qualified name instead of an empty one.
+                if (auto it9 = typedefTs.find(el9); it9 != typedefTs.end())
+                    return it9->second;
+            }
+        }
         // A COVERGROUP handle (`cg cg_inst = new(3);`) has no UHDM type of
         // its own: Surelog's CompileType falls through to the catch-all and
         // mints an unsupported_typespec carrying the WRITTEN type name, at
@@ -411,7 +450,53 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // and the definition's io_decl).
             if (declSymbol.kind == SymbolKind::FormalArgument)
                 inClassMethod0 = false;
-            if (!inClassMethod0 &&
+            // § localClassTsUnnamed15 — the statement-scope rule above is one
+            // case of a general one: a class-typed variable declared INSIDE a
+            // subroutine or a statement block loses the class name whenever the
+            // class is declared in the SAME design component, and keeps it
+            // whenever the class comes from anywhere else.  Measured both
+            // directions on one pair (t22): a package function's local of a
+            // same-package class and the same local one `begin` deeper are
+            // UNNAMED, a module function's local of a same-module class is
+            // UNNAMED, while a module function's local of a $unit class, of an
+            // imported package class, and the module-scope variable itself all
+            // keep the name; a package function FORMAL keeps it too (t20).
+            // This is the `uvm_globals::run_test` shape — `uvm_root top;` in a
+            // package task — and it is 390 of SeqDriver's mismatching pairs.
+            bool localSameComp0 = false;
+            if (declSymbol.kind != SymbolKind::FormalArgument) {
+                // A uniquified instance body is a DIFFERENT Scope per instance
+                // while the class symbol keeps the scope it was declared in, so
+                // identity has to go through the definition, not the body.
+                auto compKey0 = [](const Scope* sc) -> const void* {
+                    if (!sc)
+                        return nullptr;
+                    auto& sym = sc->asSymbol();
+                    if (sym.kind == SymbolKind::InstanceBody)
+                        return (const void*)&sym.as<InstanceBodySymbol>()
+                            .getDefinition();
+                    return (const void*)&sym;
+                };
+                const Scope* host0 = nullptr;
+                bool nested0 = false;
+                for (auto sc0 = declSymbol.getParentScope(); sc0;
+                     sc0 = sc0->asSymbol().getParentScope()) {
+                    auto k0 = sc0->asSymbol().kind;
+                    if (k0 == SymbolKind::Subroutine ||
+                        k0 == SymbolKind::StatementBlock) {
+                        nested0 = true;
+                        continue;
+                    }
+                    if (k0 == SymbolKind::InstanceBody ||
+                        k0 == SymbolKind::Package)
+                        host0 = sc0;
+                    break;
+                }
+                localSameComp0 = nested0 && host0 &&
+                                 compKey0(ct0.getParentScope()) ==
+                                     compKey0(host0);
+            }
+            if (!inClassMethod0 && !localSameComp0 &&
                 !(declSymbol.getParentScope() &&
                   declSymbol.getParentScope()->asSymbol().kind ==
                       SymbolKind::StatementBlock &&
