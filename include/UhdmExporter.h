@@ -66,7 +66,12 @@ namespace slang_uhdm {
 /// Encoding an EvalFunc member-assignment leftover constant carries: the
 /// ASSIGNMENT RHS's, not the struct member's type (see ParamEmit's
 /// srlgEvalFuncMemberLeftovers).
-enum class SrlgMemLeftEnc { Uint, Int, Bin };
+// Encoding of an EvalFunc member-assignment leftover, driven by the shape of
+// the assignment's RHS (§ r10fsv L3): `Bin1` is `bit'(x)`'s BIN size-1
+// constant with an EMPTY decompile, `Pat` means the leftover is not a value we
+// encode at all — it is the ELABORATED assignment pattern's OWN element object
+// (§ r10fsv2 L1), resolved late by stampEvalFuncLeftovers.
+enum class SrlgMemLeftEnc { Uint, Int, Bin, Bin1, Pat };
 
 /// Exports a slang elaborated design as a UHDM database, mirroring the
 /// structure Surelog produces for its default (folded / pre-elab) output.
@@ -875,7 +880,16 @@ private:
     struct SrlgMemLeft {
         std::string name;
         SrlgMemLeftEnc enc = SrlgMemLeftEnc::Uint;
+        // enc == Pat: the RHS is `<formal>.<srcMember>` and the leftover is
+        // the pattern element the CALLER's actual bound to that formal holds
+        // for `srcMember` (argIndex names the formal).
+        std::string srcMember;
+        int argIndex = -1;
     };
+    // The encoding a COMPUTED (non-formal-member-read) leftover takes, from
+    // the shape of the assignment's RHS (§ r10fsv2 L3).
+    SrlgMemLeftEnc memLeftComputedEnc(const slang::ast::Expression& e,
+                                      int depth);
     // Non-empty when `sub` is a member-by-member struct builder, one entry per
     // WRITTEN member in declaration order. Cached per subroutine.
     const std::vector<SrlgMemLeft>* srlgEvalFuncMemberLeftovers(
@@ -886,14 +900,46 @@ private:
     // srlgEvalFuncMemberLeftovers. Returns the subroutine or null.
     const slang::ast::SubroutineSymbol* memLeftInitCall(
         const slang::ast::Expression& init);
+    // The ACTUAL bound to argument `idx` of such a call, when it is a plain
+    // reference to a struct-pattern parameter (the pattern whose elements the
+    // `Pat` leftovers reuse).  Null otherwise.
+    const slang::ast::ParameterSymbol* memLeftCallPatArg(
+        const slang::ast::Expression& init, int idx);
     // Recorded while emitting parameters: every struct-valued parameter whose
     // initializer is such a call, with the per-member leftover constants the
     // evaluation produced. Drained by stampEvalFuncLeftovers.
     struct SrlgMemLeftStamp {
         std::vector<std::string> names;      // struct field names, in order
-        std::vector<UHDM::constant*> values; // one per WRITTEN member (or null)
+        std::vector<UHDM::expr*> values;     // one per WRITTEN member (or null)
+        // Parallel, non-empty only for `Pat` members: the CALLER's pattern
+        // parameter and the source member name whose ELABORATED pattern
+        // element object is the leftover.  Resolved in the deferred drain
+        // because the package elab view may be emitted after this site.
+        std::vector<const slang::ast::ParameterSymbol*> srcParam;
+        std::vector<std::string> srcMember;
+        // The parameter this stamp belongs to, and the struct typespec copy
+        // that actually received it (filled by the drain).
+        const slang::ast::ParameterSymbol* owner = nullptr;
+        UHDM::struct_typespec* stamped = nullptr;
     };
     std::vector<SrlgMemLeftStamp> memLeftStamps;
+    // The DEF-view (uhdmallModules) parameter objects of such a parameter.
+    // Their typespec must be re-pointed at the STAMPED struct copy: golden's
+    // def module listing resolved the typedef after elaboration too, so it
+    // shares the function-return copy and sees the leftovers (FuncStructVal
+    // ALLMOD work@top.CVA6Cfg), while we resolve it to the clean def-package
+    // listing and every member read compares against a null.
+    std::vector<std::pair<UHDM::parameter*, const slang::ast::ParameterSymbol*>>
+        memLeftDefParams;
+    // § r10fsv2 L1.  The ELABORATED (uhdmtopPackages) struct-pattern
+    // parameter's own tagged-pattern element objects, per member name.  The
+    // EvalFunc leftover for `d.M = S.<N>` IS the element object recorded here
+    // — not a re-encoded slice — so a BIN element leaves BIN size 1, a HEX
+    // element leaves its `64'h..` form, and a member whose element never
+    // folded (a ref_obj) leaves NO leftover at all.
+    std::map<const slang::ast::ParameterSymbol*,
+             std::map<std::string, UHDM::any*>>
+        patElabElems;
     // The elab param_assign Rhs struct_vars minted for such a parameter, with
     // the parameter object whose typespec their own ts ref must copy (the
     // param's typespec is patched later, in the deferred drain).
@@ -2687,6 +2733,16 @@ private:
     // Pkg param OBJECTS (def view) — bound by qualified member-access base
     // refs (pkg::P.member).
     std::map<const slang::ast::Symbol*, UHDM::parameter*> pkgParamObj;
+    // ...and the same map for the ELAB package view.  A localparam whose init
+    // is a param REFERENCE (`CVA6ConfigDataUserWidth = CVA6ConfigXlen`) gets
+    // no typespec at all in the def listing — only the elab one has it — so a
+    // struct-pattern member fold reading it must bind from here.
+    std::map<const slang::ast::Symbol*, UHDM::parameter*> pkgParamObjTop;
+    // Struct-pattern member folds whose referenced parameter had no typespec
+    // yet (its own is built by the deferred drain, or lives only in the elab
+    // listing).  Bound at the end.
+    std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>
+        pkgPatValTsFix;
     // MATERIALIZED IMPORT copies of package params in the module DEF view,
     // keyed by the package's own ParameterSymbol (which is what a wildcard
     // import resolves to). A generate CONDITION reading one folds to its

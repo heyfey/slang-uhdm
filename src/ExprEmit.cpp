@@ -1815,6 +1815,28 @@ UHDM::any* UhdmExporter::emitLetExprCall(const Expression& expr, UHDM::BaseClass
     return le;
 }
 
+// § r10fsv2 R-c.  An enum declared with NO explicit base type
+// (`typedef enum { A, B, C } e;`) is NOT substituted into a struct-pattern
+// member: Surelog's reduce leaves the reference unresolved and the element
+// stays a ref_obj — which is also why that member leaves NO EvalFunc leftover
+// behind (FuncStructVal `NOCType: config_pkg::NOC_TYPE_AXI4_ATOP`; golden has
+// 96 leftovers on the 97-member struct, we stamped all 97).  An enum with a
+// WRITTEN base (`enum logic [1:0]`) substitutes exactly as before
+// (AssignmentPatternInAssignmentPattern's `PhaseSeed`, the r10fsv oracle's
+// `noc_e`), so the two are distinguished by the DECLARATION, not by whether
+// the enum member itself carries an initializer.
+static bool enumBaseIsImplicit(const Symbol& sym) {
+    if (sym.kind != SymbolKind::EnumValue)
+        return false;
+    auto& t = sym.as<EnumValueSymbol>().getType().getCanonicalType();
+    if (t.kind != SymbolKind::EnumType)
+        return false;
+    auto* syn = t.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::EnumType)
+        return false;
+    return syn->as<syntax::EnumTypeSyntax>().baseType == nullptr;
+}
+
 // A PACKAGE struct-pattern parameter's ENUM-CONSTANT member value inlines the
 // enum member's OWN literal form — not the BIN-at-member-width a MODULE's own
 // pattern uses (the enumFold6 rule).  Surelog substitutes the enum_const
@@ -2497,11 +2519,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rt9->VpiFullName(curPkg);
                             rt9->VpiParent(c9);
                             if (auto poIt9 = pkgParamObj.find(&nv.symbol);
-                                poIt9 != pkgParamObj.end() &&
-                                poIt9->second->Typespec())
-                                rt9->Actual_typespec(
-                                    poIt9->second->Typespec()
-                                        ->Actual_typespec());
+                                poIt9 != pkgParamObj.end()) {
+                                if (poIt9->second->Typespec())
+                                    rt9->Actual_typespec(
+                                        poIt9->second->Typespec()
+                                            ->Actual_typespec());
+                                // § r10fsv2 — the referenced parameter's own
+                                // typespec may not exist yet: a param whose
+                                // init is itself a param REFERENCE has its
+                                // typespec built by the DEFERRED drain, long
+                                // after this pattern is emitted
+                                // (cva6_config_pkg's `CVA6ConfigDataUserWidth
+                                // = CVA6ConfigXlen`, read by FuncStructVal's
+                                // `AxiUserWidth` and `FetchUserWidth`
+                                // members, where a literal-init sibling like
+                                // `CVA6ConfigXlen` binds immediately).  Park
+                                // the ref and bind it at the end, off the
+                                // SAME parameter object so each view keeps
+                                // its own typespec.
+                                if (!rt9->Actual_typespec())
+                                    pkgPatValTsFix.emplace_back(rt9,
+                                                                &nv.symbol);
+                            }
                             c9->Typespec(rt9);
                             return c9;
                         }
@@ -8574,6 +8613,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         paramInitPkg || importedParamClone || pkgEnumSubstPat;
                     auto& ev7 = stripImplicitConv(*setter.expr);
                     if (ev7.kind == ExpressionKind::NamedValue &&
+                        !enumBaseIsImplicit(
+                            ev7.as<NamedValueExpression>().symbol) &&
                         (pkgSite7 ||
                          enumMemberLiteralForm(
                              ev7.as<NamedValueExpression>().symbol)))
@@ -8726,6 +8767,54 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             tc7->VpiValue("BIN:" + tb7);
                             tc7->VpiConstType(vpiBinaryConst);
                             preE = tc7;
+                        }
+                    }
+                }
+                // § r10fsv2 L4 — a SIZE CAST over a CONCAT (`1024'({64'h0,
+                // 64'h0})`).  Surelog's reduce folds the CONCAT first and then
+                // decides on the cast, in two arms measured on FuncStructVal's
+                // six such members (both package views agree) and reproduced
+                // by tools/probe/r10fsv_memleft.sv's `C_cast1` / `C_cast2`:
+                //   * the concat FITS 64 bits — the cast folds too, to a UINT
+                //     constant at the CAST width with an EMPTY decompile.  The
+                //     value is lost (golden stores UINT:0 for `1024'({64'h8000_
+                //     0000})` as well as for the oracle's `128'({64'h3})`) —
+                //     the mask ExprEval applies is built by a shift that wraps
+                //     at every multiple of 64, so it comes out zero.
+                //   * the concat is WIDER than 64 bits — the cast OPERATION
+                //     survives, but its concat operand is replaced by a single
+                //     BIN constant at the concat's own width (decompile empty),
+                //     spanning the concat.
+                // Both arms feed § r10fsv2 L1: these element objects ARE the
+                // EvalFunc leftovers of the members that read them.
+                const Expression* castCat4 = nullptr;
+                if (paramInitDef && (paramInitPkg || importedParamClone) &&
+                    setter.expr->type && setter.expr->type->isIntegral() &&
+                    setter.expr->type->getBitWidth() > 64) {
+                    auto& cc4 = stripImplicitConv(*setter.expr);
+                    if (cc4.kind == ExpressionKind::Conversion && cc4.syntax &&
+                        cc4.syntax->kind ==
+                            syntax::SyntaxKind::CastExpression &&
+                        !isTypeSyntaxKind(
+                            cc4.syntax->as<syntax::CastExpressionSyntax>()
+                                .left->kind)) {
+                        auto& in4 = stripImplicitConv(
+                            cc4.as<ConversionExpression>().operand());
+                        if (in4.kind == ExpressionKind::Concatenation &&
+                            in4.type && in4.type->isIntegral()) {
+                            if (in4.type->getBitWidth() <= 64) {
+                                if (!preE) {
+                                    auto* zc4 = s.MakeConstant();
+                                    setLoc(zc4, setter.expr->sourceRange);
+                                    zc4->VpiSize((int32_t)setter.expr->type
+                                                     ->getBitWidth());
+                                    zc4->VpiValue("UINT:0");
+                                    zc4->VpiConstType(vpiUIntConst);
+                                    preE = zc4;
+                                }
+                            }
+                            else
+                                castCat4 = &in4;
                         }
                     }
                 }
@@ -8987,6 +9076,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             bc9->VpiDecompile("");
                             if (auto* brt9 = bc9->Typespec())
                                 brt9->VpiFullName("");
+                        }
+                    }
+                    // § r10fsv2 L4, wide arm: the surviving cast operation's
+                    // CONCAT operand collapses to one BIN constant at the
+                    // concat's own width, decompile empty.
+                    if (castCat4 && e->UhdmType() == UHDM::uhdmoperation) {
+                        auto* co4 = (UHDM::operation*)e;
+                        ASTContext ctx4(comp.getRoot(), LookupLocation::max);
+                        if (auto ccv4 = ctx4.tryEval(*castCat4);
+                            ccv4 && ccv4.isInteger() &&
+                            !ccv4.integer().hasUnknown() && co4->Operands() &&
+                            co4->Operands()->size() == 1) {
+                            auto civ4 = ccv4.integer();
+                            int32_t cw4 =
+                                (int32_t)castCat4->type->getBitWidth();
+                            std::string cb4;
+                            cb4.reserve((size_t)cw4);
+                            for (int32_t bi4 = cw4 - 1; bi4 >= 0; bi4--)
+                                cb4 += (civ4[bi4] == slang::logic_t(1)) ? '1'
+                                                                        : '0';
+                            auto* bc4 = s.MakeConstant();
+                            setLoc(bc4, castCat4->sourceRange);
+                            bc4->VpiParent(co4);
+                            bc4->VpiSize(cw4);
+                            bc4->VpiValue("BIN:" + cb4);
+                            bc4->VpiConstType(vpiBinaryConst);
+                            (*co4->Operands())[0] = bc4;
                         }
                     }
                     // A MODULE-view copy of an imported param's pattern parents

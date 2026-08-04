@@ -3747,6 +3747,22 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (!dst->Actual_typespec() && src->Actual_typespec())
             dst->Actual_typespec(src->Actual_typespec());
     noSubstRefTs.clear();
+    // § r10fsv2 — a struct-pattern member fold that read a same-package param
+    // whose OWN typespec is built by the deferred pass above.
+    for (auto& [rt, sym] : pkgPatValTsFix) {
+        if (rt->Actual_typespec())
+            continue;
+        if (auto dit = pkgParamObj.find(sym);
+            dit != pkgParamObj.end() && dit->second->Typespec() &&
+            dit->second->Typespec()->Actual_typespec()) {
+            rt->Actual_typespec(dit->second->Typespec()->Actual_typespec());
+            continue;
+        }
+        if (auto tit = pkgParamObjTop.find(sym);
+            tit != pkgParamObjTop.end() && tit->second->Typespec())
+            rt->Actual_typespec(tit->second->Typespec()->Actual_typespec());
+    }
+    pkgPatValTsFix.clear();
     // Base-class wiring last: every class_defn (package, module-local,
     // file-level, nested) now exists, so a base in any scope resolves.
     drainPendingExtends();

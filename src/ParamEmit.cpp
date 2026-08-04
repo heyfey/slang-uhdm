@@ -1141,9 +1141,16 @@ bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
 // The VALUES are the caller's, so they come from slicing the parameter value
 // slang already folded for the call — no second evaluator is needed.
 //
-// § r10fsv DECODE (FuncStructVal, measured — NOT yet implemented).  The
-// three-way `SrlgMemLeftEnc` above is too coarse: it is a *value* slicer where
-// Surelog hands back *objects*.  Oracle: tools/probe/r10fsv_memleft.sv (a
+// § r10fsv DECODE (FuncStructVal).  L1 / L3 / L4 / R-c are IMPLEMENTED by
+// r10fsv2 (see the § r10fsv2 marks below and in ExprEmit); the note is kept
+// because it records how each law was measured.  Score after r10fsv2, from
+// tools/probe/r10fsvl.cpp on FuncStructVal's function-return struct copy:
+// 69 of 97 members disagreed with golden, now 5 (and the two package views'
+// 58 pattern elements are byte-identical to golden on the cmp projection).
+// The test is still CMP_NOTEQUAL — the blockers are ranked at the end.
+//
+// The three-way `SrlgMemLeftEnc` above was too coarse: it is a *value* slicer
+// where Surelog hands back *objects*.  Oracle: tools/probe/r10fsv_memleft.sv (a
 // 12-member source pattern x a 15-member built struct covering every RHS
 // shape), golden by `surelog -parse -mt 0 -mp 0 -d uhdm dut.sv`; census with
 // tools/probe/r10fsvl.cpp (leftovers per struct-typespec copy) and
@@ -1161,6 +1168,11 @@ bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
 //     vpiParent = the tagged_pattern it came from, and two members reading the
 //     SAME source member share one object — FuncStructVal AxiUserWidth and
 //     DCACHE_USER_WIDTH both carry span 76:31-76:54.)
+//     IMPLEMENTED (r10fsv2): SrlgMemLeftEnc::Pat + patElabElems + the resolve
+//     loop at the head of stampEvalFuncLeftovers.  The element objects are
+//     SHARED, exactly as golden shares them; a member whose element never
+//     folded (R-c) is left unstamped, and a caller whose pattern we never
+//     recorded still falls back to the old value slice.
 //
 //  L2 ELAB PATTERN-ELEMENT RESIZE.  In the ELABORATED view (uhdmtopPackages)
 //     every UINT pattern element is re-sized to its member's bit width and the
@@ -1182,20 +1194,38 @@ bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
 //                                     UINT 64)
 //       `unsigned'(x)`             -> x's own constant handed back (signCastReduce9)
 //       plain literal              -> UINT size 64
+//     IMPLEMENTED (r10fsv2) by memLeftComputedEnc, which also decodes two arms
+//     the first pass had not: `**` folds INT like the other arithmetic arms
+//     (DCACHE_NUM_WORDS `2 ** (...)` -> INT/64), and a read of a fn-scope
+//     LOCAL takes that local's OWN initializer's form, recursively
+//     (`cfg.IS_XLEN32 = IS_XLEN32` with `bit IS_XLEN32 = <ternary>` -> INT/64;
+//     `cfg.FLen = unsigned'(FLen)` with a nested ternary -> INT/64).
 //
-//  L4 DEF-VIEW SIZED-CAST CONCAT FOLD.  `128'({64'h3})` — a size cast over a
-//     SINGLE-element concat — folds in BOTH views to a UINT constant at the
-//     CAST width with an EMPTY decompile (the value is not representable, and
-//     golden stores UINT:0); a MULTI-element concat under the same cast stays
-//     an operation.  We keep the operation in both cases.
+//  L4 SIZED-CAST CONCAT FOLD.  `1024'({64'h8000_0000})` — a size cast over a
+//     concat whose OWN width fits 64 bits — folds in BOTH views to a UINT
+//     constant at the CAST width with an EMPTY decompile.  The value is lost
+//     (golden stores UINT:0 for `1024'({64'h8000_0000})` as well as for the
+//     oracle's `128'({64'h3})`): the mask ExprEval applies is built by a shift
+//     that wraps at every multiple of 64, so it comes out zero.  A concat
+//     WIDER than 64 bits keeps the cast OPERATION — but its concat operand
+//     collapses to ONE BIN constant at the concat's own width with an empty
+//     decompile, which the first pass had not seen (FuncStructVal's four
+//     `1024'({64'h.., 64'h..})` members: we kept the whole vpiConcatOp with
+//     its per-element constants).  IMPLEMENTED (r10fsv2) in ExprEmit's
+//     struct-pattern member setter.
 //
-// Two structural residues measured with the same oracle, ranked below the
-// four laws because they are separate machinery:
+// Structural residues, ranked by what still blocks the test:
 //   R-a  the TOP MODULE's parameter needs its OWN stamped struct copy (golden
-//        mints a second stamped struct_typespec for work@top.CFG; the
+//        mints a second stamped struct_typespec for work@top.CVA6Cfg; the
 //        topPackages typedef listing SHARES the function-return copy).  We
-//        emit only the function-return copy, so every top-module member read
-//        compares against a null.
+//        point it at the function-return copy instead — the VALUES agree, so
+//        this is an identity residue, not a cmp failure (uhdm-cmp's visited
+//        memo is keyed on the LHS object, so golden's second copy is compared
+//        afresh against our shared one and passes).  NOT implemented.
+//        The DEF module listing's copy of the same parameter IS implemented
+//        (memLeftDefParams): golden's uhdmallModules work@top.CVA6Cfg also
+//        resolves the stamped copy, where a plain typedef resolution gives the
+//        clean def-package listing and every member read reads a null.
 //   R-b  `memLeftGenScopeBlocked` is WRONG here: golden DOES elaborate
 //        work@top.u1's generate scope (FuncStructVal: 2 gen_scope_array + 3
 //        gen_scope; the oracle: 4 gen_scope mentions) while we emit none.
@@ -1203,9 +1233,99 @@ bool UhdmExporter::elabParamCallSymbolic(const ParameterSymbol& ps) {
 //        cont_assign 24-vs-18, part_select 8-vs-2 and sys_func_call 87-vs-66
 //        gaps.  FuncStructValSimple (where the law was decoded) still wants
 //        the suppression, so the distinguisher is real but unfound.
-//   R-c  an UNTYPED enum (`typedef enum {A,B}`) pattern element does not fold
-//        at all — it stays a ref_obj — and its member is then NOT stamped
-//        (FuncStructVal golden has 96 leftovers, we stamp all 97).
+//   R-c  an UNTYPED enum (`typedef enum {A,B}` — no written base type) pattern
+//        element does not fold at all: it stays a ref_obj, and its member is
+//        then NOT stamped (FuncStructVal golden has 96 leftovers, we stamped
+//        all 97).  IMPLEMENTED (r10fsv2) by enumBaseIsImplicit in ExprEmit —
+//        the distinguisher is the DECLARATION, not whether the enum member
+//        carries an initializer (AssignmentPatternInAssignmentPattern's
+//        initializer-less `PhaseSeed` of an `enum logic [1:0]` still folds).
+//
+// § r10fsv2 RESIDUES (measured on FuncStructVal with tools/probe/r10fsv2c.cpp,
+// which localizes a whole-design Compare by re-running it per design-list
+// ENTRY with a fresh CompareContext).  In cmp-blocking order:
+//
+//   S1 TYPEDEF-OBJECT SHARING (the current blocker).  Golden's DEF-view
+//      cva6_config_pkg param `cva6_cfg` resolves its `config_pkg::cva6_user_
+//      cfg_t` to the object spanned at 468:58 — the FUNCTION's io_decl
+//      typespec, ONE object shared by both package views — whose vpiInstance
+//      is the ELABORATED config_pkg.  We mint a per-view copy spanned at the
+//      typedef (176:11) instanced at the DEF config_pkg.  typespec::Compare
+//      chases Instance(), so golden's walk arrives at the STAMPED cva6_cfg_t
+//      while ours arrives at the clean def listing and reads a null
+//      Actual_value on its first member (XLEN) — that is the `failLhs =
+//      constant 70:23 / failRhs = <null>` uhdm-cmp reports.  This is
+//      per-copy-discipline work (dcdd54b / 26b2386), not leftover work.
+//   S2 UNREDUCIBLE COMPUTED MEMBER.  `cfg.NonIdemPotenceEn = CVA6Cfg.NrNon
+//      IdempotentRules && CVA6Cfg.NonIdempotentLength` reads a member whose
+//      pattern element is itself an unreduced cast OPERATION, so ExprEval's
+//      reduce fails and the leftover is the FUNCTION BODY's own assignment
+//      RHS object (golden: operation opType 26 at 568:28, vpiParent = the
+//      body's assignment, operands the two unresolved hier_paths).  We fold it
+//      to UINT:0/64.  1 of 97 members; needs a slang-Expression -> emitted-
+//      object map for the body's assignment RHS (there is none today).
+//   S3 the elab pattern element of a member read (`AxiUserWidth`,
+//      `FetchUserWidth`) binds the referenced parameter's typespec even when
+//      that parameter has one ONLY in the elab listing (a localparam whose
+//      init is a param REFERENCE gets no def-view typespec at all, in golden
+//      as in ours).  FIXED by pkgPatValTsFix / pkgParamObjTop.
+// § r10fsv2 L3.  The leftover of a COMPUTED member write (an RHS that is not
+// a plain read of the struct FORMAL's member) is encoded by the shape of the
+// RHS, exactly as UHDM's ExprEval builds its result:
+//   ternary                     -> INT  size 64   (the vpiConditionOp arm
+//                                 unconditionally re-wraps INT/64)
+//   `-` `*` `/` `%` `**`        -> INT  size 64   (each arm hardcodes INT:)
+//   bitwise/logical/comparison  -> UINT size 64
+//   `$clog2(x)` / plain literal -> UINT size 64
+//   `bit'(x)`                   -> BIN  size 1, decompile EMPTY
+//   `unsigned'(x)`              -> x's own constant handed back (recurse)
+//   a fn-scope LOCAL read       -> the local's own initializer's form
+//                                  (`cfg.IS_XLEN32 = IS_XLEN32` with
+//                                   `bit IS_XLEN32 = <ternary>` -> INT/64)
+// Measured on FuncStructVal (69 members) and the tools/probe/r10fsv_memleft.sv
+// oracle (15 members), which agree on every arm.
+SrlgMemLeftEnc UhdmExporter::memLeftComputedEnc(const Expression& e0,
+                                                int depth) {
+    if (depth > 8)
+        return SrlgMemLeftEnc::Uint;
+    auto& e = stripImplicitConv(e0);
+    switch (e.kind) {
+        case ExpressionKind::ConditionalOp:
+            return SrlgMemLeftEnc::Int;
+        case ExpressionKind::BinaryOp: {
+            auto bop = e.as<BinaryExpression>().op;
+            if (bop == BinaryOperator::Subtract ||
+                bop == BinaryOperator::Multiply ||
+                bop == BinaryOperator::Divide || bop == BinaryOperator::Mod ||
+                bop == BinaryOperator::Power)
+                return SrlgMemLeftEnc::Int;
+            return SrlgMemLeftEnc::Uint;
+        }
+        case ExpressionKind::Conversion: {
+            auto& cv = e.as<ConversionExpression>();
+            // An EXPLICIT type cast to a ONE-BIT type (`bit'(x)`) reduces
+            // through ExprEval's bit-cast arm, which stores a size-1 binary
+            // constant with no decompile.  Every other cast (`unsigned'(x)`,
+            // a width cast) hands the operand's own constant straight back.
+            if (e.type && e.type->isIntegral() && e.type->getBitWidth() == 1 &&
+                cv.syntax &&
+                cv.syntax->kind == syntax::SyntaxKind::CastExpression)
+                return SrlgMemLeftEnc::Bin1;
+            return memLeftComputedEnc(cv.operand(), depth + 1);
+        }
+        case ExpressionKind::NamedValue: {
+            // A fn-scope local carries the form its own initializer folded to.
+            auto& sy = e.as<NamedValueExpression>().symbol;
+            if (sy.kind == SymbolKind::Variable)
+                if (auto* vi = sy.as<VariableSymbol>().getInitializer())
+                    return memLeftComputedEnc(*vi, depth + 1);
+            return SrlgMemLeftEnc::Uint;
+        }
+        default:
+            return SrlgMemLeftEnc::Uint;
+    }
+}
+
 const std::vector<UhdmExporter::SrlgMemLeft>*
 UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
     if (auto it = memLeftCache.find(&sub); it != memLeftCache.end())
@@ -1244,7 +1364,7 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
     // Anything else — a loop, a nested call, a whole-struct assignment — is
     // outside the modelled subset.
     bool bad = false;
-    std::map<std::string, SrlgMemLeftEnc> enc;
+    std::map<std::string, SrlgMemLeft> enc;
     sub.getBody().visit(makeVisitor([&](auto& v, const AssignmentExpression& a) {
         auto& lhs = stripImplicitConv(a.left());
         if (lhs.kind != ExpressionKind::MemberAccess) {
@@ -1263,18 +1383,38 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
             return;
         }
         auto& rhs = stripImplicitConv(a.right());
-        SrlgMemLeftEnc e = SrlgMemLeftEnc::Uint;
-        if (rhs.kind == ExpressionKind::ConditionalOp)
-            e = SrlgMemLeftEnc::Int;
-        else if (rhs.kind == ExpressionKind::MemberAccess ||
-                 rhs.kind == ExpressionKind::Concatenation) {
-            // Only the WIDE (>64b) member-copy shape is measured: it reuses
-            // the caller's own BIN constant.  A narrow copy has no golden yet,
-            // so keep it on the plain UINT fold.
-            e = ma.type->getBitWidth() > 64 ? SrlgMemLeftEnc::Bin
-                                           : SrlgMemLeftEnc::Uint;
+        SrlgMemLeft ml;
+        ml.enc = SrlgMemLeftEnc::Uint;
+        // § r10fsv2 L1.  `d.M = <formal>.<N>` hands back the ELABORATED
+        // pattern's OWN element object for N — record the formal and the
+        // source member and resolve it in the stamp drain.  The value-slicing
+        // encodings below are only the fallback for a caller whose actual is
+        // not a pattern we recorded.
+        if (rhs.kind == ExpressionKind::MemberAccess) {
+            auto& rma = rhs.as<MemberAccessExpression>();
+            auto& rbase = stripImplicitConv(rma.value());
+            if (rbase.kind == ExpressionKind::NamedValue) {
+                auto& rsym = rbase.as<NamedValueExpression>().symbol;
+                int ai = 0;
+                for (auto* fa : sub.getArguments()) {
+                    if (fa == &rsym) {
+                        ml.enc = SrlgMemLeftEnc::Pat;
+                        ml.srcMember = std::string(rma.member.name);
+                        ml.argIndex = ai;
+                        break;
+                    }
+                    ai++;
+                }
+            }
         }
-        enc[std::string(ma.member.name)] = e;
+        if (ml.enc != SrlgMemLeftEnc::Pat) {
+            ml.enc = memLeftComputedEnc(a.right(), 0);
+            // A wide (>64b) CONCAT keeps the caller's own BIN re-encoding.
+            if (rhs.kind == ExpressionKind::Concatenation &&
+                ma.type->getBitWidth() > 64)
+                ml.enc = SrlgMemLeftEnc::Bin;
+        }
+        enc[std::string(ma.member.name)] = ml;
         v.visitDefault(a);
     }));
     if (bad || enc.empty())
@@ -1283,7 +1423,9 @@ UhdmExporter::srlgEvalFuncMemberLeftovers(const SubroutineSymbol& sub) {
         auto it = enc.find(std::string(f.name));
         if (it == enc.end())
             return fail(); // a member the body never writes: unmodelled
-        out.push_back({std::string(f.name), it->second});
+        SrlgMemLeft ml = it->second;
+        ml.name = std::string(f.name);
+        out.push_back(ml);
     }
     if (out.size() != enc.size())
         return fail();
@@ -1304,6 +1446,23 @@ const SubroutineSymbol* UhdmExporter::memLeftInitCall(const Expression& init) {
     return srlgEvalFuncMemberLeftovers(**sub) ? *sub : nullptr;
 }
 
+const ParameterSymbol* UhdmExporter::memLeftCallPatArg(const Expression& init,
+                                                       int idx) {
+    auto& si = stripImplicitConv(init);
+    if (idx < 0 || si.kind != ExpressionKind::Call)
+        return nullptr;
+    auto args = si.as<CallExpression>().arguments();
+    if ((size_t)idx >= args.size())
+        return nullptr;
+    auto& ae = stripImplicitConv(*args[(size_t)idx]);
+    if (ae.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sy = ae.as<NamedValueExpression>().symbol;
+    if (sy.kind != SymbolKind::Parameter)
+        return nullptr;
+    return &sy.as<ParameterSymbol>();
+}
+
 static UHDM::constant* makeMemLeftConst(UHDM::Serializer& s,
                                         const FieldSymbol& fld,
                                         const slang::SVInt& whole,
@@ -1315,7 +1474,19 @@ static UHDM::constant* makeMemLeftConst(UHDM::Serializer& s,
                                      (int32_t)fld.bitOffset);
     if (slice.hasUnknown())
         return nullptr;
+    // A `Pat` member whose caller pattern element could NOT be resolved falls
+    // back to the value slice — wide members re-encode BIN, narrow ones UINT.
+    if (enc == SrlgMemLeftEnc::Pat)
+        enc = w > 64 ? SrlgMemLeftEnc::Bin : SrlgMemLeftEnc::Uint;
     auto* c = s.MakeConstant();
+    // `bit'(x)`: a size-1 BINARY constant with an EMPTY decompile.
+    if (enc == SrlgMemLeftEnc::Bin1) {
+        c->VpiValue(std::string("BIN:") +
+                    ((slice[0] == slang::logic_t(1)) ? '1' : '0'));
+        c->VpiSize(1);
+        c->VpiConstType(vpiBinaryConst);
+        return c;
+    }
     if (enc == SrlgMemLeftEnc::Bin) {
         std::string bits;
         bits.reserve((size_t)w);
@@ -1413,6 +1584,29 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     }
     if (memLeftStamps.empty())
         return;
+    // § r10fsv2 L1 RESOLVE.  A `Pat` member's leftover is the CALLER's own
+    // ELABORATED pattern element OBJECT, shared — not a re-encoded slice.  An
+    // element that never folded (an UNTYPED enum member stays a ref_obj) has
+    // no value to leave behind, so that member is not stamped at all
+    // (FuncStructVal golden: 96 leftovers on a 97-member struct).  When the
+    // caller's pattern was not recorded (its elab view folded the whole
+    // pattern away), the slice fallback built at the param site stands.
+    for (auto& st : memLeftStamps) {
+        for (size_t i = 0; i < st.srcParam.size() && i < st.values.size(); i++) {
+            if (!st.srcParam[i])
+                continue;
+            auto pit = patElabElems.find(st.srcParam[i]);
+            if (pit == patElabElems.end())
+                continue;
+            auto eit = pit->second.find(st.srcMember[i]);
+            if (eit == pit->second.end())
+                continue;
+            st.values[i] = (!eit->second ||
+                            eit->second->UhdmType() == UHDM::uhdmref_obj)
+                               ? nullptr
+                               : (UHDM::expr*)eit->second;
+        }
+    }
     std::set<const UHDM::struct_typespec*> done;
     auto stamp = [&](UHDM::typespec* ts) {
         if (!ts || ts->UhdmType() != UHDM::uhdmstruct_typespec)
@@ -1433,9 +1627,11 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
                 continue;
             for (size_t i = 0; i < st.names.size(); i++) {
                 auto* tm = (*sts->Members())[i];
-                if (!tm->Actual_value())
+                if (st.values[i] && !tm->Actual_value())
                     tm->Actual_value(st.values[i]);
             }
+            if (!st.stamped)
+                st.stamped = sts;
             return;
         }
     };
@@ -1464,6 +1660,22 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
     if (auto* tm = d->TopModules())
         for (auto* m : *tm)
             walk(m);
+    // The DEF module listing's copy of the parameter resolves the SAME struct
+    // typespec object the elaborated views do — golden's uhdmallModules
+    // work@top.CVA6Cfg points at the stamped function-return copy, not at the
+    // clean def-package listing (which is what a plain typedef resolution
+    // gives us).  Re-point it once the stamp has found its object.
+    for (auto& [up, sym] : memLeftDefParams) {
+        auto* rt = up->Typespec();
+        if (!rt || !rt->Actual_typespec() ||
+            rt->Actual_typespec()->UhdmType() != UHDM::uhdmstruct_typespec)
+            continue;
+        for (auto& st : memLeftStamps)
+            if (st.owner == sym && st.stamped) {
+                rt->Actual_typespec(st.stamped);
+                break;
+            }
+    }
 }
 
 // Surelog INLINES a foldable const function's body, so the folded constant is
@@ -5670,6 +5882,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // bare struct_var carrying a ts ref to the param's struct
             // typespec, and we record the per-member constants for the stamp
             // pass (FuncStructValSimple work@top.CVA6Cfg).
+            // ...and the DEF module listing resolves the SAME (stamped) struct
+            // copy — recorded here, re-pointed by the drain.
+            if (!topView && !inPackage && memLeftInitCall(*init))
+                memLeftDefParams.emplace_back(up, &ps);
             if (topView && !inPackage) {
                 if (auto* mlSub = memLeftInitCall(*init)) {
                     auto& mst = ps.getType().getCanonicalType();
@@ -5704,9 +5920,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             setLoc(c9, init->sourceRange);
                             st9.names.push_back(std::string(f9.name));
                             st9.values.push_back(c9);
+                            // § r10fsv2 L1: a `Pat` member's real leftover is
+                            // the CALLER's own elaborated pattern element for
+                            // the source member — recorded here, resolved in
+                            // the drain (the package elab view may not be
+                            // emitted yet).  `c9` stays as the fallback.
+                            const ParameterSymbol* sp9 = nullptr;
+                            if ((*leftovers)[li9].enc == SrlgMemLeftEnc::Pat)
+                                sp9 = memLeftCallPatArg(
+                                    *init, (*leftovers)[li9].argIndex);
+                            st9.srcParam.push_back(sp9);
+                            st9.srcMember.push_back(
+                                sp9 ? (*leftovers)[li9].srcMember
+                                    : std::string());
                             li9++;
                         }
                         if (ok9 && !st9.names.empty()) {
+                            st9.owner = &ps;
                             memLeftStamps.push_back(st9);
                             auto* sv9 = s.MakeStruct_var();
                             setLoc(sv9, init->sourceRange);
@@ -9449,6 +9679,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 continue;
                             auto* tp9 = (UHDM::tagged_pattern*)o9;
                             auto* pv9 = tp9->Pattern();
+                            // § r10fsv2 L1: record EVERY element object (a
+                            // constant, an unreduced operation, or a ref_obj
+                            // that never folded) — an EvalFunc leftover for a
+                            // member read of this pattern IS this object.
+                            if (pv9)
+                                if (auto* trt0 = tp9->Typespec())
+                                    if (auto* tat0 = trt0->Actual_typespec())
+                                        patElabElems[&ps][std::string(
+                                            tat0->VpiName())] = pv9;
                             if (!pv9 || pv9->UhdmType() != UHDM::uhdmconstant)
                                 continue;
                             auto* c9 = (UHDM::constant*)pv9;
@@ -10084,6 +10323,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     pkgParamConst[&member] = (UHDM::constant*)rhs;
                 if (inPackage && !topView)
                     pkgParamObj[&member] = up;
+                if (inPackage && topView)
+                    pkgParamObjTop[&member] = up;
                 // Registered per VIEW: the top-view pass overwrites with its
                 // elab Rhs so view-local refs chain within their own view.
                 if (inPackage)
