@@ -3106,9 +3106,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             typedPar9 =
                                 tsn9->kind != syntax::SyntaxKind::ImplicitType;
                     if (!inLhs && typedPar9) {
+                        // § genCaOwnSymFirst — THIS instance's own symbol
+                        // before the location+name scan.  Every instance of a
+                        // parameterized module registers its elaborated
+                        // constant at the same declaration, so the scan hands
+                        // back whichever instance was emitted FIRST: Rggen's
+                        // block_1 register-file decoder (ADDRESS_WIDTH 7)
+                        // folded `i_address[WIDTH-1:LSB]` with block_0's
+                        // WIDTH 8 while its own END_ADDRESS was correctly 5
+                        // bits wide.  Same failure mode § genProcParamFold
+                        // fixed in the process path (pass 7); the scan stays
+                        // as the fallback for bodies that share symbols with
+                        // the def view.
+                        const UHDM::constant* ownEc9 = nullptr;
+                        if (auto oit9 = elabParamConst.find(&nv.symbol);
+                            oit9 != elabParamConst.end() && oit9->second)
+                            ownEc9 = oit9->second;
                         for (auto& [esym, econ] : elabParamConst)
-                            if (esym->location == nv.symbol.location &&
-                                esym->name == nv.symbol.name) {
+                            if (ownEc9 ? econ == ownEc9
+                                       : (esym->location == nv.symbol.location &&
+                                          esym->name == nv.symbol.name)) {
                                 auto* c2 = s.MakeConstant();
                                 c2->VpiDecompile(econ->VpiDecompile());
                                 c2->VpiSize(econ->VpiSize());
@@ -3136,6 +3153,55 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 return c2;
                             }
                     }
+                    // § genCaLpPaCopy — a MODULE LOCALPARAM never reaches
+                    // elabParamConst (that map holds only overridable port
+                    // params), but it does have an elaborated param_assign,
+                    // and Surelog's reduce hands back THAT constant verbatim:
+                    // rggen_address_decoder's `localparam int LSB =
+                    // $clog2(BUS_WIDTH) - 3` reads back INT:2 (a signed int
+                    // expression result) and `localparam bit [WIDTH-LSB-1:0]
+                    // BEGIN_ADDRESS` reads back BIN `6'b000000` through a
+                    // bit_typespec — where the generic arm below mints a
+                    // UINT-at-width decimal and an int_typespec.  Same law as
+                    // § genProcParamFold's paSrc9 copy, one context over: a
+                    // gen-scope CONT-ASSIGN select bound instead of a
+                    // gen-scope process.  Keyed by THIS instance's own symbol,
+                    // never a location+name scan (44 sibling instances carry
+                    // different widths).  rp32_r5p_alu's `int unsigned XLOG`,
+                    // whose pa Rhs IS the UINT the generic arm builds, is
+                    // unchanged by the copy.
+                    if (!inLhs && !elabParamConst.count(&nv.symbol))
+                        if (auto pit8 = elabParamPa.find(&nv.symbol);
+                            pit8 != elabParamPa.end() && pit8->second)
+                            if (auto* pr8 = pit8->second->Rhs();
+                                pr8 &&
+                                pr8->UhdmType() == UHDM::uhdmconstant) {
+                                auto* src8 = (UHDM::constant*)pr8;
+                                auto* c8 = s.MakeConstant();
+                                c8->VpiDecompile(src8->VpiDecompile());
+                                c8->VpiSize(src8->VpiSize());
+                                c8->VpiValue(std::string(src8->VpiValue()));
+                                c8->VpiConstType(src8->VpiConstType());
+                                c8->VpiParent(parent);
+                                setLoc(c8, expr.sourceRange);
+                                auto* rt8 = s.MakeRef_typespec();
+                                rt8->VpiFullName(prefix);
+                                rt8->VpiParent(c8);
+                                // The pa Rhs constant's OWN ts ref may not be
+                                // resolved yet (a def-view share or an elab
+                                // pattern substitution binds it later), so fall
+                                // back to the parameter's own typespec — the
+                                // same object that ref ends up naming.
+                                if (auto* srt8 = src8->Typespec();
+                                    srt8 && srt8->Actual_typespec())
+                                    rt8->Actual_typespec(
+                                        srt8->Actual_typespec());
+                                else
+                                    bindOrParkParamTs(
+                                        nv.symbol.as<ParameterSymbol>(), rt8);
+                                c8->Typespec(rt8);
+                                return c8;
+                            }
                     auto& psF = nv.symbol.as<ParameterSymbol>();
                     auto& cvF = psF.getValue();
                     // A param with NO elaborated twin in elabParamConst (a
@@ -3257,6 +3323,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (outerParam8 && cv8.isInteger() &&
                         !cv8.integer().hasUnknown()) {
                         bool bare8 = typelessParamObj(parent, nv.symbol.name);
+                        // § genCaLpPaCopy (plain-operand half) — the same
+                        // verbatim copy of the LOCALPARAM's own elaborated
+                        // param_assign Rhs constant that the select-bound arm
+                        // above takes.  rggen_address_decoder:34
+                        // `i_address[WIDTH-1:LSB] == BEGIN_ADDRESS` has one of
+                        // each: LSB in the bound, BEGIN_ADDRESS as the plain
+                        // operand, and golden reads both back through the
+                        // parameter's own encoding and typespec (BIN
+                        // `6'b000000` / bit_typespec, not UINT:0 /
+                        // int_typespec).  Port params keep their existing
+                        // shape — they have an elabParamConst twin.
+                        if (!bare8 && !elabParamConst.count(&nv.symbol))
+                            if (auto pit7 = elabParamPa.find(&nv.symbol);
+                                pit7 != elabParamPa.end() && pit7->second)
+                                if (auto* pr7 = pit7->second->Rhs();
+                                    pr7 &&
+                                    pr7->UhdmType() == UHDM::uhdmconstant) {
+                                    auto* src7 = (UHDM::constant*)pr7;
+                                    auto* c7 = s.MakeConstant();
+                                    c7->VpiDecompile(src7->VpiDecompile());
+                                    c7->VpiSize(src7->VpiSize());
+                                    c7->VpiValue(
+                                        std::string(src7->VpiValue()));
+                                    c7->VpiConstType(src7->VpiConstType());
+                                    c7->VpiParent(parent);
+                                    setLoc(c7, expr.sourceRange);
+                                    auto* rt7 = s.MakeRef_typespec();
+                                    rt7->VpiFullName(genCaSelBasePfx.empty()
+                                                         ? prefix
+                                                         : genCaSelBasePfx);
+                                    rt7->VpiParent(c7);
+                                    if (auto* srt7 = src7->Typespec();
+                                        srt7 && srt7->Actual_typespec())
+                                        rt7->Actual_typespec(
+                                            srt7->Actual_typespec());
+                                    else
+                                        bindOrParkParamTs(ps8, rt7);
+                                    c7->Typespec(rt7);
+                                    return c7;
+                                }
                         auto* c8 = s.MakeConstant();
                         std::string d8 =
                             cv8.integer().toString(LiteralBase::Decimal, false);
@@ -5710,10 +5816,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 auto it = subMap.find(&sub);
-                // A PARAM-INIT call in an ELAB instance body: bind the shared
-                // DEF function (the elab view lists it; Surelog's kept
-                // func_call points at it) rather than an empty shell.
-                if (it == subMap.end() && inParamInit && !paramInitDef)
+                // § elabInstCallDefSub — ANY call in an ELAB instance body
+                // binds the shared DEF function (the elab view lists it and
+                // Surelog's kept func_call points at it) rather than an empty
+                // shell.  slang gives every instance body its own
+                // SubroutineSymbol, so only the FIRST instance — the one
+                // emitModuleDef compiled the definition from — was in subMap;
+                // every further instance minted a nameless shell, which also
+                // left `si.argTs` empty and therefore dropped the formal-
+                // typespec stamp on every actual (the stamp block requires
+                // `argIdx < si.argTs.size()`).  Rggen: 252 `rggen_bit_field`
+                // instances, 251 of them binding a shell — the single largest
+                // gen-tree cluster (717 census lines).  The param-init arm
+                // this generalises was the same law seen through one context.
+                // Repro r10rggen8repro/t1.sv: `leaf` instantiated three times,
+                // golden binds `work@leaf.mix` and stamps `logic_typespec@10:5`
+                // in ALL three, ours only in u0.
+                if (it == subMap.end() && !(inParamInit && paramInitDef))
                     if (auto psc9 = sub.getParentScope();
                         psc9 && psc9->asSymbol().kind == SymbolKind::InstanceBody) {
                         auto dit9 = defSubByName.find(std::make_pair(

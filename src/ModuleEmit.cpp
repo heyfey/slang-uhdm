@@ -9853,6 +9853,66 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 rt->VpiParent(up);
                 up->Typespec(rt);
                 params->push_back(up);
+                // § genLpUnpackedArray — an UNPACKED-ARRAY gen-scope localparam
+                // (`localparam bit [1:0] INITIAL_VALUE[4] = '{2'h0,…}`, Rggen
+                // block_0:1811) has no integer value, so every arm below —
+                // all of them gated on `cv.isInteger()` — skipped it: the
+                // parameter came out with no vpiSize, no vpiRange and an
+                // int_typespec, and NO param_assign was emitted at all.
+                // Golden gives it the same shape a MODULE-level unpacked
+                // array parameter already gets from emitParameters (ranges,
+                // an array_typespec, and a param_assign whose Rhs is the
+                // assignment-pattern operation carrying that same
+                // array_typespec) — plus a vpiSize of the ELEMENT COUNT,
+                // where the module-local view keeps 1.  Repro
+                // r10rggen8repro/t2.sv (for-generate and if-generate bodies,
+                // with a scalar sibling and a module-level twin as controls).
+                if (ps.getType().getCanonicalType().kind ==
+                    SymbolKind::FixedSizeUnpackedArrayType) {
+                    std::string afull9 = fullName + "." + std::string(ps.name);
+                    std::string savedDfo9 = dimFoldOwner;
+                    dimFoldOwner = afull9;
+                    auto* prng9 = buildUnpackedRanges(ps, up, afull9);
+                    dimFoldOwner = savedDfo9;
+                    if (prng9)
+                        up->Ranges(prng9);
+                    auto& uat9 = ps.getType().getCanonicalType();
+                    if (auto w9 =
+                            uat9.as<FixedSizeUnpackedArrayType>().range.width();
+                        w9 > 0)
+                        up->VpiSize((int32_t)w9);
+                    auto* ats9 =
+                        makeUnpackedArrayParamTs(ps, afull9, up, prng9);
+                    rt->Actual_typespec(ats9);
+                    if (auto init9 = ps.getInitializer()) {
+                        auto* pa9 = s.MakeParam_assign();
+                        pa9->VpiParent(gs);
+                        if (auto dsyn9 = ps.getSyntax())
+                            setLoc(pa9, dsyn9->sourceRange());
+                        pa9->Lhs(up);
+                        bool sIP9 = inParamInit, sPD9 = paramInitDef;
+                        inParamInit = true;
+                        paramInitDef = false;
+                        auto* rhs9 = emitExpr(*init9, pa9, fullName, netMap);
+                        inParamInit = sIP9;
+                        paramInitDef = sPD9;
+                        if (rhs9) {
+                            pa9->Rhs((UHDM::expr*)rhs9);
+                            // The pattern operation names the GEN SCOPE and
+                            // points at the parameter's own array_typespec.
+                            if (rhs9->UhdmType() == UHDM::uhdmoperation &&
+                                !((UHDM::operation*)rhs9)->Typespec()) {
+                                auto* ort9 = s.MakeRef_typespec();
+                                ort9->VpiFullName(fullName);
+                                ort9->VpiParent(rhs9);
+                                ort9->Actual_typespec(ats9);
+                                ((UHDM::operation*)rhs9)->Typespec(ort9);
+                            }
+                            genPas->push_back(pa9);
+                        }
+                    }
+                    continue;
+                }
                 // The gen-scope param_assign: Rhs is a source-encoded constant
                 // (init span, gen-scope-scoped ts ref) SHARED into the gen CA
                 // fold (its parent becomes the sharing cont_assign).

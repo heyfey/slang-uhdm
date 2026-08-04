@@ -1,0 +1,51 @@
+r10rggen8 purpose-built Surelog goldens — file -> law it pins
+
+Generate a golden with
+  tools/probe/r10rggen8golden.sh <this dir> <file>.sv
+and ours with
+  tools/probe/r10rggen8ours.sh   <this dir> <file>.sv
+then diff /tmp/r10rggen8_ours.txt against the golden dump, or run
+uhdm-cmp on the two .uhdm files.  (r10rggen8golden.sh leaves a slpp_all/
+behind; it is scratch, never commit it.)
+
+t1.sv  § elabInstCallDefSub — `leaf` instantiated THREE times, each with a
+       generate-block cont_assign calling the module's own function.  Golden
+       binds `work@leaf.mix` and stamps the formal typespec
+       (`logic_typespec@10:5`) on both actuals in ALL THREE elab instances;
+       ours did it only in u0 because slang gives every instance body its own
+       SubroutineSymbol and only the first was in subMap — the rest minted a
+       nameless shell, whose empty argTs also killed the stamp.  The single
+       largest Rggen gen-tree cluster (717 census lines, 500 shell bindings).
+
+t2.sv  § genLpUnpackedArray + § unpackedElemTwoState — an UNPACKED-ARRAY
+       localparam declared inside a for-generate body and inside an
+       if-generate body, with a scalar localparam and a module-level twin as
+       controls.  Golden's ELAB gen_scope gives it vpiSize = the ELEMENT
+       COUNT, a vpiRange, an array_typespec (whose element is a BIT typespec
+       for a `bit`-based element) and a param_assign whose Rhs is the
+       assignment-pattern operation carrying that same array_typespec.  Ours
+       emitted none of it: every arm of the gen-scope parameter loop is gated
+       on `cv.isInteger()`, which an array value is not.  After the fix the
+       whole elab gen_scope is byte-identical to golden.
+       STILL OPEN in this file: the DEF-view gen `named_begin` param_assign
+       stmt (ModuleEmit ~21001) keeps an int_typespec and no Rhs, where
+       golden carries a bit_typespec, a vpiRange, vpiSize = the element count
+       and the pattern Rhs.  Different code path, same declaration.
+
+t3.sv  compound-assignment write-back, part 1 (DECODED, NOT IMPLEMENTED).
+       Surelog overwrites a compound assignment's LITERAL Rhs constant with
+       the value its constant-function evaluator last computed for that
+       statement, not the literal that was written:
+         a = 0; a += 1  -> UINT:1     (0+1)
+         b = 5; b -= 2  -> INT:3      (5-2)
+         b = 3; b *= 3  -> INT:9      (3*3)
+       A ref or expression Rhs (`a += n`, `b += (n+1)`) is left alone.
+t4.sv  compound-assignment write-back, part 2: four functions (straight-line,
+       if/else on a non-constant condition, LHS written under a branch, and an
+       array element indexed by the LHS) all called from localparams — every
+       one comes out UINT:4 for `a += 1` with N=3, i.e. ONE MORE than the
+       loop's final value, so the write-back is not simply "the last in-loop
+       result".  This is the whole-design cmp head: rggen_or_reducer's
+       `list_index += 1` (line 30:22) is UINT:0 in golden and UINT:1 in ours.
+       Modelling it means emulating Surelog's evaluator, so it is recorded as
+       decoded, not implemented.

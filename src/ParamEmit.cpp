@@ -5820,6 +5820,78 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         srcBaseOv8 = true;
                     }
                 }
+                // § unpackedElemOvEnc — an override actual that INDEXES an
+                // UNPACKED-ARRAY parameter (`.INITIAL_VALUE(INITIAL_VALUE[j])`
+                // against `localparam bit [1:0] INITIAL_VALUE[4] = '{2'h0,
+                // 2'h1, 2'h2, 2'h3}`, Rggen block_0:1816) hands back the
+                // SELECTED PATTERN ELEMENT's own written literal, encoding
+                // and all: `2'h0` HEX at size 2, not the decimal UINT fold.
+                // The packed BIT/PART-SELECT rule below cannot reach this —
+                // it requires an INTEGRAL base, and an unpacked array is not
+                // one — and the whole shape only became reachable once
+                // § genLpUnpackedArray gave the gen-scope localparam a
+                // param_assign at all.
+                if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    !enumCstOv8 && !strRefOv8 && boundInit) {
+                    auto& us8 = stripImplicitConv(*boundInit);
+                    if (us8.kind == ExpressionKind::ElementSelect) {
+                        auto& ues8 = us8.as<ElementSelectExpression>();
+                        auto& ub8 = stripImplicitConv(ues8.value());
+                        if (ub8.kind == ExpressionKind::NamedValue &&
+                            ub8.as<NamedValueExpression>().symbol.kind ==
+                                SymbolKind::Parameter &&
+                            ub8.type &&
+                            ub8.type->getCanonicalType().kind ==
+                                SymbolKind::FixedSizeUnpackedArrayType) {
+                            auto& ubp8 = ub8.as<NamedValueExpression>()
+                                             .symbol.as<ParameterSymbol>();
+                            ASTContext uctx8(comp.getRoot(),
+                                             LookupLocation::max);
+                            auto ucv8 = uctx8.tryEval(ues8.selector());
+                            const Expression* uin8 = ubp8.getInitializer();
+                            if (ucv8 && ucv8.isInteger() && uin8) {
+                                auto& upat8 = stripImplicitConv(*uin8);
+                                if (upat8.kind ==
+                                    ExpressionKind::SimpleAssignmentPattern) {
+                                    auto uel8 =
+                                        upat8
+                                            .as<SimpleAssignmentPatternExpression>()
+                                            .elements();
+                                    auto ur8 =
+                                        ub8.type->getCanonicalType()
+                                            .as<FixedSizeUnpackedArrayType>()
+                                            .range;
+                                    int64_t uix8 =
+                                        ucv8.integer().as<int64_t>().value_or(0);
+                                    int64_t uslot8 =
+                                        ur8.left <= ur8.right
+                                            ? uix8 - (int64_t)ur8.left
+                                            : (int64_t)ur8.left - uix8;
+                                    if (uslot8 >= 0 &&
+                                        uslot8 < (int64_t)uel8.size() &&
+                                        uel8[(size_t)uslot8]) {
+                                        auto& ue8 = stripImplicitConv(
+                                            *uel8[(size_t)uslot8]);
+                                        SrlgOvEnc en8;
+                                        if (ue8.kind ==
+                                                ExpressionKind::IntegerLiteral &&
+                                            srlgLitEnc(
+                                                std::string(
+                                                    rawText(ue8.sourceRange)),
+                                                en8)) {
+                                            srlgAdjustSize(en8, tk8, tsg8, tw8);
+                                            c->VpiValue(srlgOvValue(en8));
+                                            c->VpiConstType(en8.ct);
+                                            c->VpiSize(en8.size);
+                                            c->VpiDecompile(en8.dec);
+                                            srcBaseOv8 = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 // A param OVERRIDE whose bound expression is a BIT- or
                 // PART-SELECT encodes BINARY at the SELECT's own width with a
                 // based decompile — the same rule a select DEFAULT follows,
@@ -11967,7 +12039,16 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
         elemTs = its;
     }
     else {
-        auto* lts = s.MakeLogic_typespec();
+        // § unpackedElemTwoState — a TWO-STATE element type is a
+        // bit_typespec, not a logic_typespec: `localparam bit [1:0] IV[4]`
+        // reads back through `bit_typespec` in golden exactly as the scalar
+        // `bit` parameter already does in makeParamTs.  Rggen block_0:1811
+        // (52 gen-tree vectors); the four-state spelling is unchanged.
+        bool fourSt9 = leaf->getCanonicalType().isFourState();
+        auto* ltsL = fourSt9 ? s.MakeLogic_typespec() : nullptr;
+        auto* ltsB = fourSt9 ? nullptr : s.MakeBit_typespec();
+        UHDM::typespec* lts =
+            ltsL ? (UHDM::typespec*)ltsL : (UHDM::typespec*)ltsB;
         setLoc(lts, typeR);
         // A packed-VECTOR element (logic [31:0]) spans the full type syntax
         // and carries its packed range with literal-folded bounds
@@ -12014,7 +12095,10 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
                     rng9->Right_expr(mkc9(cr9.right, rs9));
                     auto* rv9 = s.MakeRangeVec();
                     rv9->push_back(rng9);
-                    lts->Ranges(rv9);
+                    if (ltsL)
+                        ltsL->Ranges(rv9);
+                    else
+                        ltsB->Ranges(rv9);
                 }
             }
         }
