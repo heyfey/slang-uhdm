@@ -937,6 +937,28 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             setLoc(df, stmt.sourceRange);
             return df;
         }
+        // An event TRIGGER (`-> output_eof;`) is an event_stmt carrying the
+        // event's NAME only: Surelog leaves vpiNamedEvent unset and stamps
+        // vpiBlocking for the `->` form (`->>` is the non-blocking one).
+        // We emitted nothing at all, which dropped the whole statement from
+        // its begin block (YosysBigSimSoft bench.v:115).
+        case StatementKind::EventTrigger: {
+            auto& es9 = stmt.as<EventTriggerStatement>();
+            auto* ev9 = s.MakeEvent_stmt();
+            ev9->VpiParent(parent);
+            setLoc(ev9, stmt.sourceRange);
+            auto& tg9 = stripImplicitConv(es9.target);
+            const Symbol* tsym9 = nullptr;
+            if (tg9.kind == ExpressionKind::NamedValue)
+                tsym9 = &tg9.as<NamedValueExpression>().symbol;
+            else if (tg9.kind == ExpressionKind::ArbitrarySymbol)
+                tsym9 = tg9.as<ArbitrarySymbolExpression>().symbol;
+            if (tsym9)
+                ev9->VpiName(tsym9->name);
+            if (!es9.isNonBlocking)
+                ev9->VpiBlocking(true);
+            return ev9;
+        }
         case StatementKind::ProceduralAssign: {
             auto& pas = stmt.as<ProceduralAssignStatement>();
             if (pas.assignment.kind == ExpressionKind::Assignment) {

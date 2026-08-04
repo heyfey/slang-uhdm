@@ -10360,65 +10360,6 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
     return av;
 }
 
-// Root ValueSymbol of an lvalue expression (unwrapping selects / member
-// access / conversions down to the base named/hierarchical reference).
-static const Symbol* uaLvalueRoot(const Expression& e) {
-    const Expression* cur = &e;
-    while (cur) {
-        switch (cur->kind) {
-            case ExpressionKind::NamedValue:
-                return &cur->as<NamedValueExpression>().symbol;
-            case ExpressionKind::HierarchicalValue:
-                return &cur->as<HierarchicalValueExpression>().symbol;
-            case ExpressionKind::ElementSelect:
-                cur = &cur->as<ElementSelectExpression>().value();
-                break;
-            case ExpressionKind::RangeSelect:
-                cur = &cur->as<RangeSelectExpression>().value();
-                break;
-            case ExpressionKind::MemberAccess:
-                cur = &cur->as<MemberAccessExpression>().value();
-                break;
-            case ExpressionKind::Conversion:
-                cur = &cur->as<ConversionExpression>().operand();
-                break;
-            default:
-                return nullptr;
-        }
-    }
-    return nullptr;
-}
-
-// Whether `target` (or a select/member-access rooted at it) is the LHS of a
-// CONTINUOUS assignment in `scope`, recursing into generate blocks. Surelog
-// promotes a CONTINUOUSLY-driven unpacked-array-of-packed-struct signal to an
-// array_var (hier_path's `csr_pmp_cfg_i` driven by `assign x[i].m = ...`); a
-// signal driven only PROCEDURALLY (ucsbece154b's `dll_d`/`dll_q` written in
-// always_comb) or undriven (OneStruct's dead `memArray[8]`) stays an
-// array_net.
-static bool uaScopeDrives(const Scope& scope, const Symbol& target) {
-    for (auto& mem : scope.members()) {
-        if (mem.kind == SymbolKind::ContinuousAssign) {
-            auto& asn = mem.as<ContinuousAssignSymbol>().getAssignment();
-            if (asn.kind == ExpressionKind::Assignment) {
-                auto& ae = asn.as<AssignmentExpression>();
-                if (uaLvalueRoot(ae.left()) == &target)
-                    return true;
-            }
-        }
-        else if (mem.kind == SymbolKind::GenerateBlock) {
-            if (uaScopeDrives(mem.as<GenerateBlockSymbol>(), target))
-                return true;
-        }
-        else if (mem.kind == SymbolKind::GenerateBlockArray) {
-            for (auto& gb : mem.as<GenerateBlockArraySymbol>().entries)
-                if (uaScopeDrives(*gb, target))
-                    return true;
-        }
-    }
-    return false;
-}
-
 bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked,
                                           const UHDM::typespec* elemTs) {
     auto declared = sym.getDeclaredType();
@@ -10437,14 +10378,17 @@ bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked,
         lct.kind == SymbolKind::PredefinedIntegerType ||
         lct.kind == SymbolKind::UnpackedStructType)
         return false;
-    // A 4-state packed-struct unpacked array is a NET unless a continuous or
-    // procedural assignment DRIVES it (a member/element select rooted at the
-    // signal on some LHS), in which case Surelog promotes it to an array_var:
-    //   - hier_path `csr_pmp_cfg_i[N]` driven by `assign x[i].m = ...` -> var
-    //   - OneStruct dead `memArray[8]` (no driver) -> net
-    // A declaration `= '{...}` initializer is a net-decl-assign, NOT a driver,
-    // so `tl_h2d_t a[1:0] = '{...}` (IndexedPartSelectOfArrayElement) stays a
-    // net.
+    // A 4-state packed-struct unpacked array is a NET or a VAR purely by the
+    // ELEMENT STRUCT's member composition (structTsIsNetLike below).  Whether
+    // anything DRIVES the signal is irrelevant: a 2x2x3 purpose-built matrix
+    // (pkg-qualified / imported-bare / module-local x all-logic / one enum
+    // member x driven-by-member-select / driven-whole / undriven; repro
+    // /tmp/r10sing3_repro/nv3+nv4) shows every all-logic element array_net and
+    // every enum-carrying element array_var, driver or not.  `hier_path`'s
+    // `csr_pmp_cfg_i` — the case that originally motivated a driver gate
+    // (wave-24 0f31689) — is an array_var because `ibex_pkg::pmp_cfg_t` has an
+    // enum member, which the member scan already decides.  The driver gate was
+    // wrong for the all-logic driven form and cost UnpackPort.
     if (lct.kind == SymbolKind::PackedStructType) {
         // NOTE: no 2-state gate here. Surelog decides on the ONE-LEVEL member
         // typespec scan alone, so a struct whose members are all STRUCTS is a
@@ -10475,9 +10419,6 @@ bool UhdmExporter::unpackedArrayLeafIsNet(const Symbol& sym, bool portBacked,
             if (leafTs && !structTsIsNetLike(leafTs))
                 return false;
         }
-        if (auto* sc = sym.getParentScope())
-            if (uaScopeDrives(*sc, sym))
-                return false;
         return true;
     }
     // Any other 2-STATE integral leaf (bit scalars/vectors) can never be a

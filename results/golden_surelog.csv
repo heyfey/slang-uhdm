@@ -1057,8 +1057,8 @@ ParamMultiConcat,default,CMP_EQUAL,,,differ
 ParamMultiConcat,testflags,CMP_EQUAL,,,differ
 ParamNoDefault,default,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
 ParamNoDefault,testflags,SLANG_REJECT,dut.sv:2:26: error: parameter declaration is missing an initializer,,
-ParamNoImport,default,CMP_NOTEQUAL,decompile:,,
-ParamNoImport,testflags,CMP_NOTEQUAL,decompile:,,
+ParamNoImport,default,CMP_EQUAL,,,differ
+ParamNoImport,testflags,CMP_EQUAL,,,differ
 ParamNoSubst,default,CMP_EQUAL,,,differ
 ParamNoSubst,testflags,CMP_EQUAL,,,differ
 ParamOverload1,default,SLANG_REJECT,dut.sv:7:13: error: assignment pattern for 'int$[5]' requires 5 elements but 2 were provided,,
@@ -1081,8 +1081,8 @@ ParamSubstituteComplex,default,CMP_EQUAL,,,differ
 ParamSubstituteComplex,testflags,CMP_EQUAL,,,differ
 ParamTypespec,default,CMP_EQUAL,,,differ
 ParamTypespec,testflags,CMP_EQUAL,,,differ
-ParamTypespec2,default,CMP_NOTEQUAL,decompile:,,
-ParamTypespec2,testflags,CMP_NOTEQUAL,decompile:,,
+ParamTypespec2,default,CMP_EQUAL,,,differ
+ParamTypespec2,testflags,CMP_EQUAL,,,differ
 PartSelect3,default,CMP_EQUAL,,,differ
 PartSelect3,testflags,CMP_EQUAL,,,differ
 PartSelect4,default,CMP_EQUAL,,,differ
@@ -1451,8 +1451,8 @@ UnitThisNew,default,SLANG_REJECT,dut.sv:3:75: error: use of undeclared identifie
 UnitThisNew,testflags,SLANG_REJECT,dut.sv:3:75: error: use of undeclared identifier 'uvm_action',,
 UnpackedTypespec,default,CMP_EQUAL,,,differ
 UnpackedTypespec,testflags,CMP_EQUAL,,,differ
-UnpackPort,default,CMP_NOTEQUAL,decompile:,,
-UnpackPort,testflags,CMP_NOTEQUAL,decompile:,,
+UnpackPort,default,CMP_EQUAL,,,differ
+UnpackPort,testflags,CMP_EQUAL,,,differ
 UnsignedParam,default,CMP_NOTEQUAL,decompile:,,
 UnsignedParam,testflags,CMP_NOTEQUAL,decompile:,,
 UnsizeConstExpr,default,CMP_EQUAL,,,differ
@@ -1539,8 +1539,8 @@ YosysBigSimPong,default,SLANG_REJECT,rtl/data.v:1:8: error: design element does 
 YosysBigSimPong,testflags,SLANG_REJECT,rtl/data.v:1:8: error: design element does not have a time scale defined but others in the design do,,
 YosysBigSimReed,default,CMP_EQUAL,,,differ
 YosysBigSimReed,testflags,CMP_EQUAL,,,differ
-YosysBigSimSoft,default,CMP_NOTEQUAL,decompile:,,
-YosysBigSimSoft,testflags,CMP_NOTEQUAL,decompile:,,
+YosysBigSimSoft,default,CMP_EQUAL,,,differ
+YosysBigSimSoft,testflags,CMP_EQUAL,,,differ
 YosysCam,default,SLANG_REJECT,priority_encoder.vh:32:8: error: duplicate definition of 'priority_encoder' [-Wduplicate-definition],,
 YosysCam,testflags,SLANG_REJECT,priority_encoder.vh:32:8: error: duplicate definition of 'priority_encoder' [-Wduplicate-definition],,
 YosysDsp,default,SLANG_REJECT,fastfir.v:75:47: error: cannot assign to a net within a procedural context,,

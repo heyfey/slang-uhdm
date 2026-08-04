@@ -5057,10 +5057,32 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         nets->push_back(sn9);
                         continue;
                     }
-                if (auto* pan = emitPackedStructArrayNet(*it.sym, name, fullName, m)) {
+                // A packed-array-of-struct PORT follows the SAME written-
+                // spelling rule as the bare body declaration below: the
+                // elaborated signal is a packed_array_NET only when the
+                // element type is written `::`-SCOPED; the same typedef
+                // reached bare (through `import pkg::*`, a $unit typedef or a
+                // module-local one) elaborates as a packed_array_VAR of
+                // struct_vars.  Purpose-built 3x2 golden
+                // (/tmp/r10sing3_repro/pa3: imported-bare / pkg-qualified /
+                // $unit x input / output) — direction is irrelevant, the
+                // qualifier is the whole discriminator (ParamTypespec2).
+                if (auto* pan = scopedWrittenType(*it.sym)
+                                    ? emitPackedStructArrayNet(*it.sym, name,
+                                                               fullName, m)
+                                    : nullptr) {
                     topNets[it.sym] = pan;
                     sigOrder.emplace_back(it.sym, pan);
                     nets->push_back(pan);
+                    continue;
+                }
+                if (auto* pav8 = scopedWrittenType(*it.sym)
+                                     ? nullptr
+                                     : emitPackedStructArrayVar(*it.sym, name,
+                                                                fullName, m)) {
+                    topNets[it.sym] = pav8;
+                    sigOrder.emplace_back(it.sym, pav8);
+                    vars->push_back(pav8);
                     continue;
                 }
             }
@@ -7292,6 +7314,101 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                         h = op8;
                                     }
                                 }
+                            }
+                        }
+                    }
+                    // ...UNLESS the replicated operand is a STRUCT-typed
+                    // PARAMETER: Surelog's elaboration cannot reduce an
+                    // assignment-pattern value to bits here, so the whole
+                    // replication SURVIVES as op34 [count constant, op33
+                    // [param value]] and the operand reference is SUBSTITUTED
+                    // by the parameter's own param_assign Rhs operation (op75,
+                    // parent left at that param_assign).  Purpose-built 5x2
+                    // golden matrix (/tmp/r10sing3_repro/rep1+rep2): literal
+                    // operand, param COUNT, local vector param and pkg vector
+                    // param all fold; a packed-STRUCT param never does —
+                    // scoped `pk::ST_DEF`, bare-through-import `ST_DEF`,
+                    // module-local `LOCST` and an alias of a pkg one alike.
+                    // (ParamTypespec2; the folding arm below stays exactly as
+                    // ReplicationPassedToInstance decoded it.)
+                    if (!h) {
+                        auto& rs7 = stripImplicitConv(*expr);
+                        const ParameterSymbol* structRep7 = nullptr;
+                        const Expression* structRepRef7 = nullptr;
+                        if (rs7.kind == ExpressionKind::Replication) {
+                            auto& cc7 = stripImplicitConv(
+                                rs7.as<ReplicationExpression>().concat());
+                            if (cc7.kind == ExpressionKind::Concatenation)
+                                for (auto* op7 :
+                                     cc7.as<ConcatenationExpression>()
+                                         .operands()) {
+                                    auto& o7 = stripImplicitConv(*op7);
+                                    if (o7.kind != ExpressionKind::NamedValue)
+                                        continue;
+                                    auto& sy7 =
+                                        o7.as<NamedValueExpression>().symbol;
+                                    if (sy7.kind != SymbolKind::Parameter)
+                                        continue;
+                                    auto ck7 = sy7.as<ParameterSymbol>()
+                                                   .getType()
+                                                   .getCanonicalType()
+                                                   .kind;
+                                    if (ck7 == SymbolKind::PackedStructType ||
+                                        ck7 == SymbolKind::PackedUnionType) {
+                                        structRep7 = &sy7.as<ParameterSymbol>();
+                                        structRepRef7 = &o7;
+                                        break;
+                                    }
+                                }
+                        }
+                        if (structRep7) {
+                            auto& rep7 = rs7.as<ReplicationExpression>();
+                            ASTContext cx7(comp.getRoot(),
+                                           LookupLocation::max);
+                            ConstantValue nv7 = cx7.tryEval(rep7.count());
+                            if (nv7 && nv7.isInteger() &&
+                                !nv7.integer().hasUnknown()) {
+                                auto* mo7 = s.MakeOperation();
+                                mo7->VpiOpType(vpiMultiConcatOp);
+                                mo7->VpiParent(p);
+                                setLoc(mo7, rs7.sourceRange);
+                                auto* ov7 = s.MakeAnyVec();
+                                std::string dg7 = nv7.integer().toString(
+                                    LiteralBase::Decimal, false);
+                                auto* cn7 = s.MakeConstant();
+                                cn7->VpiDecompile(dg7);
+                                cn7->VpiSize(64);
+                                cn7->VpiValue("UINT:" + dg7);
+                                cn7->VpiConstType(vpiUIntConst);
+                                setLoc(cn7, rep7.count().sourceRange);
+                                ov7->push_back(cn7);
+                                auto* co7 = s.MakeOperation();
+                                co7->VpiOpType(vpiConcatOp);
+                                co7->VpiParent(mo7);
+                                setLoc(co7, stripImplicitConv(rep7.concat())
+                                                .sourceRange);
+                                auto* iv7 = s.MakeAnyVec();
+                                UHDM::any* sub7 = nullptr;
+                                if (auto ri7 =
+                                        pkgParamDefRhs.find(structRep7);
+                                    ri7 != pkgParamDefRhs.end())
+                                    sub7 = ri7->second;
+                                if (!sub7 && structRep7->getInitializer()) {
+                                    bool sRe7 = reemitting;
+                                    reemitting = true;
+                                    sub7 = emitExpr(*structRep7->getInitializer(),
+                                                    co7, hcPrefix, *parentNets);
+                                    reemitting = sRe7;
+                                }
+                                if (!sub7)
+                                    sub7 = emitExpr(*structRepRef7, co7,
+                                                    hcPrefix, *parentNets);
+                                if (sub7)
+                                    iv7->push_back(sub7);
+                                co7->Operands(iv7);
+                                ov7->push_back(co7);
+                                mo7->Operands(ov7);
+                                h = mo7;
                             }
                         }
                     }

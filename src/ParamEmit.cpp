@@ -5013,6 +5013,63 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     continue;
                 }
             }
+            // A BARE override actual naming a STRUCT-typed parameter
+            // (#(.PWR_AST_RSP(pkg::PWR_AST_RSP_DEFAULT))) does not reduce
+            // either: Surelog SUBSTITUTES that parameter's own elaborated
+            // param_assign Rhs — the op75 assignment pattern, operands in the
+            // source encoding the referenced param recorded — and re-scopes
+            // only its typespec ref to this instance.  This is the unwrapped
+            // twin of the `{PARAM}` concat arm above; a 5-row purpose-built
+            // matrix (/tmp/r10sing3_repro/pn1) shows the substitution happens
+            // for a package struct param AND a module-local one, while INT
+            // params (typed formal or not) and literals still fold.
+            // The FORMAL must be UNTYPED: a `parameter logic [31:0] RESVAL`
+            // handed the same struct param folds to a constant SIZED at the
+            // formal's width (integration-caught on PAssignType, ParamNoSubst
+            // and TypespecExpr — three goldens that all spell the typed form).
+            // (ParamNoImport.)
+            if (topView && !inPackage && boundInit && !typedParam &&
+                !isRangedUntypedParam(ps)) {
+                auto& ob7 = stripImplicitConv(*boundInit);
+                const ParameterSymbol* osp7 = nullptr;
+                if (ob7.kind == ExpressionKind::NamedValue) {
+                    auto& sy7 = ob7.as<NamedValueExpression>().symbol;
+                    if (sy7.kind == SymbolKind::Parameter) {
+                        auto ck7 = sy7.as<ParameterSymbol>()
+                                       .getType()
+                                       .getCanonicalType()
+                                       .kind;
+                        if (ck7 == SymbolKind::PackedStructType ||
+                            ck7 == SymbolKind::PackedUnionType)
+                            if (auto* ri7 =
+                                    sy7.as<ParameterSymbol>().getInitializer()) {
+                                auto k7 = stripImplicitConv(*ri7).kind;
+                                if (k7 == ExpressionKind::
+                                              StructuredAssignmentPattern ||
+                                    k7 == ExpressionKind::
+                                              SimpleAssignmentPattern)
+                                    osp7 = &sy7.as<ParameterSymbol>();
+                            }
+                    }
+                }
+                UHDM::any* sub7 = nullptr;
+                if (osp7) {
+                    if (auto ri7 = pkgParamDefRhs.find(osp7);
+                        ri7 != pkgParamDefRhs.end())
+                        sub7 = ri7->second;
+                    else if (auto pi7 = elabParamPa.find(osp7);
+                             pi7 != elabParamPa.end() && pi7->second)
+                        sub7 = pi7->second->Rhs();
+                }
+                if (sub7 && sub7->UhdmType() == UHDM::uhdmoperation) {
+                    pa->Rhs((UHDM::expr*)sub7);
+                    passigns->push_back(pa);
+                    if (prt)
+                        pendingParamTs.push_back(
+                            {&ps, up, prt, nullptr, typedParam});
+                    continue;
+                }
+            }
             // An override ACTUAL that reads a parameter through a HIERARCHICAL
             // member path (#(.SYS_DAT(s.CFG.BUS.DAT))) keeps the SYMBOLIC
             // hier_path Rhs at the override-site span: Surelog's reduce never
@@ -10955,13 +11012,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (rhs->UhdmType() == UHDM::uhdmconstant) {
                     auto* rc = (UHDM::constant*)rhs;
                     std::string_view v0 = rc->VpiValue();
+                    // The DANGLING-ts half is NOT limited to the unknown bits:
+                    // EVERY unbased-unsized default on an untyped parameter
+                    // ('0/'1 as much as 'x/'z) carries a module-scoped ts ref
+                    // with NO actual on its DEF-view Rhs constant, and none at
+                    // all in the elab view.  Purpose-built 6-module matrix
+                    // (/tmp/r10sing3_repro/pn2: instantiated / never
+                    // instantiated / overridden / '1 / ranged-untyped / typed)
+                    // — presence is independent of instantiation and of any
+                    // override; the ranged and typed forms take the wantTs
+                    // path instead, so the `!wantTs` guard already excludes
+                    // them (ParamNoImport).
                     if (v0.rfind("BIN:", 0) == 0 &&
-                        (v0.find_first_of("xXzZ") != std::string_view::npos)) {
+                        (v0.find_first_of("xXzZ") != std::string_view::npos ||
+                         stripImplicitConv(*init).kind ==
+                             ExpressionKind::UnbasedUnsizedIntegerLiteral)) {
                         // (emitExpr already uppercased the value/decompile.)
                         // Elab-view unbased-unsized 'x/'z decompiles with an
                         // explicit 'b base ('x -> 'bX); the def view keeps the
                         // bare 'X (Surelog quirk).
                         if (topView &&
+                            v0.find_first_of("xXzZ") !=
+                                std::string_view::npos &&
                             stripImplicitConv(*init).kind ==
                                 ExpressionKind::UnbasedUnsizedIntegerLiteral)
                             rc->VpiDecompile("'b" + std::string(v0.substr(4)));
