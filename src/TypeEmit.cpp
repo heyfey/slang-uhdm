@@ -306,7 +306,30 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 pendingClassTsLink.push_back({cts, &ct0});
             // `#(...)` on the declared type puts the specialization on the
             // typespec (ClassParamAsParam / ClassTypeParam).
-            emitClassTsParams(cts, ct0.as<ClassType>(), std::string(ct0.name));
+            // § classTsDefaultSpecNoParams — and ONLY a written `#(...)` does.
+            // Surelog compiles the specialization marks out of the parameter
+            // VALUE ASSIGNMENT node, so a handle declared with the bare class
+            // name (`pkg::uvm_callbacks c1;`) gets a class_typespec with no
+            // vpiParameter / vpiParamAssign at all, even though the class is
+            // parameterized and slang hands us its default specialization
+            // (ArrayMethodIterator: golden's typespec is Name + ClassDefn
+            // only, ours carried two type_parameters and their param_assigns).
+            {
+                bool writtenSpec0 = true;
+                if (auto tsynS0 = declared->getTypeSyntax())
+                    if (auto* ntS0 = tsynS0->as_if<syntax::NamedTypeSyntax>()) {
+                        const syntax::NameSyntax* nmS0 = &*ntS0->name;
+                        while (nmS0 &&
+                               nmS0->kind == syntax::SyntaxKind::ScopedName)
+                            nmS0 = &*nmS0->as<syntax::ScopedNameSyntax>().right;
+                        writtenSpec0 =
+                            nmS0 &&
+                            nmS0->kind == syntax::SyntaxKind::ClassName;
+                    }
+                if (writtenSpec0)
+                    emitClassTsParams(cts, ct0.as<ClassType>(),
+                                      std::string(ct0.name));
+            }
             if (auto tsyn0 = declared->getTypeSyntax()) {
                 setLoc(cts, tsyn0->sourceRange());
                 // A SCOPED class reference (pack::doorOpen) is named by the

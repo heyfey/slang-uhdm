@@ -197,6 +197,10 @@ private:
     /// @a ps's initializer is an assignment pattern whose target is not a
     /// packed vector, so the pattern never reduces to a constant.
     bool patParamNoFold(const slang::ast::ParameterSymbol& ps);
+    // § castDefaultPatternConcat — this parameter's init is `int'{default: X}`,
+    // the ONE cast-pattern shape Surelog's defaultPatternAssignment reduces to
+    // a constant (and it makes a SIGNED vpiIntConst).
+    bool castDefaultIntPatternInit(const slang::ast::ParameterSymbol& ps);
     /// @a e reads (transitively) such a parameter, so the fold sites that
     /// would collapse @a e to a constant must not fire.
     bool exprPatNoFold(const slang::ast::Expression& e);
@@ -1719,6 +1723,12 @@ private:
     bool defRefModConn = false;
     // Parameter-init contexts keep name-token-only sys call spans.
     bool inParamInit = false;
+    // § castDefaultPatternConcat — the constant ExprEmit's `T'{default:X}`
+    // fold last produced.  Surelog's caller stamps the parameter's own
+    // typespec on a folded constant that carries none (CompileHelper.cpp:3644,
+    // right after defaultPatternAssignment returns), so ParamEmit recognises
+    // the object by identity and routes it through the normal rhsRt binding.
+    const UHDM::any* castDefaultFoldC = nullptr;
     // Set while emitting a port's initializer expression (output w = bar(4));
     // its call args carry no formal-ts refs.
     bool portInitCtx = false;

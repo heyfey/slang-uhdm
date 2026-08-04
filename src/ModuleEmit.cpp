@@ -19529,12 +19529,16 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             io->VpiName(mpp.name);
             io->VpiParent(umod);
             setLocNamed(io, mpp);
+            // § modportRefDirInout — UhdmWriter::getVpiDirection (UhdmWriter
+            // .cpp:555) INITIALISES its result to vpiInout and only overwrites
+            // it for the three port-direction keywords; the modport `ref` item
+            // matches none of them (paTfPortDir_Ref is the TASK/FUNCTION form),
+            // so it lands on the vpiInout default rather than on vpiRef or on
+            // no direction at all (InterfaceModPort `ref data_sys`).
             int32_t dir = mpp.direction == ArgumentDirection::In    ? vpiInput
                           : mpp.direction == ArgumentDirection::Out ? vpiOutput
-                          : mpp.direction == ArgumentDirection::InOut ? vpiInout
-                                                                      : 0;
-            if (dir)
-                io->VpiDirection(dir);
+                                                                    : vpiInout;
+            io->VpiDirection(dir);
             iodecls->push_back(io);
         }
         if (!iodecls->empty())
@@ -19716,12 +19720,16 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
             io->VpiName(mpp.name);
             io->VpiParent(dm);
             setLocNamed(io, mpp);
+            // § modportRefDirInout — UhdmWriter::getVpiDirection (UhdmWriter
+            // .cpp:555) INITIALISES its result to vpiInout and only overwrites
+            // it for the three port-direction keywords; the modport `ref` item
+            // matches none of them (paTfPortDir_Ref is the TASK/FUNCTION form),
+            // so it lands on the vpiInout default rather than on vpiRef or on
+            // no direction at all (InterfaceModPort `ref data_sys`).
             int32_t dir = mpp.direction == ArgumentDirection::In    ? vpiInput
                           : mpp.direction == ArgumentDirection::Out ? vpiOutput
-                          : mpp.direction == ArgumentDirection::InOut ? vpiInout
-                                                                      : 0;
-            if (dir)
-                io->VpiDirection(dir);
+                                                                    : vpiInout;
+            io->VpiDirection(dir);
             if (auto nit = sharedNets.find(mpp.internalSymbol);
                 nit != sharedNets.end())
                 io->Expr((UHDM::expr*)nit->second);
@@ -20630,12 +20638,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 io->VpiName(mpp.name);
                 io->VpiParent(umod);
                 setLocNamed(io, mpp);
+                // § modportRefDirInout — see the def-view site: Surelog's
+                // getVpiDirection defaults to vpiInout, so a modport `ref`
+                // member carries direction 3.
                 int32_t dir = mpp.direction == ArgumentDirection::In    ? vpiInput
                               : mpp.direction == ArgumentDirection::Out ? vpiOutput
-                              : mpp.direction == ArgumentDirection::InOut ? vpiInout
-                                                                         : 0;
-                if (dir)
-                    io->VpiDirection(dir);
+                                                                       : vpiInout;
+                io->VpiDirection(dir);
                 if (portView) {
                     // Iface HEADER-PORT-backed members always take the
                     // doubled fresh-net form (never the home net) — Surelog.

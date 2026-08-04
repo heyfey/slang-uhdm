@@ -2926,6 +2926,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     c->VpiValue((callSigned9 ? "INT:" : "UINT:") + digits);
                     c->VpiConstType(callSigned9 ? vpiIntConst : vpiUIntConst);
+                    // § castDefaultPatternConcat — Surelog's
+                    // substituteAssignedValue hands the read the parameter's
+                    // OWN value object, and for an `int'{default:X}` param that
+                    // object is defaultPatternAssignment's SIGNED vpiIntConst
+                    // (INT:-1 / INT:0), so the read inherits INT and the signed
+                    // decimal rendering rather than the unsigned 4294967295.
+                    if (castDefaultIntPatternInit(psym)) {
+                        std::string sd9 = digits;
+                        {
+                            uint64_t uv9 =
+                                std::strtoull(digits.c_str(), nullptr, 10);
+                            uint32_t w9 =
+                                (uint32_t)psym.getType().getBitWidth();
+                            int64_t iv9 = (int64_t)uv9;
+                            if (w9 > 0 && w9 < 64 && ((uv9 >> (w9 - 1)) & 1ULL))
+                                iv9 = (int64_t)(uv9 | (~0ULL << w9));
+                            sd9 = std::to_string(iv9);
+                        }
+                        c->VpiValue("INT:" + sd9);
+                        c->VpiConstType(vpiIntConst);
+                        c->VpiDecompile(sd9);
+                    }
                     // A BASED-literal-initialized pkg param keeps its base
                     // encoding in the fold (32'habcd -> HEX:abcd) — Surelog.
                     if (auto* pini8 = psym.getInitializer()) {
@@ -7044,6 +7066,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc->VpiParent(hp);
                         auto mStart = recv->sourceRange.end() + 1;
                         setLoc(mfc, SourceRange(mStart, mStart + name.size()));
+                        UHDM::ref_obj* iterArg9 = nullptr;
+                        // § arrayMethodIterArg — the ITERATOR NAME written in
+                        // the method's own parens (`q.unique( cb_ ) with (...)`)
+                        // is compiled by Surelog as an ordinary call ARGUMENT:
+                        // a ref_obj named after it, parented at the
+                        // method_func_call, whose fullname is scoped through
+                        // the ARRAY (…::<array>::<iter>).  slang models the
+                        // same token as the iterator VARIABLE of the with
+                        // clause, so it never reaches call.arguments() — read
+                        // it back off the invocation's argument syntax, which
+                        // is also what distinguishes the written form from the
+                        // implicit `item` (empty parens emit nothing).
+                        if (withExpr9 && expr.syntax) {
+                            // `q.m(it) with (…)` parses as an
+                            // ArrayOrRandomizeMethodExpression wrapping the
+                            // invocation.
+                            const syntax::SyntaxNode* mi9 = expr.syntax;
+                            if (mi9->kind == syntax::SyntaxKind::
+                                                 ArrayOrRandomizeMethodExpression)
+                                mi9 = mi9->as<syntax::ArrayOrRandomizeMethodExpressionSyntax>()
+                                          .method;
+                            const syntax::ArgumentListSyntax* al9 = nullptr;
+                            if (mi9 &&
+                                mi9->kind ==
+                                    syntax::SyntaxKind::InvocationExpression)
+                                al9 = mi9->as<syntax::InvocationExpressionSyntax>()
+                                          .arguments;
+                            if (al9 && !al9->parameters.empty()) {
+                                auto ar9 = al9->parameters[0]->sourceRange();
+                                auto* ia9 = s.MakeRef_obj();
+                                ia9->VpiName(std::string(rawText(ar9)));
+                                ia9->VpiFullName(
+                                    joinRef(joinRef(prefix, recvText),
+                                            std::string(rawText(ar9))));
+                                ia9->VpiParent(mfc);
+                                setLoc(ia9, ar9);
+                                iterArg9 = ia9;
+                            }
+                        }
                         if (withExpr9)
                             if (auto* w9 =
                                     emitExpr(*withExpr9, parent, prefix, netMap))
@@ -7051,6 +7112,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // Extra method args (past the receiver); literal args
                         // parent at the method call.
                         auto* margs = s.MakeAnyVec();
+                        if (iterArg9)
+                            margs->push_back(iterArg9);
                         for (size_t ai = 1; ai < call.arguments().size(); ai++) {
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*call.arguments()[ai]))
@@ -9307,6 +9370,235 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::StructuredAssignmentPattern: {
             auto& ap = expr.as<StructuredAssignmentPatternExpression>();
+            // ---- LAW castDefaultPatternConcat (r10sing4) ----
+            // Surelog has NO assignment-pattern node for a CAST'd pattern.
+            // `T'{...}` is compiled as operation(vpiCastOp) — carrying a ts ref
+            // to T — over ONE operation(vpiConcatOp) whose operands are the
+            // pattern items in SOURCE order, each key spelled as a bare ref_obj
+            // in front of its value; the `default` keyword becomes a ref_obj
+            // named "default" with vpiStructMember set (CompileExpression.cpp
+            // :3605, paArray_member_label).  Only the UNCAST `'{...}` takes the
+            // vpiAssignmentPatternOp + tagged_pattern shape.  Measured on a
+            // 13-row golden matrix (int / byte / v8_t / struct casts x
+            // default / named-member / positional keys, plus the uncast twins,
+            // which stay op75 byte-identical to what we already emit).
+            //
+            // Then RESOLVED views run Surelog's CompileHelper::
+            // defaultPatternAssignment (CompileHelper.cpp:3301, vpiCastOp arm),
+            // read verbatim: when the cast target is an int_typespec and the
+            // concat's FIRST operand is named "default", the whole tree becomes
+            // ONE 32-bit constant — signed: get_value(value)==1 ? INT:-1 :
+            // INT:0; unsigned: UINT:UINT_MAX / UINT:0.  Every OTHER cast target
+            // (byte / integer / shortint / logic / struct) has no arm and stays
+            // an unfolded cast tree in EVERY view — measured: int'{default:1}
+            // -> -1, int'{default:0} -> 0, int'{default:2|3|4|1'bx|-1} -> 0
+            // (the equality is against 1, not against LSB or non-zero),
+            // int'{default:32'd1|1'b1|'1} -> -1, and byte/integer/shortint/
+            // time/logic/struct casts unfolded throughout.
+            //
+            // Scope: DEFAULT-only keys over a PREDEFINED-INTEGER cast target.
+            // Named/positional keys and typedef/struct cast targets keep the
+            // old op75 shape (they need the full cast-typespec machinery; both
+            // were already unequal, so leaving them costs nothing).
+            {
+                const syntax::DataTypeSyntax* castSyn9 = nullptr;
+                if (expr.syntax &&
+                    expr.syntax->kind ==
+                        syntax::SyntaxKind::AssignmentPatternExpression)
+                    castSyn9 = expr.syntax
+                                   ->as<syntax::AssignmentPatternExpressionSyntax>()
+                                   .type;
+                const syntax::AssignmentPatternSyntax* patSyn9 = nullptr;
+                if (castSyn9)
+                    patSyn9 = &*expr.syntax
+                                   ->as<syntax::AssignmentPatternExpressionSyntax>()
+                                   .pattern;
+                if (castSyn9 && patSyn9 && ap.defaultSetter &&
+                    ap.memberSetters.empty() && ap.typeSetters.empty() &&
+                    ap.indexSetters.empty() && expr.type &&
+                    expr.type->getCanonicalType().kind ==
+                        SymbolKind::PredefinedIntegerType) {
+                    auto& pit9 = expr.type->getCanonicalType()
+                                     .as<PredefinedIntegerType>();
+                    UHDM::typespec* cts9 = nullptr;
+                    switch (pit9.integerKind) {
+                        case PredefinedIntegerType::Integer:
+                            cts9 = s.MakeInteger_typespec();
+                            break;
+                        case PredefinedIntegerType::Int:
+                            cts9 = s.MakeInt_typespec();
+                            break;
+                        case PredefinedIntegerType::ShortInt:
+                            cts9 = s.MakeShort_int_typespec();
+                            break;
+                        case PredefinedIntegerType::LongInt:
+                            cts9 = s.MakeLong_int_typespec();
+                            break;
+                        case PredefinedIntegerType::Byte:
+                            cts9 = s.MakeByte_typespec();
+                            break;
+                        case PredefinedIntegerType::Time:
+                            cts9 = s.MakeTime_typespec();
+                            break;
+                        default:
+                            break;
+                    }
+                    if (cts9) {
+                        setLoc(cts9, castSyn9->sourceRange());
+                        // Every signed integer-atom typespec carries vpiSigned
+                        // (Surelog stamps it from the type, cast site included).
+                        if (expr.type->isSigned()) {
+                            switch (cts9->UhdmType()) {
+                                case UHDM::uhdmint_typespec:
+                                    ((UHDM::int_typespec*)cts9)->VpiSigned(true);
+                                    break;
+                                case UHDM::uhdminteger_typespec:
+                                    ((UHDM::integer_typespec*)cts9)
+                                        ->VpiSigned(true);
+                                    break;
+                                case UHDM::uhdmshort_int_typespec:
+                                    ((UHDM::short_int_typespec*)cts9)
+                                        ->VpiSigned(true);
+                                    break;
+                                case UHDM::uhdmlong_int_typespec:
+                                    ((UHDM::long_int_typespec*)cts9)
+                                        ->VpiSigned(true);
+                                    break;
+                                case UHDM::uhdmbyte_typespec:
+                                    ((UHDM::byte_typespec*)cts9)
+                                        ->VpiSigned(true);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        // A PACKAGE-scope cast typespec carries vpiInstance =
+                        // the package (Instance() IS compared by uhdm-cmp).
+                        // The MODULE-view copy of an imported package param's
+                        // init does NOT: golden's module-side clone of the
+                        // cast typespec is instance-less, unlike the size-cast
+                        // arm's (measured on DefaultPatternAssign's
+                        // work@lower / work@top.upper_u.lower_u copies).
+                        if (pkgScopeInst)
+                            cts9->Instance(pkgScopeInst);
+                        auto* cop9 = s.MakeOperation();
+                        cop9->VpiOpType(vpiCastOp);
+                        cop9->VpiParent(parent);
+                        setLoc(cop9, expr.sourceRange);
+                        std::string cpfx9 = prefix;
+                        if (cpfx9.size() >= 2 &&
+                            cpfx9.compare(cpfx9.size() - 2, 2, "::") == 0)
+                            cpfx9.resize(cpfx9.size() - 2);
+                        auto* crt9 = s.MakeRef_typespec();
+                        crt9->VpiFullName(cpfx9);
+                        crt9->VpiParent(cop9);
+                        crt9->Actual_typespec(cts9);
+                        cop9->Typespec(crt9);
+                        // The concat spans `{ .. }` — the pattern syntax minus
+                        // its leading apostrophe (Surelog re-lexes the brace).
+                        auto* ccat9 = s.MakeOperation();
+                        ccat9->VpiOpType(vpiConcatOp);
+                        ccat9->VpiParent(cop9);
+                        {
+                            auto pr9 = patSyn9->sourceRange();
+                            setLoc(ccat9,
+                                   SourceRange(pr9.start() + 1, pr9.end()));
+                        }
+                        auto* cro9 = s.MakeRef_obj();
+                        cro9->VpiName("default");
+                        cro9->VpiFullName(joinRef(prefix, "default"));
+                        cro9->VpiStructMember(true);
+                        cro9->VpiParent(ccat9);
+                        if (patSyn9->kind ==
+                            syntax::SyntaxKind::StructuredAssignmentPattern)
+                            for (auto item9 :
+                                 patSyn9->as<syntax::StructuredAssignmentPatternSyntax>()
+                                     .items) {
+                                if (item9->kind !=
+                                    syntax::SyntaxKind::AssignmentPatternItem)
+                                    continue;
+                                auto& ai9 =
+                                    item9->as<syntax::AssignmentPatternItemSyntax>();
+                                if (rawText(ai9.key->sourceRange()) ==
+                                    "default") {
+                                    setLoc(cro9, ai9.key->sourceRange());
+                                    break;
+                                }
+                            }
+                        auto* cops9 = s.MakeAnyVec();
+                        cops9->push_back(cro9);
+                        bool sup9 = suppressConstParent, fcp9 = forceConstParent;
+                        suppressConstParent = true;
+                        forceConstParent = false;
+                        UHDM::any* cval9 =
+                            emitExpr(*ap.defaultSetter, ccat9, prefix, netMap);
+                        suppressConstParent = sup9;
+                        forceConstParent = fcp9;
+                        if (cval9) {
+                            // Surelog's concat operand constant is UNparented
+                            // (compileConst never back-links) — every other
+                            // operand keeps its parent.
+                            if (cval9->UhdmType() == UHDM::uhdmconstant)
+                                ((UHDM::any*)cval9)->VpiParent(nullptr);
+                            else
+                                ((UHDM::any*)cval9)->VpiParent(ccat9);
+                            cops9->push_back(cval9);
+                        }
+                        ccat9->Operands(cops9);
+                        auto* copsOuter9 = s.MakeAnyVec();
+                        copsOuter9->push_back(ccat9);
+                        cop9->Operands(copsOuter9);
+                        // defaultPatternAssignment's vpiCastOp arm: int only,
+                        // and only in a RESOLVED view.  Surelog reduces a
+                        // parameter init exactly where it elaborates it, so the
+                        // four param views split in PAIRS (measured on the
+                        // DefaultPatternAssign source, all four listings):
+                        //   package DEF   -> unfolded      module DEF   -> unf.
+                        //   package ELAB  -> FOLDED        module ELAB  -> FOLD
+                        //   import-copy DEF  -> FOLDED  (the copy is
+                        //                               materialized already
+                        //                               elaborated)
+                        //   import-copy ELAB -> unfolded (a clone_tree of the
+                        //                               package's own DEF row)
+                        // i.e. resolved <=> paramInitDef == importedParamClone.
+                        bool resolved9 =
+                            inParamInit && (paramInitDef == importedParamClone);
+                        if (resolved9 &&
+                            cts9->UhdmType() == UHDM::uhdmint_typespec && cval9 &&
+                            cval9->UhdmType() == UHDM::uhdmconstant) {
+                            std::string sv9(
+                                ((UHDM::constant*)cval9)->VpiValue());
+                            auto cpos9 = sv9.find(':');
+                            bool isOne9 = false;
+                            if (cpos9 != std::string::npos) {
+                                errno = 0;
+                                char* end9 = nullptr;
+                                unsigned long long uv9 = std::strtoull(
+                                    sv9.c_str() + cpos9 + 1, &end9, 10);
+                                isOne9 = (errno == 0 && end9 &&
+                                          *end9 == '\0' && uv9 == 1ULL);
+                            }
+                            auto* fc9 = s.MakeConstant();
+                            fc9->VpiParent(parent);
+                            fc9->VpiSize(32);
+                            if (expr.type->isSigned()) {
+                                fc9->VpiValue(isOne9 ? "INT:-1" : "INT:0");
+                                fc9->VpiDecompile(isOne9 ? "-1" : "0");
+                                fc9->VpiConstType(vpiIntConst);
+                            }
+                            else {
+                                fc9->VpiValue(isOne9 ? "UINT:4294967295"
+                                                     : "UINT:0");
+                                fc9->VpiDecompile(isOne9 ? "4294967295" : "0");
+                                fc9->VpiConstType(vpiUIntConst);
+                            }
+                            castDefaultFoldC = fc9;
+                            return fc9;
+                        }
+                        return cop9;
+                    }
+                }
+            }
             // The flatten target is consumed by THIS pattern only — nested
             // emits get it back explicitly, per member, below.
             const UHDM::typespec* patFlatTs = this->patFlatTs;

@@ -523,6 +523,36 @@ static bool patNoFoldTarget(const Type& t) {
            ct.kind != SymbolKind::PackedUnionType;
 }
 
+// § castDefaultPatternConcat — is this parameter's init `int'{default: X}`?
+// Surelog's CompileHelper::defaultPatternAssignment reduces exactly that shape
+// (a vpiCastOp over a concat whose first operand is the `default` ref) to a
+// 32-bit constant, and ONLY when the cast target is an int_typespec — so such a
+// parameter DOES acquire a value, and a module-side read of it folds like any
+// scalar param instead of surviving as a ref_obj (patParamNoFold) or being
+// substituted as a pattern tree.  Every other cast target (byte / shortint /
+// integer / time / logic / struct) has no arm and keeps the unfolded tree, so
+// this is deliberately narrower than patNoFoldTarget.
+bool UhdmExporter::castDefaultIntPatternInit(const ParameterSymbol& ps) {
+    auto* init = ps.getInitializer();
+    if (!init)
+        return false;
+    const Expression& si = stripImplicitConv(*init);
+    if (si.kind != ExpressionKind::StructuredAssignmentPattern || !si.syntax ||
+        si.syntax->kind != syntax::SyntaxKind::AssignmentPatternExpression ||
+        !si.syntax->as<syntax::AssignmentPatternExpressionSyntax>().type)
+        return false;
+    auto& ap = si.as<StructuredAssignmentPatternExpression>();
+    if (!ap.defaultSetter || !ap.memberSetters.empty() ||
+        !ap.typeSetters.empty() || !ap.indexSetters.empty())
+        return false;
+    if (!si.type)
+        return false;
+    const Type& ct = si.type->getCanonicalType();
+    return ct.kind == SymbolKind::PredefinedIntegerType &&
+           ct.as<PredefinedIntegerType>().integerKind ==
+               PredefinedIntegerType::Int;
+}
+
 bool UhdmExporter::patParamNoFold(const ParameterSymbol& ps) {
     if (auto it = patNoFoldCache.find(&ps); it != patNoFoldCache.end())
         return it->second;
@@ -534,7 +564,8 @@ bool UhdmExporter::patParamNoFold(const ParameterSymbol& ps) {
         bool isPat = si.kind == ExpressionKind::SimpleAssignmentPattern ||
                      si.kind == ExpressionKind::StructuredAssignmentPattern ||
                      si.kind == ExpressionKind::ReplicatedAssignmentPattern;
-        bad = (isPat && patNoFoldTarget(ps.getType())) ||
+        bad = (isPat && patNoFoldTarget(ps.getType()) &&
+               !castDefaultIntPatternInit(ps)) ||
               (!isPat && patNoFoldTarget(ps.getType()) && exprPatNoFold(*init));
     }
     patNoFoldInFlight.erase(&ps);
@@ -610,6 +641,11 @@ void UhdmExporter::bindOrParkParamTs(const ParameterSymbol& p,
 bool UhdmExporter::paramDefRhsIsOp(const ParameterSymbol& ps) {
     auto* init = ps.getInitializer();
     if (!init)
+        return false;
+    // § castDefaultPatternConcat — `int'{default: X}` reduces to a constant in
+    // every RESOLVED view, so its def Rhs being an operation does not keep a
+    // module-side read symbolic.
+    if (castDefaultIntPatternInit(ps))
         return false;
     // An AGGREGATE-typed parameter is the exception: Surelog INLINES a
     // struct/union param default at the reference (see the `inParamInit` arm in
@@ -11685,6 +11721,71 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             rtC9->VpiParent(paRhs9);
             ((UHDM::constant*)paRhs9)->Typespec(rtC9);
             rhsRt = rtC9;
+        }
+        // § castDefaultIntAddSigned — UHDM's ExprEval marks an arithmetic
+        // reduce SIGNED as soon as ONE operand constant is vpiIntConst /
+        // vpiDecConst / vpiStringConst / vpiRealConst, and then writes
+        // "INT:<signed>" with vpiIntConst (ExprEval.cpp:3167, the vpiAddOp
+        // arm and its siblings).  An `int'{default:X}` parameter folds to a
+        // vpiIntConst, so every init that READS one folds INT where our
+        // slang-side fold would have rendered an unsigned decimal
+        // (DefaultPatternAssign `VALUE = VALUE_TEMP + 2` -> INT:1, not
+        // UINT:1).  Value and width are already right; only the encoding is.
+        const Expression* pinit9 = ps.getInitializer();
+        if (paRhs9 && paRhs9->UhdmType() == UHDM::uhdmconstant && pinit9 &&
+            ((UHDM::constant*)paRhs9)->VpiConstType() == vpiUIntConst) {
+            bool readsCastDef9 = false;
+            pinit9->visit(makeVisitor(
+                [&](auto& v9, const NamedValueExpression& x9) {
+                    if (x9.symbol.kind == SymbolKind::Parameter &&
+                        castDefaultIntPatternInit(
+                            x9.symbol.as<ParameterSymbol>()))
+                        readsCastDef9 = true;
+                    v9.visitDefault(x9);
+                },
+                [&](auto& v9, const HierarchicalValueExpression& x9) {
+                    if (x9.symbol.kind == SymbolKind::Parameter &&
+                        castDefaultIntPatternInit(
+                            x9.symbol.as<ParameterSymbol>()))
+                        readsCastDef9 = true;
+                    v9.visitDefault(x9);
+                }));
+            if (readsCastDef9) {
+                auto* cs9 = (UHDM::constant*)paRhs9;
+                std::string_view sv9 = cs9->VpiValue();
+                if (sv9.rfind("UINT:", 0) == 0) {
+                    uint64_t uv9 = std::strtoull(std::string(sv9.substr(5)).c_str(),
+                                                 nullptr, 10);
+                    int32_t w9 = cs9->VpiSize();
+                    int64_t iv9 = (int64_t)uv9;
+                    if (w9 > 0 && w9 < 64 &&
+                        (uv9 >> (uint32_t)(w9 - 1)) & 1ULL)
+                        iv9 = (int64_t)(uv9 | (~0ULL << (uint32_t)w9));
+                    std::string ds9 = std::to_string(iv9);
+                    cs9->VpiValue("INT:" + ds9);
+                    cs9->VpiConstType(vpiIntConst);
+                    cs9->VpiDecompile(ds9);
+                }
+            }
+        }
+        // § castDefaultPatternConcat — the `int'{default:X}` fold's constant
+        // takes the PARAMETER's own typespec object: Surelog's caller stamps
+        // `ts` on any constant defaultPatternAssignment hands back without one
+        // (CompileHelper.cpp:3644).  Routed through rhsRt so the normal
+        // per-view binding (shared ts in a package/module, per-ref clone for an
+        // untyped import) applies unchanged.
+        if (!rhsRt && paRhs9 && paRhs9 == castDefaultFoldC &&
+            paRhs9->UhdmType() == UHDM::uhdmconstant &&
+            !((UHDM::constant*)paRhs9)->Typespec()) {
+            auto* rtD9 = s.MakeRef_typespec();
+            std::string pfxD9 = prefix;
+            if (pfxD9.size() >= 2 &&
+                pfxD9.compare(pfxD9.size() - 2, 2, "::") == 0)
+                pfxD9.resize(pfxD9.size() - 2);
+            rtD9->VpiFullName(pfxD9);
+            rtD9->VpiParent(paRhs9);
+            ((UHDM::constant*)paRhs9)->Typespec(rtD9);
+            rhsRt = rtD9;
         }
         passigns->push_back(pa);
         // DEF-view aggregate-typedef params (typedef struct/union/enum T; then

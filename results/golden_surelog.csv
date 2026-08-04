@@ -29,8 +29,8 @@ ArrayExprFuncArg,default,CMP_EQUAL,,,differ
 ArrayExprFuncArg,testflags,CMP_EQUAL,,,differ
 ArrayInst,default,CMP_EQUAL,,,differ
 ArrayInst,testflags,CMP_EQUAL,,,differ
-ArrayMethodIterator,default,CMP_NOTEQUAL,decompile:,,
-ArrayMethodIterator,testflags,CMP_NOTEQUAL,decompile:,,
+ArrayMethodIterator,default,CMP_EQUAL,,,differ
+ArrayMethodIterator,testflags,CMP_EQUAL,,,differ
 ArrayNet,default,CMP_EQUAL,,,match
 ArrayNet,testflags,CMP_EQUAL,,,match
 ArrayTypespec,default,CMP_EQUAL,,,match
@@ -333,8 +333,8 @@ DefaultAssign,default,SLANG_REJECT,dut.sv:8:24: error: redefinition of 'data' [-
 DefaultAssign,testflags,SLANG_REJECT,dut.sv:8:24: error: redefinition of 'data' [-Wredefinition],,
 DefaultNetType,default,SLANG_REJECT,dut.sv:16:8: error: use of undeclared identifier 'b',,
 DefaultNetType,testflags,SLANG_REJECT,dut.sv:16:8: error: use of undeclared identifier 'b',,
-DefaultPatternAssign,default,CMP_NOTEQUAL,decompile:,,
-DefaultPatternAssign,testflags,CMP_NOTEQUAL,decompile:,,
+DefaultPatternAssign,default,CMP_EQUAL,,,differ
+DefaultPatternAssign,testflags,CMP_EQUAL,,,differ
 DefaultPatternInt,default,CMP_EQUAL,,,differ
 DefaultPatternInt,testflags,CMP_EQUAL,,,differ
 DefaultPatternModule,default,CMP_EQUAL,,,differ
