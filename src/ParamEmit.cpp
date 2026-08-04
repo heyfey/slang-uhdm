@@ -6415,20 +6415,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // A bare $unit ref does NOT copy (there is nothing to copy) — it
             // stays the ref_obj, which is what the router rows show.
             //
-            // NOTE (r10scr11, MEASURED — NOT IMPLEMENTED)
-            // § elabMisevalArgNoFold — this path leaves the TOP of the tree
-            // unfolded but still FOLDS a system call's ARGUMENT.  Scr1SvTests
-            // scr1_pipe_tdu:77 `localparam ALLTRIG_W = $clog2(ALLTRIG_NUM+1)`
-            // is now the design's first uhdm-cmp failure: golden's elab Rhs is
-            // sys_func_call($clog2)@77:39-60 whose argument is
-            // op24(ref_obj(SCR1_TDU_ALLTRIG_NUM)@77:46-57, UINT:1)@77:46-59 —
-            // i.e. the argument keeps its op tree AND applies the same splice
-            // § elabVarRangeMisevalSubst does (ALLTRIG_NUM, itself
-            // misevaluated, is replaced by its own init and typed with
-            // ALLTRIG_NUM's int_typespec@76:12-24).  Ours emits the call with
-            // a folded INT:4 argument.  The fix is likely to route this emit
-            // through emitSyntaxExpr with misevalSubstScope set (the TypeEmit
-            // splice arm), not to patch the AST fold.
+            // § elabMisevalArgNoFold / § elabMisevalRefSubst are IMPLEMENTED
+            // (r10scr12) — the refusal to reduce is the WHOLE tree, top to
+            // leaf, and the substitution of sibling-parameter reads survives
+            // it.  Both ride on `misevalParamRhsScope`, set below and read by
+            // ExprEmit's NamedValue arm (the substitution, with the leaf /
+            // composite span split the golden's object IDS prove) and by its
+            // sys-call argument fold.  Together they closed the elab
+            // param_assign census from 17 differing rows to 11: scr1_dmi's
+            // five-deep DMI_* ladder and scr1_pipe_tdu's ALLTRIG_W.  What is
+            // left is exactly the OVERRIDE half above.
             if (!rhs && topView && !elabMiseval9) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
@@ -9599,6 +9595,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 paramInitDef = !topView || structWidePkg;
                 paramInitElabFold = topView && structNoScopedRefPkg;
                 paramInitPkg = inPackage;
+                // § elabMisevalRefSubst / § elabMisevalArgNoFold — this
+                // parameter's ELAB Rhs is the one Surelog refused to reduce
+                // (§ elabUnitMisevalNoFold), so the emit runs with the
+                // sibling-parameter substitution ON and the elab-only argument
+                // fold OFF.  The scope is the owning body: a reference that
+                // leaves it ($unit) is exactly the one the reducer could not
+                // answer, and it stays a ref.
+                misevalParamRhsScope = elabMiseval9 ? ps.getParentScope()
+                                                    : nullptr;
                 // Surelog compiles a MULTIDIMENSIONAL package parameter's value
                 // with Reduce::No (CompileHelper::isMultidimensional gates the
                 // reduce on the typespec carrying more than one packed range),
@@ -10101,6 +10106,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 pkgElabSymOperands = false;
                 elabMdimParamInit = false;
+                misevalParamRhsScope = nullptr;
                 paramInitPkg = false;
                 paramInitDef = false;
                 paramInitElabFold = false;

@@ -860,6 +860,13 @@ private:
     // identifiers in this scope and SPLICES the init of any parameter in
     // elabMisevalParams at the use site (see TypeEmit).
     const slang::ast::Scope* misevalSubstScope = nullptr;
+    // § elabMisevalRefSubst — when set, we are emitting the ELAB Rhs of a
+    // parameter Surelog left UNFOLDED (§ elabUnitMisevalNoFold), and this is
+    // the body that owns it.  A reference to a SIBLING parameter of that body
+    // is answered with that parameter's own already-emitted elab Rhs
+    // (paramRhsObj) instead of staying a ref_obj, and the sub-expression folds
+    // that only the elab view performs are suppressed (see ExprEmit).
+    const slang::ast::Scope* misevalParamRhsScope = nullptr;
     // Substitutes parameter leaves inside an elab child's part-select bound
     // OPERATION (see ModuleEmit).
     bool foldBareParamBoundIn(const slang::ast::InstanceBodySymbol* body,

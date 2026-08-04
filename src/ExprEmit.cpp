@@ -2244,6 +2244,66 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = expr.as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // § elabMisevalRefSubst — inside the ELAB Rhs of a parameter
+            // Surelog left UNFOLDED (§ elabUnitMisevalNoFold) a reference to a
+            // SIBLING parameter of the same body is NOT a reference in the
+            // golden: `substituteAssignedValue` still answered it, with that
+            // parameter's own elaborated value tree.  Only the enclosing
+            // REDUCTION was refused, never the substitution — which is why the
+            // unfolded elab tree is the def tree with its parameter leaves
+            // replaced.
+            //
+            // Two shapes, and the golden's object IDS decide between them
+            // (probe tools/probe/r10scr12a.cpp prints them):
+            //   * the substituted parameter's Rhs is a LEAF (constant/ref_obj)
+            //     -> a FRESH object at the USE SITE's span.  scr1_dmi
+            //     `DMI_OP_HI = DMI_OP_LO + SCR1_DBG_DMI_OP_WIDTH - 1` carries
+            //     constant{INT:0,sz=5}@70:29-38 where DMI_OP_LO's own Rhs is
+            //     the same constant @69:29-33 under a DIFFERENT id.
+            //   * it is COMPOSITE (an operation) -> the golden reuses THE VERY
+            //     OBJECT, so the span is the substituted parameter's own, not
+            //     the use site's: `DMI_DATA_LO = DMI_OP_HI + 1` holds
+            //     DMI_OP_HI's operation#42090 @70:29-70:70 verbatim, and the
+            //     five-deep DMI_* ladder shares one chain of ids.
+            // A LEAF also picks up the substituted parameter's own typespec
+            // when that parameter is a predefined integer type — the same rule
+            // § elabVarRangeMisevalSubst applies one level up (scr1_pipe_tdu
+            // `ALLTRIG_W = $clog2(ALLTRIG_NUM+1)` -> ref_obj@77:46-57 typed by
+            // ALLTRIG_NUM's int_typespec@76:12-24).  A reference the reducer
+            // never resolved ($unit, unitParamNoValue) has nothing to
+            // substitute and stays a dangling ref_obj, which is why the
+            // SCR1_DBG_* operands of the same ladder survive.
+            if (misevalParamRhsScope &&
+                nv.symbol.kind == SymbolKind::Parameter &&
+                nv.symbol.getParentScope() == misevalParamRhsScope) {
+                auto rit9 = paramRhsObj.find(&nv.symbol);
+                if (rit9 != paramRhsObj.end() && rit9->second)
+                    if (auto* cl9 = cloneUnitParamRhs(
+                            (const UHDM::expr*)rit9->second, parent)) {
+                        bool leaf9 = cl9->UhdmType() == UHDM::uhdmconstant ||
+                                     cl9->UhdmType() == UHDM::uhdmref_obj;
+                        if (leaf9)
+                            setLoc(cl9, expr.sourceRange);
+                        auto& sps9 = nv.symbol.as<ParameterSymbol>();
+                        if (leaf9 &&
+                            sps9.getType().getCanonicalType().kind ==
+                                SymbolKind::PredefinedIntegerType) {
+                            auto* its9 = s.MakeInt_typespec();
+                            if (auto dt9 = sps9.getDeclaredType())
+                                if (auto tsy9 = dt9->getTypeSyntax())
+                                    setLoc(its9, tsy9->sourceRange());
+                            auto* rt9 = s.MakeRef_typespec();
+                            rt9->VpiParent(cl9);
+                            if (cl9->UhdmType() == UHDM::uhdmref_obj)
+                                rt9->VpiFullName(std::string(
+                                    ((UHDM::ref_obj*)cl9)->VpiFullName()));
+                            its9->VpiParent(rt9);
+                            rt9->Actual_typespec(its9);
+                            cl9->Typespec(rt9);
+                        }
+                        return cl9;
+                    }
+            }
             // A PACKAGE-QUALIFIED reference to a package VARIABLE written
             // from outside that package (`svunit_pkg::current_tc`) keeps its
             // qualified spelling. READ, it resolves and binds the package's
@@ -3691,6 +3751,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (auto uit9 = unitParamMap.find(&nv.symbol);
                             uit9 != unitParamMap.end())
                             ref->Actual_group(uit9->second);
+                    // NOTE (r10scr12, MEASURED — NOT IMPLEMENTED)
+                    // § genScopeProcParamSubst — the sibling rule for a
+                    // MODULE parameter: an ELAB gen-scope PROCESS read of one
+                    // is not a reference in the golden at all, it is
+                    // SUBSTITUTED by the parameter's value.  Scr1SvTests
+                    // scr1_tapc_shift_reg:62 `shift_reg <= SCR1_RESET_VALUE;`
+                    // inside `begin : dr_shift_reg` is the whole design's
+                    // first uhdm-cmp failure after this pass:
+                    //   golden constant{UINT:0,sz=1}@62:30-46, ts ref ->
+                    //     SCR1_RESET_VALUE's own logic_typespec@11:17-39, and
+                    //     VpiParent = the parameter's elab param_assign (the
+                    //     Surelog re-parenting quirk — a substituted value
+                    //     keeps the param_assign it was cloned from);
+                    //   ours ref_obj named under the gen scope
+                    //     (...i_bypass_reg.dr_shift_reg.SCR1_RESET_VALUE).
+                    // The span is the USE SITE, so it is a fresh constant, not
+                    // the param_assign's own Rhs object.  Note the CONTRAST
+                    // with the $unit arm just above, which BINDS rather than
+                    // substitutes — the split is module-param vs $unit-param,
+                    // not process vs cont-assign.
                 }
                 else if (auto it = [&] {
                              auto i = netMap.find(&nv.symbol);
@@ -4735,6 +4815,86 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 r9->Actual_group(dr9->Actual_group());
                                 r9->VpiParent(its0);
                                 its0->Cast_to_expr(r9);
+                            }
+                            // § castTypedParamDeclTs — the stamp above only
+                            // reaches a target that OWES its typespec to the
+                            // cast (an UNTYPED localparam, castSizeParamTs).
+                            // A target written WITH a type keyword already has
+                            // a declaration int_typespec, and when its default
+                            // cannot fold at definition compile
+                            // (§ castTgtDefaultIsLiteral) the elaborated cast
+                            // REUSES that object exactly as the def view does
+                            // one arm below — UNNAMED, at the type-keyword
+                            // span, carrying the same vpiExpr ref_obj (which
+                            // keeps its DEF-scoped `work@<mod>.P.P` fullname in
+                            // the elab view).  scr1_pipe_tdu `localparam int
+                            // unsigned ALLTRIG_W = $clog2(ALLTRIG_NUM+1)` used
+                            // as `ALLTRIG_W'(ALLTRIG_NUM)` at 322:56 is the
+                            // measurement: golden int_typespec@77:12-24 +
+                            // vpiExpr, ours a fresh `(ALLTRIG_W)`@77:25 UINT:2,
+                            // and int_typespec::Compare reads both the name and
+                            // the Cast_to_expr.  Its untyped sibling
+                            // scr1_pipe_ifu SCR1_IFU_Q_FREE_H_W is the other
+                            // half of the matrix and stays on the stamp arm.
+                            // The def-ts lookup carries the § paramCastTsBySyntax
+                            // fallback: `psym0` is the ELAB instance's symbol
+                            // and coincides with the def body's only for the
+                            // instance whose body slang shares.
+                            else if (UHDM::int_typespec* dts0 = nullptr;
+                                     [&] {
+                                         auto psc0 = psym0.getParentScope();
+                                         if (!psc0 ||
+                                             psc0->asSymbol().kind !=
+                                                 SymbolKind::InstanceBody ||
+                                             castTgtDefaultIsLiteral(
+                                                 psym0.as<ParameterSymbol>()))
+                                             return false;
+                                         auto dit0 = defMap.find(
+                                             &psc0->asSymbol()
+                                                  .as<InstanceBodySymbol>()
+                                                  .getDefinition());
+                                         if (dit0 == defMap.end())
+                                             return false;
+                                         UHDM::typespec* t0 = nullptr;
+                                         if (auto pit0 =
+                                                 dit0->second.paramTs.find(&psym0);
+                                             pit0 != dit0->second.paramTs.end())
+                                             t0 = pit0->second;
+                                         else if (psym0.getSyntax())
+                                             if (auto sit0 =
+                                                     dit0->second.paramTsSyn.find(
+                                                         psym0.getSyntax());
+                                                 sit0 !=
+                                                 dit0->second.paramTsSyn.end())
+                                                 t0 = sit0->second;
+                                         if (!t0 ||
+                                             t0->UhdmType() !=
+                                                 UHDM::uhdmint_typespec)
+                                             return false;
+                                         dts0 = (UHDM::int_typespec*)t0;
+                                         return true;
+                                     }()) {
+                                its0->VpiName("");
+                                its0->VpiFile(dts0->VpiFile());
+                                its0->VpiLineNo(dts0->VpiLineNo());
+                                its0->VpiColumnNo(dts0->VpiColumnNo());
+                                its0->VpiEndLineNo(dts0->VpiEndLineNo());
+                                its0->VpiEndColumnNo(dts0->VpiEndColumnNo());
+                                auto* r0 = s.MakeRef_obj();
+                                if (auto* dr0 =
+                                        (UHDM::ref_obj*)dts0->Cast_to_expr()) {
+                                    r0->VpiName(dr0->VpiName());
+                                    r0->VpiFullName(dr0->VpiFullName());
+                                    r0->Actual_group(dr0->Actual_group());
+                                }
+                                else {
+                                    r0->VpiName(psym0.name);
+                                    r0->VpiFullName(std::string(psym0.name) +
+                                                    "." +
+                                                    std::string(psym0.name));
+                                }
+                                r0->VpiParent(its0);
+                                its0->Cast_to_expr(r0);
                             }
                             else {
                                 setLoc(its0, SourceRange(psym0.location,
@@ -6556,7 +6716,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     continue;
                 }
-                if (inParamInit && !paramInitDef &&
+                // § elabMisevalArgNoFold — ...but a parameter whose ELAB Rhs
+                // Surelog left UNFOLDED does not fold its call ARGUMENTS
+                // either: the refusal is the whole reduction, top to leaf.
+                // scr1_pipe_tdu `ALLTRIG_W = $clog2(ALLTRIG_NUM+1)` keeps
+                // op24(subst(ALLTRIG_NUM), UINT:1)@77:46-59 where every other
+                // elab param collapses the same argument to a constant.
+                if (inParamInit && !paramInitDef && !misevalParamRhsScope &&
                     (argS.kind == ExpressionKind::BinaryOp ||
                      argS.kind == ExpressionKind::UnaryOp)) {
                     ASTContext fctx(comp.getRoot(), LookupLocation::max);

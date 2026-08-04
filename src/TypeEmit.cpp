@@ -1600,8 +1600,29 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                             if (nv.symbol.kind ==
                                                     SymbolKind::Parameter &&
                                                 unitParamMap.count(&nv.symbol) &&
-                                                rootFilePath(nv.symbol.location) !=
-                                                    ownRoot2)
+                                                (rootFilePath(nv.symbol.location) !=
+                                                     ownRoot2 ||
+                                                 // § elabUnitMisevalNoFold —
+                                                 // the cross-file test is a
+                                                 // PROXY for "Surelog had no
+                                                 // value here"; when the $unit
+                                                 // parameter is one it never
+                                                 // valued AT ALL, the bound
+                                                 // stays symbolic even in the
+                                                 // file that declares it.
+                                                 // scr1_pipe_tdu's ports
+                                                 // `logic [SCR1_TDU_ALLTRIG_NUM
+                                                 // -1:0]` (x2, and
+                                                 // SCR1_TDU_MTRIG_NUM once) are
+                                                 // the measurement: both
+                                                 // parameters chain to
+                                                 // SCR1_TDU_TRIG_NUM across
+                                                 // root files, so `+ 1'b1`
+                                                 // never reduced, and golden
+                                                 // keeps op11(ref_obj,UINT:1)
+                                                 // where we folded INT:2.
+                                                 unitParamNoValue.count(
+                                                     &nv.symbol)))
                                                 unitXFileVarBound = true;
                                             v.visitDefault(nv);
                                         }));
