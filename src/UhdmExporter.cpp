@@ -3930,6 +3930,105 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (nit9 != bit9->second.end())
                 r9->Actual_group(nit9->second);
         };
+        // § pkgCloneMember10 — a NON-BASE element resolves against the
+        // preceding element's TYPE first, and a struct member wins over a
+        // same-named local.  uvm_printer::print_array_header writes
+        // `row_info.name = ...` with a formal ALSO called `name`: golden's
+        // clone binds the ts member (uvm_printer_row_info.name), never the
+        // io_decl, and binds `row_info.level` / `.type_name` / `.val` the
+        // same way even though no local of that name exists at all.  Where
+        // the base is a CLASS the members are not typespec_members and
+        // nothing resolves, so `knobs.indent` stays null and
+        // `__m_uvm_status_container.printer` falls back to the formal (the
+        // LAW PCB witness).  Census r10uvm9e on SeqDriver: golden binds 184
+        // typespec_members, all at a non-base index, all in adpcm_pkg.
+        auto actualTs10 = [](const UHDM::any* a10) -> const UHDM::typespec* {
+            if (!a10)
+                return nullptr;
+            const UHDM::ref_typespec* rt10 = nullptr;
+            if (a10->UhdmType() == UHDM::uhdmio_decl)
+                rt10 = ((const UHDM::io_decl*)a10)->Typespec();
+            else if (a10->UhdmType() == UHDM::uhdmtypespec_member)
+                rt10 = ((const UHDM::typespec_member*)a10)->Typespec();
+            else if (auto* e10 = any_cast<const UHDM::expr*>(a10))
+                rt10 = e10->Typespec();
+            return rt10 ? rt10->Actual_typespec() : nullptr;
+        };
+        // The written element carries no index, so an array/queue of structs
+        // reaches its ELEMENT type the same way a plain struct variable does
+        // (`m_rows[j].name` after the select is folded into the base).
+        auto structTs10 =
+            [](const UHDM::typespec* t10) -> const UHDM::typespec* {
+            for (int g10 = 0; t10 && g10 < 8; g10++) {
+                switch (t10->UhdmType()) {
+                    case UHDM::uhdmstruct_typespec:
+                    case UHDM::uhdmunion_typespec:
+                        return t10;
+                    case UHDM::uhdmarray_typespec: {
+                        auto* er10 =
+                            ((const UHDM::array_typespec*)t10)->Elem_typespec();
+                        t10 = er10 ? er10->Actual_typespec() : nullptr;
+                        break;
+                    }
+                    case UHDM::uhdmpacked_array_typespec: {
+                        auto* er10 = ((const UHDM::packed_array_typespec*)t10)
+                                         ->Elem_typespec();
+                        t10 = er10 ? er10->Actual_typespec() : nullptr;
+                        break;
+                    }
+                    default:
+                        return nullptr;
+                }
+            }
+            return nullptr;
+        };
+        auto bindMember10 = [&](UHDM::any* e10, const UHDM::any* prev10,
+                                const UHDM::BaseClass* anchor10) -> bool {
+            if (!e10 || !prev10 || e10->UhdmType() != UHDM::uhdmref_obj)
+                return false;
+            auto* r10 = (UHDM::ref_obj*)e10;
+            if (r10->Actual_group() || r10->VpiName().empty())
+                return false;
+            // Clone bodies only — the same rule outside them would bind
+            // hier_paths in module scopes that golden leaves null.
+            auto* tf10 = ownerTf9(anchor10);
+            if (!tf10 || !pkgCloneBodyLocals9.count(tf10))
+                return false;
+            const UHDM::any* pact10 = nullptr;
+            if (prev10->UhdmType() == UHDM::uhdmref_obj)
+                pact10 = ((const UHDM::ref_obj*)prev10)->Actual_group();
+            else if (prev10->UhdmType() == UHDM::uhdmref_var)
+                pact10 = ((const UHDM::ref_var*)prev10)->Actual_group();
+            else if (prev10->UhdmType() == UHDM::uhdmtypespec_member)
+                pact10 = prev10;
+            if (!pact10)
+                return false;
+            auto* sts10 = structTs10(actualTs10(pact10));
+            // ...and only a PACKAGE-scope struct type resolves.  A type
+            // declared INSIDE a class is invisible from the clone's symbol
+            // table exactly as LAW C's class-scope enum constant is: golden
+            // gives `m_verbosity_setting setting;` (typedef'd inside class
+            // uvm_component) an unresolved ref_var and leaves EVERY
+            // `setting.<member>` null, while `uvm_printer_row_info row_info;`
+            // (package scope) resolves and binds all five members.  Same
+            // witness pair for uvm_cmdline_parsed_arg_t (`t.arg`, `t.args`).
+            if (!sts10 || (sts10->VpiParent() &&
+                           sts10->VpiParent()->UhdmType() ==
+                               UHDM::uhdmclass_defn))
+                return false;
+            const UHDM::VectorOftypespec_member* mems10 =
+                sts10->UhdmType() == UHDM::uhdmstruct_typespec
+                    ? ((const UHDM::struct_typespec*)sts10)->Members()
+                    : ((const UHDM::union_typespec*)sts10)->Members();
+            if (!mems10)
+                return false;
+            for (auto* m10 : *mems10)
+                if (m10 && m10->VpiName() == r10->VpiName()) {
+                    r10->Actual_group((UHDM::any*)m10);
+                    return true;
+                }
+            return false;
+        };
         for (auto& kv9 : s.AllObjects()) {
             auto* o9 = (UHDM::BaseClass*)kv9.first;
             if (!o9)
@@ -3940,12 +4039,16 @@ UHDM::design* UhdmExporter::exportDesign() {
                 // `__m_uvm_status_container.printer = printer` binds its
                 // SECOND element to the formal `printer` even though that
                 // element is the container's member (uvm_object::sprint:896).
-                // Names that match no local stay null — that is where
-                // golden's 184 typespec_member binds live, and they are all
-                // in the clone view too.
-                if (auto* es9 = ((UHDM::hier_path*)o9)->Path_elems())
-                    for (auto* e0 : *es9)
-                        bind9(e0, o9);
+                // A non-base element tries the preceding element's TYPE first
+                // (pkgCloneMember10 above) and only then that name lookup.
+                if (auto* es9 = ((UHDM::hier_path*)o9)->Path_elems()) {
+                    const UHDM::any* prev10 = nullptr;
+                    for (auto* e0 : *es9) {
+                        if (!prev10 || !bindMember10(e0, prev10, o9))
+                            bind9(e0, o9);
+                        prev10 = e0;
+                    }
+                }
             }
             else if (o9->UhdmType() == UHDM::uhdmmethod_func_call)
                 bind9((UHDM::any*)((UHDM::method_func_call*)o9)->Prefix(), o9);

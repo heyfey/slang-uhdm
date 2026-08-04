@@ -1971,9 +1971,41 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
     // A chandle return/formal is a chandle_var (Surelog, DpiChandle).
     if (ct.kind == SymbolKind::CHandleType)
         return s.MakeChandle_var();
-    // A class-handle return is a class_var (Surelog).
-    if (ct.kind == SymbolKind::ClassType)
+    // § aliasClassRefVar10 — a class handle declared through a TYPEDEF ALIAS
+    // is a `ref_var`, not a class_var, at SUBROUTINE/STATEMENT scope (the
+    // return value, a body local, a begin-block local); writing the class
+    // NAME directly still gives a class_var, and a class PROPERTY / package
+    // variable / module variable is a class_var either way (that is why this
+    // lives in makeReturnVar and not in makeVar).  Read off Surelog
+    // CompileType.cpp `compileVariable` (:340-435), the function that
+    // compiles exactly those declarations: for a named type it tries
+    // getDataType -> getSimpleVarFromTypespec (a class typespec yields no
+    // simple var), then design->getClassDefinition(name) — which finds the
+    // CLASS's own name and never an alias — then a class_typespec test that
+    // the alias fails because its typespec is still an unsupported_typespec
+    // at that point (`needLateTypedefBinding` patches the real one in
+    // afterwards, which is why golden's ref_var ends up carrying a
+    // class_typespec).  Everything else falls through to `MakeRef_var`.
+    // Verified on purpose-built pairs t3/t4: with `typedef Inner alias_t`,
+    // both a class-scope and a package-scope alias give ref_var for a
+    // function return, a function local, an `initial` block local and an
+    // `always_comb` local, while the same alias as a class property, a
+    // package variable and a module variable stays class_var and a formal
+    // stays an io_decl.  Reach: `Return | ref_var vs class_var` 108/87/89 and
+    // `Variables | ref_var vs class_var` 103/139 across the UVM four
+    // (uvm's `type_id` and `this_type` are 102 of BuildUVMPkg's 108).
+    // A `parameter type T` is NOT an alias for this rule even though slang
+    // models it as a TypeAliasType: golden gives `function T gf(); T l;` a
+    // class_var in BOTH views while the `typedef G#(T) this_type` next to it
+    // in the same class gets a ref_var (repro t5).  Surelog reaches the
+    // specialization's real class through the parameter binding, so its
+    // getClassDefinition lookup succeeds where an alias NAME never does.
+    if (ct.kind == SymbolKind::ClassType) {
+        if (retType.kind == SymbolKind::TypeAlias &&
+            !typeParamOfAlias(retType.as<TypeAliasType>()))
+            return s.MakeRef_var();
         return s.MakeClass_var();
+    }
     if (ct.kind == SymbolKind::PredefinedIntegerType) {
         auto& pit = ct.as<PredefinedIntegerType>();
         if (pit.integerKind == PredefinedIntegerType::Int) {
@@ -2001,6 +2033,19 @@ inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
             v->VpiSigned(pit.isSigned);
             return v;
         }
+        // § timeRetVar10 — a `time` return / subroutine local is a time_var,
+        // the same object kind makeVar already gives a module-scope `time`;
+        // this factory had no Time arm at all so it fell through to the
+        // logic_var default.  The TYPESPEC was already a time_typespec on
+        // both sides, so only the variable object kind differed (repro t1:
+        // `time t1;` in a class is a time_var on both sides while the
+        // identical `time l1;` inside a method and `function time get_t()`
+        // were logic_vars).  Unsigned: Surelog leaves vpiSigned off a
+        // time_var.  Reach in the UVM four: 73 rows on SeqDriver alone
+        // (32 Return + 21 Stmt + 20 Variables), and the same three slots on
+        // BuildUVMPkg / SimpleUVM / Scoreboard.
+        if (pit.integerKind == PredefinedIntegerType::Time)
+            return s.MakeTime_var();
     }
     if (ct.kind == SymbolKind::FloatingType) {
         if (ct.as<FloatingType>().floatKind == FloatingType::ShortReal)

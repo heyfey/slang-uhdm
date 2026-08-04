@@ -734,6 +734,62 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                                syntax::SyntaxKind::ClassMethodPrototype
                                ? psyn->parent->sourceRange()
                                : psyn->sourceRange());
+            // § pureVirtRet10 — a PURE VIRTUAL function prototype still
+            // carries its Return variable, anchored at the return-type token
+            // with a ref_typespec to that type, exactly as a defined function
+            // does; only the body and the io_decls are absent.  Surelog
+            // compiles the prototype's return through the same
+            // compileVariable path, so the object kind follows the ordinary
+            // return rules (repro t6: `pure virtual function Inner pvc(int
+            // a);` -> class_var, `... int pvi();` -> int_var, `... string
+            // pvs();` -> string_var, and a pure virtual TASK gets none).
+            // Reach: 25 `Return | class_var vs <null>` rows on BuildUVMPkg
+            // (uvm_coreservice_t's 16 pure-virtual getters alone) and the
+            // same shape on all four UVM tests.
+            if (mp.subroutineKind == SubroutineKind::Function &&
+                !mp.getReturnType().isVoid()) {
+                auto* prv = makeReturnVar(s, mp.getReturnType());
+                prv->VpiFullName(pt->VpiFullName());
+                prv->VpiParent(pt);
+                const syntax::DataTypeSyntax* prsyn = nullptr;
+                if (auto* psyn0 = mp.getSyntax()) {
+                    if (psyn0->kind == syntax::SyntaxKind::ClassMethodPrototype)
+                        psyn0 = psyn0->as<syntax::ClassMethodPrototypeSyntax>()
+                                    .prototype;
+                    if (psyn0 &&
+                        psyn0->kind == syntax::SyntaxKind::FunctionPrototype)
+                        prsyn = psyn0->as<syntax::FunctionPrototypeSyntax>()
+                                    .returnType;
+                }
+                {
+                    tfContext = true;
+                    auto* pts = makeTypespec(mp, prsyn);
+                    tfContext = false;
+                    if (pts) {
+                        // The class-handle return typespec is ANONYMOUS and
+                        // uninstanced, the same rule the DEFINED function's
+                        // return already follows (the makeTypespec naming
+                        // walk cannot see it: a prototype's parent scope IS
+                        // the class, with no subroutine in between, so it
+                        // takes the class-PROPERTY arm and keeps the name).
+                        // ...only for a class named DIRECTLY: an ALIAS shares
+                        // the typedef's typespec object with every other use,
+                        // so renaming it there would corrupt them.
+                        if (pts->UhdmType() == UHDM::uhdmclass_typespec &&
+                            mp.getReturnType().kind == SymbolKind::ClassType) {
+                            pts->VpiName("");
+                            pts->Instance(nullptr);
+                        }
+                        auto* prt = s.MakeRef_typespec();
+                        prt->VpiFullName(pt->VpiFullName());
+                        prt->VpiParent(prv);
+                        prt->Actual_typespec(pts);
+                        prv->Typespec(prt);
+                        copyLoc(prv, pts);
+                    }
+                }
+                ((UHDM::function*)pt)->Return(prv);
+            }
             tfs->push_back(pt);
             continue;
         }
