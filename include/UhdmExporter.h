@@ -1714,6 +1714,12 @@ private:
     // module/$unit struct) — a member dim bound that resolves to a param of a
     // DIFFERENT package folds instead of staying symbolic.
     const slang::ast::Scope* structPkgScope = nullptr;
+    // § modStructMemberPkgFold — the MODULE twin of structPkgScope: the
+    // InstanceBody a module-scope struct typedef lives in.  A member range
+    // there reaches the emitter with no current scope either, and the
+    // resolution has to run through the module so its wildcard imports are
+    // visible.
+    const slang::ast::Scope* structModScope = nullptr;
     // Which cont-assign RHS view is being emitted: 0 = not in a cont-assign
     // RHS, 1 = def (allModules), 2 = elab (topModules). Unbased-unsized
     // func-call args key their formal-ts/fold behavior on this.
@@ -2609,6 +2615,16 @@ private:
     // always precede the module ones.
     std::map<std::pair<std::string, const slang::ast::Symbol*>, bool>
         pkgDefOpTs9;
+    // § modDefReExportPat — the SAME replay, one level up: did package P's own
+    // DEF listing keep the TAGGED_PATTERN tree for this struct param (rather
+    // than flattening it)?  bp_be_pkg re-exports bp_common_pkg's configs and
+    // its own def listing keeps `bp_custom_cfg_p` tagged (0 member selects)
+    // while flattening `bp_default_cfg_p` (72 selects); golden's module
+    // RE-EXPORT import block reproduces each of those choices, where its
+    // FIRST (home-package) block flattens unconditionally.  Keyed the same
+    // way as pkgDefOpTs9.
+    std::map<std::pair<std::string, const slang::ast::Symbol*>, bool>
+        pkgDefStructTagged9;
     // DEF-view gen-block localparam typespecs, SHARED into the elab param ref
     // (which parents them); a dangling unparented copy closes the tail.
     std::map<const slang::ast::ParameterSymbol*, UHDM::typespec*> defGenLpTs;

@@ -2018,6 +2018,58 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     if (auto* bi9 = bp9.getInitializer())
                                         if (memLeftInitCall(*bi9))
                                             return nullptr;
+                                    // § memberInitBaseSelect — ...but not
+                                    // when the base parameter is itself an
+                                    // ELEMENT/RANGE SELECT of another
+                                    // parameter (`localparam bp_proc_param_s
+                                    // proc_param_lp = all_cfgs_gp[bp_params_p]`).
+                                    // substituteAssignedValue answers the
+                                    // member query off the base's own value,
+                                    // and it never gets through THAT second
+                                    // hop, so the reading localparam's name
+                                    // survives verbatim in the struct member
+                                    // range — golden's `logic
+                                    // [vaddr_width_p-1:0] npc` keeps a bare
+                                    // ref_obj scoped under the member rather
+                                    // than proc_param_lp.vaddr_width.  Every
+                                    // other base form still substitutes: a
+                                    // PATTERN (`Info.x`, the shape this was
+                                    // decoded on) and a CAST alike
+                                    // (u2r OutputSizeWithParameterOfInstance-
+                                    // InitializedByStructMember's
+                                    // `part_info_t'(16)`).  A base that is a
+                                    // bare ref to another parameter is
+                                    // followed first, the same chain rule the
+                                    // outer resolve uses.
+                                    const Expression* bb9 =
+                                        bp9.getInitializer();
+                                    for (int g9 = 0; bb9 && g9 < 8; g9++) {
+                                        auto& sb9 = stripImplicitConv(*bb9);
+                                        const Symbol* rb9 = nullptr;
+                                        if (sb9.kind ==
+                                            ExpressionKind::NamedValue)
+                                            rb9 = &sb9.as<NamedValueExpression>()
+                                                       .symbol;
+                                        else if (sb9.kind ==
+                                                 ExpressionKind::
+                                                     HierarchicalValue)
+                                            rb9 = &sb9.as<
+                                                       HierarchicalValueExpression>()
+                                                       .symbol;
+                                        if (!rb9 ||
+                                            rb9->kind != SymbolKind::Parameter)
+                                            break;
+                                        bb9 = rb9->as<ParameterSymbol>()
+                                                  .getInitializer();
+                                    }
+                                    if (bb9) {
+                                        auto bk9 =
+                                            stripImplicitConv(*bb9).kind;
+                                        if (bk9 ==
+                                                ExpressionKind::ElementSelect ||
+                                            bk9 == ExpressionKind::RangeSelect)
+                                            return nullptr;
+                                    }
                                     return p;
                                 }
                                 return nullptr;
@@ -2641,6 +2693,43 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         sy7->getParentScope()->asSymbol().kind ==
                                             SymbolKind::Package)
                                         foldedMemberBoundParam[c] = sy7;
+                            }
+                            // § modStructMemberBoundMeta — the MODULE twin of
+                            // the same stamp, and it does NOT take the package
+                            // rule's bare-reference restriction: golden gives
+                            // `logic [dpath_width_gp-1:0] rs1` in the
+                            // module-scope bp_be_dispatch_pkt_s the vpiSize:32
+                            // + vpiTypespec meta even though the bound is
+                            // ARITHMETIC, where bp_common_pkg's own
+                            // `[dp_sig_width_gp-2:0] fract` stays bare.  The
+                            // parameter is the IMPORTED one the bound folded
+                            // through, resolved via the module body so the
+                            // wildcard imports are visible.
+                            if (structMemberTsCtx && structModScope &&
+                                !structPkgScope && bsyn &&
+                                syntax::ExpressionSyntax::isKind(bsyn->kind)) {
+                                ASTContext mctx7(*structModScope,
+                                                 LookupLocation::max);
+                                auto& mbe7 = Expression::bind(
+                                    bsyn->as<syntax::ExpressionSyntax>(),
+                                    mctx7);
+                                if (!mbe7.bad())
+                                    mbe7.visit(makeVisitor(
+                                        [&](auto& v7,
+                                            const NamedValueExpression& nv7) {
+                                            if (foldedMemberBoundParam.count(c))
+                                                return;
+                                            if (nv7.symbol.kind ==
+                                                    SymbolKind::Parameter &&
+                                                nv7.symbol.getParentScope() &&
+                                                nv7.symbol.getParentScope()
+                                                        ->asSymbol()
+                                                        .kind ==
+                                                    SymbolKind::Package)
+                                                foldedMemberBoundParam[c] =
+                                                    &nv7.symbol;
+                                            v7.visitDefault(nv7);
+                                        }));
                             }
                             if (currentScope) {
                                 ASTContext bctx(*currentScope, LookupLocation::max);
@@ -4793,8 +4882,11 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
             if (sc->asSymbol().kind == SymbolKind::InstanceBody ||
                 sc->asSymbol().kind == SymbolKind::GenerateBlock ||
                 sc->asSymbol().kind == SymbolKind::GenerateBlockArray ||
-                sc->asSymbol().kind == SymbolKind::Subroutine)
+                sc->asSymbol().kind == SymbolKind::Subroutine) {
+                if (sc->asSymbol().kind == SymbolKind::InstanceBody)
+                    structModScope = sc;
                 break;
+            }
         }
         if (!inPkg)
             structPkgScope = nullptr;
@@ -5506,8 +5598,17 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
         members->push_back(tm);
     }
     structMemberSymBound = savedSymBound;
-    structPkgScope = nullptr;
     sts->Members(members);
+    // § modStructMemberBoundMeta — a MODULE-scope struct typedef never
+    // reaches the param/typedef clone paths that call this for the package
+    // ones, so stamp its folded member bounds here.  The synthesized
+    // int_typespec is instance-less: every module-side source parameter this
+    // fires on is an UNTYPED package localparam, which attachFoldedBoundMeta
+    // already leaves un-instanced.
+    if (structModScope && !structPkgScope)
+        attachFoldedBoundMeta(sts, nullptr);
+    structPkgScope = nullptr;
+    structModScope = nullptr;
     return sts;
 }
 
@@ -7283,19 +7384,53 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             // typespec (it already carries vpiInstance = the
                             // package); only mint a clone when the package
                             // parameter object is not around.
+                            // § defNetBoundUntypedPkgTs — ...but only a TYPED
+                            // package parameter has one worth sharing.  An
+                            // UNTYPED one (`localparam dpath_width_gp =
+                            // $bits(bp_be_fp_reg_s);`) gets the SYNTHESIZED
+                            // int_typespec instead: unsigned and spanning the
+                            // whole parameter DECLARATION, never the
+                            // value-typed (signed, name-spanning) object its
+                            // own parameter carries.  Same untyped/typed split
+                            // attachFoldedBoundMeta applies to the package
+                            // flavour of this stamp; measured on
+                            // BlackBePipeInt's `output logic
+                            // [dpath_width_gp-1:0] data_o` and the thirteen
+                            // module struct typedefs that read the same
+                            // localparam.
+                            bool dImplicit9 = true;
+                            if (auto dt9 = dp.getDeclaredType())
+                                if (auto* ts9 = dt9->getTypeSyntax())
+                                    dImplicit9 = ts9->kind ==
+                                                 syntax::SyntaxKind::ImplicitType;
                             UHDM::typespec* its = nullptr;
-                            if (auto poit = pkgParamObj.find(&dsy);
-                                poit != pkgParamObj.end() &&
-                                poit->second->Typespec())
-                                its = poit->second->Typespec()
-                                          ->Actual_typespec();
+                            if (!dImplicit9)
+                                if (auto poit = pkgParamObj.find(&dsy);
+                                    poit != pkgParamObj.end() &&
+                                    poit->second->Typespec())
+                                    its = poit->second->Typespec()
+                                              ->Actual_typespec();
                             if (!its) {
                                 auto* its0 = s.MakeInt_typespec();
-                                if (dp.getType().isSigned())
-                                    its0->VpiSigned(true);
                                 if (auto dt = dp.getDeclaredType())
-                                    if (auto tsy = dt->getTypeSyntax())
-                                        setLoc(its0, tsy->sourceRange());
+                                    if (auto tsy = dt->getTypeSyntax()) {
+                                        if (dImplicit9) {
+                                            for (auto q9 = dp.getSyntax(); q9;
+                                                 q9 = q9->parent)
+                                                if (q9->kind ==
+                                                    syntax::SyntaxKind::
+                                                        ParameterDeclaration) {
+                                                    setLoc(its0,
+                                                           q9->sourceRange());
+                                                    break;
+                                                }
+                                        }
+                                        else {
+                                            if (dp.getType().isSigned())
+                                                its0->VpiSigned(true);
+                                            setLoc(its0, tsy->sourceRange());
+                                        }
+                                    }
                                 its = its0;
                             }
                             auto* rt = s.MakeRef_typespec();
@@ -7427,6 +7562,109 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             }
                     return c9;
                 }
+            }
+            // § modStructMemberPkgFold — the MODULE-homed half of the same
+            // split.  A struct typedef declared INSIDE a module reaches the
+            // emitter with no scope either; resolved through the module's own
+            // InstanceBody (so its wildcard imports are visible), a member
+            // range operand naming a PACKAGE parameter is substituted by its
+            // folded value exactly as a foreign-package one is inside a
+            // package, while an operand naming a MODULE localparam stays the
+            // dangling ref (that is the "module-homed ranges bind nothing"
+            // half, unchanged).  The substituted constant carries a ts ref
+            // NAMED AFTER THE MEMBER (the syntaxRefPrefix the surviving ref
+            // would have used) onto the package parameter's own int_typespec.
+            // Measured on BlackBePipeInt `logic [paddr_width_p -
+            // page_offset_width_gp - 1:0] ptag`: golden folds the imported
+            // page_offset_width_gp to UINT:12/size 32 and keeps
+            // paddr_width_p — a module localparam — symbolic.
+            if (!curPkgEmitSym && structMemberTsCtx && structModScope &&
+                !tfTypeScope && !structMemberAliasTs && !defNetTsScope) {
+                std::string idm8(name);
+                if (!idm8.empty())
+                    if (auto* sy8 = Lookup::unqualified(*structModScope, idm8);
+                        sy8 && sy8->kind == SymbolKind::Parameter &&
+                        sy8->getParentScope() &&
+                        sy8->getParentScope()->asSymbol().kind ==
+                            SymbolKind::Package) {
+                        auto& mp8 = sy8->as<ParameterSymbol>();
+                        auto& mv8 = mp8.getValue();
+                        if (mv8.isInteger() && !mv8.integer().hasUnknown()) {
+                            auto* c8 = s.MakeConstant();
+                            std::string dg8 = mv8.integer().toString(
+                                LiteralBase::Decimal, false);
+                            c8->VpiDecompile(dg8);
+                            c8->VpiSize((int32_t)mp8.getType().getBitWidth());
+                            c8->VpiValue("UINT:" + dg8);
+                            c8->VpiConstType(vpiUIntConst);
+                            c8->VpiParent(parent);
+                            setLoc(c8, syn.sourceRange());
+                            // An UNTYPED source parameter always takes the
+                            // SYNTHESIZED typespec below (unsigned, spanning
+                            // the whole declaration) — never the one its own
+                            // def constant carries, which follows the VALUE's
+                            // type and comes out SIGNED for an `int`-valued
+                            // init like `$bits(...)`.  Same untyped/typed
+                            // split attachFoldedBoundMeta applies.
+                            bool implicit8 = true;
+                            if (auto dt0 = mp8.getDeclaredType())
+                                if (auto* ts0 = dt0->getTypeSyntax())
+                                    implicit8 = ts0->kind ==
+                                                syntax::SyntaxKind::ImplicitType;
+                            UHDM::typespec* sa8 = nullptr;
+                            if (!implicit8)
+                                if (auto ci8 = pkgParamConst.find(sy8);
+                                    ci8 != pkgParamConst.end())
+                                    if (auto* srt8 = ci8->second->Typespec())
+                                        sa8 = (UHDM::typespec*)
+                                                  srt8->Actual_typespec();
+                            // A package parameter whose own def constant
+                            // carries no typespec (an UNTYPED one, e.g.
+                            // `localparam dpath_width_gp = $bits(...)`) still
+                            // gives the substituted bound operand one:
+                            // Surelog synthesizes the int_typespec spanning
+                            // the whole parameter DECLARATION, unsigned and
+                            // instance-less — the same shape
+                            // attachFoldedBoundMeta builds for the package
+                            // flavour of this stamp.
+                            if (!sa8) {
+                                auto* its8 = s.MakeInt_typespec();
+                                if (auto dt8 = mp8.getDeclaredType()) {
+                                    if (auto* tsy8 = dt8->getTypeSyntax()) {
+                                        if (tsy8->kind ==
+                                            syntax::SyntaxKind::ImplicitType) {
+                                            for (auto q8 = mp8.getSyntax(); q8;
+                                                 q8 = q8->parent)
+                                                if (q8->kind ==
+                                                    syntax::SyntaxKind::
+                                                        ParameterDeclaration) {
+                                                    setLoc(its8,
+                                                           q8->sourceRange());
+                                                    break;
+                                                }
+                                        }
+                                        else {
+                                            setLoc(its8, tsy8->sourceRange());
+                                            if (mp8.getType()
+                                                    .getCanonicalType()
+                                                    .isSigned())
+                                                its8->VpiSigned(true);
+                                        }
+                                    }
+                                }
+                                sa8 = its8;
+                            }
+                            if (sa8) {
+                                auto* rt8 = s.MakeRef_typespec();
+                                rt8->VpiParent(c8);
+                                if (!syntaxRefPrefix.empty())
+                                    rt8->VpiFullName(syntaxRefPrefix);
+                                rt8->Actual_typespec(sa8);
+                                c8->Typespec(rt8);
+                            }
+                            return c8;
+                        }
+                    }
             }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(name);
@@ -9632,7 +9870,6 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
     while (leaf->getCanonicalType().kind == SymbolKind::FixedSizeUnpackedArrayType)
         leaf = &leaf->getCanonicalType().as<FixedSizeUnpackedArrayType>().elementType;
     bool leafSigned = leaf->isSigned();
-
     auto* av = s.MakeArray_var();
     av->VpiName(name);
     av->VpiFullName(fullName);
@@ -9934,7 +10171,6 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
                         ? 3
                         : 2;
     bool leadingUnsized = firstUnsized == 0;
-
     auto* av = s.MakeArray_var();
     av->VpiName(name);
     av->VpiFullName(fullName);
@@ -10047,7 +10283,6 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
                 }
         }
     }
-
     auto* ats = s.MakeArray_typespec();
     // Leading-fixed shape: the erasure pass never ran, so the declaration's
     // typespec keeps its written nesting — an OUTER array_typespec carrying
@@ -10275,7 +10510,6 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
     if (declared->getType().getCanonicalType().kind !=
         SymbolKind::FixedSizeUnpackedArrayType)
         return nullptr;
-
     auto* an = s.MakeArray_net();
     an->VpiName(name);
     an->VpiFullName(fullName);
@@ -10657,7 +10891,6 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
             t2 = &t2->getCanonicalType().as<PackedArrayType>().elementType;
         }
     }
-
     auto* pav = s.MakePacked_array_var();
     pav->VpiName(name);
     pav->VpiFullName(fullName);
@@ -10811,7 +11044,6 @@ UHDM::packed_array_var* UhdmExporter::makeEnumArrayVar(UHDM::typespec* ts,
         dst->VpiEndLineNo(src->VpiEndLineNo());
         dst->VpiEndColumnNo(src->VpiEndColumnNo());
     };
-
     auto* pav = s.MakePacked_array_var();
     pav->VpiFullName(fullName);
     pav->VpiParent(parent);
@@ -10841,7 +11073,6 @@ UHDM::packed_array_var* UhdmExporter::makeEnumArrayVar(UHDM::typespec* ts,
         }
         pav->Ranges(rvec);
     }
-
     auto* ev = s.MakeEnum_var();
     ev->VpiParent(pav);
     ev->VpiFullName(fullName);
@@ -10914,7 +11145,6 @@ UHDM::packed_array_net* UhdmExporter::emitPackedStructArrayNet(const Symbol& sym
             t2 = &t2->getCanonicalType().as<PackedArrayType>().elementType;
         }
     }
-
     auto* pan = s.MakePacked_array_net();
     pan->VpiName(name);
     pan->VpiFullName(fullName);

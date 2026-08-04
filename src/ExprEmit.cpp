@@ -2563,6 +2563,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // node re-anchored to the reference span) — Surelog inlines
                 // aggregate param defaults rather than keeping the ref_obj. A
                 // package-to-package init (paramInitPkg) keeps the ref chain.
+                // § concatRefNoSubst — ...and so does a reference NESTED IN A
+                // CONCATENATION.  Surelog's substituteAssignedValue only ever
+                // answers a read the enclosing REDUCE asks about, and the
+                // reduce of a concat of >64b struct values fails outright, so
+                // every element survives as its own ref_obj — the same
+                // ACTUAL-LESS, module-scoped shape a materialized import copy
+                // of a multidimensional package param keeps (the
+                // pkgElabSymOperands arm above), reached here by the reduce
+                // FAILING rather than by never running.  BlackBePipeInt
+                // `bp_proc_param_s [max_cfgs-1:0] all_cfgs_gp =
+                // {bp_multicore_4_l2e_cfg_p, ... , bp_default_cfg_p}`: golden
+                // holds 33 bare-named ref_objs in all EIGHT listings, where we
+                // inlined 33 flat op75s into the four module ones.
+                bool inConcat9 =
+                    parent && parent->UhdmType() == UHDM::uhdmoperation &&
+                    ((UHDM::operation*)parent)->VpiOpType() == vpiConcatOp;
+                if (inParamInit && !paramInitPkg && inConcat9 &&
+                    (ckP == SymbolKind::PackedStructType ||
+                     ckP == SymbolKind::UnpackedStructType ||
+                     ckP == SymbolKind::PackedUnionType ||
+                     ckP == SymbolKind::UnpackedUnionType)) {
+                    ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                    ref->VpiParent(parent);
+                    setLoc(ref, expr.sourceRange);
+                    return ref;
+                }
                 if (inParamInit && !paramInitPkg &&
                     (ckP == SymbolKind::PackedStructType ||
                      ckP == SymbolKind::UnpackedStructType ||
@@ -2897,7 +2923,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // rule: 32 for a plain `parameter p1 = 1;`). So the read
                     // inherits 32, not the untyped 64 that a package-scope
                     // fold would carry — PackageNet `v = p1 + p2;`.
-                    if (procOpFold9 && !typedPkgParam &&
+                    // § defParamInitImportOpFold — the SAME inheritance for a
+                    // DEF param-init OPERATION operand: `localparam
+                    // etag_width_p = dword_width_gp - page_offset_width_gp`
+                    // reads two untyped wildcard-imported package localparams,
+                    // and golden's module DEF listing folds both operands at
+                    // 32, the width their materialized copies already carry —
+                    // the same rule the procedural witness gave, now measured
+                    // on a param-init one (BlackBePipeInt etag/vtag/ptag/dtag/
+                    // icache_ctag_width_p).  Same UNQUALIFIED-read gate: the
+                    // materialized copy is what an import-resolved name binds.
+                    bool defParamInitOpFold9 =
+                        inParamInit && paramInitDef && !paramInitPkg && parent &&
+                        parent->UhdmType() == UHDM::uhdmoperation;
+                    if ((procOpFold9 || defParamInitOpFold9) && !typedPkgParam &&
                         psym.getType().getCanonicalType().isIntegral() &&
                         importedParamDefTs.count(&nv.symbol) &&
                         rawText(expr.sourceRange).find("::") ==

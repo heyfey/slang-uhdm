@@ -8200,6 +8200,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // wide fold otherwise mints a BOGUS UINT:0 constant (int64
                 // overflow of a >64b decimal) — the gate removes it.
                 bool structWidePkg = false;
+                // § modDefReExportPat (see below): this module DEF import row
+                // is a clone of a re-exporting package's listing that kept the
+                // tagged_pattern tree, so the flat walk must not run on it.
+                bool structReExportTagged9 = false;
                 // ...and the SCOPED-REFERENCE case of the same "tagged tree
                 // survives the elab view" behaviour, which (unlike the width
                 // and symbolic-dim rules) still REDUCES each member value.
@@ -8278,6 +8282,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         structNoScopedRefPkg = false;
                     }
                 }
+                // § modDefReExportPat — record this PACKAGE DEF listing's
+                // tagged-vs-flat verdict, and replay it in the module import
+                // block that arrives through this package as a RE-EXPORTER.
+                // Surelog materializes that block by CLONING the re-exporter's
+                // own listing, so the member-select / scoped-reference rules
+                // that decided the shape inside bp_be_pkg reach the module
+                // copy verbatim — while the FIRST (home-package) block is
+                // built fresh and flattens unconditionally.  Measured on
+                // BlackBePipeInt: bp_be_pkg[DEF] keeps bp_custom_cfg_p tagged
+                // (0 member selects) and flattens bp_default_cfg_p (72), and
+                // golden's ALLMOD second block matches each.
+                if (structPat && inPackage && defViewOrig9)
+                    pkgDefStructTagged9[{std::string(body.asSymbol().name),
+                                         &member}] = structWidePkg;
+                if (structPat && !inPackage && isImported && defViewOrig9 &&
+                    occ9 && !occ9->src.empty())
+                    if (auto pt9 = pkgDefStructTagged9.find({occ9->src, &member});
+                        pt9 != pkgDefStructTagged9.end() && pt9->second)
+                        structReExportTagged9 = true;
                 // The DEF view of an INTERFACE struct param keeps the TAGGED
                 // form (emitExpr tagged_pattern op: constant size 64 + a ts ref
                 // to the member's string_typespec) — same as a module localparam
@@ -9010,9 +9033,23 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // one. kmac_pkg::A (96b member) and flash_req_t (171b member)
                 // both sit on the bail side, which is why they never showed it.
                 if (!rhs && structPat && topView && structWidePkg &&
-                    isImported && !inPackage) {
+                    isImported && !inPackage && !structReExportTagged9) {
                     auto& pctW = ps.getType().getCanonicalType();
-                    auto& sinitW = stripImplicitConv(*init);
+                    // § elabImportedStructRefPat — RULE 5 reaches the WIDE arm
+                    // too: `localparam bp_proc_param_s bp_unicore_cfg_p =
+                    // bp_default_cfg_p` has no pattern of its own, but
+                    // Surelog's substituteAssignedValue answers the read with
+                    // the REFERENCED param's already-reduced value, so the
+                    // module views carry the same flat 72-constant walk (the
+                    // op still spans the REFERENCE, 2565:47, not the borrowed
+                    // pattern).  Without this the materialized copy fell
+                    // through to the def-view tagged tree at the unsized 64
+                    // (BlackBePipeInt bp_unicore_cfg_p, four module rows).
+                    // The op2 (non-wide) sibling arm already borrows the same
+                    // way — only this one was still keyed on the syntax.
+                    auto& sinitW = (structRefPat9 && !inPackage)
+                                       ? *structRefPat9
+                                       : stripImplicitConv(*init);
                     if (sinitW.kind ==
                         ExpressionKind::StructuredAssignmentPattern) {
                         auto& apW =
@@ -9143,6 +9180,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                             .symbol)) {
                                     ec9->VpiParent(opW);
                                     setLoc(ec9, se->sourceRange);
+                                    // ...at the MEMBER width, like every other
+                                    // operand of the flattened walk: only the
+                                    // ENCODING is preserved, adjustOpSize
+                                    // still overwrites the size.  This is the
+                                    // exact rule the op2 sibling arm already
+                                    // carries; without it an IMPLICIT enum
+                                    // member (`e_cacc_none = 0`, reconstructed
+                                    // unsized at 64) stayed 64 in the module
+                                    // views while golden had the member's 32
+                                    // (BlackBePipeInt cacc_type / sacc_type /
+                                    // cce_type — the pass-12 cmp head).
+                                    if (sizeW)
+                                        ec9->VpiSize(
+                                            (int32_t)fld.getType().getBitWidth());
                                     opndW->push_back(ec9);
                                     continue;
                                 }
@@ -9174,6 +9225,65 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     setLoc(uc, se->sourceRange);
                                     opndW->push_back(uc);
                                     continue;
+                                }
+                            }
+                            // § elabImportedStructOperandFold.  A walk that
+                            // COMPLETES (bailW < 0) only completes because
+                            // Surelog's get_uvalue succeeded on every operand
+                            // — i.e. the operands it is walking came out of
+                            // the parameter's already-REDUCED value and are
+                            // ALL constants.  So a member written as an
+                            // ARITHMETIC expression (`(1 << e_cfg_enabled) |
+                            // ...`), as a READ of another struct param's
+                            // member (`bp_default_cfg_p.cc_x_dim`) or as a
+                            // TERNARY over one (`(ovr.x == "inv") ? base.x :
+                            // ovr.x`) arrives here folded: decimal UINT at the
+                            // member width.  Golden anchors each folded
+                            // constant at the span of the value's ORIGIN (the
+                            // base config's own literal), which no Compare
+                            // field reads, so the read's own span is kept.
+                            // A BAILED walk never reaches the reduction — its
+                            // operands are re-emitted as they stand, which is
+                            // why ImportedDoubleCastedParameter's op67 cast
+                            // survives (kmac_pkg::A bails on a 96b member).
+                            // Literal / string / replication / enum / '0
+                            // members keep their own ENCODING and are handled
+                            // by the arms above; this arm only ever replaces
+                            // what would otherwise stay a non-constant.
+                            // Measured on BlackBePipeInt: 5 operands of
+                            // bp_default_cfg_p, all 72 of bp_custom_cfg_p
+                            // (hier_paths) and all 72 of each bp_multicore_*
+                            // /bp_unicore_* derived config (op32 ternaries),
+                            // in every module view.
+                            if (bailW < 0) {
+                                auto& fv9 = stripImplicitConv(*se);
+                                if (fv9.kind == ExpressionKind::MemberAccess ||
+                                    fv9.kind ==
+                                        ExpressionKind::HierarchicalValue ||
+                                    fv9.kind ==
+                                        ExpressionKind::ConditionalOp ||
+                                    fv9.kind == ExpressionKind::BinaryOp ||
+                                    fv9.kind == ExpressionKind::UnaryOp) {
+                                    ASTContext fctx9(comp.getRoot(),
+                                                     LookupLocation::max);
+                                    if (auto fcv9 = fctx9.tryEval(*se);
+                                        fcv9 && fcv9.isInteger() &&
+                                        !fcv9.integer().hasUnknown()) {
+                                        auto fiv9 = fcv9.integer();
+                                        fiv9.setSigned(false);
+                                        std::string fd9 = fiv9.toString(
+                                            LiteralBase::Decimal, false);
+                                        auto* fc9 = s.MakeConstant();
+                                        fc9->VpiDecompile(fd9);
+                                        fc9->VpiSize((int32_t)fld.getType()
+                                                         .getBitWidth());
+                                        fc9->VpiValue("UINT:" + fd9);
+                                        fc9->VpiConstType(vpiUIntConst);
+                                        fc9->VpiParent(opW);
+                                        setLoc(fc9, se->sourceRange);
+                                        opndW->push_back(fc9);
+                                        continue;
+                                    }
                                 }
                             }
                             bool savedRe = reemitting;
@@ -10190,7 +10300,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // CompileHelper), marking the operation vpiReordered. The DEF
                 // view is built from the unreduced, unreordered expression and
                 // keeps source order (IntegerConcat).
-                if (pkgElabSymOperands && rhs &&
+                // § modParamPatternReorder — the same reversal for a
+                // MATERIALIZED IMPORT copy, whose bounds are already reduced
+                // in BOTH module listings, so UhdmWriter's
+                // reorderAssignmentPattern fires on all of them (the DEF
+                // PACKAGE listing, whose `[max_cfgs-1:0]` is still symbolic,
+                // is the only one of the eight that keeps source order).
+                if ((pkgElabSymOperands || (isImported && !inPackage)) && rhs &&
                     rhs->UhdmType() == UHDM::uhdmoperation &&
                     firstPackedRangeDecreasing(ps.getType())) {
                     auto* opd9 = (UHDM::operation*)rhs;
@@ -10254,6 +10370,66 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             cl9->VpiEndColumnNo(r9->VpiEndColumnNo());
                             o9 = cl9;
                         }
+                }
+                // § elabLazyTernaryArithFold — the same taken-branch reduce
+                // also folds an element written as ARITHMETIC, not only a bare
+                // parameter reference: Surelog hands back the branch's pattern
+                // with EVERY element reduced, so `'{x_cord_width + y_cord_width,
+                // y_cord_width, 0}` arrives as three constants.  The element is
+                // located by SPAN rather than by position, because the operand
+                // vector may already have been reversed for a descending
+                // unpacked dimension.  BlackBePipeInt {coh,mem,io}_noc_cord_
+                // markers_pos_p, one operand each in the TOPMOD listing.
+                if (lazyTernary9 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation && emitInit9) {
+                    auto& pel9 = stripImplicitConv(*emitInit9);
+                    auto* opa9 = (UHDM::operation*)rhs;
+                    if (pel9.kind == ExpressionKind::SimpleAssignmentPattern &&
+                        opa9->Operands()) {
+                        auto els9 =
+                            pel9.as<SimpleAssignmentPatternExpression>()
+                                .elements();
+                        auto* probe9 = s.MakeConstant();
+                        for (auto*& o9 : *opa9->Operands()) {
+                            if (o9->UhdmType() != UHDM::uhdmoperation)
+                                continue;
+                            const Expression* match9 = nullptr;
+                            for (auto* el9 : els9) {
+                                setLoc(probe9, el9->sourceRange);
+                                if (probe9->VpiLineNo() == o9->VpiLineNo() &&
+                                    probe9->VpiColumnNo() ==
+                                        o9->VpiColumnNo()) {
+                                    match9 = el9;
+                                    break;
+                                }
+                            }
+                            if (!match9 || !match9->type)
+                                continue;
+                            ASTContext ec9(comp.getRoot(),
+                                           LookupLocation::max);
+                            auto cv9 = ec9.tryEval(*match9);
+                            if (!cv9 || !cv9.isInteger() ||
+                                cv9.integer().hasUnknown())
+                                continue;
+                            auto iv9 = cv9.integer();
+                            iv9.setSigned(false);
+                            std::string dg9 =
+                                iv9.toString(LiteralBase::Decimal, false);
+                            auto* ca9 = s.MakeConstant();
+                            ca9->VpiDecompile(dg9);
+                            ca9->VpiSize(
+                                (int32_t)match9->type->getBitWidth());
+                            ca9->VpiValue("UINT:" + dg9);
+                            ca9->VpiConstType(vpiUIntConst);
+                            ca9->VpiParent(opa9);
+                            ca9->VpiFile(o9->VpiFile());
+                            ca9->VpiLineNo(o9->VpiLineNo());
+                            ca9->VpiColumnNo(o9->VpiColumnNo());
+                            ca9->VpiEndLineNo(o9->VpiEndLineNo());
+                            ca9->VpiEndColumnNo(o9->VpiEndColumnNo());
+                            o9 = ca9;
+                        }
+                    }
                 }
                 // Elab typed-param op init with UNKNOWN param-ref operands:
                 // the refs fold to their BIN:X/Z constants and the op gains a
@@ -14575,15 +14751,22 @@ static bool srlgBoundValue(const UHDM::any* e, int64_t& out) {
 // both stay in source order while `e_t [1:0] arr_e = {E0,E1}` reverses).
 //
 // Runs late because a package parameter's typespec is bound by
-// drainDefParamTs.  Packages only — the module-scope shape is unmeasured.
+// drainDefParamTs.
+//
+// § modParamPatternReorder — the MODULE-scope shape is the same rule, now
+// measured: UhdmWriter.cpp:2214 calls reorderAssignmentPattern for a MODULE's
+// param_assigns just as DesignElaboration does for a package's, so a
+// MATERIALIZED import copy of `bp_proc_param_s [max_cfgs-1:0] all_cfgs_gp`
+// reorders in every module listing — its bounds arrive already reduced there
+// (§ pkgParamOwnDefRange), which is exactly why the DEF PACKAGE listing is the
+// only one of the eight that keeps source order.  Measured on BlackBePipeInt:
+// golden's four module rows are the reverse of its two AllPackages rows.
 void UhdmExporter::applyPkgParamPatternReorder() {
-    auto doPkgs = [&](UHDM::VectorOfpackage* v) {
-        if (!v)
+    auto doScope = [&](UHDM::scope* pk) {
+        if (!pk || !pk->Param_assigns())
             return;
-        for (auto* pk : *v) {
-            if (!pk->Param_assigns())
-                continue;
-            for (auto* pa : *pk->Param_assigns()) {
+        for (auto* pa : *pk->Param_assigns()) {
+            {
                 auto* rhs = pa->Rhs();
                 if (!rhs || rhs->UhdmType() != UHDM::uhdmoperation)
                     continue;
@@ -14634,8 +14817,18 @@ void UhdmExporter::applyPkgParamPatternReorder() {
             }
         }
     };
-    doPkgs(d->AllPackages());
-    doPkgs(d->TopPackages());
+    auto doVec = [&](auto* v) {
+        if (!v)
+            return;
+        for (auto* e : *v)
+            doScope((UHDM::scope*)e);
+    };
+    doVec(d->AllPackages());
+    doVec(d->TopPackages());
+    // Modules are handled at emit time instead (§ modParamPatternReorder in
+    // the param loop): a materialized copy's decision reads the SLANG type's
+    // first packed range, which needs no typespec binding and is available
+    // there, and doing it once keeps the two module listings consistent.
 }
 
 // A fold whose init chain (through param refs) lands on an ENUM VALUE takes
