@@ -767,8 +767,8 @@ InterfImport,default,SLANG_REJECT,dut.sv:9:13: error: use of undeclared identifi
 InterfImport,testflags,SLANG_REJECT,dut.sv:9:13: error: use of undeclared identifier 'tnoc_packet_config',,
 InterfInst,default,CMP_EQUAL,,,differ
 InterfInst,testflags,CMP_EQUAL,,,differ
-InterfType,default,CMP_NOTEQUAL,decompile:,,
-InterfType,testflags,CMP_NOTEQUAL,decompile:,,
+InterfType,default,CMP_EQUAL,,,differ
+InterfType,testflags,CMP_EQUAL,,,differ
 InterfTypeBad,default,SLANG_REJECT,dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterfTypeBad,testflags,SLANG_REJECT,dut.sv:15:1: error: 'tnoc_types' is an interface definition but is used like a type,,
 InterpElab1,default,CMP_EQUAL,,,differ

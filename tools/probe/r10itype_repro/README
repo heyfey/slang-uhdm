@@ -1,0 +1,40 @@
+r10itype — interface-typed port OF AN INTERFACE (§ ifaceIfaceTypedPort)
+
+Purpose-built goldens behind the InterfType conversion.  Build each with
+
+  surelog -parse -mt 0 -mp 0 -d uhdm <f>.sv -o out      # folded (default mode)
+  surelog -parse -mt 0 -mp 0 -d uhdm -elabuhdm <f>.sv   # testflags mode
+
+and compare `uhdm-dump` against `slang-uhdm <f>.sv --single-unit -o o.uhdm`.
+
+t1  three ports on one interface container (two interface-typed + one logic),
+    positional connection.  Pins: nested view = enclosing MODULE line col 0
+    (module top line 18 -> work@top.u_c.aa 18:0, though u_c is instantiated
+    at line 23); parameters listed ONCE on the nested view; LowConn anchors
+    at the PORT DECL for a MULTI-port positional connection.
+    OPEN residues (both pre-date this feature): golden emits NO ref_module for
+    u_c in work@top's def view while we emit one with three ports, and the
+    regular `clk` port's elab LowConn anchors at the port decl, not the conn.
+
+t2  both write-order directions in ONE file — acont(<zsub) and zcont(>asub).
+    Pins § ifaceIfaceTypedPortOrder: an INTERFACE container's def-view port
+    LowConn binds the sub-interface's DEF interface_inst only when the sub
+    def name sorts BEFORE the container's; otherwise it binds the port's own
+    bare net.  InterfType is the net half (tnoc_flit_if < tnoc_types).
+    Also pins that the folded (no -elabuhdm) HighConn actual is the col-0
+    tail dup while -elabuhdm binds the home view.
+
+t5  MODULE container, aif < mmid.   t6  MODULE container, amid < zzif.
+    Together they show the order rule does NOT apply to modules: every
+    interface is written before every module, so a module port always binds
+    the interface_inst.  Both already matched before this change.
+
+t7  MODPORT-qualified interface-typed port of an interface (abus.man).
+    The DEF view now matches (net minted, no vpiTypedef, LowConn -> modport).
+    The ELAB view is still UNMODELLED — golden adds a port whose HighConn is
+    a hier_path (u_b.man) with two ref_obj actuals, a LowConn ref_obj named
+    <enclosing module>.<port> bound to the modport, an interface_typespec
+    (modport, vpiIsModPort) typedef over a base interface_typespec, AND a
+    shadow interface_inst work@top.<port> at the enclosing module line col 0
+    (cloned vars + the connected modport, parented at the MODULE, weakly
+    referenced only).  216 raw dump lines.

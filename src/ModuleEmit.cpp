@@ -13913,11 +13913,41 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
             // A plain (no-modport) interface port binds the DEF-view
             // interface instance as the LowConn actual.
             else if (ip.interfaceDef && !topView) {
-                if (auto iit = ifaceDefMap.find(ip.interfaceDef);
-                    iit != ifaceDefMap.end())
+                // § ifaceIfaceTypedPortOrder — Surelog's writer walks the
+                // design's definitions in ONE alphabetically-ordered map per
+                // kind, interfaces before modules, and a port-type binding
+                // can only reach a definition that is ALREADY written.  A
+                // MODULE container therefore always finds the interface
+                // (every interface precedes every module: `module amid
+                // (zzif p)` still binds work@zzif), but an INTERFACE
+                // container only finds a sub-interface whose def name sorts
+                // BEFORE its own — otherwise the port falls back to its own
+                // bare net.  Measured on a purpose-built golden pairing both
+                // directions in one file (acont/zsub -> net, zcont/asub ->
+                // interface_inst); InterfType is the net half
+                // (tnoc_flit_if < tnoc_types).
+                bool reachable9 = true;
+                if (m->UhdmType() == UHDM::uhdminterface_inst &&
+                    prefix.rfind("work@", 0) == 0)
+                    reachable9 = std::string(ip.interfaceDef->name) <
+                                 prefix.substr(5);
+                if (!reachable9) {
+                    if (auto nit9 = netMap.find(portBase); nit9 != netMap.end())
+                        lc->Actual_group(nit9->second);
+                }
+                else if (auto iit = ifaceDefMap.find(ip.interfaceDef);
+                         iit != ifaceDefMap.end())
                     lc->Actual_group(iit->second);
             }
             p->Low_conn(lc);
+            // § ifaceIfaceTypedPort — an INTERFACE def view's ports carry NO
+            // vpiTypedef at all (Surelog's writeInterface runs no port-type
+            // binding pass; the module writer does).  The interface_typespec
+            // for such a port is minted by the ELABORATED view instead.
+            if (m->UhdmType() == UHDM::uhdminterface_inst && !topView) {
+                ports->push_back(p);
+                continue;
+            }
             auto* rt = s.MakeRef_typespec();
             rt->VpiParent(p);
             // An ARRAY interface port (myif.man m [2-1:0]): the DEF-view actual
@@ -19501,6 +19531,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             ifaceArrayNets9->push_back(an9);
         }
     }
+    // § ifaceIfaceTypedPort — an INTERFACE whose own port list names another
+    // INTERFACE as a port type (`interface tnoc_flit_if (tnoc_types types);`)
+    // mints a bare logic_net per such port (name + fullname only: no net
+    // type, no typespec), listed AFTER every body net — exactly the rule the
+    // module def view already applies to its interface ports.
+    for (auto portBase : body.getPortList()) {
+        if (portBase->kind != SymbolKind::InterfacePort)
+            continue;
+        auto& ipn9 = portBase->as<InterfacePortSymbol>();
+        if (info.nets.count(portBase))
+            continue;
+        auto* n9 = s.MakeLogic_net();
+        n9->VpiName(ipn9.name);
+        n9->VpiFullName(prefix + "." + std::string(ipn9.name));
+        n9->VpiParent(iface);
+        setLocNamed(n9, ipn9);
+        info.nets[portBase] = n9;
+        nets->push_back(n9);
+    }
     if (!nets->empty())
         iface->Nets(nets);
     if (ifaceArrayNets9)
@@ -19752,7 +19801,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                           std::set<const Symbol*>* parentRefs,
                                                           const InstanceSymbol* portView,
                                                           const std::string& connModport,
-                                                          bool forceTailDup) {
+                                                          bool forceTailDup,
+                                                          bool nestedIfaceView) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;
@@ -19798,7 +19848,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (c8.first == &inst && c8.second && isGenericIfacePort(ip9))
                 genPort9 = &ip9;
         }
-        if (genPort9 && genPort9->location != SourceLocation::NoLocation) {
+        // § ifaceIfaceTypedPort — a view materialised INSIDE an interface (an
+        // interface-typed port of an INTERFACE, `interface flit_if (types t);`)
+        // anchors at the ENCLOSING MODULE's declaration line, column 0 — not
+        // at the receiving instance's instantiation line the module port view
+        // uses.  Measured on purpose-built goldens: `module top` at line 18
+        // gives work@top.u_c.aa 18:0 while u_c is instantiated at line 23; the
+        // corpus test InterfType (`module dut` line 13, `tnoc` line 16) reads
+        // work@dut.tnoc.types 13:0.
+        if (nestedIfaceView) {
+            const UHDM::any* up9 = parentM;
+            while (up9 && up9->UhdmType() != UHDM::uhdmmodule_inst)
+                up9 = up9->VpiParent();
+            if (up9) {
+                iface->VpiFile(std::string(up9->VpiFile()));
+                iface->VpiLineNo(up9->VpiLineNo());
+                iface->VpiColumnNo(0);
+            }
+        }
+        else if (genPort9 && genPort9->location != SourceLocation::NoLocation) {
             iface->VpiFile(fullFilePath(genPort9->location));
             iface->VpiLineNo((int32_t)sm->getLineNumber(genPort9->location));
             iface->VpiColumnNo(0);
@@ -20080,7 +20148,12 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // A PLAIN (non-modport) PORT VIEW additionally lists each parameter TWICE
     // at its DEFAULT value. A MODPORT-qualified port view (myif.man b) keeps a
     // single param.
-    if (portView && connModport.empty() && iface->Parameters()) {
+    // § ifaceIfaceTypedPort — a view nested INSIDE an interface lists each
+    // parameter ONCE (measured: work@dut.tnoc.types carries one
+    // PACKET_CONFIG, while the module port view work@top.u_m.p carries two
+    // PA objects for the same interface).
+    if (portView && connModport.empty() && !nestedIfaceView &&
+        iface->Parameters()) {
         auto* plist = iface->Parameters();
         size_t n0 = plist->size();
         for (size_t i = 0; i < n0; i++) {
@@ -20989,7 +21062,109 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                    ? std::string(parentM->VpiFullName())
                                    : std::string();
     auto* ports = s.MakePortVec();
+    // ── § ifaceIfaceTypedPort — an INTERFACE-typed port OF AN INTERFACE ────
+    // `interface tnoc_flit_if (tnoc_types types); ... tnoc_flit_if tnoc
+    // (i_types);` — the elaborated container materialises a NESTED
+    // interface_inst named by the PORT (work@dut.tnoc.types), reference-style
+    // (col 0, no Instance/DefFile/DefLineNo, parameters at their DEFAULTS and
+    // listed ONCE, no param_assign), plus a port carrying:
+    //   HighConn  ref_obj named by the ACTUAL instance, fullname
+    //             <enclosing module>.<actual>, bound to the actual's col-0
+    //             tail dup (folded view) or its home view (-elabuhdm);
+    //   LowConn   an UNNAMED, UNPARENTED ref_obj whose fullname is
+    //             <ENCLOSING MODULE>.<port> (NOT the container's own path —
+    //             the module port-view form uses the child path instead),
+    //             bound to the nested view;
+    //   vpiTypedef ref_typespec -> the interface_typespec for the port type
+    //             (the DEF view mints none — see emitPorts).
+    // Measured on purpose-built two-interface goldens and on InterfType.
+    std::map<const Symbol*, UHDM::port*> nestedIfacePorts9;
+    if (!portView) {
+        auto* nestedIfaces9 = s.MakeInterface_instVec();
+        for (auto portBase : body.getPortList()) {
+            if (portBase->kind != SymbolKind::InterfacePort)
+                continue;
+            auto& ip9 = portBase->as<InterfacePortSymbol>();
+            if (isGenericIfacePort(ip9) || !ip9.modport.empty())
+                continue;
+            auto conn9 = ip9.getConnection();
+            if (!conn9.first || conn9.first->kind != SymbolKind::Instance)
+                continue;
+            const PortConnection* iconn9 = nullptr;
+            for (auto c9 : inst.getPortConnections())
+                if (&c9->port == portBase) {
+                    iconn9 = c9;
+                    break;
+                }
+            auto* ii9 = emitInterfaceInstance(
+                conn9.first->as<InstanceSymbol>(),
+                prefix + "." + std::string(ip9.name), iface, parentNets,
+                parentRefs, /*portView=*/&inst, /*connModport=*/"",
+                /*forceTailDup=*/false, /*nestedIfaceView=*/true);
+            ii9->VpiName(std::string(ip9.name));
+            nestedIfaces9->push_back(ii9);
+
+            auto* p9 = s.MakePort();
+            p9->VpiName(ip9.name);
+            p9->VpiParent(iface);
+            setLocNamed(p9, ip9);
+            p9->VpiDirection(interfacePortDirection(ip9));
+            const Expression* cexpr9 = iconn9 ? connectionExpr(*iconn9) : nullptr;
+            // HighConn: the connected interface instance, named as written.
+            {
+                auto* hc9 = s.MakeRef_obj();
+                hc9->VpiName(conn9.first->name);
+                hc9->VpiFullName(parentPrefix + "." +
+                                 std::string(conn9.first->name));
+                hc9->VpiParent(p9);
+                if (cexpr9)
+                    setLoc(hc9, cexpr9->sourceRange);
+                if (auto dit9 = ifaceTailDup.find(conn9.first);
+                    dit9 != ifaceTailDup.end())
+                    hc9->Actual_group(dit9->second);
+                else if (auto iit9 = ifaceInstMap.find(conn9.first);
+                         iit9 != ifaceInstMap.end())
+                    hc9->Actual_group(iit9->second);
+                p9->High_conn(hc9);
+            }
+            // LowConn: unnamed/unparented, scoped by the ENCLOSING module.
+            {
+                auto* lc9 = s.MakeRef_obj();
+                lc9->VpiFullName(parentPrefix + "." + std::string(ip9.name));
+                // Same anchor rule the module iface-port LowConn follows: a
+                // NAMED connection anchors at the FORMAL name, a POSITIONAL
+                // one keeps the connection expression only on a SINGLE-port
+                // instance and otherwise falls back to the port declaration.
+                if (auto npc9 = findConnSyntax(inst, ip9.name))
+                    setLoc(lc9,
+                           SourceRange(npc9->name.location(),
+                                       npc9->name.location() + ip9.name.size()));
+                else if (cexpr9 && inst.getPortConnections().size() < 2)
+                    setLoc(lc9, cexpr9->sourceRange);
+                else
+                    setLocNamed(lc9, ip9);
+                lc9->Actual_group(ii9);
+                p9->Low_conn(lc9);
+            }
+            auto* rt9 = s.MakeRef_typespec();
+            rt9->VpiFullName(prefix + "." + std::string(ip9.name));
+            rt9->VpiParent(p9);
+            rt9->Actual_typespec(makeIfacePortTs(ip9));
+            p9->Typespec(rt9);
+            nestedIfacePorts9[portBase] = p9;
+        }
+        if (!nestedIfaces9->empty())
+            instSetInterfaces(iface, nestedIfaces9);
+    }
     for (auto portBase : body.getPortList()) {
+        // Interface-typed ports keep their DECLARATION position in the port
+        // vector (they were built above so their views precede the header
+        // ports' typespecs in the arena) — § ifaceIfaceTypedPort.
+        if (auto nip9 = nestedIfacePorts9.find(portBase);
+            nip9 != nestedIfacePorts9.end()) {
+            ports->push_back(nip9->second);
+            continue;
+        }
         if (portBase->kind != SymbolKind::Port)
             continue;
         auto& ps = portBase->as<PortSymbol>();
