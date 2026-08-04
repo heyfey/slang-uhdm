@@ -6461,7 +6461,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         mfc11->VpiParent(parent);
                         mfc11->Prefix(thisConst11());
                         auto* ma11 = s.MakeAnyVec();
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             bool fs11 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -6525,7 +6528,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(mfc11, nameSpan(recvE11.sourceRange.end() + 1,
                                                sub.name));
                         auto* margs11 = s.MakeAnyVec();
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             bool fs11 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -6591,7 +6597,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          call.thisClass()->sourceRange.end() + 1,
                                          sub.name));
                         auto* margs0 = s.MakeAnyVec();
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             bool fs0 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -6631,7 +6640,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto* margs = s.MakeAnyVec();
                     {
                         ClassArgBind12 cab12(classArgBindDepth12);
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -6708,7 +6720,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(mfcH,
                                SourceRange(posH, posH + namesH.back().size()));
                         auto* argsH = s.MakeAnyVec();
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             bool fsH = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -6753,7 +6768,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                    dot1));
                         mfc->Prefix(pr);
                         auto* margs = s.MakeAnyVec();
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*arg))
                                 forceConstParent = true;
@@ -6858,7 +6876,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(fc0, cr12);
                         auto* cargs = s.MakeAnyVec();
                         ClassArgBind12 cab12(classArgBindDepth12);
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             if (arg->kind == ExpressionKind::Assignment) {
                                 auto& ae0 = arg->as<AssignmentExpression>();
                                 if (ae0.right().kind ==
@@ -6889,7 +6910,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         fc0->VpiParent(parent);
                         setLoc(fc0, expr.sourceRange);
                         auto* uargs = s.MakeAnyVec();
-                        for (auto arg : call.arguments()) {
+                        // § writtenCallArgs16 — only the actuals WRITTEN at
+                        // the call site; a defaulted formal is slang's, not
+                        // Surelog's.
+                        for (auto arg : writtenArgs16(call)) {
                             // Output args come wrapped as
                             // Assignment(lval, Empty) — unwrap as the bound
                             // path does.
@@ -12171,7 +12195,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (auto* cc9 = nce.constructorCall();
                 cc9 && cc9->kind == ExpressionKind::Call) {
                 auto* nargs9 = s.MakeAnyVec();
+                // § writtenCallArgs16, the constructor arm.  A `new(...)`
+                // carries its actual list on the NewClassExpression's own
+                // syntax, not on an InvocationExpressionSyntax, so the shared
+                // helper cannot read it: count here.  `uvm_domain::new(name)`
+                // against `uvm_phase::new(name, phase_type=UVM_PHASE_SCHEDULE,
+                // parent=null)` is the residual `Args/SIZE 2 vs 3` block.
+                size_t nw9 = cc9->as<CallExpression>().arguments().size();
+                if (auto* nsy9 =
+                        nce.syntax
+                            ? nce.syntax->as_if<syntax::NewClassExpressionSyntax>()
+                            : nullptr)
+                    nw9 = nsy9->argList ? nsy9->argList->parameters.size() : 0;
+                size_t ai9 = 0;
                 for (auto arg9 : cc9->as<CallExpression>().arguments()) {
+                    if (ai9++ >= nw9)
+                        break;
                     bool fs9 = forceConstParent;
                     if (isLiteralExpr(*arg9))
                         forceConstParent = true;

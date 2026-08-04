@@ -4772,6 +4772,34 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOf(const UHDM::typespec* src,
     auto& slot = withAlias ? bareScalarTdCopy : bareScalarTdCopyNoAlias;
     if (auto it = slot.find(src); it != slot.end())
         return it->second;
+    UHDM::typespec* cp = bareScalarTdCopyOfFresh16(src);
+    if (!cp) {
+        slot[src] = nullptr;
+        return nullptr;
+    }
+    // The copy keeps a Typedef_alias ref back to the listing object — EXCEPT
+    // the one an ELABORATED INSTANCE-SCOPE variable binds, which carries none
+    // (r7/r8: `ELABMOD.Variables/sig -> bt alias=-` while the same package
+    // typedef's function-local copy in the same view is aliased; a
+    // MODULE-LOCAL typedef's elab variable copy takes the same unaliased
+    // form).  Two memoized copies per listing object, one of each shape.
+    if (withAlias) {
+        auto* al = s.MakeRef_typespec();
+        al->VpiFullName(std::string(cp->VpiName()));
+        al->VpiParent(cp);
+        al->Actual_typespec((UHDM::typespec*)src);
+        cp->Typedef_alias(al);
+    }
+    slot[src] = cp;
+    return cp;
+}
+
+// One UNMEMOIZED bare-named copy of a qualified listing object, with no alias
+// attached.  Split out of bareScalarTdCopyOf so § importCloneBareTdAlias16 can
+// mint the clone bodies' own object instead of receiving the memoized one the
+// home bodies share.
+UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
+    const UHDM::typespec* src) {
     UHDM::typespec* cp = nullptr;
     switch (src->UhdmType()) {
         case UHDM::uhdmlogic_typespec: {
@@ -4828,10 +4856,8 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOf(const UHDM::typespec* src,
         default:
             break;
     }
-    if (!cp) {
-        slot[src] = nullptr;
+    if (!cp)
         return nullptr;
-    }
     std::string qn(src->VpiName());
     cp->VpiName(qn.substr(qn.rfind("::") + 2));
     cp->VpiFile(src->VpiFile());
@@ -4844,21 +4870,96 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOf(const UHDM::typespec* src,
     // package (r7: the bare copies' vpiInstance tracks their view's listing
     // object exactly).
     cp->Instance(((UHDM::typespec*)src)->Instance());
-    // The copy keeps a Typedef_alias ref back to the listing object — EXCEPT
-    // the one an ELABORATED INSTANCE-SCOPE variable binds, which carries none
-    // (r7/r8: `ELABMOD.Variables/sig -> bt alias=-` while the same package
-    // typedef's function-local copy in the same view is aliased; a
-    // MODULE-LOCAL typedef's elab variable copy takes the same unaliased
-    // form).  Two memoized copies per listing object, one of each shape.
-    if (withAlias) {
-        auto* al = s.MakeRef_typespec();
-        al->VpiFullName(std::string(cp->VpiName()));
-        al->VpiParent(cp);
-        al->Actual_typespec((UHDM::typespec*)src);
-        cp->Typedef_alias(al);
-    }
-    slot[src] = cp;
     return cp;
+}
+
+// § importCloneBareTdAlias16 — LAW S, one level deeper, inside a WILDCARD-
+// IMPORT CLONE body.
+//
+// LAW S gives every variable-like binding of a package SCALAR typedef a BARE
+// per-declaration copy whose Typedef_alias points back at the QUALIFIED
+// listing object.  That is what golden does for the HOME copy of a body.  The
+// CLONE that an importing package carries is different in exactly one place:
+// its alias target is bare as well.  The reason is Surelog's, not a special
+// case — `UhdmWriter::writeDataTypes` qualifies a typespec only when it walks
+// the package's own `datatypeMap`, and the clone's chain is re-minted against
+// the IMPORTING package, so nothing in it is ever the object that got
+// prefixed.
+//
+// Measured on the purpose-built t26 pair (`p_decl` declares `bt`/`lt`/`it` and
+// `free_fn`; `p_imp` wildcard-imports it), reading the io_decl/variable
+// typespec and its alias chain out of both sides:
+//
+//   golden DEFPKG[p_decl]/free_fn   io0 = bt -> p_decl::bt     (home: LAW S)
+//   golden DEFPKG[p_imp]/free_fn    io0 = bt -> bt             (clone: this)
+//   golden ELABPKG[p_decl]/free_fn  io0 = bt -> p_decl::bt
+//   golden ELABPKG[p_imp]/free_fn   io0 = bt -> bt
+//
+// and we bound the qualified listing object at all four, because LAW S's
+// per-listing-object memo hands the SAME bare copy to the home body and the
+// clone.  uhdm-cmp does not compare identity, but it does compare VpiName one
+// level down through Typedef_alias, so the clone needs its own copy.
+void UhdmExporter::importCloneBareTdAlias16() {
+    if (pkgImportCloneTfs16.empty() || pkgScalarTd16.empty())
+        return;
+    // The clone's copy: bare name, aliased to the UNALIASED bare copy of the
+    // same listing object (golden's second link carries no further alias).
+    auto cloneCopyOf = [&](const UHDM::typespec* src) -> UHDM::typespec* {
+        if (auto it = cloneBareScalarTdCopy16.find(src);
+            it != cloneBareScalarTdCopy16.end())
+            return it->second;
+        UHDM::typespec* cp = nullptr;
+        auto* tgt = bareScalarTdCopyOf(src, false);
+        if (tgt) {
+            // bareScalarTdCopyOf memoizes per (src, withAlias); build the
+            // clone's own object by asking for the aliased shape and then
+            // re-pointing its alias at the bare target.  A direct second call
+            // would return the memoized object the home bodies share, so mint
+            // through the no-alias path and add the ref here.
+            cp = bareScalarTdCopyOfFresh16(src);
+            if (cp) {
+                auto* al = s.MakeRef_typespec();
+                al->VpiFullName(std::string(cp->VpiName()));
+                al->VpiParent(cp);
+                al->Actual_typespec(tgt);
+                cp->Typedef_alias(al);
+            }
+        }
+        cloneBareScalarTdCopy16[src] = cp;
+        return cp;
+    };
+    // The listing object a bound typespec stands for: either the object
+    // itself (nothing rebound it yet) or LAW S's alias target.
+    auto listingOf = [&](const UHDM::typespec* at) -> const UHDM::typespec* {
+        if (!at)
+            return nullptr;
+        if (pkgScalarTd16.count(at))
+            return at;
+        auto* al = at->Typedef_alias();
+        auto* tg = al ? al->Actual_typespec() : nullptr;
+        if (tg && pkgScalarTd16.count(tg))
+            return tg;
+        return nullptr;
+    };
+    auto rebind = [&](UHDM::ref_typespec* rt) {
+        if (!rt)
+            return;
+        auto* at = rt->Actual_typespec();
+        const UHDM::typespec* src = listingOf(at);
+        if (!src)
+            return;
+        if (auto* cp = cloneCopyOf(src))
+            rt->Actual_typespec(cp);
+    };
+    for (auto* tf : pkgImportCloneTfs16) {
+        auto* m = (UHDM::task_func*)tf;
+        if (m->Io_decls())
+            for (auto* io : *m->Io_decls())
+                rebind(io->Typespec());
+        if (m->Variables())
+            for (auto* v : *m->Variables())
+                rebind(v->Typespec());
+    }
 }
 
 // An ANONYMOUS class_typespec NEVER carries vpiInstance.  Surelog's
@@ -4938,6 +5039,7 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         note(sym, ts);
     for (auto& [key, ts] : pkgTopTypedefTs)
         note((const slang::ast::Symbol*)key, ts);
+    pkgScalarTd16 = pkgScalarTd;
     if (pkgScalarTd.empty())
         return;
     auto rebind = [&](UHDM::ref_typespec* rt, bool withAlias) {

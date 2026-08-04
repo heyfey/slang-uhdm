@@ -422,6 +422,9 @@ private:
     // The bare copy of one qualified listing object (memoized).
     UHDM::typespec* bareScalarTdCopyOf(const UHDM::typespec* src,
                                        bool withAlias);
+    // ...and one UNMEMOIZED, alias-less copy of the same (§
+    // importCloneBareTdAlias16 needs an object the home bodies do not share).
+    UHDM::typespec* bareScalarTdCopyOfFresh16(const UHDM::typespec* src);
     // One bare copy per qualified listing object (uhdm-cmp compares names, not
     // object identity, so Surelog's per-declaration copies need not be
     // reproduced one-for-one).
@@ -430,6 +433,25 @@ private:
     std::map<const UHDM::typespec*, UHDM::typespec*> bareScalarTdCopyNoAlias;
     // ...and the mirror half: the re-QUALIFIED copy a def-view net binds.
     std::map<const UHDM::typespec*, UHDM::typespec*> qualScalarTdCopy;
+    // § importCloneBareTdAlias16 — LAW S names the per-declaration copy bare
+    // and aliases it to the QUALIFIED listing object.  Inside a WILDCARD-
+    // IMPORT CLONE body that alias target is bare too: Surelog re-compiles
+    // the imported body against the importing package and the whole chain is
+    // freshly minted there, so writeDataTypes (which qualifies only what sits
+    // in a package's own type table) never touches it.  Measured on the t26
+    // pair, where `p_imp`'s copy of `p_decl::free_fn` reads
+    // io0 -> `bt` -> `bt` against the home copy's io0 -> `bt` -> `p_decl::bt`,
+    // in the def AND elab package views alike.
+    void importCloneBareTdAlias16();
+    // The clone-flavoured copy of one qualified listing object: bare name,
+    // aliased to the UNALIASED bare copy.  Memoized like the others.
+    std::map<const UHDM::typespec*, UHDM::typespec*> cloneBareScalarTdCopy16;
+    // The registered package SCALAR typedef listing objects, published by
+    // bareScalarTypedefVarTs so the clone pass tests the same membership.
+    std::set<const UHDM::typespec*> pkgScalarTd16;
+    // Every task_func emitted as a wildcard-import CLONE (both halves: free
+    // package subroutines and package class methods).
+    std::set<const UHDM::task_func*> pkgImportCloneTfs16;
     // Replace `dst`'s still-symbolic single-dim packed-vector bounds with the
     // folded literal range (no-op when they already are constants).
     void foldVecBounds(UHDM::typespec* dst, int64_t left, int64_t right);

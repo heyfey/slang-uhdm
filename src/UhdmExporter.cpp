@@ -3880,6 +3880,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     // Dead last — after every deferred typespec rebind above, so no later pass
     // can put a qualified object back.
     bareScalarTypedefVarTs();
+    // § importCloneBareTdAlias16: inside a wildcard-import CLONE body the
+    // alias target of that bare copy is bare too.  Right after LAW S, whose
+    // memo it re-points.
+    importCloneBareTdAlias16();
     // ...and an anonymous class_typespec never carries vpiInstance.
     clearAnonClassTsInstance();
     // § pkgCloneHierBind9 — bind the BASE of every dotted reference inside a

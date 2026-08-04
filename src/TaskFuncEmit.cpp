@@ -3331,6 +3331,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Applied in the deferred pass so the hier_paths built by all ~15
         // ExprEmit shapes are covered from one place.
         if (pkgImportCloneEmit && tf) {
+            // § importCloneBareTdAlias16 — the clone bodies are also the ones
+            // whose package-typedef alias chain stays BARE all the way down.
+            pkgImportCloneTfs16.insert(tf);
             std::map<std::string, UHDM::any*> lm9;
             for (auto& [sy9, ob9] : funcMap) {
                 if (!sy9 || !ob9 || sy9->name.empty())

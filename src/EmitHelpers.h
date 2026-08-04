@@ -2271,6 +2271,40 @@ inline bool isLiteralExpr(const Expression& e) {
            c.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral;
 }
 
+// § writtenCallArgs16 — how many arguments a call actually WROTE.
+//
+// slang materialises a DEFAULTED formal as a full argument expression, located
+// at the declaration's default; Surelog lists only the actuals written at the
+// call site.  The func_call / task_call path has carried this rule since the
+// ApbSlave probe (`write(addr, data)` is two arguments, not five); the
+// METHOD-call paths did not, and that omission is the whole
+// `method_func_call vs method_func_call | Args/SIZE n vs n+1` block at the
+// head of the UVM-4 residue — `uvm_printer::print_object`'s
+// `byte scope_separator="."`, `print_time`, `print_generic`,
+// `uvm_component::set_domain`'s `int hier=1`, and so on: 1070 of SeqDriver's
+// 1511 unexplained `deeper` mfc pairs.
+//
+// Reads the INVOCATION SYNTAX, which is the only place the distinction
+// survives; a call with no invocation syntax (an implicit or rewritten one)
+// falls back to the bound count so the helper can never trim a real argument.
+// Only valid where `arguments()` excludes the receiver — user subroutine
+// calls.  A BUILT-IN method passes its receiver as `arguments()[0]`, so those
+// sites must keep counting the bound list.
+inline size_t writtenCallArgs16(const CallExpression& call) {
+    if (auto* isy = call.syntax
+                        ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
+                        : nullptr)
+        return isy->arguments ? isy->arguments->parameters.size() : 0;
+    return call.arguments().size();
+}
+
+// The written prefix of a user subroutine call's argument list.
+inline std::span<const Expression* const> writtenArgs16(
+    const CallExpression& call) {
+    auto all = call.arguments();
+    return all.subspan(0, std::min(writtenCallArgs16(call), all.size()));
+}
+
 // Collects the value symbols referenced on a cont_assign LHS (their top-view
 // net typespecs lose the creation-time parent when Surelog re-elaborates the
 // assignment).
