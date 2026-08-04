@@ -1,0 +1,93 @@
+r10rggen9 purpose-built Surelog goldens — file -> law it pins
+
+Generate a golden with
+  tools/probe/r10rggen9golden.sh <this dir> <file>.sv
+and ours with
+  tools/probe/r10rggen9ours.sh   <this dir> <file>.sv
+then uhdm-cmp the two .uhdm files (an EMPTY cmp output means equal), or diff
+/tmp/r10rggen9_ours.txt against the golden dump.  (r10rggen9golden.sh leaves a
+slpp_all/ behind; it is scratch, never commit it.)
+
+t5.sv  § selCallBin + § typedCallFoldTs — five one-difference siblings of
+       rggen_address_decoder:18 `bit [WIDTH-LSB-1:0] END_ADDRESS =
+       calc_end_address(START_ADDRESS, BYTE_SIZE)`, whose elaborated
+       param_assign Rhs is BIN at the SELECT width in golden and was decimal
+       UINT in ours.  The encoding follows the function's RETURN EXPRESSION,
+       not the declared type:
+         return e[WIDTH-1:LSB]   , param bit [5:0] -> BIN:000101 size 6
+         return e[WIDTH-1:LSB]   , param int       -> BIN:000101 size 6 (!)
+         return (W-LSB)'(n + 16) , param bit [5:0] -> UINT:20    size 6
+         return 20               , param bit [5:0] -> UINT:20    size 6
+         return <whole local>    , param bit [5:0] -> UINT:20    size 6
+       and EVERY one of the five carries a ts ref to the parameter's own
+       declared typespec (bit_typespec / int_typespec), which our const-call
+       fold only attached on the predefined-integer arm.
+       Cause (UHDM templates/ExprEval.cpp): the part_select / indexed_part_
+       select / bit_select reduce arms are the only ones that build
+       `BIN:<bits>` sized to the SELECT; evalFunc's return tail re-masks that
+       constant only for a logic_typespec return, so a bit[]/int return hands
+       the select's own binary value straight to the caller.
+       STILL OPEN in this file: golden SHARES the body literal of `return 20;`
+       with the fold (the `constant@38:12` carrying the C3_CALL parameter's
+       bit_typespec) — the EvalFunc-leftover family, not modelled.
+
+t7.sv  the compound-assignment WRITE-BACK, FULLY DECODED (not implemented) —
+       see the § selCallBin sibling note in ParamEmit and the block-3 commit
+       message.  Five predictions, all confirmed by golden:
+         `a += 1` under `while (a < 3)`   -> UINT:4   (1 * 2^2)
+         `a += 1` under `for i in 0..4`   -> UINT:16  (1 * 2^4)
+         `a += 1` under `for i in 0..63`  -> UINT:0   (wrapped)
+         `a += 1` under `for i in 0..69`  -> UINT:0   (wrapped)
+         `b -= 2` twice from b = 5        -> INT:0    (5-2=3, then 3-3=0)
+       The mechanism is UHDM ExprEval::setValueInInstance (~5021 + the opType
+       tail ~5395): `c = any_cast<constant*>(rhsexp)` IS the assignment's own
+       literal object in the tree, the op arms OVERWRITE its VpiValue with
+       `prev <op> val`, and the param_assign that records the LHS's value is
+       then given THAT SAME OBJECT.  So from the second execution on
+       prev == val and `a += <lit>` DOUBLES the literal every iteration, and
+       the uint64 arithmetic (masked at the literal's own VpiSize) wraps to
+       ZERO once the loop is long enough.  rggen_or_reducer:30
+       `list_index += 1` is UINT:0 in golden for exactly that reason — the
+       function is evaluated once per rggen_or_reducer instance and the DEF
+       listing's literal object is shared across all of them.
+
+t8.sv  § ifacePortVarHighConn — a port actual reaching an interface signal
+       through the enclosing module's own INTERFACE PORT
+       (rggen_register_common:44 `.i_address (register_if.address)`).  Golden
+       binds the interface's VARIABLE OBJECT as vpiHighConn (a logic_var named
+       `address`, located at the interface declaration and re-fullnamed
+       `<inst>.<formal>.<signal>`); a SELECT on the signal
+       (`mif.address[3:0]`) is DISCARDED and binds the whole variable.  The
+       control in the same file is a LOCALLY INSTANTIATED interface
+       (`ifc u_if(); .i_valid(u_if.valid)`), which keeps the hier_path in
+       golden as well as in ours.
+
+t9.sv  § ifacePortVarHighConn, the negative half.  Three `mid*` modules that
+       differ in one thing each:
+         A  `ifc.mp mif`  (interface port WITH a modport)  -> logic_var
+         B  `ifc bif`     (interface port, NO modport)     -> hier_path
+         C  `pifc pif`    (no modport, members are the interface's own PORTS,
+                           the OneNetInterf / OneNetModPortGeneric /
+                           OneNetRange shape) -> hier_path
+       so the MODPORT is the distinguisher: Surelog only resolves the member
+       to an object when the modport declared which signals are visible.  The
+       first cut of the law omitted this gate and regressed those three tests;
+       t9 is byte-identical to golden with it.
+
+ta.sv  § caBareEnumFold — TRIED AND REVERTED (see the NOTE in ExprEmit around
+       the `pkg::VALUE` fold).  rggen_register_common:104 `assign
+       register_if.status = RGGEN_OKAY;` folds in golden even though the read
+       is a BARE wildcard-imported enum member; ta pairs bare vs
+       package-qualified reads against an interface-signal LHS and a plain-net
+       LHS, plus a ternary, a cast and a plain package parameter:
+         `assign sm.status = OKAY`   -> LOC-LESS constant BIN:00 size 2 ct 3
+         `assign w0       = OKAY`    -> the same (so the LHS is irrelevant)
+         `assign sm.status2 = p::ERR`-> constant AT the written span
+         `assign w2 = E ? ERR : OKAY`-> loc-less INT:2 size 2
+         `assign w3 = status_e'(..)` -> loc-less UINT:2 size 2
+         `assign w4 = PC`            -> constant at the span, with the
+                                        package int_typespec
+       The blocker is not the predicate: golden keeps the ref_obj in the DEF
+       listing and the Rggen elab gen tree carries golden objects of BOTH
+       shapes, so a cont_assign object shared across our two views cannot
+       satisfy both.  Per-view cont_assign objects are the prerequisite.

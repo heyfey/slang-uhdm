@@ -1900,11 +1900,34 @@ void UhdmExporter::stampEvalFuncLeftovers(UHDM::design* d) {
 // encoded by the same rules a plain expression fold uses — driven by the RETURN
 // assignment's expression kind: a CONCAT body ({..}) folds full-width BIN, a
 // comparison/logical body folds BIN with DECIMAL digits, a TERNARY body folds
-// signed INT, everything else UINT.
-enum class ConstCallEnc { Uint, BoolBin, ConcatBin, Int };
+// signed INT, a PART/BIT-SELECT body folds BIN at the SELECT's own width,
+// everything else UINT.
+enum class ConstCallEnc { Uint, BoolBin, ConcatBin, Int, SelBin };
 
-static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
+// § selCallBin.  ExprEval's part_select / indexed_part_select / bit_select arms
+// (UHDM templates/ExprEval.cpp ~4865 / ~4903 / reduceBitSelect ~1840) are the
+// only reduce arms that hand back a constant sized to the SELECT rather than to
+// the expression's context: each builds `BIN:<bits>` with VpiSize = the number
+// of selected bits.  evalFunc's return tail re-masks that constant ONLY when
+// the function's return type is a logic_typespec, so a `bit [..]` or predefined
+// -integer return carries the select's own BIN value straight out of the call,
+// and the parameter's Value (and with it the elaborated param_assign Rhs) is
+// binary at the SELECT width — NOT decimal at the param or return width.
+// Decoded on tools/probe/r10rggen9repro/t5.sv, five one-difference siblings of
+// rggen_address_decoder:18 `bit [WIDTH-LSB-1:0] END_ADDRESS =
+// calc_end_address(..)`:
+//   return e[WIDTH-1:LSB]   , param bit [5:0] -> BIN:000101 size 6  (select)
+//   return e[WIDTH-1:LSB]   , param int       -> BIN:000101 size 6  (select!)
+//   return (W-LSB)'(n + 16) , param bit [5:0] -> UINT:20    size 6  (param)
+//   return 20               , param bit [5:0] -> UINT:20    size 6  (param)
+//   return <whole local>    , param bit [5:0] -> UINT:20    size 6  (param)
+// so it is the RETURN EXPRESSION's shape, not the declared type, that decides —
+// and the width follows the select, not the parameter.
+static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub,
+                                      int32_t* selWidth = nullptr) {
     ConstCallEnc enc = ConstCallEnc::Uint;
+    if (selWidth)
+        *selWidth = 0;
     auto classify = [&](const Expression& rhs) {
         auto& se = stripImplicitConv(rhs);
         // A REPLICATION is a concat in ExprEval's eyes (vpiConcatOp /
@@ -1949,6 +1972,22 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
             else
                 enc = ConstCallEnc::Uint;
         }
+        // § selCallBin — a select over a PACKED (integral) base only: indexing
+        // an unpacked array is an element read, which reduces through
+        // ExprEval's var_select arm and keeps the plain encoding.
+        else if ((se.kind == ExpressionKind::RangeSelect ||
+                  se.kind == ExpressionKind::ElementSelect) &&
+                 se.type && se.type->isIntegral() && [&] {
+                     const Expression* b0 =
+                         se.kind == ExpressionKind::RangeSelect
+                             ? &se.as<RangeSelectExpression>().value()
+                             : &se.as<ElementSelectExpression>().value();
+                     return b0->type && b0->type->isIntegral();
+                 }()) {
+            enc = ConstCallEnc::SelBin;
+            if (selWidth)
+                *selWidth = (int32_t)se.type->getBitWidth();
+        }
         else
             enc = ConstCallEnc::Uint;
     };
@@ -1964,9 +2003,17 @@ static ConstCallEnc constCallEncoding(const SubroutineSymbol& sub) {
     // visitor above never sees it; classify the TERNARY case here (the only
     // encoding ExprEval forces regardless of the branch expressions).
     sub.getBody().visit(makeVisitor([&](auto& v, const ReturnStatement& r) {
-        if (r.expr && stripImplicitConv(*r.expr).kind ==
-                          ExpressionKind::ConditionalOp)
-            enc = ConstCallEnc::Int;
+        if (r.expr) {
+            auto& re = stripImplicitConv(*r.expr);
+            if (re.kind == ExpressionKind::ConditionalOp)
+                enc = ConstCallEnc::Int;
+            // § selCallBin — `return <select>;` carries no assignment to the
+            // return var either, so classify it here (only this shape; the
+            // other kinds keep the assignment-driven classification).
+            else if (re.kind == ExpressionKind::RangeSelect ||
+                     re.kind == ExpressionKind::ElementSelect)
+                classify(re);
+        }
         v.visitDefault(r);
     }));
     return enc;
@@ -9893,6 +9940,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                         icc9.as<CallExpression>().arguments()))
                                     iv9 = SVInt(64, (uint64_t)*wv9, false);
                             }
+                            // § selCallBin — the RETURN-shape encoding is read
+                            // up front: a select-returning body overrides the
+                            // param-width arms below with the SELECT's width.
+                            int32_t selW9 = 0;
+                            ConstCallEnc encPre9 =
+                                constCallEncoding(*csub9, &selW9);
+                            bool selBin9 =
+                                encPre9 == ConstCallEnc::SelBin && selW9 > 0;
                             // A RANGED-UNTYPED localparam const-call fold
                             // ([HI:LO] C_CONST = F(..)) folds like A_CONST: UINT
                             // at the (per-instance) RANGE width with a ts ref to
@@ -9931,8 +9986,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             else if (typedParam && wantTs &&
                                      ps.getType().getCanonicalType().kind ==
                                          SymbolKind::PredefinedIntegerType) {
+                                // § selCallBin — the select's own width wins
+                                // over the parameter's (t5 C4: `int C4 =
+                                // f_partsel_i(..)` is BIN size 6, not 32).
                                 int32_t w8 =
-                                    (int32_t)ps.getType().getBitWidth();
+                                    selBin9 ? selW9
+                                            : (int32_t)ps.getType().getBitWidth();
                                 auto wv8 = iv9.resize((slang::bitwidth_t)w8);
                                 std::string bits8;
                                 for (int32_t i8 = w8 - 1; i8 >= 0; i8--)
@@ -9969,11 +10028,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                              : (int32_t)rty9.getBitWidth();
                             if (w9 <= 0)
                                 w9 = (int32_t)iv9.getBitWidth();
-                            auto enc9 = constCallEncoding(*csub9);
+                            auto enc9 = encPre9;
+                            // § selCallBin — a select-returning body is sized
+                            // by the SELECT, whatever the return type says.
+                            if (selBin9)
+                                w9 = selW9;
                             std::string digits9 =
                                 iv9.toString(LiteralBase::Decimal, false);
                             auto* c9 = s.MakeConstant();
-                            if (enc9 == ConstCallEnc::ConcatBin) {
+                            if (enc9 == ConstCallEnc::ConcatBin ||
+                                enc9 == ConstCallEnc::SelBin) {
                                 auto wv9 = iv9.resize((slang::bitwidth_t)w9);
                                 std::string bits9;
                                 for (int32_t i9 = w9 - 1; i9 >= 0; i9--)
@@ -10076,6 +10140,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     rt9->Actual_typespec(lts9);
                                     c9->Typespec(rt9);
                                 }
+                            }
+                            // § typedCallFoldTs — an explicitly-TYPED param's
+                            // const-call fold carries the parameter's own
+                            // typespec ref, exactly as the predefined-integer
+                            // arm above does.  Surelog re-materializes the
+                            // param_assign Rhs from the parameter's stored
+                            // Value and stamps the declaration's typespec on
+                            // it, whatever the fold's encoding turned out to
+                            // be — t5's C2/C3/C5 (`bit [5:0] X = f(..)`, UINT
+                            // folds) all carry a bit_typespec in golden, and
+                            // so does the select-encoded C1.
+                            if (!c9->Typespec() && typedParam && wantTs) {
+                                auto* rtT9 = s.MakeRef_typespec();
+                                std::string tsPfxT9 = prefix;
+                                if (tsPfxT9.size() >= 2 &&
+                                    tsPfxT9.compare(tsPfxT9.size() - 2, 2,
+                                                    "::") == 0)
+                                    tsPfxT9.resize(tsPfxT9.size() - 2);
+                                rtT9->VpiFullName(tsPfxT9);
+                                rtT9->VpiParent(c9);
+                                c9->Typespec(rtT9);
+                                rhsRt = rtT9;
                             }
                             c9->VpiParent(pa);
                             setLoc(c9, icc9.sourceRange);

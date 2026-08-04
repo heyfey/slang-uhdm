@@ -2130,6 +2130,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 return op;
             }
             auto* asn = s.MakeAssignment();
+            // NOTE § compoundWriteBack — DECODED FROM SOURCE, NOT IMPLEMENTED.
+            // When Surelog's constant-function evaluator EXECUTES a body, it
+            // OVERWRITES a compound assignment's LITERAL Rhs constant in the
+            // tree with the value it computed.  UHDM
+            // templates/ExprEval.cpp::setValueInInstance (~5021, opType tail
+            // ~5395):
+            //     rhsexp = reduceExpr(st->Rhs())    // the tree's own object
+            //     valUI  = get_uvalue(rhsexp)       // read BEFORE any write
+            //     c      = any_cast<constant*>(rhsexp)   // === that object
+            //     prevRhs= the param_assign holding the LHS's current value
+            //     vpiAddOp : c->VpiValue("UINT:" + (valUI + uval(prevRhs)))
+            //     vpiSubOp : c->VpiValue("INT:"  + (val(prevRhs) - valI))
+            //     vpiMultOp: c->VpiValue("INT:"  + (val(prevRhs) * valI))
+            //     vpiDivOp : c->VpiValue("INT:"  + (val(prevRhs) / valI))
+            //     ...then a NEW param_assign for the LHS is pushed with Rhs = c
+            // Two consequences make the value non-obvious: (1) the variable's
+            // stored value object IS the literal, so from the SECOND execution
+            // on prevRhs == rhsexp and `a += <lit>` DOUBLES the literal every
+            // iteration (L, 2L, 4L, ...); (2) the arithmetic is uint64 masked
+            // at the literal's own VpiSize, so a long enough loop WRAPS it to
+            // zero.  Confirmed on tools/probe/r10rggen9repro/t7.sv (five
+            // shapes: while->4, for5->16, for64->0, for70->0, `b-=2` twice
+            // ->0) and it is what makes rggen_or_reducer:30 `list_index += 1`
+            // read UINT:0 in golden while the written literal is 1 — the DEF
+            // listing's function object is shared across every
+            // rggen_or_reducer instance, so the exponent saturates.
+            // That single object is the WHOLE-DESIGN cmp head for Rggen.
+            // Implementing it means emulating ExprEval's evalStmt (including
+            // packed bit-select LHS writes) AND the order/set of evaluations
+            // over the whole design — SrlgFold (ParamEmit ~2062) is the
+            // starting point but bails on compound assignments and non-
+            // NamedValue LHSs today.  Recorded, not guessed.
+            //
             // Compound assignments (o += 10) carry the operator as the
             // assignment op type; the Rhs is the value operand (the implicit
             // LValueReference self-reference is dropped).
@@ -3138,6 +3171,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // to the enum const (materialized like an imported param);
                     // only a QUALIFIED pkg::VALUE reference folds to a constant.
                     // (expr.syntax can be null — test the raw text.)
+                    // NOTE § caBareEnumFold — TRIED AND REVERTED, r10rggen9.
+                    // The bare form DOES fold as the direct Rhs of a
+                    // cont-assign: golden's elab `assign register_if.status =
+                    // RGGEN_OKAY;` (rggen_register_common:104) is a LOC-LESS
+                    // BIN:00 size 2 constant, and tools/probe/r10rggen9repro/
+                    // ta.sv reproduces it (bare -> loc-less BIN constant,
+                    // qualified -> constant at the written span; the LHS —
+                    // interface signal or plain net — is irrelevant).  But it
+                    // is a VIEW-SPLIT rule and we cannot express it yet:
+                    // golden keeps the ref_obj in the DEF listing
+                    // (work@rggen_register_common.RGGEN_OKAY, which is the
+                    // whole-design cmp head the moment we fold there) AND the
+                    // Rggen ELAB gen tree still shows golden objects of BOTH
+                    // shapes, so our single cont_assign object shared across
+                    // views cannot satisfy both.  Folding unconditionally moved
+                    // the census the wrong way (11 rows golden-constant became
+                    // 16 rows golden-ref_obj); gating on !moduleDefEmit
+                    // restored the head but changed nothing (662 either way).
+                    // The prerequisite is per-view cont_assign objects for this
+                    // module, not a better predicate here.
                     if (inPkg &&
                         rawText(expr.sourceRange).find("::") ==
                             std::string::npos)

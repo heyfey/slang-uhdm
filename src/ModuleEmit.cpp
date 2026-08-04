@@ -7782,6 +7782,108 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     //      wants its own gated pass.
                     if (!h)
                         h = emitExpr(*expr, p, hcPrefix, *parentNets);
+                    // § ifacePortVarHighConn.  A port actual that reaches an
+                    // interface signal through the ENCLOSING module's own
+                    // INTERFACE PORT (`register_if.address` where `register_if`
+                    // is a `rggen_register_if.register` port) binds the
+                    // interface's VARIABLE OBJECT as the HighConn — Surelog's
+                    // netlist elaboration resolves the modport member to the
+                    // connected instance's variable and hands the port that
+                    // very object (re-parenting it at the port and re-naming
+                    // its fullname `<inst>.<formal>.<signal>`), where we emit
+                    // the written hier_path.  A LOCALLY INSTANTIATED interface
+                    // (`u_if.valid` with `ifc u_if()` in the same module) is
+                    // NOT resolved — it keeps the hier_path in golden too, so
+                    // only the InterfacePort base qualifies.  A SELECT on the
+                    // signal is DISCARDED by the same resolution
+                    // (`mif.address[3:0]` binds the whole `address` var).
+                    // Decoded on tools/probe/r10rggen9repro/t8.sv, which pairs
+                    // both bases and both shapes in one file; the Rggen reach
+                    // is rggen_register_common:44/45 (55 census rows).
+                    if (h && h->UhdmType() == UHDM::uhdmhier_path) {
+                        const Expression* cur9 = &stripImplicitConv(*expr);
+                        while (true) {
+                            if (cur9->kind == ExpressionKind::ElementSelect)
+                                cur9 = &stripImplicitConv(
+                                    cur9->as<ElementSelectExpression>().value());
+                            else if (cur9->kind == ExpressionKind::RangeSelect)
+                                cur9 = &stripImplicitConv(
+                                    cur9->as<RangeSelectExpression>().value());
+                            else
+                                break;
+                        }
+                        // slang resolves `<ifacePort>.<signal>` straight to the
+                        // connected interface instance's own VALUE symbol and
+                        // records HOW it got there; `isViaIfacePort()` is the
+                        // exact distinguisher against a locally instantiated
+                        // interface (`u_if.valid`), which golden leaves a
+                        // hier_path.
+                        // ...and the port must name a MODPORT.  A modport-less
+                        // interface port (`ifc bif`, `pifc pif`) keeps the
+                        // hier_path in golden too — Surelog only resolves the
+                        // member to an object when the modport told it which
+                        // signals are visible.  Measured on t9.sv, three
+                        // one-difference `mid*` modules: with modport ->
+                        // logic_var, without -> hier_path, and without +
+                        // interface-PORT members (the OneNetInterf /
+                        // OneNetModPortGeneric / OneNetRange shape, a
+                        // regression on the first cut) -> hier_path.
+                        const ValueSymbol* tgt9 = nullptr;
+                        if (cur9->kind == ExpressionKind::HierarchicalValue) {
+                            auto& hv9 = cur9->as<HierarchicalValueExpression>();
+                            bool viaMp9 = false;
+                            if (hv9.ref.isViaIfacePort())
+                                for (auto& el9 : hv9.ref.path)
+                                    if (el9.symbol->kind ==
+                                            SymbolKind::InterfacePort &&
+                                        !el9.symbol->as<InterfacePortSymbol>()
+                                             .modport.empty()) {
+                                        viaMp9 = true;
+                                        break;
+                                    }
+                            if (viaMp9)
+                                tgt9 = &hv9.symbol;
+                        }
+                        // The interface instance object: the target's own
+                        // enclosing instance body, looked up in ifaceInstMap
+                        // (the same map an InterfacePort HighConn binds).
+                        UHDM::interface_inst* ii9 = nullptr;
+                        if (tgt9) {
+                            for (auto* sc9 = tgt9->getParentScope(); sc9;
+                                 sc9 = sc9->asSymbol().getParentScope()) {
+                                auto& ss9 = sc9->asSymbol();
+                                if (ss9.kind != SymbolKind::InstanceBody)
+                                    continue;
+                                auto* pi9 =
+                                    ss9.as<InstanceBodySymbol>().parentInstance;
+                                if (!pi9)
+                                    break;
+                                auto it9 = ifaceInstMap.find(pi9);
+                                if (it9 != ifaceInstMap.end())
+                                    ii9 = it9->second;
+                                break;
+                            }
+                        }
+                        if (ii9) {
+                            std::string_view mn9 = tgt9->name;
+                            UHDM::any* vo9 = nullptr;
+                            if (auto* vv9 = ii9->Variables())
+                                for (auto* v9 : *vv9)
+                                    if (v9->VpiName() == mn9) {
+                                        vo9 = v9;
+                                        break;
+                                    }
+                            if (!vo9)
+                                if (auto* nv9 = ii9->Nets())
+                                    for (auto* n9 : *nv9)
+                                        if (n9->VpiName() == mn9) {
+                                            vo9 = n9;
+                                            break;
+                                        }
+                            if (vo9)
+                                h = vo9;
+                        }
+                    }
                     // A part-select HighConn's bounds reduce like the
                     // module_array's own range: a bare parameter reference
                     // becomes the parameter's Value (foldBareParamBound).
