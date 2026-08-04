@@ -56,6 +56,7 @@ class SyntaxNode;
 struct DataTypeSyntax;
 struct ExpressionSyntax;
 struct VariableDimensionSyntax;
+struct RangeSelectSyntax;
 struct TimingControlSyntax;
 } // namespace slang::syntax
 
@@ -913,6 +914,12 @@ private:
     // (paramRhsObj) instead of staying a ref_obj, and the sub-expression folds
     // that only the elab view performs are suppressed (see ExprEmit).
     const slang::ast::Scope* misevalParamRhsScope = nullptr;
+    // § elabOvMisevalNoFold — the ELAB param_assign Rhs of an OVERRIDDEN
+    // parameter whose actual Surelog could not value.  A splice site that
+    // meets such a parameter must clone THIS tree (the actual's), never
+    // re-emit the declarator's default.  Kept apart from paramRhsObj because
+    // that map is rewritten by the DEF-view pass over the same body symbols.
+    std::map<const slang::ast::Symbol*, UHDM::any*> elabOvMisevalRhs;
     // Substitutes parameter leaves inside an elab child's part-select bound
     // OPERATION (see ModuleEmit).
     bool foldBareParamBoundIn(const slang::ast::InstanceBodySymbol* body,
@@ -1173,6 +1180,10 @@ private:
     // from the declarator dimension syntax), each parented at `parent`.
     // `defDimRefPrefix` (def-view port array_typespec only): a PARAM-sized
     // dim ([N]) keeps a bare ref_obj <prefix>.N instead of folding.
+    // § elabVarRangeMisevalSubst — does this dimension bound read a parameter
+    // whose own elab Rhs Surelog left unfolded here?  See TypeEmit.
+    bool misevalDimBound(const slang::syntax::SyntaxNode* n);
+    bool misevalRangeDim(const slang::syntax::RangeSelectSyntax* rss);
     UHDM::VectorOfrange* buildUnpackedRanges(const slang::ast::Symbol& sym,
                                              UHDM::BaseClass* parent,
                                              const std::string& defDimRefPrefix = {});

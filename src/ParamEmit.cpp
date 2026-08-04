@@ -3327,6 +3327,49 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             if (defaultInit->bad())
                 defaultInit = nullptr;
         }
+        // § elabOvMisevalNoFold — the OVERRIDE half of § elabUnitMisevalNoFold.
+        // When the override ACTUAL (an expression written in the PARENT's
+        // scope) reads a $unit parameter Surelog could not value here, the
+        // elaborated param_assign Rhs is that actual's UNREDUCED tree with its
+        // refs left dangling — not the declaration default and not a fold.
+        // Everything else about the emission is the non-override rule: the
+        // whole fold chain is skipped and the generic tail emits the tree,
+        // with § elabMisevalRefSubst substituting the PARENT-scope sibling
+        // parameters it reads (scr1_dp_memory `.SCR1_SIZE(SCR1_TCM_SIZE)`
+        // takes i_tcm's own op67 tree, the COMPOSITE arm's pointer reuse).
+        //
+        // The reader whose compilation decides resolvability is the PARENT
+        // module, so the root file is the INSTANCE's own (`i_tcm` at
+        // scr1_top_axi.sv:368), never the actual expression's start location —
+        // a macro-opened actual (`` `SCR1_DMEM_AWIDTH'(~MASK + 1'b1) ``) maps
+        // through getFullyOriginalLoc to the header that DEFINES the macro,
+        // which is a different root file and would silently answer "resolved".
+        //
+        // The syntax to walk is the STRIPPED actual's: slang wraps an override
+        // in an implicit ConversionExpression to the formal's type and that
+        // wrapper carries NO syntax pointer at all, so the un-stripped
+        // `boundInit->syntax` is null on every interesting row.
+        bool elabOvMiseval9 = false;
+        const Scope* ovMisevalScope9 = nullptr;
+        if (topView && !inPackage && !funcScope && overridden && !cliOv &&
+            boundInit && body.asSymbol().kind == SymbolKind::InstanceBody) {
+            auto& ovAct9 = stripImplicitConv(*boundInit);
+            if (auto* pinst9 =
+                    body.asSymbol().as<InstanceBodySymbol>().parentInstance;
+                pinst9 && ovAct9.syntax) {
+                const Scope* psc9 = pinst9->getParentScope();
+                if (psc9 && srlgMisevalSyntax(ovAct9.syntax, psc9,
+                                              rootFilePath(pinst9->location))) {
+                    elabOvMiseval9 = true;
+                    ovMisevalScope9 = psc9;
+                }
+            }
+        }
+        // Recorded so a LATER parameter reading this one inherits the property
+        // — which is how `RAM_SIZE_WORDS = SCR1_SIZE/SCR1_NBYTES` stays
+        // unfolded one instance down without a rule of its own.
+        if (elabOvMiseval9)
+            elabMisevalParams.insert(&member);
         // An UNTYPED param whose default is a DECIMAL-BASED sized literal
         // (parameter reposo = 4'd0) carries NO typespec at all (unlike 'b/'h
         // literals): def-view Rhs keeps 4'd0 with a DANGLING module-named ts
@@ -4899,8 +4942,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 continue;
             }
         }
+        // § elabOvMisevalNoFold skips the WHOLE override render: every arm
+        // below reduces the actual to a value, and the value is exactly what
+        // Surelog could not compute.
         if (topView && (overridden || noDefExprOv || noDefLitMP) &&
-            !structOvPat) {
+            !structOvPat && !elabOvMiseval9) {
             auto& cvo = ps.getValue();
             // An override actual that CONCATENATES a struct-typed parameter
             // (.init({init_val})) is NOT folded: Surelog substitutes the
@@ -6153,6 +6199,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                     }
                 }
+                // § elabOvRefCopiesParam — the source parameter's own elab
+                // constant, captured by the bare-ref predicate below.
+                UHDM::constant* ovRefSrcConst9 = nullptr;
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
                 if (vecAliasOv8 || strOv8 || enumOv8 || enumCstOv8 || srcBaseOv8 ||
@@ -6206,13 +6255,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                              if (it9 == elabParamPa.end() || !it9->second)
                                  return false;
                              auto* r9 = it9->second->Rhs();
-                             return r9 && r9->UhdmType() == UHDM::uhdmconstant &&
-                                    ((UHDM::constant*)r9)->VpiConstType() ==
-                                        vpiIntConst;
+                             if (!(r9 && r9->UhdmType() == UHDM::uhdmconstant &&
+                                   ((UHDM::constant*)r9)->VpiConstType() ==
+                                       vpiIntConst))
+                                 return false;
+                             ovRefSrcConst9 = (UHDM::constant*)r9;
+                             return true;
                          }()) {
                     c->VpiValue("INT:" + digits);
                     c->VpiConstType(vpiIntConst);
-                    c->VpiSize((int32_t)iv.getBitWidth());
+                    // § elabOvRefCopiesParam — the copy keeps the SOURCE
+                    // constant's own SIZE when the formal has nothing to
+                    // re-render it at.  Surelog stamps the referenced
+                    // parameter's Value verbatim and then runs `adjustSize`
+                    // with the FORMAL's typespec, and it only HAS one when the
+                    // declaration default is a plain literal (or the parameter
+                    // is typed) — an OPERATION default leaves it typespec-less
+                    // and the source width survives.  Crossed golden
+                    // tools/probe/r10scr14repro/t5.sv, source 64-bit vs
+                    // 32-bit x formal literal / operation / `int`:
+                    //   sub_lit  #(P = 8)     -> 32, 32   (formal width)
+                    //   sub_op   #(P = 4 * 2) -> 64, 32   (SOURCE width)
+                    //   sub_int  #(int P = 8) -> 32, 32   (formal width)
+                    // Scr1SvTests i_memory_tb `.SIZE(SCR1_MEM_SIZE)` is the
+                    // sub_op row: `parameter SIZE = 1*1024*1024` overridden by
+                    // `localparam SCR1_MEM_SIZE = 1024*1024` -> INT:1048576
+                    // size 64.
+                    bool litDefault9 =
+                        defaultInit &&
+                        stripImplicitConv(*defaultInit).kind ==
+                            ExpressionKind::IntegerLiteral;
+                    if (!typedParam && hasDefault && !litDefault9 &&
+                        ovRefSrcConst9)
+                        c->VpiSize(ovRefSrcConst9->VpiSize());
+                    else
+                        c->VpiSize((int32_t)iv.getBitWidth());
                 }
                 // A RANGED untyped param (parameter [0:0] REG_ALU) folds its
                 // override like a typed one: UINT at the declared width
@@ -6413,7 +6490,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             if (!pa->Rhs())
                 noDefOvRhsFallback.push_back({pa, &ps, prefix});
         }
-        if (auto init0 = (overridden      ? defaultInit
+        // § elabOvMisevalNoFold — the tree the generic tail emits is the
+        // ACTUAL's, not the declaration default's.
+        if (auto init0 = (elabOvMiseval9   ? boundInit
+                          : overridden     ? defaultInit
                           : (!hasDefault) ? nullptr
                                           : ps.getInitializer())) {
             const Expression* init = init0;
@@ -6735,62 +6815,46 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // here; an overridden param's actual comes down the override
             // render path instead.
             //
-            // NOTE (r10scr10, DECODED — NOT IMPLEMENTED) — the OVERRIDE half
-            // of the same rule, plus the bare-ref copy that rides with it.
-            // Both were measured with the param_assign census
-            // tools/probe/r10scr9c.cpp (271 rows on Scr1SvTests; run it FIRST
-            // on any elab-fold suspicion — it is reached through the instance
-            // tree, so unlike the whole-design constant census it carries no
-            // arena noise), plus the parameter-object census
-            // tools/probe/r10scr10b.cpp and the tree dump r10scr10a.cpp.
+            // § elabOvMisevalNoFold / § elabOvRefCopiesParam are IMPLEMENTED
+            // (r10scr14).  Both were decoded from the param_assign census
+            // tools/probe/r10scr14a.cpp (271 rows on Scr1SvTests, now with the
+            // operation TYPESPEC printed; run it FIRST on any elab-fold
+            // suspicion — it is reached through the instance tree, so unlike
+            // the whole-design constant census it carries no arena noise).
             //
             // § elabOvMisevalNoFold — when the OVERRIDE ACTUAL is misevaluated
-            // (srlgElabMiseval on the actual, bound in the PARENT's scope), the
-            // elab param_assign Rhs is the actual's UNREDUCED tree, refs left
-            // dangling — not the default and not a fold.  10 census rows:
-            //   i_dmem_router SCR1_PORT{1,2}_ADDR_{MASK,PATTERN}
-            //   i_imem_router SCR1_ADDR_{MASK,PATTERN}
-            //        golden ref_obj(SCR1_TCM_ADDR_MASK) etc — a BARE $unit ref
-            //        stays a ref_obj (the $unit param has no value to copy)
-            //   i_tcm SCR1_TCM_SIZE
-            //        golden op67(op24(op4(ref_obj(SCR1_TCM_ADDR_MASK)) BIN:1))
-            //        — scr1_top_axi.sv:367's cast actual, whole tree kept
-            //   i_dp_memory SCR1_SIZE / RAM_SIZE_WORDS (the latter already
-            //        handled here once SCR1_SIZE joins elabMisevalParams)
-            // The blocker is that `init` on this path is the DEFAULT (init0 =
-            // overridden ? defaultInit : ...), so the actual has to be emitted
-            // from `boundInit`/the connection syntax instead — a new emission
-            // site, not a gate.
+            // (srlgMisevalSyntax on the actual's STRIPPED syntax, resolved in
+            // the PARENT's scope, keyed on the INSTANCE's root file), the elab
+            // param_assign Rhs is the actual's UNREDUCED tree with its refs
+            // left dangling — not the default and not a fold.  The gate is
+            // `elabOvMiseval9` above; it skips the whole override render and
+            // routes `init0` to `boundInit`, and the parameter joins
+            // elabMisevalParams so its readers inherit the property.  Closed
+            // 9 of the 10 differing Scr1SvTests rows: i_dmem_router
+            // SCR1_PORT{1,2}_ADDR_{MASK,PATTERN} and i_imem_router
+            // SCR1_ADDR_{MASK,PATTERN} (a BARE $unit ref stays a ref_obj —
+            // there is no value to copy), i_tcm SCR1_TCM_SIZE
+            // (op67(op24(op4(ref_obj(SCR1_TCM_ADDR_MASK)),BIN:1)) — the whole
+            // cast actual at scr1_top_axi.sv:367), i_dp_memory SCR1_SIZE and
+            // RAM_SIZE_WORDS.
             //
             // § elabOvRefCopiesParam — an override actual that is a BARE
-            // reference to a MODULE parameter takes THAT parameter's own
-            // emitted elab Rhs verbatim (paramRhsObj), rather than being
-            // re-derived at the formal's width.  Two rows, and they show it is
-            // a COPY of whatever shape the source took, folded or not:
-            //   i_memory_tb SIZE  .SIZE(SCR1_MEM_SIZE), `localparam
-            //     SCR1_MEM_SIZE = 1024*1024` -> golden INT:1048576 size 64,
-            //     which IS scr1_top_tb_axi's own elab constant; ours re-derives
-            //     UINT:1048576 size 32
-            //   i_dp_memory SCR1_SIZE  .SCR1_SIZE(SCR1_TCM_SIZE) -> golden is
-            //     i_tcm's op67 tree, byte-for-byte
-            // A bare $unit ref does NOT copy (there is nothing to copy) — it
-            // stays the ref_obj, which is what the router rows show.
+            // reference to a parameter of the enclosing instance copies THAT
+            // parameter's elaborated Rhs.  Two halves, and they live in two
+            // places because the source shape decides:
+            //   * a SYMBOLIC source is spliced whole (i_dp_memory
+            //     `.SCR1_SIZE(SCR1_TCM_SIZE)` holds i_tcm's op67 tree, and
+            //     ram_block's dimension holds it again one level down) — that
+            //     is elabOvMisevalRhs + ExprEmit's § elabMisevalRefSubst arm;
+            //   * a CONSTANT source keeps its own SIZE, but only when the
+            //     FORMAL has no typespec to re-render at — see the size rule
+            //     in the § elabOvRefIntConst arm above, crossed golden
+            //     tools/probe/r10scr14repro/t5.sv.
             //
-            // r10scr13 RE-MEASURE — after the port-connection cluster closed
-            // this IS the whole remaining Scr1SvTests param_assign residue:
-            // 10 of 10 differing census rows, and the FIRST whole-design
-            // uhdm-cmp failure.  Root cause now named: every one of these
-            // actuals reads `SCR1_TCM_ADDR_MASK`, a $unit parameter declared
-            // in `scr1_arch_description.svh`, which the `ifndef` guard expands
-            // in scr1_pipe_hdu.sv (root file 1) while the readers live in
-            // scr1_top_axi.sv (root file 28) — the CROSS-ROOT-FILE case
-            // § elabUnitMisevalNoFold already keys on for var/net bounds.  So
-            // the miseval predicate needed here is one we already have; what
-            // is missing is only the override-syntax emission site.  The
-            // splices confirm the § elabMisevalRefSubst COMPOSITE law:
-            // i_dp_memory's SCR1_SIZE holds i_tcm's whole op67 tree AT
-            // i_tcm's own span (scr1_tcm.sv:101:19), and RAM_SIZE_WORDS wraps
-            // that same object in its own op12 at 72:42.
+            // The remaining span law: the override Rhs top node is stamped at
+            // the ACTUAL's own span (see the setLoc at the paramRhsObj record
+            // site), which is what puts i_dp_memory's spliced op67 at
+            // scr1_tcm.sv:101:19 while its operands stay at 367.
             //
             // § elabMisevalArgNoFold / § elabMisevalRefSubst are IMPLEMENTED
             // (r10scr12) — the refusal to reduce is the WHOLE tree, top to
@@ -6798,11 +6862,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // it.  Both ride on `misevalParamRhsScope`, set below and read by
             // ExprEmit's NamedValue arm (the substitution, with the leaf /
             // composite span split the golden's object IDS prove) and by its
-            // sys-call argument fold.  Together they closed the elab
-            // param_assign census from 17 differing rows to 11: scr1_dmi's
-            // five-deep DMI_* ladder and scr1_pipe_tdu's ALLTRIG_W.  What is
-            // left is exactly the OVERRIDE half above.
-            if (!rhs && topView && !elabMiseval9) {
+            // sys-call argument fold.  r10scr14 added the SYNTAX-side twin in
+            // TypeEmit's emitSyntaxExpr, so a spliced tree substitutes its
+            // resolvable siblings too (scr1_dp_memory's SCR1_NBYTES -> INT:4
+            // size 64 inside RAM_SIZE_WORDS).
+            if (!rhs && topView && !elabMiseval9 && !elabOvMiseval9) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
                     rhs = emitExpr(*init, pa, prefix, netMap);
@@ -10185,8 +10249,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // fold OFF.  The scope is the owning body: a reference that
                 // leaves it ($unit) is exactly the one the reducer could not
                 // answer, and it stays a ref.
-                misevalParamRhsScope = elabMiseval9 ? ps.getParentScope()
-                                                    : nullptr;
+                // § elabOvMisevalNoFold uses the PARENT's scope instead: the
+                // actual is a parent-scope expression, so the siblings whose
+                // values the reducer DID substitute are the parent's
+                // parameters, not this body's.
+                misevalParamRhsScope = elabMiseval9   ? ps.getParentScope()
+                                       : elabOvMiseval9 ? ovMisevalScope9
+                                                        : nullptr;
                 // Surelog compiles a MULTIDIMENSIONAL package parameter's value
                 // with Reduce::No (CompileHelper::isMultidimensional gates the
                 // reduce on the typespec carrying more than one packed range),
@@ -11307,6 +11376,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     : std::string(ec6->VpiDecompile()));
                         }
                     }
+                }
+                // § elabOvMisevalNoFold — the unreduced override tree is
+                // anchored at the ACTUAL's own span, whatever it holds: a tree
+                // built from the actual already is (i_tcm's cast at
+                // scr1_top_axi.sv:367), and a tree SPLICED from a parent
+                // parameter is re-stamped there (i_dp_memory's SCR1_SIZE holds
+                // i_tcm's op67 at `.SCR1_SIZE( SCR1_TCM_SIZE )`,
+                // scr1_tcm.sv:101:19-32, not at 367).  Recorded separately
+                // from paramRhsObj because that map is keyed by the SAME body
+                // symbols the def-view pass overwrites.
+                if (elabOvMiseval9) {
+                    setLoc((UHDM::expr*)rhs, init->sourceRange);
+                    elabOvMisevalRhs[&member] = rhs;
                 }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;

@@ -247,6 +247,21 @@ UHDM::expr* UhdmExporter::cloneUnitParamRhs(const UHDM::expr* src,
             op->VpiOpType(o->VpiOpType());
             op->VpiParent(parent);
             cloc(op, o);
+            // A CAST operation carries its target typespec, and the splice
+            // keeps it: golden's `` `SCR1_DMEM_AWIDTH'(~MASK + 1'b1) `` reaches
+            // scr1_dp_memory's SCR1_SIZE and ram_block's dimension still typed
+            // by the SAME integer_typespec (scr1_top_axi.sv:367:22-24) it
+            // carries at scr1_tcm's own param_assign.  Only the ref is fresh —
+            // one ref_typespec per holder, the actual object shared.
+            if (auto* srt = o->Typespec())
+                if (auto* sact = srt->Actual_typespec()) {
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiParent(op);
+                    if (!srt->VpiFullName().empty())
+                        rt->VpiFullName(srt->VpiFullName());
+                    rt->Actual_typespec(const_cast<UHDM::typespec*>(sact));
+                    op->Typespec(rt);
+                }
             if (auto* ops = o->Operands()) {
                 auto* nv = s.MakeAnyVec();
                 for (auto* e : *ops) {

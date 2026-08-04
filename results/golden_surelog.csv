@@ -1201,8 +1201,8 @@ Scoreboard,default,CMP_NOTEQUAL,decompile:,,
 Scoreboard,testflags,SLANG_REJECT,testbench.sv:12:3: error: use of undeclared identifier 'my_scoreboard',,
 Scr1,default,SLANG_REJECT,src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_tracelog',,
 Scr1,testflags,SLANG_REJECT,src/tb/scr1_top_tb_axi.sv:399:40: error: could not resolve hierarchical path name 'i_tracelog',,
-Scr1SvTests,default,CMP_NOTEQUAL,decompile:,,
-Scr1SvTests,testflags,CMP_NOTEQUAL,decompile:,,
+Scr1SvTests,default,CMP_EQUAL,,,differ
+Scr1SvTests,testflags,CMP_EQUAL,,,differ
 SelectHierPath,default,CMP_EQUAL,,,differ
 SelectHierPath,testflags,CMP_EQUAL,,,differ
 Selects,default,CMP_EQUAL,,,match

@@ -3743,9 +3743,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // the for-stmt — header and body alike.  Rggen
                     // rggen_bit_field:259 `value <= INITIAL_VALUE;` is the
                     // bare-Rhs shape, ~670 gen-tree vectors.
+                    // § genProcParamFold — ...and a TF-CALL ARGUMENT joins the
+                    // for-stmt exception: Surelog's reduce does not descend
+                    // into call actuals either.  Purpose-built golden
+                    // r10scr14repro/t6.sv puts ONE module parameter in six
+                    // positions of one gen-scope process — bare Rhs, binary
+                    // operand and indexed-part-select bound all fold, while
+                    // `fn(W)`, `fn(W / 8)` and `tk(W)` every one keep
+                    // ref_obj(W).  Scr1SvTests scr1_memory_tb_axi:229
+                    // `mem_read(araddr[gi], 2**arsize[gi], W_DATA/8)` inside
+                    // the `rw_if` generate loop is the corpus shape.
                     if (inGenScopeProc && !currentSubSym &&
                         (varSelIdxDepth > 0 || procForAllDepth9 > 0 ||
-                         inAssertEmit9))
+                         callArgDepth > 0 || inAssertEmit9))
                         inGenFn = false;
                     if (inGenScopeProc && !currentSubSym) {
                         bool moduleParam = false;

@@ -7247,6 +7247,26 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // int_typespec@75:12-24, where the DEF view keeps a bare, unbound
             // `MTRIG_NUM` (~30 declarations in that module alone).
             if (misevalSubstScope && !elabMisevalParams.empty()) {
+                // § elabOvMisevalNoFold — an OVERRIDDEN parameter has no
+                // usable declarator init to re-emit (that is the DEFAULT, the
+                // one thing Surelog did not use), so the splice takes the
+                // already-emitted actual tree.  Composite trees keep their own
+                // span here — golden's `ram_block [RAM_SIZE_WORDS-1:0]` holds
+                // i_tcm's op67 still at scr1_tcm.sv:101:19-32 while the
+                // RAM_SIZE_WORDS level around it IS re-stamped at the use
+                // site — the same leaf/composite split § elabMisevalRefSubst
+                // proved with the golden's object ids.
+                if (auto* msym8 = misevalSubstScope->lookupName(name);
+                    msym8 && msym8->kind == SymbolKind::Parameter)
+                    if (auto oit8 = elabOvMisevalRhs.find(msym8);
+                        oit8 != elabOvMisevalRhs.end() && oit8->second)
+                        if (auto* cl8 = cloneUnitParamRhs(
+                                (const UHDM::expr*)oit8->second, parent)) {
+                            if (cl8->UhdmType() == UHDM::uhdmconstant ||
+                                cl8->UhdmType() == UHDM::uhdmref_obj)
+                                setLoc(cl8, syn.sourceRange());
+                            return cl8;
+                        }
                 if (auto* msym9 = misevalSubstScope->lookupName(name);
                     msym9 && msym9->kind == SymbolKind::Parameter &&
                     elabMisevalParams.count(msym9))
@@ -7294,6 +7314,28 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 }
                                 return sub9;
                             }
+                        }
+                // § elabMisevalRefSubst, syntax form — the complement of the
+                // arm above: a sibling parameter the reducer DID value is not
+                // a reference inside the unfolded tree either, it is that
+                // parameter's own elaborated Rhs.  scr1_dp_memory's
+                // `RAM_SIZE_WORDS = SCR1_SIZE/SCR1_NBYTES` splices SCR1_SIZE's
+                // symbolic tree AND SCR1_NBYTES's constant (INT:4 size 64) —
+                // only the $unit leaves stay dangling.  Same leaf/composite
+                // span split as everywhere else.
+                if (auto* rsym7 = misevalSubstScope->lookupName(name);
+                    rsym7 && rsym7->kind == SymbolKind::Parameter &&
+                    !elabMisevalParams.count(rsym7) &&
+                    !unitParamMap.count(rsym7))
+                    if (auto pit7 = elabParamPa.find(rsym7);
+                        pit7 != elabParamPa.end() && pit7->second &&
+                        pit7->second->Rhs())
+                        if (auto* cl7 = cloneUnitParamRhs(
+                                (const UHDM::expr*)pit7->second->Rhs(), parent)) {
+                            if (cl7->UhdmType() == UHDM::uhdmconstant ||
+                                cl7->UhdmType() == UHDM::uhdmref_obj)
+                                setLoc(cl7, syn.sourceRange());
+                            return cl7;
                         }
             }
             // Inside a property DECLARATION, an identifier naming one of the
@@ -8320,9 +8362,27 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // expression (`$clog2(ALLTRIG_NUM+1)`), so it must be
                         // emitted as one; the raw-text fallback would name the
                         // whole `ALLTRIG_NUM+1` as a single ref_obj.
+                        // ...and a BARE identifier argument joins them when it
+                        // names a parameter the splice answers: golden's
+                        // `input [$clog2(SCR1_SIZE)-1:2] addra` carries
+                        // SCR1_SIZE's whole op67 tree as the call's argument,
+                        // not a ref_obj (scr1_dp_memory).  Narrowed to
+                        // splice-able parameters so every other bare-name
+                        // argument keeps the raw-text ref_obj it needs.
+                        bool spliceIdArg9 = false;
+                        if (misevalSubstScope && ae &&
+                            ae->kind == syntax::SyntaxKind::IdentifierName)
+                            if (auto* asy9 = misevalSubstScope->lookupName(
+                                    std::string(
+                                        ae->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText()));
+                                asy9 && asy9->kind == SymbolKind::Parameter)
+                                spliceIdArg9 = elabMisevalParams.count(asy9) ||
+                                               elabOvMisevalRhs.count(asy9);
                         if (ae && (argRaw.find('.') != std::string::npos ||
                                    ae->kind == syntax::SyntaxKind::
                                                    ConcatenationExpression ||
+                                   spliceIdArg9 ||
                                    (misevalSubstScope &&
                                     ae->kind !=
                                         syntax::SyntaxKind::IdentifierName))) {
@@ -9191,6 +9251,35 @@ static bool dottedNameBound(const slang::syntax::ExpressionSyntax* es) {
     return cur->kind == syntax::SyntaxKind::IdentifierName;
 }
 
+// § elabVarRangeMisevalSubst — true when this RANGED unpacked dimension has a
+// bound Surelog could not reduce here (it reads a parameter whose own elab Rhs
+// stayed unfolded).  Such a dim contributes 1 to the array's vpiSize, exactly
+// like a param-SIZED `[DEPTH]` one: the count comes from reduced bounds and
+// there are none.  ELAB instance views only — the def view never folds.
+bool UhdmExporter::misevalDimBound(const syntax::SyntaxNode* n) {
+    if (!n || !elabInstanceTs || elabMisevalParams.empty() || !currentScope)
+        return false;
+    std::function<bool(const syntax::SyntaxNode&)> mis0 =
+        [&](const syntax::SyntaxNode& n0) -> bool {
+        if (n0.kind == syntax::SyntaxKind::IdentifierName) {
+            auto* sy0 = currentScope->lookupName(std::string(
+                n0.as<syntax::IdentifierNameSyntax>().identifier.valueText()));
+            return sy0 && sy0->kind == SymbolKind::Parameter &&
+                   elabMisevalParams.count(sy0);
+        }
+        for (size_t i0 = 0; i0 < n0.getChildCount(); i0++)
+            if (auto* c0 = n0.childNode(i0))
+                if (mis0(*c0))
+                    return true;
+        return false;
+    };
+    return mis0(*n);
+}
+
+bool UhdmExporter::misevalRangeDim(const syntax::RangeSelectSyntax* rss) {
+    return rss && (misevalDimBound(rss->left) || misevalDimBound(rss->right));
+}
+
 UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
     const Symbol& sym, UHDM::BaseClass* parent,
     const std::string& defDimRefPrefix) {
@@ -9840,6 +9929,24 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 // bounds (N-1) in module context fold to an INT constant
                 // anchored at the top operator's LEFT operand span; in
                 // function/typedef context they stay unfolded expressions.
+                // § elabVarRangeMisevalSubst, UNPACKED-DIM form — the same
+                // refusal to reduce reaches an array's own dimension, not just
+                // its element typespec's range: scr1_dp_memory's
+                // `logic [SCR1_WIDTH-1:0] ram_block [RAM_SIZE_WORDS-1:0]`
+                // keeps op11(op12(...),UINT:1) because RAM_SIZE_WORDS chains
+                // (through the overridden SCR1_SIZE) to a $unit parameter
+                // Surelog could not value here.  ELAB view only.
+                if (!arrParentIdBound && es &&
+                    (parent->UhdmType() == UHDM::uhdmarray_var ||
+                     parent->UhdmType() == UHDM::uhdmarray_net) &&
+                    misevalDimBound(es)) {
+                    auto* savedMSS9 = misevalSubstScope;
+                    misevalSubstScope = currentScope;
+                    auto* e9 = emitSyntaxExpr(*es, r);
+                    misevalSubstScope = savedMSS9;
+                    if (e9)
+                        return (UHDM::expr*)e9;
+                }
                 if (!arrParentIdBound && es &&
                     es->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
                     if (tfContext) {
@@ -9937,6 +10044,8 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
                 if (auto* bss0 = sel0.as_if<syntax::BitSelectSyntax>())
                     paramSized = bss0->expr->kind !=
                                  syntax::SyntaxKind::IntegerLiteralExpression;
+                else if (misevalRangeDim(sel0.as_if<syntax::RangeSelectSyntax>()))
+                    paramSized = true;
             }
             if (!paramSized) {
                 // A $high/$low/$left/$right bound reduces to Surelog's own
@@ -10513,6 +10622,8 @@ UHDM::array_net* UhdmExporter::emitArrayNet(const Symbol& sym, const std::string
                 if (auto* bss0 = sel0.as_if<syntax::BitSelectSyntax>())
                     paramSized = bss0->expr->kind !=
                                  syntax::SyntaxKind::IntegerLiteralExpression;
+                else if (misevalRangeDim(sel0.as_if<syntax::RangeSelectSyntax>()))
+                    paramSized = true;
             }
             if (!paramSized) {
                 // A $high/$low/$left/$right bound reduces to Surelog's own
@@ -10852,6 +10963,42 @@ UHDM::packed_array_var* UhdmExporter::emitPackedStructArrayVar(const Symbol& sym
                 elemTs = tsp;
                 break;
             }
+    // § uniqBodyTypedefTs — a definition instantiated MORE THAN ONCE with
+    // different parameters gets one uniquified InstanceBodySymbol per
+    // instance, so every TypeAliasType (and the PackedStructType under it) is
+    // a FRESH object in the second body and the canonical-pointer match above
+    // finds nothing: scr1_mem_axi's `type_scr1_request_s [SIZE-1:0] req_fifo`
+    // came out a packed_array_var in i_imem_axi and a bare struct_var in
+    // i_dmem_axi from the same declaration.  The DECLARATION SYNTAX is the
+    // body-independent identity, so match on it — this only ever runs where
+    // we would otherwise emit the wrong shape outright.
+    // The alias it matches must be the one that names the LEAF struct/enum —
+    // the SAME `deE` test the preferred lookup makes.  Without that guard a
+    // typedef whose target is ITSELF the packed array
+    // (`typedef struct packed {...} [31:0] t; t a;`, u2r TypedefStructArray)
+    // matches its own syntax and hands back the packed_array_typespec as the
+    // ELEMENT ts.
+    if (!elemTs) {
+        const Type* dsE = &declared->getType();
+        while (dsE->kind != SymbolKind::TypeAlias &&
+               dsE->getCanonicalType().kind == SymbolKind::PackedArrayType)
+            dsE = &dsE->getCanonicalType().as<PackedArrayType>().elementType;
+        if (dsE->kind == SymbolKind::TypeAlias &&
+            &dsE->getCanonicalType() != &lc) {
+            auto& tgtS = dsE->as<TypeAliasType>().targetType.getType();
+            if (tgtS.getCanonicalType().kind == SymbolKind::PackedArrayType)
+                dsE = &tgtS.getCanonicalType().as<PackedArrayType>().elementType;
+        }
+        if (dsE->kind == SymbolKind::TypeAlias &&
+            &dsE->getCanonicalType() == &lc)
+            if (auto* asyn = dsE->as<TypeAliasType>().getSyntax())
+                for (auto& [s3, tsp3] : typedefTs)
+                    if (s3->kind == SymbolKind::TypeAlias &&
+                        s3->as<TypeAliasType>().getSyntax() == asyn) {
+                        elemTs = tsp3;
+                        break;
+                    }
+    }
     if (!elemTs)
         return nullptr;
 
