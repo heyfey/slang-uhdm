@@ -3421,8 +3421,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // its ref_obj(AW) where the same module's own
                     // `sync_pipe[SYNCPIPE-1:0]` (and simple_always_ifelse's
                     // `data[i*DATA_WIDTH +: DATA_WIDTH]`) fold.
+                    // § genProcParamFold — ...and it folds them in EVERY
+                    // position of the process EXCEPT inside a for-stmt.  The
+                    // "only inside select bounds" reading came from a
+                    // for-INIT counter-example (PMPNumRegions-1); a
+                    // purpose-built golden that puts ONE parameter in five
+                    // positions of one gen-scope process
+                    // (r10rggen7repro/t9.sv: bare assignment Rhs, binary
+                    // operand, indexed-part-select bound, if condition, for
+                    // header+body) folds the first four and keeps the ref in
+                    // the for-stmt — header and body alike.  Rggen
+                    // rggen_bit_field:259 `value <= INITIAL_VALUE;` is the
+                    // bare-Rhs shape, ~670 gen-tree vectors.
                     if (inGenScopeProc && !currentSubSym &&
-                        (!inPsBound || varSelIdxDepth > 0))
+                        (varSelIdxDepth > 0 || procForAllDepth9 > 0 ||
+                         inAssertEmit9))
                         inGenFn = false;
                     if (inGenScopeProc && !currentSubSym) {
                         bool moduleParam = false;
@@ -3459,18 +3472,79 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // scopes its ts ref at the MODULE (generate_test
                         // result[i*W +: W]).
                         bool genPsBound9 = inGenScopeProc && !currentSubSym;
-                        if (genPsBound9 && prefix != selectBasePrefix)
-                            for (auto& [esym9, epa9] : elabParamPa)
-                                if (esym9->location == nv.symbol.location &&
-                                    esym9->name == nv.symbol.name) {
-                                    c->VpiParent((UHDM::any*)epa9);
-                                    break;
-                                }
+                        // § genProcParamFold — the folded constant is a COPY
+                        // of the parameter's own ELABORATED param_assign Rhs
+                        // constant, encoding and all: `parameter bit [3:0] IV`
+                        // overridden with `4'ha` reads back HEX:a / 4'ha /
+                        // size 4 in the process, not the UINT-at-width decimal
+                        // fold (repro t8.sv / t9.sv; Rggen rggen_bit_field
+                        // INITIAL_VALUE gives 4'h0, 8'h00, 2'h0, 2'b00 …
+                        // straight from each instance's override).  The copy
+                        // also takes that constant's typespec, which is how a
+                        // `bit`-typed param reaches a bit_typespec instead of
+                        // the int_typespec built below.
+                        UHDM::constant* paSrc9 = nullptr;
+                        if (genPsBound9 && prefix != selectBasePrefix) {
+                            UHDM::param_assign* paHit9 = nullptr;
+                            // THIS instance's own symbol first.  The
+                            // location+name scan below is a fallback for
+                            // bodies that share symbols with the def view; it
+                            // must never supply the ENCODING, because every
+                            // instance of a parameterized module registers a
+                            // param_assign at the same declaration and the
+                            // scan would hand back a sibling instance's width
+                            // (Rggen: 44 rggen_bit_field instances whose
+                            // INITIAL_VALUE is 1, 2, 4 or 8 bits wide).
+                            if (auto eit9 = elabParamPa.find(&nv.symbol);
+                                eit9 != elabParamPa.end() && eit9->second) {
+                                paHit9 = eit9->second;
+                                if (auto* pr9 = paHit9->Rhs();
+                                    pr9 && pr9->UhdmType() ==
+                                               UHDM::uhdmconstant)
+                                    paSrc9 = (UHDM::constant*)pr9;
+                            }
+                            if (!paHit9)
+                                for (auto& [esym9, epa9] : elabParamPa)
+                                    if (epa9 &&
+                                        esym9->location == nv.symbol.location &&
+                                        esym9->name == nv.symbol.name) {
+                                        paHit9 = epa9;
+                                        break;
+                                    }
+                            // An OPERAND keeps the operation as its parent
+                            // (Surelog's last writer); a whole-expression fold
+                            // claims the param_assign.
+                            if (paHit9 &&
+                                !(parent && parent->UhdmType() ==
+                                                UHDM::uhdmoperation))
+                                c->VpiParent((UHDM::any*)paHit9);
+                        }
+                        if (paSrc9) {
+                            c->VpiValue(paSrc9->VpiValue());
+                            c->VpiConstType(paSrc9->VpiConstType());
+                            c->VpiSize(paSrc9->VpiSize());
+                            c->VpiDecompile(paSrc9->VpiDecompile());
+                            // ...and the typespec follows the PARAMETER's own
+                            // declared type, not the int_typespec the generic
+                            // arm below mints: `parameter bit [3:0] IV` reads
+                            // back through a bit_typespec.  The param
+                            // constant's own ts ref is not resolved yet at
+                            // this point, so build it from the declaration.
+                        }
+                        UHDM::typespec* declTs9 = nullptr;
+                        if (paSrc9 && psym.getDeclaredType() &&
+                            psym.getDeclaredType()->getTypeSyntax() &&
+                            psym.getDeclaredType()
+                                    ->getTypeSyntax()
+                                    ->kind != syntax::SyntaxKind::ImplicitType)
+                            declTs9 = makeTypespec(psym);
                         // SL carries the folded param's type as a ref_typespec
                         // whose fullname is the enclosing (function) scope.
-                        auto* its = s.MakeInt_typespec();
-                        bool locSet9 = false;
-                        if (genPsBound9) {
+                        UHDM::typespec* its = declTs9;
+                        bool locSet9 = declTs9 != nullptr;
+                        if (!its)
+                            its = s.MakeInt_typespec();
+                        if (genPsBound9 && !locSet9) {
                             // Full parameter-declaration span (28:5-29).
                             for (auto q9 = psym.getSyntax(); q9;
                                  q9 = q9->parent)
@@ -5678,7 +5752,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 caller9->asSymbol().kind ==
                                     SymbolKind::ClassType &&
                                 &callee9->asSymbol() != &caller9->asSymbol();
-                if (inheritedNoBind9)
+                // § defGenCallNoBind — a call inside a DEF-view generate-block
+                // PROCESS takes the same generic form. Surelog stmt-ifies a
+                // def-view generate body from SYNTAX, with no symbol table to
+                // resolve the callee against, so the call comes out as a bare
+                // func_call carrying only vpiName — no vpiFunction, and NOT a
+                // task_call even when the callee is a task. The def-view gen
+                // CONT-ASSIGN path already emits from syntax (TypeEmit's
+                // module-compile arm) and was therefore already right; the
+                // process path re-emits the AST and was binding.
+                // Repro r10rggen7repro/t2.sv (function) + t3.sv (task): both
+                // shapes, module-level sibling bound in the same module.
+                // Rggen: rggen_adapter_common:89 get_local_address.
+                if (inheritedNoBind9 || defGenProcessEmit)
                     isFunc = true;
                 UHDM::tf_call* fc = isFunc ? (UHDM::tf_call*)s.MakeFunc_call()
                                            : (UHDM::tf_call*)s.MakeTask_call();
@@ -5747,8 +5833,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             v2.push_back({siTf, expr.sourceRange});
                     }
                 }
-                if (inheritedNoBind9) {
-                    // name only — no vpiFunction / vpiTask
+                if (inheritedNoBind9 || defGenProcessEmit) {
+                    // name only — no vpiFunction / vpiTask (§ defGenCallNoBind)
                 }
                 else if (isFunc)
                     ((UHDM::func_call*)fc)->Function(

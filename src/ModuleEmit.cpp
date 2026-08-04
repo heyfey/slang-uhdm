@@ -2656,6 +2656,25 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                                 nit != ifaceConnNet.end())
                                 r->Actual_group(nit->second);
                         }
+                        // § ifaceArrayPassThruActual — an interface-ARRAY port
+                        // PASSED THROUGH from the enclosing module's own array
+                        // port (.arr_if(arr_if)) binds the enclosing module's
+                        // OWN iface-port net, exactly as the scalar pass-through
+                        // above does.  The two branches before this one key off
+                        // the CONNECTION target (a real Instance, or an
+                        // InstanceArray declared at the connection site); a
+                        // passthrough of an ARRAY port matches neither, so the
+                        // ref stayed bare.  Repro r10rggen7repro/t4.sv pairs the
+                        // scalar and array forms in one module — golden binds
+                        // both.  Rggen: rggen_apb_adapter:62 .register_if(
+                        // register_if).
+                        if (auto* r = (UHDM::ref_obj*)h; !r->Actual_group())
+                            if (const Symbol* site9 =
+                                    body.find(std::string(r->VpiName()));
+                                site9 && site9->kind == SymbolKind::InterfacePort)
+                                if (auto nit9 = info.nets.find(site9);
+                                    nit9 != info.nets.end())
+                                    r->Actual_group(nit9->second);
                     }
                     // A modport-qualified connection (s.mon) is a hier_path:
                     // non-last elements name-only; the LAST element scopes by
@@ -11097,6 +11116,49 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     ll9.type->getCanonicalType().isIntegral())
                     ((UHDM::constant*)rhs)->VpiSize(
                         (int32_t)ll9.type->getBitWidth());
+                // § genCaUnbasedSizing — an UNBASED-UNSIZED RHS in an
+                // ELABORATED gen scope takes the same assignment-context
+                // sizing a module-level cont_assign already gets: `'0` keeps
+                // BIN:0 with its quoted decompile but SIZES at the LHS width,
+                // `'1` folds to the all-ones UINT at that width (BIN digit
+                // string past 64), and `'x`/`'z` stay unsized.  The gen-scope
+                // Rhs was re-emitted from the AST and kept the emitter's bare
+                // size -1.  Repro r10rggen7repro/t7.sv holds the whole matrix
+                // (1-bit and 4-bit LHS x '0 and '1, module level and gen
+                // scope, both views).  Rggen: rggen_bit_field:218
+                // `assign sw_write_done = '0;`, 728 gen-tree vectors.
+                // A SELECT LHS carries no assignment-context width, so its
+                // literal stays unsized in every view — the discriminator is
+                // in the same repro (`o_gen_sel[0] = '0` keeps -1) and in
+                // Rggen itself (:232 `assign trigger[0] = '0;` vs :218).
+                if (rl9.kind ==
+                        ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                    ll9.kind == ExpressionKind::NamedValue &&
+                    ((UHDM::constant*)rhs)->VpiSize() == -1 && ll9.type &&
+                    ll9.type->getCanonicalType().isIntegral()) {
+                    logic_t ub9 =
+                        rl9.as<UnbasedUnsizedIntegerLiteral>().getLiteralValue();
+                    int32_t w9 = (int32_t)ll9.type->getBitWidth();
+                    auto* rc9 = (UHDM::constant*)rhs;
+                    if (!ub9.isUnknown() && w9 > 0) {
+                        rc9->VpiSize(w9);
+                        if (ub9.value && w9 > 64) {
+                            std::string bits9((size_t)w9, '1');
+                            rc9->VpiValue("BIN:" + bits9);
+                            rc9->VpiDecompile(bits9);
+                            rc9->VpiConstType(vpiBinaryConst);
+                        }
+                        else if (ub9.value) {
+                            slang::SVInt ones9((slang::bitwidth_t)w9, 0, false);
+                            ones9 = ~ones9;
+                            std::string dg9 =
+                                ones9.toString(LiteralBase::Decimal, false);
+                            rc9->VpiValue("UINT:" + dg9);
+                            rc9->VpiDecompile(dg9);
+                            rc9->VpiConstType(vpiUIntConst);
+                        }
+                    }
+                }
             }
             // A gen-scope $bits/$signed-style sys call RHS carries a result
             // typespec ref (gen-scope fullname, LHS net's actual) — Surelog.
@@ -17858,6 +17920,19 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
         return nullptr;
     auto& ca = inner->as<ConcurrentAssertionStatement>();
 
+    // § genProcParamFold — an ASSERTION written inside a generate block is a
+    // gen_scope assertion, not a process, and its property arguments keep
+    // their references: Surelog compiles a property_inst's actuals through
+    // the property's own binding, never the elaborated-value substitution an
+    // always body takes (u2r mriscv_bind_sva `p_S2QED_SAME_REG_N_STATE(
+    // S0_fetch, ...)` inside `for ... begin` keeps ref_obj(S0_fetch)).
+    struct AssertGuard9 {
+        bool& f;
+        bool saved;
+        ~AssertGuard9() { f = saved; }
+    } assertG9{inAssertEmit9, inAssertEmit9};
+    inAssertEmit9 = true;
+
     std::string aprefix = label.empty() ? prefix : prefix + "." + label;
     UHDM::concurrent_assertions* as = nullptr;
     switch (ca.assertionKind) {
@@ -22053,7 +22128,18 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 noUnitParamActual = savedGC0;
                 if (auto* c = c0gc) {
                     // Enum-VALUE refs in the condition bind their enum_const
-                    // (Surelog).
+                    // (Surelog) — but ONLY for a BARE module-level if-generate.
+                    // § genRegionCondNoEnumBind: wrapped in an explicit
+                    // `generate ... endgenerate`, the same condition leaves
+                    // every enum-const ref DANGLING.  Surelog compiles a
+                    // region's items through compileGenStmt, which has no
+                    // symbol table for the enum, where a bare if-generate is
+                    // compiled in the module body's own scope.  Repro
+                    // r10rggen7repro/t5.sv puts both shapes plus a
+                    // module-level localparam (which always binds) in ONE
+                    // module; u2r GenIfInside is the bare shape that made this
+                    // binder necessary (97fbe54).  Rggen: rggen_bit_field:221
+                    // / :235 RGGEN_{WRITE,READ}_NONE.
                     std::function<void(UHDM::any*)> bindEC =
                         [&](UHDM::any* e) {
                             if (!e)
@@ -22083,7 +22169,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                         bindEC(o);
                             }
                         };
-                    bindEC(c);
+                    if (!memRegion)
+                        bindEC(c);
                     if (gie)
                         gie->VpiCondition((UHDM::expr*)c);
                     else

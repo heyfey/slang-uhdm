@@ -1346,6 +1346,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         }
         case StatementKind::ForLoop: {
             auto& fl = stmt.as<ForLoopStatement>();
+            // § genProcParamFold — the whole for-stmt (header included) is a
+            // no-fold region for an elab gen-scope process's module-param
+            // refs; procForDepth covers only the body.
+            struct ForAllGuard9 {
+                int& d;
+                ~ForAllGuard9() { d--; }
+            } forAll9{++procForAllDepth9};
             auto* fs = s.MakeFor_stmt();
             fs->VpiParent(parent);
             fs->VpiFullName(prefix);

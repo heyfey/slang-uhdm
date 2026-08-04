@@ -5424,6 +5424,70 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     c->VpiDecompile(std::to_string(w6) + "'b" + bits6);
                     enumOv8 = true;
                 }
+                // § enumConstOvEnc — a parameter whose elaborated value is a
+                // bare ENUM-CONSTANT reference (default OR override) copies
+                // that enum member's OWN encoding, exactly as an override
+                // reading a parameter copies the parameter's
+                // (§ elabOvRefIntConst).  The member's constant is the one we
+                // already emit inside the enum_typespec, so read it back:
+                //   T6_A (implicit)  INT:0    dec 0       size 1
+                //   T6_X = 2'b00     BIN:00   dec 2'b00   size 2
+                //   T6_Q = 4'h5      HEX:5    dec 4'h5    size 4
+                //   T6_P = 4'd3      INT:3    dec 3       size 4
+                // — verbatim except that a DECIMAL-based member loses its
+                // sized spelling, the same INT round-trip the based-literal
+                // matrix records (`int A <- 8'd5` -> INT:5).  Repro
+                // r10rggen7repro/t6.sv holds all four members in one module,
+                // read once as a default and once as an override.  Rggen:
+                // rggen_bit_field PRECEDENCE_ACCESS / SW_{READ,WRITE}_ACTION,
+                // 541 gen-tree vectors.
+                bool enumCstOv8 = false;
+                if (!vecAliasOv8 && !strOv8 && !enumOv8 && boundInit) {
+                    auto& be6 = stripImplicitConv(*boundInit);
+                    if (be6.kind == ExpressionKind::NamedValue) {
+                        auto& es6 = be6.as<NamedValueExpression>().symbol;
+                        if (es6.kind == SymbolKind::EnumValue) {
+                            auto eit6 = enumConstMap.find(&es6);
+                            if (eit6 != enumConstMap.end() && eit6->second &&
+                                eit6->second->UhdmType() ==
+                                    UHDM::uhdmenum_const) {
+                                auto* ec6 = (UHDM::enum_const*)eit6->second;
+                                std::string v6(ec6->VpiValue());
+                                auto cp6 = v6.find(':');
+                                std::string pre6 =
+                                    cp6 == std::string::npos ? "" : v6.substr(0, cp6);
+                                int32_t ct6 = 0;
+                                if (pre6 == "INT")
+                                    ct6 = vpiIntConst;
+                                else if (pre6 == "UINT")
+                                    ct6 = vpiUIntConst;
+                                else if (pre6 == "BIN")
+                                    ct6 = vpiBinaryConst;
+                                else if (pre6 == "HEX")
+                                    ct6 = vpiHexConst;
+                                else if (pre6 == "OCT")
+                                    ct6 = vpiOctConst;
+                                if (ct6) {
+                                    c->VpiValue(v6);
+                                    c->VpiConstType(ct6);
+                                    // SIZE is the TARGET parameter's own
+                                    // width, not the enum_const's: Surelog
+                                    // gives a base-less `enum int` member
+                                    // size 64 but the param_assign Rhs 32
+                                    // (u2r GenIfInside `parameter get_e
+                                    // GetWhat = Get0`).  Only the ENCODING
+                                    // travels.
+                                    c->VpiSize((int32_t)iv.getBitWidth());
+                                    c->VpiDecompile(
+                                        ct6 == vpiIntConst
+                                            ? v6.substr(cp6 + 1)
+                                            : std::string(ec6->VpiDecompile()));
+                                    enumCstOv8 = true;
+                                }
+                            }
+                        }
+                    }
+                }
                 // A param override whose value ORIGINATES in a BASED literal —
                 // directly (#(.Q(8'hcd))) or through parameter refs
                 // (#(.P(PP)) with PP = 8'hab) — keeps that base encoding, and
@@ -5453,7 +5517,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // `.INIT_i(36864'h…)` folds to garbage without this).
                 bool wideBaseOv8 = !typedParam && iv.getBitWidth() > 64;
                 if (wideBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
-                    boundInit) {
+                    !enumCstOv8 && boundInit) {
                     const Expression* org8 = &stripImplicitConv(*boundInit);
                     for (int h8 = 0;
                          h8 < 8 && org8->kind == ExpressionKind::NamedValue;
@@ -5660,7 +5724,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 int32_t tw8;
                 clsParam8(ps, defaultInit, tk8, tsg8, tw8);
                 if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
-                    !strRefOv8 && overridden && boundInit && tw8 > 0 &&
+                    !enumCstOv8 && !strRefOv8 && overridden && boundInit && tw8 > 0 &&
                     tw8 <= 64 && iv.getBitWidth() <= 64) {
                     SrlgOvEnc e8;
                     if (ovEnc8(*boundInit, 0, e8)) {
@@ -5682,8 +5746,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // where the same instance overridden with plain literals keeps
                 // the literal's own base instead.
                 bool selOv8 = false;
-                if (!vecAliasOv8 && !strOv8 && !enumOv8 && !srcBaseOv8 &&
-                    boundInit) {
+                if (!vecAliasOv8 && !strOv8 && !enumOv8 && !enumCstOv8 &&
+                    !srcBaseOv8 && boundInit) {
                     // The origin is followed THROUGH parameter references the
                     // way srcBaseOv8 follows a based literal: ElabCParam's
                     // `.Depth(ReqDepth)` inherits the 4-bit BIN encoding of the
@@ -5760,8 +5824,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // where the same instance driven by a 1-D concat param
                 // (logic [3:0] CC = {2'b01, 2'b10}) keeps CC's own "4'b0110".
                 bool mdConcatOv8 = false;
-                if (!vecAliasOv8 && !strOv8 && !enumOv8 && !srcBaseOv8 &&
-                    !selOv8 && !strRefOv8 && typedParam && boundInit &&
+                if (!vecAliasOv8 && !strOv8 && !enumOv8 && !enumCstOv8 &&
+                    !srcBaseOv8 && !selOv8 && !strRefOv8 && typedParam && boundInit &&
                     ps.getType().getCanonicalType().isPackedArray()) {
                     const Expression* mo8 = &stripImplicitConv(*boundInit);
                     const ParameterSymbol* orig8 = nullptr;
@@ -5830,7 +5894,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 }
                 // Typed params fold UINT at the type width; untyped INT at
                 // size -1.
-                if (vecAliasOv8 || strOv8 || enumOv8 || srcBaseOv8 ||
+                if (vecAliasOv8 || strOv8 || enumOv8 || enumCstOv8 || srcBaseOv8 ||
                     selOv8 || strRefOv8 || mdConcatOv8) {
                 }
                 else if (typedParam && iv.getBitWidth() > 64) {
@@ -10583,6 +10647,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     int32_t cw9 = (int32_t)slPackedWidth(ps.getType());
                     if (sw9 != cw9 && wc9->VpiSize() == sw9)
                         wc9->VpiSize(cw9);
+                }
+                // § enumConstOvEnc (default half) — an ELABORATED parameter
+                // left at a DEFAULT that is a bare ENUM-CONSTANT reference
+                // carries that member's OWN encoding, exactly as the override
+                // half above does: implicit member -> INT at the enum width,
+                // `2'b00` -> BIN:00 / decompile 2'b00, `4'h5` -> HEX:5, and a
+                // based-DECIMAL member (`4'd3`) rounds through INT and loses
+                // its sized spelling.  Whatever arm folded this default gave
+                // it the generic UINT-at-width form; only the encoding is
+                // rewritten here, so the span and the enum-typespec ref that
+                // arm installed survive.  Repro r10rggen7repro/t6.sv (all four
+                // member forms, read as a default and as an override).
+                // Rggen: rggen_bit_field PRECEDENCE_ACCESS /
+                // SW_{READ,WRITE}_ACTION, 541 gen-tree vectors.
+                if (topView && !inPackage && !overridden && rhs && init &&
+                    rhs->UhdmType() == UHDM::uhdmconstant) {
+                    auto& ev6 = stripImplicitConv(*init);
+                    if (ev6.kind == ExpressionKind::NamedValue &&
+                        ev6.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::EnumValue) {
+                        if (auto* ec6 = enumMemberSubstConst(
+                                ev6.as<NamedValueExpression>().symbol)) {
+                            auto* rc6 = (UHDM::constant*)rhs;
+                            std::string v6(ec6->VpiValue());
+                            rc6->VpiValue(v6);
+                            rc6->VpiConstType(ec6->VpiConstType());
+                            // ...and the SIZE the folding arm already chose
+                            // stays: it is the parameter's own width, which a
+                            // base-less `enum int` member (size 64) does not
+                            // carry (u2r GenIfInside).
+                            auto cp6 = v6.find(':');
+                            rc6->VpiDecompile(
+                                (ec6->VpiConstType() == vpiIntConst &&
+                                 cp6 != std::string::npos)
+                                    ? v6.substr(cp6 + 1)
+                                    : std::string(ec6->VpiDecompile()));
+                        }
+                    }
                 }
                 pa->Rhs(rhs);
                 paramRhsObj[&member] = rhs;

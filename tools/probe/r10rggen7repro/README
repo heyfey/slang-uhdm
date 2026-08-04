@@ -1,0 +1,47 @@
+r10rggen7 purpose-built Surelog goldens — file -> law it pins
+
+Generate a golden with
+  tools/probe/r10rggen7golden.sh <this dir> <file>.sv
+and ours with
+  tools/probe/r10rggen7ours.sh   <this dir> <file>.sv
+then diff /tmp/r10rggen7_ours.txt against the golden dump, or run
+uhdm-cmp on the two .uhdm files.
+
+t1.sv  def-view func_call inside a generate CONT-ASSIGN carries no
+       vpiFunction (already correct at this head — the control that showed
+       the law is real before t2 narrowed it).
+t2.sv  § defGenCallNoBind (function half): a call inside a DEF-view
+       generate-block PROCESS carries no vpiFunction either.  Module-level
+       sibling in the same module binds.
+t3.sv  § defGenCallNoBind (task half): the same call comes out as a bare
+       func_call — NOT a task_call — even when the callee is a task.  The
+       elab view binds a task_call as usual.
+t4.sv  § ifaceArrayPassThruActual: a ref_module port highConn for an
+       interface-ARRAY port passed through from the enclosing module's own
+       array port binds that module's own iface-port net, exactly as the
+       scalar pass-through (same module) already did.
+t5.sv  § genRegionCondNoEnumBind: a def-view gen-if CONDITION binds its
+       enum-constant refs only for a BARE if-generate; wrapped in an explicit
+       `generate ... endgenerate` the refs stay dangling.  A module-level
+       localparam reading the same constant always binds.
+t6.sv  § enumConstOvEnc: a parameter whose elaborated value is a bare
+       ENUM-CONSTANT reference (default OR override) copies that member's own
+       encoding — implicit -> INT, `2'b00` -> BIN, `4'h5` -> HEX, `4'd3` ->
+       INT with the sized spelling dropped.  SIZE stays the parameter's own
+       width (u2r GenIfInside's `enum int` member is size 64 while its
+       param_assign Rhs is 32).
+t7.sv  § genCaUnbasedSizing: an unbased-unsized cont_assign Rhs in an
+       ELABORATED gen scope sizes at the LHS width — `'0` keeps BIN:0 with
+       its quoted decompile, `'1` folds to the all-ones UINT.  A SELECT LHS
+       carries no assignment context and stays unsized.  Whole matrix:
+       1-bit/4-bit x '0/'1 x module-level/gen-scope x def/elab.
+t8.sv  § genProcParamFold (what folds): a module PARAMETER or LOCALPARAM read
+       inside an elaborated gen-scope process folds to a copy of that
+       parameter's own elab param_assign Rhs constant (encoding, size and
+       typespec alike).  A GEN-SCOPE-local localparam keeps its ref, and the
+       elab module-level process shares the def-view object so its ref
+       survives too.
+t9.sv  § genProcParamFold (where it folds): one parameter in five positions of
+       ONE gen-scope process — bare assignment Rhs, binary operand,
+       indexed-part-select bound, if condition, for-stmt header+body.  The
+       first four fold; the whole for-stmt does not.

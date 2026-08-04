@@ -2767,6 +2767,16 @@ private:
     // Depth of procedural for-stmt bodies being emitted (refs escaping the
     // loop stay unbound in gen-scope processes).
     int procForDepth = 0;
+    // Depth of the WHOLE for-stmt (header AND body) being emitted.
+    // § genProcParamFold: an elaborated gen-scope process folds a module
+    // parameter everywhere EXCEPT inside a for-stmt, where the reference
+    // survives in the init, the condition, the increments and the body alike
+    // (repro r10rggen7repro/t9.sv puts one parameter in all five positions).
+    int procForAllDepth9 = 0;
+    // True while emitting a CONCURRENT ASSERTION body (§ genProcParamFold):
+    // a gen-scope assertion's property arguments keep their references where
+    // an always body folds them.
+    bool inAssertEmit9 = false;
     // Control vars of for-stmts currently being emitted: their refs bind
     // even inside the loop body.
     std::set<const slang::ast::Symbol*> activeForVars;
