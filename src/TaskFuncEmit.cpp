@@ -2287,7 +2287,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         targetSyn0 =
                             asyn0->as<syntax::TypedefDeclarationSyntax>().type;
                 bypassTypedefShare = true;
+                // § pkgTdRangeViewFold18, the ELEMENT half (pass 19).  A bare
+                // alias formal (the arm above) already follows the view law;
+                // an UNPACKED ARRAY over that same alias inherits the typedef's
+                // packed range through its element and must follow it too —
+                // `ref uvm_reg_addr_t addr[]` in uvm_mem::get_addresses is the
+                // measured case, 33 io_decl/Stmt rows on BuildUVMPkg alone.
+                bool savedTf19 = tfContext, savedNb19 = tdCloneRefNoBind18;
+                if (auto* eta19 = pkgHomedTdAlias18(*e0)) {
+                    tfContext = pkgTdOwnDefView(*eta19);
+                    tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
+                }
                 ts = makeTypespec(elAl0, targetSyn0);
+                tdCloneRefNoBind18 = savedNb19;
+                tfContext = savedTf19;
                 bypassTypedefShare = false;
                 ts->VpiName(elAl0.name);
                 if (argTsyn)
@@ -2295,7 +2308,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 auto* art0 = s.MakeRef_typespec();
                 art0->VpiFullName(std::string(elAl0.name));
                 art0->VpiParent(ts);
-                art0->Actual_typespec(typedefTs[e0]);
+                UHDM::typespec* elMain19 = typedefTs[e0];
+                // ...and the ALIAS half: the element clone aliases the LISTING
+                // OBJECT OF ITS OWN VIEW, or Compare walks from a folded clone
+                // straight into the symbolic def listing.
+                if (auto* eta19 = pkgHomedTdAlias18(*e0))
+                    if (!pkgTdOwnDefView(*eta19))
+                        if (auto e18 = pkgTopTypedefTs.find((const void*)eta19);
+                            e18 != pkgTopTypedefTs.end() && e18->second)
+                            elMain19 = e18->second;
+                art0->Actual_typespec(elMain19);
                 ((UHDM::typespec*)ts)->Typedef_alias(art0);
                 stampPkgFormalTs(ts);
                 rt->Actual_typespec(ts);
@@ -3402,10 +3424,18 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
 
         // Body: refs to the return value bind a local var that Surelog only
         // creates in the write phase; record them for late patching.
+        // § retVarTdViewFold19 — the fold state of a BARE package-typedef
+        // return is view-dependent (§ pkgTdRangeViewFold18) and the drain runs
+        // after every view is emitted, so decide it HERE while
+        // curPkgEmitSym/pkgEmitTopView/pkgClassTfClone still describe the body
+        // being walked.
+        bool tdOwnDef19 = true;
+        if (auto* rta19 = pkgHomedTdAlias18(sub.getReturnType()))
+            tdOwnDef19 = pkgTdOwnDefView(*rta19);
         pendingFuncRet.push_back(
             {&sub, fullName, {}, pkgScope ? (UHDM::instance*)m : nullptr,
              pkgImportCloneEmit ? pkgImportCloneRetVar : nullptr,
-             pkgImportCloneEmit ? pkgImportCloneHomePkg : nullptr});
+             pkgImportCloneEmit ? pkgImportCloneHomePkg : nullptr, tdOwnDef19});
         size_t pfIdx = pendingFuncRet.size() - 1;
         auto* savedSym = funcRetSym;
         auto* savedRefs = funcRetRefs;

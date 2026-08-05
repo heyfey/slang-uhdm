@@ -399,8 +399,27 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 // importer (98:49) — measured by taking the elaborated one
                 // first and watching the same pairs stay unequal with the
                 // qualified name instead of an empty one.
-                if (auto it9 = typedefTs.find(el9); it9 != typedefTs.end())
+                if (auto it9 = typedefTs.find(el9); it9 != typedefTs.end()) {
+                    // § pkgTdRangeViewFold18, the ARRAY-ELEMENT half (pass 19).
+                    // Which of the two listing objects is right is still the
+                    // VIEW question the scalar path above answers: the def
+                    // object's packed range is the symbolic operation and only
+                    // the typedef's HOME PACKAGE DEF listing keeps it.  Every
+                    // other view — the elaborated package listing, the class
+                    // methods seen from it, both module views — reads the
+                    // folded twin, exactly as it does for a bare `addr_t c;`.
+                    // (`uvm_reg_addr_t addr[]` in uvm_reg_map_info, reached by
+                    // uvm_mem::get_addresses' io_decl and uvm_reg_map's body
+                    // locals alike.)  The pass-15 note above is about the
+                    // element's NAME, which both objects now spell the same.
+                    if (el9->kind == SymbolKind::TypeAlias &&
+                        !pkgTdOwnDefView(el9->as<TypeAliasType>()))
+                        if (auto e9 = pkgTopTypedefTs.find((const void*)el9);
+                            e9 != pkgTopTypedefTs.end() && e9->second &&
+                            e9->second->UhdmType() == it9->second->UhdmType())
+                            return e9->second;
                     return it9->second;
+                }
             }
         }
         // A COVERGROUP handle (`cg cg_inst = new(3);`) has no UHDM type of

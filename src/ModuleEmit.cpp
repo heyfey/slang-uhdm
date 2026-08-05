@@ -18244,6 +18244,28 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                         t1->second->UhdmType() == ts->UhdmType())
                         ts = t1->second;
             }
+            // § retVarTdViewFold19 — the STATEMENT-side twin of
+            // § pkgTdRangeViewFold18.  Pass 18 made every DECLARATION of a
+            // bare package-typedef type (formal, return, body local) carry the
+            // listing object OF ITS VIEW; the variable a BODY REFERENCE binds
+            // did not follow, because this drain always takes `typedefTs` —
+            // the DEF listing, whose packed range is the symbolic operation.
+            // Golden mints one folded copy per binding reference in every view
+            // but the typedef's home-package DEF listing (BuildUVMPkg: every
+            // `uvm_reg_cvr_t build_coverage()` / `uvm_reg_data_t XupdateX()`
+            // return ref in ELABPKG, DEFMOD and ELABMOD alike, measured with
+            // tools/probe/r10uvm19b.cpp).  Identity is not compared, so one
+            // shared per-view object is indistinguishable from N clones — only
+            // the fold state is.  The AGGREGATE kinds have their own arm just
+            // above and the `logic` kind its per-reference clone arm just
+            // below; this is the remaining scalar-vector kind.
+            if (ts && sharedPkg && !pf.tdOwnDefView19 &&
+                ts->UhdmType() == UHDM::uhdmbit_typespec)
+                if (auto t2 = pkgTopTypedefTs.find(
+                        (const void*)&sub.getReturnType());
+                    t2 != pkgTopTypedefTs.end() && t2->second &&
+                    t2->second->UhdmType() == ts->UhdmType())
+                    ts = t2->second;
             // A VECTOR typedef return gets a per-REFERENCE named clone at the
             // typedef's target syntax, not the shared typedef ts: a $unit
             // typedef clone carries a Typedef_alias ref (fullname

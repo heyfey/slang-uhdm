@@ -329,6 +329,13 @@ private:
         // while the def clone emits, so the lookup is deferred to the drain.
         UHDM::variables* bindVar = nullptr;
         const slang::ast::Symbol* bindHomePkg = nullptr;
+        // § retVarTdViewFold19 — whether the body being recorded is the
+        // typedef's HOME PACKAGE DEF listing, i.e. the one view in which a
+        // package typedef's own packed range stays the symbolic operation
+        // (§ pkgTdRangeViewFold18).  Captured at PUSH time because
+        // curPkgEmitSym/pkgEmitTopView/pkgClassTfClone are only live then —
+        // drainFuncRet runs after every package is emitted.
+        bool tdOwnDefView19 = true;
     };
 
     struct PendingParamTs {
@@ -2317,6 +2324,14 @@ private:
     /// The COMPILATION-UNIT-scope wildcard imports of the whole design, in
     /// source order.  These — and only these — feed `design->vpiTaskFunc`.
     std::vector<const slang::ast::PackageSymbol*> unitScopeWildcardImports();
+    /// § foreachAssocIdxImporterView19 — is @a pkgSym wildcard-imported by
+    /// ANOTHER PACKAGE of this design?  A package-scope `import p::*` makes
+    /// Surelog re-elaborate p's contents into the importing package's symbol
+    /// table, and the class bodies p owns are compiled ONCE and shared by every
+    /// view; the re-elaboration is what lets an unresolved foreach over a class
+    /// property still type its LOOP VARIABLE.  See the law at its use site.
+    bool pkgWildcardImportedByPkg19(const slang::ast::Symbol& pkgSym);
+    std::map<const void*, bool> pkgWildImpByPkg19;
     /// The DEF view's tail of nets: every bare name a HOISTED class method
     /// body (see classPropRefs) failed to resolve binds a net of that name
     /// here, and one is minted into @a nets when the module declares none.

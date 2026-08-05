@@ -38,6 +38,31 @@ static UHDM::variables* varForTypespec(UHDM::Serializer& s, const UHDM::typespec
     }
 }
 
+// § foreachAssocIdxImporterView19 (see the use site for the law).
+bool UhdmExporter::pkgWildcardImportedByPkg19(const Symbol& pkgSym) {
+    auto it = pkgWildImpByPkg19.find((const void*)&pkgSym);
+    if (it != pkgWildImpByPkg19.end())
+        return it->second;
+    bool any = false;
+    for (auto* p : comp.getPackages()) {
+        if ((const Symbol*)p == &pkgSym)
+            continue;
+        for (auto& m : p->members()) {
+            if (m.kind != SymbolKind::WildcardImport)
+                continue;
+            if ((const Symbol*)m.as<WildcardImportSymbol>().getPackage() ==
+                &pkgSym) {
+                any = true;
+                break;
+            }
+        }
+        if (any)
+            break;
+    }
+    pkgWildImpByPkg19[(const void*)&pkgSym] = any;
+    return any;
+}
+
 UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block,
                                               UHDM::instance* m, const std::string& prefix,
                                               NetMap& netMap) {
@@ -1283,6 +1308,23 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         lts = lat9->second;
                         lv = s.MakeArray_var();
                     }
+                // NOTE (§ foreachLoopVarIsRefTs19, ranked for the next pass):
+                // Surelog does NOT drill here — the loop variable is
+                // getSimpleVarFromTypespec applied to the typespec the ITERATED
+                // REFERENCE carries, so a reference that resolved to an
+                // array_typespec yields an array_var SHARING that object (the
+                // rule the tfLocalArrayTs9 branch above states for one case is
+                // the general one).  Measured on SeqDriver's
+                // `uvm_vreg_field vfields[$]` locals with
+                // tools/probe/r10uvm19c.cpp: golden `array_var
+                // array_typespec''` over `ref_var 'vfields' ts=array_typespec''`
+                // where we drill to the element and emit a class_var; 475 rows.
+                // NOT implemented here because the reference's own typespec is
+                // bound in a LATER pass for exactly these locals
+                // (pendingForeachArrayTs), so the variable's CLASS has to be
+                // predicted from the slang type — and that prediction is what
+                // the r10c4 `int lq[$]` -> int_var pin constrains and no corpus
+                // test covers.
                 if (!lv)
                     lts = (arrSym && !foreachUnres9) ? makeTypespec(*arrSym)
                                                      : nullptr;
@@ -1295,6 +1337,68 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         break;
                     lts = ert->Actual_typespec();
                 }
+                // § foreachAssocIndexVar19 — an ASSOCIATIVE array's loop
+                // variable is its INDEX, not its element (LRM 12.7.3): golden
+                // types `foreach (m_children[i])` over
+                // `uvm_component m_children[string]` as a string_var and
+                // `foreach (m_maps[map])` over `bit m_maps[uvm_reg_map]` as a
+                // class_var NAMED for the key class, where the classPropArr9
+                // note above leaves us the int default.  The earlier r10c4
+                // probes could not see this: an `int q[$]`'s element type and
+                // the int fallback are the same object kind.
+                //
+                // § foreachAssocIdxImporterView19 — and it fires only when
+                // ANOTHER PACKAGE of the design wildcard-imports the class's
+                // home package.  The UVM-4 pin this in both directions on ONE
+                // shared body: `uvm_component::get_children` is compiled once
+                // and every elab view (the elab uvm_pkg listing, an importing
+                // package's subclasses, both module views) shows the same
+                // object — string_var in SeqDriver, whose testbench declares
+                // `package adpcm_pkg; import uvm_pkg::*;`, and int_var in
+                // SimpleUVM, Scoreboard and BuildUVMPkg, which have no package
+                // importing uvm_pkg.  The ARRAY reference stays the unresolved
+                // unsupported_typespec in BOTH, so the loop variable resolves
+                // through the importing package's re-elaborated symbol table,
+                // not through the iterated reference.  Measured with
+                // tools/probe/r10uvm19c.cpp; 423 rows on SeqDriver, 0 movement
+                // on the other three.
+                bool assocIdx19 = !lv && arrSym != nullptr;
+                if (assocIdx19 && foreachUnres9) {
+                    const Scope* hp19 = arrSym->getParentScope();
+                    while (hp19 && hp19->asSymbol().kind != SymbolKind::Package)
+                        hp19 = hp19->asSymbol().getParentScope();
+                    assocIdx19 =
+                        hp19 && pkgWildcardImportedByPkg19(hp19->asSymbol());
+                }
+                if (assocIdx19)
+                    if (auto* adt19 = arrSym->getDeclaredType()) {
+                        auto& ac19 = adt19->getType().getCanonicalType();
+                        if (ac19.kind == SymbolKind::AssociativeArrayType)
+                            if (auto* ix19 =
+                                    ac19.as<AssociativeArrayType>().indexType) {
+                                auto& ick19 = ix19->getCanonicalType();
+                                if (ick19.kind == SymbolKind::StringType)
+                                    lts = s.MakeString_typespec();
+                                else if (ick19.kind == SymbolKind::ClassType) {
+                                    auto* cts19 = s.MakeClass_typespec();
+                                    cts19->VpiName(ick19.name);
+                                    if (auto* cd19 = classDefnFor(ick19))
+                                        cts19->Class_defn(cd19);
+                                    else
+                                        pendingClassTsLink.push_back(
+                                            {cts19, &ick19});
+                                    lts = cts19;
+                                }
+                                else
+                                    assocIdx19 = false;
+                            }
+                            else
+                                assocIdx19 = false;
+                        else
+                            assocIdx19 = false;
+                    }
+                    else
+                        assocIdx19 = false;
                 if (!lv)
                     lv = lts ? varForTypespec(s, lts) : nullptr;
                 if (!lv) {
@@ -1319,7 +1423,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // golden leaves alone (its own loop-variable object there is
                 // an unresolved ref_var — 2112 of them, residue R-lv), while
                 // the int_var population went from 72 short to exact.
-                return lv->UhdmType() == UHDM::uhdmint_var ? lv : nullptr;
+                // ...and the § foreachAssocIndexVar19 shape binds too: once the
+                // loop variable is the resolved INDEX object, golden's body
+                // references bind it exactly as they bind an int_var (235
+                // class_var + 41 string_var `golden vs <null>` rows appeared
+                // the moment the kind stopped being int_var, and nothing else
+                // moved).
+                return (lv->UhdmType() == UHDM::uhdmint_var || assocIdx19)
+                           ? lv
+                           : nullptr;
             };
             // § foreachLoopVarObjs9 — a body reference to a foreach LOOP
             // VARIABLE binds the object the loop lists in vpiLoopVars, but
