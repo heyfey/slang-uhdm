@@ -3086,6 +3086,12 @@ private:
     // NOT shared with the elab (child) port ts (that one is re-made folded);
     // a TOP def's ports are handled by the write-phase swap instead.
     bool defPortDim = false;
+    // § shadowedImportParamFold — the module body whose DEF-listing processes
+    // and continuous assigns are being emitted, or null.  A read of a
+    // module-scope parameter whose name a wildcard-imported package ALSO
+    // declares folds to the PACKAGE member's value in that listing (witness
+    // vr.sv rows E1/E2/E3, corpus usbdev.sv:245).
+    const slang::ast::Scope* defStmtImportScope9 = nullptr;
     // Non-null while emitting a type bound for a local var of a function that
     // lives in an elaborated GEN block: its module-param-ref bounds fold to
     // their values (concrete instance). Set off declSymbol because the local
@@ -3264,6 +3270,20 @@ private:
     // UNQUALIFIED spelling of the same read — § pkgBoundFoldBareImport.
     void crossPkgFoldBoundLeaves9(UHDM::any* node,
                                   const slang::ast::Scope* bareScope = nullptr);
+    // § patDefBoundPkgParamSubst — the def-view substitution a range bound
+    // over a NAMED (struct/enum typedef) element performs on a bound leaf
+    // that names a PACKAGE parameter: the parameter's VALUE, sized at its
+    // declared width, carrying a bare ts ref to the parameter's own typespec
+    // (the same constant the plain-vector def-net bound arm already builds).
+    UHDM::constant* pkgBoundValueConst9(const slang::ast::ParameterSymbol& dp,
+                                        UHDM::BaseClass* parent);
+    // § shadowedImportParamFold — the same name-keyed getValue one level OUT
+    // of a range bound: substitute every ref_obj in an already-emitted DEF-view
+    // tree whose name a wildcard-imported package ALSO declares, when a
+    // module-scope parameter of that name is what slang resolved.  Returns the
+    // replacement for `node` (itself when nothing fired).
+    UHDM::any* shadowedImportFoldLeaves9(UHDM::any* node,
+                                         const slang::ast::Scope* body);
     // § shadowedImportBoundFold — the PACKAGE parameter a scope's WILDCARD
     // IMPORTS make visible under `nm`, even when a module-local declaration of
     // the same name shadows it for slang.  Surelog's getValue searches the

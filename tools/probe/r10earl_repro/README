@@ -1057,6 +1057,237 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 13 (r10earl13; THREE laws in FIVE gate rounds, each round gated at
+goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
+BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
+Pass-13 copies of the harness: run13.sh dmp13.sh dd13.sh rp13.sh cen13.sh
+sweep13.sh slsweep13.sh gate13.sh gold13.sh cmprc13.sh, plus NEW hdiff13.sh
+(the census head-line diff as one command), vrk13.sh (r10earl10k over a witness's
+parameters), rngsz.py (project a dump onto range bounds only) and
+tools/probe/r10earl13p.cpp (r10earl11p for EITHER module vector).  Witnesses
+vq.sv and vr.sv, both cmp-EQUAL in AllModules.  Earlgrey_0_1 stays CMP_NOTEQUAL
+(groundwork); census 39 -> 36 heads, 34 -> 29 classes.  0 movers on either
+corpus.
+
+  vq.sv  § patDefBoundPkgParamSubst (TypeEmit ~1351, the packed_array_typespec
+        mkBound arm of makeTypespec, plus § pkgBoundValueConst9 next to
+        § crossPkgBoundFoldConst9).  Pass 12's ranked (1) said "the remaining
+        difference in the hmac / alert_handler rows is that their element type
+        is a STRUCT TYPEDEF — build that row first"; vq.sv row S
+        (`input vq_t [PI-1:0] s_i` after `import vqp::*`) reproduced BOTH
+        sub-shapes at once and they are ONE law.  The def-listing bound over a
+        NAMED (struct/enum typedef) element keeps its `op11 { <ident>, 1 }`
+        tree, but only the MODULE-parameter half of it: a leaf naming a PACKAGE
+        parameter is already valued when the def compiles, so Surelog
+        substitutes the value exactly as the plain-`logic` def-net arm does —
+        UINT at the parameter's DECLARED width with a bare (fullname-less) ts
+        ref to the parameter's own typespec.  The 2x2 vq measured:
+            row S  `vq_t [PI-1:0]`  op11{constant 4/32/UINT ct9 +ts, 1}
+            row T  `vq_t [PI:0]`    constant 4/32/UINT ct9 +ts (NO operation
+                                    is built at all, so the plain spelling
+                                    needs its own return)
+            row Q3 `logic [MP-1:0]` ref_obj(MP) — the module-parameter twin,
+                                    UNCHANGED (negative control)
+        vq's SIZE table is the general rule behind pass-12 ranked (1)(b) as
+        well: a PLAIN parameter-reference bound is sized at the parameter's
+        DECLARED type (int -> 32, `logic [7:0]` -> 8, `byte` -> 8, UNTYPED ->
+        64), never the bare 64 makeBoundConst writes; an ARITHMETIC bound is a
+        64-bit ct7 computed value.  Corpus: alert_handler (CLOSED end to end),
+        hmac, flash_ctrl:310 and tlul_adapter_host/top_pkg:8 (the sz-32-vs-64
+        pair).  39 -> 38.
+
+  vr.sv  § shadowedImportParamFold (TypeEmit ~208 shadowedImportFoldLeaves9 +
+        ParamEmit ~10745 + TypeEmit ~3087 + ExprEmit ~2755 + the
+        defStmtImportScope9 window in ModuleEmit emitModuleDef).  5 heads.
+        § shadowedImportBoundFold (pass 6) is a RANGE-BOUND rule; the same
+        name-keyed getValue governs every DEF-listing read.  flash_erase_ctrl
+        is the DECISIVE row: the module declares `parameter int AddrW = 10`,
+        wildcard-imports flash_ctrl_pkg (whose `AddrW` is 17) and golden folds
+        **17** — the package member does not merely break a tie, it WINS over
+        the module's own declaration.  In three of the five modules the import
+        sits in the module BODY, AFTER the parameter port list, and Surelog
+        does not care.  Four emission sites needed it, all measured on vr.sv:
+            A/B/C  a DEF-view param_assign Rhs (`localparam int A = PW - 1`,
+                   `= PW`, and the body-localparam twin) — corpus
+                   rstmgr_ctrl:12 x2, flash_mp:14
+            D      a LOCALPARAM's declared-type range bound — corpus
+                   flash_erase_ctrl:41 (`logic[AddrW-1:0] PageAddrMask`)
+            F      a SYS-FUNC-CALL argument (`$clog2(NE)`) — corpus
+                   flash_mp:15 (`$clog2(NumBanks)`), flash_erase_ctrl:31
+                   (`$clog2(WordsPerPage)`); the call itself stays unreduced
+            E1/E2/E3  a for-loop bound, a procedural assign and a continuous
+                   assign — corpus usbdev:245 (`i < NEndpoints`)
+            N1     an UNSHADOWED module parameter stays a ref_obj in all of
+                   them (negative control), and so does an unshadowed module
+                   LOCALPARAM in a net bound (row H3) — golden keeps those
+                   symbolic in the def view.
+        VIEW SPLIT, measured: the DEF listing takes the PACKAGE member, the
+        ELAB listing the MODULE's own (vr row H1 folds to 12 in the def
+        listing and to 3 = the module's own `NE = 4` minus 1 in the elab one),
+        which is why the ExprEmit arm is gated on defStmtImportScope9 — a
+        window opened only around emitModuleDef's cont_assigns and processes.
+        38 -> 37 (flash_erase_ctrl CLOSED end to end).
+
+  vr.sv  § defNetBoundPkgIntEnc (TypeEmit ~8440 defNetTsScope arm +
+        pkgBoundValueConst9).  4 heads, and the LAST difference on two modules.
+        A substituted package-parameter value is a SIGNED INT constant (ct7)
+        when that parameter's OWN initializer is arithmetic in the existing
+        paramIntEnc sense (`%`, `/`, a signed `**`, or the `X-1` subtract
+        form) and a UINT one (ct9) otherwise.  vr rows H1 vs H4 are the
+        measurement — the SAME `logic [N-1:0]` net bound, `vrp::NE = 12` giving
+        UINT:12 and `vrp::NC = PW - 1` giving INT:16 — and the corpus confirms
+        both directions: rstmgr_pkg's `OffDomains = PowerDomains-1` reads ct7 in
+        every position golden substitutes it (rstmgr_ctrl:31 net bound,
+        rstmgr_ctrl:64 process part-select width), while flash_ctrl_pkg's
+        `AddrW = BankW + PageW + WordW` — an ADD, which paramIntEnc does NOT
+        mark — stays ct9 and is why flash_erase_ctrl:41 closed with UINT one
+        round earlier.  37 -> 36 (rstmgr_ctrl CLOSED end to end).
+
+MEASURED NEGATIVE (recorded so nobody re-runs it).  The § pkgTypespecInstanceIsTop
+heads do NOT come from a bound-fold typespec.  Pointing the def-view fold's ts
+ref at the ELABORATED package copy (`pkgParamObjTop` first, the order
+§ crossPkgBoundFoldConst9 uses and whose own comment blames the def pointer for
+"work@sram2tlul, top_pkg") moved ZERO heads on Earlgrey and zero on vq.  The
+real link, named with the NEW tools/probe/r10earl13p.cpp on vq's TopModules
+head, is the package TYPEDEF's struct_typespec: golden's `vqp::vq_t` carries
+vpiInstance = the importing module's DEF module_inst (an unnamed one at the
+`module` keyword, holding the MATERIALIZED import copies as its parameters)
+where ours carries the DEF PACKAGE.  That is import-materialization
+(modDefImportShape), not typespec plumbing — see ranked (1) below.  The
+pkgParamObjTop experiment is reverted; only its NOTE survives in TypeEmit.
+
+EARLGREY_0_1 HEAD CENSUS after pass 13 (r10earl4h; 23 + 8 + 5 + 0 = 36 heads
+over 29 classes, from 39 heads / 34 classes at entry):
+
+  AllModules  SIZE 190 vs 190,  23 heads   (was 26)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged, TEN passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   0 heads   (still CLOSED)
+
+READ THE COUNT HONESTLY.  39 -> 36 is -8%, 0 movers on either corpus.  THREE
+AllModules entries went cmp-EQUAL END TO END (alert_handler, flash_erase_ctrl,
+rstmgr_ctrl) and SEVEN more heads ADVANCED to a fresh, measured shape
+(flash_ctrl, flash_mp, hmac, rstmgr, tlul_adapter_host, usbdev, and the
+prim_cipher_pkg pair).  Both new witnesses (vq.sv, vr.sv) are cmp-EQUAL in
+AllModules; each still has ONE TopModules head, and those two are the honest
+statement of what pass 13 did not do (see ranked (1) and (2)).
+
+PASS-13 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  vq.sv  AllModules cmp-EQUAL.  Residual TopModules head: the struct_typespec
+        Instance identity above — the READY WITNESS for § pkgTypespecInstanceIsTop.
+  vr.sv  AllModules cmp-EQUAL.  Residual TopModules head: row D's ELAB width.
+        `localparam logic [PW-1:0] D = '1` reads sz=17 in golden (the PACKAGE
+        PW) and sz=10 in ours (the module's own) — so a parameter's declared
+        TYPE is computed once, at def-compile, with the shadow rule applied,
+        and that width survives elaboration, even though an elab NET bound of
+        the same shape (row H1) uses the module's own value.  ONE gate round
+        away and it has no corpus head yet.
+  vp.sv  pass-12 witness; row B (`logic [NA:0]`) now matches — the vq size
+        table subsumed it.  Row A always did.
+  vf/vj/vk/vl/vo  cmp-EQUAL (pass 11/12), unchanged.
+  vg/vh/vi/vm/vn  named-residue witnesses (pass 12), unchanged.
+
+RANKED RESIDUE (measured after PASS 13 — next agent starts HERE).  AllModules
+unless stated.
+
+  (1) § pkgTypespecInstanceIsTop — 6 heads, THE LARGEST CLASS, and pass 13
+      finally names the linking object.  4 heads read `package 'top_pkg'
+      {top=1}` vs `<null>` (hmac, spi_device, tlul_adapter_sram, usbdev), 1
+      reads `prim_cipher_pkg {top=1}` vs `{top=0}` (prim_prince), 1 is
+      `constant top_pkg.sv:8:22 sz32 vs sz64` (tlul_adapter_host — the same
+      package reached through the DEF copy, whose own value constants are
+      64-bit).  READY WITNESS: vq.sv's TopModules head, decoded with
+      `r10earl13p <db> top work@vqtop vqp [wantTop]`:
+          golden  packed_array_var s_i -> struct_var -> ref_typespec ->
+                  struct_typespec 'vqp::vq_t' -> vpiInstance = module_inst ''
+                  @22:1 (the DEF work@vqa) -> its parameter 'PB' ->
+                  ref_typespec -> byte_typespec -> vpiInstance = package vqp
+                  {top=1}
+          ours    ... struct_typespec 'vqp::vq_t' -> vpiInstance = package vqp
+                  {top=0}
+      So golden gives a package typedef referenced from a module a
+      MODULE-instanced typespec whose parameter list is the module's
+      MATERIALIZED import copies — the modDefImportShape machinery, which is
+      also where pass 12's OTHER open note lives (vi.sv: golden's def listing
+      carries a param_assign for the unpacked-array import copy work@via.AVEC
+      that we do not emit, 6 vpiImported rows vs our 5).  ONE frame, two
+      residues; build the witness for the import-copy PARAMETER LIST first.
+  (2) 3 `ref_typespec '' :0:0` vs `<null>` — flash_phy_core (a
+      flash_phy_pkg:43 param_assign constant), sha2 (the `logic_typespec
+      'sha_word_t'` LAW-S miss) and NEW rstmgr (fell out from behind the
+      pass-13 fold, unmeasured).  Three different roots as far as anyone knows;
+      rstmgr is the cheap one because its module is otherwise cmp-EQUAL now.
+  (3) 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052} vs operation` (dm_mem,
+      rv_dm) — `localparam logic [63:0] ResumeAddress = HaltAddress + 4`, a
+      PACKAGE localparam whose init reads a SAME-PACKAGE localparam.  Pass 12's
+      note still stands and is now the best-value untried lead: this is the
+      "a PACKAGE keeps the operation where a module folds" family that
+      § pkgVecPatternNoFold / § pkgPatternNoReorderConst closed for PATTERNS.
+      Golden FOLDS it here (constant 2052 = 'h800 + 4), we keep the op.  Note
+      the fold is 64-bit UINT — the declared `logic [63:0]` width, not 32.
+  (4) 2 `constant flash_phy_pkg.sv:31:34 {ct=7 sz=32 dec=0}` vs ct=9
+      (flash_phy_rd, flash_phy_rd_buffers) — `parameter int AddrBitsRemain =
+      DataWidth % BusWidth`.  A `%` init is exactly what paramIntEnc marks, so
+      this is § defNetBoundPkgIntEnc's rule applied to a PACKAGE's OWN
+      param_assign Rhs constant rather than to a substituted read.  Probably
+      one line in ParamEmit; measure with a two-row witness (`%` vs `+`) first.
+  (5) THE HIER_PATH NAME RESIDUES, 3 heads, all "golden renders a FOLDED index
+      where we render the source text" — the same decompiler family pass 12's
+      § hierSelPkgParamFold closed for part-select bounds:
+        * flash_ctrl:315 `region_cfgs[8].base.q` vs `region_cfgs[MpRegions]`
+          (NEW behind the pass-13 fold; MpRegions is the SHADOWED name again,
+          so the value is already in hand — this is a NAME builder that did not
+          get the substitution, not a fold).
+        * dm_csrs:309 `abstractauto_q.autoexecprogbuf[{1'b1,}]` — golden
+          TRUNCATES a concat index after the first operand.
+        * flash_phy:129 `hier_path 'flash_ctrl_i.rd'` vs our `ref_obj` — a
+          SHAPE difference on a port-connection actual.
+  (6) TopModules 8 — UNMOVED FOR TEN PASSES and still the largest
+      uncharacterized block.  Two of the eight are the same object as an
+      AllModules head (prim_keccak:52 / tl_main_pkg:13:59, padring's prim_pkg
+      top-flag is (1)'s class), so the genuinely independent ones are:
+      prim_present `gen_scope_array 'gen_d64' vs 'gen_enc'`, prim_prince
+      `logic_var 'data_state_round' vs <null>`, prim_gate_gen `ref_typespec
+      '' :0:0`, sram2tlul `constant :0:0 vs operation :15:20`, jtag_mux
+      `operation jtag_mux.sv:11:20 vs constant :0:0`.  NOBODY HAS BUILT A
+      WITNESS FOR ANY OF THEM.  sram2tlul and jtag_mux are mirror images of
+      each other (one folds where the other does not) and both are
+      `constant`-vs-`operation` at a TOP module's own port/param — start there.
+  (7) AllPackages 5 (unchanged for three passes): 2 `operation ... vs <null>`
+      (flash_ctrl_pkg:18:36, hmac_pkg:18:29) and 3 `ref_obj 'pkg::NAME' vs
+      <null>` (flash_phy_pkg:17 flash_ctrl_pkg::DataWidth, rstmgr_pkg:8
+      pwrmgr_pkg::HwRstReqs, alert_pkg:9 alert_handler_reg_pkg::NAlerts).  All
+      five are `<null>` on OUR side — a vector-size shortfall, not a mismatch,
+      so `r=1` style: we are MISSING an object golden has.  The three ref_obj
+      ones are one shape (a cross-package qualified read in a package's own
+      param init) and have never been characterized.
+  (8) The remaining singletons, unchanged: padring `named_begin
+      'gen_mio_input'` (DECODED in pass 10, not implemented),
+      prim_generic_pad_wrapper:40 cont_assign, prim_keccak:24
+      operation-vs-constant, prim_present:61 `func_call
+      'prim_cipher_pkg::perm_64bit'` vs unnamed (the scalar-arg fold, witness
+      vi.sv rows C-F), rv_core_ibex `int_typespec '' :0:0` vs `logic_typespec
+      :77:24`, flash_mp:21:87 `logic_net 'region_cfgs_i'` (NEW behind the
+      pass-13 fold), top_earlgrey tl_main_pkg:13:59 operation.
+
+PASS-13 OPS NOTES
+  * The Earlgrey default sweep costs ~5 SECONDS with a warm golden cache, and
+    the census another ~30.  That makes "edit, build -j3, sweep, census, hdiff"
+    a ~4-minute loop and there is NO reason to batch laws; five gate rounds
+    cost less than one pass-8 round did.
+  * hdiff13.sh is the whole measurement (pass 12 said this; now it is a
+    script).  An ADVANCED head is a NEW DATUM: five of pass 13's advances
+    handed over the next sub-arm of the same law for free (net bound -> param
+    Rhs -> $clog2 argument -> process expression -> const type).
+  * Build the witness ROW the previous pass names, not the one the head text
+    suggests.  vq.sv row S was written from pass 12's one-line "its element
+    type is a STRUCT TYPEDEF — BUILD THAT ROW FIRST" and it cracked a class
+    that had survived two passes.
+  * A three-value witness beats a two-value one.  vr.sv folds 17 where the
+    module says 10; had both been 8 (as in flash_mp, where module and package
+    both say 8) the measurement would have proved nothing about WHICH
+    declaration Surelog reads.  Pick shadow values that DISAGREE.
+
 LANDED — PASS 12 (r10earl12; FOUR laws in FOUR gate rounds plus one
 REVERT-AND-REFINE round, each gated at goldens 23/23 + u2r testflags 0 change
 vs results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 0 change vs
@@ -1209,8 +1440,8 @@ PASS-12 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
   vp.sv  NEW, cmp-not-equal, and it reproduces ONE of the two shapes it was
         built for (see ranked (1) below).
 
-RANKED RESIDUE (measured after PASS 12 — next agent starts HERE).  AllModules
-unless stated.
+RANKED RESIDUE (measured after PASS 12 — SUPERSEDED by the PASS 13 list above).
+AllModules unless stated.
 
   (1) THE BARE-IMPORTED RANGE-BOUND FAMILY, 6 heads, PARTIAL WITNESS vp.sv.
       § crossPkgRangeBoundFold (pass 2) substituted a declared-type range

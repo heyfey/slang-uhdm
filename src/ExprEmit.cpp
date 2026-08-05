@@ -2752,6 +2752,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto& nv = expr.as<NamedValueExpression>();
             if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                 refCollector->insert(&nv.symbol);
+            // § shadowedImportParamFold — a module DEF listing's read of a
+            // module-scope parameter whose name a wildcard-imported package
+            // ALSO declares is the PACKAGE member's value in golden, never a
+            // reference: Surelog's getValue is name-keyed and the local
+            // declaration does not hide the import from it.  vr.sv rows
+            // E1 (for-loop bound) / E2 (procedural) / E3 (continuous) all
+            // fold; corpus usbdev.sv:245 `i < NEndpoints` next to
+            // `import usbdev_reg_pkg::*`.
+            if (defStmtImportScope9 && !inLhs &&
+                nv.symbol.kind == SymbolKind::Parameter &&
+                nv.symbol.getParentScope() &&
+                nv.symbol.getParentScope()->asSymbol().kind !=
+                    SymbolKind::Package)
+                if (const ParameterSymbol* wq8 = wildcardPkgParamNamed9(
+                        defStmtImportScope9, nv.symbol.name))
+                    if (auto* c8 = pkgBoundValueConst9(*wq8, parent)) {
+                        setLoc(c8, expr.sourceRange);
+                        // Golden names the ts ref after the DECLARING module
+                        // (`work@vra`); not a cmp-compared field, recorded
+                        // here so a later span/name pass has the datum.
+                        return c8;
+                    }
             // § elabMisevalRefSubst — inside the ELAB Rhs of a parameter
             // Surelog left UNFOLDED (§ elabUnitMisevalNoFold) a reference to a
             // SIBLING parameter of the same body is NOT a reference in the

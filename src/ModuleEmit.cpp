@@ -1265,8 +1265,12 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
 
     // Def-view cont_assigns come before ports (their typespecs precede the
     // port typespecs in Surelog's arena).
+    // § shadowedImportParamFold is scoped to this listing (see the flag).
+    auto* savedDSIS9 = defStmtImportScope9;
+    defStmtImportScope9 = &body;
     emitContAssigns(body, m, prefix, info.nets, /*topView=*/false, &info, false, nullptr,
                     nullptr);
+    defStmtImportScope9 = savedDSIS9;
     // Gates/primitives live only on module_inst (a program cannot hold them).
     if (auto* gm = asModuleInst(m))
         emitGates(body, gm, prefix, info.nets, /*topView=*/false);
@@ -1419,6 +1423,10 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // uninstProgDefs processes. No corpus test reaches it yet (SimpleConstraint
     // only references block locals, which match).
     bool progDef = m->UhdmType() == UHDM::uhdmprogram && !uninstProgDefs.count(&def);
+    // § shadowedImportParamFold — def-listing processes take the same fold as
+    // the def-listing cont_assigns above.
+    auto* savedDSIS8 = defStmtImportScope9;
+    defStmtImportScope9 = &body;
     for (auto& member : body.members()) {
         // A checker instantiation joins the SAME vpiAssertion vector, in
         // member order (CheckerInst golden lists it there); its body and its
@@ -1473,6 +1481,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     info.processes.push_back(p);
                 }
     }
+    defStmtImportScope9 = savedDSIS8;
     inProcessEmit = false;
     implicitNetModule = savedProcINM;
     implicitNetPrefix = savedProcINP;

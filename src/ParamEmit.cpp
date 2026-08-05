@@ -10743,6 +10743,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     rhs = emitExpr(*emitInit9, pa, prefix, netMap);
                     patSubstElab = savedPSE9;
                     paramRhsDefView = savedPRD9;
+                    // § shadowedImportParamFold — a DEF-view module parameter
+                    // Rhs naming a module-scope parameter that a wildcard
+                    // import ALSO declares reads the PACKAGE member's value in
+                    // Surelog (see TypeEmit).  Applied to the emitted tree so
+                    // both the bare read (vr.sv row B) and an arithmetic one
+                    // (rows A/C) take it.
+                    if (!topView && !inPackage && rhs)
+                        if (auto* bd9 = ps.getParentScope())
+                            if (auto* nw9 =
+                                    shadowedImportFoldLeaves9(rhs, bd9);
+                                nw9 && nw9 != rhs) {
+                                nw9->VpiParent(pa);
+                                rhs = (UHDM::expr*)nw9;
+                            }
                 }
                 importedInitPkgInst = savedImpInst0;
                 reemitting = savedReemit0;

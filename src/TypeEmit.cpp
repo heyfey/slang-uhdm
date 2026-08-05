@@ -205,6 +205,150 @@ UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psy
     return c;
 }
 
+// § patDefBoundPkgParamSubst.  A module DEF listing's packed_array_typespec
+// over a NAMED element (a struct/enum TYPEDEF, `alert_rx_t [NumAlerts-1:0]`)
+// keeps its bound SYMBOLIC — but only the MODULE-parameter half of it.  A leaf
+// naming a PACKAGE parameter is already valued when the module def is
+// compiled, so Surelog substitutes the value exactly as it does for a plain
+// `logic` vector's def-view bound (the defNetTsScope arm below): a UINT
+// constant at the parameter's DECLARED width with a bare (fullname-less) ts
+// ref to the parameter's own typespec.  This mints that constant so the two
+// element flavours share one rule.  An UNTYPED package parameter has no
+// typespec worth sharing and takes the synthesized, unsigned int_typespec
+// spanning its whole declaration — the same typed/untyped split
+// § defNetBoundUntypedPkgTs measured.
+UHDM::constant* UhdmExporter::pkgBoundValueConst9(const ParameterSymbol& dp,
+                                                  UHDM::BaseClass* parent) {
+    auto& dcv = dp.getValue();
+    if (!dcv.isInteger() || dcv.integer().hasUnknown())
+        return nullptr;
+    auto* c = s.MakeConstant();
+    std::string digits = dcv.integer().toString(LiteralBase::Decimal, false);
+    c->VpiDecompile(digits);
+    c->VpiSize((int32_t)dp.getType().getBitWidth());
+    // § defNetBoundPkgIntEnc — SIGNED INT when the package parameter's own
+    // initializer is arithmetic in the paramIntEnc sense (`%`, `/`, a signed
+    // `**`, or the `X-1` subtract form), UINT otherwise.  rstmgr_pkg's
+    // `OffDomains = PowerDomains-1` reads back ct7 in every position golden
+    // substitutes it (rstmgr_ctrl.sv:31 net bound, :64 process part-select
+    // width), while flash_ctrl_pkg's `AddrW = BankW + PageW + WordW` — an ADD,
+    // which paramIntEnc does NOT mark — stays ct9 (flash_erase_ctrl.sv:41).
+    bool ieC9 = false;
+    if (auto ie9 = paramIntEnc.find(&dp); ie9 != paramIntEnc.end())
+        ieC9 = ie9->second;
+    c->VpiValue((ieC9 ? "INT:" : "UINT:") + digits);
+    c->VpiConstType(ieC9 ? vpiIntConst : vpiUIntConst);
+    c->VpiParent(parent);
+    bool dImplicit9 = true;
+    if (auto dt9 = dp.getDeclaredType())
+        if (auto* ts9 = dt9->getTypeSyntax())
+            dImplicit9 = ts9->kind == syntax::SyntaxKind::ImplicitType;
+    UHDM::typespec* its = nullptr;
+    // The ts ref binds the PACKAGE parameter's OWN typespec (it already
+    // carries vpiInstance = the package); only mint a clone when the package
+    // parameter object is not around.  MEASURED NEGATIVE (pass 13): pointing
+    // this at the ELABORATED package copy instead (`pkgParamObjTop` first, the
+    // § crossPkgBoundFoldConst9 order) moves NOTHING on Earlgrey — the
+    // § pkgTypespecInstanceIsTop heads do not reach the package through a
+    // bound-fold typespec at all (see the README pass-13 residue).
+    if (!dImplicit9)
+        if (auto poit = pkgParamObj.find(&dp);
+            poit != pkgParamObj.end() && poit->second->Typespec())
+            its = poit->second->Typespec()->Actual_typespec();
+    if (!its) {
+        auto* its0 = s.MakeInt_typespec();
+        if (auto dt = dp.getDeclaredType())
+            if (auto tsy = dt->getTypeSyntax()) {
+                if (dImplicit9) {
+                    for (auto q9 = dp.getSyntax(); q9; q9 = q9->parent)
+                        if (q9->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                            setLoc(its0, q9->sourceRange());
+                            break;
+                        }
+                }
+                else {
+                    if (dp.getType().isSigned())
+                        its0->VpiSigned(true);
+                    setLoc(its0, tsy->sourceRange());
+                }
+            }
+        its = its0;
+    }
+    auto* rt = s.MakeRef_typespec();
+    rt->VpiParent(c);
+    rt->Actual_typespec(its);
+    c->Typespec(rt);
+    return c;
+}
+
+// § shadowedImportParamFold.  § shadowedImportBoundFold (below) is a range-bound
+// rule; the SAME name-keyed getValue governs a DEF-view module parameter's own
+// Rhs.  Five Earlgrey heads are this shape, and flash_erase_ctrl is the
+// decisive one: the module declares `parameter int AddrW = 10`, wildcard-
+// imports flash_ctrl_pkg (whose `AddrW` is 17) and golden folds **17** — the
+// package member does not merely break a tie, it WINS over the module's own
+// declaration.  Corpus: rstmgr_ctrl:12 (x2, `OffDomains = PowerDomains - 1`),
+// flash_mp:14 (`TotalRegions = MpRegions+1`), flash_erase_ctrl:41
+// (`logic[AddrW-1:0]`).  Witness vr.sv rows A/B/C/D, with row N1 (an
+// UNSHADOWED module parameter) as the negative control that must stay a
+// ref_obj.  Only a name slang resolved to a MODULE-scope parameter is
+// eligible: a bare read of an unshadowed imported parameter is the
+// MATERIALIZED COPY that § structParamBareImportRef / § fcArgBareImportRef
+// model, and must not be folded here.
+UHDM::any* UhdmExporter::shadowedImportFoldLeaves9(UHDM::any* node,
+                                                   const Scope* body) {
+    if (!node || !body)
+        return node;
+    if (node->UhdmType() == UHDM::uhdmoperation) {
+        auto* ops = ((UHDM::operation*)node)->Operands();
+        if (ops)
+            for (size_t i = 0; i < ops->size(); i++)
+                if (auto* nw = shadowedImportFoldLeaves9((*ops)[i], body);
+                    nw && nw != (*ops)[i]) {
+                    nw->VpiParent(node);
+                    (*ops)[i] = nw;
+                }
+        return node;
+    }
+    // A SYS-FUNC-CALL argument takes the same substitution — the call itself
+    // stays unreduced.  Corpus flash_mp.sv:15 `localparam int BankW =
+    // $clog2(NumBanks)` and flash_erase_ctrl.sv:31 (`$clog2(WordsPerPage)`),
+    // witness vr.sv row F.
+    if (node->UhdmType() == UHDM::uhdmsys_func_call) {
+        auto* args = ((UHDM::sys_func_call*)node)->Tf_call_args();
+        if (args)
+            for (size_t i = 0; i < args->size(); i++)
+                if (auto* nw = shadowedImportFoldLeaves9((*args)[i], body);
+                    nw && nw != (*args)[i]) {
+                    nw->VpiParent(node);
+                    (*args)[i] = nw;
+                }
+        return node;
+    }
+    if (node->UhdmType() != UHDM::uhdmref_obj)
+        return node;
+    auto* ro = (UHDM::ref_obj*)node;
+    std::string nm(ro->VpiName());
+    if (nm.empty() || nm.find("::") != std::string::npos)
+        return node;
+    auto* sy = Lookup::unqualified(*body, nm);
+    if (!sy || sy->kind != SymbolKind::Parameter || !sy->getParentScope() ||
+        sy->getParentScope()->asSymbol().kind == SymbolKind::Package)
+        return node;
+    const ParameterSymbol* wp = wildcardPkgParamNamed9(body, nm);
+    if (!wp)
+        return node;
+    auto* c = pkgBoundValueConst9(*wp, ro->VpiParent());
+    if (!c)
+        return node;
+    c->VpiFile(ro->VpiFile());
+    c->VpiLineNo(ro->VpiLineNo());
+    c->VpiColumnNo(ro->VpiColumnNo());
+    c->VpiEndLineNo(ro->VpiEndLineNo());
+    c->VpiEndColumnNo(ro->VpiEndColumnNo());
+    return c;
+}
+
 // § shadowedImportBoundFold.  Surelog's getValue resolves a range-bound name
 // by SEARCHING THE IMPORTED PACKAGES, so a module-local declaration of the
 // same name does not hide the package member the way it does for slang's
@@ -1289,15 +1433,51 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                     }
                                 }
                             }
+                            // § patDefBoundPkgParamSubst — the PACKAGE-homed
+                            // half of this symbolic bound is substituted, not
+                            // kept: only a module parameter is still
+                            // overridable when the def is compiled.  Resolved
+                            // through the declaration's own scope so a
+                            // wildcard import is visible (vq.sv row S,
+                            // `vq_t [PI-1:0]` after `import vqp::*`; row Q3's
+                            // module-parameter twin stays a ref_obj).
+                            // A PLAIN identifier bound (`vq_t [PI:0]`, row T)
+                            // never becomes an operation at all and takes the
+                            // same substitution straight — in BOTH views: the
+                            // constant is the parameter's value at ITS width,
+                            // where the unsubstituted fold wrote the bare 64.
+                            bool plainIdV =
+                                !idV.empty() && !identV &&
+                                rawV.find_first_not_of(" \t", b0 + idV.size()) ==
+                                    std::string::npos;
+                            const ParameterSymbol* patPkgPar9 = nullptr;
+                            if ((identV || plainIdV) && !structMemberTsCtx &&
+                                idV.find("::") == std::string::npos)
+                                if (auto* psc9 = declSymbol.getParentScope())
+                                    if (auto* bs9 =
+                                            Lookup::unqualified(*psc9, idV);
+                                        bs9 &&
+                                        bs9->kind == SymbolKind::Parameter &&
+                                        bs9->getParentScope() &&
+                                        bs9->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::Package)
+                                        patPkgPar9 = &bs9->as<ParameterSymbol>();
                             if (identV && tfContext) {
                                 auto* opV = s.MakeOperation();
                                 opV->VpiOpType(vpiSubOp);
                                 opV->VpiParent(r);
                                 setLoc(opV, *loc);
                                 auto* opndsV = s.MakeAnyVec();
-                                auto* roV = s.MakeRef_obj();
-                                roV->VpiName(idV);
-                                roV->VpiParent(opV);
+                                UHDM::ref_obj* roRef = nullptr;
+                                UHDM::expr* roV = nullptr;
+                                if (patPkgPar9)
+                                    roV = pkgBoundValueConst9(*patPkgPar9, opV);
+                                if (!roV) {
+                                    roRef = s.MakeRef_obj();
+                                    roRef->VpiName(idV);
+                                    roRef->VpiParent(opV);
+                                    roV = roRef;
+                                }
                                 setLoc(roV, *loc);
                                 roV->VpiColumnNo(opV->VpiColumnNo() +
                                                  (int32_t)b0);
@@ -1309,7 +1489,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 // parameter object itself (Surelog resolves
                                 // the qualified read); an unqualified module
                                 // parameter stays a bare, unbound ref.
-                                if (idV.find("::") != std::string::npos)
+                                if (roRef && idV.find("::") != std::string::npos)
                                     for (auto& [ps5, po5] : pkgParamObj) {
                                         std::string qn5;
                                         if (auto sc5 = ps5->getParentScope();
@@ -1320,7 +1500,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                                 std::string(sc5->asSymbol().name) +
                                                 "::" + std::string(ps5->name);
                                         if (!qn5.empty() && qn5 == idV) {
-                                            roV->Actual_group(po5);
+                                            roRef->Actual_group(po5);
                                             break;
                                         }
                                     }
@@ -1342,6 +1522,12 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                 opV->Operands(opndsV);
                                 return (UHDM::expr*)opV;
                             }
+                            if (plainIdV && patPkgPar9)
+                                if (auto* cP9 =
+                                        pkgBoundValueConst9(*patPkgPar9, r)) {
+                                    setLoc(cP9, *loc);
+                                    return (UHDM::expr*)cP9;
+                                }
                             if (identV) {
                                 auto* cF = s.MakeConstant();
                                 std::string dF = std::to_string(v);
@@ -2926,6 +3112,20 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             if (crossPkgFoldOk9 && bareParamInParamTs)
                                 crossPkgFoldBoundLeaves9(
                                     e0bcn, declSymbol.getParentScope());
+                            // § shadowedImportParamFold — and the leaves whose
+                            // name a wildcard import RE-declares, which
+                            // crossPkgFoldBoundLeaves9's Lookup cannot see
+                            // (slang resolves them to the module's own
+                            // parameter).  flash_erase_ctrl.sv:41
+                            // `localparam logic[AddrW-1:0] PageAddrMask`,
+                            // witness vr.sv row D.
+                            if (crossPkgFoldOk9 && bareParamInParamTs)
+                                if (auto* nw8 = shadowedImportFoldLeaves9(
+                                        e0bcn, declSymbol.getParentScope());
+                                    nw8 && nw8 != e0bcn) {
+                                    nw8->VpiParent(r);
+                                    e0bcn = nw8;
+                                }
                             if (auto* e = e0bcn) {
                                 // The sys-call arg refs bind their DEF
                                 // nets — deferred until the nets exist.
@@ -8251,8 +8451,25 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 dcv.integer().toString(LiteralBase::Decimal, false);
                             c->VpiDecompile(digits);
                             c->VpiSize((int32_t)dp.getType().getBitWidth());
-                            c->VpiValue("UINT:" + digits);
-                            c->VpiConstType(vpiUIntConst);
+                            // § defNetBoundPkgIntEnc — the substituted value is
+                            // a SIGNED INT constant when the package
+                            // parameter's OWN initializer is arithmetic
+                            // (paramIntEnc: a `%`/`/`, a signed `**`, or the
+                            // `X-1` subtract form), and a UINT one when it is a
+                            // plain literal.  Witness vr.sv rows H1 (`vrp::NE =
+                            // 12` -> UINT:12 ct9) vs H4 (`vrp::NC = PW - 1` ->
+                            // INT:16 ct7), both the same `logic [N-1:0]`
+                            // net bound.  Corpus: rstmgr_ctrl.sv:31
+                            // `logic [OffDomains-1:0] rst_pd_n` reading
+                            // rstmgr_pkg's `OffDomains = PowerDomains-1` — 2
+                            // heads, the ONLY difference left on either.
+                            bool dIntEnc9 = false;
+                            if (auto ie9 = paramIntEnc.find(&dsy);
+                                ie9 != paramIntEnc.end())
+                                dIntEnc9 = ie9->second;
+                            c->VpiValue((dIntEnc9 ? "INT:" : "UINT:") + digits);
+                            c->VpiConstType(dIntEnc9 ? vpiIntConst
+                                                     : vpiUIntConst);
                             c->VpiParent(parent);
                             setLoc(c, syn.sourceRange());
                             // The ts ref binds the PACKAGE parameter's OWN
