@@ -200,7 +200,109 @@ UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psy
     return c;
 }
 
-void UhdmExporter::crossPkgFoldBoundLeaves9(UHDM::any* node) {
+// § shadowedImportBoundFold.  Surelog's getValue resolves a range-bound name
+// by SEARCHING THE IMPORTED PACKAGES, so a module-local declaration of the
+// same name does not hide the package member the way it does for slang's
+// Lookup.  rv_timer declares `localparam int N_HARTS = 1;` AND wildcard-imports
+// rv_timer_reg_pkg, which declares `parameter int N_HARTS = 1;`; golden folds
+// `logic [N_HARTS-1:0] active;` where the identical bound with NO same-named
+// import stays symbolic (ud.sv, every position).  usbdev is the same shape
+// (`localparam int NEndpoints = usbdev_reg_pkg::NEndpoints;`).
+const ParameterSymbol* UhdmExporter::wildcardPkgParamNamed9(
+    const Scope* sc, std::string_view nm) const {
+    if (!sc || nm.empty())
+        return nullptr;
+    for (const Scope* cur = sc; cur; cur = cur->asSymbol().getParentScope()) {
+        if (auto* wd = cur->getWildcardImportData())
+            for (auto* wi : wd->wildcardImports) {
+                if (!wi)
+                    continue;
+                auto* pkg = wi->getPackage();
+                if (!pkg)
+                    continue;
+                if (auto* m = pkg->find(nm);
+                    m && m->kind == SymbolKind::Parameter)
+                    return &m->as<ParameterSymbol>();
+            }
+        // Stop at the instance body: an outer scope's imports are not the
+        // module's.
+        if (cur->asSymbol().kind == SymbolKind::InstanceBody)
+            break;
+    }
+    return nullptr;
+}
+
+// § modStructMemberPkgFold's substituted constant.  Extracted verbatim from
+// the IdentifierName arm of emitSyntaxExpr so the QUALIFIED spelling of the
+// same read (`logic [top_pkg::TL_SZW-1:0] size;` inside a module-declared
+// struct typedef — tlul_adapter_sram.sv:56) can reuse it: one substitution,
+// two spellings.
+UHDM::constant* UhdmExporter::modStructMemberPkgSubst9(
+    const ParameterSymbol& mp8, UHDM::BaseClass* parent, SourceRange span) {
+    auto& mv8 = mp8.getValue();
+    if (!mv8.isInteger() || mv8.integer().hasUnknown())
+        return nullptr;
+    auto* c8 = s.MakeConstant();
+    std::string dg8 = mv8.integer().toString(LiteralBase::Decimal, false);
+    c8->VpiDecompile(dg8);
+    c8->VpiSize((int32_t)mp8.getType().getBitWidth());
+    c8->VpiValue("UINT:" + dg8);
+    c8->VpiConstType(vpiUIntConst);
+    c8->VpiParent(parent);
+    setLoc(c8, span);
+    // An UNTYPED source parameter always takes the SYNTHESIZED typespec below
+    // (unsigned, spanning the whole declaration) — never the one its own def
+    // constant carries, which follows the VALUE's type and comes out SIGNED
+    // for an `int`-valued init like `$bits(...)`.  Same untyped/typed split
+    // attachFoldedBoundMeta applies.
+    bool implicit8 = true;
+    if (auto dt0 = mp8.getDeclaredType())
+        if (auto* ts0 = dt0->getTypeSyntax())
+            implicit8 = ts0->kind == syntax::SyntaxKind::ImplicitType;
+    UHDM::typespec* sa8 = nullptr;
+    if (!implicit8)
+        if (auto ci8 = pkgParamConst.find(&mp8); ci8 != pkgParamConst.end())
+            if (auto* srt8 = ci8->second->Typespec())
+                sa8 = (UHDM::typespec*)srt8->Actual_typespec();
+    // A package parameter whose own def constant carries no typespec (an
+    // UNTYPED one, e.g. `localparam dpath_width_gp = $bits(...)`) still gives
+    // the substituted bound operand one: Surelog synthesizes the int_typespec
+    // spanning the whole parameter DECLARATION, unsigned and instance-less —
+    // the same shape attachFoldedBoundMeta builds for the package flavour of
+    // this stamp.
+    if (!sa8) {
+        auto* its8 = s.MakeInt_typespec();
+        if (auto dt8 = mp8.getDeclaredType()) {
+            if (auto* tsy8 = dt8->getTypeSyntax()) {
+                if (tsy8->kind == syntax::SyntaxKind::ImplicitType) {
+                    for (auto q8 = mp8.getSyntax(); q8; q8 = q8->parent)
+                        if (q8->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                            setLoc(its8, q8->sourceRange());
+                            break;
+                        }
+                }
+                else {
+                    setLoc(its8, tsy8->sourceRange());
+                    if (mp8.getType().getCanonicalType().isSigned())
+                        its8->VpiSigned(true);
+                }
+            }
+        }
+        sa8 = its8;
+    }
+    if (sa8) {
+        auto* rt8 = s.MakeRef_typespec();
+        rt8->VpiParent(c8);
+        if (!syntaxRefPrefix.empty())
+            rt8->VpiFullName(syntaxRefPrefix);
+        rt8->Actual_typespec(sa8);
+        c8->Typespec(rt8);
+    }
+    return c8;
+}
+
+void UhdmExporter::crossPkgFoldBoundLeaves9(UHDM::any* node,
+                                            const Scope* bareScope) {
     if (!node || node->UhdmType() != UHDM::uhdmoperation)
         return;
     auto* ops = ((UHDM::operation*)node)->Operands();
@@ -211,13 +313,33 @@ void UhdmExporter::crossPkgFoldBoundLeaves9(UHDM::any* node) {
         if (!o)
             continue;
         if (o->UhdmType() == UHDM::uhdmoperation) {
-            crossPkgFoldBoundLeaves9(o);
+            crossPkgFoldBoundLeaves9(o, bareScope);
             continue;
         }
         if (o->UhdmType() != UHDM::uhdmref_obj)
             continue;
         auto* ro = (UHDM::ref_obj*)o;
-        const ParameterSymbol* psym = crossPkgBoundParam9(ro->VpiName());
+        std::string rn9(ro->VpiName());
+        const ParameterSymbol* psym = crossPkgBoundParam9(rn9);
+        // § pkgBoundFoldBareImport — the UNQUALIFIED half of the same
+        // substitution.  `getValue` keys on the NAME, not on the `::`: a
+        // module that WILDCARD-IMPORTS the package and writes the bare name
+        // gets the identical fold.  Corpus: padring.sv:15
+        // `module padring import padctrl_reg_pkg::*; #(parameter logic
+        // [NMioPads-1:0] ConnectMioIn = '1, ...)` — 2 heads (its AllModules
+        // and TopModules entries are the same object).  Witness uc.sv rows
+        // A (a parameter port's declared type) and G (a localparam's), both
+        // `constant 3/32/UINT ct9` in golden with the ts ref named after the
+        // parameter being declared.  ud.sv is the NEGATIVE control: the same
+        // bound reading a MODULE-LOCAL localparam is NOT folded in ANY
+        // position, so the lookup must land in a PACKAGE to fire.
+        if (!psym && bareScope && !rn9.empty() &&
+            rn9.find("::") == std::string::npos)
+            if (auto* bs9 = Lookup::unqualified(*bareScope, rn9);
+                bs9 && bs9->kind == SymbolKind::Parameter &&
+                bs9->getParentScope() &&
+                bs9->getParentScope()->asSymbol().kind == SymbolKind::Package)
+                psym = &bs9->as<ParameterSymbol>();
         if (!psym)
             continue;
         auto* c = crossPkgBoundFoldConst9(*psym, node);
@@ -226,13 +348,16 @@ void UhdmExporter::crossPkgFoldBoundLeaves9(UHDM::any* node) {
         // The substituted constant spans the PACKAGE QUALIFIER alone
         // (`tp::` of `tp::TL_AW`) — Surelog anchors a substituted read at the
         // scope token, the same span rule the pkg-qualified member-access base
-        // ref uses.
+        // ref uses.  A BARE read has no qualifier, so it keeps the
+        // identifier's own span.
         c->VpiFile(ro->VpiFile());
         c->VpiLineNo(ro->VpiLineNo());
         c->VpiColumnNo(ro->VpiColumnNo());
         c->VpiEndLineNo(ro->VpiLineNo());
-        c->VpiEndColumnNo(ro->VpiColumnNo() +
-                          (uint16_t)(std::string(ro->VpiName()).find("::") + 2));
+        auto sep9 = rn9.find("::");
+        c->VpiEndColumnNo(
+            ro->VpiColumnNo() +
+            (uint16_t)(sep9 == std::string::npos ? rn9.size() : sep9 + 2));
         (*ops)[i] = c;
     }
 }
@@ -2794,7 +2919,8 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             // package-parameter leaves of the unfolded bound
                             // tree for their substituted constants.
                             if (crossPkgFoldOk9 && bareParamInParamTs)
-                                crossPkgFoldBoundLeaves9(e0bcn);
+                                crossPkgFoldBoundLeaves9(
+                                    e0bcn, declSymbol.getParentScope());
                             if (auto* e = e0bcn) {
                                 // The sys-call arg refs bind their DEF
                                 // nets — deferred until the nets exist.
@@ -8082,8 +8208,22 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                             dctx);
                 if (!de.bad() && stripImplicitConv(de).kind ==
                                      ExpressionKind::NamedValue) {
-                    auto& dsy =
+                    auto& dsy0 =
                         stripImplicitConv(de).as<NamedValueExpression>().symbol;
+                    // § shadowedImportBoundFold — a MODULE-LOCAL parameter of
+                    // the same name does not hide the imported one from
+                    // Surelog's name-keyed getValue (rv_timer's N_HARTS,
+                    // usbdev's NEndpoints).  Only a PARAMETER shadow is
+                    // re-pointed; anything else keeps slang's resolution.
+                    const Symbol* dsyP = &dsy0;
+                    if (dsy0.kind == SymbolKind::Parameter &&
+                        dsy0.getParentScope() &&
+                        dsy0.getParentScope()->asSymbol().kind !=
+                            SymbolKind::Package)
+                        if (auto* wp9 = wildcardPkgParamNamed9(defNetTsScope,
+                                                               dsy0.name))
+                            dsyP = wp9;
+                    const Symbol& dsy = *dsyP;
                     if (dsy.kind == SymbolKind::Parameter && dsy.getParentScope() &&
                         dsy.getParentScope()->asSymbol().kind ==
                             SymbolKind::Package) {
@@ -8305,85 +8445,11 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         sy8 && sy8->kind == SymbolKind::Parameter &&
                         sy8->getParentScope() &&
                         sy8->getParentScope()->asSymbol().kind ==
-                            SymbolKind::Package) {
-                        auto& mp8 = sy8->as<ParameterSymbol>();
-                        auto& mv8 = mp8.getValue();
-                        if (mv8.isInteger() && !mv8.integer().hasUnknown()) {
-                            auto* c8 = s.MakeConstant();
-                            std::string dg8 = mv8.integer().toString(
-                                LiteralBase::Decimal, false);
-                            c8->VpiDecompile(dg8);
-                            c8->VpiSize((int32_t)mp8.getType().getBitWidth());
-                            c8->VpiValue("UINT:" + dg8);
-                            c8->VpiConstType(vpiUIntConst);
-                            c8->VpiParent(parent);
-                            setLoc(c8, syn.sourceRange());
-                            // An UNTYPED source parameter always takes the
-                            // SYNTHESIZED typespec below (unsigned, spanning
-                            // the whole declaration) — never the one its own
-                            // def constant carries, which follows the VALUE's
-                            // type and comes out SIGNED for an `int`-valued
-                            // init like `$bits(...)`.  Same untyped/typed
-                            // split attachFoldedBoundMeta applies.
-                            bool implicit8 = true;
-                            if (auto dt0 = mp8.getDeclaredType())
-                                if (auto* ts0 = dt0->getTypeSyntax())
-                                    implicit8 = ts0->kind ==
-                                                syntax::SyntaxKind::ImplicitType;
-                            UHDM::typespec* sa8 = nullptr;
-                            if (!implicit8)
-                                if (auto ci8 = pkgParamConst.find(sy8);
-                                    ci8 != pkgParamConst.end())
-                                    if (auto* srt8 = ci8->second->Typespec())
-                                        sa8 = (UHDM::typespec*)
-                                                  srt8->Actual_typespec();
-                            // A package parameter whose own def constant
-                            // carries no typespec (an UNTYPED one, e.g.
-                            // `localparam dpath_width_gp = $bits(...)`) still
-                            // gives the substituted bound operand one:
-                            // Surelog synthesizes the int_typespec spanning
-                            // the whole parameter DECLARATION, unsigned and
-                            // instance-less — the same shape
-                            // attachFoldedBoundMeta builds for the package
-                            // flavour of this stamp.
-                            if (!sa8) {
-                                auto* its8 = s.MakeInt_typespec();
-                                if (auto dt8 = mp8.getDeclaredType()) {
-                                    if (auto* tsy8 = dt8->getTypeSyntax()) {
-                                        if (tsy8->kind ==
-                                            syntax::SyntaxKind::ImplicitType) {
-                                            for (auto q8 = mp8.getSyntax(); q8;
-                                                 q8 = q8->parent)
-                                                if (q8->kind ==
-                                                    syntax::SyntaxKind::
-                                                        ParameterDeclaration) {
-                                                    setLoc(its8,
-                                                           q8->sourceRange());
-                                                    break;
-                                                }
-                                        }
-                                        else {
-                                            setLoc(its8, tsy8->sourceRange());
-                                            if (mp8.getType()
-                                                    .getCanonicalType()
-                                                    .isSigned())
-                                                its8->VpiSigned(true);
-                                        }
-                                    }
-                                }
-                                sa8 = its8;
-                            }
-                            if (sa8) {
-                                auto* rt8 = s.MakeRef_typespec();
-                                rt8->VpiParent(c8);
-                                if (!syntaxRefPrefix.empty())
-                                    rt8->VpiFullName(syntaxRefPrefix);
-                                rt8->Actual_typespec(sa8);
-                                c8->Typespec(rt8);
-                            }
+                            SymbolKind::Package)
+                        if (auto* c8 = modStructMemberPkgSubst9(
+                                sy8->as<ParameterSymbol>(), parent,
+                                syn.sourceRange()))
                             return c8;
-                        }
-                    }
             }
             auto* ref = s.MakeRef_obj();
             ref->VpiName(name);
@@ -9112,6 +9178,58 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                 asy9 && asy9->kind == SymbolKind::Parameter)
                                 spliceIdArg9 = elabMisevalParams.count(asy9) ||
                                                elabOvMisevalRhs.count(asy9);
+                        // § sysCallArgOperatorTree — an OPERATOR- or
+                        // LITERAL-shaped argument is a real expression tree in
+                        // every view, not a name.  The raw-text ref_obj
+                        // fallback below is only right for a NAME-shaped
+                        // argument (a type name, a variable, a parameter), and
+                        // until now everything that was not a concatenation, a
+                        // dotted path or a splice fell into it: `$clog2(N+1)`
+                        // came out as ONE ref_obj literally NAMED "N+1".
+                        // Matrix (ub.sv, `logic [$clog2(<arg>)-1:0]` per row,
+                        // module DEF listing, golden left / ours-before right):
+                        //     W                ref_obj(W)        ref_obj(W)
+                        //     64               constant 64/64/ct9  ref_obj(64)
+                        //     N+1              operation op24    ref_obj(N+1)
+                        //     (N+1)            operation op24 AT THE INNER
+                        //                      SPAN (the paren is discarded)
+                        //     -N               operation op1     ref_obj(-N)
+                        //     N > 4 ? N : 4    operation op32    ref_obj(...)
+                        //     ubp::PW+1        operation op24    ref_obj(...)
+                        //     2**N             operation op43    ref_obj(2**N)
+                        //     {4'd3, 4'd2}     operation op33    (already ok)
+                        // and the NAME-shaped controls stay ref_obj on both
+                        // sides: `W`, `$bits(my_t)`, `$bits(ubp::st_t)`.
+                        // ScopedName is deliberately NOT routed here — golden
+                        // SUBSTITUTES `ubp::PW`'s value (a constant) rather
+                        // than emitting a tree, which is the separate
+                        // cross-package rule already decoded below for package
+                        // listings; a module listing keeps the raw ref_obj.
+                        // Parenthesised arguments use the UNWRAPPED node
+                        // (an9), which is also what argName/argSpan already
+                        // spell — Surelog's compileExpression discards a
+                        // ParenthesizedExpression outright.
+                        bool exprArg9 = false;
+                        if (an9) {
+                            auto k9 = an9->kind;
+                            exprArg9 =
+                                syntax::BinaryExpressionSyntax::isKind(k9) ||
+                                syntax::PrefixUnaryExpressionSyntax::isKind(
+                                    k9) ||
+                                syntax::PostfixUnaryExpressionSyntax::isKind(
+                                    k9) ||
+                                syntax::ConditionalExpressionSyntax::isKind(
+                                    k9) ||
+                                syntax::LiteralExpressionSyntax::isKind(k9) ||
+                                syntax::IntegerVectorExpressionSyntax::isKind(
+                                    k9);
+                        }
+                        if (exprArg9) {
+                            if (auto* e2 = emitSyntaxExpr(*an9, sfc)) {
+                                args->push_back(e2);
+                                continue;
+                            }
+                        }
                         if (ae && (argRaw.find('.') != std::string::npos ||
                                    ae->kind == syntax::SyntaxKind::
                                                    ConcatenationExpression ||
@@ -9204,6 +9322,91 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                         r9->Actual_group(ri9->second);
                                     args->push_back(r9);
                                     continue;
+                                }
+                            }
+                        }
+                        // § sysCallArgPkgParamSubst — the MODULE-listing half
+                        // of the package/own split just above.  A query-call
+                        // argument that NAMES A PACKAGE PARAMETER is
+                        // SUBSTITUTED by that parameter's folded value: a UINT
+                        // constant sized at the parameter's own type width
+                        // (32 for `int`), spanning the argument's own tokens.
+                        // The same substitution the bound emitter already does
+                        // for a plain `logic [PL-1:0]` operand
+                        // (§ pkgTypeRangeParamActual / § modStructMemberPkgFold)
+                        // — the query call was the one position that kept the
+                        // symbolic read.
+                        // DISTINGUISHER, measured on ue.sv (a module with a
+                        // body-scope wildcard import, both spellings side by
+                        // side with the negative control):
+                        //     $clog2(LP)      LP a MODULE-LOCAL localparam
+                        //                     -> ref_obj (golden and ours; ud.sv
+                        //                        proves this in EVERY bound
+                        //                        position, so "localparam" is
+                        //                        NOT the trigger)
+                        //     $clog2(PL)      PL a WILDCARD-IMPORTED package
+                        //                     localparam -> constant 12/32/UINT
+                        //     $clog2(ubp::PW) the QUALIFIED spelling of the
+                        //                     same thing (ub.sv) -> constant
+                        //                     12/32/UINT over the WHOLE
+                        //                     `ubp::PW` span
+                        // and the name-shaped controls that must NOT fold:
+                        // `$bits(my_t)` / `$bits(ubp::st_t)` (type names bind
+                        // to no NamedValue) and `$bits(mv)` (a variable, not a
+                        // parameter).  Corpus: sha2.sv:36 `logic
+                        // [$clog2(NumRound)-1:0]` with hmac_pkg::NumRound
+                        // wildcard-imported.
+                        const Scope* msc9 =
+                            defNetTsScope ? defNetTsScope : currentScope;
+                        if (an9 && !curPkgEmitSym && msc9 &&
+                            syntax::ExpressionSyntax::isKind(an9->kind)) {
+                            ASTContext mctx9(*msc9, LookupLocation::max);
+                            auto& mb9 = Expression::bind(
+                                an9->as<syntax::ExpressionSyntax>(), mctx9);
+                            if (!mb9.bad() &&
+                                stripImplicitConv(mb9).kind ==
+                                    ExpressionKind::NamedValue) {
+                                auto& msy9 = stripImplicitConv(mb9)
+                                                 .as<NamedValueExpression>()
+                                                 .symbol;
+                                const Scope* mh9 = msy9.getParentScope();
+                                if (msy9.kind == SymbolKind::Parameter && mh9 &&
+                                    mh9->asSymbol().kind ==
+                                        SymbolKind::Package) {
+                                    auto& mp9 = msy9.as<ParameterSymbol>();
+                                    // The substituted object is the package
+                                    // parameter's OWN value constant, copied
+                                    // VERBATIM and re-sized to its declared
+                                    // width — NOT a decimal re-render.  ue.sv
+                                    // row L measures it: `parameter logic [2:0]
+                                    // PV = 3'h1` substitutes as
+                                    // `3'h1`/HEX:1/ct5/size 3, and writing
+                                    // UINT:1/"1" instead demoted u2r
+                                    // DivisionOfSize (whose
+                                    // `$bits(PartInvDefault)/1-1` reads a
+                                    // 3-bit package parameter the same way).
+                                    // crossPkgBoundFoldConst9 is exactly that
+                                    // copy — the qualified-bound fold and the
+                                    // query-call fold are ONE substitution.
+                                    if (auto* c9 = crossPkgBoundFoldConst9(
+                                            mp9, sfc)) {
+                                        setLoc(c9, argSpan);
+                                        // ...and the TS REF splits on the
+                                        // WRITTEN SPELLING: an UNQUALIFIED
+                                        // (wildcard-imported) read carries one
+                                        // onto the source parameter's own
+                                        // typespec, a QUALIFIED `pkg::NAME`
+                                        // read carries NONE (ue.sv rows L/M
+                                        // and K/N, both query names, all four
+                                        // views).  Surelog reaches the two
+                                        // through different lookups and only
+                                        // the import path re-types the value.
+                                        if (an9->kind ==
+                                            syntax::SyntaxKind::ScopedName)
+                                            c9->Typespec(nullptr);
+                                        args->push_back(c9);
+                                        continue;
+                                    }
                                 }
                             }
                         }
@@ -9581,6 +9784,24 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         }
                     }
                 }
+                // § modStructMemberPkgFold, QUALIFIED spelling.  A struct
+                // typedef declared INSIDE a module substitutes an imported
+                // package parameter in a member's range bound; the BARE
+                // spelling already did (the IdentifierName arm), the
+                // `pkg::NAME` one fell to the ref_obj below.  Golden's object
+                // is the SAME substituted constant, ts ref named after the
+                // member (`work@uc.j_t.a`).  Corpus: tlul_adapter_sram.sv:56
+                // `logic [top_pkg::TL_SZW-1:0] size ;` inside `typedef struct
+                // packed { ... } req_t;`.  The NEGATIVE control right above —
+                // a `[pkg::WIDTH-1:0]` OUTPUT PORT bound, which Surelog leaves
+                // unfolded (fail_detect_width) — is untouched: it carries no
+                // structMemberTsCtx.
+                if (!curPkgEmitSym && structMemberTsCtx && structModScope &&
+                    !tfTypeScope && !structMemberAliasTs && !defNetTsScope)
+                    if (const ParameterSymbol* qp9 = crossPkgBoundParam9(raw))
+                        if (auto* c9 = modStructMemberPkgSubst9(
+                                *qp9, parent, syn.sourceRange()))
+                            return c9;
                 auto* ref = s.MakeRef_obj();
                 ref->VpiName(raw);
                 ref->VpiFullName(raw);
@@ -10167,9 +10388,79 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     (parent->UhdmType() == UHDM::uhdmarray_typespec ||
                      parent->UhdmType() == UHDM::uhdmio_decl ||
                      parent->UhdmType() == UHDM::uhdmparameter)) {
+                    std::string nm0(sizeSyn->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText());
+                    // § defDimPkgParamFold — "a MODULE dim ref stays unbound"
+                    // is right only while the sizing parameter is a MODULE
+                    // one.  A PACKAGE parameter has a value at
+                    // definition-compile time, so golden SUBSTITUTES it here
+                    // exactly as in every packed bound: a UINT constant sized
+                    // at the parameter's own type, carrying a ts ref named
+                    // <defDimRefPrefix> onto that parameter's int_typespec.
+                    // Measured on uf.sv row C (`output logic [1:0] c_o [NT]`
+                    // with NT from a wildcard-imported package) against the
+                    // module-parameter control that keeps the ref
+                    // (ArrayExprFuncArg).  Corpus: rv_plic.sv:41
+                    // `output [SRCW-1:0] irq_id_o [NumTarget]`.
+                    // ...and ONLY in a MODULE listing.  A PACKAGE def-view dim
+                    // (defDimRefPrefix ends in `::`) keeps its ref BOUND to
+                    // the sized parameter's own Rhs constant — measured as a
+                    // REGRESSION: folding there demoted DefaultPatternInt
+                    // (`pack::V::CNT`) in both modes.
+                    bool pkgDimPrefix9 =
+                        defDimRefPrefix.size() >= 2 &&
+                        defDimRefPrefix.compare(defDimRefPrefix.size() - 2, 2,
+                                                "::") == 0;
+                    const ParameterSymbol* dps9 = nullptr;
+                    if (auto sc9 = pkgDimPrefix9 ? nullptr
+                                                 : sym.getParentScope()) {
+                        if (auto* sy9 = Lookup::unqualified(*sc9, nm0);
+                            sy9 && sy9->kind == SymbolKind::Parameter &&
+                            sy9->getParentScope() &&
+                            sy9->getParentScope()->asSymbol().kind ==
+                                SymbolKind::Package)
+                            dps9 = &sy9->as<ParameterSymbol>();
+                    }
+                    if (dps9) {
+                        auto& dv9 = dps9->getValue();
+                        if (dv9 && dv9.isInteger() &&
+                            !dv9.integer().hasUnknown()) {
+                            auto* dc9 = s.MakeConstant();
+                            std::string dg9 = dv9.integer().toString(
+                                LiteralBase::Decimal, false);
+                            dc9->VpiDecompile(dg9);
+                            dc9->VpiSize((int32_t)dps9->getType().getBitWidth());
+                            dc9->VpiValue("UINT:" + dg9);
+                            dc9->VpiConstType(vpiUIntConst);
+                            dc9->VpiParent(op);
+                            setLoc(dc9, sizeSyn->sourceRange());
+                            if (auto ci9 = pkgParamConst.find(dps9);
+                                ci9 != pkgParamConst.end())
+                                if (auto* srt9 = ci9->second->Typespec())
+                                    if (auto* sa9 = srt9->Actual_typespec()) {
+                                        auto* rt9 = s.MakeRef_typespec();
+                                        rt9->VpiParent(dc9);
+                                        rt9->VpiFullName(defDimRefPrefix);
+                                        rt9->Actual_typespec(sa9);
+                                        dc9->Typespec(rt9);
+                                    }
+                            ops->push_back(dc9);
+                            auto* one9 = s.MakeConstant();
+                            one9->VpiSize(64);
+                            one9->VpiValue("INT:1");
+                            one9->VpiConstType(vpiIntConst);
+                            if (elabParamDim)
+                                one9->VpiParent(op);
+                            ops->push_back(one9);
+                            op->Operands(ops);
+                            r->Right_expr(op);
+                            ranges->push_back(r);
+                            dt = &ua.elementType;
+                            continue;
+                        }
+                    }
                     auto* ro = s.MakeRef_obj();
-                    std::string nm(sizeSyn->as<syntax::IdentifierNameSyntax>()
-                                       .identifier.valueText());
+                    std::string nm(nm0);
                     ro->VpiName(nm);
                     ro->VpiFullName(joinPath(defDimRefPrefix, nm));
                     ro->VpiParent(op);

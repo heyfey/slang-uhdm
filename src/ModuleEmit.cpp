@@ -23378,6 +23378,35 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             op9->Operands(ov9);
                             p->High_conn(op9);
                         }
+                        // § genConnReplCastActual — two more shapes with no arm
+                        // of their own, both of which the SYNTAX emitter
+                        // already builds correctly; they only needed the
+                        // formal-doubled ref scope this loop uses everywhere
+                        // else.  Without an arm they fell to the final else
+                        // and came out as ONE ref_obj NAMED WITH THE ACTUAL'S
+                        // SOURCE TEXT — the same signature as the pass-8
+                        // operator miss.  Measured on ug.sv, both views:
+                        //   `.wmask_i ({TAG_W{1'b1}})`   -> operation 34 over
+                        //       [count ref, inner concat op 33], spans
+                        //       17..30 / 18..23 / 23..29 (ibex_icache.sv:311)
+                        //   `.mode_i (mode_e'(mode_raw_i))` -> operation 67
+                        //       with a ref_typespec named <inst>.<formal>
+                        //       onto an unsupported_typespec `mode_e` (the
+                        //       def view resolves no type), operand the
+                        //       operand ref (pinmux.sv:240)
+                        else if (actSyn9->kind ==
+                                     syntax::SyntaxKind::
+                                         MultipleConcatenationExpression ||
+                                 actSyn9->kind ==
+                                     syntax::SyntaxKind::CastExpression) {
+                            auto savedSP9 = syntaxRefPrefix;
+                            syntaxRefPrefix =
+                                branchPrefix + "." + iname + "." + formal;
+                            auto* e9 = emitSyntaxExpr(*actSyn9, p);
+                            syntaxRefPrefix = savedSP9;
+                            if (e9)
+                                p->High_conn((UHDM::expr*)e9);
+                        }
                         else {
                             auto* r = s.MakeRef_obj();
                             r->VpiParent(p);
@@ -24061,10 +24090,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 ivrt->Actual_typespec(ivts);
                 iv->Typespec(ivrt);
                 syntaxRefPrefix = prefix;
-                if (auto* rc = emitSyntaxExpr(*loopSyn->initialExpr, asn)) {
-                    ((UHDM::expr*)rc)->VpiParent(nullptr); // SL: unparented
-                    asn->Rhs((UHDM::expr*)rc);
-                }
+                UHDM::any* initRhs9 = emitSyntaxExpr(*loopSyn->initialExpr, asn);
                 asn->Lhs((UHDM::expr*)iv);
                 // Surelog: the init goes in the PLURAL vector, the incr in the
                 // SINGULAR field (dump-identical either way; Compare differs).
@@ -24099,12 +24125,66 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 auto pkgLoopParam =
                     [&](std::string_view nm) -> const ParameterSymbol* {
                     auto* sy = Lookup::unqualified(body, nm);
-                    if (!sy || sy->kind != SymbolKind::Parameter ||
-                        !sy->getParentScope() ||
-                        sy->getParentScope()->asSymbol().kind !=
+                    if (sy && sy->kind == SymbolKind::Parameter &&
+                        sy->getParentScope() &&
+                        sy->getParentScope()->asSymbol().kind ==
                             SymbolKind::Package)
+                        return &sy->as<ParameterSymbol>();
+                    // § shadowedImportBoundFold — a MODULE-LOCAL localparam of
+                    // the same name does not hide the wildcard-imported
+                    // package member from Surelog's name-keyed getValue.
+                    // rv_timer declares `localparam int N_HARTS = 1;` next to
+                    // `import rv_timer_reg_pkg::*;` (which declares the same
+                    // name) and golden folds `h < N_HARTS` in the gen_for
+                    // condition.
+                    if (!sy || sy->kind == SymbolKind::Parameter)
+                        return wildcardPkgParamNamed9(&body, nm);
+                    return nullptr;
+                };
+                // One folded leaf; null when the ref does not name a package
+                // parameter with a usable value.
+                auto foldPkgLoopRef1 =
+                    [&](UHDM::any* o, UHDM::any* par) -> UHDM::constant* {
+                    if (!o || o->UhdmType() != UHDM::uhdmref_obj)
                         return nullptr;
-                    return &sy->as<ParameterSymbol>();
+                    auto* r0 = (UHDM::ref_obj*)o;
+                    const ParameterSymbol* lps = pkgLoopParam(r0->VpiName());
+                    if (!lps)
+                        return nullptr;
+                    auto& psp = *lps;
+                    auto& cv0 = psp.getValue();
+                    if (!cv0 || !cv0.isInteger() || cv0.integer().hasUnknown())
+                        return nullptr;
+                    std::string dg =
+                        cv0.integer().toString(LiteralBase::Decimal, false);
+                    auto* c0 = s.MakeConstant();
+                    c0->VpiDecompile(dg);
+                    c0->VpiSize((int32_t)psp.getType().getBitWidth());
+                    c0->VpiValue("UINT:" + dg);
+                    c0->VpiConstType(vpiUIntConst);
+                    c0->VpiParent(par);
+                    c0->VpiFile(r0->VpiFile());
+                    c0->VpiLineNo(r0->VpiLineNo());
+                    c0->VpiColumnNo(r0->VpiColumnNo());
+                    c0->VpiEndLineNo(r0->VpiEndLineNo());
+                    c0->VpiEndColumnNo(r0->VpiEndColumnNo());
+                    auto* its0 = s.MakeInt_typespec();
+                    if (auto dt0 = psp.getDeclaredType())
+                        if (auto* tsyn0 = dt0->getTypeSyntax())
+                            setLoc(its0, tsyn0->sourceRange());
+                    if (psp.getType().getCanonicalType().isSigned())
+                        its0->VpiSigned(true);
+                    if (auto psc9 = psp.getParentScope())
+                        if (auto pit9 = pkgDefMap.find(&psc9->asSymbol());
+                            pit9 != pkgDefMap.end())
+                            its0->Instance((UHDM::instance*)pit9->second);
+                    auto* rt0 = s.MakeRef_typespec();
+                    rt0->VpiFullName(prefix);
+                    rt0->VpiParent(c0);
+                    rt0->Actual_typespec(its0);
+                    its0->VpiParent(rt0);
+                    c0->Typespec(rt0);
+                    return c0;
                 };
                 std::function<void(UHDM::any*)> foldPkgLoopRefs =
                     [&](UHDM::any* e) {
@@ -24119,53 +24199,25 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 foldPkgLoopRefs(o);
                                 continue;
                             }
-                            if (o->UhdmType() != UHDM::uhdmref_obj)
-                                continue;
-                            auto* r0 = (UHDM::ref_obj*)o;
-                            const ParameterSymbol* lps =
-                                pkgLoopParam(r0->VpiName());
-                            if (!lps)
-                                continue;
-                            auto& psp = *lps;
-                            auto& cv0 = psp.getValue();
-                            if (!cv0 || !cv0.isInteger() ||
-                                cv0.integer().hasUnknown())
-                                continue;
-                            std::string dg =
-                                cv0.integer().toString(LiteralBase::Decimal,
-                                                       false);
-                            auto* c0 = s.MakeConstant();
-                            c0->VpiDecompile(dg);
-                            c0->VpiSize((int32_t)psp.getType().getBitWidth());
-                            c0->VpiValue("UINT:" + dg);
-                            c0->VpiConstType(vpiUIntConst);
-                            c0->VpiParent(e);
-                            c0->VpiFile(r0->VpiFile());
-                            c0->VpiLineNo(r0->VpiLineNo());
-                            c0->VpiColumnNo(r0->VpiColumnNo());
-                            c0->VpiEndLineNo(r0->VpiEndLineNo());
-                            c0->VpiEndColumnNo(r0->VpiEndColumnNo());
-                            auto* its0 = s.MakeInt_typespec();
-                            if (auto dt0 = psp.getDeclaredType())
-                                if (auto* tsyn0 = dt0->getTypeSyntax())
-                                    setLoc(its0, tsyn0->sourceRange());
-                            if (psp.getType().getCanonicalType().isSigned())
-                                its0->VpiSigned(true);
-                            if (auto psc9 = psp.getParentScope())
-                                if (auto pit9 =
-                                        pkgDefMap.find(&psc9->asSymbol());
-                                    pit9 != pkgDefMap.end())
-                                    its0->Instance(
-                                        (UHDM::instance*)pit9->second);
-                            auto* rt0 = s.MakeRef_typespec();
-                            rt0->VpiFullName(prefix);
-                            rt0->VpiParent(c0);
-                            rt0->Actual_typespec(its0);
-                            its0->VpiParent(rt0);
-                            c0->Typespec(rt0);
-                            (*ops)[i9] = c0;
+                            if (auto* c0 = foldPkgLoopRef1(o, e))
+                                (*ops)[i9] = c0;
                         }
                     };
+                // § genForInitPkgParamFold — the loop INIT takes the identical
+                // fold, which until now only the CONDITION got.  `for (genvar
+                // k = NDioPads; k < AlignedMuxSize; k++)` (pinmux.sv:222,
+                // NDioPads from the wildcard-imported pinmux_reg_pkg) comes
+                // out a constant 15/32/UINT in golden, with the same
+                // module-scoped ts ref onto a copy of the parameter's own
+                // int_typespec.  Witness uf.sv row E.
+                if (initRhs9) {
+                    if (auto* ic9 = foldPkgLoopRef1(initRhs9, asn))
+                        initRhs9 = ic9;
+                    else
+                        foldPkgLoopRefs(initRhs9);
+                    ((UHDM::expr*)initRhs9)->VpiParent(nullptr); // SL: unparented
+                    asn->Rhs((UHDM::expr*)initRhs9);
+                }
                 if (auto* c = emitSyntaxExpr(*loopSyn->stopExpr, gf)) {
                     bindGenvar(c);
                     foldPkgLoopRefs(c);

@@ -3169,7 +3169,23 @@ private:
         const slang::ast::ParameterSymbol& psym, UHDM::BaseClass* parent);
     // Replace every such leaf inside an already-emitted (unfolded) bound
     // operation tree.
-    void crossPkgFoldBoundLeaves9(UHDM::any* node);
+    // `bareScope` (the declaring module's own scope) additionally folds the
+    // UNQUALIFIED spelling of the same read — § pkgBoundFoldBareImport.
+    void crossPkgFoldBoundLeaves9(UHDM::any* node,
+                                  const slang::ast::Scope* bareScope = nullptr);
+    // § shadowedImportBoundFold — the PACKAGE parameter a scope's WILDCARD
+    // IMPORTS make visible under `nm`, even when a module-local declaration of
+    // the same name shadows it for slang.  Surelog's getValue searches the
+    // imported packages by name, so the local shadow does not hide the fold.
+    const slang::ast::ParameterSymbol* wildcardPkgParamNamed9(
+        const slang::ast::Scope* sc, std::string_view nm) const;
+    // § modStructMemberPkgFold's substituted constant, shared by the BARE
+    // (IdentifierName) and QUALIFIED (ScopedName) spellings of the same read:
+    // a UINT constant sized at the package parameter's own type width, with a
+    // ts ref named after the enclosing member (syntaxRefPrefix).
+    UHDM::constant* modStructMemberPkgSubst9(
+        const slang::ast::ParameterSymbol& psym, UHDM::BaseClass* parent,
+        slang::SourceRange span);
     // ...and the same map for the ELAB package view.  A localparam whose init
     // is a param REFERENCE (`CVA6ConfigDataUserWidth = CVA6ConfigXlen`) gets
     // no typespec at all in the def listing — only the elab one has it — so a

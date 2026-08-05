@@ -1057,7 +1057,239 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
-RANKED RESIDUE (measured after PASS 8 — next agent starts HERE).  AllModules
+LANDED — PASS 9 (r10earl9; EIGHT laws in SIX gate rounds, each round gated at
+goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
+BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
+Pass-9 copies of the harness: run9.sh dmp9.sh dd9.sh rp9.sh cen9.sh sweep9.sh
+slsweep9.sh gate9.sh gold9.sh cmprc9.sh ../r10earl9build.sh, plus sysarg.py.
+Earlgrey_0_1 stays CMP_NOTEQUAL (groundwork); census 64 -> 57 heads,
+51 -> 43 classes.  Witnesses ua..ug.
+
+THE PASS-8 RANKED-(1) LEAD WAS RIGHT AND IT WAS TWO WRITERS, NOT ONE.  The four
+"ref_obj NAMED WITH ITS OWN SOURCE TEXT" singletons split into a SYS-CALL
+ARGUMENT emitter (dm_sba, prim_packer, hmac, pinmux — all `$clog2(<expr>)`) and
+the DEF-VIEW GEN-BLOCK PORT-ACTUAL dispatcher (ibex_icache, and pinmux's second
+head).  Both are the same BUG SHAPE — a text-driven emitter whose final else
+names a ref_obj with the raw text — and both are fixed by routing the shape to
+the SYNTAX emitter that already builds it.
+
+  ua.sv/ub.sv  § sysCallArgOperatorTree (TypeEmit emitSyntaxExpr, the sys-call
+        argument loop).  An OPERATOR- or LITERAL-shaped argument is a real
+        expression tree; only a NAME-shaped one is a ref_obj.  Until now
+        everything that was not a concatenation, a dotted path or an elab
+        splice fell to the raw-text fallback, so `$clog2(N+1)` came out as ONE
+        ref_obj literally NAMED "N+1".  Matrix (ub.sv, one
+        `logic [$clog2(<arg>)-1:0]` per row, golden left):
+            W               ref_obj(W)          (already right)
+            64              constant 64/64/ct9  <- was ref_obj("64")
+            N+1             operation op24
+            (N+1)           operation op24 AT THE INNER SPAN (paren discarded)
+            -N              operation op1
+            N > 4 ? N : 4   operation op32
+            ubp::PW+1       operation op24
+            2**N            operation op43
+            {4'd3, 4'd2}    operation op33      (already right)
+            $bits(my_t) / $bits(ubp::st_t)      ref_obj (type names: right)
+        Routed on the UNWRAPPED node, so a parenthesised argument gets the
+        inner span golden uses.  ua.sv is BYTE-IDENTICAL.  Corpus: dm_sba.sv:63
+        `$clog2(BusWidth/8)`, prim_packer.sv:42 `$clog2(InW+1)`, hmac.sv:309
+        `$clog2(32+1)`, pinmux.sv:157 `2**$clog2(NMioPads+2)` — dm_sba and
+        prim_packer CLOSED, hmac and pinmux ADVANCED to the bound-fold family.
+
+  ue.sv  § sysCallArgPkgParamSubst (same loop).  A query-call argument that
+        NAMES A PACKAGE PARAMETER is SUBSTITUTED by that parameter's own value
+        constant — the MODULE-listing half of the package/own split the loop
+        already had for package listings.  DISTINGUISHERS, all measured:
+          * `$clog2(LP)` with LP a MODULE-LOCAL localparam stays a ref_obj
+            (ud.sv proves a module-local bound is NOT folded in ANY position,
+            so "localparam" is not the trigger — the HOME PACKAGE is);
+          * the substituted object is the package parameter's own constant
+            COPIED VERBATIM and re-sized to its declared width, NOT a decimal
+            re-render: `parameter logic [2:0] PV = 3'h1` substitutes as
+            `3'h1`/HEX:1/ct5/size 3.  Writing UINT:1/"1" instead DEMOTED u2r
+            DivisionOfSize (`$bits(PartInvDefault)/1-1`) — measured as a
+            regression and then fixed by reusing crossPkgBoundFoldConst9;
+          * the TS REF splits on the WRITTEN SPELLING: an UNQUALIFIED
+            (wildcard-imported) read carries one, a QUALIFIED `pkg::NAME` read
+            carries NONE (ue.sv rows K/N and L/M, all four views).
+        Corpus: sha2.sv:36 `logic [$clog2(NumRound)-1:0]` (hmac_pkg::NumRound,
+        wildcard-imported).  ue.sv is cmp-EQUAL.
+
+  uc.sv  § modStructMemberPkgFold, QUALIFIED spelling (TypeEmit emitSyntaxExpr
+        ScopedName arm).  A struct typedef declared INSIDE a module substitutes
+        an imported package parameter in a member's range bound; the BARE
+        spelling already did, `pkg::NAME` fell to the ref_obj.  The substituted
+        constant is identical (ts ref named after the MEMBER).  The NEGATIVE
+        control immediately above it — a `[pkg::WIDTH-1:0]` OUTPUT PORT bound,
+        which Surelog leaves unfolded (fail_detect_width) — is untouched: it
+        carries no structMemberTsCtx.  Corpus: tlul_adapter_sram.sv:56 `logic
+        [top_pkg::TL_SZW-1:0] size ;`.  The constant builder is now the shared
+        helper modStructMemberPkgSubst9.
+
+  uc.sv  § pkgBoundFoldBareImport (crossPkgFoldBoundLeaves9 gains a
+        `bareScope`).  § crossPkgRangeBoundFold's "the distinguisher is the
+        WRITTEN qualification" was too narrow: getValue keys on the NAME, so a
+        module that WILDCARD-IMPORTS the package and writes the bare name gets
+        the identical fold.  Rows A (a parameter PORT's declared type) and G (a
+        localparam's) of uc.sv, both `constant 3/32/UINT ct9` in golden with
+        the ts ref named after the parameter being declared; the BARE read
+        keeps the identifier's own span where the qualified one truncates to
+        the `pkg::` qualifier.  ud.sv is the negative control.  Corpus:
+        padring.sv:15 `module padring import padctrl_reg_pkg::*; #(parameter
+        logic [NMioPads-1:0] ConnectMioIn = '1, ...)` — 2 heads (AllModules and
+        TopModules are the same object).
+
+  uf.sv  § shadowedImportBoundFold (new helper wildcardPkgParamNamed9, used by
+        the defNetTsScope bound arm and by the gen_for loop-bound fold).  A
+        MODULE-LOCAL declaration of the same name does NOT hide the imported
+        package member from Surelog's name-keyed getValue the way it does for
+        slang's Lookup.  rv_timer declares `localparam int N_HARTS = 1;` next
+        to `import rv_timer_reg_pkg::*;`, which declares `parameter int
+        N_HARTS = 1;`, and golden folds every bound that reads it; usbdev is
+        the same shape (`localparam int NEndpoints =
+        usbdev_reg_pkg::NEndpoints;`).  ud.sv (no same-named import) stays
+        symbolic and is the control.
+
+  uf.sv  § genForInitPkgParamFold (ModuleEmit, the def-view gen_for).  The loop
+        INIT takes the identical package-parameter fold that until now only the
+        CONDITION got; the folder is factored into foldPkgLoopRef1 so a
+        TOP-LEVEL ref (not just an operand) folds too.  Corpus: pinmux.sv:222
+        `for (genvar k = NDioPads; k < AlignedMuxSize; k++)`.
+
+  ug.sv  § genConnReplCastActual (ModuleEmit, the def-view gen-block
+        instantiation's port-actual dispatcher).  Two shapes had no arm and
+        fell to the final else, coming out as ONE ref_obj named with the
+        actual's source text; both are already built correctly by the SYNTAX
+        emitter and only needed the formal-doubled ref scope this loop uses
+        everywhere else.  Golden's shapes, read off ug.sv:
+            .wmask_i ({TAG_W{1'b1}})       -> operation 34 over
+                [count ref @18..23, inner concat op 33 @23..29], outer span
+                17..30; the inner constant is 1'b1/BIN/size 1/ct 3
+            .mode_i (mode_e'(mode_raw_i))  -> operation 67 with a ref_typespec
+                named <branch>.<inst>.<formal> onto an UNSUPPORTED_TYPESPEC
+                `mode_e` (the def view resolves no type), operand the operand
+                ref scoped through the formal
+        Corpus: ibex_icache.sv:311 `.wmask_i ({TAG_SIZE_ECC{1'b1}})` and
+        pinmux.sv:240 `.wkup_mode_i ( wkup_mode_e'(...) )` — BOTH CLOSED, and
+        ug.sv's AllModules section is 0 heads.
+
+  uf.sv  § defDimPkgParamFold (TypeEmit buildUnpackedRanges).  "A MODULE dim
+        ref stays unbound" is right only while the sizing parameter is a MODULE
+        one: a PACKAGE parameter has a value at definition-compile time and
+        golden substitutes it here as in every packed bound (UINT constant at
+        the parameter's own width, ts ref named <defDimRefPrefix>).
+        DISTINGUISHER, measured as a REGRESSION and then gated: applying it in
+        a PACKAGE listing too (defDimRefPrefix ending in `::`) demoted
+        DefaultPatternInt (`pack::V::CNT`) in BOTH modes — that listing keeps
+        its ref BOUND to the sized parameter's own Rhs constant.  Corpus:
+        rv_plic.sv:41 `output [SRCW-1:0] irq_id_o [NumTarget]`.
+
+EARLGREY_0_1 HEAD CENSUS after pass 9 (r10earl4h; 29 + 8 + 5 + 1 = 43 classes
+over 57 heads, from 64 heads / 51 classes at entry):
+
+  AllModules  SIZE 190 vs 190,  43 heads   (was 50)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   1 head    (unchanged)
+
+READ THE COUNT HONESTLY.  64 -> 57 is -11%, 0 movers on either corpus, and no
+entry became cmp-EQUAL.  SEVEN classes closed outright (dm_sba, prim_packer,
+ibex_icache, pinmux x2, rv_timer, rv_plic, sha2->merged, padring->advanced,
+tlul_adapter_sram->advanced); hmac, usbdev, flash_ctrl and pinmux ADVANCED
+within the same family.  What the pass actually delivered beyond the count is
+that the "golden folded a bound, we kept a ref_obj" shape — carried as
+"~28 singletons" since pass 4 — IS ONE LAW with FIVE POSITIONS
+(sys-call argument, parameter/localparam declared type, struct member,
+gen_for init/condition, unpacked dim) and TWO independent distinguishers
+(the read must resolve into a PACKAGE; a same-named module-local shadow does
+not hide it).  Every position is now folded except the three named below.
+
+PASS-9 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  ua.sv  BYTE-IDENTICAL          ud.sv  BYTE-IDENTICAL (negative control)
+  ue.sv  cmp-EQUAL (75 dump lines: the substituted constant's PARENT is the
+         package's param_assign in golden and the sys_func_call in ours, plus
+         the ts ref's fullname — cmp reads neither)
+  ug.sv  AllModules 0 heads; one TopModules head left (the ELAB gen-scope
+         port-conn ref carries an Actual we bind and golden does not — the
+         standing qq.sv residue)
+  ub.sv uc.sv uf.sv  cmp-NOT-equal, each with exactly one NAMED residue below
+
+RANKED RESIDUE (measured after PASS 9 — next agent starts HERE).  AllModules
+unless stated; counts are heads, and most classes are ONE shared object
+reached from many entries.
+
+  (1) 4 `parameter 'PTRV_W' prim_fifo_async:33:27 vs <null>` — UNTOUCHED for
+      FIVE passes and still the biggest class.  § impCopyCastFold's
+      LITERAL-operand gate (fc32cb1) is what excludes `PTRV_W'(Depth - 1)`;
+      read it together with the pass-7 note.  prim_filter_ctr's CTR_WIDTH is
+      the same shape (a 5th head).
+  (2) 4 `<null> vs ref_typespec '' 0:0` on param_assign Rhs OPERATIONS
+      (flash_mp, pinmux_wkup, rstmgr, rstmgr_ctrl) — WE stamp, golden does
+      not.  The census chain prints these with NO FILE on either side, so the
+      param_assign is in an IMPORTED PACKAGE, not in the named module: census
+      by walking the pa's parent chain (r10earl5op), not by file:line.
+  (3) 5-6 heads in the WHICH-PACKAGE-COPY family (§ pkgTypespecInstanceIsTop,
+      f5fbd25): 3 `package prim_cipher_pkg {top=1} vs {top=0}` (aes, aes_prng,
+      prim_prince), 1 `package prim_pkg {top=1} vs {top=0}` [TopModules,
+      work@padring], 1 `package top_pkg {top=1} vs <null>`
+      (tlul_adapter_sram), and 1 `constant top_pkg.sv:8:22 sz=32 vs sz=64`
+      (tlul_adapter_host) which is the SAME CAUSE seen through the size a
+      package's own elaboration re-stamps.  NOW THE BIGGEST ACTIONABLE CLASS.
+      r10earl4t (pointer identity) is the probe; the objects are
+      text-identical in a dump, so no diff can see it.
+  (4) THE BOUND-FOLD FAMILY'S LAST THREE POSITIONS, each with a witness in
+      hand and each a ONE- or TWO-head close:
+        * uf.sv row A — a PACKED_ARRAY_TYPESPEC bound whose element is a
+          PACKAGE TYPEDEF (`alert_tx_t [NAlerts-1:0]`): 2 heads,
+          alert_handler:33 and hmac:25.  NOT emitted by emitSyntaxExpr's
+          IdentifierName fallback (instrumented: that site never sees the
+          name), so the writer is still unidentified — find it before
+          theorising.  Our packed_array_typespec also carries NO location
+          (`:0:0`) where golden has one, which is a second clue to the site.
+        * usbdev:245 — a PROCEDURAL `for (int i = 0; i < NEndpoints; i++)`
+          condition inside an always_comb, def view.  Same law, StmtEmit path;
+          usbdev ADVANCED to this from its declaration bound this pass.
+        * flash_erase_ctrl:41 — `localparam logic[AddrW-1:0] PageAddrMask`
+          where AddrW is a MODULE PARAMETER (default 10) and golden's constant
+          reads 17, i.e. the value of the sole INSTANTIATION's override.  This
+          one is NOT the law above — decode where a def listing acquires an
+          instance's parameter value before touching it.
+  (5) 3 `ref_typespec '' 0:0 vs <null>` (alert_handler_ping_timer:140,
+      flash_phy_core, sha2) and its mirror (2) — sha2 joined this class when
+      its $clog2 head closed; its chain is the `logic_typespec 'sha_word_t'`
+      LAW-S miss, so it is NOT the same root as the other two.
+  (6) 2 `named_begin 'gen_host_fifo'` (tlul_socket_m1, xbar_main) + 1
+      `named_begin 'gen_mio_input'` (padring, NEW — padring advanced to it
+      this pass).  Golden's DEF-view gen block has ONE MORE STATEMENT than
+      ours; tlul_socket_m1.sv:101 is a macro-expanded CONCURRENT ASSERTION the
+      def-view gen emitter never emits.  Now THREE heads.
+  (7) 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052} vs operation`
+      (dm_mem, rv_dm); 2 `constant flash_phy_pkg:31:34 ct7-vs-ct9`; 2 `ref_obj
+      'PWR_AST_RSP_SYNC_DEFAULT' vs 'pwrmgr_pkg::…'`.
+  (8) 6 NAMING heads in three shapes, all "golden BARE / ours QUALIFIED"
+      (3 A2X, 2 PWR_AST_RSP_SYNC_DEFAULT, 1 INVERTED perm_64bit) — unchanged.
+  (9) FRESH, measured on the pass-9 witnesses and NOT implemented:
+        * uc.sv row L — a var declaration bound reading a BASED-LITERAL
+          package parameter (`parameter logic [7:0] ND = 8'd9`): golden keeps
+          the literal VERBATIM (`8'd9`/ct 1/size 8), the defNetTsScope arm
+          re-renders decimal (`9`/ct 9/size 8).  This is the SAME
+          verbatim-vs-decimal split that DivisionOfSize forced on the
+          query-call arm, so the fix is probably crossPkgBoundFoldConst9 there
+          too — but that arm is load-bearing for BlackBePipeInt / cs_registers,
+          so build the four-base matrix before switching it.
+        * ub.sv — `$bits(mv)` / `$bits(mv.x)` / `$bits(arr[1])` on a VARIABLE:
+          golden KEEPS the sys_func_call (ref_obj / hier_path / bit_select
+          argument) and we FOLD the whole call away through the
+          `foldQuery && $bits` arm.  `$bits(vec[3:0])` we keep but name
+          `vec[3:0]` where golden builds a part_select.
+        * ug.sv / uf.sv — the ELAB gen-scope port-conn fullname doubling
+          (`<gen>[i].<inst>.<formal>.<name>`) and its Actual binding: golden
+          leaves those refs UNBOUND.  Standing qq.sv residue, now reachable
+          from two more witnesses.
+ (10) TopModules 8 (unchanged; the pass-8 eight-causes table still applies,
+      minus work@padring which moved into (3)), AllPackages 5, TopPackages 1.
+
+RANKED RESIDUE (measured after PASS 8 — SUPERSEDED by the list above).  AllModules
 unless stated; counts are heads, and most classes are ONE shared object
 reached from many entries.
 
