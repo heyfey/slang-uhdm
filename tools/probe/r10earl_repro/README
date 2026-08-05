@@ -901,7 +901,228 @@ and the ranked-(1) ref_typespec class went 5 -> 2.  The class count ROSE
 progress, not regression, and every entry that moved moved FORWARD (no head
 in the pass-6 census reappeared).
 
-RANKED RESIDUE (measured after PASS 7 — next agent starts HERE).  AllModules
+LANDED — PASS 8 (r10earl8; FOUR laws in three gate rounds, each round gated at
+goldens 23/23 + u2r testflags 0 change + Surelog both modes 0 change incl. the
+dump column).  Pass-8 copies of the harness: run8.sh dmp8.sh dd8.sh rp8.sh
+cen8.sh sweep8.sh slsweep8.sh gate8.sh gold8.sh cmprc8.sh ../r10earl8build.sh.
+cen8.sh now takes OURS from the FULL sweep workdir (EARL_OURS overrides).
+
+  td.sv  cmp-EQUAL.  § genConnOperatorActualFirst + § genConnIdxOpTree
+        (ModuleEmit, the def-view gen-block instantiation port loop).  TWO
+        laws in one witness, the pass-7 ranked-(4) class:
+        (a) the OPERATOR test now runs FIRST in the actual dispatcher.  The
+            arms below it are TEXT-driven, and
+            `.a_i(inc_i[c+3] & ~inh_i[c+3])` ends in `]` with two bracket
+            groups, so the MULTIDIM var_select arm claimed it and emitted a
+            var_select named `inc_i` — the `&` and its whole right operand
+            silently dropped.  The operator arm is syntax-kind-keyed, so
+            hoisting it changes nothing for non-operator actuals.  It is
+            also RECURSIVE now (`a & ~b` nests, where the pass-6 version fed
+            a nested operator to emitSyntaxExpr) and select-aware: an operand
+            select becomes a bit_select named by the base, fullname DOUBLED
+            through the formal (<branch>.<inst>.<formal>.<base> — a BARE
+            select actual has NO formal in it), loc at the INDEX span.
+        (b) a select INDEX written as an EXPRESSION is a real operation tree,
+            not the one ref_obj literally NAMED "c+3" the emitter produced:
+            operation 24 over a bare ref_obj and a UINT/ct 9/size 64
+            constant, each at its own token span, with the operand refs
+            scoped THROUGH the select's own fullname.  Applied in the operator
+            arm and in the BARE-select arm (td.sv row `.b_i(inc_i[c+3])`,
+            golden `work@td.gen_cntrs.u_sub.inc_i.c`); a PLAIN identifier
+            index keeps its measured baseless form.
+        Corpus: ibex_cs_registers.sv:950
+        `.counter_inc_i(mhpmcounter_incr[cnt+3] & ~mcountinhibit[cnt+3])` —
+        3 heads (ibex_core, ibex_cs_registers, rv_core_ibex).  td.sv's
+        remaining dump diff is the ELAB-view bit_select fullname (golden
+        doubles inst+formal, we do not) — the qq.sv residue, cmp-irrelevant.
+
+  tj.sv  § hpMidGenvarSelect (TypeEmit emitSyntaxExpr ScopedName) +
+        § genConnDotSelInterior (ModuleEmit).  The symbolic-index bit_select
+        arm of the def-view hier_path builder was gated on `i == 0` (the BASE
+        component), so every INTERIOR or LEAF component with a genvar select
+        fell to the raw ref_obj at the bottom: `hw2reg.alert_cause[k].d` came
+        out as one ref_obj NAMED "alert_cause[k]".  The component fullname is
+        the dotted path SO FAR (`r2h_i.cause[k]`), which for i == 0 is exactly
+        the `pname` the arm already used; genVarBaseEmitted stays a BASE-only
+        flag (it re-anchors the hier_path span and rewrites the leaf
+        fullname).  Golden's byte shape splits LHS from RHS — a cont_assign
+        LHS path spans base+select and parents the index at the bit_select, an
+        RHS / port-actual path spans the base only and parents the index at
+        the hier_path — but all four fields uhdm-cmp reads agree either way.
+        The second law: the PORT-ACTUAL hier_path gate required the actual to
+        END in `]`, so a select on an INTERIOR component
+        (`.a_i(r2h_i.cause[k].de)`) never reached the emitter at all.
+        Corpus: the 4-head class alert_handler_reg_wrap:105, padctrl:100,
+        pinmux:95 (cont_assigns) and gpio:40 (a port actual) — ALL FOUR
+        CLOSED.  tj.sv is cmp-NOT-equal: it advanced to the ELAB gen-scope
+        port-conn hier_path, whose VpiName keeps the genvar (`cause[k]`)
+        where golden substitutes the instance value (`cause[0]`) and which
+        golden also gives a vpiTypespec.  FRESH RESIDUE, ranked below.
+
+  tk.sv  § genCaDirectRefBindsGenLocal (ModuleEmit, the gen-scope cont_assign
+        emitter, just before cas->push_back).  In an ELABORATED gen scope a
+        cont_assign ref that IS the WHOLE Lhs or the WHOLE Rhs binds its
+        gen-LOCAL VARIABLE; the same name read from INSIDE an operation or a
+        select does not, and a PROCESS never does.  This is the finer cut the
+        "a blanket bind demoted 10 tests" note in ExprEmit's NamedValue arm
+        was missing — that experiment bound EVERY ref in the scope.  Matrix
+        (tk.sv, one gen_scope per row, both views):
+            assign st[k+1] = va_round;   Rhs whole ref, same scope  -> BOUND
+            assign vb_xor  = st[k];      Lhs whole ref, same scope  -> BOUND
+                                         Rhs select index          -> unbound
+            assign vb_sbox = ~vb_xor;    Lhs, ANCESTOR gen scope    -> BOUND
+                                         Rhs under op 4            -> unbound
+            assign arr_o   = vd_arr;     Rhs whole ref, UNPACKED
+                                         ARRAY, same scope         -> BOUND
+            assign sc_o    = vd_sc;      Rhs whole ref, ANCESTOR    -> unbound
+            always_comb va_round = ...;  process Lhs                -> unbound
+        DISTINGUISHER, measured as a REGRESSION and then gated: the first cut
+        allowed an ancestor scope on BOTH sides and moved u2r
+        MemoryInGenblock from CMP_EQUAL to CMP_NOTEQUAL — its
+        `assign data_buf_c = data_buf_a;` reads an ANCESTOR gen scope's
+        unpacked array from a nested if-gen.  tk rows D1/D2 split the two
+        candidate causes and it is the SCOPE, not the array-ness.
+        Corpus: the prim_present / prim_prince TopModules heads — the FIRST
+        movement in that section in seven passes.  prim_present ADVANCED
+        (its head is now a gen_scope_array ORDER difference); prim_prince did
+        NOT (see the ranked residue).
+
+  tl.sv  NEGATIVE WITNESS, kept deliberately — it does NOT reproduce.  The
+        sram2tlul / jtag_mux TopModules pair are two ELAB parameter RANGE
+        BOUNDS pointing in OPPOSITE directions (golden folds
+        `logic [top_pkg::TL_AW-1:0]` to a constant and keeps
+        `logic [NumIOs-1:0]` as an operation; we do the reverse on both), and
+        tl.sv writes exactly those two spellings plus a literal control in one
+        module — and comes out cmp-EQUAL.  So, as with rr.sv, the trigger is
+        NOT the written shape.  NOTE for the next pass: both census chains
+        show the failing object parented at a module_inst with `top=0`, i.e.
+        the TopModules entry is reaching a DEF-view module — check VpiTop()
+        and pointer identity (r10earl4t) before writing another source
+        witness.
+
+EARLGREY_0_1 HEAD CENSUS after pass 8 (r10earl4h; 50 + 8 + 5 + 1 = 64, from
+55 + 8 + 5 + 1 = 69 at entry; 51 classes, from 54):
+
+  AllModules  SIZE 190 vs 190,  50 heads   (was 55)
+  TopModules  SIZE  10 vs  10,   8 heads   (count unchanged, but TWO of the
+                                            eight MOVED for the first time)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   1 head    (unchanged)
+
+READ THE COUNT HONESTLY.  69 -> 64 is -7%, 0 movers on either corpus, and NO
+entry became cmp-EQUAL this pass.  What actually happened: three CLASSES
+closed outright (the ibex_cs_registers operator actual 3, the
+hier_path-component select 4, the gen-local cont_assign bind 2) and the
+TopModules section — untouched for six passes and censused properly for the
+first time here — turns out to be EIGHT INDEPENDENT CAUSES, not one family.
+That census is the pass's other deliverable: nobody should look for a shared
+root there again.
+
+TOPMODULES CENSUS (the item owed since pass 3; r10earl4h on the 8 entries).
+Eight heads, eight causes, and two of them are objects the AllModules section
+already reports:
+  work@prim_keccak    r=32   operation prim_keccak.sv:52:5 vs operation :52:5
+                             — inside a param_assign's operation at 50:38; the
+                             pair agrees on type and name, so the difference is
+                             the OPERAND VECTOR (r=32 = 32 more operands).
+  work@prim_present   r=-1   gen_scope_array 'gen_d64' 94:9 vs 'gen_enc' 91:14
+                             — ADVANCED THIS PASS from the data_state_xor bind.
+                             An ORDER/nesting difference in the gen_scope's
+                             GenScopeArray vector where declarations and
+                             nested generates interleave.
+  work@prim_prince    r=1    logic_var 'data_state_round' 86:27 vs <null>,
+                             under gen_scope_array 'gen_fwd_pass[1]'.  NOT the
+                             pass-8 bind (that ref sits under an operation and
+                             correctly stays unbound); our gen_scope is SHORT a
+                             variable.  Note the loop is
+                             `for (genvar k = 1; k <= NumRoundsHalf; k++)` —
+                             the only ONE-BASED gen loop in the cluster, and
+                             gen_fwd_pass[1] is its FIRST instance.  Check the
+                             instance-index alignment first.
+  work@prim_gate_gen  r=1    ref_typespec 0:0 vs <null> on a CONSTANT inside a
+                             logic_typespec RANGE of a gen-scope logic_var
+                             (prim_gate_gen.sv:86) — the "golden stamps, we do
+                             not" family.
+  work@sram2tlul      r=-32  constant {ct=0 sz=0 dec=} vs operation :15:20
+  work@jtag_mux       r=32   operation jtag_mux.sv:11:20 vs constant
+                             {ct=0 sz=0 dec=}
+                             — the INVERTED PAIR; tl.sv is the negative
+                             witness (see above).  Both sides mint an EMPTY
+                             constant in one direction, which is itself a
+                             lead: something is writing a constant with no
+                             value/size/consttype at all.
+  work@padring        r=-601 constant padring.sv:15:20 {ct=9 sz=32 dec=32} vs
+                             ref_obj 'NMioPads' — SAME OBJECT as the padring
+                             AllModules head (the wildcard-import bound fold).
+  work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
+                             the top_earlgrey AllModules head.
+
+RANKED RESIDUE (measured after PASS 8 — next agent starts HERE).  AllModules
+unless stated; counts are heads, and most classes are ONE shared object
+reached from many entries.
+
+  (1) 4 `parameter 'PTRV_W' prim_fifo_async:33:27 vs <null>` — UNTOUCHED for
+      FOUR passes and still the biggest class, tied.  Read the pass-7 note
+      below and § impCopyCastFold's LITERAL-operand gate together: they are
+      one family and that gate is exactly what excludes
+      `PTRV_W'(Depth - 1)`.
+  (2) 4 `<null> vs ref_typespec '' 0:0` on param_assign Rhs OPERATIONS
+      (flash_mp, pinmux_wkup, rstmgr, rstmgr_ctrl) — WE stamp, golden does
+      not.  § qualPkgParamFoldTs's pattern-context distinguisher is the frame.
+      NOTE: the census chain prints these with NO FILE on either side, so the
+      param_assign is in an IMPORTED package, not in the named module —
+      use argts.py / r10earl5op inside the real design, not the file:line.
+  (3) 3 `package prim_cipher_pkg {top=1} vs {top=0}` (aes, aes_prng,
+      prim_prince) — unchanged; r10earl4t is the probe.
+  (4) 2 `named_begin 'gen_host_fifo'` (tlul_socket_m1, xbar_main), r=1 —
+      DECODED THIS PASS, not implemented.  Golden's DEF-view gen block has
+      ONE MORE STATEMENT than ours, and tlul_socket_m1.sv:101 is
+      `` `ASSERT(idInRange, ...) `` — a macro-expanded CONCURRENT ASSERTION
+      inside the `for (genvar i…) begin : gen_host_fifo` body.  The def-view
+      gen emitter emits declarations, cont_assigns and instantiations but no
+      assertion statement.
+  (5) 2 `ref_typespec '' 0:0 vs <null>` (alert_handler_ping_timer:140:37,
+      flash_phy_core) — the MIRROR of (2); unchanged.
+  (6) 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052} vs operation`
+      (dm_mem, rv_dm); 2 `constant flash_phy_pkg:31:34 ct7-vs-ct9`;
+      2 `ref_obj 'PWR_AST_RSP_SYNC_DEFAULT' vs 'pwrmgr_pkg::…'`.
+  (7) 6 NAMING heads in three shapes, all "golden BARE / ours QUALIFIED"
+      (3 A2X, 2 PWR_AST_RSP_SYNC_DEFAULT, 1 INVERTED perm_64bit) — unchanged.
+  (8) FRESH from the pass-8 witnesses:
+      * tj.sv — the ELAB gen-scope PORT-CONNECTION hier_path: golden's
+        VpiName substitutes the instance's genvar value
+        (`r2h_i.cause[0].de`) where ours keeps the letter (`cause[k]`), and
+        golden hangs a vpiTypespec (ref_typespec -> the struct typespec,
+        fullname <inst>.<formal>.<path>) on it.  VpiName IS cmp-relevant;
+        this is the elab-side sibling of the qq.sv residue.
+      * tk.sv — an ELAB gen-scope cont_assign whose Lhs is a MODULE-level
+        UNPACKED-ARRAY variable (`assign arr_o = vd_arr;`): golden binds the
+        module array_var, we leave it bare.  The existing lhsSuppress rules
+        cover scalars; array_var is not in their switch.
+      * tk.sv — a gen-scope PROCESS read of a MODULE parameter inside a
+        replication count (`{DataWidth{1'b1}}`): golden keeps the ref_obj,
+        we fold to a constant WITH a ts ref.  This is the already-recorded
+        § genScopeProcParamSubst NOTE (ExprEmit ~4599) seen from the other
+        side — golden does NOT substitute here, so read that NOTE's
+        Scr1SvTests measurement before acting on either.
+  (9) ~28 singletons by file:line, unchanged in shape ("golden folded a bound
+      to a constant, we kept a ref_obj", four hier_path SELECT-BOUND heads,
+      the constant SIZE/CONSTTYPE singletons).  Two NEW ones this pass are
+      really the same text-parse family the pass-8 laws fixed elsewhere and
+      are the cheapest remaining leads:
+        dm_sba:63:17     operation vs ref_obj 'BusWidth/8'
+        prim_packer:42   operation vs ref_obj 'InW+1'
+        hmac:309:17      operation vs ref_obj '32+1'
+        ibex_icache:311  operation vs ref_obj '{TAG_SIZE_ECC{1'b1}}'
+      — every one is a ref_obj NAMED WITH ITS OWN SOURCE TEXT, the signature
+      of a text-driven emitter's final else.  Find which one (mark.py's
+      trick applied to VpiName) rather than decoding them one at a time.
+ (10) AllPackages 5 and TopPackages 1 — unchanged; rr.sv still says the
+      trigger is NOT the written shape, and tl.sv now says the same about the
+      TopModules range-bound pair.
+
+RANKED RESIDUE (measured after PASS 7 — SUPERSEDED by the list above).
+AllModules
 unless stated; counts are heads, and most classes are ONE shared object
 reached from many entries.
 

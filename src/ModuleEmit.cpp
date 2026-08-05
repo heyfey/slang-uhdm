@@ -11921,6 +11921,94 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             if (lhsSuppress)
                 suppressRefActual = false;
             inLhs = false;
+            // § genCaDirectRefBindsGenLocal (r10earl8).  In an ELABORATED gen
+            // scope a cont_assign ref that IS the WHOLE Lhs or the WHOLE Rhs
+            // binds its gen-LOCAL VARIABLE; the same name read from INSIDE an
+            // operation or a select does NOT, and a PROCESS never does.  This
+            // is the finer cut the "blanket bind demoted 10 tests" note in
+            // ExprEmit's NamedValue arm was missing — that bind was applied to
+            // every ref in the scope.  Measured on tk.sv, one gen_scope per
+            // row, both views:
+            //   assign st[k+1] = va_round;   Rhs whole ref     -> BOUND
+            //   assign vb_xor  = st[k];      Lhs whole ref     -> BOUND
+            //                                Rhs select index  -> unbound
+            //   assign vb_sbox = ~vb_xor;    Lhs (ANCESTOR gen
+            //                                scope's local)    -> BOUND
+            //                                Rhs under op 4    -> unbound
+            //   assign arr_o = vd_arr;       Rhs whole ref, UNPACKED
+            //                                ARRAY, same scope  -> BOUND
+            //   assign sc_o = vd_sc;         Rhs whole ref of an
+            //                                ANCESTOR scope's local
+            //                                                   -> unbound
+            //   always_comb va_round = ...;  process Lhs       -> unbound
+            // DISTINGUISHER, measured as a REGRESSION and then gated: u2r
+            // MemoryInGenblock's `assign data_buf_c = data_buf_a;` reads an
+            // ANCESTOR gen scope's unpacked array from a nested if-gen and
+            // golden leaves it unbound.  tk rows D1/D2 split the two
+            // candidate causes and it is the SCOPE, not the array-ness: the
+            // Rhs binds only a SAME-scope local, the Lhs binds an ancestor
+            // one too.
+            // Corpus: the prim_present / prim_prince TopModules heads
+            // (`logic [DataWidth-1:0] data_state_xor;` in a genvar-for body,
+            // read by a cont_assign in the same block) — TWO of the eight
+            // TopModules heads, which had gone six passes with no witness.
+            {
+                auto bindGenLocal9 = [&](UHDM::any* node9,
+                                         const Expression& ex9,
+                                         bool allowAnc9) {
+                    if (!node9 || node9->UhdmType() != UHDM::uhdmref_obj)
+                        return;
+                    auto* r9 = (UHDM::ref_obj*)node9;
+                    if (r9->Actual_group())
+                        return;
+                    auto& c9 = stripImplicitConv(ex9);
+                    if (c9.kind != ExpressionKind::NamedValue)
+                        return;
+                    auto& sy9 = c9.as<NamedValueExpression>().symbol;
+                    if (sy9.kind != SymbolKind::Variable)
+                        return;
+                    auto* sp9 = sy9.getParentScope();
+                    if (!sp9 ||
+                        sp9->asSymbol().kind != SymbolKind::GenerateBlock)
+                        return;
+                    // The declaring block must be THIS gen scope — or, for
+                    // the Lhs only, an ancestor GENERATE scope of it.
+                    bool anc9 = false;
+                    const Scope* w9 = static_cast<const Scope*>(&blk);
+                    for (int g9 = 0; w9 && g9 < 16; g9++) {
+                        if (w9 == sp9) {
+                            anc9 = true;
+                            break;
+                        }
+                        if (!allowAnc9)
+                            break;
+                        auto wk9 = w9->asSymbol().kind;
+                        if (wk9 != SymbolKind::GenerateBlock &&
+                            wk9 != SymbolKind::GenerateBlockArray)
+                            break;
+                        w9 = w9->asSymbol().getParentScope();
+                    }
+                    if (!anc9)
+                        return;
+                    auto it9 = netMap.find(&sy9);
+                    if (it9 == netMap.end())
+                        return;
+                    switch (it9->second->UhdmType()) {
+                        case UHDM::uhdmlogic_net:
+                        case UHDM::uhdmarray_net:
+                        case UHDM::uhdmstruct_net:
+                        case UHDM::uhdmenum_net:
+                        case UHDM::uhdmpacked_array_net:
+                        case UHDM::uhdmnet_bit:
+                            return;
+                        default:
+                            break;
+                    }
+                    r9->Actual_group(it9->second);
+                };
+                bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
+                bindGenLocal9((UHDM::any*)ca->Rhs(), ae.right(), false);
+            }
             cas->push_back(ca);
         }
         if (!cas->empty())
@@ -22548,8 +22636,22 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         std::string formal(npc.name.valueText());
                         std::string act = rawText(npc.expr->sourceRange());
                         // The actual's expr node, property/sequence wrappers
-                        // stripped (set by the literal-branch probe below).
+                        // stripped.  § genConnOperatorActualFirst (r10earl8)
+                        // hoisted this out of the literal-branch probe below,
+                        // which used to be the only writer: the OPERATOR arm
+                        // now runs BEFORE the text-driven select arms and
+                        // needs the stripped node up front.
                         const syntax::SyntaxNode* actSyn9 = npc.expr;
+                        if (actSyn9->kind ==
+                            syntax::SyntaxKind::SimplePropertyExpr)
+                            actSyn9 =
+                                actSyn9->as<syntax::SimplePropertyExprSyntax>()
+                                    .expr;
+                        if (actSyn9->kind ==
+                            syntax::SyntaxKind::SimpleSequenceExpr)
+                            actSyn9 =
+                                actSyn9->as<syntax::SimpleSequenceExprSyntax>()
+                                    .expr;
                         auto* p = s.MakePort();
                         p->VpiParent(iobj);
                         p->VpiName(formal);
@@ -22568,6 +22670,192 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             }
                         }
                         auto lb2 = act.find('[');
+                        // § genConnIdxOpTree (r10earl8).  A SELECT INDEX
+                        // written as an EXPRESSION (`sig[c+3]`, the genvar
+                        // form every OpenTitan `for (genvar cnt…)` body uses)
+                        // is a real operation in Surelog's def-view listing —
+                        // vpiAddOp over a bare ref_obj and an unsigned
+                        // constant, both at their own token spans — not the
+                        // one ref_obj literally NAMED "c+3" this text-driven
+                        // emitter produced.  Measured on td.sv line 36
+                        // (`.b_i(inc_i[c+3])`): operation 24 at 36:18..36:21,
+                        // ref_obj `c` at 36:18..36:19 fullname
+                        // <branch>.<inst>.<base>.c — the operand refs scope
+                        // THROUGH the select base — and constant `3`
+                        // UINT/ct 9/size 64 at 36:20..36:21.  Same operator
+                        // set and the same first-match scan as the
+                        // part_select bound parser further down (the only
+                        // shape Surelog's own text parse produces here).
+                        std::function<UHDM::expr*(const std::string&,
+                                                  slang::SourceLocation,
+                                                  UHDM::any*,
+                                                  const std::string&)>
+                            mkIdxTx9 = [&](const std::string& tx9,
+                                           slang::SourceLocation st09,
+                                           UHDM::any* par9,
+                                           const std::string& scope9)
+                            -> UHDM::expr* {
+                            static const struct {
+                                char c;
+                                int32_t op;
+                            } kIdxOps9[] = {{'-', vpiSubOp},
+                                            {'+', vpiAddOp},
+                                            {'*', vpiMultOp},
+                                            {'/', vpiDivOp}};
+                            auto trimI9 = [](const std::string& t9, size_t b09)
+                                -> std::pair<std::string, size_t> {
+                                size_t b = t9.find_first_not_of(' ');
+                                size_t e = t9.find_last_not_of(' ');
+                                if (b == std::string::npos)
+                                    return {std::string(), b09};
+                                return {t9.substr(b, e - b + 1), b09 + b};
+                            };
+                            for (auto& k9 : kIdxOps9) {
+                                auto pos9 = tx9.find(k9.c, 1);
+                                if (pos9 == std::string::npos)
+                                    continue;
+                                auto* op9 = s.MakeOperation();
+                                op9->VpiOpType(k9.op);
+                                op9->VpiParent(par9);
+                                setLoc(op9, SourceRange(st09,
+                                                        st09 + tx9.size()));
+                                auto [l9, lo9] = trimI9(tx9.substr(0, pos9), 0);
+                                auto [r9, ro9] =
+                                    trimI9(tx9.substr(pos9 + 1), pos9 + 1);
+                                auto* ov9 = s.MakeAnyVec();
+                                ov9->push_back(
+                                    mkIdxTx9(l9, st09 + lo9, op9, scope9));
+                                ov9->push_back(
+                                    mkIdxTx9(r9, st09 + ro9, op9, scope9));
+                                op9->Operands(ov9);
+                                return op9;
+                            }
+                            if (!tx9.empty() &&
+                                tx9.find_first_not_of("0123456789") ==
+                                    std::string::npos) {
+                                auto* c9 = s.MakeConstant();
+                                c9->VpiDecompile(tx9);
+                                c9->VpiSize(64);
+                                c9->VpiValue("UINT:" + tx9);
+                                c9->VpiConstType(vpiUIntConst);
+                                c9->VpiParent(par9);
+                                setLoc(c9,
+                                       SourceRange(st09, st09 + tx9.size()));
+                                return c9;
+                            }
+                            auto* r9 = s.MakeRef_obj();
+                            r9->VpiName(tx9);
+                            r9->VpiFullName(scope9.empty() ? tx9
+                                                           : scope9 + "." +
+                                                                 tx9);
+                            r9->VpiParent(par9);
+                            setLoc(r9, SourceRange(st09, st09 + tx9.size()));
+                            return r9;
+                        };
+                        // A single-bracket SELECT leaf under an OPERATOR
+                        // actual: bit_select named by the base, fullname
+                        // DOUBLED through the formal
+                        // (<branch>.<inst>.<formal>.<base> — a BARE select
+                        // actual has no formal in it), loc at the INDEX span,
+                        // index built by mkIdxTx9 scoped through that
+                        // fullname.  Returns null for anything else so the
+                        // caller can fall back.
+                        auto mkOpSelLeaf9 =
+                            [&](const syntax::SyntaxNode& oe9, UHDM::any* par9,
+                                const std::string& scope9) -> UHDM::expr* {
+                            std::string tx9(rawText(oe9.sourceRange()));
+                            auto lbo9 = tx9.find('[');
+                            if (lbo9 == std::string::npos || tx9.empty() ||
+                                tx9.back() != ']' ||
+                                tx9.find(':') != std::string::npos ||
+                                tx9.find('[', lbo9 + 1) != std::string::npos ||
+                                tx9.find('.') != std::string::npos)
+                                return nullptr;
+                            std::string base9 = tx9.substr(0, lbo9);
+                            while (!base9.empty() && base9.back() == ' ')
+                                base9.pop_back();
+                            if (base9.empty())
+                                return nullptr;
+                            std::string idx9 =
+                                tx9.substr(lbo9 + 1, tx9.size() - lbo9 - 2);
+                            auto idxSt9 =
+                                oe9.sourceRange().start() + (lbo9 + 1);
+                            auto* bs9 = s.MakeBit_select();
+                            bs9->VpiParent(par9);
+                            bs9->VpiName(base9);
+                            std::string bsFull9 = scope9 + "." + base9;
+                            bs9->VpiFullName(bsFull9);
+                            setLoc(bs9, SourceRange(idxSt9,
+                                                    idxSt9 + idx9.size()));
+                            bs9->VpiIndex(
+                                mkIdxTx9(idx9, idxSt9, bs9, bsFull9));
+                            return bs9;
+                        };
+                        // § genConnOperatorActual (r10earl6), made RECURSIVE
+                        // and select-aware by r10earl8: an operand that is
+                        // itself an operator (`a & ~b`) nests, and an operand
+                        // that is a select (`inc_i[c+3]`) takes the
+                        // formal-doubled bit_select shape above.
+                        std::function<UHDM::expr*(const syntax::SyntaxNode&,
+                                                  UHDM::any*,
+                                                  const std::string&)>
+                            mkConnOpTree9 = [&](const syntax::SyntaxNode& e09,
+                                                UHDM::any* par9,
+                                                const std::string& scope9)
+                            -> UHDM::expr* {
+                            int32_t uo9 = mapSynUnaryOp9(e09.kind);
+                            int32_t bo9 = mapSynBinaryOp9(e09.kind);
+                            if (!uo9 && !bo9)
+                                return nullptr;
+                            auto* op9 = s.MakeOperation();
+                            op9->VpiOpType(uo9 ? uo9 : bo9);
+                            op9->VpiParent(par9);
+                            setLoc(op9, e09.sourceRange());
+                            auto* ov9 = s.MakeAnyVec();
+                            auto add9 =
+                                [&](const syntax::ExpressionSyntax* oe9) {
+                                    if (!oe9)
+                                        return;
+                                    if (oe9->kind ==
+                                        syntax::SyntaxKind::IdentifierName) {
+                                        std::string on9(
+                                            oe9->as<syntax::
+                                                        IdentifierNameSyntax>()
+                                                .identifier.valueText());
+                                        auto* r9 = s.MakeRef_obj();
+                                        r9->VpiName(on9);
+                                        r9->VpiFullName(scope9 + "." + on9);
+                                        r9->VpiParent(op9);
+                                        setLoc(r9, oe9->sourceRange());
+                                        ov9->push_back(r9);
+                                        return;
+                                    }
+                                    if (auto* n9 =
+                                            mkConnOpTree9(*oe9, op9, scope9)) {
+                                        ov9->push_back(n9);
+                                        return;
+                                    }
+                                    if (auto* l9 =
+                                            mkOpSelLeaf9(*oe9, op9, scope9)) {
+                                        ov9->push_back(l9);
+                                        return;
+                                    }
+                                    if (auto* e9c = emitSyntaxExpr(*oe9, op9))
+                                        ov9->push_back(e9c);
+                                };
+                            if (uo9)
+                                add9(e09.as<syntax::
+                                                PrefixUnaryExpressionSyntax>()
+                                         .operand);
+                            else {
+                                auto& be9 =
+                                    e09.as<syntax::BinaryExpressionSyntax>();
+                                add9(be9.left);
+                                add9(be9.right);
+                            }
+                            op9->Operands(ov9);
+                            return op9;
+                        };
                         // A DOTTED SELECTED actual
                         // (.i_hw_write_enable(register_if[3].value[16+:1]))
                         // is a HIER_PATH, not a select on the base: the two
@@ -22596,12 +22884,42 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 dotSyn9->as<syntax::SimpleSequenceExprSyntax>()
                                     .expr;
                         UHDM::any* dotHp9 = nullptr;
+                        // § genConnDotSelInterior (r10earl8): the gate used
+                        // to require the actual to END in `]`, so a select on
+                        // an INTERIOR component (`.a_i(r2h_i.cause[k].de)`)
+                        // never reached the hier_path emitter and became one
+                        // ref_obj named with the whole raw text.  What
+                        // Surelog keys on is that the path is SELECTED at
+                        // all — tj.sv row D.  An UNSELECTED `a.b` still keeps
+                        // the doubled-fullname ref_obj of the final else.
                         if (dotSyn9->kind == syntax::SyntaxKind::ScopedName &&
                             !idxGroups.empty() && !act.empty() &&
-                            act.back() == ']' &&
                             act.find('.') != std::string::npos)
                             dotHp9 = emitSyntaxExpr(*dotSyn9, p);
-                        if (dotHp9 &&
+                        // § genConnOperatorActualFirst (r10earl8).  The
+                        // OPERATOR test runs FIRST, ahead of every
+                        // text-driven select arm: an actual like
+                        // `.a_i(inc_i[c+3] & ~inh_i[c+3])` ends in `]` and
+                        // has two bracket groups, so the multidim arm below
+                        // claimed it and emitted a var_select named
+                        // `inc_i` — the whole `&` and its right operand
+                        // silently dropped.  Golden's shape (td.sv, and
+                        // ibex_cs_registers.sv:950
+                        // `.counter_inc_i(mhpmcounter_incr[cnt+3] &
+                        // ~mcountinhibit[cnt+3])`, 3 Earlgrey heads) is the
+                        // operation at the actual's own span, parented at the
+                        // PORT.  The syntax kind decides, so the arms below
+                        // keep their text parse for everything that is not an
+                        // operator.
+                        if (mapSynUnaryOp9(actSyn9->kind) != 0 ||
+                            mapSynBinaryOp9(actSyn9->kind) != 0) {
+                            std::string oscope9 = branchPrefix + "." + iname +
+                                                  "." + formal;
+                            if (auto* op9 =
+                                    mkConnOpTree9(*actSyn9, p, oscope9))
+                                p->High_conn(op9);
+                        }
+                        else if (dotHp9 &&
                             dotHp9->UhdmType() == UHDM::uhdmhier_path) {
                             p->High_conn((UHDM::expr*)dotHp9);
                         }
@@ -22906,6 +23224,20 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                                         idxStart + idxT.size()));
                                 bs->VpiIndex(ic2);
                             }
+                            // § genConnIdxOpTree (r10earl8).  An index written
+                            // as an EXPRESSION is a real operation tree whose
+                            // leaf refs scope THROUGH the select's own
+                            // fullname — td.sv row `.b_i(inc_i[c+3])` reads
+                            // `work@td.gen_cntrs.u_sub.inc_i.c` in golden
+                            // where we named ONE ref_obj "c+3" scoped without
+                            // the base.  A PLAIN identifier index keeps the
+                            // measured baseless form.
+                            else if (idxT.find_first_of("+-*/") !=
+                                     std::string::npos) {
+                                bs->VpiIndex(mkIdxTx9(
+                                    idxT, idxStart, bs,
+                                    branchPrefix + "." + iname + "." + base2));
+                            }
                             else {
                                 auto* ir = s.MakeRef_obj();
                                 ir->VpiName(idxT);
@@ -23042,72 +23374,6 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 }
                                 else if (auto* e9c = emitSyntaxExpr(*ce9, op9))
                                     ov9->push_back(e9c);
-                            }
-                            op9->Operands(ov9);
-                            p->High_conn(op9);
-                        }
-                        // § genConnOperatorActual (r10earl6).  An OPERATOR
-                        // actual (`.clk0_i ( ~clk_i )`) is an operation whose
-                        // operands are formal-scoped refs, exactly like the
-                        // concat arm above.  This dispatcher text-parses its
-                        // actuals and had arms for selects, ranges, calls,
-                        // literals and concats; every other shape fell into
-                        // the final else and became ONE ref_obj NAMED with the
-                        // raw source text — `~clk_i` came out as a ref_obj
-                        // called "~clk_i" with that string in its fullname.
-                        // Measured on qq.sv, three rows in one gen block:
-                        //   ~clk_i        -> operation vpiBitNegOp, span
-                        //                    16..22, operand ref_obj `clk_i`
-                        //                    at 17..22 scoped
-                        //                    <branch>.<inst>.<formal>.clk_i
-                        //   clk_i & b_i   -> operation vpiBitAndOp, both
-                        //                    operands scoped the same way
-                        //   !b_i          -> operation vpiNotOp
-                        // 3 Earlgrey heads (prim_clock_inverter:18, and
-                        // dmi_jtag / dmi_jtag_tap which instantiate it).
-                        else if (mapSynUnaryOp9(actSyn9->kind) != 0 ||
-                                 mapSynBinaryOp9(actSyn9->kind) != 0) {
-                            std::string oscope9 = branchPrefix + "." + iname +
-                                                  "." + formal;
-                            auto* op9 = s.MakeOperation();
-                            op9->VpiParent(p);
-                            setLoc(op9, actSyn9->sourceRange());
-                            auto* ov9 = s.MakeAnyVec();
-                            auto addOperand9 =
-                                [&](const syntax::ExpressionSyntax* oe9) {
-                                    if (!oe9)
-                                        return;
-                                    if (oe9->kind ==
-                                        syntax::SyntaxKind::IdentifierName) {
-                                        std::string on9(
-                                            oe9->as<syntax::
-                                                        IdentifierNameSyntax>()
-                                                .identifier.valueText());
-                                        auto* r9 = s.MakeRef_obj();
-                                        r9->VpiName(on9);
-                                        r9->VpiFullName(oscope9 + "." + on9);
-                                        r9->VpiParent(op9);
-                                        setLoc(r9, oe9->sourceRange());
-                                        ov9->push_back(r9);
-                                        return;
-                                    }
-                                    if (auto* e9 = emitSyntaxExpr(*oe9, op9))
-                                        ov9->push_back(e9);
-                                };
-                            if (int32_t uo9 = mapSynUnaryOp9(actSyn9->kind)) {
-                                op9->VpiOpType(uo9);
-                                addOperand9(actSyn9
-                                                ->as<syntax::
-                                                         PrefixUnaryExpressionSyntax>()
-                                                .operand);
-                            }
-                            else {
-                                op9->VpiOpType(
-                                    mapSynBinaryOp9(actSyn9->kind));
-                                auto& be9 =
-                                    actSyn9->as<syntax::BinaryExpressionSyntax>();
-                                addOperand9(be9.left);
-                                addOperand9(be9.right);
                             }
                             op9->Operands(ov9);
                             p->High_conn(op9);

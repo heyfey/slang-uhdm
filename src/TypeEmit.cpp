@@ -9749,7 +9749,21 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // ref_obj index child that PARENTS AT THE HIER_PATH and carries
                 // the gen-scope-prefixed genvar fullname (Surelog). Distinct
                 // from the constant-index and symbolic-doubled-index forms.
-                if (i == 0 && lb != std::string::npos && rb != std::string::npos &&
+                // § hpMidGenvarSelect (r10earl8): the arm was gated on
+                // `i == 0` (the BASE component) and every INTERIOR or LEAF
+                // component with a genvar select fell to the raw ref_obj at
+                // the bottom — `hw2reg.alert_cause[k].d` came out as one
+                // ref_obj literally NAMED "alert_cause[k]" where golden
+                // builds the bit_select.  Measured on tj.sv rows A/B/D and
+                // 4 Earlgrey heads (alert_handler_reg_wrap:105,
+                // padctrl:100, pinmux:95, gpio:40 — the last one a PORT
+                // ACTUAL).  The component fullname is the dotted path SO
+                // FAR (`r2h_i.cause[k]`), which for i == 0 is exactly the
+                // `pname` this arm already used.  genVarBaseEmitted stays a
+                // BASE-only flag: it re-anchors the hier_path span and
+                // rewrites the leaf fullname, both of which are base-select
+                // behaviours (Surelog's modport-array member path).
+                if (lb != std::string::npos && rb != std::string::npos &&
                     rb > lb + 1) {
                     std::string idx = pname.substr(lb + 1, rb - lb - 1);
                     auto isIdentStart = [](char c) {
@@ -9765,7 +9779,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         auto* bs = s.MakeBit_select();
                         bs->VpiName(base);
                         bs->VpiParent(hp);
-                        bs->VpiFullName(pname);
+                        bs->VpiFullName(dottedSoFar);
                         setLoc(bs, SourceRange(exprStart + off,
                                                exprStart + off + base.size()));
                         auto* ir = s.MakeRef_obj();
@@ -9778,7 +9792,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                                exprStart + idOff + idx.size()));
                         bs->VpiIndex(ir);
                         elems->push_back(bs);
-                        genVarBaseEmitted = true;
+                        if (i == 0)
+                            genVarBaseEmitted = true;
                         continue;
                     }
                 }
