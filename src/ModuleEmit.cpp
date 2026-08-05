@@ -21774,6 +21774,25 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             }
                         }
                     }
+                    // § genLpUnpackedArray — an UNPACKED-ARRAY gen localparam
+                    // (ibex_alu.sv:712 `localparam logic [31:0]
+                    // SHUFFLE_MASK_L [0:3] = '{...};` inside
+                    // `if (RV32B) begin : g_alu_rvb` — 4 Earlgrey heads) is
+                    // described by its ELEMENT typespec: a logic_typespec at
+                    // the declared-type span carrying the PACKED dims, with
+                    // the UNPACKED dims riding the PARAMETER's own vpiRange
+                    // and a vpiSize of the TOTAL element count.  makeParamTs
+                    // describes the whole array and falls back to a rangeless
+                    // int_typespec at that same span.  Measured on tb.sv rows
+                    // GS_MASK_L `[0:3]` (size 4, one literal range), GS_SIZED
+                    // `[4]` (size 4, the § genSyntaxSizeDim [0:N-1] shape) and
+                    // GS_2D `[2][2]` (size 4 — the PRODUCT — two ranges).
+                    bool unpkLp9 =
+                        typedP2 && !dcl->dimensions.empty() &&
+                        psym->getType().getCanonicalType().kind ==
+                            SymbolKind::FixedSizeUnpackedArrayType &&
+                        (pd.type->kind == syntax::SyntaxKind::LogicType ||
+                         pd.type->kind == syntax::SyntaxKind::RegType);
                     // UNTYPED gen localparams resolve to an int_typespec at
                     // the FULL declaration span in the ELAB share (Surelog);
                     // typed ones keep their makeParamTs form.
@@ -21782,6 +21801,39 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         auto* it2g = s.MakeInt_typespec();
                         setLoc(it2g, pds.parameter->sourceRange());
                         its2 = it2g;
+                    }
+                    else if (unpkLp9) {
+                        auto* elt9 = s.MakeLogic_typespec();
+                        setLoc(elt9, pd.type->sourceRange());
+                        auto& ity9 = pd.type->as<syntax::IntegerTypeSyntax>();
+                        auto* prv9 = s.MakeRangeVec();
+                        for (auto* pdim9 : ity9.dimensions) {
+                            if (!pdim9->specifier ||
+                                pdim9->specifier->kind !=
+                                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                                continue;
+                            auto& psel9 =
+                                pdim9->specifier
+                                    ->as<syntax::
+                                             RangeDimensionSpecifierSyntax>()
+                                    .selector;
+                            if (psel9->kind !=
+                                syntax::SyntaxKind::SimpleRangeSelect)
+                                continue;
+                            auto& prs9 =
+                                psel9->as<syntax::RangeSelectSyntax>();
+                            auto* pr9 = s.MakeRange();
+                            pr9->VpiParent(elt9);
+                            setLoc(pr9, pdim9->sourceRange());
+                            if (auto* le9 = emitSyntaxExpr(*prs9.left, pr9))
+                                pr9->Left_expr((UHDM::expr*)le9);
+                            if (auto* re9 = emitSyntaxExpr(*prs9.right, pr9))
+                                pr9->Right_expr((UHDM::expr*)re9);
+                            prv9->push_back(pr9);
+                        }
+                        if (!prv9->empty())
+                            elt9->Ranges(prv9);
+                        its2 = elt9;
                     }
                     else
                         its2 = makeParamTs(*psym, typedP2);
@@ -21795,11 +21847,109 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             up2->Typespec(prt2);
                         }
                     }
+                    // § genLpUnpackedArray — the UNPACKED dims ride the
+                    // parameter itself (one vpiRange per dim, size form built
+                    // exactly as § genSyntaxSizeDim builds it), and vpiSize is
+                    // the TOTAL element count.
+                    if (unpkLp9) {
+                        auto* urv9 = s.MakeRangeVec();
+                        for (auto* udim9 : dcl->dimensions) {
+                            if (!udim9->specifier ||
+                                udim9->specifier->kind !=
+                                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                                continue;
+                            auto& usel9 =
+                                udim9->specifier
+                                    ->as<syntax::
+                                             RangeDimensionSpecifierSyntax>()
+                                    .selector;
+                            if (auto* ubs9 =
+                                    usel9->as_if<syntax::BitSelectSyntax>()) {
+                                auto* ur9 = s.MakeRange();
+                                ur9->VpiParent(up2);
+                                setLoc(ur9, ubs9->expr->sourceRange());
+                                auto* ulc9 = s.MakeConstant();
+                                ulc9->VpiParent(ur9);
+                                ulc9->VpiDecompile("0");
+                                ulc9->VpiSize(64);
+                                ulc9->VpiValue("UINT:0");
+                                ulc9->VpiConstType(vpiUIntConst);
+                                ur9->Left_expr(ulc9);
+                                auto* uop9 = s.MakeOperation();
+                                uop9->VpiParent(ur9);
+                                uop9->VpiOpType(11);
+                                setLoc(uop9, ubs9->expr->sourceRange());
+                                auto* uops9 = s.MakeAnyVec();
+                                if (auto* ue9 =
+                                        emitSyntaxExpr(*ubs9->expr, uop9))
+                                    uops9->push_back(ue9);
+                                auto* uone9 = s.MakeConstant();
+                                uone9->VpiSize(64);
+                                uone9->VpiValue("INT:1");
+                                uone9->VpiConstType(vpiIntConst);
+                                uops9->push_back(uone9);
+                                uop9->Operands(uops9);
+                                ur9->Right_expr(uop9);
+                                urv9->push_back(ur9);
+                                continue;
+                            }
+                            if (usel9->kind !=
+                                syntax::SyntaxKind::SimpleRangeSelect)
+                                continue;
+                            auto& urs9 =
+                                usel9->as<syntax::RangeSelectSyntax>();
+                            auto* ur9 = s.MakeRange();
+                            ur9->VpiParent(up2);
+                            setLoc(ur9, udim9->sourceRange());
+                            if (auto* le9 = emitSyntaxExpr(*urs9.left, ur9))
+                                ur9->Left_expr((UHDM::expr*)le9);
+                            if (auto* re9 = emitSyntaxExpr(*urs9.right, ur9))
+                                ur9->Right_expr((UHDM::expr*)re9);
+                            urv9->push_back(ur9);
+                        }
+                        if (!urv9->empty())
+                            up2->Ranges(urv9);
+                        uint64_t nel9 = 1;
+                        for (const Type* et9 = &psym->getType();
+                             et9->getCanonicalType().kind ==
+                             SymbolKind::FixedSizeUnpackedArrayType;
+                             et9 = &et9->getCanonicalType()
+                                        .as<FixedSizeUnpackedArrayType>()
+                                        .elementType)
+                            nel9 *= et9->getCanonicalType()
+                                        .as<FixedSizeUnpackedArrayType>()
+                                        .range.width();
+                        up2->VpiSize((int32_t)nel9);
+                    }
                     pa2->Lhs(up2);
                     if (dcl->initializer) {
                         syntaxRefPrefix = branchPrefix;
                         if (auto* rc2 =
                                 emitSyntaxExpr(*dcl->initializer->expr, pa2)) {
+                            // § genSyntaxSimplePattern — a positional
+                            // pattern's VALUE constants stay UNPARENTED
+                            // (Surelog), exactly as the array-decl
+                            // initialiser's tagged values do; a NESTED
+                            // pattern's inner operation KEEPS its parent and
+                            // its own constants are unparented in turn
+                            // (tb.sv GS_2D).
+                            if (rc2->UhdmType() == UHDM::uhdmoperation) {
+                                std::function<void(UHDM::operation*)> unp9 =
+                                    [&](UHDM::operation* o9) {
+                                        if (o9->VpiOpType() != 75)
+                                            return;
+                                        if (auto* ps9 = o9->Operands())
+                                            for (auto* p9 : *ps9) {
+                                                if (p9->UhdmType() ==
+                                                    UHDM::uhdmconstant)
+                                                    p9->VpiParent(nullptr);
+                                                else if (p9->UhdmType() ==
+                                                         UHDM::uhdmoperation)
+                                                    unp9((UHDM::operation*)p9);
+                                            }
+                                    };
+                                unp9((UHDM::operation*)rc2);
+                            }
                             // A REF Rhs re-parents at the cloned param_assign
                             // (genvar_loop_decl_2 w = x); an OPERATION Rhs keeps
                             // its param_assign parent; a LITERAL/computed
@@ -21999,14 +22149,30 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 lts3->Ranges(prv3);
                         }
                         auto* ats3 = s.MakeArray_typespec();
+                        // § genSyntaxSizeDim — a SIZE-form unpacked dim `[N]`
+                        // builds its range out of the size EXPRESSION alone,
+                        // so the range (and with it the array ts) stops one
+                        // character short of the `]` a `[a:b]` dim reaches.
+                        auto dimEnd9 = [&](const syntax::VariableDimensionSyntax*
+                                               d9) {
+                            if (d9->specifier &&
+                                d9->specifier->kind ==
+                                    syntax::SyntaxKind::RangeDimensionSpecifier)
+                                if (auto* bs9 =
+                                        d9->specifier
+                                            ->as<syntax::
+                                                     RangeDimensionSpecifierSyntax>()
+                                            .selector
+                                            ->as_if<syntax::BitSelectSyntax>())
+                                    return bs9->expr->sourceRange().end();
+                            return d9->sourceRange().end();
+                        };
                         // The array ts spans name..last-dim only (an
                         // initializer does NOT extend it — Surelog).
                         if (!dcl->dimensions.empty())
                             setLoc(ats3,
                                    SourceRange(dcl->name.location(),
-                                               dcl->dimensions.back()
-                                                   ->sourceRange()
-                                                   .end()));
+                                               dimEnd9(dcl->dimensions.back())));
                         else
                             setLoc(ats3, dcl->sourceRange());
                         auto* arv3 = s.MakeRangeVec();
@@ -22019,6 +22185,49 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 dim->specifier
                                     ->as<syntax::RangeDimensionSpecifierSyntax>()
                                     .selector;
+                            // § genSyntaxSizeDim — `[N]` IS `[0:N-1]`, and the
+                            // syntax-driven def-view gen-block emitter skipped
+                            // it entirely, leaving the array_typespec
+                            // rangeless (4 Earlgrey heads at ibex_alu.sv:406,
+                            // `logic [5:0] bitcnt_partial [32];` inside
+                            // `if (RV32B) begin : g_alu_rvb`).  Surelog's
+                            // shape, measured on ta.sv across the literal,
+                            // parameter-named and two-dim forms: the range
+                            // spans the SIZE EXPRESSION (not the brackets),
+                            // the left bound is a location-less UINT 0 at 64
+                            // bits, and the right bound is an UNFOLDED vpiSubOp
+                            // — anchored at the same span — over the size
+                            // expression AS WRITTEN (bare ref_obj for a
+                            // parameter read) and an UNPARENTED INT 1.
+                            if (auto* bs4 =
+                                    sel3->as_if<syntax::BitSelectSyntax>()) {
+                                auto* r6 = s.MakeRange();
+                                r6->VpiParent(ats3);
+                                setLoc(r6, bs4->expr->sourceRange());
+                                auto* lc6 = s.MakeConstant();
+                                lc6->VpiParent(r6);
+                                lc6->VpiDecompile("0");
+                                lc6->VpiSize(64);
+                                lc6->VpiValue("UINT:0");
+                                lc6->VpiConstType(vpiUIntConst);
+                                r6->Left_expr(lc6);
+                                auto* op6 = s.MakeOperation();
+                                op6->VpiParent(r6);
+                                op6->VpiOpType(11);
+                                setLoc(op6, bs4->expr->sourceRange());
+                                auto* ops6 = s.MakeAnyVec();
+                                if (auto* se6 = emitSyntaxExpr(*bs4->expr, op6))
+                                    ops6->push_back(se6);
+                                auto* one6 = s.MakeConstant();
+                                one6->VpiSize(64);
+                                one6->VpiValue("INT:1");
+                                one6->VpiConstType(vpiIntConst);
+                                ops6->push_back(one6);
+                                op6->Operands(ops6);
+                                r6->Right_expr(op6);
+                                arv3->push_back(r6);
+                                continue;
+                            }
                             if (sel3->kind !=
                                 syntax::SyntaxKind::SimpleRangeSelect)
                                 continue;

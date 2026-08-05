@@ -5003,7 +5003,8 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
 // clone.  uhdm-cmp does not compare identity, but it does compare VpiName one
 // level down through Typedef_alias, so the clone needs its own copy.
 void UhdmExporter::importCloneBareTdAlias16() {
-    if (pkgImportCloneTfs16.empty() || pkgScalarTd16.empty())
+    if ((pkgImportCloneTfs16.empty() && importElemTdRefs16.empty()) ||
+        pkgScalarTd16.empty())
         return;
     // § pkgTdRangeViewFold18 — the DEF listing object of each typedef paired
     // with its ELABORATED twin.  A clone's chain is re-minted against the
@@ -5099,6 +5100,13 @@ void UhdmExporter::importCloneBareTdAlias16() {
             for (auto* v : *m->Variables())
                 rebind(v->Typespec());
     }
+    // § importElemBareTdAlias — the same clone-flavoured copy at the
+    // Elem_typespec of a MODULE's materialized wildcard-import copy of a
+    // scalar-typedef unpacked-array package parameter (te.sv; 4 Earlgrey
+    // heads on hmac_pkg's sha_word_t).  The package's OWN two views keep
+    // LAW S's home copy, whose alias target stays qualified.
+    for (auto* rt : importElemTdRefs16)
+        rebind(rt);
 }
 
 // § cloneStmtHomeVarRef17 — the STATEMENT half of the wildcard-import clone.
@@ -9377,6 +9385,28 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // (parented at the operation) and a string_typespec ref named by
             // the FIELD, scoped at the gen prefix (Surelog).
             auto& ape = syn.as<syntax::AssignmentPatternExpressionSyntax>();
+            // § genSyntaxSimplePattern — a POSITIONAL pattern ('{a, b, c, d})
+            // is a plain operation 75 over the item expressions, with no
+            // tagged_pattern wrapper and no member typespec.  The syntax
+            // emitter returned null for it, so a def-view gen-block
+            // localparam of an unpacked-array type came out Rhs-less:
+            // ibex_alu.sv:712 `localparam logic [31:0] SHUFFLE_MASK_L [0:3] =
+            // '{32'h00ff_0000, ...};` inside `if (RV32B) begin : g_alu_rvb`
+            // (4 Earlgrey heads).
+            if (auto* sap9 =
+                    ape.pattern
+                        ->as_if<syntax::SimpleAssignmentPatternSyntax>()) {
+                auto* op8 = s.MakeOperation();
+                op8->VpiOpType(75);
+                op8->VpiParent(parent);
+                setLoc(op8, ape.pattern->sourceRange());
+                auto* ops8 = s.MakeAnyVec();
+                for (auto* it8 : sap9->items)
+                    if (auto* e8 = emitSyntaxExpr(*it8, op8))
+                        ops8->push_back(e8);
+                op8->Operands(ops8);
+                return op8;
+            }
             if (ape.pattern->kind !=
                 syntax::SyntaxKind::StructuredAssignmentPattern)
                 return nullptr;

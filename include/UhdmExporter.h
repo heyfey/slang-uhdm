@@ -452,6 +452,21 @@ private:
     // Every task_func emitted as a wildcard-import CLONE (both halves: free
     // package subroutines and package class methods).
     std::set<const UHDM::task_func*> pkgImportCloneTfs16;
+    // § importElemBareTdAlias — the Elem_typespec refs of a MODULE's
+    // MATERIALIZED wildcard-import copy of a scalar-typedef unpacked-array
+    // package parameter.  They take the CLONE-flavoured copy (bare, with a
+    // bare alias target) rather than LAW S's home copy, and the swap runs
+    // design-final beside importCloneBareTdAlias16 because the copies are
+    // memoized per listing object.
+    std::vector<UHDM::ref_typespec*> importElemTdRefs16;
+    // Set while makeUnpackedArrayParamTs builds such a copy.
+    bool importedParamElemClone16 = false;
+    // § impCopyCastFold — (the folded constant's ts ref, the parameter whose
+    // declared-type typespec it must name).  The parameter's own typespec
+    // actual is not bound when the Rhs is emitted, so the link is made
+    // design-final.
+    std::vector<std::pair<UHDM::ref_typespec*, UHDM::parameter*>>
+        castFoldTsFix9;
     // § cloneStmtHomeVarRef17 — the HOME subroutine symbol each of those
     // clones was re-emitted from.  A clone body's STATEMENT references split
     // BY KIND: a reference to one of the body's own FORMALS binds the clone's

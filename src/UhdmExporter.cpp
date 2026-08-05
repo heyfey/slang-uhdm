@@ -3870,6 +3870,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // materialized (the struct ts a parameter points at is filled by the
     // deferred drain above) and only on the ELABORATED views.
     stampEvalFuncLeftovers(d);
+    // § impCopyCastFold — the folded size-cast constant names the SAME
+    // declared-type typespec its parameter does; that link is only final now.
+    for (auto& [rt9, up9] : castFoldTsFix9)
+        if (rt9 && up9 && !rt9->Actual_typespec() && up9->Typespec())
+            rt9->Actual_typespec(up9->Typespec()->Actual_typespec());
     // Elab param_assign Rhs ts refs -> the def parameter's FINAL typespec.
     // Dead last: every deferred def-view typespec rebind is done by now.
     drainShareDefParamTs();

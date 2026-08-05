@@ -2206,6 +2206,19 @@ UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
         val = "INT:" + dec;
         sz = (int32_t)evs.getType().getBitWidth();
     }
+    // § enumSubstDecBare — a BASED-DECIMAL member (`XV_STD = 4'd4`) loses its
+    // base in the SUBSTITUTED copy: golden writes decompile "4" at INT:4 /
+    // vpiIntConst / size 4 while the ENUM_CONST object itself keeps `4'd4`.
+    // Only the decimal base drops — a BIN member (`PRIV_M = 2'b11`) and a HEX
+    // one (`HX_A = 4'h6`) keep their spelling in the substituted copy too
+    // (tc.sv negative controls), which is what the vpiIntConst encoding
+    // already distinguishes.  Measured in every view: both package views, a
+    // module struct-pattern localparam, the importing module's materialized
+    // import copy, and an always_ff non-blocking pattern rhs.  Corpus:
+    // ibex_cs_registers.sv:690 `xdebugver: XDEBUGVER_STD` — 3 Earlgrey heads
+    // (ibex_core, ibex_cs_registers, rv_core_ibex).
+    if (val.rfind("INT:", 0) == 0 && dec.find('\'') != std::string::npos)
+        dec = val.substr(4);
     if (sz <= 0 || val.empty())
         return nullptr;
     auto* c = s.MakeConstant();
@@ -3531,6 +3544,59 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     cIt->second->VpiParent())
                                     c->VpiParent(cIt->second->VpiParent());
                         }
+                    // § qualPkgParamFoldTs — the QUALIFIED half of the same
+                    // law.  The gate right above says "only a param
+                    // MATERIALIZED into this module carries the ts ref; a
+                    // QUALIFIED pkg::P read folds bare"; that was measured on
+                    // BSOPPS*InGenForOfSubmodule, where the reading module
+                    // ALSO imports the package, so the def ts it would name
+                    // belongs to another module's import copy.  When the
+                    // read is a DEF-view PARAM-INIT OPERATION operand, golden
+                    // DOES stamp — and it names the PACKAGE parameter's OWN
+                    // declaration typespec (§ stampFoldedPkgParamTs's object),
+                    // module-scoped, NOT the materialized copy's.
+                    // Measured on th.sv, all four corpus spellings, in the
+                    // module DEF listing and only there: a replication COUNT
+                    // (`{thp::NPeriph{1'b1}}`), both operands of an arithmetic
+                    // op (`thp::Base - 4*thp::Sz`), and both arms of a ternary
+                    // — with a module-LOCAL localparam read as the negative
+                    // control (no stamp on either side).  th.sv was measured
+                    // BOTH WAYS: with and without `module th import thp::*;`,
+                    // golden stamps the SAME package-side int_typespec, so the
+                    // materialized copy does not suppress it (pinmux writes
+                    // `import pinmux_reg_pkg::*` AND reads
+                    // `pinmux_reg_pkg::NMioPeriphOut` qualified).
+                    // 5 Earlgrey heads (ranked residue (1)):
+                    // alert_handler_ping_timer:140, dm_csrs:91, dm_mem:65,
+                    // flash_phy_pkg:43, pinmux:54.
+                    // DISTINGUISHER, measured as a REGRESSION and then gated:
+                    // u2r BitSelectOfParameterPassedToSubmoduleInGenForOf-
+                    // Submodule writes `localparam pinmux_pkg::target_cfg_t
+                    // PinmuxTargetCfg = '{dio_pad_type:
+                    // {pinmux_pkg::NDioPads{prim_pad_wrapper_pkg::B}}};` and
+                    // golden leaves THAT replication count bare.  The
+                    // difference is the ASSIGNMENT-PATTERN context: a fold
+                    // under a tagged_pattern / op75 member value is not
+                    // stamped, a direct param-init operand is.  (The earlier
+                    // reading of that test — "a QUALIFIED read folds bare
+                    // whenever the param is materialized somewhere" — is
+                    // wrong: pinmux imports its package and still stamps.)
+                    bool inPatternFold9 = false;
+                    for (const UHDM::any* a9 = parent; a9; a9 = a9->VpiParent()) {
+                        if (a9->UhdmType() == UHDM::uhdmtagged_pattern ||
+                            (a9->UhdmType() == UHDM::uhdmoperation &&
+                             ((const UHDM::operation*)a9)->VpiOpType() == 75)) {
+                            inPatternFold9 = true;
+                            break;
+                        }
+                        if (a9->UhdmType() == UHDM::uhdmparam_assign)
+                            break;
+                    }
+                    if (defParamInitOpFold9 && !c->Typespec() &&
+                        !inPatternFold9 &&
+                        rawText(expr.sourceRange).find("::") !=
+                            std::string::npos)
+                        stampFoldedPkgParamTs(c, nv.symbol, prefix);
                     return c;
                 }
                 ref->VpiFullName(std::string(scope->asSymbol().name) + "::" +

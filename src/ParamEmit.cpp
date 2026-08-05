@@ -4315,8 +4315,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // parent = the parameter, ranges shared with it). Minted after
                 // the instance's net/port typespecs unless the folded-pattern
                 // path needs it sooner.
-                auto mk = [this, psp = &ps, afull, art,
-                           dimPrefix9]() -> UHDM::array_typespec* {
+                auto mk = [this, psp = &ps, afull, art, dimPrefix9,
+                           imp9 = isImported]() -> UHDM::array_typespec* {
                     if (auto* ex = art->Actual_typespec())
                         return (UHDM::array_typespec*)ex;
                     // The clone's own "N-1" dim op parents its synthetic 1
@@ -4324,8 +4324,12 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // its bounds stay symbolic when the def's did.
                     bool saved = elabParamDim;
                     elabParamDim = true;
+                    // § importElemBareTdAlias — see makeUnpackedArrayParamTs.
+                    bool savedIpc9 = importedParamElemClone16;
+                    importedParamElemClone16 = imp9;
                     auto* ats = makeUnpackedArrayParamTs(*psp, afull, art,
                                                          nullptr, true, dimPrefix9);
+                    importedParamElemClone16 = savedIpc9;
                     elabParamDim = saved;
                     art->Actual_typespec(ats);
                     return ats;
@@ -4334,7 +4338,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 pendingElabArrayTs.push_back([mk]() { mk(); });
             }
             else {
+                // § importElemBareTdAlias — see makeUnpackedArrayParamTs.
+                bool savedIpc9 = importedParamElemClone16;
+                importedParamElemClone16 = isImported && !inPackage;
                 paramArrayTs = makeUnpackedArrayParamTs(ps, afull, up, prng);
+                importedParamElemClone16 = savedIpc9;
                 art->Actual_typespec(paramArrayTs);
                 // Record the MODULE DEF view's object so the elab view's
                 // folded `'{default:X}` array_expr can point at it (see
@@ -11621,6 +11629,84 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     rhs->UhdmType() == UHDM::uhdmconstant)
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
+                // § impCopyCastFold — a MODULE's MATERIALIZED IMPORT COPY of a
+                // TYPED package parameter whose default is a SIZE CAST folds
+                // the cast AWAY.  Golden's Rhs in BOTH module views is a plain
+                // constant spanning the WHOLE cast expression, decimal
+                // decompile, UINT, vpiConstType 9, at the parameter's DECLARED
+                // width, and it carries a ref_typespec — fullname = the
+                // importing MODULE, actual = the copy's own declared-type
+                // typespec — which is the ranked-(1) "golden puts a Typespec
+                // ref on a folded constant" shape.  The PACKAGE's own two
+                // views keep the cast operation (tf.sv without the import is
+                // cmp-EQUAL), so this is the same "the module elaborator
+                // rebuilds a typed parameter's Rhs from the elaborated VALUE
+                // plus the declared width" rule § unsizedBasedTypedParamElab
+                // records, reaching a shape that never became a constant.
+                // Measured matrix (tf.sv, `localparam int NumAlerts = 1;
+                // localparam int Wide = 4;`):
+                //     logic [NumAlerts-1:0] = NumAlerts'(1'b1) -> 1  size 1
+                //     logic [Wide-1:0]      = Wide'(1'b1)      -> 1  size 4
+                //     logic [3:0]           = 4'(1'b1)         -> 1  size 4
+                //     logic [Wide-1:0]      = Wide'(4'h5)      -> 5  size 4
+                //     logic [Wide-1:0]      = Wide'('1)        -> 15 size 4
+                // — the operand's own base (BIN / HEX / unsized fill) is lost
+                // in every row, exactly as the octal arm above records.
+                // Corpus: hmac_pkg.sv:11
+                // `localparam logic [NumAlerts-1:0] AlertAsyncOn =
+                //  NumAlerts'(1'b1);` read through
+                // `module {hmac,hmac_core,sha2,sha2_pad} import hmac_pkg::*;`
+                // — 4 Earlgrey heads.
+                // DISTINGUISHER, measured: the fold needs a LITERAL cast
+                // operand.  u2r DivisionOfSize writes
+                // `parameter logic [2:0] PartInvDefault = 3'({3'({3'h1})});`
+                // and golden keeps the WHOLE cast tree — operation 67 with a
+                // ref_typespec to an integer_typespec at the cast size — in
+                // the importing module's copy, so a CONCATENATION operand does
+                // not fold.  Gating on the operand's syntax keeps that row
+                // untouched (it regressed on the ungated form).
+                bool castLit9 = false;
+                if (init && init->syntax &&
+                    init->syntax->kind == syntax::SyntaxKind::CastExpression) {
+                    auto rk9 = init->syntax->as<syntax::CastExpressionSyntax>()
+                                   .right->expression->kind;
+                    castLit9 =
+                        rk9 == syntax::SyntaxKind::IntegerVectorExpression ||
+                        rk9 == syntax::SyntaxKind::IntegerLiteralExpression ||
+                        rk9 ==
+                            syntax::SyntaxKind::UnbasedUnsizedLiteralExpression;
+                }
+                if (isImported && !inPackage && typedParam && castLit9) {
+                    auto cv9 = ps.getValue();
+                    if (cv9.isInteger() && !cv9.integer().hasUnknown()) {
+                        std::string dg9 =
+                            cv9.integer().toString(LiteralBase::Decimal, false);
+                        auto* cc9 = s.MakeConstant();
+                        cc9->VpiDecompile(dg9);
+                        cc9->VpiValue("UINT:" + dg9);
+                        cc9->VpiSize((int32_t)ps.getType().getBitWidth());
+                        cc9->VpiConstType(vpiUIntConst);
+                        cc9->VpiParent(pa);
+                        setLoc(cc9, init->sourceRange);
+                        {
+                            auto* rt9 = s.MakeRef_typespec();
+                            std::string tp9 = prefix;
+                            if (tp9.size() >= 2 &&
+                                tp9.compare(tp9.size() - 2, 2, "::") == 0)
+                                tp9.resize(tp9.size() - 2);
+                            rt9->VpiFullName(tp9);
+                            rt9->VpiParent(cc9);
+                            cc9->Typespec(rt9);
+                            // The parameter's own typespec actual is not bound
+                            // yet at Rhs time; point at the same object
+                            // design-final.
+                            castFoldTsFix9.emplace_back(rt9, up);
+                        }
+                        pa->Rhs(cc9);
+                        rhs = cc9;
+                        paramRhsObj[&member] = cc9;
+                    }
+                }
                 // The ELAB (top-view) MODULE copy of a TYPED param re-emits
                 // the param's RESOLVED VALUE, so a BASED-DECIMAL default
                 // loses its base form: 2'd1 becomes a plain int constant
@@ -12850,6 +12936,9 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
         if (auto tsyn = declared->getTypeSyntax())
             typeR = tsyn->getFirstToken().range();
     UHDM::typespec* elemTs = nullptr;
+    // § importElemBareTdAlias — set when the element bind below took LAW S's
+    // bare copy AND this listing is a module's materialized import copy.
+    bool recImportElem9 = false;
     // A struct/union/enum element type references the SHARED typedef typespec
     // (Surelog), not a fresh logic_typespec — when it has been materialized.
     if (auto lit = typedefTs.find(leaf);
@@ -12892,7 +12981,26 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
                 // struct member of the same typedef right beside it.  The
                 // design-final rebind that implements LAW S does not reach an
                 // array_typespec's Elem_typespec, so ask for the copy here.
-                elemTs = bareScalarTdCopyOf(vit->second, true);
+                //
+                // § importElemBareTdAlias — and when THIS listing is a
+                // MODULE's MATERIALIZED WILDCARD-IMPORT COPY of the package
+                // parameter, the copy's alias target is BARE as well, exactly
+                // as § importCloneBareTdAlias16 records for an imported
+                // package's cloned subroutine bodies.  Measured on te.sv
+                // (`package tep` declares `typedef logic [31:0] w_t` and
+                // `localparam w_t ARR [4]`; `module te import tep::*`): golden
+                // carries FOUR qualified alias targets — the package's own two
+                // views of its two scalar-typedef array parameters — and BARE
+                // alias targets at every module-view copy.  Recorded here and
+                // rebound design-final, because the bare copies are memoized
+                // per listing object and the clone needs its own.
+                // 4 Earlgrey heads (hmac, hmac_core, sha2, sha2_pad), all on
+                // hmac_pkg's `sha_word_t` reached through
+                // parameter::Compare's recursion from CubicRootPrime.
+                {
+                    elemTs = bareScalarTdCopyOf(vit->second, true);
+                    recImportElem9 = importedParamElemClone16;
+                }
     }
     if (elemTs) {
         // shared typedef keeps its own parent/loc
@@ -13002,6 +13110,8 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
     ert->VpiParent(ats);
     ert->Actual_typespec(elemTs);
     ats->Elem_typespec(ert);
+    if (recImportElem9)
+        importElemTdRefs16.push_back(ert);
     // An elaboration clone owns its element typespec, so that clone points
     // back at the ref holding it; a SHARED typedef ts keeps its own parent.
     if (elabClone && elemTs && !elemTs->VpiParent())

@@ -758,7 +758,226 @@ closed they advance to a sha_word_t NAMING head that was always there behind
 it.  A control run with § unpackedElemVecTypedefPkgDef compiled out gives the
 IDENTICAL 73 heads / 52 classes, which is how that was established.
 
-RANKED RESIDUE (measured after PASS 6 — next agent starts HERE).  AllModules
+LANDED — PASS 7 (r10earl7; SIX laws, each gated at goldens 23/23 + u2r
+testflags 0 change + Surelog both modes 0 change, incl. the dump column —
+five full gate rounds).  Pass-7 copies of the harness: run7.sh dmp7.sh dd7.sh
+rp7.sh cen7.sh sweep7.sh slsweep7.sh gate7.sh gold7.sh cmprc7.sh
+../r10earl7build.sh.
+
+  ta.sv  cmp-EQUAL.  § genSyntaxSizeDim (ModuleEmit ~22001).  A SIZE-form
+        unpacked dim `[N]` IS `[0:N-1]`, and the syntax-driven DEF-view
+        gen-block emitter skipped it entirely (it decoded only
+        SimpleRangeSelect), leaving the array_typespec RANGELESS.  Surelog's
+        shape: the range spans the SIZE EXPRESSION (not the brackets), the
+        left bound is a location-less UINT 0 at 64 bits, and the right bound
+        is an UNFOLDED vpiSubOp — at the same span — over the size expression
+        AS WRITTEN (a bare ref_obj for a parameter read) and an UNPARENTED
+        INT 1.  The array ts therefore ends one character short of the `]` a
+        `[a:b]` dim reaches.  Measured across the literal / parameter-named /
+        two-dim forms, in the TAKEN and the NOT-TAKEN branch alike.
+        Corpus: ibex_alu.sv:406 `logic [5:0] bitcnt_partial [32];` inside
+        `if (RV32B) begin : g_alu_rvb` — 4 heads.
+
+  tb.sv  § genSyntaxSimplePattern (TypeEmit emitSyntaxExpr) — a POSITIONAL
+        pattern ('{a,b,c,d}) is a plain operation 75 over the item
+        expressions, no tagged_pattern wrapper and no member typespec; the arm
+        returned null for anything but a StructuredAssignmentPattern.  The
+        value constants stay UNPARENTED; a NESTED pattern's inner operation
+        KEEPS its parent and its own constants unparent in turn.
+        ...and § genLpUnpackedArray (ModuleEmit ~21777): an UNPACKED-ARRAY gen
+        localparam is described by its ELEMENT typespec — a logic_typespec at
+        the declared-type span carrying the PACKED dims — with the UNPACKED
+        dims riding the PARAMETER's own vpiRange and a vpiSize of the TOTAL
+        element count (`[2][2]` -> 4, the PRODUCT).  makeParamTs describes the
+        whole array and fell back to a rangeless int_typespec.
+        Corpus: ibex_alu.sv:712 `localparam logic [31:0] SHUFFLE_MASK_L [0:3]
+        = '{32'h00ff_0000, ...};`, same gen block.  work@ibex_alu became
+        cmp-EQUAL; heads 73 -> 71.
+
+  tc.sv  BYTE-IDENTICAL.  § enumSubstDecBare (ExprEmit enumMemberSubstConst).
+        A BASED-DECIMAL enum member (`XV_STD = 4'd4`) loses its base in the
+        SUBSTITUTED copy: golden writes decompile "4" at INT:4 / vpiIntConst /
+        size 4 while the ENUM_CONST object itself keeps `4'd4` on both sides.
+        Only the decimal base drops — a BIN member (`2'b11`, ct 3) and a HEX
+        one (`4'h6`, ct 5) keep their spelling in the substituted copy, so the
+        rule keys on the ENCODING, not on the member.  True in every view.
+        Located in ONE build with mark.py (`4'd4@TY4100@EX2214`).
+        Corpus: ibex_cs_registers.sv:690 `xdebugver: XDEBUGVER_STD` — 3 heads,
+        all ADVANCED.
+
+  te.sv  § importElemBareTdAlias (ParamEmit makeUnpackedArrayParamTs + TypeEmit
+        importCloneBareTdAlias16).  LAW S gives a package SCALAR typedef a BARE
+        per-declaration copy aliased back to the QUALIFIED listing object;
+        § importCloneBareTdAlias16 records that a wildcard-import CLONE body's
+        copy has a BARE alias target instead.  A MODULE's MATERIALIZED
+        wildcard-import copy of a scalar-typedef UNPACKED-ARRAY package
+        parameter takes the CLONE shape too, at its array_typespec's
+        Elem_typespec.  te.sv: golden carries exactly FOUR qualified alias
+        targets (the package's own two views of its two scalar-typedef array
+        parameters) and a BARE target at every module-view copy — 21 alias
+        refs where we minted 9 and shared one memoized copy across all four
+        views.  Recorded at build time, rebound design-final (the bare copies
+        are memoized per listing object, so the clone needs its own).
+        Corpus: hmac_pkg's sha_word_t + CubicRootPrime — the 4-head class
+        (hmac, hmac_core, sha2, sha2_pad), the biggest at pass-7 entry,
+        CLOSED.
+
+  tf.sv  cmp-EQUAL.  § impCopyCastFold (ParamEmit + one design-final ts link
+        in UhdmExporter).  A MODULE's MATERIALIZED wildcard-import copy of a
+        TYPED package parameter whose default is a SIZE CAST folds the cast
+        AWAY: golden's Rhs in BOTH module views is a plain constant spanning
+        the WHOLE cast expression, decimal decompile, UINT, ct 9, at the
+        parameter's DECLARED width, carrying a ref_typespec (fullname = the
+        importing MODULE, actual = the copy's own declared-type typespec).
+        The PACKAGE's own two views KEEP the cast operation — tf.sv without
+        the import is cmp-EQUAL.  Matrix:
+            logic [NumAlerts-1:0] = NumAlerts'(1'b1) -> 1  size 1
+            logic [Wide-1:0]      = Wide'(1'b1)      -> 1  size 4
+            logic [3:0]           = 4'(1'b1)         -> 1  size 4
+            logic [Wide-1:0]      = Wide'(4'h5)      -> 5  size 4
+            logic [Wide-1:0]      = Wide'('1)        -> 15 size 4
+        — the operand's own base (BIN / HEX / unsized fill) is lost in every
+        row.  DISTINGUISHER, measured as a REGRESSION and then gated: u2r
+        DivisionOfSize writes `3'({3'({3'h1})})` and golden keeps the WHOLE
+        cast tree in the importing module's copy, so the fold needs a LITERAL
+        cast operand.  Corpus: hmac_pkg.sv:11 AlertAsyncOn — work@hmac_core
+        and work@sha2_pad became cmp-EQUAL; heads 71 -> 69.
+
+  th.sv  § qualPkgParamFoldTs (ExprEmit, beside § ndaOpFoldTs).  The
+        ranked-(1) residue's law.  The gate above that stamp said "only a
+        param MATERIALIZED into this module (read UNQUALIFIED) carries the ts
+        ref; a QUALIFIED pkg::P read folds bare".  THAT READING IS WRONG:
+        th.sv measured BOTH WAYS — with and without `module th import thp::*;`
+        — stamps the SAME object either way, and it is the PACKAGE parameter's
+        OWN declaration typespec (§ stampFoldedPkgParamTs's object,
+        module-scoped), not the materialized copy's.  pinmux is the corpus
+        proof (it imports pinmux_reg_pkg AND reads it qualified).
+        DISTINGUISHER, measured as a REGRESSION and then gated: u2r
+        BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule's
+        `'{dio_pad_type: {pinmux_pkg::NDioPads{...}}}` leaves its replication
+        count BARE — the real split is the ASSIGNMENT-PATTERN context (a fold
+        under a tagged_pattern / op75 member value is not stamped, a direct
+        param-init operand is), implemented as a parent-chain walk that stops
+        at the param_assign.  DEF view only.
+        Ranked-(1) class 5 heads -> 2.
+
+PASS-7 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  tc.sv  BYTE-IDENTICAL
+  ta.sv  cmp-EQUAL (2 dump lines left: one constant's parent)
+  tf.sv  cmp-EQUAL
+  tg.sv  the u2r DivisionOfSize source, copied in as the § impCopyCastFold
+         NEGATIVE control (a concatenation cast operand does not fold)
+  tb.sv  cmp-NOT-equal — every array row is clean; what is left is an UNTYPED
+         gen localparam (`localparam GS_U = 7;`) to which we give an
+         int_typespec at the declaration span and golden gives NONE, plus the
+         TAKEN branch's ELAB array_typespec (golden's ref_typespec fullname is
+         the GEN SCOPE `work@tb.g_norvb`, ours the parameter) — BOTH measured
+         PRE-EXISTING with a control build (unpkLp9 forced false: 510 diff
+         lines vs 249 with the law).
+  te.sv  cmp-NOT-equal — advanced to (a) an AllModules `parameter 'ARR'` whose
+         only difference is the parent package's VpiTop (the
+         pkgTypespecInstanceIsTop family) and (b) a TopModules head at the
+         ELAB param_assign Rhs OPERATION's OWN array_typespec, which
+         § importElemBareTdAlias does not reach.
+  th.sv  cmp-NOT-equal — AllModules 0 heads; the TopModules head left is a
+         `logic [11:0]` bound constant in the elab view (`32'h380` vs
+         `12'h380`), unrelated.
+
+EARLGREY_0_1 HEAD CENSUS after pass 7 (r10earl4h; 55 + 8 + 5 + 1 = 69, from
+59 + 8 + 5 + 1 = 73 at entry; 54 classes, from 52):
+
+  AllModules  SIZE 190 vs 190,  55 heads   (was 59)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged SIX passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   1 head    (unchanged)
+
+READ THE COUNT HONESTLY.  73 -> 69 is -5.5%, but THREE ENTRIES BECAME
+CMP-EQUAL OUTRIGHT — work@ibex_alu, work@hmac_core, work@sha2_pad — which is
+the first time this design has produced entry-level equality since pass 3's
+population fix.  Four classes CLOSED as classes (the ibex_alu gen-block pair,
+the ibex_cs_registers decompile, the sha_word_t naming, the AlertAsyncOn cast)
+and the ranked-(1) ref_typespec class went 5 -> 2.  The class count ROSE
+(52 -> 54) because closed classes fragment into per-file singletons; that is
+progress, not regression, and every entry that moved moved FORWARD (no head
+in the pass-6 census reappeared).
+
+RANKED RESIDUE (measured after PASS 7 — next agent starts HERE).  AllModules
+unless stated; counts are heads, and most classes are ONE shared object
+reached from many entries.
+
+  (1) 4 `parameter 'PTRV_W' prim_fifo_async:33:27 vs <null>` (+ the same shape
+      on prim_filter_ctr's CTR_WIDTH) — UNTOUCHED for three passes and now the
+      biggest class.  NOT a population difference: r10earl4pa shows all 9
+      PTRV_W param_assign rows identical on both sides, so it is a FIELD of
+      the parameter object (its typespec's Cast_to_expr, one level above where
+      the pass-5 census reported it).  `localparam logic [PTRV_W-1:0]
+      DepthMinus1 = PTRV_W'(Depth - 1)` with `PTRV_W = $clog2(Depth)` is the
+      § castTgtDefaultIsLiteral=false arm.  NOTE for pass 8: pass 7 landed
+      § impCopyCastFold on a NEIGHBOURING cast shape, and its LITERAL-operand
+      gate is exactly what excludes `PTRV_W'(Depth - 1)` — read that comment
+      first, the two are one family.
+  (2) 4 `<null> vs ref_typespec '' 0:0` — the MIRROR of the class pass 7 just
+      cut from 5 to 2 (flash_mp:66:45, pinmux_wkup, rstmgr, rstmgr_ctrl), on
+      param_assign Rhs OPERATIONS.  § qualPkgParamFoldTs is now the frame:
+      these are positions where WE stamp and golden does not, so the
+      pattern-context distinguisher it decoded (tagged_pattern / op75 member
+      value -> no stamp) is the first thing to test on them.
+  (3) 3 `package prim_cipher_pkg {top=1} vs {top=0}` (aes, aes_prng,
+      prim_prince) — the pkgTypespecInstanceIsTop family; a def-view module
+      link names the DEF package where golden names the ELABORATED one.
+      r10earl4t (pointer identity) is the probe; the objects are
+      text-identical in a dump.  te.sv's leftover AllModules head is the SAME
+      shape on a parameter and is a ready 20-line witness for it.
+  (4) 3 `operation '' ibex_cs_registers:950:22 vs var_select
+      'mhpmcounter_incr'` — DECODED THIS PASS and not implemented.  td.sv is
+      the ready witness.  The def-view gen-block instantiation's High_conn
+      emitter (ModuleEmit ~22770) is TEXT-driven with one case per shape, and
+      it has no case for an OPERATION actual: `.counter_inc_i(
+      mhpmcounter_incr[cnt+3] & ~mcountinhibit[cnt+3])` comes out as the left
+      operand alone.  Golden's shape, read off td.sv: operation 28 at the
+      whole actual's span, parented at the PORT, whose leaf selects keep the
+      "loc at the INDEX span, fullname prefix.<inst>.<formal>.<base>"
+      convention — WITH the formal doubled in, where a BARE select actual
+      (`.b_i(inc_i[c+3])`) has NO formal doubling.  A genvar-indexed index
+      `[c+3]` is an operation 24 over a bare ref_obj and a UINT constant, not
+      the ref_obj named "c+3" we emit; the existing mkB9 text-parser right
+      above is the piece to reuse.
+  (5) 2 `ref_typespec '' 0:0 vs <null>` — what is LEFT of ranked-(1)
+      (alert_handler_ping_timer:140:37, a constant under a part_select in a
+      cont-assign; flash_phy_core).  Neither is a param-init operand, so they
+      need their own position rule; § qualPkgParamFoldTs's comment lists every
+      position already decoded.
+  (6) 2 `constant '' dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052} vs operation`
+      (dm_mem, rv_dm) — pass 7 ADVANCED dm_mem to this.  Golden folds a
+      package-parameter arithmetic operation WHOLE where we keep the tree.
+  (7) 2 `constant flash_phy_pkg:31:34 ct7-vs-ct9`, 2 `ref_obj
+      'PWR_AST_RSP_SYNC_DEFAULT' vs 'pwrmgr_pkg::...'`, 2 `named_begin
+      'gen_host_fifo'`.
+  (8) 6 NAMING heads in three shapes, all "golden BARE / ours QUALIFIED":
+      3 `ref_obj 'A2X' vs 'aes_sbox_canright_pkg::A2X'`, 2
+      PWR_AST_RSP_SYNC_DEFAULT (above), 1 `func_call
+      'prim_cipher_pkg::perm_64bit' vs ''` (INVERTED).  All are reads of a
+      WILDCARD-IMPORTED package member inside a def listing.  Memory says
+      naming is context-dependent — decode that context, do not sweep-rename.
+  (9) ~28 singletons by file:line.  The recurring SHAPE is still "golden
+      folded a bound to a constant, we kept a ref_obj" (alert_handler:33,
+      flash_erase_ctrl:41, padring:15, rv_timer:27, rv_plic:41, usbdev:140,
+      tlul_adapter_sram:56, dm_sba:63, prim_packer:42, and pass 7's two fresh
+      ones hmac.sv:309:17 `32+1` and sha2.sv:36:17 `NumRound`), plus four
+      hier_path SELECT-BOUND heads (spi_device:159, pwrmgr_fsm:99,
+      flash_phy:66 and pass 7's new dm_csrs:305:39
+      `$clog2(5'h8)` vs `$clog2(dm::ProgBufSize)`) and the constant
+      SIZE/CONSTTYPE singletons.
+ (10) AllPackages 5 and TopPackages 1 — unchanged; rr.sv's NEGATIVE WITNESS
+      still says the trigger is NOT the written shape of a pkg-localparam
+      reading another pkg.
+ (11) TopModules 8 — unchanged SIX passes.  STILL no witness.  Pass 7 did not
+      touch them either; the pass-7 laws all landed in AllModules positions.
+      Someone must census them properly (r10earl4h prints them) before
+      pass 9.
+
+RANKED RESIDUE (measured after PASS 6 — SUPERSEDED by the list above).
+AllModules
 unless stated; counts are heads, and most classes are ONE shared object
 reached from many entries.
 
