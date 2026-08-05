@@ -4088,6 +4088,54 @@ UHDM::design* UhdmExporter::exportDesign() {
     // only inside a clone, and it necessarily binds the clone's own object —
     // so this rewrite has to see those bindings, not race them.
     cloneStmtHomeVarRef17();
+    // § castSizeParamRefBindFinal — a `P'(x)` size cast whose target P is a
+    // module-BODY localparam leaves its int_typespec's Cast_to_expr ref_obj
+    // UNBOUND: § stampCastSizeParamTs binds `up` only on the call that first
+    // mints the ref, and for a body localparam that call runs before the
+    // listing's parameter object exists (the same cast on a PORT-LIST
+    // localparam — `localparam int unsigned DepthW = $clog2(Depth+1)` in the
+    // parameter port list — IS bound on both sides, which is the
+    // distinguisher).  int_typespec::Compare chases Cast_to_expr and
+    // ref_obj::Compare chases Actual_group, so a null there reports as
+    // `parameter 'PTRV_W' vs <null>` with the module_inst as the parent —
+    // ve.sv isolates it to this one field with both Parameters() and
+    // Param_assigns() otherwise identical.  Surelog binds the LISTING'S OWN
+    // parameter of that name, so the repair is by name within the listing;
+    // it only ever fills a null and never rewrites an existing binding.
+    // Corpus: prim_fifo_async PTRV_W (4 heads: dmi_cdc, dmi_jtag,
+    // prim_fifo_async, tlul_fifo_async) + prim_filter_ctr CTR_WIDTH.
+    {
+        auto fixList9 = [&](UHDM::instance* in9) {
+            auto* ps9 = in9 ? in9->Parameters() : nullptr;
+            if (!ps9)
+                return;
+            for (auto* p9 : *ps9) {
+                auto* rt9 = ((UHDM::expr*)p9)->Typespec();
+                if (!rt9)
+                    continue;
+                auto* a9 = rt9->Actual_typespec();
+                if (!a9 || a9->UhdmType() != UHDM::uhdmint_typespec)
+                    continue;
+                auto* ce9 = ((UHDM::int_typespec*)a9)->Cast_to_expr();
+                if (!ce9 || ce9->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                auto* r9 = (UHDM::ref_obj*)ce9;
+                if (r9->Actual_group())
+                    continue;
+                for (auto* q9 : *ps9)
+                    if (q9->VpiName() == r9->VpiName()) {
+                        r9->Actual_group(q9);
+                        break;
+                    }
+            }
+        };
+        if (auto* am9 = d->AllModules())
+            for (auto* m9 : *am9)
+                fixList9(m9);
+        if (auto* tm9 = d->TopModules())
+            for (auto* m9 : *tm9)
+                fixList9(m9);
+    }
     return d;
 }
 

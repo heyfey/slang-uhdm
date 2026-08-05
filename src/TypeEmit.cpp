@@ -190,7 +190,12 @@ UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psy
                 break;
             }
     }
-    c->VpiSize(act ? (int32_t)psym.getType().getBitWidth() : src->VpiSize());
+    // ...and a declared type with NO bit width (a `string` parameter) has
+    // nothing to re-stamp against, so the source constant's own size stands
+    // (vd.sv row E, `parameter string TypedImpl = "PPC"` -> 24, where the
+    // re-stamp would have written 0).
+    int32_t declW9 = act ? (int32_t)psym.getType().getBitWidth() : 0;
+    c->VpiSize(declW9 ? declW9 : src->VpiSize());
     auto* rt = s.MakeRef_typespec();
     rt->VpiParent(c);
     rt->VpiFullName(paramTsOwnerFull9);
@@ -8345,6 +8350,26 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     }
                 }
             }
+            // § genCondBarePkgParamFold — the same generate condition reading
+            // a package parameter the arm above cannot serve: one that is
+            // NOT a materialized import copy, or whose value is not an
+            // integer.  `if (ArbiterImpl == "PPC")` after `import
+            // tlul_pkg::*` folds to the package's own STRING constant
+            // (ct 6 / size 24 / `"PPC"`) exactly as the qualified spelling
+            // does — getValue keys on the NAME, so the two spellings agree
+            // (§ pkgBoundFoldBareImport).  Span is the WHOLE identifier here,
+            // where the qualified form anchors at the `pkg::` qualifier.
+            // vd.sv row D; row F (a module-local localparam with no
+            // same-named package member) stays a ref_obj.
+            if (genCondImportFold9 && currentScope)
+                if (const ParameterSymbol* wq9 =
+                        wildcardPkgParamNamed9(currentScope, name))
+                    if (auto* c9 = crossPkgBoundFoldConst9(*wq9, parent)) {
+                        if (auto* rt9 = c9->Typespec())
+                            rt9->VpiFullName(syntaxRefPrefix);
+                        setLoc(c9, syn.sourceRange());
+                        return c9;
+                    }
             // § pkgTypeRangeParamActual — resolve a PACKAGE-homed TYPE range
             // bound (`logic [P-1:0] m;` in a packed-struct typedef,
             // `localparam [P-1:0] q = ...;`) against the package being
@@ -9701,6 +9726,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                          .expr;
                 }
             }
+            // § hpSelParenStrip — Surelog RE-LEXES a hier_path's display name
+            // off its rebuilt expression tree, and that tree has no
+            // ParenthesizedExpression node, so every parenthesis written
+            // inside a select DISAPPEARS from the name: `f[0+:(A-B)]` reads
+            // `f[0+:A - B]`, `f[(B-B)+:C]` reads `f[B - B+:C]`, `f[(B-1):0]`
+            // reads `f[B - 1:0]`, `g[(B-1)]` reads `g[B - 1]` (vc.sv rows
+            // 1/3/4/5, all four measured).  Corpus: tlul_socket_m1.sv:97
+            // `tl_h_i[i].a_source[0+:(IDW-STIDW)]` (tlul_socket_m1 +
+            // xbar_main).  The strip is DISPLAY-ONLY: `raw` keeps its
+            // offsets, which every element's location arithmetic reads.
+            auto stripParens9 = [](const std::string& t) {
+                std::string o;
+                for (char c9 : t)
+                    if (c9 != '(' && c9 != ')')
+                        o += c9;
+                return o;
+            };
             auto spaceOps = [](const std::string& t) {
                 std::string o;
                 for (size_t i2 = 0; i2 < t.size(); i2++) {
@@ -9711,6 +9753,24 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     // a real binary op spaces out (`STAGE[i - 1].C`).
                     bool partSel9 = (ch == '+' || ch == '-') &&
                                     i2 + 1 < t.size() && t[i2 + 1] == ':';
+                    // § hpPartSelWsCompact — the re-lex does not just skip
+                    // adding spaces around `+:`/`-:`, it DROPS whatever the
+                    // source wrote: `a_source[IDW-1 -: STIDW]` reads
+                    // `a_source[IDW - 1-:STIDW]` in golden (tlul_socket_m1.sv
+                    // :105, tlul_socket_m1 + xbar_main).  Same class as
+                    // § basedLiteralWsCompact — the LRM lets whitespace sit
+                    // inside a two-character token's neighbourhood and
+                    // Surelog's token stream never carries it.
+                    if (partSel9) {
+                        while (!o.empty() && o.back() == ' ')
+                            o.pop_back();
+                        o += ch;
+                        o += ':';
+                        i2++; // the ':' is consumed with the operator
+                        while (i2 + 1 < t.size() && t[i2 + 1] == ' ')
+                            i2++;
+                        continue;
+                    }
                     if (!partSel9 &&
                         (ch == '+' || ch == '-' || ch == '*' || ch == '/') &&
                         i2 > 0 && t[i2 - 1] != ' ' && t[i2 - 1] != '[') {
@@ -9724,7 +9784,7 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 }
                 return o;
             };
-            std::string dispRaw = spaceOps(raw);
+            std::string dispRaw = spaceOps(stripParens9(raw));
             std::vector<std::pair<std::string, size_t>> parts;
             {
                 size_t pos = 0;
@@ -9802,6 +9862,36 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         if (auto* c9 = modStructMemberPkgSubst9(
                                 *qp9, parent, syn.sourceRange()))
                             return c9;
+                // § genCondQualPkgParamFold — the SIXTH position of the
+                // package-parameter fold: a def-view GENERATE CONDITION that
+                // names a package parameter WITH ITS QUALIFIER.
+                // § genCondImportFold9 (the IdentifierName arm) already folds
+                // the BARE, materialized-import spelling, but only for an
+                // INTEGER value and only through defModImportParam, so
+                // `if (tlul_pkg::ArbiterImpl == "PPC")` fell to the ref_obj.
+                // The substituted object is the package parameter's OWN
+                // constant copied verbatim (crossPkgBoundFoldConst9), which
+                // is what carries a STRING across as ct 6 / size 24 /
+                // `"PPC"` and a based literal as `8'd9` / DEC:9 / ct 1 —
+                // vd.sv rows A (untyped string), B (int), C (logic [7:0]
+                // 8'd9) and E (string-typed), all four measured, with row F
+                // (a module-local localparam) staying a ref_obj.  The
+                // constant is anchored at the SCOPE QUALIFIER (`pkg::`) like
+                // the enum-member substitution right above, and its ts ref is
+                // named after the MODULE.  Corpus: tlul_socket_m1.sv:168
+                // (tlul_socket_m1 + xbar_main).
+                if (genCondImportFold9)
+                    if (const ParameterSymbol* gq9 = crossPkgBoundParam9(raw))
+                        if (auto* c9 = crossPkgBoundFoldConst9(*gq9, parent)) {
+                            if (auto* rt9 = c9->Typespec())
+                                rt9->VpiFullName(syntaxRefPrefix);
+                            auto qEnd9 = syn.sourceRange().start() +
+                                         raw.find("::") + 2;
+                            setLoc(c9,
+                                   SourceRange(syn.sourceRange().start(),
+                                               qEnd9));
+                            return c9;
+                        }
                 auto* ref = s.MakeRef_obj();
                 ref->VpiName(raw);
                 ref->VpiFullName(raw);
@@ -9832,10 +9922,41 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             auto* elems = s.MakeAnyVec();
             auto exprStart = syn.sourceRange().start();
             std::string dottedSoFar;
+            std::string dottedDisp;
+            // § hpSymbolicSelect — the SELECTOR SYNTAX per dotted component,
+            // so a select whose bounds are EXPRESSIONS can be built as the
+            // real part_select / indexed_part_select / bit_select instead of
+            // falling to this loop's final else (which names ONE ref_obj with
+            // the component's raw source text — the same "text-driven
+            // emitter's final else" shape pass 9 cut out of the sys-call
+            // argument loop and the gen-block port-actual dispatcher).  Only
+            // used when the flattened name chain lines up 1:1 with the
+            // text-split components; a MACRO-EXPANDED path (rawTextExp) can
+            // disagree, and then every arm keeps its text behaviour.
+            std::vector<const syntax::NameSyntax*> nameParts9;
+            {
+                std::function<void(const syntax::NameSyntax&)> flat9 =
+                    [&](const syntax::NameSyntax& n9) {
+                        if (n9.kind == syntax::SyntaxKind::ScopedName) {
+                            auto& sn9 = n9.as<syntax::ScopedNameSyntax>();
+                            flat9(*sn9.left);
+                            flat9(*sn9.right);
+                        }
+                        else
+                            nameParts9.push_back(&n9);
+                    };
+                flat9(syn.as<syntax::ScopedNameSyntax>());
+                if (nameParts9.size() != parts.size())
+                    nameParts9.clear();
+            }
             bool genVarBaseEmitted = false;
             for (size_t i = 0; i < parts.size(); i++) {
                 auto& [pname, off] = parts[i];
                 dottedSoFar += (i == 0 ? pname : "." + pname);
+                {
+                    std::string pd9 = spaceOps(stripParens9(pname));
+                    dottedDisp += (i == 0 ? pd9 : "." + pd9);
+                }
                 auto lb = pname.find('[');
                 auto rb = pname.find(']');
                 if (lb != std::string::npos && rb != std::string::npos &&
@@ -10015,6 +10136,129 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         elems->push_back(bs);
                         if (i == 0)
                             genVarBaseEmitted = true;
+                        continue;
+                    }
+                }
+                // § hpSymbolicSelect — a select whose bound is an EXPRESSION.
+                // The literal arms above key on all-digit text and the
+                // simple-identifier arm on a bare name, so `f[0+:A-B]`,
+                // `f[(B-B)+:C]`, `f[B-1:0]` and `g[B-1]` all fell through to
+                // the raw ref_obj.  Golden's shapes, read off vc.sv (the
+                // element span always stops AT the closing bracket, as in the
+                // literal arms):
+                //   [a+:w] / [a-:w]  indexed_part_select, VpiName = member,
+                //                    ConstantSelect, IndexedPartSelectType
+                //                    1/2, Base_expr + Width_expr
+                //   [l:r]            part_select, VpiName = member,
+                //                    ConstantSelect, Left_/Right_range
+                //   [x]              bit_select, VpiName = member, VpiIndex
+                // A DIRECT literal bound constant is UNPARENTED (Surelog's
+                // compileConst path); one nested inside an operation keeps
+                // its operation parent.  emitSyntaxExpr already discards a
+                // ParenthesizedExpression and returns the INNER node at the
+                // INNER span, which is exactly the span golden anchors these
+                // bounds at.
+                if (!nameParts9.empty() && lb != std::string::npos &&
+                    rb != std::string::npos && rb > lb + 1 &&
+                    nameParts9[i]->kind ==
+                        syntax::SyntaxKind::IdentifierSelectName) {
+                    auto& isn9 =
+                        nameParts9[i]->as<syntax::IdentifierSelectNameSyntax>();
+                    const syntax::SyntaxNode* sel9 =
+                        isn9.selectors.size() == 1 ? isn9.selectors[0]->selector
+                                                   : nullptr;
+                    std::string base9 = pname.substr(0, lb);
+                    SourceRange espan9(exprStart + off, exprStart + off + rb);
+                    // A bound's reads are scoped through the WHOLE path plus
+                    // the member (`work@m.blk.in_i[i].f[0+:A - B].f.A`), and
+                    // a bound that IS one ref drops the member repetition
+                    // (`...f[B - B+:C].C`) — Surelog's ComputeFullName off
+                    // the select's own scope.  Not cmp-relevant (uhdm-cmp
+                    // reads VpiName), kept for byte-identity.
+                    std::string savedSRP9 = syntaxRefPrefix;
+                    std::string boundScope9 =
+                        savedSRP9.empty() ? std::string()
+                                          : savedSRP9 + "." + dispRaw;
+                    auto mkBound9 = [&](const syntax::ExpressionSyntax& e9,
+                                        UHDM::BaseClass* par9) -> UHDM::expr* {
+                        if (!boundScope9.empty())
+                            syntaxRefPrefix = boundScope9 + "." + base9;
+                        auto* x9 = emitSyntaxExpr(e9, par9);
+                        syntaxRefPrefix = savedSRP9;
+                        if (!x9)
+                            return nullptr;
+                        // Surelog's direct literal bound carries no parent.
+                        if (x9->UhdmType() == UHDM::uhdmconstant)
+                            ((UHDM::any*)x9)->VpiParent(nullptr);
+                        if (x9->UhdmType() == UHDM::uhdmref_obj &&
+                            !boundScope9.empty())
+                            ((UHDM::ref_obj*)x9)
+                                ->VpiFullName(boundScope9 + "." +
+                                              std::string(x9->VpiName()));
+                        return (UHDM::expr*)x9;
+                    };
+                    if (sel9 &&
+                        (sel9->kind ==
+                             syntax::SyntaxKind::AscendingRangeSelect ||
+                         sel9->kind ==
+                             syntax::SyntaxKind::DescendingRangeSelect)) {
+                        auto& rs9 = sel9->as<syntax::RangeSelectSyntax>();
+                        auto* ip9 = s.MakeIndexed_part_select();
+                        ip9->VpiName(base9);
+                        ip9->VpiFullName(dottedDisp);
+                        ip9->VpiParent(hp);
+                        ip9->VpiConstantSelect(true);
+                        ip9->VpiIndexedPartSelectType(
+                            sel9->kind ==
+                                    syntax::SyntaxKind::AscendingRangeSelect
+                                ? vpiPosIndexed
+                                : vpiNegIndexed);
+                        setLoc(ip9, espan9);
+                        if (auto* bx9 = mkBound9(*rs9.left, ip9))
+                            ip9->Base_expr(bx9);
+                        if (auto* wx9 = mkBound9(*rs9.right, ip9))
+                            ip9->Width_expr(wx9);
+                        elems->push_back(ip9);
+                        continue;
+                    }
+                    if (sel9 &&
+                        sel9->kind == syntax::SyntaxKind::SimpleRangeSelect) {
+                        auto& rs9 = sel9->as<syntax::RangeSelectSyntax>();
+                        auto* ps9 = s.MakePart_select();
+                        ps9->VpiName(base9);
+                        ps9->VpiFullName(dottedDisp);
+                        ps9->VpiParent(hp);
+                        ps9->VpiConstantSelect(true);
+                        setLoc(ps9, espan9);
+                        if (auto* lx9 = mkBound9(*rs9.left, ps9))
+                            ps9->Left_range(lx9);
+                        if (auto* rx9 = mkBound9(*rs9.right, ps9))
+                            ps9->Right_range(rx9);
+                        elems->push_back(ps9);
+                        continue;
+                    }
+                    if (sel9 && i > 0 &&
+                        sel9->kind == syntax::SyntaxKind::BitSelect) {
+                        auto& bsx9 = sel9->as<syntax::BitSelectSyntax>();
+                        auto* bs9 = s.MakeBit_select();
+                        bs9->VpiName(base9);
+                        bs9->VpiFullName(syntaxRefPrefix.empty()
+                                             ? dottedDisp
+                                             : syntaxRefPrefix + "." + dispRaw +
+                                                   "." + base9);
+                        bs9->VpiParent(hp);
+                        // An EXPRESSION-indexed bit_select spans the BRACKET
+                        // CONTENTS (parens included), not `<member>[…` the
+                        // way the range selects and the literal/identifier
+                        // bit_select arms do — vc.sv row 5, measured.
+                        setLoc(bs9, SourceRange(exprStart + off + lb + 1,
+                                                exprStart + off + rb));
+                        if (!boundScope9.empty())
+                            syntaxRefPrefix = boundScope9 + "." + base9;
+                        if (auto* ix9 = emitSyntaxExpr(*bsx9.expr, bs9))
+                            bs9->VpiIndex((UHDM::expr*)ix9);
+                        syntaxRefPrefix = savedSRP9;
+                        elems->push_back(bs9);
                         continue;
                     }
                 }

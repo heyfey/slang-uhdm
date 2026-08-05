@@ -1057,6 +1057,253 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 10 (r10earl10; FOUR laws in FOUR gate rounds, each round gated at
+goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
+BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
+Pass-10 copies of the harness: run10.sh dmp10.sh dd10.sh rp10.sh cen10.sh
+sweep10.sh slsweep10.sh gate10.sh gold10.sh cmprc10.sh ../r10earl10build.sh,
+plus new probes r10earl10g / r10earl10p / r10earl10k and witnesses va..ve.sv.
+Earlgrey_0_1 stays CMP_NOTEQUAL (groundwork); census 57 -> 50 heads,
+43 -> 40 classes.  0 movers on either corpus.
+
+READ THIS FIRST: PASS 8's `gen_host_fifo` DECODE WAS WRONG, AND THE WRONG
+DECODE SURVIVED TWO PASSES AS THE #1 RANKED LEAD.  It said golden's def-view
+gen block carries "one more statement" because tlul_socket_m1.sv:101 is a
+macro-expanded CONCURRENT ASSERTION.  It is not: `ASSERT` expands to nothing
+unless INC_ASSERT is defined and Earlgrey never defines it, so BOTH sides emit
+nothing for line 101.  r10earl10g (which prints a named_begin's Stmts vector
+side by side, i.e. names the missing statement instead of guessing at it) says
+the missing statement is line 90, `tlul_pkg::tl_h2d_t hreq_fifo_i;`.  The
+lesson is the one the pass-9 record already drew for the ref_obj family: when
+a head says "vector SIZE mismatch", PRINT THE TWO VECTORS before theorising
+about which member is missing.
+
+  va.sv  § defGenQualTypedefDecl (ModuleEmit emitDefGenStmts, the
+        DataDeclaration loop).  A declaration whose type is written WITH A
+        PACKAGE QUALIFIER stmt-ifies in the DEF view with its type RESOLVED —
+        the package is compiled before the module definition is, so Surelog
+        binds the package's own typespec object.  Matrix (va.sv, one
+        declaration per row, golden's def-view gen block):
+            vap::vs_t       sA   struct_var -> struct_typespec 'vap::vs_t'
+            vs_t            sB   NOTHING    (bare, wildcard-imported)
+            vap::ve_t       sC   enum_var   -> enum_typespec
+            vap::vl_t       sD   logic_var  -> logic_typespec
+            loc_t           sE   NOTHING    (module-local typedef)
+            logic [3:0]     sF   logic_var  (the built-in arm, already right)
+            vap::vq_t [1:0] sH   struct_var -> packed_array_typespec
+        so the trigger is the WRITTEN QUALIFICATION, not the type's kind and
+        not whether the name resolves for slang: a bare imported name and a
+        module-local typedef both stay OUT of the def-view statement list
+        (they still become struct_nets in every elaborated gen_scope).  The
+        var class follows the PACKED-ARRAY ELEMENT kind — a packed array over
+        a struct is a struct_var, not a packed_array_var — and row H also
+        REPLACES what the older FuncAlias arm did for a qualified name (that
+        arm's ref_var + UNSUPPORTED_TYPESPEC is right only for the BARE
+        spelling, and is left in place for it).  Corpus: tlul_socket_m1.sv:90
+        (tlul_socket_m1 + xbar_main).
+
+  vc.sv  § hpSymbolicSelect + § hpSelParenStrip + § hpPartSelWsCompact
+        (TypeEmit emitSyntaxExpr, the ScopedName hier_path arm).  THREE
+        defects in one printer, found by following tlul_socket_m1 head by head
+        as each one closed:
+        (1) hpSymbolicSelect — the arm's literal cases key on ALL-DIGIT select
+            text and its identifier case on a bare name, so `f[0+:A-B]`,
+            `f[(B-B)+:C]`, `f[B-1:0]` and `g[B-1]` all fell to the final else,
+            which names ONE ref_obj with the component's raw source text.
+            This is the SAME BUG SHAPE pass 9 cut out of the sys-call argument
+            loop and the gen-block port-actual dispatcher — a text-driven
+            emitter's final else — at a third site.  Golden's shapes (element
+            span always stops AT the closing bracket, as in the literal arms):
+              [a+:w]/[a-:w]  indexed_part_select, VpiName = member,
+                             ConstantSelect, IndexedPartSelectType 1/2,
+                             Base_expr + Width_expr
+              [l:r]          part_select, VpiName = member, ConstantSelect
+              [x]            bit_select, VpiName = member, VpiIndex — and this
+                             one spans the BRACKET CONTENTS (parens included),
+                             not `<member>[…` the way the others do
+            A DIRECT literal bound constant is UNPARENTED; one nested inside
+            an operation keeps its operation parent.  Bound reads scope
+            through the whole path plus the member
+            (`work@m.blk.in_i[i].f[0+:A - B].f.A`) and a bound that IS one ref
+            drops the member repetition — fullnames only, cmp does not read
+            them, matched for byte-identity.
+        (2) hpSelParenStrip — Surelog RE-LEXES the display name off its
+            rebuilt tree, which has no ParenthesizedExpression node, so every
+            parenthesis written inside a select DISAPPEARS from the name:
+            `[0+:(A-B)]` -> `[0+:A - B]`, `[(B-B)+:C]` -> `[B - B+:C]`,
+            `[(B-1):0]` -> `[B - 1:0]`, `g[(B-1)]` -> `g[B - 1]`.  Display
+            only — `raw` keeps its offsets, which every element's location
+            arithmetic reads.
+        (3) hpPartSelWsCompact — the re-lex does not merely decline to ADD
+            spaces around `+:`/`-:`, it DROPS whatever the source wrote:
+            `a_source[IDW-1 -: STIDW]` reads `a_source[IDW - 1-:STIDW]`.  Same
+            class as § basedLiteralWsCompact.
+        vc.sv's DEF-view region is BYTE-IDENTICAL over all seven rows.
+        Corpus: tlul_socket_m1.sv:97 and :105 (tlul_socket_m1 + xbar_main).
+
+  vd.sv  § genCondQualPkgParamFold + § genCondBarePkgParamFold (TypeEmit, the
+        ScopedName and IdentifierName arms).  The SIXTH position of the
+        package-parameter fold family: a def-view GENERATE CONDITION naming a
+        package parameter.  § genCondImportFold9 already folded the BARE
+        materialized-import spelling but only through defModImportParam and
+        only for an INTEGER value, so `if (tlul_pkg::ArbiterImpl == "PPC")`
+        stayed a ref_obj.  The substituted object is the package parameter's
+        OWN constant copied verbatim (crossPkgBoundFoldConst9), which is what
+        carries a STRING across as ct 6 / size 24 / `"PPC"` and a based
+        literal as `8'd9` / DEC:9 / ct 1.  Matrix (vd.sv):
+            A  vdp::ArbiterImpl (untyped string)  -> constant, ts string_ts
+            B  vdp::NW (int)                      -> constant
+            C  vdp::BW (logic [7:0] = 8'd9)       -> constant `8'd9` ct 1
+            D  ArbiterImpl (bare, wildcard)       -> constant, WHOLE-name span
+            E  vdp::TypedImpl (string-typed)      -> constant size 24
+            F  a module-local localparam          -> ref_obj (control)
+        The QUALIFIED form anchors the constant at the SCOPE QUALIFIER
+        (`pkg::`) exactly like the enum-member substitution beside it; the
+        BARE form spans the whole identifier.  Corpus: tlul_socket_m1.sv:168
+        (tlul_socket_m1 + xbar_main — after this the whole tlul chain has no
+        head of its own left and advances into the shared PTRV_W class).
+        The same round widened crossPkgBoundFoldConst9: a declared type with
+        NO bit width (a `string` parameter) has nothing to re-stamp against,
+        so the source constant's own size stands where the re-stamp wrote 0.
+
+  ve.sv  § castSizeParamRefBindFinal (UhdmExporter, design-final).  THE PTRV_W
+        CLASS, UNTOUCHED FOR SIX PASSES AND THE BIGGEST ONE LEFT — CLOSED, and
+        it was ONE NULL POINTER.  r10earl10p prints a def listing's
+        Parameters() and Param_assigns() vectors side by side with each
+        parameter's typespec, its Cast_to_expr and each Rhs tree; over the two
+        Earlgrey designs it says every one of prim_fifo_async's 6 parameters
+        and 6 param_assigns is IDENTICAL except one field: PTRV_W's
+        int_typespec carries a Cast_to_expr ref_obj whose Actual_group is
+        BOUND to the parameter in golden and NULL in ours.  int_typespec::
+        Compare chases Cast_to_expr and ref_obj::Compare chases Actual_group,
+        which is why the head reported as `parameter 'PTRV_W' vs <null>` with
+        the module_inst as parent and why five passes read it as a population
+        difference.  § stampCastSizeParamTs binds `up` only on the call that
+        first mints the ref, and for a module-BODY localparam that call runs
+        before the listing's parameter object exists — the DISTINGUISHER is
+        that the same cast on a PORT-LIST localparam (`localparam int unsigned
+        DepthW = $clog2(Depth+1)` in the parameter port list) IS bound on both
+        sides.  Surelog binds the LISTING'S OWN parameter of that name, so the
+        repair is a design-final pass by name within each listing that only
+        ever fills a null and never rewrites a binding.  ve.sv (30 lines) is
+        cmp-EQUAL.  Corpus: prim_fifo_async PTRV_W (dmi_cdc, dmi_jtag,
+        prim_fifo_async, tlul_fifo_async, + the two tlul entries that advanced
+        into it) and prim_filter_ctr CTR_WIDTH.
+
+EARLGREY_0_1 HEAD CENSUS after pass 10 (r10earl4h; 26 + 8 + 5 + 1 = 40 classes
+over 50 heads, from 57 heads / 43 classes at entry):
+
+  AllModules  SIZE 190 vs 190,  36 heads   (was 43)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   1 head    (unchanged)
+
+READ THE COUNT HONESTLY.  57 -> 50 is -12%, 0 movers on either corpus, and no
+entry became cmp-EQUAL.  Two classes closed outright (PTRV_W/CTR_WIDTH, 5
+heads; gen_host_fifo/gen_arb_ppc, 2 heads) and the tlul_socket_m1 + xbar_main
+pair walked through FOUR of its own heads in one pass before merging into the
+PTRV_W class, which then closed too.  What the pass delivers beyond the count
+is (a) the retraction of the assertion decode, (b) a third instance of the
+"text-driven emitter's final else" bug shape with the general fix, and (c) the
+PTRV_W class reduced from "a population difference nobody can place" to one
+unbound pointer with a 30-line witness.
+
+PASS-10 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  ve.sv  cmp-EQUAL
+  vb.sv  cmp-EQUAL (the module-scope control for va.sv row D)
+  vc.sv  DEF-VIEW REGION BYTE-IDENTICAL; cmp-not-equal on the ELAB residue
+         below
+  va.sv  def-view gen block byte-identical row for row; cmp-not-equal on two
+         ELAB gen_scope net-vs-var residues below
+  vd.sv  rows A/B/C/D/E/F all match; cmp-not-equal on ONE residue below
+
+RANKED RESIDUE (measured after PASS 10 — next agent starts HERE).  AllModules
+unless stated; counts are heads, and most classes are ONE shared object
+reached from many entries.
+
+  (1) 4 `<null> vs ref_typespec '' :0:0` (flash_mp, pinmux_wkup, rstmgr,
+      rstmgr_ctrl) + 2 `constant flash_phy_pkg:31:34 ct7-vs-ct9`
+      (flash_phy_rd, flash_phy_rd_buffers) — DECODED THIS PASS AND NOT
+      IMPLEMENTED, and they are ONE QUESTION: *which* module listings get a
+      correct import copy of a package parameter and which get an ELABORATED
+      one.  r10earl10k prints one named param_assign's Rhs tree in EVERY
+      listing on both sides; for FLASH_REQ_DEFAULT it says flash_ctrl and
+      flash_phy match golden exactly (7 tagged_patterns, no operation
+      typespec) while flash_mp and flash_erase_ctrl carry the FLATTENED elab
+      shape (7 bare constants, `ct=9 sz=17` where golden has `ct=3 sz=-1`,
+      plus a struct_typespec on the operation golden leaves bare).  TWO
+      candidate distinguishers, both visible in the module headers and
+      neither yet tested:
+        * flash_ctrl / flash_phy write `module X import pkg::*; (` — the
+          import is in the HEADER; flash_mp / flash_erase_ctrl write
+          `import flash_ctrl_pkg::*;` in the module BODY.
+        * flash_phy_core (header import, HAS a parameter port list `#(`) is
+          right; flash_phy_rd / flash_phy_rd_buffers (header import, NO
+          parameter port list) are wrong.
+      Build one purpose-built module per header shape before touching code —
+      four modules, one package, one parameter each, is the whole experiment.
+  (2) 3 `package prim_cipher_pkg {top=1} vs {top=0}` (aes, aes_prng,
+      prim_prince) + 1 `package prim_pkg {top=1} vs {top=0}` [TopModules,
+      work@padring] + 1 `package top_pkg {top=1} vs <null>`
+      (tlul_adapter_sram) + 1 `constant top_pkg.sv:8:22 sz=32 vs sz=64`
+      (tlul_adapter_host) — the § pkgTypespecInstanceIsTop family (f5fbd25),
+      unchanged and now the biggest ACTIONABLE class.  r10earl4t (pointer
+      identity) is the probe; the objects are text-identical in a dump.
+  (3) 3 `ref_typespec '' :0:0 vs <null>` (alert_handler_ping_timer:140,
+      flash_phy_core, sha2) — sha2's chain is the `logic_typespec
+      'sha_word_t'` LAW-S miss, NOT the same root as the other two.
+  (4) THE BOUND-FOLD FAMILY'S REMAINING POSITIONS, each 1-2 heads:
+        * 4 hier_path SELECT-BOUND heads that are ONE law: golden folds a
+          bound that resolves into a PACKAGE and keeps a module-local one.
+          pwrmgr_fsm:99 `[2 - 1:1]` vs ours `[PowerDomains - 1:1]`
+          (pwrmgr_pkg), flash_phy:66 `[16+:1]` vs `[BankAddrW+:1]`
+          (flash_ctrl_pkg), dm_csrs:305 `$clog2(5'h8)` vs
+          `$clog2(dm::ProgBufSize)` — and spi_device:159 is the MIRROR
+          (golden `[SDW+:SramAw]`, ours `[SDW+:9]`: we fold a module-local
+          one).  All four are in the printer pass 10 just rebuilt
+          (§ hpSymbolicSelect), so the fold hook has an obvious home now.
+        * usbdev:245, alert_handler:33, hmac:25 — a PROCEDURAL `for (int i=0;
+          i<NEndpoints; i++)` condition and two packed-array bounds, same law,
+          StmtEmit / TypeEmit paths.
+        * flash_erase_ctrl:41 — NOT that law: `localparam logic[AddrW-1:0]`
+          with AddrW a MODULE parameter (default 10) and golden's constant
+          reading 17, the sole INSTANTIATION's override.  Related to (1): the
+          17 also shows up inside flash_erase_ctrl's bad import copy.
+  (5) 1 `named_begin 'gen_mio_input'` (padring) — DECODED THIS PASS, not
+      implemented.  Golden emits `logic unused_out, unused_oe;` (padring.sv
+      :126, TWO declarators in one DataDeclaration, both plain scalars) as two
+      Rhs-less assignments; we emit neither, because emitDefGenStmts' decl
+      arm needs an `astBlock` and this branch has none: `gen_mio_input` is the
+      `else if` arm of a gen-if chain nested inside a gen-for, and it is
+      UNINSTANTIATED for every k (ConnectMioIn/ConnectMioOut default to '1, so
+      the first arm always wins), so findNested's module-body fallback cannot
+      reach it.  Either teach findNested to search the enclosing gen-for
+      entries or emit built-in-typed declarations from SYNTAX with no symbol.
+  (6) 6 NAMING heads in three shapes, all "golden BARE / ours QUALIFIED"
+      (3 A2X, 2 PWR_AST_RSP_SYNC_DEFAULT, 1 INVERTED perm_64bit) — unchanged.
+  (7) 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052} vs operation` (dm_mem,
+      rv_dm), 1 `constant flash_ctrl.sv:310:43 sz32-vs-sz64`, 1
+      `operation prim_keccak:24:28 vs constant`, 1 `int_typespec vs
+      logic_typespec` (rv_core_ibex:77), 1 `cont_assign
+      prim_generic_pad_wrapper:40:29`, 1 `operation tl_main_pkg:13:59`
+      (top_earlgrey, also a TopModules head).
+  (8) FRESH, measured on the pass-10 witnesses and NOT implemented:
+        * vc.sv — the ELAB hier_path select NAME substitutes parameter VALUES
+          and spaces its operators (`in_i[i].f[0+:8 - 3]`, `f[3 - 3+:5]`,
+          `g[3 - 1]`) where we keep the symbolic, UNSPACED source text
+          (`[0+:A-B]`).  Two independent defects in the elab printer; the def
+          printer is now correct and is the model to copy.
+        * va.sv — two ELAB gen_scope NET-vs-VAR residues: a qualified package
+          ENUM typedef is an enum_var in golden's Variables() and a net for
+          us, and `vap::vq_t [1:0]` is a packed_array_NET in golden and a
+          packed_array_VAR for us.  C13 family.
+        * vd.sv — a `parameter string P = "PPC"` PACKAGE param_assign
+          constant is size 24 in golden and size 0 (omitted) for us; the
+          package listing stamps VpiSize from the declared type's bit width,
+          which is 0 for `string`.  crossPkgBoundFoldConst9 already carries
+          the fix for its own copy (this pass); the DECLARATION site does not.
+  (9) TopModules 8 (unchanged for SEVEN passes), AllPackages 5, TopPackages 1.
+
 LANDED — PASS 9 (r10earl9; EIGHT laws in SIX gate rounds, each round gated at
 goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
 BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
@@ -1214,7 +1461,7 @@ PASS-9 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
          standing qq.sv residue)
   ub.sv uc.sv uf.sv  cmp-NOT-equal, each with exactly one NAMED residue below
 
-RANKED RESIDUE (measured after PASS 9 — next agent starts HERE).  AllModules
+RANKED RESIDUE (measured after PASS 9 — SUPERSEDED by the list above).  AllModules
 unless stated; counts are heads, and most classes are ONE shared object
 reached from many entries.
 

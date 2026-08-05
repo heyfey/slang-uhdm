@@ -22117,6 +22117,83 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         vct.as<PackedArrayType>()
                                 .elementType.getCanonicalType()
                                 .kind == SymbolKind::ScalarType;
+                    // § defGenQualTypedefDecl — a declaration whose type is
+                    // written with a PACKAGE QUALIFIER (`pkg::t_t v;`) DOES
+                    // stmt-ify in the def view, with its type RESOLVED: the
+                    // package is already compiled when the module definition
+                    // is, so Surelog binds the package's own typespec object.
+                    // Measured on va.sv, one declaration per row, golden's
+                    // def-view gen block on the left:
+                    //     vap::vs_t  sA   struct_var -> struct_typespec
+                    //                                   'vap::vs_t'
+                    //     vs_t       sB   NOTHING   (bare, wildcard-imported)
+                    //     vap::ve_t  sC   enum_var   -> enum_typespec
+                    //     vap::vl_t  sD   logic_var  -> logic_typespec
+                    //     loc_t      sE   NOTHING   (module-local typedef)
+                    //     logic[3:0] sF   logic_var  (the built-in arm below)
+                    //     vap::vq_t [1:0] sH  struct_var -> packed_array_ts
+                    // so the trigger is the WRITTEN QUALIFICATION, not the
+                    // type's kind and not whether it resolves for slang — a
+                    // bare imported name and a module-local typedef both stay
+                    // out of the def-view statement list (they still become
+                    // struct_nets in every elaborated gen_scope).  The var
+                    // class follows the PACKED-ARRAY ELEMENT kind (a packed
+                    // array over a struct is a struct_var, not a
+                    // packed_array_var), and the assignment keeps the plain
+                    // Rhs-less/name-span shape every other declaration uses.
+                    // Corpus: tlul_socket_m1.sv:90 `tlul_pkg::tl_h2d_t
+                    // hreq_fifo_i;` inside `begin : gen_host_fifo` — the
+                    // "named_begin has one more statement" head (2 Earlgrey
+                    // AllModules entries), which pass 8 mis-attributed to the
+                    // `ASSERT macro on line 101 (that macro is empty without
+                    // INC_ASSERT and emits nothing on either side).
+                    bool qualNamedTy9 = false;
+                    if (dd.type->kind == syntax::SyntaxKind::NamedType) {
+                        std::string tt9(rawText(dd.type->sourceRange()));
+                        size_t br9 = tt9.find('[');
+                        if (br9 != std::string::npos)
+                            tt9 = tt9.substr(0, br9);
+                        qualNamedTy9 = tt9.find("::") != std::string::npos;
+                    }
+                    if (qualNamedTy9) {
+                        // The element kind under any packed dims picks the
+                        // variable class; anything else keeps the old arms.
+                        const Type* qel9 = &vct;
+                        while (qel9->getCanonicalType().kind ==
+                               SymbolKind::PackedArrayType)
+                            qel9 = &qel9->getCanonicalType()
+                                        .as<PackedArrayType>()
+                                        .elementType;
+                        auto qk9 = qel9->getCanonicalType().kind;
+                        UHDM::variables* qv9 = nullptr;
+                        if (qk9 == SymbolKind::PackedStructType)
+                            qv9 = s.MakeStruct_var();
+                        else if (qk9 == SymbolKind::EnumType)
+                            qv9 = s.MakeEnum_var();
+                        else if (qk9 == SymbolKind::ScalarType)
+                            qv9 = s.MakeLogic_var();
+                        UHDM::typespec* qts9 =
+                            qv9 ? makeTypespec(*vsym) : nullptr;
+                        if (qv9 && qts9) {
+                            auto* asQ = s.MakeAssignment();
+                            asQ->VpiParent(b);
+                            asQ->VpiOpType(82);
+                            asQ->VpiBlocking(true);
+                            setLoc(asQ, nameSpan(dcl->name.location(), vname));
+                            qv9->VpiName(vname);
+                            qv9->VpiFullName(branchPrefix + "." + vname);
+                            qv9->VpiParent(asQ);
+                            setLoc(qv9, nameSpan(dcl->name.location(), vname));
+                            auto* rtQ = s.MakeRef_typespec();
+                            rtQ->VpiFullName(branchPrefix + "." + vname);
+                            rtQ->VpiParent(qv9);
+                            rtQ->Actual_typespec(qts9);
+                            qv9->Typespec(rtQ);
+                            asQ->Lhs(qv9);
+                            stmts->push_back(asQ);
+                            continue;
+                        }
+                    }
                     // A PACKED array over a NAMED type (`td1 [3:0] pipe;`)
                     // stmt-ifies as a Rhs-less assignment whose Lhs is a bare
                     // ref_var: Surelog's def-view type compile does not
