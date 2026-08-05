@@ -1943,6 +1943,8 @@ UHDM::design* UhdmExporter::exportDesign() {
             return;
         if (defs.emplace(std::string(udef.name), &uinst).second) {
             unrefDefs.insert(&udef);
+            // § defOnlyNoArgTs — this listing is never elaborated.
+            defOnlyDefs.insert(&udef);
             collectDefs(uinst.body, defs, &uninstGenDefNames);
         }
     };

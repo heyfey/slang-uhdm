@@ -525,6 +525,13 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         explicit DefEmitGuard(bool& fl) : f(fl), saved(fl) { f = true; }
         ~DefEmitGuard() { f = saved; }
     } defEmitGuard9(moduleDefEmit);
+    // § defOnlyNoArgTs — and whether THIS def is one nobody elaborates.
+    struct DefOnlyGuard9 {
+        bool& f;
+        bool saved;
+        DefOnlyGuard9(bool& fl, bool v) : f(fl), saved(fl) { f = v; }
+        ~DefOnlyGuard9() { f = saved; }
+    } defOnlyGuard9(defOnlyDefEmit, defOnlyDefs.count(&def) > 0);
     auto* m = info.mod;
     m->VpiDefName(prefix);
     m->VpiFullName(prefix);

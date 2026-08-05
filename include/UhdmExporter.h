@@ -1675,6 +1675,15 @@ private:
     // body AND by materializeDefNetTs for the def-net typespecs it fills in
     // afterwards; any new deferred def-view builder must set it too.
     bool moduleDefEmit = false;
+    // § defOnlyNoArgTs — the module DEFINITIONS that get an AllModules entry
+    // WITHOUT ever being elaborated (§ uninstDefPortedAdmit: unreferenced
+    // definitions and modules instantiated only inside a non-taken generate
+    // branch).  Surelog compiles such a definition but never runs the
+    // elaboration steps that bind a call's actual to its formal, so its
+    // listing carries strictly less than an instantiated module's.
+    std::set<const slang::ast::DefinitionSymbol*> defOnlyDefs;
+    // True while emitModuleDef is building one of those listings.
+    bool defOnlyDefEmit = false;
     // True while emitting elements of an enclosing assignment pattern (so
     // nested-pattern element constants keep the bare-decimal default size).
     bool inAssignPattern = false;

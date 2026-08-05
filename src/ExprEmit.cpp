@@ -2949,6 +2949,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // package's def parameter object.
                 if (parent && (parent->UhdmType() == UHDM::uhdmfunc_call ||
                                parent->UhdmType() == UHDM::uhdmtask_call)) {
+                    // § fcArgBareImportRef — ...only for the QUALIFIED
+                    // spelling.  The same parameter read UNQUALIFIED after a
+                    // wildcard import is the IMPORTING MODULE's materialized
+                    // copy: golden names it BARE, scopes the fullname to the
+                    // module, binds NOTHING, and spans the identifier instead
+                    // of the (absent) qualifier.  Measured on
+                    // tools/probe/r10earl_repro/vi.sv rows A/B, which differ
+                    // only in the spelling of one `pick(AVEC, sel_i)` argument:
+                    //   A  `pick(AVEC, ...)`       -> name AVEC,
+                    //        fullname work@via.AVEC, no Actual, 27:21..27:25
+                    //   B  `pick(vip::AVEC, ...)`  -> name vip::AVEC,
+                    //        no fullname, Actual = the package parameter,
+                    //        28:21..28:26 (the `vip::` qualifier alone)
+                    // Corpus: Earlgrey aes_sbox_canright / *_masked /
+                    // *_noreuse `aes_mvm(data_i, A2X)` — three AllModules
+                    // heads reading `ref_obj 'A2X' vs
+                    // 'aes_sbox_canright_pkg::A2X'`.
+                    if (rawText(expr.sourceRange).find("::") ==
+                        std::string::npos) {
+                        ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                        ref->VpiParent(parent);
+                        setLoc(ref, expr.sourceRange);
+                        return ref;
+                    }
                     std::string pn = std::string(scope->asSymbol().name) + "::" +
                                      std::string(nv.symbol.name);
                     ref->VpiName(pn);
@@ -7846,6 +7870,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // A PROPERTY-DECL body's call args carry no
                             // formal-ts stamp (mriscv s2qed reg_map(inp1)).
                             !propDeclScope &&
+                            // § defOnlyNoArgTs — a module DEFINITION that is
+                            // never elaborated (unreferenced, or instantiated
+                            // only inside a non-taken generate branch) gets its
+                            // AllModules listing from the definition compile
+                            // alone, and Surelog's actual-to-formal binding is
+                            // an ELABORATION step: golden leaves every call
+                            // argument in such a listing BARE.  Measured on
+                            // tools/probe/r10earl_repro/vl.sv, which emits the
+                            // identical body twice — once in a module reached
+                            // only through `if (Impl == 1)` with Impl 0, once
+                            // in a module that IS instantiated: golden stamps
+                            // the formal's typespec on `finv(mid)` in the
+                            // second and not in the first, and nothing else in
+                            // the two listings differs.  vj.sv/vk.sv are the
+                            // negative controls (every argument kind, and the
+                            // no-direction-keyword formal / two-declarator
+                            // actual spellings aes_sbox_canright uses, all
+                            // stamped and all cmp-EQUAL when instantiated).
+                            // Corpus: Earlgrey aes_sbox_canright,
+                            // aes_sbox_canright_masked and
+                            // aes_sbox_canright_masked_noreuse — the SBoxImpl
+                            // generate arm nobody takes.
+                            !defOnlyDefEmit &&
                             !(unbasedArg && contAssignView == 1) &&
                             (refArg || otherArg) &&
                             (argIdx < si.argTs.size() || elabParamArgFold)) {
@@ -7867,6 +7914,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rt->VpiParent(r);
                             if (argIdx < si.argTs.size()) {
                                 auto [ats, bareKey] = si.argTs[argIdx];
+                                // § pkgFormalTsElabTwin — the FORMAL typespec
+                                // stamped on the actual must come from the
+                                // package's ELABORATED twin, the same object
+                                // siTf already resolves for the call itself.
+                                // si.argTs is filled by the FIRST emission of
+                                // the subroutine, which is the package's DEF
+                                // listing, and typespec::Compare recurses
+                                // Instance(), so binding the def copy makes
+                                // package::Compare read {top=0} against
+                                // golden's {top=1} — a head with NOTHING
+                                // visible in a dump (the two package copies
+                                // are text-identical).  Measured on
+                                // tools/probe/r10earl_repro/vm.sv row D
+                                // (`vmp::fy(mid2, vmp::TBL)` in a module with
+                                // NO import) with the new who-links-this-
+                                // package probe tools/probe/r10earl11p.cpp:
+                                // golden's chain ref_obj 'mid2' ->
+                                // ref_typespec -> logic_typespec -> package
+                                // {top=1}, ours {top=0}.  Rows A/B (the same
+                                // call in a module that DOES wildcard-import
+                                // the package) already reached the twin, which
+                                // is why this survived so long.  Corpus:
+                                // Earlgrey aes / aes_prng / prim_prince
+                                // through prim_cipher_pkg::sbox4_64bit
+                                // (aes_prng.sv:61).
+                                if (siTf && siTf != si.tf && siTf->Io_decls() &&
+                                    argIdx < siTf->Io_decls()->size())
+                                    if (auto* rte9 =
+                                            (*siTf->Io_decls())[argIdx]->Typespec())
+                                        if (auto* ate9 = rte9->Actual_typespec())
+                                            ats = ate9;
                                 if (ats)
                                     rt->Actual_typespec(ats);
                                 else if (bareKey)

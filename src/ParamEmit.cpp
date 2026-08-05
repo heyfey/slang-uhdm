@@ -3207,6 +3207,86 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         paramSyms.swap(ps29);
         paramImp9.swap(pi29);
     }
+    // § modDefImportPatSel — the STRUCT-PATTERN half of § modDefImportShape,
+    // and it is NOT keyed on the parameter port list.  The flip above makes a
+    // module's DEF-view import copies read like the elaborated ones; for a
+    // struct-pattern parameter that also ran the tagged_pattern -> flat op75
+    // walk, and golden does that only when something in the module's OWN
+    // PARAMETER PORT LIST *selects* an imported parameter.  That select is
+    // what makes Surelog's substituteAssignedValue reduce the materialized
+    // copies while the module definition's parameters are compiled; a select
+    // written in the module BODY (a cont-assign, a statement) does not, and a
+    // parameter port list of plain scalars does not either.
+    // Measured (tools/probe/r10earl_repro/{vf,vg,vh}.sv, four purpose-built
+    // module headers plus the three package-side triggers):
+    //   vf  header-import vs BODY-import x parameter-port-list vs none, one
+    //       narrow struct param: golden keeps the DEF-view copy TAGGED in ALL
+    //       FOUR modules, so the import POSITION is not a distinguisher and
+    //       the port list alone is not one either.
+    //   vg  the package-side triggers (scoped `pkg::` ref, member select in a
+    //       cont-assign, >64-bit width) x the two module shapes: golden keeps
+    //       every module DEF copy TAGGED regardless.
+    //   vh  the same wide struct read by a module whose parameter port list
+    //       says `localparam int X1 = P1.a`: THAT module's DEF copy is FLAT
+    //       and its sibling without the select is TAGGED.  `parameter` vs
+    //       `localparam` in the package makes no difference.
+    // BlackBePipeInt is the corpus witness on the flat side: bp_be_pipe_int's
+    // port list opens `localparam bp_proc_param_s proc_param_lp =
+    // all_cfgs_gp[bp_params_p]` — an ELEMENT select of an imported parameter —
+    // and golden's ALLMOD block 1 is flat for bp_custom_cfg_p even though BOTH
+    // bp_common_pkg listings keep it tagged (0 member selects of its own).
+    // So the select does not have to name the row it flattens: reducing
+    // all_cfgs_gp reduces every cfg parameter it is built from.  Hence the
+    // flag is per-MODULE, not per-parameter.
+    bool defImpSelPortList9 = false;
+    if (defImpElabShape9 && !impOcc9.empty()) {
+        std::set<std::string> impNames9;
+        for (auto& o9 : impOcc9)
+            impNames9.insert(std::string(o9.sym->name));
+        auto baseNm9 = [](const syntax::SyntaxNode* b9) -> std::string {
+            for (int g9 = 0;
+                 g9 < 8 && b9 && b9->kind == syntax::SyntaxKind::ScopedName; ++g9)
+                b9 = b9->as<syntax::ScopedNameSyntax>().right;
+            if (b9 && b9->kind == syntax::SyntaxKind::IdentifierName)
+                return std::string(
+                    b9->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            if (b9 && b9->kind == syntax::SyntaxKind::IdentifierSelectName)
+                return std::string(b9->as<syntax::IdentifierSelectNameSyntax>()
+                                       .identifier.valueText());
+            return {};
+        };
+        auto scanSel9 = [&](auto&& self9, const syntax::SyntaxNode& n9) -> void {
+            std::string b9;
+            if (n9.kind == syntax::SyntaxKind::MemberAccessExpression)
+                b9 = baseNm9(n9.as<syntax::MemberAccessExpressionSyntax>().left);
+            else if (n9.kind == syntax::SyntaxKind::ScopedName &&
+                     n9.as<syntax::ScopedNameSyntax>().separator.kind ==
+                         parsing::TokenKind::Dot)
+                b9 = baseNm9(n9.as<syntax::ScopedNameSyntax>().left);
+            else if (n9.kind == syntax::SyntaxKind::ElementSelectExpression)
+                b9 = baseNm9(n9.as<syntax::ElementSelectExpressionSyntax>().left);
+            else if (n9.kind == syntax::SyntaxKind::IdentifierSelectName)
+                b9 = baseNm9(&n9);
+            if (!b9.empty() && impNames9.count(b9))
+                defImpSelPortList9 = true;
+            for (size_t i9 = 0, c9 = n9.getChildCount(); i9 < c9; i9++)
+                if (auto* ch9 = n9.childNode(i9))
+                    self9(self9, *ch9);
+        };
+        for (auto& mp9 : body.members()) {
+            const Symbol* sy9 = nullptr;
+            if (mp9.kind == SymbolKind::Parameter &&
+                mp9.as<ParameterSymbol>().isPortParam())
+                sy9 = &mp9;
+            else if (mp9.kind == SymbolKind::TypeParameter &&
+                     mp9.as<TypeParameterSymbol>().isPortParam())
+                sy9 = &mp9;
+            if (!sy9)
+                continue;
+            if (auto* sx9 = sy9->getSyntax())
+                scanSel9(scanSel9, *sx9);
+        }
+    }
     // A materialized package parameter's emitted {param_assign, Rhs constant},
     // keyed by its symbol: a LATER module param whose default is a bare ref to
     // it (parameter logic[..] P = X) clones this constant in the ELAB view
@@ -7646,6 +7726,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                  si9.kind !=
                                      ExpressionKind::ReplicatedAssignmentPattern)
                                  return false;
+                             // § pkgVecPatternNoFold (r10earl11) — ...and in a
+                             // PACKAGE not even a packed vector folds.  The
+                             // 8-row golden above is a MODULE parameter list;
+                             // a package's own listings keep the pattern
+                             // operation in BOTH views.  Measured on
+                             // tools/probe/r10earl_repro/vn.sv, which puts all
+                             // four spellings in one package next to the
+                             // CONCATENATION control that must keep folding:
+                             //   CAT logic[3:0][3:0] = {4'h1,...}  op33 both
+                             //                                      (unchanged)
+                             //   PAT logic[3:0][3:0] = '{4'h1,...} op75 both
+                             //   FLT logic[7:0]      = '{1'b1,...} op75 both
+                             //   DFL logic[7:0]      = '{default:1'b1}
+                             //                                     op75 both
+                             //   RPL logic[3:0]      = '{4{1'b1}}  op76 both
+                             // We folded the last four to 16'd4660 / 8'd170 /
+                             // 8'd255 / 4'd15 in the TopPackages view only.
+                             // Corpus: Earlgrey prim_cipher_pkg's
+                             // PRINCE_SHIFT_ROWS64 family (line 33 uses `'{`,
+                             // line 23 uses `{` — the two spellings sit six
+                             // lines apart in one file), 3 heads (aes and
+                             // aes_prng AllModules + prim_cipher_pkg
+                             // TopPackages).
+                             if (inPackage)
+                                 return true;
                              return ps.getType().getCanonicalType().kind !=
                                     SymbolKind::PackedArrayType;
                          }()) &&
@@ -8838,6 +8943,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (auto pt9 = pkgDefStructTagged9.find({occ9->src, &member});
                         pt9 != pkgDefStructTagged9.end() && pt9->second)
                         structReExportTagged9 = true;
+                // § modDefImportPatSel (decoded above, at defImpSelPortList9).
+                // The PHYSICAL def view of a module keeps the tagged tree for
+                // an import copy unless the module's parameter port list
+                // selects an imported parameter.  defViewOrig9, not topView —
+                // § modDefImportShape flipped the latter on this very row.
+                bool structModDefTagged9 = structPat && !inPackage &&
+                                           isImported && defViewOrig9 &&
+                                           !defImpSelPortList9;
                 // The DEF view of an INTERFACE struct param keeps the TAGGED
                 // form (emitExpr tagged_pattern op: constant size 64 + a ts ref
                 // to the member's string_typespec) — same as a module localparam
@@ -8875,7 +8988,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         ifaceArrayDefFold = true;
                 }
                 if (structPat && (topView || ifaceArrayDefFold) &&
-                    !structWidePkg) {
+                    !structWidePkg && !structModDefTagged9) {
                     auto& pctS = ps.getType().getCanonicalType();
                     // An OVERRIDE by a param REFERENCE substitutes the
                     // REFERENCED param's pattern, anchored at the override site.
@@ -9601,7 +9714,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // one. kmac_pkg::A (96b member) and flash_req_t (171b member)
                 // both sit on the bail side, which is why they never showed it.
                 if (!rhs && structPat && topView && structWidePkg &&
-                    isImported && !inPackage && !structReExportTagged9) {
+                    isImported && !inPackage && !structReExportTagged9 &&
+                    !structModDefTagged9) {
                     auto& pctW = ps.getType().getCanonicalType();
                     // § elabImportedStructRefPat — RULE 5 reaches the WIDE arm
                     // too: `localparam bp_proc_param_s bp_unicore_cfg_p =
@@ -10409,7 +10523,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // A wide (>64b) PACKAGE struct-pattern param's ELAB view is
                 // byte-identical to its DEF view (tagged_pattern tree); drive
                 // emitExpr down the def path for it (WIDTH RULE).
-                paramInitDef = !topView || structWidePkg;
+                paramInitDef = !topView || structWidePkg || structModDefTagged9;
                 paramInitElabFold = topView && structNoScopedRefPkg;
                 paramInitPkg = inPackage;
                 // § elabMisevalRefSubst / § elabMisevalArgNoFold — this

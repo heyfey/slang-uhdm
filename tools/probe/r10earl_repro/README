@@ -1057,6 +1057,257 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 11 (r10earl11; SIX laws in SIX gate rounds, each round gated at
+goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
+BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
+Pass-11 copies of the harness: run11.sh dmp11.sh dd11.sh rp11.sh cen11.sh
+sweep11.sh slsweep11.sh gate11.sh gold11.sh cmprc11.sh ../r10earl11build.sh,
+plus the new probe ../r10earl11p.cpp and witnesses vf..vn.sv.
+Earlgrey_0_1 stays CMP_NOTEQUAL (groundwork); census 50 -> 46 heads,
+40 -> 39 classes.  0 movers on either corpus.
+
+READ THIS FIRST — THE FOUR-MODULE EXPERIMENT SETTLED PASS 10'S #1 RESIDUE AND
+BOTH OF ITS CANDIDATE DISTINGUISHERS WERE WRONG.  Pass 10 ranked (1) as "which
+module listings get a correct IMPORT COPY of a package parameter", with two
+untested candidates: HEADER import vs BODY import, and presence of a parameter
+port list.  vf.sv (2x2 over exactly those two, one narrow struct-pattern
+package parameter) says golden keeps ALL FOUR module DEF copies TAGGED, so the
+import POSITION is irrelevant and the port list alone is not the trigger
+either.  vg.sv then varied the three PACKAGE-side triggers (scoped `pkg::`
+reference, member select in a cont-assign, >64-bit width) against the same two
+module shapes — golden keeps every module DEF copy tagged.  vh.sv found the
+real key on the first try: a parameter port list that MEMBER-SELECTS an
+imported parameter (`localparam int X1 = P1.a`).  Build the 2x2 first; it cost
+one Surelog run and replaced two plausible-but-wrong leads.
+
+  vf.sv/vg.sv/vh.sv  § modDefImportPatSel (ParamEmit — defImpSelPortList9 next
+        to defImpElabShape9, and structModDefTagged9 at the two flatten arms
+        plus paramInitDef).  § modDefImportShape force-flips topView for a
+        module DEF listing whose definition has a parameter port list; that
+        flip also ran the struct-pattern tagged_pattern -> flat op75 walk, and
+        golden runs THAT only when the module's own parameter port list selects
+        an imported parameter.  Full evidence:
+            vf  header/body import x port-list/none, `parameter req_t
+                REQ_DEFAULT = '{...}` -> golden TAGGED in all four module DEF
+                listings; we flattened the two with a `#(`.
+            vg  N1 (nothing), N2 (scoped `vgp::N2` read), N3 (member select in
+                a cont-assign), W1 (96 bits), W2 (96 bits + member select) x
+                the two module shapes -> golden TAGGED in every module DEF row.
+            vh  P1 `parameter`/P2 `localparam`, 96 bits, read by vha (plain
+                port list) and vhb (`localparam int X1 = P1.a` IN THE PORT
+                LIST) -> golden FLAT for vhb only.  `parameter` vs
+                `localparam` in the package makes NO difference.
+        BlackBePipeInt is the corpus witness on the flat side and it is why the
+        flag is per-MODULE and not per-parameter: bp_be_pipe_int's port list
+        opens `localparam bp_proc_param_s proc_param_lp =
+        all_cfgs_gp[bp_params_p]` — an ELEMENT select of an imported parameter
+        — and golden's ALLMOD block 1 is FLAT for bp_custom_cfg_p even though
+        BOTH bp_common_pkg listings keep it tagged (0 member selects of its
+        own).  Reducing all_cfgs_gp reduces every cfg parameter it is built
+        from, so the select need not name the row it flattens.  Corpus:
+        Earlgrey flash_mp / flash_erase_ctrl / pinmux_wkup / rstmgr /
+        rstmgr_ctrl (pass 10's four `<null> vs ref_typespec` heads, which
+        ADVANCED — see the ranked list).
+
+  vh.sv  § pkgMemberSelectPkgScope (TypeEmit hasMemberSelectOf).  Same witness,
+        the PACKAGE half: the member-select trigger that decides a package's
+        own ELABORATED listing must be written inside a package.  vhb's
+        `localparam int X1 = P1.a` is a ParameterDeclaration, so the old scan
+        counted it and flattened vhp's TopPackages row; golden leaves BOTH vhp
+        listings tagged and flattens only the MODULE's materialized copy.
+        Every BlackBePipeInt select that decides the recorded 14-parameter
+        ordering is written inside bp_common_pkg (dut.sv:2157 and friends), so
+        the restriction keeps that measurement.
+
+  vi.sv  § fcArgBareImportRef (ExprEmit, the func-call-ARG arm of the
+        package-parameter dispatch).  That arm named EVERY package-parameter
+        argument `pkg::P`; golden does that only for the QUALIFIED spelling.
+        vi rows A/B differ only in one argument's spelling:
+            A  `pick(AVEC, sel_i)`      -> VpiName AVEC, VpiFullName
+                                           work@via.AVEC, NO Actual,
+                                           span 27:21..27:25 (the identifier)
+            B  `pick(vip::AVEC, sel_i)` -> VpiName vip::AVEC, no fullname,
+                                           Actual = the package parameter,
+                                           span 28:21..28:26 (the qualifier)
+        Corpus: aes_sbox_canright / _masked / _masked_noreuse `aes_mvm(data_i,
+        A2X)` — 3 AllModules heads reading `ref_obj 'A2X' vs
+        'aes_sbox_canright_pkg::A2X'`.
+
+  vl.sv  § defOnlyNoArgTs (UhdmExporter defOnlyDefs + ModuleEmit defOnlyDefEmit
+        + the ExprEmit formal-ts stamp).  A module DEFINITION that is never
+        elaborated (§ uninstDefPortedAdmit: unreferenced, or instantiated only
+        inside a non-taken generate branch) gets its AllModules listing from
+        the definition compile alone, and Surelog's actual-to-formal binding is
+        an ELABORATION step — golden leaves every call argument in such a
+        listing BARE.  vl.sv emits the IDENTICAL body twice, once in a module
+        reached only through `if (Impl == 1)` with Impl 0 and once in a module
+        that IS instantiated: golden stamps the formal's typespec on
+        `finv(mid)` in the second and not in the first, and NOTHING else in the
+        two listings differs.  vl.sv is cmp-EQUAL (the only dump lines left are
+        arena order).  vj.sv and vk.sv are the negative controls that got the
+        decode there: vj varies the ARGUMENT KIND (input port / internal net /
+        internal var / unpacked-array element / an operation) and vk the two
+        spellings aes_sbox_canright uses that vj did not (a formal with NO
+        direction keyword, and an actual that is one of TWO DECLARATORS in one
+        declaration) — golden stamps all nine rows and both files are
+        cmp-EQUAL, which is what left "never elaborated" as the only candidate.
+        Corpus: aes_sbox_canright*, the same three entries — after this they
+        are cmp-EQUAL as whole AllModules entries.
+
+  vm.sv  § pkgFormalTsElabTwin (ExprEmit, beside the stamp above).  THE
+        prim_cipher_pkg TOP-FLAG CLASS (pass 10's ranked (2)) — the formal
+        typespec stamped on a call actual must come from the package's
+        ELABORATED twin, the same object `siTf` already resolves for the call
+        itself.  si.argTs is filled by the FIRST emission of the subroutine,
+        which is the package's DEF listing, and typespec::Compare recurses
+        Instance(), so binding the def copy makes package::Compare read {top=0}
+        against golden's {top=1} — a head with NOTHING visible in a dump.
+        vm.sv row D (`vmp::fy(mid2, vmp::TBL)` in a module with NO import) is
+        the witness; rows A/B (the same call in a module that DOES
+        wildcard-import the package) already reached the twin, which is why
+        this survived six passes.  Corpus: aes, aes_prng (prim_cipher_pkg
+        {top=1} vs {top=0}) — 3 heads -> 1.
+
+  vn.sv  § pkgVecPatternNoFold (ParamEmit, the "assignment pattern reduces only
+        against a packed-VECTOR target" clause).  The 8-row golden that clause
+        cites is a MODULE parameter list; a PACKAGE's own listings keep the
+        pattern operation in BOTH views, whatever the target.  vn.sv puts all
+        four spellings in one package next to the CONCATENATION control that
+        must keep folding:
+            CAT logic[3:0][3:0] = {4'h1,...}       op33 both views (unchanged)
+            PAT logic[3:0][3:0] = '{4'h1,...}      op75 both views
+            FLT logic[7:0]      = '{1'b1,...}      op75 both views
+            DFL logic[7:0]      = '{default:1'b1}  op75 both views
+            RPL logic[3:0]      = '{4{1'b1}}       op76 both views
+        We folded the last four to 16'd4660 / 8'd170 / 8'd255 / 4'd15 in the
+        TopPackages view only.  Corpus: prim_cipher_pkg's PRINCE_SHIFT_ROWS64
+        family — line 33 writes `'{` and line 23 writes `{`, six lines apart in
+        one file, which is what named the distinguisher.
+
+EARLGREY_0_1 HEAD CENSUS after pass 11 (r10earl4h; 32 + 8 + 5 + 1 = 46 heads
+over 39 classes, from 50 heads / 40 classes at entry):
+
+  AllModules  SIZE 190 vs 190,  32 heads   (was 36)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged, EIGHT passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   1 head    (unchanged)
+
+READ THE COUNT HONESTLY.  50 -> 46 is -8%, 0 movers on either corpus.  What the
+pass delivers beyond the count is (a) the four-module experiment, which killed
+BOTH of pass 10's candidate distinguishers and replaced them with a measured
+one, (b) three AllModules entries (aes_sbox_canright, _masked, _masked_noreuse)
+that are now cmp-EQUAL END TO END rather than merely advanced, (c) the
+prim_cipher_pkg top-flag class reduced 3 -> 1 and the aes/aes_prng pair
+advanced from constant-vs-operation to a single operand-ORDER difference, and
+(d) r10earl11p, the probe that answers "which object inside this listing
+reaches that package copy" — the question every § pkgTypespecInstanceIsTop head
+has posed since pass 4 and that no dump can answer.
+
+PASS-11 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  vj.sv vk.sv  cmp-EQUAL (negative controls, unchanged by this pass)
+  vl.sv  cmp-EQUAL (arena-order dump lines only)
+  vf.sv vg.sv  every module DEF import row matches golden; cmp-not-equal on the
+        UNQUALIFIED-READ NAMING residue below (`work@vfa.REQ_DEFAULT` vs
+        `vfp::REQ_DEFAULT` on a cont-assign Rhs)
+  vh.sv  all four module rows and both package rows match; same naming residue
+  vi.sv  rows A/B match golden exactly; cmp-not-equal on the SCALAR-ARG FOLD
+        residue below (rows C/D/E/F)
+  vm.sv  row D's package link now reaches {top=1}; cmp-not-equal on the
+        qualified-package-parameter ARG FOLD (same residue as vi C/D)
+  vn.sv  FLT/DFL/RPL match; cmp-not-equal on the multi-dim operand ORDER
+        residue below
+
+NEW TOOL (pass 11):
+  ../r10earl11p.cpp  WHO LINKS TO THIS PACKAGE?  A § pkgTypespecInstanceIsTop
+                     head reads "package X {top=1} vs {top=0}" with the DESIGN
+                     as its whole parent chain, so neither a dump nor the
+                     census can name the object that reached the wrong copy.
+                     This walks ONE named AllModules entry with UhdmListener
+                     and prints the CALLSTACK of every visit to a package of
+                     the wanted name.  Usage:
+                       r10earl11p <a.uhdm> <ModuleDefName> <PackageName>
+                     The one trick that makes it work: insert the DESIGN into
+                     getVisited() before listenAny(), or the walk climbs
+                     VpiParent into it and reaches every package trivially.
+                     It located § pkgFormalTsElabTwin in one run (the chain
+                     ref_obj 'lfsr_state' -> ref_typespec -> logic_typespec
+                     prim_cipher_pkg.sv:336:47 -> Instance).
+
+RANKED RESIDUE (measured after PASS 11 — next agent starts HERE).  AllModules
+unless stated; counts are heads, and most classes are ONE shared object reached
+from many entries.
+
+  (1) THE UNQUALIFIED-READ NAMING LAW, READY WITNESS vf.sv/vg.sv/vh.sv (their
+      ONLY remaining head, on every one of the eight purpose-built modules).
+      `assign o = REQ_DEFAULT;` after a wildcard import: golden names the
+      cont-assign Rhs ref BARE and scopes it to the importing module
+      (VpiName REQ_DEFAULT, VpiFullName work@vfa.REQ_DEFAULT — the module's own
+      MATERIALIZED copy, no Actual), we name it `vfp::REQ_DEFAULT` and bind the
+      package parameter.  ExprEmit's packed-struct/union arm (~ExprEmit 3147)
+      qualifies unconditionally; § fcArgBareImportRef is the SAME split already
+      landed one arm above it for func-call args, so copy that shape.  This is
+      also pass 10's ranked (6) naming family (2 PWR_AST_RSP_SYNC_DEFAULT at
+      pwrmgr_cdc:118:22 read the same way after `import pwrmgr_pkg::*`) —
+      2 corpus heads plus three ready witnesses.  MEMORY's "naming is
+      context-dependent" warning applies: split on the WRITTEN spelling, never
+      uniformly.
+  (2) 3 `ref_typespec '' :0:0` (alert_handler_ping_timer:140, flash_phy_core,
+      sha2) — unchanged; sha2's chain is the `logic_typespec 'sha_word_t'`
+      LAW-S miss, NOT the same root as the other two.
+  (3) THE MULTI-DIM PATTERN OPERAND ORDER, READY WITNESS vn.sv row PAT, and it
+      is the LAST head of the aes / aes_prng / prim_cipher_pkg class (3 heads,
+      2 AllModules + 1 TopPackages).  After § pkgVecPatternNoFold the head is
+      operation-vs-operation with r=-1: golden's op75 for
+      `logic [3:0][3:0] = '{4'h1,4'h2,4'h3,4'h4}` keeps SOURCE ORDER, we set
+      VpiReordered and reverse (mdimPatternReorderRec, ParamEmit ~788).  That
+      helper's recorded witness is BlackParrotComplex's `bit [1:0][4:0][4:0]
+      StrictXY`, where golden DOES reverse — so decode what separates the two
+      (concat vs assignment-pattern op?  package vs module?  element count?)
+      before touching it; BlackParrotComplex is the canary.
+  (4) THE ARG-FOLD LAW, READY WITNESS vi.sv rows C/D/E/F + vm.sv.  Golden FOLDS
+      a SCALAR package parameter passed as a call argument to a constant — in
+      BOTH spellings (`thru(ASCL)` and `thru(vip::ASCL)`) and in both a
+      cont-assign and a procedural call — and stamps the FORMAL's typespec on
+      that constant; we keep a ref_obj.  An AGGREGATE parameter (vi rows A/B's
+      unpacked array) keeps the ref, which is what § fcArgBareImportRef is
+      about, so the two arms split on foldability.  1 corpus head today
+      (`func_call 'prim_cipher_pkg::perm_64bit' vs ''`, prim_present:61:34, the
+      INVERTED naming member of pass 10's (6)) but it also blocks vi/vm from
+      going cmp-EQUAL.
+  (5) THE FLASH/RSTMGR IMPORT-COPY REMAINDER — pass 10's ranked (1) heads
+      ADVANCED rather than closed and their new shapes name the next question:
+      1 `constant flash_mp.sv:14:33 {ct=9 sz=32 dec=8}`, 2 `constant
+      rstmgr_ctrl.sv:12:31 {ct=9 sz=32 dec=2}`, 1 `constant
+      flash_erase_ctrl.sv:41:20 {ct=9 sz=32 dec=17}` (that last one is the
+      pass-10 note "AddrW default 10, golden reads 17, the sole
+      INSTANTIATION's override"), plus the unchanged 2 `constant
+      flash_phy_pkg.sv:31:34 ct7-vs-ct9` (flash_phy_rd, flash_phy_rd_buffers).
+      All four are now VALUE/ENCODING questions inside a materialized import
+      copy, not shape questions — read them with r10earl10k, which prints the
+      row in every listing.
+  (6) 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052} vs operation`
+      (dm_mem, rv_dm) — a package parameter golden leaves as an operation and
+      we fold; check whether § pkgVecPatternNoFold's sibling (a non-pattern
+      package init) has the same package/module split.
+  (7) THE BOUND-FOLD FAMILY'S REMAINING POSITIONS, each 1 head, unchanged from
+      pass 10: 4 hier_path SELECT-BOUND heads that are ONE law (pwrmgr_fsm:99,
+      flash_phy:66, dm_csrs:305, and spi_device:159 the MIRROR), and
+      usbdev:245 / alert_handler:33 / hmac:25 / flash_ctrl:310 / top_pkg:8.
+  (8) 1 `named_begin 'gen_mio_input'` (padring) — DECODED in pass 10, not
+      implemented; see that record.
+  (9) TopModules 8 (unchanged for EIGHT passes), AllPackages 5, TopPackages 1.
+      Nobody has built a witness for the TopModules eight yet.
+
+PASS-11 OPS NOTES
+  * The gate is cheap now: goldens + u2r testflags is ~4 min (gate11.sh) and
+    the full Surelog both-modes sweep ~6 min (slsweep11.sh) with the golden
+    cache warm, so SIX separate gate rounds cost about an hour.  Gate every
+    law separately; it is what makes "0 changes" a usable signal.
+  * mark.py found NOTHING for § pkgVecPatternNoFold: the folded constant's
+    decompile is written by a setter whose call spans two lines, which the
+    regex skips.  Reading the guard chain (ParamEmit ~7660-7800, one boolean
+    per measured law with its witness in the comment) was faster.
+
 LANDED — PASS 10 (r10earl10; FOUR laws in FOUR gate rounds, each round gated at
 goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
 BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
@@ -1217,7 +1468,7 @@ PASS-10 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
          ELAB gen_scope net-vs-var residues below
   vd.sv  rows A/B/C/D/E/F all match; cmp-not-equal on ONE residue below
 
-RANKED RESIDUE (measured after PASS 10 — next agent starts HERE).  AllModules
+RANKED RESIDUE (measured after PASS 10 — SUPERSEDED by the list above).  AllModules
 unless stated; counts are heads, and most classes are ONE shared object
 reached from many entries.
 

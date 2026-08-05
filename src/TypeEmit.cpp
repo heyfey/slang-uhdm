@@ -4778,6 +4778,15 @@ bool UhdmExporter::isParenCastWidthParam(std::string_view name) {
 // package's own param_assign.
 // `a.b` is a ScopedName with a DOT separator in slang, not just a
 // MemberAccessExpression — reading only the latter finds none of these.
+// § pkgMemberSelectPkgScope (r10earl11) — and the parameter declaration must
+// itself be IN A PACKAGE.  This predicate answers only for a package's own
+// listing (its one caller is `inPackage`-guarded), and a select written in a
+// MODULE's parameter port list does not reach the package's param_assign:
+// vh.sv reads `localparam int X1 = P1.a` in a module header and golden leaves
+// BOTH vhp listings tagged, while it flattens the module's own materialized
+// copy (§ modDefImportPatSel, ParamEmit).  Every BlackBePipeInt select that
+// decides the recorded 14-parameter ordering is written inside bp_common_pkg
+// (dut.sv:2157 and friends), so the package-scope restriction keeps it.
 bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
     if (!memberSelectBasesBuilt) {
         memberSelectBasesBuilt = true;
@@ -4796,10 +4805,12 @@ bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
             return {};
         };
         auto scan = [&](auto&& self, const syntax::SyntaxNode& node,
-                        bool inParamDecl) -> void {
+                        bool inParamDecl, bool inPkg) -> void {
+            if (node.kind == syntax::SyntaxKind::PackageDeclaration)
+                inPkg = true;
             if (node.kind == syntax::SyntaxKind::ParameterDeclaration)
                 inParamDecl = true;
-            if (inParamDecl) {
+            if (inParamDecl && inPkg) {
                 if (node.kind == syntax::SyntaxKind::MemberAccessExpression) {
                     if (auto n = baseName(
                             node.as<syntax::MemberAccessExpressionSyntax>()
@@ -4816,10 +4827,10 @@ bool UhdmExporter::hasMemberSelectOf(std::string_view name) {
             }
             for (size_t i = 0, n = node.getChildCount(); i < n; i++)
                 if (auto* ch = node.childNode(i))
-                    self(self, *ch, inParamDecl);
+                    self(self, *ch, inParamDecl, inPkg);
         };
         for (auto& tree : comp.getSyntaxTrees())
-            scan(scan, tree->root(), false);
+            scan(scan, tree->root(), false, false);
     }
     return memberSelectBases.count(std::string(name)) > 0;
 }
