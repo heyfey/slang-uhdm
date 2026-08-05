@@ -218,6 +218,36 @@ static bool srlgElabUnreducibleCall(const Expression& e) {
 // `prim_subreg #(.RESVAL(RESVAL))` inside `prim_subreg_shadow` emits a
 // `ref_obj` named CTRL_RESET (the parent's un-inlinable value) anchored at the
 // re-pass site.  That is `noSubstSourceExpr`'s hop loop.
+// UHDM's ExprEval marks an arithmetic reduce SIGNED per OPERATOR, not per
+// operand type: `*` `/` `-` (and unary minus) reduce to INT, `+` and `<<` to
+// UINT, and the signedness PROPAGATES UP THROUGH `+` (a signed operand keeps
+// the sum signed) while every non-arithmetic operator resets it.  The full
+// per-operator matrix is recorded at § foldSigned9 below, where the same rule
+// was first decoded from two purpose-built goldens; this is that rule as a
+// file-scope function so the DEF-view MATERIALIZED IMPORT COPY can ask it too
+// (§ impArithFoldSigned).  Keep the two in step — they are ONE Surelog rule.
+// ONE DELIBERATE DIFFERENCE: § foldSigned9's switch lists only `-` and `*`
+// even though its own measured matrix records `100/5 -> INT`, so `/` is added
+// here.  It is load-bearing for the import copy — HierPathStructTypespec's
+// `parameter int BufferCycles = (Sha3Latency + RegLatency - 1)/RegLatency` has
+// `/` at the TOP and must stay INT.  foldSigned9 itself is left alone: it is
+// gated by other conditions and re-deciding its `/` behaviour is a separate
+// measurement.
+static bool srlgArithFoldSigned(const Expression& e) {
+    auto& s9 = stripImplicitConv(e);
+    if (s9.kind == ExpressionKind::UnaryOp)
+        return s9.as<UnaryExpression>().op == UnaryOperator::Minus;
+    if (s9.kind != ExpressionKind::BinaryOp)
+        return false;
+    auto& b9 = s9.as<BinaryExpression>();
+    if (b9.op == BinaryOperator::Subtract || b9.op == BinaryOperator::Multiply ||
+        b9.op == BinaryOperator::Divide)
+        return true;
+    if (b9.op == BinaryOperator::Add)
+        return srlgArithFoldSigned(b9.left()) || srlgArithFoldSigned(b9.right());
+    return false;
+}
+
 static bool containsPatternOrConcat(const Expression& e) {
     bool found = false;
     e.visit(makeVisitor(
@@ -8702,8 +8732,29 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // fixed-dim member struct (logic [3:0] addr) still folds
                     // flat in the elab package view. The importing MODULE
                     // views are unaffected — they flatten either way.
+                    // § symDimScopedRefFlat (r10earl5) — ...UNLESS the
+                    // parameter is itself `pkg::NAME`-resolved somewhere.  The
+                    // SCOPED-REFERENCE rule below is not merely a second way to
+                    // reach the flatten: it is the trigger Surelog's
+                    // substituteAssignedValue runs off, and it TYPES the pattern
+                    // op (the flatten's precondition) whatever the member dims
+                    // look like.  Earlgrey pwrmgr_pkg is the witness — five of
+                    // its eight struct-pattern parameters are read as
+                    // `pwrmgr_pkg::X` from top_earlgrey.sv's port connections
+                    // and golden flattens EXACTLY those five (rows 5/8/9/10/12);
+                    // the three that are only ever read unqualified (rows 6/7/
+                    // 11) keep the tagged tree.  Row 12 PWR_PERI_DEFAULT is
+                    // `pwr_peri_t`, whose members are `logic [WakeUpPeris-1:0]`
+                    // / `logic [HwRstReqs-1:0]` — SYMBOLIC dims — and golden
+                    // flattens it anyway.  The symbolic-dim witnesses
+                    // (MultiConcatValueSize & family, pinmux_pkg::
+                    // DefaultTargetCfg) are read UNQUALIFIED after a wildcard
+                    // import, so they never had a scoped ref to be exempted by.
                     if (structPat && inPackage &&
-                        structHasSymbolicMemberDim(pctS))
+                        structHasSymbolicMemberDim(pctS) &&
+                        !(ps.getParentScope() &&
+                          hasScopedPkgRef(ps.getParentScope()->asSymbol().name,
+                                          ps.name)))
                         structWidePkg = true;
                     // SCOPED-REFERENCE RULE: the flatten pass runs off the
                     // package-scope RESOLUTION of the parameter. `pkg::NAME`
@@ -9441,6 +9492,37 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 c2->VpiDecompile(dg2);
                                 c2->VpiSize(w2);
                                 c2->VpiValue("UINT:" + dg2);
+                                c2->VpiConstType(vpiUIntConst);
+                            }
+                            // § patMemberCastNoDecomp (r10earl5) — a member
+                            // value written as a CAST folds with NO
+                            // VpiDecompile at all.  Surelog's reduce answers a
+                            // cast out of ExprEval (value + width) and never
+                            // re-renders source text for it, where every other
+                            // reduced form carries the decimal digits.  Uniform
+                            // across all four spellings, measured side by side
+                            // on jj.sv (one package, one struct, one row each,
+                            // every row `jp::`-referenced so the flatten runs):
+                            //     WakeUpPeris'(1'b1)    -> UINT:1  sz16 dec ''
+                            //     16'(1'b1)             -> UINT:1  sz16 dec ''
+                            //     int'(1'b1)            -> UINT:1  sz16 dec ''
+                            //     (WakeUpPeris)'(1'b1)  -> UINT:1  sz16 dec ''
+                            //     WakeUpPeris'(HwRstReqs) -> UINT:2 sz16 dec ''
+                            // against the CONTROLS in the same package, which
+                            // all keep their digits: `'1` -> "65535", `'0` ->
+                            // "0", and a plain sized literal keeps its own
+                            // source form through the branches above.
+                            // Earlgrey pwrmgr_pkg.sv:156 `wakeups:
+                            // WakeUpPeris'(1'b1)` is the corpus witness (row 12
+                            // PWR_PERI_DEFAULT), and it is what the AllPackages
+                            // head "constant 156:14 {ct=9 sz=16 dec=}" names.
+                            else if (stripImplicitConv(*se).kind ==
+                                     ExpressionKind::Conversion) {
+                                std::string dgc = uvm.toString(
+                                    LiteralBase::Decimal, false);
+                                c2->VpiSize(
+                                    (int32_t)fld.getType().getBitWidth());
+                                c2->VpiValue("UINT:" + dgc);
                                 c2->VpiConstType(vpiUIntConst);
                             }
                             else {
@@ -10461,7 +10543,28 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto& sv7 = ps.getValue().integer();
                     std::string dg7 = sv7.toString(LiteralBase::Decimal, false);
                     bool neg7 = sv7.isSigned() && sv7.isNegative();
-                    bool intForm7 = neg7 || arithFold7 || userFold7;
+                    // § impArithFoldSigned (r10earl5) — an ARITHMETIC init is
+                    // not unconditionally INT here: the import copy is reduced
+                    // by the SAME ExprEval the package's elaborated listing
+                    // uses, so it obeys the per-OPERATOR signedness rule
+                    // (srlgArithFoldSigned / § foldSigned9): `+` and `<<` come
+                    // back UINT, `-` `*` `/` and unary minus INT, and a signed
+                    // operand propagates up through `+`.  ll.sv is the witness
+                    // — one package, one importing module, one localparam per
+                    // operator, read across all four listings:
+                    //     WakeUpPeris + 2   UINT   (was INT here)
+                    //     WakeUpPeris - 4   INT
+                    //     WakeUpPeris * 2   INT
+                    //     int W = X + 1     UINT   (typed, same answer)
+                    // the package's own DEF listing keeps the unfolded `+`
+                    // operation and the TOPPKG/TOPMOD listings were already
+                    // right, so the module DEF listing was the lone outlier.
+                    // 5 Earlgrey AllModules heads, all on pwrmgr_pkg.sv:19
+                    // `localparam TotalWakeWidth = WakeUpPeris + 2` (pwrmgr,
+                    // pwrmgr_cdc, pwrmgr_fsm, pwrmgr_slow_fsm,
+                    // pwrmgr_wake_info).
+                    bool intForm7 = neg7 || userFold7 ||
+                                    (arithFold7 && srlgArithFoldSigned(*init));
                     auto* c7 = s.MakeConstant();
                     c7->VpiDecompile(dg7);
                     c7->VpiSize((int32_t)ps.getType().getBitWidth());
@@ -12708,6 +12811,42 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
          lit->second->UhdmType() == UHDM::uhdmunion_typespec ||
          lit->second->UhdmType() == UHDM::uhdmenum_typespec))
         elemTs = lit->second;
+    // § unpackedElemVecTypedef (r10earl5) — and so does a VECTOR typedef.
+    // `typedef logic [31:0] sha_word_t;` + `localparam sha_word_t InitHash [8]`
+    // gives golden's array_typespec an Elem_typespec ref to the TYPEDEF's own
+    // NAMED logic_typespec (hmac_pkg.sv:17:11); we minted a fresh anonymous one
+    // at the declaration (:26:14).  The arm above only admitted
+    // struct/union/enum typedefs, so a vector typedef fell through to the
+    // mint-fresh path below.
+    // The DISTINGUISHER is the declared type SYNTAX, not the resolved type:
+    // mm.sv row B writes the same shape out longhand (`localparam logic [31:0]
+    // RawHash [4]`) and golden gives THAT one an anonymous element typespec, so
+    // the rule keys on the element type being SPELLED as a typedef name.  Only
+    // a NAMED typespec is taken — an unmaterialized alias would otherwise
+    // silently swap in an empty one.
+    // 6 Earlgrey heads (4 AllModules + 1 AllPackages + 1 TopPackages), all on
+    // hmac_pkg's sha_word_t, reached through parameter::Compare's recursion
+    // from every listing that carries InitHash / CubicRootPrime.
+    if (!elemTs) {
+        const Type* leafD = &ps.getType();
+        while (leafD->getCanonicalType().kind ==
+               SymbolKind::FixedSizeUnpackedArrayType)
+            leafD = &leafD->getCanonicalType()
+                         .as<FixedSizeUnpackedArrayType>()
+                         .elementType;
+        if (leafD->kind == SymbolKind::TypeAlias)
+            if (auto vit = typedefTs.find(leafD);
+                vit != typedefTs.end() && vit->second &&
+                vit->second->UhdmType() == UHDM::uhdmlogic_typespec &&
+                !vit->second->VpiName().empty())
+                // ...and it is § LAW S's BARE copy, not the qualified table
+                // entry: golden's element object is named `sha_word_t` with a
+                // Typedef_alias ref to `mp::sha_word_t`, exactly like the
+                // struct member of the same typedef right beside it.  The
+                // design-final rebind that implements LAW S does not reach an
+                // array_typespec's Elem_typespec, so ask for the copy here.
+                elemTs = bareScalarTdCopyOf(vit->second, true);
+    }
     if (elemTs) {
         // shared typedef keeps its own parent/loc
     }

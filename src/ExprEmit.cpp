@@ -10821,6 +10821,56 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                     }
                 }
+                // § patMemberSizeCastDef (r10earl5) — and a SIZE cast
+                // (`WakeUpPeris'(1'b1)`, `8'(1'b1)`) folds in the DEF view too,
+                // but to a UINT constant at the CAST's OWN width with no
+                // decompile and no ts ref — NOT the BIN-at-member-width the
+                // type-cast arm above builds.  Measured on jj.sv, one row per
+                // spelling, DEF listing beside TOP listing:
+                //     member logic [15:0]   DEF                 TOP(flattened)
+                //     WakeUpPeris'(1'b1)  UINT:1 sz16 dec ''  UINT:1 sz16 dec ''
+                //     16'(1'b1)           UINT:1 sz16 dec ''  UINT:1 sz16 dec ''
+                //     8'(1'b1)            UINT:1 sz 8 dec ''  UINT:1 sz16 dec ''
+                //     WakeUpPeris'(HwRstReqs) UINT:2 sz16     UINT:2 sz16
+                // — the 8'( ) row is what separates the two widths: the DEF
+                // view keeps the CAST's width, the elaborated view re-sizes to
+                // the MEMBER (§ patMemberCastNoDecomp, ParamEmit).  Earlgrey
+                // pwrmgr_pkg.sv:156 is the corpus witness and this is the
+                // AllPackages head "constant 156:14 {ct=9 sz=16 dec=}".
+                // The <=64 CEILING is a REGRESSION-derived distinguisher, not a
+                // guess: u2r ImportedDoubleCastedParameter's `Prefix:
+                // 96'(96'h 4c52_5443_5f4d_4f52_4001_0001)` keeps the whole
+                // vpiCastOp tree in golden.  jj.sv's `16'(16'h1)` row folds, so
+                // a BASED-LITERAL operand is NOT the blocker — the width is
+                // (Surelog's ExprEval answers in 64 bits).
+                if (!preE && paramInitDef &&
+                    (paramInitPkg || importedParamClone) && setter.expr->type &&
+                    setter.expr->type->isIntegral()) {
+                    auto& sc7 = stripImplicitConv(*setter.expr);
+                    if (sc7.kind == ExpressionKind::Conversion && sc7.syntax &&
+                        sc7.syntax->kind == syntax::SyntaxKind::CastExpression &&
+                        !isTypeSyntaxKind(sc7.syntax
+                                              ->as<syntax::CastExpressionSyntax>()
+                                              .left->kind) &&
+                        sc7.type && sc7.type->isIntegral() &&
+                        sc7.type->getBitWidth() <= 64) {
+                        ASTContext sctx7(comp.getRoot(), LookupLocation::max);
+                        if (auto scv7 = sctx7.tryEval(sc7);
+                            scv7 && scv7.isInteger() &&
+                            !scv7.integer().hasUnknown()) {
+                            auto siv7 = scv7.integer();
+                            siv7.setSigned(false);
+                            auto* sc7c = s.MakeConstant();
+                            setLoc(sc7c, setter.expr->sourceRange);
+                            sc7c->VpiSize((int32_t)sc7.type->getBitWidth());
+                            sc7c->VpiValue(
+                                "UINT:" +
+                                siv7.toString(LiteralBase::Decimal, false));
+                            sc7c->VpiConstType(vpiUIntConst);
+                            preE = sc7c;
+                        }
+                    }
+                }
                 // § r10fsv2 L4 — a SIZE CAST over a CONCAT (`1024'({64'h0,
                 // 64'h0})`).  Surelog's reduce folds the CONCAT first and then
                 // decides on the cast, in two arms measured on FuncStructVal's

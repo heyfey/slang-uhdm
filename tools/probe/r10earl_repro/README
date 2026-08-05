@@ -391,7 +391,259 @@ NEW TOOLS (pass 4):
                      "cmp_rc / dump_diff_lines" per witness so the two claims
                      never get conflated again.
 
-RANKED RESIDUE (measured after PASS 4 — next agent starts HERE).  AllModules
+LANDED — PASS 5 (r10earl5; every law gated at goldens 23/23 + u2r testflags
+0 change + Surelog both-modes 0 change INCLUDING the dump column — three full
+gate rounds).  Earlgrey_0_1 stays CMP_NOTEQUAL (groundwork), census below.
+
+  THE PWRMGR/RSTMGR/ALERT/FLASH PACKAGE FAMILY — pass 4's ranked residue (2),
+  6 AllPackages + 5 TopPackages heads and 7 parentless ref_typespec module
+  heads — IS ONE ROW.  The chain, decoded with r10earl5ts + r10earl5op:
+  typespec::Compare recurses Instance(), so comparing ANY of pwrmgr_pkg's 16
+  typespecs re-compares the whole package; every one of them, and every
+  pattern row 5..12, reported the SAME head; and the head "failLhs
+  ref_typespec 0:0 / failRhs <null>" is the pattern operation's own Typespec
+  ref on ROW 12 ALONE (PWR_PERI_DEFAULT, pwrmgr_pkg.sv:155).  The other rows
+  were already equal and were only echoing it.  Two laws close it:
+
+  jj.sv  § symDimScopedRefFlat (ParamEmit ~8695, the SYMBOLIC-DIM rule).  That
+        rule ("a struct whose member carries a parameter-dependent packed
+        dimension never flattens in either home-package view") is real but
+        does NOT outrank the SCOPED-REFERENCE rule beside it.  `pkg::NAME`
+        written anywhere outside a parameter declaration is the trigger
+        Surelog's substituteAssignedValue runs off, and it TYPES the pattern op
+        — the flatten's precondition — whatever the member dims look like.
+        pwrmgr_pkg pins both halves in one file: of its eight struct-pattern
+        parameters, FIVE are read as `pwrmgr_pkg::X` from top_earlgrey.sv's
+        port connections (rows 5/8/9/10/12) and golden flattens exactly those
+        five; the three read only unqualified or not at all (rows 6/7/11) keep
+        the tagged tree.  Row 12 is `pwr_peri_t`, whose members are
+        `logic [WakeUpPeris-1:0]` / `logic [HwRstReqs-1:0]` — symbolic — and
+        golden flattens it anyway.  The symbolic-dim witnesses
+        (MultiConcatValueSize & family, pinmux_pkg::DefaultTargetCfg) read
+        their parameter UNQUALIFIED after a wildcard import, so they never had
+        a scoped ref to be exempted by — checked before the change, 0 movers
+        after it.
+
+  jj.sv  § patMemberCastNoDecomp (ParamEmit ~9470, the flat-walk member fold)
+        + § patMemberSizeCastDef (ExprEmit ~10766, the DEF-view tagged member).
+        A member value written as a CAST folds with NO VpiDecompile at all —
+        Surelog answers a cast out of ExprEval (value + width) and never
+        re-renders source text for it.  The two views disagree about the WIDTH
+        and that is the whole subtlety; jj.sv is one row per spelling, read
+        side by side (member `logic [15:0]`):
+            source                   DEF listing        TOP (flattened)
+            WakeUpPeris'(1'b1)     UINT:1 sz16 dec ''  UINT:1 sz16 dec ''
+            16'(1'b1)              UINT:1 sz16 dec ''  UINT:1 sz16 dec ''
+            8'(1'b1)               UINT:1 sz 8 dec ''  UINT:1 sz16 dec ''
+            WakeUpPeris'(HwRstReqs) UINT:2 sz16 dec '' UINT:2 sz16 dec ''
+            16'(16'h1)             UINT:1 sz16 dec ''  UINT:1 sz16 dec ''
+        i.e. the DEF view keeps the CAST's own width, the elaborated view
+        re-sizes to the MEMBER's.  CONTROLS in the same package, all matching
+        already and all keeping their digits: `'1` -> "65535", `'0` -> "0",
+        `16'h1` and `2'b10` keep their source form.
+        THE <=64 CEILING IS REGRESSION-DERIVED, not a guess: the first cut
+        moved u2r ImportedDoubleCastedParameter (`Prefix:
+        96'(96'h 4c52_5443_5f4d_4f52_4001_0001)`) from CMP_EQUAL to
+        CMP_NOTEQUAL — golden keeps that whole vpiCastOp tree.  jj.sv's
+        `16'(16'h1)` row folds, so a BASED-LITERAL operand is NOT the blocker;
+        the width is (Surelog's ExprEval answers in 64 bits).
+
+  ll.sv  § impArithFoldSigned (ParamEmit ~10510, `intForm7`) + the new
+        file-scope srlgArithFoldSigned beside containsPatternOrConcat.  A
+        DEF-view MATERIALIZED IMPORT copy of a package localparam with an
+        ARITHMETIC init was unconditionally INT.  It is reduced by the SAME
+        ExprEval the elaborated listings use, so it obeys the per-OPERATOR
+        signedness rule already decoded at § foldSigned9: `+` and `<<` come
+        back UINT, `-` `*` `/` and unary minus INT, and a signed operand
+        propagates up through `+`.  ll.sv is one package, one importing module
+        (`module m import lp::*;`, the pwrmgr_wake_info shape), one localparam
+        per operator, read across ALL FOUR listings:
+            WakeUpPeris + 2   ALLPKG op / TOPPKG UINT / ALLMOD UINT / TOPMOD UINT
+            WakeUpPeris - 4   ALLPKG op / TOPPKG INT  / ALLMOD INT  / TOPMOD INT
+            WakeUpPeris * 2   ALLPKG op / TOPPKG INT  / ALLMOD INT  / TOPMOD INT
+            12 (no fold)      UINT everywhere
+            int W = X + 1     TOPPKG UINT / ALLMOD UINT / TOPMOD UINT
+        Only ALLMOD was wrong, and only on the two `+` rows.  5 Earlgrey heads,
+        all ONE object: pwrmgr_pkg.sv:19 `localparam TotalWakeWidth =
+        WakeUpPeris + 2` in pwrmgr / pwrmgr_cdc / pwrmgr_fsm / pwrmgr_slow_fsm
+        / pwrmgr_wake_info.  srlgArithFoldSigned adds `/` (which § foldSigned9's
+        switch omits despite its own matrix recording `100/5 -> INT`) because
+        HierPathStructTypespec's `(Sha3Latency + RegLatency - 1)/RegLatency`
+        has `/` at the top and must stay INT; § foldSigned9 itself is left
+        alone.
+
+  mm.sv  § unpackedElemVecTypedef (ParamEmit makeUnpackedArrayParamTs ~12810).
+        An UNPACKED-ARRAY parameter whose ELEMENT type is spelled as a VECTOR
+        TYPEDEF binds that typedef's typespec, not a fresh anonymous one.  The
+        arm above it already did this for struct / union / enum typedefs;
+        `typedef logic [31:0] sha_word_t;` + `localparam sha_word_t InitHash
+        [8]` fell through to the mint-fresh path, so golden's Elem_typespec
+        pointed at `logic_typespec 'sha_word_t' hmac_pkg.sv:17:11` and ours at
+        an anonymous one born at the declaration (:26:14).
+        TWO distinguishers, both measured on mm.sv:
+        (a) the rule keys on the DECLARED TYPE SYNTAX, not the resolved type —
+            row B writes the identical shape longhand (`localparam logic [31:0]
+            RawHash [4]`) and golden gives THAT one an anonymous element
+            typespec, so only a TypeAlias element takes the bind;
+        (b) the object bound is § LAW S's BARE copy (`sha_word_t` + a
+            Typedef_alias ref to `mp::sha_word_t`), not the qualified package
+            table entry — the first cut bound the table entry and the head
+            moved from "anonymous vs named" to "'sha_word_t' vs
+            'mp::sha_word_t'".  bareScalarTdCopyOf(ts, true) is that copy; the
+            design-final rebind that implements LAW S does not reach an
+            array_typespec's Elem_typespec.
+        4 of the 6 Earlgrey sha_word_t heads (all the AllModules ones) plus
+        mm.sv's TopPackages head.  PARTIAL, deliberately: the package's own DEF
+        listing (AllPackages) still mints the anonymous element — that view
+        emits its parameters BEFORE its typedefs, so typedefTs has no entry to
+        find yet.  Ranked as residue (1) below with the witness in hand.
+
+PASS-5 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  jj.sv  cmp-EQUAL  (the pwrmgr root, 9 package rows + the struct typespec all
+        `ok` under r10earl4pc; 190 dump lines left, all span/parenting)
+  ll.sv  cmp-EQUAL  (the 6-row operator matrix, all four listings)
+  ii.sv  cmp-EQUAL  (kept: the FIRST pwrmgr repro attempt, a fixed-dim struct
+        pattern in a package.  It was equal BEFORE this pass too — that is the
+        point: it proves the fixed-dim shape was never the problem and sent the
+        decode to the symbolic-dim rule.)
+  mm.sv  cmp-NOT-equal — ONE head left, the package DEF listing's anonymous
+        element typespec named above (AllModules / TopModules / TopPackages are
+        all 0 heads).
+  kk.sv  cmp-NOT-equal ON PURPOSE — residue witness, see the ranked list.
+
+NEW TOOLS (pass 5):
+  ../r10earl5ts.cpp  FIELD-BY-FIELD typespec compare inside one package
+                     listing: Typedef_alias, Instance, struct members and
+                     their ref_typespecs, enum base + consts, logic/array
+                     ranges with each bound's own ts — recursively.  Written
+                     because r10earl4pc reports "typespec N DIFF, failLhs
+                     ref_typespec '' 0:0, failRhs <null>" and a PARENTLESS,
+                     FILELESS ref_typespec is invisible in a dump AND
+                     unattributed by CompareContext.  It printed the two sides
+                     IDENTICAL at every field — which is what proved the
+                     failure was NOT in the typespec at all but in the
+                     Instance() recursion, i.e. in the package's param_assigns.
+  ../r10earl5op.cpp  the whole Rhs expression TREE of one param_assign row in a
+                     named listing, both sides, with every ref_typespec-valued
+                     field and every constant's ct/sz/dec/val.  This is the
+                     projection that names the offending node under an
+                     assignment-pattern operation; tab2/pa3/cst.py stop at the
+                     param_assign.
+  cen5.sh <probe> <out> [args]   run a probe on the Earlgrey_0_1 golden-cache
+                     database vs the sweep's slang.uhdm (no re-run needed).
+  rp5.sh <probe> <witness> [args]  the same for a witness in /tmp/r10earl5_rep.
+  run5.sh dmp5.sh cmprc5.sh sweep5.sh slsweep5.sh gate5.sh wit5.sh
+                     pass-5 copies (worktree path + /tmp/r10earl5_rep).
+
+
+EARLGREY_0_1 HEAD CENSUS after pass 5 (r10earl4h; 70 + 8 + 5 + 3, from
+73 + 8 + 6 + 5 at entry):
+
+  AllModules  SIZE 190 vs 190,  70 heads   (was 73)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged four passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (was 6)
+  TopPackages SIZE  40 vs  40,   3 heads   (was 5)
+
+READ THE COUNT HONESTLY.  The TOTAL moved by 5 but the laws closed far more
+than that: the pwrmgr/rstmgr family (11 package heads across the two listings
+plus 7 module heads) is GONE as a class, the TotalWakeWidth class (5) is gone,
+and the sha_word_t class fell 6 -> 1.  Those entries did not become equal —
+they ADVANCED to their NEXT head, which is why the "<null> vs <something>"
+bucket grew from 8 to 13 in the same run.  This is the same behaviour pass 4
+recorded; per-CLASS counts are the honest metric here, not the total.
+
+RANKED RESIDUE (measured after PASS 5 — next agent starts HERE).  AllModules
+unless stated.  Most classes are ONE shared object reached from many entries,
+so tests-per-fix is the head count.  Counts from r10earl4h on the pass-5
+binary; the pass-4 list below is superseded but kept for its distinguishers.
+
+  (1) sha_word_t, PACKAGE DEF LISTING ONLY — the finished half of
+      § unpackedElemVecTypedef, READY WITNESS mm.sv (its only remaining head).
+      The package's AllPackages entry emits its PARAMETERS BEFORE its
+      TYPEDEFS, so typedefTs has no entry when makeUnpackedArrayParamTs asks
+      and the element typespec is minted anonymous.  Everything else about the
+      law is landed and gated; this is an ORDERING fix (emit the package's
+      typedef table first, or defer the element bind to the design-final
+      rebind that already implements § LAW S).  Do NOT re-decode the law —
+      read the § unpackedElemVecTypedef comment.
+  (2) 13 <null> vs <something> + 6 ref_typespec '' 0:0 vs <null> — the same
+      "golden carries a link we do not" family pass 4 ranked (1)/(3), minus the
+      pwrmgr members this pass closed.  NOT one root: split them by their
+      parent chains in the census before building a repro.
+  (3) 4 array_typespec '' ibex_alu.sv:406:18 vs <null>, plus 5 more
+      "array_typespec vs logic_typespec" singletons (prim_arbiter_ppc:40,
+      prim_arbiter_tree:38, prim_sram_arbiter:24, rv_plic:41,
+      rv_plic_target:31) — a packed-dim var whose declared type golden gives an
+      array_typespec and we a logic_typespec.  Likely ONE law for all 9;
+      unchanged from pass 4, now the biggest UNTOUCHED class.
+  (4) 3 UNKNOWN-MODULE ref_module vs <null> — DECODED THIS PASS from the
+      census, ready to implement: golden's module DEF listing carries a stub
+      ref_module for an instantiation of a module with NO definition anywhere,
+      and r10earl4h prints exactly what Compare reads on it:
+          BUFGCE  u_bufgce   {def='work@BUFGCE'  actual=<null> ports=3}
+          BUFGMUX bufgmux_i  {def='work@BUFGMUX' actual=<null> ports=4}
+          IOBUF   i_iobuf    {def='work@IOBUF'   actual=<null> ports=4}
+      i.e. VpiName = the INSTANCE name, VpiDefName = `work@<TYPE>`,
+      Actual_module NULL, and the port vector = the written connections.  We
+      emit nothing at all.  All three are at PLAIN module scope (independent of
+      pass 4's two gen-block laws).
+  (5) 3 ref_obj 'PTRV_W', 3 operation prim_clock_inverter:18:16 vs ref_obj
+      '~clk_i', 3 package prim_cipher_pkg (VpiTop already agrees — NOT
+      pass 4's § pkgTypespecInstanceIsTop), 2 operation tl_main_pkg:13:59,
+      2 named_begin 'gen_host_fifo', 2 int_typespec 'LfsrDw' prim_lfsr:33,
+      2 constant padring:15, 2 constant flash_phy_pkg:31:34.
+  (6) 2 ref_obj 'PWR_AST_RSP_SYNC_DEFAULT' pwrmgr_cdc.sv:118:22 — NEW, and it
+      is the pwrmgr family's LAST member: golden keeps the ref_obj where we
+      substituted the value.  pwrmgr_cdc reads that parameter UNQUALIFIED after
+      `import pwrmgr_pkg::*` in a procedural statement, so it is the SCOPED-
+      REFERENCE rule's mirror on the READ side.
+  (7) 4 remaining ref_obj heads where golden kept a QUALIFIED package ref and
+      we folded: rstmgr_pkg:8 `pwrmgr_pkg::HwRstReqs`, flash_phy_pkg:17
+      `flash_ctrl_pkg::DataWidth`, alert_pkg:9
+      `alert_handler_reg_pkg::NAlerts`, and `CTR_WIDTH`.  Same shape as (6)
+      but in PACKAGE listings; these are 4 of the 5 remaining AllPackages
+      heads.
+  (8) 3 hier_path heads (spi_device:159 `reg2hw.rxf_addr.base.q[SDW+:SramAw]`,
+      pwrmgr_fsm:99 `pwr_rst_i.rst_lc_src_n[2 - 1:1]`, flash_phy:66
+      `flash_ctrl_i.addr[16+:1]`) — a hier_path whose SELECT bounds golden
+      leaves symbolic and we fold (or the reverse; the names carry the two
+      spellings side by side).
+  (9) ~20 singletons, each named in the census by file:line.  The recurring
+      SHAPE is still "golden folded a bound to a constant, we kept a ref_obj"
+      (alert_handler:33 NAlerts, flash_erase_ctrl:41 AddrW, padring:15
+      NMioPads, rv_timer:27 N_HARTS, usbdev:140 NEndpoints,
+      tlul_adapter_sram:56 top_pkg::TL_SZW, dm_sba:63 BusWidth/8,
+      prim_packer:42 InW+1) — the crossPkgRangeBoundFold / wildcard-import
+      family's remainder (e.sv, r.sv).
+  (10) TopModules 8 — unchanged for four passes (sram2tlul, prim_keccak,
+      prim_present/prim_prince, jtag_mux, work@padring).
+
+RESIDUES MEASURED THIS PASS AND NOT IMPLEMENTED (each with a witness):
+  * kk.sv — a TYPE-CAST struct-pattern member value in a package parameter.
+    Golden DEF `int'(1'b1)` -> UINT:1 SIZE 64 no decompile; golden TOP ->
+    UINT:1 size 16 (the member width).  Ours takes the existing type-cast arm
+    (ExprEmit, measured on FuncStructValSimple's `bit'(CVA6ConfigCExtEn)`) and
+    writes BIN at the member width.  So `bit'` and `int'` do NOT fold alike —
+    decode the distinguisher (target kind? 1-bit vs wider?) before widening
+    that arm.  0 corpus tests at f5fbd25; the SIZE-cast sibling IS landed.
+  * ll.sv (earlier revision) — a PORT RANGE BOUND that substitutes an imported
+    package localparam keeps the referenced parameter's CONSTTYPE in golden
+    (`input logic [DiffWidth-1:0]` -> ct 7 for a `-`-folded DiffWidth) where we
+    re-render UINT.  Same § srlgArithFoldSigned matrix, different consumer.
+  * mm.sv (earlier revision) — a struct-pattern CONT-ASSIGN member constant
+    (`'{data: 32'h0, mask: 4'h1}`) is HEX 32'h0 in golden's ELAB view and UINT
+    0 in ours; and a read of an unpacked-array package parameter
+    (`mp::InitHash[0]`) folds its bit-select to a constant in golden where we
+    keep the select.  Both were masking the mm law and are cut out of the
+    witness on purpose.
+  * jj.sv — golden's pattern-operation ref_typespec is PARENTLESS (no parent,
+    no file, 0:0) where ours is parented at the operation and carries a
+    VpiFullName.  cmp-irrelevant (uhdm-cmp does not read parents), so it is
+    byte-identity only — but it is why every one of these heads reads
+    "failLhs ref_typespec '' 0:0".
+
+RANKED RESIDUE (measured after PASS 4; SUPERSEDED by the PASS-5 list below —
+kept for the distinguishers it records).  AllModules
 unless stated.  Most classes are ONE shared object reached from many entries,
 so tests-per-fix is the head count.
 
