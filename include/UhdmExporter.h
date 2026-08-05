@@ -2348,6 +2348,12 @@ private:
     bool pkgSubCalledAsContAssignRhs(const slang::ast::SubroutineSymbol& sub);
     std::set<const slang::ast::SubroutineSymbol*> contAssignRhsCallees9;
     bool contAssignRhsCalleesBuilt9 = false;
+    /// § pkgSubEvaluatedFromParamInit9 — the design-wide sibling of
+    /// § subEvaluatedFromParamInit, which keys on the subroutine's own
+    /// InstanceBody and therefore can never see a PACKAGE function.
+    bool pkgSubEvaluatedFromParamInit(const slang::ast::SubroutineSymbol& sub);
+    std::set<const slang::ast::SubroutineSymbol*> paramInitCallees9;
+    bool paramInitCalleesBuilt9 = false;
     // True when Surelog's ExprEval actually EXECUTES this subroutine while
     // reducing a parameter of its own instance body — see TaskFuncEmit.cpp.
     bool subEvaluatedFromParamInit(const slang::ast::SubroutineSymbol& sub);

@@ -3284,7 +3284,21 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             ~PtoRestore9() { f = v; }
         } ptoRestore9{paramTsOwnerFull9, paramTsOwnerFull9};
         paramTsOwnerFull9 = joinPath(prefix, ps.name);
-        if (inPackage && ps.getParentScope())
+        // § modParamCastBindScope (r10earl6) — and a MODULE parameter's init
+        // has no currentScope either, so the same stand-in is needed there.
+        // Without it every size cast written in a parameter DEFAULT
+        // (`parameter logic [SDw-1:0] Seed = SDw'(1)`) fell past the whole
+        // decoded parameter-width model — the `else if (currentScope ||
+        // castBindScope)` gate in ExprEmit's cast arm — and landed on the
+        // catch-all logic_typespec at the cast tokens, where golden has the
+        // named int_typespec at the width parameter's own name token carrying
+        // its folded value.  ss.sv reads the matrix (`int unsigned SDw = 32`
+        // -> int_typespec 'SDw' 13:29..13:29 UINT:32; an UNTYPED `SN = 4` and
+        // a signed `int SI = 6` the same; the literal-sized `8'(1)` control
+        // unchanged).  2 Earlgrey heads, prim_lfsr:39
+        // `parameter logic [LfsrDw-1:0] DefaultSeed = LfsrDw'(1)` and the
+        // ibex_dummy_instr that instantiates it.
+        if (ps.getParentScope())
             castBindScope = ps.getParentScope();
         // THE IMPORT-COPY LAW.  A package that WILDCARD-IMPORTS another
         // re-lists the imported parameters, and that copy carries the source
@@ -11638,6 +11652,39 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rc9->VpiConstType(vpiIntConst);
                         rc9->VpiDecompile(dg9);
                     }
+                    // § sizedOctElabRespell (r10earl6) — and OCTAL JOINS
+                    // DECIMAL here exactly as it does for the UNSIZED
+                    // spelling in § unsizedBasedTypedParamElab below (`'o10`
+                    // -> UINT 8): the elaborated instance rebuilds the Rhs
+                    // from the VALUE and an octal literal has no base form to
+                    // rebuild, so it comes back a bare decimal UINT at the
+                    // parameter's own width.  hh.sv's four-base x four-view
+                    // matrix pins it — `4'o7` reads OCT in the package DEF,
+                    // the package TOP and BOTH module DEF listings and
+                    // `7 / UINT:7 / size 4` in the ELAB INSTANCE, while
+                    // `4'h2` and `4'b1010` never respell in any view.  Only
+                    // the DEC half of that matrix was implemented in pass 4.
+                    else if (v9.rfind("OCT:", 0) == 0) {
+                        std::string og9(v9.substr(4));
+                        uint64_t ov9 = 0;
+                        bool ok9 = !og9.empty();
+                        for (char c9 : og9) {
+                            if (c9 < '0' || c9 > '7') {
+                                ok9 = false;
+                                break;
+                            }
+                            ov9 = ov9 * 8 + (uint64_t)(c9 - '0');
+                        }
+                        // x/z digits have no decimal spelling — those keep
+                        // their octal form (the same carve-out the unsized
+                        // arm makes).
+                        if (ok9) {
+                            std::string d10n9 = std::to_string(ov9);
+                            rc9->VpiValue("UINT:" + d10n9);
+                            rc9->VpiConstType(vpiUIntConst);
+                            rc9->VpiDecompile(d10n9);
+                        }
+                    }
                 }
                 // § unsizedBasedTypedParamElab — the SAME elaboration re-render
                 // for the other bases.  Surelog's module elaborator rebuilds a
@@ -18639,9 +18686,36 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             else if (auto tit = typedefTs.find(leaf);
                      tit != typedefTs.end())
                 shared = tit->second;
-            if (!shared || (shared->UhdmType() != UHDM::uhdmstruct_typespec &&
-                            shared->UhdmType() != UHDM::uhdmunion_typespec &&
-                            shared->UhdmType() != UHDM::uhdmenum_typespec))
+            if (!shared)
+                continue;
+            // § unpackedElemVecTypedefPkgDef (r10earl6) — the finished half of
+            // § unpackedElemVecTypedef (makeUnpackedArrayParamTs).  That law
+            // binds a VECTOR typedef's own named typespec as an unpacked-array
+            // parameter's element type, and it fires everywhere the typedef
+            // table is already populated.  A package's OWN listing is the one
+            // place it cannot: emitPackage emits the package's PARAMETERS
+            // BEFORE its TYPEDEFS, so typedefTs has no entry to find and the
+            // element typespec is minted ANONYMOUS.  This loop already exists
+            // for the struct/union/enum spelling; the vector spelling takes
+            // the same rebind, through § LAW S's bare copy (the object the
+            // module-side law binds), and only over an element that IS still
+            // the anonymous mint — a named one has already been resolved.
+            // hmac_pkg's `typedef logic [31:0] sha_word_t` +
+            // `localparam sha_word_t InitHash [8]`, the last of the 6
+            // sha_word_t heads.
+            bool aggTd9 = shared->UhdmType() == UHDM::uhdmstruct_typespec ||
+                          shared->UhdmType() == UHDM::uhdmunion_typespec ||
+                          shared->UhdmType() == UHDM::uhdmenum_typespec;
+            // DEF VIEW ONLY — that is the whole scope of the ordering
+            // problem: the ELABORATED listing's element is already bound by
+            // the module-side half of the law (pass 5), and only the def
+            // listing emits its parameters ahead of its typedefs.  Measured
+            // both ways on the Earlgrey census: identical (73 heads, 52
+            // classes), so the narrower gate is the one that ships.
+            bool vecTd9 = !aggTd9 && !topView &&
+                          shared->UhdmType() == UHDM::uhdmlogic_typespec &&
+                          !shared->VpiName().empty();
+            if (!aggTd9 && !vecTd9)
                 continue;
             for (auto* pv0 : *up->Parameters()) {
                 if (pv0->UhdmType() != UHDM::uhdmparameter)
@@ -18654,8 +18728,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     if (auto* er = ((UHDM::array_typespec*)ats0)->Elem_typespec();
                         er && er->Actual_typespec() &&
                         er->Actual_typespec()->UhdmType() !=
-                            UHDM::uhdmstruct_typespec)
-                        er->Actual_typespec(shared);
+                            UHDM::uhdmstruct_typespec) {
+                        if (aggTd9)
+                            er->Actual_typespec(shared);
+                        else if (er->Actual_typespec()->VpiName().empty())
+                            er->Actual_typespec(
+                                bareScalarTdCopyOf(shared, true));
+                    }
             }
         }
     inPkgTypedefEmit = false;

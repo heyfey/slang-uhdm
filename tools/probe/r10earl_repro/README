@@ -552,7 +552,302 @@ they ADVANCED to their NEXT head, which is why the "<null> vs <something>"
 bucket grew from 8 to 13 in the same run.  This is the same behaviour pass 4
 recorded; per-CLASS counts are the honest metric here, not the total.
 
-RANKED RESIDUE (measured after PASS 5 — next agent starts HERE).  AllModules
+LANDED — PASS 6 (r10earl6; every law gated at goldens 23/23 + u2r testflags
+0 change + Surelog both-modes 0 change INCLUDING the dump column).
+Earlgrey_0_1 stays CMP_NOTEQUAL (groundwork); census at the end of this
+section.  ONE REGRESSION was hit and is recorded below as the distinguisher it
+was (EvalFunc, § pkgBodyArgTsCalledAsCaRhs's first cut).
+
+  mm.sv  § unpackedElemVecTypedefPkgDef (ParamEmit emitPackage, the existing
+        struct/union/enum Elem_typespec rebind loop just past the typedef
+        pass).  The FINISHED HALF of pass 5's § unpackedElemVecTypedef, which
+        was left partial BY MEASUREMENT: emitPackage emits a package's
+        PARAMETERS before its TYPEDEFS, so typedefTs has no entry when
+        makeUnpackedArrayParamTs asks and the element typespec is minted
+        ANONYMOUS in the package's OWN listing only.  The loop that already
+        re-points an unpacked-array-of-STRUCT element after the typedef pass
+        takes the vector spelling too, through § LAW S's bare copy
+        (bareScalarTdCopyOf(shared, true) — the object the module-side law
+        binds) and only over an element that is STILL the anonymous mint.
+        hmac_pkg's last sha_word_t head; mm.sv is now cmp-EQUAL.
+
+  nn.sv  § deferredPortUnpackedArrayTs (ModuleEmit materializeDefNetTs).  The
+        DEFERRED half of "EVERY DEF-view UNPACKED-array port wraps its element
+        ts in an array_typespec" (emitPorts, r10c5).  A port whose PACKED range
+        names an OVERRIDABLE parameter — `input [DW-1:0] data_i [N]` — does not
+        build its def typespec inline: rangeRefsOverriddenParam parks a bare
+        ref_typespec and materializeDefNetTs unfolds it in the write phase, and
+        THAT path never wrapped.  The port came out carrying the ELEMENT
+        logic_typespec alone, stretched over the whole declaration (unpacked
+        dim included) instead of an array_typespec over the element.  The gate
+        is the whole story: the same declaration WITHOUT a parameter in its
+        packed range (`input sel_i [N]`, nn.sv row C) took the inline arm and
+        was already right.  NETS are not wrapped in either path (golden gives
+        the def-view net of `logic [5:0] p [32]` a plain logic_typespec), so
+        the new arm keys on the parked ref_typespec's parent being the PORT.
+        9 Earlgrey heads read "array_typespec vs logic_typespec" at exactly
+        this shape.
+
+  oo.sv  § unknownModuleRefPorts (ModuleEmit, the def-view ref_module loop's
+        UninstantiatedDef arm).  Pass 5 ranked this "DECODED, ready to
+        implement" and it was half-true: we DO emit the stub (name, `work@<T>`
+        defname, null Actual) but with an EMPTY port vector, and
+        ref_module::Compare reports that as the ref_module itself.  Golden
+        carries the WRITTEN connection list — one port per connection, named
+        after the FORMAL, spanning the whole `.F (actual)` node, the actual as
+        High_conn under the scope <prefix>.<inst>.<formal>; a literal actual
+        stays UNPARENTED.  slang has no port list to walk (there is no
+        definition), so the connections come off the instantiation SYNTAX and
+        each actual is bound in the INSTANTIATING scope.
+        WITNESS SHAPE MATTERS: slang REJECTS `BUFGCE u_bufgce(...)` outright
+        wherever it elaborates the instantiation, and leaving the enclosing
+        module uninstantiated does not help — slang then promotes it to a TOP
+        and the error comes back.  The Earlgrey trio survive only because
+        prim_xilinx_* are instantiated ONLY in an untaken `Impl == ImplXilinx`
+        arm, so oo.sv has to do the same.  3 heads (BUFGCE / BUFGMUX / IOBUF);
+        oo.sv is cmp-EQUAL, 5 dump lines left (parenting only).
+
+  hh.sv  § sizedOctElabRespell (ParamEmit ~11525, beside pass 4's
+        § impCopyBasedDecKeep).  Pass 4 measured the four-base x four-view
+        matrix and implemented only its DEC half.  OCTAL JOINS DECIMAL in the
+        ELABORATED INSTANCE exactly as § unsizedBasedTypedParamElab already
+        records for the UNSIZED spelling (`'o10` -> UINT 8): `4'o7` reads OCT
+        in the package DEF, the package TOP and BOTH module DEF listings and
+        `7 / UINT:7 / size 4` in the elab instance, while `4'h2` and `4'b1010`
+        never respell in any view.  x/z digits keep their octal form (no
+        decimal spelling), the same carve-out the unsized arm makes.
+
+  pp.sv  § liveCallEntryIsContAssignRhs (ExprEmit ~7062 + ModuleEmit ~16252)
+        and § pkgBodyArgTsCalledAsCaRhs (ExprEmit argCtxOk) + the new
+        § pkgSubEvaluatedFromParamInit9 (TaskFuncEmit).  THE BIGGEST REMAINING
+        CLASS — 11 AllModules heads + 2 TopPackages, all reading
+        "failLhs <null> / failRhs ref_typespec '' 0:0" under
+        `operation -> func_call aes_mul_gf2p2 -> assignment -> function
+        aes_mul_gf2p4 -> package aes_sbox_canright_pkg`, i.e. WE stamp a
+        formal-typespec ref on a func-call argument that golden leaves bare.
+        The rule is not about the argument at all: a function BODY carries its
+        formal-ts stamps only when Surelog's evaluator actually RAN it, and the
+        shapes that run it are the ones § subCalledAsContAssignRhs already
+        names — a call that IS the whole rhs of a continuous assignment — plus
+        a call in a PARAMETER INITIALISER.  pp.sv reads both halves in one
+        file: golden stamps every operation actual inside FuncArgs' `pow_a`
+        (`assign out1 = pow_a(inp, 3);`) and NOT ONE anywhere in pp.sv, where
+        the identical package function, the identical module-local function
+        and a byte-for-byte copy of pow_a itself are all called as operands of
+        a `^`.  Two sites had to move: the liveCalledSubs ENTRY POINT (which
+        counted any call outside a body) and the pkgTopEmit arm of argCtxOk
+        (which stamped every elaborated package body unconditionally).
+        THE REGRESSION IS THE DISTINGUISHER: the first cut was cont-assign-only
+        and moved EvalFunc from CMP_EQUAL to CMP_NOTEQUAL — its
+        `localparam log2RATIO4 = prim_util_pkg::vbits(RATIO);` is a package
+        function evaluated from a PARAMETER INIT.  § subEvaluatedFromParamInit
+        models that already but keys on the subroutine's own InstanceBody,
+        which a package function does not have, so
+        § pkgSubEvaluatedFromParamInit9 is its design-wide sibling.
+
+  qq.sv  § genConnOperatorActual (ModuleEmit, the def-view gen-block
+        instantiation loop + two syntax-keyed op maps in EmitHelpers.h).  That
+        loop TEXT-PARSES its port actuals and had arms for selects, ranges,
+        calls, literals and concats; every other shape fell into the final else
+        and became ONE ref_obj NAMED with the raw source text — `~clk_i` came
+        out as a ref_obj literally called "~clk_i", with that string in its
+        fullname.  Golden builds an operation whose operands are formal-scoped
+        refs, exactly like the concat arm beside it.  Measured on qq.sv, three
+        rows in one gen block: `~clk_i` -> vpiBitNegOp with operand ref_obj
+        `clk_i` scoped <branch>.<inst>.<formal>.clk_i; `clk_i & b_i` ->
+        vpiBitAndOp, both operands scoped the same way; `!b_i` -> vpiNotOp.
+        3 heads (prim_clock_inverter:18 and the dmi_jtag / dmi_jtag_tap that
+        instantiate it).
+
+  ss.sv  § modParamCastBindScope (ParamEmit ~3288).  A size cast written in a
+        MODULE parameter DEFAULT could not reach the decoded parameter-width
+        cast model at all: that whole region sits behind
+        `else if (currentScope || castBindScope)` and NEITHER is set while a
+        module's parameter port list is emitted — castBindScope was published
+        for `inPackage` only.  So `parameter logic [SDw-1:0] Seed = SDw'(1)`
+        fell to the catch-all logic_typespec at the cast tokens where golden
+        has the named int_typespec at the WIDTH PARAMETER's own name token
+        (a zero-width span) carrying its folded value.  ss.sv is the matrix:
+        `int unsigned SDw = 32` -> int_typespec 'SDw' 13:29..13:29 UINT:32; an
+        UNTYPED `SN = 4` and a signed `int SI = 6` the same; the literal-sized
+        control `8'(1)` keeps the integer_typespec arm.  2 heads (prim_lfsr:39
+        DefaultSeed, ibex_dummy_instr).
+
+  rr.sv  NEGATIVE WITNESS, kept deliberately — it does NOT reproduce.  The 4
+        remaining AllPackages heads are all one written shape (a package
+        localparam whose initialiser reads ANOTHER package, or its own earlier
+        $clog2 localparams: rstmgr_pkg:8 `pwrmgr_pkg::HwRstReqs`,
+        flash_phy_pkg:17 `flash_ctrl_pkg::DataWidth`, alert_pkg:9
+        `alert_handler_reg_pkg::NAlerts`, flash_ctrl_pkg:18
+        `BankW + PageW + WordW`), golden keeping the ref_obj/operation in the
+        DEF listing where the census says we do not.  rr.sv writes every one of
+        those spellings — cross-package `parameter`, cross-package
+        `localparam`, a cross-package read inside an operation, a same-package
+        $clog2 chain, and two literal controls — and comes out cmp-EQUAL, with
+        BOTH sides keeping the symbolic Rhs.  So the trigger is NOT the written
+        shape; something else about the Earlgrey compile (file/emission order,
+        or the reading package being reached through a THIRD package) decides
+        it.  Do not re-write this witness — extend it, or go at the heads with
+        r10earl4pc inside the real design.
+
+NEW TOOLS (pass 6):
+  cencount.py <census.txt>   buckets an r10earl4h census by
+                     (section, failLhs, failRhs) with paths and uids
+                     normalised, most-common first, one example head per
+                     class.  The census is 768 lines and 86 heads; this is what
+                     turns it into 58 ranked CLASSES in one call.
+  tsproj.py <dump> [name-re]  every typespec ACTUAL under a port / net / var,
+                     with the owner and the span — the projection that shows
+                     "port:data_i array_typespec vs logic_typespec" without
+                     reading 3000 dump lines.
+  argts.py <dump>    every ref_typespec whose PARENT is an EXPRESSION node
+                     (operation / part_select / ref_obj / constant), with the
+                     enclosing function or package.  The func-call-argument
+                     stamp is invisible to every parameter projection; this is
+                     how pp.sv's "golden stamps NOTHING here" was read.
+  dd6.sh <name>      the raw dump diff of a witness, header dropped.
+  run6.sh dmp6.sh cmprc6.sh sweep6.sh slsweep6.sh gate6.sh wit6.sh cen6.sh
+  rp6.sh r10earl6build.sh   pass-6 copies (worktree path + /tmp/r10earl6_rep).
+
+PASS-6 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  mm.sv  cmp-EQUAL   (was the pass-5 residue (1); 252 dump lines, span only)
+  oo.sv  cmp-EQUAL   (5 dump lines: one parent pointer + one ref_typespec
+                      parent — parenting only, cmp-irrelevant)
+  ss.sv  cmp-EQUAL   (29 dump lines, all ORDER inside the module's Typespecs
+                      vector — arena order, cmp-irrelevant)
+  rr.sv  cmp-EQUAL   NEGATIVE control (it does not reproduce; see above)
+  hh.sv  cmp-NOT-equal — the OCT row now matches in all six columns; what is
+                      left is a ref_typespec on a def-view import-copy Rhs and
+                      TWO MISSING param_assign copies of the DEC row (golden 8
+                      rows at hp.sv:12, ours 6) — a fresh residue, ranked (9)
+  nn.sv  cmp-NOT-equal — the def-view port array_typespec class is CLOSED; the
+                      head is now an unrelated ELAB array_net unpacked-dim
+                      bound (golden UINT:4/64 bare, ours UINT:4/32 with an
+                      int_typespec ref) — ranked (8)
+  qq.sv  cmp-NOT-equal — the def-view operator actual is CLOSED; the head is
+                      now the ELAB gen-scope port conn's ref_obj, which golden
+                      leaves UNBOUND with an inst+formal-doubled fullname and
+                      we bind to the module net — ranked (8)
+  pp.sv  cmp-NOT-equal — every FUNCTION-BODY stamp is gone (golden and we both
+                      have none); what is left is the CALL-SITE stamp on a
+                      cont-assign whose rhs is `f(..) ^ g(..) ^ h(..)`.  Do NOT
+                      widen § liveCallEntryIsContAssignRhs to cover it without
+                      a fresh matrix: the r10yoo_pq measurement recorded in
+                      § ndaOpCallArg9 says an EXPLICIT cont-assign with the
+                      call under an operator IS stamped in the elab view, so
+                      pp.sv's three-call rhs must differ from it in some other
+                      way (sibling calls? left-to-right abort?).
+
+EARLGREY_0_1 HEAD CENSUS after pass 6 (r10earl4h; 59 + 8 + 5 + 1 = 73, from
+70 + 8 + 5 + 3 = 86 at entry):
+
+  AllModules  SIZE 190 vs 190,  59 heads   (was 70)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged FIVE passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   1 head    (was 3)
+
+READ THE COUNT HONESTLY, again.  86 -> 73 is -15%, but four of the classes
+that closed were bigger than that: the func-call-argument stamp family (11
+AllModules + 2 TopPackages) is gone as a class, the def-view port
+array_typespec family (9) is gone, the unknown-module stubs (3) and the
+gen-block operator actual (3) are gone.  Entries did not become equal — they
+ADVANCED.  The clearest example is measured and recorded here so nobody reads
+it as a regression: hmac / hmac_core / sha2 / sha2_pad were EQUAL at entry
+because their first unequal pair was the `rotr(w_1)` argument stamp; with that
+closed they advance to a sha_word_t NAMING head that was always there behind
+it.  A control run with § unpackedElemVecTypedefPkgDef compiled out gives the
+IDENTICAL 73 heads / 52 classes, which is how that was established.
+
+RANKED RESIDUE (measured after PASS 6 — next agent starts HERE).  AllModules
+unless stated; counts are heads, and most classes are ONE shared object
+reached from many entries.
+
+  (1) 5 `ref_typespec '' 0:0 vs <null>` — golden carries a Typespec ref on a
+      FOLDED CONSTANT that we leave bare.  All five chains end in a
+      param_assign or cont_assign Rhs and the constant is always the folded
+      value of a parameter read:
+          alert_handler_ping_timer:140:37 (under a part_select in a CA)
+          dm_csrs:91:71    `dm::dm_csr_e'((dm::Data0 + {4'b0, dm::DataCount}))`
+          dm_mem:65:64     `(dm::DataAddr - 4*dm::ProgBufSize)`
+          flash_phy_pkg:43:53 `WidthMultiple == 1 ? 1 : LsbAddrBit`
+          pinmux:54:23     `{pinmux_reg_pkg::NMioPeriphOut{1'b1}}`
+      Same family as § crossPkgRangeBoundFold's "an untyped package parameter
+      keeps the literal's width and gets an EMPTY ref_typespec".  Split them by
+      WHICH typespec golden binds before writing one repro for all five.
+  (2) 4 `<null> vs ref_typespec '' 0:0` — THE MIRROR (we bind, golden does
+      not), on param_assign Rhs OPERATIONS: flash_mp:66:45, pinmux_wkup,
+      rstmgr, rstmgr_ctrl.  Pairs with (1); decode them together.
+  (3) 4 `parameter 'PTRV_W' prim_fifo_async:33:27 vs <null>` (+ the same shape
+      on prim_filter_ctr's CTR_WIDTH) — ADVANCED from pass 5's
+      `ref_obj 'PTRV_W'` by § modParamCastBindScope.  NOT a population
+      difference: r10earl4pa shows all 9 PTRV_W param_assign rows identical on
+      both sides, so it is a FIELD of the parameter object (its typespec's
+      Cast_to_expr, one level above where the pass-5 census reported it).
+      `localparam logic [PTRV_W-1:0] DepthMinus1 = PTRV_W'(Depth - 1)` with
+      `PTRV_W = $clog2(Depth)` is the § castTgtDefaultIsLiteral=false arm.
+  (4) 4 `logic_typespec 'sha_word_t' vs 'hmac_pkg::sha_word_t'` (hmac,
+      hmac_core, sha2, sha2_pad) — a LAW S miss: a package SCALAR typedef must
+      be BARE at every variable-like binding and this binding keeps the
+      qualified listing object.  NEWLY VISIBLE (see the census note above), and
+      the biggest single class left.
+  (5) 4 `array_typespec '' ibex_alu.sv:406:18 vs <null>` — DECODED THIS PASS
+      and not implemented: `logic [ 5:0] bitcnt_partial [32];` sits inside
+      `if (RV32B) begin : g_alu_rvb` (ibex_alu.sv:388), i.e. it is a DEF-VIEW
+      GEN-BLOCK declaration, emitted from SYNTAX by the ModuleEmit gen loop —
+      which builds no array_typespec for an unpacked-array declaration at all.
+      nn.sv row E proves the PLAIN module-scope shape already agrees (golden
+      gives that one a plain logic_typespec on the def-view net), so this is a
+      gen-scope-only law.  Independent of the pass-6 port law.
+  (6) 3 `package prim_cipher_pkg {top=1} vs {top=0}` (aes, aes_prng,
+      prim_prince) — pass 4's § pkgTypespecInstanceIsTop shape at a link the
+      enum-parameter rule does not cover: a def-view module link into
+      prim_cipher_pkg names the DEF package where golden names the ELABORATED
+      one.  r10earl4t (pointer identity) is the probe; the objects are
+      text-identical in a dump.
+  (7) NAMING heads, 6 in three shapes, all "golden BARE / ours QUALIFIED":
+      3 `ref_obj 'A2X' vs 'aes_sbox_canright_pkg::A2X'` (the three
+      aes_sbox_canright* def listings, at each file's line 58/161/155 col 62),
+      2 `ref_obj 'PWR_AST_RSP_SYNC_DEFAULT' vs 'pwrmgr_pkg::…'`
+      (pwrmgr_cdc:118:22), 1 `func_call 'prim_cipher_pkg::perm_64bit' vs ''`
+      (prim_present:61:34 — this one INVERTED, golden qualified).  MEMORY SAYS
+      naming is context-dependent and a uniform fix is a dead end; these are
+      all reads of a WILDCARD-IMPORTED package member inside a def listing, so
+      decode that context specifically.
+  (8) FRESH RESIDUES from the pass-6 witnesses, each with the witness in hand:
+      * nn.sv — an ELAB array_net's UNPACKED-DIM bound: golden folds the size
+        parameter to UINT:<n> at 64 bits with NO typespec ref; we fold at the
+        parameter's own width WITH one.  § dimFoldReducedParam already splits
+        "reduced param -> INT/64 bare" from "literal param -> width+ts"; nn.sv
+        adds a third row (an OVERRIDDEN literal-default parameter port) that
+        takes the bare-64 shape.  buildUnpackedRanges (TypeEmit ~9850).
+      * qq.sv — the ELAB gen-scope instantiation's port High_conn refs: golden
+        leaves them UNBOUND with the fullname doubled through inst+formal
+        (`work@qq.gen_scan.i_dft_tck_mux.clk0_i.clk_i`); we bind the module net
+        and use the branch-scoped name.
+      * hh.sv — TWO MISSING param_assign copies of a DEC-based package
+        parameter in a module DEF listing (golden 8 rows, ours 6).
+  (9) ~25 singletons, each named in the census by file:line.  The recurring
+      SHAPE is still "golden folded a bound to a constant, we kept a ref_obj"
+      (alert_handler:33 NAlerts, flash_erase_ctrl:41 AddrW, padring:15
+      NMioPads, rv_timer:27 N_HARTS, rv_plic:41 NumTarget, usbdev:140
+      NEndpoints, tlul_adapter_sram:56 top_pkg::TL_SZW, dm_sba:63 BusWidth/8,
+      prim_packer:42 InW+1) plus three hier_path SELECT-BOUND heads
+      (spi_device:159, pwrmgr_fsm:99, flash_phy:66) and four constant
+      SIZE/CONSTTYPE singletons (flash_phy_pkg:31 ct7-vs-ct9,
+      flash_ctrl:310 sz32-vs-sz64, top_pkg:8 sz32-vs-sz64,
+      ibex_cs_registers:690 dec `4` vs `4'd4`).
+ (10) AllPackages 5 — four are the cross-package param_assign Rhs shape that
+      rr.sv FAILED to reproduce (see the negative witness above); the fifth is
+      hmac_pkg:18:29, an `operation vs <null>` that pass 6 ADVANCED to.
+ (11) TopModules 8 — unchanged for FIVE passes (sram2tlul, prim_keccak,
+      prim_present/prim_prince, jtag_mux, work@padring, prim_gate_gen,
+      top_earlgrey).  Nobody has built a witness for these yet; the
+      wildcard-import materialization family (e.sv/r.sv) is the standing
+      hypothesis.
+
+RANKED RESIDUE (measured after PASS 5; SUPERSEDED by the pass-6 list above —
+kept for the distinguishers it records).
+AllModules
 unless stated.  Most classes are ONE shared object reached from many entries,
 so tests-per-fix is the head count.  Counts from r10earl4h on the pass-5
 binary; the pass-4 list below is superseded but kept for its distinguishers.

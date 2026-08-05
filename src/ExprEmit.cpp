@@ -7158,7 +7158,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (What the entry point reaches from there is NOT every call
                 // the bodies contain but what the evaluator runs — the drain
                 // closes over § evalReachedCallees instead.)
-                if (!currentSubSym && contAssignView != 1)
+                // § liveCallEntryIsContAssignRhs (r10earl6) — and an entry
+                // point is only the shape Surelog's evaluator actually runs
+                // from: a call that IS the whole rhs of a continuous
+                // assignment.  This is the SAME trigger
+                // § subCalledAsContAssignRhs already records for the fill-size
+                // rule ("assign a = f(x)" evaluates f; "assign a = f(x) ^
+                // g(y)", a ternary operand and a procedural rhs do not), and
+                // the stamp obeys it too.  Measured on pp.sv, one file, five
+                // rows: golden stamps EVERY operation actual inside
+                // FuncArgs' `pow_a` (whose only caller is `assign out1 =
+                // pow_a(inp, 3);`) and NOT ONE anywhere in pp.sv, where the
+                // identical package function, the identical MODULE-local
+                // function and even a byte-for-byte copy of pow_a itself are
+                // all called as operands of a `^`.  11 Earlgrey AllModules
+                // heads + 2 TopPackages — the biggest remaining class —
+                // are aes_sbox_canright_pkg's aes_mul_gf2p4, called only
+                // from always_comb bodies.
+                if (!currentSubSym && contAssignView != 1 && parent &&
+                    parent->UhdmType() == UHDM::uhdmcont_assign)
                     liveCalledSubs.insert(&sub);
                 fc->VpiName(sub.name);
                 fc->VpiParent(parent);
@@ -7624,9 +7642,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     precUnreduced9 = true;
                             }
                         }
+                        // § pkgBodyArgTsCalledAsCaRhs (r10earl6) — the
+                        // ELABORATED package copy re-attaches its body's
+                        // formal-ts refs only for a function Surelog's
+                        // evaluator actually RAN, and that is the same
+                        // § pkgSubCalledAsContAssignRhs trigger the fill-size
+                        // rule uses: a call that IS the whole rhs of a
+                        // continuous assignment.  pp.sv reads both halves in
+                        // one file — a package function reached only as an
+                        // operand of a `^` (and aes_sbox_canright_pkg's
+                        // aes_mul_gf2p4, reached only from always_comb
+                        // bodies) carries NO stamp anywhere in golden, while
+                        // u.sv/w.sv's directly-called package functions do.
+                        // ...and a PARAMETER INITIALISER runs the body too —
+                        // EvalFunc's `localparam log2RATIO4 =
+                        // prim_util_pkg::vbits(RATIO)` is the regression that
+                        // proved it (the first cut, cont-assign-only, moved
+                        // that test from CMP_EQUAL to CMP_NOTEQUAL).
+                        bool pkgBodyEvald9 =
+                            !currentSubSym ||
+                            pkgSubCalledAsContAssignRhs(*currentSubSym) ||
+                            pkgSubEvaluatedFromParamInit(*currentSubSym);
                         bool argCtxOk =
                             !ndaOpCallArg9 && !precUnreduced9 &&
                             (currentTf ? ((pkgTopEmit && !structFormal9 &&
+                                          pkgBodyEvald9 &&
                                           !(intFormal &&
                                             a->UhdmType() ==
                                                 UHDM::uhdmoperation)) ||

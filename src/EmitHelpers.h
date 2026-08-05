@@ -754,6 +754,87 @@ inline int32_t netTypeFor(const Symbol& internal, bool defView = false) {
     return 0;
 }
 
+// § genConnOperatorActual (r10earl6) — the same two maps keyed on the SYNTAX
+// node instead of the bound AST operator, for the def-view gen-block
+// instantiation loop, which has no AST to read (it emits from the syntax tree
+// alone).  TypeEmit keeps private copies for range bounds; these are the
+// subset the port-connection arm needs, in one place both can reach.
+inline int32_t mapSynUnaryOp9(slang::syntax::SyntaxKind k) {
+    using slang::syntax::SyntaxKind;
+    switch (k) {
+        case SyntaxKind::UnaryLogicalNotExpression:
+            return vpiNotOp;
+        case SyntaxKind::UnaryBitwiseNotExpression:
+            return vpiBitNegOp;
+        case SyntaxKind::UnaryMinusExpression:
+            return vpiMinusOp;
+        case SyntaxKind::UnaryPlusExpression:
+            return vpiPlusOp;
+        case SyntaxKind::UnaryBitwiseAndExpression:
+            return vpiUnaryAndOp;
+        case SyntaxKind::UnaryBitwiseNandExpression:
+            return vpiUnaryNandOp;
+        case SyntaxKind::UnaryBitwiseOrExpression:
+            return vpiUnaryOrOp;
+        case SyntaxKind::UnaryBitwiseNorExpression:
+            return vpiUnaryNorOp;
+        case SyntaxKind::UnaryBitwiseXorExpression:
+            return vpiUnaryXorOp;
+        case SyntaxKind::UnaryBitwiseXnorExpression:
+            return vpiUnaryXNorOp;
+        default:
+            return 0;
+    }
+}
+
+inline int32_t mapSynBinaryOp9(slang::syntax::SyntaxKind k) {
+    using slang::syntax::SyntaxKind;
+    switch (k) {
+        case SyntaxKind::AddExpression:
+            return vpiAddOp;
+        case SyntaxKind::SubtractExpression:
+            return vpiSubOp;
+        case SyntaxKind::MultiplyExpression:
+            return vpiMultOp;
+        case SyntaxKind::DivideExpression:
+            return vpiDivOp;
+        case SyntaxKind::ModExpression:
+            return vpiModOp;
+        case SyntaxKind::LogicalShiftLeftExpression:
+            return vpiLShiftOp;
+        case SyntaxKind::LogicalShiftRightExpression:
+            return vpiRShiftOp;
+        case SyntaxKind::ArithmeticShiftLeftExpression:
+            return vpiArithLShiftOp;
+        case SyntaxKind::ArithmeticShiftRightExpression:
+            return vpiArithRShiftOp;
+        case SyntaxKind::GreaterThanExpression:
+            return vpiGtOp;
+        case SyntaxKind::GreaterThanEqualExpression:
+            return vpiGeOp;
+        case SyntaxKind::LessThanExpression:
+            return vpiLtOp;
+        case SyntaxKind::LessThanEqualExpression:
+            return vpiLeOp;
+        case SyntaxKind::EqualityExpression:
+            return vpiEqOp;
+        case SyntaxKind::InequalityExpression:
+            return vpiNeqOp;
+        case SyntaxKind::LogicalAndExpression:
+            return vpiLogAndOp;
+        case SyntaxKind::LogicalOrExpression:
+            return vpiLogOrOp;
+        case SyntaxKind::BinaryAndExpression:
+            return vpiBitAndOp;
+        case SyntaxKind::BinaryOrExpression:
+            return vpiBitOrOp;
+        case SyntaxKind::BinaryXorExpression:
+            return vpiBitXorOp;
+        default:
+            return 0;
+    }
+}
+
 inline int32_t mapUnaryOp(UnaryOperator op) {
     switch (op) {
         case UnaryOperator::Plus:

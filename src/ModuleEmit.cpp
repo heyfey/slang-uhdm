@@ -2311,6 +2311,73 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                     rm->Actual_group(di9.mod);
                     break;
                 }
+            // § unknownModuleRefPorts (r10earl6) — the stub carries the
+            // WRITTEN connection list, exactly like a resolved child's
+            // ref_module: one port per connection, named after the FORMAL,
+            // spanning the whole `.F (actual)` node, with the actual as
+            // High_conn under the scope <prefix>.<inst>.<formal>.
+            // slang has no port list to walk here (there is no definition),
+            // so the connections come straight off the instantiation SYNTAX
+            // and each actual is bound in the INSTANTIATING scope.
+            // 3 Earlgrey heads — BUFGCE / BUFGMUX / IOBUF, the Xilinx
+            // primitives prim_xilinx_clock_gating, prim_xilinx_clock_mux2 and
+            // prim_xilinx_pad_wrapper instantiate with no definition in the
+            // sources; the census read them as
+            // "{def='work@BUFGCE' actual=<null> ports=3} vs <null>", i.e. we
+            // built the stub but left its port vector EMPTY, and
+            // ref_module::Compare reports that as the ref_module itself.
+            if (auto isynU9 = ud.getSyntax();
+                isynU9 &&
+                isynU9->kind == syntax::SyntaxKind::HierarchicalInstance) {
+                auto* rpU9 = s.MakePortVec();
+                auto& hiU9 = isynU9->as<syntax::HierarchicalInstanceSyntax>();
+                for (auto connU9 : hiU9.connections) {
+                    const syntax::ExpressionSyntax* aexU9 = nullptr;
+                    std::string_view fnU9;
+                    SourceRange plU9 = connU9->sourceRange();
+                    if (connU9->kind ==
+                        syntax::SyntaxKind::NamedPortConnection) {
+                        auto& npcU9 =
+                            connU9->as<syntax::NamedPortConnectionSyntax>();
+                        fnU9 = npcU9.name.valueText();
+                        aexU9 = connActualSyntax(npcU9.expr);
+                    }
+                    else if (connU9->kind ==
+                             syntax::SyntaxKind::OrderedPortConnection) {
+                        aexU9 = connActualSyntax(
+                            connU9->as<syntax::OrderedPortConnectionSyntax>()
+                                .expr);
+                        if (aexU9)
+                            plU9 = aexU9->sourceRange();
+                    }
+                    // An EXPLICITLY EMPTY connection (`.O ()`) and a `.*`
+                    // carry no actual; the resolved path drops those too.
+                    if (!aexU9)
+                        continue;
+                    auto* pU9 = s.MakePort();
+                    if (!fnU9.empty())
+                        pU9->VpiName(fnU9);
+                    pU9->VpiParent(rm);
+                    setLoc(pU9, plU9);
+                    std::string scU9 =
+                        prefix + "." + std::string(ud.name) +
+                        (fnU9.empty() ? std::string{}
+                                      : "." + std::string(fnU9));
+                    if (auto* pscU9 = ud.getParentScope()) {
+                        ASTContext ctxU9(*pscU9, LookupLocation::max);
+                        auto& beU9 = Expression::bind(
+                            *const_cast<syntax::ExpressionSyntax*>(aexU9),
+                            ctxU9);
+                        if (!beU9.bad())
+                            if (auto* hU9 =
+                                    emitExpr(beU9, pU9, scU9, info.nets))
+                                pU9->High_conn((UHDM::expr*)hU9);
+                    }
+                    rpU9->push_back(pU9);
+                }
+                if (!rpU9->empty())
+                    rm->Ports(rpU9);
+            }
             refmods->push_back(rm);
             continue;
         }
@@ -12884,6 +12951,68 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             }
         }
     }
+    // § deferredPortUnpackedArrayTs (r10earl6) — the DEFERRED half of "EVERY
+    // DEF-view UNPACKED-array port wraps its element ts in an array_typespec"
+    // (emitPorts, r10c5).  A port whose PACKED range names an OVERRIDABLE
+    // parameter (`input [DW-1:0] data_i [N]`) does not build its def typespec
+    // inline: it parks a bare ref_typespec here and unfolds in the write
+    // phase — and that path never wrapped, so the port came out carrying the
+    // ELEMENT logic_typespec alone, spanning the whole declaration (unpacked
+    // dim included) instead of an array_typespec over the element.
+    // The two halves are the SAME rule and the gate is why they diverged:
+    // the same declaration WITHOUT a parameter in its packed range
+    // (`input sel_i [N]`, nn.sv row C) took the inline arm and was already
+    // right.  9 Earlgrey heads read "array_typespec vs logic_typespec" at
+    // exactly this shape (prim_arbiter_ppc:40, prim_arbiter_tree:38,
+    // prim_sram_arbiter:24, rv_plic:41, rv_plic_target:31, ...).
+    // NETS are NOT wrapped in either path (golden gives the def-view net of
+    // `logic [5:0] p [32]` a plain logic_typespec), so this keys on the
+    // parked ref_typespec's parent being the PORT.
+    if (ts && pn.rt->VpiParent() &&
+        pn.rt->VpiParent()->UhdmType() == UHDM::uhdmport &&
+        ts->UhdmType() != UHDM::uhdmarray_typespec && pn.sym->getDeclaredType() &&
+        pn.sym->getDeclaredType()->getType().getCanonicalType().kind ==
+            SymbolKind::FixedSizeUnpackedArrayType) {
+        auto* ats = s.MakeArray_typespec();
+        ats->VpiParent(pn.rt->VpiParent());
+        ats->VpiArrayType(1);
+        SourceLocation aStart = pn.sym->location, aEnd = pn.sym->location;
+        if (auto tsn = pn.sym->getDeclaredType()->getTypeSyntax())
+            aStart = tsn->sourceRange().start();
+        if (auto dsyn = pn.sym->getSyntax();
+            dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
+            for (auto dim : dsyn->as<syntax::DeclaratorSyntax>().dimensions) {
+                aEnd = dim->sourceRange().end();
+                // A SIZE dim ([4]) ends BEFORE its bracket; a ranged dim
+                // ([15:0]) includes it (Surelog quirk) — emitPorts' rule.
+                if (dim->specifier &&
+                    dim->specifier->kind ==
+                        syntax::SyntaxKind::RangeDimensionSpecifier &&
+                    dim->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                            .selector->kind == syntax::SyntaxKind::BitSelect)
+                    aEnd = aEnd - 1;
+            }
+        setLoc(ats, SourceRange(aStart, aEnd));
+        std::string pfull9(pn.rt->VpiFullName());
+        if (auto* ranges = buildUnpackedRanges(*pn.sym, ats, pfull9))
+            ats->Ranges(ranges);
+        // The element ts keeps the PACKED span alone — the deferred build
+        // stretched it over the unpacked dim because nothing else was
+        // going to hold that.
+        if (auto tsn9 = pn.sym->getDeclaredType()->getTypeSyntax()) {
+            auto er9 = tsn9->sourceRange();
+            if (er9.end() != SourceLocation::NoLocation) {
+                ts->VpiEndLineNo(sm->getLineNumber(er9.end()));
+                ts->VpiEndColumnNo(sm->getColumnNumber(er9.end()));
+            }
+        }
+        auto* ert = s.MakeRef_typespec();
+        ert->VpiParent(ats);
+        ert->VpiFullName(pfull9);
+        ert->Actual_typespec(ts);
+        ats->Elem_typespec(ert);
+        ts = ats;
+    }
     pn.rt->Actual_typespec(ts);
 }
 
@@ -16120,15 +16249,18 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // func_call survives into the elaborated design: that makes the
             // callee a live entry point for drainBodyOpArgTs (the def-view
             // emission itself is not evidence — a folded elab RHS discards it).
-            if (topView)
-                ae.right().visit(makeVisitor([&](auto& v9, const CallExpression& ce9) {
-                    if (!ce9.isSystemCall())
-                        if (auto sp9 =
-                                std::get_if<const SubroutineSymbol*>(&ce9.subroutine))
-                            if (*sp9)
-                                liveCalledSubs.insert(*sp9);
-                    v9.visitDefault(ce9);
-                }));
+            // § liveCallEntryIsContAssignRhs (r10earl6) — only the call that
+            // IS the whole rhs counts, exactly as at the ExprEmit entry site;
+            // a call buried in an operation is not a shape Surelog evaluates.
+            if (topView) {
+                auto& rhs9 = stripImplicitConv(ae.right());
+                if (rhs9.kind == ExpressionKind::Call &&
+                    !rhs9.as<CallExpression>().isSystemCall())
+                    if (auto sp9 = std::get_if<const SubroutineSymbol*>(
+                            &rhs9.as<CallExpression>().subroutine))
+                        if (*sp9)
+                            liveCalledSubs.insert(*sp9);
+            }
             cas->push_back(defInfo->contAssigns[myIdx]);
             continue;
         }
@@ -22679,6 +22811,72 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 }
                                 else if (auto* e9c = emitSyntaxExpr(*ce9, op9))
                                     ov9->push_back(e9c);
+                            }
+                            op9->Operands(ov9);
+                            p->High_conn(op9);
+                        }
+                        // § genConnOperatorActual (r10earl6).  An OPERATOR
+                        // actual (`.clk0_i ( ~clk_i )`) is an operation whose
+                        // operands are formal-scoped refs, exactly like the
+                        // concat arm above.  This dispatcher text-parses its
+                        // actuals and had arms for selects, ranges, calls,
+                        // literals and concats; every other shape fell into
+                        // the final else and became ONE ref_obj NAMED with the
+                        // raw source text — `~clk_i` came out as a ref_obj
+                        // called "~clk_i" with that string in its fullname.
+                        // Measured on qq.sv, three rows in one gen block:
+                        //   ~clk_i        -> operation vpiBitNegOp, span
+                        //                    16..22, operand ref_obj `clk_i`
+                        //                    at 17..22 scoped
+                        //                    <branch>.<inst>.<formal>.clk_i
+                        //   clk_i & b_i   -> operation vpiBitAndOp, both
+                        //                    operands scoped the same way
+                        //   !b_i          -> operation vpiNotOp
+                        // 3 Earlgrey heads (prim_clock_inverter:18, and
+                        // dmi_jtag / dmi_jtag_tap which instantiate it).
+                        else if (mapSynUnaryOp9(actSyn9->kind) != 0 ||
+                                 mapSynBinaryOp9(actSyn9->kind) != 0) {
+                            std::string oscope9 = branchPrefix + "." + iname +
+                                                  "." + formal;
+                            auto* op9 = s.MakeOperation();
+                            op9->VpiParent(p);
+                            setLoc(op9, actSyn9->sourceRange());
+                            auto* ov9 = s.MakeAnyVec();
+                            auto addOperand9 =
+                                [&](const syntax::ExpressionSyntax* oe9) {
+                                    if (!oe9)
+                                        return;
+                                    if (oe9->kind ==
+                                        syntax::SyntaxKind::IdentifierName) {
+                                        std::string on9(
+                                            oe9->as<syntax::
+                                                        IdentifierNameSyntax>()
+                                                .identifier.valueText());
+                                        auto* r9 = s.MakeRef_obj();
+                                        r9->VpiName(on9);
+                                        r9->VpiFullName(oscope9 + "." + on9);
+                                        r9->VpiParent(op9);
+                                        setLoc(r9, oe9->sourceRange());
+                                        ov9->push_back(r9);
+                                        return;
+                                    }
+                                    if (auto* e9 = emitSyntaxExpr(*oe9, op9))
+                                        ov9->push_back(e9);
+                                };
+                            if (int32_t uo9 = mapSynUnaryOp9(actSyn9->kind)) {
+                                op9->VpiOpType(uo9);
+                                addOperand9(actSyn9
+                                                ->as<syntax::
+                                                         PrefixUnaryExpressionSyntax>()
+                                                .operand);
+                            }
+                            else {
+                                op9->VpiOpType(
+                                    mapSynBinaryOp9(actSyn9->kind));
+                                auto& be9 =
+                                    actSyn9->as<syntax::BinaryExpressionSyntax>();
+                                addOperand9(be9.left);
+                                addOperand9(be9.right);
                             }
                             op9->Operands(ov9);
                             p->High_conn(op9);

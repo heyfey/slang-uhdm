@@ -481,6 +481,58 @@ bool UhdmExporter::pkgSubCalledAsContAssignRhs(const SubroutineSymbol& sub) {
     return contAssignRhsCallees9.count(&sub) != 0;
 }
 
+// § pkgSubEvaluatedFromParamInit9 (r10earl6) — the OTHER shape that makes
+// Surelog's evaluator run a function body, found DESIGN-WIDE so a package
+// function is reachable: a call inside a parameter/localparam INITIALISER.
+// § subEvaluatedFromParamInit models the same thing but keys on the
+// subroutine's own InstanceBody, which a package function does not have —
+// EvalFunc's `localparam log2RATIO4 = prim_util_pkg::vbits(RATIO);` is exactly
+// that miss, and it is the regression that widened
+// § pkgBodyArgTsCalledAsCaRhs from "cont-assign rhs" to "cont-assign rhs OR
+// param initialiser".
+bool UhdmExporter::pkgSubEvaluatedFromParamInit(const SubroutineSymbol& sub) {
+    if (!paramInitCalleesBuilt9) {
+        paramInitCalleesBuilt9 = true;
+        auto harvest = [&](const Expression& init) {
+            init.visit(makeVisitor([&](auto& v9, const CallExpression& ce9) {
+                if (!ce9.isSystemCall())
+                    if (auto sp9 =
+                            std::get_if<const SubroutineSymbol*>(&ce9.subroutine))
+                        if (*sp9)
+                            paramInitCallees9.insert(*sp9);
+                v9.visitDefault(ce9);
+            }));
+        };
+        std::function<void(const Scope&)> scan = [&](const Scope& sc) {
+            for (auto& mem : sc.members()) {
+                if (mem.kind == SymbolKind::Parameter) {
+                    if (auto* pi = mem.as<ParameterSymbol>().getInitializer())
+                        harvest(*pi);
+                }
+                else if (mem.kind == SymbolKind::Instance)
+                    scan(mem.as<InstanceSymbol>().body);
+                else if (mem.kind == SymbolKind::InstanceArray) {
+                    for (auto* e : mem.as<InstanceArraySymbol>().elements)
+                        if (e->kind == SymbolKind::Instance)
+                            scan(e->as<InstanceSymbol>().body);
+                }
+                else if (mem.kind == SymbolKind::GenerateBlock) {
+                    if (!mem.as<GenerateBlockSymbol>().isUninstantiated)
+                        scan(mem.as<GenerateBlockSymbol>());
+                }
+                else if (mem.kind == SymbolKind::GenerateBlockArray)
+                    for (auto* ge : mem.as<GenerateBlockArraySymbol>().entries)
+                        scan(*ge);
+            }
+        };
+        for (auto* ti : comp.getRoot().topInstances)
+            scan(ti->body);
+        for (auto* pk : comp.getPackages())
+            scan(*pk);
+    }
+    return paramInitCallees9.count(&sub) != 0;
+}
+
 // § subEvaluatedFromParamInit — the subroutines Surelog's ExprEval really
 // RUNS while elaborating an instance's parameters.
 //
