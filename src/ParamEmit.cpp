@@ -13541,6 +13541,58 @@ bool UhdmExporter::pkgParamOwnDefView(const ParameterSymbol& ps) const {
     return !pkgEmitTopView && curPkgEmitSym == &hsc->asSymbol();
 }
 
+// § pkgTdRangeViewFold18.  The very same law, one level over: a PACKAGE
+// TYPEDEF's own packed RANGE bound (`typedef logic [PW-1:0] pt;`) is
+// VIEW-DEPENDENT wherever a per-declaration NAMED CLONE of that typedef is
+// minted — at a formal's type token, at a return type, at a body local.  The
+// symbolic operation survives ONLY in the typedef's HOME package DEF listing;
+// the elaborated package listing, a wildcard-import CLONE's re-minted body,
+// the package's class methods seen from the elaborated view, and every module
+// view (def and elab) all carry the reduced constant.  Read off t28
+// (`tools/probe/r10uvm17repro/t28`), which pins all six views in BOTH
+// directions for a macro-literal bound and a parameter bound alike.
+//
+// The listing objects already follow this law (typedefTs holds the def copy,
+// pkgTopTypedefTs the elaborated one); the clones did not, because they are
+// built by makeTypespec from the SYNTAX and their fold state followed
+// makeTypespec's ambient tf context instead of the listing they alias.
+bool UhdmExporter::pkgTdOwnDefView(const TypeAliasType& ta) const {
+    auto* hsc = ta.getParentScope();
+    if (!hsc || hsc->asSymbol().kind != SymbolKind::Package)
+        return true;  // not package-homed: the view law does not apply
+    // A wildcard-import CLONE re-mints the whole chain against the IMPORTING
+    // package, so it is never the home DEF listing even when curPkgEmitSym
+    // still names the home package.
+    if (pkgImportCloneEmit || importCloneEmit)
+        return false;
+    if (curPkgEmitSym != &hsc->asSymbol())
+        return false;
+    // The DEF listing's `C::m` class-method clones are BUILT during the TOP
+    // pass (emitPackageClassMethodClones runs under `if (topView)`, because it
+    // needs the class_defns that pass just created) yet they BELONG to the DEF
+    // view — `pkgClassTfClone` is exactly the window.  Without this, every
+    // class method of a package that typedefs its own vectors folded a bound
+    // the def listing keeps symbolic (UVM `uvm_bitstream_t`, 371 io_decls on
+    // the UVM-4 alone).
+    if (pkgClassTfClone)
+        return true;
+    return !pkgEmitTopView;
+}
+
+// Only a BARE alias reaches the law: `pt fb` inherits pt's range, while
+// `logic [N-1:0] fb` writes its own (which the tf rule keeps symbolic in every
+// view).  A packed array OVER an alias (`pt [3:0] x`) owns the outer range and
+// its element clone is handled by its own arm.
+const TypeAliasType* UhdmExporter::pkgHomedTdAlias18(const Type& t) const {
+    if (t.kind != SymbolKind::TypeAlias)
+        return nullptr;
+    auto& ta = t.as<TypeAliasType>();
+    auto* hsc = ta.getParentScope();
+    if (!hsc || hsc->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    return &ta;
+}
+
 bool UhdmExporter::paramCaFoldRead(const ParameterSymbol& ps) {
     const Scope* body = nullptr;
     for (auto* sc = ps.getParentScope(); sc;

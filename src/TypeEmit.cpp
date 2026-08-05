@@ -345,8 +345,23 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // without vpiInstance, not the def/elab choice.
             if (auto t9 = pkgTopTypedefTs.find((const void*)&declared->getType());
                 t9 != pkgTopTypedefTs.end() &&
-                t9->second->UhdmType() == it->second->UhdmType())
-                return t9->second;
+                t9->second->UhdmType() == it->second->UhdmType()) {
+                // § pkgTdRangeViewFold18 — ONE exception, and it is a phase
+                // artifact rather than a new law: the DEF listing's `C::m`
+                // class-method clones are built during the package's TOP pass
+                // (emitPackageClassMethodClones), by which time this map is
+                // populated, so they bound the ELABORATED object while the
+                // package's own free functions — emitted in the DEF pass, when
+                // the map was still empty for this package — bound the DEF
+                // one.  Golden gives both the DEF listing's object, whose
+                // range is the symbolic one (UVM `uvm_reg_data_t`).
+                bool defClone18 =
+                    pkgClassTfClone &&
+                    declared->getType().kind == SymbolKind::TypeAlias &&
+                    pkgTdOwnDefView(declared->getType().as<TypeAliasType>());
+                if (!defClone18)
+                    return t9->second;
+            }
             return it->second;
         }
         // § arrayElemTypedefTs15 — an UNPACKED array of a typedef types on its
@@ -4801,13 +4816,101 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOf(const UHDM::typespec* src,
 UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
     const UHDM::typespec* src) {
     UHDM::typespec* cp = nullptr;
+    // § pkgTdCloneRefNoBind18, the LAW-S half.  The copy normally SHARES the
+    // listing object's range vector, which is right whenever that range is
+    // folded — every view but the typedef's home package DEF listing.  There
+    // the range is the symbolic op tree, and Surelog re-mints it per
+    // declaration WITHOUT re-resolving: golden's copy holds the same operation
+    // with a DANGLING bound ref while the listing's own is bound to the
+    // parameter's constant (t28 `pt@13:11` vs `p28::pt`, and UVM's
+    // `uvm_bitstream_t` locals).  Only a bound-carrying range is re-minted;
+    // anything else keeps the shared vector, so no folded view changes.
+    auto boundRef18 = [](const UHDM::any* e) {
+        std::function<bool(const UHDM::any*, int)> walk =
+            [&](const UHDM::any* n, int d) -> bool {
+            if (!n || d > 4)
+                return false;
+            if (n->UhdmType() == UHDM::uhdmref_obj)
+                return ((const UHDM::ref_obj*)n)->Actual_group() != nullptr;
+            if (n->UhdmType() == UHDM::uhdmoperation)
+                if (auto* os = ((const UHDM::operation*)n)->Operands())
+                    for (auto* o : *os)
+                        if (walk(o, d + 1))
+                            return true;
+            return false;
+        };
+        return walk(e, 0);
+    };
+    std::function<UHDM::expr*(const UHDM::expr*, UHDM::BaseClass*)> cloneB18 =
+        [&](const UHDM::expr* e, UHDM::BaseClass* par) -> UHDM::expr* {
+        if (!e)
+            return nullptr;
+        if (e->UhdmType() == UHDM::uhdmref_obj) {
+            auto* r0 = (const UHDM::ref_obj*)e;
+            auto* r = s.MakeRef_obj();
+            r->VpiName(r0->VpiName());
+            r->VpiFullName(r0->VpiFullName());
+            r->VpiParent(par);
+            r->VpiFile(r0->VpiFile());
+            r->VpiLineNo(r0->VpiLineNo());
+            r->VpiColumnNo(r0->VpiColumnNo());
+            r->VpiEndLineNo(r0->VpiEndLineNo());
+            r->VpiEndColumnNo(r0->VpiEndColumnNo());
+            return r;  // deliberately UNBOUND
+        }
+        if (e->UhdmType() == UHDM::uhdmoperation) {
+            auto* o0 = (const UHDM::operation*)e;
+            auto* o = s.MakeOperation();
+            o->VpiOpType(o0->VpiOpType());
+            o->VpiParent(par);
+            o->VpiFile(o0->VpiFile());
+            o->VpiLineNo(o0->VpiLineNo());
+            o->VpiColumnNo(o0->VpiColumnNo());
+            o->VpiEndLineNo(o0->VpiEndLineNo());
+            o->VpiEndColumnNo(o0->VpiEndColumnNo());
+            if (auto* os = o0->Operands()) {
+                auto* v = s.MakeAnyVec();
+                for (auto* x : *os)
+                    if (auto* c = cloneB18((const UHDM::expr*)x, o))
+                        v->push_back(c);
+                o->Operands(v);
+            }
+            return o;
+        }
+        return (UHDM::expr*)e;  // constants and anything else are shared
+    };
+    auto ranges18 = [&](UHDM::VectorOfrange* rs,
+                        UHDM::BaseClass* owner) -> UHDM::VectorOfrange* {
+        if (!rs)
+            return rs;
+        bool any = false;
+        for (auto* r : *rs)
+            if (boundRef18(r->Left_expr()) || boundRef18(r->Right_expr()))
+                any = true;
+        if (!any)
+            return rs;
+        auto* out = s.MakeRangeVec();
+        for (auto* r0 : *rs) {
+            auto* r = s.MakeRange();
+            r->VpiParent(owner);
+            r->VpiFile(r0->VpiFile());
+            r->VpiLineNo(r0->VpiLineNo());
+            r->VpiColumnNo(r0->VpiColumnNo());
+            r->VpiEndLineNo(r0->VpiEndLineNo());
+            r->VpiEndColumnNo(r0->VpiEndColumnNo());
+            r->Left_expr(cloneB18(r0->Left_expr(), r));
+            r->Right_expr(cloneB18(r0->Right_expr(), r));
+            out->push_back(r);
+        }
+        return out;
+    };
     switch (src->UhdmType()) {
         case UHDM::uhdmlogic_typespec: {
             auto* sl = (const UHDM::logic_typespec*)src;
             auto* cl = s.MakeLogic_typespec();
             cl->VpiVector(sl->VpiVector());
             cl->VpiSigned(sl->VpiSigned());
-            cl->Ranges(((UHDM::logic_typespec*)sl)->Ranges());
+            cl->Ranges(ranges18(((UHDM::logic_typespec*)sl)->Ranges(), cl));
             cl->Elem_typespec(((UHDM::logic_typespec*)sl)->Elem_typespec());
             cp = cl;
             break;
@@ -4817,7 +4920,7 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
             auto* cb = s.MakeBit_typespec();
             cb->VpiVector(sb->VpiVector());
             cb->VpiSigned(sb->VpiSigned());
-            cb->Ranges(((UHDM::bit_typespec*)sb)->Ranges());
+            cb->Ranges(ranges18(((UHDM::bit_typespec*)sb)->Ranges(), cb));
             cp = cb;
             break;
         }
@@ -4825,7 +4928,7 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
             auto* si = (const UHDM::int_typespec*)src;
             auto* ci = s.MakeInt_typespec();
             ci->VpiSigned(si->VpiSigned());
-            ci->Ranges(((UHDM::int_typespec*)si)->Ranges());
+            ci->Ranges(ranges18(((UHDM::int_typespec*)si)->Ranges(), ci));
             cp = ci;
             break;
         }
@@ -4902,6 +5005,21 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
 void UhdmExporter::importCloneBareTdAlias16() {
     if (pkgImportCloneTfs16.empty() || pkgScalarTd16.empty())
         return;
+    // § pkgTdRangeViewFold18 — the DEF listing object of each typedef paired
+    // with its ELABORATED twin.  A clone's chain is re-minted against the
+    // IMPORTING package, and Surelog re-elaborates it there, so BOTH links of
+    // the clone's chain carry the FOLDED range even in the def view — where
+    // the object they replace (the home package's def listing) is symbolic.
+    // t28 `DEFPKG[q28]/free28`: golden io1 = pt[const:7] -> pt[const:7] while
+    // the home's DEFPKG[p28] io1 is pt[operation] -> p28::pt[operation].
+    std::map<const UHDM::typespec*, UHDM::typespec*> defToTop18;
+    for (auto& [sym18, dts18] : typedefTs) {
+        auto t18 = pkgTopTypedefTs.find((const void*)sym18);
+        if (t18 != pkgTopTypedefTs.end() && t18->second && dts18 &&
+            t18->second != dts18 &&
+            t18->second->UhdmType() == dts18->UhdmType())
+            defToTop18[dts18] = t18->second;
+    }
     // The clone's copy: bare name, aliased to the UNALIASED bare copy of the
     // same listing object (golden's second link carries no further alias).
     auto cloneCopyOf = [&](const UHDM::typespec* src) -> UHDM::typespec* {
@@ -4909,6 +5027,27 @@ void UhdmExporter::importCloneBareTdAlias16() {
             it != cloneBareScalarTdCopy16.end())
             return it->second;
         UHDM::typespec* cp = nullptr;
+        // Mint from the ELABORATED twin when there is one, so the copy shares
+        // its FOLDED range vector; the vpiInstance still tracks the view of
+        // the object being replaced (bareScalarTdCopyOfFresh16's rule).
+        const UHDM::typespec* rsrc = src;
+        if (auto f18 = defToTop18.find(src); f18 != defToTop18.end())
+            rsrc = f18->second;
+        if (rsrc != src) {
+            cp = bareScalarTdCopyOfFresh16(rsrc);
+            auto* tgt18 = bareScalarTdCopyOfFresh16(rsrc);
+            if (cp && tgt18) {
+                cp->Instance(((UHDM::typespec*)src)->Instance());
+                tgt18->Instance(((UHDM::typespec*)src)->Instance());
+                auto* al = s.MakeRef_typespec();
+                al->VpiFullName(std::string(cp->VpiName()));
+                al->VpiParent(cp);
+                al->Actual_typespec(tgt18);
+                cp->Typedef_alias(al);
+            }
+            cloneBareScalarTdCopy16[src] = cp;
+            return cp;
+        }
         auto* tgt = bareScalarTdCopyOf(src, false);
         if (tgt) {
             // bareScalarTdCopyOf memoizes per (src, withAlias); build the
@@ -8225,7 +8364,8 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 ref->VpiFullName(syntaxRefPrefix + syntaxRefSep + std::string(name));
             ref->VpiParent(parent);
             setLoc(ref, syn.sourceRange());
-            if (pkgTsParam9 && !pkgTsForeign9 && !suppressRefActual)
+            if (pkgTsParam9 && !pkgTsForeign9 && !suppressRefActual &&
+                !tdCloneRefNoBind18)
                 if (auto ci9 = pkgParamConst.find(pkgTsParam9);
                     ci9 != pkgParamConst.end())
                     ref->Actual_group(ci9->second);
@@ -8233,7 +8373,10 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // [PARAM-1:0]), a reference to a package parameter binds to that
             // param's def-init constant (Surelog value-ref chaining), not left
             // dangling.
-            if (tfTypeScope && !ref->Actual_group()) {
+            // § pkgTdCloneRefNoBind18: a bound INHERITED from a package
+            // typedef into a per-declaration clone is re-minted, not
+            // re-resolved — it stays dangling.
+            if (tfTypeScope && !ref->Actual_group() && !tdCloneRefNoBind18) {
                 ASTContext tctx(*tfTypeScope, LookupLocation::max);
                 auto& be = Expression::bind(syn.as<syntax::ExpressionSyntax>(),
                                             tctx);

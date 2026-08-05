@@ -1598,20 +1598,30 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     bypassTypedefShare = true;
                     // The DEF-view return clone stays SYMBOLIC; the TOP-view
                     // one FOLDS (Surelog re-elaborates it) — jeras_union
-                    // imm_*_f.
-                    tfContext = !pkgTopEmit;
+                    // imm_*_f.  § pkgTdRangeViewFold18 generalises "TOP view"
+                    // from `pkgTopEmit` (which is already cleared by the time
+                    // the package's CLASSES are emitted, so their methods'
+                    // return clones stayed symbolic) to the whole view.
+                    tfContext = pkgTdOwnDefView(*retAlias);
+                    bool savedNb9 = tdCloneRefNoBind18;
+                    tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
                     tfTypeScope = sub.getParentScope();
                     ts = makeTypespec(*sub.returnValVar, targetSyn9);
+                    tdCloneRefNoBind18 = savedNb9;
                     // The return clone's alias binds the pkg LISTING object of
                     // its own view: the def listing for the def fn, the
                     // top/module listing for the elab fn (Surelog; the fresh
                     // per-function twin belongs to the BODY-local clone, not
                     // the return) — jeras_union imm_i_f.
                     UHDM::typespec* rtw9 = retBase;
-                    if (pkgTopEmit)
+                    // § pkgTdRangeViewFold18: "the elaborated view" is every
+                    // view but the typedef's home package DEF listing — the
+                    // package's own class methods seen from the ELAB view
+                    // included, where `pkgTopEmit` is already cleared.
+                    if (!pkgTdOwnDefView(*retAlias))
                         if (auto tt9 = pkgTopTypedefTs.find(
                                 (const void*)retAlias);
-                            tt9 != pkgTopTypedefTs.end())
+                            tt9 != pkgTopTypedefTs.end() && tt9->second)
                             rtw9 = tt9->second;
                     tfTypeScope = nullptr;
                     tfContext = false;
@@ -1705,9 +1715,19 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
             }
             if (!ts) {
+                // § pkgTdRangeViewFold18: a return typed by a PACKAGE typedef
+                // inherits the TYPEDEF's range, so it follows the view law
+                // rather than the blanket tf rule (a return that writes its
+                // own range keeps the symbolic tree in every view).
                 tfContext = true;
+                bool savedNb18 = tdCloneRefNoBind18;
+                if (auto* rta18 = pkgHomedTdAlias18(sub.getReturnType())) {
+                    tfContext = pkgTdOwnDefView(*rta18);
+                    tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
+                }
                 tfTypeScope = pkgScope ? sub.getParentScope() : nullptr;
                 ts = makeTypespec(*sub.returnValVar, returnTypeSyntax(sub));
+                tdCloneRefNoBind18 = savedNb18;
                 tfTypeScope = nullptr;
                 tfContext = false;
             }
@@ -1715,9 +1735,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // listing object (rp32 enc32's op32_t return), not the def-listing
             // one the shared lookup returns. Only fires when `ts` IS the def
             // listing object — a freshly minted return clone is left alone.
-            if (pkgTopEmit && ts)
+            // § pkgTdRangeViewFold18 widens "the elaborated package view" to
+            // EVERY view but the typedef's home package DEF listing: a MODULE
+            // that imports the package lists the function too, and its return
+            // shares the folded listing there as well (t28 mod28/free28).
+            if (ts)
                 for (auto& [sym0, tsp0] : typedefTs)
                     if (tsp0 == ts) {
+                        bool fold18 = pkgTopEmit;
+                        if (sym0->kind == SymbolKind::TypeAlias)
+                            if (auto* hta18 = pkgHomedTdAlias18(
+                                    sym0->as<TypeAliasType>()))
+                                fold18 = !pkgTdOwnDefView(*hta18);
+                        if (!fold18)
+                            break;
                         if (auto t0 = pkgTopTypedefTs.find((const void*)sym0);
                             t0 != pkgTopTypedefTs.end() && t0->second)
                             ts = t0->second;
@@ -2025,13 +2056,40 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // package as vpiInstance.  The shared-typespec branch at the end
             // already stamped its own; these clone branches did not
             // (PackedUnpackedIo).
+            // § pkgClassFormalCloneInst18 — and a package CLASS METHOD's
+            // per-formal typedef clone carries the SAME instance the method's
+            // shared-typespec formals already take (`tsInst`, the out-of-body
+            // home package).  The clone branches skipped it because the guard
+            // read `!pkgScope || classScope`, so every `uvm_bitstream_t` /
+            // `uvm_reg_data_t` formal clone in a UVM class method came out
+            // with a null vpiInstance where golden names the package — 524
+            // first-fails on SeqDriver alone, and the row is invisible until
+            // the range agrees (Compare stops at the first difference).
             auto stampPkgFormalTs = [&](UHDM::typespec* t0) {
-                if (!t0 || !pkgScope || classScope)
+                if (!t0 || !pkgScope)
+                    return;
+                UHDM::instance* inst0 =
+                    classScope ? tsInst : (UHDM::instance*)m;
+                // An IN-BODY class method has `tsInst` deliberately null (its
+                // SHARED formal typespecs carry no instance) — but its
+                // per-declaration CLONES still name the enclosing package, of
+                // the view being emitted (t28 `C28::m28`).
+                if (!inst0 && classScope)
+                    for (auto sc0 = sub.getParentScope(); sc0;
+                         sc0 = sc0->asSymbol().getParentScope())
+                        if (sc0->asSymbol().kind == SymbolKind::Package) {
+                            auto& hm0 = pkgEmitTopView ? pkgTopMap : pkgDefMap;
+                            if (auto hit0 =
+                                    hm0.find((const void*)&sc0->asSymbol());
+                                hit0 != hm0.end())
+                                inst0 = (UHDM::instance*)hit0->second;
+                            break;
+                        }
+                if (!inst0)
                     return;
                 if (pkgTopEmit && defPassOwnedTs.count(t0))
                     return;
-                t0->Instance(importCopyTsInst ? importCopyTsInst
-                                              : (UHDM::instance*)m);
+                t0->Instance(importCopyTsInst ? importCopyTsInst : inst0);
                 stampElemTsInstance(t0, (UHDM::instance*)t0->Instance());
             };
             // A formal REDECLARED in the function body with an explicit type
@@ -2171,12 +2229,34 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (asyn->kind == syntax::SyntaxKind::TypedefDeclaration)
                         targetSyn = asyn->as<syntax::TypedefDeclarationSyntax>().type;
                 bypassTypedefShare = true;
+                // § pkgTdRangeViewFold18 — the clone's packed RANGE follows
+                // the LISTING of the view it belongs to: symbolic only in the
+                // typedef's home package DEF listing, folded everywhere else.
+                bool savedTf18 = tfContext, savedNb18 = tdCloneRefNoBind18;
+                if (auto* hta18 = pkgHomedTdAlias18(at)) {
+                    tfContext = pkgTdOwnDefView(*hta18);
+                    tdCloneRefNoBind18 = true;  // § pkgTdCloneRefNoBind18
+                }
                 ts = makeTypespec(*arg, targetSyn);
+                tdCloneRefNoBind18 = savedNb18;
+                tfContext = savedTf18;
                 bypassTypedefShare = false;
                 ts->VpiName(at.name);
                 if (argTsyn)
                     setLoc((UHDM::BaseClass*)ts, argTsyn->sourceRange());
                 auto* mainTs = typedefTs[&at];
+                // ...and the ALIAS half of the same law: the clone points at
+                // the LISTING OBJECT OF ITS OWN VIEW.  typedefTs holds the DEF
+                // listing, which is the right target only in the typedef's
+                // home package DEF view; every folded view aliases the
+                // ELABORATED listing (§ pkgTdRangeViewFold18).  Doing only the
+                // range half leaves a folded clone pointing at a symbolic
+                // listing, which Compare walks straight into.
+                if (auto* hta18 = pkgHomedTdAlias18(at))
+                    if (!pkgTdOwnDefView(*hta18))
+                        if (auto t18 = pkgTopTypedefTs.find((const void*)hta18);
+                            t18 != pkgTopTypedefTs.end() && t18->second)
+                            mainTs = t18->second;
                 auto* art = s.MakeRef_typespec();
                 art->VpiFullName(at.name);
                 art->VpiParent(ts);
@@ -2949,8 +3029,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                                     syntax::TypedefDeclarationSyntax>()
                                                     .type;
                             bypassTypedefShare = true;
+                            // § pkgTdRangeViewFold18 (see below): the clone
+                            // mirrors its own view's listing.
                             tfContext = true;
+                            bool savedNb18 = tdCloneRefNoBind18;
+                            if (auto* vta18 = pkgHomedTdAlias18(vdt)) {
+                                tfContext = pkgTdOwnDefView(*vta18);
+                                tdCloneRefNoBind18 = true;
+                            }
                             auto* cl = makeTypespec(fmv, targetSyn);
+                            tdCloneRefNoBind18 = savedNb18;
                             tfContext = false;
                             bypassTypedefShare = false;
                             cl->VpiName(vdt.name);
@@ -2965,6 +3053,17 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
                 if (!vts) {
                     tfContext = true;
+                    // § pkgTdRangeViewFold18.  A local declared with a PACKAGE
+                    // TYPEDEF (`pt loc_p;`) inherits the TYPEDEF's range, and
+                    // that range is view-dependent: symbolic only in the
+                    // typedef's home package DEF listing.  A local that WRITES
+                    // its own range keeps the S3 rule below unchanged.
+                    bool savedNb18 = tdCloneRefNoBind18;
+                    if (auto* lta18 = pkgHomedTdAlias18(
+                            fmv.getDeclaredType()->getType())) {
+                        tfContext = pkgTdOwnDefView(*lta18);
+                        tdCloneRefNoBind18 = true;
+                    }
                     // § r10fsv3 S3.  A body-local's own type range is bound the
                     // same way a return/arg range is: `logic [NrMaxRules-1:0]
                     // pass;` inside a package function keeps the unfolded op
@@ -2979,6 +3078,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         tfTypeScopeViewLocal = true;
                     }
                     vts = makeTypespec(fmv);
+                    tdCloneRefNoBind18 = savedNb18;
                     tfTypeScope = savedTfS3;
                     tfTypeScopeViewLocal = savedTfV3;
                     tfContext = false;

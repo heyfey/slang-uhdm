@@ -1177,6 +1177,18 @@ private:
     // § pkgParamOwnDefRange.  True when the parameter is declared in a PACKAGE
     // and the listing being emitted right now is that package's own DEF view.
     bool pkgParamOwnDefView(const slang::ast::ParameterSymbol& ps) const;
+    // § pkgTdRangeViewFold18.  The SAME view law for a PACKAGE TYPEDEF's own
+    // packed RANGE bound as it reaches a per-declaration NAMED CLONE (a
+    // formal's / return's / body local's typespec twin): the bound stays
+    // SYMBOLIC only in the typedef's home package DEF listing and FOLDS in
+    // every other view.  Returns true for a typedef that is NOT package-homed
+    // (the law does not apply — the caller keeps its own tf rule).
+    bool pkgTdOwnDefView(const slang::ast::TypeAliasType& ta) const;
+    // The package-homed TypeAlias behind a declared type, or null: the SITE
+    // pkgTdOwnDefView applies to.  Only a bare alias qualifies — a written
+    // range at the declaration is the declaration's own, not the typedef's.
+    const slang::ast::TypeAliasType* pkgHomedTdAlias18(
+        const slang::ast::Type& t) const;
     std::map<const slang::ast::Scope*, std::set<std::string_view>>
         caFoldReadNames;
     UHDM::typespec* predefIntTypespec(const slang::ast::Type& ct,
@@ -1654,6 +1666,16 @@ private:
     // True while emitting an elaborated generate-scope process: refs to outer
     // (module) signals are left unbound (no Actual_group), as Surelog does.
     bool suppressRefActual = false;
+    // § pkgTdCloneRefNoBind18.  True while a PER-DECLARATION CLONE of a
+    // package typedef is built (a formal's / return's / body local's named
+    // twin).  Surelog re-mints the typedef's own range expression into the
+    // clone WITHOUT re-resolving it, so a bound operand that names a package
+    // parameter stays DANGLING there — while the very same operand inside the
+    // typedef LISTING object binds that parameter's def constant.  t28's
+    // `p28::pt`/`pt@16:29` pair shows both in one database.  Only bounds
+    // INHERITED from the typedef take it: a range WRITTEN at the declaration
+    // (`logic [NrMaxRules-1:0] pass;`) keeps the § r10fsv3 S3 binding.
+    bool tdCloneRefNoBind18 = false;
     // Root source file of the $unit PARAMETER whose own typespec range bound is
     // being emitted, while that bound was classified CROSS-FILE (see
     // makeTypespec's `unitParamTs`). A $unit param ref inside it that resolves
