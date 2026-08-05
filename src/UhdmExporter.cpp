@@ -4136,6 +4136,10 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto* m9 : *tm9)
                 fixList9(m9);
     }
+    // § classInheritsContainerImports23 — DESIGN-FINAL: a class's inherited
+    // listings are the very objects its container's imports already
+    // materialized, so every package view has to be complete first.
+    classInheritsContainerImports23();
     return d;
 }
 

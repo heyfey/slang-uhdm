@@ -2324,6 +2324,15 @@ private:
     /// The COMPILATION-UNIT-scope wildcard imports of the whole design, in
     /// source order.  These — and only these — feed `design->vpiTaskFunc`.
     std::vector<const slang::ast::PackageSymbol*> unitScopeWildcardImports();
+    /// § classInheritsContainerImports23 — a CLASS inherits the whole content
+    /// of every package imported by its CONTAINER (the package / module /
+    /// compilation unit it is declared in) into its OWN vpiTaskFunc,
+    /// vpiTypedef, vpiVariables, vpiParameter and vpiParamAssign listings,
+    /// BEFORE its own members.  Design-final: the group is the same set of
+    /// objects the importing SCOPES already list, so every package view must
+    /// be complete before it runs.  The multiplicity, share-vs-copy and
+    /// de-duplication rules are at the definition (ModuleEmit).
+    void classInheritsContainerImports23();
     /// § classPropUnitImport21 — is @a pkgSym imported at COMPILATION-UNIT
     /// (`$unit`) scope by ANY file of this design, wildcard or explicit?  That
     /// one fact decides, design-wide, whether an ELABORATED class body's

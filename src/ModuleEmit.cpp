@@ -3062,6 +3062,231 @@ std::vector<const PackageSymbol*> UhdmExporter::unitScopeWildcardImports() {
     return out;
 }
 
+// § classInheritsContainerImports23 — see the header.  A CLASS inherits the
+// whole content of every package imported by its CONTAINER into its OWN
+// vpiTaskFunc / vpiTypedef / vpiVariables / vpiParameter / vpiParamAssign
+// listings, BEFORE its own members.
+//
+// The import-ITEM list is `CompileClass::compile_class_` (:137-158) read
+// literally: the class's own FileContent objects PLUS its container's, and
+// `importPackage` runs once per ITEM, not once per package.  Each producer of
+// those objects gives a different MULTIPLICITY, and all four arms are measured
+// (r10uvm23repro t34a..t34c on top of pass 22's t33a/t33c):
+//
+//   * a `$unit`-scope import in the CLASS's OWN FILE counts TWICE —
+//     `CompileFileContent` (:83) calls `importPackage`, which registers the
+//     item on the FileContent itself, and then adds the SAME item a second
+//     time (:88);
+//   * a PACKAGE container contributes only its OWN body imports, ONCE each:
+//     packages are compiled BEFORE the file contents, so the package's
+//     "local file imports" loop (`CompilePackage.cpp`:143) saw an empty list
+//     (t34c: a class in a package under a `$unit` import reads x2, not x4);
+//   * a MODULE/PROGRAM/INTERFACE container contributes its own body imports
+//     ONCE and the same-file `$unit` ones TWICE — its local-file loop
+//     (`CompileModule.cpp`:572) DID run, so those items are on the module too
+//     (t34b: x4).  That is § collectMaterializedPkgs' rule, one level out;
+//   * a `$unit`-scope class has NO container at all (`ResolveSymbols.cpp`:163
+//     passes nullptr), so only the file's own x2 applies (t33c).
+//
+// The five listings split three ways, exactly as `importPackage` writes them:
+// task_funcs are SHARED (`inPackage` is false for the class caller, :319) and
+// carry a DUPLICATE-NAME check (:311) that also suppresses the class's OWN
+// same-named method (t34e: pk1::f1 wins, `C::f1` never appears); typespecs go
+// through a std::map keyed by the type NAME, so they de-duplicate AND come out
+// NAME-SORTED with the class's own merged in (t34d: aaa_t, pk1::nib_t,
+// pk1::srec_t, zzz_t); variables, parameters and param_assigns have NEITHER a
+// check nor a map, so they land once per import ITEM — the double-count.
+void UhdmExporter::classInheritsContainerImports23() {
+    if (classDefnMap.empty())
+        return;
+    // (package, the ONE symbol an explicit import names — null for wildcard).
+    using Item23 = std::pair<const PackageSymbol*, const Symbol*>;
+    auto scopeItems = [&](const Scope& sc, int copies, std::vector<Item23>& out,
+                          const slang::BufferID* onlyBuf) {
+        for (auto& m : sc.members()) {
+            const PackageSymbol* p = nullptr;
+            const Symbol* only = nullptr;
+            if (m.kind == SymbolKind::WildcardImport)
+                p = m.as<WildcardImportSymbol>().getPackage();
+            else if (m.kind == SymbolKind::ExplicitImport) {
+                p = m.as<ExplicitImportSymbol>().package();
+                only = m.as<ExplicitImportSymbol>().importedSymbol();
+                if (!only)
+                    continue;
+            }
+            else
+                continue;
+            if (!p)
+                continue;
+            if (onlyBuf && m.location.buffer() != *onlyBuf)
+                continue;
+            for (int i = 0; i < copies; i++)
+                out.push_back({p, only});
+        }
+    };
+    // The unqualified tail of a listing typespec's name — the DataTypeMap key.
+    auto tsKey = [](std::string_view n) {
+        auto pos = n.rfind("::");
+        return std::string(pos == std::string_view::npos ? n : n.substr(pos + 2));
+    };
+    std::set<const UHDM::class_defn*> done23;
+    for (auto& [sym, cd] : classDefnMap) {
+        if (!cd || !sym || sym->kind != SymbolKind::ClassType)
+            continue;
+        if (!done23.insert(cd).second)
+            continue;
+        auto& cls = sym->as<ClassType>();
+        // A NESTED class inherits the OUTER class's container verbatim
+        // (`CompileClass.cpp`:693 hands `m_class->getContainer()` down).
+        const Scope* cont = cls.getParentScope();
+        while (cont && cont->asSymbol().kind == SymbolKind::ClassType)
+            cont = cont->asSymbol().getParentScope();
+        std::vector<Item23> items;
+        slang::BufferID cbuf = cls.location.buffer();
+        for (auto* cu : comp.getCompilationUnits())
+            scopeItems(*cu, 2, items, &cbuf);
+        if (cont) {
+            auto& cs = cont->asSymbol();
+            if (cs.kind == SymbolKind::Package)
+                scopeItems(*cont, 1, items, nullptr);
+            else if (cs.kind == SymbolKind::InstanceBody) {
+                auto& body = cs.as<InstanceBodySymbol>();
+                slang::BufferID mbuf = body.getDefinition().location.buffer();
+                for (auto* cu : comp.getCompilationUnits())
+                    scopeItems(*cu, 2, items, &mbuf);
+                scopeItems(body, 1, items, nullptr);
+            }
+        }
+        scopeItems(cls, 1, items, nullptr);
+        if (items.empty())
+            continue;
+        auto* tfs23 = s.MakeTask_funcVec();
+        std::set<std::string> tfSeen23;
+        // The duplicate-name check reads the name the object carries IN THE
+        // PACKAGE'S OWN LISTING, and a package lists a class method under its
+        // QUALIFIED spelling (`C::run`, t33d's `DEFPKG[pk]`) while
+        // materializedPkgTfGroup hands back the class_defn-parented DEFINITION
+        // object, whose VpiName is the bare `run`.  Keying on the bare name
+        // would collapse uvm_pkg's 894 entries to 586 — every `new` /
+        // `do_copy` in the package folding onto one — where golden keeps all
+        // 894.  So an imported CLASS METHOD is keyed qualified and only a
+        // package FREE subroutine can collide with a method of the importing
+        // class (t34e: pk1's `f1` suppresses `C::f1`; t33d's `C::run` does not
+        // suppress `C`'s own `run`).
+        auto tfKey23 = [](const UHDM::task_func* t) {
+            std::string n(t->VpiName());
+            if (auto* p = t->VpiParent();
+                p && p->UhdmType() == UHDM::uhdmclass_defn && !p->VpiName().empty())
+                return std::string(p->VpiName()) + "::" + n;
+            return n;
+        };
+        auto addTf23 = [&](UHDM::task_func* t, bool imported) {
+            if (!t)
+                return;
+            if (!tfSeen23.insert(imported ? tfKey23(t) : std::string(t->VpiName())).second)
+                return;
+            tfs23->push_back(t);
+        };
+        std::map<std::string, UHDM::typespec*> tsm23;
+        // ...and the listing entries no DataTypeMap key can hold (an unnamed
+        // typespec): kept in their own order, after the sorted map.
+        std::vector<UHDM::typespec*> tsUnnamed23;
+        auto* vars23 = s.MakeVariablesVec();
+        auto* pars23 = s.MakeAnyVec();
+        auto* pas23 = s.MakeParam_assignVec();
+        for (auto& [p23, only23] : items) {
+            std::string on23 = only23 ? std::string(only23->name) : std::string();
+            for (auto* t23 : materializedPkgTfGroup(*p23))
+                if (!only23 || t23->VpiName() == on23)
+                    addTf23(t23, /*imported=*/true);
+            UHDM::package* pv23 = nullptr;
+            if (auto it23 = pkgTopMap.find((const void*)p23); it23 != pkgTopMap.end())
+                pv23 = it23->second;
+            else if (auto id23 = pkgDefMap.find((const void*)p23); id23 != pkgDefMap.end())
+                pv23 = id23->second;
+            if (!pv23)
+                continue;
+            if (auto* v23 = pv23->Typespecs())
+                for (auto* t23 : *v23) {
+                    if (!t23 || t23->UhdmType() == UHDM::uhdmimport_typespec ||
+                        t23->VpiName().empty())
+                        continue;
+                    std::string k23 = tsKey(t23->VpiName());
+                    if (only23 && k23 != on23)
+                        continue;
+                    tsm23.emplace(k23, t23);
+                }
+            if (auto* v23 = pv23->Variables())
+                for (auto* x23 : *v23)
+                    if (x23 && (!only23 || x23->VpiName() == on23))
+                        vars23->push_back(x23);
+            // The PARAMETER arm walks `def->getParameterMap()`, a
+            // std::map<name, Parameter*> — so an imported parameter batch is
+            // NAME-SORTED, unlike the param_assign arm right below it, which
+            // walks `getParamAssignVec()` and stays in source order (measured
+            // on SeqDriver: adpcm_driver's 45 parameters read UVM_ABSTRACT,
+            // UVM_ALL_ON, UVM_CHECK_FIELDS... while its 45 param_assigns are
+            // uvm_pkg's declaration order, and both are 45 either way).
+            if (auto* v23 = pv23->Parameters()) {
+                std::vector<UHDM::any*> sorted23;
+                for (auto* x23 : *v23)
+                    if (x23 && (!only23 || x23->VpiName() == on23))
+                        sorted23.push_back(x23);
+                std::stable_sort(sorted23.begin(), sorted23.end(),
+                                 [](const UHDM::any* a23, const UHDM::any* b23) {
+                                     return a23->VpiName() < b23->VpiName();
+                                 });
+                for (auto* x23 : sorted23)
+                    pars23->push_back(x23);
+            }
+            if (auto* v23 = pv23->Param_assigns())
+                for (auto* x23 : *v23)
+                    if (x23 && (!only23 || (x23->Lhs() && x23->Lhs()->VpiName() == on23)))
+                        pas23->push_back(x23);
+        }
+        // ...and the class's OWN members, after the whole import.
+        if (auto* v23 = cd->Task_funcs())
+            for (auto* t23 : *v23)
+                addTf23(t23, /*imported=*/false);
+        if (auto* v23 = cd->Typespecs())
+            for (auto* t23 : *v23) {
+                if (!t23)
+                    continue;
+                if (t23->VpiName().empty())
+                    tsUnnamed23.push_back(t23);
+                else
+                    tsm23.emplace(tsKey(t23->VpiName()), t23);
+            }
+        if (auto* v23 = cd->Variables())
+            for (auto* x23 : *v23)
+                vars23->push_back(x23);
+        if (auto* v23 = cd->Parameters())
+            for (auto* x23 : *v23)
+                pars23->push_back(x23);
+        if (auto* v23 = cd->Param_assigns())
+            for (auto* x23 : *v23)
+                pas23->push_back(x23);
+        if (!tfs23->empty())
+            cd->Task_funcs(tfs23);
+        if (!tsm23.empty() || !tsUnnamed23.empty()) {
+            auto* tsv23 = s.MakeTypespecVec();
+            for (auto& [k23, t23] : tsm23) {
+                (void)k23;
+                tsv23->push_back(t23);
+            }
+            for (auto* t23 : tsUnnamed23)
+                tsv23->push_back(t23);
+            cd->Typespecs(tsv23);
+        }
+        if (!vars23->empty())
+            cd->Variables(vars23);
+        if (!pars23->empty())
+            cd->Parameters(pars23);
+        if (!pas23->empty())
+            cd->Param_assigns(pas23);
+    }
+}
+
 void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::instance* m) {
     auto* tds = m->Typespecs();
     // An interface (def view) lists each imported package typedef in its own
