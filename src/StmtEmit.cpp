@@ -1137,6 +1137,40 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 else
                     arrDotted21 = true;
             }
+            // § foreachShadowFormalWins22 — `this.<name>` where the ENCLOSING
+            // SUBROUTINE also declares <name> resolves its LOOP VARIABLE
+            // through the SUBROUTINE's declaration, not the class property.
+            // uvm_reg_block writes exactly that four times
+            // (`function void get_registers(ref uvm_reg regs[$]); foreach
+            // (this.regs[rg])`, and get_memories / get_maps / get_blocks;
+            // uvm_vreg::get_fields is a fifth), and golden answers
+            // `class_var 'uvm_reg'` — the FORMAL's element typespec — in
+            // Scoreboard and SimpleUVM, where § classPropUnitImport21's $unit
+            // import says a class property must NOT resolve at all.
+            //
+            // Measured on a purpose-built pair whose two candidate routes give
+            // DIFFERENT answers (tools/probe/r10uvm22repro/t33d + t33e): a
+            // property `int p_a[string]` (property route -> string_var by the
+            // assoc INDEX rule) shadowed by a formal `ref Cel p_a[$]` (formal
+            // route -> class_var 'Cel', an io_decl carrying the ELEMENT
+            // typespec).  Golden reads `class_var 'Cel'` in BOTH arms — with
+            // the $unit import (t33d) and without it (t33e) — so the formal
+            // wins unconditionally, while the same file's un-shadowed `p_b`
+            // still tracks the gate (int_var in t33d, string_var in t33e).
+            // Only the LOOP VARIABLE moves: golden's iterated reference is
+            // still § classPropIterThisRefVar21's typespec-less `ref_var`.
+            //
+            // The BARE spelling needs no rule — slang's own name resolution
+            // already binds it to the shadowing declaration.
+            bool shadowFormal22 = false;
+            if (arrThis21 && arrSym && currentSubSym)
+                if (auto* sh22 = currentSubSym->find(arrSym->name))
+                    if (sh22 != arrSym &&
+                        (sh22->kind == SymbolKind::FormalArgument ||
+                         sh22->kind == SymbolKind::Variable)) {
+                        arrSym = sh22;
+                        shadowFormal22 = true;
+                    }
             // A foreach over a MEMBER of a local (`foreach (path.slices[j])`)
             // lists the whole dotted reference as a hier_path, not a ref_var
             // (Surelog resolves the loop list as an expression before it
@@ -1431,6 +1465,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // and the loop variable takes the bare int default.
                 UHDM::typespec* lts = nullptr;
                 UHDM::variables* lv = nullptr;
+                // A pass-22 arm that RESOLVED the loop variable: golden binds
+                // such an object in the body exactly as it binds an int_var
+                // (§ foreachLoopVarObjs9's registration test at the return).
+                bool res22 = shadowFormal22;
                 // A SUBROUTINE-LOCAL fixed-size unpacked array hands its whole
                 // array_typespec to the loop variable — shared, not drilled —
                 // which makes the variable an array_var. Module-scope arrays,
@@ -1497,6 +1535,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             k21 == SymbolKind::FixedSizeUnpackedArrayType) {
                             lts = s.MakeArray_typespec();
                             lv = s.MakeArray_var();
+                        }
+                        // § foreachClassPropStringVar22 — and a resolving
+                        // property that is a plain `string` is iterated over
+                        // its CHARACTERS: getSimpleVarFromTypespec of a
+                        // string_typespec is a string_var, where we answered
+                        // the bare int default.  uvm_component::get_depth's
+                        // `foreach (m_name[i])` over `protected string m_name`
+                        // is the corpus site (4, all in views we emit); t33e
+                        // pins it directly, bare and `this.`-prefixed alike.
+                        else if (k21 == SymbolKind::StringType) {
+                            lts = s.MakeString_typespec();
+                            lv = s.MakeString_var();
+                            res22 = true;
                         }
                     }
                 if (!lv)
@@ -1568,6 +1619,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                             {cts19, &ick19});
                                     lts = cts19;
                                 }
+                                // § foreachAssocIdxAliasTs22 — the index rule is
+                                // not limited to `[string]` and `[<class>]`.
+                                // getSimpleVarFromTypespec is handed whatever
+                                // typespec the INDEX TYPE compiled to, so an
+                                // index written as a TYPEDEF NAME resolves to
+                                // that typedef's own emitted object and the loop
+                                // variable takes the var class UHDM's mapping
+                                // gives it: `uvm_reg_map_addr_range` (a struct)
+                                // -> struct_var, `uvm_reg_addr_t` (a bit vector)
+                                // -> bit_var, each carrying the typedef's
+                                // typespec BY NAME.  sharedAliasTs is the
+                                // Type-keyed lookup that already backs
+                                // assocIndexTs for the DECLARATION's
+                                // vpiIndexTypespec, so the loop variable and the
+                                // declaration agree by construction.  Only kinds
+                                // varForTypespec maps are taken; anything else
+                                // still falls back to the int default rather
+                                // than registering an unmappable loop variable.
+                                else if (auto* sh22 = sharedAliasTs(*ix19);
+                                         sh22 && varForTypespec(s, sh22))
+                                    lts = sh22;
                                 else
                                     assocIdx19 = false;
                             }
@@ -1614,7 +1686,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // — golden binds the array_var object in the body exactly as
                 // it binds an int_var.
                 return (lv->UhdmType() == UHDM::uhdmint_var ||
-                        lv->UhdmType() == UHDM::uhdmarray_var || assocIdx19)
+                        lv->UhdmType() == UHDM::uhdmarray_var || assocIdx19 ||
+                        res22)
                            ? lv
                            : nullptr;
             };
