@@ -2324,14 +2324,13 @@ private:
     /// The COMPILATION-UNIT-scope wildcard imports of the whole design, in
     /// source order.  These — and only these — feed `design->vpiTaskFunc`.
     std::vector<const slang::ast::PackageSymbol*> unitScopeWildcardImports();
-    /// § foreachAssocIdxImporterView19 — is @a pkgSym wildcard-imported by
-    /// ANOTHER PACKAGE of this design?  A package-scope `import p::*` makes
-    /// Surelog re-elaborate p's contents into the importing package's symbol
-    /// table, and the class bodies p owns are compiled ONCE and shared by every
-    /// view; the re-elaboration is what lets an unresolved foreach over a class
-    /// property still type its LOOP VARIABLE.  See the law at its use site.
-    bool pkgWildcardImportedByPkg19(const slang::ast::Symbol& pkgSym);
-    std::map<const void*, bool> pkgWildImpByPkg19;
+    /// § classPropUnitImport21 — is @a pkgSym imported at COMPILATION-UNIT
+    /// (`$unit`) scope by ANY file of this design, wildcard or explicit?  That
+    /// one fact decides, design-wide, whether an ELABORATED class body's
+    /// foreach over a CLASS PROPERTY resolves its loop variable at all.  See
+    /// the law at its use site in StmtEmit's Foreach case.
+    bool pkgImportedByUnit21(const slang::ast::Symbol& pkgSym);
+    std::map<const void*, bool> pkgUnitImp21;
     /// The DEF view's tail of nets: every bare name a HOISTED class method
     /// body (see classPropRefs) failed to resolve binds a net of that name
     /// here, and one is minted into @a nets when the module declares none.

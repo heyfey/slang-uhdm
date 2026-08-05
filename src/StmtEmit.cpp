@@ -38,20 +38,28 @@ static UHDM::variables* varForTypespec(UHDM::Serializer& s, const UHDM::typespec
     }
 }
 
-// § foreachAssocIdxImporterView19 (see the use site for the law).
-bool UhdmExporter::pkgWildcardImportedByPkg19(const Symbol& pkgSym) {
-    auto it = pkgWildImpByPkg19.find((const void*)&pkgSym);
-    if (it != pkgWildImpByPkg19.end())
+// § classPropUnitImport21 (see the use site for the law and its measurements).
+// Surelog's CompileHelper::importPackage copies the imported package's WHOLE
+// `needLateTypedefBinding` list into the importing scope — unfiltered, so an
+// explicit `import p::C;` copies exactly as much as `import p::*` — and
+// UhdmWriter::write runs the FileContent pass over that list AFTER the package
+// pass (UhdmWriter.cpp:4991 vs :1302).  A `$unit`-scope import therefore gets
+// the LAST word on every class-property name, resolves none of them, and
+// overwrites the package pass's answer with swapForSpecifiedVar's int_var
+// fallback (UhdmWriter.cpp:2550).
+bool UhdmExporter::pkgImportedByUnit21(const Symbol& pkgSym) {
+    auto it = pkgUnitImp21.find((const void*)&pkgSym);
+    if (it != pkgUnitImp21.end())
         return it->second;
     bool any = false;
-    for (auto* p : comp.getPackages()) {
-        if ((const Symbol*)p == &pkgSym)
-            continue;
-        for (auto& m : p->members()) {
-            if (m.kind != SymbolKind::WildcardImport)
-                continue;
-            if ((const Symbol*)m.as<WildcardImportSymbol>().getPackage() ==
-                &pkgSym) {
+    for (auto* cu : comp.getCompilationUnits()) {
+        for (auto& m : cu->members()) {
+            const Symbol* ip = nullptr;
+            if (m.kind == SymbolKind::WildcardImport)
+                ip = (const Symbol*)m.as<WildcardImportSymbol>().getPackage();
+            else if (m.kind == SymbolKind::ExplicitImport)
+                ip = (const Symbol*)m.as<ExplicitImportSymbol>().package();
+            if (ip == &pkgSym) {
                 any = true;
                 break;
             }
@@ -59,7 +67,7 @@ bool UhdmExporter::pkgWildcardImportedByPkg19(const Symbol& pkgSym) {
         if (any)
             break;
     }
-    pkgWildImpByPkg19[(const void*)&pkgSym] = any;
+    pkgUnitImp21[(const void*)&pkgSym] = any;
     return any;
 }
 
@@ -1102,12 +1110,38 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // vpiVariables: a ref_var naming the iterated array, its ref
             // typespec bound to the array's OWN array_typespec.
             const Symbol* arrSym = fe.arrayRef.getSymbolReference();
+            // § classPropIterThisRefVar21 — slang models an IMPLICIT class
+            // property reference as a MemberAccess on an implicit `this`, so
+            // `fe.arrayRef.kind` alone cannot tell `foreach (q[i])` from
+            // `foreach (other.q[i])`; read the written syntax instead.  Three
+            // spellings, three golden shapes, pinned on t32f/t32g (both views,
+            // with and without a $unit import):
+            //   `q[i]`        ref_var 'q' bound to an unsupported_typespec 'q'
+            //   `this.q[i]`   ref_var 'q' with NO typespec at all
+            //   `other.q[i]`  hier_path (VpiName cleared) — the only hier_path
+            // and only the third resolves its loop variable unconditionally
+            // (§ foreachHierPathAlwaysRes21 below); the first two obey the
+            // $unit gate together.
+            bool arrThis21 = false, arrDotted21 = false;
+            if (arrSym && fe.arrayRef.kind == ExpressionKind::MemberAccess) {
+                if (arrBase && arrBase->kind == syntax::SyntaxKind::ScopedName) {
+                    const syntax::NameSyntax* root21 =
+                        &*arrBase->as<syntax::ScopedNameSyntax>().left;
+                    while (root21->kind == syntax::SyntaxKind::ScopedName)
+                        root21 = &*root21->as<syntax::ScopedNameSyntax>().left;
+                    if (root21->kind == syntax::SyntaxKind::ThisHandle)
+                        arrThis21 = true;
+                    else
+                        arrDotted21 = true;
+                }
+                else
+                    arrDotted21 = true;
+            }
             // A foreach over a MEMBER of a local (`foreach (path.slices[j])`)
             // lists the whole dotted reference as a hier_path, not a ref_var
             // (Surelog resolves the loop list as an expression before it
             // decides the iterated object). LocalScopeHierPath.
-            bool arrMember9 =
-                arrSym && fe.arrayRef.kind == ExpressionKind::MemberAccess;
+            bool arrMember9 = arrDotted21;
             if (arrMember9) {
                 if (auto* hp9 = emitExpr(fe.arrayRef, fs, prefix, netMap)) {
                     hp9->VpiParent(fs);
@@ -1118,7 +1152,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     fs->Variable((UHDM::variables*)(UHDM::any*)hp9);
                 }
                 else
-                    arrMember9 = false;
+                    arrMember9 = arrDotted21 = false;
             }
             // A foreach over a CLASS PROPERTY stays unresolved in the
             // ELABORATED listing too: that listing is the copy Surelog
@@ -1137,6 +1171,75 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         apc9->asSymbol().kind == SymbolKind::ClassType;
             bool foreachUnres9 =
                 classMethodNoBind || pkgDefViewBody9 || classPropArr9;
+            // § classPropUnitImport21 — the class property's array REFERENCE
+            // stays unresolved (classPropArr9 above), but its LOOP VARIABLE is
+            // answered by a different Surelog pass and usually DOES resolve.
+            // `swapForSpecifiedVar` (UhdmWriter.cpp:2490) re-resolves the bare
+            // property NAME through `decodeHierPath` against the DesignComponent
+            // whose `needLateTypedefBinding` list it is walking, and feeds the
+            // result to `getSimpleVarFromTypespec`.  The home package's own pass
+            // (UhdmWriter.cpp:1302) resolves it; what breaks it is that
+            // `CompileHelper::importPackage` copies the imported package's WHOLE
+            // late-binding list into the importing scope and `write()` runs the
+            // FileContent pass over that copy LAST (UhdmWriter.cpp:4991, after
+            // the package loop) — so ONE `$unit`-scope import of the class's
+            // home package anywhere in the design gets the last word, fails to
+            // resolve a class-property name at file scope, and overwrites every
+            // such loop variable with the int_var fallback (:2550).
+            //
+            // Measured BOTH DIRECTIONS on the corpus sources themselves, one
+            // line each (tools/probe/r10uvm21repro/README.md):
+            //   SeqDriver + `import uvm_pkg::*;` at $unit  ->  ELABPKG
+            //     900 array_var / 630 class_var / 180 string_var / 12 int_var
+            //     becomes 486 / 132 / 36 / 1074 — SimpleUVM's shape exactly;
+            //   SimpleUVM with its $unit import and classes moved INTO a package
+            //     -> DEFMOD 179 int_var / 81 array_var becomes 150 array_var /
+            //     105 class_var / 2 int_var — SeqDriver's shape exactly.
+            // and isolated on a 25-line design in t32a..t32e: no import (a),
+            // module-scope import (b) and package-scope import (d) all resolve
+            // {queue,dynamic,fixed} -> array_var, `[string]` -> string_var,
+            // `[Cel]` -> class_var 'Cel'; a $unit-scope import resolves NOTHING,
+            // whether it is a WILDCARD (c) or EXPLICIT (e) — which is what
+            // importPackage's unfiltered list copy predicts.
+            //
+            // This SUPERSEDES § foreachAssocIdxImporterView19, whose gate ("some
+            // other PACKAGE wildcard-imports the home package") agreed with the
+            // truth on three of the UVM-4 by coincidence and was wrong on
+            // BuildUVMPkg, which has no importer at all and resolves.
+            //
+            // § foreachHierPathAlwaysRes21 — and a DOTTED iterated reference
+            // (`foreach (phase.m_predecessors[pred])`, arrMember9 above) is
+            // EXEMPT from the gate: it resolves in all four tests, $unit import
+            // or not.  Source-first, that is the OTHER arm of
+            // swapForSpecifiedVar: a hier_path loop list is fed to
+            // decodeHierPath AS WRITTEN (:2511), so the path root — a local, a
+            // formal, `this` — carries the type in whatever DesignComponent the
+            // pass is walking, where the synthetic one-element path the BARE
+            // name arm builds (:2529) has nothing but the name and needs the
+            // class scope the FileContent pass does not have.  144 sites over
+            // the UVM-4, `array_var` / `class_var` / `struct_var` / `bit_var`
+            // in golden against our int_var, present in BuildUVMPkg and
+            // SeqDriver (no $unit import) exactly as in SimpleUVM and
+            // Scoreboard (one).
+            // `this.q[i]` is NOT exempt: t32f writes all five properties as
+            // `this.<prop>` under a $unit import and golden answers int_var for
+            // every one, exactly as for the bare spelling, while the same file's
+            // `other.<prop>` still gives array_var / string_var / class_var.
+            // uvm-1.2 writes both spellings, so this cell is load-bearing:
+            // `uvm_mem_mam::reserve_region`'s `foreach (this.in_use[i])` is an
+            // array_var in BuildUVMPkg and an int_var in Scoreboard.
+            bool classPropRes21 = false;
+            if (classPropArr9) {
+                if (arrDotted21)
+                    classPropRes21 = true;
+                else {
+                    const Scope* hp21 = arrSym->getParentScope();
+                    while (hp21 && hp21->asSymbol().kind != SymbolKind::Package)
+                        hp21 = hp21->asSymbol().getParentScope();
+                    classPropRes21 =
+                        hp21 && !pkgImportedByUnit21(hp21->asSymbol());
+                }
+            }
             // § foreachLocalArrayVar20 — is the iterated array a SUBROUTINE
             // LOCAL declaration?  Surelog's loop variable is
             // getSimpleVarFromTypespec applied to whatever the DECLARATION
@@ -1174,7 +1277,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // dynamic AND fixed-size arrays alike — a module function's
                 // foreach still binds the real array_typespec (ClassVar,
                 // LocalScopeHierPath).
-                if (foreachUnres9) {
+                if (arrThis21) {
+                    // § classPropIterThisRefVar21: typespec-LESS (see the note
+                    // at rv->Typespec below) — nothing to bind, nothing to
+                    // defer, and in particular no pendingForeachArrayTs entry.
+                }
+                else if (foreachUnres9) {
                     auto* uts = s.MakeUnsupported_typespec();
                     uts->VpiName(arrSym->name);
                     uts->VpiLineNo(rv->VpiLineNo());
@@ -1214,7 +1322,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         pendingForeachArrayTs.push_back(
                             {art, arrSym, implicitNetModule});
                 }
-                rv->Typespec(art);
+                // § classPropIterThisRefVar21 — an EXPLICIT `this.` prefix
+                // leaves the reference typespec-LESS.  Golden's `this.p_q` is
+                // `ref_var 'p_q'` with a null Typespec() in every view of both
+                // t32f and t32g, where the bare `p_q` of t32a carries the
+                // unsupported_typespec: Surelog compiles the `this` handle
+                // select, finds no typespec for the selected member and binds
+                // nothing rather than minting the catch-all.
+                if (!arrThis21)
+                    rv->Typespec(art);
                 fs->Variable(rv);
             }
 
@@ -1362,31 +1478,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         lts = avt20->second;
                         lv = s.MakeArray_var();
                     }
-                // NOTE (§ foreachClassPropArrayVar20 — DECODED, SPLIT, NOT
-                // IMPLEMENTED).  A CLASS PROPERTY that is a queue / dynamic /
-                // fixed array is an array_var loop variable in golden too, even
-                // though its array REFERENCE stays the unsupported_typespec
-                // classPropArr9 describes — the two are answered by different
-                // Surelog passes (the reference by the recompiled listing's
-                // CompileType, the loop variable by `swapForSpecifiedVar`,
-                // which re-resolves the bare NAME against the CLASS through
-                // decodeHierPath).  Emitting `lts = s.MakeArray_typespec(); lv
-                // = s.MakeArray_var();` here — a FRESH empty array_typespec,
-                // exactly what getSimpleVarFromTypespec mints — is measurably
-                // RIGHT on two of the UVM four and measurably WRONG on the
-                // other two, on the same shared uvm-1.2 bodies:
-                //
-                //   |            | Build | Scoreboard | SeqDriver | SimpleUVM |
-                //   | this arm   | -43   | +37        | -114      | +102      |
-                //
-                // and the split is NOT the § foreachAssocIdxImporterView19 one
-                // (SeqDriver alone has an importing package there, here
-                // BuildUVMPkg moves with it).  So a second, undiscovered gate
-                // decides whether the property resolves, and shipping the arm
-                // ungated trades 237 rows for 139.  Ranked #1 for pass 21: find
-                // the gate on `uvm_default_factory::m_type_overrides[$]`, which
-                // resolves in BuildUVMPkg's ELABPKG view and does not in
-                // SimpleUVM's.
+                // § foreachClassPropArrayVar21 — the CLASS-PROPERTY half of
+                // § foreachLocalArrayVar20, now that § classPropUnitImport21
+                // supplies the gate pass 20 could not find.  A property that is
+                // a queue / dynamic / fixed array hands `decodeHierPath` an
+                // array_typespec with no Index_typespec, and
+                // getSimpleVarFromTypespec's `else` arm (CompileType.cpp:220)
+                // mints a FRESH, EMPTY array_typespec inside a new array_var —
+                // it does NOT share the declaration's object the way the
+                // subroutine-local arm above does, which is why golden prints
+                // `array_var array_typespec''` for a property whose own
+                // reference is still an unsupported_typespec.
+                if (!lv && classPropRes21)
+                    if (auto* pdt21 = arrSym->getDeclaredType()) {
+                        auto k21 = pdt21->getType().getCanonicalType().kind;
+                        if (k21 == SymbolKind::QueueType ||
+                            k21 == SymbolKind::DynamicArrayType ||
+                            k21 == SymbolKind::FixedSizeUnpackedArrayType) {
+                            lts = s.MakeArray_typespec();
+                            lv = s.MakeArray_var();
+                        }
+                    }
                 if (!lv)
                     lts = (arrSym && !foreachUnres9) ? makeTypespec(*arrSym)
                                                      : nullptr;
@@ -1409,21 +1521,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // probes could not see this: an `int q[$]`'s element type and
                 // the int fallback are the same object kind.
                 //
-                // § foreachAssocIdxImporterView19 — and it fires only when
-                // ANOTHER PACKAGE of the design wildcard-imports the class's
-                // home package.  The UVM-4 pin this in both directions on ONE
-                // shared body: `uvm_component::get_children` is compiled once
-                // and every elab view (the elab uvm_pkg listing, an importing
-                // package's subclasses, both module views) shows the same
-                // object — string_var in SeqDriver, whose testbench declares
-                // `package adpcm_pkg; import uvm_pkg::*;`, and int_var in
-                // SimpleUVM, Scoreboard and BuildUVMPkg, which have no package
-                // importing uvm_pkg.  The ARRAY reference stays the unresolved
-                // unsupported_typespec in BOTH, so the loop variable resolves
-                // through the importing package's re-elaborated symbol table,
-                // not through the iterated reference.  Measured with
-                // tools/probe/r10uvm19c.cpp; 423 rows on SeqDriver, 0 movement
-                // on the other three.
+                // For a CLASS PROPERTY the index rule fires exactly when
+                // § classPropUnitImport21 says the property resolves at all —
+                // the same one gate that decides the array_var arm above, and
+                // for the same reason: both are `getSimpleVarFromTypespec` of
+                // whatever `decodeHierPath` returned, an `[string]` property
+                // recursing into its Index_typespec where a queue has none.
+                // This REPLACES § foreachAssocIdxImporterView19 ("some other
+                // package wildcard-imports the home package"), which described
+                // SeqDriver's adpcm_pkg correctly but was only coincidentally
+                // right about the other three: BuildUVMPkg has no importing
+                // package at all and its golden resolves 23 string_var + 107
+                // class_var that the old gate withheld.  The ARRAY reference
+                // stays the unresolved unsupported_typespec either way.
                 // § foreachAssocIdxLocalOnly20 — and the index rule is a
                 // SUBROUTINE-LOCAL one.  Pass 19 applied it to every resolved
                 // associative array; the t30/t31 matrix shows golden drills to
@@ -1433,17 +1543,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // MODULE variable (`Cel m_a_cls[string]` -> class_var, `int
                 // m_a_int[string]` -> int_var).  Only a subroutine local hands
                 // getSimpleVarFromTypespec an array_typespec with an
-                // Index_typespec to recurse into.  The unresolved-class arm
-                // (§ foreachAssocIdxImporterView19) keeps its own gate.
+                // Index_typespec to recurse into.  The class-property arm keeps
+                // its own gate (§ classPropUnitImport21).
                 bool assocIdx19 =
                     !lv && arrSym != nullptr && (foreachUnres9 || tfLocalArr20);
-                if (assocIdx19 && foreachUnres9) {
-                    const Scope* hp19 = arrSym->getParentScope();
-                    while (hp19 && hp19->asSymbol().kind != SymbolKind::Package)
-                        hp19 = hp19->asSymbol().getParentScope();
-                    assocIdx19 =
-                        hp19 && pkgWildcardImportedByPkg19(hp19->asSymbol());
-                }
+                if (assocIdx19 && foreachUnres9)
+                    assocIdx19 = classPropRes21;
                 if (assocIdx19)
                     if (auto* adt19 = arrSym->getDeclaredType()) {
                         auto& ac19 = adt19->getType().getCanonicalType();
