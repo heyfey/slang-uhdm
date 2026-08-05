@@ -1137,6 +1137,25 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         apc9->asSymbol().kind == SymbolKind::ClassType;
             bool foreachUnres9 =
                 classMethodNoBind || pkgDefViewBody9 || classPropArr9;
+            // § foreachLocalArrayVar20 — is the iterated array a SUBROUTINE
+            // LOCAL declaration?  Surelog's loop variable is
+            // getSimpleVarFromTypespec applied to whatever the DECLARATION
+            // object carries, and only a subroutine local carries the
+            // array_typespec itself: a FORMAL's io_decl and a module/class
+            // variable both hand it the ELEMENT typespec, so those drill.
+            // Measured on the t30/t31 matrix pair, both views.
+            bool tfLocalArr20 = false;
+            if (arrSym && arrSym->kind == SymbolKind::Variable)
+                for (const Scope* sc20 = arrSym->getParentScope(); sc20;
+                     sc20 = sc20->asSymbol().getParentScope()) {
+                    auto k20 = sc20->asSymbol().kind;
+                    if (k20 == SymbolKind::Subroutine) {
+                        tfLocalArr20 = true;
+                        break;
+                    }
+                    if (k20 != SymbolKind::StatementBlock)
+                        break;
+                }
             if (arrSym && !arrMember9) {
                 auto* rv = s.MakeRef_var();
                 rv->VpiName(arrSym->name);
@@ -1308,23 +1327,66 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         lts = lat9->second;
                         lv = s.MakeArray_var();
                     }
-                // NOTE (§ foreachLoopVarIsRefTs19, ranked for the next pass):
-                // Surelog does NOT drill here — the loop variable is
-                // getSimpleVarFromTypespec applied to the typespec the ITERATED
-                // REFERENCE carries, so a reference that resolved to an
-                // array_typespec yields an array_var SHARING that object (the
-                // rule the tfLocalArrayTs9 branch above states for one case is
-                // the general one).  Measured on SeqDriver's
-                // `uvm_vreg_field vfields[$]` locals with
-                // tools/probe/r10uvm19c.cpp: golden `array_var
-                // array_typespec''` over `ref_var 'vfields' ts=array_typespec''`
-                // where we drill to the element and emit a class_var; 475 rows.
-                // NOT implemented here because the reference's own typespec is
-                // bound in a LATER pass for exactly these locals
-                // (pendingForeachArrayTs), so the variable's CLASS has to be
-                // predicted from the slang type — and that prediction is what
-                // the r10c4 `int lq[$]` -> int_var pin constrains and no corpus
-                // test covers.
+                // § foreachLocalArrayVar20 — the QUEUE / DYNAMIC-array half of
+                // the same rule (§ foreachLoopVarIsRefTs19 as pass 19 ranked
+                // it).  Surelog does NOT drill for a subroutine local: its
+                // declaration carries the array_typespec, and
+                // getSimpleVarFromTypespec's uhdmarray_typespec arm
+                // (CompileType.cpp:220) makes an ARRAY_VAR out of it whenever
+                // there is no Index_typespec to recurse into.  So every
+                // non-associative local — fixed, queue or dynamic, and whatever
+                // the element type — gets an array_var loop variable sharing
+                // the declaration's own object.
+                //
+                // The pass-19 note deferred this because the recorded r10c4 pin
+                // said `int lq[$]` yields an int_var.  The purpose-built matrix
+                // refutes that pin outright: tools/probe/r10uvm20repro/t31
+                // `task tone; int lq[$]; foreach (lq[i])` gives golden
+                // `array_var array_typespec''` in BOTH views, and t30 shows the
+                // same for all four element types (int, string, class handle,
+                // struct) over queue, dynamic AND fixed.  What the pin really
+                // saw is the FUNCTION-local case: t31's `function int fone; int
+                // rq[$];` loses the unsized dimension at declaration time (its
+                // local is a bare int_var, which we already reproduce), so
+                // there is no array_typespec to read and the loop variable is
+                // an int_var for that reason alone.  Keying off the emitted
+                // DECLARATION (arrayVarArrayTs) rather than off the slang type
+                // therefore answers both cells with one lookup.
+                if (!lv && arrSym && !foreachUnres9 && tfLocalArr20)
+                    if (auto avt20 = arrayVarArrayTs.find(arrSym);
+                        avt20 != arrayVarArrayTs.end() && avt20->second &&
+                        avt20->second->UhdmType() ==
+                            UHDM::uhdmarray_typespec &&
+                        !((UHDM::array_typespec*)avt20->second)
+                             ->Index_typespec()) {
+                        lts = avt20->second;
+                        lv = s.MakeArray_var();
+                    }
+                // NOTE (§ foreachClassPropArrayVar20 — DECODED, SPLIT, NOT
+                // IMPLEMENTED).  A CLASS PROPERTY that is a queue / dynamic /
+                // fixed array is an array_var loop variable in golden too, even
+                // though its array REFERENCE stays the unsupported_typespec
+                // classPropArr9 describes — the two are answered by different
+                // Surelog passes (the reference by the recompiled listing's
+                // CompileType, the loop variable by `swapForSpecifiedVar`,
+                // which re-resolves the bare NAME against the CLASS through
+                // decodeHierPath).  Emitting `lts = s.MakeArray_typespec(); lv
+                // = s.MakeArray_var();` here — a FRESH empty array_typespec,
+                // exactly what getSimpleVarFromTypespec mints — is measurably
+                // RIGHT on two of the UVM four and measurably WRONG on the
+                // other two, on the same shared uvm-1.2 bodies:
+                //
+                //   |            | Build | Scoreboard | SeqDriver | SimpleUVM |
+                //   | this arm   | -43   | +37        | -114      | +102      |
+                //
+                // and the split is NOT the § foreachAssocIdxImporterView19 one
+                // (SeqDriver alone has an importing package there, here
+                // BuildUVMPkg moves with it).  So a second, undiscovered gate
+                // decides whether the property resolves, and shipping the arm
+                // ungated trades 237 rows for 139.  Ranked #1 for pass 21: find
+                // the gate on `uvm_default_factory::m_type_overrides[$]`, which
+                // resolves in BuildUVMPkg's ELABPKG view and does not in
+                // SimpleUVM's.
                 if (!lv)
                     lts = (arrSym && !foreachUnres9) ? makeTypespec(*arrSym)
                                                      : nullptr;
@@ -1362,7 +1424,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // not through the iterated reference.  Measured with
                 // tools/probe/r10uvm19c.cpp; 423 rows on SeqDriver, 0 movement
                 // on the other three.
-                bool assocIdx19 = !lv && arrSym != nullptr;
+                // § foreachAssocIdxLocalOnly20 — and the index rule is a
+                // SUBROUTINE-LOCAL one.  Pass 19 applied it to every resolved
+                // associative array; the t30/t31 matrix shows golden drills to
+                // the ELEMENT for the two declarations that do not carry the
+                // array_typespec themselves: a FORMAL (`ref int fa[string]` ->
+                // int_var, `ref Cel ca[string]` -> class_var 'Cel') and a
+                // MODULE variable (`Cel m_a_cls[string]` -> class_var, `int
+                // m_a_int[string]` -> int_var).  Only a subroutine local hands
+                // getSimpleVarFromTypespec an array_typespec with an
+                // Index_typespec to recurse into.  The unresolved-class arm
+                // (§ foreachAssocIdxImporterView19) keeps its own gate.
+                bool assocIdx19 =
+                    !lv && arrSym != nullptr && (foreachUnres9 || tfLocalArr20);
                 if (assocIdx19 && foreachUnres9) {
                     const Scope* hp19 = arrSym->getParentScope();
                     while (hp19 && hp19->asSymbol().kind != SymbolKind::Package)
@@ -1429,7 +1503,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // class_var + 41 string_var `golden vs <null>` rows appeared
                 // the moment the kind stopped being int_var, and nothing else
                 // moved).
-                return (lv->UhdmType() == UHDM::uhdmint_var || assocIdx19)
+                // ...and so does the § foreachLocalArrayVar20 shape: the
+                // moment the non-associative loop variable stopped being the
+                // drilled element var, 283 `array_var vs <null>` rows appeared
+                // — golden binds the array_var object in the body exactly as
+                // it binds an int_var.
+                return (lv->UhdmType() == UHDM::uhdmint_var ||
+                        lv->UhdmType() == UHDM::uhdmarray_var || assocIdx19)
                            ? lv
                            : nullptr;
             };
