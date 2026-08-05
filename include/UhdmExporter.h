@@ -1486,6 +1486,37 @@ private:
     UHDM::expr* emitAssignDelay(const slang::syntax::TimingControlSyntax* dsyn,
                                 UHDM::BaseClass* parent);
     std::string rawText(slang::SourceRange range);
+    /// § hierSelPkgParamFold — a select's DECOMPILED text carries the VALUE of
+    /// a PACKAGE parameter and the IDENTIFIER of a module-scope one.
+    ///
+    /// Surelog decompiles a select from the ELABORATED expression, and its
+    /// definition-compile has already substituted every package parameter
+    /// (the package is compiled before the module that reads it) while a
+    /// module's own parameter/localparam is still symbolic there — the same
+    /// asymmetry § crossPkgRangeBoundFold measured for declared-type range
+    /// bounds, one level down in an expression.  Measured on
+    /// tools/probe/r10earl_repro/vo.sv (rows D/E/F fold, row G does not) and
+    /// reproduced by the four Earlgrey corpus heads:
+    ///   pwrmgr_fsm:99   `[PowerDomains-1:1]`         -> `[2 - 1:1]`
+    ///   flash_phy:66    `[BankAddrW +: BankW]`       -> `[16+:1]`
+    ///   dm_csrs:305     `[$clog2(dm::ProgBufSize)-1:0]`
+    ///                                                -> `[$clog2(5'h8) - 1:0]`
+    ///   spi_device:159  `[SDW+:SramAw]`              -> UNCHANGED (SramAw is
+    ///                   the module's own parameter port, SDW its localparam)
+    /// The substituted text is the parameter's own LITERAL spelling when its
+    /// initializer is a literal (`5'h8` stays hex at its own width) and its
+    /// decimal VALUE otherwise (flash_ctrl_pkg's `BankAddrW = PageW + WordW`
+    /// renders 16) — the § crossPkgRangeBoundFold "verbatim decompile" rule.
+    /// The emitted select TREE already carries exactly these constants; only
+    /// the rendered NAME lagged behind it.
+    struct PkgFoldSub {
+        slang::SourceLocation b, e;
+        std::string txt;
+    };
+    void collectPkgParamFolds(const slang::ast::Expression& e,
+                              std::vector<PkgFoldSub>& out);
+    std::string rawTextPkgFold(slang::SourceRange range,
+                               const std::vector<PkgFoldSub>& subs);
     /// The node's text as the PREPROCESSED token stream reads it: outside a
     /// macro this is `rawText(syn.sourceRange())`, inside one it is the
     /// node's own tokens concatenated (which already carry the substituted

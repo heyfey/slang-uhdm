@@ -1057,6 +1057,234 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 12 (r10earl12; FOUR laws in FOUR gate rounds plus one
+REVERT-AND-REFINE round, each gated at goldens 23/23 + u2r testflags 0 change
+vs results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 0 change vs
+results/golden_surelog.csv, incl. the dump column).  Pass-12 copies of the
+harness: run12.sh dmp12.sh dd12.sh rp12.sh cen12.sh sweep12.sh slsweep12.sh
+gate12.sh gold12.sh cmprc12.sh ../r10earl12build.sh, plus witnesses vo.sv and
+vp.sv.  Earlgrey_0_1 stays CMP_NOTEQUAL (groundwork); census 46 -> 39 heads
+(-15%), 39 -> 32 classes.  0 movers on either corpus.
+
+  vf/vg/vh.sv  § structParamBareImportRef (ExprEmit ~3170, the packed-struct/
+        union arm of the package-parameter dispatch).  Pass 11's ranked (1),
+        implemented from its ready witness: the arm qualified EVERY
+        struct/union-typed package-parameter read as `pkg::P`; golden does
+        that only for the WRITTEN `pkg::P` spelling.  An UNQUALIFIED read
+        after a wildcard import is the importing module's MATERIALIZED copy —
+        VpiName bare, VpiFullName scoped to the module, NO Actual, spanning
+        the IDENTIFIER instead of the (absent) qualifier:
+            golden  ref_obj (work@vfa.REQ_DEFAULT) 28:14..28:25
+                      |vpiName:REQ_DEFAULT   no vpiActual
+            ours    ref_obj (vfp::REQ_DEFAULT)     28:14..28:19
+                      |vpiName:vfp::REQ_DEFAULT  |vpiActual: parameter
+        The same split § fcArgBareImportRef landed one arm above for func-call
+        arguments, so the shape was copied verbatim.  vf.sv is now cmp-EQUAL
+        (all four header/body-import x port-list module shapes).  Corpus:
+        pwrmgr_cdc:118 `assign ... = PWR_AST_RSP_SYNC_DEFAULT` after `import
+        pwrmgr_pkg::*` — 2 heads; pwrmgr_cdc becomes cmp-EQUAL END TO END and
+        pwrmgr advances to the select-bound head below.  46 -> 45.
+
+  vn.sv  § pkgPatternNoReorderConst + § pkgVecPatternNoTs + § pkgVecPatternNoSize
+        (ExprEmit ~10376 and ~10416, ParamEmit ~11274) — ONE law with three
+        faces, and it CLOSED THE WHOLE prim_cipher_pkg CLASS (3 heads: aes,
+        aes_prng [AllModules] + prim_cipher_pkg [TopPackages]).  Pass 11's
+        § pkgVecPatternNoFold kept a package's assignment-pattern parameter as
+        an OPERATION in the elab listing instead of folding it; that exposed
+        three MODULE rules running on an object that had never reached them
+        before.  Golden carries ZERO vpiReordered marks, ZERO op typespecs and
+        ZERO op sizes anywhere in vn.sv:
+            reorder  the elab reverse (ExprEmit, `inParamInit &&
+                     !paramInitDef`) is a MODULE rule.  Inside a PACKAGE only
+                     a ref_obj-HEADED operand list reorders — the rule
+                     § applyPkgParamPatternReorder already implements from the
+                     typespec's ranges, whose own recorded golden says "a
+                     CONSTANT or pattern first operand never reorders".  So
+                     the emit-time site skips a constant/pattern-headed
+                     package list and the late pass owns the ref_obj one.
+            typespec § packedArrayOp's "a packed-array param's op75 carries a
+                     ts ref" is likewise module-only (ParamEmit ~11274 gains
+                     !inPackage).
+            size     so is the flat-pattern VpiSize(1) stamp
+                     (ParameterPackedArray's golden was a module list).
+        Net: a package's surviving elab pattern op is a VERBATIM TWIN of its
+        def-listing op.  Rows PAT (`logic [3:0][3:0] = '{4'h1..4'h4}`), FLT
+        (`logic [7:0] = '{1'b1,...}`) and DFL (`'{default:1'b1}`) all match
+        after it.  THE RECURSIVE MODULE LAW § multiDimPatternReorderRec
+        (ParamEmit ~788, BlackParrotComplex `bit [1:0][4:0][4:0] StrictXY`) IS
+        UNTOUCHED — its call site is already `topView && !inPackage`, which is
+        what let the two live side by side.  45 -> 42.
+
+  vo.sv  § hierSelPkgParamFold + § hierSelWidthOvParamNoFold (UhdmExporter.h
+        declaration comment, ExprEmit collectPkgParamFolds / rawTextPkgFold at
+        ~2237 and the hier_path range-select arm ~9529; EmitHelpers
+        selWidthParamFold).  THE LARGEST SINGLE-LAW CLASS LEFT — 5 heads, all
+        a module DEF listing's part-select whose bounds name parameters.  A
+        select's DECOMPILED text carries the VALUE of a PACKAGE parameter and
+        the IDENTIFIER of a module-scope one; the emitted select TREE already
+        carried exactly the right constants (`2` at size 32, `5'h8` at size 5)
+        and only the rendered NAME lagged.  vo.sv is the 2x3 that measured it
+        (plain-identifier base vs struct-member base x bare / qualified /
+        module-scope) and it is now cmp-EQUAL:
+            D  st.addr[PW-1:1]            -> st.addr[2 - 1:1]
+            E  st.addr[BW +: 1]           -> st.addr[16+:1]
+            F  st.addr[$clog2(vop::LW)-1:0] -> st.addr[$clog2(5'h8) - 1:0]
+            G  st.addr[LP +: MP]          -> UNCHANGED (module localparam +
+                                             module parameter port)
+            A/B/C  the PLAIN-base twins were already right — the tree fold has
+                   always run there; only the hier_path NAME builder used raw
+                   source text.
+        The substituted text is the parameter's own LITERAL spelling when its
+        initializer is a literal and its decimal VALUE otherwise — the
+        § crossPkgRangeBoundFold "decompile comes across verbatim" rule
+        (`dm::ProgBufSize = 5'h8` renders `5'h8`; `flash_ctrl_pkg::BankAddrW =
+        PageW + WordW` renders 16).  Corpus: pwrmgr + pwrmgr_fsm
+        (pwrmgr_fsm:99), flash_phy:66, dm_csrs:305, spi_device:159.
+
+        REVERT-AND-REFINE, and the regression named the real distinguisher.
+        The width half was first written as "fold a PACKAGE parameter", which
+        turned BlackBePipeInt CMP_EQUAL -> CMP_NOTEQUAL in BOTH modes: that
+        test's `reservation.pc[0+:vaddr_width_p]` reads a LOCALPARAM IN
+        bp_be_pipe_int's OWN PARAMETER PORT LIST, not a package parameter.
+        The measured rule is § crossPkgRangeBoundFold's, one level down in an
+        expression: an OVERRIDABLE `parameter` has no settled value at
+        definition-compile time and stays symbolic (spi_device's `parameter
+        int SramAw = 9`), while a package parameter and a module `localparam`
+        both have one.  `!ps.isLocalParam() && home scope is not a Package` is
+        the reject test.  42 -> 42 (5 heads closed, 5 fresh ones behind them).
+
+  vo.sv  § caPartSelBoundFoldTs (ExprEmit ~3604 + the ts-stamp block below
+        it).  3 heads, no new ones: alert_handler_ping_timer:140
+        (`ping_sel[NAlerts-1:0]`, a plain part_select) and pwrmgr /
+        pwrmgr_fsm at pwrmgr_fsm:99 (the same select nested in a hier_path) —
+        all reading `ref_typespec '' :0:0` vs `<null>`.  § procPsFold9 is this
+        rule inside a process; outside one the bound ARITHMETIC puts an
+        OPERATION between the folded constant and the select, so neither that
+        flag nor § selFold9's bit_select test fired and the constant came out
+        bare.  The ts ref is named after the SELECT (a plain part_select
+        already carries the instance-qualified fullname `work@voa.v_i`; one
+        nested in a hier_path carries only the dotted path text, so the
+        instance prefix and the select's own member name bracket it:
+        `work@voa.st.addr[2 - 1:1].addr`).  BOTH SPELLINGS stamp here (vo row
+        C `v_i[vop::PW-1:0]` carries the same ref as row A's bare read), so
+        the "a QUALIFIED read folds bare" exclusion — measured on a bit-select
+        / pattern context — does not reach a part-select range bound.  Row F
+        (`$clog2(vop::LW)`) is the negative control: a bound fold under a
+        SYS-FUNC CALL carries no stamp, which is why the parent must be the
+        select itself or an operation DIRECTLY under it.  42 -> 39.
+
+EARLGREY_0_1 HEAD CENSUS after pass 12 (r10earl4h; 26 + 8 + 5 + 0 = 39 heads
+over 32 classes, from 46 heads / 39 classes at entry):
+
+  AllModules  SIZE 190 vs 190,  26 heads   (was 32)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged, NINE passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   0 heads   (CLOSED — was 1)
+
+READ THE COUNT HONESTLY.  46 -> 39 is -15%, 0 movers on either corpus.  Four
+AllModules entries went cmp-EQUAL END TO END (pwrmgr_cdc,
+alert_handler_ping_timer, pwrmgr, pwrmgr_fsm), TopPackages reached ZERO heads
+for the first time, and three ready witnesses (vf.sv, vo.sv) are now
+cmp-EQUAL.  Five of the closed heads exposed five fresh ones behind them —
+those are listed below with their measurements, not guesses.
+
+PASS-12 WITNESS STATUS (cmp-EQUAL and byte-identical are DIFFERENT claims):
+  vf.sv  cmp-EQUAL      vo.sv  cmp-EQUAL
+  vg.sv  every module DEF import row matches; advanced to a MEMBER-SELECT
+        FOLD residue — `assign o = N3.req` on a package struct parameter
+        folds to a BIN constant in golden (`0100000000`, size 10) where we
+        keep the op33/hier_path tree.  Ready witness for a fold law.
+  vh.sv  all four module rows and both package rows match; advanced to a
+        MISSING ref_typespec on the elab constant of a parameter-port-list
+        localparam that member-selects an import (`localparam int X1 = P1.a`
+        -> golden `ref_typespec (work@vhtop.u_b) -> int_typespec`).
+  vn.sv  PAT / FLT / RPL match; cmp-not-equal on the `'{default:1'b1}`
+        TAGGED-PATTERN VALUE SIZE (golden 1, ours 32) — a package/module split
+        of the same family, one gate round away.
+  vi.sv / vm.sv  unchanged by this pass; still the SCALAR-ARG FOLD residue
+        (pass 11's ranked (4)), plus a newly SEEN detail worth recording: in
+        vi.sv golden's module DEF listing carries a param_assign for the
+        UNPACKED-ARRAY import copy `work@via.AVEC` that we do not emit (6
+        vpiImported rows vs our 5) — check that before chasing the fold.
+  vp.sv  NEW, cmp-not-equal, and it reproduces ONE of the two shapes it was
+        built for (see ranked (1) below).
+
+RANKED RESIDUE (measured after PASS 12 — next agent starts HERE).  AllModules
+unless stated.
+
+  (1) THE BARE-IMPORTED RANGE-BOUND FAMILY, 6 heads, PARTIAL WITNESS vp.sv.
+      § crossPkgRangeBoundFold (pass 2) substituted a declared-type range
+      bound naming a package parameter WITH ITS QUALIFIER, with a module-LOCAL
+      bound as the negative control — that experiment never separated "bare
+      imported" from "module-local".  Two sub-shapes:
+        (a) golden CONSTANT ct9 sz32, ours a ref_obj — hmac.sv:25
+            (`input alert_rx_t [NumAlerts-1:0] alert_rx_i`),
+            alert_handler.sv:33 (`[NAlerts-1:0]`), flash_erase_ctrl.sv:41,
+            usbdev.sv:245 (`for (i = 0; i < NEndpoints; i++)`).
+        (b) we DO fold, at the WRONG SIZE — flash_ctrl.sv:310 `[MpRegions:0]`
+            and top_pkg.sv:8 read `sz=32` in golden and `sz=64` in ours.
+      vp.sv REPRODUCES (b) EXACTLY (row B `logic [NA:0] b_i`: golden UINT:4
+      sz32, ours UINT:4 sz64) and does NOT reproduce (a): its row A
+      (`logic [NA-1:0]`) already matches, so the (a) trigger is NOT the bare
+      spelling plus arithmetic.  The remaining difference in the hmac /
+      alert_handler rows is that their element type is a STRUCT TYPEDEF
+      (`alert_rx_t [NumAlerts-1:0]`), not a `logic` vector — BUILD THAT ROW
+      FIRST.  makeBoundConst (TypeEmit ~3612) hard-codes VpiSize(64) and is
+      where (b) lives; the (a) path folds elsewhere (row A's constant is
+      already sz32, so emitBound is not calling makeBoundConst for it).
+  (2) 3 `ref_typespec '' :0:0` remain — flash_phy_core (a flash_phy_pkg:43
+      param_assign constant) and sha2 (the `logic_typespec 'sha_word_t'`
+      LAW-S miss, a DIFFERENT root) plus one more.  The part-select family
+      that shared this signature is CLOSED (§ caPartSelBoundFoldTs).
+  (3) THE FIVE FRESH HEADS BEHIND THE SELECT-BOUND FIX, each measured:
+      * dm_csrs:309 `abstractauto_q.autoexecprogbuf[{1'b1,}]` — golden's
+        hier_path name TRUNCATES a concat index after the first operand,
+        where we render `{1'b1, dmi_req_i.addr[3:0]}`.  A decompiler rule:
+        Surelog drops a NON-CONSTANT operand from an index rendering.
+      * flash_phy:129 `hier_path 'flash_ctrl_i.rd'` vs our `ref_obj` — a
+        SHAPE difference on a port-connection actual (`.rd(flash_ctrl_i.rd)`).
+      * spi_device / tlul_adapter_sram — `package 'top_pkg' {top=1}` vs
+        `<null>` / `{top=0}`: the § pkgTypespecInstanceIsTop class again, now
+        on top_pkg.  r10earl11p.cpp is the tool that names the linking object.
+  (4) THE SCALAR-ARG FOLD LAW, witness vi.sv rows C/D/E/F + vm.sv — unchanged
+      from pass 11 (1 corpus head, prim_present:61:34), but see the vi.sv
+      import-copy note above.
+  (5) THE FLASH/RSTMGR IMPORT-COPY REMAINDER — unchanged: 1 `constant
+      flash_mp.sv:14:33 {ct=9 sz=32 dec=8}`, 2 `constant rstmgr_ctrl.sv:12:31
+      {dec=2}`, 1 `constant flash_erase_ctrl.sv:41:20 {dec=17}` (which is also
+      ranked (1)(a)), 2 `constant flash_phy_pkg.sv:31:34 ct7-vs-ct9`.  Read
+      them with r10earl10k.
+  (6) 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052} vs operation`
+      (dm_mem, rv_dm) — and pass 12 makes this MUCH more promising: it is the
+      same "a PACKAGE keeps the operation where a module folds" family that
+      § pkgVecPatternNoFold / § pkgPatternNoReorderConst just closed.  Check
+      whether a non-pattern package init takes the same split.
+  (7) 3 `ref_obj 'pkg::NAME'` heads in package listings (rstmgr_pkg:8,
+      flash_phy_pkg:17, alert_pkg:9) — a cross-package qualified read golden
+      resolves and we do not, or vice versa; never characterized.
+  (8) 5 operation heads with no shared root yet (tl_main_pkg:13:59 x2,
+      prim_keccak:24 and :52, jtag_mux:11, hmac_pkg:18, flash_ctrl_pkg:18),
+      1 `named_begin 'gen_mio_input'` (padring, DECODED in pass 10, not
+      implemented), 1 `logic_var 'data_state_round'` (prim_prince:86),
+      1 `gen_scope_array 'gen_d64'` (prim_present:94), 1 `cont_assign`
+      (prim_generic_pad_wrapper:40), 1 `int_typespec '' :0:0`.
+  (9) TopModules 8 (unchanged for NINE passes), AllPackages 5.  Nobody has
+      built a witness for the TopModules eight yet — that is now the single
+      largest uncharacterized block and it has outlived every ranked list it
+      has appeared on.
+
+PASS-12 OPS NOTES
+  * The census probe reproduces its own baseline exactly (46 heads at e05ba84
+    before any edit), which is what makes a 1-head move readable.  Run it
+    FIRST, on an unmodified build, every pass.
+  * `diff <(head-lines of census A) <(head-lines of census B)` is the whole
+    measurement: it separates "closed" from "advanced" in one line each, and
+    an ADVANCED head is a new datum, not a failure.
+  * The BlackBePipeInt regression cost one sweep and replaced a plausible
+    distinguisher ("package parameter") with the measured one ("not
+    overridable").  Deliberate-regression reading is cheaper than a second
+    witness file — but only because the canary list named the test.
+
 LANDED — PASS 11 (r10earl11; SIX laws in SIX gate rounds, each round gated at
 goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
 BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).

@@ -11271,7 +11271,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // also carries a ts ref to the param's typespec (Surelog),
                     // even when all its operands are known literals. A
                     // CONCATENATION init ({a,b}) does NOT (PkgParamAsFunctionArg).
+                    // § pkgVecPatternNoTs — ...and, like the reorder, the tag
+                    // is a MODULE rule.  Before § pkgVecPatternNoFold a
+                    // package's elab pattern folded to a constant, so this
+                    // stamp could never be observed inside a package; now that
+                    // the operation survives there, golden shows it carries NO
+                    // typespec in either package listing (vn.sv: `logic
+                    // [3:0][3:0] PAT`, `logic [7:0] FLT` and `logic [7:0] DFL`
+                    // are all bare op75s in AllPackages and TopPackages
+                    // alike).  Corpus: prim_cipher_pkg PRINCE_SHIFT_ROWS64.
                     bool packedArrayOp =
+                        !inPackage &&
                         ps.getType().getCanonicalType().isPackedArray() &&
                         opr->VpiOpType() == vpiAssignmentPatternOp;
                     // § multiDimPackedParamNoFold, third half — ...but the

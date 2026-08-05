@@ -2335,6 +2335,24 @@ inline SelWidthFold selWidthParamFold(const Expression& w) {
     if (sym.kind != SymbolKind::Parameter)
         return r;
     auto& ps = sym.as<ParameterSymbol>();
+    // § hierSelWidthOvParamNoFold — an OVERRIDABLE module parameter does not
+    // substitute.  The distinguisher is § crossPkgRangeBoundFold's, one level
+    // down in an expression: at DEFINITION-compile time a `parameter` in the
+    // module's own port list has no settled value, so Surelog's decompile
+    // keeps the identifier, while a package parameter (compiled first) and a
+    // module `localparam` (not overridable) both have one.  Measured both
+    // ways: BlackBePipeInt folds `reservation.pc[0+:vaddr_width_p]` to
+    // `[0+:39]` — and `vaddr_width_p` is a LOCALPARAM in bp_be_pipe_int's own
+    // parameter port list, not a package parameter, which is why the plain
+    // "declared in a package" test regressed it — while spi_device.sv:159's
+    // `reg2hw.rxf_addr.base.q[SDW+:SramAw]` keeps BOTH the rendered name and
+    // the vpiWidthExpr symbolic (golden: a ref_obj), `SramAw` being
+    // `parameter int SramAw = 9` in the port list.  vo.sv row G is the
+    // purpose-built twin of the spi_device shape.
+    if (!ps.isLocalParam())
+        if (auto* psc9 = sym.getParentScope();
+            !psc9 || psc9->asSymbol().kind != SymbolKind::Package)
+            return r;
     auto& cv = ps.getValue();
     if (!cv.isInteger() || cv.integer().hasUnknown())
         return r;

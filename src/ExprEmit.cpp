@@ -2234,6 +2234,82 @@ UHDM::constant* UhdmExporter::enumMemberSubstConst(const Symbol& sym) {
     return c;
 }
 
+// § hierSelPkgParamFold (declaration comment in UhdmExporter.h) — collector.
+void UhdmExporter::collectPkgParamFolds(const Expression& e,
+                                        std::vector<PkgFoldSub>& out) {
+    e.visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
+        v.visitDefault(nv);
+        if (nv.symbol.kind != SymbolKind::Parameter)
+            return;
+        // The same "declared in a PACKAGE" test § stampFoldedPkgParamTs uses:
+        // a module parameter or localparam is still symbolic at the module's
+        // definition compile and stays spelled out.
+        auto* psc = nv.symbol.getParentScope();
+        if (!psc || psc->asSymbol().kind != SymbolKind::Package)
+            return;
+        auto& dp = nv.symbol.as<ParameterSymbol>();
+        auto& cv = dp.getValue();
+        if (!cv.isInteger() || cv.integer().hasUnknown())
+            return;
+        auto sr = nv.sourceRange;
+        if (sr.start() == SourceLocation::NoLocation ||
+            sr.end() == SourceLocation::NoLocation || sm->isMacroLoc(sr.start()))
+            return;
+        std::string t;
+        if (auto* ini = dp.getInitializer()) {
+            auto& si = stripImplicitConv(*ini);
+            if (si.kind == ExpressionKind::IntegerLiteral)
+                t = stripSep(rawText(si.sourceRange));
+        }
+        if (t.empty())
+            t = cv.integer().toString(LiteralBase::Decimal, false);
+        if (!t.empty())
+            out.push_back({sr.start(), sr.end(), t});
+    }));
+}
+
+// § hierSelPkgParamFold — rawText with those substitutions spliced in.
+std::string UhdmExporter::rawTextPkgFold(SourceRange range,
+                                         const std::vector<PkgFoldSub>& subs) {
+    std::string base = rawText(range);
+    if (base.empty() || subs.empty())
+        return base;
+    if (range.start() == SourceLocation::NoLocation ||
+        sm->isMacroLoc(range.start()))
+        return base;
+    auto buf = range.start().buffer();
+    size_t r0 = range.start().offset(), r1 = range.end().offset();
+    if (r1 - r0 != base.size())
+        return base;  // the range was rewritten (macro origin) — leave it
+    std::vector<const PkgFoldSub*> in;
+    for (auto& s9 : subs) {
+        if (s9.b.buffer() != buf || s9.e.buffer() != buf)
+            continue;
+        if (s9.b.offset() < r0 || s9.e.offset() > r1 ||
+            s9.b.offset() >= s9.e.offset())
+            continue;
+        in.push_back(&s9);
+    }
+    if (in.empty())
+        return base;
+    std::sort(in.begin(), in.end(),
+              [](const PkgFoldSub* x, const PkgFoldSub* y) {
+                  return x->b.offset() < y->b.offset();
+              });
+    std::string out;
+    size_t cur = r0;
+    for (auto* s9 : in) {
+        size_t a = s9->b.offset(), b = s9->e.offset();
+        if (a < cur)
+            continue;  // nested/overlapping reads: the outer one already ran
+        out += base.substr(cur - r0, a - cur);
+        out += s9->txt;
+        cur = b;
+    }
+    out += base.substr(cur - r0);
+    return out;
+}
+
 // § elabHierSelWidthFold (declaration comment in UhdmExporter.h).
 void UhdmExporter::stampFoldedPkgParamTs(UHDM::constant* c, const Symbol& sym,
                                          const std::string& fullName) {
@@ -3169,6 +3245,33 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 if (ckP == SymbolKind::PackedStructType ||
                     ckP == SymbolKind::PackedUnionType) {
+                    // § structParamBareImportRef — the SAME written-spelling
+                    // split § fcArgBareImportRef landed one arm above for
+                    // func-call arguments.  A struct/union-typed package
+                    // parameter read UNQUALIFIED after a wildcard import is
+                    // the IMPORTING MODULE's materialized copy: golden names
+                    // it BARE, scopes the fullname to the module, binds
+                    // NOTHING, and spans the IDENTIFIER; only the written
+                    // `pkg::P` spelling gets the qualified name, the package
+                    // parameter as Actual and the qualifier-only span.
+                    // Measured on tools/probe/r10earl_repro/vf.sv (all four
+                    // header/body-import x port-list module shapes),
+                    // vg.sv (the three package-side triggers) and vh.sv
+                    // (member-selecting port list) — golden reads
+                    //   ref_obj (work@vfa.REQ_DEFAULT) 28:14..28:25
+                    //     |vpiName:REQ_DEFAULT  no vpiActual
+                    // where we emitted
+                    //   ref_obj (vfp::REQ_DEFAULT) 28:14..28:19
+                    //     |vpiName:vfp::REQ_DEFAULT |vpiActual: parameter
+                    // Corpus: Earlgrey pwrmgr_cdc:118 `assign ... =
+                    // PWR_AST_RSP_SYNC_DEFAULT` after `import pwrmgr_pkg::*`.
+                    if (rawText(expr.sourceRange).find("::") ==
+                        std::string::npos) {
+                        ref->VpiFullName(joinRef(prefix, nv.symbol.name));
+                        ref->VpiParent(parent);
+                        setLoc(ref, expr.sourceRange);
+                        return ref;
+                    }
                     std::string pn = std::string(scope->asSymbol().name) + "::" +
                                      std::string(nv.symbol.name);
                     ref->VpiName(pn);
@@ -3501,6 +3604,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool ipsWidFold9 = !inParamInit && parent &&
                                        parent->UhdmType() ==
                                            UHDM::uhdmindexed_part_select;
+                    // § caPartSelBoundFoldTs — and so does a CONT-ASSIGN
+                    // PART-SELECT RANGE-BOUND fold.  § procPsFold9 is this
+                    // same rule inside a process; outside one the bound
+                    // arithmetic (`ping_sel[NAlerts-1:0]`) puts an OPERATION
+                    // between the folded constant and the select, so neither
+                    // that flag nor § selFold9's bit_select test fires and the
+                    // constant came out bare.  The ts ref is named after the
+                    // SELECT, exactly like the bit-select rule.  3 Earlgrey
+                    // heads, all `ref_typespec '' :0:0` vs <null>:
+                    // alert_handler_ping_timer:140 (plain part_select) and
+                    // pwrmgr / pwrmgr_fsm at pwrmgr_fsm:99 (the same select
+                    // nested in a hier_path).  Witness
+                    // tools/probe/r10earl_repro/vo.sv rows A and D; row F
+                    // (`$clog2(vop::LW)`) is the negative control — a bound
+                    // fold under a SYS-FUNC CALL carries no stamp in golden,
+                    // which is why the parent must be the select itself or an
+                    // operation DIRECTLY under it.
+                    const UHDM::any* psOwner9 = nullptr;
+                    if (!inParamInit && !inProcessEmit && !currentTf &&
+                        !ndaRhsEmit && parent) {
+                        if (parent->UhdmType() == UHDM::uhdmpart_select)
+                            psOwner9 = parent;
+                        else if (parent->UhdmType() == UHDM::uhdmoperation &&
+                                 parent->VpiParent() &&
+                                 parent->VpiParent()->UhdmType() ==
+                                     UHDM::uhdmpart_select)
+                            psOwner9 = parent->VpiParent();
+                    }
+                    bool caPsOpFold9 = psOwner9 != nullptr;
                     if ((procOpFold9 || defParamInitOpFold9) && !typedPkgParam &&
                         psym.getType().getCanonicalType().isIntegral() &&
                         importedParamDefTs.count(&nv.symbol) &&
@@ -3517,20 +3649,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || tfOpFold9 || sysFuncArgFold ||
                         procSelFold9 || procPsFold9 || selFold9 || ndaOpFold9 ||
-                        ipsWidFold9)
+                        ipsWidFold9 || caPsOpFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
                         // belongs to another module's import — Surelog,
                         // BSOPPS*InGenForOfSubmodule).
+                        // § caPartSelBoundFoldTs stamps BOTH spellings: vo.sv
+                        // row C (`v_i[vop::PW-1:0]`) carries the same ts ref
+                        // as row A's bare read, so the qualified exclusion —
+                        // measured on a bit-select / pattern context — does
+                        // not reach a part-select range bound.
                         if (auto tit = importedParamDefTs.find(&nv.symbol);
                             tit != importedParamDefTs.end() &&
-                            rawText(expr.sourceRange).find("::") ==
-                                std::string::npos) {
+                            (caPsOpFold9 ||
+                             rawText(expr.sourceRange).find("::") ==
+                                 std::string::npos)) {
                             auto* rt = s.MakeRef_typespec();
                             if (procSelFold9 || selFold9)
                                 rt->VpiFullName(
                                     ((UHDM::bit_select*)parent)->VpiFullName());
+                            else if (caPsOpFold9) {
+                                // § caPartSelBoundFoldTs — named after the
+                                // SELECT.  A plain part_select already carries
+                                // the instance-qualified fullname
+                                // (`work@voa.v_i`); one nested in a hier_path
+                                // carries only the dotted path text, so the
+                                // instance prefix and the select's own member
+                                // name bracket it
+                                // (`work@voa.st.addr[2 - 1:1].addr`).
+                                auto* ps9 = (const UHDM::part_select*)psOwner9;
+                                std::string fn9(ps9->VpiFullName());
+                                if (fn9.empty())
+                                    fn9 = prefix;
+                                else if (fn9.compare(0, prefix.size(), prefix) != 0)
+                                    fn9 = prefix + "." + fn9 + "." +
+                                          std::string(ps9->VpiName());
+                                rt->VpiFullName(fn9);
+                            }
                             else
                                 rt->VpiFullName(prefix);
                             rt->VpiParent(c);
@@ -9429,19 +9585,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto wf9 = rs.getSelectionKind() == RangeSelectionKind::Simple
                                    ? SelWidthFold{}
                                    : selWidthParamFold(rs.right());
+                    // § hierSelPkgParamFold — the bound text renders the
+                    // package parameters this select reads at their VALUES
+                    // (vo.sv rows D/E/F); a module-scope one stays spelled
+                    // out (row G).
+                    std::vector<PkgFoldSub> pf9;
+                    collectPkgParamFolds(rs, pf9);
                     std::string selText =
                         wf9.ok
-                            ? spaceIdxOps(selName(rawText(SourceRange(
-                                  rs.left().sourceRange.start(),
-                                  rs.left().sourceRange.end())))) +
+                            ? spaceIdxOps(selName(rawTextPkgFold(
+                                  SourceRange(rs.left().sourceRange.start(),
+                                              rs.left().sourceRange.end()),
+                                  pf9))) +
                                   (rs.getSelectionKind() ==
                                            RangeSelectionKind::IndexedUp
                                        ? "+:"
                                        : "-:") +
                                   wf9.text
-                            : spaceIdxOps(selName(rawText(SourceRange(
-                                  rs.left().sourceRange.start(),
-                                  rs.right().sourceRange.end()))));
+                            : spaceIdxOps(selName(rawTextPkgFold(
+                                  SourceRange(rs.left().sourceRange.start(),
+                                              rs.right().sourceRange.end()),
+                                  pf9)));
                     dotted += "[" + selText + "]";
                     hp->VpiName(dotted);
                     hp->VpiFullName(dotted);
@@ -10346,8 +10510,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                  isUnpackedArr) &&
                 (operands->size() > 1 ||
                  (nestedOpsPre9 && !isUnpackedArr))) {
+                // § pkgPatternNoReorderConst — the reorder above is a MODULE
+                // rule.  Inside a PACKAGE only a ref_obj-headed operand list
+                // ever reorders; a CONSTANT- or PATTERN-headed one keeps
+                // SOURCE ORDER in BOTH listings.  That is the same golden
+                // § applyPkgParamPatternReorder already cites (`v_t [3:0]
+                // arr_v = {8'd1,...}` and `cfg_t [3:0] arr_lit =
+                // {'{default:1}}` stay in source order while `e_t [1:0]
+                // arr_e = {E0,E1}` reverses) — the ref_obj case is handled
+                // there, from the typespec's ranges, so this site owns only
+                // the module shapes.  Re-measured on
+                // tools/probe/r10earl_repro/vn.sv: golden carries ZERO
+                // vpiReordered marks in the whole file, where we reversed
+                // both `logic [3:0][3:0] PAT = '{4'h1,4'h2,4'h3,4'h4}` and
+                // `logic [7:0] FLT = '{1'b1,1'b0,...}` in the TopPackages
+                // view.  Corpus: prim_cipher_pkg's PRINCE_SHIFT_ROWS64 family
+                // (aes / aes_prng AllModules + prim_cipher_pkg TopPackages).
+                // NOTE the recursive module law § multiDimPatternReorderRec
+                // (ParamEmit ~788, witness BlackParrotComplex `bit [1:0][4:0]
+                // [4:0] StrictXY`) is a MODULE path and is untouched.
+                bool pkgConstHeaded9 =
+                    paramInitPkg && !operands->empty() &&
+                    (*operands)[0]->UhdmType() != UHDM::uhdmref_obj;
                 if ((!isUnpackedArr || descUnpacked) &&
-                    operands->size() > 1) {
+                    operands->size() > 1 && !pkgConstHeaded9) {
                     std::reverse(operands->begin(), operands->end());
                     op->VpiReordered(1);
                 }
@@ -10364,7 +10550,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             nestedOps9 = true;
                             break;
                         }
-                    if (!nestedOps9 && !wasInPattern)
+                    // § pkgVecPatternNoSize — third face of the same
+                    // package/module split as § pkgPatternNoReorderConst and
+                    // § pkgVecPatternNoTs: a PACKAGE's surviving elab pattern
+                    // op is a verbatim twin of its def-listing op — no
+                    // reorder, no typespec ref and NO vpiSize — so the flat
+                    // VpiSize(1) stamp (measured on a MODULE param list,
+                    // ParameterPackedArray) must not run there.  vn.sv PAT /
+                    // FLT / DFL: golden prints no size field on any of the
+                    // six package-listing ops.
+                    if (!nestedOps9 && !wasInPattern && !paramInitPkg)
                         op->VpiSize(1);
                     else if (nestedOps9 && !wasInPattern) {
                         auto& pct9 = expr.type->getCanonicalType();
