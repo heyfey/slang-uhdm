@@ -2565,6 +2565,32 @@ private:
                              const std::string& clsName);
     // Reentrancy guard for buildClassTypedefTs.
     std::set<const void*> buildingClassTypedefs;
+    // § classRepresentativeSkipsTypeParamAlias25 — class_typespecs built for a
+    // class typedef whose TARGET IS WRITTEN AS A TYPE PARAMETER of the class
+    // (`typedef REQ req_type;` in `uvm_sequencer_param_base #(type REQ = ...)`).
+    // Such a typespec is emitted in the class's own vpiTypedef listing, but it
+    // is NEVER the target class's DataTypeMap representative: Surelog's
+    // back-fill (ElaborationStep.cpp:258-262) assigns the compiled typespec to
+    // `typd->getDataType()`, which for this shape is the type PARAMETER, not
+    // the ClassDefinition — so the class keeps a null typespec and
+    // writeDataTypes drops its whole entry.  pkgClassKeys24 skips these.
+    std::set<const UHDM::typespec*> tpAliasClassTs25;
+    // § typedefAliasSharesTypespec25 — for a class typedef whose target is
+    // written as a type parameter, the ROOT of that parameter's DEFAULT chain
+    // (`type RSP = REQ` -> REQ; `type RSP_IMP = IMP` -> IMP).  Surelog's
+    // compileTypespec hands such a typedef the PARAMETER's own typespec object,
+    // so every typedef reaching the same root shares ONE object: it is written
+    // once, at the alphabetically first of their names (the DataTypeMap key),
+    // carrying the SOURCE-LAST one's name (`ts->VpiName(typd->getName())` is
+    // re-run per typedef, ElaborationStep.cpp:236).  Keyed by TypeAliasType.
+    std::map<const void*, const void*> tpAliasRoot25;
+    // § classRepresentativeIsFirstBoundTypedef25 — class_defn -> the typespec
+    // Surelog's ClassDefinition::getTypespec() would return, built design-wide
+    // in bindTypedefs_ order.  See ModuleEmit.cpp.
+    std::map<const UHDM::class_defn*, UHDM::typespec*> classRep25;
+    void buildClassRep25();
+    const slang::ast::Symbol* tpAliasRootOf25(const slang::ast::ClassType& cls,
+                                              std::string_view written) const;
     // Class-nested typedefs whose typespec had to be built on demand by a
     // reference from an EARLIER-sorted class: Surelog's variable-class
     // fallback for such a forward reference is a class_var (IOClassStruct).

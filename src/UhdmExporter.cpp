@@ -1452,18 +1452,107 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
 //     over a bare ref_obj SIZE. The refs' fullnames chain off the CLASS with
 //     `::` (work@C::t_vector::SIZE), the separator Surelog uses inside a class.
 //     No vpiInstance on any of them (writeDataTypes skips it for class_defn).
+// § typedefAliasSharesTypespec25 — the root of a class type parameter's
+// DEFAULT chain, or null when `written` is not one of this class's type
+// parameters.  `type RSP = REQ` and `type RSP_IMP = IMP` are the two shapes
+// this walks; the chain is read off the DECLARATOR (`TypeAssignmentSyntax`),
+// not off the resolved targetType, so a specialization's overrides cannot
+// change it — Surelog compiles a parameterized class once, generically.
+const Symbol* UhdmExporter::tpAliasRootOf25(const ClassType& cls,
+                                            std::string_view written) const {
+    auto find25 = [&](std::string_view n) -> const Symbol* {
+        for (auto& m : cls.members())
+            if (m.kind == SymbolKind::TypeParameter && m.name == n)
+                return &m;
+        return nullptr;
+    };
+    if (!find25(written))
+        return nullptr;
+    // The chain has to come off the class DECLARATION: a specialization's
+    // TypeParameterSymbols carry no syntax of their own (getSyntax() is null),
+    // and their resolved targetType is the OVERRIDE, which would hide the
+    // default that does the sharing.
+    std::map<std::string, std::string, std::less<>> dflt25;
+    if (auto* csyn = cls.getSyntax())
+        if (csyn->kind == syntax::SyntaxKind::ClassDeclaration)
+            if (auto* pl = csyn->as<syntax::ClassDeclarationSyntax>().parameters)
+                for (auto* decl : pl->declarations) {
+                    auto* td =
+                        decl->as_if<syntax::TypeParameterDeclarationSyntax>();
+                    if (!td)
+                        continue;
+                    for (auto* da : td->declarators) {
+                        if (!da || !da->assignment || !da->assignment->type)
+                            continue;
+                        auto* nt =
+                            da->assignment->type->as_if<syntax::NamedTypeSyntax>();
+                        if (!nt ||
+                            nt->name->kind != syntax::SyntaxKind::IdentifierName)
+                            continue;
+                        dflt25.emplace(
+                            std::string(da->name.valueText()),
+                            std::string(nt->name
+                                            ->as<syntax::IdentifierNameSyntax>()
+                                            .identifier.valueText()));
+                    }
+                }
+    std::string cur(written);
+    for (int guard = 0; guard < 32; ++guard) {
+        auto it = dflt25.find(cur);
+        // A default that does NOT name another type parameter (`type REQ =
+        // uvm_sequence_item`) ends the chain: that parameter is the root.
+        if (it == dflt25.end() || it->second == cur || !find25(it->second))
+            break;
+        cur = it->second;
+    }
+    return find25(cur);
+}
+
 void UhdmExporter::emitClassTypedefs(const ClassType& cls, UHDM::class_defn* cd) {
     buildClassTypedefTs(cls, std::string(cd->VpiName()));
     std::vector<std::pair<std::string, UHDM::typespec*>> ents;
+    // § typedefAliasSharesTypespec25 — type-parameter aliases reaching the same
+    // root parameter are ONE object in Surelog: written once, at the
+    // alphabetically first of their names, under the SOURCE-LAST one's name.
+    // Reproduced by keeping the last-declared member's typespec at the first
+    // name's slot and dropping the rest (uvm_sequencer_param_base's
+    // `typedef REQ req_type; typedef RSP rsp_type;` -> golden's single
+    // `class_typespec 'rsp_type'` at ts[0]).
+    std::map<const void*, std::pair<std::string, UHDM::typespec*>> grp25;
+    for (auto& member : cls.members()) {
+        if (member.kind != SymbolKind::TypeAlias)
+            continue;
+        auto itR = tpAliasRoot25.find((const void*)&member.as<TypeAliasType>());
+        if (itR == tpAliasRoot25.end())
+            continue;
+        auto itT = typedefTs.find((const Symbol*)&member.as<TypeAliasType>());
+        if (itT == typedefTs.end())
+            continue;
+        auto& slot = grp25[itR->second];
+        // First name wins the key; last declarator wins the object.
+        if (slot.first.empty() || std::string(member.name) < slot.first)
+            slot.first = std::string(member.name);
+        slot.second = itT->second;
+    }
+    // Every grouped member leaves the listing; one synthetic entry per group
+    // takes their place.  A one-member group is a no-op (same name, same
+    // object), so no shape without the alias pair can move.
     for (auto& member : cls.members()) {
         if (member.kind != SymbolKind::TypeAlias)
             continue;
         auto& ta = member.as<TypeAliasType>();
+        if (tpAliasRoot25.count((const void*)&ta))
+            continue;
         auto itT = typedefTs.find((const Symbol*)&ta);
         if (itT == typedefTs.end())
             continue;
         itT->second->VpiParent(cd);
         ents.emplace_back(std::string(ta.name), itT->second);
+    }
+    for (auto& [root25, slot25] : grp25) {
+        (void)root25;
+        slot25.second->VpiParent(cd);
+        ents.emplace_back(slot25.first, slot25.second);
     }
     if (ents.empty())
         return;
@@ -1492,13 +1581,25 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
         if (member.kind != SymbolKind::TypeAlias)
             continue;
         auto& ta = member.as<TypeAliasType>();
-        if (typedefTs.count((const Symbol*)&ta))
-            continue;
         auto& ct = ta.targetType.getType().getCanonicalType();
         const syntax::SyntaxNode* typeSyn = nullptr;
         if (auto syn = ta.getSyntax())
             if (syn->kind == syntax::SyntaxKind::TypedefDeclaration)
                 typeSyn = syn->as<syntax::TypedefDeclarationSyntax>().type;
+        // § typedefAliasSharesTypespec25 — the type-parameter root is recorded
+        // for EVERY class typedef, before the already-built early exit: the
+        // typespec may have been minted on demand by an earlier-sorted class,
+        // and the grouping still has to see this member.
+        if (typeSyn)
+            if (auto* nt25 = typeSyn->as_if<syntax::NamedTypeSyntax>())
+                if (nt25->name->kind == syntax::SyntaxKind::IdentifierName)
+                    if (auto* root25 = tpAliasRootOf25(
+                            cls, nt25->name->as<syntax::IdentifierNameSyntax>()
+                                     .identifier.valueText()))
+                        tpAliasRoot25.emplace((const void*)&ta,
+                                              (const void*)root25);
+        if (typedefTs.count((const Symbol*)&ta))
+            continue;
         UHDM::typespec* ts = nullptr;
         if (ct.kind == SymbolKind::EnumType && builtins) {
             auto* ets = buildEnumTs(ct.as<EnumType>(), typeSyn, std::string(ta.name));
@@ -1522,13 +1623,29 @@ void UhdmExporter::buildClassTypedefTs(const ClassType& cls,
                         r = cn->identifier.range();
                 setLoc(cts, r);
             }
+            // § classRepresentativeSkipsTypeParamAlias25 — see the header.
+            // `typedef REQ req_type;` resolves, in the specialization slang
+            // hands us, to a ClassType, so the object is built exactly like a
+            // class-handle alias; what it must NOT do is become that class's
+            // DataTypeMap representative.
+            if (tpAliasRoot25.count((const void*)&ta))
+                tpAliasClassTs25.insert(cts);
             ts = cts;
         }
         else if (ct.kind == SymbolKind::UnpackedStructType ||
                  ct.kind == SymbolKind::PackedStructType ||
                  ct.kind == SymbolKind::FixedSizeUnpackedArrayType ||
                  ct.kind == SymbolKind::PackedArrayType ||
-                 ct.kind == SymbolKind::ScalarType) {
+                 ct.kind == SymbolKind::ScalarType ||
+                 // § classTypedefOfPredefIntIsListed25 — `typedef int f_int;`
+                 // in a class was the ONE simple shape that produced no
+                 // typespec, so the class listed nothing where golden lists an
+                 // int_typespec (t35b: golden's `P` has all five of f_bit,
+                 // f_en, f_int, f_st, f_vec; we had four).  It is also what
+                 // § typedefAliasSharesTypespec25's `type IMP = int` arm needs:
+                 // UVM's six `uvm_*_imp` classes list exactly one
+                 // int_typespec 'this_rsp_type'.
+                 ct.kind == SymbolKind::PredefinedIntegerType) {
             const std::string aliasFull = clsName + "::" + std::string(ta.name);
             bool savedTf = tfContext, savedTd = typedefTsContext;
             bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;

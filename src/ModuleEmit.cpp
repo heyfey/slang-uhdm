@@ -3098,31 +3098,112 @@ std::vector<const PackageSymbol*> UhdmExporter::unitScopeWildcardImports() {
 // listings.  That reproduces all three moved entries of SeqDriver
 // (`uvm_callbacks` -> `uvm_heartbeat_cbs_t`, `uvm_callback_iter` ->
 // `uvm_mem_cb_iter`, `uvm_printer_knobs` -> `uvm_table_printer_knobs`).
-std::map<std::string, UHDM::typespec*> UhdmExporter::pkgClassKeys24(
-    UHDM::package* pv) {
-    std::map<std::string, UHDM::typespec*> out;
-    if (!pv || !pv->Class_defns())
-        return out;
-    std::map<const UHDM::class_defn*, UHDM::typespec*> rep24;
-    auto scan24 = [&](const UHDM::VectorOftypespec* v) {
+// § classRepresentativeIsFirstBoundTypedef25 — the DESIGN-WIDE representative
+// map, built once and in Surelog's own order.
+//
+// `ClassDefinition::getTypespec()` is written in exactly one place:
+// `ElaborationStep::bindTypedefs_` (:258-262) compiles a typedef's typespec and
+// then does `if (dt->getTypespec() == nullptr) dt->setTypespec(ts)` on the
+// typedef's BOUND DataType — so a class's representative is the typespec of the
+// FIRST typedef, in that pass's iteration order, that binds to it.  FIRST wins,
+// not last.  The order is the `defs` vector bindTypedefs_ builds up front
+// (:110-148): file contents, then PACKAGES, then modules, then programs, then
+// `design->getClassDefinitions()` — every one of those a `std::map`, so name
+// order within each group and QUALIFIED-class-name order in the last one.
+//
+// That last detail is the whole of SeqDriver's `type_id` cluster: both
+// `adpcm_pkg::adpcm_driver` and `uvm_pkg::uvm_algorithmic_comparator` declare a
+// `typedef uvm_component_registry #(...) type_id;`, and `adpcm_pkg::` sorts
+// first, so the ADPCM class's object represents uvm_component_registry.  Golden
+// shows exactly that: adpcm_driver's own `type_id` is the one requalified to
+// `adpcm_pkg::type_id` (it is written for a PACKAGE listing), while
+// uvm_algorithmic_comparator's stays bare — and the identity dedup then leaves
+// adpcm_driver ONE entry, not two.  The pass-24 rule scanned only the imported
+// package's own listings, so an importing package's class could never win.
+void UhdmExporter::buildClassRep25() {
+    classRep25.clear();
+    if (!d)
+        return;
+    auto scan25 = [&](const UHDM::VectorOftypespec* v) {
         if (!v)
             return;
         for (auto* t : *v) {
             if (!t || t->UhdmType() != UHDM::uhdmclass_typespec)
                 continue;
+            // § classRepresentativeSkipsTypeParamAlias25 — a typedef of a TYPE
+            // PARAMETER hands its typespec to the parameter, never to the class
+            // the parameter happens to resolve to, so it cannot represent that
+            // class.  Both `req_type` and `rsp_type` of uvm_sequencer_param_base
+            // target uvm_sequence_item and BOTH are skipped, which is why
+            // golden's adpcm_pkg listing has no `uvm_sequence_item` key at all.
+            if (tpAliasClassTs25.count(t))
+                continue;
             if (auto* cd = ((UHDM::class_typespec*)t)->Class_defn())
-                rep24.emplace(cd, (UHDM::typespec*)t);
+                classRep25.emplace(cd, (UHDM::typespec*)t);
         }
     };
-    scan24(pv->Typespecs());
-    for (auto* c : *pv->Class_defns())
-        if (c)
-            scan24(c->Typespecs());
+    // Group 1: the packages' OWN typedef listings, package-name order.  This is
+    // what keeps uvm_pkg's `uvm_heartbeat_cbs_t` / `uvm_mem_cb_iter` /
+    // `uvm_table_printer_knobs` representing their target classes.
+    std::map<std::string, UHDM::package*> pkgs25;
+    auto claimPkg = [&](UHDM::VectorOfpackage* v) {
+        if (!v)
+            return;
+        for (auto* p : *v)
+            if (p && p->Class_defns() && !p->Class_defns()->empty())
+                pkgs25.emplace(std::string(p->VpiName()), p);
+    };
+    claimPkg(d->TopPackages());
+    claimPkg(d->AllPackages());
+    for (auto& [n25, p25] : pkgs25) {
+        (void)n25;
+        scan25(p25->Typespecs());
+    }
+    // Group 2: modules, module-name order.
+    std::map<std::string, UHDM::module_inst*> mods25;
+    auto claimMod = [&](UHDM::VectorOfmodule_inst* v) {
+        if (!v)
+            return;
+        for (auto* m : *v)
+            if (m && m->Class_defns() && !m->Class_defns()->empty())
+                mods25.emplace(std::string(m->VpiName()), m);
+    };
+    claimMod(d->TopModules());
+    claimMod(d->AllModules());
+    for (auto& [n25, m25] : mods25) {
+        (void)n25;
+        scan25(m25->Typespecs());
+    }
+    // Group 3: every class definition, by QUALIFIED name.
+    std::map<std::string, UHDM::class_defn*> cls25;
+    for (auto& [n25, p25] : pkgs25)
+        for (auto* c : *p25->Class_defns())
+            if (c && !c->VpiName().empty())
+                cls25.emplace(n25 + "::" + std::string(c->VpiName()), c);
+    for (auto& [n25, m25] : mods25)
+        for (auto* c : *m25->Class_defns())
+            if (c && !c->VpiName().empty())
+                cls25.emplace(n25 + "::" + std::string(c->VpiName()), c);
+    if (auto* ac = d->AllClasses())
+        for (auto* c : *ac)
+            if (c && !c->VpiName().empty())
+                cls25.emplace(std::string(c->VpiName()), c);
+    for (auto& [n25, c25] : cls25) {
+        (void)n25;
+        scan25(c25->Typespecs());
+    }
+}
+
+std::map<std::string, UHDM::typespec*> UhdmExporter::pkgClassKeys24(
+    UHDM::package* pv) {
+    std::map<std::string, UHDM::typespec*> out;
+    if (!pv || !pv->Class_defns())
+        return out;
     for (auto* c : *pv->Class_defns()) {
         if (!c || c->VpiName().empty())
             continue;
-        auto it24 = rep24.find(c);
-        if (it24 == rep24.end())
+        auto it24 = classRep25.find(c);
+        if (it24 == classRep25.end())
             continue;
         std::string k24(c->VpiName());
         if (auto p24 = k24.rfind("::"); p24 != std::string::npos)
@@ -3141,6 +3222,33 @@ void UhdmExporter::importPublishesPackageClasses24() {
     auto* d24 = d;
     if (!d24)
         return;
+    // § importPublishesPackageClasses25 — the DEF-view arm.  The two package
+    // views are written from DIFFERENT DesignComponents: TopPackages from the
+    // elaborated `Package`, AllPackages from `pack->getUnElabPackage()`
+    // (UhdmWriter.cpp:4966), each with its OWN DataTypeMap.  Measured on
+    // SeqDriver: golden's uvm_pkg DEF listing is 46 entries and its ELAB one 89
+    // (elaboration inserts more), but golden's adpcm_pkg reads 124 in BOTH —
+    // because `insertDataType` stores DataType POINTERS, so the unelab
+    // importer's class-name entries resolve, at write time, to exactly the same
+    // typespecs the elaborated view resolves.  We therefore run the merge on
+    // both views with ONE class-key source per package name: the view that
+    // actually carries the class listings.  (Our AllPackages package views hold
+    // no Class_defns at all — measured `DEFPKG[uvm_pkg] classes=0` against
+    // `ELABPKG[uvm_pkg] classes=323`, in golden AND in ours — which is why the
+    // pass-24 implementation left the def view's 34 entries missing.)
+    std::map<std::string, UHDM::package*> clsSrc24;
+    auto claim24 = [&](UHDM::VectorOfpackage* pkgs) {
+        if (!pkgs)
+            return;
+        for (auto* p : *pkgs) {
+            if (!p || !p->Class_defns() || p->Class_defns()->empty())
+                continue;
+            clsSrc24.emplace(std::string(p->VpiName()), p);
+        }
+    };
+    claim24(d24->TopPackages());
+    claim24(d24->AllPackages());
+    buildClassRep25();
     auto run24 = [&](UHDM::VectorOfpackage* pkgs) {
         if (!pkgs)
             return;
@@ -3156,8 +3264,12 @@ void UhdmExporter::importPublishesPackageClasses24() {
             for (auto* t : *p->Typespecs())
                 if (t && t->UhdmType() == UHDM::uhdmimport_typespec) {
                     auto it = byName24.find(std::string(t->VpiName()));
-                    if (it != byName24.end() && it->second != p)
-                        imp24.push_back(it->second);
+                    if (it == byName24.end() || it->second == p)
+                        continue;
+                    // Class keys come from the view that HAS the classes.
+                    auto cs = clsSrc24.find(std::string(t->VpiName()));
+                    imp24.push_back(cs != clsSrc24.end() ? cs->second
+                                                         : it->second);
                 }
             if (imp24.empty())
                 continue;
