@@ -4138,6 +4138,10 @@ UHDM::design* UhdmExporter::exportDesign() {
             for (auto* m9 : *tm9)
                 fixList9(m9);
     }
+    // § importPublishesPackageClasses24 — DESIGN-FINAL, and BEFORE the class
+    // arm below: the package listings it rewrites (and the names it
+    // requalifies) are what the class arm then inherits.
+    importPublishesPackageClasses24();
     // § classInheritsContainerImports23 — DESIGN-FINAL: a class's inherited
     // listings are the very objects its container's imports already
     // materialized, so every package view has to be complete first.

@@ -3069,6 +3069,147 @@ std::vector<const PackageSymbol*> UhdmExporter::unitScopeWildcardImports() {
     return out;
 }
 
+// § importPublishesPackageClasses24 — the class-name-keyed DataTypeMap entries
+// a package publishes to every scope that imports it.
+//
+// `CompileHelper::importPackage` (:148-161) runs BEFORE it copies the imported
+// package's own DataTypeMap: for every `paClass_declaration` object of the
+// package it does `scope->insertDataType(<bare class name>, classDefinition)`.
+// A `ClassDefinition` IS a `DataType`, so `UhdmWriter::writeDataTypes` (:775)
+// resolves that entry to the class's own `getTypespec()` — a class_typespec —
+// and pushes it at the CLASS-NAME key, not at any typedef's name.  Two
+// consequences, both measured on the UVM-4:
+//
+//   * the importing scope gains ~34 entries UVM's package listing does not
+//     have, all class-local typedefs of parameterized uvm classes
+//     (`this_type` / `this_subtype` / `type_id` / `super_type`), interleaved
+//     at their CLASS's sort position — `adpcm_pkg`'s ts[7] `this_type` sits
+//     between `uvm_active_passive_enum` and `uvm_apprepend` because its key is
+//     `uvm_algorithmic_comparator`;
+//   * writeDataTypes de-duplicates by TYPESPEC OBJECT ID, so a class key whose
+//     typespec is already reachable under an EARLIER key is silently dropped
+//     (`uvm_config_db` never appears: its representative is
+//     `m_uvm_config_obj_misc`, emitted at ts[2]) and a class key that sorts
+//     BEFORE the typedef naming it MOVES the object (`uvm_mem_cb_iter` is
+//     emitted at key `uvm_callback_iter`, ts[14], and dropped at its own name).
+//
+// The representative typespec of a class is the FIRST class_typespec targeting
+// it in the package's emission order — its own listing first, then the class
+// listings.  That reproduces all three moved entries of SeqDriver
+// (`uvm_callbacks` -> `uvm_heartbeat_cbs_t`, `uvm_callback_iter` ->
+// `uvm_mem_cb_iter`, `uvm_printer_knobs` -> `uvm_table_printer_knobs`).
+std::map<std::string, UHDM::typespec*> UhdmExporter::pkgClassKeys24(
+    UHDM::package* pv) {
+    std::map<std::string, UHDM::typespec*> out;
+    if (!pv || !pv->Class_defns())
+        return out;
+    std::map<const UHDM::class_defn*, UHDM::typespec*> rep24;
+    auto scan24 = [&](const UHDM::VectorOftypespec* v) {
+        if (!v)
+            return;
+        for (auto* t : *v) {
+            if (!t || t->UhdmType() != UHDM::uhdmclass_typespec)
+                continue;
+            if (auto* cd = ((UHDM::class_typespec*)t)->Class_defn())
+                rep24.emplace(cd, (UHDM::typespec*)t);
+        }
+    };
+    scan24(pv->Typespecs());
+    for (auto* c : *pv->Class_defns())
+        if (c)
+            scan24(c->Typespecs());
+    for (auto* c : *pv->Class_defns()) {
+        if (!c || c->VpiName().empty())
+            continue;
+        auto it24 = rep24.find(c);
+        if (it24 == rep24.end())
+            continue;
+        std::string k24(c->VpiName());
+        if (auto p24 = k24.rfind("::"); p24 != std::string::npos)
+            k24 = k24.substr(p24 + 2);
+        out.emplace(k24, it24->second);
+    }
+    return out;
+}
+
+// The PACKAGE arm of § importPublishesPackageClasses24: a package that imports
+// another package lists the imported package's class keys in its own
+// vpiTypedef, merged name-sorted into the entries it already carries and
+// de-duplicated by typespec identity.  The import_typespec markers stay at the
+// tail (writeImportedSymbols runs after writeDataTypes).
+void UhdmExporter::importPublishesPackageClasses24() {
+    auto* d24 = d;
+    if (!d24)
+        return;
+    auto run24 = [&](UHDM::VectorOfpackage* pkgs) {
+        if (!pkgs)
+            return;
+        std::map<std::string, UHDM::package*> byName24;
+        for (auto* p : *pkgs)
+            if (p)
+                byName24.emplace(std::string(p->VpiName()), p);
+        for (auto* p : *pkgs) {
+            if (!p || !p->Typespecs())
+                continue;
+            // The imports this package view carries, in listing order.
+            std::vector<UHDM::package*> imp24;
+            for (auto* t : *p->Typespecs())
+                if (t && t->UhdmType() == UHDM::uhdmimport_typespec) {
+                    auto it = byName24.find(std::string(t->VpiName()));
+                    if (it != byName24.end() && it->second != p)
+                        imp24.push_back(it->second);
+                }
+            if (imp24.empty())
+                continue;
+            std::map<std::string, UHDM::typespec*> m24;
+            std::set<const UHDM::typespec*> fresh24;
+            // Class keys go in FIRST — importPackage inserts them before it
+            // copies the package's DataTypeMap, and std::map::emplace keeps
+            // the first insertion.
+            for (auto* q : imp24)
+                for (auto& [k, t] : pkgClassKeys24(q))
+                    if (m24.emplace(k, t).second)
+                        fresh24.insert(t);
+            std::vector<UHDM::typespec*> imports24;
+            for (auto* t : *p->Typespecs()) {
+                if (!t)
+                    continue;
+                if (t->UhdmType() == UHDM::uhdmimport_typespec) {
+                    imports24.push_back(t);
+                    continue;
+                }
+                std::string k24(t->VpiName());
+                if (auto pos = k24.rfind("::"); pos != std::string::npos)
+                    k24 = k24.substr(pos + 2);
+                m24.emplace(k24, t);
+            }
+            auto* nv24 = s.MakeTypespecVec();
+            std::set<const UHDM::typespec*> seen24;
+            for (auto& [k24, t24] : m24) {
+                (void)k24;
+                if (!seen24.insert(t24).second)
+                    continue;
+                // writeDataTypes (:786) qualifies a still-unqualified name
+                // with the package it is being written for — first writer
+                // wins, which is why uvm_pkg's own class listings read
+                // `adpcm_pkg::this_type` in SeqDriver.  Only the entries this
+                // pass introduces can still be bare.
+                if (fresh24.count(t24) && t24->VpiName().find("::") ==
+                                              std::string_view::npos &&
+                    !t24->VpiName().empty())
+                    t24->VpiName(std::string(p->VpiName()) +
+                                 "::" + std::string(t24->VpiName()));
+                nv24->push_back(t24);
+            }
+            for (auto* t24 : imports24)
+                nv24->push_back(t24);
+            p->Typespecs(nv24);
+        }
+    };
+    run24(d24->AllPackages());
+    run24(d24->TopPackages());
+}
+
 // § classInheritsContainerImports23 — see the header.  A CLASS inherits the
 // whole content of every package imported by its CONTAINER into its OWN
 // vpiTaskFunc / vpiTypedef / vpiVariables / vpiParameter / vpiParamAssign
@@ -3213,6 +3354,17 @@ void UhdmExporter::classInheritsContainerImports23() {
                 pv23 = id23->second;
             if (!pv23)
                 continue;
+            // § importPublishesPackageClasses24 — the CLASS arm.  The very
+            // same importPackage call that fills the class's task_func /
+            // variable / parameter listings inserts the imported package's
+            // CLASS-NAME keys into its DataTypeMap first, so the class sees
+            // the identical merged, identity-deduplicated set the importing
+            // package sees.
+            for (auto& [k24, t24] : pkgClassKeys24(pv23)) {
+                if (only23 && k24 != on23)
+                    continue;
+                tsm23.emplace(k24, t24);
+            }
             if (auto* v23 = pv23->Typespecs())
                 for (auto* t23 : *v23) {
                     if (!t23 || t23->UhdmType() == UHDM::uhdmimport_typespec ||
@@ -3277,8 +3429,14 @@ void UhdmExporter::classInheritsContainerImports23() {
             cd->Task_funcs(tfs23);
         if (!tsm23.empty() || !tsUnnamed23.empty()) {
             auto* tsv23 = s.MakeTypespecVec();
+            // writeDataTypes de-duplicates by typespec OBJECT ID, not by key:
+            // an entry reachable under an earlier key is dropped at every
+            // later one (§ importPublishesPackageClasses24).
+            std::set<const UHDM::typespec*> tsSeen23;
             for (auto& [k23, t23] : tsm23) {
                 (void)k23;
+                if (!t23 || !tsSeen23.insert(t23).second)
+                    continue;
                 tsv23->push_back(t23);
             }
             for (auto* t23 : tsUnnamed23)

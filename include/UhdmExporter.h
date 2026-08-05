@@ -2342,6 +2342,23 @@ private:
     /// be complete before it runs.  The multiplicity, share-vs-copy and
     /// de-duplication rules are at the definition (ModuleEmit).
     void classInheritsContainerImports23();
+    /// § importPublishesPackageClasses24 — IMPORTING a package publishes, into
+    /// the importing scope's DataTypeMap, one entry per CLASS DECLARED IN THAT
+    /// PACKAGE keyed by the class's BARE NAME (`CompileHelper::importPackage`
+    /// :148-161, BEFORE the package's own DataTypeMap entries), whose value is
+    /// that class's own class_typespec.  `UhdmWriter::writeDataTypes` (:775)
+    /// then walks the merged std::map in KEY order and pushes each entry's
+    /// typespec DEDUPED BY OBJECT IDENTITY (first key wins), requalifying a
+    /// name that carries no "::" to `<pkg>::<name>` when the parent is a
+    /// package.  This runs on the PACKAGE listings; the class arm of
+    /// § classInheritsContainerImports23 reads the same keys.
+    void importPublishesPackageClasses24();
+    /// The class-name-keyed DataTypeMap entries package @a pv publishes to a
+    /// scope that imports it: `<class bare name> -> <that class's typespec>`,
+    /// where the typespec is the FIRST class_typespec whose Class_defn is that
+    /// class, scanning @a pv's own Typespecs listing and then its class
+    /// listings in order (§ importPublishesPackageClasses24).
+    std::map<std::string, UHDM::typespec*> pkgClassKeys24(UHDM::package* pv);
     /// § classPropUnitImport21 — is @a pkgSym imported at COMPILATION-UNIT
     /// (`$unit`) scope by ANY file of this design, wildcard or explicit?  That
     /// one fact decides, design-wide, whether an ELABORATED class body's
