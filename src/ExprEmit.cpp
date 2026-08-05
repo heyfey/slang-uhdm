@@ -308,6 +308,34 @@ static const slang::syntax::NameSyntax* scopedNameSyntax12(
     return nullptr;
 }
 
+// § superMethodCall17 — the `super.<method>` callee syntax, or null.  slang
+// binds `super.m(a)` with a NULL thisClass — the lookup resolves straight to
+// the base-class SubroutineSymbol — so the receiver survives only in the
+// SYNTAX.  Matches EXACTLY `super.<id>`: a deeper `super.a.m()` is Surelog's
+// four-way rootName arm (the same split § thisRecvCall11 pins for `this`) and
+// is deliberately left alone.  On success `outMethod` is the method
+// identifier's range and `outSuper` the `super` keyword's.
+static bool superMethodCall17(const slang::syntax::SyntaxNode* n,
+                              slang::SourceRange& outSuper,
+                              slang::SourceRange& outMethod) {
+    if (!n)
+        return false;
+    if (n->kind == slang::syntax::SyntaxKind::InvocationExpression)
+        n = n->as<slang::syntax::InvocationExpressionSyntax>().left;
+    if (!n || n->kind != slang::syntax::SyntaxKind::ScopedName)
+        return false;
+    auto& sn = n->as<slang::syntax::ScopedNameSyntax>();
+    if (sn.separator.kind != slang::parsing::TokenKind::Dot)
+        return false;
+    if (!sn.left || sn.left->kind != slang::syntax::SyntaxKind::SuperHandle)
+        return false;
+    if (!sn.right || sn.right->kind != slang::syntax::SyntaxKind::IdentifierName)
+        return false;
+    outSuper = sn.left->sourceRange();
+    outMethod = sn.right->sourceRange();
+    return true;
+}
+
 // § staticScopedRef12 — whether `sym` is declared INSIDE a class (directly or
 // through a nested enum/struct scope), which is what makes a `::` reference to
 // it a class_scope in Surelog rather than a package_scope.
@@ -2292,6 +2320,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
     switch (expr.kind) {
         case ExpressionKind::Assignment: {
             auto& ae = expr.as<AssignmentExpression>();
+            // § outArgLvalue17 — an OUTPUT / INOUT actual is not an assignment
+            // in the model, it is the bare lvalue.  slang binds one as a
+            // SYNTHESIZED AssignmentExpression carrying the copy-back
+            // (`left = <EmptyArgument>`), which the call-argument arm below
+            // then renders as operation(vpiAssignmentOp) — Surelog lists the
+            // written lvalue and nothing else.  Pinned by t29 (output formal,
+            // inout formal, and an INDEXED actual, in statement position and
+            // in a while/if condition): golden gives `ref_obj 't'` /
+            // `bit_select 'arr'` where we gave an operation at the assignment's
+            // span.  A `ref` formal never takes this form — slang passes the
+            // actual straight through — so nothing there changes.  UVM's
+            // `m_req_fifo.try_get(t)` family is ~620 rows on SeqDriver.
+            if (ae.right().kind == ExpressionKind::EmptyArgument)
+                return emitExpr(ae.left(), parent, prefix, netMap);
             // An EMBEDDED assignment expression (x = (y = ...) + 1) — one used
             // as an OPERAND or as another assignment's RHS — is an
             // operation(vpiAssignmentOp=82) with [lhs, rhs] operands
@@ -6191,6 +6233,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
+                // § superMethodCall17 — `super.<m>(args)` is a
+                // METHOD_FUNC_CALL named after the method, located at the
+                // METHOD TOKEN, whose vpiPrefix is an UNPARENTED string
+                // constant "super" spanning the keyword — and it carries NO
+                // vpiFunction / vpiTask link.  Surelog reaches it through
+                // compileTfCall's `paImplicit_class_handle` arm with
+                // rootName="super", the same arm § thisRecvCall11 decoded for
+                // `this`; slang binds the call straight to the base-class
+                // subroutine with a NULL thisClass, so we had been emitting a
+                // plain func_call (or, once a dotted receiver got involved, a
+                // hier_path) named after the method but spanning the whole
+                // written call.  A TASK takes the same method_func_call shape
+                // — there is no method_task_call in this arm.  Pinned by the
+                // purpose-built t27 pair (void function / int function in an
+                // assignment rhs / bit function in an `if` condition / task /
+                // no-argument call, def AND elab views); UVM's
+                // `super.do_print(printer);` family is ~230 rows on SeqDriver
+                // alone.
+                {
+                    slang::SourceRange spRng17, mRng17;
+                    if (superMethodCall17(expr.syntax, spRng17, mRng17)) {
+                        bool savedSC17 = callStmtContext;
+                        callStmtContext = false;
+                        auto* mfc17 = s.MakeMethod_func_call();
+                        mfc17->VpiName(sub.name);
+                        mfc17->VpiParent(parent);
+                        setLoc(mfc17, mRng17);
+                        auto* pc17 = s.MakeConstant();
+                        pc17->VpiValue("STRING:super");
+                        pc17->VpiDecompile("super");
+                        pc17->VpiSize(5);
+                        pc17->VpiConstType(vpiStringConst);
+                        setLoc(pc17, spRng17);
+                        mfc17->Prefix(pc17);
+                        auto* ma17 = s.MakeAnyVec();
+                        {
+                            // § classArgBind12 — a USER call's arguments bind
+                            // their actual even inside a class method.
+                            ClassArgBind12 cab17(classArgBindDepth12);
+                            // § writtenCallArgs16 — only the actuals WRITTEN
+                            // at the call site.
+                            for (auto arg17 : writtenArgs16(call)) {
+                                bool fs17 = forceConstParent;
+                                if (isLiteralExpr(*arg17))
+                                    forceConstParent = true;
+                                if (auto* a17 =
+                                        emitExpr(*arg17, mfc17, prefix, netMap))
+                                    ma17->push_back(a17);
+                                forceConstParent = fs17;
+                            }
+                        }
+                        if (!ma17->empty())
+                            mfc17->Tf_call_args(ma17);
+                        callStmtContext = savedSC17;
+                        return mfc17;
+                    }
+                }
                 // § staticScopedCall12 — a STATIC CLASS METHOD reached through
                 // `::` (`uvm_config_db#(T)::get(...)`, `process::self()`,
                 // `uvm_coreservice_t::get()`) is not a call in the golden at

@@ -4075,6 +4075,14 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
     }
     pkgCloneBodyLocals9.clear();
+    // § cloneStmtHomeVarRef17 — a clone body's STATEMENT reference to a body
+    // LOCAL binds the ELABORATED HOME body's variable, not the clone's own
+    // listing entry (its FORMAL references keep the clone's io_decls).  AFTER
+    // pkgCloneHierBind9, which is the other half of the same question: that
+    // pass fills a hier_path BASE (and a method-call prefix) that golden binds
+    // only inside a clone, and it necessarily binds the clone's own object —
+    // so this rewrite has to see those bindings, not race them.
+    cloneStmtHomeVarRef17();
     return d;
 }
 

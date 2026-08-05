@@ -4962,6 +4962,155 @@ void UhdmExporter::importCloneBareTdAlias16() {
     }
 }
 
+// § cloneStmtHomeVarRef17 — the STATEMENT half of the wildcard-import clone.
+//
+// A clone body's references split BY KIND.  A reference to one of the body's
+// own FORMALS binds the clone's own io_decl (that half already matched); a
+// reference to a body LOCAL binds the ELABORATED HOME body's variable object,
+// not the clone's own listing entry.  Surelog's reason: a clone's Variables
+// listing is re-minted against the importing package, but the STATEMENT tree
+// it re-uses is the home body's compiled one, whose lvalues were already bound
+// when the home package elaborated.
+//
+// Read out of both sides of t26 (`p_decl` declares `bt`/`lt`/`it` and
+// `free_fn`; `p_imp` wildcard-imports it), on `loc_b = fa;` inside
+// DEFPKG[p_imp]/free_fn:
+//
+//   golden lhs.act = #52  bit_var loc_b  ts #47 bt -> #11 p_decl::bt  (ELAB HOME)
+//   golden rhs.act = #364 io_decl fa     ts #366 bt -> #368 bt        (own clone)
+//   ours   lhs.act = #105 bit_var loc_b  ts #589 bt -> #588 bt        (own clone)
+//
+// and the ELAB clone (ELABPKG[p_imp]/free_fn) reads the SAME #52 — one object
+// for both clone views, the home package's elaborated one.
+//
+// The counterpart is keyed by (name, line, column): a clone's variable and the
+// home's come from the SAME declaration, so those three agree exactly, while a
+// name alone would collide across shadowing blocks (uvm_reg::do_check declares
+// `acc` twice, once per foreach block).  An ambiguous key binds nothing.
+void UhdmExporter::cloneStmtHomeVarRef17() {
+    if (pkgCloneHomeSub17.empty())
+        return;
+    // Every variable a body owns, keyed by declaration site: the task_func's
+    // own listing plus each nested block's.  Attributed by climbing the
+    // emitted parent chain, so every block shape (if/for/foreach/fork bodies
+    // alike) is covered from one arena pass.
+    struct Owned17 {
+        std::map<std::string, UHDM::variables*> byKey;
+        std::set<std::string> dup;
+    };
+    std::map<const UHDM::task_func*, Owned17> owned;
+    auto ownerTf = [](const UHDM::any* o) -> const UHDM::task_func* {
+        for (int g = 0; o && g < 60; g++, o = (const UHDM::any*)o->VpiParent())
+            if (o->UhdmType() == UHDM::uhdmfunction ||
+                o->UhdmType() == UHDM::uhdmtask)
+                return (const UHDM::task_func*)o;
+        return nullptr;
+    };
+    auto addVars = [&](const UHDM::task_func* tf,
+                       const UHDM::VectorOfvariables* vs) {
+        if (!tf || !vs)
+            return;
+        auto& ow = owned[tf];
+        for (auto* v : *vs) {
+            if (!v || v->VpiName().empty())
+                continue;
+            std::string k = std::string(v->VpiName()) + "@" +
+                            std::to_string(v->VpiLineNo()) + ":" +
+                            std::to_string(v->VpiColumnNo());
+            auto ins = ow.byKey.emplace(k, (UHDM::variables*)v);
+            if (!ins.second && ins.first->second != v)
+                ow.dup.insert(k);
+        }
+    };
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (const UHDM::any*)kv.first;
+        if (!o)
+            continue;
+        switch (o->UhdmType()) {
+            case UHDM::uhdmfunction:
+            case UHDM::uhdmtask:
+                addVars((const UHDM::task_func*)o,
+                        ((const UHDM::task_func*)o)->Variables());
+                break;
+            case UHDM::uhdmbegin:
+                addVars(ownerTf(o), ((const UHDM::begin*)o)->Variables());
+                break;
+            case UHDM::uhdmnamed_begin:
+                addVars(ownerTf(o), ((const UHDM::named_begin*)o)->Variables());
+                break;
+            case UHDM::uhdmfork_stmt:
+                addVars(ownerTf(o), ((const UHDM::fork_stmt*)o)->Variables());
+                break;
+            case UHDM::uhdmnamed_fork:
+                addVars(ownerTf(o), ((const UHDM::named_fork*)o)->Variables());
+                break;
+            default:
+                break;
+        }
+    }
+    // clone variable -> home variable, over every clone with a resolvable home.
+    std::map<const UHDM::any*, UHDM::variables*> remap;
+    const bool dbg17 = getenv("SLANG_UHDM_DBG17") != nullptr;
+    for (auto& [ctf, sym] : pkgCloneHomeSub17) {
+        if (!ctf || !sym)
+            continue;
+        const UHDM::task_func* home = nullptr;
+        if (auto eit = pkgElabSubTf.find(sym);
+            eit != pkgElabSubTf.end() && eit->second)
+            home = eit->second;
+        else if (auto sit = subMap.find(sym); sit != subMap.end())
+            home = sit->second.tf;
+        if (!home || home == ctf)
+            continue;
+        auto hoit = owned.find(home);
+        auto coit = owned.find(ctf);
+        if (hoit == owned.end() || coit == owned.end())
+            continue;
+        if (dbg17)
+            fprintf(stderr, "DBG17 pair %s clone#%u home#%u cv=%zu hv=%zu\n",
+                    std::string(ctf->VpiName()).c_str(), ctf->UhdmId(),
+                    home->UhdmId(), coit->second.byKey.size(),
+                    hoit->second.byKey.size());
+        const auto& hv = hoit->second.byKey;
+        const auto& hd = hoit->second.dup;
+        const auto& cv = coit->second.byKey;
+        const auto& cd = coit->second.dup;
+        for (auto& [k, v] : cv) {
+            if (cd.count(k) || hd.count(k))
+                continue;
+            auto hit = hv.find(k);
+            if (hit == hv.end() || hit->second == v)
+                continue;
+            // Only a like-for-like swap: the two must be the same UHDM kind,
+            // or the reference would change VpiType instead of just its
+            // typespec.
+            if (hit->second->UhdmType() != v->UhdmType())
+                continue;
+            remap[(const UHDM::any*)v] = hit->second;
+        }
+    }
+    if (remap.empty())
+        return;
+    size_t nhit17 = 0;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        auto* r = (UHDM::ref_obj*)o;
+        auto* act = r->Actual_group();
+        if (!act)
+            continue;
+        auto it = remap.find(act);
+        if (it != remap.end()) {
+            r->Actual_group(it->second);
+            if (dbg17)
+                nhit17++;
+        }
+    }
+    if (dbg17)
+        fprintf(stderr, "DBG17 remap=%zu hits=%zu\n", remap.size(), nhit17);
+}
+
 // An ANONYMOUS class_typespec NEVER carries vpiInstance.  Surelog's
 // CompileType mints one for every class-HANDLE declaration (a variable, a
 // formal, a property, a return) and leaves it uninstanced; only a NAMED class

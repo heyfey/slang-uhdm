@@ -452,6 +452,14 @@ private:
     // Every task_func emitted as a wildcard-import CLONE (both halves: free
     // package subroutines and package class methods).
     std::set<const UHDM::task_func*> pkgImportCloneTfs16;
+    // § cloneStmtHomeVarRef17 — the HOME subroutine symbol each of those
+    // clones was re-emitted from.  A clone body's STATEMENT references split
+    // BY KIND: a reference to one of the body's own FORMALS binds the clone's
+    // own io_decl, but a reference to a body LOCAL binds the ELABORATED HOME
+    // body's variable object.  Drained in exportDesign.
+    std::map<const UHDM::task_func*, const slang::ast::Symbol*>
+        pkgCloneHomeSub17;
+    void cloneStmtHomeVarRef17();
     // Replace `dst`'s still-symbolic single-dim packed-vector bounds with the
     // folded literal range (no-op when they already are constants).
     void foldVecBounds(UHDM::typespec* dst, int64_t left, int64_t right);

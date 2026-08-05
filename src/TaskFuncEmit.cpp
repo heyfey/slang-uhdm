@@ -3334,6 +3334,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // § importCloneBareTdAlias16 — the clone bodies are also the ones
             // whose package-typedef alias chain stays BARE all the way down.
             pkgImportCloneTfs16.insert(tf);
+            // § cloneStmtHomeVarRef17 — the home subroutine this clone was
+            // re-emitted from (emitTaskFuncs is called with onlySub = the
+            // home symbol, so `sub` IS it).
+            pkgCloneHomeSub17[tf] = (const Symbol*)&sub;
             std::map<std::string, UHDM::any*> lm9;
             for (auto& [sy9, ob9] : funcMap) {
                 if (!sy9 || !ob9 || sy9->name.empty())
