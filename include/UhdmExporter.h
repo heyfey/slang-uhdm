@@ -465,6 +465,14 @@ private:
     // pkgParamTsTopInstance16 (same package pairing) and consumed by the
     // descent, which is the only walk that reaches an unparented range bound.
     std::map<const UHDM::any*, UHDM::any*> pkgRefActualD2T16;
+    // § genScopePkgParamRefTop18 (r10earl18) — the SAME law, whose REACH was
+    // wrong.  modPkgTdTopDescend16 roots at a listing's nets / variables /
+    // parameters / ports / cont_assigns; a def-view GENERATE BLOCK hangs its
+    // statements off gen_for > named_begin > gen_if_else > named_begin, so
+    // neither the syntax emitter's gen cont_assign refs nor the AST emitter's
+    // gen process refs were ever visited.  The repair is a second arena loop
+    // beside repointModOwnedTs16's, over ref_obj instead of ref_typespec and
+    // under the same modOwnedTs15 ownership test (in TypeEmit, no state).
     // An ANONYMOUS class_typespec never carries vpiInstance (measured: 0 of
     // them in 116 goldens).  A property of the object, so it runs design-final
     // over every mint site rather than being repeated at each.
@@ -3384,6 +3392,13 @@ private:
     // The package parameter a `pkg::NAME` range-bound leaf names, or null.
     const slang::ast::ParameterSymbol* crossPkgBoundParam9(
         std::string_view qualName) const;
+    // § defGenQualPkgCallBinds18 (r10earl18) — the UHDM function object a
+    // WRITTEN `pkg::fn` call names, resolved the way crossPkgBoundParam9
+    // resolves a `pkg::PARAM` bound: tokenize the `::`, find the package,
+    // find the subroutine, and hand back the twin the AST call path would
+    // have bound (the ELABORATED copy when the package has one).  Used by
+    // the SYNTAX expression emitter, which has no symbol table of its own.
+    UHDM::function* crossPkgCallFn18(std::string_view qualName) const;
     // Surelog's getValue substitution for such a leaf: the package's own
     // value constant re-sized to the package parameter's DECLARED width,
     // carrying a ts ref to that parameter's own typespec.

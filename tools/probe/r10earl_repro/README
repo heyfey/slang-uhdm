@@ -84,6 +84,37 @@ cannot miss a vector:
 ../r10earl17b.cpp  subtree dumper over UHDM's own visit_object.  KEPT AS A
         WARNING: visit_object follows Instance() into the whole design, so one
         module_inst produced a 256 MB text file.  Use 17c/17d instead.
+../r10earl18a.cpp  THE INSTANCE-TOPNESS CENSUS (pass 18).  The def-vs-top
+        re-point family (four pass-16 laws, two pass-17 laws, three pass-18
+        laws) all ask the same question of one object at a time; this asks it
+        of the WHOLE DESIGN.  It walks the restored arena and prints every
+        typespec whose vpiInstance is a PACKAGE as
+        `<kind> '<name>' @line:col -> <pkg> top=<0|1>` with an xN count.
+        Driver: ins18.sh <tag>, which normalises the file paths away (OUR
+        typespecs carry no vpiFile) and prints TWO diffs.  READ THE COUNT DIFF,
+        NOT THE SET DIFF: a mis-point keeps both shapes present and only swaps
+        the population, so the set diff is silent where the count diff prints
+        `prim_pkg::impl_e x1 top=0 / x70 top=1` against our exact inverse.
+fcproj18.py <dump...>   projects a uhdm-dump onto its func_call / task_call
+        objects — span, vpiName, and whether a vpiFunction / vpiTask binding
+        follows — in file order, so the def view and the elab view of the same
+        call are separate rows.  This is what read fc18.sv's 3x2 matrix.
+run18.sh / dmp18.sh / sweep18.sh / cen18.sh / sub18.sh / bis18.sh / nul18.sh /
+        hdiff18.sh / gate18.sh / ins18.sh — the pass-18 harness copies, all
+        pointing at THIS worktree.  cen18.sh <tag> is new: one r10earl4h head
+        census into /tmp/r10earl18_cen_<tag>.txt plus the four SIZE lines, so
+        `cen18.sh l3 && hdiff18.sh ..._l2.txt ..._l3.txt` is the whole
+        per-law measurement.
+fc18.sv       § defGenQualPkgCallBinds18's matrix: six calls in ONE def-view
+        gen_if (cont_assign / always_comb x qualified-package /
+        wildcard-imported-package / module-local) plus two module-body
+        controls.  Golden binds vpiFunction on exactly the two QUALIFIED rows.
+pp18.sv       the § genScopePkgParamRefTop18 shape, kept as a NEGATIVE witness:
+        it is cmp-EQUAL both before and after the law, because a package whose
+        def and elab copies have IDENTICAL CONTENT compares equal whichever
+        copy a pointer names.  A def-vs-top law can only be reproduced in a
+        small file if the two copies DIFFER — which is why this family has
+        always been decoded on the corpus with the bisector.
 bisall17.sh   runs 17c over every head and collects the field chains — the way
         the pass-17 ranked residue below was produced.  ~1 min per head.
 hdiff17.sh    head diff of two r10earl4h censuses.  METRIC HYGIENE: it compares
@@ -1111,6 +1142,165 @@ already reports:
                              AllModules head (the wildcard-import bound fold).
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
+
+LANDED — PASS 18 (r10earl18; FIVE laws in FIVE gate rounds — one per law, each
+round gated at goldens 23/23 + u2r testflags 732 lines 0 change vs
+results/gate_uhdm2rtlil.csv + Surelog BOTH MODES 1589 lines 0 change,
+WHOLE-ROW incl. the dump column, vs results/golden_surelog.csv).
+
+  THE NEW TOOL IS THE HEADLINE.  Pass 17 gave the bisector; pass 18 adds the
+  DESIGN-WIDE METRIC that ranks its findings.  tools/probe/r10earl18a.cpp walks
+  the whole restored arena and prints, for every typespec whose vpiInstance is
+  a PACKAGE, `<kind> '<name>' @line:col -> <pkg> top=<0|1>` with an xN count;
+  ins18.sh diffs golden's listing against ours.  THE COUNTS ARE THE METRIC, not
+  the SET: a def-vs-top mis-point leaves both shapes present and only swaps how
+  many objects sit on each, so the set diff prints nothing while the count diff
+  prints `prim_pkg::impl_e x1/x70 top=0/1` against golden's `x70/x1` — the
+  entire pass-17 residue (2), exactly inverted, in one line.  This is how a
+  re-point law is now VERIFIED (law 1 below took its family from 70/1 wrong to
+  70/1 right) instead of inferred from a head that moved.
+
+  1. § modParamEnumClonePkgTopInstance18 (TypeEmit, modTdClonePkgTopInstance16
+     — two lines).  Pass-17 residue (2), the cheapest two heads on the board.
+     A child instance's `parameter prim_pkg::impl_e Impl` reaches a
+     per-declaration enum clone that pass 16's re-point walk never saw, for TWO
+     independent reasons, and fixing either alone measures ZERO (the mint-site
+     trap again): (a) the walk's roots are nets / variables / ports, never
+     PARAMETERS; (b) its element switch knows array / packed_array / logic
+     elements but not an ENUM's Base_typespec, and the base integer_typespec
+     carries its own vpiInstance.  70 objects of each kind moved from the
+     definition package to the elaborated one, matching golden exactly.
+     work@padring (Top) advanced off the prim_pkg pair — THE FIRST TopModules
+     MOVEMENT IN FIFTEEN PASSES.
+  2. § defGenQualPkgCallBinds18 (TypeEmit emitSyntaxExpr's InvocationExpression
+     arm + ExprEmit ~7623/7723 + the new crossPkgCallFn18 helper).  A
+     CORRECTION to § defGenCallNoBind, which said a call inside a DEF-view
+     generate block carries vpiName only.  The witness fc18.sv puts six calls
+     in ONE gen_if — cont_assign and always_comb x qualified-package /
+     wildcard-imported-package / module-local — and golden binds vpiFunction on
+     exactly the two QUALIFIED rows, in the def view, whatever the statement
+     kind.  The WRITTEN QUALIFIER is the whole discriminator; the no-bind law
+     is the UNQUALIFIED law.  Two mint sites: the syntax emitter (gen
+     cont_assign) ALSO took the name only from an IdentifierName, so
+     `pkg::fn(...)` — a ScopedName — came out ANONYMOUS and anchored at the
+     whole call instead of at the package token.  work@prim_present's head
+     (`func_call 'prim_cipher_pkg::perm_64bit'` vs `func_call ''`) was that
+     one; work@prim_prince's was the missing binding.
+  3. § genScopePkgParamRefTop18 (TypeEmit, a second arena loop beside
+     repointModOwnedTs16's).  § pkgRefActualTopParam16 is RIGHT and its REACH
+     was wrong.  The descent that consumes pkgRefActualD2T16 roots at a
+     listing's nets / variables / parameters / ports / cont_assigns; a def-view
+     GENERATE BLOCK hangs its statements off gen_for > named_begin >
+     gen_if_else > named_begin, so a `pkg::PARAM` read written there was never
+     visited — and it has TWO mint sites again (the syntax emitter for a gen
+     cont_assign, the AST emitter for a gen process).  A per-mint list closed
+     work@prim_present and left work@prim_prince untouched; REPLACING it with
+     one arena loop over ref_obj under the SAME modOwnedTs15 ownership test the
+     ref_typespec half uses closed prim_present AND advanced prim_prince, with
+     no bookkeeping at all.  AllModules 15 -> 14.
+  4. § defNetBoundEnumConstBind18 (TypeEmit ~9509).  The def-view net/var
+     range-bound fold arm only takes a PARAMETER (an enum member has no
+     overridable value to splice), so `logic [PhyOps-1:0] reqs` stays the
+     symbolic `operation{op=11}(ref_obj PhyOps, 1)` on BOTH sides — but
+     golden's ref carries vpiActual = the package's enum_const and ours carried
+     nothing.  work@flash_phy_core's whole head was that one pointer; it
+     advanced to a NEW residue (see the ranking).  This also confirms pass-17's
+     replacement of pass-16 residue (9): the enum vector was never short.
+  5. § portVecTdElemClone18 (TypeEmit bareScalarTypedefVarTs).  Pass-17 residue
+     (1), 2 heads sharing one shape.  A PORT declared as a packed vector of a
+     package typedef (`output sha_word_t [7:0] digest`) binds the package's
+     LISTING OBJECT as its Elem_typespec where golden binds a per-declaration
+     CLONE with a Typedef_alias back at it — LAW S for a fifth position
+     (variable / io_decl / struct member / net were already there, a port's
+     vector element was not).  MEASURED CORRECTION: the port element's clone
+     keeps the QUALIFIED name.  The bare copy LAW S mints for a variable left
+     `logic_typespec 'sha_word_t'` against golden's `'hmac_pkg::sha_word_t'` —
+     the same re-qualification the NET half already does, so this is the THIRD
+     spelling of the same clone and it needs its own copy (qualTdElemCopy18).
+     work@sha2 and work@hmac moved TOGETHER, twice.
+
+EARLGREY_0_1 HEAD CENSUS after pass 18 (r10earl4h; 14 + 8 + 0 + 0 = 22 heads,
+from 15 + 8 + 0 + 0 = 23 at entry):
+
+  AllModules  SIZE 190 vs 190,  14 heads   (prim_present CLOSED; flash_phy_core,
+                                            hmac, sha2, prim_prince ADVANCED)
+  TopModules  SIZE  10 vs  10,   8 heads   (padring ADVANCED onto
+                                            prim_generic_pad_wrapper's object —
+                                            the count is unchanged because it
+                                            landed on an EXISTING head's object)
+  AllPackages SIZE  40 vs  40,   0 heads
+  TopPackages SIZE  40 vs  40,   0 heads
+
+Conversions: NONE — Earlgrey_0_1 is still CMP_NOTEQUAL, 0 movers, and the whole
+Surelog sweep is byte-for-byte the committed baseline.
+
+RANKED RESIDUE (measured after PASS 18 — next agent starts HERE).
+
+  (1) THE SHARED-OBJECT PAIRS — 3 fixes, 6 heads.  Every one of these is TWO
+      heads on ONE object, so they are the cheapest arithmetic on the board:
+        prim_generic_pad_wrapper.sv:40:29 cont_assign  (def:work@
+          prim_generic_pad_wrapper r=64 + work@padring r=64).  BISECTED:
+          cont_assign > operation{32} > operation{26} > operation{14} >
+          ref_obj 'drv' > logic_net 'drv'@24:9 > ref_typespec >
+          enum_typespec 'drv_e'@23:3 > rel=745 module_inst — i.e. a
+          MODULE-LOCAL enum typedef's vpiInstance, and the bisect then RECURSES
+          into the module (the two module_inst objects at rel=745 ARE the two
+          listing entries).  The r=64 says a 32-wide vector pair; start from
+          the enum_typespec, not from the cont_assign.
+        dm_csrs.sv:309:27 hier_path DROPPED INDEX OPERAND (def:work@dm_csrs +
+          def:work@rv_dm, both r=93) — unchanged, read unsup.sh FIRST.
+        tl_main_pkg.sv:13:59 operation (def:work@top_earlgrey + work@
+          top_earlgrey, both r=-1) — unchanged.
+  (2) work@sram2tlul r=-32 / work@jtag_mux r=32 — the MIRROR-IMAGE pair, and
+      still the two TopModules heads with the clearest statement: golden keeps
+      an operation where we fold a constant (sram2tlul) and we write an EMPTY
+      constant at :0:0 where golden keeps an operation (jtag_mux).  Pass-17
+      residue (3) also had work@prim_keccak in this family; it is now 2 heads
+      of its own (def r=32 at prim_keccak.sv:24:28 `operation` vs
+      `constant{ct=7 sz=64 dec=63}`, Top r=32 at 52:5).  A shared "when does
+      the ELABORATED view keep the bound symbolic" rule is FIVE heads.
+  (3) work@flash_phy_core r=601 — NEW, and the exact inverse of the fold laws:
+      `prog_data_packed = {DataWidth{1'b1}};` inside a def-view gen-block
+      always block (flash_phy_core.sv:190:27) keeps `ref_obj 'DataWidth'` in
+      golden where we fold the wildcard-imported package parameter to
+      `constant{ct=9 sz=32 dec=64}`.  A DEF-view gen PROCESS does not fold a
+      package-parameter read — the same view/scope axis laws 2 and 3 turned on.
+  (4) work@hmac / work@sha2 r=1 — the LAW-S ALIAS TARGET.  After law 5 the port
+      element is right and the bisect lands on a CAST typespec
+      (sha2.sv:82:13, operation{67}): our bare `sha_word_t` copy's
+      Typedef_alias names the DEF listing object (uid 10308) where golden's
+      names the TOP one.  § modScalarTdTopInstance's alias half, at a site
+      whose ref_typespec is not module-owned by the parent walk — the fourth
+      time a LAW-S rule has been right and its REACH wrong.  Still 2 heads, one
+      fix.
+  (5) The unchanged, already-characterised smalls: dm_mem r=-2 ct7-vs-ct9 INT
+      encoding (we.sv G5/G6 family); flash_ctrl:315 / flash_phy:129 hier_path
+      NAME residues; flash_mp:21:87 logic_net; def:work@padring's
+      `named_begin 'gen_mio_input'`; work@prim_prince (Top) r=1 gen_scope
+      cont_assign ref_obj with no Actual_group; work@prim_gate_gen (Top) r=1
+      missing ref_typespec; work@prim_present (Top) r=-1 gen_scope_array
+      selection; def:work@prim_prince r=-1 (an EXTRA ref_typespec of ours,
+      `failLhs <null>`); wc.sv package-scope taken-branch ternary.
+
+PASS-18 OPS NOTES
+  * A DESIGN-WIDE COUNTED CENSUS BEATS A HEAD DIFF for the whole re-point
+    family.  r10earl18a + ins18.sh turn "did my re-point land" from a
+    one-head-at-a-time bisect into one diff, and they also PROVE a law did not
+    over-fire (the count diff shrank 2288 -> 2266 lines and nothing else
+    moved).  Build the metric for the family, not for the head.
+  * THE MINT-SITE TRAP FIRED THREE MORE TIMES, and once it was a ROOT-SITE trap
+    (law 1 needed BOTH a new root and a new element edge; either alone measures
+    zero).  Before believing a null measurement, grep for every place the
+    object can be BORN and every path that can REACH it.
+  * PREFER FIXING THE REACH TO RECORDING THE MINTS.  Law 3's first cut carried
+    a per-mint vector, gated clean, closed one head and missed its twin because
+    a SECOND emitter mints the same shape.  Replacing it with one arena loop
+    under the ownership test the sibling law already uses closed both, deleted
+    the state, and is the form the next REACH bug will already be fixed by.
+  * A 3x2 MATRIX IN ONE FILE SETTLES A "WHEN DOES IT BIND" LAW.  fc18.sv (six
+    calls in one gen_if) took § defGenCallNoBind from "def-view gen blocks do
+    not bind" to "UNQUALIFIED calls do not bind" in ONE run, and the two rows
+    that flipped were the two Earlgrey heads.
 
 LANDED — PASS 17 (r10earl17; FIVE laws in FIVE gate rounds — one per law, each
 round gated at goldens 23/23 + u2r testflags 732 lines 0 change vs

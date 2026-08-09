@@ -1,0 +1,8 @@
+#!/bin/bash
+# cen18.sh <tag> -- r10earl4h head census into /tmp/r10earl18_cen_<tag>.txt
+G=${EARL_GOLD:-/home/heyfey/.cache/slang-uhdm-goldens/00d4794526e44dc553f3/golden.uhdm}
+O=${EARL_OURS:-/tmp/r10earl18_e0w/default/Earlgrey_0_1-71da2fd7/slang.uhdm}
+T=${1:-base}
+/tmp/r10earl4h "$G" "$O" > "/tmp/r10earl18_cen_$T.txt" 2>&1
+echo "rc=$? -> /tmp/r10earl18_cen_$T.txt"
+grep -E '^== |head\(s\)' "/tmp/r10earl18_cen_$T.txt"

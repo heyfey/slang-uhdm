@@ -152,6 +152,36 @@ const ParameterSymbol* UhdmExporter::crossPkgBoundParam9(
     return &sym->as<ParameterSymbol>();
 }
 
+// § defGenQualPkgCallBinds18 (r10earl18).  See the header; this is the same
+// tokenize-the-`::` resolution crossPkgBoundParam9 does, for a SUBROUTINE.
+// The twin choice mirrors the AST call path (ExprEmit's `siTf`): a package
+// subroutine is emitted twice and a module binds the ELABORATED copy.
+UHDM::function* UhdmExporter::crossPkgCallFn18(std::string_view qualName) const {
+    auto sep = qualName.find("::");
+    if (sep == std::string_view::npos)
+        return nullptr;
+    std::string pkgNm(qualName.substr(0, sep));
+    std::string fnNm(qualName.substr(sep + 2));
+    if (fnNm.find("::") != std::string::npos)
+        return nullptr;
+    auto* pkg = comp.getPackage(pkgNm);
+    if (!pkg)
+        return nullptr;
+    auto* sym = pkg->find(fnNm);
+    if (!sym || sym->kind != SymbolKind::Subroutine ||
+        sym->as<SubroutineSymbol>().subroutineKind != SubroutineKind::Function)
+        return nullptr;
+    UHDM::task_func* tf = nullptr;
+    if (auto e18 = pkgElabSubTf.find(sym); e18 != pkgElabSubTf.end())
+        tf = e18->second;
+    if (!tf)
+        if (auto it18 = subMap.find(sym); it18 != subMap.end())
+            tf = it18->second.tf;
+    if (!tf || tf->UhdmType() != UHDM::uhdmfunction)
+        return nullptr;
+    return (UHDM::function*)tf;
+}
+
 UHDM::constant* UhdmExporter::crossPkgBoundFoldConst9(const ParameterSymbol& psym,
                                                       UHDM::BaseClass* parent) {
     // The substituted object is the package's OWN value constant: decompile,
@@ -5976,6 +6006,35 @@ void UhdmExporter::pkgParamTsTopInstance16(UHDM::design* d) {
         }
     }
     repointModOwnedTs16(d2t);
+    // § genScopePkgParamRefTop18 (r10earl18).  § pkgRefActualTopParam16 is
+    // right and its REACH is wrong.  The descent that consumes
+    // pkgRefActualD2T16 roots at a listing's nets / variables / parameters /
+    // ports / cont_assigns, so a `pkg::PARAM` read written inside a def-view
+    // GENERATE BLOCK — which hangs off gen_for > named_begin > gen_if_else >
+    // named_begin, and is minted by TWO different emitters (the syntax one
+    // for a gen cont_assign, the AST one for a gen process) — was never
+    // visited.  The OWNERSHIP TEST is the same one the ref_typespec half
+    // uses, so the repair is the same loop over ref_obj, and it needs no
+    // per-mint bookkeeping at all.
+    //   Bisected head-for-head: work@prim_present prim_present.sv:101:63
+    // `prim_cipher_pkg::PRESENT_SBOX4` (gen cont_assign) and work@prim_prince
+    // prim_prince.sv:98:13 `prim_cipher_pkg::PRINCE_SBOX4` (gen always) —
+    // golden's Actual is the TOP package's parameter, ours the def package's,
+    // and the parameter's typespec then walks Instance into two packages
+    // whose def and elab copies differ.
+    if (!pkgRefActualD2T16.empty())
+        for (auto& kv18 : s.AllObjects()) {
+            auto* r18 = dynamic_cast<UHDM::ref_obj*>((UHDM::any*)kv18.first);
+            if (!r18)
+                continue;
+            auto* ag18 = r18->Actual_group();
+            if (!ag18)
+                continue;
+            auto it18 = pkgRefActualD2T16.find(ag18);
+            if (it18 == pkgRefActualD2T16.end() || !modOwnedTs15(r18))
+                continue;
+            r18->Actual_group(it18->second);
+        }
 }
 
 // § pkgBoundMintTsTopInstance17 (r10earl17) — the MISSING-INSTANCE class, the
@@ -6227,6 +6286,16 @@ void UhdmExporter::modTdClonePkgTopInstance16(UHDM::design* d) {
             case UHDM::uhdmlogic_typespec:
                 elem = ((UHDM::logic_typespec*)t)->Elem_typespec();
                 break;
+            // § modParamEnumClonePkgTopInstance18 (r10earl18) — an ENUM clone
+            // owns a SECOND package-instanced object: enum_typespec::Compare
+            // walks Base_typespec, and the base (`integer_typespec` for a
+            // plain `typedef enum { ... }`) is cloned beside the enum and
+            // carries its own vpiInstance.  Stamping only the enum is
+            // pass-17's "enumerate the MINT SITES" trap one more time: the
+            // pair 70/1 stays 70/1 on the base.
+            case UHDM::uhdmenum_typespec:
+                elem = ((UHDM::enum_typespec*)t)->Base_typespec();
+                break;
             default:
                 break;
         }
@@ -6252,6 +6321,15 @@ void UhdmExporter::modTdClonePkgTopInstance16(UHDM::design* d) {
         if (auto* vs = sc->Variables())
             for (auto* v : *vs)
                 root(v->Typespec());
+        // § modParamEnumClonePkgTopInstance18 — a PARAMETER's declared type is
+        // the third way a module reaches a package typedef clone
+        // (`parameter prim_pkg::impl_e Impl = ...` on every prim_pad_wrapper /
+        // prim_clock_gating child instance).  The pass-16 roots were nets,
+        // variables and ports only.
+        if (auto* ps = sc->Parameters())
+            for (auto* p : *ps)
+                if (p && p->UhdmType() == UHDM::uhdmparameter)
+                    root(((UHDM::parameter*)p)->Typespec());
         if (k == UHDM::uhdmmodule_inst)
             if (auto* pts = ((UHDM::module_inst*)o)->Ports())
                 for (auto* p : *pts)
@@ -6393,6 +6471,41 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         if (auto* cp = bareScalarTdCopyOf(at, withAlias))
             rt->Actual_typespec(cp);
     };
+    // § portVecTdElemClone18 (r10earl18) — the same rebind for a PORT's
+    // element, whose clone keeps the QUALIFIED name.  LAW S strips the
+    // qualifier for a variable / io_decl / struct member, and the NET half
+    // below puts it back; a port's packed-vector element is the third
+    // spelling and golden writes it qualified (`hmac_pkg::sha_word_t`, not
+    // `sha_word_t`) — measured as the residue this law's first cut left on
+    // work@sha2 and work@hmac, which moved together from `rel=701 NULLNESS`
+    // to a pure name difference.
+    std::map<const UHDM::typespec*, UHDM::typespec*> qualTdElemCopy18;
+    auto rebindQualElem18 = [&](UHDM::ref_typespec* rt) {
+        if (!rt)
+            return;
+        auto* at = rt->Actual_typespec();
+        if (!at || !pkgScalarTd.count(at))
+            return;
+        if (modOwned9(rt))
+            if (auto d18 = defTdToTop9.find(at); d18 != defTdToTop9.end())
+                at = d18->second;
+        auto qit18 = qualTdElemCopy18.find(at);
+        if (qit18 == qualTdElemCopy18.end()) {
+            UHDM::typespec* cp18 = bareScalarTdCopyOfFresh16(at);
+            if (cp18) {
+                cp18->VpiName(at->VpiName());
+                auto* al18 = s.MakeRef_typespec();
+                al18->VpiFullName(std::string(at->VpiName()));
+                al18->VpiParent(cp18);
+                al18->Actual_typespec((UHDM::typespec*)at);
+                cp18->Typedef_alias(al18);
+            }
+            qualTdElemCopy18[at] = cp18;
+            qit18 = qualTdElemCopy18.find(at);
+        }
+        if (qit18->second)
+            rt->Actual_typespec(qit18->second);
+    };
     // An ELABORATED instance-scope signal's variable is the one unaliased
     // shape; everything nested (a subroutine's locals/formals/return, a class
     // property) keeps the alias.
@@ -6461,6 +6574,26 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         // `variables`, so it needs its own arm.
         else if (auto* tm = dynamic_cast<UHDM::typespec_member*>(o))
             rebind(tm->Typespec(), true);
+        // § portVecTdElemClone18 (r10earl18) — the PORT flavour of LAW S's
+        // per-declaration clone, and the last two AllModules heads that share
+        // one shape (work@sha2, work@hmac).  A port declared as a PACKED
+        // VECTOR OF a package typedef (`output sha_word_t [7:0] digest`)
+        // wraps the typedef in a per-declaration logic_typespec and binds the
+        // package's LISTING OBJECT as its Elem_typespec; golden binds a CLONE
+        // carrying a Typedef_alias back at the listing object, exactly as it
+        // does for a variable, an io_decl, a struct member and a net.  The
+        // bisect names the missing pointer as `rel=701 NULLNESS` on
+        // hmac_pkg::sha_word_t (sha2.sv:27:10 > Elem).  The clone's own
+        // vpiInstance is then re-stamped by § modTdClonePkgTopInstance16,
+        // which already roots at Ports and descends logic_typespec elements
+        // and runs after this pass.
+        else if (auto* pt18 = dynamic_cast<UHDM::port*>(o)) {
+            auto* prt18 = pt18->Typespec();
+            auto* pat18 = prt18 ? prt18->Actual_typespec() : nullptr;
+            if (pat18 && pat18->UhdmType() == UHDM::uhdmlogic_typespec)
+                rebindQualElem18(
+                    ((UHDM::logic_typespec*)pat18)->Elem_typespec());
+        }
         else if (auto* n = dynamic_cast<UHDM::nets*>(o))
             netObjs.push_back(n);
     }
@@ -9549,6 +9682,34 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         ri9 != pkgParamDefRhsDefView17.end() && ri9->second)
                         ref->Actual_group(ri9->second);
             }
+            // § defNetBoundEnumConstBind18 (r10earl18) — a def-view net/var
+            // range bound naming an ENUM CONSTANT.  The fold arm above only
+            // takes a PARAMETER (an enum member has no overridable value to
+            // splice), so `logic [PhyOps-1:0] reqs` stays the symbolic
+            // `operation{op=11}(ref_obj PhyOps, 1)` on BOTH sides — but
+            // golden's ref carries vpiActual = the package's enum_const and
+            // ours carried nothing, and ref_obj::Compare walks Actual_group.
+            // work@flash_phy_core's whole head is this one pointer
+            // (flash_phy_core.sv:45:10 reading flash_phy_pkg's
+            // wildcard-imported `PhyOps`); pass 16's residue (9) read the same
+            // head as a 4-of-5 enum-member shortfall, which the pass-17 bisect
+            // refuted.
+            if (defNetTsScope && !ref->Actual_group()) {
+                ASTContext ectx18(*defNetTsScope, LookupLocation::max);
+                auto& ee18 = Expression::bind(
+                    syn.as<syntax::ExpressionSyntax>(), ectx18);
+                if (!ee18.bad() && stripImplicitConv(ee18).kind ==
+                                       ExpressionKind::NamedValue) {
+                    auto& esy18 = stripImplicitConv(ee18)
+                                      .as<NamedValueExpression>()
+                                      .symbol;
+                    if (esy18.kind == SymbolKind::EnumValue)
+                        if (auto eit18 = enumConstMap.find(&esy18);
+                            eit18 != enumConstMap.end() && eit18->second &&
+                            eit18->second->UhdmType() == UHDM::uhdmenum_const)
+                            ref->Actual_group(eit18->second);
+                }
+            }
             // Inside a package function's return/arg TYPE range (logic
             // [PARAM-1:0]), a reference to a package parameter binds to that
             // param's def-init constant (Surelog value-ref chaining), not left
@@ -10514,13 +10675,47 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             if (inv.left->kind == syntax::SyntaxKind::IdentifierName)
                 fc->VpiName(
                     inv.left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            // § defGenQualPkgCallBinds18 (r10earl18) — a QUALIFIED package
+            // call written inside a def-view generate block came out of this
+            // arm ANONYMOUS: the name was only taken from an IdentifierName,
+            // and `pkg::fn(...)` parses as a ScopedName.  Golden names it with
+            // the written qualifier and anchors it at the PACKAGE token (the
+            // `fp18::twice` / :43:19..:43:23 row of fc18.sv, and Earlgrey
+            // work@prim_present's `prim_cipher_pkg::perm_64bit` head at
+            // prim_present.sv:61:34, whose failRhs is `func_call ''`).
+            UHDM::function* qualPkgFn18 = nullptr;
+            const syntax::SyntaxNode* qualPkgTok18 = nullptr;
+            if (inv.left->kind == syntax::SyntaxKind::ScopedName) {
+                auto& sn18 = inv.left->as<syntax::ScopedNameSyntax>();
+                if (sn18.left && sn18.right) {
+                    std::string qn18 =
+                        std::string(rawText(sn18.left->sourceRange())) +
+                        "::" + std::string(rawText(sn18.right->sourceRange()));
+                    if (auto* fn18 = crossPkgCallFn18(qn18)) {
+                        fc->VpiName(qn18);
+                        qualPkgFn18 = fn18;
+                        qualPkgTok18 = sn18.left;
+                    }
+                }
+            }
             fc->VpiParent(parent);
             // TYPE-BOUND contexts anchor at the callee NAME token; expression
-            // contexts keep the full call span (Surelog).
+            // contexts keep the full call span (Surelog) — except the
+            // qualified package call above, which anchors at its qualifier.
             if (boundCallNameSpan)
                 setLoc(fc, inv.left->sourceRange());
+            else if (qualPkgTok18)
+                setLoc(fc, qualPkgTok18->sourceRange());
             else
                 setLoc(fc, syn.sourceRange());
+            // § defGenQualPkgCallBinds18 — and it is BOUND.  The 3x2 matrix in
+            // fc18.sv (cont-assign / process x qualified-package /
+            // unqualified-package / module-local, all inside one gen_if) says
+            // the WRITTEN QUALIFIER is the whole discriminator: golden binds
+            // vpiFunction on both qualified rows and on neither unqualified
+            // one, in the def view, whatever the statement kind.
+            if (qualPkgFn18)
+                fc->Function(qualPkgFn18);
             // Only TYPEDEF/PORT-context bounds (tfContext) link the
             // function; gen-conn call args stay unbound (Surelog).
             if (tfContext)
@@ -11013,6 +11208,9 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         stripImplicitConv(be).as<NamedValueExpression>().symbol;
                     if (auto poit = pkgParamObj.find(&psy);
                         poit != pkgParamObj.end())
+                        // § genScopePkgParamRefTop18 re-points this to the
+                        // ELABORATED twin design-final; the pairing map does
+                        // not exist yet.
                         ref->Actual_group(poit->second);
                 }
                 return ref;

@@ -7620,6 +7620,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Repro r10rggen7repro/t2.sv (function) + t3.sv (task): both
                 // shapes, module-level sibling bound in the same module.
                 // Rggen: rggen_adapter_common:89 get_local_address.
+                // § defGenQualPkgCallBinds18 (r10earl18) CORRECTS the law
+                // above: the no-bind rule is the UNQUALIFIED rule.  fc18.sv
+                // puts six calls in one def-view gen_if — cont-assign and
+                // always_comb x qualified package / wildcard-imported package
+                // / module-local — and golden binds vpiFunction on exactly the
+                // two QUALIFIED rows.  The `isFunc = true` coercion below is
+                // untouched, so the bind is taken only when the callee really
+                // is a function (a coerced task_call would be a bad cast).
+                const bool realIsFunc18 = isFunc;
                 if (inheritedNoBind9 || defGenProcessEmit)
                     isFunc = true;
                 UHDM::tf_call* fc = isFunc ? (UHDM::tf_call*)s.MakeFunc_call()
@@ -7665,6 +7674,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     setLoc(fc, expr.sourceRange);
                 // Package functions: qualified calls carry the scoped name
                 // and anchor at the package-name token only.
+                // § defGenQualPkgCallBinds18 — and the WRITTEN QUALIFIER is
+                // also what decides whether a def-view gen-block call binds.
+                bool qualPkgCall18 = false;
                 UHDM::function* boundClone = nullptr;
                 if (auto ps2 = sub.getParentScope();
                     ps2 && ps2->asSymbol().kind == SymbolKind::Package) {
@@ -7688,10 +7700,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (raw.rfind(pkgName + "::", 0) == 0) {
                         fc->VpiName(pkgName + "::" + std::string(sub.name));
                         setLoc(fc, nameSpan(expr.sourceRange.start(), pkgName));
+                        qualPkgCall18 = true;
                     }
                     else if (boundClone) {
                         fc->VpiName(wqual + "::" + std::string(sub.name));
                         setLoc(fc, nameSpan(expr.sourceRange.start(), wqual));
+                        qualPkgCall18 = true;
                     }
                     else if (currentScope && siTf) {
                         // Import-resolved call: the module lists the shared
@@ -7720,8 +7734,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (uvm_coreservice_t::get alone 143, golden 0), so the rule is
                 // NOT "qualified spelling keeps the qualifier"; decode where
                 // the other spelling goes before trying again.
-                if (inheritedNoBind9 || defGenProcessEmit) {
-                    // name only — no vpiFunction / vpiTask (§ defGenCallNoBind)
+                if ((inheritedNoBind9 || defGenProcessEmit) &&
+                    !(qualPkgCall18 && realIsFunc18)) {
+                    // name only — no vpiFunction / vpiTask (§ defGenCallNoBind,
+                    // narrowed to the UNQUALIFIED case by
+                    // § defGenQualPkgCallBinds18)
                 }
                 else if (isFunc)
                     ((UHDM::func_call*)fc)->Function(
