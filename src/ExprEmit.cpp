@@ -3655,6 +3655,58 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             psOwner9 = parent->VpiParent();
                     }
                     bool caPsOpFold9 = psOwner9 != nullptr;
+                    // § caOpFoldTs (r10earl14) — the DEF-view cont-assign rule
+                    // right below fires only when the fold's parent IS the
+                    // cont_assign (`assign x = P;`).  It is not a parent test
+                    // at all: golden stamps EVERY fold of an unqualified
+                    // imported package parameter that a def-view cont-assign
+                    // RHS reduces, however deep the operation tree above it.
+                    // § procOpFold9 / § tfOpFold9 / § ndaOpFold9 are the same
+                    // law already recorded for the process, subroutine-body
+                    // and net-decl-assign contexts; the plain cont-assign one
+                    // was the hole.  Witness wd.sv, DEF listing of work@wdnp,
+                    // one row per operation depth:
+                    //   R1 `{NB{req_i}} & buf_alloc`  count two ops deep
+                    //   R5 `NB + 8'h1`                operand one op deep
+                    //   R6 `{NB{req_i}}`              count one op deep
+                    //   R4 `.par_ni({PD{1'b1}})`      a PORT-CONNECTION actual
+                    //   R2 `{ML{req_i}}`              module localparam — the
+                    //      negative control: it never folds at all
+                    // Corpus, both `ref_typespec '' :0:0` vs <null> heads:
+                    // flash_phy_rd.sv:130 `{NumBuf{req_i}} & buf_alloc` and
+                    // rstmgr.sv:139 `.rst_parent_ni({PowerDomains{1'b1}})`.
+                    // ELAB-view datum, measured and deliberately NOT taken:
+                    // golden stamps there too (fullname = the instance), but
+                    // the direct-parent rule has excluded contAssignView == 2
+                    // since it was decoded, so this arm keeps the def-only
+                    // gate and the elab half stays an open note.
+                    // OPEN (measured, not implemented): the PORT-CONNECTION
+                    // actual of a def-listing child instance takes the SAME
+                    // stamp — wd.sv row R4
+                    // (`wdsub #(.W(PD)) u_sub (.par_ni({PD{1'b1}}))`) reads
+                    // ref_typespec(work@wdnp) -> the package int_typespec in
+                    // golden and <null> in ours, and that is the whole rstmgr
+                    // head (`.rst_parent_ni({PowerDomains{1'b1}})`,
+                    // rstmgr.sv:139:21).  The obvious gate — walk up to a
+                    // `port` under `moduleDefEmit` — was BUILT AND MEASURED
+                    // AS A NO-OP: the fold never sees a port above it there,
+                    // so the def-listing port high_conn is emitted through a
+                    // path that does not park the actual under the port
+                    // before descending (or outside the moduleDefEmit guard).
+                    // Find the emission site first; do not re-run the gate.
+                    bool caOpFold9 = false;
+                    if (!inParamInit && !inProcessEmit && !currentTf &&
+                        !ndaRhsEmit && contAssignView == 1 && parent &&
+                        parent->UhdmType() == UHDM::uhdmoperation) {
+                        const UHDM::any* up9 = parent;
+                        for (int g9 = 0;
+                             g9 < 32 && up9 &&
+                             up9->UhdmType() == UHDM::uhdmoperation;
+                             ++g9)
+                            up9 = up9->VpiParent();
+                        caOpFold9 =
+                            up9 && up9->UhdmType() == UHDM::uhdmcont_assign;
+                    }
                     if ((procOpFold9 || defParamInitOpFold9) && !typedPkgParam &&
                         psym.getType().getCanonicalType().isIntegral() &&
                         importedParamDefTs.count(&nv.symbol) &&
@@ -3671,7 +3723,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || tfOpFold9 || sysFuncArgFold ||
                         procSelFold9 || procPsFold9 || selFold9 || ndaOpFold9 ||
-                        ipsWidFold9 || caPsOpFold9)
+                        ipsWidFold9 || caPsOpFold9 || caOpFold9)
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -3719,7 +3771,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ((parent &&
                                   parent->UhdmType() == UHDM::uhdmcont_assign &&
                                   contAssignView != 2) ||
-                                 selFold9) &&
+                                 selFold9 ||
+                                 // § caOpFoldTs — a nested-operation fold is
+                                 // the same cont-assign fold, so it takes the
+                                 // same per-reference typespec clone.
+                                 caOpFold9) &&
                                 nv.symbol.kind == SymbolKind::Parameter;
                             if (caFold9) {
                                 std::string savedPfx9 = syntaxRefPrefix;
@@ -3739,7 +3795,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // so does a cont-assign fold.
                             // ...but a bit-select fold keeps the SELECT as
                             // its parent (set above), not the pkg param_assign.
-                            if ((sysFuncArgFold || caFold9 || procPsFold9) &&
+                            // § caOpFoldTs deliberately does NOT re-parent:
+                            // golden re-parents only the REPLICATION-COUNT
+                            // flavour (wd.sv R1/R4/R6 sit under the pkg
+                            // param_assign, R5's arithmetic operand stays
+                            // under its operation), and vpiParent is not a
+                            // uhdm-cmp field, so the split is recorded here
+                            // rather than implemented.
+                            if ((sysFuncArgFold || (caFold9 && !caOpFold9) ||
+                                 procPsFold9) &&
                                 !selFold9)
                                 if (auto cIt = pkgParamConst.find(&nv.symbol);
                                     cIt != pkgParamConst.end() &&

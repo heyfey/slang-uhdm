@@ -233,6 +233,16 @@ static bool srlgElabUnreducibleCall(const Expression& e) {
 // `/` at the TOP and must stay INT.  foldSigned9 itself is left alone: it is
 // gated by other conditions and re-deciding its `/` behaviour is a separate
 // measurement.
+// § impModFoldSigned (r10earl14) — `%` belongs with `/`, and it was the only
+// arithmetic operator this function did not answer.  ExprEval's vpiModOp arm
+// is vpiDivOp's twin (both mint a signed SValue), and § isIntEncoded — the
+// ELAB-view half of the same question, ExprEmit — has always paired the two.
+// Witness wa.sv/wb.sv row A (`parameter int A = WDW % WBW` wildcard-imported
+// into a module): golden's DEF module listing folds it INT:1 ct7 where we
+// wrote UINT:1 ct9, while the `+` twin (row C) is UINT on both sides.
+// Corpus: flash_phy_pkg.sv:31 `parameter int AddrBitsRemain = DataWidth %
+// BusWidth`, the def-view import copy in Earlgrey_0_1's flash_phy_rd and
+// flash_phy_rd_buffers.
 static bool srlgArithFoldSigned(const Expression& e) {
     auto& s9 = stripImplicitConv(e);
     if (s9.kind == ExpressionKind::UnaryOp)
@@ -241,7 +251,7 @@ static bool srlgArithFoldSigned(const Expression& e) {
         return false;
     auto& b9 = s9.as<BinaryExpression>();
     if (b9.op == BinaryOperator::Subtract || b9.op == BinaryOperator::Multiply ||
-        b9.op == BinaryOperator::Divide)
+        b9.op == BinaryOperator::Divide || b9.op == BinaryOperator::Mod)
         return true;
     if (b9.op == BinaryOperator::Add)
         return srlgArithFoldSigned(b9.left()) || srlgArithFoldSigned(b9.right());
@@ -7858,10 +7868,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // BOTH module views. Only the cast/concat family the rule
                     // was decoded on goes bare (HierPathStructTypespec
                     // work@top.BufferCycles / BufferSizeBits / MsgFifoDepth).
+                    // § impCondFoldKeepsTs (r10earl14) — ...nor is a TERNARY.
+                    // `parameter int WordSelW = WidthMultiple == 1 ? 1 :
+                    // LsbAddrBit` is a ConditionalOp, which none of the three
+                    // exclusions above named, so its import copy went bare and
+                    // lost the ts ref golden carries.  Witness wc.sv rows
+                    // T1/T2/T3 (branch = parameter ref / literal, condition
+                    // false / true): golden's copy is sz 32 UINT with a
+                    // vpiTypespec in the elab module view AND in the def view
+                    // of an importer that has a parameter port list (the
+                    // topView flip), anchored at the TAKEN BRANCH's leaf in
+                    // the def view and at the whole init in the elab one.
+                    // Corpus: Earlgrey_0_1 flash_phy_core, whose only
+                    // remaining head was that missing `ref_typespec '' :0:0`.
                     bool importedFold =
                         isImported && topView && !inPackage &&
                         stripImplicitConv(*init).kind !=
                             ExpressionKind::NamedValue &&
+                        stripImplicitConv(*init).kind !=
+                            ExpressionKind::ConditionalOp &&
                         stripImplicitConv(*init).kind !=
                             ExpressionKind::BinaryOp &&
                         !(stripImplicitConv(*init).kind ==
@@ -10654,11 +10679,56 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // OWN localparam keeps the operation there.
                 // HierPathStructTypespec kmac_pkg BufferCycles /
                 // BufferSizeBits / MsgFifoDepth.
+                // § impCondBranchFold (r10earl14) — ...and so does a TERNARY,
+                // because Surelog's reduce SUBSTITUTES the taken branch first
+                // (the same lazy semantics § lazyTernary9 above models for the
+                // elab view) and then answers the very question this block
+                // already answers for `$clog2` / arithmetic / user calls.  So
+                // the whole rule is "reduce the ternary chain, then re-ask" —
+                // every property below (fold-or-not, INT-vs-UINT, the anchor
+                // span) is read off the SELECTED BRANCH, not off the ternary.
+                // Witness wc.sv, one row per branch shape, read in the DEF
+                // module listing of an importer with NO parameter port list
+                // (work@wcnp — the one that reaches this site):
+                //   T1 `WM==1 ? 1 : LB`      UINT:1 ct9 @19:36  (branch leaf)
+                //   T2 `WM==1 ? 1 : 7`       UINT:7 ct9 @20:36  (literal leaf)
+                //   T3 `WM==2 ? LB : 9`      UINT:1 ct9 @21:32  (cond TRUE, so
+                //                                     the span moves LEFT)
+                //   T5 `WM==1 ? 1 : LB - 1`  INT:0  ct7 @26:36  (the branch's
+                //                             own `-` decides the signedness
+                //                             AND the left-operand anchor)
+                //   T6 `WM==1 ? 1 : LB + 1`  UINT:2 ct9 @27:36  (`+` control)
+                //   T4 `WM / 2`              unchanged (negative control)
+                // Corpus: flash_phy_pkg.sv:43 `parameter int WordSelW =
+                // WidthMultiple == 1 ? 1 : LsbAddrBit` — the def-view import
+                // copy in Earlgrey_0_1's flash_phy_rd and flash_phy_rd_buffers,
+                // where we kept the whole ternary operation at 43:28 and
+                // golden carries UINT:1 size 32 at the 43:53 branch leaf.
+                const Expression* redInit7 = &stripImplicitConv(*init);
+                bool condFold7 = false;
+                for (int g7 = 0;
+                     g7 < 32 && redInit7->kind == ExpressionKind::ConditionalOp;
+                     ++g7) {
+                    auto& co7 = redInit7->as<ConditionalExpression>();
+                    if (co7.conditions.size() != 1 || co7.conditions[0].pattern)
+                        break;
+                    ASTContext cx7(comp.getRoot(), LookupLocation::max);
+                    ConstantValue pv7 = cx7.tryEval(*co7.conditions[0].expr);
+                    if (!pv7 || !pv7.isInteger() || pv7.integer().hasUnknown())
+                        break;
+                    redInit7 = &stripImplicitConv(pv7.isTrue() ? co7.left()
+                                                               : co7.right());
+                    condFold7 = true;
+                }
+                if (redInit7->kind == ExpressionKind::ConditionalOp) {
+                    // An UNRESOLVED condition leaves the ternary alone.
+                    redInit7 = &stripImplicitConv(*init);
+                    condFold7 = false;
+                }
                 bool sysFold7 =
-                    stripImplicitConv(*init).kind == ExpressionKind::Call &&
-                    stripImplicitConv(*init).as<CallExpression>().isSystemCall();
-                bool arithFold7 =
-                    stripImplicitConv(*init).kind == ExpressionKind::BinaryOp;
+                    redInit7->kind == ExpressionKind::Call &&
+                    redInit7->as<CallExpression>().isSystemCall();
+                bool arithFold7 = redInit7->kind == ExpressionKind::BinaryOp;
                 // ...and so does a USER const-call init. The materialized copy
                 // is reduced ONCE, where it is imported, so BOTH views of BOTH
                 // kinds of importer quote the same INT constant at the param's
@@ -10673,7 +10743,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     stripImplicitConv(*init).kind == ExpressionKind::Call &&
                     !stripImplicitConv(*init).as<CallExpression>().isSystemCall();
                 if (!rhs && !topView && isImported &&
-                    ((!inPackage && (sysFold7 || arithFold7)) || userFold7) &&
+                    ((!inPackage && (sysFold7 || arithFold7 || condFold7)) ||
+                     userFold7) &&
                     ps.getValue().isInteger() &&
                     !ps.getValue().integer().hasUnknown()) {
                     auto& sv7 = ps.getValue().integer();
@@ -10699,8 +10770,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // `localparam TotalWakeWidth = WakeUpPeris + 2` (pwrmgr,
                     // pwrmgr_cdc, pwrmgr_fsm, pwrmgr_slow_fsm,
                     // pwrmgr_wake_info).
-                    bool intForm7 = neg7 || userFold7 ||
-                                    (arithFold7 && srlgArithFoldSigned(*init));
+                    bool intForm7 =
+                        neg7 || userFold7 ||
+                        (arithFold7 && srlgArithFoldSigned(*redInit7));
                     auto* c7 = s.MakeConstant();
                     c7->VpiDecompile(dg7);
                     c7->VpiSize((int32_t)ps.getType().getBitWidth());
@@ -10710,16 +10782,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // The DEF copy stops at the top operator's LEFT operand
                     // (Surelog's post-reduce anchor); the ELAB copy — emitted
                     // by the generic fold above — spans the whole init.
-                    SourceRange anchor7 = init->sourceRange;
+                    SourceRange anchor7 =
+                        condFold7 ? redInit7->sourceRange : init->sourceRange;
                     if (arithFold7) {
-                        auto* bs7 = stripImplicitConv(*init).syntax;
+                        auto* bs7 = redInit7->syntax;
                         if (bs7 && syntax::BinaryExpressionSyntax::isKind(
                                        bs7->kind))
                             anchor7 = bs7->as<syntax::BinaryExpressionSyntax>()
                                           .left->sourceRange();
                         else
-                            anchor7 = stripImplicitConv(*init)
-                                          .as<BinaryExpression>()
+                            anchor7 = redInit7->as<BinaryExpression>()
                                           .left()
                                           .sourceRange;
                     }

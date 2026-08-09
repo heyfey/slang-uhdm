@@ -1057,6 +1057,194 @@ already reports:
   work@top_earlgrey   r=-1   operation tl_main_pkg.sv:13:59 — SAME OBJECT as
                              the top_earlgrey AllModules head.
 
+LANDED — PASS 14 (r10earl14; FOUR laws in FOUR gate rounds, each round gated at
+goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
+BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
+Pass-14 copies of the harness: run14.sh dmp14.sh dd14.sh rp14.sh cen14.sh
+sweep14.sh slsweep14.sh gate14.sh gold14.sh cmprc14.sh hdiff14.sh vrk14.sh,
+plus NEW paspan14.py (EVERY param_assign in file order with its OWNER LISTING
+and the Rhs object's kind + FULL SPAN — the projection that separates "constant
+or operation" from "anchored WHERE", which pactab14.py/patab14.py cannot),
+tools/probe/r10earl14{a..g}.cpp (14f = the typespec behind every param_assign
+expression of ONE listing, with its Instance(); it is the only probe that sees
+the "golden points at a typespec, we point at nothing" heads, because
+UhdmListener does not follow a typespec back-edge and Compare does), and
+witnesses wa.sv / wb.sv / wc.sv / wd.sv.  Earlgrey_0_1 stays CMP_NOTEQUAL
+(groundwork); census 36 -> 35 heads.  0 movers on either corpus.
+
+  wa.sv/wb.sv  § impModFoldSigned (ParamEmit ~236, srlgArithFoldSigned).  `%`
+        belongs with `/`, and it was the only arithmetic operator that function
+        did not answer: ExprEval's vpiModOp arm is vpiDivOp's twin (both mint a
+        signed SValue) and § isIntEncoded — the ELAB-view half of the same
+        question — has always paired them.  wa row A (`parameter int A =
+        wap::WDW % wap::WBW` wildcard-imported into a module) folds INT:1 ct7 in
+        golden's DEF module listing where we wrote UINT ct9; row C (`+`) is the
+        UINT negative control.  Corpus: flash_phy_pkg.sv:31 `AddrBitsRemain =
+        DataWidth % BusWidth` in flash_phy_rd and flash_phy_rd_buffers.  Both
+        heads ADVANCED (to the ternary below), 36 -> 36.
+
+  wc.sv  § impCondFoldKeepsTs (ParamEmit ~7885, the `importedFold` exclusion
+        list).  The list named NamedValue / BinaryOp / system Call as the
+        import-copy folds that keep their span AND their ts ref; a TERNARY is a
+        fourth and nobody had written it down, so `parameter int WordSelW =
+        WidthMultiple == 1 ? 1 : LsbAddrBit` went BARE and lost the ts golden
+        carries.  Closed the flash_phy_core `ref_typespec '' :0:0` head (it
+        ADVANCED to the enum_const one below), 36 -> 36.
+
+  wc.sv  § impCondBranchFold (ParamEmit ~10700, the § impArithFoldSigned
+        block).  THE WHOLE RULE IS "reduce the ternary chain, then re-ask this
+        block's existing question": Surelog's reduce substitutes the TAKEN
+        BRANCH first (the lazy semantics § lazyTernary9 already models for the
+        elab view), so fold-or-not, INT-vs-UINT and the anchor span are all
+        read off the SELECTED BRANCH, never off the ternary.  wc.sv is one row
+        per branch shape, read in the DEF listing of work@wcnp (an importer
+        with NO parameter port list — the shape that reaches this site; the
+        wcpp twin, WITH a port list, already folded and differed only in span):
+            T1 `WM==1 ? 1 : LB`      UINT:1 ct9 @19:36  branch leaf
+            T2 `WM==1 ? 1 : 7`       UINT:7 ct9 @20:36  literal leaf
+            T3 `WM==2 ? LB : 9`      UINT:1 ct9 @21:32  cond TRUE, span moves
+                                                        LEFT
+            T5 `WM==1 ? 1 : LB - 1`  INT:0  ct7 @26:36  the BRANCH's own `-`
+                                                        decides signedness AND
+                                                        the left-operand anchor
+            T6 `WM==1 ? 1 : LB + 1`  UINT:2 ct9 @27:36  `+` control
+            T4 `WM / 2`              unchanged (negative control)
+        Corpus flash_phy_pkg.sv:43.  flash_phy_rd_buffers CLOSED end to end;
+        flash_phy_rd advanced.  36 -> 35.
+
+  wd.sv  § caOpFoldTs (ExprEmit ~3657 + the caFold9 clone test).  The
+        def-view cont-assign stamp fired only when the fold's parent WAS the
+        cont_assign (`assign x = P;`).  It is not a parent test at all: golden
+        stamps EVERY fold of an unqualified imported package parameter that a
+        DEF-view cont-assign RHS reduces, at any operation depth above it —
+        § procOpFold9 / § tfOpFold9 / § ndaOpFold9 are the same law already
+        recorded for the process, subroutine-body and net-decl-assign
+        containers, and the plain cont-assign one was the hole.  wd.sv rows,
+        DEF listing of work@wdnp:
+            R1 `{NB{req_i}} & buf_alloc`  count TWO ops deep   -> stamp
+            R5 `NB + 8'h1`                operand one op deep  -> stamp
+            R6 `{NB{req_i}}`              count one op deep    -> stamp
+            R2 `{ML{req_i}}`  module localparam — NEGATIVE control, never folds
+        Golden re-parents only the REPLICATION-COUNT flavour at the package
+        param_assign (R1/R6 do, R5 does not); vpiParent is not a uhdm-cmp field,
+        so that split is recorded in the code and not implemented.  Closed the
+        flash_phy_rd `ref_typespec '' :0:0` head (it advanced to the
+        WidthMultiple gen-condition one).  35 -> 35.
+
+MEASURED NEGATIVE — PASS 14 (recorded so nobody re-runs it).  wd.sv row R4
+(`wdsub #(.W(PD)) u_sub (.par_ni({PD{1'b1}}))`) is the SAME stamp in golden —
+ref_typespec(work@wdnp) -> the package int_typespec — and it is the WHOLE
+rstmgr head (`.rst_parent_ni({PowerDomains{1'b1}})`, rstmgr.sv:139:21).  The
+obvious gate, "walk up to a `port` under moduleDefEmit", was BUILT AND MEASURED
+AS A NO-OP: the fold never sees a port above it, so the def-listing port
+high_conn is emitted through a path that does not park the actual under the
+port before descending into it (or runs outside the moduleDefEmit guard).
+FIND THE EMISSION SITE FIRST; the gate itself is not the problem.
+
+EARLGREY_0_1 HEAD CENSUS after pass 14 (r10earl4h; 22 + 8 + 5 + 0 = 35 heads
+over 30 classes, from 36 heads / 29 classes at entry):
+
+  AllModules  SIZE 190 vs 190,  22 heads   (was 23)
+  TopModules  SIZE  10 vs  10,   8 heads   (unchanged, ELEVEN passes)
+  AllPackages SIZE  40 vs  40,   5 heads   (unchanged)
+  TopPackages SIZE  40 vs  40,   0 heads   (still CLOSED)
+
+READ THE COUNT HONESTLY.  36 -> 35 is one head, 0 movers on either corpus.  The
+honest content of the pass is that FOUR laws fired and THREE of the four bought
+an ADVANCE rather than a closure: flash_phy_rd walked :31 (ct) -> :43 (ternary)
+-> ts -> :181, flash_phy_core walked ts -> enum_const, and only
+flash_phy_rd_buffers went cmp-EQUAL end to end.  Each advance is a NEW DATUM
+and each was one gate round.
+
+RANKED RESIDUE (measured after PASS 14 — next agent starts HERE).  AllModules
+unless stated.
+
+  (1) § pkgTypespecInstanceIsTop — 6 heads, STILL THE LARGEST CLASS and
+      unchanged: 4 read `package 'top_pkg' {top=1}` vs `<null>` (hmac,
+      spi_device, tlul_adapter_sram, usbdev), 1 `prim_cipher_pkg {top=1}` vs
+      `{top=0}` (prim_prince), 1 `prim_pkg` the same way (padring, TopModules),
+      plus tlul_adapter_host's `top_pkg.sv:8:22 sz32-vs-sz64` reached through
+      the DEF copy.  Pass 13 named the linking object (the package typedef's
+      struct_typespec carries vpiInstance = the IMPORTING MODULE'S DEF
+      module_inst, holding the materialized import copies as its parameters,
+      where ours carries the def PACKAGE) and pass 14 built the probe that
+      prints it: `r10earl14f <a> <b> all <Name>` shows every param_assign
+      expression's typespec WITH its Instance(), and r10earl14e does the same
+      for the parameter objects.  Both were run on flash_phy_rd this pass and
+      came back IDENTICAL, so the residue is NOT in the param_assign typespecs
+      of an importer — build the import-copy PARAMETER LIST witness pass 13
+      asked for (vq.sv TopModules head + vi.sv's missing work@via.AVEC
+      param_assign, 6 vpiImported rows vs our 5).
+  (2) THE PORT-CONNECTION HALF of § caOpFoldTs — 1 head (rstmgr), witness row
+      wd.sv R4 ALREADY BUILT AND MEASURED, and the negative above says exactly
+      what to do first: find where a def-listing child instance's High_conn
+      actual is emitted and whether the port is the `parent` handed to
+      emitExpr.  Cheapest measured head on the board.
+  (3) `constant flash_phy_rd.sv:181:7 {ct=7 sz=32 dec=2}` vs `ref_obj
+      'WidthMultiple'` — NEW, behind the pass-14 folds.  Line 181 is
+      `if (WidthMultiple == 1) begin : gen_single_word_sel`, a GENERATE
+      CONDITION: golden folds the imported package parameter in the def
+      listing's gen-condition (INT ct7, the § defNetBoundPkgIntEnc encoding for
+      a `/` init — WidthMultiple = DataWidth / BusWidth) and we keep the
+      ref_obj.  This is § shadowedImportParamFold's family in a container the
+      pass-13 window (cont_assigns + processes) does not cover.  1 head, and
+      the wd.sv harness extends to it in one row.
+  (4) 2 `constant dm_pkg.sv:29:43 {ct=9 sz=64 dec=2052}` vs operation (dm_mem,
+      rv_dm) — UNCHANGED and still the best-value untried lead:
+      `localparam logic [63:0] ResumeAddress = HaltAddress + 4`, a PACKAGE
+      localparam whose init reads a SAME-PACKAGE localparam.  Golden FOLDS it
+      (2052 = 'h800 + 4) at the declared 64-bit width; we keep the op.
+  (5) 2 `ref_typespec '' :0:0` vs `<null>` — rstmgr (which is (2)) and sha2
+      (the `logic_typespec 'hmac_pkg::sha_word_t'` LAW-S miss).  Different
+      roots.
+  (6) 1 `enum_const 'PhyOps'` vs `<null>` (flash_phy_core) — NEW behind
+      § impCondFoldKeepsTs.  flash_phy_pkg.sv:75 is the LAST member of
+      `typedef enum logic [2:0] {...} flash_phy_op_e`, reached through the
+      enum_typespec of a module_inst listing: golden's importer carries five
+      enum consts where we carry four, i.e. we DROP the last one.  A vector
+      SHORTFALL (r=1), which is usually an off-by-one in a clone loop.
+  (7) THE HIER_PATH NAME RESIDUES, 3 heads, unchanged (flash_ctrl:315
+      `region_cfgs[8]` vs `[MpRegions]` — the shadowed NAME again, a name
+      builder that missed the substitution, not a fold; dm_csrs:309 concat-index
+      truncation; flash_phy:129 hier_path-vs-ref_obj on a port actual).
+  (8) TopModules 8 — ELEVEN PASSES UNMOVED.  sram2tlul (`constant :0:0 {ct=0
+      sz=0 dec=}` vs `operation :15:20`) and jtag_mux (the exact mirror) are
+      still the two nobody has built a witness for, and BOTH sides mint an
+      EMPTY constant in one direction — something writes a constant with no
+      value, size or const type at all.
+  (9) AllPackages 5, all `<null>` on OUR side (a vector shortfall, never a
+      mismatch): flash_ctrl_pkg:18:36 and hmac_pkg:18:29 operations, plus three
+      `ref_obj 'pkg::NAME'` (flash_phy_pkg:17, rstmgr_pkg:8, alert_pkg:9) which
+      are ONE shape — a cross-package qualified read in a package's own param
+      init — and have never been characterized.
+ (10) Singletons, unchanged: padring `named_begin 'gen_mio_input'`,
+      prim_generic_pad_wrapper:40 cont_assign, prim_keccak:24
+      operation-vs-constant, prim_present:61 func_call, rv_core_ibex
+      `int_typespec` vs `logic_typespec :77:24`, flash_mp:21:87 logic_net,
+      top_earlgrey tl_main_pkg:13:59, tlul_adapter_host top_pkg:8 sz32/64.
+
+PASS-14 OPS NOTES
+  * paspan14.py, not a raw dump diff.  Three of pass 14's four laws are "same
+    value, different WHERE / different container", and the four-listing table
+    (allPackages / topPackages / allModules per definition / topModules) shows
+    the view split in one screen.  It is also what proved the span differences
+    are NOT cmp-relevant, which kept two tempting rewrites out of the patch.
+  * ONE WITNESS FILE, ROWS ADDED AS THE QUESTION SHARPENS.  wc.sv started as a
+    2x2 (module shape x branch leaf kind) and grew T5/T6 the moment the DEF
+    fold landed and the signedness question appeared; wd.sv grew R5/R6 to ask
+    "is it the replication COUNT or any operation?" — the answer (any
+    operation) is a strictly bigger law than the head suggested and it cost one
+    Surelog run.
+  * mark.py IS the way to find an emission site.  "Which of ~90 VpiDecompile
+    setters wrote the def-view import copy of `WM / 2`?" took one instrumented
+    build and read `1@PA10730` off the dump — the § impArithFoldSigned block,
+    which is where the ternary arm then belonged.  Do not reason about the
+    call graph.
+  * A NO-OP IS A RESULT.  The port-connection gate compiled, gated and changed
+    nothing; that is a measurement about WHERE the actual is emitted, and it is
+    written down above so pass 15 starts from the emission site instead of the
+    gate.
+
 LANDED — PASS 13 (r10earl13; THREE laws in FIVE gate rounds, each round gated at
 goldens 23/23 + u2r testflags 0 change vs results/gate_uhdm2rtlil.csv + Surelog
 BOTH MODES 0 change vs results/golden_surelog.csv, incl. the dump column).
