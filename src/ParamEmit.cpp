@@ -19386,17 +19386,95 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
     v->VpiName(vs.name);
     v->VpiFullName(full);
     v->VpiParent(up);
-    // The object spans the whole DECLARATOR — name token through initializer
-    // — not just the name.
-    if (auto* dsyn = vs.getSyntax();
-        dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
-        setLoc(v, dsyn->sourceRange());
-    else
-        setLoc(v, nameSpan(vs.location, vs.name));
-    // vpiAutomatic rides every kind but enum_var and class_var (Surelog).
-    if (v->UhdmType() != UHDM::uhdmenum_var &&
-        v->UhdmType() != UHDM::uhdmclass_var)
-        v->VpiAutomatic(true);
+    // § packageVarAutomaticIsDataDeclShape26 — vpiAutomatic on a PACKAGE-scope
+    // variable is decided by WHICH GRAMMAR RULE Surelog's parser matched, not
+    // by the variable's kind (the old rule here, "every kind but enum_var and
+    // class_var", was an approximation wrong in BOTH directions).
+    // `CompileHelper::compileDataDeclaration` (:2293) computes
+    // `is_static = (component is ModuleDefinition || Program)` — FALSE for a
+    // package — while `compileNetDeclaration` (:2186/:2199) calls
+    // `sig->setStatic()` unconditionally, and `makeVar_`'s tail
+    // (ElaborationStep:2350) writes `VpiAutomatic(!sig->isStatic())`.  A
+    // declaration whose written data type is a bare (or `::`-qualified) type
+    // IDENTIFIER matches net_declaration — the user-defined-nettype ambiguity
+    // — so it is the STATIC one; a keyword-spelled type (`int`, `logic`,
+    // `string`, an INLINE `enum`/`struct`), a `const` or `var` qualifier, or a
+    // `new` initializer (`new` is not in the net_decl_assignment grammar) each
+    // force the data_declaration rule and with it the automatic lifetime.
+    //
+    // Measured on the purpose-built r10uvm26repro t36a/t36b/t36c pairs, both
+    // views, with both negative controls: `C c = new()` / `C c = new(3)` /
+    // `const C c = C::get()` / `var C c` -> 1, and `C c;` / `C c = other` /
+    // `C c = null` / `C c = C::get()` -> 0; a TYPEDEF'd enum -> 0 but an
+    // INLINE `enum {..} e` -> 1.  The lifetime is baked into the Signal at the
+    // DECLARING package's data-declaration compile, so every clone inherits it
+    // verbatim — an importing PACKAGE's copy and an importing MODULE's hoist
+    // both read the home package's value (t36c measures all three views), even
+    // though a module's OWN variables are all static.  That is uvm_pkg's nine:
+    // the five `= new()` (uvm_default_{table,tree,line}_printer,
+    // uvm_default_packer, uvm_default_comparer) and the four `const` handles
+    // (uvm_resources, uvm_top, uvm_test_done, uvm_cmdline_proc) — against
+    // uvm_default_printer (`= uvm_default_table_printer`, a plain reference)
+    // and the eight `uvm_phase *_ph` (no initializer), which golden leaves at
+    // 0 and which is why a blanket "package variables are automatic" rule
+    // would have been wrong.
+    {
+        bool netShape26 = v->UhdmType() == UHDM::uhdmenum_var ||
+                          v->UhdmType() == UHDM::uhdmclass_var;
+        // The written lifetime keywords, from the same qualifier loop
+        // (`paLifetime_Static` sets is_static, `paLifetime_Automatic` clears
+        // it) — source-derived, unmeasured at package scope.
+        bool staticKw26 = false, autoKw26 = false;
+        if (auto* dsyn26 = vs.getSyntax()) {
+            const syntax::SyntaxNode* par26 = dsyn26->parent;
+            if (par26 && par26->kind == syntax::SyntaxKind::DataDeclaration) {
+                auto& dd26 = par26->as<syntax::DataDeclarationSyntax>();
+                bool qual26 = false;
+                for (auto md26 : dd26.modifiers) {
+                    if (md26.kind == parsing::TokenKind::ConstKeyword ||
+                        md26.kind == parsing::TokenKind::VarKeyword)
+                        qual26 = true;
+                    else if (md26.kind == parsing::TokenKind::StaticKeyword)
+                        staticKw26 = true;
+                    else if (md26.kind == parsing::TokenKind::AutomaticKeyword)
+                        autoKw26 = true;
+                }
+                bool newInit26 = false;
+                if (dsyn26->kind == syntax::SyntaxKind::Declarator)
+                    if (auto* iv26 =
+                            dsyn26->as<syntax::DeclaratorSyntax>().initializer) {
+                        auto ik26 = iv26->expr->kind;
+                        newInit26 =
+                            ik26 == syntax::SyntaxKind::NewClassExpression ||
+                            ik26 == syntax::SyntaxKind::NewArrayExpression ||
+                            ik26 == syntax::SyntaxKind::CopyClassExpression;
+                    }
+                netShape26 = dd26.type->kind == syntax::SyntaxKind::NamedType &&
+                             !qual26 && !newInit26;
+            }
+        }
+        if ((!netShape26 && !staticKw26) || autoKw26)
+            v->VpiAutomatic(true);
+        // The SAME parse rule decides the object's SPAN.  A data_declaration
+        // variable spans the whole DECLARATOR — name token through initializer
+        // — because `compileDataDeclaration` builds its Signal on the
+        // variable_decl_assignment node; a net_declaration one spans the NAME
+        // ALONE, because `compileNetDeclaration` builds it on the name node
+        // (`Signal(fC, signal, ...)`, :2181/:2196).  Measured on t36d:
+        // `const inbody_c v = inbody_c::get();` runs through its initializer,
+        // the non-const twin stops at the name.  Restricted to a package's OWN
+        // members: a HOISTED out-of-body constructor local is a subroutine
+        // statement (a different Surelog path) and keeps the declarator span.
+        bool ownPkgMember26 =
+            vs.getParentScope() &&
+            vs.getParentScope()->asSymbol().kind == SymbolKind::Package;
+        if (auto* dsyn = vs.getSyntax();
+            dsyn && dsyn->kind == syntax::SyntaxKind::Declarator &&
+            !(netShape26 && ownPkgMember26))
+            setLoc(v, dsyn->sourceRange());
+        else
+            setLoc(v, nameSpan(vs.location, vs.name));
+    }
     if (vs.kind == SymbolKind::Variable &&
         vs.as<VariableSymbol>().flags.has(VariableFlags::Const))
         v->VpiConstantVariable(true);

@@ -4000,6 +4000,8 @@ UHDM::design* UhdmExporter::exportDesign() {
     // In-body func_call operation-arg stamps: reachability needs the whole
     // design's call set, so it is resolved here.
     drainBodyOpArgTs();
+    // Deferred `Class::f()` -> out-of-body task_func links (§ ...26).
+    drainScopedCallBind26();
     // LAW S: a package SCALAR typedef is BARE at every variable-like binding.
     // Dead last — after every deferred typespec rebind above, so no later pass
     // can put a qualified object back.
@@ -4282,6 +4284,30 @@ UHDM::design* UhdmExporter::exportDesign() {
 //                 unfoldable `if`, so the evaluator never runs it and the
 //                 operation actual stays bare — while the same call written as
 //                 a plain body statement (x2..x5) is stamped.
+// § classScopeCallOfOutOfBodyMethodIsFuncCall26 — bind the deferred
+// `Class::f()` calls now that every task_func exists.  Surelog reaches the
+// object through getTaskFunc at COMPILE time (the out-of-body definition is
+// registered on the enclosing package/file before any variable elaborates);
+// our package-variable initializers run before the package's task_funcs are
+// emitted, so the same link is made here instead.
+void UhdmExporter::drainScopedCallBind26() {
+    for (auto& [c26, sym26] : pendingScopedCallBind26) {
+        auto it26 = subMap.find(sym26);
+        if (it26 == subMap.end() || !it26->second.tf)
+            continue;
+        if (c26->UhdmType() == UHDM::uhdmfunc_call) {
+            if (it26->second.tf->UhdmType() == UHDM::uhdmfunction)
+                ((UHDM::func_call*)c26)->Function(
+                    (UHDM::function*)it26->second.tf);
+        }
+        else if (c26->UhdmType() == UHDM::uhdmtask_call) {
+            if (it26->second.tf->UhdmType() == UHDM::uhdmtask)
+                ((UHDM::task_call*)c26)->Task((UHDM::task*)it26->second.tf);
+        }
+    }
+    pendingScopedCallBind26.clear();
+}
+
 void UhdmExporter::drainBodyOpArgTs() {
     if (pendingBodyOpArgTs.empty()) {
         liveCalledSubs.clear();

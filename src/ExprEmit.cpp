@@ -6433,6 +6433,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bts->VpiSigned(true);
                     cts = bts;
                 }
+                // § stringCastKeepsStringTypespec26 — and neither does the
+                // STRING keyword fall into the catch-all: Surelog compiles the
+                // written `paString_type` node into a string_typespec like any
+                // other string declaration, so `string'(x)` carries one at the
+                // keyword's own span.  Purpose-built t36e measures a string
+                // cast in a package FUNCTION body (the shape that was wrong),
+                // one at MODULE scope (already right through another path) and
+                // the three keyword-cast negative controls `int'`/`logic'`/
+                // `bit'`, which keep their own arms.  uvm_printer.svh:1189's
+                // `string'(knobs.separator[0])` is the first failing pair of
+                // Scoreboard (default) and SimpleUVM (both modes) once
+                // § packageVarAutomaticIsDataDeclShape26 lands.
+                else if (effCastSyn &&
+                         effCastSyn->kind ==
+                             syntax::SyntaxKind::CastExpression &&
+                         effCastSyn->as<syntax::CastExpressionSyntax>()
+                                 .left->kind ==
+                             syntax::SyntaxKind::StringType) {
+                    cts = s.MakeString_typespec();
+                }
                 else {
                     auto* lts = s.MakeLogic_typespec();
                     cts = lts;
@@ -6593,6 +6613,75 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         slang::SourceLocation e12;
                         if (splitScopedName12(*ns12, f12, l12, e12)) {
                             std::string nm12 = f12 + "::" + l12;
+                            // § classScopeCallOfOutOfBodyMethodIsFuncCall26 —
+                            // the ref_obj below is the DEGRADED form, and what
+                            // degrades is a NAME LOOKUP: Surelog's class_scope
+                            // arm (CompileExpression.cpp:5273) asks
+                            // getTaskFunc("<Class>::<f>") first and, when that
+                            // finds a task_func, emits a REAL call — a
+                            // func_call/task_call named with the written
+                            // qualifier, spanning the CLASS-NAME TOKEN alone,
+                            // carrying vpiFunction/vpiTask and the arguments —
+                            // falling through to compileExpression's bare
+                            // ref_obj only when it does not (:5375).
+                            // getTaskFunc keys on the LITERAL name, and the
+                            // only declaration that registers a task_func
+                            // called `Class::f` is an OUT-OF-BODY definition
+                            // (`function extern_c::get(); ... endfunction`, the
+                            // body of an `extern` prototype) — an in-body
+                            // method is registered as plain `f` inside the
+                            // class, so its qualified lookup always misses.
+                            // Measured both directions on the purpose-built
+                            // t36d pair (one class with an in-body static
+                            // getter, one with an extern prototype + out-of-
+                            // body body, each called const and non-const at
+                            // package scope): golden gives the in-body arm a
+                            // ref_obj and the extern arm a func_call, in BOTH
+                            // views.  This is also exactly the set the earlier
+                            // "measured and rejected" note at the bound-call
+                            // arm below could not explain: golden's five
+                            // qualified names are uvm_root::get and
+                            // uvm_{reg,reg_field,mem}::get_max_size — every
+                            // one an `extern static function` with an
+                            // out-of-body body — while uvm_coreservice_t::get,
+                            // whose 143 call sites that note minted wrongly,
+                            // is defined IN BODY.  uvm_top's initializer
+                            // (`const uvm_root uvm_top = uvm_root::get();`) is
+                            // the UVM-4's second distinguisher on that object.
+                            if (uint32_t(sub.outOfBlockIndex) != 0u) {
+                                bool isFn26 = sub.subroutineKind ==
+                                              SubroutineKind::Function;
+                                UHDM::task_func* tf26 = nullptr;
+                                if (auto it26 = subMap.find(&sub);
+                                    it26 != subMap.end())
+                                    tf26 = it26->second.tf;
+                                UHDM::tf_call* c26 =
+                                    isFn26 ? (UHDM::tf_call*)s.MakeFunc_call()
+                                           : (UHDM::tf_call*)s.MakeTask_call();
+                                c26->VpiName(nm12);
+                                c26->VpiParent(parent);
+                                setLoc(c26, nameSpan(ns12->sourceRange().start(),
+                                                     f12));
+                                if (tf26) {
+                                    if (isFn26)
+                                        ((UHDM::func_call*)c26)->Function(
+                                            (UHDM::function*)tf26);
+                                    else
+                                        ((UHDM::task_call*)c26)->Task(
+                                            (UHDM::task*)tf26);
+                                }
+                                else
+                                    pendingScopedCallBind26.push_back(
+                                        {c26, &sub});
+                                auto* a26 = s.MakeAnyVec();
+                                for (auto arg26 : writtenArgs16(call))
+                                    if (auto* e26 = emitExpr(*arg26, c26, prefix,
+                                                             netMap))
+                                        a26->push_back(e26);
+                                if (!a26->empty())
+                                    c26->Tf_call_args(a26);
+                                return c26;
+                            }
                             auto* r12 = s.MakeRef_obj();
                             r12->VpiName(nm12);
                             r12->VpiFullName(joinRef(prefix, nm12));

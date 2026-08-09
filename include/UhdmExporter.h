@@ -3234,6 +3234,13 @@ private:
     };
     std::vector<PendingBodyOpArgTs> pendingBodyOpArgTs;
     void drainBodyOpArgTs();
+    // § classScopeCallOfOutOfBodyMethodIsFuncCall26 — a `Class::f()` call whose
+    // callee is an OUT-OF-BODY method binds that method's task_func, but a
+    // PACKAGE-VARIABLE initializer is emitted before the package's task_funcs
+    // exist (uvm_top's `uvm_root::get()`), so the link is deferred to the drain.
+    std::vector<std::pair<UHDM::tf_call*, const slang::ast::Symbol*>>
+        pendingScopedCallBind26;
+    void drainScopedCallBind26();
     // When set, emitSyntaxExpr refs carry this scope prefix in VpiFullName.
     std::string syntaxRefPrefix;
     std::string syntaxRefSep = ".";
